@@ -65,8 +65,7 @@ function MapPresentation({
   const mapProps: AdHocMapProps = {
     overlays,
     loading,
-    total,
-    registerPredicate,
+    onOverlayTileError: registerPredicate,
     loadPointData,
     defaultMapSettings,
     style,

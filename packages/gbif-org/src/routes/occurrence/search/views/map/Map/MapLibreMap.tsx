@@ -585,12 +585,15 @@ class MapLibreMap extends Component<MapProps> {
             if (this.props.drawingTool) {
               return;
             }
+            const overlays = this.props.overlays || [];
+            const layerId = layerName.replace(OCCURRENCE_LAYER_PREFIX, '');
 
             if (e.features && e.features[0]) {
               this.onPointClick({
                 geohash: e.features[0].properties?.geohash,
                 count: e.features[0].properties?.count,
-                layerId: layerName.replace(OCCURRENCE_LAYER_PREFIX, ''),
+                layerId,
+                predicate: overlays?.find((o) => o.id === layerId)?.predicate,
               });
             }
             e.preventDefault();

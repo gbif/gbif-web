@@ -23,6 +23,7 @@ export type PointClickData = {
   geohash: string;
   count: number;
   layerId: string;
+  predicate?: object;
 };
 
 /**
@@ -33,6 +34,8 @@ export type OccurrenceOverlay = {
   id: string;
   /** The predicate hash for the occurrence query */
   predicateHash: string;
+  /** The actual predicate object (used by the UI and for graphql) for filtering occurrences */
+  predicate: object;
   /** Optional query string parameter */
   q?: string;
   /** Custom styling for this overlay */

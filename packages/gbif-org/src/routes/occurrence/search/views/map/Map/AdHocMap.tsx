@@ -81,8 +81,7 @@ const defaultLayerOptions: LayerOptions = {
 export interface AdHocMapProps {
   overlays?: OccurrenceOverlay[];
   loading?: boolean;
-  total?: number;
-  registerPredicate?: () => void;
+  onOverlayTileError?: () => void;
   loadPointData?: (data: PointClickData) => void;
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   style?: React.CSSProperties;
@@ -122,7 +121,7 @@ function getStyle({
 
 export default function AdHocMap({
   overlays = [],
-  registerPredicate,
+  onOverlayTileError,
   loadPointData,
   defaultMapSettings,
   style,
@@ -383,7 +382,9 @@ export default function AdHocMap({
               <ToolSeparator />
               <SimpleTooltip
                 asChild
-                title={<FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />}
+                title={
+                  <FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />
+                }
               >
                 <MenuButton
                   onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
@@ -472,7 +473,7 @@ export default function AdHocMap({
           }
         }}
         listener={eventListener}
-        registerPredicate={registerPredicate}
+        onOverlayTileError={onOverlayTileError}
         containerHeight={height}
         containerWidth={width}
         drawingTool={drawingTool}

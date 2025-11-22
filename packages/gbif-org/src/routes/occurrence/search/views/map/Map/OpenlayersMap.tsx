@@ -719,6 +719,7 @@ class Map extends Component<MapProps, State> {
       let foundFeature = false;
 
       const occurrenceLayers = this.getOccurrenceLayers();
+      const overlays = this.props.overlays || [];
 
       for (const layer of occurrenceLayers) {
         if (layer instanceof VectorTileLayer) {
@@ -733,6 +734,7 @@ class Map extends Component<MapProps, State> {
                 geohash: properties.geohash,
                 count: properties.total,
                 layerId,
+                predicate: overlays?.find((o) => o.id === layerId)?.predicate,
               });
             }
           });

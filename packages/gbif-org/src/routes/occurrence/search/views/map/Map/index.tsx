@@ -158,7 +158,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   }, [currentFilterContext.filterHash, searchContext, searchConfig, load]);
 
   const loadPointData = useCallback(
-    ({ geohash, layerId }: PointClickData) => {
+    ({ geohash, predicate: layerPredicate }: PointClickData) => {
       const latLon = Geohash.bounds(geohash);
       const N = latLon.ne.lat,
         S = latLon.sw.lat,
@@ -174,8 +174,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
       const predicate: Predicate = {
         type: PredicateType.And,
         predicates: [
-          scope,
-          filter2predicate(currentFilterContext.filter, searchConfig),
+          layerPredicate,
           {
             type: 'within',
             key: 'geometry',
@@ -187,7 +186,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
     },
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentFilterContext.filterHash, scope, pointLoad]
+    [pointLoad]
   );
 
   const handleFeatureChange = useCallback(
@@ -212,6 +211,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
         id: 'allOccurrences',
         q,
         predicateHash: data?.occurrenceSearch?.metaPredicate,
+        predicate: data?.occurrenceSearch?._meta.predicate,
         // style: {
         //   // 5 colors in a gradient from purple to orange
         //   mapDensityColors: ['#54278f'],
