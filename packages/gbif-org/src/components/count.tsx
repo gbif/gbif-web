@@ -47,7 +47,16 @@ export function Count({ v1Endpoint, params, queueId, property, message }: Props)
 
 const LITERATURE_COUNT_QUERY = `
   query($predicate: Predicate) {
-    literatureSearch(predicate: $predicate) {
+    search: literatureSearch(predicate: $predicate) {
+      documents {
+        total
+      }
+    }
+  }
+`;
+const OCCURRENCE_COUNT_QUERY = `
+  query($predicate: Predicate) {
+    search: occurrenceSearch(predicate: $predicate) {
       documents {
         total
       }
@@ -55,9 +64,19 @@ const LITERATURE_COUNT_QUERY = `
   }
 `;
 export function useLiteratureCount({ predicate }: { predicate: any }) {
-  const { data, load, error, loading } = useQuery(LITERATURE_COUNT_QUERY, {
+  return useGraphQLCount({ query: LITERATURE_COUNT_QUERY, predicate });
+}
+export function useOccurrenceCount({ predicate }: { predicate: any }) {
+  return useGraphQLCount({ query: OCCURRENCE_COUNT_QUERY, predicate });
+}
+
+export function useGraphQLCount({ predicate, query }: { predicate: any; query: string }) {
+  const { data, load, error, loading } = useQuery(query, {
     lazyLoad: true,
     variables: { predicate },
+    queue: {
+      name: 'graphql-counts',
+    },
   });
 
   const predicateId = hash(JSON.stringify(predicate));
@@ -74,7 +93,7 @@ export function useLiteratureCount({ predicate }: { predicate: any }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [predicateId, load]);
 
-  return { count: data?.literatureSearch?.documents.total, error, loading };
+  return { count: data?.search?.documents.total, error, loading };
 }
 
 export function useCount({

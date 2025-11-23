@@ -43,6 +43,7 @@ export function Datasets({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { datasetKey: [x.key] },
             };
@@ -94,6 +95,7 @@ export function Publishers({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { publishingOrg: [x.key] },
             };
@@ -150,6 +152,7 @@ export function HostingOrganizations({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               filter: { hostingOrganizationKey: [x.key] },
             };
           });
@@ -200,6 +203,7 @@ export function Collections({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { collectionKey: [x.key] },
             };
@@ -251,6 +255,7 @@ export function Institutions({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { institutionKey: [x.key] },
             };
@@ -302,6 +307,7 @@ export function Networks({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { networkKey: [x.key] },
             };
@@ -347,6 +353,7 @@ export function EstablishmentMeans({
               key: x.key,
               title: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { establishmentMeans: [x.key] },
             };
@@ -416,6 +423,7 @@ export function Synonyms({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               filter: { taxonKey: [x.key] },
               description: (
                 <div>
@@ -476,6 +484,7 @@ export function TypeStatus({
               title: x?.entity?.title,
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { typeStatus: [x.key] },
             };
@@ -519,6 +528,7 @@ export function Sex({
               title: x?.entity?.title,
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { datasetKey: [x.key] },
             };

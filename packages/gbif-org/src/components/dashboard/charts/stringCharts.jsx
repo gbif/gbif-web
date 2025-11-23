@@ -69,6 +69,7 @@ export const StateProvince = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: title,
         plainTextTitle: title,
         filter: { stateProvince: [title] },
@@ -88,6 +89,7 @@ export const WaterBody = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: title,
         plainTextTitle: title,
         filter: { waterBody: [title] },
@@ -110,6 +112,7 @@ export const IdentifiedBy = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: title,
         plainTextTitle: title,
         filter: { identifiedBy: [title] },
@@ -131,6 +134,7 @@ export const RecordedBy = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: title,
         plainTextTitle: title,
         filter: { recordedBy: [title] },
@@ -156,6 +160,7 @@ export const HigherGeography = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: x.key,
         // description: <Classification>
         //   {x?.entity?.documents?.results?.[0]?.higherGeography.map(h => <span>{h}</span>)}
@@ -178,6 +183,7 @@ export const CatalogNumber = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: title,
         plainTextTitle: title,
         filter: { catalogNumber: [title] },
@@ -211,6 +217,7 @@ export const SamplingProtocol = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: title,
         plainTextTitle: title,
         filter: { samplingProtocol: [title] },
@@ -249,6 +256,7 @@ export const GadmGid = getStringChart({
       return {
         key: x.key,
         count: x.count,
+        occurrences: x.occurrences,
         title: <GadmClassification gadm={gadm} />,
         plainTextTitle: title,
         filter: { gadmGid: [x.key] },

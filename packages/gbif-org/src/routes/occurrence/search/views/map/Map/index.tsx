@@ -2,7 +2,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { OccurrenceSearchMetadata, SearchMetadata, useSearchContext } from '@/contexts/search';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
 import {
   OccurrenceMapQuery,
   OccurrenceMapQueryVariables,

@@ -90,7 +90,7 @@ export function MediaType(props) {
     <StandardEnumChart
       {...{
         facetSize: 10,
-        options: ['PIE', 'TABLE', 'COLUMN'],
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
         fieldName: 'mediaType',
       }}
@@ -198,6 +198,10 @@ export function IucnCounts(props) {
           results: iucnRedListCategory(size: $size, from: $from, checklistKey: $checklistKey) {
             key
             count
+            occurrences {
+              metaPredicate
+              _meta
+            }
           }
         }
       }

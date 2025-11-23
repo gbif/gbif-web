@@ -3,11 +3,7 @@ import { ErrorMessage } from '@/components/errorMessage';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { isWebglSupported } from '@/utils/isWebglSupported';
 import { wktToGeoJSON, geoJSONToWKT } from '@/utils/wktHelpers';
-import maplibre, {
-  LayerSpecification,
-  Map as MapLibreMapInstance,
-  ScaleControl,
-} from 'maplibre-gl';
+import maplibre, { LayerSpecification, Map as MapLibreMapInstance } from 'maplibre-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import StaticMode from '@mapbox/mapbox-gl-draw-static-mode';
 import React, { Component } from 'react';
@@ -19,6 +15,8 @@ import type { Feature } from 'geojson';
 import { AdHocMapProps } from './OpenlayersMap';
 import { Theme } from '@/config/theme/theme';
 import hash from 'object-hash';
+
+const { ScaleControl } = maplibre;
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
 const OCCURRENCE_LAYER_PREFIX = 'occurrences__';

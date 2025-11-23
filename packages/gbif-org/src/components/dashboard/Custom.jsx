@@ -148,6 +148,7 @@ function TaxaMain({
                     </span>
                   ),
                   count: x.count,
+                  occurrences: x.occurrences,
                   filter: { taxonKey: [tryParse(x.key)] },
                   description: (
                     <Classification className="g-text-xs g-text-slate-600">
@@ -202,6 +203,10 @@ query summary($q: String, $predicate: Predicate, $hasPredicate: Predicate, $size
       results: ${rank}(size: $size, from: $from, checklistKey: $checklistKey) {
         key
         count
+        occurrences {
+          metaPredicate
+          _meta
+        }
         entity: taxonMatch(checklistKey: $checklistKey) {
           usage {
             name
@@ -292,6 +297,7 @@ function IucnMain({
                     </div>
                   ),
                   count: x.count,
+                  occurrences: x.occurrences,
                   filter: { taxonKey: [x.key] },
                   description: (
                     <Classification className="g-text-xs g-text-slate-500">
@@ -337,6 +343,10 @@ query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checkl
       results: speciesKey(size: $size, from: $from, checklistKey: $checklistKey) {
         key
         count
+        occurrences {
+          metaPredicate
+          _meta
+        }
         entity: taxonMatch(checklistKey: $checklistKey) {
           usage {
             name

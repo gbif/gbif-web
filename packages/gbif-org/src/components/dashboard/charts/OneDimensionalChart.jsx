@@ -10,11 +10,12 @@ import { getPieOptions } from './pie';
 import { Button } from '@/components/ui/button';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
-import { MdViewStream } from 'react-icons/md';
+import { MdLocationPin, MdMap, MdViewStream } from 'react-icons/md';
 import { useUncontrolledProp } from 'uncontrollable';
 import { GroupBy, Pagging, useFacets } from './GroupByTable';
 import { getTimeSeriesOptions } from './time';
 import { useConfig } from '@/config/config';
+import { Map } from './map/map';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
@@ -28,6 +29,7 @@ function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
     PIE: <BsPieChartFill />,
     TABLE: <MdViewStream />,
     TIME: <BsFillBarChartFill />,
+    MAP: <MdMap />,
   };
   return (
     <div>
@@ -51,7 +53,7 @@ export function OneDimensionalChart({
   predicateKey,
   detailsRoute,
   disableOther,
-  options = ['TABLE', 'PIE', 'COLUMN'],
+  options = ['TABLE', 'PIE', 'COLUMN', 'MAP'],
   defaultOption,
   disableUnknown,
   showUnknownInChart,
@@ -111,12 +113,6 @@ export function OneDimensionalChart({
   if (data && notEmptyResults?.length <= visibilityThreshold) return null;
 
   if (view === 'PIE') {
-    // if the series have less than 5 items, then use every 2th color from the default palette Highcharts?.defaultOptions?.colors
-    if (data?.length < 5) {
-      data.forEach((x, i) => {
-        x.color = x.color ?? palette[i * 2];
-      });
-    }
     if (!disableOther && otherCount) {
       data.push({
         y: otherCount,
@@ -314,6 +310,15 @@ export function OneDimensionalChart({
                     highcharts={Highcharts}
                     options={timeSeriesOptions}
                     className={chartsClass}
+                  />
+                )}
+                {renderedView === 'MAP' && (
+                  <Map
+                    facetResults={facetResults}
+                    transform={transform}
+                    onClick={handleRedirect}
+                    interactive={interactive}
+                    palette={palette}
                   />
                 )}
               </div>

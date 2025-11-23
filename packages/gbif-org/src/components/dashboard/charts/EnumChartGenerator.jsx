@@ -32,6 +32,10 @@ export function EnumChartGenerator({
           results: ${fieldName}(size: $size, from: $from) {
             key
             count
+            occurrences {
+              metaPredicate
+              _meta
+            }
           }
         }
       }
