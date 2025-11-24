@@ -218,9 +218,11 @@ function Row({
                   {row.hidden && <IoMdEyeOff />}
                 </button>
                 <div
-                  className="g-w-4 g-h-4 g-relative g-rounded-full g-inline-block"
+                  className={cn('g-w-4 g-h-4 g-relative g-rounded-full g-inline-block', {
+                    'g-animate-pulse': loading || typeof count !== 'number',
+                  })}
                   style={{
-                    backgroundColor: count > 0 ? color : undefined,
+                    backgroundColor: count !== 0 ? color : undefined,
                     border: '1px solid #ccc',
                   }}
                 ></div>
