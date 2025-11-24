@@ -10,9 +10,9 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
 import { useMapPosition } from './useMapPosition';
-import { MapProps, OccurrenceOverlay, PointClickData } from './types';
+import { AdHocMapInternalProps, OccurrenceOverlay, PointClickData } from './types';
 import type { Feature } from 'geojson';
-import { AdHocMapProps } from './OpenlayersMap';
+import { AdHocMapCoreProps } from './OpenlayersMap';
 import { Theme } from '@/config/theme/theme';
 import hash from 'object-hash';
 
@@ -25,7 +25,7 @@ const mapStyles: Record<string, any> = {
   klokantech,
 };
 
-function Map(props: AdHocMapProps) {
+function Map(props: AdHocMapCoreProps) {
   const mapPosition = useMapPosition(props.defaultMapSettings);
 
   return (
@@ -58,14 +58,14 @@ type DrawEvent = {
   features: Feature[];
 };
 
-class MapLibreMap extends Component<MapProps> {
+class MapLibreMap extends Component<AdHocMapInternalProps> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: MapLibreMapInstance;
   mapLoaded = false;
   draw: MapboxDraw | null = null;
   isInternalChange = false;
 
-  constructor(props: MapProps) {
+  constructor(props: AdHocMapInternalProps) {
     super(props);
 
     this.addLayers = this.addLayers.bind(this);
@@ -124,7 +124,7 @@ class MapLibreMap extends Component<MapProps> {
     }
   }
 
-  componentDidUpdate(prevProps: MapProps) {
+  componentDidUpdate(prevProps: AdHocMapInternalProps) {
     // Check if overlays have changed (added, removed, or modified)
     if (this.mapLoaded) {
       const overlaysChanged =

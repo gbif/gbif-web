@@ -1,7 +1,7 @@
 /**
  * Shared map-related types used across map components
  */
-import { AdHocMapProps } from './OpenlayersMap';
+import { AdHocMapCoreProps } from './OpenlayersMap';
 import { Theme } from '@/config/theme/theme';
 import { Projection } from '@/components/maps/openlayers/projections';
 import { BoundingBox } from '@/types';
@@ -106,7 +106,7 @@ export interface MapSettings {
 /**
  * Combined props for the map component
  */
-export interface MapProps
+export interface AdHocMapInternalProps
   extends MapEventProps,
     MapInteractionProps,
     DrawingProps,
@@ -152,7 +152,7 @@ export interface MapConfig {
  */
 export interface MapStyleConfig {
   labelKey: string;
-  component: React.ComponentType<AdHocMapProps>;
+  component: React.ComponentType<AdHocMapCoreProps>;
   mapConfig: MapConfig;
 }
 

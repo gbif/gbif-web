@@ -4,7 +4,7 @@ import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBounding
 import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { useConfig } from '@/config/config';
-import { PointClickData, OccurrenceOverlay, MapProps } from './types';
+import { PointClickData, OccurrenceOverlay, AdHocMapInternalProps } from './types';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
 import { Vector as VectorLayer } from 'ol/layer';
@@ -62,7 +62,7 @@ type DrawingInteractions = {
   select: Select;
 } | null;
 
-class Map extends Component<MapProps, State> {
+class Map extends Component<AdHocMapInternalProps, State> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: OlMap;
   mapLoaded = false;
@@ -71,7 +71,7 @@ class Map extends Component<MapProps, State> {
   moveendKey: EventsKey | null = null;
   clickKey: EventsKey | null = null;
 
-  constructor(props: MapProps) {
+  constructor(props: AdHocMapInternalProps) {
     super(props);
 
     this.addLayers = this.addLayers.bind(this);
@@ -271,7 +271,7 @@ class Map extends Component<MapProps, State> {
     }
   }
 
-  componentDidUpdate(prevProps: MapProps) {
+  componentDidUpdate(prevProps: AdHocMapInternalProps) {
     if (this.props.onLoading) {
       if (this.state.loadDiff > 0) {
         this.props.onLoading(true);
@@ -779,9 +779,9 @@ function getFilterFromOverlay(overlay: OccurrenceOverlay) {
   return filter;
 }
 
-export type AdHocMapProps = Omit<MapProps, 'mapPosition' | 'theme'>;
+export type AdHocMapCoreProps = Omit<AdHocMapInternalProps, 'mapPosition' | 'theme'>;
 
-function MapWithHook(props: AdHocMapProps) {
+function MapWithHook(props: AdHocMapCoreProps) {
   const mapPosition = useMapPosition(props.defaultMapSettings);
   const config = useConfig();
   return <Map {...props} mapPosition={mapPosition} theme={config?.theme} />;

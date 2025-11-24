@@ -9,8 +9,8 @@ import { configDefault } from './configDefaults';
 import { Endpoints } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
-import { MapConfig, ProjectionName } from '@/routes/occurrence/search/views/map/Map/mapTypes';
-import { AdHocMapProps } from '@/routes/occurrence/search/views/map/Map/OpenlayersMap';
+import { AdHocMapCoreProps } from '@/routes/occurrence/search/views/map/Map/OpenlayersMap';
+import { MapConfig, ProjectionName } from '@/routes/occurrence/search/views/map/Map/types';
 
 export type PageConfig = {
   id: string;
@@ -161,13 +161,13 @@ export type Config = Endpoints & {
       pixelRatio: number;
       apiKeys?: ApiKeysType;
       mapComponents: {
-        OpenlayersMap: React.ComponentType<AdHocMapProps>;
-        MapLibreMap: React.ComponentType<AdHocMapProps>;
+        OpenlayersMap: React.ComponentType<AdHocMapCoreProps>;
+        MapLibreMap: React.ComponentType<AdHocMapCoreProps>;
       };
     }) => Record<
       string,
       {
-        component: React.ComponentType<AdHocMapProps>;
+        component: React.ComponentType<AdHocMapCoreProps>;
         labelKey: string;
         mapConfig: MapConfig;
       }
