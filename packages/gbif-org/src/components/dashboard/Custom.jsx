@@ -13,15 +13,18 @@ import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { DynamicLink } from '@/reactRouterPlugins';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { tryParse } from '@/utils/querystring';
-import { MdLink, MdMoreHoriz } from 'react-icons/md';
+import { MdArrowDropDown, MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Classification } from '../classification';
 import { SimpleTooltip } from '../simpleTooltip';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import ChartClickWrapper from './charts/ChartClickWrapper';
-import { ChartMessages } from './charts/OneDimensionalChart';
+import { ChartMessages, ChartViewOptions } from './charts/OneDimensionalChart';
 import { useConfig } from '@/config/config';
+import Highcharts, { generateChartsPalette } from './charts/highcharts';
+import { Map } from './charts/map/map';
+import { useUncontrolledProp } from 'uncontrollable';
 
 const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
 const getDefaultRank = (rank) => {
@@ -36,8 +39,12 @@ function TaxaMain({
   detailsRoute,
   visibilityThreshold,
   interactive,
+  setView: setUserView,
+  view: userView,
   ...props
 }) {
+  const { theme } = useConfig();
+  const [view, setView] = useUncontrolledProp(userView, 'TABLE', setUserView);
   const defaultChecklistKey = useChecklistKey();
   const [query, setQuery] = useState(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
   const [rank, setRank] = useState(getDefaultRank(defaultRank).toUpperCase());
@@ -63,6 +70,10 @@ function TaxaMain({
     },
     query,
   });
+  const { chartColors } = theme;
+  const palette = chartColors
+    ? generateChartsPalette(chartColors)
+    : Highcharts?.defaultOptions?.colors;
 
   useEffect(() => {
     setRank(getDefaultRank(defaultRank).toUpperCase());
@@ -83,6 +94,50 @@ function TaxaMain({
     </div>
   );
 
+  function transform(data) {
+    return data?.search?.facet?.results?.map((x) => {
+      return {
+        key: x?.key,
+        title: (
+          <span>
+            {x?.entity?.usage.name}{' '}
+            <DynamicLink
+              pageId="speciesKey"
+              variables={{ key: x?.key.toString(), checklistKey: x.entity.checklistKey }}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <MdLink />
+            </DynamicLink>
+          </span>
+        ),
+        count: x.count,
+        occurrences: x.occurrences,
+        filter: { taxonKey: [tryParse(x.key)] },
+        description: (
+          <Classification className="g-text-xs g-text-slate-600">
+            {x?.entity?.classification?.map((rank) => {
+              return (
+                <span key={rank.key}>
+                  <span className="g-me-2">
+                    <FormattedMessage
+                      id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
+                      defaultMessage={
+                        rank.rank.charAt(0).toUpperCase() + rank.rank.slice(1).toLowerCase()
+                      }
+                    />
+                  </span>
+                  {rank.name}
+                </span>
+              );
+            })}
+          </Classification>
+        ),
+      };
+    });
+  }
+
   return (
     <Card
       {...props}
@@ -90,11 +145,19 @@ function TaxaMain({
       error={!!facetResults.error}
     >
       <CardHeader
-        options={
+        options={<ChartViewOptions options={['TABLE', 'MAP']} view={view} setView={setView} />}
+      >
+        <CardTitle>
+          {/* <FormattedMessage id={`enums.taxonRank.${rank.toUpperCase()}`} defaultMessage={rank} /> */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                <MdMoreHoriz />
+                <FormattedMessage
+                  className="g-me-2"
+                  id={`enums.taxonRank.${rank.toUpperCase()}`}
+                  defaultMessage={rank}
+                />{' '}
+                <MdArrowDropDown />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -114,67 +177,31 @@ function TaxaMain({
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-        }
-      >
-        <CardTitle>
-          <FormattedMessage id={`enums.taxonRank.${rank.toUpperCase()}`} defaultMessage={rank} />
         </CardTitle>
         <CardDescription>
           <FormattedMessage id="dashboard.numberOfOccurrences" />
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <GroupBy
-          {...{
-            facetResults,
-            interactive,
-            onClick: handleRedirect,
-            transform: (data) => {
-              return data?.search?.facet?.results?.map((x) => {
-                return {
-                  key: x?.key,
-                  title: (
-                    <span>
-                      {x?.entity?.usage.name}{' '}
-                      <DynamicLink
-                        pageId="speciesKey"
-                        variables={{ key: x?.key.toString(), checklistKey: x.entity.checklistKey }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                      >
-                        <MdLink />
-                      </DynamicLink>
-                    </span>
-                  ),
-                  count: x.count,
-                  occurrences: x.occurrences,
-                  filter: { taxonKey: [tryParse(x.key)] },
-                  description: (
-                    <Classification className="g-text-xs g-text-slate-600">
-                      {x?.entity?.classification?.map((rank) => {
-                        return (
-                          <span key={rank.key}>
-                            <span className="g-me-2">
-                              <FormattedMessage
-                                id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
-                                defaultMessage={
-                                  rank.rank.charAt(0).toUpperCase() +
-                                  rank.rank.slice(1).toLowerCase()
-                                }
-                              />
-                            </span>
-                            {rank.name}
-                          </span>
-                        );
-                      })}
-                    </Classification>
-                  ),
-                };
-              });
-            },
-          }}
-        />
+        {view === 'MAP' && (
+          <Map
+            facetResults={facetResults}
+            transform={transform}
+            onClick={handleRedirect}
+            interactive={interactive}
+            palette={palette}
+          />
+        )}
+        {view === 'TABLE' && (
+          <GroupBy
+            {...{
+              facetResults,
+              interactive,
+              onClick: handleRedirect,
+              transform,
+            }}
+          />
+        )}
         <Pagging facetResults={facetResults} />
         <ChartMessages messages={messages} />
       </CardContent>

@@ -34,12 +34,6 @@ import { EventsKey } from 'ol/events';
 const OCCURRENCE_LAYER_PREFIX = 'occurrences__';
 const OCCURRENCE_LAYERS_START_Z_INDEX = 100;
 
-const interactions = olInteraction.defaults({
-  altShiftDragRotate: false,
-  pinchRotate: false,
-  mouseWheelZoom: true,
-});
-
 const mapStyles: Record<string, any> = {
   klokantech,
 };
@@ -95,8 +89,14 @@ class Map extends Component<AdHocMapInternalProps, State> {
           units: 'metric',
         }),
       ]),
-      interactions,
+      // Create new interactions for each map instance
+      interactions: olInteraction.defaults({
+        altShiftDragRotate: false,
+        pinchRotate: false,
+        mouseWheelZoom: true,
+      }),
     };
+
     this.map = new OlMap(mapConfig);
     this.updateEntireMap();
     this.mapLoaded = true;

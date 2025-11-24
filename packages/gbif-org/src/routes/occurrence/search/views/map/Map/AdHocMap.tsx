@@ -6,6 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import {
   MdOutlineFullscreen as ExploreAreaIcon,
   MdLanguage,
@@ -34,6 +35,10 @@ import { getMapStyles, MapStyleConfig } from './standardMapStyles';
 import { OccurrenceOverlay, MapEvent, PointClickData } from './types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import { ProjectionName } from './types';
+import ListBox from './ListBox';
+import { useMapPointSelection } from './useMapPointSelection';
+import { useEntityDrawer } from '../../browseList/useEntityDrawer';
+import { useOrderedList } from '../../browseList/useOrderedList';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
@@ -82,13 +87,11 @@ export interface AdHocMapProps {
   overlays?: OccurrenceOverlay[];
   loading?: boolean;
   onOverlayTileError?: () => void;
-  loadPointData?: (data: PointClickData) => void;
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   style?: React.CSSProperties;
   className?: string;
   features?: string[];
   onFeaturesChange?: (params: { features: string[] }) => void;
-  showList: (show: boolean) => void;
   tools:
     | boolean
     | {
@@ -122,23 +125,42 @@ function getStyle({
 export default function AdHocMap({
   overlays = [],
   onOverlayTileError,
-  loadPointData,
   defaultMapSettings,
   style,
   className,
   features,
   onFeaturesChange,
-  showList,
   tools,
 }: AdHocMapProps) {
   const { formatMessage } = useIntl();
   const config = useConfig();
   const { locale } = useI18n();
+  const { listVisible, showList, pointData, pointError, pointLoading, loadPointData } =
+    useMapPointSelection();
+  const { setOrderedList } = useOrderedList();
+  const [, setPreviewKey] = useEntityDrawer();
   const userLocationEnabled = config?.occurrenceSearch?.mapSettings?.userLocationEnabled;
   const styleLookup = (config?.maps?.styleLookup || {}) as StyleLookup;
   const mapStyles = config?.maps?.mapStyles?.options || defaultLayerOptions;
   const supportedProjections = Object.keys(mapStyles) as ProjectionName[];
   const [projectionOptions] = useState<ProjectionName[]>(supportedProjections);
+
+  const items = React.useMemo(
+    () => pointData?.occurrenceSearch?.documents?.results || [],
+    [pointData]
+  );
+
+  const updateList = useCallback(() => {
+    setOrderedList(items.filter((x) => x != null).map((item) => `o_${item.key}`));
+  }, [items, setOrderedList]);
+
+  const selectPreview = useCallback(
+    (key: string) => {
+      updateList();
+      setPreviewKey(`o_${key}`);
+    },
+    [setPreviewKey, updateList]
+  );
 
   let defaultProjection =
     (sessionStorage.getItem('defaultOccurrenceProjection') as ProjectionName) ||
@@ -338,6 +360,24 @@ export default function AdHocMap({
 
   return (
     <div className={cn(`g-flex-auto g-h-96 g-relative g-z-10`, className)} style={style} ref={ref}>
+      {listVisible && (
+        <div className="gbif-resultList g-z-20 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-2rem)] g-h-full">
+          <ErrorBoundary type="CARD">
+            <ListBox
+              onCloseRequest={() => showList(false)}
+              onClick={({ index }: { index: number }) => {
+                const itemKey = items[index]?.key;
+                if (typeof itemKey !== 'undefined') {
+                  selectPreview(`${itemKey}`);
+                }
+              }}
+              data={pointData}
+              error={pointError}
+              loading={pointLoading}
+            />
+          </ErrorBoundary>
+        </div>
+      )}
       {showErrorMessage && (
         <div className="g-z-10 g-absolute g-start-0 g-bottom-0 g-end-0 g-pointer-events-none">
           <div className="g-p-2 g-bg-slate-800 g-text-slate-100 g-inline-block g-m-2 g-rounded g-text-sm">
@@ -459,10 +499,7 @@ export default function AdHocMap({
         onTileError={failedTileHandler}
         onMapClick={() => showList(false)}
         onPointClick={(data: PointClickData) => {
-          if (loadPointData) {
-            showList(true);
-            loadPointData(data);
-          }
+          loadPointData(data);
         }}
         listener={eventListener}
         onOverlayTileError={onOverlayTileError}

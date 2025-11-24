@@ -218,7 +218,7 @@ function Row({
                   {row.hidden && <IoMdEyeOff />}
                 </button>
                 <div
-                  className="g-w-4 g-h-4 g-relative g-top-0.5 g-rounded-full g-inline-block"
+                  className="g-w-4 g-h-4 g-relative g-rounded-full g-inline-block"
                   style={{
                     backgroundColor: count > 0 ? color : undefined,
                     border: '1px solid #ccc',
@@ -228,13 +228,18 @@ function Row({
             </td>
             <td style={interactive ? { cursor: 'pointer' } : {}}>
               {row.filter && (
-                <div
-                  onClick={() => {
-                    if (interactive) onClick({ filter: row.filter });
-                  }}
-                >
-                  {row.title}
-                </div>
+                <>
+                  <div
+                    onClick={() => {
+                      if (interactive) onClick({ filter: row.filter });
+                    }}
+                  >
+                    {row.title}
+                  </div>
+                  {row.description && (
+                    <div className="g-text-slate-400 g-text-sm g-mb-1">{row.description}</div>
+                  )}
+                </>
               )}
               {!row.filter && <div>{row.title}</div>}
             </td>
@@ -255,13 +260,6 @@ function Row({
               {!loading && !error && count === 0 && <span>-</span>}
             </td>
           </tr>
-          {row.description && (
-            <tr className="!g-border-t-0">
-              <td colSpan={5} className="!g-p-0">
-                <div className="g-text-slate-400 g-text-sm g-mb-1">{row.description}</div>
-              </td>
-            </tr>
-          )}
         </React.Fragment>
       )}
     </Draggable>

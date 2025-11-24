@@ -182,6 +182,7 @@ const typeDef = gql`
     phylumKey(checklistKey: ID): Long!
     speciesKey(checklistKey: ID): Long!
     usageKey(checklistKey: ID): Long!
+    acceptedUsageKey(checklistKey: ID): Long!
     preparations: Long!
     iucnRedListCategory(checklistKey: ID): Long!
     establishmentMeans: Long!

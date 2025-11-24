@@ -5314,6 +5314,7 @@ export type OccurrenceAutoDateHistogramEventDateArgs = {
 
 export type OccurrenceCardinality = {
   __typename?: 'OccurrenceCardinality';
+  acceptedUsageKey: Scalars['Long']['output'];
   basisOfRecord: Scalars['Long']['output'];
   biostratigraphy: Scalars['Long']['output'];
   catalogNumber: Scalars['Long']['output'];
@@ -5376,6 +5377,11 @@ export type OccurrenceCardinality = {
   usageKey: Scalars['Long']['output'];
   verbatimScientificName: Scalars['Long']['output'];
   waterBody: Scalars['Long']['output'];
+};
+
+
+export type OccurrenceCardinalityAcceptedUsageKeyArgs = {
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
 };
 
 

@@ -9,18 +9,19 @@ import { getPieOptions } from './pie';
 // import { getTimeSeriesOptions } from './area';
 import { Button } from '@/components/ui/button';
 import formatAsPercentage from '@/utils/formatAsPercentage';
-import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
-import { MdLocationPin, MdMap, MdViewStream } from 'react-icons/md';
+import { BsFillBarChartFill, BsMap, BsMapFill, BsPieChartFill } from 'react-icons/bs';
+import { MdViewStream } from 'react-icons/md';
 import { useUncontrolledProp } from 'uncontrollable';
 import { GroupBy, Pagging, useFacets } from './GroupByTable';
 import { getTimeSeriesOptions } from './time';
 import { useConfig } from '@/config/config';
 import { Map } from './map/map';
+import { IoMapSharp } from 'react-icons/io5';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
 // Component to control the view options: table, pie chart, bar chart
-function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
+export function ChartViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
   if (options.length < 2) return null;
 
   // option to icon component map
@@ -29,7 +30,7 @@ function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
     PIE: <BsPieChartFill />,
     TABLE: <MdViewStream />,
     TIME: <BsFillBarChartFill />,
-    MAP: <MdMap />,
+    MAP: <IoMapSharp />,
   };
   return (
     <div>
@@ -272,7 +273,7 @@ export function OneDimensionalChart({
       error={!!facetResults.error}
     >
       {/* <CardTitle options={(singleValue || (distinct === 0)) ? null : <ViewOptions options={options} view={view} setView={setView} />}> */}
-      <CardHeader options={<ViewOptions options={options} view={view} setView={setView} />}>
+      <CardHeader options={<ChartViewOptions options={options} view={view} setView={setView} />}>
         <CardTitle>{title && <>{title}</>}</CardTitle>
         {subtitleKey && (
           <CardDescription>

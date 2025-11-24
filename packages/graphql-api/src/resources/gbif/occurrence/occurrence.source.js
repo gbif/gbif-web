@@ -1,13 +1,16 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
 import { urlSizeLimit } from '#/helpers/utils-ts';
 import { getOccurrenceAgent } from '#/requestAgents';
+import QueuedRESTDataSource from '#/QueuedRESTDataSource';
 
 const MAX_RESULTS = 3000;
 
-class OccurrenceAPI extends RESTDataSource {
+class OccurrenceAPI extends QueuedRESTDataSource {
   constructor(config) {
-    super();
+    super({
+      // notice that this only is used if the enQueue option is set to true in the request
+      concurrency: 10, // Maximum concurrent requests
+    });
     this.baseURL = config.apiEs;
     this.config = config;
   }
@@ -41,11 +44,12 @@ class OccurrenceAPI extends RESTDataSource {
       response = await this.get(
         '/occurrence',
         { body: JSON.stringify(body) },
-        { signal: this.context.abortController.signal },
+        { signal: this.context.abortController.signal, enQueue: true },
       );
     } else {
       response = await this.post('/occurrence', body, {
         signal: this.context.abortController.signal,
+        enQueue: true,
       });
     }
     response._predicate = body.predicate;
@@ -80,7 +84,10 @@ class OccurrenceAPI extends RESTDataSource {
 
   async meta({ query }) {
     const body = { ...query };
-    const response = await this.post('/occurrence/meta', body);
+    const response = await this.post('/occurrence/meta', body, {
+      signal: this.context.abortController.signal,
+      enQueue: true,
+    });
     return response;
   }
 
@@ -98,6 +105,7 @@ class OccurrenceAPI extends RESTDataSource {
   async datasetSuggest(query) {
     const response = await this.post('/occurrence/suggest/datasetKey', query, {
       signal: this.context.abortController.signal,
+      enQueue: true,
     });
     return response;
   }
@@ -106,7 +114,7 @@ class OccurrenceAPI extends RESTDataSource {
     return this.post(
       `${this.config.apiv2}/map/occurrence/adhoc/predicate/`,
       predicate,
-      { signal: this.context.abortController.signal },
+      { signal: this.context.abortController.signal, enQueue: true },
     );
   }
 

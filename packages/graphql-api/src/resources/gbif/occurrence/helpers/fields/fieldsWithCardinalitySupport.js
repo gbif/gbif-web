@@ -14,6 +14,7 @@ export default [
   'sampleSizeUnit',
   'verbatimScientificName',
   'usageKey',
+  'acceptedUsageKey',
   'eventId',
   'month',
   'license',

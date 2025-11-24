@@ -5,18 +5,15 @@ import { OccurrenceSearchMetadata, SearchMetadata, useSearchContext } from '@/co
 import {
   OccurrenceMapQuery,
   OccurrenceMapQueryVariables,
-  OccurrencePointQuery,
-  OccurrencePointQueryVariables,
   Predicate,
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import Geohash from 'latlon-geohash';
 import { CSSProperties, useCallback, useContext, useEffect, useMemo } from 'react';
 import { searchConfig } from '../../../searchConfig';
 import MapPresentation, { MapPresentationProps } from './MapPresentation';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { PointClickData } from './types';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const OCCURRENCE_MAP = /* GraphQL */ `
   query occurrenceMap($q: String, $predicate: Predicate) {
@@ -29,36 +26,6 @@ const OCCURRENCE_MAP = /* GraphQL */ `
     }
   }
 `;
-
-const OCCURRENCE_POINT = /* GraphQL */ `
-  query occurrencePoint($q: String, $predicate: Predicate, $checklistKey: ID) {
-    occurrenceSearch(q: $q, predicate: $predicate) {
-      documents {
-        total
-        results {
-          key
-          basisOfRecord
-          eventDate
-          classification(checklistKey: $checklistKey) {
-            usage {
-              name
-            }
-            taxonMatch {
-              usage {
-                canonicalName
-              }
-            }
-          }
-          primaryImage {
-            identifier: thumbor(width: 60, height: 60)
-          }
-        }
-      }
-    }
-  }
-`;
-
-const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 
 interface MapProps {
   style?: CSSProperties;
@@ -91,14 +58,6 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
       throwAllErrors: true,
     }
   );
-  const {
-    data: pointData,
-    error: pointError,
-    loading: pointLoading,
-    load: pointLoad,
-  } = useQuery<OccurrencePointQuery, OccurrencePointQueryVariables>(OCCURRENCE_POINT, {
-    lazyLoad: true,
-  });
 
   const loadHashAndCount = useCallback(
     ({ filter, searchContext, searchConfig, load }: LoadHashAndCountParams) => {
@@ -156,38 +115,6 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, searchContext, searchConfig, load]);
 
-  const loadPointData = useCallback(
-    ({ geohash, predicate: layerPredicate }: PointClickData) => {
-      const latLon = Geohash.bounds(geohash);
-      const N = latLon.ne.lat,
-        S = latLon.sw.lat,
-        W = latLon.sw.lon,
-        E = latLon.ne.lon;
-      const wkt =
-        'POLYGON' +
-        wktBBoxTemplate
-          .replace(/N/g, String(N))
-          .replace(/S/g, String(S))
-          .replace(/W/g, String(W))
-          .replace(/E/g, String(E));
-      const predicate: Predicate = {
-        type: PredicateType.And,
-        predicates: [
-          layerPredicate,
-          {
-            type: 'within',
-            key: 'geometry',
-            value: wkt,
-          },
-        ].filter((x) => x),
-      };
-      pointLoad({ variables: { predicate } });
-    },
-    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pointLoad]
-  );
-
   const handleFeatureChange = useCallback(
     ({ features }: HandleFeatureChangeParams) => {
       currentFilterContext.setFullField('geometry', features ?? [], []);
@@ -200,23 +127,14 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   const options: MapPresentationProps = {
     loading,
     total: data?.occurrenceSearch?.documents?.total,
-    loadPointData,
     registerPredicate,
-    pointData,
-    pointLoading,
-    pointError,
     overlays: [
       {
         id: 'allOccurrences',
         q,
         predicateHash: data?.occurrenceSearch?.metaPredicate,
         predicate: data?.occurrenceSearch?._meta.predicate,
-        // style: {
-        //   // 5 colors in a gradient from purple to orange
-        //   mapDensityColors: ['#54278f'],
-        //   mapPointOpacities: [0.9, 0.9, 0.9, 0.8, 0.7],
-        //   mapPointSizes: [3, 4, 5, 7, 9],
-        // },
+        hidden: false,
       },
     ],
     defaultMapSettings: mapSettings,
@@ -230,7 +148,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   if (typeof window !== 'undefined') {
     return <MapPresentation {...options} />;
   } else {
-    return <h1>Map placeholder</h1>;
+    return <Skeleton className="g-w-full g-h-96" />;
   }
 }
 
