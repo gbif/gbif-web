@@ -131,6 +131,7 @@ export default function AdHocMap({
   features,
   onFeaturesChange,
   tools,
+  loading,
 }: AdHocMapProps) {
   const { formatMessage } = useIntl();
   const config = useConfig();
@@ -390,7 +391,7 @@ export default function AdHocMap({
         </div>
       )}
       <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
-        <StripeLoader active={mapLoading} className="g-w-full" />
+        <StripeLoader active={mapLoading || loading} className="g-w-full" />
       </div>
       {toolVisibility && (
         <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-border-solid g-m-2 g-end-0 g-items-center">

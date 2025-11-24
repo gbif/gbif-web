@@ -125,7 +125,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   const q = currentFilterContext.filter?.must?.q?.[0];
 
   const options: MapPresentationProps = {
-    loading,
+    loading: loading || !data,
     total: data?.occurrenceSearch?.documents?.total,
     registerPredicate,
     overlays: [
