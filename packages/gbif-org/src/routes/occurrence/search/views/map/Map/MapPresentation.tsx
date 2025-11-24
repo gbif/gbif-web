@@ -75,6 +75,7 @@ function MapPresentation({
     showList,
     tools: true,
   };
+
   return (
     <>
       <div

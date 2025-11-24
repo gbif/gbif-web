@@ -162,7 +162,7 @@ export default function AdHocMap({
   const [latestEvent, broadcastEvent] = useState<MapEvent | undefined>();
   const [searchingLocation, setLocationSearch] = useState<boolean>(false);
   const [basemapOptions, setBasemapOptions] = useState<BasemapOptions | undefined>();
-  const [drawingTool, setDrawingTool] = useState<string | null>(null);
+  const [drawingTool, setDrawingTool] = useState<'DRAW' | 'DELETE' | 'SELECT' | null>(null);
   const { toast } = useToast();
   const [mapLoading, setMapLoading] = useState<boolean>(false);
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
@@ -271,16 +271,8 @@ export default function AdHocMap({
     }
   }, [toast, formatMessage]);
 
-  const toggleDrawingTool = useCallback(() => {
-    setDrawingTool((current) => (current === 'DRAW' ? null : 'DRAW'));
-  }, []);
-
-  const toggleDeleteTool = useCallback(() => {
-    setDrawingTool((current) => (current === 'DELETE' ? null : 'DELETE'));
-  }, []);
-
-  const toggleSelectTool = useCallback(() => {
-    setDrawingTool((current) => (current === 'SELECT' ? null : 'SELECT'));
+  const toggleDrawingTool = useCallback((type: 'DRAW' | 'DELETE' | 'SELECT') => {
+    setDrawingTool((current) => (current === type ? null : type));
   }, []);
 
   const menuLayerOptions = layerOptions?.[projection]?.map((currentLayerId) => {
@@ -398,7 +390,7 @@ export default function AdHocMap({
                 title={<FormattedMessage id="map.drawPolygon" defaultMessage="Draw polygon" />}
               >
                 <MenuButton
-                  onClick={toggleDrawingTool}
+                  onClick={() => toggleDrawingTool('DRAW')}
                   className={cn('g-p-2', drawingTool === 'DRAW' && 'g-bg-primary g-text-white')}
                 >
                   <DrawIcon />
@@ -412,7 +404,7 @@ export default function AdHocMap({
                   }
                 >
                   <MenuButton
-                    onClick={toggleSelectTool}
+                    onClick={() => toggleDrawingTool('SELECT')}
                     className={cn('g-p-2', drawingTool === 'SELECT' && 'g-bg-primary g-text-white')}
                   >
                     <ModifyPolygonIcon />
@@ -424,7 +416,7 @@ export default function AdHocMap({
                 title={<FormattedMessage id="map.deletePolygon" defaultMessage="Delete polygon" />}
               >
                 <MenuButton
-                  onClick={toggleDeleteTool}
+                  onClick={() => toggleDrawingTool('DELETE')}
                   className={cn('g-p-2', drawingTool === 'DELETE' && 'g-bg-primary g-text-white')}
                 >
                   <MdDeleteOutline />
