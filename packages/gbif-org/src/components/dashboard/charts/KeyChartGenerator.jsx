@@ -32,6 +32,10 @@ export function KeyChartGenerator({
             key
             count
             ${gqlEntity ? `entity: ${gqlEntity}` : ''}
+            occurrences {
+              metaPredicate
+              _meta
+            }
           }
         }
       }

@@ -5341,7 +5341,7 @@ export type OccurrenceAutoDateHistogramEventDateArgs = {
 
 export type OccurrenceCardinality = {
   __typename?: 'OccurrenceCardinality';
-  acceptedUsageKey: Scalars['Long']['output'];
+  acceptedTaxonKey: Scalars['Long']['output'];
   basisOfRecord: Scalars['Long']['output'];
   biostratigraphy: Scalars['Long']['output'];
   catalogNumber: Scalars['Long']['output'];
@@ -5407,7 +5407,7 @@ export type OccurrenceCardinality = {
 };
 
 
-export type OccurrenceCardinalityAcceptedUsageKeyArgs = {
+export type OccurrenceCardinalityAcceptedTaxonKeyArgs = {
   checklistKey?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -5513,7 +5513,7 @@ export type OccurrenceExtensions = {
 
 export type OccurrenceFacet = {
   __typename?: 'OccurrenceFacet';
-  acceptedUsageKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
+  acceptedTaxonKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   agentIds_type?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   agentIds_value?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   basisOfRecord?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
@@ -5621,7 +5621,7 @@ export type OccurrenceFacet = {
 };
 
 
-export type OccurrenceFacetAcceptedUsageKeyArgs = {
+export type OccurrenceFacetAcceptedTaxonKeyArgs = {
   checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;

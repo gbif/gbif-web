@@ -15,11 +15,14 @@ import { useUncontrolledProp } from 'uncontrollable';
 import { GroupBy, Pagging, useFacets } from './GroupByTable';
 import { getTimeSeriesOptions } from './time';
 import { useConfig } from '@/config/config';
+import { Map } from './map/map';
+import { IoMapSharp } from 'react-icons/io5';
+import { hash } from '@/utils/hash';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
 // Component to control the view options: table, pie chart, bar chart
-function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
+export function ChartViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
   if (options.length < 2) return null;
 
   // option to icon component map
@@ -28,6 +31,7 @@ function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
     PIE: <BsPieChartFill />,
     TABLE: <MdViewStream />,
     TIME: <BsFillBarChartFill />,
+    MAP: <IoMapSharp />,
   };
   return (
     <div>
@@ -111,12 +115,6 @@ export function OneDimensionalChart({
   if (data && notEmptyResults?.length <= visibilityThreshold) return null;
 
   if (view === 'PIE') {
-    // if the series have less than 5 items, then use every 2th color from the default palette Highcharts?.defaultOptions?.colors
-    if (data?.length < 5) {
-      data.forEach((x, i) => {
-        x.color = x.color ?? palette[i * 2];
-      });
-    }
     if (!disableOther && otherCount) {
       data.push({
         y: otherCount,
@@ -269,6 +267,7 @@ export function OneDimensionalChart({
   // const singleValue = notEmptyResults?.length === 1 ? notEmptyResults[0] : null;
   // const renderedView = singleValue ? 'TABLE' : view;
 
+  const contextHash = hash(facetQuery);
   return (
     <Card
       {...props}
@@ -276,7 +275,7 @@ export function OneDimensionalChart({
       error={!!facetResults.error}
     >
       {/* <CardTitle options={(singleValue || (distinct === 0)) ? null : <ViewOptions options={options} view={view} setView={setView} />}> */}
-      <CardHeader options={<ViewOptions options={options} view={view} setView={setView} />}>
+      <CardHeader options={<ChartViewOptions options={options} view={view} setView={setView} />}>
         <CardTitle>{title && <>{title}</>}</CardTitle>
         {subtitleKey && (
           <CardDescription>
@@ -314,6 +313,16 @@ export function OneDimensionalChart({
                     highcharts={Highcharts}
                     options={timeSeriesOptions}
                     className={chartsClass}
+                  />
+                )}
+                {renderedView === 'MAP' && (
+                  <Map
+                    facetResults={facetResults}
+                    transform={transform}
+                    onClick={handleRedirect}
+                    interactive={interactive}
+                    palette={palette}
+                    contextHash={contextHash}
                   />
                 )}
               </div>
