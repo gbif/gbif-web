@@ -319,6 +319,8 @@ function DashboardBuilder({
           >
             <SimpleTooltip title={<FormattedMessage id="phrases.share" />}>
               <Button
+                size="sm"
+                className="g-text-base g-px-2"
                 style={{ marginBottom: 8 }}
                 onClick={() => {
                   // first we need to decide what to share. to get that we set the
@@ -338,7 +340,7 @@ function DashboardBuilder({
             </SimpleTooltip>
             {maxGroups > state.length && (
               <SimpleTooltip title={<FormattedMessage id="dashboard.newGroup" />}>
-                <Button onClick={addNewGroup}>
+                <Button size="sm" className="g-text-base g-px-2" onClick={addNewGroup}>
                   <MdAddChart />
                 </Button>
               </SimpleTooltip>
