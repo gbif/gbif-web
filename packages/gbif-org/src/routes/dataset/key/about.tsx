@@ -50,6 +50,7 @@ import { SamplingDescription } from './about/SamplingDescription';
 import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
+import { truncate } from '@/utils/truncate';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -710,45 +711,65 @@ export function DatasetKeyAbout() {
                 dataset?.localContexts?.map((localContext) => {
                   if (!localContext?.project_page) return null;
                   return (
-                    <a
-                      href={localContext?.project_page}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="g-flex g-items-center"
-                    >
-                      <Card className="g-mb-4 gbif-word-break">
-                        <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                          <div className="g-flex-none g-me-2">
-                            <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                              <ExternalLinkIcon />
-                            </div>
+                    <Card className="g-mb-4 gbif-word-break" key={localContext?.project_page}>
+                      <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                        <div className="g-flex-none g-me-2">
+                          <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                            <ExternalLinkIcon />
                           </div>
-                          <div className="g-flex-auto g-mt-0.5">
+                        </div>
+                        <div className="g-flex-auto g-mt-0.5">
+                          <a
+                            href={localContext?.project_page}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="g-flex g-items-center g-underline"
+                          >
                             <h5 className="g-font-bold">{localContext?.title}</h5>
+                          </a>
+                          {localContext?.description && (
                             <div className="g-text-slate-500 [&_a]:g-underline">
-                              {localContext?.description}
+                              {truncate(localContext?.description, 120)}
                             </div>
-                            <ul className="g-mt-2">
-                              {localContext?.notice
-                                ?.filter((x) => x)
-                                .map((notice) => {
-                                  if (!notice || !notice.img_url) return null;
-                                  return (
-                                    <li className="g-inline-block">
-                                      <img
-                                        className="g-me-2 g-w-8 g-h-8"
-                                        src={notice.img_url}
-                                        alt={notice.name}
-                                        title={notice.name}
-                                      />
-                                    </li>
-                                  );
-                                })}
-                            </ul>
-                          </div>
-                        </CardContentSmall>
-                      </Card>
-                    </a>
+                          )}
+                          <ul className="g-mt-2">
+                            {localContext?.notes
+                              ?.filter((x) => x)
+                              .map((note, i) => {
+                                if (!note || !note.img_url) return null;
+                                return (
+                                  <li
+                                    className="g-flex g-items-start g-mb-2"
+                                    key={`${note.name}-${i}`}
+                                  >
+                                    <img
+                                      className="g-flex-none g-me-2 g-w-5 g-h-5"
+                                      src={note.img_url}
+                                      alt={note.name}
+                                      title={note.name}
+                                    />
+                                    <div className="g-flex-auto">
+                                      <a
+                                        href={note.pageUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="g-underline g-text-inherit"
+                                      >
+                                        {note.name}
+                                      </a>
+                                      {/* {note.description && (
+                                        <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
+                                          {truncate(note.description, 70)}
+                                        </div>
+                                      )} */}
+                                    </div>
+                                  </li>
+                                );
+                              })}
+                          </ul>
+                        </div>
+                      </CardContentSmall>
+                    </Card>
                   );
                 })}
 

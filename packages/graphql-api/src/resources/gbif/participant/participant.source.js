@@ -1,10 +1,10 @@
+import { RESTDataSource } from 'apollo-datasource-rest';
+import pick from 'lodash/pick';
+import { stringify } from 'qs';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 import { renameProperty } from '#/helpers/utils';
 import { getDefaultAgent } from '#/requestAgents';
 import { ResourceSearchAPI } from '#/resources/gbif/resource/resource.source';
-import { RESTDataSource } from 'apollo-datasource-rest';
-import pick from 'lodash/pick';
-import { stringify } from 'qs';
 
 function mergeParticipantData(directoryParticipant, resourceParticipant) {
   return {
@@ -54,7 +54,10 @@ class ParticipantDirectoryAPI extends RESTDataSource {
     ]);
 
     result.people = participant.people?.map((p) => {
-      return { person: pick(p.person, ['id', 'title', 'surname']) };
+      return {
+        ...pick(p, ['role', 'term']),
+        person: pick(p.person, ['id', 'title', 'firstName', 'surname']),
+      };
     });
 
     return result;
@@ -88,6 +91,69 @@ class ParticipantDirectoryAPI extends RESTDataSource {
         'addressCountry',
         'email',
         'role',
+      ]);
+    });
+    return reducedlist;
+  }
+
+  async getBudgetCommitteeReport() {
+    const list = await this.get(
+      `/directory/committee/budget_committee?format=json`,
+    );
+    const reducedlist = list.map((p) => {
+      return pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+    });
+    return reducedlist;
+  }
+
+  async getExecutiveCommitteeReport() {
+    const list = await this.get(
+      `/directory/committee/executive_committee?format=json`,
+    );
+    const reducedlist = list.map((p) => {
+      return pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+    });
+    return reducedlist;
+  }
+
+  async getScienceCommitteeReport() {
+    const list = await this.get(
+      `/directory/committee/science_committee?format=json`,
+    );
+    const reducedlist = list.map((p) => {
+      return pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+    });
+    return reducedlist;
+  }
+
+  async getNodeManagersCommitteeReport() {
+    const list = await this.get(
+      `/directory/committee/nodes_committee?format=json`,
+    );
+    const reducedlist = list.map((p) => {
+      return pick(p, [
+        'personId',
+        'name',
+        'title',
+        'email',
+        'roles',
+        'participationStatus',
+        'participant',
+      ]);
+    });
+    return reducedlist;
+  }
+
+  async getSecretariatReport() {
+    const list = await this.get(`/directory/report/11?format=json`);
+    const reducedlist = list.map((p) => {
+      return pick(p, [
+        'id',
+        'firstName',
+        'surname',
+        'jobTitle',
+        'email',
+        'address',
       ]);
     });
     return reducedlist;
@@ -169,6 +235,26 @@ class ParticipantAPI {
 
   async getNsgReport() {
     return this.directoryAPI.getNsgReport();
+  }
+
+  async getBudgetCommitteeReport() {
+    return this.directoryAPI.getBudgetCommitteeReport();
+  }
+
+  async getExecutiveCommitteeReport() {
+    return this.directoryAPI.getExecutiveCommitteeReport();
+  }
+
+  async getScienceCommitteeReport() {
+    return this.directoryAPI.getScienceCommitteeReport();
+  }
+
+  async getNodeManagersCommitteeReport() {
+    return this.directoryAPI.getNodeManagersCommitteeReport();
+  }
+
+  async getSecretariatReport() {
+    return this.directoryAPI.getSecretariatReport();
   }
 }
 

@@ -1,5 +1,3 @@
-import config from '#/config';
-import logger from '#/logger';
 import * as cheerio from 'cheerio';
 import { ParserOptions } from 'htmlparser2';
 import { merge } from 'lodash';
@@ -8,6 +6,8 @@ import sanitize, {
   IOptions,
   Transformer,
 } from 'sanitize-html';
+import logger from '#/logger';
+import config from '#/config';
 
 const DEFAULT_TRUST_LEVEL = 'untrusted';
 
@@ -187,6 +187,7 @@ const trustedDefaultOptions = merge<unknown, DefaultOptions, DefaultOptions>(
       'player.vimeo.com',
       'vimeo.com',
       'eepurl.com',
+      'www.google.com',
       ...GBIF_ORIGINS,
     ],
     transformTags: {

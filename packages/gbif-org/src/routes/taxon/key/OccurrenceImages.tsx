@@ -2,10 +2,9 @@ import { ClientImage as Image } from '@/components/image';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Button } from '@/components/ui/button';
 import {
-  OccurrenceSearchResult,
   Predicate,
-  TaxonOccurrenceImagesQuery,
-  TaxonOccurrenceImagesQueryVariables,
+  TaxonOccurrenceMediaQuery,
+  TaxonOccurrenceMediaQueryVariables,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -26,12 +25,12 @@ export function Images({
 }: {
   taxonKey: number;
   className?: string;
-  images?: OccurrenceSearchResult;
+  images?: TaxonOccurrenceMediaQuery;
   total?: number;
 }) {
   const [, setPreviewKey] = useEntityDrawer();
 
-  if (total && !images?.documents?.total) {
+  if (total && !images?.results) {
     return (
       <div className="g-inline-flex g-overflow-hidden">
         {Array.from({ length: Math.min(total, 2) }).map((x, i) => (
@@ -43,18 +42,18 @@ export function Images({
   return (
     <div className={cn(`galleryBar ${styles.galleryBar}`, className)} {...props}>
       <div>
-        {images?.documents.results
-          .filter((r) => !!r?.stillImages?.[0]?.identifier)
-          .map((occurrence) => {
+        {images?.results
+          .filter((r) => !!r?.identifier)
+          .map((img) => {
             return (
               <Image
                 className="g-cursor-pointer g-m-2"
-                key={occurrence?.key}
-                src={occurrence?.stillImages?.[0]?.identifier}
+                key={img?.occurrenceKey}
+                src={img?.identifier}
                 defaultSize={{ height: 200, width: 200 }}
                 wrapperProps={undefined}
                 onLoad={undefined}
-                onClick={() => setPreviewKey(`o_${occurrence?.key}`)}
+                onClick={() => setPreviewKey(`o_${img?.occurrenceKey}`)}
               />
             );
           })}
@@ -66,7 +65,7 @@ export function Images({
             <div className="g-flex g-place-items-center">
               <MdImage style={{ marginRight: 8 }} />{' '}
               <span>
-                <FormattedNumber value={images?.documents?.total} />
+                <FormattedNumber value={images?.count} />
               </span>
             </div>
           </SimpleTooltip>
@@ -77,8 +76,8 @@ export function Images({
 }
 
 const TaxonOccurrenceImages = ({ taxonKey, total }: { taxonKey: number; total: number }) => {
-  const { data, load } = useQuery<TaxonOccurrenceImagesQuery, TaxonOccurrenceImagesQueryVariables>(
-    TAXON_INSIGHTS,
+  const { data, load } = useQuery<TaxonOccurrenceMediaQuery, TaxonOccurrenceMediaQueryVariables>(
+    TAXON_OCCURRENCE_MEDIA,
     {
       lazyLoad: true,
       throwAllErrors: false,
@@ -88,12 +87,14 @@ const TaxonOccurrenceImages = ({ taxonKey, total }: { taxonKey: number; total: n
     if (!taxonKey) return;
     load({
       variables: {
-        imagePredicate: imagePredicate(taxonKey) as Predicate,
+        key: taxonKey as unknown as string,
       },
     });
   }, [taxonKey, load]);
 
-  return <Images taxonKey={taxonKey} total={total} images={data?.images ?? undefined} />;
+  return (
+    <Images taxonKey={taxonKey} total={total} images={data?.taxon?.occurrenceMedia ?? undefined} />
+  );
 };
 
 export function ImageSkeleton() {
@@ -106,16 +107,15 @@ export function ImageSkeleton() {
 
 export default TaxonOccurrenceImages;
 
-const TAXON_INSIGHTS = /* GraphQL */ `
-  query TaxonOccurrenceImages($imagePredicate: Predicate) {
-    images: occurrenceSearch(predicate: $imagePredicate) {
-      documents(size: 25) {
-        total
+const TAXON_OCCURRENCE_MEDIA = /* GraphQL */ `
+  query TaxonOccurrenceMedia($key: ID!) {
+    taxon(key: $key) {
+      occurrenceMedia(limit: 10, offset: 0) {
+        taxonKey
+        count
         results {
-          key
-          stillImages {
-            identifier: thumbor(height: 400)
-          }
+          occurrenceKey
+          identifier
         }
       }
     }

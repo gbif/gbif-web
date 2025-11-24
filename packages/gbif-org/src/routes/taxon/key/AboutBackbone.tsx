@@ -69,7 +69,7 @@ export default function AboutBackbone() {
             </aside>
           )} */}
           <div className="g-flex-grow">
-            {(data?.imagesCount?.documents?.total || 0) > 0 && (
+            {(data?.taxon?.imagesCount?.count || 0) > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
@@ -77,10 +77,7 @@ export default function AboutBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <OccurrenceImages
-                    total={data?.imagesCount?.documents?.total}
-                    taxonKey={taxon.key}
-                  />
+                  <OccurrenceImages total={data?.taxon?.imagesCount?.count} taxonKey={taxon.key} />
                 </CardContent>
               </Card>
             )}

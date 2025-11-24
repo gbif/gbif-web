@@ -1,12 +1,13 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Button } from '@/components/ui/button';
 import { GbifNetworkParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect, useMemo, useState } from 'react';
-import { MdClear, MdInfoOutline } from 'react-icons/md';
+import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Th } from './Table';
+import { FilterButtonGroup } from '@/components/filterButtonGroup';
+import { Table, Th } from '@/components/clientTable';
+import { cn } from '@/utils/shadcn';
 
 type SortField = 'name' | 'type' | 'memberSince' | 'region';
 type SortDirection = 'asc' | 'desc';
@@ -21,13 +22,34 @@ type ExtendedParticipant = Participant & {
 
 type ParticipantType = ParticipationStatus | 'OTHER_ASSOCIATE' | 'UNKNOWN';
 
+const uniqueRegions = ['AFRICA', 'ASIA', 'EUROPE', 'LATIN_AMERICA', 'NORTH_AMERICA', 'OCEANIA'];
+const types = ['AFFILIATE', 'OTHER_ASSOCIATE', 'VOTING'];
+
+const regionOptions = uniqueRegions.map((region) => ({
+  key: `region_${region}`,
+  label: <FormattedMessage id={`enums.gbifRegion.${region}`} />,
+}));
+
+const typeOptions = types.map((type) => ({
+  key: `type_${type}`,
+  label: <FormattedMessage id={`gbifNetwork.participationType.${type}`} />,
+}));
+
+const filterOptions = [...regionOptions, ...typeOptions];
+
 export default function Participants({ listData }: { listData: GbifNetworkParticipantsQuery }) {
   const { formatMessage } = useIntl();
   const [sortField, setSortField] = useState<SortField>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const [selectedType, setSelectedType] = useState<ParticipantType | null>(null);
   const [participants, setParticipants] = useState<ExtendedParticipant[]>([]);
+
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const selectedRegion = selectedFilter?.startsWith('region_')
+    ? selectedFilter.replace('region_', '')
+    : null;
+  const selectedType = selectedFilter?.startsWith('type_')
+    ? (selectedFilter.replace('type_', '') as ParticipantType)
+    : null;
 
   // reformat response to a list of participants + a lookup for countries participation status
   useEffect(() => {
@@ -53,9 +75,6 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
       setParticipants(activeNodes ?? []);
     }
   }, [listData]);
-
-  const uniqueRegions = ['AFRICA', 'ASIA', 'EUROPE', 'LATIN_AMERICA', 'NORTH_AMERICA', 'OCEANIA'];
-  const types = ['AFFILIATE', 'OTHER_ASSOCIATE', 'VOTING'];
 
   const handleSort = (field: SortField) => {
     if (field === sortField) {
@@ -107,6 +126,111 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
     });
   }, [participants, selectedRegion, sortField, sortDirection, formatMessage, selectedType]);
 
+  return (
+    <div>
+      {/* Region Filter */}
+      <ArticleTextContainer>
+        <div className="g-mb-6">
+          <FilterButtonGroup
+            options={filterOptions}
+            selectedValue={selectedFilter}
+            onSelect={setSelectedFilter}
+            allLabel={<FormattedMessage id="gbifNetwork.all" />}
+            clearLabel={<FormattedMessage id="gbifNetwork.clear" />}
+          />
+        </div>
+      </ArticleTextContainer>
+
+      {/* Summary Section */}
+      <Summary filteredAndSortedParticipants={filteredAndSortedParticipants} />
+
+      <Table>
+        <thead>
+          <tr>
+            <Th
+              className="g-text-left g-min-w-[200px] g-max-w-[400px]"
+              sortable
+              field="name"
+              sortField={sortField}
+              sortDirection={sortDirection}
+              onSort={handleSort}
+            >
+              <FormattedMessage id="gbifNetwork.participant" />
+            </Th>
+            <Th
+              className="g-text-start"
+              sortable
+              field="type"
+              sortField={sortField}
+              sortDirection={sortDirection}
+              onSort={handleSort}
+            >
+              <FormattedMessage id="gbifNetwork.type" />
+            </Th>
+            <Th
+              className="g-text-end"
+              sortable
+              field="memberSince"
+              sortField={sortField}
+              sortDirection={sortDirection}
+              onSort={handleSort}
+            >
+              <FormattedMessage id="gbifNetwork.memberSince" />
+            </Th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredAndSortedParticipants.map((participant, index) => (
+            <tr key={index}>
+              <td className="g-font-medium g-text-gray-900">
+                <DynamicLink
+                  pageId={participant.type === 'COUNTRY' ? 'countryKey' : 'participantKey'}
+                  variables={
+                    participant.type === 'COUNTRY'
+                      ? { countryCode: participant.country }
+                      : { key: participant.participant.id }
+                  }
+                >
+                  {participant.participant?.name}
+                </DynamicLink>
+              </td>
+              <td>
+                <span
+                  className={cn(
+                    'g-inline-flex g-whitespace-nowrap g-items-center g-px-2.5 g-py-0.5 g-rounded-full g-text-xs g-font-medium',
+                    'g-bg-blue-100 g-text-blue-800',
+                    {
+                      'g-bg-purple-100 g-text-purple-800':
+                        participant.participationType === 'VOTING',
+                      'g-bg-yellow-100 g-text-yellow-800':
+                        participant.participationType === 'ASSOCIATE',
+                    }
+                  )}
+                >
+                  <FormattedMessage
+                    id={`gbifNetwork.participationType.${participant.participationType}`}
+                  />
+                  {participant.participationType === 'AFFILIATE' && (
+                    <SimpleTooltip title={<FormattedMessage id="gbifNetwork.affiliateHelp" />}>
+                      <MdInfoOutline className="g-ms-1" />
+                    </SimpleTooltip>
+                  )}
+                </span>
+              </td>
+              <td className="g-text-end">{participant.membershipStart}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
+  );
+}
+
+function Summary({
+  filteredAndSortedParticipants,
+}: {
+  filteredAndSortedParticipants: ExtendedParticipant[];
+}) {
   const typeCounts = useMemo(() => {
     const counts: Record<ParticipantType, number> = {
       VOTING: 0,
@@ -128,190 +252,53 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
   }, [filteredAndSortedParticipants]);
 
   return (
-    <div>
-      {/* Region Filter */}
-      <ArticleTextContainer>
-        <div className="g-mb-6">
-          <div className="g-flex g-flex-wrap g-gap-2">
-            <Button
-              variant={!selectedRegion && !selectedType ? 'default' : 'primaryOutline'}
-              onClick={() => {
-                setSelectedType(null);
-                setSelectedRegion(null);
-              }}
-            >
-              <FormattedMessage id="gbifNetwork.all" />
-            </Button>
-            {uniqueRegions.map((region) => (
-              <Button
-                key={region}
-                onClick={() => {
-                  setSelectedType(null);
-                  setSelectedRegion(region);
-                }}
-                variant={selectedRegion === region ? 'default' : 'primaryOutline'}
-              >
-                <FormattedMessage id={`enums.gbifRegion.${region}`} />
-              </Button>
-            ))}
-            {types.map((type) => (
-              <Button
-                key={type}
-                onClick={() => {
-                  setSelectedType(type);
-                  setSelectedRegion(null);
-                }}
-                variant={selectedRegion === type ? 'default' : 'primaryOutline'}
-              >
-                <FormattedMessage id={`gbifNetwork.participationType.${type}`} />
-              </Button>
-            ))}
-            {(selectedRegion || selectedType) && (
-              <Button
-                onClick={() => {
-                  setSelectedRegion(null);
-                  setSelectedType(null);
-                }}
-                variant="destructiveSecondary"
-              >
-                <MdClear className="g-h-4 g-w-4" />
-                <FormattedMessage id="gbifNetwork.clear" />
-              </Button>
-            )}
-          </div>
-        </div>
-      </ArticleTextContainer>
-
-      {/* Summary Section */}
-      <ArticleTextContainer>
-        <div className="g-mb-6 g-p-4 g-bg-gray-50 g-rounded-lg">
-          <div className="g-text-sm g-text-gray-700">
-            <span className="g-font-semibold">
+    <ArticleTextContainer>
+      <div className="g-mb-6 g-p-4 g-bg-gray-50 g-rounded-lg">
+        <div className="g-text-sm g-text-gray-700">
+          <span className="g-font-semibold">
+            <FormattedMessage
+              id="counts.nParticipants"
+              values={{ total: filteredAndSortedParticipants.length }}
+            />
+          </span>
+          {(typeCounts.VOTING > 0 ||
+            typeCounts.ASSOCIATE > 0 ||
+            typeCounts.AFFILIATE > 0 ||
+            typeCounts.OTHER_ASSOCIATE > 0) && <span className="g-mx-2">—</span>}
+          {typeCounts.VOTING > 0 && (
+            <span className="g-mr-3">
               <FormattedMessage
-                id="counts.nParticipants"
-                values={{ total: filteredAndSortedParticipants.length }}
+                id="counts.nVotingParticipants"
+                values={{ total: typeCounts.VOTING }}
               />
             </span>
-            {(typeCounts.VOTING > 0 ||
-              typeCounts.ASSOCIATE > 0 ||
-              typeCounts.AFFILIATE > 0 ||
-              typeCounts.OTHER_ASSOCIATE > 0) && <span className="g-mx-2">—</span>}
-            {typeCounts.VOTING > 0 && (
-              <span className="g-mr-3">
-                <FormattedMessage
-                  id="counts.nVotingParticipants"
-                  values={{ total: typeCounts.VOTING }}
-                />
-              </span>
-            )}
-            {typeCounts.ASSOCIATE > 0 && (
-              <span className="g-mr-3">
-                <FormattedMessage
-                  id="counts.nAssociateParticipants"
-                  values={{ total: typeCounts.ASSOCIATE }}
-                />
-              </span>
-            )}
-            {typeCounts.AFFILIATE > 0 && (
-              <span className="g-mr-3">
-                <FormattedMessage
-                  id="counts.nAffiliateParticipants"
-                  values={{ total: typeCounts.AFFILIATE }}
-                />
-              </span>
-            )}
-            {typeCounts.OTHER_ASSOCIATE > 0 && (
-              <span className="g-mr-3">
-                <FormattedMessage
-                  id="counts.nOtherAssociateParticipants"
-                  values={{ total: typeCounts.OTHER_ASSOCIATE }}
-                />
-              </span>
-            )}
-          </div>
-        </div>
-      </ArticleTextContainer>
-
-      <div className="g-max-w-full g-m-auto">
-        <div className="g-overflow-auto">
-          <table>
-            <thead>
-              <tr>
-                <Th
-                  className="g-text-left g-min-w-[200px] g-max-w-[400px]"
-                  sortable
-                  field="name"
-                  sortField={sortField}
-                  sortDirection={sortDirection}
-                  onSort={handleSort}
-                >
-                  <FormattedMessage id="gbifNetwork.participant" />
-                </Th>
-                <Th
-                  className="g-text-start"
-                  sortable
-                  field="type"
-                  sortField={sortField}
-                  sortDirection={sortDirection}
-                  onSort={handleSort}
-                >
-                  <FormattedMessage id="gbifNetwork.type" />
-                </Th>
-                <Th
-                  className="g-text-end"
-                  sortable
-                  field="memberSince"
-                  sortField={sortField}
-                  sortDirection={sortDirection}
-                  onSort={handleSort}
-                >
-                  <FormattedMessage id="gbifNetwork.memberSince" />
-                </Th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredAndSortedParticipants.map((participant, index) => (
-                <tr key={index}>
-                  <td className="g-font-medium g-text-gray-900">
-                    <DynamicLink
-                      pageId={participant.type === 'COUNTRY' ? 'countryKey' : 'participantKey'}
-                      variables={
-                        participant.type === 'COUNTRY'
-                          ? { countryCode: participant.country }
-                          : { key: participant.participant.id }
-                      }
-                    >
-                      {participant.participant?.name}
-                    </DynamicLink>
-                  </td>
-                  <td>
-                    <span
-                      className={`g-inline-flex g-whitespace-nowrap g-items-center g-px-2.5 g-py-0.5 g-rounded-full g-text-xs g-font-medium
-                          ${
-                            participant.participationType === 'VOTING'
-                              ? 'g-bg-purple-100 g-text-purple-800'
-                              : participant.participationType === 'ASSOCIATE'
-                              ? 'g-bg-yellow-100 g-text-yellow-800'
-                              : 'g-bg-blue-100 g-text-blue-800'
-                          }`}
-                    >
-                      <FormattedMessage
-                        id={`gbifNetwork.participationType.${participant.participationType}`}
-                      />
-                      {participant.participationType === 'AFFILIATE' && (
-                        <SimpleTooltip title={<FormattedMessage id="gbifNetwork.affiliateHelp" />}>
-                          <MdInfoOutline className="g-ms-1" />
-                        </SimpleTooltip>
-                      )}
-                    </span>
-                  </td>
-                  <td className="g-text-end">{participant.membershipStart}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          )}
+          {typeCounts.ASSOCIATE > 0 && (
+            <span className="g-mr-3">
+              <FormattedMessage
+                id="counts.nAssociateParticipants"
+                values={{ total: typeCounts.ASSOCIATE }}
+              />
+            </span>
+          )}
+          {typeCounts.AFFILIATE > 0 && (
+            <span className="g-mr-3">
+              <FormattedMessage
+                id="counts.nAffiliateParticipants"
+                values={{ total: typeCounts.AFFILIATE }}
+              />
+            </span>
+          )}
+          {typeCounts.OTHER_ASSOCIATE > 0 && (
+            <span className="g-mr-3">
+              <FormattedMessage
+                id="counts.nOtherAssociateParticipants"
+                values={{ total: typeCounts.OTHER_ASSOCIATE }}
+              />
+            </span>
+          )}
         </div>
       </div>
-    </div>
+    </ArticleTextContainer>
   );
 }

@@ -10,6 +10,15 @@ const taxonDetails =
     });
   };
 
+const taxonOccurrenceMedia = (parent, args, { dataSources }) =>
+  dataSources.taxonAPI.getTaxonOccurrenceMedia({
+    taxonKey: parent.key,
+    limit: 10,
+    offset: 0,
+    mediaType: 'stillImage',
+    ...args,
+  });
+
 const optionalTaxonDetails = (resource) => {
   const details = taxonDetails(resource);
   return async (parent, args, context, info) => {
@@ -59,6 +68,7 @@ export default {
     },
     typeSpecimens: taxonDetails('typeSpecimens'),
     iucnRedListCategory: taxonDetails('iucnRedListCategory'),
+    occurrenceMedia: taxonOccurrenceMedia,
   },
   TaxonVernacularName: {
     sourceTaxon: (parent, args, { dataSources }) =>

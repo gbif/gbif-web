@@ -102,9 +102,13 @@ const getDoi = (text: any) => {
   }
 };
 
+export const DEFAULT_SANITIZE_OPTIONS: DOMPurify.Config = {
+  ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
+};
+
 export const HyperText = ({
   text,
-  sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'] },
+  sanitizeOptions = DEFAULT_SANITIZE_OPTIONS,
   fallback,
   className,
   ...props

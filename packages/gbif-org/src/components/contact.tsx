@@ -4,7 +4,7 @@ import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md'
 import { FormattedMessage } from 'react-intl';
 
 export function ContactHeader({ children }: { children: React.ReactNode }) {
-  return <div className="g-flex g-mb-4">{children}</div>;
+  return <div className="g-flex g-items-center g-mb-4">{children}</div>;
 }
 
 export function ContactHeaderContent({ children }: { children: React.ReactNode }) {
@@ -15,11 +15,23 @@ export function ContactAvatar({
   firstName,
   lastName,
   organization,
+  profilePictureBase64,
 }: {
   firstName?: string | null;
   lastName?: string | null;
   organization?: string | null;
+  profilePictureBase64?: string | null;
 }) {
+  if (profilePictureBase64) {
+    return (
+      <img
+        src={`data:image/jpeg;base64,${profilePictureBase64}`}
+        alt={firstName || lastName || organization || ''}
+        className="g-w-12 g-h-12 g-rounded-full g-object-cover g-me-4"
+      />
+    );
+  }
+
   const initials = getInitials({ firstName, lastName });
   let content = <FaUserAlt />;
   if (!firstName && !lastName && organization) content = <FaBuilding />;
