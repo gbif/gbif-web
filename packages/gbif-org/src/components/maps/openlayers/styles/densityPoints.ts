@@ -1,75 +1,69 @@
 import { type Theme } from '@/config/theme/theme';
+import { getMapThemeValues } from '@/routes/occurrence/search/views/map/Map/getLayerConfig';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { type StyleFunction } from 'ol/style/Style';
 
-const thresholds = function (total: number) {
-  if (total <= 10) return 0;
-  if (total <= 100) return 1;
-  if (total <= 1000) return 2;
-  if (total <= 10000) return 3;
-  return 4;
+const thresholds = function (thresholds: number[], total: number) {
+  // get index based in which threshold the total falls into
+  for (let i = 0; i < thresholds.length; i++) {
+    const nextThreshold = thresholds[i + 1] || Number.MAX_VALUE;
+    if (total <= nextThreshold) {
+      return i;
+    }
+  }
+  return thresholds.length - 1;
 };
 
-function getDensityPoint(theme?: Theme) {
-  const densityColours = theme?.mapDensityColors ?? [
-    '#fed976',
-    '#fd8d3c',
-    '#fd8d3c',
-    '#f03b20',
-    '#bd0026',
-  ];
-  const densityPoints = [
-    new Style({
-      image: new Circle({
-        fill: new Fill({ color: densityColours[0] }),
-        stroke: new Stroke({
-          color: densityColours[2],
-          width: 1,
-        }),
-        radius: 4,
-      }),
-      fill: new Fill({ color: densityColours[0] }),
-    }),
-    new Style({
-      image: new Circle({
-        fill: new Fill({ color: densityColours[1] + 'cc' }),
-        stroke: new Stroke({
-          color: densityColours[2],
-          width: 1,
-        }),
-        radius: 4,
-      }),
-      fill: new Fill({ color: densityColours[1] + 'cc' }),
-    }),
-    new Style({
-      image: new Circle({
-        fill: new Fill({ color: densityColours[2] + 'bb' }),
-        radius: 5,
-      }),
-      fill: new Fill({ color: densityColours[2] + 'bb' }),
-    }),
-    new Style({
-      image: new Circle({
-        fill: new Fill({ color: densityColours[3] + '88' }),
-        radius: 8,
-      }),
-      fill: new Fill({ color: densityColours[3] + '88' }),
-    }),
-    new Style({
-      image: new Circle({
-        fill: new Fill({ color: densityColours[4] + '88' }),
-        radius: 12,
-      }),
-      fill: new Fill({ color: densityColours[4] + '88' }),
-    }),
-  ];
-  return densityPoints;
+/**
+ * Converts a hex color and opacity fraction to hex with alpha channel
+ * @param {string} hex - Hex color (e.g., '#ff0000' or 'ff0000')
+ * @param {number} opacity - Opacity from 0 to 1
+ * @returns {string} Hex color with alpha channel (e.g., '#ff0000cc')
+ */
+function addOpacityToHex(hex: string, opacity: number): string {
+  // Remove # if present
+  const cleanHex = hex.replace('#', '');
+
+  // Convert opacity (0-1) to hex (00-ff)
+  const alpha = Math.round(opacity * 255)
+    .toString(16)
+    .padStart(2, '0');
+
+  return `#${cleanHex}${alpha}`;
 }
 
-export default function (siteTheme?: Theme): StyleFunction {
-  const densityPoints = getDensityPoint(siteTheme);
+function getDensityPoint(mapPointThresholds: number[], theme: Partial<Theme>): Style[] {
+  const { mapDensityColors, mapPointOpacities, mapPointSizes } = getMapThemeValues({ theme });
+
+  const pointStyle = mapPointThresholds.map((_threshold, index) => {
+    return new Style({
+      image: new Circle({
+        fill: new Fill({
+          color: addOpacityToHex(mapDensityColors[index], mapPointOpacities[index]),
+        }),
+        // only add a stroke for the lower density points
+        stroke:
+          index < mapDensityColors.length - 1
+            ? new Stroke({
+                color: mapDensityColors[index + 1] ?? mapDensityColors[index - 1],
+                width: 1,
+              })
+            : undefined,
+        radius: mapPointSizes[index],
+      }),
+      fill: new Fill({ color: addOpacityToHex(mapDensityColors[index], mapPointOpacities[index]) }),
+    });
+  });
+
+  return pointStyle;
+}
+
+export default function (siteTheme: Partial<Theme>): StyleFunction {
+  const mapPointThresholds = [0, 10, 100, 1000, 10000];
+
+  const densityPoints = getDensityPoint(mapPointThresholds, siteTheme);
   return function (feature) {
-    const total = thresholds(feature.get('total'));
+    const total = thresholds(mapPointThresholds, feature.get('total'));
     return densityPoints[total];
   };
 }

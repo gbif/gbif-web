@@ -1,25 +1,55 @@
 import { useCallback } from 'react';
-import { MAP_BOUNDS, STORAGE_KEYS } from './mapConstants';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 
-type MapPosition = {
+/** Map bounds constraints */
+const MAP_BOUNDS = {
+  MIN_ZOOM: 0,
+  MAX_ZOOM: 20,
+  MIN_LNG: -180,
+  MAX_LNG: 180,
+} as const;
+
+/** Session storage keys */
+export const STORAGE_KEYS = {
+  MAP_ZOOM: 'mapZoom',
+  MAP_LNG: 'mapLng',
+  MAP_LAT: 'mapLat',
+  DEFAULT_PROJECTION: 'defaultOccurrenceProjection',
+  DEFAULT_LAYER: 'defaultOccurrenceLayer',
+} as const;
+
+type MapState = {
   lat: number;
   lng: number;
   zoom: number;
 };
 
 /**
+ * Map position storage interface
+ */
+export interface MapPosition {
+  getStoredPosition: (constraints?: { maxLat?: number; minLat?: number }) => {
+    lat: number;
+    lng: number;
+    zoom: number;
+  };
+  savePosition: (position: { lat: number; lng: number; zoom: number }) => void;
+}
+
+/**
  * Custom hook for managing map position in session storage
  * Provides methods to get and set map position with proper bounds checking
  */
-export function useMapPosition(defaultMapSettings?: OccurrenceSearchMetadata['mapSettings']) {
+export function useMapPosition(
+  defaultMapSettings?: OccurrenceSearchMetadata['mapSettings']
+): MapPosition {
   /**
    * Retrieves the stored map position from session storage
    * Falls back to default settings if no stored position exists
    * Enforces bounds to ensure valid coordinates
    */
   const getStoredPosition = useCallback(
-    ({ maxLat = 90, minLat = -90 }: { maxLat?: number; minLat?: number } = {}): MapPosition => {
+    ({ maxLat = 90, minLat = -90 }: { maxLat?: number; minLat?: number } = {}): MapState => {
       let zoom = Number(
         sessionStorage.getItem(STORAGE_KEYS.MAP_ZOOM) || defaultMapSettings?.zoom || 0
       );
@@ -46,7 +76,7 @@ export function useMapPosition(defaultMapSettings?: OccurrenceSearchMetadata['ma
   /**
    * Saves the current map position to session storage
    */
-  const savePosition = useCallback((position: MapPosition) => {
+  const savePosition = useCallback((position: MapState) => {
     sessionStorage.setItem(STORAGE_KEYS.MAP_ZOOM, position.zoom.toString());
     sessionStorage.setItem(STORAGE_KEYS.MAP_LNG, position.lng.toString());
     sessionStorage.setItem(STORAGE_KEYS.MAP_LAT, position.lat.toString());

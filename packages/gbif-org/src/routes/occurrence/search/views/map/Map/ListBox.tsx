@@ -4,11 +4,16 @@ import StripeLoader from '@/components/stripeLoader';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
-// import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
-// import ThemeContext from '../../../../style/themes/ThemeContext';
-// import { styledScrollBars } from '../../../../style/shared';
+import { OccurrencePointQuery } from '@/gql/graphql';
 
-function ListItem({ id, item, onClick = (id) => {}, ...props }) {
+interface ListItemProps {
+  id: string;
+  item: NonNullable<OccurrencePointQuery['occurrenceSearch']>['documents']['results'][0];
+  onClick?: (params: { id: string }) => void;
+}
+
+function ListItem({ id, item, onClick = () => {} }: ListItemProps) {
+  if (!item) return null;
   return (
     <button
       className="gbif-listItem g-text-start g-w-full g-border-b g-p-2 g-text-sm g-min-h-20"
@@ -21,7 +26,8 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
             dangerouslySetInnerHTML={{
               __html:
                 item.classification?.taxonMatch?.usage?.canonicalName ??
-                item.classification?.usage?.name,
+                item.classification?.usage?.name ??
+                '',
             }}
           ></h4>
           {item.eventDate && (
@@ -32,13 +38,14 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
               />
             </div>
           )}
-          {/* <div className="g-text-slate-500">
-            <BasisOfRecordLabel id={item.basisOfRecord} />
-          </div> */}
         </div>
         {item.primaryImage?.identifier && (
           <div className="g-flex-none g-block g-w-[60px] g-h-[60px] g-bg-slate-100 g-rounded g-border">
-            <img src={item.primaryImage?.identifier} className="g-w-full g-h-full g-rounded" />
+            <img
+              src={item.primaryImage?.identifier}
+              className="g-w-full g-h-full g-rounded"
+              alt=""
+            />
           </div>
         )}
       </div>
@@ -46,10 +53,27 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
   );
 }
 
-function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
+interface ListBoxProps {
+  className?: string;
+  onCloseRequest?: () => void;
+  onClick?: (params: { index: number }) => void;
+  data?: OccurrencePointQuery;
+  error?: Error | null;
+  loading?: boolean;
+}
+
+function ListBox({
+  className,
+  onCloseRequest,
+  onClick = () => {},
+  data,
+  error,
+  loading,
+  ...props
+}: ListBoxProps) {
   if (!error && !loading && !data) return null;
 
-  const criticalError = error && !data.occurrenceSearch?.documents?.results;
+  const criticalError = error && !data?.occurrenceSearch?.documents?.results;
 
   let content;
   if (loading) {
@@ -69,7 +93,7 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
         error={error}
         type={'CARD'}
         className={className}
-        errorMessage={error.message}
+        errorMessage={error?.message}
       />
     );
   } else if (data) {
@@ -88,13 +112,16 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
   }
 
   return (
-    <section {...props} className={cn('g-flex g-flex-col g-bg-white g-border', className)}>
+    <section
+      {...props}
+      className={cn('g-flex g-flex-col g-bg-white g-border g-h-auto g-max-h-full', className)}
+    >
       <header className="g-flex g-flex-col g-flex-none g-border-b g-text-sm g-font-bold g-px-2 g-py-1">
         <div className="g-flex g-flex-row g-items-center">
           <h3 className="g-flex-1">
             <FormattedMessage
               id="counts.nResults"
-              values={{ total: data?.occurrenceSearch?.documents.total }}
+              values={{ total: data?.occurrenceSearch?.documents?.total }}
             />
           </h3>
           <div className="g-flex-0">

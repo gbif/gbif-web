@@ -115,6 +115,8 @@ const build = (theme: Partial<Theme>): Theme => {
     drawerZIndex: fullTheme.drawerZIndex,
     stickyOffset: fullTheme.stickyOffset,
     mapDensityColors: fullTheme.mapDensityColors ?? brightMapColors,
+    mapPointOpacities: fullTheme.mapPointOpacities ?? [0.9, 0.7, 0.6, 0.6, 0.5],
+    mapPointSizes: fullTheme.mapPointSizes ?? [4, 4, 5, 6, 8],
     chartColors: fullTheme.chartColors ?? chartColors,
     iucnColors: fullTheme.iucnColors ?? iucnColors,
 
