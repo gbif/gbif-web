@@ -959,3 +959,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   padding: 2px 4px;
   z-index: 1000;
 }
+
+.gbifHl {
+  font-weight: bold !important;
+  color: #000;
+}

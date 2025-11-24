@@ -1,6 +1,6 @@
-import config from '#/config';
 import axios from 'axios';
 import { GraphQLError } from 'graphql';
+import config from '#/config';
 
 const DEFAULT_CHECKLIST_KEY =
   config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
@@ -221,6 +221,37 @@ const getTreatments = async ({ key }, args, { dataSources }) => {
   return treatments;
 };
 
+const extractHighlights = (data) => {
+  const re =
+    /(([^\s>]+)\s){0,3}(\s*<em class="gbifHl">[^<]*<\/em>\s*)+([^\s<]+\s){0,2}([^\s<]*)/;
+
+  const results = data.results.map((item) => {
+    const highlights = { descriptions: [], vernacularNames: [] };
+    if (item.descriptions) {
+      for (let i = 0; i < item.descriptions.length; i++) {
+        const match = re.exec(item.descriptions[i].description);
+        if (match) {
+          highlights.descriptions.push(match[0]);
+        }
+      }
+    }
+
+    if (item.vernacularNames) {
+      for (let i = 0; i < item.vernacularNames.length; i++) {
+        if (
+          item.vernacularNames[i].vernacularName.indexOf(
+            '<em class="gbifHl">',
+          ) > -1
+        ) {
+          highlights.vernacularNames.push(item.vernacularNames[i]);
+        }
+      }
+    }
+    return { ...item, highlights };
+  });
+  return { ...data, results };
+};
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -231,9 +262,13 @@ const getTreatments = async ({ key }, args, { dataSources }) => {
 export default {
   Query: {
     taxonSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
-      dataSources.taxonAPI.searchTaxa({ query: { ...args, ...query } }),
+      dataSources.taxonAPI
+        .searchTaxa({ query: { ...args, ...query } })
+        .then(extractHighlights),
     backboneSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
-      dataSources.taxonAPI.searchBackbone({ query: { ...args, ...query } }),
+      dataSources.taxonAPI
+        .searchBackbone({ query: { ...args, ...query } })
+        .then(extractHighlights),
     taxon: (parent, { key }, { dataSources }) =>
       dataSources.taxonAPI.getTaxonByKey({ key }),
     checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>

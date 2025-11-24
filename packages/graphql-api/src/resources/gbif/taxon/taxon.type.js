@@ -144,7 +144,10 @@ const typeDef = gql`
     taxonID: String
     taxonomicStatus: String
     vernacularName: String
-
+    """
+    If hl is true, this field contains the highlights from the search query.
+    """
+    highlights: JSON
     wikiData: WikiDataTaxonData
     backboneTaxon: Taxon
     acceptedTaxon: Taxon

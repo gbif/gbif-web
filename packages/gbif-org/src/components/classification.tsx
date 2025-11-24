@@ -43,7 +43,7 @@ export function TaxonClassification({
             variables={{ key: datasetKey ? `${datasetKey}/species/${c.key}` : c.key }}
             className="g-text-inherit hover:g-underline"
           >
-            <span>{c.name}</span>
+            <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>
           </DynamicLink>
         </span>
       ))}

@@ -7,9 +7,22 @@ import { GoSidebarExpand } from 'react-icons/go';
 import { MdInfoOutline, MdLock, MdLockOpen } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleTaxonSearchResult } from './table';
+import { cn } from '@/utils/shadcn';
+import styles from '@/components/classification.module.css';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
+};
+
+const hasHighlightsInTaxonomy = (taxon) => {
+  if (!taxon) return false;
+  let hl = false;
+  return ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].some((rank) => {
+    if (taxon?.[rank] && taxon?.[rank].includes('<em class="gbifHl">')) {
+      hl = true;
+    }
+    return hl;
+  });
 };
 
 export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSearchResult>[] {
@@ -22,6 +35,8 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
         minWidth: 250,
         cell: (taxon) => {
           const vernacular = taxon.vernacularNames?.results?.[0];
+          const highlights = taxon.highlights;
+          const hasHlInTaxonomy = hasHighlightsInTaxonomy(taxon);
           return (
             <div className="g-inline-flex g-items-center g-w-full">
               {typeof showPreview === 'function' && (
@@ -58,6 +73,13 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                       <MdInfoOutline />
                     </div>
                   </SimpleTooltip>
+                )}
+                {!hasHlInTaxonomy && highlights?.descriptions?.length > 0 && (
+                  <div className="g-mt-1 g-text-sm g-text-slate-600">
+                    ...{' '}
+                    <span dangerouslySetInnerHTML={{ __html: highlights.descriptions[0] }}></span>{' '}
+                    ...
+                  </div>
                 )}
               </div>
             </div>
