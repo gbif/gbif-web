@@ -9,7 +9,7 @@ import { getPieOptions } from './pie';
 // import { getTimeSeriesOptions } from './area';
 import { Button } from '@/components/ui/button';
 import formatAsPercentage from '@/utils/formatAsPercentage';
-import { BsFillBarChartFill, BsMap, BsMapFill, BsPieChartFill } from 'react-icons/bs';
+import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
 import { MdViewStream } from 'react-icons/md';
 import { useUncontrolledProp } from 'uncontrollable';
 import { GroupBy, Pagging, useFacets } from './GroupByTable';
@@ -17,6 +17,7 @@ import { getTimeSeriesOptions } from './time';
 import { useConfig } from '@/config/config';
 import { Map } from './map/map';
 import { IoMapSharp } from 'react-icons/io5';
+import { hash } from '@/utils/hash';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
@@ -266,6 +267,7 @@ export function OneDimensionalChart({
   // const singleValue = notEmptyResults?.length === 1 ? notEmptyResults[0] : null;
   // const renderedView = singleValue ? 'TABLE' : view;
 
+  const contextHash = hash(facetQuery);
   return (
     <Card
       {...props}
@@ -320,7 +322,7 @@ export function OneDimensionalChart({
                     onClick={handleRedirect}
                     interactive={interactive}
                     palette={palette}
-                    currentFilterHash={currentFilter}
+                    contextHash={contextHash}
                   />
                 )}
               </div>

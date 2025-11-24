@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { hash } from '@/utils/hash';
-// import { Button, Progress, Skeleton, Tooltip } from '../../../components';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FormattedMessage } from 'react-intl';
 import { AdHocMapProps } from '@/routes/occurrence/search/views/map/Map/AdHocMap';
-const AdHocMap = React.lazy(() => import('@/routes/occurrence/search/views/map/Map/AdHocMap'));
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { FormattedNumber, Table } from '../../shared';
 import { SimpleTooltip as Tooltip } from '@/components/simpleTooltip';
@@ -15,9 +13,10 @@ import { cn } from '@/utils/shadcn';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import useQuery from '@/hooks/useQuery';
+const AdHocMap = React.lazy(() => import('@/routes/occurrence/search/views/map/Map/AdHocMap'));
 
 function FacetMap({
-  currentFilterHash,
+  contextHash,
   loading,
   columnTitle = 'Value',
   columnCount = 'Occurrences',
@@ -39,8 +38,7 @@ function FacetMap({
 
   useEffect(() => {
     setShowSpeciesCounts(false);
-  }, [currentFilterHash, loading]);
-  console.log(currentFilterHash);
+  }, [contextHash]);
 
   if (loading) {
     return (
@@ -124,18 +122,6 @@ function FacetMap({
       </div>
       <div style={{ overflow: 'auto' }}>
         <Table removeBorder={false}>
-          {/* {columnTitle && (
-            <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
-              <tr>
-                <th></th>
-                <th></th>
-                <th className="g-text-start">{columnTitle}</th>
-                <th className="g-text-end">{columnCount}</th>
-                <th className="g-text-end">With coordinates</th>
-                <th>Distinct species</th>
-              </tr>
-            </thead>
-          )} */}
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="facet-map-table">
               {(provided) => (
@@ -340,7 +326,7 @@ function SpeciesCount({ predicate }) {
   return <FormattedNumber value={data?.search?.cardinality?.total || 0} />;
 }
 
-export function Map({ facetResults, transform, currentFilterHash, ...props }) {
+export function Map({ facetResults, transform, contextHash, ...props }) {
   if (!facetResults) {
     return null;
   }
@@ -353,7 +339,7 @@ export function Map({ facetResults, transform, currentFilterHash, ...props }) {
         total={total}
         {...props}
         loading={loading}
-        currentFilterHash={currentFilterHash}
+        contextHash={contextHash}
         distinct={distinct}
       />
     </>
