@@ -162,7 +162,7 @@
   },
   "institutionType": {
     "name": "Typ",
-    "count": "",
+    "count": "{num, plural, one {# typ} few {# typy} many {# typů} other {# typů}}",
     "description": "Typ instituce (muzeum, herbář atd.)"
   },
   "discipline": {
@@ -284,7 +284,7 @@
   },
   "datasetId": {
     "name": "ID datové sady",
-    "count": "",
+    "count": "{num, plural, one {dataset ID} few {# dataset ID} many {# dataset ID} other {# dataset ID}}",
     "description": "Interní identifikátor vydavatele pro datový soubor, ke kterému je záznam přiřazen. Upozorňujeme, že se liší od identifikátoru datasetKey používaného v GBIF pro daný datový soubor."
   },
   "publisherKey": {
@@ -529,7 +529,7 @@
   },
   "measurementOrFactCount": {
     "name": "Počet měření",
-    "count": "",
+    "count": "{num, plural, one {měření} few {# měření} many {# měření} other {# měření}}",
     "description": "Počet daného typu měření."
   },
   "occurrenceCount": {
