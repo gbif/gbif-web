@@ -108,7 +108,7 @@ function predicate2esQuery(predicate, q) {
     .then((response) => {
       if (!response.ok) {
         throw new ResponseError(
-          400,
+          response.status || 400,
           'INVALID_PREDICATE',
           `The predicate could not be interpreted by the API`,
         );
