@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 // import { Button, Progress, Skeleton, Tooltip } from '../../../components';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FormattedMessage } from 'react-intl';
@@ -7,11 +7,12 @@ const AdHocMap = React.lazy(() => import('@/routes/occurrence/search/views/map/M
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { FormattedNumber, Table } from '../../shared';
 import { SimpleTooltip as Tooltip } from '@/components/simpleTooltip';
-import { MdLocationPin, MdPin, MdPinDrop } from 'react-icons/md';
-import { OccurrenceIcon } from '@/components/highlights';
-import { Count, useOccurrenceCount } from '@/components/count';
+import { MdLocationPin, MdOutlineDragIndicator as MdDragHandle } from 'react-icons/md';
+import { useOccurrenceCount } from '@/components/count';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { cn } from '@/utils/shadcn';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 function FacetMap({
   predicate,
@@ -23,8 +24,16 @@ function FacetMap({
   interactive = false,
   total = 800,
   palette,
+  distinct = 0,
   ...props
 }) {
+  const [orderedResults, setOrderedResults] = useState(results);
+
+  // Update ordered results when results prop changes
+  useEffect(() => {
+    setOrderedResults(results.map((r, i) => ({ ...r, colorIndex: i })));
+  }, [results]);
+
   if (loading) {
     return (
       <div>
@@ -38,17 +47,38 @@ function FacetMap({
     );
   }
 
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = (result) => {
+    // Dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedResults = reorder(orderedResults, result.source.index, result.destination.index);
+
+    setOrderedResults(reorderedResults);
+  };
+
   const mapProps: AdHocMapProps = {
-    overlays: results.map((r, i) => ({
-      id: r.key,
-      predicate: r.occurrences?._meta.predicate || predicate,
-      predicateHash: r.occurrences?.metaPredicate || '',
-      style: {
-        mapDensityColors: [palette[i % palette.length]],
-        mapPointOpacities: [0.9, 0.9, 0.8, 0.8, 0.7],
-        mapPointSizes: [3, 3, 4, 5, 5],
-      },
-    })),
+    overlays: orderedResults
+      .map((r, i) => ({
+        id: r.key,
+        predicate: r.occurrences?._meta.predicate || predicate,
+        predicateHash: r.occurrences?.metaPredicate || '',
+        style: {
+          mapDensityColors: [palette[r.colorIndex % palette.length]],
+          mapPointOpacities: [1, 1, 0.95, 0.9, 0.85],
+          mapPointSizes: [3, 3, 4, 5, 5],
+        },
+        hidden: r.hidden,
+      }))
+      .reverse(),
     loading,
     // features,
     tools: {
@@ -65,31 +95,57 @@ function FacetMap({
       <ClientSideOnly>
         <AdHocMap {...mapProps} />
       </ClientSideOnly>
+      <div className="g-text-sm g-text-slate-500 g-mb-1 g-mt-2">
+        {loading && <Skeleton className="g-h-6 g-mb-2" />}
+        {!loading && distinct > 0 && (
+          <>
+            <FormattedMessage id="counts.nResults" values={{ total: distinct }} />
+          </>
+        )}
+      </div>
       <div style={{ overflow: 'auto' }}>
         <Table removeBorder={false}>
           {columnTitle && (
             <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
               <tr>
+                <th className="g-w-8"></th>
                 <th className="g-text-start">{columnTitle}</th>
                 <th className="g-text-end">{columnCount}</th>
                 <th></th>
               </tr>
             </thead>
           )}
-          <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
-            {results.map((e, i) => {
-              return (
-                <Row
-                  key={e.key}
-                  row={e}
-                  total={total}
-                  interactive={interactive}
-                  onClick={onClick}
-                  color={palette[i % palette.length]}
-                />
-              );
-            })}
-          </tbody>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="facet-map-table">
+              {(provided) => (
+                <tbody
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal"
+                >
+                  {orderedResults.map((e, i) => {
+                    return (
+                      <Row
+                        key={e.key}
+                        row={e}
+                        index={i}
+                        total={total}
+                        interactive={interactive}
+                        onClick={onClick}
+                        color={palette[e.colorIndex % palette.length]}
+                        visiblityHandler={(hidden: boolean) => {
+                          const newResults = [...orderedResults];
+                          newResults[i].hidden = hidden;
+                          setOrderedResults(newResults);
+                        }}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                </tbody>
+              )}
+            </Droppable>
+          </DragDropContext>
         </Table>
       </div>
     </div>
@@ -98,16 +154,20 @@ function FacetMap({
 
 function Row({
   row,
+  index,
   interactive,
   onClick,
   total,
   color,
+  visiblityHandler,
 }: {
   row: any;
+  index: number;
   interactive?: boolean;
   onClick?: (filter: any) => void;
   total?: number;
   color?: string;
+  visiblityHandler: (hidden: boolean) => void;
 }) {
   const { count: occurrenceCount } = row;
   const predicate = {
@@ -126,71 +186,103 @@ function Row({
   const formattedPercentage = formatAsPercentage(fraction);
 
   return (
-    <React.Fragment key={row.key}>
-      <tr className={cn('g-border-t g-border-slate-200', { 'g-opacity-60': count === 0 })}>
-        <td className="!g-mr-0 !g-pr-0 g-w-5">
-          <div
-            className="g-w-4 g-h-4 g-relative g-top-0.5 g-rounded-full"
-            style={{ backgroundColor: count > 0 ? color : undefined, border: '1px solid #ccc' }}
-          ></div>
-        </td>
-        <td style={interactive ? { cursor: 'pointer' } : {}}>
-          {row.filter && (
-            <div
-              onClick={() => {
-                if (interactive) onClick({ filter: row.filter });
-              }}
+    <Draggable draggableId={row.key} index={index}>
+      {(provided, snapshot) => (
+        <React.Fragment>
+          <tr
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            className={cn('g-border-t g-border-slate-200', {
+              'g-opacity-60': count === 0,
+              'g-bg-slate-50': snapshot.isDragging,
+            })}
+            style={{
+              ...provided.draggableProps.style,
+              userSelect: 'none',
+            }}
+          >
+            <td
+              className="!g-mr-0 !g-pr-0 g-w-6 g-cursor-grab active:g-cursor-grabbing"
+              {...provided.dragHandleProps}
             >
-              {row.title}
-            </div>
-          )}
-          {!row.filter && <div>{row.title}</div>}
-          {/* {e.description && (
-                            <div className="g-text-slate-400 g-text-sm g-mb-1">{e.description}</div>
-                          )} */}
-        </td>
-        <td className="g-text-end">
-          <FormattedNumber value={row.count} />
-        </td>
-        <td className="g-w-20">
-          {loading && <Skeleton className="g-h-4 g-w-16 g-inline-block" />}
-          {error && <span>-</span>}
-          {!loading && count > 0 && (
-            <Tooltip title={`${count} with occurrences`} side="left">
-              <div>
-                <MdLocationPin className="-g-mt-1" />
-                {formattedPercentage}%
+              <MdDragHandle className="g-text-slate-400" />
+            </td>
+            <td className="!g-mr-0 !g-pr-0 g-w-5">
+              <div className="g-flex g-items-center g-gap-1">
+                <button
+                  onClick={() => {
+                    visiblityHandler(!row.hidden);
+                  }}
+                >
+                  {!row.hidden && <IoMdEye />}
+                  {row.hidden && <IoMdEyeOff />}
+                </button>
+                <div
+                  className="g-w-4 g-h-4 g-relative g-top-0.5 g-rounded-full g-inline-block"
+                  style={{
+                    backgroundColor: count > 0 ? color : undefined,
+                    border: '1px solid #ccc',
+                  }}
+                ></div>
               </div>
-            </Tooltip>
+            </td>
+            <td style={interactive ? { cursor: 'pointer' } : {}}>
+              {row.filter && (
+                <div
+                  onClick={() => {
+                    if (interactive) onClick({ filter: row.filter });
+                  }}
+                >
+                  {row.title}
+                </div>
+              )}
+              {!row.filter && <div>{row.title}</div>}
+            </td>
+            <td className="g-text-end">
+              <FormattedNumber value={row.count} />
+            </td>
+            <td className="g-w-20">
+              {loading && <Skeleton className="g-h-4 g-w-16 g-inline-block" />}
+              {error && <span>-</span>}
+              {!loading && count > 0 && (
+                <Tooltip title={`${count} with occurrences`} side="left">
+                  <div>
+                    <MdLocationPin className="-g-mt-1" />
+                    {formattedPercentage}%
+                  </div>
+                </Tooltip>
+              )}
+              {!loading && !error && count === 0 && <span>-</span>}
+            </td>
+          </tr>
+          {row.description && (
+            <tr className="!g-border-t-0">
+              <td colSpan={5} className="!g-p-0">
+                <div className="g-text-slate-400 g-text-sm g-mb-1">{row.description}</div>
+              </td>
+            </tr>
           )}
-          {!loading && !error && count === 0 && <span>-</span>}
-        </td>
-      </tr>
-      {row.description && (
-        <tr className="!g-border-t-0">
-          <td colSpan={3} className="!g-p-0">
-            <div className="g-text-slate-400 g-text-sm g-mb-1">{row.description}</div>
-          </td>
-        </tr>
+        </React.Fragment>
       )}
-    </React.Fragment>
+    </Draggable>
   );
 }
 
 export function Map({ facetResults, transform, ...props }) {
+  if (!facetResults) {
+    return null;
+  }
   const { data, results, loading, total, distinct } = facetResults;
   const mappedResults = transform ? transform(data) : results;
   return (
     <>
-      <div className="g-text-sm g-text-slate-500 g-mb-1">
-        {loading && <Skeleton className="g-h-6 g-mb-2" width="100px" />}
-        {!loading && distinct > 0 && (
-          <>
-            <FormattedMessage id="counts.nResults" values={{ total: distinct }} />
-          </>
-        )}
-      </div>
-      <FacetMap results={mappedResults} total={total} {...props} loading={loading} />
+      <FacetMap
+        results={mappedResults}
+        total={total}
+        {...props}
+        loading={loading}
+        distinct={distinct}
+      />
     </>
   );
 }

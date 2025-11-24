@@ -40,6 +40,7 @@ export type OccurrenceOverlay = {
   q?: string;
   /** Custom styling for this overlay */
   style?: OverlayStyle;
+  hidden: boolean;
 };
 
 /**

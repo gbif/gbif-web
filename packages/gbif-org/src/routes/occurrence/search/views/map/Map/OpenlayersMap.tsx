@@ -553,6 +553,9 @@ class Map extends Component<MapProps, State> {
         const prevOverlay = prevOverlays.find((o) => o.id === overlay.id);
         const oldFilter = getFilterFromOverlay(prevOverlay!);
         const newFilter = getFilterFromOverlay(overlay);
+        if (prevOverlay?.hidden !== overlay.hidden) {
+          existingLayer.setVisible(!overlay.hidden);
+        }
         if (hash(oldFilter) !== hash(newFilter)) {
           const newSource = this.getOverlaySource(overlay);
           existingLayer.setSource(newSource);
@@ -569,6 +572,7 @@ class Map extends Component<MapProps, State> {
         // If there isn't one then create it at the right z-position
         const occurrenceLayer = this.getLayer(overlay);
         occurrenceLayer.setZIndex(OCCURRENCE_LAYERS_START_Z_INDEX + index);
+        occurrenceLayer.setVisible(!overlay.hidden);
         this.map!.addLayer(occurrenceLayer);
       }
     });
@@ -649,6 +653,7 @@ class Map extends Component<MapProps, State> {
       const occurrenceLayer = this.getLayer(overlay);
       // set zIndex to ensure proper stacking order
       occurrenceLayer.setZIndex(OCCURRENCE_LAYERS_START_Z_INDEX + index);
+      occurrenceLayer.setVisible(!overlay.hidden);
       this.map!.addLayer(occurrenceLayer);
     });
 

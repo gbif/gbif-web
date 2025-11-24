@@ -539,6 +539,11 @@ class MapLibreMap extends Component<MapProps> {
         layerName,
       })
     );
+
+    // Set visibility based on hidden property
+    if (overlay.hidden) {
+      this.map.setLayoutProperty(layerName, 'visibility', 'none');
+    }
   }
 
   addLayers() {
