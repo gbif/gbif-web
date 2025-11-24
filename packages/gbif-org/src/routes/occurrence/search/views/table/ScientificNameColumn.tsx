@@ -37,7 +37,7 @@ export default function ScientificNameColumn({
           </SimpleTooltip>
         </button>
       )}
-      <div>
+      <div className="g-flex-1">
         {!hasClassification && (
           <>
             {!occurrence.verbatimScientificName && (
@@ -90,6 +90,11 @@ export default function ScientificNameColumn({
         )}
         {/* </LinkOption> */}
       </div>
+      {occurrence.occurrenceStatus === 'ABSENT' && (
+        <div className="g-flex-none">
+          <span className="g-rounded g-bg-red-400 g-text-white g-px-1">Absent</span>
+        </div>
+      )}
     </div>
   );
 }

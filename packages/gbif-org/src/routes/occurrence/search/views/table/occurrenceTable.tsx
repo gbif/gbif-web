@@ -9,7 +9,6 @@ import {
   useRowLink,
 } from '@/components/searchTable';
 import { SearchTableServerFallback } from '@/components/searchTable/table';
-import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
@@ -25,7 +24,6 @@ import { useI18n } from '@/reactRouterPlugins';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
@@ -103,6 +101,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           recordNumber
           individualCount
           typeStatus
+          occurrenceStatus
           preparations
           institutionCode
           institutionKey
@@ -296,24 +295,4 @@ export function OccurrenceTableClient() {
       />
     </>
   );
-}
-
-function PartialDataWarning({
-  customMessageKey,
-  customDescriptionKey,
-}: {
-  customMessageKey?: string;
-  customDescriptionKey?: string;
-}) {
-  const { toast } = useToast();
-  useEffect(() => {
-    toast({
-      title: <FormattedMessage id={customMessageKey ?? 'Not all data could be loaded'} />,
-      description: customDescriptionKey ? (
-        <FormattedMessage id={customDescriptionKey} />
-      ) : undefined,
-      variant: 'destructive',
-    });
-  }, [customMessageKey, customDescriptionKey, toast]);
-  return null;
 }
