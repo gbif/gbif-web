@@ -112,7 +112,10 @@ function ListBox({
   }
 
   return (
-    <section {...props} className={cn('g-flex g-flex-col g-bg-white g-border g-h-full', className)}>
+    <section
+      {...props}
+      className={cn('g-flex g-flex-col g-bg-white g-border g-h-auto g-max-h-full', className)}
+    >
       <header className="g-flex g-flex-col g-flex-none g-border-b g-text-sm g-font-bold g-px-2 g-py-1">
         <div className="g-flex g-flex-row g-items-center">
           <h3 className="g-flex-1">
