@@ -182,6 +182,7 @@ const typeDef = gql`
     phylumKey(checklistKey: ID): Long!
     speciesKey(checklistKey: ID): Long!
     usageKey(checklistKey: ID): Long!
+    acceptedTaxonKey(checklistKey: ID): Long!
     preparations: Long!
     iucnRedListCategory(checklistKey: ID): Long!
     establishmentMeans: Long!
@@ -461,7 +462,7 @@ const typeDef = gql`
       from: Int
       checklistKey: ID
     ): [OccurrenceFacetResult_taxon]
-    acceptedUsageKey(
+    acceptedTaxonKey(
       size: Int
       from: Int
       checklistKey: ID

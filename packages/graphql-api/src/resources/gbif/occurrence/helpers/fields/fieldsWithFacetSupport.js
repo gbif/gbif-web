@@ -91,7 +91,7 @@ export default [
   'speciesKey',
   'taxonKey',
   'verbatimScientificName',
-  'acceptedUsageKey',
+  'acceptedTaxonKey',
   'usageKey',
   'gadmGid',
   'islandGroup',
