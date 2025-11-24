@@ -27,6 +27,15 @@ const OCCURRENCE_MAP = /* GraphQL */ `
   }
 `;
 
+const OCCURRENCE_MAP_META = /* GraphQL */ `
+  query occurrenceMetaMap($q: String, $predicate: Predicate) {
+    occurrenceSearch(q: $q, predicate: $predicate) {
+      _meta
+      metaPredicate
+    }
+  }
+`;
+
 interface MapProps {
   style?: CSSProperties;
   className?: string;
@@ -41,6 +50,10 @@ interface LoadHashAndCountParams {
     keepDataWhileLoading: boolean;
     variables: OccurrenceMapQueryVariables;
   }) => void;
+  countLoad: (options: {
+    keepDataWhileLoading: boolean;
+    variables: OccurrenceMapQueryVariables;
+  }) => void;
 }
 
 interface HandleFeatureChangeParams {
@@ -52,15 +65,24 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   const currentFilterContext = useContext(FilterContext);
   const { scope, mapSettings } = searchContext;
   const { data, error, loading, load } = useQuery<OccurrenceMapQuery, OccurrenceMapQueryVariables>(
-    OCCURRENCE_MAP,
+    OCCURRENCE_MAP_META,
     {
       lazyLoad: true,
       throwAllErrors: true,
     }
   );
+  const {
+    data: countData,
+    error: countError,
+    loading: countLoading,
+    load: countLoad,
+  } = useQuery<OccurrenceMapQuery, OccurrenceMapQueryVariables>(OCCURRENCE_MAP, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  });
 
   const loadHashAndCount = useCallback(
-    ({ filter, searchContext, searchConfig, load }: LoadHashAndCountParams) => {
+    ({ filter, searchContext, searchConfig, load, countLoad }: LoadHashAndCountParams) => {
       const query = getAsQuery({ filter, searchContext, searchConfig });
       const predicate: Predicate = {
         type: PredicateType.And,
@@ -74,6 +96,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
         ].filter((x) => x),
       };
       load({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
+      countLoad({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
     },
     []
   );
@@ -83,11 +106,12 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
       filter: currentFilterContext.filter,
       searchConfig,
       load,
+      countLoad,
       searchContext,
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFilterContext.filterHash, searchContext, scope, load, loadHashAndCount]);
+  }, [currentFilterContext.filterHash, searchContext, scope, load, countLoad, loadHashAndCount]);
 
   // use memo to store the current geometries (filter.must?.geometry ?? []).map((x) => x.toString())
   const features = useMemo(() => {
@@ -111,9 +135,10 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
       searchConfig,
       searchContext,
       load,
+      countLoad,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFilterContext.filterHash, searchContext, searchConfig, load]);
+  }, [currentFilterContext.filterHash, searchContext, searchConfig, load, countLoad]);
 
   const handleFeatureChange = useCallback(
     ({ features }: HandleFeatureChangeParams) => {
@@ -126,7 +151,8 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
 
   const options: MapPresentationProps = {
     loading: loading || !data,
-    total: data?.occurrenceSearch?.documents?.total,
+    total: countData?.occurrenceSearch?.documents?.total,
+    countLoading: countLoading || !countData,
     registerPredicate,
     overlays: [
       {

@@ -9,6 +9,7 @@ export interface MapPresentationProps {
   overlays?: OccurrenceOverlay[];
   loading?: boolean;
   total?: number;
+  countLoading?: boolean;
   registerPredicate?: () => void;
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   style?: React.CSSProperties;
@@ -22,6 +23,7 @@ function MapPresentation({
   overlays = [],
   loading,
   total,
+  countLoading,
   registerPredicate,
   defaultMapSettings,
   style,
@@ -46,7 +48,7 @@ function MapPresentation({
       className={cn('mapArea g-flex-auto g-flex g-h-full g-flex-col g-relative', className)}
       style={style}
     >
-      <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
+      <ViewHeader message="counts.nResultsWithCoordinates" loading={countLoading} total={total} />
       <AdHocMap className="g-flex-auto g-h-96 g-relative g-z-10" {...mapProps} />
     </div>
   );
