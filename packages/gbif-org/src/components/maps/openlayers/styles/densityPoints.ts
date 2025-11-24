@@ -6,7 +6,8 @@ import { type StyleFunction } from 'ol/style/Style';
 const thresholds = function (thresholds: number[], total: number) {
   // get index based in which threshold the total falls into
   for (let i = 0; i < thresholds.length; i++) {
-    if (total <= thresholds[i]) {
+    const nextThreshold = thresholds[i + 1] || Number.MAX_VALUE;
+    if (total <= nextThreshold) {
       return i;
     }
   }

@@ -15,6 +15,7 @@ import type { Feature } from 'geojson';
 import { AdHocMapCoreProps } from './OpenlayersMap';
 import { Theme } from '@/config/theme/theme';
 import hash from 'object-hash';
+import { useConfig } from '@/config/config';
 
 const { ScaleControl } = maplibre;
 
@@ -27,6 +28,7 @@ const mapStyles: Record<string, any> = {
 
 function Map(props: AdHocMapCoreProps) {
   const mapPosition = useMapPosition(props.defaultMapSettings);
+  const config = useConfig();
 
   return (
     <>
@@ -43,7 +45,7 @@ function Map(props: AdHocMapCoreProps) {
         debugTitle="GeoJsonMap"
         className="g-mt-8 g-me-2"
       >
-        <MapLibreMap {...props} mapPosition={mapPosition} />
+        <MapLibreMap {...props} mapPosition={mapPosition} theme={config?.theme} />
       </ErrorBoundary>
     </>
   );
