@@ -144,21 +144,19 @@ function TaxaMain({
       loading={facetResults.loading || !facetResults.data}
       error={!!facetResults.error}
     >
-      <CardHeader
-        options={<ChartViewOptions options={['TABLE', 'MAP']} view={view} setView={setView} />}
-      >
+      <CardHeader options={<ChartViewOptions options={['TABLE']} view={view} setView={setView} />}>
         <CardTitle>
           {/* <FormattedMessage id={`enums.taxonRank.${rank.toUpperCase()}`} defaultMessage={rank} /> */}
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
+            <DropdownMenuTrigger>
+              <span className="g-px-3 g-py-2 g-border g-border-slate-300 g-rounded-md g-cursor-pointer g-inline-flex g-items-center">
                 <FormattedMessage
                   className="g-me-2"
                   id={`enums.taxonRank.${rank.toUpperCase()}`}
                   defaultMessage={rank}
                 />{' '}
                 <MdArrowDropDown />
-              </Button>
+              </span>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               {majorRanks.map((rank) => (

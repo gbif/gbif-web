@@ -54,7 +54,7 @@ export function OneDimensionalChart({
   predicateKey,
   detailsRoute,
   disableOther,
-  options = ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+  options = ['TABLE', 'PIE', 'COLUMN'],
   defaultOption,
   disableUnknown,
   showUnknownInChart,
