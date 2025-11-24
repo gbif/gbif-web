@@ -11,6 +11,7 @@ import { useContext, useEffect } from 'react';
 import { MdFileDownload } from 'react-icons/md';
 import { searchConfig } from '../../searchConfig';
 import { DownloadCardDescription, DownloadCardTitle, FreeTextWarning } from './shared';
+import { useI18n } from '@/reactRouterPlugins';
 
 const GBIF_ORG = import.meta.env.PUBLIC_GBIF_ORG;
 
@@ -32,13 +33,13 @@ export function DownloadHostedPortal() {
   // const localeSettings = useContext(LocaleContext);
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
+  const { locale } = useI18n();
   const { data, loading, load } = useQuery(DOWNLOAD, {
     lazyLoad: true,
     throwAllErrors: true,
   });
 
-  // const localePrefix = localeSettings?.localeMap?.gbif_org;
-  const localePrefix = 'en';
+  const localePrefix = locale.gbifOrgLocalePrefix;
 
   useEffect(() => {
     const currentFilter = filter2predicate(currentFilterContext.filter, searchConfig);
