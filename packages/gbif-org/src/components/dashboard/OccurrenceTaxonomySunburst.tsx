@@ -40,15 +40,16 @@ function ViewOptions({ view, setView, options = ['SUNBURST', 'TREEMAP'] }) {
 }
 
 export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, ...props }) {
+  const rankKeys_ = ['kingdomKey', 'phylumKey', 'classKey', 'orderKey', 'familyKey', 'genusKey'];
+
   const defaultChecklistKey = useChecklistKey();
-  const [rankKeys, setRankKeys] = useState([]);
+  const [rankKeys, setRankKeys] = useState(rankKeys_.toSpliced(4, rankKeys_.length - 4));
   const [view, setView] = useState('SUNBURST');
   const [sunBurstOptions, setSunBurstOptions] = useState(null);
   const [treeMapOptions, setTreeMapOptions] = useState(null);
 
   useEffect(() => {
     if (predicate == null) return;
-    const rankKeys_ = ['kingdomKey', 'phylumKey', 'classKey', 'orderKey', 'familyKey', 'genusKey'];
     const hasTaxonKey =
       predicate?.predicates?.find((p) => p?.key === 'taxonKey')?.values?.length === 1;
     if (!hasTaxonKey) {
@@ -61,6 +62,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
   const [query, setQuery] = useState({});
   useEffect(() => {
     if (rankKeys.length === 0) return;
+
     setQuery(
       getTaxonQuery({
         rankKeys,
