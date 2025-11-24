@@ -32,6 +32,9 @@
   "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "GBIF typy a exempláře",
   "http://rs.tdwg.org/dwc/terms/Event": "DwC událost",
   "http://rs.tdwg.org/dwc/terms/MaterialSample": "Vzorek materiálu DwC",
+  "http://ala.org.au/terms/1.0/VerbatimEvent": "ALA přesná událost",
+  "http://ala.org.au/terms/1.0/VerbatimOccurrence": "ALA přesný výskyt",
+  "http://ala.org.au/terms/seedbank/0.1/SeedbankRecord": "ALA záznam semenné banky",
   "http://rs.tdwg.org/eco/terms/Event": "Rozšíření Humboldt",
   "http://eol.org/schema/agent/Agent": "EOL agent",
   "http://rs.gbif.org/terms/1.0/Ellenberg": "GBIF Ellenberg"
