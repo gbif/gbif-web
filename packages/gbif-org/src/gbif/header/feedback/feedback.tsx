@@ -182,7 +182,9 @@ export function FeedbackPopover({ trigger = <MdFeedback /> }): React.ReactElemen
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{trigger}</PopoverTrigger>
-      <PopoverContent className="g-w-96 g-shadow-2xl g-p-6 test-stripes">
+      <PopoverContent
+        className={`g-w-96 g-shadow-2xl g-p-6 ${config.testSite ? 'test-stripes' : ''}`}
+      >
         <div className="g-space-y-2">
           <div className="g-flex g-items-center g-gap-2">
             {selectedOption && (
