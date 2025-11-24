@@ -320,6 +320,7 @@ export function OneDimensionalChart({
                     onClick={handleRedirect}
                     interactive={interactive}
                     palette={palette}
+                    currentFilterHash={currentFilter}
                   />
                 )}
               </div>

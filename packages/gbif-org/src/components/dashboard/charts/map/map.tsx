@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { hash } from '@/utils/hash';
 // import { Button, Progress, Skeleton, Tooltip } from '../../../components';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FormattedMessage } from 'react-intl';
@@ -13,12 +14,13 @@ import formatAsPercentage from '@/utils/formatAsPercentage';
 import { cn } from '@/utils/shadcn';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
+import useQuery from '@/hooks/useQuery';
 
 function FacetMap({
-  predicate,
+  currentFilterHash,
   loading,
-  columnTitle,
-  columnCount = 'Records',
+  columnTitle = 'Value',
+  columnCount = 'Occurrences',
   results = [],
   onClick,
   interactive = false,
@@ -28,11 +30,17 @@ function FacetMap({
   ...props
 }) {
   const [orderedResults, setOrderedResults] = useState(results);
+  const [showSpeciesCounts, setShowSpeciesCounts] = useState(false);
 
   // Update ordered results when results prop changes
   useEffect(() => {
     setOrderedResults(results.map((r, i) => ({ ...r, colorIndex: i })));
   }, [results]);
+
+  useEffect(() => {
+    setShowSpeciesCounts(false);
+  }, [currentFilterHash, loading]);
+  console.log(currentFilterHash);
 
   if (loading) {
     return (
@@ -69,7 +77,7 @@ function FacetMap({
     overlays: orderedResults
       .map((r, i) => ({
         id: r.key,
-        predicate: r.occurrences?._meta.predicate || predicate,
+        predicate: r.occurrences?._meta.predicate,
         predicateHash: r.occurrences?.metaPredicate || '',
         style: {
           mapDensityColors: [palette[r.colorIndex % palette.length]],
@@ -95,54 +103,70 @@ function FacetMap({
       <ClientSideOnly>
         <AdHocMap {...mapProps} />
       </ClientSideOnly>
-      <div className="g-text-sm g-text-slate-500 g-mb-1 g-mt-2">
-        {loading && <Skeleton className="g-h-6 g-mb-2" />}
-        {!loading && distinct > 0 && (
-          <>
-            <FormattedMessage id="counts.nResults" values={{ total: distinct }} />
-          </>
+      <div className="g-text-sm g-text-slate-500 g-mb-1 g-mt-2 g-flex">
+        <div className="g-flex-1">
+          {loading && <Skeleton className="g-h-6 g-mb-2" />}
+          {!loading && distinct > 0 && (
+            <>
+              <FormattedMessage id="counts.nResults" values={{ total: distinct }} />
+            </>
+          )}
+        </div>
+        {!showSpeciesCounts && (
+          <button
+            className="g-flex-none g-hidden md:g-block"
+            onClick={() => setShowSpeciesCounts(true)}
+          >
+            Add species counts
+          </button>
         )}
+        {showSpeciesCounts && <span className="g-flex-none">Distinct species</span>}
       </div>
       <div style={{ overflow: 'auto' }}>
         <Table removeBorder={false}>
-          {columnTitle && (
+          {/* {columnTitle && (
             <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
               <tr>
-                <th className="g-w-8"></th>
+                <th></th>
+                <th></th>
                 <th className="g-text-start">{columnTitle}</th>
                 <th className="g-text-end">{columnCount}</th>
-                <th></th>
+                <th className="g-text-end">With coordinates</th>
+                <th>Distinct species</th>
               </tr>
             </thead>
-          )}
+          )} */}
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="facet-map-table">
               {(provided) => (
-                <tbody
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal"
-                >
-                  {orderedResults.map((e, i) => {
-                    return (
-                      <Row
-                        key={e.key}
-                        row={e}
-                        index={i}
-                        total={total}
-                        interactive={interactive}
-                        onClick={onClick}
-                        color={palette[e.colorIndex % palette.length]}
-                        visiblityHandler={(hidden: boolean) => {
-                          const newResults = [...orderedResults];
-                          newResults[i].hidden = hidden;
-                          setOrderedResults(newResults);
-                        }}
-                      />
-                    );
-                  })}
-                  {provided.placeholder}
-                </tbody>
+                <>
+                  <tbody
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal"
+                  >
+                    {orderedResults.map((e, i) => {
+                      return (
+                        <Row
+                          key={e.key}
+                          row={e}
+                          index={i}
+                          total={total}
+                          interactive={interactive}
+                          onClick={onClick}
+                          color={palette[e.colorIndex % palette.length]}
+                          visiblityHandler={(hidden: boolean) => {
+                            const newResults = [...orderedResults];
+                            newResults[i].hidden = hidden;
+                            setOrderedResults(newResults);
+                          }}
+                          showSpeciesCounts={showSpeciesCounts}
+                        />
+                      );
+                    })}
+                    {provided.placeholder}
+                  </tbody>
+                </>
               )}
             </Droppable>
           </DragDropContext>
@@ -160,6 +184,7 @@ function Row({
   total,
   color,
   visiblityHandler,
+  showSpeciesCounts,
 }: {
   row: any;
   index: number;
@@ -168,6 +193,7 @@ function Row({
   total?: number;
   color?: string;
   visiblityHandler: (hidden: boolean) => void;
+  showSpeciesCounts: boolean;
 }) {
   const { count: occurrenceCount } = row;
   const predicate = {
@@ -261,6 +287,11 @@ function Row({
               )}
               {!loading && !error && count === 0 && <span>-</span>}
             </td>
+            {showSpeciesCounts && (
+              <td className="g-text-end">
+                <SpeciesCount predicate={row.occurrences?._meta.predicate} />
+              </td>
+            )}
           </tr>
         </React.Fragment>
       )}
@@ -268,7 +299,48 @@ function Row({
   );
 }
 
-export function Map({ facetResults, transform, ...props }) {
+const query = `
+query distinct($q: String, $predicate: Predicate) {
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
+    cardinality {
+      total: speciesKey
+    }
+  }
+}
+`;
+
+function SpeciesCount({ predicate }) {
+  const { data, load, error, loading } = useQuery(query, {
+    lazyLoad: false,
+    variables: { predicate },
+    queue: {
+      name: 'graphql-counts',
+    },
+  });
+
+  const predicateId = hash(JSON.stringify(predicate));
+
+  useEffect(() => {
+    if (predicate) {
+      load({
+        variables: {
+          predicate,
+        },
+      });
+    }
+    // We are tracking the params via a calculated ID
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [predicateId, load]);
+
+  if (error) return <span className="g-text-red-700 g-text-sm">Error</span>;
+
+  if (loading || !data) {
+    return <Skeleton className="g-inline g-w-12">Loading</Skeleton>;
+  }
+  return <FormattedNumber value={data?.search?.cardinality?.total || 0} />;
+}
+
+export function Map({ facetResults, transform, currentFilterHash, ...props }) {
   if (!facetResults) {
     return null;
   }
@@ -281,6 +353,7 @@ export function Map({ facetResults, transform, ...props }) {
         total={total}
         {...props}
         loading={loading}
+        currentFilterHash={currentFilterHash}
         distinct={distinct}
       />
     </>
