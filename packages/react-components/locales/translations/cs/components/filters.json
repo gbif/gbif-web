@@ -539,12 +539,12 @@
   },
   "eventType": {
     "name": "Typ události",
-    "count": "",
+    "count": "{num, plural, one { typ události } few {# typy události} many {# typů události} other {# typů události}}",
     "description": "Typ události odběru vzorků."
   },
   "dataStructure": {
     "name": "Struktura",
-    "count": "",
+    "count": "{num, plural, one { typ události } few {# typy události} many {# typů události} other {# typů události}}",
     "description": "Struktura dat pro událost odběru vzorků."
   },
   "samplingProtocol": {
@@ -594,7 +594,7 @@
   },
   "publicationDate": {
     "name": "Datum zveřejnění",
-    "count": "",
+    "count": "{num, plural, one { datum publikace } few {# data publikace} many {# datumů publikace} other {# datumů publikací}}",
     "description": "Kdy byl záznam zveřejněn"
   },
   "personalCollection": {
