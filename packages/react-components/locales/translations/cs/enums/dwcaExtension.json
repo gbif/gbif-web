@@ -23,5 +23,19 @@
   "http://rs.gbif.org/terms/1.0/Multimedia": "Multimédia",
   "http://rs.gbif.org/terms/1.0/Reference": "Reference",
   "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Vztah ke zdroji",
-  "http://eol.org/schema/reference/Reference": "EOL Reference"
+  "http://eol.org/schema/reference/Reference": "EOL Reference",
+  "http://eol.org/schema/media/Document": "Dokument EOL",
+  "http://rs.gbif.org/terms/1.0/Description": "GBIF popis",
+  "http://rs.gbif.org/terms/1.0/Distribution": "GBIF distribuce",
+  "http://rs.gbif.org/terms/1.0/VernacularName": "GBIF místní název",
+  "http://rs.gbif.org/terms/1.0/SpeciesProfile": "GBIF profil druhu",
+  "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "GBIF typy a exempláře",
+  "http://rs.tdwg.org/dwc/terms/Event": "DwC událost",
+  "http://rs.tdwg.org/dwc/terms/MaterialSample": "Vzorek materiálu DwC",
+  "http://ala.org.au/terms/1.0/VerbatimEvent": "ALA přesná událost",
+  "http://ala.org.au/terms/1.0/VerbatimOccurrence": "ALA přesný výskyt",
+  "http://ala.org.au/terms/seedbank/0.1/SeedbankRecord": "ALA záznam semenné banky",
+  "http://rs.tdwg.org/eco/terms/Event": "Rozšíření Humboldt",
+  "http://eol.org/schema/agent/Agent": "EOL agent",
+  "http://rs.gbif.org/terms/1.0/Ellenberg": "GBIF Ellenberg"
 }

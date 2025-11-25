@@ -3,5 +3,7 @@
   "contentTypes": "Tipos de conteúdo",
   "preservationTypes": "Tipos de Preservação",
   "personalCollection": "Coleção pessoal",
-  "accessionStatus": "Status de acessão"
+  "accessionStatus": "Status de acessão",
+  "numberSpecimens": "Número de especímes em coleção",
+  "collectionDescriptors": "Descritores da coleção"
 }

@@ -1,13 +1,19 @@
 {
   "successMessage": "Id géré par le fournisseur",
+  "primaryContactHeading": "Contact principal pour cette candidature",
   "description": "Description",
   "descriptionLabel": "Description",
   "typeOfApplication": "Type ",
+  "typeOfApplicationHeading": "Type de candidature",
+  "groupPublisherDescription": "Veuillez décrire quels éditeurs de données et/ou participants au GBIF seront impliqués.",
   "modeOfOperation": "Mode de fonctionnement",
   "modeOfOperationHeading": "Mode de fonctionnement",
   "publishing": "Mode de publication",
+  "timeline": "Échéancier",
   "domain": "Domaine",
+  "terms": "Termes",
   "personName": "Nom",
   "email": "Courriel",
-  "participantLabel": "Participant"
+  "participantLabel": "Participant",
+  "submitErrorTitle": "Échec de la soumission de la candidature"
 }

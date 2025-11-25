@@ -153,7 +153,7 @@
   "alternativeCode": {
     "name": "Alternativní kód",
     "count": "DWCA rozšíření",
-    "description": ""
+    "description": "Jakýkoli další kód, který je již používán pro stejný záznam v jiných kontextech (například historické kódy)."
   },
   "identifier": {
     "name": "Identifikátor",
@@ -162,13 +162,13 @@
   },
   "institutionType": {
     "name": "Typ",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# typ} few {# typy} many {# typů} other {# typů}}",
+    "description": "Typ instituce (muzeum, herbář atd.)"
   },
   "discipline": {
-    "name": "",
+    "name": "Obor",
     "count": "DWCA rozšíření",
-    "description": ""
+    "description": "Výzkumné obory podporované institucí."
   },
   "collectionContentType": {
     "name": "Typ obsahu",
@@ -284,7 +284,7 @@
   },
   "datasetId": {
     "name": "ID datové sady",
-    "count": "",
+    "count": "{num, plural, one {dataset ID} few {# dataset ID} many {# dataset ID} other {# dataset ID}}",
     "description": "Interní identifikátor vydavatele pro datový soubor, ke kterému je záznam přiřazen. Upozorňujeme, že se liší od identifikátoru datasetKey používaného v GBIF pro daný datový soubor."
   },
   "publisherKey": {
@@ -529,22 +529,22 @@
   },
   "measurementOrFactCount": {
     "name": "Počet měření",
-    "count": "",
+    "count": "{num, plural, one {měření} few {# měření} many {# měření} other {# měření}}",
     "description": "Počet daného typu měření."
   },
   "occurrenceCount": {
     "name": "Počet výskytů",
-    "count": "",
+    "count": "{num, plural, one {výskyt} few {výskyty} many {výskytů} other {výskytů}}",
     "description": "Počet výskytů události"
   },
   "eventType": {
     "name": "Typ události",
-    "count": "",
+    "count": "{num, plural, one { typ události } few {# typy události} many {# typů události} other {# typů události}}",
     "description": "Typ události odběru vzorků."
   },
   "dataStructure": {
     "name": "Struktura",
-    "count": "",
+    "count": "{num, plural, one { typ události } few {# typy události} many {# typů události} other {# typů události}}",
     "description": "Struktura dat pro událost odběru vzorků."
   },
   "samplingProtocol": {
@@ -594,7 +594,7 @@
   },
   "publicationDate": {
     "name": "Datum zveřejnění",
-    "count": "",
+    "count": "{num, plural, one { datum publikace } few {# data publikace} many {# datumů publikace} other {# datumů publikací}}",
     "description": "Kdy byl záznam zveřejněn"
   },
   "personalCollection": {

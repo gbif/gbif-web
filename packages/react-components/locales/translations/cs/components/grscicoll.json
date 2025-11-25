@@ -47,15 +47,15 @@
   "entryCreated": "Záznam vytvořen",
   "lastModified": "Naposledy upraveno",
   "modifiedBy": "Změněno od",
-  "masterSource": "",
-  "fromInstitution": "",
+  "masterSource": "Hlavní zdroj",
+  "fromInstitution": "Od {institution}",
   "tabs": {
     "about": "O",
-    "explore": ""
+    "explore": "Procházet katalog"
   },
   "citesPermitNumber": "Cituje číslo povolení",
   "collectionDescriptorsHeadline": "Deskriptory sbírky",
-  "collectionDescriptorsIntroduction": "",
+  "collectionDescriptorsIntroduction": "Descriptory sbírek umožňují podrobnější popis sbírky. To může být užitečné u sbírek, které ještě nejsou digitalizovány, nebo u sbírek, které mají specifické vlastnosti, které nejsou pokryty standardními metadaty sbírky.",
   "collectionSearchNoResultsMessage": "Metadata sbírek jsou často na vysoké úrovni a nejsou vyčerpávající. Zvažte rozšíření svého záběru nebo zkuste vyhledat digitalizované exempláře.",
-  "searchForSpecimens": ""
+  "searchForSpecimens": "Vyhledat exempláře"
 }
