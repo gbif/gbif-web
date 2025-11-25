@@ -311,7 +311,11 @@ const OpenLayersMap = ({
           </ToggleGroupItem>
         </ToggleGroup>
       </div>
-      <div ref={mapRef} className="g-w-full g-h-[250px]" style={{ zIndex: 1 }} />
+      <div
+        ref={mapRef}
+        className="g-w-full g-h-[250px] [@media(min-height:1000px)]:g-h-[400px]"
+        style={{ zIndex: 1 }}
+      />
     </div>
   );
 };

@@ -823,7 +823,7 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getLocationFilter({ config: config as filterLocationConfig, searchConfig }),
-      popoverClassName: 'g-w-[500px]',
+      popoverClassName: 'g-w-[500px] lg:g-w-[700px]',
     });
   } else if (config.filterType === filterConfigTypes.GEOLOGICAL_TIME) {
     return generateFilter({
