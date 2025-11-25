@@ -127,9 +127,9 @@ export function DatasetKeyAbout() {
             { type: PredicateType.Equals, key: 'issue', value: 'TAXON_MATCH_NONE' },
           ],
         },
-        yearPredicate: {
+        eventDatePredicate: {
           type: PredicateType.And,
-          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'year' }],
+          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'eventDate' }],
         },
         eventPredicate: {
           type: PredicateType.And,
@@ -235,13 +235,13 @@ export function DatasetKeyAbout() {
   );
 
   const withCoordinates = insights?.withCoordinates?.documents?.total;
-  const withYear = insights?.withYear?.documents?.total;
+  const withEventDate = insights?.withEventDate?.documents?.total;
   const withTaxonMatch =
     insights?.unfiltered?.documents?.total - insights?.withTaxonMatch?.documents?.total;
 
   const total = insights?.unfiltered?.documents?.total;
   const withCoordinatesPercentage = formatAsPercentage(withCoordinates / total);
-  const withYearPercentage = formatAsPercentage(withYear / total);
+  const eventDatePercentage = formatAsPercentage(withEventDate / total);
   const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / total);
 
   const synonymsPercentage = formatAsPercentage(synonyms?.count / totalTaxa?.count);
@@ -640,11 +640,11 @@ export function DatasetKeyAbout() {
 
                           <div className="g-mt-2">
                             <FormattedMessage
-                              id="counts.percentWithYear"
-                              values={{ percent: withYearPercentage }}
+                              id="counts.percentWithDate"
+                              values={{ percent: eventDatePercentage }}
                             />
                           </div>
-                          <Progress value={(100 * withYear) / total} className="g-h-1" />
+                          <Progress value={(100 * withEventDate) / total} className="g-h-1" />
 
                           <div className="g-mt-2">
                             <FormattedMessage
@@ -818,7 +818,7 @@ const DATASET_SLOW = /* GraphQL */ `
     $imagePredicate: Predicate
     $coordinatePredicate: Predicate
     $taxonPredicate: Predicate
-    $yearPredicate: Predicate
+    $eventDatePredicate: Predicate
     $eventPredicate: Predicate
     $sitePredicate: Predicate
   ) {
@@ -862,7 +862,7 @@ const DATASET_SLOW = /* GraphQL */ `
         total
       }
     }
-    withYear: occurrenceSearch(predicate: $yearPredicate) {
+    withEventDate: occurrenceSearch(predicate: $eventDatePredicate) {
       documents(size: 10) {
         total
       }
