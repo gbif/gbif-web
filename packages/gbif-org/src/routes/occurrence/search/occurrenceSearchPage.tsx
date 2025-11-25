@@ -27,13 +27,12 @@ import { Media } from './views/media';
 import { OccurrenceTable } from './views/table/occurrenceTable';
 
 export function OccurrenceSearchPage(): React.ReactElement {
+  const config = useConfig();
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset', 'from'],
-    defaultChecklistKey: useConfig().defaultChecklistKey,
+    defaultChecklistKey: config.defaultChecklistKey,
   });
-  const config = useConfig();
-
   return (
     <>
       <FormattedMessage id="occurrence.pageTitle" defaultMessage="Occurrence search">
