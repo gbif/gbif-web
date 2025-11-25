@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Nepodporovaný dotaz",
-  "unsupported.description": "Volné textové vyhledávání lze použít k průzkumu, ale nemá podporu stahování.",
-  "unsupported.remove": "Odebrat filtr",
-  "unsupported.error": "Tento dotaz se zdá být nepodporovaný",
-  "download": "Stáhnout",
-  "redirectNotice": "Chystáte se stahovat, budete přesměrováni na GBIF.org. \n\n\n Upozorňujeme, že ke stažení obsahu je nutný účet.",
-  "continueToGBIF": "Pokračovat",
-  "sql": {
-    "createNewSqlDownload": "Vytvořit nové SQL stažení",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "Poznámka",
-      "description": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Stáhnout",
+    "redirectNotice": "",
+    "continueToGBIF": "Pokračovat",
+    "continue": "Pokračovat",
+    "invalid": "Neplatné",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "Vytvořit nové SQL stažení",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Poznámka",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "Neplatné SQL",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "Neplatné SQL",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "O",
-  "stopEditing": "Ukončit úpravy",
-  "startEditing": "Začněte upravovat",
-  "reformat": "Přeformátovat",
-  "discard": "Zahodit",
-  "keep": "Zachovat",
-  "readTheDocumentation": "Přečíst dokumentaci",
-  "request": {
-    "createNewDownload": "Vytvořit nové stažení",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Aktuální filtr",
-    "errors": {
-      "invalid-json": "Neplatný JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "Možnosti stažení",
-    "chooseChecklist": "Id spravované poskytovatelem",
-    "chooseChecklistDescription": "Id spravované poskytovatelem",
-    "content": {
-      "rawData": "Nezpracovaná data",
-      "interpretedData": "Interpretovaná data",
-      "images": "Multimédia",
-      "coordinates": "Souřadnice",
-      "fileFormat": "Formát",
-      "estimatedSize": "Odhadovaná velikost dat"
+    "create": "",
+    "about": "O",
+    "stopEditing": "Ukončit úpravy",
+    "startEditing": "Začněte upravovat",
+    "reformat": "Přeformátovat",
+    "discard": "Zahodit",
+    "keep": "Zachovat",
+    "readTheDocumentation": "Přečíst dokumentaci",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "Vytvořit nové stažení",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Aktuální filtr",
+      "errors": {
+        "invalid-json": "Neplatný JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "CSV s oddělovačem tabulek (pro použití v Excelu atd.)"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "Možnosti stažení",
+      "chooseChecklist": "Id spravované poskytovatelem",
+      "chooseChecklistDescription": "Id spravované poskytovatelem",
+      "content": {
+        "rawData": "Nezpracovaná data",
+        "interpretedData": "Interpretovaná data",
+        "images": "Multimédia",
+        "coordinates": "Souřadnice",
+        "fileFormat": "Formát",
+        "estimatedSize": "Odhadovaná velikost dat"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
