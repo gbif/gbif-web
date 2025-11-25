@@ -1,5 +1,6 @@
 import { HyperText } from '@/components/hyperText';
 import { Button } from '@/components/ui/button';
+import { MdDownload } from 'react-icons/md';
 
 export function Citation({ data = {}, loading, error, ...props }) {
   const { dataset } = data;
@@ -15,6 +16,7 @@ export function Citation({ data = {}, loading, error, ...props }) {
               className="g-me-1 g-text-inherit"
             >
               RIS
+              <MdDownload className="g-ms-1" />
             </a>
           </Button>
           <Button asChild variant="outline">
@@ -23,6 +25,7 @@ export function Citation({ data = {}, loading, error, ...props }) {
               href={`https://data.crosscite.org/application/x-bibtex/${doi}`}
             >
               BibTex
+              <MdDownload className="g-ms-1" />
             </a>
           </Button>
         </div>
