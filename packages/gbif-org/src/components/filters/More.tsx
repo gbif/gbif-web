@@ -14,6 +14,7 @@ import { MdArrowBack } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FilterPopover } from './filterPopover';
 import { ContentOnApply, Filters, sortFilters } from './filterTools';
+import { FilterIcon } from '../icons/icons';
 
 const ContentWrapper = React.forwardRef(
   (
@@ -166,6 +167,7 @@ export default function MoreFilters({ filters, groups }: { filters: Filters; gro
           size="sm"
           className="g-text-sm g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
         >
+          <FilterIcon className="g-me-1" />
           <FormattedMessage id="pagination.moreFilters" />
         </Button>
       }
