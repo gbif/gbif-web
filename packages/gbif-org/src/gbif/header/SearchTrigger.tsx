@@ -4,7 +4,7 @@ import { DynamicLink, useDynamicNavigate } from '@/reactRouterPlugins';
 import { MdSearch } from 'react-icons/md';
 import { SearchInput } from '@/components/searchInput';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -17,6 +17,7 @@ export function SearchTrigger() {
   const intl = useIntl();
   const dynamicNavigate = useDynamicNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -30,7 +31,7 @@ export function SearchTrigger() {
       </div>
       {/* Desktop: popover with search field (hidden <sm) */}
       <div className="g-hidden sm:g-inline-block">
-        <Popover>
+        <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger>
             <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
               <span className="g-opacity-80">
@@ -56,6 +57,7 @@ export function SearchTrigger() {
                       pageId: 'omniSearch',
                       searchParams: { q: inputRef.current?.value || '' },
                     });
+                    setOpen(false);
                   }}
                   className="g-flex g-items-center g-w-full g-rounded-md focus-within:g-outline g-outline-2 g-outline-primary/70 -g-outline-offset-2"
                 >
