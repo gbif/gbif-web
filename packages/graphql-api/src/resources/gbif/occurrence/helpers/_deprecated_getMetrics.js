@@ -6,7 +6,7 @@
  */
 const getFacet =
   (field) =>
-  (parent, { size = 10, from = 0, include }, { dataSources }) => {
+  (parent, { size = 10, from = 0, checklistKey, include }, { dataSources }) => {
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
@@ -16,6 +16,7 @@ const getFacet =
         facet: {
           type: 'facet',
           key: field,
+          checklistKey,
           size,
           from,
           include,
@@ -26,11 +27,31 @@ const getFacet =
     return dataSources.occurrenceAPI
       .searchOccurrences({ query })
       .then((data) => {
+        /*
+        custom rule for overwriting field names in the constructed predicate for sub queries
+        when continuin to occurrence search for taxon keys, we should always use the taxonKey field not the field e.g. usageKey or familyKey
+        */
+        const replaceWithTaxonKey = [
+          'acceptedUsageKey',
+          'acceptedTaxonKey',
+          'usageKey',
+          'genusKey',
+          'speciesKey',
+          'familyKey',
+          'orderKey',
+          'classKey',
+          'phylumKey',
+          'kingdomKey',
+        ];
+        const fieldForPredicate = replaceWithTaxonKey.includes(field)
+          ? 'taxonKey'
+          : field;
         return data.aggregations.facet.buckets.map((bucket) => {
           const predicate = {
             type: 'equals',
-            key: field,
+            key: fieldForPredicate,
             value: bucket.key,
+            checklistKey,
           };
           const joinedPredicate = data.meta.predicate
             ? {

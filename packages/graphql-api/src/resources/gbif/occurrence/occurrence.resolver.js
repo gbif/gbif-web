@@ -43,9 +43,41 @@ export const getSourceSearch = (dataSources) => (args) =>
     args,
   );
 
+function createPredicateOverwrite({ field, checklistKey, bucket }) {
+  /*
+    custom rule for overwriting field names in the constructed predicate for sub queries
+    when continuin to occurrence search for taxon keys, we should always use the taxonKey field not the field e.g. usageKey or familyKey
+  */
+  const replaceWithTaxonKey = [
+    'acceptedUsageKey',
+    'acceptedTaxonKey',
+    'usageKey',
+    'genusKey',
+    'speciesKey',
+    'familyKey',
+    'orderKey',
+    'classKey',
+    'phylumKey',
+    'kingdomKey',
+  ];
+  const fieldForPredicate = replaceWithTaxonKey.includes(field)
+    ? 'taxonKey'
+    : field;
+  return {
+    type: 'equals',
+    key: fieldForPredicate,
+    value: bucket.key,
+    checklistKey,
+  };
+}
+
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
-  dictionary[facetName] = getFacet(facetName, getSourceSearch);
+  dictionary[facetName] = getFacet(
+    facetName,
+    getSourceSearch,
+    createPredicateOverwrite,
+  );
   return dictionary;
 };
 const OccurrenceFacet = facetFields.reduce(facetReducer, {});

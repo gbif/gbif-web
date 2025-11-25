@@ -10,7 +10,7 @@ const DEFAULT_CHECKLIST_KEY =
  * @param {String} field
  */
 const getFacet =
-  (field, getSearchFunction) =>
+  (field, getSearchFunction, createPredicateOverwrite) =>
   (
     parent,
     { size = 10, from = 0, include, checklistKey = DEFAULT_CHECKLIST_KEY },
@@ -37,11 +37,20 @@ const getFacet =
     // query the API, and throw away anything but the facet counts
     return searchApi({ query }).then((data) => {
       return data.aggregations.facet.buckets.map((bucket) => {
-        const predicate = {
+        const defaultPredicate = {
           type: 'equals',
           key: field,
           value: bucket.key,
+          checklistKey,
         };
+        const predicate = createPredicateOverwrite
+          ? createPredicateOverwrite({
+              field,
+              checklistKey,
+              bucket,
+              defaultPredicate,
+            })
+          : defaultPredicate;
         const joinedPredicate = data.meta.predicate
           ? {
               type: 'and',
