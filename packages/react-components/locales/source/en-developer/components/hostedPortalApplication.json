@@ -43,7 +43,7 @@
   "experience.plenty": "I am comfortable with using GitHub, Markdown and YAML to author web content",
   "experience.limited": "I have some experience but would like some help to get started",
   "experience.none": "I have never used GitHub, Markdown or YAML to author web content",
-  "termsLabel": "I have read the service agreement and data processor agreement and I accept these terms and conditions for the hosted portal I plan to launch.",
+  "termsLabel": "I have read the <service-agreement-link>service agreement</service-agreement-link> and <data-processor-agreement-link>data processor agreement</data-processor-agreement-link> and I accept these terms and conditions for the hosted portal I plan to launch.",
   "protectedFormTitle": "You need an account to request a hosted portal",
   "protectedFormMessage": "Log in or create an account to continue requesting a hosted portal.",
   "createNewApplication": "Create a new application?"
