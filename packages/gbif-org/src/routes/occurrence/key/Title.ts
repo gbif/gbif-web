@@ -6,8 +6,7 @@ const getTitle = ({ occurrence, termMap }) => {
     termMap?.order?.verbatim ||
     termMap?.class?.verbatim ||
     termMap?.phylum?.verbatim ||
-    termMap?.kingdom?.verbatim ||
-    'No title provided'
+    termMap?.kingdom?.verbatim
   );
 };
 

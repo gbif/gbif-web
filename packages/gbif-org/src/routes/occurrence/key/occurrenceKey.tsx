@@ -403,10 +403,11 @@ export function OccurrenceKey() {
     occurrence?.classifications?.find(
       (classification) => classification?.checklistKey === config.defaultChecklistKey
     ) ?? occurrence?.classifications?.[0];
+  const title = getTitle({ occurrence, termMap });
   return (
     <>
       <Helmet>
-        <title>{getTitle({ occurrence, termMap })}</title>
+        <title>{title || 'Unknown'}</title>
       </Helmet>
       <DataHeader
         className="g-bg-white"
@@ -447,7 +448,12 @@ export function OccurrenceKey() {
               ></ArticleTitle> */}
                 <ArticleTitle className="lg:g-text-3xl">
                   <>
-                    <span className="g-me-4">{getTitle({ occurrence, termMap })}</span>
+                    {title && <span className="g-me-4">{title}</span>}
+                    {!title && (
+                      <span className="g-me-4 g-text-slate-500">
+                        <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
+                      </span>
+                    )}
                     {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                       <TooltipProvider>
                         <Tooltip delayDuration={0}>
