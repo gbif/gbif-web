@@ -69,5 +69,8 @@
   "submit": "送信",
   "pleaseTryAgainLater": "行動規範",
   "weWillBeInTouchSoon": "行動規範",
-  "clickToSelect": "クリックして選択"
+  "clickToSelect": "クリックして選択",
+  "all": "すべて",
+  "clear": "消去",
+  "search": "検索"
 }
