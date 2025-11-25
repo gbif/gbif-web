@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "",
-  "unsupported.description": "",
-  "unsupported.remove": "",
-  "unsupported.error": "",
-  "download": "تنزيل",
-  "redirectNotice": "",
-  "continueToGBIF": "متابعة",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "مذكرة",
-      "description": "",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "تنزيل",
+    "redirectNotice": "",
+    "continueToGBIF": "متابعة",
+    "continue": "متابعة",
+    "invalid": "غير صحيح",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "مذكرة",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "حول",
-  "stopEditing": "إيقاف التحرير",
-  "startEditing": "البدء في التحرير",
-  "reformat": "",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "",
-  "request": {
-    "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "المُرشِح الحالي",
-    "errors": {
-      "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "خيارات التنزيل",
-    "chooseChecklist": "قواعد السلوك",
-    "chooseChecklistDescription": "قواعد السلوك",
-    "content": {
-      "rawData": "بيانات أولية",
-      "interpretedData": "",
-      "images": "وسائط متعددة",
-      "coordinates": "احداثيات",
-      "fileFormat": "صيغة",
-      "estimatedSize": ""
+    "create": "",
+    "about": "حول",
+    "stopEditing": "إيقاف التحرير",
+    "startEditing": "البدء في التحرير",
+    "reformat": "",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "المُرشِح الحالي",
+      "errors": {
+        "invalid-json": "",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": ""
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "خيارات التنزيل",
+      "chooseChecklist": "قواعد السلوك",
+      "chooseChecklistDescription": "قواعد السلوك",
+      "content": {
+        "rawData": "بيانات أولية",
+        "interpretedData": "",
+        "images": "وسائط متعددة",
+        "coordinates": "احداثيات",
+        "fileFormat": "صيغة",
+        "estimatedSize": ""
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
