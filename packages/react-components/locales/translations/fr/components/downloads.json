@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "Le prédicat dans l'URL est invalide",
     "redirectNotice": "Il semble que vous ayez été redirigé ici depuis un autre site. Pour télécharger, vous devez d'abord vous connecter ou vous inscrire."
   },
+  "downloadReport": {
+    "title": "Rapport de téléchargement",
+    "knownIssues": "Problèmes connus",
+    "knownIssuesDescription": "Une partie du traitement fait par le GBIF est de signaler les occurrences contenant des champs suspect",
+    "FossilsIncluded": "Fossiles",
+    "FossilsIncludedDescription": "Il y a des fossiles parmi vos résultats. Cela peut signifier des occurrences d’espèces à des localisations inattendues.",
+    "livingSpecimensIncluded": "Spécimens vivants",
+    "livingSpecimensIncludedDescription": "Votre recherche inclut des spécimens vivants tels que les occurrences localisées dans des jardins botaniques et parcs zoologiques.",
+    "yearRange": "Plage temporelle",
+    "total": "Total",
+    "license": "Licence",
+    "withTaxonMatch": "Avec correspondance de taxon",
+    "withCoordinates": "Avec coordonnées",
+    "withYear": "Avec l’année",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} compressé pour téléchargement",
+    "freeOfCost": "Gratuit – mais pas sans responsabilités",
+    "cancel": "Annuler",
+    "proceed": "Continuer",
+    "understood": "Compris",
+    "largeDownload": "Téléchargement volumineux",
+    "requestingFullDownload": "Vous demandez un téléchargement complet de toutes les données d'occurrences disponibles sur le GBIF.",
+    "occFiltersExplainedHere": "Cela est possible, mais vous pouvez filtrer les données avant de les télécharger. Cela peut être fait en utilisant les filtres d'occurrences. Ceci est expliqué [here](/ news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "La taille estimée du téléchargement est de {SIZE_FORMATTED}",
+    "estDLtimes": "Temps de téléchargement estimé :",
+    "nMbitConn": "Connexion {NUMBER} Mbit",
+    "onceDownloaded": "Une fois le fichier téléchargé, vous aurez besoin d’un autre {SIZE_FORMATTED} d’espace disque libre pour décompresser des données.",
+    "datasetHasNumRows": "Le jeu de données contient {NUMBER_FORMATTED} lignes.",
+    "youWillNotBeAble": "Vous ne serez pas en mesure de visualiser ou d’analyser les données dans Excel ou d’autres applications similaires. Afin de travailler sur ces données, vous devez avoir des connaissance sur e.g. R, Python ou des bases de données relationnelles.",
+    "difficultToAnalyse": "Un jeu de données de cette taille est difficile à analyser sur votre ordinateur de bureau normal. Vous aurez probablement besoin d’un accès à une sorte de service de calcul partagé.",
+    "hours": "Heures",
+    "minute": "Minute",
+    "minutes": "Minutes"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Retour",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "Extensions",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "Format",
+    "csvDelimiter": "",
+    "taxonomy": "Taxonomie",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "Un jeu de données de cette taille est difficile à analyser sur votre ordinateur de bureau normal. Vous aurez probablement besoin d’un accès à une sorte de service de calcul partagé.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "Format",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "Termes",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "Archive Darwin Core",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "Liste des espèces en format CSV",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "SQL non valide",
     "title": "Créer un nouveau téléchargement SQL",
     "notification": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'interface utilisateur de recherche d'occurrences. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
@@ -265,6 +400,7 @@
         "250": "250 m",
         "1000": "1 km",
         "10000": "10 km",
+        "50000": "",
         "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": "Niveau 6"
       },
       "ISEA3H_GRID": {
-        "0": "Niveau 0",
         "1": "Niveau 1",
         "2": "Niveau 2",
         "3": "Niveau 3",
@@ -307,7 +442,8 @@
         "10": "10 mètres",
         "100": "100 mètres",
         "1000": "1000 mètres",
-        "10000": "10 000 mètres"
+        "10000": "10 000 mètres",
+        "100000": "100 km"
       }
     },
     "noneSelected": "Aucune sélection",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "Nombre d'occurrences à un niveau taxonomique supérieur",
     "coordinateUncertainty": "Inclure une incertitude de coordonnées minimale",
     "errorMinimumDimension": "Au moins une dimension doit être sélectionnée",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "Editer en SQL",
     "temporalUncertainty": "Inclure une incertitude temporelle minimale",
     "documentation": "Documentation",
+    "dataQuality": "La qualité des données",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "Ce format de téléchargement permet d'agréger des occurrences selon leurs propriétés taxonomiques, temporelles et/ou spatiales. Par exemple, un cube de données peut être configuré pour agréger des occurrences par famille, mois et cellule de la grille de référence de l'Agence européenne pour l'environnement (trois dimensions) et compter le nombre d'occurrences (une mesure) par combinaison. Le résultat est un fichier CSV.\n\nUne fois configuré, une requête SQL sera créée pour générer le cube de données. Pour une utilisation plus avancée, il est possible de personnaliser davantage le téléchargement demandé en éditant la requête SQL.",
       "dimensions": "Une dimension représente un aspect selon lequel les données peuvent être agrégées. La sélection d'une résolution plus élevée (par exemple, espèce plutôt que famille, date plutôt qu'année, 100 m plutôt que 10 km) entraînera davantage de catégories et donc davantage d'enregistrements.",
       "taxonomicDimension": "Cette dimension regroupe les occurrences selon leur rang taxonomique.",
       "temporalDimension": "Cette dimension regroupe les occurrences selon le temps (date).",
+      "dataQuality": "",
       "grid": "Cette dimension regroupe les occurrences dans une grille spatiale.",
       "gridResolution": "La taille de chaque cellule de la grille.",
       "randomizePoints": "Pour les enregistrements d'occurrences dont l'incertitude des coordonnées couvre plus d'une cellule de la grille, faut-il choisir une cellule aléatoire ? Dans le cas contraire, la cellule contenant le centroïde de l'enregistrement est utilisée.",
