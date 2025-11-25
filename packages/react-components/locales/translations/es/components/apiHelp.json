@@ -6,6 +6,7 @@
   "downloadKeyDatasetsExport": "Descargar lista de conjuntos de datos que aportan datos a una descarga.",
   "singleOccurrence": "Obtenga un solo registro biológico.",
   "searchOccurrences": "Obtener todos los registros biológicos.",
+  "filterOccurrences": "Buscar registros de presencia.",
   "searchOccurrencesExample": "Primeros cinco registros del taxón con taxonKey 9778871 (Flabellina McMurtrie, 1831) que se registraron en mayo entre los años 2000 y 2024.",
   "relatedOccurrences": "Registros biológicos relacionados (experimental).",
   "occurrenceFragment": "Registro antes de ser interpretado.",
@@ -23,5 +24,8 @@
   "searchDatasetsExample": "Primeros dos conjuntos de datos publicados por Dinamarca con el texto \"fungi\"  en el título o la descripción.",
   "searchExample": "Primeros dos elementos con el texto \"adn\".",
   "searchDatasets": "Obtener todos los conjuntos de datos.",
-  "searchNodes": "Buscar nodos"
+  "singleNode": "Obtener un solo nodo.",
+  "searchNodes": "Buscar nodos",
+  "singleSpecies": "Obtener una sola especie.",
+  "searchSpecies": "Obtener todas las especies."
 }

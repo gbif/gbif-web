@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "The predicate in the URL is invalid",
     "redirectNotice": "It looks like you you have been directed here from another site. To download you need to login or register first."
   },
+  "downloadReport": {
+    "title": "Download report",
+    "knownIssues": "Known issues",
+    "knownIssuesDescription": "A part of the GBIF processing is to flag occurrences that have suspicious fields",
+    "FossilsIncluded": "Fossils",
+    "FossilsIncludedDescription": "There are fossils among your results. That can mean species occurrences at unexpected locations",
+    "livingSpecimensIncluded": "Living specimens",
+    "livingSpecimensIncludedDescription": "Your search includes living specimens such as occurrences in botanical and zoological gardens.",
+    "yearRange": "Year range",
+    "total": "Total",
+    "license": "Licence",
+    "withTaxonMatch": "With taxon match",
+    "withCoordinates": "With coordinates",
+    "withYear": "With year",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} zipped for download",
+    "freeOfCost": "Free of cost – not free of responsibilities",
+    "cancel": "Go back and add more filters",
+    "proceed": "Proceed – I can use a suitable tool",
+    "understood": "Understood",
+    "largeDownload": "Large download",
+    "requestingFullDownload": "You are requesting a full download of all occurrence data in GBIF.",
+    "occFiltersExplainedHere": "This is possible, but you may want to filter the data before downloading. This can be done using our occurrence filters. These are explained [here](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "The estimated size of the download is {SIZE_FORMATTED}. On a {CONNECTION_SPEED} Mb/s internet connection, this would take {DOWNLOAD_TIME_FORMATTED} {DOWNLOAD_TIME, plural, one{hour} other{hours}} to download.",
+    "estDLtimes": "Estimated download times:",
+    "nMbitConn": "{NUMBER} Mbit connection",
+    "onceDownloaded": "Once you have downloaded the file, you will need approximately {SIZE_FORMATTED} of free disk space to unzip the data.",
+    "datasetHasNumRows": "The dataset has {NUMBER_FORMATTED} data rows.",
+    "youWillNotBeAble": "You will not be able to view or analyse the data in Excel or similar applications. To work with this data, you will need knowledge of a tool like R, Python or relational databases.",
+    "difficultToAnalyse": "You will not be able to view or analyse the data in Excel or similar applications. A dataset of this size is difficult to analyse on an ordinary computer. You will probably need access to a distributed computing service or 'Big Data' tools.",
+    "hours": "Hours",
+    "minute": "Minute",
+    "minutes": "Minutes"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Back",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "Estimated size",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "Extensions",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "Format",
+    "csvDelimiter": "",
+    "taxonomy": "Taxonomy",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "You will not be able to view or analyse the data in Excel or similar applications. A dataset of this size is difficult to analyse on an ordinary computer. You will probably need access to a distributed computing service or 'Big Data' tools.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "Quality",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "Format",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "Terms",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "Darwin Core Archive",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "Species list",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "Invalid SQL",
     "title": "Create new SQL download",
     "notification": "The easiest way to download and explore data is via the occurrence search user interface. But for complex queries and aggregations, the SQL editor provides more freedom.",
@@ -239,7 +374,7 @@
       "EXACT_TAXON": "Exact taxon"
     },
     "cubeTitle": "Download cube",
-    "cubeDescription": "Description placeholder",
+    "cubeDescription": "",
     "readMore": "Read more",
     "time": {
       "YEAR": "Year",
@@ -265,6 +400,7 @@
         "250": "250 m",
         "1000": "1 km",
         "10000": "10 km",
+        "50000": "50 km",
         "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,37 +413,37 @@
         "6": "Level 6"
       },
       "ISEA3H_GRID": {
-        "0": "Level 0",
-        "1": "Level 1",
-        "2": "Level 2",
-        "3": "Level 3",
-        "4": "Level 4",
-        "5": "Level 5",
-        "6": "Level 6",
-        "7": "Level 7",
-        "8": "Level 8",
-        "9": "Level 9",
-        "10": "Level 10",
-        "11": "Level 11",
-        "12": "Level 12",
-        "13": "Level 13",
-        "14": "Level 14",
-        "15": "Level 15",
-        "16": "Level 16",
-        "17": "Level 17",
-        "18": "Level 18",
-        "19": "Level 19",
-        "20": "Level 20",
-        "21": "Level 21",
-        "22": "Level 22"
+        "1": "Level 1 (32 cells of 17 002 187 km²)",
+        "2": "Level 2 (92 cells of 5 667 396 km²)",
+        "3": "Level 3 (272 cells of 1 889 132 km²)",
+        "4": "Level 4 (812 cells of 629 711 km²)",
+        "5": "Level 5 (2 432 cells of 209 904 km²)",
+        "6": "Level 6 (7 292 cells of 69 968 km²)",
+        "7": "Level 7 (21 872 cells of 23 323 km²)",
+        "8": "Level 8 (65 612 cells of 7 774 km²)",
+        "9": "Level 9 (196 832 cells of 2 591 km²)",
+        "10": "Level 10 (590 492 cells of 864 km²)",
+        "11": "Level 11 (1 771 472 cells of 288 km²)",
+        "12": "Level 12 (5 314 412 cells of 96.0 km²)",
+        "13": "Level 13 (15 943 232 cells of 32.0 km²)",
+        "14": "Level 14 (47 829 692 cells of 10.7 km²)",
+        "15": "Level 15 (143 489 072 cells of 3.55 km²)",
+        "16": "Level 16 (430 467 212 cells of 1.18 km²)",
+        "17": "Level 17 (1 291 401 632 cells of 0.394 km²)",
+        "18": "Level 18 (3 874 204 892 cells of 0.131 km²)",
+        "19": "Level 19 (11 622 614 672 cells of 0.043 9 km²)",
+        "20": "Level 20 (34 867 844 012 cells of 0.014 6 km²)",
+        "21": "Level 21 (104 603 532 032 cells of 0.004 88 km²)",
+        "22": "Level 22 (313 810 596 092 cells of 0.001 63 km²)"
       },
       "MILITARY_GRID_REFERENCE_SYSTEM": {
-        "0": "Finest resolution",
-        "1": "1 meter",
-        "10": "10 meters",
-        "100": "100 meters",
-        "1000": "1,000 meters",
-        "10000": "10,000 meters"
+        "0": "GZJ only, 6° × 8°",
+        "1": "1 m",
+        "10": "10 m",
+        "100": "100 m",
+        "1000": "1 km",
+        "10000": "10 km",
+        "100000": "100 km"
       }
     },
     "noneSelected": "None selected",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "Occurrence count at higher taxonomic level",
     "coordinateUncertainty": "Include minimum coordinate uncertainty",
     "errorMinimumDimension": "At least one dimension must be selected",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "Edit as SQL",
     "temporalUncertainty": "Include minimum temporal uncertainty",
     "documentation": "Documentation",
+    "dataQuality": "Data quality",
+    "removeRecordsWithGeospatialIssues": "Remove records with geospatial issues",
+    "removeRecordsTaxonIssues": "Remove records not confidently matched to a taxon",
+    "removeRecordsAtCentroids": "Remove records at country centroids",
+    "removeFossilsAndLiving": "Remove records of fossils and living specimens, e.g. those from botanical and zoological gardens",
+    "removeAbsenceRecords": "Remove absence records",
     "help": {
       "whatIsThis": "This download format allows you to aggregate occurrences by their taxonomic, temporal and/or spatial properties. For example, a data cube can be configured to aggregate occurrences by family, month and grid cell of the European Environment Agency reference grid (three dimensions) and count the number of occurrences (a measure) per combination. The result is a CSV file.\n\nOnce configured, a SQL query will be created to generate the data cube. For more advanced use, it is possible to further customize the requested download by editing the SQL query.",
       "dimensions": "A dimension represents an aspect along which data can be aggregated. Selecting a higher resolution (e.g., species over family, date over year, 100 m over 10 km) will result in more categories and therefore more records.",
       "taxonomicDimension": "This dimension aggregates occurrences by their taxonomic rank.",
       "temporalDimension": "This dimension aggregates occurrences by time.",
+      "dataQuality": "Additional quality filters to apply to the data.",
       "grid": "This dimension aggregates occurrences in a spatial grid.",
       "gridResolution": "The size of each grid cell.",
       "randomizePoints": "For occurrence records with a coordinate uncertainty that covers more than one grid cell, should a random cell be chosen? If not, the cell containing the centroid of the record is used.",

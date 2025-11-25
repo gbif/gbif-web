@@ -1,5 +1,8 @@
 {
+  "checkboxRequired": "Zaškrtněte toto políčko",
+  "required": "Vyplňte toto pole",
   "invalidEmail": "Zadejte platnou emailovou adresu",
+  "invalidURL": "Zadejte platnou URL adresu",
   "invalidWebsiteAddress": "Uveďte platnou webovou adresu",
   "pleaseSelectAValue": "Prosím vyberte hodnotu"
 }

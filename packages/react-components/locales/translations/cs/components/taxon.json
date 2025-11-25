@@ -24,7 +24,7 @@
   "taxonImages": "",
   "taxonIdentifiers": "Identifikátory taxonu",
   "synonymsAndCombinations": "Synonyma a kombinace",
-  "inChecklist": "",
+  "inChecklist": "V {checklist}",
   "rankPlural": {
     "KINGDOM": "Říše",
     "PHYLUM": "Kmeny",

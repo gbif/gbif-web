@@ -24,5 +24,6 @@
   "http://rs.gbif.org/terms/1.0/VernacularName": "Nom vernaculaire GBIF",
   "http://rs.gbif.org/terms/1.0/SpeciesProfile": "Profil de l’espèce GBIF",
   "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "Types et spécimen GBIF",
-  "http://rs.gbif.org/terms/1.0/Releve": "Relevé GBIF"
+  "http://rs.gbif.org/terms/1.0/Releve": "Relevé GBIF",
+  "http://rs.tdwg.org/eco/terms/Event": "Extension Humboldt"
 }
