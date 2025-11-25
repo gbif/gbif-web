@@ -19,6 +19,11 @@ export function SearchInput({ placeholder }: SearchInputProps) {
     inputRef.current?.focus();
   }, []);
 
+  // If the searchQuery changes, update the input value (this can happen when using the omniSearch popover from the header while on the search page)
+  useEffect(() => {
+    setValue(searchQuery);
+  }, [searchQuery]);
+
   return (
     <SearchInputPresentation
       ref={inputRef}
