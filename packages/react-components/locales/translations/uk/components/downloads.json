@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
+  "downloadReport": {
+    "title": "Завантажити звіт",
+    "knownIssues": "Відомі проблеми",
+    "knownIssuesDescription": "Зокрема, GBIF опрацювання полягає в позначені знахідок, що мають підозрілі поля",
+    "FossilsIncluded": "Фосилії",
+    "FossilsIncludedDescription": "Серед ваших результатів є фосилії, що може призвести до відображення знахідок виду(ів) в неочікуваних місцях",
+    "livingSpecimensIncluded": "Живі зразки",
+    "livingSpecimensIncludedDescription": "Ваш пошук включає в себе живі зразки, представлені в ботанічних садах і зоопарках.",
+    "yearRange": "Діапазон років",
+    "total": "Загалом",
+    "license": "Ліцензія",
+    "withTaxonMatch": "Зі збігом по таксону",
+    "withCoordinates": "З координатами",
+    "withYear": "З роком",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} заархівовано для завантаження",
+    "freeOfCost": "Безкоштовно – не значить без зобов'язань",
+    "cancel": "Скасувати",
+    "proceed": "Далі",
+    "understood": "Зрозуміло",
+    "largeDownload": "Велике завантаження",
+    "requestingFullDownload": "Ви запитуєте повне завантаження даних про всіх знахідки у GBIF.",
+    "occFiltersExplainedHere": "Це можливо, але Ви можете спробувати відфільтрувати дані перед завантаженням. Це може бути реалізовано за допомогою наших фільтрів знахідок і пояснюється [тут](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "Орієнтовний розмір завантаження — {SIZE_FORMATTED}",
+    "estDLtimes": "Приблизний час завантаження:",
+    "nMbitConn": "{NUMBER} Мбіт з'єднання",
+    "onceDownloaded": "Після завантаження файлу вам додатково знадобиться {SIZE_FORMATTED} вільного місця на диску для розпакування даних.",
+    "datasetHasNumRows": "Набір даних містить {NUMBER_FORMATTED} рядків.",
+    "youWillNotBeAble": "Ви не зможете переглядати або аналізувати дані в Excel або подібних програмах. Для того, щоб працювати з цими даними, вам знадобляться знання про додаткові середовища або мови програмування, такі як R, Python чи реляційні бази даних.",
+    "difficultToAnalyse": "Набір даних такого розміру буде важко проаналізувати на одному персональному комп'ютері. Можливо, вам знадобиться доступ до одного з сервісів розподілених обчислень.",
+    "hours": "Години",
+    "minute": "Хвилина",
+    "minutes": "Хвилини"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Назад",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "Розширення",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "Формат",
+    "csvDelimiter": "",
+    "taxonomy": "Таксономія",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "Набір даних такого розміру буде важко проаналізувати на одному персональному комп'ютері. Можливо, вам знадобиться доступ до одного з сервісів розподілених обчислень.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "Формат",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "Архів Darwin Core",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "Список видів у форматі CSV",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "",
     "title": "",
     "notification": "",
@@ -265,6 +400,7 @@
         "250": "",
         "1000": "",
         "10000": "",
+        "50000": "",
         "100000": ""
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
         "1": "",
         "2": "",
         "3": "",
@@ -307,7 +442,8 @@
         "10": "",
         "100": "",
         "1000": "",
-        "10000": ""
+        "10000": "",
+        "100000": ""
       }
     },
     "noneSelected": "",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
+    "dataQuality": "Якість даних",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",
