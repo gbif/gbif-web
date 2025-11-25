@@ -128,10 +128,10 @@ function get4326(): ProjectionHelper {
       });
     },
     getVectorBaseLayer: function (params: Params = {}) {
-      return getVectorLayer(basemaps.EPSG_4326.url.vector, this, params);
+      return getVectorLayer(basemaps.EPSG_4326.url.vector, this, params, 'baseLayer');
     },
     getRasterBaseLayer: function (params: Params = {}) {
-      return getRasterLayer(basemaps.EPSG_4326.url.raster, this, params);
+      return getRasterLayer(basemaps.EPSG_4326.url.raster, this, params, 'baseLayer');
     },
     getOccurrenceVectorLayer: function (params: Params = {}) {
       return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
@@ -186,10 +186,10 @@ function get3857(): ProjectionHelper {
       });
     },
     getVectorBaseLayer: function (params = {}) {
-      return getVectorLayer(basemaps.EPSG_3857.url.vector, this, params);
+      return getVectorLayer(basemaps.EPSG_3857.url.vector, this, params, 'baseLayer');
     },
     getRasterBaseLayer: function (params = {}) {
-      return getRasterLayer(basemaps.EPSG_3857.url.raster, this, params);
+      return getRasterLayer(basemaps.EPSG_3857.url.raster, this, params, 'baseLayer');
     },
     getOccurrenceVectorLayer: function (params = {}) {
       return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
@@ -259,10 +259,10 @@ function get3575(): ProjectionHelper {
       });
     },
     getVectorBaseLayer: function (params = {}) {
-      return getVectorLayer(basemaps.EPSG_3575.url.vector, this, params);
+      return getVectorLayer(basemaps.EPSG_3575.url.vector, this, params, 'baseLayer');
     },
     getRasterBaseLayer: function (params = {}) {
-      return getRasterLayer(basemaps.EPSG_3575.url.raster, this, params);
+      return getRasterLayer(basemaps.EPSG_3575.url.raster, this, params, 'baseLayer');
     },
     getOccurrenceVectorLayer: function (params = {}) {
       return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
@@ -339,10 +339,10 @@ function get3031(): ProjectionHelper {
       });
     },
     getVectorBaseLayer: function (params = {}) {
-      return getVectorLayer(basemaps.EPSG_3031.url.vector, this, params);
+      return getVectorLayer(basemaps.EPSG_3031.url.vector, this, params, 'baseLayer');
     },
     getRasterBaseLayer: function (params = {}) {
-      return getRasterLayer(basemaps.EPSG_3031.url.raster, this, params);
+      return getRasterLayer(basemaps.EPSG_3031.url.raster, this, params, 'baseLayer');
     },
     getOccurrenceVectorLayer: function (params = {}) {
       return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
@@ -370,7 +370,12 @@ function get3031(): ProjectionHelper {
   };
 }
 
-function getVectorLayer(baseUrl: string, proj: ProjectionHelper, params: ProjectionParams) {
+function getVectorLayer(
+  baseUrl: string,
+  proj: ProjectionHelper,
+  params: ProjectionParams,
+  name?: string
+) {
   params = params || {};
   params.srs = proj.srs;
   const progress = params.progress;
@@ -410,10 +415,16 @@ function getVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Project
     declutter: true,
     style: createBasicBaseMapStyle(),
   });
+  layer.set('name', name);
   return layer;
 }
 
-function getRasterLayer(baseUrl: string, proj: ProjectionHelper, params: ProjectionParams) {
+function getRasterLayer(
+  baseUrl: string,
+  proj: ProjectionHelper,
+  params: ProjectionParams,
+  name?: string
+) {
   params = params || {};
   params.srs = proj.srs;
   const progress = params.progress;
@@ -453,6 +464,7 @@ function getRasterLayer(baseUrl: string, proj: ProjectionHelper, params: Project
     useInterimTilesOnError: false,
     visible: true,
   });
+  layer.set('name', name);
   return layer;
 }
 
