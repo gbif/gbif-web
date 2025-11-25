@@ -30,11 +30,15 @@ export function SearchInput({ placeholder }: SearchInputProps) {
       onKeyUp={(e) => {
         // if enter is pressed, call onChange
         if (e.key === 'Enter') {
-          setSearchQuery(value);
+          if (searchQuery !== value) {
+            setSearchQuery(value);
+          }
         }
       }}
       onBlur={() => {
-        setSearchQuery(value);
+        if (searchQuery !== value) {
+          setSearchQuery(value);
+        }
       }}
     />
   );
