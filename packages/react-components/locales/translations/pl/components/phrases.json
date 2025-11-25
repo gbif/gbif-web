@@ -69,5 +69,8 @@
   "submit": "Wyślij",
   "pleaseTryAgainLater": "Identyfikator zarządzany przez dostawcę",
   "weWillBeInTouchSoon": "Identyfikator zarządzany przez dostawcę",
-  "clickToSelect": "Kliknij, aby wybrać"
+  "clickToSelect": "Kliknij, aby wybrać",
+  "all": "Wszystko",
+  "clear": "Wyczyść",
+  "search": "Wyszukaj"
 }
