@@ -69,5 +69,8 @@
   "submit": "送出",
   "pleaseTryAgainLater": "提供者管理ID",
   "weWillBeInTouchSoon": "提供者管理ID",
-  "clickToSelect": "點擊以選擇"
+  "clickToSelect": "點擊以選擇",
+  "all": "全選",
+  "clear": "清除",
+  "search": "搜尋"
 }
