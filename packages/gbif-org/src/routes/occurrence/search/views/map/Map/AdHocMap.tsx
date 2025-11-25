@@ -225,6 +225,11 @@ export default function AdHocMap({
     refreshRate: 1000,
   });
 
+  // close listbox if overlays change
+  useEffect(() => {
+    showList(false);
+  }, [overlays, showList]);
+
   useEffect(() => {
     const mapStyles = getMapStyles({
       apiKeys: config?.apiKeys,
