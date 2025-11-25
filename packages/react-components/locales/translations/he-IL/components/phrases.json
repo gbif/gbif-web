@@ -69,5 +69,8 @@
   "submit": "",
   "pleaseTryAgainLater": "Provider managed id",
   "weWillBeInTouchSoon": "Provider managed id",
-  "clickToSelect": ""
+  "clickToSelect": "",
+  "all": "",
+  "clear": "",
+  "search": ""
 }
