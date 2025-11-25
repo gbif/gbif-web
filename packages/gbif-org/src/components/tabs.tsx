@@ -24,6 +24,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
   const ulRef = useRef<HTMLUListElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const activeLinkRef = useRef<string | null>(null);
 
   const checkScroll = () => {
     const el = ulRef.current;
@@ -41,6 +42,18 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
       checkScroll();
       el.addEventListener('scroll', checkScroll);
       window.addEventListener('resize', checkScroll);
+
+      // Scroll active tab into view
+      const active =
+        el.querySelector('[aria-current="page"]') || el.querySelector('[data-active="true"]');
+      if (active) {
+        const id = active.getAttribute('href') || active.textContent || '';
+        if (id !== activeLinkRef.current) {
+          active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          activeLinkRef.current = id;
+        }
+      }
+
       return () => {
         el.removeEventListener('scroll', checkScroll);
         window.removeEventListener('resize', checkScroll);
@@ -80,7 +93,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
 
       <ul ref={ulRef} className="g-flex g-whitespace-nowrap g-overflow-x-auto -g-mb-px">
         {enabledLinks.map(({ to, children, className: cls, isActive }) => (
-          <li key={to2Key(to)} className={cn('g-pr-1')}>
+          <li key={to2Key(to)} className={cn('g-pr-1')} data-active={isActive ? 'true' : undefined}>
             <TabLink
               to={to}
               className={cls}
