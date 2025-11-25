@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Consulta no soportada",
-  "unsupported.description": "La búsqueda de texto libre facilita la exploración de los datos, pero no permite realizar descargas.",
-  "unsupported.remove": "Remover filtro",
-  "unsupported.error": "Esta consulta parece no estar soportada",
-  "download": "Descargar",
-  "redirectNotice": "Será redirigido a GBIF.org para descargar los datos. {br}{br} Tenga en cuenta que necesita una cuenta en GBIF.org para continuar con la descarga.",
-  "continueToGBIF": "Continuar",
-  "sql": {
-    "createNewSqlDownload": "Crear una nueva descarga SQL",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "Nota",
-      "description": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Descargar",
+    "redirectNotice": "",
+    "continueToGBIF": "Continuar",
+    "continue": "Continuar",
+    "invalid": "Inválido",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "Crear una nueva descarga SQL",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Nota",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "SQL inválido",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "SQL inválido",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "Acerca de",
-  "stopEditing": "Dejar de editar",
-  "startEditing": "Comenzar a editar",
-  "reformat": "Reformatear",
-  "discard": "Desechar",
-  "keep": "Mantener",
-  "readTheDocumentation": "Leer la documentación",
-  "request": {
-    "createNewDownload": "Crear una nueva descarga",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Filtro actual",
-    "errors": {
-      "invalid-json": "JSON inválido",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "Opciones de descarga",
-    "chooseChecklist": "ID administrado por el proveedor",
-    "chooseChecklistDescription": "ID administrado por el proveedor",
-    "content": {
-      "rawData": "Datos sin procesar",
-      "interpretedData": "Datos interpretados",
-      "images": "Multimedia",
-      "coordinates": "Coordenadas",
-      "fileFormat": "Formato",
-      "estimatedSize": "Tamaño de datos estimados"
+    "create": "",
+    "about": "Acerca de",
+    "stopEditing": "Dejar de editar",
+    "startEditing": "Comenzar a editar",
+    "reformat": "",
+    "discard": "Desechar",
+    "keep": "Mantener",
+    "readTheDocumentation": "Leer la documentación",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Filtro actual",
+      "errors": {
+        "invalid-json": "JSON inválido",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "CSV delimitado por tabulaciones (para usar en Excel, etc.)"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "Opciones de descarga",
+      "chooseChecklist": "ID administrado por el proveedor",
+      "chooseChecklistDescription": "ID administrado por el proveedor",
+      "content": {
+        "rawData": "Datos sin procesar",
+        "interpretedData": "Datos interpretados",
+        "images": "Multimedia",
+        "coordinates": "Coordenadas",
+        "fileFormat": "Formato",
+        "estimatedSize": "Tamaño de datos estimados"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
