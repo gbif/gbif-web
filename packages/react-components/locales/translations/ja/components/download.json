@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "サポートされていないクエリ",
-  "unsupported.description": "フリーテキスト検索は使用できますが、ダウンロードのサポートはございません。",
-  "unsupported.remove": "フィルターを外す",
-  "unsupported.error": "",
-  "download": "ダウンロード",
-  "redirectNotice": "",
-  "continueToGBIF": "次へ",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "注記",
-      "description": "",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "ダウンロード",
+    "redirectNotice": "",
+    "continueToGBIF": "次へ",
+    "continue": "次へ",
+    "invalid": "無効な値です",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "注記",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "・・・について",
-  "stopEditing": "編集を終了する",
-  "startEditing": "編集を開始する",
-  "reformat": "",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "",
-  "request": {
-    "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "現在のフィルター",
-    "errors": {
-      "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "ダウンロードのオプション",
-    "chooseChecklist": "行動規範",
-    "chooseChecklistDescription": "行動規範",
-    "content": {
-      "rawData": "生データ",
-      "interpretedData": "解釈されたデータ",
-      "images": "マルチメディア",
-      "coordinates": "座標",
-      "fileFormat": "フォーマット",
-      "estimatedSize": "推定データサイズ"
+    "create": "",
+    "about": "・・・について",
+    "stopEditing": "編集を終了する",
+    "startEditing": "編集を開始する",
+    "reformat": "",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "現在のフィルター",
+      "errors": {
+        "invalid-json": "",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "タブ区切りの CSV"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "ダウンロードのオプション",
+      "chooseChecklist": "行動規範",
+      "chooseChecklistDescription": "行動規範",
+      "content": {
+        "rawData": "生データ",
+        "interpretedData": "解釈されたデータ",
+        "images": "マルチメディア",
+        "coordinates": "座標",
+        "fileFormat": "フォーマット",
+        "estimatedSize": "推定データサイズ"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
