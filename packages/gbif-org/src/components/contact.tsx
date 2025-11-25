@@ -1,7 +1,10 @@
+import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import { FaBuilding, FaUserAlt } from 'react-icons/fa';
 import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { ContactImageQuery, ContactImageQueryVariables } from '@/gql/graphql';
+import { Skeleton } from './ui/skeleton';
 
 export function ContactHeader({ children }: { children: React.ReactNode }) {
   return <div className="g-flex g-items-center g-mb-4">{children}</div>;
@@ -40,6 +43,35 @@ export function ContactAvatar({
     <div className="g-flex-none g-hidden md:g-block">
       <IconAvatar className="g-me-4">{content}</IconAvatar>
     </div>
+  );
+}
+
+const CONTACT_IMAGE_QUERY = /* GraphQL */ `
+  query ContactImage($personId: ID!) {
+    directoryContact(id: $personId) {
+      profilePicture(base64: true)
+      firstName
+      surname
+    }
+  }
+`;
+
+export function ContactImage({ personId }: { personId: string }) {
+  const { data, loading } = useQuery<ContactImageQuery, ContactImageQueryVariables>(
+    CONTACT_IMAGE_QUERY,
+    {
+      variables: { personId },
+    }
+  );
+
+  if (loading) return <Skeleton className="g-me-4 g-w-12 g-h-12 g-rounded-full" />;
+
+  return (
+    <ContactAvatar
+      firstName={data?.directoryContact?.firstName}
+      lastName={data?.directoryContact?.surname}
+      profilePictureBase64={data?.directoryContact?.profilePicture}
+    />
   );
 }
 

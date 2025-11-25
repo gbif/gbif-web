@@ -7,6 +7,7 @@ import {
   ContactEmail,
   ContactHeader,
   ContactHeaderContent,
+  ContactImage,
   ContactTelephone,
   ContactTitle,
 } from '@/components/contact';
@@ -125,11 +126,7 @@ function PersonContactCard({
           id={`contact${contact.key}`}
         >
           <ContactHeader>
-            <ContactAvatar
-              firstName={contact.firstName}
-              lastName={contact.lastName || contact.surname}
-              profilePictureBase64={contact.profilePicture}
-            />
+            <ContactImage personId={contact.key || ''} />
             <ContactHeaderContent>
               <ContactTitle
                 title={contact.title}
@@ -193,7 +190,6 @@ fragmentManager.register(/* GraphQL */ `
       surname
       lastName
       institutionName
-      profilePicture(base64: true)
 
       organization
       position
