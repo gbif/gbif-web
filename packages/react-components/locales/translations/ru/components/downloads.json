@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "Недопустимый предикат в URL-адресе",
     "redirectNotice": "Похоже, что вы были перенаправлены сюда с другого сайта. Для загрузки вам необходимо сначала войти в систему или зарегистрироваться."
   },
+  "downloadReport": {
+    "title": "Отчет о загрузке",
+    "knownIssues": "Известные ошибки",
+    "knownIssuesDescription": "Часть обработки данных службами GIBIF - это пометка данных о находках видах, которые содержат сомнительные поля",
+    "FossilsIncluded": "Ископаемые",
+    "FossilsIncludedDescription": "Среди результатов поиска есть ископаемые образцы. Это означает, что находки видов могут оказаться в неожиданных местах",
+    "livingSpecimensIncluded": "Живые образцы",
+    "livingSpecimensIncludedDescription": "Результаты Вашего поиска содержат сведения о живых образцах в ботанических садах и зоопарках.",
+    "yearRange": "Временной диапазон",
+    "total": "Всего",
+    "license": "Лицензия",
+    "withTaxonMatch": "С совпадениями по таксону",
+    "withCoordinates": "С координатами",
+    "withYear": "С указанием года",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} упакован в zip-файл для скачивания",
+    "freeOfCost": "Бесплатно – не значит без обязательств",
+    "cancel": "Отменить",
+    "proceed": "Продолжить",
+    "understood": "Понятно",
+    "largeDownload": "Большой объем для скачивания",
+    "requestingFullDownload": "Вы запрашиваете полную загрузку всех данных о находках видов, имеющиеся в GBIF.",
+    "occFiltersExplainedHere": "Это возможно, но, возможно, вы захотите воспользоваться фильтрацией данных перед их скачиванием. Это можно сделать используя фильтры для находок видов. Подробные объяснения [здесь](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "Размер загружаемого файла (оценочно) равен {SIZE_FORMATTED}",
+    "estDLtimes": "Примерное время загрузки:",
+    "nMbitConn": "{NUMBER} Мбит скорость соединения",
+    "onceDownloaded": "После загрузки файла, вам потребуется дополнительно {SIZE_FORMATTED} свободного места на диске, чтобы распаковать данные.",
+    "datasetHasNumRows": "Набор данных содержит {NUMBER_FORMATTED} записей.",
+    "youWillNotBeAble": "Вы не сможете просматривать или анализировать данные в Excel или подобном приложении. Для того, чтобы работать с этими данным Вам необходимы навыки работы с такими инструментами как: R, Phyton или реляционные базы данных.",
+    "difficultToAnalyse": "Набор данных такого размера сложно анализировать на обычном персональном компьютере Возможно, Вам потребуется доступ к к одному из сервисов распределенных вычислений.",
+    "hours": "Часы",
+    "minute": "Минута",
+    "minutes": "Минуты"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Назад",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "Предполагаемый размер",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "Расширения",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "Формат",
+    "csvDelimiter": "",
+    "taxonomy": "Таксономия",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "Набор данных такого размера сложно анализировать на обычном персональном компьютере Возможно, Вам потребуется доступ к к одному из сервисов распределенных вычислений.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "Качество",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "Формат",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "Архив Darwin Core",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "Список видов в формате CSV",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "Недопустимый синтаксис SQL",
     "title": "Создать новое выражение SQL для загрузки",
     "notification": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
@@ -265,6 +400,7 @@
         "250": "250 м",
         "1000": "1 км",
         "10000": "10 км",
+        "50000": "50 км",
         "100000": "100 км"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": "Уровень 6"
       },
       "ISEA3H_GRID": {
-        "0": "Уровень 0",
         "1": "Уровень 1",
         "2": "Уровень 2",
         "3": "Уровень 3",
@@ -307,7 +442,8 @@
         "10": "10 метров",
         "100": "100 метров",
         "1000": "1000 метров",
-        "10000": "10000 метров"
+        "10000": "10000 метров",
+        "100000": "100 км"
       }
     },
     "noneSelected": "Ничего не выбрано",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "Количество событий на более высоком таксономическом уровне",
     "coordinateUncertainty": "Задать минимальную неопределенность координат",
     "errorMinimumDimension": "Необходимо выбрать хотя бы один размер",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "Редактировать как SQL",
     "temporalUncertainty": "Задать минимальную временную неопределенность",
     "documentation": "Документация",
+    "dataQuality": "Качество данных",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "Этот формат загрузки позволяет вам агрегировать события по их таксономическим, временным и/или пространственным свойствам. Например, куб данных может быть сконфигурирован для агрегирования событий по семействам, месяцам и ячейкам справочной таблицы Европейского агентства по окружающей среде (три измерения) и подсчета количества событий (мера) для каждой комбинации. Результатом является файл CSV.\n\nПосле настройки будет создан SQL-запрос для создания куба данных. Для более расширенного использования можно дополнительно настроить запрашиваемую загрузку, отредактировав SQL-запрос.",
       "dimensions": "Измерение представляет собой аспект, по которому можно агрегировать данные. При выборе более высокого разрешения (например, виды вместо семейств, даты вместо года, 100 м вместо 10 км) будет создано больше категорий и, следовательно, записей.",
       "taxonomicDimension": "Это измерение объединяет явления по их таксономическому рангу.",
       "temporalDimension": "Это измерение объединяет события по времени.",
+      "dataQuality": "",
       "grid": "Это измерение объединяет события по пространственной сетке.",
       "gridResolution": "Размер каждой ячейки сетки.",
       "randomizePoints": "Следует ли выбирать случайную ячейку для записей о событиях с неопределенностью координат, охватывающей более одной ячейки сетки? Если нет, то используется ячейка, содержащая центр тяжести записи.",
