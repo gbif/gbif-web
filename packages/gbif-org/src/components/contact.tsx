@@ -5,6 +5,8 @@ import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md'
 import { FormattedMessage } from 'react-intl';
 import { ContactImageQuery, ContactImageQueryVariables } from '@/gql/graphql';
 import { Skeleton } from './ui/skeleton';
+import { Dialog, DialogTrigger } from './ui/dialog';
+import { DirectoryContactDialogContent } from '@/routes/custom/contact-us/directoryContactDialog';
 
 export function ContactHeader({ children }: { children: React.ReactNode }) {
   return <div className="g-flex g-items-center g-mb-4">{children}</div>;
@@ -200,5 +202,20 @@ function getInitials({
       {firstLetter}
       {secondLetter}
     </>
+  );
+}
+
+export function ExpandableContact({
+  personId,
+  children,
+}: {
+  personId: string | null | undefined;
+  children: React.ReactNode;
+}) {
+  return (
+    <Dialog>
+      <DirectoryContactDialogContent personId={personId} />
+      <DialogTrigger asChild>{children}</DialogTrigger>
+    </Dialog>
   );
 }
