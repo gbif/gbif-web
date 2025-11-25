@@ -2,7 +2,7 @@ import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
 import { Base64 } from 'js-base64';
 import isPlainObject from 'lodash/isPlainObject';
 import objectHash from 'object-hash';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { filter2v1 } from '.';
 import { cleanUpFilter, FilterType } from '../../contexts/filter';
@@ -99,28 +99,50 @@ function useQueryParams({ observedParams }: { observedParams: string[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState({});
 
-  // useCallback to to setsearchparams, but before doing so it should turn everything into string or array of strings
+  // Store setSearchParams in a ref, so we can read current value without dependency
+  const setSearchParamsRef = useRef(setSearchParams);
+  useEffect(() => {
+    setSearchParamsRef.current = setSearchParams;
+  }, [setSearchParams]);
+
+  // Store searchParams in a ref, so we can read current value without dependency
+  const searchParamsRef = useRef(searchParams);
+  useEffect(() => {
+    searchParamsRef.current = searchParams;
+  }, [searchParams]);
+
+  // Store observedParams in a ref, so we can read current value without dependency
+  const observedParamsRef = useRef(observedParams);
+  useEffect(() => {
+    observedParamsRef.current = observedParams;
+  }, [observedParams]);
+
   const updateQuery = useCallback(
     (nextQuery: any) => {
-      const existingQuery = parseParams(searchParams, true);
+      const existingQuery = parseParams(searchParamsRef.current, true);
       const mergedQuery = { ...existingQuery, ...nextQuery };
       const stringParams = asStringParams(mergedQuery);
-      setSearchParams(stringParams, { preventScrollReset: true });
+      setSearchParamsRef.current(stringParams, { preventScrollReset: true });
     },
-    [setSearchParams, observedParams]
+    [] // to avoid recreating the callback on every parameter change we move dependencies to refs
   );
 
-  // use effect to watch searchParams and set a public query after having parsed the strings into objects, numbers etc
   useEffect(() => {
-    const query = parseParams(searchParams, true);
-    // delete query properties that aren't observedParams
-    Object.keys(query).forEach((key) => {
-      if (!observedParams.includes(key)) {
-        delete query[key];
+    const parsedQuery = parseParams(searchParams, true);
+    // Filter to only observed params
+    const filteredQuery = Object.keys(parsedQuery).reduce((acc, key) => {
+      if (observedParamsRef.current.includes(key)) {
+        acc[key] = parsedQuery[key];
       }
-    });
-    setQuery(query);
-  }, [searchParams, observedParams]);
+      return acc;
+    }, {} as any);
+
+    if (objectHash(filteredQuery) === objectHash(query)) {
+      return;
+    }
+
+    setQuery(filteredQuery);
+  }, [searchParams, query]);
 
   return [query, updateQuery] as [ParamQuery, (query: ParamQuery) => void];
 }
