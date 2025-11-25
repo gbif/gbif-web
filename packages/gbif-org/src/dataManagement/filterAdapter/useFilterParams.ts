@@ -111,12 +111,6 @@ function useQueryParams({ observedParams }: { observedParams: string[] }) {
     searchParamsRef.current = searchParams;
   }, [searchParams]);
 
-  // Store observedParams in a ref, so we can read current value without dependency
-  const observedParamsRef = useRef(observedParams);
-  useEffect(() => {
-    observedParamsRef.current = observedParams;
-  }, [observedParams]);
-
   const updateQuery = useCallback(
     (nextQuery: any) => {
       const existingQuery = parseParams(searchParamsRef.current, true);
@@ -129,9 +123,8 @@ function useQueryParams({ observedParams }: { observedParams: string[] }) {
 
   useEffect(() => {
     const parsedQuery = parseParams(searchParams, true);
-    // Filter to only observed params
     const filteredQuery = Object.keys(parsedQuery).reduce((acc, key) => {
-      if (observedParamsRef.current.includes(key)) {
+      if (observedParams.includes(key)) {
         acc[key] = parsedQuery[key];
       }
       return acc;
@@ -142,7 +135,7 @@ function useQueryParams({ observedParams }: { observedParams: string[] }) {
     }
 
     setQuery(filteredQuery);
-  }, [searchParams, query]);
+  }, [searchParams, observedParams, query]);
 
   return [query, updateQuery] as [ParamQuery, (query: ParamQuery) => void];
 }
