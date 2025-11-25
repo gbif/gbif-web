@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "不支持的查询",
-  "unsupported.description": "免费文本搜索可以用于探索，但没有下载支持。",
-  "unsupported.remove": "移除过滤器",
-  "unsupported.error": "出现的队列不被支持",
-  "download": "下载",
-  "redirectNotice": "您即将下载数据，在此过程中，您将被重定向到GBIF.org。{br}{br}请注意，需要在GBIF.org上有一个帐户来下载内容。",
-  "continueToGBIF": "继续",
-  "sql": {
-    "createNewSqlDownload": "创建新的SQL下载",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "注",
-      "description": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "下载",
+    "redirectNotice": "",
+    "continueToGBIF": "继续",
+    "continue": "继续",
+    "invalid": "无效的",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "建立一个新的 sql 下载",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "注",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "无效网址",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "无效网址",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "关于",
-  "stopEditing": "停止编辑",
-  "startEditing": "开始编辑",
-  "reformat": "重新格式化",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "阅读文档",
-  "request": {
-    "createNewDownload": "创建新的下载",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "当前筛选条件",
-    "errors": {
-      "invalid-json": "无效的JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "下载选项",
-    "chooseChecklist": "发布者管理的ID",
-    "chooseChecklistDescription": "发布者管理的ID",
-    "content": {
-      "rawData": "原始数据",
-      "interpretedData": "解释数据",
-      "images": "多媒体",
-      "coordinates": "坐标",
-      "fileFormat": "格式",
-      "estimatedSize": "估计数据大小"
+    "create": "",
+    "about": "关于",
+    "stopEditing": "停止编辑",
+    "startEditing": "开始编辑",
+    "reformat": "重新格式化",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "阅读文档",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "创建新的下载",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "当前筛选条件",
+      "errors": {
+        "invalid-json": "无效的JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "标签分隔的 CSV"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "下载选项",
+      "chooseChecklist": "发布者管理的ID",
+      "chooseChecklistDescription": "发布者管理的ID",
+      "content": {
+        "rawData": "原始数据",
+        "interpretedData": "解释数据",
+        "images": "多媒体",
+        "coordinates": "坐标",
+        "fileFormat": "格式",
+        "estimatedSize": "估计数据大小"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
