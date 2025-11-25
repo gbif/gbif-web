@@ -69,5 +69,8 @@
   "submit": "Enviar",
   "pleaseTryAgainLater": "ID administrado por el proveedor",
   "weWillBeInTouchSoon": "ID administrado por el proveedor",
-  "clickToSelect": "Haz clic para seleccionar"
+  "clickToSelect": "Haz clic para seleccionar",
+  "all": "Todos",
+  "clear": "Limpiar",
+  "search": "Buscar"
 }
