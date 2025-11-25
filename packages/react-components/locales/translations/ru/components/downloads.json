@@ -313,7 +313,7 @@
         "description": ""
       },
       "terms": {
-        "name": "",
+        "name": "Условия использования",
         "description": ""
       }
     },
@@ -463,9 +463,9 @@
     "temporalUncertainty": "Задать минимальную временную неопределенность",
     "documentation": "Документация",
     "dataQuality": "Качество данных",
-    "removeRecordsWithGeospatialIssues": "",
-    "removeRecordsTaxonIssues": "",
-    "removeRecordsAtCentroids": "",
+    "removeRecordsWithGeospatialIssues": "Удалить записи с геопространственными проблемами",
+    "removeRecordsTaxonIssues": "Удалить записи явным образом не соответствующие таксону",
+    "removeRecordsAtCentroids": "Удалить записи в центроидах стран",
     "removeFossilsAndLiving": "",
     "removeAbsenceRecords": "",
     "help": {
