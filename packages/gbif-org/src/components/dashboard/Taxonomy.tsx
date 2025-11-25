@@ -30,7 +30,7 @@ function TaxonOccurrences({
   return (
     <ChartWrapper
       {...{
-        options: ['PIE', 'TABLE', 'COLUMN'],
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         title: (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

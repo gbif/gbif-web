@@ -21,9 +21,15 @@ import { hash } from '@/utils/hash';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
+const enableMapCharts = import.meta.env.PUBLIC_DEFAULT_ENABLE_MAP_CHARTS === 'true';
+
 // Component to control the view options: table, pie chart, bar chart
 export function ChartViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
-  if (options.length < 2) return null;
+  const allowedOptions = options.filter((option) => {
+    if (option === 'MAP' && !enableMapCharts) return false;
+    return true;
+  });
+  if (allowedOptions.length < 2) return null;
 
   // option to icon component map
   const iconMap = {
@@ -35,7 +41,7 @@ export function ChartViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'T
   };
   return (
     <div>
-      {options.map((option) => (
+      {allowedOptions.map((option) => (
         <Button
           key={option}
           variant="link"

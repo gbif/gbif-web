@@ -52,7 +52,7 @@ export function Licenses(props) {
       {...{
         ...props,
         fieldName: 'license',
-        options: ['PIE', 'TABLE', 'COLUMN'],
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
       }}
     />
   );
@@ -64,6 +64,7 @@ export function BasisOfRecord(props) {
       {...{
         ...props,
         fieldName: 'basisOfRecord',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
       }}
     />
   );
@@ -77,9 +78,9 @@ export function Months(props) {
         enumKeys: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         enableUnknown: true,
         showUnknownInChart: true,
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
         fieldName: 'month',
-        options: ['PIE', 'TABLE', 'COLUMN'],
       }}
     />
   );
@@ -90,9 +91,9 @@ export function MediaType(props) {
     <StandardEnumChart
       {...{
         facetSize: 10,
-        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
         fieldName: 'mediaType',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
       }}
     />
   );
@@ -106,7 +107,7 @@ export function OccurrenceIssue(props) {
         fieldName: 'issue',
         translationTemplate: 'enums.occurrenceIssue.{key}',
         titleTranslationId: 'filters.occurrenceIssue.name',
-        // options: ['TABLE'],
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
       }}
     />
   );
@@ -121,6 +122,7 @@ export function Country(props) {
         enableOther: true,
         enableUnknown: true,
         titleTranslationId: 'filters.country.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
       }}
     />
@@ -137,6 +139,7 @@ export function PublishingCountryCode(props) {
         enableOther: true,
         enableUnknown: true,
         titleTranslationId: 'filters.publishingCountryCode.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
       }}
     />
@@ -151,8 +154,8 @@ export function Continent(props) {
         fieldName: 'continent',
         enableOther: true,
         enableUnknown: true,
-        options: ['PIE', 'TABLE', 'COLUMN'],
         titleTranslationId: 'filters.continent.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
       }}
     />
@@ -163,6 +166,7 @@ export function DwcaExtension(props) {
   return (
     <StandardEnumChart
       {...{
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
         fieldName: 'dwcaExtension',
       }}
@@ -175,7 +179,7 @@ export function Protocol(props) {
     <StandardEnumChart
       {...{
         translationTemplate: 'enums.endpointType.{key}',
-        options: ['COLUMN', 'PIE', 'TABLE'],
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         ...props,
         fieldName: 'protocol',
       }}

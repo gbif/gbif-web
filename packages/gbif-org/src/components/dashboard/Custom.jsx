@@ -143,7 +143,9 @@ function TaxaMain({
       loading={facetResults.loading || !facetResults.data}
       error={!!facetResults.error}
     >
-      <CardHeader options={<ChartViewOptions options={['TABLE']} view={view} setView={setView} />}>
+      <CardHeader
+        options={<ChartViewOptions options={['TABLE', 'MAP']} view={view} setView={setView} />}
+      >
         <CardTitle>
           {/* <FormattedMessage id={`enums.taxonRank.${rank.toUpperCase()}`} defaultMessage={rank} /> */}
           <DropdownMenu>
@@ -262,8 +264,11 @@ function IucnMain({
   visibilityThreshold,
   detailsRoute,
   interactive,
+  userView,
+  setUserView,
   ...props
 }) {
+  const [view, setView] = useUncontrolledProp(userView, 'TABLE', setUserView);
   const { theme } = useConfig();
   const defaultChecklistKey = useChecklistKey();
   const facetResults = useFacets({
@@ -285,13 +290,58 @@ function IucnMain({
   const resultCount = facetResults?.data?.search?.facet?.results?.length;
   if (resultCount <= visibilityThreshold) return null;
 
+  const transform = (data) => {
+    return data?.search?.facet?.results?.map((x) => {
+      return {
+        key: x.key,
+        title: (
+          <div>
+            <IucnCategory
+              color={theme?.iucnColors?.[x?.entity?.iucnStatusCode]}
+              code={x?.entity?.iucnStatusCode}
+              category={x?.entity?.iucnStatus}
+            />
+            {x?.entity?.usage.canonicalName}
+          </div>
+        ),
+        count: x.count,
+        occurrences: x.occurrences,
+        filter: { taxonKey: [x.key] },
+        description: (
+          <Classification className="g-text-xs g-text-slate-500">
+            {x?.entity?.classification?.map((rank) => {
+              return (
+                <span key={rank.key}>
+                  <span className="g-me-2">
+                    <FormattedMessage
+                      id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
+                      defaultMessage={
+                        rank.rank.charAt(0).toUpperCase() + rank.rank.slice(1).toLowerCase()
+                      }
+                    />
+                  </span>
+                  {rank.name}
+                </span>
+              );
+            })}
+          </Classification>
+        ),
+      };
+    });
+  };
+  // use the theme?.iucnColors?.[x?.entity?.iucnStatusCode] approach to create the palette
+  const palette = facetResults?.data?.search?.facet?.results?.map(
+    (x) => theme?.iucnColors?.[x?.entity?.iucnStatusCode]
+  );
   return (
     <Card
       {...props}
       loading={facetResults.loading || !facetResults.data}
       error={!!facetResults.error}
     >
-      <CardHeader>
+      <CardHeader
+        options={<ChartViewOptions options={['TABLE', 'MAP']} view={view} setView={setView} />}
+      >
         <CardTitle>
           <FormattedMessage id={`dashboard.iucnThreatStatus`} />
         </CardTitle>
@@ -301,53 +351,29 @@ function IucnMain({
       </CardHeader>
       <CardContent>
         {resultCount === 0 && <FormattedMessage id="dashboard.noData" defaultMessage="No data" />}
-        <GroupBy
-          {...{
-            facetResults,
-            interactive,
-            onClick: handleRedirect,
-            transform: (data) => {
-              return data?.search?.facet?.results?.map((x) => {
-                return {
-                  key: x.key,
-                  title: (
-                    <div>
-                      <IucnCategory
-                        color={theme?.iucnColors?.[x?.entity?.iucnStatusCode]}
-                        code={x?.entity?.iucnStatusCode}
-                        category={x?.entity?.iucnStatus}
-                      />
-                      {x?.entity?.usage.canonicalName}
-                    </div>
-                  ),
-                  count: x.count,
-                  occurrences: x.occurrences,
-                  filter: { taxonKey: [x.key] },
-                  description: (
-                    <Classification className="g-text-xs g-text-slate-500">
-                      {x?.entity?.classification?.map((rank) => {
-                        return (
-                          <span key={rank.key}>
-                            <span className="g-me-2">
-                              <FormattedMessage
-                                id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
-                                defaultMessage={
-                                  rank.rank.charAt(0).toUpperCase() +
-                                  rank.rank.slice(1).toLowerCase()
-                                }
-                              />
-                            </span>
-                            {rank.name}
-                          </span>
-                        );
-                      })}
-                    </Classification>
-                  ),
-                };
-              });
-            },
-          }}
-        />
+        {resultCount > 0 && (
+          <>
+            {view === 'MAP' && (
+              <Map
+                facetResults={facetResults}
+                transform={transform}
+                onClick={handleRedirect}
+                interactive={interactive}
+                palette={palette}
+              />
+            )}
+            {view === 'TABLE' && (
+              <GroupBy
+                {...{
+                  facetResults,
+                  interactive,
+                  onClick: handleRedirect,
+                  transform,
+                }}
+              />
+            )}
+          </>
+        )}
         <Pagging facetResults={facetResults} />
       </CardContent>
     </Card>
