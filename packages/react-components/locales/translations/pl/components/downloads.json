@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "Nieważny predykat w adresie URL ",
     "redirectNotice": "Wygląda na to, że zostałeś przekierowany tu z innej strony. Aby pobrać, musisz najpierw się zalogować lub zarejestrować."
   },
+  "downloadReport": {
+    "title": "Pobierz raport",
+    "knownIssues": "Znane problemy",
+    "knownIssuesDescription": "Część procesowania przez GBIF to oznaczanie wystąpień o podejrzanych obszarach",
+    "FossilsIncluded": "Skamieniałości",
+    "FossilsIncludedDescription": "W twoim wyszukiwaniu znajdują się skamieliny. To może oznaczać wystąpienia gatunków w niespodziewanych lokalizacjach",
+    "livingSpecimensIncluded": "Żywe okazy ",
+    "livingSpecimensIncludedDescription": "Twoje wyszukiwanie obejmuje żywe okazy, takie jak występowania w ogrodach botanicznych i zoologicznych.",
+    "yearRange": "Zakres lat",
+    "total": "Ogółem",
+    "license": "Licencja",
+    "withTaxonMatch": "Z dopasowaniem taksonu",
+    "withCoordinates": "Ze współrzędnymi",
+    "withYear": "Z rokiem",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} skompresowane do pobrania",
+    "freeOfCost": "Wolne od opłat - niezwolnione z odpowiedzialności",
+    "cancel": "Wróć i dodaj więcej filtrów",
+    "proceed": "Kontynuuj — mogę użyć odpowiedniego narzędzia",
+    "understood": "Rozumiem",
+    "largeDownload": "Duże pobranie",
+    "requestingFullDownload": "Prosisz o pełne pobranie wszystkich danych wystąpień w GBIF.",
+    "occFiltersExplainedHere": "Jest to możliwe, ale możesz chcieć najpierw przefiltrować dane przed pobraniem. Można to zrobić, używając filtrów wystąpień. Są one opisane [tutaj](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "Szacowany rozmiar pobrania to {SIZE_FORMATTED}. Przy połączeniu internetowym {CONNECTION_SPEED} Mb/s, pobieranie zajmie {DOWNLOAD_TIME_FORMATTED}{DOWNLOAD_TIME, plural, one{godzinę} few{godziny} other{godzin}}.",
+    "estDLtimes": "Przewidywany czas pobierania:",
+    "nMbitConn": "{NUMBER} Mbit połączenie",
+    "onceDownloaded": "Kiedy pobierzesz plik, będziesz potrzebować około {SIZE_FORMATTED} wolnego miejsca na dysku do rozpakowania danych.",
+    "datasetHasNumRows": "Zbiór danych posiada {NUMBER_FORMATTED} rzędów danych.",
+    "youWillNotBeAble": "Nie będziesz mieć możliwości wyświetlania lub analizowania danych w Excelu czy podobnych programach. By pracować z tymi danymi, potrzebujesz umiejętności z zakresu narzędzi typu R, Python czy relacyjnych zbiorów danych.",
+    "difficultToAnalyse": "Nie będziesz mieć możliwości wyświetlenia czy analizy danych w Excelu lub podobnym programie. Zbiór danych o tym rozmiarze jest trudny do analizowania na zwykłym komputerze. Prawdopodobnie będziesz potrzebować dostępu do urządzeń do obliczeń rozproszonych lub narzędzi 'Big Data'.",
+    "hours": "Godziny",
+    "minute": "Minuta",
+    "minutes": "Minuty"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Powrót",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "Rozszerzenia",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "Format",
+    "csvDelimiter": "",
+    "taxonomy": "Taksonomia",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "Nie będziesz mieć możliwości wyświetlenia czy analizy danych w Excelu lub podobnym programie. Zbiór danych o tym rozmiarze jest trudny do analizowania na zwykłym komputerze. Prawdopodobnie będziesz potrzebować dostępu do urządzeń do obliczeń rozproszonych lub narzędzi 'Big Data'.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "Format",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "Darwin Core Archive",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "Lista gatunków",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "Nieprawidłowy SQL",
     "title": "Stwórz nowe pobranie SQL",
     "notification": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
@@ -265,6 +400,7 @@
         "250": "250 m",
         "1000": "1 km",
         "10000": "10 km",
+        "50000": "50 km",
         "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": "Poziom 6"
       },
       "ISEA3H_GRID": {
-        "0": "Poziom 0",
         "1": "Poziom 1",
         "2": "Poziom 2",
         "3": "Poziom 3",
@@ -307,7 +442,8 @@
         "10": "10 metrów",
         "100": "100 metrów",
         "1000": "1000 metrów",
-        "10000": "10 000 metrów"
+        "10000": "10 000 metrów",
+        "100000": "100 km"
       }
     },
     "noneSelected": "Nie wybrano",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "Liczba stwierdzeń na wyższym poziomie taksonomicznym",
     "coordinateUncertainty": "Zawrzyj minimalną niepewność współrzędnych",
     "errorMinimumDimension": "Przynajmniej jeden wymiar musi zostać wybrany",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "Edytuj jako SQL",
     "temporalUncertainty": "Zawrzyj minimalną niepewność czasową",
     "documentation": "Dokumentacja",
+    "dataQuality": "Jakość danych",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "Ten format pobierania umożliwia agregowanie wystąpień według ich właściwości taksonomicznych, czasowych i/lub przestrzennych. Na przykład sześcian danych można skonfigurować tak, aby agregował wystąpienia według rodziny, miesiąca i komórki siatki odniesienia Europejskiej Agencji Środowiska (trzy wymiary) i zliczał liczbę wystąpień (miarę) na kombinację. Wynikiem jest plik CSV.\n\nPo skonfigurowaniu zostanie utworzone zapytanie SQL w celu wygenerowania sześcianu danych. W celu bardziej zaawansowanego użycia możliwe jest dalsze dostosowanie żądanego pobierania poprzez edycję zapytania SQL.\n",
       "dimensions": "Wymiar reprezentuje aspekt, wzdłuż którego dane mogą być agregowane. Wybranie wyższej rozdzielczości (np. gatunek ponad rodzinę, data ponad rok, 100 m ponad 10 km) spowoduje więcej kategorii, a zatem więcej rekordów.",
       "taxonomicDimension": "Ten wymiar zbiera wystąpienia według ich rangi taksonomicznej.",
       "temporalDimension": "Ten wymiar zbiera zdarzenia według czasu.",
+      "dataQuality": "",
       "grid": "Ten wymiar zbiera wystąpienia w siatce przestrzennej.",
       "gridResolution": "Rozmiar każdej komórki siatki.",
       "randomizePoints": "W przypadku zapisów wystąpień z niepewnością współrzędnych obejmującą więcej niż jedną komórkę siatki, czy należy wybrać losową komórkę? Jeśli nie, używana jest komórka zawierająca centroid rekordu.",
