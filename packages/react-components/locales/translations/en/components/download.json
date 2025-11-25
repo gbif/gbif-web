@@ -1,34 +1,34 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "Unsupported query",
+    "unsupported.description": "Free text search can be used for exploration, but is not supported for downloads.",
+    "unsupported.remove": "Remove filter",
+    "unsupported.error": "This query looks like it is unsupported",
     "download": "Download",
-    "redirectNotice": "",
+    "redirectNotice": "You are about to download and you will be redirected to GBIF.org. \n\n Please note that an account is required to download the data.",
     "continueToGBIF": "Continue",
     "continue": "Continue",
     "invalid": "Invalid",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "Validate",
+    "sqlEditor": "SQL editor",
+    "predicateEditor": "Predicate editor",
     "sql": {
       "createNewSqlDownload": "Create new SQL download",
-      "placeholder": "",
-      "noSql": "",
+      "placeholder": "Enter your SQL query here...",
+      "noSql": "No SQL query",
       "note": {
         "title": "Note",
-        "description": "",
-        "occurrence_search": ""
+        "description": "The easiest way to download and explore data is via the {occurrence_search}. But for complex queries and aggregations, the SQL editor provides more freedom.",
+        "occurrence_search": "occurrence search user interface"
       },
       "errors": {
         "invalid-SQL": "Invalid SQL",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "network-error": "Network error",
+        "parsingErrorDescription": "Unable to parse SQL",
+        "networkErrorDescription": "Could not validate SQL because of a network error"
       }
     },
-    "create": "",
+    "create": "Create",
     "about": "About",
     "stopEditing": "Stop editing",
     "startEditing": "Start editing",
@@ -37,18 +37,18 @@
     "keep": "Keep",
     "readTheDocumentation": "Read the documentation",
     "request": {
-      "placeholder": "",
+      "placeholder": "Enter your predicate here...",
       "createNewDownload": "Create new download",
-      "weHaveRestoredYourPredicate": "",
-      "noPredicate": "",
+      "weHaveRestoredYourPredicate": "We have restored the predicate your were working on last time you were here.",
+      "noPredicate": "No predicate",
       "currentFilter": "Current filter",
       "errors": {
         "invalid-json": "Invalid JSON",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
-        "unexpectedError": "",
-        "failedToParseJSON": "",
-        "failedToVisualizePredicate": ""
+        "invalid-predicate": "Invalid predicate",
+        "faild-to-load-predicate": "Failed to load predicate",
+        "unexpectedError": "An unexpected error occurred",
+        "failedToParseJSON": "Could not parse JSON",
+        "failedToVisualizePredicate": "Failed to visualize predicate. Displaying raw JSON"
       }
     },
     "downloadOptions": {
@@ -64,12 +64,12 @@
         "estimatedSize": "Estimated data size"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "Tab-delimited CSV (for use in Excel, etc.)"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
-        "links": ""
+        "ifAvailable": "if available",
+        "ifSelected": "if selected",
+        "links": "links"
       }
     }
   }
