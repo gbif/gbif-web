@@ -138,7 +138,11 @@ export function ContactTelephone({ tel }: { tel?: string | null }) {
   if (!tel) return null;
   return (
     <ContactAction>
-      <a href={`tel:${tel}`} className="g-flex g-items-center g-text-inherit">
+      <a
+        href={`tel:${tel}`}
+        className="g-flex g-items-center g-text-inherit"
+        onClick={(e) => e.stopPropagation()}
+      >
         <PhoneIcon />
         {tel}
       </a>
@@ -150,7 +154,11 @@ export function ContactEmail({ email }: { email?: string | null }) {
   if (!email) return null;
   return (
     <ContactAction>
-      <a href={`mailto:${email}`} className="g-flex g-items-center g-text-inherit">
+      <a
+        href={`mailto:${email}`}
+        className="g-flex g-items-center g-text-inherit"
+        onClick={(e) => e.stopPropagation()}
+      >
         <MailIcon />
         {email}
       </a>
@@ -212,6 +220,8 @@ export function ExpandableContact({
   personId: string | null | undefined;
   children: React.ReactNode;
 }) {
+  if (!personId) return children;
+
   return (
     <Dialog>
       <DirectoryContactDialogContent personId={personId} />

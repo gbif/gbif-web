@@ -117,9 +117,11 @@ function PersonContactCard({
     <ExpandableContact personId={contact.key}>
       <Card
         className={cn(
-          'g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-min-w-xs g-m-2 g-w-1/2 hover:g-bg-slate-50 g-cursor-pointer',
-          highlighted && 'g-bg-slate-100 hover:g-bg-slate-200',
-          !fullWidthCard && 'g-max-w-sm'
+          'g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
+          { 'g-max-w-sm': !fullWidthCard },
+          { 'g-bg-slate-100': highlighted },
+          { 'hover:g-bg-slate-50 g-cursor-pointer': contact.key },
+          { 'hover:g-bg-slate-200': contact.key && highlighted }
         )}
         key={contact.key}
         id={`contact${contact.key}`}
