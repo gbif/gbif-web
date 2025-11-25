@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Nieobsługiwane zapytanie",
-  "unsupported.description": "Swobodne wyszukiwanie tekstowe może być użyte, ale bez opcji pobierania",
-  "unsupported.remove": "Usuń filtry",
-  "unsupported.error": "Wygląda na to, że to zapytanie nie jest obsługiwane",
-  "download": "Pobierz",
-  "redirectNotice": "Zamierzasz pobrać dane, aby to zrobić, zostaniesz przekierowany do GBIF.org. {br}{br} Musisz posiadać konto na GBIF.org, żeby pobrać zawartość.",
-  "continueToGBIF": "Dalej",
-  "sql": {
-    "createNewSqlDownload": "Stwórz nowe pobranie SQL",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "Uwaga",
-      "description": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Pobierz",
+    "redirectNotice": "",
+    "continueToGBIF": "Kontynuuj",
+    "continue": "Kontynuuj",
+    "invalid": "Błędny",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "Stwórz nowe pobranie SQL",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Uwaga",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "Nieprawidłowy SQL",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "Nieprawidłowy SQL",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "Informacje",
-  "stopEditing": "Zakończ edycje",
-  "startEditing": "Rozpocznij edycje",
-  "reformat": "Reformatuj",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "Przeczytaj dokumentację",
-  "request": {
-    "createNewDownload": "Stwórz nowe pobranie",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Aktualny filtr",
-    "errors": {
-      "invalid-json": "Nieprawidłowy JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "Opcje pobierania",
-    "chooseChecklist": "Identyfikator zarządzany przez dostawcę",
-    "chooseChecklistDescription": "Identyfikator zarządzany przez dostawcę",
-    "content": {
-      "rawData": "Surowe dane",
-      "interpretedData": "Dane zinterpretowane",
-      "images": "Multimedia",
-      "coordinates": "Współrzędne",
-      "fileFormat": "Format",
-      "estimatedSize": "Szacowana wielkość danych"
+    "create": "",
+    "about": "Informacje",
+    "stopEditing": "Zakończ edycje",
+    "startEditing": "Rozpocznij edycje",
+    "reformat": "Reformatuj",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "Przeczytaj dokumentację",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "Stwórz nowe pobranie",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Aktualny filtr",
+      "errors": {
+        "invalid-json": "Nieprawidłowy JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "CSV rozdzielone znakami tabulacji (do użycia w Excelu, etc.)"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "Opcje pobierania",
+      "chooseChecklist": "Identyfikator zarządzany przez dostawcę",
+      "chooseChecklistDescription": "Identyfikator zarządzany przez dostawcę",
+      "content": {
+        "rawData": "Surowe dane",
+        "interpretedData": "Dane zinterpretowane",
+        "images": "Multimedia",
+        "coordinates": "Współrzędne",
+        "fileFormat": "Format",
+        "estimatedSize": "Szacowana wielkość danych"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
