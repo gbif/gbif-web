@@ -5381,6 +5381,7 @@ export type OccurrenceCardinality = {
   month: Scalars['Long']['output'];
   networkKey: Scalars['Long']['output'];
   orderKey: Scalars['Long']['output'];
+  organismId: Scalars['Long']['output'];
   organismQuantityType: Scalars['Long']['output'];
   pathway: Scalars['Long']['output'];
   phylumKey: Scalars['Long']['output'];

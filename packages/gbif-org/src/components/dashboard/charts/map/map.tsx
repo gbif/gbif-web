@@ -41,7 +41,7 @@ function FacetMap({
       // create a new array with the objects from results, preserving the order in orderedResults as well as the colorIndex from orderedResults
       const newOrderedResults = orderedResults.map((oldR, i) => {
         const newR = results.find((r) => r.key === oldR.key);
-        return newR ? { ...newR, colorIndex: oldR.colorIndex ?? i } : oldR;
+        return newR ? { ...oldR, ...newR, colorIndex: oldR.colorIndex ?? i } : oldR;
       });
       setOrderedResults(newOrderedResults);
     } else {
