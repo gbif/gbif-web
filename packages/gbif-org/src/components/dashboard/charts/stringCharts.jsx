@@ -41,21 +41,29 @@ function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
 export const InstitutionCodes = getStringChart({
   fieldName: 'institutionCode',
   title: <FormattedMessage id="filters.institutionCode.name" defaultMessage="Institution code" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const ProjectId = getStringChart({
   fieldName: 'projectId',
   title: <FormattedMessage id="filters.projectId.name" defaultMessage="Project ID" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const DatasetId = getStringChart({
   fieldName: 'datasetId',
   title: <FormattedMessage id="filters.datasetId.name" defaultMessage="Dataset ID" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const CollectionCodes = getStringChart({
   fieldName: 'collectionCode',
   title: <FormattedMessage id="filters.collectionCode.name" defaultMessage="collection code" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const StateProvince = getStringChart({
@@ -76,6 +84,8 @@ export const StateProvince = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const WaterBody = getStringChart({
@@ -96,6 +106,8 @@ export const WaterBody = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const IdentifiedBy = getStringChart({
@@ -119,6 +131,8 @@ export const IdentifiedBy = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const RecordedBy = getStringChart({
@@ -141,12 +155,23 @@ export const RecordedBy = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const Preparations = getStringChart({
   fieldName: 'preparations',
   title: <FormattedMessage id="filters.preparations.name" defaultMessage="Preparations" />,
   gqlEntity: `occurrences {documents(size: 1) {results {preparations}}}`,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const OrganismId = getStringChart({
+  fieldName: 'organismId',
+  title: <FormattedMessage id="filters.organismId.name" defaultMessage="Organism ID" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const HigherGeography = getStringChart({
@@ -170,6 +195,8 @@ export const HigherGeography = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const CatalogNumber = getStringChart({
@@ -190,16 +217,22 @@ export const CatalogNumber = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const EventId = getStringChart({
   fieldName: 'eventId',
   title: <FormattedMessage id="filters.eventId.name" defaultMessage="Event ID" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const SampleSizeUnit = getStringChart({
   fieldName: 'sampleSizeUnit',
   title: <FormattedMessage id="filters.sampleSizeUnit.name" defaultMessage="Sample size unit" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 export const SamplingProtocol = getStringChart({
@@ -224,6 +257,8 @@ export const SamplingProtocol = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });
 
 function filterLevels(obj, targetGid) {
@@ -263,4 +298,6 @@ export const GadmGid = getStringChart({
       };
     });
   },
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
 });

@@ -197,6 +197,7 @@ const typeDef = gql`
     fieldNumber: Long!
     repatriated: Long!
     gadmGid: Long!
+    organismId: Long!
     projectId: Long!
     higherGeography: Long!
     isSequenced: Long!

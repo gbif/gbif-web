@@ -100,6 +100,12 @@ const preconfiguredCharts = {
       return <charts.Synonyms predicate={predicate} interactive {...props} />;
     },
   },
+  organismId: {
+    translation: 'dashboard.organismId',
+    component: ({ predicate, ...props }) => {
+      return <charts.OrganismId predicate={predicate} interactive {...props} />;
+    },
+  },
   iucnCounts: {
     translation: 'filters.iucnRedListCategory.name',
     component: ({ predicate, ...props }) => {

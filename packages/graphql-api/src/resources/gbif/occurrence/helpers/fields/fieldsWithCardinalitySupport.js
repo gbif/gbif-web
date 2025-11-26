@@ -60,6 +60,7 @@ export default [
   'pathway',
   'degreeOfEstablishment',
   'organismQuantityType',
+  'organismId',
   'biostratigraphy',
   'lithostratigraphy',
 ];
