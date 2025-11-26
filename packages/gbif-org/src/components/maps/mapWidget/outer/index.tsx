@@ -136,15 +136,15 @@ export function MapWidgetOuter({
   return (
     <div className={cn('g-w-full', className)}>
       {/* Placeholder with the same size as the map+controls that will prevent the page from hopping up and down when entering and exiting the full screen mode */}
-      {isFullScreen && <div className="g-aspect-[2.5] g-min-h-[300px]  g-w-full g-mb-12" />}
+      {isFullScreen && <div className="g-aspect-[2] g-min-h-[300px]  g-w-full g-mb-12" />}
       <div
         className={cn('g-flex g-flex-col g-w-full', {
           'g-fixed g-z-50 g-top-0 g-left-0 g-h-screen': isFullScreen,
         })}
       >
-        <div className="g-flex-1 g-w-full g-aspect-[2.5] g-min-h-[300px] g-bg-gray-100 g-border-t">
+        <div className="g-flex-1 g-w-full g-aspect-[2] g-min-h-[300px] g-bg-gray-100 g-border-t">
           <ErrorBoundary type="BLOCK" errorMessage="Failed to load map">
-            <div ref={ref} className="g-w-full g-h-full g-aspect-[2.5] g-min-h-[300px]">
+            <div ref={ref} className="g-w-full g-h-full g-aspect-[2] g-min-h-[300px]">
               <StaticRenderSuspence>
                 <MapWidgetInner
                   className="g-w-full g-h-full"
