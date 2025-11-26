@@ -165,9 +165,11 @@ export default function MoreFilters({ filters, groups }: { filters: Filters; gro
         <Button
           variant="primaryOutline"
           size="sm"
-          className="g-text-sm g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
+          className="g-text-sm g-mx-1 g-mb-1 g-max-w-md g-text-slate-600 "
         >
-          <FilterIcon className="g-me-1" />
+          <span>
+            <FilterIcon className="g-me-1" />
+          </span>
           <FormattedMessage id="pagination.moreFilters" />
         </Button>
       }
