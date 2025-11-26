@@ -39,8 +39,13 @@ const LOWER_LIMIT = 1500;
 const UPPER_LIMIT = new Date().getFullYear();
 
 const defaultRasterStyles = mapWidgetOptions.predefined.find((x) => x.name === 'GREEN')!;
+const defaultCapabilitiesParams = {}; // Stable reference as fallback prop to prevent cascading rerenders without any real change
 
-export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }: Props) {
+export function MapWidgetOuter({
+  className,
+  capabilitiesParams = defaultCapabilitiesParams,
+  mapStyle,
+}: Props) {
   const isSmallScreen = useBelow(800, true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const toggleFullScreen = () => setIsFullScreen((current) => !current);
