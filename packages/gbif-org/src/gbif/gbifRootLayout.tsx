@@ -49,24 +49,30 @@ type Props = {
 export function GbifRootLayout({ children }: Props) {
   const { data } = useLoaderData() as { data: HeaderQuery };
 
-  return (
-    <UserProvider>
-      <div className="g-flex g-flex-col g-min-h-[100dvh]">
-        <LoadingIndicator />
-        <Header menu={data} />
-        <main className="g-flex-auto">
-          <NoscriptNotification />
-          <ScrollRestoration />
-          <Toaster />
-          <GDPR />
-          <ErrorBoundary>{children}</ErrorBoundary>
-          {/* Visualization of the table of contents IntersectionObserver area
+  return <LayoutInner data={data}>{children}</LayoutInner>;
+}
+
+const LayoutInner = React.memo(
+  ({ children, data }: { children: React.ReactNode; data: HeaderQuery }) => {
+    return (
+      <UserProvider>
+        <div className="g-flex g-flex-col g-min-h-[100dvh]">
+          <LoadingIndicator />
+          <Header menu={data} />
+          <main className="g-flex-auto">
+            <NoscriptNotification />
+            <ScrollRestoration />
+            <Toaster />
+            <GDPR />
+            <ErrorBoundary>{children}</ErrorBoundary>
+            {/* Visualization of the table of contents IntersectionObserver area
           <div className="g-fixed g-pointer-events-none g-top-0 g-left-0 g-w-screen g-h-screen">
             <div className="g-mt-[200px] g-mb-[60%] g-bg-red-300 g-h-[calc(100vh-60%-200px)] g-opacity-10"></div>
           </div> */}
-        </main>
-        <Footer />
-      </div>
-    </UserProvider>
-  );
-}
+          </main>
+          <Footer />
+        </div>
+      </UserProvider>
+    );
+  }
+);

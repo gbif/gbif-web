@@ -12,11 +12,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/smallCard';
+import { Setter } from '@/types';
 
 export function SearchTrigger() {
-  const intl = useIntl();
-  const dynamicNavigate = useDynamicNavigate();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
 
   return (
@@ -50,33 +48,47 @@ export function SearchTrigger() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    dynamicNavigate({
-                      pageId: 'omniSearch',
-                      searchParams: { q: inputRef.current?.value || '' },
-                    });
-                    setOpen(false);
-                  }}
-                  className="g-flex g-items-center g-w-full g-rounded-md focus-within:g-outline g-outline-2 g-outline-primary/70 -g-outline-offset-2"
-                >
-                  <SearchInput
-                    ref={inputRef}
-                    type="search"
-                    placeholder={intl.formatMessage({
-                      id: 'search.crossContentSearch.placeholder',
-                    })}
-                    className="g-w-full g-border g-rounded-md"
-                    inputClassName="remove-search-clear-icon"
-                  />
-                </form>
+                <Form setOpen={setOpen}></Form>
               </CardContent>
             </Card>
           </PopoverContent>
         </Popover>
       </div>
     </>
+  );
+}
+
+type FormProps = {
+  setOpen: Setter<boolean>;
+};
+
+function Form({ setOpen }: FormProps) {
+  const intl = useIntl();
+  const dynamicNavigate = useDynamicNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <form
+      className="g-flex g-items-center g-w-full g-rounded-md focus-within:g-outline g-outline-2 g-outline-primary/70 -g-outline-offset-2"
+      onSubmit={(e) => {
+        e.preventDefault();
+        dynamicNavigate({
+          pageId: 'omniSearch',
+          searchParams: { q: inputRef.current?.value || '' },
+        });
+        setOpen(false);
+      }}
+    >
+      <SearchInput
+        ref={inputRef}
+        type="search"
+        placeholder={intl.formatMessage({
+          id: 'search.crossContentSearch.placeholder',
+        })}
+        className="g-w-full g-border g-rounded-md"
+        inputClassName="remove-search-clear-icon"
+      />
+    </form>
   );
 }
 
