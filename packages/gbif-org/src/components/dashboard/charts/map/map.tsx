@@ -13,6 +13,7 @@ import { cn } from '@/utils/shadcn';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import useQuery from '@/hooks/useQuery';
+
 const AdHocMap = React.lazy(() => import('@/routes/occurrence/search/views/map/Map/AdHocMap'));
 
 function FacetMap({
@@ -33,8 +34,20 @@ function FacetMap({
 
   // Update ordered results when results prop changes
   useEffect(() => {
-    setOrderedResults(results.map((r, i) => ({ ...r, colorIndex: i })));
-  }, [results]);
+    // create a sorted list of predicateIds and compare them to the current orderedResults. If there is a change, then update. otherwise ignore
+    const sortedNewIds = results.map((r) => r.key).sort();
+    const sortedOldIds = orderedResults.map((r) => r.key).sort();
+    if (hash(sortedNewIds) === hash(sortedOldIds)) {
+      // create a new array with the objects from results, preserving the order in orderedResults as well as the colorIndex from orderedResults
+      const newOrderedResults = orderedResults.map((oldR, i) => {
+        const newR = results.find((r) => r.key === oldR.key);
+        return newR ? { ...newR, colorIndex: oldR.colorIndex ?? i } : oldR;
+      });
+      setOrderedResults(newOrderedResults);
+    } else {
+      setOrderedResults(results.reverse().map((r, i) => ({ ...r, colorIndex: i })));
+    }
+  }, [results, orderedResults]);
 
   useEffect(() => {
     setShowSpeciesCounts(false);

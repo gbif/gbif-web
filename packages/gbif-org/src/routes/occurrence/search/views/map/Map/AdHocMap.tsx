@@ -39,6 +39,7 @@ import ListBox from './ListBox';
 import { useMapPointSelection } from './useMapPointSelection';
 import { useEntityDrawer } from '../../browseList/useEntityDrawer';
 import { useOrderedList } from '../../browseList/useOrderedList';
+import { useDeepCompareEffectNoCheck } from 'use-deep-compare-effect';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
@@ -226,7 +227,7 @@ export default function AdHocMap({
   });
 
   // close listbox if overlays change
-  useEffect(() => {
+  useDeepCompareEffectNoCheck(() => {
     showList(false);
   }, [overlays, showList]);
 
