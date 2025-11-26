@@ -651,6 +651,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   @apply [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300;
 }
 
+.gbif-no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gbif-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .gbif-table-style {
   @apply g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400;
   thead {

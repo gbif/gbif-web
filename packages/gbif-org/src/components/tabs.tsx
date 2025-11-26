@@ -91,7 +91,10 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
         </div>
       )}
 
-      <ul ref={ulRef} className="g-flex g-whitespace-nowrap g-overflow-x-auto -g-mb-px">
+      <ul
+        ref={ulRef}
+        className="g-flex g-whitespace-nowrap g-overflow-x-auto -g-mb-px gbif-no-scrollbar"
+      >
         {enabledLinks.map(({ to, children, className: cls, isActive }) => (
           <li key={to2Key(to)} className={cn('g-pr-1')} data-active={isActive ? 'true' : undefined}>
             <TabLink
