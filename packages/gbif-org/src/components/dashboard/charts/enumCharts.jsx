@@ -51,6 +51,7 @@ export function Licenses(props) {
     <StandardEnumChart
       {...{
         ...props,
+        includeMapPredicate: true,
         fieldName: 'license',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
       }}
@@ -63,6 +64,7 @@ export function BasisOfRecord(props) {
     <StandardEnumChart
       {...{
         ...props,
+        includeMapPredicate: true,
         fieldName: 'basisOfRecord',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
       }}
@@ -79,6 +81,7 @@ export function Months(props) {
         enableUnknown: true,
         showUnknownInChart: true,
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         ...props,
         fieldName: 'month',
       }}
@@ -94,6 +97,7 @@ export function MediaType(props) {
         ...props,
         fieldName: 'mediaType',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
       }}
     />
   );
@@ -108,6 +112,7 @@ export function OccurrenceIssue(props) {
         translationTemplate: 'enums.occurrenceIssue.{key}',
         titleTranslationId: 'filters.occurrenceIssue.name',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
       }}
     />
   );
@@ -123,6 +128,7 @@ export function Country(props) {
         enableUnknown: true,
         titleTranslationId: 'filters.country.name',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         ...props,
       }}
     />
@@ -140,6 +146,7 @@ export function PublishingCountryCode(props) {
         enableUnknown: true,
         titleTranslationId: 'filters.publishingCountryCode.name',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         ...props,
       }}
     />
@@ -156,6 +163,7 @@ export function Continent(props) {
         enableUnknown: true,
         titleTranslationId: 'filters.continent.name',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         ...props,
       }}
     />
@@ -167,6 +175,7 @@ export function DwcaExtension(props) {
     <StandardEnumChart
       {...{
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         ...props,
         fieldName: 'dwcaExtension',
       }}
@@ -180,6 +189,7 @@ export function Protocol(props) {
       {...{
         translationTemplate: 'enums.endpointType.{key}',
         options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         ...props,
         fieldName: 'protocol',
       }}

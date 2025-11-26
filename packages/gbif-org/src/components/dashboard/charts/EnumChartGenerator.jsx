@@ -15,6 +15,7 @@ export function EnumChartGenerator({
   disableUnknown,
   currentFilter = {}, //excluding root predicate
   searchType = 'occurrenceSearch',
+  includeMapPredicate,
   ...props
 }) {
   const GQL_QUERY = `
@@ -32,9 +33,13 @@ export function EnumChartGenerator({
           results: ${fieldName}(size: $size, from: $from) {
             key
             count
-            occurrences {
+            ${
+              includeMapPredicate
+                ? `occurrences {
               metaPredicate
               _meta
+            }`
+                : ''
             }
           }
         }

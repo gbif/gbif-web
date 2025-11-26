@@ -14,6 +14,7 @@ export function KeyChartGenerator({
   gqlEntity, // e.g. `dataset {title}`
   searchType = 'occurrenceSearch',
   isVocabulary = false,
+  includeMapPredicate,
   ...props
 }) {
   const GQL_QUERY = `
@@ -32,9 +33,13 @@ export function KeyChartGenerator({
             key
             count
             ${gqlEntity ? `entity: ${gqlEntity}` : ''}
-            occurrences {
+            ${
+              includeMapPredicate
+                ? `occurrences {
               metaPredicate
               _meta
+            }`
+                : ''
             }
           }
         }
