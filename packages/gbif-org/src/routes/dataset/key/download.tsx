@@ -25,8 +25,8 @@ export function DatasetKeyDownload() {
     value: key,
   };
 
-  const dwcAEndpoint = dataset?.endpoints?.find(function (e) {
-    return e.type == 'DWC_ARCHIVE';
+  const sourceDownloadEndpoint = dataset?.endpoints?.find(function (e) {
+    return ['DWC_ARCHIVE', 'CAMTRAP_DP'].includes(e.type);
   });
 
   return (
@@ -86,7 +86,7 @@ export function DatasetKeyDownload() {
               </Card>
             </div>
           )}
-          {dwcAEndpoint && (
+          {sourceDownloadEndpoint && (
             <div>
               <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
                 <CardHeader>
@@ -95,12 +95,23 @@ export function DatasetKeyDownload() {
                   </CardTitle>
                   <CardDescription className="g-text-base g-prose g-pt-6">
                     <Message id="dataset.originalArchiveDescription" />
+                    <div>
+                      <FormattedMessage
+                        id={`downloadKey.${sourceDownloadEndpoint.type}`}
+                        defaultMessage="Format"
+                      />
+                      :{' '}
+                      <FormattedMessage
+                        id={`enums.endpointType.${sourceDownloadEndpoint.type}`}
+                        defaultMessage={sourceDownloadEndpoint.type}
+                      />
+                    </div>
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
                   <Button variant="default" className="g-text-center g-w-full" asChild>
                     <a
-                      href={`${dwcAEndpoint.url}`}
+                      href={`${sourceDownloadEndpoint.url}`}
                       rel="noopener noreferrer"
                       className="g-text-white"
                     >
