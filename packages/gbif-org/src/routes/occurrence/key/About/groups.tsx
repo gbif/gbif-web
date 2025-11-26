@@ -484,7 +484,6 @@ function Location({
             <PlainTextField term={termMap.georeferencedDate} showDetails={showAll} />
             <HtmlField term={termMap.georeferenceProtocol} showDetails={showAll} />
             <HtmlField term={termMap.georeferenceSources} showDetails={showAll} />
-            <PlainTextField term={termMap.georeferenceVerificationStatus} showDetails={showAll} />
             <HtmlField term={termMap.georeferenceRemarks} showDetails={showAll} />
 
             <PlainTextField term={termMap.elevation} showDetails={showAll} />
@@ -548,6 +547,7 @@ function Occurrence({
         showDetails={showAll}
         getEnum={(value) => `enums.occurrenceStatus.${value}`}
       />
+      <PlainTextField term={termMap.georeferenceVerificationStatus} showDetails={showAll} />
       <PlainTextField term={termMap.preparations} showDetails={showAll} />
       <PlainTextField term={termMap.disposition} showDetails={showAll} />
       <HtmlField term={termMap.associatedReferences} showDetails={showAll} />
