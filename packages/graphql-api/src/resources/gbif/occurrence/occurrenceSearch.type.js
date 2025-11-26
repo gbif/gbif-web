@@ -102,6 +102,7 @@ const typeDef = gql`
       sortBy: OccurrenceSortBy
       sortOrder: SortOrder
       checklistKey: ID
+      shuffle: Int
     ): OccurrenceDocuments!
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrences per year.
