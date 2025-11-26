@@ -99,7 +99,7 @@ function Agents({ label, value }: { label: string; value: { type: string; value:
   if (!value?.[0]) return null;
   return (
     <BasicField label={label}>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+      <ul className="g-list-none g-p-0 g-m-0 g-flex g-flex-col g-gap-3">
         {value.map((x) => (
           <li key={x.value}>
             <AgentSummary agent={x} />
@@ -223,8 +223,20 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
     throwAllErrors: false,
     variables: { type: agent.type, value: agent.value },
   });
-  // ignore errors and just fallback to the raw value - no need to notify anyone
-  if (!data?.person || loading || error) return agent.value;
+
+  if (!data?.person || loading || error) {
+    // Display raw text links as anchors if they are valid URLs
+    if (agent.value && (agent.value.startsWith('http://') || agent.value.startsWith('https://'))) {
+      return (
+        <a className="g-underline" href={agent.value}>
+          {agent.value}
+        </a>
+      );
+    }
+
+    // ignore errors and just fallback to the raw value - no need to notify anyone
+    return agent.value;
+  }
   const { person } = data;
 
   return (
