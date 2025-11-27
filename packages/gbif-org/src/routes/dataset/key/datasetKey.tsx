@@ -38,7 +38,6 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -340,12 +339,8 @@ export function DatasetPage() {
       hasPhylogeny = false;
     }
   }
+
   const hasTaxonomy = !!dataset?.checklistBankDataset?.key;
-  const hasOccurrences = !!(
-    !config?.datasetKey?.disableInPageOccurrenceSearch &&
-    occData?.occurrenceSearch?.documents?.total
-  );
-  const hasLiterature = data?.literatureSearch?.documents?.total > 0;
   const withEventId = occData?.withEvents?.documents?.total || 0;
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
   const citationCountOrZero = data?.literatureSearch?.documents?.total || 0;
@@ -386,32 +381,25 @@ export function DatasetPage() {
         ),
       });
     }
-    if (hasLiterature)
-      tabsToDisplay.push({
-        to: 'citations',
-        children: <FormattedMessage id="dataset.tabs.citations" />,
-      });
-    tabsToDisplay.push({
-      to: 'download',
-      children: <FormattedMessage id="dataset.tabs.download" />,
-    });
     if (config.datasetKey?.showEvents && withEventId > 0) {
       tabsToDisplay.push({
         to: 'events',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
+    tabsToDisplay.push({
+      to: 'download',
+      children: <FormattedMessage id="dataset.tabs.download" />,
+    });
     return tabsToDisplay;
   }, [
     hasPhylogeny,
     hasTaxonomy,
-    hasOccurrences,
-    hasLiterature,
     withEventId,
     dataset?.key,
     dataset?.type,
     dataset?.project,
-    config?.datasetKey?.disableInPageOccurrenceSearch,
+    config.datasetKey?.showEvents,
   ]);
 
   useEffect(() => {
@@ -567,10 +555,12 @@ export function DatasetPage() {
                       pageId="literatureSearch"
                       searchParams={{ gbifDatasetKey: dataset.key }}
                     >
-                      <FormattedMessage
-                        id="counts.nCitations"
-                        values={{ total: citationCountOrZero }}
-                      />
+                      <span className="g-whitespace-nowrap">
+                        <FormattedMessage
+                          id="counts.nCitations"
+                          values={{ total: citationCountOrZero }}
+                        />
+                      </span>
                     </DynamicLink>
                   </Button>
                 )}
@@ -585,10 +575,12 @@ export function DatasetPage() {
                       pageId="occurrenceSearch"
                       searchParams={{ datasetKey: dataset.key }}
                     >
-                      <FormattedMessage
-                        id="counts.nOccurrences"
-                        values={{ total: occurrenceCountOrZero }}
-                      />
+                      <span className="g-whitespace-nowrap">
+                        <FormattedMessage
+                          id="counts.nOccurrences"
+                          values={{ total: occurrenceCountOrZero }}
+                        />
+                      </span>
                     </DynamicLink>
                   </Button>
                 )}

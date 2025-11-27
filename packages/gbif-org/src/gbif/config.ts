@@ -180,7 +180,6 @@ export const gbifConfig: Config = {
       // tabs: ['table', 'map', 'gallery', 'download'],
       // defaultTab: 'table',
     },
-    disableInPageOccurrenceSearch: false,
     showEvents: true,
     literatureSearch: {
       excludedFilters: ['gbifDatasetKey'],

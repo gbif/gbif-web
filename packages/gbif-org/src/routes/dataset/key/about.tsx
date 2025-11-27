@@ -70,14 +70,10 @@ export function DatasetKeyAbout() {
   const { formatMessage } = useIntl();
 
   const sitePredicate = config?.occurrenceSearch?.scope;
-  const disableInPageOccurrenceSearch = config.datasetKey?.disableInPageOccurrenceSearch;
-  const occDynamicLinkProps = disableInPageOccurrenceSearch
-    ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: dataset?.key } }
-    : { to: './occurrences' };
-
-  const occDynamicLinkPropsMap = disableInPageOccurrenceSearch
-    ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: dataset?.key, view: 'map' } }
-    : { to: './occurrences?view=map' };
+  const occDynamicLinkProps = {
+    pageId: 'occurrenceSearch',
+    searchParams: { datasetKey: dataset?.key },
+  };
 
   const { data: insights, load } = useQuery<DatasetInsightsQuery, DatasetInsightsQueryVariables>(
     DATASET_SLOW,
@@ -549,9 +545,9 @@ export function DatasetKeyAbout() {
                     <TableOfContents sections={tableOfContents} />
                   </nav>
                 </Card>
-                <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4" />
+                <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4 g-mb-4" />
                 {dataset.type === 'CHECKLIST' && (
-                  <Card className="g-mb-4 gbif-word-break">
+                  <Card className="g-mb-4 g-mt-4 gbif-word-break">
                     <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                       <div className="g-flex-none g-me-2">
                         <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -683,7 +679,7 @@ export function DatasetKeyAbout() {
                   </Card>
                 )}
 
-                {labelAsEventDataset && (
+                {/* {labelAsEventDataset && (
                   <Card className="g-mb-4 gbif-word-break">
                     <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                       <div className="g-flex-none g-me-2">
@@ -701,7 +697,7 @@ export function DatasetKeyAbout() {
                       </div>
                     </CardContentSmall>
                   </Card>
-                )}
+                )} */}
 
                 {hasLocalContext &&
                   dataset?.localContexts?.map((localContext) => {
