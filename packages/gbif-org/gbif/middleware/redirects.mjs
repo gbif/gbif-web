@@ -12,6 +12,15 @@ const newRedirects = [
   { incoming: '/occurrence/map', target: '/occurrence/search?view=map' },
   { incoming: '/occurrence/charts', target: '/occurrence/search?view=dashboard' },
   { incoming: '/occurrence/download', target: '/occurrence/search?view=download' },
+
+  { incoming: '/the-gbif-network/africa', target: '/the-gbif-network' },
+  { incoming: '/the-gbif-network/asia', target: '/the-gbif-network' },
+  { incoming: '/the-gbif-network/europe', target: '/the-gbif-network' },
+  { incoming: '/the-gbif-network/latin-america', target: '/the-gbif-network' },
+  { incoming: '/the-gbif-network/north-america', target: '/the-gbif-network' },
+  { incoming: '/the-gbif-network/oceania', target: '/the-gbif-network' },
+  { incoming: '/the-gbif-network/participant-organisations', target: '/the-gbif-network' },
+  { incoming: '/the-gbif-network/gbif-affiliates', target: '/the-gbif-network' },
 ];
 
 
