@@ -11,7 +11,7 @@
   "cancel": "Cancel",
   "apply": "Apply",
   "clear": "Clear",
-  "noSuggestions": "No suggestions",
+  "noSuggestions": "The current search parameters return no records with data for this filter",
   "backToSelect": "Back to selection",
   "invert": "Reverse selection",
   "rangeHelp": "Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends like: 100,",
