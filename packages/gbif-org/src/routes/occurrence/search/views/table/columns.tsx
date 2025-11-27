@@ -307,6 +307,20 @@ export function useOccurrenceColumns({
         },
       },
       {
+        id: 'organismId',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'organismId' },
+        header: 'occurrenceFieldNames.organismID',
+        cell: ({ organismID }) => {
+          if (!organismID) return null;
+
+          return (
+            <SetAsFilter field="organismId" value={organismID}>
+              {organismID}
+            </SetAsFilter>
+          );
+        },
+      },
+      {
         id: 'specimenTriplet',
         header: 'tableHeaders.specimenTriplet',
         minWidth: 200,
