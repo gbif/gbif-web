@@ -536,6 +536,244 @@ export function DatasetKeyAbout() {
           </div>
           {!removeSidebar && (
             <Aside>
+              {dataset.type === 'CHECKLIST' && (
+                <Card className="g-mb-4 g-mt-4 gbif-word-break">
+                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <div className="g-flex-none g-me-2">
+                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                        <MdPlaylistAddCheck />
+                      </div>
+                    </div>
+                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
+                      <a
+                        className="g-text-inherit"
+                        href={`${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
+                          dataset.key
+                        }/imports`}
+                      >
+                        <h5 className="g-font-bold">
+                          <FormattedMessage
+                            id="counts.nNames"
+                            values={{ total: totalTaxa.count }}
+                          />
+                        </h5>
+                      </a>
+                      <div className="g-text-slate-500">
+                        <div className="g-mt-2">
+                          <FormattedMessage
+                            id="counts.nAcceptedNames"
+                            values={{ total: accepted.count }}
+                          />
+                        </div>
+                        <Progress value={acceptedPercentage} className="g-h-1" />
+
+                        <div className="g-mt-2">
+                          <FormattedMessage
+                            id="counts.nSynonyms"
+                            values={{ total: synonyms.count }}
+                          />
+                        </div>
+                        <Progress value={synonymsPercentage} className="g-h-1" />
+
+                        <div className="g-mt-2">
+                          <FormattedMessage
+                            id="counts.gbifOverlapPercent"
+                            values={{ percent: gbifOverlap }}
+                          />
+                        </div>
+                        <Progress value={gbifOverlap} className="g-h-1" />
+
+                        <div className="g-mt-2">
+                          <FormattedMessage
+                            id="counts.colOverlapPercent"
+                            values={{ percent: colOverlap }}
+                          />
+                        </div>
+                        <Progress value={colOverlap} className="g-h-1" />
+                      </div>
+                    </div>
+                  </CardContentSmall>
+                </Card>
+              )}
+
+              {total > 0 && (
+                <Card className="g-mb-4 gbif-word-break">
+                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <div className="g-flex-none g-me-2">
+                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                        <OccurrenceIcon />
+                      </div>
+                    </div>
+                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
+                      <DynamicLink {...occDynamicLinkProps} className="g-text-inherit">
+                        <h5 className="g-font-bold">
+                          <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+                        </h5>
+                      </DynamicLink>
+                      {total > 0 && (
+                        <div className="g-text-slate-500">
+                          <div className="g-mt-2">
+                            <FormattedMessage
+                              id="counts.percentWithCoordinates"
+                              values={{ percent: withCoordinatesPercentage }}
+                            />
+                          </div>
+                          <Progress value={(100 * withCoordinates) / total} className="g-h-1" />
+
+                          <div className="g-mt-2">
+                            <FormattedMessage
+                              id="counts.percentWithDate"
+                              values={{ percent: eventDatePercentage }}
+                            />
+                          </div>
+                          <Progress value={(100 * withEventDate) / total} className="g-h-1" />
+
+                          <div className="g-mt-2">
+                            <FormattedMessage
+                              id="counts.percentWithTaxonMatch"
+                              values={{ percent: withTaxonMatchPercentage }}
+                            />
+                          </div>
+                          <Progress value={(100 * withTaxonMatch) / total} className="g-h-1" />
+                        </div>
+                      )}
+                    </div>
+                  </CardContentSmall>
+                </Card>
+              )}
+
+              {hasDna && (
+                <Card className="g-mb-4 gbif-word-break">
+                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <div className="g-flex-none g-me-2">
+                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                        <GiDna1 />
+                      </div>
+                    </div>
+                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
+                      <DynamicLink
+                        className="g-text-inherit"
+                        pageId="occurrenceSearch"
+                        searchParams={{ datasetKey: dataset.key, isSequenced: true }}
+                        to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}
+                      >
+                        <h5 className="g-font-bold">
+                          <FormattedMessage id="dataset.includesDna" />
+                        </h5>
+                      </DynamicLink>
+                      <div className="g-text-slate-500 [&_a]:g-underline">
+                        <Message id="dataset.includesDnaDescription" />
+                      </div>
+                    </div>
+                  </CardContentSmall>
+                </Card>
+              )}
+
+              {labelAsEventDataset && (
+                <Card className="g-mb-4 gbif-word-break">
+                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <div className="g-flex-none g-me-2">
+                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                        <SamplingIcon />
+                      </div>
+                    </div>
+                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
+                      <h5 className="g-font-bold">
+                        <FormattedMessage id="dataset.containsSamplingEvents" />
+                      </h5>
+                      <div className="g-text-slate-500 [&_a]:g-underline">
+                        <Message id="dataset.containsSamplingEventsDescription" />
+                      </div>
+                    </div>
+                  </CardContentSmall>
+                </Card>
+              )}
+
+              {hasLocalContext &&
+                dataset?.localContexts?.map((localContext) => {
+                  if (!localContext?.project_page) return null;
+                  return (
+                    <Card className="g-mb-4 gbif-word-break" key={localContext?.project_page}>
+                      <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                        <div className="g-flex-none g-me-2">
+                          <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                            <ExternalLinkIcon />
+                          </div>
+                        </div>
+                        <div className="g-flex-auto g-mt-0.5">
+                          <a
+                            href={localContext?.project_page}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="g-flex g-items-center g-underline"
+                          >
+                            <h5 className="g-font-bold">{localContext?.title}</h5>
+                          </a>
+                          {localContext?.description && (
+                            <div className="g-text-slate-500 [&_a]:g-underline">
+                              {truncate(localContext?.description, 120)}
+                            </div>
+                          )}
+                          <ul className="g-mt-2">
+                            {localContext?.notes
+                              ?.filter((x) => x)
+                              .map((note, i) => {
+                                if (!note || !note.img_url) return null;
+                                return (
+                                  <li
+                                    className="g-flex g-items-start g-mb-2"
+                                    key={`${note.name}-${i}`}
+                                  >
+                                    <img
+                                      className="g-flex-none g-me-2 g-w-5 g-h-5"
+                                      src={note.img_url}
+                                      alt={note.name}
+                                      title={note.name}
+                                    />
+                                    <div className="g-flex-auto">
+                                      <a
+                                        href={note.pageUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="g-underline g-text-inherit"
+                                      >
+                                        {note.name}
+                                      </a>
+                                      {/* {note.description && (
+                                        <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
+                                          {truncate(note.description, 70)}
+                                        </div>
+                                      )} */}
+                                    </div>
+                                  </li>
+                                );
+                              })}
+                          </ul>
+                        </div>
+                      </CardContentSmall>
+                    </Card>
+                  );
+                })}
+
+              {isGridded && (
+                <Card className="gbif-word-break g-mb-4">
+                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <div className="g-flex-none g-me-2">
+                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                        <MdGridOn />
+                      </div>
+                    </div>
+                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
+                      <h5 className="g-font-bold">
+                        <FormattedMessage id="dataset.griddedData" />
+                      </h5>
+                      <div className="g-text-slate-500 [&_a]:g-underline [&_a]:g-text-inherit">
+                        <Message id="dataset.griddedDataDescription" />
+                      </div>
+                    </div>
+                  </CardContentSmall>
+                </Card>
+              )}
               <AsideSticky className="-g-mt-4">
                 <Card>
                   <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
@@ -546,244 +784,6 @@ export function DatasetKeyAbout() {
                   </nav>
                 </Card>
                 <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4 g-mb-4" />
-                {dataset.type === 'CHECKLIST' && (
-                  <Card className="g-mb-4 g-mt-4 gbif-word-break">
-                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                      <div className="g-flex-none g-me-2">
-                        <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                          <MdPlaylistAddCheck />
-                        </div>
-                      </div>
-                      <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                        <a
-                          className="g-text-inherit"
-                          href={`${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
-                            dataset.key
-                          }/imports`}
-                        >
-                          <h5 className="g-font-bold">
-                            <FormattedMessage
-                              id="counts.nNames"
-                              values={{ total: totalTaxa.count }}
-                            />
-                          </h5>
-                        </a>
-                        <div className="g-text-slate-500">
-                          <div className="g-mt-2">
-                            <FormattedMessage
-                              id="counts.nAcceptedNames"
-                              values={{ total: accepted.count }}
-                            />
-                          </div>
-                          <Progress value={acceptedPercentage} className="g-h-1" />
-
-                          <div className="g-mt-2">
-                            <FormattedMessage
-                              id="counts.nSynonyms"
-                              values={{ total: synonyms.count }}
-                            />
-                          </div>
-                          <Progress value={synonymsPercentage} className="g-h-1" />
-
-                          <div className="g-mt-2">
-                            <FormattedMessage
-                              id="counts.gbifOverlapPercent"
-                              values={{ percent: gbifOverlap }}
-                            />
-                          </div>
-                          <Progress value={gbifOverlap} className="g-h-1" />
-
-                          <div className="g-mt-2">
-                            <FormattedMessage
-                              id="counts.colOverlapPercent"
-                              values={{ percent: colOverlap }}
-                            />
-                          </div>
-                          <Progress value={colOverlap} className="g-h-1" />
-                        </div>
-                      </div>
-                    </CardContentSmall>
-                  </Card>
-                )}
-
-                {total > 0 && (
-                  <Card className="g-mb-4 gbif-word-break">
-                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                      <div className="g-flex-none g-me-2">
-                        <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                          <OccurrenceIcon />
-                        </div>
-                      </div>
-                      <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                        <DynamicLink {...occDynamicLinkProps} className="g-text-inherit">
-                          <h5 className="g-font-bold">
-                            <FormattedMessage id="counts.nOccurrences" values={{ total }} />
-                          </h5>
-                        </DynamicLink>
-                        {total > 0 && (
-                          <div className="g-text-slate-500">
-                            <div className="g-mt-2">
-                              <FormattedMessage
-                                id="counts.percentWithCoordinates"
-                                values={{ percent: withCoordinatesPercentage }}
-                              />
-                            </div>
-                            <Progress value={(100 * withCoordinates) / total} className="g-h-1" />
-
-                            <div className="g-mt-2">
-                              <FormattedMessage
-                                id="counts.percentWithDate"
-                                values={{ percent: eventDatePercentage }}
-                              />
-                            </div>
-                            <Progress value={(100 * withEventDate) / total} className="g-h-1" />
-
-                            <div className="g-mt-2">
-                              <FormattedMessage
-                                id="counts.percentWithTaxonMatch"
-                                values={{ percent: withTaxonMatchPercentage }}
-                              />
-                            </div>
-                            <Progress value={(100 * withTaxonMatch) / total} className="g-h-1" />
-                          </div>
-                        )}
-                      </div>
-                    </CardContentSmall>
-                  </Card>
-                )}
-
-                {hasDna && (
-                  <Card className="g-mb-4 gbif-word-break">
-                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                      <div className="g-flex-none g-me-2">
-                        <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                          <GiDna1 />
-                        </div>
-                      </div>
-                      <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                        <DynamicLink
-                          className="g-text-inherit"
-                          pageId="occurrenceSearch"
-                          searchParams={{ datasetKey: dataset.key, isSequenced: true }}
-                          to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}
-                        >
-                          <h5 className="g-font-bold">
-                            <FormattedMessage id="dataset.includesDna" />
-                          </h5>
-                        </DynamicLink>
-                        <div className="g-text-slate-500 [&_a]:g-underline">
-                          <Message id="dataset.includesDnaDescription" />
-                        </div>
-                      </div>
-                    </CardContentSmall>
-                  </Card>
-                )}
-
-                {/* {labelAsEventDataset && (
-                  <Card className="g-mb-4 gbif-word-break">
-                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                      <div className="g-flex-none g-me-2">
-                        <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                          <SamplingIcon />
-                        </div>
-                      </div>
-                      <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                        <h5 className="g-font-bold">
-                          <FormattedMessage id="dataset.containsSamplingEvents" />
-                        </h5>
-                        <div className="g-text-slate-500 [&_a]:g-underline">
-                          <Message id="dataset.containsSamplingEventsDescription" />
-                        </div>
-                      </div>
-                    </CardContentSmall>
-                  </Card>
-                )} */}
-
-                {hasLocalContext &&
-                  dataset?.localContexts?.map((localContext) => {
-                    if (!localContext?.project_page) return null;
-                    return (
-                      <Card className="g-mb-4 gbif-word-break" key={localContext?.project_page}>
-                        <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                          <div className="g-flex-none g-me-2">
-                            <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                              <ExternalLinkIcon />
-                            </div>
-                          </div>
-                          <div className="g-flex-auto g-mt-0.5">
-                            <a
-                              href={localContext?.project_page}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="g-flex g-items-center g-underline"
-                            >
-                              <h5 className="g-font-bold">{localContext?.title}</h5>
-                            </a>
-                            {localContext?.description && (
-                              <div className="g-text-slate-500 [&_a]:g-underline">
-                                {truncate(localContext?.description, 120)}
-                              </div>
-                            )}
-                            <ul className="g-mt-2">
-                              {localContext?.notes
-                                ?.filter((x) => x)
-                                .map((note, i) => {
-                                  if (!note || !note.img_url) return null;
-                                  return (
-                                    <li
-                                      className="g-flex g-items-start g-mb-2"
-                                      key={`${note.name}-${i}`}
-                                    >
-                                      <img
-                                        className="g-flex-none g-me-2 g-w-5 g-h-5"
-                                        src={note.img_url}
-                                        alt={note.name}
-                                        title={note.name}
-                                      />
-                                      <div className="g-flex-auto">
-                                        <a
-                                          href={note.pageUrl}
-                                          target="_blank"
-                                          rel="noreferrer"
-                                          className="g-underline g-text-inherit"
-                                        >
-                                          {note.name}
-                                        </a>
-                                        {/* {note.description && (
-                                        <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                                          {truncate(note.description, 70)}
-                                        </div>
-                                      )} */}
-                                      </div>
-                                    </li>
-                                  );
-                                })}
-                            </ul>
-                          </div>
-                        </CardContentSmall>
-                      </Card>
-                    );
-                  })}
-
-                {isGridded && (
-                  <Card className="gbif-word-break g-mb-4">
-                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                      <div className="g-flex-none g-me-2">
-                        <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                          <MdGridOn />
-                        </div>
-                      </div>
-                      <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                        <h5 className="g-font-bold">
-                          <FormattedMessage id="dataset.griddedData" />
-                        </h5>
-                        <div className="g-text-slate-500 [&_a]:g-underline [&_a]:g-text-inherit">
-                          <Message id="dataset.griddedDataDescription" />
-                        </div>
-                      </div>
-                    </CardContentSmall>
-                  </Card>
-                )}
               </AsideSticky>
             </Aside>
           )}
