@@ -10,12 +10,16 @@ const typeDef = gql`
       participationStatus: ParticipationStatus
     ): ParticipantSearchResults
     participant(key: ID!): Participant
-    nodeSteeringGroup: [NsgMember!]
+    nodeSteeringGroup: [NsgMember!] @cacheControl(maxAge: 3600, scope: PUBLIC)
     budgetCommittee: [CommitteeMember!]
+      @cacheControl(maxAge: 3600, scope: PUBLIC)
     executiveCommittee: [CommitteeMember!]
+      @cacheControl(maxAge: 3600, scope: PUBLIC)
     scienceCommittee: [CommitteeMember!]
+      @cacheControl(maxAge: 3600, scope: PUBLIC)
     nodeManagersCommittee: [NodeManagersCommitteeMember!]
-    secretariat: [SecretariatMember!]
+      @cacheControl(maxAge: 3600, scope: PUBLIC)
+    secretariat: [SecretariatMember!] @cacheControl(maxAge: 3600, scope: PUBLIC)
   }
 
   type ParticipantSearchResults {
