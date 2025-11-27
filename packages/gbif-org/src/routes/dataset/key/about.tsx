@@ -51,6 +51,7 @@ import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { truncate } from '@/utils/truncate';
+import { MapWidget } from '@/components/maps/mapWidget';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -69,14 +70,10 @@ export function DatasetKeyAbout() {
   const { formatMessage } = useIntl();
 
   const sitePredicate = config?.occurrenceSearch?.scope;
-  const disableInPageOccurrenceSearch = config.datasetKey?.disableInPageOccurrenceSearch;
-  const occDynamicLinkProps = disableInPageOccurrenceSearch
-    ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: dataset?.key } }
-    : { to: './occurrences' };
-
-  const occDynamicLinkPropsMap = disableInPageOccurrenceSearch
-    ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: dataset?.key, view: 'map' } }
-    : { to: './occurrences?view=map' };
+  const occDynamicLinkProps = {
+    pageId: 'occurrenceSearch',
+    searchParams: { datasetKey: dataset?.key },
+  };
 
   const { data: insights, load } = useQuery<DatasetInsightsQuery, DatasetInsightsQueryVariables>(
     DATASET_SLOW,
@@ -315,6 +312,15 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
+            {hasPreprocessedMap && (
+              <ClientSideOnly>
+                <MapWidget
+                  className="g-mb-4"
+                  capabilitiesParams={{ datasetKey: dataset.key }}
+                  mapStyle="CLASSIC_HEX"
+                />
+              </ClientSideOnly>
+            )}
             {toc?.geographicDescription && (
               <Card className="g-mb-4" id="geographic-description">
                 <CardHeader className="gbif-word-break">
@@ -530,27 +536,8 @@ export function DatasetKeyAbout() {
           </div>
           {!removeSidebar && (
             <Aside>
-              {data?.literatureSearch?.documents.total > 0 && (
-                <Card className="g-mb-4 gbif-word-break">
-                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                    <div className="g-flex-none g-me-2">
-                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                        <MdFormatQuote />
-                      </div>
-                    </div>
-                    <div className="g-flex-auto g-mt-0.5">
-                      <h5 className="g-font-bold">
-                        <FormattedMessage
-                          id="counts.nCitations"
-                          values={{ total: data?.literatureSearch?.documents.total }}
-                        />
-                      </h5>
-                    </div>
-                  </CardContentSmall>
-                </Card>
-              )}
               {dataset.type === 'CHECKLIST' && (
-                <Card className="g-mb-4 gbif-word-break">
+                <Card className="g-mb-4 g-mt-4 gbif-word-break">
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -611,11 +598,6 @@ export function DatasetKeyAbout() {
 
               {total > 0 && (
                 <Card className="g-mb-4 gbif-word-break">
-                  {hasPreprocessedMap && (
-                    <DynamicLink {...occDynamicLinkPropsMap}>
-                      <MapThumbnail type={MapTypes.DatasetKey} identifier={dataset.key} />
-                    </DynamicLink>
-                  )}
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -792,7 +774,6 @@ export function DatasetKeyAbout() {
                   </CardContentSmall>
                 </Card>
               )}
-
               <AsideSticky className="-g-mt-4">
                 <Card>
                   <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
@@ -802,7 +783,7 @@ export function DatasetKeyAbout() {
                     <TableOfContents sections={tableOfContents} />
                   </nav>
                 </Card>
-                <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4" />
+                <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4 g-mb-4" />
               </AsideSticky>
             </Aside>
           )}

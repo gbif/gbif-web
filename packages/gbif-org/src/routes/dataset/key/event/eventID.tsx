@@ -67,22 +67,20 @@ export const DatasetEventID = () => {
   const { datasetKey } = useContext(DatasetKeyContext);
   const hideSidebar = useBelow(1000);
   const hideGlobe = useBelow(800);
-  const config = useConfig();
   const location = useLocation();
   const [parentEventIdFromPath, setParentEventIdFromPath] = useState('');
   const { data } = useLoaderData() as { data: DatasetEventQuery };
-  const disableInPageOccurrenceSearch = config.datasetKey?.disableInPageOccurrenceSearch;
 
   const { eventId, firstOccurrence } = data?.dataset?.events?.results?.[0] ?? {};
   const { decimalLatitude, decimalLongitude } = firstOccurrence ?? {};
-  const parentEventID = firstOccurrence?.parentEventID;
   const eventID = firstOccurrence?.eventID;
   const countryCode = firstOccurrence?.countryCode;
   const eventDate = firstOccurrence?.eventDate;
 
-  const occDynamicLinkProps = disableInPageOccurrenceSearch
-    ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: data?.dataset?.key } }
-    : { to: './occurrences' };
+  const occDynamicLinkProps = {
+    pageId: 'occurrenceSearch',
+    searchParams: { datasetKey: data?.dataset?.key },
+  };
   const { data: insights, load } = useQuery<EventInsightsQuery, EventInsightsQueryVariables>(
     EVENT_SLOW,
     {

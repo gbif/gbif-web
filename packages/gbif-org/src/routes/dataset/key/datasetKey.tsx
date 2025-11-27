@@ -5,6 +5,7 @@ import {
   defaultDateFormatProps,
   DeletedMessage,
   HeaderInfo,
+  HeaderInfoEdit,
   HeaderInfoMain,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
@@ -36,6 +37,7 @@ import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
+import { Button } from '@/components/ui/button';
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -337,27 +339,16 @@ export function DatasetPage() {
       hasPhylogeny = false;
     }
   }
+
   const hasTaxonomy = !!dataset?.checklistBankDataset?.key;
-  const hasOccurrences = !!(
-    !config?.datasetKey?.disableInPageOccurrenceSearch &&
-    occData?.occurrenceSearch?.documents?.total
-  );
-  const hasLiterature = data?.literatureSearch?.documents?.total > 0;
   const withEventId = occData?.withEvents?.documents?.total || 0;
+  const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
+  const citationCountOrZero = data?.literatureSearch?.documents?.total || 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="dataset.tabs.about" /> },
     ];
-    if (
-      (dataset?.type === 'OCCURRENCE' || hasOccurrences) &&
-      !config?.datasetKey?.disableInPageOccurrenceSearch
-    ) {
-      tabsToDisplay.push({
-        to: 'occurrences',
-        children: <FormattedMessage id="dataset.tabs.occurrences" />,
-      });
-    }
     if (dataset.project) {
       tabsToDisplay.push({
         to: 'project',
@@ -390,32 +381,25 @@ export function DatasetPage() {
         ),
       });
     }
-    if (hasLiterature)
-      tabsToDisplay.push({
-        to: 'citations',
-        children: <FormattedMessage id="dataset.tabs.citations" />,
-      });
-    tabsToDisplay.push({
-      to: 'download',
-      children: <FormattedMessage id="dataset.tabs.download" />,
-    });
     if (config.datasetKey?.showEvents && withEventId > 0) {
       tabsToDisplay.push({
         to: 'events',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
+    tabsToDisplay.push({
+      to: 'download',
+      children: <FormattedMessage id="dataset.tabs.download" />,
+    });
     return tabsToDisplay;
   }, [
     hasPhylogeny,
     hasTaxonomy,
-    hasOccurrences,
-    hasLiterature,
     withEventId,
     dataset?.key,
     dataset?.type,
     dataset?.project,
-    config?.datasetKey?.disableInPageOccurrenceSearch,
+    config.datasetKey?.showEvents,
   ]);
 
   useEffect(() => {
@@ -563,6 +547,44 @@ export function DatasetPage() {
                   </GenericFeature> */}
                 </FeatureList>
               </HeaderInfoMain>
+              <HeaderInfoEdit className="g-flex g-mt-4 g-gap-2">
+                {citationCountOrZero > 0 && (
+                  <Button asChild variant="outline" className="g-py-1 g-px-2 g-h-[2rem]">
+                    <DynamicLink
+                      to="literatureSearch"
+                      pageId="literatureSearch"
+                      searchParams={{ gbifDatasetKey: dataset.key }}
+                    >
+                      <span className="g-whitespace-nowrap">
+                        <FormattedMessage
+                          id="counts.nCitations"
+                          values={{ total: citationCountOrZero }}
+                        />
+                      </span>
+                    </DynamicLink>
+                  </Button>
+                )}
+                {(occurrenceCountOrZero > 0 || dataset?.type === 'OCCURRENCE') && (
+                  <Button
+                    className="g-py-1 g-px-2 g-h-[2rem]"
+                    asChild
+                    isLoading={occurrenceCountOrZero === 0}
+                  >
+                    <DynamicLink
+                      to="occurrenceSearch"
+                      pageId="occurrenceSearch"
+                      searchParams={{ datasetKey: dataset.key }}
+                    >
+                      <span className="g-whitespace-nowrap">
+                        <FormattedMessage
+                          id="counts.nOccurrences"
+                          values={{ total: occurrenceCountOrZero }}
+                        />
+                      </span>
+                    </DynamicLink>
+                  </Button>
+                )}
+              </HeaderInfoEdit>
             </HeaderInfo>
             <div className="g-border-b g-mt-4"></div>
             <Tabs links={tabs} />

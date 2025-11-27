@@ -112,7 +112,6 @@ export type Config = Endpoints & {
   datasetKey?: {
     literatureSearch?: PartialSearchMetadata;
     occurrenceSearch?: PartialSearchMetadata;
-    disableInPageOccurrenceSearch?: boolean;
     showEvents?: boolean;
   };
   collectionSearch?: SearchMetadata;
