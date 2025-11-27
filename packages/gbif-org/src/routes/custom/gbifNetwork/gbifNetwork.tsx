@@ -143,9 +143,7 @@ function GbifNetworkPage() {
           )}
         </ArticleTextContainer>
 
-        <ClientSideOnly>
-          <Map className="g-mt-8 g-mb-6" listData={listData} />
-        </ClientSideOnly>
+        <Map className="g-mt-8 g-mb-6" listData={listData} />
 
         <ArticleTextContainer className="g-mb-8">
           {resource.body && (
