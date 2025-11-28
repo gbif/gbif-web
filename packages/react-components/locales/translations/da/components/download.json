@@ -64,7 +64,7 @@
         "estimatedSize": "Anslået datastørrelse"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "Tab-separeret CSV"
       },
       "tableValues": {
         "ifAvailable": "",
