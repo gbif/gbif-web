@@ -64,7 +64,7 @@
         "estimatedSize": "Szacowana wielkość danych"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "CSV rozdzielone znakami tabulacji (do użycia w Excelu, etc.)"
       },
       "tableValues": {
         "ifAvailable": "",
