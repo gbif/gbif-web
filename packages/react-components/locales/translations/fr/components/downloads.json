@@ -257,107 +257,107 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Retour",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "backToFormatSelection": "Espace réservé à la description",
+    "backToConfiguration": "Espace réservé à la description",
     "estimatedSize": "Taille estimée",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "Espace réservé à la description",
+    "continueToTerms": "Espace réservé à la description",
+    "downloadSummary": "Espace réservé à la description",
+    "weAlsoSupport": "Espace réservé à la description",
+    "sqlDownloadsLink": "Espace réservé à la description",
     "extensions": "Extensions",
-    "selectAdditionalExtensions": "",
-    "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAdditionalExtensions": "Espace réservé à la description",
+    "nExtensionsSelected": "Espace réservé à la description",
+    "selectAll": "Espace réservé à la description",
+    "deselectAll": "Espace réservé à la description",
+    "extensionsInfoMessage": "Espace réservé à la description",
     "format": "Format",
-    "csvDelimiter": "",
+    "csvDelimiter": "Espace réservé à la description",
     "taxonomy": "Taxonomie",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "Espace réservé à la description",
+    "progressLabel": "Espace réservé à la description",
+    "termsAndConditions": "Espace réservé à la description",
+    "reviewAndAccept": "Espace réservé à la description",
+    "dataCitationTitle": "Espace réservé à la description",
+    "dataCitationText": "Espace réservé à la description",
+    "dataUseAgreementTitle": "Espace réservé à la description",
+    "dataUseAgreementText": "Espace réservé à la description",
+    "largeDownloadAcknowledgment": "Espace réservé à la description",
+    "largeDownloadEstimatedSize": "Espace réservé à la description",
+    "largeDownloadConnectionSpeed": "Espace réservé à la description",
+    "largeDownloadDiskSpace": "Espace réservé à la description",
+    "largeDownloadRowCount": "Espace réservé à la description",
     "largeDownloadExcelWarning": "Un jeu de données de cette taille est difficile à analyser sur votre ordinateur de bureau normal. Vous aurez probablement besoin d’un accès à une sorte de service de calcul partagé.",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Espace réservé à la description",
+    "createDownload": "Espace réservé à la description",
+    "completeRequirements": "Espace réservé à la description",
     "steps": {
       "quality": {
         "name": "Qualité",
-        "description": ""
+        "description": "Espace réservé à la description"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Espace réservé à la description",
+        "description": "Espace réservé à la description"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "Espace réservé à la description",
+        "description": "Espace réservé à la description"
       },
       "format": {
         "name": "Format",
-        "description": ""
+        "description": "Espace réservé à la description"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "Espace réservé à la description",
+        "description": "Espace réservé à la description"
       },
       "terms": {
         "name": "Termes",
-        "description": ""
+        "description": "Espace réservé à la description"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Espace réservé à la description",
+        "description": "Espace réservé à la description"
       },
       "DWCA": {
         "title": "Archive Darwin Core",
-        "description": ""
+        "description": "Espace réservé à la description"
       },
       "SPECIES_LIST": {
         "title": "Liste des espèces en format CSV",
-        "description": ""
+        "description": "Espace réservé à la description"
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Espace réservé à la description",
+        "description": "Espace réservé à la description"
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "Espace réservé à la description",
+        "description": "Espace réservé à la description"
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "Espace réservé à la description",
+        "multipleCsv": "Espace réservé à la description",
+        "interpretedData": "Espace réservé à la description",
+        "rawAndInterpreted": "Espace réservé à la description",
+        "coordinates": "Espace réservé à la description",
+        "coordinatesIfSelected": "Espace réservé à la description",
+        "individualOccurrences": "Espace réservé à la description",
+        "multimediaLinks": "Espace réservé à la description",
+        "occurrenceCounts": "Espace réservé à la description"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": ""
+      "title": "Espace réservé à la description",
+      "description": "Espace réservé à la description",
+      "defaultRecommended": "Espace réservé à la description"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "Espace réservé à la description",
     "invalidSQL": "SQL non valide",
     "title": "Créer un nouveau téléchargement SQL",
     "notification": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'interface utilisateur de recherche d'occurrences. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
@@ -457,8 +457,8 @@
     "countHigherTaxonomy": "Nombre d'occurrences à un niveau taxonomique supérieur",
     "coordinateUncertainty": "Inclure une incertitude de coordonnées minimale",
     "errorMinimumDimension": "Au moins une dimension doit être sélectionnée",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "Espace réservé à la description",
+    "errorGeneratingSql": "Espace réservé à la description",
     "editSql": "Editer en SQL",
     "temporalUncertainty": "Inclure une incertitude temporelle minimale",
     "documentation": "Documentation",
