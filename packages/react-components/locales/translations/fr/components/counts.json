@@ -34,6 +34,7 @@
   "nResultsWithCoordinates": "{total, plural, one {# résultat } other {# résultats}} avec des coordonnées\n",
   "percentWithCoordinates": "{percent}% avec coordonnées",
   "percentWithYear": "{percent}% avec année",
+  "percentWithDate": "{percent}% avec date",
   "percentWithTaxonMatch": "{percent}% avec correspondance taxonomique",
   "nResultsWithImages": "{total, plural, one {# résultat} other {# résultats}} avec des images\n",
   "gbifOverlapPercent": "{percent}% de chevauchement avec le squelette GBIF",
