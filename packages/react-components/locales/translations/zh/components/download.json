@@ -64,7 +64,7 @@
         "estimatedSize": "估计数据大小"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "标签分隔的 CSV"
       },
       "tableValues": {
         "ifAvailable": "",
