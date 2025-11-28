@@ -1,7 +1,7 @@
 import { defineConfig } from 'cypress';
-import viteConfigFn from './gbif/vite.config';
+// import viteConfigFn from './gbif/vite.config';
 
-const viteConfig = viteConfigFn({ command: 'serve' });
+// const viteConfig = viteConfigFn({ command: 'serve' });
 
 export default defineConfig({
   e2e: {
@@ -12,11 +12,11 @@ export default defineConfig({
     },
   },
 
-  component: {
-    devServer: {
-      framework: 'react',
-      bundler: 'vite',
-      viteConfig,
-    },
-  },
+  // component: {
+  //   devServer: {
+  //     framework: 'react',
+  //     bundler: 'vite',
+  //     viteConfig,
+  //   },
+  // },
 });
