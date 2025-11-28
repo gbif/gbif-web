@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "",
-  "unsupported.description": "",
-  "unsupported.remove": "",
-  "unsupported.error": "",
-  "download": "Завантажити",
-  "redirectNotice": "",
-  "continueToGBIF": "Продовжити",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "Примітка",
-      "description": "",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Завантажити",
+    "redirectNotice": "",
+    "continueToGBIF": "Продовжити",
+    "continue": "Продовжити",
+    "invalid": "Неприпустимий",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Примітка",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "Відомості про видавця даних",
-  "stopEditing": "Завершити редагування",
-  "startEditing": "Почати редагування",
-  "reformat": "",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "",
-  "request": {
-    "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Поточний фільтр",
-    "errors": {
-      "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "Варіанти завантаження",
-    "chooseChecklist": "Етичні норми",
-    "chooseChecklistDescription": "Етичні норми",
-    "content": {
-      "rawData": "Первинні дані",
-      "interpretedData": "",
-      "images": "Мультимедіа",
-      "coordinates": "Координати",
-      "fileFormat": "Формат",
-      "estimatedSize": ""
+    "create": "",
+    "about": "Відомості про видавця даних",
+    "stopEditing": "Завершити редагування",
+    "startEditing": "Почати редагування",
+    "reformat": "",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Поточний фільтр",
+      "errors": {
+        "invalid-json": "",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": ""
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "Варіанти завантаження",
+      "chooseChecklist": "Етичні норми",
+      "chooseChecklistDescription": "Етичні норми",
+      "content": {
+        "rawData": "Первинні дані",
+        "interpretedData": "",
+        "images": "Мультимедіа",
+        "coordinates": "Координати",
+        "fileFormat": "Формат",
+        "estimatedSize": ""
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }

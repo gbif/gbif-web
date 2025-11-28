@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "שאילתה לא נתמכת",
-  "unsupported.description": "ניתן להשתמש בחיפוש טקסט חופשי לצורכי חקירה, אך הוא אינו נתמך בהורדה.",
-  "unsupported.remove": "הסר מסנן",
-  "unsupported.error": "שאילתה זו אינה נתמכת",
-  "download": "הורדה",
-  "redirectNotice": "אתם עומדים להוריד, ולשם כך תועברו אל GBIF.org.\n\n שימו לב: נדרש חשבון כדי להוריד את התוכן.",
-  "continueToGBIF": "המשך",
-  "sql": {
-    "createNewSqlDownload": "צור הורדת SQL חדשה",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "הערה",
-      "description": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "",
+    "redirectNotice": "",
+    "continueToGBIF": "",
+    "continue": "",
+    "invalid": "",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "SQL לא תקין",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "",
-  "stopEditing": "",
-  "startEditing": "",
-  "reformat": "",
-  "discard": "בטל",
-  "keep": "שמור",
-  "readTheDocumentation": "",
-  "request": {
-    "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "",
-    "errors": {
-      "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "",
-    "chooseChecklist": "Provider managed id",
-    "chooseChecklistDescription": "Provider managed id",
-    "content": {
-      "rawData": "",
-      "interpretedData": "",
-      "images": "",
-      "coordinates": "",
-      "fileFormat": "",
-      "estimatedSize": ""
+    "create": "",
+    "about": "",
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "discard": "בטל",
+    "keep": "שמור",
+    "readTheDocumentation": "",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "",
+      "errors": {
+        "invalid-json": "",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": ""
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "",
+      "chooseChecklist": "Provider managed id",
+      "chooseChecklistDescription": "Provider managed id",
+      "content": {
+        "rawData": "",
+        "interpretedData": "",
+        "images": "",
+        "coordinates": "",
+        "fileFormat": "",
+        "estimatedSize": ""
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }

@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Nicht unterstützte Abfrage",
-  "unsupported.description": "Die Freitextsuche kann bei der Suche verwendet werden, wird aber nicht für Downloads unterstützt.",
-  "unsupported.remove": "Filter entfernen",
-  "unsupported.error": "",
-  "download": "Herunterladen",
-  "redirectNotice": "Zum Herunterladen der Daten werden Sie auf GBIF.org weitergeleitet. {br}{br} Dafür ist ein Account notwendig, der dort erstellt werden kann.",
-  "continueToGBIF": "Weiter",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "",
+    "redirectNotice": "",
+    "continueToGBIF": "Weiter",
+    "continue": "Weiter",
+    "invalid": "",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
+    },
+    "create": "",
+    "about": "",
+    "stopEditing": "Bearbeitung beenden",
+    "startEditing": "Bearbeitung starten",
+    "reformat": "",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "",
+      "errors": {
+        "invalid-json": "",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
+    },
+    "downloadOptions": {
       "title": "",
-      "description": "",
-      "goToOccurrenceSearch": ""
-    },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "",
-  "stopEditing": "Bearbeitung beenden",
-  "startEditing": "Bearbeitung starten",
-  "reformat": "",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "",
-  "request": {
-    "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "",
-    "errors": {
-      "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "",
-    "chooseChecklist": "DWCA-Erweiterung",
-    "chooseChecklistDescription": "DWCA-Erweiterung",
-    "content": {
-      "rawData": "",
-      "interpretedData": "",
-      "images": "",
-      "coordinates": "",
-      "fileFormat": "",
-      "estimatedSize": ""
-    },
-    "fileFormats": {
-      "tabCsv": ""
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "chooseChecklist": "DWCA-Erweiterung",
+      "chooseChecklistDescription": "DWCA-Erweiterung",
+      "content": {
+        "rawData": "",
+        "interpretedData": "",
+        "images": "",
+        "coordinates": "",
+        "fileFormat": "",
+        "estimatedSize": ""
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }

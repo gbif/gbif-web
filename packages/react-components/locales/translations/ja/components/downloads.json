@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
+  "downloadReport": {
+    "title": "ダウンロードレポート",
+    "knownIssues": "既知の課題",
+    "knownIssuesDescription": "GBIF による処理の一つは疑わしいオカレンスを指摘することです。",
+    "FossilsIncluded": "化石",
+    "FossilsIncludedDescription": "結果の中でには化石のレコードが含まれています。そのため、予期しない場所にオカレンスが記録されている場合があります。",
+    "livingSpecimensIncluded": "生体標本",
+    "livingSpecimensIncludedDescription": "検索結果には、植物園や動物園など、生きた試料のオカレンスが含まれています。",
+    "yearRange": "記録年のレンジ",
+    "total": "合計",
+    "license": "ライセンス",
+    "withTaxonMatch": "一致する分類群",
+    "withCoordinates": "経緯度",
+    "withYear": "年",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} zip 形式でダウンロード",
+    "freeOfCost": "無料ですが、責任は生じます。",
+    "cancel": "中止",
+    "proceed": "進む",
+    "understood": "了解",
+    "largeDownload": "大規模なダウンロード",
+    "requestingFullDownload": "あなたはGBIF のすべてのオカレンスデータの完全なダウンロードを要求しています。",
+    "occFiltersExplainedHere": "これは可能ですが、ダウンロードする前にデータをフィルタにかけることもできます。そのためにはオカレンスフィルタを使います。[こちら](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)に説明があります。",
+    "estSizeIs": "ダウンロードの予想サイズは {SIZE_FORMATTED}",
+    "estDLtimes": "推定ダウンロード所要時間:",
+    "nMbitConn": "{NUMBER} Mbit の接続",
+    "onceDownloaded": "ファイルをダウンロードした後、さらに {SIZE_FORMATTED} データ解凍のための空領域が必要です。",
+    "datasetHasNumRows": "データセットのデータ行数が {NUMBER_FORMATTED} です。",
+    "youWillNotBeAble": "Excel や同様のアプリケーションでデータを表示したり分析することはできません。これらのデータを扱うためには、R、Python やリレーショナル データベースなどの知識が必要です。",
+    "difficultToAnalyse": "このサイズのデータセットは、通常のデスクトップ コンピューターで分析することは困難です。分散コンピューティング サービスへのアクセスが必要でしょう。",
+    "hours": "時間",
+    "minute": "分",
+    "minutes": "分"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "戻る",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "拡張モジュール",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "フォーマット",
+    "csvDelimiter": "",
+    "taxonomy": "分類群",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "このサイズのデータセットは、通常のデスクトップ コンピューターで分析することは困難です。分散コンピューティング サービスへのアクセスが必要でしょう。",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "フォーマット",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "ダーウィンコアアーカイブ",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "種情報の一覧（タブ区切りCSV形式）",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "",
     "title": "",
     "notification": "",
@@ -265,6 +400,7 @@
         "250": "",
         "1000": "",
         "10000": "",
+        "50000": "",
         "100000": ""
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
         "1": "",
         "2": "",
         "3": "",
@@ -307,7 +442,8 @@
         "10": "",
         "100": "",
         "1000": "",
-        "10000": ""
+        "10000": "",
+        "100000": ""
       }
     },
     "noneSelected": "",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
+    "dataQuality": "データの品質",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",

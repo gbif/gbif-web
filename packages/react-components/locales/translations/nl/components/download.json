@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Niet-ondersteunde zoekopdracht",
-  "unsupported.description": "Vrij tekst doorzoeken kan worden gebruikt voor verkenning, maar heeft geen downloadondersteuning.",
-  "unsupported.remove": "Verwijder filter",
-  "unsupported.error": "",
-  "download": "Downloaden",
-  "redirectNotice": "U staat op het punt om de data te downloaden en om dit te doen, wordt u doorgestuurd naar GBIF.org. {br}{br} Wees ervan bewust dat er een account nodig is op GBIF.org om de inhoud te downloaden.",
-  "continueToGBIF": "Ga verder",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "Opmerking",
-      "description": "",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Download",
+    "redirectNotice": "",
+    "continueToGBIF": "Ga verder",
+    "continue": "Ga verder",
+    "invalid": "Ongeldig",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Opmerking",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "Over",
-  "stopEditing": "Stoppen met bewerken",
-  "startEditing": "Begin met bewerken",
-  "reformat": "",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "Lees de documentatie",
-  "request": {
-    "createNewDownload": "Creëer nieuwe download",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Huidige filter",
-    "errors": {
-      "invalid-json": "Ongeldige JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "Download opties",
-    "chooseChecklist": "Code of Conduct",
-    "chooseChecklistDescription": "Code of Conduct",
-    "content": {
-      "rawData": "Ruwe data",
-      "interpretedData": "",
-      "images": "Multimedia",
-      "coordinates": "Coördinaten",
-      "fileFormat": "Formaat",
-      "estimatedSize": "Geschatte downloadgrootte"
+    "create": "",
+    "about": "Over",
+    "stopEditing": "Stoppen met bewerken",
+    "startEditing": "Begin met bewerken",
+    "reformat": "",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "Lees de documentatie",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "Creëer nieuwe download",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Huidige filter",
+      "errors": {
+        "invalid-json": "Ongeldige JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": ""
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "Download opties",
+      "chooseChecklist": "Code of Conduct",
+      "chooseChecklistDescription": "Code of Conduct",
+      "content": {
+        "rawData": "Ruwe data",
+        "interpretedData": "",
+        "images": "Multimedia",
+        "coordinates": "Coördinaten",
+        "fileFormat": "Formaat",
+        "estimatedSize": "Geschatte downloadgrootte"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }

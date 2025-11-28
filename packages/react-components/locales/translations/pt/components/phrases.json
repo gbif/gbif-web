@@ -69,5 +69,8 @@
   "submit": "Enviar",
   "pleaseTryAgainLater": "Código de Conduta",
   "weWillBeInTouchSoon": "Código de Conduta",
-  "clickToSelect": "Clique para selecionar"
+  "clickToSelect": "Clique para selecionar",
+  "all": "Todos",
+  "clear": "Limpar",
+  "search": "Pesquisa"
 }

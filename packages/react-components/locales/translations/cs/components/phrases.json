@@ -69,5 +69,8 @@
   "submit": "Odeslat",
   "pleaseTryAgainLater": "Id spravované poskytovatelem",
   "weWillBeInTouchSoon": "Id spravované poskytovatelem",
-  "clickToSelect": "Kliknutím vyberte"
+  "clickToSelect": "Kliknutím vyberte",
+  "all": "Vše",
+  "clear": "Vymazat",
+  "search": "Hledat"
 }

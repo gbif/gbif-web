@@ -69,5 +69,8 @@
   "submit": "Soumettre",
   "pleaseTryAgainLater": "Id géré par le fournisseur",
   "weWillBeInTouchSoon": "Id géré par le fournisseur",
-  "clickToSelect": "Cliquez pour sélectionner"
+  "clickToSelect": "Cliquez pour sélectionner",
+  "all": "Tout",
+  "clear": "Effacer",
+  "search": "Rechercher"
 }

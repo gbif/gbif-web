@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "",
-  "unsupported.description": "",
-  "unsupported.remove": "",
-  "unsupported.error": "",
-  "download": "Download",
-  "redirectNotice": "",
-  "continueToGBIF": "Fortsæt",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Download",
+    "redirectNotice": "",
+    "continueToGBIF": "Fortsæt",
+    "continue": "Fortsæt",
+    "invalid": "Ugyldig",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
+    },
+    "create": "",
+    "about": "Om",
+    "stopEditing": "Stop redigering",
+    "startEditing": "Begynd at redigere",
+    "reformat": "",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Nuværende filter",
+      "errors": {
+        "invalid-json": "",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
+    },
+    "downloadOptions": {
       "title": "",
-      "description": "",
-      "goToOccurrenceSearch": ""
-    },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "Om",
-  "stopEditing": "Stop redigering",
-  "startEditing": "Begynd at redigere",
-  "reformat": "",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "",
-  "request": {
-    "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Nuværende filter",
-    "errors": {
-      "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "",
-    "chooseChecklist": "Samfinansieret af",
-    "chooseChecklistDescription": "Samfinansieret af",
-    "content": {
-      "rawData": "Rådata",
-      "interpretedData": "Fortolket data",
-      "images": "Multimedier",
-      "coordinates": "Koordinater",
-      "fileFormat": "Format",
-      "estimatedSize": "Anslået datastørrelse"
-    },
-    "fileFormats": {
-      "tabCsv": "Tab-separeret CSV"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "chooseChecklist": "Samfinansieret af",
+      "chooseChecklistDescription": "Samfinansieret af",
+      "content": {
+        "rawData": "Rådata",
+        "interpretedData": "Fortolket data",
+        "images": "Multimedier",
+        "coordinates": "Koordinater",
+        "fileFormat": "Format",
+        "estimatedSize": "Anslået datastørrelse"
+      },
+      "fileFormats": {
+        "tabCsv": "Tab-separeret CSV"
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }

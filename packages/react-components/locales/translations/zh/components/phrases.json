@@ -69,5 +69,8 @@
   "submit": "提交",
   "pleaseTryAgainLater": "发布者管理的ID",
   "weWillBeInTouchSoon": "发布者管理的ID",
-  "clickToSelect": "点击选择"
+  "clickToSelect": "点击选择",
+  "all": "全部",
+  "clear": "清除",
+  "search": "搜索"
 }

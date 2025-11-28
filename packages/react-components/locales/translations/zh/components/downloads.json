@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "URL中的谓词无效",
     "redirectNotice": "看起来您是从另一个站点被引导到这里的。 要下载，您需要先登录或注册。"
   },
+  "downloadReport": {
+    "title": "下载报告",
+    "knownIssues": "已知问题",
+    "knownIssuesDescription": "GBIF处理的一部分内容是标记上有可疑字段的分布记录。",
+    "FossilsIncluded": "化石",
+    "FossilsIncludedDescription": "您的结果中有化石记录，这意味着可能在不预期的地方出现物种记录",
+    "livingSpecimensIncluded": "活体标本",
+    "livingSpecimensIncludedDescription": "您的搜索包括如在植物园和动物园里的活体标本出现记录。",
+    "yearRange": "年份范围",
+    "total": "总计",
+    "license": "授权条款",
+    "withTaxonMatch": "与分类单元匹配",
+    "withCoordinates": "带坐标",
+    "withYear": "带年份",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} 压缩下载",
+    "freeOfCost": "免费 ——不免除责任",
+    "cancel": "取消",
+    "proceed": "继续",
+    "understood": "了解了",
+    "largeDownload": "大量下载",
+    "requestingFullDownload": "您正在请求完整下载 GBIF 中的所有出现数据。",
+    "occFiltersExplainedHere": "这是可以的，但您可能会想要在下载数据前进行筛选。您可以用我们的出现记录筛选器。您可在 [这里](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)找到说明。",
+    "estSizeIs": "下载的数据估计大小为 {SIZE_FORMATTED}",
+    "estDLtimes": "预计下载时间:",
+    "nMbitConn": "{NUMBER} Mbit 连接",
+    "onceDownloaded": "一旦您下载了文件, 您将需要用 {SIZE_FORMATTED} 的可用磁盘空间来解压您下载的数据。",
+    "datasetHasNumRows": "这个数据集有 {NUMBER_FORMATTED} 行数据。",
+    "youWillNotBeAble": "您将不能在Excel或类似的程序中查看或分析该数据。为了处理这些数据，您会需要使用R、Python或Relational databases。",
+    "difficultToAnalyse": "这个大小的数据集难以在普通电脑上进行分析。您可能需要使用某种分布式计算服务。",
+    "hours": "小时",
+    "minute": "分钟",
+    "minutes": "分钟"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "返回",
+    "backToFormatSelection": "描述占位符",
+    "backToConfiguration": "描述占位符",
+    "estimatedSize": "等于 {is}",
+    "configure": "描述占位符",
+    "continueToTerms": "描述占位符",
+    "downloadSummary": "描述占位符",
+    "weAlsoSupport": "描述占位符",
+    "sqlDownloadsLink": "描述占位符",
+    "extensions": "扩展",
+    "selectAdditionalExtensions": "描述占位符",
+    "nExtensionsSelected": "描述占位符",
+    "selectAll": "描述占位符",
+    "deselectAll": "描述占位符",
+    "extensionsInfoMessage": "描述占位符",
+    "format": "格式",
+    "csvDelimiter": "描述占位符",
+    "taxonomy": "分类学",
+    "tabDelimiter": "描述占位符",
+    "progressLabel": "描述占位符",
+    "termsAndConditions": "描述占位符",
+    "reviewAndAccept": "描述占位符",
+    "dataCitationTitle": "描述占位符",
+    "dataCitationText": "描述占位符",
+    "dataUseAgreementTitle": "描述占位符",
+    "dataUseAgreementText": "描述占位符",
+    "largeDownloadAcknowledgment": "描述占位符",
+    "largeDownloadEstimatedSize": "描述占位符",
+    "largeDownloadConnectionSpeed": "描述占位符",
+    "largeDownloadDiskSpace": "描述占位符",
+    "largeDownloadRowCount": "描述占位符",
+    "largeDownloadExcelWarning": "这个大小的数据集难以在普通电脑上进行分析。您可能需要使用某种分布式计算服务。",
+    "termsStatus": "描述占位符",
+    "createDownload": "描述占位符",
+    "completeRequirements": "描述占位符",
+    "steps": {
+      "quality": {
+        "name": "等于 {is}",
+        "description": "描述占位符"
+      },
+      "filter": {
+        "name": "描述占位符",
+        "description": "描述占位符"
+      },
+      "sql": {
+        "name": "描述占位符",
+        "description": "描述占位符"
+      },
+      "format": {
+        "name": "格式",
+        "description": "描述占位符"
+      },
+      "configure": {
+        "name": "描述占位符",
+        "description": "描述占位符"
+      },
+      "terms": {
+        "name": "",
+        "description": "描述占位符"
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "描述占位符",
+        "description": "描述占位符"
+      },
+      "DWCA": {
+        "title": "达尔文核心（Darwin Core Archive）",
+        "description": "描述占位符"
+      },
+      "SPECIES_LIST": {
+        "title": "物种列表",
+        "description": "描述占位符"
+      },
+      "SQL_CUBE": {
+        "title": "描述占位符",
+        "description": "描述占位符"
+      },
+      "SQL_TSV_ZIP": {
+        "title": "描述占位符",
+        "description": "描述占位符"
+      },
+      "features": {
+        "singleCsv": "描述占位符",
+        "multipleCsv": "描述占位符",
+        "interpretedData": "描述占位符",
+        "rawAndInterpreted": "描述占位符",
+        "coordinates": "描述占位符",
+        "coordinatesIfSelected": "描述占位符",
+        "individualOccurrences": "描述占位符",
+        "multimediaLinks": "描述占位符",
+        "occurrenceCounts": "描述占位符"
+      }
+    },
+    "taxonomySelector": {
+      "title": "描述占位符",
+      "description": "描述占位符",
+      "defaultRecommended": "描述占位符"
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "描述占位符",
     "invalidSQL": "无效网址",
     "title": "建立一个新的 sql 下载",
     "notification": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",
@@ -265,6 +400,7 @@
         "250": "250 米",
         "1000": "1 公里",
         "10000": "10 公里",
+        "50000": "50 公里",
         "100000": "100 公里"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,21 +413,20 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
-        "1": "",
-        "2": "",
-        "3": "",
+        "1": "第1级（32个单元，每个单元面积为17,002,187平方公里）",
+        "2": "第2级（92个单元，每个单元面积为5,667,396平方公里）",
+        "3": "第3级（272个单元，每个单元面积为1889132平方公里）",
         "4": "",
-        "5": "",
-        "6": "",
-        "7": "",
-        "8": "",
-        "9": "",
-        "10": "",
-        "11": "",
-        "12": "",
-        "13": "",
-        "14": "",
+        "5": "第5级（2,432个单元，每个单元面积为209,904平方公里）",
+        "6": "第6级（7,292个单元，每个单元面积为69,968平方公里）",
+        "7": "第7级（21,872个单元，每个单元面积为23,323平方公里）",
+        "8": "第8级（65,612个单元，每个单元面积为7,774平方公里）",
+        "9": "第9级（196,832个单元，每个单元面积为2,591平方公里）",
+        "10": "第10级（590,492个单元，每个单元面积为864平方公里）",
+        "11": "第11级（1,771,472个单元，每个单元面积为288平方公里）",
+        "12": "第12级（5,314,412个单元，每个单元面积为96.0平方公里）",
+        "13": "第13级（15,943,232个单元，每个单元面积为32.0平方公里）",
+        "14": "第14级（47,829,692个单元，每个单元面积为10.7平方公里）",
         "15": "",
         "16": "",
         "17": "",
@@ -307,7 +442,8 @@
         "10": "10米",
         "100": "100米",
         "1000": "1,000米",
-        "10000": "10,000米"
+        "10000": "10,000米",
+        "100000": "100 公里"
       }
     },
     "noneSelected": "未选择",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "至少必须选择一个维度",
+    "errorMinimumDimensionForCube": "描述占位符",
+    "errorGeneratingSql": "描述占位符",
     "editSql": "",
     "temporalUncertainty": "包含最小时间不确定性",
     "documentation": "",
+    "dataQuality": "数据质量",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",

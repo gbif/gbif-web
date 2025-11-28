@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Consulta não suportada",
-  "unsupported.description": "A busca por texto livre pode ser usada para exploração, mas não tem suporte para transferências.",
-  "unsupported.remove": "Remover filtro",
-  "unsupported.error": "",
-  "download": "Transferir",
-  "redirectNotice": "Está prestes a transferir os dados e para fazer isso, será redirecionado para GBIF.org. {br}{br} Tenha presente de que é necessária uma conta no GBIF.org para transferir o conteúdo.",
-  "continueToGBIF": "Continuar",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "Nota",
-      "description": "",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Transferir",
+    "redirectNotice": "",
+    "continueToGBIF": "Continuar",
+    "continue": "Continuar",
+    "invalid": "Inválido",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Nota",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "Sobre",
-  "stopEditing": "Interromper a edição",
-  "startEditing": "Começar a editar",
-  "reformat": "",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "",
-  "request": {
-    "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Filtro atual",
-    "errors": {
-      "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "Opções de transferência",
-    "chooseChecklist": "Código de Conduta",
-    "chooseChecklistDescription": "Código de Conduta",
-    "content": {
-      "rawData": "Dados brutos",
-      "interpretedData": "Dados interpretados",
-      "images": "Multimédia",
-      "coordinates": "Coordenadas",
-      "fileFormat": "Formato",
-      "estimatedSize": "Tamanho estimado dos dados"
+    "create": "",
+    "about": "Sobre",
+    "stopEditing": "Interromper a edição",
+    "startEditing": "Começar a editar",
+    "reformat": "",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Filtro atual",
+      "errors": {
+        "invalid-json": "",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "CSV delimitado por tabulador"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "Opções de transferência",
+      "chooseChecklist": "Código de Conduta",
+      "chooseChecklistDescription": "Código de Conduta",
+      "content": {
+        "rawData": "Dados brutos",
+        "interpretedData": "Dados interpretados",
+        "images": "Multimédia",
+        "coordinates": "Coordenadas",
+        "fileFormat": "Formato",
+        "estimatedSize": "Tamanho estimado dos dados"
+      },
+      "fileFormats": {
+        "tabCsv": "CSV delimitado por tabulador"
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }

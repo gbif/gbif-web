@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "El predicado en la URL no es válido",
     "redirectNotice": "Parece que ha sido dirigido aquí desde otro sitio. Para realizar la descarga, primero debe iniciar sesión o registrarse."
   },
+  "downloadReport": {
+    "title": "Informe de descargas",
+    "knownIssues": "Problemas conocidos",
+    "knownIssuesDescription": "Una parte del proceso de GBIF es marcar los registros de presencia que contienen campos sospechosos",
+    "FossilsIncluded": "Fósiles",
+    "FossilsIncludedDescription": "Existen fósiles entre tus resultados. Esto puede deberse a que los registros de presencia de especies se ubiquen en localizaciones desconocidas",
+    "livingSpecimensIncluded": "Especímenes vivos",
+    "livingSpecimensIncludedDescription": "Tu búsqueda incluye especímenes vivos tales como registros de presencia de jardines botánicos y zoológicos.",
+    "yearRange": "Rango anual",
+    "total": "Total",
+    "license": "Licencia",
+    "withTaxonMatch": "Con coincidencia de taxón",
+    "withCoordinates": "Con coordenadas",
+    "withYear": "Con año",
+    "sizeZippedForDownload": "comprimido para descargar",
+    "freeOfCost": "Libre de coste - no exento de responsabilidades",
+    "cancel": "Cancelar",
+    "proceed": "Proceder",
+    "understood": "Entendido",
+    "largeDownload": "Descarga grande",
+    "requestingFullDownload": "Estás solicitando una descarga completa de todos los datos de registro de presencia de GBIF",
+    "occFiltersExplainedHere": "Esto es posible pero puede que desees filtrar los datos antes de descargarlos. Para ello utiliza nuestros filtros de registros de presencia. Cómo hacerlo se explica (/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "El tamaño estimado de la descarga es",
+    "estDLtimes": "Número de descargas estimadas:",
+    "nMbitConn": "Mbit de conexión",
+    "onceDownloaded": "Una vez hayas descargado el archivo, necesitarás aproximadamente {SIZE_FORMATTED} de espacio libre en el disco para descomprimir los datos.",
+    "datasetHasNumRows": "El conjunto de datos tiene {NUMBER_FORMATTED} filas.",
+    "youWillNotBeAble": "Los datos no podrán visualizarse o analizarse en Excel o aplicaciones similares. Para trabajar con estos datos necesitarás, tener conocimientos previos en R, Python o bases de datos relacionales.",
+    "difficultToAnalyse": "Un conjunto de datos de este tamaño es difícil de analizar en tu ordenador convencional. Probablemente necesites acceso a algún tipo de servicio de computación distribuido.",
+    "hours": "Horas",
+    "minute": "Minuto",
+    "minutes": "Minutos"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Volver",
+    "backToFormatSelection": "Marcador de posición de descripción",
+    "backToConfiguration": "Marcador de posición de descripción",
+    "estimatedSize": "Igual a {is}",
+    "configure": "Marcador de posición de descripción",
+    "continueToTerms": "Marcador de posición de descripción",
+    "downloadSummary": "Marcador de posición de descripción",
+    "weAlsoSupport": "Marcador de posición de descripción",
+    "sqlDownloadsLink": "Marcador de posición de descripción",
+    "extensions": "Extensiones",
+    "selectAdditionalExtensions": "Marcador de posición de descripción",
+    "nExtensionsSelected": "Marcador de posición de descripción",
+    "selectAll": "Marcador de posición de descripción",
+    "deselectAll": "Marcador de posición de descripción",
+    "extensionsInfoMessage": "Marcador de posición de descripción",
+    "format": "Formato",
+    "csvDelimiter": "Marcador de posición de descripción",
+    "taxonomy": "Taxonomía",
+    "tabDelimiter": "Marcador de posición de descripción",
+    "progressLabel": "Marcador de posición de descripción",
+    "termsAndConditions": "Marcador de posición de descripción",
+    "reviewAndAccept": "Marcador de posición de descripción",
+    "dataCitationTitle": "Marcador de posición de descripción",
+    "dataCitationText": "Marcador de posición de descripción",
+    "dataUseAgreementTitle": "Marcador de posición de descripción",
+    "dataUseAgreementText": "Marcador de posición de descripción",
+    "largeDownloadAcknowledgment": "Marcador de posición de descripción",
+    "largeDownloadEstimatedSize": "Marcador de posición de descripción",
+    "largeDownloadConnectionSpeed": "Marcador de posición de descripción",
+    "largeDownloadDiskSpace": "Marcador de posición de descripción",
+    "largeDownloadRowCount": "Marcador de posición de descripción",
+    "largeDownloadExcelWarning": "Un conjunto de datos de este tamaño es difícil de analizar en tu ordenador convencional. Probablemente necesites acceso a algún tipo de servicio de computación distribuido.",
+    "termsStatus": "Marcador de posición de descripción",
+    "createDownload": "Marcador de posición de descripción",
+    "completeRequirements": "Marcador de posición de descripción",
+    "steps": {
+      "quality": {
+        "name": "Igual a {is}",
+        "description": "Marcador de posición de descripción"
+      },
+      "filter": {
+        "name": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
+      },
+      "sql": {
+        "name": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
+      },
+      "format": {
+        "name": "Formato",
+        "description": "Marcador de posición de descripción"
+      },
+      "configure": {
+        "name": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
+      },
+      "terms": {
+        "name": "Términos",
+        "description": "Marcador de posición de descripción"
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
+      },
+      "DWCA": {
+        "title": "Archivo Darwin Core",
+        "description": "Marcador de posición de descripción"
+      },
+      "SPECIES_LIST": {
+        "title": "Listas de especies",
+        "description": "Marcador de posición de descripción"
+      },
+      "SQL_CUBE": {
+        "title": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
+      },
+      "SQL_TSV_ZIP": {
+        "title": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
+      },
+      "features": {
+        "singleCsv": "Marcador de posición de descripción",
+        "multipleCsv": "Marcador de posición de descripción",
+        "interpretedData": "Marcador de posición de descripción",
+        "rawAndInterpreted": "Marcador de posición de descripción",
+        "coordinates": "Marcador de posición de descripción",
+        "coordinatesIfSelected": "Marcador de posición de descripción",
+        "individualOccurrences": "Marcador de posición de descripción",
+        "multimediaLinks": "Marcador de posición de descripción",
+        "occurrenceCounts": "Marcador de posición de descripción"
+      }
+    },
+    "taxonomySelector": {
+      "title": "Marcador de posición de descripción",
+      "description": "Marcador de posición de descripción",
+      "defaultRecommended": "Marcador de posición de descripción"
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "Marcador de posición de descripción",
     "invalidSQL": "SQL inválido",
     "title": "Crear una nueva descarga SQL",
     "notification": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
@@ -265,6 +400,7 @@
         "250": "250 m",
         "1000": "1 km",
         "10000": "10 km",
+        "50000": "50 km",
         "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": "Nivel 6"
       },
       "ISEA3H_GRID": {
-        "0": "Nivel 0",
         "1": "Nivel 1",
         "2": "Nivel 2",
         "3": "Nivel 3",
@@ -307,7 +442,8 @@
         "10": "10 metros",
         "100": "100 metros",
         "1000": "1.000 metros",
-        "10000": "10.000 metros"
+        "10000": "10.000 metros",
+        "100000": "100 km"
       }
     },
     "noneSelected": "Ninguno seleccionado",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "Recuento de ocurrencias a nivel taxonómico superior",
     "coordinateUncertainty": "Incluir incertidumbre de coordenadas mínima",
     "errorMinimumDimension": "Debe seleccionarse al menos una dimensión",
+    "errorMinimumDimensionForCube": "Marcador de posición de descripción",
+    "errorGeneratingSql": "Marcador de posición de descripción",
     "editSql": "Editar como SQL",
     "temporalUncertainty": "Incluir incertidumbre temporal mínima",
     "documentation": "Documentación",
+    "dataQuality": "Calidad de (los) datos",
+    "removeRecordsWithGeospatialIssues": "Eliminar registros con problemas geoespaciales",
+    "removeRecordsTaxonIssues": "Eliminar registros que no coinciden con un taxón con seguridad ",
+    "removeRecordsAtCentroids": "Eliminar registros en los centroides del país",
+    "removeFossilsAndLiving": "Eliminar registros de fósiles y especímenes vivos, por ejemplo, los de jardines botánicos y zoológicos.",
+    "removeAbsenceRecords": "Eliminar registros de ausencia",
     "help": {
       "whatIsThis": "Este formato de descarga le permite agregar los registros biológicos por sus características taxonómicas, temporales o espaciales. Por ejemplo, un cubo de datos se puede configurar para agregar registros por familia, mes y celda de la cuadrícula (grilla) de referencia de la Agencia Europea de Medio Ambiente (tres dimensiones) y contar la cantidad de registros (una medida) por combinación. El resultado es un archivo CSV.\n\nUna vez configurado, se creará una consulta SQL para generar el cubo de datos. Para un uso más avanzado, es posible personalizar aún más la descarga solicitada editando la consulta SQL.\n",
       "dimensions": "Una dimensión representa un aspecto a lo largo del cual se pueden agrupar los datos. Seleccionar una resolución más alta (por ejemplo, especie en lugar de familia, fecha en lugar de año, 100 m en lugar de 10 km) dará como resultado más categorías y, por lo tanto, más registros.",
       "taxonomicDimension": "Esta dimensión agrupa los registros biológicos por rango taxonómico.",
       "temporalDimension": "Esta dimensión agrupa los registros biológicos por temporalidad.",
+      "dataQuality": "Filtros de calidad adicionales para aplicar a los datos.",
       "grid": "Esta dimensión agrupa los registros biológicos en una cuadrícula (grilla) espacial",
       "gridResolution": "El tamaño de cada celda de la cuadrícula.",
       "randomizePoints": "Para los registros biológicos con una incertidumbre de coordenadas que abarca más de una celda de la cuadrícula, ¿debe elegirse una celda al azar? En caso negativo, se utiliza la celda que contiene el centroide del registro.",

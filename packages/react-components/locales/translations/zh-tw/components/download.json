@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "不支援的查詢",
-  "unsupported.description": "全文搜尋可用來探索但不支援下載。",
-  "unsupported.remove": "移除篩選條件",
-  "unsupported.error": "",
-  "download": "下載",
-  "redirectNotice": "您正將從 GBIF.org 下載資料。{br}{br}請注意您需要 GBIF.org 上的帳號才能下載。",
-  "continueToGBIF": "繼續操作",
-  "sql": {
-    "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "備註",
-      "description": "",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "下載",
+    "redirectNotice": "",
+    "continueToGBIF": "繼續操作",
+    "continue": "繼續操作",
+    "invalid": "無效",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "備註",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "關於",
-  "stopEditing": "結束編輯",
-  "startEditing": "開始編輯",
-  "reformat": "重新編排格式",
-  "discard": "",
-  "keep": "",
-  "readTheDocumentation": "閱讀文檔",
-  "request": {
-    "createNewDownload": "重新下載",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "目前篩選條件",
-    "errors": {
-      "invalid-json": "無效的 JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "下載選項",
-    "chooseChecklist": "提供者管理ID",
-    "chooseChecklistDescription": "提供者管理ID",
-    "content": {
-      "rawData": "原始資料",
-      "interpretedData": "已解釋的資料",
-      "images": "多媒體",
-      "coordinates": "座標",
-      "fileFormat": "格式",
-      "estimatedSize": "預估資料大小"
+    "create": "",
+    "about": "關於",
+    "stopEditing": "結束編輯",
+    "startEditing": "開始編輯",
+    "reformat": "重新編排格式",
+    "discard": "",
+    "keep": "",
+    "readTheDocumentation": "閱讀文檔",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "重新下載",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "目前篩選條件",
+      "errors": {
+        "invalid-json": "無效的 JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "Tab分隔的CSV檔案(用於Excel等)"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "下載選項",
+      "chooseChecklist": "提供者管理ID",
+      "chooseChecklistDescription": "提供者管理ID",
+      "content": {
+        "rawData": "原始資料",
+        "interpretedData": "已解釋的資料",
+        "images": "多媒體",
+        "coordinates": "座標",
+        "fileFormat": "格式",
+        "estimatedSize": "預估資料大小"
+      },
+      "fileFormats": {
+        "tabCsv": "Tab分隔的CSV檔案(用於Excel等)"
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }

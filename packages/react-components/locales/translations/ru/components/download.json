@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Неподдерживаемый запрос",
-  "unsupported.description": "Можно использовать свободный текстовый поиск, но он не поддерживает загрузку.",
-  "unsupported.remove": "Удалить фильтр",
-  "unsupported.error": "Похоже, этот запрос не поддерживается",
-  "download": "Загрузить",
-  "redirectNotice": "Вы собираетесь начать загрузку. Для этого вы будете перенаправлены на сайт GBIF.org.\n\nОбратите внимание, что для загрузки контента требуется учётная запись.",
-  "continueToGBIF": "Продолжить",
-  "sql": {
-    "createNewSqlDownload": "Создать новое выражение SQL для загрузки",
-    "placeholder": "",
-    "noSql": "",
-    "note": {
-      "title": "Примечание",
-      "description": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
-      "goToOccurrenceSearch": ""
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Загрузить",
+    "redirectNotice": "",
+    "continueToGBIF": "Продолжить",
+    "continue": "Продолжить",
+    "invalid": "Ошибочный",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "Создать новое выражение SQL для загрузки",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Примечание",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "Недопустимый синтаксис SQL",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "Недопустимый синтаксис SQL",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
-    }
-  },
-  "create": "",
-  "about": "Об организациии",
-  "stopEditing": "Закончить редактирование",
-  "startEditing": "Начать редактирование",
-  "reformat": "Переформатируйте",
-  "discard": "Отклонить",
-  "keep": "Сохранить",
-  "readTheDocumentation": "Прочтите документацию",
-  "request": {
-    "createNewDownload": "Создайте новую загрузку",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
-    "currentFilter": "Текущий фильтр",
-    "errors": {
-      "invalid-json": "Недопустимый формат JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
-    }
-  },
-  "downloadOptions": {
-    "title": "Настройки загрузки",
-    "chooseChecklist": "Идентификатор, управляемый поставщиком",
-    "chooseChecklistDescription": "Идентификатор, управляемый поставщиком",
-    "content": {
-      "rawData": "Необработанные данные",
-      "interpretedData": "Интерпретированные данные",
-      "images": "Мультимедиа",
-      "coordinates": "Координаты",
-      "fileFormat": "Формат",
-      "estimatedSize": "Предполагаемый размер данных"
+    "create": "",
+    "about": "Об организациии",
+    "stopEditing": "Закончить редактирование",
+    "startEditing": "Начать редактирование",
+    "reformat": "Переформатируйте",
+    "discard": "Отклонить",
+    "keep": "Сохранить",
+    "readTheDocumentation": "Прочтите документацию",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "Создайте новую загрузку",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Текущий фильтр",
+      "errors": {
+        "invalid-json": "Недопустимый формат JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "CSV с разделителями табуляции (для использования в Excel и т.д.)"
-    },
-    "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+    "downloadOptions": {
+      "title": "Настройки загрузки",
+      "chooseChecklist": "Идентификатор, управляемый поставщиком",
+      "chooseChecklistDescription": "Идентификатор, управляемый поставщиком",
+      "content": {
+        "rawData": "Необработанные данные",
+        "interpretedData": "Интерпретированные данные",
+        "images": "Мультимедиа",
+        "coordinates": "Координаты",
+        "fileFormat": "Формат",
+        "estimatedSize": "Предполагаемый размер данных"
+      },
+      "fileFormats": {
+        "tabCsv": "CSV с разделителями табуляции (для использования в Excel и т.д.)"
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
