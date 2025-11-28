@@ -79,12 +79,15 @@ function StatusIndicator() {
   // refresh every 10 seconds
   useEffect(() => {
     // if it isn't set, then just ignore. This is relevant as we do not have a status page for all environments
-    if (!import.meta.env.PUBLIC_STATUS_PAGE_URL) {
+    if (!load || !import.meta.env.PUBLIC_STATUS_PAGE_URL) {
       return;
     }
     const interval = setInterval(() => {
       load({ keepDataWhileLoading: true });
     }, 10000);
+
+    // load at first mount as well
+    load({ keepDataWhileLoading: true });
 
     return () => clearInterval(interval);
   }, [load]);
