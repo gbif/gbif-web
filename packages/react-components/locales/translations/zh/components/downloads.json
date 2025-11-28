@@ -257,107 +257,107 @@
   },
   "occurrenceDownloadFlow": {
     "back": "返回",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "backToFormatSelection": "描述占位符",
+    "backToConfiguration": "描述占位符",
     "estimatedSize": "等于 {is}",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "描述占位符",
+    "continueToTerms": "描述占位符",
+    "downloadSummary": "描述占位符",
+    "weAlsoSupport": "描述占位符",
+    "sqlDownloadsLink": "描述占位符",
     "extensions": "扩展",
-    "selectAdditionalExtensions": "",
-    "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAdditionalExtensions": "描述占位符",
+    "nExtensionsSelected": "描述占位符",
+    "selectAll": "描述占位符",
+    "deselectAll": "描述占位符",
+    "extensionsInfoMessage": "描述占位符",
     "format": "格式",
-    "csvDelimiter": "",
+    "csvDelimiter": "描述占位符",
     "taxonomy": "分类学",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "描述占位符",
+    "progressLabel": "描述占位符",
+    "termsAndConditions": "描述占位符",
+    "reviewAndAccept": "描述占位符",
+    "dataCitationTitle": "描述占位符",
+    "dataCitationText": "描述占位符",
+    "dataUseAgreementTitle": "描述占位符",
+    "dataUseAgreementText": "描述占位符",
+    "largeDownloadAcknowledgment": "描述占位符",
+    "largeDownloadEstimatedSize": "描述占位符",
+    "largeDownloadConnectionSpeed": "描述占位符",
+    "largeDownloadDiskSpace": "描述占位符",
+    "largeDownloadRowCount": "描述占位符",
     "largeDownloadExcelWarning": "这个大小的数据集难以在普通电脑上进行分析。您可能需要使用某种分布式计算服务。",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "描述占位符",
+    "createDownload": "描述占位符",
+    "completeRequirements": "描述占位符",
     "steps": {
       "quality": {
         "name": "等于 {is}",
-        "description": ""
+        "description": "描述占位符"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "描述占位符",
+        "description": "描述占位符"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "描述占位符",
+        "description": "描述占位符"
       },
       "format": {
         "name": "格式",
-        "description": ""
+        "description": "描述占位符"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "描述占位符",
+        "description": "描述占位符"
       },
       "terms": {
         "name": "",
-        "description": ""
+        "description": "描述占位符"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "描述占位符",
+        "description": "描述占位符"
       },
       "DWCA": {
         "title": "达尔文核心（Darwin Core Archive）",
-        "description": ""
+        "description": "描述占位符"
       },
       "SPECIES_LIST": {
         "title": "物种列表",
-        "description": ""
+        "description": "描述占位符"
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "描述占位符",
+        "description": "描述占位符"
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "描述占位符",
+        "description": "描述占位符"
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "描述占位符",
+        "multipleCsv": "描述占位符",
+        "interpretedData": "描述占位符",
+        "rawAndInterpreted": "描述占位符",
+        "coordinates": "描述占位符",
+        "coordinatesIfSelected": "描述占位符",
+        "individualOccurrences": "描述占位符",
+        "multimediaLinks": "描述占位符",
+        "occurrenceCounts": "描述占位符"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": ""
+      "title": "描述占位符",
+      "description": "描述占位符",
+      "defaultRecommended": "描述占位符"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "描述占位符",
     "invalidSQL": "无效网址",
     "title": "建立一个新的 sql 下载",
     "notification": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",
@@ -457,8 +457,8 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "至少必须选择一个维度",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "描述占位符",
+    "errorGeneratingSql": "描述占位符",
     "editSql": "",
     "temporalUncertainty": "包含最小时间不确定性",
     "documentation": "",
