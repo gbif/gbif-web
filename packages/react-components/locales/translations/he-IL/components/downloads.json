@@ -257,107 +257,107 @@
   },
   "occurrenceDownloadFlow": {
     "back": "",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "backToFormatSelection": "תיאור זמני",
+    "backToConfiguration": "תיאור זמני",
     "estimatedSize": "Estimated size",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "תיאור זמני",
+    "continueToTerms": "תיאור זמני",
+    "downloadSummary": "תיאור זמני",
+    "weAlsoSupport": "תיאור זמני",
+    "sqlDownloadsLink": "תיאור זמני",
     "extensions": "",
-    "selectAdditionalExtensions": "",
-    "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAdditionalExtensions": "תיאור זמני",
+    "nExtensionsSelected": "תיאור זמני",
+    "selectAll": "תיאור זמני",
+    "deselectAll": "תיאור זמני",
+    "extensionsInfoMessage": "תיאור זמני",
     "format": "",
-    "csvDelimiter": "",
+    "csvDelimiter": "תיאור זמני",
     "taxonomy": "",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "תיאור זמני",
+    "progressLabel": "תיאור זמני",
+    "termsAndConditions": "תיאור זמני",
+    "reviewAndAccept": "תיאור זמני",
+    "dataCitationTitle": "תיאור זמני",
+    "dataCitationText": "תיאור זמני",
+    "dataUseAgreementTitle": "תיאור זמני",
+    "dataUseAgreementText": "תיאור זמני",
+    "largeDownloadAcknowledgment": "תיאור זמני",
+    "largeDownloadEstimatedSize": "תיאור זמני",
+    "largeDownloadConnectionSpeed": "תיאור זמני",
+    "largeDownloadDiskSpace": "תיאור זמני",
+    "largeDownloadRowCount": "תיאור זמני",
     "largeDownloadExcelWarning": "",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "תיאור זמני",
+    "createDownload": "תיאור זמני",
+    "completeRequirements": "תיאור זמני",
     "steps": {
       "quality": {
         "name": "Quality",
-        "description": ""
+        "description": "תיאור זמני"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "תיאור זמני",
+        "description": "תיאור זמני"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "תיאור זמני",
+        "description": "תיאור זמני"
       },
       "format": {
         "name": "",
-        "description": ""
+        "description": "תיאור זמני"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "תיאור זמני",
+        "description": "תיאור זמני"
       },
       "terms": {
         "name": "",
-        "description": ""
+        "description": "תיאור זמני"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "תיאור זמני",
+        "description": "תיאור זמני"
       },
       "DWCA": {
         "title": "",
-        "description": ""
+        "description": "תיאור זמני"
       },
       "SPECIES_LIST": {
         "title": "",
-        "description": ""
+        "description": "תיאור זמני"
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "תיאור זמני",
+        "description": "תיאור זמני"
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "תיאור זמני",
+        "description": "תיאור זמני"
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "תיאור זמני",
+        "multipleCsv": "תיאור זמני",
+        "interpretedData": "תיאור זמני",
+        "rawAndInterpreted": "תיאור זמני",
+        "coordinates": "תיאור זמני",
+        "coordinatesIfSelected": "תיאור זמני",
+        "individualOccurrences": "תיאור זמני",
+        "multimediaLinks": "תיאור זמני",
+        "occurrenceCounts": "תיאור זמני"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": ""
+      "title": "תיאור זמני",
+      "description": "תיאור זמני",
+      "defaultRecommended": "תיאור זמני"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "תיאור זמני",
     "invalidSQL": "SQL לא תקין",
     "title": "צור הורדת SQL חדשה",
     "notification": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",
@@ -457,8 +457,8 @@
     "countHigherTaxonomy": "ספירת תצפיות בדרגה טקסונומית גבוהה יותר",
     "coordinateUncertainty": "כלול אי־ודאות מינימלית בקואורדינטות",
     "errorMinimumDimension": "יש לבחור לפחות ממד אחד",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "תיאור זמני",
+    "errorGeneratingSql": "תיאור זמני",
     "editSql": "ערוך כ־SQL",
     "temporalUncertainty": "כלול אי־ודאות מינימלית בזמן",
     "documentation": "תיעוד",
