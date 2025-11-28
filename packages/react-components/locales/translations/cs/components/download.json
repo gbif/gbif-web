@@ -64,7 +64,7 @@
         "estimatedSize": "Odhadovaná velikost dat"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "CSV s oddělovačem tabulek (pro použití v Excelu atd.)"
       },
       "tableValues": {
         "ifAvailable": "",
