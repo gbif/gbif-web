@@ -5,8 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "prepare": "ts-patch install -s",
+    "build": "tsc && npm run copy-json-files-from-src-to-dist",
+    "copy-json-files-from-src-to-dist": "copyfiles -u 1 \"src/**/*.json\" dist",
     "develop": "ts-node-dev -r tsconfig-paths/register src/index.ts",
     "start": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
+    "start:node": "node dist/index.js",
     "start:ci": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
     "test": "ts-mocha --paths src/**/*.test.js src/**/*.test.ts",
     "test:ci": "ts-mocha src/**/*.test.js src/**/*.test.ts -w --watch-files 'src/**/*.*' --paths",
@@ -79,6 +82,7 @@
   },
   "devDependencies": {
     "@types/command-line-args": "^5.2.0",
+    "copyfiles": "^2.4.1",
     "@types/compression": "^1.7.2",
     "@types/expect": "^24.3.0",
     "@types/express": "^4.17.14",
