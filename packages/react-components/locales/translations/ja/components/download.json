@@ -64,7 +64,7 @@
         "estimatedSize": "推定データサイズ"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "タブ区切りの CSV"
       },
       "tableValues": {
         "ifAvailable": "",
