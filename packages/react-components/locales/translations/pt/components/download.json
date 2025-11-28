@@ -64,7 +64,7 @@
         "estimatedSize": "Tamanho estimado dos dados"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "CSV delimitado por tabulador"
       },
       "tableValues": {
         "ifAvailable": "",
