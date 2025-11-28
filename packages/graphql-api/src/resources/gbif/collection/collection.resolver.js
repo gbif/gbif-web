@@ -22,7 +22,11 @@ const getSourceSearch = (dataSources) => (args) =>
  */
 export default {
   Query: {
-    collectionSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+    collectionSearch_broken: (
+      parent,
+      { query = {}, ...args } = {},
+      { dataSources },
+    ) =>
       dataSources.collectionAPI.searchCollections({
         query: { ...args, ...query },
       }),
