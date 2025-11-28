@@ -257,107 +257,107 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Volver",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "backToFormatSelection": "Marcador de posición de descripción",
+    "backToConfiguration": "Marcador de posición de descripción",
     "estimatedSize": "Igual a {is}",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "Marcador de posición de descripción",
+    "continueToTerms": "Marcador de posición de descripción",
+    "downloadSummary": "Marcador de posición de descripción",
+    "weAlsoSupport": "Marcador de posición de descripción",
+    "sqlDownloadsLink": "Marcador de posición de descripción",
     "extensions": "Extensiones",
-    "selectAdditionalExtensions": "",
-    "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAdditionalExtensions": "Marcador de posición de descripción",
+    "nExtensionsSelected": "Marcador de posición de descripción",
+    "selectAll": "Marcador de posición de descripción",
+    "deselectAll": "Marcador de posición de descripción",
+    "extensionsInfoMessage": "Marcador de posición de descripción",
     "format": "Formato",
-    "csvDelimiter": "",
+    "csvDelimiter": "Marcador de posición de descripción",
     "taxonomy": "Taxonomía",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "Marcador de posición de descripción",
+    "progressLabel": "Marcador de posición de descripción",
+    "termsAndConditions": "Marcador de posición de descripción",
+    "reviewAndAccept": "Marcador de posición de descripción",
+    "dataCitationTitle": "Marcador de posición de descripción",
+    "dataCitationText": "Marcador de posición de descripción",
+    "dataUseAgreementTitle": "Marcador de posición de descripción",
+    "dataUseAgreementText": "Marcador de posición de descripción",
+    "largeDownloadAcknowledgment": "Marcador de posición de descripción",
+    "largeDownloadEstimatedSize": "Marcador de posición de descripción",
+    "largeDownloadConnectionSpeed": "Marcador de posición de descripción",
+    "largeDownloadDiskSpace": "Marcador de posición de descripción",
+    "largeDownloadRowCount": "Marcador de posición de descripción",
     "largeDownloadExcelWarning": "Un conjunto de datos de este tamaño es difícil de analizar en tu ordenador convencional. Probablemente necesites acceso a algún tipo de servicio de computación distribuido.",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Marcador de posición de descripción",
+    "createDownload": "Marcador de posición de descripción",
+    "completeRequirements": "Marcador de posición de descripción",
     "steps": {
       "quality": {
         "name": "Igual a {is}",
-        "description": ""
+        "description": "Marcador de posición de descripción"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
       },
       "format": {
         "name": "Formato",
-        "description": ""
+        "description": "Marcador de posición de descripción"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
       },
       "terms": {
         "name": "Términos",
-        "description": ""
+        "description": "Marcador de posición de descripción"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
       },
       "DWCA": {
         "title": "Archivo Darwin Core",
-        "description": ""
+        "description": "Marcador de posición de descripción"
       },
       "SPECIES_LIST": {
         "title": "Listas de especies",
-        "description": ""
+        "description": "Marcador de posición de descripción"
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "Marcador de posición de descripción",
+        "description": "Marcador de posición de descripción"
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "Marcador de posición de descripción",
+        "multipleCsv": "Marcador de posición de descripción",
+        "interpretedData": "Marcador de posición de descripción",
+        "rawAndInterpreted": "Marcador de posición de descripción",
+        "coordinates": "Marcador de posición de descripción",
+        "coordinatesIfSelected": "Marcador de posición de descripción",
+        "individualOccurrences": "Marcador de posición de descripción",
+        "multimediaLinks": "Marcador de posición de descripción",
+        "occurrenceCounts": "Marcador de posición de descripción"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": ""
+      "title": "Marcador de posición de descripción",
+      "description": "Marcador de posición de descripción",
+      "defaultRecommended": "Marcador de posición de descripción"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "Marcador de posición de descripción",
     "invalidSQL": "SQL inválido",
     "title": "Crear una nueva descarga SQL",
     "notification": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
@@ -457,8 +457,8 @@
     "countHigherTaxonomy": "Recuento de ocurrencias a nivel taxonómico superior",
     "coordinateUncertainty": "Incluir incertidumbre de coordenadas mínima",
     "errorMinimumDimension": "Debe seleccionarse al menos una dimensión",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "Marcador de posición de descripción",
+    "errorGeneratingSql": "Marcador de posición de descripción",
     "editSql": "Editar como SQL",
     "temporalUncertainty": "Incluir incertidumbre temporal mínima",
     "documentation": "Documentación",
