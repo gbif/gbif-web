@@ -64,7 +64,7 @@
         "estimatedSize": "預估資料大小"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "Tab分隔的CSV檔案(用於Excel等)"
       },
       "tableValues": {
         "ifAvailable": "",
