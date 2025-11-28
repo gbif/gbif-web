@@ -64,7 +64,7 @@
         "estimatedSize": "Предполагаемый размер данных"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "CSV с разделителями табуляции (для использования в Excel и т.д.)"
       },
       "tableValues": {
         "ifAvailable": "",
