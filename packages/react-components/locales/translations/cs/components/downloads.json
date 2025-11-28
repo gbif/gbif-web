@@ -257,107 +257,107 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Zpět",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "backToFormatSelection": "Zástupce popisu",
+    "backToConfiguration": "Zástupce popisu",
     "estimatedSize": "Rovná se {from}",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "Zástupce popisu",
+    "continueToTerms": "Zástupce popisu",
+    "downloadSummary": "Zástupce popisu",
+    "weAlsoSupport": "Zástupce popisu",
+    "sqlDownloadsLink": "Zástupce popisu",
     "extensions": "Rozšíření",
-    "selectAdditionalExtensions": "",
-    "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAdditionalExtensions": "Zástupce popisu",
+    "nExtensionsSelected": "Zástupce popisu",
+    "selectAll": "Zástupce popisu",
+    "deselectAll": "Zástupce popisu",
+    "extensionsInfoMessage": "Zástupce popisu",
     "format": "Formát",
-    "csvDelimiter": "",
+    "csvDelimiter": "Zástupce popisu",
     "taxonomy": "Taxonomie",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "Zástupce popisu",
+    "progressLabel": "Zástupce popisu",
+    "termsAndConditions": "Zástupce popisu",
+    "reviewAndAccept": "Zástupce popisu",
+    "dataCitationTitle": "Zástupce popisu",
+    "dataCitationText": "Zástupce popisu",
+    "dataUseAgreementTitle": "Zástupce popisu",
+    "dataUseAgreementText": "Zástupce popisu",
+    "largeDownloadAcknowledgment": "Zástupce popisu",
+    "largeDownloadEstimatedSize": "Zástupce popisu",
+    "largeDownloadConnectionSpeed": "Zástupce popisu",
+    "largeDownloadDiskSpace": "Zástupce popisu",
+    "largeDownloadRowCount": "Zástupce popisu",
     "largeDownloadExcelWarning": "Data nebude možné zobrazit ani analyzovat v aplikaci Excel nebo podobných aplikacích. Soubor dat této velikosti je obtížné analyzovat na běžném počítači. Pravděpodobně budete potřebovat přístup ke službě distribuovaných výpočtů nebo k nástrojům \"Big Data\".",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Zástupce popisu",
+    "createDownload": "Zástupce popisu",
+    "completeRequirements": "Zástupce popisu",
     "steps": {
       "quality": {
         "name": "Rovná se {from}",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "format": {
         "name": "Formát",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "terms": {
         "name": "Podmínky",
-        "description": ""
+        "description": "Zástupce popisu"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "DWCA": {
         "title": "Archiv Darwin Core",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "SPECIES_LIST": {
         "title": "Seznam druhů",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "Zástupce popisu",
+        "multipleCsv": "Zástupce popisu",
+        "interpretedData": "Zástupce popisu",
+        "rawAndInterpreted": "Zástupce popisu",
+        "coordinates": "Zástupce popisu",
+        "coordinatesIfSelected": "Zástupce popisu",
+        "individualOccurrences": "Zástupce popisu",
+        "multimediaLinks": "Zástupce popisu",
+        "occurrenceCounts": "Zástupce popisu"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": ""
+      "title": "Zástupce popisu",
+      "description": "Zástupce popisu",
+      "defaultRecommended": "Zástupce popisu"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "Zástupce popisu",
     "invalidSQL": "Neplatné SQL",
     "title": "Vytvořit nové SQL stažení",
     "notification": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",
@@ -457,8 +457,8 @@
     "countHigherTaxonomy": "Počet výskytů na vyšší taxonomické úrovni",
     "coordinateUncertainty": "Zahrnout minimální nejistotu souřadnic",
     "errorMinimumDimension": "Musí být vybrán alespoň jeden rozměr",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "Zástupce popisu",
+    "errorGeneratingSql": "Zástupce popisu",
     "editSql": "Upravit jako SQL",
     "temporalUncertainty": "Zahrnout minimální časovou nejistotu",
     "documentation": "Dokumentace",
