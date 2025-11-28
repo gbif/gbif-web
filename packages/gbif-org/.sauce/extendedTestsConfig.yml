@@ -6,6 +6,7 @@ sauce:
   region: us-west-1
   concurrency: 5
   sauceignore: .sauceignore
+  visibility: private
 cypress:
   configFile: cypress.config.ts
   version: 15.5.0
