@@ -34,6 +34,7 @@
   "nResultsWithCoordinates": "{total, plural, one {# výsledek} few {# výsledky} many {# výsledků} other {# výsledků}} se souřadnicemi\n",
   "percentWithCoordinates": "{percent}% se souřadnicemi",
   "percentWithYear": "{percent}% s rokem",
+  "percentWithDate": "{percent}% s datem",
   "percentWithTaxonMatch": "{percent}% se shodným taxonem",
   "nResultsWithImages": "{total, plural, one {# výsledek} few {# výsledky} many {# výsledků} other {# výsledků}} s obrázky",
   "gbifOverlapPercent": "{percent}% překryv s páteří GBIF",
