@@ -1,7 +1,11 @@
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/contexts/UserContext';
-import { HeaderQuery } from '@/gql/graphql';
+import {
+  HeaderQuery,
+  StatusPageIndicatorQuery,
+  StatusPageIndicatorQueryVariables,
+} from '@/gql/graphql';
 import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { FiActivity } from 'react-icons/fi';
 import { MdOutlineFeedback, MdTranslate } from 'react-icons/md';
@@ -13,6 +17,8 @@ import { FeedbackPopover } from './feedback/feedback';
 import { useConfig } from '@/config/config';
 import SearchTrigger from './SearchTrigger';
 import { cn } from '@/utils/shadcn';
+import useQuery from '@/hooks/useQuery';
+import { useEffect } from 'react';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
   return (
@@ -43,17 +49,61 @@ export function Header({ menu }: { menu: HeaderQuery }) {
             </Button>
           }
         />
-        <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
-          <DynamicLink to="/system-health" className="g-opacity-80">
-            <FiActivity />
-          </DynamicLink>
-        </Button>
+        <StatusIndicator />
         <div className="g-inline-block lg:g-hidden">
           <MobileMenu menu={menu} />
         </div>
         <ProfileOrLogin />
       </div>
     </Container>
+  );
+}
+
+const STATUS_PAGE_QUERY = /* GraphQL */ `
+  query statusPageIndicator {
+    statusPage {
+      notificationIcon {
+        color
+        showNotification
+      }
+    }
+  }
+`;
+
+function StatusIndicator() {
+  const { data, load } = useQuery<StatusPageIndicatorQuery, StatusPageIndicatorQueryVariables>(
+    STATUS_PAGE_QUERY,
+    { notifyOnErrors: false, throwAllErrors: false, lazyLoad: true }
+  );
+
+  // refresh every 10 seconds
+  useEffect(() => {
+    // if it isn't set, then just ignore. This is relevant as we do not have a status page for all environments
+    if (!import.meta.env.PUBLIC_STATUS_PAGE_URL) {
+      return;
+    }
+    const interval = setInterval(() => {
+      load({ keepDataWhileLoading: true });
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [load]);
+
+  return (
+    <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5 g-relative">
+      <a
+        href={import.meta.env.PUBLIC_STATUS_PAGE_URL ?? 'http://status.gbif.org/'}
+        className="g-opacity-80"
+      >
+        <FiActivity />
+        {data?.statusPage?.notificationIcon?.showNotification && (
+          <span
+            style={{ backgroundColor: data.statusPage.notificationIcon.color }}
+            className={cn('g-absolute g-top-2 g-end-2 g-w-2 g-h-2 g-rounded-full')}
+          ></span>
+        )}
+      </a>
+    </Button>
   );
 }
 
