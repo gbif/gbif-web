@@ -18,7 +18,7 @@ export function applyI18nPlugin(
   const defaultLanguage = config.languages.find((language) => language.default);
   if (!defaultLanguage) throw new Error('No default language found');
 
-  const translationsPromise = fetch(config.translationsEntryEndpoint)
+  const translationsPromise = fetch(`${config.translationsEntryEndpoint}/translations.json`)
     .then((r) => r.json())
     .catch((err) => {
       console.error('Failed to load translations entry file');
@@ -38,7 +38,9 @@ export function applyI18nPlugin(
         const translations = await translationsPromise;
         // now get the actual messages for the locale
         const messages = await fetch(
-          translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
+          `${config.translationsEntryEndpoint}${
+            translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
+          }`
         )
           .then((r) => r.json())
           .catch((err) => {

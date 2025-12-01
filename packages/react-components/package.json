@@ -16,10 +16,9 @@
     "lodash": "^4.17.21",
     "nodemon": "^2.0.2",
     "object-hash": "^3.0.0",
-    "pseudoloc": "^1.1.0"
-  },
-  "dependencies": {
+    "pseudoloc": "^1.1.0",
     "gulp": "^5.0.1",
-    "gulp-replace": "^1.1.4"
+    "gulp-replace": "^1.1.4",
+    "serve": "^14.2.5"
   }
 }

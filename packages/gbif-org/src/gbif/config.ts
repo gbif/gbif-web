@@ -3,9 +3,13 @@ import { getEndpoints } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
 
 // The env options
+// notice the server/client endpoints are needed when doing SSR using docker where the server needs to access services on the internal docker network
+// everywhere else we can just ignore it
 type Options = {
   baseUrl: string;
   translationsEntryEndpoint: string;
+  translationsEntryEndpointServer: string;
+  translationsEntryEndpointClient: string;
   v1Endpoint: string;
   contentSearchEndpoint: string;
   // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
@@ -26,6 +30,8 @@ const options = {
   graphqlEndpointClient: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
   formsEndpointServer: import.meta.env.PUBLIC_FORMS_ENDPOINT_SERVER,
   formsEndpointClient: import.meta.env.PUBLIC_FORMS_ENDPOINT_CLIENT,
+  translationsEntryEndpointServer: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_SERVER,
+  translationsEntryEndpointClient: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_CLIENT,
 } as Options;
 
 if (!options.baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
@@ -36,6 +42,8 @@ export const gbifConfig: Config = {
   version: 3,
   ...options,
   isGBIFOrg: true,
+  // notice the server/client endpoints are needed when doing SSR using docker where the server needs to access services on the internal docker network
+  // everywhere else we can just ignore it
   get graphqlEndpoint() {
     if (isServer()) {
       return options.graphqlEndpointServer ?? options.graphqlEndpoint;
@@ -47,6 +55,12 @@ export const gbifConfig: Config = {
       return options.formsEndpointServer ?? options.formsEndpoint;
     }
     return options.formsEndpointClient ?? options.formsEndpoint;
+  },
+  get translationsEntryEndpoint() {
+    if (isServer()) {
+      return options.translationsEntryEndpointServer ?? options.translationsEntryEndpoint;
+    }
+    return options.translationsEntryEndpointClient ?? options.translationsEntryEndpoint;
   },
   // suggest: {
   //   gadm: {

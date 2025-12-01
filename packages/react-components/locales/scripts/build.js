@@ -42,7 +42,7 @@ function build(locales) {
     )
     .forEach((item) => {
       translationVersions[getLocaleName(item.locale)] = {
-        messages: `${env.TRANSLATIONS}/${item.locale}.json?v=${item.hash}`,
+        messages: `/${item.locale}.json?v=${item.hash}`,
         localeMap: localeMaps[item.locale],
       };
     });
