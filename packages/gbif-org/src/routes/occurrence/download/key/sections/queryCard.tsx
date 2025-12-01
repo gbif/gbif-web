@@ -125,19 +125,26 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
 }
 
 export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery['download'] }) {
+  const [showAsApi, setShowAsApi] = useState(false);
+
   if (!download?.request) return null;
+  const predicate =
+    download?.request?.predicate ?? download?.request?.gbifMachineDescription.parameters.predicate;
   return (
     <>
-      {download?.request?.gbifMachineDescription?.parameters?.predicate && (
+      {predicate && (
         <div className="gbif-predicates g-min-w-[500px]">
-          <PredicateDisplay
-            predicate={download?.request?.gbifMachineDescription.parameters.predicate}
-          />
-        </div>
-      )}
-      {download?.request?.predicate && (
-        <div className="gbif-predicates g-min-w-[500px]">
-          <PredicateDisplay predicate={download?.request?.predicate} />
+          <div className="g-flex g-justify-end g-text-slate-500 -g-mt-2">
+            <button onClick={() => setShowAsApi(!showAsApi)}>
+              {showAsApi ? (
+                <FormattedMessage id="downloadKey.humanFilterView" />
+              ) : (
+                <FormattedMessage id="downloadKey.apiFilterView" />
+              )}
+            </button>
+          </div>
+          {!showAsApi && <PredicateDisplay predicate={predicate} />}
+          {showAsApi && <pre>{JSON.stringify(predicate, null, 2)}</pre>}
         </div>
       )}
       {!download?.request?.predicate && !download?.request?.sql && (
