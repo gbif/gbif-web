@@ -21,12 +21,27 @@ import {
   YearLabel,
 } from '@/components/filters/displayNames';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useConfig } from '@/config/config';
 import { camelCase, constantCase } from 'change-case';
 import { useCallback, useMemo } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+const fieldsWithChecklistSupport = [
+  'TAXON_KEY',
+  'SPECIES_KEY',
+  'GENUS_KEY',
+  'FAMILY_KEY',
+  'ORDER_KEY',
+  'CLASS_KEY',
+  'PHYLUM_KEY',
+  'KINGDOM_KEY',
+  'ACCEPTED_TAXON_KEY',
+  'IUCN_RED_LIST_CATEGORY',
+];
 
 export const PredicateDisplay = ({ predicate: predicateRaw }) => {
   const intl = useIntl();
+  const { defaultChecklistKey } = useConfig();
   let predicate = predicateRaw;
 
   const getTranslation = useCallback(
@@ -40,9 +55,11 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
       const { key, parameter, value, type, checklistKey } = predicate;
       // choose label based on key
       // if no label is found, return the value
-      const predicateKey = constantCase(key);
+      const predicateKey = constantCase(key ?? 'UNKNOWN_KEY');
       if (predicateKey) {
         switch (predicateKey) {
+          case 'UNKNOWN_KEY':
+            return value;
           case 'EVENT_ID':
             return value;
           case 'DECIMAL_LONGITUDE':
@@ -267,6 +284,8 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
             return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'ISSUE':
             return getTranslation(`enums.occurrenceIssue.${constantCase(value)}`, `"${value}"`);
+          case 'TAXONOMIC_ISSUE':
+            return getTranslation(`enums.occurrenceIssue.${constantCase(value)}`, `"${value}"`);
           case 'INSTALLATION_KEY':
             return <InstallationLabel id={value} />;
           case 'VERBATIM_SCIENTIFIC_NAME':
@@ -370,6 +389,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
               </li>
             ))}
           </ol>
+          <ChecklistLabel predicate={predicate} defaultChecklistKey={defaultChecklistKey} />
         </div>
       );
     case 'isNotNull':
@@ -398,7 +418,22 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           </span>
         </div>
       );
-    default:
+    case 'geoDistance':
+      return (
+        <div className="leaf">
+          <span dir="auto" className="node">
+            {getTranslation(`downloadKey.predicate.geoDistance`)}
+          </span>
+          <span dir="auto" className="node-value">
+            {`${predicate.distance} from latitude ${predicate.latitude}, longitude ${predicate.longitude}`}
+          </span>
+        </div>
+      );
+    case 'equals':
+    case 'greaterThanOrEquals':
+    case 'lessThanOrEquals':
+    case 'greaterThan':
+    case 'lessThan':
       return (
         <div className="leaf">
           <span dir="auto" className="node">
@@ -409,6 +444,18 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           </span>
           <span dir="auto" className="node-value">
             {getValueTranslation(predicate)}
+          </span>
+          <ChecklistLabel predicate={predicate} defaultChecklistKey={defaultChecklistKey} />
+        </div>
+      );
+    default:
+      return (
+        <div className="leaf">
+          <span dir="auto" className="node">
+            Unknown:
+          </span>
+          <span dir="auto" className="node-value">
+            <pre>{JSON.stringify(predicate)}</pre>
           </span>
         </div>
       );
@@ -427,4 +474,29 @@ export const PredicateDisplaySkeleton = () => {
   );
 };
 
-// function to return
+function ChecklistLabel({
+  predicate,
+  defaultChecklistKey,
+}: {
+  predicate: any;
+  defaultChecklistKey?: string;
+}) {
+  if (!defaultChecklistKey) return null;
+  return (
+    <>
+      {predicate.checklistKey && predicate.checklistKey !== defaultChecklistKey && (
+        <div className="g-text-slate-500 g-text-xs">
+          <FormattedMessage id="downloadKey.predicate.checklist" defaultMessage="Checklist" />:{' '}
+          <DatasetLabel id={predicate.checklistKey} />
+        </div>
+      )}
+      {/* For downloads prior to multi taxonomy download */}
+      {predicate.checklistKey === undefined &&
+        fieldsWithChecklistSupport.includes(predicate.key) && (
+          <div className="g-text-slate-500 g-text-xs">
+            Checklist: <DatasetLabel id={import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY} />
+          </div>
+        )}
+    </>
+  );
+}
