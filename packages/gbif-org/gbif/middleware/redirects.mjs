@@ -4,7 +4,7 @@
 import { camelCase, snakeCase } from 'change-case';
 import querystring from 'querystring';
 import redirectList from '../../redirects.json' with { type: "json" };
-import toolsRedirects from '../../src/gbif/toolsRedirects.ts';
+import toolsRedirects from '../../src/gbif/toolsRedirects.js';
 // These cannot be added to redirects while portal16 is still our main site
 // as they would interfere with the occurrence paths
 const newRedirects = [
