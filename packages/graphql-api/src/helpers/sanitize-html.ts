@@ -1,4 +1,4 @@
-import * as cheerio from 'cheerio';
+import { load } from 'cheerio';
 import { ParserOptions } from 'htmlparser2';
 import { merge } from 'lodash';
 import sanitize, {
@@ -6,8 +6,8 @@ import sanitize, {
   IOptions,
   Transformer,
 } from 'sanitize-html';
-import logger from '#/logger';
-import config from '#/config';
+import logger from '@/logger';
+import config from '@/config';
 
 const DEFAULT_TRUST_LEVEL = 'untrusted';
 
@@ -291,7 +291,7 @@ function createIOptions(options: SanitizeOptions): IOptions {
 }
 
 function wrapTables(html: string): string {
-  const $ = cheerio.load(html, null, false);
+  const $ = load(html, null, false);
 
   $('table').each((_, element) => {
     const table = $(element);

@@ -1,6 +1,6 @@
 import request from 'requestretry';
 import { HttpsAgent } from 'agentkeepalive';
-import config from '#/config';
+import config from '@/config';
 
 // See https://www.npmjs.com/package/agentkeepalive
 const stdAgent = new HttpsAgent({

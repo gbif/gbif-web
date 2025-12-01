@@ -1,10 +1,10 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import pick from 'lodash/pick';
 import { stringify } from 'qs';
-import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
-import { renameProperty } from '#/helpers/utils';
-import { getDefaultAgent } from '#/requestAgents';
-import { ResourceSearchAPI } from '#/resources/gbif/resource/resource.source';
+import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
+import { renameProperty } from '@/helpers/utils';
+import { getDefaultAgent } from '@/requestAgents';
+import { ResourceSearchAPI } from '@/resources/gbif/resource/resource.source';
 
 function mergeParticipantData(directoryParticipant, resourceParticipant) {
   return {

@@ -1,5 +1,5 @@
-import config from '#/config';
-import { excerpt, getHtml } from '#/helpers/utils';
+import config from '@/config';
+import { excerpt, getHtml } from '@/helpers/utils';
 import dataset from '.';
 import { getFacet } from '../getQueryMetrics';
 import { getDatasetEventCount, getDatasetEvents } from './event';

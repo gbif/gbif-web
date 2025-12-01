@@ -1,4 +1,4 @@
-import config from '#/config';
+import config from '@/config';
 import { signJson, verifyJson } from './utils';
 
 const defaultUncertainty = 1000;

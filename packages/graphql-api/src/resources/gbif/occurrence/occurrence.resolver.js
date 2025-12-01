@@ -1,14 +1,14 @@
 /* eslint-disable no-param-reassign */
 import _ from 'lodash';
 import md5 from 'md5';
-import interpretationRemark from '#/helpers/enums/interpretationRemark';
-import getFeedbackOptions from '#/helpers/feedback';
-import getGlobe from '#/helpers/globe';
+import interpretationRemark from '@/helpers/enums/interpretationRemark';
+import getFeedbackOptions from '@/helpers/feedback';
+import getGlobe from '@/helpers/globe';
 import {
   formattedCoordinates,
   getFirstIIIFImage,
   simplifyUrlObjectKeys,
-} from '#/helpers/utils';
+} from '@/helpers/utils';
 import config from '../../../config';
 import {
   getAutoDateHistogram,

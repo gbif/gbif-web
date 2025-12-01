@@ -1,7 +1,7 @@
 import type { Octokit } from '@octokit/core';
-import logger from '#/logger';
-import { dynamicImport } from '#/helpers/utils-ts';
-import config from '#/config';
+import logger from '@/logger';
+import { dynamicImport } from '@/helpers/utils-ts';
+import config from '@/config';
 
 export type CreateIssueArgs = {
   owner: string;

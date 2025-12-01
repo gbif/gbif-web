@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import NodeCache from 'node-cache';
-import config from '#/config';
+import config from '@/config';
 import { authenticatedGet } from './authenticatedGet';
 
 // users are cached for 30 seconds

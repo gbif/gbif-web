@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server';
 import { get } from 'lodash';
-import { getEnumTypeDefs } from '#/helpers/enums';
+import { getEnumTypeDefs } from '@/helpers/enums';
 import config from './config';
 import * as resources from './resources';
 

@@ -3,11 +3,10 @@ Experimental endpoint to provide a human readable form for WKT polygons.
 The idea is to use our geocoding layers to provide results like: denmark, copenhagen area, gentofte and dragør.
 */
 import { Router } from 'express';
-import { getSql } from '#/helpers/generateSql';
-import searchAll from '#/helpers/omniSearch/omniSearch';
+import { getSql } from '@/helpers/generateSql';
+import searchAll from '@/helpers/omniSearch/omniSearch';
 import getNetworkCounts from './networkStats/networkCounts';
-import geSupportChecklists from './supportedChecklists/geSupportChecklists';
-import validateDownloadPredicate from '#/helpers/validateDownloadPredicate';
+import validateDownloadPredicate from '@/helpers/validateDownloadPredicate';
 
 const router = Router();
 

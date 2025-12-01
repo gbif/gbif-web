@@ -1,5 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
-import { getDefaultAgent } from '#/requestAgents';
+import { getDefaultAgent } from '@/requestAgents';
 
 /**
  * Validates a string against a specific UUID format regex.

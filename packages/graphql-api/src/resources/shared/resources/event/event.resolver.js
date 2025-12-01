@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { formattedCoordinates } from '#/helpers/utils';
+import { formattedCoordinates } from '@/helpers/utils';
 import fieldsWithFacetSupport from './helpers/fieldsWithFacetSupport';
 import fieldsWithOccurrenceFacetSupport from './helpers/fieldsWithOccurrenceFacetSupport';
 import fieldsWithStatsSupport from './helpers/fieldsWithStatsSupport';

@@ -1,5 +1,5 @@
 import requestAgents from './requestAgents';
-import logger from '#/logger';
+import logger from '@/logger';
 
 let loggingBanned = false;
 let activeRequestCount = 0;

@@ -1,8 +1,8 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
-import { translateContentfulResponse } from '#/helpers/utils';
-import { urlSizeLimit } from '#/helpers/utils-ts';
-import { getDefaultAgent } from '#/requestAgents';
-import ThrottledRESTDataSource from '#/ThrottledRESTDataSource';
+import { translateContentfulResponse } from '@/helpers/utils';
+import { urlSizeLimit } from '@/helpers/utils-ts';
+import { getDefaultAgent } from '@/requestAgents';
+import ThrottledRESTDataSource from '@/ThrottledRESTDataSource';
 
 export class ResourceAPI extends ThrottledRESTDataSource {
   constructor(config) {

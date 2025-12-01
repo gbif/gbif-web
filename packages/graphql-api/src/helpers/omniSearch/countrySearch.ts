@@ -1,4 +1,4 @@
-import config from '#/config';
+import config from '@/config';
 import { matchSorter } from 'match-sorter';
 import { getParticipantByIso, Participant } from './participantSearch';
 

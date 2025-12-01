@@ -2,7 +2,7 @@
 // get suggestions for recordedBy, catalogNumber, and other fields.
 // if there is a perfect match, then show it as highlighted match along with the suggested query param
 
-import config from '#/config';
+import config from '@/config';
 import { normalizeString } from './countrySearch';
 import { OMNI_SEARCH_TIMEOUT } from './omniSearch';
 

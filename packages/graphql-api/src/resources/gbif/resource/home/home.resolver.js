@@ -1,4 +1,4 @@
-import { isNoneEmptyArray } from '#/helpers/utils';
+import { isNoneEmptyArray } from '@/helpers/utils';
 import { KNOWN_BLOCK_TYPES } from '../composition/acceptedTypes';
 
 /**

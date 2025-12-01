@@ -6,8 +6,8 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import pick from 'lodash/pick';
 import { stringify } from 'qs';
-import { getDefaultAgent } from '#/requestAgents';
-import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
+import { getDefaultAgent } from '@/requestAgents';
+import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 
 class DirectoryPersonAPI extends RESTDataSource {
   constructor(config) {

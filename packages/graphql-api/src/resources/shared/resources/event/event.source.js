@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { Parser } from 'xml2js';
-import { getDefaultAgent } from '#/requestAgents';
+import { getDefaultAgent } from '@/requestAgents';
 
 const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 

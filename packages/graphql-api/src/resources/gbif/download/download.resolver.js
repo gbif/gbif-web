@@ -1,5 +1,5 @@
 import { highlight } from 'sql-highlight';
-import { getGbifMachineDescription } from '#/helpers/generateSql';
+import { getGbifMachineDescription } from '@/helpers/generateSql';
 
 /**
  * fieldName: (parent, args, context, info) => data;

@@ -1,6 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
-import { urlSizeLimit } from '#/helpers/utils-ts';
-import { getDefaultAgent } from '#/requestAgents';
+import { urlSizeLimit } from '@/helpers/utils-ts';
+import { getDefaultAgent } from '@/requestAgents';
 
 const MAX_RESULTS = 10000;
 

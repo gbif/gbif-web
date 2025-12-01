@@ -3,12 +3,12 @@ import { z } from 'zod';
 import { validateRequest } from 'zod-express-middleware';
 import { UAParser } from 'ua-parser-js';
 import _ from 'lodash';
-import logger from '#/logger';
-import config from '#/config';
+import logger from '@/logger';
+import config from '@/config';
 import { createMarkdown } from './create-markdown';
 import { getFeedbackContentType } from './feedbackContentType.js';
-import { encryptJSON } from '#/helpers/encrypt';
-import isAuthenticated, { AuthRequest } from '#/middleware/auth';
+import { encryptJSON } from '@/helpers/encrypt';
+import isAuthenticated, { AuthRequest } from '@/middleware/auth';
 import { createGitHubIssue } from '../helpers/create-github-issue';
 
 const FormSchema = {

@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
-import { urlSizeLimit } from '#/helpers/utils-ts';
-import { getOccurrenceAgent } from '#/requestAgents';
-import QueuedRESTDataSource from '#/QueuedRESTDataSource';
+import { urlSizeLimit } from '@/helpers/utils-ts';
+import { getOccurrenceAgent } from '@/requestAgents';
+import QueuedRESTDataSource from '@/QueuedRESTDataSource';
 
 const MAX_RESULTS = 3000;
 

@@ -1,4 +1,4 @@
-import { getHtml } from '#/helpers/utils';
+import { getHtml } from '@/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;

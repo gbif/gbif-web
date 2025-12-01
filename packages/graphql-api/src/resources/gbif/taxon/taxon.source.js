@@ -2,10 +2,10 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import { uniqBy } from 'lodash';
 import { matchSorter } from 'match-sorter';
 import { stringify } from 'qs';
-import { getTaxonAgent } from '#/requestAgents';
-import { getParsedName } from '#/helpers/scientificName';
+import { getTaxonAgent } from '@/requestAgents';
+import { getParsedName } from '@/helpers/scientificName';
 import colSuggest from './colSuggest';
-import QueuedRESTDataSource from '#/QueuedRESTDataSource.js';
+import QueuedRESTDataSource from '@/QueuedRESTDataSource.js';
 
 class TaxonAPI extends QueuedRESTDataSource {
   constructor(config) {

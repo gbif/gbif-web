@@ -2,7 +2,7 @@
 // tims comments: search bor BID or a programme. For the homepage it could be useful.
 // my ideas: wkt, sequence, has sequence
 // thomas: publishers
-import colSuggest from '#/resources/gbif/taxon/colSuggest';
+import colSuggest from '@/resources/gbif/taxon/colSuggest';
 import axios from 'axios';
 import { matchSorter } from 'match-sorter';
 import config from '../../config';

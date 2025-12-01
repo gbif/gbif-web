@@ -14,7 +14,16 @@
     "no-unused-expressions": "off",
     "no-use-before-define": ["error", { "functions": false }],
     "import/no-unresolved": "off", // TypeScript already checks this
-    "import/extensions": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never",
+        "jsx": "never",
+        "tsx": "never"
+      }
+    ],
     "prettier/prettier": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",

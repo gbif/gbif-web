@@ -1,4 +1,4 @@
-import { excerpt, getHtml } from '#/helpers/utils';
+import { excerpt, getHtml } from '@/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;

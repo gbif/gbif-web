@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
-import logger from '#/logger';
+import logger from '@/logger';
 import request from './request';
 import { z } from 'zod';
-import config from '#/config';
+import config from '@/config';
 
 const NEWLINE = '\n';
 

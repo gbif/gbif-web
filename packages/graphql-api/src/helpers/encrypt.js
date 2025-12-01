@@ -1,5 +1,5 @@
 import { createDecipheriv, createCipheriv, randomBytes } from 'node:crypto';
-import config from '#/config';
+import config from '@/config';
 
 const ENCRYPTION_KEY = config.encryptionKey; // Must be 256 bytes (32 characters)
 

@@ -1,6 +1,6 @@
 import { PluginDefinition } from 'apollo-server-core';
-import config from '#/config';
-import logger from '#/logger';
+import config from '@/config';
+import logger from '@/logger';
 
 const loggingPlugin: PluginDefinition = {
   async requestDidStart(rc) {

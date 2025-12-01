@@ -8,8 +8,8 @@ import {
   RequiredEmailSchema,
   OptionalStringSchema,
 } from '../validation';
-import logger from '#/logger';
-import config from '#/config';
+import logger from '@/logger';
+import config from '@/config';
 import { isAuthenticated } from '../../../middleware';
 
 const Schema = {
