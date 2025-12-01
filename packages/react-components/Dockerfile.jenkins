@@ -1,0 +1,4 @@
+FROM nginx:alpine
+COPY packages/react-components/dist/lib/translations /usr/share/nginx/html
+COPY packages/react-components/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

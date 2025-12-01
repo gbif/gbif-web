@@ -1,0 +1,5 @@
+FROM cypress/included:latest
+WORKDIR /app
+COPY packages/gbif-org/cypress ./cypress
+COPY packages/gbif-org/cypress.config.e2e.ts ./cypress.config.ts
+COPY packages/gbif-org/tsconfig.cypress.json ./tsconfig.json
