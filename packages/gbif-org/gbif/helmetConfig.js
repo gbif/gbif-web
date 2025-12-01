@@ -59,7 +59,7 @@ export const helmetConfig = {
       mediaSrc: ['*'],
       imgSrc: ['*', 'data:'],
       workerSrc: ['blob:', `'self'`],
-      upgradeInsecureRequests: [],
+      upgradeInsecureRequests: process.env.DISABLE_HTTPS_UPGRADE ? null : [], // this is useful for testing a prod build over http in docker
       // frameAncestors: [ // This leads to conflicting statements in Helmet. Looks like we should either go with frameAncestors or x-frame-options
       //   'https://www.onezoom.org'
       // ]
