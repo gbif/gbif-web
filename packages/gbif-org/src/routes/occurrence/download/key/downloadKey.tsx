@@ -52,6 +52,7 @@ const DOWNLOAD_QUERY = /* GraphQL */ `
         format
         description
         gbifMachineDescription
+        checklistKey
       }
       size
       status

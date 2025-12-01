@@ -94,7 +94,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
               <div>
                 <FormattedNumber value={size} /> {unit}
               </div>
-              <div className="g-text-slate-400">
+              <div className="g-text-slate-500">
                 <FormattedMessage id={`enums.downloadFormat.${download?.request?.format}`} />
               </div>
             </div>

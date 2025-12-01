@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { PredicateDisplay } from '../predicate';
 import { getPredicateAsFilter } from './getPredicateAsFilter';
+import { DatasetLabel } from '@/components/filters/displayNames';
 
 export function QueryCard({ download }: { download: DownloadKeyQuery['download'] }) {
   const { filters } = useFilters({ searchConfig });
@@ -129,7 +130,8 @@ export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery
 
   if (!download?.request) return null;
   const predicate =
-    download?.request?.predicate ?? download?.request?.gbifMachineDescription.parameters.predicate;
+    download?.request?.predicate ??
+    download?.request?.gbifMachineDescription?.parameters?.predicate;
   return (
     <>
       {predicate && (
@@ -160,6 +162,12 @@ export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery
           />
         </div>
       )}
+      <div className="g-mt-2 g-text-slate-600 g-text-sm">
+        Download using:{' '}
+        <DatasetLabel
+          id={download.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY}
+        />
+      </div>
     </>
   );
 }

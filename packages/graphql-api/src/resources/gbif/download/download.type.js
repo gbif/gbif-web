@@ -73,6 +73,7 @@ const typeDef = gql`
     description: String
     machineDescription: JSON
     gbifMachineDescription: JSON
+    checklistKey: ID
   }
 `;
 
