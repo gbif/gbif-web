@@ -10,6 +10,7 @@ import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
 import { GDPR } from '@/components/gdpr';
+import toolsRedirects from './toolsRedirects';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -52,13 +53,30 @@ export function GbifRootLayout({ children }: Props) {
   return <LayoutInner data={data}>{children}</LayoutInner>;
 }
 
+const redirectTools = (data) => {
+  const toolsRoot = data?.gbifHome?.children?.find((c) => c.id === '6NBwCayI3rNgZdzgqeMnCX');
+  if (toolsRoot) {
+    toolsRoot.children?.forEach((section) => {
+      if (section.children) {
+        section.children.forEach((tool) => {
+          if (toolsRedirects?.[tool.link]) {
+            tool.externalLink = true;
+            tool.link = toolsRedirects?.[tool.link];
+          }
+        });
+      }
+    });
+  }
+  return data;
+};
+
 const LayoutInner = React.memo(
   ({ children, data }: { children: React.ReactNode; data: HeaderQuery }) => {
     return (
       <UserProvider>
         <div className="g-flex g-flex-col g-min-h-[100dvh]">
           <LoadingIndicator />
-          <Header menu={data} />
+          <Header menu={redirectTools(data)} />
           <main className="g-flex-auto">
             <NoscriptNotification />
             <ScrollRestoration />

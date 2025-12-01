@@ -4,7 +4,7 @@
 import { camelCase, snakeCase } from 'change-case';
 import querystring from 'querystring';
 import redirectList from '../../redirects.json' with { type: "json" };
-
+import toolsRedirects from '../../src/gbif/toolsRedirects.ts';
 // These cannot be added to redirects while portal16 is still our main site
 // as they would interfere with the occurrence paths
 const newRedirects = [
@@ -21,6 +21,7 @@ const newRedirects = [
   { incoming: '/the-gbif-network/oceania', target: '/the-gbif-network' },
   { incoming: '/the-gbif-network/participant-organisations', target: '/the-gbif-network' },
   { incoming: '/the-gbif-network/gbif-affiliates', target: '/the-gbif-network' },
+  ...Object.keys(toolsRedirects).map(key => ({ incoming: key, target: toolsRedirects[key] })),
 ];
 
 
