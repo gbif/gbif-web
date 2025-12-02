@@ -15,7 +15,6 @@ import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
-import { PublishedDate } from '../components/publishedDate';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DynamicLink } from '@/reactRouterPlugins';
 

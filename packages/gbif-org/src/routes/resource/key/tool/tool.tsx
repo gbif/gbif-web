@@ -11,12 +11,11 @@ import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
-import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
-import { PublishedDate } from '../components/publishedDate';
 import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
@@ -66,15 +65,16 @@ export function ToolPage() {
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
-          <ArticlePreTitle>
-            <FormattedMessage id="cms.contentType.tool" />
+          <ArticlePreTitle
+            clickable
+            secondary={<PreTitleDate date={resource.publicationDate ?? resource.createdAt} />}
+          >
+            <DynamicLink to="/resource/search?contentType=tool">
+              <FormattedMessage id="cms.contentType.tool" />
+            </DynamicLink>
           </ArticlePreTitle>
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
-
-          {resource.publicationDate && (
-            <PublishedDate className="g-mt-2" date={resource.publicationDate} />
-          )}
 
           {resource.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
