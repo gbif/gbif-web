@@ -200,6 +200,7 @@ export function PublisherPage() {
       <PageContainer topPadded hasDataHeader className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
+            clickable
             secondary={
               <FormattedMessage
                 id="publisher.header.sinceDate"
@@ -214,7 +215,9 @@ export function PublisherPage() {
               />
             }
           >
-            <FormattedMessage id={`publisher.header.publisher`} />
+            <DynamicLink to="/publisher/search">
+              <FormattedMessage id={`publisher.header.publisher`} />
+            </DynamicLink>
           </ArticlePreTitle>
           {/* it would be nice to know for sure which fields to expect */}
           <ArticleTitle

@@ -13,7 +13,7 @@ export function GlobalAnalyticsPage() {
     <article>
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
-          <ArticlePreTitle>
+          <ArticlePreTitle secondary={<FormattedMessage id="trends.global" />}>
             <FormattedMessage id="trends.analytics" />
           </ArticlePreTitle>
 

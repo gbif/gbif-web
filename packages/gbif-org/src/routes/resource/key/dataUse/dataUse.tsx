@@ -9,7 +9,7 @@ import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
-import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
@@ -17,6 +17,7 @@ import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
 import { PublishedDate } from '../components/publishedDate';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export const DataUsePageSkeleton = ArticleSkeleton;
 
@@ -66,21 +67,23 @@ export function DataUsePage() {
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
-          <ArticlePreTitle>
-            <FormattedMessage id="cms.contentType.dataUse" />
+          <ArticlePreTitle clickable secondary={<PreTitleDate date={resource.createdAt} />}>
+            <DynamicLink to="/resource/search?contentType=dataUse">
+              <FormattedMessage id="cms.contentType.dataUse" />
+            </DynamicLink>
           </ArticlePreTitle>
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
-
-          {resource.createdAt && <PublishedDate className="g-mt-2" date={resource.createdAt} />}
 
           {resource.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
           )}
 
-          <ArticleIntro className="g-mt-2">
-            <FormattedMessage id="cms.datause.dataViaGbif" /> : {resource.resourceUsed}
-          </ArticleIntro>
+          {resource.resourceUsed && (
+            <ArticleIntro className="g-mt-2 g-font-semibold g-text-sm">
+              <FormattedMessage id="cms.datause.dataViaGbif" /> : {resource.resourceUsed}
+            </ArticleIntro>
+          )}
         </ArticleTextContainer>
 
         <ArticleBanner className="g-mt-8 g-mb-6" image={resource?.primaryImage} />
@@ -96,7 +99,7 @@ export function DataUsePage() {
                 label={<FormattedMessage id="cms.auxiliary.citation" />}
                 dangerouslySetValue={{
                   __html: resource.citation,
-                  classNames: 'underlineLinks',
+                  classNames: 'underlineLinks coloredLinks',
                 }}
               />
             )}

@@ -59,7 +59,7 @@ export function OccurrenceFragment() {
     <article>
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>
-          <ArticlePreTitle>
+          <ArticlePreTitle clickable>
             <DynamicLink pageId="occurrenceSearch">
               <FormattedMessage id="occurrenceDetails.occurrence" defaultMessage="Occurrence" />
             </DynamicLink>

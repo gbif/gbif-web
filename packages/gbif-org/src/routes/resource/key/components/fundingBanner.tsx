@@ -46,20 +46,22 @@ type Props = {
 export function FundingBanner({ resource }: Props) {
   const fundingOrganisations =
     resource.__typename === 'GbifProject'
-      ? (resource.overrideProgrammeFunding ?? resource.programme?.fundingOrganisations)
+      ? resource.overrideProgrammeFunding ?? resource.programme?.fundingOrganisations
       : resource.fundingOrganisations;
 
   const fundsAllocated =
     resource.__typename === 'GbifProject' ? resource.fundsAllocated : undefined;
 
   return (
-    <div className="g-bg-slate-100 g-mt-6 g-p-6 g-flex g-flex-col g-items-center">
-      {fundsAllocated && (
-        <span className="g-text-gray-500 g-text-xs">
-          € <FormattedNumber value={fundsAllocated} />{' '}
-          <FormattedMessage id="cms.project.fundedBy" />
-        </span>
-      )}
+    <div className="g-bg-[#e8ebed] g-p-6 g-flex g-flex-col g-items-center">
+      <span className="g-text-gray-500 g-text-xs">
+        {fundsAllocated && (
+          <>
+            € <FormattedNumber value={fundsAllocated} />{' '}
+          </>
+        )}
+        <FormattedMessage id="cms.project.fundedBy" />
+      </span>
 
       <div className="g-mt-4 g-flex g-gap-8 g-flex-wrap g-justify-center">
         {fundingOrganisations
@@ -87,7 +89,7 @@ export function FundingBanner({ resource }: Props) {
             <div key={fundingOrganisation.id}>
               <a
                 href={fundingOrganisation.url!}
-                className="g-flex g-flex-col g-items-center g-group"
+                className="g-flex g-flex-col g-items-center g-group hover:g-cursor-pointer"
               >
                 <img className="g-max-w-28" src={fundingOrganisation.logo?.file.url} />
                 <span className="g-text-gray-500 g-text-sm g-pt-2 group-hover:g-underline">

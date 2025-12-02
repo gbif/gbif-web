@@ -7,6 +7,7 @@ import { ArticleTextContainer } from '../resource/key/components/articleTextCont
 import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { SuggestDatasetForm } from '../resource/key/composition/blocks/customComponents/suggestDatasetForm';
+import { ArticlePreTitle } from '../resource/key/components/articlePreTitle';
 
 function SuggestDatasetPage() {
   const { formatMessage } = useIntl();
@@ -18,6 +19,10 @@ function SuggestDatasetPage() {
       </Helmet>
 
       <ArticleTextContainer>
+        <ArticlePreTitle>
+          <FormattedMessage id="cms.contentType.tool" />
+        </ArticlePreTitle>
+
         <ArticleTitle>
           <FormattedMessage id="suggestDataset.pageTitle" />
         </ArticleTitle>

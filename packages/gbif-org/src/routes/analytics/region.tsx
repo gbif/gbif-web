@@ -29,7 +29,7 @@ export function RegionAnalyticsPage() {
     <article>
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
-          <ArticlePreTitle>
+          <ArticlePreTitle secondary={<FormattedMessage id={`enums.gbifRegion.${regionKey}`} />}>
             <FormattedMessage id="trends.analytics" />
           </ArticlePreTitle>
 

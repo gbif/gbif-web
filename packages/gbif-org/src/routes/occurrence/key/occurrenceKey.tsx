@@ -30,7 +30,7 @@ import {
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
-import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -425,6 +425,7 @@ export function OccurrenceKey() {
               )}
               <div className="g-flex-grow">
                 <ArticlePreTitle
+                  clickable={!occurrence.volatile?.features?.isSpecimen}
                   secondary={
                     occurrence.eventDate ? (
                       <FormattedDateRange date={occurrence?.eventDate} />
@@ -437,10 +438,12 @@ export function OccurrenceKey() {
                     <FormattedMessage id="occurrenceDetails.specimen" defaultMessage="Specimen" />
                   )}
                   {!occurrence.volatile?.features?.isSpecimen && (
-                    <FormattedMessage
-                      id="occurrenceDetails.occurrence"
-                      defaultMessage="Occurrence"
-                    />
+                    <DynamicLink to="/occurrence/search">
+                      <FormattedMessage
+                        id="occurrenceDetails.occurrence"
+                        defaultMessage="Occurrence"
+                      />
+                    </DynamicLink>
                   )}
                 </ArticlePreTitle>
                 {/* <ArticleTitle

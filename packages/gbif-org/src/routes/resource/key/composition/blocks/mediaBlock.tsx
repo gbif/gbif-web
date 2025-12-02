@@ -1,9 +1,10 @@
-import { MediaBlockDetailsFragment } from '@/gql/graphql';
+import { Link, MediaBlockDetailsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/articleBody';
 import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 fragmentManager.register(/* GraphQL */ `
   fragment MediaBlockDetails on MediaBlock {
@@ -85,17 +86,55 @@ function MediaBlockContent({
         {resource.callToAction && (
           <div className="g-flex g-gap-4 g-flex-wrap g-mt-4">
             {resource.callToAction.map((cta) => (
-              <DynamicLink
-                key={cta.url}
-                className="g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2"
-                to={cta.url}
-              >
-                {cta.label}
-              </DynamicLink>
+              <CallToAction key={cta.url} link={cta} />
             ))}
           </div>
         )}
       </div>
     </div>
   );
+}
+
+function CallToAction({ link }: { link: Link }) {
+  // We want to display vimeo videos directly in the browser instead of opening a new tab.
+  // https://github.com/gbif/gbif-web/issues/973#issuecomment-3580526045
+  if (link.url.startsWith('https://player.vimeo.com/video/')) {
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          <button className="g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2">
+            {link.label}
+          </button>
+        </DialogTrigger>
+        <DialogContent
+          hideCloseButton
+          className="g-p-0 g-border-0 !g-rounded-none g-overflow-hidden g-shadow-none g-duration-300 g-w-[1280px] g-max-w-[min(80vw,calc(80vh/0.56))] g-max-h-full g-m-auto g-bg-black"
+        >
+          <div className="g-w-full g-h-0 g-pb-[56.5%] g-overflow-hidden g-relative"></div>
+          <iframe
+            src={link.url}
+            allowFullScreen
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            className="g-w-full g-h-full g-absolute g-top-0 g-left-0"
+          />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  return (
+    <DynamicLink
+      key={link.url}
+      className="g-text-primary-300 hover:g-text-primary-500 hover:g-underline g-underline-offset-2"
+      to={link.url}
+    >
+      {link.label}
+    </DynamicLink>
+  );
+}
+
+function Log() {
+  console.log('Log');
+  return null;
 }

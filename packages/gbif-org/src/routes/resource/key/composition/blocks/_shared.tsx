@@ -3,8 +3,8 @@ import { ArticleTextContainer } from '../../components/articleTextContainer';
 
 export const backgroundColorMap: Record<string, string> = {
   white: 'g-bg-white',
-  light: 'g-bg-slate-50',
-  gray: 'g-bg-slate-100',
+  light: 'g-bg-[#f7f9fa]',
+  gray: 'g-bg-[#e8ebed]',
   black: 'g-bg-slate-900',
 };
 

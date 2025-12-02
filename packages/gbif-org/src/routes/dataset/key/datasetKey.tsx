@@ -463,6 +463,7 @@ export function DatasetPage() {
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <ArticlePreTitle
+              clickable
               secondary={
                 <FormattedMessage
                   id="dataset.registeredDate"
@@ -477,7 +478,9 @@ export function DatasetPage() {
                 />
               }
             >
-              <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              <DynamicLink to="/dataset/search">
+                <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
             <ArticleTitle
