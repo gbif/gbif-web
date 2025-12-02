@@ -58,6 +58,30 @@ export default {
         });
     },
   },
+  Download: {
+    willBeDeletedSoon: ({ eraseAfter }) => {
+      if (!eraseAfter) return null;
+      try {
+        const eraseDate = new Date(eraseAfter);
+        const sevenMonthsFromNow = new Date();
+        sevenMonthsFromNow.setMonth(sevenMonthsFromNow.getMonth() + 7);
+        return eraseDate < sevenMonthsFromNow;
+      } catch (err) {
+        return null;
+      }
+    },
+    readyForDeletion: ({ eraseAfter }) => {
+      if (!eraseAfter) return null;
+      try {
+        const eraseDate = new Date(eraseAfter);
+        const oneDayFromNow = new Date();
+        oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
+        return eraseDate < oneDayFromNow;
+      } catch (err) {
+        return null;
+      }
+    },
+  },
   DownloadRequest: {
     gbifMachineDescription: ({ sql, machineDescription }) => {
       try {

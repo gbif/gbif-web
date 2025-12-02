@@ -9,6 +9,8 @@ import {
   DownloadKeyQueryVariables,
   SlowDownloadKeyQuery,
   SlowDownloadKeyQueryVariables,
+  UsersDownloadKeyQuery,
+  UsersDownloadKeyQueryVariables,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
@@ -32,6 +34,22 @@ import { QueryCard } from './sections/queryCard';
 import { SubHeader } from './sections/subHeader';
 import { UserDescription } from './sections/userDescription';
 import { downloadCompleted } from './utils';
+import { useUser } from '@/contexts/UserContext';
+import { OwnerOptions } from './sections/ownerOptions';
+
+const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
+  query UsersDownloadKey($key: ID!) {
+    download(key: $key) {
+      key
+      willBeDeletedSoon
+      readyForDeletion
+      request {
+        notificationAddresses
+        creator
+      }
+    }
+  }
+`;
 
 const DOWNLOAD_QUERY = /* GraphQL */ `
   query DownloadKey($key: ID!) {
@@ -53,6 +71,7 @@ const DOWNLOAD_QUERY = /* GraphQL */ `
         description
         gbifMachineDescription
         checklistKey
+        verbatimExtensions
       }
       size
       status
@@ -120,6 +139,15 @@ export async function downloadKeyLoader({ params, graphql }: LoaderArgs) {
 export function DownloadKey() {
   const { data } = useLoaderData() as { data: DownloadKeyQuery };
   const { formatMessage } = useIntl();
+  const { user } = useUser();
+  const {
+    data: sensitiveData,
+    load,
+    loading,
+  } = useQuery<UsersDownloadKeyQuery, UsersDownloadKeyQueryVariables>(DOWNLOAD_SENSITIVE_QUERY, {
+    throwAllErrors: true,
+    lazyLoad: true,
+  });
 
   const {
     data: slowData,
@@ -138,6 +166,20 @@ export function DownloadKey() {
       },
     });
   }, [slowLoad, data?.download?.key]);
+
+  useEffect(() => {
+    if (!user?.graphqlToken || !data?.download?.key) {
+      return;
+    }
+    load(
+      {
+        variables: {
+          key: data.download.key,
+        },
+      },
+      { authorization: `Bearer ${user?.graphqlToken}` }
+    );
+  }, [data?.download?.key, load, user?.graphqlToken]);
 
   const download = data?.download;
   if (!download) throw new NotFoundError();
@@ -190,9 +232,18 @@ export function DownloadKey() {
               <DeletionNotice download={download} />
               {showCitation && <FileCard download={download} />}
               {!showCitation && (
-                <NotReadyDownload status={download.status ?? Download_Status.Failed} />
+                <NotReadyDownload
+                  status={download.status ?? Download_Status.Failed}
+                  notificationAddresses={sensitiveData?.download?.request?.notificationAddresses}
+                />
               )}
               <UserDescription download={download} />
+              {sensitiveData?.download?.request?.creator && (
+                <OwnerOptions
+                  download={download}
+                  creator={sensitiveData?.download?.request?.creator}
+                />
+              )}
               <QueryCard download={download} />
               {(download.numberDatasets ?? 0) > 0 && (
                 <DatasetCard download={download} datasetsByDownload={data.datasetsByDownload} />

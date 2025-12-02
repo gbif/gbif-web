@@ -9,9 +9,8 @@ export function NotReadyDownload({
   notificationAddresses,
 }: {
   status: Download_Status;
-  notificationAddresses?: string[];
+  notificationAddresses?: string[] | null;
 }) {
-  notificationAddresses = notificationAddresses || ['sdf'];
   let Message = <FormattedMessage id={`downloadKey.downloadKilled`} />;
   let variant = 'destructive';
   if (status === 'FAILED' || status === 'KILLED') {
