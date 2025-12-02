@@ -13,6 +13,8 @@ const newRedirects = [
   { incoming: '/occurrence/charts', target: '/occurrence/search?view=dashboard' },
   { incoming: '/occurrence/download', target: '/occurrence/search?view=download' },
 
+  { incoming: '/resource/search?contentType=literature', target: '/literature/search' },
+
   { incoming: '/the-gbif-network/africa', target: '/the-gbif-network' },
   { incoming: '/the-gbif-network/asia', target: '/the-gbif-network' },
   { incoming: '/the-gbif-network/europe', target: '/the-gbif-network' },
@@ -31,23 +33,62 @@ const redirectTable = [...redirectList, ...newRedirects].reduce((acc, curr) => {
   return acc;
 }, {});
 
+// Find redirects that match both path and specific query params
+function findQueryParamRedirect(path, queryParams) {
+  for (const [incoming, target] of Object.entries(redirectTable)) {
+    const [incomingPath, incomingQuery] = incoming.split('?');
+    if (incomingPath === path && incomingQuery) {
+      const incomingParams = querystring.parse(incomingQuery);
+      const allMatch = Object.entries(incomingParams).every(
+        ([key, value]) => queryParams[key] === value
+      );
+      if (allMatch) {
+        return { target, matchedParams: incomingParams };
+      }
+    }
+  }
+  return null;
+}
+
 function handleRedirects(req, res, next) {
   // remove query params from url first
   const splitted = req.url.split('?');
-  let redirectTo = redirectTable[splitted[0]];
- 
-  if (redirectTo) {
-    let redirectSplitted = redirectTo.split('?');
-    // there may be parameters in target which should be merged with the incoming parameters
-    let parameters = redirectSplitted[1];
-    let redirectUrl = redirectSplitted[0];
-    redirectTo = redirectUrl + '?' + fixParameterCasing(splitted[1], parameters);
-    //console.log('Redirecting:', req.url, 'to:', redirectTo);
+  const pathOnly = splitted[0];
+  const queryString = splitted[1];
+  const queryParams = queryString ? querystring.parse(queryString) : {};
+  
+  let redirectTo;
+
+  // First, check for redirects that match path + specific query params
+  const queryParamRedirect = findQueryParamRedirect(pathOnly, queryParams);
+  if (queryParamRedirect) {
+    const { target, matchedParams } = queryParamRedirect;
+    // Remove matched params, keep extras
+    const remainingParams = { ...queryParams };
+    Object.keys(matchedParams).forEach(key => delete remainingParams[key]);
+    
+    const [targetPath, targetQuery] = target.split('?');
+    const targetParams = targetQuery ? querystring.parse(targetQuery) : {};
+    const finalParams = { ...targetParams, ...remainingParams };
+    const finalQueryString = querystring.stringify(finalParams);
+    redirectTo = finalQueryString ? `${targetPath}?${finalQueryString}` : targetPath;
   } else {
-    // check for old query parameters needing casing fixes
-    const { correctedQuery, different } = redirectOldQueries(req, res);
-    if (different) {
-      redirectTo = splitted[0] + '?' + correctedQuery;
+    // Fall back to path-only redirect lookup
+    redirectTo = redirectTable[pathOnly];
+    
+    if (redirectTo) {
+      let redirectSplitted = redirectTo.split('?');
+      // there may be parameters in target which should be merged with the incoming parameters
+      let parameters = redirectSplitted[1];
+      let redirectUrl = redirectSplitted[0];
+      redirectTo = redirectUrl + '?' + fixParameterCasing(queryString, parameters);
+      //console.log('Redirecting:', req.url, 'to:', redirectTo);
+    } else {
+      // check for old query parameters needing casing fixes
+      const { correctedQuery, different } = redirectOldQueries(req, res);
+      if (different) {
+        redirectTo = pathOnly + '?' + correctedQuery;
+      }
     }
   }
 
