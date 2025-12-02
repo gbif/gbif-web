@@ -215,7 +215,7 @@ export function PublisherPage() {
               />
             }
           >
-            <DynamicLink to="/publisher/search">
+            <DynamicLink pageId="publisherSearch">
               <FormattedMessage id={`publisher.header.publisher`} />
             </DynamicLink>
           </ArticlePreTitle>

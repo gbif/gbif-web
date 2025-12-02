@@ -478,7 +478,7 @@ export function DatasetPage() {
                 />
               }
             >
-              <DynamicLink to="/dataset/search">
+              <DynamicLink pageId="datasetSearch">
                 <FormattedMessage id={`dataset.longType.${dataset.type}`} />
               </DynamicLink>
             </ArticlePreTitle>

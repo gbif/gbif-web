@@ -438,7 +438,7 @@ export function OccurrenceKey() {
                     <FormattedMessage id="occurrenceDetails.specimen" defaultMessage="Specimen" />
                   )}
                   {!occurrence.volatile?.features?.isSpecimen && (
-                    <DynamicLink to="/occurrence/search">
+                    <DynamicLink pageId="occurrenceSearch">
                       <FormattedMessage
                         id="occurrenceDetails.occurrence"
                         defaultMessage="Occurrence"
