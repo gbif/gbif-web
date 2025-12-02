@@ -5,6 +5,35 @@ import { camelCase, snakeCase } from 'change-case';
 import querystring from 'querystring';
 import redirectList from '../../redirects.json' with { type: "json" };
 import toolsRedirects from '../../src/gbif/toolsRedirects.js';
+
+// Locale prefixes that have URL prefixes
+const localePrefixes = [
+  // Base locales (always available in all environments)
+  'en',      // English (default)
+  'ar',      // Arabic
+  'zh',      // Chinese (Simplified)
+  'fr',      // French
+  'ru',      // Russian
+  'es',      // Spanish
+  'zh-tw',   // Chinese (Traditional)
+  'cs',      // Czech
+  'ja',      // Japanese
+  'pl',      // Polish
+  'pt',      // Portuguese
+  'uk',      // Ukrainian
+  'it'       // Italian
+];
+
+// Extract locale prefix from path if present
+function extractLocalePrefix(path) {
+  for (const locale of localePrefixes) {
+    if (path.startsWith(`/${locale}/`) || path === `/${locale}`) {
+      return { prefix: `/${locale}`, pathWithoutPrefix: path.slice(locale.length + 1) || '/' };
+    }
+  }
+  return { prefix: '', pathWithoutPrefix: path };
+}
+
 // These cannot be added to redirects while portal16 is still our main site
 // as they would interfere with the occurrence paths
 const newRedirects = [
@@ -56,11 +85,14 @@ function handleRedirects(req, res, next) {
   const pathOnly = splitted[0];
   const queryString = splitted[1];
   const queryParams = queryString ? querystring.parse(queryString) : {};
+
+  // Extract locale prefix from path (e.g., /fr/occurrence/gallery -> prefix=/fr, pathWithoutPrefix=/occurrence/gallery)
+  const { prefix: localePrefix, pathWithoutPrefix } = extractLocalePrefix(pathOnly);
   
   let redirectTo;
 
-  // First, check for redirects that match path + specific query params
-  const queryParamRedirect = findQueryParamRedirect(pathOnly, queryParams);
+  // First, check for redirects that match path + specific query params (using path without locale prefix)
+  const queryParamRedirect = findQueryParamRedirect(pathWithoutPrefix, queryParams);
   if (queryParamRedirect) {
     const { target, matchedParams } = queryParamRedirect;
     // Remove matched params, keep extras
@@ -71,22 +103,25 @@ function handleRedirects(req, res, next) {
     const targetParams = targetQuery ? querystring.parse(targetQuery) : {};
     const finalParams = { ...targetParams, ...remainingParams };
     const finalQueryString = querystring.stringify(finalParams);
-    redirectTo = finalQueryString ? `${targetPath}?${finalQueryString}` : targetPath;
+    // Prepend locale prefix to target path
+    redirectTo = finalQueryString ? `${localePrefix}${targetPath}?${finalQueryString}` : `${localePrefix}${targetPath}`;
   } else {
-    // Fall back to path-only redirect lookup
-    redirectTo = redirectTable[pathOnly];
+    // Fall back to path-only redirect lookup (using path without locale prefix)
+    redirectTo = redirectTable[pathWithoutPrefix];
     
     if (redirectTo) {
       let redirectSplitted = redirectTo.split('?');
       // there may be parameters in target which should be merged with the incoming parameters
       let parameters = redirectSplitted[1];
       let redirectUrl = redirectSplitted[0];
-      redirectTo = redirectUrl + '?' + fixParameterCasing(queryString, parameters);
+      // Prepend locale prefix to redirect URL
+      redirectTo = localePrefix + redirectUrl + '?' + fixParameterCasing(queryString, parameters);
       //console.log('Redirecting:', req.url, 'to:', redirectTo);
     } else {
       // check for old query parameters needing casing fixes
       const { correctedQuery, different } = redirectOldQueries(req, res);
       if (different) {
+        // Preserve locale prefix when redirecting for query casing fixes
         redirectTo = pathOnly + '?' + correctedQuery;
       }
     }
