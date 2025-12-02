@@ -16,6 +16,9 @@ import {
   showUserInRegistry,
   createPredicateDownload,
   createSqlDownload,
+  cancelDownload,
+  postponeDownloadDeletion,
+  deleteDownload,
 } from './controllers.mjs';
 import { getChallenge, requireProofOfWork } from './pow.mjs';
 
@@ -42,5 +45,7 @@ export function register(app) {
 
   app.post('/api/user/download/predicate', isAuthenticated, createPredicateDownload);
   app.post('/api/user/download/sql', isAuthenticated, createSqlDownload);
-  // app.post('/api/user/cancelDownload/:key', isAuthenticated, user.cancelDownload);
+  app.delete('/api/user/download/:key/cancel', isAuthenticated, cancelDownload);
+  app.put('/api/user/download/:key/postpone', isAuthenticated, postponeDownloadDeletion);
+  app.delete('/api/user/download/:key/delete', isAuthenticated, deleteDownload);
 }

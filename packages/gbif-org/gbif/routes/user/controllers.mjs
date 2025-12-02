@@ -16,7 +16,11 @@ import {
   updateForgottenPassword,
   update as updateUser,
   createDownload,
+  deleteDownload as deleteUserDownload,
+  postponeDownloadDeletion as postponeUserDownloadDeletion,
+  cancelDownload as cancelUserDownload,
 } from './user.model.mjs';
+import _ from 'lodash';
 import { decryptJSON } from './encrypt.mjs';
 /**
  * Gets the user associated with the token in the cookie
@@ -190,12 +194,64 @@ export function createSqlDownload(req, res) {
   createDownload(req.user, req.body, req?.query?.source)
     .then(function (download) {
       res.status(201);
-      auth.setNoCache(res);
+      setNoCache(res);
       res.json({ downloadKey: download });
     })
     .catch(handleError(res, 422));
 }
 
+export function cancelDownload(req, res) {
+  setNoCache(res);
+  const userName = _.get(req, 'user.userName');
+  if (!userName) {
+    res.status(401);
+    return res.send();
+  }
+  cancelUserDownload(req.params.key, userName)
+    .then(function () {
+      res.status(204);
+      res.send();
+    })
+    .catch(function (err) {
+      res.status(err.statusCode || 500);
+      res.send();
+    });
+}
+
+export function postponeDownloadDeletion(req, res) {
+  setNoCache(res);
+  const userName = _.get(req, 'user.userName');
+  if (!userName) {
+    res.status(401);
+    return res.send();
+  }
+  postponeUserDownloadDeletion(req.params.key, userName)
+    .then(function () {
+      res.status(204);
+      res.send();
+    })
+    .catch(function (err) {
+      res.status(err.statusCode || 500);
+      res.send();
+    });
+}
+
+export function deleteDownload(req, res) {
+  setNoCache(res);
+  const userName = _.get(req, 'user.userName');
+  if (!userName) {
+    res.status(401);
+    return res.send();
+  }
+  deleteUserDownload(req.params.key, userName)
+    .then(function () {
+      res.sendStatus(204);
+    })
+    .catch(function (err) {
+      res.status(err.statusCode || 500);
+      res.send();
+    });
+}
 /*
 General handler for errors. Essentially return no information but an error code and log the error. 
 The front end will have to provide generic error handling.

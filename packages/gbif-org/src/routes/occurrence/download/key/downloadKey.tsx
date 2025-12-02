@@ -35,7 +35,6 @@ import { SubHeader } from './sections/subHeader';
 import { UserDescription } from './sections/userDescription';
 import { downloadCompleted } from './utils';
 import { useUser } from '@/contexts/UserContext';
-import { OwnerOptions } from './sections/ownerOptions';
 
 const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
   query UsersDownloadKey($key: ID!) {
@@ -43,6 +42,7 @@ const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
       key
       willBeDeletedSoon
       readyForDeletion
+      eraseAfter
       request {
         notificationAddresses
         creator
@@ -229,21 +229,24 @@ export function DownloadKey() {
           </PageContainer>
           <PageContainer className="g-bg-slate-100 g-overflow-hidden">
             <ArticleTextContainer className="g-max-w-screen-xl g-pb-4 g-pt-4">
-              <DeletionNotice download={download} />
+              <DeletionNotice download={download} userDownload={sensitiveData?.download} />
               {showCitation && <FileCard download={download} />}
               {!showCitation && (
                 <NotReadyDownload
                   status={download.status ?? Download_Status.Failed}
                   notificationAddresses={sensitiveData?.download?.request?.notificationAddresses}
+                  downloadKey={download.key}
                 />
               )}
               <UserDescription download={download} />
-              {sensitiveData?.download?.request?.creator && (
+              {/* {sensitiveData?.download?.request?.creator && (
                 <OwnerOptions
                   download={download}
                   creator={sensitiveData?.download?.request?.creator}
+                  willBeDeletedSoon={sensitiveData?.download?.willBeDeletedSoon}
+                  readyForDeletion={sensitiveData?.download?.readyForDeletion}
                 />
-              )}
+              )} */}
               <QueryCard download={download} />
               {(download.numberDatasets ?? 0) > 0 && (
                 <DatasetCard download={download} datasetsByDownload={data.datasetsByDownload} />
