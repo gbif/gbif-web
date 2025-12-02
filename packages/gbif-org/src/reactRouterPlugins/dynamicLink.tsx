@@ -125,6 +125,11 @@ export function useLink() {
         link = `${link}${link.includes('?') ? '&' : '?'}preview=true`;
       }
 
+      // If contentType=literature is present, use href instead of link
+      if (searchParams?.contentType === 'literature') {
+        return { to: link, type: 'href' };
+      }
+
       return { to: link, type: 'link' };
     };
   }, [pages, localizeLink, locale, location.search, location.pathname]);
@@ -166,6 +171,11 @@ export function useDynamicLink({
       return { to: link ?? '', type };
     } else if (typeof to === 'string' && to !== '') {
       const localizedTo = localizeLink(to);
+
+      // If contentType=literature is present in the URL, use href instead of link
+      if (to.includes('contentType=literature')) {
+        return { to: localizedTo, type: 'href' };
+      }
 
       return { to: localizedTo, type: 'link' };
     } else {
