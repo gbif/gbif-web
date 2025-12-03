@@ -65,6 +65,7 @@
     "downloadStarted": "ההורדה התחילה ומעובדת כעת.",
     "downloadExpectTime": "ההורדה עשויה להימשך עד 3 שעות. רוב ההורדות יושלמו תוך 15 דקות.",
     "notificationEmailAddresses": "דוא״ל התראה עם קישור להורדת התוצאות יישלח לכתובת הבאה כשההורדה תהיה מוכנה: ",
+    "sqlGeneratedUsingPredicate": "תיאור זמני",
     "status": {
       "PREPARING": "בתור",
       "SUSPENDED": "מושהה",
@@ -72,7 +73,9 @@
       "CANCELLED": "בוטל",
       "KILLED": "נכשל"
     },
+    "usedChecklistKey": "תיאור זמני",
     "predicate": {
+      "checklist": "",
       "joinDescriptions": {
         "and": "All must apply",
         "or": "At least one must apply",
@@ -84,6 +87,7 @@
       "isNotNull": "Is defined",
       "isNull": "Is not defined",
       "within": "Coordinates within",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "Event ID",
         "DECIMAL_LONGITUDE": "Decimal longitude",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Repatriated",
         "YEAR": "Year",
         "STATE_PROVINCE": "State/Province",
-        "GEO_DISTANCE": "Geographical distance",
         "GADM_GID": "GADM ID",
         "SAMPLE_SIZE_VALUE": "Sample size value",
         "OCCURRENCE_ID": "Occurrence ID",
@@ -198,6 +201,7 @@
         "FORMATION": "Formation",
         "ORDER_KEY": "Order",
         "ISSUE": "Issue",
+        "TAXONOMIC_ISSUE": "תיאור זמני",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "Verbatim scientific name",
         "GBIF_REGION": "GBIF region",
