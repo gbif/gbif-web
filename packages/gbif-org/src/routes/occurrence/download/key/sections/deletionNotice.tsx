@@ -69,23 +69,11 @@ export function DeletionNotice({
 }
 
 function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['download'] }) {
-  const intl = useIntl();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPostponing, setIsPostponing] = useState(false);
   const { willBeDeletedSoon, readyForDeletion } = userDownload ?? {};
   const { deleteDownload, postponeDownloadDeletion } = useUser();
-  const toast = useToast();
-
-  const messages = {
-    error: intl.formatMessage({
-      id: 'downloadKey.error',
-      defaultMessage: 'Error.',
-    }),
-    deletionFailed: intl.formatMessage({
-      id: 'downloadKey.deletionFailed',
-      defaultMessage: 'Failed to delete download. Please try again later.',
-    }),
-  };
+  const { translatedToast } = useToast();
 
   const handleDeleteDownload = async () => {
     if (isDeleting || !userDownload?.key) return;
@@ -95,10 +83,9 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
       await deleteDownload(userDownload?.key);
       window.location.reload();
     } catch (error) {
-      console.error('Failed to delete download:', error);
-      toast.toast({
-        title: messages.error,
-        description: messages.deletionFailed,
+      translatedToast({
+        titleKey: 'error.genericRequestFailed',
+        descriptionKey: 'error.genericDescription',
         variant: 'destructive',
       });
     } finally {
@@ -107,17 +94,16 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
   };
 
   const handlePostponeDeletion = async () => {
-    if (isPostponing) return;
+    if (isPostponing || !userDownload?.key) return;
 
     setIsPostponing(true);
     try {
       await postponeDownloadDeletion(userDownload?.key);
       window.location.reload();
     } catch (error) {
-      console.error('Failed to postpone deletion:', error);
-      toast.toast({
-        title: messages.error,
-        description: messages.deletionFailed,
+      translatedToast({
+        titleKey: 'error.genericRequestFailed',
+        descriptionKey: 'error.genericDescription',
         variant: 'destructive',
       });
     } finally {
@@ -137,9 +123,10 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
           <FormattedMessage id="downloadKey.postpone" />
         </Button>
       )}
-      <Button className="g-mt-2 g-flex-none g-w-full md:g-w-auto" variant="outline">
+      {/* TODO: we should add https://github.com/gbif/gbif-web/issues/1312 */}
+      {/* <Button className="g-mt-2 g-flex-none g-w-full md:g-w-auto" variant="outline">
         <FormattedMessage id="downloadKey.tellUs" />
-      </Button>
+      </Button> */}
       <div className="g-flex-grow"></div>
       {!readyForDeletion && (
         <Button

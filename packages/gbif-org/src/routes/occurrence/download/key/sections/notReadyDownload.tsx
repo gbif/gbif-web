@@ -16,21 +16,9 @@ export function NotReadyDownload({
   notificationAddresses?: string[] | null;
   downloadKey?: string | null;
 }) {
-  const intl = useIntl();
   const [isCancelling, setIsCancelling] = useState(false);
-  const toast = useToast();
+  const { translatedToast } = useToast();
   const { cancelDownload } = useUser();
-
-  const messages = {
-    error: intl.formatMessage({
-      id: 'downloadKey.error',
-      defaultMessage: 'Error.',
-    }),
-    deletionFailed: intl.formatMessage({
-      id: 'downloadKey.deletionFailed',
-      defaultMessage: 'Failed to delete download. Please try again later.',
-    }),
-  };
 
   const handleCancelDownload = async () => {
     if (isCancelling || !downloadKey) return;
@@ -40,10 +28,9 @@ export function NotReadyDownload({
       await cancelDownload(downloadKey);
       window.location.reload();
     } catch (error) {
-      console.error('Failed to cancel download:', error);
-      toast.toast({
-        title: messages.error,
-        description: messages.deletionFailed,
+      translatedToast({
+        titleKey: 'error.genericRequestFailed',
+        descriptionKey: 'error.genericDescription',
         variant: 'destructive',
       });
     } finally {
