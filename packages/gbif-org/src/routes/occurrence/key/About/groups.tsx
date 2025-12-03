@@ -388,6 +388,8 @@ function Location({
       lon: occurrence?.coordinates.lon as number,
     })
   );
+  const wkt = wellknown.parse(termMap.footprintWKT.value || '');
+  const invalidWkt = termMap.footprintWKT.value && termMap.footprintWKT.value !== '' && !wkt;
   return (
     <Card className="g-mb-4" id="location">
       <CardHeader>
@@ -396,19 +398,19 @@ function Location({
         </CardTitle>
       </CardHeader>
       <CardContent className="g-w-full">
-        {occurrence.coordinates.lon && (
+        {!!occurrence.coordinates.lon && !!occurrence.coordinates.lat && (
           <div className="g-mb-4 g-min-w-64">
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
               {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
               <GeoJsonMap
                 geoJson={
-                  termMap?.footprintWKT?.value
+                  wkt
                     ? {
                         type: 'FeatureCollection',
                         features: [
                           {
                             type: 'Feature',
-                            geometry: wellknown.parse(termMap.footprintWKT.value || '') || geoJson2,
+                            geometry: wkt ?? geoJson2,
                             properties: {},
                           },
                           generatePointGeoJson({
@@ -428,6 +430,11 @@ function Location({
                 rasterStyle="gbif-natural"
               />
             </StaticRenderSuspence>
+            {invalidWkt && (
+              <div className="g-bg-red-500 g-p-2 g-text-sm g-text-white g-mt-2 g-rounded">
+                Invalid WKT
+              </div>
+            )}
           </div>
         )}
         <div>
