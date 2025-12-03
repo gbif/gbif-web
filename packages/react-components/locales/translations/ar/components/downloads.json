@@ -65,6 +65,7 @@
     "downloadStarted": "لقد بدأ التنزيل وهو قيد المعالجة حالياً.",
     "downloadExpectTime": "يرجى توقع أن التنزيل سيكتمل خلال 3 ساعات. معظم التنزيلات تتم في غضون 15 دقيقة.",
     "notificationEmailAddresses": "سيتم إرسال رسالة إعلام بالبريد الإلكتروني تحتوي على رابط لتنزيل النتائج بمجرد أن تصبح جاهزة إلى العنوان التالي: ",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "جاري الإعداد",
       "SUSPENDED": "تم التعليق",
@@ -72,7 +73,9 @@
       "CANCELLED": "ملغى",
       "KILLED": "قتل"
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "قائمة التدقيق",
       "joinDescriptions": {
         "and": "يجب تطبيق الكل",
         "or": "يجب تطبيق طلب واحد على الأقل",
@@ -84,6 +87,7 @@
       "isNotNull": "مُعَرَّف",
       "isNull": "",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "معرف الحدث",
         "DECIMAL_LONGITUDE": "خط الطول العشري",
@@ -108,7 +112,6 @@
         "REPATRIATED": "عائد الى الوطن",
         "YEAR": "السنة",
         "STATE_PROVINCE": "",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "فيمة حجم العينة",
         "OCCURRENCE_ID": "معرف التكرار",
@@ -198,6 +201,7 @@
         "FORMATION": "تشكيل",
         "ORDER_KEY": "الرتبة",
         "ISSUE": "مشكلة",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "تركيب",
         "VERBATIM_SCIENTIFIC_NAME": "الاسم العلمي الحرفي",
         "GBIF_REGION": "منطقة \"جبيف\"",
