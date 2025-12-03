@@ -65,6 +65,7 @@
     "downloadStarted": "Pobieranie rozpoczęło się i jest aktualnie przetwarzane.",
     "downloadExpectTime": "",
     "notificationEmailAddresses": "Kiedy będzie gotowe, email z powiadomieniem i linkiem do pobrania zostanie wysłany na następujący adres: ",
+    "sqlGeneratedUsingPredicate": "Symbol zastępczy opisu",
     "status": {
       "PREPARING": "W kolejce",
       "SUSPENDED": "Zawieszono",
@@ -72,7 +73,9 @@
       "CANCELLED": "Anulowano",
       "KILLED": "Przerwano"
     },
+    "usedChecklistKey": "Symbol zastępczy opisu",
     "predicate": {
+      "checklist": "Checklista",
       "joinDescriptions": {
         "and": "Wszystkie muszą mieć zastosowanie",
         "or": "Przynajmniej jeden musi mieć zastosowanie",
@@ -84,6 +87,7 @@
       "isNotNull": "Jest zdefiniowany",
       "isNull": "Nie jest zdefiniowany",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "Identyfikator zdarzenia",
         "DECIMAL_LONGITUDE": "Dziesiętna długość geograficzna",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Ponownie wprowadzony ",
         "YEAR": "Rok",
         "STATE_PROVINCE": "Województwo, powiat",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "Wielkość próby",
         "OCCURRENCE_ID": "Identyfikator wystąpienia",
@@ -198,6 +201,7 @@
         "FORMATION": "Formacja",
         "ORDER_KEY": "Rząd",
         "ISSUE": "Problem",
+        "TAXONOMIC_ISSUE": "Symbol zastępczy opisu",
         "INSTALLATION_KEY": "Instalacja",
         "VERBATIM_SCIENTIFIC_NAME": "Dosłowna nazwa naukowa\n",
         "GBIF_REGION": "Region GBIF",
