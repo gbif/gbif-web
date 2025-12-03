@@ -72,6 +72,7 @@
       "CANCELLED": "Cancelled",
       "KILLED": "Killed"
     },
+    "usedChecklistKey": "",
     "predicate": {
       "checklist": "Checklist",
       "joinDescriptions": {
@@ -354,7 +355,7 @@
     },
     "taxonomySelector": {
       "title": "Taxonomic reference",
-      "description": "Select the taxonomic reference for interpretation of species names",
+      "description": "",
       "defaultRecommended": "Default and recommended for most users"
     }
   },
