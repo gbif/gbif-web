@@ -2,7 +2,7 @@ import { NewsPageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { ArticlePageSkeleton } from '../article/article';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';

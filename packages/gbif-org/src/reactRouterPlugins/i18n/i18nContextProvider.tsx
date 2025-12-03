@@ -1,5 +1,6 @@
 import { LanguageOption } from '@/config/config';
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { extractLocaleFromPathname } from './extractLocaleFromURL';
@@ -96,6 +97,9 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
 
   return (
     <I18nContext.Provider value={value}>
+      <Helmet>
+        <html lang={locale.localeCode} dir={locale.textDirection} />
+      </Helmet>
       <IntlProvider
         messages={messages || {}}
         locale={locale.reactIntlLocale ?? locale.code}

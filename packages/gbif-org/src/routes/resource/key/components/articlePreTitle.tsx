@@ -47,7 +47,7 @@ function Secondary({ children }: { children: React.ReactNode }) {
   return (
     <span
       className={cn(
-        'g-ml-2 g-pl-2 g-border-l-2 g-border-l-[rgb(var(--preTitleSeparatorColor))] g-leading-4'
+        'g-ms-2 g-ps-2 g-border-s-2 g-border-[rgb(var(--preTitleSeparatorColor))] g-leading-4'
       )}
     >
       {children}
