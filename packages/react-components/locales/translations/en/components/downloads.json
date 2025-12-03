@@ -65,6 +65,7 @@
     "downloadStarted": "The download has been started and is currently being processed.",
     "downloadExpectTime": "Please expect up to 3 hours for the download to complete. Most downloads will complete within 15 minutes.",
     "notificationEmailAddresses": "A notification email with a link to download the results will be sent to the following address once ready: ",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "Queued",
       "SUSPENDED": "Suspended",
@@ -72,7 +73,9 @@
       "CANCELLED": "Cancelled",
       "KILLED": "Killed"
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "Checklist",
       "joinDescriptions": {
         "and": "All must apply",
         "or": "At least one must apply",
@@ -84,6 +87,7 @@
       "isNotNull": "Is defined",
       "isNull": "Is not defined",
       "within": "Coordinates within",
+      "geoDistance": "Distance from point",
       "keys": {
         "EVENT_ID": "Event ID",
         "DECIMAL_LONGITUDE": "Decimal longitude",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Repatriated",
         "YEAR": "Year",
         "STATE_PROVINCE": "State/Province",
-        "GEO_DISTANCE": "Geographical distance",
         "GADM_GID": "GADM ID",
         "SAMPLE_SIZE_VALUE": "Sample size value",
         "OCCURRENCE_ID": "Occurrence ID",
@@ -198,6 +201,7 @@
         "FORMATION": "Formation",
         "ORDER_KEY": "Order",
         "ISSUE": "Issue",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "Verbatim scientific name",
         "GBIF_REGION": "GBIF region",
@@ -352,7 +356,7 @@
     },
     "taxonomySelector": {
       "title": "Taxonomic reference",
-      "description": "Select the taxonomic reference for interpretation of species names",
+      "description": "",
       "defaultRecommended": "Default and recommended for most users"
     }
   },
