@@ -47,7 +47,7 @@ export function ArticleBanner({ className, image, testId }: Props) {
           />
           {image?.description && (
             <figcaption
-              className="g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks"
+              className="g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks g-mt-0.5"
               dangerouslySetInnerHTML={{ __html: image.description }}
             />
           )}
@@ -71,7 +71,7 @@ export function ArticleBanner({ className, image, testId }: Props) {
         </picture>
         {image?.description && (
           <figcaption
-            className="g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks"
+            className="g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks g-mt-0.5"
             dangerouslySetInnerHTML={{ __html: image.description }}
           />
         )}

@@ -61,6 +61,8 @@ export function createGbifRoutes(config: Config) {
               faqRoute,
               ...notImplementedRoutes,
 
+              // collectionSearchRoute,
+              // institutionSearchRoute,
               // Must be last as alias handling will require match on whildcard
               ...dataRoutes,
             ],

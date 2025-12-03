@@ -80,13 +80,19 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
         {sameDay && !event.allDayEvent && (
           <>
             {' '}
-            <FormattedDate value={event.start} hour="numeric" minute="numeric" />
+            <FormattedDate value={event.start} hour="numeric" minute="numeric" hour12={false} />
           </>
         )}
         {event.end && !sameDay && (
           <>
             {' - '}
-            <FormattedDate value={event.end} year="numeric" month="short" day="numeric" />
+            <FormattedDate
+              value={event.end}
+              year="numeric"
+              month="short"
+              day="numeric"
+              hour12={false}
+            />
           </>
         )}
       </div>
@@ -120,7 +126,7 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
   );
 }
 
-function Location({
+export function Location({
   country,
   location,
   venue,

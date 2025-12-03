@@ -124,7 +124,10 @@ export const gbifConfig: Config = {
     primary: '#4C9C2E', // green '#69AA69', purple #4f46e5
     stickyOffset: '0px',
     borderRadius: 3,
-    linkColor: '#69AA69',
+    linkColor: '#61A350',
+    // linkColorHover: fallback is primary700
+    proseQuoteBorders: '#F4CA70', // Yellow left border on prose quotes
+    preTitleSeparatorColor: '#FDB002', // Yellow separator
     chartColors: [
       '#4C9C2E',
       '#231F20',

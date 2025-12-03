@@ -5,6 +5,35 @@ import { camelCase, snakeCase } from 'change-case';
 import querystring from 'querystring';
 import redirectList from '../../redirects.json' with { type: "json" };
 import toolsRedirects from '../../src/gbif/toolsRedirects.js';
+
+// Locale prefixes that have URL prefixes
+const localePrefixes = [
+  // Base locales (always available in all environments)
+  'en',      // English (default)
+  'ar',      // Arabic
+  'zh',      // Chinese (Simplified)
+  'fr',      // French
+  'ru',      // Russian
+  'es',      // Spanish
+  'zh-tw',   // Chinese (Traditional)
+  'cs',      // Czech
+  'ja',      // Japanese
+  'pl',      // Polish
+  'pt',      // Portuguese
+  'uk',      // Ukrainian
+  'it'       // Italian
+];
+
+// Extract locale prefix from path if present
+function extractLocalePrefix(path) {
+  for (const locale of localePrefixes) {
+    if (path.startsWith(`/${locale}/`) || path === `/${locale}`) {
+      return { prefix: `/${locale}`, pathWithoutPrefix: path.slice(locale.length + 1) || '/' };
+    }
+  }
+  return { prefix: '', pathWithoutPrefix: path };
+}
+
 // These cannot be added to redirects while portal16 is still our main site
 // as they would interfere with the occurrence paths
 const newRedirects = [
@@ -12,6 +41,8 @@ const newRedirects = [
   { incoming: '/occurrence/map', target: '/occurrence/search?view=map' },
   { incoming: '/occurrence/charts', target: '/occurrence/search?view=dashboard' },
   { incoming: '/occurrence/download', target: '/occurrence/search?view=download' },
+
+  { incoming: '/resource/search?contentType=literature', target: '/literature/search' },
 
   { incoming: '/the-gbif-network/africa', target: '/the-gbif-network' },
   { incoming: '/the-gbif-network/asia', target: '/the-gbif-network' },
@@ -31,23 +62,68 @@ const redirectTable = [...redirectList, ...newRedirects].reduce((acc, curr) => {
   return acc;
 }, {});
 
+// Find redirects that match both path and specific query params
+function findQueryParamRedirect(path, queryParams) {
+  for (const [incoming, target] of Object.entries(redirectTable)) {
+    const [incomingPath, incomingQuery] = incoming.split('?');
+    if (incomingPath === path && incomingQuery) {
+      const incomingParams = querystring.parse(incomingQuery);
+      const allMatch = Object.entries(incomingParams).every(
+        ([key, value]) => queryParams[key] === value
+      );
+      if (allMatch) {
+        return { target, matchedParams: incomingParams };
+      }
+    }
+  }
+  return null;
+}
+
 function handleRedirects(req, res, next) {
   // remove query params from url first
   const splitted = req.url.split('?');
-  let redirectTo = redirectTable[splitted[0]];
- 
-  if (redirectTo) {
-    let redirectSplitted = redirectTo.split('?');
-    // there may be parameters in target which should be merged with the incoming parameters
-    let parameters = redirectSplitted[1];
-    let redirectUrl = redirectSplitted[0];
-    redirectTo = redirectUrl + '?' + fixParameterCasing(splitted[1], parameters);
-    //console.log('Redirecting:', req.url, 'to:', redirectTo);
+  const pathOnly = splitted[0];
+  const queryString = splitted[1];
+  const queryParams = queryString ? querystring.parse(queryString) : {};
+
+  // Extract locale prefix from path (e.g., /fr/occurrence/gallery -> prefix=/fr, pathWithoutPrefix=/occurrence/gallery)
+  const { prefix: localePrefix, pathWithoutPrefix } = extractLocalePrefix(pathOnly);
+  
+  let redirectTo;
+
+  // First, check for redirects that match path + specific query params (using path without locale prefix)
+  const queryParamRedirect = findQueryParamRedirect(pathWithoutPrefix, queryParams);
+  if (queryParamRedirect) {
+    const { target, matchedParams } = queryParamRedirect;
+    // Remove matched params, keep extras
+    const remainingParams = { ...queryParams };
+    Object.keys(matchedParams).forEach(key => delete remainingParams[key]);
+    
+    const [targetPath, targetQuery] = target.split('?');
+    const targetParams = targetQuery ? querystring.parse(targetQuery) : {};
+    const finalParams = { ...targetParams, ...remainingParams };
+    const finalQueryString = querystring.stringify(finalParams);
+    // Prepend locale prefix to target path
+    redirectTo = finalQueryString ? `${localePrefix}${targetPath}?${finalQueryString}` : `${localePrefix}${targetPath}`;
   } else {
-    // check for old query parameters needing casing fixes
-    const { correctedQuery, different } = redirectOldQueries(req, res);
-    if (different) {
-      redirectTo = splitted[0] + '?' + correctedQuery;
+    // Fall back to path-only redirect lookup (using path without locale prefix)
+    redirectTo = redirectTable[pathWithoutPrefix];
+    
+    if (redirectTo) {
+      let redirectSplitted = redirectTo.split('?');
+      // there may be parameters in target which should be merged with the incoming parameters
+      let parameters = redirectSplitted[1];
+      let redirectUrl = redirectSplitted[0];
+      // Prepend locale prefix to redirect URL
+      redirectTo = localePrefix + redirectUrl + '?' + fixParameterCasing(queryString, parameters);
+      //console.log('Redirecting:', req.url, 'to:', redirectTo);
+    } else {
+      // check for old query parameters needing casing fixes
+      const { correctedQuery, different } = redirectOldQueries(req, res);
+      if (different) {
+        // Preserve locale prefix when redirecting for query casing fixes
+        redirectTo = pathOnly + '?' + correctedQuery;
+      }
     }
   }
 

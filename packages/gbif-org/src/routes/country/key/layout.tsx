@@ -70,14 +70,8 @@ export function CountryKeyLayout() {
         <ArticleTextContainer className="g-max-w-screen-xl">
           <div className="g-flex g-justify-between g-gap-4 g-flex-col md:g-flex-row g-items-start md:g-items-end">
             <div>
-              {participant == null && (
-                <ArticlePreTitle>
-                  <FormattedMessage id="country.country" />
-                </ArticlePreTitle>
-              )}
-
               {participant?.participationStatus && (
-                <ArticlePreTitle>
+                <ArticlePreTitle className="g-normal-case">
                   <FormattedMessage
                     id={`participant.participationStatus.description.${participant.participationStatus}`}
                     values={{
@@ -89,7 +83,14 @@ export function CountryKeyLayout() {
                 </ArticlePreTitle>
               )}
 
-              <p className="g-text-sm g-text-gray-500">
+              <div className="g-flex g-gap-4 g-items-center">
+                <ArticleTitle>
+                  <FormattedMessage id={`enums.countryCode.${countryCode}`} />
+                </ArticleTitle>
+                <img className="g-h-8" src={`/flags/${countryCode}.png`} />
+              </div>
+
+              <p className="g-text-sm g-text-gray-500 g-mt-2">
                 <FormattedMessage
                   id="country.countryNamingDisclaimer"
                   values={{
@@ -104,13 +105,6 @@ export function CountryKeyLayout() {
                   }}
                 />
               </p>
-
-              <div className="g-flex g-gap-4 g-items-center">
-                <ArticleTitle>
-                  <FormattedMessage id={`enums.countryCode.${countryCode}`} />
-                </ArticleTitle>
-                <img className="g-h-8" src={`/flags/${countryCode}.png`} />
-              </div>
             </div>
 
             <Button size="sm" className="g-flex g-gap-2" asChild>

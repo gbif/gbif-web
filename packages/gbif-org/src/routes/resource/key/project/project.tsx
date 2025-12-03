@@ -68,9 +68,6 @@ export function ProjectPage() {
     },
   });
 
-  // if end date is in the past, the project is closed
-  const isClosed = resource.status === 'CLOSED' || resource.status === 'DISCONTINUED';
-
   const tabLinks = createTabLinks(resource);
 
   return (
@@ -83,17 +80,16 @@ export function ProjectPage() {
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>
-          <ArticlePreTitle>
-            <FormattedMessage id="cms.contentType.project" />
+          <ArticlePreTitle
+            clickable
+            secondary={<FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />}
+          >
+            <DynamicLink to="/resource/search?contentType=project">
+              <FormattedMessage id="cms.contentType.project" />
+            </DynamicLink>
           </ArticlePreTitle>
 
-          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }}>
-            {isClosed && (
-              <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
-                <FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />
-              </span>
-            )}
-          </ArticleTitle>
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {/* <RenderIfChildren className="g-mt-2 g-text-slate-500 dark:g-text-gray-400 g-text-sm g-font-medium g-flex g-items-center g-gap-6"> */}
           <FeatureList className="g-text-slate-500 dark:g-text-gray-400">
@@ -117,7 +113,7 @@ export function ProjectPage() {
               </GenericFeature>
             )}
 
-            {citationsCount && !citationsLoading && !citationsError && (
+            {citationsCount > 0 && !citationsLoading && !citationsError && (
               <GenericFeature className="g-underline">
                 <CitationIcon />
                 <DynamicLink

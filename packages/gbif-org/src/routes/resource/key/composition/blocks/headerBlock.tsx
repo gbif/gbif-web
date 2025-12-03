@@ -7,6 +7,8 @@ import { ArticlePreTitle } from '../../components/articlePreTitle';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { ArticleTitle } from '../../components/articleTitle';
 import { BlockContainer } from './_shared';
+import { ConditionalWrapper } from '@/components/conditionalWrapper';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 fragmentManager.register(/* GraphQL */ `
   fragment HeaderBlockDetails on HeaderBlock {
@@ -23,15 +25,21 @@ fragmentManager.register(/* GraphQL */ `
 type Props = {
   resource: HeaderBlockDetailsFragment;
   resourceType?: string;
+  resourceLink?: string;
 };
 
-export function HeaderBlock({ resource, resourceType }: Props) {
+export function HeaderBlock({ resource, resourceType, resourceLink }: Props) {
   return (
     <BlockContainer>
       <ArticleTextContainer>
         {resourceType && (
-          <ArticlePreTitle>
-            <FormattedMessage id={`cms.contentType.${resourceType}`} />
+          <ArticlePreTitle clickable={!!resourceLink}>
+            <ConditionalWrapper
+              condition={!!resourceLink}
+              wrapper={(children) => <DynamicLink to={resourceLink}>{children}</DynamicLink>}
+            >
+              <FormattedMessage id={`cms.contentType.${resourceType}`} />
+            </ConditionalWrapper>
           </ArticlePreTitle>
         )}
 

@@ -25,7 +25,7 @@ export function NetworkProseResult({ network, className }: Props) {
 
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={network.title} link={link} contentType="network" />
+      <ResultCard.Header title={network.title} link={link} contentType="cms.contentType.network" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{network.excerpt}</ResultCard.Content>
         {network.primaryImage && <ResultCard.Image image={network.primaryImage} link={link} />}
