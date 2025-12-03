@@ -87,7 +87,7 @@
       "isNotNull": "Est défini",
       "isNull": "N'est pas défini",
       "within": "Coordonnées à l'intérieur",
-      "geoDistance": "",
+      "geoDistance": "Distance par rapport au point",
       "keys": {
         "EVENT_ID": "ID de l'événement",
         "DECIMAL_LONGITUDE": "Longitude décimale",
