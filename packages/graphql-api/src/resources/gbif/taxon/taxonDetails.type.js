@@ -45,7 +45,7 @@ const typeDef = gql`
     mediaType: MediaType
     offset: Int!
     limit: Int!
-    count: Int!
+    count: Int
     endOfRecords: Boolean!
     results: [TaxonOccurrenceMediaResult]!
   }

@@ -415,6 +415,10 @@ export const NetworkLabel = getGraphQlLabel({
 export const InstallationLabel = getGraphQlLabel({
   query: `query($key:ID!) {item:installation(key: $key) {title}}`,
 });
+export const TaxonKeyLabel = getGraphQlLabel({
+  query: `query($key:ID!) {item:taxon(key: $key) {scientificName}}`,
+  transform: (response) => ({ title: response?.data?.item?.scientificName }),
+});
 
 export function prettifyEnum(text: string) {
   return typeof text === 'string'
