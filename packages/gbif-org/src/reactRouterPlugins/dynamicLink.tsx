@@ -56,7 +56,7 @@ export function useLink() {
         // if the page is disabled, return the redirect link
         if (page.redirect) {
           // merge variables from props with local variables
-          const redirectLink = page.gbifRedirect?.(variables, locale);
+          const redirectLink = page.gbifRedirect?.(variables, locale, searchParams);
           return { to: redirectLink ?? null, type: 'href' };
         }
 

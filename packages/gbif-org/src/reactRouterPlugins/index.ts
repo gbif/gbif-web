@@ -11,6 +11,7 @@ import { applyExtendedLoaderPlugin } from './extendedLoader';
 import { applyExtraOccurrenceSearchPages } from './extraOccurrenceSearchPages';
 import { applyI18nPlugin } from './i18n';
 import { applySlugifiedPlugin } from './slugified';
+import { ParamQuery } from '@/utils/querystring';
 export { DynamicLink, useDynamicNavigate } from './dynamicLink';
 export { useI18n } from './i18n';
 export { useRenderedRouteLoaderData } from './useRenderedRouteLoaderData';
@@ -33,7 +34,8 @@ export type RouteObjectWithPlugins = {
   overrideConfig?: Partial<Config>;
   gbifRedirect?: (
     params: Record<string, string | undefined>,
-    locale: LanguageOption
+    locale: LanguageOption,
+    searchParams?: ParamQuery
   ) => string | null;
   isCustom?: boolean;
   isSlugified?: boolean;

@@ -11,6 +11,7 @@ import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 import { AdHocMapCoreProps } from '@/routes/occurrence/search/views/map/Map/OpenlayersMap';
 import { MapConfig, ProjectionName } from '@/routes/occurrence/search/views/map/Map/types';
+import { ParamQuery } from '@/utils/querystring';
 
 export type PageConfig = {
   id: string;
@@ -19,7 +20,8 @@ export type PageConfig = {
   redirect?: boolean;
   gbifRedirect?: (
     params: Record<string, string | undefined>,
-    locale: LanguageOption
+    locale: LanguageOption,
+    searchParams?: ParamQuery
   ) => string | null;
 };
 
