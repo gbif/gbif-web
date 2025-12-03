@@ -181,8 +181,8 @@ function CatalogSelector({
 
 function MenuItem({ pageId, children }: { pageId: string; children: React.ReactNode }) {
   return (
-    <DropdownMenuItem className="g-p-0">
-      <DynamicLink className="g-text-inherit g-px-2 g-py-1.5" pageId={pageId}>
+    <DropdownMenuItem className="g-p-0 g-w-full">
+      <DynamicLink className="g-text-inherit g-px-2 g-py-1.5 g-w-full" pageId={pageId}>
         {children}
       </DynamicLink>
     </DropdownMenuItem>
