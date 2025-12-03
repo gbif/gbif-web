@@ -55,6 +55,14 @@ const apiConfig = {
   occurrenceCancelDownload: {
     url: apiV1 + '/occurrence/download/request/',
   },
+  occurrenceSearchDownload: {
+    url: apiV1 + '/occurrence/download/request/',
+    canonical: 'occurrence/download/request/',
+  },
+  occurrenceDownload: {
+    url: apiV1 + '/occurrence/download/',
+    canonical: 'occurrence/download/',
+  },
 };
 
 export async function create(body) {
@@ -241,32 +249,68 @@ export async function createDownload(user, query, source) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-async function cancelDownload(user, key) {
-  ensureString(user.userName, 'user name');
-  ensureObject(query, 'download query');
+export async function cancelDownload(key, username) {
+  ensureString(username, 'user name');
+  ensureString(key, 'download key');
 
   let options = {
     url: apiConfig.occurrenceCancelDownload.url + key,
-    userName: user.userName,
+    userName: username,
     method: 'DELETE',
   };
   return authenticatedRequest(options);
 }
 
-async function login(auth) {
-  // use plain fetch
-  return await fetchWithRetry(apiConfig.userLogin.url, {
-    headers: {
-      authorization: auth,
-      contentType: 'application/json',
-    },
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => {
-      throw new Error('Failed to login');
-    });
+export async function deleteDownload(key, username) {
+  ensureString(username, 'user name');
+  ensureString(key, 'download key');
+
+  let erasureDate = Date.now();
+  let updatedDownload = await setDownloadErasureDate(key, erasureDate, username);
+  return updatedDownload;
+}
+
+export async function postponeDownloadDeletion(key, username) {
+  ensureString(username, 'user name');
+  ensureString(key, 'download key');
+
+  let futureDate = new Date();
+  futureDate.setDate(futureDate.getDate() + 365);
+  let updatedDownload = await setDownloadErasureDate(key, futureDate, username);
+  return updatedDownload;
+}
+
+async function setDownloadErasureDate(key, erasureDate, username) {
+  let download = await getDownload(key, username);
+
+  download.eraseAfter = erasureDate;
+  let options = {
+    method: 'PUT',
+    body: download,
+    url: apiConfig.occurrenceDownload.url + key,
+    canonicalPath: apiConfig.occurrenceDownload.canonical,
+    userName: username,
+    json: true,
+  };
+
+  let response = await authenticatedRequest(options);
+  if (response.statusCode !== 200) {
+    throw response;
+  }
+  return response.body;
+}
+
+async function getDownload(key) {
+  let options = {
+    method: 'GET',
+    url: apiConfig.occurrenceDownload.url + key,
+    json: true,
+  };
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 200) {
+    throw response;
+  }
+  return response.body;
 }
 
 export async function changePassword(auth, newPassword) {

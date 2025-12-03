@@ -73,6 +73,9 @@ interface UserContextType {
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   confirm: (code: string, username: string) => Promise<void>;
+  deleteDownload: (downloadKey: string) => Promise<void>;
+  postponeDownloadDeletion: (downloadKey: string) => Promise<void>;
+  cancelDownload: (downloadKey: string) => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -426,6 +429,51 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const deleteDownload = async (downloadKey: string) => {
+    try {
+      const response = await fetch(`/api/user/download/${downloadKey}/delete`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new UserError('UNKNOWN_ERROR', 'Delete download failed. Please try again.');
+      }
+      return;
+    } catch (error) {
+      throw new UserError('UNKNOWN_ERROR');
+    }
+  };
+
+  const postponeDownloadDeletion = async (downloadKey: string) => {
+    try {
+      const response = await fetch(`/api/user/download/${downloadKey}/postpone`, {
+        method: 'PUT',
+      });
+
+      if (!response.ok) {
+        throw new UserError('UNKNOWN_ERROR', 'Delete download failed. Please try again.');
+      }
+      return;
+    } catch (error) {
+      throw new UserError('UNKNOWN_ERROR');
+    }
+  };
+
+  const cancelDownload = async (downloadKey: string) => {
+    try {
+      const response = await fetch(`/api/user/download/${downloadKey}/cancel`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new UserError('UNKNOWN_ERROR', 'Cancellation of download failed. Please try again.');
+      }
+      return;
+    } catch (error) {
+      throw new UserError('UNKNOWN_ERROR');
+    }
+  };
+
   useEffect(() => {
     refreshUser();
   }, [refreshUser]); // Add refreshUser to the dependency array
@@ -444,6 +492,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     refreshUser,
     resetPassword,
     confirm,
+
+    deleteDownload,
+    postponeDownloadDeletion,
+    cancelDownload,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

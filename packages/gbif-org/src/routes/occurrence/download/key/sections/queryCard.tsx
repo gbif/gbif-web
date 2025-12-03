@@ -1,5 +1,5 @@
 import { BulletList } from '@/components/bulletList';
-import Properties from '@/components/properties';
+import Properties, { Term, Value } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
@@ -15,6 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import { PredicateDisplay } from '../predicate';
 import { getPredicateAsFilter } from './getPredicateAsFilter';
 import { DatasetLabel } from '@/components/filters/displayNames';
+import { HelpIcon } from '@/components/helpText';
 
 export function QueryCard({ download }: { download: DownloadKeyQuery['download'] }) {
   const { filters } = useFilters({ searchConfig });
@@ -58,7 +59,7 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
         </CardTitle>
       </CardHeader>
       {parameters && (
-        <CardContent>
+        <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
           <div>
             <div className="g-mb-8">
               <FormattedMessage id="customSqlDownload.sqlMachineDescriptionIntro" />
@@ -118,10 +119,109 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
           </div>
         </CardContent>
       )}
+      <PredicateVisual download={download} />
       <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
-        <DownloadFilterSummary download={download} />
+        <SqlVisual download={download} />
+      </CardContent>
+      <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
+        <div>
+          <FormattedMessage
+            id="downloadKey.usedChecklistKey"
+            defaultMessage="{checklistName} was used to populate the taxonomic columns in the download."
+            values={{
+              checklistName: (
+                <DynamicLink
+                  className="g-underline"
+                  pageId="datasetKey"
+                  variables={{
+                    key:
+                      download?.request?.checklistKey ??
+                      import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY,
+                  }}
+                >
+                  <DatasetLabel
+                    id={
+                      download?.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY
+                    }
+                  />
+                </DynamicLink>
+              ),
+            }}
+          />{' '}
+          <HelpIcon
+            helpTextId="checklist-used-for-download"
+            className="g-inline-block g-relative g-top-[-2px]"
+          />
+        </div>
+        {(download?.request?.verbatimExtensions?.length ?? 0) > 0 && (
+          <Properties breakpoint={800} className="[&>dt]:g-w-52 g-mt-4">
+            <Term>Verbatim Extensions</Term>
+            <Value>
+              <BulletList>
+                {download?.request?.verbatimExtensions?.map((extension) => (
+                  <li key={extension}>
+                    <FormattedMessage id={`enums.dwcaExtension.${extension}`} />
+                  </li>
+                ))}
+              </BulletList>
+            </Value>
+          </Properties>
+        )}
       </CardContent>
     </Card>
+  );
+}
+
+export function PredicateVisual({ download }: { download: DownloadKeyQuery['download'] }) {
+  const [showAsApi, setShowAsApi] = useState(false);
+
+  if (!download?.request) return null;
+  const predicate =
+    download?.request?.predicate ??
+    download?.request?.gbifMachineDescription?.parameters?.predicate;
+
+  if (!predicate && download?.request?.sql) return null;
+  return (
+    <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
+      {predicate && (
+        <>
+          {download?.request?.gbifMachineDescription?.parameters?.predicate && (
+            <div>The sql was generated using this predicate</div>
+          )}
+          <div className="gbif-predicates g-min-w-[500px]">
+            <div className="g-flex g-justify-end g-text-slate-500 -g-mt-2">
+              <button onClick={() => setShowAsApi(!showAsApi)}>
+                {showAsApi ? (
+                  <FormattedMessage id="downloadKey.humanFilterView" />
+                ) : (
+                  <FormattedMessage id="downloadKey.apiFilterView" />
+                )}
+              </button>
+            </div>
+            {!showAsApi && <PredicateDisplay predicate={predicate} />}
+            {showAsApi && <pre>{JSON.stringify(predicate, null, 2)}</pre>}
+          </div>
+        </>
+      )}
+      {!download?.request?.predicate && !download?.request?.sql && (
+        <div className="g-text-slate-600">
+          <FormattedMessage id="downloadKey.noFiltersApplied" />
+        </div>
+      )}
+    </CardContent>
+  );
+}
+
+export function SqlVisual({ download }: { download: DownloadKeyQuery['download'] }) {
+  if (!download?.request?.sql) return null;
+
+  return (
+    <div className="g-text-sm">
+      <pre
+        className="g-max-full g-overflow-auto gbif-sqlInput"
+        dangerouslySetInnerHTML={{ __html: download?.request.sql }}
+      />
+    </div>
   );
 }
 
@@ -135,7 +235,7 @@ export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery
   return (
     <>
       {predicate && (
-        <div className="gbif-predicates g-min-w-[500px]">
+        <div className="gbif-predicates g-min-w-[500px] g-mb-4">
           <div className="g-flex g-justify-end g-text-slate-500 -g-mt-2">
             <button onClick={() => setShowAsApi(!showAsApi)}>
               {showAsApi ? (
@@ -157,17 +257,11 @@ export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery
       {download?.request?.sql && (
         <div className="g-text-sm">
           <pre
-            className="g-max-full g-overflow-auto gbif-sqlInput"
+            className="g-max-full g-overflow-hidden gbif-sqlInput"
             dangerouslySetInnerHTML={{ __html: download?.request.sql }}
           />
         </div>
       )}
-      <div className="g-mt-2 g-text-slate-600 g-text-sm">
-        Download using:{' '}
-        <DatasetLabel
-          id={download.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY}
-        />
-      </div>
     </>
   );
 }

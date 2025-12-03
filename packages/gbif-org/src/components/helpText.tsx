@@ -69,6 +69,41 @@ export function HelpText({
   );
 }
 
+export function HelpIcon({
+  helpText,
+  helpTextId,
+  helpTextTranslationId,
+  className,
+}: {
+  /** Direct help text to display */
+  helpText?: string;
+  /** id of the help item in the content management system */
+  helpTextId?: string;
+  /** The key in the translation file */
+  helpTextTranslationId?: string;
+  className?: string;
+}) {
+  if (helpText) {
+    return (
+      <HelpLine title={<MdInfoOutline />} className={className}>
+        {helpText}
+      </HelpLine>
+    );
+  } else if (helpTextTranslationId) {
+    const content = (
+      <FormattedMessage id={helpTextTranslationId} defaultMessage={helpTextTranslationId} />
+    );
+    return (
+      <HelpLine title={<MdInfoOutline />} className={className}>
+        {content}
+      </HelpLine>
+    );
+  } else if (helpTextId) {
+    return <HelpLine id={helpTextId} title={<MdInfoOutline />} className={className} />;
+  }
+  return null;
+}
+
 const HELP_TEXT = /* GraphQL */ `
   query HelpText($identifier: String!, $locale: String) {
     help(identifier: $identifier, locale: $locale) {

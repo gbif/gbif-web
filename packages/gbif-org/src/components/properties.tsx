@@ -1,6 +1,6 @@
 import { BulletList } from '@/components/bulletList';
 import EmptyValue from '@/components/emptyValue';
-import { HelpLine } from '@/components/helpText';
+import { HelpIcon, HelpLine } from '@/components/helpText';
 import useBelow from '@/hooks/useBelow';
 import { cn } from '@/utils/shadcn';
 import { useState } from 'react';
@@ -105,28 +105,6 @@ export function PropertyLabel({
       />
     </span>
   );
-}
-
-export function HelpIcon({
-  helpText,
-  helpTextId,
-  helpTextTranslationId,
-}: {
-  helpText?: string;
-  helpTextId?: string;
-  helpTextTranslationId?: string;
-}) {
-  if (helpText) {
-    return <HelpLine title={<MdInfoOutline />}>{helpText}</HelpLine>;
-  } else if (helpTextTranslationId) {
-    const content = (
-      <FormattedMessage id={helpTextTranslationId} defaultMessage={helpTextTranslationId} />
-    );
-    return <HelpLine title={<MdInfoOutline />}>{content}</HelpLine>;
-  } else if (helpTextId) {
-    return <HelpLine id={helpTextId} title={<MdInfoOutline />} />;
-  }
-  return null;
 }
 
 export function AutomaticPropertyValue({

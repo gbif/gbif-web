@@ -1,17 +1,43 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { useToast } from '@/components/ui/use-toast';
+import { useUser } from '@/contexts/UserContext';
 import { Download_Status } from '@/gql/graphql';
-import { FormattedMessage } from 'react-intl';
+import { useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 export function NotReadyDownload({
   status,
   notificationAddresses,
+  downloadKey,
 }: {
   status: Download_Status;
-  notificationAddresses?: string[];
+  notificationAddresses?: string[] | null;
+  downloadKey?: string | null;
 }) {
-  notificationAddresses = notificationAddresses || ['sdf'];
+  const [isCancelling, setIsCancelling] = useState(false);
+  const { translatedToast } = useToast();
+  const { cancelDownload } = useUser();
+
+  const handleCancelDownload = async () => {
+    if (isCancelling || !downloadKey) return;
+
+    setIsCancelling(true);
+    try {
+      await cancelDownload(downloadKey);
+      window.location.reload();
+    } catch (error) {
+      translatedToast({
+        titleKey: 'error.genericRequestFailed',
+        descriptionKey: 'error.genericDescription',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsCancelling(false);
+    }
+  };
+
   let Message = <FormattedMessage id={`downloadKey.downloadKilled`} />;
   let variant = 'destructive';
   if (status === 'FAILED' || status === 'KILLED') {
@@ -43,7 +69,12 @@ export function NotReadyDownload({
                   </span>
                 ))}
                 <div className="g-mt-8">
-                  <Button variant="destructive">
+                  <Button
+                    variant="destructive"
+                    onClick={handleCancelDownload}
+                    disabled={isCancelling}
+                    className="g-mt-2 g-flex-none g-w-full md:g-w-auto"
+                  >
                     <FormattedMessage id="downloadKey.cancel" />
                   </Button>
                 </div>
