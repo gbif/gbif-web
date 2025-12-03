@@ -7,6 +7,7 @@ export const GDPR = () => {
   const { toast } = useToast();
   const toastRef = useRef({ id: '', dismiss: () => {} });
 
+  console.log(user);
   useEffect(() => {
     if (
       user?.userName &&

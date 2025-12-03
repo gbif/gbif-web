@@ -204,7 +204,7 @@ const Profile: React.FC = () => {
         settings: {
           country: editedInfo.country,
           locale: editedInfo.locale,
-          has_read_gdpr_terms: undefined, //user?.settings?.has_read_gdpr_terms,
+          has_read_gdpr_terms: user?.settings?.has_read_gdpr_terms,
         },
       });
 
@@ -411,7 +411,10 @@ const Profile: React.FC = () => {
                 id="country"
                 label={formatMessage({ id: 'profile.country' })}
                 type="text"
-                value={formatMessage({ id: `enums.countryCode.${userInfo.country}` })}
+                value={formatMessage({
+                  id: `enums.countryCode.${userInfo.country}`,
+                  defaultMessage: 'Unknown',
+                })}
                 onChange={() => {}}
                 onBlur={() => {}}
                 placeholder={formatMessage({ id: 'profile.country' })}

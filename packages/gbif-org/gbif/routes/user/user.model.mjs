@@ -369,9 +369,9 @@ export function getClientUser(user) {
 
 export function sanitizeUpdatedUser(user) {
   ensureString(user.email, 'email');
-  ensureString(user.country, 'country');
-  ensureString(user.locale, 'locale');
-  ensureString(user.has_read_gdpr_terms, 'has_read_gdpr_terms');
+  ensureString(user.settings.country, 'country');
+  ensureString(user.settings.locale, 'locale');
+  ensureString(user.settings.has_read_gdpr_terms, 'has_read_gdpr_terms');
 
   const firstName = user?.firstName?.trim();
   const lastName = user?.lastName?.trim();
@@ -381,9 +381,9 @@ export function sanitizeUpdatedUser(user) {
     lastName: lastName ? lastName : undefined,
     email: user.email,
     settings: {
-      country: user.country,
-      locale: user.locale,
-      has_read_gdpr_terms: user.has_read_gdpr_terms,
+      country: user.settings.country,
+      locale: user.settings.locale,
+      has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
     },
   };
 }
@@ -391,6 +391,9 @@ export function sanitizeUpdatedUser(user) {
 function ensureString(value, name) {
   if (typeof value !== 'string') {
     throw new TypeError(`${name} must be a string, but got ${typeof value}`);
+  }
+  if (value.trim() === '') {
+    throw new TypeError(`${name} must not be empty`);
   }
 }
 

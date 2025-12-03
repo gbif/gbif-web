@@ -341,7 +341,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       settings: {
         country: user.settings?.country,
         locale: user.settings?.locale,
-        has_read_gdpr_terms: user.settings?.has_read_gdpr_terms,
+        has_read_gdpr_terms: user.settings?.has_read_gdpr_terms ?? 'false',
       },
     };
   };
