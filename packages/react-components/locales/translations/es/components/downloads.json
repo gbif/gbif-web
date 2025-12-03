@@ -75,7 +75,7 @@
     },
     "usedChecklistKey": "Marcador de posición de descripción",
     "predicate": {
-      "checklist": "Lista de especies",
+      "checklist": "Lista de chequeo",
       "joinDescriptions": {
         "and": "Todos deben aplicar",
         "or": "Al menos uno debe aplicar",
