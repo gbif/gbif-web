@@ -184,7 +184,12 @@ export function PredicateVisual({ download }: { download: DownloadKeyQuery['down
       {predicate && (
         <>
           {download?.request?.gbifMachineDescription?.parameters?.predicate && (
-            <div>The sql was generated using this predicate</div>
+            <div>
+              <FormattedMessage
+                id="downloadKey.sqlGeneratedUsingPredicate"
+                defaultMessage="The sql was generated using this predicate"
+              />
+            </div>
           )}
           <div className="gbif-predicates g-min-w-[500px]">
             <div className="g-flex g-justify-end g-text-slate-500 -g-mt-2">
