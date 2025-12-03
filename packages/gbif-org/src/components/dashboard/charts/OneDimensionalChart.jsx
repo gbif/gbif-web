@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { CardHeader } from '../shared';
 import { getColumnOptions } from './column';
-import Highcharts, { generateChartsPalette } from './highcharts';
+import Highcharts, { chartPatterns, generateChartsPalette } from './highcharts';
 import { getPieOptions } from './pie';
 // import { getTimeSeriesOptions } from './area';
 import { Button } from '@/components/ui/button';
@@ -103,7 +103,9 @@ export function OneDimensionalChart({
   facetResults?.results?.forEach((x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] }));
   const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
   const data = mappedResults?.map((x) => {
-    const customColor = value2colorMap ? value2colorMap[x.key] : chartColors.OTHER;
+    const customColor = value2colorMap
+      ? value2colorMap[x.key]
+      : chartColors[x.index % chartColors.length];
     return {
       ...x,
       y: x.count,
@@ -125,7 +127,7 @@ export function OneDimensionalChart({
       data.push({
         y: otherCount,
         name: intl.formatMessage({ id: 'dashboard.other' }),
-        color: chartColors.OTHER,
+        color: chartPatterns.OTHER,
         visible: true,
       });
     }
@@ -134,7 +136,7 @@ export function OneDimensionalChart({
         y: emptyCount,
         name: intl.formatMessage({ id: 'dashboard.unknown' }),
         visible: true,
-        color: chartColors.UNKNOWN,
+        color: chartPatterns.UNKNOWN,
         filter: { mustNot: { [predicateKey]: [{ type: 'isNotNull' }] } },
       });
     }

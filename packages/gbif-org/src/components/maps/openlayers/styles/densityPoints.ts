@@ -21,6 +21,10 @@ const thresholds = function (thresholds: number[], total: number) {
  * @returns {string} Hex color with alpha channel (e.g., '#ff0000cc')
  */
 function addOpacityToHex(hex: string, opacity: number): string {
+  if (typeof hex !== 'string') {
+    hex = '#aaaaaa88';
+    console.warn('Invalid hex color provided to addOpacityToHex');
+  }
   // Remove # if present
   const cleanHex = hex.replace('#', '');
 

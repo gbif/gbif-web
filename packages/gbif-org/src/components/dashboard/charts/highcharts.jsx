@@ -390,7 +390,7 @@ if (typeof Highcharts === 'object') {
 
 export default Highcharts;
 
-export const chartColors = {
+export const chartPatterns = {
   OTHER: {
     pattern: {
       backgroundColor: '#eee',

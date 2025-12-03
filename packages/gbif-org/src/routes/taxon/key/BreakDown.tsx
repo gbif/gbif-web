@@ -1,4 +1,4 @@
-import Highcharts, { chartColors } from '@/components/dashboard/charts/highcharts';
+import Highcharts, { chartPatterns } from '@/components/dashboard/charts/highcharts';
 import { chartsClass } from '@/components/dashboard/charts/OneDimensionalChart';
 import { CardHeader } from '@/components/dashboard/shared';
 import { ErrorBlock } from '@/components/ErrorBoundary';
@@ -121,7 +121,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
                 {
                   name: `Other / Unknown ${children?.[0]?.rank || ''}`,
                   species: k?.species - sum,
-                  color: chartColors.OTHER,
+                  color: chartPatterns.OTHER,
                 },
               ]
             : children;

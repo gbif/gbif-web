@@ -139,6 +139,8 @@ export const gbifConfig: Config = {
       '#664192',
       '#F2BF48',
       '#0078B4',
+      '#E8B0C6',
+      '#F7D991',
     ],
     iucnColors: {
       NA: '#B8A896',
