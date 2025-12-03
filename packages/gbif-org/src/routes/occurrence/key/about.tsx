@@ -83,6 +83,7 @@ export function OccurrenceKeyAbout() {
 
   const showExtensions = !!extensions.find((section) => toc[section]);
 
+  const hasMap = !!occurrence.coordinates?.lon && !!occurrence.coordinates?.lat;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
@@ -102,7 +103,7 @@ export function OccurrenceKeyAbout() {
           </div>
           {!hideSidebar && (
             <Aside className="">
-              {occurrence.coordinates?.lon && (
+              {hasMap && (
                 <Card className="g-mb-4">
                   <HashLink to="#location" replace className="g-block g-relative g-group">
                     <img
