@@ -76,21 +76,23 @@ function StatusIndicator() {
     { notifyOnErrors: false, throwAllErrors: false, lazyLoad: true }
   );
 
-  // refresh every 10 seconds
+  // refresh every 45 seconds unless there is a notification, then every 10 seconds
   useEffect(() => {
     // if it isn't set, then just ignore. This is relevant as we do not have a status page for all environments
     if (!load || !import.meta.env.PUBLIC_STATUS_PAGE_URL) {
       return;
     }
+    const hasNotification = data?.statusPage?.notificationIcon?.showNotification;
+    const frequency = hasNotification ? 10000 : 45000;
     const interval = setInterval(() => {
       load({ keepDataWhileLoading: true });
-    }, 10000);
+    }, frequency);
 
     // load at first mount as well
     load({ keepDataWhileLoading: true });
 
     return () => clearInterval(interval);
-  }, [load]);
+  }, [load, data?.statusPage?.notificationIcon?.showNotification]);
 
   return (
     <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5 g-relative">
