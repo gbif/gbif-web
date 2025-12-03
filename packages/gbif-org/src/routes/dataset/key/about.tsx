@@ -18,6 +18,7 @@ import {
   DatasetInsightsQuery,
   DatasetInsightsQueryVariables,
   DatasetQuery,
+  Predicate,
   PredicateType,
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
@@ -66,8 +67,26 @@ export function DatasetKeyAbout() {
   const [toc, setToc] = useState(defaultToc);
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
+  const [scopedDatasetPredicate, setScopedDatasetPredicate] = useState<Predicate>({
+    type: PredicateType.Equals,
+    key: 'datasetKey',
+    value: dataset?.key,
+  });
 
-  const sitePredicate = config?.occurrenceSearch?.scope;
+  const sitePredicate = config?.occurrenceSearch?.scope as Predicate;
+  useEffect(() => {
+    if (!dataset?.key) return;
+    const datasetPredicate = {
+      type: PredicateType.Equals,
+      key: 'datasetKey',
+      value: dataset.key,
+    };
+    const scope = (sitePredicate as Predicate)
+      ? { type: PredicateType.And, predicates: [sitePredicate, datasetPredicate] }
+      : datasetPredicate;
+    setScopedDatasetPredicate(scope);
+  }, [sitePredicate, dataset?.key]);
+
   const occDynamicLinkProps = {
     pageId: 'occurrenceSearch',
     searchParams: { datasetKey: dataset?.key },
@@ -103,14 +122,14 @@ export function DatasetKeyAbout() {
         imagePredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            ...predicates,
             { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
           ],
         },
         coordinatePredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            ...predicates,
             { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
             { type: PredicateType.Equals, key: 'hasGeospatialIssue', value: 'false' },
           ],
@@ -118,17 +137,17 @@ export function DatasetKeyAbout() {
         taxonPredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            ...predicates,
             { type: PredicateType.Equals, key: 'issue', value: 'TAXON_MATCH_NONE' },
           ],
         },
         eventDatePredicate: {
           type: PredicateType.And,
-          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'eventDate' }],
+          predicates: [...predicates, { type: PredicateType.IsNotNull, key: 'eventDate' }],
         },
         eventPredicate: {
           type: PredicateType.And,
-          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
+          predicates: [...predicates, { type: PredicateType.IsNotNull, key: 'eventId' }],
         },
       },
     });
@@ -147,11 +166,7 @@ export function DatasetKeyAbout() {
     { datasetUrl: `https://www.gbif.org/dataset/${dataset.key}` }
   );
 
-  const predicate = {
-    type: 'equals',
-    key: 'datasetKey',
-    value: dataset?.key,
-  };
+  const chartPredicate = scopedDatasetPredicate;
 
   const tableOfContents = useMemo(() => {
     if (!dataset || !toc) return [];
@@ -225,28 +240,30 @@ export function DatasetKeyAbout() {
   }
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
-  const hasDna = (insights?.unfiltered?.facet?.dwcaExtension || []).find(
+  const hasDna = (insights?.siteOccurrences?.facet?.dwcaExtension || []).find(
     (ext) => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData'
   );
 
   const withCoordinates = insights?.withCoordinates?.documents?.total;
   const withEventDate = insights?.withEventDate?.documents?.total;
   const withTaxonMatch =
-    insights?.unfiltered?.documents?.total - insights?.withTaxonMatch?.documents?.total;
+    insights?.siteOccurrences?.documents?.total - insights?.withTaxonMatch?.documents?.total;
 
   const total = insights?.unfiltered?.documents?.total;
-  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / total);
-  const eventDatePercentage = formatAsPercentage(withEventDate / total);
-  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / total);
+  const siteTotal = insights?.siteOccurrences?.documents?.total;
+  const reducedOccurrenceScope = siteTotal - total < 0;
+  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / siteTotal);
+  const eventDatePercentage = formatAsPercentage(withEventDate / siteTotal);
+  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / siteTotal);
 
   const synonymsPercentage = formatAsPercentage(synonyms?.count / totalTaxa?.count);
   const acceptedPercentage = formatAsPercentage(accepted?.count / totalTaxa?.count);
   const gbifOverlap = dataset.metrics?.nubCoveragePct;
   const colOverlap = dataset.metrics?.colCoveragePct;
 
-  const withEventId = insights?.unfiltered?.cardinality?.eventId;
+  const withEventId = insights?.siteOccurrences?.cardinality?.eventId;
   const labelAsEventDataset =
-    dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / total < 0.99); // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
+    dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / siteTotal < 0.99); // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -258,7 +275,7 @@ export function DatasetKeyAbout() {
           stack={removeSidebar}
         >
           <div className="g-flex-grow">
-            {insights?.siteOccurrences?.documents.total - total < 0 && (
+            {reducedOccurrenceScope && (
               <div>
                 <Alert variant="theme" className="g-mb-4">
                   <AlertDescription>
@@ -310,7 +327,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {hasPreprocessedMap && (
+            {hasPreprocessedMap && !reducedOccurrenceScope && (
               <ClientSideOnly>
                 <MapWidget
                   className="g-mb-4"
@@ -329,7 +346,7 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
                 </CardContent>
-                {total > 0 && (
+                {siteTotal > 0 && (
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
@@ -337,12 +354,12 @@ export function DatasetKeyAbout() {
                     </p>
                     <DashBoardLayout>
                       <charts.Country
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         visibilityThreshold={0}
                         interactive={false}
                       />
                       <charts.GadmGid
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         visibilityThreshold={0}
                         interactive={false}
                       />
@@ -361,7 +378,7 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
                 </CardContent>
-                {total > 0 && (
+                {siteTotal > 0 && (
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
@@ -369,13 +386,13 @@ export function DatasetKeyAbout() {
                     </p>
                     <DashBoardLayout>
                       <charts.EventDate
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         visibilityThreshold={1}
                         options={['TIME']}
                         interactive={false}
                       />
                       <charts.Months
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         defaultOption="COLUMN"
                         visibilityThreshold={0}
                         interactive={false}
@@ -395,14 +412,14 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
                 </CardContent>
-                {total > 0 && (
+                {siteTotal > 0 && (
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
                       <FormattedMessage id="phrases.derivedFromOccurrenceData" />
                     </p>
                     <charts.Taxa
-                      predicate={predicate}
+                      predicate={chartPredicate}
                       visibilityThreshold={0}
                       interactive={false}
                     />
@@ -440,25 +457,25 @@ export function DatasetKeyAbout() {
                 <div className="g-text-slate-500">
                   <ClientSideOnly>
                     <DashBoardLayout>
-                      <charts.OccurrenceSummary predicate={predicate} />
-                      <charts.DataQuality predicate={predicate} />
+                      <charts.OccurrenceSummary predicate={chartPredicate} />
+                      <charts.DataQuality predicate={chartPredicate} />
                       <charts.OccurrenceIssue
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         visibilityThreshold={0}
                         interactive={false}
                       />
                       <charts.Iucn
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         visibilityThreshold={0}
                         interactive={false}
                       />
                       <charts.IucnCounts
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         visibilityThreshold={1}
                         interactive={false}
                       />
                       <charts.RecordedBy
-                        predicate={predicate}
+                        predicate={chartPredicate}
                         visibilityThreshold={0}
                         defaultOption="TABLE"
                         interactive={false}
@@ -594,7 +611,7 @@ export function DatasetKeyAbout() {
                 </Card>
               )}
 
-              {total > 0 && (
+              {siteTotal > 0 && (
                 <Card className="g-mb-4 gbif-word-break">
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
@@ -605,10 +622,13 @@ export function DatasetKeyAbout() {
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
                       <DynamicLink {...occDynamicLinkProps} className="g-text-inherit">
                         <h5 className="g-font-bold">
-                          <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+                          <FormattedMessage
+                            id="counts.nOccurrences"
+                            values={{ total: siteTotal }}
+                          />
                         </h5>
                       </DynamicLink>
-                      {total > 0 && (
+                      {siteTotal > 0 && (
                         <div className="g-text-slate-500">
                           <div className="g-mt-2">
                             <FormattedMessage
@@ -616,7 +636,7 @@ export function DatasetKeyAbout() {
                               values={{ percent: withCoordinatesPercentage }}
                             />
                           </div>
-                          <Progress value={(100 * withCoordinates) / total} className="g-h-1" />
+                          <Progress value={(100 * withCoordinates) / siteTotal} className="g-h-1" />
 
                           <div className="g-mt-2">
                             <FormattedMessage
@@ -624,7 +644,7 @@ export function DatasetKeyAbout() {
                               values={{ percent: eventDatePercentage }}
                             />
                           </div>
-                          <Progress value={(100 * withEventDate) / total} className="g-h-1" />
+                          <Progress value={(100 * withEventDate) / siteTotal} className="g-h-1" />
 
                           <div className="g-mt-2">
                             <FormattedMessage
@@ -632,7 +652,7 @@ export function DatasetKeyAbout() {
                               values={{ percent: withTaxonMatchPercentage }}
                             />
                           </div>
-                          <Progress value={(100 * withTaxonMatch) / total} className="g-h-1" />
+                          <Progress value={(100 * withTaxonMatch) / siteTotal} className="g-h-1" />
                         </div>
                       )}
                     </div>
@@ -652,7 +672,7 @@ export function DatasetKeyAbout() {
                       <DynamicLink
                         className="g-text-inherit"
                         pageId="occurrenceSearch"
-                        searchParams={{ datasetKey: dataset.key, isSequenced: true }}
+                        searchParams={{ datasetKey: [dataset.key], isSequenced: [true] }}
                         to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}
                       >
                         <h5 className="g-font-bold">
@@ -796,12 +816,12 @@ const DATASET_SLOW = /* GraphQL */ `
     $eventPredicate: Predicate
     $sitePredicate: Predicate
   ) {
-    siteOccurrences: occurrenceSearch(predicate: $sitePredicate) {
+    unfiltered: occurrenceSearch(predicate: $datasetPredicate) {
       documents(size: 0) {
         total
       }
     }
-    unfiltered: occurrenceSearch(predicate: $datasetPredicate) {
+    siteOccurrences: occurrenceSearch(predicate: $sitePredicate) {
       documents(size: 0) {
         total
       }
@@ -867,7 +887,7 @@ function getToc(data?: DatasetQuery, insights?: DatasetInsightsQuery) {
     temporalDescription: (dataset?.temporalCoverages?.length ?? 0) > 0,
     taxonomicDescription: (dataset?.taxonomicCoverages?.length ?? 0) > 0,
     methodology: hasSamplingDescription,
-    metrics: dataset.type === 'OCCURRENCE' || insights?.unfiltered?.documents?.total > 1,
+    metrics: insights?.siteOccurrences?.documents?.total > 1,
     additionalInfo: dataset?.additionalInfo,
     contacts: (dataset?.volatileContributors?.length ?? 0) > 0,
     bibliography: (dataset?.bibliographicCitations?.length ?? 0) > 0,

@@ -238,6 +238,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $coordinatePredicate: Predicate
     $clusterPredicate: Predicate
     $eventPredicate: Predicate
+    $literaturePredicate: Predicate
   ) {
     occurrenceSearch(predicate: $predicate) {
       documents(from: $from, size: $size) {
@@ -266,6 +267,11 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     }
     withEvents: occurrenceSearch(predicate: $eventPredicate) {
       documents(size: 0) {
+        total
+      }
+    }
+    literatureSearchScoped: literatureSearch(predicate: $literaturePredicate) {
+      documents {
         total
       }
     }
@@ -314,12 +320,13 @@ export function DatasetPage() {
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
+  const siteOccurrencePredicate = config?.occurrenceSearch?.scope;
 
   const { data: occData, load } = useQuery<
     DatasetOccurrenceSearchQuery,
     DatasetOccurrenceSearchQueryVariables
   >(OCURRENCE_SEARCH_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
     notifyOnErrors: true,
   });
@@ -343,7 +350,7 @@ export function DatasetPage() {
   const hasTaxonomy = !!dataset?.checklistBankDataset?.key;
   const withEventId = occData?.withEvents?.documents?.total || 0;
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
-  const citationCountOrZero = data?.literatureSearch?.documents?.total || 0;
+  const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
@@ -409,39 +416,59 @@ export function DatasetPage() {
       key: 'datasetKey',
       value: dataset.key,
     };
+    const combinedPredicate = siteOccurrencePredicate
+      ? {
+          type: PredicateType.And,
+          predicates: [datasetPredicate, siteOccurrencePredicate],
+        }
+      : datasetPredicate;
+
+    const literatureScope = config?.literatureSearch?.scope;
+    const literatureDatasetScope = {
+      type: PredicateType.Equals,
+      key: 'gbifDatasetKey',
+      value: dataset.key,
+    };
+    const literaturePredicate = literatureScope
+      ? {
+          type: PredicateType.And,
+          predicates: [literatureScope, literatureDatasetScope],
+        }
+      : literatureDatasetScope;
     load({
       variables: {
-        predicate: datasetPredicate,
+        predicate: combinedPredicate,
         imagePredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            combinedPredicate,
             { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
           ],
         },
         coordinatePredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            combinedPredicate,
             { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
           ],
         },
         clusterPredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            combinedPredicate,
             { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
           ],
         },
         eventPredicate: {
           type: PredicateType.And,
-          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
+          predicates: [combinedPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
         },
+        literaturePredicate,
         size: 1,
         from: 0,
       },
     });
-  }, [load, dataset.key]);
+  }, [load, dataset.key, siteOccurrencePredicate, config?.literatureSearch?.scope]);
 
   return (
     <>
