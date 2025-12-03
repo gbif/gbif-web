@@ -47,6 +47,8 @@
   "nParticipants": "{total, plural, one {# participant} few {# participants} many {# participants} other {# participants}}",
   "nVotingParticipants": "{total, plural, one {# voting participant} few {# voting participants} many {# voting participants} other {# voting participants}}",
   "nAssociateParticipants": "{total, plural, one {# associate country} few {# associate countries} many {# associate countries} other {# associate countries}}",
+  "nAffiliateParticipants": "{total, plural, one {# affiliate} few {# affiliates} many {# affiliates} other {# affiliates}}",
+  "nOtherAssociateParticipants": "{total, plural, one {# other associate participant} few {# other associate participants} many {# other associate participants} other {# other associate participants}}",
   "nHostedDatasets": "{total, plural, one {# размещенный набор данных} few {# размещенных наборов данных} many {# размещенных наборов данных} other {# размещенных наборов данных}}",
   "nParticipatingDatasets": "{total, plural, one {# участвующий набор данных} few {# участвующих наборов данных} many {# участвующих наборов данных} other {# участвующих наборов данных}}",
   "nParticipatingPublishers": "{total, plural, one {# участвующий издатель} few {# участвующих издателей} many {# участвующих издателей} other {# участвующих издателей}}",
