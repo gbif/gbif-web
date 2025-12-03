@@ -5,7 +5,6 @@ import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import EmptyValue from '@/components/emptyValue';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HyperText } from '@/components/hyperText';
-import { MapThumbnail, MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { Message } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableOfContents } from '@/components/tableOfContents';
@@ -31,10 +30,8 @@ import formatAsPercentage from '@/utils/formatAsPercentage';
 import { useEffect, useMemo, useState } from 'react';
 import { GiDna1 } from 'react-icons/gi';
 import {
-  MdFormatQuote,
   MdGridOn,
   MdInfoOutline,
-  MdLink,
   MdPlaylistAddCheck,
   MdPinDrop as OccurrenceIcon,
 } from 'react-icons/md';
@@ -52,10 +49,11 @@ import { TemporalCoverages } from './about/TemporalCoverages';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { truncate } from '@/utils/truncate';
 import { MapWidget } from '@/components/maps/mapWidget';
+import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
-  const { data } = useDatasetKeyLoaderData();
+  const { data } = useDatasetKeyLoaderData() as { data: DatasetQuery };
   const { dataset, totalTaxa, accepted, synonyms } = data;
   const defaultToc = getToc(data);
   const hasPreprocessedMap = useHasMap({
@@ -739,11 +737,6 @@ export function DatasetKeyAbout() {
                                       >
                                         {note.name}
                                       </a>
-                                      {/* {note.description && (
-                                        <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                                          {truncate(note.description, 70)}
-                                        </div>
-                                      )} */}
                                     </div>
                                   </li>
                                 );
