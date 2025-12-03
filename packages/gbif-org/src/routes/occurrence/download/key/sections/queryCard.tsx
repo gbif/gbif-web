@@ -120,9 +120,7 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
         </CardContent>
       )}
       <PredicateVisual download={download} />
-      <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
-        <SqlVisual download={download} />
-      </CardContent>
+      <SqlVisual download={download} />
       <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
         <div>
           <FormattedMessage
@@ -216,12 +214,14 @@ export function SqlVisual({ download }: { download: DownloadKeyQuery['download']
   if (!download?.request?.sql) return null;
 
   return (
-    <div className="g-text-sm">
-      <pre
-        className="g-max-full g-overflow-auto gbif-sqlInput"
-        dangerouslySetInnerHTML={{ __html: download?.request.sql }}
-      />
-    </div>
+    <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
+      <div className="g-text-sm">
+        <pre
+          className="g-max-full g-overflow-auto gbif-sqlInput"
+          dangerouslySetInnerHTML={{ __html: download?.request.sql }}
+        />
+      </div>
+    </CardContent>
   );
 }
 
