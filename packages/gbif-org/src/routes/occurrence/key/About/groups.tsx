@@ -52,6 +52,7 @@ import {
 import { Media } from './media';
 import { TaxonInterpretationCard } from './TaxonInterpretationCard';
 import { Img } from '@/components/Img';
+import { CardDescription } from '@/components/ui/smallCard';
 
 // const Map = React.lazy(() => import('@/components/maps/map'));
 
@@ -113,6 +114,7 @@ export function Groups({
       <ChronometricAge {...{ updateToc, showAll, termMap, occurrence }} />
       {/* <Audubon              {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
+      <Issues {...{ occurrence }} />
       <Citation {...{ updateToc, showAll, termMap, occurrence }} />
       <Debug {...{ updateToc, showAll, termMap, occurrence }} />
     </div>
@@ -122,11 +124,13 @@ export function Groups({
 export function Group({
   label,
   children,
+  description,
   id,
   ...props
 }: {
   label: string;
   id: string;
+  description?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
@@ -135,6 +139,7 @@ export function Group({
         <CardTitle>
           <FormattedMessage id={label} />
         </CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent {...props}>{children}</CardContent>
     </Card>
@@ -921,6 +926,48 @@ function MediaSummary({
         )}
       </div>
     </Card>
+  );
+}
+
+function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  if (!occurrence) return null;
+  return (
+    <Group
+      label="occurrenceDetails.groups.issues"
+      id="issues"
+      description={<FormattedMessage id="occurrenceDetails.issuesHelpText" />}
+    >
+      {(occurrence?.issues?.length ?? 0) === 0 ? (
+        <div>
+          <FormattedMessage id="occurrenceDetails.issues.none" />
+        </div>
+      ) : (
+        <>
+          <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
+            <table className="gbif-table-style g-whitespace-nowrap g-text-sm">
+              <thead>
+                <tr>
+                  <th>Issue</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {occurrence?.issues?.map((issue) => (
+                  <tr key={issue}>
+                    <td>
+                      <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />
+                    </td>
+                    <td>
+                      <FormattedMessage id={`enums.occurrenceIssueDescription.${issue}`} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+    </Group>
   );
 }
 

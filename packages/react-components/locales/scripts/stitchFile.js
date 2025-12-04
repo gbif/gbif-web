@@ -82,6 +82,10 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
           .downloadFormat,
         mediaType: getFile(locale, `../${folder}/${locale}/enums/mediaType`),
         occurrenceIssue: getFile(locale, `../${folder}/${locale}/enums/occurrenceIssue`),
+        occurrenceIssueDescription: getFile(
+          locale,
+          `../${folder}/${locale}/enums/occurrenceIssueDescription`,
+        ).occurrenceIssueDescription,
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),
         taxonRank: getFile(locale, `../${folder}/${locale}/enums/taxonRank`),
         taxonomicStatus: getFile(locale, `../${folder}/${locale}/enums/taxonomicStatus`),

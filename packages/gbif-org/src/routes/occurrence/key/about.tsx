@@ -184,6 +184,9 @@ export function OccurrenceKeyAbout() {
                           <Separator />
                         </>
                       )}
+                      <Li to="#issues">
+                        <FormattedMessage id="occurrenceDetails.groups.issues" />
+                      </Li>
                       <Li to="#citation">
                         <FormattedMessage id="phrases.citation" />
                       </Li>

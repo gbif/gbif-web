@@ -42,8 +42,10 @@
     "materialSample": "Material sample",
     "geologicalContext": "Geological context",
     "other": "Other",
-    "extensions": "Extensions"
+    "extensions": "Extensions",
+    "issues": "Issues"
   },
+  "issuesHelpText": "These issues were identified by GBIF's data quality checks. They are intended to help data users assess the quality and characteristics of the data.",
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",
