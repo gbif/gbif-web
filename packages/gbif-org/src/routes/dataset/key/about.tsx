@@ -18,6 +18,7 @@ import {
   DatasetInsightsQuery,
   DatasetInsightsQueryVariables,
   DatasetQuery,
+  DatasetType,
   Predicate,
   PredicateType,
 } from '@/gql/graphql';
@@ -30,12 +31,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { useEffect, useMemo, useState } from 'react';
 import { GiDna1 } from 'react-icons/gi';
-import {
-  MdGridOn,
-  MdInfoOutline,
-  MdPlaylistAddCheck,
-  MdPinDrop as OccurrenceIcon,
-} from 'react-icons/md';
+import { MdGridOn, MdInfoOutline } from 'react-icons/md';
 import { TiPipette as SamplingIcon } from 'react-icons/ti';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
@@ -51,6 +47,8 @@ import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { truncate } from '@/utils/truncate';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/utils/shadcn';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -86,11 +84,6 @@ export function DatasetKeyAbout() {
       : datasetPredicate;
     setScopedDatasetPredicate(scope);
   }, [sitePredicate, dataset?.key]);
-
-  const occDynamicLinkProps = {
-    pageId: 'occurrenceSearch',
-    searchParams: { datasetKey: dataset?.key },
-  };
 
   const { data: insights, load } = useQuery<DatasetInsightsQuery, DatasetInsightsQueryVariables>(
     DATASET_SLOW,
@@ -239,31 +232,9 @@ export function DatasetKeyAbout() {
     return null; //TODO return loader or error
   }
 
-  const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
-  const hasDna = (insights?.siteOccurrences?.facet?.dwcaExtension || []).find(
-    (ext) => ext.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData'
-  );
-
-  const withCoordinates = insights?.withCoordinates?.documents?.total;
-  const withEventDate = insights?.withEventDate?.documents?.total;
-  const withTaxonMatch =
-    insights?.siteOccurrences?.documents?.total - insights?.withTaxonMatch?.documents?.total;
-
   const total = insights?.unfiltered?.documents?.total;
   const siteTotal = insights?.siteOccurrences?.documents?.total;
   const reducedOccurrenceScope = siteTotal - total < 0;
-  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / siteTotal);
-  const eventDatePercentage = formatAsPercentage(withEventDate / siteTotal);
-  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / siteTotal);
-
-  const synonymsPercentage = formatAsPercentage(synonyms?.count / totalTaxa?.count);
-  const acceptedPercentage = formatAsPercentage(accepted?.count / totalTaxa?.count);
-  const gbifOverlap = dataset.metrics?.nubCoveragePct;
-  const colOverlap = dataset.metrics?.colCoveragePct;
-
-  const withEventId = insights?.siteOccurrences?.cardinality?.eventId;
-  const labelAsEventDataset =
-    dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / siteTotal < 0.99); // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -305,6 +276,8 @@ export function DatasetKeyAbout() {
                 {!dataset?.description && <EmptyValue />}
               </CardContent>
             </Card>
+
+            <DataSummary data={data} insights={insights} />
 
             {insights?.images?.documents?.total > 0 && (
               <>
@@ -551,162 +524,6 @@ export function DatasetKeyAbout() {
           </div>
           {!removeSidebar && (
             <Aside>
-              {dataset.type === 'CHECKLIST' && (
-                <Card className="g-mb-4 g-mt-4 gbif-word-break">
-                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                    <div className="g-flex-none g-me-2">
-                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                        <MdPlaylistAddCheck />
-                      </div>
-                    </div>
-                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <a
-                        className="g-text-inherit"
-                        href={`${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
-                          dataset.key
-                        }/imports`}
-                      >
-                        <h5 className="g-font-bold">
-                          <FormattedMessage
-                            id="counts.nNames"
-                            values={{ total: totalTaxa.count }}
-                          />
-                        </h5>
-                      </a>
-                      <div className="g-text-slate-500">
-                        <div className="g-mt-2">
-                          <FormattedMessage
-                            id="counts.nAcceptedNames"
-                            values={{ total: accepted.count }}
-                          />
-                        </div>
-                        <Progress value={acceptedPercentage} className="g-h-1" />
-
-                        <div className="g-mt-2">
-                          <FormattedMessage
-                            id="counts.nSynonyms"
-                            values={{ total: synonyms.count }}
-                          />
-                        </div>
-                        <Progress value={synonymsPercentage} className="g-h-1" />
-
-                        <div className="g-mt-2">
-                          <FormattedMessage
-                            id="counts.gbifOverlapPercent"
-                            values={{ percent: gbifOverlap }}
-                          />
-                        </div>
-                        <Progress value={gbifOverlap} className="g-h-1" />
-
-                        <div className="g-mt-2">
-                          <FormattedMessage
-                            id="counts.colOverlapPercent"
-                            values={{ percent: colOverlap }}
-                          />
-                        </div>
-                        <Progress value={colOverlap} className="g-h-1" />
-                      </div>
-                    </div>
-                  </CardContentSmall>
-                </Card>
-              )}
-
-              {siteTotal > 0 && (
-                <Card className="g-mb-4 gbif-word-break">
-                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                    <div className="g-flex-none g-me-2">
-                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                        <OccurrenceIcon />
-                      </div>
-                    </div>
-                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink {...occDynamicLinkProps} className="g-text-inherit">
-                        <h5 className="g-font-bold">
-                          <FormattedMessage
-                            id="counts.nOccurrences"
-                            values={{ total: siteTotal }}
-                          />
-                        </h5>
-                      </DynamicLink>
-                      {siteTotal > 0 && (
-                        <div className="g-text-slate-500">
-                          <div className="g-mt-2">
-                            <FormattedMessage
-                              id="counts.percentWithCoordinates"
-                              values={{ percent: withCoordinatesPercentage }}
-                            />
-                          </div>
-                          <Progress value={(100 * withCoordinates) / siteTotal} className="g-h-1" />
-
-                          <div className="g-mt-2">
-                            <FormattedMessage
-                              id="counts.percentWithDate"
-                              values={{ percent: eventDatePercentage }}
-                            />
-                          </div>
-                          <Progress value={(100 * withEventDate) / siteTotal} className="g-h-1" />
-
-                          <div className="g-mt-2">
-                            <FormattedMessage
-                              id="counts.percentWithTaxonMatch"
-                              values={{ percent: withTaxonMatchPercentage }}
-                            />
-                          </div>
-                          <Progress value={(100 * withTaxonMatch) / siteTotal} className="g-h-1" />
-                        </div>
-                      )}
-                    </div>
-                  </CardContentSmall>
-                </Card>
-              )}
-
-              {hasDna && (
-                <Card className="g-mb-4 gbif-word-break">
-                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                    <div className="g-flex-none g-me-2">
-                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                        <GiDna1 />
-                      </div>
-                    </div>
-                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink
-                        className="g-text-inherit"
-                        pageId="occurrenceSearch"
-                        searchParams={{ datasetKey: [dataset.key], isSequenced: [true] }}
-                        to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}
-                      >
-                        <h5 className="g-font-bold">
-                          <FormattedMessage id="dataset.includesDna" />
-                        </h5>
-                      </DynamicLink>
-                      <div className="g-text-slate-500 [&_a]:g-underline">
-                        <Message id="dataset.includesDnaDescription" />
-                      </div>
-                    </div>
-                  </CardContentSmall>
-                </Card>
-              )}
-
-              {labelAsEventDataset && (
-                <Card className="g-mb-4 gbif-word-break">
-                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                    <div className="g-flex-none g-me-2">
-                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                        <SamplingIcon />
-                      </div>
-                    </div>
-                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <h5 className="g-font-bold">
-                        <FormattedMessage id="dataset.containsSamplingEvents" />
-                      </h5>
-                      <div className="g-text-slate-500 [&_a]:g-underline">
-                        <Message id="dataset.containsSamplingEventsDescription" />
-                      </div>
-                    </div>
-                  </CardContentSmall>
-                </Card>
-              )}
-
               {hasLocalContext &&
                 dataset?.localContexts?.map((localContext) => {
                   if (!localContext?.project_page) return null;
@@ -767,26 +584,6 @@ export function DatasetKeyAbout() {
                     </Card>
                   );
                 })}
-
-              {isGridded && (
-                <Card className="gbif-word-break g-mb-4">
-                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                    <div className="g-flex-none g-me-2">
-                      <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                        <MdGridOn />
-                      </div>
-                    </div>
-                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <h5 className="g-font-bold">
-                        <FormattedMessage id="dataset.griddedData" />
-                      </h5>
-                      <div className="g-text-slate-500 [&_a]:g-underline [&_a]:g-text-inherit">
-                        <Message id="dataset.griddedDataDescription" />
-                      </div>
-                    </div>
-                  </CardContentSmall>
-                </Card>
-              )}
               <AsideSticky className="-g-mt-4">
                 <Card>
                   <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
@@ -895,4 +692,216 @@ function getToc(data?: DatasetQuery, insights?: DatasetInsightsQuery) {
     citation: true,
   };
   return toc;
+}
+
+function DataSummary({ data, insights }: { data: DatasetQuery; insights?: DatasetInsightsQuery }) {
+  const { dataset, totalTaxa, accepted, synonyms } = data;
+  if (!dataset || dataset.type === DatasetType.Metadata) return null;
+
+  const siteTotal = insights?.siteOccurrences?.documents?.total ?? 0;
+
+  // Calculate percentages
+  const withCoordinates = insights?.withCoordinates?.documents?.total ?? 0;
+  const withEventDate = insights?.withEventDate?.documents?.total ?? 0;
+  const withTaxonMatch = siteTotal - (insights?.withTaxonMatch?.documents?.total ?? 0);
+
+  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / siteTotal);
+  const eventDatePercentage = formatAsPercentage(withEventDate / siteTotal);
+  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / siteTotal);
+
+  // Check for special dataset types
+  const isGridded = (dataset?.gridded?.[0]?.percent ?? 0) > 0.5;
+  const hasDna = (insights?.siteOccurrences?.facet?.dwcaExtension || []).find(
+    (ext) => ext?.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData'
+  );
+  const withEventId = insights?.siteOccurrences?.cardinality?.eventId ?? 0;
+  const labelAsEventDataset =
+    dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / siteTotal < 0.99);
+
+  const taxonMatchFilter = {
+    must: { datasetKey: [dataset.key], taxonKey: [{ type: 'isNotNull' }] },
+  };
+  const taxonMatchLink = btoa(JSON.stringify(taxonMatchFilter));
+
+  const eventNotNullFilter = {
+    must: { datasetKey: [dataset.key], eventDate: [{ type: 'isNotNull' }] },
+  };
+  const eventDateLink = btoa(JSON.stringify(eventNotNullFilter));
+
+  // for checklists
+  const gbifOverlap = dataset.metrics?.nubCoveragePct;
+  const colOverlap = dataset.metrics?.colCoveragePct;
+  const synonymsPercentage = formatAsPercentage((synonyms?.count ?? 0) / (totalTaxa?.count ?? 0));
+  const acceptedPercentage = formatAsPercentage((accepted?.count ?? 0) / (totalTaxa?.count ?? 0));
+
+  return (
+    <>
+      <div className="g-mb-4 g-text-slate-600 g-text-sm g-bg-slate-500/5 g-p-4 g-rounded">
+        {/* Occurrence quality metrics - linkable to occurrence search */}
+        {siteTotal > 0 && (
+          <DataSummaryBlock>
+            <DataSummaryLink
+              pageId="occurrenceSearch"
+              searchParams={{
+                datasetKey: [dataset.key],
+                hasCoordinate: ['true'],
+                hasGeospatialIssue: ['false'],
+              }}
+            >
+              <FormattedMessage
+                id="counts.percentWithCoordinates"
+                values={{ percent: withCoordinatesPercentage }}
+              />
+              <Progress value={parseFloat(withCoordinatesPercentage)} className="g-h-1" />
+            </DataSummaryLink>
+            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: eventDateLink }}>
+              <FormattedMessage
+                id="counts.percentWithDate"
+                values={{ percent: eventDatePercentage }}
+              />
+              <Progress value={parseFloat(eventDatePercentage)} className="g-h-1" />
+            </DataSummaryLink>
+            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: taxonMatchLink }}>
+              <FormattedMessage
+                id="counts.percentWithTaxonMatch"
+                values={{ percent: withTaxonMatchPercentage }}
+              />
+              <Progress value={parseFloat(withTaxonMatchPercentage)} className="g-h-1" />
+            </DataSummaryLink>
+          </DataSummaryBlock>
+        )}
+
+        {/* checklist based metrics - linkable to the taxonomy tab */}
+        {dataset?.type === DatasetType.Checklist && (
+          <DataSummaryBlock>
+            <DataSummaryLink to={`./species?status=ACCEPTED`}>
+              <FormattedMessage
+                id="counts.nAcceptedNames"
+                values={{ total: accepted?.count ?? 0 }}
+              />
+              <Progress value={acceptedPercentage} className="g-h-1" />
+            </DataSummaryLink>
+            <DataSummaryLink to={`./species?status=SYNONYM`}>
+              <FormattedMessage id="counts.nSynonyms" values={{ total: synonyms?.count ?? 0 }} />
+              <Progress value={synonymsPercentage} className="g-h-1" />
+            </DataSummaryLink>
+
+            {/* {gbifOverlap && (
+              <DataSummaryInfo>
+                <FormattedMessage
+                  id="counts.gbifOverlapPercent"
+                  values={{ percent: gbifOverlap }}
+                />{' '}
+                <Progress value={gbifOverlap} className="g-h-1" />
+              </DataSummaryInfo>
+            )} */}
+
+            {colOverlap && (
+              <DataSummaryInfo>
+                <FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} />{' '}
+                <Progress value={colOverlap} className="g-h-1" />
+              </DataSummaryInfo>
+            )}
+          </DataSummaryBlock>
+        )}
+
+        {/* Special dataset type indicators - informational only */}
+        {siteTotal > 0 && (isGridded || hasDna || labelAsEventDataset) && (
+          <DataSummaryBlock className="g-mt-4">
+            {isGridded && (
+              <DataSummaryInfo popupContent={<Message id="dataset.griddedDataDescription" />}>
+                <MdGridOn className="g-me-2" />
+                <FormattedMessage id="dataset.griddedData" />
+                <MdInfoOutline />
+              </DataSummaryInfo>
+            )}
+            {hasDna && (
+              <DataSummaryInfo popupContent={<Message id="dataset.includesDnaDescription" />}>
+                <GiDna1 className="g-me-2" />
+                <FormattedMessage id="dataset.includesDna" />
+                <MdInfoOutline />
+              </DataSummaryInfo>
+            )}
+            {labelAsEventDataset && (
+              <DataSummaryInfo
+                popupContent={<Message id="dataset.containsSamplingEventsDescription" />}
+              >
+                <SamplingIcon className="g-me-2" />
+                <FormattedMessage id="dataset.containsSamplingEvents" />
+                <MdInfoOutline />
+              </DataSummaryInfo>
+            )}
+          </DataSummaryBlock>
+        )}
+      </div>
+    </>
+  );
+}
+
+function DataSummaryBlock({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        'g-w-full g-flex g-flex-wrap md:g-flex-nowrap sm:g-items-end g-flex-col sm:g-flex-row',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+function DataSummaryLink({
+  children,
+  pageId,
+  searchParams,
+  to,
+  className,
+}: {
+  children: React.ReactNode;
+  pageId?: string;
+  searchParams?: Record<string, string | string[]>;
+  to?: string;
+  className?: string;
+}) {
+  return (
+    <DynamicLink
+      to={to}
+      pageId={pageId}
+      searchParams={searchParams}
+      className={cn('sm:g-w-1/3 sm:g-flex-none g-px-2', className)}
+    >
+      {children}
+    </DynamicLink>
+  );
+}
+
+function DataSummaryInfo({
+  children,
+  popupContent,
+  className,
+}: {
+  children: React.ReactNode;
+  popupContent?: React.ReactNode;
+  className?: string;
+}) {
+  const classes =
+    'sm:g-w-1/3 sm:g-flex-none g-border-2 g-rounded-full g-border-primary-500 g-px-2 g-py-1 g-flex-inline g-gap-1 g-items-center';
+  if (!popupContent) {
+    return <div className={cn(classes, className)}>{children}</div>;
+  }
+  return (
+    <Popover>
+      <PopoverTrigger className={cn(classes, 'g-cursor-pointer', className)}>
+        {children}
+      </PopoverTrigger>
+      <PopoverContent className="g-prose g-w-96">{popupContent}</PopoverContent>
+    </Popover>
+  );
 }
