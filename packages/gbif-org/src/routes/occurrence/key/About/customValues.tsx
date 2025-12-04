@@ -12,6 +12,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
 import { useConfig } from '@/config/config';
 import { truncate } from '@/utils/truncate';
+import { Img } from '@/components/Img';
 
 export function InstitutionKey({
   occurrence,
@@ -242,7 +243,13 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
   return (
     <div className="g-rounded g-border g-border-solid g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
       <div className="g-flex-none">
-        {person?.image?.value && <img className="g-block g-max-w-16" src={person?.image?.value} />}
+        {person?.image?.value && (
+          <Img
+            className="g-block g-max-w-16"
+            src={person?.image?.value}
+            failedClassName="g-h-16 g-w-16 g-bg-slate-200"
+          />
+        )}
       </div>
       <div className="g-flex-auto g-p-2">
         <h4 className="g-m-0 g-mb-1">{person?.name?.value}</h4>

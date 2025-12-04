@@ -51,6 +51,7 @@ import {
 } from './extensions';
 import { Media } from './media';
 import { TaxonInterpretationCard } from './TaxonInterpretationCard';
+import { Img } from '@/components/Img';
 
 // const Map = React.lazy(() => import('@/components/maps/map'));
 
@@ -904,11 +905,18 @@ function MediaSummary({
             Unable to play
           </video>
         )}
+
         {!hasPlayableVideo && (
-          <img
+          <Img
             src={occurrence.stillImages[activeImage].thumbor}
-            height={400}
-            style={{ maxWidth: '100%', maxHeight: 400, display: 'block', margin: 'auto' }}
+            style={{
+              maxWidth: '100%',
+              maxHeight: 400,
+              display: 'block',
+              margin: 'auto',
+              minHeight: 50,
+            }}
+            failedClassName="g-w-full g-h-24"
           />
         )}
       </div>
