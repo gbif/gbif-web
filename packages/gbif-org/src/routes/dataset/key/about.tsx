@@ -18,6 +18,7 @@ import {
   DatasetInsightsQuery,
   DatasetInsightsQueryVariables,
   DatasetQuery,
+  DatasetType,
   Predicate,
   PredicateType,
 } from '@/gql/graphql';
@@ -51,6 +52,8 @@ import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { truncate } from '@/utils/truncate';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/utils/shadcn';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -306,7 +309,7 @@ export function DatasetKeyAbout() {
               </CardContent>
             </Card>
 
-            <DataSummary dataset={dataset} insights={insights} />
+            <DataSummary data={data} insights={insights} />
 
             {insights?.images?.documents?.total > 0 && (
               <>
@@ -899,51 +902,137 @@ function getToc(data?: DatasetQuery, insights?: DatasetInsightsQuery) {
   return toc;
 }
 
-function DataSummary({
-  dataset,
-  insights,
-}: {
-  dataset: DatasetQuery['dataset'];
-  insights?: DatasetInsightsQuery;
-}) {
-  if (!dataset || !insights) return null;
+function DataSummary({ data, insights }: { data: DatasetQuery; insights?: DatasetInsightsQuery }) {
+  const { dataset, totalTaxa, accepted, synonyms } = data;
+  if (!dataset || dataset.type === DatasetType.Metadata) return null;
+
+  const siteTotal = insights?.siteOccurrences?.documents?.total ?? 0;
+
+  // Calculate percentages
+  const withCoordinates = insights?.withCoordinates?.documents?.total ?? 0;
+  const withEventDate = insights?.withEventDate?.documents?.total ?? 0;
+  const withTaxonMatch = siteTotal - (insights?.withTaxonMatch?.documents?.total ?? 0);
+
+  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / siteTotal);
+  const eventDatePercentage = formatAsPercentage(withEventDate / siteTotal);
+  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / siteTotal);
+
+  // Check for special dataset types
+  const isGridded = (dataset?.gridded?.[0]?.percent ?? 0) > 0.5;
+  const hasDna = (insights?.siteOccurrences?.facet?.dwcaExtension || []).find(
+    (ext) => ext?.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData'
+  );
+  const withEventId = insights?.siteOccurrences?.cardinality?.eventId ?? 0;
+  const labelAsEventDataset =
+    dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / siteTotal < 0.99);
+
+  const taxonMatchFilter = {
+    must: { datasetKey: [dataset.key], taxonKey: [{ type: 'isNotNull' }] },
+  };
+  const taxonMatchLink = btoa(JSON.stringify(taxonMatchFilter));
+
+  const eventNotNullFilter = {
+    must: { datasetKey: [dataset.key], eventDate: [{ type: 'isNotNull' }] },
+  };
+  const eventDateLink = btoa(JSON.stringify(eventNotNullFilter));
+
+  // for checklists
+  const gbifOverlap = dataset.metrics?.nubCoveragePct;
+  const colOverlap = dataset.metrics?.colCoveragePct;
+
   return (
-    <div className="g-mb-2">
-      {/* occurrence status - should link to occurrence search */}
-      <DataSummaryBlock>
-        <DataSummaryLink>
-          <div>90% with date</div>
-        </DataSummaryLink>
-        <DataSummaryLink>
-          <div>60% with coordinates</div>
-        </DataSummaryLink>
-        <DataSummaryLink>100% with taxon match</DataSummaryLink>
-      </DataSummaryBlock>
-      {/* checklist status - should link to species tab */}
-      <DataSummaryBlock>
-        <DataSummaryLink>
-          <FormattedMessage id="dataset.griddedData" />
-        </DataSummaryLink>
-        <DataSummaryLink>
-          <FormattedMessage id="dataset.dnaData" />
-        </DataSummaryLink>
-        <DataSummaryLink>100% with taxon match</DataSummaryLink>
-      </DataSummaryBlock>
-      {/* gridded, dna, sampling events - these are not linkable, but will instead have a popup with more info */}
-      <DataSummaryBlock>
-        <DataSummaryInfo>
-          <MdGridOn /> <FormattedMessage id="dataset.griddedData" /> <MdInfoOutline />
-        </DataSummaryInfo>
-        <DataSummaryInfo>
-          <GiDna1 />
-          <FormattedMessage id="dataset.dnaData" /> <MdInfoOutline />
-        </DataSummaryInfo>
-        <DataSummaryInfo>
-          <SamplingIcon />
-          <FormattedMessage id="dataset.samplingEvents" /> <MdInfoOutline />
-        </DataSummaryInfo>
-      </DataSummaryBlock>
-    </div>
+    <>
+      <div className="g-mb-4">
+        {/* Occurrence quality metrics - linkable to occurrence search */}
+        {siteTotal > 0 && (
+          <DataSummaryBlock>
+            <DataSummaryLink
+              pageId="occurrenceSearch"
+              searchParams={{
+                datasetKey: [dataset.key],
+                hasCoordinate: ['true'],
+                hasGeospatialIssue: ['false'],
+              }}
+            >
+              <FormattedMessage
+                id="counts.percentWithCoordinates"
+                values={{ percent: withCoordinatesPercentage }}
+              />
+            </DataSummaryLink>
+            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: eventDateLink }}>
+              <FormattedMessage
+                id="counts.percentWithDate"
+                values={{ percent: eventDatePercentage }}
+              />
+            </DataSummaryLink>
+            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: taxonMatchLink }}>
+              <FormattedMessage
+                id="counts.percentWithTaxonMatch"
+                values={{ percent: withTaxonMatchPercentage }}
+              />
+            </DataSummaryLink>
+          </DataSummaryBlock>
+        )}
+
+        {/* checklist based metrics - linkable to the taxonomy tab */}
+        {dataset?.type === DatasetType.Checklist && (
+          <DataSummaryBlock>
+            <DataSummaryLink to={`./species?status=ACCEPTED`} className="md:g-w-1/2">
+              <FormattedMessage
+                id="counts.nAcceptedNames"
+                values={{ total: accepted?.count ?? 0 }}
+              />
+            </DataSummaryLink>
+            <DataSummaryLink to={`./species?status=SYNONYM`} className="md:g-w-1/2">
+              <FormattedMessage id="counts.nSynonyms" values={{ total: synonyms?.count ?? 0 }} />
+            </DataSummaryLink>
+            <DataSummaryInfo
+              popupContent={<Message id="dataset.gbifOverlapDescription" />}
+              className="md:g-w-1/2"
+            >
+              <FormattedMessage id="counts.gbifOverlapPercent" values={{ percent: gbifOverlap }} />{' '}
+              <MdInfoOutline />
+            </DataSummaryInfo>
+            <DataSummaryInfo
+              popupContent={<Message id="dataset.gbifOverlapDescription" />}
+              className="md:g-w-1/2"
+            >
+              <FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} />{' '}
+              <MdInfoOutline />
+            </DataSummaryInfo>
+          </DataSummaryBlock>
+        )}
+
+        {/* Special dataset type indicators - informational only */}
+        {siteTotal > 0 && (isGridded || hasDna || labelAsEventDataset) && (
+          <DataSummaryBlock>
+            {isGridded && (
+              <DataSummaryInfo popupContent={<Message id="dataset.griddedDataDescription" />}>
+                <MdGridOn />
+                <FormattedMessage id="dataset.griddedData" />
+                <MdInfoOutline />
+              </DataSummaryInfo>
+            )}
+            {hasDna && (
+              <DataSummaryInfo popupContent={<Message id="dataset.includesDnaDescription" />}>
+                <GiDna1 />
+                <FormattedMessage id="dataset.includesDna" />
+                <MdInfoOutline />
+              </DataSummaryInfo>
+            )}
+            {labelAsEventDataset && (
+              <DataSummaryInfo
+                popupContent={<Message id="dataset.containsSamplingEventsDescription" />}
+              >
+                <SamplingIcon />
+                <FormattedMessage id="dataset.containsSamplingEvents" />
+                <MdInfoOutline />
+              </DataSummaryInfo>
+            )}
+          </DataSummaryBlock>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -951,18 +1040,96 @@ function DataSummaryBlock({ children }: { children: React.ReactNode }) {
   return <div className="g-flex g-flex-col md:g-flex-row g-gap-1 md:g-gap-4">{children}</div>;
 }
 
-function DataSummaryLink({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="md:g-w-1/3 g-border-2 g-border-primary-500 g-px-4 g-py-2 g-mb-2 g-inline-flex g-flex-nowrap g-items-center g-justify-center g-gap-4 g-rounded-lg g-flex-grow">
+function DataSummaryLink({
+  children,
+  pageId,
+  searchParams,
+  to,
+  className,
+}: {
+  children: React.ReactNode;
+  pageId?: string;
+  searchParams?: Record<string, string | string[]>;
+  to?: string;
+  className?: string;
+}) {
+  const content = (
+    <DynamicLink
+      to={to}
+      pageId={pageId}
+      searchParams={searchParams}
+      className={cn(
+        'md:g-w-1/3 g-border-2 g-border-primary-500 g-px-4 g-py-2 g-mb-2 g-inline-flex g-flex-nowrap g-items-center g-justify-center g-gap-2 g-rounded-lg g-flex-grow g-text-sm',
+        className
+      )}
+    >
       {children}
-    </div>
+    </DynamicLink>
+  );
+
+  return content;
+}
+
+function DataSummaryInfo({
+  children,
+  popupContent,
+  className,
+}: {
+  children: React.ReactNode;
+  popupContent?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Popover>
+      <PopoverTrigger
+        className={cn(
+          'g-cursor-pointer md:g-w-1/3 g-border-2 g-border-primary-500 g-px-4 g-py-2 g-mb-2 g-inline-flex g-flex-nowrap g-items-center g-justify-center g-gap-2 g-rounded-lg g-flex-grow g-text-sm g-text-slate-600',
+          className
+        )}
+      >
+        {children}
+      </PopoverTrigger>
+      <PopoverContent className="g-prose g-w-96">{popupContent ?? 'some help here'}</PopoverContent>
+    </Popover>
   );
 }
 
-function DataSummaryInfo({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="md:g-w-1/3 g-border-2 g-border-slate-500 g-px-4 g-py-2 g-mb-2 g-inline-flex g-flex-nowrap g-items-center g-justify-center g-gap-4 g-rounded-lg g-flex-grow">
-      {children}
-    </div>
-  );
-}
+// function Test() {
+//   <div className="g-w-full g-mb-8 g-bg-slate-500/10 g-rounded-lg g-text-slate-600 g-text-sm g-p-4 g-pt-2">
+//               <div className="g-w-full g-flex g-flex-wrap md:g-flex-nowrap sm:g-items-end g-flex-col sm:g-flex-row">
+//                 <div className="sm:g-w-1/3 sm:g-flex-none g-px-2 ">
+//                   <div className="g-mt-2">
+//                     <FormattedMessage
+//                       id="counts.nAcceptedNames"
+//                       values={{ total: accepted.count }}
+//                     />
+//                   </div>
+//                   <Progress value={acceptedPercentage} className="g-h-1" />
+//                 </div>
+//                 <div className="sm:g-w-1/3 sm:g-flex-none g-px-2">
+//                   <div className="g-mt-2">
+//                     <FormattedMessage id="counts.nSynonyms" values={{ total: synonyms.count }} />
+//                   </div>
+//                   <Progress value={synonymsPercentage} className="g-h-1" />
+//                 </div>
+//                 {/* <div className="g-w-1/2 g-whitespace-nowrap g-flex-none">
+//                 <div className="g-mt-2">
+//                   <FormattedMessage
+//                     id="counts.gbifOverlapPercent"
+//                     values={{ percent: gbifOverlap }}
+//                   />
+//                 </div>
+//                 <Progress value={gbifOverlap} className="g-h-1" />
+//               </div> */}
+//                 <div className="sm:g-w-1/3 sm:g-flex-none g-px-2">
+//                   <div className="g-mt-2">
+//                     <FormattedMessage
+//                       id="counts.colOverlapPercent"
+//                       values={{ percent: colOverlap }}
+//                     />
+//                   </div>
+//                   <Progress value={colOverlap} className="g-h-1" />
+//                 </div>
+//               </div>
+//             </div>
+// }
