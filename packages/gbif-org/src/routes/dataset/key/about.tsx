@@ -306,6 +306,8 @@ export function DatasetKeyAbout() {
               </CardContent>
             </Card>
 
+            <DataSummary dataset={dataset} insights={insights} />
+
             {insights?.images?.documents?.total > 0 && (
               <>
                 <Images images={insights?.images} dataset={dataset} className="g-mb-4" />
@@ -895,4 +897,72 @@ function getToc(data?: DatasetQuery, insights?: DatasetInsightsQuery) {
     citation: true,
   };
   return toc;
+}
+
+function DataSummary({
+  dataset,
+  insights,
+}: {
+  dataset: DatasetQuery['dataset'];
+  insights?: DatasetInsightsQuery;
+}) {
+  if (!dataset || !insights) return null;
+  return (
+    <div className="g-mb-2">
+      {/* occurrence status - should link to occurrence search */}
+      <DataSummaryBlock>
+        <DataSummaryLink>
+          <div>90% with date</div>
+        </DataSummaryLink>
+        <DataSummaryLink>
+          <div>60% with coordinates</div>
+        </DataSummaryLink>
+        <DataSummaryLink>100% with taxon match</DataSummaryLink>
+      </DataSummaryBlock>
+      {/* checklist status - should link to species tab */}
+      <DataSummaryBlock>
+        <DataSummaryLink>
+          <FormattedMessage id="dataset.griddedData" />
+        </DataSummaryLink>
+        <DataSummaryLink>
+          <FormattedMessage id="dataset.dnaData" />
+        </DataSummaryLink>
+        <DataSummaryLink>100% with taxon match</DataSummaryLink>
+      </DataSummaryBlock>
+      {/* gridded, dna, sampling events - these are not linkable, but will instead have a popup with more info */}
+      <DataSummaryBlock>
+        <DataSummaryInfo>
+          <MdGridOn /> <FormattedMessage id="dataset.griddedData" /> <MdInfoOutline />
+        </DataSummaryInfo>
+        <DataSummaryInfo>
+          <GiDna1 />
+          <FormattedMessage id="dataset.dnaData" /> <MdInfoOutline />
+        </DataSummaryInfo>
+        <DataSummaryInfo>
+          <SamplingIcon />
+          <FormattedMessage id="dataset.samplingEvents" /> <MdInfoOutline />
+        </DataSummaryInfo>
+      </DataSummaryBlock>
+    </div>
+  );
+}
+
+function DataSummaryBlock({ children }: { children: React.ReactNode }) {
+  return <div className="g-flex g-flex-col md:g-flex-row g-gap-1 md:g-gap-4">{children}</div>;
+}
+
+function DataSummaryLink({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="md:g-w-1/3 g-border-2 g-border-primary-500 g-px-4 g-py-2 g-mb-2 g-inline-flex g-flex-nowrap g-items-center g-justify-center g-gap-4 g-rounded-lg g-flex-grow">
+      {children}
+    </div>
+  );
+}
+
+function DataSummaryInfo({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="md:g-w-1/3 g-border-2 g-border-slate-500 g-px-4 g-py-2 g-mb-2 g-inline-flex g-flex-nowrap g-items-center g-justify-center g-gap-4 g-rounded-lg g-flex-grow">
+      {children}
+    </div>
+  );
 }

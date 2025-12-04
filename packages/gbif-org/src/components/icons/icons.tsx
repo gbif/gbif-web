@@ -1,6 +1,7 @@
 import { GenIcon } from 'react-icons';
 
 export { LuSettings2 as FilterIcon } from 'react-icons/lu';
+export { FaCalendarAlt as DateIcon } from 'react-icons/fa';
 
 // https://github.com/react-icons/react-icons/issues/238
 // SVG => JSON using https://react-icons-json-generator.surge.sh/
