@@ -388,8 +388,8 @@ function Location({
       lon: occurrence?.coordinates.lon as number,
     })
   );
-  const wkt = wellknown.parse(termMap.footprintWKT.value || '');
-  const invalidWkt = termMap.footprintWKT.value && termMap.footprintWKT.value !== '' && !wkt;
+  const wkt = wellknown.parse(termMap?.footprintWKT?.value || '');
+  const invalidWkt = termMap?.footprintWKT?.value && termMap?.footprintWKT?.value !== '' && !wkt;
   return (
     <Card className="g-mb-4" id="location">
       <CardHeader>
