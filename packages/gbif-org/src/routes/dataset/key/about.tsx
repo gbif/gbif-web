@@ -792,14 +792,12 @@ function DataSummary({ data, insights }: { data: DatasetQuery; insights?: Datase
                   id="counts.gbifOverlapPercent"
                   values={{ percent: gbifOverlap }}
                 />{' '}
-                <Progress value={gbifOverlap} className="g-h-1" />
               </DataSummaryInfo>
             )} */}
 
             {colOverlap && (
               <DataSummaryInfo>
                 <FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} />{' '}
-                <Progress value={colOverlap} className="g-h-1" />
               </DataSummaryInfo>
             )}
           </DataSummaryBlock>
@@ -875,7 +873,7 @@ function DataSummaryLink({
       to={to}
       pageId={pageId}
       searchParams={searchParams}
-      className={cn('sm:g-w-1/3 sm:g-flex-none g-px-2', className)}
+      className={cn('sm:g-w-1/3 sm:g-flex-none g-px-2 hover:g-text-primary-700', className)}
     >
       {children}
     </DynamicLink>
