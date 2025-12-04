@@ -42,8 +42,10 @@
     "materialSample": "Material sample",
     "geologicalContext": "Geological context",
     "other": "Other",
-    "extensions": "Extensions"
+    "extensions": "Extensions",
+    "issues": "Issues and flags"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",
