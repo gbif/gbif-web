@@ -944,11 +944,15 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
       ) : (
         <>
           <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
-            <table className="gbif-table-style g-whitespace-nowrap g-text-sm">
+            <table className="gbif-table-style g-text-sm">
               <thead>
                 <tr>
-                  <th>Issue</th>
-                  <th>Description</th>
+                  <th className="g-min-w-48">
+                    <FormattedMessage id="occurrenceFieldNames.issue" />
+                  </th>
+                  <th className="g-min-w-96">
+                    <FormattedMessage id="phrases.description" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
