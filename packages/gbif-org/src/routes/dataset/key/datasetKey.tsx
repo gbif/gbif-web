@@ -366,27 +366,27 @@ export function DatasetPage() {
       tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
     if (hasTaxonomy) {
-      // tabsToDisplay.push({ to: 'species', children: 'Species' });
-      tabsToDisplay.push({
-        to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
-          dataset.key
-        }/classification`,
-        children: (
-          <>
-            <SimpleTooltip
-              title={
-                <FormattedMessage
-                  id="dataset.exploreInChecklistBank"
-                  defaultMessage="Explore taxonomy via Checklist Bank"
-                />
-              }
-            >
-              <FormattedMessage id="dataset.tabs.taxonomy" defaultMessage="Taxonomy" />
-              <MdLink />
-            </SimpleTooltip>
-          </>
-        ),
-      });
+      tabsToDisplay.push({ to: 'species', children: 'Species' });
+      // tabsToDisplay.push({
+      //   to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
+      //     dataset.key
+      //   }/classification`,
+      //   children: (
+      //     <>
+      //       <SimpleTooltip
+      //         title={
+      //           <FormattedMessage
+      //             id="dataset.exploreInChecklistBank"
+      //             defaultMessage="Explore taxonomy via Checklist Bank"
+      //           />
+      //         }
+      //       >
+      //         <FormattedMessage id="dataset.tabs.taxonomy" defaultMessage="Taxonomy" />
+      //         <MdLink />
+      //       </SimpleTooltip>
+      //     </>
+      //   ),
+      // });
     }
     if (config.datasetKey?.showEvents && withEventId > 0) {
       tabsToDisplay.push({
