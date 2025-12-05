@@ -1,6 +1,6 @@
 {
   "derivedDatasetKey": {
-    "nRecordsAtTime": " NUMBER, plural, {NUMBER_FORMATED}\nواحد(سجل)   (سجلات)اخرى من مجموعة البيانات هذه",
+    "nRecordsAtTime": "",
     "derivedDataset": "مجموعة البيانات المشتقة",
     "sourceUrl": "تنزيل مجموعة البيانات المشتقة",
     "headlineDatasets": "سجلات من {NUMBER_FORMATED} {NUMBER, plural, one{مجموعة البيانات} other{مجموعات البيانات}} في مجموعة البيانات المشتقة",
