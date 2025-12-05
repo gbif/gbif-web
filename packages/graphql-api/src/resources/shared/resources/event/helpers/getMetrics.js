@@ -47,7 +47,7 @@ const getFacet =
 
 const getMultiFacet = (
   { _predicate, size, from },
-  {},
+  _,
   { searchApi, fields },
 ) => {
   // generate the event search facet query, by inheriting from the parent query, and map limit/offset to facet equivalents
@@ -58,8 +58,8 @@ const getMultiFacet = (
       multifacet: {
         type: 'multifacet',
         keys: fields,
-        size: size,
-        from: from,
+        size,
+        from,
       },
     },
   };
@@ -313,12 +313,12 @@ const getAutoDateHistogram =
   };
 
 export {
+  getAutoDateHistogram,
+  getCardinality,
   getFacet,
+  getHistogram,
   getMultiFacet,
   getOccurrenceFacet,
   getStats,
-  getCardinality,
-  getHistogram,
-  getAutoDateHistogram,
   getTemporal,
 };

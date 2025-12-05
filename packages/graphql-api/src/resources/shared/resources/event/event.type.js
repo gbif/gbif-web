@@ -3,25 +3,25 @@ import { gql } from 'apollo-server';
 export default gql`
   extend type Query {
     eventSearch(
-      apiKey: String
       predicate: Predicate
+      q: String
       size: Int
       from: Int
     ): EventSearchResult
 
-    event(eventID: String, datasetKey: String): Event
+    event(eventId: ID, datasetKey: ID): Event
 
     occurrences(
-      eventID: String
-      datasetKey: String
-      locationID: String
+      eventId: ID
+      datasetKey: ID
+      locationId: String
       month: Int
       year: Int
       size: Int
       from: Int
     ): SimpleOccurrenceResults
 
-    location(locationID: String): Event
+    location(locationId: String): Event
   }
 
   type EventSearchResult {
@@ -82,12 +82,12 @@ export default gql`
   }
 
   type Event {
-    eventID: String
+    eventID: ID
     surveyID: String
     type: String
     eventType: EventType
     eventName: String
-    parentEventID: String
+    parentEventID: ID
     datasetKey: String
     locality: String
     datasetTitle: String
@@ -108,9 +108,9 @@ export default gql`
     coordinates: JSON
     formattedCoordinates: String
     measurementOrFactTypes: [String]
-    measurementOrFactCount: Int
+    measurementOrFactMethods: [String]
     parentEvent: Event
-    measurementOrFacts: [Measurement]
+    # measurementOrFacts: [Measurement]
     eventHierarchy: [String]
     eventHierarchyJoined: String
     eventTypeHierarchy: [String]
@@ -169,7 +169,7 @@ export default gql`
   }
 
   type Measurement {
-    measurementID: String
+    measurementId: String
     measurementType: String
     measurementValue: String
     measurementUnit: String
@@ -186,7 +186,7 @@ export default gql`
   }
 
   type EventMultiFacet {
-    locationIDStateProvince(
+    locationIdStateProvince(
       size: Int
       include: String
     ): [EventMultiFacetResult_string]
@@ -207,7 +207,8 @@ export default gql`
       include: String
     ): [EventFacetResult_string]
     eventTypeHierarchy(size: Int, include: String): [EventFacetResult_string]
-    surveyID(size: Int, from: Int, include: String): [EventFacetResult_string]
+    surveyId(size: Int, from: Int, include: String): [EventFacetResult_string]
+    eventId(size: Int, from: Int, include: String): [EventFacetResult_string]
     locality(size: Int, include: String): [EventFacetResult_string]
     samplingProtocol(size: Int, include: String): [EventFacetResult_string]
     measurementOrFactTypes(
@@ -220,24 +221,34 @@ export default gql`
       size: Int
       include: String
     ): [EventFacetResult_dataset]
-    locationID(size: Int, from: Int): [EventFacetResult_string]
+    locationId(size: Int, from: Int): [EventFacetResult_string]
     year(size: Int, from: Int): [EventFacetResult_float]
     month(size: Int, from: Int): [EventFacetResult_float]
     eventType(size: Int, include: String): [EventFacetResult_string]
     scientificNames(size: Int, include: String): [EventFacetResult_string]
+    country(size: Int, include: String): [EventFacetResult_string]
+    sampleSizeUnit(size: Int, include: String): [EventFacetResult_string]
+    gadmGid(size: Int, include: String): [EventFacetResult_string]
+    continent(size: Int, include: String): [EventFacetResult_string]
+    dwcaExtension(size: Int, include: String): [EventFacetResult_string]
   }
 
   type EventCardinality {
     speciesKey: Int!
     datasetKey: Int!
-    locationID: Int!
-    parentEventID: Int!
-    surveyID: Int!
+    locationId: Int!
+    parentEventId: Int!
+    surveyId: Int!
+    sampleSizeUnit: Int!
+    samplingProtocol: Int!
+    continent: Int!
+    locality: Int!
+    dwcaExtension: Int!
   }
 
   type EventTemporal {
     datasetKey(size: Int, include: String): EventTemporalCardinalityResult
-    locationID(
+    locationId(
       size: Int
       from: Int
       include: String
@@ -333,7 +344,7 @@ export default gql`
       size: Int
       include: String
     ): [EventOccurrenceFacetResult_string]
-    locationID(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    locationId(size: Int, include: String): [EventOccurrenceFacetResult_string]
     basisOfRecord(
       size: Int
       include: String
@@ -390,6 +401,11 @@ export default gql`
   }
 
   type EventExtensions {
-    test: String
+    audubon: [JSON]
+    image: [JSON]
+    measurementOrFact: [JSON]
+    multimedia: [JSON]
+    extendedMeasurementOrFact: [JSON]
+    humboldtEcologicalInventory: [JSON]
   }
 `;

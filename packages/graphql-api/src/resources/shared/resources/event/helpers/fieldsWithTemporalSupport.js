@@ -1,1 +1,1 @@
-export default ['datasetKey', 'locationID'];
+export default ['datasetKey', 'locationId'];

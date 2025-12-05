@@ -240,6 +240,10 @@ const config = {
       type: 'keyword',
       field: 'scientificNames',
     },
+    country: {
+      type: 'keyword',
+      field: 'event.countryCode',
+    },
     id: {
       type: 'keyword',
       field: 'id',
@@ -295,7 +299,7 @@ const config = {
       type: 'keyword',
       field: 'event.countryCode',
     },
-    datasetID: {
+    datasetId: {
       type: 'keyword',
       field: 'event.datasetID',
     },
@@ -340,11 +344,11 @@ const config = {
         defaultLowerBound: 'lte',
       },
     },
+    // eventDate: {
+    //   field: 'event.eventDate',
+    //   discarded: true,
+    // },
     eventDate: {
-      field: 'event.eventDate',
-      discarded: true,
-    },
-    eventDateSingle: {
       type: 'date',
       field: 'event.eventDateSingle',
       get: {
@@ -353,26 +357,37 @@ const config = {
         defaultLowerBound: 'lte',
       },
     },
-    eventID: {
+    eventId: {
       type: 'keyword',
-      field: 'event.eventID.keyword',
-      suggestField: 'eventID.suggest',
+      field: 'event.eventHierarchy.keyword',
     },
-    surveyID: {
+    surveyId: {
       type: 'keyword',
       field: 'event.surveyID.keyword',
     },
     eventType: {
       type: 'keyword',
-      field: 'event.eventType.concept',
+      field: 'event.eventTypeHierarchy.keyword',
     },
     eventTypeHierarchyJoined: {
       type: 'keyword',
       field: 'event.eventTypeHierarchyJoined.keyword',
     },
+    verbatimEventType: {
+      type: 'keyword',
+      field: 'event.verbatimEventTypeHierarchy.keyword',
+    },
+    eventTypeHierarchyJoined: {
+      type: 'keyword',
+      field: 'event.verbatimEventTypeHierarchyJoined.keyword',
+    },
     measurementOrFactTypes: {
       type: 'keyword',
       field: 'event.measurementOrFactTypes.keyword',
+    },
+    measurementOrFactMethods: {
+      type: 'keyword',
+      field: 'event.measurementOrFactMethods.keyword',
     },
     extensions: {
       type: 'keyword',
@@ -389,6 +404,13 @@ const config = {
       type: 'boolean',
       field: 'event.hasCoordinate',
     },
+    geometry: {
+      type: 'geo_shape',
+      field: 'event.scoordinates',
+      get: {
+        type: 'within',
+      },
+    },
     hasGeospatialIssue: {
       type: 'boolean',
       field: 'event.hasGeospatialIssue',
@@ -396,6 +418,10 @@ const config = {
     id: {
       type: 'keyword',
       field: 'event.id.keyword',
+    },
+    fieldNumber: {
+      type: 'keyword',
+      field: 'event.fieldNumber',
     },
     institutionCode: {
       type: 'keyword',
@@ -411,7 +437,7 @@ const config = {
       field: 'event.locality.keyword',
       suggestField: 'locality.suggest',
     },
-    locationID: {
+    locationId: {
       type: 'keyword',
       field: 'event.locationID.keyword',
       suggestField: 'locationID.suggest',
@@ -513,7 +539,7 @@ const config = {
       type: 'keyword',
       field: 'event.notIssues',
     },
-    parentEventID: {
+    parentEventId: {
       type: 'keyword',
       field: 'event.parentEventID.keyword',
       suggestField: 'parentEventID.suggest',
@@ -538,6 +564,19 @@ const config = {
       type: 'keyword',
       field: 'event.eventTypeHierarchyJoined.keyword',
       suggestField: 'eventTypeHierarchyJoined.suggest',
+    },
+    eventHierarchyLevels: {
+      type: 'numeric',
+      field: 'event.eventHierarchyLevels',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
+    gadmGid: {
+      type: 'keyword',
+      field: 'event.gadm.gids',
     },
     publishingCountry: {
       type: 'keyword',
@@ -594,6 +633,28 @@ const config = {
       field: 'event.stateProvince.keyword',
       suggestField: 'stateProvince.suggest',
       displayField: 'event.stateProvince.verbatim',
+    },
+    depth: {
+      type: 'numeric',
+      field: 'event.depth',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
+    dwcaExtension: {
+      type: 'keyword',
+      field: 'event.extensions',
+    },
+    elevation: {
+      type: 'numeric',
+      field: 'event.elevation',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
     },
     verbatimDepth: {
       type: 'keyword',
@@ -705,7 +766,7 @@ const config = {
       type: 'keyword',
       field: 'metadata.publishingCountry',
     },
-    metadata_publishingOrganizationKey: {
+    publishingOrganizationKey: {
       type: 'keyword',
       field: 'metadata.publishingOrganizationKey',
     },
@@ -722,7 +783,7 @@ const config = {
             type: 'keyword',
             field: 'gbifClassification.classKey',
           },
-          eventID: {
+          eventId: {
             type: 'keyword',
             field: 'eventID',
           },
@@ -746,7 +807,7 @@ const config = {
             type: 'keyword',
             field: 'gbifClassification.kingdomKey',
           },
-          occurrenceID: {
+          occurrenceId: {
             type: 'keyword',
             field: 'core.occurrenceID',
           },
@@ -813,7 +874,7 @@ const config = {
       type: 'keyword',
       field: 'occurrence.core.class',
     },
-    // eventID: {
+    // eventId: {
     //   type: 'keyword',
     //   field: 'occurrence.core.eventID'
     // },
@@ -833,7 +894,7 @@ const config = {
       type: 'keyword',
       field: 'occurrence.occurrence.core.identificationRemarks',
     },
-    occurrenceID: {
+    occurrenceId: {
       type: 'keyword',
       field: 'occurrence.core.occurrenceID',
     },

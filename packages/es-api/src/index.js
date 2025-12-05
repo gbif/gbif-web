@@ -229,6 +229,7 @@ function searchResource(resource, metaOnly = false) {
         sortOrder,
         eventFiltering,
       } = parseQuery(req, res, next, { get2predicate, get2metric });
+
       const aggs = metric2aggs(metrics);
       const query = await predicate2query(predicate, q);
       const normalizedPredicate = normalizePredicate(predicate);

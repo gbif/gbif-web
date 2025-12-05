@@ -3,7 +3,7 @@ import React from 'react';
 import {
   OccurrenceSearchMetadata,
   PublisherSearchMetadata,
-  SearchMetadata,
+  SearchMetadata
 } from '../contexts/search';
 import { configDefault } from './configDefaults';
 import { Endpoints } from './endpoints';
@@ -125,6 +125,7 @@ export type Config = Endpoints & {
     occurrenceSearch: PartialSearchMetadata;
   };
   occurrenceSearch?: OccurrenceSearchMetadata;
+  eventSearch?: SearchMetadata;
   publisherSearch?: PublisherSearchMetadata;
   publisherKey?: {
     literatureSearch: PartialSearchMetadata;

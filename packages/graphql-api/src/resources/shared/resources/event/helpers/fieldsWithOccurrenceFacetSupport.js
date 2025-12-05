@@ -9,7 +9,7 @@ export default [
   'familyKey',
   'genusKey',
   'speciesKey',
-  'locationID',
+  'locationId',
   'basisOfRecord',
   'occurrenceStatus',
   'recordedById',

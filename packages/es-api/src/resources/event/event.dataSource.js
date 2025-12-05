@@ -23,10 +23,6 @@ const client = new Client({
   maxRetries: env.event.maxRetries || 3,
   requestTimeout: env.event.requestTimeout || 60000,
   agent,
-  auth: {
-    username: env.event.username,
-    password: env.event.password,
-  },
 });
 
 async function query({ query, aggs, size = 20, from = 0, metrics, shuffle, req }) {
@@ -80,7 +76,7 @@ async function query({ query, aggs, size = 20, from = 0, metrics, shuffle, req }
     ];
   }
 
-  // console.log(JSON.stringify(esQuery, null, 2));
+  console.log(JSON.stringify(esQuery, null, 2));
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
   body.hits.hits = body.hits.hits.map((n) => reduce(n));

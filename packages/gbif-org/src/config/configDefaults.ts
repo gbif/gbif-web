@@ -189,6 +189,11 @@ export const configDefault: Partial<Config> = {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'gbifDatasetKey'],
   },
+  eventSearch: {
+    queryType: 'PREDICATE',
+    highlightedFilters: ['eventId', 'year', 'country', 'geometry'],
+    tabs: ['table'],
+  },
   occurrenceSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['occurrenceStatus', 'taxonKey', 'year', 'country', 'issue', 'geometry'],

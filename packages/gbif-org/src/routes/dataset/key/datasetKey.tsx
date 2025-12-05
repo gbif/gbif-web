@@ -388,7 +388,11 @@ export function DatasetPage() {
       //   ),
       // });
     }
-    if (config.datasetKey?.showEvents && withEventId > 0) {
+    if (
+      (config.datasetKey?.showEvents && withEventId > 0) ||
+      (dataset.type === 'SAMPLING_EVENT' &&
+        import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled')
+    ) {
       tabsToDisplay.push({
         to: 'events',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
