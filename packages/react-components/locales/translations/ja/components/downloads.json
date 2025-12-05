@@ -1,6 +1,6 @@
 {
   "derivedDatasetKey": {
-    "nRecordsAtTime": "このデータセットからは{NUMBER_FORMATTED} {NUMBER, plural, one{レコード} other{レコード}} ",
+    "nRecordsAtTime": "",
     "derivedDataset": "得られたデータセット",
     "sourceUrl": "得られたデータセットにアクセスする",
     "headlineDatasets": "得られたデータセットから{NUMBER_FORMATED} {NUMBER, plural, one{データセット} other{データセット}} のレコード数",
