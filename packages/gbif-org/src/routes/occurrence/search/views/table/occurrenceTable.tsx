@@ -9,7 +9,6 @@ import {
   useRowLink,
 } from '@/components/searchTable';
 import { SearchTableServerFallback } from '@/components/searchTable/table';
-import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
@@ -25,13 +24,15 @@ import { useI18n } from '@/reactRouterPlugins';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
+import { useToast } from '@/components/ui/use-toast';
+
+const MAX_RESULTS = 5000;
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch(
@@ -103,6 +104,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           recordNumber
           individualCount
           typeStatus
+          occurrenceStatus
           preparations
           institutionCode
           institutionKey
@@ -116,6 +118,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
             code
             name
           }
+          organismID
           locality
           higherGeography
           stateProvince
@@ -185,11 +188,26 @@ export function OccurrenceTableClient() {
     'occurrenceSort',
     { sortBy: undefined, sortOrder: SortOrder.Asc }
   );
+  const { translatedToast } = useToast();
   const { sortBy: occurrenceSortBy, sortOrder: occurrenceSortOrder } = occurrenceSort;
   const { locale } = useI18n();
   const searchContext = useSearchContext();
-  const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
+  const [paginationState, setPaginationState] = usePaginationState({
+    pageSize: 50,
+    maxResults: MAX_RESULTS,
+  });
   const filterContext = useContext(FilterContext);
+
+  if (
+    paginationState.pageIndex * paginationState.pageSize + paginationState.pageSize >
+    MAX_RESULTS
+  ) {
+    translatedToast({
+      titleKey: 'error.maximumResultLimitExceeded',
+      variant: 'destructive',
+      titleValues: { MAX_RESULTS },
+    });
+  }
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -296,24 +314,4 @@ export function OccurrenceTableClient() {
       />
     </>
   );
-}
-
-function PartialDataWarning({
-  customMessageKey,
-  customDescriptionKey,
-}: {
-  customMessageKey?: string;
-  customDescriptionKey?: string;
-}) {
-  const { toast } = useToast();
-  useEffect(() => {
-    toast({
-      title: <FormattedMessage id={customMessageKey ?? 'Not all data could be loaded'} />,
-      description: customDescriptionKey ? (
-        <FormattedMessage id={customDescriptionKey} />
-      ) : undefined,
-      variant: 'destructive',
-    });
-  }, [customMessageKey, customDescriptionKey, toast]);
-  return null;
 }

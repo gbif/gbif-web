@@ -62,7 +62,7 @@ function rangeOrEqualLabel(
         <FormattedMessage
           id="intervals.description.lt"
           defaultMessage={`< ${formatValue(value?.value, intl)}`}
-          values={{ from: formatValue(value.value, intl) }}
+          values={{ to: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'greaterThan') {
@@ -70,7 +70,7 @@ function rangeOrEqualLabel(
         <FormattedMessage
           id="intervals.description.gt"
           defaultMessage={`> ${formatValue(value?.value, intl)}`}
-          values={{ to: formatValue(value.value, intl) }}
+          values={{ from: formatValue(value.value, intl) }}
         />
       );
     } else {
@@ -414,6 +414,10 @@ export const NetworkLabel = getGraphQlLabel({
 });
 export const InstallationLabel = getGraphQlLabel({
   query: `query($key:ID!) {item:installation(key: $key) {title}}`,
+});
+export const TaxonKeyLabel = getGraphQlLabel({
+  query: `query($key:ID!) {item:taxon(key: $key) {scientificName}}`,
+  transform: (response) => ({ title: response?.data?.item?.scientificName }),
 });
 
 export function prettifyEnum(text: string) {

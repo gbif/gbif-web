@@ -17,7 +17,7 @@ export function usePaginationState({
   maxResults = 2500,
 }: { pageSize?: number; maxResults?: number } = {}): [PaginationState, SetPaginationState] {
   const [from, setFrom] = useIntParam({
-    key: 'from',
+    key: 'offset',
     hideDefault: true,
     defaultValue: 0,
   });

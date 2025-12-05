@@ -16,7 +16,17 @@ export function ResourceSearchTabs({ activeTab, defaultTab }: Props): React.Reac
 
   const filterIsActive = (filterHandle: string) =>
     filter?.must?.[filterHandle] || filter?.mustNot?.[filterHandle];
-  const activeFilters = allFilters.filter(filterIsActive);
+  // Exclude eventFiltering from activeFilters so it doesn't affect tab visibility
+  const activeFilters = allFilters.filter(filterIsActive).filter((f) => f !== 'eventFiltering');
+
+  const getTabParams = (tab: string) => {
+    const params = getParams(tab, defaultTab);
+    // Remove eventFiltering when switching to a tab that doesn't support it
+    if (tab !== 'event') {
+      params.delete('eventFiltering');
+    }
+    return params;
+  };
 
   return (
     <Tabs
@@ -30,7 +40,7 @@ export function ResourceSearchTabs({ activeTab, defaultTab }: Props): React.Reac
         )
         .map((tab) => ({
           isActive: activeTab === tab,
-          to: { search: getParams(tab, defaultTab).toString() },
+          to: { search: getTabParams(tab).toString() },
           children: <FormattedMessage id={tabsConfig[tab].tabKey} defaultMessage={tab} />,
         }))}
     />

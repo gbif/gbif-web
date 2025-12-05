@@ -762,6 +762,13 @@ const config = {
         checklistKey: DEFAULT_CHECKLIST_KEY,
       },
     },
+    acceptedTaxonKey: {
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.acceptedUsage.key',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
+      },
+    },
     identifiedByIdType: {
       type: 'keyword',
       field: 'identifiedByIds.type',

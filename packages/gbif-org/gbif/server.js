@@ -105,6 +105,32 @@ async function main() {
   registerSitemaps(app);
   registerRobots(app);
 
+  // add middleware to add referer as a short lived cookie (5 minutes)
+  app.use('*/download/request', (req, res, next) => {
+    // if there is a source query param, then use that as a fallback referer
+    const referer = req.get('Referer');
+    let source = req.query.source;
+    if (referer && referer !== '') {
+      try {
+        // get domain from referer
+        const refererUrl = new URL(referer);
+        const refererDomain = refererUrl.hostname;
+        source = refererDomain;
+      } catch (e) {
+        // do nothing
+      }
+    }
+
+    if (source && source !== '') {
+      res.cookie('refererSource', source, {
+        maxAge: 5 * 60 * 1000,
+        httpOnly: false,
+        secure: false,
+      });
+    }
+    next();
+  });
+
   // Handle server-side rendering.
   app.use('*', async (req, res) => {
     const url = req.originalUrl;

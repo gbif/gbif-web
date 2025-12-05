@@ -101,11 +101,12 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
         });
       }
 
-      let includePattern = queryString
+      const includePattern = queryString
         .replace(/\*/g, '.*')
         .replace(/\?/, '.')
         .replace(/([?+|{}[\]()"\\])/g, (_, p1) => '\\' + p1);
-      if (!keepCase) includePattern = includePattern.toLowerCase();
+      // removed as all search has been made case sensitive in the backend https://github.com/gbif/gbif-web/issues/1196 - there is no longer support for insensitive matching unfortunately
+      // if (!keepCase) includePattern = includePattern.toLowerCase();
 
       // if there is no predicates, then predicate is undefined.
       // if it has length === 1, then just use that
@@ -145,6 +146,9 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
     const loadMore = useCallback(() => {
       setSize(size + 50);
     }, [size]);
+
+    const loadingMore =
+      loading && data?.search.facet?.field != null && data.search.facet.field.length < size;
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -391,6 +395,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
             <AsyncOptions
               className="g-p-2 g-pt-0 g-px-4"
               loading={loading || !facetSuggestions}
+              loadingMore={loadingMore}
               error={error}
             >
               {facetSuggestions && facetSuggestions.length > 0 && (

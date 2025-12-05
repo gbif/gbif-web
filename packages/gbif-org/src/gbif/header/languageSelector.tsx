@@ -1,9 +1,9 @@
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
@@ -13,6 +13,8 @@ import { MdCheck, MdTranslate } from 'react-icons/md';
 export function LanguageSelector({ trigger = <MdTranslate /> }): React.ReactElement {
   const { locale, setLocale } = useI18n();
   const { languages } = useConfig();
+
+  const primaryTranslations = ['en', 'ar', 'zh', 'fr', 'ru', 'es'];
 
   return (
     <DropdownMenu modal={false}>
@@ -32,12 +34,23 @@ export function LanguageSelector({ trigger = <MdTranslate /> }): React.ReactElem
         </div>
         <div className="g-mt-4">
           <DropdownMenuSeparator />
-          {languages.map((language) => (
-            <DropdownMenuItem key={language.code} onClick={() => setLocale(language.code)}>
-              <span className="g-w-5">{locale.code === language.code && <MdCheck />}</span>
-              {language.label}
-            </DropdownMenuItem>
-          ))}
+          {languages
+            .filter((language) => primaryTranslations.includes(language.code))
+            .map((language) => (
+              <DropdownMenuItem key={language.code} onClick={() => setLocale(language.code)}>
+                <span className="g-w-5">{locale.code === language.code && <MdCheck />}</span>
+                {language.label}
+              </DropdownMenuItem>
+            ))}
+          <DropdownMenuSeparator />
+          {languages
+            .filter((language) => !primaryTranslations.includes(language.code))
+            .map((language) => (
+              <DropdownMenuItem key={language.code} onClick={() => setLocale(language.code)}>
+                <span className="g-w-5">{locale.code === language.code && <MdCheck />}</span>
+                {language.label}
+              </DropdownMenuItem>
+            ))}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -13,4 +13,8 @@
   .gbif-classification-unknown {
     opacity: 0.5;
   }
+
+  .gbifHl {
+    font-weight: bold;
+  }
 }

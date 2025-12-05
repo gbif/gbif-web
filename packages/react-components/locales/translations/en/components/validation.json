@@ -1,5 +1,8 @@
 {
+  "checkboxRequired": "Please tick this box",
+  "required": "Please fill in this field",
   "invalidEmail": "Please provide a valid email",
+  "invalidURL": "Please provide a valid URL",
   "invalidWebsiteAddress": "Please provide a valid website address",
   "pleaseSelectAValue": "Please select a value"
 }

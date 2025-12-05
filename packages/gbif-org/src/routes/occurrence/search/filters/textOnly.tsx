@@ -113,6 +113,8 @@ export const occurrenceIdConfig: filterSuggestConfig = {
   filterHandle: 'occurrenceId',
   displayName: IdentityLabel,
   filterTranslation: 'filters.occurrenceId.name',
+  allowNegations: true,
+  allowExistence: true,
   about: () => <Message id="filters.occurrenceId.description" />,
   group: 'occurrence',
 };
@@ -224,6 +226,7 @@ export const gbifIdConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.gbifId.name',
   allowExistence: false,
+  allowNegations: true,
   about: () => <Message id="filters.gbifId.description" />,
   group: 'other',
 };

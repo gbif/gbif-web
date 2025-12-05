@@ -14,6 +14,7 @@ import { Hostname } from './headerComponents';
 import { IIIFLogoIcon } from './icons/icons';
 import { Skeleton } from './ui/skeleton';
 export { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
+export { PiTreeViewBold as TaxonomyIcon } from 'react-icons/pi';
 export {
   MdOutlineScreenSearchDesktop as CatalogIcon,
   MdFormatQuote as CitationIcon,

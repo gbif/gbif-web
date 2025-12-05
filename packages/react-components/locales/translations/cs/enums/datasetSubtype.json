@@ -1,6 +1,10 @@
 {
   "TAXONOMIC_AUTHORITY": "Taxonomická autorita",
   "NOMENCLATOR_AUTHORITY": "Nomenklaturní autorita",
+  "INVENTORY_THEMATIC": "Tematický inventář",
+  "INVENTORY_REGIONAL": "Regionální evidence",
+  "GLOBAL_SPECIES_DATASET": "Globální datová sada druhů",
+  "DERIVED_FROM_OCCURRENCE": "Odvozeno z výskytu",
   "SPECIMEN": "Vzorek",
   "OBSERVATION": "Pozorování"
 }

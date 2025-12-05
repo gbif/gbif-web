@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
+  "downloadReport": {
+    "title": "تنزيل التقرير",
+    "knownIssues": "مشاكل معروفة",
+    "knownIssuesDescription": "جزء من معالجة المعلومات في \"جيبف\" هو اظهار التكرارات التي تحتوي على حقول مشكوك فيها",
+    "FossilsIncluded": "مستحاثات",
+    "FossilsIncludedDescription": "هناك مستحاثات ضمن نتائجك. هذا قد يعني تكرارات الأنواع في مواقع غير متوقعة",
+    "livingSpecimensIncluded": "عينات حية",
+    "livingSpecimensIncludedDescription": "يتضمن بحثك عينات حية مثل التكرارات في الحدائق النباتية والحيوانية.",
+    "yearRange": "نطاق السنة",
+    "total": "الإجمالي",
+    "license": "الرخصة",
+    "withTaxonMatch": "مع وحدة تصنيفية مماثلة",
+    "withCoordinates": "مع إحداثيات",
+    "withYear": "مع سنة",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} مضفوط للتنزيل",
+    "freeOfCost": "بدون تكلفة - ليست خالية من المسؤوليات ",
+    "cancel": "إلغاء",
+    "proceed": "تقدّم",
+    "understood": "مفهوم",
+    "largeDownload": "تنزيل كبير الحجم",
+    "requestingFullDownload": "أنت تطلب تنزيل كامل بيانات التكرارت الموجودة في \"جيبف\".",
+    "occFiltersExplainedHere": "هذا ممكن، لكن قد ترغب في ترشيح البيانات قبل تنزيلها. يمكن القيام بذلك باستخدام مرشحات التكرار الخاصة في الموقع. يتم توضيح ذلك هنا [here] (/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "الحجم التقديري للتحميل هو {SIZE_FORMATTED}",
+    "estDLtimes": "عدد مرات التنزيل المقدرة:",
+    "nMbitConn": "اتصال {NUMBER} ميغا بايت",
+    "onceDownloaded": "بمجرد تنزيل الملف، سوف تحتاج إلى مساحة فارغة {SIZE_FORMATTED} أخرى على القرص لفك ضغط البيانات.",
+    "datasetHasNumRows": "تحتوي مجموعة البيانات على {NUMBER_FORMATTED} صفوف بيانات.",
+    "youWillNotBeAble": "لن تتمكن من عرض أو تحليل البيانات في تطبيق Excel أو التطبيقات المشابهة. للعمل مع هذه البيانات، ستحتاج إلى معرفة تطبيقات أخرى على سبيل المثال قواعد بيانات R أو Python أو Relational.",
+    "difficultToAnalyse": "يصعب تحليل مجموعة البيانات بهذا الحجم على جهاز الحاسوب الشخصي العادي. ربما ستحتاج إستعمال نوع من خدمات الحوسبة التوزيعية.",
+    "hours": "ساعات",
+    "minute": "دقيقة",
+    "minutes": "دقائق"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "رجوع",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "التساويات { is }",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "اللاحقات",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "صيغة",
+    "csvDelimiter": "",
+    "taxonomy": "التصنيف",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "يصعب تحليل مجموعة البيانات بهذا الحجم على جهاز الحاسوب الشخصي العادي. ربما ستحتاج إستعمال نوع من خدمات الحوسبة التوزيعية.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "التساويات { is }",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "صيغة",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "ارشيف داروين الاساسي",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "قائمة الأنواع",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "",
     "title": "",
     "notification": "",
@@ -265,6 +400,7 @@
         "250": "",
         "1000": "",
         "10000": "",
+        "50000": "",
         "100000": ""
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
         "1": "",
         "2": "",
         "3": "",
@@ -307,7 +442,8 @@
         "10": "",
         "100": "",
         "1000": "",
-        "10000": ""
+        "10000": "",
+        "100000": ""
       }
     },
     "noneSelected": "",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
+    "dataQuality": "جودة البيانات",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",

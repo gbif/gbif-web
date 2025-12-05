@@ -4,6 +4,7 @@ import { OccurrenceQuery } from '@/gql/graphql';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Group } from './groups';
+import { Img } from '@/components/Img';
 
 export function Preparation({
   occurrence,
@@ -400,7 +401,7 @@ export function GelImage({
         overwrites: {
           identifier: ({ item }) => (
             <div>
-              <img src={item['identifier']} />
+              <Img src={item['identifier']} failedClassName="g-h-36 g-bg-slate-200" />
               <div>{item['identifier']}</div>
             </div>
           ),

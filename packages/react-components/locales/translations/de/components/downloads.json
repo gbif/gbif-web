@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
+  "downloadReport": {
+    "title": "",
+    "knownIssues": "Bekannte Probleme",
+    "knownIssuesDescription": "Ein Teil der GBIF-Verarbeitung ist die Markierung von Vorkommnissen mit verdächtigen Feldern",
+    "FossilsIncluded": "Fossilien",
+    "FossilsIncludedDescription": "Es gibt Fossilien unter Ihren Ergebnissen. Dies kann bedeuten, dass Arten an unerwarteten Orten vorkommen",
+    "livingSpecimensIncluded": "Lebende Exemplare",
+    "livingSpecimensIncludedDescription": "Ihre Suche umfasst lebende Exemplare sowie Vorkommen in botanischen und zoologischen Gärten.",
+    "yearRange": "Jahreszeitraum",
+    "total": "Gesamt",
+    "license": "",
+    "withTaxonMatch": "Mit passendem Taxon",
+    "withCoordinates": "Mit Koordinaten",
+    "withYear": "Mit Jahr",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} zum Download gezippt",
+    "freeOfCost": "Kostenlos – nicht frei von Verantwortlichkeiten",
+    "cancel": "Gehe zurück und fügen Sie weitere Filter hinzu",
+    "proceed": "Fortfahren – Ich kann ein passendes Werkzeug verwenden",
+    "understood": "Verstanden",
+    "largeDownload": "Großer Download",
+    "requestingFullDownload": "Sie fordern einen vollständigen Download aller Vorkommens-Daten in GBIF an.",
+    "occFiltersExplainedHere": "Dies ist möglich, aber Sie möchten eventuell die Daten vor dem Download filtern. Dies kann mit unseren Vorkommnis-Filtern geschehen. Diese werden [hier] erklärt (/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "Die geschätzte Größe des Downloads beträgt {SIZE_FORMATTED}. Bei einer Internetverbindung mit {CONNECTION_SPEED} Mb/s würde der Dowload etwa {DOWNLOAD_TIME_FORMATTED} {DOWNLOAD_TIME, plural, one{Stunde} other{Stunden}} dauern.",
+    "estDLtimes": "Geschätzte Downloadzeiten:",
+    "nMbitConn": "{NUMBER} Mbit Verbindung",
+    "onceDownloaded": "",
+    "datasetHasNumRows": "",
+    "youWillNotBeAble": "",
+    "difficultToAnalyse": "",
+    "hours": "",
+    "minute": "",
+    "minutes": ""
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Zurück",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "Gleich {is}",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "",
+    "csvDelimiter": "",
+    "taxonomy": "",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "Gleich {is}",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "",
     "title": "",
     "notification": "",
@@ -265,6 +400,7 @@
         "250": "",
         "1000": "",
         "10000": "",
+        "50000": "",
         "100000": ""
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
         "1": "",
         "2": "",
         "3": "",
@@ -307,7 +442,8 @@
         "10": "",
         "100": "",
         "1000": "",
-        "10000": ""
+        "10000": "",
+        "100000": ""
       }
     },
     "noneSelected": "",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
+    "dataQuality": "",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",

@@ -1,14 +1,14 @@
 /* eslint-disable no-param-reassign */
 import _ from 'lodash';
 import md5 from 'md5';
-import interpretationRemark from '#/helpers/enums/interpretationRemark';
-import getFeedbackOptions from '#/helpers/feedback';
-import getGlobe from '#/helpers/globe';
+import interpretationRemark from '@/helpers/enums/interpretationRemark';
+import getFeedbackOptions from '@/helpers/feedback';
+import getGlobe from '@/helpers/globe';
 import {
   formattedCoordinates,
   getFirstIIIFImage,
   simplifyUrlObjectKeys,
-} from '#/helpers/utils';
+} from '@/helpers/utils';
 import config from '../../../config';
 import {
   getAutoDateHistogram,
@@ -43,9 +43,41 @@ export const getSourceSearch = (dataSources) => (args) =>
     args,
   );
 
+function createPredicateOverwrite({ field, checklistKey, bucket }) {
+  /*
+    custom rule for overwriting field names in the constructed predicate for sub queries
+    when continuin to occurrence search for taxon keys, we should always use the taxonKey field not the field e.g. usageKey or familyKey
+  */
+  const replaceWithTaxonKey = [
+    'acceptedUsageKey',
+    'acceptedTaxonKey',
+    'usageKey',
+    'genusKey',
+    'speciesKey',
+    'familyKey',
+    'orderKey',
+    'classKey',
+    'phylumKey',
+    'kingdomKey',
+  ];
+  const fieldForPredicate = replaceWithTaxonKey.includes(field)
+    ? 'taxonKey'
+    : field;
+  return {
+    type: 'equals',
+    key: fieldForPredicate,
+    value: bucket.key,
+    checklistKey,
+  };
+}
+
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
-  dictionary[facetName] = getFacet(facetName, getSourceSearch);
+  dictionary[facetName] = getFacet(
+    facetName,
+    getSourceSearch,
+    createPredicateOverwrite,
+  );
   return dictionary;
 };
 const OccurrenceFacet = facetFields.reduce(facetReducer, {});
@@ -384,7 +416,7 @@ export default {
     bionomia: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI.getBionomia({ occurrence });
     },
-    localContext: (occurrence, _args, { dataSources }) => {
+    localContexts: (occurrence, _args, { dataSources }) => {
       // this is a special field that is used to provide the local context for the occurrence
       // it is used to provide the local context for the occurrence in the UI
       // it is not used in the API, but it is used in the UI to provide the local context for the occurrence

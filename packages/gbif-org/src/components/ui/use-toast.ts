@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import type { ToastActionElement, ToastProps } from '@/components/ui/toast';
+import { useIntl } from 'react-intl';
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
@@ -167,6 +168,7 @@ function toast({ ...props }: Toast) {
 
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState);
+  const intl = useIntl();
 
   React.useEffect(() => {
     listeners.push(setState);
@@ -178,9 +180,33 @@ function useToast() {
     };
   }, [state]);
 
+  const translatedToast = React.useCallback(
+    ({
+      titleKey,
+      descriptionKey,
+      titleValues,
+      descriptionValues,
+      variant,
+    }: {
+      titleKey: string;
+      descriptionKey?: string;
+      titleValues?: { [key: string]: React.ReactNode };
+      descriptionValues?: { [key: string]: React.ReactNode };
+      variant?: Toast['variant'];
+    }) => {
+      const title = intl.formatMessage({ id: titleKey }, titleValues);
+      const description = descriptionKey
+        ? intl.formatMessage({ id: descriptionKey }, descriptionValues)
+        : undefined;
+      toast({ title, description, variant });
+    },
+    [intl]
+  );
+
   return {
     ...state,
     toast,
+    translatedToast,
     dismiss: (toastId?: string) => dispatch({ type: 'DISMISS_TOAST', toastId }),
   };
 }

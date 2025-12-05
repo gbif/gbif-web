@@ -1,0 +1,10 @@
+{
+  "successMessage": "发布者管理的ID",
+  "description": "描述",
+  "descriptionLabel": "描述",
+  "typeOfApplication": "类型",
+  "domain": "域",
+  "personName": "名字",
+  "email": "电子邮件",
+  "participantLabel": "成员"
+}

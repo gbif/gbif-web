@@ -1,16 +1,11 @@
-
 const { severity, testRunner, componentRunner } = require('./helpers');
 const config = require('../config');
 
 const website = testRunner({
-  endpoint: `${config.WEBSITE}/occurrence/search?cachebust={{NOW}}`,
-  expect: response => response
-    .hasStatusCode(200)
-    .hasMaxResponseTime(40000)
+  endpoint: `${config.WEBSITE}/favicon.ico?cachebust={{NOW}}`,
+  expect: (response) => response.hasStatusCode(200).hasMaxResponseTime(40000),
 });
 
-const tests = [
-  website
-];
+const tests = [website];
 
-module.exports = componentRunner(tests)
+module.exports = componentRunner(tests);

@@ -5,14 +5,14 @@
       "disconnect": "Disconnect",
       "failed": {
         "FACEBOOK": "Unable to connect to Facebook",
-        "GITHUB": "Unable to connect to Github",
+        "GITHUB": "Unable to connect to GitHub",
         "GOOGLE": "Unable to connect with Google"
       }
     },
     "login": {
       "failed": {
         "FACEBOOK": "Unable to login with Facebook",
-        "GITHUB": "Unable to login with Github",
+        "GITHUB": "Unable to login with GitHub",
         "GOOGLE": "Unable to login with Google"
       }
     },
@@ -158,7 +158,7 @@
     "connectGoogleForSignIn": "Connect your Google account for easy sign-in",
     "connectedToGithub": "Connected to your GitHub account",
     "connectedToGithubUser": "Connected to {username}",
-    "connectGithubForSignIn": "Connect your GitHub account for easy sign-in. Github is also where we manage our issue reports, so it helps us keep in contact with you.",
+    "connectGithubForSignIn": "Connect your GitHub account for easy sign-in. GitHub is also where we manage our issue reports, so it helps us keep in contact with you.",
     "connectedToOrcid": "Connected to your ORCID account",
     "connectedToOrcidId": "Connected to ORCID {orcidId}",
     "connectOrcidForResearch": "Connect your ORCID for easy login and to link you to records published to GBIF."

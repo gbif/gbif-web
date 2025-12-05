@@ -1,23 +1,18 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { DynamicLinkProps, useDynamicNavigate } from '@/reactRouterPlugins/dynamicLink';
-import { interopDefault } from '@/utils/interopDefault';
 import { cn } from '@/utils/shadcn';
 import React, { useEffect, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useLoaderData } from 'react-router-dom';
-import _useLocalStorage from 'use-local-storage';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
 import { usePartialDataNotification } from '../rootErrorPage';
 import { HomePageCounts } from './counts';
-// Used to import commonjs module as es6 module
-const useLocalStorage = interopDefault(_useLocalStorage);
 
 const HOMEPAGE_QUERY = /* GraphQL */ `
   query HomePage {

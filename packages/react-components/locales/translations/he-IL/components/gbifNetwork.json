@@ -1,7 +1,7 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
+      "VOTING": "קוד אתי",
       "ASSOCIATE": "",
       "OTHER_ASSOCIATE": "",
       "FORMER": "משתתף לשעבר",
@@ -9,16 +9,16 @@
       "UNKNOWN": "",
       "AFFILIATE": "שותף GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "קוד אתי",
+    "mapCaptionPublishers": "קוד אתי",
     "role": "תפקיד",
     "name": "שם",
     "participant": "משתתף",
     "type": "סוג",
     "memberSince": "חבר מאז",
     "all": "הכל",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "קוד אתי",
+    "publishersPerCountry": "קוד אתי",
     "clear": "נקה",
     "headlines": {
       "nodesSteeringGroup": "קבוצת ההיגוי של הצמתים",

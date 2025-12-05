@@ -1,0 +1,43 @@
+{
+  "feedback": {
+    "title": "",
+    "contactGbif": "",
+    "contactDataProvider": "",
+    "contactUsDescription": "",
+    "contactDataProviderDescription": "",
+    "seeAlsoFaq": "",
+    "faq": "FAQ",
+    "pleaseLogin": "",
+    "pleaseLoginReason": "",
+    "sendEmailTo": "",
+    "emailHelpdesk": "",
+    "summary": "Résumé",
+    "description": "Description",
+    "required": "",
+    "csvWarning": "",
+    "csvFaqEntry": "",
+    "sendFeedback": "",
+    "sending": "",
+    "publicRepo": "",
+    "helpDeskOption": "",
+    "helpdesk": "",
+    "communications": "",
+    "confirmation": {
+      "title": "Merci",
+      "description": "",
+      "seeIssue": "Voir question",
+      "createAnother": ""
+    },
+    "failure": {
+      "title": "",
+      "description": "",
+      "tryAgain": ""
+    },
+    "orWriteMailTo": "",
+    "leaveIssueOnGithub": "",
+    "login": "Connexion",
+    "requiresGithubAccount": "",
+    "sendUsAnEmail": "",
+    "forPrivateEnquiries": ""
+  }
+}

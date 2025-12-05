@@ -25,6 +25,7 @@
   "updateFilter": "Actualizar filtro",
   "setFilter": "Establecer como filtro",
   "noMathcingFilters": "Está documentado",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "Nombre antes de la normalización",
   "commonName": "Nombre común",
   "acceptedNameOf": "Nombre aceptado para",
@@ -60,5 +61,7 @@
     "orderChanged": "El orden de las coordenadas se invirtió ya que no era en sentido antihorario.",
     "geometryReducedToBbox": "Geometría reducida a cuadro delimitador",
     "failedToSimplify": "No se pudo simplificar la geometría"
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }

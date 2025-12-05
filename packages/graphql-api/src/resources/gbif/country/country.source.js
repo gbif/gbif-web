@@ -1,4 +1,4 @@
-import { getDefaultAgent } from '#/requestAgents';
+import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 class CollectionAPI extends RESTDataSource {

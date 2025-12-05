@@ -8,7 +8,7 @@ sauce:
   sauceignore: .sauceignore
 cypress:
   configFile: cypress.config.ts
-  version: 13.13.1
+  version: 15.5.0
   record: false
   key: ''
   reporters: []

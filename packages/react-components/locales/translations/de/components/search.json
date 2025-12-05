@@ -36,8 +36,8 @@
   "loadMore": "Mehr",
   "loading": "",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "DWCA-Erweiterung",
+  "rankInGroup": "DWCA-Erweiterung",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Suche",
-    "description": "",
+    "description": "DWCA-Erweiterung",
     "noSearchTermsEntered": "Keine Suchbegriffe eingegeben",
-    "placeholder": "",
+    "placeholder": "DWCA-Erweiterung",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "Datensätze",
       "publisherSearch": "Herausgeber",
       "occurrenceSearch": "",
-      "resourceSearch": ""
+      "resourceSearch": "DWCA-Erweiterung"
     },
     "seeAll": "Alle ansehen"
   }

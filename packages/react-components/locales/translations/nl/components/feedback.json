@@ -1,0 +1,43 @@
+{
+  "feedback": {
+    "title": "",
+    "contactGbif": "",
+    "contactDataProvider": "",
+    "contactUsDescription": "",
+    "contactDataProviderDescription": "",
+    "seeAlsoFaq": "",
+    "faq": "VEELGESTELDE VRAGEN",
+    "pleaseLogin": "",
+    "pleaseLoginReason": "",
+    "sendEmailTo": "",
+    "emailHelpdesk": "",
+    "summary": "Samenvatting",
+    "description": "Beschrijving",
+    "required": "",
+    "csvWarning": "",
+    "csvFaqEntry": "",
+    "sendFeedback": "",
+    "sending": "",
+    "publicRepo": "",
+    "helpDeskOption": "",
+    "helpdesk": "",
+    "communications": "",
+    "confirmation": {
+      "title": "Bedankt",
+      "description": "",
+      "seeIssue": "",
+      "createAnother": ""
+    },
+    "failure": {
+      "title": "",
+      "description": "",
+      "tryAgain": ""
+    },
+    "orWriteMailTo": "",
+    "leaveIssueOnGithub": "",
+    "login": "Inloggen",
+    "requiresGithubAccount": "",
+    "sendUsAnEmail": "",
+    "forPrivateEnquiries": ""
+  }
+}

@@ -100,6 +100,12 @@ const preconfiguredCharts = {
       return <charts.Synonyms predicate={predicate} interactive {...props} />;
     },
   },
+  organismId: {
+    translation: 'dashboard.organismId',
+    component: ({ predicate, ...props }) => {
+      return <charts.OrganismId predicate={predicate} interactive {...props} />;
+    },
+  },
   iucnCounts: {
     translation: 'filters.iucnRedListCategory.name',
     component: ({ predicate, ...props }) => {
@@ -269,6 +275,12 @@ const preconfiguredCharts = {
       return <charts.OccurrenceSummary predicate={predicate} {...props} />;
     },
   },
+  TaxonomicBreakdown: {
+    translation: 'dashboard.taxonomicBreakdown',
+    component: ({ predicate, ...props }) => {
+      return <charts.OccurrenceTaxonomySunburst predicate={predicate} {...props} />;
+    },
+  },
   collectionKey: {
     translation: 'filters.collectionKey.name',
     component: ({ predicate, ...props }) => {
@@ -307,8 +319,9 @@ const preconfiguredCharts = {
         <Card className="g-overflow-y-auto g-h-full g-p-2 g-overflow-x-hidden">
           <Map
             className=""
-            mapProps={{
-              style: { border: 0, borderRadius: '0 0 var(--borderRadiusPx) var(--borderRadiusPx)' },
+            mapStyleAttr={{
+              border: 0,
+              borderRadius: '0 0 var(--borderRadiusPx) var(--borderRadiusPx)',
             }}
             {...props}
           />

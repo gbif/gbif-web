@@ -19,7 +19,7 @@ import { searchConfig } from './searchConfig';
 import { Table } from './views/table';
 import { TaxonTree } from './views/tree';
 
-export function TaxonSearchPage(): React.ReactElement {
+export function TaxonSearchPage({ datasetKey }: { datasetKey?: string }): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset', 'from'],
@@ -38,16 +38,16 @@ export function TaxonSearchPage(): React.ReactElement {
 
       <SearchContextProvider searchContext={config.taxonSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
-          <TaxonSearchPageInner />
+          <TaxonSearchPageInner datasetKey={datasetKey} />
         </FilterProvider>
       </SearchContextProvider>
     </>
   );
 }
 
-export function TaxonSearchPageInner(): React.ReactElement {
+export function TaxonSearchPageInner({ datasetKey }: { datasetKey?: string }): React.ReactElement {
   const searchContext = useSearchContext();
-  const { filters } = useFilters({ searchConfig });
+  const { filters } = useFilters({ searchConfig, datasetKey });
   const defaultView = searchContext?.tabs?.[0] ?? 'table';
   const [view, setView] = useStringParam({
     key: 'view',

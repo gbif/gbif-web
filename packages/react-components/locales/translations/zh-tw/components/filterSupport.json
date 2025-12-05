@@ -25,6 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "必須定義",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "",
   "commonName": "俗名",
   "acceptedNameOf": "有效名稱",
@@ -60,5 +61,7 @@
     "orderChanged": "",
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }

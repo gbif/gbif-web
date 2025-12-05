@@ -14,6 +14,10 @@
   @apply g-underline g-underline-offset-1;
 }
 
+.coloredLinks a {
+  @apply g-text-[rgb(var(--linkColor))] hover:g-text-[rgb(var(--linkColorHover))];
+}
+
 .gb-button {
   @apply g-inline-flex g-items-center g-justify-center g-rounded-md g-text-sm g-font-medium g-transition-colors focus-visible:g-outline-none focus-visible:g-ring-1 focus-visible:g-ring-ring disabled:g-pointer-events-none disabled:g-opacity-50;
 }
@@ -651,6 +655,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   @apply [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300;
 }
 
+.gbif-no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gbif-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .gbif-table-style {
   @apply g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400;
   thead {
@@ -740,6 +753,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     margin-right: 10px;
     z-index: 2;
     position: relative;
+    border-radius: 3px;
   }
   .node-value {
     span {
@@ -957,4 +971,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   font-size: 12px;
   padding: 2px 4px;
   z-index: 1000;
+}
+
+.gbifHl {
+  font-weight: bold !important;
+  color: #000;
 }

@@ -27,7 +27,6 @@
   "marineDataPublishers": "",
   "suggested": "",
   "orSelectAnotherAssOrg": "",
-  "clickToSelect": "",
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
@@ -63,7 +62,6 @@
   "invalidUrl": "",
   "brieflyDescribeScope": "",
   "clear": "",
-  "selectParticipant": "",
   "clickMapToAddOrg": "",
   "description": "",
   "gbifProjects": "",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

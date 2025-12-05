@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getExcerpt, getOGImage } from '#/helpers/utils';
+import { getExcerpt, getOGImage } from '@/helpers/utils';
 import { getCardinality, getFacet } from '../getQueryMetrics';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
 

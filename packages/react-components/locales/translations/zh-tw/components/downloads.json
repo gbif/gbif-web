@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "URL中的謂詞無效",
     "redirectNotice": "您似乎是從另一個網站被引導到這裡的。 要下載，您需要先登入或註冊。"
   },
+  "downloadReport": {
+    "title": "下載報告",
+    "knownIssues": "已知問題",
+    "knownIssuesDescription": "GBIF 資料處理工作的其中一部分為標記出有可疑欄位的出現紀錄",
+    "FossilsIncluded": "化石",
+    "FossilsIncludedDescription": "你的搜尋結果內容包含化石紀錄。這可能表示物種出現紀錄資料在非預期的地點。",
+    "livingSpecimensIncluded": "活體標本",
+    "livingSpecimensIncludedDescription": "您的搜尋包括活體標本，如在植物園和動物園的出現紀錄資料。",
+    "yearRange": "年份範圍",
+    "total": "總計",
+    "license": "授權",
+    "withTaxonMatch": "有對應的分類群",
+    "withCoordinates": "含座標",
+    "withYear": "含年份",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} 已壓縮供下載",
+    "freeOfCost": "免費—不表示沒有責任",
+    "cancel": "回上一步並增加篩選條件",
+    "proceed": "下一步（我會使用合適的工具）",
+    "understood": "了解",
+    "largeDownload": "大量下載",
+    "requestingFullDownload": "您要求完整下載 GBIF 中的所有出現紀錄資料。",
+    "occFiltersExplainedHere": "若您希望在下載前先篩選資料，可以使用出現紀錄篩選器。[點此](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)看更多解釋",
+    "estSizeIs": "預估下載的容量大小為 {SIZE_FORMATTED}。頻寬為 {CONNECTION_SPEED} Mb/s 時，下載需要約  {DOWNLOAD_TIME_FORMATTED} {DOWNLOAD_TIME, plural, one{小時} other{小時}}。",
+    "estDLtimes": "預估下載時間：",
+    "nMbitConn": "{NUMBER} Mbit 連線頻寬",
+    "onceDownloaded": "當您下載完成後，需要有 {SIZE_FORMATTED} 的磁碟空間來解壓縮資料。",
+    "datasetHasNumRows": "資料集內含 {NUMBER_FORMATTED} 資料列。",
+    "youWillNotBeAble": "您將無法在 Excel 及類似應用程式中查看或分析資料。為了使用這些資料，您需要瞭解 R、Python 或關連式資料庫等工具。",
+    "difficultToAnalyse": "您將無法以 Excel 或相似的應用程式瀏覽或分析此資料；一般的桌上型電腦難以分析此容量的資料集。您可能需要尋求分散式運算服務或所謂的「大數據」工具。",
+    "hours": "小時",
+    "minute": "分鐘",
+    "minutes": "分鐘"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "返回",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "等於 {is}",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "延伸集",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "格式",
+    "csvDelimiter": "",
+    "taxonomy": "分類學",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "您將無法以 Excel 或相似的應用程式瀏覽或分析此資料；一般的桌上型電腦難以分析此容量的資料集。您可能需要尋求分散式運算服務或所謂的「大數據」工具。",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "等於 {is}",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "格式",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "達爾文核心集檔案",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "物種清單 CSV 檔",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "",
     "title": "",
     "notification": "",
@@ -265,6 +400,7 @@
         "250": "",
         "1000": "",
         "10000": "",
+        "50000": "",
         "100000": ""
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
         "1": "",
         "2": "",
         "3": "",
@@ -307,7 +442,8 @@
         "10": "",
         "100": "",
         "1000": "",
-        "10000": ""
+        "10000": "",
+        "100000": ""
       }
     },
     "noneSelected": "",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
+    "dataQuality": "資料品質",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",

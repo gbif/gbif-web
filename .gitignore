@@ -18,6 +18,8 @@ tmp/
 **/.env.**.*
 **/.env.*
 /packages/mcp/elasticsearch/
+**/venv
+**/elasticsearch
 
 # temporary folders
 **/mcp/venv

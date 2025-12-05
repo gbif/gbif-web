@@ -38,6 +38,7 @@
   "preview": "Preview",
   "seeDetails": "See details",
   "readMore": "Read more",
+  "description": "Description",
   "pageNotFoundDescription": "Sorry, the page you visited does not exist.",
   "download": "Download",
   "discard": "Discard",
@@ -69,5 +70,8 @@
   "submit": "Submit",
   "pleaseTryAgainLater": "Please try again later",
   "weWillBeInTouchSoon": "We will be in touch soon",
-  "clickToSelect": "Click to select"
+  "clickToSelect": "Click to select",
+  "all": "All",
+  "clear": "Clear",
+  "search": "Search"
 }

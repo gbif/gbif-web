@@ -1,5 +1,5 @@
-import config from '#/config';
-import { excerpt, getHtml } from '#/helpers/utils';
+import config from '@/config';
+import { excerpt, getHtml } from '@/helpers/utils';
 import dataset from '.';
 import { getFacet } from '../getQueryMetrics';
 import { getDatasetEventCount, getDatasetEvents } from './event';
@@ -194,7 +194,7 @@ export const Dataset = {
   },
   events: getDatasetEvents,
   eventCount: getDatasetEventCount,
-  localContext: ({ machineTags }, args, { dataSources }) => {
+  localContexts: ({ machineTags }, args, { dataSources }) => {
     return dataSources.localContextAPI
       .getDatasetLocalContext({ machineTags })
       .then((lc) => {

@@ -25,6 +25,7 @@
   "updateFilter": "עדכון מסנן",
   "setFilter": "הגדר כמסנן",
   "noMathcingFilters": "לא נמצאו מסננים תואמים",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "שם לפני נרמול",
   "commonName": "שם עממי",
   "acceptedNameOf": "שם תקף עבור",
@@ -60,5 +61,7 @@
     "orderChanged": "סדר הקואורדינטות הוחלף כיוון שלא היה נגד כיוון השעון",
     "geometryReducedToBbox": "הגאומטריה צומצמה לתיבה תוחמת",
     "failedToSimplify": "פישוט הגאומטריה נכשל"
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }

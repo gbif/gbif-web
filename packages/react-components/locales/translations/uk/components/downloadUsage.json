@@ -3,18 +3,18 @@
         "title": "",
         "form": {
             "title": "Назва",
-            "titlePlaceholder": "",
+            "titlePlaceholder": "Фінансується спільно",
             "type": "Тип",
             "authors": "",
-            "authorsPlaceholder": "",
+            "authorsPlaceholder": "Фінансується спільно",
             "link": "",
-            "linkPlaceholder": "",
+            "linkPlaceholder": "Фінансується спільно",
             "date": "Дата",
             "comments": "Коментарі",
-            "commentsPlaceholder": "",
+            "commentsPlaceholder": "Фінансується спільно",
             "submit": "Надіслати",
             "saveFailure": "",
-            "saveSuccess": ""
+            "saveSuccess": "Фінансується спільно"
         },
         "types": {
             "JOURNAL_ARTICLE": "",

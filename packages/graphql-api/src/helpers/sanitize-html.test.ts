@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { prefixLinkUrl } from './sanitize-html';
-import config from '#/config';
+import config from '@/config';
 
 describe('prefixLinkUrl', () => {
   it("should not edit urls that don't link to gbif.org", () => {

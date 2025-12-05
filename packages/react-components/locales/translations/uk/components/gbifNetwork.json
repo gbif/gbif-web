@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Етичні норми",
+      "ASSOCIATE": "Асоційований учасник",
+      "OTHER_ASSOCIATE": "Інший асоційований учасник",
       "FORMER": "Колишній учасник",
       "OBSERVER": "Спостерігач",
-      "UNKNOWN": "",
+      "UNKNOWN": "Невідомо",
       "AFFILIATE": "Філіал GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Етичні норми",
+    "mapCaptionPublishers": "Етичні норми",
     "role": "Роль",
     "name": "Ім’я",
     "participant": "Учасник",
     "type": "Тип",
     "memberSince": "Офіційна участь у GBIF з",
     "all": "Всі",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Етичні норми",
+    "publishersPerCountry": "Етичні норми",
     "clear": "Очистити",
     "headlines": {
       "nodesSteeringGroup": "Група координації осередків",

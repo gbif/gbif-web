@@ -1,4 +1,4 @@
-import { NotFoundError } from '#/helpers/GraphQL404Error';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { RESORUCE_OPTIONS } from './resource.constants';
 
 function elasticSearchTypeToGraphQLType(elasticSearchType) {

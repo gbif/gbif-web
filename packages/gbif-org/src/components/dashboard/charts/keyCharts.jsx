@@ -20,6 +20,8 @@ export function Datasets({
         disableUnknown: true,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `dataset {title}`,
         title: <FormattedMessage id="filters.datasetKey.name" defaultMessage="Dataset" />,
         subtitleKey: 'dashboard.numberOfOccurrences',
@@ -43,6 +45,7 @@ export function Datasets({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { datasetKey: [x.key] },
             };
@@ -70,6 +73,8 @@ export function Publishers({
         disableUnknown: true,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `publisher {title}`,
         title: <FormattedMessage id="filters.publisherKey.name" defaultMessage="Publisher" />,
         subtitleKey: 'dashboard.numberOfOccurrences',
@@ -94,6 +99,7 @@ export function Publishers({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { publishingOrg: [x.key] },
             };
@@ -121,6 +127,8 @@ export function HostingOrganizations({
         disableUnknown: true,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `publisher {title}`,
         title: (
           <FormattedMessage
@@ -150,6 +158,7 @@ export function HostingOrganizations({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               filter: { hostingOrganizationKey: [x.key] },
             };
           });
@@ -176,6 +185,8 @@ export function Collections({
         disableUnknown: false,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `collection {title: name}`,
         title: <FormattedMessage id="filters.collectionKey.name" defaultMessage="Collection" />,
         subtitleKey: 'dashboard.numberOfOccurrences',
@@ -200,6 +211,7 @@ export function Collections({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { collectionKey: [x.key] },
             };
@@ -227,6 +239,8 @@ export function Institutions({
         disableUnknown: false,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `institution {title: name}`,
         title: <FormattedMessage id="filters.institutionKey.name" defaultMessage="Institution" />,
         subtitleKey: 'dashboard.numberOfOccurrences',
@@ -251,6 +265,7 @@ export function Institutions({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { institutionKey: [x.key] },
             };
@@ -278,6 +293,8 @@ export function Networks({
         disableUnknown: false,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `network {title}`,
         title: <FormattedMessage id="filters.networkKey.name" defaultMessage="Network" />,
         subtitleKey: 'dashboard.numberOfOccurrences',
@@ -302,6 +319,7 @@ export function Networks({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { networkKey: [x.key] },
             };
@@ -333,6 +351,8 @@ export function EstablishmentMeans({
         disableUnknown: true,
         disableOther: true,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `concept {title: uiLabel(language: "${vocabularyLocale}")}`,
         title: (
           <FormattedMessage
@@ -347,6 +367,7 @@ export function EstablishmentMeans({
               key: x.key,
               title: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { establishmentMeans: [x.key] },
             };
@@ -386,13 +407,14 @@ export function Synonyms({
         disableUnknown: true,
         disableOther: true,
         facetSize: 10,
-        options: ['TABLE'],
+        options: ['TABLE', 'MAP'],
+        includeMapPredicate: true,
         applyChecklistKey: true,
         gqlEntity: `taxon {
-      title: scientificName
-      accepted
-      acceptedKey
-    }`,
+          title: scientificName
+          accepted
+          acceptedKey
+        }`,
         title: <FormattedMessage id="dashboard.synonyms" defaultMessage="Synonyms" />,
         subtitleKey: 'dashboard.numberOfOccurrences',
         transform: (data) => {
@@ -416,6 +438,7 @@ export function Synonyms({
               ),
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               filter: { taxonKey: [x.key] },
               description: (
                 <div>
@@ -460,6 +483,8 @@ export function TypeStatus({
         disableUnknown: true,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `concept {
           title: uiLabel(language: $vocabularyLocale)
           uiDefinition(language: $vocabularyLocale)
@@ -476,6 +501,7 @@ export function TypeStatus({
               title: x?.entity?.title,
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { typeStatus: [x.key] },
             };
@@ -503,6 +529,8 @@ export function Sex({
         disableUnknown: true,
         disableOther: false,
         facetSize: 10,
+        options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
         gqlEntity: `concept {
           title: uiLabel(language: $vocabularyLocale)
           uiDefinition(language: $vocabularyLocale)
@@ -519,6 +547,7 @@ export function Sex({
               title: x?.entity?.title,
               plainTextTitle: x?.entity?.title,
               count: x.count,
+              occurrences: x.occurrences,
               description: x.entity.description,
               filter: { datasetKey: [x.key] },
             };

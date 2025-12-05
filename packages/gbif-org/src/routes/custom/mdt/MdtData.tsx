@@ -138,8 +138,10 @@ const MdtData = () => {
 
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className=" g-max-w-screen-xl">
+          <ArticlePreTitle secondary={<span>Data and Installations</span>}>
+            <FormattedMessage id="cms.contentType.tool" />
+          </ArticlePreTitle>
           <ArticleTitle>Metabarcoding Data Toolkit</ArticleTitle>
-          <ArticlePreTitle>Data and Installations</ArticlePreTitle>
 
           <div className="g-border-b g-mt-4"></div>
           <Tabs links={tabs} />

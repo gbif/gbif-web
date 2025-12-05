@@ -118,15 +118,28 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
-      typography: {
+      typography: ({ theme }) => ({
         DEFAULT: {
           css: {
             maxWidth: '80ch', // add required value here
             'blockquote p:first-of-type::before': false, // do not add quotation marks to block quotes. we have block quotes where the content also have quotation marks leading to double quotation marks
             'blockquote p:first-of-type::after': false,
+            '--tw-prose-quote-borders': `rgb(var(--proseQuoteBorders, ${hexToRgbString(
+              theme('colors.gray.300')
+            )}))`,
+            a: {
+              color: 'rgb(var(--linkColor))',
+              '&:hover': {
+                color: 'rgb(var(--linkColorHover))',
+              },
+            },
+            li: {
+              marginTop: 0,
+              marginBottom: 0,
+            },
           },
         },
-      },
+      }),
       flexBasis: {
         content: 'content',
       },
@@ -198,4 +211,11 @@ function addRtlSupport(plugin) {
   });
 
   return modifiedPlugin;
+}
+
+// Convert hex color to "R G B" string format for CSS variables
+function hexToRgbString(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!result) return hex;
+  return `${parseInt(result[1], 16)} ${parseInt(result[2], 16)} ${parseInt(result[3], 16)}`;
 }

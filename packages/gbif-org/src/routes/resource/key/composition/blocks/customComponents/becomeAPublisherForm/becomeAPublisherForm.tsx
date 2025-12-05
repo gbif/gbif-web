@@ -136,7 +136,7 @@ export function BecomeAPublisherForm() {
 
   return (
     <ProtectedForm
-      className="g-mt-8"
+      className="g-mt-8 g-bg-gray-50 g-shadow-sm"
       title={<FormattedMessage id="eoi.loginToRegisterOrganization.title" />}
       message={<FormattedMessage id="eoi.loginToRegisterOrganization.message" />}
     >

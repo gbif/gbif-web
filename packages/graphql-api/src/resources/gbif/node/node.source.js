@@ -1,6 +1,6 @@
-import { NotFoundError } from '#/helpers/GraphQL404Error';
-import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
-import { getDefaultAgent } from '#/requestAgents';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
+import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import pick from 'lodash/pick';
 import { stringify } from 'qs';

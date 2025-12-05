@@ -1,9 +1,16 @@
 {
   "generic": "Une erreur est survenue",
+  "genericDescription": "Une erreur inattendue est survenue. Veuillez réessayer ultérieurement.",
   "unknown": "Erreur inconnue",
   "report": "Signaler un problème",
   "retry": "Réessayer",
+  "partialData": "Toutes les données n'ont pu être chargées",
   "reloadPage": "Actualiser la page",
   "hideDetails": "Masquer les détails",
-  "showDetails": "Afficher les détails"
+  "showDetails": "Afficher les détails",
+  "mapFailed": "Impossible de charger la carte",
+  "partialMapFailure": "Certaines tuiles n'ont pu être chargées",
+  "maximumResultLimitExceeded": "Le nombre maximal de résultats par pagination est : {MAX_RESULTS}. Veuillez affiner votre recherche ou utiliser l’option de téléchargement pour accéder à tous les résultats.",
+  "mapBrowserIssue": "Si le problème persiste, il est très probablement dû à des extensions ou des paramètres du navigateur empêchant l'utilisation des API requises (par exemple, WebGL et Canvas).",
+  "webglUnavailable": "WebGL n'est pas disponible. Veuillez vérifier les paramètres de votre navigateur ou essayer un autre navigateur. Des plugins ou des extensions peuvent également bloquer WebGL."
 }

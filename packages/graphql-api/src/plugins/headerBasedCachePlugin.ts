@@ -1,5 +1,5 @@
 import { PluginDefinition } from 'apollo-server-core';
-import extractUser from '#/helpers/auth/extractUser';
+import extractUser from '@/helpers/auth/extractUser';
 
 const headerBasedCachePlugin: PluginDefinition = {
   async requestDidStart() {

@@ -1,0 +1,43 @@
+{
+  "feedback": {
+    "title": "",
+    "contactGbif": "",
+    "contactDataProvider": "",
+    "contactUsDescription": "",
+    "contactDataProviderDescription": "",
+    "seeAlsoFaq": "",
+    "faq": "Часто задаваемые вопросы",
+    "pleaseLogin": "",
+    "pleaseLoginReason": "",
+    "sendEmailTo": "",
+    "emailHelpdesk": "",
+    "summary": "Краткое описание",
+    "description": "Описание",
+    "required": "",
+    "csvWarning": "",
+    "csvFaqEntry": "",
+    "sendFeedback": "",
+    "sending": "",
+    "publicRepo": "",
+    "helpDeskOption": "",
+    "helpdesk": "",
+    "communications": "",
+    "confirmation": {
+      "title": "Благодарим вас",
+      "description": "",
+      "seeIssue": "Просмотр сообщения",
+      "createAnother": ""
+    },
+    "failure": {
+      "title": "",
+      "description": "",
+      "tryAgain": ""
+    },
+    "orWriteMailTo": "",
+    "leaveIssueOnGithub": "",
+    "login": "ВХОД",
+    "requiresGithubAccount": "",
+    "sendUsAnEmail": "",
+    "forPrivateEnquiries": ""
+  }
+}

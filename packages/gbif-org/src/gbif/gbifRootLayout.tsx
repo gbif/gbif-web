@@ -10,7 +10,8 @@ import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
 import { GDPR } from '@/components/gdpr';
-import { Helmet } from 'react-helmet-async';
+import toolsRedirects from './toolsRedirects';
+
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
     gbifHome {
@@ -49,24 +50,50 @@ type Props = {
 export function GbifRootLayout({ children }: Props) {
   const { data } = useLoaderData() as { data: HeaderQuery };
 
-  return (
-    <UserProvider>
-      <div className="g-flex g-flex-col g-min-h-[100dvh]">
-        <LoadingIndicator />
-        <Header menu={data} />
-        <main className="g-flex-auto">
-          <NoscriptNotification />
-          <ScrollRestoration />
-          <Toaster />
-          <GDPR />
-          <ErrorBoundary>{children}</ErrorBoundary>
-          {/* Visualization of the table of contents IntersectionObserver area
+  return <LayoutInner data={data}>{children}</LayoutInner>;
+}
+
+const redirectTools = (data) => {
+  const toolsRoot = data?.gbifHome?.children?.find((c) => c.id === '6NBwCayI3rNgZdzgqeMnCX');
+  if (toolsRoot) {
+    toolsRoot.children?.forEach((section) => {
+      if (section.children) {
+        section.children.forEach((tool) => {
+          if (toolsRedirects?.[tool.link]) {
+            tool.externalLink = true;
+            tool.link = toolsRedirects?.[tool.link];
+          }
+        });
+      }
+    });
+  }
+  return data;
+};
+
+const LayoutInner = React.memo(
+  ({ children, data }: { children: React.ReactNode; data: HeaderQuery }) => {
+    return (
+      <UserProvider>
+        <div className="g-flex g-flex-col g-min-h-[100dvh]">
+          <LoadingIndicator />
+          <Header menu={redirectTools(data)} />
+          <main className="g-flex-auto">
+            <NoscriptNotification />
+            <ScrollRestoration />
+            <Toaster />
+            <GDPR />
+            <ErrorBoundary>{children}</ErrorBoundary>
+            {/* Visualization of the table of contents IntersectionObserver area
           <div className="g-fixed g-pointer-events-none g-top-0 g-left-0 g-w-screen g-h-screen">
             <div className="g-mt-[200px] g-mb-[60%] g-bg-red-300 g-h-[calc(100vh-60%-200px)] g-opacity-10"></div>
           </div> */}
-        </main>
-        <Footer />
-      </div>
-    </UserProvider>
-  );
-}
+          </main>
+          <Footer />
+        </div>
+        {import.meta.env.PUBLIC_STATUS_PAGE_URL && (
+          <script src={`${import.meta.env.PUBLIC_STATUS_PAGE_URL}/embed/script.js`}></script>
+        )}
+      </UserProvider>
+    );
+  }
+);

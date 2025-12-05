@@ -27,7 +27,6 @@
   "marineDataPublishers": "",
   "suggested": "",
   "orSelectAnotherAssOrg": "",
-  "clickToSelect": "",
   "none": "هیچ کدام",
   "whatAndHow": "",
   "helpUsUnderstand": "",
@@ -63,7 +62,6 @@
   "invalidUrl": "",
   "brieflyDescribeScope": "",
   "clear": "پاکسازی",
-  "selectParticipant": "",
   "clickMapToAddOrg": "",
   "description": "توضیحات",
   "gbifProjects": "",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

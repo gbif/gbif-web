@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "הביטוי ב־URL אינו תקין",
     "redirectNotice": "נראה שהופניתם לכאן מאתר אחר. כדי להוריד יש להתחבר או להירשם תחילה."
   },
+  "downloadReport": {
+    "title": "",
+    "knownIssues": "",
+    "knownIssuesDescription": "",
+    "FossilsIncluded": "",
+    "FossilsIncludedDescription": "",
+    "livingSpecimensIncluded": "",
+    "livingSpecimensIncludedDescription": "",
+    "yearRange": "",
+    "total": "",
+    "license": "",
+    "withTaxonMatch": "",
+    "withCoordinates": "",
+    "withYear": "",
+    "sizeZippedForDownload": "",
+    "freeOfCost": "",
+    "cancel": "",
+    "proceed": "",
+    "understood": "",
+    "largeDownload": "",
+    "requestingFullDownload": "",
+    "occFiltersExplainedHere": "",
+    "estSizeIs": "",
+    "estDLtimes": "",
+    "nMbitConn": "",
+    "onceDownloaded": "",
+    "datasetHasNumRows": "",
+    "youWillNotBeAble": "",
+    "difficultToAnalyse": "",
+    "hours": "",
+    "minute": "",
+    "minutes": ""
+  },
+  "occurrenceDownloadFlow": {
+    "back": "",
+    "backToFormatSelection": "תיאור זמני",
+    "backToConfiguration": "תיאור זמני",
+    "estimatedSize": "Estimated size",
+    "configure": "תיאור זמני",
+    "continueToTerms": "תיאור זמני",
+    "downloadSummary": "תיאור זמני",
+    "weAlsoSupport": "תיאור זמני",
+    "sqlDownloadsLink": "תיאור זמני",
+    "extensions": "",
+    "selectAdditionalExtensions": "תיאור זמני",
+    "nExtensionsSelected": "תיאור זמני",
+    "selectAll": "תיאור זמני",
+    "deselectAll": "תיאור זמני",
+    "extensionsInfoMessage": "תיאור זמני",
+    "format": "",
+    "csvDelimiter": "תיאור זמני",
+    "taxonomy": "",
+    "tabDelimiter": "תיאור זמני",
+    "progressLabel": "תיאור זמני",
+    "termsAndConditions": "תיאור זמני",
+    "reviewAndAccept": "תיאור זמני",
+    "dataCitationTitle": "תיאור זמני",
+    "dataCitationText": "תיאור זמני",
+    "dataUseAgreementTitle": "תיאור זמני",
+    "dataUseAgreementText": "תיאור זמני",
+    "largeDownloadAcknowledgment": "תיאור זמני",
+    "largeDownloadEstimatedSize": "תיאור זמני",
+    "largeDownloadConnectionSpeed": "תיאור זמני",
+    "largeDownloadDiskSpace": "תיאור זמני",
+    "largeDownloadRowCount": "תיאור זמני",
+    "largeDownloadExcelWarning": "",
+    "termsStatus": "תיאור זמני",
+    "createDownload": "תיאור זמני",
+    "completeRequirements": "תיאור זמני",
+    "steps": {
+      "quality": {
+        "name": "Quality",
+        "description": "תיאור זמני"
+      },
+      "filter": {
+        "name": "תיאור זמני",
+        "description": "תיאור זמני"
+      },
+      "sql": {
+        "name": "תיאור זמני",
+        "description": "תיאור זמני"
+      },
+      "format": {
+        "name": "",
+        "description": "תיאור זמני"
+      },
+      "configure": {
+        "name": "תיאור זמני",
+        "description": "תיאור זמני"
+      },
+      "terms": {
+        "name": "",
+        "description": "תיאור זמני"
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "תיאור זמני",
+        "description": "תיאור זמני"
+      },
+      "DWCA": {
+        "title": "",
+        "description": "תיאור זמני"
+      },
+      "SPECIES_LIST": {
+        "title": "",
+        "description": "תיאור זמני"
+      },
+      "SQL_CUBE": {
+        "title": "תיאור זמני",
+        "description": "תיאור זמני"
+      },
+      "SQL_TSV_ZIP": {
+        "title": "תיאור זמני",
+        "description": "תיאור זמני"
+      },
+      "features": {
+        "singleCsv": "תיאור זמני",
+        "multipleCsv": "תיאור זמני",
+        "interpretedData": "תיאור זמני",
+        "rawAndInterpreted": "תיאור זמני",
+        "coordinates": "תיאור זמני",
+        "coordinatesIfSelected": "תיאור זמני",
+        "individualOccurrences": "תיאור זמני",
+        "multimediaLinks": "תיאור זמני",
+        "occurrenceCounts": "תיאור זמני"
+      }
+    },
+    "taxonomySelector": {
+      "title": "תיאור זמני",
+      "description": "תיאור זמני",
+      "defaultRecommended": "תיאור זמני"
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "תיאור זמני",
     "invalidSQL": "SQL לא תקין",
     "title": "צור הורדת SQL חדשה",
     "notification": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",
@@ -265,6 +400,7 @@
         "250": "250 m",
         "1000": "1 km",
         "10000": "10 km",
+        "50000": "",
         "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": "Level 6"
       },
       "ISEA3H_GRID": {
-        "0": "Level 0",
         "1": "Level 1",
         "2": "Level 2",
         "3": "Level 3",
@@ -307,7 +442,8 @@
         "10": "10 meters",
         "100": "100 meters",
         "1000": "1,000 meters",
-        "10000": "10,000 meters"
+        "10000": "10,000 meters",
+        "100000": ""
       }
     },
     "noneSelected": "לא נבחר",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "ספירת תצפיות בדרגה טקסונומית גבוהה יותר",
     "coordinateUncertainty": "כלול אי־ודאות מינימלית בקואורדינטות",
     "errorMinimumDimension": "יש לבחור לפחות ממד אחד",
+    "errorMinimumDimensionForCube": "תיאור זמני",
+    "errorGeneratingSql": "תיאור זמני",
     "editSql": "ערוך כ־SQL",
     "temporalUncertainty": "כלול אי־ודאות מינימלית בזמן",
     "documentation": "תיעוד",
+    "dataQuality": "",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "This download format allows you to aggregate occurrences by their taxonomic, temporal and/or spatial properties. For example, a data cube can be configured to aggregate occurrences by family, month and grid cell of the European Environment Agency reference grid (three dimensions) and count the number of occurrences (a measure) per combination. The result is a CSV file.\n\nOnce configured, a SQL query will be created to generate the data cube. For more advanced use, it is possible to further customize the requested download by editing the SQL query.",
       "dimensions": "A dimension represents an aspect along which data can be aggregated. Selecting a higher resolution (e.g., species over family, date over year, 100 m over 10 km) will result in more categories and therefore more records.",
       "taxonomicDimension": "This dimension aggregates occurrences by their taxonomic rank.",
       "temporalDimension": "This dimension aggregates occurrences by time.",
+      "dataQuality": "",
       "grid": "This dimension aggregates occurrences in a spatial grid.",
       "gridResolution": "The size of each grid cell.",
       "randomizePoints": "For occurrence records with a coordinate uncertainty that covers more than one grid cell, should a random cell be chosen? If not, the cell containing the centroid of the record is used.",

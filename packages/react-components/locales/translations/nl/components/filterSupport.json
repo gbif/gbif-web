@@ -25,6 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "Moet worden gedefinieerd",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "",
   "commonName": "Lokale naam",
   "acceptedNameOf": "Geaccepteerde naam voor",
@@ -60,5 +61,7 @@
     "orderChanged": "",
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }

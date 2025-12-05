@@ -144,7 +144,10 @@ const typeDef = gql`
     taxonID: String
     taxonomicStatus: String
     vernacularName: String
-
+    """
+    If hl is true, this field contains the highlights from the search query.
+    """
+    highlights: JSON
     wikiData: WikiDataTaxonData
     backboneTaxon: Taxon
     acceptedTaxon: Taxon
@@ -152,6 +155,11 @@ const typeDef = gql`
     This is an experiment that might be stopped at any time. It is not part of the stable API. It will attempt ti find a nice image to represent the taxon.
     """
     taxonImages_volatile(size: Int): [Image]!
+    taxonOccurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
     speciesCount: Int
     checklistBankBreakdown: [ClbBreakdownTaxon]
     invasiveInCountries: [InvasiveInCountry]

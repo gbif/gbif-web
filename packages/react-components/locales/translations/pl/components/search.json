@@ -36,8 +36,8 @@
   "loadMore": "Więcej",
   "loading": "Ładowanie",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Identyfikator zarządzany przez dostawcę",
+  "rankInGroup": "Identyfikator zarządzany przez dostawcę",
   "occurrenceClustersView": {
     "about": "Informacje",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Wyszukaj",
-    "description": "",
+    "description": "Identyfikator zarządzany przez dostawcę",
     "noSearchTermsEntered": "Nie wpisano terminów wyszukiwania",
-    "placeholder": "",
+    "placeholder": "Identyfikator zarządzany przez dostawcę",
     "categories": {
       "speciesSearch": "Gatunek\n",
       "datasetSearch": "Zbiory danych",
       "publisherSearch": "Wydawcy",
       "occurrenceSearch": "Wystąpienia",
-      "resourceSearch": ""
+      "resourceSearch": "Identyfikator zarządzany przez dostawcę"
     },
     "seeAll": "Zobacz wszystko"
   }

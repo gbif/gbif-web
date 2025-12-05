@@ -1,9 +1,16 @@
 {
   "generic": "Vyskytla se chyba",
+  "genericDescription": "Došlo k neočekávané chybě. Zkuste to později.",
   "unknown": "Neznámá chyba",
   "report": "Nahlásit problém",
   "retry": "Opakovat",
+  "partialData": "Nebylo možné načíst všechna data",
   "reloadPage": "Obnovit stránku",
   "hideDetails": "Skrýt detaily",
-  "showDetails": "Zobrazit detaily"
+  "showDetails": "Zobrazit detaily",
+  "mapFailed": "Nelze načíst mapu",
+  "partialMapFailure": "Některé dlaždice nelze načíst",
+  "maximumResultLimitExceeded": "Maximální počet výsledků pro stránkování je: {MAX_RESULTS}. Upřesněte prosím své vyhledávání nebo použijte možnost stažení, abyste získali přístup ke všem výsledkům.",
+  "mapBrowserIssue": "Pokud problém přetrvává, je to pravděpodobně způsobeno rozšířeními nebo nastavením prohlížeče, které brání použití požadovaných API (např. WebGL a Canvas).",
+  "webglUnavailable": "WebGL není k dispozici. Zkontrolujte nastavení prohlížeče nebo zkuste jiný prohlížeč. WebGL mohou blokovat také pluginy nebo rozšíření."
 }

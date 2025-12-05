@@ -23,7 +23,7 @@
   "placeholders": {
     "default": "Hledat",
     "range": "Rozsah nebo samostatná hodnota",
-    "rangeExample": "",
+    "rangeExample": "Např. 1000,2000",
     "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
     "dateTemplate": "yyyy-mm-dd",
     "locationID": ""
@@ -36,21 +36,21 @@
   "loadMore": "Více",
   "loading": "Načítání",
   "noResults": "Žádné výsledky",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Id spravované poskytovatelem",
+  "rankInGroup": "Id spravované poskytovatelem",
   "occurrenceClustersView": {
     "about": "O",
     "clusters": "Související",
     "legend": "Legenda",
-    "differentPublishers": "",
-    "samePublishers": "",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "differentPublishers": "Různí vydavatelé",
+    "samePublishers": "Stejný vydavatel",
+    "entryPoint": "Vstupní bod",
+    "hasMultipleTaxonKeys": "Obsahuje různé identifikace",
+    "aboutLink": "O odkazu",
+    "isCapped": "Tento uzel má více spojení, než je zde zobrazeno. Přejděte k záznamu, abyste viděli úplný seznam.",
+    "isDeleted": "Tento záznam byl mezitím smazán.",
+    "similarities": "Společné vlastnosti",
+    "currentRecord": "Aktuální záznam",
     "nodeType": {
       "IMAGE": "Obrázek",
       "TYPE": "Typový vzorek",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Hledat",
-    "description": "",
+    "description": "Id spravované poskytovatelem",
     "noSearchTermsEntered": "Nebyly zadány žádné hledané výrazy",
-    "placeholder": "",
+    "placeholder": "Id spravované poskytovatelem",
     "categories": {
       "speciesSearch": "Druhy",
       "datasetSearch": "Datové sady",
       "publisherSearch": "Vydavatelé",
       "occurrenceSearch": "Výskyty",
-      "resourceSearch": ""
+      "resourceSearch": "Id spravované poskytovatelem"
     },
     "seeAll": "Zobrazit vše"
   }

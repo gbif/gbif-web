@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import parseNexus from './parseNexus';
 import cssAsText from './styles';
+import { l } from 'node_modules/vite/dist/node/types.d-aGj9QkWt';
+import { Skeleton } from '../ui/skeleton';
 
 const css_classes = {
   'tree-container': 'phylotree-container',
@@ -52,11 +54,13 @@ const Phylogeny = ({
   const ref = useRef(null);
   const navigate = useNavigate();
   const [treeData, setTreeData] = useState<TreeData>({});
+  const [loading, setLoading] = useState(true);
   const spacingX = 14;
   const spacingY = 30;
   const createLink = useLink();
 
   useEffect(() => {
+    setLoading(true);
     const fileExtension = phyloTreeFileName.split('.').pop() || '';
 
     fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/source-archive/${datasetKey}/${phyloTreeFileName}`, {
@@ -74,9 +78,11 @@ const Phylogeny = ({
           tipTranslation = null;
         }
         setTreeData({ nwk, tipTranslation });
+        setLoading(false);
       })
       .catch((error) => {
         setTreeData({});
+        setLoading(false);
       });
   }, [datasetKey, phyloTreeFileName]);
 
@@ -235,7 +241,15 @@ const Phylogeny = ({
     }
   }, [datasetKey, treeData?.nwk]);
 
-  return <div ref={ref} id="phylotreeContainer" className="g-overflow-x-scroll"></div>;
+  return loading ? (
+    <div className={'g-max-w-[100ch]'}>
+      {Array.from({ length: 25 }).map((_, index) => (
+        <Skeleton key={index} className="g-h-6 g-mt-1 g-w-[100%)]" />
+      ))}
+    </div>
+  ) : (
+    <div ref={ref} id="phylotreeContainer" className="g-overflow-x-scroll g-bg-white"></div>
+  );
 };
 
 export default Phylogeny;

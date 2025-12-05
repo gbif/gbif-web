@@ -1,0 +1,146 @@
+import { ErrorComponent } from '@/components/ErrorBoundary';
+import { FormattedDateRange } from '@/components/message';
+import StripeLoader from '@/components/stripeLoader';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/utils/shadcn';
+import { FormattedMessage } from 'react-intl';
+import { OccurrencePointQuery } from '@/gql/graphql';
+
+interface ListItemProps {
+  id: string;
+  item: NonNullable<OccurrencePointQuery['occurrenceSearch']>['documents']['results'][0];
+  onClick?: (params: { id: string }) => void;
+}
+
+function ListItem({ id, item, onClick = () => {} }: ListItemProps) {
+  if (!item) return null;
+  return (
+    <button
+      className="gbif-listItem g-text-start g-w-full g-border-b g-p-2 g-text-sm g-min-h-20"
+      onClick={() => onClick({ id })}
+    >
+      <div className="g-flex g-flex-row g-flex-nowrap">
+        <div className="g-flex-grow gbif-listItemContent">
+          {item.classification?.taxonMatch?.usage?.canonicalName ||
+          item.classification?.usage?.name ? (
+            <h4
+              className=""
+              dangerouslySetInnerHTML={{
+                __html:
+                  item.classification?.taxonMatch?.usage?.canonicalName ??
+                  item.classification?.usage?.name ??
+                  '',
+              }}
+            ></h4>
+          ) : (
+            <h4>
+              <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
+            </h4>
+          )}
+          {item.eventDate && (
+            <div className="g-text-slate-500">
+              <FormattedDateRange
+                date={item.eventDate}
+                format={{ year: 'numeric', month: 'short', day: 'numeric' }}
+              />
+            </div>
+          )}
+        </div>
+        {item.primaryImage?.identifier && (
+          <div className="g-flex-none g-block g-w-[60px] g-h-[60px] g-bg-slate-100 g-rounded g-border">
+            <img
+              src={item.primaryImage?.identifier}
+              className="g-w-full g-h-full g-rounded"
+              alt=""
+            />
+          </div>
+        )}
+      </div>
+    </button>
+  );
+}
+
+interface ListBoxProps {
+  className?: string;
+  onCloseRequest?: () => void;
+  onClick?: (params: { index: number }) => void;
+  data?: OccurrencePointQuery;
+  error?: Error | null;
+  loading?: boolean;
+}
+
+function ListBox({
+  className,
+  onCloseRequest,
+  onClick = () => {},
+  data,
+  error,
+  loading,
+  ...props
+}: ListBoxProps) {
+  if (!error && !loading && !data) return null;
+
+  const criticalError = error && !data?.occurrenceSearch?.documents?.results;
+
+  let content;
+  if (loading) {
+    return (
+      <section {...props}>
+        <div className={cn('gbif-container g-bg-white', className)}>
+          <StripeLoader active />
+          <div className="listItemContent g-text-slate-400">
+            <FormattedMessage id="phrases.loading" />
+          </div>
+        </div>
+      </section>
+    );
+  } else if (criticalError) {
+    return (
+      <ErrorComponent
+        error={error}
+        type={'CARD'}
+        className={className}
+        errorMessage={error?.message}
+      />
+    );
+  } else if (data) {
+    const results = data?.occurrenceSearch?.documents?.results || [];
+    content = (
+      <ul className="gbif-list">
+        {results.map((x, index) => {
+          return (
+            <li key={x.key}>
+              <ListItem onClick={() => onClick({ index })} id={x.key} item={x} />
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+
+  return (
+    <section
+      {...props}
+      className={cn('g-flex g-flex-col g-bg-white g-border g-h-auto g-max-h-full', className)}
+    >
+      <header className="g-flex g-flex-col g-flex-none g-border-b g-text-sm g-font-bold g-px-2 g-py-1">
+        <div className="g-flex g-flex-row g-items-center">
+          <h3 className="g-flex-1">
+            <FormattedMessage
+              id="counts.nResults"
+              values={{ total: data?.occurrenceSearch?.documents?.total }}
+            />
+          </h3>
+          <div className="g-flex-0">
+            <Button variant="outline" onClick={onCloseRequest}>
+              <FormattedMessage id="phrases.close" />
+            </Button>
+          </div>
+        </div>
+      </header>
+      <div className="g-flex-1 g-overflow-auto gbif-small-scrollbar">{content}</div>
+    </section>
+  );
+}
+
+export default ListBox;

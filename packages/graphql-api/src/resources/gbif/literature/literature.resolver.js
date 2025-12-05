@@ -1,4 +1,4 @@
-import { excerpt } from '#/helpers/utils';
+import { excerpt } from '@/helpers/utils';
 import {
   getAutoDateHistogram,
   getCardinality,

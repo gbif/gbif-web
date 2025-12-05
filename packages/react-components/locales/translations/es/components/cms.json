@@ -21,20 +21,20 @@
     "title": "Título",
     "start": "Comienzo",
     "end": "Final",
-    "fundsAllocated": "Financiamiento asignado",
-    "matchingFunds": "Co-financiamiento estimado",
+    "fundsAllocated": "Financiación asignada",
+    "matchingFunds": "Co-financiación estimada",
     "funding": "Financiación",
     "coFunding": "Co-financiamiento",
     "fundedBy": "Financiado por",
     "coFundedBy": "Cofinanciado por",
     "typeOfGrant": "Tipo de subvención",
-    "projectStart": "Fecha de inicio del proyecto",
+    "projectStart": "Inicio del proyecto",
     "status": "Estado",
     "programme": "Programa",
     "contractCountry": "País o área",
     "newsAndEvents": "Noticias y Eventos",
-    "call": "Llamada",
-    "projectLead": "Líder de proyecto",
+    "call": "Convocatoria",
+    "projectLead": "Líder del proyecto",
     "contactDetalils": "Detalles del contacto",
     "partners": "Socios"
   },
@@ -42,12 +42,12 @@
     "dataViaGbif": "Recursos de datos utilizados a través de GBIF"
   },
   "literature": {
-    "keywords": "Palabras Clave"
+    "keywords": "Palabras clave"
   },
   "auxiliary": {
     "subject": "Asunto",
     "citation": "Cita",
-    "organisingParticipants": "Organizar a los participantes"
+    "organisingParticipants": "Organizadores participantes"
   },
   "document": {
     "download": "Descargar",
@@ -57,14 +57,14 @@
     "resources": "Recursos",
     "contactHelpdesk": "Contacta con el servicio de asistencia",
     "addToCalendar": "Añadir al calendario",
-    "venue": "Lugar de celebración",
-    "location": "Localización/ubicación",
+    "venue": "Lugar",
+    "location": "Ubicación",
     "country": "País o área",
     "noDatasets": "No hay conjuntos de datos para mostrar",
     "noNewsOrEvents": "No hay noticias o eventos disponibles",
     "howToLinkDatasets": "Cómo vincular un conjunto de datos a un proyecto",
     "howToLinkEvents": "Cómo añadir eventos a la página de un proyecto",
-    "when": "Cuando",
+    "when": "Cuándo",
     "language": "Idioma",
     "viewOnGBIF": "Ver en GBIF",
     "published": "Publicado",
@@ -77,6 +77,6 @@
     "datasets": "Conjuntos de datos",
     "gbifWillAttend": "Asistido por el Secretariado de GBIF",
     "dataUsedInStudy": "Datos referenciados en el estudio",
-    "resourceDescription": "Buscar recursos en la Infraestructura Mundial de Información en Biodiversidad. Acceso Libre y Gratuito a los Datos de Biodiversidad."
+    "resourceDescription": "Buscar recursos en el Sistema Global de Información sobre Biodiversidad. Acceso Libre y Abierto a los Datos sobre Biodiversidad."
   }
 }

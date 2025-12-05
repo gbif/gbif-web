@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { validateRequest } from 'zod-express-middleware';
-import logger from '#/logger';
-import config from '#/config';
+import logger from '@/logger';
+import config from '@/config';
 import { createGitHubIssue } from '../helpers/create-github-issue';
 import { RequiredEmailSchema, RequiredStringSchema } from '../validation';
 import { createMarkdown } from './create-markdown';

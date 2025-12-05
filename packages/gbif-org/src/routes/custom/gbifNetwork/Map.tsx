@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import countries from '../../../enums/basic/country.json';
 import { getCss } from './css';
+import { ClientSideOnly } from '@/components/clientSideOnly.js';
 const SvgMap = React.lazy(() => import('./SvgMap.jsx'));
 
 const gradients = {
@@ -78,7 +79,9 @@ export function Map({
   return (
     <div className={cn('g-max-w-6xl g-m-auto', className)}>
       <div className="g-w-full g-h-0 g-relative g-z-10" style={{ paddingBottom: '51%' }}>
-        <SvgMap style={style} />
+        <ClientSideOnly>
+          <SvgMap style={style} />
+        </ClientSideOnly>
         <div className="g-absolute g-z-20 g-bottom-4 g-text-center g-w-full">
           <div className="g-inline-block g-text-center g-mx-auto g-text-sm g-rounded-full g-bg-white g-shadow">
             <button

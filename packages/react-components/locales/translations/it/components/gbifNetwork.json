@@ -1,7 +1,7 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
+      "VOTING": "Codice di Condotta",
       "ASSOCIATE": "",
       "OTHER_ASSOCIATE": "",
       "FORMER": "",
@@ -9,16 +9,16 @@
       "UNKNOWN": "",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Codice di Condotta",
+    "mapCaptionPublishers": "Codice di Condotta",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "",
     "all": "",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Codice di Condotta",
+    "publishersPerCountry": "Codice di Condotta",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",

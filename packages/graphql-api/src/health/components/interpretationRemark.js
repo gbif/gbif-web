@@ -1,8 +1,8 @@
 import { get, difference, keyBy } from 'lodash';
 import hash from 'object-hash';
 import { getEnumData } from './enum';
-import config from '#/config';
-import prev from '#/helpers/enums/interpretationRemark.json';
+import config from '@/config';
+import prev from '@/helpers/enums/interpretationRemark.json';
 const prevMap = keyBy(prev, 'id');
 
 const second = 1000;

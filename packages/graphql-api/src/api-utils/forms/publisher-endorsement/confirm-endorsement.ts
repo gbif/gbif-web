@@ -1,5 +1,5 @@
-import config from '#/config';
-import logger from '#/logger';
+import config from '@/config';
+import logger from '@/logger';
 import { ConfirmEndorsementDTO } from '.';
 import { authenticatedRequest } from '../helpers/gbifAuthRequest';
 

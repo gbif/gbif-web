@@ -9,6 +9,8 @@ import {
   DownloadKeyQueryVariables,
   SlowDownloadKeyQuery,
   SlowDownloadKeyQueryVariables,
+  UsersDownloadKeyQuery,
+  UsersDownloadKeyQueryVariables,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
@@ -17,7 +19,7 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -32,6 +34,22 @@ import { QueryCard } from './sections/queryCard';
 import { SubHeader } from './sections/subHeader';
 import { UserDescription } from './sections/userDescription';
 import { downloadCompleted } from './utils';
+import { useUser } from '@/contexts/UserContext';
+
+const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
+  query UsersDownloadKey($key: ID!) {
+    download(key: $key) {
+      key
+      willBeDeletedSoon
+      readyForDeletion
+      eraseAfter
+      request {
+        notificationAddresses
+        creator
+      }
+    }
+  }
+`;
 
 const DOWNLOAD_QUERY = /* GraphQL */ `
   query DownloadKey($key: ID!) {
@@ -52,6 +70,8 @@ const DOWNLOAD_QUERY = /* GraphQL */ `
         format
         description
         gbifMachineDescription
+        checklistKey
+        verbatimExtensions
       }
       size
       status
@@ -117,8 +137,18 @@ export async function downloadKeyLoader({ params, graphql }: LoaderArgs) {
 }
 
 export function DownloadKey() {
-  const { data } = useLoaderData() as { data: DownloadKeyQuery };
+  const { data: initialData } = useLoaderData() as { data: DownloadKeyQuery };
   const { formatMessage } = useIntl();
+  const { user } = useUser();
+  const notifyOfPartialData = usePartialDataNotification();
+
+  const { data: sensitiveData, load } = useQuery<
+    UsersDownloadKeyQuery,
+    UsersDownloadKeyQueryVariables
+  >(DOWNLOAD_SENSITIVE_QUERY, {
+    throwAllErrors: false,
+    lazyLoad: true,
+  });
 
   const {
     data: slowData,
@@ -130,21 +160,64 @@ export function DownloadKey() {
   });
 
   useEffect(() => {
-    if (!data?.download?.key) return;
+    if (slowError) {
+      notifyOfPartialData();
+    }
+  }, [slowData, slowError, notifyOfPartialData]);
+
+  const { data: refreshedData, load: refresh } = useQuery<
+    DownloadKeyQuery,
+    DownloadKeyQueryVariables
+  >(DOWNLOAD_QUERY, {
+    throwAllErrors: false,
+    lazyLoad: true,
+  });
+
+  useEffect(() => {
+    if (!initialData?.download?.key) return;
     slowLoad({
       variables: {
-        key: '' + data?.download?.key,
+        key: '' + initialData?.download?.key,
       },
     });
-  }, [slowLoad, data?.download?.key]);
+  }, [slowLoad, initialData?.download?.key]);
+
+  useEffect(() => {
+    if (!user?.graphqlToken || !initialData?.download?.key) {
+      return;
+    }
+    load(
+      {
+        variables: {
+          key: initialData.download.key,
+        },
+      },
+      { authorization: `Bearer ${user?.graphqlToken}` }
+    );
+  }, [initialData?.download?.key, load, user?.graphqlToken]);
+
+  const data = refreshedData ?? initialData;
+  useEffect(() => {
+    // if the download is still running or preparing, we refresh the data every 30 seconds
+    const isPreparingOrRunning =
+      data?.download?.status === Download_Status.Preparing ||
+      data?.download?.status === Download_Status.Running;
+    if (isPreparingOrRunning) {
+      const interval = setInterval(() => {
+        refresh({
+          variables: {
+            key: '' + data.download?.key,
+          },
+        });
+      }, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [refresh, data?.download?.status, data?.download?.key]);
 
   const download = data?.download;
   if (!download) throw new NotFoundError();
 
   const literatureCount = slowData?.literatureSearch?.documents?.total;
-  if (slowError) {
-    // TODO, notify users that we couldn't load all data. specifically liteature in this case
-  }
 
   const showCitation = downloadCompleted(download);
 
@@ -186,10 +259,14 @@ export function DownloadKey() {
           </PageContainer>
           <PageContainer className="g-bg-slate-100 g-overflow-hidden">
             <ArticleTextContainer className="g-max-w-screen-xl g-pb-4 g-pt-4">
-              <DeletionNotice download={download} />
+              <DeletionNotice download={download} userDownload={sensitiveData?.download} />
               {showCitation && <FileCard download={download} />}
               {!showCitation && (
-                <NotReadyDownload status={download.status ?? Download_Status.Failed} />
+                <NotReadyDownload
+                  status={download.status ?? Download_Status.Failed}
+                  notificationAddresses={sensitiveData?.download?.request?.notificationAddresses}
+                  downloadKey={download.key}
+                />
               )}
               <UserDescription download={download} />
               <QueryCard download={download} />

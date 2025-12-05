@@ -1,5 +1,5 @@
 import json2md from 'json2md';
-import config from '#/config';
+import config from '@/config';
 import { CreatePublisherDTO } from '.';
 import { authenticatedRequest } from '../helpers/gbifAuthRequest';
 

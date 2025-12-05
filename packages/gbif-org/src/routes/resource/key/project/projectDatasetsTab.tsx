@@ -38,18 +38,36 @@ export function ProjectDatasetsTab() {
   // Can't happen but TS doesn't know
   if (resource?.__typename !== 'GbifProject') throw new Error('500');
 
-  const projectId = resource?.projectId as string;
+  const projectId = resource?.projectId;
 
   const datasets = useQuery<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>(DATASET_QUERY, {
     throwAllErrors: true,
+    lazyLoad: !projectId, // Skip query if no projectId
     variables: {
-      projectId,
+      projectId: projectId ?? '',
     },
   });
 
-  if (datasets.loading) return <CardListSkeleton />;
-  // TODO: handle error
-  if (datasets.data?.datasetSearch == null) return <CardListSkeleton />;
+  if (datasets.loading)
+    return (
+      <div className="g-pt-4 g-max-w-3xl g-m-auto">
+        <CardListSkeleton />
+      </div>
+    );
+
+  // If no projectId, show the NoResultsTab
+  if (!projectId || !datasets.data || datasets.data?.datasetSearch?.results?.length === 0) {
+    return (
+      <div className="g-pt-4 g-max-w-3xl g-m-auto">
+        <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-right">
+          <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon />
+        </p>
+        <NoResultsTab>
+          <FormattedMessage id="cms.resource.noDatasets" />
+        </NoResultsTab>
+      </div>
+    );
+  }
 
   return (
     <div className="g-pt-4 g-max-w-3xl g-m-auto">

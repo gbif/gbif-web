@@ -3,10 +3,10 @@ import { validateRequest } from 'zod-express-middleware';
 import { Router } from 'express';
 import { OptionalStringSchema, RequiredStringSchema } from '../validation';
 import { createGitHubIssue } from '../helpers/create-github-issue';
-import logger from '#/logger';
+import logger from '@/logger';
 import { createMarkdown } from './create-markdown';
-import config from '#/config';
-import { isAuthenticated } from '#/middleware';
+import config from '@/config';
+import { isAuthenticated } from '@/middleware';
 
 const Schema = {
   body: z.object({

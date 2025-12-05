@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
     "name": "DWCA拡張形式",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "locationId": {
     "name": "採集地ID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "コレクション",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "ステータス",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "specimensInGbif": {
     "name": "GBIFの標本",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "位置情報",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "geologicalTime": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "purposes": {
     "name": "トピック",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "organismQuantityType": {
     "name": "生物の数の種類",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "pathway": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "associatedSequences": {
     "name": "関連する塩基配列",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "endDayOfYear": {
     "name": "終了年月日",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "startDayOfYear": {
     "name": "開始年月日",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "previousIdentifications": {
     "name": "以前のID",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "lastInterpreted": {
     "name": "最終解釈日",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "alternativeCode": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "identifier": {
     "name": "ID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "institutionType": {
@@ -167,18 +167,28 @@
   },
   "discipline": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "collectionContentType": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "preservationType": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "biomeType": {
+    "name": "DWCA拡張形式",
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
+  },
+  "objectClassification": {
+    "name": "DWCA拡張形式",
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "taxonKey": {
     "name": "学名",
@@ -220,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "DWCA拡張形式",
+    "count": "DWCA拡張形式",
+    "isNotNull": "DWCA拡張形式",
+    "isNull": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "occurrenceCountry": {
     "name": "国",
@@ -236,13 +246,13 @@
   },
   "preparations": {
     "name": "標本の準備または保存方法",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "repatriated": {
     "name": "返還された",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "publishingCountryCode": {
     "name": "データ出版国または地域",
@@ -329,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "座標の不確実性",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "depth": {
     "name": "深度",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "organismQuantity": {
     "name": "生物の数",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "sampleSizeValue": {
@@ -354,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "相対生物数",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "month": {
@@ -379,43 +389,43 @@
   },
   "sex": {
     "name": "性別",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "lifeStage": {
     "name": "ライフ ステージ",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "recordedBy": {
     "name": "採集者・観察者",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "fieldNumber": {
     "name": "フィールド番号",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "オリジナルの分類群ID",
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "islandGroup": {
     "name": "諸島",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "island": {
     "name": "島",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "georeferencedBy": {
     "name": "以下によってジオリファレンスした",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "datasetName": {
     "name": "データセット名",
@@ -424,8 +434,8 @@
   },
   "programme": {
     "name": "プログラム",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "recordNumber": {
     "name": "レコード番号",
@@ -444,22 +454,22 @@
   },
   "recordedById": {
     "name": "採集者・観察者ID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "identifiedById": {
     "name": "同定者ID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "occurrenceId": {
     "name": "オカレンスID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "organismId": {
     "name": "生物 ID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "locality": {
@@ -474,7 +484,7 @@
   },
   "higherGeography": {
     "name": "採集地を含む地域",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "stateProvince": {
@@ -484,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "GBIF 地域",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "DWCA拡張形式",
+    "description": "DWCA拡張形式"
   },
   "eventId": {
     "name": "イベントID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "eventID": {
     "name": "イベントID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "parentEventId": {
     "name": "親イベントID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "locationID": {
     "name": "採集地ID",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -539,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "サンプリング手順",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "オカレンスの有無",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "gadmGid": {
@@ -554,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "同定者",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "この試験的な機能では、重複や関連するオカレンスの可能性があればハイライトします。"
   },
   "isSequenced": {
     "name": "",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "active": {
@@ -594,48 +604,48 @@
   },
   "datasetType": {
     "name": "データセットタイプ",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "institutionKey": {
     "name": "機関",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "name": {
     "name": "名前",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "GBIFがアノーテーションしたアーカイブ",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "市",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "code": {
     "name": "コード",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "verbatimScientificName": {
     "name": "オリジナルの学名",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "networkKey": {
     "name": "ネットワーク",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "literatureType": {
     "name": "文献の種類",
-    "count": "",
+    "count": "DWCA拡張形式",
     "description": ""
   },
   "higherTaxonKey": {

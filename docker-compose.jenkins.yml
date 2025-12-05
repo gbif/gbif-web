@@ -1,0 +1,105 @@
+services:
+  translations:
+    build:
+      context: .
+      dockerfile: packages/react-components/Dockerfile.jenkins
+    expose:
+      - '80'
+    ports:
+      - '6810:80'
+    healthcheck:
+      test: wget --spider -q http://127.0.0.1:80/translations.json || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  es-api:
+    build:
+      context: .
+      dockerfile: packages/es-api/Dockerfile.jenkins
+    environment:
+      - PORT=6811
+    expose:
+      - '6811'
+    ports:
+      - '6811:6811'
+    healthcheck:
+      test: wget --spider -q http://127.0.0.1:6811/ || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  graphql-api:
+    build:
+      context: .
+      dockerfile: packages/graphql-api/Dockerfile.jenkins
+    environment:
+      - PORT=6812
+      - apiEs=http://es-api:6811
+      - origin=http://graphql-api:6812
+      - translations=http://translations:80
+    expose:
+      - '6812'
+    ports:
+      - '6812:6812'
+    healthcheck:
+      test: wget --spider -q http://127.0.0.1:6812/health || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  gbif-org:
+    build:
+      context: .
+      dockerfile: packages/gbif-org/Dockerfile.jenkins
+      args:
+        PUBLIC_BASE_URL: http://gbif-org:6813
+        PUBLIC_GRAPHQL_ENDPOINT: http://graphql-api:6812/graphql
+        PUBLIC_GRAPHQL_ENDPOINT_SERVER: http://graphql-api:6812/graphql
+        PUBLIC_GRAPHQL_ENDPOINT_CLIENT: http://graphql-api:6812/graphql
+        PUBLIC_WEB_UTILS: http://graphql-api:6812/unstable-api
+        PUBLIC_FORMS_ENDPOINT: http://graphql-api:6812/forms
+        PUBLIC_CONTENT_SEARCH: http://es-api:6811/content
+        PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT: http://translations:80
+        PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_SERVER: http://translations:80
+        PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_CLIENT: http://translations:80
+    environment:
+      - PORT=6813
+      - DISABLE_HTTPS_UPGRADE=true
+      - PUBLIC_BASE_URL=http://gbif-org:6813
+      - PUBLIC_GRAPHQL_ENDPOINT=http://graphql-api:6812/graphql
+      - PUBLIC_WEB_UTILS=http://graphql-api:6812/unstable-api
+      - PUBLIC_FORMS_ENDPOINT=http://graphql-api:6812/forms
+      - PUBLIC_CONTENT_SEARCH=http://es-api:6811/content
+      - PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT=http://translations:80
+      - PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_SERVER=http://translations:80
+      - PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_CLIENT=http://translations:80
+    expose:
+      - '6813'
+    ports:
+      - '6813:6813'
+    depends_on:
+      graphql-api:
+        condition: service_healthy
+      es-api:
+        condition: service_healthy
+      translations:
+        condition: service_healthy
+    healthcheck:
+      test: wget --spider -q http://127.0.0.1:6813/ || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  cypress:
+    build:
+      context: .
+      dockerfile: packages/gbif-org/Dockerfile.cypress
+    depends_on:
+      gbif-org:
+        condition: service_healthy
+    environment:
+      - CYPRESS_baseUrl=http://gbif-org:6813
+    volumes:
+      - ./cypress-results:/app/cypress/results
+    command: ['--spec', 'cypress/e2e/basicTests/**/*.cy.js']

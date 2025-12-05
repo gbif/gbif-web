@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import { getDefaultAgent } from '#/requestAgents';
+import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { get, merge } from 'lodash';
 import wikibase from 'wikibase-sdk';

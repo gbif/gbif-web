@@ -33,7 +33,8 @@ export function useColumnVisibility({
 
   // Could not get the use-local-storage hook to work with the Set and default value
   const [visibleColumns, setVisibleColumns] = useState<VisibleColumns>(
-    parser(localStorage.getItem(selectedColumnsLocalStoreKey)) ?? initialVisibilityState
+    parser(localStorage.getItem(selectedColumnsLocalStoreKey), availableTableColumnsSet) ??
+      initialVisibilityState
   );
 
   useEffect(() => {
@@ -63,11 +64,25 @@ export function useColumnVisibility({
   };
 }
 
-function parser(value: string | null): VisibleColumns | undefined {
+function parser(
+  value: string | null,
+  availableTableColumnsSet: Set<string>
+): VisibleColumns | undefined {
   if (!value) return;
-  const parsed = JSON.parse(value);
-  if (!Array.isArray(parsed)) return;
-  return new Set(parsed);
+  try {
+    const parsed = JSON.parse(value);
+    if (!Array.isArray(parsed)) return;
+    // Filter out invalid column IDs that don't exist in availableTableColumns
+    const validColumns = parsed.filter(
+      (id) => typeof id === 'string' && availableTableColumnsSet.has(id)
+    );
+    // Return undefined if no valid columns remain, triggering fallback to defaults
+    if (validColumns.length === 0) return;
+    return new Set(validColumns);
+  } catch {
+    // If JSON parsing fails, return undefined to fall back to defaults
+    return;
+  }
 }
 
 function serializer(visibleColumns: VisibleColumns): string {

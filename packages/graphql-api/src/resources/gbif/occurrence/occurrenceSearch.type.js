@@ -102,6 +102,7 @@ const typeDef = gql`
       sortBy: OccurrenceSortBy
       sortOrder: SortOrder
       checklistKey: ID
+      shuffle: Int
     ): OccurrenceDocuments!
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrences per year.
@@ -173,15 +174,16 @@ const typeDef = gql`
     institutionCode: Long!
     networkKey: Long!
     programme: Long!
-    taxonKey(checklistKey: ID): ID!
-    classKey(checklistKey: ID): ID!
-    familyKey(checklistKey: ID): ID!
-    genusKey(checklistKey: ID): ID!
-    kingdomKey(checklistKey: ID): ID!
-    orderKey(checklistKey: ID): ID!
-    phylumKey(checklistKey: ID): ID!
-    speciesKey(checklistKey: ID): ID!
-    usageKey(checklistKey: ID): ID!
+    taxonKey(checklistKey: ID): Long!
+    classKey(checklistKey: ID): Long!
+    familyKey(checklistKey: ID): Long!
+    genusKey(checklistKey: ID): Long!
+    kingdomKey(checklistKey: ID): Long!
+    orderKey(checklistKey: ID): Long!
+    phylumKey(checklistKey: ID): Long!
+    speciesKey(checklistKey: ID): Long!
+    usageKey(checklistKey: ID): Long!
+    acceptedTaxonKey(checklistKey: ID): Long!
     preparations: Long!
     iucnRedListCategory(checklistKey: ID): Long!
     establishmentMeans: Long!
@@ -195,6 +197,7 @@ const typeDef = gql`
     fieldNumber: Long!
     repatriated: Long!
     gadmGid: Long!
+    organismId: Long!
     projectId: Long!
     higherGeography: Long!
     isSequenced: Long!
@@ -461,7 +464,7 @@ const typeDef = gql`
       from: Int
       checklistKey: ID
     ): [OccurrenceFacetResult_taxon]
-    acceptedUsageKey(
+    acceptedTaxonKey(
       size: Int
       from: Int
       checklistKey: ID

@@ -30,7 +30,7 @@ import {
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
-import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -192,15 +192,15 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
   query SlowOccurrenceKey($key: ID!, $language: String!) {
     occurrence(key: $key) {
       key
-      localContext {
+      localContexts {
         project_page
         title
         description
-        notice {
+        notes {
           name(lang: $language)
           img_url
-          default_text(lang: $language)
-          notice_page
+          description(lang: $language)
+          pageUrl
         }
       }
       institution {
@@ -403,10 +403,11 @@ export function OccurrenceKey() {
     occurrence?.classifications?.find(
       (classification) => classification?.checklistKey === config.defaultChecklistKey
     ) ?? occurrence?.classifications?.[0];
+  const title = getTitle({ occurrence, termMap });
   return (
     <>
       <Helmet>
-        <title>{getTitle({ occurrence, termMap })}</title>
+        <title>{title || 'Unknown'}</title>
       </Helmet>
       <DataHeader
         className="g-bg-white"
@@ -424,6 +425,7 @@ export function OccurrenceKey() {
               )}
               <div className="g-flex-grow">
                 <ArticlePreTitle
+                  clickable={!occurrence.volatile?.features?.isSpecimen}
                   secondary={
                     occurrence.eventDate ? (
                       <FormattedDateRange date={occurrence?.eventDate} />
@@ -436,10 +438,12 @@ export function OccurrenceKey() {
                     <FormattedMessage id="occurrenceDetails.specimen" defaultMessage="Specimen" />
                   )}
                   {!occurrence.volatile?.features?.isSpecimen && (
-                    <FormattedMessage
-                      id="occurrenceDetails.occurrence"
-                      defaultMessage="Occurrence"
-                    />
+                    <DynamicLink pageId="occurrenceSearch">
+                      <FormattedMessage
+                        id="occurrenceDetails.occurrence"
+                        defaultMessage="Occurrence"
+                      />
+                    </DynamicLink>
                   )}
                 </ArticlePreTitle>
                 {/* <ArticleTitle
@@ -447,7 +451,12 @@ export function OccurrenceKey() {
               ></ArticleTitle> */}
                 <ArticleTitle className="lg:g-text-3xl">
                   <>
-                    <span className="g-me-4">{getTitle({ occurrence, termMap })}</span>
+                    {title && <span className="g-me-4">{title}</span>}
+                    {!title && (
+                      <span className="g-me-4 g-text-slate-500">
+                        <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
+                      </span>
+                    )}
                     {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                       <TooltipProvider>
                         <Tooltip delayDuration={0}>

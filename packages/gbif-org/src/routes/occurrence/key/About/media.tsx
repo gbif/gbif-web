@@ -7,6 +7,8 @@ import { MdFileDownload } from 'react-icons/md';
 import { RiExternalLinkLine } from 'react-icons/ri';
 import { FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
+import { Img } from '@/components/Img';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const supportedFormats = [
   'audio/ogg',
@@ -69,20 +71,30 @@ export function Media({
 
 function Images({ occurrence, ...props }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
+  const imageCount = occurrence.stillImageCount || 0;
+  const cap = 100;
   return (
     <>
-      {occurrence.stillImages?.map((media: OccurrenceMediaDetailsFragment, index) => (
+      {imageCount > cap && (
+        <Alert variant="theme" className="g-mb-4">
+          <AlertDescription>
+            Showing first 100 images out of {imageCount}.<br />
+            Please refer to the API or do a download for the complete list.
+          </AlertDescription>
+        </Alert>
+      )}
+      {occurrence.stillImages?.slice(0, cap).map((media: OccurrenceMediaDetailsFragment, index) => (
         <li key={`${media?.identifier}_${index}`}>
           <Card className="g-overflow-hidden">
-            {media.identifier && (
+            {media.thumbor && (
               <figure>
                 <a
                   target="_blank"
                   href={`https://www.gbif.org/tools/zoom/simple.html?src=${encodeURIComponent(
-                    media.identifier
+                    media.identifier ?? media.thumbor
                   )}`}
                 >
-                  <img src={media.thumbor} />
+                  <Img src={media.thumbor} failedClassName="g-h-36 g-bg-slate-200" />
                 </a>
               </figure>
             )}

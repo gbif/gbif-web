@@ -2,6 +2,7 @@ import * as PopoverPrimitive from '@radix-ui/react-popover';
 import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
+import { getPortalContainer } from '@/utils/getPortalContainer';
 
 const Popover = PopoverPrimitive.Root;
 
@@ -11,7 +12,7 @@ const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
 >(({ className, align = 'center', sideOffset = 4, style, ...props }, ref) => (
-  <PopoverPrimitive.Portal container={getPopoverContainer()}>
+  <PopoverPrimitive.Portal container={getPortalContainer()}>
     <div
       className="gbif"
       style={{
@@ -47,12 +48,3 @@ const PopoverContent = React.forwardRef<
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 export { Popover, PopoverContent, PopoverTrigger };
-
-function getPopoverContainer() {
-  if (typeof window === 'undefined') return undefined;
-  return (
-    document.querySelector<HTMLElement>('.dialog-popover-container') ??
-    document.querySelector<HTMLElement>('.drawer-popover-container') ??
-    document.body
-  );
-}

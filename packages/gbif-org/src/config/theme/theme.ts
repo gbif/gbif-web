@@ -54,6 +54,7 @@ export interface Theme {
   color200: string;
   color100: string;
   linkColor: string;
+  linkColorHover: string;
   paperBackground500: string;
   paperBackground400: string;
   paperBackground300: string;
@@ -66,7 +67,11 @@ export interface Theme {
   darkPaperBackground: string;
   paperBackgroundElevated: string;
   mapDensityColors: string[];
+  mapPointOpacities: number[];
+  mapPointSizes: number[];
   chartColors: string[];
   iucnColors?: { [key: string]: string }; //custom colors for iucn categories
+  proseQuoteBorders: string;
+  preTitleSeparatorColor?: string;
   // _cssVariables: { [key: string]: any };
 }

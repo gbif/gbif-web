@@ -1,21 +1,25 @@
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, useIntl } from 'react-intl';
 import { HyperText } from './hyperText';
 
+type FormatMessageValues = Parameters<ReturnType<typeof useIntl>['formatMessage']>[1];
+
 export function Message({
   id,
   defaultMessage,
-  values,
+  sanitizeOptions,
   className,
   ...props
 }: {
   id: string;
   defaultMessage?: string;
-  values?: Record<string, string | number>;
   className?: string;
+  sanitizeOptions?: DOMPurify.Config;
 }) {
   const { formatMessage } = useIntl();
-  const dirty = formatMessage({ ...{ id, defaultMessage, values } });
-  return <HyperText text={dirty} className={className} {...props} />;
+  const dirty = formatMessage({ id, defaultMessage });
+  return (
+    <HyperText text={dirty} className={className} sanitizeOptions={sanitizeOptions} {...props} />
+  );
 }
 
 export function Unknown({ id = 'phrases.unknown', ...props }) {

@@ -29,6 +29,7 @@ import { AboutContent, ApiContent } from './help';
 import SourceDataset from './SourceDataset';
 import SourceLink from './SourceLink';
 import { useIsSpeciesOrBelow } from './taxonUtil';
+import { HelpLine } from '@/components/helpText';
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
@@ -174,10 +175,20 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
           <ArticleTextContainer className="g-max-w-screen-xl">
             <ArticlePreTitle
               secondary={
-                <FormattedMessage
-                  id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`}
-                  defaultMessage={taxon.taxonomicStatus || ''}
-                />
+                taxon.taxonomicStatus === 'DOUBTFUL' ? (
+                  <HelpLine
+                    id="what-does-the-taxon-status-doubtful-mean-and-when-is-used"
+                    icon
+                    contentClassName="g-w-auto g-max-w-[min(42rem,100vw)]"
+                    title={
+                      <span className="g-uppercase">
+                        <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
+                      </span>
+                    }
+                  />
+                ) : (
+                  <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
+                )
               }
             >
               <FormattedMessage id={`enums.rank.${taxon.rank}`} defaultMessage={taxon.rank || ''} />

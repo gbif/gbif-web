@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
+  "downloadReport": {
+    "title": "Relatório de transferência",
+    "knownIssues": "Problemas conhecidos",
+    "knownIssuesDescription": "Uma parte do processo do GBIF é sinalizar os registos de ocorrência que apresentam campos suspeitos",
+    "FossilsIncluded": "Fósseis",
+    "FossilsIncludedDescription": "Há fósseis dentre os resultados. Isto pode significar ocorrências de espécies em locais inesperados",
+    "livingSpecimensIncluded": "Espécimes vivos",
+    "livingSpecimensIncludedDescription": "A pesquisa inclui espécimes vivos, tais como ocorrências em jardins botânicos e zoológicos.",
+    "yearRange": "Intervalo de ano",
+    "total": "Total",
+    "license": "Licença",
+    "withTaxonMatch": "Com táxon correspondente",
+    "withCoordinates": "Com coordenadas",
+    "withYear": "Com ano",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} comprimido para transferir",
+    "freeOfCost": "Livre de custos – não é livre de responsabilidades",
+    "cancel": "Voltar e adicionar mais filtros",
+    "proceed": "Prosseguir – Eu sei usar uma ferramenta adequada",
+    "understood": "Compreendido",
+    "largeDownload": "Transferência grande",
+    "requestingFullDownload": "Estás a solicitar uma transferência completa de todos os dados de ocorrência no GBIF.",
+    "occFiltersExplainedHere": "Isto é possível, mas podes querer filtrar os dados antes de descarregar. Isto pode ser feito através de nossos filtros de ocorrência. Como fazer está explicado cá [here](/ news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "O tamanho estimado da transferência é {SIZE_FORMATTED}. Numa ligação de internet de {CONNECTION_SPEED} Mb/s, isto levaria {DOWNLOAD_TIME_FORMATTED} {DOWNLOAD_TIME, plural, one{hora} other{horas}} para transferir.",
+    "estDLtimes": "Tempo de transferência estimado:",
+    "nMbitConn": "conexão Mbit {NUMBER}",
+    "onceDownloaded": "Após a transferência do ficheiro, precisará aproximadamente de {SIZE_FORMATTED} de espaço livre em disco para descomprimir os dados.",
+    "datasetHasNumRows": "O conjunto de dados tem {NUMBER_FORMATTED} linhas de dados.",
+    "youWillNotBeAble": "Os dados não poderão ser visualizados ou analisados em Excel ou numa aplicação similar. Para trabalhar com estes dados é necessário o conhecimento prévio de uma ferramenta como R, Phyton ou bases de dados relacionais.",
+    "difficultToAnalyse": "Não poderá visualizar ou analisar os dados em aplicações como o Excel ou similar. Um conjunto de dados deste tamanho é difícil de analisar num computador comum. Provavelmente precisará aceder a um serviço de computação distribuído ou ferramenta de 'Big Data'.",
+    "hours": "Horas",
+    "minute": "Minuto",
+    "minutes": "Minutos"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Voltar",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "Iguais {is}",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "Extensões",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "Formato",
+    "csvDelimiter": "",
+    "taxonomy": "Taxonomia",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "Não poderá visualizar ou analisar os dados em aplicações como o Excel ou similar. Um conjunto de dados deste tamanho é difícil de analisar num computador comum. Provavelmente precisará aceder a um serviço de computação distribuído ou ferramenta de 'Big Data'.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "Iguais {is}",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "Formato",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "Ficheiro Darwin Core",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "Lista de espécies",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "",
     "title": "",
     "notification": "",
@@ -265,6 +400,7 @@
         "250": "",
         "1000": "",
         "10000": "",
+        "50000": "",
         "100000": ""
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
         "1": "",
         "2": "",
         "3": "",
@@ -307,7 +442,8 @@
         "10": "",
         "100": "",
         "1000": "",
-        "10000": ""
+        "10000": "",
+        "100000": ""
       }
     },
     "noneSelected": "",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
+    "dataQuality": "Qualidade de dados",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",

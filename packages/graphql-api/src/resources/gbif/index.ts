@@ -19,6 +19,7 @@ export { default as participant } from './participant';
 export { default as resource } from './resource';
 export { default as staffMember } from './staffMember';
 export { default as taxon } from './taxon';
+export { default as statusPage } from './statusPage';
 export { default as validation } from './validation';
 export { default as vocabulary } from './vocabulary';
 export { default as wikidata } from './wikidata';

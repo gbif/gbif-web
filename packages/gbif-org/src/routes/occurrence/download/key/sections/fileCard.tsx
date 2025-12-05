@@ -10,6 +10,7 @@ import { formatBytes } from '@/utils/formatBytes';
 import { useMemo } from 'react';
 import { createIntl, FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { downloadCompleted } from '../utils';
+import { MdDownload } from 'react-icons/md';
 
 export function FileCard({ download }: { download: DownloadKeyQuery['download'] }) {
   const { formatMessage } = useIntl();
@@ -56,6 +57,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
                     className="g-me-1 g-text-inherit"
                   >
                     RIS
+                    <MdDownload className="g-ms-1" />
                   </a>
                 </Button>
                 <Button asChild variant="outline" size="sm">
@@ -64,6 +66,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
                     href={`https://data.crosscite.org/application/x-bibtex/${download.doi}`}
                   >
                     BibTex
+                    <MdDownload className="g-ms-1" />
                   </a>
                 </Button>
               </div>
@@ -91,7 +94,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
               <div>
                 <FormattedNumber value={size} /> {unit}
               </div>
-              <div className="g-text-slate-400">
+              <div className="g-text-slate-500">
                 <FormattedMessage id={`enums.downloadFormat.${download?.request?.format}`} />
               </div>
             </div>

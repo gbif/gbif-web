@@ -3,9 +3,13 @@ import { getEndpoints } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
 
 // The env options
+// notice the server/client endpoints are needed when doing SSR using docker where the server needs to access services on the internal docker network
+// everywhere else we can just ignore it
 type Options = {
   baseUrl: string;
   translationsEntryEndpoint: string;
+  translationsEntryEndpointServer: string;
+  translationsEntryEndpointClient: string;
   v1Endpoint: string;
   contentSearchEndpoint: string;
   // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
@@ -26,6 +30,8 @@ const options = {
   graphqlEndpointClient: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
   formsEndpointServer: import.meta.env.PUBLIC_FORMS_ENDPOINT_SERVER,
   formsEndpointClient: import.meta.env.PUBLIC_FORMS_ENDPOINT_CLIENT,
+  translationsEntryEndpointServer: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_SERVER,
+  translationsEntryEndpointClient: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_CLIENT,
 } as Options;
 
 if (!options.baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
@@ -35,6 +41,9 @@ const isServer = () => typeof window === 'undefined';
 export const gbifConfig: Config = {
   version: 3,
   ...options,
+  isGBIFOrg: true,
+  // notice the server/client endpoints are needed when doing SSR using docker where the server needs to access services on the internal docker network
+  // everywhere else we can just ignore it
   get graphqlEndpoint() {
     if (isServer()) {
       return options.graphqlEndpointServer ?? options.graphqlEndpoint;
@@ -46,6 +55,12 @@ export const gbifConfig: Config = {
       return options.formsEndpointServer ?? options.formsEndpoint;
     }
     return options.formsEndpointClient ?? options.formsEndpoint;
+  },
+  get translationsEntryEndpoint() {
+    if (isServer()) {
+      return options.translationsEntryEndpointServer ?? options.translationsEntryEndpoint;
+    }
+    return options.translationsEntryEndpointClient ?? options.translationsEntryEndpoint;
   },
   // suggest: {
   //   gadm: {
@@ -109,7 +124,10 @@ export const gbifConfig: Config = {
     primary: '#4C9C2E', // green '#69AA69', purple #4f46e5
     stickyOffset: '0px',
     borderRadius: 3,
-    linkColor: '#69AA69',
+    linkColor: '#61A350',
+    // linkColorHover: fallback is primary700
+    proseQuoteBorders: '#F4CA70', // Yellow left border on prose quotes
+    preTitleSeparatorColor: '#FDB002', // Yellow separator
     chartColors: [
       '#4C9C2E',
       '#231F20',
@@ -121,6 +139,8 @@ export const gbifConfig: Config = {
       '#664192',
       '#F2BF48',
       '#0078B4',
+      '#E8B0C6',
+      '#F7D991',
     ],
     iucnColors: {
       NA: '#B8A896',
@@ -179,23 +199,10 @@ export const gbifConfig: Config = {
       // tabs: ['table', 'map', 'gallery', 'download'],
       // defaultTab: 'table',
     },
-    disableInPageOccurrenceSearch: false,
     showEvents: true,
     literatureSearch: {
       excludedFilters: ['gbifDatasetKey'],
     },
-  },
-  collectionSearch: {
-    highlightedFilters: [
-      'q',
-      'code',
-      'country',
-      'numberSpecimens',
-      'occurrenceCount',
-      'taxonKey',
-      'descriptorCountry',
-    ],
-    // excludedFilters: ['institutionKey', 'active'],
   },
   collectionKey: {
     occurrenceSearch: {
@@ -204,10 +211,6 @@ export const gbifConfig: Config = {
       tabs: ['table', 'map', 'gallery', 'clusters', 'download'],
       defaultTab: 'table',
     },
-  },
-  institutionSearch: {
-    highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
-    // excludedFilters: ['code', 'country'],
   },
   institutionKey: {
     occurrenceSearch: {
@@ -271,35 +274,34 @@ export const gbifConfig: Config = {
   //   en: { 'filters.taxonKey.name': 'hallo' },
   // }, // no messages to overwrite for gbif.org
   maps: {
-    locale: 'en',
     mapStyles: {
       defaultProjection: 'MERCATOR',
       defaultMapStyle: 'NATURAL',
       options: {
         ARCTIC: ['NATURAL', 'BRIGHT'],
         PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
-        MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK', 'GEOLOGY'],
+        MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK'], // 'GEOLOGY'
         ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
       },
     },
-    addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
-      return {
-        GEOLOGY: {
-          // the name of your style
-          component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | MapLibreMap
-          labelKey: 'Custom map from tilejson', // the label in the select. Use a translation key
-          mapConfig: {
-            basemapStyle: `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles/3857/geology`,
-            projection: 'EPSG_3857', // one of 4326 | 3031 | 3857 | 3575
-          },
-        },
-      };
-    },
+    // addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
+    //   return {
+    //     GEOLOGY: {
+    //       // the name of your style
+    //       component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | MapLibreMap
+    //       labelKey: 'Custom map from tilejson', // the label in the select. Use a translation key
+    //       mapConfig: {
+    //         basemapStyle: `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles/3857/geology`,
+    //         projection: 'EPSG_3857', // one of 4326 | 3031 | 3857 | 3575
+    //       },
+    //     },
+    //   };
+    // },
     // rewire style names to show a different style
-    styleLookup: {
-      MERCATOR: {
-        GEOLOGY: 'GEOLOGY',
-      },
-    },
+    // styleLookup: {
+    //   MERCATOR: {
+    //     GEOLOGY: 'GEOLOGY',
+    //   },
+    // },
   },
 };

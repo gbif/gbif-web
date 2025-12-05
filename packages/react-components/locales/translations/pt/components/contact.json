@@ -1,7 +1,10 @@
 {
+  "position": "Posição",
+  "organization": "Organização",
   "email": "Email",
   "address": "Morada",
   "phone": "Telefone",
   "roles": "Perfis",
+  "userId": "ID de utilizador",
   "name": "Nome"
 }

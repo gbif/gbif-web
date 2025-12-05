@@ -28,7 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "",
+  "notVocabularyWarning": "Samfinansieret af",
+  "taxonomicBreakdown": "Samfinansieret af",
   "group": {
     "views": "",
     "record": "",

@@ -1,4 +1,4 @@
-import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
+import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 class ValidationAPI extends RESTDataSource {

@@ -10,6 +10,7 @@ export const helmetConfig = {
         `*.gbif-uat.org`,
         `*.gbif-test.org`,
         `*.gbif-dev.org`,
+        `*.gbif-lab.org`,
         `*.gbif-staging.org`,
         '*.google.com',
         '*.google-analytics.com',
@@ -37,6 +38,7 @@ export const helmetConfig = {
         `*.gbif-uat.org`,
         `*.gbif-test.org`,
         `*.gbif-dev.org`,
+        `*.gbif-lab.org`,
         `*.gbif-staging.org`,
         '*.google-analytics.com',
         'plausible.io',
@@ -57,7 +59,7 @@ export const helmetConfig = {
       mediaSrc: ['*'],
       imgSrc: ['*', 'data:'],
       workerSrc: ['blob:', `'self'`],
-      upgradeInsecureRequests: [],
+      upgradeInsecureRequests: process.env.DISABLE_HTTPS_UPGRADE ? null : [], // this is useful for testing a prod build over http in docker
       // frameAncestors: [ // This leads to conflicting statements in Helmet. Looks like we should either go with frameAncestors or x-frame-options
       //   'https://www.onezoom.org'
       // ]

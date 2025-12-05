@@ -12,6 +12,7 @@ const typeDef = gql`
     ): DirectoryContactRoleSearchResults
     directoryMentors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
     directoryAwardWinners(award: [String]): [DirectoryPerson]!
+    directoryContact(id: ID!): DirectoryContact
   }
 
   type DirectoryPersonRole {

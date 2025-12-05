@@ -25,6 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
@@ -60,5 +61,7 @@
     "orderChanged": "",
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }

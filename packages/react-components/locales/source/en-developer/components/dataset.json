@@ -31,7 +31,7 @@
   "constituentOf": "Constituent of",
   "dataset": "Dataset",
   "taxonomy": "Taxonomy",
-  "localContext": "Local context",
+  "localContexts": "Local contexts",
   "project": "Project",
   "metrics": "Metrics",
   "metricsOccurrenceHelpText": "Metrics are based on interpreted data",

@@ -36,7 +36,7 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
           </span>
         </Button>
       </SheetTrigger>
-      <SheetContent className="overflow-y-scroll g-p-4">
+      <SheetContent className="g-overflow-y-scroll g-p-4">
         <ClientSideOnly>
           <SheetHeader>
             <SheetTitle>

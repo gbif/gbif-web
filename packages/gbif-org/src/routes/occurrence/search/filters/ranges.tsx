@@ -120,6 +120,7 @@ export const eventDateConfig: filterDateRangeConfig = {
   filterTranslation: 'filters.eventDate.name',
   about: () => <Message id="filters.eventDate.description" />,
   group: 'event',
+  allowExistence: true,
 };
 
 export const lastInterpretedConfig: filterDateRangeConfig = {

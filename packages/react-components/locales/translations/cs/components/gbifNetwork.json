@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Etický Kodex",
+      "ASSOCIATE": "Přidružený účastník",
+      "OTHER_ASSOCIATE": "Jiný přidružený účastník",
       "FORMER": "Bývalý",
       "OBSERVER": "Pozorovatel",
-      "UNKNOWN": "",
+      "UNKNOWN": "Neznámý",
       "AFFILIATE": "Přidružení GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Etický Kodex",
+    "mapCaptionPublishers": "Etický Kodex",
     "role": "Role",
     "name": "Jméno",
     "participant": "Účastník",
     "type": "Typ",
     "memberSince": "Členem od",
     "all": "Vše",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Etický Kodex",
+    "publishersPerCountry": "Etický Kodex",
     "clear": "Vymazat",
     "headlines": {
       "nodesSteeringGroup": "Řídicí skupina uzlů",

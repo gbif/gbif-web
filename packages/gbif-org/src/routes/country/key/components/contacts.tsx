@@ -7,11 +7,15 @@ import {
   ContactEmail,
   ContactHeader,
   ContactHeaderContent,
+  ContactImage,
   ContactTelephone,
   ContactTitle,
+  ExpandableContact,
 } from '@/components/contact';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { NodeContactsFragment } from '@/gql/graphql';
+import { DirectoryContactDialogContent } from '@/routes/custom/contact-us/directoryContactDialog';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MaybeArray } from '@/types';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
@@ -110,67 +114,68 @@ function PersonContactCard({
   fullWidthCard = false,
 }: PersonContactCardProps) {
   return (
-    <Card
-      className={cn(
-        'g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
-        highlighted && 'g-bg-slate-100',
-        !fullWidthCard && 'g-max-w-sm'
-      )}
-      key={contact.key}
-      id={`contact${contact.key}`}
-    >
-      <ContactHeader>
-        <ContactAvatar
-          firstName={contact.firstName}
-          lastName={contact.lastName || contact.surname}
-        />
-        <ContactHeaderContent>
-          <ContactTitle
-            title={contact.title}
-            firstName={contact.firstName}
-            lastName={contact.lastName || contact.surname}
-          />
-          <ContactDescription>
-            <BulletList>
-              {asArray(contact.type).map((type) => (
-                <li key={type}>
-                  <FormattedMessage id={`enums.gbifRole.${type}`} defaultMessage={type} />
-                </li>
-              ))}
-            </BulletList>
-          </ContactDescription>
-        </ContactHeaderContent>
-      </ContactHeader>
-      <ContactContent className="g-flex g-flex-col g-gap-1.5">
-        {contact.institutionName && <p>{contact.institutionName}</p>}
-        {contact.address && (
-          <address>
-            {contact.address
-              .filter(notNull)
-              .map((address) => address.split('\n').map((line, i) => <div key={i}>{line}</div>))}
-            {contact.city ||
-              (contact.postalCode && (
-                <p>
-                  {contact.city} {contact.postalCode}
-                </p>
-              ))}
-            {contact.province && <p>{contact.province}</p>}
-            {contact.country && (
-              <FormattedMessage
-                id={`enums.countryCode.${contact.country}`}
-                defaultMessage={contact.country}
-              />
-            )}
-          </address>
+    <ExpandableContact personId={contact.key}>
+      <Card
+        className={cn(
+          'g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
+          { 'g-max-w-sm': !fullWidthCard },
+          { 'g-bg-slate-100': highlighted },
+          { 'hover:g-bg-slate-50 g-cursor-pointer': contact.key },
+          { 'hover:g-bg-slate-200': contact.key && highlighted }
         )}
-      </ContactContent>
-      <ContactActions className="g-pt-2">
-        {isNoneEmptyArray(contact.email) &&
-          contact.email.map((email) => <ContactEmail key={email} email={email} />)}
-        {isNoneEmptyArray(contact.phone) &&
-          contact.phone.map((tel) => <ContactTelephone key={tel} tel={tel} />)}
-      </ContactActions>
-    </Card>
+        key={contact.key}
+        id={`contact${contact.key}`}
+      >
+        <ContactHeader>
+          <ContactImage personId={contact.key || ''} />
+          <ContactHeaderContent>
+            <ContactTitle
+              title={contact.title}
+              firstName={contact.firstName}
+              lastName={contact.lastName || contact.surname}
+            />
+            <ContactDescription>
+              <BulletList>
+                {asArray(contact.type).map((type) => (
+                  <li key={type}>
+                    <FormattedMessage id={`enums.gbifRole.${type}`} defaultMessage={type} />
+                  </li>
+                ))}
+              </BulletList>
+            </ContactDescription>
+          </ContactHeaderContent>
+        </ContactHeader>
+        <ContactContent className="g-flex g-flex-col g-gap-1.5">
+          {contact.institutionName && <p>{contact.institutionName}</p>}
+          {contact.address && (
+            <address>
+              {contact.address
+                .filter(notNull)
+                .map((address) => address.split('\n').map((line, i) => <div key={i}>{line}</div>))}
+              {contact.city ||
+                (contact.postalCode && (
+                  <p>
+                    {contact.city} {contact.postalCode}
+                  </p>
+                ))}
+              {contact.province && <p>{contact.province}</p>}
+              {contact.country && (
+                <FormattedMessage
+                  id={`enums.countryCode.${contact.country}`}
+                  defaultMessage={contact.country}
+                />
+              )}
+            </address>
+          )}
+        </ContactContent>
+        <ContactActions className="g-pt-2">
+          {isNoneEmptyArray(contact.email) &&
+            contact.email.map((email) => <ContactEmail key={email} email={email} />)}
+          {isNoneEmptyArray(contact.phone) &&
+            contact.phone.map((tel) => <ContactTelephone key={tel} tel={tel} />)}
+        </ContactActions>
+      </Card>
+    </ExpandableContact>
   );
 }
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import lunr from 'lunr';
+import { Index as lunrIndex } from 'lunr';
 
 /**
  * Loads the modified search index and creates a lunr search interface
@@ -22,7 +22,7 @@ export default async function searchTechDocs(
     const searchData = (await getSearchIndex()) as SearchData;
 
     // Create a lunr index from the loaded data
-    const idx = lunr.Index.load(searchData.index);
+    const idx = lunrIndex.load(searchData.index);
 
     // Execute the search
     const results = idx.search(query);

@@ -1,4 +1,5 @@
 import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/highlights';
+import { Img } from '@/components/Img';
 import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -176,7 +177,12 @@ function RelatedRecord({
           </div>
           {occurrence?.primaryImage?.identifier && (
             <div className="g-max-w-48 md:g-max-w-64">
-              <img className="g-rounded" src={occurrence?.primaryImage?.identifier} width="300px" />
+              <Img
+                className="g-rounded"
+                src={occurrence?.primaryImage?.identifier}
+                width="300px"
+                failedClassName="g-h-36 g-slate-200"
+              />
             </div>
           )}
         </div>

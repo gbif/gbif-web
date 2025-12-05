@@ -2,7 +2,7 @@
   "foundingDate": "",
   "geographicDescription": "Descrição geográfica",
   "taxonomicDescription": "Descrição taxonómica",
-  "TaxonomicExpertice": "",
+  "TaxonomicExpertice": "Código de Conduta",
   "temporalDescription": "",
   "additionalNames": "Nomes adicionais",
   "description": "Descrição",
@@ -43,7 +43,7 @@
   "dataCatalog": "",
   "edit": "",
   "editHelpText": "",
-  "githubHelpText": "",
+  "githubHelpText": "Código de Conduta",
   "entryCreated": "",
   "lastModified": "",
   "modifiedBy": "",
@@ -54,7 +54,7 @@
     "explore": ""
   },
   "citesPermitNumber": "",
-  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsHeadline": "Descritores da coleção",
   "collectionDescriptorsIntroduction": "",
   "collectionSearchNoResultsMessage": "",
   "searchForSpecimens": ""

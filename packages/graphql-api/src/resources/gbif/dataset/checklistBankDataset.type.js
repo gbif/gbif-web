@@ -21,6 +21,7 @@ const typeDef = gql`
     imported: DateTime
     gbifPublisherKey: ID
     size: Int
+    alias: String
     """
     Stats about the dataset, defaulting to latest finished import
     """

@@ -62,6 +62,8 @@ const typeDef = gql`
     size: Long
     status: Download_Status
     totalRecords: Long
+    willBeDeletedSoon: Boolean
+    readyForDeletion: Boolean
   }
 
   type DownloadRequest {
@@ -73,6 +75,10 @@ const typeDef = gql`
     description: String
     machineDescription: JSON
     gbifMachineDescription: JSON
+    checklistKey: ID
+    verbatimExtensions: [String!]
+    notificationAddresses: [String!]
+    creator: String
   }
 `;
 

@@ -232,6 +232,7 @@ export const GeometryInput = ({ onAdd, initialValue = '' }: GeometryInputProps) 
         )}
         {!offerSimplification && (
           <Button
+            disabled={inputValue.trim() === ''}
             size="sm"
             className="g-me-2"
             variant="default"

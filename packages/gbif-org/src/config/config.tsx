@@ -9,6 +9,9 @@ import { configDefault } from './configDefaults';
 import { Endpoints } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
+import { AdHocMapCoreProps } from '@/routes/occurrence/search/views/map/Map/OpenlayersMap';
+import { MapConfig, ProjectionName } from '@/routes/occurrence/search/views/map/Map/types';
+import { ParamQuery } from '@/utils/querystring';
 
 export type PageConfig = {
   id: string;
@@ -17,7 +20,8 @@ export type PageConfig = {
   redirect?: boolean;
   gbifRedirect?: (
     params: Record<string, string | undefined>,
-    locale: LanguageOption
+    locale: LanguageOption,
+    searchParams?: ParamQuery
   ) => string | null;
 };
 
@@ -53,6 +57,7 @@ type ApiKeysType = {
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   version: number;
+  isGBIFOrg: boolean;
   testSite: boolean; // clearly indicate that it is a test site
   experimentalFeatures: {
     localContextEnabled: boolean;
@@ -109,7 +114,6 @@ export type Config = Endpoints & {
   datasetKey?: {
     literatureSearch?: PartialSearchMetadata;
     occurrenceSearch?: PartialSearchMetadata;
-    disableInPageOccurrenceSearch?: boolean;
     showEvents?: boolean;
   };
   collectionSearch?: SearchMetadata;
@@ -149,14 +153,9 @@ export type Config = Endpoints & {
   maps: {
     locale?: string;
     mapStyles: {
-      defaultProjection: 'MERCATOR' | 'PLATE_CAREE' | 'ARCTIC' | 'ANTARCTIC';
+      defaultProjection: ProjectionName;
       defaultMapStyle: MapStyleType;
-      options: {
-        ARCTIC?: MapStyleType[];
-        PLATE_CAREE?: MapStyleType[];
-        MERCATOR?: MapStyleType[];
-        ANTARCTIC?: MapStyleType[];
-      };
+      options: Partial<Record<ProjectionName, string[]>>;
     };
     addMapStyles?: (args: {
       mapStyleServer: string;
@@ -164,26 +163,21 @@ export type Config = Endpoints & {
       pixelRatio: number;
       apiKeys?: ApiKeysType;
       mapComponents: {
-        OpenlayersMap: React.ComponentType;
-        MapboxMap: React.ComponentType;
+        OpenlayersMap: React.ComponentType<AdHocMapCoreProps>;
+        MapLibreMap: React.ComponentType<AdHocMapCoreProps>;
       };
     }) => Record<
       string,
       {
-        component: React.ComponentType;
+        component: React.ComponentType<AdHocMapCoreProps>;
         labelKey: string;
-        mapConfig: {
-          basemapStyle: string;
-          projection: Projection;
-        };
+        mapConfig: MapConfig;
       }
     >;
     styleLookup?: Partial<Record<ProjectionName, Record<string, string>>>;
   };
 };
 
-export type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';
-type ProjectionName = 'PLATE_CAREE' | 'MERCATOR' | 'ARCTIC' | 'ANTARCTIC';
 type MapStyleType = 'NATURAL' | 'BRIGHT' | 'DARK' | 'SATELLITE' | string;
 
 const ConfigContext = React.createContext<Config | null>(null);

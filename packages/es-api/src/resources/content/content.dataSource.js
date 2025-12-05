@@ -29,6 +29,7 @@ async function query({
   sortBy,
   sortOrder = 'desc',
   metrics,
+  eventFiltering,
   req,
 }) {
   if (parseInt(from) + parseInt(size) > env.content.maxResultWindow) {
@@ -44,11 +45,30 @@ async function query({
     start: 'date',
     end: 'date',
   };
-  // use score if no sortBy param provided or the sortBy param is unknown
+
   const sort = [];
-  if (!sortBy || !sortableFields[sortBy]) {
+
+  if (sortBy && sortableFields[sortBy]) {
+    // Sort by the specified field
+    sort.push({
+      [sortBy]: {
+        order: sortOrder,
+        missing: '_last',
+        unmapped_type: sortableFields[sortBy],
+      },
+    });
+    // Add secondary sort by created for consistency
+    sort.push({
+      createdAt: {
+        order: 'desc',
+        missing: '_last',
+        unmapped_type: 'date',
+      },
+    });
+  } else {
+    // Default sorting when no sortBy or invalid sortBy
     sort.push('_score', {
-      created: {
+      createdAt: {
         order: sortOrder,
         missing: '_last',
         unmapped_type: 'date',
@@ -56,19 +76,13 @@ async function query({
     });
   }
 
-  // if sortBy field isn't sortable, default to createdAt
-  // if (!sortableFields[sortBy]) {
-  // if (sortBy && !sortableFields[sortBy]) {
-  //   sortBy = 'createdAt';
-  // }
-  // // always sort by createdAt as a secondary sort
-  // sort.push({
-  //   [sortBy]: {
-  //     order: sortOrder,
-  //     missing: '_last',
-  //     unmapped_type: sortableFields[sortBy],
-  //   },
-  // });
+  // Apply event filtering if specified
+  let finalQuery = query;
+  if (eventFiltering === 'upcoming') {
+    finalQuery = applyEventDateFilter(query);
+  } else if (eventFiltering === 'past') {
+    finalQuery = applyPastEventDateFilter(query);
+  }
 
   const esQuery = {
     sort,
@@ -76,7 +90,7 @@ async function query({
     size,
     from,
     aggs,
-    query,
+    query: finalQuery,
   };
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
@@ -117,3 +131,239 @@ module.exports = {
   query,
   byKey,
 };
+
+function applyEventDateFilter(query) {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+  const nowISO = now.toISOString();
+
+  // Create a filter that shows events that are not past
+  // For all-day events: show if date >= start of today
+  // For timed events: show if end/start >= now
+  const eventDateFilter = {
+    bool: {
+      should: [
+        // All-day events: show if date >= start of today
+        {
+          bool: {
+            must: [
+              { term: { allDayEvent: true } },
+              {
+                bool: {
+                  should: [
+                    { range: { end: { gte: startOfToday } } },
+                    {
+                      bool: {
+                        must: [
+                          { bool: { must_not: { exists: { field: 'end' } } } },
+                          { range: { start: { gte: startOfToday } } },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        // Timed events: show if end/start >= now
+        {
+          bool: {
+            must: [
+              {
+                bool: {
+                  should: [
+                    { term: { allDayEvent: false } },
+                    { bool: { must_not: { exists: { field: 'allDayEvent' } } } },
+                  ],
+                },
+              },
+              {
+                bool: {
+                  should: [
+                    { range: { end: { gte: nowISO } } },
+                    {
+                      bool: {
+                        must: [
+                          { bool: { must_not: { exists: { field: 'end' } } } },
+                          { range: { start: { gte: nowISO } } },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+
+  // If the original query is a bool query, add our filter to it
+  if (query.bool) {
+    return {
+      bool: {
+        ...query.bool,
+        must: [
+          ...(query.bool.must || []),
+          {
+            bool: {
+              should: [
+                // Non-event content types (no filtering)
+                { bool: { must_not: { term: { contentType: 'event' } } } },
+                // Event content types (with date filtering)
+                {
+                  bool: {
+                    must: [{ term: { contentType: 'event' } }, eventDateFilter],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+  }
+
+  // If the original query is not a bool query, wrap it
+  return {
+    bool: {
+      must: [
+        query,
+        {
+          bool: {
+            should: [
+              // Non-event content types (no filtering)
+              { bool: { must_not: { term: { contentType: 'event' } } } },
+              // Event content types (with date filtering)
+              {
+                bool: {
+                  must: [{ term: { contentType: 'event' } }, eventDateFilter],
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+}
+
+function applyPastEventDateFilter(query) {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+  const nowISO = now.toISOString();
+
+  // Create a filter that shows events that are past
+  // For all-day events: show if date < start of today
+  // For timed events: show if end/start < now
+  const eventDateFilter = {
+    bool: {
+      should: [
+        // All-day events: show if date < start of today
+        {
+          bool: {
+            must: [
+              { term: { allDayEvent: true } },
+              {
+                bool: {
+                  should: [
+                    { range: { end: { lt: startOfToday } } },
+                    {
+                      bool: {
+                        must: [
+                          { bool: { must_not: { exists: { field: 'end' } } } },
+                          { range: { start: { lt: startOfToday } } },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        // Timed events: show if end/start < now
+        {
+          bool: {
+            must: [
+              {
+                bool: {
+                  should: [
+                    { term: { allDayEvent: false } },
+                    { bool: { must_not: { exists: { field: 'allDayEvent' } } } },
+                  ],
+                },
+              },
+              {
+                bool: {
+                  should: [
+                    { range: { end: { lt: nowISO } } },
+                    {
+                      bool: {
+                        must: [
+                          { bool: { must_not: { exists: { field: 'end' } } } },
+                          { range: { start: { lt: nowISO } } },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+
+  // If the original query is a bool query, add our filter to it
+  if (query.bool) {
+    return {
+      bool: {
+        ...query.bool,
+        must: [
+          ...(query.bool.must || []),
+          {
+            bool: {
+              should: [
+                // Non-event content types (no filtering)
+                { bool: { must_not: { term: { contentType: 'event' } } } },
+                // Event content types (with date filtering)
+                {
+                  bool: {
+                    must: [{ term: { contentType: 'event' } }, eventDateFilter],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+  }
+
+  // If the original query is not a bool query, wrap it
+  return {
+    bool: {
+      must: [
+        query,
+        {
+          bool: {
+            should: [
+              // Non-event content types (no filtering)
+              { bool: { must_not: { term: { contentType: 'event' } } } },
+              // Event content types (with date filtering)
+              {
+                bool: {
+                  must: [{ term: { contentType: 'event' } }, eventDateFilter],
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+}

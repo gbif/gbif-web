@@ -1,5 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
-import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
+import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 
 class DownloadAPI extends RESTDataSource {
   constructor(config) {
@@ -31,7 +31,15 @@ class DownloadAPI extends RESTDataSource {
   }
 
   async getDownloadByKey({ key }) {
-    return this.get(`/occurrence/download/${key}?statistics=true`);
+    return this.get(
+      `/occurrence/download/${key}`,
+      {
+        statistics: true,
+      },
+      {
+        cacheOptions: { ttl: this.context.user ? 0 : undefined },
+      },
+    );
   }
 
   async getContributingDatasetsByDownloadKey({ key, query }) {

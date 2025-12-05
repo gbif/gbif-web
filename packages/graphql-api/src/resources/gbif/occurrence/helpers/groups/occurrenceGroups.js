@@ -14,7 +14,7 @@
  *  }
  * }
  */
-import interpretationRemark from '#/helpers/enums/interpretationRemark';
+import interpretationRemark from '@/helpers/enums/interpretationRemark';
 import { isNil, pick } from 'lodash';
 import terms from './terms.json';
 

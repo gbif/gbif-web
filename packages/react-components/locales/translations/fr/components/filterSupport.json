@@ -25,6 +25,7 @@
   "updateFilter": "Mettre à jour le filtre",
   "setFilter": "Définir en tant que filtre",
   "noMathcingFilters": "Doit être défini",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "",
   "commonName": "Nom commun ",
   "acceptedNameOf": "Nom accepté pour",
@@ -60,5 +61,7 @@
     "orderChanged": "",
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }

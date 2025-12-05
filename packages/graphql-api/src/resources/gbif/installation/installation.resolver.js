@@ -1,4 +1,4 @@
-import { getHtml } from '#/helpers/utils';
+import { getHtml } from '@/helpers/utils';
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type

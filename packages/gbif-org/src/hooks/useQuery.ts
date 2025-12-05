@@ -140,8 +140,8 @@ export function useQuery<TResult, TVariabels>(
                 setError(error);
               }
               setData(result.data);
-              setLoading(false);
             }
+            setLoading(false);
           })
           .catch((error) => {
             // Handle cancellation errors

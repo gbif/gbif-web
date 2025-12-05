@@ -8,6 +8,7 @@ import { render } from 'mustache';
 // import positronMercator from './experiments/positron_mercator';
 // import positron4326 from './experiments/positron_4326';
 // import epsg4326 from './experiments/4326';
+import axios from 'axios';
 import geology3857 from './experiments/geology_test';
 
 import gbifRaster3575 from './3575/gbif-raster';
@@ -17,10 +18,9 @@ import gbifRasterHillshade3857 from './3857/gbif-raster-hillshade';
 import gbifRaster4326 from './4326/gbif-raster';
 import gbifRasterIUCN4326 from './4326/gbif-raster-iucn';
 
-import satellite3031 from './3031/satellite';
-import satellite3857_maptiler from './3857/satellite_maptiler';
-import satellite3857_bing from './3857/satellite_bing';
-import axios from 'axios';
+import satellite3031 from './3031/satellite.json';
+import satellite3857_maptiler from './3857/satellite_maptiler.json';
+import satellite3857_bing from './3857/satellite_bing.json';
 import config from '../../config';
 
 const router = Router();
@@ -73,8 +73,8 @@ router.get('/3857/gbif-raster-hillshade', (req, res, next) => {
 
 // GBIF Raster IUCN
 router.get('/4326/gbif-raster-iucn-volatile', async (req, res, next) => {
-  const taxonKey = req.query.taxonKey;
-  let query = { ...req.query };
+  const { taxonKey } = req.query;
+  const query = { ...req.query };
   if (taxonKey && !query.iucnTaxonID) {
     try {
       // fetch the IUCN Redlist category, and from that the species entry. From there we can get to the taxonID that is used in the map tiles

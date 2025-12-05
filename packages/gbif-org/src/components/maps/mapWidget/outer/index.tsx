@@ -39,8 +39,13 @@ const LOWER_LIMIT = 1500;
 const UPPER_LIMIT = new Date().getFullYear();
 
 const defaultRasterStyles = mapWidgetOptions.predefined.find((x) => x.name === 'GREEN')!;
+const defaultCapabilitiesParams = {}; // Stable reference as fallback prop to prevent cascading rerenders without any real change
 
-export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }: Props) {
+export function MapWidgetOuter({
+  className,
+  capabilitiesParams = defaultCapabilitiesParams,
+  mapStyle,
+}: Props) {
   const isSmallScreen = useBelow(800, true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const toggleFullScreen = () => setIsFullScreen((current) => !current);
@@ -131,15 +136,15 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
   return (
     <div className={cn('g-w-full', className)}>
       {/* Placeholder with the same size as the map+controls that will prevent the page from hopping up and down when entering and exiting the full screen mode */}
-      {isFullScreen && <div className="g-aspect-[2.5] g-min-h-[300px]  g-w-full g-mb-12" />}
+      {isFullScreen && <div className="g-aspect-[2] g-min-h-[300px]  g-w-full g-mb-12" />}
       <div
         className={cn('g-flex g-flex-col g-w-full', {
           'g-fixed g-z-50 g-top-0 g-left-0 g-h-screen': isFullScreen,
         })}
       >
-        <div className="g-flex-1 g-w-full g-aspect-[2.5] g-min-h-[300px] g-bg-gray-100 g-border-t">
+        <div className="g-flex-1 g-w-full g-aspect-[2] g-min-h-[300px] g-bg-gray-100 g-border-t">
           <ErrorBoundary type="BLOCK" errorMessage="Failed to load map">
-            <div ref={ref} className="g-w-full g-h-full g-aspect-[2.5] g-min-h-[300px]">
+            <div ref={ref} className="g-w-full g-h-full g-aspect-[2] g-min-h-[300px]">
               <StaticRenderSuspence>
                 <MapWidgetInner
                   className="g-w-full g-h-full"

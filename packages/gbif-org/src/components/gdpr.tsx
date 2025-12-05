@@ -6,7 +6,6 @@ export const GDPR = () => {
   const { user, updateProfile, logout } = useUser();
   const { toast } = useToast();
   const toastRef = useRef({ id: '', dismiss: () => {} });
-
   useEffect(() => {
     if (
       user?.userName &&

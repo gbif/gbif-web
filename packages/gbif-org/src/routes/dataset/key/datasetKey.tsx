@@ -5,6 +5,7 @@ import {
   defaultDateFormatProps,
   DeletedMessage,
   HeaderInfo,
+  HeaderInfoEdit,
   HeaderInfoMain,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
@@ -36,6 +37,7 @@ import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
+import { Button } from '@/components/ui/button';
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -209,15 +211,15 @@ const DATASET_QUERY = /* GraphQL */ `
         name
         value
       }
-      localContext {
+      localContexts {
         project_page
         title
         description
-        notice {
+        notes {
           name
           img_url
-          default_text
-          notice_page
+          description
+          pageUrl
         }
       }
       gridded {
@@ -236,6 +238,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $coordinatePredicate: Predicate
     $clusterPredicate: Predicate
     $eventPredicate: Predicate
+    $literaturePredicate: Predicate
   ) {
     occurrenceSearch(predicate: $predicate) {
       documents(from: $from, size: $size) {
@@ -264,6 +267,11 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     }
     withEvents: occurrenceSearch(predicate: $eventPredicate) {
       documents(size: 0) {
+        total
+      }
+    }
+    literatureSearchScoped: literatureSearch(predicate: $literaturePredicate) {
+      documents {
         total
       }
     }
@@ -312,12 +320,13 @@ export function DatasetPage() {
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
+  const siteOccurrencePredicate = config?.occurrenceSearch?.scope;
 
   const { data: occData, load } = useQuery<
     DatasetOccurrenceSearchQuery,
     DatasetOccurrenceSearchQueryVariables
   >(OCURRENCE_SEARCH_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
     notifyOnErrors: true,
   });
@@ -337,26 +346,47 @@ export function DatasetPage() {
       hasPhylogeny = false;
     }
   }
+
   const hasTaxonomy = !!dataset?.checklistBankDataset?.key;
-  const hasOccurrences = !!(
-    !config?.datasetKey?.disableInPageOccurrenceSearch &&
-    occData?.occurrenceSearch?.documents?.total
-  );
-  const hasLiterature = data?.literatureSearch?.documents?.total > 0;
   const withEventId = occData?.withEvents?.documents?.total || 0;
+  const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
+  const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="dataset.tabs.about" /> },
     ];
-    if (
-      (dataset?.type === 'OCCURRENCE' || hasOccurrences) &&
-      !config?.datasetKey?.disableInPageOccurrenceSearch
-    ) {
+    if (dataset.project) {
       tabsToDisplay.push({
-        to: 'occurrences',
-        children: <FormattedMessage id="dataset.tabs.occurrences" />,
+        to: 'project',
+        children: <FormattedMessage id="dataset.tabs.project" />,
       });
+    }
+    if (hasPhylogeny) {
+      tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
+    }
+    if (hasTaxonomy) {
+      tabsToDisplay.push({ to: 'species', children: 'Species' });
+      // tabsToDisplay.push({
+      //   to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
+      //     dataset.key
+      //   }/classification`,
+      //   children: (
+      //     <>
+      //       <SimpleTooltip
+      //         title={
+      //           <FormattedMessage
+      //             id="dataset.exploreInChecklistBank"
+      //             defaultMessage="Explore taxonomy via Checklist Bank"
+      //           />
+      //         }
+      //       >
+      //         <FormattedMessage id="dataset.tabs.taxonomy" defaultMessage="Taxonomy" />
+      //         <MdLink />
+      //       </SimpleTooltip>
+      //     </>
+      //   ),
+      // });
     }
     if (
       (config.datasetKey?.showEvents && withEventId > 0) ||
@@ -368,43 +398,6 @@ export function DatasetPage() {
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
-    if (dataset.project) {
-      tabsToDisplay.push({
-        to: 'project',
-        children: <FormattedMessage id="dataset.tabs.project" />,
-      });
-    }
-    if (hasPhylogeny) {
-      tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
-    }
-    if (hasTaxonomy) {
-      // tabsToDisplay.push({ to: 'species', children: 'Species' });
-      tabsToDisplay.push({
-        to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
-          dataset.key
-        }/classification`,
-        children: (
-          <>
-            <SimpleTooltip
-              title={
-                <FormattedMessage
-                  id="dataset.exploreInChecklistBank"
-                  defaultMessage="Explore taxonomy via Checklist Bank"
-                />
-              }
-            >
-              <FormattedMessage id="dataset.tabs.taxonomy" defaultMessage="Taxonomy" />
-              <MdLink />
-            </SimpleTooltip>
-          </>
-        ),
-      });
-    }
-    if (hasLiterature)
-      tabsToDisplay.push({
-        to: 'citations',
-        children: <FormattedMessage id="dataset.tabs.citations" />,
-      });
     tabsToDisplay.push({
       to: 'download',
       children: <FormattedMessage id="dataset.tabs.download" />,
@@ -413,13 +406,11 @@ export function DatasetPage() {
   }, [
     hasPhylogeny,
     hasTaxonomy,
-    hasOccurrences,
-    hasLiterature,
     withEventId,
     dataset?.key,
     dataset?.type,
     dataset?.project,
-    config?.datasetKey?.disableInPageOccurrenceSearch,
+    config.datasetKey?.showEvents,
   ]);
 
   useEffect(() => {
@@ -429,39 +420,59 @@ export function DatasetPage() {
       key: 'datasetKey',
       value: dataset.key,
     };
+    const combinedPredicate = siteOccurrencePredicate
+      ? {
+          type: PredicateType.And,
+          predicates: [datasetPredicate, siteOccurrencePredicate],
+        }
+      : datasetPredicate;
+
+    const literatureScope = config?.literatureSearch?.scope;
+    const literatureDatasetScope = {
+      type: PredicateType.Equals,
+      key: 'gbifDatasetKey',
+      value: dataset.key,
+    };
+    const literaturePredicate = literatureScope
+      ? {
+          type: PredicateType.And,
+          predicates: [literatureScope, literatureDatasetScope],
+        }
+      : literatureDatasetScope;
     load({
       variables: {
-        predicate: datasetPredicate,
+        predicate: combinedPredicate,
         imagePredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            combinedPredicate,
             { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
           ],
         },
         coordinatePredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            combinedPredicate,
             { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
           ],
         },
         clusterPredicate: {
           type: PredicateType.And,
           predicates: [
-            datasetPredicate,
+            combinedPredicate,
             { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
           ],
         },
         eventPredicate: {
           type: PredicateType.And,
-          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
+          predicates: [combinedPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
         },
+        literaturePredicate,
         size: 1,
         from: 0,
       },
     });
-  }, [load, dataset.key]);
+  }, [load, dataset.key, siteOccurrencePredicate, config?.literatureSearch?.scope]);
 
   return (
     <>
@@ -483,6 +494,7 @@ export function DatasetPage() {
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <ArticlePreTitle
+              clickable
               secondary={
                 <FormattedMessage
                   id="dataset.registeredDate"
@@ -497,7 +509,9 @@ export function DatasetPage() {
                 />
               }
             >
-              <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              <DynamicLink pageId="datasetSearch">
+                <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
             <ArticleTitle
@@ -567,6 +581,44 @@ export function DatasetPage() {
                   </GenericFeature> */}
                 </FeatureList>
               </HeaderInfoMain>
+              <HeaderInfoEdit className="g-flex g-mt-4 g-gap-2">
+                {citationCountOrZero > 0 && (
+                  <Button asChild variant="outline" className="g-py-1 g-px-2 g-h-[2rem]">
+                    <DynamicLink
+                      to="literatureSearch"
+                      pageId="literatureSearch"
+                      searchParams={{ gbifDatasetKey: dataset.key }}
+                    >
+                      <span className="g-whitespace-nowrap">
+                        <FormattedMessage
+                          id="counts.nCitations"
+                          values={{ total: citationCountOrZero }}
+                        />
+                      </span>
+                    </DynamicLink>
+                  </Button>
+                )}
+                {(occurrenceCountOrZero > 0 || dataset?.type === 'OCCURRENCE') && (
+                  <Button
+                    className="g-py-1 g-px-2 g-h-[2rem]"
+                    asChild
+                    isLoading={occurrenceCountOrZero === 0}
+                  >
+                    <DynamicLink
+                      to="occurrenceSearch"
+                      pageId="occurrenceSearch"
+                      searchParams={{ datasetKey: dataset.key }}
+                    >
+                      <span className="g-whitespace-nowrap">
+                        <FormattedMessage
+                          id="counts.nOccurrences"
+                          values={{ total: occurrenceCountOrZero }}
+                        />
+                      </span>
+                    </DynamicLink>
+                  </Button>
+                )}
+              </HeaderInfoEdit>
             </HeaderInfo>
             <div className="g-border-b g-mt-4"></div>
             <Tabs links={tabs} />

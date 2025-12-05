@@ -36,8 +36,8 @@
   "loadMore": "مزيد",
   "loading": "جاري التحميل",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "قواعد السلوك",
+  "rankInGroup": "قواعد السلوك",
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "بحث",
-    "description": "",
+    "description": "قواعد السلوك",
     "noSearchTermsEntered": "لم يتم إدخال مصطلحات للبحث",
-    "placeholder": "",
+    "placeholder": "قواعد السلوك",
     "categories": {
       "speciesSearch": "نوع",
       "datasetSearch": "مجموعات البيانات",
       "publisherSearch": "الناشرون",
       "occurrenceSearch": "تكرارات",
-      "resourceSearch": ""
+      "resourceSearch": "قواعد السلوك"
     },
     "seeAll": "مشاهدة الكل"
   }

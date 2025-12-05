@@ -25,7 +25,7 @@ import { useTaxonColumns } from './columns';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
-    taxonSearch(query: $query, offset: $offset, limit: $limit) {
+    taxonSearch(query: $query, offset: $offset, limit: $limit, hl: true) {
       count
       offset
       endOfRecords
@@ -50,6 +50,7 @@ const TAXON_SEARCH_QUERY = /* GraphQL */ `
         accepted
         acceptedKey
         numDescendants
+        highlights
         vernacularNames(limit: 2, language: "eng") {
           results {
             vernacularName

@@ -15,11 +15,25 @@ const cliOptions = [
   { name: 'debug', type: Boolean, defaultOption: false },
   { name: 'environment', type: String },
   { name: 'apiEs', type: String },
+  { name: 'origin', type: String },
+  { name: 'translations', type: String },
   // ts-mocha requires this for the --paths option to work
   { name: 'require', alias: 'r', type: String, multiple: true },
 ];
 const options = commandLineArgs(cliOptions, { partial: true });
 
-const config = merge({ debug: false, environment: 'dev' }, env, options);
+const processEnv = {
+  port: process.env.PORT ? Number(process.env.PORT) : undefined,
+  apiEs: process.env.apiEs,
+  origin: process.env.origin,
+  translations: process.env.translations,
+};
+
+const config = merge(
+  { debug: false, environment: 'dev' },
+  env,
+  processEnv,
+  options,
+);
 
 export default config;

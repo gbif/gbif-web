@@ -11,6 +11,10 @@ export const searchConfig: FilterConfigType = {
         supportedTypes: ['fuzzy'],
       },
     },
+    eventFiltering: {
+      hoist: true,
+      singleValue: true,
+    },
   },
 };
 

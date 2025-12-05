@@ -1,4 +1,4 @@
-import config from '#/config';
+import config from '@/config';
 import { ApolloServer, ExpressContext } from 'apollo-server-express';
 
 const ENDPOINTS = {

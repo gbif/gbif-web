@@ -36,8 +36,8 @@
   "loadMore": "More",
   "loading": "Loading",
   "noResults": "No results",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Type to search",
+  "rankInGroup": "{rank} in {group}",
   "occurrenceClustersView": {
     "about": "About",
     "clusters": "Related",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Search",
-    "description": "",
+    "description": "Search across species, occurrences, datasets, publishers, articles and more",
     "noSearchTermsEntered": "No search terms entered",
-    "placeholder": "",
+    "placeholder": "Search across content...",
     "categories": {
       "speciesSearch": "Species",
       "datasetSearch": "Datasets",
       "publisherSearch": "Publishers",
       "occurrenceSearch": "Occurrences",
-      "resourceSearch": ""
+      "resourceSearch": "Resources and articles"
     },
     "seeAll": "See all"
   }

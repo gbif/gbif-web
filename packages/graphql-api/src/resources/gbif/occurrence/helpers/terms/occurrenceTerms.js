@@ -14,7 +14,7 @@
  *  }
  * }
  */
-import interpretationRemark from '#/helpers/enums/interpretationRemark';
+import interpretationRemark from '@/helpers/enums/interpretationRemark';
 import createDOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
 import { isNil, pick } from 'lodash';

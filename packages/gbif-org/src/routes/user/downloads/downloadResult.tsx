@@ -27,6 +27,7 @@ fragmentManager.register(/* GraphQL */ `
       format
       description
       gbifMachineDescription
+      checklistKey
     }
   }
 `);

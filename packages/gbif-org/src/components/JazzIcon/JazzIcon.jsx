@@ -5,16 +5,17 @@ export function getJazzicon(seed, diameter, className) {
   if (typeof seed !== 'number') seed = hash(seed);
 
   let colors = [
-    '#01888C', // teal
-    '#FC7500', // bright orange
-    '#034F5D', // dark teal
-    '#F73F01', // orangered
-    '#FC1960', // magenta
-    '#C7144C', // raspberry
-    '#F3C100', // goldenrod
-    '#1598F2', // lightning blue
-    '#2465E1', // sail blue
-    '#F19E02', // gold
+    // GBIF color scheme
+    '#4C9C2E',
+    '#231F20',
+    '#E37C72',
+    '#D1628E',
+    '#ECAC7C',
+    '#00B7EE',
+    '#6885C0',
+    '#664192',
+    '#F2BF48',
+    '#0078B4',
   ];
 
   let random = mulberry32(seed);

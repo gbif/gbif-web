@@ -30,19 +30,18 @@ export function Validations() {
   );
 
   useEffect(() => {
-    const username = user?.userName; // This needs to be replaced with actual authenticated user
+    const username = user?.userName;
     if (!username || !user?.graphqlToken) {
       return;
     }
     load(
       {
         variables: {
-          username,
           limit: 20,
           offset,
         },
       },
-      { authorization: `Bearer ${user?.graphqlToken}` } // Use the GraphQL token from the user context);),
+      { authorization: `Bearer ${user?.graphqlToken}` }
     );
   }, [offset, load, user?.graphqlToken, user?.userName]);
 

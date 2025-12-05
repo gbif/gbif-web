@@ -36,8 +36,8 @@
   "loadMore": "Altro",
   "loading": "",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Codice di Condotta",
+  "rankInGroup": "Codice di Condotta",
   "occurrenceClustersView": {
     "about": "Informazioni",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "",
-    "description": "",
+    "description": "Codice di Condotta",
     "noSearchTermsEntered": "",
-    "placeholder": "",
+    "placeholder": "Codice di Condotta",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "",
       "publisherSearch": "",
       "occurrenceSearch": "",
-      "resourceSearch": ""
+      "resourceSearch": "Codice di Condotta"
     },
     "seeAll": ""
   }

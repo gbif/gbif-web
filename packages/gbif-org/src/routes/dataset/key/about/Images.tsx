@@ -27,7 +27,10 @@ export function Images({ dataset, className, images = [], link, ...props }) {
         {link ? (
           link
         ) : (
-          <DynamicLink to={`./occurrences?view=GALLERY`}>
+          <DynamicLink
+            pageId="occurrenceSearch"
+            searchParams={{ view: 'GALLERY', datasetKey: [dataset.key] }}
+          >
             <SimpleTooltip title={<span>Records with images</span>} placement="auto">
               <div className="g-flex g-place-items-center">
                 <MdImage style={{ marginRight: 8 }} />{' '}

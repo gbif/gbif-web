@@ -12,7 +12,7 @@
   "hosting": "Hosting",
   "description": "Popis",
   "endorsedBy": "Schváleno od",
-  "notYetEndorsed": "",
+  "notYetEndorsed": "Ještě neschváleno",
   "pendingEndorsementBy": "Čeká se na schválení od",
   "endorsementWithheld": "Schválení odmítnuto",
   "installations": "Instalace",

@@ -36,7 +36,7 @@ function vocabularyConcepts(obj) {
 /**
  * Map ES response to something similar to v1
  */
-function reduce(item) {
+function reduce(item, fields) {
   // take dwc items from verbatim
   // overwrite with selected interpreted fields
   // const source = item._source;
@@ -291,6 +291,7 @@ function reduce(item) {
     // organismQuantity:                   source.organismQuantity,// this field is only present when it can be interpreted as a number
     organismQuantityType: source.organismQuantityType,
     protocol: source.protocol,
+    projectId: source.projectId,
     publishingCountry: source.publishingCountry,
     recordNumber: source.recordNumber,
     recordedBy: source.recordedBy,
@@ -420,6 +421,8 @@ function reduce(item) {
   }
 
   const merged = Object.assign({}, gbifSpecific, verbatim, normalized, gadm);
+
+  if (fields) return _.pick(merged, fields);
 
   return merged;
 }

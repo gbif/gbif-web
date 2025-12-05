@@ -1,4 +1,4 @@
-import { excerpt, getHtml } from '#/helpers/utils';
+import { excerpt, getHtml } from '@/helpers/utils';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
 /**
  * fieldName: (parent, args, context, info) => data;

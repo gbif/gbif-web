@@ -32,7 +32,7 @@ export function useOccurrenceColumns({
     const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [
       {
         id: 'scientificName',
-        // sort: { localStorageKey: 'occurrenceSort', sortBy: 'taxonKey' },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'taxonKey' },
         header: 'filters.taxonKey.name',
         filterKey: 'taxonKey', // default is same as id
         disableHiding: true,
@@ -302,6 +302,20 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter field="collectionCode" value={collectionCode}>
               {collectionCode}
+            </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'organismId',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'organismId' },
+        header: 'occurrenceFieldNames.organismID',
+        cell: ({ organismID }) => {
+          if (!organismID) return null;
+
+          return (
+            <SetAsFilter field="organismId" value={organismID}>
+              {organismID}
             </SetAsFilter>
           );
         },

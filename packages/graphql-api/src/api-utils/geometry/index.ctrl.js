@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import axios from 'axios';
 import { stringify } from 'wkt';
-import mapshaper from 'mapshaper';
+import { applyCommands } from 'mapshaper';
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.get('/simplify/gadm/:level/:id', async (req, res, next) => {
     const response = await axios.get(
       `https://api.gbif-uat.org/v1/geocode/feature/gadm${req.params.level}.json?id=${req.params.id}`,
     );
-    let geojson = response.data;
+    const geojson = response.data;
 
     const input = {
       'input.geojson': JSON.stringify(geojson),
@@ -24,8 +24,8 @@ router.get('/simplify/gadm/:level/:id', async (req, res, next) => {
       '-i input.geojson -simplify resolution=100x100 -o output.geojson';
 
     // using Promise
-    const output = await mapshaper.applyCommands(cmd, input);
-    var simplified = JSON.parse(output['output.geojson'].toString());
+    const output = await applyCommands(cmd, input);
+    const simplified = JSON.parse(output['output.geojson'].toString());
 
     if (req.query.format === 'WKT') {
       const wktString = stringify(simplified.features[0].geometry);

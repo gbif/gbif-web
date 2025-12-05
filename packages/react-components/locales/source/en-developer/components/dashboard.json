@@ -29,6 +29,7 @@
   "iucnThreatStatusDescription": "Species that are near threatened or more vulnerable according to the Global IUCN Redlist",
   "metricsFromGbifData": "These metrics are based on records shared via GBIF",
   "notVocabularyWarning": "Non-interpreted field. The same concept might appear with multiple spellings.",
+  "taxonomicBreakdown": "Taxonomic breakdown",
   "group": {
     "views": "Views",
     "record": "Record",

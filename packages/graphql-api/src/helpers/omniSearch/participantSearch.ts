@@ -1,4 +1,4 @@
-import config from '#/config';
+import config from '@/config';
 import { createSignedGetHeader } from '../auth/authenticatedGet';
 import { normalizeString } from './countrySearch';
 import { OMNI_SEARCH_TIMEOUT } from './omniSearch';

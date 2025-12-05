@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "Verkennen",
-  "generatedDateAgo": "",
+  "generatedDateAgo": "Code of Conduct",
   "style": "Stijl",
   "filters": "Filters",
   "select": "Selecteer",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "Straten",
     "GLACIER": "Gletsjer",
-    "GREEN": "",
+    "GREEN": "Code of Conduct",
     "CUSTOM": ""
   },
   "basemap": {

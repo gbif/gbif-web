@@ -12,6 +12,8 @@
   "NON_CONFLICTING_COUNTRY": "País no conflictivo",
   "DIFFERENT_COUNTRY": "Otro país",
   "IDENTIFIERS_OVERLAP": "Los identificadores se superponen",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "Traslape con otros números de catálogo",
+  "SAME_RECORDER_NAME": "El mismo nombre de quien registra",
   "SAME_SPECIMEN": "Mismo espécimen",
   "TYPIFICATION_RELATION": "Relación de tipificación"
 }

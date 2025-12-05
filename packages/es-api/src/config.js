@@ -15,6 +15,11 @@ const cliOptions = [
 ];
 const options = commandLineArgs(cliOptions);
 
-const config = _.merge({ environment: 'dev' }, env, options);
+const processEnv = {
+  port: process.env.PORT ? Number(process.env.PORT) : undefined,
+  environment: process.env.environment,
+};
+
+const config = _.merge({ environment: 'dev' }, env, processEnv, options);
 
 module.exports = config;

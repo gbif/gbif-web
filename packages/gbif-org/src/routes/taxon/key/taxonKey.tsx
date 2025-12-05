@@ -21,8 +21,6 @@ export async function taxonLoader({ params, graphql }: LoaderArgs) {
 
   const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
-    /*     predicate: typeSpecimenPredicate(Number(key)),
-     */ imagePredicate: imagePredicate(Number(key)),
   });
 
   const { errors, data } = await response.json();
@@ -117,7 +115,7 @@ export const NonBackboneTaxon = ({ headLess = false }) => {
 export { TaxonPageSkeleton } from './taxonKeyPresentation';
 
 const TAXON_QUERY = /* GraphQL */ `
-  query TaxonKey($key: ID!, $imagePredicate: Predicate) {
+  query TaxonKey($key: ID!) {
     taxon(key: $key) {
       key
       nubKey
@@ -190,11 +188,8 @@ const TAXON_QUERY = /* GraphQL */ `
           publishedIn
         }
       }
-    }
-
-    imagesCount: occurrenceSearch(predicate: $imagePredicate) {
-      documents(size: 0) {
-        total
+      imagesCount: occurrenceMedia(limit: 0, offset: 0) {
+        count
       }
     }
   }

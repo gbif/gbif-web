@@ -222,7 +222,142 @@
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
+  "downloadReport": {
+    "title": "",
+    "knownIssues": "Kendte problemer",
+    "knownIssuesDescription": "En del af GBIFs behandling er at markere observationer, der har mistænkelige felter",
+    "FossilsIncluded": "Fossiler",
+    "FossilsIncludedDescription": "Der er fossiler blandt dine resultater. Det kan betyde at arter forekomster på uventede steder",
+    "livingSpecimensIncluded": "Levende eksemplarer",
+    "livingSpecimensIncludedDescription": "Søgningen omfatter levende eksemplarer såsom forekomster i botaniske og zoologiske haver.",
+    "yearRange": "Årsinterval",
+    "total": "I alt",
+    "license": "Licens",
+    "withTaxonMatch": "Med taxon match",
+    "withCoordinates": "Med koordinater",
+    "withYear": "Med år",
+    "sizeZippedForDownload": "{SIZE_FORMATTED} i zip format",
+    "freeOfCost": "Fri for omkostninger – ikke fri for ansvar",
+    "cancel": "Annuller",
+    "proceed": "Fortsæt",
+    "understood": "Forstået",
+    "largeDownload": "Stor download",
+    "requestingFullDownload": "Du er i gang med at downloade al observationsdata i GBIF.",
+    "occFiltersExplainedHere": "Dette er muligt, men ikke tilrådeligt. Du kan filterere din søgning inden du downloader. Filtre er forklaret [her](/news/3K5oLzZXi0yG0SEO8E6c88/top-tip-using-filters-and-facets-on-gbiforg)",
+    "estSizeIs": "Den estimerede download størrelse er {SIZE_FORMATTED}",
+    "estDLtimes": "Estimerede downloadtider:",
+    "nMbitConn": "{NUMBER} Mbit forbindelse",
+    "onceDownloaded": "Efter filen er downloadet har du brug for yderligere {SIZE_FORMATTED} disk plads for at unzippe dataen.",
+    "datasetHasNumRows": "Datasættet har {NUMBER_FORMATTED} rækker",
+    "youWillNotBeAble": "Der er for meget data til at analysere i Excel eller lignende. Du vil blive nød til at bruge Python, R eller relationelle databaser.",
+    "difficultToAnalyse": "Data af denne størrelse er svær at analysere på en almindelig computer. Du vil sandsynligvis have brug for flere computere i et netværk.",
+    "hours": "Timer",
+    "minute": "Minut",
+    "minutes": "Minutter"
+  },
+  "occurrenceDownloadFlow": {
+    "back": "Tilbage",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
+    "estimatedSize": "",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
+    "extensions": "",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
+    "format": "Format",
+    "csvDelimiter": "",
+    "taxonomy": "Taksonomi",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
+    "largeDownloadExcelWarning": "Data af denne størrelse er svær at analysere på en almindelig computer. Du vil sandsynligvis have brug for flere computere i et netværk.",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
+    "steps": {
+      "quality": {
+        "name": "",
+        "description": ""
+      },
+      "filter": {
+        "name": "",
+        "description": ""
+      },
+      "sql": {
+        "name": "",
+        "description": ""
+      },
+      "format": {
+        "name": "Format",
+        "description": ""
+      },
+      "configure": {
+        "name": "",
+        "description": ""
+      },
+      "terms": {
+        "name": "",
+        "description": ""
+      }
+    },
+    "downloadFormats": {
+      "SIMPLE_CSV": {
+        "title": "",
+        "description": ""
+      },
+      "DWCA": {
+        "title": "",
+        "description": ""
+      },
+      "SPECIES_LIST": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_CUBE": {
+        "title": "",
+        "description": ""
+      },
+      "SQL_TSV_ZIP": {
+        "title": "",
+        "description": ""
+      },
+      "features": {
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
+      }
+    },
+    "taxonomySelector": {
+      "title": "",
+      "description": "",
+      "defaultRecommended": ""
+    }
+  },
   "customSqlDownload": {
+    "cubeConfiguration": "",
     "invalidSQL": "",
     "title": "",
     "notification": "",
@@ -265,6 +400,7 @@
         "250": "",
         "1000": "",
         "10000": "",
+        "50000": "",
         "100000": ""
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
@@ -277,7 +413,6 @@
         "6": ""
       },
       "ISEA3H_GRID": {
-        "0": "",
         "1": "",
         "2": "",
         "3": "",
@@ -307,7 +442,8 @@
         "10": "",
         "100": "",
         "1000": "",
-        "10000": ""
+        "10000": "",
+        "100000": ""
       }
     },
     "noneSelected": "",
@@ -321,14 +457,23 @@
     "countHigherTaxonomy": "",
     "coordinateUncertainty": "",
     "errorMinimumDimension": "",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
+    "dataQuality": "",
+    "removeRecordsWithGeospatialIssues": "",
+    "removeRecordsTaxonIssues": "",
+    "removeRecordsAtCentroids": "",
+    "removeFossilsAndLiving": "",
+    "removeAbsenceRecords": "",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
       "taxonomicDimension": "",
       "temporalDimension": "",
+      "dataQuality": "",
       "grid": "",
       "gridResolution": "",
       "randomizePoints": "",

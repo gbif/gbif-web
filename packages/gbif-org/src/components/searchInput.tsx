@@ -5,10 +5,11 @@ import { MdSearch } from 'react-icons/md';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onSearch?: (value: string) => void;
+  inputClassName?: string;
 }
 
 const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, onSearch, ...props }, ref) => {
+  ({ className, type, onSearch, inputClassName, ...props }, ref) => {
     return (
       <div
         className={cn(
@@ -19,7 +20,8 @@ const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            'g-flex-auto g-block g-w-8 g-bg-transparent g-py-1 g-text-base sm:g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed'
+            'g-flex-auto g-block g-w-8 g-bg-transparent g-py-1 g-text-base sm:g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed',
+            inputClassName
           )}
           ref={ref}
           {...props}

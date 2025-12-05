@@ -22,6 +22,9 @@ import { KeyValuePair } from '../components/keyValuePair';
 import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { LuClock4 } from 'react-icons/lu';
+import { Location as LocationComponent } from './eventResult';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export const EventPageSkeleton = ArticleSkeleton;
 
@@ -77,18 +80,19 @@ export function EventPage() {
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
-          <ArticlePreTitle className="g-flex g-items-center g-gap-4 g-mt-2">
-            <ClientSideOnly>
-              <span>
-                <DateRange start={startDate} end={endDate} />
-              </span>
-              {!resource.allDayEvent && (
+          <ArticlePreTitle
+            clickable
+            secondary={
+              <ClientSideOnly>
                 <span>
-                  <TimeRange start={startDate} end={endDate} />
+                  <DateRange start={startDate} end={endDate} />
                 </span>
-              )}
-            </ClientSideOnly>
-            {resource.country && <FormattedMessage id={`enums.topics.${resource.country}`} />}
+              </ClientSideOnly>
+            }
+          >
+            <DynamicLink to="/resource/search?contentType=event">
+              <FormattedMessage id="cms.contentType.event" />
+            </DynamicLink>
           </ArticlePreTitle>
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
@@ -106,6 +110,27 @@ export function EventPage() {
               <FormattedMessage id="cms.resource.addToCalendar" />
             </a>
           </Button>
+
+          <div className="g-flex g-flex-wrap g-items-center g-gap-4 g-pt-4 g-text-sm g-text-gray-600">
+            <span className="g-flex g-items-center g-gap-2">
+              <MdCalendarMonth />
+
+              <DateRange start={startDate} end={endDate} />
+            </span>
+
+            {!resource.allDayEvent && (
+              <span className="g-flex g-items-center g-gap-2">
+                <LuClock4 />
+                <TimeRange start={startDate} end={endDate} />
+              </span>
+            )}
+
+            <LocationComponent
+              country={resource.country}
+              location={resource.location}
+              venue={resource.venue}
+            />
+          </div>
         </ArticleTextContainer>
 
         <ArticleBanner className="g-mt-8 g-mb-6" image={resource?.primaryImage} />
@@ -197,7 +222,12 @@ function DateRange({ start, end }: RangeProps) {
 }
 
 function TimeRange({ start, end }: RangeProps) {
-  const timeOptions = { hour: 'numeric', minute: 'numeric' } as const;
+  const timeOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+    timeZoneName: 'shortGeneric',
+  } as const;
 
   if (!end) return <FormattedTime value={start} {...timeOptions} />;
 
@@ -211,8 +241,17 @@ function TimeRange({ start, end }: RangeProps) {
 }
 
 function DateTimeRange({ start, end, allDay }: RangeProps & { allDay: boolean | undefined }) {
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' } as const;
-  const timeOptions = { hour: 'numeric', minute: 'numeric' } as const;
+  const dateOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour12: false,
+  } as const;
+  const timeOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  } as const;
 
   if (end && allDay) return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
   if (end)

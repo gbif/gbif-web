@@ -14,6 +14,7 @@ export default [
   'sampleSizeUnit',
   'verbatimScientificName',
   'usageKey',
+  'acceptedTaxonKey',
   'eventId',
   'month',
   'license',
@@ -59,6 +60,7 @@ export default [
   'pathway',
   'degreeOfEstablishment',
   'organismQuantityType',
+  'organismId',
   'biostratigraphy',
   'lithostratigraphy',
 ];

@@ -7,7 +7,7 @@ import {
   RequiredStringSchema,
 } from '../validation';
 import { createPublisher } from './create-publisher';
-import logger from '#/logger';
+import logger from '@/logger';
 import { isAuthenticated } from '../../../middleware';
 
 const ContactSchema = z.object({

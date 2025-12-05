@@ -1,9 +1,9 @@
 import {
-  DefaultTaxonLabel,
   IdentityLabel,
   TaxonIssueLabel,
   TaxonRankLabel,
   TaxonStatusLabel,
+  TaxonKeyLabel,
 } from '@/components/filters/displayNames';
 import {
   filterConfigTypes,
@@ -90,10 +90,10 @@ export const issuesConfig: filterEnumConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
-export const highertaxonKeyConfig: filterSuggestConfig = {
+export const highertaxonKeyConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'higherTaxonKey',
-  displayName: DefaultTaxonLabel,
+  displayName: TaxonKeyLabel,
   filterTranslation: 'filters.higherTaxonKey.name',
   suggestConfig: taxonKeySuggest,
   allowExistence: false,
@@ -116,7 +116,12 @@ export const highertaxonKeyConfig: filterSuggestConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
-export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
+export function useFilters({
+  searchConfig,
+}: {
+  searchConfig: FilterConfigType;
+  datasetKey?: string;
+}): {
   filters: Record<string, FilterSetting>;
 } {
   const { formatMessage } = useIntl();

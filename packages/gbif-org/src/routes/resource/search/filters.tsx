@@ -8,6 +8,7 @@ import {
   filterConfigTypes,
   filterEnumConfig,
   filterFreeTextConfig,
+  filterInlineToggleConfig,
   FilterSetting,
   filterSuggestConfig,
   generateFilters,
@@ -140,12 +141,16 @@ const contractCountryConfig: filterSuggestConfig = {
   `,
 };
 
-// const showPastEventsConfig: filterBoolConfig = {
-//   filterType: filterConfigTypes.OPTIONAL_BOOL,
-//   filterHandle: '_showPastEvents',
-//   displayName: booleanLabel,
-//   filterTranslation: 'resourceSearch.filters.showPastEvents',
-// };
+const eventFilteringConfig: filterInlineToggleConfig = {
+  filterType: filterConfigTypes.INLINE_TOGGLE,
+  filterHandle: 'eventFiltering',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.eventFiltering',
+  options: [
+    { value: 'upcoming', labelKey: 'resourceSearch.upcoming' },
+    { value: 'past', labelKey: 'resourceSearch.past' },
+  ],
+};
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
   filters: Record<string, FilterSetting>;
@@ -182,11 +187,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       purposes: generateFilters({ config: purposesConfig, searchConfig, formatMessage }),
-      // _showPastEvents: generateFilters({
-      //   config: showPastEventsConfig,
-      //   searchConfig,
-      //   formatMessage,
-      // }),
+      eventFiltering: generateFilters({
+        config: eventFilteringConfig,
+        searchConfig,
+        formatMessage,
+      }),
     };
     setFilters(nextFilters);
   }, [searchConfig, formatMessage, countrySuggest]);

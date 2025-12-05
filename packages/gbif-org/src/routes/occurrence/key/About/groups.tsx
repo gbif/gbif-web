@@ -23,7 +23,7 @@ import {
   DynamicProperties,
   IdentifiedById,
   InstitutionKey,
-  LocalContext,
+  LocalContexts,
   RecordedById,
 } from './customValues';
 import {
@@ -51,6 +51,8 @@ import {
 } from './extensions';
 import { Media } from './media';
 import { TaxonInterpretationCard } from './TaxonInterpretationCard';
+import { Img } from '@/components/Img';
+import { CardDescription } from '@/components/ui/smallCard';
 
 // const Map = React.lazy(() => import('@/components/maps/map'));
 
@@ -112,6 +114,7 @@ export function Groups({
       <ChronometricAge {...{ updateToc, showAll, termMap, occurrence }} />
       {/* <Audubon              {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
+      <Issues {...{ occurrence }} />
       <Citation {...{ updateToc, showAll, termMap, occurrence }} />
       <Debug {...{ updateToc, showAll, termMap, occurrence }} />
     </div>
@@ -121,11 +124,13 @@ export function Groups({
 export function Group({
   label,
   children,
+  description,
   id,
   ...props
 }: {
   label: string;
   id: string;
+  description?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
@@ -134,6 +139,7 @@ export function Group({
         <CardTitle>
           <FormattedMessage id={label} />
         </CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent {...props}>{children}</CardContent>
     </Card>
@@ -262,8 +268,7 @@ function Record({
       />
       <PlainTextField term={termMap.informationWithheld} showDetails={showAll} />
       <PlainTextField term={termMap.dataGeneralizations} showDetails={showAll} />
-      <DynamicProperties termMap={termMap} slowOccurrence={slowOccurrence} />
-      <LocalContext localContext={slowOccurrence?.localContext} />
+      <LocalContexts localContexts={slowOccurrence?.localContexts} />
     </PropGroup>
   );
 }
@@ -389,6 +394,8 @@ function Location({
       lon: occurrence?.coordinates.lon as number,
     })
   );
+  const wkt = wellknown.parse(termMap?.footprintWKT?.value || '');
+  const invalidWkt = termMap?.footprintWKT?.value && termMap?.footprintWKT?.value !== '' && !wkt;
   return (
     <Card className="g-mb-4" id="location">
       <CardHeader>
@@ -397,19 +404,19 @@ function Location({
         </CardTitle>
       </CardHeader>
       <CardContent className="g-w-full">
-        {occurrence.coordinates.lon && (
+        {!!occurrence.coordinates.lon && !!occurrence.coordinates.lat && (
           <div className="g-mb-4 g-min-w-64">
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
               {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
               <GeoJsonMap
                 geoJson={
-                  termMap?.footprintWKT?.value
+                  wkt
                     ? {
                         type: 'FeatureCollection',
                         features: [
                           {
                             type: 'Feature',
-                            geometry: wellknown.parse(termMap.footprintWKT.value || '') || geoJson2,
+                            geometry: wkt ?? geoJson2,
                             properties: {},
                           },
                           generatePointGeoJson({
@@ -429,6 +436,11 @@ function Location({
                 rasterStyle="gbif-natural"
               />
             </StaticRenderSuspence>
+            {invalidWkt && (
+              <div className="g-bg-red-500 g-p-2 g-text-sm g-text-white g-mt-2 g-rounded">
+                Invalid WKT
+              </div>
+            )}
           </div>
         )}
         <div>
@@ -485,7 +497,6 @@ function Location({
             <PlainTextField term={termMap.georeferencedDate} showDetails={showAll} />
             <HtmlField term={termMap.georeferenceProtocol} showDetails={showAll} />
             <HtmlField term={termMap.georeferenceSources} showDetails={showAll} />
-            <PlainTextField term={termMap.georeferenceVerificationStatus} showDetails={showAll} />
             <HtmlField term={termMap.georeferenceRemarks} showDetails={showAll} />
 
             <PlainTextField term={termMap.elevation} showDetails={showAll} />
@@ -549,6 +560,7 @@ function Occurrence({
         showDetails={showAll}
         getEnum={(value) => `enums.occurrenceStatus.${value}`}
       />
+      <PlainTextField term={termMap.georeferenceVerificationStatus} showDetails={showAll} />
       <PlainTextField term={termMap.preparations} showDetails={showAll} />
       <PlainTextField term={termMap.disposition} showDetails={showAll} />
       <HtmlField term={termMap.associatedReferences} showDetails={showAll} />
@@ -785,6 +797,7 @@ function Other({
         getEnum={(value) => `enums.license.${value}`}
       />
       {/* RECORD LEVEL Actually belongs on Record card, but it seems wrong to put it first on the page, so I've moved it here along with other identifiers */}
+      <DynamicProperties termMap={termMap} />
       <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
       <HtmlField term={termMap.institutionID} showDetails={showAll} />
       <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
@@ -897,15 +910,68 @@ function MediaSummary({
             Unable to play
           </video>
         )}
+
         {!hasPlayableVideo && (
-          <img
+          <Img
             src={occurrence.stillImages[activeImage].thumbor}
-            height={400}
-            style={{ maxWidth: '100%', maxHeight: 400, display: 'block', margin: 'auto' }}
+            style={{
+              maxWidth: '100%',
+              maxHeight: 400,
+              display: 'block',
+              margin: 'auto',
+              minHeight: 50,
+            }}
+            failedClassName="g-w-full g-h-24"
           />
         )}
       </div>
     </Card>
+  );
+}
+
+function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  if (!occurrence) return null;
+  return (
+    <Group
+      label="occurrenceDetails.groups.issues"
+      id="issues"
+      description={<FormattedMessage id="occurrenceDetails.issuesHelpText" />}
+    >
+      {(occurrence?.issues?.length ?? 0) === 0 ? (
+        <div>
+          <FormattedMessage id="occurrenceDetails.issues.none" />
+        </div>
+      ) : (
+        <>
+          <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
+            <table className="gbif-table-style g-text-sm">
+              <thead>
+                <tr>
+                  <th className="g-min-w-48">
+                    <FormattedMessage id="occurrenceFieldNames.issue" />
+                  </th>
+                  <th className="g-min-w-96">
+                    <FormattedMessage id="phrases.description" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {occurrence?.issues?.map((issue) => (
+                  <tr key={issue}>
+                    <td>
+                      <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />
+                    </td>
+                    <td>
+                      <FormattedMessage id={`enums.occurrenceIssueDescription.${issue}`} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+    </Group>
   );
 }
 

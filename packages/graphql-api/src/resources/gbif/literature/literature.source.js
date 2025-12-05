@@ -1,5 +1,5 @@
-import { urlSizeLimit } from '#/helpers/utils-ts';
-import { getDefaultAgent } from '#/requestAgents';
+import { urlSizeLimit } from '@/helpers/utils-ts';
+import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 const MAX_RESULTS = 3000;

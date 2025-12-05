@@ -15,8 +15,8 @@ import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
-import { PublishedDate } from '../components/publishedDate';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
 
 export const DocumentPageSkeleton = ArticleSkeleton;
 
@@ -62,9 +62,13 @@ export function DocumentPage() {
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <div className="g-max-w-4xl g-m-auto g-bg-paperBackground md:g-shadow-2xl md:g-p-8 lg:g-p-16">
-          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+          <ArticlePreTitle clickable secondary={<PreTitleDate date={resource.createdAt} />}>
+            <DynamicLink to="/resource/search?contentType=document">
+              <FormattedMessage id="cms.contentType.document" />
+            </DynamicLink>
+          </ArticlePreTitle>
 
-          {resource.createdAt && <PublishedDate date={resource.createdAt} />}
+          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />

@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Código de Conduta",
+      "ASSOCIATE": "Participante associado",
+      "OTHER_ASSOCIATE": "Outro participante associado",
       "FORMER": "Anterior",
       "OBSERVER": "Observador",
-      "UNKNOWN": "",
+      "UNKNOWN": "Desconhecido",
       "AFFILIATE": "Afiliado do GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Código de Conduta",
+    "mapCaptionPublishers": "Código de Conduta",
     "role": "Função",
     "name": "Nome",
     "participant": "Participante",
     "type": "Tipo",
     "memberSince": "Membro desde",
     "all": "Todos",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Código de Conduta",
+    "publishersPerCountry": "Código de Conduta",
     "clear": "Limpar",
     "headlines": {
       "nodesSteeringGroup": "Grupo diretivo dos Nós",

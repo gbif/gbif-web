@@ -1,0 +1,43 @@
+{
+  "feedback": {
+    "title": "",
+    "contactGbif": "",
+    "contactDataProvider": "",
+    "contactUsDescription": "",
+    "contactDataProviderDescription": "",
+    "seeAlsoFaq": "",
+    "faq": "常見問答",
+    "pleaseLogin": "",
+    "pleaseLoginReason": "",
+    "sendEmailTo": "",
+    "emailHelpdesk": "",
+    "summary": "總結",
+    "description": "描述",
+    "required": "",
+    "csvWarning": "",
+    "csvFaqEntry": "",
+    "sendFeedback": "",
+    "sending": "",
+    "publicRepo": "",
+    "helpDeskOption": "",
+    "helpdesk": "",
+    "communications": "",
+    "confirmation": {
+      "title": "謝謝",
+      "description": "",
+      "seeIssue": "查看問題",
+      "createAnother": ""
+    },
+    "failure": {
+      "title": "",
+      "description": "",
+      "tryAgain": ""
+    },
+    "orWriteMailTo": "",
+    "leaveIssueOnGithub": "",
+    "login": "登入",
+    "requiresGithubAccount": "",
+    "sendUsAnEmail": "",
+    "forPrivateEnquiries": ""
+  }
+}
