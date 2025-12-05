@@ -170,13 +170,13 @@ export function Event({ event, eventSearch, getEventLink }: EventProps) {
 
   return (
     <article>
-      <DataHeader
+      {/* <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent eventID={event.eventID} datasetKey={event.datasetKey} />}
-      />
+      /> */}
 
-      <PageContainer topPadded hasDataHeader className="g-bg-white">
+      <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             secondary={

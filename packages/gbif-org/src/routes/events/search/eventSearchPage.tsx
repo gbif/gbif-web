@@ -108,7 +108,6 @@ export function EventSearchInner(): React.ReactElement {
     defaultValue: defaultView,
     hideDefault: true,
   });
-  console.log('searchContext', searchContext);
 
   return (
     <ErrorBoundary showStackTrace showReportButton>
