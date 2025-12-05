@@ -89,11 +89,9 @@ export const getDatasetEventCount = async (parent, args, { dataSources }) => {
     size: 1,
     from: 0,
     metrics: {
-      facet: {
-        type: 'facet',
+      eventCount: {
+        type: 'cardinality',
         key: 'eventId',
-        size: 100001,
-        from: 0,
       },
     },
   };
@@ -107,5 +105,5 @@ export const getDatasetEventCount = async (parent, args, { dataSources }) => {
   const occurrences = await dataSources.occurrenceAPI.searchOccurrences({
     query,
   });
-  return occurrences.aggregations.facet.buckets.length;
+  return occurrences.aggregations.eventCount.value;
 };
