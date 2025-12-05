@@ -27,5 +27,7 @@
   "singleNode": "Указать отдельный узел",
   "searchNodes": "Узлы поиска",
   "singleSpecies": "Получить отдельный вид",
-  "searchSpecies": "Получить все виды"
+  "searchSpecies": "Получить все виды",
+  "singleDerivedDataset": "Вы получили один отдельный производный набор данных.",
+  "derivedDatasetContributingDatasets": "Вы получили все наборы данных, входящие в производный набор данных."
 }
