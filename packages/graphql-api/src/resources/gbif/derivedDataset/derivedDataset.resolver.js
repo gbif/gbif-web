@@ -22,6 +22,22 @@ export default {
         query: { limit, offset },
       });
     },
+    derivedDataset: (parent, { key }, { dataSources }, info) => {
+      return dataSources.derivedDatasetAPI.getDerivedDataset({ key });
+    },
   },
-  DerivedDataset: {},
+  DerivedDataset: {
+    contributingDatasets: (
+      parent,
+      { limit = 10, offset = 0 },
+      { dataSources },
+    ) => {
+      return dataSources.derivedDatasetAPI.getContributingDatasetsByDerivedDatasetKey(
+        {
+          key: parent.doi,
+          query: { limit, offset },
+        },
+      );
+    },
+  },
 };

@@ -1,6 +1,7 @@
 import { collectionKeyRoute } from '@/routes/collection/key';
 import { countryKeyRoute } from '@/routes/country/key';
 import { datasetKeyRoute } from '@/routes/dataset/key';
+import { derivedDatasetKeyRoute } from '@/routes/derivedDataset/key';
 import { datasetSearchRoute } from '@/routes/dataset/search';
 import { installationKeyRoute } from '@/routes/installation/key';
 import { institutionKeyRoute } from '@/routes/institution/key';
@@ -32,6 +33,7 @@ export const dataRoutes = [
   collectionKeyRoute,
   institutionKeyRoute,
   datasetKeyRoute,
+  derivedDatasetKeyRoute,
   installationKeyRoute,
   networkKeyRoute,
   ...occurrenceKeyRoutes,

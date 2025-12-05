@@ -1,5 +1,5 @@
-import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 
 class DerivedDatasetAPI extends RESTDataSource {
   constructor(config) {
@@ -21,6 +21,18 @@ class DerivedDatasetAPI extends RESTDataSource {
 
   async getUsersDerivedDataset({ username, query }) {
     return this.get(`/derivedDataset/user/${username}`, query, {
+      cacheOptions: { ttl: 0 },
+    });
+  }
+
+  async getDerivedDataset({ key }) {
+    return this.get(`/derivedDataset/${key}`, null, {
+      cacheOptions: { ttl: 0 },
+    });
+  }
+
+  async getContributingDatasetsByDerivedDatasetKey({ key, query }) {
+    return this.get(`/derivedDataset/${key}/datasets`, query, {
       cacheOptions: { ttl: 0 },
     });
   }

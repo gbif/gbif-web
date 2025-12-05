@@ -43,6 +43,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         .resourceSearch,
       gbifNetwork: getFile(locale, `../${folder}/${locale}/components/gbifNetwork`).gbifNetwork,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
+      derivedDatasetKey: getFile(locale, `../${folder}/${locale}/components/downloads`)
+        .derivedDatasetKey,
       participant: getFile(locale, `../${folder}/${locale}/components/participant`).participant,
       downloadReport: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadReport,
       occurrenceDownloadFlow: getFile(locale, `../${folder}/${locale}/components/downloads`)
