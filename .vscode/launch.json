@@ -6,12 +6,13 @@
   "configurations": [
     {
       "name": "GRAPHQL",
+      "type": "node",
       "request": "launch",
-      "runtimeArgs": ["start"],
-      "cwd": "${workspaceFolder}/packages/graphql-api",
       "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "develop"],
+      "cwd": "${workspaceFolder}/packages/graphql-api",
       "skipFiles": ["<node_internals>/**"],
-      "type": "node"
+      "console": "integratedTerminal"
     },
     {
       "name": "REACT",
