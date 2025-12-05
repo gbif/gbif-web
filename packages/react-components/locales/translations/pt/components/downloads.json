@@ -1,6 +1,6 @@
 {
   "derivedDatasetKey": {
-    "nRecordsAtTime": "{NUMBER_FORMATTED} {NUMBER, plural, one{registo} other{registos}} deste conjunto de dados",
+    "nRecordsAtTime": "",
     "derivedDataset": "Conjunto de dados derivado",
     "sourceUrl": "Aceder a conjunto de dados derivado",
     "headlineDatasets": "Registos de {NUMBER_FORMATED} {NUMBER, plural, one{dataset} other{datasets}} no conjunto de dados derivado",
