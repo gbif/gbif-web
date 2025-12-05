@@ -184,14 +184,20 @@ function useToast() {
     ({
       titleKey,
       descriptionKey,
+      titleValues,
+      descriptionValues,
       variant,
     }: {
       titleKey: string;
       descriptionKey?: string;
+      titleValues?: { [key: string]: React.ReactNode };
+      descriptionValues?: { [key: string]: React.ReactNode };
       variant?: Toast['variant'];
     }) => {
-      const title = intl.formatMessage({ id: titleKey });
-      const description = descriptionKey ? intl.formatMessage({ id: descriptionKey }) : undefined;
+      const title = intl.formatMessage({ id: titleKey }, titleValues);
+      const description = descriptionKey
+        ? intl.formatMessage({ id: descriptionKey }, descriptionValues)
+        : undefined;
       toast({ title, description, variant });
     },
     [intl]

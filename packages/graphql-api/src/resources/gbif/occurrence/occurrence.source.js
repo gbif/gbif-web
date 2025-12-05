@@ -3,7 +3,7 @@ import { urlSizeLimit } from '@/helpers/utils-ts';
 import { getOccurrenceAgent } from '@/requestAgents';
 import QueuedRESTDataSource from '@/QueuedRESTDataSource';
 
-const MAX_RESULTS = 3000;
+const MAX_RESULTS = 6000;
 
 class OccurrenceAPI extends QueuedRESTDataSource {
   constructor(config) {

@@ -30,6 +30,9 @@ import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
+import { useToast } from '@/components/ui/use-toast';
+
+const MAX_RESULTS = 5000;
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch(
@@ -185,11 +188,26 @@ export function OccurrenceTableClient() {
     'occurrenceSort',
     { sortBy: undefined, sortOrder: SortOrder.Asc }
   );
+  const { translatedToast } = useToast();
   const { sortBy: occurrenceSortBy, sortOrder: occurrenceSortOrder } = occurrenceSort;
   const { locale } = useI18n();
   const searchContext = useSearchContext();
-  const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
+  const [paginationState, setPaginationState] = usePaginationState({
+    pageSize: 50,
+    maxResults: MAX_RESULTS,
+  });
   const filterContext = useContext(FilterContext);
+
+  if (
+    paginationState.pageIndex * paginationState.pageSize + paginationState.pageSize >
+    MAX_RESULTS
+  ) {
+    translatedToast({
+      titleKey: 'error.maximumResultLimitExceeded',
+      variant: 'destructive',
+      titleValues: { MAX_RESULTS },
+    });
+  }
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
