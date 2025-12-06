@@ -68,7 +68,7 @@ export function SuccessState({
   return (
     <div className="g-text-center g-space-y-6">
       <div className="g-flex g-justify-center">
-        <MdCheckCircle className={cn(commonClasses.icon.large, 'g-text-green-500')} />
+        <MdCheckCircle className={cn(commonClasses.icon.large, 'g-text-primary-500')} />
       </div>
       <div>
         <h1 className="g-text-3xl g-font-bold g-text-gray-900">{title}</h1>

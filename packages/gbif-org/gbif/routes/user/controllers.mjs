@@ -19,6 +19,7 @@ import {
   deleteDownload as deleteUserDownload,
   postponeDownloadDeletion as postponeUserDownloadDeletion,
   cancelDownload as cancelUserDownload,
+  changeEmail as changeUserEmail,
 } from './user.model.mjs';
 import _ from 'lodash';
 import { decryptJSON } from './encrypt.mjs';
@@ -108,6 +109,17 @@ export function updateKnownPassword(req, res) {
       res.json({ type: 'PASSWORD_CHANGED' });
     })
     .catch(handleError(res, 401));
+}
+
+/**
+ * Confirm email change request
+ */
+export function changeEmail(req, res) {
+  changeUserEmail(req.body)
+    .then(function () {
+      return res.json({ type: 'EMAIL_CHANGED' });
+    })
+    .catch(handleError(res, 403));
 }
 
 /**

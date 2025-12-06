@@ -1,5 +1,5 @@
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MdEmail, MdHome } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useSearchParams } from 'react-router-dom';
@@ -7,10 +7,12 @@ import { FormButton } from '../shared/FormComponents';
 import { FormHeader } from '../shared/PageHeader';
 import { ErrorState, LoadingState, SuccessState } from '../shared/StatusMessages';
 import { UserPageLayout } from '../shared/UserPageLayout';
+import { useUser } from '@/contexts/UserContext';
 
 export const UpdateEmailSkeleton = ArticleSkeleton;
 // TODO: this file has hardcoded texts that should go into the translation files
 export function UpdateEmailPage() {
+  const { changeEmail } = useUser();
   const [searchParams] = useSearchParams();
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateStatus, setUpdateStatus] = useState<'pending' | 'success' | 'error'>('pending');
@@ -27,36 +29,28 @@ export function UpdateEmailPage() {
     }
   }, [challengeCode, userName, email]);
 
-  const updateEmail = async () => {
+  const updateEmail = useCallback(() => {
     if (!challengeCode || !userName || !email) return;
 
     setIsUpdating(true);
     try {
-      const response = await fetch('/api/user/updateEmail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          challengeCode,
-          userName,
-          email,
-        }),
-      });
-
-      if (response.ok) {
-        setUpdateStatus('success');
-      } else {
-        setUpdateStatus('error');
-        setError('UPDATE_FAILED');
-      }
-    } catch (err) {
+      changeEmail(challengeCode, email, userName)
+        .then(() => {
+          setUpdateStatus('success');
+        })
+        .catch(() => {
+          setUpdateStatus('error');
+          setError('UPDATE_FAILED');
+        })
+        .finally(() => {
+          setIsUpdating(false);
+        });
+    } catch (e) {
       setUpdateStatus('error');
       setError('UPDATE_FAILED');
-    } finally {
       setIsUpdating(false);
     }
-  };
+  }, [challengeCode, email, userName, setUpdateStatus, changeEmail]);
 
   const getErrorMessage = (error: string) => {
     switch (error) {
@@ -87,8 +81,8 @@ export function UpdateEmailPage() {
           successMessage="Your new email address is now active for your GBIF account."
           successMessageId="profile.emailUpdated"
           primaryAction={{
-            to: '/user/login',
-            text: 'Sign In to Your Account',
+            to: '/user/profile',
+            text: 'Go to Profile',
           }}
           secondaryAction={{
             to: '/',

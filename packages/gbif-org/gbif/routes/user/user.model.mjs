@@ -100,7 +100,7 @@ export async function confirm(challengeCode, userName) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-async function changeEmail(body) {
+export async function changeEmail(body) {
   let options = {
     method: 'PUT',
     body: {
