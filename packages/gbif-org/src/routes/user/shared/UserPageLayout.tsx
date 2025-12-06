@@ -27,9 +27,9 @@ export const userLayoutBackgroundImages = {
 export function UserPageLayout({
   title,
   children,
-  backgroundImage = backgroundImages.bird.url,
-  photoCredit = backgroundImages.bird.credit,
-  occurrenceId = backgroundImages.bird.occurrenceId,
+  backgroundImage = userLayoutBackgroundImages.bird.url,
+  photoCredit = userLayoutBackgroundImages.bird.credit,
+  occurrenceId = userLayoutBackgroundImages.bird.occurrenceId,
 }: UserPageLayoutProps) {
   return (
     <>
