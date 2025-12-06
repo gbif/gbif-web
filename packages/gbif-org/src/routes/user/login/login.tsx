@@ -14,7 +14,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { readLoginFlashInfo } from '../shared/flashCookieUtils';
 import { PageTitle } from '../shared/PageHeader';
-import { UserPageLayout } from '../shared/UserPageLayout';
+import { userLayoutBackgroundImages, UserPageLayout } from '../shared/UserPageLayout';
 import {
   hasFormErrors,
   validateEmail,
@@ -77,7 +77,12 @@ export function RegistrationPage() {
   }, [navigate, isLoggedIn, isLoading, localizeLink]);
 
   return (
-    <UserPageLayout title="Register" backgroundImage="/img/frog.jpeg">
+    <UserPageLayout
+      title="Register"
+      backgroundImage={userLayoutBackgroundImages.frog.url}
+      photoCredit={userLayoutBackgroundImages.frog.credit}
+      occurrenceId={userLayoutBackgroundImages.frog.occurrenceId}
+    >
       <RegisterForm />
     </UserPageLayout>
   );

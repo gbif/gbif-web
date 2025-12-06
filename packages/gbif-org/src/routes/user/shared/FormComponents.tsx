@@ -80,6 +80,7 @@ interface FormSelectProps {
   icon: React.ComponentType<{ className?: string }>;
   error?: string | false;
   touched?: boolean;
+  disabled?: boolean;
 }
 
 export function FormSelect({
@@ -93,6 +94,7 @@ export function FormSelect({
   icon: Icon,
   error,
   touched,
+  disabled,
 }: FormSelectProps) {
   const hasError = touched && error;
 
@@ -106,6 +108,7 @@ export function FormSelect({
           <Icon className="g-h-5 g-w-5" />
         </div>
         <Select
+          disabled={disabled}
           value={value}
           onValueChange={(value) => onChange(value)}
           onOpenChange={(open) => {

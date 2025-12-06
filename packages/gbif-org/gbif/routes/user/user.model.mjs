@@ -100,22 +100,26 @@ export async function confirm(challengeCode, userName) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-async function changeEmail(body) {
-  let options = {
-    method: 'PUT',
-    body: {
-      challengeCode: body.challengeCode,
-      email: body.email,
-    },
-    url: apiConfig.userChangeEmail.url,
-    canonicalPath: apiConfig.userChangeEmail.canonical,
-    userName: body.userName,
-  };
-  let response = await authenticatedRequest(options);
-  if (response.statusCode !== 204) {
-    throw response;
+export async function changeEmail(body) {
+  try {
+    let options = {
+      method: 'PUT',
+      body: {
+        challengeCode: body.challengeCode,
+        email: body.email,
+      },
+      url: apiConfig.userChangeEmail.url,
+      canonicalPath: apiConfig.userChangeEmail.canonical,
+      userName: body.userName,
+    };
+    let response = await authenticatedRequest(options);
+    if (response.statusCode > 299) {
+      throw response;
+    }
+    return response.body;
+  } catch (error) {
+    throw error;
   }
-  return response.body;
 }
 
 /**

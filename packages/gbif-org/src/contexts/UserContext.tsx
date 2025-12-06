@@ -66,7 +66,7 @@ interface UserContextType {
   login: (data: LoginData) => Promise<User>;
   register: (data: RegisterData) => Promise<void>;
   updateForgottenPassword: (data: ForgottenPassword) => Promise<void>;
-  updateProfile: (data: UpdateProfileData) => Promise<void>;
+  updateProfile: (data: UpdateProfileData) => Promise<{ emailConfirmationRequired: boolean }>;
   changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
   disconnectAccount: (provider: 'google' | 'github' | 'orcid') => Promise<void>;
   logout: () => Promise<void>;
@@ -76,6 +76,7 @@ interface UserContextType {
   deleteDownload: (downloadKey: string) => Promise<void>;
   postponeDownloadDeletion: (downloadKey: string) => Promise<void>;
   cancelDownload: (downloadKey: string) => Promise<void>;
+  changeEmail: (challengeCode: string, email: string, userName: string) => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -346,7 +347,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     };
   };
 
-  const updateProfile = async (data: UpdateProfileData) => {
+  const updateProfile = async (
+    data: UpdateProfileData
+  ): Promise<{
+    emailConfirmationRequired: boolean;
+  }> => {
     try {
       const response = await fetch('/api/user/update-profile', {
         method: 'PUT',
@@ -366,13 +371,12 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           throw new UserError('UNKNOWN_ERROR', 'Profile update failed.');
         }
       }
-
-      const result = await response.json();
-
       // Refresh user data after successful profile update
       await refreshUser();
 
-      return result;
+      return {
+        emailConfirmationRequired: data.email !== user?.email,
+      };
     } catch (error) {
       if (error instanceof UserError) {
         throw error;
@@ -401,6 +405,35 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         throw error;
       }
       throw new UserError('UNKNOWN_ERROR', `Failed to disconnect from ${provider}`);
+    }
+  };
+
+  const changeEmail = async (challengeCode: string, email: string, userName: string) => {
+    try {
+      const response = await fetch('/api/user/change-email', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ challengeCode, email, userName }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 422) {
+          throw new UserError('INVALID_REQUEST', 'Invalid email or challenge code.');
+        } else if (response.status === 401) {
+          await refreshUser();
+          throw new UserError('UNKNOWN_USER', 'User not authenticated.');
+        } else {
+          throw new UserError('UNKNOWN_ERROR', 'Confirmation failed. Please check your input.');
+        }
+      }
+
+      const result = await response.json();
+
+      return result;
+    } catch (error) {
+      throw new UserError('UNKNOWN_ERROR');
     }
   };
 
@@ -492,6 +525,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     refreshUser,
     resetPassword,
     confirm,
+    changeEmail,
 
     deleteDownload,
     postponeDownloadDeletion,
