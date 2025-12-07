@@ -55,7 +55,7 @@ export function PublishingCountries({ datasetKey }: { datasetKey: string }) {
 
   if (!data || error) return null;
   return (
-    <Card className="g-mb-4 gbif-word-break" id="registration">
+    <Card className="g-mb-4 gbif-word-break" id="countries">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="dataset.publishingCountriesAreas" />
