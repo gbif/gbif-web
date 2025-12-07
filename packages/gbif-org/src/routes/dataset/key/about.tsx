@@ -49,6 +49,7 @@ import { MapWidget } from '@/components/maps/mapWidget';
 import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/shadcn';
+import { PublishingCountries } from './about/PublishingCountries';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -284,6 +285,8 @@ export function DatasetKeyAbout() {
                 <Images images={insights?.images} dataset={dataset} className="g-mb-4" />
               </>
             )}
+
+            <PublishingCountries datasetKey={dataset.key} />
 
             {toc.purpose && (
               <Card className="g-mb-4 gbif-word-break" id="purpose">
