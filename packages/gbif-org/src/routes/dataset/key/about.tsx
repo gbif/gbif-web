@@ -10,7 +10,13 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
 import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -329,6 +335,32 @@ export function DatasetKeyAbout() {
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
                 </CardTitle>
+                <CardDescription>
+                  <div className="g-text-sm g-text-slate-500 g-flex g-flex-wrap g-gap-2 g-justify-between">
+                    {/* {dataset.modified && (
+                      <div>
+                        <FormattedMessage id="dataset.registry.metdataLastModified" />:{' '}
+                        <FormattedDate
+                          value={dataset.modified}
+                          year="numeric"
+                          month="long"
+                          day="2-digit"
+                        />
+                      </div>
+                    )} */}
+                    {dataset.pubDate && (
+                      <div>
+                        <FormattedMessage id="dataset.registry.pubDate" />:{' '}
+                        <FormattedDate
+                          value={dataset.pubDate}
+                          year="numeric"
+                          month="long"
+                          day="2-digit"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 {dataset?.description && (
