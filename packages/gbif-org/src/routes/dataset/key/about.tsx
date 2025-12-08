@@ -399,17 +399,19 @@ export function DatasetKeyAbout() {
                 />
               </ClientSideOnly>
             )}
-            <div className="g-text-slate-500">
-              <ClientSideOnly>
-                <DashBoardLayout>
-                  <charts.OccurrenceSummary predicate={chartPredicate} />
-                  <charts.DataQuality
-                    predicate={chartPredicate}
-                    optional={['hasSequence', 'hasMedia', 'hasCollector']}
-                  />
-                </DashBoardLayout>
-              </ClientSideOnly>
-            </div>
+            {siteTotal > 0 && (
+              <div className="g-text-slate-500">
+                <ClientSideOnly>
+                  <DashBoardLayout>
+                    <charts.OccurrenceSummary predicate={chartPredicate} />
+                    <charts.DataQuality
+                      predicate={chartPredicate}
+                      optional={['hasSequence', 'hasMedia', 'hasCollector']}
+                    />
+                  </DashBoardLayout>
+                </ClientSideOnly>
+              </div>
+            )}
 
             {toc.purpose && (
               <Card className="g-mb-4 gbif-word-break" id="purpose">
