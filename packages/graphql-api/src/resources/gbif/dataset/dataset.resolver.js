@@ -1,6 +1,5 @@
 import config from '@/config';
 import { excerpt, getHtml } from '@/helpers/utils';
-import dataset from '.';
 import { getFacet } from '../getQueryMetrics';
 import { getDatasetEventCount, getDatasetEvents } from './event';
 import { getContributors } from './helpers/contributors';
@@ -200,6 +199,22 @@ export const Dataset = {
       .then((lc) => {
         return lc;
       });
+  },
+};
+
+export const Project = {
+  gbifProject: (
+    { identifier },
+    args,
+    { dataSources, locale, preview },
+    info,
+  ) => {
+    return dataSources.resourceAPI.getEntryById({
+      id: identifier,
+      preview,
+      locale,
+      info,
+    });
   },
 };
 

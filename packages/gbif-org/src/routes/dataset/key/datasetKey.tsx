@@ -194,6 +194,12 @@ const DATASET_QUERY = /* GraphQL */ `
           userId
         }
         identifier
+        gbifProject {
+          title
+          primaryImage {
+            ...ArticleBanner
+          }
+        }
       }
       endpoints {
         key

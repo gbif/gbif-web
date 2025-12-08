@@ -15,6 +15,9 @@ import { useMemo } from 'react';
 import { MdMenu } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
+import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
+import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
+import { Button } from '@/components/ui/button';
 
 export function DatasetKeyProject() {
   const { data } = useDatasetKeyLoaderData();
@@ -61,12 +64,26 @@ export function DatasetKeyProject() {
           stack={removeSidebar}
         >
           <div className="g-flex-grow">
+            {project.gbifProject?.primaryImage && (
+              <ArticleBanner className="g-mb-6" image={project.gbifProject?.primaryImage} />
+            )}
+
             <Card className="g-mb-4" id="abstract">
               <CardHeader className="gbif-word-break">
                 <CardTitle>{project.title ?? <Unknown id="phrases.notProvided" />}</CardTitle>
                 {project.identifier && (
                   <CardDescription>
-                    <FormattedMessage id="dataset.projectId" />: {project.identifier}
+                    <FormattedMessage id="dataset.projectId" />:{' '}
+                    {project.gbifProject && (
+                      <DynamicLink
+                        pageId="projectKey"
+                        variables={{ key: project.identifier }}
+                        className="g-underline g-text-primary-600 g-font-semibold"
+                      >
+                        {project.identifier}
+                      </DynamicLink>
+                    )}
+                    {!project.gbifProject && project.identifier}
                   </CardDescription>
                 )}
               </CardHeader>

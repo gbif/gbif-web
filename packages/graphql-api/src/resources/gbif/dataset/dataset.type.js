@@ -355,6 +355,7 @@ const typeDef = gql`
     funding: String
     studyAreaDescription: String
     designDescription: String
+    gbifProject: GbifProject
   }
 
   type DataDescription {
