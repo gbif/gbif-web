@@ -1,7 +1,16 @@
+import { cn } from '@/utils/shadcn';
 import { useEffect, useRef, useState } from 'react';
 import { MdBrokenImage, MdImage } from 'react-icons/md';
 
-export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src, ...props }) {
+export function ClientImage({
+  wrapperProps,
+  onLoad,
+  defaultSize,
+  style = {},
+  className,
+  src,
+  ...props
+}) {
   const imageRef = useRef();
   const [failed, markAsFailed] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -37,7 +46,7 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
         <div className="gb-image-failed">
           <div
             style={defaultSize}
-            className="g-bg-slate-50 g-text-red-400 g-flex g-items-center g-justify-center"
+            className="g-bg-slate-50 g-text-red-400 g-flex g-items-center g-justify-center g-rounded"
           >
             <MdBrokenImage />
           </div>
@@ -45,7 +54,7 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
       )}
       {client && !failed && (
         <img
-          className="g-bg-slate-50"
+          className={cn('g-bg-slate-50 g-rounded', className)}
           src={src}
           style={{ maxHeight: '100%', maxWidth: '100%', display: loading ? 'none' : 'block' }}
           ref={imageRef}

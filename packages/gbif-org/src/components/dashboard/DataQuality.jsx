@@ -6,7 +6,7 @@ import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-co
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
 import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
 
-export function DataQuality({ predicate, q, checklistKey, ...props }) {
+export function DataQuality({ predicate, q, checklistKey, optional = [], ...props }) {
   const defaultChecklistKey = useChecklistKey();
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
 
@@ -87,6 +87,13 @@ export function DataQuality({ predicate, q, checklistKey, ...props }) {
   const summary = data?.occurrenceSearch;
   const total = summary?.documents?.total;
 
+  const hideHasSequence =
+    (data?.hasSequence?.documents?.total ?? 0) === 0 && optional.includes('hasSequence');
+  const hideHasCollector =
+    (data?.hasCollector?.documents?.total ?? 0) === 0 && optional.includes('hasCollector');
+  const hideHasMedia =
+    (data?.hasMedia?.documents?.total ?? 0) === 0 && optional.includes('hasMedia');
+
   return (
     <Card {...props} loading={noData} error={!!error}>
       <CardHeader>
@@ -153,51 +160,43 @@ export function DataQuality({ predicate, q, checklistKey, ...props }) {
                 <td className="g-text-end">
                   <FormattedNumber value={data?.hasYear?.documents?.total} />
                 </td>
-                {/* <td>
-              <Progress percent={100 * data?.rank?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
-            </td> */}
               </tr>
-              <tr>
-                <td>
-                  <BarItem percent={(100 * data?.hasCollector?.documents?.total) / total}>
-                    <FormattedMessage id="dashboard.withCollector" />
-                  </BarItem>
-                </td>
-                <td className="g-text-end">
-                  <FormattedNumber value={data?.hasCollector?.documents?.total} />
-                </td>
-                {/* <td>
-              <Progress percent={100 * data?.hasCollector?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
-            </td> */}
-              </tr>
-              <tr>
-                {/* <td><div>With media</div></td> */}
-                <td>
-                  <BarItem percent={(100 * data?.hasMedia?.documents?.total) / total}>
-                    <FormattedMessage id="dashboard.withMedia" />
-                  </BarItem>
-                </td>
-                <td className="g-text-end">
-                  <FormattedNumber value={data?.hasMedia?.documents?.total} />
-                </td>
-                {/* <td>
-              <Progress percent={100 * data?.hasMedia?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
-            </td> */}
-              </tr>
-              <tr>
-                {/* <td><div>With media</div></td> */}
-                <td>
-                  <BarItem percent={(100 * data?.hasSequence?.documents?.total) / total}>
-                    <FormattedMessage id="dashboard.withSequence" />
-                  </BarItem>
-                </td>
-                <td className="g-text-end">
-                  <FormattedNumber value={data?.hasSequence?.documents?.total} />
-                </td>
-                {/* <td>
-              <Progress percent={100 * data?.hasMedia?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
-            </td> */}
-              </tr>
+              {!hideHasCollector && (
+                <tr>
+                  <td>
+                    <BarItem percent={(100 * data?.hasCollector?.documents?.total) / total}>
+                      <FormattedMessage id="dashboard.withCollector" />
+                    </BarItem>
+                  </td>
+                  <td className="g-text-end">
+                    <FormattedNumber value={data?.hasCollector?.documents?.total} />
+                  </td>
+                </tr>
+              )}
+              {!hideHasMedia && (
+                <tr>
+                  <td>
+                    <BarItem percent={(100 * data?.hasMedia?.documents?.total) / total}>
+                      <FormattedMessage id="dashboard.withMedia" />
+                    </BarItem>
+                  </td>
+                  <td className="g-text-end">
+                    <FormattedNumber value={data?.hasMedia?.documents?.total} />
+                  </td>
+                </tr>
+              )}
+              {!hideHasSequence && (
+                <tr>
+                  <td>
+                    <BarItem percent={(100 * data?.hasSequence?.documents?.total) / total}>
+                      <FormattedMessage id="dashboard.withSequence" />
+                    </BarItem>
+                  </td>
+                  <td className="g-text-end">
+                    <FormattedNumber value={data?.hasSequence?.documents?.total} />
+                  </td>
+                </tr>
+              )}
             </tbody>
           </Table>
         </div>

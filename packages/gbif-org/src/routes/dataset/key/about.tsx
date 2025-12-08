@@ -9,7 +9,7 @@ import { Message } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   Card,
   CardContent,
@@ -59,7 +59,6 @@ import { PublishingCountries } from './about/PublishingCountries';
 import { TrustedSection } from '@/routes/occurrence/download/key/sections/deletionNotice';
 import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
-import Properties, { Term, Value } from '@/components/properties';
 
 export function DatasetKeyAbout() {
   const { user } = useUser();
@@ -330,6 +329,16 @@ export function DatasetKeyAbout() {
               </TrustedSection>
             )}
 
+            {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
+              <Alert variant="destructive" className="g-mb-4">
+                <AlertTitle>Metadata only dataset with data</AlertTitle>
+                <AlertDescription>
+                  This dataset was published as a metadata-only dataset but contains occurrence
+                  data. This indicates that the data was wrongly mapped.
+                </AlertDescription>
+              </Alert>
+            )}
+
             <Card className="g-mb-4" id="description">
               <CardHeader className="gbif-word-break">
                 <CardTitle>
@@ -373,7 +382,7 @@ export function DatasetKeyAbout() {
               </CardContent>
             </Card>
 
-            <DataSummary data={data} insights={insights} />
+            {/* <DataSummary data={data} insights={insights} /> */}
 
             {insights?.images?.documents?.total > 0 && (
               <>
@@ -381,7 +390,26 @@ export function DatasetKeyAbout() {
               </>
             )}
 
-            <PublishingCountries datasetKey={dataset.key} />
+            {hasPreprocessedMap && !reducedOccurrenceScope && (
+              <ClientSideOnly>
+                <MapWidget
+                  className="g-mb-4"
+                  capabilitiesParams={{ datasetKey: dataset.key }}
+                  mapStyle="CLASSIC_HEX"
+                />
+              </ClientSideOnly>
+            )}
+            <div className="g-text-slate-500">
+              <ClientSideOnly>
+                <DashBoardLayout>
+                  <charts.OccurrenceSummary predicate={chartPredicate} />
+                  <charts.DataQuality
+                    predicate={chartPredicate}
+                    optional={['hasSequence', 'hasMedia', 'hasCollector']}
+                  />
+                </DashBoardLayout>
+              </ClientSideOnly>
+            </div>
 
             {toc.purpose && (
               <Card className="g-mb-4 gbif-word-break" id="purpose">
@@ -398,15 +426,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {hasPreprocessedMap && !reducedOccurrenceScope && (
-              <ClientSideOnly>
-                <MapWidget
-                  className="g-mb-4"
-                  capabilitiesParams={{ datasetKey: dataset.key }}
-                  mapStyle="CLASSIC_HEX"
-                />
-              </ClientSideOnly>
-            )}
+
             {toc?.geographicDescription && (
               <Card className="g-mb-4" id="geographic-description">
                 <CardHeader className="gbif-word-break">
@@ -417,7 +437,7 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
                 </CardContent>
-                {siteTotal > 0 && (
+                {/* {siteTotal > 0 && (
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
@@ -436,9 +456,12 @@ export function DatasetKeyAbout() {
                       />
                     </DashBoardLayout>
                   </CardContent>
-                )}
+                )} */}
               </Card>
             )}
+
+            <PublishingCountries datasetKey={dataset.key} />
+
             {toc?.temporalDescription && (
               <Card className="g-mb-4" id="temporal-description">
                 <CardHeader className="gbif-word-break">
@@ -449,7 +472,7 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
                 </CardContent>
-                {siteTotal > 0 && (
+                {/* {siteTotal > 0 && (
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
@@ -470,7 +493,7 @@ export function DatasetKeyAbout() {
                       />
                     </DashBoardLayout>
                   </CardContent>
-                )}
+                )} */}
               </Card>
             )}
             {toc?.taxonomicDescription && (
@@ -483,7 +506,7 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
                 </CardContent>
-                {siteTotal > 0 && (
+                {/* {siteTotal > 0 && (
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
@@ -495,7 +518,7 @@ export function DatasetKeyAbout() {
                       interactive={false}
                     />
                   </CardContent>
-                )}
+                )} */}
               </Card>
             )}
             {toc?.methodology && (
@@ -511,7 +534,7 @@ export function DatasetKeyAbout() {
               </Card>
             )}
 
-            {toc?.metrics && (
+            {/* {toc?.metrics && (
               <section>
                 <CardHeader id="metrics">
                   <CardTitle>
@@ -555,7 +578,7 @@ export function DatasetKeyAbout() {
                   </ClientSideOnly>
                 </div>
               </section>
-            )}
+            )} */}
             {toc?.additionalInfo && (
               <Card className="g-mb-4 gbif-word-break" id="additional-info">
                 <CardHeader>

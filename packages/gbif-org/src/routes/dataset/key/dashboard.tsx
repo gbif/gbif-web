@@ -30,6 +30,7 @@ import { useConfig } from '@/config/config';
 import { useDatasetKeyLoaderData } from '.';
 import { DatasetQuery, Predicate, PredicateType } from '@/gql/graphql';
 import { useEffect, useState } from 'react';
+import { Downloads } from '@/routes/user/downloads/downloads';
 
 const GROUPS = [
   'checklist',
@@ -83,9 +84,33 @@ export function DatasetKeyDashboard({ defaultGroup = 'checklist' }: { defaultGro
   };
 
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-0">
+    <ArticleContainer className="g-bg-slate-100">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        <div className="g-flex g-flex-wrap g-gap-2 g-mb-8">
+        {/* Mobile select dropdown */}
+        <div className="g-mb-6 md:g-hidden">
+          <label htmlFor="metric-group-select" className="g-sr-only">
+            <FormattedMessage
+              id="dataset.metrics.selectGroup"
+              defaultMessage="Select metric group"
+            />
+          </label>
+          <select
+            id="metric-group-select"
+            value={group}
+            onChange={(e) => setGroup(e.target.value)}
+            className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
+          >
+            {GROUP_OPTIONS.map((option) => (
+              <option key={option.key} value={option.key}>
+                {/* Extract text from FormattedMessage for select option */}
+                {option.key.charAt(0).toUpperCase() + option.key.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop button group */}
+        <div className="g-hidden md:g-flex g-flex-wrap g-gap-2 g-mb-8">
           {GROUP_OPTIONS.map((option) => (
             <Button
               key={option.key}
@@ -102,6 +127,7 @@ export function DatasetKeyDashboard({ defaultGroup = 'checklist' }: { defaultGro
         {group === 'temporal' && <TemporalMetrics predicate={scopedDatasetPredicate} />}
         {group === 'qualities' && <IssuesMetrics predicate={scopedDatasetPredicate} />}
         {group === 'citations' && <CitationMetrics predicate={literaturePredicate} />}
+        {group === 'downloads' && <Downloads />}
       </ArticleTextContainer>
     </ArticleContainer>
   );
@@ -129,7 +155,12 @@ function GeographicMetrics({ predicate }: { predicate: Predicate }) {
     <ClientSideOnly>
       <DashBoardLayout>
         <Country predicate={predicate} visibilityThreshold={0} interactive={false} />
-        <GadmGid predicate={predicate} visibilityThreshold={0} interactive={false} />
+        <GadmGid
+          predicate={predicate}
+          visibilityThreshold={0}
+          interactive={false}
+          options={['TABLE']}
+        />
         <Continent predicate={predicate} visibilityThreshold={0} interactive={false} />
       </DashBoardLayout>
     </ClientSideOnly>
