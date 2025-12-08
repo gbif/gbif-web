@@ -20,6 +20,7 @@ import {
   DatasetOccurrenceSearchQueryVariables,
   DatasetQuery,
   DatasetQueryVariables,
+  DatasetType,
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -398,6 +399,12 @@ export function DatasetPage() {
       tabsToDisplay.push({
         to: 'events',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
+      });
+    }
+    if (dataset.type !== DatasetType.Metadata) {
+      tabsToDisplay.push({
+        to: 'metrics',
+        children: <FormattedMessage id="dataset.tabs.metrics" defaultMessage={'Metrics'} />,
       });
     }
     tabsToDisplay.push({

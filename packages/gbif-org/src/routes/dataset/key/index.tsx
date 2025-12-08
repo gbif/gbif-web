@@ -33,10 +33,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
       index: true,
       element: <DatasetKeyAbout />,
     },
-    // {
-    //   path: 'metrics',
-    //   element: <DatasetKeyDashboard />,
-    // },
+    {
+      path: 'metrics',
+      element: <DatasetKeyDashboard />,
+    },
     // {
     //   path: 'occurrences',
     //   element: <DatasetKeyOccurrences />,
