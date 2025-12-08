@@ -53,7 +53,7 @@ export function PublishingCountries({ datasetKey }: { datasetKey: string }) {
     });
   }, [datasetKey, load]);
 
-  if (!data || error) return null;
+  if (!data || error || (data.occurrenceSearch?.facet?.countryCode?.length ?? 0) < 2) return null;
   return (
     <Card className="g-mb-4 gbif-word-break" id="countries">
       <CardHeader>
