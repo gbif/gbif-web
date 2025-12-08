@@ -171,7 +171,7 @@ export function EventPage() {
               {resource.country && (
                 <KeyValuePair
                   label={<FormattedMessage id="cms.resource.country" />}
-                  value={<FormattedMessage id={`enums.topics.${resource.country}`} />}
+                  value={<FormattedMessage id={`enums.countryCode.${resource.country}`} />}
                 />
               )}
 
