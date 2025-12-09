@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "・・・について",
-    "occurrences": "オカレンス",
-    "citations": "引用",
     "project": "プロジェクト",
     "taxonomy": "分類群",
     "download": "ダウンロード",
     "phylogeny": "",
+    "metrics": "メトリクス",
     "events": "イベント"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "チェックリスト",
+      "downloads": "ダウンロード数",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "一時的",
+      "qualities": "",
+      "citations": "引用"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "シノニム",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "由来",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": "件数"
+    }
   },
   "noStatsForMetadata": "メタデータのみのデータセットにつき、統計情報なし",
   "siteScopeSmallerThanDataset": "",
@@ -153,5 +186,6 @@
     "evenList": "共同出資",
     "occurrenceInfo": "共同出資"
   },
-  "eventTaxonomy": "オカレンスの分類学的分布"
+  "eventTaxonomy": "オカレンスの分類学的分布",
+  "noCitations": ""
 }
