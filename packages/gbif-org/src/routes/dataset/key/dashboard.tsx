@@ -33,6 +33,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Downloads } from './dashboard/downloads';
 import { ChecklistMetrics } from './dashboard/checklistMetrics';
+import { NoRecords } from '@/components/noDataMessages';
 
 type DatasetMetricType =
   | 'checklist'
@@ -95,9 +96,8 @@ export function DatasetKeyDashboard() {
 
   if (!dataset) return <CardListSkeleton />;
 
-  console.log(tabOptions);
   return (
-    <ArticleContainer className="g-bg-slate-100">
+    <ArticleContainer className="g-bg-slate-100 g-min-h-[70vh]">
       <ArticleTextContainer className="g-max-w-screen-xl">
         {/* Mobile select dropdown */}
         <div className="g-mb-6 md:g-hidden">
@@ -152,7 +152,9 @@ export function DatasetKeyDashboard() {
               <CitationMetrics predicate={literaturePredicate} />
             )}
             {data.literatureSearch?.documents.total === 0 && (
-              <div>We have no citations for this dataset yet.</div>
+              <div className="g-my-8 g-text-slate-500">
+                <NoRecords messageId="dataset.noCitations" />
+              </div>
             )}
           </>
         )}

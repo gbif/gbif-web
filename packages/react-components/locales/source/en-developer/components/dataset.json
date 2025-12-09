@@ -165,5 +165,6 @@
     "evenList": "Error loading event list",
     "occurrenceInfo": "Error loading occurrence info"
   },
-  "eventTaxonomy": "Taxonomic distribution of occurrences"
+  "eventTaxonomy": "Taxonomic distribution of occurrences",
+  "noCitations": "No citations yet"
 }

@@ -52,7 +52,7 @@ export function Downloads() {
     <section>
       {downloads?.count === 0 && (
         <>
-          <NoRecords messageId="profile.noDownloads" />
+          <NoRecords messageId="dataset.noDownloads" />
         </>
       )}
       {downloads && downloads.count > 0 && (
