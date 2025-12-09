@@ -42,8 +42,10 @@
     "materialSample": "Materiaal monster",
     "geologicalContext": "Geologische context",
     "other": "Andere",
-    "extensions": "Extensies"
+    "extensions": "Extensies",
+    "issues": ""
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "Gegroepeerd",
     "isSamplingEvent": "",

@@ -42,8 +42,10 @@
     "materialSample": "Matériel échantillonné",
     "geologicalContext": "Contexte géologique",
     "other": "Autre",
-    "extensions": "Extensions"
+    "extensions": "Extensions",
+    "issues": "Problèmes et drapeaux"
   },
+  "issuesHelpText": "Espace réservé à la description",
   "features": {
     "isClustered": "Regroupés",
     "isSamplingEvent": "Événement d'échantillonnage",

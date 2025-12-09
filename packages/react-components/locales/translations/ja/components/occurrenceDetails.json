@@ -42,8 +42,10 @@
     "materialSample": "試料",
     "geologicalContext": "地質学的背景",
     "other": "その他",
-    "extensions": "拡張モジュール"
+    "extensions": "拡張モジュール",
+    "issues": "問題とフラグ"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "クラスター化された",
     "isSamplingEvent": "サンプリング イベント",

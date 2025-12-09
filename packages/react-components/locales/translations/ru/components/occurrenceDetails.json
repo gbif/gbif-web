@@ -42,8 +42,10 @@
     "materialSample": "Образец из коллекции",
     "geologicalContext": "Геологические контекст",
     "other": "Другая",
-    "extensions": "Расширения"
+    "extensions": "Расширения",
+    "issues": "Автоматически обнаруженные несоответствия"
   },
+  "issuesHelpText": "Заполнитель",
   "features": {
     "isClustered": "Имеет связанные записи",
     "isSamplingEvent": "Описания, учеты или сборы",

@@ -42,8 +42,10 @@
     "materialSample": "",
     "geologicalContext": "",
     "other": "",
-    "extensions": ""
+    "extensions": "",
+    "issues": ""
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "",
     "isSamplingEvent": "",

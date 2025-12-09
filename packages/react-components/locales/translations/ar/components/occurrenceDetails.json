@@ -42,8 +42,10 @@
     "materialSample": "عينة مادية",
     "geologicalContext": "السياق الجيولوجي",
     "other": "أخرى",
-    "extensions": "اللاحقات"
+    "extensions": "اللاحقات",
+    "issues": "مسائل و رايات"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "",
     "isSamplingEvent": "حدث أخذ العينات",

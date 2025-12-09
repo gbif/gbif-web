@@ -42,8 +42,10 @@
     "materialSample": "Próbka",
     "geologicalContext": "Kontekst geologiczny",
     "other": "Inne",
-    "extensions": "Rozszerzenia"
+    "extensions": "Rozszerzenia",
+    "issues": "Problemy i komentarze"
   },
+  "issuesHelpText": "Symbol zastępczy opisu",
   "features": {
     "isClustered": "Klastrowany",
     "isSamplingEvent": "Pobieranie prób",

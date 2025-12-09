@@ -42,8 +42,10 @@
     "materialSample": "",
     "geologicalContext": "",
     "other": "",
-    "extensions": "افزونه‌ها"
+    "extensions": "افزونه‌ها",
+    "issues": ""
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "",
     "isSamplingEvent": "",
