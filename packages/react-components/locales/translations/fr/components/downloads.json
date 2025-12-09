@@ -65,6 +65,7 @@
     "downloadStarted": "Le téléchargement a démarré et est en cours de traitement.",
     "downloadExpectTime": "Le téléchargement peut prendre jusqu'à 3 heures à se terminer. La plupart des téléchargements sont terminés en 15 minutes.",
     "notificationEmailAddresses": "Un courriel de notification avec un lien pour télécharger les résultats sera envoyé à l'adresse suivante une fois prêt :",
+    "sqlGeneratedUsingPredicate": "Espace réservé à la description",
     "status": {
       "PREPARING": "En préparation",
       "SUSPENDED": "Interrompu",
@@ -72,7 +73,9 @@
       "CANCELLED": "Annulé",
       "KILLED": "Tué"
     },
+    "usedChecklistKey": "Espace réservé à la description",
     "predicate": {
+      "checklist": "Liste d'espèces",
       "joinDescriptions": {
         "and": "Tous doivent appliquer",
         "or": "Au moins un doit appliquer",
@@ -84,6 +87,7 @@
       "isNotNull": "Est défini",
       "isNull": "N'est pas défini",
       "within": "Coordonnées à l'intérieur",
+      "geoDistance": "Distance par rapport au point",
       "keys": {
         "EVENT_ID": "ID de l'événement",
         "DECIMAL_LONGITUDE": "Longitude décimale",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Rapatrié",
         "YEAR": "Année",
         "STATE_PROVINCE": "État/Province",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "Valeur de la taille d'échantillonnage",
         "OCCURRENCE_ID": "ID de l'occurence",
@@ -198,6 +201,7 @@
         "FORMATION": "Formation",
         "ORDER_KEY": "Ordre",
         "ISSUE": "Problème",
+        "TAXONOMIC_ISSUE": "Espace réservé à la description",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "Verbatim du nom scientifique",
         "GBIF_REGION": "Région GBIF",

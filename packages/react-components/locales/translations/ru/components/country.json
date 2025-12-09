@@ -1,11 +1,11 @@
 {
   "country": {
     "tabs": {
-      "summary": "Тема сообщения",
+      "summary": "Описание",
       "dataPublishing": "Публикация данных",
       "dataAbout": "Данные о стране",
       "participation": "Членство в GBIF",
-      "publicationsFrom": "Публикация данных организациями из этой страны",
+      "publicationsFrom": "Страна  источник публикации",
       "publicationsAbout": "Публикация данных об этой стране",
       "news": "Новости",
       "alienSpecies": "Софинансируется",
@@ -16,7 +16,7 @@
     "dataAboutCountry": "{TRANSLATED_COUNTRY}: данные о стране ",
     "publishingTrends": " Публикация данных: основные тенденции",
     "noDataPublishingActivity": "Нет данных о публикационной активности",
-    "noInstitutionsHavePublished": "В этой стране нет организаций, которые опубликовали данные через GBIF.org",
+    "noInstitutionsHavePublished": "Никакие организации из этой страны/региона не публиковали данные через GBIF.org",
     "trendsAboutCountry": "{TRANSLATED_COUNTRY}: тенденции",
     "noProjects": "Нет проектов",
     "notParticipant": "Не является членом GBIF",

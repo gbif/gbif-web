@@ -1,6 +1,6 @@
 {
   "derivedDatasetKey": {
-    "nRecordsAtTime": "{NUMBER_FORMATTED} {NUMBER, plural, one{registo} other{registos}} deste conjunto de dados",
+    "nRecordsAtTime": "",
     "derivedDataset": "Conjunto de dados derivado",
     "sourceUrl": "Aceder a conjunto de dados derivado",
     "headlineDatasets": "Registos de {NUMBER_FORMATED} {NUMBER, plural, one{dataset} other{datasets}} no conjunto de dados derivado",
@@ -65,6 +65,7 @@
     "downloadStarted": "A transferência foi iniciada e está atualemente em processamento.",
     "downloadExpectTime": "Conte com até 3 horas para a transferência completar. A maioria das transferências irá completar nos primeiros 15 minutos.",
     "notificationEmailAddresses": "Um email de notificação com um link do resultado da transferência será enviado para o seguinte endereço, assim que pronto: ",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "A preparar",
       "SUSPENDED": "Suspenso",
@@ -72,7 +73,9 @@
       "CANCELLED": "Cancelada",
       "KILLED": "Apagado"
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "Checklist",
       "joinDescriptions": {
         "and": "Devem aplicar-se todos",
         "or": "Ao menos um deve aplicar-se",
@@ -84,6 +87,7 @@
       "isNotNull": "Está definido",
       "isNull": "Não está definido",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "ID do evento",
         "DECIMAL_LONGITUDE": "Longitude decimal",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Repatriado",
         "YEAR": "Ano",
         "STATE_PROVINCE": "",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "Valor do tamanho da amostra",
         "OCCURRENCE_ID": "ID da Ocorrência",
@@ -198,6 +201,7 @@
         "FORMATION": "Formação",
         "ORDER_KEY": "Ordem",
         "ISSUE": "Problema",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Instalação",
         "VERBATIM_SCIENTIFIC_NAME": "Nome científico verbatim",
         "GBIF_REGION": "Região do GBIF",
