@@ -5,7 +5,7 @@ import { useStringParam } from '@/hooks/useParam';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { cn } from '@/utils/shadcn';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   OccurrenceSummary,
   Country,
@@ -51,11 +51,6 @@ type DatasetMetricType =
   | 'qualities'
   | 'citations'
   | 'downloads';
-
-const GROUP_OPTIONS = GROUPS.map((group) => ({
-  key: group,
-  label: <FormattedMessage id={`dataset.metrics.group.${group}.title`} />,
-}));
 
 export function DatasetKeyDashboard() {
   const config = useConfig();
@@ -135,7 +130,6 @@ export function DatasetKeyDashboard() {
           >
             {tabOptions.map((option) => (
               <option key={option} value={option}>
-                {option}
                 <FormattedMessage
                   id={`dataset.metricsTab.group.${option}`}
                   defaultMessage={option}

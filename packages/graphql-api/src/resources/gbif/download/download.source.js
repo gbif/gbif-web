@@ -21,6 +21,8 @@ class DownloadAPI extends RESTDataSource {
 
   async datasetDownloads({ query }) {
     const { datasetKey, ...params } = query;
+    console.log('datasetDownloads params', params);
+    console.log(`/occurrence/download/dataset/${datasetKey}`);
     return this.get(`/occurrence/download/dataset/${datasetKey}`, params);
   }
 
