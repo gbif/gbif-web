@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "Sobre",
-    "occurrences": "Ocorrências",
-    "citations": "Citações",
     "project": "Projeto",
     "taxonomy": "Taxonomia",
     "download": "Transferir",
     "phylogeny": "",
+    "metrics": "Métricas",
     "events": "Eventos"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "Checklist",
+      "downloads": "Transferências",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "Temporal",
+      "qualities": "",
+      "citations": "Citações"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "Sinónimos",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "Origem",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": "Contagem"
+    }
   },
   "noStatsForMetadata": "Não há estatísticas disponíveis para conjuntos de dados somente de metadados",
   "siteScopeSmallerThanDataset": "",
@@ -153,5 +186,6 @@
     "evenList": "Co-financiado por",
     "occurrenceInfo": "Co-financiado por"
   },
-  "eventTaxonomy": "Distribuição taxonómica das ocorrências"
+  "eventTaxonomy": "Distribuição taxonómica das ocorrências",
+  "noCitations": ""
 }
