@@ -17,12 +17,12 @@ import { FormattedMessage } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
 import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { Button } from '@/components/ui/button';
+import useAbove from '@/hooks/useAbove';
 
 export function DatasetKeyProject() {
   const { data } = useDatasetKeyLoaderData();
   const { dataset } = data;
-  const removeSidebar = useBelow(1100);
+  const showSidebar = useAbove(1100);
   const { project } = dataset ?? {};
 
   const tableOfContents = useMemo(() => {
@@ -57,11 +57,10 @@ export function DatasetKeyProject() {
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl g-relative">
-        {/* <div className={`${removeSidebar ? '' : 'g-flex'}`}> */}
         <SidebarLayout
           reverse
           className="g-grid-cols-[1fr_250px] xl:g-grid-cols-[1fr_300px]"
-          stack={removeSidebar}
+          stack={!showSidebar}
         >
           <div className="g-flex-grow">
             {project.gbifProject?.primaryImage && (
@@ -152,7 +151,7 @@ export function DatasetKeyProject() {
               </Card>
             )}
           </div>
-          {!removeSidebar && (
+          {showSidebar && (
             <Aside>
               <AsideSticky className="-g-mt-4">
                 <Card>
@@ -167,14 +166,14 @@ export function DatasetKeyProject() {
             </Aside>
           )}
         </SidebarLayout>
-        {removeSidebar && (
+        {!showSidebar && (
           <Popover>
-            <PopoverTrigger className="g-sticky g-bottom-4 g-float-end -g-me-2 g-bg-white g-rounded g-p-2 g-shadow-md g-cursor-pointer g-z-50 g-border g-border-solid g-border-slate-200">
+            <PopoverTrigger className="g-sticky g-bottom-4 g-float-end -g-me-2 g-bg-primary-500 g-text-primaryContrast-500 g-rounded g-p-2 g-shadow-md g-cursor-pointer g-z-50 g-border g-border-solid g-border-primary-600">
               <MdMenu className="" />
             </PopoverTrigger>
             <PopoverContent>
               <Card>
-                <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
+                <h4 className="md:g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
                   <FormattedMessage id="phrases.pageToc" />
                 </h4>
                 <nav className="g-pb-2">

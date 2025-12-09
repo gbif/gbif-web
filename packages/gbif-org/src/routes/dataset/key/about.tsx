@@ -221,12 +221,6 @@ export function DatasetKeyAbout() {
         title: <FormattedMessage id="dataset.methodology" />,
       });
     }
-    if (toc.metrics) {
-      tableOfContents.push({
-        id: 'metrics',
-        title: <FormattedMessage id="dataset.metrics" />,
-      });
-    }
     if (toc.additionalInfo) {
       tableOfContents.push({
         id: 'additional-info',
@@ -694,7 +688,6 @@ function getToc(data?: DatasetQuery, insights?: DatasetInsightsQuery) {
     temporalDescription: (dataset?.temporalCoverages?.length ?? 0) > 0,
     taxonomicDescription: (dataset?.taxonomicCoverages?.length ?? 0) > 0,
     methodology: hasSamplingDescription,
-    metrics: insights?.siteOccurrences?.documents?.total > 1,
     additionalInfo: dataset?.additionalInfo,
     contacts: (dataset?.volatileContributors?.length ?? 0) > 0,
     bibliography: (dataset?.bibliographicCitations?.length ?? 0) > 0,

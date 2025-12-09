@@ -50,7 +50,7 @@ export function TableOfContents({ sections, className }: Props) {
             replace
             // href={`#${section.id}`}
             className={cn(
-              'g-block g-border-l g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 dark:g-text-slate-400 dark:hover:g-text-slate-300 hover:g-text-primary-600',
+              'g-block g-border-l md:g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 dark:g-text-slate-400 dark:hover:g-text-slate-300 hover:g-text-primary-600',
               {
                 'g-text-primary-500 g-font-semibold': activeId === section.id,
               }
