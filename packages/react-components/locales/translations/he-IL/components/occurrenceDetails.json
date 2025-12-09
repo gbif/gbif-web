@@ -42,8 +42,10 @@
     "materialSample": "דגימת חומר",
     "geologicalContext": "Geological context",
     "other": "Other",
-    "extensions": "Extensions"
+    "extensions": "Extensions",
+    "issues": ""
   },
+  "issuesHelpText": "תיאור זמני",
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "דגימה event",
