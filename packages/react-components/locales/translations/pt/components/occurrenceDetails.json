@@ -42,8 +42,10 @@
     "materialSample": "Amostra de material",
     "geologicalContext": "Contexto geológico",
     "other": "Outro",
-    "extensions": "Extensões"
+    "extensions": "Extensões",
+    "issues": "Questões e sinalizadores"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "Agrupado",
     "isSamplingEvent": "Evento de colheita",
