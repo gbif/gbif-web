@@ -72,7 +72,12 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
   if (error) {
     return (
       <Alert variant="warning" className="g-mb-4">
-        <AlertTitle>Checklist metrics is not available for this dataset.</AlertTitle>
+        <AlertTitle>
+          <FormattedMessage
+            id="dataset.metricsTab.checklist.notAvailable"
+            defaultMessage="Checklist metrics is not available for this dataset."
+          />
+        </AlertTitle>
       </Alert>
     );
   }
@@ -93,11 +98,14 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
       <Card className="g-mb-4">
         <CardHeader className="gbif-word-break">
           <CardTitle>
-            <FormattedMessage id="dataset.metrics.overview" defaultMessage="Checklist Overview" />
+            <FormattedMessage
+              id="dataset.metricsTab.checklist.overview"
+              defaultMessage="Checklist Overview"
+            />
           </CardTitle>
           <CardDescription>
             <FormattedMessage
-              id="dataset.metrics.overview.description"
+              id="dataset.metricsTab.checklist.overviewDescription"
               defaultMessage="Summary statistics for this checklist dataset"
             />
           </CardDescription>
@@ -110,8 +118,8 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
-                        id="dataset.metrics.usagesCount"
-                        defaultMessage="Total name usages"
+                        id="dataset.metricsTab.checklist.colCoveragePct"
+                        defaultMessage="COL coverage"
                       />
                     </td>
                     <td className="g-text-end">
@@ -123,7 +131,7 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
-                        id="dataset.metrics.distinctNamesCount"
+                        id="dataset.metricsTab.checklist.distinctNamesCount"
                         defaultMessage="Distinct names"
                       />
                     </td>
@@ -136,7 +144,7 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
-                        id="dataset.metrics.synonymsCount"
+                        id="dataset.metricsTab.checklist.synonymsCount"
                         defaultMessage="Synonyms"
                       />
                     </td>
@@ -149,7 +157,7 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
-                        id="dataset.metrics.nubMatchingCount"
+                        id="dataset.metricsTab.checklist.nubMatchingCount"
                         defaultMessage="GBIF Backbone matches"
                       />
                     </td>
@@ -162,7 +170,7 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
-                        id="dataset.metrics.nubCoveragePct"
+                        id="dataset.metricsTab.checklist.nubCoveragePct"
                         defaultMessage="GBIF Backbone coverage"
                       />
                     </td>
@@ -175,7 +183,7 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
-                        id="dataset.metrics.colMatchingCount"
+                        id="dataset.metricsTab.checklist.colMatchingCount"
                         defaultMessage="COL matches"
                       />
                     </td>
@@ -188,7 +196,7 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
-                        id="dataset.metrics.colCoveragePct"
+                        id="dataset.metricsTab.checklist.colCoveragePct"
                         defaultMessage="COL coverage"
                       />
                     </td>
@@ -209,14 +217,14 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
           <CardHeader className="gbif-word-break">
             <CardTitle>
               <FormattedMessage
-                id="dataset.metrics.countByKingdom"
-                defaultMessage="Count by Kingdom"
+                id="dataset.metricsTab.checklist.countByOrigin"
+                defaultMessage="Count by Origin"
               />
             </CardTitle>
             <CardDescription>
               <FormattedMessage
-                id="dataset.metrics.countByKingdom.description"
-                defaultMessage="Distribution of name usages across kingdoms"
+                id="dataset.metricsTab.checklist.countByOriginDescription"
+                defaultMessage="Distribution of name usages by their origin"
               />
             </CardDescription>
           </CardHeader>
@@ -229,7 +237,10 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                       <FormattedMessage id="filters.kingdomKey.name" defaultMessage="Kingdom" />
                     </th>
                     <th className="g-text-end">
-                      <FormattedMessage id="counts.count" defaultMessage="Count" />
+                      <FormattedMessage
+                        id="dataset.metricsTab.checklist.count"
+                        defaultMessage="Count"
+                      />
                     </th>
                   </tr>
                 </thead>
@@ -254,11 +265,14 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
         <Card className="g-mb-4">
           <CardHeader className="gbif-word-break">
             <CardTitle>
-              <FormattedMessage id="dataset.metrics.countByRank" defaultMessage="Count by Rank" />
+              <FormattedMessage
+                id="dataset.metricsTab.checklist.countByRank"
+                defaultMessage="Count by Rank"
+              />
             </CardTitle>
             <CardDescription>
               <FormattedMessage
-                id="dataset.metrics.countByRank.description"
+                id="dataset.metricsTab.checklist.countByRankDescription"
                 defaultMessage="Distribution of name usages across taxonomic ranks"
               />
             </CardDescription>
@@ -272,7 +286,10 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                       <FormattedMessage id="filters.rank.name" defaultMessage="Rank" />
                     </th>
                     <th className="g-text-end">
-                      <FormattedMessage id="counts.count" defaultMessage="Count" />
+                      <FormattedMessage
+                        id="dataset.metricsTab.checklist.count"
+                        defaultMessage="Count"
+                      />
                     </th>
                   </tr>
                 </thead>
@@ -300,13 +317,13 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
           <CardHeader className="gbif-word-break">
             <CardTitle>
               <FormattedMessage
-                id="dataset.metrics.countByOrigin"
+                id="dataset.metricsTab.checklist.countByOrigin"
                 defaultMessage="Count by Origin"
               />
             </CardTitle>
             <CardDescription>
               <FormattedMessage
-                id="dataset.metrics.countByOrigin.description"
+                id="dataset.metricsTab.checklist.countByOriginDescription"
                 defaultMessage="Distribution of name usages by their origin"
               />
             </CardDescription>
@@ -317,10 +334,16 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                 <thead>
                   <tr>
                     <th className="g-min-w-48">
-                      <FormattedMessage id="dataset.metrics.origin" defaultMessage="Origin" />
+                      <FormattedMessage
+                        id="dataset.metricsTab.checklist.origin"
+                        defaultMessage="Origin"
+                      />
                     </th>
                     <th className="g-text-end">
-                      <FormattedMessage id="counts.count" defaultMessage="Count" />
+                      <FormattedMessage
+                        id="dataset.metricsTab.checklist.count"
+                        defaultMessage="Count"
+                      />
                     </th>
                   </tr>
                 </thead>
@@ -345,11 +368,14 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
         <Card className="g-mb-4">
           <CardHeader className="gbif-word-break">
             <CardTitle>
-              <FormattedMessage id="dataset.metrics.countByIssue" defaultMessage="Count by Issue" />
+              <FormattedMessage
+                id="dataset.metricsTab.checklist.countByIssue"
+                defaultMessage="Count by Issue"
+              />
             </CardTitle>
             <CardDescription>
               <FormattedMessage
-                id="dataset.metrics.countByIssue.description"
+                id="dataset.metricsTab.checklist.countByIssueDescription"
                 defaultMessage="Distribution of data quality issues"
               />
             </CardDescription>
@@ -363,7 +389,10 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                       <FormattedMessage id="occurrenceFieldNames.issue" defaultMessage="Issue" />
                     </th>
                     <th className="g-text-end">
-                      <FormattedMessage id="counts.count" defaultMessage="Count" />
+                      <FormattedMessage
+                        id="dataset.metricsTab.checklist.count"
+                        defaultMessage="Count"
+                      />
                     </th>
                   </tr>
                 </thead>
