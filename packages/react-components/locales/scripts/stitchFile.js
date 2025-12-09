@@ -118,6 +118,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`),
         dwcaExtension: getFile(locale, `../${folder}/${locale}/enums/dwcaExtension`),
         identifierType: getFile(locale, `../${folder}/${locale}/enums/identifierType`),
+        nameUsageIssue: getFile(locale, `../${folder}/${locale}/enums/nameUsageIssue`),
         yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),
         threatStatus: getFile(locale, `../${folder}/${locale}/enums/threatStatus`),
         gbifRegion: getFile(locale, `../${folder}/${locale}/enums/gbifRegion`).gbifRegion,

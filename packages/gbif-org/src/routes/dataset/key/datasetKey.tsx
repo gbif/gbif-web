@@ -11,7 +11,6 @@ import {
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
 import PageMetaData from '@/components/PageMetaData';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
@@ -20,6 +19,7 @@ import {
   DatasetOccurrenceSearchQueryVariables,
   DatasetQuery,
   DatasetQueryVariables,
+  DatasetType,
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -33,7 +33,6 @@ import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootEr
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
 import { createContext, useEffect, useMemo } from 'react';
-import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -400,6 +399,12 @@ export function DatasetPage() {
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
+    if (dataset.type !== DatasetType.Metadata) {
+      tabsToDisplay.push({
+        to: 'metrics',
+        children: <FormattedMessage id="dataset.tabs.metrics" defaultMessage={'Metrics'} />,
+      });
+    }
     tabsToDisplay.push({
       to: 'download',
       children: <FormattedMessage id="dataset.tabs.download" />,
@@ -409,7 +414,6 @@ export function DatasetPage() {
     hasPhylogeny,
     hasTaxonomy,
     withEventId,
-    dataset?.key,
     dataset?.type,
     dataset?.project,
     config.datasetKey?.showEvents,

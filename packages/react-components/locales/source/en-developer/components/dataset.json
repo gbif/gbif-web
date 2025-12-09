@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "About",
-    "occurrences": "Occurrences",
-    "citations": "Citations",
     "project": "Project",
     "taxonomy": "Taxonomy",
     "download": "Download",
     "phylogeny": "Phylogeny",
+    "metrics": "Metrics",
     "events": "Events"
+  },
+  "metricsTab": {
+    "selectGroup": "Select metric group",
+    "group": {
+      "checklist": "Checklist",
+      "downloads": "Downloads",
+      "taxonomic": "Taxonomic",
+      "geographic": "Geographic",
+      "temporal": "Temporal",
+      "qualities": "Issues and qualities",
+      "citations": "Citations"
+    },
+    "checklist": {
+      "notAvailable": "Checklist metrics is not available for this dataset.",
+      "overview": "Checklist Overview",
+      "overviewDescription": "Summary statistics for this checklist dataset",
+      "usagesCount": "Total name usages",
+      "distinctNamesCount": "Distinct names",
+      "synonymsCount": "Synonyms",
+      "nubMatchingCount": "GBIF Backbone matches",
+      "nubCoveragePct": "GBIF Backbone coverage",
+      "colMatchingCount": "COL matches",
+      "colCoveragePct": "COL coverage",
+      "countByKingdom": "Count by Kingdom",
+      "countByKingdomDescription": "Distribution of name usages across kingdoms",
+      "countByRank": "Count by Rank",
+      "countByRankDescription": "Distribution of name usages across taxonomic ranks",
+      "countByOrigin": "Count by Origin",
+      "countByOriginDescription": "Distribution of name usages by their origin",
+      "origin": "Origin",
+      "countByIssue": "Count by Issue",
+      "countByIssueDescription": "Distribution of data quality issues",
+      "count": "Count"
+    }
   },
   "noStatsForMetadata": "No stats available for metadata only datasets",
   "siteScopeSmallerThanDataset": "Not all records from the dataset is included on this site. Visit [GBIF.org]({datasetUrl}) to explore the full dataset.",
@@ -62,7 +95,7 @@
   "sampling": "Sampling",
   "methodSteps": "Method steps",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, one{download event} other{download events}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, plural, one{occurrence from this dataset} other{occurrences from this dataset}}",
+  "nFromDataset": "{total, plural, one{# occurrence from this dataset} other{# occurrences from this dataset}}",
   "funding": "Funding",
   "abstract": "Abstract",
   "contacts": "Contacts",
@@ -153,5 +186,6 @@
     "evenList": "Error loading event list",
     "occurrenceInfo": "Error loading occurrence info"
   },
-  "eventTaxonomy": "Taxonomic distribution of occurrences"
+  "eventTaxonomy": "Taxonomic distribution of occurrences",
+  "noCitations": "No citations yet"
 }

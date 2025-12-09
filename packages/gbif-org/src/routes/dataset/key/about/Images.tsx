@@ -18,6 +18,7 @@ export function Images({ dataset, className, images = [], link, ...props }) {
               key={occurrence.key}
               src={occurrence.stillImages[0].identifier}
               defaultSize={{ height: 200, width: 200 }}
+              className="g-rounded"
             />
           );
         })}

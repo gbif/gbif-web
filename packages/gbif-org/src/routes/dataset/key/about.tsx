@@ -6,10 +6,9 @@ import EmptyValue from '@/components/emptyValue';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HyperText } from '@/components/hyperText';
 import { Message } from '@/components/message';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   Card,
   CardContent,
@@ -59,13 +58,12 @@ import { PublishingCountries } from './about/PublishingCountries';
 import { TrustedSection } from '@/routes/occurrence/download/key/sections/deletionNotice';
 import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
-import Properties, { Term, Value } from '@/components/properties';
 
 export function DatasetKeyAbout() {
   const { user } = useUser();
   const config = useConfig();
   const { data } = useDatasetKeyLoaderData() as { data: DatasetQuery };
-  const { dataset, totalTaxa, accepted, synonyms } = data;
+  const { dataset } = data;
   const defaultToc = getToc(data);
   const hasPreprocessedMap = useHasMap({
     type: MapTypes.DatasetKey,
@@ -330,6 +328,16 @@ export function DatasetKeyAbout() {
               </TrustedSection>
             )}
 
+            {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
+              <Alert variant="destructive" className="g-mb-4">
+                <AlertTitle>Metadata only dataset with data</AlertTitle>
+                <AlertDescription>
+                  This dataset was published as a metadata-only dataset but contains occurrence
+                  data. This indicates that the data was wrongly mapped.
+                </AlertDescription>
+              </Alert>
+            )}
+
             <Card className="g-mb-4" id="description">
               <CardHeader className="gbif-word-break">
                 <CardTitle>
@@ -337,17 +345,6 @@ export function DatasetKeyAbout() {
                 </CardTitle>
                 <CardDescription>
                   <div className="g-text-sm g-text-slate-500 g-flex g-flex-wrap g-gap-2 g-justify-between">
-                    {/* {dataset.modified && (
-                      <div>
-                        <FormattedMessage id="dataset.registry.metdataLastModified" />:{' '}
-                        <FormattedDate
-                          value={dataset.modified}
-                          year="numeric"
-                          month="long"
-                          day="2-digit"
-                        />
-                      </div>
-                    )} */}
                     {dataset.pubDate && (
                       <div>
                         <FormattedMessage id="dataset.registry.pubDate" />:{' '}
@@ -373,7 +370,7 @@ export function DatasetKeyAbout() {
               </CardContent>
             </Card>
 
-            <DataSummary data={data} insights={insights} />
+            {/* <DataSummary data={data} insights={insights} /> */}
 
             {insights?.images?.documents?.total > 0 && (
               <>
@@ -381,7 +378,28 @@ export function DatasetKeyAbout() {
               </>
             )}
 
-            <PublishingCountries datasetKey={dataset.key} />
+            {hasPreprocessedMap && !reducedOccurrenceScope && (
+              <ClientSideOnly>
+                <MapWidget
+                  className="g-mb-4"
+                  capabilitiesParams={{ datasetKey: dataset.key }}
+                  mapStyle="CLASSIC_HEX"
+                />
+              </ClientSideOnly>
+            )}
+            {siteTotal > 0 && (
+              <div className="g-text-slate-500">
+                <ClientSideOnly>
+                  <DashBoardLayout>
+                    <charts.OccurrenceSummary predicate={chartPredicate} />
+                    <charts.DataQuality
+                      predicate={chartPredicate}
+                      optional={['hasSequence', 'hasMedia', 'hasCollector']}
+                    />
+                  </DashBoardLayout>
+                </ClientSideOnly>
+              </div>
+            )}
 
             {toc.purpose && (
               <Card className="g-mb-4 gbif-word-break" id="purpose">
@@ -398,15 +416,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {hasPreprocessedMap && !reducedOccurrenceScope && (
-              <ClientSideOnly>
-                <MapWidget
-                  className="g-mb-4"
-                  capabilitiesParams={{ datasetKey: dataset.key }}
-                  mapStyle="CLASSIC_HEX"
-                />
-              </ClientSideOnly>
-            )}
+
             {toc?.geographicDescription && (
               <Card className="g-mb-4" id="geographic-description">
                 <CardHeader className="gbif-word-break">
@@ -417,28 +427,11 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
                 </CardContent>
-                {siteTotal > 0 && (
-                  <CardContent>
-                    <hr className="g-my-4" />
-                    <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      <FormattedMessage id="phrases.derivedFromOccurrenceData" />
-                    </p>
-                    <DashBoardLayout>
-                      <charts.Country
-                        predicate={chartPredicate}
-                        visibilityThreshold={0}
-                        interactive={false}
-                      />
-                      <charts.GadmGid
-                        predicate={chartPredicate}
-                        visibilityThreshold={0}
-                        interactive={false}
-                      />
-                    </DashBoardLayout>
-                  </CardContent>
-                )}
               </Card>
             )}
+
+            <PublishingCountries datasetKey={dataset.key} />
+
             {toc?.temporalDescription && (
               <Card className="g-mb-4" id="temporal-description">
                 <CardHeader className="gbif-word-break">
@@ -449,28 +442,6 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
                 </CardContent>
-                {siteTotal > 0 && (
-                  <CardContent>
-                    <hr className="g-my-4" />
-                    <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      <FormattedMessage id="phrases.derivedFromOccurrenceData" />
-                    </p>
-                    <DashBoardLayout>
-                      <charts.EventDate
-                        predicate={chartPredicate}
-                        visibilityThreshold={1}
-                        options={['TIME']}
-                        interactive={false}
-                      />
-                      <charts.Months
-                        predicate={chartPredicate}
-                        defaultOption="COLUMN"
-                        visibilityThreshold={0}
-                        interactive={false}
-                      />
-                    </DashBoardLayout>
-                  </CardContent>
-                )}
               </Card>
             )}
             {toc?.taxonomicDescription && (
@@ -483,19 +454,6 @@ export function DatasetKeyAbout() {
                 <CardContent className="gbif-word-break">
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
                 </CardContent>
-                {siteTotal > 0 && (
-                  <CardContent>
-                    <hr className="g-my-4" />
-                    <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      <FormattedMessage id="phrases.derivedFromOccurrenceData" />
-                    </p>
-                    <charts.Taxa
-                      predicate={chartPredicate}
-                      visibilityThreshold={0}
-                      interactive={false}
-                    />
-                  </CardContent>
-                )}
               </Card>
             )}
             {toc?.methodology && (
@@ -509,52 +467,6 @@ export function DatasetKeyAbout() {
                   <SamplingDescription dataset={dataset} />
                 </CardContent>
               </Card>
-            )}
-
-            {toc?.metrics && (
-              <section>
-                <CardHeader id="metrics">
-                  <CardTitle>
-                    <span className="g-me-2">
-                      <FormattedMessage id="dataset.metrics" />
-                    </span>
-                    <SimpleTooltip i18nKey="dataset.metricsOccurrenceHelpText">
-                      <span>
-                        <MdInfoOutline style={{ verticalAlign: 'middle' }} />
-                      </span>
-                    </SimpleTooltip>
-                  </CardTitle>
-                </CardHeader>
-                <div className="g-text-slate-500">
-                  <ClientSideOnly>
-                    <DashBoardLayout>
-                      <charts.OccurrenceSummary predicate={chartPredicate} />
-                      <charts.DataQuality predicate={chartPredicate} />
-                      <charts.OccurrenceIssue
-                        predicate={chartPredicate}
-                        visibilityThreshold={0}
-                        interactive={false}
-                      />
-                      <charts.Iucn
-                        predicate={chartPredicate}
-                        visibilityThreshold={0}
-                        interactive={false}
-                      />
-                      <charts.IucnCounts
-                        predicate={chartPredicate}
-                        visibilityThreshold={1}
-                        interactive={false}
-                      />
-                      <charts.RecordedBy
-                        predicate={chartPredicate}
-                        visibilityThreshold={0}
-                        defaultOption="TABLE"
-                        interactive={false}
-                      />
-                    </DashBoardLayout>
-                  </ClientSideOnly>
-                </div>
-              </section>
             )}
             {toc?.additionalInfo && (
               <Card className="g-mb-4 gbif-word-break" id="additional-info">
@@ -827,7 +739,6 @@ function DataSummary({ data, insights }: { data: DatasetQuery; insights?: Datase
   const eventDateLink = btoa(JSON.stringify(eventNotNullFilter));
 
   // for checklists
-  const gbifOverlap = dataset.metrics?.nubCoveragePct;
   const colOverlap = dataset.metrics?.colCoveragePct;
   const synonymsPercentage = formatAsPercentage((synonyms?.count ?? 0) / (totalTaxa?.count ?? 0));
   const acceptedPercentage = formatAsPercentage((accepted?.count ?? 0) / (totalTaxa?.count ?? 0));
