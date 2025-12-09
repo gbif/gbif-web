@@ -42,8 +42,10 @@
     "materialSample": "Vzorek materiálu",
     "geologicalContext": "Geologická souvislost",
     "other": "Jiné",
-    "extensions": "Rozšíření"
+    "extensions": "Rozšíření",
+    "issues": "Problémy a příznaky"
   },
+  "issuesHelpText": "Zástupce popisu",
   "features": {
     "isClustered": "Ve shluku",
     "isSamplingEvent": "Událost odběru vzorku",
