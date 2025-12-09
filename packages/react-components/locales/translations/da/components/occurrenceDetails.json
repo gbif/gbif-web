@@ -42,8 +42,10 @@
     "materialSample": "Materiale prøve",
     "geologicalContext": "Geologisk kontekst",
     "other": "",
-    "extensions": ""
+    "extensions": "",
+    "issues": ""
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "",
     "isSamplingEvent": "Sampling event",
