@@ -42,8 +42,10 @@
     "materialSample": "材料样本",
     "geologicalContext": "地质背景",
     "other": "其它",
-    "extensions": "扩展"
+    "extensions": "扩展",
+    "issues": "问题和标志"
   },
+  "issuesHelpText": "描述占位符",
   "features": {
     "isClustered": "群集的",
     "isSamplingEvent": "采样事件",
