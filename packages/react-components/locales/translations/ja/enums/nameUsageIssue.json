@@ -1,0 +1,8 @@
+{
+  "CHAINED_SYNOYM": "シノニムの連鎖",
+  "TAXONOMIC_STATUS_MISMATCH": "分類学的地位の不一致",
+  "CLASSIFICATION_NOT_APPLIED": "分類が適用できません。",
+  "CONFLICTING_BASIONYM_COMBINATION": "バシオニムの組み合わせが競合しています。",
+  "ORTHOGRAPHIC_VARIANT": "表記ゆれ",
+  "HOMONYM": "同名"
+}
