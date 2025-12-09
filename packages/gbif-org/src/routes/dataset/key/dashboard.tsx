@@ -34,15 +34,6 @@ import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Downloads } from './dashboard/downloads';
 import { ChecklistMetrics } from './dashboard/checklistMetrics';
 
-const GROUPS: DatasetMetricType[] = [
-  'checklist',
-  'taxonomic',
-  'geographic',
-  'temporal',
-  'qualities',
-  'citations',
-  'downloads',
-];
 type DatasetMetricType =
   | 'checklist'
   | 'taxonomic'
@@ -62,10 +53,7 @@ export function DatasetKeyDashboard() {
     value: dataset?.key,
   });
 
-  let defaultGroup = dataset?.type === DatasetType.Checklist ? 'checklist' : 'downloads';
-  if (dataset?.type === DatasetType.Occurrence || dataset?.type === DatasetType.SamplingEvent) {
-    defaultGroup = 'taxonomic';
-  }
+  const defaultGroup = 'citations';
   const [group = defaultGroup, setGroup] = useStringParam({
     key: 'group',
     defaultValue: defaultGroup,
@@ -94,19 +82,16 @@ export function DatasetKeyDashboard() {
 
   // if it is a checklist dataaset type then add checklist option to tabs. If there are occurrences, then show ocurrence metrics. If there are citations then show citation metrics. always show download tab
   const tabOptions = useMemo(() => {
-    const options: DatasetMetricType[] = [];
+    const options: DatasetMetricType[] = ['citations', 'downloads'];
+
     if (dataset?.type === DatasetType.Checklist) {
       options.push('checklist');
     }
     if (dataset?.type === DatasetType.Occurrence || dataset?.type === DatasetType.SamplingEvent) {
       options.push('taxonomic', 'geographic', 'temporal', 'qualities');
     }
-    if (data.literatureSearch?.documents?.total > 0) {
-      options.push('citations');
-    }
-    options.push('downloads');
     return options;
-  }, [data, dataset?.type]);
+  }, [dataset?.type]);
 
   if (!dataset) return <CardListSkeleton />;
 
@@ -161,7 +146,16 @@ export function DatasetKeyDashboard() {
         {group === 'geographic' && <GeographicMetrics predicate={scopedDatasetPredicate} />}
         {group === 'temporal' && <TemporalMetrics predicate={scopedDatasetPredicate} />}
         {group === 'qualities' && <IssuesMetrics predicate={scopedDatasetPredicate} />}
-        {group === 'citations' && <CitationMetrics predicate={literaturePredicate} />}
+        {group === 'citations' && (
+          <>
+            {data.literatureSearch?.documents.total > 0 && (
+              <CitationMetrics predicate={literaturePredicate} />
+            )}
+            {data.literatureSearch?.documents.total === 0 && (
+              <div>We have no citations for this dataset yet.</div>
+            )}
+          </>
+        )}
         {group === 'downloads' && <Downloads />}
       </ArticleTextContainer>
     </ArticleContainer>
@@ -257,17 +251,17 @@ function CitationMetrics({ predicate }: { predicate: Predicate }) {
         <LiteratureCreatedAt visibilityThreshold={1} predicate={predicate} />
         <LiteratureTopics visibilityThreshold={1} predicate={predicate} />
         <LiteratureRelevance visibilityThreshold={1} predicate={predicate} />
+        <LiteratureType visibilityThreshold={1} predicate={predicate} />
         <LiteratureCountriesOfCoverage
           visibilityThreshold={1}
           predicate={predicate}
-          options={['PIE', 'TABLE', 'COLUMN']}
+          options={['TABLE', 'PIE', 'COLUMN']}
         />
         <LiteratureCountriesOfResearcher
           visibilityThreshold={1}
           predicate={predicate}
-          options={['PIE', 'TABLE', 'COLUMN']}
+          options={['TABLE', 'PIE', 'COLUMN']}
         />
-        <LiteratureType visibilityThreshold={1} predicate={predicate} />
       </DashBoardLayout>
     </ClientSideOnly>
   );
