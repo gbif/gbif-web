@@ -42,8 +42,10 @@
     "materialSample": "Проба матеріалу",
     "geologicalContext": "Геологічний контекст",
     "other": "Інше",
-    "extensions": "Розширення"
+    "extensions": "Розширення",
+    "issues": "Проблеми та відмітки"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "",
     "isSamplingEvent": "Описи, обліки або збори",
