@@ -34,6 +34,7 @@ import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Downloads } from './dashboard/downloads';
 import { ChecklistMetrics } from './dashboard/checklistMetrics';
 import { NoRecords } from '@/components/noDataMessages';
+import { useOccurrenceCount } from '@/components/count';
 
 type DatasetMetricType =
   | 'checklist'
@@ -48,11 +49,14 @@ export function DatasetKeyDashboard() {
   const config = useConfig();
   const { data } = useDatasetKeyLoaderData() as { data: DatasetQuery };
   const dataset = data?.dataset;
+
   const [scopedDatasetPredicate, setScopedDatasetPredicate] = useState<Predicate>({
     type: PredicateType.Equals,
     key: 'datasetKey',
     value: dataset?.key,
   });
+  const { count, error, loading } = useOccurrenceCount({ predicate: scopedDatasetPredicate });
+  const hasOccurrences = !loading && !error && count > 0;
 
   const defaultGroup = 'citations';
   const [group = defaultGroup, setGroup] = useStringParam({
@@ -62,6 +66,7 @@ export function DatasetKeyDashboard() {
   });
 
   const sitePredicate = config?.occurrenceSearch?.scope as Predicate;
+  const siteLiteraturePredicate = config?.literatureSearch?.scope as Predicate;
   useEffect(() => {
     if (!dataset?.key) return;
     const datasetPredicate = {
@@ -81,6 +86,13 @@ export function DatasetKeyDashboard() {
     value: dataset?.key,
   };
 
+  const literatureScope = siteLiteraturePredicate
+    ? {
+        type: PredicateType.And,
+        predicates: [siteLiteraturePredicate, literaturePredicate],
+      }
+    : literaturePredicate;
+
   // if it is a checklist dataaset type then add checklist option to tabs. If there are occurrences, then show ocurrence metrics. If there are citations then show citation metrics. always show download tab
   const tabOptions = useMemo(() => {
     const options: DatasetMetricType[] = ['citations', 'downloads'];
@@ -88,11 +100,16 @@ export function DatasetKeyDashboard() {
     if (dataset?.type === DatasetType.Checklist) {
       options.push('checklist');
     }
-    if (dataset?.type === DatasetType.Occurrence || dataset?.type === DatasetType.SamplingEvent) {
+    // if (hasOccurrences && dataset?.type === DatasetType.Occurrence || dataset?.type === DatasetType.SamplingEvent) {
+    if (
+      hasOccurrences ||
+      dataset?.type === DatasetType.Occurrence ||
+      dataset?.type === DatasetType.SamplingEvent
+    ) {
       options.push('taxonomic', 'geographic', 'temporal', 'qualities');
     }
     return options;
-  }, [dataset?.type]);
+  }, [dataset?.type, hasOccurrences]);
 
   if (!dataset) return <CardListSkeleton />;
 
@@ -149,7 +166,7 @@ export function DatasetKeyDashboard() {
         {group === 'citations' && (
           <>
             {data.literatureSearch?.documents.total > 0 && (
-              <CitationMetrics predicate={literaturePredicate} />
+              <CitationMetrics predicate={literatureScope} />
             )}
             {data.literatureSearch?.documents.total === 0 && (
               <div className="g-my-8 g-text-slate-500">
@@ -268,3 +285,13 @@ function CitationMetrics({ predicate }: { predicate: Predicate }) {
     </ClientSideOnly>
   );
 }
+
+const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
+  query DatasetOccurrenceSiteCount($predicate: Predicate) {
+    occurrenceSearch(predicate: $predicate) {
+      documents(size: 0) {
+        total
+      }
+    }
+  }
+`;

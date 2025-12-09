@@ -230,6 +230,11 @@ export const gbifConfig: Config = {
   literatureSearch: {
     queryType: 'PREDICATE',
     // highlightedFilters: ['q', 'year'],
+    scope: {
+      type: 'in',
+      key: 'countriesOfResearcher',
+      values: ['BR'],
+    },
   },
   occurrenceSearch: {
     mapSettings: {
@@ -259,16 +264,16 @@ export const gbifConfig: Config = {
     // ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'dashboard', 'download'],
     defaultTab: 'table',
-    // scope: {
-    //   type: 'and',
-    //   predicates: [
-    //     // {
-    //     //   type: 'equals',
-    //     //   key: 'taxonKey',
-    //     //   value: '44',
-    //     // },
-    //   ],
-    // },
+    scope: {
+      type: 'and',
+      predicates: [
+        {
+          type: 'equals',
+          key: 'taxonKey',
+          value: '5',
+        },
+      ],
+    },
   },
   // messages: {
   //   en: { 'filters.taxonKey.name': 'hallo' },

@@ -327,14 +327,18 @@ export function DatasetPage() {
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
   const siteOccurrencePredicate = config?.occurrenceSearch?.scope;
 
-  const { data: occData, load } = useQuery<
-    DatasetOccurrenceSearchQuery,
-    DatasetOccurrenceSearchQueryVariables
-  >(OCURRENCE_SEARCH_QUERY, {
-    throwAllErrors: false,
-    lazyLoad: true,
-    notifyOnErrors: true,
-  });
+  const {
+    data: occData,
+    load,
+    loading,
+  } = useQuery<DatasetOccurrenceSearchQuery, DatasetOccurrenceSearchQueryVariables>(
+    OCURRENCE_SEARCH_QUERY,
+    {
+      throwAllErrors: false,
+      lazyLoad: true,
+      notifyOnErrors: true,
+    }
+  );
 
   // check for various tabs
   let hasPhylogeny = false;
@@ -605,11 +609,7 @@ export function DatasetPage() {
                   </Button>
                 )}
                 {(occurrenceCountOrZero > 0 || dataset?.type === 'OCCURRENCE') && (
-                  <Button
-                    className="g-py-1 g-px-2 g-h-[2rem]"
-                    asChild
-                    isLoading={occurrenceCountOrZero === 0}
-                  >
+                  <Button className="g-py-1 g-px-2 g-h-[2rem]" asChild isLoading={loading}>
                     <DynamicLink
                       to="occurrenceSearch"
                       pageId="occurrenceSearch"
