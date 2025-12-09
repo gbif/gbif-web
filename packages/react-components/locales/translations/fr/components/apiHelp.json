@@ -27,7 +27,5 @@
   "singleNode": "Obtenir un seul nœud.",
   "searchNodes": "Rechercher des nœuds",
   "singleSpecies": "Obtenir une seule espèce.",
-  "searchSpecies": "Obtenir toutes les espèces.",
-  "singleDerivedDataset": "Obtenir un seul jeu de données dérivé.",
-  "derivedDatasetContributingDatasets": "Obtenir tous les jeux de données contribuant à un jeu de données dérivé."
+  "searchSpecies": "Obtenir toutes les espèces."
 }
