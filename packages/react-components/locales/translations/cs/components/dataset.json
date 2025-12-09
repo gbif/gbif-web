@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "O",
-    "occurrences": "Výskyty",
-    "citations": "Citace",
     "project": "Projekt",
     "taxonomy": "Taxonomie",
     "download": "Stáhnout",
     "phylogeny": "Fylogeneze",
+    "metrics": "Metriky",
     "events": "Události"
+  },
+  "metricsTab": {
+    "selectGroup": "Zástupce popisu",
+    "group": {
+      "checklist": "Kontrolní seznam",
+      "downloads": "Stahování",
+      "taxonomic": "Zástupce popisu",
+      "geographic": "Zástupce popisu",
+      "temporal": "Dočasný",
+      "qualities": "Zástupce popisu",
+      "citations": "Citace"
+    },
+    "checklist": {
+      "notAvailable": "Zástupce popisu",
+      "overview": "Zástupce popisu",
+      "overviewDescription": "Zástupce popisu",
+      "usagesCount": "Zástupce popisu",
+      "distinctNamesCount": "Zástupce popisu",
+      "synonymsCount": "Synonyma",
+      "nubMatchingCount": "Zástupce popisu",
+      "nubCoveragePct": "Zástupce popisu",
+      "colMatchingCount": "Zástupce popisu",
+      "colCoveragePct": "Zástupce popisu",
+      "countByKingdom": "Zástupce popisu",
+      "countByKingdomDescription": "Zástupce popisu",
+      "countByRank": "Zástupce popisu",
+      "countByRankDescription": "Zástupce popisu",
+      "countByOrigin": "Zástupce popisu",
+      "countByOriginDescription": "Zástupce popisu",
+      "origin": "Původ",
+      "countByIssue": "Zástupce popisu",
+      "countByIssueDescription": "Zástupce popisu",
+      "count": "Počet"
+    }
   },
   "noStatsForMetadata": "Pro datové sady obsahující pouze metadata nejsou k dispozici žádné statistiky.",
   "siteScopeSmallerThanDataset": "Na této stránce nejsou uvedeny všechny záznamy z datové sady. Chcete-li si prohlédnout celou datovou sadu, navštivte [GBIF.org]({datasetUrl}).",
@@ -153,5 +186,6 @@
     "evenList": "Spolufinancováno",
     "occurrenceInfo": "Spolufinancováno"
   },
-  "eventTaxonomy": "Taxonomické rozdělení výskytů"
+  "eventTaxonomy": "Taxonomické rozdělení výskytů",
+  "noCitations": "Zástupce popisu"
 }
