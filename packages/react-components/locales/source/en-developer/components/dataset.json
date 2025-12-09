@@ -34,6 +34,12 @@
       "temporal": "Temporal",
       "qualities": "Issues and qualities",
       "citations": "Citations"
+    },
+    "checklist": {
+      "overview": {
+        "title": "Checklist overview",
+        "description": "Summary statistics for the checklist dataset."
+      }
     }
   },
   "noStatsForMetadata": "No stats available for metadata only datasets",

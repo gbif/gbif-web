@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from '@/components/ui/largeCard';
 import { Alert, AlertTitle } from '@/components/ui/alert';
+import { prettifyEnum } from '@/components/filters/displayNames';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
 
 interface DatasetMetrics {
   key?: number;
@@ -64,15 +66,7 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
   }, [datasetKey]);
 
   if (loading) {
-    return (
-      <Card className="g-mb-4">
-        <CardContent className="g-p-6">
-          <div className="g-text-center g-text-slate-500">
-            <FormattedMessage id="phrases.loading" defaultMessage="Loading..." />
-          </div>
-        </CardContent>
-      </Card>
-    );
+    return <CardListSkeleton />;
   }
 
   if (error) {
@@ -113,92 +107,92 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
             <table className="gbif-table-style g-text-sm">
               <tbody>
                 {metrics.usagesCount !== undefined && (
-                  <tr>
+                  <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
                         id="dataset.metrics.usagesCount"
                         defaultMessage="Total name usages"
                       />
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       <FormattedNumber value={metrics.usagesCount} />
                     </td>
                   </tr>
                 )}
                 {metrics.distinctNamesCount !== undefined && (
-                  <tr>
+                  <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
                         id="dataset.metrics.distinctNamesCount"
                         defaultMessage="Distinct names"
                       />
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       <FormattedNumber value={metrics.distinctNamesCount} />
                     </td>
                   </tr>
                 )}
                 {metrics.synonymsCount !== undefined && (
-                  <tr>
+                  <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
                         id="dataset.metrics.synonymsCount"
                         defaultMessage="Synonyms"
                       />
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       <FormattedNumber value={metrics.synonymsCount} />
                     </td>
                   </tr>
                 )}
                 {metrics.nubMatchingCount !== undefined && (
-                  <tr>
+                  <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
                         id="dataset.metrics.nubMatchingCount"
                         defaultMessage="GBIF Backbone matches"
                       />
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       <FormattedNumber value={metrics.nubMatchingCount} />
                     </td>
                   </tr>
                 )}
                 {metrics.nubCoveragePct !== undefined && (
-                  <tr>
+                  <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
                         id="dataset.metrics.nubCoveragePct"
                         defaultMessage="GBIF Backbone coverage"
                       />
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       <FormattedNumber value={metrics.nubCoveragePct} />%
                     </td>
                   </tr>
                 )}
                 {metrics.colMatchingCount !== undefined && (
-                  <tr>
+                  <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
                         id="dataset.metrics.colMatchingCount"
                         defaultMessage="COL matches"
                       />
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       <FormattedNumber value={metrics.colMatchingCount} />
                     </td>
                   </tr>
                 )}
                 {metrics.colCoveragePct !== undefined && (
-                  <tr>
+                  <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
                       <FormattedMessage
                         id="dataset.metrics.colCoveragePct"
                         defaultMessage="COL coverage"
                       />
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       <FormattedNumber value={metrics.colCoveragePct} />%
                     </td>
                   </tr>
@@ -234,16 +228,16 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                     <th className="g-min-w-48">
                       <FormattedMessage id="filters.kingdomKey.name" defaultMessage="Kingdom" />
                     </th>
-                    <th className="g-min-w-32">
+                    <th className="g-text-end">
                       <FormattedMessage id="counts.count" defaultMessage="Count" />
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sortByCount(metrics.countByKingdom).map(([kingdom, count]) => (
-                    <tr key={kingdom}>
-                      <td>{kingdom}</td>
-                      <td>
+                    <tr key={kingdom} className="hover:g-bg-slate-50">
+                      <td>{prettifyEnum(kingdom)}</td>
+                      <td className="g-text-end">
                         <FormattedNumber value={count} />
                       </td>
                     </tr>
@@ -277,16 +271,18 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                     <th className="g-min-w-48">
                       <FormattedMessage id="filters.rank.name" defaultMessage="Rank" />
                     </th>
-                    <th className="g-min-w-32">
+                    <th className="g-text-end">
                       <FormattedMessage id="counts.count" defaultMessage="Count" />
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sortByCount(metrics.countByRank).map(([rank, count]) => (
-                    <tr key={rank}>
-                      <td>{rank}</td>
+                    <tr key={rank} className="hover:g-bg-slate-50">
                       <td>
+                        <FormattedMessage id={`enums.taxonRank.${rank}`} defaultMessage={rank} />
+                      </td>
+                      <td className="g-text-end">
                         <FormattedNumber value={count} />
                       </td>
                     </tr>
@@ -323,16 +319,16 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                     <th className="g-min-w-48">
                       <FormattedMessage id="dataset.metrics.origin" defaultMessage="Origin" />
                     </th>
-                    <th className="g-min-w-32">
+                    <th className="g-text-end">
                       <FormattedMessage id="counts.count" defaultMessage="Count" />
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sortByCount(metrics.countByOrigin).map(([origin, count]) => (
-                    <tr key={origin}>
-                      <td>{origin}</td>
-                      <td>
+                    <tr key={origin} className="hover:g-bg-slate-50">
+                      <td>{prettifyEnum(origin)}</td>
+                      <td className="g-text-end">
                         <FormattedNumber value={count} />
                       </td>
                     </tr>
@@ -363,19 +359,24 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
               <table className="gbif-table-style g-text-sm">
                 <thead>
                   <tr>
-                    <th className="g-min-w-48">
+                    <th className="">
                       <FormattedMessage id="occurrenceFieldNames.issue" defaultMessage="Issue" />
                     </th>
-                    <th className="g-min-w-32">
+                    <th className="g-text-end">
                       <FormattedMessage id="counts.count" defaultMessage="Count" />
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sortByCount(metrics.countByIssue).map(([issue, count]) => (
-                    <tr key={issue}>
-                      <td>{issue}</td>
+                    <tr key={issue} className="hover:g-bg-slate-50">
                       <td>
+                        <FormattedMessage
+                          id={`enums.nameUsageIssue.${issue}`}
+                          defaultMessage={issue}
+                        />
+                      </td>
+                      <td className="g-text-end">
                         <FormattedNumber value={count} />
                       </td>
                     </tr>
