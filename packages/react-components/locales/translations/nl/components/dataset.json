@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "Over",
-    "occurrences": "",
-    "citations": "Citaties",
     "project": "Project",
     "taxonomy": "",
     "download": "Download",
     "phylogeny": "",
+    "metrics": "Metrieken",
     "events": "Evenementen"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "",
+      "downloads": "Downloaden",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "Temporeel",
+      "qualities": "",
+      "citations": "Citaties"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "Synoniemen",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "Oorsprong",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": ""
+    }
   },
   "noStatsForMetadata": "Geen statistieken beschikbaar voor datasets met alleen metadata",
   "siteScopeSmallerThanDataset": "Niet alle gegevens van de dataset zijn opgenomen op deze site. Bezoek [GBIF.org]({datasetUrl}) om de volledige data te bekijken.",
@@ -153,5 +186,6 @@
     "evenList": "Co-Gefinancierd door",
     "occurrenceInfo": "Co-Gefinancierd door"
   },
-  "eventTaxonomy": ""
+  "eventTaxonomy": "",
+  "noCitations": ""
 }
