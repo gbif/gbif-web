@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "",
-    "occurrences": "",
-    "citations": "",
     "project": "Projekt",
     "taxonomy": "",
     "download": "",
     "phylogeny": "",
+    "metrics": "Kennzahlen",
     "events": ""
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "",
+      "downloads": "Downloads",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "",
+      "qualities": "",
+      "citations": ""
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "Ursprung",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": ""
+    }
   },
   "noStatsForMetadata": "Keine Statistiken für Datensätze nur mit Metadaten verfügbar",
   "siteScopeSmallerThanDataset": "",
@@ -153,5 +186,6 @@
     "evenList": "Co finanziert von",
     "occurrenceInfo": "Co finanziert von"
   },
-  "eventTaxonomy": ""
+  "eventTaxonomy": "",
+  "noCitations": ""
 }
