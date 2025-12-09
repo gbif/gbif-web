@@ -115,6 +115,7 @@ export type Config = Endpoints & {
     literatureSearch?: PartialSearchMetadata;
     occurrenceSearch?: PartialSearchMetadata;
     showEvents?: boolean;
+    enableListOfDownloads?: boolean;
   };
   collectionSearch?: SearchMetadata;
   collectionKey?: {

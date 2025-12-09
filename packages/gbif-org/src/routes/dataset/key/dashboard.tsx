@@ -93,14 +93,18 @@ export function DatasetKeyDashboard() {
       }
     : literaturePredicate;
 
+  const enableListOfDownloads = config?.datasetKey?.enableListOfDownloads ?? false;
   // if it is a checklist dataaset type then add checklist option to tabs. If there are occurrences, then show ocurrence metrics. If there are citations then show citation metrics. always show download tab
   const tabOptions = useMemo(() => {
-    const options: DatasetMetricType[] = ['citations', 'downloads'];
+    const options: DatasetMetricType[] = ['citations'];
+
+    if (enableListOfDownloads) {
+      options.push('downloads');
+    }
 
     if (dataset?.type === DatasetType.Checklist) {
       options.push('checklist');
     }
-    // if (hasOccurrences && dataset?.type === DatasetType.Occurrence || dataset?.type === DatasetType.SamplingEvent) {
     if (
       hasOccurrences ||
       dataset?.type === DatasetType.Occurrence ||
@@ -109,7 +113,7 @@ export function DatasetKeyDashboard() {
       options.push('taxonomic', 'geographic', 'temporal', 'qualities');
     }
     return options;
-  }, [dataset?.type, hasOccurrences]);
+  }, [dataset?.type, hasOccurrences, enableListOfDownloads]);
 
   if (!dataset) return <CardListSkeleton />;
 
@@ -159,10 +163,26 @@ export function DatasetKeyDashboard() {
             <ChecklistMetrics datasetKey={dataset.key} />
           </ClientSideOnly>
         )}
-        {group === 'taxonomic' && <TaxonomicMetrics predicate={scopedDatasetPredicate} />}
-        {group === 'geographic' && <GeographicMetrics predicate={scopedDatasetPredicate} />}
-        {group === 'temporal' && <TemporalMetrics predicate={scopedDatasetPredicate} />}
-        {group === 'qualities' && <IssuesMetrics predicate={scopedDatasetPredicate} />}
+        {group === 'taxonomic' && (
+          <HasDataMessage count={count}>
+            <TaxonomicMetrics predicate={scopedDatasetPredicate} />
+          </HasDataMessage>
+        )}
+        {group === 'geographic' && (
+          <HasDataMessage count={count}>
+            <GeographicMetrics predicate={scopedDatasetPredicate} />
+          </HasDataMessage>
+        )}
+        {group === 'temporal' && (
+          <HasDataMessage count={count}>
+            <TemporalMetrics predicate={scopedDatasetPredicate} />
+          </HasDataMessage>
+        )}
+        {group === 'qualities' && (
+          <HasDataMessage count={count}>
+            <IssuesMetrics predicate={scopedDatasetPredicate} />
+          </HasDataMessage>
+        )}
         {group === 'citations' && (
           <>
             {data.literatureSearch?.documents.total > 0 && (
@@ -178,6 +198,17 @@ export function DatasetKeyDashboard() {
         {group === 'downloads' && <Downloads />}
       </ArticleTextContainer>
     </ArticleContainer>
+  );
+}
+
+function HasDataMessage({ children, count }: { children: React.ReactNode; count?: number }) {
+  if (count && count > 0) {
+    return <>{children}</>;
+  }
+  return (
+    <div className="g-my-8 g-text-slate-500">
+      <NoRecords messageId="dataset.noOccurrences" />
+    </div>
   );
 }
 
