@@ -95,7 +95,7 @@
   "sampling": "Sampling",
   "methodSteps": "Method steps",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, one{download event} other{download events}}",
-  "nFromDataset": "",
+  "nFromDataset": "{total, plural, one{# occurrence from this dataset} other{# occurrences from this dataset}}",
   "funding": "Funding",
   "abstract": "Abstract",
   "contacts": "Contacts",
