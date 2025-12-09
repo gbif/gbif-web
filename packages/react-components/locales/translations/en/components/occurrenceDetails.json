@@ -42,8 +42,10 @@
     "materialSample": "Material sample",
     "geologicalContext": "Geological context",
     "other": "Other",
-    "extensions": "Extensions"
+    "extensions": "Extensions",
+    "issues": "Issues and flags"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",
@@ -249,7 +251,7 @@
       "name": "Germplasm: Measurement score",
       "properties": {
         "measurementID": "Measurement ID",
-        "measurementValue": "Whether the record has geospatial issues.",
+        "measurementValue": "Measurement value",
         "measurementUnit": "Measurement unit",
         "measurementAccuracy": "Measurement accuracy",
         "measurementDeterminedDate": "Measurement determined date",
@@ -385,7 +387,7 @@
       "properties": {
         "measurementID": "Measurement ID",
         "measurementType": "Measurement type",
-        "measurementValue": "Whether the record has geospatial issues.",
+        "measurementValue": "Measurement value",
         "measurementAccuracy": "Measurement accuracy",
         "measurementUnit": "Measurement unit",
         "measurementDeterminedDate": "Measurement determined date",
@@ -583,7 +585,7 @@
         "occurrenceID": "Occurrence ID",
         "measurementType": "Measurement type",
         "measurementTypeID": "Measurement type ID",
-        "measurementValue": "Whether the record has geospatial issues.",
+        "measurementValue": "Measurement value",
         "measurementValueID": "Measurement value ID",
         "measurementAccuracy": "Measurement accuracy",
         "measurementUnit": "Measurement unit",
