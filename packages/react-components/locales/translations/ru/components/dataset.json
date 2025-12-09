@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "Подробно",
-    "occurrences": "Находки",
-    "citations": "Цитирования",
     "project": "Проект",
     "taxonomy": "Таксономия",
     "download": "Загрузить",
     "phylogeny": "Филогения",
+    "metrics": "Показатели",
     "events": "Мероприятия"
+  },
+  "metricsTab": {
+    "selectGroup": "Заполнитель",
+    "group": {
+      "checklist": "Таксономические списки",
+      "downloads": "Загрузки",
+      "taxonomic": "Заполнитель",
+      "geographic": "Заполнитель",
+      "temporal": "Временные",
+      "qualities": "Заполнитель",
+      "citations": "Цитирования"
+    },
+    "checklist": {
+      "notAvailable": "Заполнитель",
+      "overview": "Заполнитель",
+      "overviewDescription": "Заполнитель",
+      "usagesCount": "Заполнитель",
+      "distinctNamesCount": "Заполнитель",
+      "synonymsCount": "{NUMBER, plural,\n0 {Синонимов}\none {Синоним}\nfew {Синонима}\nmany {Синонимов}\nother {Синонимов}\n}",
+      "nubMatchingCount": "Заполнитель",
+      "nubCoveragePct": "Заполнитель",
+      "colMatchingCount": "Заполнитель",
+      "colCoveragePct": "Заполнитель",
+      "countByKingdom": "Заполнитель",
+      "countByKingdomDescription": "Заполнитель",
+      "countByRank": "Заполнитель",
+      "countByRankDescription": "Заполнитель",
+      "countByOrigin": "Заполнитель",
+      "countByOriginDescription": "Заполнитель",
+      "origin": "Происхождение названия таксона",
+      "countByIssue": "Заполнитель",
+      "countByIssueDescription": "Заполнитель",
+      "count": "Количество"
+    }
   },
   "noStatsForMetadata": "Нет статистики для наборов данных, содержащих только  метаданные",
   "siteScopeSmallerThanDataset": "Не все записи из набора данных представлены на этом сайте. Посетите [GBIF.org]({datasetUrl}) для просмотра полного набора данных.",
@@ -62,7 +95,7 @@
   "sampling": "Отбор проб",
   "methodSteps": "Методы исследования",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select, 1{скачивание} other{скачиваний}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{находок видов из этого набора данных} other{находок видов из этого набора данных}}",
+  "nFromDataset": "Заполнитель",
   "funding": "Финансирование",
   "abstract": "Аннотация",
   "contacts": "Контактные данные",
@@ -153,5 +186,6 @@
     "evenList": "Софинансируется",
     "occurrenceInfo": "Софинансируется"
   },
-  "eventTaxonomy": "Таксономическое распределение находок"
+  "eventTaxonomy": "Таксономическое распределение находок",
+  "noCitations": "Заполнитель"
 }
