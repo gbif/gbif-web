@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "Informacje",
-    "occurrences": "Wystąpienia",
-    "citations": "Cytowania",
     "project": "Projekt",
     "taxonomy": "Taksonomia",
     "download": "Pobierz",
     "phylogeny": "Filogeneza",
+    "metrics": "Metryka",
     "events": "Wydarzenia"
+  },
+  "metricsTab": {
+    "selectGroup": "Symbol zastępczy opisu",
+    "group": {
+      "checklist": "Checklista",
+      "downloads": "Pobrania",
+      "taxonomic": "Symbol zastępczy opisu",
+      "geographic": "Symbol zastępczy opisu",
+      "temporal": "Czasowy",
+      "qualities": "Symbol zastępczy opisu",
+      "citations": "Cytowania"
+    },
+    "checklist": {
+      "notAvailable": "Symbol zastępczy opisu",
+      "overview": "Symbol zastępczy opisu",
+      "overviewDescription": "Symbol zastępczy opisu",
+      "usagesCount": "Symbol zastępczy opisu",
+      "distinctNamesCount": "Symbol zastępczy opisu",
+      "synonymsCount": "Synonimy",
+      "nubMatchingCount": "Symbol zastępczy opisu",
+      "nubCoveragePct": "Symbol zastępczy opisu",
+      "colMatchingCount": "Symbol zastępczy opisu",
+      "colCoveragePct": "Symbol zastępczy opisu",
+      "countByKingdom": "Symbol zastępczy opisu",
+      "countByKingdomDescription": "Symbol zastępczy opisu",
+      "countByRank": "Symbol zastępczy opisu",
+      "countByRankDescription": "Symbol zastępczy opisu",
+      "countByOrigin": "Symbol zastępczy opisu",
+      "countByOriginDescription": "Symbol zastępczy opisu",
+      "origin": "Źródło",
+      "countByIssue": "Symbol zastępczy opisu",
+      "countByIssueDescription": "Symbol zastępczy opisu",
+      "count": "Zliczenie"
+    }
   },
   "noStatsForMetadata": "Brak dostępnych statystyk dla zbiorów zawierających tylko metadane",
   "siteScopeSmallerThanDataset": "Nie wszystkie wyniki z zestawu danych są uwzględnione na tej stronie. Korzystanie z pełnego zestawu możliwe po wejściu na [GBIF.org]({datasetUrl}).",
@@ -153,5 +186,6 @@
     "evenList": "Współfinansowany przez",
     "occurrenceInfo": "Współfinansowany przez"
   },
-  "eventTaxonomy": "Dystrybucja taksonomiczna wystąpień"
+  "eventTaxonomy": "Dystrybucja taksonomiczna wystąpień",
+  "noCitations": "Symbol zastępczy opisu"
 }
