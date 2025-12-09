@@ -64,22 +64,38 @@ export function DownloadResult({ download }: DownloadResultProps) {
             <div className="g-flex g-flex-wrap g-gap-4 g-text-sm g-text-slate-600">
               <div>
                 <FormattedMessage id="downloadKey.created" />:{' '}
-                {download.created ? (
-                  <FormattedDate value={download?.created} {...defaultDateFormatProps} />
-                ) : (
-                  <FormattedMessage id="phrases.unknownDate" />
-                )}
+                <span className="g-font-semibold">
+                  {download.created ? (
+                    <FormattedDate value={download?.created} {...defaultDateFormatProps} />
+                  ) : (
+                    <FormattedMessage id="phrases.unknownDate" />
+                  )}
+                </span>
               </div>
               {download.size && (
                 <div>
-                  <FormattedMessage id="downloadKey.fileSize" />: <FormattedNumber value={size} />{' '}
-                  {unit}
+                  <FormattedMessage id="downloadKey.fileSize" />:{' '}
+                  <span className="g-font-semibold">
+                    <FormattedNumber value={size} /> {unit}
+                  </span>
                 </div>
               )}
               {download.request?.format && (
                 <div>
                   <FormattedMessage id="downloadKey.format" />:{' '}
-                  <FormattedMessage id={`enums.downloadFormat.${download?.request?.format}`} />
+                  <span className="g-font-semibold">
+                    <FormattedMessage id={`enums.downloadFormat.${download?.request?.format}`} />
+                  </span>
+                </div>
+              )}
+              {download.numberDatasets && (
+                <div>
+                  <span className="g-font-semibold">
+                    <FormattedMessage
+                      id="counts.nDatasets"
+                      values={{ total: download.numberDatasets }}
+                    />
+                  </span>
                 </div>
               )}
             </div>

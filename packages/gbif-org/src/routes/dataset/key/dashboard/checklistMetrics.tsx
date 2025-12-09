@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/largeCard';
-import { Alert, AlertTitle } from '../ui/alert';
+import { Alert, AlertTitle } from '@/components/ui/alert';
 
 interface DatasetMetrics {
   key?: number;

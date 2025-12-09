@@ -26,13 +26,13 @@ import {
   LiteratureType,
   OccurrenceTaxonomySunburst,
 } from '@/components/dashboard';
-import { ChecklistMetrics } from '@/components/dashboard/ChecklistMetrics';
 import { useConfig } from '@/config/config';
 import { useDatasetKeyLoaderData } from '.';
 import { DatasetQuery, DatasetType, Predicate, PredicateType } from '@/gql/graphql';
 import { useEffect, useMemo, useState } from 'react';
-import { Downloads } from '@/routes/user/downloads/downloads';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Downloads } from './dashboard/downloads';
+import { ChecklistMetrics } from './dashboard/checklistMetrics';
 
 const GROUPS: DatasetMetricType[] = [
   'checklist',
@@ -191,14 +191,24 @@ function GeographicMetrics({ predicate }: { predicate: Predicate }) {
   return (
     <ClientSideOnly>
       <DashBoardLayout>
-        <Country predicate={predicate} visibilityThreshold={0} interactive={false} />
+        <Country
+          predicate={predicate}
+          visibilityThreshold={0}
+          interactive={false}
+          options={['TABLE', 'COLUMN', 'PIE']}
+        />
         <GadmGid
           predicate={predicate}
           visibilityThreshold={0}
           interactive={false}
           options={['TABLE']}
         />
-        <Continent predicate={predicate} visibilityThreshold={0} interactive={false} />
+        <Continent
+          predicate={predicate}
+          visibilityThreshold={0}
+          interactive={false}
+          options={['TABLE', 'COLUMN', 'PIE']}
+        />
       </DashBoardLayout>
     </ClientSideOnly>
   );
@@ -231,7 +241,12 @@ function IssuesMetrics({ predicate }: { predicate: Predicate }) {
       <DashBoardLayout>
         <OccurrenceSummary predicate={predicate} />
         <DataQuality predicate={predicate} />
-        <OccurrenceIssue predicate={predicate} visibilityThreshold={0} interactive={false} />
+        <OccurrenceIssue
+          predicate={predicate}
+          visibilityThreshold={0}
+          interactive={false}
+          options={['TABLE', 'COLUMN', 'PIE']}
+        />
       </DashBoardLayout>
     </ClientSideOnly>
   );
