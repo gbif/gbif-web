@@ -123,7 +123,7 @@ export function DatasetKeyDashboard() {
         <div className="g-mb-6 md:g-hidden">
           <label htmlFor="metric-group-select" className="g-sr-only">
             <FormattedMessage
-              id="dataset.metrics.selectGroup"
+              id="dataset.metricsTab.selectGroup"
               defaultMessage="Select metric group"
             />
           </label>
@@ -136,6 +136,10 @@ export function DatasetKeyDashboard() {
             {tabOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
+                <FormattedMessage
+                  id={`dataset.metricsTab.group.${option}`}
+                  defaultMessage={option}
+                />
               </option>
             ))}
           </select>
@@ -150,7 +154,7 @@ export function DatasetKeyDashboard() {
               variant={group === option ? 'default' : 'plain'}
               className={cn({ 'g-bg-slate-200 g-border g-border-slate-300': group !== option })}
             >
-              {option}
+              <FormattedMessage id={`dataset.metricsTab.group.${option}`} defaultMessage={option} />
             </Button>
           ))}
         </div>
@@ -240,7 +244,7 @@ function IssuesMetrics({ predicate }: { predicate: Predicate }) {
     <ClientSideOnly>
       <DashBoardLayout>
         <OccurrenceSummary predicate={predicate} />
-        <DataQuality predicate={predicate} />
+        <DataQuality predicate={predicate} optional={['hasSequence', 'hasCollector', 'hasMedia']} />
         <OccurrenceIssue
           predicate={predicate}
           visibilityThreshold={0}

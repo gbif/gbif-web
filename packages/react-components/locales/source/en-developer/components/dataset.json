@@ -24,6 +24,18 @@
     "phylogeny": "Phylogeny",
     "events": "Events"
   },
+  "metricsTab": {
+    "selectGroup": "Select metric group",
+    "group": {
+      "checklist": "Checklist",
+      "downloads": "Downloads",
+      "taxonomic": "Taxonomic",
+      "geographic": "Geographic",
+      "temporal": "Temporal",
+      "qualities": "Issues and qualities",
+      "citations": "Citations"
+    }
+  },
   "noStatsForMetadata": "No stats available for metadata only datasets",
   "siteScopeSmallerThanDataset": "Not all records from the dataset is included on this site. Visit [GBIF.org]({datasetUrl}) to explore the full dataset.",
   "viewArticle": "View article",
