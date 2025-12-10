@@ -61,7 +61,6 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 export function DatasetKeyAbout() {
-  const { user } = useUser();
   const config = useConfig();
   const { data } = useDatasetKeyLoaderData() as { data: DatasetQuery };
   const { dataset } = data;
@@ -104,21 +103,6 @@ export function DatasetKeyAbout() {
       notifyOnErrors: true,
     }
   );
-
-  const isUserDatasetContact = useMemo(() => {
-    if (!user || !dataset?.volatileContributors) return false;
-    // has matching email
-    const matchingEmail = dataset.volatileContributors.some((contact) =>
-      contact?.email?.some((email) => email === user.email)
-    );
-    // or has matching orcid in userIdentifiers
-    const matchingOrcid = dataset.volatileContributors.some((contact) =>
-      contact?.userId?.some((identifier) => identifier === user.orcid)
-    );
-    // or user is registry admin
-    const isAdmin = user?.roles?.includes('REGISTRY_ADMIN');
-    return matchingEmail || matchingOrcid || isAdmin;
-  }, [user, dataset?.volatileContributors]);
 
   useEffect(() => {
     if (!dataset?.key) return;
@@ -280,48 +264,9 @@ export function DatasetKeyAbout() {
               </div>
             )}
 
-            {isUserDatasetContact && (
-              <TrustedSection>
-                <div className="g-text-slate-600 g-mb-1">
-                  <FormattedMessage id="dataset.registry.becauseTrustedContact" />
-                </div>
-                <div className="g-flex g-gap-2">
-                  <Button asChild>
-                    <a
-                      href={`${import.meta.env.PUBLIC_REGISTRY}/dataset/${
-                        dataset.key
-                      }/ingestion-history`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <FormattedMessage id="dataset.history" defaultMessage="History" />
-                    </a>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <a
-                      href={`https://logs.gbif.org/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-30m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'439da4d0-290a-11ed-8155-a37cb1ead50e',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:'datasetKey.keyword%20%3D%20${dataset.key}'),sort:!(!('@timestamp',desc)))`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <FormattedMessage id="dataset.logs" defaultMessage="Logs" />
-                    </a>
-                  </Button>
-                </div>
-                <div className="g-text-slate-600 g-mt-2">
-                  {dataset.modified && (
-                    <div>
-                      <FormattedMessage id="dataset.registry.metdataLastModified" />:{' '}
-                      <FormattedDate
-                        value={dataset.modified}
-                        year="numeric"
-                        month="long"
-                        day="2-digit"
-                      />
-                    </div>
-                  )}
-                </div>
-              </TrustedSection>
-            )}
+            <TrustedSection>
+              <Trusted dataset={dataset} />
+            </TrustedSection>
 
             {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
               <Alert variant="destructive" className="g-mb-4">
@@ -940,5 +885,64 @@ function DataSummaryInfo({
       </PopoverTrigger>
       <PopoverContent className="g-prose g-w-96">{popupContent}</PopoverContent>
     </Popover>
+  );
+}
+
+function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
+  const { user } = useUser();
+
+  const isUserDatasetContact = useMemo(() => {
+    if (!user || !dataset?.volatileContributors) return false;
+    // has matching email
+    const matchingEmail = dataset.volatileContributors.some((contact) =>
+      contact?.email?.some((email) => email === user.email)
+    );
+    // or has matching orcid in userIdentifiers
+    const matchingOrcid = dataset.volatileContributors.some((contact) =>
+      contact?.userId?.some((identifier) => identifier === user.orcid)
+    );
+    // or user is registry admin
+    const isAdmin = user?.roles?.includes('REGISTRY_ADMIN');
+    return matchingEmail || matchingOrcid || isAdmin;
+  }, [user, dataset?.volatileContributors]);
+
+  if (!isUserDatasetContact || !dataset) {
+    return null;
+  }
+
+  return (
+    <>
+      <div className="g-text-slate-600 g-mb-1">
+        <FormattedMessage id="dataset.registry.becauseTrustedContact" />
+      </div>
+      <div className="g-flex g-gap-2">
+        <Button asChild>
+          <a
+            href={`${import.meta.env.PUBLIC_REGISTRY}/dataset/${dataset.key}/ingestion-history`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FormattedMessage id="dataset.history" defaultMessage="History" />
+          </a>
+        </Button>
+        <Button variant="outline" asChild>
+          <a
+            href={`https://logs.gbif.org/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-30m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'439da4d0-290a-11ed-8155-a37cb1ead50e',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:'datasetKey.keyword%20%3D%20${dataset.key}'),sort:!(!('@timestamp',desc)))`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FormattedMessage id="dataset.logs" defaultMessage="Logs" />
+          </a>
+        </Button>
+      </div>
+      <div className="g-text-slate-600 g-mt-2">
+        {dataset.modified && (
+          <div>
+            <FormattedMessage id="dataset.registry.metdataLastModified" />:{' '}
+            <FormattedDate value={dataset.modified} year="numeric" month="long" day="2-digit" />
+          </div>
+        )}
+      </div>
+    </>
   );
 }

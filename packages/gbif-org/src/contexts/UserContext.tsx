@@ -80,54 +80,7 @@ interface UserContextType {
   changeEmail: (challengeCode: string, email: string, userName: string) => Promise<void>;
 }
 
-const UserContext = createContext<UserContextType | undefined>({
-  user: null,
-  isLoading: false,
-  isLoggedIn: false,
-  // complete it with a placeholder implementation
-  login: async () => {
-    throw new Error('Not implemented');
-  },
-  register: async () => {
-    throw new Error('Not implemented');
-  },
-  updateForgottenPassword: async () => {
-    throw new Error('Not implemented');
-  },
-  updateProfile: async () => {
-    throw new Error('Not implemented');
-  },
-  changePassword: async () => {
-    throw new Error('Not implemented');
-  },
-  disconnectAccount: async () => {
-    throw new Error('Not implemented');
-  },
-  logout: async () => {
-    throw new Error('Not implemented');
-  },
-  refreshUser: async () => {
-    throw new Error('Not implemented');
-  },
-  resetPassword: async () => {
-    throw new Error('Not implemented');
-  },
-  confirm: async () => {
-    throw new Error('Not implemented');
-  },
-  deleteDownload: async () => {
-    throw new Error('Not implemented');
-  },
-  postponeDownloadDeletion: async () => {
-    throw new Error('Not implemented');
-  },
-  cancelDownload: async () => {
-    throw new Error('Not implemented');
-  },
-  changeEmail: async () => {
-    throw new Error('Not implemented');
-  },
-});
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export type UserErrorType =
   | 'UNKNOWN_ERROR'
@@ -584,9 +537,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useUser() {
-  const { isGBIFOrg } = useConfig();
   const context = useContext(UserContext);
-  if (context === undefined && isGBIFOrg) {
+  if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
