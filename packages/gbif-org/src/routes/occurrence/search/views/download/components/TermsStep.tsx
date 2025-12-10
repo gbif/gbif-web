@@ -80,7 +80,7 @@ export default function TermsStep({
       : false;
 
   const [preparingDownload, setPreparingDownload] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState({
     dataUse: false,
     dataCitation: false,
@@ -126,16 +126,19 @@ export default function TermsStep({
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          setError(intl.formatMessage({ id: 'occurrenceDownloadFlow.slowDown' }));
+          return;
         }
         return response.json();
       })
       .then((data) => {
-        navigate(localizeLink(`/occurrence/download/${data.downloadKey}`));
+        if (data) {
+          navigate(localizeLink(`/occurrence/download/${data.downloadKey}`));
+        }
       })
       .catch((error) => {
         console.error('There was a problem with the download request:', error);
-        setError(error);
+        setError(intl.formatMessage({ id: 'occurrenceDownloadFlow.unableToCreateDownload' }));
       })
       .finally(() => {
         setPreparingDownload(false);
@@ -358,6 +361,8 @@ export default function TermsStep({
                 />
               )}
             </div>
+
+            {error && <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">{error}</div>}
 
             <Button
               disabled={!allTermsAccepted || preparingDownload}
