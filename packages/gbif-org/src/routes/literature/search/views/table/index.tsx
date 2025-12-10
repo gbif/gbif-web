@@ -103,7 +103,7 @@ export function LiteratureTable() {
       setTsvLinkVisible(true);
     }
 
-    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/institution/export?${stringify({
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/literature/export?${stringify({
       ...v1Filter,
       format: 'TSV',
     })}`;
