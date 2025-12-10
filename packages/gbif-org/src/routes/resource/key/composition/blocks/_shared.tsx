@@ -11,11 +11,21 @@ export const backgroundColorMap: Record<string, string> = {
 type BlockContainerProps = {
   children: React.ReactNode;
   className?: string;
+  backgroundImage?: string;
 };
 
-export function BlockContainer({ className, children }: BlockContainerProps) {
+export function BlockContainer({ className, children, backgroundImage }: BlockContainerProps) {
+  const backgroundStyle: React.CSSProperties | undefined = backgroundImage
+    ? {
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : undefined;
+
   return (
     <div
+      style={backgroundStyle}
       className={cn('g-p-8 dark:g-bg-zinc-900 dark:g-text-slate-200 g-overflow-hidden', className)}
     >
       {children}
