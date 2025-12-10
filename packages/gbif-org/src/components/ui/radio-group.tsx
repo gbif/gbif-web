@@ -1,4 +1,5 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+import { useDirection } from '@radix-ui/react-direction';
 import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
@@ -6,9 +7,15 @@ import { cn } from '@/utils/shadcn';
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className, ...props }, ref) => {
+>(({ className, dir, ...props }, ref) => {
+  const contextDir = useDirection();
   return (
-    <RadioGroupPrimitive.Root className={cn('g-grid g-gap-2', className)} {...props} ref={ref} />
+    <RadioGroupPrimitive.Root
+      className={cn('g-grid g-gap-2', className)}
+      dir={dir ?? contextDir}
+      {...props}
+      ref={ref}
+    />
   );
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;

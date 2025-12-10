@@ -80,7 +80,11 @@ function MediaCountBlockContent({
         </div>
       )}
       <div className="g-flex-1">
-        {insideCarousel && <h4 className="g-text-xl g-font-medium">{resource.mediaTitle}</h4>}
+        {insideCarousel && (
+          <h4 dir="auto" className="g-text-xl g-font-medium">
+            {resource.mediaTitle}
+          </h4>
+        )}
         <span className="g-text-xl g-font-medium">
           <CountResolver
             countPart={resource.titleCountPart}

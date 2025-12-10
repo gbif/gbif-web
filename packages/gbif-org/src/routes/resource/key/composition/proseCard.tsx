@@ -40,6 +40,7 @@ export function ProseCard({ title, url, image }: Props) {
           wrapper={(children) => <DynamicLink to={url!}>{children}</DynamicLink>}
         >
           <h5
+            dir="auto"
             className="g-mb-2 g-text-lg g-font-semibold g-tracking-tight g-text-gray-900 dark:g-text-white g-break-words"
             dangerouslySetInnerHTML={{ __html: title }}
           />

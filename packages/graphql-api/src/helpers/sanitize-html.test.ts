@@ -3,9 +3,21 @@ import { prefixLinkUrl } from './sanitize-html';
 import config from '@/config';
 
 describe('prefixLinkUrl', () => {
+  it('should localize relative links', () => {
+    const url = '/occurrence/search';
+    assert.equal(
+      prefixLinkUrl(url, 'es'),
+      `${config.gbifLinkTargetOrigin}/es/occurrence/search`,
+    );
+  });
+
   it("should not edit urls that don't link to gbif.org", () => {
     const url = 'https://github.com/gbif/gbif-web';
-    assert.equal(prefixLinkUrl(url), url);
+    assert.equal(prefixLinkUrl(url, 'es'), url);
+
+    const url2 =
+      'https://docs.google.com/forms/d/e/1FAIpQLSe4rRbX2x8r8_5k6Nr6qvFBvVFLZtzM4iTrHkPCzVwHBAbg4g/viewform';
+    assert.equal(prefixLinkUrl(url2, 'es'), url2);
   });
 
   it('should replace the gbif origin with the one from the config', () => {

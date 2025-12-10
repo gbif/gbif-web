@@ -76,7 +76,7 @@ export function StyleSelector({ rasterStyles, setRasterStyles }: Props) {
         <PopoverTitle>
           <FormattedMessage id="map.style" />
         </PopoverTitle>
-        <Tabs value={tab} onValueChange={(newTab) => setTab(newTab as Tab)} className="g-p-4">
+        <Tabs value={tab} onValueChange={(newTab) => setTab(newTab)} className="g-p-4">
           <TabsList>
             <TabsTrigger value="PREDEFINED">
               <FormattedMessage id="map.select" />
@@ -141,14 +141,14 @@ function PredefinedTabContent({
     >
       <Label className="g-cursor-pointer">
         <RadioGroupItem value="CUSTOM" />
-        <span className="g-pl-2">
+        <span className="g-ps-2">
           <FormattedMessage id="map.predefined.CUSTOM" />
         </span>
       </Label>
       {mapWidgetOptions.predefined.map(({ name }) => (
         <Label className="g-cursor-pointer" key={name}>
           <RadioGroupItem value={name} />
-          <span className="g-pl-2">
+          <span className="g-ps-2">
             <FormattedMessage id={`map.predefined.${name}`} />
           </span>
         </Label>

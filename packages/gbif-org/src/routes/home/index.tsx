@@ -76,7 +76,7 @@ function HomePage(): React.ReactElement {
                   </div>
                   <div className="g-mt-4">
                     <SearchBar />
-                    <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
+                    <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-start">
                       <HeaderLink to="/what-is-gbif">
                         <FormattedMessage id="homepage.whatIsGbif" />
                       </HeaderLink>

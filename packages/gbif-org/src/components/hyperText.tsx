@@ -23,6 +23,7 @@ const allowedDomains = [
 
   'data-blog.gbif.org',
   'discourse.gbif.org',
+  'github.com',
 ];
 
 function isAllowedDomain(url: string): boolean {

@@ -78,7 +78,11 @@ function MediaBlockContent({
         </div>
       )}
       <div className="g-flex-1">
-        {insideCarousel && <h4 className="g-text-xl g-font-medium">{resource.mediaTitle}</h4>}
+        {insideCarousel && (
+          <h4 dir="auto" className="g-text-xl g-font-medium">
+            {resource.mediaTitle}
+          </h4>
+        )}
         <p className="g-text-sm">{resource.subtitle}</p>
         {resource.body && (
           <ArticleBody className="g-mt-4" dangerouslySetBody={{ __html: resource.body }} />

@@ -32,8 +32,9 @@ export function BlockHeading({ className, dangerouslySetHeading }: BlockHeadingP
   return (
     <ArticleTextContainer className="g-mb-10">
       <h2
+        dir="auto"
         className={cn(
-          'g-text-2xl sm:g-text-3xl g-inline-block g-font-extrabold g-text-slate-900 g-tracking-tight dark:g-text-slate-200 g-pt-16',
+          'g-text-2xl sm:g-text-3xl g-block g-font-extrabold g-text-slate-900 g-tracking-tight dark:g-text-slate-200 g-pt-16',
           className
         )}
         dangerouslySetInnerHTML={dangerouslySetHeading}

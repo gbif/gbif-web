@@ -28,7 +28,7 @@ export function ProjectionSelector({ selectedProjection, setSelectedProjection }
           className="g-p-4"
         >
           {mapWidgetOptions.projections.map(({ i18nKey, value }) => (
-            <div className="g-flex g-items-center g-space-x-2" key={value}>
+            <div className="g-flex g-items-center g-gap-2" key={value}>
               <RadioGroupItem value={value} id={value} />
               <Label htmlFor={value} className="g-cursor-pointer">
                 <FormattedMessage id={i18nKey} />

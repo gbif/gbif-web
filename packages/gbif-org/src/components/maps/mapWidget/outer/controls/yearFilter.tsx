@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
+import { useI18n } from '@/reactRouterPlugins';
 import { Setter } from '@/types';
 import { cn } from '@/utils/shadcn';
 import * as Slider from '@radix-ui/react-slider';
 import { useCallback, useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 type Props = {
   upperLimit: number;
@@ -26,6 +27,8 @@ export function YearFilter({
   isYearFilterActive,
   setIsYearFilterActive,
 }: Props) {
+  const inverted = useI18n().locale.textDirection === 'rtl';
+
   const [internalStartYear, setInternalStartYear] = useState(externalStartYear);
   const [internalEndYear, setInternalEndYear] = useState(externalEndYear);
 
@@ -50,7 +53,7 @@ export function YearFilter({
   );
 
   return (
-    <div className="g-flex g-items-center g-space-x-2 g-flex-col md:g-flex-row g-gap-2">
+    <div className="g-flex g-items-center g-gap-2 g-flex-col md:g-flex-row">
       <div className="g-bg-gray-300 g-rounded g-flex">
         <Button
           size="sm"
@@ -66,12 +69,13 @@ export function YearFilter({
           className={cn({ 'g-text-gray-700': !isYearFilterActive })}
           onClick={() => setIsYearFilterActive(true)}
         >
-          {internalStartYear} - {internalEndYear}
+          <FormattedYear year={internalStartYear} /> - <FormattedYear year={internalEndYear} />
         </Button>
       </div>
       <Slider.Root
         min={lowerLimit}
         max={upperLimit}
+        inverted={inverted}
         step={1}
         value={
           typeof internalStartYear === 'number' && typeof internalEndYear === 'number'
@@ -92,4 +96,10 @@ export function YearFilter({
       </Slider.Root>
     </div>
   );
+}
+
+function FormattedYear({ year }: { year?: number }) {
+  if (!year) return null;
+  const yearAsDate = new Date(year, 0, 1);
+  return <FormattedDate value={yearAsDate.toISOString()} year="numeric" />;
 }

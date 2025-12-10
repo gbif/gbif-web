@@ -77,7 +77,7 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
           <HelpText identifier={modal.question} includeTitle className="g-p-4" />
         )}
       </div>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <div dir="auto" dangerouslySetInnerHTML={{ __html: html }} />
     </>
   );
 }
