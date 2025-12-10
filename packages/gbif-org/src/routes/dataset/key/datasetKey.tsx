@@ -574,12 +574,14 @@ export function DatasetPage() {
                       {contactsCitation.length < contactThreshold && (
                         <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
                       )}
-                      {contactsCitation.length >= contactThreshold && (
+                      {/* It would be good to show this with a link to the contacts, but how to do that so it also works on e.g. the metrics tab? */}
+                      {/* https://github.com/gbif/gbif-web/issues/1360 */}
+                      {/* {contactsCitation.length >= contactThreshold && (
                         <FormattedMessage
                           id="counts.nAuthors"
                           values={{ total: contactsCitation.length }}
                         />
-                      )}
+                      )} */}
                     </GenericFeature>
                   )}
                   <Homepage url={dataset.homepage} />

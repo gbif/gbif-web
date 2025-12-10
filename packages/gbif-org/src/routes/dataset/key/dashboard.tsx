@@ -35,6 +35,7 @@ import { Downloads } from './dashboard/downloads';
 import { ChecklistMetrics } from './dashboard/checklistMetrics';
 import { NoRecords } from '@/components/noDataMessages';
 import { useOccurrenceCount } from '@/components/count';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type DatasetMetricType =
   | 'checklist'
@@ -164,22 +165,22 @@ export function DatasetKeyDashboard() {
           </ClientSideOnly>
         )}
         {group === 'taxonomic' && (
-          <HasDataMessage count={count}>
+          <HasDataMessage count={count} loading={loading} error={error}>
             <TaxonomicMetrics predicate={scopedDatasetPredicate} />
           </HasDataMessage>
         )}
         {group === 'geographic' && (
-          <HasDataMessage count={count}>
+          <HasDataMessage count={count} loading={loading} error={error}>
             <GeographicMetrics predicate={scopedDatasetPredicate} />
           </HasDataMessage>
         )}
         {group === 'temporal' && (
-          <HasDataMessage count={count}>
+          <HasDataMessage count={count} loading={loading} error={error}>
             <TemporalMetrics predicate={scopedDatasetPredicate} />
           </HasDataMessage>
         )}
         {group === 'qualities' && (
-          <HasDataMessage count={count}>
+          <HasDataMessage count={count} loading={loading} error={error}>
             <IssuesMetrics predicate={scopedDatasetPredicate} />
           </HasDataMessage>
         )}
@@ -201,7 +202,20 @@ export function DatasetKeyDashboard() {
   );
 }
 
-function HasDataMessage({ children, count }: { children: React.ReactNode; count?: number }) {
+function HasDataMessage({
+  children,
+  count,
+  loading,
+  error,
+}: {
+  children: React.ReactNode;
+  count?: number;
+  loading?: boolean;
+  error?: Error;
+}) {
+  if (loading) {
+    return <Skeleton className="g-h-96" />;
+  }
   if (count && count > 0) {
     return <>{children}</>;
   }

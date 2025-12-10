@@ -58,6 +58,7 @@ import { PublishingCountries } from './about/PublishingCountries';
 import { TrustedSection } from '@/routes/occurrence/download/key/sections/deletionNotice';
 import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 export function DatasetKeyAbout() {
   const { user } = useUser();
@@ -420,6 +421,18 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent className="gbif-word-break">
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
+                  {siteTotal > 0 && (
+                    <div className="g-mt-4">
+                      <Button asChild variant="primaryOutline" size="sm">
+                        <Link to="./metrics?group=geographic">
+                          <FormattedMessage
+                            id="dataset.metricsLink"
+                            defaultMessage="Occurrence metrics"
+                          />
+                        </Link>
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
@@ -435,6 +448,18 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent className="gbif-word-break">
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
+                  {siteTotal > 0 && (
+                    <div className="g-mt-4">
+                      <Button asChild variant="primaryOutline" size="sm">
+                        <Link to="./metrics?group=temporal">
+                          <FormattedMessage
+                            id="dataset.metricsLink"
+                            defaultMessage="Occurrence metrics"
+                          />
+                        </Link>
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
@@ -447,6 +472,18 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent className="gbif-word-break">
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
+                  {siteTotal > 0 && (
+                    <div className="g-mt-4">
+                      <Button asChild variant="primaryOutline" size="sm">
+                        <Link to="./metrics?group=taxonomic">
+                          <FormattedMessage
+                            id="dataset.metricsLink"
+                            defaultMessage="Occurrence metrics"
+                          />
+                        </Link>
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
