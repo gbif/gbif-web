@@ -187,5 +187,6 @@
     "occurrenceInfo": "Współfinansowany przez"
   },
   "eventTaxonomy": "Dystrybucja taksonomiczna wystąpień",
-  "noCitations": "Symbol zastępczy opisu"
+  "noCitations": "Symbol zastępczy opisu",
+  "noOccurrences": "Brak wystąpień"
 }
