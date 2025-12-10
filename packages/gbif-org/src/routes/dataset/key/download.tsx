@@ -21,7 +21,7 @@ export function DatasetKeyDownload() {
 
   const fullPredicate = {
     type: 'equals',
-    key: 'datasetKey',
+    key: 'DATASET_KEY',
     value: key,
   };
 
