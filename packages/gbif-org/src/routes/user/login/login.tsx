@@ -53,7 +53,7 @@ export function LoginPage() {
     if (!isLoading && isLoggedIn) {
       // user is already logged in. redirect to search param or profile page
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ?? localizeLink(`/user/profile`, locale));
+      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
@@ -76,7 +76,7 @@ export function RegistrationPage() {
     if (!isLoading && isLoggedIn) {
       // get returnUrl search param if any
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ?? localizeLink(`/user/profile`, locale));
+      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
