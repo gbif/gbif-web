@@ -33,6 +33,8 @@ type Props = {
   className?: string;
   capabilitiesParams?: Record<string, any>;
   mapStyle?: string;
+  defaultStyleName?: string;
+  persistStyleSelection?: boolean;
 };
 
 const LOWER_LIMIT = 1500;
@@ -41,10 +43,14 @@ const UPPER_LIMIT = new Date().getFullYear();
 const defaultRasterStyles = mapWidgetOptions.predefined.find((x) => x.name === 'GREEN')!;
 const defaultCapabilitiesParams = {}; // Stable reference as fallback prop to prevent cascading rerenders without any real change
 
+const STORAGE_KEY = 'mapWidget.selectedPredefinedStyle';
+
 export function MapWidgetOuter({
   className,
   capabilitiesParams = defaultCapabilitiesParams,
   mapStyle,
+  defaultStyleName = 'GREEN',
+  persistStyleSelection = false,
 }: Props) {
   const isSmallScreen = useBelow(800, true);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -52,9 +58,35 @@ export function MapWidgetOuter({
 
   const [selectedProjection, setSelectedProjection] = useState<Projection>('EPSG_4326');
 
-  const [rasterStyles, setRasterStyles] = useState<RasterStyles>(
-    mapWidgetOptions.predefined.find((x) => x.name === mapStyle) || defaultRasterStyles
-  );
+  // Get initial style from localStorage if persistence is enabled, otherwise use props/defaults
+  const getInitialStyle = (): RasterStyles => {
+    // If mapStyle prop is provided, use it (highest priority)
+    if (mapStyle) {
+      return mapWidgetOptions.predefined.find((x) => x.name === mapStyle) || defaultRasterStyles;
+    }
+
+    // If persistence is enabled, check localStorage
+    if (persistStyleSelection && typeof window !== 'undefined') {
+      try {
+        const savedStyleName = localStorage.getItem(STORAGE_KEY);
+        if (savedStyleName) {
+          const savedStyle = mapWidgetOptions.predefined.find((x) => x.name === savedStyleName);
+          if (savedStyle) {
+            return savedStyle;
+          }
+        }
+      } catch (e) {
+        // Ignore localStorage errors
+      }
+    }
+
+    // Fall back to defaultStyleName prop or GREEN
+    return (
+      mapWidgetOptions.predefined.find((x) => x.name === defaultStyleName) || defaultRasterStyles
+    );
+  };
+
+  const [rasterStyles, setRasterStyles] = useState<RasterStyles>(getInitialStyle);
 
   const [basisOfRecord, setBasisOfRecord] = useState<string[]>([]);
 
@@ -119,6 +151,20 @@ export function MapWidgetOuter({
       document.body.style.overflow = '';
     };
   }, [isFullScreen]);
+
+  // Persist style selection to localStorage when it changes (only if persistence is enabled)
+  useEffect(() => {
+    if (persistStyleSelection && typeof window !== 'undefined') {
+      try {
+        // Only save predefined styles, not custom styles
+        if (rasterStyles.name !== 'CUSTOM') {
+          localStorage.setItem(STORAGE_KEY, rasterStyles.name);
+        }
+      } catch (e) {
+        // Ignore localStorage errors
+      }
+    }
+  }, [rasterStyles, persistStyleSelection]);
 
   const yearFilter = (
     <YearFilter

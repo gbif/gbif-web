@@ -105,7 +105,11 @@ export function DataFromCountryMapPresentation({
             </MapHeader.Item>
           </MapHeader.Container>
         </CardHeader>
-        <MapWidget capabilitiesParams={{ publishingCountry: countryCode }} />
+        <MapWidget
+          capabilitiesParams={{ publishingCountry: countryCode }}
+          defaultStyleName="CLASSIC_HEX"
+          persistStyleSelection={true}
+        />
       </Card>
     </section>
   );
