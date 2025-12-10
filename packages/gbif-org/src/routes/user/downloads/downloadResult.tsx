@@ -101,7 +101,7 @@ export function DownloadResult({ download }: DownloadResultProps) {
             </div>
           </div>
           <div className="g-border-t g-border-gray-200 g-p-4 g-overflow-auto">
-            <DownloadFilterSummary download={download} />
+            <DownloadFilterSummary download={download} restrictHeight="g-max-h-80" />
           </div>
         </article>
       </Card>

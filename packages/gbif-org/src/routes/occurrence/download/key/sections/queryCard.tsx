@@ -230,7 +230,13 @@ export function SqlVisual({ download }: { download: DownloadKeyQuery['download']
   );
 }
 
-export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery['download'] }) {
+export function DownloadFilterSummary({
+  download,
+  restrictHeight,
+}: {
+  download: DownloadKeyQuery['download'];
+  restrictHeight?: string;
+}) {
   const [showAsApi, setShowAsApi] = useState(false);
 
   if (!download?.request) return null;
@@ -238,21 +244,25 @@ export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery
     download?.request?.predicate ??
     download?.request?.gbifMachineDescription?.parameters?.predicate;
   return (
-    <>
+    <div className="">
       {predicate && (
-        <div className="gbif-predicates g-min-w-[500px] g-mb-4">
-          <div className="g-flex g-justify-end g-text-slate-500 -g-mt-2">
-            <button onClick={() => setShowAsApi(!showAsApi)}>
-              {showAsApi ? (
-                <FormattedMessage id="downloadKey.humanFilterView" />
-              ) : (
-                <FormattedMessage id="downloadKey.apiFilterView" />
-              )}
-            </button>
+        <MaxHeightBox heightClassName={restrictHeight}>
+          <div className="g-mb-4 gbif-predicates g-min-w-[500px]">
+            {!restrictHeight && (
+              <div className="g-flex g-justify-end g-text-slate-500 -g-mt-2">
+                <button onClick={() => setShowAsApi(!showAsApi)}>
+                  {showAsApi ? (
+                    <FormattedMessage id="downloadKey.humanFilterView" />
+                  ) : (
+                    <FormattedMessage id="downloadKey.apiFilterView" />
+                  )}
+                </button>
+              </div>
+            )}
+            {!showAsApi && <PredicateDisplay predicate={predicate} />}
+            {showAsApi && <pre>{JSON.stringify(predicate, null, 2)}</pre>}
           </div>
-          {!showAsApi && <PredicateDisplay predicate={predicate} />}
-          {showAsApi && <pre>{JSON.stringify(predicate, null, 2)}</pre>}
-        </div>
+        </MaxHeightBox>
       )}
       {!download?.request?.predicate && !download?.request?.sql && (
         <div className="g-text-slate-600">
@@ -260,13 +270,31 @@ export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery
         </div>
       )}
       {download?.request?.sql && (
-        <div className="g-text-sm">
-          <pre
-            className="g-max-full g-overflow-hidden gbif-sqlInput"
-            dangerouslySetInnerHTML={{ __html: download?.request.sql }}
-          />
-        </div>
+        <MaxHeightBox heightClassName={restrictHeight}>
+          <div className="g-text-sm">
+            <pre
+              className="g-max-full g-overflow-hidden gbif-sqlInput"
+              dangerouslySetInnerHTML={{ __html: download?.request.sql }}
+            />
+          </div>
+        </MaxHeightBox>
       )}
-    </>
+    </div>
+  );
+}
+
+function MaxHeightBox({
+  heightClassName,
+  children,
+}: {
+  heightClassName?: string;
+  children: React.ReactNode;
+}) {
+  if (!heightClassName) return children;
+  return (
+    <div className={`g-overflow-hidden g-relative ${heightClassName}`}>
+      {children}
+      <div className="g-absolute g-bottom-0 g-left-0 g-right-0 g-h-6 g-bg-gradient-to-t g-from-white g-z-50" />
+    </div>
   );
 }
