@@ -14,17 +14,17 @@
   "registered": "Registado",
   "hostedDatasets": "Conjuntos de dados alojados",
   "pubDatasets": "Conjuntos de dados publicados",
-  "commonName": "",
+  "commonName": "Nome comum",
   "images": "Multimédia",
-  "species": "",
-  "parents": "",
+  "species": "Número de espécies",
+  "parents": "Parentes",
   "institution": "Instituição",
   "collection": "Coleção",
   "collectionCount": "Coleções",
-  "active": "",
-  "activeInstitution": "",
+  "active": "Está ativo",
+  "activeInstitution": "Está ativo",
   "author": "Autor",
   "source": "Revista",
   "dataReferenced": "Código de Conduta",
-  "activeCollection": ""
+  "activeCollection": "Está ativo"
 }
