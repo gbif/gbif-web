@@ -4,6 +4,7 @@ import { JazzIcon } from '@/components/JazzIcon';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import { useConfig } from '@/config/config';
 import { useUser } from '@/contexts/UserContext';
 import { Download_Status, DownloadKeyQuery, UsersDownloadKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -124,6 +125,15 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
 }
 
 export function TrustedSection({ children }: { children: React.ReactNode }) {
+  const { isGBIFOrg } = useConfig();
+  if (!isGBIFOrg) {
+    return null;
+  } else {
+    return <TrustedSectionInner>{children}</TrustedSectionInner>;
+  }
+}
+
+function TrustedSectionInner({ children }: { children: React.ReactNode }) {
   const { user } = useUser();
 
   if (!user) return null;
