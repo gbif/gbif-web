@@ -568,22 +568,20 @@ export function DatasetPage() {
             <HeaderInfo>
               <HeaderInfoMain>
                 <FeatureList>
-                  {contactsCitation.length > 0 && (
+                  {contactsCitation.length < contactThreshold && (
                     <GenericFeature>
                       <PeopleIcon />
-                      {contactsCitation.length < contactThreshold && (
-                        <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
-                      )}
-                      {/* It would be good to show this with a link to the contacts, but how to do that so it also works on e.g. the metrics tab? */}
-                      {/* https://github.com/gbif/gbif-web/issues/1360 */}
-                      {/* {contactsCitation.length >= contactThreshold && (
-                        <FormattedMessage
-                          id="counts.nAuthors"
-                          values={{ total: contactsCitation.length }}
-                        />
-                      )} */}
+                      <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
                     </GenericFeature>
                   )}
+                  {/* It would be good to show this with a link to the contacts, but how to do that so it also works on e.g. the metrics tab? */}
+                  {/* https://github.com/gbif/gbif-web/issues/1360 */}
+                  {/* {contactsCitation.length >= contactThreshold && (
+                    <FormattedMessage
+                      id="counts.nAuthors"
+                      values={{ total: contactsCitation.length }}
+                    />
+                  )} */}
                   <Homepage url={dataset.homepage} />
                   <GenericFeature>
                     <LicenceTag value={dataset.license} />
