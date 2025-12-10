@@ -29,6 +29,7 @@ import {
 } from './filterTools';
 import { Option } from './option';
 import { Suggest } from './suggest';
+import { Skeleton } from '../ui/skeleton';
 
 type SuggestProps = Omit<filterSuggestConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -347,7 +348,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                           !selectedFacetError &&
                           !disableFacetsForSelected && (
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              <FormattedNumber value={facetLookup[x] ?? 0} />
+                              {typeof facetLookup[x] === 'number' ? (
+                                <FormattedNumber value={facetLookup[x] ?? 0} />
+                              ) : (
+                                <Skeleton className="g-h-4 g-w-8" />
+                              )}
                             </span>
                           )}
                       </div>
