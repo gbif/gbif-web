@@ -31,6 +31,7 @@ import { GoogleAccountItem } from './GoogleAccountItem';
 import { OrcidAccountItem } from './OrcidAccountItem';
 import { ProfileSkeleton } from './profileLayout';
 import { useToast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface UserInfo {
   firstName: string;
@@ -49,6 +50,7 @@ interface PasswordInfo {
 const Profile: React.FC = () => {
   const { user, updateProfile, changePassword, disconnectAccount } = useUser();
   const { formatMessage } = useIntl();
+  const navigate = useNavigate();
   const intlConfig = useI18n();
   const { translatedToast } = useToast();
   intlConfig.availableLocales[0].code;
@@ -243,6 +245,10 @@ const Profile: React.FC = () => {
         country: false,
         locale: false,
       });
+      // if language changed, reload the page to apply new locale
+      if (userInfo.locale !== editedInfo.locale) {
+        navigate(intlConfig.localizeLink(`/user/profile`, editedInfo.locale));
+      }
     } catch (error) {
       if (error instanceof UserError) {
         setProfileError(error.type);

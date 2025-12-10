@@ -169,7 +169,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       // Refresh user data after successful login
       await refreshUser();
-      return result;
+      return result?.user;
     } catch (error) {
       if (error instanceof UserError) {
         throw error; // Re-throw known UserError
