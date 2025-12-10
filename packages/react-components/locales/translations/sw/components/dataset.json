@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "",
-    "occurrences": "",
-    "citations": "",
     "project": "",
     "taxonomy": "",
     "download": "",
     "phylogeny": "",
+    "metrics": "",
     "events": ""
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "",
+      "downloads": "",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "",
+      "qualities": "",
+      "citations": ""
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": ""
+    }
   },
   "noStatsForMetadata": "",
   "siteScopeSmallerThanDataset": "",
@@ -153,5 +186,6 @@
     "evenList": "",
     "occurrenceInfo": ""
   },
-  "eventTaxonomy": ""
+  "eventTaxonomy": "",
+  "noCitations": ""
 }

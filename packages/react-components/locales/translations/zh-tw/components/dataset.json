@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "關於",
-    "occurrences": "出現紀錄",
-    "citations": "引用",
     "project": "專案",
     "taxonomy": "分類學",
     "download": "下載",
     "phylogeny": "",
+    "metrics": "指標",
     "events": "事件"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "物種名錄",
+      "downloads": "下載",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "時間的",
+      "qualities": "",
+      "citations": "引用"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "同種異名",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "來源",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": "計數"
+    }
   },
   "noStatsForMetadata": "純詮釋資料集無統計數據",
   "siteScopeSmallerThanDataset": "此網站並未包含資料集中的所有記錄。 造訪 [GBIF.org]({datasetUrl}) 探索完整資料集。",
@@ -62,7 +95,7 @@
   "sampling": "取樣",
   "methodSteps": "方法步驟",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select,1{下載事件} other{下載事件}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{來自此資料集的出現紀錄} other{來自此資料集的出現紀錄}}",
+  "nFromDataset": "",
   "funding": "經費來源",
   "abstract": "摘要",
   "contacts": "聯絡資訊",
@@ -153,5 +186,6 @@
     "evenList": "共同資助單位",
     "occurrenceInfo": "共同資助單位"
   },
-  "eventTaxonomy": "出現紀錄的分類群分布"
+  "eventTaxonomy": "出現紀錄的分類群分布",
+  "noCitations": ""
 }

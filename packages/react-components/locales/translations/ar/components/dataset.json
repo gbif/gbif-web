@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "حول",
-    "occurrences": "تكرارات",
-    "citations": "اقتباسات",
     "project": "مشروع",
     "taxonomy": "التصنيف",
     "download": "تنزيل",
     "phylogeny": "",
+    "metrics": "المقاييس",
     "events": "أحداث"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "قائمة التدقيق",
+      "downloads": "التنزيلات",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "زمني",
+      "qualities": "",
+      "citations": "اقتباسات"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "مرادفات",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "الأصل",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": "احصاء"
+    }
   },
   "noStatsForMetadata": "لا توجد إحصاءات متاحة للبيانات الوصفية فقط لمجموعات البيانات",
   "siteScopeSmallerThanDataset": "",
@@ -62,7 +95,7 @@
   "sampling": "أخذ العينات",
   "methodSteps": "خطوات الطريقة",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select, 1{تنزيل الحدث} other{تنزيل الاحداث}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{تكرار من مجموعة البيانات هذه} other{تكرارات من مجموعة البيانات هذه}}",
+  "nFromDataset": "",
   "funding": "التمويل",
   "abstract": "ملخص",
   "contacts": "جهات الاتصال",
@@ -153,5 +186,6 @@
     "evenList": "تمويل مشترك بواسطة",
     "occurrenceInfo": "تمويل مشترك بواسطة"
   },
-  "eventTaxonomy": "التوزيع التصنيفي لتكرارات الحدوث"
+  "eventTaxonomy": "التوزيع التصنيفي لتكرارات الحدوث",
+  "noCitations": ""
 }

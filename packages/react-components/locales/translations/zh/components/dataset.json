@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "关于",
-    "occurrences": "出现记录",
-    "citations": "引用",
     "project": "项目",
     "taxonomy": "分类学",
     "download": "下载",
     "phylogeny": "系统发育",
+    "metrics": "指标",
     "events": "事件"
+  },
+  "metricsTab": {
+    "selectGroup": "描述占位符",
+    "group": {
+      "checklist": "名录",
+      "downloads": "下载",
+      "taxonomic": "描述占位符",
+      "geographic": "描述占位符",
+      "temporal": "临时",
+      "qualities": "描述占位符",
+      "citations": "引用"
+    },
+    "checklist": {
+      "notAvailable": "描述占位符",
+      "overview": "描述占位符",
+      "overviewDescription": "描述占位符",
+      "usagesCount": "描述占位符",
+      "distinctNamesCount": "描述占位符",
+      "synonymsCount": "异名",
+      "nubMatchingCount": "描述占位符",
+      "nubCoveragePct": "描述占位符",
+      "colMatchingCount": "描述占位符",
+      "colCoveragePct": "描述占位符",
+      "countByKingdom": "描述占位符",
+      "countByKingdomDescription": "描述占位符",
+      "countByRank": "描述占位符",
+      "countByRankDescription": "描述占位符",
+      "countByOrigin": "描述占位符",
+      "countByOriginDescription": "描述占位符",
+      "origin": "原始",
+      "countByIssue": "描述占位符",
+      "countByIssueDescription": "描述占位符",
+      "count": "次数"
+    }
   },
   "noStatsForMetadata": "没有可用的元数据统计信息只有数据集",
   "siteScopeSmallerThanDataset": "并非数据集中的所有记录都包含在此站点上。访问[GBIF.org]({datasetUrl}) 来浏览完整的数据集。",
@@ -62,7 +95,7 @@
   "sampling": "采样",
   "methodSteps": "方法步骤",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, 1{下载事件} other{下载事件}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, plural, 1{来自此数据集的出现记录} other{来自此数据集的出现记录}}",
+  "nFromDataset": "描述占位符",
   "funding": "资金",
   "abstract": "摘要",
   "contacts": "联系人信息",
@@ -153,5 +186,6 @@
     "evenList": "联合资助方：",
     "occurrenceInfo": "联合资助方："
   },
-  "eventTaxonomy": "出现记录的分类学分布"
+  "eventTaxonomy": "出现记录的分类学分布",
+  "noCitations": "描述占位符"
 }
