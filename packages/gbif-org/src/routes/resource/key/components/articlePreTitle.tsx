@@ -11,7 +11,7 @@ type Props = {
 
 export function ArticlePreTitle({ secondary, children, className, clickable = false }: Props) {
   return (
-    <p className={cn('g-flex g-items-center g-mt-2 g-mb-1 g-text-xs g-leading-6', className)}>
+    <p className={cn('g-flex g-items-center g-mt-2 g-mb-1 g-text-sm g-leading-6', className)}>
       <Primary clickable={clickable}>{children}</Primary>{' '}
       {secondary && (
         <>
@@ -47,7 +47,7 @@ function Secondary({ children }: { children: React.ReactNode }) {
 
 function Separator() {
   return (
-    <span className="g-mx-2 g-block g-h-3 g-w-0.5 g-bg-[rgb(var(--preTitleSeparatorColor,_148_163_184))]" />
+    <span className="g-mx-2 g-block g-h-4 g-w-0.5 g-bg-[rgb(var(--preTitleSeparatorColor,_148_163_184))]" />
   );
 }
 
