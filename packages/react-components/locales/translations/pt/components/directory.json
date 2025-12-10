@@ -3,7 +3,7 @@
   "group": {
     "executiveCommittee": {
       "title": "Comité executivo",
-      "description": "O Comité Executivo opera por parte da Assembleia Geral quando este não está em sessão e em áreas onde houve responsabilidade delegada pela Assembleia. Entre suas funções estão a monitorização da performance do Secretariado em executar decisões tomadas pela Assembleia Geral, incluindo a implementação do Plano estratégico and do Programa de trabalho; e a gestão dos recursos financeiros."
+      "description": "O Comité Executivo opera por parte da Assembleia Geral quando este não está em sessão e em áreas onde houve responsabilidade delegada pela Assembleia. Entre suas funções estão a monitorização da performance do Secretariado em executar decisões tomadas pela Assembleia Geral, incluindo a implementação do Plano estratégico e do Programa de trabalho; e a gestão dos recursos financeiros."
     },
     "scienceCommittee": {
       "title": "Comité Científico",
@@ -35,38 +35,38 @@
     },
     "associateParticipants": {
       "title": "Outros participantes associados",
-      "description": "Organizações intergovernamentais, organizações internacionais e outras organizações com um escopo internacional e economias, que assinaram o Memorando de Entendimento do GBIF."
+      "description": "Organizações intergovernamentais, internacionais e outras organizações com um escopo internacional e economias que assinaram o Memorando de Entendimento do GBIF."
     }
   },
   "columns": {
     "role": "Função",
     "name": "Nome",
     "participant": "Participante",
-    "participationStatus": "Status de participante"
+    "participationStatus": "Estado de participante"
   },
   "details": "Detalhes",
   "roles": "Perfis",
   "sinceDate": "Desde {DATE}",
   "showAllContacts": "Todos",
   "person": {
-    "volunteer": "",
+    "volunteer": "Voluntário",
     "name": "Nome",
-    "annualBadges": "",
+    "annualBadges": "Insígnias anuais",
     "language": "Idioma",
     "country": "País ou área",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
-    "orcId": "",
+    "affiliation": "Afiliação",
+    "recipient": "Destinatário",
+    "areasExpertise": "Área de especialização",
+    "orcId": "ID ORCID",
     "year": "Ano",
     "email": "Correio eletrónico"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "Prémio GBIF para Investigadores",
+    "EBBE1ST": "1.º Prémio",
+    "EBBE2ND": "2.º Prémio",
+    "EBBE3RD": "3.º Prémio"
   },
-  "prize": "",
+  "prize": "Prémio",
   "year": "Ano"
 }
