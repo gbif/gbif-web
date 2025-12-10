@@ -35,6 +35,7 @@ class DownloadAPI extends RESTDataSource {
       `/occurrence/download/${key}`,
       {
         statistics: true,
+        cacheBuste: this.context?.user?.userName,
       },
       {
         cacheOptions: { ttl: this.context.user ? 0 : undefined },
