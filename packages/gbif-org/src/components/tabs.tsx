@@ -49,7 +49,15 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
       if (active) {
         const id = active.getAttribute('href') || active.textContent || '';
         if (id !== activeLinkRef.current) {
-          active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          // Scroll horizontally only by manually calculating scroll position
+          const activeRect = active.getBoundingClientRect();
+          const containerRect = el.getBoundingClientRect();
+          const scrollLeft =
+            el.scrollLeft +
+            (activeRect.left - containerRect.left) -
+            containerRect.width / 2 +
+            activeRect.width / 2;
+          el.scrollTo({ left: scrollLeft, behavior: 'smooth' });
           activeLinkRef.current = id;
         }
       }
