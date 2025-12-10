@@ -18,7 +18,7 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useParams } from 'react-router-dom';
@@ -87,7 +87,7 @@ export function CountryKeyLayout() {
                 <ArticleTitle>
                   <FormattedMessage id={`enums.countryCode.${countryCode}`} />
                 </ArticleTitle>
-                <img className="g-h-8" src={`/flags/${countryCode}.png`} />
+                <CountryFlag countryCode={countryCode} />
               </div>
 
               <p className="g-text-sm g-text-gray-500 g-mt-2">
@@ -257,3 +257,42 @@ const COUNT_NEWS_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+function CountryFlag({ countryCode }: { countryCode: string }) {
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+
+    // Check if the image already loaded successfully before the effect ran
+    if (img.complete && img.naturalWidth > 0) {
+      img.style.display = '';
+      return;
+    }
+
+    // Check if the image already errored before the effect ran
+    if (img.complete && img.naturalWidth === 0) {
+      // Already hidden, nothing to do
+      return;
+    }
+
+    const handleLoad = () => {
+      img.style.display = '';
+    };
+
+    img.addEventListener('load', handleLoad);
+    return () => {
+      img.removeEventListener('load', handleLoad);
+    };
+  }, []);
+
+  return (
+    <img
+      ref={imgRef}
+      className="g-h-8"
+      src={`/flags/${countryCode}.png`}
+      style={{ display: 'none' }}
+    />
+  );
+}
