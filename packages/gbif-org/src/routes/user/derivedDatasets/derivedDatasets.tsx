@@ -11,6 +11,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DerivedDatasetResult } from './derivedDatasetResult';
+import { Button } from '@/components/ui/button';
 
 export function DerivedDatasets() {
   const [offset, setOffset] = useIntParam({
@@ -59,6 +60,13 @@ export function DerivedDatasets() {
 
   return (
     <section>
+      <div className="g-text-end">
+        <Button asChild>
+          <a href={`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/derived-dataset/register`}>
+            <FormattedMessage id="profile.createNew" defaultMessage="Create new" />
+          </a>
+        </Button>
+      </div>
       {derivedDatasets?.count === 0 && (
         <>
           <NoRecords messageId="profile.noDerivedDatasets" />
