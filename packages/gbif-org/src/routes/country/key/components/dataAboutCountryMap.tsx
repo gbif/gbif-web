@@ -102,7 +102,11 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
             </MapHeader.Item>
           </MapHeader.Container>
         </CardHeader>
-        <MapWidget capabilitiesParams={{ country: countryCode }} />
+        <MapWidget
+          capabilitiesParams={{ country: countryCode }}
+          defaultStyleName="CLASSIC_HEX"
+          persistStyleSelection={true}
+        />
       </Card>
     </section>
   );
