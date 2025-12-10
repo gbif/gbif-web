@@ -92,7 +92,7 @@ const languageOptions: LanguageOption[] = [
     label: 'العربية',
     default: false,
     textDirection: 'rtl',
-    reactIntlLocale: 'ar-SA',
+    reactIntlLocale: 'ar-AE',
     iso3LetterCode: 'ara',
     gbifOrgLocalePrefix: '/ar',
     grSciCollLocalePrefix: '',
