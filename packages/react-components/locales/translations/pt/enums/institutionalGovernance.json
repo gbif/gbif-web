@@ -1,3 +1,13 @@
 {
-  "OTHER": "Outro"
+  "ACADEMIC_FEDERAL": "Federal académica",
+  "ACADEMIC_FOR_PROFIT": "Académica com fins lucrativos",
+  "ACADEMIC_LOCAL": "Académica local",
+  "ACADEMIC_NON_PROFIT": "Académica sem fins lucrativos",
+  "ACADEMIC_STATE": "Académica do estado",
+  "FEDERAL": "Federal",
+  "FOR_PROFIT": "Com fins lucrativos",
+  "LOCAL": "Local",
+  "NON_PROFIT": "Sem fins lucrativos",
+  "OTHER": "Outro",
+  "STATE": "Estado"
 }
