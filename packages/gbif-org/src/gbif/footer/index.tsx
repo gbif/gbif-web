@@ -31,7 +31,7 @@ export function Footer() {
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
-              <DynamicLink to="/newsletters">
+              <DynamicLink to="/subscribe">
                 <FormattedMessage id="footer.newsletter" defaultMessage="Newsletter" />
               </DynamicLink>
             </li>
