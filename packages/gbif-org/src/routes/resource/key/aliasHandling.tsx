@@ -26,6 +26,7 @@ export async function aliasHandlingLoader(args: LoaderArgs) {
   const { graphql, params } = args;
 
   const alias = params['*'];
+  console.log('[REDIRECT-DEBUG] aliasHandlingLoader called with alias:', `/${alias}`);
 
   const response = await graphql.query<AliasHandlingQuery, AliasHandlingQueryVariables>(
     ALIAS_HANDLING_FRAGMENT,
@@ -42,6 +43,8 @@ export async function aliasHandlingLoader(args: LoaderArgs) {
   if (!data.resource) {
     throw new UnexpectedLoaderError();
   }
+
+  console.log('[REDIRECT-DEBUG] aliasHandling resource:', data.resource);
 
   if ('urlAlias' in data.resource) {
     const resource = data.resource;

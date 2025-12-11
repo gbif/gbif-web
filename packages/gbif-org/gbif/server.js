@@ -181,6 +181,7 @@ async function main() {
       } catch (e) {
         // Handle possible redirections thrown by the render function.
         if (e instanceof Response && e.status >= 300 && e.status <= 399) {
+          console.log('[REDIRECT-DEBUG] SSR redirect caught:', e.status, e.headers.get('Location'));
           return res.redirect(e.status, e.headers.get('Location'));
         }
 

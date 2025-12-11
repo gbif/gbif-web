@@ -98,6 +98,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
 
   return async function loader({ params, graphql, locale, request }: LoaderArgs) {
     const key = required(params.key, 'No key provided in the url');
+    console.log('[REDIRECT-DEBUG] createResourceLoader for key:', key, 'request URL:', request.url);
 
     const response = await graphql.query(query, { key });
 
@@ -136,6 +137,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
     if (typeof resource.urlAlias === 'string') {
       let redirectUrl = resource.urlAlias;
       if (!locale.default) redirectUrl = `/${locale.code}${redirectUrl}`;
+      console.log('[REDIRECT-DEBUG] Redirecting to urlAlias:', redirectUrl);
 
       return redirectWithPreservedPreview(request, redirectUrl);
     }
@@ -153,6 +155,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
     // Redirect to the correct url
     let redirectUrl = redirectMapper[resource.__typename](key, slugifiedTitle);
     if (!locale.default) redirectUrl = `/${locale.code}${redirectUrl}`;
+    console.log('[REDIRECT-DEBUG] Redirecting to mapped URL:', redirectUrl);
 
     return redirectWithPreservedPreview(request, redirectUrl);
   };
@@ -178,6 +181,7 @@ function redirectWithPreservedPreview(request: Request, url: string) {
   if (request.url.includes('preview=true')) {
     url += (url.includes('?') ? '&' : '?') + 'preview=true';
   }
+  console.log('[REDIRECT-DEBUG] redirectWithPreservedPreview redirecting to:', url);
 
   return redirect(url);
 }

@@ -80,6 +80,7 @@ function findQueryParamRedirect(path, queryParams) {
 }
 
 function handleRedirects(req, res, next) {
+  console.log('[REDIRECT-DEBUG] Incoming URL:', req.url);
   // remove query params from url first
   const splitted = req.url.split('?');
   const pathOnly = splitted[0];
@@ -128,6 +129,7 @@ function handleRedirects(req, res, next) {
   }
 
   if (redirectTo) {
+    console.log('[REDIRECT-DEBUG] Middleware redirecting to:', redirectTo);
     res.redirect(302, redirectTo);
   } else  {
     next();
