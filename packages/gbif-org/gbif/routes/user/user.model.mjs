@@ -374,8 +374,12 @@ export function getClientUser(user) {
 export function sanitizeUpdatedUser(user) {
   ensureString(user.email, 'email');
   ensureString(user.settings.country, 'country');
-  ensureString(user.settings.locale, 'locale');
   ensureString(user.settings.has_read_gdpr_terms, 'has_read_gdpr_terms');
+
+  let locale = user?.settings?.locale;
+  if (typeof locale !== 'string' || locale.trim() === '') {
+    locale = 'en';
+  }
 
   const firstName = user?.firstName?.trim();
   const lastName = user?.lastName?.trim();
@@ -386,8 +390,8 @@ export function sanitizeUpdatedUser(user) {
     email: user.email,
     settings: {
       country: user.settings.country,
-      locale: user.settings.locale,
-      has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
+      locale,
+      has_read_gdpr_terms: user.settings.has_read_gdpr_terms ?? 'false',
     },
   };
 }
