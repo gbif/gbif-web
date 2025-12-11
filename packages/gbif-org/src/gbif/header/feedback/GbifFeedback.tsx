@@ -249,7 +249,7 @@ export function GbifFeedback({ pageType, onClose }: GbifFeedbackProps) {
               <DynamicLink
                 pageId="user-login"
                 className="g-mt-2"
-                searchParams={{ returnUrl: location.pathname + location.search }}
+                searchParams={{ returnUrl: window.location.pathname + window.location.search }}
               >
                 <FormattedMessage id="feedback.login" defaultMessage="Login" />
               </DynamicLink>
