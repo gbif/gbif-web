@@ -129,6 +129,7 @@
     "usernameMinLength": "",
     "usernameNoSpaces": "",
     "derivedDatasets": "",
+    "createNew": "",
     "dontHaveAccount": "",
     "registerNow": "",
     "orContinueWith": "",
