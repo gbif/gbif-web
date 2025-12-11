@@ -11,36 +11,13 @@ import { Footer } from './footer';
 import { Header } from './header';
 import { GDPR } from '@/components/gdpr';
 import toolsRedirects from './toolsRedirects';
+// eslint-disable-next-line
+import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 
-const HEADER_QUERY = /* GraphQL */ `
-  query Header {
-    gbifHome {
-      title
-      summary
-      children {
-        id
-        externalLink
-        link
-        title
-        children {
-          id
-          externalLink
-          link
-          title
-          children {
-            id
-            externalLink
-            link
-            title
-          }
-        }
-      }
-    }
-  }
-`;
-
-export function headerLoader({ graphql }: LoaderArgs) {
-  return graphql.query<HeaderQuery, HeaderQueryVariables>(HEADER_QUERY, {});
+export function headerLoader({ request }: LoaderArgs) {
+  const url = new URL(request.url);
+  const apiUrl = `${url.origin}/unstable-api/cached-response/header`;
+  return fetch(apiUrl);
 }
 
 type Props = {
@@ -48,7 +25,7 @@ type Props = {
 };
 
 export function GbifRootLayout({ children }: Props) {
-  const { data } = useLoaderData() as { data: HeaderQuery };
+  const data = useLoaderData() as HeaderQuery;
 
   return <LayoutInner data={data}>{children}</LayoutInner>;
 }
