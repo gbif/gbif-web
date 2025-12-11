@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Zurück",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "Gleich {is}",
