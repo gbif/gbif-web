@@ -4,7 +4,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/articleBody';
-import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { backgroundColorMap, BlockContainer, BlockHeading, MediaBlockImage } from './_shared';
 import { Skeleton } from '@/components/ui/skeleton';
 
 fragmentManager.register(/* GraphQL */ `
@@ -67,17 +67,16 @@ function MediaCountBlockContent({
       })}
     >
       {resource.optionalImg && (
-        <div className="g-flex-1">
-          <img
-            src={resource.optionalImg.file.mobile}
-            alt={resource.optionalImg.description ?? ''}
-            title={resource.optionalImg.title ?? ''}
-            className={cn('g-max-h-[400px] g-w-full g-h-full g-m-auto', {
-              'g-max-w-[500px]': !resource.roundImage,
-              'g-max-w-[400px] g-rounded-full g-aspect-square g-object-cover': resource.roundImage,
-            })}
-          />
-        </div>
+        <MediaBlockImage
+          src={resource.optionalImg.file.mobile}
+          alt={resource.optionalImg.description}
+          title={resource.optionalImg.title}
+          description={resource.optionalImg.description}
+          className={cn('g-max-h-[400px] g-w-full g-h-full g-m-auto', {
+            'g-max-w-[500px]': !resource.roundImage,
+            'g-max-w-[400px] g-rounded-full g-aspect-square g-object-cover': resource.roundImage,
+          })}
+        />
       )}
       <div className="g-flex-1">
         {insideCarousel && (
