@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "此数据集包含采样数据。采样方法的详细信息见数据集描述的方法部分。",
   "griddedData": "网格化数据\n",
   "griddedDataDescription": "根据我们对记录的分析，这个数据集可能包含网格化数据。阅读更多[关于网格数据集的博客文章](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "物种出现记录统计",
   "registry": {
     "failedSinceSuccess": "自上次成功接收后失败的尝试",
     "lastFailed": "上次尝试失败",

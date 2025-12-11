@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Retour",
+    "slowDown": "Espace réservé à la description",
+    "unableToCreateDownload": "Espace réservé à la description",
     "backToFormatSelection": "Espace réservé à la description",
     "backToConfiguration": "Espace réservé à la description",
     "estimatedSize": "Taille estimée",

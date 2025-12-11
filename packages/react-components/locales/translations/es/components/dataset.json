@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "Este conjunto de datos contiene datos de muestreo. Los detalles del método de muestreo se encuentran en la sección de metodología, de la descripción del conjunto de datos.",
   "griddedData": "Datos en cuadrícula",
   "griddedDataDescription": "Basado en el análisis de los registros, es probable que este conjunto de datos contenga datos en cuadrículas. Lee más en este [post sobre conjuntos de datos en cuadrículas](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Métricas de registros de presencias",
   "registry": {
     "failedSinceSuccess": "Intentos fallidos desde la última integración exitosa",
     "lastFailed": "Último intento fallido",

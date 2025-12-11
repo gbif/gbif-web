@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Zpět",
+    "slowDown": "Zástupce popisu",
+    "unableToCreateDownload": "Zástupce popisu",
     "backToFormatSelection": "Zástupce popisu",
     "backToConfiguration": "Zástupce popisu",
     "estimatedSize": "Rovná se {from}",

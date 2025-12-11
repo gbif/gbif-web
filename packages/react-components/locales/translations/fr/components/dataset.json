@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "Ce jeu de données contient des données d'échantillonnage. Les détails sur la méthode d'échantillonnage apparaissent dans la section méthodologie de la description du jeu de données.",
   "griddedData": "Données en grille",
   "griddedDataDescription": "Sur la base de notre analyse des enregistrements, ce jeu de données contient probablement des données maillées. En savoir plus dans ce [blog à propos des jeux de données maillées](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Statistique sur les occurrences",
   "registry": {
     "failedSinceSuccess": "Tentatives infructueuses depuis la dernière ingestion réussie",
     "lastFailed": "Dernière tentative échouée",

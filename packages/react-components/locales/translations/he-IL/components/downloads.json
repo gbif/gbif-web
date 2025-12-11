@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "",
+    "slowDown": "תיאור זמני",
+    "unableToCreateDownload": "תיאור זמני",
     "backToFormatSelection": "תיאור זמני",
     "backToConfiguration": "תיאור זמני",
     "estimatedSize": "Estimated size",

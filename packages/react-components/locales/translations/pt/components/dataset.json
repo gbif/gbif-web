@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "",
   "griddedData": "",
   "griddedDataDescription": "",
+  "metricsLink": "Métrica de ocorrências",
   "registry": {
     "failedSinceSuccess": "Tentativas fracassadas desde a última ingestão de sucesso",
     "lastFailed": "Última tentativa falhada",

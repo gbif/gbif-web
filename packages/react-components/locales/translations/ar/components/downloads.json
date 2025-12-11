@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "رجوع",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "التساويات { is }",

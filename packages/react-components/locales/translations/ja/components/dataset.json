@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "",
   "griddedData": "",
   "griddedDataDescription": "",
+  "metricsLink": "オカレンスのデータ分析結果",
   "registry": {
     "failedSinceSuccess": "最も最近のデータ取り込み以来試行失敗",
     "lastFailed": "前回の失敗した試行",

@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "",
   "griddedData": "",
   "griddedDataDescription": "",
+  "metricsLink": "",
   "registry": {
     "failedSinceSuccess": "Gescheiterte Versuche seit der letzten erfolgreichen Datenaufnahme",
     "lastFailed": "Letzter gescheiterter Versuch",

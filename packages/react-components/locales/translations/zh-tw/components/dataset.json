@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "此資料集包含採樣資料。 有關採樣方法的詳細資訊顯示在資料集說明的方法部分。",
   "griddedData": "網格資料",
   "griddedDataDescription": "根據我們對記錄的分析，此資料集可能包含網格資料。 請閱讀這篇[有關網格化資料集的部落格文章](https://data-blog.gbif.org/post/gridded-datasets-update/) 來了解更多資訊。",
+  "metricsLink": "出現紀錄指標",
   "registry": {
     "failedSinceSuccess": "自從上次成功接收後，嘗試失敗。",
     "lastFailed": "上次嘗試失敗",

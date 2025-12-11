@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Volver",
+    "slowDown": "Marcador de posición de descripción",
+    "unableToCreateDownload": "Marcador de posición de descripción",
     "backToFormatSelection": "Marcador de posición de descripción",
     "backToConfiguration": "Marcador de posición de descripción",
     "estimatedSize": "Igual a {is}",

@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "",
   "griddedData": "",
   "griddedDataDescription": "",
+  "metricsLink": "Observations-grafer",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",

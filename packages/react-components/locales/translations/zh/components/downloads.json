@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "返回",
+    "slowDown": "描述占位符",
+    "unableToCreateDownload": "描述占位符",
     "backToFormatSelection": "描述占位符",
     "backToConfiguration": "描述占位符",
     "estimatedSize": "等于 {is}",

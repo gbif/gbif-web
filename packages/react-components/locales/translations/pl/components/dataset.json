@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "Ten zbiór danych zawiera dane z próby. Szczegóły o metodzie pobierania próby można znaleźć w sekcji metodologii w opisie zbioru danych.",
   "griddedData": "Dane siatkowe",
   "griddedDataDescription": "W oparciu o naszą analizę zapisów, ten zbiór danych prawdopodobnie zawiera dane siatkowe. Dowiedz się więcej w tym [wpisie na blogu o danych siatkowych](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Metryki występowania",
   "registry": {
     "failedSinceSuccess": "Nieudane próby od ostatniego nieudanego wczytywania danych",
     "lastFailed": "Ostatnia nieudana próba",

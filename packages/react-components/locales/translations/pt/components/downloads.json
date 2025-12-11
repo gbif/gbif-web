@@ -26,7 +26,7 @@
     "records": "Registos",
     "seeAlso": "Ver também",
     "title": "Título",
-    "fileSize": "",
+    "fileSize": "Tamanho do ficheiro",
     "created": "Criado",
     "aboutDownloadFormatsLink": "",
     "occurrences": "Ocorrências",
@@ -136,10 +136,10 @@
         "GBIF_ID": "ID do GBIF",
         "PUBLISHED_BY_GBIF_REGION": "",
         "IUCN_RED_LIST_CATEGORY": "",
-        "PATHWAY": "",
+        "PATHWAY": "Caminho",
         "NETWORK_KEY": "Rede",
         "DWCA_EXTENSION": "",
-        "ACCEPTED_TAXON_KEY": "",
+        "ACCEPTED_TAXON_KEY": "Táxon aceite",
         "CONTINENT": "Continente",
         "OTHER_CATALOG_NUMBERS": "Outros números de catálogo",
         "TYPE_STATUS": "Condição do Tipo",
@@ -218,11 +218,11 @@
     "title": "Minhas transferências"
   },
   "customDownload": {
-    "invalidFilter": "",
-    "seeDocumentation": "",
-    "reformat": "",
+    "invalidFilter": "filtro inválido",
+    "seeDocumentation": "Leia a documentação",
+    "reformat": "Reformatar",
     "invalidJson": "",
-    "title": "",
+    "title": "Crie novo download",
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Voltar",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "Iguais {is}",
@@ -362,7 +364,7 @@
   },
   "customSqlDownload": {
     "cubeConfiguration": "",
-    "invalidSQL": "",
+    "invalidSQL": "SQL inválido",
     "title": "",
     "notification": "",
     "occurrenceSearch": "Pesquisa de ocorrências",
@@ -374,10 +376,10 @@
       "FAMILY": "Família",
       "GENUS": "Género",
       "SPECIES": "Espécie",
-      "ACCEPTED_TAXON": "",
+      "ACCEPTED_TAXON": "Táxon aceite",
       "EXACT_TAXON": "Táxon exato"
     },
-    "cubeTitle": "",
+    "cubeTitle": "Baixar cubo",
     "cubeDescription": "",
     "readMore": "Obter mais informações",
     "time": {
