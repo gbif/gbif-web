@@ -20,5 +20,6 @@
   "SAMPLE_SURFACE_COATING": "Amostra revestimento de superfície",
   "SAMPLE_TANNED": "Amostra curtida",
   "SAMPLE_WAX_BLOCK": "Amostra bloco de cera",
-  "SAMPLE_OTHER": "Amostra outro"
+  "SAMPLE_OTHER": "Amostra outro",
+  "SAMPLE_FREEZE_DRYING": "Amostra liofilização"
 }
