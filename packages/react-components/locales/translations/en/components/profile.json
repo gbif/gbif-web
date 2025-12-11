@@ -129,6 +129,7 @@
     "usernameMinLength": "Username must be at least 3 characters",
     "usernameNoSpaces": "Username cannot contain spaces",
     "derivedDatasets": "Derived datasets",
+    "createNew": "",
     "dontHaveAccount": "Don't have an account?",
     "registerNow": "Register now",
     "orContinueWith": "Or continue with",

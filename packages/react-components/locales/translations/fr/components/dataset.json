@@ -95,7 +95,7 @@
   "sampling": "Échantillonnage",
   "methodSteps": "Étapes méthodologiques",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select, 1{évènement de téléchargement} other{évènements de téléchargement}}",
-  "nFromDataset": "Espace réservé à la description",
+  "nFromDataset": "",
   "funding": "Financement",
   "abstract": "Résumé",
   "contacts": "Contacts",
@@ -187,5 +187,6 @@
     "occurrenceInfo": "Co-financé par"
   },
   "eventTaxonomy": "Distribution taxonomique des occurrences",
-  "noCitations": "Espace réservé à la description"
+  "noCitations": "Espace réservé à la description",
+  "noOccurrences": "Aucune occurrence"
 }

@@ -81,6 +81,8 @@
   "reproductiveCondition": "Condição reprodutiva",
   "behavior": "Comportamento",
   "establishmentMeans": "Forma de estabelecimento",
+  "degreeOfEstablishment": "Grau de estabelecimento",
+  "pathway": "Caminho",
   "occurrenceStatus": "Estado da ocorrência (presença/ausência)",
   "preparations": "Preparações",
   "disposition": "Disposição",
@@ -254,5 +256,11 @@
   "coordinatesTextual": "Este registo é publicado sem coordenadas, mas inclui uma descrição textual da localização.",
   "coordinatesMissing": "Faltam as coordenadas",
   "taxonomicClassification": "Classificação",
-  "images": "Multimédia"
+  "gadmClassification": "Localidade de acordo com GADM",
+  "images": "Multimédia",
+  "eventTypeHierarchyJoined": "Estrutura",
+  "measurementOrFactTypes": "Medidas ou fatos",
+  "temporalCoverage": "Cobertura temporal",
+  "eventType": "Tipo de evento",
+  "iucnRedListCategory": "Categoria da Lista Vermelha da IUCN"
 }
