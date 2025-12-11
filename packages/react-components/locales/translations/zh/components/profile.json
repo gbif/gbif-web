@@ -129,6 +129,7 @@
     "usernameMinLength": "发布者管理的ID",
     "usernameNoSpaces": "发布者管理的ID",
     "derivedDatasets": "派生数据集",
+    "createNew": "描述占位符",
     "dontHaveAccount": "发布者管理的ID",
     "registerNow": "发布者管理的ID",
     "orContinueWith": "发布者管理的ID",
