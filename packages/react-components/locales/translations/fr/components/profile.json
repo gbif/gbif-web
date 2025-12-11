@@ -129,6 +129,7 @@
     "usernameMinLength": "Id géré par le fournisseur",
     "usernameNoSpaces": "Id géré par le fournisseur",
     "derivedDatasets": "Jeux de données dérivés",
+    "createNew": "Espace réservé à la description",
     "dontHaveAccount": "Id géré par le fournisseur",
     "registerNow": "Id géré par le fournisseur",
     "orContinueWith": "Id géré par le fournisseur",
