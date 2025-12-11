@@ -118,6 +118,7 @@ const typeDef = gql`
   type Feature {
     id: ID!
     title: String!
+    comment: String
     url: String!
     primaryImage: AssetImage!
     contentType: String
