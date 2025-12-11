@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "Tato datová sada obsahuje údaje z výběrového šetření. Podrobnosti o metodě výběru vzorků jsou uvedeny v části popisu datové sady věnované metodice.",
   "griddedData": "Data v mřížce",
   "griddedDataDescription": "Na základě naší analýzy záznamů je pravděpodobné, že tato datová sada obsahuje data s mřížkou. Více informací najdete v tomto [příspěvku na blogu o souborech dat s mřížkou](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Metriky výskytu",
   "registry": {
     "failedSinceSuccess": "Neúspěšné pokusy od posledního úspěšného ingestu",
     "lastFailed": "Poslední neúspěšný pokus",
