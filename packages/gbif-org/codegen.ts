@@ -4,7 +4,7 @@ import { graphqlEndpoint } from './env';
 const config: CodegenConfig = {
   overwrite: true,
   schema: graphqlEndpoint,
-  documents: ['src/**/*.tsx', 'src/**/*.ts'],
+  documents: ['src/**/*.tsx', 'src/**/*.ts', 'src/**/*.mjs'],
   generates: {
     'src/gql/': {
       preset: 'client',

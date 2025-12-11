@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import countries from '../../../enums/basic/country.json';
 import { getCss } from './css';
 import { ClientSideOnly } from '@/components/clientSideOnly.js';
+import { Skeleton } from '@/components/ui/skeleton.js';
 const SvgMap = React.lazy(() => import('./SvgMap.jsx'));
 
 const gradients = {
@@ -21,9 +22,11 @@ const associateColor = '#f8d572';
 
 export function Map({
   listData,
+  loading,
   className,
 }: {
   listData: GbifNetworkParticipantsQuery;
+  loading: boolean;
   className: string;
 }) {
   const [mapType, setMapType] = useState('participants');
@@ -74,6 +77,10 @@ export function Map({
         setPublishers(orgs);
       });
   }, []);
+
+  if (!listData || loading) {
+    return <Skeleton className="g-w-full g-h-96" />;
+  }
 
   const style = getCss(mapType === 'publishers' ? publishers : participants);
   return (
