@@ -129,6 +129,7 @@
     "usernameMinLength": "Provider managed id",
     "usernameNoSpaces": "Provider managed id",
     "derivedDatasets": "Derived datasets",
+    "createNew": "תיאור זמני",
     "dontHaveAccount": "Provider managed id",
     "registerNow": "Provider managed id",
     "orContinueWith": "Provider managed id",
