@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "This dataset contains sampling data. Details on the sampling method appear in the methodology section of the dataset description.",
   "griddedData": "Gridded data",
   "griddedDataDescription": "Based on our analysis of the records, this dataset likely contains gridded data. Read more in this [blog post about gridded datasets](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Occurrence metrics",
   "registry": {
     "failedSinceSuccess": "Failed attempts since last successful ingestion",
     "lastFailed": "Last failed attempt",
