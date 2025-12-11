@@ -454,10 +454,11 @@ const Profile: React.FC = () => {
                 id="country"
                 label={formatMessage({ id: 'profile.country' })}
                 type="text"
-                value={formatMessage({
-                  id: `enums.countryCode.${userInfo.country}`,
-                  defaultMessage: 'Unknown',
-                })}
+                value={
+                  userInfo.country
+                    ? formatMessage({ id: `enums.countryCode.${userInfo.country}` })
+                    : formatMessage({ id: 'phrases.unknown' })
+                }
                 onChange={() => {}}
                 onBlur={() => {}}
                 placeholder={formatMessage({ id: 'profile.country' })}
