@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "返回",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "等於 {is}",
