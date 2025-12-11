@@ -106,7 +106,9 @@ export function GeoJsonMap({
         projection: 'EPSG:4326',
         url: `${
           import.meta.env.PUBLIC_TILE_API
-        }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${rasterStyle}-${locale.mapTileLocale}`,
+        }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${rasterStyle}-${
+          locale.mapTileLocale ?? 'en'
+        }`,
         tileSize: tile_size * pixelRatio,
         tileGrid: tile_grid,
         wrapX: true,

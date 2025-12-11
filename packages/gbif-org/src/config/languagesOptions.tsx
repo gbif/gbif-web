@@ -24,6 +24,7 @@ const languageOptions: LanguageOption[] = [
     reactIntlLocale: 'ar-SA',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
+    mapTileLocale: 'en',
   },
   {
     code: 'danglish', // TODO, developer english.  while developing it is convinent to have developer english when text change so taht we can see changes immeadiately
@@ -58,7 +59,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'ita',
     gbifOrgLocalePrefix: '/it',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'it',
+    mapTileLocale: 'en',
   },
   {
     code: 'es',
@@ -152,7 +153,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'ces',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'cs',
+    mapTileLocale: 'en',
   },
   {
     code: 'ja',
@@ -180,7 +181,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'pol',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'pl',
+    mapTileLocale: 'en',
   },
   {
     code: 'pt',
@@ -208,7 +209,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'ukr',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'uk',
+    mapTileLocale: 'en',
   },
 ];
 
