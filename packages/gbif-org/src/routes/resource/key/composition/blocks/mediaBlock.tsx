@@ -136,8 +136,3 @@ function CallToAction({ link }: { link: Link }) {
     </DynamicLink>
   );
 }
-
-function Log() {
-  console.log('Log');
-  return null;
-}
