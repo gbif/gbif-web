@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Powrót",
+    "slowDown": "Symbol zastępczy opisu",
+    "unableToCreateDownload": "Symbol zastępczy opisu",
     "backToFormatSelection": "Symbol zastępczy opisu",
     "backToConfiguration": "Symbol zastępczy opisu",
     "estimatedSize": "",
