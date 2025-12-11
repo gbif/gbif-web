@@ -142,6 +142,7 @@
   "containsSamplingEventsDescription": "Deze dataset bevat monstergegevens. Details over de monstermethode verschijnen in de methodologie sectie van de dataset beschrijving.",
   "griddedData": "",
   "griddedDataDescription": "",
+  "metricsLink": "",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",
