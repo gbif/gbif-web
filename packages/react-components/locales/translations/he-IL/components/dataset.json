@@ -187,5 +187,6 @@
     "occurrenceInfo": "מומן במשותף על ידי"
   },
   "eventTaxonomy": "התפלגות טקסונומית של תצפיות",
-  "noCitations": "תיאור זמני"
+  "noCitations": "תיאור זמני",
+  "noOccurrences": ""
 }

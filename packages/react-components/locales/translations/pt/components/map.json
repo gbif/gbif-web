@@ -1,10 +1,10 @@
 {
   "styles": {
-    "satellite": "",
-    "natural": "",
-    "bright": "",
+    "satellite": "Satélite",
+    "natural": "Natureza",
+    "bright": "Claro",
     "dark": "Escuro",
-    "outdoor": ""
+    "outdoor": "Exterior"
   },
   "projections": {
     "ARCTIC": "Ártico",
@@ -16,7 +16,7 @@
     "title": "Iguais {is}",
     "message": "Iguais {is}"
   },
-  "filterByView": "",
+  "filterByView": "Use área visível como filtro",
   "projection": "Projeção",
   "anyYear": "Qualquer ano",
   "exploreArea": "Explore a área",

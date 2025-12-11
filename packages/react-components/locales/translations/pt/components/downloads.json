@@ -149,7 +149,7 @@
         "GADM_LEVEL_1_GID": "",
         "GADM_LEVEL_3_GID": "",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Idade mais antiga ou estágio inferior",
-        "DEGREE_OF_ESTABLISHMENT": "",
+        "DEGREE_OF_ESTABLISHMENT": "Grau de estabelecimento",
         "DEPTH": "Profundidade",
         "RELATIVE_ORGANISM_QUANTITY": "Quantidade relativa do organismo",
         "ORGANISM_ID": "ID do organismo",
@@ -375,7 +375,7 @@
       "GENUS": "Género",
       "SPECIES": "Espécie",
       "ACCEPTED_TAXON": "",
-      "EXACT_TAXON": ""
+      "EXACT_TAXON": "Táxon exato"
     },
     "cubeTitle": "",
     "cubeDescription": "",

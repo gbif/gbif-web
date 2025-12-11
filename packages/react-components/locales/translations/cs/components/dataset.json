@@ -187,5 +187,6 @@
     "occurrenceInfo": "Spolufinancováno"
   },
   "eventTaxonomy": "Taxonomické rozdělení výskytů",
-  "noCitations": "Zástupce popisu"
+  "noCitations": "Zástupce popisu",
+  "noOccurrences": "Žádné výskyty"
 }

@@ -95,7 +95,7 @@
   "sampling": "采样",
   "methodSteps": "方法步骤",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, 1{下载事件} other{下载事件}}",
-  "nFromDataset": "描述占位符",
+  "nFromDataset": "",
   "funding": "资金",
   "abstract": "摘要",
   "contacts": "联系人信息",
@@ -187,5 +187,6 @@
     "occurrenceInfo": "联合资助方："
   },
   "eventTaxonomy": "出现记录的分类学分布",
-  "noCitations": "描述占位符"
+  "noCitations": "描述占位符",
+  "noOccurrences": "没有出现记录"
 }

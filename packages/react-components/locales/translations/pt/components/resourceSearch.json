@@ -3,13 +3,13 @@
         "title": "Pesquisa de recursos",
         "upcoming": "Próximos",
         "past": "Passados",
-        "happeningNow": "",
+        "happeningNow": "Acontecendo agora",
         "searchForNewsEventsDocuments": "Pesquise notícias, eventos, documentos e muito mais. Se estiver à procura de ocorrências de espécies então tente a nossa pesquisa de ocorrências.",
         "occurrenceSearch": "Pesquisa de ocorrências",
         "subscribeToCalendar": "Subscrever o calendário",
         "suggestEvent": "Evento sugerido",
         "citationExplainer": "Leia mais sobre a bibliografia, como é identificada e associada aos dados mediados pelo GBIF.",
-        "noResults": "",
+        "noResults": "Sem resultados: tente ampliar os filtros de pesquisa",
         "types": {
             "all": "Todos",
             "events": "Eventos",
@@ -42,13 +42,13 @@
             "openAccess": "Acesso aberto",
             "gbifDownloadKey": "Chave de transferência",
             "gbifDerivedDatasetDoi": "DOI do conjunto de dados derivado",
-            "paperDoi": "",
+            "paperDoi": "DOI",
             "litSource": "Revista",
             "gbifTaxonKey": "Nome científico",
             "litPublisher": "Editora da revista"
         },
         "helpText": {
-            "gbifTaxonKey": ""
+            "gbifTaxonKey": "Nota: aplicar este filtro irá excluir papers não focados explicitamente num taxon/taxa específico"
         }
     }
 }

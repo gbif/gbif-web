@@ -187,5 +187,6 @@
     "occurrenceInfo": "تمويل مشترك بواسطة"
   },
   "eventTaxonomy": "التوزيع التصنيفي لتكرارات الحدوث",
-  "noCitations": ""
+  "noCitations": "",
+  "noOccurrences": "لا توجد تكرارات"
 }

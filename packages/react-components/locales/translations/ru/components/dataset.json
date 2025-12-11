@@ -95,7 +95,7 @@
   "sampling": "Отбор проб",
   "methodSteps": "Методы исследования",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select, 1{скачивание} other{скачиваний}}",
-  "nFromDataset": "Заполнитель",
+  "nFromDataset": "",
   "funding": "Финансирование",
   "abstract": "Аннотация",
   "contacts": "Контактные данные",
@@ -187,5 +187,6 @@
     "occurrenceInfo": "Софинансируется"
   },
   "eventTaxonomy": "Таксономическое распределение находок",
-  "noCitations": "Заполнитель"
+  "noCitations": "Заполнитель",
+  "noOccurrences": "Нет таких наблюдений"
 }

@@ -187,5 +187,6 @@
     "occurrenceInfo": "Cofinanciado por"
   },
   "eventTaxonomy": "Distribución taxonómica de los registros de presencia",
-  "noCitations": "Marcador de posición de descripción"
+  "noCitations": "Marcador de posición de descripción",
+  "noOccurrences": "Sin registros de presencia"
 }
