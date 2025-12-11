@@ -435,7 +435,7 @@
       }
     },
     "eolReference": {
-      "name": "",
+      "name": "Referência EOL",
       "properties": {
         "identifier": "Identificador",
         "publicationType": "",
@@ -452,8 +452,8 @@
         "editorList": "",
         "created": "Criado",
         "language": "Idioma",
-        "uri": "",
-        "doi": "",
+        "uri": "URI",
+        "doi": "DOI",
         "localityName": ""
       }
     },
@@ -597,7 +597,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "Idade cronométrica",
       "properties": {
         "chronometricAgeID": "Código de Conduta",
         "verbatimChronometricAge": "Iguais {is}",
@@ -620,7 +620,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Dados derivados de ADN",
       "properties": {}
     }
   }
