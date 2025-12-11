@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Назад",
+    "slowDown": "Заполнитель",
+    "unableToCreateDownload": "Заполнитель",
     "backToFormatSelection": "Заполнитель",
     "backToConfiguration": "Заполнитель",
     "estimatedSize": "Предполагаемый размер",
