@@ -129,6 +129,7 @@
     "usernameMinLength": "Identyfikator zarządzany przez dostawcę",
     "usernameNoSpaces": "Identyfikator zarządzany przez dostawcę",
     "derivedDatasets": "Pochodne zbiory danych",
+    "createNew": "Symbol zastępczy opisu",
     "dontHaveAccount": "Identyfikator zarządzany przez dostawcę",
     "registerNow": "Identyfikator zarządzany przez dostawcę",
     "orContinueWith": "Identyfikator zarządzany przez dostawcę",
