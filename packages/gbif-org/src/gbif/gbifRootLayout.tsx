@@ -14,8 +14,10 @@ import toolsRedirects from './toolsRedirects';
 // eslint-disable-next-line
 import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 
-export function headerLoader() {
-  const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/header`;
+export function headerLoader({ locale }: LoaderArgs) {
+  const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/header?locale=${
+    locale.localeCode
+  }`;
   return fetch(apiUrl);
 }
 

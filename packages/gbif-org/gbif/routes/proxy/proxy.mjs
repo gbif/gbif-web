@@ -8,11 +8,13 @@ const cache = {};
 
 function getCachedResponse(name, graphqlQuery) {
   return async function (req, res) {
+    const { locale = 'en' } = req.query;
+    const cacheKey = `${name}-${locale}`;
     // If we have a cached version, return it immediately and refresh in background
-    if (cache[name]) {
-      res.json(cache[name]);
+    if (cache[cacheKey]) {
+      res.json(cache[cacheKey]);
       // Refresh cache in background (fire and forget)
-      refreshCache(name, graphqlQuery).catch(() => {
+      refreshCache(name, { query: graphqlQuery, headers: { locale } }).catch(() => {
         // Silently fail - we'll try again on next request
       });
       return;
@@ -20,31 +22,34 @@ function getCachedResponse(name, graphqlQuery) {
 
     // No cache exists, we must wait for the fetch
     try {
-      await refreshCache(name, graphqlQuery);
-      res.json(cache[name]);
+      await refreshCache(cacheKey, { query: graphqlQuery, locale });
+      res.json(cache[cacheKey]);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch data' });
     }
   };
 }
 
-async function refreshCache(type, graphqlQuery) {
-  const result = await getData({ graphqlQuery });
-  cache[type] = result;
+async function refreshCache(cacheKey, { query, variables, locale }) {
+  const result = await getData({ query, variables, locale });
+  cache[cacheKey] = result;
+  return result;
 }
 
-async function getData({ graphqlQuery }) {
+async function getData({ query, variables, locale }) {
   return fetchFromGraphQL({
-    query: graphqlQuery,
-    variables: {},
+    query,
+    variables,
+    locale,
   });
 }
 
-async function fetchFromGraphQL({ query, variables }) {
+async function fetchFromGraphQL({ query, variables, locale }) {
   return fetch(PUBLIC_GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      locale: locale || 'en',
     },
     body: JSON.stringify({ query, variables }),
   })
@@ -58,13 +63,14 @@ async function fetchFromGraphQL({ query, variables }) {
 }
 
 function refreshAll() {
-  refreshCache('network', NETWORK_PARTICIPANTS_QUERY).catch((err) => {
+  refreshCache('network-en', NETWORK_PARTICIPANTS_QUERY).catch((err) => {
     // silently ignore, we do not need the data right away
   });
-  refreshCache('header', HEADER_QUERY).catch((err) => {
+  // english version only
+  refreshCache('header-en', HEADER_QUERY).catch((err) => {
     // silently ignore, we do not need the data right away
   });
-  refreshCache('home', HOMEPAGE_QUERY).catch((err) => {
+  refreshCache('home-en', HOMEPAGE_QUERY).catch((err) => {
     // silently ignore, we do not need the data right away
   });
 }
