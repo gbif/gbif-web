@@ -195,6 +195,8 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
   filterHandle: 'iucnRedListCategory',
   displayName: IucnRedListCategoryLabel,
   options: iucnRedListCategoryOptions,
+  allowExistence: true,
+  allowNegations: true,
   filterTranslation: 'filters.iucnRedListCategory.name',
   facetQuery: /* GraphQL */ `
     query OccurrenceIucnFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
