@@ -1,6 +1,6 @@
 /**
  * Be aware that this query is being used server side to prepopulate the cache for the network page.
- * See packages/gbif-org/gbif/routes/proxy/proxy.mjs
+ * Any breaking changes here should be reflected in packages/gbif-org/gbif/routes/proxy/proxy.mjs
  */
 export const NETWORK_PARTICIPANTS_QUERY = /* GraphQL */ `
   query GbifNetworkParticipants {
