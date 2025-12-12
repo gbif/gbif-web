@@ -3,44 +3,36 @@ import { LoadingIndicator } from '@/components/loadingIndicator';
 import { NoscriptNotification } from '@/components/noscriptNotification';
 import { Toaster } from '@/components/ui/toaster';
 import { UserProvider } from '@/contexts/UserContext';
-import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
+import { HeaderQuery, HomePageQuery } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import React from 'react';
-import { ScrollRestoration, useLoaderData } from 'react-router-dom';
+import { json, ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
 import { GDPR } from '@/components/gdpr';
 import toolsRedirects from './toolsRedirects';
+// eslint-disable-next-line
+import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 
-const HEADER_QUERY = /* GraphQL */ `
-  query Header {
-    gbifHome {
-      title
-      summary
-      children {
-        id
-        externalLink
-        link
-        title
-        children {
-          id
-          externalLink
-          link
-          title
-          children {
-            id
-            externalLink
-            link
-            title
-          }
-        }
+export async function headerLoader({ locale }: LoaderArgs) {
+  const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/header?locale=${
+    locale.localeCode
+  }`;
+  const response = await fetch(apiUrl);
+
+  if (!response.ok) {
+    // just swallow errors here and let the page render with partial data
+    return json(
+      { error: 'Failed to load header data' },
+      {
+        headers: {
+          'GBIF-Cache-Control': 'NONE', // option are listed in gbif/entry.server but vite builds fails if trying to export/import things into the server file or vica versa
+        },
       }
-    }
+    ) as HomePageQuery;
   }
-`;
 
-export function headerLoader({ graphql }: LoaderArgs) {
-  return graphql.query<HeaderQuery, HeaderQueryVariables>(HEADER_QUERY, {});
+  return { data: await response.json() };
 }
 
 type Props = {
