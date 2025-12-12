@@ -16,7 +16,7 @@ import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate 
 
 export async function headerLoader({ locale }: LoaderArgs) {
   const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/header?locale=${
-    locale.localeCode
+    locale.cmsLocale ?? 'en'
   }`;
   const response = await fetch(apiUrl);
 

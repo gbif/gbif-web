@@ -18,7 +18,7 @@ import { usePartialDataNotification } from '../rootErrorPage';
 
 async function homepageLoader({ locale }: LoaderArgs) {
   const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/home?locale=${
-    locale.localeCode
+    locale.cmsLocale ?? 'en'
   }`;
   const response = await fetch(apiUrl);
 
