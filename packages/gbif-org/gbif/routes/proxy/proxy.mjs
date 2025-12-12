@@ -6,20 +6,13 @@ const PUBLIC_GRAPHQL_ENDPOINT = publicEnv.PUBLIC_GRAPHQL_ENDPOINT;
 
 const cache = {};
 
-export function register(app) {
-  // disable caching for user-related API endpoints
-  app.get('/unstable-api/cached-response/network-page', getCachedResponse('network'));
-  app.get('/unstable-api/cached-response/header', getCachedResponse('header'));
-  app.get('/unstable-api/cached-response/home', getCachedResponse('home'));
-}
-
-function getCachedResponse(type) {
+function getCachedResponse(name, graphqlQuery) {
   return async function (req, res) {
     // If we have a cached version, return it immediately and refresh in background
-    if (cache[type]) {
-      res.json(cache[type]);
+    if (cache[name]) {
+      res.json(cache[name]);
       // Refresh cache in background (fire and forget)
-      refreshCache(type).catch(() => {
+      refreshCache(name, graphqlQuery).catch(() => {
         // Silently fail - we'll try again on next request
       });
       return;
@@ -27,44 +20,22 @@ function getCachedResponse(type) {
 
     // No cache exists, we must wait for the fetch
     try {
-      await refreshCache(type);
-      res.json(cache[type]);
+      await refreshCache(name, graphqlQuery);
+      res.json(cache[name]);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch data' });
     }
   };
 }
 
-async function refreshCache(type) {
-  if (type === 'network') {
-    const result = await getNetworkPage();
-    cache[type] = result;
-  } else if (type === 'header') {
-    const result = await getHeader();
-    cache[type] = result;
-  } else if (type === 'home') {
-    const result = await getHomePage();
-    cache[type] = result;
-  }
+async function refreshCache(type, graphqlQuery) {
+  const result = await getData({ graphqlQuery });
+  cache[type] = result;
 }
 
-async function getNetworkPage() {
+async function getData({ graphqlQuery }) {
   return fetchFromGraphQL({
-    query: NETWORK_PARTICIPANTS_QUERY,
-    variables: {},
-  });
-}
-
-async function getHeader() {
-  return fetchFromGraphQL({
-    query: HEADER_QUERY,
-    variables: {},
-  });
-}
-
-async function getHomePage() {
-  return fetchFromGraphQL({
-    query: HOMEPAGE_QUERY,
+    query: graphqlQuery,
     variables: {},
   });
 }
@@ -87,21 +58,31 @@ async function fetchFromGraphQL({ query, variables }) {
 }
 
 function refreshAll() {
-  refreshCache('network').catch((err) => {
+  refreshCache('network', NETWORK_PARTICIPANTS_QUERY).catch((err) => {
     // silently ignore, we do not need the data right away
   });
-  refreshCache('header').catch((err) => {
+  refreshCache('header', HEADER_QUERY).catch((err) => {
     // silently ignore, we do not need the data right away
   });
-  refreshCache('home').catch((err) => {
+  refreshCache('home', HOMEPAGE_QUERY).catch((err) => {
     // silently ignore, we do not need the data right away
   });
 }
 
-// refresh cache after 30 seconds, this is a bit lazy but helps ensure we have data for first request even if graphql starts up after this service
+// refresh cache after 30 seconds. A better approach would be to only retry if not populated yet, and then retry with an interval
 // if not the first request will take longer while we wait for the data to be fetched
 setTimeout(() => {
   refreshAll();
 }, 30 * 1000);
 
 refreshAll();
+
+export function register(app) {
+  // disable caching for user-related API endpoints
+  app.get(
+    '/unstable-api/cached-response/network-page',
+    getCachedResponse('network', NETWORK_PARTICIPANTS_QUERY)
+  );
+  app.get('/unstable-api/cached-response/header', getCachedResponse('header', HEADER_QUERY));
+  app.get('/unstable-api/cached-response/home', getCachedResponse('home', HOMEPAGE_QUERY));
+}
