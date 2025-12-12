@@ -15,9 +15,8 @@ import { HomePageCounts } from './counts';
 // eslint-disable-next-line
 import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 
-async function homepageLoader({ request }: LoaderArgs) {
-  const url = new URL(request.url);
-  const apiUrl = `${url.origin}/unstable-api/cached-response/home`;
+async function homepageLoader() {
+  const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/home`;
   const response = await fetch(apiUrl);
 
   if (!response.ok) {
