@@ -63,15 +63,20 @@ async function fetchFromGraphQL({ query, variables, locale }) {
 }
 
 function refreshAll() {
-  refreshCache('network-en', NETWORK_PARTICIPANTS_QUERY).catch((err) => {
+  // currently er only prepopulate the cache for english, but this could be extended to other languages if needed
+  // But even when jsut asking for english, it still triggers the same graphql calls, meaning that the other caches (e.g. content requests) will be warmed up on on start up and cached in other layers
+  refreshCache('network-en', { query: NETWORK_PARTICIPANTS_QUERY }).catch((err) => {
     // silently ignore, we do not need the data right away
+    console.error('Failed to initialize cache for network', err);
   });
   // english version only
-  refreshCache('header-en', HEADER_QUERY).catch((err) => {
+  refreshCache('header-en', { query: HEADER_QUERY }).catch((err) => {
     // silently ignore, we do not need the data right away
+    console.error('Failed to initialize cache for header', err);
   });
-  refreshCache('home-en', HOMEPAGE_QUERY).catch((err) => {
+  refreshCache('home-en', { query: HOMEPAGE_QUERY }).catch((err) => {
     // silently ignore, we do not need the data right away
+    console.error('Failed to initialize cache for home', err);
   });
 }
 

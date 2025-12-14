@@ -36,11 +36,6 @@ export const NETWORK_PARTICIPANTS_QUERY = /* GraphQL */ `
           gbifRegion
           countryCode
         }
-        contacts(type: ["HEAD_OF_DELEGATION", "NODE_MANAGER"]) {
-          firstName
-          lastName
-          type
-        }
       }
     }
   }
