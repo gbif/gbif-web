@@ -1,9 +1,8 @@
 import { SearchInput } from '@/components/searchInput';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { useSearchContext } from '@/contexts/search';
 import { cn } from '@/utils/shadcn';
 import cloneDeep from 'lodash/cloneDeep';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -18,6 +17,7 @@ import {
   getFilterSummary,
 } from './filterTools';
 import { Option } from './option';
+import { AddInput } from '../addInput';
 
 type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -41,12 +41,10 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     }: RangeProps,
     ref
   ) => {
-    const searchContext = useSearchContext();
     const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<(string | number | object)[]>([]);
-    const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
     const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
     const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
@@ -129,6 +127,20 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       </>
     );
 
+    const handleSearch = useCallback(
+      (value: string) => {
+        if (value !== '') {
+          const rangeQuery = rangeOrTerm(value, lowerBound, upperBound, true);
+          // const filters = unionBy([q], selected, hash);
+          add(filterHandle, rangeQuery);
+          setQ('');
+        } else {
+          onApply?.();
+        }
+      },
+      [add, filterHandle, onApply, lowerBound, upperBound]
+    );
+
     if (filterType === 'EXISTS') {
       return (
         <ExistsSection
@@ -150,7 +162,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full g-relative g-group">
-            <SearchInput
+            <AddInput
               ref={ref}
               value={q}
               onChange={(e) => {
@@ -163,21 +175,15 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                   setQ(value);
                 }
               }}
+              onAdd={handleSearch}
               placeholder={formatMessage({ id: placeholder })}
               className="g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border g-border-solid focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
               onKeyDown={(e) => {
                 // if user press enter, then update the value
                 const value = e.currentTarget.value;
                 if (e.key === 'Enter') {
-                  if (value !== '') {
-                    const rangeQuery = rangeOrTerm(value, lowerBound, upperBound, true);
-                    // const filters = unionBy([q], selected, hash);
-                    add(filterHandle, rangeQuery);
-                    setQ('');
-                    e.preventDefault();
-                  } else {
-                    onApply?.();
-                  }
+                  e.preventDefault();
+                  handleSearch(value);
                 }
               }}
             />
