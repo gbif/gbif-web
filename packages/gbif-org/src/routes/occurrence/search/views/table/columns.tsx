@@ -20,6 +20,7 @@ import useLocalStorage from 'use-local-storage';
 import { IconFeatures } from './iconFeatures';
 import { SingleOccurrenceSearchResult } from './occurrenceTable';
 import ScientificNameColumn from './ScientificNameColumn';
+import { rangeOrTerm } from '@/components/filters/rangeFilter';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -180,7 +181,7 @@ export function useOccurrenceColumns({
         sort: { localStorageKey: 'occurrenceSort', sortBy: 'year' },
         header: 'filters.year.name',
         cell: ({ year }) => (
-          <SetAsFilter field="year" value={year}>
+          <SetAsFilter field="year" value={rangeOrTerm(year)}>
             {year}
           </SetAsFilter>
         ),

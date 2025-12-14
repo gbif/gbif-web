@@ -1,4 +1,3 @@
-import { SearchInput } from '@/components/searchInput';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import cloneDeep from 'lodash/cloneDeep';
@@ -294,11 +293,20 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
  * @param {string} lowerBound
  */
 export function rangeOrTerm(
-  value: string,
+  value?: string | number | null,
   lowerBound = 'gte',
   upperBound = 'lte',
   expectNumbers?: boolean
 ) {
+  if (value === undefined || value === null) {
+    return;
+  }
+  if (typeof value === 'number') {
+    return {
+      type: 'equals',
+      value: value + '',
+    };
+  }
   // has a comma in the string
   let delimter = value.indexOf(',') > -1 ? ',' : null;
   if (expectNumbers && !delimter && value.trim().indexOf('-') > 0) {
