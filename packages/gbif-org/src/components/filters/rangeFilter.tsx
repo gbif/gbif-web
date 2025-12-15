@@ -325,7 +325,7 @@ export function rangeOrTerm(
       .map((s) => (s === '*' || s === '' ? undefined : s));
 
     if (expectNumbers && !cleanedValues.some((x) => x === undefined || isNaN(parseFloat(x)))) {
-      const sortedValues = cleanedValues.map((x) => parseFloat(x)).sort();
+      const sortedValues = cleanedValues.map((x) => parseFloat(x)).sort((a, b) => a - b);
       return {
         type: 'range',
         value: {
