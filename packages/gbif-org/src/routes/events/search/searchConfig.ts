@@ -4,7 +4,6 @@ import { PredicateType } from '@/gql/graphql';
 const config: FilterConfigType = {
   fields: {
     q: {
-      hoist: true,
       singleValue: true,
       defaultType: PredicateType.Fuzzy,
       v1: {
@@ -32,6 +31,16 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    humboldtTotalAreaSampledValue: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    humboldtSamplingEffortValue: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -54,6 +63,33 @@ const otherParams = [
   'geometry',
   'hasCoordinate',
   'hasGeospatialIssue',
+  'humboldtAreNonTargetTaxaFullyReported',
+  'humboldtHasMaterialSamples',
+  'humboldtHasNonTargetOrganisms',
+  'humboldtHasNonTargetTaxa',
+  'humboldtHasVouchers',
+  'humboldtIsAbsenceReported',
+  'humboldtIsAbundanceCapReported',
+  'humboldtIsAbundanceReported',
+  'humboldtIsDegreeOfEstablishmentScopeFullyReported',
+  'humboldtIsGrowthFormScopeFullyReported',
+  'humboldtIsLeastSpecificTargetCategoryQuantityInclusive',
+  'humboldtIsLifeStageScopeFullyReported',
+  'humboldtIsSamplingEffortReported',
+  'humboldtIsTaxonomicScopeFullyReported',
+  'humboldtIsVegetationCoverReported',
+  'humboldtInventoryTypes',
+  'humboldtProtocolNames',
+  'humboldtSamplingPerformedBy',
+  'humboldtSiteCount',
+  'humboldtSamplingEffortUnit',
+  'humboldtSamplingEffortValue',
+  'humboldtTargetDegreeOfEstablishmentScope',
+  'humboldtTargetGrowthFormScope',
+  'humboldtTargetHabitatScope',
+  'humboldtTargetLifeStageScope',
+  'humboldtTotalAreaSampledUnit',
+  'humboldtTotalAreaSampledValue',
 ];
 
 otherParams.forEach((filter) => {

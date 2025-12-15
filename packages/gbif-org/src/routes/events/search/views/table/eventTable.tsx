@@ -27,33 +27,34 @@ import { searchConfig } from '../../searchConfig';
 import { useEventColumns } from './columns';
 
 const EVENT_SEARCH_QUERY = /* GraphQL */ `
-  query EventSearch($from: Int, $size: Int, $predicate: Predicate, $q: String) {
-    eventSearch(q: $q, predicate: $predicate) {
-      documents(from: $from, size: $size) {
-        from
-        size
-        total
-        results {
-          eventDate
-          year
-          month
-          eventID
-          locationID
-          measurementOrFactTypes
-          measurementOrFactMethods
-          coordinates
-          eventHierarchyJoined
-          formattedCoordinates
-          country
-          countryCode
-          datasetTitle
-          datasetKey
-          samplingProtocol
-          eventTypeHierarchy
-          eventTypeHierarchyJoined
-          stateProvince
-          locality
+  query EventSearch($offset: Int, $limit: Int, $query: EventSearchInput, $q: String) {
+    eventSearch(q: $q, query: $query, offset: $offset, limit: $limit) {
+      limit
+      offset
+      count
+      results {
+        eventDate {
+          from
+          to
         }
+        year
+        month
+        eventID
+        locationID
+        measurementOrFactTypes
+        measurementOrFactMethods
+        coordinates
+        eventHierarchyJoined
+        formattedCoordinates
+        country
+        countryCode
+        datasetTitle
+        datasetKey
+        samplingProtocol
+        eventTypeHierarchy
+        eventTypeHierarchyJoined
+        stateProvince
+        locality
       }
     }
   }
@@ -109,9 +110,9 @@ export function EventTableClient() {
     const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
-        ...query,
-        size: paginationState.pageSize,
-        from: paginationState.pageIndex * paginationState.pageSize,
+        query,
+        limit: paginationState.pageSize,
+        offset: paginationState.pageIndex * paginationState.pageSize,
       },
     });
 
@@ -130,7 +131,7 @@ export function EventTableClient() {
     window.gbif.availableColumnOptions = columns.map((column) => column.id);
   }
 
-  const events = useMemo(() => data?.eventSearch?.documents.results.filter(notNull) ?? [], [data]);
+  const events = useMemo(() => data?.eventSearch?.results.filter(notNull) ?? [], [data]);
 
   const { setOrderedList } = useOrderedList();
 
@@ -151,18 +152,14 @@ export function EventTableClient() {
 
   const createRowLink = useRowLink({ rowLinkOptions, keySelector });
 
-  if (!data?.eventSearch?.documents && error) {
+  if (!data?.eventSearch?.results && error) {
     throw error;
   }
 
   return (
     <>
       {/* {!loading && error && <PartialDataWarning />} */}
-      <ViewHeader
-        total={data?.eventSearch?.documents.total}
-        loading={loading}
-        message="counts.nResults"
-      />
+      <ViewHeader total={data?.eventSearch?.count} loading={loading} message="counts.nResults" />
       <SearchTable
         filters={filters}
         createRowLink={createRowLink}
@@ -172,7 +169,7 @@ export function EventTableClient() {
         columns={columns}
         data={events}
         loading={loading}
-        rowCount={data?.eventSearch?.documents.total}
+        rowCount={data?.eventSearch?.count}
         paginationState={paginationState}
         setPaginationState={setPaginationState}
         availableTableColumns={availableTableColumns}

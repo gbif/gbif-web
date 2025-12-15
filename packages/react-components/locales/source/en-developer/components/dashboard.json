@@ -42,7 +42,15 @@
     "geologicalContext": "Geological Context",
     "identification": "Identification",
     "provenance": "Provenance",
-    "other": "Other"
+    "other": "Other",
+    "site": "Sampling Design",
+    "habitatScope": "Habitat Scope",
+    "temporalScope": "Temporal Scope",
+    "taxonomicScope": "Taxonomic Scope",
+    "organismalScope": "Organismal Scope",
+    "methodologyDescription": "Protocols",
+    "materialCollected": "Material Collected",
+    "samplingEffort": "Sampling Effort"
   },
   "occurrencesPerField": "Occurrences per {FIELD}",
   "kingdom": "Kingdom"

@@ -32,9 +32,7 @@ const DatasetEvents = () => {
     const c = {
       ...baseConfig.eventSearch,
       scope: {
-        type: 'equals',
-        key: 'datasetKey',
-        value: datasetKey,
+        datasetKey,
       },
     };
     setConfig(c);

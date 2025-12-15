@@ -12,11 +12,11 @@ export const gadmGidConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query EventPublisherFacet($q: String, $predicate: Predicate) {
-      search: eventSearch(q: $q, predicate: $predicate) {
+    query EventPublisherFacet($q: String, $query: EventSearchInput) {
+      search: eventSearch(q: $q, query: $query) {
         facet {
           field: gadmGid {
-            name: key
+            name
             count
           }
         }
@@ -36,11 +36,11 @@ export const countryConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query EventCountryFacet($q: String, $predicate: Predicate) {
-      search: eventSearch(q: $q, predicate: $predicate) {
+    query EventCountryFacet($q: String, $query: EventSearchInput) {
+      search: eventSearch(q: $q,query: $query) {
         facet {
           field: country {
-            name: key
+            name
             count
           }
         }

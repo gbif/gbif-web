@@ -84,6 +84,7 @@ class EventAPI extends RESTDataSource {
 
   searchEvents = async ({ query }) => {
     const body = { ...query, includeMeta: true };
+    console.log(JSON.stringify(body));
     let response;
     if (JSON.stringify(body).length < urlSizeLimit) {
       response = await this.get(

@@ -1591,13 +1591,6 @@ export type CustomComponentBlock = {
   width?: Maybe<Scalars['String']['output']>;
 };
 
-export type DataArchive = {
-  __typename?: 'DataArchive';
-  fileSizeInMB?: Maybe<Scalars['Float']['output']>;
-  modified?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
 export type DataDescription = {
   __typename?: 'DataDescription';
   charset?: Maybe<Scalars['String']['output']>;
@@ -2309,28 +2302,6 @@ export enum DistanceUnit {
   Yard = 'YARD'
 }
 
-export type DistinctTaxon = {
-  __typename?: 'DistinctTaxon';
-  class?: Maybe<Scalars['String']['output']>;
-  classKey?: Maybe<Scalars['String']['output']>;
-  count?: Maybe<Scalars['Int']['output']>;
-  family?: Maybe<Scalars['String']['output']>;
-  familyKey?: Maybe<Scalars['String']['output']>;
-  genus?: Maybe<Scalars['String']['output']>;
-  genusKey?: Maybe<Scalars['String']['output']>;
-  key?: Maybe<Scalars['String']['output']>;
-  kingdom?: Maybe<Scalars['String']['output']>;
-  kingdomKey?: Maybe<Scalars['String']['output']>;
-  order?: Maybe<Scalars['String']['output']>;
-  orderKey?: Maybe<Scalars['String']['output']>;
-  phylum?: Maybe<Scalars['String']['output']>;
-  phylumKey?: Maybe<Scalars['String']['output']>;
-  rank?: Maybe<Scalars['String']['output']>;
-  scientificName?: Maybe<Scalars['String']['output']>;
-  species?: Maybe<Scalars['String']['output']>;
-  speciesKey?: Maybe<Scalars['String']['output']>;
-};
-
 export enum DistributionStatus {
   Absent = 'ABSENT',
   Common = 'COMMON',
@@ -2508,30 +2479,29 @@ export type Event = {
   __typename?: 'Event';
   childEventCount?: Maybe<Scalars['Int']['output']>;
   coordinates?: Maybe<Scalars['JSON']['output']>;
-  country?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Country>;
   countryCode?: Maybe<Scalars['String']['output']>;
-  /** get dataset information via EML */
-  dataset: Scalars['JSON']['output'];
   datasetKey?: Maybe<Scalars['String']['output']>;
   datasetTitle?: Maybe<Scalars['String']['output']>;
   day?: Maybe<Scalars['Int']['output']>;
   decimalLatitude?: Maybe<Scalars['Float']['output']>;
   decimalLongitude?: Maybe<Scalars['Float']['output']>;
-  distinctTaxa: Array<Maybe<DistinctTaxon>>;
-  eventDate?: Maybe<Scalars['String']['output']>;
+  eventDate?: Maybe<EventDate>;
   eventHierarchy?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   eventHierarchyJoined?: Maybe<Scalars['String']['output']>;
   eventHierarchyLevels?: Maybe<Scalars['Int']['output']>;
-  eventID?: Maybe<Scalars['ID']['output']>;
+  eventID: Scalars['ID']['output'];
   eventId?: Maybe<Scalars['ID']['output']>;
   eventName?: Maybe<Scalars['String']['output']>;
   eventRemarks?: Maybe<Scalars['String']['output']>;
-  eventType?: Maybe<EventType>;
+  eventType?: Maybe<Scalars['String']['output']>;
   eventTypeHierarchy?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   eventTypeHierarchyJoined?: Maybe<Scalars['String']['output']>;
+  /** Get number of distinct species for this event and its children */
   extensions?: Maybe<EventExtensions>;
   firstOccurrence?: Maybe<Occurrence>;
   formattedCoordinates?: Maybe<Scalars['String']['output']>;
+  humboldt?: Maybe<Array<Maybe<Humboldt>>>;
   locality?: Maybe<Scalars['String']['output']>;
   locationID?: Maybe<Scalars['String']['output']>;
   measurementOrFactMethods?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -2543,36 +2513,14 @@ export type Event = {
   sampleSizeUnit?: Maybe<Scalars['String']['output']>;
   sampleSizeValue?: Maybe<Scalars['Float']['output']>;
   samplingProtocol?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Get number of distinct species for this event and its children */
-  speciesCount: Scalars['Int']['output'];
   stateProvince?: Maybe<Scalars['String']['output']>;
-  surveyID?: Maybe<Scalars['String']['output']>;
-  temporalCoverage?: Maybe<TemporalCoverage>;
-  type?: Maybe<Scalars['String']['output']>;
-  wktConvexHull?: Maybe<Scalars['String']['output']>;
   year?: Maybe<Scalars['Int']['output']>;
 };
 
-export type EventCardinality = {
-  __typename?: 'EventCardinality';
-  continent: Scalars['Int']['output'];
-  datasetKey: Scalars['Int']['output'];
-  dwcaExtension: Scalars['Int']['output'];
-  locality: Scalars['Int']['output'];
-  locationId: Scalars['Int']['output'];
-  parentEventId: Scalars['Int']['output'];
-  sampleSizeUnit: Scalars['Int']['output'];
-  samplingProtocol: Scalars['Int']['output'];
-  speciesKey: Scalars['Int']['output'];
-  surveyId: Scalars['Int']['output'];
-};
-
-export type EventDocuments = {
-  __typename?: 'EventDocuments';
-  from: Scalars['Int']['output'];
-  results: Array<Maybe<Event>>;
-  size: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
+export type EventDate = {
+  __typename?: 'EventDate';
+  from?: Maybe<Scalars['String']['output']>;
+  to?: Maybe<Scalars['String']['output']>;
 };
 
 export type EventExtensions = {
@@ -2587,257 +2535,183 @@ export type EventExtensions = {
 
 export type EventFacet = {
   __typename?: 'EventFacet';
-  classKey?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  continent?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  country?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  datasetKey?: Maybe<Array<Maybe<EventFacetResult_Dataset>>>;
-  dwcaExtension?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  eventHierarchy?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  eventHierarchyJoined?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  eventId?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  eventType?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  eventTypeHierarchy?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  eventTypeHierarchyJoined?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  familyKey?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  gadmGid?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  genusKey?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  kingdomKey?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  locality?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  locationId?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  measurementOfFactTypes?: Maybe<Array<Maybe<EventFacetResult_Dataset>>>;
-  measurementOrFactTypes?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  month?: Maybe<Array<Maybe<EventFacetResult_Float>>>;
-  orderKey?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  phylumKey?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  sampleSizeUnit?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  samplingProtocol?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  scientificNames?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  speciesKey?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  stateProvince?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  surveyId?: Maybe<Array<Maybe<EventFacetResult_String>>>;
-  year?: Maybe<Array<Maybe<EventFacetResult_Float>>>;
-};
-
-
-export type EventFacetClassKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  continent?: Maybe<Array<Maybe<EventFacetResult>>>;
+  country?: Maybe<Array<Maybe<EventFacetResult>>>;
+  dwcaExtension?: Maybe<Array<Maybe<EventFacetResult>>>;
+  eventId?: Maybe<Array<Maybe<EventFacetResult>>>;
+  eventType?: Maybe<Array<Maybe<EventFacetResult>>>;
+  gadmGid?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtInventoryTypes?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtProtocolNames?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtSamplingEffortUnit?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtSamplingEffortValue?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtSamplingPerformedBy?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtTargetDegreeOfEstablishmentScope?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtTargetGrowthFormScope?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtTargetHabitatScope?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtTargetLifeStageScope?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtTotalAreaSampledUnit?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtTotalAreaSampledValue?: Maybe<Array<Maybe<EventFacetResult>>>;
+  locality?: Maybe<Array<Maybe<EventFacetResult>>>;
+  month?: Maybe<Array<Maybe<EventFacetResult>>>;
+  sampleSizeUnit?: Maybe<Array<Maybe<EventFacetResult>>>;
+  sampleSizeValue?: Maybe<Array<Maybe<EventFacetResult>>>;
+  samplingProtocol?: Maybe<Array<Maybe<EventFacetResult>>>;
+  year?: Maybe<Array<Maybe<EventFacetResult>>>;
 };
 
 
 export type EventFacetContinentArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetCountryArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetDatasetKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetDwcaExtensionArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetEventHierarchyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetEventHierarchyJoinedArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetEventIdArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetEventTypeArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetEventTypeHierarchyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetEventTypeHierarchyJoinedArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetFamilyKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetGadmGidArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-export type EventFacetGenusKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+export type EventFacetHumboldtInventoryTypesArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-export type EventFacetKingdomKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+export type EventFacetHumboldtProtocolNamesArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtSamplingEffortUnitArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtSamplingEffortValueArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtSamplingPerformedByArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtTargetDegreeOfEstablishmentScopeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtTargetGrowthFormScopeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtTargetHabitatScopeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtTargetLifeStageScopeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtTotalAreaSampledUnitArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtTotalAreaSampledValueArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetLocalityArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetLocationIdArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetMeasurementOfFactTypesArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetMeasurementOrFactTypesArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetMonthArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetOrderKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetPhylumKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetSampleSizeUnitArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetSampleSizeValueArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetSamplingProtocolArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetScientificNamesArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetSpeciesKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetStateProvinceArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventFacetSurveyIdArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type EventFacetYearArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type EventFacetResult_Dataset = {
-  __typename?: 'EventFacetResult_dataset';
-  _predicate?: Maybe<Scalars['JSON']['output']>;
-  archive?: Maybe<DataArchive>;
+export type EventFacetResult = {
+  __typename?: 'EventFacetResult';
+  _query?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Int']['output'];
-  datasetTitle: Scalars['String']['output'];
-  events: EventSearchResult;
-  extensions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  key: Scalars['String']['output'];
-  occurrenceCount?: Maybe<Scalars['Int']['output']>;
+  eventSearch: EventSearchResult;
+  name: Scalars['String']['output'];
 };
 
 
-export type EventFacetResult_DatasetEventsArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventFacetResult_Float = {
-  __typename?: 'EventFacetResult_float';
-  _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
-  events: EventSearchResult;
-  key: Scalars['Float']['output'];
-};
-
-
-export type EventFacetResult_FloatEventsArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventFacetResult_String = {
-  __typename?: 'EventFacetResult_string';
-  _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
-  events: EventSearchResult;
-  key: Scalars['String']['output'];
-};
-
-
-export type EventFacetResult_StringEventsArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+export type EventFacetResultEventSearchArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  q?: InputMaybe<Scalars['String']['input']>;
+  query?: InputMaybe<EventSearchInput>;
 };
 
 export enum EventFiltering {
@@ -2845,304 +2719,150 @@ export enum EventFiltering {
   Upcoming = 'upcoming'
 }
 
-export type EventMultiFacet = {
-  __typename?: 'EventMultiFacet';
-  locationIdStateProvince?: Maybe<Array<Maybe<EventMultiFacetResult_String>>>;
-};
-
-
-export type EventMultiFacetLocationIdStateProvinceArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventMultiFacetResult_String = {
-  __typename?: 'EventMultiFacetResult_string';
-  _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
-  events: EventSearchResult;
-  keys?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-};
-
-
-export type EventMultiFacetResult_StringEventsArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventOccurrenceFacet = {
-  __typename?: 'EventOccurrenceFacet';
-  basisOfRecord?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  classKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  datasetKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  eventHierarchy?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  eventHierarchyJoined?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  eventTypeHierarchy?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  eventTypeHierarchyJoined?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  familyKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  genusKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  identifiedBy?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  identifiedById?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  kingdomKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  locationId?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  month?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  occurrenceStatus?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  orderKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  phylumKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  recordedBy?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  recordedById?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  samplingProtocol?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  scientificNames?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  speciesKey?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  stateProvince?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-  year?: Maybe<Array<Maybe<EventOccurrenceFacetResult_String>>>;
-};
-
-
-export type EventOccurrenceFacetBasisOfRecordArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetClassKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetDatasetKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetEventHierarchyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetEventHierarchyJoinedArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetEventTypeHierarchyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetEventTypeHierarchyJoinedArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetFamilyKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetGenusKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetIdentifiedByArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetIdentifiedByIdArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetKingdomKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetLocationIdArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetMonthArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetOccurrenceStatusArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetOrderKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetPhylumKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetRecordedByArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetRecordedByIdArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetSamplingProtocolArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetScientificNamesArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetSpeciesKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetStateProvinceArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventOccurrenceFacetYearArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventOccurrenceFacetResult_String = {
-  __typename?: 'EventOccurrenceFacetResult_string';
-  _predicate?: Maybe<Scalars['JSON']['output']>;
-  count: Scalars['Int']['output'];
-  key: Scalars['String']['output'];
+export type EventSearchInput = {
+  acceptedTaxonKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  associatedSequences?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  catalogNumber?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  checklistKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  classKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  collectionCode?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  continent?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  coordinateUncertaintyInMeters?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Array<InputMaybe<Country>>>;
+  crawlId?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  datasetId?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  datasetKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  datasetName?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  day?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  decimalLatitude?: InputMaybe<Scalars['String']['input']>;
+  decimalLongitude?: InputMaybe<Scalars['String']['input']>;
+  depth?: InputMaybe<Scalars['String']['input']>;
+  dwcaExtension?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  elevation?: InputMaybe<Scalars['String']['input']>;
+  endDayOfYear?: InputMaybe<Scalars['Int']['input']>;
+  eventDate?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  eventId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  eventType?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  facet?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  facetLimit?: InputMaybe<Scalars['Int']['input']>;
+  facetMincount?: InputMaybe<Scalars['Int']['input']>;
+  facetMultiselect?: InputMaybe<Scalars['Boolean']['input']>;
+  facetOffset?: InputMaybe<Scalars['Int']['input']>;
+  familyKey?: InputMaybe<Scalars['ID']['input']>;
+  fieldNumber?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  gadmGid?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  gadmLevel0Gid?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  gadmLevel1Gid?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  gadmLevel2Gid?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  gadmLevel3Gid?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  gbifId?: InputMaybe<Scalars['ID']['input']>;
+  gbifRegion?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  genusKey?: InputMaybe<Scalars['ID']['input']>;
+  geoDistance?: InputMaybe<Scalars['String']['input']>;
+  geometry?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  georeferencedBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  hasCoordinate?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  hasGeospatialIssue?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  higherGeography?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  hl?: InputMaybe<Scalars['Boolean']['input']>;
+  hostingOrganizationKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  humboldtAbundanceCap?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtAreNonTargetTaxaFullyReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtCompilationSourceTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtCompilationTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtEventDuration?: InputMaybe<Scalars['String']['input']>;
+  humboldtEventDurationUnit?: InputMaybe<Scalars['String']['input']>;
+  humboldtEventDurationValue?: InputMaybe<Scalars['Float']['input']>;
+  humboldtGeospatialScopeAreaUnit?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtGeospatialScopeAreaValue?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  humboldtHasMaterialSamples?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtHasNonTargetOrganisms?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtHasNonTargetTaxa?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtHasVouchers?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtInventoryTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtIsAbsenceReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsAbundanceCapReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsAbundanceReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsDegreeOfEstablishmentScopeFullyReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsGrowthFormScopeFullyReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsLeastSpecificTargetCategoryQuantityInclusive?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsLifeStageScopeFullyReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsSamplingEffortReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsTaxonomicScopeFullyReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtIsVegetationCoverReported?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  humboldtMaterialSampleTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtProtocolNames?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtSamplingEffortUnit?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtSamplingEffortValue?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtSamplingPerformedBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtSiteCount?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTargetDegreeOfEstablishmentScope?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTargetGrowthFormScope?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTargetHabitatScope?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTargetLifeStageScope?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTargetTaxonomicScopeTaxonKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  humboldtTargetTaxonomicScopeUsageKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  humboldtTargetTaxonomicScopeUsageName?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTaxonCompletenessProtocols?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTaxonomicIssue?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTotalAreaSampledUnit?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtTotalAreaSampledValue?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  installationKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  institutionCode?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  island?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  islandGroup?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  issue?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  iucnRedListCategory?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  kingdomKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  lastInterpreted?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  license?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locality?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  matchCase?: InputMaybe<Scalars['Boolean']['input']>;
+  mediaType?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  modified?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  month?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  networkKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  otherCatalogNumbers?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  parentEventId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  phylumKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  programme?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  projectId?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  protocol?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  publishedByGbifRegion?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  publishingCountry?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  publishingOrg?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  q?: InputMaybe<Scalars['String']['input']>;
+  recordNumber?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  repatriated?: InputMaybe<Scalars['Boolean']['input']>;
+  sampleSizeUnit?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sampleSizeValue?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  samplingProtocol?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  scientificName?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  shuffle?: InputMaybe<Scalars['String']['input']>;
+  speciesKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  startDayOfYear?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  stateProvince?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  taxonId?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  taxonKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  taxonomicIssue?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  taxonomicStatus?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  verbatimScientificName?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  waterBody?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  year?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type EventSearchResult = {
   __typename?: 'EventSearchResult';
-  _meta?: Maybe<Scalars['JSON']['output']>;
-  _predicate?: Maybe<Scalars['JSON']['output']>;
-  /** Register the search predicate with the ES tile server */
-  _tileServerToken?: Maybe<Scalars['String']['output']>;
-  /** Get number of distinct values for a field. E.g. how many distinct datasetKeys in this result set */
-  cardinality?: Maybe<EventCardinality>;
-  /** The events that match the filter */
-  documents: EventDocuments;
-  /** Get number of events per distinct values in a field. E.g. how many events per year. */
-  facet?: Maybe<EventFacet>;
-  /** Get number of events per distinct values in two or more fields. E.g. how many events per year. */
-  multifacet?: Maybe<EventMultiFacet>;
-  /** Get number of occurrences matching this search */
-  occurrenceCount?: Maybe<Scalars['Int']['output']>;
-  /** Get number of occurrences per distinct values in a field. E.g. how many occurrence per year. */
-  occurrenceFacet?: Maybe<EventOccurrenceFacet>;
-  /** Get statistics for a numeric field. Minimimum value etc. */
-  stats?: Maybe<EventStats>;
-  /** Get number of events per distinct values in a field. E.g. how many events per year. */
-  temporal?: Maybe<EventTemporal>;
-};
-
-
-export type EventSearchResultDocumentsArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  randomize?: InputMaybe<Scalars['Boolean']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventSearchResultFacetArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventSearchResultMultifacetArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventStats = {
-  __typename?: 'EventStats';
-  occurrenceCount: Stats;
-  year: Stats;
-};
-
-export type EventTemporal = {
-  __typename?: 'EventTemporal';
-  datasetKey?: Maybe<EventTemporalCardinalityResult>;
-  locationId?: Maybe<EventTemporalCardinalityResult>;
-};
-
-
-export type EventTemporalDatasetKeyArgs = {
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type EventTemporalLocationIdArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  include?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventTemporalCardinalityResult = {
-  __typename?: 'EventTemporalCardinalityResult';
-  cardinality: Scalars['Int']['output'];
-  results?: Maybe<Array<Maybe<EventTemporalResult_String>>>;
-};
-
-export type EventTemporalResult_String = {
-  __typename?: 'EventTemporalResult_string';
-  _predicate?: Maybe<Scalars['JSON']['output']>;
-  breakdown?: Maybe<Array<Maybe<YearBreakdown>>>;
+  _query?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Int']['output'];
-  events: EventSearchResult;
-  key: Scalars['String']['output'];
-  temporal?: Maybe<EventTemporal>;
-};
-
-
-export type EventTemporalResult_StringEventsArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type EventType = {
-  __typename?: 'EventType';
-  concept?: Maybe<Scalars['String']['output']>;
-  lineage?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  endOfRecords: Scalars['Boolean']['output'];
+  facet?: Maybe<EventFacet>;
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<Maybe<Event>>;
 };
 
 export enum Extension {
@@ -3434,6 +3154,58 @@ export type Home = {
   publisherIcon?: Maybe<AssetImage>;
   summary?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
+};
+
+export type Humboldt = {
+  __typename?: 'Humboldt';
+  /** absentTaxa */
+  abundanceCap?: Maybe<Scalars['Int']['output']>;
+  areNonTargetTaxaFullyReported?: Maybe<Scalars['Boolean']['output']>;
+  compilationSourceTypes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  compilationTypes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  eventDurationUnit?: Maybe<Scalars['String']['output']>;
+  eventDurationValue?: Maybe<Scalars['Int']['output']>;
+  /** eventDurationValueInMinutes */
+  excludedDegreeOfEstablishmentScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  excludedGrowthFormScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  excludedHabitatScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  excludedLifeStageScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  geospatialScopeAreaUnit?: Maybe<Scalars['String']['output']>;
+  geospatialScopeAreaValue?: Maybe<Scalars['Float']['output']>;
+  hasMaterialSamples?: Maybe<Scalars['Boolean']['output']>;
+  hasNonTargetOrganisms?: Maybe<Scalars['Boolean']['output']>;
+  hasNonTargetTaxa?: Maybe<Scalars['Boolean']['output']>;
+  hasVouchers?: Maybe<Scalars['Boolean']['output']>;
+  inventoryTypes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  isAbsenceReported?: Maybe<Scalars['Boolean']['output']>;
+  isAbundanceCapReported?: Maybe<Scalars['Boolean']['output']>;
+  isAbundanceReported?: Maybe<Scalars['Boolean']['output']>;
+  isDegreeOfEstablishmentScopeFullyReported?: Maybe<Scalars['Boolean']['output']>;
+  isGrowthFormScopeFullyReported?: Maybe<Scalars['Boolean']['output']>;
+  isLeastSpecificTargetCategoryQuantityInclusive?: Maybe<Scalars['Boolean']['output']>;
+  isLifeStageScopeFullyReported?: Maybe<Scalars['Boolean']['output']>;
+  isSamplingEffortReported?: Maybe<Scalars['Boolean']['output']>;
+  isTaxonomicScopeFullyReported?: Maybe<Scalars['Boolean']['output']>;
+  isVegetationCoverReported?: Maybe<Scalars['Boolean']['output']>;
+  materialSampleTypes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  protocolDescriptions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  protocolNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  protocolReferences?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  samplingEffortUnit?: Maybe<Scalars['String']['output']>;
+  samplingEffortValue?: Maybe<Scalars['Float']['output']>;
+  samplingPerformedBy?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  siteCount?: Maybe<Scalars['Int']['output']>;
+  targetDegreeOfEstablishmentScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  targetGrowthFormScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  targetHabitatScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  targetLifeStageScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** targetTaxonomicScope */
+  taxonCompletenessProtocols?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  totalAreaSampledUnit?: Maybe<Scalars['String']['output']>;
+  totalAreaSampledValue?: Maybe<Scalars['Float']['output']>;
+  verbatimSiteDescriptions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  verbatimSiteNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  voucherInstitutions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
 export type IucNstatus = {
@@ -4740,12 +4512,6 @@ export enum MetadataType {
   Dc = 'DC',
   Eml = 'EML'
 }
-
-export type MonthBreakdown = {
-  __typename?: 'MonthBreakdown';
-  c: Scalars['Int']['output'];
-  m: Scalars['Int']['output'];
-};
 
 export type MultimediaItem = {
   __typename?: 'MultimediaItem';
@@ -7317,7 +7083,6 @@ export type Query = {
   institutionSearch?: Maybe<InstitutionSearchResults>;
   literature?: Maybe<Literature>;
   literatureSearch?: Maybe<LiteratureSearchResult>;
-  location?: Maybe<Event>;
   meetingEvent?: Maybe<MeetingEvent>;
   network?: Maybe<Network>;
   networkSearch?: Maybe<NetworkSearchResults>;
@@ -7333,7 +7098,6 @@ export type Query = {
   occurrencePublisherSuggest?: Maybe<Array<Maybe<OccurrencePublisherSuggestResult>>>;
   occurrenceSearch?: Maybe<OccurrenceSearchResult>;
   occurrenceSnapshots: DownloadListResults;
-  occurrences?: Maybe<SimpleOccurrenceResults>;
   orcid?: Maybe<OrcId>;
   organization?: Maybe<Organization>;
   organizationSearch?: Maybe<OrganizationSearchResult>;
@@ -7578,10 +7342,11 @@ export type QueryEventArgs = {
 
 
 export type QueryEventSearchArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  predicate?: InputMaybe<Predicate>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   q?: InputMaybe<Scalars['String']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<EventSearchInput>;
 };
 
 
@@ -7706,11 +7471,6 @@ export type QueryLiteratureSearchArgs = {
 };
 
 
-export type QueryLocationArgs = {
-  locationId?: InputMaybe<Scalars['String']['input']>;
-};
-
-
 export type QueryMeetingEventArgs = {
   id: Scalars['String']['input'];
 };
@@ -7796,17 +7556,6 @@ export type QueryOccurrenceSearchArgs = {
 export type QueryOccurrenceSnapshotsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryOccurrencesArgs = {
-  datasetKey?: InputMaybe<Scalars['ID']['input']>;
-  eventId?: InputMaybe<Scalars['ID']['input']>;
-  from?: InputMaybe<Scalars['Int']['input']>;
-  locationId?: InputMaybe<Scalars['String']['input']>;
-  month?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-  year?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -8254,25 +8003,6 @@ export enum Sex {
   Male = 'MALE',
   None = 'NONE'
 }
-
-export type SimpleOccurrence = {
-  __typename?: 'SimpleOccurrence';
-  basisOfRecord?: Maybe<Scalars['String']['output']>;
-  family?: Maybe<Scalars['String']['output']>;
-  individualCount?: Maybe<Scalars['String']['output']>;
-  key?: Maybe<Scalars['String']['output']>;
-  kingdom?: Maybe<Scalars['String']['output']>;
-  occurrenceStatus?: Maybe<Scalars['String']['output']>;
-  scientificName?: Maybe<Scalars['String']['output']>;
-};
-
-export type SimpleOccurrenceResults = {
-  __typename?: 'SimpleOccurrenceResults';
-  from: Scalars['Int']['output'];
-  results: Array<Maybe<SimpleOccurrence>>;
-  size: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
 
 export enum SortOrder {
   Asc = 'ASC',
@@ -9408,13 +9138,6 @@ export type WikiDataTaxonSourceItem = {
   url: Scalars['String']['output'];
 };
 
-export type YearBreakdown = {
-  __typename?: 'YearBreakdown';
-  c: Scalars['Int']['output'];
-  ms?: Maybe<Array<Maybe<MonthBreakdown>>>;
-  y: Scalars['Int']['output'];
-};
-
 export type VocabularyConceptQueryVariables = Exact<{
   language?: InputMaybe<Scalars['String']['input']>;
   vocabulary: Scalars['ID']['input'];
@@ -9979,44 +9702,45 @@ export type DerivedDatasetAboutQuery = { __typename?: 'Query', resource?:
 
 export type EventMonthFacetQueryVariables = Exact<{
   q?: InputMaybe<Scalars['String']['input']>;
-  predicate?: InputMaybe<Predicate>;
+  query?: InputMaybe<EventSearchInput>;
 }>;
 
 
-export type EventMonthFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult_float', count: number, name: number } | null> | null } | null } | null };
+export type EventMonthFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult', name: string, count: number } | null> | null } | null } | null };
 
 export type EventContinentFacetQueryVariables = Exact<{
   q?: InputMaybe<Scalars['String']['input']>;
-  predicate?: InputMaybe<Predicate>;
+  query?: InputMaybe<EventSearchInput>;
 }>;
 
 
-export type EventContinentFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult_string', count: number, name: string } | null> | null } | null } | null };
+export type EventContinentFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult', name: string, count: number } | null> | null } | null } | null };
 
 export type EventDwcaExtensionFacetQueryVariables = Exact<{
   q?: InputMaybe<Scalars['String']['input']>;
-  predicate?: InputMaybe<Predicate>;
+  query?: InputMaybe<EventSearchInput>;
 }>;
 
 
-export type EventDwcaExtensionFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult_string', count: number, name: string } | null> | null } | null } | null };
+export type EventDwcaExtensionFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult', name: string, count: number } | null> | null } | null } | null };
 
 export type EventEventIdFacetQueryVariables = Exact<{
-  predicate?: InputMaybe<Predicate>;
+  query?: InputMaybe<EventSearchInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type EventEventIdFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult_string', count: number, name: string } | null> | null } | null } | null };
+export type EventEventIdFacetQuery = { __typename?: 'Query', search?: { __typename?: 'EventSearchResult', facet?: { __typename?: 'EventFacet', field?: Array<{ __typename?: 'EventFacetResult', name: string, count: number } | null> | null } | null } | null };
 
 export type EventSearchQueryVariables = Exact<{
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-  predicate?: InputMaybe<Predicate>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<EventSearchInput>;
   q?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type EventSearchQuery = { __typename?: 'Query', eventSearch?: { __typename?: 'EventSearchResult', documents: { __typename?: 'EventDocuments', from: number, size: number, total: number, results: Array<{ __typename?: 'Event', eventDate?: string | null, year?: number | null, month?: number | null, eventID?: string | null, locationID?: string | null, measurementOrFactTypes?: Array<string | null> | null, measurementOrFactMethods?: Array<string | null> | null, coordinates?: any | null, eventHierarchyJoined?: string | null, formattedCoordinates?: string | null, country?: string | null, countryCode?: string | null, datasetTitle?: string | null, datasetKey?: string | null, samplingProtocol?: Array<string | null> | null, eventTypeHierarchy?: Array<string | null> | null, eventTypeHierarchyJoined?: string | null, stateProvince?: string | null, locality?: string | null } | null> } } | null };
+export type EventSearchQuery = { __typename?: 'Query', eventSearch?: { __typename?: 'EventSearchResult', limit: number, offset: number, count: number, results: Array<{ __typename?: 'Event', year?: number | null, month?: number | null, eventID: string, locationID?: string | null, measurementOrFactTypes?: Array<string | null> | null, measurementOrFactMethods?: Array<string | null> | null, coordinates?: any | null, eventHierarchyJoined?: string | null, formattedCoordinates?: string | null, country?: Country | null, countryCode?: string | null, datasetTitle?: string | null, datasetKey?: string | null, samplingProtocol?: Array<string | null> | null, eventTypeHierarchy?: Array<string | null> | null, eventTypeHierarchyJoined?: string | null, stateProvince?: string | null, locality?: string | null, eventDate?: { __typename?: 'EventDate', from?: string | null, to?: string | null } | null } | null> } | null };
 
 export type HomePageCountIconsFragment = { __typename?: 'Home', occurrenceIcon?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null, datasetIcon?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null, publisherIcon?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null, literatureIcon?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null };
 
@@ -11522,11 +11246,11 @@ export const DataseNetworkFacetDocument = {"kind":"Document","definitions":[{"ki
 export const DatasetDwcaExtensionFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetDwcaExtensionFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"dwcaExtension"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetDwcaExtensionFacetQuery, DatasetDwcaExtensionFacetQueryVariables>;
 export const DerivedDatasetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DerivedDataset"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"derivedDataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"doi"}},{"kind":"Field","name":{"kind":"Name","value":"originalDownloadDOI"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"sourceUrl"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"modified"}},{"kind":"Field","name":{"kind":"Name","value":"createdBy"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedBy"}},{"kind":"Field","name":{"kind":"Name","value":"citation"}},{"kind":"Field","name":{"kind":"Name","value":"contributingDatasets"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"endOfRecords"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datasetKey"}},{"kind":"Field","name":{"kind":"Name","value":"datasetDOI"}},{"kind":"Field","name":{"kind":"Name","value":"datasetTitle"}},{"kind":"Field","name":{"kind":"Name","value":"citation"}},{"kind":"Field","name":{"kind":"Name","value":"numberRecords"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DerivedDatasetQuery, DerivedDatasetQueryVariables>;
 export const DerivedDatasetAboutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DerivedDatasetAbout"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resource"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tool"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"body"}}]}}]}}]}}]} as unknown as DocumentNode<DerivedDatasetAboutQuery, DerivedDatasetAboutQueryVariables>;
-export const EventMonthFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventMonthFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"month"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"12"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventMonthFacetQuery, EventMonthFacetQueryVariables>;
-export const EventContinentFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventContinentFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"continent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventContinentFacetQuery, EventContinentFacetQueryVariables>;
-export const EventDwcaExtensionFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventDwcaExtensionFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"dwcaExtension"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventDwcaExtensionFacetQuery, EventDwcaExtensionFacetQueryVariables>;
-export const EventEventIdFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventEventIdFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"eventId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventEventIdFacetQuery, EventEventIdFacetQueryVariables>;
-export const EventSearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventSearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"size"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}},{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"Variable","name":{"kind":"Name","value":"size"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventDate"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"month"}},{"kind":"Field","name":{"kind":"Name","value":"eventID"}},{"kind":"Field","name":{"kind":"Name","value":"locationID"}},{"kind":"Field","name":{"kind":"Name","value":"measurementOrFactTypes"}},{"kind":"Field","name":{"kind":"Name","value":"measurementOrFactMethods"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"eventHierarchyJoined"}},{"kind":"Field","name":{"kind":"Name","value":"formattedCoordinates"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"countryCode"}},{"kind":"Field","name":{"kind":"Name","value":"datasetTitle"}},{"kind":"Field","name":{"kind":"Name","value":"datasetKey"}},{"kind":"Field","name":{"kind":"Name","value":"samplingProtocol"}},{"kind":"Field","name":{"kind":"Name","value":"eventTypeHierarchy"}},{"kind":"Field","name":{"kind":"Name","value":"eventTypeHierarchyJoined"}},{"kind":"Field","name":{"kind":"Name","value":"stateProvince"}},{"kind":"Field","name":{"kind":"Name","value":"locality"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventSearchQuery, EventSearchQueryVariables>;
+export const EventMonthFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventMonthFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"month"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventMonthFacetQuery, EventMonthFacetQueryVariables>;
+export const EventContinentFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventContinentFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"continent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventContinentFacetQuery, EventContinentFacetQueryVariables>;
+export const EventDwcaExtensionFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventDwcaExtensionFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"dwcaExtension"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventDwcaExtensionFacetQuery, EventDwcaExtensionFacetQueryVariables>;
+export const EventEventIdFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventEventIdFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"eventId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventEventIdFacetQuery, EventEventIdFacetQueryVariables>;
+export const EventSearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EventSearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventDate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}}]}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"month"}},{"kind":"Field","name":{"kind":"Name","value":"eventID"}},{"kind":"Field","name":{"kind":"Name","value":"locationID"}},{"kind":"Field","name":{"kind":"Name","value":"measurementOrFactTypes"}},{"kind":"Field","name":{"kind":"Name","value":"measurementOrFactMethods"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"eventHierarchyJoined"}},{"kind":"Field","name":{"kind":"Name","value":"formattedCoordinates"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"countryCode"}},{"kind":"Field","name":{"kind":"Name","value":"datasetTitle"}},{"kind":"Field","name":{"kind":"Name","value":"datasetKey"}},{"kind":"Field","name":{"kind":"Name","value":"samplingProtocol"}},{"kind":"Field","name":{"kind":"Name","value":"eventTypeHierarchy"}},{"kind":"Field","name":{"kind":"Name","value":"eventTypeHierarchyJoined"}},{"kind":"Field","name":{"kind":"Name","value":"stateProvince"}},{"kind":"Field","name":{"kind":"Name","value":"locality"}}]}}]}}]}}]} as unknown as DocumentNode<EventSearchQuery, EventSearchQueryVariables>;
 export const HomePageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomePage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifHome"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"thumbor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HomePageCountIcons"}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlockItemDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ArticleBanner"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HeaderBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ArticleBanner"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProseCardImg"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeatureBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"maxPerRow"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Feature"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DataUse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MeetingEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeaturedTextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaCountBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"titleCountPart"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CarouselBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CustomComponentBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"componentType"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"settings"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HomePageCountIcons"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Home"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrenceIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"datasetIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"publisherIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"literatureIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlockItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BlockItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HeaderBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeatureBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeaturedTextBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CarouselBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CustomComponentBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextBlockDetails"}}]}}]}}]} as unknown as DocumentNode<HomePageQuery, HomePageQueryVariables>;
 export const InstallationDatasetsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstallationDatasets"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"installation"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"installation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"installation"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"endOfRecords"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DatasetResult"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Dataset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]} as unknown as DocumentNode<InstallationDatasetsQuery, InstallationDatasetsQueryVariables>;
 export const InstallationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Installation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"installation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"deleted"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"homepage"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"endpoints"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"homepage"}},{"kind":"Field","name":{"kind":"Name","value":"organization"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]} as unknown as DocumentNode<InstallationQuery, InstallationQueryVariables>;

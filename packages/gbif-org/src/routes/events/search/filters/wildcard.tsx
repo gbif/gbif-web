@@ -11,14 +11,12 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query EventCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
-      search: eventSearch(q: $q, predicate: $predicate) {
-        cardinality {
-          total: sampleSizeUnit
-        }
+    query EventSampleSizeUnitFacet($q: String, $query: EventSearchInput, $size: Int){
+      search: eventSearch(q: $q, query: $query) {
+        
         facet {
           field: sampleSizeUnit(size: $size) {
-            name: key
+            name
             count
           }
         }
@@ -39,14 +37,14 @@ export const eventTypeConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query EventCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
-      search: eventSearch(q: $q, predicate: $predicate) {
+    query EventTypeFacet($q: String, $query: EventSearchInput, $size: Int){
+      search: eventSearch(q: $q, query: $query) {
         cardinality {
           total: eventType
         }
         facet {
           field: eventType(size: $size) {
-            name: key
+            name
             count
           }
         }
@@ -58,7 +56,7 @@ export const eventTypeConfig: filterWildcardConfig = {
   defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
-export const localityConfig: filterWildcardConfig = {
+/* export const localityConfig: filterWildcardConfig = {
   filterType: filterConfigTypes.WILDCARD,
   filterHandle: 'locality',
   queryKey: 'locality',
@@ -67,14 +65,12 @@ export const localityConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query EventCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
-      search: eventSearch(q: $q, predicate: $predicate) {
-        cardinality {
-          total: locality
-        }
+    query EventLocalityFacet($q: String, $query: EventSearchInput){
+      search: eventSearch(q: $q, query: $query) {
+       
         facet {
-          field: locality(size: $size) {
-            name: key
+          field: locality{
+            name
             count
           }
         }
@@ -84,32 +80,4 @@ export const localityConfig: filterWildcardConfig = {
   about: () => <Message id="filters.locality.description" />,
   group: 'location',
   defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
-};
-
-export const samplingProtocolConfig: filterWildcardConfig = {
-  filterType: filterConfigTypes.WILDCARD,
-  filterHandle: 'samplingProtocol',
-  queryKey: 'samplingProtocol',
-  displayName: WildcardLabel,
-  filterTranslation: 'filters.samplingProtocol.name',
-  allowExistence: true,
-  allowNegations: true,
-  suggestQuery: `
-    query EventCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
-      search: eventSearch(q: $q, predicate: $predicate) {
-        cardinality {
-          total: samplingProtocol
-        }
-        facet {
-          field: samplingProtocol(size: $size) {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
-  about: () => <Message id="filters.samplingProtocol.description" />,
-  group: 'event',
-  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
-};
+}; */

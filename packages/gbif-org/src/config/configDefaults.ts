@@ -190,8 +190,15 @@ export const configDefault: Partial<Config> = {
     highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'gbifDatasetKey'],
   },
   eventSearch: {
-    queryType: 'PREDICATE',
-    highlightedFilters: ['eventId', 'year', 'country', 'geometry'],
+    queryType: 'V1',
+    highlightedFilters: [
+      'humboldtProtocolNames',
+      'humboldtBooleans',
+      'year',
+      'country',
+      'geometry',
+      'locality',
+    ],
     tabs: ['table'],
   },
   occurrenceSearch: {

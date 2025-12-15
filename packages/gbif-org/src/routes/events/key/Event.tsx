@@ -22,9 +22,7 @@ interface EventProps {
   event: {
     eventID: ID;
     parentEventID?: ID;
-    eventType?: {
-      concept: string;
-    };
+    eventType?: string;
     eventName?: string;
     coordinates?: {
       lat: number;
@@ -181,7 +179,7 @@ export function Event({ event, eventSearch, getEventLink }: EventProps) {
           <ArticlePreTitle
             secondary={
               event.eventDate ? (
-                <FormattedDateRange date={event.eventDate} />
+                <FormattedDateRange start={event?.eventDate?.from} end={event?.eventDate?.to} />
               ) : (
                 <FormattedMessage id="phrases.unknownDate" />
               )
@@ -202,7 +200,7 @@ export function Event({ event, eventSearch, getEventLink }: EventProps) {
                 {event.eventDate && (
                   <GenericFeature>
                     <MdEvent />
-                    <FormattedDateRange date={event.eventDate} />
+                    <FormattedDateRange start={event?.eventDate?.from} end={event?.eventDate?.to} />
                   </GenericFeature>
                 )}
 
@@ -271,9 +269,7 @@ export function Event({ event, eventSearch, getEventLink }: EventProps) {
                   />
                 )}
 
-                {event.eventType?.concept && (
-                  <Property labelId="Event type" value={event.eventType.concept} />
-                )}
+                {event.eventType && <Property labelId="Event type" value={event.eventType} />}
 
                 {event.eventTypeHierarchy && event.eventTypeHierarchy.length > 0 && (
                   <Property

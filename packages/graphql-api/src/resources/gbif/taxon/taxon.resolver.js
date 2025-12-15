@@ -221,7 +221,7 @@ const getTreatments = async ({ key }, args, { dataSources }) => {
   return treatments;
 };
 
-const extractHighlights = (data) => {
+export const extractHighlights = (data) => {
   const re =
     /(([^\s>]+)\s){0,3}(\s*<em class="gbifHl">[^<]*<\/em>\s*)+([^\s<]+\s){0,2}([^\s<]*)/;
 

@@ -29,9 +29,9 @@ export function useEventColumns(): ColumnDef<SingleEventSearchResult>[] {
         id: 'country',
         header: 'filters.country.name',
         minWidth: 150,
-        cell: ({ countryCode }) => (
-          <SetAsFilter field="country" value={countryCode}>
-            {countryCode && <FormattedMessage id={`enums.countryCode.${countryCode}`} />}
+        cell: ({ country }) => (
+          <SetAsFilter field="country" value={country}>
+            {country && <FormattedMessage id={`enums.countryCode.${country}`} />}
           </SetAsFilter>
         ),
       },
@@ -68,14 +68,15 @@ export function useEventColumns(): ColumnDef<SingleEventSearchResult>[] {
           return (
             <span className="g-text-nowrap">
               <FormattedDateRange
-                date={eventDate}
+                start={eventDate?.from}
+                end={eventDate?.to}
                 format={{ year: 'numeric', month: 'short', day: 'numeric' }}
               />
             </span>
           );
         },
       },
-      {
+      /* {
         id: 'locationId',
         header: 'filters.locationID.name',
         cell: ({ locationID }) => (
@@ -83,7 +84,7 @@ export function useEventColumns(): ColumnDef<SingleEventSearchResult>[] {
             {locationID}
           </SetAsFilter>
         ),
-      },
+      }, */
       // {
       //   id: 'datasetKey',
       //   sort: { localStorageKey: 'eventSort', sortBy: 'datasetKey' },

@@ -12,9 +12,35 @@ import { useIntl } from 'react-intl';
 import { continentConfig, dwcaExtensionConfig, monthConfig } from './filters/enums';
 import { countryConfig, gadmGidConfig } from './filters/keySuggest';
 import { locationConfig } from './filters/location';
-import { eventDateConfig, sampleSizeValueConfig, yearConfig } from './filters/ranges';
-import { eventIdConfig } from './filters/textOnly';
-import { localityConfig, sampleSizeUnitConfig, samplingProtocolConfig } from './filters/wildcard';
+import {
+  eventDateConfig,
+  humboldtSiteCountConfig,
+  yearConfig,
+  humboldtSamplingEffortValueConfig,
+  humboldtTotalAreaSampledValueConfig,
+} from './filters/ranges';
+import { humboldtBooleansConfig } from './filters/humboldt';
+import {
+  eventIdConfig,
+  humboldtInventoryTypesConfig,
+  humboldtProtocolNamesConfig,
+  localityConfig,
+  eventTypeConfig,
+  humboldtSamplingPerformedByConfig,
+  humboldtSamplingEffortUnitConfig,
+  humboldtProtocolReferencesConfig,
+  humboldtTargetDegreeOfEstablishmentScopeConfig,
+  humboldtTargetGrowthFormScopeConfig,
+  humboldtTargetHabitatScopeConfig,
+  humboldtTargetLifeStageScopeConfig,
+  humboldtTotalAreaSampledUnitConfig,
+} from './filters/textOnly';
+import { sampleSizeUnitConfig } from './filters/wildcard';
+
+import {
+  humboldtIsAbundanceReportedConfig,
+  humboldtIsAbundanceCapReportedConfig,
+} from './filters/boolean';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -47,9 +73,10 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       continent: generateFilters({ config: continentConfig, searchConfig, formatMessage }),
       dwcaExtension: generateFilters({ config: dwcaExtensionConfig, searchConfig, formatMessage }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      eventType: generateFilters({ config: eventTypeConfig, searchConfig, formatMessage }),
       // fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
-      sampleSizeValue: generateFilters({
+      /*    sampleSizeValue: generateFilters({
         config: sampleSizeValueConfig,
         searchConfig,
         formatMessage,
@@ -58,15 +85,89 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         config: sampleSizeUnitConfig,
         searchConfig,
         formatMessage,
-      }),
+      }), */
       locality: generateFilters({ config: localityConfig, searchConfig, formatMessage }),
-      samplingProtocol: generateFilters({
-        config: samplingProtocolConfig,
+      humboldtProtocolNames: generateFilters({
+        config: humboldtProtocolNamesConfig,
         searchConfig,
         formatMessage,
       }),
+      humboldtInventoryTypes: generateFilters({
+        config: humboldtInventoryTypesConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtIsAbundanceReported: generateFilters({
+        config: humboldtIsAbundanceReportedConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtIsAbundanceCapReported: generateFilters({
+        config: humboldtIsAbundanceCapReportedConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      humboldtSiteCount: generateFilters({
+        config: humboldtSiteCountConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      humboldtSamplingPerformedBy: generateFilters({
+        config: humboldtSamplingPerformedByConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtSamplingEffortUnit: generateFilters({
+        config: humboldtSamplingEffortUnitConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtSamplingEffortValue: generateFilters({
+        config: humboldtSamplingEffortValueConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      humboldtTargetDegreeOfEstablishmentScope: generateFilters({
+        config: humboldtTargetDegreeOfEstablishmentScopeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtTargetGrowthFormScope: generateFilters({
+        config: humboldtTargetGrowthFormScopeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtTargetHabitatScope: generateFilters({
+        config: humboldtTargetHabitatScopeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtTargetLifeStageScope: generateFilters({
+        config: humboldtTargetLifeStageScopeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtTotalAreaSampledUnit: generateFilters({
+        config: humboldtTotalAreaSampledUnitConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtTotalAreaSampledValue: generateFilters({
+        config: humboldtTotalAreaSampledValueConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
       eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
+      humboldtBooleans: generateFilters({
+        config: humboldtBooleansConfig,
+        searchConfig,
+        formatMessage,
+      }),
     };
 
     // if window object is available then put the available filter keys in an global object for manager to use

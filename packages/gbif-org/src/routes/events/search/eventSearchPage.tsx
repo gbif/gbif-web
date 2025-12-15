@@ -20,6 +20,7 @@ import { Filters, useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import { EventTable } from './views/table/eventTable';
+import humboldtTerms from './humboldtTerms';
 
 export function EventSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -48,7 +49,7 @@ export function EventSearchPage(): React.ReactElement {
   );
 }
 
-const groups = [
+/* const groups = [
   'record',
   'occurrence',
   'organism',
@@ -60,8 +61,10 @@ const groups = [
   'taxon',
   'provenance',
   'other',
-];
+]; */
 
+const groups = [...new Set(humboldtTerms.map((t) => t.group)), 'event', 'location', 'other'];
+console.log(groups);
 export function EventSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });

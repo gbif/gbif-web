@@ -130,6 +130,7 @@ export default gql`
     temporalCoverage: TemporalCoverage
     distinctTaxa: [DistinctTaxon]!
     extensions: EventExtensions
+    humboldt: [Humboldt]
   }
 
   type TemporalCoverage {
@@ -407,5 +408,62 @@ export default gql`
     multimedia: [JSON]
     extendedMeasurementOrFact: [JSON]
     humboldtEcologicalInventory: [JSON]
+  }
+
+  type Humboldt {
+    """
+    absentTaxa
+    """
+    abundanceCap: Int
+    areNonTargetTaxaFullyReported: Boolean
+    compilationSourceTypes: [String]
+    compilationTypes: [String]
+    eventDurationUnit: String
+    eventDurationValue: Int
+    """
+    eventDurationValueInMinutes
+    """
+    excludedDegreeOfEstablishmentScope: [String]
+    excludedGrowthFormScope: [String]
+    excludedHabitatScope: [String]
+    excludedLifeStageScope: [String]
+    geospatialScopeAreaUnit: String
+    geospatialScopeAreaValue: Float
+    hasMaterialSamples: Boolean
+    hasNonTargetOrganisms: Boolean
+    hasNonTargetTaxa: Boolean
+    hasVouchers: Boolean
+    inventoryTypes: [String]
+    isAbsenceReported: Boolean
+    isAbundanceCapReported: Boolean
+    isAbundanceReported: Boolean
+    isDegreeOfEstablishmentScopeFullyReported: Boolean
+    isGrowthFormScopeFullyReported: Boolean
+    isLeastSpecificTargetCategoryQuantityInclusive: Boolean
+    isLifeStageScopeFullyReported: Boolean
+    isSamplingEffortReported: Boolean
+    isTaxonomicScopeFullyReported: Boolean
+    isVegetationCoverReported: Boolean
+    materialSampleTypes: [String]
+    protocolDescriptions: [String]
+    protocolNames: [String]
+    protocolReferences: [String]
+    samplingEffortUnit: String
+    samplingEffortValue: Float
+    samplingPerformedBy: [String]
+    siteCount: Int
+    targetDegreeOfEstablishmentScope: [String]
+    targetGrowthFormScope: [String]
+    targetHabitatScope: [String]
+    targetLifeStageScope: [String]
+    """
+    targetTaxonomicScope
+    """
+    taxonCompletenessProtocols: [String]
+    totalAreaSampledUnit: String
+    totalAreaSampledValue: Float
+    verbatimSiteDescriptions: [String]
+    verbatimSiteNames: [String]
+    voucherInstitutions: [String]
   }
 `;

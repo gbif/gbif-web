@@ -5,7 +5,7 @@ import {
   filterRangeConfig,
 } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
-
+import { termToGroup } from '../humboldtTerms';
 export const yearConfig: filterRangeConfig = {
   filterType: filterConfigTypes.RANGE,
   filterHandle: 'year',
@@ -34,4 +34,34 @@ export const eventDateConfig: filterDateRangeConfig = {
   filterTranslation: 'filters.eventDate.name',
   about: () => <Message id="filters.eventDate.description" />,
   group: 'event',
+};
+
+export const humboldtSiteCountConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'humboldtSiteCount',
+  displayName: SampleSizeValueLabel,
+  filterTranslation: 'filters.siteCount.name',
+  allowExistence: true,
+  about: () => <Message id="filters.siteCount.description" />,
+  group: termToGroup['siteCount'],
+};
+
+export const humboldtSamplingEffortValueConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'humboldtSamplingEffortValue',
+  displayName: SampleSizeValueLabel,
+  filterTranslation: 'filters.samplingEffortValue.name',
+  allowExistence: true,
+  about: () => <Message id="filters.samplingEffortValue.description" />,
+  group: termToGroup['samplingEffortValue'],
+};
+
+export const humboldtTotalAreaSampledValueConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'humboldtTotalAreaSampledValue',
+  displayName: SampleSizeValueLabel,
+  filterTranslation: 'filters.totalAreaSampledValue.name',
+  allowExistence: true,
+  about: () => <Message id="filters.totalAreaSampledValue.description" />,
+  group: termToGroup['totalAreaSampledValue'],
 };

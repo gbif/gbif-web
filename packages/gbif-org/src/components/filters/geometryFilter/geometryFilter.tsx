@@ -258,7 +258,7 @@ const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
   }
 );
 
-function Tertiary({
+export function Tertiary({
   value,
   setValue,
 }: {

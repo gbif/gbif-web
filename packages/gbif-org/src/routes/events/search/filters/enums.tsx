@@ -13,11 +13,11 @@ export const monthConfig: filterEnumConfig = {
   allowExistence: true,
   filterTranslation: 'filters.month.name',
   facetQuery: /* GraphQL */ `
-    query EventMonthFacet($q: String, $predicate: Predicate) {
-      search: eventSearch(q: $q, predicate: $predicate) {
+    query EventMonthFacet($q: String, $query: EventSearchInput) {
+      search: eventSearch(q: $q, query: $query) {
         facet {
-          field: month(size: 12) {
-            name: key
+          field: month {
+            name
             count
           }
         }
@@ -37,11 +37,11 @@ export const continentConfig: filterEnumConfig = {
   options: continentOptions,
   filterTranslation: 'filters.continent.name',
   facetQuery: /* GraphQL */ `
-    query EventContinentFacet($q: String, $predicate: Predicate) {
-      search: eventSearch(q: $q, predicate: $predicate) {
+    query EventContinentFacet($q: String, $query: EventSearchInput) {
+      search: eventSearch(q: $q, query: $query) {
         facet {
           field: continent {
-            name: key
+            name
             count
           }
         }
@@ -57,15 +57,15 @@ export const dwcaExtensionConfig: filterEnumConfig = {
   filterHandle: 'dwcaExtension',
   displayName: DwcaExtensionLabel,
   // options: dwcaExtensionOptions,
-  allowNegations: true,
+  allowNegations: false,
   allowExistence: true,
   filterTranslation: 'filters.dwcaExtension.name',
   facetQuery: /* GraphQL */ `
-    query EventDwcaExtensionFacet($q: String, $predicate: Predicate) {
-      search: eventSearch(q: $q, predicate: $predicate) {
+    query EventDwcaExtensionFacet($q: String, $query: EventSearchInput) {
+      search: eventSearch(q: $q, query: $query) {
         facet {
-          field: dwcaExtension(size: 100) {
-            name: key
+          field: dwcaExtension {
+            name
             count
           }
         }

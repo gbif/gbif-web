@@ -423,6 +423,395 @@ const config = {
       type: 'keyword',
       field: 'event.fieldNumber',
     },
+    humboldt: {
+      type: 'nested',
+      field: 'event.humboldt',
+      properties: {
+        /*         absentTaxa: {
+          properties: {
+            '7ddf754f-d193-4cc9-b351-99906754a03b': {
+              properties: {
+                classification: {
+                  properties: {
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                classificationKeys: {
+                  properties: {
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                issues: {
+                  type: 'keyword',
+                },
+                taxonKeys: {
+                  type: 'keyword',
+                },
+                usageKey: {
+                  type: 'keyword',
+                },
+                usageName: {
+                  type: 'keyword',
+                },
+                usageRank: {
+                  type: 'keyword',
+                },
+              },
+            },
+            'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c': {
+              properties: {
+                classification: {
+                  properties: {
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                classificationKeys: {
+                  properties: {
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                issues: {
+                  type: 'keyword',
+                },
+                taxonKeys: {
+                  type: 'keyword',
+                },
+                usageKey: {
+                  type: 'keyword',
+                },
+                usageName: {
+                  type: 'keyword',
+                },
+                usageRank: {
+                  type: 'keyword',
+                },
+              },
+            },
+          },
+        }, */
+        abundanceCap: {
+          type: 'integer',
+          field: 'event.humboldt.abundanceCap',
+        },
+        areNonTargetTaxaFullyReported: {
+          type: 'boolean',
+          field: 'event.humboldt.areNonTargetTaxaFullyReported',
+        },
+        compilationSourceTypes: {
+          type: 'keyword',
+          field: 'event.humboldt.compilationSourceTypes',
+        },
+        compilationTypes: {
+          type: 'keyword',
+          field: 'event.humboldt.compilationTypes',
+        },
+        eventDurationUnit: {
+          type: 'keyword',
+          field: 'event.humboldt.eventDurationUnit',
+        },
+        eventDurationValue: {
+          type: 'double',
+          field: 'event.humboldt.eventDurationValue',
+        },
+        eventDurationValueInMinutes: {
+          type: 'double',
+          field: 'event.humboldt.eventDurationValueInMinutes',
+        },
+        excludedDegreeOfEstablishmentScope: {
+          properties: {
+            concept: {
+              type: 'keyword',
+              field: 'event.humboldt.excludedDegreeOfEstablishmentScope.concept',
+            },
+            lineage: {
+              type: 'keyword',
+              field: 'event.humboldt.excludedDegreeOfEstablishmentScope.lineage',
+            },
+          },
+        },
+        excludedGrowthFormScope: {
+          type: 'keyword',
+          field: 'event.humboldt.excludedGrowthFormScope',
+        },
+        excludedHabitatScope: {
+          type: 'keyword',
+          field: 'event.humboldt.excludedHabitatScope',
+        },
+        excludedLifeStageScope: {
+          properties: {
+            concept: {
+              type: 'keyword',
+              field: 'event.humboldt.excludedLifeStageScope.concept',
+            },
+            lineage: {
+              type: 'keyword',
+              field: 'event.humboldt.excludedLifeStageScope.lineage',
+            },
+          },
+        },
+        geospatialScopeAreaUnit: {
+          type: 'keyword',
+          field: 'event.humboldt.geospatialScopeAreaUnit',
+        },
+        geospatialScopeAreaValue: {
+          type: 'double',
+          field: 'event.humboldt.geospatialScopeAreaValue',
+        },
+        hasMaterialSamples: {
+          type: 'boolean',
+          field: 'event.humboldt.hasMaterialSamples',
+        },
+        hasNonTargetOrganisms: {
+          type: 'boolean',
+          field: 'event.humboldt.hasNonTargetOrganisms',
+        },
+        hasNonTargetTaxa: {
+          type: 'boolean',
+          field: 'event.humboldt.hasNonTargetTaxa',
+        },
+        hasVouchers: {
+          type: 'boolean',
+          field: 'event.humboldt.hasVouchers',
+        },
+        inventoryTypes: {
+          type: 'keyword',
+          field: 'event.humboldt.inventoryTypes',
+        },
+        isAbsenceReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isAbsenceReported',
+        },
+        isAbundanceCapReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isAbundanceCapReported',
+        },
+        isAbundanceReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isAbundanceReported',
+        },
+        isDegreeOfEstablishmentScopeFullyReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isDegreeOfEstablishmentScopeFullyReported',
+        },
+        isGrowthFormScopeFullyReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isGrowthFormScopeFullyReported',
+        },
+        isLeastSpecificTargetCategoryQuantityInclusive: {
+          type: 'boolean',
+          field: 'event.humboldt.isLeastSpecificTargetCategoryQuantityInclusive',
+        },
+        isLifeStageScopeFullyReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isLifeStageScopeFullyReported',
+        },
+        isSamplingEffortReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isSamplingEffortReported',
+        },
+        isTaxonomicScopeFullyReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isTaxonomicScopeFullyReported',
+        },
+        isVegetationCoverReported: {
+          type: 'boolean',
+          field: 'event.humboldt.isVegetationCoverReported',
+        },
+        materialSampleTypes: {
+          type: 'keyword',
+          field: 'event.humboldt.materialSampleTypes',
+        },
+        protocolDescriptions: {
+          type: 'text',
+          field: 'event.humboldt.protocolDescriptions',
+          index: false,
+        },
+        protocolNames: {
+          type: 'keyword',
+          field: 'event.humboldt.protocolNames',
+        },
+        protocolReferences: {
+          type: 'text',
+          field: 'event.humboldt.protocolReferences',
+          index: false,
+        },
+        samplingEffortUnit: {
+          type: 'keyword',
+          field: 'event.humboldt.samplingEffortUnit',
+        },
+        samplingEffortValue: {
+          type: 'double',
+          field: 'event.humboldt.samplingEffortValue',
+        },
+        samplingPerformedBy: {
+          type: 'keyword',
+          field: 'event.humboldt.samplingPerformedBy',
+        },
+        siteCount: {
+          type: 'integer',
+          field: 'event.humboldt.siteCount',
+        },
+        targetDegreeOfEstablishmentScope: {
+          properties: {
+            concept: {
+              type: 'keyword',
+              field: 'event.humboldt.targetDegreeOfEstablishmentScope.concept',
+            },
+            lineage: {
+              type: 'keyword',
+              field: 'event.humboldt.targetDegreeOfEstablishmentScope.lineage',
+            },
+          },
+        },
+        targetGrowthFormScope: {
+          type: 'keyword',
+          field: 'event.humboldt.targetGrowthFormScope',
+        },
+        targetHabitatScope: {
+          type: 'keyword',
+          field: 'event.humboldt.targetHabitatScope',
+        },
+        targetLifeStageScope: {
+          properties: {
+            concept: {
+              type: 'keyword',
+              field: 'event.humboldt.targetLifeStageScope.concept',
+            },
+            lineage: {
+              type: 'keyword',
+              field: 'event.humboldt.targetLifeStageScope.lineage',
+            },
+          },
+        },
+        /*   targetTaxonomicScope: {
+          properties: {
+            '7ddf754f-d193-4cc9-b351-99906754a03b': {
+              properties: {
+                classification: {
+                  properties: {
+                    CLASS: {
+                      type: 'keyword',
+                    },
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                    PHYLUM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                classificationKeys: {
+                  properties: {
+                    CLASS: {
+                      type: 'keyword',
+                    },
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                    PHYLUM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                issues: {
+                  type: 'keyword',
+                },
+                taxonKeys: {
+                  type: 'keyword',
+                },
+                usageKey: {
+                  type: 'keyword',
+                },
+                usageName: {
+                  type: 'keyword',
+                },
+                usageRank: {
+                  type: 'keyword',
+                },
+              },
+            },
+            'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c': {
+              properties: {
+                classification: {
+                  properties: {
+                    CLASS: {
+                      type: 'keyword',
+                    },
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                    PHYLUM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                classificationKeys: {
+                  properties: {
+                    CLASS: {
+                      type: 'keyword',
+                    },
+                    KINGDOM: {
+                      type: 'keyword',
+                    },
+                    PHYLUM: {
+                      type: 'keyword',
+                    },
+                  },
+                },
+                issues: {
+                  type: 'keyword',
+                },
+                taxonKeys: {
+                  type: 'keyword',
+                },
+                usageKey: {
+                  type: 'keyword',
+                },
+                usageName: {
+                  type: 'keyword',
+                },
+                usageRank: {
+                  type: 'keyword',
+                },
+              },
+            },
+          },
+        }, */
+        taxonCompletenessProtocols: {
+          type: 'keyword',
+          field: 'event.humboldt.taxonCompletenessProtocols',
+        },
+        totalAreaSampledUnit: {
+          type: 'keyword',
+          field: 'event.humboldt.totalAreaSampledUnit',
+        },
+        totalAreaSampledValue: {
+          type: 'double',
+          field: 'event.humboldt.totalAreaSampledValue',
+        },
+        verbatimSiteDescriptions: {
+          type: 'text',
+          field: 'event.humboldt.verbatimSiteDescriptions',
+          index: false,
+        },
+        verbatimSiteNames: {
+          type: 'keyword',
+          field: 'event.humboldt.verbatimSiteNames',
+        },
+        voucherInstitutions: {
+          type: 'keyword',
+          field: 'event.humboldt.voucherInstitutions',
+        },
+      },
+    },
     institutionCode: {
       type: 'keyword',
       field: 'event.institutionCode.keyword',

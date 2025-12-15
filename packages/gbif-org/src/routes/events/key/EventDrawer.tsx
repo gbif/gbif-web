@@ -7,9 +7,7 @@ interface EventQuery {
   event: {
     eventID: string;
     parentEventID?: string;
-    eventType?: {
-      concept: string;
-    };
+    eventType?: string;
     eventName?: string;
     coordinates?: {
       lat: number;
@@ -33,8 +31,6 @@ interface EventQuery {
     decimalLongitude?: number;
     locality?: string;
     stateProvince?: string;
-    locationID?: string;
-    wktConvexHull?: string;
     temporalCoverage?: {
       gte?: string;
       lte?: string;
@@ -53,19 +49,18 @@ interface EventQuery {
 interface EventQueryVariables {
   eventId: string;
   datasetKey: string;
-  predicate: any;
 }
 
 // graphql query for event
 const GRAPHQL_EVENT = `
-query event($eventId: ID, $datasetKey: ID, $predicate: Predicate){
+query event($eventId: ID, $datasetKey: ID){
   event(eventId: $eventId, datasetKey: $datasetKey) {
     eventID
     parentEventID
-    eventType {
-      concept
-    }
-    eventDate
+    eventType
+    eventDate {
+    from
+    to}
     eventName
     coordinates
     countryCode
@@ -89,20 +84,58 @@ query event($eventId: ID, $datasetKey: ID, $predicate: Predicate){
     locality
     stateProvince
     locationID
-    wktConvexHull
-    temporalCoverage {
-      gte
-      lte
+    humboldt {
+      abundanceCap
+    areNonTargetTaxaFullyReported
+    compilationSourceTypes
+    compilationTypes
+    eventDurationUnit
+    eventDurationValue
+   
+    excludedDegreeOfEstablishmentScope
+    excludedGrowthFormScope
+    excludedHabitatScope
+    excludedLifeStageScope
+    geospatialScopeAreaUnit
+    geospatialScopeAreaValue
+    hasMaterialSamples
+    hasNonTargetOrganisms
+    hasNonTargetTaxa
+    hasVouchers
+    inventoryTypes
+    isAbsenceReported
+    isAbundanceCapReported
+    isAbundanceReported
+    isDegreeOfEstablishmentScopeFullyReported
+    isGrowthFormScopeFullyReported
+    isLeastSpecificTargetCategoryQuantityInclusive
+    isLifeStageScopeFullyReported
+    isSamplingEffortReported
+    isTaxonomicScopeFullyReported
+    isVegetationCoverReported
+    materialSampleTypes
+    protocolDescriptions
+    protocolNames
+    protocolReferences
+    samplingEffortUnit
+    samplingEffortValue
+    samplingPerformedBy
+    siteCount
+    targetDegreeOfEstablishmentScope
+    targetGrowthFormScope
+    targetHabitatScope
+    targetLifeStageScope
+
+    taxonCompletenessProtocols
+    totalAreaSampledUnit
+    totalAreaSampledValue
+    verbatimSiteDescriptions
+    verbatimSiteNames
+    voucherInstitutions
     }
+    
   }
-  eventSearch(predicate: $predicate) {
-    facet {
-      eventTypeHierarchyJoined {
-        key
-        count
-      }
-    }
-  }
+  
 }
 `;
 
@@ -138,11 +171,6 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
           variables: {
             eventId: eventId,
             datasetKey: datasetKey,
-            predicate: {
-              type: 'equals',
-              key: 'datasetKey',
-              value: datasetKey,
-            },
           },
         });
       }
