@@ -26,13 +26,13 @@
   "metricsTab": {
     "selectGroup": "Marcador de posición de descripción",
     "group": {
-      "checklist": "Lista de especies",
+      "checklist": "Lista de chequeo",
       "downloads": "Descargas",
       "taxonomic": "Marcador de posición de descripción",
       "geographic": "Marcador de posición de descripción",
       "temporal": "Temporal",
       "qualities": "Marcador de posición de descripción",
-      "citations": "Citaciones"
+      "citations": "Citas"
     },
     "checklist": {
       "notAvailable": "Marcador de posición de descripción",
@@ -54,7 +54,7 @@
       "origin": "Origen",
       "countByIssue": "Marcador de posición de descripción",
       "countByIssueDescription": "Marcador de posición de descripción",
-      "count": "Conteo"
+      "count": "Número"
     }
   },
   "noStatsForMetadata": "No hay estadísticas disponibles para los conjuntos de solo metadatos.",
@@ -189,5 +189,5 @@
   },
   "eventTaxonomy": "Distribución taxonómica de los registros de presencia",
   "noCitations": "Marcador de posición de descripción",
-  "noOccurrences": "Sin registros de presencia"
+  "noOccurrences": "Sin registros biológicos"
 }
