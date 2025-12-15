@@ -79,10 +79,10 @@ export function InstitutionResult({
                         </span>
                       </div>
                     )}
-                    {showCode && (
+                    {showCode && institution?.code && (
                       <div className="g-flex g-items-center">
                         <FormattedMessage id="filters.institutionCode.name" />:
-                        <span className="g-mx-2">{truncate(institution.code, 20)}</span>
+                        <span className="g-mx-2">{truncate(institution?.code, 20)}</span>
                       </div>
                     )}
                   </div>
@@ -103,7 +103,7 @@ export function InstitutionResult({
               </DynamicLink>
             </div>
             <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-              {institution.collectionCount > 0 && (
+              {(institution.collectionCount ?? 0) > 0 && (
                 <Tag>
                   <FormattedMessage
                     id="counts.nCollections"

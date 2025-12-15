@@ -1,1 +1,19 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "Mesmas espécies aceites",
+  "SAME_DATE": "Mesma data",
+  "NON_CONFLICTING_DATE": "Data sem conflito",
+  "APPROXIMATE_DATE": "Data aproximada",
+  "DIFFERENT_DATE": "Data diferente",
+  "SAME_COORDINATES": "Mesmas coordenadas",
+  "WITHIN_200m": "Dentro de 200 m",
+  "WITHIN_2Km": "Dentro de 2 km",
+  "NON_CONFLICTING_COORDINATES": "Coordenadas sem conflitos",
+  "SAME_COUNTRY": "Mesmo país",
+  "NON_CONFLICTING_COUNTRY": "País sem conflito",
+  "DIFFERENT_COUNTRY": "País diferente",
+  "IDENTIFIERS_OVERLAP": "Identificadores sobrepostos",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "Outros números de catálogo sobrepostos",
+  "SAME_RECORDER_NAME": "Mesmo nome de gravador",
+  "SAME_SPECIMEN": "Mesmo espécimen",
+  "TYPIFICATION_RELATION": "Relação de tipificação"
+}

@@ -25,7 +25,7 @@ export function BasisOfRecordFilter({ selected, setSelected, yearFilter }: Props
         {yearFilter && <div className="g-p-4 g-pb-0">{yearFilter}</div>}
         <div className="g-space-y-3 g-p-4">
           {basisOfRecordOptions.map((basisOfRecord) => (
-            <div className="g-flex g-items-center g-space-x-2" key={basisOfRecord}>
+            <div className="g-flex g-items-center g-gap-2" key={basisOfRecord}>
               <Checkbox
                 key={basisOfRecord}
                 checked={selected.includes(basisOfRecord)}

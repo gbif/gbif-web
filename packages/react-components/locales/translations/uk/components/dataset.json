@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "Відомості про видавця даних",
-    "occurrences": "Знахідки",
-    "citations": "Цитування",
     "project": "Проєкт",
     "taxonomy": "Таксономія",
     "download": "Завантажити",
     "phylogeny": "",
+    "metrics": "Показники",
     "events": "Заходи"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "Таксономічні списки",
+      "downloads": "Завантаження",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "Тимчасовий",
+      "qualities": "",
+      "citations": "Цитування"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "Синоніми",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "Походження",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": "Кількість"
+    }
   },
   "noStatsForMetadata": "Відсутні показники для наборів, що містять лише метадані",
   "siteScopeSmallerThanDataset": "Не всі записи з цього набору даних відображені на цьому сайті. Відвідайте [GBIF.org]({datasetUrl}), щоб переглянути повний набір даних.",
@@ -62,7 +95,7 @@
   "sampling": "Вибірка",
   "methodSteps": "Етапи методу",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, 0 {завантажень} one {завантаження} few {завантаження} many{завантажень} other{завантажень}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{знахідка з цього набору даних} 2{знахідки з цього набору даних} 3{знахідки з цього набору даних} 4{знахідки з цього набору даних} few{знахідки з цього набору даних} many{знахідок з цього набору даних} other{знахідок з цього набору даних}}",
+  "nFromDataset": "",
   "funding": "Фінансування",
   "abstract": "Анотація",
   "contacts": "Контакти",
@@ -109,6 +142,7 @@
   "containsSamplingEventsDescription": "Цей набір даних містить дані описів або обліків. Подробиці методу збору даних наведено у секції \"Методологія\"  опису набору даних.",
   "griddedData": "Дані, узагальнені до регулярної сітки",
   "griddedDataDescription": "Виходячи з нашого аналізу записів, цей набір даних, вірогідно, містить дані, узагальнені до регулярної сітки. Дізнатися більше з [допису про набори, узагальнені до регулярної сітки](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Статистичні показники для знахідок",
   "registry": {
     "failedSinceSuccess": "Невдалі спроби з моменту останнього успішного влиття даних",
     "lastFailed": "Остання невдала спроба",
@@ -153,5 +187,7 @@
     "evenList": "Фінансується спільно",
     "occurrenceInfo": "Фінансується спільно"
   },
-  "eventTaxonomy": "Розподіл знахідок за таксонами"
+  "eventTaxonomy": "Розподіл знахідок за таксонами",
+  "noCitations": "",
+  "noOccurrences": "Відсутні знахідки"
 }

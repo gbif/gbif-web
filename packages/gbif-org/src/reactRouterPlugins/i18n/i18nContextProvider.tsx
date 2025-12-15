@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { extractLocaleFromPathname } from './extractLocaleFromURL';
+import { DirectionProvider } from '@radix-ui/react-direction';
 
 type I18nContextValue = {
   locale: LanguageOption;
@@ -105,7 +106,7 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
         locale={locale.reactIntlLocale ?? locale.code}
         defaultLocale={defaultLocale.reactIntlLocale ?? defaultLocale.code}
       >
-        {children}
+        <DirectionProvider dir={locale.textDirection}>{children}</DirectionProvider>
       </IntlProvider>
     </I18nContext.Provider>
   );

@@ -7,7 +7,7 @@
     "headlineOccurrences": "{total, plural, one {# occurrence} other {# occurrences}} in derived dataset",
     "title": "Title",
     "description": "Description",
-    "originalDownloadDOI": "Original download"
+    "originalDownloadDOI": "Dataset derived from download"
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {# occurrence } other {# occurrences}} downloaded",
@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Back",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "Back to format selection",
     "backToConfiguration": "Back to configuration",
     "estimatedSize": "Estimated size",

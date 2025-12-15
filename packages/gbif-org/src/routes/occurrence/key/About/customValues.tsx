@@ -1,18 +1,21 @@
-import { Term as T, Value as V } from '@/components/properties';
+import { AutomaticPropertyValue, Term as T, Value as V } from '@/components/properties';
 import {
   OccurrenceQuery,
+  OccurrenceTermFragment,
   PersonKeyQuery,
   PersonKeyQueryVariables,
+  PredicateType,
   SlowOccurrenceKeyQuery,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import { BasicField } from '../properties';
+import { BasicField, Field } from '../properties';
 import { useConfig } from '@/config/config';
 import { truncate } from '@/utils/truncate';
 import { Img } from '@/components/Img';
+import { SiteOccurrenceCount } from '@/components/count';
 
 export function InstitutionKey({
   occurrence,
@@ -282,5 +285,49 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
         )}
       </div>
     </div>
+  );
+}
+
+export function OccurrenceSearchField(props: {
+  term: OccurrenceTermFragment;
+  showDetails?: boolean;
+  filterKey: string;
+  filterValue: string;
+  onlyShowVerbatim?: boolean;
+  occurrence: OccurrenceQuery['occurrence'];
+}) {
+  if (!props.term) return null;
+  const { value } = props.term;
+  return (
+    <Field {...props}>
+      <AutomaticPropertyValue value={value} />
+      <DynamicLink
+        className="g-ms-2 g-text-sm g-bg-slate-200 g-rounded g-px-1 g-inline-flex g-items-center g-gap-1 hover:g-bg-primary-200"
+        pageId="occurrenceSearch"
+        searchParams={{
+          [props.filterKey]: [props.filterValue],
+          datasetKey: [props.occurrence?.datasetKey],
+        }}
+      >
+        <SiteOccurrenceCount
+          message="counts.nOccurrences"
+          predicate={{
+            type: PredicateType.And,
+            predicates: [
+              {
+                type: PredicateType.Equals,
+                key: props.filterKey,
+                value: props.filterValue,
+              },
+              {
+                type: PredicateType.Equals,
+                key: 'datasetKey',
+                value: props.occurrence?.datasetKey,
+              },
+            ],
+          }}
+        />
+      </DynamicLink>
+    </Field>
   );
 }

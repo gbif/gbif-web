@@ -21,6 +21,7 @@ export function ArticleAuxiliary({ className, label, children, dangerouslySetVal
       )}
       {dangerouslySetValue && (
         <div
+          dir="auto"
           className={cn(contentClassNames, dangerouslySetValue.classNames)}
           dangerouslySetInnerHTML={dangerouslySetValue}
         />

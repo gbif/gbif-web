@@ -42,8 +42,10 @@
     "materialSample": "材料樣品",
     "geologicalContext": "地理背景",
     "other": "其它",
-    "extensions": "延伸集"
+    "extensions": "延伸集",
+    "issues": "問題和註記"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "已集聚",
     "isSamplingEvent": "調查活動",

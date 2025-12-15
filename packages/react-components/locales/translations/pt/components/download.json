@@ -13,7 +13,7 @@
     "sqlEditor": "",
     "predicateEditor": "",
     "sql": {
-      "createNewSqlDownload": "",
+      "createNewSqlDownload": "Criar nova transferência SQL",
       "placeholder": "",
       "noSql": "",
       "note": {
@@ -22,7 +22,7 @@
         "occurrence_search": ""
       },
       "errors": {
-        "invalid-SQL": "",
+        "invalid-SQL": "SQL inválido",
         "network-error": "",
         "parsingErrorDescription": "",
         "networkErrorDescription": ""
@@ -32,18 +32,18 @@
     "about": "Sobre",
     "stopEditing": "Interromper a edição",
     "startEditing": "Começar a editar",
-    "reformat": "",
-    "discard": "",
-    "keep": "",
-    "readTheDocumentation": "",
+    "reformat": "Reformatar",
+    "discard": "Descartar",
+    "keep": "Manter",
+    "readTheDocumentation": "Ler a documentação",
     "request": {
       "placeholder": "",
-      "createNewDownload": "",
+      "createNewDownload": "Criar nova transferência",
       "weHaveRestoredYourPredicate": "",
       "noPredicate": "",
       "currentFilter": "Filtro atual",
       "errors": {
-        "invalid-json": "",
+        "invalid-json": "JSON inválido",
         "invalid-predicate": "",
         "faild-to-load-predicate": "",
         "unexpectedError": "",

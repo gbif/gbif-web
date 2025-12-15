@@ -65,6 +65,7 @@
     "downloadStarted": "",
     "downloadExpectTime": "",
     "notificationEmailAddresses": "",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "In Wachtrij",
       "SUSPENDED": "",
@@ -72,7 +73,9 @@
       "CANCELLED": "Geannuleerd",
       "KILLED": ""
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "",
       "joinDescriptions": {
         "and": "",
         "or": "",
@@ -84,6 +87,7 @@
       "isNotNull": "",
       "isNull": "",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "",
         "DECIMAL_LONGITUDE": "",
@@ -108,7 +112,6 @@
         "REPATRIATED": "",
         "YEAR": "Jaar",
         "STATE_PROVINCE": "",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "",
         "OCCURRENCE_ID": "Gebeurtenis ID",
@@ -198,6 +201,7 @@
         "FORMATION": "Formatie",
         "ORDER_KEY": "",
         "ISSUE": "",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Installatie",
         "VERBATIM_SCIENTIFIC_NAME": "Verbatim wetenschappelijke naam",
         "GBIF_REGION": "GBIF regio",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Terug",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "Gelijk aan {is}",

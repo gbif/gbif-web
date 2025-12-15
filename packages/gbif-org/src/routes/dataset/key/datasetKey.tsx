@@ -11,7 +11,6 @@ import {
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
 import PageMetaData from '@/components/PageMetaData';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
@@ -20,6 +19,7 @@ import {
   DatasetOccurrenceSearchQueryVariables,
   DatasetQuery,
   DatasetQueryVariables,
+  DatasetType,
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -33,7 +33,6 @@ import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootEr
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
 import { createContext, useEffect, useMemo } from 'react';
-import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -194,6 +193,12 @@ const DATASET_QUERY = /* GraphQL */ `
           userId
         }
         identifier
+        gbifProject {
+          title
+          primaryImage {
+            ...ArticleBanner
+          }
+        }
       }
       endpoints {
         key
@@ -322,14 +327,18 @@ export function DatasetPage() {
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
   const siteOccurrencePredicate = config?.occurrenceSearch?.scope;
 
-  const { data: occData, load } = useQuery<
-    DatasetOccurrenceSearchQuery,
-    DatasetOccurrenceSearchQueryVariables
-  >(OCURRENCE_SEARCH_QUERY, {
-    throwAllErrors: false,
-    lazyLoad: true,
-    notifyOnErrors: true,
-  });
+  const {
+    data: occData,
+    load,
+    loading,
+  } = useQuery<DatasetOccurrenceSearchQuery, DatasetOccurrenceSearchQueryVariables>(
+    OCURRENCE_SEARCH_QUERY,
+    {
+      throwAllErrors: false,
+      lazyLoad: true,
+      notifyOnErrors: true,
+    }
+  );
 
   // check for various tabs
   let hasPhylogeny = false;
@@ -398,6 +407,12 @@ export function DatasetPage() {
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
+    if (dataset.type !== DatasetType.Metadata) {
+      tabsToDisplay.push({
+        to: 'metrics',
+        children: <FormattedMessage id="dataset.tabs.metrics" defaultMessage={'Metrics'} />,
+      });
+    }
     tabsToDisplay.push({
       to: 'download',
       children: <FormattedMessage id="dataset.tabs.download" />,
@@ -407,7 +422,6 @@ export function DatasetPage() {
     hasPhylogeny,
     hasTaxonomy,
     withEventId,
-    dataset?.key,
     dataset?.type,
     dataset?.project,
     config.datasetKey?.showEvents,
@@ -558,20 +572,20 @@ export function DatasetPage() {
             <HeaderInfo>
               <HeaderInfoMain>
                 <FeatureList>
-                  {contactsCitation.length > 0 && (
+                  {contactsCitation.length < contactThreshold && (
                     <GenericFeature>
                       <PeopleIcon />
-                      {contactsCitation.length < contactThreshold && (
-                        <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
-                      )}
-                      {contactsCitation.length >= contactThreshold && (
-                        <FormattedMessage
-                          id="counts.nAuthors"
-                          values={{ total: contactsCitation.length }}
-                        />
-                      )}
+                      <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
                     </GenericFeature>
                   )}
+                  {/* It would be good to show this with a link to the contacts, but how to do that so it also works on e.g. the metrics tab? */}
+                  {/* https://github.com/gbif/gbif-web/issues/1360 */}
+                  {/* {contactsCitation.length >= contactThreshold && (
+                    <FormattedMessage
+                      id="counts.nAuthors"
+                      values={{ total: contactsCitation.length }}
+                    />
+                  )} */}
                   <Homepage url={dataset.homepage} />
                   <GenericFeature>
                     <LicenceTag value={dataset.license} />
@@ -599,11 +613,7 @@ export function DatasetPage() {
                   </Button>
                 )}
                 {(occurrenceCountOrZero > 0 || dataset?.type === 'OCCURRENCE') && (
-                  <Button
-                    className="g-py-1 g-px-2 g-h-[2rem]"
-                    asChild
-                    isLoading={occurrenceCountOrZero === 0}
-                  >
+                  <Button className="g-py-1 g-px-2 g-h-[2rem]" asChild isLoading={loading}>
                     <DynamicLink
                       to="occurrenceSearch"
                       pageId="occurrenceSearch"

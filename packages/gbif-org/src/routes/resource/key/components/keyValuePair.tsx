@@ -16,6 +16,7 @@ export function KeyValuePair({ label, value, className, dangerouslySetValue }: P
       <span className="g-font-semibold">{label}: </span>
       {dangerouslySetValue && (
         <span
+          dir="auto"
           className={dangerouslySetValue.classNames}
           dangerouslySetInnerHTML={dangerouslySetValue}
         />

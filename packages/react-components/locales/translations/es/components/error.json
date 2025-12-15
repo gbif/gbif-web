@@ -11,6 +11,6 @@
   "mapFailed": "No se puede cargar el mapa",
   "partialMapFailure": "Algunas celdas no se han cargado correctamente",
   "maximumResultLimitExceeded": "El número máximo de resultados para la paginación es: {MAX_RESULTS}. Refina tu búsqueda o utiliza la opción de descarga para acceder a todos los resultados.",
-  "mapBrowserIssue": "Si el problema persiste, lo más probable es que se deba a extensiones o configuraciones del navegador que impiden el uso de las API necesarias (por ejemplo, WebGL y Canvas).",
+  "mapBrowserIssue": "Si el problema persiste, lo más probable es que se deba a extensiones o configuraciones del navegador que impiden el uso de las API necesarias (por ejemplo, WebGL y Canva)",
   "webglUnavailable": "WebGL no está disponible. Comprueba la configuración de tu navegador o prueba con otro navegador. Los complementos o extensiones también pueden bloquear WebGL."
 }

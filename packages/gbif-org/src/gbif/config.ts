@@ -203,6 +203,7 @@ export const gbifConfig: Config = {
     literatureSearch: {
       excludedFilters: ['gbifDatasetKey'],
     },
+    enableListOfDownloads: true,
   },
   collectionKey: {
     occurrenceSearch: {
@@ -229,7 +230,6 @@ export const gbifConfig: Config = {
   },
   literatureSearch: {
     queryType: 'PREDICATE',
-    // highlightedFilters: ['q', 'year'],
   },
   occurrenceSearch: {
     mapSettings: {
@@ -259,16 +259,6 @@ export const gbifConfig: Config = {
     // ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'dashboard', 'download'],
     defaultTab: 'table',
-    // scope: {
-    //   type: 'and',
-    //   predicates: [
-    //     // {
-    //     //   type: 'equals',
-    //     //   key: 'taxonKey',
-    //     //   value: '44',
-    //     // },
-    //   ],
-    // },
   },
   // messages: {
   //   en: { 'filters.taxonKey.name': 'hallo' },

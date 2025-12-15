@@ -65,6 +65,7 @@
     "downloadStarted": "下载已经开始，目前正在处理。",
     "downloadExpectTime": "请等待最多3小时完成下载。大多数下载将在15分钟内完成。",
     "notificationEmailAddresses": "完成后将发送附有下载结果链接的电子邮件到以下地址： ",
+    "sqlGeneratedUsingPredicate": "描述占位符",
     "status": {
       "PREPARING": "准备中...",
       "SUSPENDED": "已暂停",
@@ -72,7 +73,9 @@
       "CANCELLED": "已取消",
       "KILLED": "已删除"
     },
+    "usedChecklistKey": "描述占位符",
     "predicate": {
+      "checklist": "名录",
       "joinDescriptions": {
         "and": "需全部选用",
         "or": "至少选择一项",
@@ -84,6 +87,7 @@
       "isNotNull": "已被定义",
       "isNull": "没有定义",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "事件编号",
         "DECIMAL_LONGITUDE": "十进制经度",
@@ -108,7 +112,6 @@
         "REPATRIATED": "已遣回",
         "YEAR": "年份",
         "STATE_PROVINCE": "州/省",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "样本大小值",
         "OCCURRENCE_ID": "事件编号",
@@ -198,6 +201,7 @@
         "FORMATION": "地层",
         "ORDER_KEY": "目",
         "ISSUE": "问题",
+        "TAXONOMIC_ISSUE": "描述占位符",
         "INSTALLATION_KEY": "安装",
         "VERBATIM_SCIENTIFIC_NAME": "一字不差的学名",
         "GBIF_REGION": "GBIF区域",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "返回",
+    "slowDown": "描述占位符",
+    "unableToCreateDownload": "描述占位符",
     "backToFormatSelection": "描述占位符",
     "backToConfiguration": "描述占位符",
     "estimatedSize": "等于 {is}",

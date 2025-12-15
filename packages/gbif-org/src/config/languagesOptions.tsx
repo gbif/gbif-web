@@ -24,6 +24,7 @@ const languageOptions: LanguageOption[] = [
     reactIntlLocale: 'ar-SA',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
+    mapTileLocale: 'en',
   },
   {
     code: 'danglish', // TODO, developer english.  while developing it is convinent to have developer english when text change so taht we can see changes immeadiately
@@ -58,7 +59,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'ita',
     gbifOrgLocalePrefix: '/it',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'it',
+    mapTileLocale: 'en',
   },
   {
     code: 'es',
@@ -92,7 +93,7 @@ const languageOptions: LanguageOption[] = [
     label: 'العربية',
     default: false,
     textDirection: 'rtl',
-    reactIntlLocale: 'ar-SA',
+    reactIntlLocale: 'ar-AE',
     iso3LetterCode: 'ara',
     gbifOrgLocalePrefix: '/ar',
     grSciCollLocalePrefix: '',
@@ -106,7 +107,7 @@ const languageOptions: LanguageOption[] = [
     textDirection: 'ltr',
     reactIntlLocale: 'zh-CN',
     iso3LetterCode: 'zho',
-    cmsLocale: 'zh',
+    cmsLocale: 'zh-Hant',
     vocabularyLocale: 'zh-CN',
     gbifOrgLocalePrefix: '/zh',
     grSciCollLocalePrefix: '',
@@ -119,7 +120,7 @@ const languageOptions: LanguageOption[] = [
     default: false,
     textDirection: 'ltr',
     reactIntlLocale: 'zh-TW',
-    cmsLocale: 'zh-TW',
+    cmsLocale: 'zh-Hans',
     vocabularyLocale: 'zh-TW',
     iso3LetterCode: 'zho',
     gbifOrgLocalePrefix: '/zh-tw',
@@ -152,7 +153,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'ces',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'cs',
+    mapTileLocale: 'en',
   },
   {
     code: 'ja',
@@ -180,7 +181,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'pol',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'pl',
+    mapTileLocale: 'en',
   },
   {
     code: 'pt',
@@ -208,7 +209,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'ukr',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
-    mapTileLocale: 'uk',
+    mapTileLocale: 'en',
   },
 ];
 

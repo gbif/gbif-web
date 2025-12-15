@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "אודות",
-    "occurrences": "תצפיות",
-    "citations": "ציטוטים",
     "project": "פרויקט",
     "taxonomy": "טקסונומיה",
     "download": "הורדה",
     "phylogeny": "פילוגניה",
+    "metrics": "",
     "events": "אירועים"
+  },
+  "metricsTab": {
+    "selectGroup": "תיאור זמני",
+    "group": {
+      "checklist": "",
+      "downloads": "",
+      "taxonomic": "תיאור זמני",
+      "geographic": "תיאור זמני",
+      "temporal": "",
+      "qualities": "תיאור זמני",
+      "citations": ""
+    },
+    "checklist": {
+      "notAvailable": "תיאור זמני",
+      "overview": "תיאור זמני",
+      "overviewDescription": "תיאור זמני",
+      "usagesCount": "תיאור זמני",
+      "distinctNamesCount": "תיאור זמני",
+      "synonymsCount": "",
+      "nubMatchingCount": "תיאור זמני",
+      "nubCoveragePct": "תיאור זמני",
+      "colMatchingCount": "תיאור זמני",
+      "colCoveragePct": "תיאור זמני",
+      "countByKingdom": "תיאור זמני",
+      "countByKingdomDescription": "תיאור זמני",
+      "countByRank": "תיאור זמני",
+      "countByRankDescription": "תיאור זמני",
+      "countByOrigin": "תיאור זמני",
+      "countByOriginDescription": "תיאור זמני",
+      "origin": "",
+      "countByIssue": "תיאור זמני",
+      "countByIssueDescription": "תיאור זמני",
+      "count": ""
+    }
   },
   "noStatsForMetadata": "אין סטטיסטיקות למסדי נתונים של מטא־דאטה בלבד",
   "siteScopeSmallerThanDataset": "לא כל הרשומות ממסד הנתונים נכללות באתר זה. בקרו ב־[GBIF.org]({datasetUrl}) כדי לחקור את מסד הנתונים המלא.",
@@ -109,6 +142,7 @@
   "containsSamplingEventsDescription": "מסד נתונים זה כולל נתוני דגימה. פרטי שיטת הדגימה מופיעים במדור המתודולוגיה של תיאור המסד.",
   "griddedData": "נתונים מרובעים",
   "griddedDataDescription": "לפי הניתוח שלנו, מסד נתונים זה כנראה כולל נתונים מרובעים. קראו עוד בפוסט [על מסדי נתונים מרובעים](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "",
   "registry": {
     "failedSinceSuccess": "ניסיונות כושלים מאז ההצלחה האחרונה",
     "lastFailed": "הניסיון הכושל האחרון",
@@ -153,5 +187,7 @@
     "evenList": "מומן במשותף על ידי",
     "occurrenceInfo": "מומן במשותף על ידי"
   },
-  "eventTaxonomy": "התפלגות טקסונומית של תצפיות"
+  "eventTaxonomy": "התפלגות טקסונומית של תצפיות",
+  "noCitations": "תיאור זמני",
+  "noOccurrences": ""
 }

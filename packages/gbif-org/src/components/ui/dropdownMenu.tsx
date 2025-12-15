@@ -3,6 +3,7 @@ import { CheckIcon, ChevronRightIcon, DotFilledIcon } from '@radix-ui/react-icon
 import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
+import { getPortalContainer } from '@/utils/getPortalContainer';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -56,7 +57,7 @@ const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
-  <DropdownMenuPrimitive.Portal>
+  <DropdownMenuPrimitive.Portal container={getPortalContainer()}>
     <div className="gbif">
       <DropdownMenuPrimitive.Content
         ref={ref}

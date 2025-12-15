@@ -176,9 +176,9 @@ export function HelpLine({
   return (
     <Popover>
       <PopoverTrigger className={cn('g-inline-flex g-text-start', className)}>
-        <span className="g-flex-inline g-gap-2">
-          {hasTitle && <>{title || <HelpTitle id={id ?? ''} />} </>}
-          {icon && (typeof icon === 'boolean' ? <MdInfoOutline className="-g-mt-1" /> : icon)}
+        <span className="g-inline-flex g-gap-2 g-items-center">
+          {hasTitle && <span dir="auto">{title || <HelpTitle id={id ?? ''} />}</span>}
+          {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
         </span>
       </PopoverTrigger>
       <PopoverContent className={cn('g-prose g-w-96', contentClassName)}>

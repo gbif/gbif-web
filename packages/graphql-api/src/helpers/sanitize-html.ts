@@ -317,6 +317,15 @@ const supportedLocales = ['en-GB', 'da', 'fr', 'es', 'ar'];
 export function prefixLinkUrl(str = '', locale?: string) {
   if (typeof str !== 'string') return str;
 
+  // Early return if not a GBIF link or relative link
+  const isGbifLink = /^http(s)?:\/\/(www\.)?gbif((-dev)|(-uat))?\.org/.test(
+    str,
+  );
+  const isRelativeLink = str.startsWith('/') && !str.startsWith('//');
+  if (!isGbifLink && !isRelativeLink) {
+    return str;
+  }
+
   // Normalize the URL by ensuring it ends with a slash for consistent processing
   let hasAddedEndSlash = false;
   if (!str.endsWith('/')) {

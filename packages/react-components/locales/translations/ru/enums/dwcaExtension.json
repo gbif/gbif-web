@@ -23,5 +23,22 @@
   "http://rs.gbif.org/terms/1.0/Multimedia": "Мультимедиа",
   "http://rs.gbif.org/terms/1.0/Reference": "Ссылка",
   "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Связь ресурсов",
-  "http://eol.org/schema/reference/Reference": "Ссылка на EOL (Encyclopedia of Life)"
+  "http://eol.org/schema/reference/Reference": "Ссылка на EOL (Encyclopedia of Life)",
+  "http://eol.org/schema/media/Document": "Документ EOL",
+  "http://rs.gbif.org/terms/1.0/Description": "Описание GBIF",
+  "http://rs.gbif.org/terms/1.0/Distribution": "Распределение GBIF",
+  "http://rs.gbif.org/terms/1.0/VernacularName": "Название в GBiF на национальном языке",
+  "http://rs.gbif.org/terms/1.0/SpeciesProfile": "Профиль вида в GBIF",
+  "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "Типы и образцы в GBIF",
+  "http://rs.gbif.org/terms/1.0/Releve": "Снимки в GBIF",
+  "http://rs.tdwg.org/dwc/terms/Event": "Событие DwC",
+  "http://rs.tdwg.org/dwc/terms/MaterialSample": "Материал образца DwC",
+  "http://ala.org.au/terms/1.0/VerbatimEvent": "Дословно событие ALA",
+  "http://ala.org.au/terms/1.0/VerbatimOccurrence": "Дословно событие ALA",
+  "http://ala.org.au/terms/seedbank/0.1/SeedbankRecord": "Запись о банке семян ALA",
+  "http://rs.tdwg.org/eco/terms/Event": "Расширение Гумбольдта",
+  "https://terms.catalogueoflife.org/NameRelation": "Связь имён CoL",
+  "http://eol.org/schema/agent/Agent": "Агент EOL",
+  "http://purl.org/plic/terms/3.2.1/Endemicity": "Эндемики PLIC",
+  "http://purl.org/plic/terms/3.2.1/ThreatStatus": "Статус угрозы PLIC"
 }

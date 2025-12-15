@@ -42,8 +42,10 @@
     "materialSample": "Amostra de material",
     "geologicalContext": "Contexto geológico",
     "other": "Outro",
-    "extensions": "Extensões"
+    "extensions": "Extensões",
+    "issues": "Questões e sinalizadores"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "Agrupado",
     "isSamplingEvent": "Evento de colheita",
@@ -75,7 +77,7 @@
         "identifier": "Identificador",
         "type": "Tipo",
         "subtypeLiteral": "",
-        "subtype": "",
+        "subtype": "Subtipo",
         "title": "Título",
         "modified": "Modificado",
         "MetadataDate": "",
@@ -96,14 +98,14 @@
         "UsageTerms": "",
         "WebStatement": "",
         "licenseLogoURL": "",
-        "Credit": "",
+        "Credit": "Crédito",
         "attributionLogoURL": "",
         "attributionLinkURL": "",
         "fundingAttribution": "",
         "source": "Fonte",
         "creator": "Criador",
         "providerLiteral": "Iguais {is}",
-        "provider": "",
+        "provider": "Fornecedor",
         "metadataCreatorLiteral": "Iguais {is}",
         "metadataCreator": "",
         "metadataProviderLiteral": "Iguais {is}",
@@ -301,7 +303,7 @@
       "name": "",
       "properties": {
         "identificationID": "ID de identificação",
-        "verbatimIdentification": "",
+        "verbatimIdentification": "Identificação verbatim",
         "identificationQualifier": "Qualificador da identificação",
         "typeStatus": "Condição do Tipo",
         "identifiedBy": "Identificado por",
@@ -335,10 +337,10 @@
         "genus": "Género",
         "genericName": "Nome genérico",
         "subgenus": "Subgénero",
-        "infragenericEpithet": "",
+        "infragenericEpithet": "Epíteto infragenérico",
         "specificEpithet": "Epíteto específico",
         "infraspecificEpithet": "Epíteto infra-específico",
-        "cultivarEpithet": "",
+        "cultivarEpithet": "Epíteto de cultivar",
         "taxonRank": "",
         "verbatimTaxonRank": "",
         "scientificNameAuthorship": "Autor do nome científico",
@@ -433,7 +435,7 @@
       }
     },
     "eolReference": {
-      "name": "",
+      "name": "Referência EOL",
       "properties": {
         "identifier": "Identificador",
         "publicationType": "",
@@ -450,8 +452,8 @@
         "editorList": "",
         "created": "Criado",
         "language": "Idioma",
-        "uri": "",
-        "doi": "",
+        "uri": "URI",
+        "doi": "DOI",
         "localityName": ""
       }
     },
@@ -595,7 +597,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "Idade cronométrica",
       "properties": {
         "chronometricAgeID": "Código de Conduta",
         "verbatimChronometricAge": "Iguais {is}",
@@ -618,7 +620,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Dados derivados de ADN",
       "properties": {}
     }
   }

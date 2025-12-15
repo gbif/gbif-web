@@ -9,16 +9,16 @@ type Props = {
   className?: string;
 };
 
-export function ArticlePreTitle({ secondary, children, className, clickable }: Props) {
+export function ArticlePreTitle({ secondary, children, className, clickable = false }: Props) {
   return (
-    <p
-      className={cn(
-        'g-flex g-items-center g-mt-2 g-mb-1 g-text-xs g-leading-6 g-font-semibold g-text-slate-700 g-uppercase',
-        className
-      )}
-    >
+    <p className={cn('g-flex g-items-center g-mt-2 g-mb-1 g-text-sm g-leading-6', className)}>
       <Primary clickable={clickable}>{children}</Primary>{' '}
-      {secondary && <Secondary>{secondary}</Secondary>}
+      {secondary && (
+        <>
+          <Separator />
+          <Secondary>{secondary}</Secondary>
+        </>
+      )}
     </p>
   );
 }
@@ -32,26 +32,22 @@ export function ArticlePreTitleSkeleton({ className }: Pick<Props, 'className'>)
 }
 
 function Primary({ children, clickable }: { children: React.ReactNode; clickable?: boolean }) {
-  if (!clickable) {
-    return <span>{children}</span>;
-  }
-
   return (
-    <span className="hover:g-text-[rgb(var(--preTitleSeparatorColor,var(--primary500)))]">
+    <span
+      className={cn('g-text-primary-500 g-font-semibold', clickable && 'hover:g-text-primary-700')}
+    >
       {children}
     </span>
   );
 }
 
 function Secondary({ children }: { children: React.ReactNode }) {
+  return <span className="g-text-slate-500 g-font-medium">{children}</span>;
+}
+
+function Separator() {
   return (
-    <span
-      className={cn(
-        'g-ms-2 g-ps-2 g-border-s-2 g-border-[rgb(var(--preTitleSeparatorColor))] g-leading-4'
-      )}
-    >
-      {children}
-    </span>
+    <span className="g-mx-2 g-block g-h-4 g-w-0.5 g-bg-[rgb(var(--preTitleSeparatorColor,_148_163_184))]" />
   );
 }
 

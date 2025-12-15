@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "Acerca de",
-    "occurrences": "Registros biológicos",
-    "citations": "Citaciones",
     "project": "Proyecto",
     "taxonomy": "Taxonomía",
     "download": "Descargar",
     "phylogeny": "Filogenias",
+    "metrics": "Estadísticas",
     "events": "Eventos"
+  },
+  "metricsTab": {
+    "selectGroup": "Marcador de posición de descripción",
+    "group": {
+      "checklist": "Lista de especies",
+      "downloads": "Descargas",
+      "taxonomic": "Marcador de posición de descripción",
+      "geographic": "Marcador de posición de descripción",
+      "temporal": "Temporal",
+      "qualities": "Marcador de posición de descripción",
+      "citations": "Citaciones"
+    },
+    "checklist": {
+      "notAvailable": "Marcador de posición de descripción",
+      "overview": "Marcador de posición de descripción",
+      "overviewDescription": "Marcador de posición de descripción",
+      "usagesCount": "Marcador de posición de descripción",
+      "distinctNamesCount": "Marcador de posición de descripción",
+      "synonymsCount": "Sinónimos",
+      "nubMatchingCount": "Marcador de posición de descripción",
+      "nubCoveragePct": "Marcador de posición de descripción",
+      "colMatchingCount": "Marcador de posición de descripción",
+      "colCoveragePct": "Marcador de posición de descripción",
+      "countByKingdom": "Marcador de posición de descripción",
+      "countByKingdomDescription": "Marcador de posición de descripción",
+      "countByRank": "Marcador de posición de descripción",
+      "countByRankDescription": "Marcador de posición de descripción",
+      "countByOrigin": "Marcador de posición de descripción",
+      "countByOriginDescription": "Marcador de posición de descripción",
+      "origin": "Origen",
+      "countByIssue": "Marcador de posición de descripción",
+      "countByIssueDescription": "Marcador de posición de descripción",
+      "count": "Conteo"
+    }
   },
   "noStatsForMetadata": "No hay estadísticas disponibles para los conjuntos de solo metadatos.",
   "siteScopeSmallerThanDataset": "No todos los registros del conjunto de datos están incluidos en este sitio. Visite [GBIF.org]({datasetUrl}) para explorar el conjunto de datos completo.",
@@ -109,6 +142,7 @@
   "containsSamplingEventsDescription": "Este conjunto de datos contiene datos de muestreo. Los detalles del método de muestreo se encuentran en la sección de metodología, de la descripción del conjunto de datos.",
   "griddedData": "Datos en cuadrícula",
   "griddedDataDescription": "Basado en el análisis de los registros, es probable que este conjunto de datos contenga datos en cuadrículas. Lee más en este [post sobre conjuntos de datos en cuadrículas](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Métricas de registros de presencias",
   "registry": {
     "failedSinceSuccess": "Intentos fallidos desde la última integración exitosa",
     "lastFailed": "Último intento fallido",
@@ -153,5 +187,7 @@
     "evenList": "Cofinanciado por",
     "occurrenceInfo": "Cofinanciado por"
   },
-  "eventTaxonomy": "Distribución taxonómica de los registros de presencia"
+  "eventTaxonomy": "Distribución taxonómica de los registros de presencia",
+  "noCitations": "Marcador de posición de descripción",
+  "noOccurrences": "Sin registros de presencia"
 }

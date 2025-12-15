@@ -1,4 +1,8 @@
 {
   "institutionalGovernance": "Governança institucional",
-  "disciplines": "Disciplinas institucionais"
+  "type": "Tipo de instituição",
+  "addCollection": "Adicionar coleção",
+  "disciplines": "Disciplinas institucionais",
+  "numberSpecimens": "Número de espécimenes na instituição",
+  "unknownCollectionCodesForInstitution": "Estes códigos de coleção desconhecidos estão vinculados a esta instituição"
 }

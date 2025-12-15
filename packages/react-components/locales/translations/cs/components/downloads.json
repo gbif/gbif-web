@@ -65,6 +65,7 @@
     "downloadStarted": "Stahování bylo zahájeno a v současné době se zpracovává.",
     "downloadExpectTime": "Počítejte s tím, že stahování potrvá až 3 hodiny. Většina stahování bude dokončena do 15 minut.",
     "notificationEmailAddresses": "Jakmile budou výsledky připraveny, bude vám zaslán oznamovací e-mail s odkazem ke stažení na následující adresu: ",
+    "sqlGeneratedUsingPredicate": "Zástupce popisu",
     "status": {
       "PREPARING": "Ve frontě",
       "SUSPENDED": "Pozastaveno",
@@ -72,7 +73,9 @@
       "CANCELLED": "Zrušeno",
       "KILLED": "Zabito"
     },
+    "usedChecklistKey": "Zástupce popisu",
     "predicate": {
+      "checklist": "Kontrolní seznam",
       "joinDescriptions": {
         "and": "Všichni musí podat žádost",
         "or": "Alespoň jeden z nich musí splňovat podmínky",
@@ -84,6 +87,7 @@
       "isNotNull": "Je určeno",
       "isNull": "Není určeno",
       "within": "Souřadnice v rámci",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "ID události",
         "DECIMAL_LONGITUDE": "Desetinná zeměpisná délka",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Repatriováno",
         "YEAR": "Rok",
         "STATE_PROVINCE": "Stát/kraj",
-        "GEO_DISTANCE": "Geografická vzdálenost",
         "GADM_GID": "GADM ID",
         "SAMPLE_SIZE_VALUE": "Hodnota velikosti vzorku",
         "OCCURRENCE_ID": "ID Výskytu",
@@ -198,6 +201,7 @@
         "FORMATION": "Formace",
         "ORDER_KEY": "Řád",
         "ISSUE": "Problém",
+        "TAXONOMIC_ISSUE": "Zástupce popisu",
         "INSTALLATION_KEY": "Instalace",
         "VERBATIM_SCIENTIFIC_NAME": "Přesný vědecký název",
         "GBIF_REGION": "Region GBIF",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Zpět",
+    "slowDown": "Zástupce popisu",
+    "unableToCreateDownload": "Zástupce popisu",
     "backToFormatSelection": "Zástupce popisu",
     "backToConfiguration": "Zástupce popisu",
     "estimatedSize": "Rovná se {from}",

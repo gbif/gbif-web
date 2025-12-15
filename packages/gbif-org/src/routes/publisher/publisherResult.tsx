@@ -80,20 +80,31 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           )}
         </div>
         <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-          <Tag>
-            <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
-          </Tag>
+          <DynamicLink pageId="publisherSearch" searchParams={{ country: [publisher.country] }}>
+            <Tag className="hover:g-bg-primary-200">
+              <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
+            </Tag>
+          </DynamicLink>
           {/* <div className='g-flex-grow'></div> */}
-          <CountTag
-            v1Endpoint="/dataset/search"
-            params={{ publishingOrg: publisher.key }}
-            message="counts.nDatasets"
-          />
-          <CountTag
-            v1Endpoint="/literature/search"
-            params={{ publishingOrganizationKey: publisher.key }}
-            message="counts.nCitations"
-          />
+          <DynamicLink pageId="datasetSearch" searchParams={{ publishingOrg: [publisher.key] }}>
+            <CountTag
+              className="hover:g-bg-primary-200"
+              v1Endpoint="/dataset/search"
+              params={{ publishingOrg: publisher.key }}
+              message="counts.nDatasets"
+            />
+          </DynamicLink>
+          <DynamicLink
+            pageId="literatureSearch"
+            searchParams={{ publishingOrganizationKey: [publisher.key] }}
+          >
+            <CountTag
+              className="hover:g-bg-primary-200"
+              v1Endpoint="/literature/search"
+              params={{ publishingOrganizationKey: publisher.key }}
+              message="counts.nCitations"
+            />
+          </DynamicLink>
         </div>
       </article>
     </Card>

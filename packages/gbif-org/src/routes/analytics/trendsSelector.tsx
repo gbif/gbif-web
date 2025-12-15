@@ -1,5 +1,5 @@
-import countries from '@/enums/basic/country.json';
 import regions from '@/enums/basic/gbifRegion.json';
+import { useSortedCountries } from '@/hooks/useSortedCountries';
 import { useI18n } from '@/reactRouterPlugins';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ export function TrendsSelector({ value }: Props) {
   const { formatMessage } = useIntl();
   const { localizeLink } = useI18n();
   const navigate = useNavigate();
+  const sortedCountries = useSortedCountries();
 
   return (
     <select
@@ -31,7 +32,7 @@ export function TrendsSelector({ value }: Props) {
           return;
         }
 
-        if (countries.includes(targetValue)) {
+        if (sortedCountries.some((country) => country.key === targetValue)) {
           navigate(localizeLink(`/country/${targetValue}/about#trends`));
           return;
         }
@@ -48,9 +49,9 @@ export function TrendsSelector({ value }: Props) {
         ))}
       </optgroup>
       <optgroup label={formatMessage({ id: 'trends.exploreByCountry' })}>
-        {countries.map((country) => (
-          <option value={country} key={country}>
-            <FormattedMessage id={`enums.countryCode.${country}`} />
+        {sortedCountries.map((country) => (
+          <option value={country.key} key={country.key}>
+            {country.title}
           </option>
         ))}
       </optgroup>

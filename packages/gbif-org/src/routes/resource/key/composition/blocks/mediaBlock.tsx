@@ -3,7 +3,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/articleBody';
-import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { backgroundColorMap, BlockContainer, BlockHeading, MediaBlockImage } from './_shared';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 fragmentManager.register(/* GraphQL */ `
@@ -65,20 +65,23 @@ function MediaBlockContent({
       })}
     >
       {resource.optionalImg && (
-        <div className="g-flex-1">
-          <img
-            src={resource.optionalImg.file.url}
-            alt={resource.optionalImg.description ?? ''}
-            title={resource.optionalImg.title ?? ''}
-            className={cn('g-w-full g-h-full g-m-auto', {
-              'g-max-w-[450px]': !resource.roundImage,
-              'g-max-w-[350px] g-rounded-full g-aspect-square g-object-cover': resource.roundImage,
-            })}
-          />
-        </div>
+        <MediaBlockImage
+          src={resource.optionalImg.file.url}
+          alt={resource.optionalImg.description}
+          title={resource.optionalImg.title}
+          description={resource.optionalImg.description}
+          className={cn('g-w-full g-h-full g-m-auto', {
+            'g-max-w-[450px]': !resource.roundImage,
+            'g-max-w-[350px] g-rounded-full g-aspect-square g-object-cover': resource.roundImage,
+          })}
+        />
       )}
       <div className="g-flex-1">
-        {insideCarousel && <h4 className="g-text-xl g-font-medium">{resource.mediaTitle}</h4>}
+        {insideCarousel && (
+          <h4 dir="auto" className="g-text-xl g-font-medium">
+            {resource.mediaTitle}
+          </h4>
+        )}
         <p className="g-text-sm">{resource.subtitle}</p>
         {resource.body && (
           <ArticleBody className="g-mt-4" dangerouslySetBody={{ __html: resource.body }} />
@@ -132,9 +135,4 @@ function CallToAction({ link }: { link: Link }) {
       {link.label}
     </DynamicLink>
   );
-}
-
-function Log() {
-  console.log('Log');
-  return null;
 }

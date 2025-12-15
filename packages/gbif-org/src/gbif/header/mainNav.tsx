@@ -16,7 +16,7 @@ import { MdLink } from 'react-icons/md';
 export default memo(MainNavigation) as typeof MainNavigation;
 function MainNavigation({ menu }: { menu: HeaderQuery }) {
   const [value, setValue] = React.useState('');
-  const children = menu.gbifHome?.children;
+  const children = menu?.gbifHome?.children;
   return (
     <>
       <div className="g-hidden lg:g-block">

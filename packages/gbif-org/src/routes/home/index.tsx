@@ -7,46 +7,45 @@ import { cn } from '@/utils/shadcn';
 import React, { useEffect, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Link, useLoaderData } from 'react-router-dom';
+import { json, Link, useLoaderData } from 'react-router-dom';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
-import { usePartialDataNotification } from '../rootErrorPage';
 import { HomePageCounts } from './counts';
+// eslint-disable-next-line
+import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
+import { usePartialDataNotification } from '../rootErrorPage';
 
-const HOMEPAGE_QUERY = /* GraphQL */ `
-  query HomePage {
-    gbifHome {
-      title
-      summary
-      primaryImage {
-        file {
-          url
-          thumbor
-        }
-        title
-        description
+async function homepageLoader({ locale }: LoaderArgs) {
+  const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/home?locale=${
+    locale.cmsLocale ?? 'en'
+  }`;
+  const response = await fetch(apiUrl);
+
+  if (!response.ok) {
+    // just swallow errors here and let the page render with partial data
+    return json(
+      { error: 'Failed to load homepage data' },
+      {
+        headers: {
+          'GBIF-Cache-Control': 'NONE', // option are listed in gbif/entry.server but vite builds fails if trying to export/import things into the server file or vica versa
+        },
       }
-      ...HomePageCountIcons
-      blocks {
-        ...BlockItemDetails
-      }
-    }
+    ) as HomePageQuery;
   }
-`;
 
-function homepageLoader({ graphql }: LoaderArgs) {
-  return graphql.query<HomePageQuery, HomePageQueryVariables>(HOMEPAGE_QUERY, {});
+  return { data: await response.json() };
 }
 
 function HomePage(): React.ReactElement {
-  const { data, errors } = useLoaderData() as { data: HomePageQuery };
+  const { data, error } = useLoaderData() as { data: HomePageQuery; error?: string };
   const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
-    if (errors) {
+    if (error) {
       notifyOfPartialData();
     }
-  }, [errors, notifyOfPartialData]);
+  }, [error, notifyOfPartialData]);
+
   const home = data?.gbifHome;
   const userInfo = useUserInfo();
   const primaryImage = home?.primaryImage?.[0];
@@ -76,7 +75,7 @@ function HomePage(): React.ReactElement {
                   </div>
                   <div className="g-mt-4">
                     <SearchBar />
-                    <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
+                    <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-start">
                       <HeaderLink to="/what-is-gbif">
                         <FormattedMessage id="homepage.whatIsGbif" />
                       </HeaderLink>

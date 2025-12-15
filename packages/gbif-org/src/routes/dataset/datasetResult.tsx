@@ -82,25 +82,33 @@ export function DatasetResult({
           </div>
         </div>
         <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-          <Tag>
-            <FormattedMessage id={`dataset.longType.${dataset.type}`} />
-          </Tag>
+          <DynamicLink pageId="datasetSearch" searchParams={{ type: [dataset.type] }}>
+            <Tag className="hover:g-bg-primary-200">
+              <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+            </Tag>
+          </DynamicLink>
           <div className="g-flex-grow g-hidden sm:g-block"></div>
-          <CountTag
-            v1Endpoint="/occurrence/search"
-            params={{ datasetKey: dataset.key }}
-            message="counts.nOccurrences"
-          />
+          <DynamicLink pageId="occurrenceSearch" searchParams={{ datasetKey: [dataset.key] }}>
+            <CountTag
+              className="hover:g-bg-primary-200"
+              v1Endpoint="/occurrence/search"
+              params={{ datasetKey: dataset.key }}
+              message="counts.nOccurrences"
+            />
+          </DynamicLink>
           <CountTag
             v1Endpoint="/species/search"
             params={{ datasetKey: dataset.key, origin: 'SOURCE' }}
             message="counts.nRecords"
           />
-          <CountTag
-            v1Endpoint="/literature/search"
-            params={{ gbifDatasetKey: dataset.key }}
-            message="counts.nCitations"
-          />
+          <DynamicLink pageId="literatureSearch" searchParams={{ gbifDatasetKey: [dataset.key] }}>
+            <CountTag
+              className="hover:g-bg-primary-200"
+              v1Endpoint="/literature/search"
+              params={{ gbifDatasetKey: dataset.key }}
+              message="counts.nCitations"
+            />
+          </DynamicLink>
         </div>
       </article>
     </Card>

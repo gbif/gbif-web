@@ -1,16 +1,19 @@
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MdEmail, MdHome } from 'react-icons/md';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useSearchParams } from 'react-router-dom';
 import { FormButton } from '../shared/FormComponents';
 import { FormHeader } from '../shared/PageHeader';
 import { ErrorState, LoadingState, SuccessState } from '../shared/StatusMessages';
 import { UserPageLayout } from '../shared/UserPageLayout';
+import { useUser } from '@/contexts/UserContext';
 
 export const UpdateEmailSkeleton = ArticleSkeleton;
 // TODO: this file has hardcoded texts that should go into the translation files
 export function UpdateEmailPage() {
+  const { formatMessage } = useIntl();
+  const { changeEmail } = useUser();
   const [searchParams] = useSearchParams();
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateStatus, setUpdateStatus] = useState<'pending' | 'success' | 'error'>('pending');
@@ -27,36 +30,28 @@ export function UpdateEmailPage() {
     }
   }, [challengeCode, userName, email]);
 
-  const updateEmail = async () => {
+  const updateEmail = useCallback(() => {
     if (!challengeCode || !userName || !email) return;
 
     setIsUpdating(true);
     try {
-      const response = await fetch('/api/user/updateEmail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          challengeCode,
-          userName,
-          email,
-        }),
-      });
-
-      if (response.ok) {
-        setUpdateStatus('success');
-      } else {
-        setUpdateStatus('error');
-        setError('UPDATE_FAILED');
-      }
-    } catch (err) {
+      changeEmail(challengeCode, email, userName)
+        .then(() => {
+          setUpdateStatus('success');
+        })
+        .catch(() => {
+          setUpdateStatus('error');
+          setError('UPDATE_FAILED');
+        })
+        .finally(() => {
+          setIsUpdating(false);
+        });
+    } catch (e) {
       setUpdateStatus('error');
       setError('UPDATE_FAILED');
-    } finally {
       setIsUpdating(false);
     }
-  };
+  }, [challengeCode, email, userName, setUpdateStatus, changeEmail]);
 
   const getErrorMessage = (error: string) => {
     switch (error) {
@@ -65,7 +60,7 @@ export function UpdateEmailPage() {
       case 'UPDATE_FAILED':
         return 'profile.updateFailed';
       default:
-        return 'An error occurred while updating your email address';
+        return 'profile.updateFailed';
     }
   };
 
@@ -73,8 +68,13 @@ export function UpdateEmailPage() {
     if (isUpdating) {
       return (
         <LoadingState
-          title="Updating Email"
-          message="Please wait while we update your email address..."
+          title={<FormattedMessage id="profile.updatingEmail" defaultMessage="Updating Email" />}
+          message={
+            <FormattedMessage
+              id="profile.updatingEmailMessage"
+              defaultMessage="Please wait while we update your email address..."
+            />
+          }
         />
       );
     }
@@ -82,17 +82,22 @@ export function UpdateEmailPage() {
     if (updateStatus === 'success') {
       return (
         <SuccessState
-          title="Email Updated!"
-          message="Your email address has been successfully updated"
-          successMessage="Your new email address is now active for your GBIF account."
-          successMessageId="profile.emailUpdated"
+          title={
+            <FormattedMessage id="profile.emailUpdatedTitle" defaultMessage="Email Updated!" />
+          }
+          message={
+            <FormattedMessage
+              id="profile.emailUpdatedMessage"
+              defaultMessage="Your email address has been successfully updated"
+            />
+          }
           primaryAction={{
-            to: '/user/login',
-            text: 'Sign In to Your Account',
+            to: '/user/profile',
+            text: formatMessage({ id: 'profile.goToProfile' }),
           }}
           secondaryAction={{
             to: '/',
-            text: 'Go to Homepage',
+            text: formatMessage({ id: 'profile.goToHomepage' }),
             icon: MdHome,
           }}
         />
@@ -103,18 +108,27 @@ export function UpdateEmailPage() {
       const errorMessage = getErrorMessage(error);
       return (
         <ErrorState
-          title="Update Failed"
-          message="We were unable to update your email address"
-          error={errorMessage}
-          errorMessageId={errorMessage}
-          helpText="If you continue to have problems, please contact support or try the update process again."
+          title={<FormattedMessage id="profile.updateFailedTitle" defaultMessage="Update Failed" />}
+          message={
+            <FormattedMessage
+              id="profile.updateFailedMessage"
+              defaultMessage="We were unable to update your email address"
+            />
+          }
+          error={<FormattedMessage id={errorMessage} defaultMessage={errorMessage} />}
+          helpText={
+            <FormattedMessage
+              id="profile.updateEmailHelpText"
+              defaultMessage="If you continue to have problems, please contact support or try the update process again."
+            />
+          }
           primaryAction={{
             to: '/user/profile',
-            text: 'Go to Profile',
+            text: formatMessage({ id: 'profile.goToProfile' }),
           }}
           secondaryAction={{
             to: '/',
-            text: 'Go to Homepage',
+            text: formatMessage({ id: 'profile.goToHomepage' }),
             icon: MdHome,
           }}
         />
@@ -125,8 +139,15 @@ export function UpdateEmailPage() {
     return (
       <div className="g-text-center g-space-y-6">
         <FormHeader
-          title="Update Email Address"
-          subtitle="Confirm your new email address below"
+          title={
+            <FormattedMessage id="profile.updateEmailTitle" defaultMessage="Update Email Address" />
+          }
+          subtitle={
+            <FormattedMessage
+              id="profile.updateEmailSubtitle"
+              defaultMessage="Confirm your new email address below"
+            />
+          }
           icon={MdEmail}
         />
 
@@ -139,7 +160,9 @@ export function UpdateEmailPage() {
         >
           <div className="g-text-left">
             <label className="g-block g-text-sm g-font-medium g-text-gray-700 g-mb-2">
-              <span className="g-text-xs g-uppercase g-text-gray-500">NEW EMAIL</span>
+              <span className="g-text-xs g-uppercase g-text-gray-500">
+                <FormattedMessage id="profile.newEmail" defaultMessage="NEW EMAIL" />
+              </span>
             </label>
             <input
               type="email"

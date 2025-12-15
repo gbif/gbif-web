@@ -19,6 +19,7 @@ import SearchTrigger from './SearchTrigger';
 import { cn } from '@/utils/shadcn';
 import useQuery from '@/hooks/useQuery';
 import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
   return (
@@ -166,7 +167,9 @@ function LoginButton() {
 
   return (
     <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
-      <Link to={`/user/login?returnUrl=${returnUrl}`}>Login</Link>
+      <Link to={`/user/login?returnUrl=${returnUrl}`}>
+        <FormattedMessage id="profile.loginText" defaultMessage="Login" />
+      </Link>
     </Button>
   );
 }

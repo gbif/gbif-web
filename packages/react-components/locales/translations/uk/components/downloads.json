@@ -65,6 +65,7 @@
     "downloadStarted": "Завантаження розпочалося і на даний момент опрацьовується.",
     "downloadExpectTime": "Будь ласка, розраховуйте, що завантаження може зайняти до 3 годин часу. Однак, більшість завантажень зазвичай завершується в рамках 15 хвилин.",
     "notificationEmailAddresses": "Лист сповіщення з посиланням для завантаження результатів буде надіслано на наступну адресу: ",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "Підготовка",
       "SUSPENDED": "Призупинено",
@@ -72,7 +73,9 @@
       "CANCELLED": "Скасовано",
       "KILLED": "Знищено"
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "Таксономічні списки",
       "joinDescriptions": {
         "and": "Застосувати всі",
         "or": "Принаймні один повинен бути застосований",
@@ -84,6 +87,7 @@
       "isNotNull": "Є визначеним",
       "isNull": "",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "ID події",
         "DECIMAL_LONGITUDE": "Довгота в десятковому форматі",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Репатрійовано",
         "YEAR": "Рік",
         "STATE_PROVINCE": "",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "Розмір вибірки",
         "OCCURRENCE_ID": "ID знахідки",
@@ -198,6 +201,7 @@
         "FORMATION": "Формація",
         "ORDER_KEY": "Порядок/ряд",
         "ISSUE": "Проблема",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Інстальований сервер публікування даних",
         "VERBATIM_SCIENTIFIC_NAME": "Первинно вжита наукова назва",
         "GBIF_REGION": "Регіон GBIF",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Назад",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "",

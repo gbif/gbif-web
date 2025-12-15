@@ -122,11 +122,12 @@ export function ProjectAboutTab() {
               }
             />
           )}
-
-          <KeyValuePair
-            label={<FormattedMessage id="cms.project.typeOfGrant" />}
-            value={<FormattedMessage id={`enums.cms.projectGrantType.${resource.grantType}`} />}
-          />
+          {resource.grantType && (
+            <KeyValuePair
+              label={<FormattedMessage id="cms.project.typeOfGrant" />}
+              value={<FormattedMessage id={`enums.cms.projectGrantType.${resource.grantType}`} />}
+            />
+          )}
 
           {/* if start date and (no end date or start date same as end date), only show one date */}
           {resource.start && (!resource.end || resource.start === resource.end) && (

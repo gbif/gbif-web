@@ -9,6 +9,7 @@ import {
   CommandSeparator,
 } from '@/components/ui/command';
 import { normalizeString } from '@/utils/normalizeString';
+import { cn } from '@/utils/shadcn';
 import React, { useEffect, useRef } from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -40,6 +41,7 @@ const ContentWrapper = React.forwardRef(
     });
     const searchRef = useRef<HTMLInputElement>(null);
     const [activeFilterHandle, setActiveFilterHandle] = React.useState<string | null>(null);
+    const [searchValue, setSearchValue] = React.useState('');
     const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
 
     useEffect(() => {
@@ -57,48 +59,53 @@ const ContentWrapper = React.forwardRef(
 
     return (
       <div>
-        {!activeFilterHandle && (
-          <Command
-            filter={(value, search) => {
-              if (normalizeString(value).includes(normalizeString(search))) return 1;
-              return 0;
-            }}
-          >
-            <CommandInput placeholder={placeholder} ref={searchRef} />
-            <CommandEmpty>
-              <FormattedMessage
-                id="filterSupport.noMathcingFilters"
-                defaultMessage="No matching filters"
+        <Command
+          className={cn(activeFilterHandle && 'g-hidden')}
+          aria-hidden={activeFilterHandle ? true : undefined}
+          filter={(value, search) => {
+            if (normalizeString(value).includes(normalizeString(search))) return 1;
+            return 0;
+          }}
+        >
+          <CommandInput
+            placeholder={placeholder}
+            ref={searchRef}
+            value={searchValue}
+            onValueChange={setSearchValue}
+          />
+          <CommandEmpty>
+            <FormattedMessage
+              id="filterSupport.noMathcingFilters"
+              defaultMessage="No matching filters"
+            />
+          </CommandEmpty>
+          <CommandList>
+            {!hasGroups && (
+              <Group
+                filters={filters}
+                onSelect={(filterHandle) => {
+                  setActiveFilterHandle(filterHandle);
+                }}
               />
-            </CommandEmpty>
-            <CommandList>
-              {!hasGroups && (
-                <Group
-                  filters={filters}
-                  onSelect={(filterHandle) => {
-                    setActiveFilterHandle(filterHandle);
-                  }}
-                />
-              )}
-              {hasGroups &&
-                filteredGroups?.map((group, i) => {
-                  return (
-                    <>
-                      <Group
-                        key={group}
-                        name={group}
-                        filters={filters}
-                        onSelect={(filterHandle) => {
-                          setActiveFilterHandle(filterHandle);
-                        }}
-                      />
-                      {i < filteredGroups.length - 1 && <CommandSeparator />}
-                    </>
-                  );
-                })}
-            </CommandList>
-          </Command>
-        )}
+            )}
+            {hasGroups &&
+              filteredGroups?.map((group, i) => {
+                return (
+                  <>
+                    <Group
+                      key={group}
+                      name={group}
+                      filters={filters}
+                      onSelect={(filterHandle) => {
+                        setActiveFilterHandle(filterHandle);
+                      }}
+                    />
+                    {i < filteredGroups.length - 1 && <CommandSeparator />}
+                  </>
+                );
+              })}
+          </CommandList>
+        </Command>
         {activeFilterHandle && (
           <div>
             <div className="g-flex g-flex-nowrap g-items-center g-border-b">

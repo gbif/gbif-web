@@ -3,6 +3,7 @@ import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 type CountTagProps = CountProps & {
   message?: string;
+  className?: string;
 };
 
 export function CountTag({
@@ -10,12 +11,13 @@ export function CountTag({
   params,
   message = 'counts.nRecords',
   property,
+  className,
 }: CountTagProps) {
   const { count } = useCount({ v1Endpoint, params, property });
 
   if (typeof count === 'number' && count > 0) {
     return (
-      <Tag>
+      <Tag className={className}>
         <FormattedMessage id={message} values={{ total: count }} />
       </Tag>
     );

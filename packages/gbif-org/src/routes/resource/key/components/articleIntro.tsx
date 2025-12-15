@@ -11,6 +11,7 @@ export function ArticleIntro({ dangerouslySetIntro, className, ...props }: Props
   return (
     <div
       className={cn('g-text-lg g-text-slate-600 dark:g-text-slate-300', className)}
+      dir="auto"
       dangerouslySetInnerHTML={dangerouslySetIntro}
       {...props}
     />

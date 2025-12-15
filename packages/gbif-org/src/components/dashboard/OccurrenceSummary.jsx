@@ -65,17 +65,6 @@ export function OccurrenceSummary({ predicate, q, checklistKey, ...props }) {
                 </tr>
                 <tr>
                   <td>
-                    <FormattedMessage
-                      id="dashboard.distinctNames"
-                      defaultMessage="Distinct names"
-                    />
-                  </td>
-                  <td>
-                    <FormattedNumber value={summary?.cardinality?.verbatimScientificName} />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
                     <FormattedMessage id="dashboard.taxa" defaultMessage="Taxa" />
                   </td>
                   <td>
@@ -117,7 +106,6 @@ query summary($q: String, $predicate: Predicate, $checklistKey: ID){
     cardinality {
       speciesKey(checklistKey: $checklistKey)
       taxonKey(checklistKey: $checklistKey)
-      verbatimScientificName
     }
 
     stats {

@@ -42,8 +42,10 @@
     "materialSample": "Materialprobe",
     "geologicalContext": "Geologischer Kontext",
     "other": "Andere",
-    "extensions": ""
+    "extensions": "",
+    "issues": "Probleme und Flags"
   },
+  "issuesHelpText": "",
   "features": {
     "isClustered": "Cluster",
     "isSamplingEvent": "Sampling-Ereignis",

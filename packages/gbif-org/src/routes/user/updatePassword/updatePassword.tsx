@@ -150,8 +150,12 @@ function UpdatePasswordForm() {
       <SuccessState
         title={<FormattedMessage id="profile.passwordUpdated" />}
         message={<FormattedMessage id="profile.passwordUpdatedMessage" />}
-        successMessage="Password successfully updated."
-        successMessageId="profile.passwordUpdatedSuccess"
+        successMessage={
+          <FormattedMessage
+            id="profile.passwordUpdatedSuccess"
+            defaultMessage="Password successfully updated."
+          />
+        }
         primaryAction={{
           to: '/user/login',
           text: formatMessage({ id: 'profile.signIn' }),
@@ -171,8 +175,7 @@ function UpdatePasswordForm() {
       <ErrorState
         title={<FormattedMessage id="profile.invalidLink" />}
         message={<FormattedMessage id="profile.updateFailedMessage" />}
-        error={errorMessage}
-        errorMessageId={errorMessage}
+        error={<FormattedMessage id={errorMessage} defaultMessage={errorMessage} />}
         helpText={<FormattedMessage id="profile.updateFailedHelp" />}
         primaryAction={{
           to: '/user/login',

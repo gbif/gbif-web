@@ -9,8 +9,6 @@ import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyDownload } from './download';
 import DatasetEvents from './event/datasetEvents';
 import { DatasetEventID, eventLoader, parentEventLoader } from './event/eventID';
-import { DatasetKeyLiterature } from './literature';
-import { DatasetKeyOccurrences } from './occurrences';
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
 import { DatasetKeyTaxonSearch } from './taxonSearch';
@@ -33,18 +31,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
       index: true,
       element: <DatasetKeyAbout />,
     },
-    // {
-    //   path: 'metrics',
-    //   element: <DatasetKeyDashboard />,
-    // },
-    // {
-    //   path: 'occurrences',
-    //   element: <DatasetKeyOccurrences />,
-    // },
-    // {
-    //   path: 'citations',
-    //   element: <DatasetKeyLiterature />,
-    // },
+    {
+      path: 'metrics',
+      element: <DatasetKeyDashboard />,
+    },
     {
       path: 'project',
       element: <DatasetKeyProject />,

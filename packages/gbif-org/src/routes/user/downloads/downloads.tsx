@@ -6,8 +6,6 @@ import { useUser } from '@/contexts/UserContext';
 import { UserDownloadsQuery, UserDownloadsQueryVariables } from '@/gql/graphql';
 import { useIntParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DownloadResult } from './downloadResult';
@@ -46,14 +44,7 @@ export function Downloads() {
     );
   }, [offset, load, user?.graphqlToken, user?.userName]);
 
-  if (loading || !data || !user)
-    return (
-      <PageContainer>
-        <ArticleTextContainer>
-          <CardListSkeleton />
-        </ArticleTextContainer>
-      </PageContainer>
-    );
+  if (loading || !data || !user) return <CardListSkeleton />;
 
   const downloads = data?.userDownloads;
 

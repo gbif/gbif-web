@@ -14,7 +14,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { readLoginFlashInfo } from '../shared/flashCookieUtils';
 import { PageTitle } from '../shared/PageHeader';
-import { UserPageLayout } from '../shared/UserPageLayout';
+import { userLayoutBackgroundImages, UserPageLayout } from '../shared/UserPageLayout';
 import {
   hasFormErrors,
   validateEmail,
@@ -42,18 +42,20 @@ type ErrorType =
   | undefined;
 
 export function LoginPage() {
+  const { user } = useUser();
   const navigate = useNavigate();
   const { isLoggedIn, isLoading } = useUser();
   const { localizeLink } = useI18n();
 
+  const locale = user?.settings?.locale;
   useEffect(() => {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
       // user is already logged in. redirect to search param or profile page
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ?? localizeLink(`/user/profile`));
+      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
     }
-  }, [navigate, isLoggedIn, isLoading, localizeLink]);
+  }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
   return (
     <UserPageLayout title="Login">
@@ -63,21 +65,28 @@ export function LoginPage() {
 }
 
 export function RegistrationPage() {
+  const { user } = useUser();
   const navigate = useNavigate();
   const { isLoggedIn, isLoading } = useUser();
   const { localizeLink } = useI18n();
 
+  const locale = user?.settings?.locale;
   useEffect(() => {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
       // get returnUrl search param if any
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ?? localizeLink(`/user/profile`));
+      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
     }
-  }, [navigate, isLoggedIn, isLoading, localizeLink]);
+  }, [navigate, isLoggedIn, isLoading, localizeLink, locale]);
 
   return (
-    <UserPageLayout title="Register" backgroundImage="/img/frog.jpeg">
+    <UserPageLayout
+      title="Register"
+      backgroundImage={userLayoutBackgroundImages.frog.url}
+      photoCredit={userLayoutBackgroundImages.frog.credit}
+      occurrenceId={userLayoutBackgroundImages.frog.occurrenceId}
+    >
       <RegisterForm />
     </UserPageLayout>
   );
@@ -141,10 +150,10 @@ export function LoginForm() {
     setError('');
 
     try {
-      await login(values);
-      // get returnUrl search param if any
+      const { settings } = await login(values);
+      const locale = settings?.locale;
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
-      navigate(returnUrl ?? localizeLink(`/user/profile`));
+      navigate(returnUrl ? localizeLink(returnUrl, locale) : localizeLink(`/user/profile`, locale));
     } catch (err) {
       if (err instanceof UserError && err.type === 'INVALID_REQUEST') {
         setError('INVALID_LOGIN');

@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "درباره",
-    "occurrences": "",
-    "citations": "استناد",
     "project": "",
     "taxonomy": "",
     "download": "دانلود",
     "phylogeny": "",
+    "metrics": "",
     "events": ""
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "",
+      "downloads": "دانلودها",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "",
+      "qualities": "",
+      "citations": "استناد"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": "تعداد"
+    }
   },
   "noStatsForMetadata": "",
   "siteScopeSmallerThanDataset": "",
@@ -109,6 +142,7 @@
   "containsSamplingEventsDescription": "",
   "griddedData": "",
   "griddedDataDescription": "",
+  "metricsLink": "",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",
@@ -153,5 +187,7 @@
     "evenList": "",
     "occurrenceInfo": ""
   },
-  "eventTaxonomy": ""
+  "eventTaxonomy": "",
+  "noCitations": "",
+  "noOccurrences": ""
 }

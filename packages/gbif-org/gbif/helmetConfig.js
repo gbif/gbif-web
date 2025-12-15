@@ -26,6 +26,8 @@ export const helmetConfig = {
         'gbif.us18.list-manage.com',
         'zenodo.org',
         '*.youtube.com',
+        'phttj8y9mw9t.statuspage.io', // prod - our specific statuspage domain, could also allow all subdomains of statuspage.io
+        'tpr241s1tthg.statuspage.io', // test
         'openmaptiles.github.io',
         'api.maptiler.com',
         'localhost:*',

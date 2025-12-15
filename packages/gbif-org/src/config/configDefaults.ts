@@ -46,6 +46,7 @@ export const configDefault: Partial<Config> = {
     literatureSearch: {
       highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'dataset'],
     },
+    enableListOfDownloads: false,
   },
   collectionSearch: {
     queryType: 'V1',

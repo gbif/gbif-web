@@ -12,7 +12,7 @@ import { MdEdit, MdLanguage, MdLocationOn, MdMail } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
 import { useI18n } from '@/reactRouterPlugins';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { readProfileFlashInfo } from '../shared/flashCookieUtils';
 import {
@@ -30,6 +30,8 @@ import { GitHubAccountItem } from './GitHubAccountItem';
 import { GoogleAccountItem } from './GoogleAccountItem';
 import { OrcidAccountItem } from './OrcidAccountItem';
 import { ProfileSkeleton } from './profileLayout';
+import { useToast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface UserInfo {
   firstName: string;
@@ -48,7 +50,9 @@ interface PasswordInfo {
 const Profile: React.FC = () => {
   const { user, updateProfile, changePassword, disconnectAccount } = useUser();
   const { formatMessage } = useIntl();
+  const navigate = useNavigate();
   const intlConfig = useI18n();
+  const { translatedToast } = useToast();
   intlConfig.availableLocales[0].code;
 
   // Language options from available locales
@@ -180,6 +184,20 @@ const Profile: React.FC = () => {
     setPasswordTouched((prev) => ({ ...prev, [field]: true }));
   };
 
+  /**
+   * Has any of the fields changed value, if not makes no sense to try to update the profile
+   */
+  const hasChanged = () => {
+    // Compare each field in editedInfo with userInfo
+    return (
+      editedInfo.firstName !== userInfo.firstName ||
+      editedInfo.lastName !== userInfo.lastName ||
+      editedInfo.email !== userInfo.email ||
+      editedInfo.country !== userInfo.country ||
+      editedInfo.locale !== userInfo.locale
+    );
+  };
+
   const handleSave = async () => {
     // Validate all fields
     if (hasFormErrors(profileErrors)) {
@@ -193,11 +211,16 @@ const Profile: React.FC = () => {
       return;
     }
 
+    if (!hasChanged()) {
+      setIsEditing(false);
+      return;
+    }
+
     setIsProfileLoading(true);
     setProfileError('');
 
     try {
-      await updateProfile({
+      const updateResult = await updateProfile({
         firstName: editedInfo.firstName,
         lastName: editedInfo.lastName,
         email: editedInfo.email,
@@ -208,6 +231,11 @@ const Profile: React.FC = () => {
         },
       });
 
+      if (updateResult.emailConfirmationRequired) {
+        // Handle email change logic if needed
+        // notify the user that email change require email confirmation before the change is applied
+        translatedToast({ titleKey: 'profile.changeEmailMessage', variant: 'info' });
+      }
       setUserInfo(editedInfo);
       setIsEditing(false);
       setProfileTouched({
@@ -217,6 +245,10 @@ const Profile: React.FC = () => {
         country: false,
         locale: false,
       });
+      // if language changed, reload the page to apply new locale
+      if (userInfo.locale !== editedInfo.locale) {
+        navigate(intlConfig.localizeLink(`/user/profile`, editedInfo.locale));
+      }
     } catch (error) {
       if (error instanceof UserError) {
         setProfileError(error.type);
@@ -305,6 +337,8 @@ const Profile: React.FC = () => {
     return <ProfileSkeleton />;
   }
 
+  const disableFormFields = !isEditing || isProfileLoading;
+
   return (
     <>
       <Card className="g-p-6">
@@ -359,7 +393,7 @@ const Profile: React.FC = () => {
               onBlur={() => handleProfileBlur('firstName')}
               placeholder={formatMessage({ id: 'profile.firstName' })}
               icon={User}
-              disabled={!isEditing}
+              disabled={disableFormFields}
               error={profileErrors.firstName}
               touched={profileTouched.firstName}
             />
@@ -372,7 +406,7 @@ const Profile: React.FC = () => {
               onBlur={() => handleProfileBlur('lastName')}
               placeholder={formatMessage({ id: 'profile.lastName' })}
               icon={User}
-              disabled={!isEditing}
+              disabled={disableFormFields}
               error={profileErrors.lastName}
               touched={profileTouched.lastName}
             />
@@ -387,10 +421,18 @@ const Profile: React.FC = () => {
             onBlur={() => handleProfileBlur('email')}
             placeholder={formatMessage({ id: 'profile.enterEmail' })}
             icon={MdMail}
-            disabled={!isEditing}
+            disabled={disableFormFields}
             error={profileErrors.email}
             touched={profileTouched.email}
           />
+          {isEditing && (
+            <div className="g-text-slate-500 g-text-sm !g-mt-0">
+              <FormattedMessage
+                id="profile.emailChangeInfo"
+                defaultMessage="Email confirmation needed to change email"
+              />
+            </div>
+          )}
 
           <div className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
             {isEditing ? (
@@ -405,16 +447,18 @@ const Profile: React.FC = () => {
                 icon={MdLocationOn}
                 error={profileErrors.country}
                 touched={profileTouched.country}
+                disabled={disableFormFields}
               />
             ) : (
               <FormInput
                 id="country"
                 label={formatMessage({ id: 'profile.country' })}
                 type="text"
-                value={formatMessage({
-                  id: `enums.countryCode.${userInfo.country}`,
-                  defaultMessage: 'Unknown',
-                })}
+                value={
+                  userInfo.country
+                    ? formatMessage({ id: `enums.countryCode.${userInfo.country}` })
+                    : formatMessage({ id: 'phrases.unknown' })
+                }
                 onChange={() => {}}
                 onBlur={() => {}}
                 placeholder={formatMessage({ id: 'profile.country' })}
@@ -435,6 +479,7 @@ const Profile: React.FC = () => {
                 icon={MdLanguage}
                 error={profileErrors.locale}
                 touched={profileTouched.locale}
+                disabled={disableFormFields}
               />
             ) : (
               <FormInput

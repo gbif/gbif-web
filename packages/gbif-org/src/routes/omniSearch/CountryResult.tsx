@@ -22,12 +22,14 @@ export function CountryResult({
       >
         <article className="g-p-4">
           <div className="g-flex g-flex-row g-gap-4">
-            <img
-              src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
-              alt="Country Flag"
-              style={{ width: '92px', height: 'auto' }}
-              className="g-border g-border-solid g-border-slate-200 g-inline-block"
-            />
+            {country.countryCode !== 'FK' && (
+              <img
+                src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
+                alt="Country Flag"
+                style={{ width: '92px', height: 'auto' }}
+                className="g-border g-border-solid g-border-slate-200 g-inline-block"
+              />
+            )}
             <div className="g-flex-1">
               <ResultCardHeaderBasic messageId={messageId}>
                 <FormattedMessage id={`enums.countryCode.${country.countryCode}`} />

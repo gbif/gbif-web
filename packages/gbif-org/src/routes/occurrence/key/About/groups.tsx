@@ -24,6 +24,7 @@ import {
   IdentifiedById,
   InstitutionKey,
   LocalContexts,
+  OccurrenceSearchField,
   RecordedById,
 } from './customValues';
 import {
@@ -599,8 +600,20 @@ function Event({
         if (newState !== visible) setVisible(newState);
       }}
     >
-      <PlainTextField term={termMap.eventID} showDetails={showAll} />
-      <PlainTextField term={termMap.parentEventID} showDetails={showAll} />
+      <OccurrenceSearchField
+        term={termMap.eventID}
+        showDetails={showAll}
+        filterKey="eventId"
+        filterValue={termMap?.eventID?.value}
+        occurrence={occurrence}
+      />
+      <OccurrenceSearchField
+        term={termMap.parentEventID}
+        showDetails={showAll}
+        filterKey="eventId"
+        filterValue={termMap?.parentEventID?.value}
+        occurrence={occurrence}
+      />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />
       {showAll && <PlainTextField term={termMap.startDayOfYear} showDetails={showAll} />}
@@ -647,7 +660,13 @@ function Organism({
         if (newState !== visible) setVisible(newState);
       }}
     >
-      <PlainTextField term={termMap.organismID} showDetails={showAll} />
+      <OccurrenceSearchField
+        term={termMap.organismID}
+        showDetails={showAll}
+        filterKey="organismId"
+        filterValue={termMap?.organismID?.value}
+        occurrence={occurrence}
+      />
       <PlainTextField term={termMap.organismScope} showDetails={showAll} />
       <PlainTextField term={termMap.associatedOccurrences} showDetails={showAll} />
       <HtmlField term={termMap.associatedOrganisms} showDetails={showAll} />

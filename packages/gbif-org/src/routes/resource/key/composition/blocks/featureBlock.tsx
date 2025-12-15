@@ -21,6 +21,7 @@ fragmentManager.register(/* GraphQL */ `
       ... on Feature {
         id
         title
+        comment
         url
         primaryImage {
           ...ProseCardImg
@@ -89,7 +90,17 @@ export function FeatureBlock({ resource }: Props) {
             url = redirectMapper[feature.__typename](feature.id, slugify(feature.title));
           }
 
-          return <ProseCard key={index} title={feature.title} url={url} image={image} />;
+          const description = 'comment' in feature ? feature.comment : undefined;
+
+          return (
+            <ProseCard
+              key={index}
+              title={feature.title}
+              url={url}
+              image={image}
+              description={description}
+            />
+          );
         })}
       </div>
     </BlockContainer>

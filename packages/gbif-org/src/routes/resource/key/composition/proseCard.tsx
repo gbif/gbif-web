@@ -17,9 +17,10 @@ type Props = {
   title: string;
   url?: string;
   image?: ProseCardImgFragment | null;
+  description?: string | null;
 };
 
-export function ProseCard({ title, url, image }: Props) {
+export function ProseCard({ title, description, url, image }: Props) {
   return (
     <div className="g-mx-auto g-max-w-[min(24rem,100%)] g-bg-white g-border g-border-solid g-border-gray-200 g-rounded-lg g-shadow hover:g-shadow-md g-transition-shadow dark:g-bg-gray-800 dark:g-border-gray-700 g-w-full">
       {image && (
@@ -40,9 +41,15 @@ export function ProseCard({ title, url, image }: Props) {
           wrapper={(children) => <DynamicLink to={url!}>{children}</DynamicLink>}
         >
           <h5
+            dir="auto"
             className="g-mb-2 g-text-lg g-font-semibold g-tracking-tight g-text-gray-900 dark:g-text-white g-break-words"
             dangerouslySetInnerHTML={{ __html: title }}
           />
+          {description && (
+            <div dir="auto" className="g-text-gray-700 dark:g-text-gray-300 g-break-words">
+              {description}
+            </div>
+          )}
         </ConditionalWrapper>
       </div>
     </div>

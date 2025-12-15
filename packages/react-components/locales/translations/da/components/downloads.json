@@ -65,6 +65,7 @@
     "downloadStarted": "",
     "downloadExpectTime": "",
     "notificationEmailAddresses": "",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "",
       "SUSPENDED": "",
@@ -72,7 +73,9 @@
       "CANCELLED": "Annulleret",
       "KILLED": ""
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "Tjekliste",
       "joinDescriptions": {
         "and": "",
         "or": "",
@@ -84,6 +87,7 @@
       "isNotNull": "",
       "isNull": "",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "",
         "DECIMAL_LONGITUDE": "",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Hjemsendt",
         "YEAR": "",
         "STATE_PROVINCE": "",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "",
         "OCCURRENCE_ID": "",
@@ -198,6 +201,7 @@
         "FORMATION": "",
         "ORDER_KEY": "Orden",
         "ISSUE": "",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "",
         "GBIF_REGION": "",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Tilbage",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "",

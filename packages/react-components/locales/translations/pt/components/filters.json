@@ -45,7 +45,7 @@
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Categoria IUCN da Lista Vermelha Global",
     "count": "",
     "description": ""
   },
@@ -116,7 +116,7 @@
     "description": "Extensão DWCA"
   },
   "pathway": {
-    "name": "",
+    "name": "Caminho",
     "count": "Extensão DWCA",
     "description": "Extensão DWCA"
   },
@@ -126,7 +126,7 @@
     "description": "Extensão DWCA"
   },
   "degreeOfEstablishment": {
-    "name": "",
+    "name": "Grau de estabelecimento",
     "count": "Extensão DWCA",
     "description": "Extensão DWCA"
   },

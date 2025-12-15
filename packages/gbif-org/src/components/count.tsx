@@ -6,6 +6,8 @@ import Queue from 'queue-promise';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Skeleton } from './ui/skeleton';
+import { useConfig } from '@/config/config';
+import { Predicate } from '@/gql/graphql';
 
 const concurrent = 10;
 const interval = 0;
@@ -68,6 +70,17 @@ export function useLiteratureCount({ predicate }: { predicate: any }) {
 }
 export function useOccurrenceCount({ predicate }: { predicate: any }) {
   return useGraphQLCount({ query: OCCURRENCE_COUNT_QUERY, predicate });
+}
+export function useSiteOccurrenceCount({ predicate }: { predicate: any }) {
+  const { occurrenceSearch } = useConfig();
+  const scope = occurrenceSearch?.scope;
+  const modifiedPredicate = scope
+    ? {
+        type: 'and',
+        predicates: [scope, predicate],
+      }
+    : predicate;
+  return useGraphQLCount({ query: OCCURRENCE_COUNT_QUERY, predicate: modifiedPredicate });
 }
 
 export function useGraphQLCount({ predicate, query }: { predicate: any; query: string }) {
@@ -166,4 +179,28 @@ export function useCount({
   }, [v1Endpoint, property, paramId, queueId, responseIsNumber]);
 
   return { count, loading, error };
+}
+
+export function SiteOccurrenceCount({
+  predicate,
+  message,
+}: {
+  predicate: Predicate;
+  message?: string;
+}) {
+  const { loading, count, error } = useSiteOccurrenceCount({ predicate });
+  if (loading || typeof count === 'undefined') {
+    return (
+      <Skeleton className="g-inline g-text-sm">
+        <span className="g-opacity-0">Loading</span>
+      </Skeleton>
+    );
+  }
+  if (error) return false;
+
+  if (message) {
+    return <FormattedMessage id={message} values={{ total: count }} />;
+  } else {
+    return <FormattedNumber value={count} />;
+  }
 }

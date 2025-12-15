@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "Om",
-    "occurrences": "Observationer",
-    "citations": "",
     "project": "Projekt",
     "taxonomy": "Taksonomi",
     "download": "Download",
     "phylogeny": "",
+    "metrics": "Grafer",
     "events": "Arrangementer"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "Tjekliste",
+      "downloads": "Downloads",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "Tidsrum",
+      "qualities": "",
+      "citations": ""
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "Synonymer",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "Oprindelse",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": ""
+    }
   },
   "noStatsForMetadata": "",
   "siteScopeSmallerThanDataset": "",
@@ -62,7 +95,7 @@
   "sampling": "Sampling",
   "methodSteps": "Metode trin",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select, 1{download event} other{download events}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{observation fra dette datasæt} other{observationer fra dette datasæt}}",
+  "nFromDataset": "",
   "funding": "Finansiering",
   "abstract": "Resumé",
   "contacts": "Kontakter",
@@ -109,6 +142,7 @@
   "containsSamplingEventsDescription": "",
   "griddedData": "",
   "griddedDataDescription": "",
+  "metricsLink": "Observations-grafer",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",
@@ -153,5 +187,7 @@
     "evenList": "Samfinansieret af",
     "occurrenceInfo": "Samfinansieret af"
   },
-  "eventTaxonomy": "Taksonomisk distribution af observationer"
+  "eventTaxonomy": "Taksonomisk distribution af observationer",
+  "noCitations": "",
+  "noOccurrences": "Ingen observationer"
 }

@@ -12,6 +12,11 @@ fragmentManager.register(/* GraphQL */ `
     hideTitle
     body
     backgroundColour
+    primaryImage {
+      file {
+        url
+      }
+    }
   }
 `);
 
@@ -23,7 +28,7 @@ export function FeaturedTextBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
-    <BlockContainer className={backgroundColor}>
+    <BlockContainer className={backgroundColor} backgroundImage={resource.primaryImage?.file?.url}>
       {!resource.hideTitle && resource.title && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
       )}

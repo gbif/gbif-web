@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FormattedNumber } from 'react-intl';
 
 type Props = {
   countPart: string;
@@ -10,7 +11,7 @@ export function CountResolver({ countPart, placeholder }: Props) {
     return <CountFetcher countPart={countPart} placeholder={placeholder} />;
   }
 
-  return countPart;
+  return <FormattedNumber value={Number(countPart)} />;
 }
 
 function CountFetcher({ countPart, placeholder }: Props) {
@@ -28,7 +29,11 @@ function CountFetcher({ countPart, placeholder }: Props) {
       .catch((error) => console.error(error));
   }, [countPart]);
 
-  return count ?? placeholder;
+  if (count === null) {
+    return placeholder;
+  }
+
+  return <FormattedNumber value={Number(count)} />;
 }
 
 const isAbsoluteEndpoint = (countPart: string) => countPart.startsWith('http');

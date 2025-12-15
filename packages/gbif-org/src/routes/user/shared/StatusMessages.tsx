@@ -44,8 +44,7 @@ export function LoadingState({ title, message }: LoadingStateProps) {
 interface SuccessStateProps {
   title: React.ReactNode;
   message: React.ReactNode;
-  successMessage: string;
-  successMessageId: string;
+  successMessage?: React.ReactNode;
   primaryAction?: {
     to: string;
     text: string;
@@ -61,22 +60,19 @@ export function SuccessState({
   title,
   message,
   successMessage,
-  successMessageId,
   primaryAction,
   secondaryAction,
 }: SuccessStateProps) {
   return (
     <div className="g-text-center g-space-y-6">
       <div className="g-flex g-justify-center">
-        <MdCheckCircle className={cn(commonClasses.icon.large, 'g-text-green-500')} />
+        <MdCheckCircle className={cn(commonClasses.icon.large, 'g-text-primary-500')} />
       </div>
       <div>
         <h1 className="g-text-3xl g-font-bold g-text-gray-900">{title}</h1>
         <p className="g-text-gray-500 g-mt-2">{message}</p>
       </div>
-      <div className={commonClasses.messageBox.success}>
-        <FormattedMessage id={successMessageId} defaultMessage={successMessage} />
-      </div>
+      {successMessage && <div className={commonClasses.messageBox.success}>{successMessage}</div>}
       <div className="g-space-y-3">
         {primaryAction && (
           <Link to={primaryAction.to} className={cn('g-w-full', buttonVariants())}>
@@ -100,8 +96,7 @@ export function SuccessState({
 interface ErrorStateProps {
   title: React.ReactNode;
   message: React.ReactNode;
-  error: string;
-  errorMessageId: string;
+  error: React.ReactNode;
   helpText?: React.ReactNode;
   primaryAction?: {
     to: string;
@@ -118,7 +113,6 @@ export function ErrorState({
   title,
   message,
   error,
-  errorMessageId,
   helpText,
   primaryAction,
   secondaryAction,
@@ -129,9 +123,7 @@ export function ErrorState({
         <h1 className="g-text-3xl g-font-bold g-text-gray-900">{title}</h1>
         <p className="g-text-gray-500 g-mt-2">{message}</p>
       </div>
-      <div className={commonClasses.messageBox.error}>
-        <FormattedMessage id={errorMessageId} defaultMessage={error} />
-      </div>
+      <div className={commonClasses.messageBox.error}>{error}</div>
       <div className="g-space-y-3">
         {helpText && <p className="g-text-sm g-text-gray-600">{helpText}</p>}
         <div className="g-space-y-3">

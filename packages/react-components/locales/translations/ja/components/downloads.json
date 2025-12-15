@@ -1,6 +1,6 @@
 {
   "derivedDatasetKey": {
-    "nRecordsAtTime": "このデータセットからは{NUMBER_FORMATTED} {NUMBER, plural, one{レコード} other{レコード}} ",
+    "nRecordsAtTime": "",
     "derivedDataset": "得られたデータセット",
     "sourceUrl": "得られたデータセットにアクセスする",
     "headlineDatasets": "得られたデータセットから{NUMBER_FORMATED} {NUMBER, plural, one{データセット} other{データセット}} のレコード数",
@@ -65,6 +65,7 @@
     "downloadStarted": "ダウンロードが開始され、現在処理中です。",
     "downloadExpectTime": "ダウンロードが完了するまでに 最大3 時間お待ち下さい。ほとんどのダウンロードは 15 分以内に完了します。",
     "notificationEmailAddresses": "準備でき次第、ダウンロードへのリンクが次のアドレスにメールで通知されます。 ",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "準備中",
       "SUSPENDED": "保留中",
@@ -72,7 +73,9 @@
       "CANCELLED": "中止しました。",
       "KILLED": "抹消されました。"
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "チェックリスト",
       "joinDescriptions": {
         "and": "すべてを適用する",
         "or": "少なくとも 1 つを適用する",
@@ -84,6 +87,7 @@
       "isNotNull": "定義済み",
       "isNull": "定義されていません",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "イベントID",
         "DECIMAL_LONGITUDE": "１０進法の経度",
@@ -108,7 +112,6 @@
         "REPATRIATED": "返還された",
         "YEAR": "年",
         "STATE_PROVINCE": "",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "サンプルサイズの値",
         "OCCURRENCE_ID": "オカレンスID",
@@ -198,6 +201,7 @@
         "FORMATION": "層",
         "ORDER_KEY": "目",
         "ISSUE": "問題",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "インストール",
         "VERBATIM_SCIENTIFIC_NAME": "オリジナルの学名",
         "GBIF_REGION": "GBIF 地域",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "戻る",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "",

@@ -1,0 +1,8 @@
+{
+  "CHAINED_SYNOYM": "链式同义词",
+  "TAXONOMIC_STATUS_MISMATCH": "分类状态不匹配",
+  "CLASSIFICATION_NOT_APPLIED": "分类未应用",
+  "CONFLICTING_BASIONYM_COMBINATION": "矛盾的基名组合",
+  "ORTHOGRAPHIC_VARIANT": "正交变体",
+  "HOMONYM": "同音异义词"
+}

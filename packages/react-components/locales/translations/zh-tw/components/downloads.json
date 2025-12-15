@@ -65,6 +65,7 @@
     "downloadStarted": "下載已開始, 目前正在處理中。",
     "downloadExpectTime": "預計下載時間需最多 3 小時。大多數的下載將在 15 分鐘內完成。",
     "notificationEmailAddresses": "完成後將發送附有下載結果連結的通知電子郵件至以下位址： ",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "準備中",
       "SUSPENDED": "已暫停",
@@ -72,7 +73,9 @@
       "CANCELLED": "已取消",
       "KILLED": "已中止"
     },
+    "usedChecklistKey": "",
     "predicate": {
+      "checklist": "物種名錄",
       "joinDescriptions": {
         "and": "需全部選用",
         "or": "需至少選用一項",
@@ -84,6 +87,7 @@
       "isNotNull": "已定義",
       "isNull": "未定義",
       "within": "",
+      "geoDistance": "",
       "keys": {
         "EVENT_ID": "事件識別碼",
         "DECIMAL_LONGITUDE": "十進位經度",
@@ -108,7 +112,6 @@
         "REPATRIATED": "回返的",
         "YEAR": "年",
         "STATE_PROVINCE": "州/省",
-        "GEO_DISTANCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "取樣大小數值",
         "OCCURRENCE_ID": "出現紀錄識別碼",
@@ -198,6 +201,7 @@
         "FORMATION": "地層",
         "ORDER_KEY": "目",
         "ISSUE": "問題",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "安裝",
         "VERBATIM_SCIENTIFIC_NAME": "逐字學名",
         "GBIF_REGION": "GBIF 地區",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "返回",
+    "slowDown": "",
+    "unableToCreateDownload": "",
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "等於 {is}",

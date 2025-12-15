@@ -261,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Back",
+    "slowDown": "Too many concurrent downloads. Please try again later.",
+    "unableToCreateDownload": "Unable to create download. Please try again later.",
     "backToFormatSelection": "Back to format selection",
     "backToConfiguration": "Back to configuration",
     "estimatedSize": "Estimated size",

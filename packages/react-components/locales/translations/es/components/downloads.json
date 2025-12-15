@@ -65,6 +65,7 @@
     "downloadStarted": "La descarga ha comenzado y está siendo procesada en estos momentos.",
     "downloadExpectTime": "Por favor, espere hasta 3 horas para completar la descarga. La mayoría de descargas se completan en 15 minutos.",
     "notificationEmailAddresses": "Una vez preparada, se le enviará un correo electrónico de notificación a la siguiente dirección, incluyendo un enlace para descargar los resultados.",
+    "sqlGeneratedUsingPredicate": "Marcador de posición de descripción",
     "status": {
       "PREPARING": "Preparando",
       "SUSPENDED": "Suspendida",
@@ -72,7 +73,9 @@
       "CANCELLED": "Cancelada",
       "KILLED": "Muertos"
     },
+    "usedChecklistKey": "Marcador de posición de descripción",
     "predicate": {
+      "checklist": "Lista de chequeo",
       "joinDescriptions": {
         "and": "Todos deben aplicar",
         "or": "Al menos uno debe aplicar",
@@ -84,6 +87,7 @@
       "isNotNull": "Está definido",
       "isNull": "No está definido",
       "within": "Coordenadas dentro",
+      "geoDistance": "Distancia desde el punto",
       "keys": {
         "EVENT_ID": "ID del Evento",
         "DECIMAL_LONGITUDE": "Longitud Decimal",
@@ -108,7 +112,6 @@
         "REPATRIATED": "Repatriado",
         "YEAR": "Año",
         "STATE_PROVINCE": "Estado/Provincia",
-        "GEO_DISTANCE": "Distancia geográfica",
         "GADM_GID": "Identificación de GADM",
         "SAMPLE_SIZE_VALUE": "Valor del tamaño de la muestra",
         "OCCURRENCE_ID": "ID del registro",
@@ -198,6 +201,7 @@
         "FORMATION": "Formación",
         "ORDER_KEY": "Orden",
         "ISSUE": "Problema/tema",
+        "TAXONOMIC_ISSUE": "Marcador de posición de descripción",
         "INSTALLATION_KEY": "Instalación",
         "VERBATIM_SCIENTIFIC_NAME": "Nombre científico original",
         "GBIF_REGION": "Región GBIF",
@@ -257,6 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Volver",
+    "slowDown": "Marcador de posición de descripción",
+    "unableToCreateDownload": "Marcador de posición de descripción",
     "backToFormatSelection": "Marcador de posición de descripción",
     "backToConfiguration": "Marcador de posición de descripción",
     "estimatedSize": "Igual a {is}",

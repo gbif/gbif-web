@@ -21,6 +21,7 @@ import View from 'ol/View.js';
 import proj4 from 'proj4';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { MdDelete, MdEdit, MdZoomIn, MdZoomOut } from 'react-icons/md';
+import { useI18n } from '@/reactRouterPlugins';
 
 proj4.defs('EPSG:4326', '+proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
 
@@ -36,19 +37,6 @@ const tile_grid = new TileGrid({
   minZoom: 0,
   resolutions: resolutions,
   tileSize: tile_size, // Rendered tile size (pixels)
-});
-
-const raster_style = 'gbif-natural';
-const epsg_4326_raster = new TileLayer({
-  source: new ImageTile({
-    projection: 'EPSG:4326',
-    url: `${
-      import.meta.env.PUBLIC_TILE_API
-    }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${raster_style}`,
-    tileSize: tile_size * pixelRatio, // Source tile size (pixels)
-    tileGrid: tile_grid,
-    wrapX: true,
-  }),
 });
 
 const OpenLayersMap = ({
@@ -68,6 +56,7 @@ const OpenLayersMap = ({
     snap: Snap;
     select: Select;
   } | null>(null);
+  const { locale } = useI18n();
   const [tool, setTool] = useState<string | null>(null); // DRAW, DELETE or null
   const { getStoredPosition, savePosition } = useMapPosition();
   const cancelInteraction = useCallback(() => {
@@ -157,6 +146,21 @@ const OpenLayersMap = ({
 
     // Get stored position or use defaults
     const storedPosition = getStoredPosition();
+
+    const raster_style = 'gbif-natural';
+    const epsg_4326_raster = new TileLayer({
+      source: new ImageTile({
+        projection: 'EPSG:4326',
+        url: `${
+          import.meta.env.PUBLIC_TILE_API
+        }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${raster_style}-${
+          locale.mapTileLocale ?? 'en'
+        }`,
+        tileSize: tile_size * pixelRatio, // Source tile size (pixels)
+        tileGrid: tile_grid,
+        wrapX: true,
+      }),
+    });
 
     const newMap = new Map({
       layers: [epsg_4326_raster, vector],

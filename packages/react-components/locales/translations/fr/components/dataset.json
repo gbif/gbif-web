@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "À propos",
-    "occurrences": "Occurrences",
-    "citations": "Citations",
     "project": "Projet",
     "taxonomy": "Taxonomie",
     "download": "Télécharger",
     "phylogeny": "Phylogénie",
+    "metrics": "Statistiques",
     "events": "Évènements"
+  },
+  "metricsTab": {
+    "selectGroup": "Espace réservé à la description",
+    "group": {
+      "checklist": "Liste d'espèces",
+      "downloads": "Téléchargements",
+      "taxonomic": "Espace réservé à la description",
+      "geographic": "Espace réservé à la description",
+      "temporal": "Temporel",
+      "qualities": "Espace réservé à la description",
+      "citations": "Citations"
+    },
+    "checklist": {
+      "notAvailable": "Espace réservé à la description",
+      "overview": "Espace réservé à la description",
+      "overviewDescription": "Espace réservé à la description",
+      "usagesCount": "Espace réservé à la description",
+      "distinctNamesCount": "Espace réservé à la description",
+      "synonymsCount": "Synonymes",
+      "nubMatchingCount": "Espace réservé à la description",
+      "nubCoveragePct": "Espace réservé à la description",
+      "colMatchingCount": "Espace réservé à la description",
+      "colCoveragePct": "Espace réservé à la description",
+      "countByKingdom": "Espace réservé à la description",
+      "countByKingdomDescription": "Espace réservé à la description",
+      "countByRank": "Espace réservé à la description",
+      "countByRankDescription": "Espace réservé à la description",
+      "countByOrigin": "Espace réservé à la description",
+      "countByOriginDescription": "Espace réservé à la description",
+      "origin": "Origine",
+      "countByIssue": "Espace réservé à la description",
+      "countByIssueDescription": "Espace réservé à la description",
+      "count": "Compte"
+    }
   },
   "noStatsForMetadata": "Aucune statistique disponible pour les jeux de données de métadonnées",
   "siteScopeSmallerThanDataset": "Tous les enregistrements du jeu de données ne sont pas inclus sur ce site. Visitez [GBIF.org]({datasetUrl}) pour explorer l'ensemble des données.",
@@ -62,7 +95,7 @@
   "sampling": "Échantillonnage",
   "methodSteps": "Étapes méthodologiques",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select, 1{évènement de téléchargement} other{évènements de téléchargement}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{occurrence de ce jeu de données} other{occurrences de ce jeu de données}}",
+  "nFromDataset": "",
   "funding": "Financement",
   "abstract": "Résumé",
   "contacts": "Contacts",
@@ -109,6 +142,7 @@
   "containsSamplingEventsDescription": "Ce jeu de données contient des données d'échantillonnage. Les détails sur la méthode d'échantillonnage apparaissent dans la section méthodologie de la description du jeu de données.",
   "griddedData": "Données en grille",
   "griddedDataDescription": "Sur la base de notre analyse des enregistrements, ce jeu de données contient probablement des données maillées. En savoir plus dans ce [blog à propos des jeux de données maillées](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Statistique sur les occurrences",
   "registry": {
     "failedSinceSuccess": "Tentatives infructueuses depuis la dernière ingestion réussie",
     "lastFailed": "Dernière tentative échouée",
@@ -153,5 +187,7 @@
     "evenList": "Co-financé par",
     "occurrenceInfo": "Co-financé par"
   },
-  "eventTaxonomy": "Distribution taxonomique des occurrences"
+  "eventTaxonomy": "Distribution taxonomique des occurrences",
+  "noCitations": "Espace réservé à la description",
+  "noOccurrences": "Aucune occurrence"
 }

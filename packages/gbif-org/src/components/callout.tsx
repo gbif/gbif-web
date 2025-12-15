@@ -9,7 +9,7 @@ export const Callout = ({ children, className }: CalloutProps) => {
   return (
     <div
       className={cn(
-        'g-border g-border-gray-300 g-border-l-4 g-border-l-gray-600 g-p-4 g-bg-gray-100',
+        'g-border g-border-gray-300 g-border-s-4 g-border-s-gray-600 g-p-4 g-bg-gray-100',
         className
       )}
     >

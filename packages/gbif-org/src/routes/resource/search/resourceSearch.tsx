@@ -181,7 +181,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
       sortOrder: ResourceSortOrder.Desc,
     };
 
-    if ('eventFiltering' in query) {
+    if ('eventFiltering' in query && activeTab === 'event') {
       switch (query.eventFiltering) {
         case EventFiltering.Past:
           sortingOptions.sortBy = ResourceSortBy.Start;

@@ -16,13 +16,46 @@
   },
   "tabs": {
     "about": "About",
-    "occurrences": "Occurrences",
-    "citations": "Citations",
     "project": "Project",
     "taxonomy": "Taxonomy",
     "download": "Download",
     "phylogeny": "Phylogeny",
+    "metrics": "Metrics",
     "events": "Events"
+  },
+  "metricsTab": {
+    "selectGroup": "",
+    "group": {
+      "checklist": "Checklist",
+      "downloads": "Downloads",
+      "taxonomic": "",
+      "geographic": "",
+      "temporal": "Temporal",
+      "qualities": "",
+      "citations": "Citations"
+    },
+    "checklist": {
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
+      "synonymsCount": "Synonyms",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "",
+      "countByOriginDescription": "",
+      "origin": "Origin",
+      "countByIssue": "",
+      "countByIssueDescription": "",
+      "count": "Count"
+    }
   },
   "noStatsForMetadata": "No statistics available for metadata only datasets",
   "siteScopeSmallerThanDataset": "Not all records from the dataset are included on this site. Visit [GBIF.org]({datasetUrl}) to explore the full dataset.",
@@ -62,7 +95,7 @@
   "sampling": "Sampling",
   "methodSteps": "Method steps",
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, one{download event} other{download events}}",
-  "nFromDataset": "{NUMBER_FORMATED} {NUMBER, plural, one{occurrence from this dataset} other{occurrences from this dataset}}",
+  "nFromDataset": "{total, plural, one{# occurrence from this dataset} other{# occurrences from this dataset}}",
   "funding": "Funding",
   "abstract": "Abstract",
   "contacts": "Contacts",
@@ -109,6 +142,7 @@
   "containsSamplingEventsDescription": "This dataset contains sampling data. Details on the sampling method appear in the methodology section of the dataset description.",
   "griddedData": "Gridded data",
   "griddedDataDescription": "Based on our analysis of the records, this dataset likely contains gridded data. Read more in this [blog post about gridded datasets](https://data-blog.gbif.org/post/gridded-datasets-update/).",
+  "metricsLink": "Occurrence metrics",
   "registry": {
     "failedSinceSuccess": "Failed attempts since last successful ingestion",
     "lastFailed": "Last failed attempt",
@@ -153,5 +187,7 @@
     "evenList": "Error loading event list",
     "occurrenceInfo": "Error loading occurrence info"
   },
-  "eventTaxonomy": "Taxonomic distribution of occurrences"
+  "eventTaxonomy": "Taxonomic distribution of occurrences",
+  "noCitations": "",
+  "noOccurrences": "No occurrences"
 }

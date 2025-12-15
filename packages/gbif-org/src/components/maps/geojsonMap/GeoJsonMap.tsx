@@ -1,4 +1,5 @@
 import { useConfig } from '@/config/config';
+import { useI18n } from '@/reactRouterPlugins';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { Attribution, defaults as olControlDefaults } from 'ol/control';
 import { GeoJSON } from 'ol/format';
@@ -93,6 +94,7 @@ export function GeoJsonMap({
   const [map, setMap] = useState<Map | null>(null);
   const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
   const { theme } = useConfig();
+  const { locale } = useI18n();
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -104,7 +106,9 @@ export function GeoJsonMap({
         projection: 'EPSG:4326',
         url: `${
           import.meta.env.PUBLIC_TILE_API
-        }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${rasterStyle}`,
+        }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${rasterStyle}-${
+          locale.mapTileLocale ?? 'en'
+        }`,
         tileSize: tile_size * pixelRatio,
         tileGrid: tile_grid,
         wrapX: true,
