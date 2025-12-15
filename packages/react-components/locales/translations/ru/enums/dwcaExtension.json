@@ -39,5 +39,6 @@
   "http://rs.tdwg.org/eco/terms/Event": "Расширение Гумбольдта",
   "https://terms.catalogueoflife.org/NameRelation": "Связь имён CoL",
   "http://eol.org/schema/agent/Agent": "Агент EOL",
-  "http://purl.org/plic/terms/3.2.1/Endemicity": "Эндемики PLIC"
+  "http://purl.org/plic/terms/3.2.1/Endemicity": "Эндемики PLIC",
+  "http://purl.org/plic/terms/3.2.1/ThreatStatus": "Статус угрозы PLIC"
 }

@@ -13,13 +13,16 @@
   "COORDINATE_UNCERTAINTY_METERS_INVALID": "Incerteza da coordenada inválida",
   "COORDINATE_PRECISION_UNCERTAINTY_MISMATCH": "Incerteza na precisão da coordenada inconsistente",
   "FOOTPRINT_SRS_INVALID": "Footprint SRS inválido",
+  "FOOTPRINT_WKT_MISMATCH": "Disparidade pegada WKT",
   "FOOTPRINT_WKT_INVALID": "Footprint WKT inválido",
   "COUNTRY_COORDINATE_MISMATCH": "Incompatibilidade de coordenada do país",
   "COUNTRY_MISMATCH": "Incompatibilidade de país",
   "COUNTRY_INVALID": "País inválido",
   "COUNTRY_DERIVED_FROM_COORDINATES": "País inferido a partir das coordenadas",
+  "CONTINENT_COORDINATE_MISMATCH": "Disparidade coordenada continente",
   "CONTINENT_COUNTRY_MISMATCH": "Incompatibilidade de país continente",
   "CONTINENT_INVALID": "Continente inválido",
+  "CONTINENT_DERIVED_FROM_COUNTRY": "Continente derivado de país",
   "CONTINENT_DERIVED_FROM_COORDINATES": "País inferido a partir das coordenadas",
   "PRESUMED_SWAPPED_COORDINATE": "Coordenadas possivelmente trocadas",
   "PRESUMED_NEGATED_LONGITUDE": "Presume-se longitude negativa",
@@ -64,5 +67,9 @@
   "COLLECTION_MATCH_FUZZY": "Correspondência de coleção difusa",
   "INSTITUTION_COLLECTION_MISMATCH": "Disparidade entre instituição e coleção",
   "POSSIBLY_ON_LOAN": "Possivelmente em empréstimo",
-  "DIFFERENT_OWNER_INSTITUTION": "Instituição detentora diferente"
+  "DIFFERENT_OWNER_INSTITUTION": "Instituição detentora diferente",
+  "TAXON_MATCH_SCIENTIFIC_NAME_ID_IGNORED": "Correspondência táxon ID nome científico ignorado",
+  "TAXON_MATCH_TAXON_CONCEPT_ID_IGNORED": "Correspondência táxon ID conceito ignorado",
+  "TAXON_MATCH_TAXON_ID_IGNORED": "Correspondência taxon ID táxon ignorado",
+  "SCIENTIFIC_NAME_ID_NOT_FOUND": "Scientific name ID não encontrada"
 }
