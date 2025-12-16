@@ -103,6 +103,8 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           lifeStage
           recordNumber
           individualCount
+          organismQuantity
+          organismQuantityType
           typeStatus
           occurrenceStatus
           preparations
