@@ -239,7 +239,7 @@ const typeDef = gql`
     doi: String
     email: [String!]!
     phone: [String!]!
-    homepage: URL
+    homepage: String
     catalogUrls: [String!]!
     apiUrls: [String!]!
     preservationTypes: [String!]!
