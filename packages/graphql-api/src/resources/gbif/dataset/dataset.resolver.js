@@ -209,12 +209,14 @@ export const Project = {
     { dataSources, locale, preview },
     info,
   ) => {
-    return dataSources.resourceAPI.getEntryById({
-      id: identifier,
-      preview,
-      locale,
-      info,
-    });
+    return dataSources.resourceAPI
+      .getEntryById({
+        id: identifier,
+        preview,
+        locale,
+        info,
+      })
+      .catch(() => null); // return null if not found since there is no expected guarntee that the identifier is in fact a gbif project
   },
 };
 

@@ -291,7 +291,9 @@ export default {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
     sourceTaxon: ({ sourceTaxonKey }, args, { dataSources }) =>
-      dataSources.taxonAPI.getTaxonByKey({ key: sourceTaxonKey }),
+      sourceTaxonKey
+        ? dataSources.taxonAPI.getTaxonByKey({ key: sourceTaxonKey })
+        : null,
     formattedName: (
       { key, scientificName },
       { useFallback },

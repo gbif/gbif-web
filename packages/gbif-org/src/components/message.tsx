@@ -1,8 +1,6 @@
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, useIntl } from 'react-intl';
 import { HyperText } from './hyperText';
 
-type FormatMessageValues = Parameters<ReturnType<typeof useIntl>['formatMessage']>[1];
-
 export function Message({
   id,
   defaultMessage,

@@ -1,63 +1,17 @@
 import doiRegex from 'doi-regex';
-import pkg from 'isomorphic-dompurify';
 import { marked } from 'marked'; // https://marked.js.org
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import EmptyValue from './emptyValue';
 import { DoiTag, Lsid, OrcId } from './identifierTag';
+import pkg from 'isomorphic-dompurify';
+const { sanitize } = pkg;
 
-const allowedDomains = [
-  'www.gbif.org',
-  'www.gbif-dev.org',
-  'www.gbif-test.org',
-  'www.gbif-staging.org',
-
-  'gbif.org',
-  'gbif-dev.org',
-  'gbif-test.org',
-  'gbif-staging.org',
-
-  'api.gbif.org',
-  'api.gbif-dev.org',
-  'api.gbif-test.org',
-  'api.gbif-staging.org',
-
-  'data-blog.gbif.org',
-  'discourse.gbif.org',
-  'github.com',
-];
-
-function isAllowedDomain(url: string): boolean {
-  try {
-    const urlObj = new URL(url, 'https://www.gbif.org'); // Handle relative URLs
-
-    // If it's an absolute URL (has protocol), check domain
-    if (url.includes('://')) {
-      const domain = urlObj.hostname;
-      const allowed = allowedDomains.some(
-        (allowed) => domain === allowed || domain.endsWith('.' + allowed)
-      );
-      return allowed;
-    }
-
-    // No protocol means relative URL - allow it
-    return true;
-  } catch {
-    return false;
-  }
+function sanitizeHtml(dirtyHtml: string) {
+  return sanitize(dirtyHtml);
 }
 
-// Add hook to check links
-pkg.addHook('afterSanitizeAttributes', function (node) {
-  if (node.tagName === 'A' && node.hasAttribute('href')) {
-    const href = node.getAttribute('href');
-
-    if (!href || !isAllowedDomain(href)) {
-      // Convert link to plain text
-      const textNode = document.createTextNode(href || '');
-      if (node.parentNode) node.parentNode.replaceChild(textNode, node);
-    }
-  }
-});
+export const ALLOWED_URI_REGEXP =
+  /^(?:(?:https?:)?\/\/(?:www\.)?(?:gbif(?:-(?:dev|test|staging))?\.org|api\.gbif(?:-(?:dev|test|staging))?\.org|data-blog\.gbif\.org|discourse\.gbif\.org|github\.com)|\/)/i;
 
 const getLsid = (text: any) => {
   if (typeof text !== 'string' || /\s/.test(text.trim())) {
@@ -154,7 +108,7 @@ export const HyperText = ({
 
   try {
     const html = marked.parse(trimmedContent) as string;
-    const sanitizedHtml = pkg.sanitize(html, sanitizeOptions);
+    const sanitizedHtml = sanitizeHtml(html);
 
     return (
       <div

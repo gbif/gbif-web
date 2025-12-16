@@ -9,6 +9,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '@/reactRouterPlugins';
 import { Message } from '@/components/message';
+import { ALLOWED_URI_REGEXP } from '@/components/hyperText';
 
 interface TermsStepProps {
   predicate?: any;
@@ -191,6 +192,7 @@ export default function TermsStep({
                     <Message
                       id="occurrenceDownloadFlow.dataUseAgreementText"
                       sanitizeOptions={{
+                        ALLOWED_URI_REGEXP,
                         ALLOWED_TAGS: [
                           'a',
                           'strong',
@@ -235,6 +237,7 @@ export default function TermsStep({
                       <Message
                         id="occurrenceDownloadFlow.dataCitationText"
                         sanitizeOptions={{
+                          ALLOWED_URI_REGEXP,
                           ALLOWED_TAGS: [
                             'a',
                             'strong',
