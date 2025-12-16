@@ -55,6 +55,9 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getTaxonBySourceId({ sourceId, datasetKey }) {
+    if (!sourceId || !datasetKey) {
+      return null;
+    }
     const data = await this.get(
       `/species`,
       stringify({ sourceId, datasetKey }, { indices: false }),
