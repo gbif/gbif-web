@@ -23,7 +23,7 @@ export default function ExpandableSection({
     <div className="g-bg-white g-rounded g-shadow-md g-border g-border-gray-200">
       <button
         onClick={onToggle}
-        className="g-w-full g-p-6 g-text-left g-flex g-items-center g-justify-between hover:g-bg-gray-50 g-transition-colors"
+        className="g-w-full g-p-6 g-text-left g-flex g-items-center g-gap-2 g-justify-between hover:g-bg-gray-50 g-transition-colors"
       >
         <div className="g-flex g-items-center g-gap-3">
           {icon}
