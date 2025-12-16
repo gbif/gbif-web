@@ -65,3 +65,23 @@ export const humboldtTotalAreaSampledValueConfig: filterRangeConfig = {
   about: () => <Message id="filters.totalAreaSampledValue.description" />,
   group: termToGroup['totalAreaSampledValue'],
 };
+
+export const humboldtEventDurationValueConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'humboldtEventDurationValue',
+  displayName: SampleSizeValueLabel,
+  filterTranslation: 'filters.eventDurationValue.name',
+  allowExistence: true,
+  about: () => <Message id="filters.eventDurationValue.description" />,
+  group: termToGroup['eventDurationValue'],
+};
+
+export const humboldtAbundanceCapConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'humboldtAbundanceCap',
+  displayName: SampleSizeValueLabel,
+  filterTranslation: 'filters.abundanceCap.name',
+  allowExistence: true,
+  about: () => <Message id="filters.abundanceCap.description" />,
+  group: termToGroup['abundanceCap'],
+};

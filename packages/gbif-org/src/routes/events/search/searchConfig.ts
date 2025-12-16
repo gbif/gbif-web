@@ -41,6 +41,11 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    humboldtEventDurationValue: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -90,6 +95,10 @@ const otherParams = [
   'humboldtTargetLifeStageScope',
   'humboldtTotalAreaSampledUnit',
   'humboldtTotalAreaSampledValue',
+  'humboldtEventDurationValue',
+  'humboldtEventDurationUnit',
+  'humboldtTargetTaxonomicScopeUsageName',
+  'humboldtIsTaxonomicScopeFullyReported',
 ];
 
 otherParams.forEach((filter) => {

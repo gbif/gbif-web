@@ -18,7 +18,7 @@ export default gql`
     associatedSequences: [String]
     catalogNumber: [String]
     classKey: [ID]
-    checklistKey: [ID]
+    checklistKey: ID
     collectionCode: [String]
     continent: [String]
     coordinateUncertaintyInMeters: String
@@ -57,8 +57,8 @@ export default gql`
     humboldtCompilationSourceTypes: [String]
     humboldtCompilationTypes: [String]
     humboldtEventDuration: String
-    humboldtEventDurationUnit: String
-    humboldtEventDurationValue: Float
+    humboldtEventDurationUnit: [String]
+    humboldtEventDurationValue: [String]
     humboldtGeospatialScopeAreaUnit: [String]
     humboldtGeospatialScopeAreaValue: [Float]
     humboldtHasMaterialSamples: [Boolean]
@@ -238,11 +238,20 @@ export default gql`
       limit: Int
       offset: Int
     ): [EventFacetResult]
+    humboldtEventDurationUnit(limit: Int, offset: Int): [EventFacetResult]
+    humboldtEventDurationValue(limit: Int, offset: Int): [EventFacetResult]
     humboldtTargetGrowthFormScope(limit: Int, offset: Int): [EventFacetResult]
     humboldtTargetHabitatScope(limit: Int, offset: Int): [EventFacetResult]
     humboldtTargetLifeStageScope(limit: Int, offset: Int): [EventFacetResult]
     humboldtTotalAreaSampledUnit(limit: Int, offset: Int): [EventFacetResult]
     humboldtTotalAreaSampledValue(limit: Int, offset: Int): [EventFacetResult]
+    humboldtTargetTaxonomicScopeUsageName(
+      limit: Int
+      offset: Int
+    ): [EventFacetResult]
+    humboldtAbundanceCap(limit: Int, offset: Int): [EventFacetResult]
+    humboldtMaterialSampleTypes(limit: Int, offset: Int): [EventFacetResult]
+
     month(limit: Int, offset: Int): [EventFacetResult]
     year(limit: Int, offset: Int): [EventFacetResult]
     eventId(limit: Int, offset: Int): [EventFacetResult]
@@ -319,14 +328,25 @@ export default gql`
     targetGrowthFormScope: [String]
     targetHabitatScope: [String]
     targetLifeStageScope: [String]
-    """
-    targetTaxonomicScope
-    """
+    targetTaxonomicScope(checklistKey: ID): HumboldtTaxonomicScope
     taxonCompletenessProtocols: [String]
     totalAreaSampledUnit: String
     totalAreaSampledValue: Float
     verbatimSiteDescriptions: [String]
     verbatimSiteNames: [String]
     voucherInstitutions: [String]
+  }
+
+  type HumboldtTaxonomicScope {
+    usageKey: ID!
+    usageName: String
+    usageRank: String
+    classification: [HumboldtClassificationNode]
+  }
+
+  type HumboldtClassificationNode {
+    key: ID!
+    name: String
+    rank: String
   }
 `;

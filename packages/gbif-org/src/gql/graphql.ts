@@ -2541,7 +2541,11 @@ export type EventFacet = {
   eventId?: Maybe<Array<Maybe<EventFacetResult>>>;
   eventType?: Maybe<Array<Maybe<EventFacetResult>>>;
   gadmGid?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtAbundanceCap?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtEventDurationUnit?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtEventDurationValue?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtInventoryTypes?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtMaterialSampleTypes?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtProtocolNames?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtSamplingEffortUnit?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtSamplingEffortValue?: Maybe<Array<Maybe<EventFacetResult>>>;
@@ -2550,6 +2554,7 @@ export type EventFacet = {
   humboldtTargetGrowthFormScope?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtTargetHabitatScope?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtTargetLifeStageScope?: Maybe<Array<Maybe<EventFacetResult>>>;
+  humboldtTargetTaxonomicScopeUsageName?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtTotalAreaSampledUnit?: Maybe<Array<Maybe<EventFacetResult>>>;
   humboldtTotalAreaSampledValue?: Maybe<Array<Maybe<EventFacetResult>>>;
   locality?: Maybe<Array<Maybe<EventFacetResult>>>;
@@ -2597,7 +2602,31 @@ export type EventFacetGadmGidArgs = {
 };
 
 
+export type EventFacetHumboldtAbundanceCapArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtEventDurationUnitArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtEventDurationValueArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type EventFacetHumboldtInventoryTypesArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtMaterialSampleTypesArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -2646,6 +2675,12 @@ export type EventFacetHumboldtTargetHabitatScopeArgs = {
 
 
 export type EventFacetHumboldtTargetLifeStageScopeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type EventFacetHumboldtTargetTaxonomicScopeUsageNameArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -2723,7 +2758,7 @@ export type EventSearchInput = {
   acceptedTaxonKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   associatedSequences?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   catalogNumber?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  checklistKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   classKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   collectionCode?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   continent?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2771,8 +2806,8 @@ export type EventSearchInput = {
   humboldtCompilationSourceTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   humboldtCompilationTypes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   humboldtEventDuration?: InputMaybe<Scalars['String']['input']>;
-  humboldtEventDurationUnit?: InputMaybe<Scalars['String']['input']>;
-  humboldtEventDurationValue?: InputMaybe<Scalars['Float']['input']>;
+  humboldtEventDurationUnit?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  humboldtEventDurationValue?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   humboldtGeospatialScopeAreaUnit?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   humboldtGeospatialScopeAreaValue?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
   humboldtHasMaterialSamples?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
@@ -3200,13 +3235,33 @@ export type Humboldt = {
   targetGrowthFormScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   targetHabitatScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   targetLifeStageScope?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** targetTaxonomicScope */
+  targetTaxonomicScope?: Maybe<HumboldtTaxonomicScope>;
   taxonCompletenessProtocols?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   totalAreaSampledUnit?: Maybe<Scalars['String']['output']>;
   totalAreaSampledValue?: Maybe<Scalars['Float']['output']>;
   verbatimSiteDescriptions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   verbatimSiteNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   voucherInstitutions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+
+export type HumboldtTargetTaxonomicScopeArgs = {
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type HumboldtClassificationNode = {
+  __typename?: 'HumboldtClassificationNode';
+  key: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  rank?: Maybe<Scalars['String']['output']>;
+};
+
+export type HumboldtTaxonomicScope = {
+  __typename?: 'HumboldtTaxonomicScope';
+  classification?: Maybe<Array<Maybe<HumboldtClassificationNode>>>;
+  usageKey: Scalars['ID']['output'];
+  usageName?: Maybe<Scalars['String']['output']>;
+  usageRank?: Maybe<Scalars['String']['output']>;
 };
 
 export type IucNstatus = {

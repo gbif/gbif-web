@@ -46,3 +46,25 @@ export const humboldtIsAbundanceReportedConfig: filterBoolConfig = {
   about: () => <Message id="filters.isAbundanceReported.description" />,
   group: termToGroup['isAbundanceReported'],
 };
+
+export const humboldtIsTaxonomicScopeFullyReportedConfig: filterBoolConfig = {
+  filterType: filterConfigTypes.OPTIONAL_BOOL,
+  filterHandle: 'humboldtIsTaxonomicScopeFullyReported',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.isTaxonomicScopeFullyReported.name',
+  facetQuery: `
+    query HumboldtIsTaxonomicScopeFullyReported($query: EventSearchInput){
+      search: eventSearch(query: $query) {
+        
+        facet {
+          field: humboldtIsTaxonomicScopeFullyReported {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.isTaxonomicScopeFullyReported.description" />,
+  group: termToGroup['isTaxonomicScopeFullyReported'],
+};

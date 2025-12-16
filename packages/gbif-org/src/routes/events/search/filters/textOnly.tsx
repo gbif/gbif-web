@@ -259,6 +259,75 @@ export const humboldtTotalAreaSampledUnitConfig: filterSuggestConfig = {
   group: termToGroup['totalAreaSampledUnit'],
 };
 
+export const humboldtEventDurationUnitConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'humboldtEventDurationUnit',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.eventDurationUnit.name',
+  allowExistence: true,
+  about: () => <Message id="filters.eventDurationUnit.description" />,
+  facetQuery: `
+    query humboldtEventDurationUnit($query: EventSearchInput, $limit: Int){
+      search: eventSearch(query: $query, limit: $limit) {
+        
+        facet {
+          field: humboldtEventDurationUnit {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  group: termToGroup['eventDurationUnit'],
+};
+
+export const humboldtTargetTaxonomicScopeUsageNameConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'humboldtTargetTaxonomicScopeUsageName',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.targetTaxonomicScope.name',
+  allowExistence: true,
+  about: () => <Message id="filters.targetTaxonomicScope.description" />,
+  facetQuery: `
+    query humboldtTargetTaxonomicScopeUsageName($query: EventSearchInput, $limit: Int){
+      search: eventSearch(query: $query, limit: $limit) {
+        
+        facet {
+          field: humboldtTargetTaxonomicScopeUsageName {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  group: termToGroup['targetTaxonomicScope'],
+};
+
+export const humboldtMaterialSampleTypesConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'humboldtMaterialSampleTypes',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.materialSampleTypes.name',
+  allowExistence: true,
+  about: () => <Message id="filters.materialSampleTypes.description" />,
+  facetQuery: `
+    query HumboldtMaterialSampleTypes($query: EventSearchInput, $limit: Int){
+      search: eventSearch(query: $query, limit: $limit) {
+        
+        facet {
+          field: humboldtMaterialSampleTypes {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  group: termToGroup['materialSampleTypes'],
+};
+
 export const localityConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'locality',

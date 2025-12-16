@@ -63,8 +63,34 @@ export function EventSearchPage(): React.ReactElement {
   'other',
 ]; */
 
-const groups = [...new Set(humboldtTerms.map((t) => t.group)), 'event', 'location', 'other'];
-console.log(groups);
+// const groups = [...new Set(humboldtTerms.map((t) => t.group)), 'event', 'location', 'other'];
+const groups = [
+  'site',
+  'temporalScope',
+  'taxonomicScope',
+  'organismalScope',
+  'habitatScope',
+
+  'methodologyDescription',
+  'materialCollected',
+  'samplingEffort',
+  'event',
+  'identification',
+  'location',
+  'other',
+];
+
+/* sampling design 
+--> 
+temporal scope --> 
+spatial scope --> 
+taxonomic and organismal scope --> 
+protocol --> 
+effort --> 
+occurrence */
+
+// console.log(groups);
+
 export function EventSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });

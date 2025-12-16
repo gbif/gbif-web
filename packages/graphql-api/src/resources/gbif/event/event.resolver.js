@@ -127,6 +127,13 @@ export default {
     humboldtTotalAreaSampledValue: getEventFacet(
       'humboldtTotalAreaSampledValue',
     ),
+    humboldtEventDurationUnit: getEventFacet('humboldtTargetHabitatScope'),
+    humboldtEventDurationValue: getEventFacet('humboldtTargetHabitatScope'),
+    humboldtTargetTaxonomicScopeUsageName: getEventFacet(
+      'humboldtTargetTaxonomicScopeUsageName',
+    ),
+    humboldtAbundanceCap: getEventFacet('humboldtAbundanceCap'),
+    humboldtMaterialSampleTypes: getEventFacet('humboldtMaterialSampleTypes'),
   },
   EventFacetResult: {
     eventSearch: (parent, query, { dataSources }) =>

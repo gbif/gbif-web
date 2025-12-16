@@ -18,6 +18,8 @@ import {
   yearConfig,
   humboldtSamplingEffortValueConfig,
   humboldtTotalAreaSampledValueConfig,
+  humboldtEventDurationValueConfig,
+  humboldtAbundanceCapConfig,
 } from './filters/ranges';
 import { humboldtBooleansConfig } from './filters/humboldt';
 import {
@@ -34,12 +36,16 @@ import {
   humboldtTargetHabitatScopeConfig,
   humboldtTargetLifeStageScopeConfig,
   humboldtTotalAreaSampledUnitConfig,
+  humboldtEventDurationUnitConfig,
+  humboldtTargetTaxonomicScopeUsageNameConfig,
+  humboldtMaterialSampleTypesConfig,
 } from './filters/textOnly';
 import { sampleSizeUnitConfig } from './filters/wildcard';
 
 import {
   humboldtIsAbundanceReportedConfig,
   humboldtIsAbundanceCapReportedConfig,
+  humboldtIsTaxonomicScopeFullyReportedConfig,
 } from './filters/boolean';
 
 const freeTextConfig: filterConfig = {
@@ -161,6 +167,40 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
 
+      humboldtEventDurationUnit: generateFilters({
+        config: humboldtEventDurationUnitConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      humboldtEventDurationValue: generateFilters({
+        config: humboldtEventDurationValueConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      humboldtTargetTaxonomicScopeUsageName: generateFilters({
+        config: humboldtTargetTaxonomicScopeUsageNameConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      humboldtIsTaxonomicScopeFullyReported: generateFilters({
+        config: humboldtIsTaxonomicScopeFullyReportedConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      humboldtMaterialSampleTypes: generateFilters({
+        config: humboldtMaterialSampleTypesConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      humboldtAbundanceCap: generateFilters({
+        config: humboldtAbundanceCapConfig,
+        searchConfig,
+        formatMessage,
+      }),
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
       eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
       humboldtBooleans: generateFilters({
