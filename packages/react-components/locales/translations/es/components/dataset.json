@@ -26,13 +26,13 @@
   "metricsTab": {
     "selectGroup": "Marcador de posición de descripción",
     "group": {
-      "checklist": "Lista de especies",
+      "checklist": "Lista de chequeo",
       "downloads": "Descargas",
       "taxonomic": "Marcador de posición de descripción",
       "geographic": "Marcador de posición de descripción",
       "temporal": "Temporal",
       "qualities": "Marcador de posición de descripción",
-      "citations": "Citaciones"
+      "citations": "Citas"
     },
     "checklist": {
       "notAvailable": "Marcador de posición de descripción",
@@ -54,7 +54,7 @@
       "origin": "Origen",
       "countByIssue": "Marcador de posición de descripción",
       "countByIssueDescription": "Marcador de posición de descripción",
-      "count": "Conteo"
+      "count": "Número"
     }
   },
   "noStatsForMetadata": "No hay estadísticas disponibles para los conjuntos de solo metadatos.",
@@ -142,7 +142,7 @@
   "containsSamplingEventsDescription": "Este conjunto de datos contiene datos de muestreo. Los detalles del método de muestreo se encuentran en la sección de metodología, de la descripción del conjunto de datos.",
   "griddedData": "Datos en cuadrícula",
   "griddedDataDescription": "Basado en el análisis de los registros, es probable que este conjunto de datos contenga datos en cuadrículas. Lee más en este [post sobre conjuntos de datos en cuadrículas](https://data-blog.gbif.org/post/gridded-datasets-update/).",
-  "metricsLink": "Métricas de registros de presencias",
+  "metricsLink": "Métricas de registros biológicos",
   "registry": {
     "failedSinceSuccess": "Intentos fallidos desde la última integración exitosa",
     "lastFailed": "Último intento fallido",
@@ -189,5 +189,5 @@
   },
   "eventTaxonomy": "Distribución taxonómica de los registros de presencia",
   "noCitations": "Marcador de posición de descripción",
-  "noOccurrences": "Sin registros de presencia"
+  "noOccurrences": "Sin registros biológicos"
 }

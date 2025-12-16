@@ -105,19 +105,6 @@ function getDescription({
   return createMarkdown(__data as FeedbackDTO);
 }
 
-function getLabels(data) {
-  const labels = _.union(
-    ['Under review'],
-    _.intersection(
-      ['bug', 'idea', 'content', 'data content', 'question'],
-      [data.type],
-    ),
-  );
-  if (data.publishingCountry) {
-    labels.push(data.publishingCountry);
-  }
-  return _.uniq(labels);
-}
 const feedbackRouter = Router();
 export default (app) => {
   app.use('/forms/feedback', feedbackRouter);
@@ -216,7 +203,7 @@ feedbackRouter.post(
           publishingOrgKey,
           networkKeys,
         }),
-        labels: getLabels(req.body),
+        labels: ['demo'],
       };
       const issue = await createGitHubIssue(result);
 

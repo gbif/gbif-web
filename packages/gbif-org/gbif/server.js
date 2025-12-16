@@ -12,7 +12,7 @@ import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
-import handleRedirects from './middleware/redirects.mjs';
+import getRedirect from './middleware/redirects.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
@@ -32,9 +32,6 @@ async function main() {
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(compress());
-
-  // Handle list of redirects
-  app.use(handleRedirects);
 
   // Middleware to set default Cache-Control header
   app.use((req, res, next) => {
@@ -134,7 +131,7 @@ async function main() {
   });
 
   // Handle server-side rendering.
-  app.use('*', async (req, res) => {
+  app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
@@ -179,7 +176,17 @@ async function main() {
 
         res.setHeader('Content-Type', 'text/html');
 
-        return res.status(statusCode).end(html);
+        const redirectTo = getRedirect(req, res);
+
+        if (statusCode === 404 && redirectTo) {
+          // Handle list of redirects
+          if (redirectTo) {
+            res.redirect(302, redirectTo);
+          }
+        } else {
+          res.status(statusCode).end(html);
+        }
+        // return statusCode === 404 ? res.status(statusCode).end(html);
       } catch (e) {
         // Handle possible redirections thrown by the render function.
         if (e instanceof Response && e.status >= 300 && e.status <= 399) {

@@ -83,7 +83,7 @@ const LayoutInner = React.memo(
           <Footer />
         </div>
         {import.meta.env.PUBLIC_STATUS_PAGE_URL && (
-          <script src={`${import.meta.env.PUBLIC_STATUS_PAGE_URL}/embed/script.js`}></script>
+          <script async src={`${import.meta.env.PUBLIC_STATUS_PAGE_URL}/embed/script.js`}></script>
         )}
       </UserProvider>
     );

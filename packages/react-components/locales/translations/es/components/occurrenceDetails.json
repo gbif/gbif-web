@@ -43,7 +43,7 @@
     "geologicalContext": "Contexto geológico",
     "other": "Otro",
     "extensions": "Extensiones",
-    "issues": "Problemas y banderas"
+    "issues": "Incidencias y alertas"
   },
   "issuesHelpText": "Marcador de posición de descripción",
   "features": {
