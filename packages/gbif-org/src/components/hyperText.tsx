@@ -73,7 +73,6 @@ export const HyperText = ({
   fallback?: string | boolean;
   [key: string]: any;
 }) => {
-  console.log(text);
   if (text === false || text === true) {
     return <BooleanValue value={text} {...props} />;
   }
