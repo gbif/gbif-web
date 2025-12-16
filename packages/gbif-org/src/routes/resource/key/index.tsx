@@ -86,12 +86,12 @@ export const resourceKeyRoutes: RouteObjectWithPlugins[] = [
     element: <CompositionPage />,
     isSlugified: true,
   },
-  {
+  /*   {
     id: 'resource-redirect-key',
     path: 'resource/:key',
     loader: resourceRedirectLoader,
     loadingElement: <AliasHandlingSkeleton />,
-  },
+  }, */
   {
     id: 'alias-handling',
     path: '*',

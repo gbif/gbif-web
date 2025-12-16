@@ -24,6 +24,10 @@ const localePrefixes = [
   'it'       // Italian
 ];
 
+
+  const routesHandledInReactRouter = new Set(['article', 'composition', 'data-use', 'document', 'event', 'news', 'programme', 'project', 'tool'])
+
+
 // Extract locale prefix from path if present
 function extractLocalePrefix(path) {
   for (const locale of localePrefixes) {
@@ -79,16 +83,16 @@ function findQueryParamRedirect(path, queryParams) {
   return null;
 }
 
-function handleRedirects(req, res, next) {
+
+function getRedirect(req, res, next) {
   // remove query params from url first
-  const splitted = req.url.split('?');
+  const splitted = req.originalUrl.split('?');
   const pathOnly = splitted[0];
   const queryString = splitted[1];
   const queryParams = queryString ? querystring.parse(queryString) : {};
 
   // Extract locale prefix from path (e.g., /fr/occurrence/gallery -> prefix=/fr, pathWithoutPrefix=/occurrence/gallery)
   const { prefix: localePrefix, pathWithoutPrefix } = extractLocalePrefix(pathOnly);
-  
   let redirectTo;
 
   // First, check for redirects that match path + specific query params (using path without locale prefix)
@@ -109,7 +113,7 @@ function handleRedirects(req, res, next) {
     // Fall back to path-only redirect lookup (using path without locale prefix)
     redirectTo = redirectTable[pathWithoutPrefix];
     
-    if (redirectTo) {
+    if (redirectTo ) {
       let redirectSplitted = redirectTo.split('?');
       // there may be parameters in target which should be merged with the incoming parameters
       let parameters = redirectSplitted[1];
@@ -126,12 +130,8 @@ function handleRedirects(req, res, next) {
       }
     }
   }
-
-  if (redirectTo) {
-    res.redirect(302, redirectTo);
-  } else  {
-    next();
-  }
+  const basePath =  pathWithoutPrefix.split('/')?.[1]  // routesHandledInReactRouter
+  return redirectTo;
 }
 
 function fixParameterCasing(str, parameters = '') {
@@ -195,4 +195,4 @@ function redirectOldQueries(req, res) {
     };
 }
 
-export default handleRedirects;
+export default getRedirect;
