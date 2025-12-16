@@ -80,11 +80,13 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           )}
         </div>
         <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-          <DynamicLink pageId="publisherSearch" searchParams={{ country: [publisher.country] }}>
-            <Tag className="hover:g-bg-primary-200">
-              <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
-            </Tag>
-          </DynamicLink>
+          {publisher.country && (
+            <DynamicLink pageId="publisherSearch" searchParams={{ country: [publisher.country] }}>
+              <Tag className="hover:g-bg-primary-200">
+                <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
+              </Tag>
+            </DynamicLink>
+          )}
           {/* <div className='g-flex-grow'></div> */}
           <DynamicLink pageId="datasetSearch" searchParams={{ publishingOrg: [publisher.key] }}>
             <CountTag
