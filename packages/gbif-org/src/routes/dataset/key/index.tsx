@@ -12,6 +12,7 @@ import { DatasetEventID, eventLoader, parentEventLoader } from './event/eventID'
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
 import { DatasetKeyTaxonSearch } from './taxonSearch';
+import { redirectDocument } from 'react-router-dom';
 const id = 'datasetKey';
 
 export const datasetKeyRoute: RouteObjectWithPlugins = {
@@ -30,6 +31,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       index: true,
       element: <DatasetKeyAbout />,
+    },
+    {
+      path: 'activity',
+      loader: () => redirectDocument('../metrics'),
     },
     {
       path: 'metrics',
