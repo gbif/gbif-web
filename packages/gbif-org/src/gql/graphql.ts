@@ -6869,7 +6869,9 @@ export type OccurrenceStats = {
   __typename?: 'OccurrenceStats';
   decimalLatitude: Stats;
   decimalLongitude: Stats;
+  endDayOfYear: Stats;
   eventDate: Stats;
+  startDayOfYear: Stats;
   year: Stats;
 };
 
