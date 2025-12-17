@@ -65,7 +65,7 @@ export type SingleEventSearchResult = ExtractPaginatedResult<EventSearchQuery['e
 const keySelector = (item: SingleEventSearchResult) => item.eventID?.toString() ?? '';
 
 const rowLinkOptionsDrawer: RowLinkOptions<SingleEventSearchResult> = {
-  createDrawerKey: ({ datasetKey, eventID }) => `e_${datasetKey}_${eventID}`,
+  createDrawerKey: ({ datasetKey, eventID }) => `e_${datasetKey}___${eventID}`,
 };
 
 const fallbackOptions: FallbackTableOptions = {

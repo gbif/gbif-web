@@ -8,12 +8,11 @@ import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Card, CardContent } from '@/components/ui/largeCard';
-import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
-import { useConfig } from '@/config/config';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/smallCard';
+import { GenericEventExtension } from './eventExtensions';
 import {
   DatasetEventQuery,
-  DatasetEventQueryVariables,
+  EventQuery,
   EventInsightsQuery,
   EventInsightsQueryVariables,
   PredicateType,
@@ -21,56 +20,37 @@ import {
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
-import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
-import { Aside, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { SidebarLayout, Aside } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import formatAsPercentage from '@/utils/formatAsPercentage';
-import { required } from '@/utils/required';
 import { Progress } from '@radix-ui/react-progress';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
-import { MdEvent, MdImage } from 'react-icons/md';
+import { MdImage, MdEvent } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import { useLocation, useLoaderData, Link } from 'react-router-dom';
 import { Images } from '../about/Images';
 import { DatasetKeyContext } from '../datasetKey';
 import EventList from './eventList';
 import EventTaxonomy from './eventTaxonomy';
-import { Event } from './event';
-export function eventLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key was provided in the URL');
-  const eventID = required(params.eventID, 'No Event ID was provided in the URL');
-
-  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(EVENT_QUERY, {
-    key,
-    limit: 1,
-    offset: 0,
-    eventID,
-  });
-}
-
-export function parentEventLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key was provided in the URL');
-  const parentEventID = required(
-    params.parentEventID,
-    'No Parent Event ID was provided in the URL'
-  );
-
-  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(EVENT_QUERY, {
-    optParentEventID: parentEventID,
-    key,
-    limit: 1,
-    offset: 0,
-  });
-}
-
-/* export const DatasetEventID = () => {
+import Properties, { Property } from '@/components/properties';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/utils/shadcn';
+export const Event = ({
+  data,
+  eventData,
+  className = '',
+}: {
+  data: DatasetEventQuery;
+  eventData: EventQuery;
+  className?: string;
+}) => {
   const { datasetKey, datasetType } = useContext(DatasetKeyContext);
   const hideSidebar = useBelow(1000);
   const hideGlobe = useBelow(800);
   const location = useLocation();
   const [parentEventIdFromPath, setParentEventIdFromPath] = useState('');
-  const { data } = useLoaderData() as { data: DatasetEventQuery };
 
   const { eventId, firstOccurrence } = data?.dataset?.events?.results?.[0] ?? {};
   const { decimalLatitude, decimalLongitude } = firstOccurrence ?? {};
@@ -164,7 +144,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
   const sateliteZoom = 12;
 
   return (
-    <div className="g-bg-slate-100">
+    <div className={cn('g-bg-slate-100', className)}>
       <Classification className="g-m-auto g-max-w-screen-xl g-p-3">
         <span>
           <DynamicLink
@@ -282,6 +262,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
                 />
               </ErrorBoundary>
             )}
+
             <ErrorBoundary
               type="BLOCK"
               errorMessage={<FormattedMessage id="dataset.errors.eventList" />}
@@ -324,6 +305,21 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
                 />
               </ErrorBoundary>
             </ClientSideOnly>
+            {eventData?.event?.extensions && (
+              <div className="g-mt-4">
+                {Object.keys(eventData?.event?.extensions)
+                  .filter((ext) => !!eventData?.event?.extensions?.[ext])
+                  .map((ext) => (
+                    <GenericEventExtension
+                      key={ext}
+                      event={eventData?.event}
+                      label={`occurrenceDetails.extensions.${ext}.name`}
+                      extensionName={ext}
+                      id={ext}
+                    />
+                  ))}
+              </div>
+            )}
           </div>
           {!hideSidebar && (
             <Aside className="">
@@ -358,7 +354,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
               {!parentEventIdFromPath && (
                 <Card className="g-mb-4">
                   {
-                    <CardContentSmall className="g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <CardContent className="g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                       <div className="g-flex g-items-center">
                         {countryCode && (
                           <div className="g-flex g-overflow-hidden g-text-ellipsis g-flex g-items-center g-opacity-60">
@@ -378,7 +374,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
                           </div>
                         )}
                       </div>
-                    </CardContentSmall>
+                    </CardContent>
                   }
                 </Card>
               )}
@@ -388,7 +384,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
               >
                 <Card>
                   {(total === 0 || !!total) && (
-                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <CardContent className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                       <div className="g-flex-none g-me-2">
                         <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
                           <OccurrenceIcon />
@@ -428,7 +424,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
                           </div>
                         )}
                       </div>
-                    </CardContentSmall>
+                    </CardContent>
                   )}
                 </Card>
               </ErrorBoundary>
@@ -438,49 +434,74 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
       </ArticleTextContainer>
     </div>
   );
-}; */
-export const DatasetEventID = () => {
-  const { data } = useLoaderData() as { data: DatasetEventQuery };
-  return <Event data={data} />;
 };
-export default DatasetEventID;
 
-export const EVENT_QUERY = /* GraphQL */ `
-  query DatasetEvent($key: ID!, $limit: Int, $offset: Int, $eventID: ID, $optParentEventID: ID) {
-    dataset(key: $key) {
-      key
-      type
-      samplingDescription {
-        studyExtent
-        methodSteps
-        sampling
+export function EventLink({ eventId, className }: { eventId?: string; className?: string }) {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.delete('entity');
+  if (eventId) {
+    searchParams.set('eventId', eventId);
+  }
+
+  return (
+    <Link
+      to={{
+        pathname: window.location.pathname,
+        search: searchParams.toString(),
+      }}
+      className={className}
+    >
+      <FormattedMessage id="event.viewEvent" defaultMessage="View child events" />
+    </Link>
+  );
+}
+
+const EVENT_SLOW = /* GraphQL */ `
+  query EventInsights(
+    $imagePredicate: Predicate
+    $coordinatePredicate: Predicate
+    $taxonPredicate: Predicate
+    $yearPredicate: Predicate
+    $datasetPredicate: Predicate
+  ) {
+    unfiltered: occurrenceSearch(predicate: $datasetPredicate) {
+      documents(size: 0) {
+        total
       }
-      events(
-        key: $key
-        limit: $limit
-        offset: $offset
-        eventID: $eventID
-        optParentEventID: $optParentEventID
-      ) {
-        endOfRecords
+      cardinality {
+        eventId
+      }
+      facet {
+        dwcaExtension {
+          key
+          count
+        }
+      }
+    }
+    images: occurrenceSearch(predicate: $imagePredicate) {
+      documents(size: 10) {
+        total
         results {
-          eventId
-          firstOccurrence {
-            volatile {
-              globe {
-                svg
-              }
-            }
-            countryCode
-            eventDate
-            key
-            datasetKey
-            decimalLatitude
-            decimalLongitude
-            parentEventID
-            eventID
+          key
+          stillImages {
+            identifier: thumbor(height: 400)
           }
         }
+      }
+    }
+    withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {
+      documents(size: 10) {
+        total
+      }
+    }
+    withTaxonMatch: occurrenceSearch(predicate: $taxonPredicate) {
+      documents(size: 10) {
+        total
+      }
+    }
+    withYear: occurrenceSearch(predicate: $yearPredicate) {
+      documents(size: 10) {
+        total
       }
     }
   }

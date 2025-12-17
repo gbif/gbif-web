@@ -287,6 +287,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
 export const DatasetKeyContext = createContext<{
   key?: string;
   datasetKey?: string;
+  datasetType?: DatasetType;
   dynamicProperties?: string;
   contentMetrics?: DatasetOccurrenceSearchQuery;
 }>({});
@@ -636,6 +637,7 @@ export function DatasetPage() {
         </PageContainer>
         <DatasetKeyContext.Provider
           value={{
+            datasetType: data?.dataset?.type,
             datasetKey: data?.dataset?.key,
             dynamicProperties:
               occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,

@@ -1,146 +1,129 @@
 import useQuery from '@/hooks/useQuery';
 import { useCallback, useEffect } from 'react';
-import { Event } from './Event';
-
+//import { Event } from './Event';
+import { Event } from '@/routes/dataset/key/event/event';
+import {
+  DatasetEventQuery,
+  DatasetEventQueryVariables,
+  EventQuery,
+  EventQueryVariables,
+  DatasetType,
+} from '@/gql/graphql';
+import { EVENT_QUERY } from '@/routes/dataset/key/event/eventID';
 // GraphQL query interfaces (you'll need to generate these from your schema)
-interface EventQuery {
-  event: {
-    eventID: string;
-    parentEventID?: string;
-    eventType?: string;
-    eventName?: string;
-    coordinates?: {
-      lat: number;
-      lon: number;
-    };
-    countryCode?: string;
-    datasetKey: string;
-    datasetTitle?: string;
-    year?: number;
-    month?: number;
-    occurrenceCount?: number;
-    measurementOrFactTypes?: string[];
-    sampleSizeUnit?: string;
-    sampleSizeValue?: number;
-    samplingProtocol?: string;
-    eventTypeHierarchyJoined?: string;
-    eventHierarchyJoined?: string;
-    eventTypeHierarchy?: string[];
-    eventHierarchy?: string[];
-    decimalLatitude?: number;
-    decimalLongitude?: number;
-    locality?: string;
-    stateProvince?: string;
-    temporalCoverage?: {
-      gte?: string;
-      lte?: string;
-    };
-  };
-  eventSearch: {
-    facet: {
-      eventTypeHierarchyJoined: Array<{
-        key: string;
-        count: number;
-      }>;
-    };
-  };
-}
-
-interface EventQueryVariables {
-  eventId: string;
-  datasetKey: string;
-}
 
 // graphql query for event
-const GRAPHQL_EVENT = `
-query event($eventId: ID, $datasetKey: ID){
-  event(eventId: $eventId, datasetKey: $datasetKey) {
-    eventID
-    parentEventID
-    eventType
-    eventDate {
-    from
-    to}
-    eventName
-    coordinates
-    countryCode
-    datasetKey
-    datasetTitle
-    year
-    month
-    occurrenceCount
-    measurementOrFactTypes
-    sampleSizeUnit
-    sampleSizeValue
-    samplingProtocol
-    eventTypeHierarchyJoined
-    eventHierarchyJoined
-    eventTypeHierarchy
-    eventHierarchy    
-    eventTypeHierarchy
-    eventHierarchy
-    decimalLatitude
-    decimalLongitude
-    locality
-    stateProvince
-    locationID
-    humboldt {
-      abundanceCap
-    areNonTargetTaxaFullyReported
-    compilationSourceTypes
-    compilationTypes
-    eventDurationUnit
-    eventDurationValue
-   
-    excludedDegreeOfEstablishmentScope
-    excludedGrowthFormScope
-    excludedHabitatScope
-    excludedLifeStageScope
-    geospatialScopeAreaUnit
-    geospatialScopeAreaValue
-    hasMaterialSamples
-    hasNonTargetOrganisms
-    hasNonTargetTaxa
-    hasVouchers
-    inventoryTypes
-    isAbsenceReported
-    isAbundanceCapReported
-    isAbundanceReported
-    isDegreeOfEstablishmentScopeFullyReported
-    isGrowthFormScopeFullyReported
-    isLeastSpecificTargetCategoryQuantityInclusive
-    isLifeStageScopeFullyReported
-    isSamplingEffortReported
-    isTaxonomicScopeFullyReported
-    isVegetationCoverReported
-    materialSampleTypes
-    protocolDescriptions
-    protocolNames
-    protocolReferences
-    samplingEffortUnit
-    samplingEffortValue
-    samplingPerformedBy
-    siteCount
-    targetDegreeOfEstablishmentScope
-    targetGrowthFormScope
-    targetHabitatScope
-    targetLifeStageScope
+export const GRAPHQL_EVENT = /* GraphQL */ `
+  query event($eventId: ID, $datasetKey: ID) {
+    event(eventId: $eventId, datasetKey: $datasetKey) {
+      eventID
+      parentEventID
+      eventType
+      eventDate {
+        from
+        to
+      }
+      eventName
+      coordinates
+      countryCode
+      datasetKey
+      datasetTitle
+      year
+      month
+      occurrenceCount
+      measurementOrFactTypes
+      sampleSizeUnit
+      sampleSizeValue
+      samplingProtocol
+      eventTypeHierarchyJoined
+      eventHierarchyJoined
+      eventTypeHierarchy
+      eventHierarchy
+      eventTypeHierarchy
+      eventHierarchy
+      decimalLatitude
+      decimalLongitude
+      locality
+      stateProvince
+      locationID
+      extensions {
+        audubon
+        image
+        measurementOrFact
+        multimedia
+        extendedMeasurementOrFact
+        humboldtEcologicalInventory
+      }
+      humboldt {
+        abundanceCap
+        areNonTargetTaxaFullyReported
+        compilationSourceTypes
+        compilationTypes
+        eventDurationUnit
+        eventDurationValue
 
-    taxonCompletenessProtocols
-    totalAreaSampledUnit
-    totalAreaSampledValue
-    verbatimSiteDescriptions
-    verbatimSiteNames
-    voucherInstitutions
+        excludedDegreeOfEstablishmentScope
+        excludedGrowthFormScope
+        excludedHabitatScope
+        excludedLifeStageScope
+        geospatialScopeAreaUnit
+        geospatialScopeAreaValue
+        hasMaterialSamples
+        hasNonTargetOrganisms
+        hasNonTargetTaxa
+        hasVouchers
+        inventoryTypes
+        isAbsenceReported
+        isAbundanceCapReported
+        isAbundanceReported
+        isDegreeOfEstablishmentScopeFullyReported
+        isGrowthFormScopeFullyReported
+        isLeastSpecificTargetCategoryQuantityInclusive
+        isLifeStageScopeFullyReported
+        isSamplingEffortReported
+        isTaxonomicScopeFullyReported
+        isVegetationCoverReported
+        materialSampleTypes
+        protocolDescriptions
+        protocolNames
+        protocolReferences
+        samplingEffortUnit
+        samplingEffortValue
+        samplingPerformedBy
+        siteCount
+        targetDegreeOfEstablishmentScope
+        targetGrowthFormScope
+        targetHabitatScope
+        targetLifeStageScope
+
+        taxonCompletenessProtocols
+        totalAreaSampledUnit
+        totalAreaSampledValue
+        verbatimSiteDescriptions
+        verbatimSiteNames
+        voucherInstitutions
+      }
     }
-    
   }
-  
-}
 `;
 
 export default function EventDrawer({ entityKey }: { entityKey?: string }) {
-  const { data, loading, error, load } = useQuery<EventQuery, EventQueryVariables>(GRAPHQL_EVENT, {
+  const {
+    data: eventData,
+    loading,
+    error,
+    load,
+  } = useQuery<EventQuery, EventQueryVariables>(GRAPHQL_EVENT, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  });
+
+  const {
+    data: occData,
+    loading: occLoading,
+    error: occError,
+    load: occLoad,
+  } = useQuery<DatasetEventQuery, DatasetEventQueryVariables>(EVENT_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
   });
@@ -152,10 +135,10 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
     const entitySearch = currentSearchParams.get('entity');
     if (entitySearch) {
       // if entity search already exists, replace it
-      currentSearchParams.set('entity', `e_${datasetid}_${eventId}`);
+      currentSearchParams.set('entity', `e_${datasetid}___${eventId}`);
     } else {
       // if entity search does not exist, add it
-      currentSearchParams.append('entity', `e_${datasetid}_${eventId}`);
+      currentSearchParams.append('entity', `e_${datasetid}___${eventId}`);
     }
     url.search = currentSearchParams.toString();
     return url.toString();
@@ -163,25 +146,40 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
 
   useEffect(() => {
     if (entityKey) {
-      const datasetKey = entityKey.split('_')[0];
-      const eventId = entityKey.substring(entityKey.indexOf('_') + 1);
+      const datasetKey = entityKey.split('___')[0];
+      const eventId = entityKey.split('___')?.[1];
 
       if (datasetKey && eventId) {
-        load({
+        occLoad({
           variables: {
-            eventId: eventId,
-            datasetKey: datasetKey,
+            key: datasetKey,
+            limit: 1,
+            offset: 0,
+            eventID: eventId,
           },
         });
       }
     }
   }, [entityKey, load]);
 
+  useEffect(() => {
+    if (occData?.dataset?.type == DatasetType.SamplingEvent && entityKey) {
+      const datasetKey = entityKey.split('___')[0];
+      const eventId = entityKey.split('___')?.[1];
+      load({
+        variables: {
+          eventId: eventId,
+          datasetKey: datasetKey,
+        },
+      });
+    }
+  }, [occData?.dataset?.type, entityKey, load]);
+
   if (!entityKey) {
     return null;
   }
 
-  if (loading) {
+  if (loading || occLoading) {
     return (
       <div className="g-p-4">
         <div>Loading event data...</div>
@@ -196,14 +194,20 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
       </div>
     );
   }
-
+  /* 
   if (!data?.event) {
     return (
       <div className="g-p-4">
         <div>Event not found</div>
       </div>
     );
-  }
+  } */
 
-  return <Event event={data.event} eventSearch={data.eventSearch} getEventLink={getEventLink} />;
+  return (
+    <Event
+      data={occData}
+      eventData={eventData}
+      /* event={data.event} eventSearch={data.eventSearch} */ getEventLink={getEventLink}
+    />
+  );
 }
