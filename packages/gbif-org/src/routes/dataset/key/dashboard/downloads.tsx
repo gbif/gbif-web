@@ -72,14 +72,14 @@ export function Downloads() {
           </CardHeader>
 
           {downloads.results.map((download) => (
-            <div>
+            <div key={download?.download?.key}>
               <div className="g-text-end g-mb-2 g-text-sm g-text-slate-600">
                 <FormattedMessage
                   id="dataset.nFromDataset"
                   values={{ total: download?.numberRecords || 0 }}
                 />
               </div>
-              <DownloadResult key={download?.download?.key} download={download?.download} />
+              <DownloadResult download={download?.download} />
             </div>
           ))}
 
