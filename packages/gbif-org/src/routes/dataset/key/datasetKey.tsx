@@ -569,7 +569,7 @@ export function DatasetPage() {
             <HeaderInfo>
               <HeaderInfoMain>
                 <FeatureList>
-                  {contactsCitation.length < contactThreshold && (
+                  {contactsCitation.length < contactThreshold && contactsCitation.length > 0 && (
                     <GenericFeature>
                       <PeopleIcon />
                       <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
