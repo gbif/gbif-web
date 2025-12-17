@@ -113,12 +113,14 @@ export function TaxonInterpretationCard({
               {classification.classification?.map((rank) => {
                 return (
                   <span key={rank.key}>
-                    <span className="g-pe-1">
-                      <FormattedMessage
-                        id={`enums.taxonRank.${rank.rank}`}
-                        defaultMessage={rank.rank}
-                      />
-                    </span>
+                    {rank.rank && (
+                      <span className="g-pe-1">
+                        <FormattedMessage
+                          id={`enums.taxonRank.${rank.rank}`}
+                          defaultMessage={rank.rank}
+                        />
+                      </span>
+                    )}
                     {rank.name}
                   </span>
                 );
