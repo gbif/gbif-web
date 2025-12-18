@@ -46,18 +46,18 @@ export function ProseCard({ title, description, url, image }: Props) {
             className="g-mb-2 g-text-lg g-font-semibold g-tracking-tight g-text-gray-900 dark:g-text-white g-break-words"
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          {description && (
-            <div dir="auto" className="g-text-gray-700 dark:g-text-gray-300 g-break-words">
-              <HyperText
-                text={description}
-                sanitizeOptions={{
-                  ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
-                  ALLOWED_ATTR: ['name'],
-                }}
-              />
-            </div>
-          )}
         </ConditionalWrapper>
+        {description && (
+          <div dir="auto" className="g-text-gray-700 dark:g-text-gray-300 g-break-words">
+            <HyperText
+              text={description}
+              sanitizeOptions={{
+                ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
+                ALLOWED_ATTR: ['name'],
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
