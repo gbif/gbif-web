@@ -1,4 +1,5 @@
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
+import { HyperText } from '@/components/hyperText';
 import { ProseCardImgFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -47,7 +48,13 @@ export function ProseCard({ title, description, url, image }: Props) {
           />
           {description && (
             <div dir="auto" className="g-text-gray-700 dark:g-text-gray-300 g-break-words">
-              {description}
+              <HyperText
+                text={description}
+                sanitizeOptions={{
+                  ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
+                  ALLOWED_ATTR: ['name'],
+                }}
+              />
             </div>
           )}
         </ConditionalWrapper>
