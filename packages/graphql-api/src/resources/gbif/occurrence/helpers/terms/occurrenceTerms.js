@@ -14,11 +14,11 @@
  *  }
  * }
  */
-import interpretationRemark from '@/helpers/enums/interpretationRemark';
 import createDOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
 import { isNil, pick } from 'lodash';
 import mdit from 'markdown-it';
+import interpretationRemark from '@/helpers/enums/interpretationRemark';
 import terms from '../groups/terms.json';
 
 const md = mdit({
@@ -63,7 +63,12 @@ const remarkMap = remarkTypes.reduce((acc, cur) => {
   return acc;
 }, {});
 
-function getHtmlValue({ value, allowedTags }) {
+function getHtmlValue({ value: inputValue, allowedTags }) {
+  // use the assumption that values with pipes are multiple values. This is not the case for all fields and might cause headaches in the future
+  const value =
+    typeof inputValue === 'string' && inputValue.includes('|')
+      ? inputValue.split('|')
+      : inputValue;
   if (Array.isArray(value)) {
     return value.map((x) => getHtmlValue({ value: x, allowedTags }));
   }
