@@ -621,7 +621,7 @@
     },
     "dnaDerivedData": {
       "name": "DNA derived data",
-       "properties": {
+      "properties": {
         "0001107": "Sample name",
         "0000004": "Submitted to INSDC",
         "0000007": "Investigation type",
@@ -782,7 +782,7 @@
         "samplingEffortProtocol": "Sampling Effort Protocol",
         "samplingEffortValue": "Sampling Effort Value",
         "samplingEffortUnit": "Sampling Effort Unit"
-     
+      }
     }
   }
 }
