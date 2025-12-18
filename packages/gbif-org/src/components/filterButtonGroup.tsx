@@ -34,8 +34,8 @@ export function FilterButtonGroup({
   return (
     <div className={cn('g-flex g-flex-wrap g-gap-2', className)}>
       <Button
-        {...(selectedValue === null ? activeProps : inactiveProps)}
-        onClick={() => onSelect(null)}
+        {...(!selectedValue || selectedValue === 'all' ? activeProps : inactiveProps)}
+        onClick={() => onSelect('all')}
       >
         {allLabel}
       </Button>
@@ -48,8 +48,8 @@ export function FilterButtonGroup({
           {option.label}
         </Button>
       ))}
-      {selectedValue && (
-        <Button onClick={() => onSelect(null)} {...clearProps}>
+      {selectedValue && selectedValue !== 'all' && (
+        <Button onClick={() => onSelect('all')} {...clearProps}>
           <MdClear className="g-h-4 g-w-4 g-me-1" />
           {clearLabel}
         </Button>
