@@ -232,7 +232,10 @@ export const DatasetEventID = () => {
                     </h2>
                   </div>
                   <CardContent>
-                    <HyperText text={data?.dataset?.samplingDescription?.sampling} />
+                    <HyperText
+                      text={data?.dataset?.samplingDescription?.sampling}
+                      disableMarkdownParsing
+                    />
                   </CardContent>
                 </>
               )}

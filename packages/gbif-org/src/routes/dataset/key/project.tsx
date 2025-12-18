@@ -87,7 +87,7 @@ export function DatasetKeyProject() {
               </CardHeader>
               <CardContent>
                 <div className="g-prose g-max-w-full g-break-words">
-                  <HyperText text={project.abstract} fallback />
+                  <HyperText text={project.abstract} fallback disableMarkdownParsing />
                 </div>
               </CardContent>
             </Card>
@@ -101,7 +101,11 @@ export function DatasetKeyProject() {
                 </CardHeader>
                 <CardContent>
                   <div className="g-prose g-max-w-full g-break-words">
-                    <HyperText text={project.studyAreaDescription} fallback />
+                    <HyperText
+                      text={project.studyAreaDescription}
+                      fallback
+                      disableMarkdownParsing
+                    />
                   </div>
                 </CardContent>
               </Card>
@@ -116,7 +120,7 @@ export function DatasetKeyProject() {
                 </CardHeader>
                 <CardContent>
                   <div className="g-prose g-max-w-full g-break-words">
-                    <HyperText text={project.designDescription} fallback />
+                    <HyperText text={project.designDescription} fallback disableMarkdownParsing />
                   </div>
                 </CardContent>
               </Card>
@@ -131,7 +135,7 @@ export function DatasetKeyProject() {
                 </CardHeader>
                 <CardContent>
                   <div className="g-prose g-max-w-full g-break-words">
-                    <HyperText text={project.funding} fallback />
+                    <HyperText text={project.funding} fallback disableMarkdownParsing />
                   </div>
                 </CardContent>
               </Card>
