@@ -11,7 +11,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 const AddInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, onAdd, inputClassName, value, ...props }, ref) => {
     return (
-      <form
+      <div
         className={cn(
           'g-inline-flex disabled:g-opacity-50 g-items-center g-justify-center g-w-16 g-px-2',
           className
@@ -47,7 +47,7 @@ const AddInput = React.forwardRef<HTMLInputElement, InputProps>(
         >
           <MdAddCircle />
         </button>
-      </form>
+      </div>
     );
   }
 );
