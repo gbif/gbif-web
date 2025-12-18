@@ -144,6 +144,7 @@ export const HOMEPAGE_QUERY = /* GraphQL */ `
         title
         start
         end
+        allDayEvent
         optionalImg: primaryImage {
           ...ProseCardImg
         }

@@ -1,4 +1,5 @@
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
+import { HyperText } from '@/components/hyperText';
 import { ProseCardImgFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -17,7 +18,7 @@ type Props = {
   title: string;
   url?: string;
   image?: ProseCardImgFragment | null;
-  description?: string | null;
+  description?: string | React.ReactNode | null;
 };
 
 export function ProseCard({ title, description, url, image }: Props) {
@@ -45,12 +46,12 @@ export function ProseCard({ title, description, url, image }: Props) {
             className="g-mb-2 g-text-lg g-font-semibold g-tracking-tight g-text-gray-900 dark:g-text-white g-break-words"
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          {description && (
-            <div dir="auto" className="g-text-gray-700 dark:g-text-gray-300 g-break-words">
-              {description}
-            </div>
-          )}
         </ConditionalWrapper>
+        {description && (
+          <div dir="auto" className="g-text-gray-700 dark:g-text-gray-300 g-break-words">
+            {description}
+          </div>
+        )}
       </div>
     </div>
   );

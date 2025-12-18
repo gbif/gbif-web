@@ -91,7 +91,7 @@ const ContentWrapper = React.forwardRef(
             {hasGroups &&
               filteredGroups?.map((group, i) => {
                 return (
-                  <>
+                  <React.Fragment key={group}>
                     <Group
                       key={group}
                       name={group}
@@ -101,7 +101,7 @@ const ContentWrapper = React.forwardRef(
                       }}
                     />
                     {i < filteredGroups.length - 1 && <CommandSeparator />}
-                  </>
+                  </React.Fragment>
                 );
               })}
           </CommandList>

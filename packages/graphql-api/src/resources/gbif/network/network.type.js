@@ -34,10 +34,10 @@ const typeDef = gql`
     description: String
     email: [String]
     endpoints: [Endpoint]
-    homepage: [URL]
+    homepage: [String]
     identifiers: [Identifier]
     language: Language
-    logoUrl: URL
+    logoUrl: String
     machineTags: [MachineTag]
     modified: DateTime
     modifiedBy: String

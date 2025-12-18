@@ -6,8 +6,8 @@ import { DoiTag, Lsid, OrcId } from './identifierTag';
 import pkg from 'isomorphic-dompurify';
 const { sanitize } = pkg;
 
-function sanitizeHtml(dirtyHtml: string) {
-  return sanitize(dirtyHtml);
+function sanitizeHtml(dirtyHtml: string, sanitizeOptions: DOMPurify.Config) {
+  return sanitize(dirtyHtml, sanitizeOptions);
 }
 
 export const ALLOWED_URI_REGEXP =
@@ -66,11 +66,13 @@ export const HyperText = ({
   sanitizeOptions = DEFAULT_SANITIZE_OPTIONS,
   fallback,
   className,
+  disableMarkdownParsing,
   ...props
 }: {
   text: string | boolean | undefined | null | React.ReactNode;
   sanitizeOptions?: DOMPurify.Config;
   fallback?: string | boolean;
+  disableMarkdownParsing?: boolean;
   [key: string]: any;
 }) => {
   if (text === false || text === true) {
@@ -107,8 +109,8 @@ export const HyperText = ({
   const trimmedContent = text.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, '');
 
   try {
-    const html = marked.parse(trimmedContent) as string;
-    const sanitizedHtml = sanitizeHtml(html);
+    const html = disableMarkdownParsing ? trimmedContent : (marked.parse(trimmedContent) as string);
+    const sanitizedHtml = sanitizeHtml(html, sanitizeOptions);
 
     return (
       <div

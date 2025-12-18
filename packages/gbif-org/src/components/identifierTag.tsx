@@ -44,11 +44,13 @@ export function LicenceTag({
   );
 }
 
+const testSite = import.meta.env.PUBLIC_TEST_SITE === 'true';
+const testSiteDoiPrefix = testSite ? 'Test DOI' : 'DOI';
 export function DoiTag({ id = '', ...props }) {
   const sanitizedId = id.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
   return (
     <IdentifierTag as="a" href={`https://doi.org/${sanitizedId}`} {...props}>
-      <IdentifierType>DOI</IdentifierType>
+      <IdentifierType>{testSiteDoiPrefix}</IdentifierType>
       <IdentifierValue>{sanitizedId}</IdentifierValue>
     </IdentifierTag>
   );

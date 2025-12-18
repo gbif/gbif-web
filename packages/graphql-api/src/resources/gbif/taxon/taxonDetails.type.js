@@ -30,9 +30,9 @@ const typeDef = gql`
     creator: String
     description: String
     format: String
-    identifier: URL
+    identifier: String
     publisher: String
-    references: URL
+    references: String
     source: String
     rightsHolder: String
     taxonKey: Int
@@ -52,7 +52,7 @@ const typeDef = gql`
 
   type TaxonOccurrenceMediaResult {
     occurrenceKey: ID!
-    identifier: URL
+    identifier: String
   }
 
   type TaxonDescriptionResult {
@@ -170,7 +170,7 @@ const typeDef = gql`
     datasetTitle: String
     datasetKey: String
     citation: String
-    link: URL
+    link: String
   }
 
   extend type Taxon {

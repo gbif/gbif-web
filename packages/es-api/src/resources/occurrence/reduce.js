@@ -399,14 +399,14 @@ function reduce(item, fields) {
         prev[value] = curr;
         return prev;
       }, {});
-
+      const orderedTaxonKeys = Object.values(c.classificationDepth);
       return {
         usage: c.usage,
         acceptedUsage: c.acceptedUsage,
         iucnRedListCategoryCode: c.iucnRedListCategoryCode,
         issues: c.issues,
         checklistKey: key,
-        classification: c.taxonKeys.map((taxonKey) => {
+        classification: orderedTaxonKeys.map((taxonKey) => {
           // get rank
           const rank = keyToRank[taxonKey];
           return {

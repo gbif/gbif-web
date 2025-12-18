@@ -127,7 +127,7 @@ function GbifNetworkPage() {
         </ArticleTextContainer>
 
         <ArticleTextContainer className="g-mb-8">
-          <div className="g-prose g-max-w-none dark:g-prose-invert">
+          <div className="g-prose g-max-w-none dark:g-prose-invert" id="participants">
             <h2>
               <FormattedMessage id="gbifNetwork.headlines.participants" />
             </h2>
@@ -173,4 +173,11 @@ export const gbifNetworkRoute: RouteObjectWithPlugins = {
   loader: gbifNetworkPageLoader,
   loadingElement: <ArticleSkeleton />,
   path: 'the-gbif-network',
+  shouldRevalidate: ({ currentUrl, nextUrl, defaultShouldRevalidate }) => {
+    // Only revalidate if the pathname changed, not search params
+    if (currentUrl.pathname !== nextUrl.pathname) {
+      return true;
+    }
+    return false;
+  },
 };

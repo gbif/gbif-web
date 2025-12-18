@@ -10,7 +10,7 @@ const typeDef = gql`
     createdBy: String
     email: [String]
     firstName: String
-    homepage: [URL]
+    homepage: [String]
     lastName: String
     modified: DateTime
     modifiedBy: String

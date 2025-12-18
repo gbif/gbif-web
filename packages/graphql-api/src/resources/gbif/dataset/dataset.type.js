@@ -123,7 +123,7 @@ const typeDef = gql`
     hostingOrganizationTitle: String
     keywords: [String!]
     license: String
-    logoUrl: URL
+    logoUrl: String
     publishingCountry: Country
     publishingOrganizationKey: ID!
     publishingOrganizationTitle: String
@@ -168,7 +168,7 @@ const typeDef = gql`
     endpoints: [Endpoint!]
     external: Boolean
     geographicCoverages: [GeographicCoverage]
-    homepage: URL
+    homepage: String
     identifiers(limit: Int): [Identifier]
     installationKey: ID
     keywordCollections: [KeywordCollection]
@@ -176,7 +176,7 @@ const typeDef = gql`
     language: Language
     license: String
     lockedForAutoUpdate: Boolean
-    logoUrl: URL
+    logoUrl: String
     machineTags(namespace: String, name: String, value: String): [MachineTag!]
     maintenanceDescription: String
     maintenanceUpdateFrequency: MaintenanceUpdateFrequency
@@ -319,7 +319,7 @@ const typeDef = gql`
     firstName: String
     lastName: String
     roles: [String]
-    userId: [URL]
+    userId: [String]
   }
 
   type GeographicCoverage {

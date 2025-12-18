@@ -478,6 +478,24 @@ export function useOccurrenceColumns({
         ),
       },
       {
+        id: 'organismQuantity',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'organismQuantity' },
+        header: 'occurrenceFieldNames.organismQuantity',
+        minWidth: 50,
+        cell: ({ organismQuantity, organismQuantityType }) => (
+          <InlineLineClamp className="-g-ml-0.5">
+            {organismQuantity}{' '}
+            <SetAsFilter
+              field="organismQuantityType"
+              value={organismQuantityType}
+              className="g-ml-0"
+            >
+              {organismQuantityType}
+            </SetAsFilter>
+          </InlineLineClamp>
+        ),
+      },
+      {
         id: 'higherGeography',
         minWidth: 350,
         header: 'occurrenceFieldNames.higherGeography',

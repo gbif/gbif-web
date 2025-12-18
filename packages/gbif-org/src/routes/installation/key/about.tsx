@@ -57,7 +57,6 @@ export function InstallationKeyAbout() {
   if (!installation) throw new Error('Installation data is not available');
   if (!error && (loading || !datasetData)) return <CardListSkeleton />;
 
-  console.log(installation);
   return (
     <div>
       <Card className="g-mb-4">

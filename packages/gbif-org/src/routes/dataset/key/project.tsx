@@ -6,7 +6,6 @@ import { TableOfContents } from '@/components/tableOfContents';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Popover, PopoverTrigger } from '@/components/ui/popover';
 import { CardDescription } from '@/components/ui/smallCard';
-import useBelow from '@/hooks/useBelow';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -87,8 +86,8 @@ export function DatasetKeyProject() {
                 )}
               </CardHeader>
               <CardContent>
-                <div className="g-prose g-max-w-full">
-                  <HyperText text={project.abstract} fallback />
+                <div className="g-prose g-max-w-full g-break-words">
+                  <HyperText text={project.abstract} fallback disableMarkdownParsing />
                 </div>
               </CardContent>
             </Card>
@@ -101,8 +100,12 @@ export function DatasetKeyProject() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="g-prose g-max-w-full">
-                    <HyperText text={project.studyAreaDescription} fallback />
+                  <div className="g-prose g-max-w-full g-break-words">
+                    <HyperText
+                      text={project.studyAreaDescription}
+                      fallback
+                      disableMarkdownParsing
+                    />
                   </div>
                 </CardContent>
               </Card>
@@ -116,8 +119,8 @@ export function DatasetKeyProject() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="g-prose g-max-w-full">
-                    <HyperText text={project.designDescription} fallback />
+                  <div className="g-prose g-max-w-full g-break-words">
+                    <HyperText text={project.designDescription} fallback disableMarkdownParsing />
                   </div>
                 </CardContent>
               </Card>
@@ -131,8 +134,8 @@ export function DatasetKeyProject() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="g-prose g-max-w-full">
-                    <HyperText text={project.funding} fallback />
+                  <div className="g-prose g-max-w-full g-break-words">
+                    <HyperText text={project.funding} fallback disableMarkdownParsing />
                   </div>
                 </CardContent>
               </Card>

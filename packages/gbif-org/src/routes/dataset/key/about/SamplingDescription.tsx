@@ -11,7 +11,11 @@ export function SamplingDescription({ dataset, ...props }) {
             <FormattedMessage id={`dataset.sampling`} defaultMessage="Sampling" />
           </Term>
           <Value>
-            <HyperText className="g-prose" text={dataset.samplingDescription.sampling} />
+            <HyperText
+              className="g-prose"
+              text={dataset.samplingDescription.sampling}
+              disableMarkdownParsing
+            />
           </Value>
         </>
       )}
@@ -21,7 +25,11 @@ export function SamplingDescription({ dataset, ...props }) {
             <FormattedMessage id={`dataset.studyExtent`} defaultMessage="Study extent" />
           </Term>
           <Value>
-            <HyperText className="g-prose" text={dataset.samplingDescription.studyExtent} />
+            <HyperText
+              className="g-prose"
+              text={dataset.samplingDescription.studyExtent}
+              disableMarkdownParsing
+            />
           </Value>
         </>
       )}
@@ -31,7 +39,11 @@ export function SamplingDescription({ dataset, ...props }) {
             <FormattedMessage id={`dataset.qualityControl`} defaultMessage="Quality control" />
           </Term>
           <Value>
-            <HyperText className="g-prose" text={dataset.samplingDescription.qualityControl} />
+            <HyperText
+              className="g-prose"
+              text={dataset.samplingDescription.qualityControl}
+              disableMarkdownParsing
+            />
           </Value>
         </>
       )}
@@ -54,7 +66,7 @@ export function SamplingDescription({ dataset, ...props }) {
                           : undefined
                       }
                     >
-                      <HyperText className="g-prose" text={s} />
+                      <HyperText className="g-prose" text={s} disableMarkdownParsing />
                     </li>
                   ))}
                 </ol>

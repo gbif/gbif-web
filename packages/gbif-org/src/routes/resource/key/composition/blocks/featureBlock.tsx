@@ -7,6 +7,10 @@ import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { redirectMapper } from '../../createResourceLoaderWithRedirect';
 import { ProseCard } from '../proseCard';
 import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { HyperText } from '@/components/hyperText';
+import { MdCalendarMonth } from 'react-icons/md';
+import { EventDateRange, EventTimeRange } from '../../event/event';
+import { LuClock4 } from 'react-icons/lu';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeatureBlockDetails on FeatureBlock {
@@ -46,6 +50,7 @@ fragmentManager.register(/* GraphQL */ `
         title
         start
         end
+        allDayEvent
         optionalImg: primaryImage {
           ...ProseCardImg
         }
@@ -89,9 +94,41 @@ export function FeatureBlock({ resource }: Props) {
           if (!url && feature.__typename !== 'Feature') {
             url = redirectMapper[feature.__typename](feature.id, slugify(feature.title));
           }
+          const allDayEvent = 'allDayEvent' in feature ? feature.allDayEvent : undefined;
 
-          const description = 'comment' in feature ? feature.comment : undefined;
+          const comment = 'comment' in feature ? feature.comment : undefined;
+          let description: string | React.ReactNode | null | undefined;
+          if (typeof comment === 'string') {
+            description = (
+              <HyperText
+                text={comment}
+                sanitizeOptions={{
+                  ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
+                  ALLOWED_ATTR: ['name'],
+                }}
+              />
+            );
+          }
 
+          if (feature.__typename === 'MeetingEvent') {
+            const startDate = new Date(feature.start);
+            const endDate = feature.end ? new Date(feature.end) : undefined;
+            description = (
+              <>
+                <div className="g-flex g-items-start g-gap-2">
+                  <MdCalendarMonth />
+                  <EventDateRange start={startDate} end={endDate} />
+                </div>
+
+                {!allDayEvent && (
+                  <div className="g-flex g-items-start g-gap-2">
+                    <LuClock4 />
+                    <EventTimeRange start={startDate} end={endDate} />
+                  </div>
+                )}
+              </>
+            );
+          }
           return (
             <ProseCard
               key={index}

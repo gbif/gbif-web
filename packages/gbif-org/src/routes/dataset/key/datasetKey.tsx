@@ -37,6 +37,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
+import { ErrorMessage } from '@/components/errorMessage';
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -550,14 +551,14 @@ export function DatasetPage() {
             {deletedAt && <DeletedMessage date={deletedAt} />}
 
             {/* It would be great if we could point from a deleted dataset to the version it has been replaced with. But duplicates only exist in the API the opposite direction. So for now I've disabled this */}
-            {/* {dataset.duplicateOfDataset && (
+            {dataset.duplicateOfDataset && (
               <ErrorMessage>
                 <FormattedMessage
                   id="phrases.replacedBy"
                   values={{
                     newItem: (
                       <DynamicLink
-                        className="g-me-4"
+                        className="g-me-4 g-underline"
                         to={`/dataset/${dataset.duplicateOfDataset.key}`}
                         pageId="datasetKey"
                         variables={{ key: dataset.duplicateOfDataset.key }}
@@ -568,12 +569,12 @@ export function DatasetPage() {
                   }}
                 />
               </ErrorMessage>
-            )} */}
+            )}
 
             <HeaderInfo>
               <HeaderInfoMain>
                 <FeatureList>
-                  {contactsCitation.length < contactThreshold && (
+                  {contactsCitation.length < contactThreshold && contactsCitation.length > 0 && (
                     <GenericFeature>
                       <PeopleIcon />
                       <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>

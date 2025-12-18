@@ -237,10 +237,12 @@ export function ProjectsTable({
                       </td>
                       {/* Grant Type */}
                       <td className="g-min-w-[250px] g-max-w-[400px] g-px-4 g-py-2">
-                        <FormattedMessage
-                          id={`enums.cms.projectGrantType.${project.grantType}`}
-                          defaultMessage={project.grantType}
-                        />
+                        {project.grantType && (
+                          <FormattedMessage
+                            id={`enums.cms.projectGrantType.${project.grantType}`}
+                            defaultMessage={project.grantType}
+                          />
+                        )}
                       </td>
                       {/* Start */}
                       <td className="g-min-w-[200px] g-max-w-[400px] g-px-4 g-py-2">

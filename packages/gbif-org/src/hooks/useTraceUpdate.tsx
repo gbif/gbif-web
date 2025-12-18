@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+/**
+ * This function logs to the console whenever props change. It isn't to be used in production.
+ * It is intended to help debugging rerenders.
+ */
 export function useTraceUpdate(props) {
   const prev = useRef(props);
   useEffect(() => {
@@ -15,3 +19,11 @@ export function useTraceUpdate(props) {
     prev.current = props;
   });
 }
+
+/*
+usage
+function MyComponent(props) {
+  useTraceUpdate(props);
+  return <div>{props.children}</div>;
+}
+*/

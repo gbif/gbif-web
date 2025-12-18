@@ -8,6 +8,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { FilterButtonGroup } from '@/components/filterButtonGroup';
 import { Table, Th } from '@/components/clientTable';
 import { cn } from '@/utils/shadcn';
+import { useStringParam } from '@/hooks/useParam';
 
 type SortField = 'name' | 'type' | 'memberSince' | 'region';
 type SortDirection = 'asc' | 'desc';
@@ -26,12 +27,12 @@ const uniqueRegions = ['AFRICA', 'ASIA', 'EUROPE', 'LATIN_AMERICA', 'NORTH_AMERI
 const types = ['AFFILIATE', 'OTHER_ASSOCIATE', 'VOTING'];
 
 const regionOptions = uniqueRegions.map((region) => ({
-  key: `region_${region}`,
+  key: region,
   label: <FormattedMessage id={`enums.gbifRegion.${region}`} />,
 }));
 
 const typeOptions = types.map((type) => ({
-  key: `type_${type}`,
+  key: type,
   label: <FormattedMessage id={`gbifNetwork.participationType.${type}`} />,
 }));
 
@@ -43,13 +44,17 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [participants, setParticipants] = useState<ExtendedParticipant[]>([]);
 
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-  const selectedRegion = selectedFilter?.startsWith('region_')
-    ? selectedFilter.replace('region_', '')
-    : null;
-  const selectedType = selectedFilter?.startsWith('type_')
-    ? (selectedFilter.replace('type_', '') as ParticipantType)
-    : null;
+  const [selectedFilter, setSelectedFilter] = useStringParam({
+    key: 'group',
+    defaultValue: 'all',
+    hideDefault: true,
+  });
+
+  // Determine if the selected filter is a region or type based on the actual value
+  const selectedRegion =
+    selectedFilter && uniqueRegions.includes(selectedFilter) ? selectedFilter : null;
+  const selectedType =
+    selectedFilter && types.includes(selectedFilter) ? (selectedFilter as ParticipantType) : null;
 
   // reformat response to a list of participants + a lookup for countries participation status
   useEffect(() => {
@@ -253,7 +258,7 @@ function Summary({
 
   return (
     <ArticleTextContainer>
-      <div className="g-mb-6 g-p-4 g-bg-gray-50 g-rounded-lg">
+      <div className="g-mb-6 g-p-4 g-bg-gray-100 g-rounded-lg">
         <div className="g-text-sm g-text-gray-700">
           <span className="g-font-semibold">
             <FormattedMessage

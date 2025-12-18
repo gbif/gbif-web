@@ -120,7 +120,7 @@ const typeDef = gql`
     active: Boolean
     email: [String!]
     phone: [String!]
-    homepage: URL
+    homepage: String
     catalogUrls: [String!]
     apiUrls: [String!]
     institutionalGovernances: [String!]
@@ -132,7 +132,7 @@ const typeDef = gql`
     additionalNames: [String!]
     foundingDate: Int
     numberSpecimens: Int
-    logoUrl: URL
+    logoUrl: String
     createdBy: String
     modifiedBy: String
     created: DateTime
