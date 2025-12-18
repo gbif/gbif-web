@@ -18,7 +18,7 @@ type Props = {
   title: string;
   url?: string;
   image?: ProseCardImgFragment | null;
-  description?: string | null;
+  description?: string | React.ReactNode | null;
 };
 
 export function ProseCard({ title, description, url, image }: Props) {
@@ -49,13 +49,7 @@ export function ProseCard({ title, description, url, image }: Props) {
         </ConditionalWrapper>
         {description && (
           <div dir="auto" className="g-text-gray-700 dark:g-text-gray-300 g-break-words">
-            <HyperText
-              text={description}
-              sanitizeOptions={{
-                ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
-                ALLOWED_ATTR: ['name'],
-              }}
-            />
+            {description}
           </div>
         )}
       </div>

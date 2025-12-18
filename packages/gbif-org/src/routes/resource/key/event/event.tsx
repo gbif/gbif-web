@@ -85,7 +85,7 @@ export function EventPage() {
             secondary={
               <ClientSideOnly>
                 <span>
-                  <DateRange start={startDate} end={endDate} />
+                  <EventDateRange start={startDate} end={endDate} />
                 </span>
               </ClientSideOnly>
             }
@@ -115,13 +115,13 @@ export function EventPage() {
             <span className="g-flex g-items-center g-gap-2">
               <MdCalendarMonth />
 
-              <DateRange start={startDate} end={endDate} />
+              <EventDateRange start={startDate} end={endDate} />
             </span>
 
             {!resource.allDayEvent && (
               <span className="g-flex g-items-center g-gap-2">
                 <LuClock4 />
-                <TimeRange start={startDate} end={endDate} />
+                <EventTimeRange start={startDate} end={endDate} />
               </span>
             )}
 
@@ -212,7 +212,7 @@ const isSameDate = (a: Date, b: Date) =>
   a.getMonth() === b.getMonth() &&
   a.getFullYear() === b.getFullYear();
 
-function DateRange({ start, end }: RangeProps) {
+export function EventDateRange({ start, end }: RangeProps) {
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' } as const;
 
   if (end && !isSameDate(start, end))
@@ -221,7 +221,7 @@ function DateRange({ start, end }: RangeProps) {
   return <FormattedDate value={start} {...dateOptions} />;
 }
 
-function TimeRange({ start, end }: RangeProps) {
+export function EventTimeRange({ start, end }: RangeProps) {
   const timeOptions = {
     hour: 'numeric',
     minute: 'numeric',
