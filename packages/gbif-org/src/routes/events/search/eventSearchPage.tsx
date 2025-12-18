@@ -20,7 +20,6 @@ import { Filters, useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import { EventTable } from './views/table/eventTable';
-import humboldtTerms from './humboldtTerms';
 
 export function EventSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -93,6 +92,7 @@ occurrence */
 
 export function EventSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
+
   const { filters } = useFilters({ searchConfig });
   const defaultView = searchContext.defaultTab ?? searchContext?.tabs?.[0] ?? 'table';
   const [view] = useStringParam({

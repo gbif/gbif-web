@@ -204,10 +204,13 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
   } */
 
   return (
-    <Event
-      data={occData}
-      eventData={eventData}
-      /* event={data.event} eventSearch={data.eventSearch} */ getEventLink={getEventLink}
-    />
+    <div className="g-p-4 g-bg-slate-100">
+      <Event
+        data={occData}
+        eventData={eventData}
+        eventDataLoading={loading}
+        /* event={data.event} eventSearch={data.eventSearch} */ getEventLink={getEventLink}
+      />
+    </div>
   );
 }

@@ -5,13 +5,11 @@ import {
   RowLinkOptions,
   useAvailableAndDefaultEnabledColumns,
   usePaginationState,
-  useRowLink,
 } from '@/components/searchTable';
 import { SearchTable } from '@/components/searchTable/index';
 import { SearchTableServerFallback } from '@/components/searchTable/table';
 import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
-import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { EventSearchQuery, EventSearchQueryVariables } from '@/gql/graphql';
@@ -25,6 +23,8 @@ import { FormattedMessage } from 'react-intl';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useEventColumns } from './columns';
+import { useParams } from 'react-router-dom';
+import { LinkData } from '@/reactRouterPlugins/dynamicLink';
 
 const EVENT_SEARCH_QUERY = /* GraphQL */ `
   query EventSearch($offset: Int, $limit: Int, $query: EventSearchInput, $q: String) {
@@ -62,11 +62,7 @@ const EVENT_SEARCH_QUERY = /* GraphQL */ `
 
 export type SingleEventSearchResult = ExtractPaginatedResult<EventSearchQuery['eventSearch']>;
 
-const keySelector = (item: SingleEventSearchResult) => item.eventID?.toString() ?? '';
-
-const rowLinkOptionsDrawer: RowLinkOptions<SingleEventSearchResult> = {
-  createDrawerKey: ({ datasetKey, eventID }) => `e_${datasetKey}___${eventID}`,
-};
+const keySelector = (item: SingleEventSearchResult) => item?.eventID?.toString() ?? '';
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['eventId'],
@@ -93,6 +89,8 @@ export function EventTable() {
 
 export function EventTableClient() {
   const searchContext = useSearchContext();
+  const { key: datasetKey } = useParams<{ key: string }>();
+
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
 
@@ -122,9 +120,10 @@ export function EventTableClient() {
 
   const { filters } = useFilters({ searchConfig });
 
-  const [, showPreview] = useEntityDrawer();
+  const [, setPreviewKey] = useEntityDrawer();
+
   const columns = useEventColumns({
-    showPreview,
+    showPreview: (key) => setPreviewKey(`e_${datasetKey}___${key}`),
   });
   if (typeof window !== 'undefined') {
     window.gbif = window.gbif || {};
@@ -147,10 +146,12 @@ export function EventTableClient() {
       fallbackOptions,
     });
 
-  const { openDrawerOnTableRowClick } = useConfig();
-  const rowLinkOptions = rowLinkOptionsDrawer; //openDrawerOnTableRowClick ? rowLinkOptionsDrawer : rowLinkOptionsDirect;
-
-  const createRowLink = useRowLink({ rowLinkOptions, keySelector });
+  const createRowLink = (item: SingleEventSearchResult) => {
+    return {
+      type: 'link',
+      to: `/dataset/${datasetKey}/event/${keySelector(item)}`,
+    } as LinkData;
+  }; //useRowLink({ rowLinkOptions, keySelector });
 
   if (!data?.eventSearch?.results && error) {
     throw error;

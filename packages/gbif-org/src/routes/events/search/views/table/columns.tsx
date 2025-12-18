@@ -4,8 +4,14 @@ import { ColumnDef, SetAsFilter } from '@/components/searchTable';
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { SingleEventSearchResult } from './eventTable';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { GoSidebarExpand } from 'react-icons/go';
 
-export function useEventColumns(): ColumnDef<SingleEventSearchResult>[] {
+type Args = {
+  showPreview?: ((id: string) => void) | false;
+};
+
+export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSearchResult>[] {
   return useMemo(() => {
     const columns: ColumnDef<SingleEventSearchResult>[] = [
       {
@@ -16,7 +22,22 @@ export function useEventColumns(): ColumnDef<SingleEventSearchResult>[] {
         minWidth: 250,
         cell: ({ eventID, eventTypeHierarchyJoined }) => {
           return (
-            <div>
+            <div className="g-inline-flex g-items-start g-w-full">
+              {showPreview && typeof showPreview === 'function' && (
+                <button
+                  // Used to refocus this button after closing the preview dialog
+                  data-entity-trigger={eventID}
+                  className="g-pr-3 g-mt-0.5 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
+                  onClick={() => showPreview(eventID)}
+                >
+                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
+                    <div className="g-flex g-items-center">
+                      <GoSidebarExpand size={16} />
+                    </div>
+                  </SimpleTooltip>
+                </button>
+              )}
+
               <SetAsFilter field="eventId" value={eventID}>
                 {eventID}
               </SetAsFilter>
@@ -76,30 +97,7 @@ export function useEventColumns(): ColumnDef<SingleEventSearchResult>[] {
           );
         },
       },
-      /* {
-        id: 'locationId',
-        header: 'filters.locationID.name',
-        cell: ({ locationID }) => (
-          <SetAsFilter field="locationID" value={locationID}>
-            {locationID}
-          </SetAsFilter>
-        ),
-      }, */
-      // {
-      //   id: 'datasetKey',
-      //   sort: { localStorageKey: 'eventSort', sortBy: 'datasetKey' },
-      //   header: 'filters.datasetKey.name',
-      //   minWidth: 350,
-      //   cell: ({ datasetKey, datasetTitle }) => (
-      //     <InlineLineClamp className="-g-ml-0.5">
-      //       <LinkOption to={`/dataset/${datasetKey}`}>
-      //         <SetAsFilter field="datasetKey" value={datasetKey}>
-      //           {datasetTitle}
-      //         </SetAsFilter>
-      //       </LinkOption>
-      //     </InlineLineClamp>
-      //   ),
-      // },
+
       {
         id: 'locality',
         header: 'occurrenceFieldNames.locality',

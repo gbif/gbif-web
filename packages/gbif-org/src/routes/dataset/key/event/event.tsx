@@ -42,8 +42,8 @@ export const Event = ({
   eventData,
   className = '',
 }: {
-  data: DatasetEventQuery;
-  eventData: EventQuery;
+  data?: DatasetEventQuery;
+  eventData?: EventQuery;
   className?: string;
 }) => {
   const { datasetKey, datasetType } = useContext(DatasetKeyContext);
