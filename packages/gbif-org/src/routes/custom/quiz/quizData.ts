@@ -712,10 +712,10 @@ const hardLevel: QuizLevel = {
       questions: [
         {
           id: 'h-a-1',
-          question: 'What is the only bear species found in South America AND Asia?',
+          question: 'Which bear species naturally occurs in both South America and Asia?',
           options: ['Spectacled Bear', 'Sloth Bear', 'Sun Bear', 'None - trick question'],
           correctAnswer: 3,
-          explanation: 'This was a trick question! No bear species lives in both continents!'
+          explanation: 'This was a trick question! No bear species naturally lives in both continents. Spectacled bears are only in South America, and Asian bears stay in Asia!'
         },
         {
           id: 'h-a-2',
