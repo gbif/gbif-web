@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { quizData, QuizLevel, QuizCategory, QuizQuestion } from './quizData';
 
 export function Quiz() {
@@ -34,9 +34,9 @@ export function Quiz() {
   };
 
   const handleAnswer = (answerIndex: number) => {
-    if (selectedAnswer !== null) return; // Already answered
+    if (selectedAnswer !== null || !selectedCategory) return; // Already answered or no category
 
-    const currentQuestion = selectedCategory!.questions[currentQuestionIndex];
+    const currentQuestion = selectedCategory.questions[currentQuestionIndex];
     setSelectedAnswer(answerIndex);
     
     if (answerIndex === currentQuestion.correctAnswer) {
@@ -47,7 +47,9 @@ export function Quiz() {
   };
 
   const nextQuestion = () => {
-    if (currentQuestionIndex < selectedCategory!.questions.length - 1) {
+    if (!selectedCategory) return;
+    
+    if (currentQuestionIndex < selectedCategory.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
       setShowExplanation(false);
