@@ -21,6 +21,7 @@ import { literatureButtonWidgetRoute, literatureSearchWidgetRoute } from '@/rout
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { mdtRoute } from '@/routes/custom/mdt';
+import { quizRoute } from '@/routes/custom/quiz';
 
 export function createGbifRoutes(config: Config) {
   return applyReactRouterPlugins(
@@ -56,6 +57,7 @@ export function createGbifRoutes(config: Config) {
               confirmEndorsmentRoute,
               gbifNetworkRoute,
               mdtRoute,
+              quizRoute,
               suggestDatasetRoute,
               analyticsRoute,
               faqRoute,
