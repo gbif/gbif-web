@@ -86,6 +86,7 @@ export default {
       if (typeof key === 'undefined' || key === null) return null;
       return dataSources.eventAPI.getEventByKey({ eventId: key, datasetKey });
     },
+
     /* dataset: ({ datasetKey }, query, { dataSources }) => {
       if (typeof datasetKey === 'undefined' || datasetKey === null) return null;
       return dataSources.eventAPI.getDatasetEML({ datasetKey });

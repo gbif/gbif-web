@@ -166,7 +166,7 @@ export default gql`
     datasetKey: String
     locality: String
     datasetTitle: String
-    samplingProtocol: [String]
+    samplingProtocol: String
     sampleSizeUnit: String
     sampleSizeValue: Float
     stateProvince: String
@@ -196,6 +196,7 @@ export default gql`
     """
     Get number of distinct species for this event and its children
     """
+    parentsLineage: [EventLineageNode]
     extensions: EventExtensions
     humboldt: [Humboldt]
   }
@@ -259,6 +260,11 @@ export default gql`
     samplingProtocol(limit: Int, offset: Int): [EventFacetResult]
     eventType(limit: Int, offset: Int): [EventFacetResult]
     gadmGid(limit: Int, offset: Int): [EventFacetResult]
+  }
+
+  type EventLineageNode {
+    eventID: ID
+    parentEventID: ID
   }
 
   type EventFacetResult {

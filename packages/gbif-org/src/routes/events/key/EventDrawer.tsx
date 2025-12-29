@@ -46,6 +46,10 @@ export const GRAPHQL_EVENT = /* GraphQL */ `
       locality
       stateProvince
       locationID
+      parentsLineage {
+        eventID
+        parentEventID
+      }
       extensions {
         audubon
         image

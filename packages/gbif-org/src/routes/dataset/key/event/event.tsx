@@ -53,7 +53,10 @@ export const Event = ({
   const [parentEventIdFromPath, setParentEventIdFromPath] = useState('');
 
   const { eventId, firstOccurrence } = data?.dataset?.events?.results?.[0] ?? {};
-  const { decimalLatitude, decimalLongitude } = firstOccurrence ?? {};
+  const decimalLatitude =
+    eventData?.event?.decimalLatitude || firstOccurrence?.decimalLatitude || null;
+  const decimalLongitude =
+    eventData?.event?.decimalLongitude || firstOccurrence?.decimalLongitude || null;
   const eventID = firstOccurrence?.eventID;
   const countryCode = firstOccurrence?.countryCode;
   const eventDate = firstOccurrence?.eventDate;
