@@ -290,10 +290,18 @@ export default {
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-    sourceTaxon: ({ sourceTaxonKey }, args, { dataSources }) =>
-      sourceTaxonKey
-        ? dataSources.taxonAPI.getTaxonByKey({ key: sourceTaxonKey })
-        : null,
+    sourceTaxon: async ({ sourceTaxonKey }, args, { dataSources }) => {
+      if (!sourceTaxonKey) return null;
+      try {
+        const sourceTaxon = await dataSources.taxonAPI.getTaxonByKey({
+          key: sourceTaxonKey,
+        });
+        return sourceTaxon;
+      } catch (err) {
+        // Swallowing error if source taxon is not found. We see a lot of 404s here
+        return null;
+      }
+    },
     formattedName: (
       { key, scientificName },
       { useFallback },

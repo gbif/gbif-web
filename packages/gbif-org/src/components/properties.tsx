@@ -111,26 +111,32 @@ export function AutomaticPropertyValue({
   value,
   formatter,
   showEmpty,
+  delimitedValue,
   ...props
 }: {
   value: any;
   formatter?: (value: any) => React.ReactNode;
   showEmpty?: boolean;
+  delimitedValue?: boolean;
 }) {
   const [showAll, setShowAll] = useState(false);
   if (value === null || typeof value === 'undefined' || value === '') {
     if (showEmpty) return <EmptyValue />;
     return null;
   }
+  let parsedValue = value;
+  if (delimitedValue && typeof value === 'string') {
+    parsedValue = value.split('|');
+  }
   let val = null;
-  if (Array.isArray(value)) {
+  if (Array.isArray(parsedValue)) {
     if (value.length === 0) {
       if (showEmpty) return <EmptyValue />;
       return null;
     }
     val = (
       <BulletList>
-        {value.map((v, i) => (
+        {parsedValue.map((v, i) => (
           <li key={i}>
             <AutomaticPropertyValue value={v} formatter={formatter} {...props} />
           </li>
@@ -138,16 +144,16 @@ export function AutomaticPropertyValue({
       </BulletList>
     );
   } else if (typeof formatter === 'function') {
-    val = formatter(value);
+    val = formatter(parsedValue);
   } else if (typeof value === 'number') {
     val = <FormattedNumber value={value} />;
-  } else if (typeof value === 'string') {
+  } else if (typeof parsedValue === 'string') {
     val =
-      showAll || value.length < 2000 ? (
-        value
+      showAll || parsedValue.length < 2000 ? (
+        parsedValue
       ) : (
         <>
-          <span>{value.slice(0, 2000)}...</span>
+          <span>{parsedValue.slice(0, 2000)}...</span>
           <Button className="g-p-2" variant="link" onClick={() => setShowAll(true)}>
             more
           </Button>

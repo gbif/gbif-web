@@ -11,6 +11,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
   id,
   path: 'species/:key',
   gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
+    if (!key) return null; // handle dataset/:key/species
     if (typeof key !== 'string' && typeof key !== 'number')
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
