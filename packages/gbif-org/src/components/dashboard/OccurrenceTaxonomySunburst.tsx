@@ -73,16 +73,25 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
   const facetResults = useFacets({ predicate, query });
 
   useEffect(() => {
-    if (facetResults?.data?.search?.facet) {
+    const maxLevelCount = Object.keys(facetResults?.data?.search?.cardinality || {}).reduce(
+      (max, key) => Math.max(max, Number(facetResults?.data?.search?.cardinality?.[key])),
+      0
+    );
+    if (facetResults?.data?.search?.facet && maxLevelCount < 2) {
+      const nextRanks = rankKeys_.slice(3, rankKeys_.length);
+      setRankKeys(nextRanks);
+    } else if (facetResults?.data?.search?.facet) {
       let results = [];
       const levelCounts = rankKeys.reduce((acc, key, idx) => {
         acc[idx] = Number(facetResults?.data?.search?.cardinality[key]) || 0;
         return acc;
       }, {});
+
       rankKeys.forEach((rank, idx) => {
         if (
           Number(facetResults?.data?.search?.cardinality?.[rankKeys[idx]]) > 1 ||
-          Number(facetResults?.data?.search?.cardinality?.[rankKeys[idx + 1]]) > 1
+          Number(facetResults?.data?.search?.cardinality?.[rankKeys[idx + 1]]) > 1 ||
+          idx === rankKeys.length - 1
         ) {
           results = [
             ...results,
@@ -327,10 +336,17 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {view === 'SUNBURST' && (
+        {facetResults?.data?.search?.documents?.total === 0 && (
+          <div className="g-text-center g-text-slate-400">
+            <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
+          </div>
+        )}
+        {view === 'SUNBURST' && facetResults?.data?.search?.documents?.total > 0 && (
           <HighchartsReact highcharts={Highcharts} options={sunBurstOptions} />
         )}
-        {view === 'TREEMAP' && <HighchartsReact highcharts={Highcharts} options={treeMapOptions} />}
+        {view === 'TREEMAP' && facetResults?.data?.search?.documents?.total > 0 && (
+          <HighchartsReact highcharts={Highcharts} options={treeMapOptions} />
+        )}
       </CardContent>
     </Card>
   );
