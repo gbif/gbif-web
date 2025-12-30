@@ -49,7 +49,7 @@ export function Images({
               <Image
                 className="g-cursor-pointer g-m-2"
                 key={img?.occurrenceKey}
-                src={img?.identifier}
+                src={img?.thumbor || img?.identifier}
                 defaultSize={{ height: 200, width: 200 }}
                 wrapperProps={undefined}
                 onLoad={undefined}
@@ -116,6 +116,7 @@ const TAXON_OCCURRENCE_MEDIA = /* GraphQL */ `
         results {
           occurrenceKey
           identifier
+          thumbor(height: 800)
         }
       }
     }
