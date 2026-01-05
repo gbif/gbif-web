@@ -69,7 +69,7 @@ const fileRotateTransport = new DailyRotateFile({
   filename: path.join(logDir, 'application-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
-  maxSize: '20m',
+  // maxSize: '20m', // Disabled: size-based rotation appends .1, .2 suffixes to the end of filenames which breaks our log matching
   maxFiles: '14d',
   level,
   handleExceptions: true,
