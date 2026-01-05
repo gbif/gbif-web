@@ -110,6 +110,6 @@ logger.on('error', (err) => {
 });
 
 // Log initialization message like portal16 did
-logger.info('initialising log', { message: 'initialising log' });
+logger.info('initialising log');
 
 export default logger;

@@ -106,7 +106,7 @@ logger.on('error', (err) => {
 });
 
 // Log initialization message like portal16 did
-logger.info('initialising log', { message: 'initialising log' });
+logger.info('initialising log');
 
 logger.logError = (error, meta = {}) => {
   logger.error(error.message || 'An error occurred', {
