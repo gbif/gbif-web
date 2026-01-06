@@ -87,6 +87,10 @@ const MdtData = () => {
                 '24d1fa07-175d-45cf-a14f-a4cbcc096248', //Br
                 '2d74ce7a-a3c9-4045-b98d-7bb6cd043894', //Br
                 '79a5a2c0-dfde-4ae6-bc44-d809e8d166b7', // Br
+                // Datasets from OBIS australian node
+                '227eb73f-9b53-4a66-b2ef-e12c960d76ba',
+                '2ee8b795-6d1c-4a91-9316-5258febe077d',
+                '9fc74265-28a7-4d62-97ea-33eb5588562e',
               ],
             },
             { type: 'like', key: 'q', value: 'converter' },
