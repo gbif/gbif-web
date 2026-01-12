@@ -41,6 +41,7 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
+  // distributions, related, verbatim
   async getTaxonDetails({ resource, key, query }) {
     const response = await this.get(
       `/species/${key}/${resource}`,
