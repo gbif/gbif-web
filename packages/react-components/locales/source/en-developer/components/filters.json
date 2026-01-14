@@ -659,5 +659,10 @@
     "isNotNull": "Has issues",
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
+  },
+  "dnaSequence": {
+    "name": "DNA sequence",
+    "count": "{num, plural, one { DNA sequence } other {# DNA sequences}}",
+    "description": "Exact DNA sequence variant(s) associated with an occurrence record."
   }
 }

@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Group } from './groups';
 import { Img } from '@/components/Img';
+import { Button } from '@/components/ui/button';
+import { MdSearch } from 'react-icons/md';
+import { DynamicLink } from '@/reactRouterPlugins';
+import md5 from 'md5';
 
 export function Preparation({
   occurrence,
@@ -160,7 +164,32 @@ export function DNADerivedData({
   const extensionName = 'dnaDerivedData';
   return (
     <GenericExtension
-      {...{ occurrence, extensionName }}
+      {...{
+        occurrence,
+        extensionName,
+        overwrites: {
+          dna_sequence: ({ item }) => (
+            <div>
+              <div>
+                {item['dna_sequence']}{' '}
+                <Button variant="link" className="g-h-0">
+                  <DynamicLink
+                    pageId="occurrenceSearch"
+                    searchParams={{
+                      dnaSequence: item['dna_sequence'].replace(
+                        /[^ACGTURYSWKMBDHVNacgturyswkmbdhvn]/g,
+                        ''
+                      ),
+                    }}
+                  >
+                    <MdSearch />
+                  </DynamicLink>
+                </Button>
+              </div>
+            </div>
+          ),
+        },
+      }}
       label="occurrenceDetails.extensions.dnaDerivedData.name"
       id={extensionName}
       updateToc={updateToc}

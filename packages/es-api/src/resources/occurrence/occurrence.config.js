@@ -99,6 +99,10 @@ const config = {
         defaultLowerBound: 'lte',
       },
     },
+    dnaSequenceId: {
+      type: 'keyword',
+      field: 'dnaSequenceID',
+    },
     coordinates: {
       field: 'coordinates',
       discarded: true,

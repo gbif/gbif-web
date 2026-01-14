@@ -230,3 +230,13 @@ export const gbifIdConfig: filterSuggestConfig = {
   about: () => <Message id="filters.gbifId.description" />,
   group: 'other',
 };
+
+export const dnaSequenceConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'dnaSequence',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.dnaSequence.name',
+  allowExistence: false,
+  about: () => <Message id="filters.dnaSequence.description" />,
+  group: 'materialEntity',
+};

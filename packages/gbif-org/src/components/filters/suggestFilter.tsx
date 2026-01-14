@@ -340,7 +340,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                       // helpText="Longer description can go here"
                     >
                       <div className="g-flex g-items-center">
-                        <span className="g-flex-auto">
+                        <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
                           <DisplayName id={x} />
                         </span>
                         {!useNegations &&
@@ -348,9 +348,10 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                           !selectedFacetError &&
                           !disableFacetsForSelected && (
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              {typeof facetLookup[x] === 'number' ? (
+                              {typeof facetLookup[x] === 'number' && (
                                 <FormattedNumber value={facetLookup[x] ?? 0} />
-                              ) : (
+                              )}{' '}
+                              {facetLookup[x] && typeof facetLookup[x] !== 'number' && (
                                 <Skeleton className="g-h-4 g-w-8" />
                               )}
                             </span>

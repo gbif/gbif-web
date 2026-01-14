@@ -1,6 +1,6 @@
 const snakeCase = require('lodash').snakeCase;
 const hash = require('object-hash');
-
+const md5 = require('md5');
 const emptyAndHash = hash({ type: 'and', predicates: [] });
 
 function toEnumCase(str) {
@@ -148,6 +148,31 @@ function convertGeometryFilter(obj) {
   return obj;
 }
 
+function convertDNASequence(obj) {
+  if (!obj) return undefined;
+  if (obj.predicate) {
+    convertDNASequence(obj.predicate);
+  } else if (obj.predicates && Array.isArray(obj.predicates)) {
+    obj.predicates = obj.predicates.map(convertDNASequence);
+  } else if (obj.key === 'dnaSequence') {
+    if (obj.type === 'equals') {
+      return {
+        type: 'equals',
+        key: 'dnaSequenceId',
+        value: md5(obj.value.replace(/[^ACGTURYSWKMBDHVNacgturyswkmbdhvn]/g, '')),
+      };
+    }
+    if (obj.type === 'in') {
+      return {
+        type: 'in',
+        key: 'dnaSequenceId',
+        values: obj.values.map((v) => md5(v.replace(/[^ACGTURYSWKMBDHVNacgturyswkmbdhvn]/g, ''))),
+      };
+    }
+  }
+  return obj;
+}
+
 function convertIsNotNull(obj) {
   if (!obj) return undefined;
   if (obj.predicate) {
@@ -265,7 +290,8 @@ const convertPredicate = (predicate, { shouldRemoveFullTextPredicates = false } 
     }
     const nestingSimplified = removeExcessiveNesting(removedEmpty);
     const geometryPredicate = convertGeometryFilter(nestingSimplified);
-    const withCase = uppercaseKeys(geometryPredicate);
+    const dnaConverted = convertDNASequence(geometryPredicate);
+    const withCase = uppercaseKeys(dnaConverted);
     const renamed = renameKeysAndParams(withCase);
 
     let cleanedVersion = renamed;

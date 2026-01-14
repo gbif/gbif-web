@@ -176,6 +176,8 @@ const otherParams = [
   'endDayOfYear',
   'startDayOfYear',
   'gbifId',
+  'dnaSequenceId',
+  'dnaSequence',
 ];
 
 otherParams.forEach((filter) => {

@@ -72,6 +72,7 @@ import {
   projectIdConfig,
   recordedByIdConfig,
   taxonIdConfig,
+  dnaSequenceConfig,
 } from './filters/textOnly';
 import {
   degreeOfEstablishmentConfig,
@@ -346,6 +347,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       repatriated: generateFilters({ config: repatriatedConfig, searchConfig, formatMessage }),
       distanceFromCentroidInMeters: generateFilters({
         config: distanceFromCentroidInMetersConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      dnaSequence: generateFilters({
+        config: dnaSequenceConfig,
         searchConfig,
         formatMessage,
       }),
