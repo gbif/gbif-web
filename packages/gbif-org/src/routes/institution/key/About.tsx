@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { BulletList } from '@/components/bulletList';
 import { ConceptValue } from '@/components/conceptValue';
 import {
@@ -13,10 +14,9 @@ import {
 } from '@/components/contact';
 import { useCount } from '@/components/count';
 import { FormattedNumber } from '@/components/dashboard/shared';
+import { InstitutionQuality } from './InstitutionQuality';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Property, Term, Value } from '@/components/properties';
-import { TableOfContents } from '@/components/tableOfContents';
-import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -24,11 +24,12 @@ import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPrese
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useInstitutionKeyLoaderData } from '.';
 import { GrSciCollMetadata } from './MetaData';
-// import { MdMap } from 'react-icons/md';
+import { PredicateType } from '@/gql/graphql';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
@@ -39,15 +40,18 @@ export default function About() {
     v1Endpoint: '/occurrence/search',
     params: { institutionKey: key },
   });
-  const removeSidebar = true; //useBelow(1100);
+  const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(800);
   const { institution } = data;
 
-  const tableOfContents = [
-    { id: 'description', title: <FormattedMessage id="grscicoll.description" /> },
-    { id: 'contacts', title: <FormattedMessage id="grscicoll.contacts" /> },
-    { id: 'identifiers', title: <FormattedMessage id="grscicoll.identifiers" /> },
-  ];
+  const predicate = useMemo(
+    () => ({
+      type: PredicateType.Equals,
+      key: 'institutionKey',
+      value: institution?.key,
+    }),
+    [institution?.key]
+  );
 
   if (!institution) return null;
 
@@ -66,10 +70,8 @@ export default function About() {
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        <div
-          className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[minmax(0,1fr)_350px]'}`}
-        >
-          <div className="">
+        <div className={cn({ 'g-flex': !removeSidebar })}>
+          <div className="g-flex-grow">
             <Card className="g-mb-4" id="description">
               <CardHeader>
                 <CardTitle>
@@ -415,11 +417,8 @@ export default function About() {
             </Card>
           </div>
           {!removeSidebar && (
-            <aside className="g-sticky">
-              <div className="-g-mt-4 g-pt-4 g-sticky g-top-[--stickyOffset]">
-                <TableOfContents sections={tableOfContents} />
-                <GbifLinkCard path={`/grscicoll/institution/${institution.key}`} />
-              </div>
+            <aside className="g-flex-none g-min-w-80 g-w-80 g-ml-4">
+              <InstitutionQuality predicate={predicate} className="g-mb-4" />
             </aside>
           )}
         </div>
