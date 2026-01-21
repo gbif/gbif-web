@@ -15,6 +15,8 @@ import {
 import { useCount } from '@/components/count';
 import { FormattedNumber } from '@/components/dashboard/shared';
 import { InstitutionQuality } from './InstitutionQuality';
+import { InstitutionTopCountries } from './InstitutionTopCountries';
+import { InstitutionTopTaxa } from './InstitutionTopTaxa';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Property, Term, Value } from '@/components/properties';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -419,6 +421,8 @@ export default function About() {
           {!removeSidebar && (
             <aside className="g-flex-none g-min-w-80 g-w-80 g-ml-4">
               <InstitutionQuality predicate={predicate} className="g-mb-4" />
+              <InstitutionTopTaxa predicate={predicate} className="g-mb-4" />
+              <InstitutionTopCountries predicate={predicate} className="g-mb-4" />
             </aside>
           )}
         </div>
