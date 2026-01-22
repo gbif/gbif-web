@@ -55,6 +55,16 @@ const typeDef = gql`
 
     taxonBySourceId(sourceId: ID!, datasetKey: ID!): Taxon
     speciesMatchByUsageKey(usageKey: ID!, checklistKey: ID): SpeciesMatchResult
+    checklistMetadata(checklistKey: ID!): ChecklistMeta
+  }
+
+  type ChecklistMeta {
+    mainIndex: ChecklistMetaMainIndex!
+  }
+
+  type ChecklistMetaMainIndex {
+    clbDatasetKey: ID!
+    datasetTitle: String!
   }
 
   input TaxonSearchInput {

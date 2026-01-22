@@ -286,6 +286,8 @@ export default {
         usageKey,
         checklistKey,
       }),
+    checklistMetadata: (parent, { checklistKey }, { dataSources }) =>
+      dataSources.taxonAPI.getChecklistMetadata({ checklistKey }),
   },
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>

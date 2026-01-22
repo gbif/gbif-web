@@ -4,6 +4,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { FormattedMessage } from 'react-intl';
 import ExpandableSection from './ExpandableSection';
 import { optionStyles } from './utils';
+import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
 interface TaxonomySelectorProps {
   value: string;
@@ -40,6 +41,17 @@ export default function TaxonomySelector({
                   <p className={optionStyles.optionDescription}>
                     <FormattedMessage id="occurrenceDownloadFlow.taxonomySelector.defaultRecommended" />
                   </p>
+                )}
+                {checklist.metadata?.datasetTitle && (
+                  <a 
+                    className={optionStyles.optionLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title={checklist.metadata.datasetTitle} 
+                    href={`${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/${checklist.metadata.clbDatasetKey}/about`}
+                  >
+                    {checklist.metadata.datasetTitle} <ExternalLinkIcon className="g-align-baseline" />
+                  </a>
                 )}
               </div>
             </label>
