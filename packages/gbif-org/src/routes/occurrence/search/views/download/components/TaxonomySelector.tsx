@@ -42,16 +42,18 @@ export default function TaxonomySelector({
                     <FormattedMessage id="occurrenceDownloadFlow.taxonomySelector.defaultRecommended" />
                   </p>
                 )}
-                {checklist.metadata?.datasetTitle && (
-                  <a 
-                    className={optionStyles.optionLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    title={checklist.metadata.datasetTitle} 
-                    href={`${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/${checklist.metadata.clbDatasetKey}/about`}
-                  >
-                    {checklist.metadata.datasetTitle} <ExternalLinkIcon className="g-align-baseline" />
-                  </a>
+                {checklist.metadata && (
+                  <p className={optionStyles.optionDescription}>
+                    <FormattedMessage id="occurrenceDownloadFlow.taxonomySelector.version" />:{' '}
+                    <a
+                      className={optionStyles.optionLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={checklist.metadata.link}
+                    >
+                      {checklist.metadata.version} <ExternalLinkIcon className="g-align-baseline" />
+                    </a>
+                  </p>
                 )}
               </div>
             </label>

@@ -4,7 +4,8 @@ export const optionStyles = {
   optionLabel: 'g-ml-3 g-flex-1',
   optionTitle: 'g-font-medium g-text-slate-900',
   optionDescription: 'g-text-sm g-text-slate-500 g-mt-0.5',
-  optionLink: 'g-text-sm g-text-primary-500 g-mt-0.5 g-underline g-flex g-items-center g-gap-1',
+  optionLink:
+    'g-text-sm g-text-primary-500 g-mt-0.5 g-underline g-inline-flex g-items-center g-gap-1',
 };
 
 // Size estimation constants from portal16

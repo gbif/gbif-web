@@ -65,6 +65,7 @@ const typeDef = gql`
   type ChecklistMetaMainIndex {
     clbDatasetKey: ID!
     datasetTitle: String!
+    version: String
   }
 
   input TaxonSearchInput {
