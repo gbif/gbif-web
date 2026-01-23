@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "Taxonomic reference",
       "description": "",
-      "defaultRecommended": "Default and recommended for most users"
+      "defaultRecommended": "Default and recommended for most users",
+      "version": "Version"
     }
   },
   "customSqlDownload": {
