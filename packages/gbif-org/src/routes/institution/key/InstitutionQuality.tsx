@@ -196,7 +196,6 @@ export function InstitutionQuality({ predicate, className }: InstitutionQualityP
                     <ProgressItem
                       value={data?.withCode?.documents?.total ?? 0}
                       max={totalOccurrences}
-                      color="g-bg-orange-500"
                       title={
                         <TooltipProvider>
                           <Tooltip delayDuration={0}>
