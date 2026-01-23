@@ -146,11 +146,11 @@ export function UsageReportModal({ downloadKey, doi }: Props) {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="g-ms-1">
           <FormattedMessage id="downloadKey.tellUs" />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="g-max-w-2xl">
         <DialogHeader>
           <DialogTitle>
             <FormattedMessage id="downloadUsage.title" />
@@ -192,7 +192,9 @@ export function UsageReportModal({ downloadKey, doi }: Props) {
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={formatMessage({ id: 'downloadUsage.form.type' })} />
+                          <SelectValue
+                            placeholder={formatMessage({ id: 'downloadUsage.form.type' })}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -275,7 +277,9 @@ export function UsageReportModal({ downloadKey, doi }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder={formatMessage({ id: 'downloadUsage.form.commentsPlaceholder' })}
+                        placeholder={formatMessage({
+                          id: 'downloadUsage.form.commentsPlaceholder',
+                        })}
                         rows={4}
                         {...field}
                       />
