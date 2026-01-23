@@ -99,8 +99,11 @@ export default function Collections() {
             </table>
           </Card>
         )}
-
-        <OrphanedCollectionCodes institutionKey={key} />
+        {key && (
+          <div id="unmatched-collections">
+            <OrphanedCollectionCodes institutionKey={key} />
+          </div>
+        )}
       </ArticleTextContainer>
     </ArticleContainer>
   );
