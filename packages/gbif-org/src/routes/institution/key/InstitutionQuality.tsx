@@ -6,6 +6,7 @@ import { cn } from '@/utils/shadcn';
 import { useContext, useEffect } from 'react';
 import { MdHelpOutline as HelpIcon } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { HashLink } from 'react-router-hash-link';
 import { InstitutionKeyContext } from './institutionKeyPresentation';
 import {
   InstitutionQualityStatsQuery,
@@ -201,11 +202,16 @@ export function InstitutionQuality({ predicate, className }: InstitutionQualityP
                           <Tooltip delayDuration={0}>
                             <TooltipTrigger asChild>
                               <span className="g-cursor-help">
-                                <FormattedMessage
-                                  id="grscicoll.unmatchedCollectionCodes"
-                                  defaultMessage="Unmatched collection codes"
-                                />{' '}
-                                <HelpIcon className="g-inline g-align-middle g-text-slate-400" />
+                                <HashLink
+                                  to="./collections#unmatched-collections"
+                                  className="g-cursor-pointer g-underline"
+                                >
+                                  <FormattedMessage
+                                    id="grscicoll.unmatchedCollectionCodes"
+                                    defaultMessage="Unmatched collection codes"
+                                  />
+                                </HashLink>{' '}
+                                <HelpIcon className="g-inline g-align-middle g-text-slate-400 g-cursor-help" />
                               </span>
                             </TooltipTrigger>
                             <TooltipContent>

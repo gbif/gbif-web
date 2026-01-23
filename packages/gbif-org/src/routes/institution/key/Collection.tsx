@@ -100,7 +100,9 @@ export default function Collections() {
           </Card>
         )}
 
-        <OrphanedCollectionCodes institutionKey={key} />
+        <div id="unmatched-collections">
+          <OrphanedCollectionCodes institutionKey={key} />
+        </div>
       </ArticleTextContainer>
     </ArticleContainer>
   );
