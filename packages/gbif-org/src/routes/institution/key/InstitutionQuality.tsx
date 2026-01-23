@@ -1,6 +1,7 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/smallCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { ConditionalWrapper } from '@/components/conditionalWrapper';
 import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import { useContext, useEffect } from 'react';
@@ -202,15 +203,22 @@ export function InstitutionQuality({ predicate, className }: InstitutionQualityP
                           <Tooltip delayDuration={0}>
                             <TooltipTrigger asChild>
                               <span className="g-cursor-help">
-                                <HashLink
-                                  to="./collections#unmatched-collections"
-                                  className="g-cursor-pointer g-underline"
+                                <ConditionalWrapper
+                                  condition={hasCollections}
+                                  wrapper={(children) => (
+                                    <HashLink
+                                      to="./collections#unmatched-collections"
+                                      className="g-text-inherit g-cursor-pointer g-underline"
+                                    >
+                                      {children}
+                                    </HashLink>
+                                  )}
                                 >
                                   <FormattedMessage
                                     id="grscicoll.unmatchedCollectionCodes"
                                     defaultMessage="Unmatched collection codes"
                                   />
-                                </HashLink>{' '}
+                                </ConditionalWrapper>{' '}
                                 <HelpIcon className="g-inline g-align-middle g-text-slate-400 g-cursor-help" />
                               </span>
                             </TooltipTrigger>
