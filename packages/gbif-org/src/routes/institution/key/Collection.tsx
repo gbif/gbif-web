@@ -7,17 +7,14 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { notNull } from '@/utils/notNull';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useLocation } from 'react-router-dom';
 import { InstitutionKeyContext } from './institutionKeyPresentation';
 import OrphanedCollectionCodes from './OrphanedCollectionCodes';
 
 export default function Collections() {
   const { key, contentMetrics } = useContext(InstitutionKeyContext);
   const collections = contentMetrics?.institution?.collections;
-
-  useHashScroll();
 
   return (
     <ArticleContainer className="g-bg-slate-100">
@@ -110,41 +107,4 @@ export default function Collections() {
       </ArticleTextContainer>
     </ArticleContainer>
   );
-}
-
-/**
- * Custom hook to handle hash scrolling after component mounts.
- * This is a hack to make the "unmatched collection codes" link work.
- * The issue is that when navigating to a hash link (e.g., ./collections#unmatched-collections),
- * the HashLink tries to scroll before the Collections component is fully mounted and the target
- * element exists in the DOM. This hook waits for the element to be available before scrolling.
- *
- * Related issue: https://github.com/gbif/gbif-web/issues/1502
- */
-function useHashScroll() {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.hash) {
-      const hash = location.hash.substring(1); // Remove the # symbol
-      let retryCount = 0;
-      const maxRetries = 10; // Maximum number of retry attempts
-
-      const scrollToElement = () => {
-        const element = document.getElementById(hash);
-        if (element) {
-          // Use setTimeout to ensure the element is fully rendered
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 100);
-        } else if (retryCount < maxRetries) {
-          // If element not found, try again after a short delay
-          // This handles cases where the component is still rendering
-          retryCount++;
-          setTimeout(scrollToElement, 50);
-        }
-      };
-      scrollToElement();
-    }
-  }, [location.hash]);
 }

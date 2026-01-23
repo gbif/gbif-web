@@ -7,12 +7,14 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useLocation } from 'react-router-dom';
 
 export default function OrphanedCollectionCodes({ institutionKey }: { institutionKey: string }) {
   const { data, error, loading, load } = useQuery<
     OrphanCollectionCodesForInstitutionQuery,
     OrphanCollectionCodesForInstitutionQueryVariables
   >(OCCURRENCE_STATS, { lazyLoad: true, notifyOnErrors: true });
+  const location = useLocation();
 
   useEffect(() => {
     load({
@@ -41,6 +43,19 @@ export default function OrphanedCollectionCodes({ institutionKey }: { institutio
       },
     });
   }, [institutionKey, load]);
+
+  // Scroll to element when hash is present and data has loaded
+  useEffect(() => {
+    if (location.hash === '#unmatched-collections' && !loading && data) {
+      const element = document.getElementById('unmatched-collections');
+      if (element) {
+        // Use setTimeout to ensure the element is fully rendered
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, [location.hash, loading, data]);
 
   if (!data && loading) return <Skeleton style={{ margin: '12px 0' }} className="g-w-48" />;
   if (!data?.orphaned || data?.orphaned?.cardinality?.collectionCode === 0 || error || loading)
