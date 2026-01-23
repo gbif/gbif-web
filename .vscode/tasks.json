@@ -1,0 +1,143 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "es-api",
+      "type": "shell",
+      "command": "npm run start",
+      "options": {
+        "cwd": "${workspaceFolder}/packages/es-api"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev-server-es-api"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ".*"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "\\[nodemon\\] starting",
+          "endsPattern": "Server ready at"
+        }
+      }
+    },
+    {
+      "label": "graphql-api",
+      "type": "shell",
+      "command": "npm run develop",
+      "options": {
+        "cwd": "${workspaceFolder}/packages/graphql-api"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev-server-graphql-api"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ".*"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^__NEVER_MATCH__$",
+          "endsPattern": "Server ready"
+        }
+      }
+    },
+    {
+      "label": "watch-translations",
+      "type": "shell",
+      "command": "npm run watch",
+      "options": {
+        "cwd": "${workspaceFolder}/packages/react-components"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev-server-watch-translations"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ".*"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "\\[nodemon\\] starting",
+          "endsPattern": "Translation files was succesfully build"
+        }
+      }
+    },
+    {
+      "label": "serve-translations",
+      "type": "shell",
+      "command": "npm run serve",
+      "options": {
+        "cwd": "${workspaceFolder}/packages/react-components"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev-server-serve-translations"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ".*"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^__NEVER_MATCH__$",
+          "endsPattern": "Serving!"
+        }
+      }
+    },
+    {
+      "label": "gbif-org",
+      "type": "shell",
+      "command": "npm run develop",
+      "options": {
+        "cwd": "${workspaceFolder}/packages/gbif-org"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev-server-gbif-org"
+      },
+      "dependsOn": ["graphql-api"],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ".*"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^__NEVER_MATCH__$",
+          "endsPattern": "Server started successfully"
+        }
+      }
+    },
+    {
+      "label": "dev",
+      "dependsOn": [
+        "es-api",
+        "graphql-api",
+        "watch-translations",
+        "serve-translations",
+        "gbif-org"
+      ],
+      "dependsOrder": "parallel",
+      "problemMatcher": []
+    }
+  ]
+}
