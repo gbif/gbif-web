@@ -97,6 +97,10 @@ class TaxonAPI extends QueuedRESTDataSource {
     );
   }
 
+  async getChecklistBankDataset({ clbDatasetKey }) {
+    return this.get(`${this.config.checklistBank}/dataset/${clbDatasetKey}`);
+  }
+
   async getSpeciesMatchByUsageKey({
     usageKey,
     checklistKey = this.config.defaultChecklist,

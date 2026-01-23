@@ -286,6 +286,24 @@ export default {
         usageKey,
         checklistKey,
       }),
+    checklistMetadata: (parent, { checklistKey }, { dataSources }) =>
+      dataSources.taxonAPI.getChecklistMetadata({ checklistKey }),
+  },
+  ChecklistMetaMainIndex: {
+    version: async ({ clbDatasetKey }, args, { dataSources }) => {
+      try {
+        const response = await dataSources.taxonAPI.getChecklistBankDataset({
+          clbDatasetKey,
+        });
+        return response?.version;
+      } catch (e) {
+        console.error(
+          `Error fetching version from ChecklistBank for dataset ${clbDatasetKey}`,
+          e,
+        );
+        return null;
+      }
+    },
   },
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
