@@ -155,7 +155,7 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
       </T>
       <V>
         {localContexts.map((localContext) => {
-          const { project_page, title, description } = localContext;
+          const { project_page, title } = localContext;
           const items = (localContext?.notes ?? [])?.filter((c) => c && c.name && c.img_url);
           return (
             <div key={project_page}>
@@ -169,36 +169,17 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                   {title}
                 </a>
               </h5>
-              {description && (
-                <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                  {truncate(description, 150)}
-                </div>
-              )}
               {items.length > 0 && (
-                <ul>
+                <ul className="g-pt-2">
                   {items.map((item, i) => (
-                    <li className="g-flex g-items-start g-mb-2" key={`${item.name}-${i}`}>
+                    <li className="g-flex g-items-center g-mb-2" key={`${item.name}-${i}`}>
                       <img
-                        className="g-flex-none g-me-2 g-w-6"
+                        className="g-me-2 g-w-6"
                         src={item.img_url}
                         alt={item.name}
                         title={item.name}
                       />
-                      <div className="g-flex-auto">
-                        <a
-                          href={item.pageUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="g-underline g-text-inherit"
-                        >
-                          {item.name}
-                        </a>
-                        {item.description && (
-                          <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                            {truncate(item.description, 140)}
-                          </div>
-                        )}
-                      </div>
+                      <p className="g-test-sm g-text-slate-600">{item.name}</p>
                     </li>
                   ))}
                 </ul>
