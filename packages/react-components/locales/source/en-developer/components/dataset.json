@@ -65,6 +65,7 @@
   "dataset": "Dataset",
   "taxonomy": "Taxonomy",
   "localContexts": "Local contexts",
+  "localContextsLabelsAppliedBy": "{count, plural, one{Label} other{Labels}} applied by {communityName}",
   "project": "Project",
   "metrics": "Metrics",
   "metricsOccurrenceHelpText": "Metrics are based on interpreted data",

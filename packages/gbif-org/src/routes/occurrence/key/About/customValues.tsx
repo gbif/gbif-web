@@ -155,7 +155,7 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
       </T>
       <V>
         {localContexts.map((localContext) => {
-          const { project_page, title } = localContext;
+          const { project_page, title, communityName } = localContext;
           const notices = (localContext?.notice ?? [])?.filter((n) => n && n.name && n.img_url);
           const labels = (localContext?.labels ?? [])?.filter((l) => l && l.name && l.img_url);
 
@@ -181,14 +181,25 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                         alt={notice.name}
                         title={notice.name}
                       />
-                      <p className="g-test-sm g-text-slate-600">{notice.name}</p>
+                      <p className="g-text-sm">{notice.name}</p>
                     </li>
                   ))}
                 </ul>
               )}
               {labels.length > 0 && (
-                <div>
-                  <h6>INSERT THE LABELS TITLE HERE</h6>
+                <>
+                  {communityName && (
+                    <p className="g-mt-2 g-text-sm g-text-slate-600">
+                      <FormattedMessage
+                        id="dataset.localContextsLabelsAppliedBy"
+                        defaultMessage="{count, plural, one{Label} other{Labels}} applied by {communityName}"
+                        values={{
+                          count: labels.length,
+                          communityName: communityName,
+                        }}
+                      />
+                    </p>
+                  )}
                   <ul className="g-pt-2">
                     {labels.map((label, i) => (
                       <li className="g-flex g-items-center g-mb-2" key={`${label.name}-${i}`}>
@@ -198,11 +209,11 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                           alt={label.name}
                           title={label.name}
                         />
-                        <p className="g-test-sm g-text-slate-600">{label.name}</p>
+                        <p className="g-text-sm">{label.name}</p>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </>
               )}
             </div>
           );

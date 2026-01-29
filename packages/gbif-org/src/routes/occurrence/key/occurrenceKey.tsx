@@ -195,6 +195,7 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
       localContexts {
         project_page
         title
+        communityName
         notice {
           name(lang: $language)
           img_url
