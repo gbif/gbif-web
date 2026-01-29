@@ -326,7 +326,7 @@
     "downloadFormats": {
       "SIMPLE_CSV": {
         "title": "Simple occurrence data",
-        "description": "A single CSV file with standardized, interpreted occurrence data."
+        "description": "A single tab-delimited CSV file with standardized, interpreted occurrence data."
       },
       "DWCA": {
         "title": "Darwin Core Archive",
@@ -345,7 +345,7 @@
         "description": "Custom SQL query to extract specific data or aggregations. Suitable for advanced users familiar with SQL."
       },
       "features": {
-        "singleCsv": "Single CSV file",
+        "singleCsv": "Single tab-delimited CSV file",
         "multipleCsv": "Multiple CSV files",
         "interpretedData": "Interpreted data only",
         "rawAndInterpreted": "Raw + interpreted data",
