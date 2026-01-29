@@ -195,12 +195,13 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
       localContexts {
         project_page
         title
-        description
-        notes {
+        notice {
           name(lang: $language)
           img_url
-          description(lang: $language)
-          pageUrl
+        }
+        labels {
+          name(lang: $language)
+          img_url
         }
       }
       institution {

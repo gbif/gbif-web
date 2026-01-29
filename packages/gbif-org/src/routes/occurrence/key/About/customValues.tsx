@@ -156,7 +156,9 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
       <V>
         {localContexts.map((localContext) => {
           const { project_page, title } = localContext;
-          const items = (localContext?.notes ?? [])?.filter((c) => c && c.name && c.img_url);
+          const notices = (localContext?.notice ?? [])?.filter((n) => n && n.name && n.img_url);
+          const labels = (localContext?.labels ?? [])?.filter((l) => l && l.name && l.img_url);
+
           return (
             <div key={project_page}>
               <h5 className="g-flex g-items-center g-gap-1">
@@ -169,20 +171,38 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                   {title}
                 </a>
               </h5>
-              {items.length > 0 && (
+              {notices.length > 0 && (
                 <ul className="g-pt-2">
-                  {items.map((item, i) => (
-                    <li className="g-flex g-items-center g-mb-2" key={`${item.name}-${i}`}>
+                  {notices.map((notice, i) => (
+                    <li className="g-flex g-items-center g-mb-2" key={`${notice.name}-${i}`}>
                       <img
                         className="g-me-2 g-w-6"
-                        src={item.img_url}
-                        alt={item.name}
-                        title={item.name}
+                        src={notice.img_url}
+                        alt={notice.name}
+                        title={notice.name}
                       />
-                      <p className="g-test-sm g-text-slate-600">{item.name}</p>
+                      <p className="g-test-sm g-text-slate-600">{notice.name}</p>
                     </li>
                   ))}
                 </ul>
+              )}
+              {labels.length > 0 && (
+                <div>
+                  <h6>INSERT THE LABELS TITLE HERE</h6>
+                  <ul className="g-pt-2">
+                    {labels.map((label, i) => (
+                      <li className="g-flex g-items-center g-mb-2" key={`${label.name}-${i}`}>
+                        <img
+                          className="g-me-2 g-w-6"
+                          src={label.img_url}
+                          alt={label.name}
+                          title={label.name}
+                        />
+                        <p className="g-test-sm g-text-slate-600">{label.name}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
           );
