@@ -3,30 +3,38 @@
  */
 import { camelCase, snakeCase } from 'change-case';
 import querystring from 'querystring';
-import redirectList from '../../redirects.json' with { type: "json" };
+import redirectList from '../../redirects.json' with { type: 'json' };
 import toolsRedirects from '../../src/gbif/toolsRedirects.js';
 
 // Locale prefixes that have URL prefixes
 const localePrefixes = [
   // Base locales (always available in all environments)
-  'en',      // English (default)
-  'ar',      // Arabic
-  'zh',      // Chinese (Simplified)
-  'fr',      // French
-  'ru',      // Russian
-  'es',      // Spanish
-  'zh-tw',   // Chinese (Traditional)
-  'cs',      // Czech
-  'ja',      // Japanese
-  'pl',      // Polish
-  'pt',      // Portuguese
-  'uk',      // Ukrainian
-  'it'       // Italian
+  'en', // English (default)
+  'ar', // Arabic
+  'zh', // Chinese (Simplified)
+  'fr', // French
+  'ru', // Russian
+  'es', // Spanish
+  'zh-tw', // Chinese (Traditional)
+  'cs', // Czech
+  'ja', // Japanese
+  'pl', // Polish
+  'pt', // Portuguese
+  'uk', // Ukrainian
+  'it', // Italian
 ];
 
-
-  const routesHandledInReactRouter = new Set(['article', 'composition', 'data-use', 'document', 'event', 'news', 'programme', 'project', 'tool'])
-
+const routesHandledInReactRouter = new Set([
+  'article',
+  'composition',
+  'data-use',
+  'document',
+  'event',
+  'news',
+  'programme',
+  'project',
+  'tool',
+]);
 
 // Extract locale prefix from path if present
 function extractLocalePrefix(path) {
@@ -44,6 +52,7 @@ const newRedirects = [
   { incoming: '/occurrence/gallery', target: '/occurrence/search?view=gallery' },
   { incoming: '/occurrence/map', target: '/occurrence/search?view=map' },
   { incoming: '/occurrence/charts', target: '/occurrence/search?view=dashboard' },
+  { incoming: '/occurrence/taxonomy', target: '/occurrence/search?view=dashboard' },
   { incoming: '/occurrence/download', target: '/occurrence/search?view=download' },
 
   { incoming: '/resource/search?contentType=literature', target: '/literature/search' },
@@ -56,10 +65,8 @@ const newRedirects = [
   { incoming: '/the-gbif-network/oceania', target: '/the-gbif-network' },
   { incoming: '/the-gbif-network/participant-organisations', target: '/the-gbif-network' },
   { incoming: '/the-gbif-network/gbif-affiliates', target: '/the-gbif-network' },
-  ...Object.keys(toolsRedirects).map(key => ({ incoming: key, target: toolsRedirects[key] })),
+  ...Object.keys(toolsRedirects).map((key) => ({ incoming: key, target: toolsRedirects[key] })),
 ];
-
-
 
 const redirectTable = [...redirectList, ...newRedirects].reduce((acc, curr) => {
   acc[curr.incoming] = curr.target;
@@ -83,7 +90,6 @@ function findQueryParamRedirect(path, queryParams) {
   return null;
 }
 
-
 function getRedirect(req, res, next) {
   // remove query params from url first
   const splitted = req.originalUrl.split('?');
@@ -101,19 +107,21 @@ function getRedirect(req, res, next) {
     const { target, matchedParams } = queryParamRedirect;
     // Remove matched params, keep extras
     const remainingParams = { ...queryParams };
-    Object.keys(matchedParams).forEach(key => delete remainingParams[key]);
-    
+    Object.keys(matchedParams).forEach((key) => delete remainingParams[key]);
+
     const [targetPath, targetQuery] = target.split('?');
     const targetParams = targetQuery ? querystring.parse(targetQuery) : {};
     const finalParams = { ...targetParams, ...remainingParams };
     const finalQueryString = querystring.stringify(finalParams);
     // Prepend locale prefix to target path
-    redirectTo = finalQueryString ? `${localePrefix}${targetPath}?${finalQueryString}` : `${localePrefix}${targetPath}`;
+    redirectTo = finalQueryString
+      ? `${localePrefix}${targetPath}?${finalQueryString}`
+      : `${localePrefix}${targetPath}`;
   } else {
     // Fall back to path-only redirect lookup (using path without locale prefix)
     redirectTo = redirectTable[pathWithoutPrefix];
-    
-    if (redirectTo ) {
+
+    if (redirectTo) {
       let redirectSplitted = redirectTo.split('?');
       // there may be parameters in target which should be merged with the incoming parameters
       let parameters = redirectSplitted[1];
@@ -130,11 +138,11 @@ function getRedirect(req, res, next) {
       }
     }
   }
-  const basePath =  pathWithoutPrefix.split('/')?.[1]  // routesHandledInReactRouter
+  const basePath = pathWithoutPrefix.split('/')?.[1]; // routesHandledInReactRouter
   return redirectTo;
 }
 
-function fixParameterCasing(str, parameters = '') {
+export const fixParameterCasing = (str, parameters = '') => {
   try {
     const params = querystring.parse(str);
     const defaultParams = parameters ? querystring.parse(parameters) : {};
@@ -147,52 +155,49 @@ function fixParameterCasing(str, parameters = '') {
   } catch (error) {
     console.error('Error fixing parameter casing:', error);
   }
-}
+};
 
 let re = /^[-,0-9]+/i;
 function redirectOldQueries(req, res) {
-  
   const [pathName, queryAsString] = req.url.split('?');
   const query = querystring.parse(queryAsString || '');
-    // handle old query params
-    let 
-        camelQuery = {},
-        different = false;
-        
- 
-    Object.keys(query).forEach(key => {
-        let camelKey = camelCase(key);
-        camelQuery[camelKey] = query[key];
-        different = different || key !== camelKey;
-    });
+  // handle old query params
+  let camelQuery = {},
+    different = false;
 
-    // the old site used display=map as a param to indicate a map view. map this to a route
-    if (query.display == 'map') {
-        delete camelQuery.display;
-        camelQuery.view = 'map';
+  Object.keys(query).forEach((key) => {
+    let camelKey = camelCase(key);
+    camelQuery[camelKey] = query[key];
+    different = different || key !== camelKey;
+  });
+
+  // the old site used display=map as a param to indicate a map view. map this to a route
+  if (query.display == 'map') {
+    delete camelQuery.display;
+    camelQuery.view = 'map';
+    different = true;
+  }
+
+  // the old site didn't use WKT, but only the coordinates and assumed polygon - this site uses wkt instead
+  if (camelQuery.geometry) {
+    let a = [].concat(camelQuery.geometry);
+    camelQuery.geometry = a.map(function (e) {
+      let startsWithNumber = e.match(re);
+      if (startsWithNumber) {
         different = true;
-    }
+        return 'POLYGON((' + e + '))';
+      } else {
+        return e;
+      }
+    });
+  }
 
-    // the old site didn't use WKT, but only the coordinates and assumed polygon - this site uses wkt instead
-    if (camelQuery.geometry) {
-        let a = [].concat(camelQuery.geometry);
-        camelQuery.geometry = a.map(function(e) {
-            let startsWithNumber = e.match(re);
-            if (startsWithNumber) {
-                different = true;
-                return 'POLYGON((' + e + '))';
-            } else {
-                return e;
-            }
-        });
-    }
+  // if the query has been rewritten then redirect with the normalized params
 
-    // if the query has been rewritten then redirect with the normalized params
-    
-    return {
-      correctedQuery: querystring.stringify(camelQuery),
-      different: different
-    };
+  return {
+    correctedQuery: querystring.stringify(camelQuery),
+    different: different,
+  };
 }
 
 export default getRedirect;

@@ -4,6 +4,7 @@ import isPlainObject from 'lodash/isPlainObject';
 import objectHash from 'object-hash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useNormalizedSearchParams } from '@/hooks/useNormalizedSearchParams';
 import { filter2v1 } from '.';
 import { cleanUpFilter, FilterType } from '../../contexts/filter';
 import { FilterConfigType } from './filter2predicate';
@@ -96,7 +97,7 @@ export function useFilterParams({
 }
 
 function useQueryParams({ observedParams }: { observedParams: string[] }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useNormalizedSearchParams();
   const [query, setQuery] = useState({});
 
   // Store setSearchParams in a ref, so we can read current value without dependency
