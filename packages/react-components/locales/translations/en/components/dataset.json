@@ -65,6 +65,7 @@
   "dataset": "Dataset",
   "taxonomy": "Taxonomy",
   "localContexts": "Local Contexts",
+  "localContextsLabelsAppliedBy": "",
   "project": "Project",
   "metrics": "Metrics",
   "metricsOccurrenceHelpText": "Metrics are based on interpreted data",
