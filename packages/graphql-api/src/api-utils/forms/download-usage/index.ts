@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { validateRequest } from 'zod-express-middleware';
 import { Router } from 'express';
+import nodemailer from 'nodemailer';
 import { OptionalStringSchema, RequiredStringSchema } from '../validation';
 import logger from '@/logger';
+import isAuthenticated, { AuthRequest } from '@/middleware/auth';
 import config from '@/config';
-import { isAuthenticated } from '@/middleware';
-import { authenticatedRequest } from '../helpers/gbifAuthRequest';
 
 const PUBLICATION_TYPES = [
   'JOURNAL_ARTICLE',
@@ -46,35 +46,95 @@ const Schema = {
 
 export type DownloadUsageDTO = z.infer<typeof Schema['body']>;
 
+// Initialize nodemailer transporter
+let transporter: nodemailer.Transporter | null = null;
+
+try {
+  if (config.downloadUsage?.host) {
+    transporter = nodemailer.createTransport({
+      host: config.downloadUsage.host,
+      port: config.downloadUsage.port,
+      secure: false,
+      auth: config.downloadUsage.sender
+        ? {
+            user: config.downloadUsage.sender,
+          }
+        : undefined,
+    });
+  }
+} catch (error) {
+  logger.error({
+    message: 'Failed to initialize nodemailer transporter for download usage',
+    error,
+  });
+}
+
+const removeLineBreaks = (txt: string | undefined): string =>
+  txt ? txt.replace(/(\r\n|\n|\r)/gm, ' ') : '';
+
+interface User {
+  userName: string;
+  email: string;
+}
+
+async function sendMail(data: DownloadUsageDTO, user: User): Promise<void> {
+  if (!transporter) {
+    throw new Error('Email transporter not configured');
+  }
+
+  const envPrefix =
+    config.environment === 'prod'
+      ? ''
+      : `[${config.environment.toUpperCase()}] `;
+  const sender = config.downloadUsage?.sender;
+  const recipient = config.downloadUsage?.recipient;
+
+  const mailOptions = {
+    from: `"${envPrefix}GBIF portal" <${sender}>`,
+    to: recipient,
+    subject: `${envPrefix}GBIF Download usage`,
+    text: `download: ${data.downloadKey}
+username: ${user.userName}
+email: ${user.email}
+title: ${removeLineBreaks(data.title)}
+type: ${data.type}
+authors: ${removeLineBreaks(data.authors)}
+link: ${data.link || ''}
+date: ${data.date}
+comments: ${removeLineBreaks(data.comments) || ''}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
+
 export function registerDownloadUsageForm(router: Router) {
   router.post(
     '/download-usage',
     isAuthenticated,
     validateRequest(Schema),
     async (req, res) => {
+      const authReq = req as AuthRequest;
+
+      // Check if email is configured
+      if (!transporter) {
+        logger.error({
+          message: 'Download usage email not configured',
+        });
+        return res.status(501).json({
+          message: 'Download usage reporting is not configured',
+        });
+      }
+
       try {
         const payload: DownloadUsageDTO = req.body;
 
-        // Submit to GBIF API
-        // Note: The actual GBIF API endpoint may need to be adjusted based on the final API design
-        const response = await authenticatedRequest({
-          method: 'POST',
-          url: `${config.apiv1}/occurrence/download/${payload.downloadKey}/usage`,
-          canonicalPath: `occurrence/download/${payload.downloadKey}/usage`,
-          body: {
-            title: payload.title,
-            type: payload.type,
-            authors: payload.authors,
-            link: payload.link || undefined,
-            date: payload.date,
-            comments: payload.comments || undefined,
-            ...(payload.doi && { doi: payload.doi }),
-          },
+        await sendMail(payload, {
+          userName: authReq.user.userName,
+          email: authReq.user.email,
         });
 
-        res.status(201).json({
+        return res.status(201).json({
           message: 'Usage report submitted successfully',
-          data: response,
         });
       } catch (error) {
         logger.error({
@@ -82,7 +142,7 @@ export function registerDownloadUsageForm(router: Router) {
           error,
           downloadKey: req.body.downloadKey,
         });
-        res.status(500).json({
+        return res.status(500).json({
           message: 'Failed to submit usage report',
         });
       }
