@@ -19,7 +19,7 @@ import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
-import { NotFoundError } from '@/errors';
+import { NotFoundError, NotFoundLoaderResponse } from '@/errors';
 import {
   OccurrenceIssue,
   OccurrenceQuery,
@@ -195,12 +195,14 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
       localContexts {
         project_page
         title
-        description
-        notes {
+        communityName
+        notice {
           name(lang: $language)
           img_url
-          description(lang: $language)
-          pageUrl
+        }
+        labels {
+          name(lang: $language)
+          img_url
         }
       }
       institution {
@@ -271,7 +273,8 @@ fragmentManager.register(/* GraphQL */ `
 
 export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
-
+  if (['map', 'gallery', 'taxonomy', 'charts', 'download'].includes(key))
+    throw new NotFoundLoaderResponse();
   const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(
     OCCURRENCE_QUERY,
     {

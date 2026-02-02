@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "Taxonomic Reference",
       "description": "Select the taxonomy that will be used to populate the taxonomic columns in the download",
-      "defaultRecommended": "Default and recommended for most users"
+      "defaultRecommended": "Default and recommended for most users",
+      "version": "Version"
     }
   },
   "customSqlDownload": {
