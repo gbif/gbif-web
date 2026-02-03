@@ -65,7 +65,7 @@
     "downloadStarted": "Le téléchargement a démarré et est en cours de traitement.",
     "downloadExpectTime": "Le téléchargement peut prendre jusqu'à 3 heures à se terminer. La plupart des téléchargements sont terminés en 15 minutes.",
     "notificationEmailAddresses": "Un courriel de notification avec un lien pour télécharger les résultats sera envoyé à l'adresse suivante une fois prêt :",
-    "sqlGeneratedUsingPredicate": "Espace réservé à la description",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "En préparation",
       "SUSPENDED": "Interrompu",
@@ -73,7 +73,7 @@
       "CANCELLED": "Annulé",
       "KILLED": "Tué"
     },
-    "usedChecklistKey": "Espace réservé à la description",
+    "usedChecklistKey": "",
     "predicate": {
       "checklist": "Liste d'espèces",
       "joinDescriptions": {
@@ -201,7 +201,7 @@
         "FORMATION": "Formation",
         "ORDER_KEY": "Ordre",
         "ISSUE": "Problème",
-        "TAXONOMIC_ISSUE": "Espace réservé à la description",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "Verbatim du nom scientifique",
         "GBIF_REGION": "Région GBIF",
@@ -261,30 +261,30 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Retour",
-    "slowDown": "Espace réservé à la description",
-    "unableToCreateDownload": "Espace réservé à la description",
-    "backToFormatSelection": "Espace réservé à la description",
-    "backToConfiguration": "Espace réservé à la description",
+    "slowDown": "",
+    "unableToCreateDownload": "",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
     "estimatedSize": "Taille estimée",
-    "configure": "Espace réservé à la description",
-    "continueToTerms": "Espace réservé à la description",
-    "downloadSummary": "Espace réservé à la description",
-    "weAlsoSupport": "Espace réservé à la description",
-    "sqlDownloadsLink": "Espace réservé à la description",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
     "extensions": "Extensions",
-    "selectAdditionalExtensions": "Espace réservé à la description",
-    "nExtensionsSelected": "Espace réservé à la description",
-    "selectAll": "Espace réservé à la description",
-    "deselectAll": "Espace réservé à la description",
-    "extensionsInfoMessage": "Espace réservé à la description",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
     "format": "Format",
-    "csvDelimiter": "Espace réservé à la description",
+    "csvDelimiter": "",
     "taxonomy": "Taxonomie",
-    "tabDelimiter": "Espace réservé à la description",
-    "progressLabel": "Espace réservé à la description",
-    "termsAndConditions": "Espace réservé à la description",
-    "reviewAndAccept": "Espace réservé à la description",
-    "dataCitationTitle": "Espace réservé à la description",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
     "dataCitationText": "Espace réservé à la description",
     "dataUseAgreementTitle": "Espace réservé à la description",
     "dataUseAgreementText": "Espace réservé à la description",
@@ -315,7 +315,7 @@
         "description": "Espace réservé à la description"
       },
       "configure": {
-        "name": "Espace réservé à la description",
+        "name": "",
         "description": "Espace réservé à la description"
       },
       "terms": {
@@ -358,8 +358,9 @@
     },
     "taxonomySelector": {
       "title": "Espace réservé à la description",
-      "description": "Espace réservé à la description",
-      "defaultRecommended": "Espace réservé à la description"
+      "description": "",
+      "defaultRecommended": "Espace réservé à la description",
+      "version": "Version"
     }
   },
   "customSqlDownload": {
