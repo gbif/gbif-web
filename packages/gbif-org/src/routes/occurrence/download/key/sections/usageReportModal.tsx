@@ -78,7 +78,7 @@ type Props = {
 };
 
 export function UsageReportModal({ downloadKey, doi }: Props) {
-  const [state, setState] = useState<'enter' | 'success' | 'failed'>('enter');
+  const [state, setState] = useState<'enter' | 'success'>('enter');
   const [isOpen, setIsOpen] = useState(false);
   const { user, isLoggedIn } = useUser();
   const { toast } = useToast();
@@ -120,7 +120,6 @@ export function UsageReportModal({ downloadKey, doi }: Props) {
           })
           .catch((error) => {
             console.error(error);
-            setState('failed');
             toast({
               title: formatMessage({ id: 'downloadUsage.form.saveFailure' }),
               variant: 'destructive',
@@ -133,8 +132,6 @@ export function UsageReportModal({ downloadKey, doi }: Props) {
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
     if (!open) {
-      // Reset form and state when modal closes
-      form.reset();
       setState('enter');
     }
   };
@@ -303,22 +300,12 @@ export function UsageReportModal({ downloadKey, doi }: Props) {
 
         {state === 'success' && (
           <FormSuccess
+            className="g-bg-inherit g-shadow-none"
             title={<FormattedMessage id="downloadUsage.form.saveSuccess" />}
             message={<FormattedMessage id="downloadUsage.form.saveSuccess" />}
             resetMessage={<FormattedMessage id="phrases.close" />}
             onReset={() => handleOpenChange(false)}
           />
-        )}
-
-        {state === 'failed' && (
-          <div className="g-flex g-flex-col g-gap-4">
-            <div className="g-text-red-600">
-              <FormattedMessage id="downloadUsage.form.saveFailure" />
-            </div>
-            <Button onClick={() => setState('enter')} variant="outline">
-              <FormattedMessage id="phrases.tryAgain" defaultMessage="Try Again" />
-            </Button>
-          </div>
         )}
       </DialogContent>
     </Dialog>
