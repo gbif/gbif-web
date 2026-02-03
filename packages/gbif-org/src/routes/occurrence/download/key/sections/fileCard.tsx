@@ -11,9 +11,12 @@ import { useMemo } from 'react';
 import { createIntl, FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { downloadCompleted } from '../utils';
 import { MdDownload } from 'react-icons/md';
+import { UsageReportModal } from './usageReportModal';
+import { useUser } from '@/contexts/UserContext';
 
 export function FileCard({ download }: { download: DownloadKeyQuery['download'] }) {
   const { formatMessage } = useIntl();
+  const { isLoggedIn } = useUser();
   const englishCreationDate = useMemo(() => {
     const enIntl = createIntl({
       locale: 'en-GB',
@@ -69,6 +72,9 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
                     <MdDownload className="g-ms-1" />
                   </a>
                 </Button>
+                {isLoggedIn && (
+                  <UsageReportModal downloadKey={download.key} doi={download.doi} />
+                )}
               </div>
             </div>
           </BasicField>
