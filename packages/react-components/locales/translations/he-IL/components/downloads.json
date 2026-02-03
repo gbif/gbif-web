@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "תיאור זמני",
       "description": "תיאור זמני",
-      "defaultRecommended": "תיאור זמני"
+      "defaultRecommended": "תיאור זמני",
+      "version": ""
     }
   },
   "customSqlDownload": {
