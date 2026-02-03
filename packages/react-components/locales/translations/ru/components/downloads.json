@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "Заполнитель",
       "description": "Заполнитель",
-      "defaultRecommended": "Заполнитель"
+      "defaultRecommended": "Заполнитель",
+      "version": "Версия"
     }
   },
   "customSqlDownload": {
