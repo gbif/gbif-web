@@ -2,5 +2,6 @@
   "primaryContact": "Основное контактное лицо",
   "termsHeading": "Правила и условия",
   "name": "Имя",
-  "email": "Адрес электронной почты"
+  "email": "Адрес электронной почты",
+  "termsLabel": "Я прочел соглашение о сервисном обслуживании  <service-agreement-link> и соглашение об обработке данных <data-processor-agreement-link>  и </data-processor-agreement-link> и принимаю эти условия и термины для портала, который я планирую запускать."
 }
