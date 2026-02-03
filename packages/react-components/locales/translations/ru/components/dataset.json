@@ -65,7 +65,7 @@
   "dataset": "Набор данных",
   "taxonomy": "Таксономия",
   "localContexts": "Софинансируется",
-  "localContextsLabelsAppliedBy": "{count, plural, one{Label} few {Labels} many {Labels} other{Labels}} упорядоченные по{communityName}",
+  "localContextsLabelsAppliedBy": "{count, plural, one{Label} few {Labels} many {Labels} other{Labels}} упорядоченные по {communityName}",
   "project": "Проект",
   "metrics": "Показатели",
   "metricsOccurrenceHelpText": "Показатели основаны на интерпретированных данных",
