@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "描述占位符",
       "description": "描述占位符",
-      "defaultRecommended": "描述占位符"
+      "defaultRecommended": "描述占位符",
+      "version": "版本"
     }
   },
   "customSqlDownload": {
