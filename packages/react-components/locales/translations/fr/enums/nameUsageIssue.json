@@ -1,4 +1,7 @@
 {
+  "PARENT_NAME_USAGE_ID_INVALID": "ParentNameUsageID non valide",
+  "ACCEPTED_NAME_USAGE_ID_INVALID": "AcceptedNameUsageID non valide",
+  "ORIGINAL_NAME_USAGE_ID_INVALID": "Original Name Usage ID non valide",
   "CHAINED_SYNOYM": "Synonyme chainé",
   "TAXONOMIC_STATUS_MISMATCH": "Différence de statut taxonomique",
   "CLASSIFICATION_NOT_APPLIED": "Classification non-appliquée",
