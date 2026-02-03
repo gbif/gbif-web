@@ -65,6 +65,7 @@
   "dataset": "Datensatz",
   "taxonomy": "Taxonomie",
   "localContexts": "Co finanziert von",
+  "localContextsLabelsAppliedBy": "",
   "project": "Projekt",
   "metrics": "Kennzahlen",
   "metricsOccurrenceHelpText": "",
