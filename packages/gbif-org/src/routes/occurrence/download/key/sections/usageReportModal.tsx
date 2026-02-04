@@ -147,7 +147,7 @@ export function UsageReportModal({ downloadKey, doi }: Props) {
           <FormattedMessage id="downloadKey.tellUs" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="g-max-w-2xl">
+      <DialogContent className="g-w-[calc(100vw-2rem)] g-max-w-2xl">
         <DialogHeader>
           <DialogTitle>
             <FormattedMessage id="downloadUsage.title" />
