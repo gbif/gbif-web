@@ -1,8 +1,13 @@
 {
+  "RANK_INVALID": "El rango no es válido",
+  "NOMENCLATURAL_STATUS_INVALID": "Estado nomenclatural inválido",
   "CHAINED_SYNOYM": "Sinónimo encadenado",
   "TAXONOMIC_STATUS_MISMATCH": "Discrepancia en el estado taxonómico",
   "CLASSIFICATION_NOT_APPLIED": "Clasificación no aplicada",
   "CONFLICTING_BASIONYM_COMBINATION": "Combinación del basónimo conflictiva",
   "ORTHOGRAPHIC_VARIANT": "Variante ortográfica",
-  "HOMONYM": "Homónimo"
+  "HOMONYM": "Homónimo",
+  "PUBLISHED_BEFORE_GENUS": "Publicado antes del género",
+  "UNPARSABLE": "No analizable",
+  "PARTIALLY_PARSABLE": "Parcialmente analizable"
 }
