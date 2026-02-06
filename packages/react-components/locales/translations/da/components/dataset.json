@@ -65,6 +65,7 @@
   "dataset": "Datasæt",
   "taxonomy": "Taksonomi",
   "localContexts": "Samfinansieret af",
+  "localContextsLabelsAppliedBy": "",
   "project": "Projekt",
   "metrics": "Grafer",
   "metricsOccurrenceHelpText": "",

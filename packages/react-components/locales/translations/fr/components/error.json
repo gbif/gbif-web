@@ -1,5 +1,6 @@
 {
   "generic": "Une erreur est survenue",
+  "genericRequestFailed": "La requête a échoué",
   "genericDescription": "Une erreur inattendue est survenue. Veuillez réessayer ultérieurement.",
   "unknown": "Erreur inconnue",
   "report": "Signaler un problème",

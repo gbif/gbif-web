@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "Symbol zastępczy opisu",
       "description": "Symbol zastępczy opisu",
-      "defaultRecommended": "Symbol zastępczy opisu"
+      "defaultRecommended": "Symbol zastępczy opisu",
+      "version": "Wersja"
     }
   },
   "customSqlDownload": {

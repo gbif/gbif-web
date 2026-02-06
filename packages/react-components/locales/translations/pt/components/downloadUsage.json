@@ -1,43 +1,43 @@
 {
-    "downloadUsage": {
-        "title": "Notificar GBIF sobre o uso de dados de ocorrência em uma publicação (ou similar)",
-        "form": {
-            "title": "Título",
-            "titlePlaceholder": "Co-financiado por",
-            "type": "Tipo",
-            "authors": "Autor(es)",
-            "authorsPlaceholder": "Co-financiado por",
-            "link": "URL",
-            "linkPlaceholder": "Co-financiado por",
-            "date": "Data",
-            "comments": "Comentários",
-            "commentsPlaceholder": "Co-financiado por",
-            "submit": "Enviar",
-            "saveFailure": "Um erro ocorreu durante a gravação do formulário. Por favor, tente novamente.",
-            "saveSuccess": "Co-financiado por"
-        },
-        "types": {
-            "JOURNAL_ARTICLE": "artigo de revista",
-            "BOOK": "livro",
-            "BOOK_CHAPTER": "capítulo de livro",
-            "CONFERENCE_PAPER_PROCEEDINGS": "artigo de conferência / anais",
-            "PREPRINT_WORKING_PAPER": "pré-publicação / artigo em progresso",
-            "REPORT": "reportar",
-            "WEB_PAGE": "página web",
-            "THESIS_DISSERTATION": "tese / dissertação",
-            "COURSE_TEACHING_MATERIALS": "curso / materiais de ensino",
-            "MAGAZINE_ARTICLE": "artigo de magazine",
-            "STATUTE": "estatuto",
-            "PATENT": "patente",
-            "NEWSPAPER_ARTICLE": "artigo de jornal",
-            "SOFTWARE_COMPUTER_PROGRAM": "software / programa de computador",
-            "HEARING": "audição",
-            "TELEVISION_BROADCAST": "transmissão televisiva",
-            "ENCYCLOPEDIA_ARTICLE": "artigo de enciclopédia",
-            "CASE": "caso",
-            "FILM": "filme",
-            "BILL": "projeto de lei",
-            "OTHER": "outro (por favor, elabore nos comentários abaixo"
-        }
+  "downloadUsage": {
+    "title": "Notificar GBIF sobre o uso de dados de ocorrência em uma publicação (ou similar)",
+    "form": {
+      "title": "Título",
+      "titlePlaceholder": "Co-financiado por",
+      "type": "Tipo",
+      "authors": "Autor(es)",
+      "authorsPlaceholder": "Co-financiado por",
+      "link": "URL",
+      "linkPlaceholder": "Co-financiado por",
+      "date": "Data",
+      "comments": "Comentários",
+      "commentsPlaceholder": "Co-financiado por",
+      "submit": "Enviar",
+      "saveFailure": "Um erro ocorreu durante a gravação do formulário. Por favor, tente novamente.",
+      "saveSuccess": "Co-financiado por"
+    },
+    "types": {
+      "JOURNAL_ARTICLE": "artigo de revista",
+      "BOOK": "livro",
+      "BOOK_CHAPTER": "capítulo de livro",
+      "CONFERENCE_PAPER_PROCEEDINGS": "artigo de conferência / anais",
+      "PREPRINT_WORKING_PAPER": "pré-publicação / artigo em progresso",
+      "REPORT": "reportar",
+      "WEB_PAGE": "página web",
+      "THESIS_DISSERTATION": "tese / dissertação",
+      "COURSE_TEACHING_MATERIALS": "curso / materiais de ensino",
+      "MAGAZINE_ARTICLE": "artigo de magazine",
+      "STATUTE": "estatuto",
+      "PATENT": "patente",
+      "NEWSPAPER_ARTICLE": "artigo de jornal",
+      "SOFTWARE_COMPUTER_PROGRAM": "software / programa de computador",
+      "HEARING": "audição",
+      "TELEVISION_BROADCAST": "transmissão televisiva",
+      "ENCYCLOPEDIA_ARTICLE": "artigo de enciclopédia",
+      "CASE": "caso",
+      "FILM": "filme",
+      "BILL": "projeto de lei",
+      "OTHER": "outro (por favor, elabore nos comentários abaixo"
     }
+  }
 }

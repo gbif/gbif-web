@@ -65,6 +65,7 @@
   "dataset": "Dataset",
   "taxonomy": "Taxonomie",
   "localContexts": "Co-Gefinancierd door",
+  "localContextsLabelsAppliedBy": "",
   "project": "Project",
   "metrics": "Statistieken",
   "metricsOccurrenceHelpText": "",

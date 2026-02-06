@@ -65,6 +65,7 @@
   "dataset": "データセット",
   "taxonomy": "分類群",
   "localContexts": "共同出資",
+  "localContextsLabelsAppliedBy": "",
   "project": "プロジェクト",
   "metrics": "メトリクス",
   "metricsOccurrenceHelpText": "",
