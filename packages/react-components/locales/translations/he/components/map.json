@@ -1,0 +1,70 @@
+{
+  "styles": {
+    "satellite": "לוויין",
+    "natural": "טבע",
+    "bright": "בהיר",
+    "dark": "כהה",
+    "outdoor": "שטח פתוח"
+  },
+  "projections": {
+    "ARCTIC": "קוטב צפוני",
+    "MERCATOR": "מרקטור",
+    "ANTARCTIC": "קוטב דרומי",
+    "PLATE_CAREE": "Plate Carrée"
+  },
+  "failedToGetUserLocation": {
+    "title": "נכשל באיתור המיקום שלך",
+    "message": "נא לבדוק את הגדרות הדפדפן ולנסות שוב."
+  },
+  "filterByView": "השתמש באזור הנראה כמסנן",
+  "projection": "הקרנה",
+  "anyYear": "כל שנה",
+  "exploreArea": "חקור אזור",
+  "explore": "חקור",
+  "generatedDateAgo": "Leave a comment - requires a Github account",
+  "style": "סגנון",
+  "filters": "מסננים",
+  "select": "בחר",
+  "custom": "מותאם אישית",
+  "baseMap": "מפת בסיס",
+  "binning": "קיבוץ",
+  "year": "שנה",
+  "chooseColors": "צבעים",
+  "clickToSearchArea": "לחץ כדי לחפש אזור",
+  "predefined": {
+    "CLASSIC_HEX": "משושים קלאסיים",
+    "CLASSIC": "נקודות קלאסיות",
+    "STREETS": "רחובות",
+    "GLACIER": "קרחון",
+    "GREEN": "Leave a comment - requires a Github account",
+    "CUSTOM": "מותאם אישית"
+  },
+  "basemap": {
+    "CLASSIC": "מג'נטה",
+    "LIGHT": "בהיר (ללא תוויות)",
+    "LIGHT_DETAILS": "בהיר",
+    "DARK": "כהה (ללא תוויות)",
+    "DARK_DETAILS": "כהה",
+    "OSM": "כבישים"
+  },
+  "bin": {
+    "PIXEL": "נקודות",
+    "SMALL_HEX": "משושים קטנים",
+    "LARGE_HEX": "משושים",
+    "SMALL_SQUARE": "ריבועים קטנים",
+    "LARGE_SQUARE": "ריבועים"
+  },
+  "colors": {
+    "CLASSIC": "קלאסי",
+    "FIRE": "אש",
+    "GLACIER": "קרחון",
+    "GREEN_POINT": "ירוק",
+    "PURPLE_YELLOW": "סגול צהוב",
+    "PURPLE_HEAT": "חום סגול",
+    "BLUE_HEAT": "חום כחול",
+    "ORANGE_HEAT": "חום כתום",
+    "GREEN": "ירוק",
+    "BLUE_CLUSTER": "אשכול כחול",
+    "ORANGE_CLUSTER": "אשכול כתום"
+  }
+}
