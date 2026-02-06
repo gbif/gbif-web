@@ -1,0 +1,67 @@
+{
+  "tabs": {
+    "about": "אודות",
+    "verbatim": "מילולי",
+    "metrics": "מדדים"
+  },
+  "recordedAsIntroducedIn": "תועד כמין פולש ב־",
+  "accordingTo": "לפי",
+  "evidenceOfImpact": "עדות להשפעה",
+  "occurrencesInGbif": "תצפיות ב־GBIF",
+  "recordedAsIntrodicedInNcontries": "תועד כמין פולש ב־{total, plural, one {# מדינה או אזור} other {# מדינות או אזורים}}",
+  "breakdown": "פירוט",
+  "publishedIn": "פורסם ב־",
+  "vernacularNames": "שמות עממיים",
+  "rank": "דרגה",
+  "source": "מקור",
+  "specimenIsTypeOf": "של",
+  "typeMaterial": "חומר טיפוס",
+  "treatments": "Provider managed id",
+  "more": "עוד",
+  "less": "פחות",
+  "dna": "DNA",
+  "occurrenceImages": "Provider managed id",
+  "taxonImages": "תמונות טקסון",
+  "taxonIdentifiers": "מזהי טקסון",
+  "synonymsAndCombinations": "שמות נרדפים ושילובים",
+  "inChecklist": "ב־{checklist}",
+  "rankPlural": {
+    "KINGDOM": "ממלכות",
+    "PHYLUM": "מערכות",
+    "CLASS": "מחלקות",
+    "ORDER": "סדרות",
+    "FAMILY": "משפחות",
+    "GENUS": "סוגים",
+    "SPECIES": "מינים"
+  },
+  "distributions": "תפוצה",
+  "distribution": {
+    "threatStatus": "סטטוס שימור",
+    "establishmentMeans": "אמצעי התבססות",
+    "status": "סטטוס",
+    "locality": "מיקום",
+    "locationId": "מזהה מיקום",
+    "country": "מדינה"
+  },
+  "verbatim": {
+    "term": "מונח",
+    "value": "ערך",
+    "coreRecord": "רשומת ליבה"
+  },
+  "tradeRestrictions": "הגבלות סחר",
+  "cites": "CITES",
+  "immediateChildren": "צאצאים ישירים",
+  "referenceTaxon": "טקסון ייחוס",
+  "showLess": "Provider managed id",
+  "showAll": "הצג הכל",
+  "errors": {
+    "treatments": "Provider managed id",
+    "distributions": "Provider managed id",
+    "verbatim": "Provider managed id",
+    "typeMaterial": "Provider managed id",
+    "vernacularNames": "Provider managed id",
+    "classificationChildren": "Provider managed id",
+    "breakdown": "Provider managed id",
+    "invasiveInCountries": "Provider managed id"
+  }
+}
