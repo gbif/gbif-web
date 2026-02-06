@@ -62,7 +62,7 @@
   "lastCrawled": "Last crawled",
   "goToRecord": "Go to record",
   "commonNameAccordingTo": "Common name according to: {source}",
-  "supportedChecklists": "Supported checklists",
+  "supportedChecklists": "Taxonomy used to index occurrences",
   "noResults": "No results",
   "stepperFormProgress": "Step {currentStep} of {totalSteps}",
   "next": "Next",
