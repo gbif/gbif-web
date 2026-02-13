@@ -1,0 +1,10 @@
+{
+  "clbTaxonomicStatus": {
+    "accepted": "승인됨",
+    "provisionally_accepted": "",
+    "ambiguous_synonym": "",
+    "synonym": "",
+    "misapplied": "",
+    "bare_name": ""
+  }
+}
