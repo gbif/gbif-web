@@ -1,0 +1,10 @@
+{
+  "position": "직위",
+  "organization": "기관",
+  "email": "이메일",
+  "address": "주소",
+  "phone": "전화",
+  "roles": "역할",
+  "userId": "사용자 ID",
+  "name": "이름"
+}
