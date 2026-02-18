@@ -1,41 +1,41 @@
 {
   "styles": {
-    "satellite": "",
-    "natural": "",
-    "bright": "",
-    "dark": "",
-    "outdoor": ""
+    "satellite": "위성",
+    "natural": "자연",
+    "bright": "밝게",
+    "dark": "어둡게",
+    "outdoor": "야외"
   },
   "projections": {
-    "ARCTIC": "",
-    "MERCATOR": "",
-    "ANTARCTIC": "",
-    "PLATE_CAREE": ""
+    "ARCTIC": "북극",
+    "MERCATOR": "메르카토르",
+    "ANTARCTIC": "남극",
+    "PLATE_CAREE": "Plate Carrée"
   },
   "failedToGetUserLocation": {
-    "title": "",
-    "message": ""
+    "title": "당신의 위치를 찾을 수 없습니다",
+    "message": "브라우저 설정을 확인하고 다시 시도해주세요."
   },
-  "filterByView": "",
-  "projection": "",
+  "filterByView": "보이는 지역을 필터로 사용하기",
+  "projection": "투영",
   "anyYear": "임의 연도",
   "exploreArea": "영역 탐색",
-  "explore": "",
+  "explore": "탐색",
   "generatedDateAgo": "{DATE_AGO}에 생성됨",
-  "style": "",
-  "filters": "",
-  "select": "",
-  "custom": "",
-  "baseMap": "",
-  "binning": "",
-  "year": "",
-  "chooseColors": "",
+  "style": "스타일",
+  "filters": "필터",
+  "select": "선택",
+  "custom": "사용자 정의",
+  "baseMap": "기본 지도",
+  "binning": "비닝",
+  "year": "연도",
+  "chooseColors": "색상",
   "clickToSearchArea": "영역을 검색하기 위해서는 클릭하세요",
   "predefined": {
     "CLASSIC_HEX": "",
     "CLASSIC": "",
-    "STREETS": "",
-    "GLACIER": "",
+    "STREETS": "길",
+    "GLACIER": "빙하",
     "GREEN": "",
     "CUSTOM": ""
   },
