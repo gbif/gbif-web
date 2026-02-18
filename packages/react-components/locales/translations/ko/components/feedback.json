@@ -6,13 +6,13 @@
     "contactUsDescription": "",
     "contactDataProviderDescription": "",
     "seeAlsoFaq": "",
-    "faq": "FAQ",
+    "faq": "자주 묻는 질문",
     "pleaseLogin": "",
     "pleaseLoginReason": "",
     "sendEmailTo": "",
     "emailHelpdesk": "",
-    "summary": "",
-    "description": "",
+    "summary": "요약",
+    "description": "설명",
     "required": "",
     "csvWarning": "",
     "csvFaqEntry": "",
@@ -23,9 +23,9 @@
     "helpdesk": "",
     "communications": "",
     "confirmation": {
-      "title": "",
+      "title": "감사합니다",
       "description": "",
-      "seeIssue": "",
+      "seeIssue": "문제 보기",
       "createAnother": ""
     },
     "failure": {
@@ -35,7 +35,7 @@
     },
     "orWriteMailTo": "",
     "leaveIssueOnGithub": "",
-    "login": "",
+    "login": "로그인",
     "requiresGithubAccount": "",
     "sendUsAnEmail": "",
     "forPrivateEnquiries": ""
