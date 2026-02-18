@@ -1,13 +1,13 @@
 {
   "homepage": {
     "counts": {
-      "occurrences": "",
-      "datasets": "",
-      "publishers": "",
-      "literature": ""
+      "occurrences": "출현 기록",
+      "datasets": "데이터셋",
+      "publishers": "발행 기관",
+      "literature": "데이터를 이용한 동료 평가 논문"
     },
-    "aboutGbifCountry": "",
+    "aboutGbifCountry": "GBIF {COUNTRY}에 대하여",
     "whatIsGbif": "GBIF란?",
-    "search": ""
+    "search": "GBIF 검색"
   }
 }
