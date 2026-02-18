@@ -1,12 +1,12 @@
 {
   "footer": {
     "whatIsGbif": "GBIF란?",
-    "api": "",
-    "faq": "FAQ",
+    "api": "API",
+    "faq": "자주 묻는 질문",
     "newsletter": "뉴스레터",
     "privacy": "개인정보보호",
     "terms": "약관동의",
-    "citation": "",
+    "citation": "인용",
     "codeOfConduct": "",
     "acknowledgements": "사사",
     "contact": "연락처"
