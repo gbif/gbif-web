@@ -3,8 +3,8 @@
     "accepted": "승인됨",
     "provisionally_accepted": "",
     "ambiguous_synonym": "",
-    "synonym": "",
-    "misapplied": "",
+    "synonym": "이명",
+    "misapplied": "잘못 적용됨",
     "bare_name": ""
   }
 }
