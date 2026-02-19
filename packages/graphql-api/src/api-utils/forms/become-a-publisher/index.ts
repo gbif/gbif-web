@@ -39,10 +39,12 @@ const Schema = {
       province: OptionalStringSchema,
       postalCode: OptionalStringSchema,
       country: RequiredStringSchema,
-      coordinates: z.object({
-        lat: z.number(),
-        lon: z.number(),
-      }),
+      coordinates: z
+        .object({
+          lat: z.number(),
+          lon: z.number(),
+        })
+        .optional(),
     }),
     endorsingNode: z.string(),
     gbifProjects: z.discriminatedUnion('type', [
