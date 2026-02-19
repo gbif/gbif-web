@@ -47,6 +47,7 @@ const typeDef = gql`
     institutionKey: [GUID!]
     discipline: [String!]
     displayOnNHCPortal: [Boolean!]
+    machineTagNamespace: [String!]
     sortBy: CollectionsSortField
     sortOrder: SortOrder
   }

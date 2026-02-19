@@ -70,6 +70,7 @@ const typeDef = gql`
     descriptorCountry: [Country!]
     typeStatus: [String!]
     taxonKey: [ID!]
+    machineTagNamespace: [String!]
     sortBy: CollectionsSortField
     sortOrder: SortOrder
   }
