@@ -67,11 +67,25 @@ const LayoutInner = React.memo(
     React.useEffect(() => {
       const hash = window.location.hash;
       if (!hash) return;
-      // Allow React to finish hydration paint before scrolling
-      requestAnimationFrame(() => {
-        const el = document.getElementById(decodeURIComponent(hash.slice(1)));
-        el?.scrollIntoView();
-      });
+
+      const id = decodeURIComponent(hash.slice(1));
+      let attempts = 0;
+
+      // The target element may not be in the DOM yet if content is still loading
+      // from route loaders. Poll until it appears or we give up.
+      function tryScroll() {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView();
+          return;
+        }
+        if (++attempts < 10) {
+          setTimeout(tryScroll, 100);
+        }
+      }
+
+      // Start after a frame so React can finish the initial hydration paint
+      requestAnimationFrame(tryScroll);
     }, []);
 
     return (
