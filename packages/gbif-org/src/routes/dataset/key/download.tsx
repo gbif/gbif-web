@@ -10,14 +10,18 @@ import {
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { MdDownload } from 'react-icons/md';
+import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useDatasetKeyLoaderData } from '.';
+import { DatasetKeyContext } from './datasetKey';
 
 export function DatasetKeyDownload() {
   const { key } = useParams();
   const { data } = useDatasetKeyLoaderData();
   const { dataset } = data;
+  const { contentMetrics } = useContext(DatasetKeyContext);
+  const occurrenceCount = contentMetrics?.occurrenceSearch?.documents?.total ?? 0;
 
   const fullPredicate = {
     type: 'equals',
@@ -33,32 +37,34 @@ export function DatasetKeyDownload() {
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className="g-flex g-flex-wrap -g-mx-4">
-          <div>
-            <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
-              <CardHeader>
-                <CardTitle>
-                  <FormattedMessage id="dataset.processedOccurrences" />
-                </CardTitle>
-                <CardDescription className="g-text-base g-prose g-pt-6">
-                  <Message id="dataset.processedOccurrencesDescription" />
-                </CardDescription>
-              </CardHeader>
-              <CardFooter>
-                <Button variant="default" className="g-text-center g-w-full" asChild>
-                  <a
-                    className="g-text-white"
-                    href={`${
-                      import.meta.env.PUBLIC_GBIF_ORG
-                    }/occurrence/download/request?predicate=${encodeURIComponent(
-                      JSON.stringify(fullPredicate)
-                    )}#create`}
-                  >
-                    <FormattedMessage id="download.continueToGBIF" />
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
+          {occurrenceCount > 0 && (
+            <div>
+              <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="dataset.processedOccurrences" />
+                  </CardTitle>
+                  <CardDescription className="g-text-base g-prose g-pt-6">
+                    <Message id="dataset.processedOccurrencesDescription" />
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter>
+                  <Button variant="default" className="g-text-center g-w-full" asChild>
+                    <a
+                      className="g-text-white"
+                      href={`${
+                        import.meta.env.PUBLIC_GBIF_ORG
+                      }/occurrence/download/request?predicate=${encodeURIComponent(
+                        JSON.stringify(fullPredicate)
+                      )}#create`}
+                    >
+                      <FormattedMessage id="download.continueToGBIF" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          )}
           {dataset?.checklistBankDataset?.key && (
             <div>
               <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
