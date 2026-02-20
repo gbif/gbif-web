@@ -81,3 +81,8 @@ export const countryKeyRoute: RouteObjectWithPlugins = {
 export function useCountryKeyLoaderData() {
   return useRenderedRouteLoaderData(id) as { data: ParticipantQuery };
 }
+
+export function isParticipant(participationStatus: unknown) {
+  if (typeof participationStatus !== 'string') return false;
+  return ['VOTING', 'ASSOCIATE', 'AFFILIATE'].includes(participationStatus);
+}

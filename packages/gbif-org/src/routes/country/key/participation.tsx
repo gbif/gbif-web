@@ -5,7 +5,7 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { fragmentManager } from '@/services/fragmentManager';
 import { FormattedMessage } from 'react-intl';
-import { useCountryKeyLoaderData } from '.';
+import { isParticipant, useCountryKeyLoaderData } from '.';
 import { Contacts } from './components/contacts';
 import { EmptyCountryTab } from './components/emptyCountryTab';
 import { ParticipantSummary } from './components/participantSummary';
@@ -14,7 +14,7 @@ export function CountryKeyParticipation() {
   const { data } = useCountryKeyLoaderData();
   const nodeCountry = data?.nodeCountry;
 
-  if (nodeCountry?.participant?.participationStatus !== 'VOTING') {
+  if (!isParticipant(nodeCountry?.participant?.participationStatus)) {
     return (
       <EmptyCountryTab
         title={<FormattedMessage id="country.notParticipant" />}
@@ -41,11 +41,13 @@ export function CountryKeyParticipation() {
           </Card>
         </ArticleTextContainer>
       </ArticleContainer>
-      <ArticleContainer className="g-pt-4">
-        <ArticleTextContainer>
-          {body && <ArticleBody dangerouslySetBody={{ __html: body }} />}
-        </ArticleTextContainer>
-      </ArticleContainer>
+      {body && (
+        <ArticleContainer className="g-pt-4">
+          <ArticleTextContainer>
+            <ArticleBody dangerouslySetBody={{ __html: body }} />
+          </ArticleTextContainer>
+        </ArticleContainer>
+      )}
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
         <ArticleTextContainer className="g-flex g-flex-col g-gap-4">
           <Contacts

@@ -77,6 +77,8 @@ fragmentManager.register(/* GraphQL */ `
     ... on Participant {
       id
       title
+      type
+      countryCode
     }
   }
 `);
@@ -241,16 +243,17 @@ function ParticipantOrFundingOrganisation({
         const title = f.title?.trim();
 
         let content = <span>{title}</span>;
-        if (f.__typename === 'Participant')
+        if (f.__typename === 'Participant') {
+          const isCountry = f.type === 'COUNTRY';
           content = (
             <DynamicLink
-              to={`/participant/${f.id}`}
-              pageId="participantKey"
-              variables={{ key: f.id }}
+              to={isCountry ? `/country/${f.countryCode}/participation` : `/participant/${f.id}`}
             >
+              {isCountry && 'GBIF '}
               {f.title?.trim()}
             </DynamicLink>
           );
+        }
         if (f.__typename === 'FundingOrganisation' && f.url)
           content = <a href={f.url}>{f.title?.trim()}</a>;
 
