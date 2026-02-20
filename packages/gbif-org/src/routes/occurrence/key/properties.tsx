@@ -13,10 +13,10 @@ function startCase(str?: string | null) {
   return str;
 }
 
-const licenseMap = {
-  CC0_1_0: 'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
-  CC_BY_4_0: 'http://creativecommons.org/licenses/by/4.0/legalcode',
-  CC_BY_NC_4_0: 'http://creativecommons.org/licenses/by-nc/4.0/legalcode',
+export const licenseMap: Record<string, string> = {
+  CC0_1_0: 'https://creativecommons.org/publicdomain/zero/1.0/legalcode',
+  CC_BY_4_0: 'https://creativecommons.org/licenses/by/4.0/legalcode',
+  CC_BY_NC_4_0: 'https://creativecommons.org/licenses/by-nc/4.0/legalcode',
 };
 
 export function HtmlField(props: {
@@ -114,7 +114,7 @@ export function LicenseField({
   if (!term) return null;
   const { value } = term;
   const license = typeof value === 'string' ? value : 'UNKNOWN';
-  const licenseLink = licenseMap[license]; // TODO, handle typescript complaints
+  const licenseLink = licenseMap[license];
   return (
     <>
       <T>
@@ -122,7 +122,7 @@ export function LicenseField({
       </T>
       <V>
         {licenseLink && (
-          <a href={licenseLink}>
+          <a href={licenseLink} className="g-underline">
             <FormattedMessage id={`enums.license.${value}`} defaultMessage={value} />
           </a>
         )}

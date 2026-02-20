@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { MdFileDownload } from 'react-icons/md';
 import { RiExternalLinkLine } from 'react-icons/ri';
 import { FormattedMessage } from 'react-intl';
-import { BasicField } from '../properties';
+import { BasicField, licenseMap } from '../properties';
 import { Img } from '@/components/Img';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
@@ -248,7 +248,9 @@ function Caption({
           <BasicField label={`occurrenceFieldNames.rightsHolder`}>{media.rightsHolder}</BasicField>
         )}
         {media.license && (
-          <BasicField label={`occurrenceFieldNames.license`}>{media.license}</BasicField>
+          <BasicField label={`occurrenceFieldNames.license`}>
+            <LicenseValue license={media.license} />
+          </BasicField>
         )}
         {media.created && (
           <BasicField label={`occurrenceFieldNames.created`}>{media.created}</BasicField>
@@ -256,4 +258,33 @@ function Caption({
       </Properties>
     </figcaption>
   );
+}
+
+function LicenseValue({ license }: { license: string }) {
+  // Check if it's an enum key (e.g. CC_BY_4_0)
+  const enumUrl = licenseMap[license];
+  if (enumUrl)
+    return (
+      <a href={enumUrl} className="g-underline">
+        {license}
+      </a>
+    );
+
+  // Check if the value itself is a known license URL (http/https, with or without /legalcode)
+  const normalize = (u: string) =>
+    u.replace(/^https?:\/\//, '').replace(/\/legalcode$/, '').replace(/\/$/, '');
+  const matchedEnumKey = Object.entries(licenseMap).find(
+    ([, url]) => normalize(license) === normalize(url)
+  )?.[0];
+  if (matchedEnumKey)
+    return (
+      <a href={license} className="g-underline">
+        <FormattedMessage
+          id={`enums.license.${matchedEnumKey}`}
+          defaultMessage={matchedEnumKey}
+        />
+      </a>
+    );
+
+  return <>{license}</>;
 }
