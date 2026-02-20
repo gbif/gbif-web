@@ -1,9 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { cn } from '@/utils/shadcn';
 import React, { useContext, useMemo } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 import { FilterBar, FilterButtons } from './filterTools';
 import { MobileFilters } from './mobileFilters';
 import { Filters } from './filterTools';
@@ -44,14 +46,20 @@ export function FilterBarWithActions({
           <MobileFilters className="sm:g-hidden" filters={filters} groups={groups} />
         )}
         {additionalActions}
-        <Button
-          size="sm"
-          variant="ghost"
-          className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
-          onClick={() => filterContext?.setFilter({})}
+        <SimpleTooltip
+          delayDuration={300}
+          title={<FormattedMessage id="filterSupport.clear" />}
+          asChild
         >
-          <MdDeleteOutline className="g-text-base" />
-        </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
+            onClick={() => filterContext?.setFilter({})}
+          >
+            <MdDeleteOutline className="g-text-base" />
+          </Button>
+        </SimpleTooltip>
       </div>
     </FilterBar>
   );
