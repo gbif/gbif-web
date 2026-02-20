@@ -6,7 +6,7 @@ import { ArticleIntro } from '../../components/articleIntro';
 import { ArticlePreTitle } from '../../components/articlePreTitle';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { ArticleTitle } from '../../components/articleTitle';
-import { BlockContainer } from './_shared';
+import { BlockContainer, getAnchorId } from './_shared';
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
 import { DynamicLink } from '@/reactRouterPlugins';
 
@@ -30,7 +30,7 @@ type Props = {
 
 export function HeaderBlock({ resource, resourceType, resourceLink }: Props) {
   return (
-    <BlockContainer>
+    <BlockContainer id={getAnchorId(resource.title)}>
       <ArticleTextContainer>
         {resourceType && (
           <ArticlePreTitle clickable={!!resourceLink}>

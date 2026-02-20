@@ -6,7 +6,7 @@ import { ArticleBody } from '../../components/articleBody';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { redirectMapper } from '../../createResourceLoaderWithRedirect';
 import { ProseCard } from '../proseCard';
-import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { backgroundColorMap, BlockContainer, BlockHeading, getAnchorId } from './_shared';
 import { HyperText } from '@/components/hyperText';
 import { MdCalendarMonth } from 'react-icons/md';
 import { EventDateRange, EventTimeRange } from '../../event/event';
@@ -68,7 +68,7 @@ export function FeatureBlock({ resource }: Props) {
   const maxPerRow = resource.maxPerRow ?? 4;
 
   return (
-    <BlockContainer className={backgroundColor}>
+    <BlockContainer className={backgroundColor} id={getAnchorId(resource.title)}>
       {!resource.hideTitle && resource.title && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
       )}

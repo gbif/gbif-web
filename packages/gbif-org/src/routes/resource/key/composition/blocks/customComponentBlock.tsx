@@ -1,6 +1,6 @@
 import { CustomComponentBlockDetailsFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
-import { backgroundColorMap, BlockContainer } from './_shared';
+import { backgroundColorMap, BlockContainer, getAnchorId } from './_shared';
 import { AmbassadorsList } from './customComponents/ambassadorsList';
 import { EbbeWinnersTable } from './customComponents/ebbeWinnersList';
 import { GraList } from './customComponents/graList';
@@ -42,7 +42,10 @@ export function CustomComponentBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[mofitiedResource?.backgroundColour ?? 'white'];
   const width = widthMap[mofitiedResource?.width ?? 'normal'];
   return (
-    <BlockContainer className={`${backgroundColor} g-border-t g-border-slate-100 g-p-0`}>
+    <BlockContainer
+      id={getAnchorId(resource.title)}
+      className={`${backgroundColor} g-border-t g-border-slate-100 g-p-0`}
+    >
       {/* <ArticleTextContainer> */}
       <div className={width}>
         <CustomComponent resource={mofitiedResource} />

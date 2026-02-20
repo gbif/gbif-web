@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { ArticleBody } from '../../components/articleBody';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { BlockItem } from '../blockItem';
-import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { backgroundColorMap, BlockContainer, BlockHeading, getAnchorId } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -59,7 +59,10 @@ export function CarouselBlock({ resource }: Props) {
   }, [api]);
 
   return (
-    <BlockContainer className={cn(backgroundColor, 'g-p-4 md:g-p-8')}>
+    <BlockContainer
+      id={getAnchorId(resource.title)}
+      className={cn(backgroundColor, 'g-p-4 md:g-p-8')}
+    >
       {resource.title && (
         <BlockHeading
           className="g-pl-4 md:g-pl-0"
