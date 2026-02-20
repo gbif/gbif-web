@@ -34,6 +34,22 @@ export function Endorsment({ suggestedNodeCountry, participant, setParticipant }
     if (participant?.id) updateSuggestedNonCountryNode(participant?.id);
   }, [participant?.id, updateSuggestedNonCountryNode]);
 
+  // Auto-select the endorsing node when a participant is chosen from the dropdown
+  useEffect(() => {
+    if (suggestedNonCountryNode?.key) {
+      form.setValue('endorsingNode', suggestedNonCountryNode.key);
+    }
+  }, [suggestedNonCountryNode?.key, form]);
+
+  // Auto-select the endorsing node based on country membership status
+  useEffect(() => {
+    if (suggestedNodeCountry) {
+      form.setValue('endorsingNode', suggestedNodeCountry.key);
+    } else {
+      form.setValue('endorsingNode', 'other');
+    }
+  }, [suggestedNodeCountry, form]);
+
   return (
     <>
       <p className="g-pb-2 g-text-sm">
@@ -91,10 +107,12 @@ export function Endorsment({ suggestedNodeCountry, participant, setParticipant }
                 <RadioItem
                   value={config.hardcodedKeys.OBISKey}
                   label={
-                    <FormattedMessage
-                      id="eoi.marineDataPublishers"
-                      defaultMessage="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
-                    />
+                    <span className="g-text-xs g-text-gray-500">
+                      <FormattedMessage
+                        id="eoi.marineDataPublishers"
+                        defaultMessage="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
+                      />
+                    </span>
                   }
                 />
               </RadioGroup>
@@ -104,19 +122,21 @@ export function Endorsment({ suggestedNodeCountry, participant, setParticipant }
         )}
       />
 
-      <p className="g-pb-2 g-pt-4 g-text-sm">
-        <FormattedMessage
-          id="eoi.orSelectAnotherAssOrg"
-          defaultMessage="If endorsement through the country node suggested above is not the right option, please
-        check this list of associated participants for multinational or thematic networks:"
-        />
-      </p>
-
-      <MemoParticipantSelect
-        selected={participant}
-        onChange={setParticipant}
-        filters={PARTICIPANT_SELECT_FILTERS}
-      />
+      <details className="g-pt-4">
+        <summary className="g-cursor-pointer g-text-xs g-text-gray-500">
+          <FormattedMessage
+            id="eoi.cantFindRightOption"
+            defaultMessage="Can't find the right option? Select from other associated participants"
+          />
+        </summary>
+        <div className="g-pt-2">
+          <MemoParticipantSelect
+            selected={participant}
+            onChange={setParticipant}
+            filters={PARTICIPANT_SELECT_FILTERS}
+          />
+        </div>
+      </details>
     </>
   );
 }
