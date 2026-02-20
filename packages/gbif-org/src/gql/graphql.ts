@@ -1069,6 +1069,7 @@ export type CollectionSearchInput = {
   identifier?: InputMaybe<Array<Scalars['String']['input']>>;
   institutionKey?: InputMaybe<Array<Scalars['GUID']['input']>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
+  machineTagNamespace?: InputMaybe<Array<Scalars['String']['input']>>;
   name?: InputMaybe<Array<Scalars['String']['input']>>;
   numberSpecimens?: InputMaybe<Array<Scalars['String']['input']>>;
   objectClassification?: InputMaybe<Array<Scalars['String']['input']>>;
@@ -3779,6 +3780,7 @@ export type InstitutionSearchInput = {
   identifier?: InputMaybe<Scalars['String']['input']>;
   institutionKey?: InputMaybe<Array<Scalars['GUID']['input']>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
+  machineTagNamespace?: InputMaybe<Array<Scalars['String']['input']>>;
   name?: InputMaybe<Array<Scalars['String']['input']>>;
   numberSpecimens?: InputMaybe<Array<Scalars['String']['input']>>;
   occurrenceCount?: InputMaybe<Array<Scalars['String']['input']>>;
