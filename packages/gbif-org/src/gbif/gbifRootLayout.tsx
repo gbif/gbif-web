@@ -64,6 +64,16 @@ const redirectTools = (data) => {
 
 const LayoutInner = React.memo(
   ({ children, data }: { children: React.ReactNode; data: HeaderQuery }) => {
+    React.useEffect(() => {
+      const hash = window.location.hash;
+      if (!hash) return;
+      // Allow React to finish hydration paint before scrolling
+      requestAnimationFrame(() => {
+        const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+        el?.scrollIntoView();
+      });
+    }, []);
+
     return (
       <UserProvider>
         <div className="g-flex g-flex-col g-min-h-[100dvh]">
