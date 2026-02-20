@@ -55,7 +55,12 @@ export function DatasetResult({
               </DynamicLink>
             </h3>
             {dataset.excerpt && (
-              <p className="g-font-normal g-text-slate-700 g-text-sm g-break-words">
+              <p
+                className="g-font-normal g-text-slate-700 g-text-sm"
+                style={{
+                  overflowWrap: 'anywhere',
+                }}
+              >
                 {dataset.excerpt}
               </p>
             )}
