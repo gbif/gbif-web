@@ -1,4 +1,5 @@
 import { FormattedMessage } from 'react-intl';
+import { Message } from '@/components/message';
 import { TextField } from '../becomeAPublisherForm';
 export function OrganizationDetails() {
   return (
@@ -58,9 +59,9 @@ export function OrganizationDetails() {
         textarea
         descriptionPosition="above"
         description={
-          <FormattedMessage
+          <Message
             id="eoi.brieflyDescribeScope"
-            defaultMessage="In English, please briefly describe the scope of your institution/organization in relation to GBIF's mission (e.g. collection holdings, research focus, biodiversity information management, etc.). This description will appear on your publisher page."
+            defaultMessage="In *English*, please briefly describe the scope of your institution/organization in relation to GBIF's mission (e.g. collection holdings, research focus, biodiversity information management, etc.). This description will appear on your publisher page."
           />
         }
       />
