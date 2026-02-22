@@ -25,6 +25,7 @@ import country from '@/enums/basic/country.json';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
 import { useIntParam } from '@/hooks/useParam';
 import useQuery, { QueryError } from '@/hooks/useQuery';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -146,6 +147,10 @@ export function PublisherSearch(): React.ReactElement {
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset, filterHash, load]);
+
+  useUpdateEffect(() => {
+    window.scrollTo(0, 0);
+  }, [filterHash, offset]);
 
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
@@ -299,7 +304,7 @@ function Results({
       )}
       {publishers && publishers.count > 0 && (
         <>
-          <SideBarWrapper sidebar={<span></span>}>
+          <SideBarWrapper sidebar={sidebarContent}>
             <CardHeader id="publishers">
               <CardTitle>
                 <FormattedMessage
@@ -308,8 +313,6 @@ function Results({
                 />
               </CardTitle>
             </CardHeader>
-          </SideBarWrapper>
-          <SideBarWrapper sidebar={sidebarContent}>
             {publishers &&
               publishers.results
                 .slice(0, 2)
