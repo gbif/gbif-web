@@ -18,19 +18,39 @@ import { useConfig } from '@/config/config';
 import SearchTrigger from './SearchTrigger';
 import { cn } from '@/utils/shadcn';
 import useQuery from '@/hooks/useQuery';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useNavOverflow } from '@/hooks/useNavOverflow';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const rightSideRef = useRef<HTMLDivElement>(null);
+  const { isOverflowing, hasMeasured } = useNavOverflow(containerRef, contentRef, rightSideRef);
+
+  // Before JS measurement, fall back to CSS `lg:` breakpoint classes (same as before).
+  // After measurement, use the JS boolean to toggle visibility.
+  const showMobile = hasMeasured ? isOverflowing : undefined;
+
   return (
     <Container>
       <div className="g-flex-none">
         <Logo />
       </div>
-      <div className="g-flex-auto">
-        <MainNavigation menu={menu} />
+      <div className="g-flex-auto g-min-w-0" ref={containerRef}>
+        <div
+          className={cn('g-w-max', {
+            'g-hidden lg:g-block': showMobile === undefined,
+            'g-h-0 g-overflow-hidden g-pointer-events-none': showMobile === true,
+            'g-block': showMobile === false,
+          })}
+          aria-hidden={showMobile === undefined ? undefined : showMobile || undefined}
+          ref={contentRef}
+        >
+          <MainNavigation menu={menu} />
+        </div>
       </div>
-      <div className="g-flex-none g-flex">
+      <div className="g-flex-none g-flex" ref={rightSideRef}>
         <SearchTrigger />
         <LanguageSelector
           trigger={
@@ -51,10 +71,24 @@ export function Header({ menu }: { menu: HeaderQuery }) {
           }
         />
         <StatusIndicator />
-        <div className="g-inline-block lg:g-hidden">
+        <div
+          className={cn({
+            'g-inline-block lg:g-hidden': showMobile === undefined,
+            'g-inline-block': showMobile === true,
+            'g-hidden': showMobile === false,
+          })}
+        >
           <MobileMenu menu={menu} />
         </div>
-        <ProfileOrLogin />
+        <div
+          className={cn({
+            'lg:g-inline-block g-hidden': showMobile === undefined,
+            'g-hidden': showMobile === true,
+            'g-inline-block': showMobile === false,
+          })}
+        >
+          <ProfileOrLogin />
+        </div>
       </div>
     </Container>
   );
@@ -152,7 +186,7 @@ function ProfileOrLogin() {
 
   if (isLoggedIn && user) {
     return (
-      <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
+      <Button asChild className="g-text-sm" variant="outline">
         <Link to="/user/profile">{user.userName}</Link>
       </Button>
     );
@@ -166,7 +200,7 @@ function LoginButton() {
   const returnUrl = encodeURIComponent(`${pathname}${search}`);
 
   return (
-    <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
+    <Button asChild className="g-text-sm" variant="outline">
       <Link to={`/user/login?returnUrl=${returnUrl}`}>
         <FormattedMessage id="profile.loginText" defaultMessage="Login" />
       </Link>
