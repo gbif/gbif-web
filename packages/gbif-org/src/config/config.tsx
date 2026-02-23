@@ -81,6 +81,7 @@ export type Config = Endpoints & {
   defaultTitle?: string;
   languages: LanguageOption[];
   pages?: PageConfig[];
+  excludedPages?: string[];
   theme?: Partial<Theme>;
   baseUrl: string; // e.g. 'https://www.gbif.org'
   // OpenGraph only works on server side rendered pages. So gbif.org.
