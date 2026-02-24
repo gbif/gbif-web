@@ -13,7 +13,7 @@
       "comments": "コメント",
       "commentsPlaceholder": "データ利用した出版物/成果物のタイトル/名前",
       "submit": "送信",
-      "saveFailure": "出版物（または類似のもの）でのオカレンスデータ使用についてGBIFに通知する",
+      "saveFailure": "",
       "saveSuccess": "データ利用した出版物/成果物のタイトル/名前"
     },
     "types": {
