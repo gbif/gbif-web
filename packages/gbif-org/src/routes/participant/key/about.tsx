@@ -28,7 +28,8 @@ import useQuery from '@/hooks/useQuery';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { PublisherResult } from '@/routes/publisher/publisherResult';
 import { useEffect, useState } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { YearDate } from '@/components/dateFormats';
 import { Link } from 'react-router-dom';
 import { useParticipantKeyLoaderData } from '.';
 import { cn } from '@/utils/shadcn';
@@ -303,7 +304,7 @@ export function ParticipantNodeDescription({
             <Property
               labelId="participant.gbifParticipantSince"
               value={participant?.membershipStart}
-              formatter={(v) => <FormattedDate value={v} year="numeric" />}
+              formatter={(v) => <YearDate value={v} />}
             />
             <Property
               labelId="participant.gbifRegion"
@@ -334,7 +335,7 @@ export function ParticipantNodeDescription({
             <Property
               labelId="participant.nodeEstablished"
               value={participant?.nodeEstablishmentDate}
-              formatter={(v) => <FormattedDate value={v} year="numeric" />}
+              formatter={(v) => <YearDate value={v} />}
             />
             {participantNodeManager && (
               <Property

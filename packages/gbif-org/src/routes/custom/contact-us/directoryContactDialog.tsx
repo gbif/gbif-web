@@ -7,7 +7,8 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { notNull } from '@/utils/notNull';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useEffect, useMemo } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { MediumDate } from '@/components/dateFormats';
 import { MdLocationOn, MdPerson } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
 
@@ -186,12 +187,7 @@ export function DirectoryContactDialogContent({ personId }: Props) {
                             id="directory.sinceDate"
                             values={{
                               DATE: (
-                                <FormattedDate
-                                  value={role.termStart}
-                                  year="numeric"
-                                  month="long"
-                                  day="numeric"
-                                />
+                                <MediumDate value={role.termStart} />
                               ),
                             }}
                           />

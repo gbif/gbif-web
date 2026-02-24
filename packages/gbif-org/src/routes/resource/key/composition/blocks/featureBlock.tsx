@@ -115,13 +115,13 @@ export function FeatureBlock({ resource }: Props) {
             const endDate = feature.end ? new Date(feature.end) : undefined;
             description = (
               <>
-                <div className="g-flex g-items-start g-gap-2">
+                <div className="g-flex g-items-center g-gap-2">
                   <MdCalendarMonth />
                   <EventDateRange start={startDate} end={endDate} />
                 </div>
 
                 {!allDayEvent && (
-                  <div className="g-flex g-items-start g-gap-2">
+                  <div className="g-flex g-items-center g-gap-2">
                     <LuClock4 />
                     <EventTimeRange start={startDate} end={endDate} />
                   </div>

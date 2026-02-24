@@ -1,4 +1,4 @@
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { longDateFormatProps } from '@/components/dateFormats';
 import { HyperText } from '@/components/hyperText';
 import { JazzIcon } from '@/components/JazzIcon';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -29,7 +29,7 @@ export function DeletionNotice({
 
   const downloadDeletionWarning = formatMessage(
     { id: 'downloadKey.downloadDeletionWarning' },
-    { DATE: formatDate(download.eraseAfter, defaultDateFormatProps) }
+    { DATE: formatDate(download.eraseAfter, longDateFormatProps) }
   );
 
   const content = (

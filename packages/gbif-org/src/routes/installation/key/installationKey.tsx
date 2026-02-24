@@ -1,10 +1,10 @@
 import { DataHeader } from '@/components/dataHeader';
 import {
-  defaultDateFormatProps,
   DeletedMessage,
   HeaderInfo,
   HeaderInfoMain,
 } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { NotFoundError } from '@/errors';
@@ -19,7 +19,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
@@ -114,12 +114,7 @@ export function InstallationPage() {
               <FormattedMessage
                 id="dataset.registeredDate"
                 values={{
-                  DATE: (
-                    <FormattedDate
-                      value={installation.created ?? undefined}
-                      {...defaultDateFormatProps}
-                    />
-                  ),
+                  DATE: <LongDate value={installation.created ?? undefined} />,
                 }}
               />
             }

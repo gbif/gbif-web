@@ -1,9 +1,9 @@
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import { Card } from '@/components/ui/largeCard';
 import { ValidationResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ValidationResult on Validation {
@@ -38,7 +38,7 @@ export function ValidationResult({ validation }: ValidationResultProps) {
               <div>
                 <FormattedMessage id="downloadKey.created" />:{' '}
                 {validation.created ? (
-                  <FormattedDate value={validation?.created} {...defaultDateFormatProps} />
+                  <LongDate value={validation?.created} />
                 ) : (
                   <FormattedMessage id="phrases.unknownDate" />
                 )}

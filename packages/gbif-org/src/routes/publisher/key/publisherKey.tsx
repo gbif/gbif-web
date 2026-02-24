@@ -1,11 +1,11 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorMessage } from '@/components/errorMessage';
 import {
-  defaultDateFormatProps,
   DeletedMessage,
   HeaderInfo,
   HeaderInfoMain,
 } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import {
   CitationIcon,
   FeatureList,
@@ -33,7 +33,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
@@ -205,12 +205,7 @@ export function PublisherPage() {
               <FormattedMessage
                 id="publisher.header.sinceDate"
                 values={{
-                  DATE: (
-                    <FormattedDate
-                      value={publisher.created ?? undefined}
-                      {...defaultDateFormatProps}
-                    />
-                  ),
+                  DATE: <LongDate value={publisher.created ?? undefined} />,
                 }}
               />
             }

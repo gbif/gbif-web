@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useState } from 'react';
 import { MdLink } from 'react-icons/md';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { LongDate } from '@/components/dateFormats';
 
 export function Registration({ dataset = {}, ...props }) {
   const {
@@ -49,7 +50,7 @@ export function Registration({ dataset = {}, ...props }) {
               <FormattedMessage id="dataset.registry.registrationDate" />
             </T>
             <V>
-              <FormattedDate value={created} year="numeric" month="long" day="2-digit" />
+              <LongDate value={created} />
             </V>
           </>
         )}
@@ -60,7 +61,7 @@ export function Registration({ dataset = {}, ...props }) {
               <FormattedMessage id="dataset.registry.metdataLastModified" />
             </T>
             <V>
-              <FormattedDate value={modified} year="numeric" month="long" day="2-digit" />
+              <LongDate value={modified} />
             </V>
           </>
         )}
@@ -71,7 +72,7 @@ export function Registration({ dataset = {}, ...props }) {
               <FormattedMessage id="dataset.registry.pubDate" />
             </T>
             <V>
-              <FormattedDate value={pubDate} year="numeric" month="long" day="2-digit" />
+              <LongDate value={pubDate} />
             </V>
           </>
         )}

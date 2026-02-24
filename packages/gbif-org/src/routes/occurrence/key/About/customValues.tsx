@@ -10,7 +10,8 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { LongDate } from '@/components/dateFormats';
 import { BasicField, Field } from '../properties';
 import { useConfig } from '@/config/config';
 import { truncate } from '@/utils/truncate';
@@ -270,22 +271,12 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
         <h4 className="g-m-0 g-mb-1">{person?.name?.value}</h4>
         {person?.birthDate?.value && (
           <div className="g-mb-1">
-            <FormattedDate
-              value={person?.birthDate?.value}
-              year="numeric"
-              month="long"
-              day="2-digit"
-            />
+            <LongDate value={person?.birthDate?.value} />
             {person?.deathDate?.value && (
               <span>
                 {' '}
                 -{' '}
-                <FormattedDate
-                  value={person?.deathDate?.value}
-                  year="numeric"
-                  month="long"
-                  day="2-digit"
-                />
+                <LongDate value={person?.deathDate?.value} />
               </span>
             )}
           </div>

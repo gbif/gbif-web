@@ -6,7 +6,8 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
-import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { MediumDate } from '@/components/dateFormats';
 
 type ColumnKey =
   | 'image'
@@ -160,17 +161,13 @@ function TableCell({ project, columnKey }: { project: Project; columnKey: Column
     case 'start':
       return (
         <td className="g-min-w-[200px] g-max-w-[400px] g-px-4 g-py-2">
-          {project.start && (
-            <FormattedDate value={project.start} year="numeric" month="short" day="2-digit" />
-          )}
+          {project.start && <MediumDate value={project.start} />}
         </td>
       );
     case 'end':
       return (
         <td className="g-min-w-[200px] g-max-w-[400px] g-px-4 g-py-2">
-          {project.end && (
-            <FormattedDate value={project.end} year="numeric" month="short" day="2-digit" />
-          )}
+          {project.end && <MediumDate value={project.end} />}
         </td>
       );
     case 'fundsAllocated':

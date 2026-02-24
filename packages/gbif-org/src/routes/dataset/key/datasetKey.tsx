@@ -2,12 +2,12 @@ import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { PublisherLabel } from '@/components/filters/displayNames';
 import {
-  defaultDateFormatProps,
   DeletedMessage,
   HeaderInfo,
   HeaderInfoEdit,
   HeaderInfoMain,
 } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
 import PageMetaData from '@/components/PageMetaData';
@@ -33,7 +33,7 @@ import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootEr
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
 import { createContext, useEffect, useMemo } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
@@ -510,12 +510,7 @@ export function DatasetPage() {
                 <FormattedMessage
                   id="dataset.registeredDate"
                   values={{
-                    DATE: (
-                      <FormattedDate
-                        value={dataset.created ?? undefined}
-                        {...defaultDateFormatProps}
-                      />
-                    ),
+                    DATE: <LongDate value={dataset.created ?? undefined} />,
                   }}
                 />
               }

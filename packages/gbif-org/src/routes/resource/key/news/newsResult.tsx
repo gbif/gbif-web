@@ -2,7 +2,8 @@ import { ResultCard } from '@/components/resultCards/index';
 import { NewsResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarToday } from 'react-icons/md';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { MediumDate } from '@/components/dateFormats';
 
 fragmentManager.register(/* GraphQL */ `
   fragment NewsResult on News {
@@ -32,7 +33,7 @@ export function NewsResult({ news, className }: Props) {
           {news.excerpt}
           <ResultCard.Metadata className="g-flex g-items-center">
             <MdCalendarToday className="g-me-2" /> <FormattedMessage id="cms.resource.published" />{' '}
-            <FormattedDate value={news.createdAt} year="numeric" month="short" day="numeric" />
+            <MediumDate value={news.createdAt} />
           </ResultCard.Metadata>
         </ResultCard.Content>
         {news.primaryImage && (
