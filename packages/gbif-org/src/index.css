@@ -977,3 +977,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   font-weight: bold !important;
   color: #000;
 }
+
+/* Strip MapLibre native popup chrome when using shared MapPopup component */
+.gbif-map-popup-bare .maplibregl-popup-content {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+.gbif-map-popup-bare .maplibregl-popup-tip {
+  display: none;
+}

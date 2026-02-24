@@ -12,7 +12,7 @@ export function Map({
   geojsonLoading: boolean;
   geojsonError: boolean;
   className?: string;
-  PopupContent: React.FC<{ feature: GeoJSON.Feature }>;
+  PopupContent: React.FC<{ features: Record<string, any>[] }>;
 }) {
   return (
     <Card className="g-mb-4">
