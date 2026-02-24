@@ -1,5 +1,6 @@
 import { cn } from '@/utils/shadcn';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
+import { slugify } from '@/utils/slugify';
 
 export const backgroundColorMap: Record<string, string> = {
   white: 'g-bg-white',
@@ -12,9 +13,10 @@ type BlockContainerProps = {
   children: React.ReactNode;
   className?: string;
   backgroundImage?: string;
+  id?: string;
 };
 
-export function BlockContainer({ className, children, backgroundImage }: BlockContainerProps) {
+export function BlockContainer({ className, children, backgroundImage, id }: BlockContainerProps) {
   const backgroundStyle: React.CSSProperties | undefined = backgroundImage
     ? {
         backgroundImage: `url(${backgroundImage})`,
@@ -27,6 +29,7 @@ export function BlockContainer({ className, children, backgroundImage }: BlockCo
     <div
       style={backgroundStyle}
       className={cn('g-p-8 dark:g-bg-zinc-900 dark:g-text-slate-200 g-overflow-hidden', className)}
+      id={id}
     >
       {children}
     </div>
@@ -76,4 +79,8 @@ export function MediaBlockImage({ src, alt, title, description, className }: Med
       </figure>
     </div>
   );
+}
+
+export function getAnchorId(title?: string | null) {
+  return !title ? undefined : `_${slugify(title)}`;
 }

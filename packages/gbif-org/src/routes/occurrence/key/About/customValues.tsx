@@ -155,8 +155,10 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
       </T>
       <V>
         {localContexts.map((localContext) => {
-          const { project_page, title, description } = localContext;
-          const items = (localContext?.notes ?? [])?.filter((c) => c && c.name && c.img_url);
+          const { project_page, title, communityName } = localContext;
+          const notices = (localContext?.notice ?? [])?.filter((n) => n && n.name && n.img_url);
+          const labels = (localContext?.labels ?? [])?.filter((l) => l && l.name && l.img_url);
+
           return (
             <div key={project_page}>
               <h5 className="g-flex g-items-center g-gap-1">
@@ -169,39 +171,49 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                   {title}
                 </a>
               </h5>
-              {description && (
-                <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                  {truncate(description, 150)}
-                </div>
-              )}
-              {items.length > 0 && (
-                <ul>
-                  {items.map((item, i) => (
-                    <li className="g-flex g-items-start g-mb-2" key={`${item.name}-${i}`}>
+              {notices.length > 0 && (
+                <ul className="g-pt-2">
+                  {notices.map((notice, i) => (
+                    <li className="g-flex g-items-center g-mb-2" key={`${notice.name}-${i}`}>
                       <img
-                        className="g-flex-none g-me-2 g-w-6"
-                        src={item.img_url}
-                        alt={item.name}
-                        title={item.name}
+                        className="g-me-2 g-w-6"
+                        src={notice.img_url}
+                        alt={notice.name}
+                        title={notice.name}
                       />
-                      <div className="g-flex-auto">
-                        <a
-                          href={item.pageUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="g-underline g-text-inherit"
-                        >
-                          {item.name}
-                        </a>
-                        {item.description && (
-                          <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                            {truncate(item.description, 140)}
-                          </div>
-                        )}
-                      </div>
+                      <p className="g-text-sm">{notice.name}</p>
                     </li>
                   ))}
                 </ul>
+              )}
+              {labels.length > 0 && (
+                <>
+                  {communityName && (
+                    <p className="g-mt-2 g-text-sm g-text-slate-600">
+                      <FormattedMessage
+                        id="dataset.localContextsLabelsAppliedBy"
+                        defaultMessage="{count, plural, one{Label} other{Labels}} applied by {communityName}"
+                        values={{
+                          count: labels.length,
+                          communityName: communityName,
+                        }}
+                      />
+                    </p>
+                  )}
+                  <ul className="g-pt-2">
+                    {labels.map((label, i) => (
+                      <li className="g-flex g-items-center g-mb-2" key={`${label.name}-${i}`}>
+                        <img
+                          className="g-me-2 g-w-6"
+                          src={label.img_url}
+                          alt={label.name}
+                          title={label.name}
+                        />
+                        <p className="g-text-sm">{label.name}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
             </div>
           );

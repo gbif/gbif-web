@@ -64,6 +64,30 @@ const redirectTools = (data) => {
 
 const LayoutInner = React.memo(
   ({ children, data }: { children: React.ReactNode; data: HeaderQuery }) => {
+    React.useEffect(() => {
+      const hash = window.location.hash;
+      if (!hash) return;
+
+      const id = decodeURIComponent(hash.slice(1));
+      let attempts = 0;
+
+      // The target element may not be in the DOM yet if content is still loading
+      // from route loaders. Poll until it appears or we give up.
+      function tryScroll() {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView();
+          return;
+        }
+        if (++attempts < 10) {
+          setTimeout(tryScroll, 100);
+        }
+      }
+
+      // Start after a frame so React can finish the initial hydration paint
+      requestAnimationFrame(tryScroll);
+    }, []);
+
     return (
       <UserProvider>
         <div className="g-flex g-flex-col g-min-h-[100dvh]">

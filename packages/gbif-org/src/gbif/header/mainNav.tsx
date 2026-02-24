@@ -17,11 +17,10 @@ export default memo(MainNavigation) as typeof MainNavigation;
 function MainNavigation({ menu }: { menu: HeaderQuery }) {
   const [value, setValue] = React.useState('');
   const children = menu?.gbifHome?.children;
+
   return (
-    <>
-      <div className="g-hidden lg:g-block">
-        <NavigationMenu value={value} onValueChange={setValue} className="g-z-30">
-          <NavigationMenuList>
+    <NavigationMenu value={value} onValueChange={setValue} className="g-z-30">
+      <NavigationMenuList>
             {children?.map((parent) => {
               const groups = parent?.children?.[0].children ? parent?.children?.length : 1;
               const widthLookup: { [key: number]: string } = {
@@ -129,10 +128,8 @@ function MainNavigation({ menu }: { menu: HeaderQuery }) {
                   </ul>
               </NavigationMenuContent>
             </NavigationMenuItem> */}
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
-    </>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
 

@@ -3,7 +3,7 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import { useCountryKeyLoaderData } from '.';
+import { isParticipant, useCountryKeyLoaderData } from '.';
 import { Contacts } from './components/contacts';
 import { DataAboutCountryMap } from './components/dataAboutCountryMap';
 import { DataFromCountryMap } from './components/dataFromCountryMap';
@@ -23,7 +23,7 @@ export function CountryKeySummary() {
 
         <DataFromCountryMap countryCode={countryCode} />
 
-        {data?.nodeCountry?.participant?.participationStatus === 'VOTING' && (
+        {isParticipant(data?.nodeCountry?.participant?.participationStatus) && (
           <>
             <section>
               <Card>

@@ -70,13 +70,12 @@ const Schema = z.object({
         message: '#eoi.validationError.pleaseSelectTheCountryOfYourOrganization',
       }),
     }),
-    coordinates: z.object(
-      {
+    coordinates: z
+      .object({
         lat: z.number(),
         lon: z.number(),
-      },
-      { errorMap: () => ({ message: '#eoi.validationError.pleaseSelectYourOrganizationOnTheMap' }) }
-    ),
+      })
+      .optional(),
   }),
   endorsingNode: z.string({
     errorMap: () => ({ message: '#validation.pleaseSelectAValue' }),

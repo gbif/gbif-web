@@ -38,8 +38,8 @@ export async function createPublisher(dto: CreatePublisherDTO) {
     postalCode: dto.organizationAddress.postalCode,
     province: dto.organizationAddress.province,
     country: dto.organizationAddress.country,
-    latitude: dto.organizationAddress.coordinates.lat,
-    longitude: dto.organizationAddress.coordinates.lon,
+    latitude: dto.organizationAddress.coordinates?.lat,
+    longitude: dto.organizationAddress.coordinates?.lon,
     contacts: [dto.mainContact, dto.administrativeContact, dto.technicalContact]
       .filter(notNull)
       .map((contact) => ({

@@ -1,4 +1,3 @@
-import { BulletList } from '@/components/bulletList';
 import { DoiTag } from '@/components/identifierTag';
 import { ColumnDef } from '@/components/searchTable';
 import { SetAsFilter } from '@/components/searchTable/components/body/setAsFilter';
@@ -189,7 +188,7 @@ function Dois({ gbifDOIs }: { gbifDOIs?: string[] | null }) {
   return (
     <>
       {Array.isArray(gbifDOIs) && gbifDOIs.length > 0 && (
-        <BulletList className="g-break-words g-mt-1 g-flex g-items-center g-gap-1 g-text-xs g-flex-wrap">
+        <ul className="g-break-words g-mt-1 g-flex g-items-center g-gap-1 g-text-xs g-flex-wrap">
           {gbifDOIs.slice(0, DOI_CAP).map((doi) => (
             <li key={doi}>
               <DoiTag id={doi} className="g-text-xs g-pointer-events-auto" />
@@ -212,7 +211,7 @@ function Dois({ gbifDOIs }: { gbifDOIs?: string[] | null }) {
                 ))}
             </>
           )}
-        </BulletList>
+        </ul>
       )}
     </>
   );

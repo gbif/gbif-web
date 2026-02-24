@@ -41,6 +41,7 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
+  // distributions, related, verbatim
   async getTaxonDetails({ resource, key, query }) {
     const response = await this.get(
       `/species/${key}/${resource}`,
@@ -94,6 +95,10 @@ class TaxonAPI extends QueuedRESTDataSource {
       `${this.config.apiv2}/species/match/metadata?`,
       stringify({ checklistKey }, { indices: false }),
     );
+  }
+
+  async getChecklistBankDataset({ clbDatasetKey }) {
+    return this.get(`${this.config.checklistBank}/dataset/${clbDatasetKey}`);
   }
 
   async getSpeciesMatchByUsageKey({

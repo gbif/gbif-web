@@ -13,10 +13,11 @@ export function applyPagePathsPlugin(
   // If the routes that are being processed are part of a standalone page they should not be filtered and overwriten
   // A hosted portal could disable a single dataset page, but still show the standalone dataset page in a drawer
   const customPages = structuredClone(config.pages);
+  const excludedPages = config.excludedPages;
 
   const pages: PageConfig[] = [];
   // following line push items to pages array
-  const modifiedRoutes = addPaths(routes, pages, customPages);
+  const modifiedRoutes = addPaths(routes, pages, customPages, excludedPages);
 
   return [
     {
@@ -36,11 +37,23 @@ export function applyPagePathsPlugin(
 function addPaths(
   routes: RouteObjectWithPlugins[],
   pages: PageConfig[],
-  customPages?: PageConfig[]
+  customPages?: PageConfig[],
+  excludedPages?: string[]
 ): RouteObjectWithPlugins[] {
   const filteredRoutes = routes
     .map((route) => {
       const routeCopy = { ...route };
+
+      // if the route is in the excludedPages list, remove it and add redirect info
+      if (excludedPages && route.id && excludedPages.includes(route.id)) {
+        pages.push({
+          id: routeCopy.id!,
+          path: routeCopy.path,
+          redirect: true,
+          gbifRedirect: routeCopy.gbifRedirect,
+        });
+        return null;
+      }
 
       // if a pages array is enabled, then only some pages are enabled and som ecan be on custom paths or have custom implementations
       if (customPages && route.id) {
@@ -77,7 +90,7 @@ function addPaths(
       }
 
       if (route.children) {
-        routeCopy.children = addPaths(route.children, pages, customPages);
+        routeCopy.children = addPaths(route.children, pages, customPages, excludedPages);
       }
 
       return routeCopy;
@@ -91,7 +104,7 @@ function addPaths(
 export function getStandalonePageContext(config: Config, routes: RouteObjectWithPlugins[]) {
   const pages: PageConfig[] = [];
   // following line push items to pages array
-  addPaths(routes, pages, structuredClone(config.pages));
+  addPaths(routes, pages, structuredClone(config.pages), config.excludedPages);
 
   return pages.map((page) => ({ ...page, isCustom: true }));
 }

@@ -1,7 +1,6 @@
 import { DynamicLink } from '@/reactRouterPlugins';
-import { FaFacebookF, FaLinkedinIn, FaMastodon, FaYoutube } from 'react-icons/fa';
+import { FaFacebookF, FaLinkedinIn, FaMastodon } from 'react-icons/fa';
 import { FaBluesky } from 'react-icons/fa6';
-import { FiInstagram } from 'react-icons/fi';
 import { IoLogoVimeo } from 'react-icons/io5';
 import { FormattedMessage } from 'react-intl';
 import gbifLogoUrl from './full-gbif-logo-white.svg';
@@ -84,10 +83,26 @@ export function Footer() {
         <ul className="g-flex g-w-full g-justify-center g-items-center g-gap-5 g-flex-wrap">
           <li>
             <a
+              href="https://www.linkedin.com/company/gbif"
+              className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
+            >
+              <FaLinkedinIn />
+            </a>
+          </li>
+          <li>
+            <a
               href="https://www.facebook.com/gbifnews"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
               <FaFacebookF />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://bsky.app/profile/gbif.org"
+              className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
+            >
+              <FaBluesky />
             </a>
           </li>
           <li>
@@ -101,42 +116,10 @@ export function Footer() {
           </li>
           <li>
             <a
-              href="https://bsky.app/profile/gbif.org"
-              className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
-            >
-              <FaBluesky />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/company/gbif"
-              className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
-            >
-              <FaLinkedinIn />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.youtube.com/user/GBIFvideo"
-              className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
-            >
-              <FaYoutube size={20} />
-            </a>
-          </li>
-          <li>
-            <a
               href="https://vimeo.com/gbif"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
               <IoLogoVimeo size={18} />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.instagram.com/gbifs/"
-              className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
-            >
-              <FiInstagram />
             </a>
           </li>
         </ul>

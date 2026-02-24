@@ -4,7 +4,13 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/articleBody';
-import { backgroundColorMap, BlockContainer, BlockHeading, MediaBlockImage } from './_shared';
+import {
+  backgroundColorMap,
+  BlockContainer,
+  BlockHeading,
+  getAnchorId,
+  MediaBlockImage,
+} from './_shared';
 import { Skeleton } from '@/components/ui/skeleton';
 
 fragmentManager.register(/* GraphQL */ `
@@ -43,7 +49,7 @@ export function MediaCountBlock({ resource, insideCarousel = false }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
-    <BlockContainer className={backgroundColor}>
+    <BlockContainer id={getAnchorId(resource.mediaTitle)} className={backgroundColor}>
       {resource.mediaTitle && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.mediaTitle }} />
       )}

@@ -10,6 +10,7 @@ const typeDef = gql`
     tk_labels: [LocalContextLabel]
     labels: [LocalContextLabel]
     notes: [LocalContextNote]
+    communityName: String
   }
 
   type LocalContextNotice {

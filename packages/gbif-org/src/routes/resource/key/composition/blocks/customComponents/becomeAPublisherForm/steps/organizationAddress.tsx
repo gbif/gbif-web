@@ -70,7 +70,7 @@ export function OrganizationAddress() {
               instructions={
                 <FormattedMessage
                   id="eoi.clickMapToAddOrg"
-                  defaultMessage="Click on the map to add your organization"
+                  defaultMessage="Optionally, click on the map to set your organization's location"
                 />
               }
             />

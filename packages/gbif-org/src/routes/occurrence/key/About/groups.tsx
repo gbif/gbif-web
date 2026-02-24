@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import { MdAudiotrack, MdImage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import wellknown from 'wellknown';
-import { BasicField, EnumField, HtmlField, PlainTextField, VerbatimTextField } from '../properties';
+import { BasicField, EnumField, HtmlField, LicenseField, PlainTextField, VerbatimTextField } from '../properties';
 import {
   AgentIds,
   CollectionKey,
@@ -810,9 +810,8 @@ function Other({
   // no reason to test this, this group is always present since GBIF id is required
   return (
     <PropGroup label="occurrenceDetails.groups.other" id="other">
-      <EnumField
+      <LicenseField
         term={termMap.license}
-        showDetails={showAll}
         getEnum={(value) => `enums.license.${value}`}
       />
       {/* RECORD LEVEL Actually belongs on Record card, but it seems wrong to put it first on the page, so I've moved it here along with other identifiers */}

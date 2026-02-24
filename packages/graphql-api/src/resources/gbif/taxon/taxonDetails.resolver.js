@@ -1,4 +1,6 @@
+import md5 from 'md5';
 import getVernacularNames from './getVernacularNames';
+import config from '../../../config';
 
 const taxonDetails =
   (resource) =>
@@ -75,5 +77,28 @@ export default {
       parent.sourceTaxonKey
         ? dataSources.taxonAPI.getTaxonByKey({ key: parent.sourceTaxonKey })
         : null,
+  },
+  TaxonOccurrenceMediaResult: {
+    thumbor: (
+      { identifier, occurrenceKey },
+      { fitIn, width = '', height = '' },
+    ) => {
+      if (!identifier) return null;
+      if (!occurrenceKey) return null;
+      // do not use the thumbor service.
+      // for occurrences we have a special url format for the occurrence images. This is in preparation for the new image service that will disable any unsafe urls
+      // it also has a different cache purge strategy
+      // see also https://github.com/gbif/gbif-web/issues/303
+      try {
+        const url = `${config.occurrenceImageCache}/${
+          fitIn ? 'fit-in/' : ''
+        }${width}x${height}/occurrence/${occurrenceKey}/media/${md5(
+          identifier ?? '',
+        )}`;
+        return url;
+      } catch (err) {
+        return identifier;
+      }
+    },
   },
 };

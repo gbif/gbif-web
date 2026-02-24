@@ -5,15 +5,9 @@ import { notImplementedRoutes } from '@/notImplementedRoutes';
 import { applyReactRouterPlugins } from '@/reactRouterPlugins';
 import { Outlet } from 'react-router-dom';
 import { HpRootLayout } from './hpRootLayout';
-import { collectionSearchRoute } from '@/routes/collection/search';
-import { institutionSearchRoute } from '@/routes/institution/search';
 
 export const hostedPortalRoutes = [
   ...notImplementedRoutes,
-
-  // HP specefic data routes
-  collectionSearchRoute,
-  institutionSearchRoute,
 
   // Must be last as alias handling will require match on whildcard
   ...dataRoutes,

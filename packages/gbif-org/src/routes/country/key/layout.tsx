@@ -22,6 +22,7 @@ import { useEffect, useRef } from 'react';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useParams } from 'react-router-dom';
+import { isParticipant } from '.';
 
 export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
   const countryCode = required(params.countryCode, 'No countryCode was provided in the URL');
@@ -150,7 +151,7 @@ export function CountryKeyLayout() {
                     defaultMessage="Participation"
                   />
                 ),
-                hidden: participant?.participationStatus !== 'VOTING',
+                hidden: !isParticipant(participant?.participationStatus),
               },
               {
                 to: 'alien-species',

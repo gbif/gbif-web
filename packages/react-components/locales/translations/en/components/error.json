@@ -1,5 +1,6 @@
 {
   "generic": "An error occurred",
+  "genericRequestFailed": "Request failed",
   "genericDescription": "An unexpected error occurred. Please try again later.",
   "unknown": "Unknown error",
   "report": "Report issue",

@@ -38,6 +38,22 @@ export default {
       ];
       return notes;
     },
+    communityName: (localContext) => {
+      // First, try to extract community from created_by array
+      const createdBy = localContext?.created_by ?? [];
+      const communityCreator = createdBy.find((creator) => creator?.community);
+      if (communityCreator?.community?.name) {
+        return communityCreator.community.name;
+      }
+
+      // If not found in created_by, check contributors.communities
+      const contributorCommunities = localContext?.contributors?.communities ?? [];
+      if (contributorCommunities.length > 0 && contributorCommunities[0]?.name) {
+        return contributorCommunities[0].name;
+      }
+
+      return null;
+    },
   },
   LocalContextNotice: {
     name: (notice, { lang }) => {

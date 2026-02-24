@@ -300,11 +300,6 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
     });
   });
 
-  // Remove roles stating with DIRECTORY
-  roles = roles.filter((x) => !x.role.startsWith('DIRECTORY'));
-  // Remove roles that end with _SUPPORT
-  roles = roles.filter((x) => !x.role.endsWith('_SUPPORT'));
-
   // Replace double newlines with single newlines
   const address =
     typeof data.address === 'string'

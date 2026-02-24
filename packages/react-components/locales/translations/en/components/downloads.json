@@ -65,7 +65,7 @@
     "downloadStarted": "The download has been started and is currently being processed.",
     "downloadExpectTime": "Please expect up to 3 hours for the download to complete. Most downloads will complete within 15 minutes.",
     "notificationEmailAddresses": "A notification email with a link to download the results will be sent to the following address once ready: ",
-    "sqlGeneratedUsingPredicate": "",
+    "sqlGeneratedUsingPredicate": "The SQL was generated using this predicate",
     "status": {
       "PREPARING": "Queued",
       "SUSPENDED": "Suspended",
@@ -73,7 +73,7 @@
       "CANCELLED": "Cancelled",
       "KILLED": "Killed"
     },
-    "usedChecklistKey": "",
+    "usedChecklistKey": "{checklistName} was used to populate the taxonomic columns in the download",
     "predicate": {
       "checklist": "Checklist",
       "joinDescriptions": {
@@ -201,7 +201,7 @@
         "FORMATION": "Formation",
         "ORDER_KEY": "Order",
         "ISSUE": "Issue",
-        "TAXONOMIC_ISSUE": "",
+        "TAXONOMIC_ISSUE": "Taxonomic Issue",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "Verbatim scientific name",
         "GBIF_REGION": "GBIF region",
@@ -261,8 +261,8 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Back",
-    "slowDown": "",
-    "unableToCreateDownload": "",
+    "slowDown": "Too many concurrent downloads. Please try again later.",
+    "unableToCreateDownload": "Unable to create download. Please try again later.",
     "backToFormatSelection": "Back to format selection",
     "backToConfiguration": "Back to configuration",
     "estimatedSize": "Estimated size",
@@ -326,7 +326,7 @@
     "downloadFormats": {
       "SIMPLE_CSV": {
         "title": "Simple occurrence data",
-        "description": "A single CSV file with standardized, interpreted occurrence data."
+        "description": "A single tab-delimited CSV file with standardized, interpreted occurrence data."
       },
       "DWCA": {
         "title": "Darwin Core Archive",
@@ -345,7 +345,7 @@
         "description": "Custom SQL query to extract specific data or aggregations. Suitable for advanced users familiar with SQL."
       },
       "features": {
-        "singleCsv": "Single CSV file",
+        "singleCsv": "Single tab-delimited CSV file",
         "multipleCsv": "Multiple CSV files",
         "interpretedData": "Interpreted data only",
         "rawAndInterpreted": "Raw + interpreted data",
@@ -358,8 +358,9 @@
     },
     "taxonomySelector": {
       "title": "Taxonomic reference",
-      "description": "",
-      "defaultRecommended": "Default and recommended for most users"
+      "description": "Select the taxonomy that will be used to populate the taxonomic columns in the download",
+      "defaultRecommended": "Default and recommended for most users",
+      "version": "Version"
     }
   },
   "customSqlDownload": {

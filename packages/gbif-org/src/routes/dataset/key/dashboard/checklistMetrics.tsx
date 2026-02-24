@@ -217,14 +217,14 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
           <CardHeader className="gbif-word-break">
             <CardTitle>
               <FormattedMessage
-                id="dataset.metricsTab.checklist.countByOrigin"
-                defaultMessage="Count by Origin"
+                id="dataset.metricsTab.checklist.countByKingdom"
+                defaultMessage="Count by Kingdom"
               />
             </CardTitle>
             <CardDescription>
               <FormattedMessage
-                id="dataset.metricsTab.checklist.countByOriginDescription"
-                defaultMessage="Distribution of name usages by their origin"
+                id="dataset.metricsTab.checklist.countByKingdomDescription"
+                defaultMessage="Distribution of name usages across kingdoms"
               />
             </CardDescription>
           </CardHeader>

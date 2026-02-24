@@ -13,6 +13,11 @@ const id = 'projectKey';
 
 export const projectKeyRoute: RouteObjectWithPlugins = {
   id,
+  gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error('Invalid key');
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/project/${key}`;
+  },
   path: 'project/:key',
   loader: projectPageLoader,
   loadingElement: <ProjectPageSkeleton />,

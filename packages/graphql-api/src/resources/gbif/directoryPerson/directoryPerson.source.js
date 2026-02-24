@@ -8,6 +8,7 @@ import pick from 'lodash/pick';
 import { stringify } from 'qs';
 import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
+import { VALID_GBIF_ROLES } from './validGbifRoles';
 
 class DirectoryPersonAPI extends RESTDataSource {
   constructor(config) {
@@ -30,7 +31,7 @@ class DirectoryPersonAPI extends RESTDataSource {
    */
   // eslint-disable-next-line class-methods-use-this
   reduceDirectoryPerson(directoryPerson) {
-    return pick(directoryPerson, [
+    const result = pick(directoryPerson, [
       'id',
       'firstName',
       'surname',
@@ -45,11 +46,15 @@ class DirectoryPersonAPI extends RESTDataSource {
       'created',
       'modified',
     ]);
+    if (result.roles) {
+      result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r.role));
+    }
+    return result;
   }
 
   // for public contacts
   reduceDirectoryContact(directoryPerson) {
-    return pick(directoryPerson, [
+    const result = pick(directoryPerson, [
       'id',
       'firstName',
       'surname',
@@ -70,6 +75,10 @@ class DirectoryPersonAPI extends RESTDataSource {
       'modified',
       'address',
     ]);
+    if (result.roles) {
+      result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r.role));
+    }
+    return result;
   }
 
   async searchPeopleByRole({ query }) {

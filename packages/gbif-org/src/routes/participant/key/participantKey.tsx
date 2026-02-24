@@ -21,12 +21,14 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Outlet, useLoaderData } from 'react-router-dom';
+import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent } from './help';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ParticipantDetails on Participant {
     id
+    type
+    countryCode
     title: name
     gbifRegion
     participationStatus
@@ -95,7 +97,7 @@ const PARTICIPANT_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function participantLoader({ params, graphql }: LoaderArgs) {
+export async function participantLoader({ params, graphql, locale }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
   const response = await graphql.query<ParticipantDetailsQuery, ParticipantDetailsQueryVariables>(
@@ -110,6 +112,12 @@ export async function participantLoader({ params, graphql }: LoaderArgs) {
     query: PARTICIPANT_QUERY,
     variables: { key },
   });
+
+  if (data?.participant?.type === 'COUNTRY' && data.participant.countryCode) {
+    let redirectUrl = `/country/${data.participant.countryCode}/summary`;
+    if (!locale.default) redirectUrl = `/${locale.code}${redirectUrl}`;
+    return redirect(redirectUrl);
+  }
 
   return { errors, data };
 }

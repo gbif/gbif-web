@@ -17,6 +17,7 @@ import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams'
 import { DatasetSearchQuery, DatasetSearchQueryVariables } from '@/gql/graphql';
 import { useIntParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { stringify } from '@/utils/querystring';
@@ -117,6 +118,10 @@ export function DatasetSearch(): React.ReactElement {
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [load, offset, filterHash, searchContext]);
+
+  useUpdateEffect(() => {
+    window.scrollTo(0, 0);
+  }, [filterHash, offset]);
 
   const datasets = data?.datasetSearch;
 
@@ -221,7 +226,6 @@ export function DatasetResults({
                 count={datasets.count}
                 limit={datasets.limit}
                 onChange={(x) => setOffset(x)}
-                anchor="datasets"
               />
             )}
           </ClientSideOnly>

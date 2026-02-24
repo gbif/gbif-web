@@ -2,7 +2,7 @@ import { TextBlockDetailsFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { ArticleBody } from '../../components/articleBody';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
-import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { backgroundColorMap, BlockContainer, BlockHeading, getAnchorId } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment TextBlockDetails on TextBlock {
@@ -22,7 +22,7 @@ export function TextBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
 
   return (
-    <BlockContainer className={backgroundColor}>
+    <BlockContainer className={backgroundColor} id={getAnchorId(resource.title)}>
       {!resource.hideTitle && resource.title && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
       )}

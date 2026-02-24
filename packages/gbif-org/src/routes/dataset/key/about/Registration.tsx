@@ -1,3 +1,4 @@
+import { DoiTag } from '@/components/identifierTag';
 import { HelpLine } from '@/components/helpText';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Term as T, Value as V } from '@/components/properties';
@@ -139,7 +140,9 @@ export function Registration({ dataset = {}, ...props }) {
         <T>
           <FormattedMessage id="dataset.registry.preferredIdentifier" />
         </T>
-        <V>{doi}</V>
+        <V>
+          <DoiTag id={doi} style={{ textDecoration: 'none' }} />
+        </V>
 
         {visibleIdentifiers.length > 0 && (
           <>

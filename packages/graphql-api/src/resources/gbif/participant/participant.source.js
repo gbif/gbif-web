@@ -5,6 +5,7 @@ import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { renameProperty } from '@/helpers/utils';
 import { getDefaultAgent } from '@/requestAgents';
 import { ResourceSearchAPI } from '@/resources/gbif/resource/resource.source';
+import { VALID_GBIF_ROLES } from '@/resources/gbif/directoryPerson/validGbifRoles';
 
 function mergeParticipantData(directoryParticipant, resourceParticipant) {
   return {
@@ -53,12 +54,14 @@ class ParticipantDirectoryAPI extends RESTDataSource {
       'nodes',
     ]);
 
-    result.people = participant.people?.map((p) => {
-      return {
-        ...pick(p, ['role', 'term']),
-        person: pick(p.person, ['id', 'title', 'firstName', 'surname']),
-      };
-    });
+    result.people = participant.people
+      ?.filter((p) => VALID_GBIF_ROLES.has(p.role))
+      .map((p) => {
+        return {
+          ...pick(p, ['role', 'term']),
+          person: pick(p.person, ['id', 'title', 'firstName', 'surname']),
+        };
+      });
 
     return result;
   }
@@ -81,18 +84,20 @@ class ParticipantDirectoryAPI extends RESTDataSource {
 
   async getNsgReport() {
     const list = await this.get(`/directory/report/5?format=json`);
-    const reducedlist = list.map((p) => {
-      return pick(p, [
-        'id',
-        'name',
-        'title',
-        'institutionName',
-        'address',
-        'addressCountry',
-        'email',
-        'role',
-      ]);
-    });
+    const reducedlist = list
+      .filter((p) => VALID_GBIF_ROLES.has(p.role))
+      .map((p) => {
+        return pick(p, [
+          'id',
+          'name',
+          'title',
+          'institutionName',
+          'address',
+          'addressCountry',
+          'email',
+          'role',
+        ]);
+      });
     return reducedlist;
   }
 
@@ -101,7 +106,11 @@ class ParticipantDirectoryAPI extends RESTDataSource {
       `/directory/committee/budget_committee?format=json`,
     );
     const reducedlist = list.map((p) => {
-      return pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+      const result = pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+      if (result.roles) {
+        result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r));
+      }
+      return result;
     });
     return reducedlist;
   }
@@ -111,7 +120,11 @@ class ParticipantDirectoryAPI extends RESTDataSource {
       `/directory/committee/executive_committee?format=json`,
     );
     const reducedlist = list.map((p) => {
-      return pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+      const result = pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+      if (result.roles) {
+        result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r));
+      }
+      return result;
     });
     return reducedlist;
   }
@@ -121,7 +134,11 @@ class ParticipantDirectoryAPI extends RESTDataSource {
       `/directory/committee/science_committee?format=json`,
     );
     const reducedlist = list.map((p) => {
-      return pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+      const result = pick(p, ['personId', 'name', 'title', 'email', 'roles']);
+      if (result.roles) {
+        result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r));
+      }
+      return result;
     });
     return reducedlist;
   }
@@ -131,7 +148,7 @@ class ParticipantDirectoryAPI extends RESTDataSource {
       `/directory/committee/nodes_committee?format=json`,
     );
     const reducedlist = list.map((p) => {
-      return pick(p, [
+      const result = pick(p, [
         'personId',
         'name',
         'title',
@@ -140,6 +157,10 @@ class ParticipantDirectoryAPI extends RESTDataSource {
         'participationStatus',
         'participant',
       ]);
+      if (result.roles) {
+        result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r));
+      }
+      return result;
     });
     return reducedlist;
   }
