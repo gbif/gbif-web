@@ -10,7 +10,7 @@
     "ARCTIC": "북극",
     "MERCATOR": "메르카토르",
     "ANTARCTIC": "남극",
-    "PLATE_CAREE": "Plate Carrée"
+    "PLATE_CAREE": "플레이트 카레"
   },
   "failedToGetUserLocation": {
     "title": "당신의 위치를 찾을 수 없습니다",
@@ -35,13 +35,13 @@
     "CLASSIC_HEX": "기본 육각형",
     "CLASSIC": "기본 점",
     "STREETS": "길",
-    "GLACIER": "빙하",
+    "GLACIER": "빙하 그래디언트",
     "GREEN": "",
     "CUSTOM": "사용자 정의"
   },
   "basemap": {
     "CLASSIC": "마젠타",
-    "LIGHT": "밝게 (라벨 없음)",
+    "LIGHT": "밝게(라벨 없음)",
     "LIGHT_DETAILS": "밝게",
     "DARK": "어둡게(라벨 없음)",
     "DARK_DETAILS": "어둡게",
@@ -56,15 +56,15 @@
   },
   "colors": {
     "CLASSIC": "기본",
-    "FIRE": "화재",
+    "FIRE": "불꽃 그래디언트",
     "GLACIER": "빙하",
     "GREEN_POINT": "초록",
-    "PURPLE_YELLOW": "",
-    "PURPLE_HEAT": "",
-    "BLUE_HEAT": "",
-    "ORANGE_HEAT": "",
-    "GREEN": "",
-    "BLUE_CLUSTER": "",
-    "ORANGE_CLUSTER": ""
+    "PURPLE_YELLOW": "보라-노랑",
+    "PURPLE_HEAT": "보라색 히트",
+    "BLUE_HEAT": "파란 히트",
+    "ORANGE_HEAT": "주황색 히트",
+    "GREEN": "초록",
+    "BLUE_CLUSTER": "파란색 클러스터",
+    "ORANGE_CLUSTER": "주황색 클러스터"
   }
 }
