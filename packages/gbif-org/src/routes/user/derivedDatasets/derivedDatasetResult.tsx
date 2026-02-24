@@ -1,9 +1,9 @@
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import { DoiTag } from '@/components/identifierTag';
 import { Card } from '@/components/ui/largeCard';
 import { DerivedDatasetResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DerivedDatasetResult on DerivedDataset {
@@ -39,7 +39,7 @@ export function DerivedDatasetResult({ derivedDataset }: DerivedDatasetResultPro
               <div>
                 <FormattedMessage id="downloadKey.created" />:{' '}
                 {derivedDataset.created ? (
-                  <FormattedDate value={derivedDataset?.created} {...defaultDateFormatProps} />
+                  <LongDate value={derivedDataset?.created} />
                 ) : (
                   <FormattedMessage id="phrases.unknownDate" />
                 )}

@@ -8,7 +8,8 @@ import { ArticleTextContainer } from '../components/articleTextContainer';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { notNull } from '@/utils/notNull';
-import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { LongDate } from '@/components/dateFormats';
 import { useProjectKeyLoaderData } from '.';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { Documents } from '../components/documents';
@@ -137,7 +138,7 @@ export function ProjectAboutTab() {
               label={<FormattedMessage id="cms.project.projectStart" />}
               value={
                 <span>
-                  <FormattedDate value={resource.start} year="numeric" month="long" day="numeric" />
+                  <LongDate value={resource.start} />
                 </span>
               }
             />
@@ -149,8 +150,7 @@ export function ProjectAboutTab() {
               label={<FormattedMessage id="cms.project.duration" />}
               value={
                 <span>
-                  <FormattedDate value={resource.start} year="numeric" month="long" day="numeric" />{' '}
-                  - <FormattedDate value={resource.end} year="numeric" month="long" day="numeric" />
+                  <LongDate value={resource.start} /> - <LongDate value={resource.end} />
                 </span>
               }
             />

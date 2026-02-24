@@ -7,7 +7,8 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { notNull } from '@/utils/notNull';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useEffect, useMemo } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { LongDate } from '@/components/dateFormats';
 import { MdLocationOn, MdPerson } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
 
@@ -185,14 +186,7 @@ export function DirectoryContactDialogContent({ personId }: Props) {
                           <FormattedMessage
                             id="directory.sinceDate"
                             values={{
-                              DATE: (
-                                <FormattedDate
-                                  value={role.termStart}
-                                  year="numeric"
-                                  month="long"
-                                  day="numeric"
-                                />
-                              ),
+                              DATE: <LongDate value={role.termStart} />,
                             }}
                           />
                         </span>
@@ -232,7 +226,7 @@ type PreparedData = {
 };
 
 function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']>) {
-  let roles: Role[] = [];
+  const roles: Role[] = [];
 
   // Add roles from the roles property
   data.roles?.filter(notNull).forEach((rawRole) => {
@@ -304,7 +298,7 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
   const address =
     typeof data.address === 'string'
       ? data.address.replace(/\n\n/g, '\n')
-      : data.address ?? undefined;
+      : (data.address ?? undefined);
 
   const result: PreparedData = {
     id: data.id,

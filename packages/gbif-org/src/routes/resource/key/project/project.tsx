@@ -7,6 +7,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
 import { MdCalendarMonth as CalendarIcon, MdEuro as EuroIcon, MdLink } from 'react-icons/md';
 import { FormattedDateTimeRange, FormattedMessage, FormattedNumber } from 'react-intl';
+import { longDateFormatProps } from '@/components/dateFormats';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticlePreTitle } from '../components/articlePreTitle';
@@ -99,9 +100,7 @@ export function ProjectPage() {
                 <FormattedDateTimeRange
                   from={new Date(resource.start)}
                   to={new Date(resource.end)}
-                  month="long"
-                  day="numeric"
-                  year="numeric"
+                  {...longDateFormatProps}
                 />
               </GenericFeature>
             )}

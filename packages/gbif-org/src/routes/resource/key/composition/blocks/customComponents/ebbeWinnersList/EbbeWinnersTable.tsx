@@ -5,7 +5,8 @@ import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { YearDate } from '@/components/dateFormats';
 
 const EBBE_WINNERS_QUERY = /* GraphQL */ `
   query EbbeWinners {
@@ -155,7 +156,7 @@ export function EbbeWinnersTable({
                     >
                       {/* Year */}
                       <td className="g-px-4 g-py-2">
-                        <FormattedDate value={winner?.roles[0]?.term.start} year="numeric" />{' '}
+                        <YearDate value={winner?.roles[0]?.term.start} />{' '}
                         <FormattedMessage
                           id={`directory.award.${winner?.roles[0]?.award}`}
                           defaultMessage={winner?.roles[0]?.award}

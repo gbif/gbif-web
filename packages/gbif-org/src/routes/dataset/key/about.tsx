@@ -38,7 +38,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { GiDna1 } from 'react-icons/gi';
 import { MdGridOn, MdInfoOutline } from 'react-icons/md';
 import { TiPipette as SamplingIcon } from 'react-icons/ti';
-import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { LongDate } from '@/components/dateFormats';
 import { useDatasetKeyLoaderData } from '.';
 import { BibliographicCitations } from './about/BibliographicCitations';
 import { Citation } from './about/Citation';
@@ -288,12 +289,7 @@ export function DatasetKeyAbout() {
                     {dataset.pubDate && (
                       <div>
                         <FormattedMessage id="dataset.registry.pubDate" />:{' '}
-                        <FormattedDate
-                          value={dataset.pubDate}
-                          year="numeric"
-                          month="long"
-                          day="2-digit"
-                        />
+                        <LongDate value={dataset.pubDate} />
                       </div>
                     )}
                   </div>
@@ -939,7 +935,7 @@ function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
         {dataset.modified && (
           <div>
             <FormattedMessage id="dataset.registry.metdataLastModified" />:{' '}
-            <FormattedDate value={dataset.modified} year="numeric" month="long" day="2-digit" />
+            <LongDate value={dataset.modified} />
           </div>
         )}
       </div>

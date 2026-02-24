@@ -1,10 +1,10 @@
 import { DataHeader } from '@/components/dataHeader';
 import {
-  defaultDateFormatProps,
   HeaderInfo,
   HeaderInfoEdit,
   HeaderInfoMain,
 } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 
 import PageMetaData from '@/components/PageMetaData';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/smallCard';
@@ -20,7 +20,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect, useState } from 'react';
-import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
@@ -144,12 +144,7 @@ export function DerivedDatasetPage() {
               <FormattedMessage
                 id="dataset.registeredDate"
                 values={{
-                  DATE: (
-                    <FormattedDate
-                      value={derivedDataset.created ?? undefined}
-                      {...defaultDateFormatProps}
-                    />
-                  ),
+                  DATE: <LongDate value={derivedDataset.created ?? undefined} />,
                 }}
               />
             }

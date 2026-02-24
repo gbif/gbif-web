@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/utils/shadcn';
-import { FormattedDate } from 'react-intl';
+import { LongDate } from '@/components/dateFormats';
 
 type Props = {
   children: React.ReactNode;
@@ -52,5 +52,5 @@ function Separator() {
 }
 
 export function PreTitleDate({ date }: { date: Date | string }) {
-  return <FormattedDate year="numeric" month="long" day="numeric" value={new Date(date)} />;
+  return <LongDate value={date} />;
 }

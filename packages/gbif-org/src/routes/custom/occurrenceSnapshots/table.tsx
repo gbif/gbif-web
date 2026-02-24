@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { ShortDate } from '@/components/dateFormats';
 import { Paging } from '../../taxon/key/VernacularNameTable';
 import { useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -52,7 +53,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
               results.slice(offset, offset + limit).map((res, i) => (
                 <tr className="g-font-bold">
                   <td key={'date'} className="g-p-4 ">
-                    {<FormattedDate value={res.created} />}
+                    {<ShortDate value={res.created} />}
                   </td>
                   <td key={'date'} className="g-p-4 ">
                     {
@@ -69,7 +70,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
                           GBIF.org
                         </a>{' '}
                         (
-                        <FormattedDate value={res.created} />) GBIF Occurrence Download{' '}
+                        <ShortDate value={res.created} />) GBIF Occurrence Download{' '}
                         <a className="g-link g-text-blue-500" href={`https://doi.org/${res.doi}`}>
                           https://doi.org/{res.doi}
                         </a>

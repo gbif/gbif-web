@@ -7,6 +7,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
 import { MdCalendarMonth } from 'react-icons/md';
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, FormattedTime } from 'react-intl';
+import { LongDate, longDateFormatProps } from '@/components/dateFormats';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
@@ -213,12 +214,10 @@ const isSameDate = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear();
 
 export function EventDateRange({ start, end }: RangeProps) {
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' } as const;
-
   if (end && !isSameDate(start, end))
-    return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
+    return <FormattedDateTimeRange from={start} to={end} {...longDateFormatProps} />;
 
-  return <FormattedDate value={start} {...dateOptions} />;
+  return <LongDate value={start} />;
 }
 
 export function EventTimeRange({ start, end }: RangeProps) {
@@ -242,9 +241,7 @@ export function EventTimeRange({ start, end }: RangeProps) {
 
 function DateTimeRange({ start, end, allDay }: RangeProps & { allDay: boolean | undefined }) {
   const dateOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    ...longDateFormatProps,
     hour12: false,
   } as const;
   const timeOptions = {

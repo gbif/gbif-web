@@ -6,6 +6,7 @@ import { truncate } from '@/utils/truncate';
 import isUndefined from 'lodash/isUndefined';
 import { useCallback } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
+import { longDateFormatProps } from '@/components/dateFormats';
 import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 
 // utility function to generate label for range or equal filters
@@ -122,18 +123,10 @@ export const EndDayOfYearLabel = rangeOrEqualLabel('intervals.description');
 export const DateLabel = rangeOrEqualLabel('intervals.compactTime', (value, intl) => {
   const date = new Date(value);
   if (intl) {
-    const stringDate = intl.formatDate(value, {
-      year: 'numeric',
-      month: 'long',
-      day: '2-digit',
-    });
+    const stringDate = intl.formatDate(value, longDateFormatProps);
     return stringDate;
   }
-  return date.toLocaleDateString('da-DK', {
-    year: 'numeric',
-    month: 'long',
-    day: '2-digit',
-  });
+  return date.toLocaleDateString('da-DK', longDateFormatProps);
 });
 
 function getEnumLabel({ template }: { template: (id: string) => string }) {

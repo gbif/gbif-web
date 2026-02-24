@@ -8,6 +8,7 @@ const languageOptions: LanguageOption[] = [
     label: 'English',
     default: true,
     textDirection: 'ltr',
+    reactIntlLocale: 'en-GB',
     iso3LetterCode: 'eng',
     cmsLocale: 'en-GB', // what locale code to use when fetching data from the cms endpoints
     vocabularyLocale: 'en', // what locale code to use when fetching data from the vocabulary endpoints
