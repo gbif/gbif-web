@@ -32,33 +32,33 @@
   "chooseColors": "색상",
   "clickToSearchArea": "영역을 검색하기 위해서는 클릭하세요",
   "predefined": {
-    "CLASSIC_HEX": "",
-    "CLASSIC": "",
+    "CLASSIC_HEX": "기본 육각형",
+    "CLASSIC": "기본 점",
     "STREETS": "길",
     "GLACIER": "빙하",
     "GREEN": "",
-    "CUSTOM": ""
+    "CUSTOM": "사용자 정의"
   },
   "basemap": {
-    "CLASSIC": "",
-    "LIGHT": "",
-    "LIGHT_DETAILS": "",
-    "DARK": "",
-    "DARK_DETAILS": "",
-    "OSM": ""
+    "CLASSIC": "마젠타",
+    "LIGHT": "밝게 (라벨 없음)",
+    "LIGHT_DETAILS": "밝게",
+    "DARK": "어둡게(라벨 없음)",
+    "DARK_DETAILS": "어둡게",
+    "OSM": "도로"
   },
   "bin": {
-    "PIXEL": "",
-    "SMALL_HEX": "",
-    "LARGE_HEX": "",
-    "SMALL_SQUARE": "",
-    "LARGE_SQUARE": ""
+    "PIXEL": "점",
+    "SMALL_HEX": "소형 육각형",
+    "LARGE_HEX": "육각형",
+    "SMALL_SQUARE": "소형 사각형",
+    "LARGE_SQUARE": "사각형"
   },
   "colors": {
-    "CLASSIC": "",
-    "FIRE": "",
-    "GLACIER": "",
-    "GREEN_POINT": "",
+    "CLASSIC": "기본",
+    "FIRE": "화재",
+    "GLACIER": "빙하",
+    "GREEN_POINT": "초록",
     "PURPLE_YELLOW": "",
     "PURPLE_HEAT": "",
     "BLUE_HEAT": "",
