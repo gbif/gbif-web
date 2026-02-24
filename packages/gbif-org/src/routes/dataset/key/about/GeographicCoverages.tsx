@@ -85,7 +85,7 @@ function GeographicCoverage({ coverage }) {
               style={{ marginTop: 24, maxWidth: '100%', marginBottom: 24 }}
               src={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${encodeURIComponent(
                 JSON.stringify(geoJSON)
-              )})/auto/600x300@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+              )})/auto/600x300@2x?access_token=${import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN}`}
             />
             {Bbox}
           </Value>

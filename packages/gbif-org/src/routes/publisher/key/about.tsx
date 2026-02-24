@@ -28,6 +28,7 @@ import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { usePublisherKeyLoaderData } from '.';
+import { i } from 'vitest/dist/reporters-P7C2ytIv.js';
 
 export function PublisherKeyAbout() {
   const { data } = usePublisherKeyLoaderData();
@@ -97,7 +98,7 @@ export function PublisherKeyAbout() {
           >
             <img
               style={{ width: '100%', display: 'block' }}
-              src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${publisher.longitude},${publisher.latitude})/${publisher.longitude},${publisher.latitude},15,0/500x250@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
+              src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${publisher.longitude},${publisher.latitude})/${publisher.longitude},${publisher.latitude},15,0/500x250@2x?access_token=${import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN}`}
             />
           </a>
         )}
