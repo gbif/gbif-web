@@ -160,16 +160,8 @@ export default function GeoJsonMapOpenlayers({
     });
     mapInstanceRef.current = map;
 
-    // Apply MapBox style for basemap tiles, then add cluster layer on top
-    const styleUrl = `${
-      import.meta.env.PUBLIC_WEB_UTILS
-    }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=${pixelRatio}`;
-    apply(map, styleUrl).then(() => {
-      map.addLayer(clusterLayer);
-    });
-
-    // Fit bounds to features — match MapLibre behavior:
-    // compute bounds in EPSG:4326 from raw GeoJSON, add 5° padding, then transform
+    // Pre-compute the padded extent for fitBounds (used after apply())
+    let fittedExtent3857: number[] | null = null;
     if (geojson.features.length > 0) {
       let minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity;
       for (const feature of geojson.features) {
@@ -179,16 +171,38 @@ export default function GeoJsonMapOpenlayers({
         if (coords[0] > maxLng) maxLng = coords[0];
         if (coords[1] > maxLat) maxLat = coords[1];
       }
-      // Add 5° padding on each side, clamped to valid ranges (matching MapLibre version)
       const paddedExtent = [
         Math.max(-180, minLng - 5),
-        Math.max(-90, minLat - 5),
+        Math.max(-85, minLat - 5),
         Math.min(180, maxLng + 5),
-        Math.min(90, maxLat + 5),
+        Math.min(85, maxLat + 5),
       ];
-      const extent3857 = transformExtent(paddedExtent, 'EPSG:4326', 'EPSG:3857');
-      map.getView().fit(extent3857);
+      fittedExtent3857 = transformExtent(paddedExtent, 'EPSG:4326', 'EPSG:3857');
     }
+
+    // Apply MapBox style for basemap tiles, then add cluster layer on top
+    const styleUrl = `${
+      import.meta.env.PUBLIC_WEB_UTILS
+    }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=${pixelRatio}`;
+    apply(map, styleUrl).then(() => {
+      // After apply() which may replace the view, recreate it with multiWorld
+      // so the map can zoom out and wrap the world like MapLibre does.
+      const oldView = map.getView();
+      const newView = new View({
+        center: oldView.getCenter(),
+        zoom: oldView.getZoom(),
+        minZoom: 0,
+        multiWorld: true,
+        projection: oldView.getProjection(),
+      });
+      map.setView(newView);
+
+      if (fittedExtent3857) {
+        map.getView().fit(fittedExtent3857);
+      }
+
+      map.addLayer(clusterLayer);
+    });
 
     // Recalculate popup anchor direction on every render frame so it flips
     // when the point moves near the edges of the viewport, matching MapLibre's
