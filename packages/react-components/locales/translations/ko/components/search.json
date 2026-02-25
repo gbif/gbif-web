@@ -5,7 +5,7 @@
     "gallery": "",
     "media": "",
     "map": "",
-    "datasets": "",
+    "datasets": "데이터셋",
     "events": "",
     "download": "",
     "clusters": "",
@@ -67,7 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "",
-      "datasetSearch": "",
+      "datasetSearch": "데이터셋",
       "publisherSearch": "",
       "occurrenceSearch": "",
       "resourceSearch": ""
