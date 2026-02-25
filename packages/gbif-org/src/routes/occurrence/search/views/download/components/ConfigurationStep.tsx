@@ -193,6 +193,7 @@ export default function ConfigurationStep({
                 onChange={handleExtensionsChange}
                 isExpanded={activeSection === 'extensions'}
                 onToggle={() => toggleSection('extensions')}
+                predicate={predicate}
               />
             )}
 
