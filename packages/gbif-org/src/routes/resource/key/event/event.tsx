@@ -248,11 +248,12 @@ function DateTimeRange({ start, end, allDay }: RangeProps & { allDay: boolean | 
     hour: 'numeric',
     minute: 'numeric',
     hour12: false,
+    timeZoneName: 'long',
   } as const;
 
   if (end && allDay) return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
   if (end)
     return <FormattedDateTimeRange from={start} to={end} {...dateOptions} {...timeOptions} />;
-  if (allDay) return <FormattedDate value={start} {...dateOptions} />;
+  if (allDay) return <FormattedDate value={start} {...dateOptions} ti />;
   return <FormattedDate value={start} {...dateOptions} {...timeOptions} />;
 }
