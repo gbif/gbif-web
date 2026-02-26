@@ -63,7 +63,7 @@ export const Event = ({
 
   const occDynamicLinkProps = {
     pageId: 'occurrenceSearch',
-    searchParams: { datasetKey: data?.dataset?.key },
+    searchParams: { datasetKey: data?.dataset?.key, eventId },
   };
   const { data: insights, load } = useQuery<EventInsightsQuery, EventInsightsQueryVariables>(
     EVENT_SLOW,
