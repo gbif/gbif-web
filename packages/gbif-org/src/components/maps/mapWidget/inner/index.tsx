@@ -17,6 +17,7 @@ import { useSetupMap } from './hooks/useSetupMap';
 import { useSyncBoundingBox } from './hooks/useSyncBoundingBox';
 import { useTileLoadingFeedback } from './hooks/useTileLoadingFeedback';
 import { useZoomInteraction } from './hooks/useZoomInteraction';
+import { TileErrorOverlay } from './tileErrorOverlay';
 
 type Props = {
   className?: string;
@@ -78,7 +79,7 @@ export default function MapWidgetInner({
     capabilities,
   });
 
-  const { hideLoadingProgress, progressHandler, loadingProgress } = useTileLoadingFeedback();
+  const { hideLoadingProgress, progressHandler, loadingProgress, hasTileErrors } = useTileLoadingFeedback();
 
   // Will render and re-render the occurrence layers when relevant args change
   useRasterOccurrenceLayers({
@@ -108,6 +109,7 @@ export default function MapWidgetInner({
   return (
     <div className={cn('g-relative', className)}>
       <div className="g-size-full" id={mapId} />
+      <TileErrorOverlay visible={hasTileErrors} />
       <Progress
         value={loadingProgress}
         className={cn('g-rounded-none g-absolute g-bottom-0 g-left-0 g-w-full g-h-1', {
