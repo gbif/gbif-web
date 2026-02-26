@@ -57,15 +57,24 @@ fragmentManager.register(/* GraphQL */ `
     homepage
     contacts {
       key
+      title
       type
       firstName
+      surname
       lastName
+      institutionName
       email
       phone
       homepage
       organization
+      position
       roles
       userId
+      address
+      city
+      postalCode
+      province
+      country
     }
     dataset(limit: 0) {
       count

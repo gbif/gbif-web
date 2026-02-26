@@ -1,16 +1,3 @@
-import {
-  ContactActions,
-  ContactAvatar,
-  ContactContent,
-  ContactDescription,
-  ContactEmail,
-  ContactHeader,
-  ContactHeaderContent,
-  ContactImage,
-  ContactTelephone,
-  ContactTitle,
-  ExpandableContact,
-} from '@/components/contact';
 import { PaginationFooter } from '@/components/pagination';
 import Properties, { Property } from '@/components/properties';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -25,6 +12,7 @@ import {
   ParticipantDetailsFragment,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { Contacts } from '@/routes/country/key/components/contacts';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { PublisherResult } from '@/routes/publisher/publisherResult';
 import { useEffect, useState } from 'react';
@@ -32,7 +20,6 @@ import { FormattedMessage } from 'react-intl';
 import { YearDate } from '@/components/dateFormats';
 import { Link } from 'react-router-dom';
 import { useParticipantKeyLoaderData } from '.';
-import { cn } from '@/utils/shadcn';
 
 export function ParticipantKeyAbout() {
   const { data } = useParticipantKeyLoaderData();
@@ -205,57 +192,9 @@ export function NodePublishers({ nodeKey }: { nodeKey?: string }) {
 export function NodeContacts({ node }: { node?: NodeDetailsFragment | null }) {
   if (!node?.contacts || node.contacts.length === 0) return null;
   return (
-    <Card className="g-mb-4">
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage id="phrases.headers.contacts" />
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="g-flex g-flex-wrap -g-m-2">
-          {node?.contacts &&
-            node?.contacts.map((contact) => {
-              if (!contact) return null;
-              return (
-                <ExpandableContact personId={contact.key}>
-                  <Card
-                    className={cn(
-                      '"g-px-2 g-py-2 md:g-px-4 md:g-py-3 g-flex-auto g-w-1/2 g-max-w-sm g-min-w-xs g-m-2 [&:target]:bg-red-500"',
-                      {
-                        'hover:g-bg-slate-50 g-cursor-pointer': contact.key,
-                      }
-                    )}
-                    id={`contact${contact.key}`}
-                    key={contact.key}
-                  >
-                    <ContactHeader>
-                      <ContactImage personId={contact.key || ''} />
-                      <ContactHeaderContent>
-                        <ContactTitle
-                          firstName={contact.firstName}
-                          lastName={contact.lastName}
-                        ></ContactTitle>
-                        {contact.type && (
-                          <ContactDescription>
-                            <FormattedMessage id={`enums.gbifRole.${contact.type}`} />
-                          </ContactDescription>
-                        )}
-                      </ContactHeaderContent>
-                    </ContactHeader>
-                    <ContactContent className="g-mb-2"></ContactContent>
-                    <ContactActions>
-                      {contact.email &&
-                        contact.email.map((email) => <ContactEmail email={email} key={email} />)}
-                      {contact.phone &&
-                        contact.phone.map((tel) => <ContactTelephone tel={tel} key={tel} />)}
-                    </ContactActions>
-                  </Card>
-                </ExpandableContact>
-              );
-            })}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="g-mb-4">
+      <Contacts contacts={node.contacts} nodeTitle={node.title} />
+    </div>
   );
 }
 
@@ -266,7 +205,7 @@ export function ParticipantNodeDescription({
   participant?: ParticipantDetailsFragment | null;
   node?: NodeDetailsFragment | null;
 }) {
-  const headOfDelegation = node?.headOfDelegation?.[4];
+  const headOfDelegation = node?.headOfDelegation?.[0];
   const participantNodeManager = node?.participantNodeManager?.[0];
 
   return (
