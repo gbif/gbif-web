@@ -18,6 +18,14 @@
   @apply g-text-[rgb(var(--linkColor))] hover:g-text-[rgb(var(--linkColorHover))];
 }
 
+.prose-links a {
+  @apply g-underline g-underline-offset-1 g-font-medium;
+  color: rgb(var(--linkColor));
+}
+.prose-links a:hover {
+  color: rgb(var(--linkColorHover));
+}
+
 .gb-button {
   @apply g-inline-flex g-items-center g-justify-center g-rounded-md g-text-sm g-font-medium g-transition-colors focus-visible:g-outline-none focus-visible:g-ring-1 focus-visible:g-ring-ring disabled:g-pointer-events-none disabled:g-opacity-50;
 }

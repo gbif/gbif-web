@@ -144,7 +144,7 @@ export function TranslatorsList({
               </thead>
               {isLoading && <SkeletonBody />}
               {!isLoading && (
-                <tbody>
+                <tbody className="prose-links">
                   {sortedTranslators.map((translator, idx) => (
                     <tr
                       key={idx}

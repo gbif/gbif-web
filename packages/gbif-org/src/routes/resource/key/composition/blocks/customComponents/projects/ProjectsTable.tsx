@@ -347,7 +347,7 @@ export function ProjectsTable({
               </thead>
               {isLoading && <SkeletonBody />}
               {!isLoading && (
-                <tbody>
+                <tbody className="prose-links">
                   {sortedProjects.map((project) => (
                     <tr
                       key={project.id}

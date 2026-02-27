@@ -148,7 +148,7 @@ export function EbbeWinnersTable({
               </thead>
               {isLoading && <SkeletonBody />}
               {!isLoading && (
-                <tbody>
+                <tbody className="prose-links">
                   {sortedWinners.map((winner, idx) => (
                     <tr
                       key={idx}

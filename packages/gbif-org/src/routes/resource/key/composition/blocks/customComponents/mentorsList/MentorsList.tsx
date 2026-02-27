@@ -140,7 +140,7 @@ export function MentorsList({
               </thead>
               {isLoading && <SkeletonBody />}
               {!isLoading && (
-                <tbody>
+                <tbody className="prose-links">
                   {sortedMentors.map((mentor, idx) => (
                     <tr
                       key={idx}

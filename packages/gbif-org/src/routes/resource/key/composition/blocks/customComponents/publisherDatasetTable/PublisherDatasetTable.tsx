@@ -392,7 +392,7 @@ export function PublisherDatasetTable({
                     ))}
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="prose-links">
                   {sortedResults.map((row) => (
                     <tr
                       key={row.key}
