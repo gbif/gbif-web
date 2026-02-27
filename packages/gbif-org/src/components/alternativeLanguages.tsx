@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 export function AlternativeLanguages() {
   const config = useConfig();
-  const { locale, localizeLink } = useI18n();
+  const { locale, defaultLocale, localizeLink } = useI18n();
   const location = useLocation();
 
   return (
@@ -17,9 +17,16 @@ export function AlternativeLanguages() {
             key={l.code}
             rel="alternate"
             hrefLang={l.code}
-            href={localizeLink(config.baseUrl + location.pathname, l.code)}
+            href={config.baseUrl + localizeLink(location.pathname, l.code) + location.search}
           />
         ))}
+      <link
+        rel="alternate"
+        hrefLang="x-default"
+        href={
+          config.baseUrl + localizeLink(location.pathname, defaultLocale.code) + location.search
+        }
+      />
     </Helmet>
   );
 }

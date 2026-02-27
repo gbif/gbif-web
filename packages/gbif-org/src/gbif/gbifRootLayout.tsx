@@ -13,6 +13,7 @@ import { GDPR } from '@/components/gdpr';
 import toolsRedirects from './toolsRedirects';
 // eslint-disable-next-line
 import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
+import { AlternativeLanguages } from '@/components/alternativeLanguages';
 
 export async function headerLoader({ locale }: LoaderArgs) {
   const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/header?locale=${
@@ -94,6 +95,7 @@ const LayoutInner = React.memo(
           <LoadingIndicator />
           <Header menu={redirectTools(data)} />
           <main className="g-flex-auto">
+            <AlternativeLanguages />
             <NoscriptNotification />
             <ScrollRestoration />
             <Toaster />
