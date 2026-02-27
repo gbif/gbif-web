@@ -50,16 +50,11 @@ function HomePage(): React.ReactElement {
   const home = data?.gbifHome;
   const userInfo = useUserInfo();
   const primaryImage = home?.primaryImage?.[0];
-  const intl = useIntl();
   const location = useLocation();
 
   return (
     <ErrorBoundary>
-      <PageMetaData
-        title={intl.formatMessage({ id: 'phrases.defaultPageTitle' })}
-        description={intl.formatMessage({ id: 'phrases.defaultPageDescription' })}
-        path={location.pathname}
-      />
+      <PageMetaData path={location.pathname} />
       <div className="">
         {/* A background image with title and a search bar */}
         <section className="g-relative">
