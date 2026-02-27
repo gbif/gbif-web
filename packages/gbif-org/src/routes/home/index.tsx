@@ -15,7 +15,7 @@ import { HomePageCounts } from './counts';
 // eslint-disable-next-line
 import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 import { usePartialDataNotification } from '../rootErrorPage';
-import { Helmet } from 'react-helmet-async';
+import PageMetaData from '@/components/PageMetaData';
 
 async function homepageLoader({ locale }: LoaderArgs) {
   const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/home?locale=${
@@ -55,14 +55,11 @@ function HomePage(): React.ReactElement {
 
   return (
     <ErrorBoundary>
-      <Helmet>
-        <meta name="og:title" content={intl.formatMessage({ id: 'phrases.defaultPageTitle' })} />
-        <meta
-          name="og:description"
-          content={intl.formatMessage({ id: 'phrases.defaultPageDescription' })}
-        />
-        <meta name="og:url" content={`${import.meta.env.PUBLIC_BASE_URL}${location.pathname}`} />
-      </Helmet>
+      <PageMetaData
+        title={intl.formatMessage({ id: 'phrases.defaultPageTitle' })}
+        description={intl.formatMessage({ id: 'phrases.defaultPageDescription' })}
+        path={location.pathname}
+      />
       <div className="">
         {/* A background image with title and a search bar */}
         <section className="g-relative">
