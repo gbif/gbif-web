@@ -12,12 +12,13 @@ import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { searchConfig } from './searchConfig';
 import { Table } from './views/table';
 import { TaxonTree } from './views/tree';
+import PageMetaData from '@/components/PageMetaData';
 
 export function TaxonSearchPage({ datasetKey }: { datasetKey?: string }): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -25,16 +26,15 @@ export function TaxonSearchPage({ datasetKey }: { datasetKey?: string }): React.
     paramsToRemove: ['offset', 'from'],
   });
   const config = useConfig();
+  const intl = useIntl();
 
   return (
     <>
-      <FormattedMessage id="catalogues.species" defaultMessage="Taxon">
-        {(title) => (
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-        )}
-      </FormattedMessage>
+      <PageMetaData
+        path="/species/search"
+        title={intl.formatMessage({ id: 'speciesSearch.title' })}
+        description={intl.formatMessage({ id: 'speciesSearch.description' })}
+      />
 
       <SearchContextProvider searchContext={config.taxonSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
