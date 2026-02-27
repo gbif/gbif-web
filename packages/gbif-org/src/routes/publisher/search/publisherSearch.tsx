@@ -34,13 +34,13 @@ import { stringify } from '@/utils/querystring';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { SearchCommand } from '../../../components/filters/SearchCommand';
 import { PublisherResult } from '../publisherResult';
 import { AboutContent, ApiContent } from './help';
 import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
+import PageMetaData from '@/components/PageMetaData';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(
@@ -80,13 +80,21 @@ export function PublisherSearchPage(): React.ReactElement {
     paramsToRemove: ['offset'],
   });
   const config = useConfig();
+  const intl = useIntl();
 
   return (
-    <SearchContextProvider searchContext={config.publisherSearch}>
-      <FilterProvider filter={filter} onChange={setFilter}>
-        <PublisherSearch />
-      </FilterProvider>
-    </SearchContextProvider>
+    <>
+      <PageMetaData
+        path="/publisher/search"
+        title={intl.formatMessage({ id: 'publisher.searchTitle' })}
+        description={intl.formatMessage({ id: 'publisher.searchDescription' })}
+      />
+      <SearchContextProvider searchContext={config.publisherSearch}>
+        <FilterProvider filter={filter} onChange={setFilter}>
+          <PublisherSearch />
+        </FilterProvider>
+      </SearchContextProvider>
+    </>
   );
 }
 
@@ -172,14 +180,6 @@ export function PublisherSearch(): React.ReactElement {
   const publishers = data?.list;
   return (
     <>
-      <FormattedMessage id="catalogues.publishers" defaultMessage="Publishers">
-        {(title) => (
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-        )}
-      </FormattedMessage>
-
       <DataHeader
         className="g-bg-white"
         title={<FormattedMessage id="catalogues.publishers" defaultMessage="Publishers" />}

@@ -11,7 +11,6 @@ import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
 import React, { useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
