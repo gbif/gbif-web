@@ -77,6 +77,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       suggestDataset: getFile(locale, `../${folder}/${locale}/components/suggestDataset`),
       downloadUsage: getFile(locale, `../${folder}/${locale}/components/downloadUsage`)
         .downloadUsage,
+      occurrenceSearch: getFile(locale, `../${folder}/${locale}/components/occurrenceSearch`)
+        .occurrenceSearch,
 
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),

@@ -1,4 +1,3 @@
-import { useI18n } from '@/reactRouterPlugins';
 import { stripTags } from '@/utils/stripTags';
 import { Helmet } from 'react-helmet-async';
 interface PageMetaDataProps {
@@ -20,25 +19,11 @@ const PageMetaData = ({
   nofollow,
   imageUrl,
 }: PageMetaDataProps) => {
-  const {
-    locale: { code },
-  } = useI18n();
-
   return (
     <Helmet>
       <title>{title || 'GBIF'}</title>
       {noindex && nofollow && <meta name="robots" content="noindex,nofollow"></meta>}
       {!noindex && nofollow && <meta name="robots" content="nofollow"></meta>}
-      {code === 'en' && (
-        <link rel="alternate" hrefLang={code} href={`${import.meta.env.PUBLIC_BASE_URL}${path}`} />
-      )}
-      {code !== 'en' && (
-        <link
-          rel="alternate"
-          hrefLang={code}
-          href={`${import.meta.env.PUBLIC_BASE_URL}/${code}${path}`}
-        />
-      )}
       {path && (
         <meta property="og:url" content={`${import.meta.env.PUBLIC_BASE_URL}${path}`}></meta>
       )}

@@ -12,8 +12,8 @@ import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams'
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import PageMetaData from '@/components/PageMetaData';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
@@ -33,15 +33,20 @@ export function OccurrenceSearchPage(): React.ReactElement {
     paramsToRemove: ['offset', 'from'],
     defaultChecklistKey: config.defaultChecklistKey,
   });
+  const intl = useIntl();
+  const title = intl.formatMessage({
+    id: 'occurrenceSearch.title',
+    defaultMessage: 'Occurrence search',
+  });
+  const description = intl.formatMessage({
+    id: 'occurrenceSearch.description',
+    defaultMessage:
+      'Search for occurrences in Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data.',
+  });
+
   return (
     <>
-      <FormattedMessage id="occurrence.pageTitle" defaultMessage="Occurrence search">
-        {(title) => (
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-        )}
-      </FormattedMessage>
+      <PageMetaData title={title} description={description} path="/occurrence/search" />
 
       <SearchContextProvider searchContext={config.occurrenceSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
