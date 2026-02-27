@@ -73,10 +73,10 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                     </div>
                   )} */}
                   {taxon.publishedIn && (
-                    <div>
+                    <span className="g-inline">
                       <FormattedMessage id="taxon.publishedIn" />{' '}
-                      <HyperText text={taxon.publishedIn} />
-                    </div>
+                      <HyperText className="prose-links g-inline [&_p]:g-inline" text={taxon.publishedIn} />
+                    </span>
                   )}
                   <FeatureList>
                     {taxon?.references && <Homepage url={taxon.references} />}

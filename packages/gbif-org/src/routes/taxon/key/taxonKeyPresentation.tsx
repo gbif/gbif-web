@@ -264,13 +264,11 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
               )}
               {isNub && <SourceDataset taxon={data.taxon} />}
               {taxon.publishedIn && (
-                <div>
+                <span className="g-inline">
                   <FormattedMessage id="taxon.publishedIn" />
                   {': '}
-                  <span style={{ display: 'inline-block' }}>
-                    <HyperText text={taxon.publishedIn} />
-                  </span>
-                </div>
+                  <HyperText className="prose-links g-inline [&_p]:g-inline" text={taxon.publishedIn} />
+                </span>
               )}
             </div>
             <HeaderInfo>
