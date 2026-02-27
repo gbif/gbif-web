@@ -81,6 +81,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         .occurrenceSearch,
       speciesSearch: getFile(locale, `../${folder}/${locale}/components/speciesSearch`)
         .speciesSearch,
+      literatureSearch: getFile(locale, `../${folder}/${locale}/components/literatureSearch`)
+        .literatureSearch,
 
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
