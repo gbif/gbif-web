@@ -1,0 +1,82 @@
+{
+  "contentType": {
+    "event": "이벤트",
+    "news": "뉴스",
+    "resource": "자원",
+    "dataUse": "데이터 사용",
+    "project": "프로젝트",
+    "participant": "참여자",
+    "programme": "프로그램",
+    "document": "문서",
+    "tool": "도구",
+    "network": "네트워크",
+    "literature": "문헌"
+  },
+  "project": {
+    "project": "프로젝트",
+    "projectId": "프로젝트 ID",
+    "projectIdentifier": "프로젝트 식별자",
+    "grantType": "보조금 유형",
+    "duration": "기간",
+    "title": "제목",
+    "start": "시작",
+    "end": "종료",
+    "fundsAllocated": "자금 할당액",
+    "matchingFunds": "추정 공동자금조달",
+    "funding": "자금조달",
+    "coFunding": "",
+    "fundedBy": "자금 출처",
+    "coFundedBy": "",
+    "typeOfGrant": "보조금 유형",
+    "projectStart": "프로젝트 시작",
+    "status": "현황",
+    "programme": "프로그램",
+    "contractCountry": "국가 혹은 지역",
+    "newsAndEvents": "이벤트",
+    "call": "공모",
+    "projectLead": "프로젝트 총괄",
+    "contactDetalils": "자세한 연락처",
+    "partners": "파트너"
+  },
+  "datause": {
+    "dataViaGbif": "활용된 GBIF 중개 데이터 자원"
+  },
+  "literature": {
+    "keywords": "키워드"
+  },
+  "auxiliary": {
+    "subject": "주제",
+    "citation": "인용",
+    "organisingParticipants": "참여자 구성"
+  },
+  "document": {
+    "download": "다운로드",
+    "readDocument": "문서로 이동"
+  },
+  "resource": {
+    "resources": "자원",
+    "contactHelpdesk": "헬프데스크 연결",
+    "addToCalendar": "달력에 추가",
+    "venue": "베뉴",
+    "location": "장소",
+    "country": "국가 혹은 지역",
+    "noDatasets": "표시할 데이터셋이 없습니다",
+    "noNewsOrEvents": "제공 가능한 뉴스 혹은 이벤트가 없습니다",
+    "howToLinkDatasets": "프로젝트에 데이터셋을 연결하는 방법",
+    "howToLinkEvents": "프로젝트 페이지에 이벤트를 추가하는 방법",
+    "when": "언제",
+    "language": "언어",
+    "viewOnGBIF": "GBIF에서 보기",
+    "published": "출판",
+    "programme": "프로그램",
+    "fundedBy": "자금 출처",
+    "about": "소개",
+    "rights": "권리",
+    "rightsHolder": "권리자",
+    "author": "저자",
+    "datasets": "데이터셋",
+    "gbifWillAttend": "GBIF 사무국 참석",
+    "dataUsedInStudy": "연구에서 참조된 데이터",
+    "resourceDescription": "세계생물다양성정보기구(GBIF)에서 자원을 검색하십시오. 생물다양성 데이터에 대해 무료 및 오픈액세스."
+  }
+}

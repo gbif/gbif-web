@@ -65,6 +65,7 @@
   "dataset": "Набір даних",
   "taxonomy": "Таксономія",
   "localContexts": "Фінансується спільно",
+  "localContextsLabelsAppliedBy": "",
   "project": "Проєкт",
   "metrics": "Показники",
   "metricsOccurrenceHelpText": "Показники розраховані на основі інтерпретованих даних",

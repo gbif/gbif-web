@@ -1,5 +1,12 @@
 {
   "nResults": "{total, plural, one {# resultado} other {# resultados}}",
+  "nDocuments": "{total, plural, one {# documento} other {# documentos}}",
+  "nTools": "{total, plural, one {# ferramenta} other {# ferramentas}}",
+  "nProgrammes": "{total, plural, one {# programa} other {# programas}}",
+  "nProjects": "{total, plural, one {# projeto} other {# projetos}}",
+  "nNews": "{total, plural, one {# item de noticias} other {# items de noticias}}",
+  "nOccurrences": "{total, plural, one {# ocorrência} other {# ocorrências}}",
+  "nRecords": "{total, plural, one {# registo } other {# registos}}",
   "nSelected": "{total, plural, one {} other {# selecionado}}",
   "nQualityFlags": "{total, plural, one {# etiqueta de qualidade} other {# etiquetas de qualidade}}",
   "nAudioFiles": "{total, plural, one {# ficheiro de som} other {# ficheiros de som}}",

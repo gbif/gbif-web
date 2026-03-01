@@ -1,43 +1,43 @@
 {
-    "downloadUsage": {
-        "title": "通知GBIF在出版物(或类似)中使用发生数据下载",
-        "form": {
-            "title": "标题",
-            "titlePlaceholder": "使用数据的出版物/产品的标题/名称",
-            "type": "类型",
-            "authors": "作者",
-            "authorsPlaceholder": "出版物/产品的作者",
-            "link": "全球资源定位器",
-            "linkPlaceholder": "链接/DOI 到出版物/产品，如果在线可用",
-            "date": "日期",
-            "comments": "评论",
-            "commentsPlaceholder": "关于出版物/产品的附加信息(特别是如果不是传统的期刊文章)",
-            "submit": "提交",
-            "saveFailure": "保存表单时发生错误。请再试一次。",
-            "saveSuccess": "感谢您通知我们。我们会将下载链接到所描述的出版物/产品。请记住根据下载页面上的说明引用下载内容。您现在可以关闭此弹出窗口。"
-        },
-        "types": {
-            "JOURNAL_ARTICLE": "期刊文章",
-            "BOOK": "书本",
-            "BOOK_CHAPTER": "书本章节",
-            "CONFERENCE_PAPER_PROCEEDINGS": "会议进行",
-            "PREPRINT_WORKING_PAPER": "打印预览/工作页面",
-            "REPORT": "报告",
-            "WEB_PAGE": "网页页面",
-            "THESIS_DISSERTATION": "论文/学位论文",
-            "COURSE_TEACHING_MATERIALS": "课程/教材",
-            "MAGAZINE_ARTICLE": "杂志文章",
-            "STATUTE": "法规",
-            "PATENT": "专利",
-            "NEWSPAPER_ARTICLE": "报纸标题",
-            "SOFTWARE_COMPUTER_PROGRAM": "软件/电脑项目",
-            "HEARING": "聆听",
-            "TELEVISION_BROADCAST": "电视广播",
-            "ENCYCLOPEDIA_ARTICLE": "百科全书文章",
-            "CASE": "案例",
-            "FILM": "影片",
-            "BILL": "帐单",
-            "OTHER": "其他（请在下方评论中详细说明）"
-        }
+  "downloadUsage": {
+    "title": "通知GBIF在出版物(或类似)中使用发生数据下载",
+    "form": {
+      "title": "标题",
+      "titlePlaceholder": "使用数据的出版物/产品的标题/名称",
+      "type": "类型",
+      "authors": "作者",
+      "authorsPlaceholder": "出版物/产品的作者",
+      "link": "全球资源定位器",
+      "linkPlaceholder": "链接/DOI 到出版物/产品，如果在线可用",
+      "date": "日期",
+      "comments": "评论",
+      "commentsPlaceholder": "关于出版物/产品的附加信息(特别是如果不是传统的期刊文章)",
+      "submit": "提交",
+      "saveFailure": "保存表单时发生错误。请再试一次。",
+      "saveSuccess": "感谢您通知我们。我们会将下载链接到所描述的出版物/产品。请记住根据下载页面上的说明引用下载内容。您现在可以关闭此弹出窗口。"
+    },
+    "types": {
+      "JOURNAL_ARTICLE": "期刊文章",
+      "BOOK": "书本",
+      "BOOK_CHAPTER": "书本章节",
+      "CONFERENCE_PAPER_PROCEEDINGS": "会议进行",
+      "PREPRINT_WORKING_PAPER": "打印预览/工作页面",
+      "REPORT": "报告",
+      "WEB_PAGE": "网页页面",
+      "THESIS_DISSERTATION": "论文/学位论文",
+      "COURSE_TEACHING_MATERIALS": "课程/教材",
+      "MAGAZINE_ARTICLE": "杂志文章",
+      "STATUTE": "法规",
+      "PATENT": "专利",
+      "NEWSPAPER_ARTICLE": "报纸标题",
+      "SOFTWARE_COMPUTER_PROGRAM": "软件/电脑项目",
+      "HEARING": "聆听",
+      "TELEVISION_BROADCAST": "电视广播",
+      "ENCYCLOPEDIA_ARTICLE": "百科全书文章",
+      "CASE": "案例",
+      "FILM": "影片",
+      "BILL": "帐单",
+      "OTHER": "其他（请在下方评论中详细说明）"
     }
+  }
 }

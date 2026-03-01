@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "Zástupce popisu",
       "description": "Zástupce popisu",
-      "defaultRecommended": "Zástupce popisu"
+      "defaultRecommended": "Zástupce popisu",
+      "version": "Verze"
     }
   },
   "customSqlDownload": {

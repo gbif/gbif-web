@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "table": "",
+    "tree": "",
+    "gallery": "",
+    "media": "",
+    "map": "",
+    "datasets": "데이터셋",
+    "events": "",
+    "download": "",
+    "clusters": "",
+    "dashboard": "",
+    "sites": "",
+    "list": ""
+  },
+  "table": {
+    "lockColumn": "",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
+  },
+  "placeholders": {
+    "default": "",
+    "range": "",
+    "rangeExample": "",
+    "wildcard": "",
+    "dateTemplate": "",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "",
+    "no": "",
+    "either": ""
+  },
+  "loadMore": "",
+  "loading": "",
+  "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
+  "occurrenceClustersView": {
+    "about": "",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "",
+      "SPECIMEN": "",
+      "SEQUENCE": ""
+    }
+  },
+  "crossContentSearch": {
+    "title": "",
+    "description": "",
+    "noSearchTermsEntered": "",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "",
+      "datasetSearch": "데이터셋",
+      "publisherSearch": "",
+      "occurrenceSearch": "",
+      "resourceSearch": ""
+    },
+    "seeAll": "모두 보기"
+  }
+}

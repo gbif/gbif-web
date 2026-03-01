@@ -65,6 +65,7 @@
   "dataset": "مجموعة البيانات",
   "taxonomy": "التصنيف",
   "localContexts": "تمويل مشترك بواسطة",
+  "localContextsLabelsAppliedBy": "",
   "project": "مشروع",
   "metrics": "المقاييس",
   "metricsOccurrenceHelpText": "",

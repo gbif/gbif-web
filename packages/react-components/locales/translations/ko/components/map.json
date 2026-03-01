@@ -1,0 +1,70 @@
+{
+  "styles": {
+    "satellite": "위성",
+    "natural": "자연",
+    "bright": "밝게",
+    "dark": "어둡게",
+    "outdoor": "야외"
+  },
+  "projections": {
+    "ARCTIC": "북극",
+    "MERCATOR": "메르카토르",
+    "ANTARCTIC": "남극",
+    "PLATE_CAREE": "플레이트 카레"
+  },
+  "failedToGetUserLocation": {
+    "title": "당신의 위치를 찾을 수 없습니다",
+    "message": "브라우저 설정을 확인하고 다시 시도해주세요."
+  },
+  "filterByView": "보이는 지역을 필터로 사용하기",
+  "projection": "투영",
+  "anyYear": "임의 연도",
+  "exploreArea": "영역 탐색",
+  "explore": "탐색",
+  "generatedDateAgo": "{DATE_AGO}에 생성됨",
+  "style": "스타일",
+  "filters": "필터",
+  "select": "선택",
+  "custom": "사용자 정의",
+  "baseMap": "기본 지도",
+  "binning": "비닝",
+  "year": "연도",
+  "chooseColors": "색상",
+  "clickToSearchArea": "영역을 검색하기 위해서는 클릭하세요",
+  "predefined": {
+    "CLASSIC_HEX": "기본 육각형",
+    "CLASSIC": "기본 점",
+    "STREETS": "길",
+    "GLACIER": "빙하 그래디언트",
+    "GREEN": "",
+    "CUSTOM": "사용자 정의"
+  },
+  "basemap": {
+    "CLASSIC": "마젠타",
+    "LIGHT": "밝게(라벨 없음)",
+    "LIGHT_DETAILS": "밝게",
+    "DARK": "어둡게(라벨 없음)",
+    "DARK_DETAILS": "어둡게",
+    "OSM": "도로"
+  },
+  "bin": {
+    "PIXEL": "점",
+    "SMALL_HEX": "소형 육각형",
+    "LARGE_HEX": "육각형",
+    "SMALL_SQUARE": "소형 사각형",
+    "LARGE_SQUARE": "사각형"
+  },
+  "colors": {
+    "CLASSIC": "기본",
+    "FIRE": "불꽃 그래디언트",
+    "GLACIER": "빙하",
+    "GREEN_POINT": "초록",
+    "PURPLE_YELLOW": "보라-노랑",
+    "PURPLE_HEAT": "보라색 히트",
+    "BLUE_HEAT": "파란 히트",
+    "ORANGE_HEAT": "주황색 히트",
+    "GREEN": "초록",
+    "BLUE_CLUSTER": "파란색 클러스터",
+    "ORANGE_CLUSTER": "주황색 클러스터"
+  }
+}

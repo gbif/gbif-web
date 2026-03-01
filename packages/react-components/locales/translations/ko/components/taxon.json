@@ -1,0 +1,67 @@
+{
+  "tabs": {
+    "about": "",
+    "verbatim": "",
+    "metrics": ""
+  },
+  "recordedAsIntroducedIn": "",
+  "accordingTo": "",
+  "evidenceOfImpact": "",
+  "occurrencesInGbif": "",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
+  "publishedIn": "",
+  "vernacularNames": "",
+  "rank": "",
+  "source": "",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "treatments": "",
+  "more": "",
+  "less": "",
+  "dna": "",
+  "occurrenceImages": "",
+  "taxonImages": "",
+  "taxonIdentifiers": "",
+  "synonymsAndCombinations": "",
+  "inChecklist": "",
+  "rankPlural": {
+    "KINGDOM": "",
+    "PHYLUM": "",
+    "CLASS": "",
+    "ORDER": "",
+    "FAMILY": "",
+    "GENUS": "",
+    "SPECIES": ""
+  },
+  "distributions": "분포",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "",
+    "locality": "",
+    "locationId": "",
+    "country": ""
+  },
+  "verbatim": {
+    "term": "",
+    "value": "",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "",
+  "cites": "",
+  "immediateChildren": "",
+  "referenceTaxon": "",
+  "showLess": "",
+  "showAll": "",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
+  }
+}

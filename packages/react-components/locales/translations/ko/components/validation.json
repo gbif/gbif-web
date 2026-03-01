@@ -1,0 +1,8 @@
+{
+  "checkboxRequired": "이 상자를 체크하세요",
+  "required": "이 칸을 입력하세요",
+  "invalidEmail": "유효한 이메일을 제공해주세요",
+  "invalidURL": "유효한 URL을 제공해주세요",
+  "invalidWebsiteAddress": "유효한 웹사이트 주소를 제공해주세요",
+  "pleaseSelectAValue": "값을 선택해주세요"
+}

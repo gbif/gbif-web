@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "Marcador de posición de descripción",
       "description": "Marcador de posición de descripción",
-      "defaultRecommended": "Marcador de posición de descripción"
+      "defaultRecommended": "Marcador de posición de descripción",
+      "version": "Versión"
     }
   },
   "customSqlDownload": {
