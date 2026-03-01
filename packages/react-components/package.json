@@ -13,7 +13,7 @@
   "devDependencies": {
     "flat": "^6.0.1",
     "gzipper": "^8.2.1",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "nodemon": "^2.0.2",
     "object-hash": "^3.0.0",
     "pseudoloc": "^1.1.0",
