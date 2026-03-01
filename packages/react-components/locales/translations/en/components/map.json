@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "Small squares",
     "LARGE_SQUARE": "Squares"
   },
+  "tilesUnavailable": "Map tiles temporarily unavailable",
   "colors": {
     "CLASSIC": "Classic",
     "FIRE": "Fire",
