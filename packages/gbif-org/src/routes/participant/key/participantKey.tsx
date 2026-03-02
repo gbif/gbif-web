@@ -20,7 +20,7 @@ import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootEr
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent } from './help';
 
@@ -143,11 +143,22 @@ export function ParticipantPage() {
   if (data.participant == null) throw new NotFoundError();
   const { participant } = data;
 
+  const { formatMessage } = useIntl();
+
   return (
     <article className="g-bg-background">
-      <PageMetaData title={participant.title} path={`/participant/${participant.id}`} />
+      <PageMetaData
+        title={participant.title}
+        description={formatMessage(
+          {
+            id: `participant.participationStatus.type.OTHER.description.${participant.participationStatus}`,
+          },
+          { REGION: formatMessage({ id: `enums.gbifRegion.${participant.gbifRegion}` }) }
+        )}
+        path={`/participant/${participant.id}`}
+      />
 
-      <DataHeader aboutContent={<AboutContent />}></DataHeader>
+      <DataHeader aboutContent={<AboutContent />} />
 
       <PageContainer topPadded hasDataHeader>
         <ArticleTextContainer className="g-max-w-screen-lg">
