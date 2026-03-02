@@ -1,14 +1,12 @@
 import { DataUsePageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTags } from '../components/articleTags';
@@ -17,6 +15,7 @@ import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DynamicLink } from '@/reactRouterPlugins';
+import PageMetaData from '@/components/PageMetaData';
 
 export const DataUsePageSkeleton = ArticleSkeleton;
 
@@ -55,14 +54,17 @@ export const dataUsePageLoader = createResourceLoaderWithRedirect({
 
 export function DataUsePage() {
   const { resource } = useLoaderData() as { resource: DataUsePageFragment };
+  const location = useLocation();
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+        // TODO: add image url
+        imageAlt={resource.primaryImage?.description}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">

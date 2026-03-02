@@ -4,16 +4,14 @@ import { Button } from '@/components/ui/button';
 import { EventPageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { MdCalendarMonth } from 'react-icons/md';
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, FormattedTime } from 'react-intl';
 import { LongDate, longDateFormatProps } from '@/components/dateFormats';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTextContainer } from '../components/articleTextContainer';
@@ -26,6 +24,7 @@ import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRed
 import { LuClock4 } from 'react-icons/lu';
 import { Location as LocationComponent } from './eventResult';
 import { DynamicLink } from '@/reactRouterPlugins';
+import PageMetaData from '@/components/PageMetaData';
 
 export const EventPageSkeleton = ArticleSkeleton;
 
@@ -71,13 +70,17 @@ export function EventPage() {
   const startDate = new Date(resource.start);
   const endDate = resource.end ? new Date(resource.end) : undefined;
 
+  const location = useLocation();
+
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+        // TODO: add image url
+        imageAlt={resource.primaryImage?.description}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">

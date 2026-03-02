@@ -3,20 +3,19 @@ import { Button } from '@/components/ui/button';
 import { DocumentPageFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
+import PageMetaData from '@/components/PageMetaData';
 
 export const DocumentPageSkeleton = ArticleSkeleton;
 
@@ -51,14 +50,15 @@ export const documentPageLoader = createResourceLoaderWithRedirect({
 
 export function DocumentPage() {
   const { resource } = useLoaderData() as { resource: DocumentPageFragment };
+  const location = useLocation();
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <div className="g-max-w-4xl g-m-auto g-bg-paperBackground md:g-shadow-2xl md:g-p-8 lg:g-p-16">

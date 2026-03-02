@@ -12,6 +12,7 @@ interface PageMetaDataProps {
   noindex?: boolean | undefined;
   nofollow?: boolean | undefined;
   imageUrl?: string | null | undefined;
+  imageAlt?: string | null | undefined;
   noCanonical?: boolean | undefined;
 }
 
@@ -23,6 +24,7 @@ const PageMetaData = ({
   noindex,
   nofollow,
   imageUrl,
+  imageAlt,
   noCanonical,
 }: PageMetaDataProps) => {
   const intl = useIntl();
@@ -50,7 +52,8 @@ const PageMetaData = ({
           description || intl.formatMessage({ id: 'phrases.defaultPageDescription' })
         )}
       />
-      {!!imageUrl && <meta property="og:image" content={imageUrl} />}
+      {imageUrl && <meta property="og:image" content={imageUrl} />}
+      {imageUrl && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
       {!!jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd, null, 2)}</script>}
     </Helmet>
   );

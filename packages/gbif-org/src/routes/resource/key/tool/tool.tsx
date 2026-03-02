@@ -3,14 +3,12 @@ import { ToolPageFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTextContainer } from '../components/articleTextContainer';
@@ -18,6 +16,7 @@ import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import PageMetaData from '@/components/PageMetaData';
 
 export const ToolPageSkeleton = ArticleSkeleton;
 
@@ -26,6 +25,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     title
     summary
+    excerpt
     body
     primaryImage {
       ...ArticleBanner
@@ -54,14 +54,17 @@ export const toolPageLoader = createResourceLoaderWithRedirect({
 
 export function ToolPage() {
   const { resource } = useLoaderData() as { resource: ToolPageFragment };
+  const location = useLocation();
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+        // TODO: add image url
+        imageAlt={resource.primaryImage?.description}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
