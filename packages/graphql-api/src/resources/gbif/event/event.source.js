@@ -10,7 +10,7 @@ class EventAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.config = config;
-    this.baseURL = config.apiv1;
+    this.baseURL = `${config.apiv1}/experimental`;
   }
 
   willSendRequest(request) {
