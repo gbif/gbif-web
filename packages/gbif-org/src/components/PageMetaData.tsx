@@ -12,6 +12,7 @@ interface PageMetaDataProps {
   noindex?: boolean | undefined;
   nofollow?: boolean | undefined;
   imageUrl?: string | null | undefined;
+  noCanonical?: boolean | undefined;
 }
 
 const PageMetaData = ({
@@ -22,6 +23,7 @@ const PageMetaData = ({
   noindex,
   nofollow,
   imageUrl,
+  noCanonical,
 }: PageMetaDataProps) => {
   const intl = useIntl();
   const config = useConfig();
@@ -35,7 +37,9 @@ const PageMetaData = ({
       {noindex && nofollow && <meta name="robots" content="noindex,nofollow"></meta>}
       {!noindex && nofollow && <meta name="robots" content="nofollow"></meta>}
       {path && <meta property="og:url" content={`${config.baseUrl}${localizeLink(path)}`}></meta>}
-      {path && <link rel="canonical" href={`${config.baseUrl}${localizeLink(path)}`} />}
+      {path && !noCanonical && (
+        <link rel="canonical" href={`${config.baseUrl}${localizeLink(path)}`} />
+      )}
       <meta
         property="og:title"
         content={title || intl.formatMessage({ id: 'phrases.defaultPageTitle' })}
