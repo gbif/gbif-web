@@ -42,7 +42,7 @@ export function RegionAnalyticsPage() {
       <PageMetaData
         title={title}
         description={description}
-        // TODO: Add image url
+        imageUrl={`${import.meta.env.PUBLIC_ANALYTICS_FILES_URL}/gbifRegion/${regionKey}/about/figure/occ_repatriation.png`}
         path={`/analytics/region/${regionKey}`}
       />
       <PageContainer topPadded bottomPadded className="g-bg-white">

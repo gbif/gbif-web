@@ -24,7 +24,7 @@ export function GlobalAnalyticsPage() {
       <PageMetaData
         title={title}
         description={description}
-        // TODO: Add image url
+        imageUrl={`${import.meta.env.PUBLIC_ANALYTICS_FILES_URL}/global/figure/occ_repatriation.png`}
         path="/analytics/global"
       />
       <PageContainer topPadded bottomPadded className="g-bg-white">
