@@ -159,7 +159,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
       <PageMetaData
         title={taxon.scientificName}
         jsonLd={isNub ? getTaxonSchema(data.taxon) : undefined}
-        path={`/taxon/${taxon.key}`}
+        path={`/species/${taxon.key}`}
         noCanonical
       />
 
