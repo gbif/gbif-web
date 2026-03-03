@@ -329,7 +329,7 @@ function Results({
                     />
                   </div>
                   <Map
-                    className="g-z-0"
+                    className="g-z-0 g-h-[400px]"
                     {...{ geojson, geojsonLoading, geojsonError }}
                     PopupContent={PopupContent}
                   />

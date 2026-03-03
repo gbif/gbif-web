@@ -351,7 +351,6 @@ export default function GeoJsonMapOpenlayers({
     <>
       <div
         ref={mapRef}
-        style={{ height: '400px' }}
         onClick={enableInteractions}
         className={cn('[&_button]:g-p-1', className)}
       />

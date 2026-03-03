@@ -255,7 +255,6 @@ export default function GeoJsonMapMaplibre({
       )}
       <div
         ref={mapRef}
-        style={{ height: '400px' }}
         onClick={() => {
           setZoomEnabled(true);
         }}
