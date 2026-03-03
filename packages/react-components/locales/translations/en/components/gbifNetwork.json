@@ -20,6 +20,7 @@
     "countryParticipants": "Country participants",
     "publishersPerCountry": "Publishers per country",
     "clear": "Clear",
+    "noDescriptionProvided": "No description provided for this network",
     "headlines": {
       "nodesSteeringGroup": "Nodes Steering Group",
       "participants": "Participants"
