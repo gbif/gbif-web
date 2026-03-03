@@ -78,7 +78,7 @@ export function EventPage() {
         title={resource.title}
         description={resource.excerpt}
         path={location.pathname}
-        // TODO: add image url
+        imageUrl={resource.primaryImage?.file.normal}
         imageAlt={resource.primaryImage?.description}
       />
 
