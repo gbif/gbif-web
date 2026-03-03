@@ -1,21 +1,16 @@
 import { MdtDatasetsQuery, MdtDatasetsQueryVariables } from '@/gql/graphql';
 import { useQuery } from '@/hooks/useQuery';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { createContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { MdtOccurrences } from './MdtOccurrences';
-import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { FeatureList, Homepage } from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MdLink } from 'react-icons/md';
+import PageMetaData from '@/components/PageMetaData';
 
 const MDT_DATASETS = /* GraphQL */ `
   query MdtDatasets($predicate: Predicate) {
@@ -136,9 +131,7 @@ const MdtData = () => {
   ];
   return (
     <article>
-      <Helmet>
-        <title>Metabarcoding Data Toolkit</title>
-      </Helmet>
+      <PageMetaData title="Metabarcoding Data Toolkit" path="/mdt" />
 
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className=" g-max-w-screen-xl">

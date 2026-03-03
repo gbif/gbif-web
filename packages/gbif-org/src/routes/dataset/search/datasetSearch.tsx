@@ -22,12 +22,12 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { stringify } from '@/utils/querystring';
 import React, { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { DatasetResult } from '../datasetResult';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
+import PageMetaData from '@/components/PageMetaData';
 
 export const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -48,16 +48,15 @@ export function DatasetSearchPage(): React.ReactElement {
     paramsToRemove: ['offset'],
   });
   const config = useConfig();
+  const intl = useIntl();
 
   return (
     <>
-      <FormattedMessage id="catalogues.datasets" defaultMessage="Datasets">
-        {(title) => (
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-        )}
-      </FormattedMessage>
+      <PageMetaData
+        path="/dataset/search"
+        title={intl.formatMessage({ id: 'dataset.datasetSearchTitle' })}
+        description={intl.formatMessage({ id: 'dataset.datasetSearchDescription' })}
+      />
 
       <SearchContextProvider searchContext={config.datasetSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>

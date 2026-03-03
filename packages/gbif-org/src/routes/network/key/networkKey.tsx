@@ -1,10 +1,6 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-} from '@/components/headerComponents';
+import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
 import {
   CitationIcon,
@@ -97,7 +93,7 @@ export function NetworkPage() {
       <PageMetaData
         path={`/network/${network.key}`}
         title={title}
-        description={network.prose?.summary ?? ''}
+        description={network.description ?? network.prose?.summary ?? ''}
         noindex={!!network?.deleted}
         nofollow={!!network?.deleted}
       />

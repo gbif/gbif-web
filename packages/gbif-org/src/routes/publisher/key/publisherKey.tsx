@@ -1,10 +1,6 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorMessage } from '@/components/errorMessage';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-} from '@/components/headerComponents';
+import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
 import {
   CitationIcon,
@@ -32,7 +28,6 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -179,10 +174,6 @@ export function PublisherPage() {
 
   return (
     <article>
-      <Helmet>
-        <title>{publisher.title}</title>
-        {/* TODO we need much richer meta data. Especially for datasets.  */}
-      </Helmet>
       <PageMetaData
         path={`/publisher/${publisher.key}`}
         title={publisher.title}

@@ -152,20 +152,25 @@ export const MdtInstallations = () => {
             </tbody>
           </table>
         )}
-        {!summedData &&
-          Array.from({ length: 10 }).map((x, i) => (
-            <tr key={i}>
-              <td>
-                <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-              </td>
-              <td>
-                <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-              </td>
-              <td>
-                <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-              </td>
-            </tr>
-          ))}
+        {!summedData && (
+          <table>
+            <tbody>
+              {Array.from({ length: 10 }).map((x, i) => (
+                <tr key={i}>
+                  <td>
+                    <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+                  </td>
+                  <td>
+                    <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+                  </td>
+                  <td>
+                    <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </ArticleTextContainer>
     </ArticleContainer>
   );

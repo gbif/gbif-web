@@ -1,21 +1,14 @@
-import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '../../resource/key/components/articleSkeleton';
 import { OccurrenceSnapshotsQuery, OccurrenceSnapshotsQueryVariables } from '@/gql/graphql';
-import { useLoaderData } from 'react-router-dom';
 import useQuery from '@/hooks/useQuery';
 import { useEffect, useState } from 'react';
-import { CardHeader } from '@/components/ui/largeCard';
-import { SearchInput } from '@/components/searchInput';
-import { cn } from '@/utils/shadcn';
-import { Helmet } from 'react-helmet-async';
-import { ArticleBody } from '../../resource/key/components/articleBody';
-import { ArticleIntro } from '../../resource/key/components/articleIntro';
-import { ArticleOpenGraph } from '../../resource/key/components/articleOpenGraph';
 import { ArticleTextContainer } from '../../resource/key/components/articleTextContainer';
 import { ArticleTitle } from '../../resource/key/components/articleTitle';
 import { PageContainer } from '../../resource/key/components/pageContainer';
-import { ArticlePreTitle } from '../../resource/key/components/articlePreTitle';
 import OccurrenceSnapshotsTable from './table';
+import PageMetaData from '@/components/PageMetaData';
+
 const OCCURRENCE_SNAPSHOTS_QUERY = /* GraphQL */ `
   query OccurrenceSnapshots($limit: Int!, $offset: Int!) {
     occurrenceSnapshots(limit: $limit, offset: $offset) {
@@ -59,9 +52,7 @@ const OccurrenceSnapshots = () => {
 
   return (
     <article>
-      <Helmet>
-        <title>Occurrence snapshots</title>
-      </Helmet>
+      <PageMetaData title="Occurrence snapshots" path="/occurrence-snapshots" nofollow noindex />
 
       <PageContainer topPadded className="g-bg-white g-pb-10">
         <ArticleTextContainer className="g-mb-2">

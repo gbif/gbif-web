@@ -159,7 +159,8 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
       <PageMetaData
         title={taxon.scientificName}
         jsonLd={isNub ? getTaxonSchema(data.taxon) : undefined}
-        path={`/taxon/${taxon.key}`}
+        path={`/species/${taxon.key}`}
+        noCanonical
       />
 
       <EntityDrawer />
@@ -168,7 +169,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={taxon.key} />}
-      ></DataHeader>
+      />
 
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
@@ -267,7 +268,10 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 <span className="g-inline">
                   <FormattedMessage id="taxon.publishedIn" />
                   {': '}
-                  <HyperText className="prose-links g-inline [&_p]:g-inline" text={taxon.publishedIn} />
+                  <HyperText
+                    className="prose-links g-inline [&_p]:g-inline"
+                    text={taxon.publishedIn}
+                  />
                 </span>
               )}
             </div>

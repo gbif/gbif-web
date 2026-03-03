@@ -21,8 +21,7 @@ import useQuery from '@/hooks/useQuery';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
 import { ExtractPaginatedResult } from '@/types';
 import React, { useContext, useEffect, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ArticleContainer } from '../key/components/articleContainer';
 import { ArticleTextContainer } from '../key/components/articleTextContainer';
 import { useFilters } from './filters';
@@ -33,6 +32,7 @@ import { ResourceSearchTabs } from './resourceSearchTabs';
 import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import PageMetaData from '@/components/PageMetaData';
 
 export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
@@ -132,15 +132,16 @@ export function ResourceSearchPage(): React.ReactElement {
 
   const searchMetadata = useResourceSearchMetadata(tab);
 
+  const intl = useIntl();
+
   return (
     <>
-      <FormattedMessage id="resourceSearch.title">
-        {(title) => (
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-        )}
-      </FormattedMessage>
+      <PageMetaData
+        path="/resource/search"
+        title={intl.formatMessage({ id: 'resourceSearch.title' })}
+        description={intl.formatMessage({ id: 'resourceSearch.resourceDescription' })}
+      />
+
       <SearchContextProvider searchContext={searchMetadata}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <ResourceSearchPageInner activeTab={tab} defaultTab={DEFAULT_TAB} />

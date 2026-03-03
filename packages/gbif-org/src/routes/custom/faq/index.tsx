@@ -2,22 +2,20 @@ import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
 import { CardHeader } from '@/components/ui/largeCard';
 import { FaqQuery, FaqQueryVariables, HelpItemQuery, HelpItemQueryVariables } from '@/gql/graphql';
-import { useStringParam } from '@/hooks/useParam';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { ArticleBody } from '@/routes/resource/key/components/articleBody';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
-import { ArticleOpenGraph } from '@/routes/resource/key/components/articleOpenGraph';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { HelpItemResult } from './HelpItemResult';
 import { FeedbackPopover } from '@/gbif/header/feedback/feedback';
+import PageMetaData from '@/components/PageMetaData';
 
 const FAQ_QUERY = /* GraphQL */ `
   query Faq($urlAlias: String) {
@@ -111,11 +109,7 @@ function FAQ() {
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData title={resource.title} path="/faq" />
 
       <PageContainer topPadded className="g-bg-white g-pb-10">
         <ArticleTextContainer className="g-mb-10">

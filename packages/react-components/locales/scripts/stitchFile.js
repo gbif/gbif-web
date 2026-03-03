@@ -77,6 +77,12 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       suggestDataset: getFile(locale, `../${folder}/${locale}/components/suggestDataset`),
       downloadUsage: getFile(locale, `../${folder}/${locale}/components/downloadUsage`)
         .downloadUsage,
+      occurrenceSearch: getFile(locale, `../${folder}/${locale}/components/occurrenceSearch`)
+        .occurrenceSearch,
+      speciesSearch: getFile(locale, `../${folder}/${locale}/components/speciesSearch`)
+        .speciesSearch,
+      literatureSearch: getFile(locale, `../${folder}/${locale}/components/literatureSearch`)
+        .literatureSearch,
 
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),

@@ -53,23 +53,28 @@ export function MdtOccurrences() {
           <SearchContextProvider searchContext={config}>
             <FilterProvider filter={filter} onChange={setFilter}>
               {datasetKeys.length > 0 && <OccurrenceSearchInner />}
-              {datasetKeys.length === 0 &&
-                Array.from({ length: 10 }).map((x, i) => (
-                  <tr key={i}>
-                    <td>
-                      <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                    </td>
-                    <td>
-                      <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                    </td>
-                    <td>
-                      <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                    </td>
-                    <td>
-                      <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                    </td>
-                  </tr>
-                ))}
+              {datasetKeys.length === 0 && (
+                <table>
+                  <tbody>
+                    {Array.from({ length: 10 }).map((x, i) => (
+                      <tr key={i}>
+                        <td>
+                          <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+                        </td>
+                        <td>
+                          <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+                        </td>
+                        <td>
+                          <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+                        </td>
+                        <td>
+                          <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </FilterProvider>
           </SearchContextProvider>
         )}
