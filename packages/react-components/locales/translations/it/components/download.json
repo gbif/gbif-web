@@ -53,8 +53,8 @@
     },
     "downloadOptions": {
       "title": "",
-      "chooseChecklist": "Codice di Condotta",
-      "chooseChecklistDescription": "Codice di Condotta",
+      "chooseChecklist": "",
+      "chooseChecklistDescription": "",
       "content": {
         "rawData": "",
         "interpretedData": "",
