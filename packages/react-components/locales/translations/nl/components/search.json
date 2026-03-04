@@ -36,8 +36,8 @@
   "loadMore": "Meer",
   "loading": "Laden",
   "noResults": "",
-  "startTyping": "Code of Conduct",
-  "rankInGroup": "Code of Conduct",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Zoeken",
-    "description": "Code of Conduct",
+    "description": "",
     "noSearchTermsEntered": "",
-    "placeholder": "Code of Conduct",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Soorten",
       "datasetSearch": "Datasets",
       "publisherSearch": "Uitgevers",
       "occurrenceSearch": "",
-      "resourceSearch": "Code of Conduct"
+      "resourceSearch": ""
     },
     "seeAll": "Alles weergeven"
   }
