@@ -53,8 +53,8 @@
     },
     "downloadOptions": {
       "title": "Download opties",
-      "chooseChecklist": "Code of Conduct",
-      "chooseChecklistDescription": "Code of Conduct",
+      "chooseChecklist": "",
+      "chooseChecklistDescription": "",
       "content": {
         "rawData": "Ruwe data",
         "interpretedData": "",
