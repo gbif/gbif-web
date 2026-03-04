@@ -65,7 +65,7 @@
     "downloadStarted": "Pobieranie rozpoczęło się i jest aktualnie przetwarzane.",
     "downloadExpectTime": "",
     "notificationEmailAddresses": "Kiedy będzie gotowe, email z powiadomieniem i linkiem do pobrania zostanie wysłany na następujący adres: ",
-    "sqlGeneratedUsingPredicate": "Symbol zastępczy opisu",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "W kolejce",
       "SUSPENDED": "Zawieszono",
@@ -73,7 +73,7 @@
       "CANCELLED": "Anulowano",
       "KILLED": "Przerwano"
     },
-    "usedChecklistKey": "Symbol zastępczy opisu",
+    "usedChecklistKey": "",
     "predicate": {
       "checklist": "Checklista",
       "joinDescriptions": {
@@ -201,7 +201,7 @@
         "FORMATION": "Formacja",
         "ORDER_KEY": "Rząd",
         "ISSUE": "Problem",
-        "TAXONOMIC_ISSUE": "Symbol zastępczy opisu",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Instalacja",
         "VERBATIM_SCIENTIFIC_NAME": "Dosłowna nazwa naukowa\n",
         "GBIF_REGION": "Region GBIF",
@@ -261,110 +261,110 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Powrót",
-    "slowDown": "Symbol zastępczy opisu",
-    "unableToCreateDownload": "Symbol zastępczy opisu",
-    "backToFormatSelection": "Symbol zastępczy opisu",
-    "backToConfiguration": "Symbol zastępczy opisu",
+    "slowDown": "",
+    "unableToCreateDownload": "",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
     "estimatedSize": "",
-    "configure": "Symbol zastępczy opisu",
-    "continueToTerms": "Symbol zastępczy opisu",
-    "downloadSummary": "Symbol zastępczy opisu",
-    "weAlsoSupport": "Symbol zastępczy opisu",
-    "sqlDownloadsLink": "Symbol zastępczy opisu",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
     "extensions": "Rozszerzenia",
-    "selectAdditionalExtensions": "Symbol zastępczy opisu",
-    "nExtensionsSelected": "Symbol zastępczy opisu",
-    "selectAll": "Symbol zastępczy opisu",
-    "deselectAll": "Symbol zastępczy opisu",
-    "extensionsInfoMessage": "Symbol zastępczy opisu",
+    "selectAdditionalExtensions": "",
+    "nExtensionsSelected": "",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
     "format": "Format",
-    "csvDelimiter": "Symbol zastępczy opisu",
+    "csvDelimiter": "",
     "taxonomy": "Taksonomia",
-    "tabDelimiter": "Symbol zastępczy opisu",
-    "progressLabel": "Symbol zastępczy opisu",
-    "termsAndConditions": "Symbol zastępczy opisu",
-    "reviewAndAccept": "Symbol zastępczy opisu",
-    "dataCitationTitle": "Symbol zastępczy opisu",
-    "dataCitationText": "Symbol zastępczy opisu",
-    "dataUseAgreementTitle": "Symbol zastępczy opisu",
-    "dataUseAgreementText": "Symbol zastępczy opisu",
-    "largeDownloadAcknowledgment": "Symbol zastępczy opisu",
-    "largeDownloadEstimatedSize": "Symbol zastępczy opisu",
-    "largeDownloadConnectionSpeed": "Symbol zastępczy opisu",
-    "largeDownloadDiskSpace": "Symbol zastępczy opisu",
-    "largeDownloadRowCount": "Symbol zastępczy opisu",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
     "largeDownloadExcelWarning": "Nie będziesz mieć możliwości wyświetlenia czy analizy danych w Excelu lub podobnym programie. Zbiór danych o tym rozmiarze jest trudny do analizowania na zwykłym komputerze. Prawdopodobnie będziesz potrzebować dostępu do urządzeń do obliczeń rozproszonych lub narzędzi 'Big Data'.",
-    "termsStatus": "Symbol zastępczy opisu",
-    "createDownload": "Symbol zastępczy opisu",
-    "completeRequirements": "Symbol zastępczy opisu",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
     "steps": {
       "quality": {
         "name": "",
-        "description": "Symbol zastępczy opisu"
+        "description": ""
       },
       "filter": {
-        "name": "Symbol zastępczy opisu",
-        "description": "Symbol zastępczy opisu"
+        "name": "",
+        "description": ""
       },
       "sql": {
-        "name": "Symbol zastępczy opisu",
-        "description": "Symbol zastępczy opisu"
+        "name": "",
+        "description": ""
       },
       "format": {
         "name": "Format",
-        "description": "Symbol zastępczy opisu"
+        "description": ""
       },
       "configure": {
-        "name": "Symbol zastępczy opisu",
-        "description": "Symbol zastępczy opisu"
+        "name": "",
+        "description": ""
       },
       "terms": {
         "name": "",
-        "description": "Symbol zastępczy opisu"
+        "description": ""
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "Symbol zastępczy opisu",
-        "description": "Symbol zastępczy opisu"
+        "title": "",
+        "description": ""
       },
       "DWCA": {
         "title": "Darwin Core Archive",
-        "description": "Symbol zastępczy opisu"
+        "description": ""
       },
       "SPECIES_LIST": {
         "title": "Lista gatunków",
-        "description": "Symbol zastępczy opisu"
+        "description": ""
       },
       "SQL_CUBE": {
-        "title": "Symbol zastępczy opisu",
-        "description": "Symbol zastępczy opisu"
+        "title": "",
+        "description": ""
       },
       "SQL_TSV_ZIP": {
-        "title": "Symbol zastępczy opisu",
-        "description": "Symbol zastępczy opisu"
+        "title": "",
+        "description": ""
       },
       "features": {
-        "singleCsv": "Symbol zastępczy opisu",
-        "multipleCsv": "Symbol zastępczy opisu",
-        "interpretedData": "Symbol zastępczy opisu",
-        "rawAndInterpreted": "Symbol zastępczy opisu",
-        "coordinates": "Symbol zastępczy opisu",
-        "coordinatesIfSelected": "Symbol zastępczy opisu",
-        "individualOccurrences": "Symbol zastępczy opisu",
-        "multimediaLinks": "Symbol zastępczy opisu",
-        "occurrenceCounts": "Symbol zastępczy opisu"
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
       }
     },
     "taxonomySelector": {
-      "title": "Symbol zastępczy opisu",
-      "description": "Symbol zastępczy opisu",
-      "defaultRecommended": "Symbol zastępczy opisu",
+      "title": "",
+      "description": "",
+      "defaultRecommended": "",
       "version": "Wersja"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "Symbol zastępczy opisu",
+    "cubeConfiguration": "",
     "invalidSQL": "Nieprawidłowy SQL",
     "title": "Stwórz nowe pobranie SQL",
     "notification": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
@@ -381,7 +381,7 @@
       "EXACT_TAXON": "Dokładny takson"
     },
     "cubeTitle": "Pobierz kostkę",
-    "cubeDescription": "Symbol zastępczy opisu",
+    "cubeDescription": "",
     "readMore": "Zobacz więcej",
     "time": {
       "YEAR": "Rok",
@@ -464,8 +464,8 @@
     "countHigherTaxonomy": "Liczba stwierdzeń na wyższym poziomie taksonomicznym",
     "coordinateUncertainty": "Zawrzyj minimalną niepewność współrzędnych",
     "errorMinimumDimension": "Przynajmniej jeden wymiar musi zostać wybrany",
-    "errorMinimumDimensionForCube": "Symbol zastępczy opisu",
-    "errorGeneratingSql": "Symbol zastępczy opisu",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "Edytuj jako SQL",
     "temporalUncertainty": "Zawrzyj minimalną niepewność czasową",
     "documentation": "Dokumentacja",
