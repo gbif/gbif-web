@@ -42,7 +42,7 @@
   "specimensInGbif": {
     "name": "GBIFの標本",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
@@ -103,7 +103,7 @@
   "eventDate": {
     "name": "イベント日付",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF ID",
@@ -151,7 +151,7 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "GBIFがアノーテーションしたアーカイブ",
+    "name": "",
     "count": "",
     "description": ""
   },
@@ -163,22 +163,22 @@
   "institutionType": {
     "name": "タイプ",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "discipline": {
-    "name": "GBIFがアノーテーションしたアーカイブ",
+    "name": "",
     "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "GBIFがアノーテーションしたアーカイブ",
+    "name": "",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "preservationType": {
-    "name": "GBIFがアノーテーションしたアーカイブ",
+    "name": "",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "biomeType": {
     "name": "",
@@ -242,12 +242,12 @@
     "description": ""
   },
   "grsciCollCountry": {
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "preparations": {
     "name": "標本の準備または保存方法",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "repatriated": {
     "name": "返還された",
@@ -262,7 +262,7 @@
   "q": {
     "name": "",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "coordinates": {
     "name": "座標"
@@ -600,7 +600,7 @@
   "personalCollection": {
     "name": "個人コレクション",
     "count": "個人コレクション",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "datasetType": {
     "name": "データセットタイプ",
@@ -620,7 +620,7 @@
   "name": {
     "name": "名前",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
@@ -631,7 +631,7 @@
   "code": {
     "name": "コード",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "オリジナルの学名",
