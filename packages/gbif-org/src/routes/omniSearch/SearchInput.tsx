@@ -1,4 +1,5 @@
 import { useStringParam } from '@/hooks/useParam';
+import { cn } from '@/utils/shadcn';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 
@@ -59,8 +60,11 @@ export const SearchInputPresentation = forwardRef<
       <input
         type="text"
         ref={ref}
-        className="g-w-full g-pl-10 g-pr-4 g-py-3 g-rounded-lg g-border g-border-solid g-border-gray-200 focus:g-border-primary-500 focus:g-ring-2 focus:g-ring-primary-200 g-transition-all g-outline-none g-text-lg"
         {...props}
+        className={cn(
+          'g-w-full g-pl-10 g-pr-4 g-py-3 g-rounded-lg g-border g-border-solid g-border-gray-200 focus:g-border-primary-500 focus:g-ring-2 focus:g-ring-primary-200 g-transition-all g-outline-none g-text-lg',
+          props?.className
+        )}
       />
     </div>
   );
