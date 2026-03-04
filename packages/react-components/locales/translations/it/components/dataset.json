@@ -64,7 +64,7 @@
   "constituentOf": "",
   "dataset": "",
   "taxonomy": "",
-  "localContexts": "Cofinanziato da",
+  "localContexts": "",
   "localContextsLabelsAppliedBy": "",
   "project": "",
   "metrics": "",
@@ -185,8 +185,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "Cofinanziato da",
-    "occurrenceInfo": "Cofinanziato da"
+    "evenList": "",
+    "occurrenceInfo": ""
   },
   "eventTaxonomy": "",
   "noCitations": "",
