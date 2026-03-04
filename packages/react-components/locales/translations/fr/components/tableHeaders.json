@@ -1,13 +1,13 @@
 {
   "features": "Fonctionnalités",
   "options": {
-    "includeAuthorship": "Id géré par le fournisseur"
+    "includeAuthorship": ""
   },
   "citations": "Citations",
   "occurrences": "Occurrences",
   "numberSpecimens": "Nombre de spécimens",
   "gbifNumberSpecimens": "Spécimens sur GBIF",
-  "specimenTriplet": "Id géré par le fournisseur",
+  "specimenTriplet": "",
   "title": "Titre",
   "titleAndAbstract": "Titre et résumé",
   "altmetric": "Altmétrique",
@@ -25,6 +25,6 @@
   "activeInstitution": "Est actif",
   "author": "Auteur",
   "source": "Journal",
-  "dataReferenced": "Id géré par le fournisseur",
+  "dataReferenced": "",
   "activeCollection": "Est actif"
 }
