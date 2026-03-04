@@ -74,5 +74,5 @@
   "all": "Todos",
   "clear": "Limpiar",
   "search": "Buscar",
-  "404Text": "Esta página ha podido existir pero ya no podemos encontrarla.\nPor favor, intenta nuestra (/búsqueda) para encontrar los que estás buscando. Además, estaremos encantados de atenderte en [helpdesk@gbif.org](mailto:helpdesk@gbif.org)."
+  "404Text": "Es posible que esta página haya existido en algún momento, pero ya no podemos encontrarla.\nPruebe nuestro [buscador] (/search) para encontrar lo que busca. No dude en ponerse en contacto con nosotros en [helpdesk@gbif.org] (mailto:helpdesk@gbif.org)."
 }
