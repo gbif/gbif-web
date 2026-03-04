@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
-    "name": "הרחבת DWCA",
-    "count": "{num, plural, one {הרחבת DWCA} other {# הרחבות DWCA}}",
+    "name": "DwC-A extension",
+    "count": "",
     "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "locationId": {
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigraphy",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "Lithostratigraphy",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "Geological time",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "נושא",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "מזהה GBIF",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Organism quantity type",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "ניתוב",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Associated sequences",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Degree of establishment",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "יום הסיום בשנה",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Start day of year",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Previous identifications",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Last interpreted",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Alternative code",
@@ -181,14 +181,14 @@
     "description": "The method used to preserve the objects available in the collection"
   },
   "biomeType": {
-    "name": "הרחבת DWCA",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "הרחבת DWCA",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "שם מדעי",
@@ -230,11 +230,11 @@
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "הרחבת DWCA",
-    "count": "הרחבת DWCA",
-    "isNotNull": "הרחבת DWCA",
-    "isNull": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "ארץ או אזור",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriated",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Publishing country or area",
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "עומק",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "מין",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "שלב חיים",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "נרשם על ידי",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "מספר השדה",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "קבוצת איים",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "אי",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "תויג גאוגרפית על ידי",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "dwc:מסד נתוניםName",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "תכנית",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "מספר רשומה",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "אזור GBIF",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "Published by GBIF region",
-    "count": "הרחבת DWCA",
-    "description": "הרחבת DWCA"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "מזהה אירוע",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Has related records",
-    "count": "הרחבת DWCA",
+    "count": "",
     "description": "This experimental feature highlights possible duplicate and/or related תצפיתs."
   },
   "isSequenced": {
