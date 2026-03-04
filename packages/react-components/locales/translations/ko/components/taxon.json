@@ -17,7 +17,7 @@
   "specimenIsTypeOf": "",
   "typeMaterial": "",
   "treatments": "",
-  "more": "",
+  "more": "더보기",
   "less": "",
   "dna": "",
   "occurrenceImages": "",
@@ -37,10 +37,10 @@
   "distributions": "분포",
   "distribution": {
     "threatStatus": "",
-    "establishmentMeans": "",
+    "establishmentMeans": "정착 수단",
     "status": "",
-    "locality": "",
-    "locationId": "",
+    "locality": "지역",
+    "locationId": "위치 ID",
     "country": ""
   },
   "verbatim": {
