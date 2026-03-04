@@ -36,8 +36,8 @@
   "loadMore": "Více",
   "loading": "Načítání",
   "noResults": "Žádné výsledky",
-  "startTyping": "Id spravované poskytovatelem",
-  "rankInGroup": "Id spravované poskytovatelem",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "O",
     "clusters": "Související",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Hledat",
-    "description": "Id spravované poskytovatelem",
+    "description": "",
     "noSearchTermsEntered": "Nebyly zadány žádné hledané výrazy",
-    "placeholder": "Id spravované poskytovatelem",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Druhy",
       "datasetSearch": "Datové sady",
       "publisherSearch": "Vydavatelé",
       "occurrenceSearch": "Výskyty",
-      "resourceSearch": "Id spravované poskytovatelem"
+      "resourceSearch": ""
     },
     "seeAll": "Zobrazit vše"
   }
