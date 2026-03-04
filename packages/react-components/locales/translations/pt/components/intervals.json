@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} até {to}",
     "lt": "Antes de {to}",
-    "lte": "Código de Conduta",
+    "lte": "",
     "gt": "Depois de {from}",
-    "gte": "Código de Conduta",
-    "e": "Código de Conduta"
+    "gte": "",
+    "e": ""
   },
   "year": {
     "between": "Ano de {from} a {to}",
