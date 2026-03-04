@@ -2,10 +2,10 @@
   "dwcaExtension": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
   },
   "locationId": {
-    "name": "",
+    "name": "위치 ID",
     "count": "",
     "description": ""
   },
@@ -58,7 +58,7 @@
     "placeholderDist": ""
   },
   "geometry": {
-    "name": "",
+    "name": "위치",
     "count": "",
     "description": "",
     "placeholderLat": "",
@@ -76,7 +76,7 @@
     "description": ""
   },
   "audiences": {
-    "name": "",
+    "name": "대상",
     "count": "",
     "description": ""
   },
@@ -101,17 +101,17 @@
     "description": ""
   },
   "eventDate": {
-    "name": "",
+    "name": "이벤트 날짜",
     "count": "",
     "description": ""
   },
   "gbifId": {
-    "name": "",
+    "name": "GBIF ID",
     "count": "",
     "description": ""
   },
   "organismQuantityType": {
-    "name": "",
+    "name": "유기체 양 유형",
     "count": "",
     "description": ""
   },
@@ -121,7 +121,7 @@
     "description": ""
   },
   "associatedSequences": {
-    "name": "",
+    "name": "관련 서열",
     "count": "",
     "description": ""
   },
@@ -131,17 +131,17 @@
     "description": ""
   },
   "endDayOfYear": {
-    "name": "",
+    "name": "연도 종료시점",
     "count": "",
     "description": ""
   },
   "startDayOfYear": {
-    "name": "",
+    "name": "연도 시작시점",
     "count": "",
     "description": ""
   },
   "previousIdentifications": {
-    "name": "",
+    "name": "이전 동정",
     "count": "",
     "description": ""
   },
@@ -158,10 +158,10 @@
   "identifier": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
   },
   "institutionType": {
-    "name": "",
+    "name": "유형",
     "count": "",
     "description": ""
   },
@@ -201,19 +201,19 @@
     "description": ""
   },
   "basisOfRecord": {
-    "name": "",
+    "name": "기록 기준",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "기관 코드",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "카탈로그 번호",
     "count": "",
     "description": ""
   },
@@ -245,7 +245,7 @@
     "description": ""
   },
   "preparations": {
-    "name": "",
+    "name": "준비",
     "count": "",
     "description": ""
   },
@@ -265,7 +265,7 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "좌표"
   },
   "elevation": {
     "name": "",
@@ -288,7 +288,7 @@
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "발행자",
     "count": "",
     "description": ""
   },
@@ -328,17 +328,17 @@
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "연",
     "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "샘플링 크기 단위",
     "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "좌표 불확실",
     "count": "",
     "description": ""
   },
@@ -353,12 +353,12 @@
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "유기체 양",
     "count": "",
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "샘플링 크기 값",
     "count": "",
     "description": ""
   },
@@ -368,12 +368,12 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "월",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "대륙",
     "count": "",
     "description": ""
   },
@@ -383,27 +383,27 @@
     "description": ""
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "정착 수단",
     "count": "",
     "description": ""
   },
   "sex": {
-    "name": "",
+    "name": "성별",
     "count": "",
     "description": ""
   },
   "lifeStage": {
-    "name": "",
+    "name": "생애단계",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "에 의해 기록됨",
     "count": "",
     "description": ""
   },
   "fieldNumber": {
-    "name": "",
+    "name": "필드 번호",
     "count": "",
     "description": ""
   },
@@ -413,17 +413,17 @@
     "description": ""
   },
   "islandGroup": {
-    "name": "",
+    "name": "섬 그룹",
     "count": "",
     "description": ""
   },
   "island": {
-    "name": "",
+    "name": "섬",
     "count": "",
     "description": ""
   },
   "georeferencedBy": {
-    "name": "",
+    "name": "에 의해 지리참조됨",
     "count": "",
     "description": ""
   },
@@ -438,12 +438,12 @@
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "기록 번호",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "모음집 코드",
     "count": "",
     "description": ""
   },
@@ -463,32 +463,32 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "출현 ID",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "유기체 ID",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "지역",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "수체",
     "count": "",
     "description": ""
   },
   "higherGeography": {
-    "name": "",
+    "name": "상위 지리",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "주",
     "count": "",
     "description": ""
   },
@@ -503,22 +503,22 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "이벤트 ID",
     "count": "",
     "description": ""
   },
   "eventID": {
-    "name": "",
+    "name": "이벤트 ID",
     "count": "",
     "description": ""
   },
   "parentEventId": {
-    "name": "",
+    "name": "상위 이벤트 ID",
     "count": "",
     "description": ""
   },
   "locationID": {
-    "name": "",
+    "name": "위치 ID",
     "count": "",
     "description": ""
   },
@@ -548,12 +548,12 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "샘플링 프로토콜",
     "count": "",
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "출현 상태",
     "count": "",
     "description": ""
   },
@@ -605,12 +605,12 @@
   "datasetType": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
   },
   "datasetSubtype": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
   },
   "institutionKey": {
     "name": "",
@@ -641,7 +641,7 @@
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
   },
   "literatureType": {
     "name": "",
