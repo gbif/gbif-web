@@ -64,7 +64,7 @@
   "constituentOf": "مكون من",
   "dataset": "مجموعة البيانات",
   "taxonomy": "التصنيف",
-  "localContexts": "تمويل مشترك بواسطة",
+  "localContexts": "",
   "localContextsLabelsAppliedBy": "",
   "project": "مشروع",
   "metrics": "المقاييس",
@@ -115,13 +115,13 @@
   "additionalInfo": "معلومات إضافية",
   "publishingCountriesAreas": "الدول والمناطق الناشرة",
   "originalArchive": "أرشيف المصدر",
-  "originalArchiveDescription": "أرشيف شروح \"جيبف\"",
-  "checklistBankDownload": "أرشيف شروح \"جيبف\"",
-  "checklistBankDownloadDescription": "أرشيف شروح \"جيبف\"",
+  "originalArchiveDescription": "",
+  "checklistBankDownload": "",
+  "checklistBankDownloadDescription": "",
   "annotatedEml": "شروح \"جيبف\" للبيانات الوصفية",
   "license": "الرخصة",
   "recommended": "موصى به",
-  "processedOccurrences": "أرشيف شروح \"جيبف\"",
+  "processedOccurrences": "",
   "processedOccurrencesDescription": "",
   "noDescriptionProvided": "لا يوجد وصف متاح",
   "pNetwork": "{NUMBER, select,1{شبكة الاتصال} other{شبكات اتصال}}",
@@ -185,8 +185,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "تمويل مشترك بواسطة",
-    "occurrenceInfo": "تمويل مشترك بواسطة"
+    "evenList": "",
+    "occurrenceInfo": ""
   },
   "eventTaxonomy": "التوزيع التصنيفي لتكرارات الحدوث",
   "noCitations": "",
