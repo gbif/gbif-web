@@ -5,7 +5,11 @@ import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
-import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
+import {
+  FaGithub as SocialIconGithub,
+  FaGoogle as SocialIconGoogle,
+  FaOrcid as SocialIconOrcid,
+} from 'react-icons/fa';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -332,6 +336,15 @@ export function LoginForm() {
         >
           <SocialIconGithub className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ml-2 g-text-gray-700">GitHub</span>
+        </a>
+      </div>
+      <div className="g-grid g-grid-cols-2 g-gap-3">
+        <a
+          href="/auth/orcid/login"
+          className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
+        >
+          <SocialIconOrcid className="g-h-5 g-w-5 g-text-gray-700" />
+          <span className="g-ml-2 g-text-gray-700">ORCiD</span>
         </a>
       </div>
       <p className="g-text-center g-text-sm g-text-gray-500">
