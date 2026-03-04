@@ -1,10 +1,10 @@
 {
   "trends": {
-    "exploreGlobalTrends": "",
-    "exploreByCountry": "",
-    "exploreByGbifRegion": "",
-    "theseChartsIllustrate1": "",
-    "noOccRecords": "",
+    "exploreGlobalTrends": "세계 경향 탐색",
+    "exploreByCountry": "국가 혹은 영역별 탐색",
+    "exploreByGbifRegion": "지역별 탐색",
+    "theseChartsIllustrate1": "이 차트는 시간에 따른 종 출현 기록의 이용 가능 여부 변화를 보여줍니다",
+    "noOccRecords": "출현 기록 개수",
     "occByKingdomChartText": "",
     "recordsByKingdom": "",
     "animaliaByBasisOfRecordText": "",
