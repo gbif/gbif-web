@@ -8,7 +8,7 @@ import { becomeAPublisherRoute } from '@/routes/custom/becomeAPublisher';
 import { contactUsRoute } from '@/routes/custom/contact-us';
 import { occurrenceSnapshotsRoute } from '@/routes/custom/occurrenceSnapshots';
 import { faqRoute } from '@/routes/custom/faq';
-import { iptRoute } from '@/routes/custom/ipt';
+import { iptRoute } from '@/routes/custom/ipt/ipt';
 import { gbifNetworkRoute } from '@/routes/custom/gbifNetwork/gbifNetwork';
 import { suggestDatasetRoute } from '@/routes/custom/suggestDataset';
 import { homePageRoute } from '@/routes/home';

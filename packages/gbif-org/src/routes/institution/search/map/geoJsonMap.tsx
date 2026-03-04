@@ -1,4 +1,5 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Skeleton } from '@/components/ui/skeleton';
 import { isWebglSupported } from '@/utils/isWebglSupported';
 import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -13,6 +14,7 @@ export default function GeoJsonMap(props: {
   className?: string;
   defaultMapSettings?: { zoom: number; lat: number; lng: number };
   PopupContent: React.FC<{ features: Record<string, any>[] }>;
+  storageKey?: string;
 }) {
   const MapComponent = isWebglSupported() ? MapLibreMap : OpenLayersMap;
 
@@ -25,7 +27,7 @@ export default function GeoJsonMap(props: {
       debugTitle="GeoJsonMap"
       className="g-mt-8 g-me-2"
     >
-      <Suspense fallback={null}>
+      <Suspense fallback={<Skeleton className={props.className} />}>
         <MapComponent {...props} />
       </Suspense>
     </ErrorBoundary>

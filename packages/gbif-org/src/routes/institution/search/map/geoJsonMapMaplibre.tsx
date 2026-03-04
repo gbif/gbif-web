@@ -15,6 +15,7 @@ export default function GeoJsonMapMaplibre({
   className,
   defaultMapSettings,
   PopupContent,
+  storageKey = 'institutionMap',
 }: {
   geojson: GeoJSON.FeatureCollection;
   loading: boolean;
@@ -22,6 +23,7 @@ export default function GeoJsonMapMaplibre({
   className?: string;
   defaultMapSettings?: { zoom: number; lat: number; lng: number };
   PopupContent: React.FC<{ features: Record<string, any>[] }>;
+  storageKey?: string;
 }) {
   const config = useConfig();
   const mapRef = useRef(null);
@@ -99,22 +101,16 @@ export default function GeoJsonMapMaplibre({
         },
       });
 
-      map.on('zoomend', function () {
+      const saveMapState = () => {
         const center = map.getCenter();
         if (typeof sessionStorage !== 'undefined') {
-          sessionStorage.setItem('institutionMapZoom', (map.getZoom() + 1).toString());
-          sessionStorage.setItem('institutionMapLng', center.lng.toString());
-          sessionStorage.setItem('institutionMapLat', center.lat.toString());
+          sessionStorage.setItem(`${storageKey}Zoom`, (map.getZoom() + 1).toString());
+          sessionStorage.setItem(`${storageKey}Lng`, center.lng.toString());
+          sessionStorage.setItem(`${storageKey}Lat`, center.lat.toString());
         }
-      });
-      map.on('moveend', function () {
-        const center = map.getCenter();
-        if (typeof sessionStorage !== 'undefined') {
-          sessionStorage.setItem('institutionMapZoom', (map.getZoom() + 1).toString());
-          sessionStorage.setItem('institutionMapLng', center.lng.toString());
-          sessionStorage.setItem('institutionMapLat', center.lat.toString());
-        }
-      });
+      };
+      map.on('zoomend', saveMapState);
+      map.on('moveend', saveMapState);
 
       // inspect a cluster on click https://maplibre.org/maplibre-gl-js/docs/examples/cluster/
       map.on('click', 'clusters', async (e) => {
@@ -159,29 +155,39 @@ export default function GeoJsonMapMaplibre({
         const popupContent = <PopupContent features={features?.map((x) => x.properties)} />;
         setContent(popupContent);
         setPopupLngLat(coordinates);
+
+        // Store popup feature key for back-navigation restoration
+        if (typeof sessionStorage !== 'undefined' && features[0]?.properties?.key) {
+          sessionStorage.setItem(`${storageKey}PopupKey`, features[0].properties.key);
+        }
       });
 
       map.on('click', () => setZoomEnabled(true));
       map.on('dblclick', () => setZoomEnabled(true));
       map.on('drag', () => setZoomEnabled(true));
     },
-    [config?.theme?.primary]
+    [config?.theme?.primary, storageKey]
   );
 
   useEffect(() => {
     if (mapRef.current) {
-      let zoom = sessionStorage.getItem('institutionMapZoom') || defaultMapSettings?.zoom || 0;
+      const storedZoom = sessionStorage.getItem(`${storageKey}Zoom`);
+      const storedLng = sessionStorage.getItem(`${storageKey}Lng`);
+      const storedLat = sessionStorage.getItem(`${storageKey}Lat`);
+      const hasStoredState = storedZoom != null && storedLng != null && storedLat != null;
+
+      let zoom = storedZoom || defaultMapSettings?.zoom || 0;
       zoom = Math.min(Math.max(0, +zoom), 20);
       zoom -= 1;
 
-      let lng = sessionStorage.getItem('institutionMapLng') || defaultMapSettings?.lng || 0;
+      let lng = storedLng || defaultMapSettings?.lng || 0;
       lng = Math.min(Math.max(-180, +lng), 180);
 
-      let lat = sessionStorage.getItem('institutionMapLat') || defaultMapSettings?.lat || 0;
+      let lat = storedLat || defaultMapSettings?.lat || 0;
       lat = Math.min(Math.max(-85, +lat), 85);
 
       let bounds;
-      if (geojson.features.length > 0) {
+      if (!hasStoredState && geojson.features.length > 0) {
         // get bounding box of geojson layer
         bounds = geojson.features.reduce((bounds, feature) => {
           return bounds.extend(feature.geometry.coordinates);
@@ -217,6 +223,22 @@ export default function GeoJsonMapMaplibre({
       newMap.on('load', () => {
         setMap(newMap);
         addLayer(newMap, geojson);
+
+        // Restore popup from sessionStorage if navigating back
+        const storedPopupKey = sessionStorage.getItem(`${storageKey}PopupKey`);
+        if (hasStoredState && storedPopupKey && geojson.features.length > 0) {
+          const matchingFeatures = geojson.features.filter(
+            (f) => f.properties?.key === storedPopupKey
+          );
+          if (matchingFeatures.length > 0) {
+            const coordinates = (matchingFeatures[0].geometry as GeoJSON.Point).coordinates.slice();
+            const popupContent = (
+              <PopupContent features={matchingFeatures.map((f) => f.properties as Record<string, any>)} />
+            );
+            setContent(popupContent);
+            setPopupLngLat(coordinates);
+          }
+        }
       });
 
       // disable map zoom when using scroll
@@ -228,7 +250,7 @@ export default function GeoJsonMapMaplibre({
         if (newMap?.remove) newMap.remove();
       };
     }
-  }, [defaultMapSettings, mapRef, geojson, addLayer]);
+  }, [defaultMapSettings, mapRef, geojson, addLayer, storageKey, PopupContent]);
 
   useEffect(() => {
     if (!map) return;

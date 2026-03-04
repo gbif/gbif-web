@@ -25,6 +25,7 @@ export default function GeoJsonMapOpenlayers({
   className,
   defaultMapSettings,
   PopupContent,
+  storageKey = 'institutionMap',
 }: {
   geojson: GeoJSON.FeatureCollection;
   loading: boolean;
@@ -32,6 +33,7 @@ export default function GeoJsonMapOpenlayers({
   className?: string;
   defaultMapSettings?: { zoom: number; lat: number; lng: number };
   PopupContent: React.FC<{ features: Record<string, any>[] }>;
+  storageKey?: string;
 }) {
   const config = useConfig();
   const mapRef = useRef<HTMLDivElement>(null);
@@ -60,14 +62,19 @@ export default function GeoJsonMapOpenlayers({
     interactionsEnabledRef.current = false;
 
     // Session storage for restoring position
-    let zoom = sessionStorage.getItem('institutionMapZoom') || defaultMapSettings?.zoom || 0;
+    const storedZoom = sessionStorage.getItem(`${storageKey}Zoom`);
+    const storedLng = sessionStorage.getItem(`${storageKey}Lng`);
+    const storedLat = sessionStorage.getItem(`${storageKey}Lat`);
+    const hasStoredState = storedZoom != null && storedLng != null && storedLat != null;
+
+    let zoom = storedZoom || defaultMapSettings?.zoom || 0;
     zoom = Math.min(Math.max(0, +zoom), 20);
     zoom -= 1;
 
-    let lng = sessionStorage.getItem('institutionMapLng') || defaultMapSettings?.lng || 0;
+    let lng = storedLng || defaultMapSettings?.lng || 0;
     lng = Math.min(Math.max(-180, +lng), 180);
 
-    let lat = sessionStorage.getItem('institutionMapLat') || defaultMapSettings?.lat || 0;
+    let lat = storedLat || defaultMapSettings?.lat || 0;
     lat = Math.min(Math.max(-85, +lat), 85);
 
     // Parse GeoJSON features
@@ -161,8 +168,9 @@ export default function GeoJsonMapOpenlayers({
     mapInstanceRef.current = map;
 
     // Pre-compute the padded extent for fitBounds (used after apply())
+    // Skip if we have stored state (back-navigation)
     let fittedExtent3857: number[] | null = null;
-    if (geojson.features.length > 0) {
+    if (!hasStoredState && geojson.features.length > 0) {
       let minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity;
       for (const feature of geojson.features) {
         const coords = (feature.geometry as GeoJSON.Point).coordinates;
@@ -202,6 +210,25 @@ export default function GeoJsonMapOpenlayers({
       }
 
       map.addLayer(clusterLayer);
+
+      // Restore popup from sessionStorage if navigating back
+      const storedPopupKey = sessionStorage.getItem(`${storageKey}PopupKey`);
+      if (hasStoredState && storedPopupKey && geojson.features.length > 0) {
+        const matchingFeatures = geojson.features.filter(
+          (f) => f.properties?.key === storedPopupKey
+        );
+        if (matchingFeatures.length > 0) {
+          const coords = (matchingFeatures[0].geometry as GeoJSON.Point).coordinates;
+          const coordinate = transform(coords, 'EPSG:4326', 'EPSG:3857');
+          overlay.setPosition(coordinate);
+          updatePopupAnchor(true);
+          setPopupContent(
+            <PopupContent
+              features={matchingFeatures.map((f) => f.properties as Record<string, any>)}
+            />
+          );
+        }
+      }
     });
 
     // Recalculate popup anchor direction on every render frame so it flips
@@ -270,9 +297,9 @@ export default function GeoJsonMapOpenlayers({
       const [saveLng, saveLat] = transform(center, 'EPSG:3857', 'EPSG:4326');
       const saveZoom = view.getZoom() ?? 0;
       if (typeof sessionStorage !== 'undefined') {
-        sessionStorage.setItem('institutionMapZoom', (saveZoom + 1).toString());
-        sessionStorage.setItem('institutionMapLng', saveLng.toString());
-        sessionStorage.setItem('institutionMapLat', saveLat.toString());
+        sessionStorage.setItem(`${storageKey}Zoom`, (saveZoom + 1).toString());
+        sessionStorage.setItem(`${storageKey}Lng`, saveLng.toString());
+        sessionStorage.setItem(`${storageKey}Lat`, saveLat.toString());
       }
     });
 
@@ -304,6 +331,11 @@ export default function GeoJsonMapOpenlayers({
             overlay.setPosition(coordinate);
             updatePopupAnchor(true);
             setPopupContent(<PopupContent features={uniqueFeatures} />);
+
+            // Store popup feature key for back-navigation restoration
+            if (typeof sessionStorage !== 'undefined' && uniqueFeatures[0]?.key) {
+              sessionStorage.setItem(`${storageKey}PopupKey`, uniqueFeatures[0].key);
+            }
           }
         }
       });
@@ -312,6 +344,9 @@ export default function GeoJsonMapOpenlayers({
         // Click on empty area - close popup
         overlay.setPosition(undefined);
         setPopupContent(null);
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.removeItem(`${storageKey}PopupKey`);
+        }
       }
 
       enableInteractions();
@@ -338,7 +373,7 @@ export default function GeoJsonMapOpenlayers({
       map.setTarget(undefined);
       mapInstanceRef.current = null;
     };
-  }, [geojson, defaultMapSettings, primaryColor, enableInteractions]);
+  }, [geojson, defaultMapSettings, primaryColor, enableInteractions, storageKey, PopupContent]);
 
   if (loading) {
     return null;

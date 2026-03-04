@@ -1,20 +1,20 @@
 import { IptPageQuery } from '@/gql/graphql';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
-import { ArticleAuxiliary } from '../resource/key/components/articleAuxiliary';
-import { ArticleBody } from '../resource/key/components/articleBody';
-import { ArticleFooterWrapper } from '../resource/key/components/articleFooterWrapper';
-import { ArticleIntro } from '../resource/key/components/articleIntro';
-import { ArticleSkeleton } from '../resource/key/components/articleSkeleton';
-import { ArticleTags } from '../resource/key/components/articleTags';
-import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
-import { ArticleTitle } from '../resource/key/components/articleTitle';
-import { Documents } from '../resource/key/components/documents';
-import { PageContainer } from '../resource/key/components/pageContainer';
-import { SecondaryLinks } from '../resource/key/components/secondaryLinks';
+import { ArticleAuxiliary } from '../../resource/key/components/articleAuxiliary';
+import { ArticleBody } from '../../resource/key/components/articleBody';
+import { ArticleFooterWrapper } from '../../resource/key/components/articleFooterWrapper';
+import { ArticleIntro } from '../../resource/key/components/articleIntro';
+import { ArticleSkeleton } from '../../resource/key/components/articleSkeleton';
+import { ArticleTags } from '../../resource/key/components/articleTags';
+import { ArticleTextContainer } from '../../resource/key/components/articleTextContainer';
+import { ArticleTitle } from '../../resource/key/components/articleTitle';
+import { Documents } from '../../resource/key/components/documents';
+import { PageContainer } from '../../resource/key/components/pageContainer';
+import { SecondaryLinks } from '../../resource/key/components/secondaryLinks';
 import PageMetaData from '@/components/PageMetaData';
+import { IptInstallationsMap } from './iptMap';
 
 const IPT_QUERY = /* GraphQL */ `
   query IptPage {
@@ -52,7 +52,7 @@ function iptPageLoader(args: LoaderArgs) {
 
 function IptPage() {
   const { data } = useLoaderData() as { data: IptPageQuery };
-  const resource = data.resource;
+  const resource = data?.resource;
 
   if (resource?.__typename !== 'Article') {
     throw new Error('Invalid resource type');
@@ -75,7 +75,10 @@ function IptPage() {
           )}
         </ArticleTextContainer>
 
-        <ArticleBanner className="g-mt-8 g-mb-6" image={resource?.primaryImage} />
+        {/* Break out of PageContainer padding on mobile so the map spans full width */}
+        <div className="-g-mx-4 lg:g-mx-0">
+          <IptInstallationsMap textClassName="g-px-4 lg:g-px-0" />
+        </div>
 
         <ArticleTextContainer>
           {resource.body && (

@@ -332,6 +332,7 @@ function Results({
                     className="g-z-0 g-h-[400px]"
                     {...{ geojson, geojsonLoading, geojsonError }}
                     PopupContent={PopupContent}
+                    storageKey="publisherMap"
                   />
                 </div>
               )}

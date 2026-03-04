@@ -74,6 +74,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         `../${folder}/${locale}/components/hostedPortalApplication`,
       ),
       mdt: getFile(locale, `../${folder}/${locale}/components/mdt`),
+      tools: getFile(locale, `../${folder}/${locale}/components/tools`).tools,
       suggestDataset: getFile(locale, `../${folder}/${locale}/components/suggestDataset`),
       downloadUsage: getFile(locale, `../${folder}/${locale}/components/downloadUsage`)
         .downloadUsage,
