@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "達爾文延伸集",
+    "name": "",
     "count": "{num, plural, one { DWCA 延伸集 } other {# DWCA 延伸集}}",
     "description": "在此輸入關於此項目的簡短敘述"
   },
   "locationId": {
     "name": "地點識別碼",
-    "count": "達爾文延伸集",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -26,7 +26,7 @@
   },
   "taxonomicStatus": {
     "name": "狀態",
-    "count": "達爾文延伸集",
+    "count": "",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "taxonRank": {
@@ -36,13 +36,13 @@
   },
   "numberSpecimens": {
     "name": "標本數量",
-    "count": "達爾文延伸集",
+    "count": "",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "specimensInGbif": {
     "name": "GBIF 的標本",
     "count": "{num, plural, one{ GBIF 標本數量} other{ 在GBIF之標本}}",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "IUCN 全球紅皮書類別",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "主題",
@@ -103,92 +103,92 @@
   "eventDate": {
     "name": "事件日期",
     "count": "",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF 識別碼",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "生物數量類型",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "路徑",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "相關序列",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "設立程度",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "結束日序",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "起始日序",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "先前的鑑定",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "上次解釋",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
-    "name": "GBIF 註記的存檔",
-    "count": "達爾文延伸集",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "識別碼",
-    "count": "達爾文延伸集",
+    "count": "",
     "description": "在此輸入此項目的簡短敘述"
   },
   "institutionType": {
     "name": "類型",
     "count": "",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "discipline": {
-    "name": "GBIF 註記的存檔",
-    "count": "達爾文延伸集",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "GBIF 註記的存檔",
-    "count": "達爾文延伸集",
-    "description": "GBIF 註記的存檔"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "preservationType": {
-    "name": "GBIF 註記的存檔",
-    "count": "達爾文延伸集",
-    "description": "GBIF 註記的存檔"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "biomeType": {
-    "name": "達爾文延伸集",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "達爾文延伸集",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "學名",
@@ -230,11 +230,11 @@
     "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
   },
   "occurrenceTaxonomicIssue": {
-    "name": "達爾文延伸集",
-    "count": "達爾文延伸集",
-    "isNotNull": "達爾文延伸集",
-    "isNull": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "國家",
@@ -242,17 +242,17 @@
     "description": "事件發生的國家或區域"
   },
   "grsciCollCountry": {
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "preparations": {
     "name": "準備",
-    "count": "達爾文延伸集",
-    "description": "GBIF 註記的存檔"
+    "count": "",
+    "description": ""
   },
   "repatriated": {
     "name": "回返的",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "發布國家或地區",
@@ -262,7 +262,7 @@
   "q": {
     "name": "文字搜尋",
     "count": "{num, plural, one {文字字串} other {# 搜尋字串}}",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "coordinates": {
     "name": "座標"
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "深度",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "性別",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "生活史階段",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "紀錄者：",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "樣區事件編碼",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "逐字分類群識別碼",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "島群",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "島嶼",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "地理參照：",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "資料集名稱",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "計畫",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "紀錄編號",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "高階地理",
-    "count": "達爾文延伸集",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "GBIF 地區",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "達爾文延伸集",
-    "description": "達爾文延伸集"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "事件識別碼",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "在（資料）叢集上",
-    "count": "達爾文延伸集",
+    "count": "",
     "description": "判斷該記錄是否有相關記錄"
   },
   "isSequenced": {
@@ -600,7 +600,7 @@
   "personalCollection": {
     "name": "私人典藏",
     "count": "私人典藏",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "datasetType": {
     "name": "資料集類型",
@@ -619,8 +619,8 @@
   },
   "name": {
     "name": "名稱",
-    "count": "達爾文延伸集",
-    "description": "GBIF 註記的存檔",
+    "count": "",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
@@ -631,7 +631,7 @@
   "code": {
     "name": "蒐藏代碼",
     "count": "{num, plural, one {# 號碼} other {# 號碼}}",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "逐字學名",
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "網絡",
-    "count": "達爾文延伸集",
+    "count": "",
     "description": "在此輸入此項目的簡短敘述"
   },
   "literatureType": {
