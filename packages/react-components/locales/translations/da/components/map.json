@@ -21,7 +21,7 @@
   "anyYear": "Alle år",
   "exploreArea": "Udforsk område",
   "explore": "Udforsk",
-  "generatedDateAgo": "Samfinansieret af",
+  "generatedDateAgo": "Genereret for {DATE_AGO}",
   "style": "Udseende",
   "filters": "Filtre",
   "select": "Vælg",
@@ -36,7 +36,7 @@
     "CLASSIC": "Klassisk punkt",
     "STREETS": "Gader",
     "GLACIER": "Gletcher",
-    "GREEN": "Samfinansieret af",
+    "GREEN": "",
     "CUSTOM": "Brugerdefineret"
   },
   "basemap": {
