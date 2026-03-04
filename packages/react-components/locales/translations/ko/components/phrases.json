@@ -12,7 +12,7 @@
   "showAll": "",
   "share": "",
   "identifier": "",
-  "unknownDate": "",
+  "unknownDate": "날짜 미상",
   "about": "",
   "legend": "",
   "citations": "",
@@ -71,7 +71,7 @@
   "pleaseTryAgainLater": "",
   "weWillBeInTouchSoon": "",
   "clickToSelect": "",
-  "all": "",
+  "all": "모두",
   "clear": "",
   "search": ""
 }
