@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "Co-Gefinancierd door",
-    "count": "Co-Gefinancierd door",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "locationId": {
     "name": "Locatie ID",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -26,7 +26,7 @@
   },
   "taxonomicStatus": {
     "name": "Status",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "Aantal specimens",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
   },
   "specimensInGbif": {
     "name": "Exemplaren in GBIF",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "Afstand van coördinaten ",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "",
     "placeholderLat": "Breedtegraad",
     "placeholderLon": "Lengtegraad",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Locatie",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "",
     "placeholderLat": "Breedtegraad",
     "placeholderLon": "Lengtegraad",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Onderwerp",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Aantal organismen type",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Pad",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Einddag van het jaar",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Startdag van het jaar",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Laatst geïnterpreteerd",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identifier",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "preservationType": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "biomeType": {
-    "name": "Co-Gefinancierd door",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "Co-Gefinancierd door",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Wetenschappelijke naam",
@@ -230,11 +230,11 @@
     "description": "De soorten (mogelijke) problemen die automatisch werden vastgesteld bij het verwerken van de gegevens."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Co-Gefinancierd door",
-    "count": "Co-Gefinancierd door",
-    "isNotNull": "Co-Gefinancierd door",
-    "isNull": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Land",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Voorbereidingen",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "repatriated": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Publicerend land",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "Onzekerheid van de coördinaten",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De minimumafstand in meters van een coördinaat waarbinnen de vindplaats ligt."
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Diepte",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De afstand onder een oppervlak in meters."
   },
   "organismQuantity": {
     "name": "Aantal organismen",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Het aantal organismen, waar de wijze van tellen wordt gegeven in het veld \"Wijze van tellen\"."
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "Geslacht",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Levensfase",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Vastgelegd door",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De naam/namen van de persoon/personen, groepen of organisaties die de oorspronkelijke gegevens hebben vastgelegd."
   },
   "fieldNumber": {
     "name": "Veldnummer",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Eiland Groep",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Eiland",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Datasetnaam",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Programma",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Objectnummer",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "Opgenomen door ID",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "identifiedById": {
     "name": "Geïdentificeerd door ID",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "occurrenceId": {
     "name": "Voorkomen ID",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Het unieke nummer voor het voorkomen."
   },
   "organismId": {
     "name": "Organisme ID",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "GBIF regio",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Co-Gefinancierd door",
-    "description": "Co-Gefinancierd door"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "eventID": {
     "name": "Evenement ID",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "parentEventId": {
     "name": "",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "locationID": {
     "name": "Locatie ID",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "Monsterwijze",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De naam van, referentie naar of beschrijving van de methode of protocol gebruikt om de data te verzamelen."
   },
   "occurrenceStatus": {
     "name": "Aanwezigheid",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De aanwezigheid of afwezigheid van het object."
   },
   "gadmGid": {
@@ -564,12 +564,12 @@
   },
   "identifiedBy": {
     "name": "Gedetermineerd door",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De naam/namen van de persoon/personen, groepen of organisaties die het organisme determineerden."
   },
   "isInCluster": {
     "name": "Is onderdeel van een cluster",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Of er automatisch verwante gegevens zijn gevonden."
   },
   "isSequenced": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "Dataset type",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "institutionKey": {
     "name": "Instituut",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De naam van de instelling die de data beheerd."
   },
   "name": {
     "name": "Naam",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Stad",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "code": {
     "name": "Code",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "verbatimScientificName": {
     "name": "Woordelijke wetenschappelijke naam",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": "De wetenschappelijke naam zoals verstrekt door de instelling die de gegevens deelt zonder enige normalisatie door GBIF."
   },
   "networkKey": {
     "name": "Netwerk",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "literatureType": {
     "name": "Type literatuur",
-    "count": "Co-Gefinancierd door",
+    "count": "",
     "description": ""
   },
   "higherTaxonKey": {
