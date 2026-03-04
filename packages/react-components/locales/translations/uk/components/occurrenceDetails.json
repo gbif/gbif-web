@@ -572,7 +572,7 @@
     "preservation": {
       "name": "Консервація",
       "properties": {
-        "preservationType": "Архів анотований GBIF",
+        "preservationType": "",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""
