@@ -572,7 +572,7 @@
     "preservation": {
       "name": "保存",
       "properties": {
-        "preservationType": "GBIFがアノーテーションしたアーカイブ",
+        "preservationType": "",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""
