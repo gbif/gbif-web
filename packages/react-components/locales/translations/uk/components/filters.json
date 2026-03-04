@@ -42,7 +42,7 @@
   "specimensInGbif": {
     "name": "",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
@@ -103,7 +103,7 @@
   "eventDate": {
     "name": "Дата події",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF ID",
@@ -151,7 +151,7 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "Архів анотований GBIF",
+    "name": "",
     "count": "",
     "description": ""
   },
@@ -163,22 +163,22 @@
   "institutionType": {
     "name": "Тип",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "discipline": {
-    "name": "Архів анотований GBIF",
+    "name": "",
     "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "Архів анотований GBIF",
+    "name": "",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "preservationType": {
-    "name": "Архів анотований GBIF",
+    "name": "",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "biomeType": {
     "name": "",
@@ -242,12 +242,12 @@
     "description": ""
   },
   "grsciCollCountry": {
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "preparations": {
     "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "repatriated": {
     "name": "Репатрійовано",
@@ -262,7 +262,7 @@
   "q": {
     "name": "",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "coordinates": {
     "name": "Координати"
@@ -600,7 +600,7 @@
   "personalCollection": {
     "name": "Приватна колекція",
     "count": "Приватна колекція",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "datasetType": {
     "name": "Тип набору даних",
@@ -620,7 +620,7 @@
   "name": {
     "name": "Ім’я",
     "count": "",
-    "description": "Архів анотований GBIF",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
@@ -631,7 +631,7 @@
   "code": {
     "name": "Код",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "Первинно вжита наукова назва",
