@@ -56,6 +56,5 @@
   "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}",
   "nOccurrencesHosted": "{total, plural, one {# hosted occurrence} other {# hosted occurrences}}",
   "nPercentOfTotal": "{percentage, plural, other {#% of total}}",
-  "nMoreDatasets": "{total, plural, one {+ # more dataset} other {+ # more datasets}}",
-  "nInstallations": "{total, plural, one {# installation} other {# installations}}"
+  "nMoreDatasets": "{total, plural, one {+ # more dataset} other {+ # more datasets}}"
 }
