@@ -1,0 +1,10 @@
+{
+    "participationStatus": {
+        "VOTING": "מצביע.ה",
+        "ASSOCIATE": "משתתפ.ת",
+        "OBSERVER": "מתצפת.ת",
+        "AFFILIATE": "שותפ.ה",
+        "FORMER": "משתתפ.ת לשעבר",
+        "undefined": "לא ידוע"
+    }
+}
