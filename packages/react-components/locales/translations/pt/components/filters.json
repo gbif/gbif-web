@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "Extensão DWCA",
-    "count": "{num, plural, one { extensão DWCA } other {# extensões DWCA}}",
+    "name": "",
+    "count": "",
     "description": "Deve colocar aqui uma breve descrição da componente"
   },
   "locationId": {
     "name": "ID da Localização",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "Coleção",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "Estado",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "specimensInGbif": {
     "name": "Espécimes no GBIF",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Localização",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Tópico",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "ID do GBIF",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Tipo de quantidade de organismos",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Caminho",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Sequências associadas",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Grau de estabelecimento",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Dia final do ano",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Dia inicial do ano",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Identificações anteriores",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Última interpretação",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identificador",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "preservationType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "biomeType": {
-    "name": "Extensão DWCA",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "Extensão DWCA",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Nome científico",
@@ -230,11 +230,11 @@
     "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Extensão DWCA",
-    "count": "Extensão DWCA",
-    "isNotNull": "Extensão DWCA",
-    "isNull": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "País",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Preparações",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "País de publicação",
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Profundidade",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Sexo",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Estágio de desenvolvimento",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Registado por",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Número de campo",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "Taxon ID verbatim",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Grupo de ilhas",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Ilha",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Nome do conjunto de dados",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Programa",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Número de registo",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Geografia superior",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Região do GBIF",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Extensão DWCA",
-    "description": "Extensão DWCA"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID do evento",
@@ -569,12 +569,12 @@
   },
   "isInCluster": {
     "name": "Está em cluster",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": "Se foi determinado o registo ter outros registos relacionados."
   },
   "isSequenced": {
     "name": "",
-    "count": "Extensão DWCA",
+    "count": "",
     "description": ""
   },
   "active": {
