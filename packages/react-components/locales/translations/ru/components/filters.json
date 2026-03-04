@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
+    "name": "",
     "count": "{num, plural, one { расширение DWCA } other {# расширений DWCA}}",
     "description": "Здесь следует разместить краткое описание компонента."
   },
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Биостратиграфия",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "Литостратиграфия",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "Геологическая эпоха",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Тематика",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Единица измерения обилия вида",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Фильтрация путей",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Сопутствующие генетические последовательности",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Степень укоренения интродуцированных видов",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Последний день (порядковый номер с начала года)",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Первый день (порядковый номер с начала года)",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Более ранние определения",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Последняя интерпретация",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Архив, аннотированный GBIF",
@@ -181,14 +181,14 @@
     "description": "Архив, аннотированный GBIF"
   },
   "biomeType": {
-    "name": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Латинское название",
@@ -230,11 +230,11 @@
     "description": "Типы проблем или  потенциально интересных флагов, обнаруженных при обработке данных."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "isNotNull": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "isNull": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Страна",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Данные репатриированы",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Страна или регион, в которых опубликованы данные",
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Глубина",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Пол",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Стадия жизненного цикла",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Кем сделана запись",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Полевой номер",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "ID таксона по первоисточнику",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Группа островов",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Остров",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Кем выполнена геопривязка",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Название набора данных",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Программа",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Номер записи",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Регион GBIF",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "Опубликовано регионом GBIF",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
-    "description": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID описания, учёта или сбора",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Имеет связанные записи",
-    "count": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
+    "count": "",
     "description": "Эта экспериментальная функция выявляет возможные повторяющиеся и/или связанные события."
   },
   "isSequenced": {
