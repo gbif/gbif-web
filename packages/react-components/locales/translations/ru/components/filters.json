@@ -42,7 +42,7 @@
   "specimensInGbif": {
     "name": "Образцы в GBIF",
     "count": "{num, plural, one { число образцов GBIF }  other {# образцов в GBIF}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "Категория глобального красного списка IUCN (МСОП)",
@@ -103,7 +103,7 @@
   "eventDate": {
     "name": "Дата события",
     "count": "{num, plural, one {# дата события } other {# дат событий}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF ID",
@@ -151,7 +151,7 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "Архив, аннотированный GBIF",
+    "name": "",
     "count": "{num, plural, one {# альтернативный код }  other {# альтернативных кодов}}",
     "description": "Любой дополнительный код, который уже используется для той же записи в других контекстах (например, исторические коды)."
   },
@@ -163,22 +163,22 @@
   "institutionType": {
     "name": "Тип записи",
     "count": "{num, plural, one {# тип } other {# типов}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "discipline": {
-    "name": "Архив, аннотированный GBIF",
+    "name": "",
     "count": "{num, plural, one {# дисциплина } other {# дисциплин}}",
     "description": "Научно-исследовательские дисциплины, поддерживаемые учреждением."
   },
   "collectionContentType": {
-    "name": "Архив, аннотированный GBIF",
+    "name": "",
     "count": "{num, plural, one {# тип контента } few {# content types} many {# content types} other {# типов контента}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "preservationType": {
-    "name": "Архив, аннотированный GBIF",
+    "name": "",
     "count": "{num, plural, one {# тип сохранения } other {# типов сохранения}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "biomeType": {
     "name": "",
@@ -242,12 +242,12 @@
     "description": "Страна или территория, где произошло событие"
   },
   "grsciCollCountry": {
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "preparations": {
     "name": "Способ препарирования",
     "count": "{num, plural, one {# подготовка} other {# подготовок}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "repatriated": {
     "name": "Данные репатриированы",
@@ -262,7 +262,7 @@
   "q": {
     "name": "Текстовый поиск",
     "count": "{num, plural, one {текстовая строка} other {# строк поиска}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "coordinates": {
     "name": "Координаты"
@@ -600,7 +600,7 @@
   "personalCollection": {
     "name": "Личная коллекция",
     "count": "Личная коллекция",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "datasetType": {
     "name": "Тип набора данных",
@@ -620,7 +620,7 @@
   "name": {
     "name": "Имя",
     "count": "{num, plural, one { наименование } other {# наименований}}",
-    "description": "Архив, аннотированный GBIF",
+    "description": "",
     "searchPlaceholder": "Поиск по названию/имени"
   },
   "city": {
@@ -631,7 +631,7 @@
   "code": {
     "name": "Акроним",
     "count": "{num, plural, one { код } other {# коды}}",
-    "description": "Архив, аннотированный GBIF"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "Латинское название по первоисточнику",
