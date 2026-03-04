@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "لاحقة DWCA",
-    "count": "لاحقة DWCA",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "locationId": {
     "name": "معرف الموقع",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "مجموعة",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "الحالة",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "موقع",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "موضوع",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "معرف المرفق العالمي لمعلومات التنوع الحيوي",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "نمط كمية المتعضي",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "تسلسلات مرتبطة",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "يوم الانتهاء للسنة",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "يوم البدء للسنة",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "تعريفات سابقة",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "آخر تأويل",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "المعرِّف",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "preservationType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "biomeType": {
-    "name": "لاحقة DWCA",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "لاحقة DWCA",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "الاسم العلمي",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "لاحقة DWCA",
-    "count": "لاحقة DWCA",
-    "isNotNull": "لاحقة DWCA",
-    "isNull": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "بلد",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "تحضيرات",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "repatriated": {
     "name": "عائد الى الوطن",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "بلد او منطقة النشر",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "عدم التأكد من الاحداثيات",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "العمق",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "organismQuantity": {
     "name": "كمية المتعضي",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "كمية الكائن النسبية",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "الجندر",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "مرحلة الحياة",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "سجلت من قبل",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "fieldNumber": {
     "name": "رقم الحقل",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "معرف الوحدة التصنيفية الحرفي",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "مجموعة الجزر",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "الجزيرة",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "ذو مرجعية جغرافية بواسطة",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "اسم مجموعة البيانات",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "البرنامج",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "رقم السجل",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "تم تسجيله بواسطة المعرف ID",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "identifiedById": {
     "name": " تم تحديده بواسطة المعرف",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "occurrenceId": {
     "name": "معرف التكرار",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "organismId": {
     "name": "معرف الكائن",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "الجغرافيا العليا",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "منطقة \"جبيف\"",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "لاحقة DWCA",
-    "description": "لاحقة DWCA"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "معرف الحدث",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "eventID": {
     "name": "معرف الحدث",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "parentEventId": {
     "name": "معرف الحدث الأساسي",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "locationID": {
     "name": "معرف الموقع",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "بروتوكول اخذ العينات",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "حالة التكرار",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "تم تحديده بواسطة",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "تسلط هذه الميزة  التجريبية الضوء على التكرارات المحتملة و/أو ذات الصلة"
   },
   "isSequenced": {
     "name": "",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "نمط مجموعة البيانات",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "institutionKey": {
     "name": "مؤسسة",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "name": {
     "name": "الاسم",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\"",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "المدينة",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "code": {
     "name": "الرمز",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "verbatimScientificName": {
     "name": "الاسم العلمي الحرفي",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "networkKey": {
     "name": "شبكة",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "literatureType": {
     "name": "نمط  المراجع",
-    "count": "لاحقة DWCA",
+    "count": "",
     "description": ""
   },
   "higherTaxonKey": {
