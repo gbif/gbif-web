@@ -1,13 +1,13 @@
 {
   "features": "Atributos",
   "options": {
-    "includeAuthorship": "ID administrado por el proveedor"
+    "includeAuthorship": ""
   },
   "citations": "Citaciones",
   "occurrences": "Registros biológicos",
   "numberSpecimens": "Número de especímenes",
   "gbifNumberSpecimens": "Especímenes en GBIF",
-  "specimenTriplet": "ID administrado por el proveedor",
+  "specimenTriplet": "",
   "title": "Título",
   "titleAndAbstract": "Título y resumen",
   "altmetric": "Altmetric",
@@ -25,6 +25,6 @@
   "activeInstitution": "Activo",
   "author": "Autor",
   "source": "Revista",
-  "dataReferenced": "ID administrado por el proveedor",
+  "dataReferenced": "",
   "activeCollection": "Activo"
 }
