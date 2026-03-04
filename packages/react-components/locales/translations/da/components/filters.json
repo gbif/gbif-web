@@ -42,7 +42,7 @@
   "specimensInGbif": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
@@ -103,7 +103,7 @@
   "eventDate": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF-ID",
@@ -151,7 +151,7 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "GBIF annoteret Arkiv",
+    "name": "",
     "count": "",
     "description": ""
   },
@@ -163,22 +163,22 @@
   "institutionType": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "discipline": {
-    "name": "GBIF annoteret Arkiv",
+    "name": "",
     "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "GBIF annoteret Arkiv",
+    "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "preservationType": {
-    "name": "GBIF annoteret Arkiv",
+    "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "biomeType": {
     "name": "",
@@ -242,12 +242,12 @@
     "description": ""
   },
   "grsciCollCountry": {
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "preparations": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "repatriated": {
     "name": "Hjemsendt",
@@ -262,7 +262,7 @@
   "q": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "coordinates": {
     "name": "Koordinater"
@@ -600,7 +600,7 @@
   "personalCollection": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "datasetType": {
     "name": "",
@@ -620,7 +620,7 @@
   "name": {
     "name": "Navn",
     "count": "",
-    "description": "GBIF annoteret Arkiv",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
@@ -631,7 +631,7 @@
   "code": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "",
