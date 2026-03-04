@@ -36,8 +36,8 @@
   "loadMore": "Mais",
   "loading": "A carregar",
   "noResults": "",
-  "startTyping": "Código de Conduta",
-  "rankInGroup": "Código de Conduta",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Sobre",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Pesquisa",
-    "description": "Código de Conduta",
+    "description": "",
     "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
-    "placeholder": "Código de Conduta",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Espécie",
       "datasetSearch": "Conjuntos de dados",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Ocorrências",
-      "resourceSearch": "Código de Conduta"
+      "resourceSearch": ""
     },
     "seeAll": "Ver todos"
   }
