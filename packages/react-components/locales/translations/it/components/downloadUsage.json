@@ -3,18 +3,18 @@
     "title": "",
     "form": {
       "title": "",
-      "titlePlaceholder": "Cofinanziato da",
+      "titlePlaceholder": "",
       "type": "",
       "authors": "",
-      "authorsPlaceholder": "Cofinanziato da",
+      "authorsPlaceholder": "",
       "link": "",
-      "linkPlaceholder": "Cofinanziato da",
+      "linkPlaceholder": "",
       "date": "",
       "comments": "",
-      "commentsPlaceholder": "Cofinanziato da",
+      "commentsPlaceholder": "",
       "submit": "",
       "saveFailure": "",
-      "saveSuccess": "Cofinanziato da"
+      "saveSuccess": ""
     },
     "types": {
       "JOURNAL_ARTICLE": "",
