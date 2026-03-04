@@ -572,7 +572,7 @@
     "preservation": {
       "name": "حفظ",
       "properties": {
-        "preservationType": "أرشيف شروح \"جيبف\"",
+        "preservationType": "",
         "preservationTemperature": "التساويات { is }",
         "preservationDateBegin": "التساويات { is }",
         "sequence": "التساويات { is }"
