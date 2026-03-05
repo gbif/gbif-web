@@ -24,13 +24,13 @@ export { default as validation } from './validation';
 export { default as vocabulary } from './vocabulary';
 export { default as wikidata } from './wikidata';
 export { default as occurrenceSnapshots } from './occurrenceSnapshots';
-
+export { default as event } from './event';
 // experimental taxonmedia service. The idea it to provide a few high quality images per taxon
 export { default as taxonMedia } from '../shared/resources/taxonMedia';
 export { default as taxonMediaAPI } from './taxon/taxonMediaAPI';
 
 // ALA use this, but we do not have an index for it yet
-export { default as event } from '../shared/resources/event';
+/* export { default as event } from '../shared/resources/event'; */
 
 // external data sources
 export { orcid, person, viaf } from '../shared/resources/external';

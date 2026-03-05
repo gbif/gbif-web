@@ -61,6 +61,7 @@ export type Config = Endpoints & {
   testSite: boolean; // clearly indicate that it is a test site
   experimentalFeatures: {
     localContextEnabled: boolean;
+    eventCoreEnabled?: boolean;
   };
   feedback?: {
     enabled?: boolean;
@@ -127,6 +128,7 @@ export type Config = Endpoints & {
     occurrenceSearch: PartialSearchMetadata;
   };
   occurrenceSearch?: OccurrenceSearchMetadata;
+  eventSearch?: SearchMetadata;
   publisherSearch?: PublisherSearchMetadata;
   publisherKey?: {
     literatureSearch: PartialSearchMetadata;

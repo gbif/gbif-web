@@ -18,6 +18,7 @@ export function StandaloneOccurrenceKeyPage({ url }: Props) {
       availableCatalogues: [],
       pages: [
         { id: 'occurrenceKey' },
+        { id: 'eventKey' },
         { id: 'datasetKey' },
         { id: 'publisherKey' },
         { id: 'collectionKey' },

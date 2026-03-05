@@ -295,6 +295,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
 export const DatasetKeyContext = createContext<{
   key?: string;
   datasetKey?: string;
+  datasetType?: DatasetType;
   dynamicProperties?: string;
   contentMetrics?: DatasetOccurrenceSearchQuery;
 }>({});
@@ -406,7 +407,11 @@ export function DatasetPage() {
       //   ),
       // });
     }
-    if (config.datasetKey?.showEvents && withEventId > 0) {
+    if (
+      (config.datasetKey?.showEvents && withEventId > 0) ||
+      (dataset.type === 'SAMPLING_EVENT' &&
+        import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled')
+    ) {
       tabsToDisplay.push({
         to: 'events',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
@@ -663,6 +668,7 @@ export function DatasetPage() {
         </PageContainer>
         <DatasetKeyContext.Provider
           value={{
+            datasetType: data?.dataset?.type,
             datasetKey: data?.dataset?.key,
             dynamicProperties:
               occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,

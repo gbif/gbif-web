@@ -106,7 +106,7 @@ const EventTaxonomy = ({
         });
 
       taxonMap.forEach((value, key) => {
-        if (value.childDataAggregated < value.total) {
+        if (value.childDataAggregated > 0 && value.childDataAggregated < value.total) {
           let level = Number(key.split('.')[0]);
           let parent = key;
           while (level < 4) {
