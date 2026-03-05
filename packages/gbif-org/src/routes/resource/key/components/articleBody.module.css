@@ -4,3 +4,8 @@
     text-align: left;
   }
 }
+
+/* Prevent iframe from overflowing the container */
+.container iframe {
+  max-width: 100%;
+}

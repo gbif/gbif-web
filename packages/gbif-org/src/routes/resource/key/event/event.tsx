@@ -4,15 +4,14 @@ import { Button } from '@/components/ui/button';
 import { EventPageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { MdCalendarMonth } from 'react-icons/md';
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, FormattedTime } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { LongDate, longDateFormatProps } from '@/components/dateFormats';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTextContainer } from '../components/articleTextContainer';
@@ -25,6 +24,7 @@ import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRed
 import { LuClock4 } from 'react-icons/lu';
 import { Location as LocationComponent } from './eventResult';
 import { DynamicLink } from '@/reactRouterPlugins';
+import PageMetaData from '@/components/PageMetaData';
 
 export const EventPageSkeleton = ArticleSkeleton;
 
@@ -70,13 +70,17 @@ export function EventPage() {
   const startDate = new Date(resource.start);
   const endDate = resource.end ? new Date(resource.end) : undefined;
 
+  const location = useLocation();
+
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+        imageUrl={resource.primaryImage?.file.normal}
+        imageAlt={resource.primaryImage?.description}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
@@ -213,12 +217,10 @@ const isSameDate = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear();
 
 export function EventDateRange({ start, end }: RangeProps) {
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' } as const;
-
   if (end && !isSameDate(start, end))
-    return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
+    return <FormattedDateTimeRange from={start} to={end} {...longDateFormatProps} />;
 
-  return <FormattedDate value={start} {...dateOptions} />;
+  return <LongDate value={start} />;
 }
 
 export function EventTimeRange({ start, end }: RangeProps) {
@@ -242,20 +244,19 @@ export function EventTimeRange({ start, end }: RangeProps) {
 
 function DateTimeRange({ start, end, allDay }: RangeProps & { allDay: boolean | undefined }) {
   const dateOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    ...longDateFormatProps,
     hour12: false,
   } as const;
   const timeOptions = {
     hour: 'numeric',
     minute: 'numeric',
     hour12: false,
+    timeZoneName: 'long',
   } as const;
 
   if (end && allDay) return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
   if (end)
     return <FormattedDateTimeRange from={start} to={end} {...dateOptions} {...timeOptions} />;
-  if (allDay) return <FormattedDate value={start} {...dateOptions} />;
+  if (allDay) return <FormattedDate value={start} {...dateOptions} ti />;
   return <FormattedDate value={start} {...dateOptions} {...timeOptions} />;
 }

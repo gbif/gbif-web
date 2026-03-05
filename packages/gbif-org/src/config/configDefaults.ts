@@ -11,6 +11,7 @@ export const configDefault: Partial<Config> = {
   },
   experimentalFeatures: {
     localContextEnabled: false,
+    eventCoreEnabled: false,
   },
   feedback: {
     enabled: true,

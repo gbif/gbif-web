@@ -1,10 +1,10 @@
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { PublisherResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment PublisherResult on Organization {
@@ -45,7 +45,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
                   <FormattedMessage
                     id="publisher.joinedDate"
                     values={{
-                      date: <FormattedDate {...defaultDateFormatProps} value={publisher.created} />,
+                      date: <LongDate value={publisher.created} />,
                     }}
                   />
                 </span>

@@ -1,4 +1,5 @@
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, useIntl } from 'react-intl';
+import { mediumDateFormatProps } from '@/components/dateFormats';
 import { HyperText } from './hyperText';
 
 export function Message({
@@ -50,9 +51,7 @@ export function FormattedDateRange({
   const hasTime = startDate.includes('T');
   const resolution = format ?? {
     timeZone: 'UTC',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+    ...mediumDateFormatProps,
     hour: 'numeric',
     minute: 'numeric',
   }; // if we need it timeZoneName: 'short'

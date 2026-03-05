@@ -1,5 +1,5 @@
 import { FormattedNumber } from '@/components/dashboard/shared';
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import { Card } from '@/components/ui/largeCard';
 import { DownloadResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -7,7 +7,7 @@ import { DownloadTitle } from '@/routes/occurrence/download/key/downloadKey';
 import { DownloadFilterSummary } from '@/routes/occurrence/download/key/sections/queryCard';
 import { fragmentManager } from '@/services/fragmentManager';
 import { formatBytes } from '@/utils/formatBytes';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DownloadResult on Download {
@@ -66,7 +66,7 @@ export function DownloadResult({ download }: DownloadResultProps) {
                 <FormattedMessage id="downloadKey.created" />:{' '}
                 <span className="g-font-semibold">
                   {download.created ? (
-                    <FormattedDate value={download?.created} {...defaultDateFormatProps} />
+                    <LongDate value={download?.created} />
                   ) : (
                     <FormattedMessage id="phrases.unknownDate" />
                   )}

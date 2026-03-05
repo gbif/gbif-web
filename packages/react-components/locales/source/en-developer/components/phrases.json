@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data.",
   "loading": "loading",
   "loadError": "Failed to load",
   "pleaseCiteAs": "Please cite as",

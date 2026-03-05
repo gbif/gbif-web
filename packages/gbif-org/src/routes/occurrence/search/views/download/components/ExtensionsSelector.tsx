@@ -2,15 +2,32 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { FaPuzzlePiece, FaInfoCircle } from 'react-icons/fa';
 import ExpandableSection from './ExpandableSection';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { optionStyles } from './utils';
+import { useQuery } from '@/hooks/useQuery';
+import { Predicate } from '@/gql/graphql';
+import { useEffect, useMemo } from 'react';
 
 interface ExtensionsSelectorProps {
   selectedExtensions: string[];
   onChange: (extensions: string[]) => void;
   isExpanded: boolean;
   onToggle: () => void;
+  predicate?: Predicate;
 }
+
+const EXTENSION_COUNTS_QUERY = /* GraphQL */ `
+  query ExtensionCounts($predicate: Predicate) {
+    occurrenceSearch(predicate: $predicate) {
+      facet {
+        dwcaExtension(size: 100) {
+          key
+          count
+        }
+      }
+    }
+  }
+`;
 
 const AVAILABLE_EXTENSIONS = [
   {
@@ -156,7 +173,29 @@ export default function ExtensionsSelector({
   onChange,
   isExpanded,
   onToggle,
+  predicate,
 }: ExtensionsSelectorProps) {
+  const { data, load, loading } = useQuery<
+    { occurrenceSearch: { facet: { dwcaExtension: { key: string; count: number }[] } } },
+    { predicate?: Predicate }
+  >(EXTENSION_COUNTS_QUERY, { lazyLoad: true });
+
+  useEffect(() => {
+    load({ variables: { predicate } });
+  }, [predicate, load]);
+
+  const countsLoaded = data != null && !loading;
+
+  const countsByExtension = useMemo(() => {
+    const map = new Map<string, number>();
+    if (data?.occurrenceSearch?.facet?.dwcaExtension) {
+      for (const item of data.occurrenceSearch.facet.dwcaExtension) {
+        map.set(item.key, item.count);
+      }
+    }
+    return map;
+  }, [data]);
+
   const toggleExtension = (extensionUrl: string) => {
     const newExtensions = selectedExtensions.includes(extensionUrl)
       ? selectedExtensions.filter((url) => url !== extensionUrl)
@@ -202,23 +241,37 @@ export default function ExtensionsSelector({
       </div>
 
       <div className="g-grid g-gap-3">
-        {AVAILABLE_EXTENSIONS.map((extension) => (
-          <label key={extension.url} className={optionStyles.optionCard}>
-            <Checkbox
-              checked={selectedExtensions.includes(extension.url)}
-              onCheckedChange={() => toggleExtension(extension.url)}
-              className="g-mt-1"
-            />
-            <div className={optionStyles.optionLabel}>
-              <span className={optionStyles.optionTitle}>
-                <FormattedMessage id={`enums.dwcaExtension.${extension.url}`} />
-              </span>
-              <p className={optionStyles.optionDescription}>
-                <FormattedMessage id={`definitions.extension.${extension.url}`} />
-              </p>
-            </div>
-          </label>
-        ))}
+        {AVAILABLE_EXTENSIONS.map((extension) => {
+          const count = countsByExtension.get(extension.url) ?? (countsLoaded ? 0 : undefined);
+          const hasRecords = count != null && count > 0;
+          const dimmed = countsLoaded && !hasRecords;
+
+          return (
+            <label
+              key={extension.url}
+              className={`${optionStyles.optionCard}${dimmed ? ' g-opacity-50' : ''}`}
+            >
+              <Checkbox
+                checked={selectedExtensions.includes(extension.url)}
+                onCheckedChange={() => toggleExtension(extension.url)}
+                className="g-mt-1"
+              />
+              <div className={optionStyles.optionLabel}>
+                <span className={optionStyles.optionTitle}>
+                  <FormattedMessage id={`enums.dwcaExtension.${extension.url}`} />
+                  {count != null && (
+                    <span className="g-text-sm g-font-normal g-text-gray-500 g-ml-2">
+                      (<FormattedNumber value={count} />)
+                    </span>
+                  )}
+                </span>
+                <p className={optionStyles.optionDescription}>
+                  <FormattedMessage id={`definitions.extension.${extension.url}`} />
+                </p>
+              </div>
+            </label>
+          );
+        })}
       </div>
     </ExpandableSection>
   );

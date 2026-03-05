@@ -1,11 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import {
-  defaultDateFormatProps,
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-} from '@/components/headerComponents';
+import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import {
   CitationIcon,
   FeatureList,
@@ -26,7 +22,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
@@ -97,7 +93,7 @@ export function NetworkPage() {
       <PageMetaData
         path={`/network/${network.key}`}
         title={title}
-        description={network.prose?.summary ?? ''}
+        description={network.description ?? network.prose?.summary ?? ''}
         noindex={!!network?.deleted}
         nofollow={!!network?.deleted}
       />
@@ -114,12 +110,7 @@ export function NetworkPage() {
                 <FormattedMessage
                   id="dataset.registeredDate"
                   values={{
-                    DATE: (
-                      <FormattedDate
-                        value={network.created ?? undefined}
-                        {...defaultDateFormatProps}
-                      />
-                    ),
+                    DATE: <LongDate value={network.created ?? undefined} />,
                   }}
                 />
               }

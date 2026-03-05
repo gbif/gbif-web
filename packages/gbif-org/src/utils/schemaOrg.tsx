@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 
 export const getDatasetSchema = (dataset) => {
-  const authors = (dataset.contacts || [])
+  const authors = (dataset.volatileContributors || [])
     .filter((c) => c.type === 'ORIGINATOR')
     .map(function (contact) {
       if (contact.firstName || contact.lastName) {

@@ -1,4 +1,4 @@
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { longDateFormatProps } from '@/components/dateFormats';
 import { HelpLine } from '@/components/helpText';
 import { HyperText } from '@/components/hyperText';
 import Properties from '@/components/properties';
@@ -22,7 +22,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
       locale: 'en-GB',
       messages: {},
     });
-    return enIntl.formatDate(download?.created, defaultDateFormatProps);
+    return enIntl.formatDate(download?.created, longDateFormatProps);
   }, [download?.created]);
 
   if (!download) return null;

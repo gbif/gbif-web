@@ -5,6 +5,7 @@ import { EventResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
+import { mediumDateFormatProps, MediumDate } from '@/components/dateFormats';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on MeetingEvent {
@@ -75,7 +76,7 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
       <div className="g-flex g-items-center">
         <MdCalendarToday className="g-me-2" />
         {/* format start and end dates. if same day, then only show time. if different day, then show date and time. */}
-        <FormattedDate value={event.start} year="numeric" month="short" day="numeric" />
+        <MediumDate value={event.start} />
         {/* if starts and ends same day and not an allDayEvent, then show time interval */}
         {sameDay && !event.allDayEvent && (
           <>
@@ -86,13 +87,7 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
         {event.end && !sameDay && (
           <>
             {' - '}
-            <FormattedDate
-              value={event.end}
-              year="numeric"
-              month="short"
-              day="numeric"
-              hour12={false}
-            />
+            <FormattedDate value={event.end} {...mediumDateFormatProps} hour12={false} />
           </>
         )}
       </div>

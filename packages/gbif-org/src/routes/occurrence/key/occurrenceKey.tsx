@@ -40,7 +40,6 @@ import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootEr
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { createContext, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { BsLightningFill } from 'react-icons/bs';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -48,6 +47,7 @@ import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
 import getTitle from './Title';
+import PageMetaData from '@/components/PageMetaData';
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!) {
     occurrence(key: $key) {
@@ -402,21 +402,28 @@ export function OccurrenceKey() {
   const coordinateIssues =
     occurrence?.issues?.filter((issue) => notableCoordinateIssues.includes(issue)) ?? [];
 
-  const defaultClassification =
-    occurrence?.classifications?.find(
-      (classification) => classification?.checklistKey === config.defaultChecklistKey
-    ) ?? occurrence?.classifications?.[0];
+  // const defaultClassification =
+  //   occurrence?.classifications?.find(
+  //     (classification) => classification?.checklistKey === config.defaultChecklistKey
+  //   ) ?? occurrence?.classifications?.[0];
+
   const title = getTitle({ occurrence, termMap });
+
   return (
     <>
-      <Helmet>
-        <title>{title || 'Unknown'}</title>
-      </Helmet>
+      <PageMetaData
+        path={`/occurrence/${occurrence?.key}`}
+        title={title || 'Unknown'}
+        nofollow
+        noCanonical
+      />
+
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={occurrence?.key?.toString()} />}
-      ></DataHeader>
+      />
+
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">

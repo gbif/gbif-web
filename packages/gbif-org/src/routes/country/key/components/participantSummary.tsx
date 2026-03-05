@@ -14,7 +14,8 @@ import {
 import { FiInstagram } from 'react-icons/fi';
 import { IoLogoVimeo } from 'react-icons/io5';
 import { MdOutlineRssFeed } from 'react-icons/md';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { YearDate } from '@/components/dateFormats';
 import { Link } from 'react-router-dom';
 
 type Props = {
@@ -43,7 +44,7 @@ export function ParticipantSummary({ participant, className, showSocialLinksSect
         <Property
           labelId="participant.gbifParticipantSince"
           value={participant.participant?.membershipStart}
-          formatter={(v) => <FormattedDate value={v} year="numeric" />}
+          formatter={(v) => <YearDate value={v} />}
         />
         <Property
           labelId="participant.gbifRegion"
@@ -65,7 +66,7 @@ export function ParticipantSummary({ participant, className, showSocialLinksSect
         <Property
           labelId="participant.nodeEstablished"
           value={participant.participant?.nodeEstablishmentDate}
-          formatter={(v) => <FormattedDate value={v} year="numeric" />}
+          formatter={(v) => <YearDate value={v} />}
         />
         <Property
           labelId="participant.website"

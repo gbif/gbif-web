@@ -1,6 +1,6 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { LongDate } from '@/components/dateFormats';
 import { Spinner } from '@/components/ui/spinner';
 import { NotFoundError } from '@/errors';
 import {
@@ -23,7 +23,7 @@ import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootEr
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { json, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { DatasetCard } from './sections/datasetCard';
@@ -242,7 +242,7 @@ export function DownloadKey() {
               <ArticlePreTitle
                 secondary={
                   download.created ? (
-                    <FormattedDate value={download?.created} {...defaultDateFormatProps} />
+                    <LongDate value={download.created} />
                   ) : (
                     <FormattedMessage id="phrases.unknownDate" />
                   )

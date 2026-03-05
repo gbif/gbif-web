@@ -1,5 +1,6 @@
 import { cn } from '@/utils/shadcn';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { LongDate } from './dateFormats';
 import { ErrorMessage } from './errorMessage';
 
 type DateType = string | number | Date | null | undefined;
@@ -19,18 +20,12 @@ export function DeletedMessage({
       <FormattedMessage
         id="phrases.deletedOnDate"
         values={{
-          date: <FormattedDate value={date} {...defaultDateFormatProps} />,
+          date: <LongDate value={date} />,
         }}
       />
     </ErrorMessage>
   );
 }
-
-export const defaultDateFormatProps = {
-  year: 'numeric',
-  month: 'long',
-  day: '2-digit',
-} as const;
 
 export function Hostname({
   href,

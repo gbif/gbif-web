@@ -146,7 +146,7 @@ export function AmbassadorsList({
               </thead>
               {isLoading && <SkeletonBody />}
               {!isLoading && (
-                <tbody>
+                <tbody className="prose-links">
                   {sortedAmbassadors.map((ambassador, idx) => (
                     <tr
                       key={idx}

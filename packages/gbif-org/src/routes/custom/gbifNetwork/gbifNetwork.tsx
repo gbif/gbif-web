@@ -2,14 +2,12 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { GbifNetworkPageQuery, GbifNetworkParticipantsQuery } from '@/gql/graphql';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleAuxiliary } from '../../resource/key/components/articleAuxiliary';
 import { ArticleBody } from '../../resource/key/components/articleBody';
 import { ArticleFooterWrapper } from '../../resource/key/components/articleFooterWrapper';
 import { ArticleIntro } from '../../resource/key/components/articleIntro';
-import { ArticleOpenGraph } from '../../resource/key/components/articleOpenGraph';
 import { ArticleSkeleton } from '../../resource/key/components/articleSkeleton';
 import { ArticleTags } from '../../resource/key/components/articleTags';
 import { ArticleTextContainer } from '../../resource/key/components/articleTextContainer';
@@ -24,6 +22,7 @@ import useFetchGet from '@/hooks/useFetchGet';
 import { SkeletonTable } from '@/components/ui/skeleton';
 // eslint-disable-next-line
 import { NETWORK_PARTICIPANTS_QUERY } from './networkParticipantQuery.mjs'; // we import this simply to generate types
+import PageMetaData from '@/components/PageMetaData';
 
 const GBIF_NETWORK_QUERY = /* GraphQL */ `
   query GbifNetworkPage {
@@ -90,11 +89,11 @@ function GbifNetworkPage() {
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.summary}
+        path="/the-gbif-network"
+      />
 
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">

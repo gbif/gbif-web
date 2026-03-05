@@ -3,7 +3,7 @@ import React from 'react';
 import {
   OccurrenceSearchMetadata,
   PublisherSearchMetadata,
-  SearchMetadata
+  SearchMetadata,
 } from '../contexts/search';
 import { configDefault } from './configDefaults';
 import { Endpoints } from './endpoints';
@@ -61,6 +61,7 @@ export type Config = Endpoints & {
   testSite: boolean; // clearly indicate that it is a test site
   experimentalFeatures: {
     localContextEnabled: boolean;
+    eventCoreEnabled?: boolean;
   };
   feedback?: {
     enabled?: boolean;

@@ -80,7 +80,7 @@ export function Months(props) {
         enumKeys: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         enableUnknown: true,
         showUnknownInChart: true,
-        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        options: ['COLUMN', 'TABLE', 'PIE', 'MAP'],
         includeMapPredicate: true,
         ...props,
         fieldName: 'month',

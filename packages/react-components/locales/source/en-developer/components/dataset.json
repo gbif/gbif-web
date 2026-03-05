@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Dataset search",
+  "datasetSearchDescription": "Search for datasets in Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data.",
   "longType": {
     "OCCURRENCE": "Occurrence dataset",
     "CHECKLIST": "Checklist dataset",

@@ -34,13 +34,13 @@ import { stringify } from '@/utils/querystring';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { SearchCommand } from '../../../components/filters/SearchCommand';
 import { PublisherResult } from '../publisherResult';
 import { AboutContent, ApiContent } from './help';
 import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
+import PageMetaData from '@/components/PageMetaData';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(
@@ -80,13 +80,21 @@ export function PublisherSearchPage(): React.ReactElement {
     paramsToRemove: ['offset'],
   });
   const config = useConfig();
+  const intl = useIntl();
 
   return (
-    <SearchContextProvider searchContext={config.publisherSearch}>
-      <FilterProvider filter={filter} onChange={setFilter}>
-        <PublisherSearch />
-      </FilterProvider>
-    </SearchContextProvider>
+    <>
+      <PageMetaData
+        path="/publisher/search"
+        title={intl.formatMessage({ id: 'publisher.searchTitle' })}
+        description={intl.formatMessage({ id: 'publisher.searchDescription' })}
+      />
+      <SearchContextProvider searchContext={config.publisherSearch}>
+        <FilterProvider filter={filter} onChange={setFilter}>
+          <PublisherSearch />
+        </FilterProvider>
+      </SearchContextProvider>
+    </>
   );
 }
 
@@ -172,14 +180,6 @@ export function PublisherSearch(): React.ReactElement {
   const publishers = data?.list;
   return (
     <>
-      <FormattedMessage id="catalogues.publishers" defaultMessage="Publishers">
-        {(title) => (
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-        )}
-      </FormattedMessage>
-
       <DataHeader
         className="g-bg-white"
         title={<FormattedMessage id="catalogues.publishers" defaultMessage="Publishers" />}
@@ -187,9 +187,9 @@ export function PublisherSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
         hideIfNoCatalogue={true}
-      ></DataHeader>
+      />
 
-      <section className="">
+      <section>
         <FilterBar>
           <Filters />
         </FilterBar>
@@ -251,7 +251,6 @@ function Results({
   if (!loading && !publishers && error) throw error;
   const config = useConfig();
   const reactIntl = useIntl();
-  const countryName = reactIntl.formatMessage({ id: `enums.countryCode.${userCountry?.country}` });
   const showSidebar = config.publisherSearch?.enableUserCountryInfo && userCountry?.countryName;
   const sidebarContent = !showSidebar ? null : (
     <section className="g-ms-4 g-text-sm g-max-w-96">
@@ -264,7 +263,9 @@ function Results({
         <p>
           <CountMessage
             message="counts.nPublishersInCountry"
-            messageValues={{ country: countryName }}
+            messageValues={{
+              country: reactIntl.formatMessage({ id: `enums.countryCode.${userCountry?.country}` }),
+            }}
             countProps={{
               v1Endpoint: '/organization',
               params: { country: userCountry?.country, isEndorsed: 'true' },
@@ -328,9 +329,10 @@ function Results({
                     />
                   </div>
                   <Map
-                    className="g-z-0"
+                    className="g-z-0 g-h-[400px]"
                     {...{ geojson, geojsonLoading, geojsonError }}
                     PopupContent={PopupContent}
+                    storageKey="publisherMap"
                   />
                 </div>
               )}

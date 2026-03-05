@@ -9,7 +9,6 @@ import { useI18n } from '@/reactRouterPlugins';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { ParamQuery } from '@/utils/querystring';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { MdPerson } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { DatasetResult } from '../dataset/datasetResult';
@@ -22,6 +21,7 @@ import OccurrenceResultCard from './OccurrenceResultCard';
 import { OtherParticipantResult } from './OtherParticipantResult';
 import { SearchInput } from './SearchInput';
 import OMNI_SEARCH from './query';
+import PageMetaData from '@/components/PageMetaData';
 
 export interface CategoryCount {
   type: string;
@@ -271,157 +271,155 @@ export function SearchPage() {
     }) ?? [];
 
   return (
-    <>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta name="robots" content="noindex" />
-        {/* TODO we need much richer meta data. */}
-      </Helmet>
-      <div className="g-min-h-screen g-bg-slate-100 g-border-t g-border-gray-200">
-        <div className="g-max-w-7xl g-mx-auto g-px-4 g-py-8">
-          <h1 className="g-text-3xl g-font-bold g-text-gray-900 g-mb-2">{title}</h1>
-          <p className="g-text-gray-600 g-mb-8">{description}</p>
+    <div className="g-min-h-screen g-bg-slate-100 g-border-t g-border-gray-200">
+      <PageMetaData
+        title={title}
+        description={description}
+        path="/search"
+        noindex
+        nofollow
+        noCanonical
+      />
+      <div className="g-max-w-7xl g-mx-auto g-px-4 g-py-8">
+        <h1 className="g-text-3xl g-font-bold g-text-gray-900 g-mb-2">{title}</h1>
+        <p className="g-text-gray-600 g-mb-8">{description}</p>
 
-          <div className="g-mb-8">
-            <SearchInput placeholder={placeholder} />
-          </div>
-          {noSearchQuery && (
-            <div className="g-flex g-gap-4">
-              <div className="g-text-lg g-text-slate-500">
-                <FormattedMessage id="search.crossContentSearch.noSearchTermsEntered" />
-              </div>
+        <div className="g-mb-8">
+          <SearchInput placeholder={placeholder} />
+        </div>
+        {noSearchQuery && (
+          <div className="g-flex g-gap-4">
+            <div className="g-text-lg g-text-slate-500">
+              <FormattedMessage id="search.crossContentSearch.noSearchTermsEntered" />
             </div>
-          )}
-          {!noSearchQuery && (
-            <div className="g-flex g-gap-4">
-              <div className="g-space-y-4 g-flex-auto g-w-full g-max-w-[800px]">
-                {isloading && <CardListSkeleton />}
-                {!isloading && (
-                  <div className="g-w-full">
-                    {noResults && <NoRecords />}
+          </div>
+        )}
+        {!noSearchQuery && (
+          <div className="g-flex g-gap-4">
+            <div className="g-space-y-4 g-flex-auto g-w-full g-max-w-[800px]">
+              {isloading && <CardListSkeleton />}
+              {!isloading && (
+                <div className="g-w-full">
+                  {noResults && <NoRecords />}
 
-                    {!data && error && (
-                      <ErrorMessage>
-                        <FormattedMessage id="error.genericDescription" />
-                      </ErrorMessage>
-                    )}
+                  {!data && error && (
+                    <ErrorMessage>
+                      <FormattedMessage id="error.genericDescription" />
+                    </ErrorMessage>
+                  )}
 
-                    {serverResults?.country && (
-                      <>
-                        <CountryResult country={serverResults.country} />
-                      </>
-                    )}
+                  {serverResults?.country && (
+                    <>
+                      <CountryResult country={serverResults.country} />
+                    </>
+                  )}
 
-                    {serverResults?.participant?.highlighted && (
-                      <>
-                        <OtherParticipantResult
-                          participant={serverResults.participant.highlighted}
-                        />
-                      </>
-                    )}
+                  {serverResults?.participant?.highlighted && (
+                    <>
+                      <OtherParticipantResult participant={serverResults.participant.highlighted} />
+                    </>
+                  )}
 
-                    {data?.resourceKeywordSearch?.documents.results.map((resource) => (
-                      <ResourceSearchResult
-                        key={resource.id}
-                        resource={resource}
+                  {data?.resourceKeywordSearch?.documents.results.map((resource) => (
+                    <ResourceSearchResult
+                      key={resource.id}
+                      resource={resource}
+                      className="g-bg-white g-mb-4"
+                    />
+                  ))}
+                  {serverResults?.taxa &&
+                    serverResults?.taxa?.map((taxon) => (
+                      <TaxonResult
+                        key={taxon.taxon.key}
+                        taxon={taxon.taxon}
                         className="g-bg-white g-mb-4"
                       />
                     ))}
-                    {serverResults?.taxa &&
-                      serverResults?.taxa?.map((taxon) => (
-                        <TaxonResult
-                          key={taxon.taxon.key}
-                          taxon={taxon.taxon}
-                          className="g-bg-white g-mb-4"
-                        />
-                      ))}
 
-                    {data?.datasetSearch.results.slice(0, 1).map((result) => (
-                      <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
-                    ))}
+                  {data?.datasetSearch.results.slice(0, 1).map((result) => (
+                    <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
+                  ))}
 
-                    {isSmallDevice && (
-                      <CategoryLinks
-                        counts={counts}
-                        query={searchQuery}
-                        occurrenceDescription={occurrenceCategory.label}
-                        occurrenceSearchParams={occurrenceCategory.searchParams}
-                      />
-                    )}
+                  {isSmallDevice && (
+                    <CategoryLinks
+                      counts={counts}
+                      query={searchQuery}
+                      occurrenceDescription={occurrenceCategory.label}
+                      occurrenceSearchParams={occurrenceCategory.searchParams}
+                    />
+                  )}
 
-                    {serverResults?.occurrences?.recordedBy && (
+                  {serverResults?.occurrences?.recordedBy && (
+                    <OccurrenceResultCard
+                      Icon={MdPerson}
+                      searchParams={{ recordedBy: serverResults?.occurrences?.recordedBy }}
+                      queryString={serverResults?.occurrences?.recordedBy}
+                      label="Recorded by"
+                    />
+                  )}
+                  {!serverResults?.occurrences?.recordedBy &&
+                    serverResults?.occurrences?.catalogNumber && (
                       <OccurrenceResultCard
                         Icon={MdPerson}
-                        searchParams={{ recordedBy: serverResults?.occurrences?.recordedBy }}
-                        queryString={serverResults?.occurrences?.recordedBy}
-                        label="Recorded by"
+                        searchParams={{ recordedBy: serverResults?.occurrences?.catalogNumber }}
+                        queryString={serverResults?.occurrences?.catalogNumber}
+                        label="Catalog number"
                       />
                     )}
-                    {!serverResults?.occurrences?.recordedBy &&
-                      serverResults?.occurrences?.catalogNumber && (
-                        <OccurrenceResultCard
-                          Icon={MdPerson}
-                          searchParams={{ recordedBy: serverResults?.occurrences?.catalogNumber }}
-                          queryString={serverResults?.occurrences?.catalogNumber}
-                          label="Catalog number"
-                        />
-                      )}
 
-                    {!serverResults?.occurrences?.recordedBy &&
-                      !serverResults?.occurrences?.catalogNumber &&
-                      serverResults?.occurrences?.recordNumber && (
-                        <OccurrenceResultCard
-                          Icon={MdPerson}
-                          searchParams={{ recordedBy: serverResults?.occurrences?.recordNumber }}
-                          queryString={serverResults?.occurrences?.recordNumber}
-                          label="Record number"
-                        />
-                      )}
-
-                    {data?.datasetSearch.results.slice(1).map((result) => (
-                      <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
-                    ))}
-
-                    {data?.organizationSearch?.results.map((result) => (
-                      <PublisherResult key={result.key} publisher={result} />
-                    ))}
-                    {remainingTaxaResults.map((result) => (
-                      <TaxonResult key={result.key} taxon={result} />
-                    ))}
-                    {!serverResults?.participant?.highlighted &&
-                      serverResults?.participant?.other && (
-                        <>
-                          <OtherParticipantResult
-                            participant={serverResults?.participant?.other[0]}
-                          />
-                        </>
-                      )}
-                    {remainingResourceResults.map((resource) => (
-                      <ResourceSearchResult
-                        key={resource.id}
-                        resource={resource}
-                        className="g-bg-white g-mb-4"
+                  {!serverResults?.occurrences?.recordedBy &&
+                    !serverResults?.occurrences?.catalogNumber &&
+                    serverResults?.occurrences?.recordNumber && (
+                      <OccurrenceResultCard
+                        Icon={MdPerson}
+                        searchParams={{ recordedBy: serverResults?.occurrences?.recordNumber }}
+                        queryString={serverResults?.occurrences?.recordNumber}
+                        label="Record number"
                       />
-                    ))}
-                  </div>
-                )}
-              </div>
-              {!isSmallDevice && !isloading && (
-                <div className="g-mb-8 g-flex-auto g-min-w-80">
-                  {/* <h2 className="g-text-xl g-font-semibold g-text-gray-900 g-mb-4">Browse by Category</h2> */}
-                  <CategoryLinks
-                    counts={counts}
-                    query={searchQuery}
-                    occurrenceDescription={occurrenceCategory.label}
-                    occurrenceSearchParams={occurrenceCategory.searchParams}
-                  />
+                    )}
+
+                  {data?.datasetSearch.results.slice(1).map((result) => (
+                    <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
+                  ))}
+
+                  {data?.organizationSearch?.results.map((result) => (
+                    <PublisherResult key={result.key} publisher={result} />
+                  ))}
+                  {remainingTaxaResults.map((result) => (
+                    <TaxonResult key={result.key} taxon={result} />
+                  ))}
+                  {!serverResults?.participant?.highlighted &&
+                    serverResults?.participant?.other && (
+                      <>
+                        <OtherParticipantResult
+                          participant={serverResults?.participant?.other[0]}
+                        />
+                      </>
+                    )}
+                  {remainingResourceResults.map((resource) => (
+                    <ResourceSearchResult
+                      key={resource.id}
+                      resource={resource}
+                      className="g-bg-white g-mb-4"
+                    />
+                  ))}
                 </div>
               )}
             </div>
-          )}
-        </div>
+            {!isSmallDevice && !isloading && (
+              <div className="g-mb-8 g-flex-auto g-min-w-80">
+                {/* <h2 className="g-text-xl g-font-semibold g-text-gray-900 g-mb-4">Browse by Category</h2> */}
+                <CategoryLinks
+                  counts={counts}
+                  query={searchQuery}
+                  occurrenceDescription={occurrenceCategory.label}
+                  occurrenceSearchParams={occurrenceCategory.searchParams}
+                />
+              </div>
+            )}
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

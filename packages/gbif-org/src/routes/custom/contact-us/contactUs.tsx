@@ -2,13 +2,12 @@ import { ContactUsPageQuery } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { Tabs } from '@/components/tabs';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
-import { ArticleOpenGraph } from '../../resource/key/components/articleOpenGraph';
 import { ArticleTextContainer } from '../../resource/key/components/articleTextContainer';
 import { ArticleTitle } from '../../resource/key/components/articleTitle';
 import { PageContainer } from '../../resource/key/components/pageContainer';
+import PageMetaData from '@/components/PageMetaData';
 
 const CONTACT_US_QUERY = /* GraphQL */ `
   query ContactUsPage {
@@ -44,11 +43,7 @@ export function ContactUsPage() {
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData title={resource.title} path="/contact-us" />
 
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer>

@@ -37,6 +37,7 @@ import EventTaxonomy from './eventTaxonomy';
 import Properties, { Property } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
+import { ExperimentalAlert } from './datasetEvents';
 export const Event = ({
   data,
   eventData,
@@ -170,6 +171,7 @@ export const Event = ({
         )}
       </Classification>
       <ArticleTextContainer className="g-max-w-screen-xl g-pb-6">
+        {data?.dataset?.type === 'SAMPLING_EVENT' && <ExperimentalAlert />}
         <SidebarLayout
           reverse
           className="g-grid-cols-[250px_1fr] xl:g-grid-cols-[300px_1fr]"

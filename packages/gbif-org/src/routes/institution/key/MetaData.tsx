@@ -1,5 +1,6 @@
 import { DynamicLink } from '@/reactRouterPlugins';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { LongDate } from '@/components/dateFormats';
 
 export function GrSciCollMetadata({
   entity,
@@ -17,11 +18,11 @@ export function GrSciCollMetadata({
     <div className="g-text-slate-500 g-flex g-flex-wrap g-items-center g-gap-8" {...props}>
       <div>
         <FormattedMessage id="grscicoll.entryCreated" defaultMessage="Entry created" />:{' '}
-        <FormattedDate value={entity.created} year="numeric" month="long" day="2-digit" />
+        <LongDate value={entity.created} />
       </div>
       <div>
         <FormattedMessage id="grscicoll.lastModified" defaultMessage="Last modified" />:{' '}
-        <FormattedDate value={entity.modified} year="numeric" month="long" day="2-digit" />
+        <LongDate value={entity.modified} />
       </div>
       <div>
         <FormattedMessage id="grscicoll.modifiedBy" defaultMessage="Modified by" />:{' '}

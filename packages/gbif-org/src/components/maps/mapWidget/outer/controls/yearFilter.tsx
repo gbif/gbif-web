@@ -4,7 +4,8 @@ import { Setter } from '@/types';
 import { cn } from '@/utils/shadcn';
 import * as Slider from '@radix-ui/react-slider';
 import { useCallback, useEffect, useState } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { YearDate } from '@/components/dateFormats';
 
 type Props = {
   upperLimit: number;
@@ -101,5 +102,5 @@ export function YearFilter({
 function FormattedYear({ year }: { year?: number }) {
   if (!year) return null;
   const yearAsDate = new Date(year, 0, 1);
-  return <FormattedDate value={yearAsDate.toISOString()} year="numeric" />;
+  return <YearDate value={yearAsDate.toISOString()} />;
 }

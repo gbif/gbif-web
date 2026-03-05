@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Trends } from '../country/key/components/trends';
 import { ArticleContainer } from '../resource/key/components/articleContainer';
 import { ArticleIntro } from '../resource/key/components/articleIntro';
@@ -7,26 +7,35 @@ import { ArticleTextContainer } from '../resource/key/components/articleTextCont
 import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { TrendsSelector } from './trendsSelector';
+import PageMetaData from '@/components/PageMetaData';
 
 export function GlobalAnalyticsPage() {
+  const { formatMessage } = useIntl();
+
+  const title = formatMessage({ id: 'trends.globalDataTrends' });
+
+  const description = formatMessage(
+    { id: 'trends.trendsInDataAvailabilityOnTheGbifNetwork' },
+    { YEAR: new Date().getFullYear().toString() }
+  );
+
   return (
     <article>
+      <PageMetaData
+        title={title}
+        description={description}
+        imageUrl={`${import.meta.env.PUBLIC_ANALYTICS_FILES_URL}/global/figure/occ_repatriation.png`}
+        path="/analytics/global"
+      />
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle secondary={<FormattedMessage id="trends.global" />}>
             <FormattedMessage id="trends.analytics" />
           </ArticlePreTitle>
 
-          <ArticleTitle>
-            <FormattedMessage id="trends.globalDataTrends" />
-          </ArticleTitle>
+          <ArticleTitle>{title}</ArticleTitle>
 
-          <ArticleIntro>
-            <FormattedMessage
-              id="trends.trendsInDataAvailabilityOnTheGbifNetwork"
-              values={{ YEAR: new Date().getFullYear().toString() }}
-            />
-          </ArticleIntro>
+          <ArticleIntro>{description}</ArticleIntro>
 
           <TrendsSelector value="GLOBAL" />
         </ArticleTextContainer>

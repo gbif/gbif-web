@@ -1,15 +1,13 @@
 import { NewsPageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticlePageSkeleton } from '../article/article';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
 import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
@@ -18,6 +16,7 @@ import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
+import PageMetaData from '@/components/PageMetaData';
 
 export const NewsPageSkeleton = ArticlePageSkeleton;
 
@@ -55,14 +54,17 @@ export const newsPageLoader = createResourceLoaderWithRedirect({
 
 export function NewsPage() {
   const { resource } = useLoaderData() as { resource: NewsPageFragment };
+  const location = useLocation();
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+        imageUrl={resource.primaryImage?.file.normal}
+        imageAlt={resource.primaryImage?.description}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>
