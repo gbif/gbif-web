@@ -65,7 +65,7 @@
     "downloadStarted": "Pobieranie rozpoczęło się i jest aktualnie przetwarzane.",
     "downloadExpectTime": "",
     "notificationEmailAddresses": "Kiedy będzie gotowe, email z powiadomieniem i linkiem do pobrania zostanie wysłany na następujący adres: ",
-    "sqlGeneratedUsingPredicate": "",
+    "sqlGeneratedUsingPredicate": "Symbol zastępczy opisu",
     "status": {
       "PREPARING": "W kolejce",
       "SUSPENDED": "Zawieszono",
@@ -73,7 +73,7 @@
       "CANCELLED": "Anulowano",
       "KILLED": "Przerwano"
     },
-    "usedChecklistKey": "",
+    "usedChecklistKey": "Symbol zastępczy opisu",
     "predicate": {
       "checklist": "Checklista",
       "joinDescriptions": {
@@ -201,7 +201,7 @@
         "FORMATION": "Formacja",
         "ORDER_KEY": "Rząd",
         "ISSUE": "Problem",
-        "TAXONOMIC_ISSUE": "",
+        "TAXONOMIC_ISSUE": "Symbol zastępczy opisu",
         "INSTALLATION_KEY": "Instalacja",
         "VERBATIM_SCIENTIFIC_NAME": "Dosłowna nazwa naukowa\n",
         "GBIF_REGION": "Region GBIF",
@@ -261,110 +261,110 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Powrót",
-    "slowDown": "",
-    "unableToCreateDownload": "",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "slowDown": "Symbol zastępczy opisu",
+    "unableToCreateDownload": "Symbol zastępczy opisu",
+    "backToFormatSelection": "Symbol zastępczy opisu",
+    "backToConfiguration": "Symbol zastępczy opisu",
     "estimatedSize": "",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "Symbol zastępczy opisu",
+    "continueToTerms": "Symbol zastępczy opisu",
+    "downloadSummary": "Symbol zastępczy opisu",
+    "weAlsoSupport": "Symbol zastępczy opisu",
+    "sqlDownloadsLink": "Symbol zastępczy opisu",
     "extensions": "Rozszerzenia",
-    "selectAdditionalExtensions": "",
+    "selectAdditionalExtensions": "Symbol zastępczy opisu",
     "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAll": "Symbol zastępczy opisu",
+    "deselectAll": "Symbol zastępczy opisu",
+    "extensionsInfoMessage": "Symbol zastępczy opisu",
     "format": "Format",
-    "csvDelimiter": "",
+    "csvDelimiter": "Symbol zastępczy opisu",
     "taxonomy": "Taksonomia",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "Symbol zastępczy opisu",
+    "progressLabel": "Symbol zastępczy opisu",
+    "termsAndConditions": "Symbol zastępczy opisu",
+    "reviewAndAccept": "Symbol zastępczy opisu",
+    "dataCitationTitle": "Symbol zastępczy opisu",
+    "dataCitationText": "Symbol zastępczy opisu",
+    "dataUseAgreementTitle": "Symbol zastępczy opisu",
+    "dataUseAgreementText": "Symbol zastępczy opisu",
+    "largeDownloadAcknowledgment": "Symbol zastępczy opisu",
+    "largeDownloadEstimatedSize": "Symbol zastępczy opisu",
+    "largeDownloadConnectionSpeed": "Symbol zastępczy opisu",
+    "largeDownloadDiskSpace": "Symbol zastępczy opisu",
+    "largeDownloadRowCount": "Symbol zastępczy opisu",
     "largeDownloadExcelWarning": "Nie będziesz mieć możliwości wyświetlenia czy analizy danych w Excelu lub podobnym programie. Zbiór danych o tym rozmiarze jest trudny do analizowania na zwykłym komputerze. Prawdopodobnie będziesz potrzebować dostępu do urządzeń do obliczeń rozproszonych lub narzędzi 'Big Data'.",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Symbol zastępczy opisu",
+    "createDownload": "Symbol zastępczy opisu",
+    "completeRequirements": "Symbol zastępczy opisu",
     "steps": {
       "quality": {
         "name": "",
-        "description": ""
+        "description": "Symbol zastępczy opisu"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Symbol zastępczy opisu",
+        "description": "Symbol zastępczy opisu"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "Symbol zastępczy opisu",
+        "description": "Symbol zastępczy opisu"
       },
       "format": {
         "name": "Format",
-        "description": ""
+        "description": "Symbol zastępczy opisu"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "Symbol zastępczy opisu",
+        "description": "Symbol zastępczy opisu"
       },
       "terms": {
         "name": "",
-        "description": ""
+        "description": "Symbol zastępczy opisu"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Symbol zastępczy opisu",
+        "description": "Symbol zastępczy opisu"
       },
       "DWCA": {
         "title": "Darwin Core Archive",
-        "description": ""
+        "description": "Symbol zastępczy opisu"
       },
       "SPECIES_LIST": {
         "title": "Lista gatunków",
-        "description": ""
+        "description": "Symbol zastępczy opisu"
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Symbol zastępczy opisu",
+        "description": "Symbol zastępczy opisu"
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "Symbol zastępczy opisu",
+        "description": "Symbol zastępczy opisu"
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "Symbol zastępczy opisu",
+        "multipleCsv": "Symbol zastępczy opisu",
+        "interpretedData": "Symbol zastępczy opisu",
+        "rawAndInterpreted": "Symbol zastępczy opisu",
+        "coordinates": "Symbol zastępczy opisu",
+        "coordinatesIfSelected": "Symbol zastępczy opisu",
+        "individualOccurrences": "Symbol zastępczy opisu",
+        "multimediaLinks": "Symbol zastępczy opisu",
+        "occurrenceCounts": "Symbol zastępczy opisu"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": "",
+      "title": "Symbol zastępczy opisu",
+      "description": "Symbol zastępczy opisu",
+      "defaultRecommended": "Symbol zastępczy opisu",
       "version": "Wersja"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "Symbol zastępczy opisu",
     "invalidSQL": "Nieprawidłowy SQL",
     "title": "Stwórz nowe pobranie SQL",
     "notification": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
@@ -381,7 +381,7 @@
       "EXACT_TAXON": "Dokładny takson"
     },
     "cubeTitle": "Pobierz kostkę",
-    "cubeDescription": "",
+    "cubeDescription": "Symbol zastępczy opisu",
     "readMore": "Zobacz więcej",
     "time": {
       "YEAR": "Rok",
@@ -464,8 +464,8 @@
     "countHigherTaxonomy": "Liczba stwierdzeń na wyższym poziomie taksonomicznym",
     "coordinateUncertainty": "Zawrzyj minimalną niepewność współrzędnych",
     "errorMinimumDimension": "Przynajmniej jeden wymiar musi zostać wybrany",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "Symbol zastępczy opisu",
+    "errorGeneratingSql": "Symbol zastępczy opisu",
     "editSql": "Edytuj jako SQL",
     "temporalUncertainty": "Zawrzyj minimalną niepewność czasową",
     "documentation": "Dokumentacja",
