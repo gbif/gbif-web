@@ -83,7 +83,7 @@
         "MetadataDate": "Дата метаданных",
         "metadataLanguageLiteral": "Литерал языка метаданных",
         "metadataLanguage": "Язык метаданных",
-        "providerManagedID": "",
+        "providerManagedID": "Идентификатор, управляемый поставщиком",
         "Rating": "Рейтинг",
         "commenterLiteral": "Литерал комментатора",
         "commenter": "Комментатор",
@@ -572,7 +572,7 @@
     "preservation": {
       "name": "Сохранение",
       "properties": {
-        "preservationType": "",
+        "preservationType": "Архив, аннотированный GBIF",
         "preservationTemperature": "Температура хранения",
         "preservationDateBegin": "Начальная дата хранения",
         "sequence": "Последовательность"
