@@ -563,7 +563,7 @@
     "description": "The name of any administrative area from GADM.org determined during record processing."
   },
   "identifiedBy": {
-    "description": "A list (concatenated and separated) of names of people, groups, or organizations who assigned the dwc:Taxon to the subject.",
+    "description": "A list (concatenated and separated) of names of people, groups or organizations who assigned the dwc:Taxon to the subject.",
     "name": "Identified by",
     "count": "{num, plural, one { selected } other {# selected}}"
   },
@@ -921,7 +921,7 @@
     "count": "{num, plural, one { selected } other {# selected}}"
   },
   "samplingPerformedBy": {
-    "description": "A person, group, or organization responsible for recording the dwc:Event.",
+    "description": "A person, group or organization responsible for recording the dwc:Event.",
     "name": "Sampling Performed By",
     "count": "{num, plural, one { selected } other {# selected}}"
   },
