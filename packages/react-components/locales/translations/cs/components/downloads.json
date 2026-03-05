@@ -65,7 +65,7 @@
     "downloadStarted": "Stahování bylo zahájeno a v současné době se zpracovává.",
     "downloadExpectTime": "Počítejte s tím, že stahování potrvá až 3 hodiny. Většina stahování bude dokončena do 15 minut.",
     "notificationEmailAddresses": "Jakmile budou výsledky připraveny, bude vám zaslán oznamovací e-mail s odkazem ke stažení na následující adresu: ",
-    "sqlGeneratedUsingPredicate": "",
+    "sqlGeneratedUsingPredicate": "Zástupce popisu",
     "status": {
       "PREPARING": "Ve frontě",
       "SUSPENDED": "Pozastaveno",
@@ -73,7 +73,7 @@
       "CANCELLED": "Zrušeno",
       "KILLED": "Zabito"
     },
-    "usedChecklistKey": "",
+    "usedChecklistKey": "Zástupce popisu",
     "predicate": {
       "checklist": "Kontrolní seznam",
       "joinDescriptions": {
@@ -138,7 +138,7 @@
         "IUCN_RED_LIST_CATEGORY": "Kategorie Červeného seznamu IUCN",
         "PATHWAY": "Cesta",
         "NETWORK_KEY": "Síť",
-        "DWCA_EXTENSION": "",
+        "DWCA_EXTENSION": "DWCA rozšíření",
         "ACCEPTED_TAXON_KEY": "Přijatý taxon",
         "CONTINENT": "Kontinent",
         "OTHER_CATALOG_NUMBERS": "Jiná katalogová čísla",
@@ -201,7 +201,7 @@
         "FORMATION": "Formace",
         "ORDER_KEY": "Řád",
         "ISSUE": "Problém",
-        "TAXONOMIC_ISSUE": "",
+        "TAXONOMIC_ISSUE": "Zástupce popisu",
         "INSTALLATION_KEY": "Instalace",
         "VERBATIM_SCIENTIFIC_NAME": "Přesný vědecký název",
         "GBIF_REGION": "Region GBIF",
@@ -261,110 +261,110 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Zpět",
-    "slowDown": "",
-    "unableToCreateDownload": "",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "slowDown": "Zástupce popisu",
+    "unableToCreateDownload": "Zástupce popisu",
+    "backToFormatSelection": "Zástupce popisu",
+    "backToConfiguration": "Zástupce popisu",
     "estimatedSize": "Rovná se {from}",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "Zástupce popisu",
+    "continueToTerms": "Zástupce popisu",
+    "downloadSummary": "Zástupce popisu",
+    "weAlsoSupport": "Zástupce popisu",
+    "sqlDownloadsLink": "Zástupce popisu",
     "extensions": "Rozšíření",
-    "selectAdditionalExtensions": "",
+    "selectAdditionalExtensions": "Zástupce popisu",
     "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAll": "Zástupce popisu",
+    "deselectAll": "Zástupce popisu",
+    "extensionsInfoMessage": "Zástupce popisu",
     "format": "Formát",
-    "csvDelimiter": "",
+    "csvDelimiter": "Zástupce popisu",
     "taxonomy": "Taxonomie",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "Zástupce popisu",
+    "progressLabel": "Zástupce popisu",
+    "termsAndConditions": "Zástupce popisu",
+    "reviewAndAccept": "Zástupce popisu",
+    "dataCitationTitle": "Zástupce popisu",
+    "dataCitationText": "Zástupce popisu",
+    "dataUseAgreementTitle": "Zástupce popisu",
+    "dataUseAgreementText": "Zástupce popisu",
+    "largeDownloadAcknowledgment": "Zástupce popisu",
+    "largeDownloadEstimatedSize": "Zástupce popisu",
+    "largeDownloadConnectionSpeed": "Zástupce popisu",
+    "largeDownloadDiskSpace": "Zástupce popisu",
+    "largeDownloadRowCount": "Zástupce popisu",
     "largeDownloadExcelWarning": "Data nebude možné zobrazit ani analyzovat v aplikaci Excel nebo podobných aplikacích. Soubor dat této velikosti je obtížné analyzovat na běžném počítači. Pravděpodobně budete potřebovat přístup ke službě distribuovaných výpočtů nebo k nástrojům \"Big Data\".",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Zástupce popisu",
+    "createDownload": "Zástupce popisu",
+    "completeRequirements": "Zástupce popisu",
     "steps": {
       "quality": {
         "name": "Rovná se {from}",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "format": {
         "name": "Formát",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "terms": {
         "name": "Podmínky",
-        "description": ""
+        "description": "Zástupce popisu"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "DWCA": {
         "title": "Archiv Darwin Core",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "SPECIES_LIST": {
         "title": "Seznam druhů",
-        "description": ""
+        "description": "Zástupce popisu"
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "Zástupce popisu",
+        "description": "Zástupce popisu"
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "Zástupce popisu",
+        "multipleCsv": "Zástupce popisu",
+        "interpretedData": "Zástupce popisu",
+        "rawAndInterpreted": "Zástupce popisu",
+        "coordinates": "Zástupce popisu",
+        "coordinatesIfSelected": "Zástupce popisu",
+        "individualOccurrences": "Zástupce popisu",
+        "multimediaLinks": "Zástupce popisu",
+        "occurrenceCounts": "Zástupce popisu"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": "",
+      "title": "Zástupce popisu",
+      "description": "Zástupce popisu",
+      "defaultRecommended": "Zástupce popisu",
       "version": "Verze"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "Zástupce popisu",
     "invalidSQL": "Neplatné SQL",
     "title": "Vytvořit nové SQL stažení",
     "notification": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",
@@ -381,7 +381,7 @@
       "EXACT_TAXON": "Přesný taxon"
     },
     "cubeTitle": "Stáhnout kostku",
-    "cubeDescription": "",
+    "cubeDescription": "Zástupce popisu",
     "readMore": "Zobrazit více",
     "time": {
       "YEAR": "Rok",
@@ -464,8 +464,8 @@
     "countHigherTaxonomy": "Počet výskytů na vyšší taxonomické úrovni",
     "coordinateUncertainty": "Zahrnout minimální nejistotu souřadnic",
     "errorMinimumDimension": "Musí být vybrán alespoň jeden rozměr",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "Zástupce popisu",
+    "errorGeneratingSql": "Zástupce popisu",
     "editSql": "Upravit jako SQL",
     "temporalUncertainty": "Zahrnout minimální časovou nejistotu",
     "documentation": "Dokumentace",
