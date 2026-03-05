@@ -1,13 +1,13 @@
 {
   "features": "Caratteristiche",
   "options": {
-    "includeAuthorship": "Codice di Condotta"
+    "includeAuthorship": ""
   },
   "citations": "Citazioni",
   "occurrences": "Occorrenze",
   "numberSpecimens": "Numero di campioni",
   "gbifNumberSpecimens": "Campioni presenti su GBIF",
-  "specimenTriplet": "Codice di Condotta",
+  "specimenTriplet": "",
   "title": "Titolo",
   "titleAndAbstract": "Titolo e riassunto",
   "altmetric": "Altmetrico",
@@ -25,6 +25,6 @@
   "activeInstitution": "È attivo",
   "author": "",
   "source": "",
-  "dataReferenced": "Codice di Condotta",
+  "dataReferenced": "",
   "activeCollection": "È attivo"
 }

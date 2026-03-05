@@ -1,0 +1,76 @@
+{
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "다운로드",
+    "redirectNotice": "",
+    "continueToGBIF": "계속",
+    "continue": "계속",
+    "invalid": "유효하지 않음",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "새로운 SQL 다운로드 생성",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "노트",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "유효하지 않은 SQL",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
+    },
+    "create": "",
+    "about": "소개",
+    "stopEditing": "편집 중단",
+    "startEditing": "편집 시작",
+    "reformat": "재포맷",
+    "discard": "버리기",
+    "keep": "남기기",
+    "readTheDocumentation": "문서 읽기",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "새로운 다운로드 만들기",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "현재 필터",
+      "errors": {
+        "invalid-json": "유효하지 않은 JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
+    },
+    "downloadOptions": {
+      "title": "다운로드 옵션",
+      "chooseChecklist": "체크리스트 선택",
+      "chooseChecklistDescription": "당신의 다운로드 내 분류군 명을 정리하기 위한 분류학적 체크리스트 선택",
+      "content": {
+        "rawData": "원데이터",
+        "interpretedData": "해석데이터",
+        "images": "멀티미디어",
+        "coordinates": "좌표",
+        "fileFormat": "포맷",
+        "estimatedSize": "추정 데이터 크기"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
+    }
+  }
+}

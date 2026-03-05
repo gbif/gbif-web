@@ -1,7 +1,7 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "行動規範",
+      "VOTING": "正規参加団体",
       "ASSOCIATE": "準参加国",
       "OTHER_ASSOCIATE": "その他の準参加団体",
       "FORMER": "以前の参加者",
@@ -9,16 +9,16 @@
       "UNKNOWN": "不明",
       "AFFILIATE": "GBIF提携団体"
     },
-    "affiliateHelp": "行動規範",
-    "mapCaptionPublishers": "行動規範",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "役割",
     "name": "名前",
     "participant": "参加者",
     "type": "タイプ",
     "memberSince": "メンバー登録日",
     "all": "すべて",
-    "countryParticipants": "行動規範",
-    "publishersPerCountry": "行動規範",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "消去",
     "headlines": {
       "nodesSteeringGroup": "ノード運営グループ",

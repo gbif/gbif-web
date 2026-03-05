@@ -359,7 +359,8 @@
     "taxonomySelector": {
       "title": "",
       "description": "",
-      "defaultRecommended": ""
+      "defaultRecommended": "",
+      "version": "バージョン"
     }
   },
   "customSqlDownload": {

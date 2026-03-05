@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "",
-  "generatedDateAgo": "Codice di Condotta",
+  "generatedDateAgo": "",
   "style": "",
   "filters": "",
   "select": "",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "",
     "GLACIER": "",
-    "GREEN": "Codice di Condotta",
+    "GREEN": "",
     "CUSTOM": ""
   },
   "basemap": {

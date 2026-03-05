@@ -64,7 +64,8 @@
   "constituentOf": "Bestanddel af",
   "dataset": "Datasæt",
   "taxonomy": "Taksonomi",
-  "localContexts": "Samfinansieret af",
+  "localContexts": "",
+  "localContextsLabelsAppliedBy": "",
   "project": "Projekt",
   "metrics": "Grafer",
   "metricsOccurrenceHelpText": "",
@@ -114,13 +115,13 @@
   "additionalInfo": "Yderligere info",
   "publishingCountriesAreas": "Udgivende lande og områder",
   "originalArchive": "Kildearkiv",
-  "originalArchiveDescription": "GBIF annoteret Arkiv",
-  "checklistBankDownload": "GBIF annoteret Arkiv",
-  "checklistBankDownloadDescription": "GBIF annoteret Arkiv",
+  "originalArchiveDescription": "",
+  "checklistBankDownload": "",
+  "checklistBankDownloadDescription": "",
   "annotatedEml": "GBIF annoteret metadata",
   "license": "Licens",
   "recommended": "Anbefalet",
-  "processedOccurrences": "GBIF annoteret Arkiv",
+  "processedOccurrences": "",
   "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Ingen beskrivelse tilgængelig",
   "pNetwork": "{NUMBER, select, 1{Netværk} other{Netværk}}",
@@ -184,8 +185,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "Samfinansieret af",
-    "occurrenceInfo": "Samfinansieret af"
+    "evenList": "",
+    "occurrenceInfo": ""
   },
   "eventTaxonomy": "Taksonomisk distribution af observationer",
   "noCitations": "",

@@ -1,0 +1,51 @@
+{
+  "occurrence": "",
+  "event": "",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "",
+  "dataset": "",
+  "publisher": "발행자",
+  "institution": "",
+  "institutionGrSciColl": "",
+  "collection": "",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "backToTaxa": "",
+  "siteLocation": "",
+  "info": {
+    "original": "",
+    "excluded": "",
+    "inferred": "",
+    "altered": ""
+  },
+  "groups": {
+    "summary": "요약",
+    "record": "",
+    "occurrence": "",
+    "event": "",
+    "dataStructure": "",
+    "identification": "동정",
+    "taxon": "분류군",
+    "location": "위치",
+    "organism": "",
+    "materialSample": "",
+    "geologicalContext": "",
+    "measurementsOrFacts": "",
+    "images": "",
+    "other": "",
+    "methodology": "",
+    "taxonomicCoverage": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
+}

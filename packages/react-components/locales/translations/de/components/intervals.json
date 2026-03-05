@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} bis {to}",
     "lt": "Vor {to}",
-    "lte": "DWCA-Erweiterung",
+    "lte": "",
     "gt": "Nach {from}",
-    "gte": "DWCA-Erweiterung",
-    "e": "DWCA-Erweiterung"
+    "gte": "",
+    "e": ""
   },
   "year": {
     "between": "Jahr {from} bis {to}",

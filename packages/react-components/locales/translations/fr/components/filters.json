@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "Extension DWCA",
-    "count": "{num, plural, one { extension DWCA } other {# extensions DWCA}}",
+    "name": "",
+    "count": "",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "locationId": {
     "name": "ID de localisation",
-    "count": "Extension DWCA",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -36,13 +36,13 @@
   },
   "numberSpecimens": {
     "name": "Nombre de spécimens",
-    "count": "Extension DWCA",
+    "count": "",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "specimensInGbif": {
     "name": "Spécimens sur GBIF",
     "count": "{num, plural, one {comptage des spécimens GBIF} other {# spécimens sur GBIF}}",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Thème",
@@ -103,92 +103,92 @@
   "eventDate": {
     "name": "Date de l'événement",
     "count": "",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "gbifId": {
     "name": "ID du GBIF",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Type de quantité d’organisme",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Chemin",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Séquences associées",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Degré d'établissement",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Dernier jour de l'année",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Premier jour de l'année",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Identifications précédentes",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Dernière interprétation",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
-    "name": "Archive annotée par GBIF",
-    "count": "Extension DWCA",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identifiant",
-    "count": "Extension DWCA",
+    "count": "",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "institutionType": {
     "name": "Type ",
     "count": "",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "discipline": {
-    "name": "Archive annotée par GBIF",
-    "count": "Extension DWCA",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "Archive annotée par GBIF",
-    "count": "Extension DWCA",
-    "description": "Archive annotée par GBIF"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "preservationType": {
-    "name": "Archive annotée par GBIF",
-    "count": "Extension DWCA",
-    "description": "Archive annotée par GBIF"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "biomeType": {
-    "name": "Extension DWCA",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "Extension DWCA",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
@@ -230,11 +230,11 @@
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Extension DWCA",
-    "count": "Extension DWCA",
-    "isNotNull": "Extension DWCA",
-    "isNull": "Extension DWCA",
-    "description": "Extension DWCA"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Pays",
@@ -242,17 +242,17 @@
     "description": "Pays ou territoire où l'événement s'est produit"
   },
   "grsciCollCountry": {
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "preparations": {
     "name": "Préparations",
-    "count": "Extension DWCA",
-    "description": "Archive annotée par GBIF"
+    "count": "",
+    "description": ""
   },
   "repatriated": {
     "name": "Rapatrié",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
@@ -262,7 +262,7 @@
   "q": {
     "name": "Recherche textuelle",
     "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "coordinates": {
     "name": "Coordonnées"
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Profondeur",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Sexe",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Stade de développement",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Enregistré par",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Numéro de terrain",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "Verbatim de l'ID du taxon",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Archipel",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Île",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Géoréférencé par",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Nom du jeu de données",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Programme",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Géographie supérieure",
-    "count": "Extension DWCA",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Région GBIF",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "Publié par une région GBIF",
-    "count": "Extension DWCA",
-    "description": "Extension DWCA"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID de l'événement",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Est dans le regroupement",
-    "count": "Extension DWCA",
+    "count": "",
     "description": "Est-ce que l'enregistrement a été déterminé à avoir des enregistrements liés."
   },
   "isSequenced": {
@@ -600,7 +600,7 @@
   "personalCollection": {
     "name": "Collection personnelle",
     "count": "Collection personnelle",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "datasetType": {
     "name": "Type de jeu de données",
@@ -620,7 +620,7 @@
   "name": {
     "name": "Nom",
     "count": "{num, plural, one { name } other {# names}}",
-    "description": "Archive annotée par GBIF",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
@@ -631,7 +631,7 @@
   "code": {
     "name": "Code",
     "count": "{num, plural, one { code } other {# codes}}",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "Verbatim du nom scientifique",
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Réseau",
-    "count": "Extension DWCA",
+    "count": "",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "literatureType": {

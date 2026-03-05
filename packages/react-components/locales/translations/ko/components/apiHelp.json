@@ -1,0 +1,13 @@
+{
+  "example": "예시",
+  "examples": "예시",
+  "singleEntry": "단일 항목 받기.",
+  "downloadKeyDatasets": "데이터에 기여한 데이터셋 다운로드로 이동.",
+  "downloadKeyDatasetsExport": "데이터에 기여한 데이터셋의 다운로드 목록 다운로드로 이동.",
+  "singleOccurrence": "단일 출현값 받기.",
+  "searchOccurrences": "모든 출현값 받기.",
+  "filterOccurrences": "출현값 검색.",
+  "searchOccurrencesExample": "taxonKey 9778871  (Flabellina McMurtrie, 1831) 분류군의 2000년에서 2024년 사이 5월에 기록된 첫 다섯개 출현값",
+  "relatedOccurrences": "관련 출현값 (실험적).",
+  "occurrenceFragment": "해석 이전 기록."
+}

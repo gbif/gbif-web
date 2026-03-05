@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
-    "name": "DWCA rozšíření",
-    "count": "{num, plural, one {DWCA rozšíření} few {# DWCA rozšíření} many {# DWCA rozšíření} other {# DWCA rozšíření}}",
+    "name": "",
+    "count": "",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "locationId": {
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigrafie",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "Lithostratigrafie",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "Geologický čas",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Téma",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Typ množství organismu",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Cesta",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Související sekvence",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Stupeň zavedení",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Konečný den roku",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Počáteční den roku",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Předchozí identifikace",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Poslední interpretace",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Alternativní kód",
-    "count": "DWCA rozšíření",
+    "count": "",
     "description": "Jakýkoli další kód, který je již používán pro stejný záznam v jiných kontextech (například historické kódy)."
   },
   "identifier": {
     "name": "Identifikátor",
-    "count": "DWCA rozšíření",
+    "count": "",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Obor",
-    "count": "DWCA rozšíření",
+    "count": "",
     "description": "Výzkumné obory podporované institucí."
   },
   "collectionContentType": {
     "name": "Typ obsahu",
-    "count": "DWCA rozšíření",
+    "count": "",
     "description": "Typ objektů dostupných ve sbírce"
   },
   "preservationType": {
     "name": "Typ konzervace",
-    "count": "DWCA rozšíření",
+    "count": "",
     "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
   "biomeType": {
-    "name": "DWCA rozšíření",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "DWCA rozšíření",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Vědecký název",
@@ -230,11 +230,11 @@
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "DWCA rozšíření",
-    "count": "DWCA rozšíření",
-    "isNotNull": "DWCA rozšíření",
-    "isNull": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriováno",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "Vzdálenost od geometrického středu v metrech",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Hloubka",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Pohlaví",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Životní fáze",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Číslo pole",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "Přesné ID taxonu",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Skupina ostrovů",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Ostrov",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Georeferencováno podle",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Název datové sady",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Číslo záznamu",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "Publikováno podle GBIF regionu",
-    "count": "DWCA rozšíření",
-    "description": "DWCA rozšíření"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID události",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "je ve shluku",
-    "count": "DWCA rozšíření",
+    "count": "",
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Síť",
-    "count": "DWCA rozšíření",
+    "count": "",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "literatureType": {

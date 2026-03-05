@@ -1,13 +1,13 @@
 {
   "features": "Eigenschappen",
   "options": {
-    "includeAuthorship": "Code of Conduct"
+    "includeAuthorship": ""
   },
   "citations": "Citaties",
   "occurrences": "Voorkomens",
   "numberSpecimens": "Aantal exemplaren",
   "gbifNumberSpecimens": "Exemplaren in GBIF",
-  "specimenTriplet": "Code of Conduct",
+  "specimenTriplet": "",
   "title": "Titel",
   "titleAndAbstract": "Titel en samenvatting",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "Is actief",
   "author": "Auteur",
   "source": "Tijdschrift",
-  "dataReferenced": "Code of Conduct",
+  "dataReferenced": "",
   "activeCollection": "Is actief"
 }

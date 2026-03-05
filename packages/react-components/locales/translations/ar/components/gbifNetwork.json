@@ -1,7 +1,7 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "قواعد السلوك",
+      "VOTING": "مشارك ذو حق التصويت",
       "ASSOCIATE": "مشارك مساعد",
       "OTHER_ASSOCIATE": "مشارك مساعد آخر ",
       "FORMER": "السابق",
@@ -9,16 +9,16 @@
       "UNKNOWN": "غير معروف",
       "AFFILIATE": "منتسب الى المرفق العالمي للتنوع الحيوي"
     },
-    "affiliateHelp": "قواعد السلوك",
-    "mapCaptionPublishers": "قواعد السلوك",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "دور",
     "name": "الاسم",
     "participant": "مشارك",
     "type": "نمط",
     "memberSince": "عضو مُنذُ",
     "all": "الكل",
-    "countryParticipants": "قواعد السلوك",
-    "publishersPerCountry": "قواعد السلوك",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "إزالة",
     "headlines": {
       "nodesSteeringGroup": "المجموعة التوجيهية لعقدة الربط",

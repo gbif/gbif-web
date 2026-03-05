@@ -1,0 +1,30 @@
+{
+  "features": "תכונות",
+  "options": {
+    "includeAuthorship": ""
+  },
+  "citations": "ציטוטים",
+  "occurrences": "תצפיות",
+  "numberSpecimens": "מספר הפרטים",
+  "gbifNumberSpecimens": "Specimens in GBIF",
+  "specimenTriplet": "",
+  "title": "כותרת",
+  "titleAndAbstract": "כותרת ותקציר",
+  "altmetric": "מדד אלטרנטיבי",
+  "registered": "רשום",
+  "hostedDatasets": "ערכות נתונים מאוחסנות",
+  "pubDatasets": "ערכות נתונים שפורסמו",
+  "commonName": "שם עממי",
+  "images": "מולטימדיה",
+  "species": "מספר המינים",
+  "parents": "הורים",
+  "institution": "מוסד",
+  "collection": "אוסף",
+  "collectionCount": "אוספים",
+  "active": "פעיל",
+  "activeInstitution": "פעיל",
+  "author": "",
+  "source": "",
+  "dataReferenced": "",
+  "activeCollection": "פעיל"
+}

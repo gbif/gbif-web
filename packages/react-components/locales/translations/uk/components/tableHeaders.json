@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": "Етичні норми"
+    "includeAuthorship": ""
   },
   "citations": "Цитування",
   "occurrences": "Знахідки",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "Етичні норми",
+  "specimenTriplet": "",
   "title": "Назва",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "Автор",
   "source": "Журнал",
-  "dataReferenced": "Етичні норми",
+  "dataReferenced": "",
   "activeCollection": ""
 }

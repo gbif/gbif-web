@@ -1,7 +1,7 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Code of Conduct",
+      "VOTING": "Stemgerechtigde deelnemer",
       "ASSOCIATE": "",
       "OTHER_ASSOCIATE": "",
       "FORMER": "",
@@ -9,16 +9,16 @@
       "UNKNOWN": "Onbekend",
       "AFFILIATE": "GBIF-filiaal"
     },
-    "affiliateHelp": "Code of Conduct",
-    "mapCaptionPublishers": "Code of Conduct",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "Rol",
     "name": "Naam",
     "participant": "Deelnemer",
     "type": "Type",
     "memberSince": "Lid sinds",
     "all": "Alle",
-    "countryParticipants": "Code of Conduct",
-    "publishersPerCountry": "Code of Conduct",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "Leegmaken",
     "headlines": {
       "nodesSteeringGroup": "",

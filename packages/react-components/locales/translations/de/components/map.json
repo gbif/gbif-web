@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "",
-  "generatedDateAgo": "DWCA-Erweiterung",
+  "generatedDateAgo": "",
   "style": "",
   "filters": "Filter",
   "select": "",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "",
     "GLACIER": "",
-    "GREEN": "DWCA-Erweiterung",
+    "GREEN": "",
     "CUSTOM": ""
   },
   "basemap": {

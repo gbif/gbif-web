@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": "قواعد السلوك"
+    "includeAuthorship": ""
   },
   "citations": "اقتباسات",
   "occurrences": "تكرارات",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "قواعد السلوك",
+  "specimenTriplet": "",
   "title": "عنوان",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "المؤلف",
   "source": "مجلة",
-  "dataReferenced": "قواعد السلوك",
+  "dataReferenced": "",
   "activeCollection": ""
 }

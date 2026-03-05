@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "DWCA-Erweiterung",
-    "count": "{num, plural, one { DwCA-Erweiterung } other {# DwCA-Erweiterungen}}",
+    "name": "",
+    "count": "",
     "description": "Art des Datasets"
   },
   "locationId": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "specimensInGbif": {
     "name": "Belege in GBIF",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Verbringungsweg",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Grad der Etablierung",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "Art des Datasets"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "preservationType": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "biomeType": {
-    "name": "DWCA-Erweiterung",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "DWCA-Erweiterung",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
@@ -230,11 +230,11 @@
     "description": "Die Arten der Probleme/Flags, die bei der Verarbeitung der Daten entdeckt wurden."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "DWCA-Erweiterung",
-    "count": "DWCA-Erweiterung",
-    "isNotNull": "DWCA-Erweiterung",
-    "isNull": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Land",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "repatriated": {
     "name": "Repatriiert",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Veröffentlichendes Land",
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Tiefe",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Sammler/Beobachter",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "Ursprüngliche Taxon-ID",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Sammlernummer",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "DWCA-Erweiterung",
-    "description": "DWCA-Erweiterung"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "Ereignis-ID",
@@ -569,12 +569,12 @@
   },
   "isInCluster": {
     "name": "Ist Teil eines Clusters",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": "Gibt an, ob der Datensatz mit einem oder mehreren anderen Datensätzen gruppiert wurde."
   },
   "isSequenced": {
     "name": "",
-    "count": "DWCA-Erweiterung",
+    "count": "",
     "description": ""
   },
   "active": {
