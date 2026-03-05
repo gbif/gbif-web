@@ -1,6 +1,6 @@
 {
   "feedback": {
-    "title": "",
+    "title": "Preguntas y comentarios",
     "contactGbif": "",
     "contactDataProvider": "",
     "contactUsDescription": "",
@@ -31,13 +31,13 @@
     "failure": {
       "title": "",
       "description": "",
-      "tryAgain": ""
+      "tryAgain": "Intentar de nuevo"
     },
     "orWriteMailTo": "",
     "leaveIssueOnGithub": "",
     "login": "Iniciar sesión",
     "requiresGithubAccount": "",
-    "sendUsAnEmail": "",
+    "sendUsAnEmail": "Envíenos un correo electrónico",
     "forPrivateEnquiries": ""
   }
 }
