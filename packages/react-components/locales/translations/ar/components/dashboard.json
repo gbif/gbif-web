@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "التعريف",
     "provenance": "منشأ",
-    "other": "أخرى"
+    "other": "أخرى",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "التكرارات لكل {FIELD}",
   "kingdom": "مملكة"
