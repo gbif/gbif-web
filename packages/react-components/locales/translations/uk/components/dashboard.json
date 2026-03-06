@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "Визначення",
     "provenance": "Походження",
-    "other": "Інше"
+    "other": "Інше",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "Розподіл знахідок за категорією: {FIELD}",
   "kingdom": "Царство"
