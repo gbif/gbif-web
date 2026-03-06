@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Vyhledávání datové sady",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Datová sada o výskytu",
     "CHECKLIST": "Datová sada kontrolního seznamu",
