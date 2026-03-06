@@ -6,6 +6,7 @@
       "failed": {
         "FACEBOOK": "Nelze se připojit k Facebooku",
         "GITHUB": "Nelze se připojit ke Githubu",
+        "ORCID": "",
         "GOOGLE": "Nelze se připojit pomocí Google"
       }
     },
@@ -13,6 +14,7 @@
       "failed": {
         "FACEBOOK": "Nelze se přihlásit s Facebookem",
         "GITHUB": "Nelze se přihlásit s Githubem",
+        "ORCID": "",
         "GOOGLE": "Nelze se přihlásit s Google"
       }
     },
