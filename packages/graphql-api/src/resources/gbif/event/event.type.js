@@ -2,6 +2,9 @@ import { gql } from 'apollo-server';
 
 export default gql`
   extend type Query {
+    """
+    Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation.
+    """
     eventSearch(
       q: String
       limit: Int
@@ -148,6 +151,9 @@ export default gql`
     offset: Int
   }
 
+  """
+  Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation.
+  """
   type EventSearchResult {
     results: [Event]!
     limit: Int!
@@ -158,6 +164,9 @@ export default gql`
     _query: JSON
   }
 
+  """
+  Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation.
+  """
   type Event {
     eventID: ID!
     eventType: String
