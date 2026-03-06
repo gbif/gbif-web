@@ -766,23 +766,23 @@
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "absentTaxa": {
-    "description": "",
-    "name": "",
+    "description": "Приводится список (объединенный и разделённый) таксонов, отсутствовавших во время dwc:Event",
+    "name": "Отсутствовавшие таксоны",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "hasNonTargetTaxa": {
-    "description": "",
-    "name": "",
+    "description": "В рамках данного события dwc:Event было обнаружено и зарегистрировано один или несколько обзоров (комбинации целевых и исключенных таксономических обзоров  dwc:Event",
+    "name": "Встречались нецелевые таксоны",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "nonTargetTaxa": {
-    "description": "",
-    "name": "",
+    "description": "Список таксонов (в виде строки с разделителями), зарегистрированных во время dwc:Event, которые находятся за пределами целевого таксономического охвата (комбинации eco:targetTaxonomicScope и eco:excludedTaxonomicScope).",
+    "name": "Нецелевые таксоны",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "areNonTargetTaxaFullyReported": {
-    "description": "",
-    "name": "",
+    "description": "Подлежали учёту все организмы, выходящие за рамки целевого таксономического охвата (комбинация eco:targetTaxonomicScope и eco:excludedTaxonomicScope), обнаруженные в ходе dwc:Event, которые поддавались выявлению с помощью примененного протокола (представленного в eco:protocolDescriptions и dwc:samplingProtocol).",
+    "name": "Были ли нецелевые таксоны описаны полностью",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "targetLifeStageScope": {
