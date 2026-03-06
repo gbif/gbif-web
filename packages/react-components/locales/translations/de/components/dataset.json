@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Datensätze suchen",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Vorkommen-Datensatz",
     "CHECKLIST": "Checklisten-Datensatz",
