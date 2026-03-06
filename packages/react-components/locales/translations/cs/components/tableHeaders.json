@@ -1,13 +1,13 @@
 {
   "features": "Vlastnosti",
   "options": {
-    "includeAuthorship": "Id spravované poskytovatelem"
+    "includeAuthorship": ""
   },
   "citations": "Citace",
   "occurrences": "Výskyty",
   "numberSpecimens": "Počet exemplářů",
   "gbifNumberSpecimens": "Exempláře v GBIF",
-  "specimenTriplet": "Id spravované poskytovatelem",
+  "specimenTriplet": "",
   "title": "Název",
   "titleAndAbstract": "Název a abstrakt",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "Je aktivní",
   "author": "Autor",
   "source": "Recenzovaný časopis",
-  "dataReferenced": "Id spravované poskytovatelem",
+  "dataReferenced": "",
   "activeCollection": "Je aktivní"
 }

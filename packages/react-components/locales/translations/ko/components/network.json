@@ -1,0 +1,9 @@
+{
+  "network": "네트워크",
+  "tabs": {
+    "summary": "요약",
+    "metrics": "지표",
+    "datasets": "데이터셋",
+    "publishers": "발행자"
+  }
+}

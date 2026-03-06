@@ -1,5 +1,4 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ArticleIntro } from '../resource/key/components/articleIntro';
 import { ArticleSkeleton } from '../resource/key/components/articleSkeleton';
@@ -8,15 +7,17 @@ import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { SuggestDatasetForm } from '../resource/key/composition/blocks/customComponents/suggestDatasetForm';
 import { ArticlePreTitle } from '../resource/key/components/articlePreTitle';
+import PageMetaData from '@/components/PageMetaData';
 
 function SuggestDatasetPage() {
   const { formatMessage } = useIntl();
 
   return (
     <PageContainer className="g-bg-white" topPadded bottomPadded>
-      <Helmet>
-        <title>{formatMessage({ id: 'suggestDataset.pageTitle' })}</title>
-      </Helmet>
+      <PageMetaData
+        title={formatMessage({ id: 'suggestDataset.pageTitle' })}
+        path="/suggest-dataset"
+      />
 
       <ArticleTextContainer>
         <ArticlePreTitle>

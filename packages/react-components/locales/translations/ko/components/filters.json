@@ -1,0 +1,663 @@
+{
+  "dwcaExtension": {
+    "name": "",
+    "count": "",
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
+  },
+  "locationId": {
+    "name": "위치 ID",
+    "count": "",
+    "description": ""
+  },
+  "hasCoordinate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "collectionKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonomicStatus": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "specimensInGbif": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "iucnRedListCategory": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "위치",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "audiences": {
+    "name": "대상",
+    "count": "",
+    "description": ""
+  },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "이벤트 날짜",
+    "count": "",
+    "description": ""
+  },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "유기체 양 유형",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "관련 서열",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "연도 종료시점",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "연도 시작시점",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "이전 동정",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "alternativeCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "",
+    "count": "",
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
+  },
+  "institutionType": {
+    "name": "유형",
+    "count": "",
+    "description": ""
+  },
+  "discipline": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "collectionContentType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "preservationType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKeyGrSciColl": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "기록 기준",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "기관 코드",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "카탈로그 번호",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "grsciCollCountry": {
+    "description": ""
+  },
+  "preparations": {
+    "name": "준비",
+    "count": "",
+    "description": ""
+  },
+  "repatriated": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "좌표"
+  },
+  "elevation": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "발행자",
+    "count": "",
+    "description": ""
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "countriesOfResearcher": {
+    "name": "",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "연",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "샘플링 크기 단위",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "좌표 불확실",
+    "count": "",
+    "description": ""
+  },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "유기체 양",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "샘플링 크기 값",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "월",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "대륙",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "정착 수단",
+    "count": "",
+    "description": ""
+  },
+  "sex": {
+    "name": "성별",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "생애단계",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "에 의해 기록됨",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "필드 번호",
+    "count": "",
+    "description": ""
+  },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "섬 그룹",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "섬",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "에 의해 지리참조됨",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "기록 번호",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "모음집 코드",
+    "count": "",
+    "description": ""
+  },
+  "projectId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "출현 ID",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "유기체 ID",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "지역",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "수체",
+    "count": "",
+    "description": ""
+  },
+  "higherGeography": {
+    "name": "상위 지리",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "주",
+    "count": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "이벤트 ID",
+    "count": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "이벤트 ID",
+    "count": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "상위 이벤트 ID",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "위치 ID",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "샘플링 프로토콜",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "출현 상태",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "isSequenced": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "active": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "activeInstitution": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publicationDate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "personalCollection": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "",
+    "count": "",
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
+  },
+  "institutionKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "searchPlaceholder": ""
+  },
+  "city": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "count": "",
+    "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
+  },
+  "literatureType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  }
+}

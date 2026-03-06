@@ -21,6 +21,7 @@ import gbifRasterIUCN4326 from './4326/gbif-raster-iucn';
 import satellite3031 from './3031/satellite.json';
 import satellite3857_maptiler from './3857/satellite_maptiler.json';
 import satellite3857_bing from './3857/satellite_bing.json';
+import satellite3857_arcgis from './3857/satellite_arcgis.json';
 import config from '../../config';
 
 const router = Router();
@@ -106,6 +107,9 @@ router.get('/3857/satellite_maptiler', (req, res, next) => {
 });
 router.get('/3857/satellite_bing', (req, res, next) => {
   returnTemplate(req, res, next, satellite3857_bing);
+});
+router.get('/3857/satellite_arcgis', (req, res, next) => {
+  returnTemplate(req, res, next, satellite3857_arcgis);
 });
 
 // geology test

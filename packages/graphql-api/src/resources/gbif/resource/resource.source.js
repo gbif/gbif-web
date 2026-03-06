@@ -83,10 +83,10 @@ export class ResourceSearchAPI extends RESTDataSource {
   }
 
   async getFirstEntryByQuery(query, locale) {
-    const response = await this.searchResourceDocuments(
-      { query: { ...query, limit: 1 } },
+    const response = await this.searchResourceDocuments({
+      query: { ...query, limit: 1 },
       locale,
-    );
+    });
     return response.results[0];
   }
 

@@ -3,7 +3,7 @@ import passport from 'passport';
 import { Strategy as OrcidStrategy } from 'passport-orcid';
 import { update } from '../user/user.model.mjs';
 import { authCallback } from './oauthUtils.mjs';
-import { appendUser, isAuthenticated, jsonToBase64 } from './utils.mjs';
+import { appendUser, getReturnUrl, isAuthenticated, jsonToBase64 } from './utils.mjs';
 import { secretEnv } from '../../envConfig.mjs';
 
 let scope = '/authenticate';

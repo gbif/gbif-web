@@ -36,8 +36,8 @@
   "loadMore": "Еще",
   "loading": "Загрузка",
   "noResults": "Нет результатов",
-  "startTyping": "Идентификатор, управляемый поставщиком",
-  "rankInGroup": "Идентификатор, управляемый поставщиком",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Подробно",
     "clusters": "Связано",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Поиск",
-    "description": "Идентификатор, управляемый поставщиком",
+    "description": "",
     "noSearchTermsEntered": "Не введены ключевые слова для поиска",
-    "placeholder": "Идентификатор, управляемый поставщиком",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Вид",
       "datasetSearch": "Опубликованных наборов данных",
       "publisherSearch": "Организации",
       "occurrenceSearch": "Находки",
-      "resourceSearch": "Идентификатор, управляемый поставщиком"
+      "resourceSearch": ""
     },
     "seeAll": "Увидеть все"
   }

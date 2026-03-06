@@ -1,12 +1,11 @@
 import { ProgrammePageFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
-import { useLoaderData } from 'react-router-dom';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { FundingBanner } from '../components/fundingBanner';
 import { BlockItem } from '../composition/blockItem';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import PageMetaData from '@/components/PageMetaData';
 
 export const ProgrammePageSkeleton = ArticleSkeleton;
 
@@ -28,14 +27,15 @@ export const programmePageLoader = createResourceLoaderWithRedirect({
 
 export function ProgrammePage() {
   const { resource } = useLoaderData() as { resource: ProgrammePageFragment };
+  const location = useLocation();
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+      />
 
       {resource.blocks?.map((block, idx) => (
         <BlockItem

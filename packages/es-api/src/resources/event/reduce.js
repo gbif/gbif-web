@@ -18,9 +18,15 @@ function reduce(item) {
 
   return removeUndefined({
     ...source.event,
+    // eventDate: source.event.eventDateSingle,
+    // eventDateSingle: undefined,
+    eventDate:
+      source.event.eventDateInterval ??
+      (source.event.eventDateSingle ? source.event.eventDateSingle.substring(0, 10) : undefined),
     ...source.metadata,
     ...source.derivedMetadata,
     ...eventVerbatim,
+    extensions: source.verbatim.extensions,
   });
 }
 

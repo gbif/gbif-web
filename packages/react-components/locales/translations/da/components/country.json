@@ -8,7 +8,7 @@
       "publicationsFrom": "",
       "publicationsAbout": "",
       "news": "Nyheder",
-      "alienSpecies": "Samfinansieret af",
+      "alienSpecies": "",
       "projects": "Projekter"
     },
     "country": "Land",
@@ -21,8 +21,8 @@
     "noProjects": "",
     "notParticipant": "",
     "notParticipantDescription": "",
-    "countryNamingDisclaimer": "Samfinansieret af",
-    "isoStandardLinkText": "Samfinansieret af",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
     "counts": {
       "occurrences": "",
       "datasets": "Datasæt",

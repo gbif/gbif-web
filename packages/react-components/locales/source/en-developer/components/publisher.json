@@ -1,5 +1,6 @@
 {
   "searchTitle": "Publisher search",
+  "searchDescription": "Search for publishers in Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data.",
   "tabs": {
     "aboutPublisher": "About",
     "metrics": "Metrics",

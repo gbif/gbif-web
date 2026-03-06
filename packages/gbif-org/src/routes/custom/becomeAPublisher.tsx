@@ -1,15 +1,12 @@
-import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { BecomeAPublisherPageQuery } from '@/gql/graphql';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleAuxiliary } from '../resource/key/components/articleAuxiliary';
 import { ArticleBody } from '../resource/key/components/articleBody';
 import { ArticleFooterWrapper } from '../resource/key/components/articleFooterWrapper';
 import { ArticleIntro } from '../resource/key/components/articleIntro';
-import { ArticleOpenGraph } from '../resource/key/components/articleOpenGraph';
 import { ArticleSkeleton } from '../resource/key/components/articleSkeleton';
 import { ArticleTags } from '../resource/key/components/articleTags';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
@@ -18,7 +15,7 @@ import { Documents } from '../resource/key/components/documents';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { SecondaryLinks } from '../resource/key/components/secondaryLinks';
 import { BecomeAPublisherForm } from '../resource/key/composition/blocks/customComponents/becomeAPublisherForm';
-import { ProtectedForm } from '@/components/protectedForm';
+import PageMetaData from '@/components/PageMetaData';
 
 const BECOME_A_PUBLISHER_QUERY = /* GraphQL */ `
   query BecomeAPublisherPage {
@@ -60,6 +57,7 @@ function becomeAPublisherPageLoader(args: LoaderArgs) {
 function BecomeAPublisherPage() {
   const { data } = useLoaderData() as { data: BecomeAPublisherPageQuery };
   const resource = data.resource;
+  const { formatMessage } = useIntl();
 
   // This should not happen as long as the become a publisher page is of type Article in Contentful
   if (resource?.__typename !== 'Article') {
@@ -68,11 +66,11 @@ function BecomeAPublisherPage() {
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={formatMessage({ id: 'eoi.eoiTitle' })}
+        description={formatMessage({ id: 'eoi.eoiDescription' })}
+        path="/become-a-publisher"
+      />
 
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">

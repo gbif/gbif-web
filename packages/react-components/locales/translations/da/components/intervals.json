@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "",
     "lt": "",
-    "lte": "Samfinansieret af",
+    "lte": "",
     "gt": "",
-    "gte": "Samfinansieret af",
-    "e": "Samfinansieret af"
+    "gte": "",
+    "e": ""
   },
   "year": {
     "between": "",

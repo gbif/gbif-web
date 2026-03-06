@@ -36,8 +36,8 @@
   "loadMore": "Flere",
   "loading": "Indlæser",
   "noResults": "",
-  "startTyping": "Samfinansieret af",
-  "rankInGroup": "Samfinansieret af",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Om",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Søg",
-    "description": "Samfinansieret af",
+    "description": "",
     "noSearchTermsEntered": "Intet søgeord indtastet",
-    "placeholder": "Samfinansieret af",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Art",
       "datasetSearch": "Datasæt",
       "publisherSearch": "Forlæggere",
       "occurrenceSearch": "Observationer",
-      "resourceSearch": "Samfinansieret af"
+      "resourceSearch": ""
     },
     "seeAll": "Se alle"
   }

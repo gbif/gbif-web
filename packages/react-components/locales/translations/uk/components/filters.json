@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "Розширення DWCA",
-    "count": "Розширення DWCA",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "locationId": {
     "name": "ID місцезнаходження",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "Колекція",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "Статус",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "taxonRank": {
@@ -36,13 +36,13 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Архів анотований GBIF"
+    "count": "",
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Місцезнаходження",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Тема",
@@ -103,92 +103,92 @@
   "eventDate": {
     "name": "Дата події",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Одиниці розмірності кількості організмів (наприклад, особини, проективне покриття, маса тощо)",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Пов'язані сіквенси",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "День кінця року",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "День початку року",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Попередні ідентифікації",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Остання інтерпретація",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
-    "name": "Архів анотований GBIF",
-    "count": "Розширення DWCA",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Автор визначення",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "institutionType": {
     "name": "Тип",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "discipline": {
-    "name": "Архів анотований GBIF",
-    "count": "Розширення DWCA",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "Архів анотований GBIF",
-    "count": "Розширення DWCA",
-    "description": "Архів анотований GBIF"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "preservationType": {
-    "name": "Архів анотований GBIF",
-    "count": "Розширення DWCA",
-    "description": "Архів анотований GBIF"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "biomeType": {
-    "name": "Розширення DWCA",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "Розширення DWCA",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Наукова назва",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Розширення DWCA",
-    "count": "Розширення DWCA",
-    "isNotNull": "Розширення DWCA",
-    "isNull": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Країна",
@@ -242,17 +242,17 @@
     "description": ""
   },
   "grsciCollCountry": {
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "preparations": {
     "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
-    "count": "Розширення DWCA",
-    "description": "Архів анотований GBIF"
+    "count": "",
+    "description": ""
   },
   "repatriated": {
     "name": "Репатрійовано",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Країна або регіон, що публікує дані",
@@ -262,7 +262,7 @@
   "q": {
     "name": "",
     "count": "",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "coordinates": {
     "name": "Координати"
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "Похибка координат",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Глибина",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "organismQuantity": {
     "name": "Кількість організмів (в одиницях, відсотках, масовій частці тощо)",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "Відносна кількість організмів",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "Стать",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Життєва стадія",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Хто створив запис",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "fieldNumber": {
     "name": "Польовий номер",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "Первинний ID таксона",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Група островів",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Острів",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Автор геоприв'язки",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Назва набору даних",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Програма",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Номер запису",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "Записано за ID",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "identifiedById": {
     "name": "Визначено за ID",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "occurrenceId": {
     "name": "ID знахідки",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "organismId": {
     "name": "ID організму",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Географічна місцевість у широкому масштабі",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "Регіон GBIF",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Розширення DWCA",
-    "description": "Розширення DWCA"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID події",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "eventID": {
     "name": "ID події",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "parentEventId": {
     "name": "ID батьківської (об'єднуючої) події",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "locationID": {
     "name": "ID місцезнаходження",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "Протокол збору ",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "Статус знахідки (відсутня або присутня)",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "Автор визначення",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": "Ця експериментальна функція виділяє можливі дубльовані та/або пов'язані знахідки."
   },
   "isSequenced": {
     "name": "",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "active": {
@@ -600,52 +600,52 @@
   "personalCollection": {
     "name": "Приватна колекція",
     "count": "Приватна колекція",
-    "description": "Архів анотований GBIF"
+    "description": ""
   },
   "datasetType": {
     "name": "Тип набору даних",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "institutionKey": {
     "name": "Установа",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "name": {
     "name": "Ім’я",
-    "count": "Розширення DWCA",
-    "description": "Архів анотований GBIF",
+    "count": "",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Місто",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "code": {
     "name": "Код",
-    "count": "Розширення DWCA",
-    "description": "Архів анотований GBIF"
+    "count": "",
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "Первинно вжита наукова назва",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "networkKey": {
     "name": "Мережа",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "literatureType": {
     "name": "Тип джерела",
-    "count": "Розширення DWCA",
+    "count": "",
     "description": ""
   },
   "higherTaxonKey": {

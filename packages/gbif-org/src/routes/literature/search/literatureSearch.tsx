@@ -8,11 +8,12 @@ import { SearchContextProvider } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import { LiteratureTable } from './views/table';
+import PageMetaData from '@/components/PageMetaData';
 
 export function LiteratureSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -20,15 +21,15 @@ export function LiteratureSearchPage(): React.ReactElement {
     paramsToRemove: ['from'],
   });
   const config = useConfig();
+  const intl = useIntl();
+
   return (
     <>
-      <FormattedMessage id="catalogues.literature" defaultMessage="Literature">
-        {(title) => (
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-        )}
-      </FormattedMessage>
+      <PageMetaData
+        path="/literature/search"
+        title={intl.formatMessage({ id: 'literatureSearch.title' })}
+        description={intl.formatMessage({ id: 'literatureSearch.description' })}
+      />
 
       <SearchContextProvider searchContext={config.literatureSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>

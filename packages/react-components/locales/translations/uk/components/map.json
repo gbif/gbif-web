@@ -21,7 +21,7 @@
   "anyYear": "Будь-який рік",
   "exploreArea": "Переглянути знахідки з поточної області",
   "explore": "Переглянути",
-  "generatedDateAgo": "Етичні норми",
+  "generatedDateAgo": "Згенеровано {DATE_AGO}",
   "style": "Відображення карти",
   "filters": "Фільтри",
   "select": "Обрати",
@@ -36,7 +36,7 @@
     "CLASSIC": "Класичні точки",
     "STREETS": "Вулиці",
     "GLACIER": "Льодовик",
-    "GREEN": "Етичні норми",
+    "GREEN": "",
     "CUSTOM": "Налаштувати"
   },
   "basemap": {

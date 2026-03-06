@@ -1,0 +1,54 @@
+{
+    "resourceSearch": {
+        "title": "",
+        "upcoming": "",
+        "past": "",
+        "happeningNow": "",
+        "searchForNewsEventsDocuments": "",
+        "occurrenceSearch": "",
+        "subscribeToCalendar": "",
+        "suggestEvent": "",
+        "citationExplainer": "",
+        "noResults": "",
+        "types": {
+            "all": "모두",
+            "events": "",
+            "news": "",
+            "resources": "",
+            "projects": "",
+            "programmes": "",
+            "documents": "",
+            "tools": "",
+            "dataUse": "",
+            "literature": ""
+        },
+        "filters": {
+            "projectId": "",
+            "programme": "",
+            "countriesOfCoverage": "",
+            "countriesOfResearcher": "",
+            "literatureType": "",
+            "contractCountry": "",
+            "topics": "",
+            "audiences": "",
+            "purposes": "",
+            "relevance": "",
+            "language": "언어",
+            "year": "",
+            "gbifDatasetKey": "",
+            "publishingOrganizationKey": "발행자",
+            "networkKey": "",
+            "peerReview": "",
+            "openAccess": "",
+            "gbifDownloadKey": "",
+            "gbifDerivedDatasetDoi": "",
+            "paperDoi": "",
+            "litSource": "",
+            "gbifTaxonKey": "",
+            "litPublisher": ""
+        },
+        "helpText": {
+            "gbifTaxonKey": ""
+        }
+    }
+}

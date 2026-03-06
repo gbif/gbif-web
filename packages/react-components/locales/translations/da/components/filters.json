@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "Samfinansieret af",
-    "count": "Samfinansieret af",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "locationId": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "taxonRank": {
@@ -36,13 +36,13 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "GBIF annoteret Arkiv"
+    "count": "",
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "",
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Emne",
@@ -103,92 +103,92 @@
   "eventDate": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF-ID",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
-    "name": "GBIF annoteret Arkiv",
-    "count": "Samfinansieret af",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identifikator",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "institutionType": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "discipline": {
-    "name": "GBIF annoteret Arkiv",
-    "count": "Samfinansieret af",
+    "name": "",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "GBIF annoteret Arkiv",
-    "count": "Samfinansieret af",
-    "description": "GBIF annoteret Arkiv"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "preservationType": {
-    "name": "GBIF annoteret Arkiv",
-    "count": "Samfinansieret af",
-    "description": "GBIF annoteret Arkiv"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "biomeType": {
-    "name": "Samfinansieret af",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "objectClassification": {
-    "name": "Samfinansieret af",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "taxonKey": {
     "name": "Videnskabeligt navn",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Samfinansieret af",
-    "count": "Samfinansieret af",
-    "isNotNull": "Samfinansieret af",
-    "isNull": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Land",
@@ -242,17 +242,17 @@
     "description": ""
   },
   "grsciCollCountry": {
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "preparations": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "GBIF annoteret Arkiv"
+    "count": "",
+    "description": ""
   },
   "repatriated": {
     "name": "Hjemsendt",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "",
@@ -262,7 +262,7 @@
   "q": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "coordinates": {
     "name": "Koordinater"
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "Koordinat usikkerhed",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "organismQuantity": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "fieldNumber": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "identifiedById": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "occurrenceId": {
     "name": "Observations-ID",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "organismId": {
     "name": "Organisme-ID",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "Samfinansieret af"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "eventID": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "parentEventId": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "locationID": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "isSequenced": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "active": {
@@ -600,52 +600,52 @@
   "personalCollection": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "datasetType": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "institutionKey": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "name": {
     "name": "Navn",
-    "count": "Samfinansieret af",
-    "description": "GBIF annoteret Arkiv",
+    "count": "",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "code": {
     "name": "",
-    "count": "Samfinansieret af",
-    "description": "GBIF annoteret Arkiv"
+    "count": "",
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "networkKey": {
     "name": "",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "literatureType": {
     "name": "Litteraturtype",
-    "count": "Samfinansieret af",
+    "count": "",
     "description": ""
   },
   "higherTaxonKey": {

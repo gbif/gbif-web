@@ -17,6 +17,7 @@ tmp/
 **/.env
 **/.env.**.*
 **/.env.*
+/packages/mcp/elasticsearch/
 **/venv
 **/elasticsearch
 

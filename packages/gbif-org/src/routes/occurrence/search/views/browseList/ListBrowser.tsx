@@ -1,6 +1,7 @@
 import { Drawer } from '@/components/drawer/drawer';
 import usePrevious from '@/hooks/usePrevious';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
+import EventDrawer from '@/routes/events/key/EventDrawer';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { FormattedMessage } from 'react-intl';
 import { useEntityDrawer } from './useEntityDrawer';
@@ -8,6 +9,7 @@ import { useOrderedList } from './useOrderedList';
 
 const entityTypes = {
   o: 'occurrenceKey',
+  e: 'eventKey',
   d: 'datasetKey',
   p: 'publisherKey',
   t: 'speciesKey',
@@ -34,7 +36,7 @@ export default function EntityDrawer() {
       type = 'occurrenceKey';
     }
   }
-  const key = previewKey ? previewKey.split('_')[1] ?? previewKey : undefined;
+  const key = previewKey ? previewKey.substring(previewKey.indexOf('_') + 1) : undefined;
   const entitylink =
     abbreviation === 'tx'
       ? null
@@ -90,6 +92,7 @@ export default function EntityDrawer() {
       screenReaderDescription={undefined}
     >
       {type === 'occurrenceKey' && <StandaloneOccurrenceKeyPage url={`/occurrence/${key}`} />}
+      {type === 'eventKey' && <EventDrawer entityKey={key} />}
       {type === 'datasetKey' && <StandaloneOccurrenceKeyPage url={`/dataset/${key}`} />}
       {type === 'publisherKey' && <StandaloneOccurrenceKeyPage url={`/publisher/${key}`} />}
       {type === 'collectionKey' && <StandaloneOccurrenceKeyPage url={`/collection/${key}`} />}

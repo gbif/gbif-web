@@ -36,8 +36,8 @@
   "loadMore": "Більше",
   "loading": "Завантаження",
   "noResults": "",
-  "startTyping": "Етичні норми",
-  "rankInGroup": "Етичні норми",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Пошук",
-    "description": "Етичні норми",
+    "description": "",
     "noSearchTermsEntered": "Не введені ключові слова для пошуку",
-    "placeholder": "Етичні норми",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Вид",
       "datasetSearch": "Наборів даних",
       "publisherSearch": "Видавці",
       "occurrenceSearch": "Знахідки",
-      "resourceSearch": "Етичні норми"
+      "resourceSearch": ""
     },
     "seeAll": "Переглянути все"
   }

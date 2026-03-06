@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": "Samfinansieret af"
+    "includeAuthorship": ""
   },
   "citations": "",
   "occurrences": "Observationer",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "Samfinansieret af",
+  "specimenTriplet": "",
   "title": "Titel",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "Forfatter",
   "source": "",
-  "dataReferenced": "Samfinansieret af",
+  "dataReferenced": "",
   "activeCollection": ""
 }

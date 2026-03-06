@@ -39,7 +39,7 @@ export function DownloadHostedPortal() {
     throwAllErrors: true,
   });
 
-  const localePrefix = locale.gbifOrgLocalePrefix;
+  const localePrefix = locale.gbifOrgLocalePrefix?.replace('/', '');
 
   useEffect(() => {
     const currentFilter = filter2predicate(currentFilterContext.filter, searchConfig);
@@ -64,8 +64,8 @@ export function DownloadHostedPortal() {
     downloadQueryParams += data._variablesId
       ? `&variablesId=${data?._variablesId}`
       : fullPredicate
-      ? `&predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}`
-      : '';
+        ? `&predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}`
+        : '';
   } catch (e) {
     // ignore
   }

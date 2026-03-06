@@ -1,13 +1,13 @@
 {
   "features": "Eigenschaften",
   "options": {
-    "includeAuthorship": "DWCA-Erweiterung"
+    "includeAuthorship": ""
   },
   "citations": "Zitierungen",
   "occurrences": "Occurrences",
   "numberSpecimens": "Anzahl der Sammlungsobjekte",
   "gbifNumberSpecimens": "Belege in GBIF",
-  "specimenTriplet": "DWCA-Erweiterung",
+  "specimenTriplet": "",
   "title": "Titel",
   "titleAndAbstract": "Titel und Abstract",
   "altmetric": "Altmetrisch",
@@ -25,6 +25,6 @@
   "activeInstitution": "Ist aktiv",
   "author": "",
   "source": "",
-  "dataReferenced": "DWCA-Erweiterung",
+  "dataReferenced": "",
   "activeCollection": "Ist aktiv"
 }

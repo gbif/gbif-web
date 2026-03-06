@@ -53,8 +53,8 @@
     },
     "downloadOptions": {
       "title": "",
-      "chooseChecklist": "Samfinansieret af",
-      "chooseChecklistDescription": "Samfinansieret af",
+      "chooseChecklist": "",
+      "chooseChecklistDescription": "",
       "content": {
         "rawData": "Rådata",
         "interpretedData": "Fortolket data",

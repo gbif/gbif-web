@@ -4,12 +4,10 @@ import { Tabs } from '@/components/tabs';
 import { ProjectPageFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { MdCalendarMonth as CalendarIcon, MdEuro as EuroIcon, MdLink } from 'react-icons/md';
 import { FormattedDateTimeRange, FormattedMessage, FormattedNumber } from 'react-intl';
 import { longDateFormatProps } from '@/components/dateFormats';
-import { Outlet, useLoaderData } from 'react-router-dom';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTextContainer } from '../components/articleTextContainer';
@@ -17,6 +15,7 @@ import { ArticleTitle } from '../components/articleTitle';
 import { FundingBanner } from '../components/fundingBanner';
 import { PageContainer } from '../components/pageContainer';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import PageMetaData from '@/components/PageMetaData';
 
 export const ProjectPageSkeleton = ArticleSkeleton;
 
@@ -70,14 +69,17 @@ export function ProjectPage() {
   });
 
   const tabLinks = createTabLinks(resource);
+  const location = useLocation();
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+        imageUrl={resource.primaryImage?.file.normal}
+        imageAlt={resource.primaryImage?.description}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>

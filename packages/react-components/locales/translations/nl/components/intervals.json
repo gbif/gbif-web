@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} tot {to}",
     "lt": "Voor {to}",
-    "lte": "Code of Conduct",
+    "lte": "",
     "gt": "Na {from}",
-    "gte": "Code of Conduct",
-    "e": "Code of Conduct"
+    "gte": "",
+    "e": ""
   },
   "year": {
     "between": "Jaar {from} tot {to}",

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { formattedCoordinates } from '@/helpers/utils';
+import { formattedCoordinates, simplifyUrlObjectKeys } from '@/helpers/utils';
 import fieldsWithFacetSupport from './helpers/fieldsWithFacetSupport';
 import fieldsWithOccurrenceFacetSupport from './helpers/fieldsWithOccurrenceFacetSupport';
 import fieldsWithStatsSupport from './helpers/fieldsWithStatsSupport';
@@ -59,37 +59,42 @@ const temporalEventSearch = (parent) => {
  */
 export default {
   Query: {
-    eventSearch: (parent, { predicate, ...params }, { dataSources }) => {
+    eventSearch: (parent, { predicate, q, ...params }, { dataSources }) => {
       return {
         _predicate: predicate,
+        _q: q,
         _params: params,
-        _tileServerToken: dataSources.eventAPI.registerPredicate({ predicate }),
       };
     },
-    event: (parent, { eventID, datasetKey }, { dataSources }) =>
-      dataSources.eventAPI.getEventByKey({ eventID, datasetKey }),
+    event: (parent, { eventId, datasetKey }, { dataSources }) =>
+      dataSources.eventAPI.getEventByKey({ eventId, datasetKey }),
     occurrences: (
       parent,
-      { eventID, datasetKey, locationID, month, year, size, from },
+      { eventId, datasetKey, locationId, month, year, size, from },
       { dataSources },
     ) => {
       return dataSources.eventAPI.searchEventOccurrences({
-        eventID,
+        eventId,
         datasetKey,
-        locationID,
+        locationId,
         month,
         year,
         size,
         from,
       });
     },
-    location: (parent, { locationID }, { dataSources }) =>
-      dataSources.eventAPI.getLocation({ locationID }),
+    location: (parent, { locationId }, { dataSources }) =>
+      dataSources.eventAPI.getLocation({ locationId }),
   },
   EventSearchResult: {
     documents: (parent, query, { dataSources }) => {
       return dataSources.eventAPI.searchEventDocuments({
-        query: { predicate: parent._predicate, ...parent._params, ...query },
+        query: {
+          predicate: parent._predicate,
+          q: parent._q,
+          ...parent._params,
+          ...query,
+        },
       });
     },
     occurrenceCount: (parent, query, { dataSources }) => {
@@ -134,9 +139,9 @@ export default {
   },
   EventFacet,
   EventMultiFacet: {
-    locationIDStateProvince: (parent, query, { dataSources }) => {
+    locationIdStateProvince: (parent, query, { dataSources }) => {
       const result = getMultiFacet(parent, query, {
-        fields: ['locationID', 'stateProvince'],
+        fields: ['locationId', 'stateProvince'],
         searchApi: dataSources.eventAPI.searchEvents,
       });
       return result;
@@ -154,25 +159,79 @@ export default {
         field: 'datasetKey',
         searchApi: dataSources.eventAPI.searchEvents,
       }),
-    locationID: (parent, query, { dataSources }) =>
+    locationId: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
-        field: 'locationID',
+        field: 'locationId',
         searchApi: dataSources.eventAPI.searchEvents,
       }),
-    parentEventID: (parent, query, { dataSources }) =>
+    parentEventId: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
-        field: 'parentEventID',
+        field: 'parentEventId',
         searchApi: dataSources.eventAPI.searchEvents,
       }),
-    surveyID: (parent, query, { dataSources }) =>
+    sampleSizeUnit: (parent, query, { dataSources }) =>
       getCardinality(parent._predicate, query, {
-        field: 'surveyID',
+        field: 'sampleSizeUnit',
+        searchApi: dataSources.eventAPI.searchEvents,
+      }),
+    surveyId: (parent, query, { dataSources }) =>
+      getCardinality(parent._predicate, query, {
+        field: 'surveyId',
+        searchApi: dataSources.eventAPI.searchEvents,
+      }),
+    samplingProtocol: (parent, query, { dataSources }) =>
+      getCardinality(parent._predicate, query, {
+        field: 'samplingProtocol',
+        searchApi: dataSources.eventAPI.searchEvents,
+      }),
+    continent: (parent, query, { dataSources }) =>
+      getCardinality(parent._predicate, query, {
+        field: 'samplingProtocol',
+        searchApi: dataSources.eventAPI.searchEvents,
+      }),
+    locality: (parent, query, { dataSources }) =>
+      getCardinality(parent._predicate, query, {
+        field: 'locality',
+        searchApi: dataSources.eventAPI.searchEvents,
+      }),
+    dwcaExtension: (parent, query, { dataSources }) =>
+      getCardinality(parent._predicate, query, {
+        field: 'dwcaExtension',
         searchApi: dataSources.eventAPI.searchEvents,
       }),
   },
   EventStats,
   EventTemporal,
   Event: {
+    extensions: (event) => {
+      const extensions = {
+        audubon: event?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'],
+        image: event?.extensions?.['http://rs.gbif.org/terms/1.0/Image'],
+        humboldtEcologicalInventory:
+          event?.extensions?.['http://rs.tdwg.org/eco/terms/Event'],
+        measurementOrFact:
+          event?.extensions?.['http://rs.tdwg.org/dwc/terms/MeasurementOrFact'],
+        multimedia:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
+        extendedMeasurementOrFact:
+          event?.extensions?.[
+            'http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'
+          ],
+      };
+      Object.keys(extensions).forEach((key) => {
+        const extension = extensions[key];
+        // remove empty and half empty values
+        if (Array.isArray(extension) && extension.length > 0) {
+          extensions[key] = extension
+            .filter((x) => Object.keys(x).length > 0)
+            .map(simplifyUrlObjectKeys);
+          if (extensions[key].length === 0) delete extensions[key];
+        } else {
+          delete extensions[key];
+        }
+      });
+      return extensions;
+    },
     formattedCoordinates: ({ decimalLatitude, decimalLongitude }) => {
       return formattedCoordinates({
         lat: decimalLatitude,
@@ -180,20 +239,20 @@ export default {
       });
     },
     parentEvent: (
-      { datasetKey, parentEventID: key },
+      { datasetKey, parentEventId: key },
       query,
       { dataSources },
     ) => {
       if (typeof key === 'undefined' || key === null) return null;
-      return dataSources.eventAPI.getEventByKey({ eventID: key, datasetKey });
+      return dataSources.eventAPI.getEventByKey({ eventId: key, datasetKey });
     },
     dataset: ({ datasetKey }, query, { dataSources }) => {
       if (typeof datasetKey === 'undefined' || datasetKey === null) return null;
       return dataSources.eventAPI.getDatasetEML({ datasetKey });
     },
-    speciesCount: ({ eventID }, query, { dataSources }) => {
+    speciesCount: ({ eventId }, query, { dataSources }) => {
       return getCardinality(
-        { type: 'equals', key: 'eventHierarchy', value: eventID },
+        { type: 'equals', key: 'eventHierarchy', value: eventId },
         query,
         {
           dataSources,
@@ -202,11 +261,11 @@ export default {
         },
       );
     },
-    distinctTaxa: async ({ eventID }, query, { dataSources }) =>
+    distinctTaxa: async ({ eventId }, query, { dataSources }) =>
       dataSources.eventAPI
         .searchOccurrences({
           query: {
-            eventID,
+            eventId,
             facet: 'acceptedUsageKey',
             size: 0,
           },
@@ -219,7 +278,6 @@ export default {
             }),
           ),
         ),
-    extensions: ({}) => ({}),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {

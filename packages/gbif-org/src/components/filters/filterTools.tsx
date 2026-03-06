@@ -30,6 +30,7 @@ import { SuggestFnProps, SuggestionItem, SuggestResponseType } from './suggest';
 import { SuggestFilter } from './suggestFilter';
 import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
+import { HumboldtBooleansFilter } from './humboldtBooleansFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -43,6 +44,7 @@ export enum filterConfigTypes {
   TAXON = 'TAXON',
   GEOLOGICAL_TIME = 'GEOLOGICAL_TIME',
   INLINE_TOGGLE = 'INLINE_TOGGLE',
+  HUMBOLDT_BOOLEANS = 'HUMBOLDT_BOOLEANS',
 }
 
 export type AdditionalFilterProps = {
@@ -150,6 +152,10 @@ export type filterInlineToggleConfig = filterConfigShared & {
   options: Array<{ value: string; labelKey: string }>;
 };
 
+export type filterHumboldtBooleansConfig = filterConfigShared & {
+  filterType: filterConfigTypes.HUMBOLDT_BOOLEANS;
+};
+
 // define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
 export type filterConfig =
   | filterBoolConfig
@@ -162,7 +168,8 @@ export type filterConfig =
   | filterTaxonConfig
   | filterGeologicalTimeConfig
   | filterLocationConfig
-  | filterInlineToggleConfig;
+  | filterInlineToggleConfig
+  | filterHumboldtBooleansConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -635,6 +642,41 @@ const getGeologicalTimeFilter = ({
   );
 };
 
+const getHumboldtBooleansFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterHumboldtBooleansConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <HumboldtBooleansFilter
+          ref={ref}
+          {...config}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 export type ContentOnApply = ({
   keepOpen,
   filter,
@@ -831,6 +873,15 @@ export function generateFilters({
       formatMessage,
       Content: getGeologicalTimeFilter({
         config: config as filterGeologicalTimeConfig,
+        searchConfig,
+      }),
+    });
+  } else if (config.filterType === filterConfigTypes.HUMBOLDT_BOOLEANS) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getHumboldtBooleansFilter({
+        config: config as filterHumboldtBooleansConfig,
         searchConfig,
       }),
     });

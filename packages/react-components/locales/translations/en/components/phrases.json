@@ -75,5 +75,6 @@
   "clickToSelect": "Click to select",
   "all": "All",
   "clear": "Clear",
-  "search": "Search"
+  "search": "Search",
+  "404Text": "This page might have existed once, but we can no longer find it.\nPlease try our [search](/search) to find what you're looking for. You are always welcome to contact us at [helpdesk@gbif.org](mailto:helpdesk@gbif.org)."
 }

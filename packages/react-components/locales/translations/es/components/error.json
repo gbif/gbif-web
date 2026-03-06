@@ -1,5 +1,6 @@
 {
   "generic": "Se ha producido un error",
+  "genericRequestFailed": "Solicitud fallida",
   "genericDescription": "Se ha producido un error inesperado. Inténtalo de nuevo más tarde.",
   "unknown": "Error desconocido",
   "report": "Reportar problema",

@@ -1,6 +1,9 @@
+import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
 import { stripTags } from '@/utils/stripTags';
 import { Helmet } from 'react-helmet-async';
+import { useIntl } from 'react-intl';
+
 interface PageMetaDataProps {
   path?: string | null | undefined;
   title?: string | null | undefined;
@@ -9,6 +12,8 @@ interface PageMetaDataProps {
   noindex?: boolean | undefined;
   nofollow?: boolean | undefined;
   imageUrl?: string | null | undefined;
+  imageAlt?: string | null | undefined;
+  noCanonical?: boolean | undefined;
 }
 
 const PageMetaData = ({
@@ -19,32 +24,36 @@ const PageMetaData = ({
   noindex,
   nofollow,
   imageUrl,
+  imageAlt,
+  noCanonical,
 }: PageMetaDataProps) => {
-  const {
-    locale: { code },
-  } = useI18n();
+  const intl = useIntl();
+  const config = useConfig();
+  const { localizeLink } = useI18n();
+
+  // Alternative languages are handled globally by the <AlternativeLanguages /> component
 
   return (
     <Helmet>
-      <title>{title || 'GBIF'}</title>
+      <title>{title || intl.formatMessage({ id: 'phrases.defaultPageTitle' })}</title>
       {noindex && nofollow && <meta name="robots" content="noindex,nofollow"></meta>}
       {!noindex && nofollow && <meta name="robots" content="nofollow"></meta>}
-      {code === 'en' && (
-        <link rel="alternate" hrefLang={code} href={`${import.meta.env.PUBLIC_BASE_URL}${path}`} />
+      {path && <meta property="og:url" content={`${config.baseUrl}${localizeLink(path)}`}></meta>}
+      {path && !noCanonical && (
+        <link rel="canonical" href={`${config.baseUrl}${localizeLink(path)}`} />
       )}
-      {code !== 'en' && (
-        <link
-          rel="alternate"
-          hrefLang={code}
-          href={`${import.meta.env.PUBLIC_BASE_URL}/${code}${path}`}
-        />
-      )}
-      {path && (
-        <meta property="og:url" content={`${import.meta.env.PUBLIC_BASE_URL}${path}`}></meta>
-      )}
-      {!!title && <meta property="og:title" content={title} />}
-      {!!description && <meta property="og:description" content={stripTags(description)} />}
-      {!!imageUrl && <meta property="og:image" content={imageUrl} />}
+      <meta
+        property="og:title"
+        content={title || intl.formatMessage({ id: 'phrases.defaultPageTitle' })}
+      />
+      <meta
+        property="og:description"
+        content={stripTags(
+          description || intl.formatMessage({ id: 'phrases.defaultPageDescription' })
+        )}
+      />
+      {imageUrl && <meta property="og:image" content={imageUrl} />}
+      {imageUrl && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
       {!!jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd, null, 2)}</script>}
     </Helmet>
   );

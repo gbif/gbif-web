@@ -1,14 +1,12 @@
 import { ArticlePageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
@@ -17,6 +15,7 @@ import { Documents } from '../components/documents';
 import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import PageMetaData from '@/components/PageMetaData';
 
 export const ArticlePageSkeleton = ArticleSkeleton;
 
@@ -52,14 +51,17 @@ export const articlePageLoader = createResourceLoaderWithRedirect({
 
 export function ArticlePage() {
   const { resource } = useLoaderData() as { resource: ArticlePageFragment };
+  const location = useLocation();
 
   return (
     <article>
-      <ArticleOpenGraph resource={resource} />
-
-      <Helmet>
-        <title>{resource.title}</title>
-      </Helmet>
+      <PageMetaData
+        title={resource.title}
+        description={resource.excerpt}
+        path={location.pathname}
+        imageUrl={resource.primaryImage?.file.normal}
+        imageAlt={resource.primaryImage?.description}
+      />
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">

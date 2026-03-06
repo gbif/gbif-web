@@ -9,7 +9,7 @@ import {
 } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
-import { LicenceTag } from '@/components/identifierTag';
+import { enum2licenseUrl, LicenceTag } from '@/components/identifierTag';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
@@ -33,11 +33,13 @@ import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootEr
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
 import { createContext, useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
 import { ErrorMessage } from '@/components/errorMessage';
+
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -80,6 +82,7 @@ const DATASET_QUERY = /* GraphQL */ `
       }
       pubDate
       description
+      dataLanguage
       purpose
       temporalCoverages
       logoUrl
@@ -102,6 +105,10 @@ const DATASET_QUERY = /* GraphQL */ `
         position
         organization
         address
+        city
+        postalCode
+        province
+        country
         userId
         email
         phone
@@ -288,6 +295,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
 export const DatasetKeyContext = createContext<{
   key?: string;
   datasetKey?: string;
+  datasetType?: DatasetType;
   dynamicProperties?: string;
   contentMetrics?: DatasetOccurrenceSearchQuery;
 }>({});
@@ -322,6 +330,7 @@ export function DatasetPage() {
   }, [errors, notifyOfPartialData]);
 
   if (data.dataset == null) throw new NotFoundError();
+
   const dataset = data.dataset;
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
@@ -398,7 +407,11 @@ export function DatasetPage() {
       //   ),
       // });
     }
-    if (config.datasetKey?.showEvents && withEventId > 0) {
+    if (
+      (config.datasetKey?.showEvents && withEventId > 0) ||
+      (dataset.type === 'SAMPLING_EVENT' &&
+        import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled')
+    ) {
       tabsToDisplay.push({
         to: 'events',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
@@ -485,6 +498,12 @@ export function DatasetPage() {
     });
   }, [load, dataset.key, siteOccurrencePredicate, config?.literatureSearch?.scope]);
 
+  const contributorNames = dataset.volatileContributors
+    ?.filter((c) => c != null)
+    .filter((c) => c.type === 'ORIGINATOR')
+    .map((c) => [c.firstName, c.lastName].filter(Boolean).join(' '))
+    .filter(Boolean);
+
   return (
     <>
       <PageMetaData
@@ -495,12 +514,35 @@ export function DatasetPage() {
         noindex={!!dataset?.deleted}
         nofollow={!!dataset?.deleted}
       />
+      <Helmet>
+        {dataset.doi && <meta name="DC.identifier" content={dataset.doi} />}
+        {dataset.doi && <meta name="citation_doi" content={dataset.doi} />}
+        {dataset.title && <meta name="DC.title" content={dataset.title} />}
+        {dataset.title && <meta name="citation_title" content={dataset.title} />}
+        {contributorNames?.map((name) => (
+          <meta key={`dc-creator-${name}`} name="DC.creator" content={name} />
+        ))}
+        {contributorNames?.map((name) => (
+          <meta key={`citation-author-${name}`} name="citation_author" content={name} />
+        ))}
+        {dataset.dataLanguage && <meta name="DC.language" content={dataset.dataLanguage} />}
+        {dataset.license && (
+          <meta
+            name="DC.rights"
+            content={
+              enum2licenseUrl[dataset.license]
+                ? `http:${enum2licenseUrl[dataset.license]}`
+                : dataset.license
+            }
+          />
+        )}
+      </Helmet>
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={dataset?.key?.toString()} />}
         doi={dataset.doi}
-      ></DataHeader>
+      />
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
@@ -520,9 +562,7 @@ export function DatasetPage() {
               </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle
-              dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }}
-            ></ArticleTitle>
+            <ArticleTitle dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }} />
 
             <div className="g-mt-2">
               <FormattedMessage id="dataset.publishedBy" />{' '}
@@ -628,6 +668,7 @@ export function DatasetPage() {
         </PageContainer>
         <DatasetKeyContext.Provider
           value={{
+            datasetType: data?.dataset?.type,
             datasetKey: data?.dataset?.key,
             dynamicProperties:
               occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,

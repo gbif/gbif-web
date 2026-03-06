@@ -659,5 +659,295 @@
     "isNotNull": "Has issues",
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
+  },
+  "humboldtBooleans": {
+    "name": "Humboldt Ecological Inventory",
+    "count": "{num, plural, one { selected } other {# selected}}",
+    "description": "Extended support for Darwin Core Events related to ecological inventories."
+  },
+  "siteCount": {
+    "description": "Total number of individual sites surveyed during the dwc:Event.",
+    "name": "Site Count",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "siteNestingDescription": {
+    "description": "Textual description of the hierarchical sampling design.",
+    "name": "Site Nesting Description",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "Original textual description of the site(s).",
+    "name": "Verbatim Site Descriptions",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "verbatimSiteNames": {
+    "description": "A list (concatenated and separated) of original site names.",
+    "name": "Verbatim Site Names",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "The numeric value for the total area of the geospatial scope of the dwc:Event.",
+    "name": "Geospatial Scope Area Value",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "The units associated with eco:geospatialScopeAreaValue",
+    "name": "Geospatial Scope Area Unit",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "The numeric value for the total area surveyed during the dwc:Event.",
+    "name": "Total Area Sampled Value",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "The units associated with eco:totalAreaSampledValue",
+    "name": "Total Area Sampled Unit",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "reportedWeather": {
+    "description": "A list of weather or climatic conditions present during the dwc:Event.",
+    "name": "Reported Weather",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "A description of any extreme weather or environmental conditions that may have affected the dwc:Event.",
+    "name": "Reported Extreme Conditions",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "targetHabitatScope": {
+    "description": "The habitats targeted for sampling during the dwc:Event.",
+    "name": "Target Habitat Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "excludedHabitatScope": {
+    "description": "The habitats explicitly excluded from sampling during the dwc:Event.",
+    "name": "Excluded Habitat Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "eventDurationValue": {
+    "description": "The numeric value for the duration of the dwc:Event.",
+    "name": "Event Duration Value",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "eventDurationUnit": {
+    "description": "The units associated with the eco:eventDurationValue.",
+    "name": "Event Duration Unit",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "The taxonomic group(s) targeted for sampling during the dwc:Event.",
+    "name": "Target Taxonomic Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "The taxonomic group(s) explicitly excluded from sampling during the dwc:Event.",
+    "name": "Excluded Taxonomic Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "Statement about whether the taxonomic completeness of the dwc:Event was assessed.",
+    "name": "Taxon Completeness Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "A description of or reference (publication, URL) to the methods used to determine eco:taxonCompletenessReported.",
+    "name": "Taxon Completeness Protocols",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "Every dwc:Organism that was included within the taxonomic scope, and was detected during the dwc:Event, was reported.",
+    "name": "Is Taxonomic Scope Fully Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isAbsenceReported": {
+    "description": "Taxonomic absences were reported.",
+    "name": "Is Absence Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "absentTaxa": {
+    "description": "A list (concatenated and separated) of taxa reported absent during the dwc:Event.",
+    "name": "Absent Taxa",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "One or more dwc:Organisms of taxa outside the target taxonomic scope (the combination of eco:targetTaxonomicScope and eco:excludedTaxonomicScope) were detected and reported for this dwc:Event.",
+    "name": "Has Non Target Taxa",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "nonTargetTaxa": {
+    "description": "A list (concatenated and separated) of taxa reported during the dwc:Event that are outside of the target taxonomic scope (the combination of eco:targetTaxonomicScope and eco:excludedTaxonomicScope).",
+    "name": "Non Target Taxa",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "Every dwc:Organism that was outside of the target taxonomic scope (the combination of eco:targetTaxonomicScope and eco:excludedTaxonomicScope) and detected during the dwc:Event, and that was detectable using the given protocol (given in eco:protocolDescriptions and dwc:samplingProtocol), was reported.",
+    "name": "Are Non Target Taxa Fully Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "targetLifeStageScope": {
+    "description": "The age classes or life stages of the dwc:Organisms targeted for sampling during the dwc:Event.",
+    "name": "Target Life Stage Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "The age classes or life stages of the dwc:Organisms explicitly excluded from sampling during the dwc:Event.",
+    "name": "Excluded Life Stage Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "Every dwc:Organism that was included within the life stage scope, and was detected during the dwc:Event, was reported.",
+    "name": "Is Life Stage Scope Fully Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "The degrees of establishment of the dwc:Organisms targeted for sampling during the dwc:Event.",
+    "name": "Target Degree Of Establishment Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "The degrees of establishment of the dwc:Organisms explicitly excluded from sampling during the dwc:Event.",
+    "name": "Excluded Degree Of Establishment Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "Every dwc:Organism that was included within the degree of establishment scope, and was detected during the dwc:Event, was reported.",
+    "name": "Is Degree Of Establishment Scope Fully Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "The growth forms or habits of the dwc:Organisms targeted for sampling during the dwc:Event.",
+    "name": "Target Growth Form Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "The growth forms or habits of the dwc:Organisms explicitly excluded from sampling during the dwc:Event.",
+    "name": "Excluded Growth Form Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "Every dwc:Organism that was included within the growth form scope, and was detected during the dwc:Event, was reported.",
+    "name": "Is Growth Form Scope Fully Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "One or more dwc:Organisms outside the target organismal scopes (eco:targetDegreeOfEstablishmentScope, eco:targetGrowthFormScope, and eco:targetLifeStageScope) were detected and reported for this dwc:Event.",
+    "name": "Has Non Target Organisms",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "verbatimTargetScope": {
+    "description": "The verbatim original description of the dwc:Event scope.",
+    "name": "Verbatim Target Scope",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "identifiedBy": {
+    "description": "A list (concatenated and separated) of names of people, groups, or organizations who assigned the dwc:Taxon to the subject.",
+    "name": "Identified By",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "identificationReferences": {
+    "description": "A list (concatenated and separated) of references (publication, global unique identifier, URI) used in the dwc:Identification.",
+    "name": "Identification References",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "compilationTypes": {
+    "description": "A statement specifying whether data reported are derived from sampling events, ancillary data compiled from other sources, or a combination of both.",
+    "name": "Compilation Types",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "compilationSourceTypes": {
+    "description": "The types of data sources contributing to the compilation reported.",
+    "name": "Compilation Source Types",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "inventoryTypes": {
+    "description": "The types of search processes used to conduct the inventory.",
+    "name": "Inventory Types",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "protocolNames": {
+    "description": "Categorical descriptive names for the methods used during the dwc:Event.",
+    "name": "Protocol Names",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "protocolDescriptions": {
+    "description": "A detailed description of the methods used during the dwc:Event.",
+    "name": "Protocol Descriptions",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "protocolReferences": {
+    "description": "The references to the methods used during the dwc:Event.",
+    "name": "Protocol References",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isAbundanceReported": {
+    "description": "The number of dwc:Organisms collected or observed was reported.",
+    "name": "Is Abundance Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "A maximum number of dwc:Organisms was reported, as specified or restricted by the protocol used.",
+    "name": "Is Abundance Cap Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "abundanceCap": {
+    "description": "The reported maximum number of dwc:Organisms.",
+    "name": "Abundance Cap",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "A vegetation cover metric was reported.",
+    "name": "Is Vegetation Cover Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "The total detected quantity for a dwc:Taxon (including subcategories thereof) in a dwc:Event is given explicitly in a single record (dwc:organismQuantity value) for that dwc:Taxon.",
+    "name": "Is Least Specific Target Category Quantity Inclusive",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "hasVouchers": {
+    "description": "Specimen vouchers were collected during the dwc:Event.",
+    "name": "Has Vouchers",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "voucherInstitutions": {
+    "description": "A list (concatenated and separated) of the names or acronyms of the institutions where vouchers collected during the dwc:Event were deposited.",
+    "name": "Voucher Institutions",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "hasMaterialSamples": {
+    "description": "Material samples were collected during the dwc:Event.",
+    "name": "Has Material Samples",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "materialSampleTypes": {
+    "description": "A list (concatenated and separated) of material sample types collected during the dwc:Event.",
+    "name": "Material Sample Types",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "samplingPerformedBy": {
+    "description": "A person, group, or organization responsible for recording the dwc:Event.",
+    "name": "Sampling Performed By",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "The sampling effort associated with the dwc:Event was reported.",
+    "name": "Is Sampling Effort Reported",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "A description of or reference (publication or URL) to the methods used to determine the sampling effort.",
+    "name": "Sampling Effort Protocol",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "samplingEffortValue": {
+    "description": "The numeric value for the sampling effort expended during the dwc:Event.",
+    "name": "Sampling Effort Value",
+    "count": "{num, plural, one { selected } other {# selected}}"
+  },
+  "samplingEffortUnit": {
+    "description": "The units associated with the eco:samplingEffortValue.",
+    "name": "Sampling Effort Unit",
+    "count": "{num, plural, one { selected } other {# selected}}"
   }
 }

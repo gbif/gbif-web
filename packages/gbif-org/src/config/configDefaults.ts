@@ -11,6 +11,7 @@ export const configDefault: Partial<Config> = {
   },
   experimentalFeatures: {
     localContextEnabled: false,
+    eventCoreEnabled: false,
   },
   feedback: {
     enabled: true,
@@ -189,6 +190,18 @@ export const configDefault: Partial<Config> = {
   literatureSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'gbifDatasetKey'],
+  },
+  eventSearch: {
+    queryType: 'V1',
+    highlightedFilters: [
+      'humboldtProtocolNames',
+      'humboldtBooleans',
+      'year',
+      'country',
+      'geometry',
+      'locality',
+    ],
+    tabs: ['table'],
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',

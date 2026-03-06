@@ -36,8 +36,8 @@
   "loadMore": "Plus",
   "loading": "Chargement en cours",
   "noResults": "",
-  "startTyping": "Id géré par le fournisseur",
-  "rankInGroup": "Id géré par le fournisseur",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Rechercher",
-    "description": "Id géré par le fournisseur",
+    "description": "",
     "noSearchTermsEntered": "Aucun mot-clé renseigné",
-    "placeholder": "Id géré par le fournisseur",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Espèce",
       "datasetSearch": "Jeux de données",
       "publisherSearch": "Fournisseurs de données",
       "occurrenceSearch": "Occurrences",
-      "resourceSearch": "Id géré par le fournisseur"
+      "resourceSearch": ""
     },
     "seeAll": "Tout voir"
   }

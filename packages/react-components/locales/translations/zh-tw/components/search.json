@@ -36,8 +36,8 @@
   "loadMore": "更多",
   "loading": "正在載入",
   "noResults": "",
-  "startTyping": "提供者管理ID",
-  "rankInGroup": "提供者管理ID",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "關於",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "搜尋",
-    "description": "提供者管理ID",
+    "description": "",
     "noSearchTermsEntered": "未輸入搜尋字串",
-    "placeholder": "提供者管理ID",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "種",
       "datasetSearch": "資料集",
       "publisherSearch": "發布者",
       "occurrenceSearch": "出現紀錄",
-      "resourceSearch": "提供者管理ID"
+      "resourceSearch": ""
     },
     "seeAll": "查看全部"
   }

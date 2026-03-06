@@ -7,7 +7,7 @@ import { cn } from '@/utils/shadcn';
 import React, { useEffect, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { json, Link, useLoaderData } from 'react-router-dom';
+import { json, Link, useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
@@ -15,6 +15,7 @@ import { HomePageCounts } from './counts';
 // eslint-disable-next-line
 import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 import { usePartialDataNotification } from '../rootErrorPage';
+import PageMetaData from '@/components/PageMetaData';
 
 async function homepageLoader({ locale }: LoaderArgs) {
   const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/home?locale=${
@@ -49,9 +50,11 @@ function HomePage(): React.ReactElement {
   const home = data?.gbifHome;
   const userInfo = useUserInfo();
   const primaryImage = home?.primaryImage?.[0];
+  const location = useLocation();
 
   return (
     <ErrorBoundary>
+      <PageMetaData path={location.pathname} />
       <div className="">
         {/* A background image with title and a search bar */}
         <section className="g-relative">
