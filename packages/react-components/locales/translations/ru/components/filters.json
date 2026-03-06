@@ -706,18 +706,18 @@
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "reportedWeather": {
-    "description": "",
-    "name": "",
+    "description": "Список погодных или климатических  условий, наблюдавшихся во время dwc:Event.",
+    "name": "Зарегистрированная погода",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "reportedExtremeConditions": {
-    "description": "",
-    "name": "",
+    "description": "Описание неких экстремальных погодных или природных условий, которые могли повлиять на dwc:Event.",
+    "name": "Зарегистрированные экстремальные условия",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "targetHabitatScope": {
-    "description": "",
-    "name": "",
+    "description": "Зарегистрированные условия окружающей среды во время отбора проб dwc:Event",
+    "name": "Обзор целевых окружающих условий",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "excludedHabitatScope": {
