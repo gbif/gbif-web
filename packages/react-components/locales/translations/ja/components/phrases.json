@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "GBIF（地球規模生物多様性情報機構）。生物多様性情報は誰でも自由に利用できます。",
   "loading": "読み込み中",
   "loadError": "読み込みに失敗しました",
   "pleaseCiteAs": "出版物ではこの引用を使用してください",
