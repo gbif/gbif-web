@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "Cuadrados pequeños",
     "LARGE_SQUARE": "Cuadrados"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "Clásico",
     "FIRE": "Fuego",
