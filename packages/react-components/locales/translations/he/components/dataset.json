@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "חיפוש מסדי נתונים",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "מסד נתוני תצפיות",
     "CHECKLIST": "מסד נתוני רשימות",
