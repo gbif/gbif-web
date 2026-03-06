@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Recherche de jeux de données",
+  "datasetSearchDescription": "Rechercher des jeux de données dans le GBIF. Accès libre et ouvert aux données de Biodiversité",
   "longType": {
     "OCCURRENCE": "Jeu de données d'occurrences",
     "CHECKLIST": "Liste taxonomique",
