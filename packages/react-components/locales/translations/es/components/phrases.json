@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "Infraestructura Mundial de Informacion en Biodiversidad. Acceso Libre y Abierto a Datos de Biodiversidad.",
   "loading": "cargando",
   "loadError": "Error al cargar",
   "pleaseCiteAs": "Por favor, utilice esta cita en sus publicaciones",
