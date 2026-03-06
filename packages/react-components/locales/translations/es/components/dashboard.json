@@ -43,14 +43,14 @@
     "identification": "Identificación",
     "provenance": "Procedencia",
     "other": "Otro",
-    "site": "",
+    "site": "Diseño de muestreo",
     "habitatScope": "",
     "temporalScope": "",
     "taxonomicScope": "",
     "organismalScope": "",
     "methodologyDescription": "",
     "materialCollected": "",
-    "samplingEffort": ""
+    "samplingEffort": "Esfuerzo de muestreo"
   },
   "occurrencesPerField": "Registros de presencia por",
   "kingdom": "Reino"
