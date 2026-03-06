@@ -721,22 +721,22 @@
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "excludedHabitatScope": {
-    "description": "",
-    "name": "",
+    "description": "Местообитания, явно исключённые из учета во время события отбора проб dwc:Event.",
+    "name": "Не учитываемые местообитания",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "eventDurationValue": {
-    "description": "",
-    "name": "",
+    "description": "Числовое значение продолжительности события dwc:Event",
+    "name": "Значение длительности события",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "eventDurationUnit": {
-    "description": "",
-    "name": "",
+    "description": "Единицы измерения, связанные с eco.eventDurationValue",
+    "name": "Единица длительности события",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "targetTaxonomicScope": {
-    "description": "",
+    "description": "Целевая таксономическая группа (группы), выбранные для отбора проб во время события dwc:Event.",
     "name": "",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
