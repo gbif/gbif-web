@@ -20,6 +20,7 @@
     "countryParticipants": "",
     "publishersPerCountry": "",
     "clear": "消去",
+    "noDescriptionProvided": "",
     "headlines": {
       "nodesSteeringGroup": "ノード運営グループ",
       "participants": "参加国および参加組織"
