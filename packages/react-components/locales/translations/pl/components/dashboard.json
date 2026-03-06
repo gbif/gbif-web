@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "Identyfikacja",
     "provenance": "Pochodzenie",
-    "other": "Inne"
+    "other": "Inne",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "Wystąpienia przez {FIELD}",
   "kingdom": "Królestwo"
