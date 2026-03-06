@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Búsqueda de conjuntos de datos",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Conjunto de datos de registros biológicos",
     "CHECKLIST": "Conjunto de datos de listas de chequeo",
