@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "鑑定",
     "provenance": "出處註解",
-    "other": "其它"
+    "other": "其它",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "每 {FIELD} 的出現紀錄",
   "kingdom": "界"
