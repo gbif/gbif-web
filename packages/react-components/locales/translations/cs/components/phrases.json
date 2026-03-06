@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "Globální informační nástroj pro biologickou rozmanitost. Volný a otevřený přístup k datům o biologické rozmanitosti.",
   "loading": "načítání",
   "loadError": "Načítání selhalo",
   "pleaseCiteAs": "V publikacích používejte tuto citaci",
