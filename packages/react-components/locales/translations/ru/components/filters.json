@@ -737,32 +737,32 @@
   },
   "targetTaxonomicScope": {
     "description": "Целевая таксономическая группа (группы), выбранные для отбора проб во время события dwc:Event.",
-    "name": "",
+    "name": "Целевая таксономическая область",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "excludedTaxonomicScope": {
-    "description": "",
-    "name": "",
+    "description": "Таксономическая группа (группы) , не учитываемые в ходе dwc:Event.",
+    "name": "Исключенная таксономическая область",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "taxonCompletenessReported": {
-    "description": "",
-    "name": "",
+    "description": "Вопрос о том, была ли оценена таксономическая полнота dwc:Event.",
+    "name": "Был ли полным таксономический состав?",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "taxonCompletenessProtocols": {
-    "description": "",
-    "name": "",
+    "description": "Описание ссылок (публикаций, URL) на методы, используемые для определения eco:taxonCompletenessReported.",
+    "name": "Протоколы полноты таксономии",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isTaxonomicScopeFullyReported": {
-    "description": "",
-    "name": "",
+    "description": "Каждый dwc:Organism, включенный в таксономический охват и выявленный в ходе dwc:Event, был учтён.",
+    "name": "Представлен ли полный список таксономической области исследования?",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isAbsenceReported": {
-    "description": "",
-    "name": "",
+    "description": "Были зафиксированы случаи отсутствия таксономических признаков.",
+    "name": "Сообщается об отсутствии",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "absentTaxa": {
