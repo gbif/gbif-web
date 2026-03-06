@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "",
+  "defaultPageDescription": "",
   "loading": "Wird geladen",
   "loadError": "Konnte nicht geladen werden.",
   "pleaseCiteAs": "",
