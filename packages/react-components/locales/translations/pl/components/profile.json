@@ -6,6 +6,7 @@
       "failed": {
         "FACEBOOK": "Nie udało się połączyć z Facebookiem",
         "GITHUB": "Nie udało się połączyć z  Githubem",
+        "ORCID": "",
         "GOOGLE": "Nie udało się połączyć z Google"
       }
     },
@@ -13,6 +14,7 @@
       "failed": {
         "FACEBOOK": "Nie udało się zalogować za pomocą konta Facebook",
         "GITHUB": "Nie udało się zalogować za pomocą konta Github",
+        "ORCID": "",
         "GOOGLE": "Nie udało się zalogować za pomocą konta Google"
       }
     },
