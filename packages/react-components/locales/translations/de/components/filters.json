@@ -563,9 +563,9 @@
     "description": "Verwaltungseinheit lt. GADM.org, die beim Prozessieren der Daten bestimmt wurde"
   },
   "identifiedBy": {
+    "description": "Person, Personen, Gruppen oder Organisationen, die den wissenschaftlichen Namens des Organismus bestimmt haben.",
     "name": "Bestimmer",
-    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}",
-    "description": "Person, Personen, Gruppen oder Organisationen, die den wissenschaftlichen Namens des Organismus bestimmt haben."
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
   },
   "isInCluster": {
     "name": "Ist Teil eines Clusters",
@@ -659,5 +659,290 @@
     "isNotNull": "Hat ein Problem",
     "isNull": "Ohne Problem",
     "description": "Die Arten der Probleme/Flags, die bei der Verarbeitung der Daten entdeckt wurden."
+  },
+  "humboldtBooleans": {
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Bestimmer } other {# Bestimmer}}"
   }
 }
