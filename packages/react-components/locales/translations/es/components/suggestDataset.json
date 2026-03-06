@@ -37,7 +37,7 @@
   "successMessage": "",
   "viewIssue": "",
   "errorTitle": "",
-  "errorMessage": "",
+  "errorMessage": "ID administrado por el proveedor",
   "licenseNotOpen": "No es (tiene) una licencia abierta",
   "loginToSuggestDataset": {
     "title": "",

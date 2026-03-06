@@ -2,6 +2,7 @@
   "protectedTitle": "K podání žádosti potřebujete účet",
   "protectedMessage": "Přihlaste se nebo si vytvořte účet, abyste mohli pokračovat v podávání žádosti.",
   "successTitle": "Děkujeme za Vaši žádost",
+  "successMessage": "Id spravované poskytovatelem",
   "successReset": "Odeslat další žádost",
   "primaryContact": "Kontaktní informace",
   "primaryContactHeading": "Hlavní kontakt pro tuto žádost",

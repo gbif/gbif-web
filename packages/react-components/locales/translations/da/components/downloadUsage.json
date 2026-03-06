@@ -3,18 +3,18 @@
     "title": "",
     "form": {
       "title": "Titel",
-      "titlePlaceholder": "",
+      "titlePlaceholder": "Samfinansieret af",
       "type": "",
       "authors": "",
-      "authorsPlaceholder": "",
+      "authorsPlaceholder": "Samfinansieret af",
       "link": "",
-      "linkPlaceholder": "",
+      "linkPlaceholder": "Samfinansieret af",
       "date": "Dato",
       "comments": "",
-      "commentsPlaceholder": "",
+      "commentsPlaceholder": "Samfinansieret af",
       "submit": "",
       "saveFailure": "",
-      "saveSuccess": ""
+      "saveSuccess": "Samfinansieret af"
     },
     "types": {
       "JOURNAL_ARTICLE": "",

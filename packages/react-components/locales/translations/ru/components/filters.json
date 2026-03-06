@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
     "count": "{num, plural, one { расширение DWCA } other {# расширений DWCA}}",
     "description": "Здесь следует разместить краткое описание компонента."
   },

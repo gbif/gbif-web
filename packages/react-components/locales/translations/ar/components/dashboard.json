@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "تمويل مشترك بواسطة",
+  "taxonomicBreakdown": "تمويل مشترك بواسطة",
   "group": {
     "views": "",
     "record": "سجل",

@@ -3,18 +3,18 @@
     "title": "",
     "form": {
       "title": "عنوان",
-      "titlePlaceholder": "",
+      "titlePlaceholder": "تمويل مشترك بواسطة",
       "type": "نمط",
       "authors": "",
-      "authorsPlaceholder": "",
+      "authorsPlaceholder": "تمويل مشترك بواسطة",
       "link": "",
-      "linkPlaceholder": "",
+      "linkPlaceholder": "تمويل مشترك بواسطة",
       "date": "التاريخ",
       "comments": "تعليقات",
-      "commentsPlaceholder": "",
+      "commentsPlaceholder": "تمويل مشترك بواسطة",
       "submit": "تسليم",
       "saveFailure": "",
-      "saveSuccess": ""
+      "saveSuccess": "تمويل مشترك بواسطة"
     },
     "types": {
       "JOURNAL_ARTICLE": "",
