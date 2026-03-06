@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "2008 年至 2021 年 GBIF 網絡公開資料趨勢",
-    "analyticsTitle": "資料趨勢"
+    }
   }
 }
