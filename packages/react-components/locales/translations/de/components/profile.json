@@ -6,6 +6,7 @@
       "failed": {
         "FACEBOOK": "Die Verbindung zu Facebook kann nicht hergestellt werden.",
         "GITHUB": "Die Verbindung zu Github kann nicht hergestellt werden.",
+        "ORCID": "",
         "GOOGLE": "Die Verbindung zu Google kann nicht hergestellt werden."
       }
     },
@@ -13,6 +14,7 @@
       "failed": {
         "FACEBOOK": "Die Anmeldung mit Facebook war nicht möglich",
         "GITHUB": "Die Anmeldung mit Github war nicht möglich",
+        "ORCID": "",
         "GOOGLE": "Die Anmeldung mit Google war nicht möglich"
       }
     },
