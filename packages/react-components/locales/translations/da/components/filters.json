@@ -563,9 +563,9 @@
     "description": ""
   },
   "identifiedBy": {
+    "description": "",
     "name": "",
-    "count": "",
-    "description": ""
+    "count": ""
   },
   "isInCluster": {
     "name": "",
@@ -659,5 +659,290 @@
     "isNotNull": "",
     "isNull": "",
     "description": ""
+  },
+  "humboldtBooleans": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": ""
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": ""
   }
 }
