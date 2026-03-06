@@ -113,6 +113,7 @@
   "habitat": "棲息地",
   "samplingProtocol": "取樣程序",
   "samplingEffort": "取樣努力量",
+  "sampleSize": "等於 {is}",
   "sampleSizeValue": "取樣大小數值",
   "sampleSizeUnit": "取樣大小單位",
   "fieldNotes": "田野筆記",
