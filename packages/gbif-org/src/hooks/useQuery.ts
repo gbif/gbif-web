@@ -5,6 +5,7 @@ import { GraphQLService } from '@/services/graphQLService';
 import isArray from 'lodash/isArray';
 import Queue from 'queue-promise';
 import React, { useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 type Options<TVariabels> = {
   throwNetworkErrors?: boolean;
@@ -58,6 +59,8 @@ export function useQuery<TResult, TVariabels>(
   const cancelRequestRef = useRef<(reason: string) => void>(() => () => {});
   const config = useConfig();
   const { locale } = useI18n();
+  const location = useLocation();
+  const preview = new URLSearchParams(location.search).get('preview') === 'true';
 
   // Cancel pending request on unmount
   React.useEffect(() => {
@@ -105,6 +108,7 @@ export function useQuery<TResult, TVariabels>(
           endpoint: config.graphqlEndpoint,
           locale: locale.cmsLocale || locale.code,
           abortSignal: abortController.signal,
+          preview,
           authorization: context?.authorization || undefined,
         });
 
@@ -189,7 +193,7 @@ export function useQuery<TResult, TVariabels>(
         return startRequest();
       });
     },
-    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, optionsDependency]
+    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, optionsDependency, preview]
   );
 
   // Load the data on mount and when the options change

@@ -151,6 +151,7 @@ export function useDynamicLink({
 }): LinkData {
   const createLink = useLink();
   const { localizeLink } = useI18n();
+  const location = useLocation();
   const currentPages = useContext(PageContext);
   const parentPages = useContext(ParentPagesContext);
 
@@ -170,7 +171,13 @@ export function useDynamicLink({
       }
       return { to: link ?? '', type };
     } else if (typeof to === 'string' && to !== '') {
-      const localizedTo = localizeLink(to);
+      let localizedTo = localizeLink(to);
+
+      // If preview=true is present in the current query params, add it to the link
+      const preview = new URLSearchParams(location.search).get('preview') === 'true';
+      if (preview) {
+        localizedTo = `${localizedTo}${localizedTo.includes('?') ? '&' : '?'}preview=true`;
+      }
 
       // If contentType=literature is present in the URL, use href instead of link
       if (to.includes('contentType=literature')) {
@@ -193,6 +200,7 @@ export function useDynamicLink({
     createLink,
     keepExistingSearchParams,
     localizeLink,
+    location.search,
   ]);
 
   return result;

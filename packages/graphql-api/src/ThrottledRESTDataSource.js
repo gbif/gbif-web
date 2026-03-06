@@ -31,10 +31,7 @@ class ThrottledRESTDataSource extends RESTDataSource {
   // Throttle GET requests - apollo-datasource-rest v3 signature
   async get(path, params, { throttle, ...init } = {}) {
     if (throttle) {
-      const bodyId = params ? JSON.stringify(params) : '';
-      return this.limiter.schedule({ id: `GET ${path}?${bodyId}` }, () =>
-        super.get(path, params, init),
-      );
+      return this.limiter.schedule(() => super.get(path, params, init));
     }
     return super.get(path, params, init);
   }
@@ -42,10 +39,7 @@ class ThrottledRESTDataSource extends RESTDataSource {
   // Throttle POST requests - apollo-datasource-rest v3 signature
   async post(path, body, { throttle, ...init } = {}) {
     if (throttle) {
-      const bodyId = body ? JSON.stringify(body) : '';
-      return this.limiter.schedule({ id: `POST ${path}?${bodyId}` }, () =>
-        super.post(path, body, init),
-      );
+      return this.limiter.schedule(() => super.post(path, body, init));
     }
     return super.post(path, body, init);
   }
@@ -53,10 +47,7 @@ class ThrottledRESTDataSource extends RESTDataSource {
   // Throttle PUT requests
   async put(path, body, { throttle, ...init } = {}) {
     if (throttle) {
-      const bodyId = body ? JSON.stringify(body) : '';
-      return this.limiter.schedule({ id: `PUT ${path}?${bodyId}` }, () =>
-        super.put(path, body, init),
-      );
+      return this.limiter.schedule(() => super.put(path, body, init));
     }
     return super.put(path, body, init);
   }
@@ -64,10 +55,7 @@ class ThrottledRESTDataSource extends RESTDataSource {
   // Throttle PATCH requests
   async patch(path, body, { throttle, ...init } = {}) {
     if (throttle) {
-      const bodyId = body ? JSON.stringify(body) : '';
-      return this.limiter.schedule({ id: `PATCH ${path}?${bodyId}` }, () =>
-        super.patch(path, body, init),
-      );
+      return this.limiter.schedule(() => super.patch(path, body, init));
     }
     return super.patch(path, body, init);
   }
@@ -75,10 +63,7 @@ class ThrottledRESTDataSource extends RESTDataSource {
   // Throttle DELETE requests
   async delete(path, params, { throttle, ...init } = {}) {
     if (throttle) {
-      const bodyId = params ? JSON.stringify(params) : '';
-      return this.limiter.schedule({ id: `DELETE ${path}?${bodyId}` }, () =>
-        super.delete(path, params, init),
-      );
+      return this.limiter.schedule(() => super.delete(path, params, init));
     }
     return super.delete(path, params, init);
   }
