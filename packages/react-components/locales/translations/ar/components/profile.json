@@ -6,6 +6,7 @@
       "failed": {
         "FACEBOOK": "لا يمكن الاتصال بصفحة الفيسبوك",
         "GITHUB": "لا يمكن الاتصال بـ Github",
+        "ORCID": "",
         "GOOGLE": ""
       }
     },
@@ -13,6 +14,7 @@
       "failed": {
         "FACEBOOK": "لا يمكن الدخول باستعمال الفيسبوك",
         "GITHUB": "لا يمكن الدخول بـ Github",
+        "ORCID": "",
         "GOOGLE": ""
       }
     },
