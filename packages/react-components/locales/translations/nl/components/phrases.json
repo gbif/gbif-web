@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "",
   "loading": "laden",
   "loadError": "Laden mislukt",
   "pleaseCiteAs": "Gelieve deze bronvermelding in publicaties te gebruiken",
