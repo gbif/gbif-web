@@ -6,6 +6,7 @@
       "failed": {
         "FACEBOOK": "Imposible conectar a Facebook",
         "GITHUB": "Imposible conectar a GitHub",
+        "ORCID": "",
         "GOOGLE": "No se puede conectar con Google"
       }
     },
@@ -13,6 +14,7 @@
       "failed": {
         "FACEBOOK": "Imposible iniciar sesión con Facebook",
         "GITHUB": "Imposible iniciar sesión con GitHub",
+        "ORCID": "",
         "GOOGLE": "No se puede iniciar sesión con Google"
       }
     },
