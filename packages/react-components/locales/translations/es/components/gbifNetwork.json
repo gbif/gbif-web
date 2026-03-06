@@ -20,7 +20,7 @@
     "countryParticipants": "Código de Conducta",
     "publishersPerCountry": "Código de Conducta",
     "clear": "Limpiar",
-    "noDescriptionProvided": "",
+    "noDescriptionProvided": "No se ha proporcionado una descripción para esta red.",
     "headlines": {
       "nodesSteeringGroup": "Grupo de Dirección de Nodos",
       "participants": "Participantes"
