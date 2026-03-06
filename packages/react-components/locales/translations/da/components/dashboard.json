@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "Identifikation",
     "provenance": "Herkomst",
-    "other": ""
+    "other": "",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "Observationer per {FIELD}",
   "kingdom": "Rige"
