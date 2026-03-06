@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "Global Biodiversity Information Facility. Gratis og åben adgang til biodiversitetsdata.",
   "loading": "",
   "loadError": "",
   "pleaseCiteAs": "",
