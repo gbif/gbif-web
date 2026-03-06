@@ -6,6 +6,7 @@
       "failed": {
         "FACEBOOK": "Не удается подключиться к Facebook",
         "GITHUB": "Не удается подключиться к GitHub",
+        "ORCID": "",
         "GOOGLE": "Не удается подключиться к Google"
       }
     },
@@ -13,6 +14,7 @@
       "failed": {
         "FACEBOOK": "Не удается войти через Facebook",
         "GITHUB": "Не удается войти через GitHub",
+        "ORCID": "",
         "GOOGLE": "Не удается войти через Google"
       }
     },
