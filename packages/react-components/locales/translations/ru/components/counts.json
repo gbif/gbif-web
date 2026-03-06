@@ -56,5 +56,6 @@
   "nStaffMembers": "{total, plural, one {# сотрудник} few {# сотрудника} many {# сотрудников} other {# сотрудников}}",
   "nOccurrencesHosted": "{total, plural, one {# размещенное наблюдение} few {# размещенных наблюдений} many {# размещенных наблюдений} other {# размещенных наблюдений}}",
   "nPercentOfTotal": "{percentage, plural, other {#% от общего числа}}",
-  "nMoreDatasets": "{total, plural, one {+ # больше наборов данных}  other {+ # больше наборов данных}}"
+  "nMoreDatasets": "{total, plural, one {+ # больше наборов данных}  other {+ # больше наборов данных}}",
+  "nInstallations": "{total, plural, one {# инсталляция} few {} many {# инсталляций} other {# инсталляций}}"
 }
