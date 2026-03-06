@@ -9,7 +9,7 @@ import {
 import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { FiActivity } from 'react-icons/fi';
 import { MdOutlineFeedback, MdTranslate } from 'react-icons/md';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { LanguageSelector } from './languageSelector';
 import MainNavigation from './mainNav';
 import MobileMenu from './mobileMenu';
@@ -187,7 +187,7 @@ function ProfileOrLogin() {
   if (isLoggedIn && user) {
     return (
       <Button asChild className="g-text-sm" variant="outline">
-        <Link to="/user/profile">{user.userName}</Link>
+        <DynamicLink to="/user/profile">{user.userName}</DynamicLink>
       </Button>
     );
   }
@@ -201,9 +201,9 @@ function LoginButton() {
 
   return (
     <Button asChild className="g-text-sm" variant="outline">
-      <Link to={`/user/login?returnUrl=${returnUrl}`}>
+      <DynamicLink to={`/user/login?returnUrl=${returnUrl}`}>
         <FormattedMessage id="profile.loginText" defaultMessage="Login" />
-      </Link>
+      </DynamicLink>
     </Button>
   );
 }
