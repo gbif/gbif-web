@@ -667,7 +667,7 @@
   },
   "siteCount": {
     "description": "",
-    "name": "",
+    "name": "Recuento de sitios",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "siteNestingDescription": {
@@ -727,12 +727,12 @@
   },
   "eventDurationValue": {
     "description": "",
-    "name": "",
+    "name": "Valor de la duración del evento",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "eventDurationUnit": {
     "description": "",
-    "name": "",
+    "name": "Unidad de la duración del evento",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "targetTaxonomicScope": {
@@ -846,32 +846,32 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "compilationTypes": {
-    "description": "",
+    "description": "Una declaración que especifique si los datos comunicados se derivan de eventos de muestreo, datos auxiliares recopilados de otras fuentes o una combinación de ambos.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "compilationSourceTypes": {
-    "description": "",
-    "name": "",
+    "description": "Los tipos de fuentes de datos que contribuyen a la recopilación comunicada.",
+    "name": "Tipos de fuentes de compilación",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "inventoryTypes": {
-    "description": "",
-    "name": "",
+    "description": "Los tipos de procesos de búsqueda utilizados para realizar el inventario.",
+    "name": "Tipos de inventario",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "protocolNames": {
-    "description": "",
+    "description": "Nombres descriptivos categóricos para los métodos utilizados durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "protocolDescriptions": {
-    "description": "",
+    "description": "Descripción detallada de los métodos utilizados durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "protocolReferences": {
-    "description": "",
+    "description": "Las referencias a los métodos utilizados durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
@@ -886,17 +886,17 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "abundanceCap": {
-    "description": "",
-    "name": "",
+    "description": "El número máximo registrado de dwc:Organismos.",
+    "name": "Límite de abundancia",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isVegetationCoverReported": {
-    "description": "",
+    "description": "Se informó sobre una métrica de cobertura vegetal.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
-    "description": "",
+    "description": "La cantidad total detectada para un dwc:Taxon (incluidas sus subcategorías) en un dwc:Event se indica explícitamente en un único registro (valor dwc:organismQuantity) para ese dwc:Taxon.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
