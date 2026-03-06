@@ -54,7 +54,7 @@
     "SMALL_SQUARE": "Cuadrados pequeños",
     "LARGE_SQUARE": "Cuadrados"
   },
-  "tilesUnavailable": "",
+  "tilesUnavailable": "Los mosaicos del mapa están temporalmente no disponibles.",
   "colors": {
     "CLASSIC": "Clásico",
     "FIRE": "Fuego",
