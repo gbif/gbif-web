@@ -563,9 +563,9 @@
     "description": "在记录处理期间确定的来自GADM.org的任何行政区域的名称。"
   },
   "identifiedBy": {
+    "description": "负责确定生物体学名的人、人们、团体或组织。",
     "name": "识别依据",
-    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}",
-    "description": "负责确定生物体学名的人、人们、团体或组织。"
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
   },
   "isInCluster": {
     "name": "在集群中",
@@ -659,5 +659,290 @@
     "isNotNull": "有问题",
     "isNull": "没有问题",
     "description": "在处理数据时发现的问题类型或潜在兴趣标志。"
+  },
+  "humboldtBooleans": {
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { 鉴定者 } other {# 鉴定者}}"
   }
 }
