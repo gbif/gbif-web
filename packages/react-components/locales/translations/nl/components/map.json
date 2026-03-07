@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "Kleine vierkanten",
     "LARGE_SQUARE": "Vierkant"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "Klassiek",
     "FIRE": "Vuur",

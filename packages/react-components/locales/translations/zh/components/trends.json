@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "2008年至2016年GBIF网络数据可用性趋势",
-    "analyticsTitle": "数据趋势"
+    }
   }
 }

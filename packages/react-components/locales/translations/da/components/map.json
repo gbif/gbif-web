@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "Små firkanter",
     "LARGE_SQUARE": "Firkanter"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "Klassisk",
     "FIRE": "Ild",

@@ -20,6 +20,7 @@
     "countryParticipants": "קוד אתי",
     "publishersPerCountry": "קוד אתי",
     "clear": "נקה",
+    "noDescriptionProvided": "",
     "headlines": {
       "nodesSteeringGroup": "קבוצת ההיגוי של הצמתים",
       "participants": "משתתפים"

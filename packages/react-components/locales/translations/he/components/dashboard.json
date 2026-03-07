@@ -42,7 +42,15 @@
     "geologicalContext": "הקשר גיאולוגי",
     "identification": "זיהוי",
     "provenance": "מקור",
-    "other": "אחר"
+    "other": "אחר",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "תצפיות לפי {FIELD}",
   "kingdom": "ממלכה"

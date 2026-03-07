@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "Тренды в доступности данных в сети GBIF, c 2008 по 2016",
-    "analyticsTitle": "Тренды в данных"
+    }
   }
 }

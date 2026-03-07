@@ -20,6 +20,7 @@
     "countryParticipants": "Нормы поведения",
     "publishersPerCountry": "Нормы поведения",
     "clear": "Удалить",
+    "noDescriptionProvided": "",
     "headlines": {
       "nodesSteeringGroup": "Группа управления узлами",
       "participants": "Участники"

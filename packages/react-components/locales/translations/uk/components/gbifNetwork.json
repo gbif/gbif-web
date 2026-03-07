@@ -20,6 +20,7 @@
     "countryParticipants": "",
     "publishersPerCountry": "",
     "clear": "Очистити",
+    "noDescriptionProvided": "",
     "headlines": {
       "nodesSteeringGroup": "Група координації осередків",
       "participants": "Учасники"

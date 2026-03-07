@@ -113,6 +113,7 @@
   "habitat": "栖息地",
   "samplingProtocol": "取样草案",
   "samplingEffort": "取样工作",
+  "sampleSize": "等于 {is}",
   "sampleSizeValue": "样本大小值",
   "sampleSizeUnit": "样品尺寸单位",
   "fieldNotes": "现场记录",

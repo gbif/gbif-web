@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "全球生物多樣性資訊機構",
+  "defaultPageDescription": "全球生物多樣性資訊機構。自由且公開存取的生物多樣性資料。",
   "loading": "載入中...",
   "loadError": "載入失敗",
   "pleaseCiteAs": "請在發表中引用",

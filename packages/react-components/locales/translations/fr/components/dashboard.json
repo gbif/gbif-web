@@ -42,7 +42,15 @@
     "geologicalContext": "Contexte géologique",
     "identification": "Identification",
     "provenance": "Provenance",
-    "other": "Autre"
+    "other": "Autre",
+    "site": "Plan d'échantillonnage",
+    "habitatScope": "Étendue de l'habitat",
+    "temporalScope": "Étendue temporelle",
+    "taxonomicScope": "Étendue taxonomique",
+    "organismalScope": "Étendue de l'organisme",
+    "methodologyDescription": "Protocoles",
+    "materialCollected": "Matériau récolté",
+    "samplingEffort": "Effort d'échantillonnage"
   },
   "occurrencesPerField": "Occurrences par {FIELD}",
   "kingdom": "Règne"
