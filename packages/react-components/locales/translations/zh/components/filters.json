@@ -42,7 +42,7 @@
   "specimensInGbif": {
     "name": "GBIF中的标本",
     "count": "{num, plural, one { GBIF标本计数 } other {# GBIF标本}}",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "iucnRedListCategory": {
     "name": "世界自然保护联盟全球红色名录类别",
@@ -103,7 +103,7 @@
   "eventDate": {
     "name": "事件日期",
     "count": "",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF ID",
@@ -151,7 +151,7 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "name": "",
     "count": "",
     "description": ""
   },
@@ -163,22 +163,22 @@
   "institutionType": {
     "name": "类型",
     "count": "",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "discipline": {
-    "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "name": "",
     "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "name": "",
     "count": "",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "preservationType": {
-    "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "name": "",
     "count": "",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "biomeType": {
     "name": "",
@@ -242,12 +242,12 @@
     "description": "事件发生的国家或地区"
   },
   "grsciCollCountry": {
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "preparations": {
     "name": "准备",
     "count": "",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "repatriated": {
     "name": "已遣回",
@@ -262,7 +262,7 @@
   "q": {
     "name": "文本搜索",
     "count": "{num, plural, one {文本字符串} other {# 搜索字符串}}",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "coordinates": {
     "name": "坐标"
@@ -600,7 +600,7 @@
   "personalCollection": {
     "name": "个人收藏",
     "count": "个人收藏",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "datasetType": {
     "name": "数据集类型",
@@ -620,7 +620,7 @@
   "name": {
     "name": "名字",
     "count": "{num, plural, one { 名称 } other {# 名称}}",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "description": "",
     "searchPlaceholder": ""
   },
   "city": {
@@ -631,7 +631,7 @@
   "code": {
     "name": "代码",
     "count": "{num, plural, one { 代码 } other {# 代码}}",
-    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "description": ""
   },
   "verbatimScientificName": {
     "name": "一字不差的学名",
