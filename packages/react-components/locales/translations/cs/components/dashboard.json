@@ -42,7 +42,15 @@
     "geologicalContext": "Geologická souvislost",
     "identification": "Identifikace",
     "provenance": "Původ",
-    "other": "Jiné"
+    "other": "Jiné",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "Výskyty na {FIELD}",
   "kingdom": "Říše"

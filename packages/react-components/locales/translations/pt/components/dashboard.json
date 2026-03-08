@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "Identificação",
     "provenance": "Procedência",
-    "other": "Outro"
+    "other": "Outro",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "Ocorrências por {FIELD}",
   "kingdom": "Reino"

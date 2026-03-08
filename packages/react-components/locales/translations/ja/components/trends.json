@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "2008年から2016年までのGBIFネットワーク上でのデータ利用性の傾向",
-    "analyticsTitle": "データ傾向"
+    }
   }
 }

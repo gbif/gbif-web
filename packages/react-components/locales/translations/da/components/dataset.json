@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Observationsdatasæt",
     "CHECKLIST": "Checklistedatasæt",
@@ -64,7 +65,7 @@
   "constituentOf": "Bestanddel af",
   "dataset": "Datasæt",
   "taxonomy": "Taksonomi",
-  "localContexts": "Samfinansieret af",
+  "localContexts": "",
   "localContextsLabelsAppliedBy": "",
   "project": "Projekt",
   "metrics": "Grafer",
@@ -185,8 +186,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "Samfinansieret af",
-    "occurrenceInfo": "Samfinansieret af"
+    "evenList": "",
+    "occurrenceInfo": ""
   },
   "eventTaxonomy": "Taksonomisk distribution af observationer",
   "noCitations": "",

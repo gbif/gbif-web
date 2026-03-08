@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "Trendy v dostupnosti dat GBIF - od roku 2008 do roku 2021",
-    "analyticsTitle": "Trendy dat"
+    }
   }
 }

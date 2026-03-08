@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "",
     "provenance": "",
-    "other": ""
+    "other": "",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "",
   "kingdom": ""

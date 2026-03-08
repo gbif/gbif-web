@@ -42,7 +42,15 @@
     "geologicalContext": "Геологические контекст",
     "identification": "Определение",
     "provenance": "Происхождение",
-    "other": "Другая"
+    "other": "Другая",
+    "site": "Дизайн образца отбора проб",
+    "habitatScope": "Обзор окружающей среды",
+    "temporalScope": "Временной обзор",
+    "taxonomicScope": "Таксономический обзор",
+    "organismalScope": "Обзор организмов",
+    "methodologyDescription": "Протоколы",
+    "materialCollected": "Собранные материалы",
+    "samplingEffort": "Усилия, затраченные на отбор проб"
   },
   "occurrencesPerField": "Распределение находок по категории: {FIELD}",
   "kingdom": "Царство"

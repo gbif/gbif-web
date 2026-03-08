@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "동정",
     "provenance": "산지",
-    "other": ""
+    "other": "",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "",
   "kingdom": ""

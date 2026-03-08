@@ -563,9 +563,9 @@
     "description": "記錄處理過程中確定的 GADM.org 中任何行政區域的名稱。"
   },
   "identifiedBy": {
+    "description": "負責決定生物體學名的個人、團體或組織。",
     "name": "鑑定者：",
-    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}",
-    "description": "負責決定生物體學名的個人、團體或組織。"
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   },
   "isInCluster": {
     "name": "在（資料）叢集上",
@@ -659,5 +659,290 @@
     "isNotNull": "存在問題",
     "isNull": "不存在問題",
     "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
+  },
+  "humboldtBooleans": {
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   }
 }

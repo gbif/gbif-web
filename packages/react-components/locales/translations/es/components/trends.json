@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "Tendencias en disponibilidad de datos en la red de GBIF, de 2008 a 2016",
-    "analyticsTitle": "Tendencias de datos"
+    }
   }
 }

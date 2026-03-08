@@ -42,7 +42,15 @@
     "geologicalContext": "Contexto Geológico",
     "identification": "Identificación",
     "provenance": "Procedencia",
-    "other": "Otro"
+    "other": "Otro",
+    "site": "Diseño de muestreo",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": "Esfuerzo de muestreo"
   },
   "occurrencesPerField": "Registros de presencia por",
   "kingdom": "Reino"

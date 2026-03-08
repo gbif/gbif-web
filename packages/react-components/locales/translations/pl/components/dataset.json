@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Przeszukiwanie zbiorów danych",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Zbiór danych wystąpień",
     "CHECKLIST": "Zbiór danych dotyczących wykazów gatunków",

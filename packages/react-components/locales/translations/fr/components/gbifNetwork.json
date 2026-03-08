@@ -20,6 +20,7 @@
     "countryParticipants": "Code de conduite",
     "publishersPerCountry": "Code de conduite",
     "clear": "Effacer",
+    "noDescriptionProvided": "",
     "headlines": {
       "nodesSteeringGroup": "Comité de pilotage des points nodaux",
       "participants": "Participants"

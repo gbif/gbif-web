@@ -113,6 +113,7 @@
   "habitat": "Lebensraum",
   "samplingProtocol": "Sampling-Protokoll",
   "samplingEffort": "Sampling Aufwand",
+  "sampleSize": "Gleich {is}",
   "sampleSizeValue": "Wert der Probengröße",
   "sampleSizeUnit": "Einheit der Probengröße",
   "fieldNotes": "Feldnotizen",

@@ -113,6 +113,7 @@
   "habitat": "Hábitat",
   "samplingProtocol": "Protocolo de muestreo",
   "samplingEffort": "Esfuerzo de muestreo",
+  "sampleSize": "Tamaño de muestra",
   "sampleSizeValue": "Tamaño de la muestra",
   "sampleSizeUnit": "Unidad del tamaño de la muestra",
   "fieldNotes": "Notas de campo",

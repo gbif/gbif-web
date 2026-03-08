@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "Тренди щодо наявності даних у мережі GBIF, з 2008 по 2016",
-    "analyticsTitle": "Тренди у даних"
+    }
   }
 }

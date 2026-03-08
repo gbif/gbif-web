@@ -70,8 +70,6 @@
     "analyticsCountry": {
       "fromDescription": "",
       "publishedByDescription": ""
-    },
-    "analyticsGlobalDescription": "",
-    "analyticsTitle": "מגמות נתונים"
+    }
   }
 }

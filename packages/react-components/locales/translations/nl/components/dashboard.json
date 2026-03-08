@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "Determinatie",
     "provenance": "Herkomst",
-    "other": "Anders"
+    "other": "Anders",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "",
   "kingdom": "Rijk"

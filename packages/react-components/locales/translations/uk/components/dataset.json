@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Пошук за наборами даних",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Набір даних про знахідки",
     "CHECKLIST": "Набор даних - таксономічний список",
