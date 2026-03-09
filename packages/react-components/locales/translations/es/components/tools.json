@@ -1,7 +1,7 @@
 {
   "tools": {
     "ipt": {
-      "dontSeeYourIpt": ""
+      "dontSeeYourIpt": "¿No ve su IPT? Mande sus coordenadas a <a>GBIF</a>"
     }
   }
 }
