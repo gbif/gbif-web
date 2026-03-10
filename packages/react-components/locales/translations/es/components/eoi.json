@@ -44,7 +44,7 @@
   "pleaseSelectAValue": "Por favor, selecciona un valor",
   "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "¿Necesitas ayuda para publicar tus datos?",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "¿Tiene previsto instalar y ejecutar un software de publicación (como las <a href=“/ipt”>Herramientas para la publicación integrada de datos – IPT</a>) para publicar sus datos directamente en GBIF.org?",
   "orgDetails": "Detalles de la organización",
   "yourChanceToTellGBIF": "Tu oportunidad de contar a los usuarios de GBIF quién eres y qué haces.",
   "orgName": "Nombre de la organización",
@@ -81,20 +81,20 @@
   "outage": "Estamos experimentando una caída parcial del sistema y acepta registros por el momento",
   "eoiDescription": "Para la preparación en la publicación de datos mediante GBIF, pedimos a los nuevos publicadores que completen este formulario en línea. Antes de que GBIF indexe sus conjuntos de datos, su institución debe recibir la adhesión como un publicador de datos de uno de los países u organizaciones participantes en GBIF, a través de un nodo participante de GBIF. Si su país no es aún un participante de GBIF, procuraremos su adhesión mediante algún miembro de la comunidad de GBIF.",
   "eoiTitle": "Conviértete en publicador",
-  "checkRegistration": "",
+  "checkRegistration": "Comprobar el registro",
   "organisationDetails": "Detalles de la organización",
-  "organisationAddress": "",
+  "organisationAddress": "Dirección de la organización",
   "endorsement": "Adhesión",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "Seleccione su organización en el mapa.",
+    "pleaseSelectTheCountryOfYourOrganization": "Seleccione el país/área de su organización."
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "Gracias por registrar su organización.",
+  "failedToRegisterOrganization": "No se ha podido registrar la organización.",
+  "associatedWithGbifProgramme": "¿Está asociado a algún proyecto financiado por un programa GBIF?",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Necesita una cuenta para registrar una nueva organización.",
+    "message": "Inicie sesión o cree una cuenta para continuar con el registro de su organización."
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "¿Registrar otra organización?"
 }
