@@ -1,34 +1,34 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "Consulta no compatible",
+    "unsupported.description": "La búsqueda de texto libre se puede utilizar para la exploración, pero no es compatible con las descargas.",
+    "unsupported.remove": "Remover filtro",
+    "unsupported.error": "Parece que esta consulta no es compatible.",
     "download": "Descargar",
-    "redirectNotice": "",
+    "redirectNotice": "Está a punto de descargar y será redirigido a GBIF.org. \n\nTenga en cuenta que se requiere una cuenta para descargar los datos.",
     "continueToGBIF": "Continuar",
     "continue": "Continuar",
     "invalid": "Inválido",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "Validar",
+    "sqlEditor": "Editor SQL",
+    "predicateEditor": "Editor de predicados",
     "sql": {
       "createNewSqlDownload": "Crear una nueva descarga SQL",
-      "placeholder": "",
-      "noSql": "",
+      "placeholder": "Introduzca aquí su consulta SQL...",
+      "noSql": "Sin consulta SQL",
       "note": {
         "title": "Nota",
-        "description": "",
-        "occurrence_search": ""
+        "description": "La forma más fácil de descargar y explorar datos es a través de {occurrence_search}. Sin embargo, para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
+        "occurrence_search": "interfaz de usuario para la búsqueda de ocurrencias"
       },
       "errors": {
         "invalid-SQL": "SQL inválido",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "network-error": "Error de red",
+        "parsingErrorDescription": "No se puede analizar SQL",
+        "networkErrorDescription": "No se pudo validar SQL debido a un error de red."
       }
     },
-    "create": "",
+    "create": "Crear",
     "about": "Acerca de",
     "stopEditing": "Dejar de editar",
     "startEditing": "Comenzar a editar",
@@ -37,24 +37,24 @@
     "keep": "Mantener",
     "readTheDocumentation": "Leer la documentación",
     "request": {
-      "placeholder": "",
+      "placeholder": "Introduzca su predicado aquí...",
       "createNewDownload": "Crear una nueva descarga",
-      "weHaveRestoredYourPredicate": "",
+      "weHaveRestoredYourPredicate": "Hemos restaurado el predicado en el que estaba trabajando la última vez que estuvo aquí.",
       "noPredicate": "",
       "currentFilter": "Filtro actual",
       "errors": {
         "invalid-json": "JSON inválido",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
-        "unexpectedError": "",
-        "failedToParseJSON": "",
-        "failedToVisualizePredicate": ""
+        "invalid-predicate": "Predicado inválido",
+        "faild-to-load-predicate": "No se pudo cargar el predicado.",
+        "unexpectedError": "Se ha producido un error inesperado.",
+        "failedToParseJSON": "No se pudo analizar el JSON",
+        "failedToVisualizePredicate": "No se ha podido visualizar el predicado. Mostrando JSON sin procesar."
       }
     },
     "downloadOptions": {
       "title": "Opciones de descarga",
       "chooseChecklist": "",
-      "chooseChecklistDescription": "",
+      "chooseChecklistDescription": "Seleccione la lista taxonómica para organizar los nombres de los taxones en su descarga",
       "content": {
         "rawData": "Datos sin procesar",
         "interpretedData": "Datos interpretados",
@@ -69,7 +69,7 @@
       "tableValues": {
         "ifAvailable": "",
         "ifSelected": "",
-        "links": ""
+        "links": "enlaces"
       }
     }
   }
