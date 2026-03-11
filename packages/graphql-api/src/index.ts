@@ -63,7 +63,7 @@ async function initializeServer() {
       // Perhaps the overhead isn't worth it in most cases?
       const controller = new AbortController();
       // Default is 10, we exceed this sometimes with nested resolves that utilize cancellation
-      setMaxListeners(50, controller.signal);
+      setMaxListeners(100, controller.signal);
       if (req) {
         req.on('close', () => {
           controller.abort();
