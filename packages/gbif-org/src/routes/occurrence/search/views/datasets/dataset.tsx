@@ -9,6 +9,7 @@ import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { DatasetPresentation } from './datasetPresentation';
+import { useIntl } from 'react-intl';
 
 const OCCURRENCE_DATASETS = `
 query occurrenceDatasets($q: String, $predicate: Predicate, $size: Int) {
@@ -82,14 +83,16 @@ export function Dataset({ size: defaultSize = 100 }) {
     });
   }, [data]);
 
+  const intl = useIntl();
+
   useEffect(() => {
     if (error) {
       toast({
-        title: 'Unable to load all content',
+        title: intl.formatMessage({ id: 'phrases.unableToLoadAllContent' }),
         variant: 'destructive',
       });
     }
-  }, [error, allData, toast]);
+  }, [error, allData, toast, intl]);
 
   useEffect(() => {
     const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
