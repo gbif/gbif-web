@@ -266,7 +266,7 @@
     "backToFormatSelection": "",
     "backToConfiguration": "",
     "estimatedSize": "Rovná se {from}",
-    "configure": "",
+    "configure": "Konfigurovat",
     "continueToTerms": "",
     "downloadSummary": "",
     "weAlsoSupport": "",
@@ -274,15 +274,15 @@
     "extensions": "Rozšíření",
     "selectAdditionalExtensions": "",
     "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
+    "selectAll": "Vybrat vše",
+    "deselectAll": "Zrušit výběr",
     "extensionsInfoMessage": "",
     "format": "Formát",
-    "csvDelimiter": "",
+    "csvDelimiter": "CSV oddělovač",
     "taxonomy": "Taxonomie",
-    "tabDelimiter": "",
+    "tabDelimiter": "TAB",
     "progressLabel": "",
-    "termsAndConditions": "",
+    "termsAndConditions": "Podmínky užití",
     "reviewAndAccept": "",
     "dataCitationTitle": "",
     "dataCitationText": "",
@@ -303,11 +303,11 @@
         "description": ""
       },
       "filter": {
-        "name": "",
+        "name": "Filtr",
         "description": ""
       },
       "sql": {
-        "name": "",
+        "name": "SQL",
         "description": ""
       },
       "format": {
@@ -315,7 +315,7 @@
         "description": ""
       },
       "configure": {
-        "name": "",
+        "name": "Konfigurovat",
         "description": ""
       },
       "terms": {
@@ -341,7 +341,7 @@
         "description": ""
       },
       "SQL_TSV_ZIP": {
-        "title": "",
+        "title": "SQL",
         "description": ""
       },
       "features": {
