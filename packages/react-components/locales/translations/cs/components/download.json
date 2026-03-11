@@ -10,7 +10,7 @@
     "continue": "Pokračovat",
     "invalid": "Neplatné",
     "validate": "",
-    "sqlEditor": "",
+    "sqlEditor": "SQL editor",
     "predicateEditor": "",
     "sql": {
       "createNewSqlDownload": "Vytvořit nové SQL stažení",
@@ -23,12 +23,12 @@
       },
       "errors": {
         "invalid-SQL": "Neplatné SQL",
-        "network-error": "",
+        "network-error": "Chyba sítě",
         "parsingErrorDescription": "",
         "networkErrorDescription": ""
       }
     },
-    "create": "",
+    "create": "Vytvořit",
     "about": "O",
     "stopEditing": "Ukončit úpravy",
     "startEditing": "Začněte upravovat",
@@ -67,9 +67,9 @@
         "tabCsv": "CSV s oddělovačem tabulek (pro použití v Excelu atd.)"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
-        "links": ""
+        "ifAvailable": "pokud je dostupné",
+        "ifSelected": "pokud je vybráno",
+        "links": "odkazy"
       }
     }
   }
