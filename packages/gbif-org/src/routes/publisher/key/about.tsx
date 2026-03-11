@@ -182,29 +182,30 @@ export function PublisherKeyAbout() {
               </div>
             </div>
           )}
-          {publisher?.installation?.count && publisher?.installation?.count > 1 && (
-            <div style={{ marginBottom: 18 }}>
-              <CardTitleSmall className="g-mb-2">
-                <FormattedMessage id="publisher.installations" />:{' '}
-                <ul>
-                  {publisher?.installation?.results.map((x) => (
-                    <li key={x.key}>
-                      <DynamicLink
-                        to={`/installation/${x.key}`}
-                        pageId="installationKey"
-                        variables={{ key: x.key }}
-                      >
-                        {x.title}
-                      </DynamicLink>
-                    </li>
-                  ))}
-                </ul>
-              </CardTitleSmall>
-              <div className="g-text-sm g-text-slate-600">
-                <HelpText identifier="what-is-an-installation" className="[&_p]:g-mt-0" />
+          {typeof publisher?.installation?.count === 'number' &&
+            publisher.installation.count > 1 && (
+              <div style={{ marginBottom: 18 }}>
+                <CardTitleSmall className="g-mb-2">
+                  <FormattedMessage id="publisher.installations" />:{' '}
+                  <ul>
+                    {publisher?.installation?.results.map((x) => (
+                      <li key={x.key}>
+                        <DynamicLink
+                          to={`/installation/${x.key}`}
+                          pageId="installationKey"
+                          variables={{ key: x.key }}
+                        >
+                          {x.title}
+                        </DynamicLink>
+                      </li>
+                    ))}
+                  </ul>
+                </CardTitleSmall>
+                <div className="g-text-sm g-text-slate-600">
+                  <HelpText identifier="what-is-an-installation" className="[&_p]:g-mt-0" />
+                </div>
               </div>
-            </div>
-          )}
+            )}
           {publisher.country && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className="g-mb-2">
