@@ -65,7 +65,7 @@
     "downloadStarted": "La descarga ha comenzado y está siendo procesada en estos momentos.",
     "downloadExpectTime": "Por favor, espere hasta 3 horas para completar la descarga. La mayoría de descargas se completan en 15 minutos.",
     "notificationEmailAddresses": "Una vez preparada, se le enviará un correo electrónico de notificación a la siguiente dirección, incluyendo un enlace para descargar los resultados.",
-    "sqlGeneratedUsingPredicate": "",
+    "sqlGeneratedUsingPredicate": "El SQL se generó utilizando este predicado.",
     "status": {
       "PREPARING": "Preparando",
       "SUSPENDED": "Suspendida",
@@ -73,7 +73,7 @@
       "CANCELLED": "Cancelada",
       "KILLED": "Muertos"
     },
-    "usedChecklistKey": "",
+    "usedChecklistKey": "{checklistName} se utilizó para rellenar las columnas taxonómicas en la descarga.",
     "predicate": {
       "checklist": "Lista de chequeo",
       "joinDescriptions": {
@@ -261,105 +261,105 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Volver",
-    "slowDown": "",
-    "unableToCreateDownload": "",
-    "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "slowDown": "Demasiadas descargas simultáneas. Inténtelo de nuevo más tarde.",
+    "unableToCreateDownload": "No se puede crear la descarga. Inténtelo de nuevo más tarde.",
+    "backToFormatSelection": "Volver a la selección de formato",
+    "backToConfiguration": "Volver a la configuración",
     "estimatedSize": "Igual a {is}",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
+    "configure": "Configurar",
+    "continueToTerms": "Continuar a los Términos",
+    "downloadSummary": "Resumen de la descarga",
+    "weAlsoSupport": "También admitimos {link}",
     "sqlDownloadsLink": "",
     "extensions": "Extensiones",
-    "selectAdditionalExtensions": "",
+    "selectAdditionalExtensions": "Seleccione extensiones de datos adicionales para incluir.",
     "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAll": "Seleccionar todo",
+    "deselectAll": "Deseleccionar todo",
+    "extensionsInfoMessage": "Las extensiones proporcionan campos de datos adicionales más allá de los datos básicos de ocurrencia. Seleccione solo las extensiones que sean relevantes para sus necesidades de investigación.",
     "format": "Formato",
     "csvDelimiter": "",
     "taxonomy": "Taxonomía",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "TAB",
+    "progressLabel": "Progreso",
+    "termsAndConditions": "Términos y condiciones",
+    "reviewAndAccept": "Por favor, revise y acepte los términos antes de descargar.",
+    "dataCitationTitle": "Citación de los datos",
+    "dataCitationText": "Al descargar estos datos, usted acepta:\n- seguir la [guía para citar](/citation-guidelines#occDataDownload) para los datos mediados por GBIF,\n- incluir siempre el DOI asignado a la descarga cuando cite o haga referencia a los datos en cualquier publicación.",
+    "dataUseAgreementTitle": "Acuerdo de uso de datos",
+    "dataUseAgreementText": "Al descargar estos datos, usted reconoce que ha leído y aceptado los términos del [acuerdo de uso de datos](/terms/data-user).",
+    "largeDownloadAcknowledgment": "Aviso sobre descargas de gran tamaño",
+    "largeDownloadEstimatedSize": "El tamaño estimado de esta descarga es {size}.",
+    "largeDownloadConnectionSpeed": "Con una conexión a internet de {speed} Mb/s, la descarga tardaría aproximadamente {time} en completarse.",
+    "largeDownloadDiskSpace": "Una vez descargado el archivo, necesitará aproximadamente {size} de espacio libre en disco para descomprimir los datos.",
+    "largeDownloadRowCount": "El conjunto de datos tiene {count} filas de datos.",
     "largeDownloadExcelWarning": "Un conjunto de datos de este tamaño es difícil de analizar en tu ordenador convencional. Probablemente necesites acceso a algún tipo de servicio de computación distribuido.",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Estatus de los Términos",
+    "createDownload": "Crear descarga",
+    "completeRequirements": "Por favor, complete todos los requisitos para continuar.",
     "steps": {
       "quality": {
         "name": "Igual a {is}",
-        "description": ""
+        "description": "Aplicar filtros de calidad"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Filtro",
+        "description": "Componer un filtro de predicado "
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "SQL",
+        "description": "Escribir consulta SQL"
       },
       "format": {
         "name": "Formato",
-        "description": ""
+        "description": "Escoger el formato de descarga"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "Configurar",
+        "description": "Configurar opciones y campos"
       },
       "terms": {
         "name": "Términos",
-        "description": ""
+        "description": "Aceptar los términos y descargar"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Datos simples de ocurrencia",
+        "description": "Un único archivo CSV delimitado por tabulaciones con datos de ocurrencia estandarizados e interpretados."
       },
       "DWCA": {
         "title": "Archivo Darwin Core",
-        "description": ""
+        "description": "Múltiples archivos (núcleo, valores sin procesar, datos interpretados, extensiones) para un uso detallado o especializado. La descarga se puede personalizar seleccionando extensiones específicas."
       },
       "SPECIES_LIST": {
         "title": "Listas de especies",
-        "description": ""
+        "description": "Una lista de todos los nombres de taxones distintos con recuentos de ocurrencia."
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Cubo de presencia",
+        "description": "Recuento de ocurrencias en una cuadrícula por dimensiones taxonómicas, espaciales y temporales. Las dimensiones y las agregaciones se pueden configurar en el siguiente paso."
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "SQL",
+        "description": "Consulta SQL personalizada para extraer datos específicos o agregaciones. Adecuada para usuarios avanzados familiarizados con SQL."
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
+        "singleCsv": "Archivo CSV único delimitado por tabulaciones",
+        "multipleCsv": "Varios archivos CSV",
         "interpretedData": "",
         "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
+        "coordinates": "Coordenadas (si están disponibles)",
+        "coordinatesIfSelected": "Coordenadas (si se seleccionan)",
+        "individualOccurrences": "Ocurrencias individuales",
+        "multimediaLinks": "Enlaces multimedia",
         "occurrenceCounts": ""
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": "",
+      "title": "Referencia taxonómica",
+      "description": "Seleccione la taxonomía que se utilizará para rellenar las columnas taxonómicas en la descarga.",
+      "defaultRecommended": "Predeterminado y recomendado para la mayoría de los usuarios.",
       "version": "Versión"
     }
   },
@@ -381,7 +381,7 @@
       "EXACT_TAXON": "Taxón exacto"
     },
     "cubeTitle": "Descargar cubo",
-    "cubeDescription": "",
+    "cubeDescription": "Configurar la resolución espacial, temporal y taxonómica.",
     "readMore": "Leer más",
     "time": {
       "YEAR": "Año",
@@ -465,7 +465,7 @@
     "coordinateUncertainty": "Incluir incertidumbre de coordenadas mínima",
     "errorMinimumDimension": "Debe seleccionarse al menos una dimensión",
     "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorGeneratingSql": "Error al generar SQL",
     "editSql": "Editar como SQL",
     "temporalUncertainty": "Incluir incertidumbre temporal mínima",
     "documentation": "Documentación",
