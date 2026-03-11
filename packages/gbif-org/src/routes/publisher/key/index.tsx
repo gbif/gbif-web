@@ -1,8 +1,12 @@
-import { PublisherQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { PublisherKeyAbout } from './about';
 import { PublisherKeyMetrics } from './metrics';
-import { publisherLoader, PublisherPage, PublisherPageSkeleton } from './publisherKey';
+import {
+  PublisherKeyLoaderResult,
+  publisherLoader,
+  PublisherPage,
+  PublisherPageSkeleton,
+} from './publisherKey';
 
 const id = 'publisherKey';
 
@@ -35,5 +39,5 @@ export const publisherKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function usePublisherKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: PublisherQuery };
+  return useRenderedRouteLoaderData(id) as PublisherKeyLoaderResult;
 }

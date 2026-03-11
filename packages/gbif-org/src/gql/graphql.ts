@@ -2477,6 +2477,7 @@ export enum EstablishmentMeans {
   Uncertain = 'UNCERTAIN'
 }
 
+/** Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation. */
 export type Event = {
   __typename?: 'Event';
   childEventCount?: Maybe<Scalars['Int']['output']>;
@@ -2898,6 +2899,7 @@ export type EventSearchInput = {
   year?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+/** Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation. */
 export type EventSearchResult = {
   __typename?: 'EventSearchResult';
   _query?: Maybe<Scalars['JSON']['output']>;
@@ -7138,6 +7140,7 @@ export type Query = {
   directoryTranslators?: Maybe<DirectoryPersonRoleSearchResults>;
   download?: Maybe<Download>;
   event?: Maybe<Event>;
+  /** Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation. */
   eventSearch?: Maybe<EventSearchResult>;
   executiveCommittee?: Maybe<Array<CommitteeMember>>;
   feedbackOptions?: Maybe<FeedbackOptions>;

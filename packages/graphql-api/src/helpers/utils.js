@@ -250,6 +250,11 @@ export function verifyJson(obj, signature) {
   return signJson(obj) === signature;
 }
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function isValidUuid(value) {
+  return UUID_REGEX.test(value);
+}
+
 export {
   createLocalizedGbifHref,
   excerpt,
@@ -260,6 +265,7 @@ export {
   getOGImage,
   isNoneEmptyArray,
   isOccurrenceSequenced,
+  isValidUuid,
   objectToQueryString,
   renameProperty,
   simplifyUrlObjectKeys,

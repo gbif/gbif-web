@@ -28,17 +28,10 @@ import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { usePublisherKeyLoaderData } from '.';
-import { i } from 'vitest/dist/reporters-P7C2ytIv.js';
 
 export function PublisherKeyAbout() {
-  const { data } = usePublisherKeyLoaderData();
+  const { publisher } = usePublisherKeyLoaderData();
   const removeSidebar = useBelow(1100);
-
-  const { publisher } = data;
-
-  if (!publisher) {
-    return null;
-  }
 
   const ActivityReport = () => (
     <CardSmall className="g-mb-4">
@@ -71,13 +64,13 @@ export function PublisherKeyAbout() {
           <ClientSideOnly>
             <img
               className="g-m-auto g-max-w-100 g-max-h-48"
-              src={publisher?.logoUrl}
+              src={publisher.logoUrl}
               alt=""
               onError={(e) => {
                 // show gray background if image fails to load
-                e.target.style.background = '#eee';
-                e.target.style.display = 'block';
-                e.target.style.height = '100px';
+                (e.target as HTMLImageElement).style.background = '#eee';
+                (e.target as HTMLImageElement).style.display = 'block';
+                (e.target as HTMLImageElement).style.height = '100px';
               }}
             />
           </ClientSideOnly>
@@ -189,7 +182,7 @@ export function PublisherKeyAbout() {
               </div>
             </div>
           )}
-          {publisher?.installation?.count > 1 && (
+          {publisher?.installation?.count && publisher?.installation?.count > 1 && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className="g-mb-2">
                 <FormattedMessage id="publisher.installations" />:{' '}

@@ -1,4 +1,5 @@
-import { excerpt, getHtml } from '@/helpers/utils';
+import { excerpt, getHtml, isValidUuid } from '@/helpers/utils';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -9,10 +10,14 @@ import { getThumborUrl } from '../resource/misc/misc.resolver';
  */
 export default {
   Query: {
-    organizationSearch: (parent, query, { dataSources }) =>
+    organizationSearch: (_, query, { dataSources }) =>
       dataSources.organizationAPI.searchOrganizations({ query }),
-    organization: (parent, { key }, { dataSources }) =>
-      dataSources.organizationAPI.getOrganizationByKey({ key }),
+    organization: (_, { key }, { dataSources }) => {
+      if (!isValidUuid(key)) {
+        throw new NotFoundError();
+      }
+      return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
   },
   Organization: {
     machineTags: ({ machineTags }, { namespace, name, value }) => {

@@ -28,9 +28,11 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
+import { isPositiveNumber } from '@/utils/isPositiveNumber';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
   query Publisher($key: ID!) {
@@ -127,41 +129,50 @@ const SLOW_PUBLISHER_QUERY = /* GraphQL */ `
 export async function publisherLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, {
+  const response = await graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, {
     key,
   });
+
+  const { errors, data } = await response.json();
+
+  throwCriticalErrors({
+    path404: ['publisher'],
+    errors,
+    requiredObjects: [data?.publisher],
+  });
+
+  // throwCriticalErrors will throw if the publisher is not found, so we can safely assume it exists with !
+  return { errors, publisher: data!.publisher! };
 }
+
+export type PublisherKeyLoaderResult = Awaited<ReturnType<typeof publisherLoader>>;
 
 export function PublisherPage() {
   const { toast } = useToast();
-  const { data, errors } = useLoaderData() as { data: PublisherQuery };
+  const { publisher, errors } = useLoaderData() as PublisherKeyLoaderResult;
+
   const {
     data: slowData,
     load,
     error,
-    loading,
   } = useQuery<PublisherStatsQuery, PublisherStatsQueryVariables>(SLOW_PUBLISHER_QUERY);
 
+  // Load slow data
   useEffect(() => {
-    if (data.publisher) {
-      load({ variables: { key: data.publisher.key, jsonKey: data.publisher.key } });
-    }
-  }, [data.publisher, load]);
+    load({ variables: { key: publisher.key, jsonKey: publisher.key } });
+  }, [publisher, load]);
 
-  // if (data.publisher == null) throw new NotFoundError(); // TODO - handle nout found in data loader. at leat null is not a sufficient test
+  const intl = useIntl();
+
   useEffect(() => {
     if (errors) {
-      if (!data?.publisher) {
-        throw new Error('Failed to load dataset');
-      }
       toast({
-        title: 'Unable to load all content',
+        title: intl.formatMessage({ id: 'phrases.unableToLoadAllContent' }),
         variant: 'destructive',
       });
     }
-  }, [errors, toast, data]);
+  }, [errors, toast, intl]);
 
-  const { publisher } = data;
   const { occurrenceSearch, hostedDatasets, literatureSearch, hostedOccurrences } = slowData ?? {};
 
   const deletedAt = publisher.deleted;
@@ -178,27 +189,29 @@ export function PublisherPage() {
         path={`/publisher/${publisher.key}`}
         title={publisher.title}
         description={publisher.description}
-        noindex={!!publisher?.deleted}
-        nofollow={!!publisher?.deleted}
+        noindex={!!deletedAt}
+        nofollow={!!deletedAt}
         imageUrl={publisher.logoUrl}
       />
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={publisher?.key?.toString()} />}
-      ></DataHeader>
+      />
 
       <PageContainer topPadded hasDataHeader className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             clickable
             secondary={
-              <FormattedMessage
-                id="publisher.header.sinceDate"
-                values={{
-                  DATE: <LongDate value={publisher.created ?? undefined} />,
-                }}
-              />
+              !publisher.created ? null : (
+                <FormattedMessage
+                  id="publisher.header.sinceDate"
+                  values={{
+                    DATE: <LongDate value={publisher.created} />,
+                  }}
+                />
+              )
             }
           >
             <DynamicLink pageId="publisherSearch">
@@ -206,9 +219,7 @@ export function PublisherPage() {
             </DynamicLink>
           </ArticlePreTitle>
           {/* it would be nice to know for sure which fields to expect */}
-          <ArticleTitle
-            dangerouslySetTitle={{ __html: publisher.title || 'No title provided' }}
-          ></ArticleTitle>
+          <ArticleTitle dangerouslySetTitle={{ __html: publisher.title || 'No title provided' }} />
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
           {!deletedAt && !publisher.endorsementApproved && (
@@ -226,7 +237,7 @@ export function PublisherPage() {
               )}
               <FeatureList>
                 {!error && !slowData && <GenericFeatureSkeleton />}
-                {occurrenceSearch?.documents.total > 0 && (
+                {isPositiveNumber(occurrenceSearch?.documents.total) && (
                   <GenericFeature>
                     <OccurrenceIcon />
                     <DynamicLink
@@ -241,7 +252,7 @@ export function PublisherPage() {
                     </DynamicLink>
                   </GenericFeature>
                 )}
-                {hostedOccurrences?.documents.total > 0 && (
+                {isPositiveNumber(hostedOccurrences?.documents.total) && (
                   <GenericFeature>
                     <OccurrenceIcon />
                     <DynamicLink
@@ -256,7 +267,7 @@ export function PublisherPage() {
                     </DynamicLink>
                   </GenericFeature>
                 )}
-                {(publisher?.numPublishedDatasets ?? 0) > 0 && (
+                {isPositiveNumber(publisher?.numPublishedDatasets) && (
                   <GenericFeature>
                     <DynamicLink
                       className="hover:g-underline g-text-inherit"
@@ -270,7 +281,7 @@ export function PublisherPage() {
                     </DynamicLink>
                   </GenericFeature>
                 )}
-                {hostedDatasets?.count > 0 && (
+                {isPositiveNumber(hostedDatasets?.count) && (
                   <GenericFeature>
                     <DynamicLink
                       className="hover:g-underline g-text-inherit"
@@ -297,7 +308,7 @@ export function PublisherPage() {
                     </DynamicLink>
                   </GenericFeature>
                 )}
-                {literatureSearch?.documents.total > 0 && (
+                {isPositiveNumber(literatureSearch?.documents.total) && (
                   <GenericFeature>
                     <CitationIcon />
                     <DynamicLink
