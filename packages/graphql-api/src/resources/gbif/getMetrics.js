@@ -64,6 +64,7 @@ const getFacet =
           _predicate: joinedPredicate,
           _q: parent._q,
           _parentPredicate: data.meta.predicate,
+          _checklistKey: checklistKey,
         };
       });
     });

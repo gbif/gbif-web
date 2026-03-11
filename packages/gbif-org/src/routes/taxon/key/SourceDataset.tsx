@@ -1,19 +1,23 @@
+import { TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
-const SourceDataset = ({ taxon }) => {
-  return taxon?.sourceTaxon?.dataset?.title && taxon?.sourceTaxon?.datasetKey ? (
+
+const SourceDataset = ({ taxonData }: { taxonData: TaxonKeyQuery }) => {
+  const sourceDataset = taxonData?.taxonInfo?.taxon?.sourceDataset;
+  if (!sourceDataset) return null;
+  return (
     <>
       <FormattedMessage id="taxon.source" defaultMessage="Source" />
       {': '}
       <DynamicLink
         className="hover:g-underline g-text-primary-500"
         pageId="datasetKey"
-        variables={{ key: taxon?.sourceTaxon?.datasetKey }}
+        variables={{ key: sourceDataset.key }}
       >
-        {taxon?.sourceTaxon?.dataset?.title}
+        {sourceDataset.title}
       </DynamicLink>
     </>
-  ) : null;
+  );
 };
 
 export default SourceDataset;

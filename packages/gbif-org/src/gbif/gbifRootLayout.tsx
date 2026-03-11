@@ -14,6 +14,7 @@ import toolsRedirects from './toolsRedirects';
 // eslint-disable-next-line
 import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export async function headerLoader({ locale }: LoaderArgs) {
   const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/header?locale=${

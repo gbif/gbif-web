@@ -17,7 +17,6 @@ import {
   getHistogram,
   getStats,
 } from '../getMetrics';
-import getVernacularNames from '../taxon/getVernacularNames';
 import {
   cardinalityFields,
   dateHistogramFields,
@@ -699,18 +698,21 @@ export default {
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_taxon: {
-    taxon: ({ key }, _args, { dataSources }) => {
+    taxon: ({ key, _checklistKey }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key }).catch((err) => {
-        // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
-        if (
-          err?.extensions?.response?.status >= 400 &&
-          err?.extensions?.response?.status < 500
-        ) {
-          return null;
-        }
-        throw err;
-      });
+      return dataSources.taxonAPI
+
+        .getTaxon({ key, datasetKey: _checklistKey })
+        .catch((err) => {
+          // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
+          if (
+            err?.extensions?.response?.status >= 400 &&
+            err?.extensions?.response?.status < 500
+          ) {
+            return null;
+          }
+          throw err;
+        });
     },
     taxonMatch: (
       { key },
@@ -828,27 +830,29 @@ export default {
   },
   Globe: {},
   VolatileOccurrenceData: {
-    vernacularNames: (
-      { classifications },
-      { limit = 10, offset = 0, language, checklistKey, removeDuplicates },
-      { dataSources },
-    ) => {
-      const classification = classifications.find(
-        (x) => x.checklistKey === checklistKey,
-      );
-      const taxonKey =
-        classification?.acceptedUsage?.key ?? classification?.usage.key;
-      if (!taxonKey) return null;
-      return getVernacularNames({
-        taxonKey,
-        limit,
-        offset,
-        language,
-        checklistKey,
-        dataSources,
-        removeDuplicates,
-      });
-    },
+    // TODO taxonapi needs to be rewritten
+    // vernacularNames: (
+    //   { classifications },
+    //   { limit = 10, offset = 0, language, checklistKey, removeDuplicates },
+    //   { dataSources },
+    // ) => {
+    //   const classification = classifications.find(
+    //     (x) => x.checklistKey === checklistKey,
+    //   );
+    //   const taxonKey =
+    //     classification?.acceptedUsage?.key ?? classification?.usage.key;
+    //   if (!taxonKey) return null;
+    //   return null; // TODO taxonAPI version missing
+    //   // return getVernacularNames({
+    //   //   taxonKey,
+    //   //   limit,
+    //   //   offset,
+    //   //   language,
+    //   //   checklistKey,
+    //   //   dataSources,
+    //   //   removeDuplicates,
+    //   // });
+    // },
     features: (occurrence) => occurrence,
     globe: (
       { decimalLatitude, decimalLongitude },

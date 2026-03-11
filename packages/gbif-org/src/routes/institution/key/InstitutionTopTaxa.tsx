@@ -68,10 +68,7 @@ export function InstitutionTopTaxa({ predicate, className }: InstitutionTopTaxaP
         ) : (
           <>
             <CardTitle className="g-mb-4">
-              <FormattedMessage
-                id="grscicoll.topSharedTaxa"
-                defaultMessage="Top 10 shared taxa"
-              />
+              <FormattedMessage id="grscicoll.topSharedTaxa" defaultMessage="Top 10 shared taxa" />
             </CardTitle>
             <div>
               <ul className="g-p-0 g-m-0 g-list-none">
@@ -143,7 +140,7 @@ const TOP_TAXA_QUERY = /* GraphQL */ `
         taxonKey(size: 10) {
           count
           taxon {
-            formattedName
+            formattedName: label
           }
         }
       }

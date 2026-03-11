@@ -2,7 +2,7 @@ const OMNI_SEARCH = /* GraphQL */ `
   query OmniSearch(
     $resourcePredicate: Predicate
     $resourceKeywordPredicate: Predicate
-    $taxonQuery: TaxonSearchInput
+    # $taxonQuery: TaxonSearchInput
     $datasetQuery: DatasetSearchInput
     $q: String!
   ) {
@@ -27,17 +27,17 @@ const OMNI_SEARCH = /* GraphQL */ `
         ...DatasetStubResult
       }
     }
-    taxonSearch(query: $taxonQuery, limit: 3) {
-      count
-      offset
-      endOfRecords
-      results {
-        ...TaxonResult
-        acceptedTaxon {
-          ...TaxonResult
-        }
-      }
-    }
+    # taxonSearch(query: $taxonQuery, limit: 3) {
+    #   count
+    #   offset
+    #   endOfRecords
+    #   results {
+    #     ...TaxonResult
+    #     acceptedTaxon {
+    #       ...TaxonResult
+    #     }
+    #   }
+    # }
 
     resourceSearch(predicate: $resourcePredicate, q: $q, searchable: true) {
       documents(size: 5) {

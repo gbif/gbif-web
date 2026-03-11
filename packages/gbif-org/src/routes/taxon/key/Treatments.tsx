@@ -123,7 +123,7 @@ const Treatments = ({ taxonKey }: { taxonKey: string }) => {
 
 export default Treatments;
 
-const TREATMENTS_QUERY = /* GraphQL */ `
+const TREATMENTS_QUERY = /* GraphQL_x */ `
   query Treatments($key: ID!) {
     taxon(key: $key) {
       key

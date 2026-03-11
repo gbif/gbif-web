@@ -1,3 +1,4 @@
+import { TaxonKeyQuery } from '@/gql/graphql';
 import get from 'lodash/get';
 
 export const getDatasetSchema = (dataset) => {
@@ -175,24 +176,33 @@ export const getDatasetSchema = (dataset) => {
   return schema;
 };
 
-const getSchemaTaxonName = (taxon) => {
+const getSchemaTaxonName = (taxon: {
+  scientificName?: string | null;
+  scientificNameAuthorship?: string | null;
+  taxonRank?: string | null;
+}) => {
   const name = {
     '@type': 'TaxonName',
-    name: taxon.canonicalName,
-    author: taxon.authorship,
-    taxonRank: taxon.rank,
+    name: taxon.scientificName,
+    author: taxon.scientificNameAuthorship,
+    taxonRank: taxon.taxonRank,
   };
-  if (taxon.publishedIn) {
-    name.isBasedOn = {
-      '@type': 'ScholarlyArticle',
-      name: taxon.publishedIn,
-    };
-  }
+  // TODO taxonapi: not sure what the equivalent is
+  // if (taxon.publishedIn) {
+  //   name.isBasedOn = {
+  //     '@type': 'ScholarlyArticle',
+  //     name: taxon.publishedIn,
+  //   };
+  // }
   return name;
 };
 
-export const getTaxonSchema = (taxon) => {
-  //const taxon = tx.record;
+export const getTaxonSchema = (taxonData: TaxonKeyQuery) => {
+  const taxon = taxonData?.taxonInfo?.taxon;
+  const taxonInfo = taxonData?.taxonInfo;
+  if (!taxon || !taxonInfo) {
+    return {};
+  }
   const schema = {
     '@context': [
       'https://schema.org/',
@@ -212,35 +222,36 @@ export const getTaxonSchema = (taxon) => {
         '@type': 'PropertyValue',
         name: 'GBIF taxonKey',
         propertyID: 'http://www.wikidata.org/prop/direct/P846',
-        value: taxon.key,
+        value: taxon.taxonID,
       },
       {
         '@type': 'PropertyValue',
         name: 'dwc:taxonID',
         propertyID: 'http://rs.tdwg.org/dwc/terms/taxonID',
-        value: taxon.key,
+        value: taxon.taxonID,
       },
     ],
     name: taxon.scientificName,
     scientificName: getSchemaTaxonName(taxon),
 
     taxonRank: [
-      `http://rs.gbif.org/vocabulary/gbif/rank/${taxon.rank.toLowerCase()}`,
-      taxon.rank.toLowerCase(),
+      `http://rs.gbif.org/vocabulary/gbif/rank/${taxon.taxonRank.toLowerCase()}`,
+      taxon.taxonRank.toLowerCase(),
     ],
   };
-  if (get(taxon, 'synonyms.results[0]')) {
-    schema.alternateName = taxon.synonyms.results.map((s) => s.scientificName);
-    schema.alternateScientificName = taxon.synonyms.results.map(getSchemaTaxonName);
+  if (taxonInfo.synonyms && get(taxon, 'synonyms[0]')) {
+    schema.alternateName = taxonInfo.synonyms.map((s) => s.scientificName);
+    schema.alternateScientificName = taxonInfo.synonyms.map(getSchemaTaxonName);
   }
-  if (get(taxon, 'vernacular.results[0]')) {
-    schema['dwc:vernacularName'] = taxon.vernacular.results.map((v) => ({
+  if (taxonInfo.vernacularNames && get(taxonInfo, 'vernacularNames[0]')) {
+    schema['dwc:vernacularName'] = taxonInfo.vernacularNames.map((v) => ({
       '@language': v.language,
       '@value': v.vernacularName,
     }));
   }
-  if (taxon.parents && taxon.parents.length > 0) {
-    const parent = taxon.parents[taxon.parents.length - 1];
+  if (taxonInfo.classification && taxonInfo.classification.length > 0) {
+    const parent = taxonInfo.classification[taxonInfo.classification.length - 1];
+    const parentTaxonRank = parent.taxonRank ? parent.taxonRank.toLowerCase() : 'unranked';
     schema.parentTaxon = {
       '@type': 'Taxon',
       name: parent.scientificName,
@@ -250,19 +261,16 @@ export const getTaxonSchema = (taxon) => {
           '@type': 'PropertyValue',
           name: 'GBIF taxonKey',
           propertyID: 'http://www.wikidata.org/prop/direct/P846',
-          value: parent.key,
+          value: parent.taxonID,
         },
         {
           '@type': 'PropertyValue',
           name: 'dwc:taxonID',
           propertyID: 'http://rs.tdwg.org/dwc/terms/taxonID',
-          value: parent.key,
+          value: parent.taxonID,
         },
       ],
-      taxonRank: [
-        `http://rs.gbif.org/vocabulary/gbif/rank/${parent.rank.toLowerCase()}`,
-        parent.rank.toLowerCase(),
-      ],
+      taxonRank: [`http://rs.gbif.org/vocabulary/gbif/rank/${parentTaxonRank}`, parentTaxonRank],
     };
   }
   return schema;

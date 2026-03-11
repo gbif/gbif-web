@@ -3,7 +3,7 @@ import { TaxonKeyQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { redirectDocument } from 'react-router-dom';
 import TaxonKeyAbout from './About';
-import Metrics from './Metrics';
+// import Metrics from './Metrics';
 import VerbatimTaxon from './Verbatim';
 import { TaxonKey, taxonLoader } from './taxonKey';
 const id = 'speciesKey';
@@ -16,7 +16,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     if (typeof key !== 'string' && typeof key !== 'number')
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/species/${key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/taxon/${key}`;
   },
   loader: taxonLoader,
   /* shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {
@@ -31,7 +31,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'metrics',
-      element: <Metrics />,
+      element: <h1>Taxon page</h1>, //<Metrics />,
     },
     {
       path: 'treatments',

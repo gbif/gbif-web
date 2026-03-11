@@ -14,7 +14,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { DatasetResult } from '../dataset/datasetResult';
 import { PublisherResult } from '../publisher/publisherResult';
 import { ResourceSearchResult } from '../resource/search/resourceSearchResult';
-import { TaxonResult } from '../taxon/taxonResult';
+// import { TaxonResult } from '../taxon/taxonResult';
 import { CategoryLinks } from './CategoryLinks';
 import { CountryResult } from './CountryResult';
 import OccurrenceResultCard from './OccurrenceResultCard';
@@ -327,14 +327,15 @@ export function SearchPage() {
                       className="g-bg-white g-mb-4"
                     />
                   ))}
-                  {serverResults?.taxa &&
+                  {/* TODO taxonAPI */}
+                  {/* {serverResults?.taxa &&
                     serverResults?.taxa?.map((taxon) => (
                       <TaxonResult
                         key={taxon.taxon.key}
                         taxon={taxon.taxon}
                         className="g-bg-white g-mb-4"
                       />
-                    ))}
+                    ))} */}
 
                   {data?.datasetSearch.results.slice(0, 1).map((result) => (
                     <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
@@ -385,9 +386,10 @@ export function SearchPage() {
                   {data?.organizationSearch?.results.map((result) => (
                     <PublisherResult key={result.key} publisher={result} />
                   ))}
-                  {remainingTaxaResults.map((result) => (
+                  {/* TODO taxonapi */}
+                  {/* {remainingTaxaResults.map((result) => (
                     <TaxonResult key={result.key} taxon={result} />
-                  ))}
+                  ))} */}
                   {!serverResults?.participant?.highlighted &&
                     serverResults?.participant?.other && (
                       <>

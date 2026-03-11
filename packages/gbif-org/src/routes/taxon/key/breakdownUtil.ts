@@ -42,7 +42,7 @@ export const getSourceTaxon = ({
   };
 };
 
-const TAXON_BREAKDOWN = /* GraphQL */ `
+const TAXON_BREAKDOWN = /* GraphQL_x */ `
   query TaxonBreakdown($key: ID!) {
     taxon(key: $key) {
       key
@@ -66,7 +66,7 @@ const TAXON_BREAKDOWN = /* GraphQL */ `
   }
 `;
 
-const SOURCE_TAXON = /* GraphQL */ `
+const SOURCE_TAXON = /* GraphQL_x */ `
   query SourceTaxon($sourceId: ID!, $datasetKey: ID!) {
     taxonBySourceId(sourceId: $sourceId, datasetKey: $datasetKey) {
       key

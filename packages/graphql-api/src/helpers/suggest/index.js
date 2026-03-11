@@ -2,7 +2,8 @@
 // tims comments: search bor BID or a programme. For the homepage it could be useful.
 // my ideas: wkt, sequence, has sequence
 // thomas: publishers
-import colSuggest from '@/resources/gbif/taxon/colSuggest';
+
+// import colSuggest from '@/resources/gbif/taxon/colSuggest';
 import axios from 'axios';
 import { matchSorter } from 'match-sorter';
 import config from '../../config';
@@ -208,19 +209,20 @@ async function getDatasets({ q }) {
   });
 }
 
-export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
-  // use custom suggest via graphql
-  const langMap = {
-    en: 'eng',
-    da: 'dan',
-    es: 'spa',
-    de: 'deu',
-  };
-  const knownLang = langMap[lang] ?? 'en';
+// TODO taxonApi remove
+// export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
+//   // use custom suggest via graphql
+//   const langMap = {
+//     en: 'eng',
+//     da: 'dan',
+//     es: 'spa',
+//     de: 'deu',
+//   };
+//   const knownLang = langMap[lang] ?? 'en';
 
-  const result = await colSuggest({ language: knownLang, q, taxonKeys });
-  return result;
-}
+//   const result = await colSuggest({ language: knownLang, q, taxonKeys });
+//   return result;
+// }
 
 export async function getSpeciesMatches({ q, taxonKeys }) {
   const apiUrl = `${config.apiv1}/species/match?name=${q}`;
@@ -236,40 +238,41 @@ export async function getSpeciesMatches({ q, taxonKeys }) {
   }
 }
 
-export async function getSpecies({ q, taxonKeys, lang }) {
-  const suggestions = await getSpeciesSuggestions({ q, taxonKeys, lang });
-  // map to format for filters [{filter: 'taxonKey', value: 5, label: 'Aves', alternativeLabels: []}]
-  return suggestions
-    .map((s) => {
-      const result = {
-        filter: 'taxonKey',
-        value: s.key,
-        label: s.scientificName,
-        alsoKnownAs: [
-          s.vernacularName,
-          s.acceptedNameOf,
-          s.canonicalName,
-        ].filter((x) => x),
-        alternativeLabels: [
-          'taxon',
-          'species',
-          'sp',
-          s.vernacularName,
-          s.acceptedNameOf,
-        ].filter((x) => x),
-        item: s,
-      };
-      if (s.acceptedNameOf) {
-        result.description = result.description ?? [];
-        result.description.push(`Accepted name of: ${s.acceptedNameOf}`);
-      }
-      if (s.vernacularName) {
-        result.description = result.description ?? [];
-        result.description.push(`Common name: ${s.vernacularName}`);
-      }
-      return result;
-    })
-    .slice(0, 5);
+// TODO taxonApi remove
+// export async function getSpecies({ q, taxonKeys, lang }) {
+//   const suggestions = await getSpeciesSuggestions({ q, taxonKeys, lang });
+//   // map to format for filters [{filter: 'taxonKey', value: 5, label: 'Aves', alternativeLabels: []}]
+//   return suggestions
+//     .map((s) => {
+//       const result = {
+//         filter: 'taxonKey',
+//         value: s.key,
+//         label: s.scientificName,
+//         alsoKnownAs: [
+//           s.vernacularName,
+//           s.acceptedNameOf,
+//           s.canonicalName,
+//         ].filter((x) => x),
+//         alternativeLabels: [
+//           'taxon',
+//           'species',
+//           'sp',
+//           s.vernacularName,
+//           s.acceptedNameOf,
+//         ].filter((x) => x),
+//         item: s,
+//       };
+//       if (s.acceptedNameOf) {
+//         result.description = result.description ?? [];
+//         result.description.push(`Accepted name of: ${s.acceptedNameOf}`);
+//       }
+//       if (s.vernacularName) {
+//         result.description = result.description ?? [];
+//         result.description.push(`Common name: ${s.vernacularName}`);
+//       }
+//       return result;
+//     })
+//     .slice(0, 5);
 }
 
 async function getGadmSuggestions({ q, gadmId, limit = 2 }) {

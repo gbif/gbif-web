@@ -147,7 +147,7 @@ export function InvasiveInCountries({ taxonKey }: { taxonKey: string }) {
   );
 }
 
-const INVASIVE_TAXON = /* GraphQL */ `
+const INVASIVE_TAXON = /* GraphQL_x */ `
   query InvasiveTaxon($key: ID!) {
     taxon(key: $key) {
       key

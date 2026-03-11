@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
-import ClassificationSideBar from './ClassificationSideBar';
+// import ClassificationSideBar from './ClassificationSideBar';
 import { InvasiveInCountries } from './InvasiveInCountries';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
@@ -26,37 +26,35 @@ import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
 import styles from './wikiIdentifiers.module.css';
+import { NotFoundError } from '@/errors';
+
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
-  const { key } = useParams();
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
-    params: { taxonKey: key },
+    params: {
+      taxonKey: data.taxonInfo?.taxon?.taxonID,
+      checklistKey: data.taxonInfo?.taxon?.datasetKey,
+    },
   });
 
   const removeSidebar = useBelow(1100);
-  const useInlineImage = useBelow(700);
-  const {
-    taxon,
-    /*  typesSpecimenCount: {
-      documents: { total: numberOfTypeSpecimens },
-    }, */
-    /*  imagesCount: {
-      documents: { total: numberOfImages },
-    }, */
-  } = data;
-  const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
-  const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
-  const nextMajorRank = useNextMajorRank(taxon?.rank);
+  const taxon = data?.taxonInfo?.taxon;
+  const taxonInfo = data?.taxonInfo;
+  if (!taxonInfo || !taxon) throw new NotFoundError();
+
+  const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.taxonRank);
+  const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.taxonRank);
+  const nextMajorRank = useNextMajorRank(taxon?.taxonRank);
   const predicate = {
     type: 'equals',
     key: 'taxonKey',
-    value: taxon?.key,
+    value: taxon?.taxonID,
   };
   const hasPreprocessedMap = useHasMap({
     type: MapTypes.TaxonKey,
-    identifier: taxon?.key?.toString() ?? '',
+    identifier: taxon?.taxonID?.toString() ?? '',
   });
   if (!taxon) return null;
   return (
@@ -69,7 +67,7 @@ export default function AboutBackbone() {
             </aside>
           )} */}
           <div className="g-flex-grow">
-            {(data?.taxon?.imagesCount?.count || 0) > 0 && (
+            {/* {(data?.taxon?.imagesCount?.count || 0) > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
@@ -80,28 +78,18 @@ export default function AboutBackbone() {
                   <OccurrenceImages total={data?.taxon?.imagesCount?.count} taxonKey={taxon.key} />
                 </CardContent>
               </Card>
-            )}
-            {isFamilyOrAbove && data.taxon.taxonomicStatus === 'ACCEPTED' && (
+            )} */}
+            {isFamilyOrAbove && taxon.taxonomicStatus === 'ACCEPTED' && (
               <TaxonBreakdown taxon={taxon} className="g-mb-4" />
             )}
-            {/* <Card className="g-mb-4">
-              <CardHeader>
-                <CardTitle>
-                  <FormattedMessage id="taxon.distribution" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="g-p-0">
-                <MapWidget capabilitiesParams={{ taxonKey: taxon.key }} mapStyle="CLASSIC_HEX" />
-              </CardContent>
-            </Card> */}
             {hasPreprocessedMap && (
               <MapWidget
                 className="g-mb-4"
-                capabilitiesParams={{ taxonKey: taxon.key }}
+                capabilitiesParams={{ taxonKey: taxon.taxonID }}
                 mapStyle="CLASSIC_HEX"
               />
             )}
-            {data.taxon.taxonomicStatus === 'ACCEPTED' && (
+            {taxon.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
@@ -109,17 +97,17 @@ export default function AboutBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Synonyms
+                  {/* <Synonyms
                     taxonKey={taxon.key}
                     slowTaxon={slowTaxon}
                     loading={slowTaxonLoading}
                     total={data?.taxon?.synonyms?.results?.length}
-                  />
+                  /> */}
                 </CardContent>
               </Card>
             )}
 
-            {isSpeciesOrBelow && (
+            {/* {isSpeciesOrBelow && (
               <ErrorBoundary
                 type="BLOCK"
                 errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
@@ -130,9 +118,9 @@ export default function AboutBackbone() {
                   acceptedTaxonKey={taxon?.acceptedTaxon?.key}
                 />
               </ErrorBoundary>
-            )}
+            )} */}
 
-            {(taxon?.vernacular?.results?.length ?? 0) > 0 && (
+            {/* {(taxon?.vernacular?.results?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">
                 <CardHeader>
                   <CardTitle>
@@ -151,8 +139,9 @@ export default function AboutBackbone() {
                   </ErrorBoundary>
                 </CardContent>
               </Card>
-            )}
-            {isSpeciesOrBelow && (
+            )} */}
+
+            {/* {isSpeciesOrBelow && (
               <ErrorBoundary
                 type="BLOCK"
                 errorMessage={<FormattedMessage id="taxon.errors.invasiveInCountries" />}
@@ -160,13 +149,15 @@ export default function AboutBackbone() {
                 <InvasiveInCountries taxonKey={taxon.key.toString()} />
               </ErrorBoundary>
             )}
+
             <ErrorBoundary
               type="BLOCK"
               errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
             >
               <Treatments taxonKey={taxon?.key?.toString()} />
-            </ErrorBoundary>
-            {slowTaxon && (slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
+            </ErrorBoundary> */}
+
+            {/* {slowTaxon && (slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
                   <CardTitle>
@@ -185,18 +176,18 @@ export default function AboutBackbone() {
                   </ErrorBoundary>
                 </CardContent>
               </Card>
-            )}
+            )} */}
+
             <Card className="g-mb-4" id="citation">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="phrases.citation" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <Citation taxon={taxon} />
-              </CardContent>
+              <CardContent>{/* <Citation taxon={taxon} /> */}</CardContent>
             </Card>
-            {data.taxon?.issues?.length > 0 && (
+
+            {/* {data.taxon?.issues?.length > 0 && (
               <>
                 <FormattedMessage id="filters.occurrenceIssue.name" />
                 {': '}
@@ -211,21 +202,15 @@ export default function AboutBackbone() {
                   ))}
                 </div>
               </>
-            )}
+            )} */}
           </div>
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              <ClassificationSideBar taxon={taxon} />
+              {/* <ClassificationSideBar taxon={taxon} /> */}
 
               {!!count && count > 0 && (
                 <>
-                  {/* <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
-                    <AdHocMapThumbnail
-                      filter={{ taxonKey: taxon.key }}
-                      className="g-rounded g-border"
-                    />
-                  </div> */}
                   <ClientSideOnly>
                     {/*                     <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
                      */}{' '}
@@ -236,12 +221,11 @@ export default function AboutBackbone() {
                         className="g-mb-2"
                       />
                     )}
-                    {/*                     <charts.DataQuality predicate={predicate} className="g-mb-4" />
-                     */}{' '}
                   </ClientSideOnly>
                 </>
               )}
-              <GbifLinkCard path={`/species/${taxon.key}`} />
+              {/* TODO taxonapi: fix link */}
+              <GbifLinkCard path={`/species/${taxon.taxonID}`} />
             </aside>
           )}
         </div>

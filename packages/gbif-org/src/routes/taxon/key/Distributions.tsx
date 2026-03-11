@@ -149,7 +149,7 @@ export function Paging({ next, prev, isLastPage, isFirstPage }: PagingProps) {
   );
 }
 
-const TAXON_DISTRIBUTIONS_QUERY = /* GraphQL */ `
+const TAXON_DISTRIBUTIONS_QUERY = /* GraphQLx */ `
   query TaxonDistributions($key: ID!, $limit: Int, $offset: Int) {
     taxon(key: $key) {
       distributions(limit: $limit, offset: $offset) {

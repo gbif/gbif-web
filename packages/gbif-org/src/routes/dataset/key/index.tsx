@@ -1,8 +1,8 @@
 import { DatasetQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import TaxonKeyAbout from '@/routes/taxon/key/About';
-import { NonBackboneTaxon, taxonLoader } from '@/routes/taxon/key/taxonKey';
-import VerbatimTaxon from '@/routes/taxon/key/Verbatim';
+// import TaxonKeyAbout from '@/routes/taxon/key/About';
+// import { NonBackboneTaxon, taxonLoader } from '@/routes/taxon/key/taxonKey';
+// import VerbatimTaxon from '@/routes/taxon/key/Verbatim';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
@@ -11,7 +11,7 @@ import DatasetEvents from './event/datasetEvents';
 import { DatasetEventID, eventLoader, parentEventLoader } from './event/eventID';
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
-import { DatasetKeyTaxonSearch } from './taxonSearch';
+// import { DatasetKeyTaxonSearch } from './taxonSearch';
 import { redirectDocument } from 'react-router-dom';
 const id = 'datasetKey';
 
@@ -48,25 +48,26 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
       path: 'phylogenies',
       element: <DatasetKeyPhylo />,
     },
-    {
-      path: 'species',
-      element: <DatasetKeyTaxonSearch />,
-    },
-    {
-      path: 'species/:taxonKey',
-      element: <NonBackboneTaxon headLess={true} />,
-      loader: taxonLoader,
-      children: [
-        {
-          index: true,
-          element: <TaxonKeyAbout headLess={true} />,
-        },
-        {
-          path: 'verbatim',
-          element: <VerbatimTaxon headLess={true} />,
-        },
-      ],
-    },
+    // TODO taxonapi
+    // {
+    //   path: 'species',
+    //   element: <DatasetKeyTaxonSearch />,
+    // },
+    // {
+    //   path: 'species/:taxonKey',
+    //   element: <NonBackboneTaxon headLess={true} />,
+    //   loader: taxonLoader,
+    //   children: [
+    //     {
+    //       index: true,
+    //       element: <TaxonKeyAbout headLess={true} />,
+    //     },
+    //     {
+    //       path: 'verbatim',
+    //       element: <VerbatimTaxon headLess={true} />,
+    //     },
+    //   ],
+    // },
     {
       path: 'events',
       element: <DatasetEvents />,

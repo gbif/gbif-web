@@ -107,7 +107,7 @@ export function ImageSkeleton() {
 
 export default TaxonOccurrenceImages;
 
-const TAXON_OCCURRENCE_MEDIA = /* GraphQL */ `
+const TAXON_OCCURRENCE_MEDIA = /* GraphQL_x */ `
   query TaxonOccurrenceMedia($key: ID!) {
     taxon(key: $key) {
       occurrenceMedia(limit: 10, offset: 0) {

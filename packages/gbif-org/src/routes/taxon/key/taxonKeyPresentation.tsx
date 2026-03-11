@@ -26,10 +26,11 @@ import { Outlet } from 'react-router-dom';
 import { getTaxonSchema } from '../../../utils/schemaOrg';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
-import SourceDataset from './SourceDataset';
-import SourceLink from './SourceLink';
 import { useIsSpeciesOrBelow } from './taxonUtil';
 import { HelpLine } from '@/components/helpText';
+
+const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
+
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
@@ -59,10 +60,9 @@ export function TaxonKey({
   slowTaxon?: SlowTaxonQuery;
   slowTaxonLoading: boolean;
 }) {
-  if (data.taxon == null) throw new NotFoundError();
+  if (data.taxonInfo?.taxon == null) throw new NotFoundError();
 
   const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
-
   return (
     <PageHeader data={data} vernacularNameInfo={vernacularNameInfo}>
       <TaxonKeyContext.Provider
@@ -145,21 +145,32 @@ const SectionTabs = ({ isNub, hasVerbatim }: { isNub: boolean; hasVerbatim: bool
   return <Tabs links={tabs} />;
 };
 
-const PageHeader = ({ data, vernacularNameInfo, children }) => {
-  const { taxon } = data;
-  const isNub = taxon?.nubKey === taxon?.key;
+const PageHeader = ({
+  data,
+  vernacularNameInfo,
+  children,
+}: {
+  data: TaxonKeyQuery;
+  vernacularNameInfo?: any;
+  children?: React.ReactNode;
+}) => {
+  const { taxonInfo } = data;
+  const taxon = taxonInfo?.taxon;
+  if (!taxon) throw new NotFoundError();
+
+  const isPrimaryTaxonomy = taxonInfo?.taxon?.datasetKey === primaryChecklist;
   const { count, loading: countLoading } = useCount({
     v1Endpoint: '/occurrence/search',
-    params: { taxonKey: taxon.key },
+    params: { taxonKey: taxonInfo?.taxon?.taxonID, checklistKey: primaryChecklist },
   });
 
-  const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
+  const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon.taxonRank);
   return (
     <>
       <PageMetaData
         title={taxon.scientificName}
-        jsonLd={isNub ? getTaxonSchema(data.taxon) : undefined}
-        path={`/species/${taxon.key}`}
+        jsonLd={isPrimaryTaxonomy ? getTaxonSchema(data) : undefined}
+        path={`/species/${taxonInfo?.taxon?.taxonID}`}
         noCanonical
       />
 
@@ -168,7 +179,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={taxon.key} />}
+        apiContent={<ApiContent id={taxon.taxonID} />}
       />
 
       <article>
@@ -192,23 +203,26 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 )
               }
             >
-              <FormattedMessage id={`enums.rank.${taxon.rank}`} defaultMessage={taxon.rank || ''} />
+              <FormattedMessage
+                id={`enums.rank.${taxon.taxonRank}`}
+                defaultMessage={taxon.taxonRank || ''}
+              />
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
             <ArticleTitle className="lg:g-text-3xl">
               <span
                 className="g-me-4"
                 dangerouslySetInnerHTML={{
-                  __html: taxon?.formattedName || taxon?.scientificName || '',
+                  __html: taxon?.label || taxon?.scientificName || '',
                 }}
               />
-              {vernacularNameInfo && (
+              {taxonInfo.vernacularName && (
                 <SimpleTooltip
                   asChild
                   title={
                     <FormattedMessage
                       id="phrases.commonNameAccordingTo"
-                      values={{ source: vernacularNameInfo.source }}
+                      values={{ source: 'Catalogue of Life' }} // TODO taxonapi: if this is no longer a variable, then we can remove the variable
                     />
                   }
                 >
@@ -216,14 +230,14 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                     className="g-text-slate-300 g-inline-flex g-items-center"
                     style={{ fontSize: '85%' }}
                   >
-                    <span className="g-me-1">{vernacularNameInfo.vernacularName}</span>
+                    <span className="g-me-1">{taxonInfo.vernacularName.vernacularName}</span>
                     <MdInfoOutline />
                   </span>
                 </SimpleTooltip>
               )}
             </ArticleTitle>
             <div>
-              {!isNub && taxon.dataset && (
+              {!isPrimaryTaxonomy && taxon.dataset && (
                 <div className="g-mt-2">
                   <FormattedMessage
                     id="taxon.inChecklist"
@@ -249,12 +263,12 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                   <Button asChild variant="link" className="g-p-1">
                     <DynamicLink
                       pageId="speciesKey"
-                      variables={{ key: taxon?.acceptedTaxon?.key.toString() }}
+                      variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
                     >
                       <span
                         dangerouslySetInnerHTML={{
                           __html:
-                            taxon?.acceptedTaxon?.formattedName ||
+                            taxon?.acceptedTaxon?.label ||
                             taxon?.acceptedTaxon?.scientificName ||
                             '',
                         }}
@@ -263,14 +277,13 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                   </Button>
                 </>
               )}
-              {isNub && <SourceDataset taxon={data.taxon} />}
-              {taxon.publishedIn && (
+              {taxon.namePublishedIn && (
                 <span className="g-inline">
                   <FormattedMessage id="taxon.publishedIn" />
                   {': '}
                   <HyperText
                     className="prose-links g-inline [&_p]:g-inline"
-                    text={taxon.publishedIn}
+                    text={taxon.namePublishedIn}
                   />
                 </span>
               )}
@@ -278,8 +291,9 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
             <HeaderInfo>
               <HeaderInfoMain>
                 <FeatureList>
-                  {!isNub && taxon?.references && <Homepage url={taxon.references} />}
-                  {isNub && taxon?.iucnStatus?.distribution?.threatStatus && (
+                  {!isPrimaryTaxonomy && taxon?.references && <Homepage url={taxon.references} />}
+                  {/* TODO taxonapi: what is the equivallent here */}
+                  {/* {isPrimaryTaxonomy && taxon?.iucnStatus?.distribution?.threatStatus && (
                     <GenericFeature>
                       <a href={taxon?.iucnStatus?.references} target="_blank">
                         <img
@@ -288,23 +302,21 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                         />
                       </a>
                     </GenericFeature>
-                  )}
-                  {isNub && isSpeciesOrBelow && (
+                  )} */}
+                  {/* {isPrimaryTaxonomy && isSpeciesOrBelow && (
                     <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
-                  )}
-                  {isNub && (
-                    <GenericFeature>
-                      <SourceLink taxon={data.taxon} />
-                    </GenericFeature>
-                  )}
+                  )} */}
 
-                  {isNub && (
+                  {isPrimaryTaxonomy && (
                     <>
                       <div className="g-flex-auto g-min-w-0" />
                       <Button>
                         <DynamicLink
                           pageId="occurrenceSearch"
-                          searchParams={{ taxonKey: taxon.key.toString() }}
+                          searchParams={{
+                            taxonKey: taxon.taxonID.toString(),
+                            checklistKey: primaryChecklist, // TODO taxonapi: this can be removed once primary checklist is default in occurrence search when taxonKey is used
+                          }}
                         >
                           {countLoading ? (
                             <FormattedMessage id="taxon.loading" />
@@ -319,10 +331,11 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
               </HeaderInfoMain>
             </HeaderInfo>
             <div className="g-border-b g-mt-4"></div>
-            <SectionTabs isNub={isNub} hasVerbatim={taxon?.origin === 'SOURCE'} />
+            {/* TODO taxonapi: not sure what this is */}
+            {/* <SectionTabs isNub={isPrimaryTaxonomy} hasVerbatim={taxon?.origin === 'SOURCE'} /> */}
           </ArticleTextContainer>
         </PageContainer>
-        <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>
+        <ErrorBoundary invalidateOn={taxon?.taxonID}>{children}</ErrorBoundary>
       </article>
     </>
   );

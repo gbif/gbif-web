@@ -215,7 +215,7 @@ const TypeMaterial = ({
 
 export default TypeMaterial;
 
-const TYPE_MATERIAL_QUERY = /* GraphQL */ `
+const TYPE_MATERIAL_QUERY = /* GraphQL_x */ `
   query TaxonTypeSpecimens($from: Int, $size: Int, $predicate: Predicate) {
     occurrenceSearch(predicate: $predicate) {
       _meta

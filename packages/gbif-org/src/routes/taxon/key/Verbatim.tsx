@@ -129,7 +129,7 @@ const VerbatimTaxon = ({ headLess = false }) => {
   );
 };
 
-const VERBATIM_TAXON = /* GraphQL */ `
+const VERBATIM_TAXON = /* GraphQL_x */ `
   query VerbatimTaxon($key: ID!) {
     taxon(key: $key) {
       verbatim

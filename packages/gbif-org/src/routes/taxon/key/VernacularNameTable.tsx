@@ -263,7 +263,7 @@ export function Paging({ next, prev, isLastPage, isFirstPage }: PagingProps) {
   );
 }
 
-const VERNACULAR_NAMES_QUERY = /* GraphQL */ `
+const VERNACULAR_NAMES_QUERY = /* GraphQL_x */ `
   query TaxonVernacularNames($key: ID!, $limit: Int, $offset: Int) {
     taxon(key: $key) {
       vernacularNames(limit: $limit, offset: $offset) {

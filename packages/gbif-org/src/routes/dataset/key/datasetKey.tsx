@@ -47,19 +47,19 @@ const DATASET_QUERY = /* GraphQL */ `
         total
       }
     }
-    totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {
-      count
-    }
-    accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {
-      count
-    }
-    synonyms: taxonSearch(
-      datasetKey: [$key]
-      origin: [SOURCE]
-      status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]
-    ) {
-      count
-    }
+    # totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {
+    #   count
+    # }
+    # accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {
+    #   count
+    # }
+    # synonyms: taxonSearch(
+    #   datasetKey: [$key]
+    #   origin: [SOURCE]
+    #   status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]
+    # ) {
+    #   count
+    # }
     dataset(key: $key) {
       key
       checklistBankDataset {

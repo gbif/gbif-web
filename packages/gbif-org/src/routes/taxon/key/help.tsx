@@ -12,7 +12,7 @@ export function AboutContent() {
   );
 }
 
-export function ApiContent({ id = 5231190 }: { id?: number }) {
+export function ApiContent({ id = 5231190 }: { id?: number | string }) {
   return (
     <div className="g-text-sm g-prose">
       <div className="g-prose g-text-sm [&_h3]:g-m-0 [&_h3]:g-text-sm">
@@ -23,12 +23,12 @@ export function ApiContent({ id = 5231190 }: { id?: number }) {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleSpecies" /> <br />
-        <a href={`https://api.gbif.org/v1/species/${id}`}>https://api.gbif.org/v1/species/{id}</a>
+        <a href={`https://api.gbif.org/v2/taxon/${id}`}>https://api.gbif.org/v2/taxon/{id}</a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchSpecies" /> <br />
-        <a href={`https://api.gbif.org/v1/species/search?q=Passer`}>
-          https://api.gbif.org/v1/species/search?q=passer
+        <a href={`https://api.gbif.org/v2/taxon/search?q=Passer`}>
+          https://api.gbif.org/v2/taxon/search?q=passer
         </a>
       </Card>
     </div>
