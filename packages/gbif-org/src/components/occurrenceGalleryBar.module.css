@@ -4,8 +4,6 @@
   overflow: hidden;
   width: 100%;
   position: relative;
-  margin-left: -6px;
-  margin-right: -6px;
   > button,
   > a {
     position: absolute;
