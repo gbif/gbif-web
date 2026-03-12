@@ -33,8 +33,8 @@ export function is404({
   path,
   errors,
 }: {
-  path: [string];
-  errors?: Array<{ message?: string; path?: [string] }>;
+  path: string[];
+  errors?: Array<{ message?: string; path?: string[] }>;
 }): boolean {
   if (!errors) return false;
   // check if the path match the error path and the message contains 404
@@ -50,9 +50,9 @@ export function throwCriticalErrors({
   query,
   variables,
 }: {
-  errors?: Array<{ message?: string; path?: [string] }>;
+  errors?: Array<{ message?: string; path?: string[] }>;
   requiredObjects?: (object | null | undefined)[];
-  path404: [string];
+  path404: string[];
   query?: string;
   variables?: Record<string, any>;
 }) {

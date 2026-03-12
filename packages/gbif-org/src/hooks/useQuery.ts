@@ -15,6 +15,7 @@ type Options<TVariabels> = {
   lazyLoad?: boolean;
   keepDataWhileLoading?: boolean;
   notifyOnErrors?: string | boolean;
+  notifyOnErrorsFn?: (error: QueryError) => boolean;
   queue?: {
     name?: string;
     concurrent?: number;
@@ -34,6 +35,7 @@ const defaultOptions: Options<unknown> = {
   lazyLoad: false,
   keepDataWhileLoading: false,
   notifyOnErrors: false,
+  notifyOnErrorsFn: undefined,
   queue: {
     name: undefined,
     concurrent: 1,
@@ -71,12 +73,14 @@ export function useQuery<TResult, TVariabels>(
     };
   }, []);
 
+  const { notifyOnErrors, notifyOnErrorsFn } = options;
+
   React.useEffect(() => {
-    if (error && options.notifyOnErrors) {
+    if (error && (notifyOnErrors || notifyOnErrorsFn?.(error))) {
       notifyOfPartialData();
       console.error('Error in useQuery:', error);
     }
-  }, [error, notifyOfPartialData, options.notifyOnErrors]);
+  }, [error, notifyOfPartialData, notifyOnErrors, notifyOnErrorsFn]);
 
   // Prevent a change in variable to trigger a reload if ignoreVariableUpdates has been enabled
   const optionsDependency = React.useMemo(() => {
