@@ -15,7 +15,14 @@ import React, { useEffect, useState } from 'react';
 import { MdAudiotrack, MdImage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import wellknown from 'wellknown';
-import { BasicField, EnumField, HtmlField, LicenseField, PlainTextField, VerbatimTextField } from '../properties';
+import {
+  BasicField,
+  EnumField,
+  HtmlField,
+  LicenseField,
+  PlainTextField,
+  VerbatimTextField,
+} from '../properties';
 import {
   AgentIds,
   CollectionKey,
@@ -391,8 +398,8 @@ function Location({
 }) {
   const [geoJson2] = useState(
     generatePointGeoJson({
-      lat: occurrence?.coordinates.lat as number,
-      lon: occurrence?.coordinates.lon as number,
+      lat: occurrence?.coordinates?.lat as number,
+      lon: occurrence?.coordinates?.lon as number,
     })
   );
   const wkt = wellknown.parse(termMap?.footprintWKT?.value || '');
@@ -405,7 +412,7 @@ function Location({
         </CardTitle>
       </CardHeader>
       <CardContent className="g-w-full">
-        {!!occurrence.coordinates.lon && !!occurrence.coordinates.lat && (
+        {!!occurrence.coordinates?.lon && !!occurrence.coordinates?.lat && (
           <div className="g-mb-4 g-min-w-64">
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
               {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
@@ -810,10 +817,7 @@ function Other({
   // no reason to test this, this group is always present since GBIF id is required
   return (
     <PropGroup label="occurrenceDetails.groups.other" id="other">
-      <LicenseField
-        term={termMap.license}
-        getEnum={(value) => `enums.license.${value}`}
-      />
+      <LicenseField term={termMap.license} getEnum={(value) => `enums.license.${value}`} />
       {/* RECORD LEVEL Actually belongs on Record card, but it seems wrong to put it first on the page, so I've moved it here along with other identifiers */}
       <DynamicProperties termMap={termMap} />
       <PlainTextField term={termMap.institutionCode} showDetails={showAll} />

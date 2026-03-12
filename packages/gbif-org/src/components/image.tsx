@@ -36,14 +36,14 @@ export function ClientImage({
     <div style={{ display: 'inline-block', ...style }}>
       {loading && (
         <div
-          className="g-animate-pulse g-rounded-md g-bg-slate-50 g-text-slate-400 g-flex g-items-center g-justify-center"
+          className="g-animate-pulse g-rounded-md g-bg-slate-50 g-text-slate-400 g-flex g-items-center g-justify-center g-mr-3"
           style={{ width: '100%', height: '100%', ...defaultSize }}
         >
           <MdImage className="g-bg-slate-100" />
         </div>
       )}
       {failed && (
-        <div className="gb-image-failed">
+        <div className="gb-image-failed g-mr-3">
           <div
             style={defaultSize}
             className="g-bg-slate-50 g-text-red-400 g-flex g-items-center g-justify-center g-rounded"

@@ -6,7 +6,8 @@
   position: relative;
   margin-left: -6px;
   margin-right: -6px;
-  > button, > a {
+  > button,
+  > a {
     position: absolute;
     margin: 12px;
     bottom: 0;
@@ -20,27 +21,30 @@
     overflow-y: hidden;
     height: calc(var(--galleryHeight) + 100);
     padding-bottom: 100px;
-    > div {
-      margin-right: 10px;
+    > div,
+    > a {
       flex: 0 0 auto;
       height: var(--galleryHeight);
     }
   }
-  img, .gb-image-failed, div[class^="gb-image-failed"] {
+  img,
+  .gb-image-failed,
+  div[class^='gb-image-failed'] {
     display: block;
     height: var(--galleryHeight);
     margin: 0 6px;
     max-width: initial;
   }
-  .gb-image-failed, div[class^="gb-image-failed"] {
+  .gb-image-failed,
+  div[class^='gb-image-failed'] {
     > div {
       width: 150px;
       height: 100%;
       margin: auto;
       padding: 24px 50px;
       font-size: 24px;
-      color: rgba(0,0,0,.25);
-      background: rgba(0,0,0,.05);
+      color: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.05);
       text-align: center;
     }
   }

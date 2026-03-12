@@ -28,12 +28,17 @@ export function OccurrenceGalleryBar({
       <div>
         {images.map((image) => {
           return (
-            <Image
-              key={image.occurrenceKey + image.thumbor}
-              src={image.thumbor ?? '/missing-image-url'}
-              defaultSize={{ height: 200, width: 200 }}
-              className="g-rounded"
-            />
+            <DynamicLink
+              pageId="occurrenceSearch"
+              searchParams={{ ...searchParams, entity: `o_${image.occurrenceKey}` }}
+            >
+              <Image
+                key={image.occurrenceKey + image.thumbor}
+                src={image.thumbor ?? '/missing-image-url'}
+                defaultSize={{ height: 200, width: 200 }}
+                className="g-rounded g-image"
+              />
+            </DynamicLink>
           );
         })}
       </div>
