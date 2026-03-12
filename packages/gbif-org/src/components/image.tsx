@@ -39,7 +39,7 @@ export function ClientImage({
           className="g-animate-pulse g-rounded-md g-bg-slate-50 g-text-slate-400 g-flex g-items-center g-justify-center"
           style={{ width: '100%', height: '100%', ...defaultSize }}
         >
-          <MdImage />
+          <MdImage className="g-bg-slate-100" />
         </div>
       )}
       {failed && (

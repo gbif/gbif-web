@@ -180,6 +180,27 @@ const typeDef = gql`
     sourceDataset: Dataset
     sourceTaxon: Taxon
     acceptedTaxon: Taxon
+    occurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
+  }
+
+  type TaxonOccurrenceMedia {
+    taxonKey: ID!
+    mediaType: MediaType
+    offset: Int!
+    limit: Int!
+    count: Int
+    endOfRecords: Boolean!
+    results: [TaxonOccurrenceMediaResult!]!
+  }
+
+  type TaxonOccurrenceMediaResult {
+    occurrenceKey: ID!
+    identifier: String
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
   }
 
   type TaxonInfo {

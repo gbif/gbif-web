@@ -1,48 +1,38 @@
-import { ClientImage as Image } from '@/components/image';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Button } from '@/components/ui/button';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { cn } from '@/utils/shadcn';
-import { MdImage } from 'react-icons/md';
-import { FormattedNumber } from 'react-intl';
-import styles from './images.module.css';
+import { OccurrenceGalleryBar } from '@/components/OccurrenceGalleryBar';
+import { useMemo } from 'react';
 
-export function Images({ dataset, className, images = [], link, ...props }) {
-  if (!(images?.documents?.total > 0)) return null;
+export function Images({
+  datasetKey,
+  total,
+  results,
+  className,
+}: {
+  datasetKey: number | string;
+  total: number;
+  results: {
+    key?: number | string | null;
+    stillImages?: Array<{
+      __typename?: 'MultimediaItem';
+      identifier?: string | null;
+    }> | null;
+  }[];
+  className?: string;
+}) {
+  const searchParams = useMemo(() => ({ view: 'GALLERY', datasetKey: [datasetKey] }), [datasetKey]);
+
+  const images = useMemo(() => {
+    return (results || []).flatMap((result) => ({
+      occurrenceKey: '' + result.key,
+      thumbor: result?.stillImages?.[0]?.identifier,
+    }));
+  }, [results]);
+
   return (
-    <div className={cn(`galleryBar ${styles.galleryBar}`, className)} {...props}>
-      <div>
-        {images.documents.results.map((occurrence) => {
-          return (
-            <Image
-              key={occurrence.key}
-              src={occurrence.stillImages[0].identifier}
-              defaultSize={{ height: 200, width: 200 }}
-              className="g-rounded"
-            />
-          );
-        })}
-      </div>
-
-      <Button asChild>
-        {link ? (
-          link
-        ) : (
-          <DynamicLink
-            pageId="occurrenceSearch"
-            searchParams={{ view: 'GALLERY', datasetKey: [dataset.key] }}
-          >
-            <SimpleTooltip title={<span>Records with images</span>} placement="auto">
-              <div className="g-flex g-place-items-center">
-                <MdImage style={{ marginRight: 8 }} />{' '}
-                <span>
-                  <FormattedNumber value={images?.documents?.total} />
-                </span>
-              </div>
-            </SimpleTooltip>
-          </DynamicLink>
-        )}
-      </Button>
-    </div>
+    <OccurrenceGalleryBar
+      images={images}
+      total={total}
+      searchParams={searchParams}
+      className={className}
+    />
   );
 }

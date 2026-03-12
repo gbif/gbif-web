@@ -131,7 +131,6 @@ const TAXON_QUERY = /* GraphQL */ `
         label
         references
         namePublishedIn
-        sourceDatasetKey
         sourceID
         dataset {
           key
@@ -142,14 +141,13 @@ const TAXON_QUERY = /* GraphQL */ `
           label
           scientificName
         }
-        sourceDataset {
-          key
-          title
-        }
-        sourceTaxon {
-          taxonID
-          datasetKey
-          references
+        occurrenceMedia {
+          count
+          results {
+            occurrenceKey
+            identifier
+            thumbor
+          }
         }
       }
       synonyms {
@@ -170,6 +168,7 @@ const TAXON_QUERY = /* GraphQL */ `
         scientificNameAuthorship
         taxonRank
       }
+
       # key
       # nubKey
       # sourceTaxon {

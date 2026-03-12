@@ -67,18 +67,24 @@ export default function AboutBackbone() {
             </aside>
           )} */}
           <div className="g-flex-grow">
-            {/* {(data?.taxon?.imagesCount?.count || 0) > 0 && (
-              <Card className="g-mb-4">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage id="taxon.occurrenceImages" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <OccurrenceImages total={data?.taxon?.imagesCount?.count} taxonKey={taxon.key} />
-                </CardContent>
-              </Card>
-            )} */}
+            {taxon?.occurrenceMedia?.results &&
+              taxon?.occurrenceMedia?.count &&
+              taxon.occurrenceMedia.count > 0 && (
+                <Card className="g-mb-4">
+                  <CardHeader>
+                    <CardTitle>
+                      <FormattedMessage id="taxon.occurrenceImages" />
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <OccurrenceImages
+                      results={taxon.occurrenceMedia.results}
+                      total={taxon.occurrenceMedia.count}
+                      taxonKey={taxon.taxonID}
+                    />
+                  </CardContent>
+                </Card>
+              )}
             {isFamilyOrAbove && taxon.taxonomicStatus === 'ACCEPTED' && (
               <TaxonBreakdown taxon={taxon} className="g-mb-4" />
             )}

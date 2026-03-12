@@ -103,5 +103,24 @@ export default {
         datasetKey: sourceDatasetKey,
       });
     },
+    occurrenceMedia: ({ taxonID, datasetKey }, args, { dataSources }) => {
+      if (datasetKey !== DEFAULT_CHECKLIST_KEY) {
+        return {
+          count: 0,
+          results: [],
+          offset: args.offset,
+          limit: args.limit,
+          endOfRecords: true,
+        }; // occurrence media is only precached for our primary taxonomy. colXR at time of writing
+      }
+
+      return dataSources.taxonAPI.getTaxonOccurrenceMedia({
+        taxonKey: taxonID,
+        limit: 10,
+        offset: 0,
+        mediaType: 'stillImage',
+        ...args,
+      });
+    },
   },
 };

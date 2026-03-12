@@ -310,7 +310,12 @@ export function DatasetKeyAbout() {
 
             {insights?.images?.documents?.total > 0 && (
               <>
-                <Images images={insights?.images} dataset={dataset} className="g-mb-4" />
+                <Images
+                  results={insights?.images?.documents.results}
+                  datasetKey={dataset.key}
+                  total={insights?.images?.documents?.total}
+                  className="g-mb-4"
+                />
               </>
             )}
 
@@ -777,7 +782,10 @@ function DataSummary({ data, insights }: { data: DatasetQuery; insights?: Datase
 
             {colOverlap && (
               <DataSummaryInfo>
-                <FormattedMessage id="counts.colOverlapPercent" values={{ percent: colOverlap }} />{' '}
+                <FormattedMessage
+                  id="counts.colOverlapPercent"
+                  values={{ percent: colOverlap }}
+                />{' '}
               </DataSummaryInfo>
             )}
           </DataSummaryBlock>
