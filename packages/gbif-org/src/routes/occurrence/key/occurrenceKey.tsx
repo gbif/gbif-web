@@ -4,7 +4,6 @@ import { prettifyEnum } from '@/components/filters/displayNames';
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-
 import {
   FeatureList,
   GadmClassification,
@@ -18,8 +17,7 @@ import {
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
-import { useConfig } from '@/config/config';
-import { NotFoundError, NotFoundLoaderResponse } from '@/errors';
+import { NotFoundLoaderResponse } from '@/errors';
 import {
   OccurrenceIssue,
   OccurrenceQuery,
@@ -48,6 +46,8 @@ import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
 import getTitle from './Title';
 import PageMetaData from '@/components/PageMetaData';
+import { notNull } from '@/utils/notNull';
+
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!) {
     occurrence(key: $key) {
@@ -289,8 +289,11 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.occurrence],
   });
 
-  return { errors, data };
+  // throwCriticalErrors will throw if the occurrence is not found, so we can safely assume it exists with !
+  return { errors, occurrence: data!.occurrence! };
 }
+
+export type OccurrenceKeyLoaderResult = Awaited<ReturnType<typeof occurrenceKeyLoader>>;
 
 export const OccurrenceKeyContext = createContext<{
   key?: string;
@@ -314,10 +317,7 @@ const notableCoordinateIssues = [
 
 export function OccurrenceKey() {
   const location = useLocation();
-  const { data, errors } = useLoaderData() as {
-    data: OccurrenceQuery;
-    errors: Array<{ message: string; path: [string] }>;
-  };
+  const { occurrence, errors } = useLoaderData() as OccurrenceKeyLoaderResult;
   const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
@@ -326,37 +326,27 @@ export function OccurrenceKey() {
   }, [errors, notifyOfPartialData]);
 
   const hideGlobe = useBelow(800);
-  const config = useConfig();
   const { locale } = useI18n();
 
-  const {
-    data: slowData,
-    loading: slowLoading,
-    load: slowLoad,
-  } = useQuery<SlowOccurrenceKeyQuery, SlowOccurrenceKeyQueryVariables>(SLOW_OCCURRENCE_QUERY, {
+  const { data: slowData, load: slowLoad } = useQuery<
+    SlowOccurrenceKeyQuery,
+    SlowOccurrenceKeyQueryVariables
+  >(SLOW_OCCURRENCE_QUERY, {
     lazyLoad: true,
     throwAllErrors: false,
     notifyOnErrors: true,
   });
 
   useEffect(() => {
-    if (!data?.occurrence?.key) return;
+    if (!occurrence.key) return;
     slowLoad({
       variables: {
-        key: '' + data?.occurrence?.key,
+        key: occurrence.key.toString(),
         language: locale.iso3LetterCode ?? 'eng',
-        source: config?.vernacularNames?.sourceTitle,
       },
     });
-  }, [
-    slowLoad,
-    data?.occurrence?.key,
-    locale?.iso3LetterCode,
-    config?.vernacularNames?.sourceTitle,
-  ]);
+  }, [slowLoad, occurrence.key, locale?.iso3LetterCode]);
 
-  if (data?.occurrence == null) throw new NotFoundError();
-  const occurrence = data.occurrence;
   const slowOccurrence = slowData?.occurrence;
 
   const { terms } = occurrence;
@@ -382,7 +372,7 @@ export function OccurrenceKey() {
       to: 'related',
       children: <FormattedMessage id="occurrenceDetails.tabs.cluster" defaultMessage="Related" />,
     });
-  if (occurrence?.dynamicProperties) {
+  if (occurrence.dynamicProperties) {
     try {
       const parsedDynamicProperties = JSON.parse(occurrence.dynamicProperties);
       if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
@@ -596,7 +586,7 @@ export function OccurrenceKey() {
                     <FeatureList className="g-mt-2">
                       {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
                       {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
-                        <TypeStatus types={occurrence.typeStatus} />
+                        <TypeStatus types={occurrence.typeStatus.filter(notNull)} />
                       )}
                       {occurrence?.references && <Homepage url={occurrence?.references} />}
                       {occurrence?.volatile?.features?.isSequenced && <Sequenced />}
@@ -615,9 +605,9 @@ export function OccurrenceKey() {
         <ErrorBoundary invalidateOn={occurrence?.key} showReportButton>
           <OccurrenceKeyContext.Provider
             value={{
-              key: occurrence?.key,
-              datasetKey: occurrence?.datasetKey,
-              dynamicProperties: occurrence?.dynamicProperties,
+              key: occurrence.key?.toString() ?? undefined,
+              datasetKey: occurrence?.datasetKey ?? undefined,
+              dynamicProperties: occurrence?.dynamicProperties ?? undefined,
               slowOccurrence,
               occurrence,
             }}

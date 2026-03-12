@@ -1,9 +1,13 @@
-import { OccurrenceQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { OccurrenceKeyAbout } from './about';
 import { OccurrenceKeyCluster } from './cluster';
 import { OccurrenceFragment, occurrenceFragmentLoader } from './fragment';
-import { OccurrenceKey, occurrenceKeyLoader, OccurrenceKeySkeleton } from './occurrenceKey';
+import {
+  OccurrenceKey,
+  occurrenceKeyLoader,
+  OccurrenceKeyLoaderResult,
+  OccurrenceKeySkeleton,
+} from './occurrenceKey';
 import { OccurrenceKeyPhylo } from './phylogenies';
 
 const id = 'occurrenceKey';
@@ -45,5 +49,5 @@ export const occurrenceKeyRoutes: RouteObjectWithPlugins[] = [
 ];
 
 export function useOccurrenceKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: OccurrenceQuery };
+  return useRenderedRouteLoaderData(id) as OccurrenceKeyLoaderResult;
 }
