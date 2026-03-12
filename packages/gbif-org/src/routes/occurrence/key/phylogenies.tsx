@@ -2,30 +2,32 @@
 import { Phylogeny } from '@/components/phylogeny';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import { OccurrenceKeyContext } from './occurrenceKey';
+import EmptyTab from '@/components/EmptyTab';
 
-type Phylogeny = {
+type PhylogenyType = {
   phyloTreeFileName: string;
   phyloTreeTipLabel: string;
 };
 
 export const OccurrenceKeyPhylo = () => {
-  const [phylogenies, setPhylogenies] = useState<Phylogeny[]>([]);
-  const { key, datasetKey, dynamicProperties } = useContext(OccurrenceKeyContext);
+  const { datasetKey, dynamicProperties } = useContext(OccurrenceKeyContext);
 
-  useEffect(() => {
+  const phylogenies = useMemo(() => {
     if (dynamicProperties && datasetKey) {
       try {
         const parsedDynamicProperties = JSON.parse(dynamicProperties);
-        if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
-          setPhylogenies(parsedDynamicProperties?.phylogenies);
-        }
+        return parsedDynamicProperties?.phylogenies as PhylogenyType[];
       } catch (error) {
-        /* empty */
+        return undefined;
       }
     }
   }, [datasetKey, dynamicProperties]);
+
+  if (!phylogenies) {
+    return <EmptyTab />;
+  }
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
