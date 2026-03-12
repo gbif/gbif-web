@@ -1,8 +1,8 @@
 {
   "download": {
-    "unsupported.title": "",
+    "unsupported.title": "Nepodporovaný dotaz",
     "unsupported.description": "",
-    "unsupported.remove": "",
+    "unsupported.remove": "Odebrat filtr",
     "unsupported.error": "",
     "download": "Stáhnout",
     "redirectNotice": "",
