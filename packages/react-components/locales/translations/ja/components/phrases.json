@@ -75,6 +75,5 @@
   "clickToSelect": "クリックして選択",
   "all": "すべて",
   "clear": "消去",
-  "search": "検索",
-  "404Text": "このページは以前に存在したかもしれませんが、探すことができません。[検索](/search) メニューで探してみてください。お気軽に [helpdesk@gbif.org](mailto:helpdesk@gbif.org) までお問い合わせください。"
+  "search": "検索"
 }

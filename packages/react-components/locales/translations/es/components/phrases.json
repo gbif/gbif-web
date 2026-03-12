@@ -75,6 +75,5 @@
   "clickToSelect": "Haz clic para seleccionar",
   "all": "Todos",
   "clear": "Limpiar",
-  "search": "Buscar",
-  "404Text": "Es posible que esta página haya existido en algún momento, pero ya no podemos encontrarla.\nPruebe nuestro [buscador] (/search) para encontrar lo que busca. No dude en ponerse en contacto con nosotros en [helpdesk@gbif.org] (mailto:helpdesk@gbif.org)."
+  "search": "Buscar"
 }

@@ -1,8 +1,8 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Aceptado",
-    "provisionally_accepted": "",
-    "ambiguous_synonym": "",
+    "provisionally_accepted": "Provisionalmente aceptado",
+    "ambiguous_synonym": "Sinónimo ambiguo",
     "synonym": "Sinónimo",
     "misapplied": "Mal aplicado",
     "bare_name": ""

@@ -66,7 +66,7 @@
   "dataset": "Conjunto de datos",
   "taxonomy": "Taxonomía",
   "localContexts": "Cofinanciado por",
-  "localContextsLabelsAppliedBy": "",
+  "localContextsLabelsAppliedBy": "{count, plural, one{Etiqueta} other{Etiquetas}} applied by {communityName}",
   "project": "Proyecto",
   "metrics": "Métricas",
   "metricsOccurrenceHelpText": "Las métricas se basan en datos interpretados",

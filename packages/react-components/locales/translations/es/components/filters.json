@@ -419,23 +419,23 @@
   },
   "island": {
     "name": "Isla",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { isla } other {# islas}}",
+    "description": "El nombre de la isla donde se encuentra."
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { georreferenciado por } other {georreferenciado por #}}",
+    "description": "Los nombres de las personas, grupos u organizaciones responsables de georreferenciar la ocurrencia original."
   },
   "datasetName": {
     "name": "Nombre del conjunto de datos",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { nombre del conjunto de datos } other {# nombres de los conjuntos de datos}}",
+    "description": "El nombre del conjunto de datos utilizado por el publicador. Los registros de un conjunto de datos pueden proceder de varios otros conjuntos de datos."
   },
   "programme": {
     "name": "Programa",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { programa } other {# programas}}",
+    "description": "El nombre del programa con el que está asociado el registro."
   },
   "recordNumber": {
     "name": "Número de registro",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Región GBIF",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { región GBIF } other {# regiones GBIF}}",
+    "description": "La región GBIF de la ubicación."
   },
   "publishedByGbifRegion": {
     "name": "Publicado por la región de GBIF",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { región GBIF } other {# regiones GBIF}}",
+    "description": "La región GBIF en la que se publica el conjunto de datos."
   },
   "eventId": {
     "name": "ID del evento",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Está en una agrupación",
-    "count": "",
+    "count": "{num, plural, one { tiene registros relacionados } other {# tiene registros relacionados}}",
     "description": "Si se determinó que el registro tenía registros relacionados."
   },
   "isSequenced": {
@@ -672,7 +672,7 @@
   },
   "siteNestingDescription": {
     "description": "Descripción textual del diseño de muestreo jerárquico.",
-    "name": "",
+    "name": "Descripción del anidamiento del sitio",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "verbatimSiteDescriptions": {
@@ -686,7 +686,7 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "geospatialScopeAreaValue": {
-    "description": "",
+    "description": "El valor numérico correspondiente al área total del ámbito geoespacial del dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
@@ -776,27 +776,27 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "nonTargetTaxa": {
-    "description": "",
+    "description": "Una lista (concatenada y separada) de taxones notificados durante el evento dwc:Event que se encuentran fuera del ámbito taxonómico objetivo (la combinación de eco:targetTaxonomicScope y eco:excludedTaxonomicScope).",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "areNonTargetTaxaFullyReported": {
-    "description": "",
+    "description": "Se informó sobre cada dwc:Organism que se encontraba fuera del ámbito taxonómico objetivo (la combinación de eco:targetTaxonomicScope y eco:excludedTaxonomicScope) y que se detectó durante el dwc:Event, y que era detectable utilizando el protocolo dado (indicado en eco:protocolDescriptions y dwc:samplingProtocol).",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "targetLifeStageScope": {
-    "description": "",
+    "description": "Las clases de edad o etapas de vida de los dwc:Organisms seleccionados para el muestreo durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "excludedLifeStageScope": {
-    "description": "",
+    "description": "Las clases de edad o etapas de vida de los dwc:Organisms explícitamente excluidos del muestreo durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isLifeStageScopeFullyReported": {
-    "description": "",
+    "description": "Se informó sobre cada dwc:Organism que se incluyó dentro del ámbito de la etapa de vida y que se detectó durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
@@ -816,22 +816,22 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "targetGrowthFormScope": {
-    "description": "",
+    "description": "Las formas de crecimiento o hábitos de los dwc:Organisms seleccionados para el muestreo durante el evento dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "excludedGrowthFormScope": {
-    "description": "",
+    "description": "Las formas de crecimiento o hábitos de los dwc:Organisms explícitamente excluidos del muestreo durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isGrowthFormScopeFullyReported": {
-    "description": "",
+    "description": "Se informó sobre cada dwc:Organism que se incluía en el ámbito de la forma de crecimiento y que se detectó durante el dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "hasNonTargetOrganisms": {
-    "description": "",
+    "description": "Se detectaron y notificaron uno o más dwc:Organisms fuera de los ámbitos de organismos objetivo (eco:targetDegreeOfEstablishmentScope, eco:targetGrowthFormScope y eco:targetLifeStageScope) para este dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
@@ -841,7 +841,7 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "identificationReferences": {
-    "description": "",
+    "description": "Una lista (concatenada y separada) de referencias (publicación, identificador único global, URI) utilizadas en dwc:Identification.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },

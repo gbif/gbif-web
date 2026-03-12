@@ -2,11 +2,11 @@
   "profile": {
     "connect": {
       "connect": "",
-      "disconnect": "",
+      "disconnect": "Odpojit",
       "failed": {
         "FACEBOOK": "Nelze se připojit k Facebooku",
         "GITHUB": "Nelze se připojit ke Githubu",
-        "ORCID": "",
+        "ORCID": "Nelze se připojit k ORCiD",
         "GOOGLE": "Nelze se připojit pomocí Google"
       }
     },
@@ -14,25 +14,25 @@
       "failed": {
         "FACEBOOK": "Nelze se přihlásit s Facebookem",
         "GITHUB": "Nelze se přihlásit s Githubem",
-        "ORCID": "",
+        "ORCID": "Nelze se přihlásit s ORCiD",
         "GOOGLE": "Nelze se přihlásit s Google"
       }
     },
     "error": {
       "USERNAME_NOT_UNIQUE": "Toto uživatelské jméno je již použito",
-      "USER_ALREADY_EXIST": "",
+      "USER_ALREADY_EXIST": "Uživatelské jméno nebo e-mailová adresa se již používá",
       "LOGIN_UNKNOWN": "Toto přihlášení není spojeno s žádným účtem - pokud již účet máte, přihlaste se pomocí uživatelského jména/e-mailu a hesla. Nebo si můžete zaregistrovat nový účet.",
       "PROVIDER_ACCOUNT_ALREADY_IN_USE": "Tento profil je již připojen k jinému účtu",
       "USER_ALREADY_LOGGED_IN": "Jste již přihlášen",
       "EMAIL_IN_USE": "Tento e-mail je již používán",
-      "NO_EMAIL_PROVIDED": "",
+      "NO_EMAIL_PROVIDED": "Nebyla zadána žádná e-mailová adresa",
       "FAILED": "Serveru se nepodařilo zpracovat požadavek",
-      "MISSING_PARAMETERS": "",
-      "CONFIRMATION_FAILED": "",
-      "CRYPTO_NOT_SUPPORTED": "",
-      "PROOF_OF_WORK_FAILED": "",
-      "PROOF_OF_WORK_NOT_READY": "",
-      "UNKNOWN_ERROR": "",
+      "MISSING_PARAMETERS": "Neplatný potvrzovací odkaz. Chybí potvrzovací kód nebo uživatelské jméno.",
+      "CONFIRMATION_FAILED": "Neplatný nebo prošlý potvrzovací kód. Zkontrolujte si prosím e-mail nebo si vyžádejte nový potvrzovací kód.",
+      "CRYPTO_NOT_SUPPORTED": "Váš prohlížeč nepodporuje požadované kryptografické funkce. Aktualizujte prosím svůj prohlížeč nebo zkuste jiný.",
+      "PROOF_OF_WORK_FAILED": "Důkaz o práci selhal. Pro pomoc prosím kontaktujte helpdesk.",
+      "PROOF_OF_WORK_NOT_READY": "Prosím, vyčkejte, než ověříme váš požadavek.",
+      "UNKNOWN_ERROR": "Došlo k neznámé chybě. Zkuste to znovu později.",
       "UNKNOWN_USER": "",
       "LOGIN_FAILED": "",
       "REGISTRATION_FAILED": "",
@@ -147,9 +147,9 @@
     "backToHome": "",
     "registrationFailed": "",
     "invalidSolutionTryAgain": "",
-    "proofOfWorkFailedContactHelpdesk": "",
+    "proofOfWorkFailedContactHelpdesk": "Důkaz o práci selhal. Pro pomoc prosím kontaktujte helpdesk.",
     "waitingForServer": "",
-    "cryptoNotSupported": "",
+    "cryptoNotSupported": "Váš prohlížeč nepodporuje požadované kryptografické funkce. Aktualizujte prosím svůj prohlížeč nebo zkuste jiný.",
     "registrationComplete": "",
     "checkYourEmail": "",
     "registrationSuccessCheckEmail": "",

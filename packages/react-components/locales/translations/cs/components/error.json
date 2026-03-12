@@ -1,5 +1,6 @@
 {
   "generic": "Vyskytla se chyba",
+  "genericRequestFailed": "Požadavek se nezdařil",
   "genericDescription": "Došlo k neočekávané chybě. Zkuste to později.",
   "unknown": "Neznámá chyba",
   "report": "Nahlásit problém",
