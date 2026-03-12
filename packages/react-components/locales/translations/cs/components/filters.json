@@ -181,12 +181,12 @@
     "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
   "biomeType": {
-    "name": "",
+    "name": "Typ Biomu",
     "count": "",
     "description": ""
   },
   "objectClassification": {
-    "name": "",
+    "name": "Klasifikace objektů",
     "count": "",
     "description": ""
   },
