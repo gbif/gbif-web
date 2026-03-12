@@ -27,8 +27,10 @@ import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
 import styles from './wikiIdentifiers.module.css';
 import { NotFoundError } from '@/errors';
+import { useConfig } from '@/config/config';
 
 export default function AboutBackbone() {
+  const config = useConfig();
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
   const { count, loading } = useCount({
@@ -52,10 +54,13 @@ export default function AboutBackbone() {
     key: 'taxonKey',
     value: taxon?.taxonID,
   };
-  const hasPreprocessedMap = useHasMap({
-    type: MapTypes.TaxonKey,
-    identifier: taxon?.taxonID?.toString() ?? '',
-  });
+
+  const hasPreprocessedMap =
+    useHasMap({
+      [MapTypes.TaxonKey]: taxon?.taxonID,
+      checklistKey: config.defaultChecklistKey,
+    }) || true; // TODO taxonapi: remove once the capabilities request actually support checklistKey param
+
   if (!taxon) return null;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -91,7 +96,7 @@ export default function AboutBackbone() {
             {hasPreprocessedMap && (
               <MapWidget
                 className="g-mb-4"
-                capabilitiesParams={{ taxonKey: taxon.taxonID }}
+                capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }}
                 mapStyle="CLASSIC_HEX"
               />
             )}

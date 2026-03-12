@@ -67,8 +67,8 @@ export function DatasetKeyAbout() {
   const { dataset } = data;
   const defaultToc = getToc(data);
   const hasPreprocessedMap = useHasMap({
-    type: MapTypes.DatasetKey,
-    identifier: data?.dataset?.key ?? '',
+    datasetKey: data?.dataset?.key ?? '',
+    checklistKey: config.defaultChecklistKey,
   });
   const hasLocalContext =
     (dataset?.localContexts?.length ?? 0) > 0 && config.experimentalFeatures.localContextEnabled;

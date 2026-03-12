@@ -4,6 +4,7 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { stringify } from '@/utils/querystring';
 import { cn } from '@/utils/shadcn';
 import { useCapabilities } from './mapWidget/outer/useCapabilities';
+import { Params } from './mapWidget/options';
 
 export enum MapTypes {
   DatasetKey = 'datasetKey',
@@ -13,7 +14,6 @@ export enum MapTypes {
   PublishingCountry = 'publishingCountry',
 }
 
-type PrimarySearch = { type: MapTypes; identifier: string };
 type BasemapStyle =
   | 'gbif-classic'
   | 'gbif-light'
@@ -38,23 +38,25 @@ type OverlayStyle =
   | 'red.poly'
   | 'outline.poly';
 
-type Props = PrimarySearch & {
+type Props = {
   basemapStyle?: BasemapStyle;
   overlayStyle?: OverlayStyle;
   blend?: boolean;
   className?: string;
+  capabilitiesParams?: Params; // Additional params to determine if map can be shown, e.g. taxonKey, datasetKey etc. This is used in the useHasMap hook to check if there is data to show on the map, and can be extended with any other params that the capabilities endpoint accepts.
 };
 
 export function MapThumbnail({
-  type,
-  identifier,
+  capabilitiesParams,
   basemapStyle = 'gbif-middle', // default value for basemapStyle
   overlayStyle = 'classic-noborder.poly', // default value for overlayStyle
   blend, // how to blend overaly with basemap
   className,
 }: Props) {
-  const hasMap = useHasMap({ type, identifier });
+  const hasMap = useHasMap(capabilitiesParams ?? {});
   if (!hasMap) return false;
+
+  const queryString = stringify(capabilitiesParams ?? {});
 
   return (
     <div
@@ -80,22 +82,22 @@ export function MapThumbnail({
           onError={(e: any) => (e.target.style.visibility = 'hidden')}
           src={`${
             import.meta.env.PUBLIC_API_V2
-          }/map/occurrence/density/0/0/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${type}=${identifier}`}
+          }/map/occurrence/density/0/0/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${queryString}`}
         />
         <img
           className="g-w-1/2 g-inline-block"
           onError={(e: any) => (e.target.style.visibility = 'hidden')}
           src={`${
             import.meta.env.PUBLIC_API_V2
-          }/map/occurrence/density/0/1/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${type}=${identifier}`}
+          }/map/occurrence/density/0/1/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${queryString}`}
         />
       </div>
     </div>
   );
 }
 
-export function useHasMap({ type, identifier }: PrimarySearch) {
-  const { data } = useCapabilities({ capabilitiesParams: { [type]: identifier } });
+export function useHasMap(capabilitiesParams: Params) {
+  const { data } = useCapabilities({ capabilitiesParams: capabilitiesParams });
   return data && data.total > 0;
 }
 
