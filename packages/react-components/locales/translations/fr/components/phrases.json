@@ -76,6 +76,6 @@
   "all": "Tout",
   "clear": "Effacer",
   "search": "Rechercher",
-  "404Text": "Cette page a probablement déjà existé, mais nous ne la trouvons plus.\nVeuillez essayer notre [search](/search) afin de trouver ce que vous recherchez. Vous avez toujours la possibilité de nous contacter à [helpdesk@gbif.org](mailto:helpdesk@gbif.org).",
-  "unableToLoadAllContent": ""
+  "404Text": "Cette page a probablement déjà existé, mais nous ne la trouvons plus.\nVeuillez essayer notre [barre de recherche](/search) afin de trouver ce que vous recherchez. Vous pouvez en tout temps nous contacter à [helpdesk@gbif.org](mailto:helpdesk@gbif.org).",
+  "unableToLoadAllContent": "Impossible de charger tout le contenu"
 }
