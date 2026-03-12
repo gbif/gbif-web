@@ -46,11 +46,11 @@
       "nubCoveragePct": "",
       "colMatchingCount": "",
       "colCoveragePct": "",
-      "countByKingdom": "",
+      "countByKingdom": "Počet podle říše",
       "countByKingdomDescription": "",
       "countByRank": "",
       "countByRankDescription": "",
-      "countByOrigin": "",
+      "countByOrigin": "Počet podle původu",
       "countByOriginDescription": "",
       "origin": "Původ",
       "countByIssue": "",
@@ -190,6 +190,6 @@
     "occurrenceInfo": "Spolufinancováno"
   },
   "eventTaxonomy": "Taxonomické rozdělení výskytů",
-  "noCitations": "",
+  "noCitations": "Zatím žádné citace",
   "noOccurrences": "Žádné výskyty"
 }
