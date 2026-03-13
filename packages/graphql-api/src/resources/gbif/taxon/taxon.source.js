@@ -30,6 +30,18 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
+  async taxonBreakdown({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${key}/breakdown`).then(
+      (response) => {
+        if (typeof response === 'string') {
+          // TODO taxonapi remove when api is fixed https://github.com/gbif/taxon-ws/issues/12
+          return JSON.parse(response);
+        }
+        return response;
+      },
+    );
+  }
+
   async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
     return this.get(
       `/species/match/metadata?`,

@@ -177,14 +177,24 @@ const typeDef = gql`
     issues: [String]
 
     dataset: Dataset
-    sourceDataset: Dataset
-    sourceTaxon: Taxon
     acceptedTaxon: Taxon
     occurrenceMedia(
       limit: Int
       offset: Int
       mediaType: MediaType
     ): TaxonOccurrenceMedia
+    breakdown(sortByCount: Boolean): [TaxonBreakdown]
+  }
+
+  type TaxonBreakdown {
+    taxonID: ID!
+    scientificName: String!
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String!
+    label: String!
+    species: Int
+    children: [TaxonBreakdown]
   }
 
   type TaxonOccurrenceMedia {

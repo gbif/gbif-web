@@ -83,8 +83,8 @@ export default {
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-    sourceDataset: ({ sourceDatasetKey }, args, { dataSources }) =>
-      dataSources.datasetAPI.getDatasetByKey({ key: sourceDatasetKey }),
+    // sourceDataset: ({ sourceDatasetKey }, args, { dataSources }) =>
+    //   dataSources.datasetAPI.getDatasetByKey({ key: sourceDatasetKey }),
     acceptedTaxon: (
       { acceptedNameUsageID, datasetKey },
       args,
@@ -96,13 +96,13 @@ export default {
         datasetKey,
       });
     },
-    sourceTaxon: ({ sourceID, sourceDatasetKey }, args, { dataSources }) => {
-      if (!sourceID || !sourceDatasetKey) return null;
-      return dataSources.taxonAPI.getTaxon({
-        key: sourceID,
-        datasetKey: sourceDatasetKey,
-      });
-    },
+    // sourceTaxon: ({ sourceID, sourceDatasetKey }, args, { dataSources }) => {
+    //   if (!sourceID || !sourceDatasetKey) return null;
+    //   return dataSources.taxonAPI.getTaxon({
+    //     key: sourceID,
+    //     datasetKey: sourceDatasetKey,
+    //   });
+    // },
     occurrenceMedia: ({ taxonID, datasetKey }, args, { dataSources }) => {
       if (datasetKey !== DEFAULT_CHECKLIST_KEY) {
         return {
@@ -122,5 +122,34 @@ export default {
         ...args,
       });
     },
+    breakdown: (
+      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, // TODO: taxonapi the default value should never be relevant, but currently the API is unstable and only return a datasetKey once in a while.
+      { sortByCount },
+      { dataSources },
+    ) =>
+      dataSources.taxonAPI
+        .taxonBreakdown({ datasetKey, key: taxonID })
+        .then((result) => {
+          return !sortByCount
+            ? result
+            : result
+                .filter((t) => t.species > 0)
+                .map((t) => ({
+                  ...t,
+                  children: t.children
+                    .filter((c) => c.species > 0)
+                    .sort((a, b) => b.species - a.species),
+                }))
+                .sort((a, b) => b.species - a.species);
+        }),
+  },
+  TaxonBreakdown: {
+    // fields are wrongly names in api. rename here for now
+    taxonID: ({ id }) => id,
+    label: ({ labelHtml }) => labelHtml,
+    scientificName: ({ name }) => name,
+    scientificNameAuthorship: ({ authorship }) => authorship,
+    taxonomicStatus: ({ status }) => status,
+    taxonRank: ({ rank }) => rank,
   },
 };

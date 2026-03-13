@@ -13,21 +13,26 @@ import { useNavigate } from 'react-router-dom';
 import { getBreakdown, getSourceTaxon } from './breakdownUtil';
 const fmIndex = rankEnum.indexOf('FAMILY');
 
-const TaxonBreakdown = ({ taxon, ...props }) => {
+const TaxonBreakdown = ({
+  taxon,
+  ...props
+}: {
+  taxon: { taxonID: string; datasetKey: string; taxonRank: string };
+}) => {
   const [chartOptions, setChartOptions] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const createLink = useLink();
   const navigate = useNavigate();
 
-  const isBackbone = taxon?.nubKey === taxon?.key;
+  const isBackbone = true; //taxon?.datasetKey === taxon?.taxonID;
 
   useEffect(() => {
     setChartOptions({});
-    if (taxon.key) {
+    if (taxon.taxonID) {
       getData();
     }
-  }, [taxon.key]);
+  }, [taxon.taxonID]);
 
   const navigateToTaxon = async (key) => {
     if (isBackbone) {
@@ -58,7 +63,10 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
     try {
       setLoading(true);
       setError(null);
-      const { promise, cancel } = getBreakdown({ key: taxon.key });
+      const { promise, cancel } = getBreakdown({
+        key: taxon.taxonID,
+        datasetKey: taxon.datasetKey,
+      });
       const { data, errors } = await promise;
       if (!data?.taxon?.checklistBankBreakdown) {
         if (errors?.[0]) {
@@ -69,10 +77,15 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
         return;
       }
       let root;
+      const speciesCount = data?.taxon?.checklistBankBreakdown?.reduce(
+        //TODO taxonapi: this should come from graphql once the API is updated with it. When that happens the breakdown graphql will need to be updated as well
+        (acc, cur) => acc + cur?.species,
+        0
+      );
       if (
         data?.taxon?.checklistBankBreakdown?.length > 25 ||
-        rankEnum.indexOf(taxon.rank) >= fmIndex ||
-        (data?.taxon?.checklistBankBreakdown?.length === 0 && taxon.speciesCount > 0)
+        rankEnum.indexOf(taxon.taxonRank) >= fmIndex ||
+        (data?.taxon?.checklistBankBreakdown?.length === 0 && speciesCount > 0)
       ) {
         root = [
           {
@@ -80,7 +93,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
             name: data.taxon?.scientificName,
             rank: data.taxon?.rank,
             species:
-              taxon.speciesCount ||
+              speciesCount ||
               data.taxon?.checklistBankBreakdown?.reduce((acc, cur) => acc + cur?.species, 0),
             children: data.taxon?.checklistBankBreakdown,
           },

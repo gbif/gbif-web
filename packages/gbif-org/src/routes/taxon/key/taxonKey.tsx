@@ -168,7 +168,6 @@ const TAXON_QUERY = /* GraphQL */ `
         scientificNameAuthorship
         taxonRank
       }
-
       # key
       # nubKey
       # sourceTaxon {

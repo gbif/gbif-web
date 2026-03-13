@@ -14,10 +14,10 @@ const graphqlService = new GraphQLService({
   locale: 'en',
 });
 
-export const getBreakdown = ({ key }: { key: string }) => {
+export const getBreakdown = ({ key, datasetKey }: { key: string; datasetKey: string }) => {
   const promise = graphqlService.query<TaxonBreakdownQuery, TaxonBreakdownQueryVariables>(
     TAXON_BREAKDOWN,
-    { key }
+    { key, datasetKey }
   );
   return {
     promise: promise.then((res) => res.json()),
@@ -42,23 +42,23 @@ export const getSourceTaxon = ({
   };
 };
 
-const TAXON_BREAKDOWN = /* GraphQL_x */ `
-  query TaxonBreakdown($key: ID!) {
-    taxon(key: $key) {
-      key
-      rank
+const TAXON_BREAKDOWN = /* GraphQL */ `
+  query TaxonBreakdown($key: ID!, $datasetKey: ID!) {
+    taxon(key: $key, datasetKey: $datasetKey) {
+      key: taxonID
+      rank: taxonRank
       scientificName
-      checklistBankBreakdown {
-        id
+      checklistBankBreakdown: breakdown(sortByCount: true) {
+        id: taxonID
         label
-        name
-        rank
+        name: scientificName
+        rank: taxonRank
         species
         children {
-          id
+          id: taxonID
           label
-          name
-          rank
+          name: scientificName
+          rank: taxonRank
           species
         }
       }
