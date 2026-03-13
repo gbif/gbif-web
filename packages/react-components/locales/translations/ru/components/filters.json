@@ -677,7 +677,7 @@
   },
   "verbatimSiteDescriptions": {
     "description": "Первоначальное текстовое описание сайта(сайтов).",
-    "name": "Дословное описание сайта",
+    "name": "Дословные описание сайтов",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "verbatimSiteNames": {
@@ -801,113 +801,113 @@
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "targetDegreeOfEstablishmentScope": {
-    "description": "",
-    "name": "",
+    "description": "Степень установившихся целевых dwc:Organisms при отборе проб во время события dwc:Event.",
+    "name": "Целевая степень установившихся организмов в обзоре",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "excludedDegreeOfEstablishmentScope": {
-    "description": "",
-    "name": "",
+    "description": "Степень установившихся dwc:Organisms, явным образом исключенных из отбора проб во время события dwc:Event",
+    "name": "Степень исключенных организмов в обзоре",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isDegreeOfEstablishmentScopeFullyReported": {
-    "description": "",
-    "name": "",
+    "description": "Сообщалось о каждом dwc:Organism, который был включен в степень установившихся в обзоре и был обнаружен во время события dwc:Event",
+    "name": "Сообщалось ли о каждом случае степени установившегося организма в обзоре",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "targetGrowthFormScope": {
-    "description": "",
-    "name": "",
+    "description": "Растущие формы или окружающая среда целевых dwc:Organisms во время отбора проб события dwc:Event",
+    "name": "Обзор целевых растущих форм при обзоре",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "excludedGrowthFormScope": {
-    "description": "",
-    "name": "",
+    "description": "Растущие формы или окружающая среда dwc:Organisms, которые были явно исключены из отбора проб во время события dwc:Event.",
+    "name": "Обзор исключенных растущих форм",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isGrowthFormScopeFullyReported": {
-    "description": "",
-    "name": "",
+    "description": "Сообщалось ли о каждом dwc:Organism, который был включен в обзор растущих форм и был обнаружен во время события dwc:Event",
+    "name": "Полностью ли сообщалось в обзоре о растущих формах?",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "hasNonTargetOrganisms": {
-    "description": "",
-    "name": "",
+    "description": "Один или более dwc:Organisms, находящиеся вне целевого охвата (eco:targetDegreeOfEstablishmentScope, eco:targetGrowthFormScope, and eco:targetLifeStageScope) были обнаружены и зафиксированы в отчете о результатах dwc:Event.",
+    "name": "Были ли обнаружены нецелевые организмы?",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "verbatimTargetScope": {
-    "description": "",
-    "name": "",
+    "description": "Дословное оригинальное описание события в обзоре dwc:Event",
+    "name": "Дословный целевой обзор",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "identificationReferences": {
-    "description": "",
-    "name": "",
+    "description": "Список (объединенный и разделенный) ссылок (публикация, глобальный уникальный идентификатор, URI), использованных в ходе идентификации dwc:Identification.",
+    "name": "Источники, использованные в ходе идентификации",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "compilationTypes": {
-    "description": "",
-    "name": "",
+    "description": "Утверждение, определяющее, получены ли отчётные данные непосредственно в ходе событий (мероприятий) по учету, или являются вспомогательными данными, скомпилированных из других источников, или комбинацией обоих подходов.",
+    "name": "Типы компиляции",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "compilationSourceTypes": {
-    "description": "",
-    "name": "",
+    "description": "Типы источников данных, использованные для представленной компиляции.",
+    "name": "Типы источников данных для компиляции",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "inventoryTypes": {
-    "description": "",
-    "name": "",
+    "description": "Типы (методы) учетных работ, использованных при проведении инвентаризации.",
+    "name": "Типы инвентаризации",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "protocolNames": {
-    "description": "",
-    "name": "",
+    "description": "Категориальные описательные названия методов использованных во время события dwc:Event",
+    "name": "Наименования протоколов",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "protocolDescriptions": {
-    "description": "",
-    "name": "",
+    "description": "Подробное описание методов, применявшихся во время события dwc:Event.",
+    "name": "Описание протокола",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "protocolReferences": {
-    "description": "",
-    "name": "",
+    "description": "Ссылки на методы, использованные во время события dwc:Event",
+    "name": "Ссылки на протоколы",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isAbundanceReported": {
-    "description": "",
-    "name": "",
+    "description": "Количество dwc:Organisms, которые были собраны или наблюдались, указано в отчете.",
+    "name": "Сообщается ли об обилии",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isAbundanceCapReported": {
-    "description": "",
+    "description": "Сообщается ли о максимальном числе dwc:Organisms, или об их ограничении, как указано в используемых протоколах?",
     "name": "",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "abundanceCap": {
-    "description": "",
-    "name": "",
+    "description": "Максимальное число dwc:Organisms, о котором сообщается",
+    "name": "Ограничение изобилия",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isVegetationCoverReported": {
-    "description": "",
-    "name": "",
+    "description": "Был представлен показатель растительного покрова",
+    "name": "Был ли представлен показатель растительного покрова",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
-    "description": "",
-    "name": "",
+    "description": "Общее количество dwc:Taxon (включая подкатегории), выявленное в ходе dwc:Event, явно приведено в одной записи (значение в поле dwc:organismQuantity) для данного dwc:Taxon.",
+    "name": "Включает ли в себя количество, приведенное для общей целевой категории, наименьшее значение\n\n",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "hasVouchers": {
-    "description": "",
-    "name": "",
+    "description": "Количество ваучеров образцов, собранных во время события dwc:Event.",
+    "name": "Ваучеры были собраны",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "voucherInstitutions": {
-    "description": "",
-    "name": "",
+    "description": "Список (объединённый и разделённый) названий или аббревиатур учреждений, куда были сданы в ходе исследования dwc:Event ваучеры",
+    "name": " Учреждения с ваучерами",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "hasMaterialSamples": {
