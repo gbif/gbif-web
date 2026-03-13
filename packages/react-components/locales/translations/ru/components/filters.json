@@ -786,18 +786,18 @@
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "targetLifeStageScope": {
-    "description": "",
-    "name": "",
+    "description": "Классы возрастов стадий жизни dwc:Organisms, предназначенных для отбора проб во время события dwc:Event.",
+    "name": "Целевой обзор стадий жизни",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "excludedLifeStageScope": {
-    "description": "",
-    "name": "",
+    "description": "Классы возрастов стадий жизни dwc:Organisms, явным образом исключенных из отбора проб во время события dwc:Event.",
+    "name": "Обзор исключенных стадий жизни",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isLifeStageScopeFullyReported": {
-    "description": "",
-    "name": "",
+    "description": "Сообщалось о каждом dwc:Organism, который был исключен из обзора стадий жизни и был обнаружен во время события dwc:Event",
+    "name": "Представлен ли полностью обзор стадий жизни",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "targetDegreeOfEstablishmentScope": {
