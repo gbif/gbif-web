@@ -75,5 +75,7 @@
   "clickToSelect": "",
   "all": "",
   "clear": "",
-  "search": ""
+  "search": "",
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }

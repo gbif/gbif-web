@@ -75,5 +75,7 @@
   "clickToSelect": "Klik om te selecteren",
   "all": "Alle",
   "clear": "Leegmaken",
-  "search": "Zoeken"
+  "search": "Zoeken",
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }
