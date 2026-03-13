@@ -311,25 +311,28 @@ export async function datasetLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.dataset],
   });
 
-  return { errors, data };
+  return {
+    errors,
+    data: {
+      ...data,
+      dataset: data.dataset!,
+    },
+  };
 }
+
+type DatasetKeyLoaderResult = Awaited<ReturnType<typeof datasetLoader>>;
 
 export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
   const config = useConfig();
-  const { errors, data } = useLoaderData() as {
-    data: DatasetQuery;
-    errors: Array<{ message: string; path: [string] }>;
-  };
+  const { errors, data } = useLoaderData() as DatasetKeyLoaderResult;
   const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
       notifyOfPartialData();
     }
   }, [errors, notifyOfPartialData]);
-
-  if (data.dataset == null) throw new NotFoundError();
 
   const dataset = data.dataset;
   const deletedAt = dataset.deleted;
@@ -366,7 +369,7 @@ export function DatasetPage() {
     }
   }
 
-  const hasTaxonomy = !!dataset?.checklistBankDataset?.key;
+  const hasTaxonomy = !!dataset.checklistBankDataset?.key;
   const withEventId = occData?.withEvents?.documents?.total || 0;
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
@@ -432,13 +435,12 @@ export function DatasetPage() {
     hasPhylogeny,
     hasTaxonomy,
     withEventId,
-    dataset?.type,
-    dataset?.project,
+    dataset.type,
+    dataset.project,
     config.datasetKey?.showEvents,
   ]);
 
   useEffect(() => {
-    if (dataset.key === null) return;
     const datasetPredicate = {
       type: PredicateType.Equals,
       key: 'datasetKey',
@@ -511,8 +513,8 @@ export function DatasetPage() {
         title={dataset.title}
         description={dataset.description}
         jsonLd={getDatasetSchema(dataset)}
-        noindex={!!dataset?.deleted}
-        nofollow={!!dataset?.deleted}
+        noindex={!!dataset.deleted}
+        nofollow={!!dataset.deleted}
       />
       <Helmet>
         {dataset.doi && <meta name="DC.identifier" content={dataset.doi} />}
@@ -540,7 +542,7 @@ export function DatasetPage() {
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={dataset?.key?.toString()} />}
+        apiContent={<ApiContent id={dataset.key} />}
         doi={dataset.doi}
       />
       <article>
@@ -572,7 +574,7 @@ export function DatasetPage() {
                 pageId="publisherKey"
                 variables={{ key: dataset.publishingOrganizationKey }}
               >
-                {dataset?.publishingOrganizationTitle ?? (
+                {dataset.publishingOrganizationTitle ?? (
                   <PublisherLabel id={dataset.publishingOrganizationKey} />
                 )}
               </DynamicLink>
@@ -618,7 +620,7 @@ export function DatasetPage() {
                       values={{ total: contactsCitation.length }}
                     />
                   )} */}
-                  <Homepage url={dataset.homepage} />
+                  {dataset.homepage && <Homepage url={dataset.homepage} />}
                   <GenericFeature>
                     <LicenceTag value={dataset.license} />
                   </GenericFeature>
@@ -644,7 +646,7 @@ export function DatasetPage() {
                     </DynamicLink>
                   </Button>
                 )}
-                {(occurrenceCountOrZero > 0 || dataset?.type === 'OCCURRENCE') && (
+                {(occurrenceCountOrZero > 0 || dataset.type === 'OCCURRENCE') && (
                   <Button className="g-py-1 g-px-2 g-h-[2rem]" asChild isLoading={loading}>
                     <DynamicLink
                       to="occurrenceSearch"
@@ -668,8 +670,8 @@ export function DatasetPage() {
         </PageContainer>
         <DatasetKeyContext.Provider
           value={{
-            datasetType: data?.dataset?.type,
-            datasetKey: data?.dataset?.key,
+            datasetType: dataset.type ?? undefined,
+            datasetKey: dataset.key,
             dynamicProperties:
               occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,
             contentMetrics: occData,

@@ -1,8 +1,9 @@
 import config from '@/config';
-import { excerpt, getHtml } from '@/helpers/utils';
+import { excerpt, getHtml, isValidUuid } from '@/helpers/utils';
 import { getFacet } from '../getQueryMetrics';
 import { getDatasetEventCount, getDatasetEvents } from './event';
 import { getContributors } from './helpers/contributors';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
 
 const getSourceSearch = (dataSources) => (args) =>
   dataSources.datasetAPI.searchDatasets.call(dataSources.datasetAPI, args);
@@ -27,8 +28,12 @@ export const Query = {
     }),
   datasetList: (parent, args, { dataSources }) =>
     dataSources.datasetAPI.listDatasets({ query: args }),
-  dataset: (parent, { key }, { dataSources }) =>
-    dataSources.datasetAPI.getDatasetByKey({ key }),
+  dataset: (parent, { key }, { dataSources }) => {
+    if (!isValidUuid(key)) {
+      throw new NotFoundError();
+    }
+    return dataSources.datasetAPI.getDatasetByKey({ key });
+  },
   clbNameUsageSuggest: (
     parent,
     { checklistKey = config.defaultChecklist, q, limit = 20 },
