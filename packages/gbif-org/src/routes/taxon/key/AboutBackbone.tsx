@@ -109,7 +109,7 @@ export default function AboutBackbone() {
                 </CardHeader>
                 <CardContent>
                   {/* <Synonyms
-                    taxonKey={taxon.key}
+                    taxonKey={taxon.taxonID}
                     slowTaxon={slowTaxon}
                     loading={slowTaxonLoading}
                     total={data?.taxon?.synonyms?.results?.length}
@@ -131,7 +131,7 @@ export default function AboutBackbone() {
               </ErrorBoundary>
             )} */}
 
-            {/* {(taxon?.vernacular?.results?.length ?? 0) > 0 && (
+            {(taxonInfo?.vernacularNames?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">
                 <CardHeader>
                   <CardTitle>
@@ -143,14 +143,11 @@ export default function AboutBackbone() {
                     type="BLOCK"
                     errorMessage={<FormattedMessage id="taxon.errors.vernacularNames" />}
                   >
-                    <VernacularNameTable
-                      total={taxon?.vernacular?.results?.length || 0}
-                      taxonKey={taxon.key}
-                    />
+                    <VernacularNameTable vernacularNames={taxonInfo?.vernacularNames} />
                   </ErrorBoundary>
                 </CardContent>
               </Card>
-            )} */}
+            )}
 
             {/* {isSpeciesOrBelow && (
               <ErrorBoundary
