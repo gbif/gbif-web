@@ -390,12 +390,12 @@
   "sex": {
     "name": "Pohlaví",
     "count": "",
-    "description": ""
+    "description": "Pohlaví organismu"
   },
   "lifeStage": {
     "name": "Životní fáze",
     "count": "",
-    "description": ""
+    "description": "Životní stádium organismu"
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
@@ -410,7 +410,7 @@
   "verbatimTaxonId": {
     "name": "Přesné ID taxonu",
     "count": "",
-    "description": ""
+    "description": "Identifikátor taxonu jak byl poskytnut od vydavatele"
   },
   "islandGroup": {
     "name": "Skupina ostrovů",
@@ -707,12 +707,12 @@
   },
   "reportedWeather": {
     "description": "",
-    "name": "",
+    "name": "Nahlášené počasí",
     "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
   },
   "reportedExtremeConditions": {
-    "description": "",
-    "name": "",
+    "description": "Popis jakýchkoli extrémních povětrnostních podmínek nebo podmínek prostředí, které mohly ovlivnit událost dwc:Event.",
+    "name": "Hlášené extrémní podmínky",
     "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
   },
   "targetHabitatScope": {
