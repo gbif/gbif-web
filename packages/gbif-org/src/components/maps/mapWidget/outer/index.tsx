@@ -37,9 +37,6 @@ type Props = {
   persistStyleSelection?: boolean;
 };
 
-const LOWER_LIMIT = 1500;
-const UPPER_LIMIT = new Date().getFullYear();
-
 const defaultRasterStyles = mapWidgetOptions.predefined.find((x) => x.name === 'GREEN')!;
 const defaultCapabilitiesParams = {}; // Stable reference as fallback prop to prevent cascading rerenders without any real change
 
@@ -166,18 +163,22 @@ export function MapWidgetOuter({
     }
   }, [rasterStyles, persistStyleSelection]);
 
-  const yearFilter = (
-    <YearFilter
-      isYearFilterActive={isYearFilterActive}
-      setIsYearFilterActive={setIsYearFilterActive}
-      startYear={startYear}
-      endYear={endYear}
-      setStartYear={setStartYear}
-      setEndYear={setEndYear}
-      lowerLimit={capabilities?.minYear ?? LOWER_LIMIT}
-      upperLimit={capabilities?.maxYear ?? UPPER_LIMIT}
-    />
-  );
+
+  let yearFilter: React.ReactNode = <div/>;
+  if (typeof capabilities?.minYear === 'number' && typeof capabilities?.maxYear === 'number' && (capabilities.minYear !== capabilities.maxYear)) {
+    yearFilter = (
+      <YearFilter
+        isYearFilterActive={isYearFilterActive}
+        setIsYearFilterActive={setIsYearFilterActive}
+        startYear={startYear}
+        endYear={endYear}
+        setStartYear={setStartYear}
+        setEndYear={setEndYear}
+        lowerLimit={capabilities.minYear}
+        upperLimit={capabilities.maxYear}
+      />
+    );
+  }
 
   return (
     <div className={cn('g-w-full', className)}>
