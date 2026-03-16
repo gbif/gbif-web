@@ -115,7 +115,7 @@ export function BarItem({ children, percent = 0, ...props }) {
     <SimpleTooltip 
       asChild 
       title={<FormattedMessage id="counts.nPercentOfTotal" values={{ percentage: formatAsPercentage(percent/100) }} />}
-      side="right"
+      side="left"
     >
       <div
         className="g-relative"
