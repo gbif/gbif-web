@@ -18,7 +18,7 @@ export function HeaderActionButtons({ activeTab }: Props) {
   return (
     <div className="g-flex g-flex-wrap g-gap-x-4">
       {activeTab === 'news' && <RssLink rssUrl={`${v1Endpoint}/newsroom/news/rss`} />}
-      {activeTab === 'dataUse' && <RssLink rssUrl={`${v1Endpoint}/dataUse/rss`} />}
+      {activeTab === 'dataUse' && <RssLink rssUrl={`${v1Endpoint}/newsroom/uses/rss`} />}
       {activeTab === 'event' && (
         <>
           <BaseHeaderActionLink icon={MdAdd} url="/suggest-event">
