@@ -4,6 +4,7 @@ export const configDefault: Partial<Config> = {
   isGBIFOrg: false,
   testSite: import.meta.env.PUBLIC_TEST_SITE === 'true',
   defaultChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+  defaultMapChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
   availableChecklistKeys: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   hardcodedKeys: {
     OBISKey: import.meta.env.PUBLIC_KEYS_OBIS_NODE,

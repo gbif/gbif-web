@@ -55,11 +55,10 @@ export default function AboutBackbone() {
     value: taxon?.taxonID,
   };
 
-  const hasPreprocessedMap =
-    useHasMap({
-      [MapTypes.TaxonKey]: taxon?.taxonID,
-      checklistKey: config.defaultChecklistKey,
-    }) || true; // TODO taxonapi: remove once the capabilities request actually support checklistKey param
+  const hasPreprocessedMap = useHasMap({
+    [MapTypes.TaxonKey]: taxon?.taxonID,
+    checklistKey: config.defaultChecklistKey,
+  });
 
   if (!taxon) return null;
   return (

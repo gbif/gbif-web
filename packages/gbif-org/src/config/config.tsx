@@ -75,6 +75,7 @@ export type Config = Endpoints & {
   };
   notFoundPageImageUrl?: string;
   defaultChecklistKey?: string;
+  defaultMapChecklistKey?: string;
   availableChecklistKeys?: string[];
   suggest?: {
     gadm?: { type: 'PARAMS'; value: { gadmGid: string } };
