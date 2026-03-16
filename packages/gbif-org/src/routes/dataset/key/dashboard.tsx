@@ -312,17 +312,17 @@ function CitationMetrics({ predicate }: { predicate: Predicate }) {
   return (
     <ClientSideOnly>
       <DashBoardLayout>
-        <LiteratureCreatedAt visibilityThreshold={1} predicate={predicate} />
-        <LiteratureTopics visibilityThreshold={1} predicate={predicate} />
-        <LiteratureRelevance visibilityThreshold={1} predicate={predicate} />
-        <LiteratureType visibilityThreshold={1} predicate={predicate} />
+        <LiteratureCreatedAt visibilityThreshold={0} predicate={predicate} />
+        <LiteratureTopics visibilityThreshold={0} predicate={predicate} />
+        <LiteratureRelevance visibilityThreshold={0} predicate={predicate} />
+        <LiteratureType visibilityThreshold={0} predicate={predicate} />
         <LiteratureCountriesOfCoverage
-          visibilityThreshold={1}
+          visibilityThreshold={0}
           predicate={predicate}
           options={['TABLE', 'PIE', 'COLUMN']}
         />
         <LiteratureCountriesOfResearcher
-          visibilityThreshold={1}
+          visibilityThreshold={0}
           predicate={predicate}
           options={['TABLE', 'PIE', 'COLUMN']}
         />
