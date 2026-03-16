@@ -1,6 +1,8 @@
-import { FormattedNumber as Number } from 'react-intl';
+import { FormattedMessage, FormattedNumber as Number } from 'react-intl';
 import { Skeleton } from '../ui/skeleton';
 import { CardHeader as CardHeaderSmall } from '../ui/smallCard';
+import { SimpleTooltip } from '../simpleTooltip';
+import formatAsPercentage from '@/utils/formatAsPercentage';
 
 export function Card({ padded = true, loading, error, className, children, ...props }) {
   if (error) {
@@ -108,32 +110,39 @@ export function Table({ padded = true, removeBorder, ...props }) {
 }
 
 export function BarItem({ children, percent = 0, ...props }) {
+  console.log(percent)
   return (
-    <div
-      className="g-relative"
-      // css={css`position: relative;`}
+    <SimpleTooltip 
+      asChild 
+      title={<FormattedMessage id="counts.nPercentOfTotal" values={{ percentage: formatAsPercentage(percent/100) }} />}
+      side="right"
     >
       <div
-        className="g-absolute g-left-0 g-bg-primary g-opacity-20 g-rounded"
-        style={{ width: `${percent}%`, height: '1.6em' }}
-        // css={css`
-        //   position: absolute;
-        //   left: 0;
-        //   width: ${percent}%;
-        //   height: 1.6em;
-        //   border-radius: var(--borderRadiusPx);
-        //   background: var(--primary);
-        //   opacity: .2;
-        //   `}
-        {...props}
-      ></div>
-      <div
-        className="g-z-10 g-ms-1"
-        // css={css`z-index: 1; margin-left: 6px;`}
+        className="g-relative"
+        // css={css`position: relative;`}
       >
-        {children}
+        <div
+          className="g-absolute g-left-0 g-bg-primary g-opacity-20 g-rounded"
+          style={{ width: `${percent}%`, height: '1.6em' }}
+          // css={css`
+          //   position: absolute;
+          //   left: 0;
+          //   width: ${percent}%;
+          //   height: 1.6em;
+          //   border-radius: var(--borderRadiusPx);
+          //   background: var(--primary);
+          //   opacity: .2;
+          //   `}
+          {...props}
+        />
+        <div
+          className="g-z-10 g-ms-1"
+          // css={css`z-index: 1; margin-left: 6px;`}
+        >
+          {children}
+        </div>
       </div>
-    </div>
+    </SimpleTooltip>
   );
 }
 
