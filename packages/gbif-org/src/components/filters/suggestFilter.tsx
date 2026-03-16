@@ -165,9 +165,9 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
       const selectedFacetLookup =
         selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
-          acc[x.name] = x.count;
-          return acc;
-        }, {} as Record<string, number>) ?? {};
+            acc[x.name] = x.count;
+            return acc;
+          }, {} as Record<string, number>) ?? {};
       setFacetLookup(selectedFacetLookup);
     }, [selectedFacetData]);
 
@@ -343,18 +343,15 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         <span className="g-flex-auto">
                           <DisplayName id={x} />
                         </span>
-                        {!useNegations &&
-                          !selectedFacetLoading &&
-                          !selectedFacetError &&
-                          !disableFacetsForSelected && (
-                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              {typeof facetLookup[x] === 'number' ? (
-                                <FormattedNumber value={facetLookup[x] ?? 0} />
-                              ) : (
-                                <Skeleton className="g-h-4 g-w-8" />
-                              )}
-                            </span>
-                          )}
+                        {!useNegations && !selectedFacetError && !disableFacetsForSelected && (
+                          <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                            {selectedFacetLoading || !selectedFacetData ? (
+                              <Skeleton className="g-h-4 g-w-8" />
+                            ) : (
+                              <FormattedNumber value={facetLookup[x] ?? 0} />
+                            )}
+                          </span>
+                        )}
                       </div>
                     </Option>
                   );
