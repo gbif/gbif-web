@@ -108,10 +108,6 @@ export function createResourceLoaderWithRedirect(options: Options) {
       requiredObjects: [data?.resource],
     });
 
-    if (errors) {
-      throw new QueryError({ graphQLErrors: errors, query, variables: { key } });
-    }
-
     // Validate the structure of the response
     const parseResult = DataSchema.safeParse(data);
     if (parseResult.success === false) {
