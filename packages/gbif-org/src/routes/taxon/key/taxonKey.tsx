@@ -130,6 +130,7 @@ const TAXON_QUERY = /* GraphQL */ `
         taxonomicStatus
         label
         references
+        acceptedNameUsageID
         namePublishedIn
         sourceID
         dataset {
@@ -151,9 +152,14 @@ const TAXON_QUERY = /* GraphQL */ `
         }
       }
       synonyms {
-        scientificName
-        scientificNameAuthorship
-        taxonRank
+        homotypic {
+          taxonID
+          label
+        }
+        heterotypic {
+          taxonID
+          label
+        }
       }
       vernacularNames {
         vernacularName
@@ -247,7 +253,7 @@ const TAXON_QUERY = /* GraphQL */ `
 `;
 
 const SLOW_TAXON = /* GraphQL */ `
-  query SlowTaxon($key: ID!, $language: String, $datasetKey: ID!) {
+  query SlowTaxon($key: ID!, $datasetKey: ID!) {
     taxon: taxonInfo(key: $key, datasetKey: $datasetKey) {
       group
       # key

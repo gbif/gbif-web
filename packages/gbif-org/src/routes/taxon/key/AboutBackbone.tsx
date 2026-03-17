@@ -28,6 +28,7 @@ import WikiDataIdentifiers from './WikiDataIdentifiers';
 import styles from './wikiIdentifiers.module.css';
 import { NotFoundError } from '@/errors';
 import { useConfig } from '@/config/config';
+import { CardDescription } from '@/components/ui/smallCard';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -54,6 +55,9 @@ export default function AboutBackbone() {
     key: 'taxonKey',
     value: taxon?.taxonID,
   };
+
+  const hasSynonyms =
+    taxonInfo.synonyms?.homotypic?.length > 0 || taxonInfo.synonyms?.heterotypic?.flat().length > 0;
 
   const hasPreprocessedMap = useHasMap({
     [MapTypes.TaxonKey]: taxon?.taxonID,
@@ -99,43 +103,46 @@ export default function AboutBackbone() {
                 mapStyle="CLASSIC_HEX"
               />
             )}
-            {taxon.taxonomicStatus === 'ACCEPTED' && (
+            {taxon.taxonomicStatus === 'ACCEPTED' && hasSynonyms && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="taxon.synonymsAndCombinations" />
                   </CardTitle>
+                  <CardDescription>
+                    <ColFeedback />
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {/* <Synonyms
-                    taxonKey={taxon.taxonID}
-                    slowTaxon={slowTaxon}
-                    loading={slowTaxonLoading}
-                    total={data?.taxon?.synonyms?.results?.length}
-                  /> */}
+                  <ErrorBoundary
+                    type="BLOCK"
+                    errorMessage={<FormattedMessage id="taxon.errors.vernacularNames" />}
+                  >
+                    <Synonyms taxonInfo={taxonInfo} />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}
-
-            {/* {isSpeciesOrBelow && (
+            types here
+            {isSpeciesOrBelow && (
               <ErrorBoundary
                 type="BLOCK"
                 errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
               >
-                <TypeMaterial
-                  taxonKey={taxon.key}
-                  rank={taxon.rank}
-                  acceptedTaxonKey={taxon?.acceptedTaxon?.key}
-                />
+                sdfsdf sdf
+                <TypeMaterial taxonInfo={taxonInfo} />
               </ErrorBoundary>
-            )} */}
-
+            )}
+            no more types
             {(taxonInfo?.vernacularNames?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="taxon.vernacularNames" />
                   </CardTitle>
+                  <CardDescription>
+                    <ColFeedback />
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ErrorBoundary
@@ -147,7 +154,6 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
-
             {/* {isSpeciesOrBelow && (
               <ErrorBoundary
                 type="BLOCK"
@@ -163,7 +169,6 @@ export default function AboutBackbone() {
             >
               <Treatments taxonKey={taxon?.key?.toString()} />
             </ErrorBoundary> */}
-
             {/* {slowTaxon && (slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
@@ -184,7 +189,6 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )} */}
-
             <Card className="g-mb-4" id="citation">
               <CardHeader>
                 <CardTitle>
@@ -193,7 +197,6 @@ export default function AboutBackbone() {
               </CardHeader>
               <CardContent>{/* <Citation taxon={taxon} /> */}</CardContent>
             </Card>
-
             {/* {data.taxon?.issues?.length > 0 && (
               <>
                 <FormattedMessage id="filters.occurrenceIssue.name" />
@@ -238,5 +241,26 @@ export default function AboutBackbone() {
         </div>
       </ArticleTextContainer>
     </ArticleContainer>
+  );
+}
+
+function ColFeedback() {
+  return (
+    <FormattedMessage
+      id="taxon.colFeedback"
+      defaultMessage="Source: Catalogue of Life. {link}"
+      values={{
+        link: (
+          <a
+            href="https://github.com/CatalogueOfLife/data/issues/new/choose"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="g-underline"
+          >
+            <FormattedMessage id="link" defaultMessage="Leave feedback." />
+          </a>
+        ),
+      }}
+    />
   );
 }

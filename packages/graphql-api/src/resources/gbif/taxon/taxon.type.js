@@ -129,11 +129,13 @@ const typeDef = gql`
     label: String
   }
 
+  type TaxonSynonyms {
+    heterotypic: [[Synonym!]]!
+    homotypic: [Synonym!]!
+  }
+
   type Synonym {
-    datasetKey: String
-    taxonID: ID!
-    acceptedNameUsageID: ID
-    parentNameUsageID: ID
+    taxonID: String
     scientificName: String
     scientificNameAuthorship: String
     taxonRank: String
@@ -220,7 +222,7 @@ const typeDef = gql`
     media: [Media!]
     vernacularNames: [VernacularName!]
     classification: [TaxonClassification!]
-    synonyms: [Synonym!]
+    synonyms: TaxonSynonyms!
     taxon: Taxon
 
     """

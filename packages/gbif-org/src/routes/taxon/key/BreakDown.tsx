@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { getBreakdown, getSourceTaxon } from './breakdownUtil';
 const fmIndex = rankEnum.indexOf('FAMILY');
 
+const MAX_CHILDREN = 20;
 const TaxonBreakdown = ({
   taxon,
   ...props
@@ -86,78 +87,42 @@ const TaxonBreakdown = ({
     }
   };
 
-  const processChildren = (children) => {
-    if (children.length < 100) {
-      return children;
-    } else {
-      return children.slice(0, 100);
-    }
-  };
-
   const initChart = (root) => {
     const totalCount = root.species || 0;
     try {
       const colors = Highcharts.getOptions().colors;
-      const categories = root.children.map((t) => t.name);
-      const data = root.children.map((k, idx) => {
-        const children_ = k.children;
-        const children = processChildren(children_ || []);
-        const sum = (children_ || []).reduce((acc, cur) => acc + cur?.species, 0);
-        const c =
-          sum < k?.species
-            ? [
-                ...children,
-                {
-                  name: `Other / Unknown ${children?.[0]?.rank || ''}`,
-                  species: k?.species - sum,
-                  color: chartPatterns.OTHER,
-                },
-              ]
-            : children;
 
-        return {
-          color: k.color || colors?.[idx],
-          y: k?.species,
-          _id: k.id,
-          drilldown: {
-            name: k.name, //  k.name,
-            categories: c.map((c) => c.name),
-            // data: c,
-          },
-        };
-      });
-      const rootData = [];
-      const childData = [];
-      let i;
-      let j;
-      const dataLen = data.length;
-      let drillDataLen;
-      let brightness;
+      // Filter out children with no species and sort by species count (descending)
+      const validChildren = (root.children || [])
+        .filter((child) => child && child.species && child.species > 0)
+        .sort((a, b) => (b.species || 0) - (a.species || 0));
 
-      // Build the data arrays
-      for (i = 0; i < dataLen; i += 1) {
-        // add browser data
-        rootData.push({
-          name: categories[i],
-          y: data[i].y,
-          _id: data[i]._id,
-          color: data[i].color,
+      // Take top MAX_CHILDREN and calculate remaining for "Other"
+      const topChildren = validChildren.slice(0, MAX_CHILDREN);
+      const remainingChildren = validChildren.slice(MAX_CHILDREN);
+      const remainingSpeciesCount = remainingChildren.reduce(
+        (sum, child) => sum + (child.species || 0),
+        0
+      );
+
+      // Build simple pie chart data from top MAX_CHILDREN children
+      const data = topChildren.map((child, idx) => ({
+        name: child.name || 'Unknown',
+        y: child.species || 0,
+        _id: child.id,
+        color: idx < (colors?.length || 0) ? colors?.[idx % colors?.length] : '#aaa',
+      }));
+
+      // Add "Other" category if there are remaining children
+      if (remainingChildren.length > 0 && remainingSpeciesCount > 0) {
+        data.push({
+          name: 'Other',
+          y: remainingSpeciesCount,
+          _id: null, // No navigation for "Other"
+          color: chartPatterns.OTHER,
         });
-
-        // add version data
-        drillDataLen = data[i].drilldown.data.length;
-        for (j = 0; j < drillDataLen; j += 1) {
-          brightness = 0.2 - j / drillDataLen / 5;
-          childData.push({
-            name: data[i].drilldown.categories[j],
-            y: data[i].drilldown.data[j]?.species,
-            _id: data[i].drilldown.data[j].id,
-            color: data[i].drilldown.data[j].color
-              ? data[i].drilldown.data[j].color
-              : Highcharts.color(data[i].color).brighten(brightness).get(),
-          });
-        }
       }
+
       const options = {
         chart: {
           type: 'pie',
@@ -170,55 +135,35 @@ const TaxonBreakdown = ({
         },
         plotOptions: {
           pie: {
-            shadow: false,
-            center: ['50%', '50%'],
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              formatter: function () {
+                // Only show label if slice is large enough (more than 2% of total)
+                return this.y > totalCount * 0.02 ? this.point.name : null;
+              },
+            },
+            showInLegend: false,
           },
         },
-        tooltip: {},
+        tooltip: {
+          pointFormat: '<b>{point.name}</b>: {point.y:,.0f} species ({point.percentage:.1f}%)',
+        },
         series: [
           {
             name: 'Species',
-            data: rootData,
-            size: '60%',
-            dataLabels: {
-              formatter: function () {
-                return this.y > totalCount / 10 ? this.point.name : null;
-              },
-              distance: -30,
-            },
+            data: data,
             point: {
               events: {
                 click: (e) => {
+                  // Only navigate if there's an ID (not for "Other" category)
                   if (e.point._id) {
                     navigateToTaxon(e.point._id);
                   }
                 },
               },
             },
-          },
-          {
-            name: 'species',
-            data: childData,
-            size: '80%',
-            innerSize: '60%',
-            point: {
-              events: {
-                click: (e) => {
-                  if (e.point._id) {
-                    navigateToTaxon(e.point._id);
-                  }
-                },
-              },
-            },
-            dataLabels: {
-              formatter: function () {
-                // display only if larger than 1
-                return this.y > 1
-                  ? '<b>' + this.point.name + ':</b> ' + this.y.toLocaleString('en-GB')
-                  : null;
-              },
-            },
-            id: 'species',
           },
         ],
         responsive: {
@@ -228,24 +173,22 @@ const TaxonBreakdown = ({
                 maxWidth: 400,
               },
               chartOptions: {
-                series: [
-                  {},
-                  {
-                    id: 'species',
+                plotOptions: {
+                  pie: {
                     dataLabels: {
                       enabled: false,
                     },
+                    showInLegend: false,
                   },
-                ],
+                },
               },
             },
           ],
         },
         exporting: {
           chartOptions: {
-            // specific options for the exported image
             plotOptions: {
-              series: {
+              pie: {
                 dataLabels: {
                   enabled: true,
                 },
