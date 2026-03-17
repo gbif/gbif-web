@@ -129,27 +129,13 @@ export default {
     ) =>
       dataSources.taxonAPI
         .taxonBreakdown({ datasetKey, key: taxonID })
-        .then((result) => {
-          return !sortByCount
-            ? result
-            : result
+        .then((response) => {
+          const breakdown = !sortByCount
+            ? response?.breakdown
+            : (response.breakdown ?? [])
                 .filter((t) => t.species > 0)
-                .map((t) => ({
-                  ...t,
-                  children: t.children
-                    .filter((c) => c.species > 0)
-                    .sort((a, b) => b.species - a.species),
-                }))
                 .sort((a, b) => b.species - a.species);
+          return { ...response, breakdown };
         }),
-  },
-  TaxonBreakdown: {
-    // fields are wrongly names in api. rename here for now
-    taxonID: ({ id }) => id,
-    label: ({ labelHtml }) => labelHtml,
-    scientificName: ({ name }) => name,
-    scientificNameAuthorship: ({ authorship }) => authorship,
-    taxonomicStatus: ({ status }) => status,
-    taxonRank: ({ rank }) => rank,
   },
 };

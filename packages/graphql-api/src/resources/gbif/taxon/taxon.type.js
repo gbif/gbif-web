@@ -183,18 +183,15 @@ const typeDef = gql`
       offset: Int
       mediaType: MediaType
     ): TaxonOccurrenceMedia
-    breakdown(sortByCount: Boolean): [TaxonBreakdown]
+    breakdown(sortByCount: Boolean): TaxonBreakdown
   }
 
   type TaxonBreakdown {
     taxonID: ID!
-    scientificName: String!
-    scientificNameAuthorship: String
-    taxonRank: String!
-    taxonomicStatus: String!
-    label: String!
+    taxonRank: String
+    scientificName: String
     species: Int
-    children: [TaxonBreakdown]
+    breakdown: [TaxonBreakdown]
   }
 
   type TaxonOccurrenceMedia {

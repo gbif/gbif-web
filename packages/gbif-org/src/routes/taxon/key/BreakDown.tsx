@@ -76,31 +76,7 @@ const TaxonBreakdown = ({
         }
         return;
       }
-      let root;
-      const speciesCount = data?.taxon?.checklistBankBreakdown?.reduce(
-        //TODO taxonapi: this should come from graphql once the API is updated with it. When that happens the breakdown graphql will need to be updated as well
-        (acc, cur) => acc + cur?.species,
-        0
-      );
-      if (
-        data?.taxon?.checklistBankBreakdown?.length > 25 ||
-        rankEnum.indexOf(taxon.taxonRank) >= fmIndex ||
-        (data?.taxon?.checklistBankBreakdown?.length === 0 && speciesCount > 0)
-      ) {
-        root = [
-          {
-            id: data.taxon.key,
-            name: data.taxon?.scientificName,
-            rank: data.taxon?.rank,
-            species:
-              speciesCount ||
-              data.taxon?.checklistBankBreakdown?.reduce((acc, cur) => acc + cur?.species, 0),
-            children: data.taxon?.checklistBankBreakdown,
-          },
-        ];
-      } else {
-        root = data.taxon?.checklistBankBreakdown;
-      }
+      const root = data.taxon?.checklistBankBreakdown;
       initChart(root);
       setLoading(false);
       setError(null);
@@ -119,12 +95,12 @@ const TaxonBreakdown = ({
   };
 
   const initChart = (root) => {
-    const totalCount = root.reduce((acc, cur) => acc + cur?.species, 0);
+    const totalCount = root.species || 0;
     try {
       const colors = Highcharts.getOptions().colors;
-      const categories = root.map((t) => t.name);
-      const data = root.map((k, idx) => {
-        const children_ = isArray(k.children) ? k.children : k.children.results;
+      const categories = root.children.map((t) => t.name);
+      const data = root.children.map((k, idx) => {
+        const children_ = k.children;
         const children = processChildren(children_ || []);
         const sum = (children_ || []).reduce((acc, cur) => acc + cur?.species, 0);
         const c =
@@ -146,7 +122,7 @@ const TaxonBreakdown = ({
           drilldown: {
             name: k.name, //  k.name,
             categories: c.map((c) => c.name),
-            data: c,
+            // data: c,
           },
         };
       });

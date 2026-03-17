@@ -50,13 +50,11 @@ const TAXON_BREAKDOWN = /* GraphQL */ `
       scientificName
       checklistBankBreakdown: breakdown(sortByCount: true) {
         id: taxonID
-        label
         name: scientificName
         rank: taxonRank
         species
-        children {
+        children: breakdown {
           id: taxonID
-          label
           name: scientificName
           rank: taxonRank
           species
