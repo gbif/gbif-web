@@ -1,10 +1,10 @@
 {
-  "occurrence": "",
+  "occurrence": "출현",
   "event": "",
   "showAllFields": "",
   "morePhotos": "",
   "about": "",
-  "dataset": "",
+  "dataset": "데이터셋",
   "publisher": "발행자",
   "institution": "",
   "institutionGrSciColl": "",
@@ -24,8 +24,8 @@
   },
   "groups": {
     "summary": "요약",
-    "record": "",
-    "occurrence": "",
+    "record": "기록",
+    "occurrence": "출현",
     "event": "",
     "dataStructure": "",
     "identification": "동정",
