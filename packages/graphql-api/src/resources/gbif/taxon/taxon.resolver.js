@@ -137,5 +137,7 @@ export default {
                 .sort((a, b) => b.species - a.species);
           return { ...response, breakdown };
         }),
+    wikiData: ({ taxonID }, args, { dataSources }) =>
+      dataSources.wikidataAPI.getWikiDataTaxonData(taxonID),
   },
 };

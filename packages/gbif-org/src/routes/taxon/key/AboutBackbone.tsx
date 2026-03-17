@@ -167,7 +167,8 @@ export default function AboutBackbone() {
             >
               <Treatments taxonKey={taxon?.key?.toString()} />
             </ErrorBoundary> */}
-            {/* {slowTaxon && (slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
+
+            {slowTaxon && (slowTaxon?.taxonInfo?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
                   <CardTitle>
@@ -180,13 +181,14 @@ export default function AboutBackbone() {
                     errorMessage={<FormattedMessage id="taxon.errors.wikidata" />}
                   >
                     <WikiDataIdentifiers
-                      source={slowTaxon?.taxon?.wikiData?.source}
-                      identifiers={slowTaxon?.taxon?.wikiData?.identifiers}
+                      source={slowTaxon?.taxonInfo?.taxon?.wikiData?.source}
+                      identifiers={slowTaxon?.taxonInfo?.taxon?.wikiData?.identifiers}
                     />
                   </ErrorBoundary>
                 </CardContent>
               </Card>
-            )} */}
+            )}
+
             <Card className="g-mb-4" id="citation">
               <CardHeader>
                 <CardTitle>

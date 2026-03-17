@@ -186,6 +186,7 @@ const typeDef = gql`
       mediaType: MediaType
     ): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
+    wikiData: WikiDataTaxonData
   }
 
   type TaxonBreakdown {

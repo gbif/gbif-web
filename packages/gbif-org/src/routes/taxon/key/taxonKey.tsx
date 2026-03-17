@@ -254,57 +254,21 @@ const TAXON_QUERY = /* GraphQL */ `
 
 const SLOW_TAXON = /* GraphQL */ `
   query SlowTaxon($key: ID!, $datasetKey: ID!) {
-    taxon: taxonInfo(key: $key, datasetKey: $datasetKey) {
-      group
-      # key
-      # basionymKey
-      # vernacularNames(limit: 1, language: $language) {
-      #   results {
-      #     vernacularName
-      #     source
-      #   }
-      # }
-      # combinations {
-      #   key
-      #   nameKey
-      #   acceptedKey
-      #   canonicalName
-      #   authorship
-      #   scientificName
-      #   formattedName
-      #   rank
-      #   taxonomicStatus
-      #   numDescendants
-      # }
-      # synonyms(limit: 100, offset: 0) {
-      #   limit
-      #   offset
-      #   endOfRecords
-      #   results {
-      #     key
-      #     nameKey
-      #     acceptedKey
-      #     canonicalName
-      #     authorship
-      #     scientificName
-      #     formattedName
-      #     rank
-      #     taxonomicStatus
-      #     numDescendants
-      #   }
-      # }
-      # wikiData {
-      #   source {
-      #     id
-      #     url
-      #   }
-      #   identifiers {
-      #     id
-      #     label
-      #     description
-      #     url
-      #   }
-      # }
+    taxonInfo(key: $key, datasetKey: $datasetKey) {
+      taxon {
+        wikiData {
+          source {
+            id
+            url
+          }
+          identifiers {
+            id
+            label
+            description
+            url
+          }
+        }
+      }
     }
   }
 `;
