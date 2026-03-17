@@ -123,17 +123,15 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
-            types here
             {isSpeciesOrBelow && (
               <ErrorBoundary
                 type="BLOCK"
                 errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
               >
-                sdfsdf sdf
                 <TypeMaterial taxonInfo={taxonInfo} />
               </ErrorBoundary>
             )}
-            no more types
+
             {(taxonInfo?.vernacularNames?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">
                 <CardHeader>

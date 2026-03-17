@@ -2,7 +2,12 @@ import { Table } from '@/components/dashboard/shared';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { VocabularyValue } from '@/components/vocabularyValue';
-import { Rank, TaxonTypeSpecimensQuery, TaxonTypeSpecimensQueryVariables } from '@/gql/graphql';
+import {
+  Rank,
+  TaxonKeyQuery,
+  TaxonTypeSpecimensQuery,
+  TaxonTypeSpecimensQueryVariables,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
@@ -13,15 +18,8 @@ import { typeSpecimenPredicate } from './taxonUtil';
 
 const DEFAULT_LIMIT = 10;
 
-const TypeMaterial = ({
-  taxonKey,
-  acceptedTaxonKey,
-  rank,
-}: {
-  taxonKey: number;
-  acceptedTaxonKey: number;
-  rank: Rank;
-}) => {
+const TypeMaterial = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
+  console.log('testsdfh skdfh lskdjhf ');
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [filteredData, setFilteredData] = useState<
@@ -38,19 +36,25 @@ const TypeMaterial = ({
   });
 
   useEffect(() => {
-    const synonym = !!acceptedTaxonKey && acceptedTaxonKey !== taxonKey;
+    if (!taxonInfo?.taxon) return;
+    const { taxon } = taxonInfo;
+    const { acceptedNameUsageID, taxonID } = taxon;
+    const synonym = !!acceptedNameUsageID && acceptedNameUsageID !== taxonID;
     setIsSynonym(synonym);
-    if (taxonKey) {
+    if (taxonInfo.taxon.taxonID) {
       setFilteredData([]);
       typeSpecimensLoad({
         variables: {
-          predicate: typeSpecimenPredicate(synonym ? acceptedTaxonKey : taxonKey),
+          predicate: typeSpecimenPredicate({
+            taxonKey: synonym ? acceptedNameUsageID : taxonID,
+            checklistKey: taxon.datasetKey,
+          }),
           size: 50,
           from: 0,
         },
       });
     }
-  }, [taxonKey, acceptedTaxonKey, typeSpecimensLoad]);
+  }, [taxonInfo, typeSpecimensLoad]);
 
   useEffect(() => {
     if (
@@ -60,10 +64,10 @@ const TypeMaterial = ({
       setFilteredData(
         (typeSecimens?.occurrenceSearch?.documents?.results || []).filter((x) => {
           if (!isSynonym) {
-            return x?.classification?.usage?.rank === rank;
+            return x?.classification?.usage?.rank === taxonInfo?.taxon?.taxonRank;
           } else {
             return (
-              x?.originalUsageMatch?.usage?.key === (taxonKey || '').toString() &&
+              x?.originalUsageMatch?.usage?.key === (taxonInfo?.taxon?.taxonID || '').toString() &&
               x?.originalUsageMatch?.diagnostics?.matchType === 'EXACT' &&
               x?.originalUsageMatch?.diagnostics?.confidence > 90
             );
@@ -71,20 +75,7 @@ const TypeMaterial = ({
         })
       );
     }
-  }, [typeSecimens?.occurrenceSearch?.documents?.results, isSynonym, rank]);
-
-  /*   if (total && !typeSecimens?.occurrenceSearch?.documents?.total) {
-    return (
-      <div>
-        {Array.from({ length: Math.min(total, 10) }).map((x, i) => (
-          <React.Fragment key={i}>
-            <Skeleton className="g-h-6" style={{ marginBottom: 12, width: '60%' }} />
-            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-          </React.Fragment>
-        ))}
-      </div>
-    );
-  } */
+  }, [typeSecimens?.occurrenceSearch?.documents?.results, isSynonym, taxonInfo]);
 
   return filteredData.length > 0 ? (
     <Card className="g-mb-4">
@@ -215,7 +206,7 @@ const TypeMaterial = ({
 
 export default TypeMaterial;
 
-const TYPE_MATERIAL_QUERY = /* GraphQL_x */ `
+const TYPE_MATERIAL_QUERY = /* GraphQL */ `
   query TaxonTypeSpecimens($from: Int, $size: Int, $predicate: Predicate) {
     occurrenceSearch(predicate: $predicate) {
       _meta

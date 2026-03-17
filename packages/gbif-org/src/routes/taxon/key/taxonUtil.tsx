@@ -47,7 +47,13 @@ export function useIsAboveFamily(rank: string) {
   return isAboveFamily;
 }
 
-export const typeSpecimenPredicate = (taxonKey: number) => ({
+export const typeSpecimenPredicate = ({
+  taxonKey,
+  checklistKey,
+}: {
+  taxonKey: string;
+  checklistKey?: string;
+}) => ({
   type: PredicateType.And,
   predicates: [
     {
@@ -74,11 +80,12 @@ export const typeSpecimenPredicate = (taxonKey: number) => ({
       type: PredicateType.Equals,
       key: 'taxonKey',
       value: taxonKey,
+      checklistKey: checklistKey,
     },
   ],
 });
 
-export const imagePredicate = (taxonKey: number) => ({
+export const imagePredicate = (taxonKey: string) => ({
   type: PredicateType.And,
   predicates: [
     {
