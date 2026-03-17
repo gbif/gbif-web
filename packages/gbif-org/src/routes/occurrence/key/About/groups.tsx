@@ -15,7 +15,14 @@ import React, { useEffect, useState } from 'react';
 import { MdAudiotrack, MdImage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import wellknown from 'wellknown';
-import { BasicField, EnumField, HtmlField, LicenseField, PlainTextField, VerbatimTextField } from '../properties';
+import {
+  BasicField,
+  EnumField,
+  HtmlField,
+  LicenseField,
+  PlainTextField,
+  VerbatimTextField,
+} from '../properties';
 import {
   AgentIds,
   CollectionKey,
@@ -549,9 +556,11 @@ function Occurrence({
       <PlainTextField term={termMap.individualCount} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantity} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantityType} showDetails={showAll} />
-      <BasicField label="occurrenceFieldNames.sex">
-        {termMap?.sex?.value && <ConceptValue vocabulary="Sex" name={termMap?.sex?.value} />}
-      </BasicField>
+      {termMap?.sex?.value && (
+        <BasicField label="occurrenceFieldNames.sex">
+          {termMap?.sex?.value && <ConceptValue vocabulary="Sex" name={termMap?.sex?.value} />}
+        </BasicField>
+      )}
       <PlainTextField term={termMap.lifeStage} showDetails={showAll} />
       <PlainTextField term={termMap.reproductiveCondition} showDetails={showAll} />
       <PlainTextField term={termMap.behavior} showDetails={showAll} />
@@ -810,10 +819,7 @@ function Other({
   // no reason to test this, this group is always present since GBIF id is required
   return (
     <PropGroup label="occurrenceDetails.groups.other" id="other">
-      <LicenseField
-        term={termMap.license}
-        getEnum={(value) => `enums.license.${value}`}
-      />
+      <LicenseField term={termMap.license} getEnum={(value) => `enums.license.${value}`} />
       {/* RECORD LEVEL Actually belongs on Record card, but it seems wrong to put it first on the page, so I've moved it here along with other identifiers */}
       <DynamicProperties termMap={termMap} />
       <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
