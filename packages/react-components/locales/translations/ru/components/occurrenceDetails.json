@@ -768,19 +768,19 @@
         "protocolDescriptions": "Описание протокола",
         "protocolReferences": "Ссылки на протоколы",
         "isAbundanceReported": "Сообщается ли об обилии",
-        "isAbundanceCapReported": "",
+        "isAbundanceCapReported": "Указан ли максимальный уровень обилия",
         "abundanceCap": "Ограничение изобилия",
         "isVegetationCoverReported": "Был ли представлен показатель растительного покрова",
         "isLeastSpecificTargetCategoryQuantityInclusive": "Включает ли в себя количество, приведенное для общей целевой категории, наименьшее значение\n\n",
         "hasVouchers": "Ваучеры были собраны",
         "voucherInstitutions": " Учреждения с ваучерами",
-        "hasMaterialSamples": "",
-        "materialSampleTypes": "",
-        "samplingPerformedBy": "",
-        "isSamplingEffortReported": "",
-        "samplingEffortProtocol": "",
-        "samplingEffortValue": "",
-        "samplingEffortUnit": ""
+        "hasMaterialSamples": "Имеются отобранные образцы",
+        "materialSampleTypes": "Типы собранных образцов",
+        "samplingPerformedBy": "Отбор проб производился",
+        "isSamplingEffortReported": "Сообщается ли об усилиях по отбору проб",
+        "samplingEffortProtocol": "Протокол отбора проб",
+        "samplingEffortValue": "Усилия, затраченные на отбор проб",
+        "samplingEffortUnit": "Единицы усилий отбора проб"
       }
     }
   }
