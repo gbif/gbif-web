@@ -76,6 +76,6 @@
   "all": "全部",
   "clear": "清除",
   "search": "搜索",
-  "404Text": "这个页面可能之前存在过，但现在我们找不到了。\n请尝试我们的 [搜索功能](/search) 来查找。\n欢迎随时通过 [helpdesk@gbif.org](mailto:helpdesk@gbif.org)来联系我们。",
+  "404Text": "",
   "unableToLoadAllContent": ""
 }
