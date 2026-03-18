@@ -76,6 +76,6 @@
   "all": "Vše",
   "clear": "Vymazat",
   "search": "Hledat",
-  "404Text": "Tato stránka možná kdysi existovala, ale už ji nemůžeme najít.\nZkuste prosím naše [vyhledávání](/search), abyste našli to, co hledáte. Vždy nás můžete kontaktovat na adrese [helpdesk@gbif.org](mailto:helpdesk@gbif.org).",
+  "404Text": "",
   "unableToLoadAllContent": ""
 }
