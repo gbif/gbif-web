@@ -57,7 +57,8 @@ export default function AboutBackbone() {
   };
 
   const hasSynonyms =
-    taxonInfo.synonyms?.homotypic?.length > 0 || taxonInfo.synonyms?.heterotypic?.flat().length > 0;
+    (taxonInfo.synonyms?.homotypic?.length ?? 0) > 0 ||
+    (taxonInfo.synonyms?.heterotypic?.flat().length ?? 0) > 0;
 
   const hasPreprocessedMap = useHasMap({
     [MapTypes.TaxonKey]: taxon?.taxonID,
@@ -152,16 +153,16 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
-            {/* {isSpeciesOrBelow && (
+            {isSpeciesOrBelow && (
               <ErrorBoundary
                 type="BLOCK"
                 errorMessage={<FormattedMessage id="taxon.errors.invasiveInCountries" />}
               >
-                <InvasiveInCountries taxonKey={taxon.key.toString()} />
+                <InvasiveInCountries taxonInfo={taxonInfo} />
               </ErrorBoundary>
             )}
 
-            <ErrorBoundary
+            {/* <ErrorBoundary
               type="BLOCK"
               errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
             >

@@ -19,7 +19,6 @@ import { typeSpecimenPredicate } from './taxonUtil';
 const DEFAULT_LIMIT = 10;
 
 const TypeMaterial = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
-  console.log('testsdfh skdfh lskdjhf ');
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [filteredData, setFilteredData] = useState<

@@ -187,6 +187,41 @@ const typeDef = gql`
     ): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
     wikiData: WikiDataTaxonData
+    relatedInfo: RelatedTaxonInfo
+  }
+
+  type RelatedTaxonInfo {
+    redlist: Redlist
+    griis: [Griis!]
+  }
+
+  type Redlist {
+    datasetKey: ID!
+    taxonID: ID
+    parentNameUsageID: ID
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String
+    taxonomicStatus: String
+    nomenclaturalCode: String
+    link: String
+    label: String
+    threatStatus: String
+  }
+
+  type Griis {
+    datasetKey: ID!
+    taxonID: ID!
+    locality: String
+    locationID: String
+    countryCode: String
+    establishmentMeans: String
+    pathway: String
+    eventDate: String
+    source: String
+
+    dataset: Dataset
+    isCountry: Boolean!
   }
 
   type TaxonBreakdown {
@@ -223,7 +258,7 @@ const typeDef = gql`
     media: [Media!]
     vernacularNames: [VernacularName!]
     classification: [TaxonClassification!]
-    synonyms: TaxonSynonyms!
+    synonyms: TaxonSynonyms
     taxon: Taxon
 
     """

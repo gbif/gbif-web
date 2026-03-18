@@ -150,6 +150,25 @@ const TAXON_QUERY = /* GraphQL */ `
             thumbor
           }
         }
+        relatedInfo {
+          griis {
+            datasetKey
+            taxonID
+            locality
+            countryCode
+            establishmentMeans
+            pathway
+            dataset {
+              title
+            }
+            isCountry
+          }
+          redlist {
+            taxonID
+            scientificName
+            threatStatus
+          }
+        }
       }
       synonyms {
         homotypic {

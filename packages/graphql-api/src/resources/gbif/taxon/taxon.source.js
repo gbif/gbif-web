@@ -19,15 +19,15 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getTaxon({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${key}`, {
-      datasetKey,
-    });
+    return this.get(`/taxon/${datasetKey}/${key}`);
   }
 
   async getTaxonInfo({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${key}/info`, {
-      datasetKey,
-    });
+    return this.get(`/taxon/${datasetKey}/${key}/info`);
+  }
+
+  async getRelatedTaxonInfo({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${key}/relatedInfo`);
   }
 
   async taxonBreakdown({ datasetKey, key }) {

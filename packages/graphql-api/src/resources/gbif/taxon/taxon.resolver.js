@@ -139,5 +139,19 @@ export default {
         }),
     wikiData: ({ taxonID }, args, { dataSources }) =>
       dataSources.wikidataAPI.getWikiDataTaxonData(taxonID),
+    relatedInfo: (
+      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+      args,
+      { dataSources },
+    ) => dataSources.taxonAPI.getRelatedTaxonInfo({ key: taxonID, datasetKey }),
+  },
+  Griis: {
+    dataset: ({ datasetKey }, args, { dataSources }) =>
+      dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+    isCountry: ({ locationID, countryCode }) => {
+      if (!countryCode) return false;
+      if (!locationID) return true;
+      return locationID.startsWith('iso:') && locationID.length === 6;
+    },
   },
 };
