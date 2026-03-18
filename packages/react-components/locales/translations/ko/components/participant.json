@@ -39,11 +39,11 @@
       }
     },
     "participant": "",
-    "node": "",
+    "node": "노드",
     "participantSummary": "",
     "memberStatus": "",
     "gbifParticipantSince": "",
-    "headOfDelegation": "",
+    "headOfDelegation": "대표단장",
     "gbifRegion": "",
     "countryOrArea": "",
     "nodeName": "",

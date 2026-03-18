@@ -32,9 +32,9 @@
   "taxonomicBreakdown": "",
   "group": {
     "views": "",
-    "record": "",
+    "record": "기록",
     "taxon": "분류군",
-    "occurrence": "",
+    "occurrence": "출현",
     "organism": "",
     "materialEntity": "",
     "event": "",

@@ -37,7 +37,7 @@
     "readMore": "",
     "titleMissing": "",
     "underProcessing": "",
-    "citation": "",
+    "citation": "인용",
     "format": "포맷",
     "nRecordsAtTime": "",
     "aboutDeletionPolicy": "",
@@ -210,7 +210,7 @@
         "RECORDED_BY": "에 의해 기록됨",
         "BASIS_OF_RECORD": "기록 기준",
         "BIOSTRATIGRAPHY": "",
-        "DATASET_KEY": ""
+        "DATASET_KEY": "데이터셋"
       }
     }
   },
@@ -469,7 +469,7 @@
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
-    "dataQuality": "",
+    "dataQuality": "데이터 품질",
     "removeRecordsWithGeospatialIssues": "",
     "removeRecordsTaxonIssues": "",
     "removeRecordsAtCentroids": "",
