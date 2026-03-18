@@ -76,6 +76,6 @@
   "all": "Todos",
   "clear": "Limpiar",
   "search": "Buscar",
-  "404Text": "",
+  "404Text": "Es posible que esta página haya existido en algún momento, pero parece que ya no está disponible.\nPruebe a [buscar](/search) para encontrar lo que busca. No dude en ponerse en contacto con nosotros en [helpdesk@gbif.org](mailto:helpdesk@gbif.org).",
   "unableToLoadAllContent": "No se puede cargar todo el contenido"
 }
