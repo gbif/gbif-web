@@ -29,7 +29,7 @@ export function InvasiveInCountries({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="g-text-sm g-text-slate-500 g-mb-1">
+        <div className="g-text-sm g-text-slate-500 g-mb-2">
           <>
             <FormattedMessage id="counts.nResults" values={{ total: areaCount || 0 }} />
             {(areaCount || 0) > limit && (
