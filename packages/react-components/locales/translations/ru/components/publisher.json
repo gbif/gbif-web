@@ -1,6 +1,6 @@
 {
   "searchTitle": "Поиск издателя",
-  "searchDescription": "",
+  "searchDescription": "Поиск публикующих организаций в GBIF. Свободный и открытый доступ к данным биоразнообразия.",
   "tabs": {
     "aboutPublisher": "Об организациии",
     "metrics": "Показатели",

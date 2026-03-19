@@ -882,7 +882,7 @@
   },
   "isAbundanceCapReported": {
     "description": "Сообщается ли о максимальном числе dwc:Organisms, или об их ограничении, как указано в используемых протоколах?",
-    "name": "",
+    "name": "Указан ли максимальный уровень обилия",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "abundanceCap": {
@@ -896,7 +896,7 @@
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
-    "description": "Общее количество dwc:Taxon (включая подкатегории), выявленное в ходе dwc:Event, явно приведено в одной записи (значение в поле dwc:organismQuantity) для данного dwc:Taxon.",
+    "description": "Общее количество dwc:Taxon (включая подкатегории), выявленное в ходе dwc:Event, явно приведенное в одной записи (значение в поле dwc:organismQuantity) для данного dwc:Taxon.",
     "name": "Включает ли в себя количество, приведенное для общей целевой категории, наименьшее значение\n\n",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
@@ -911,38 +911,38 @@
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "hasMaterialSamples": {
-    "description": "",
-    "name": "",
+    "description": "Материальные образцы были отобраны в ходе события dwc:Event.",
+    "name": "Имеются отобранные образцы",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "materialSampleTypes": {
-    "description": "",
-    "name": "",
+    "description": "Список (в форме строки с разделителями) типов образцов, собранных в ходе события dwc:Event.",
+    "name": "Типы собранных образцов",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "samplingPerformedBy": {
-    "description": "",
-    "name": "",
+    "description": "Персона, группа организаций, ответственных за запись события dwc:Event.",
+    "name": "Отбор проб производился",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "isSamplingEffortReported": {
-    "description": "",
-    "name": "",
+    "description": "Сообщается об усилиях по отбору проб, связанных с dwc:Event.",
+    "name": "Сообщается ли об усилиях по отбору проб",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "samplingEffortProtocol": {
-    "description": "",
-    "name": "",
+    "description": "Описание ссылок (публикаций, URL) на методы, используемые для определения отбора проб.",
+    "name": "Протокол отбора проб",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "samplingEffortValue": {
-    "description": "",
-    "name": "",
+    "description": "Числовое значение общих усилий в ходе события dwc:Event.",
+    "name": "Усилия, затраченные на отбор проб",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   },
   "samplingEffortUnit": {
-    "description": "",
-    "name": "",
+    "description": "Единицы измерения, связанные с eco.eventDurationValue.",
+    "name": "Единицы усилий отбора проб",
     "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}"
   }
 }
