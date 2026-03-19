@@ -3,6 +3,15 @@ import config from '@/config';
 const DEFAULT_CHECKLIST_KEY =
   config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
 
+function stringCompare(a, b) {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -143,7 +152,18 @@ export default {
       { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
       args,
       { dataSources },
-    ) => dataSources.taxonAPI.getRelatedTaxonInfo({ key: taxonID, datasetKey }),
+    ) =>
+      dataSources.taxonAPI
+        .getRelatedTaxonInfo({ key: taxonID, datasetKey })
+        .then((response) => {
+          return {
+            ...response,
+            // sort griis list by countryCode
+            griis: (response.griis ?? []).sort((a, b) =>
+              stringCompare(a.countryCode, b.countryCode),
+            ),
+          };
+        }),
     related: (
       { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
       args,

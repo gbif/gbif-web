@@ -162,12 +162,14 @@ export default function AboutBackbone() {
               </ErrorBoundary>
             )}
 
-            <ErrorBoundary
-              type="BLOCK"
-              errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
-            >
-              <Treatments taxonInfo={taxonInfo} />
-            </ErrorBoundary>
+            {(taxonInfo?.taxon?.treatments?.length ?? 0) > 0 && (
+              <ErrorBoundary
+                type="BLOCK"
+                errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
+              >
+                <Treatments taxonInfo={taxonInfo} />
+              </ErrorBoundary>
+            )}
 
             {slowTaxon && (slowTaxon?.taxonInfo?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
@@ -200,6 +202,7 @@ export default function AboutBackbone() {
                 <Citation taxonInfo={taxonInfo} />
               </CardContent>
             </Card>
+            {/* TODO taxonapi: there are some fields missing here https://github.com/gbif/taxon-ws/issues/20 */}
             {/* {data.taxon?.issues?.length > 0 && (
               <>
                 <FormattedMessage id="filters.occurrenceIssue.name" />
@@ -225,8 +228,6 @@ export default function AboutBackbone() {
               {!!count && count > 0 && (
                 <>
                   <ClientSideOnly>
-                    {/*                     <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
-                     */}{' '}
                     {isFamilyOrAbove && (
                       <charts.Taxa
                         defaultRank={nextMajorRank?.toLowerCase() || 'family'}
