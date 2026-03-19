@@ -162,12 +162,12 @@ export default function AboutBackbone() {
               </ErrorBoundary>
             )}
 
-            {/* <ErrorBoundary
+            <ErrorBoundary
               type="BLOCK"
               errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
             >
-              <Treatments taxonKey={taxon?.key?.toString()} />
-            </ErrorBoundary> */}
+              <Treatments taxonInfo={taxonInfo} />
+            </ErrorBoundary>
 
             {slowTaxon && (slowTaxon?.taxonInfo?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
@@ -196,7 +196,9 @@ export default function AboutBackbone() {
                   <FormattedMessage id="phrases.citation" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>{/* <Citation taxon={taxon} /> */}</CardContent>
+              <CardContent>
+                <Citation taxonInfo={taxonInfo} />
+              </CardContent>
             </Card>
             {/* {data.taxon?.issues?.length > 0 && (
               <>

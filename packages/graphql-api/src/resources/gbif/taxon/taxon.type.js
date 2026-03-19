@@ -176,6 +176,7 @@ const typeDef = gql`
     sourceID: ID
     references: String
     taxonRemarks: String
+    link: String
     issues: [String]
 
     dataset: Dataset
@@ -188,6 +189,11 @@ const typeDef = gql`
     breakdown(sortByCount: Boolean): TaxonBreakdown
     wikiData: WikiDataTaxonData
     relatedInfo: RelatedTaxonInfo
+    related(datasetType: RelatedDatasetType): [Taxon!]!
+  }
+
+  enum RelatedDatasetType {
+    ARTICLE
   }
 
   type RelatedTaxonInfo {

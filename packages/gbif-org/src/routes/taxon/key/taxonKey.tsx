@@ -136,6 +136,9 @@ const TAXON_QUERY = /* GraphQL */ `
         dataset {
           key
           title
+          citation {
+            text
+          }
         }
         acceptedTaxon {
           taxonID
@@ -148,6 +151,18 @@ const TAXON_QUERY = /* GraphQL */ `
             occurrenceKey
             identifier
             thumbor
+          }
+        }
+        treatments: related(datasetType: ARTICLE) {
+          taxonID
+          datasetKey
+          link
+          dataset {
+            title
+            citation {
+              text
+            }
+            publishingOrganizationTitle
           }
         }
         relatedInfo {

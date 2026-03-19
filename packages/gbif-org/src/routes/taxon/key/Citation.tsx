@@ -1,10 +1,12 @@
 import { HyperText } from '@/components/hyperText';
+import { TaxonKeyQuery } from '@/gql/graphql';
 
-const Citation = ({ taxon }) => {
+const Citation = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
+  const taxon = taxonInfo?.taxon;
   return (
     <HyperText
       className="prose-links"
-      text={`${taxon.formattedName || taxon.scientificName} in ${taxon.dataset.citation.text}`}
+      text={`${taxon?.label || taxon?.scientificName} in ${taxon?.dataset?.citation?.text}`}
     />
   );
 };

@@ -144,6 +144,16 @@ export default {
       args,
       { dataSources },
     ) => dataSources.taxonAPI.getRelatedTaxonInfo({ key: taxonID, datasetKey }),
+    related: (
+      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+      args,
+      { dataSources },
+    ) =>
+      dataSources.taxonAPI.getRelated({
+        key: taxonID,
+        datasetKey,
+        query: args,
+      }),
   },
   Griis: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
