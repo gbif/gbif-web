@@ -132,8 +132,6 @@ const ClassificationSideBar = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonI
         <span className={`${!isFamilyOrAbove(taxon.taxonRank) ? 'g-italic' : ''}`}>
           {taxon?.scientificName}
         </span>
-        {/*         <span dangerouslySetInnerHTML={{ __html: taxon?.formattedName }} />
-         */}{' '}
       </div>
       {error && (
         <ErrorBlock
@@ -164,7 +162,6 @@ const ClassificationSideBar = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonI
                 )}
                 <DynamicLink
                   className={`g-underline g-pointer-events-auto g.ml-${idx}`}
-                  // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
                   pageId={isPrimaryTaxonomy ? 'speciesKey' : 'datasetKey'}
                   variables={
                     isPrimaryTaxonomy
