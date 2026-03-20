@@ -159,7 +159,19 @@ const typeDef = gql`
     label: String!
 
     acceptedNameUsage: String
+
     dataset: Dataset
+    acceptedTaxon: TaxonSimple
+    occurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
+    breakdown(sortByCount: Boolean): TaxonBreakdown
+    wikiData: WikiDataTaxonData
+    relatedInfo: RelatedTaxonInfo
+    related(datasetType: RelatedDatasetType): [TaxonSimple!]!
+    children(limit: Int, offset: Int): Children
   }
 
   type TaxonFull {
