@@ -22,10 +22,7 @@ export function InvasiveInCountries({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
     <Card className="g-mb-4" id="invasiveInCountries">
       <CardHeader>
         <CardTitle>
-          <FormattedMessage
-            id="taxon.recordedAsIntrodicedInNcontries"
-            values={{ total: areaCount }}
-          />
+          <FormattedMessage id="taxon.invasives.nInvadedCountries" values={{ total: areaCount }} />
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -61,16 +58,16 @@ export function InvasiveInCountries({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
             <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
               <tr>
                 <th className="g-text-start g-whitespace-nowrap">
-                  <FormattedMessage id={`taxon.recordedAsIntroducedIn`} />
+                  <FormattedMessage id={`taxon.invasives.invasiveIn`} />
                 </th>
                 <th className="g-text-start g-whitespace-nowrap">
-                  <FormattedMessage id={`taxon.accordingTo`} />
+                  <FormattedMessage id={`taxon.invasives.accordingTo`} />
                 </th>
-                {/* <th className="g-text-start"> TODO taxonapi: there is a column missing here https://github.com/gbif/gbif-web/issues/1618#issuecomment-4089560002
-                  <FormattedMessage id={`taxon.isInvasive`} />
-                </th> */}
+                <th className="g-text-start">
+                  <FormattedMessage id={`taxon.invasives.isInvasive`} />
+                </th>
                 <th className="g-text-end g-whitespace-nowrap">
-                  <FormattedMessage id={`taxon.occurrencesInGbif`} />
+                  <FormattedMessage id={`taxon.invasives.occurrenceCount`} />
                 </th>
               </tr>
             </thead>
@@ -94,7 +91,11 @@ export function InvasiveInCountries({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
                       </DynamicLink>
                     </td>
 
-                    {/* <td>{e.isInvasive}</td> */}
+                    <td>
+                      <FormattedMessage
+                        id={`taxon.invasives.isInvasive_${e.isInvasive ? 'yes' : 'no'}`}
+                      />
+                    </td>
                     <td className="g-text-end">
                       {e?.isCountry ? (
                         <Count

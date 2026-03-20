@@ -4,11 +4,6 @@
     "verbatim": "Verbatim",
     "metrics": "Metrics"
   },
-  "recordedAsIntroducedIn": "Recorded as introduced in",
-  "accordingTo": "According to",
-  "evidenceOfImpact": "Evidence of impact",
-  "occurrencesInGbif": "Occurrences in GBIF",
-  "recordedAsIntrodicedInNcontries": "Recorded as introduced in {total, plural, one {# country or island} other {# countries or islands}}",
   "breakdown": "Breakdown",
   "publishedIn": "Published in",
   "vernacularNames": "Vernacular names",
@@ -25,6 +20,16 @@
   "taxonIdentifiers": "Taxon identifiers",
   "synonymsAndCombinations": "Synonyms and combinations",
   "inChecklist": "In {checklist}",
+  "invasives": {
+    "nInvadedCountries": "Recorded as introduced in {total, plural, one {# country or island} other {# countries or islands}}",
+    "invasiveIn": "Introduced in",
+    "accordingTo": "According to",
+    "occurrenceCount": "Occurrences in GBIF",
+    "seeAllCountries": "Show all",
+    "isInvasive": "Invasive",
+    "isInvasive_yes": "Yes",
+    "isInvasive_no": "No"
+  },
   "rankPlural": {
     "KINGDOM": "Kingdoms",
     "PHYLUM": "Phyla",

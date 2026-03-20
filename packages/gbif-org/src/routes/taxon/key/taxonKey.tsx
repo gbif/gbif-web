@@ -171,8 +171,7 @@ const TAXON_QUERY = /* GraphQL */ `
             taxonID
             locality
             countryCode
-            establishmentMeans
-            pathway
+            isInvasive
             dataset {
               title
             }
