@@ -661,7 +661,7 @@
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "humboldtBooleans": {
-    "name": "Inventaire Écologique de Humboldt",
+    "name": "Extension Humboldt",
     "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
     "description": "Soutien étendu pour les Événements (Events) de Darwin Core correspondants aux inventaires écologiques"
   },
