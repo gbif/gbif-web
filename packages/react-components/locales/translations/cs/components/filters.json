@@ -661,7 +661,7 @@
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "humboldtBooleans": {
-    "name": "",
+    "name": "Rozšíření Humboldt",
     "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}",
     "description": ""
   },
