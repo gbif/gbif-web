@@ -8452,18 +8452,48 @@ export type TaxonSimple = {
   __typename?: 'TaxonSimple';
   acceptedNameUsage?: Maybe<Scalars['String']['output']>;
   acceptedNameUsageID?: Maybe<Scalars['ID']['output']>;
+  acceptedTaxon?: Maybe<TaxonSimple>;
+  breakdown?: Maybe<TaxonBreakdown>;
+  children?: Maybe<Children>;
   dataset?: Maybe<Dataset>;
   datasetKey: Scalars['ID']['output'];
   extinct?: Maybe<Scalars['Boolean']['output']>;
   label: Scalars['String']['output'];
   link?: Maybe<Scalars['String']['output']>;
   nomenclaturalCode?: Maybe<Scalars['String']['output']>;
+  occurrenceMedia?: Maybe<TaxonOccurrenceMedia>;
   parentNameUsageID?: Maybe<Scalars['ID']['output']>;
+  related: Array<TaxonSimple>;
+  relatedInfo?: Maybe<RelatedTaxonInfo>;
   scientificName: Scalars['String']['output'];
   scientificNameAuthorship?: Maybe<Scalars['String']['output']>;
   taxonID: Scalars['ID']['output'];
   taxonRank: Scalars['String']['output'];
   taxonomicStatus: Scalars['String']['output'];
+  wikiData?: Maybe<WikiDataTaxonData>;
+};
+
+
+export type TaxonSimpleBreakdownArgs = {
+  sortByCount?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type TaxonSimpleChildrenArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type TaxonSimpleOccurrenceMediaArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  mediaType?: InputMaybe<MediaType>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type TaxonSimpleRelatedArgs = {
+  datasetType?: InputMaybe<RelatedDatasetType>;
 };
 
 export type TaxonSynonyms = {

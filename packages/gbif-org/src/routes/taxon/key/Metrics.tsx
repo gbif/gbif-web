@@ -27,7 +27,10 @@ export default function Metrics() {
           {isFamilyOrAbove && (
             <DashBoardLayout>
               {/* <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" /> */}
-              <Taxa predicate={predicate} className="g-mb-4" />
+
+              {/* TODO taxonpi: this chart no longer works as it relies on the old API. IT looks like it is a copy pasted version of the existing taxon chart, si I'm not sure what the benefit is. For now I've replaced it with the one below */}
+              {/* <Taxa predicate={predicate} className="g-mb-4" /> */}
+              <charts.Taxa predicate={predicate} className="g-mb-4" />
 
               <charts.DataQuality predicate={predicate} className="g-mb-4" />
               <charts.Months predicate={predicate} className="g-mb-4" />
