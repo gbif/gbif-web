@@ -661,7 +661,7 @@
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "humboldtBooleans": {
-    "name": "Inventario Ecológico de Humboldt",
+    "name": "Extensión Humboldt",
     "count": "{num, plural, one { identificado por } other {# identificados por}}",
     "description": "Soporte extendido para eventos Darwin Core relacionados con inventarios ecológicos."
   },
