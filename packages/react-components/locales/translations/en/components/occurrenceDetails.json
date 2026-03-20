@@ -722,7 +722,7 @@
       }
     },
     "humboldtEcologicalInventory": {
-      "name": "Humboldt Ecological Inventory",
+      "name": "Humboldt extension",
       "properties": {
         "siteCount": "Site Count",
         "siteNestingDescription": "Site Nesting Description",
