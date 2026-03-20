@@ -174,6 +174,16 @@ export default {
         datasetKey,
         query: args,
       }),
+    children: (
+      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+      args,
+      { dataSources },
+    ) =>
+      dataSources.taxonAPI.getChildren({
+        key: taxonID,
+        datasetKey,
+        query: args,
+      }),
   },
   Griis: {
     dataset: ({ datasetKey }, args, { dataSources }) =>

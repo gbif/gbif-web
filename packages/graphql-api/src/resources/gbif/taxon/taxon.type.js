@@ -135,7 +135,7 @@ const typeDef = gql`
   }
 
   type Synonym {
-    taxonID: String
+    taxonID: ID!
     scientificName: String
     scientificNameAuthorship: String
     taxonRank: String
@@ -190,6 +190,27 @@ const typeDef = gql`
     wikiData: WikiDataTaxonData
     relatedInfo: RelatedTaxonInfo
     related(datasetType: RelatedDatasetType): [Taxon!]!
+    children(limit: Int, offset: Int): Children
+  }
+
+  type Children {
+    offset: Int!
+    limit: Int!
+    endOfRecords: Boolean!
+    count: Int!
+    results: [TaxonChild!]!
+  }
+
+  type TaxonChild {
+    taxonID: ID!
+    parentNameUsageID: ID
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String
+    label: String
+    children: Int
+    species: Int
   }
 
   enum RelatedDatasetType {
@@ -225,6 +246,7 @@ const typeDef = gql`
     pathway: String
     eventDate: String
     source: String
+    isInvasive: Boolean
 
     dataset: Dataset
     isCountry: Boolean!

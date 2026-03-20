@@ -9,13 +9,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { cn } from '@/utils/shadcn';
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useParams } from 'react-router-dom';
 import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
-// import ClassificationSideBar from './ClassificationSideBar';
+import ClassificationSideBar from './ClassificationSideBar';
 import { InvasiveInCountries } from './InvasiveInCountries';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
@@ -223,7 +221,7 @@ export default function AboutBackbone() {
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              {/* <ClassificationSideBar taxon={taxon} /> */}
+              <ClassificationSideBar taxonInfo={taxonInfo} />
 
               {!!count && count > 0 && (
                 <>
