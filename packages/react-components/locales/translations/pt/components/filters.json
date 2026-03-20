@@ -661,7 +661,7 @@
     "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
   },
   "humboldtBooleans": {
-    "name": "",
+    "name": "Extensão Humboldt",
     "count": "{num, plural, one { identificado por } other {# identificados por}}",
     "description": ""
   },

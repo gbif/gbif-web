@@ -722,7 +722,7 @@
       }
     },
     "humboldtEcologicalInventory": {
-      "name": "Inventaire Écologique de Humboldt",
+      "name": "Extension Humboldt",
       "properties": {
         "siteCount": "Nombre de Sites",
         "siteNestingDescription": "Description de l'Imbrication des Sites",

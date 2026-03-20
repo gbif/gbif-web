@@ -722,7 +722,7 @@
       }
     },
     "humboldtEcologicalInventory": {
-      "name": "Экологическая инвентаризация Гумбольдта",
+      "name": "Расширение Гумбольдта",
       "properties": {
         "siteCount": "Число сайтов",
         "siteNestingDescription": "Описание вложенности сайтов",
