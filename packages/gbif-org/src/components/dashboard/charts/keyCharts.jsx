@@ -412,8 +412,8 @@ export function Synonyms({
         applyChecklistKey: true,
         gqlEntity: `taxon {
           title: scientificName
-          accepted
-          acceptedKey
+          accepted: acceptedNameUsage
+          acceptedKey: acceptedNameUsageID
         }`,
         title: <FormattedMessage id="dashboard.synonyms" defaultMessage="Synonyms" />,
         subtitleKey: 'dashboard.numberOfOccurrences',

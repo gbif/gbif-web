@@ -112,7 +112,7 @@ export const NonBackbonePresentation = ({
       <ArticleContainer className="g-bg-slate-100 g-p-0 lg:g-pb-0">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <Card>
-            <SectionTabs isNub={false} hasVerbatim={data.taxon?.origin === 'SOURCE'} />
+            <SectionTabs isNub={false} />
           </Card>
         </ArticleTextContainer>
       </ArticleContainer>
@@ -121,7 +121,7 @@ export const NonBackbonePresentation = ({
   );
 };
 
-const SectionTabs = ({ isNub, hasVerbatim }: { isNub: boolean; hasVerbatim: boolean }) => {
+const SectionTabs = ({ isNub }: { isNub: boolean }) => {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
@@ -130,12 +130,6 @@ const SectionTabs = ({ isNub, hasVerbatim }: { isNub: boolean; hasVerbatim: bool
       tabsToDisplay.push({
         to: 'metrics',
         children: <FormattedMessage id="taxon.tabs.metrics" />,
-      });
-    }
-    if (hasVerbatim && !isNub) {
-      tabsToDisplay.push({
-        to: 'verbatim',
-        children: <FormattedMessage id="taxon.tabs.verbatim" />,
       });
     }
 
@@ -165,6 +159,8 @@ const PageHeader = ({
   });
 
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon.taxonRank);
+
+  const kingdom = taxonInfo?.classification?.find((c) => c.taxonRank === 'KINGDOM')?.scientificName;
   return (
     <>
       <PageMetaData
@@ -292,20 +288,26 @@ const PageHeader = ({
               <HeaderInfoMain>
                 <FeatureList>
                   {!isPrimaryTaxonomy && taxon?.references && <Homepage url={taxon.references} />}
-                  {/* TODO taxonapi: what is the equivallent here */}
-                  {/* {isPrimaryTaxonomy && taxon?.iucnStatus?.distribution?.threatStatus && (
+                  {/* TODO taxonapi: what is the equivallent here  */}
+                  {isPrimaryTaxonomy && taxon.relatedInfo?.redlist?.threatStatus && (
                     <GenericFeature>
-                      <a href={taxon?.iucnStatus?.references} target="_blank">
+                      <a
+                        href={
+                          taxon.relatedInfo?.redlist?.link ??
+                          `https://www.iucnredlist.org/search?query=${taxon.scientificName}&searchType=species`
+                        }
+                        target="_blank"
+                      >
                         <img
                           width={200}
-                          src={`/iucnStatus/${taxon?.iucnStatus?.distribution?.threatStatus}.png`}
+                          src={`/iucnStatus/${taxon.relatedInfo?.redlist?.threatStatus}.png`}
                         />
                       </a>
                     </GenericFeature>
-                  )} */}
-                  {/* {isPrimaryTaxonomy && isSpeciesOrBelow && (
-                    <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
-                  )} */}
+                  )}
+                  {isPrimaryTaxonomy && isSpeciesOrBelow && (
+                    <Cites taxonName={taxon.scientificName} kingdom={kingdom} />
+                  )}
 
                   {isPrimaryTaxonomy && (
                     <>
@@ -332,7 +334,7 @@ const PageHeader = ({
             </HeaderInfo>
             <div className="g-border-b g-mt-4"></div>
             {/* TODO taxonapi: not sure what this is */}
-            {/* <SectionTabs isNub={isPrimaryTaxonomy} hasVerbatim={taxon?.origin === 'SOURCE'} /> */}
+            <SectionTabs isNub={isPrimaryTaxonomy} />
           </ArticleTextContainer>
         </PageContainer>
         <ErrorBoundary invalidateOn={taxon?.taxonID}>{children}</ErrorBoundary>

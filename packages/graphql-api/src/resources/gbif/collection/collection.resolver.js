@@ -2,6 +2,10 @@ import _ from 'lodash';
 import { getExcerpt, getOGImage } from '@/helpers/utils';
 import { getCardinality, getFacet } from '../getQueryMetrics';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
+import config from '@/config';
+
+const DEFAULT_CHECKLIST_KEY =
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
 function between(input, min, max) {
   return Math.min(Math.max(input, min), max);
@@ -142,10 +146,15 @@ export default {
     },
   },
   DescriptorMatches: {
-    taxon: ({ usageKey }, args, { dataSources }) => {
+    taxon: (
+      { usageKey, datasetKey = DEFAULT_CHECKLIST_KEY },
+      args,
+      { dataSources },
+    ) => {
       if (typeof usageKey === 'undefined') return null;
-      return dataSources.taxonAPI.getTaxonByKey({
+      return dataSources.taxonAPI.getTaxonInfo({
         key: usageKey,
+        datasetKey,
       });
     },
   },

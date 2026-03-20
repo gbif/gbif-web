@@ -2,7 +2,7 @@
 import config from '../../config';
 
 const DEFAULT_CHECKLIST_KEY =
-  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
 /**
  * Convinent wrapper to generate the facet resolvers.

@@ -181,6 +181,7 @@ const TAXON_QUERY = /* GraphQL */ `
             taxonID
             scientificName
             threatStatus
+            link
           }
         }
       }

@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 const typeDef = gql`
   extend type Query {
     taxonInfo(datasetKey: ID!, key: ID!): TaxonInfo
-    taxon(datasetKey: ID!, key: ID!): Taxon
+    taxon(datasetKey: ID!, key: ID!): TaxonSimple
     speciesMatchByUsageKey(usageKey: ID!, checklistKey: ID): SpeciesMatchResult
     checklistMetadata(checklistKey: ID!): ChecklistMeta
   }
@@ -144,7 +144,25 @@ const typeDef = gql`
     label: String
   }
 
-  type Taxon {
+  type TaxonSimple {
+    datasetKey: ID!
+    taxonID: ID!
+    acceptedNameUsageID: ID
+    parentNameUsageID: ID
+    scientificName: String!
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String!
+    nomenclaturalCode: String
+    extinct: Boolean
+    link: String
+    label: String!
+
+    acceptedNameUsage: String
+    dataset: Dataset
+  }
+
+  type TaxonFull {
     datasetKey: ID!
     taxonID: ID!
     acceptedNameUsageID: ID
@@ -180,7 +198,7 @@ const typeDef = gql`
     issues: [String]
 
     dataset: Dataset
-    acceptedTaxon: Taxon
+    acceptedTaxon: TaxonSimple
     occurrenceMedia(
       limit: Int
       offset: Int
@@ -189,7 +207,7 @@ const typeDef = gql`
     breakdown(sortByCount: Boolean): TaxonBreakdown
     wikiData: WikiDataTaxonData
     relatedInfo: RelatedTaxonInfo
-    related(datasetType: RelatedDatasetType): [Taxon!]!
+    related(datasetType: RelatedDatasetType): [TaxonSimple!]!
     children(limit: Int, offset: Int): Children
   }
 
@@ -287,7 +305,7 @@ const typeDef = gql`
     vernacularNames: [VernacularName!]
     classification: [TaxonClassification!]
     synonyms: TaxonSynonyms
-    taxon: Taxon
+    taxon: TaxonFull
 
     """
     Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.

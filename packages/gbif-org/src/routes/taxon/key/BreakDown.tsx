@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/s
 import rankEnum from '@/enums/basic/rank.json';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import HighchartsReact from 'highcharts-react-official';
-import isArray from 'lodash/isArray';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
@@ -69,7 +68,7 @@ const TaxonBreakdown = ({
         datasetKey: taxon.datasetKey,
       });
       const { data, errors } = await promise;
-      if (!data?.taxon?.checklistBankBreakdown) {
+      if (!data?.taxonInfo?.taxon?.checklistBankBreakdown) {
         if (errors?.[0]) {
           setError(errors[0].message);
         } else {
@@ -77,7 +76,7 @@ const TaxonBreakdown = ({
         }
         return;
       }
-      const root = data.taxon?.checklistBankBreakdown;
+      const root = data.taxonInfo?.taxon?.checklistBankBreakdown;
       initChart(root);
       setLoading(false);
       setError(null);

@@ -36,58 +36,11 @@ const ClassificationSideBar = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonI
     }
   }, [taxonInfo?.taxon?.taxonID, taxonInfo?.taxon?.datasetKey, limit, load]);
 
-  // const cancelChildrenRef = useRef(null);
-
-  //   useEffect(() => {
-  //     // setChildren([]);
-  //     setOffset(0);
-  //     setEndOfRecords(false);
-  //     if (taxon?.key) {
-  //       if (typeof cancelChildrenRef.current === 'function') {
-  //         cancelChildrenRef.current();
-  //       }
-  //       loadChildren({ key: taxon.key, limit, offset: 0, keepExisting: false });
-  //     }
-  //   }, [taxon?.key]);
-
-  //   const loadChildren = async ({
-  //     key,
-  //     limit,
-  //     offset,
-  //     keepExisting = false,
-  //   }: {
-  //     key: string;
-  //     limit: number;
-  //     offset: number;
-  //     keepExisting?: boolean;
-  //   }) => {
-  //     try {
-  //       setChildrenLoading(true);
-  //       const { promise, cancel } = getChildren({ key, limit, offset });
-  //       cancelChildrenRef.current = cancel;
-  //       const tx = await promise;
-
-  //       cancelChildrenRef.current = null;
-  //       setChildren([...(keepExisting ? children : []), ...(tx.children.results || [])]);
-  //       setOffset(tx.children.offset + limit);
-  //       setEndOfRecords(tx.children.endOfRecords);
-  //       setChildrenLoading(false);
-  //     } catch (error) {
-  //       setChildrenLoading(false);
-  //       if (error !== 'CANCEL_REQUEST') {
-  //         setError(error);
-  //       }
-
-  //       console.error('Error loading children:', error);
-  //     }
-  //   };
-  // )
-
   if (!taxonInfo?.classification) return null;
   const taxon = taxonInfo.taxon;
   if (!taxon) return null;
   const classification = [...(taxonInfo.classification ?? [])].reverse();
-  const children = data?.taxon?.children;
+  const children = data?.taxonInfo?.taxon?.children;
 
   return (
     <div className="g-mb-2">
@@ -203,17 +156,19 @@ export default ClassificationSideBar;
 
 const CHILDREN = /* GraphQL */ `
   query TaxonPageChildren($key: ID!, $datasetKey: ID!, $limit: Int, $offset: Int) {
-    taxon(key: $key, datasetKey: $datasetKey) {
-      children(limit: $limit, offset: $offset) {
-        offset
-        limit
-        endOfRecords
-        count
-        results {
-          taxonID
-          scientificName
-          taxonRank
-          children
+    taxonInfo(key: $key, datasetKey: $datasetKey) {
+      taxon {
+        children(limit: $limit, offset: $offset) {
+          offset
+          limit
+          endOfRecords
+          count
+          results {
+            taxonID
+            scientificName
+            taxonRank
+            children
+          }
         }
       }
     }

@@ -12,6 +12,97 @@ function stringCompare(a, b) {
   }
   return 0;
 }
+
+const sharedTaxonFields = {
+  dataset: ({ datasetKey }, args, { dataSources }) =>
+    dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+  // sourceDataset: ({ sourceDatasetKey }, args, { dataSources }) =>
+  //   dataSources.datasetAPI.getDatasetByKey({ key: sourceDatasetKey }),
+  acceptedTaxon: (
+    { acceptedNameUsageID, datasetKey },
+    args,
+    { dataSources },
+  ) => {
+    if (!acceptedNameUsageID) return null;
+    return dataSources.taxonAPI.getTaxon({
+      key: acceptedNameUsageID,
+      datasetKey,
+    });
+  },
+  occurrenceMedia: ({ taxonID, datasetKey }, args, { dataSources }) => {
+    if (datasetKey !== DEFAULT_CHECKLIST_KEY) {
+      return {
+        count: 0,
+        results: [],
+        offset: args.offset,
+        limit: args.limit,
+        endOfRecords: true,
+      }; // occurrence media is only precached for our primary taxonomy. colXR at time of writing
+    }
+
+    return dataSources.taxonAPI.getTaxonOccurrenceMedia({
+      taxonKey: taxonID,
+      limit: 10,
+      offset: 0,
+      mediaType: 'stillImage',
+      ...args,
+    });
+  },
+  breakdown: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, // TODO: taxonapi the default value should never be relevant, but currently the API is unstable and only return a datasetKey once in a while.
+    { sortByCount },
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI
+      .taxonBreakdown({ datasetKey, key: taxonID })
+      .then((response) => {
+        const breakdown = !sortByCount
+          ? response?.breakdown
+          : (response.breakdown ?? [])
+              .filter((t) => t.species > 0)
+              .sort((a, b) => b.species - a.species);
+        return { ...response, breakdown };
+      }),
+  wikiData: ({ taxonID }, args, { dataSources }) =>
+    dataSources.wikidataAPI.getWikiDataTaxonData(taxonID),
+  relatedInfo: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI
+      .getRelatedTaxonInfo({ key: taxonID, datasetKey })
+      .then((response) => {
+        return {
+          ...response,
+          // sort griis list by countryCode
+          griis: (response.griis ?? []).sort((a, b) =>
+            stringCompare(a.countryCode, b.countryCode),
+          ),
+        };
+      }),
+  related: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI.getRelated({
+      key: taxonID,
+      datasetKey,
+      query: args,
+    }),
+  children: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI.getChildren({
+      key: taxonID,
+      datasetKey,
+      query: args,
+    }),
+};
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -89,101 +180,26 @@ export default {
       return filtered[0];
     },
   },
-  Taxon: {
-    dataset: ({ datasetKey }, args, { dataSources }) =>
-      dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-    // sourceDataset: ({ sourceDatasetKey }, args, { dataSources }) =>
-    //   dataSources.datasetAPI.getDatasetByKey({ key: sourceDatasetKey }),
-    acceptedTaxon: (
+  TaxonSimple: {
+    ...sharedTaxonFields,
+    acceptedNameUsage: (
       { acceptedNameUsageID, datasetKey },
       args,
       { dataSources },
     ) => {
       if (!acceptedNameUsageID) return null;
-      return dataSources.taxonAPI.getTaxon({
-        key: acceptedNameUsageID,
-        datasetKey,
-      });
-    },
-    // sourceTaxon: ({ sourceID, sourceDatasetKey }, args, { dataSources }) => {
-    //   if (!sourceID || !sourceDatasetKey) return null;
-    //   return dataSources.taxonAPI.getTaxon({
-    //     key: sourceID,
-    //     datasetKey: sourceDatasetKey,
-    //   });
-    // },
-    occurrenceMedia: ({ taxonID, datasetKey }, args, { dataSources }) => {
-      if (datasetKey !== DEFAULT_CHECKLIST_KEY) {
-        return {
-          count: 0,
-          results: [],
-          offset: args.offset,
-          limit: args.limit,
-          endOfRecords: true,
-        }; // occurrence media is only precached for our primary taxonomy. colXR at time of writing
-      }
-
-      return dataSources.taxonAPI.getTaxonOccurrenceMedia({
-        taxonKey: taxonID,
-        limit: 10,
-        offset: 0,
-        mediaType: 'stillImage',
-        ...args,
-      });
-    },
-    breakdown: (
-      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, // TODO: taxonapi the default value should never be relevant, but currently the API is unstable and only return a datasetKey once in a while.
-      { sortByCount },
-      { dataSources },
-    ) =>
-      dataSources.taxonAPI
-        .taxonBreakdown({ datasetKey, key: taxonID })
+      return dataSources.taxonAPI
+        .getTaxonInfo({
+          key: acceptedNameUsageID,
+          datasetKey,
+        })
         .then((response) => {
-          const breakdown = !sortByCount
-            ? response?.breakdown
-            : (response.breakdown ?? [])
-                .filter((t) => t.species > 0)
-                .sort((a, b) => b.species - a.species);
-          return { ...response, breakdown };
-        }),
-    wikiData: ({ taxonID }, args, { dataSources }) =>
-      dataSources.wikidataAPI.getWikiDataTaxonData(taxonID),
-    relatedInfo: (
-      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-      args,
-      { dataSources },
-    ) =>
-      dataSources.taxonAPI
-        .getRelatedTaxonInfo({ key: taxonID, datasetKey })
-        .then((response) => {
-          return {
-            ...response,
-            // sort griis list by countryCode
-            griis: (response.griis ?? []).sort((a, b) =>
-              stringCompare(a.countryCode, b.countryCode),
-            ),
-          };
-        }),
-    related: (
-      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-      args,
-      { dataSources },
-    ) =>
-      dataSources.taxonAPI.getRelated({
-        key: taxonID,
-        datasetKey,
-        query: args,
-      }),
-    children: (
-      { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-      args,
-      { dataSources },
-    ) =>
-      dataSources.taxonAPI.getChildren({
-        key: taxonID,
-        datasetKey,
-        query: args,
-      }),
+          return response?.taxon?.scientificName;
+        });
+    },
+  },
+  TaxonFull: {
+    ...sharedTaxonFields,
   },
   Griis: {
     dataset: ({ datasetKey }, args, { dataSources }) =>

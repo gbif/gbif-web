@@ -8,14 +8,15 @@ import { useTaxonKeyLoaderData } from '.';
 import { useIsFamilyOrAbove } from './taxonUtil';
 export default function Metrics() {
   const { data } = useTaxonKeyLoaderData();
+  const taxon = data?.taxonInfo?.taxon;
 
-  const { taxon } = data;
-  const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
+  const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.taxonRank ?? '');
 
   const predicate = {
     type: 'equals',
     key: 'taxonKey',
-    value: taxon?.key,
+    value: taxon?.taxonID,
+    checklistKey: taxon?.datasetKey,
   };
 
   if (!taxon) return null;

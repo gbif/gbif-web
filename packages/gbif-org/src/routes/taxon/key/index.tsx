@@ -3,7 +3,7 @@ import { TaxonKeyQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { redirectDocument } from 'react-router-dom';
 import TaxonKeyAbout from './About';
-// import Metrics from './Metrics';
+import Metrics from './Metrics';
 import VerbatimTaxon from './Verbatim';
 import { TaxonKey, taxonLoader } from './taxonKey';
 const id = 'speciesKey';
@@ -31,7 +31,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'metrics',
-      element: <h1>Taxon page</h1>, //<Metrics />,
+      element: <Metrics />,
     },
     {
       path: 'treatments',

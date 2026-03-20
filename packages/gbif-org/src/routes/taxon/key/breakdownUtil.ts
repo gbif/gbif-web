@@ -44,20 +44,22 @@ export const getSourceTaxon = ({
 
 const TAXON_BREAKDOWN = /* GraphQL */ `
   query TaxonBreakdown($key: ID!, $datasetKey: ID!) {
-    taxon(key: $key, datasetKey: $datasetKey) {
-      key: taxonID
-      rank: taxonRank
-      scientificName
-      checklistBankBreakdown: breakdown(sortByCount: true) {
-        id: taxonID
-        name: scientificName
+    taxonInfo(key: $key, datasetKey: $datasetKey) {
+      taxon {
+        key: taxonID
         rank: taxonRank
-        species
-        children: breakdown {
+        scientificName
+        checklistBankBreakdown: breakdown(sortByCount: true) {
           id: taxonID
           name: scientificName
           rank: taxonRank
           species
+          children: breakdown {
+            id: taxonID
+            name: scientificName
+            rank: taxonRank
+            species
+          }
         }
       }
     }

@@ -714,6 +714,44 @@ export default {
           throw err;
         });
     },
+    taxonInfo: ({ key, _checklistKey }, _args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.taxonAPI
+
+        .getTaxonInfo({ key, datasetKey: _checklistKey })
+        .catch((err) => {
+          // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
+          if (
+            err?.extensions?.response?.status >= 400 &&
+            err?.extensions?.response?.status < 500
+          ) {
+            return null;
+          }
+          throw err;
+        });
+    },
+    taxonFull: ({ key, _checklistKey }, _args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.taxonAPI
+        .getTaxonInfo({
+          key,
+          datasetKey: _checklistKey,
+        })
+        .then((taxonInfo) => {
+          if (!taxonInfo) return null;
+          return taxonInfo.taxon;
+        })
+        .catch((err) => {
+          // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
+          if (
+            err?.extensions?.response?.status >= 400 &&
+            err?.extensions?.response?.status < 500
+          ) {
+            return null;
+          }
+          throw err;
+        });
+    },
     taxonMatch: (
       { key },
       { checklistKey = DEFAULT_CHECKLIST_KEY },

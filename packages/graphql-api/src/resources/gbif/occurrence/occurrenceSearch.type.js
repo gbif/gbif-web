@@ -574,10 +574,9 @@ const typeDef = gql`
   type OccurrenceFacetResult_taxon {
     key: String!
     count: Long!
-    """
-    Only apply to backbone taxa at the moment
-    """
-    taxon: Taxon
+    taxonInfo: TaxonInfo
+    taxon: TaxonSimple
+    taxonFull: TaxonFull
     """
     Get whatever minimum shared data we can compile for both backbone and other checklists. The idea is to allow UIs to generate a nice diaplay label with classification
     """
