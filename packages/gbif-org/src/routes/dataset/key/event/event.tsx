@@ -25,19 +25,20 @@ import { SidebarLayout, Aside } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { Progress } from '@radix-ui/react-progress';
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
 import { MdImage, MdEvent } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useLocation, useLoaderData, Link } from 'react-router-dom';
 import { Images } from '../about/Images';
-import { DatasetKeyContext } from '../datasetKey';
+import { useDatasetKeyContext } from '../datasetKey';
 import EventList from './eventList';
 import EventTaxonomy from './eventTaxonomy';
 import Properties, { Property } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { ExperimentalAlert } from './datasetEvents';
+
 export const Event = ({
   data,
   eventData,
@@ -47,7 +48,7 @@ export const Event = ({
   eventData?: EventQuery;
   className?: string;
 }) => {
-  const { datasetKey, datasetType } = useContext(DatasetKeyContext);
+  const { datasetKey, datasetType } = useDatasetKeyContext();
   const hideSidebar = useBelow(1000);
   const hideGlobe = useBelow(800);
   const location = useLocation();

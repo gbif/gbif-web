@@ -14,6 +14,8 @@ import { useLoaderData, useParams } from 'react-router-dom';
 
 import { Event } from './event';
 import { GRAPHQL_EVENT } from '../../../events/key/EventDrawer';
+import { useDatasetKeyContext } from '../datasetKey';
+import EmptyTab from '@/components/EmptyTab';
 
 export function eventLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
@@ -43,6 +45,12 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
 }
 
 export const DatasetEventID = () => {
+  const { showEventsTab } = useDatasetKeyContext();
+  if (showEventsTab) return <NoneEmptyTab />;
+  return <EmptyTab />;
+};
+
+const NoneEmptyTab = () => {
   const { data } = useLoaderData() as { data: DatasetEventQuery };
   const { eventID } = useParams<{ eventID: string }>();
 
@@ -69,6 +77,7 @@ export const DatasetEventID = () => {
 
   return <Event data={data} eventData={eventData} eventDataLoading={loading} />;
 };
+
 export default DatasetEventID;
 
 export const EVENT_QUERY = /* GraphQL */ `

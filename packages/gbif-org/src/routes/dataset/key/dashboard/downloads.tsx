@@ -2,8 +2,7 @@ import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { useUser } from '@/contexts/UserContext';
-import { DatasetDownloadsQuery, DatasetDownloadsQueryVariables, DatasetQuery } from '@/gql/graphql';
+import { DatasetDownloadsQuery, DatasetDownloadsQueryVariables } from '@/gql/graphql';
 import { useIntParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DownloadResult } from '@/routes/user/downloads/downloadResult';
@@ -13,9 +12,7 @@ import { useDatasetKeyLoaderData } from '..';
 import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 
 export function Downloads() {
-  const { data: parentData } = useDatasetKeyLoaderData() as { data: DatasetQuery };
-  const dataset = parentData?.dataset;
-  const datasetKey = dataset?.key;
+  const { dataset } = useDatasetKeyLoaderData().data;
   const [offset, setOffset] = useIntParam({
     key: 'offset',
     defaultValue: 0,
@@ -32,17 +29,14 @@ export function Downloads() {
   );
 
   useEffect(() => {
-    if (!datasetKey) {
-      return;
-    }
     load({
       variables: {
-        datasetKey,
+        datasetKey: dataset.key,
         limit: 20,
         offset,
       },
     });
-  }, [offset, load, datasetKey]);
+  }, [offset, load, dataset.key]);
 
   if (loading || !data) return <CardListSkeleton />;
 
@@ -67,7 +61,7 @@ export function Downloads() {
             <DownloadAsTSVLink
               tsvUrl={`${
                 import.meta.env.PUBLIC_API_V1
-              }/occurrence/download/statistics/export?datasetKey=${datasetKey}`}
+              }/occurrence/download/statistics/export?datasetKey=${dataset.key}`}
             />
           </CardHeader>
 

@@ -2,17 +2,24 @@
 import { Phylogeny } from '@/components/phylogeny';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useContext, useEffect, useState } from 'react';
-import { DatasetKeyContext } from './datasetKey';
+import { useEffect, useState } from 'react';
+import { useDatasetKeyContext } from './datasetKey';
+import EmptyTab from '@/components/EmptyTab';
+
+export const DatasetKeyPhylo = () => {
+  const { showPhylogenyTab } = useDatasetKeyContext();
+  if (showPhylogenyTab) return <PhylogeniesTab />;
+  return <EmptyTab />;
+};
 
 type Phylogeny = {
   phyloTreeFileName: string;
   phyloTreeTipLabel: string;
 };
 
-export const DatasetKeyPhylo = () => {
+const PhylogeniesTab = () => {
   const [phylogenies, setPhylogenies] = useState<Phylogeny[]>([]);
-  const { datasetKey, dynamicProperties } = useContext(DatasetKeyContext);
+  const { datasetKey, dynamicProperties } = useDatasetKeyContext();
 
   useEffect(() => {
     if (dynamicProperties && datasetKey) {

@@ -19,10 +19,8 @@ import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import useAbove from '@/hooks/useAbove';
 
 export function DatasetKeyProject() {
-  const { data } = useDatasetKeyLoaderData();
-  const { dataset } = data;
+  const { project } = useDatasetKeyLoaderData().data.dataset;
   const showSidebar = useAbove(1100);
-  const { project } = dataset ?? {};
 
   const tableOfContents = useMemo(() => {
     if (!project) return [];
@@ -48,9 +46,6 @@ export function DatasetKeyProject() {
     return tableOfContents;
   }, [project]);
 
-  if (!dataset) {
-    return null; //TODO return loader or error
-  }
   if (!project) return <EmptyTab />;
 
   return (

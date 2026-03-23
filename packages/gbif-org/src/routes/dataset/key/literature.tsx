@@ -6,8 +6,8 @@ import { LiteratureSearchInner } from '@/routes/literature/search/literatureSear
 import { searchConfig } from '@/routes/literature/search/searchConfig';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useContext, useEffect, useState } from 'react';
-import { DatasetKeyContext } from './datasetKey';
+import { useEffect, useState } from 'react';
+import { useDatasetKeyContext } from './datasetKey';
 
 export function DatasetKeyLiterature() {
   const [filter, setFilter] = useFilterParams({
@@ -16,7 +16,7 @@ export function DatasetKeyLiterature() {
   });
   const baseConfig = useConfig();
   const [config, setConfig] = useState<SearchMetadata | undefined>();
-  const { datasetKey } = useContext(DatasetKeyContext);
+  const { datasetKey } = useDatasetKeyContext();
   const literatureSearchConfig = baseConfig?.datasetKey?.literatureSearch;
 
   useEffect(() => {
@@ -47,9 +47,4 @@ export function DatasetKeyLiterature() {
       </ArticleTextContainer>
     </ArticleContainer>
   );
-}
-
-//function to remove a specific string from an array
-function removeStringFromArray(array: string[], string: string): string[] {
-  return array.filter((item) => item !== string);
 }

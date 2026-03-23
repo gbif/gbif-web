@@ -1,11 +1,15 @@
-import { DatasetQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import TaxonKeyAbout from '@/routes/taxon/key/About';
-import { NonBackboneTaxon, taxonLoader } from '@/routes/taxon/key/taxonKey';
+import { taxonLoader } from '@/routes/taxon/key/taxonKey';
 import VerbatimTaxon from '@/routes/taxon/key/Verbatim';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
-import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
+import {
+  DatasetKeyLoaderResult,
+  datasetLoader,
+  DatasetPage,
+  DatasetPageSkeleton,
+} from './datasetKey';
 import { DatasetKeyDownload } from './download';
 import DatasetEvents from './event/datasetEvents';
 import { DatasetEventID, eventLoader, parentEventLoader } from './event/eventID';
@@ -13,6 +17,7 @@ import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
 import { DatasetKeyTaxonSearch } from './taxonSearch';
 import { redirectDocument } from 'react-router-dom';
+import { DatasetTaxonKey } from './taxonKey';
 const id = 'datasetKey';
 
 export const datasetKeyRoute: RouteObjectWithPlugins = {
@@ -54,7 +59,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'species/:taxonKey',
-      element: <NonBackboneTaxon headLess={true} />,
+      element: <DatasetTaxonKey />,
       loader: taxonLoader,
       children: [
         {
@@ -90,5 +95,5 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function useDatasetKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: DatasetQuery };
+  return useRenderedRouteLoaderData(id) as DatasetKeyLoaderResult;
 }

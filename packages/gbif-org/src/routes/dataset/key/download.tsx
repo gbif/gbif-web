@@ -10,23 +10,19 @@ import {
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { MdDownload } from 'react-icons/md';
-import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useParams } from 'react-router-dom';
 import { useDatasetKeyLoaderData } from '.';
-import { DatasetKeyContext } from './datasetKey';
+import { useDatasetKeyContext } from './datasetKey';
 
 export function DatasetKeyDownload() {
-  const { key } = useParams();
-  const { data } = useDatasetKeyLoaderData();
-  const { dataset } = data;
-  const { contentMetrics } = useContext(DatasetKeyContext);
+  const { dataset } = useDatasetKeyLoaderData().data;
+  const { contentMetrics } = useDatasetKeyContext();
   const occurrenceCount = contentMetrics?.occurrenceSearch?.documents?.total ?? 0;
 
   const fullPredicate = {
     type: 'equals',
     key: 'DATASET_KEY',
-    value: key,
+    value: dataset.key,
   };
 
   const sourceDownloadEndpoint = dataset?.endpoints?.find(function (e) {
@@ -132,7 +128,7 @@ export function DatasetKeyDownload() {
         <div className="g-mt-4 g-text-slate-600">
           <a
             className="g-underline g-text-inherit g-flex-inline g-items-center"
-            href={`${import.meta.env.PUBLIC_API_V1}/dataset/${key}/document`}
+            href={`${import.meta.env.PUBLIC_API_V1}/dataset/${dataset.key}/document`}
           >
             <MdDownload />
             <span className="g-ms-2">

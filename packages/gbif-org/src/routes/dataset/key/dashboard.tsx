@@ -28,9 +28,8 @@ import {
 } from '@/components/dashboard';
 import { useConfig } from '@/config/config';
 import { useDatasetKeyLoaderData } from '.';
-import { DatasetQuery, DatasetType, Predicate, PredicateType } from '@/gql/graphql';
+import { DatasetType, Predicate, PredicateType } from '@/gql/graphql';
 import { useEffect, useMemo, useState } from 'react';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Downloads } from './dashboard/downloads';
 import { ChecklistMetrics } from './dashboard/checklistMetrics';
 import { NoRecords } from '@/components/noDataMessages';
@@ -48,13 +47,12 @@ type DatasetMetricType =
 
 export function DatasetKeyDashboard() {
   const config = useConfig();
-  const { data } = useDatasetKeyLoaderData() as { data: DatasetQuery };
-  const dataset = data?.dataset;
+  const { dataset, literatureSearch } = useDatasetKeyLoaderData().data;
 
   const [scopedDatasetPredicate, setScopedDatasetPredicate] = useState<Predicate>({
     type: PredicateType.Equals,
     key: 'datasetKey',
-    value: dataset?.key,
+    value: dataset.key,
   });
   const { count, error, loading } = useOccurrenceCount({ predicate: scopedDatasetPredicate });
   const hasOccurrences = !loading && !error && count > 0;
@@ -69,7 +67,6 @@ export function DatasetKeyDashboard() {
   const sitePredicate = config?.occurrenceSearch?.scope as Predicate;
   const siteLiteraturePredicate = config?.literatureSearch?.scope as Predicate;
   useEffect(() => {
-    if (!dataset?.key) return;
     const datasetPredicate = {
       type: PredicateType.Equals,
       key: 'datasetKey',
@@ -84,7 +81,7 @@ export function DatasetKeyDashboard() {
   const literaturePredicate = {
     type: PredicateType.Equals,
     key: 'gbifDatasetKey',
-    value: dataset?.key,
+    value: dataset.key,
   };
 
   const literatureScope = siteLiteraturePredicate
@@ -103,20 +100,18 @@ export function DatasetKeyDashboard() {
       options.push('downloads');
     }
 
-    if (dataset?.type === DatasetType.Checklist) {
+    if (dataset.type === DatasetType.Checklist) {
       options.push('checklist');
     }
     if (
       hasOccurrences ||
-      dataset?.type === DatasetType.Occurrence ||
-      dataset?.type === DatasetType.SamplingEvent
+      dataset.type === DatasetType.Occurrence ||
+      dataset.type === DatasetType.SamplingEvent
     ) {
       options.push('taxonomic', 'geographic', 'temporal', 'qualities');
     }
     return options;
-  }, [dataset?.type, hasOccurrences, enableListOfDownloads]);
-
-  if (!dataset) return <CardListSkeleton />;
+  }, [dataset.type, hasOccurrences, enableListOfDownloads]);
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-min-h-[70vh]">
@@ -186,10 +181,10 @@ export function DatasetKeyDashboard() {
         )}
         {group === 'citations' && (
           <>
-            {data.literatureSearch?.documents.total > 0 && (
+            {literatureSearch?.documents.total > 0 && (
               <CitationMetrics predicate={literatureScope} />
             )}
-            {data.literatureSearch?.documents.total === 0 && (
+            {literatureSearch?.documents.total === 0 && (
               <div className="g-my-8 g-text-slate-500">
                 <NoRecords messageId="dataset.noCitations" />
               </div>
@@ -330,13 +325,3 @@ function CitationMetrics({ predicate }: { predicate: Predicate }) {
     </ClientSideOnly>
   );
 }
-
-const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query DatasetOccurrenceSiteCount($predicate: Predicate) {
-    occurrenceSearch(predicate: $predicate) {
-      documents(size: 0) {
-        total
-      }
-    }
-  }
-`;

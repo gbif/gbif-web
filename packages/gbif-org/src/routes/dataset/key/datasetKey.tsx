@@ -13,7 +13,6 @@ import { enum2licenseUrl, LicenceTag } from '@/components/identifierTag';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
-import { NotFoundError } from '@/errors';
 import {
   DatasetOccurrenceSearchQuery,
   DatasetOccurrenceSearchQueryVariables,
@@ -32,7 +31,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
-import { createContext, useEffect, useMemo } from 'react';
+import { createContext, useContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
@@ -292,19 +291,30 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 // create context to pass data to children
-export const DatasetKeyContext = createContext<{
-  key?: string;
-  datasetKey?: string;
+type IDatasetKeyContext = {
+  datasetKey: string;
   datasetType?: DatasetType;
   dynamicProperties?: string;
   contentMetrics?: DatasetOccurrenceSearchQuery;
-}>({});
+  showPhylogenyTab: boolean;
+  showSpeciesTab: boolean;
+  showEventsTab: boolean;
+};
+
+export const DatasetKeyContext = createContext<IDatasetKeyContext | undefined>(undefined);
+
+export function useDatasetKeyContext(): IDatasetKeyContext {
+  const ctx = useContext(DatasetKeyContext);
+  if (!ctx) throw new Error("'useDatasetKeyContext' was used outside DatasetKeyContext.Provider");
+  return ctx;
+}
 
 export async function datasetLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
   const response = await graphql.query<DatasetQuery, DatasetQueryVariables>(DATASET_QUERY, { key });
   const { errors, data } = await response.json();
+
   throwCriticalErrors({
     path404: ['dataset'],
     errors,
@@ -320,7 +330,7 @@ export async function datasetLoader({ params, graphql }: LoaderArgs) {
   };
 }
 
-type DatasetKeyLoaderResult = Awaited<ReturnType<typeof datasetLoader>>;
+export type DatasetKeyLoaderResult = Awaited<ReturnType<typeof datasetLoader>>;
 
 export const DatasetPageSkeleton = ArticleSkeleton;
 
@@ -354,23 +364,29 @@ export function DatasetPage() {
   );
 
   // check for various tabs
-  let hasPhylogeny = false;
-  if (occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties) {
-    try {
-      const parsedDynamicProperties = JSON.parse(
-        occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties
-      );
-      if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName)
-        // is there a phylogeny by convention
-        hasPhylogeny = true;
-    } catch (error) {
-      // ignore parsing errors. it just means that the dynamicProperties are not a JSON object
-      hasPhylogeny = false;
+  const showPhylogenyTab = useMemo(() => {
+    if (occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties) {
+      try {
+        const parsedDynamicProperties = JSON.parse(
+          occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties
+        );
+        if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName)
+          // is there a phylogeny by convention
+          return true;
+      } catch (error) {
+        // ignore parsing errors. it just means that the dynamicProperties are not a JSON object
+      }
     }
-  }
 
-  const hasTaxonomy = !!dataset.checklistBankDataset?.key;
+    return false;
+  }, [occData]);
+
+  const showSpeciesTab = !!dataset.checklistBankDataset?.key;
   const withEventId = occData?.withEvents?.documents?.total || 0;
+  const showEventsTab =
+    (config.datasetKey?.showEvents && withEventId > 0) ||
+    (dataset.type === 'SAMPLING_EVENT' &&
+      import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled');
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
@@ -384,10 +400,10 @@ export function DatasetPage() {
         children: <FormattedMessage id="dataset.tabs.project" />,
       });
     }
-    if (hasPhylogeny) {
+    if (showPhylogenyTab) {
       tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
-    if (hasTaxonomy) {
+    if (showSpeciesTab) {
       tabsToDisplay.push({ to: 'species', children: 'Species' });
       // tabsToDisplay.push({
       //   to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
@@ -410,11 +426,7 @@ export function DatasetPage() {
       //   ),
       // });
     }
-    if (
-      (config.datasetKey?.showEvents && withEventId > 0) ||
-      (dataset.type === 'SAMPLING_EVENT' &&
-        import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled')
-    ) {
+    if (showEventsTab) {
       tabsToDisplay.push({
         to: 'events',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
@@ -431,14 +443,7 @@ export function DatasetPage() {
       children: <FormattedMessage id="dataset.tabs.download" />,
     });
     return tabsToDisplay;
-  }, [
-    hasPhylogeny,
-    hasTaxonomy,
-    withEventId,
-    dataset.type,
-    dataset.project,
-    config.datasetKey?.showEvents,
-  ]);
+  }, [showPhylogenyTab, showSpeciesTab, showEventsTab, dataset.type, dataset.project]);
 
   useEffect(() => {
     const datasetPredicate = {
@@ -554,7 +559,11 @@ export function DatasetPage() {
                 <FormattedMessage
                   id="dataset.registeredDate"
                   values={{
-                    DATE: <LongDate value={dataset.created ?? undefined} />,
+                    DATE: dataset.created ? (
+                      <LongDate value={dataset.created} />
+                    ) : (
+                      <FormattedMessage id="phrases.unknownDate" />
+                    ),
                   }}
                 />
               }
@@ -675,6 +684,9 @@ export function DatasetPage() {
             dynamicProperties:
               occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,
             contentMetrics: occData,
+            showPhylogenyTab,
+            showSpeciesTab,
+            showEventsTab,
           }}
         >
           <ErrorBoundary type="PAGE">
