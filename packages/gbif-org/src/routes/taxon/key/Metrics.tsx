@@ -1,7 +1,7 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
-import { Taxa } from '@/components/dashboard/Taxonomy';
+// import { Taxa } from '@/components/dashboard/Taxonomy';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useTaxonKeyLoaderData } from '.';
