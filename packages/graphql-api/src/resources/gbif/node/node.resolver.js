@@ -1,3 +1,6 @@
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { isValidUuid } from '@/helpers/utils';
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -9,8 +12,12 @@ export default {
   Query: {
     nodeSearch: (parent, args, { dataSources }) =>
       dataSources.nodeAPI.searchNodes({ query: args }),
-    node: (parent, { key }, { dataSources }) =>
-      dataSources.nodeAPI.getNodeByKey({ key }),
+    node: (parent, { key }, { dataSources }) => {
+      if (!isValidUuid(key)) {
+        throw new NotFoundError();
+      }
+      return dataSources.nodeAPI.getNodeByKey({ key });
+    },
     nodeCountry: (parent, { countryCode }, { dataSources }) =>
       dataSources.nodeAPI.getNodeByCountryCode({ countryCode }),
   },

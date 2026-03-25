@@ -3,7 +3,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
-import { NotFoundError } from '@/errors';
 import {
   NodeDetailsFragment,
   ParticipantDetailsQuery,
@@ -128,11 +127,23 @@ export async function participantLoader({ params, graphql, locale }: LoaderArgs)
     return redirect(redirectUrl);
   }
 
-  return { errors, data };
+  return {
+    errors,
+    data: {
+      ...data,
+      // throwCriticalErrors makes sure participant and node is defined, so we tell TypeScript using !
+      participant: {
+        ...data!.participant!,
+        node: data!.participant!.node!,
+      },
+    },
+  };
 }
 
+type ParticipantKeyLoaderResult = Exclude<Awaited<ReturnType<typeof participantLoader>>, Response>;
+
 export function ParticipantPage() {
-  const { data, errors } = useLoaderData() as { data: ParticipantDetailsQuery; errors: unknown };
+  const { data, errors } = useLoaderData() as ParticipantKeyLoaderResult;
   const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
@@ -140,7 +151,6 @@ export function ParticipantPage() {
     }
   }, [errors, notifyOfPartialData]);
 
-  if (data.participant == null) throw new NotFoundError();
   const { participant } = data;
 
   const { formatMessage } = useIntl();
@@ -197,26 +207,26 @@ export function ParticipantHeaderInfo({
   node,
 }: {
   url?: string | null;
-  node?: NodeDetailsFragment | null;
+  node: NodeDetailsFragment;
 }) {
   return (
     <HeaderInfo>
       <HeaderInfoMain>
         <FeatureList>
           {url && <Homepage url={url} />}
-          {(node?.dataset?.count ?? 0) > 0 && (
+          {node.dataset.count > 0 && (
             <GenericFeature>
               <a href="#datasetList">
-                <FormattedMessage id="counts.nDatasets" values={{ total: node?.dataset?.count }} />
+                <FormattedMessage id="counts.nDatasets" values={{ total: node.dataset.count }} />
               </a>
             </GenericFeature>
           )}
-          {(node?.publisher?.count ?? 0) > 0 && (
+          {node.publisher.count > 0 && (
             <GenericFeature>
               <a href="#publisherList">
                 <FormattedMessage
                   id="counts.nEndorsedPublishers"
-                  values={{ total: node?.publisher?.count }}
+                  values={{ total: node.publisher.count }}
                 />
               </a>
             </GenericFeature>

@@ -1,7 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import PageMetaData from '@/components/PageMetaData';
-import { NotFoundError, NotFoundLoaderResponse } from '@/errors';
+import { NotFoundLoaderResponse } from '@/errors';
 import { NodeDetailsQuery, NodeDetailsQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ParticipantHeaderInfo } from '@/routes/participant/key/participantKey';
@@ -54,11 +54,13 @@ export async function nodeLoader({ params, graphql }: LoaderArgs) {
     return redirect(`/participant/${data.node.participant.id}`);
   }
 
-  return { errors, data };
+  return { errors, node: data.node! };
 }
 
+export type NodeKeyLoaderResult = Exclude<Awaited<ReturnType<typeof nodeLoader>>, Response>;
+
 export function NodePage() {
-  const { data, errors } = useLoaderData() as { data: NodeDetailsQuery; errors: unknown };
+  const { node, errors } = useLoaderData() as NodeKeyLoaderResult;
   const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
@@ -66,17 +68,11 @@ export function NodePage() {
     }
   }, [errors, notifyOfPartialData]);
 
-  if (data.node == null) throw new NotFoundError();
-  const { node } = data;
-
   return (
     <article className="g-bg-background">
       <PageMetaData title={node.title} path={`/participant/${node.key}`} />
 
-      <DataHeader
-        aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={node?.key?.toString()} />}
-      ></DataHeader>
+      <DataHeader aboutContent={<AboutContent />} apiContent={<ApiContent id={node.key} />} />
       <PageContainer topPadded hasDataHeader>
         <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle>

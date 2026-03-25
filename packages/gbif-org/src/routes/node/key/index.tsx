@@ -1,7 +1,6 @@
-import { NodeDetailsQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { NodeKeyAbout } from './about';
-import { NodePage, NodePageSkeleton, nodeLoader } from './nodeKey';
+import { NodeKeyLoaderResult, NodePage, NodePageSkeleton, nodeLoader } from './nodeKey';
 
 const id = 'nodeKey';
 
@@ -26,5 +25,5 @@ export const nodeKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function useNodeKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: NodeDetailsQuery };
+  return useRenderedRouteLoaderData(id) as NodeKeyLoaderResult;
 }
