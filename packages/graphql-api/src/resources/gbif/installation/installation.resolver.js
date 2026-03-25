@@ -1,4 +1,5 @@
-import { getHtml } from '@/helpers/utils';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { getHtml, isValidUuid } from '@/helpers/utils';
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -10,8 +11,12 @@ export default {
   Query: {
     installationSearch: (parent, args, { dataSources }) =>
       dataSources.installationAPI.searchInstallations({ query: args }),
-    installation: (parent, { key }, { dataSources }) =>
-      dataSources.installationAPI.getInstallationByKey({ key }),
+    installation: (parent, { key }, { dataSources }) => {
+      if (!isValidUuid(key)) {
+        throw new NotFoundError();
+      }
+      return dataSources.installationAPI.getInstallationByKey({ key });
+    },
   },
   Installation: {
     dataset: ({ key }, args, { dataSources }) => {
@@ -24,9 +29,9 @@ export default {
     },
     homepage: ({ type, endpoints }) => {
       if (type === 'IPT_INSTALLATION') {
-        var iptRssFeed = endpoints.find((x) => x.type === 'FEED');
+        const iptRssFeed = endpoints.find((x) => x.type === 'FEED');
         if (iptRssFeed) {
-          var iptHomePage = iptRssFeed.url.replace(/rss\.do$/, '');
+          const iptHomePage = iptRssFeed.url.replace(/rss\.do$/, '');
           return iptHomePage;
         }
       }
