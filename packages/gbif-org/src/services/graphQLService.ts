@@ -13,12 +13,14 @@ type DataProviderOptions = {
 
 type QueryResult<T> = Promise<
   Omit<Response, 'json'> & {
-    json(): Promise<{
-      data: T;
-      errors?: Array<{ message: string; path?: [string] }>;
-    }>;
+    json(): Promise<ParsedQueryResult<T>>;
   }
 >;
+
+export type ParsedQueryResult<T> = {
+  data: T;
+  errors?: Array<{ message: string; path?: [string] }>;
+};
 
 export class GraphQLService {
   private endpoint: string;
