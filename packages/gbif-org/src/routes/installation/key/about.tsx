@@ -23,10 +23,8 @@ import { FormattedMessage } from 'react-intl';
 import { useInstallationKeyLoaderData } from '.';
 
 export function InstallationKeyAbout() {
-  const { data } = useInstallationKeyLoaderData();
+  const { installation } = useInstallationKeyLoaderData();
   const [offset, setOffset] = useState(0);
-
-  const { installation } = data;
 
   const {
     data: datasetData,
@@ -41,8 +39,6 @@ export function InstallationKeyAbout() {
 
   useEffect(() => {
     // load datasets and refresh when pages change
-    if (!installation?.key) return;
-
     load({
       variables: {
         installation: installation.key,
@@ -50,11 +46,10 @@ export function InstallationKeyAbout() {
         offset,
       },
     });
-  }, [installation?.key, offset, load]);
+  }, [installation.key, offset, load]);
 
   const datasets = datasetData?.installation?.dataset;
 
-  if (!installation) throw new Error('Installation data is not available');
   if (!error && (loading || !datasetData)) return <CardListSkeleton />;
 
   return (

@@ -1,7 +1,11 @@
-import { InstallationQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { InstallationKeyAbout } from './about';
-import { installationLoader, InstallationPage, InstallationPageSkeleton } from './installationKey';
+import {
+  InstallationKeyLoaderResult,
+  installationLoader,
+  InstallationPage,
+  InstallationPageSkeleton,
+} from './installationKey';
 
 const id = 'installationKey';
 
@@ -26,5 +30,5 @@ export const installationKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function useInstallationKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: InstallationQuery };
+  return useRenderedRouteLoaderData(id) as InstallationKeyLoaderResult;
 }

@@ -1,13 +1,8 @@
 import { DataHeader } from '@/components/dataHeader';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-} from '@/components/headerComponents';
+import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
-import { NotFoundError } from '@/errors';
 import { InstallationQuery, InstallationQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -75,20 +70,19 @@ export async function installationLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.installation],
   });
 
-  return { errors, data };
+  return { errors, installation: data.installation! };
 }
 
+export type InstallationKeyLoaderResult = Awaited<ReturnType<typeof installationLoader>>;
+
 export function InstallationPage() {
-  const { data, errors } = useLoaderData() as { data: InstallationQuery };
+  const { installation, errors } = useLoaderData() as InstallationKeyLoaderResult;
   const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
       notifyOfPartialData();
     }
   }, [errors, notifyOfPartialData]);
-
-  if (data.installation == null) throw new NotFoundError();
-  const { installation } = data;
 
   const deletedAt = installation.deleted;
 
@@ -105,7 +99,7 @@ export function InstallationPage() {
       <DataHeader
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={installation?.key?.toString()} />}
-      ></DataHeader>
+      />
 
       <PageContainer topPadded hasDataHeader>
         <ArticleTextContainer className="g-max-w-screen-lg">
@@ -123,7 +117,7 @@ export function InstallationPage() {
           </ArticlePreTitle>
           <ArticleTitle
             dangerouslySetTitle={{ __html: installation.title || 'No title provided' }}
-          ></ArticleTitle>
+          />
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
 
