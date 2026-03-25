@@ -1,4 +1,3 @@
-import { NotFoundError } from '@/errors';
 import {
   CollectionFallbackImageQuery,
   CollectionFallbackImageQueryVariables,
@@ -31,11 +30,16 @@ export async function collectionLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.collection],
   });
 
-  return { errors, data };
+  return {
+    errors,
+    collection: data.collection!,
+  };
 }
 
+export type CollectionKeyLoaderResult = Awaited<ReturnType<typeof collectionLoader>>;
+
 export function CollectionKey() {
-  const { data, errors } = useLoaderData() as { data: CollectionQuery };
+  const { collection, errors } = useLoaderData() as CollectionKeyLoaderResult;
   const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
@@ -60,47 +64,43 @@ export function CollectionKey() {
   });
 
   useEffect(() => {
-    const id = data.collection?.key;
-    if (typeof id !== 'undefined') {
-      const collectionPredicate = {
-        type: PredicateType.Equals,
-        key: 'collectionKey',
-        value: id,
-      };
-      slowLoad({
-        variables: {
-          predicate: collectionPredicate,
-          imagePredicate: {
-            type: PredicateType.And,
-            predicates: [
-              collectionPredicate,
-              { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
-            ],
-          },
-          coordinatePredicate: {
-            type: PredicateType.And,
-            predicates: [
-              collectionPredicate,
-              { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
-            ],
-          },
-          clusterPredicate: {
-            type: PredicateType.And,
-            predicates: [
-              collectionPredicate,
-              { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
-            ],
-          },
+    const collectionPredicate = {
+      type: PredicateType.Equals,
+      key: 'collectionKey',
+      value: collection.key,
+    };
+    slowLoad({
+      variables: {
+        predicate: collectionPredicate,
+        imagePredicate: {
+          type: PredicateType.And,
+          predicates: [
+            collectionPredicate,
+            { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
+          ],
         },
-      });
-      imageLoad({ variables: { key: id } });
-    }
-  }, [data.collection?.key, imageLoad, slowLoad]);
+        coordinatePredicate: {
+          type: PredicateType.And,
+          predicates: [
+            collectionPredicate,
+            { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
+          ],
+        },
+        clusterPredicate: {
+          type: PredicateType.And,
+          predicates: [
+            collectionPredicate,
+            { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
+          ],
+        },
+      },
+    });
+    imageLoad({ variables: { key: collection.key } });
+  }, [collection.key, imageLoad, slowLoad]);
 
-  if (data.collection == null) throw new NotFoundError();
   return (
     <Presentation
-      data={data}
+      collection={collection}
       collectionMetrics={collectionMetrics}
       fallbackImage={imageData?.collection?.featuredImageUrl_fallback}
     />

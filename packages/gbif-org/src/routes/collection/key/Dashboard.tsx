@@ -7,12 +7,13 @@ import { FormattedMessage } from 'react-intl';
 import { useCollectionKeyLoaderData } from '.';
 
 export default function Dashboard() {
-  const { data } = useCollectionKeyLoaderData();
+  const { collection } = useCollectionKeyLoaderData();
   const predicate = {
     type: 'equals',
     key: 'collectionKey',
-    value: data?.collection?.key,
+    value: collection.key,
   };
+
   return (
     <ArticleContainer className="g-bg-slate-100">
       <ArticleTextContainer className="g-max-w-screen-xl">

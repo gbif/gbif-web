@@ -1,9 +1,8 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { InstitutionQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import InstitutionKeyAbout from './About';
 import InstitutionKeyCollection from './Collection';
-import { InstitutionKey, institutionLoader } from './institutionKey';
+import { InstitutionKey, InstitutionKeyLoaderResult, institutionLoader } from './institutionKey';
 import InstitutionKeySpecimens from './Specimen';
 
 const id = 'institutionKey';
@@ -48,5 +47,5 @@ export const institutionKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function useInstitutionKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: InstitutionQuery };
+  return useRenderedRouteLoaderData(id) as InstitutionKeyLoaderResult;
 }
