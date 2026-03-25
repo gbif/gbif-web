@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { GraphQLError } from 'graphql';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { isValidIntegerKey } from '@/helpers/utils';
 import config from '@/config';
 
 const DEFAULT_CHECKLIST_KEY =
@@ -269,8 +271,12 @@ export default {
       dataSources.taxonAPI
         .searchBackbone({ query: { ...args, ...query } })
         .then(extractHighlights),
-    taxon: (parent, { key }, { dataSources }) =>
-      dataSources.taxonAPI.getTaxonByKey({ key }),
+    taxon: (parent, { key }, { dataSources }) => {
+      if (!isValidIntegerKey(key)) {
+        throw new NotFoundError();
+      }
+      return dataSources.taxonAPI.getTaxonByKey({ key });
+    },
     checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>
       dataSources.taxonAPI.getChecklistRoots({ key, query }),
     taxonSuggestions: (parent, query, { dataSources }) =>

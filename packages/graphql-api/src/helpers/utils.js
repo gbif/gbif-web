@@ -255,6 +255,11 @@ function isValidUuid(value) {
   return UUID_REGEX.test(value);
 }
 
+// Java Integer.MAX_VALUE — the GBIF species API uses integer keys
+function isValidIntegerKey(value) {
+  return /^\d+$/.test(`${value}`) && Number(value) <= 2147483647;
+}
+
 export {
   createLocalizedGbifHref,
   excerpt,
@@ -265,6 +270,7 @@ export {
   getOGImage,
   isNoneEmptyArray,
   isOccurrenceSequenced,
+  isValidIntegerKey,
   isValidUuid,
   objectToQueryString,
   renameProperty,
