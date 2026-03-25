@@ -260,6 +260,12 @@ function isValidIntegerKey(value) {
   return /^\d+$/.test(`${value}`) && Number(value) <= 2147483647;
 }
 
+// DOI format: 10.prefix/suffix (e.g. 10.15468/dd.abc123)
+const DOI_REGEX = /^10\.\d{4,9}\/[^\s]+$/;
+function isValidDoi(value) {
+  return DOI_REGEX.test(value);
+}
+
 export {
   createLocalizedGbifHref,
   excerpt,
@@ -270,6 +276,7 @@ export {
   getOGImage,
   isNoneEmptyArray,
   isOccurrenceSequenced,
+  isValidDoi,
   isValidIntegerKey,
   isValidUuid,
   objectToQueryString,

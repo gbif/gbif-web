@@ -1,3 +1,6 @@
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { isValidDoi } from '@/helpers/utils';
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -23,6 +26,9 @@ export default {
       });
     },
     derivedDataset: (parent, { key }, { dataSources }, info) => {
+      if (!isValidDoi(key)) {
+        throw new NotFoundError();
+      }
       return dataSources.derivedDatasetAPI.getDerivedDataset({ key });
     },
   },
