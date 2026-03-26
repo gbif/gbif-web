@@ -71,6 +71,8 @@
         "ifSelected": "pokud je vybráno",
         "links": "odkazy"
       }
-    }
+    },
+    "failedToRefreshDownloadStatus": "",
+    "descriptionByDownloadCreator": ""
   }
 }
