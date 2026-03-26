@@ -72,7 +72,7 @@
         "links": "enlaces"
       }
     },
-    "failedToRefreshDownloadStatus": "",
-    "descriptionByDownloadCreator": ""
+    "failedToRefreshDownloadStatus": "No se pudo actualizar el estado de descarga",
+    "descriptionByDownloadCreator": "Descripción del creador de la descarga"
   }
 }
