@@ -26,7 +26,7 @@
   "unknown": "Unknown",
   "usingStartDates": "For date ranges, start date is used.",
   "iucnThreatStatus": "IUCN Red List Category",
-  "iucnThreatStatusDescription": "Species that are categorized as Near Threatened (NT) or at higher risk according to the The IUCN Red List of Threatened Species.",
+  "iucnThreatStatusDescription": "Species that are categorized as Near Threatened (NT) or at higher risk according to the IUCN Red List of Threatened Species.",
   "metricsFromGbifData": "These metrics are based on records shared via GBIF",
   "notVocabularyWarning": "Non-interpreted field. The same concept might appear with multiple spellings.",
   "taxonomicBreakdown": "Taxonomic breakdown",
