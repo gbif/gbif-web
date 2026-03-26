@@ -39,11 +39,11 @@
       }
     },
     "participant": "",
-    "node": "",
+    "node": "Knoten",
     "participantSummary": "",
     "memberStatus": "",
     "gbifParticipantSince": "",
-    "headOfDelegation": "",
+    "headOfDelegation": "Delegationsleiter",
     "gbifRegion": "",
     "countryOrArea": "",
     "nodeName": "",
