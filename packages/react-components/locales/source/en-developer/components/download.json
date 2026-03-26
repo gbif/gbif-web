@@ -71,6 +71,8 @@
         "ifSelected": "if selected",
         "links": "links"
       }
-    }
+    },
+    "failedToRefreshDownloadStatus": "Failed to refresh download status",
+    "descriptionByDownloadCreator": "Description by download creator"
   }
 }

@@ -1,5 +1,4 @@
-import { DownloadKeyQuery } from '@/gql/graphql';
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { DownloadKey, downloadKeyLoader, DownloadKeySkeleton } from './downloadKey';
 
 const id = 'downloadKey';
@@ -20,7 +19,3 @@ export const downloadKeyRoute: RouteObjectWithPlugins = {
   loadingElement: <DownloadKeySkeleton />,
   element: <DownloadKey />,
 };
-
-export function usePublisherKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: DownloadKeyQuery };
-}

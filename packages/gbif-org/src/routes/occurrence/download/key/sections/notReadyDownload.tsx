@@ -1,11 +1,11 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertVariant } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { useToast } from '@/components/ui/use-toast';
 import { useUser } from '@/contexts/UserContext';
 import { Download_Status } from '@/gql/graphql';
 import { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 export function NotReadyDownload({
   status,
@@ -14,7 +14,7 @@ export function NotReadyDownload({
 }: {
   status: Download_Status;
   notificationAddresses?: string[] | null;
-  downloadKey?: string | null;
+  downloadKey: string;
 }) {
   const [isCancelling, setIsCancelling] = useState(false);
   const { translatedToast } = useToast();
@@ -39,7 +39,7 @@ export function NotReadyDownload({
   };
 
   let Message = <FormattedMessage id={`downloadKey.downloadKilled`} />;
-  let variant = 'destructive';
+  let variant: AlertVariant = 'destructive';
   if (status === 'FAILED' || status === 'KILLED') {
     Message = <FormattedMessage id={`downloadKey.downloadKilled`} />;
   } else if (status === 'CANCELLED') {
