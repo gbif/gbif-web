@@ -111,3 +111,13 @@ export function usePartialDataNotification() {
 
   return notify;
 }
+
+// A simple wrapper for usePartialDataNotification that will work when just using the errors from a loader
+export function useNotifyOfPartialDataIfErrors(errors: unknown) {
+  const notifyOfPartialData = usePartialDataNotification();
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
+}

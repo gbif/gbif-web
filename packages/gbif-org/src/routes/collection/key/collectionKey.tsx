@@ -9,7 +9,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -40,12 +40,7 @@ export type CollectionKeyLoaderResult = Awaited<ReturnType<typeof collectionLoad
 
 export function CollectionKey() {
   const { collection, errors } = useLoaderData() as CollectionKeyLoaderResult;
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+  useNotifyOfPartialDataIfErrors(errors);
 
   const { data: collectionMetrics, load: slowLoad } = useQuery<
     CollectionSummaryMetricsQuery,

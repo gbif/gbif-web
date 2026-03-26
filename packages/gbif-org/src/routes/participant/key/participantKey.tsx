@@ -15,10 +15,9 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent } from './help';
@@ -144,12 +143,7 @@ type ParticipantKeyLoaderResult = Exclude<Awaited<ReturnType<typeof participantL
 
 export function ParticipantPage() {
   const { data, errors } = useLoaderData() as ParticipantKeyLoaderResult;
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+  useNotifyOfPartialDataIfErrors(errors);
 
   const { participant } = data;
 

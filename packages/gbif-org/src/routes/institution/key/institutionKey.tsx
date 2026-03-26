@@ -10,7 +10,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -41,14 +41,8 @@ export type InstitutionKeyLoaderResult = Awaited<ReturnType<typeof institutionLo
 
 export function InstitutionKey() {
   const { institution, errors } = useLoaderData() as InstitutionKeyLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
   const config = useConfig();
-
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
 
   const collectionScope = config.collectionSearch?.scope;
 

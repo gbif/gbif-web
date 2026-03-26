@@ -11,9 +11,8 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -77,12 +76,7 @@ export type InstallationKeyLoaderResult = Awaited<ReturnType<typeof installation
 
 export function InstallationPage() {
   const { installation, errors } = useLoaderData() as InstallationKeyLoaderResult;
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+  useNotifyOfPartialDataIfErrors(errors);
 
   const deletedAt = installation.deleted;
 
@@ -98,7 +92,7 @@ export function InstallationPage() {
 
       <DataHeader
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={installation?.key?.toString()} />}
+        apiContent={<ApiContent id={installation.key} />}
       />
 
       <PageContainer topPadded hasDataHeader>
@@ -108,7 +102,11 @@ export function InstallationPage() {
               <FormattedMessage
                 id="dataset.registeredDate"
                 values={{
-                  DATE: <LongDate value={installation.created ?? undefined} />,
+                  DATE: installation.created ? (
+                    <LongDate value={installation.created} />
+                  ) : (
+                    <FormattedMessage id="phrases.unknownDate" />
+                  ),
                 }}
               />
             }

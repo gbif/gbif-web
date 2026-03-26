@@ -34,7 +34,7 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { createContext, useEffect } from 'react';
@@ -318,12 +318,7 @@ const notableCoordinateIssues = [
 export function OccurrenceKey() {
   const location = useLocation();
   const { occurrence, errors } = useLoaderData() as OccurrenceKeyLoaderResult;
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+  useNotifyOfPartialDataIfErrors(errors);
 
   const hideGlobe = useBelow(800);
   const { locale } = useI18n();

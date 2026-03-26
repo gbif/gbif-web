@@ -28,7 +28,7 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
 import { createContext, useContext, useEffect, useMemo } from 'react';
@@ -337,12 +337,7 @@ export const DatasetPageSkeleton = ArticleSkeleton;
 export function DatasetPage() {
   const config = useConfig();
   const { errors, data } = useLoaderData() as DatasetKeyLoaderResult;
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+  useNotifyOfPartialDataIfErrors(errors);
 
   const dataset = data.dataset;
   const deletedAt = dataset.deleted;

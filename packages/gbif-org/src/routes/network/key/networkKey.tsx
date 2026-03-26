@@ -18,9 +18,8 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -82,12 +81,7 @@ type NetworkKeyLoaderResult = Awaited<ReturnType<typeof networkLoader>>;
 export function NetworkPage() {
   const location = useLocation();
   const { data, errors } = useLoaderData() as NetworkKeyLoaderResult;
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+  useNotifyOfPartialDataIfErrors(errors);
 
   const { network, occurrenceSearch, literatureSearch } = data;
 
