@@ -1,5 +1,4 @@
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { NotFoundError } from '@/errors';
 import { ProjectNewsAndEventsQuery, ProjectNewsAndEventsQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
@@ -11,6 +10,7 @@ import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
 import { EventResult } from '../event/eventResult';
 import { NewsResult } from '../news/newsResult';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNewsAndEvents($key: String!) {
@@ -32,21 +32,38 @@ const PROJECT_NEWS_QUERY = /* GraphQL */ `
   }
 `;
 
-export function projectNewsAndEventsLoader({ params, graphql }: LoaderArgs) {
+export async function projectNewsAndEventsLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key provided in the URL');
 
-  return graphql.query<ProjectNewsAndEventsQuery, ProjectNewsAndEventsQueryVariables>(
-    PROJECT_NEWS_QUERY,
-    {
-      key,
-    }
-  );
+  const response = await graphql.query<
+    ProjectNewsAndEventsQuery,
+    ProjectNewsAndEventsQueryVariables
+  >(PROJECT_NEWS_QUERY, {
+    key,
+  });
+
+  const { data, errors } = await response.json();
+
+  throwCriticalErrors({
+    path404: ['gbifProject'],
+    errors,
+    requiredObjects: [data?.gbifProject],
+  });
+
+  return {
+    errors,
+    data: {
+      ...data,
+      gbifProject: data.gbifProject!,
+    },
+  };
 }
 
-export function ProjectNewsAndEventsTab() {
-  const { data } = useLoaderData() as { data: ProjectNewsAndEventsQuery };
+type ProjectNewsAndEventsLoaderResult = Awaited<ReturnType<typeof projectNewsAndEventsLoader>>;
 
-  if (data.gbifProject == null) throw new NotFoundError();
+export function ProjectNewsAndEventsTab() {
+  const { data } = useLoaderData() as ProjectNewsAndEventsLoaderResult;
+
   const resource = data.gbifProject;
 
   const sortedNewsAndEvents = useMemo(

@@ -1,6 +1,7 @@
-import { NotFoundError } from '@/errors';
+import { UnexpectedLoaderError } from '@/errors';
 import { ResourceRedirectQuery, ResourceRedirectQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { redirect } from 'react-router-dom';
 
@@ -22,13 +23,14 @@ export async function resourceRedirectLoader({ params, graphql }: LoaderArgs) {
   );
   const { data, errors } = await response.json();
 
-  if (errors?.some((error) => error.message === '404: Not Found')) {
-    throw new NotFoundError();
-  }
+  throwCriticalErrors({
+    path404: ['resource'],
+    errors,
+    requiredObjects: [data?.resource],
+  });
+  const resource = data.resource!;
 
-  if (data.resource == null) throw new NotFoundError();
-
-  switch (data.resource.__typename) {
+  switch (resource.__typename) {
     case 'Article':
       return redirect(`/article/${key}`);
     case 'Composition':
@@ -49,5 +51,7 @@ export async function resourceRedirectLoader({ params, graphql }: LoaderArgs) {
       return redirect(`/tool/${key}`);
   }
 
-  throw new Error(`There is no redirect for this resource type. (${data.resource.__typename})`);
+  throw new UnexpectedLoaderError(
+    `There is no redirect for this resource type. (${resource.__typename})`
+  );
 }
