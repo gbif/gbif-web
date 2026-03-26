@@ -26,7 +26,7 @@
   "unknown": "Desconocida",
   "usingStartDates": "Para los rangos de fechas, se utiliza la fecha de inicio.",
   "iucnThreatStatus": "Categoría en la Lista Roja de la UICN",
-  "iucnThreatStatusDescription": "Especies que están categorizadas como Casi Amenazadas (NT) o en mayor riesgo según la Lista Roja de Especies Amenazadas de la UICN.",
+  "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Estas métricas se basan en los registros compartidos a través de GBIF",
   "notVocabularyWarning": "Campo sin interpretar. El mismo concepto puede aparecer con diferentes ortografías.",
   "taxonomicBreakdown": "Desglose taxonómico",
