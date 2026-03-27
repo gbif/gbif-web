@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
     "name": "Extensión DwC-A",
-    "count": "",
+    "count": "{num, plural, one { extensión DwC-A } other {# extensiones DwC-A }}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "locationId": {
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Bioestratigrafía",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { bioestratigrafía } other {# bioestratigrafías}}",
+    "description": "El contexto bioestratigráfico del registro."
   },
   "lithostratigraphy": {
     "name": "Litoestratigrafía",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { litoestratigrafía } other {# litoestratigrafías}}",
+    "description": "El contexto litoestratigráfico del registro."
   },
   "geologicalTime": {
     "name": "Tiempo geológico",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { tiempo geológico } other {# tiempos geológicos}}",
+    "description": "El contexto temporal geológico del registro."
   },
   "purposes": {
     "name": "Tema",
@@ -108,22 +108,22 @@
   "gbifId": {
     "name": "ID de GBIF",
     "count": "",
-    "description": ""
+    "description": "El identificador único del registro en la base de datos de GBIF."
   },
   "organismQuantityType": {
     "name": "Tipo de cantidad del organismo",
     "count": "",
-    "description": ""
+    "description": "El tipo de medida de la «cantidad de organismos»."
   },
   "pathway": {
     "name": "Ruta",
     "count": "",
-    "description": ""
+    "description": "La vía por la que se introdujo el organismo."
   },
   "associatedSequences": {
     "name": "Secuencias asociadas",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { secuencia asociada } other {# secuencias asociadas}}",
+    "description": "Un identificador de cualquier secuencia asociada al registro. Normalmente, una URL."
   },
   "degreeOfEstablishment": {
     "name": "Grado de establecimiento",
@@ -132,18 +132,18 @@
   },
   "endDayOfYear": {
     "name": "Día Final del Año",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { día final del año } other {# días finales del año}}",
+    "description": "El día del año en que finalizó el evento."
   },
   "startDayOfYear": {
     "name": "Día Inicial del Año",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { día de inicio del año } other {# días de inicio del año}}",
+    "description": "El día del año en que comenzó el evento."
   },
   "previousIdentifications": {
     "name": "Identificaciones previas",
     "count": "",
-    "description": ""
+    "description": "Identificaciones taxonómicas anteriores asociadas al registro."
   },
   "lastInterpreted": {
     "name": "Última interpretación",
@@ -182,8 +182,8 @@
   },
   "biomeType": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { tipo de bioma } other {# tipos de bioma}}",
+    "description": "El tipo de bioma al que pertenece el organismo."
   },
   "objectClassification": {
     "name": "",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {repatriado} other {# repatriados}}",
+    "description": "Si el registro ha sido repatriado al país de origen."
   },
   "publishingCountryCode": {
     "name": "País de publicación",
@@ -344,8 +344,8 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "Distancia desde el centroide en metros",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {distancia desde el centroide} other {# filtros de distancia desde el centroide}}",
+    "description": "La distancia en metros desde el centroide del país."
   },
   "depth": {
     "name": "Profundidad",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Sexo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { sexo } other {# sexos}}",
+    "description": "El sexo del organismo."
   },
   "lifeStage": {
     "name": "Estadío de desarrollo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { fase del ciclo de vida } other {# fases del ciclo de vida}}",
+    "description": "La fase del ciclo de vida del organismo."
   },
   "recordedBy": {
     "name": "Registrado por",
@@ -404,13 +404,13 @@
   },
   "fieldNumber": {
     "name": "Número de Campo",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { número de campo } other {# números de campo}}",
+    "description": "El identificador asignado a la ubicación por el recopilador."
   },
   "verbatimTaxonId": {
     "name": "Rango taxonómico original",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID literal del taxón } other {# ID literales del taxón}}",
+    "description": "El identificador del taxón facilitado por el publicador."
   },
   "islandGroup": {
     "name": "Grupo de islas",
@@ -692,17 +692,17 @@
   },
   "geospatialScopeAreaUnit": {
     "description": "Las unidades asociadas con eco:geospatialScopeAreaValue",
-    "name": "",
+    "name": "Unidad de área de ámbito geoespacial",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "totalAreaSampledValue": {
     "description": "El valor numérico correspondiente al área total estudiada durante el evento dwc:Event.",
-    "name": "",
+    "name": "Valor del área total muestreada",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "totalAreaSampledUnit": {
     "description": "Las unidades asociadas con eco:totalAreaSampledValue",
-    "name": "",
+    "name": "Unidad de área total muestreada",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "reportedWeather": {
@@ -761,7 +761,7 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isAbsenceReported": {
-    "description": "",
+    "description": "Se reportaron ausencias taxonómicas.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
