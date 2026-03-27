@@ -148,7 +148,7 @@
   "lastInterpreted": {
     "name": "Última interpretación",
     "count": "",
-    "description": ""
+    "description": "Hora de la última interpretación del registro."
   },
   "alternativeCode": {
     "name": "Código alternativo",
@@ -186,9 +186,9 @@
     "description": "El tipo de bioma al que pertenece el organismo."
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Clasificación del objeto",
+    "count": "{num, plural, one { clasificación del objeto } other {# clasificaciones del objeto}}",
+    "description": "La clasificación de los objetos de la colección."
   },
   "taxonKey": {
     "name": "Nombre científico",
