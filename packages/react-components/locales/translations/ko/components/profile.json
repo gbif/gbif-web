@@ -1,26 +1,26 @@
 {
   "profile": {
     "connect": {
-      "connect": "",
-      "disconnect": "",
+      "connect": "연결",
+      "disconnect": "연결해제",
       "failed": {
-        "FACEBOOK": "",
-        "GITHUB": "",
-        "ORCID": "",
-        "GOOGLE": ""
+        "FACEBOOK": "Facebook에 연결 실패",
+        "GITHUB": "GitHub에 연결 실패",
+        "ORCID": "ORCiD에 연결 실패",
+        "GOOGLE": "Google에 연결 실패"
       }
     },
     "login": {
       "failed": {
-        "FACEBOOK": "",
-        "GITHUB": "",
-        "ORCID": "",
-        "GOOGLE": ""
+        "FACEBOOK": "Facebook으로 로그인 실패",
+        "GITHUB": "GitHub로 연결 실패",
+        "ORCID": "ORCiD로 로그인 실패",
+        "GOOGLE": "Google로 로그인 실패"
       }
     },
     "error": {
-      "USERNAME_NOT_UNIQUE": "",
-      "USER_ALREADY_EXIST": "",
+      "USERNAME_NOT_UNIQUE": "이 사용자 이름은 이미 사용 중입니다",
+      "USER_ALREADY_EXIST": "사용자 이름 혹은 이메일 주소가 이미 사용 중입니다",
       "LOGIN_UNKNOWN": "",
       "PROVIDER_ACCOUNT_ALREADY_IN_USE": "",
       "USER_ALREADY_LOGGED_IN": "",
