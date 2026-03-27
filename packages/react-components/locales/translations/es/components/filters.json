@@ -687,7 +687,7 @@
   },
   "geospatialScopeAreaValue": {
     "description": "El valor numérico correspondiente al área total del ámbito geoespacial del dwc:Event.",
-    "name": "",
+    "name": "Valor del área de ámbito geoespacial",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "geospatialScopeAreaUnit": {
@@ -836,7 +836,7 @@
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "verbatimTargetScope": {
-    "description": "",
+    "description": "Descripción literal original del ámbito dwc:Event.",
     "name": "",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
@@ -847,7 +847,7 @@
   },
   "compilationTypes": {
     "description": "Una declaración que especifique si los datos comunicados se derivan de eventos de muestreo, datos auxiliares recopilados de otras fuentes o una combinación de ambos.",
-    "name": "",
+    "name": "Tipos de compilación",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "compilationSourceTypes": {
@@ -877,12 +877,12 @@
   },
   "isAbundanceReported": {
     "description": "Se reportó el número de dwc:Organisms recolectados u observados.",
-    "name": "",
+    "name": "Se reporta abundancia",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isAbundanceCapReported": {
     "description": "Se informó del número máximo de dwc:Organisms, según lo especificado o restringido por el protocolo utilizado.",
-    "name": "",
+    "name": "Se reporta límite de abundancia",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "abundanceCap": {
@@ -892,7 +892,7 @@
   },
   "isVegetationCoverReported": {
     "description": "Se informó sobre una métrica de cobertura vegetal.",
-    "name": "",
+    "name": "Se reporta cobertura vegetal",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
