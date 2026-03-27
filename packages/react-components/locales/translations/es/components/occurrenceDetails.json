@@ -731,7 +731,7 @@
         "geospatialScopeAreaValue": "Valor del área del alcance geoespacial",
         "geospatialScopeAreaUnit": "Unidad de área del alcance geoespacial",
         "totalAreaSampledValue": "Valor total del área muestreada",
-        "totalAreaSampledUnit": "",
+        "totalAreaSampledUnit": "Unidad de área total muestreada",
         "reportedWeather": "Clima reportado",
         "reportedExtremeConditions": "Condiciones extremas reportadas",
         "targetHabitatScope": "",
