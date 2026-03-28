@@ -38,6 +38,7 @@ const inputTypeDef = gql`
     greaterThan
     greaterThanOrEquals
     lessThanOrEquals
+    lessThan
   }
 `;
 

@@ -3178,14 +3178,22 @@ export type Help = {
 
 export type Histogram = {
   __typename?: 'Histogram';
-  buckets?: Maybe<Array<Maybe<HistogramBucket>>>;
+  buckets?: Maybe<Array<HistogramBucket>>;
   interval?: Maybe<Scalars['Long']['output']>;
 };
 
 export type HistogramBucket = {
   __typename?: 'HistogramBucket';
+  _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['ID']['output'];
+  occurrences: OccurrenceSearchResult;
+};
+
+
+export type HistogramBucketOccurrencesArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type Home = {
@@ -4423,8 +4431,8 @@ export type LocalContextTranslation = {
 
 export type LongitudeHistogram = {
   __typename?: 'LongitudeHistogram';
-  bounds?: Maybe<Scalars['JSON']['output']>;
-  buckets: Scalars['JSON']['output'];
+  buckets: Array<HistogramBucket>;
+  interval?: Maybe<Scalars['Long']['output']>;
 };
 
 export type MachineTag = {
@@ -6517,12 +6525,42 @@ export type OccurrenceFeedbackValue = {
 
 export type OccurrenceHistogram = {
   __typename?: 'OccurrenceHistogram';
+  decimalLatitude?: Maybe<Histogram>;
   decimalLongitude: LongitudeHistogram;
-  year?: Maybe<Scalars['JSON']['output']>;
+  depth?: Maybe<Histogram>;
+  elevation?: Maybe<Histogram>;
+  endDayOfYear?: Maybe<Histogram>;
+  startDayOfYear?: Maybe<Histogram>;
+  year?: Maybe<Histogram>;
+};
+
+
+export type OccurrenceHistogramDecimalLatitudeArgs = {
+  interval?: InputMaybe<Scalars['Float']['input']>;
 };
 
 
 export type OccurrenceHistogramDecimalLongitudeArgs = {
+  interval?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type OccurrenceHistogramDepthArgs = {
+  interval?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type OccurrenceHistogramElevationArgs = {
+  interval?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type OccurrenceHistogramEndDayOfYearArgs = {
+  interval?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type OccurrenceHistogramStartDayOfYearArgs = {
   interval?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -6755,6 +6793,8 @@ export type OccurrenceStats = {
   __typename?: 'OccurrenceStats';
   decimalLatitude: Stats;
   decimalLongitude: Stats;
+  depth: Stats;
+  elevation: Stats;
   endDayOfYear: Stats;
   eventDate: Stats;
   startDayOfYear: Stats;
@@ -7004,6 +7044,7 @@ export enum PredicateType {
   In = 'in',
   IsNotNull = 'isNotNull',
   IsNull = 'isNull',
+  LessThan = 'lessThan',
   LessThanOrEquals = 'lessThanOrEquals',
   Like = 'like',
   Nested = 'nested',

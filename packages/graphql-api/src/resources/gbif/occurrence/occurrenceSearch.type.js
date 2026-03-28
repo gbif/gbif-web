@@ -148,6 +148,8 @@ const typeDef = gql`
     eventDate: Stats!
     startDayOfYear: Stats!
     endDayOfYear: Stats!
+    elevation: Stats!
+    depth: Stats!
   }
 
   type OccurrenceCardinality {
@@ -219,7 +221,12 @@ const typeDef = gql`
 
   type OccurrenceHistogram {
     decimalLongitude(interval: Float): LongitudeHistogram!
-    year(interval: Float): JSON
+    year(interval: Float): Histogram
+    elevation(interval: Float): Histogram
+    decimalLatitude(interval: Float): Histogram
+    depth(interval: Float): Histogram
+    startDayOfYear(interval: Float): Histogram
+    endDayOfYear(interval: Float): Histogram
   }
 
   type OccurrenceAutoDateHistogram {
@@ -242,18 +249,21 @@ const typeDef = gql`
   }
 
   type LongitudeHistogram {
-    buckets: JSON!
-    bounds: JSON
+    interval: Long
+    buckets: [HistogramBucket!]!
+    # bounds: JSON
   }
 
   type Histogram {
     interval: Long
-    buckets: [HistogramBucket]
+    buckets: [HistogramBucket!]
   }
 
   type HistogramBucket {
     key: ID!
     count: Long!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
   }
 
   type OccurrenceFacet {

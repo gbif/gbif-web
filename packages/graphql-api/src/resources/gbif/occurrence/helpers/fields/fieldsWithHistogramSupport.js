@@ -1,1 +1,9 @@
-export default ['decimalLongitude', 'year'];
+export default [
+  'endDayOfYear',
+  'startDayOfYear',
+  'year',
+  'decimalLatitude',
+  'decimalLongitude',
+  'elevation',
+  'depth',
+];

@@ -155,10 +155,43 @@ const getHistogram =
       },
     };
     // query the API, and throw away anything but the facet counts
-    return searchApi({ query }).then((data) => ({
-      interval,
-      ...data.aggregations.histogram,
-    }));
+    return searchApi({ query }).then((data) => {
+      const buckets = data.aggregations.histogram.buckets.map((bucket) => {
+        const predicate = {
+          type: 'and',
+          predicates: [
+            {
+              type: 'greaterThanOrEquals',
+              key: field,
+              value: bucket.key,
+            },
+            {
+              type: 'lessThan',
+              key: field,
+              value: bucket.key + interval,
+            },
+          ],
+        };
+        const joinedPredicate = data.meta.predicate
+          ? {
+              type: 'and',
+              predicates: [data.meta.predicate, predicate],
+            }
+          : predicate;
+        return {
+          key: bucket.key,
+          count: bucket.doc_count,
+          // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
+          _predicate: joinedPredicate,
+          _q: parent._q,
+          _parentPredicate: data.meta.predicate,
+        };
+      });
+      return {
+        interval,
+        buckets,
+      };
+    });
   };
 
 /**
