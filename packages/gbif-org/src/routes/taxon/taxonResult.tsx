@@ -1,55 +1,61 @@
 import { TaxonClassification } from '@/components/classification';
 import { MapThumbnail, MapTypes } from '@/components/maps/mapThumbnail';
 import { Card } from '@/components/ui/largeCard';
-import { TaxonResultFragment } from '@/gql/graphql';
+// import { TaxonResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
-import { fragmentManager } from '@/services/fragmentManager';
+// import { fragmentManager } from '@/services/fragmentManager';
 import { FormattedMessage } from 'react-intl';
 
-fragmentManager.register(/* GraphQL */ `
-  fragment TaxonResult on Taxon {
-    key
-    nubKey
-    scientificName
-    canonicalName
-    formattedName(useFallback: true)
-    kingdom
-    phylum
-    class
-    order
-    family
-    genus
-    rank
-    taxonomicStatus
-    parents {
-      key
-      name: canonicalName
-      rank
-    }
-    mapCapabilities {
-      total
-    }
-    accepted
-    acceptedKey
-    numDescendants
-    vernacularNames(limit: 1, language: "eng") {
-      results {
-        vernacularName
-        source
-        sourceTaxonKey
-      }
-    }
-  }
-`);
+// fragmentManager.register(/* GraphQL_ */ `
+//   fragment TaxonResult on TaxonResult {
+//     taxon {
+//       scientificName
+//       label
+//       taxonomicStatus
+//       taxonRank
+//     }
+//     # key
+//     # nubKey
+//     # scientificName
+//     # canonicalName
+//     # formattedName(useFallback: true)
+//     # kingdom
+//     # phylum
+//     # class
+//     # order
+//     # family
+//     # genus
+//     # rank
+//     # taxonomicStatus
+//     # parents {
+//     #   key
+//     #   name: canonicalName
+//     #   rank
+//     # }
+//     # mapCapabilities {
+//     #   total
+//     # }
+//     # accepted
+//     # acceptedKey
+//     # numDescendants
+//     # vernacularNames(limit: 1, language: "eng") {
+//     #   results {
+//     #     vernacularName
+//     #     source
+//     #     sourceTaxonKey
+//     #   }
+//     # }
+//   }
+// `);
 
 export function TaxonResult({
   taxon,
   synonym,
 }: {
-  taxon: TaxonResultFragment;
-  synonym: TaxonResultFragment;
+  taxon: any; //TaxonResultFragment;
+  synonym: any; //TaxonResultFragment;
 }) {
-  const acceptedTaxon = taxon?.acceptedTaxon as TaxonResultFragment;
+  const acceptedTaxon = taxon?.acceptedTaxon as any; //TaxonResultFragment;
   if (acceptedTaxon) {
     return <TaxonResult taxon={acceptedTaxon} synonym={taxon} />;
   }

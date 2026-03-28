@@ -18,6 +18,20 @@ class TaxonAPI extends QueuedRESTDataSource {
     request.agent = getTaxonAgent(this.baseURL, request.path);
   }
 
+  async taxonSearch({ datasetKey, query }) {
+    const response = await this.get(
+      `/taxon/search/${datasetKey}`,
+      stringify(query, { indices: false }),
+    );
+    response._query = query;
+    response._datasetKey = datasetKey;
+    return response;
+  }
+
+  async getDatasetTree({ datasetKey }) {
+    return this.get(`/taxon/tree/${datasetKey}`);
+  }
+
   async getTaxon({ datasetKey, key }) {
     return this.get(`/taxon/${datasetKey}/${key}`);
   }
@@ -36,6 +50,10 @@ class TaxonAPI extends QueuedRESTDataSource {
 
   async getChildren({ datasetKey, key, query = {} }) {
     return this.get(`/taxon/tree/${datasetKey}/${key}/children`, query);
+  }
+
+  async getParents({ datasetKey, key, query = {} }) {
+    return this.get(`/taxon/tree/${datasetKey}/${key}`, query);
   }
 
   async taxonBreakdown({ datasetKey, key }) {

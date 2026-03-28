@@ -75,7 +75,7 @@ export function SearchPage() {
   const isSmallDevice = useBelow(1000);
   const [serverResults, setServerResults] = useState<ServerResults>({});
   const [counts, setCounts] = useState({
-    speciesSearch: 0,
+    taxonSearch: 0,
     datasetSearch: 0,
     publisherSearch: 0,
     resourceSearch: 0,
@@ -90,7 +90,7 @@ export function SearchPage() {
   useEffect(() => {
     let cancelFetch;
     setCounts({
-      speciesSearch: 0,
+      taxonSearch: 0,
       datasetSearch: 0,
       publisherSearch: 0,
       resourceSearch: 0,
@@ -99,7 +99,7 @@ export function SearchPage() {
       if (!searchQuery || !searchQuery.trim()) {
         setServerResults({});
         setCounts({
-          speciesSearch: 0,
+          taxonSearch: 0,
           datasetSearch: 0,
           publisherSearch: 0,
           resourceSearch: 0,
@@ -222,7 +222,7 @@ export function SearchPage() {
     // set counts
     if (data) {
       setCounts({
-        speciesSearch: data.taxonSearch.count,
+        taxonSearch: data.taxonSearch.count,
         datasetSearch: data.datasetSearch.count,
         publisherSearch: data?.organizationSearch?.count || 0,
         resourceSearch: data.resourceSearch?.documents.total || 0,

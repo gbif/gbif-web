@@ -25,42 +25,71 @@ import { useTaxonColumns } from './columns';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
-    taxonSearch(query: $query, offset: $offset, limit: $limit, hl: true) {
+    taxonSearch(query: $query, offset: $offset, limit: $limit) {
       count
       offset
       endOfRecords
       results {
-        key
-        nubKey
-        scientificName
-        formattedName(useFallback: true)
-        kingdom
-        phylum
-        class
-        order
-        family
-        genus
-        species
-        taxonomicStatus
-        rank
-        datasetKey
-        dataset {
-          title
-        }
-        accepted
-        acceptedKey
-        numDescendants
-        highlights
-        vernacularNames(limit: 2, language: "eng") {
-          results {
-            vernacularName
-            source
-            sourceTaxonKey
+        taxon {
+          taxonID
+          scientificName
+          label
+          taxonomicStatus
+          taxonRank
+          datasetKey
+          dataset {
+            title
           }
+          acceptedNameUsage
+          acceptedNameUsageID
+        }
+        classification {
+          scientificName
+          taxonRank
+        }
+        vernacularName(language: "eng") {
+          vernacularName
         }
       }
     }
   }
+  # query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
+  #   taxonSearch(query: $query, offset: $offset, limit: $limit, hl: true) {
+  #     count
+  #     offset
+  #     endOfRecords
+  #     results {
+  #       taxonID
+  #       nubKey
+  #       scientificName
+  #       label
+  #       kingdom
+  #       phylum
+  #       class
+  #       order
+  #       family
+  #       genus
+  #       species
+  #       taxonomicStatus
+  #       rank
+  #       datasetKey
+  #       dataset {
+  #         title
+  #       }
+  #       accepted
+  #       acceptedKey
+  #       numDescendants
+  #       highlights
+  #       vernacularNames(limit: 2, language: "eng") {
+  #         results {
+  #           vernacularName
+  #           source
+  #           sourceTaxonKey
+  #         }
+  #       }
+  #     }
+  #   }
+  # }
 `;
 
 type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = NonNullable<
@@ -69,10 +98,10 @@ type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = N
 
 export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['taxonSearch']>;
 
-const keySelector = (item: SingleTaxonSearchResult) => item.key?.toString() ?? '';
+const keySelector = (item: SingleTaxonSearchResult) => item.taxon?.taxonID?.toString() ?? '';
 
 const KeySelectorDatasetTaxon = (item: SingleTaxonSearchResult) =>
-  `${item.datasetKey}/species/${item.key}`;
+  `${item.taxon?.datasetKey}/species/${item.taxon?.taxonID}`;
 
 const rowLinkOptionsDirect: RowLinkOptions<SingleTaxonSearchResult> = {
   pageId: 'speciesKey',

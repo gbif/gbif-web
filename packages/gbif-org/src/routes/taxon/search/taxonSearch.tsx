@@ -16,7 +16,7 @@ import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { searchConfig } from './searchConfig';
 import { Table } from './views/table';
-import { TaxonTree } from './views/tree';
+import { SearchPageTree } from './views/tree';
 import PageMetaData from '@/components/PageMetaData';
 
 export function TaxonSearchPage({ datasetKey }: { datasetKey?: string }): React.ReactElement {
@@ -30,7 +30,7 @@ export function TaxonSearchPage({ datasetKey }: { datasetKey?: string }): React.
   return (
     <>
       <PageMetaData
-        path="/species/search"
+        path="/taxon/search"
         title={intl.formatMessage({ id: 'speciesSearch.title' })}
         description={intl.formatMessage({ id: 'speciesSearch.description' })}
       />
@@ -58,7 +58,7 @@ export function TaxonSearchPageInner({ datasetKey }: { datasetKey?: string }): R
     if (view === 'table') {
       return filters;
     } else if (view === 'tree') {
-      return { higherTaxonKey: filters.higherTaxonKey };
+      return { taxonId: filters.taxonId };
     } else if (filters.q) {
       return { q: filters.q };
     } else {
@@ -122,7 +122,7 @@ export function Views({
             onlySetMinHeight
             className="g-bg-white g-flex-1 g-border g-border-solid g-basis-full g-h-1 g-flex g-flex-col"
           >
-            {view === 'tree' && <TaxonTree entityDrawerPrefix={entityDrawerPrefix} />}
+            {view === 'tree' && <SearchPageTree entityDrawerPrefix={entityDrawerPrefix} />}
           </DynamicHeightDiv>
         )}
       </div>

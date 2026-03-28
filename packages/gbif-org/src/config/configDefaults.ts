@@ -186,7 +186,7 @@ export const configDefault: Partial<Config> = {
   },
   taxonSearch: {
     queryType: 'V1',
-    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey', 'issue'],
+    highlightedFilters: ['q', 'status', 'rank', 'taxonId', 'issue'],
   },
   literatureSearch: {
     queryType: 'PREDICATE',

@@ -6,17 +6,17 @@ import TaxonKeyAbout from './About';
 import Metrics from './Metrics';
 import VerbatimTaxon from './Verbatim';
 import { TaxonKey, taxonLoader } from './taxonKey';
-const id = 'speciesKey';
+const id = 'taxonKey';
 
 export const taxonKeyRoute: RouteObjectWithPlugins = {
   id,
-  path: 'species/:key',
+  path: 'taxon/:key',
   gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
     if (!key) return null; // handle dataset/:key/species
     if (typeof key !== 'string' && typeof key !== 'number')
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/taxon/${key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/species/${key}`;
   },
   loader: taxonLoader,
   /* shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {

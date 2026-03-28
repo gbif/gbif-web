@@ -10,12 +10,27 @@ import { TreeItem, TreeItemIndex } from 'react-complex-tree';
 
 interface GetChildrenParams {
   key: string;
+  datasetKey?: string;
   limit: number;
   offset: number;
 }
-export type ItemsType = Record<string, TreeItem>;
 
-export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
+export type TreeTaxonItem = {
+  index: string;
+  canMove: boolean;
+  isFolder: boolean;
+  children: TreeTaxonItem[];
+  data: {
+    taxonID: string;
+    scientificName: string;
+    datasetKey: string;
+  };
+  canRename: boolean;
+};
+
+export type ItemsType = Record<string, TreeItem<TreeTaxonItem>>;
+
+export const getChildren = ({ key, datasetKey, limit, offset }: GetChildrenParams) => {
   const abortController = new AbortController();
   const graphqlService = new GraphQLService({
     endpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
@@ -23,32 +38,51 @@ export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
     locale: 'en',
   });
 
-  const CHILDREN_SEARCH_QUERY = /* GraphQL */ `
-    query TaxonChildren($key: ID!, $limit: Int, $offset: Int) {
-      taxon(key: $key) {
-        key
+  const CHILDREN_SEARCH_QUERY = /* GraphQL_x */ `
+    query TaxonChildren($datasetKey: ID, $key: ID!, $limit: Int, $offset: Int) {
+      taxon(datasetKey: $datasetKey, key: $key) {
+        taxonID
         scientificName
-        numDescendants
         children(limit: $limit, offset: $offset) {
           limit
           endOfRecords
           offset
+          count
           results {
-            key
-            parentKey
-            numDescendants
+            taxonID
+            children
             scientificName
-            canonicalName
-            formattedName(useFallback: true)
-            rank
+            label
+            taxonRank
           }
         }
       }
     }
+    # query TaxonChildren($key: ID!, $limit: Int, $offset: Int) {
+    #   taxon(key: $key) {
+    #     key
+    #     scientificName
+    #     numDescendants
+    #     children(limit: $limit, offset: $offset) {
+    #       limit
+    #       endOfRecords
+    #       offset
+    #       results {
+    #         key
+    #         parentKey
+    #         numDescendants
+    #         scientificName
+    #         canonicalName
+    #         formattedName(useFallback: true)
+    #         rank
+    #       }
+    #     }
+    #   }
+    # }
   `;
   const promise = graphqlService.query<TaxonChildrenQuery, TaxonChildrenQueryVariables>(
     CHILDREN_SEARCH_QUERY,
-    { key, limit, offset }
+    { key, limit, offset, datasetKey }
   );
   return {
     promise: promise.then((res) => res.json()).then(({ data }) => data?.taxon),
@@ -58,10 +92,12 @@ export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
 
 export const getParents = ({
   key,
+  datasetKey,
   limit,
   offset,
 }: {
   key: string;
+  datasetKey?: string;
   limit: number;
   offset: number;
 }) => {
@@ -72,8 +108,8 @@ export const getParents = ({
     locale: 'en',
   });
 
-  const TAXON_PARENT_KEYS = /* GraphQL */ `
-    query TaxonParentKeys($key: ID!, $limit: Int, $offset: Int) {
+  const TAXON_PARENT_KEYS = /* GraphQLx */ `
+    query TaxonParentKeys($key: ID!, $limit: Int, $offset: Int, $datasetKey: ID) {
       taxon(key: $key) {
         acceptedTaxon {
           key
@@ -130,7 +166,7 @@ export const getParents = ({
   `;
   const promise = graphqlService.query<TaxonParentKeysQuery, TaxonParentKeysQueryVariables>(
     TAXON_PARENT_KEYS,
-    { key, limit, offset }
+    { key, datasetKey, limit, offset }
   );
   return {
     promise: promise.then((res) => res.json()).then(({ data }) => data?.taxon),

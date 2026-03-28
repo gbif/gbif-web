@@ -17,37 +17,15 @@ export const childLimit = 10;
 
 const CHECKLIST_ROOTS = /* GraphQL */ `
   query RootSearch($datasetKey: ID!, $offset: Int, $limit: Int) {
-    checklistRoots(datasetKey: $datasetKey, offset: $offset, limit: $limit) {
+    datasetRoots(datasetKey: $datasetKey, offset: $offset, limit: $limit) {
       offset
       endOfRecords
       results {
-        key
-        nubKey
+        taxonID
         scientificName
-        formattedName(useFallback: true)
-        kingdom
-        phylum
-        class
-        order
-        family
-        genus
+        label
         species
-        taxonomicStatus
-        rank
-        datasetKey
-        dataset {
-          title
-        }
-        accepted
-        acceptedKey
-        numDescendants
-        vernacularNames(limit: 2, language: "eng") {
-          results {
-            vernacularName
-            source
-            sourceTaxonKey
-          }
-        }
+        children
       }
     }
   }
@@ -64,11 +42,13 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
   const [selectedItems, setSelectedItems] = useState<TreeItemIndex[]>([]);
   const [items, dispatch] = useReducer(reducer, {});
 
-  const [higherTaxonKey, setHigherTaxonKey] = useState<string | null>(null);
+  const [taxonId, setTaxonId] = useState<string | null>(null);
   const [rootsLoaded, setRootsLoaded] = useState(false);
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
   const { setOrderedList } = useOrderedList();
+
+  const datasetKey = scope?.datasetKey?.[0];
 
   const {
     data: rootData,
@@ -82,7 +62,7 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
   useEffect(() => {
     load({
       keepDataWhileLoading: true,
-      variables: { datasetKey: scope?.datasetKey?.[0], limit: childLimit },
+      variables: { datasetKey, limit: childLimit },
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,34 +74,35 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
       searchContext,
       searchConfig,
     });
-    if (query?.higherTaxonKey?.[0]) {
-      setHigherTaxonKey(query?.higherTaxonKey?.[0]);
+    if (query?.taxonId?.[0]) {
+      setTaxonId(query?.taxonId?.[0]);
     }
     // We use a filterHash to trigger a reload when the filter changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterHash, searchContext, searchConfig]);
 
   useEffect(() => {
-    if (higherTaxonKey && rootsLoaded) {
-      loadParents({ key: higherTaxonKey });
+    if (taxonId && rootsLoaded) {
+      loadParents({ key: taxonId, datasetKey });
     }
     // We use a filterHash to trigger a reload when the filter changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [higherTaxonKey, rootsLoaded]);
+  }, [taxonId, rootsLoaded]);
   useEffect(() => {}, [items, loadingTreeNodes]);
   useEffect(() => {
-    if (rootData?.checklistRoots?.results) {
+    if (rootData?.datasetRoots?.results) {
       dispatch({
         type: 'initRoots',
-        payload: rootData?.checklistRoots.results.reduce(
+        payload: rootData?.datasetRoots.results.reduce(
           (acc, cur) => {
-            acc[cur.key] = {
-              index: cur.key,
+            acc[cur.taxonID] = {
+              index: cur.taxonID,
               canMove: false,
-              isFolder: (cur?.numDescendants ?? 0) > 0,
+              isFolder: (cur?.children ?? 0) > 0,
               children: [],
               data: {
                 ...cur,
+                datasetKey,
               },
               canRename: false,
             };
@@ -132,7 +113,7 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
               index: 'root',
               canMove: false,
               isFolder: true,
-              children: rootData?.checklistRoots.results.map((item) => item.key),
+              children: rootData?.datasetRoots.results.map((item) => item.taxonID),
               data: 'Root item',
               canRename: false,
             },
@@ -141,39 +122,41 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
       });
 
       setRootsLoaded(true);
-      if (rootData?.checklistRoots?.results.length < 5) {
-        rootData?.checklistRoots?.results.forEach((root) => {
-          loadChildren({ key: root.key.toString(), limit: childLimit, offset: 0 });
+      if (rootData?.datasetRoots?.results.length < 5) {
+        rootData?.datasetRoots?.results.forEach((root) => {
+          loadChildren({ key: root.taxonID.toString(), datasetKey, limit: childLimit, offset: 0 });
         });
-        setExpandedItems(rootData?.checklistRoots?.results.map((item) => item.key));
+        setExpandedItems(rootData?.datasetRoots?.results.map((item) => item.taxonID));
       }
     }
   }, [rootData]);
 
   const loadChildren = async ({
     key,
+    datasetKey,
     limit,
     offset,
   }: {
     key: string;
+    datasetKey?: string;
     limit: number;
     offset: number;
   }) => {
     try {
-      const { promise, cancel } = getChildren({ key, limit, offset });
+      const { promise, cancel } = getChildren({ key, datasetKey, limit, offset });
       const taxon = await promise;
       setLoadingTreeNodes(loadingTreeNodes.filter((node) => node !== `${key}-load-more`));
       if (taxon?.children?.results) {
         let parent;
-        if (items[taxon.key]) {
-          parent = { ...items[taxon.key] };
+        if (items[taxon.taxonID]) {
+          parent = { ...items[taxon.taxonID] };
         } else {
           parent = {
-            index: taxon.key,
+            index: taxon.taxonID,
             canMove: false,
-            isFolder: taxon.numDescendants && taxon.numDescendants > 0,
+            isFolder: taxon?.children?.count > 0,
             children: [],
-            data: taxon,
+            data: { ...taxon, datasetKey },
             canRename: false,
           };
         }
@@ -181,7 +164,7 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
           parent.children = parent.children.slice(0, -1);
         }
         parent.data.childOffset = taxon?.children?.offset + taxon?.children?.limit;
-        const childKeys = taxon?.children?.results.map((item) => item.key);
+        const childKeys = taxon?.children?.results.map((item) => item.taxonID);
         const childKeySet = new Set<TreeItemIndex>(childKeys);
         parent.children = [
           ...(parent?.children?.filter((id) => !childKeySet.has(id)) || []),
@@ -189,11 +172,11 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
         ];
         if (taxon?.children?.endOfRecords === true) {
           parent.data.endOfChildren = true;
-          dispatch({ type: 'deleteItem', payload: `${parent?.data?.key}-load-more` });
+          dispatch({ type: 'deleteItem', payload: `${parent?.data?.taxonID}-load-more` });
         } else {
           parent.data.endOfChildren = false;
           const loadMoreChildrenNode = {
-            index: `${parent?.data?.key}-load-more`,
+            index: `${parent?.data?.taxonID}-load-more`,
             canMove: false,
             isFolder: false,
             data: {},
@@ -207,18 +190,21 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
           parent.children.push(loadMoreChildrenNode.index);
         }
         const newItems = {
-          [parent.data.key]: parent,
-          ...taxon?.children?.results.reduce((acc, cur) => {
-            acc[cur.key] = {
-              index: cur.key,
-              canMove: false,
-              isFolder: (cur?.numDescendants ?? 0) > 0,
-              children: [...(items[cur.key]?.children || [])],
-              data: cur,
-              canRename: false,
-            };
-            return acc;
-          }, {} as Record<TreeItemIndex, TreeItem>),
+          [parent.data.taxonID]: parent,
+          ...taxon?.children?.results.reduce(
+            (acc, cur) => {
+              acc[cur.taxonID] = {
+                index: cur.taxonID,
+                canMove: false,
+                isFolder: (cur?.children ?? 0) > 0,
+                children: [...(items[cur.taxonID]?.children || [])],
+                data: { ...cur, datasetKey },
+                canRename: false,
+              };
+              return acc;
+            },
+            {} as Record<TreeItemIndex, TreeItem>
+          ),
         };
         dispatch({ type: 'setItems', payload: newItems as ItemsType });
         // setItems(newItems);
@@ -228,62 +214,65 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
     }
   };
 
-  const loadParents = async ({ key }: { key: string }) => {
+  const loadParents = async ({ key, datasetKey }: { key: string; datasetKey?: string }) => {
     try {
-      const { promise, cancel } = getParents({ key, limit: childLimit, offset: 0 });
+      const { promise, cancel } = getParents({ key, datasetKey, limit: childLimit, offset: 0 });
       const taxon = await promise;
       const parents = [...(taxon?.parents || []), taxon?.acceptedTaxon || taxon];
       // const parents = taxon?.parents || [];
-      const data = parents.reduce((acc, parent, idx) => {
-        const nexParent = parents[idx + 1];
-        const nextParentIsInfirstPageOfChildren = !!parent?.children?.results.find(
-          ({ key, acceptedKey }) => key === nexParent?.key /* || acceptedKey === nexParent?.key */
-        );
-        acc[parent.key] = {
-          index: parent.key,
-          canMove: false,
-          isFolder: true,
-          children: nextParentIsInfirstPageOfChildren
-            ? parent?.children?.results.map((c) => c.key as TreeItemIndex)
-            : [
-                nexParent?.key as TreeItemIndex,
-                ...(parent?.children?.results || []).map((c) => c.key as TreeItemIndex),
-              ],
-          data: {
-            ...parent,
-            childOffset: (parent?.children?.offset || 0) + (parent?.children?.limit || 0),
-            endOfChildren: parent?.children?.endOfRecords,
-          },
-          canRename: false,
-        };
-
-        if (!!parent?.children && !parent.children.endOfRecords) {
-          const loadMoreChildrenNode = {
-            index: `${parent.key}-load-more`,
+      const data = parents.reduce(
+        (acc, parent, idx) => {
+          const nexParent = parents[idx + 1];
+          const nextParentIsInfirstPageOfChildren = !!parent?.children?.results.find(
+            ({ key, acceptedKey }) => key === nexParent?.key /* || acceptedKey === nexParent?.key */
+          );
+          acc[parent.key] = {
+            index: parent.key,
             canMove: false,
-            isFolder: false,
-            data: {},
+            isFolder: true,
+            children: nextParentIsInfirstPageOfChildren
+              ? parent?.children?.results.map((c) => c.key as TreeItemIndex)
+              : [
+                  nexParent?.key as TreeItemIndex,
+                  ...(parent?.children?.results || []).map((c) => c.key as TreeItemIndex),
+                ],
+            data: {
+              ...parent,
+              childOffset: (parent?.children?.offset || 0) + (parent?.children?.limit || 0),
+              endOfChildren: parent?.children?.endOfRecords,
+            },
             canRename: false,
           };
-          acc[loadMoreChildrenNode.index] = loadMoreChildrenNode;
-          if (acc[parent.key]?.children) {
-            acc[parent.key].children?.push(loadMoreChildrenNode.index as TreeItemIndex);
+
+          if (!!parent?.children && !parent.children.endOfRecords) {
+            const loadMoreChildrenNode = {
+              index: `${parent.key}-load-more`,
+              canMove: false,
+              isFolder: false,
+              data: {},
+              canRename: false,
+            };
+            acc[loadMoreChildrenNode.index] = loadMoreChildrenNode;
+            if (acc[parent.key]?.children) {
+              acc[parent.key].children?.push(loadMoreChildrenNode.index as TreeItemIndex);
+            }
           }
-        }
 
-        parent?.children?.results.forEach((child) => {
-          acc[child.key] = {
-            index: child.key,
-            canMove: false,
-            isFolder: (child?.numDescendants ?? 0) > 0,
-            children: [],
-            data: child,
-            canRename: false,
-          };
-        });
+          parent?.children?.results.forEach((child) => {
+            acc[child.key] = {
+              index: child.key,
+              canMove: false,
+              isFolder: (child?.numDescendants ?? 0) > 0,
+              children: [],
+              data: child,
+              canRename: false,
+            };
+          });
 
-        return acc;
-      }, {} as Record<TreeItemIndex, TreeItem>);
+          return acc;
+        },
+        {} as Record<TreeItemIndex, TreeItem>
+      );
       dispatch({ type: 'setItems', payload: data });
       setExpandedItems([
         ...new Set([
@@ -347,7 +336,8 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
               },
             });
             await loadChildren({
-              key: item.data.key,
+              key: item.data.taxonID,
+              datasetKey: item.data?.datasetKey,
               limit: childLimit,
               offset: item.data.childOffset || 0,
             });

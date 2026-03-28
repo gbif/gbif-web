@@ -99,7 +99,7 @@ export const gbifConfig: Config = {
   //     id: 'institutionKey',
   //   },
   //   {
-  //     id: 'speciesSearch',
+  //     id: 'taxonSearch',
   //   },
   //   {
   //     id: 'speciesKey',
@@ -228,7 +228,7 @@ export const gbifConfig: Config = {
     scope: {
       datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
     },
-    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey', 'issue'],
+    highlightedFilters: ['q', 'status', 'rank', 'taxonId', 'issue'],
   },
   literatureSearch: {
     queryType: 'PREDICATE',

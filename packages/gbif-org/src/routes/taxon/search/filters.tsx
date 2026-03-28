@@ -10,7 +10,6 @@ import {
   filterEnumConfig,
   filterFreeTextConfig,
   FilterSetting,
-  filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
@@ -18,7 +17,7 @@ import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
 
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { taxonKeySuggest } from './higherTaxonKeySuggest';
+import { taxonIdSuggest } from './taxonIdSuggest';
 
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -90,23 +89,23 @@ export const issuesConfig: filterEnumConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
-export const highertaxonKeyConfig = {
+export const taxonIdConfig = {
   filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'higherTaxonKey',
+  filterHandle: 'taxonId',
   displayName: TaxonKeyLabel,
-  filterTranslation: 'filters.higherTaxonKey.name',
-  suggestConfig: taxonKeySuggest,
+  filterTranslation: 'filters.taxonKey.name',
+  suggestConfig: taxonIdSuggest,
   allowExistence: false,
   allowNegations: false,
   facetQuery: `
-    query TaxonStatusFacet($query: TaxonSearchInput) {
+    query TaxonIdFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: higherTaxonKey {
+          field: taxonId {
             name
             count
             item: taxon {
-              formattedName(useFallback: true)
+              formattedName: label
             }
           }
         }
@@ -133,8 +132,8 @@ export function useFilters({
       rank: generateFilters({ config: rankConfig, searchConfig, formatMessage }),
       status: generateFilters({ config: statusConfig, searchConfig, formatMessage }),
       issue: generateFilters({ config: issuesConfig, searchConfig, formatMessage }),
-      higherTaxonKey: generateFilters({
-        config: highertaxonKeyConfig,
+      taxonId: generateFilters({
+        config: taxonIdConfig,
         searchConfig,
         formatMessage,
       }),

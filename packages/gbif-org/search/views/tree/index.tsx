@@ -1,1 +1,0 @@
-export { TaxonTree } from './tree';

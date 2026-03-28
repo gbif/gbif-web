@@ -385,7 +385,7 @@ export function DatasetPage() {
       tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
     if (hasTaxonomy) {
-      tabsToDisplay.push({ to: 'species', children: 'Species' });
+      tabsToDisplay.push({ to: 'taxon', children: 'Species' });
       // tabsToDisplay.push({
       //   to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
       //     dataset.key

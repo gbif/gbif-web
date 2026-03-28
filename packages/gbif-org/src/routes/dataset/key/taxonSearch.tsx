@@ -28,7 +28,7 @@ export function TaxonSearchPageInner(): React.ReactElement {
     if (view === 'table') {
       return filters;
     } else if (view === 'tree') {
-      return { higherTaxonKey: filters.higherTaxonKey };
+      return { taxonId: filters.taxonId };
     } else if (filters.q) {
       return { q: filters.q };
     } else {

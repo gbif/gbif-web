@@ -18,7 +18,7 @@ export const TreeNode = ({
   setSelectedItems,
 }: {
   item: TreeItem;
-  loadChildren: (arg: { key: string; limit: number; offset: number }) => void;
+  loadChildren: (arg: { key: string; datasetKey?: string; limit: number; offset: number }) => void;
   items: { [key: TreeItemIndex]: TreeItem };
   showPreview: (id: string) => void;
   loadingTreeNodes: TreeItemIndex[];
@@ -35,7 +35,8 @@ export const TreeNode = ({
           setLoadingTreeNodes([...loadingTreeNodes, item.index.toString()]);
           const parent = items[item.index.toString().replace('-load-more', '')];
           loadChildren({
-            key: parent.data.key,
+            key: parent.data.taxonID,
+            datasetKey: parent.data.datasetKey,
             limit: childLimit,
             offset: parent.data.childOffset || 0,
           });
@@ -63,9 +64,9 @@ export const TreeNode = ({
             onClick={(e) => {
               // Prevent the parent link from being triggered
               e.preventDefault();
-              if (item.data.key) {
-                setSelectedItems([item.data.key]);
-                showPreview(item.data.key.toString());
+              if (item.data.taxonID) {
+                setSelectedItems([item.data.taxonID]);
+                showPreview(item.data.taxonID.toString());
               }
             }}
           >

@@ -2,7 +2,7 @@ const OMNI_SEARCH = /* GraphQL */ `
   query OmniSearch(
     $resourcePredicate: Predicate
     $resourceKeywordPredicate: Predicate
-    # $taxonQuery: TaxonSearchInput
+    $taxonQuery: TaxonSearchInput
     $datasetQuery: DatasetSearchInput
     $q: String!
   ) {

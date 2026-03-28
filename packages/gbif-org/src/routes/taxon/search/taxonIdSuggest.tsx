@@ -4,7 +4,7 @@ import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { TaxonDetailsLabel } from '@/utils/suggestEndpoints';
 import { FormattedMessage } from 'react-intl';
 
-export const taxonKeySuggest = {
+export const taxonIdSuggest = {
   render: (item: SuggestionItem) => {
     return (
       <div>

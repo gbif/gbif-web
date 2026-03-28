@@ -2,10 +2,144 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    taxonInfo(datasetKey: ID!, key: ID!): TaxonInfo
-    taxon(datasetKey: ID!, key: ID!): TaxonSimple
+    taxonInfo(datasetKey: ID, key: ID!): TaxonInfo
+    taxon(datasetKey: ID, key: ID!): TaxonSimple
     speciesMatchByUsageKey(usageKey: ID!, checklistKey: ID): SpeciesMatchResult
     checklistMetadata(checklistKey: ID!): ChecklistMeta
+
+    taxonSearch(
+      datasetKey: [ID]
+      rank: [String]
+      taxonID: [ID]
+      status: [String]
+      extinct: Boolean
+      nameType: [String]
+      code: [String]
+      origin: [String]
+      group: [String]
+      authorship: [String]
+      authorshipYear: [Int]
+      issue: [String]
+      q: String
+
+      limit: Int
+      offset: Int
+      facet: [String]
+      facetMinCount: Int
+      facetMultiselect: Boolean
+      facetLimit: Int
+      facetOffset: Int
+      query: TaxonSearchInput
+    ): TaxonSearchResult
+    datasetRoots(datasetKey: ID, limit: Int, offset: Int): TaxonTreeResults
+  }
+
+  input TaxonSearchInput {
+    datasetKey: [ID]
+    rank: [String]
+    taxonId: [ID]
+    status: [String]
+    extinct: Boolean
+    nameType: [String]
+    code: [String]
+    origin: [String]
+    group: [String]
+    authorship: [String]
+    authorshipYear: [Int]
+    issue: [String]
+    q: String
+
+    limit: Int
+    offset: Int
+    facet: [String]
+    facetMinCount: Int
+    facetMultiselect: Boolean
+    facetLimit: Int
+    facetOffset: Int
+  }
+
+  type TaxonSearchResult {
+    results: [TaxonResult]!
+    limit: Int!
+    offset: Int!
+    count: Int!
+    endOfRecords: Boolean!
+    facet: TaxonFacet
+    _query: JSON
+  }
+
+  type TaxonResult {
+    taxon: TaxonFull
+    classification: [TaxonClassification!]
+    vernacularNames: [VernacularName!]
+    """
+    Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
+    """
+    vernacularName(language: String): VernacularName
+  }
+
+  type TaxonFacet {
+    rank(limit: Int, offset: Int): [TaxonFacetResult]
+    status(limit: Int, offset: Int): [TaxonFacetResult]
+    taxonId(limit: Int, offset: Int): [TaxonFacetResult_taxonId]
+    issue(limit: Int, offset: Int): [TaxonFacetResult]
+  }
+
+  type TaxonFacetResult {
+    name: String!
+    count: Int!
+    _query: JSON
+  }
+
+  type TaxonFacetResult_taxonId {
+    name: String!
+    count: Int!
+    _query: JSON
+    taxon: TaxonInfo
+    taxonSearch(
+      datasetKey: [ID]
+      rank: [String]
+      taxonId: [ID]
+      status: [String]
+      extinct: Boolean
+      nameType: [String]
+      code: [String]
+      origin: [String]
+      group: [String]
+      authorship: [String]
+      authorshipYear: [Int]
+      issue: [String]
+      q: String
+
+      limit: Int
+      offset: Int
+      facet: [String]
+      facetMinCount: Int
+      facetMultiselect: Boolean
+      facetLimit: Int
+      facetOffset: Int
+      query: TaxonSearchInput
+    ): TaxonSearchResult
+  }
+
+  type TaxonTreeResults {
+    offset: Int
+    limit: Int
+    endOfRecords: Boolean
+    count: Int
+    results: [TaxonTreeItem!]!
+  }
+
+  type TaxonTreeItem {
+    taxonID: ID!
+    parentNameUsageID: ID
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String!
+    label: String!
+    children: Int!
+    species: Int!
   }
 
   type ChecklistMeta {
@@ -117,7 +251,6 @@ const typeDef = gql`
   }
 
   type TaxonClassification {
-    datasetKey: String
     taxonID: ID!
     acceptedNameUsageID: ID
     parentNameUsageID: ID
@@ -172,6 +305,7 @@ const typeDef = gql`
     relatedInfo: RelatedTaxonInfo
     related(datasetType: RelatedDatasetType): [TaxonSimple!]!
     children(limit: Int, offset: Int): Children
+    parentTree: [TaxonChild!]
   }
 
   type TaxonFull {
@@ -221,6 +355,7 @@ const typeDef = gql`
     relatedInfo: RelatedTaxonInfo
     related(datasetType: RelatedDatasetType): [TaxonSimple!]!
     children(limit: Int, offset: Int): Children
+    parentTree: [TaxonChild!]
   }
 
   type Children {
@@ -241,6 +376,7 @@ const typeDef = gql`
     label: String
     children: Int
     species: Int
+    childrenTree(limit: Int, offset: Int): Children
   }
 
   enum RelatedDatasetType {
@@ -323,6 +459,14 @@ const typeDef = gql`
     Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
     """
     vernacularName(language: String): VernacularName
+    """
+    Shortcut to get scientific name from the taxon object.
+    """
+    scientificName: String
+    """
+    Shortcut to get scientific name from the taxon object.
+    """
+    label: String
   }
 `;
 

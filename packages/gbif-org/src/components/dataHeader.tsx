@@ -148,7 +148,7 @@ function CatalogSelector({
       OCCURRENCE: { pageId: 'occurrenceSearch', label: 'catalogues.occurrences' },
       PUBLISHER: { pageId: 'publisherSearch', label: 'catalogues.publishers' },
       DATASET: { pageId: 'datasetSearch', label: 'catalogues.datasets' },
-      TAXON: { pageId: 'speciesSearch', label: 'catalogues.species' },
+      TAXON: { pageId: 'taxonSearch', label: 'catalogues.taxon' },
       INSTITUTION: { pageId: 'institutionSearch', label: 'catalogues.institutions' },
       COLLECTION: { pageId: 'collectionSearch', label: 'catalogues.collections' },
       LITERATURE: { pageId: 'literatureSearch', label: 'catalogues.literature' },

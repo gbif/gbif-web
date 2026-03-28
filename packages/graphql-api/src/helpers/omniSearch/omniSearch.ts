@@ -18,11 +18,11 @@ export default async function searchAll({
   locale: string;
 }) {
   try {
-    const taxonResults = await searchTaxa({
-      query,
-      server,
-      languageCode,
-    });
+    // const taxonResults = await searchTaxa({ TODO taxonAPI: what to do here, the matching is different and so is the data we get back, so we might need to refactor the searchTaxa function a bit to make it work here
+    //   query,
+    //   server,
+    //   languageCode,
+    // });
     const countryResult = await searchCountries(query, locale);
     const participantResult = await searchParticipants(query);
     const occurrenceResults = await getOccurrenceMatches(query);
@@ -31,7 +31,7 @@ export default async function searchAll({
     return {
       country: countryResult,
       participant: participantResult,
-      taxa: taxonResults,
+      // taxa: taxonResults,
       occurrences: occurrenceResults,
       // techDocs: documentationResults,
     };
