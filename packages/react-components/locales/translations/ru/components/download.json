@@ -72,7 +72,7 @@
         "links": ""
       }
     },
-    "failedToRefreshDownloadStatus": "",
-    "descriptionByDownloadCreator": ""
+    "failedToRefreshDownloadStatus": "Не удалось обновить статус загрузки",
+    "descriptionByDownloadCreator": "Описание креатора загрузки"
   }
 }

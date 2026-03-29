@@ -1,10 +1,10 @@
 {
   "definitions": {
     "extension": {
-      "http://rs.tdwg.org/ac/terms/Multimedia": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "",
-      "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "",
-      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "",
+      "http://rs.tdwg.org/ac/terms/Multimedia": "圖像，聲音紀錄或影片，包含媒體詮釋資料和憑證資訊 - http://rs.tdwg.org/ac/terms/Multimedia",
+      "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "物質DNA擴增的資訊 - http://data.ggbn.org/schemas/ggbn/terms/Amplification",
+      "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "描述植物遺傳資源的基因庫種原 - http://purl.org/germplasm/germplasmTerm#GermplasmAccession",
+      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "植物遺傳資源之特徵測量 - http://purl.org/germplasm/germplasmTerm#MeasurementScore",
       "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "",
       "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "",
       "http://rs.tdwg.org/dwc/terms/Identification": "",
