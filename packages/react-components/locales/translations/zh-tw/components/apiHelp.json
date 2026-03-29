@@ -1,3 +1,18 @@
 {
-  "search": "搜尋"
+  "example": "範例",
+  "examples": "範例",
+  "singleEntry": "取得單一入口",
+  "singleOccurrence": "取得單一出現紀錄",
+  "searchOccurrences": "取得所有出現紀錄",
+  "filterOccurrences": "搜尋出現紀錄",
+  "singleInstallation": "取得單一安裝",
+  "singleOrganization": "取得單一發布者",
+  "searchOrganizations": "搜尋發布者.",
+  "searchInstallations": "搜尋安裝",
+  "search": "搜尋",
+  "singleNetwork": "取得單一網絡",
+  "singleCollection": "取得單一收集",
+  "searchCollections": " 搜尋收集",
+  "singleInstitution": "取得單一機構",
+  "searchInstitutions": "搜尋機構"
 }
