@@ -14,5 +14,14 @@
   "singleCollection": "取得單一收集",
   "searchCollections": " 搜尋收集",
   "singleInstitution": "取得單一機構",
-  "searchInstitutions": "搜尋機構"
+  "searchInstitutions": "搜尋機構",
+  "singleDataset": "取得單一資料集",
+  "searchDatasetsExample": "丹麥發布的首兩個資料集的標題或描述中包含自由文字「真菌」。",
+  "searchExample": "前兩筆記錄包含自由文字「dna」。",
+  "searchDatasets": "取得所有資料集",
+  "singleNode": "取得單一節點",
+  "searchNodes": "搜尋節點",
+  "singleSpecies": "取得單一物種",
+  "searchSpecies": "取得所有物種",
+  "singleDerivedDataset": "取得單一衍生資料集"
 }
