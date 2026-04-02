@@ -1,7 +1,7 @@
 {
   "feedback": {
-    "title": "",
-    "contactGbif": "",
+    "title": "Otázky  a komentáře",
+    "contactGbif": "Kontakt GBIF",
     "contactDataProvider": "",
     "contactUsDescription": "",
     "contactDataProviderDescription": "",
@@ -13,7 +13,7 @@
     "emailHelpdesk": "",
     "summary": "Shrnutí",
     "description": "Popis",
-    "required": "",
+    "required": "Vyžadováno",
     "csvWarning": "",
     "csvFaqEntry": "",
     "sendFeedback": "",
