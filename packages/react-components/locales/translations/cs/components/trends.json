@@ -13,7 +13,7 @@
     "recordsForPlantae": "Záznamy pro rostliny",
     "theseChartsIllustrate2": "Tyto grafy ilustrují změny v počtu druhů, pro které jsou k dispozici záznamy o výskytu.",
     "speciesCounts": "Počet druhů",
-    "speciesCountDescription": "",
+    "speciesCountDescription": "Počty druhů jsou založeny na počtu binomických vědeckých názvů, pro které GBIF obdržel datové záznamy, uspořádané pokud možno s využitím synonym zaznamenaných v klíčových databázích, jako je Catalogue of Life. Vzhledem k tomu, že mnoho názvů ještě není v těchto databázích zahrnuto, bude určitá část těchto názvů představovat nerozpoznaná synonyma a nebude představovat platné druhy. Proto lze tyto počty použít pouze jako ukazatel bohatství a nepředstavují skutečné počty druhů. Všechna data byla zpracována za použití stejné, nejnovější verze společné páteřní taxonomie GBIF a srovnání v čase jsou proto reálná.",
     "definition": "Definice",
     "numOccSpeciesByKingdom": "Počet druhů s dostupnými záznamy o výskytu, rozdělených podle říší.",
     "speciesCountByKingdom": "Počet druhů podle říše",
