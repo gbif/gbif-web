@@ -4,7 +4,7 @@
   "formTitle": "",
   "title": "Název",
   "titlePlaceholder": "Název datové sady",
-  "titleRequired": "",
+  "titleRequired": "Název je povinný",
   "datasetLink": "Internetový odkaz na data",
   "datasetLinkPlaceholder": "",
   "region": "Geografické pokrytí",
