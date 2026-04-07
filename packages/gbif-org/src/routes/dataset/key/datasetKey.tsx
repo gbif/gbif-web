@@ -376,7 +376,7 @@ export function DatasetPage() {
     return false;
   }, [occData]);
 
-  const showSpeciesTab = !!dataset.checklistBankDataset?.key;
+  const showSpeciesTab = dataset.type === 'CHECKLIST';
   const withEventId = occData?.withEvents?.documents?.total || 0;
   const showEventsTab =
     (config.datasetKey?.showEvents && withEventId > 0) ||
