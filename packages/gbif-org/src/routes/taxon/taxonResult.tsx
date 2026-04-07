@@ -127,8 +127,7 @@ export function TaxonResult({
                     >
                       <MapThumbnail
                         blend
-                        type={MapTypes.TaxonKey}
-                        identifier={taxon.key}
+                        capabilitiesParams={{ [MapTypes.TaxonKey]: taxon.key }}
                         overlayStyle="classic-noborder.poly"
                         className="g-rounded"
                       />
