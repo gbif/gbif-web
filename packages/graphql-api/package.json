@@ -16,8 +16,10 @@
   "author": "",
   "license": "Apache 2.0",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
     "@apollo/utils.keyvaluecache": "^4.0.0",
     "@elastic/ecs-winston-format": "^1.5.3",
+    "@modelcontextprotocol/sdk": "^1.28.0",
     "@octokit/app": "^15.0.1",
     "@turf/turf": "^6.5.0",
     "agentkeepalive": "^4.5.0",
@@ -58,6 +60,7 @@
     "md5": "^2.3.0",
     "mustache": "^4.2.0",
     "node-cache": "^5.1.2",
+    "node-jq": "^6.3.1",
     "nodemailer": "^6.9.16",
     "object-hash": "^3.0.0",
     "p-queue": "^6.6.2",
@@ -76,7 +79,7 @@
     "wkt": "^0.1.1",
     "xml2js": "^0.4.23",
     "yaml": "^1.10.0",
-    "zod": "^3.22.4",
+    "zod": "^3.25.76",
     "zod-express-middleware": "^1.4.0"
   },
   "devDependencies": {

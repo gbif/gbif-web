@@ -31,6 +31,7 @@ import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
 import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
 import suggestFilter from './api-utils/suggestFilter.ctrl.js';
+import mcpController from './mcp/routes.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import headerBasedCachePlugin from './plugins/headerBasedCachePlugin';
@@ -145,6 +146,7 @@ async function initializeServer() {
   helperController(app, server);
   sourceArchiveCtrl(app);
   citesController(app);
+  mcpController(app, server);
   app.listen({ port: config.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`,
