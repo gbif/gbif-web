@@ -3,7 +3,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
-import { NotFoundError } from '@/errors';
 import {
   NodeDetailsFragment,
   ParticipantDetailsQuery,
@@ -16,10 +15,9 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent } from './help';
@@ -128,19 +126,25 @@ export async function participantLoader({ params, graphql, locale }: LoaderArgs)
     return redirect(redirectUrl);
   }
 
-  return { errors, data };
+  return {
+    errors,
+    data: {
+      ...data,
+      // throwCriticalErrors makes sure participant and node is defined, so we tell TypeScript using !
+      participant: {
+        ...data!.participant!,
+        node: data!.participant!.node!,
+      },
+    },
+  };
 }
 
-export function ParticipantPage() {
-  const { data, errors } = useLoaderData() as { data: ParticipantDetailsQuery; errors: unknown };
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+type ParticipantKeyLoaderResult = Exclude<Awaited<ReturnType<typeof participantLoader>>, Response>;
 
-  if (data.participant == null) throw new NotFoundError();
+export function ParticipantPage() {
+  const { data, errors } = useLoaderData() as ParticipantKeyLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
+
   const { participant } = data;
 
   const { formatMessage } = useIntl();
@@ -197,26 +201,26 @@ export function ParticipantHeaderInfo({
   node,
 }: {
   url?: string | null;
-  node?: NodeDetailsFragment | null;
+  node: NodeDetailsFragment;
 }) {
   return (
     <HeaderInfo>
       <HeaderInfoMain>
         <FeatureList>
           {url && <Homepage url={url} />}
-          {(node?.dataset?.count ?? 0) > 0 && (
+          {node.dataset.count > 0 && (
             <GenericFeature>
               <a href="#datasetList">
-                <FormattedMessage id="counts.nDatasets" values={{ total: node?.dataset?.count }} />
+                <FormattedMessage id="counts.nDatasets" values={{ total: node.dataset.count }} />
               </a>
             </GenericFeature>
           )}
-          {(node?.publisher?.count ?? 0) > 0 && (
+          {node.publisher.count > 0 && (
             <GenericFeature>
               <a href="#publisherList">
                 <FormattedMessage
                   id="counts.nEndorsedPublishers"
-                  values={{ total: node?.publisher?.count }}
+                  values={{ total: node.publisher.count }}
                 />
               </a>
             </GenericFeature>

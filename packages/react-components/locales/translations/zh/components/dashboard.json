@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "标识",
     "provenance": "起源",
-    "other": "其它"
+    "other": "其它",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "每 {FIELD} 的物种出现记录",
   "kingdom": "界"

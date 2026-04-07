@@ -113,6 +113,7 @@
   "habitat": "Stanoviště",
   "samplingProtocol": "Protokol o odběru vzorků",
   "samplingEffort": "Intenzita odběru vzorků",
+  "sampleSize": "Rovná se {from}",
   "sampleSizeValue": "Hodnota velikosti vzorku",
   "sampleSizeUnit": "Jednotka velikosti vzorku",
   "fieldNotes": "Terénní poznámky",

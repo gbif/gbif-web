@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "",
+  "defaultPageDescription": "",
   "loading": "טוען",
   "loadError": "טעינה נכשלה",
   "pleaseCiteAs": "נא להשתמש בציטוט זה בפרסומים",
@@ -74,5 +76,6 @@
   "all": "",
   "clear": "",
   "search": "",
-  "404Text": ""
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }

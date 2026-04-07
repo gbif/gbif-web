@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "البحث عن مجموعة البيانات",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "مجموعة البيانات المكررة",
     "CHECKLIST": "مجموعة بيانات قائمة التحقق",

@@ -20,8 +20,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { NotFoundError } from '@/errors';
-import { CollectionQuery, CollectionSummaryMetricsQuery } from '@/gql/graphql';
+import { CollectionSummaryMetricsQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
@@ -36,6 +35,7 @@ import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { AboutContent, ApiContent } from './help';
+import { CollectionKeyLoaderResult } from './collectionKey';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
@@ -47,18 +47,16 @@ export const CollectionKeyContext = createContext<{
 }>({});
 
 export function CollectionKey({
-  data,
+  collection,
   collectionMetrics,
   fallbackImage,
 }: {
-  data: CollectionQuery;
+  collection: CollectionKeyLoaderResult['collection'];
   collectionMetrics?: CollectionSummaryMetricsQuery;
   fallbackImage?: string | null;
 }) {
   // const hideSideBar = useBelow(1100);
   const useInlineImage = useBelow(700);
-  if (data.collection == null) throw new NotFoundError();
-  const { collection } = data;
   const { occurrenceSearch } = collectionMetrics ?? {};
 
   const deletedAt = collection.deleted;
@@ -97,8 +95,8 @@ export function CollectionKey({
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={collection?.key?.toString()} />}
-      ></DataHeader>
+        apiContent={<ApiContent id={collection.key} />}
+      />
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
@@ -117,7 +115,7 @@ export function CollectionKey({
               )}
               <div className="g-flex-auto g-flex g-flex-col">
                 <div className="g-flex-auto">
-                  <ArticlePreTitle secondary={collection?.code}>
+                  <ArticlePreTitle secondary={collection.code}>
                     <FormattedMessage id="grscicoll.collectionCode" />
                   </ArticlePreTitle>
                   {/* it would be nice to know for sure which fields to expect */}
@@ -175,9 +173,9 @@ export function CollectionKey({
                 <HeaderInfo className="g-flex-none g-mb-0">
                   <HeaderInfoMain>
                     <FeatureList>
-                      <Homepage url={collection?.homepage} />
+                      <Homepage url={collection.homepage} />
                       {contactInfo?.country && (
-                        <Location countryCode={contactInfo?.country} city={contactInfo.city} />
+                        <Location countryCode={contactInfo.country} city={contactInfo.city} />
                       )}
                       {(collection?.numberSpecimens ?? 0) > 1 && (
                         <GenericFeature>
@@ -288,7 +286,7 @@ export function CollectionKey({
         </PageContainer>
 
         <CollectionKeyContext.Provider
-          value={{ key: data?.collection?.key, contentMetrics: collectionMetrics }}
+          value={{ key: collection.key, contentMetrics: collectionMetrics }}
         >
           <Outlet />
         </CollectionKeyContext.Provider>

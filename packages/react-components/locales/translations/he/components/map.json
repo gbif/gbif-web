@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "ריבועים קטנים",
     "LARGE_SQUARE": "ריבועים"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "קלאסי",
     "FIRE": "אש",

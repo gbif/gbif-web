@@ -34,8 +34,6 @@ export function InstitutionQuality({ predicate, className }: InstitutionQualityP
   const collections = contentMetrics?.institution?.collections ?? [];
 
   useEffect(() => {
-    if (!predicate?.value) return;
-
     load({
       variables: {
         predicate: {

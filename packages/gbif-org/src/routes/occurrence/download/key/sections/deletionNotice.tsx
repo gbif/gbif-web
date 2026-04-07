@@ -6,22 +6,23 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { useUser } from '@/contexts/UserContext';
-import { Download_Status, DownloadKeyQuery, UsersDownloadKeyQuery } from '@/gql/graphql';
+import { Download_Status, UsersDownloadKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { Download } from '../downloadKey';
 
 export function DeletionNotice({
   download,
   userDownload,
 }: {
-  download: DownloadKeyQuery['download'];
+  download: Download;
   userDownload: UsersDownloadKeyQuery['download'];
 }) {
   const { user } = useUser();
   const { formatMessage, formatDate } = useIntl();
   // if the download is not successful or does not have an eraseAfter date, return null
-  if (!download || download.status !== Download_Status.Succeeded || !download.eraseAfter) {
+  if (download.status !== Download_Status.Succeeded || !download.eraseAfter) {
     return null;
   }
 

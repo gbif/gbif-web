@@ -1,3 +1,4 @@
+/** @deprecated */
 export class NotFoundError extends Error {
   constructor() {
     super('404');
@@ -17,8 +18,8 @@ export class NotFoundLoaderResponse extends Response {
 }
 
 export class UnexpectedLoaderError extends Error {
-  constructor() {
-    super('500');
+  constructor(message?: string) {
+    super(message ?? '500');
   }
   status = 500;
 }

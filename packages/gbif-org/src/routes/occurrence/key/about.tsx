@@ -1,7 +1,6 @@
 import { GbifLinkCard, TocLi as Li, Separator } from '@/components/TocHelp';
 import { Card } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
-import { NotFoundError } from '@/errors';
 import { Term } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -39,7 +38,10 @@ const extensions = [
   'chronometricAge',
 ];
 
-const tocReducer = (state, action) => {
+const tocReducer = (
+  state: Record<string, boolean>,
+  action: { type: string; id: string; visible: boolean }
+) => {
   switch (action.type) {
     case 'ADD_SECTION':
       return { ...state, [action.id]: action.visible };
@@ -56,7 +58,7 @@ const tocReducer = (state, action) => {
 export function OccurrenceKeyAbout() {
   const { slowOccurrence } = useContext(OccurrenceKeyContext);
   const config = useConfig();
-  const { data } = useOccurrenceKeyLoaderData();
+  const { occurrence } = useOccurrenceKeyLoaderData();
   const hideSidebar = useBelow(1000);
   const [toc, dispatch] = useReducer(
     tocReducer,
@@ -67,8 +69,6 @@ export function OccurrenceKeyAbout() {
     dispatch({ type: 'ADD_SECTION', id, visible });
   }, []);
 
-  if (data.occurrence == null) throw new NotFoundError();
-  const { occurrence } = data;
   const { terms } = occurrence;
   const termMap: { [key: string]: Term } =
     terms?.reduce((map: { [key: string]: Term }, term) => {

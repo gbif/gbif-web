@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "Global Biodiversity Information Facility. Acesso Livre e Aberto a Dados de Biodiversidade.",
   "loading": "a carregar",
   "loadError": "Não foi possível carregar",
   "pleaseCiteAs": "",
@@ -74,5 +76,6 @@
   "all": "Todos",
   "clear": "Limpar",
   "search": "Pesquisa",
-  "404Text": "Esta página pode já ter existido, mas não conseguimos voltar a encontrá-la. Por favor tente a nossa [search](/search) para encontrar o que procura. Pode sempre contactar-nos através de [helpdesk@gbif.org](mailto:helpdesk@gbif.org)."
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }

@@ -20,8 +20,9 @@
     "countryParticipants": "",
     "publishersPerCountry": "",
     "clear": "",
+    "noDescriptionProvided": "",
     "headlines": {
-      "nodesSteeringGroup": "",
+      "nodesSteeringGroup": "Knoten-Lenkungsgruppe",
       "participants": "Teilnehmer"
     }
   }

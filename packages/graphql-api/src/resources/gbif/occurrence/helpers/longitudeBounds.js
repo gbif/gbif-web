@@ -2,6 +2,11 @@ import get from 'lodash/get';
 import keyBy from 'lodash/keyBy';
 import maxBy from 'lodash/maxBy';
 
+/**
+ * This looks like it was intended for the longitude histograms
+ * This function looks like it is unused and doesn't quite work. I suppose the idea was to handle date line wrapping
+ * an approach for that could be to define start and end as the smallest possible interval that contains all data points. This would be the same as finding the largest gap between data points and defining the start and end as the points on either side of that gap.
+ */
 function getLongitudeBounds(buckets, intervalSize) {
   if (buckets.length === 0) return null;
   const firstNotGap = buckets.find((x) => x.doc_count !== 0).key;

@@ -52,7 +52,7 @@ import { TemporalCoverages } from './about/TemporalCoverages';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { truncate } from '@/utils/truncate';
 import { MapWidget } from '@/components/maps/mapWidget';
-import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
+import { useHasMap } from '@/components/maps/mapThumbnail';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/shadcn';
 import { PublishingCountries } from './about/PublishingCountries';
@@ -60,31 +60,28 @@ import { TrustedSection } from '@/routes/occurrence/download/key/sections/deleti
 import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { DatasetKeyLoaderResult } from './datasetKey';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
-  const { data } = useDatasetKeyLoaderData() as { data: DatasetQuery };
-  const { dataset } = data;
-  const defaultToc = getToc(data);
+  const { dataset } = useDatasetKeyLoaderData().data;
   const hasPreprocessedMap = useHasMap({
-    datasetKey: data?.dataset?.key ?? '',
+    datasetKey: dataset?.key ?? '',
     checklistKey: config.defaultChecklistKey,
   });
   const hasLocalContext =
-    (dataset?.localContexts?.length ?? 0) > 0 && config.experimentalFeatures.localContextEnabled;
+    (dataset.localContexts?.length ?? 0) > 0 && config.experimentalFeatures.localContextEnabled;
 
-  const [toc, setToc] = useState(defaultToc);
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
   const [scopedDatasetPredicate, setScopedDatasetPredicate] = useState<Predicate>({
     type: PredicateType.Equals,
     key: 'datasetKey',
-    value: dataset?.key,
+    value: dataset.key,
   });
 
   const sitePredicate = config?.occurrenceSearch?.scope as Predicate;
   useEffect(() => {
-    if (!dataset?.key) return;
     const datasetPredicate = {
       type: PredicateType.Equals,
       key: 'datasetKey',
@@ -94,7 +91,7 @@ export function DatasetKeyAbout() {
       ? { type: PredicateType.And, predicates: [sitePredicate, datasetPredicate] }
       : datasetPredicate;
     setScopedDatasetPredicate(scope);
-  }, [sitePredicate, dataset?.key]);
+  }, [sitePredicate, dataset.key]);
 
   const { data: insights, load } = useQuery<DatasetInsightsQuery, DatasetInsightsQueryVariables>(
     DATASET_SLOW,
@@ -106,15 +103,13 @@ export function DatasetKeyAbout() {
   );
 
   useEffect(() => {
-    if (!dataset?.key) return;
-    const id = dataset?.key;
     const datasetPredicate = {
       type: PredicateType.Equals,
       key: 'datasetKey',
-      value: id,
+      value: dataset.key,
     };
     // we also want to know how many of those occurrences are included on the present site
-    const predicates = [datasetPredicate];
+    const predicates: Predicate[] = [datasetPredicate];
     if (sitePredicate) predicates.push(sitePredicate);
     load({
       variables: {
@@ -155,12 +150,7 @@ export function DatasetKeyAbout() {
         },
       },
     });
-  }, [dataset?.key, sitePredicate, load]);
-
-  // when dataset or insights change, then recalculate which items go into the table of contents
-  useEffect(() => {
-    setToc(getToc(data, insights));
-  }, [data, insights]);
+  }, [dataset.key, sitePredicate, load]);
 
   const scopeSmallerThanDatasetMessage = formatMessage(
     {
@@ -172,8 +162,8 @@ export function DatasetKeyAbout() {
 
   const chartPredicate = scopedDatasetPredicate;
 
+  const toc = useMemo(() => getToc(dataset), [dataset]);
   const tableOfContents = useMemo(() => {
-    if (!dataset || !toc) return [];
     const tableOfContents = [
       { id: 'description', title: <FormattedMessage id="dataset.description" /> },
     ];
@@ -231,11 +221,7 @@ export function DatasetKeyAbout() {
     });
     tableOfContents.push({ id: 'citation', title: <FormattedMessage id="dataset.citation" /> });
     return tableOfContents;
-  }, [dataset, toc]);
-
-  if (!dataset) {
-    return null; //TODO return loader or error
-  }
+  }, [toc]);
 
   const total = insights?.unfiltered?.documents?.total;
   const siteTotal = insights?.siteOccurrences?.documents?.total;
@@ -296,13 +282,13 @@ export function DatasetKeyAbout() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {dataset?.description && (
+                {dataset.description && (
                   <div
                     className="gbif-word-break g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.description }}
-                  ></div>
+                  />
                 )}
-                {!dataset?.description && <EmptyValue />}
+                {!dataset.description && <EmptyValue />}
               </CardContent>
             </Card>
 
@@ -342,7 +328,7 @@ export function DatasetKeyAbout() {
               </div>
             )}
 
-            {toc.purpose && (
+            {toc.purpose && dataset.purpose && (
               <Card className="g-mb-4 gbif-word-break" id="purpose">
                 <CardHeader>
                   <CardTitle>
@@ -353,12 +339,12 @@ export function DatasetKeyAbout() {
                   <div
                     className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.purpose }}
-                  ></div>
+                  />
                 </CardContent>
               </Card>
             )}
 
-            {toc?.geographicDescription && (
+            {toc.geographicDescription && (
               <Card className="g-mb-4" id="geographic-description">
                 <CardHeader className="gbif-word-break">
                   <CardTitle>
@@ -385,7 +371,7 @@ export function DatasetKeyAbout() {
 
             <PublishingCountries datasetKey={dataset.key} />
 
-            {toc?.temporalDescription && (
+            {toc.temporalDescription && (
               <Card className="g-mb-4" id="temporal-description">
                 <CardHeader className="gbif-word-break">
                   <CardTitle>
@@ -409,7 +395,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc?.taxonomicDescription && (
+            {toc.taxonomicDescription && (
               <Card className="g-mb-4" id="taxonomic-description">
                 <CardHeader className="gbif-word-break">
                   <CardTitle>
@@ -433,7 +419,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc?.methodology && (
+            {toc.methodology && (
               <Card className="g-mb-4 gbif-word-break" id="methodology">
                 <CardHeader>
                   <CardTitle>
@@ -445,7 +431,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc?.additionalInfo && (
+            {toc.additionalInfo && dataset.additionalInfo && (
               <Card className="g-mb-4 gbif-word-break" id="additional-info">
                 <CardHeader>
                   <CardTitle>
@@ -456,11 +442,11 @@ export function DatasetKeyAbout() {
                   <div
                     className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.additionalInfo }}
-                  ></div>
+                  />
                 </CardContent>
               </Card>
             )}
-            {toc?.bibliography && (
+            {toc.bibliography && (
               <Card className="g-mb-4 gbif-word-break" id="bibliography">
                 <CardHeader>
                   <CardTitle>
@@ -474,7 +460,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc?.contacts && (
+            {toc.contacts && (
               <Card className="g-mb-4 gbif-word-break" id="contacts">
                 <CardHeader>
                   <CardTitle>
@@ -505,14 +491,16 @@ export function DatasetKeyAbout() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Citation data={data} />
+                {dataset.citation?.text && (
+                  <Citation text={dataset.citation.text} doi={dataset.doi} />
+                )}
               </CardContent>
             </Card>
           </div>
           {!removeSidebar && (
             <Aside>
               {hasLocalContext &&
-                dataset?.localContexts?.map((localContext) => {
+                dataset.localContexts?.map((localContext) => {
                   if (!localContext?.project_page) return null;
                   return (
                     <Card className="g-mb-4 gbif-word-break" key={localContext?.project_page}>
@@ -653,10 +641,7 @@ const DATASET_SLOW = /* GraphQL */ `
   }
 `;
 
-function getToc(data?: DatasetQuery, insights?: DatasetInsightsQuery) {
-  const dataset = data?.dataset;
-  if (!dataset) return;
-
+function getToc(dataset: DatasetKeyLoaderResult['data']['dataset']) {
   const hasSamplingDescription =
     dataset?.samplingDescription?.studyExtent ||
     dataset?.samplingDescription?.sampling ||

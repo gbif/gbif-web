@@ -980,9 +980,13 @@ export default {
       }),
     stub: (current) => current,
   },
-  LongitudeHistogram: {
-    bounds: ({ buckets, interval }) => {
-      return getLongitudeBounds(buckets, interval);
-    },
+  // LongitudeHistogram: {
+  // the idea looks good, to handle date line issues in a central place. But the current implementation has some issues and it is not clear if it is worth to keep it for now. For now, we can just return the buckets and interval and handle the bounds calculation in the UI. We can always add it back later if we need it.
+  //   bounds: ({ buckets, interval }) => {
+  //     return getLongitudeBounds(buckets, interval);
+  //   },
+  // },
+  HistogramBucket: {
+    occurrences: facetOccurrenceSearch,
   },
 };

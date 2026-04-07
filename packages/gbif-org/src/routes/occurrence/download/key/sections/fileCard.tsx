@@ -4,7 +4,6 @@ import { HyperText } from '@/components/hyperText';
 import Properties from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/largeCard';
-import { DownloadKeyQuery } from '@/gql/graphql';
 import { BasicField } from '@/routes/occurrence/key/properties';
 import { formatBytes } from '@/utils/formatBytes';
 import { useMemo } from 'react';
@@ -13,8 +12,9 @@ import { downloadCompleted } from '../utils';
 import { MdDownload } from 'react-icons/md';
 import { UsageReportModal } from './usageReportModal';
 import { useUser } from '@/contexts/UserContext';
+import { Download } from '../downloadKey';
 
-export function FileCard({ download }: { download: DownloadKeyQuery['download'] }) {
+export function FileCard({ download }: { download: Download }) {
   const { formatMessage } = useIntl();
   const { isLoggedIn } = useUser();
   const englishCreationDate = useMemo(() => {
@@ -22,10 +22,9 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
       locale: 'en-GB',
       messages: {},
     });
-    return enIntl.formatDate(download?.created, longDateFormatProps);
-  }, [download?.created]);
+    return enIntl.formatDate(download.created, longDateFormatProps);
+  }, [download.created]);
 
-  if (!download) return null;
   const { size, unit } = formatBytes(download.size ?? 0, 0);
 
   const citation = `GBIF.org (${englishCreationDate}) GBIF Occurrence Download ${
@@ -72,9 +71,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
                     <MdDownload className="g-ms-1" />
                   </a>
                 </Button>
-                {isLoggedIn && (
-                  <UsageReportModal downloadKey={download.key} doi={download.doi} />
-                )}
+                {isLoggedIn && <UsageReportModal downloadKey={download.key} doi={download.doi} />}
               </div>
             </div>
           </BasicField>
@@ -85,7 +82,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
           </div>
         )}
       </CardContent>
-      {download.downloadLink && download?.status === 'SUCCEEDED' && (
+      {download.downloadLink && download.status === 'SUCCEEDED' && (
         <CardContent className="g-border-t g-border-gray-200 !g-py-4 g-flex g-gap-4 g-flex-col md:g-flex-row">
           <div className="g-w-52 g-flex-none">
             <Button className="g-flex-none" variant="default" asChild>
@@ -101,7 +98,7 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
                 <FormattedNumber value={size} /> {unit}
               </div>
               <div className="g-text-slate-500">
-                <FormattedMessage id={`enums.downloadFormat.${download?.request?.format}`} />
+                <FormattedMessage id={`enums.downloadFormat.${download.request?.format}`} />
               </div>
             </div>
           </div>

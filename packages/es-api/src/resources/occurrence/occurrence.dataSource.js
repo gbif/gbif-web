@@ -181,6 +181,10 @@ async function suggest({ field, text = '', size = 8, req }) {
 }
 
 async function byKey({ key, req }) {
+  // Validate key: must be numeric and within the valid range for a long (max 9223372036854775807)
+  if (!/^\d+$/.test(key) || BigInt(key) > 9223372036854775807n) {
+    throw new ResponseError(404, 'notFound', 'Not found');
+  }
   const query = {
     size: 1,
     query: {

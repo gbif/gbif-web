@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "Światowa Sieć Informacji o Bioróżnorodności. Darmowy i otwarty dostęp do danych o bioróżnorodności.",
   "loading": "wczytywanie",
   "loadError": "Nie udało się załadować",
   "pleaseCiteAs": "Proszę użyć tego cytowania w publikacji",
@@ -74,5 +76,6 @@
   "all": "Wszystko",
   "clear": "Wyczyść",
   "search": "Wyszukaj",
-  "404Text": "Ta strona mogła kiedyś istnieć, ale nie możemy jej już znaleźć.\nProszę skorzystać z naszego [szukaj](/search), aby znaleźć to, czego szukasz. Zawsze możesz się z nami skontaktować pod adresem [helpdesk@gbif.org](mailto:helpdesk@gbif.org)."
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }

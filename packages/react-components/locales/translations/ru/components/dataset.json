@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Поиск набора данных",
+  "datasetSearchDescription": "Поиск видов в GBIF. Свободный и открытый доступ к данным биоразнообразия.",
   "longType": {
     "OCCURRENCE": "Набор данных о находках",
     "CHECKLIST": "Таксономический список",

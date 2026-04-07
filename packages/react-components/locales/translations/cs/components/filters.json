@@ -181,12 +181,12 @@
     "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
   "biomeType": {
-    "name": "",
+    "name": "Typ Biomu",
     "count": "",
     "description": ""
   },
   "objectClassification": {
-    "name": "",
+    "name": "Klasifikace objektů",
     "count": "",
     "description": ""
   },
@@ -390,12 +390,12 @@
   "sex": {
     "name": "Pohlaví",
     "count": "",
-    "description": ""
+    "description": "Pohlaví organismu"
   },
   "lifeStage": {
     "name": "Životní fáze",
     "count": "",
-    "description": ""
+    "description": "Životní stádium organismu"
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
@@ -410,7 +410,7 @@
   "verbatimTaxonId": {
     "name": "Přesné ID taxonu",
     "count": "",
-    "description": ""
+    "description": "Identifikátor taxonu jak byl poskytnut od vydavatele"
   },
   "islandGroup": {
     "name": "Skupina ostrovů",
@@ -563,9 +563,9 @@
     "description": "Název libovolné správní oblasti z GADM.org určený při zpracování záznamu."
   },
   "identifiedBy": {
+    "description": "Osoba, lidé, skupiny nebo organizace odpovědné za určení vědeckého názvu organismu.",
     "name": "Identifikováno od",
-    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}",
-    "description": "Osoba, lidé, skupiny nebo organizace odpovědné za určení vědeckého názvu organismu."
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
   },
   "isInCluster": {
     "name": "je ve shluku",
@@ -659,5 +659,290 @@
     "isNotNull": "Má problémy",
     "isNull": "Nemá problémy",
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
+  },
+  "humboldtBooleans": {
+    "name": "Rozšíření Humboldt",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "Nahlášené počasí",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "Popis jakýchkoli extrémních povětrnostních podmínek nebo podmínek prostředí, které mohly ovlivnit událost dwc:Event.",
+    "name": "Hlášené extrémní podmínky",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}"
   }
 }

@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "소형 사각형",
     "LARGE_SQUARE": "사각형"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "기본",
     "FIRE": "불꽃 그래디언트",

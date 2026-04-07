@@ -1,4 +1,4 @@
-const getTranslatedValue =
+export const getTranslatedVocabConceptValue =
   (field, { useNameAsFallback } = {}) =>
   (item, { language = 'en' }) => {
     // transform label array to map using language as key
@@ -42,12 +42,16 @@ export default {
         query: args,
       });
     },
-    uiLabel: getTranslatedValue('label', { useNameAsFallback: true }),
-    uiDefinition: getTranslatedValue('definition'),
+    uiLabel: getTranslatedVocabConceptValue('label', {
+      useNameAsFallback: true,
+    }),
+    uiDefinition: getTranslatedVocabConceptValue('definition'),
   },
   VocabularyConcept: {
-    uiLabel: getTranslatedValue('label', { useNameAsFallback: true }),
-    uiDefinition: getTranslatedValue('definition'),
+    uiLabel: getTranslatedVocabConceptValue('label', {
+      useNameAsFallback: true,
+    }),
+    uiDefinition: getTranslatedVocabConceptValue('definition'),
     parents: ({ vocabularyName, parents }, args, { dataSources }) => {
       if (!vocabularyName || !parents) return null;
 

@@ -28,38 +28,34 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
-import { useParams } from 'react-router-dom';
 import { useInstitutionKeyLoaderData } from '.';
 import { GrSciCollMetadata } from './MetaData';
 import { PredicateType } from '@/gql/graphql';
+import { notNull } from '@/utils/notNull';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 export default function About() {
-  const { key } = useParams();
-  const { data } = useInstitutionKeyLoaderData();
+  const { institution } = useInstitutionKeyLoaderData();
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
-    params: { institutionKey: key },
+    params: { institutionKey: institution.key },
   });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(800);
-  const { institution } = data;
 
   const predicate = useMemo(
     () => ({
       type: PredicateType.Equals,
       key: 'institutionKey',
-      value: institution?.key,
+      value: institution.key,
     }),
-    [institution?.key]
+    [institution.key]
   );
 
-  if (!institution) return null;
-
   const addressesIdentical =
-    JSON.stringify(institution?.mailingAddress) === JSON.stringify(institution?.address);
-  const contacts = institution?.contactPersons.filter((x) => x.firstName);
+    JSON.stringify(institution.mailingAddress) === JSON.stringify(institution.address);
+  const contacts = institution.contactPersons.filter(notNull).filter((x) => x.firstName);
 
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 
@@ -169,7 +165,7 @@ export default function About() {
                           {email}
                         </a>
                       )}
-                    ></Property>
+                    />
                   )}
                   <Property labelId="grscicoll.homepage">
                     <HyperText text={institution?.homepage} />
@@ -184,7 +180,7 @@ export default function About() {
                           {phone}
                         </a>
                       )}
-                    ></Property>
+                    />
                   )}
                   <Property
                     value={institution?.address?.country}
@@ -238,53 +234,42 @@ export default function About() {
                   )}
                 </Properties>
                 <div className="g-flex g-flex-wrap -g-m-2">
-                  {contacts?.map((contact) => {
-                    if (!contact) return null;
-                    return (
-                      <Card
-                        key={contact.key}
-                        className="g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2"
-                      >
-                        <ContactHeader>
-                          <ContactAvatar
-                            firstName={contact.firstName}
-                            lastName={contact.lastName}
-                          />
-                          <ContactHeaderContent>
-                            <ContactTitle
-                              firstName={contact.firstName}
-                              lastName={contact.lastName}
-                            ></ContactTitle>
-                            {contact.position?.length > 0 && (
-                              <ContactDescription>
-                                {contact.position.map((position) => position).join(', ')}
-                              </ContactDescription>
-                            )}
-                          </ContactHeaderContent>
-                        </ContactHeader>
-                        <ContactContent className="g-mb-2">
-                          {contact.taxonomicExpertise.length > 0 && (
-                            <>
-                              <FormattedMessage id="grscicoll.taxonomicExpertice" />:{' '}
-                              <BulletList>
-                                {contact.taxonomicExpertise.map((expertise) => (
-                                  <li key={expertise}>{expertise}</li>
-                                ))}
-                              </BulletList>
-                            </>
+                  {contacts.map((contact) => (
+                    <Card
+                      key={contact.key}
+                      className="g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2"
+                    >
+                      <ContactHeader>
+                        <ContactAvatar firstName={contact.firstName} lastName={contact.lastName} />
+                        <ContactHeaderContent>
+                          <ContactTitle firstName={contact.firstName} lastName={contact.lastName} />
+                          {contact.position?.length > 0 && (
+                            <ContactDescription>
+                              {contact.position.map((position) => position).join(', ')}
+                            </ContactDescription>
                           )}
-                        </ContactContent>
-                        <ContactActions>
-                          {contact.email &&
-                            contact.email.map((email) => (
-                              <ContactEmail key={email} email={email} />
-                            ))}
-                          {contact.phone &&
-                            contact.phone.map((tel) => <ContactTelephone key={tel} tel={tel} />)}
-                        </ContactActions>
-                      </Card>
-                    );
-                  })}
+                        </ContactHeaderContent>
+                      </ContactHeader>
+                      <ContactContent className="g-mb-2">
+                        {contact.taxonomicExpertise.length > 0 && (
+                          <>
+                            <FormattedMessage id="grscicoll.taxonomicExpertice" />:{' '}
+                            <BulletList>
+                              {contact.taxonomicExpertise.map((expertise) => (
+                                <li key={expertise}>{expertise}</li>
+                              ))}
+                            </BulletList>
+                          </>
+                        )}
+                      </ContactContent>
+                      <ContactActions>
+                        {contact.email &&
+                          contact.email.map((email) => <ContactEmail key={email} email={email} />)}
+                        {contact.phone &&
+                          contact.phone.map((tel) => <ContactTelephone key={tel} tel={tel} />)}
+                      </ContactActions>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>

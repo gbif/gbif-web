@@ -1,4 +1,5 @@
-import { excerpt, getHtml } from '@/helpers/utils';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { excerpt, getHtml, isValidUuid } from '@/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -11,8 +12,12 @@ export default {
   Query: {
     networkSearch: (parent, args, { dataSources }) =>
       dataSources.networkAPI.searchNetworks({ query: args }),
-    network: (parent, { key }, { dataSources }) =>
-      dataSources.networkAPI.getNetworkByKey({ key }),
+    network: (parent, { key }, { dataSources }) => {
+      if (!isValidUuid(key)) {
+        throw new NotFoundError();
+      }
+      return dataSources.networkAPI.getNetworkByKey({ key });
+    },
   },
   Network: {
     constituents: ({ key }, args, { dataSources }) => {

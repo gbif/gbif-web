@@ -1,7 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import PageMetaData from '@/components/PageMetaData';
-import { NotFoundError, NotFoundLoaderResponse } from '@/errors';
+import { NotFoundLoaderResponse } from '@/errors';
 import { NodeDetailsQuery, NodeDetailsQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ParticipantHeaderInfo } from '@/routes/participant/key/participantKey';
@@ -11,9 +11,8 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -54,29 +53,20 @@ export async function nodeLoader({ params, graphql }: LoaderArgs) {
     return redirect(`/participant/${data.node.participant.id}`);
   }
 
-  return { errors, data };
+  return { errors, node: data.node! };
 }
 
-export function NodePage() {
-  const { data, errors } = useLoaderData() as { data: NodeDetailsQuery; errors: unknown };
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+export type NodeKeyLoaderResult = Exclude<Awaited<ReturnType<typeof nodeLoader>>, Response>;
 
-  if (data.node == null) throw new NotFoundError();
-  const { node } = data;
+export function NodePage() {
+  const { node, errors } = useLoaderData() as NodeKeyLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
 
   return (
     <article className="g-bg-background">
       <PageMetaData title={node.title} path={`/participant/${node.key}`} />
 
-      <DataHeader
-        aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={node?.key?.toString()} />}
-      ></DataHeader>
+      <DataHeader aboutContent={<AboutContent />} apiContent={<ApiContent id={node.key} />} />
       <PageContainer topPadded hasDataHeader>
         <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle>

@@ -1,5 +1,4 @@
 import { useConfig } from '@/config/config';
-import { NotFoundError } from '@/errors';
 import {
   InstitutionFallbackImageQuery,
   InstitutionFallbackImageQueryVariables,
@@ -11,7 +10,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -35,37 +34,26 @@ export async function institutionLoader({ params, graphql, config }: LoaderArgs)
     requiredObjects: [data?.institution],
   });
 
-  return { errors, data };
+  return { errors, institution: data.institution! };
 }
 
-export function InstitutionKey() {
-  const { data, errors } = useLoaderData() as {
-    data: InstitutionQuery;
-    errors: Array<{ message: string; path: [string] }>;
-  };
-  const config = useConfig();
+export type InstitutionKeyLoaderResult = Awaited<ReturnType<typeof institutionLoader>>;
 
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+export function InstitutionKey() {
+  const { institution, errors } = useLoaderData() as InstitutionKeyLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
+  const config = useConfig();
 
   const collectionScope = config.collectionSearch?.scope;
 
-  const {
-    data: institutionMetrics,
-    load: slowLoad,
-    error: slowLoadError,
-  } = useQuery<InstitutionSummaryMetricsQuery, InstitutionSummaryMetricsQueryVariables>(
-    SLOW_QUERY,
-    {
-      notifyOnErrors: true,
-      lazyLoad: true,
-      throwAllErrors: false,
-    }
-  );
+  const { data: institutionMetrics, load: slowLoad } = useQuery<
+    InstitutionSummaryMetricsQuery,
+    InstitutionSummaryMetricsQueryVariables
+  >(SLOW_QUERY, {
+    notifyOnErrors: true,
+    lazyLoad: true,
+    throwAllErrors: false,
+  });
 
   const { data: imageData, load: imageLoad } = useQuery<
     InstitutionFallbackImageQuery,
@@ -77,50 +65,45 @@ export function InstitutionKey() {
   });
 
   useEffect(() => {
-    const id = data.institution?.key;
-    if (typeof id !== 'undefined') {
-      const institutionPredicate = {
-        type: PredicateType.Equals,
-        key: 'institutionKey',
-        value: id,
-      };
-      slowLoad({
-        variables: {
-          collectionScope: collectionScope ?? {},
-          key: id,
-          predicate: institutionPredicate,
-          imagePredicate: {
-            type: PredicateType.And,
-            predicates: [
-              institutionPredicate,
-              { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
-            ],
-          },
-          coordinatePredicate: {
-            type: PredicateType.And,
-            predicates: [
-              institutionPredicate,
-              { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
-            ],
-          },
-          clusterPredicate: {
-            type: PredicateType.And,
-            predicates: [
-              institutionPredicate,
-              { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
-            ],
-          },
+    const institutionPredicate = {
+      type: PredicateType.Equals,
+      key: 'institutionKey',
+      value: institution.key,
+    };
+    slowLoad({
+      variables: {
+        collectionScope: collectionScope ?? {},
+        key: institution.key,
+        predicate: institutionPredicate,
+        imagePredicate: {
+          type: PredicateType.And,
+          predicates: [
+            institutionPredicate,
+            { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
+          ],
         },
-      });
-      imageLoad({ variables: { key: id } });
-    }
-  }, [data.institution?.key, slowLoad, imageLoad, collectionScope]);
-
-  if (!errors && data && !data.institution) throw new NotFoundError();
+        coordinatePredicate: {
+          type: PredicateType.And,
+          predicates: [
+            institutionPredicate,
+            { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
+          ],
+        },
+        clusterPredicate: {
+          type: PredicateType.And,
+          predicates: [
+            institutionPredicate,
+            { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
+          ],
+        },
+      },
+    });
+    imageLoad({ variables: { key: institution.key } });
+  }, [institution.key, slowLoad, imageLoad, collectionScope]);
 
   return (
     <Presentation
-      data={data}
+      institution={institution}
       institutionMetrics={institutionMetrics}
       fallbackImage={imageData?.institution?.featuredImageUrl_fallback}
     />

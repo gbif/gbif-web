@@ -1,5 +1,6 @@
 {
   "searchTitle": "Пошук за видавцем даних",
+  "searchDescription": "",
   "tabs": {
     "aboutPublisher": "Відомості про видавця даних",
     "metrics": "Показники",

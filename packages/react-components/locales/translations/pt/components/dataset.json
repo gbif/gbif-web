@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Pesquisa de conjunto de dados",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Conjunto de dados de ocorrência",
     "CHECKLIST": "Conjuntos de dados de checklists",

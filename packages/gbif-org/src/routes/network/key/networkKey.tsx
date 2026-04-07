@@ -11,7 +11,6 @@ import {
 } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
-import { NotFoundError } from '@/errors';
 import { NetworkQuery, NetworkQueryVariables, PredicateType } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
@@ -19,9 +18,8 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -68,25 +66,28 @@ export async function networkLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.network],
   });
 
-  return { errors, data };
+  return {
+    errors,
+    data: {
+      ...data,
+      // throwCriticalErrors makes sure network is defined, so we tell typescript with the !
+      network: data!.network!,
+    },
+  };
 }
+
+type NetworkKeyLoaderResult = Awaited<ReturnType<typeof networkLoader>>;
 
 export function NetworkPage() {
   const location = useLocation();
-  const { data, errors } = useLoaderData() as { data: NetworkQuery };
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+  const { data, errors } = useLoaderData() as NetworkKeyLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
 
-  if (data.network == null) throw new NotFoundError();
   const { network, occurrenceSearch, literatureSearch } = data;
 
   const deletedAt = network.deleted;
-  const title = network?.prose?.title ?? network.title ?? 'No title provided';
-  const homepage = network?.prose?.primaryLink?.url ?? network?.homepage?.[0];
+  const title = network.prose?.title ?? network.title ?? 'No title provided';
+  const homepage = network.prose?.primaryLink?.url ?? network.homepage?.[0];
 
   return (
     <>
@@ -94,14 +95,14 @@ export function NetworkPage() {
         path={`/network/${network.key}`}
         title={title}
         description={network.description ?? network.prose?.summary ?? ''}
-        noindex={!!network?.deleted}
-        nofollow={!!network?.deleted}
+        noindex={!!deletedAt}
+        nofollow={!!deletedAt}
       />
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={network?.key?.toString()} />}
-      ></DataHeader>
+        apiContent={<ApiContent id={network.key} />}
+      />
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer>
@@ -110,7 +111,11 @@ export function NetworkPage() {
                 <FormattedMessage
                   id="dataset.registeredDate"
                   values={{
-                    DATE: <LongDate value={network.created ?? undefined} />,
+                    DATE: network.created ? (
+                      <LongDate value={network.created} />
+                    ) : (
+                      <FormattedMessage id="phrases.unknownDate" />
+                    ),
                   }}
                 />
               }

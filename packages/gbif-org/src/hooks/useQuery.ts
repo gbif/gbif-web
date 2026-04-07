@@ -5,6 +5,7 @@ import { GraphQLService } from '@/services/graphQLService';
 import isArray from 'lodash/isArray';
 import Queue from 'queue-promise';
 import React, { useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 type Options<TVariabels> = {
   throwNetworkErrors?: boolean;
@@ -14,6 +15,7 @@ type Options<TVariabels> = {
   lazyLoad?: boolean;
   keepDataWhileLoading?: boolean;
   notifyOnErrors?: string | boolean;
+  notifyOnErrorsFn?: (error: QueryError) => boolean;
   queue?: {
     name?: string;
     concurrent?: number;
@@ -33,6 +35,7 @@ const defaultOptions: Options<unknown> = {
   lazyLoad: false,
   keepDataWhileLoading: false,
   notifyOnErrors: false,
+  notifyOnErrorsFn: undefined,
   queue: {
     name: undefined,
     concurrent: 1,
@@ -58,6 +61,8 @@ export function useQuery<TResult, TVariabels>(
   const cancelRequestRef = useRef<(reason: string) => void>(() => () => {});
   const config = useConfig();
   const { locale } = useI18n();
+  const location = useLocation();
+  const preview = new URLSearchParams(location.search).get('preview') === 'true';
 
   // Cancel pending request on unmount
   React.useEffect(() => {
@@ -68,12 +73,14 @@ export function useQuery<TResult, TVariabels>(
     };
   }, []);
 
+  const { notifyOnErrors, notifyOnErrorsFn } = options;
+
   React.useEffect(() => {
-    if (error && options.notifyOnErrors) {
+    if (error && (notifyOnErrors || notifyOnErrorsFn?.(error))) {
       notifyOfPartialData();
       console.error('Error in useQuery:', error);
     }
-  }, [error, notifyOfPartialData, options.notifyOnErrors]);
+  }, [error, notifyOfPartialData, notifyOnErrors, notifyOnErrorsFn]);
 
   // Prevent a change in variable to trigger a reload if ignoreVariableUpdates has been enabled
   const optionsDependency = React.useMemo(() => {
@@ -105,6 +112,7 @@ export function useQuery<TResult, TVariabels>(
           endpoint: config.graphqlEndpoint,
           locale: locale.cmsLocale || locale.code,
           abortSignal: abortController.signal,
+          preview,
           authorization: context?.authorization || undefined,
         });
 
@@ -189,7 +197,7 @@ export function useQuery<TResult, TVariabels>(
         return startRequest();
       });
     },
-    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, optionsDependency]
+    [config.graphqlEndpoint, locale.cmsLocale, locale.code, query, optionsDependency, preview]
   );
 
   // Load the data on mount and when the options change

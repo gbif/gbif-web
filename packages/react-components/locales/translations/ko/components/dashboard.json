@@ -32,9 +32,9 @@
   "taxonomicBreakdown": "",
   "group": {
     "views": "",
-    "record": "",
+    "record": "기록",
     "taxon": "분류군",
-    "occurrence": "",
+    "occurrence": "출현",
     "organism": "",
     "materialEntity": "",
     "event": "",
@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "동정",
     "provenance": "산지",
-    "other": ""
+    "other": "",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "",
   "kingdom": ""

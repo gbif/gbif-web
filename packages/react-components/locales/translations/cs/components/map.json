@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "Malé čtverce",
     "LARGE_SQUARE": "Čtverce"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "Klasický",
     "FIRE": "Oheň",

@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "数据集搜索",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "出现记录数据集",
     "CHECKLIST": "物种名录数据集",

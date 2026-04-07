@@ -1,8 +1,8 @@
 // import '@/index.css';
-import { Config, ConfigProvider, OverwriteConfigProvider } from '@/config/config';
-import { UserProvider } from '@/contexts/UserContext';
-import React from 'react';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Config, ConfigProvider, OverwriteConfigProvider } from "@/config/config";
+import { UserProvider } from "@/contexts/UserContext";
+import React from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 type Props = {
   config: Config;
@@ -11,19 +11,18 @@ type Props = {
 };
 
 export function Root({ config, helmetContext, children }: Props) {
+  const isGbifOrg = (import.meta.env.PUBLIC_BASE_URL || "").match(
+    /^(https?:\/\/)?(www\.)?(demo\.)?(gbif\.org|gbif-test\.org|gbif-dev\.org|gbif-staging\.org|gbif-preview\.org)(\/|$)/
+  );
+
   return (
     <React.StrictMode>
       <ConfigProvider config={config}>
         <HelmetProvider context={helmetContext}>
           <Helmet>
             <title>{config.defaultTitle}</title>
-            {(import.meta.env.PUBLIC_BASE_URL || '').endsWith('gbif.org') && (
-              <script
-                defer
-                data-domain={import.meta.env.PUBLIC_BASE_URL}
-                data-api="/spoor/api/event"
-                src="/spoor/js/script.js"
-              ></script>
+            {isGbifOrg && (
+              <script defer data-domain={import.meta.env.PUBLIC_BASE_URL} data-api="/spoor/api/event" src="/spoor/js/script.js"></script>
             )}
           </Helmet>
           {children}
@@ -33,7 +32,7 @@ export function Root({ config, helmetContext, children }: Props) {
   );
 }
 
-export function StandaloneRoot({ config, children }: Omit<Props, 'helmetContext'>) {
+export function StandaloneRoot({ config, children }: Omit<Props, "helmetContext">) {
   return (
     <React.StrictMode>
       <OverwriteConfigProvider config={config}>

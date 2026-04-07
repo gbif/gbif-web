@@ -4,6 +4,7 @@ import { DownloadKeyDatasetsQuery, DownloadKeyDatasetsQueryVariables } from '@/g
 import { useIntParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { notNull } from '@/utils/notNull';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
@@ -60,7 +61,7 @@ export function DatasetTable({
   count: initialCount,
 }: {
   downloadKey: string;
-  initialDatasets: DownloadKeyDatasetsQuery['datasetsByDownload']['results'];
+  initialDatasets: NonNullable<DownloadKeyDatasetsQuery['datasetsByDownload']>['results'];
   limit: number;
   count: number;
 }) {
@@ -82,7 +83,7 @@ export function DatasetTable({
   const { results } = data?.datasetsByDownload || {};
   if (initialDatasets.length === 0) return null;
 
-  const datasets = results ?? initialDatasets;
+  const datasets = (results ?? initialDatasets).filter(notNull);
 
   return (
     <>

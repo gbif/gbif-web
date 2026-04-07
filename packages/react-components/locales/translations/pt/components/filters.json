@@ -563,9 +563,9 @@
     "description": "O nome de qualquer área administrativa de GADM.org determinada durante o processamento do registo."
   },
   "identifiedBy": {
+    "description": "A pessoa, pessoas, grupos ou organizações responsáveis pela determinação do nome científico do organismo.",
     "name": "Identificado por",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}",
-    "description": "A pessoa, pessoas, grupos ou organizações responsáveis pela determinação do nome científico do organismo."
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isInCluster": {
     "name": "Está em cluster",
@@ -659,5 +659,290 @@
     "isNotNull": "Tem problemas",
     "isNull": "Não tem problemas",
     "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
+  },
+  "humboldtBooleans": {
+    "name": "Extensão Humboldt",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { identificado por } other {# identificados por}}"
   }
 }

@@ -56,5 +56,6 @@
   "nStaffMembers": "{total, plural, one {# miembro del equipo} other {# miembros del equipo}}",
   "nOccurrencesHosted": "{total, plural, one {# registro biológico alojado} other {# registros biológicos alojados}}",
   "nPercentOfTotal": "{percentage, plural, one {}other {#% del total}}",
-  "nMoreDatasets": "{total, plural, one {+ # conjuntos de datos más} other {+ # conjuntos de datos más}}"
+  "nMoreDatasets": "{total, plural, one {+ # conjuntos de datos más} other {+ # conjuntos de datos más}}",
+  "nInstallations": "{total, plural, one {# instalación} other {# instalaciones}}"
 }

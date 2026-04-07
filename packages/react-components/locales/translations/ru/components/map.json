@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "Квадраты",
     "LARGE_SQUARE": "Большие квадраты"
   },
+  "tilesUnavailable": "Карты временно недоступны",
   "colors": {
     "CLASSIC": "Классические",
     "FIRE": "Огненный",

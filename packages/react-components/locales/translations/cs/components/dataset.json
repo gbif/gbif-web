@@ -1,5 +1,6 @@
 {
   "datasetSearchTitle": "Vyhledávání datové sady",
+  "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Datová sada o výskytu",
     "CHECKLIST": "Datová sada kontrolního seznamu",
@@ -24,36 +25,36 @@
     "events": "Události"
   },
   "metricsTab": {
-    "selectGroup": "Zástupce popisu",
+    "selectGroup": "",
     "group": {
       "checklist": "Kontrolní seznam",
       "downloads": "Stahování",
-      "taxonomic": "Zástupce popisu",
-      "geographic": "Zástupce popisu",
+      "taxonomic": "",
+      "geographic": "",
       "temporal": "Dočasný",
-      "qualities": "Zástupce popisu",
+      "qualities": "",
       "citations": "Citace"
     },
     "checklist": {
-      "notAvailable": "Zástupce popisu",
-      "overview": "Zástupce popisu",
-      "overviewDescription": "Zástupce popisu",
-      "usagesCount": "Zástupce popisu",
-      "distinctNamesCount": "Zástupce popisu",
+      "notAvailable": "",
+      "overview": "",
+      "overviewDescription": "",
+      "usagesCount": "",
+      "distinctNamesCount": "",
       "synonymsCount": "Synonyma",
-      "nubMatchingCount": "Zástupce popisu",
-      "nubCoveragePct": "Zástupce popisu",
-      "colMatchingCount": "Zástupce popisu",
-      "colCoveragePct": "Zástupce popisu",
-      "countByKingdom": "Zástupce popisu",
-      "countByKingdomDescription": "Zástupce popisu",
-      "countByRank": "Zástupce popisu",
-      "countByRankDescription": "Zástupce popisu",
-      "countByOrigin": "Zástupce popisu",
-      "countByOriginDescription": "Zástupce popisu",
+      "nubMatchingCount": "",
+      "nubCoveragePct": "",
+      "colMatchingCount": "",
+      "colCoveragePct": "",
+      "countByKingdom": "Počet podle říše",
+      "countByKingdomDescription": "",
+      "countByRank": "",
+      "countByRankDescription": "",
+      "countByOrigin": "Počet podle původu",
+      "countByOriginDescription": "",
       "origin": "Původ",
-      "countByIssue": "Zástupce popisu",
-      "countByIssueDescription": "Zástupce popisu",
+      "countByIssue": "",
+      "countByIssueDescription": "",
       "count": "Počet"
     }
   },
@@ -189,6 +190,6 @@
     "occurrenceInfo": "Spolufinancováno"
   },
   "eventTaxonomy": "Taxonomické rozdělení výskytů",
-  "noCitations": "Zástupce popisu",
+  "noCitations": "Zatím žádné citace",
   "noOccurrences": "Žádné výskyty"
 }

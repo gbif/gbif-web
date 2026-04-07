@@ -250,6 +250,22 @@ export function verifyJson(obj, signature) {
   return signJson(obj) === signature;
 }
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function isValidUuid(value) {
+  return UUID_REGEX.test(value);
+}
+
+// Java Integer.MAX_VALUE — the GBIF species API uses integer keys
+function isValidIntegerKey(value) {
+  return /^\d+$/.test(`${value}`) && Number(value) <= 2147483647;
+}
+
+// DOI format: 10.prefix/suffix (e.g. 10.15468/dd.abc123)
+const DOI_REGEX = /^10\.\d{4,9}\/[^\s]+$/;
+function isValidDoi(value) {
+  return DOI_REGEX.test(value);
+}
+
 export {
   createLocalizedGbifHref,
   excerpt,
@@ -260,6 +276,9 @@ export {
   getOGImage,
   isNoneEmptyArray,
   isOccurrenceSequenced,
+  isValidDoi,
+  isValidIntegerKey,
+  isValidUuid,
   objectToQueryString,
   renameProperty,
   simplifyUrlObjectKeys,

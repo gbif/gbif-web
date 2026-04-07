@@ -2,7 +2,6 @@ import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { LongDate } from '@/components/dateFormats';
 import { Spinner } from '@/components/ui/spinner';
-import { NotFoundError } from '@/errors';
 import {
   Download_Status,
   DownloadKeyQuery,
@@ -19,9 +18,9 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { json, useLoaderData } from 'react-router-dom';
@@ -35,6 +34,7 @@ import { SubHeader } from './sections/subHeader';
 import { UserDescription } from './sections/userDescription';
 import { downloadCompleted } from './utils';
 import { useUser } from '@/contexts/UserContext';
+import { useToast } from '@/components/ui/use-toast';
 
 const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
   query UsersDownloadKey($key: ID!) {
@@ -118,123 +118,58 @@ export async function downloadKeyLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.download],
   });
 
+  const result = { errors, data: { ...data, download: data.download! } };
+
   if (
     data.download?.status === Download_Status.Preparing ||
     data.download?.status === Download_Status.Running
   ) {
     // If the download is still being prepared or is running, we can return a loading state
-    return json(
-      { errors, data },
-      {
-        headers: {
-          'GBIF-Cache-Control': 'FLASH', // option are listed in gbif/entry.server but vite builds fails if trying to export/import things into the server file or vica versa
-        },
-      }
-    );
-  }
-
-  return { errors, data };
-}
-
-export function DownloadKey() {
-  const { data: initialData } = useLoaderData() as { data: DownloadKeyQuery };
-  const { formatMessage } = useIntl();
-  const { user } = useUser();
-  const notifyOfPartialData = usePartialDataNotification();
-
-  const { data: sensitiveData, load } = useQuery<
-    UsersDownloadKeyQuery,
-    UsersDownloadKeyQueryVariables
-  >(DOWNLOAD_SENSITIVE_QUERY, {
-    throwAllErrors: false,
-    lazyLoad: true,
-  });
-
-  const {
-    data: slowData,
-    error: slowError,
-    load: slowLoad,
-  } = useQuery<SlowDownloadKeyQuery, SlowDownloadKeyQueryVariables>(SLOW_DOWNLOAD_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: false,
-  });
-
-  useEffect(() => {
-    if (slowError) {
-      notifyOfPartialData();
-    }
-  }, [slowData, slowError, notifyOfPartialData]);
-
-  const { data: refreshedData, load: refresh } = useQuery<
-    DownloadKeyQuery,
-    DownloadKeyQueryVariables
-  >(DOWNLOAD_QUERY, {
-    throwAllErrors: false,
-    lazyLoad: true,
-  });
-
-  useEffect(() => {
-    if (!initialData?.download?.key) return;
-    slowLoad({
-      variables: {
-        key: '' + initialData?.download?.key,
+    return json(result, {
+      headers: {
+        'GBIF-Cache-Control': 'FLASH', // option are listed in gbif/entry.server but vite builds fails if trying to export/import things into the server file or vica versa
       },
     });
-  }, [slowLoad, initialData?.download?.key]);
+  }
 
-  useEffect(() => {
-    if (!user?.graphqlToken || !initialData?.download?.key) {
-      return;
+  return result;
+}
+
+type DownloadKeyLoaderResult = Exclude<Awaited<ReturnType<typeof downloadKeyLoader>>, Response>;
+export type Download = DownloadKeyLoaderResult['data']['download'];
+
+export function DownloadKey() {
+  const { datasetsByDownload, download } = useDownloadDataWithAutoRefresh();
+  const sensitiveData = useSensitiveData(download.key);
+  const { formatMessage } = useIntl();
+
+  const { data: slowData } = useQuery<SlowDownloadKeyQuery, SlowDownloadKeyQueryVariables>(
+    SLOW_DOWNLOAD_QUERY,
+    {
+      lazyLoad: false,
+      throwAllErrors: false,
+      notifyOnErrors: true,
+      variables: { key: download.key },
     }
-    load(
-      {
-        variables: {
-          key: initialData.download.key,
-        },
-      },
-      { authorization: `Bearer ${user?.graphqlToken}` }
-    );
-  }, [initialData?.download?.key, load, user?.graphqlToken]);
-
-  const data = refreshedData ?? initialData;
-  useEffect(() => {
-    // if the download is still running or preparing, we refresh the data every 30 seconds
-    const isPreparingOrRunning =
-      data?.download?.status === Download_Status.Preparing ||
-      data?.download?.status === Download_Status.Running;
-    if (isPreparingOrRunning) {
-      const interval = setInterval(() => {
-        refresh({
-          variables: {
-            key: '' + data.download?.key,
-          },
-        });
-      }, 30000);
-      return () => clearInterval(interval);
-    }
-  }, [refresh, data?.download?.status, data?.download?.key]);
-
-  const download = data?.download;
-  if (!download) throw new NotFoundError();
+  );
 
   const literatureCount = slowData?.literatureSearch?.documents?.total;
-
   const showCitation = downloadCompleted(download);
 
   return (
     <>
       <Helmet>
         <title>
-          {formatMessage({ id: 'downloadKey.download' })} {download?.created}
+          {formatMessage({ id: 'downloadKey.download' })} {download.created}
         </title>
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={download?.key?.toString()} />}
+        apiContent={<ApiContent id={download.key} />}
         doi={showCitation ? download?.doi : undefined}
-      ></DataHeader>
+      />
       <ErrorBoundary invalidateOn={download?.key}>
         <article>
           <PageContainer topPadded hasDataHeader className="g-border-b">
@@ -271,7 +206,7 @@ export function DownloadKey() {
               <UserDescription download={download} />
               <QueryCard download={download} />
               {(download.numberDatasets ?? 0) > 0 && (
-                <DatasetCard download={download} datasetsByDownload={data.datasetsByDownload} />
+                <DatasetCard download={download} datasetsByDownload={datasetsByDownload} />
               )}
             </ArticleTextContainer>
           </PageContainer>
@@ -285,9 +220,7 @@ export function DownloadKeySkeleton() {
   return <ArticleSkeleton />;
 }
 
-export function DownloadTitle({ download }: { download: DownloadKeyQuery['download'] }) {
-  if (!download) return null;
-
+export function DownloadTitle({ download }: { download: Download }) {
   const errorClassName = 'g-text-orange-700';
   // logic to create the title based on download state and format
   if (download.status === 'KILLED' || download.status === 'FAILED') {
@@ -342,4 +275,83 @@ export function DownloadTitle({ download }: { download: DownloadKeyQuery['downlo
       );
     }
   }
+}
+
+function useDownloadDataWithAutoRefresh() {
+  const { data: initialData } = useLoaderData() as DownloadKeyLoaderResult;
+  const [data, setData] = useState<DownloadKeyLoaderResult['data']>(initialData);
+
+  const {
+    data: refreshedData,
+    error,
+    load: refresh,
+  } = useQuery<DownloadKeyQuery, DownloadKeyQueryVariables>(DOWNLOAD_QUERY, {
+    throwAllErrors: false,
+    lazyLoad: true,
+  });
+
+  useEffect(() => {
+    if (refreshedData?.download != null) {
+      setData({
+        ...refreshedData,
+        download: refreshedData.download!,
+      });
+    }
+  }, [refreshedData]);
+
+  const { formatMessage } = useIntl();
+  const { toast } = useToast();
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: formatMessage({ id: 'download.failedToRefreshDownloadStatus' }),
+        variant: 'warning',
+      });
+    }
+  }, [error, formatMessage, toast]);
+
+  useEffect(() => {
+    // if the download is still running or preparing, we refresh the data every 30 seconds
+    const isPreparingOrRunning =
+      data.download.status === Download_Status.Preparing ||
+      data.download.status === Download_Status.Running;
+    if (isPreparingOrRunning) {
+      const interval = setInterval(() => {
+        refresh({
+          variables: {
+            key: data.download.key,
+          },
+        });
+      }, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [refresh, data.download.status, data.download.key]);
+
+  return data;
+}
+
+function useSensitiveData(downloadKey: string) {
+  const { user } = useUser();
+
+  const { data: sensitiveData, load } = useQuery<
+    UsersDownloadKeyQuery,
+    UsersDownloadKeyQueryVariables
+  >(DOWNLOAD_SENSITIVE_QUERY, {
+    throwAllErrors: false,
+    lazyLoad: true,
+  });
+
+  useEffect(() => {
+    if (!user?.graphqlToken) return;
+    load(
+      {
+        variables: {
+          key: downloadKey,
+        },
+      },
+      { authorization: `Bearer ${user.graphqlToken}` }
+    );
+  }, [downloadKey, load, user?.graphqlToken]);
+
+  return sensitiveData;
 }

@@ -16,14 +16,15 @@ import { PredicateDisplay } from '../predicate';
 import { getPredicateAsFilter } from './getPredicateAsFilter';
 import { DatasetLabel } from '@/components/filters/displayNames';
 import { HelpIcon } from '@/components/helpText';
+import { Download } from '../downloadKey';
 
-export function QueryCard({ download }: { download: DownloadKeyQuery['download'] }) {
+export function QueryCard({ download }: { download: Download }) {
   const { filters } = useFilters({ searchConfig });
   const [query, setQuery] = useState<ParamQuery>();
-  const parameters = download?.request?.gbifMachineDescription?.parameters;
+  const parameters = download.request?.gbifMachineDescription?.parameters;
 
   useEffect(() => {
-    if (!download?.request?.predicate) return;
+    if (!download.request?.predicate) return;
 
     const { error, filter } = getPredicateAsFilter({
       predicate: download?.request?.predicate,
@@ -133,13 +134,12 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
                   pageId="datasetKey"
                   variables={{
                     key:
-                      download?.request?.checklistKey ??
-                      import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY,
+                      download.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY,
                   }}
                 >
                   <DatasetLabel
                     id={
-                      download?.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY
+                      download.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY
                     }
                   />
                 </DynamicLink>
@@ -151,12 +151,12 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
             className="g-inline-block g-relative g-top-[-2px]"
           />
         </div>
-        {(download?.request?.verbatimExtensions?.length ?? 0) > 0 && (
+        {(download.request?.verbatimExtensions?.length ?? 0) > 0 && (
           <Properties breakpoint={800} className="[&>dt]:g-w-52 g-mt-4">
             <Term>Verbatim Extensions</Term>
             <Value>
               <BulletList>
-                {download?.request?.verbatimExtensions?.map((extension) => (
+                {download.request?.verbatimExtensions?.map((extension) => (
                   <li key={extension}>
                     <FormattedMessage id={`enums.dwcaExtension.${extension}`} />
                   </li>
@@ -170,20 +170,23 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
   );
 }
 
-export function PredicateVisual({ download }: { download: DownloadKeyQuery['download'] }) {
+export function PredicateVisual({
+  download,
+}: {
+  download: NonNullable<DownloadKeyQuery['download']>;
+}) {
   const [showAsApi, setShowAsApi] = useState(false);
 
-  if (!download?.request) return null;
+  if (!download.request) return null;
   const predicate =
-    download?.request?.predicate ??
-    download?.request?.gbifMachineDescription?.parameters?.predicate;
+    download.request?.predicate ?? download.request?.gbifMachineDescription?.parameters?.predicate;
 
-  if (!predicate && download?.request?.sql) return null;
+  if (!predicate && download.request?.sql) return null;
   return (
     <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
       {predicate && (
         <>
-          {download?.request?.gbifMachineDescription?.parameters?.predicate && (
+          {download.request?.gbifMachineDescription?.parameters?.predicate && (
             <div>
               <FormattedMessage
                 id="downloadKey.sqlGeneratedUsingPredicate"
@@ -206,7 +209,7 @@ export function PredicateVisual({ download }: { download: DownloadKeyQuery['down
           </div>
         </>
       )}
-      {!download?.request?.predicate && !download?.request?.sql && (
+      {!download.request?.predicate && !download.request?.sql && (
         <div className="g-text-slate-600">
           <FormattedMessage id="downloadKey.noFiltersApplied" />
         </div>
@@ -215,15 +218,15 @@ export function PredicateVisual({ download }: { download: DownloadKeyQuery['down
   );
 }
 
-export function SqlVisual({ download }: { download: DownloadKeyQuery['download'] }) {
-  if (!download?.request?.sql) return null;
+export function SqlVisual({ download }: { download: NonNullable<DownloadKeyQuery['download']> }) {
+  if (!download.request?.sql) return null;
 
   return (
     <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
       <div className="g-text-sm">
         <pre
           className="g-max-full g-overflow-auto gbif-sqlInput"
-          dangerouslySetInnerHTML={{ __html: download?.request.sql }}
+          dangerouslySetInnerHTML={{ __html: download.request.sql }}
         />
       </div>
     </CardContent>
@@ -234,15 +237,14 @@ export function DownloadFilterSummary({
   download,
   restrictHeight,
 }: {
-  download: DownloadKeyQuery['download'];
+  download: NonNullable<DownloadKeyQuery['download']>;
   restrictHeight?: string;
 }) {
   const [showAsApi, setShowAsApi] = useState(false);
 
-  if (!download?.request) return null;
+  if (!download.request) return null;
   const predicate =
-    download?.request?.predicate ??
-    download?.request?.gbifMachineDescription?.parameters?.predicate;
+    download.request?.predicate ?? download.request?.gbifMachineDescription?.parameters?.predicate;
   return (
     <div className="">
       {predicate && (
@@ -264,17 +266,17 @@ export function DownloadFilterSummary({
           </div>
         </MaxHeightBox>
       )}
-      {!download?.request?.predicate && !download?.request?.sql && (
+      {!download.request?.predicate && !download?.request?.sql && (
         <div className="g-text-slate-600">
           <FormattedMessage id="downloadKey.noFiltersApplied" />
         </div>
       )}
-      {download?.request?.sql && (
+      {download.request?.sql && (
         <MaxHeightBox heightClassName={restrictHeight}>
           <div className="g-text-sm">
             <pre
               className="g-max-full g-overflow-hidden gbif-sqlInput"
-              dangerouslySetInnerHTML={{ __html: download?.request.sql }}
+              dangerouslySetInnerHTML={{ __html: download.request.sql }}
             />
           </div>
         </MaxHeightBox>

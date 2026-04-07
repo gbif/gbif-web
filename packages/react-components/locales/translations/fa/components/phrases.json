@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "GBIF",
+  "defaultPageDescription": "",
   "loading": "",
   "loadError": "",
   "pleaseCiteAs": "",
@@ -74,5 +76,6 @@
   "all": "",
   "clear": "پاکسازی",
   "search": "",
-  "404Text": ""
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }

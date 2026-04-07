@@ -32,9 +32,9 @@
   "taxonomicBreakdown": "Co finanziert von",
   "group": {
     "views": "",
-    "record": "",
+    "record": "Eintrag",
     "taxon": "",
-    "occurrence": "",
+    "occurrence": "Vorkommen",
     "organism": "",
     "materialEntity": "",
     "event": "",
@@ -42,7 +42,15 @@
     "geologicalContext": "",
     "identification": "",
     "provenance": "",
-    "other": ""
+    "other": "",
+    "site": "",
+    "habitatScope": "",
+    "temporalScope": "",
+    "taxonomicScope": "",
+    "organismalScope": "",
+    "methodologyDescription": "",
+    "materialCollected": "",
+    "samplingEffort": ""
   },
   "occurrencesPerField": "",
   "kingdom": ""

@@ -661,7 +661,7 @@
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "humboldtBooleans": {
-    "name": "Humboldt Ecological Inventory",
+    "name": "Humboldt extension",
     "count": "{num, plural, one { selected } other {# selected}}",
     "description": "Extended support for Darwin Core Events related to ecological inventories."
   },

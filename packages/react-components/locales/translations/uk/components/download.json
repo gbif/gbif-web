@@ -71,6 +71,8 @@
         "ifSelected": "",
         "links": ""
       }
-    }
+    },
+    "failedToRefreshDownloadStatus": "",
+    "descriptionByDownloadCreator": ""
   }
 }

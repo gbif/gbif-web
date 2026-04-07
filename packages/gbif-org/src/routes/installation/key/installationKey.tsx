@@ -1,13 +1,8 @@
 import { DataHeader } from '@/components/dataHeader';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-} from '@/components/headerComponents';
+import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
-import { NotFoundError } from '@/errors';
 import { InstallationQuery, InstallationQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -16,9 +11,8 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -75,20 +69,14 @@ export async function installationLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.installation],
   });
 
-  return { errors, data };
+  return { errors, installation: data.installation! };
 }
 
-export function InstallationPage() {
-  const { data, errors } = useLoaderData() as { data: InstallationQuery };
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (errors) {
-      notifyOfPartialData();
-    }
-  }, [errors, notifyOfPartialData]);
+export type InstallationKeyLoaderResult = Awaited<ReturnType<typeof installationLoader>>;
 
-  if (data.installation == null) throw new NotFoundError();
-  const { installation } = data;
+export function InstallationPage() {
+  const { installation, errors } = useLoaderData() as InstallationKeyLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
 
   const deletedAt = installation.deleted;
 
@@ -104,8 +92,8 @@ export function InstallationPage() {
 
       <DataHeader
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={installation?.key?.toString()} />}
-      ></DataHeader>
+        apiContent={<ApiContent id={installation.key} />}
+      />
 
       <PageContainer topPadded hasDataHeader>
         <ArticleTextContainer className="g-max-w-screen-lg">
@@ -114,7 +102,11 @@ export function InstallationPage() {
               <FormattedMessage
                 id="dataset.registeredDate"
                 values={{
-                  DATE: <LongDate value={installation.created ?? undefined} />,
+                  DATE: installation.created ? (
+                    <LongDate value={installation.created} />
+                  ) : (
+                    <FormattedMessage id="phrases.unknownDate" />
+                  ),
                 }}
               />
             }
@@ -123,7 +115,7 @@ export function InstallationPage() {
           </ArticlePreTitle>
           <ArticleTitle
             dangerouslySetTitle={{ __html: installation.title || 'No title provided' }}
-          ></ArticleTitle>
+          />
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
 

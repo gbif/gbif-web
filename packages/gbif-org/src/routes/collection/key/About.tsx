@@ -35,7 +35,7 @@ const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 export default function About() {
   const { key } = useParams();
-  const { data } = useCollectionKeyLoaderData();
+  const { collection } = useCollectionKeyLoaderData();
   const { contentMetrics } = useContext(CollectionKeyContext);
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
@@ -43,7 +43,6 @@ export default function About() {
   });
   const removeSidebarThreshold = useBelow(1100);
   const useInlineImage = useBelow(700);
-  const { collection } = data;
 
   if (!collection) return null;
   const predicate = {

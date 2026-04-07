@@ -1,11 +1,11 @@
-import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
+import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from "use-deep-compare-effect";
 // import { FormattedMessage } from 'react-intl';
-import { useChecklistKey } from '@/hooks/useChecklistKey';
-import useQuery from '@/hooks/useQuery';
-import { FormattedMessage } from 'react-intl';
-import { ErrorBoundary } from '../ErrorBoundary';
-import { Card, CardContent, CardTitle } from '../ui/smallCard';
-import { CardHeader, FormattedNumber, Table } from './shared';
+import { useChecklistKey } from "@/hooks/useChecklistKey";
+import useQuery from "@/hooks/useQuery";
+import { FormattedMessage } from "react-intl";
+import { ErrorBoundary } from "../ErrorBoundary";
+import { Card, CardContent, CardTitle } from "../ui/smallCard";
+import { CardHeader, FormattedNumber, Table } from "./shared";
 
 export function OccurrenceSummary({ predicate, q, checklistKey, ...props }) {
   const defaultChecklistKey = useChecklistKey();
@@ -18,7 +18,7 @@ export function OccurrenceSummary({ predicate, q, checklistKey, ...props }) {
         checklistKey: checklistKey ?? defaultChecklistKey,
         q,
       },
-      queue: { name: 'dashboard' },
+      queue: { name: "dashboard" },
     });
   }, [predicate, q, load, checklistKey, defaultChecklistKey]);
   const summary = data?.occurrenceSearch;
@@ -45,10 +45,7 @@ export function OccurrenceSummary({ predicate, q, checklistKey, ...props }) {
                 <tr>
                   <td>
                     <div>
-                      <FormattedMessage
-                        id="dashboard.occurrenceRecords"
-                        defaultMessage="Occurrence records"
-                      />
+                      <FormattedMessage id="dashboard.occurrenceRecords" defaultMessage="Occurrence records" />
                     </div>
                   </td>
                   <td>
@@ -61,14 +58,6 @@ export function OccurrenceSummary({ predicate, q, checklistKey, ...props }) {
                   </td>
                   <td>
                     <FormattedNumber value={summary?.cardinality?.speciesKey} />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <FormattedMessage id="dashboard.taxa" defaultMessage="Taxa" />
-                  </td>
-                  <td>
-                    <FormattedNumber value={summary?.cardinality?.taxonKey} />
                   </td>
                 </tr>
                 <tr>
@@ -105,7 +94,6 @@ query summary($q: String, $predicate: Predicate, $checklistKey: ID){
     }
     cardinality {
       speciesKey(checklistKey: $checklistKey)
-      taxonKey(checklistKey: $checklistKey)
     }
 
     stats {

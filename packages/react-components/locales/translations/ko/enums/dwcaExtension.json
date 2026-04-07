@@ -1,3 +1,4 @@
 {
+  "http://rs.tdwg.org/dwc/terms/Occurrence": "출현",
   "http://rs.tdwg.org/dwc/terms/Identification": "동정"
 }

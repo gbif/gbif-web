@@ -199,7 +199,7 @@ export function Sequenced({ className }: { className?: string }) {
   );
 }
 
-export function TypeStatus({ types, className }: { className?: string; types?: [string] | null }) {
+export function TypeStatus({ types, className }: { className?: string; types?: string[] | null }) {
   if (!types) return null;
   const typeStatus = types?.[0];
   // if the list of types is empty or a single value `NOTATYPE` then return null

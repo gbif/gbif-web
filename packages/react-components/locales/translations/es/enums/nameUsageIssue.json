@@ -1,8 +1,8 @@
 {
   "ACCEPTED_NAME_MISSING": "Falta el nombre aceptado",
-  "RANK_INVALID": "El rango no es válido",
+  "RANK_INVALID": "Rango inválido",
   "NOMENCLATURAL_STATUS_INVALID": "Estado nomenclatural inválido",
-  "TAXONOMIC_STATUS_INVALID": "El estado taxonómico no es válido",
+  "TAXONOMIC_STATUS_INVALID": "Estado taxonómico inválido",
   "SCIENTIFIC_NAME_ASSEMBLED": "El nombre científico se ensambla a partir de otros campos",
   "CHAINED_SYNOYM": "Sinónimo encadenado",
   "BASIONYM_AUTHOR_MISMATCH": "El autor del basónimo no coincide",

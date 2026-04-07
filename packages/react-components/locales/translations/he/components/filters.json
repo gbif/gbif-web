@@ -563,9 +563,9 @@
     "description": "The name of any administrative area from GADM.org determined during record processing."
   },
   "identifiedBy": {
+    "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism.",
     "name": "זוהה על ידי",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
-    "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
   },
   "isInCluster": {
     "name": "Has related records",
@@ -659,5 +659,290 @@
     "isNotNull": "כולל בעיות",
     "isNull": "ללא בעיות",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
+  },
+  "humboldtBooleans": {
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
   }
 }

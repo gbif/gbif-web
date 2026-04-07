@@ -1,6 +1,6 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MapWidget } from '@/components/maps/mapWidget';
-import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
+import { HomePageQuery } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { DynamicLinkProps, useDynamicNavigate } from '@/reactRouterPlugins/dynamicLink';
 import { cn } from '@/utils/shadcn';
@@ -14,7 +14,7 @@ import { BlockItem } from '../resource/key/composition/blockItem';
 import { HomePageCounts } from './counts';
 // eslint-disable-next-line
 import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
-import { usePartialDataNotification } from '../rootErrorPage';
+import { useNotifyOfPartialDataIfErrors } from '../rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 
 async function homepageLoader({ locale }: LoaderArgs) {
@@ -40,12 +40,7 @@ async function homepageLoader({ locale }: LoaderArgs) {
 
 function HomePage(): React.ReactElement {
   const { data, error } = useLoaderData() as { data: HomePageQuery; error?: string };
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (error) {
-      notifyOfPartialData();
-    }
-  }, [error, notifyOfPartialData]);
+  useNotifyOfPartialDataIfErrors(error);
 
   const home = data?.gbifHome;
   const userInfo = useUserInfo();

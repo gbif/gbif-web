@@ -86,17 +86,19 @@ export function DatasetSearch(): React.ReactElement {
     }
   );
 
+  const intl = useIntl();
+
   // if there is an error and there are no data.datasetSearch.results, then throw an error, else try to show the entries we have and inform the user it was a partially loaded page
   useEffect(() => {
     if (error && (!data || !data.datasetSearch.results)) {
       throw error;
     } else if (error) {
       toast({
-        title: 'Unable to load all content',
+        title: intl.formatMessage({ id: 'phrases.unableToLoadAllContent' }),
         variant: 'destructive',
       });
     }
-  }, [data, error, toast]);
+  }, [data, error, toast, intl]);
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });

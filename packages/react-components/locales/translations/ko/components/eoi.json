@@ -33,9 +33,9 @@
   "publOfFourTypesOfData": "",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
-  "checkListData": "",
+  "checkListData": "체크리스트 데이터",
   "occurrenceOnlyData": "",
-  "samplingEventData": "",
+  "samplingEventData": "표본추출 이벤트 데이터",
   "expectedDataTitle": "",
   "expectedDataContent": "",
   "doYouHaveCapacity": "",
@@ -84,7 +84,7 @@
   "checkRegistration": "",
   "organisationDetails": "",
   "organisationAddress": "",
-  "endorsement": "",
+  "endorsement": "추천",
   "validationError": {
     "pleaseSelectYourOrganizationOnTheMap": "",
     "pleaseSelectTheCountryOfYourOrganization": ""

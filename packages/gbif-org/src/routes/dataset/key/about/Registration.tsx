@@ -156,7 +156,7 @@ export function Registration({ dataset = {}, ...props }) {
                   <React.Fragment key={identifier.key}>
                     {/* <T>{ identifier.type }</T> */}
                     <V>
-                      <HyperText text={identifier.identifier} />
+                      <HyperText text={identifier.identifier} style={{ textDecoration: 'none' }} />
                     </V>
                   </React.Fragment>
                 ))}

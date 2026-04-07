@@ -1,4 +1,6 @@
 {
+  "defaultPageTitle": "",
+  "defaultPageDescription": "",
   "loading": "",
   "loadError": "",
   "pleaseCiteAs": "",
@@ -74,5 +76,6 @@
   "all": "",
   "clear": "",
   "search": "",
-  "404Text": ""
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }

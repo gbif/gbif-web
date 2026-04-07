@@ -1,3 +1,5 @@
+import { ConditionalWrapper } from '@/components/conditionalWrapper';
+import EmptyTab from '@/components/EmptyTab';
 import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/highlights';
 import { Img } from '@/components/Img';
 import { Tag } from '@/components/resultCards';
@@ -13,45 +15,47 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { usePartialDataNotification } from '@/routes/rootErrorPage';
+import { is404 } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
-import { useEffect } from 'react';
+import { notNull } from '@/utils/notNull';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 
-export function OccurrenceKeyCluster() {
-  const { key } = useParams<{ key: string }>();
+const PATHS_404 = [['occurrence'], ['occurrence', 'related', 'currentOccurrence', 'occurrence']];
 
-  const { data, error, load, loading } = useQuery<
+export function OccurrenceKeyCluster() {
+  const key = useParams().key as string;
+
+  const { data, error, loading } = useQuery<
     OccurrenceClusterQuery,
     OccurrenceClusterQueryVariables
   >(RELATED_OCCURRENCES_QUERY, {
     throwAllErrors: false,
-    lazyLoad: true,
+    notifyOnErrorsFn: (error) => {
+      // Don't notify if the error is a 404
+      return !PATHS_404.some((path) => is404({ path, errors: error.graphQLErrors }));
+    },
+    variables: {
+      key,
+      clusteringChecklistKey: import.meta.env.PUBLIC_CHECKLIST_KEY_FOR_CLUSTERING,
+    },
   });
-  const notifyOfPartialData = usePartialDataNotification();
-  useEffect(() => {
-    if (error && data && !loading) {
-      notifyOfPartialData();
-    }
-  }, [error, notifyOfPartialData]);
 
-  useEffect(() => {
-    if (!key) return;
+  // Handle 404 errors
+  if (error && PATHS_404.some((path) => is404({ path, errors: error.graphQLErrors }))) {
+    return (
+      <EmptyTab>
+        <FormattedMessage id="occurrenceDetails.cluster.noMatches" />
+      </EmptyTab>
+    );
+  }
 
-    load({
-      variables: {
-        key,
-        clusteringChecklistKey: import.meta.env.PUBLIC_CHECKLIST_KEY_FOR_CLUSTERING,
-      },
-    });
-  }, [key, load]);
-
-  if (error && !loading && !data.occurrence?.related?.currentOccurrence?.occurrence) {
+  // Handle other errors
+  if (error && !loading && !data?.occurrence?.related?.currentOccurrence?.occurrence) {
     throw error;
   }
 
-  if (loading || !data)
+  if (loading || !data) {
     return (
       <ArticleContainer className="g-bg-slate-100">
         <ArticleTextContainer>
@@ -59,15 +63,14 @@ export function OccurrenceKeyCluster() {
         </ArticleTextContainer>
       </ArticleContainer>
     );
+  }
 
   // if there are no related occurrenves, then tell the user
   if (data.occurrence?.related?.count === 0) {
     return (
-      <ArticleContainer className="g-bg-slate-100">
-        <ArticleTextContainer>
-          <FormattedMessage id="occurrenceDetails.cluster.noMatches" />
-        </ArticleTextContainer>
-      </ArticleContainer>
+      <EmptyTab>
+        <FormattedMessage id="occurrenceDetails.cluster.noMatches" />
+      </EmptyTab>
     );
   }
 
@@ -91,18 +94,16 @@ export function OccurrenceKeyCluster() {
               <FormattedMessage id="occurrenceDetails.cluster.relatedOccurrences" />
             </CardTitle>
           </CardHeader>
-          {data.occurrence?.related?.relatedOccurrences?.map(
-            (relatedOccurrence: RelatedOccurrenceFragment | null, key: number) => {
-              return (
-                <RelatedRecord
-                  key={relatedOccurrence?.stub?.gbifId}
-                  occurrence={relatedOccurrence.occurrence}
-                  stub={relatedOccurrence.stub}
-                  reasons={relatedOccurrence.reasons}
-                />
-              );
-            }
-          )}
+          {data.occurrence?.related?.relatedOccurrences
+            ?.filter(notNull)
+            .map((relatedOccurrence) => (
+              <RelatedRecord
+                key={relatedOccurrence.stub?.gbifId}
+                occurrence={relatedOccurrence.occurrence}
+                stub={relatedOccurrence.stub}
+                reasons={relatedOccurrence.reasons.filter(notNull)}
+              />
+            ))}
         </div>
       </ArticleTextContainer>
     </ArticleContainer>
@@ -114,9 +115,9 @@ function RelatedRecord({
   occurrence,
   reasons,
 }: {
-  reasons?: [string];
-  stub: RelatedOccurrenceStubFragment;
-  occurrence?: RelatedOccurrenceDetailsFragment;
+  reasons?: string[];
+  stub: RelatedOccurrenceStubFragment | null | undefined;
+  occurrence?: RelatedOccurrenceDetailsFragment | null;
 }) {
   if (!occurrence) {
     return (
@@ -136,34 +137,54 @@ function RelatedRecord({
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-2">
-              <DynamicLink
-                className="hover:g-text-primary-500 g-underline"
-                to={`/occurrence/${stub?.gbifId}`}
-                pageId="occurrenceKey"
-                variables={{ key: stub?.gbifId }}
+              <ConditionalWrapper
+                condition={typeof stub?.gbifId === 'string'}
+                wrapper={(children) => (
+                  <DynamicLink
+                    className="hover:g-text-primary-500 g-underline"
+                    pageId="occurrenceKey"
+                    variables={{ key: stub!.gbifId! }}
+                  >
+                    {children}
+                  </DynamicLink>
+                )}
               >
                 {occurrence?.classification?.usage?.name ?? stub?.scientificName ?? 'Unknown'}
-              </DynamicLink>
+              </ConditionalWrapper>
             </h3>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
               <FormattedMessage id="occurrenceDetails.dataset" />:{' '}
-              <DynamicLink
-                to={`/dataset/${stub?.datasetKey}`}
-                pageId="datasetKey"
-                variables={{ key: stub?.datasetKey }}
+              <ConditionalWrapper
+                condition={typeof stub?.datasetKey === 'string'}
+                wrapper={(children) => (
+                  <DynamicLink
+                    className="g-underline"
+                    pageId="datasetKey"
+                    variables={{ key: stub!.datasetKey! }}
+                  >
+                    {children}
+                  </DynamicLink>
+                )}
               >
                 {occurrence?.datasetTitle}
-              </DynamicLink>
+              </ConditionalWrapper>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
               <FormattedMessage id="occurrenceDetails.publisher" />:{' '}
-              <DynamicLink
-                to={`/publisher/${stub?.publishingOrgKey}`}
-                pageId="publisherKey"
-                variables={{ key: stub?.publishingOrgKey }}
+              <ConditionalWrapper
+                condition={typeof stub?.publishingOrgKey === 'string'}
+                wrapper={(children) => (
+                  <DynamicLink
+                    className="g-underline"
+                    pageId="publisherKey"
+                    variables={{ key: stub!.publishingOrgKey! }}
+                  >
+                    {children}
+                  </DynamicLink>
+                )}
               >
                 {stub?.publishingOrgName}
-              </DynamicLink>
+              </ConditionalWrapper>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
               <FormattedMessage id="occurrenceFieldNames.basisOfRecord" />:{' '}
@@ -172,7 +193,9 @@ function RelatedRecord({
             <FeatureList className="">
               {occurrence.volatile?.features?.isSequenced && <Sequenced />}
               <Coordinates str={occurrence?.formattedCoordinates} />
-              {occurrence?.typeStatus && <TypeStatus types={occurrence?.typeStatus} />}
+              {occurrence?.typeStatus && (
+                <TypeStatus types={occurrence?.typeStatus.filter(notNull)} />
+              )}
             </FeatureList>
           </div>
           {occurrence?.primaryImage?.identifier && (
@@ -187,18 +210,15 @@ function RelatedRecord({
           )}
         </div>
         {reasons && (
-          <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-            <hr className="g-border" />
-            <span>
-              <FormattedMessage id="occurrenceDetails.cluster.clusterTags" />
+          <div className="-g-m-1 g-mt-4 g-flex g-flex-row g-items-center g-flex-wrap">
+            <span className="g-text-sm g-ms-1">
+              <FormattedMessage id="occurrenceDetails.cluster.clusterTags" />:
             </span>
-            {reasons.map((reason: string, key: number) => {
-              return (
-                <Tag key={key}>
-                  <FormattedMessage id={`enums.clusterReasons.${reason}`} />
-                </Tag>
-              );
-            })}
+            {reasons.map((reason: string, key: number) => (
+              <Tag key={key}>
+                <FormattedMessage id={`enums.clusterReasons.${reason}`} />
+              </Tag>
+            ))}
             <div className="g-flex-grow"></div>
           </div>
         )}

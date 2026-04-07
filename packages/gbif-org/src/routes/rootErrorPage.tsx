@@ -33,8 +33,8 @@ export function is404({
   path,
   errors,
 }: {
-  path: [string];
-  errors?: Array<{ message?: string; path?: [string] }>;
+  path: string[];
+  errors?: Array<{ message?: string; path?: string[] }>;
 }): boolean {
   if (!errors) return false;
   // check if the path match the error path and the message contains 404
@@ -50,9 +50,9 @@ export function throwCriticalErrors({
   query,
   variables,
 }: {
-  errors?: Array<{ message?: string; path?: [string] }>;
+  errors?: Array<{ message?: string; path?: string[] }>;
   requiredObjects?: (object | null | undefined)[];
-  path404: [string];
+  path404: string[];
   query?: string;
   variables?: Record<string, any>;
 }) {
@@ -110,4 +110,14 @@ export function usePartialDataNotification() {
   }, [location.pathname, toast, formatMessage, hasNotified, setHasNotified]);
 
   return notify;
+}
+
+// A simple wrapper for usePartialDataNotification that will work when just using the errors from a loader
+export function useNotifyOfPartialDataIfErrors(errors: unknown) {
+  const notifyOfPartialData = usePartialDataNotification();
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
 }

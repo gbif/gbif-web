@@ -14,7 +14,7 @@
       "description": ""
     },
     "nsg": {
-      "title": "",
+      "title": "Knoten-Lenkungsgruppe",
       "description": ""
     },
     "nodesCommittee": {
@@ -22,7 +22,7 @@
       "description": ""
     },
     "secretariat": {
-      "title": "",
+      "title": "GBIF-Sekretariat",
       "description": ""
     },
     "voting": {

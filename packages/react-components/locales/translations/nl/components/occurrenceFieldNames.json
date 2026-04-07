@@ -101,6 +101,7 @@
   "verbatimEventDate": "Woordelijke verzameldatum",
   "habitat": "Habitat",
   "samplingProtocol": "Monsterwijze",
+  "sampleSize": "Gelijk aan {is}",
   "fieldNotes": "Veldnotities",
   "eventRemarks": "Opmerkingen bij de gebeurtenis",
   "locationID": "Locatie ID",

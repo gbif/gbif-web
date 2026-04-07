@@ -1,7 +1,7 @@
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import countryCodes from '@/enums/basic/country.json';
-import { NotFoundError } from '@/errors';
+import { NotFoundLoaderResponse } from '@/errors';
 import {
   CountNewsQuery,
   CountNewsQueryVariables,
@@ -24,19 +24,22 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Outlet, useLoaderData, useParams } from 'react-router-dom';
 import { isParticipant } from '.';
 import PageMetaData from '@/components/PageMetaData';
+import { ParsedQueryResult } from '@/services/graphQLService';
 
 export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
   const countryCode = required(params.countryCode, 'No countryCode was provided in the URL');
 
   // Validate country code
   if (!countryCodes.map((code) => code.toLowerCase()).includes(countryCode.toLowerCase())) {
-    throw new NotFoundError();
+    throw new NotFoundLoaderResponse();
   }
 
   return graphql.query<ParticipantQuery, ParticipantQueryVariables>(PARTICIPANT_QUERY, {
     countryCode: countryCode.toUpperCase(),
   });
 }
+
+type CountryKeyLoaderResult = ParsedQueryResult<ParticipantQuery>;
 
 export function CountryKeyLayout() {
   const notifyOfPartialData = usePartialDataNotification();
@@ -45,7 +48,7 @@ export function CountryKeyLayout() {
   // This can't happen as long as the page is used on the correct route.
   if (!countryCode) throw new Error('No countryCode was provided in the URL');
 
-  const { data, errors } = useLoaderData() as { data: ParticipantQuery };
+  const { data, errors } = useLoaderData() as CountryKeyLoaderResult;
   useEffect(() => {
     if (errors) {
       // 404 errors can happen if the country is not a participant. This is expected and the user should not be notified

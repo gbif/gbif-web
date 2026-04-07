@@ -556,9 +556,11 @@ function Occurrence({
       <PlainTextField term={termMap.individualCount} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantity} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantityType} showDetails={showAll} />
-      <BasicField label="occurrenceFieldNames.sex">
-        {termMap?.sex?.value && <ConceptValue vocabulary="Sex" name={termMap?.sex?.value} />}
-      </BasicField>
+      {termMap?.sex?.value && (
+        <BasicField label="occurrenceFieldNames.sex">
+          {termMap?.sex?.value && <ConceptValue vocabulary="Sex" name={termMap?.sex?.value} />}
+        </BasicField>
+      )}
       <PlainTextField term={termMap.lifeStage} showDetails={showAll} />
       <PlainTextField term={termMap.reproductiveCondition} showDetails={showAll} />
       <PlainTextField term={termMap.behavior} showDetails={showAll} />

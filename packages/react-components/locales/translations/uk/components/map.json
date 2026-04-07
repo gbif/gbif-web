@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "Маленькі квадрати",
     "LARGE_SQUARE": "Квадрати"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "Класичні",
     "FIRE": "Полум'яні",

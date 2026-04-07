@@ -20,6 +20,7 @@
     "countryParticipants": "",
     "publishersPerCountry": "",
     "clear": "Limpar",
+    "noDescriptionProvided": "",
     "headlines": {
       "nodesSteeringGroup": "Grupo diretivo dos Nós",
       "participants": "Participantes"

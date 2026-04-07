@@ -1,4 +1,5 @@
-import { getHtml } from '@/helpers/utils';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { getHtml, isValidIntegerKey } from '@/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -11,11 +12,16 @@ export default {
   Query: {
     participantSearch: (parent, args, { dataSources, locale }) =>
       dataSources.participantAPI.searchParticipants({ query: args }, locale),
-    participant: (parent, { key }, { dataSources, locale }) =>
-      dataSources.participantAPI.getParticipantByDirectoryId({
+    participant: (parent, { key }, { dataSources, locale }) => {
+      if (!isValidIntegerKey(key)) {
+        throw new NotFoundError();
+      }
+
+      return dataSources.participantAPI.getParticipantByDirectoryId({
         id: key,
         locale,
-      }),
+      });
+    },
     nodeSteeringGroup: (parent, args, { dataSources }) =>
       dataSources.participantAPI.getNsgReport(),
     budgetCommittee: (parent, args, { dataSources }) =>

@@ -1,14 +1,8 @@
 import { DataHeader } from '@/components/dataHeader';
-import {
-  HeaderInfo,
-  HeaderInfoEdit,
-  HeaderInfoMain,
-} from '@/components/headerComponents';
+import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
-
 import PageMetaData from '@/components/PageMetaData';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/smallCard';
-import { NotFoundError } from '@/errors';
 import { DerivedDatasetQuery, DerivedDatasetQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -33,8 +27,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Properties, { Term as T, Value as V } from '@/components/properties';
 import { DoiTag } from '@/components/identifierTag';
 import { HyperText } from '@/components/hyperText';
-
-// import { AboutContent, ApiContent } from './help';
+import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 
 const DERIVED_DATASET_KEY = /* GraphQL */ `
   query DerivedDataset($key: ID!, $limit: Int, $offset: Int) {
@@ -81,61 +74,51 @@ export async function derivedDatasetLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.derivedDataset],
   });
 
-  return { errors, data };
+  return { errors, derivedDataset: data.derivedDataset! };
 }
+
+type DerivedDatasetLoaderResult = Awaited<ReturnType<typeof derivedDatasetLoader>>;
 
 export function DerivedDatasetPage() {
   const { formatMessage } = useIntl();
-  const { data, errors } = useLoaderData() as { data: DerivedDatasetQuery };
+  const { derivedDataset } = useLoaderData() as DerivedDatasetLoaderResult;
+
   const limit = 10;
   const [offset, setOffset] = useState(0);
-  const doiPrefix = required(
-    data?.derivedDataset?.doi?.split('/')[0],
-    'No doiPrefix was provided in the URL'
-  );
-  const doiSuffix = required(
-    data?.derivedDataset?.doi?.split('/')[1],
-    'No doiSuffix was provided in the URL'
-  );
-  const {
-    data: clientSideData,
-    load,
-    error,
-    loading,
-  } = useQuery(DERIVED_DATASET_KEY, {
+
+  const { data: clientSideData, load } = useQuery<
+    DerivedDatasetQuery,
+    DerivedDatasetQueryVariables
+  >(DERIVED_DATASET_KEY, {
     lazyLoad: true,
-    variables: { key: `${doiPrefix}/${doiSuffix}`, limit, offset },
+    variables: { key: derivedDataset.doi, limit, offset },
   });
 
   useEffect(() => {
     load({
-      variables: { key: `${doiPrefix}/${doiSuffix}`, limit, offset },
+      variables: { key: derivedDataset.doi, limit, offset },
     });
 
     // We are tracking the params via a calculated ID
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset, load]);
 
-  if (data.derivedDataset == null) throw new NotFoundError();
-  const { derivedDataset } = data;
   const contributingDatasets = clientSideData?.derivedDataset?.contributingDatasets;
 
   return (
     <article className="g-bg-background">
       <PageMetaData
         title={derivedDataset.title}
-        description={derivedDataset?.description}
-        noindex={!!derivedDataset?.deleted}
-        nofollow={!!derivedDataset?.deleted}
+        description={derivedDataset.description}
         path={`/derivedDataset/${derivedDataset.doi}`}
       />
 
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={derivedDataset?.doi?.toString()} />}
-        doi={derivedDataset.doi ?? undefined}
-      ></DataHeader>
+        apiContent={<ApiContent id={derivedDataset.doi} />}
+        doi={derivedDataset.doi}
+      />
 
       <PageContainer topPadded hasDataHeader className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-lg">
@@ -144,7 +127,11 @@ export function DerivedDatasetPage() {
               <FormattedMessage
                 id="dataset.registeredDate"
                 values={{
-                  DATE: <LongDate value={derivedDataset.created ?? undefined} />,
+                  DATE: derivedDataset.created ? (
+                    <LongDate value={derivedDataset.created} />
+                  ) : (
+                    <FormattedMessage id="phrases.unknownDate" />
+                  ),
                 }}
               />
             }
@@ -152,28 +139,26 @@ export function DerivedDatasetPage() {
             <FormattedMessage id={`derivedDatasetKey.derivedDataset`} />
           </ArticlePreTitle>
           <ArticleTitle>
-            {' '}
             <FormattedMessage
               id={`derivedDatasetKey.headlineDatasets`}
               values={{ total: derivedDataset.contributingDatasets.count }}
             />
           </ArticleTitle>
-
-          {/*           {deletedAt && <DeletedMessage date={deletedAt} />}
-           */}
-          <HeaderInfo>
-            <HeaderInfoMain>
-              <div></div>
-            </HeaderInfoMain>
-            <HeaderInfoEdit className="g-flex g-mt-4 g-gap-2">
-              <Button asChild className="g-py-1 g-px-2 g-h-[2rem] g-mb-4">
-                <Link to={derivedDataset.sourceUrl ?? ''} target="_blank" rel="noopener noreferrer">
-                  <MdLink />
-                  <FormattedMessage id="derivedDatasetKey.sourceUrl" />
-                </Link>
-              </Button>
-            </HeaderInfoEdit>
-          </HeaderInfo>
+          {derivedDataset.sourceUrl && (
+            <HeaderInfo>
+              <HeaderInfoMain>
+                <div />
+              </HeaderInfoMain>
+              <HeaderInfoEdit className="g-mt-4">
+                <Button asChild className="g-py-1 g-px-2 g-h-[2rem] g-mb-4">
+                  <a href={derivedDataset.sourceUrl} target="_blank" rel="noopener noreferrer">
+                    <MdLink className="g-me-1" />
+                    <FormattedMessage id="derivedDatasetKey.sourceUrl" />
+                  </a>
+                </Button>
+              </HeaderInfoEdit>
+            </HeaderInfo>
+          )}
         </ArticleTextContainer>
       </PageContainer>
 
@@ -187,7 +172,7 @@ export function DerivedDatasetPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {derivedDataset.citation} <CopyToClipboard text={derivedDataset?.citation || ''} />
+                {derivedDataset.citation} <CopyToClipboard text={derivedDataset.citation || ''} />
               </CardContent>
               <CardFooter>
                 <Button asChild variant="outline" className="g-py-1 g-px-2 g-h-[2rem] g-mr-1">
@@ -269,7 +254,6 @@ export function DerivedDatasetPage() {
                   </>
                 </Properties>
               </CardContent>
-              <CardFooter></CardFooter>
             </Card>
             <Card className="g-mb-4">
               <CardHeader>
@@ -282,14 +266,13 @@ export function DerivedDatasetPage() {
               </CardHeader>
               <CardContent>
                 <>
-                  {' '}
                   <table className="g-w-full g-text-sm g-mb-8 g-bg-white">
-                    <thead className="g-shadow-sm">
+                    <thead>
                       <tr className="g-transition-colors data-[state=selected]:g-bg-muted">
                         <th
                           className="g-p-4 g-text-left g-whitespace-nowrap "
                           style={{ width: '80%' }}
-                        ></th>
+                        />
 
                         <th
                           className="g-p-4 g-text-left g-whitespace-nowrap "
@@ -300,7 +283,7 @@ export function DerivedDatasetPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {contributingDatasets?.results?.length > 0 &&
+                      {isNoneEmptyArray(contributingDatasets?.results) &&
                         contributingDatasets.results.map((dataset) => (
                           <tr
                             key={dataset.datasetKey}
@@ -317,8 +300,7 @@ export function DerivedDatasetPage() {
                             </td>
 
                             <td className="g-p-4 ">
-                              {' '}
-                              <FormattedNumber value={dataset.numberRecords || 0} />
+                              <FormattedNumber value={dataset.numberRecords} />
                             </td>
                           </tr>
                         ))}
@@ -336,11 +318,11 @@ export function DerivedDatasetPage() {
                         ))}
                     </tbody>
                   </table>
-                  {contributingDatasets?.results?.length > 0 && (
+                  {isNoneEmptyArray(contributingDatasets?.results) && (
                     <PaginationFooter
-                      offset={contributingDatasets?.offset || 0}
-                      count={contributingDatasets?.count || 0}
-                      limit={contributingDatasets?.limit || 0}
+                      offset={contributingDatasets.offset || 0}
+                      count={contributingDatasets.count || 0}
+                      limit={contributingDatasets.limit || 0}
                       onChange={(x) => setOffset(x)}
                     />
                   )}

@@ -79,4 +79,11 @@ export default {
       }
     },
   },
+  AssetImage: {
+    // https://github.com/gbif/gbif-web/issues/1581
+    description: ({ description }) => {
+      if (typeof description !== 'string') return null;
+      return description;
+    },
+  },
 };

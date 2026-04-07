@@ -113,6 +113,7 @@
   "habitat": "موئل",
   "samplingProtocol": "بروتوكول اخذ العينات",
   "samplingEffort": "جهود أخذ العينات",
+  "sampleSize": "التساويات { is }",
   "sampleSizeValue": "فيمة حجم العينة",
   "sampleSizeUnit": "وحدة حجم العينة",
   "fieldNotes": "ملاحظات حقلية",

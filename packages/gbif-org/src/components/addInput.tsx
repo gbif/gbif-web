@@ -29,12 +29,10 @@ const AddInput = React.forwardRef<HTMLInputElement, InputProps>(
         />
         <button
           disabled={!value || value.length === 0}
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
+          type="button"
+          onClick={() => {
             if (onAdd) {
-              const v = (ref as React.RefObject<HTMLInputElement>)?.current?.value || '';
-              onAdd(v);
+              onAdd(value || '');
             }
           }}
           className={cn(

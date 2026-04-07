@@ -4,4 +4,6 @@ export default [
   'year',
   'decimalLatitude',
   'decimalLongitude',
+  'elevation',
+  'depth',
 ];

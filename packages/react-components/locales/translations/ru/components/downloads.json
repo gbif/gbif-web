@@ -65,7 +65,7 @@
     "downloadStarted": "Загрузка была начата и в настоящее время обрабатывается.",
     "downloadExpectTime": "Пожалуйста, ожидайте до 3 часов для завершения загрузки. Большинство загрузок завершается в течение 15 минут.",
     "notificationEmailAddresses": "Уведомление по электронной почте со ссылкой на загрузку результатов запроса будет направлено, после готовности, по следующему адресу: ",
-    "sqlGeneratedUsingPredicate": "Заполнитель",
+    "sqlGeneratedUsingPredicate": "",
     "status": {
       "PREPARING": "Готовятся",
       "SUSPENDED": "Приостановлено",
@@ -73,7 +73,7 @@
       "CANCELLED": "Отменены",
       "KILLED": "Уничтожены"
     },
-    "usedChecklistKey": "Заполнитель",
+    "usedChecklistKey": "",
     "predicate": {
       "checklist": "Таксономические списки",
       "joinDescriptions": {
@@ -201,7 +201,7 @@
         "FORMATION": "Формация",
         "ORDER_KEY": "Отряд / Порядок",
         "ISSUE": "Замечание",
-        "TAXONOMIC_ISSUE": "Заполнитель",
+        "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Инсталляция",
         "VERBATIM_SCIENTIFIC_NAME": "Латинское название по первоисточнику",
         "GBIF_REGION": "Регион GBIF",
@@ -261,110 +261,110 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Назад",
-    "slowDown": "Заполнитель",
-    "unableToCreateDownload": "Заполнитель",
-    "backToFormatSelection": "Заполнитель",
-    "backToConfiguration": "Заполнитель",
+    "slowDown": "",
+    "unableToCreateDownload": "",
+    "backToFormatSelection": "",
+    "backToConfiguration": "",
     "estimatedSize": "Предполагаемый размер",
-    "configure": "Заполнитель",
-    "continueToTerms": "Заполнитель",
-    "downloadSummary": "Заполнитель",
-    "weAlsoSupport": "Заполнитель",
-    "sqlDownloadsLink": "Заполнитель",
+    "configure": "",
+    "continueToTerms": "",
+    "downloadSummary": "",
+    "weAlsoSupport": "",
+    "sqlDownloadsLink": "",
     "extensions": "Расширения",
-    "selectAdditionalExtensions": "Заполнитель",
+    "selectAdditionalExtensions": "",
     "nExtensionsSelected": "",
-    "selectAll": "Заполнитель",
-    "deselectAll": "Заполнитель",
-    "extensionsInfoMessage": "Заполнитель",
+    "selectAll": "",
+    "deselectAll": "",
+    "extensionsInfoMessage": "",
     "format": "Формат",
-    "csvDelimiter": "Заполнитель",
+    "csvDelimiter": "",
     "taxonomy": "Таксономия",
-    "tabDelimiter": "Заполнитель",
-    "progressLabel": "Заполнитель",
-    "termsAndConditions": "Заполнитель",
-    "reviewAndAccept": "Заполнитель",
-    "dataCitationTitle": "Заполнитель",
-    "dataCitationText": "Заполнитель",
-    "dataUseAgreementTitle": "Заполнитель",
-    "dataUseAgreementText": "Заполнитель",
-    "largeDownloadAcknowledgment": "Заполнитель",
-    "largeDownloadEstimatedSize": "Заполнитель",
-    "largeDownloadConnectionSpeed": "Заполнитель",
-    "largeDownloadDiskSpace": "Заполнитель",
-    "largeDownloadRowCount": "Заполнитель",
+    "tabDelimiter": "",
+    "progressLabel": "",
+    "termsAndConditions": "",
+    "reviewAndAccept": "",
+    "dataCitationTitle": "",
+    "dataCitationText": "",
+    "dataUseAgreementTitle": "",
+    "dataUseAgreementText": "",
+    "largeDownloadAcknowledgment": "",
+    "largeDownloadEstimatedSize": "",
+    "largeDownloadConnectionSpeed": "",
+    "largeDownloadDiskSpace": "",
+    "largeDownloadRowCount": "",
     "largeDownloadExcelWarning": "Набор данных такого размера сложно анализировать на обычном персональном компьютере Возможно, Вам потребуется доступ к к одному из сервисов распределенных вычислений.",
-    "termsStatus": "Заполнитель",
-    "createDownload": "Заполнитель",
-    "completeRequirements": "Заполнитель",
+    "termsStatus": "",
+    "createDownload": "",
+    "completeRequirements": "",
     "steps": {
       "quality": {
         "name": "Качество",
-        "description": "Заполнитель"
+        "description": ""
       },
       "filter": {
-        "name": "Заполнитель",
-        "description": "Заполнитель"
+        "name": "",
+        "description": ""
       },
       "sql": {
-        "name": "Заполнитель",
-        "description": "Заполнитель"
+        "name": "",
+        "description": ""
       },
       "format": {
         "name": "Формат",
-        "description": "Заполнитель"
+        "description": ""
       },
       "configure": {
-        "name": "Заполнитель",
-        "description": "Заполнитель"
+        "name": "",
+        "description": ""
       },
       "terms": {
         "name": "Условия использования",
-        "description": "Заполнитель"
+        "description": ""
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "Заполнитель",
-        "description": "Заполнитель"
+        "title": "",
+        "description": ""
       },
       "DWCA": {
         "title": "Архив Darwin Core",
-        "description": "Заполнитель"
+        "description": ""
       },
       "SPECIES_LIST": {
         "title": "Список видов в формате CSV",
-        "description": "Заполнитель"
+        "description": ""
       },
       "SQL_CUBE": {
-        "title": "Заполнитель",
-        "description": "Заполнитель"
+        "title": "",
+        "description": ""
       },
       "SQL_TSV_ZIP": {
-        "title": "Заполнитель",
-        "description": "Заполнитель"
+        "title": "",
+        "description": ""
       },
       "features": {
-        "singleCsv": "Заполнитель",
-        "multipleCsv": "Заполнитель",
-        "interpretedData": "Заполнитель",
-        "rawAndInterpreted": "Заполнитель",
-        "coordinates": "Заполнитель",
-        "coordinatesIfSelected": "Заполнитель",
-        "individualOccurrences": "Заполнитель",
-        "multimediaLinks": "Заполнитель",
-        "occurrenceCounts": "Заполнитель"
+        "singleCsv": "",
+        "multipleCsv": "",
+        "interpretedData": "",
+        "rawAndInterpreted": "",
+        "coordinates": "",
+        "coordinatesIfSelected": "",
+        "individualOccurrences": "",
+        "multimediaLinks": "",
+        "occurrenceCounts": ""
       }
     },
     "taxonomySelector": {
-      "title": "Заполнитель",
-      "description": "Заполнитель",
-      "defaultRecommended": "Заполнитель",
+      "title": "",
+      "description": "",
+      "defaultRecommended": "",
       "version": "Версия"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "Заполнитель",
+    "cubeConfiguration": "",
     "invalidSQL": "Недопустимый синтаксис SQL",
     "title": "Создать новое выражение SQL для загрузки",
     "notification": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
@@ -381,7 +381,7 @@
       "EXACT_TAXON": "Точный таксон"
     },
     "cubeTitle": "Куб загрузки",
-    "cubeDescription": "Заполнитель",
+    "cubeDescription": "",
     "readMore": "Читать далее",
     "time": {
       "YEAR": "Год",
@@ -464,8 +464,8 @@
     "countHigherTaxonomy": "Количество событий на более высоком таксономическом уровне",
     "coordinateUncertainty": "Задать минимальную неопределенность координат",
     "errorMinimumDimension": "Необходимо выбрать хотя бы один размер",
-    "errorMinimumDimensionForCube": "Заполнитель",
-    "errorGeneratingSql": "Заполнитель",
+    "errorMinimumDimensionForCube": "",
+    "errorGeneratingSql": "",
     "editSql": "Редактировать как SQL",
     "temporalUncertainty": "Задать минимальную временную неопределенность",
     "documentation": "Документация",

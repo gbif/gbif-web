@@ -1,7 +1,6 @@
-import { CollectionQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import CollectionKeyAbout from './About';
-import { CollectionKey, collectionLoader } from './collectionKey';
+import { CollectionKey, CollectionKeyLoaderResult, collectionLoader } from './collectionKey';
 import CollectionKeyDashboard from './Dashboard';
 import CollectionKeySpecimens from './Specimen';
 
@@ -39,5 +38,5 @@ export const collectionKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function useCollectionKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: CollectionQuery };
+  return useRenderedRouteLoaderData(id) as CollectionKeyLoaderResult;
 }

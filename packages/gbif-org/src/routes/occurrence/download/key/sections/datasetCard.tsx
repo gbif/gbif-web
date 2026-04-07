@@ -5,16 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { DownloadKeyQuery } from '@/gql/graphql';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { DatasetTable } from './DatasetTable';
+import { Download } from '../downloadKey';
 
-export function DatasetCard({
-  download,
-  datasetsByDownload,
-}: {
-  download: DownloadKeyQuery['download'];
+type Props = {
+  download: Download;
   datasetsByDownload: DownloadKeyQuery['datasetsByDownload'];
-}) {
-  if (!download) return null;
+};
 
+export function DatasetCard({ download, datasetsByDownload }: Props) {
   return (
     <Card className="g-mb-4">
       <CardHeader className="!g-pb-1">
@@ -28,12 +26,12 @@ export function DatasetCard({
           <GenericFeature>
             <FormattedMessage id="downloadKey.constituentOrganizations" />
             <span className="g-me-1">:</span>
-            <FormattedNumber value={download.numberOrganizations} />
+            <FormattedNumber value={download.numberOrganizations ?? 0} />
           </GenericFeature>
           <GenericFeature>
             <FormattedMessage id="downloadKey.constituentPublishingCountries" />
             <span className="g-me-1">:</span>
-            <FormattedNumber value={download.numberPublishingCountries} />
+            <FormattedNumber value={download.numberPublishingCountries ?? 0} />
           </GenericFeature>
         </FeatureList>
         <div className="g-flex g-justify-end">

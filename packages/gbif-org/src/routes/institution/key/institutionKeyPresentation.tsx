@@ -18,7 +18,7 @@ import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { InstitutionQuery, InstitutionSummaryMetricsQuery } from '@/gql/graphql';
+import { InstitutionSummaryMetricsQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
@@ -32,6 +32,7 @@ import { GrGithub as Github } from 'react-icons/gr';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
+import { InstitutionKeyLoaderResult } from './institutionKey';
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 // create context to pass data to children
@@ -41,17 +42,15 @@ export const InstitutionKeyContext = createContext<{
 }>({});
 
 export function InstitutionKey({
-  data,
+  institution,
   institutionMetrics,
   fallbackImage,
 }: {
-  data: InstitutionQuery;
+  institution: InstitutionKeyLoaderResult['institution'];
   institutionMetrics?: InstitutionSummaryMetricsQuery;
   fallbackImage?: string | null;
 }) {
   const useInlineImage = useBelow(800);
-  if (data.institution == null) throw new Error('No institution provided');
-  const { institution } = data;
   const { occurrenceSearch } = institutionMetrics ?? {};
 
   const deletedAt = institution.deleted;
@@ -98,7 +97,7 @@ export function InstitutionKey({
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={institution?.key?.toString()} />}
-      ></DataHeader>
+      />
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
@@ -123,7 +122,7 @@ export function InstitutionKey({
                   {/* it would be nice to know for sure which fields to expect */}
                   <ArticleTitle
                     dangerouslySetTitle={{ __html: institution.name || 'No title provided' }}
-                  ></ArticleTitle>
+                  />
 
                   {deletedAt && <DeletedMessage date={deletedAt} />}
                   {institution.replacedByInstitution && (
@@ -251,7 +250,7 @@ export function InstitutionKey({
         </PageContainer>
 
         <InstitutionKeyContext.Provider
-          value={{ key: data?.institution?.key, contentMetrics: institutionMetrics }}
+          value={{ key: institution.key, contentMetrics: institutionMetrics }}
         >
           <Outlet />
         </InstitutionKeyContext.Provider>

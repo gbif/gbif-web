@@ -1,11 +1,13 @@
 {
+  "defaultPageTitle": "",
+  "defaultPageDescription": "",
   "loading": "",
   "loadError": "",
   "pleaseCiteAs": "",
   "unknown": "",
   "notProvided": "",
   "close": "",
-  "citation": "",
+  "citation": "인용",
   "citeAs": "",
   "deletedOnDate": "",
   "replacedBy": "",
@@ -74,5 +76,6 @@
   "all": "모두",
   "clear": "",
   "search": "",
-  "404Text": ""
+  "404Text": "",
+  "unableToLoadAllContent": ""
 }

@@ -2,20 +2,19 @@ import { ErrorMessage } from '@/components/errorMessage';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { CitationIcon, FeatureList, GenericFeature } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
-import { DownloadKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
 import { downloadCompleted } from '../utils';
+import { Download } from '../downloadKey';
 
 export function SubHeader({
   download,
   literatureCount,
 }: {
-  download: DownloadKeyQuery['download'];
+  download: Download;
   literatureCount?: number;
 }) {
-  if (!download) return null;
-  const showPostponeOption = false; // TODO this should be shown if the user is the creator of the download and the download is eligible for deletion
+  // const showPostponeOption = false; // TODO this should be shown if the user is the creator of the download and the download is eligible for deletion
   const showCitation = downloadCompleted(download);
 
   return (
@@ -42,7 +41,7 @@ export function SubHeader({
           </FeatureList>
         )}
 
-        {download?.status === 'FILE_ERASED' && (
+        {download.status === 'FILE_ERASED' && (
           <ErrorMessage className="g-mt-4">
             <span className="g-me-1">
               <FormattedMessage id="downloadKey.downloadDeleted" />

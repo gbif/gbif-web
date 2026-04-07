@@ -22,6 +22,8 @@ const alertVariants = cva(
   }
 );
 
+export type AlertVariant = VariantProps<typeof alertVariants>['variant'];
+
 const Alert = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>

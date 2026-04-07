@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "小正方形",
     "LARGE_SQUARE": "方形"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "經典樣式",
     "FIRE": "火色",

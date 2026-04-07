@@ -54,6 +54,7 @@
     "SMALL_SQUARE": "مربعات صغيرة",
     "LARGE_SQUARE": "مربعات"
   },
+  "tilesUnavailable": "",
   "colors": {
     "CLASSIC": "تقليدي",
     "FIRE": "النار",

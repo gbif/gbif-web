@@ -20,6 +20,7 @@
     "countryParticipants": "Нормы поведения",
     "publishersPerCountry": "Нормы поведения",
     "clear": "Удалить",
+    "noDescriptionProvided": "Отсутствует описани́е для этой сети",
     "headlines": {
       "nodesSteeringGroup": "Группа управления узлами",
       "participants": "Участники"

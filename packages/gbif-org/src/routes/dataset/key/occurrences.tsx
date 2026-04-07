@@ -7,8 +7,8 @@ import { OccurrenceSearchInner } from '@/routes/occurrence/search/occurrenceSear
 import { searchConfig } from '@/routes/occurrence/search/searchConfig';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useContext, useEffect, useState } from 'react';
-import { DatasetKeyContext } from './datasetKey';
+import { useEffect, useState } from 'react';
+import { useDatasetKeyContext } from './datasetKey';
 
 export function DatasetKeyOccurrences() {
   const [filter, setFilter] = useFilterParams({
@@ -17,11 +17,10 @@ export function DatasetKeyOccurrences() {
   });
   const baseConfig = useConfig();
   const [config, setConfig] = useState<SearchMetadata | undefined>();
-  const { datasetKey, contentMetrics } = useContext(DatasetKeyContext);
+  const { datasetKey, contentMetrics } = useDatasetKeyContext();
   const occurrenceSearchConfig = baseConfig?.datasetKey?.occurrenceSearch;
 
   useEffect(() => {
-    if (!datasetKey) return;
     let activeTabs = occurrenceSearchConfig?.tabs ?? [
       'table',
       'map',

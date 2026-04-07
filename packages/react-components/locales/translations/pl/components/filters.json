@@ -563,9 +563,9 @@
     "description": "Nazwa obszaru administracyjnego z GADM.org określonego podczas przetwarzania stwierdzenia."
   },
   "identifiedBy": {
+    "description": "Osoba, osoby, grupy lub organizacja odpowiedzialne za identyfikację naukowej nazwy Organizmu.",
     "name": "Zidentyfikowany przez",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}",
-    "description": "Osoba, osoby, grupy lub organizacja odpowiedzialne za identyfikację naukowej nazwy Organizmu."
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
   },
   "isInCluster": {
     "name": "Jest w gromadzie",
@@ -659,5 +659,290 @@
     "isNotNull": "Występują problemy",
     "isNull": "Nie wystąpiły problemy",
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
+  },
+  "humboldtBooleans": {
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "protocolNames": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": "",
+    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
   }
 }

@@ -53,7 +53,6 @@ export type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';
 export interface TileProgress {
   addLoading: () => void;
   addLoaded: () => void;
-  addError: () => void;
 }
 
 export type ProjectionHelper = {
@@ -405,7 +404,6 @@ function getVectorLayer(
     });
     source.on('tileloaderror', function () {
       progress.addLoaded();
-      progress.addError();
     });
   }
 
@@ -457,7 +455,6 @@ function getRasterLayer(
     });
     source.on('tileloaderror', function () {
       progress.addLoaded();
-      progress.addError();
     });
   }
 
@@ -520,7 +517,6 @@ function getAdhocVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Pr
     });
     source.on('tileloaderror', function () {
       progress.addLoaded();
-      progress.addError();
     });
   }
   if (onError) {

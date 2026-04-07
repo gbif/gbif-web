@@ -39,13 +39,13 @@ export function ApiContent({ id = '10.15468/dd.jdja49' }: { id?: string }) {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleDerivedDataset" /> <br />
-        <a href={`https://api.gbif.org/v1/derivedDataset/${id}`}>
+        <a className="g-break-all" href={`https://api.gbif.org/v1/derivedDataset/${id}`}>
           https://api.gbif.org/v1/derivedDataset/{id}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.derivedDatasetContributingDatasets" /> <br />
-        <a href={`https://api.gbif.org/v1/derivedDataset/${id}/datasets`}>
+        <a className="g-break-all" href={`https://api.gbif.org/v1/derivedDataset/${id}/datasets`}>
           https://api.gbif.org/v1/derivedDataset/{id}/datasets
         </a>
       </Card>
@@ -61,19 +61,15 @@ export function DerivedDatasetHelpText({
   includeTitle?: boolean;
   children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLElement>) {
-  const { data, error, loading, load } = useQuery<
+  const { data, error, loading } = useQuery<
     DerivedDatasetAboutQuery,
     DerivedDatasetAboutQueryVariables
-  >(DERIVED_DATASET_ABOUT, { lazyLoad: true, variables: { key: '3mWxb8muy3eUjT1KRmtpXy' } });
-
-  useEffect(() => {
-    load({ key: '3mWxb8muy3eUjT1KRmtpXy' });
-  }, [load]);
+  >(DERIVED_DATASET_ABOUT, { variables: { key: '3mWxb8muy3eUjT1KRmtpXy' } });
 
   const failed = !loading && error;
   return (
     <div {...props}>
-      {(!data || loading) && <HelpTextSkeleton includeTitle={true} />}
+      {(!data || loading) && <HelpTextSkeleton includeTitle={includeTitle} />}
       {failed && (
         <div style={{ textAlign: 'center' }}>
           <div>

@@ -9,12 +9,13 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useFilters } from '@/routes/taxon/search/filters';
 import { searchConfig } from '@/routes/taxon/search/searchConfig';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { TaxonViewTabs, Views } from '../../taxon/search/taxonSearch';
-import { DatasetKeyContext } from './datasetKey';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import EmptyTab from '@/components/EmptyTab';
+import { useDatasetKeyContext } from './datasetKey';
 
-export function TaxonSearchPageInner(): React.ReactElement {
+function TaxonSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const defaultView = searchContext?.tabs?.[0] ?? 'table';
@@ -60,8 +61,9 @@ export function TaxonSearchPageInner(): React.ReactElement {
     </>
   );
 }
-export const DatasetKeyTaxonSearch = () => {
-  const { datasetKey } = useContext(DatasetKeyContext);
+
+const NoneEmptyTab = () => {
+  const { datasetKey } = useDatasetKeyContext();
   const config = useConfig();
   const [searchContext, setSearchContext] = useState({
     ...config.taxonSearch,
@@ -89,4 +91,10 @@ export const DatasetKeyTaxonSearch = () => {
       </FilterProvider>
     </SearchContextProvider>
   );
+};
+
+export const DatasetKeyTaxonSearch = () => {
+  const { showSpeciesTab } = useDatasetKeyContext();
+  if (showSpeciesTab) return <NoneEmptyTab />;
+  return <EmptyTab />;
 };
