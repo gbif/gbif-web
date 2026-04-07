@@ -34,15 +34,10 @@ export function useRasterBaseLayer({
       ? `${baseLayerStyle}-${locale.mapTileLocale}`
       : baseLayerStyle;
 
+  // Reset the view only when projection or capabilities change, not when style changes.
   useEffect(() => {
     if (!map) return;
 
-    // Remove the old base layer
-    map.getLayers().forEach((layer) => {
-      if (layer != null && layer.get('name') === 'baseLayer') {
-        map.removeLayer(layer);
-      }
-    });
     const view = projection.getView(0, 0, 0);
 
     if (capabilities && capabilities.maxLng - capabilities.minLng < 180) {
@@ -77,6 +72,18 @@ export function useRasterBaseLayer({
     if ('zoomToFitContainer' in projection) {
       projection.zoomToFitContainer(map);
     }
+  }, [projection, map, capabilities]);
+
+  // Swap the base layer when style changes, preserving the current view.
+  useEffect(() => {
+    if (!map) return;
+
+    // Remove the old base layer
+    map.getLayers().forEach((layer) => {
+      if (layer != null && layer.get('name') === 'baseLayer') {
+        map.removeLayer(layer);
+      }
+    });
 
     const attributions: string[] = [];
     if (generatedAt) {
@@ -94,13 +101,5 @@ export function useRasterBaseLayer({
     });
 
     map.getLayers().insertAt(0, baseLayer);
-  }, [
-    projection,
-    map,
-    generatedAt,
-    localizedStyle,
-    formatRelativeTime,
-    formatMessage,
-    capabilities,
-  ]);
+  }, [projection, map, generatedAt, localizedStyle, formatRelativeTime, formatMessage]);
 }
