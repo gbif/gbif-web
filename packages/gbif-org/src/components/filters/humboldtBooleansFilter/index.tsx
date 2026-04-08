@@ -8,7 +8,7 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { AboutButton } from '../aboutButton';
 import { AdditionalFilterProps, ApplyCancel, filterHumboldtBooleansConfig } from '../filterTools';
-import { Tertiary } from '../geometryFilter/geometryFilter';
+import { Tertiary } from '../geometryFilter/Tertiary';
 import { object } from 'zod';
 
 type WildcardProps = Omit<filterHumboldtBooleansConfig, 'filterType' | 'filterTranslation'> &

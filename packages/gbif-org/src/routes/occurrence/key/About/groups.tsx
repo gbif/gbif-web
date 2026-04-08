@@ -3,7 +3,7 @@ import { GadmClassification } from '@/components/classification';
 import { ConceptValue } from '@/components/conceptValue';
 import { HelpLine } from '@/components/helpText';
 import { GeoJsonMap } from '@/components/maps/geojsonMap';
-import { generatePointGeoJson } from '@/components/maps/geojsonMap/GeoJsonMap';
+import { generatePointGeoJson } from '@/components/maps/geojsonMap/generatePointGeoJson';
 import Properties, { Property } from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
