@@ -226,12 +226,14 @@ const DATASET_QUERY = /* GraphQL */ `
       localContexts {
         project_page
         title
-        description
-        notes {
+        notice {
           name
           img_url
-          description
-          pageUrl
+        }
+        labels {
+          name
+          img_url
+          communityName
         }
       }
       gridded {

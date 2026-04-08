@@ -14,9 +14,9 @@ import { FormattedMessage } from 'react-intl';
 import { LongDate } from '@/components/dateFormats';
 import { BasicField, Field } from '../properties';
 import { useConfig } from '@/config/config';
-import { truncate } from '@/utils/truncate';
 import { Img } from '@/components/Img';
 import { SiteOccurrenceCount } from '@/components/count';
+import { notNull } from '@/utils/notNull';
 
 export function InstitutionKey({
   occurrence,
@@ -144,7 +144,11 @@ export function DynamicProperties({ termMap }: { termMap: any }) {
   );
 }
 
-export function LocalContexts({ localContexts }: { localContexts?: any }) {
+type LocalContexts = NonNullable<
+  NonNullable<SlowOccurrenceKeyQuery['occurrence']>['localContexts']
+>;
+
+export function LocalContexts({ localContexts }: { localContexts?: LocalContexts | null }) {
   const config = useConfig();
   const showLocalContext = config.experimentalFeatures.localContextEnabled;
   if (!localContexts || localContexts?.length === 0 || !showLocalContext) return null;
@@ -155,16 +159,30 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
         <FormattedMessage id={`dataset.localContexts`} defaultMessage={'Local contexts'} />
       </T>
       <V>
-        {localContexts.map((localContext) => {
-          const { project_page, title, communityName } = localContext;
-          const notices = (localContext?.notice ?? [])?.filter((n) => n && n.name && n.img_url);
-          const labels = (localContext?.labels ?? [])?.filter((l) => l && l.name && l.img_url);
+        {localContexts.filter(notNull).map((localContext) => {
+          const { project_page, title } = localContext;
+          const notices = (localContext.notice ?? [])
+            .filter(notNull)
+            .filter((n) => n.name && n.img_url);
+          const labels = (localContext.labels ?? [])
+            .filter(notNull)
+            .filter((l) => l.name && l.img_url);
+
+          // Group labels by community name
+          const labelsByCommunity = new Map<string, typeof labels>();
+          for (const label of labels) {
+            const community = label.communityName ?? '';
+            if (!labelsByCommunity.has(community)) {
+              labelsByCommunity.set(community, []);
+            }
+            labelsByCommunity.get(community)!.push(label);
+          }
 
           return (
-            <div key={project_page}>
+            <div key={project_page ?? undefined}>
               <h5 className="g-flex g-items-center g-gap-1">
                 <a
-                  href={project_page}
+                  href={project_page ?? undefined}
                   target="_blank"
                   rel="noreferrer"
                   className="g-flex g-items-center g-underline"
@@ -178,44 +196,44 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                     <li className="g-flex g-items-center g-mb-2" key={`${notice.name}-${i}`}>
                       <img
                         className="g-me-2 g-w-6"
-                        src={notice.img_url}
-                        alt={notice.name}
-                        title={notice.name}
+                        src={notice.img_url ?? undefined}
+                        alt={notice.name ?? undefined}
+                        title={notice.name ?? undefined}
                       />
                       <p className="g-text-sm">{notice.name}</p>
                     </li>
                   ))}
                 </ul>
               )}
-              {labels.length > 0 && (
-                <>
+              {[...labelsByCommunity.entries()].map(([communityName, communityLabels]) => (
+                <div key={communityName}>
                   {communityName && (
                     <p className="g-mt-2 g-text-sm g-text-slate-600">
                       <FormattedMessage
                         id="dataset.localContextsLabelsAppliedBy"
                         defaultMessage="{count, plural, one{Label} other{Labels}} applied by {communityName}"
                         values={{
-                          count: labels.length,
-                          communityName: communityName,
+                          count: communityLabels.length,
+                          communityName,
                         }}
                       />
                     </p>
                   )}
                   <ul className="g-pt-2">
-                    {labels.map((label, i) => (
+                    {communityLabels.map((label, i) => (
                       <li className="g-flex g-items-center g-mb-2" key={`${label.name}-${i}`}>
                         <img
                           className="g-me-2 g-w-6"
-                          src={label.img_url}
-                          alt={label.name}
-                          title={label.name}
+                          src={label.img_url ?? undefined}
+                          alt={label.name ?? undefined}
+                          title={label.name ?? undefined}
                         />
                         <p className="g-text-sm">{label.name}</p>
                       </li>
                     ))}
                   </ul>
-                </>
-              )}
+                </div>
+              ))}
             </div>
           );
         })}
@@ -275,8 +293,7 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
             {person?.deathDate?.value && (
               <span>
                 {' '}
-                -{' '}
-                <LongDate value={person?.deathDate?.value} />
+                - <LongDate value={person?.deathDate?.value} />
               </span>
             )}
           </div>
