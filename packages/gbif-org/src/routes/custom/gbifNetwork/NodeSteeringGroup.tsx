@@ -37,7 +37,7 @@ export default function NodeSteeringGroup({
             <td className="">
               <div>
                 <a href={`mailto:${member.email}`}>
-                  {member.title} {member.name}
+                  {member.name}
                 </a>
               </div>
             </td>
