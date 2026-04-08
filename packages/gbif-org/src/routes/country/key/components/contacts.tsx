@@ -130,7 +130,6 @@ function PersonContactCard({
           <ContactImage personId={contact.key || ''} />
           <ContactHeaderContent>
             <ContactTitle
-              title={contact.title}
               firstName={contact.firstName}
               lastName={contact.lastName || contact.surname}
             />
@@ -183,7 +182,6 @@ fragmentManager.register(/* GraphQL */ `
   fragment NodeContacts on Node {
     contacts {
       key
-      title
       firstName
       surname
       lastName
