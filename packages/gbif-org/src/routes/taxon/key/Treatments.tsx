@@ -8,8 +8,17 @@ import { useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from './VernacularNameTable';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 const DEFAULT_LIMIT = 10;
+
+export default function TreatmentsCard({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) {
+  return (
+    <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.treatments" />}>
+      <Treatments taxonInfo={taxonInfo} />
+    </ErrorBoundary>
+  );
+}
 
 const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
   const [offset, setOffset] = useState(0);
@@ -90,5 +99,3 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
     </Card>
   );
 };
-
-export default Treatments;

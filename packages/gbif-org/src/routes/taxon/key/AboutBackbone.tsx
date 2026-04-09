@@ -28,6 +28,7 @@ import { useConfig } from '@/config/config';
 import { CardDescription } from '@/components/ui/smallCard';
 import { TaxonTree } from '../search/views/tree';
 import { HyperText } from '@/components/hyperText';
+import TreatmentsCard from './Treatments';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -147,14 +148,7 @@ export default function AboutBackbone() {
               </ErrorBoundary>
             )}
 
-            {hasTreatments && (
-              <ErrorBoundary
-                type="BLOCK"
-                errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
-              >
-                <Treatments taxonInfo={taxonInfo} />
-              </ErrorBoundary>
-            )}
+            {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
 
             {/* TODO taxonapi: there are some fields missing here https://github.com/gbif/taxon-ws/issues/20 */}
             {/* {data.taxon?.issues?.length > 0 && (
