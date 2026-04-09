@@ -428,8 +428,8 @@ export function Synonyms({
                     onClick={(e) => {
                       e.stopPropagation();
                     }}
-                    to={`/species/${x.key}`}
-                    pageId="speciesKey"
+                    to={`/taxon/${x.key}`}
+                    pageId="taxonKey"
                     variables={{ key: x.key }}
                   >
                     <MdLink />
@@ -449,8 +449,8 @@ export function Synonyms({
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
-                      to={`/species/${x?.entity?.acceptedKey}`}
-                      pageId="speciesKey"
+                      to={`/taxon/${x?.entity?.acceptedKey}`}
+                      pageId="taxonKey"
                       variables={{ key: x?.entity?.acceptedKey }}
                     >
                       <MdLink />

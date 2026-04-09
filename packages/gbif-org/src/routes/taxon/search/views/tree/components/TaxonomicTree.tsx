@@ -45,14 +45,14 @@ function TreeNode<T extends BaseTaxonNode>({
               aria-expanded={isExpanded}
               aria-controls={contentId}
               onClick={() => setIsExpanded(!isExpanded)}
-              className="g-flex g-items-center g-justify-center g-w-6 g-h-6 g-rounded g-text-gray-400 hover:g-text-primary-600 hover:g-bg-gray-200 g-transition-all"
+              className="g-flex g-items-center g-justify-center g-w-[1.5em] g-h-[1.5em] g-rounded g-text-gray-400 hover:g-text-primary-600 hover:g-bg-gray-200 g-transition-all"
             >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
-                className={`g-w-3 g-h-3 g-transform g-transition-transform ${isExpanded ? 'g-rotate-90' : ''}`}
+                className={`g-w-[.75em] g-h-[.75em] g-transform g-transition-transform ${isExpanded ? 'g-rotate-90' : ''}`}
               >
                 <path d="M9 5l7 7-7 7" />
               </svg>

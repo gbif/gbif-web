@@ -29,11 +29,11 @@ export function OccurrenceGalleryBar({
         {images.map((image) => {
           return (
             <DynamicLink
+              key={image.occurrenceKey + image.thumbor}
               pageId="occurrenceSearch"
               searchParams={{ ...searchParams, entity: `o_${image.occurrenceKey}` }}
             >
               <Image
-                key={image.occurrenceKey + image.thumbor}
                 src={image.thumbor ?? '/missing-image-url'}
                 defaultSize={{ height: 200, width: 200 }}
                 className="g-rounded g-image"

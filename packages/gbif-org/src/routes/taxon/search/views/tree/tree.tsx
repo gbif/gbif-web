@@ -25,7 +25,7 @@ const DATASET_ROOTS = /* GraphQL */ `
       count
       results {
         taxonID
-        label
+        label: scientificName
         rank: taxonRank
         status: taxonomicStatus
         childrenCount: children
@@ -39,7 +39,7 @@ const PARENTS = /* GraphQL */ `
     taxon(datasetKey: $datasetKey, key: $key) {
       parentTree {
         taxonID
-        label
+        label: scientificName
         childrenCount: children
         status: taxonomicStatus
         rank: taxonRank
@@ -131,7 +131,7 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
               <ul
                 role="region"
                 aria-labelledby={taxon.taxonID}
-                className={`g-m-0 g-pl-4 g-list-none g-ms-3`}
+                className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-4 md:g-ms-3`}
               >
                 {child}
               </ul>

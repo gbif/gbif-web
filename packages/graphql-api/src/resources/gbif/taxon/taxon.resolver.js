@@ -61,19 +61,14 @@ const sharedTaxonFields = {
       datasetKey,
     });
   },
-  occurrenceMedia: ({ taxonID, datasetKey }, args, { dataSources }) => {
-    if (datasetKey !== DEFAULT_CHECKLIST_KEY) {
-      return {
-        count: 0,
-        results: [],
-        offset: args.offset,
-        limit: args.limit,
-        endOfRecords: true,
-      }; // occurrence media is only precached for our primary taxonomy. colXR at time of writing
-    }
-
+  occurrenceMedia: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) => {
     return dataSources.taxonAPI.getTaxonOccurrenceMedia({
       taxonKey: taxonID,
+      checklistKey: datasetKey,
       limit: 10,
       offset: 0,
       mediaType: 'stillImage',
@@ -210,8 +205,8 @@ export default {
     }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
   },
   TaxonFacet: {
-    rank: getTaxonFacet('rank'),
-    status: getTaxonFacet('status'),
+    taxonRank: getTaxonFacet('taxonRank'),
+    taxonomicStatus: getTaxonFacet('taxonomicStatus'),
     issue: getTaxonFacet('issue'),
     taxonId: getTaxonFacet('taxonId'),
   },
@@ -278,17 +273,25 @@ export default {
     ) => {
       if (!acceptedNameUsageID) return null;
       return dataSources.taxonAPI
-        .getTaxonInfo({
+        .getTaxon({
           key: acceptedNameUsageID,
           datasetKey,
         })
         .then((response) => {
-          return response?.taxon?.scientificName;
+          return response?.scientificName;
         });
     },
   },
   TaxonFull: {
     ...sharedTaxonFields,
+    namePublishedIn: ({ namePublishedIn, namePublishedInID, bibliography }) => {
+      if (namePublishedIn) return namePublishedIn; // this only works as long as the API will return it, it is announced to stop that soon.
+      if (!namePublishedInID) return null;
+      return (
+        bibliography.find((b) => b.referenceID === namePublishedInID)
+          ?.citation ?? null
+      );
+    },
   },
   TaxonChild: {
     childrenTree: sharedTaxonFields.children,

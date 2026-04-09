@@ -228,7 +228,7 @@ export const gbifConfig: Config = {
     scope: {
       datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
     },
-    highlightedFilters: ['q', 'status', 'rank', 'taxonId', 'issue'],
+    highlightedFilters: ['q', 'taxonomicStatus', 'taxonRank', 'taxonId', 'issue'],
   },
   literatureSearch: {
     queryType: 'PREDICATE',

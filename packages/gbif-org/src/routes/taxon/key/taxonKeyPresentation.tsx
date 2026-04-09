@@ -129,7 +129,9 @@ const SectionTabs = ({ isNub }: { isNub: boolean }) => {
     if (isNub) {
       tabsToDisplay.push({
         to: 'metrics',
-        children: <FormattedMessage id="taxon.tabs.metrics" />,
+        children: (
+          <FormattedMessage id="taxon.tabs.occurrenceMetrics" defaultMessage="Occurrence metrics" />
+        ),
       });
     }
 
@@ -166,7 +168,7 @@ const PageHeader = ({
       <PageMetaData
         title={taxon.scientificName}
         jsonLd={isPrimaryTaxonomy ? getTaxonSchema(data) : undefined}
-        path={`/species/${taxonInfo?.taxon?.taxonID}`}
+        path={`/taxon/${taxonInfo?.taxon?.taxonID}`} // TODO taxonapi: this should be updated to match the path for datasets? Or do we exclude them?
         noCanonical
       />
 
@@ -258,7 +260,7 @@ const PageHeader = ({
                   <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
                   <Button asChild variant="link" className="g-p-1">
                     <DynamicLink
-                      pageId="speciesKey"
+                      pageId="taxonKey"
                       variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
                     >
                       <span
@@ -272,16 +274,6 @@ const PageHeader = ({
                     </DynamicLink>
                   </Button>
                 </>
-              )}
-              {taxon.namePublishedIn && (
-                <span className="g-inline">
-                  <FormattedMessage id="taxon.publishedIn" />
-                  {': '}
-                  <HyperText
-                    className="prose-links g-inline [&_p]:g-inline"
-                    text={taxon.namePublishedIn}
-                  />
-                </span>
               )}
             </div>
             <HeaderInfo>

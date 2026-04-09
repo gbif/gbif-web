@@ -45,9 +45,9 @@ export function TaxonKey() {
   } else {
     // let { to } = createLink({
     //   pageId: 'datasetKey',
-    //   variables: { key: `${data?.taxon?.datasetKey}/species/${data?.taxon?.key}` },
+    //   variables: { key: `${data?.taxon?.datasetKey}/taxon/${data?.taxon?.key}` },
     // });
-    // if (!to) to = `/dataset/${data?.taxon?.datasetKey}/species/${data?.taxon?.key}`;
+    // if (!to) to = `/dataset/${data?.taxon?.datasetKey}/taxon/${data?.taxon?.key}`;
     // return <Navigate to={to} />;
   }
 }
@@ -198,6 +198,12 @@ const TAXON_QUERY = /* GraphQL */ `
       vernacularNames {
         vernacularName
         language
+      }
+      bibliography {
+        referenceID
+        doi
+        citation
+        remarks
       }
       vernacularName(language: $language) {
         vernacularName

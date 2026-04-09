@@ -13,7 +13,6 @@ import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
-import ClassificationSideBar from './ClassificationSideBar';
 import { InvasiveInCountries } from './InvasiveInCountries';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
@@ -27,6 +26,8 @@ import styles from './wikiIdentifiers.module.css';
 import { NotFoundError } from '@/errors';
 import { useConfig } from '@/config/config';
 import { CardDescription } from '@/components/ui/smallCard';
+import { TaxonTree } from '../search/views/tree';
+import { HyperText } from '@/components/hyperText';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -40,7 +41,6 @@ export default function AboutBackbone() {
     },
   });
 
-  const removeSidebar = useBelow(1100);
   const taxon = data?.taxonInfo?.taxon;
   const taxonInfo = data?.taxonInfo;
   if (!taxonInfo || !taxon) throw new NotFoundError();
@@ -52,6 +52,7 @@ export default function AboutBackbone() {
     type: 'equals',
     key: 'taxonKey',
     value: taxon?.taxonID,
+    checklistKey: taxon?.datasetKey,
   };
 
   const hasSynonyms =
@@ -63,46 +64,40 @@ export default function AboutBackbone() {
     checklistKey: config.defaultChecklistKey,
   });
 
+  const showTaxonBreakdown = isFamilyOrAbove && taxon.taxonomicStatus === 'ACCEPTED';
+  const showSynonyms = taxon.taxonomicStatus === 'ACCEPTED' && hasSynonyms;
+  const hasVernacularNames = (taxonInfo?.vernacularNames?.length ?? 0) > 0;
+  const hasTreatments = (taxonInfo?.taxon?.treatments?.length ?? 0) > 0;
+  const hasOccurrenceImages = !!(
+    taxon?.occurrenceMedia?.results && (taxon?.occurrenceMedia?.count ?? 0) > 0
+  );
+  const hasBibliography = (taxonInfo?.bibliography?.length ?? 0) > 0;
+  const hasCount = !!count && count > 0;
+  const showTaxaChart = hasCount && isFamilyOrAbove;
+  const hasWikiDataIdentifiers = !!(
+    slowTaxon && (slowTaxon?.taxonInfo?.taxon?.wikiData?.identifiers?.length ?? 0) > 0
+  );
+
   if (!taxon) return null;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        <div className={`${removeSidebar ? '' : 'g-flex'}`}>
-          {/*  {!removeSidebar && (
-            <aside className="g-flex-none g-w-48 g-ms-4">
-              <ClassificationSideBar taxon={taxon} />
-            </aside>
-          )} */}
-          <div className="g-flex-grow">
-            {taxon?.occurrenceMedia?.results &&
-              taxon?.occurrenceMedia?.count &&
-              taxon.occurrenceMedia.count > 0 && (
-                <Card className="g-mb-4">
-                  <CardHeader>
-                    <CardTitle>
-                      <FormattedMessage id="taxon.occurrenceImages" />
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <OccurrenceImages
-                      results={taxon.occurrenceMedia.results}
-                      total={taxon.occurrenceMedia.count}
-                      taxonKey={taxon.taxonID}
-                    />
-                  </CardContent>
-                </Card>
-              )}
-            {isFamilyOrAbove && taxon.taxonomicStatus === 'ACCEPTED' && (
-              <TaxonBreakdown taxon={taxon} className="g-mb-4" />
-            )}
-            {hasPreprocessedMap && (
-              <MapWidget
-                className="g-mb-4"
-                capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }}
-                mapStyle="CLASSIC_HEX"
-              />
-            )}
-            {taxon.taxonomicStatus === 'ACCEPTED' && hasSynonyms && (
+        {/* create a 2 columns grid  layout that stacks on mobile */}
+        <div className="g-grid g-grid-cols-1 lg:g-grid-cols-2 g-gap-4">
+          <div>
+            <Card className="g-mb-4">
+              <CardHeader>
+                <CardTitle>Classification and descendants</CardTitle>
+                <CardDescription>
+                  <ColFeedback />
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="g-overflow-auto g-text-[15px]/4">
+                <TaxonTree datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} />
+              </CardContent>
+            </Card>
+            {showTaxonBreakdown && <TaxonBreakdown taxon={taxon} className="g-mb-4" />}
+            {showSynonyms && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
@@ -122,16 +117,8 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
-            {isSpeciesOrBelow && (
-              <ErrorBoundary
-                type="BLOCK"
-                errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
-              >
-                <TypeMaterial taxonInfo={taxonInfo} />
-              </ErrorBoundary>
-            )}
 
-            {(taxonInfo?.vernacularNames?.length ?? 0) > 0 && (
+            {hasVernacularNames && (
               <Card className="g-mb-4" id="vernacularNames">
                 <CardHeader>
                   <CardTitle>
@@ -160,7 +147,7 @@ export default function AboutBackbone() {
               </ErrorBoundary>
             )}
 
-            {(taxonInfo?.taxon?.treatments?.length ?? 0) > 0 && (
+            {hasTreatments && (
               <ErrorBoundary
                 type="BLOCK"
                 errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
@@ -169,7 +156,119 @@ export default function AboutBackbone() {
               </ErrorBoundary>
             )}
 
-            {slowTaxon && (slowTaxon?.taxonInfo?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
+            {/* TODO taxonapi: there are some fields missing here https://github.com/gbif/taxon-ws/issues/20 */}
+            {/* {data.taxon?.issues?.length > 0 && (
+              <>
+                <FormattedMessage id="filters.occurrenceIssue.name" />
+                {': '}
+                <div
+                  style={{ display: 'inline-block' }}
+                  className={cn(styles.wikidataIdentifiers, 'g-text-sm g-text-slate-500')}
+                >
+                  {data.taxon?.issues?.map((issue) => (
+                    <span key={issue}>
+                      <FormattedMessage id={`enums.taxonIssue.${issue}`} />
+                    </span>
+                  ))}
+                </div>
+              </>
+            )} */}
+          </div>
+          <div>
+            {hasOccurrenceImages && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.occurrenceImages" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <OccurrenceImages
+                    results={taxon.occurrenceMedia.results}
+                    total={taxon.occurrenceMedia.count}
+                    taxonKey={taxon.taxonID}
+                  />
+                </CardContent>
+              </Card>
+            )}
+
+            {hasBibliography && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.bibliography" />
+                  </CardTitle>
+                  <CardDescription>
+                    {taxonInfo?.taxon?.namePublishedIn && (
+                      <div className="g-mb-1">
+                        <FormattedMessage
+                          id="taxon.publishedIn"
+                          defaultMessage="Name published in"
+                        />
+                        {': '}
+                        <HyperText
+                          className="prose-links g-inline [&_p]:g-inline"
+                          text={taxon.namePublishedIn}
+                        />
+                      </div>
+                    )}
+                    <ColFeedback />
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul>
+                    {taxonInfo?.bibliography.map((bib) => (
+                      <li key={bib.referenceID} className="g-mb-2">
+                        <div>
+                          {bib.citation}{' '}
+                          {bib.doi && (
+                            <a
+                              href={`https://doi.org/${bib.doi}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {bib.doi}
+                            </a>
+                          )}
+                        </div>
+                        {bib.remarks && <div className="g-text-slate-600">{bib.remarks}</div>}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+
+            {hasPreprocessedMap && (
+              <MapWidget
+                className="g-mb-4"
+                capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }}
+                mapStyle="CLASSIC_HEX"
+              />
+            )}
+            {isSpeciesOrBelow && (
+              <ErrorBoundary
+                type="BLOCK"
+                errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
+              >
+                <TypeMaterial taxonInfo={taxonInfo} />
+              </ErrorBoundary>
+            )}
+            {showTaxaChart && (
+              <ClientSideOnly>
+                <charts.Taxa
+                  defaultRank={nextMajorRank?.toLowerCase() || 'family'}
+                  predicate={predicate}
+                  className="g-mb-2"
+                />
+              </ClientSideOnly>
+            )}
+          </div>
+        </div>
+
+        <div className="g-flex">
+          <div className="g-flex-grow">
+            {hasWikiDataIdentifiers && (
               <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
                   <CardTitle>
@@ -218,28 +317,6 @@ export default function AboutBackbone() {
               </>
             )} */}
           </div>
-
-          {!removeSidebar && (
-            <aside className="g-flex-none g-w-96 g-ms-4">
-              <ClassificationSideBar taxonInfo={taxonInfo} />
-
-              {!!count && count > 0 && (
-                <>
-                  <ClientSideOnly>
-                    {isFamilyOrAbove && (
-                      <charts.Taxa
-                        defaultRank={nextMajorRank?.toLowerCase() || 'family'}
-                        predicate={predicate}
-                        className="g-mb-2"
-                      />
-                    )}
-                  </ClientSideOnly>
-                </>
-              )}
-              {/* TODO taxonapi: fix link */}
-              <GbifLinkCard path={`/species/${taxon.taxonID}`} />
-            </aside>
-          )}
         </div>
       </ArticleTextContainer>
     </ArticleContainer>

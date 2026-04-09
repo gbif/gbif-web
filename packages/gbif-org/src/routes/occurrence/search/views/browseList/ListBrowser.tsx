@@ -12,8 +12,8 @@ const entityTypes = {
   e: 'eventKey',
   d: 'datasetKey',
   p: 'publisherKey',
-  t: 'speciesKey',
-  tx: 'speciesKey',
+  t: 'taxonKey',
+  tx: 'taxonKey',
   c: 'collectionKey',
   i: 'institutionKey',
   n: 'networkKey',
@@ -41,8 +41,8 @@ export default function EntityDrawer() {
     abbreviation === 'tx'
       ? null
       : key
-      ? createLink({ pageId: `${type}`, variables: { key: key } })
-      : null;
+        ? createLink({ pageId: `${type}`, variables: { key: key } })
+        : null;
 
   const getCurrentIndex = () => {
     return orderedList.findIndex((o) => o?.toString() === previewKey?.toString());
@@ -99,7 +99,7 @@ export default function EntityDrawer() {
       {type === 'institutionKey' && <StandaloneOccurrenceKeyPage url={`/institution/${key}`} />}
       {type === 'networkKey' && <StandaloneOccurrenceKeyPage url={`/network/${key}`} />}
       {type === 'installationKey' && <StandaloneOccurrenceKeyPage url={`/installation/${key}`} />}
-      {type === 'speciesKey' && <StandaloneOccurrenceKeyPage url={`/species/${key}`} />}
+      {type === 'taxonKey' && <StandaloneOccurrenceKeyPage url={`/taxon/${key}`} />}
       {type === 'downloadKey' && (
         <StandaloneOccurrenceKeyPage url={`/occurrence/download/${key}`} />
       )}

@@ -1,8 +1,6 @@
 import { FilterIcon } from '@/components/icons/icons';
 import { TaxonChildrenQuery, TaxonChildrenQueryVariables } from '@/gql/graphql';
 import { useQuery } from '@/hooks/useQuery';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { off } from 'process';
 import {
   createContext,
   useContext,
@@ -38,7 +36,7 @@ interface TreeItemContextProps {
   endOfRecords: boolean;
 }
 
-const LIMIT = 20;
+const LIMIT = 10;
 
 const TreeItemContext = createContext<TreeItemContextProps | undefined>(undefined);
 
@@ -69,7 +67,7 @@ const TAXON_CHILDREN = /* GraphQL */ `
         offset
         results {
           taxonID
-          label
+          label: scientificName
           rank: taxonRank
           status: taxonomicStatus
           childrenCount: children
@@ -160,7 +158,7 @@ export const TreeItem = ({
  * Usually contains the toggle and the labels/actions.
  */
 export const TreeHeader = ({ children }: { children: ReactNode }) => (
-  <div className="g-flex g-items-start g-gap-2 g-py-1 g-px-2 g-rounded-md hover:g-bg-gray-50 g-group">
+  <div className="g-flex g-gap-2 g-px-2 g-py-1 g-rounded-md hover:g-bg-gray-50 g-group g-items-center">
     {children}
   </div>
 );
@@ -168,27 +166,17 @@ export const TreeHeader = ({ children }: { children: ReactNode }) => (
 export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon: TaxonData }) => (
   <div className="g-flex-1 g-flex g-items-center g-justify-between">
     <div className="g-flex-1 g-flex g-items-start">
-      <div className="g-text-gray-500 g-me-3">
+      {/* <div className="g-text-gray-600 g-me-3">
         <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
-      </div>
+      </div> */}
       <div>
-        <Link to={`/dataset/${datasetKey}/taxon/${taxon.taxonID}`} className="g-text-primary-500">
+        {/* TODO taxonapi: fix the link so it accounts for primary vs dataset */}
+        <Link
+          to={`/dataset/${datasetKey}/taxon/${taxon.taxonID}`}
+          className="g-text-primary-700 g-whitespace-nowrap"
+        >
           <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
         </Link>
-
-        {/* {taxon.hasSynonyms && (
-          <ul className="g-text-sm">
-            <li>
-              <span className="g-text-red-600">=</span>synonym 1
-            </li>
-            <li>
-              <span className="g-text-red-600">=</span>synonym 2
-            </li>
-            <li>
-              <span className="g-text-red-600">=</span>synonym 3
-            </li>
-          </ul>
-        )} */}
       </div>
     </div>
   </div>
@@ -210,7 +198,7 @@ export const TreeGroup = ({
       role="region"
       aria-labelledby={buttonId}
       hidden={!isExpanded} // Follows the Edge bug fix from your reference
-      className={`g-m-0 g-pl-4 g-list-none g-ms-3`}
+      className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-4 md:g-ms-3`}
       // className={`g-m-0 g-pl-4 g-list-none g-border-l g-border-gray-300 g-ms-5`}
     >
       {children?.map((child) => nodeRender({ child }))}
@@ -238,10 +226,10 @@ export const TreeToggle = () => {
       aria-expanded={isExpanded}
       aria-controls={contentId}
       onClick={toggle}
-      className="g-flex g-items-center g-justify-center g-w-6 g-h-6 g-rounded hover:g-bg-gray-200 g-text-gray-400"
+      className="g-flex g-items-center g-justify-center g-w-[1.5em] g-h-[1.5em] g-rounded hover:g-bg-gray-200 g-text-gray-400"
     >
       <svg
-        className={`g-w-3 g-h-3 g-transition-transform ${isExpanded ? 'g-rotate-90' : ''}`}
+        className={`g-w-[.75em] g-h-[.75em] g-transition-transform ${isExpanded ? 'g-rotate-90' : ''}`}
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"

@@ -40,7 +40,6 @@ const TAXON_SEARCH_QUERY = /* GraphQL */ `
           dataset {
             title
           }
-          acceptedNameUsage
           acceptedNameUsageID
         }
         classification {
@@ -101,10 +100,10 @@ export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['t
 const keySelector = (item: SingleTaxonSearchResult) => item.taxon?.taxonID?.toString() ?? '';
 
 const KeySelectorDatasetTaxon = (item: SingleTaxonSearchResult) =>
-  `${item.taxon?.datasetKey}/species/${item.taxon?.taxonID}`;
+  `${item.taxon?.datasetKey}/taxon/${item.taxon?.taxonID}`;
 
 const rowLinkOptionsDirect: RowLinkOptions<SingleTaxonSearchResult> = {
-  pageId: 'speciesKey',
+  pageId: 'taxonKey',
 };
 
 const rowLinkOptionsDatasetKeyTaxonDirect: RowLinkOptions<SingleTaxonSearchResult> = {

@@ -101,7 +101,7 @@ function TaxaMain({
           <span>
             {x?.entity?.usage.name}{' '}
             <DynamicLink
-              pageId="speciesKey"
+              pageId="taxonKey"
               variables={{ key: x?.key.toString(), checklistKey: x.entity.checklistKey }}
               onClick={(e) => {
                 e.stopPropagation();

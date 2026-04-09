@@ -12,17 +12,6 @@ type Args = {
   showPreview?: ((id: string) => void) | false;
 };
 
-const hasHighlightsInTaxonomy = (taxon) => {
-  if (!taxon) return false;
-  let hl = false;
-  return ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].some((rank) => {
-    if (taxon?.[rank] && taxon?.[rank].includes('<em class="gbifHl">')) {
-      hl = true;
-    }
-    return hl;
-  });
-};
-
 export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSearchResult>[] {
   return useMemo(() => {
     const columns: ColumnDef<SingleTaxonSearchResult>[] = [
@@ -33,7 +22,6 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
         minWidth: 250,
         cell: (taxon) => {
           const vernacular = taxon.vernacularName?.vernacularName;
-          const hasHlInTaxonomy = hasHighlightsInTaxonomy(taxon);
           return (
             <div className="g-inline-flex g-items-center g-w-full">
               {typeof showPreview === 'function' && (
@@ -95,12 +83,13 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
         id: 'taxonomicStatus',
         header: 'filters.taxonomicStatus.name',
         filterKey: 'status', // default is same as id
-        cell: ({ taxon }) => {
+        cell: ({ taxon, classification }) => {
           if (!taxon) return null;
-          const { taxonomicStatus, acceptedNameUsage, acceptedNameUsageID } = taxon;
+          const { taxonomicStatus, acceptedNameUsageID } = taxon;
+          const lastClassification = classification?.[classification.length - 1];
           return (
             <div>
-              <SetAsFilter field="status" value={taxonomicStatus}>
+              <SetAsFilter field="taxonomicStatus" value={taxonomicStatus}>
                 {taxonomicStatus && (
                   <FormattedMessage id={`enums.taxonomicStatus.${taxonomicStatus}`} />
                 )}
@@ -111,11 +100,11 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                   <DynamicLink
                     className="g-underline g-pointer-events-auto"
                     // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
-                    to={`/species/${acceptedNameUsageID}`}
-                    pageId="speciesKey"
+                    to={`/taxon/${acceptedNameUsageID}`}
+                    pageId="taxonKey"
                     variables={{ key: acceptedNameUsageID }}
                   >
-                    {acceptedNameUsage}
+                    {lastClassification?.scientificName}
                   </DynamicLink>
                 </div>
               )}
@@ -131,7 +120,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
           if (!taxon || !taxon.taxonRank) return null;
           const { taxonRank } = taxon;
           return (
-            <SetAsFilter field="rank" value={taxonRank}>
+            <SetAsFilter field="taxonRank" value={taxonRank}>
               <FormattedMessage id={`enums.taxonRank.${taxonRank}`} />
             </SetAsFilter>
           );

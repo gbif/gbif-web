@@ -40,7 +40,7 @@ const TaxonBreakdown = ({
         pageId: 'taxonKey',
         variables: { key },
       });
-      if (!to) to = `/species/${key}`;
+      if (!to) to = `/taxon/${key}`;
       navigate(to);
     } else {
       try {
@@ -50,9 +50,9 @@ const TaxonBreakdown = ({
         if (gbifTaxonKey) {
           let { to } = createLink({
             pageId: 'datasetKey',
-            variables: { key: `${taxon.datasetKey}/species/${gbifTaxonKey}` },
+            variables: { key: `${taxon.datasetKey}/taxon/${gbifTaxonKey}` },
           });
-          if (!to) to = `/species/${key}`;
+          if (!to) to = `/taxon/${key}`;
           navigate(to);
         }
       } catch (error) {}

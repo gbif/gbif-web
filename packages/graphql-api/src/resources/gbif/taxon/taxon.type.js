@@ -9,9 +9,9 @@ const typeDef = gql`
 
     taxonSearch(
       datasetKey: [ID]
-      rank: [String]
+      taxonRank: [String]
       taxonID: [ID]
-      status: [String]
+      taxonomicStatus: [String]
       extinct: Boolean
       nameType: [String]
       code: [String]
@@ -36,9 +36,9 @@ const typeDef = gql`
 
   input TaxonSearchInput {
     datasetKey: [ID]
-    rank: [String]
+    taxonRank: [String]
     taxonId: [ID]
-    status: [String]
+    taxonomicStatus: [String]
     extinct: Boolean
     nameType: [String]
     code: [String]
@@ -69,7 +69,7 @@ const typeDef = gql`
   }
 
   type TaxonResult {
-    taxon: TaxonFull
+    taxon: TaxonSimple
     classification: [TaxonClassification!]
     vernacularNames: [VernacularName!]
     """
@@ -79,8 +79,8 @@ const typeDef = gql`
   }
 
   type TaxonFacet {
-    rank(limit: Int, offset: Int): [TaxonFacetResult]
-    status(limit: Int, offset: Int): [TaxonFacetResult]
+    taxonRank(limit: Int, offset: Int): [TaxonFacetResult]
+    taxonomicStatus(limit: Int, offset: Int): [TaxonFacetResult]
     taxonId(limit: Int, offset: Int): [TaxonFacetResult_taxonId]
     issue(limit: Int, offset: Int): [TaxonFacetResult]
   }
@@ -208,7 +208,7 @@ const typeDef = gql`
   type Bibliography {
     referenceID: ID!
     doi: String
-    citation: String
+    citation: String!
     remarks: String
   }
 
@@ -222,7 +222,7 @@ const typeDef = gql`
     pathway: String
     threatStatus: String
     eventDate: String
-    source: String
+    referenceID: ID
     remarks: String
   }
 
@@ -326,6 +326,7 @@ const typeDef = gql`
     originalNameUsageID: ID
     originalNameUsage: String
     nameAccordingTo: String
+    namePublishedInID: String
     namePublishedIn: String
     namePhrase: String
     nomenclaturalStatus: String
@@ -447,7 +448,7 @@ const typeDef = gql`
     checklistBankLink: String
     # environment: [String]!
     measurementOrFacts: [MeasurementOrFact!]
-    bibliography: [Bibliography!]
+    bibliography: [Bibliography!]!
     distributions: [Distribution!]
     media: [Media!]
     vernacularNames: [VernacularName!]

@@ -75,7 +75,10 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                   {taxon.publishedIn && (
                     <span className="g-inline">
                       <FormattedMessage id="taxon.publishedIn" />{' '}
-                      <HyperText className="prose-links g-inline [&_p]:g-inline" text={taxon.publishedIn} />
+                      <HyperText
+                        className="prose-links g-inline [&_p]:g-inline"
+                        text={taxon.publishedIn}
+                      />
                     </span>
                   )}
                   <FeatureList>
@@ -186,7 +189,8 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                 </>
               )} */}
 
-              <GbifLinkCard path={`/species/${taxon.key}`} />
+              {/* TODO taxonapi: fix link, but probably easier to wait until we go live on gbif.org */}
+              {/* <GbifLinkCard path={`/taxon/${taxon.key}`} /> */}
             </aside>
           )}
         </div>

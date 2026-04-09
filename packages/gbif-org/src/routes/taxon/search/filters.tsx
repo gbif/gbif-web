@@ -26,9 +26,9 @@ const freeTextConfig: filterFreeTextConfig = {
   filterTranslation: 'filters.q.name',
 };
 
-export const rankConfig: filterEnumConfig = {
+export const taxonRankConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
-  filterHandle: 'rank',
+  filterHandle: 'taxonRank',
   displayName: TaxonRankLabel,
   // options: taxonRankOptions,
   filterTranslation: 'filters.taxonRank.name',
@@ -36,7 +36,7 @@ export const rankConfig: filterEnumConfig = {
     query TaxonRankFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: rank(limit: 100) {
+          field: taxonRank(limit: 100) {
             name
             count
           }
@@ -47,9 +47,9 @@ export const rankConfig: filterEnumConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
-export const statusConfig: filterEnumConfig = {
+export const taxonomicStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
-  filterHandle: 'status',
+  filterHandle: 'taxonomicStatus',
   displayName: TaxonStatusLabel,
   options: taxonStatusOptions,
   filterTranslation: 'filters.taxonomicStatus.name',
@@ -57,7 +57,7 @@ export const statusConfig: filterEnumConfig = {
     query TaxonStatusFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: status(limit: 100) {
+          field: taxonomicStatus(limit: 100) {
             name
             count
           }
@@ -129,8 +129,12 @@ export function useFilters({
   useEffect(() => {
     const nextFilters = {
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
-      rank: generateFilters({ config: rankConfig, searchConfig, formatMessage }),
-      status: generateFilters({ config: statusConfig, searchConfig, formatMessage }),
+      taxonRank: generateFilters({ config: taxonRankConfig, searchConfig, formatMessage }),
+      taxonomicStatus: generateFilters({
+        config: taxonomicStatusConfig,
+        searchConfig,
+        formatMessage,
+      }),
       issue: generateFilters({ config: issuesConfig, searchConfig, formatMessage }),
       taxonId: generateFilters({
         config: taxonIdConfig,

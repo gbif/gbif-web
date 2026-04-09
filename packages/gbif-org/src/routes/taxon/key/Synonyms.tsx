@@ -67,7 +67,7 @@ function Synonym({
 }) {
   return (
     <DynamicLink
-      pageId="speciesKey"
+      pageId="taxonKey"
       variables={{ key: synonym.taxonID }}
       className="g-text-decoration-none g-text-primary-500"
     >

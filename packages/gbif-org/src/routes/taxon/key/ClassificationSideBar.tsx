@@ -39,7 +39,7 @@ const ClassificationSideBar = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonI
   if (!taxonInfo?.classification) return null;
   const taxon = taxonInfo.taxon;
   if (!taxon) return null;
-  const classification = [...(taxonInfo.classification ?? [])].reverse();
+  const classification = [...(taxonInfo.classification ?? [])];
   const children = data?.taxonInfo?.taxon?.children;
 
   return (
@@ -59,11 +59,11 @@ const ClassificationSideBar = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonI
                   !isFamilyOrAbove(parent.taxonRank ?? '') ? 'g-italic' : ''
                 }`}
                 // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
-                pageId={isPrimaryTaxonomy ? 'speciesKey' : 'datasetKey'}
+                pageId={isPrimaryTaxonomy ? 'taxonKey' : 'datasetKey'}
                 variables={
                   isPrimaryTaxonomy
                     ? { key: parent.taxonID }
-                    : { key: `${taxon?.datasetKey}/species/${parent.taxonID}` }
+                    : { key: `${taxon?.datasetKey}/taxon/${parent.taxonID}` }
                 }
               >
                 {parent?.scientificName}
@@ -115,11 +115,11 @@ const ClassificationSideBar = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonI
                 )}
                 <DynamicLink
                   className={`g-underline g-pointer-events-auto g.ml-${idx}`}
-                  pageId={isPrimaryTaxonomy ? 'speciesKey' : 'datasetKey'}
+                  pageId={isPrimaryTaxonomy ? 'taxonKey' : 'datasetKey'}
                   variables={
                     isPrimaryTaxonomy
                       ? { key: child.taxonID }
-                      : { key: `${taxon.datasetKey}/species/${child.taxonID}` }
+                      : { key: `${taxon.datasetKey}/taxon/${child.taxonID}` }
                   }
                 >
                   <span className={`${!isFamilyOrAbove(child.taxonRank) ? 'g-italic' : ''}`}>

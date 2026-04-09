@@ -69,7 +69,7 @@ export function TaxonResult({
                 <h3 className="g-text-base g-font-semibold g-mb-2">
                   <DynamicLink
                     className="hover:g-text-primary-500 g-me-1"
-                    pageId="speciesKey"
+                    pageId="taxonKey"
                     variables={{ key: taxon.key + '' }}
                   >
                     <span
@@ -95,7 +95,7 @@ export function TaxonResult({
                     Accepted name for{' '}
                     <DynamicLink
                       className="g-underline g-font-semibold"
-                      pageId="speciesKey"
+                      pageId="taxonKey"
                       variables={{ key: synonym.key + '' }}
                     >
                       <span dangerouslySetInnerHTML={{ __html: synonym.formattedName }} />

@@ -15,7 +15,7 @@ const SourceLink = ({ taxonData }: { taxonData: TaxonKeyQuery }) => {
   ) : sourceTaxon.taxonID && sourceTaxon.datasetKey ? (
     <DynamicLink
       pageId="datasetKey"
-      variables={{ key: `${sourceTaxon.datasetKey}/species/${sourceTaxon.taxonID}` }} // TODO taxonapi link should use taxon instead
+      variables={{ key: `${sourceTaxon.datasetKey}/taxon/${sourceTaxon.taxonID}` }} // TODO taxonapi link should use taxon instead
     >
       <FormattedMessage id="taxon.referenceTaxon" defaultMessage="Reference Taxon" /> <MdLink />
     </DynamicLink>

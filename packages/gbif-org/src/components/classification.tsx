@@ -39,8 +39,8 @@ export function TaxonClassification({
       {classificationFiltered.map((c, i) => (
         <span key={i}>
           <DynamicLink
-            pageId={datasetKey ? 'datasetKey' : 'speciesKey'}
-            variables={{ key: datasetKey ? `${datasetKey}/species/${c.key}` : c.key }}
+            pageId={datasetKey ? 'datasetKey' : 'taxonKey'}
+            variables={{ key: datasetKey ? `${datasetKey}/taxon/${c.key}` : c.key }}
             className="g-text-inherit hover:g-underline"
           >
             <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>

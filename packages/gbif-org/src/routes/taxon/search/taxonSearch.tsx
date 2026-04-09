@@ -76,17 +76,12 @@ export function TaxonSearchPageInner({ datasetKey }: { datasetKey?: string }): R
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        {/* Our tabs component is very tied into a specific way to handle routes an actions. 
-        It would be nice to split it up into a more generic component that can be used in more contexts.
-        Could be this where we do search params or it could be links to other sites 
-        For now a quick and dirty mock to have the option to do views with a url search param
-        */}
-        <TaxonViewTabs
+        {/* <TaxonViewTabs
           setView={setView}
           view={view}
           defaultView={defaultView}
           tabs={searchContext.tabs}
-        />
+        /> */}
       </DataHeader>
 
       <section>
@@ -120,7 +115,7 @@ export function Views({
           <DynamicHeightDiv
             minPxHeight={500}
             onlySetMinHeight
-            className="g-bg-white g-flex-1 g-border g-border-solid g-basis-full g-h-1 g-flex g-flex-col"
+            className="g-bg-white g-flex-1 g-border g-border-solid g-basis-full g-h-1 g-flex g-flex-col g-overflow-auto g-p-4"
           >
             {view === 'tree' && <SearchPageTree entityDrawerPrefix={entityDrawerPrefix} />}
           </DynamicHeightDiv>

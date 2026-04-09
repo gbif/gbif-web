@@ -377,9 +377,15 @@ class TaxonAPI extends QueuedRESTDataSource {
     return sortedResults;
   }
 
-  async getTaxonOccurrenceMedia({ taxonKey, limit, offset, mediaType }) {
+  async getTaxonOccurrenceMedia({
+    taxonKey,
+    checklistKey = this.config.defaultChecklistKey,
+    limit,
+    offset,
+    mediaType,
+  }) {
     return this.get(
-      `/occurrence/experimental/multimedia/species/${taxonKey}/`,
+      `/occurrence/experimental/multimedia/species/${checklistKey}/${taxonKey}/`,
       { limit, offset, mediaType },
     );
   }
