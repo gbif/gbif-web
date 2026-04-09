@@ -1,13 +1,11 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useContext } from 'react';
-import { FormattedMessage } from 'react-intl';
 import TaxonBreakdown from './BreakDown';
 import { InvasiveInCountries } from './InvasiveInCountries';
 import { TaxonKeyContext } from './taxonKeyPresentation';
@@ -84,19 +82,10 @@ export default function AboutBackbone() {
             {showTaxonBreakdown && <TaxonBreakdown taxon={taxon} />}
             {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
             {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
-            {isSpeciesOrBelow && (
-              <ErrorBoundary
-                type="BLOCK"
-                errorMessage={<FormattedMessage id="taxon.errors.invasiveInCountries" />}
-              >
-                <InvasiveInCountries taxonInfo={taxonInfo} />
-              </ErrorBoundary>
-            )}
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
           </div>
           <div>
             {hasOccurrenceImages && <OccurrenceImagesCard taxon={taxon} />}
-            {hasBibliography && <BibliographyCard taxonInfo={taxonInfo} />}
             {hasPreprocessedMap && (
               <MapWidget
                 className="g-mb-4"
@@ -104,14 +93,8 @@ export default function AboutBackbone() {
                 mapStyle="CLASSIC_HEX"
               />
             )}
-            {isSpeciesOrBelow && (
-              <ErrorBoundary
-                type="BLOCK"
-                errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
-              >
-                <TypeMaterial taxonInfo={taxonInfo} />
-              </ErrorBoundary>
-            )}
+            {isSpeciesOrBelow && <TypeMaterial taxonInfo={taxonInfo} />}
+            {isSpeciesOrBelow && <InvasiveInCountries taxonInfo={taxonInfo} />}
             {showTaxaChart && (
               <ClientSideOnly>
                 <charts.Taxa
@@ -121,6 +104,7 @@ export default function AboutBackbone() {
                 />
               </ClientSideOnly>
             )}
+            {hasBibliography && <BibliographyCard taxonInfo={taxonInfo} />}
           </div>
         </div>
 

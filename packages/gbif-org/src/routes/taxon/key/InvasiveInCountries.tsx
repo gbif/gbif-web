@@ -1,6 +1,7 @@
 import { Count } from '@/components/count';
 import { Table } from '@/components/dashboard/shared';
 import { Button } from '@/components/ui/button';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -11,6 +12,17 @@ import { useState } from 'react';
 const DEFAULT_LIMIT = 10;
 
 export function InvasiveInCountries({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) {
+  return (
+    <ErrorBoundary
+      type="BLOCK"
+      errorMessage={<FormattedMessage id="taxon.errors.invasiveInCountries" />}
+    >
+      <InvasiveInCountriesContent taxonInfo={taxonInfo} />
+    </ErrorBoundary>
+  );
+}
+
+function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
 

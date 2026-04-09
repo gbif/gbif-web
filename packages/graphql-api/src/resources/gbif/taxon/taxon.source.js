@@ -37,7 +37,29 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getTaxonInfo({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${key}/info`);
+    return this.get(`/taxon/${datasetKey}/${key}/info`).then((response) => {
+      // add logic to add isNamePublishedIn field to the bibliographic item if it matches the taxon namePublishedInID
+      const { taxon } = response;
+      const namePublishedInID = taxon?.namePublishedInID;
+      if (namePublishedInID && response.bibliography) {
+        response.bibliography.forEach((item) => {
+          item.isNamePublishedIn = item.referenceID === namePublishedInID;
+        });
+      }
+      // sort bibliography so that the item with isNamePublishedIn true is first
+      if (response.bibliography) {
+        response.bibliography.sort((a, b) => {
+          if (a.isNamePublishedIn && !b.isNamePublishedIn) {
+            return -1;
+          }
+          if (!a.isNamePublishedIn && b.isNamePublishedIn) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+      return response;
+    });
   }
 
   async getRelatedTaxonInfo({ datasetKey, key }) {

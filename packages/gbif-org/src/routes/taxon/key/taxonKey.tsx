@@ -131,7 +131,6 @@ const TAXON_QUERY = /* GraphQL */ `
         label
         references
         acceptedNameUsageID
-        namePublishedIn
         sourceID
         dataset {
           key
@@ -204,6 +203,7 @@ const TAXON_QUERY = /* GraphQL */ `
         doi
         citation
         remarks
+        isNamePublishedIn
       }
       vernacularName(language: $language) {
         vernacularName

@@ -1,5 +1,6 @@
 import { Table } from '@/components/dashboard/shared';
 import { Button } from '@/components/ui/button';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { VocabularyValue } from '@/components/vocabularyValue';
 import {
@@ -203,7 +204,13 @@ const TypeMaterial = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) 
   ) : null;
 };
 
-export default TypeMaterial;
+export default function TypeMaterialCard({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) {
+  return (
+    <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}>
+      <TypeMaterial taxonInfo={taxonInfo} />
+    </ErrorBoundary>
+  );
+}
 
 const TYPE_MATERIAL_QUERY = /* GraphQL */ `
   query TaxonTypeSpecimens($from: Int, $size: Int, $predicate: Predicate) {

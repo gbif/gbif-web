@@ -271,6 +271,13 @@ export default {
     vernacularName: getVernacularName,
     scientificName: ({ taxon }) => taxon?.scientificName,
     label: ({ taxon }) => taxon?.scientificName,
+    namePublishedIn: ({ taxon, bibliography }) => {
+      if (!taxon?.namePublishedInID) return null;
+      return (
+        bibliography.find((b) => b.referenceID === taxon.namePublishedInID)
+          ?.citation ?? null
+      );
+    },
   },
   TaxonSimple: {
     ...sharedTaxonFields,
@@ -292,14 +299,6 @@ export default {
   },
   TaxonFull: {
     ...sharedTaxonFields,
-    namePublishedIn: ({ namePublishedIn, namePublishedInID, bibliography }) => {
-      if (namePublishedIn) return namePublishedIn; // this only works as long as the API will return it, it is announced to stop that soon.
-      if (!namePublishedInID) return null;
-      return (
-        bibliography.find((b) => b.referenceID === namePublishedInID)
-          ?.citation ?? null
-      );
-    },
   },
   TaxonChild: {
     childrenTree: sharedTaxonFields.children,

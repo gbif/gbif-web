@@ -210,6 +210,10 @@ const typeDef = gql`
     doi: String
     citation: String!
     remarks: String
+    """
+    Indicates whether the taxon name was published in a specific source according to the field namePublishedInID. This is a derived field that checks if the taxon's namePublishedInID matches the referenceID of any bibliography entry.
+    """
+    isNamePublishedIn: Boolean
   }
 
   type Distribution {
@@ -327,7 +331,6 @@ const typeDef = gql`
     originalNameUsage: String
     nameAccordingTo: String
     namePublishedInID: String
-    namePublishedIn: String
     namePhrase: String
     nomenclaturalStatus: String
     nameType: String!
@@ -456,6 +459,7 @@ const typeDef = gql`
     synonyms: TaxonSynonyms
     taxon: TaxonFull
 
+    namePublishedIn: String
     """
     Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
     """

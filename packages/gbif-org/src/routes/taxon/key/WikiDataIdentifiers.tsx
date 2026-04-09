@@ -1,7 +1,6 @@
 import { WikiDataIdentifier } from '@/gql/graphql';
-import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
-import styles from './wikiIdentifiers.module.css';
+
 const WikiDataIdentifiers = ({
   identifiers,
   source,
@@ -10,16 +9,20 @@ const WikiDataIdentifiers = ({
   source: WikiDataIdentifier;
 }) => {
   return (
-    <div className={cn(styles.wikidataIdentifiers, 'g-text-sm g-text-slate-500')}>
-      <div className={styles.chipList}>
+    <div className="g-text-sm g-text-slate-500">
+      <div className="g-flex g-flex-wrap g-gap-1">
         {identifiers.map((i: WikiDataIdentifier, idx: number) => (
-          <a key={idx} href={`${i?.url}`} className={styles.chip}>
+          <a
+            key={idx}
+            href={`${i?.url}`}
+            className="g-inline-flex g-items-center g-py-px g-px-2 g-rounded-full g-border g-border-slate-300 g-bg-slate-50 g-text-primary-600 g-text-xs g-leading-normal g-whitespace-nowrap g-no-underline g-transition-colors hover:g-bg-slate-200"
+          >
             {i?.label?.value}
           </a>
         ))}
       </div>
       {source && (
-        <div className="g-mt-2">
+        <div className="g-mt-2 g-prose g-text-sm">
           <span>
             <FormattedMessage id="taxon.source" />
           </span>{' '}
