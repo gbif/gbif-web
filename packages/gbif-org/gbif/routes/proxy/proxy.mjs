@@ -27,7 +27,7 @@ function getCachedResponse(name, graphqlQuery) {
     if (cache[cacheKey]) {
       res.json(cache[cacheKey]);
       // Refresh cache in background (fire and forget)
-      refreshCache(name, { query: graphqlQuery, headers: { locale } }).catch(() => {
+      refreshCache(cacheKey, { query: graphqlQuery, locale }).catch(() => {
         // Silently fail - we'll try again on next request
       });
       return;
