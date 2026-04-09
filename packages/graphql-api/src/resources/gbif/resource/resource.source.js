@@ -22,12 +22,20 @@ export class ResourceAPI extends ThrottledRESTDataSource {
 
   async getEntryById({ id, preview, locale, info }) {
     let path = `/content/${id}`;
-    if (preview) path += `/preview?cacheBust=${Date.now()}`;
+    if (preview) path += `/preview`;
 
     const result = await this.get(
       path,
       {},
-      { throttle: preview, signal: this.context.abortController.signal },
+      {
+        throttle: preview,
+        signal: this.context.abortController.signal,
+        cacheOptions: {
+          ttl: preview
+            ? 1 // 1 second
+            : 600, // 10 minutes
+        },
+      },
     );
     if (preview && info) {
       info.cacheControl.setCacheHint({
