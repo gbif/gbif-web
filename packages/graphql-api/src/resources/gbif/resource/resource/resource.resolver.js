@@ -32,20 +32,26 @@ export default {
       }
 
       if (typeof alias === 'string') {
-        return dataSources.resourceSearchAPI
-          .getFirstEntryByQuery({ urlAlias: alias }, locale)
-          .then((data) => {
-            if (!data) {
-              throw new NotFoundError();
-            }
-            if (preview) {
-              // less useful as the resourceSearch cannot use the preview param, but at least it gets fresh data, but it isn't the draft version
-              info.cacheControl.setCacheHint({
-                maxAge: 1, // seconds
-              });
-            }
-            return data;
+        const data = await dataSources.resourceSearchAPI.getFirstEntryByQuery(
+          { urlAlias: alias },
+          locale,
+        );
+
+        if (!data) {
+          throw new NotFoundError();
+        }
+
+        // If preview mode, re-fetch by ID to get draft content from Contentful
+        if (preview && data.id) {
+          return dataSources.resourceAPI.getEntryById({
+            id: data.id,
+            locale,
+            preview,
+            info,
           });
+        }
+
+        return data;
       }
 
       throw new Error('Either id or alias must be provided');

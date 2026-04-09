@@ -61,6 +61,8 @@ function modifyLoader(
 
     args[0].config = routeConfig;
 
+    args[0].isPreview = preview;
+
     return originalLoader(...args);
   };
 
