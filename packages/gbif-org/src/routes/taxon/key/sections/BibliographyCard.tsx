@@ -1,15 +1,25 @@
+import { Table } from '@/components/dashboard/shared';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { CardDescription } from '@/components/ui/smallCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Paging } from '../VernacularNameTable';
 import { ColFeedback } from './ColFeedback';
+
+const DEFAULT_LIMIT = 10;
 
 type Props = {
   taxonInfo: TaxonKeyQuery['taxonInfo'];
 };
 
 function BibliographyContent({ taxonInfo }: Props) {
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
+  const [offset, setOffset] = useState(0);
+  const bibliography = taxonInfo?.bibliography ?? [];
+
   return (
     <Card className="g-mb-4">
       <CardHeader>
@@ -21,33 +31,75 @@ function BibliographyContent({ taxonInfo }: Props) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ul className="g-divide-y g-divide-slate-100">
-          {taxonInfo?.bibliography.map((bib) => (
-            <li key={bib.referenceID} className="g-py-3 first:g-pt-0 last:g-pb-0">
-              <div className="g-text-sm g-text-slate-800">
-                {bib.isNamePublishedIn && (
-                  <span className="g-mr-1 g-px-1 g-py-px g-bg-slate-100 g-text-primary-600 g-rounded g-border">
-                    <FormattedMessage id="taxon.publishedIn" defaultMessage="Name published in" />
-                  </span>
-                )}
-                {bib.citation}{' '}
-                {bib.doi && (
-                  <a
-                    href={`https://doi.org/${bib.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="g-text-primary-500 hover:g-underline g-underline-offset-2 g-break-all"
-                  >
-                    {bib.doi}
-                  </a>
-                )}
-              </div>
-              {bib.remarks && (
-                <div className="g-mt-1 g-text-xs g-text-slate-500 g-italic">{bib.remarks}</div>
-              )}
-            </li>
-          ))}
-        </ul>
+        <div className="g-text-sm g-text-slate-500 g-mb-1">
+          <FormattedMessage id="counts.nResults" values={{ total: bibliography.length }} />
+          {bibliography.length > limit && (
+            <Button
+              variant="link"
+              onClick={() => {
+                setLimit(bibliography.length);
+                setOffset(0);
+              }}
+            >
+              <FormattedMessage id="taxon.showAll" />
+            </Button>
+          )}
+          {limit > DEFAULT_LIMIT && (
+            <Button
+              variant="link"
+              onClick={() => {
+                setLimit(DEFAULT_LIMIT);
+                setOffset(0);
+              }}
+            >
+              <FormattedMessage id="taxon.showLess" />
+            </Button>
+          )}
+        </div>
+        <div style={{ overflow: 'auto' }}>
+          <Table removeBorder={false}>
+            <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
+              {bibliography.slice(offset, offset + limit).map((bib) => (
+                <tr key={bib.referenceID}>
+                  <td>
+                    <div className="g-text-sm g-text-slate-800">
+                      {bib.isNamePublishedIn && (
+                        <span className="g-mr-1 g-px-1 g-py-px g-bg-slate-100 g-text-primary-600 g-rounded g-border">
+                          <FormattedMessage
+                            id="taxon.publishedIn"
+                            defaultMessage="Name published in"
+                          />
+                        </span>
+                      )}
+                      {bib.citation}{' '}
+                      {bib.doi && (
+                        <a
+                          href={`https://doi.org/${bib.doi}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="g-text-primary-500 hover:g-underline g-underline-offset-2 g-break-all"
+                        >
+                          {bib.doi}
+                        </a>
+                      )}
+                    </div>
+                    {bib.remarks && (
+                      <div className="g-mt-1 g-text-xs g-text-slate-500 g-italic">
+                        {bib.remarks}
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Paging
+            next={() => setOffset(offset + limit)}
+            prev={() => setOffset(offset - limit)}
+            isFirstPage={offset === 0}
+            isLastPage={offset + limit >= bibliography.length}
+          />
+        </div>
       </CardContent>
     </Card>
   );
