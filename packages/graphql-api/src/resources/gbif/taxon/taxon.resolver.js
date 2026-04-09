@@ -91,7 +91,15 @@ const sharedTaxonFields = {
         return { ...response, breakdown };
       }),
   wikiData: ({ taxonID }, args, { dataSources }) =>
-    dataSources.wikidataAPI.getWikiDataTaxonData(taxonID),
+    dataSources.wikidataAPI.getWikiDataTaxonData(taxonID).then((response) => {
+      // sort them by label
+      return {
+        ...response,
+        identifiers: response.identifiers.sort((a, b) =>
+          stringCompare(a.label.value, b.label.value),
+        ),
+      };
+    }),
   relatedInfo: (
     { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
     args,
