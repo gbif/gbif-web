@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { Paging } from './VernacularNameTable';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
-const DEFAULT_LIMIT = 10;
+const DEFAULT_LIMIT = 3;
 
 export default function TreatmentsCard({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) {
   return (

@@ -188,10 +188,12 @@ const TAXON_QUERY = /* GraphQL */ `
         homotypic {
           taxonID
           label
+          isOriginalNameUsage
         }
         heterotypic {
           taxonID
           label
+          isOriginalNameUsage
         }
       }
       vernacularNames {

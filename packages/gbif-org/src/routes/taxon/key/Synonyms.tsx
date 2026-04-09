@@ -62,9 +62,11 @@ function Synonym({
   synonym: {
     taxonID: string;
     label: string;
+    isOriginalNameUsage?: boolean;
   };
   type: 'homotypic' | 'heterotypic';
 }) {
+  console.log(synonym);
   return (
     <DynamicLink
       pageId="taxonKey"
@@ -73,6 +75,11 @@ function Synonym({
     >
       {type === 'homotypic' ? '≡ ' : '= '}
       <span dangerouslySetInnerHTML={{ __html: synonym.label }}></span>
+      {synonym.isOriginalNameUsage && (
+        <span className="g-ms-2 g-px-1 g-py-px g-bg-slate-600 g-text-slate-50 g-rounded g-border">
+          <FormattedMessage id="taxon.originalNameUsage" />
+        </span>
+      )}
     </DynamicLink>
   );
 }

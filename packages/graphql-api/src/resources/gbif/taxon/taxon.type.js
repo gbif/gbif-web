@@ -279,6 +279,10 @@ const typeDef = gql`
     taxonomicStatus: String
     nomenclaturalCode: String
     label: String
+    """
+    Indicates whether the homotypic synonym is the original name usage according to the field originalNameUsageID. This is a derived field that checks if the synonym's taxonID matches the taxon's originalNameUsageID.
+    """
+    isOriginalNameUsage: Boolean
   }
 
   type TaxonSimple {

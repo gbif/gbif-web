@@ -58,6 +58,20 @@ class TaxonAPI extends QueuedRESTDataSource {
           return 0;
         });
       }
+
+      // next we need to enrich the homotypic synonyms with the boolean isOriginalNameUsage if it match the taxon.originalNameUsageID
+      const originalNameUsageID = taxon?.originalNameUsageID;
+      if (originalNameUsageID && response?.synonyms?.homotypic) {
+        response.synonyms.homotypic.forEach((item) => {
+          item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
+        });
+      }
+      if (originalNameUsageID && response?.synonyms?.heterotypic) {
+        response.synonyms.heterotypic.forEach((item) => {
+          item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
+        });
+      }
+
       return response;
     });
   }
