@@ -14,6 +14,7 @@ function getCachedResponse(name, graphqlQuery) {
     if (preview === 'true') {
       try {
         const data = await getData({ query: graphqlQuery, locale, preview: true });
+        res.set('Cache-Control', 'no-store, no-cache');
         res.json(data);
       } catch (error) {
         res.status(500).json({ error: 'Failed to fetch data' });
