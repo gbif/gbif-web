@@ -14,12 +14,14 @@ import toolsRedirects from './toolsRedirects';
 // eslint-disable-next-line
 import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
+import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
 
 export async function headerLoader({ locale }: LoaderArgs) {
-  const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/header?locale=${
-    locale.cmsLocale ?? 'en'
-  }`;
-  const response = await fetch(apiUrl);
+  const response = await fetchCachedResponse({
+    route: '/header',
+    // preview: isPreview (preview is disabled for the navigation items in graphql as they will make the preview experience slow)
+    locale: locale.cmsLocale ?? 'en',
+  });
 
   if (!response.ok) {
     // just swallow errors here and let the page render with partial data

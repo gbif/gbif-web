@@ -24,6 +24,7 @@ export type LoaderArgs = LoaderFunctionArgs & {
   locale: LanguageOption;
   config: Config;
   graphql: GraphQLService;
+  isPreview: boolean;
 };
 
 export type RouteObjectWithPlugins = {
