@@ -4,11 +4,9 @@ import { useStringParam } from '@/hooks/useParam';
 import { cn } from '@/utils/shadcn';
 import { useState } from 'react';
 import { MdLink } from 'react-icons/md';
-import styles from './faq.module.css';
 import { fragmentManager } from '@/services/fragmentManager';
 import { HelpResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
-import { Formatted } from 'maplibre-gl';
 import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
@@ -28,7 +26,7 @@ export const HelpItemResult = ({
   item: HelpResultFragment;
   className?: string;
 }) => {
-  const [searchQuery, setSearchQuery] = useStringParam({
+  const [searchQuery] = useStringParam({
     key: 'question',
     defaultValue: '',
     hideDefault: true,
@@ -69,7 +67,7 @@ export const HelpItemResult = ({
             {item.excerpt && !expanded && (
               <>
                 <div
-                  className="g-font-normal g-text-slate-700 g-text g-break-words"
+                  className="g-prose g-font-normal g-text-slate-700 g-text g-break-words"
                   dangerouslySetInnerHTML={{ __html: item.excerpt }}
                 />
                 <div className="g-flex g-justify-end g-mt-1">
@@ -87,7 +85,7 @@ export const HelpItemResult = ({
             )}
             {item.body && expanded && (
               <div
-                className={cn(styles.faq, 'g-font-normal g-text-slate-700 g-text g-break-words')}
+                className="g-prose g-font-normal g-text-slate-700 g-text g-break-words"
                 dangerouslySetInnerHTML={{ __html: item.body }}
               />
             )}
