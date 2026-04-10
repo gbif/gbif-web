@@ -257,6 +257,7 @@ fragmentManager.register(/* GraphQL */ `
     rightsHolder
     description
     thumbor(height: 800)
+    smallThumbnail: thumbor(height: 100, width: 100)
   }
 `);
 

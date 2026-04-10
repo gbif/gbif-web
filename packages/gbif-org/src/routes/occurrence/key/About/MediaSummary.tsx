@@ -6,23 +6,28 @@ import { Img } from '@/components/Img';
 const PLAYABLE_VIDEO_FORMATS = ['video/mp4', 'video/ogg'];
 
 type MediaItem =
-  | { kind: 'image'; thumbor: string; identifier: string }
+  | { kind: 'image'; thumbor: string; identifier: string; smallThumbnail: string }
   | { kind: 'video'; identifier: string; format: string };
 
 export function MediaSummary({ occurrence }: { occurrence: any }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const filmstripRef = useRef<HTMLDivElement>(null);
 
-  // Build a unified list: playable videos first, then still images
+  // Build a unified list: still images first, then playable videos
   const items: MediaItem[] = [];
+  (occurrence?.stillImages ?? []).forEach((img: any) => {
+    if (img.thumbor) {
+      items.push({
+        kind: 'image',
+        thumbor: img.thumbor,
+        identifier: img.identifier,
+        smallThumbnail: img.smallThumbnail,
+      });
+    }
+  });
   (occurrence?.movingImages ?? []).forEach((v: any) => {
     if (PLAYABLE_VIDEO_FORMATS.includes(v.format)) {
       items.push({ kind: 'video', identifier: v.identifier, format: v.format });
-    }
-  });
-  (occurrence?.stillImages ?? []).forEach((img: any) => {
-    if (img.thumbor) {
-      items.push({ kind: 'image', thumbor: img.thumbor, identifier: img.identifier });
     }
   });
 
@@ -131,12 +136,12 @@ export function MediaSummary({ occurrence }: { occurrence: any }) {
               }`}
             >
               {item.kind === 'video' ? (
-                <div className="g-w-full g-h-full g-bg-neutral-800 g-flex g-items-center g-justify-center g-text-white">
+                <div className="g-w-full g-h-full g-bg-neutral-200 g-flex g-items-center g-justify-center g-text-neutral-500">
                   <MdVideocam size={22} />
                 </div>
               ) : (
                 <img
-                  src={item.thumbor}
+                  src={item.smallThumbnail}
                   alt=""
                   className="g-w-full g-h-full g-object-cover"
                   loading="lazy"
