@@ -31,7 +31,13 @@ export function SidebarImageCarousel({ taxon }: Props) {
             <Img
               src={current.thumbor ?? current.identifier ?? ''}
               alt=""
-              style={{ maxWidth: '100%', height: '100%', maxHeight: '100%', display: 'block', objectFit: 'contain' }}
+              style={{
+                maxWidth: '100%',
+                height: '100%',
+                maxHeight: '100%',
+                display: 'block',
+                objectFit: 'contain',
+              }}
               failedClassName="g-w-full g-h-24"
             />
           </DynamicLink>
