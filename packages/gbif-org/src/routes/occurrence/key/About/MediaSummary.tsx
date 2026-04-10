@@ -1,16 +1,24 @@
 import { Card } from '@/components/ui/largeCard';
 import { useRef, useState } from 'react';
-import { MdChevronLeft, MdChevronRight, MdVideocam } from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight, MdVideocam, MdInfo } from 'react-icons/md';
 import { Img } from '@/components/Img';
 
 const PLAYABLE_VIDEO_FORMATS = ['video/mp4', 'video/ogg'];
 
 type MediaItem =
-  | { kind: 'image'; thumbor: string; identifier: string; smallThumbnail: string }
-  | { kind: 'video'; identifier: string; format: string };
+  | {
+      kind: 'image';
+      thumbor: string;
+      identifier: string;
+      smallThumbnail: string;
+      creator?: string;
+      license?: string;
+    }
+  | { kind: 'video'; identifier: string; format: string; creator?: string; license?: string };
 
 export function MediaSummary({ occurrence }: { occurrence: any }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showInfo, setShowInfo] = useState(false);
   const filmstripRef = useRef<HTMLDivElement>(null);
 
   // Build a unified list: still images first, then playable videos
@@ -22,12 +30,20 @@ export function MediaSummary({ occurrence }: { occurrence: any }) {
         thumbor: img.thumbor,
         identifier: img.identifier,
         smallThumbnail: img.smallThumbnail,
+        creator: img.creator,
+        license: img.license,
       });
     }
   });
   (occurrence?.movingImages ?? []).forEach((v: any) => {
     if (PLAYABLE_VIDEO_FORMATS.includes(v.format)) {
-      items.push({ kind: 'video', identifier: v.identifier, format: v.format });
+      items.push({
+        kind: 'video',
+        identifier: v.identifier,
+        format: v.format,
+        creator: v.creator,
+        license: v.license,
+      });
     }
   });
 
@@ -38,6 +54,7 @@ export function MediaSummary({ occurrence }: { occurrence: any }) {
   function goTo(index: number) {
     const clamped = Math.max(0, Math.min(items.length - 1, index));
     setActiveIndex(clamped);
+    setShowInfo(false);
     // Scroll the filmstrip so the active thumbnail is visible
     const strip = filmstripRef.current;
     if (strip) {
@@ -113,6 +130,35 @@ export function MediaSummary({ occurrence }: { occurrence: any }) {
             <span className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5 g-pointer-events-none">
               {activeIndex + 1} / {items.length}
             </span>
+          </>
+        )}
+
+        {/* Info button */}
+        {(current.creator || current.license) && (
+          <>
+            <button
+              onClick={() => setShowInfo((v) => !v)}
+              aria-label="Show media info"
+              className="g-absolute g-bottom-2 g-start-2 g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-0.5 g-leading-none g-transition-colors"
+            >
+              <MdInfo size={18} />
+            </button>
+            {showInfo && (
+              <div className="g-absolute g-bottom-8 g-start-2 g-bg-neutral-800/90 g-text-white g-text-xs g-rounded g-px-3 g-py-2 g-max-w-xs g-space-y-1">
+                {current.creator && (
+                  <p>
+                    <span className="g-opacity-70">Creator: </span>
+                    {current.creator}
+                  </p>
+                )}
+                {current.license && (
+                  <p>
+                    <span className="g-opacity-70">License: </span>
+                    {current.license}
+                  </p>
+                )}
+              </div>
+            )}
           </>
         )}
       </div>
