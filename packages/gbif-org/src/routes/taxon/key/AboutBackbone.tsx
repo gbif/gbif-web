@@ -18,6 +18,7 @@ import BibliographyCard from './sections/BibliographyCard';
 import CitationCard from './sections/CitationCard';
 import ClassificationCard from './sections/ClassificationCard';
 import OccurrenceImagesCard from './sections/OccurrenceImagesCard';
+import OccurrenceMediaGalleryCard from './sections/OccurrenceMediaGalleryCard';
 import SynonymsCard from './sections/SynonymsCard';
 import TaxonIdentifiersCard from './sections/TaxonIdentifiersCard';
 import VernacularNamesCard from './sections/VernacularNamesCard';
@@ -86,7 +87,8 @@ export default function AboutBackbone() {
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
           </div>
           <div>
-            {hasOccurrenceImages && <OccurrenceImagesCard taxon={taxon} />}
+            {/* {hasOccurrenceImages && <OccurrenceImagesCard taxon={taxon} />} */}
+            {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}
             {showTaxonBreakdown && <TaxonBreakdown taxon={taxon} />}
             {hasPreprocessedMap && (
               <MapWidget

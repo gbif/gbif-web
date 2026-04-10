@@ -447,6 +447,8 @@ const typeDef = gql`
   type TaxonOccurrenceMediaResult {
     occurrenceKey: ID!
     identifier: String
+    rightsHolder: String
+    license: String
     thumbor(width: Int, height: Int, fitIn: Boolean): String
   }
 
