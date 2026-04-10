@@ -23,7 +23,6 @@ import { Card } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';
 import { Aside, AsideSticky, SidebarLayout } from '../../occurrence/key/pagelayouts';
-import { SidebarImageCarousel } from './sections/SidebarImageCarousel';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -67,10 +66,10 @@ export default function AboutBackbone() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <SidebarLayout
           // reverse
-          className="g-grid-cols-[250px_minmax(0,1fr)] xl:g-grid-cols-[minmax(0,1fr)_300px]"
+          className="g-grid-cols-[250px_minmax(0,1fr)] xl:g-grid-cols-[300px_minmax(0,1fr)]"
           stack={false}
         >
-          <div className="g-order-last xl:g-order-first">
+          <div className="g-order-last">
             <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} />
             {showTaxonBreakdown && (
               <div id="breakdown">
@@ -101,7 +100,6 @@ export default function AboutBackbone() {
           </div>
           {!hideSidebar && (
             <Aside>
-              {hasOccurrenceImages && <SidebarImageCarousel taxon={taxon} />}
               <AsideSticky>
                 <Card>
                   <nav>

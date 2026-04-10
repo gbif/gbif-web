@@ -79,3 +79,69 @@ export function SidebarImageCarousel({ taxon }: Props) {
     </Card>
   );
 }
+
+// Compact carousel for the page header (no Card wrapper, fills parent width)
+export function HeaderImageCarousel({ taxon }: Props) {
+  const results = taxon.occurrenceMedia?.results ?? [];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  if (results.length === 0) return null;
+
+  const current = results[activeIndex];
+  const taxonKey = taxon.taxonID;
+  const gallerySearchParams = { view: 'GALLERY', taxonKey: [taxonKey] };
+
+  return (
+    <div
+      className="g-relative g-w-full g-bg-neutral-100 g-rounded g-overflow-hidden"
+      style={{ paddingBottom: '75%' }}
+    >
+      <div className="g-absolute g-inset-0 g-flex g-items-center g-justify-center">
+        <DynamicLink
+          pageId="occurrenceSearch"
+          searchParams={{ ...gallerySearchParams, entity: `o_${current.occurrenceKey}` }}
+          className="g-flex g-items-center g-justify-center g-w-full g-h-full"
+        >
+          <Img
+            src={current.thumbor ?? current.identifier ?? ''}
+            alt=""
+            style={{
+              maxWidth: '100%',
+              height: '100%',
+              maxHeight: '100%',
+              display: 'block',
+              objectFit: 'contain',
+            }}
+            failedClassName="g-w-full g-h-16"
+          />
+        </DynamicLink>
+
+        {results.length > 1 && (
+          <>
+            <button
+              className="g-absolute g-inset-y-0 g-start-0 g-w-[30%] g-flex g-items-center g-justify-start g-ps-1 disabled:g-opacity-30"
+              onClick={() => setActiveIndex((i) => Math.max(0, i - 1))}
+              disabled={activeIndex === 0}
+              aria-label="Previous image"
+            >
+              <span className="g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-0.5 g-leading-none g-transition-colors">
+                <MdChevronLeft size={14} />
+              </span>
+            </button>
+
+            <button
+              className="g-absolute g-inset-y-0 g-end-0 g-w-[30%] g-flex g-items-center g-justify-end g-pe-1 disabled:g-opacity-30"
+              onClick={() => setActiveIndex((i) => Math.min(results.length - 1, i + 1))}
+              disabled={activeIndex === results.length - 1}
+              aria-label="Next image"
+            >
+              <span className="g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-0.5 g-leading-none g-transition-colors">
+                <MdChevronRight size={14} />
+              </span>
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
