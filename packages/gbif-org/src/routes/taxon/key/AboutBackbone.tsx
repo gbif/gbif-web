@@ -23,6 +23,7 @@ import { Card } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';
 import { Aside, AsideSticky, SidebarLayout } from '../../occurrence/key/pagelayouts';
+import { SidebarImageCarousel } from './sections/SidebarImageCarousel';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -100,6 +101,7 @@ export default function AboutBackbone() {
           </div>
           {!hideSidebar && (
             <Aside>
+              {hasOccurrenceImages && <SidebarImageCarousel taxon={taxon} />}
               <AsideSticky>
                 <Card>
                   <nav>
