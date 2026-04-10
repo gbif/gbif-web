@@ -22,7 +22,7 @@ function BibliographyContent({ taxonInfo }: Props) {
   const bibliography = taxonInfo?.bibliography ?? [];
 
   return (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4" id="bibliography">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="taxon.bibliography" />

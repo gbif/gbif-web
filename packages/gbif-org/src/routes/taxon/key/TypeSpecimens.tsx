@@ -19,7 +19,13 @@ import { typeSpecimenPredicate } from './taxonUtil';
 
 const DEFAULT_LIMIT = 10;
 
-const TypeMaterial = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
+const TypeMaterial = ({
+  taxonInfo,
+  onHasData,
+}: {
+  taxonInfo: TaxonKeyQuery['taxonInfo'];
+  onHasData?: (hasData: boolean) => void;
+}) => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [filteredData, setFilteredData] = useState<
@@ -74,11 +80,22 @@ const TypeMaterial = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) 
           }
         })
       );
+    } else {
+      onHasData?.(false);
     }
   }, [typeSecimens?.occurrenceSearch?.documents?.results, isSynonym, taxonInfo]);
 
+  useEffect(() => {
+    onHasData?.(filteredData.length > 0);
+  }, [filteredData.length, onHasData]);
+
   return filteredData.length > 0 ? (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4" id="typeMaterial">
+      <CardHeader>
+        <CardTitle>
+          <FormattedMessage id="taxon.typeMaterial" />
+        </CardTitle>
+      </CardHeader>
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="taxon.typeMaterial" />
@@ -204,10 +221,16 @@ const TypeMaterial = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) 
   ) : null;
 };
 
-export default function TypeMaterialCard({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) {
+export default function TypeMaterialCard({
+  taxonInfo,
+  onHasData,
+}: {
+  taxonInfo: TaxonKeyQuery['taxonInfo'];
+  onHasData?: (hasData: boolean) => void;
+}) {
   return (
     <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}>
-      <TypeMaterial taxonInfo={taxonInfo} />
+      <TypeMaterial taxonInfo={taxonInfo} onHasData={onHasData} />
     </ErrorBoundary>
   );
 }

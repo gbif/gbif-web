@@ -36,7 +36,7 @@ function OccurrenceMediaGalleryContent({ taxon }: Props) {
   }
 
   return (
-    <Card className="g-mb-4 g-overflow-hidden">
+    <Card className="g-mb-4 g-overflow-hidden" id="occurrence-images">
       {/* Main viewer */}
       <div
         className="g-relative g-bg-neutral-100 g-flex g-items-center g-justify-center"

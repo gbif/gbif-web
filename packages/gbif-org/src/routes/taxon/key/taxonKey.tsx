@@ -144,7 +144,7 @@ const TAXON_QUERY = /* GraphQL */ `
           label
           scientificName
         }
-        occurrenceMedia {
+        occurrenceMedia(limit: 20) {
           count
           results {
             occurrenceKey

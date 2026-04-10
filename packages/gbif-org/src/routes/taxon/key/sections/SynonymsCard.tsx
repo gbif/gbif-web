@@ -12,7 +12,7 @@ type Props = {
 
 function SynonymsContent({ taxonInfo }: Props) {
   return (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4" id="synonyms">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="taxon.synonymsAndCombinations" />
