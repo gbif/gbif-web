@@ -121,7 +121,7 @@ export function MediaSummary({ occurrence }: { occurrence: any }) {
       {items.length > 1 && (
         <div
           ref={filmstripRef}
-          className="g-flex g-gap-1.5 g-overflow-x-auto g-p-2 g-bg-neutral-50"
+          className="g-flex g-gap-1.5 g-overflow-x-auto g-p-2 g-bg-neutral-50 g-border-t"
           style={{ scrollbarWidth: 'thin' }}
         >
           {items.map((item, i) => (

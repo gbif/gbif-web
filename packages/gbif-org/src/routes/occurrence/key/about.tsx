@@ -89,7 +89,7 @@ export function OccurrenceKeyAbout() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <SidebarLayout
           reverse
-          className="g-grid-cols-[250px_1fr] xl:g-grid-cols-[300px_1fr]"
+          className="g-grid-cols-[250px_minmax(0,1fr)] xl:g-grid-cols-[300px_minmax(0,1fr)]"
           stack={hideSidebar}
         >
           <div className="g-order-last">
