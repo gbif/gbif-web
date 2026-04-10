@@ -3,6 +3,8 @@ import { TaxonKeyQuery } from '@/gql/graphql';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Button } from '@/components/ui/button';
+import { Pills } from '@/routes/resource/key/components/pills';
+import { cn } from '@/utils/shadcn';
 
 const LIMIT = 10;
 const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
@@ -66,7 +68,6 @@ function Synonym({
   };
   type: 'homotypic' | 'heterotypic';
 }) {
-  console.log(synonym);
   return (
     <DynamicLink
       pageId="taxonKey"
@@ -76,11 +77,30 @@ function Synonym({
       {type === 'homotypic' ? '≡ ' : '= '}
       <span dangerouslySetInnerHTML={{ __html: synonym.label }}></span>
       {synonym.isOriginalNameUsage && (
-        <span className="g-ms-2 g-px-1 g-py-px g-bg-slate-600 g-text-slate-50 g-rounded g-border">
+        <InfoPill className="g-ms-2">
           <FormattedMessage id="taxon.originalNameUsage" />
-        </span>
+        </InfoPill>
       )}
     </DynamicLink>
+  );
+}
+
+export function InfoPill({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <span
+      className={cn(
+        'g-px-1.5 g-py-px g-bg-blue-100 g-text-blue-700 g-border g-border-blue-300 g-rounded g-text-xs g-font-medium g-whitespace-nowrap',
+        className
+      )}
+    >
+      {children}
+    </span>
   );
 }
 

@@ -166,10 +166,7 @@ export const TreeHeader = ({ children }: { children: ReactNode }) => (
 export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon: TaxonData }) => (
   <div className="g-flex-1 g-flex g-items-center g-justify-between">
     <div className="g-flex-1 g-flex g-items-start">
-      {/* <div className="g-text-gray-600 g-me-3">
-        <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
-      </div> */}
-      <div>
+      <div className="g-flex-grow">
         {/* TODO taxonapi: fix the link so it accounts for primary vs dataset */}
         <Link
           to={`/dataset/${datasetKey}/taxon/${taxon.taxonID}`}
@@ -177,6 +174,9 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
         >
           <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
         </Link>
+      </div>
+      <div className="g-text-gray-500 g-ms-3 g-flex-none">
+        <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
       </div>
     </div>
   </div>
@@ -198,7 +198,7 @@ export const TreeGroup = ({
       role="region"
       aria-labelledby={buttonId}
       hidden={!isExpanded} // Follows the Edge bug fix from your reference
-      className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-4 md:g-ms-3`}
+      className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-2`}
       // className={`g-m-0 g-pl-4 g-list-none g-border-l g-border-gray-300 g-ms-5`}
     >
       {children?.map((child) => nodeRender({ child }))}

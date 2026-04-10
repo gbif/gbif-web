@@ -61,7 +61,15 @@ export function SearchPageTree({ entityDrawerPrefix }: { entityDrawerPrefix: str
   );
 }
 
-export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonKey: string }) {
+export function TaxonTree({
+  datasetKey,
+  taxonKey,
+  excludeParents,
+}: {
+  datasetKey: string;
+  taxonKey: string;
+  excludeParents?: boolean;
+}) {
   const { setField } = useContext(FilterContext);
 
   const { data, error, loading, load } = useQuery<DatasetRootsQuery, DatasetRootsQueryVariables>(
@@ -79,7 +87,7 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
   useEffect(() => {
     if (!taxonKey) {
       load({ variables: { datasetKey, limit: 100, offset: 0 } });
-    } else {
+    } else if (!excludeParents) {
       loadParents({ variables: { datasetKey, key: taxonKey } });
     }
   }, [datasetKey, taxonKey, load, loadParents]);
@@ -114,33 +122,37 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
     return <div>Taxon not found</div>;
   }
   return (
-    <Tree>
-      {/* reduce the position to a nested list of taxons, where each taxon is a child of the previous one. This way we can "pre-expand" the tree down to the currently selected taxon. The taxon should simply be a list item with a ul for the child etc. No styling*/}
-      {classification.reduce(
-        (child, taxon) => {
-          return (
-            <li key={taxon.taxonID} id={taxon.taxonID}>
-              <TreeHeader>
-                {/* <GotToNode
+    <>
+      <div>
+        <Tree>
+          {/* reduce the position to a nested list of taxons, where each taxon is a child of the previous one. This way we can "pre-expand" the tree down to the currently selected taxon. The taxon should simply be a list item with a ul for the child etc. No styling*/}
+          {classification.reduce(
+            (child, taxon) => {
+              return (
+                <li key={taxon.taxonID} id={taxon.taxonID}>
+                  <TreeHeader>
+                    {/* <GotToNode
                   onClick={() => {
                     setField('taxonId', [taxon.taxonID]);
                   }}
                 /> */}
-                <TreeNodeLabel taxon={taxon} datasetKey={datasetKey} />
-              </TreeHeader>
-              <ul
-                role="region"
-                aria-labelledby={taxon.taxonID}
-                className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-4 md:g-ms-3`}
-              >
-                {child}
-              </ul>
-            </li>
-          );
-        },
-        <TaxonomicNode defaultExpanded={true} data={tip} datasetKey={datasetKey} />
-      )}
-    </Tree>
+                    <TreeNodeLabel taxon={taxon} datasetKey={datasetKey} />
+                  </TreeHeader>
+                  <ul
+                    role="region"
+                    aria-labelledby={taxon.taxonID}
+                    className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-2`}
+                  >
+                    {child}
+                  </ul>
+                </li>
+              );
+            },
+            <TaxonomicNode defaultExpanded={true} data={tip} datasetKey={datasetKey} />
+          )}
+        </Tree>
+      </div>
+    </>
   );
 }
 

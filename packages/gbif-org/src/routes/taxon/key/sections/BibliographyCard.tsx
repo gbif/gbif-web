@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from '../VernacularNameTable';
 import { ColFeedback } from './ColFeedback';
+import { InfoPill } from '../Synonyms';
 
 const DEFAULT_LIMIT = 10;
 
@@ -62,25 +63,27 @@ function BibliographyContent({ taxonInfo }: Props) {
               {bibliography.slice(offset, offset + limit).map((bib) => (
                 <tr key={bib.referenceID}>
                   <td>
-                    <div className="g-text-sm g-text-slate-800">
+                    <div className="g-text-slate-800">
+                      <span className="g-me-2">
+                        {bib.citation}{' '}
+                        {bib.doi && (
+                          <a
+                            href={`https://doi.org/${bib.doi}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="g-text-primary-500 hover:g-underline g-underline-offset-2 g-break-all"
+                          >
+                            {bib.doi}
+                          </a>
+                        )}
+                      </span>
                       {bib.isNamePublishedIn && (
-                        <span className="g-mr-1 g-px-1 g-py-px g-bg-slate-100 g-text-primary-600 g-rounded g-border">
+                        <InfoPill>
                           <FormattedMessage
                             id="taxon.publishedIn"
                             defaultMessage="Name published in"
                           />
-                        </span>
-                      )}
-                      {bib.citation}{' '}
-                      {bib.doi && (
-                        <a
-                          href={`https://doi.org/${bib.doi}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="g-text-primary-500 hover:g-underline g-underline-offset-2 g-break-all"
-                        >
-                          {bib.doi}
-                        </a>
+                        </InfoPill>
                       )}
                     </div>
                     {bib.remarks && (

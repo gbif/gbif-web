@@ -21,6 +21,7 @@ import OccurrenceImagesCard from './sections/OccurrenceImagesCard';
 import SynonymsCard from './sections/SynonymsCard';
 import TaxonIdentifiersCard from './sections/TaxonIdentifiersCard';
 import VernacularNamesCard from './sections/VernacularNamesCard';
+import { useCapabilities } from '@/components/maps/mapWidget/outer/useCapabilities';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -79,23 +80,25 @@ export default function AboutBackbone() {
         <div className="g-grid g-grid-cols-1 lg:g-grid-cols-2 g-gap-4">
           <div>
             <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} />
-            {showTaxonBreakdown && <TaxonBreakdown taxon={taxon} />}
             {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
             {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
+            {hasBibliography && <BibliographyCard taxonInfo={taxonInfo} />}
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
           </div>
           <div>
             {hasOccurrenceImages && <OccurrenceImagesCard taxon={taxon} />}
+            {showTaxonBreakdown && <TaxonBreakdown taxon={taxon} />}
             {hasPreprocessedMap && (
               <MapWidget
                 className="g-mb-4"
                 capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }}
                 mapStyle="CLASSIC_HEX"
+                persistStyleSelection
               />
             )}
             {isSpeciesOrBelow && <TypeMaterial taxonInfo={taxonInfo} />}
             {isSpeciesOrBelow && <InvasiveInCountries taxonInfo={taxonInfo} />}
-            {showTaxaChart && (
+            {/* {showTaxaChart && (
               <ClientSideOnly>
                 <charts.Taxa
                   defaultRank={nextMajorRank?.toLowerCase() || 'family'}
@@ -103,8 +106,7 @@ export default function AboutBackbone() {
                   className="g-mb-2"
                 />
               </ClientSideOnly>
-            )}
-            {hasBibliography && <BibliographyCard taxonInfo={taxonInfo} />}
+            )} */}
           </div>
         </div>
 
