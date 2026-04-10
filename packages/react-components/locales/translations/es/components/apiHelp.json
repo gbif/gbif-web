@@ -28,6 +28,6 @@
   "searchNodes": "Buscar nodos",
   "singleSpecies": "Obtener una sola especie.",
   "searchSpecies": "Obtener todas las especies.",
-  "singleDerivedDataset": "Obtener un único conjunto de datos derivados",
+  "singleDerivedDataset": "Obtener un único conjunto de datos",
   "derivedDatasetContributingDatasets": "Obtener todos los conjuntos de datos que han contribuido al conjunto de datos derivado"
 }
