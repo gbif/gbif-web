@@ -110,6 +110,14 @@ const LayoutInner = React.memo(
           </main>
           <Footer />
         </div>
+        {import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN && (
+          <script
+            defer
+            data-domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN}
+            data-api="/spoor/api/event"
+            src="/spoor/js/script.js"
+          />
+        )}
         {import.meta.env.PUBLIC_STATUS_PAGE_URL && (
           <script async src={`${import.meta.env.PUBLIC_STATUS_PAGE_URL}/embed/script.js`}></script>
         )}
