@@ -122,6 +122,8 @@ export { TaxonPageSkeleton } from './taxonKeyPresentation';
 const TAXON_QUERY = /* GraphQL */ `
   query TaxonKey($key: ID!, $datasetKey: ID!, $language: String) {
     taxonInfo(key: $key, datasetKey: $datasetKey) {
+      group
+      groupIconSVG
       taxon {
         datasetKey
         taxonID

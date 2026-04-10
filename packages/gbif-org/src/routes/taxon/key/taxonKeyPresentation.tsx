@@ -1,7 +1,7 @@
 import { useCount } from '@/components/count';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
+import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import PageMetaData from '@/components/PageMetaData';
@@ -189,106 +189,134 @@ const PageHeader = ({
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <div className="g-flex">
-              {hasOccurrenceImages && !hideHeaderImage && (
-                <div className="g-flex-none g-me-4 g-w-[250px] xl:g-w-[300px] g-self-start">
-                  <HeaderImageCarousel taxon={taxon} />
-                </div>
-              )}
-              <div className="g-flex-auto">
-                <ArticlePreTitle
-                  secondary={
-                    taxon.taxonomicStatus === 'DOUBTFUL' ? (
-                      <HelpLine
-                        id="what-does-the-taxon-status-doubtful-mean-and-when-is-used"
-                        icon
-                        contentClassName="g-w-auto g-max-w-[min(42rem,100vw)]"
-                        title={
-                          <span className="g-uppercase">
-                            <FormattedMessage
-                              id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`}
-                            />
-                          </span>
-                        }
-                      />
-                    ) : (
-                      <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
-                    )
-                  }
-                >
-                  <FormattedMessage
-                    id={`enums.rank.${taxon.taxonRank}`}
-                    defaultMessage={taxon.taxonRank || ''}
-                  />
-                </ArticlePreTitle>
-                {/* it would be nice to know for sure which fields to expect */}
-                <ArticleTitle className="lg:g-text-3xl">
-                  <span
-                    className="g-me-4"
-                    dangerouslySetInnerHTML={{
-                      __html: taxon?.label || taxon?.scientificName || '',
-                    }}
-                  />
-                </ArticleTitle>
-                <div>
-                  {!isPrimaryTaxonomy && taxon.dataset && (
-                    <div className="g-mt-2">
-                      <FormattedMessage
-                        id="taxon.inChecklist"
-                        values={{
-                          checklist: (
-                            <DynamicLink
-                              className="hover:g-underline g-text-primary-500 g-ml-1"
-                              to={`/dataset/${taxon.dataset.key}`}
-                              pageId="datasetKey"
-                              variables={{ key: taxon.dataset.key }}
-                            >
-                              {taxon.dataset.title}
-                            </DynamicLink>
-                          ),
-                        }}
-                      />
+              {!hideHeaderImage && (
+                <div className="g-flex-none g-me-12 g-w-[250px] xl:g-w-[300px] g-self-start">
+                  {hasOccurrenceImages && <HeaderImageCarousel taxon={taxon} />}
+                  {!hasOccurrenceImages && (
+                    <div
+                      className="g-relative g-w-full g-bg-neutral-100 g-rounded g-overflow-hidden"
+                      style={{ paddingBottom: '75%' }}
+                    >
+                      <div className="g-absolute g-inset-0 g-flex g-flex-col g-items-center g-justify-center">
+                        <div className="g-flex g-items-center g-justify-center g-w-full g-h-full">
+                          <img
+                            src={taxonInfo.groupIconSVG}
+                            alt=""
+                            className="g-opacity-60"
+                            style={{
+                              maxWidth: '80%',
+                              height: '100%',
+                              maxHeight: '80%',
+                              display: 'block',
+                              objectFit: 'contain',
+                            }}
+                          />
+                        </div>
+                        <div className="g-absolute g-bottom-1 g-mx-auto g-text-center g-bg-slate-100 g-opacity-50 g-p-1 g-rounded g-text-sm g-text-slate-800">
+                          No records with images
+                        </div>
+                      </div>
                     </div>
                   )}
-
-                  {taxon.acceptedTaxon && (
-                    <>
-                      <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
-                      <Button asChild variant="link" className="g-p-1">
-                        <DynamicLink
-                          pageId="taxonKey"
-                          variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
-                        >
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                taxon?.acceptedTaxon?.label ||
-                                taxon?.acceptedTaxon?.scientificName ||
-                                '',
-                            }}
-                          ></span>
-                        </DynamicLink>
-                      </Button>
-                    </>
-                  )}
-
-                  {taxonInfo.vernacularName && (
-                    <SimpleTooltip
-                      asChild
-                      title={
-                        <FormattedMessage
-                          id="phrases.commonNameAccordingTo"
-                          values={{ source: 'Catalogue of Life' }} // TODO taxonapi: if this is no longer a variable, then we can remove the variable
-                        />
-                      }
-                    >
-                      <span className="g-text-slate-600 g-inline-flex g-items-center">
-                        <span className="g-me-1">{taxonInfo.vernacularName.vernacularName}</span>
-                        <MdInfoOutline />
-                      </span>
-                    </SimpleTooltip>
-                  )}
                 </div>
-                <HeaderInfo>
+              )}
+              <div className="g-flex-auto g-flex g-flex-col">
+                <div className="g-flex-auto">
+                  <ArticlePreTitle
+                    secondary={
+                      taxon.taxonomicStatus === 'DOUBTFUL' ? (
+                        <HelpLine
+                          id="what-does-the-taxon-status-doubtful-mean-and-when-is-used"
+                          icon
+                          contentClassName="g-w-auto g-max-w-[min(42rem,100vw)]"
+                          title={
+                            <span className="g-uppercase">
+                              <FormattedMessage
+                                id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`}
+                              />
+                            </span>
+                          }
+                        />
+                      ) : (
+                        <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
+                      )
+                    }
+                  >
+                    <FormattedMessage
+                      id={`enums.rank.${taxon.taxonRank}`}
+                      defaultMessage={taxon.taxonRank || ''}
+                    />
+                  </ArticlePreTitle>
+                  {/* it would be nice to know for sure which fields to expect */}
+                  <ArticleTitle className="lg:g-text-3xl">
+                    <span
+                      className="g-me-4"
+                      dangerouslySetInnerHTML={{
+                        __html: taxon?.label || taxon?.scientificName || '',
+                      }}
+                    />
+                  </ArticleTitle>
+                  <div>
+                    {!isPrimaryTaxonomy && taxon.dataset && (
+                      <div className="g-mt-2">
+                        <FormattedMessage
+                          id="taxon.inChecklist"
+                          values={{
+                            checklist: (
+                              <DynamicLink
+                                className="hover:g-underline g-text-primary-500 g-ml-1"
+                                to={`/dataset/${taxon.dataset.key}`}
+                                pageId="datasetKey"
+                                variables={{ key: taxon.dataset.key }}
+                              >
+                                {taxon.dataset.title}
+                              </DynamicLink>
+                            ),
+                          }}
+                        />
+                      </div>
+                    )}
+
+                    {taxon.acceptedTaxon && (
+                      <>
+                        <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
+                        <Button asChild variant="link" className="g-p-1">
+                          <DynamicLink
+                            pageId="taxonKey"
+                            variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
+                          >
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  taxon?.acceptedTaxon?.label ||
+                                  taxon?.acceptedTaxon?.scientificName ||
+                                  '',
+                              }}
+                            ></span>
+                          </DynamicLink>
+                        </Button>
+                      </>
+                    )}
+
+                    {taxonInfo.vernacularName && (
+                      <SimpleTooltip
+                        asChild
+                        title={
+                          <FormattedMessage
+                            id="phrases.commonNameAccordingTo"
+                            values={{ source: 'Catalogue of Life' }} // TODO taxonapi: if this is no longer a variable, then we can remove the variable
+                          />
+                        }
+                      >
+                        <span className="g-text-slate-600 g-inline-flex g-items-center">
+                          <span className="g-me-1">{taxonInfo.vernacularName.vernacularName}</span>
+                          <MdInfoOutline />
+                        </span>
+                      </SimpleTooltip>
+                    )}
+                  </div>
+                </div>
+                <HeaderInfo className="g-flex-none g-mb-0">
                   <HeaderInfoMain>
                     <FeatureList>
                       {!isPrimaryTaxonomy && taxon?.references && (
@@ -311,32 +339,27 @@ const PageHeader = ({
                       {isPrimaryTaxonomy && isSpeciesOrBelow && (
                         <Cites taxonName={taxon.scientificName} kingdom={kingdom} />
                       )}
-
-                      {isPrimaryTaxonomy && (
-                        <>
-                          <div className="g-flex-auto g-min-w-0" />
-                          <Button>
-                            <DynamicLink
-                              pageId="occurrenceSearch"
-                              searchParams={{
-                                taxonKey: taxon.taxonID.toString(),
-                                checklistKey: primaryChecklist, // TODO taxonapi: this can be removed once primary checklist is default in occurrence search when taxonKey is used
-                              }}
-                            >
-                              {countLoading ? (
-                                <FormattedMessage id="taxon.loading" />
-                              ) : (
-                                <FormattedMessage
-                                  id="counts.nOccurrences"
-                                  values={{ total: count }}
-                                />
-                              )}
-                            </DynamicLink>
-                          </Button>
-                        </>
-                      )}
                     </FeatureList>
                   </HeaderInfoMain>
+                  {isPrimaryTaxonomy && (
+                    <HeaderInfoEdit>
+                      <Button>
+                        <DynamicLink
+                          pageId="occurrenceSearch"
+                          searchParams={{
+                            taxonKey: taxon.taxonID.toString(),
+                            checklistKey: primaryChecklist, // TODO taxonapi: this can be removed once primary checklist is default in occurrence search when taxonKey is used
+                          }}
+                        >
+                          {countLoading ? (
+                            <FormattedMessage id="taxon.loading" />
+                          ) : (
+                            <FormattedMessage id="counts.nOccurrences" values={{ total: count }} />
+                          )}
+                        </DynamicLink>
+                      </Button>
+                    </HeaderInfoEdit>
+                  )}
                 </HeaderInfo>
               </div>
             </div>

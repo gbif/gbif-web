@@ -454,6 +454,7 @@ const typeDef = gql`
 
   type TaxonInfo {
     group: String
+    groupIconSVG: String
     checklistBankLink: String
     # environment: [String]!
     measurementOrFacts: [MeasurementOrFact!]

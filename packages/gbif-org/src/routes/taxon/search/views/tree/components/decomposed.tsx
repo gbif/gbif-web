@@ -1,6 +1,7 @@
 import { FilterIcon } from '@/components/icons/icons';
 import { TaxonChildrenQuery, TaxonChildrenQueryVariables } from '@/gql/graphql';
 import { useQuery } from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
 import {
   createContext,
   useContext,
@@ -168,12 +169,13 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
     <div className="g-flex-1 g-flex g-items-start">
       <div className="g-flex-grow">
         {/* TODO taxonapi: fix the link so it accounts for primary vs dataset */}
-        <Link
-          to={`/dataset/${datasetKey}/taxon/${taxon.taxonID}`}
+        <DynamicLink
+          pageId="taxonKey"
+          variables={{ datasetKey, key: taxon.taxonID }}
           className="g-text-primary-700 g-whitespace-nowrap"
         >
           <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
-        </Link>
+        </DynamicLink>
       </div>
       <div className="g-text-gray-500 g-ms-3 g-flex-none">
         <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />

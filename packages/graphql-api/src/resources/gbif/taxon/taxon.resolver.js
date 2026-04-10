@@ -278,6 +278,15 @@ export default {
           ?.citation ?? null
       );
     },
+    groupIconSVG: ({ group }, args, { dataSources }) =>
+      group
+        ? dataSources.taxonAPI
+            .getTaxGroups()
+            .then((groups) =>
+              groups.find((g) => g.name.toLowerCase() === group.toLowerCase()),
+            )
+            .then((g) => g?.iconSVG ?? null)
+        : null,
   },
   TaxonSimple: {
     ...sharedTaxonFields,

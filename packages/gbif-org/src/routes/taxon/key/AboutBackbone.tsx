@@ -76,9 +76,6 @@ export default function AboutBackbone() {
                 <TaxonBreakdown taxon={taxon} />
               </div>
             )}
-            {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}
-            {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
-            {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
             {hasPreprocessedMap && (
               <div id="map">
                 <MapWidget
@@ -89,6 +86,9 @@ export default function AboutBackbone() {
                 />
               </div>
             )}
+            {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}
+            {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
+            {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
             {isSpeciesOrBelow && (
               <TypeMaterial taxonInfo={taxonInfo} onHasData={onTypeMaterialData} />
             )}
@@ -115,6 +115,11 @@ export default function AboutBackbone() {
                           <FormattedMessage id="taxon.breakdown" defaultMessage="Breakdown" />
                         </Li>
                       )}
+                      {hasPreprocessedMap && (
+                        <Li to="#map">
+                          <FormattedMessage id="taxon.map" defaultMessage="Map" />
+                        </Li>
+                      )}
                       {hasOccurrenceImages && (
                         <Li to="#occurrence-images">
                           <FormattedMessage id="taxon.occurrenceImages" defaultMessage="Images" />
@@ -131,11 +136,6 @@ export default function AboutBackbone() {
                             id="taxon.vernacularNames"
                             defaultMessage="Vernacular names"
                           />
-                        </Li>
-                      )}
-                      {hasPreprocessedMap && (
-                        <Li to="#map">
-                          <FormattedMessage id="taxon.map" defaultMessage="Map" />
                         </Li>
                       )}
                       {hasTypeMaterial && (
