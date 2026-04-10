@@ -12,8 +12,7 @@ import { useConfig } from '@/config/config';
 import { OccurrenceQuery, SlowOccurrenceKeyQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
-import { MdAudiotrack, MdImage } from 'react-icons/md';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import wellknown from 'wellknown';
 import {
   BasicField,
@@ -59,8 +58,8 @@ import {
 } from './extensions';
 import { Media } from './media';
 import { TaxonInterpretationCard } from './TaxonInterpretationCard';
-import { Img } from '@/components/Img';
 import { CardDescription } from '@/components/ui/smallCard';
+import { MediaSummary } from './MediaSummary';
 
 // const Map = React.lazy(() => import('@/components/maps/map'));
 
@@ -80,7 +79,7 @@ export function Groups({
   if (!occurrence) return null;
   return (
     <div style={{ wordBreak: 'break-word' }}>
-      <MediaSummary {...{ updateToc, showAll, termMap, occurrence }} />
+      <MediaSummary occurrence={occurrence} />
       {/*<SequenceTeaser       {...{ updateToc, showAll, termMap, occurrence, setActiveImage }} />*/}
       {/* <Summary {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
@@ -887,69 +886,6 @@ function Other({
       <PlainTextField term={termMap.valid} showDetails={showAll} />
       <BasicField label="occurrenceFieldNames.gbifID">{termMap?.gbifID?.value}</BasicField>
     </PropGroup>
-  );
-}
-
-function MediaSummary({
-  showAll,
-  termMap,
-  occurrence,
-}: {
-  showAll: boolean;
-  termMap: any;
-  occurrence: any;
-}) {
-  const [activeImage, setActiveImage] = useState(0); // the idea with this is that down the line we can link from the gallery to open on a specific image. Or add a carousel
-
-  const hasVideo = occurrence?.movingImageCount > 0;
-  const hasPlayableVideo =
-    hasVideo && ['video/mp4', 'video/ogg'].includes(occurrence?.movingImages[0].format);
-  if (!(occurrence.stillImageCount > 0) && !hasPlayableVideo) return null;
-
-  const hasMore =
-    occurrence.stillImageCount + occurrence.movingImageCount > 1 || occurrence?.soundCount > 0;
-  const count = occurrence.stillImageCount + occurrence.movingImageCount + occurrence.soundCount;
-  const Icon = occurrence.stillImageCount > 0 ? MdImage : MdAudiotrack;
-  return (
-    <Card className="g-mb-4">
-      <div style={{ position: 'relative', background: '#eee' }}>
-        {hasMore && (
-          <a
-            href="#multimedia"
-            className="g-flex g-items-center g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
-          >
-            <Icon className="g-me-1" />
-            <FormattedNumber value={count} />
-          </a>
-        )}
-        {hasPlayableVideo && occurrence?.movingImages[0] && (
-          <video
-            controls
-            style={{ maxWidth: '100%', height: 400, display: 'block', margin: 'auto' }}
-          >
-            <source
-              src={occurrence?.movingImages[0].identifier}
-              type={occurrence?.movingImages[0].format}
-            />
-            Unable to play
-          </video>
-        )}
-
-        {!hasPlayableVideo && (
-          <Img
-            src={occurrence.stillImages[activeImage].thumbor}
-            style={{
-              maxWidth: '100%',
-              maxHeight: 400,
-              display: 'block',
-              margin: 'auto',
-              minHeight: 50,
-            }}
-            failedClassName="g-w-full g-h-24"
-          />
-        )}
-      </div>
-    </Card>
   );
 }
 
