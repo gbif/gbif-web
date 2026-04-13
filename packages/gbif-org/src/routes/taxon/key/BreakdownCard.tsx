@@ -56,6 +56,14 @@ type BreakdownNode = NonNullable<
 // gray "Other" categories. Tune this to balance chart detail vs. render performance.
 const MAX_TAXA_IN_CHART = 300;
 
+// If the largest inner slice is below this fraction of the total, skip the outer ring
+// and render a plain pie chart instead (the breakdown would be too fragmented).
+const MIN_INNER_FRACTION_FOR_OUTER = 0.1;
+
+// If the largest outer (grandchild) slice is below this fraction of the total, also
+// skip the outer ring — the second level would be indistinguishably small.
+const MIN_OUTER_FRACTION_FOR_OUTER = 0.01;
+
 type BreakdownChartProps = {
   breakdown: BreakdownNode;
 };
@@ -129,6 +137,26 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
     const totalSpecies =
       displayChildren.reduce((sum, c) => sum + (c.species ?? 0), 0) + innerOtherSpecies;
 
+    // If the largest inner or outer slice doesn't reach the minimum fraction, skip the outer ring.
+    const largestInnerFraction =
+      totalSpecies > 0
+        ? Math.max(...displayChildren.map((c) => (c.species ?? 0) / totalSpecies), 0)
+        : 0;
+    const largestOuterFraction =
+      totalSpecies > 0
+        ? Math.max(
+            0,
+            ...displayChildren.flatMap((c) =>
+              (c.children ?? [])
+                .filter((g): g is NonNullable<typeof g> => g != null)
+                .map((g) => (g.species ?? 0) / totalSpecies)
+            )
+          )
+        : 0;
+    const showOuterRing =
+      largestInnerFraction >= MIN_INNER_FRACTION_FOR_OUTER &&
+      largestOuterFraction >= MIN_OUTER_FRACTION_FOR_OUTER;
+
     displayChildren.forEach((child, idx) => {
       const color = themeColors[idx % themeColors.length];
       const parentSpecies = child.species ?? 0;
@@ -141,6 +169,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       const count = grandchildren.length;
 
       grandchildren.forEach((grandchild, jdx) => {
+        if (!showOuterRing) return;
         // brighten from +0.3 (light) to -0.3 (dark) across siblings
         const brightness = count > 1 ? 0.3 - (jdx / (count - 1)) * 0.6 : 0;
         outerData.push({
@@ -156,7 +185,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       // When children exist but don't account for all species (or some were capped), add a
       // visible "Other" remainder — shown in gray when grouping is active.
       const remainder = parentSpecies - grandchildrenSum;
-      if (remainder > 0) {
+      if (showOuterRing && remainder > 0) {
         const isBlank = grandchildren.length === 0;
         outerData.push({
           name: isBlank ? '' : `Other ${child.name ?? ''}`,
@@ -179,12 +208,14 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
         color: '#eee', //chartPatterns.OTHER,
         // no custom.id → click handler returns early (no navigation)
       });
-      outerData.push({
-        name: '',
-        y: innerOtherSpecies,
-        color: '#eee', //chartPatterns.OTHER,
-        dataLabels: { enabled: false },
-      });
+      if (showOuterRing) {
+        outerData.push({
+          name: '',
+          y: innerOtherSpecies,
+          color: '#eee', //chartPatterns.OTHER,
+          dataLabels: { enabled: false },
+        });
+      }
     }
 
     const handleClick = (e: Highcharts.PointClickEventObject) => {
@@ -226,7 +257,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           type: 'pie',
           name: 'Species',
           data: innerData,
-          size: '60%',
+          size: showOuterRing ? '60%' : '80%',
           dataLabels: {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: function (this: any) {
@@ -235,21 +266,25 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
             distance: -30,
           },
         },
-        {
-          type: 'pie',
-          name: 'Species',
-          data: outerData,
-          size: '80%',
-          innerSize: '60%',
-          dataLabels: {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            formatter: function (this: any) {
-              return (this.y ?? 0) > 1
-                ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
-                : null;
-            },
-          },
-        },
+        ...(showOuterRing
+          ? [
+              {
+                type: 'pie' as const,
+                name: 'Species',
+                data: outerData,
+                size: '80%',
+                innerSize: '60%',
+                dataLabels: {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  formatter: function (this: any) {
+                    return (this.y ?? 0) > 1
+                      ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
+                      : null;
+                  },
+                },
+              },
+            ]
+          : []),
       ],
     };
   }, [breakdown, createLink, navigate, theme?.chartColors]);
