@@ -59,6 +59,12 @@ const TAXON_BREAKDOWN = /* GraphQL */ `
             name: scientificName
             rank: taxonRank
             species
+            children: breakdown {
+              id: taxonID
+              name: scientificName
+              rank: taxonRank
+              species
+            }
           }
         }
       }

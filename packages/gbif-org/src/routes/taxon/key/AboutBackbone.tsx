@@ -1,4 +1,4 @@
-import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
+import { MapThumbnail, MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -23,6 +23,7 @@ import { Card } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';
 import { Aside, AsideSticky, SidebarLayout } from '../../occurrence/key/pagelayouts';
+import BreakdownCard from './BreakdownCard';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -74,6 +75,8 @@ export default function AboutBackbone() {
             {showTaxonBreakdown && (
               <div id="breakdown">
                 <TaxonBreakdown taxon={taxon} />
+
+                <BreakdownCard taxonKey={taxon.taxonID} datasetKey={taxon.datasetKey} />
               </div>
             )}
             {hasPreprocessedMap && (
@@ -100,6 +103,17 @@ export default function AboutBackbone() {
           </div>
           {!hideSidebar && (
             <Aside>
+              {hasPreprocessedMap && (
+                <>
+                  <MapThumbnail
+                    blend
+                    hexPerTile={48}
+                    capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }} // Pass taxonKey to check if there is data to show on the map for this taxon
+                    overlayStyle="classic-noborder.poly"
+                    className="g-mb-4 g-rounded"
+                  />
+                </>
+              )}
               <AsideSticky>
                 <Card>
                   <nav>

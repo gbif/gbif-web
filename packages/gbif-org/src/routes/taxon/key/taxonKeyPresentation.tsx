@@ -204,9 +204,9 @@ const PageHeader = ({
                             alt=""
                             className="g-opacity-60"
                             style={{
-                              maxWidth: '80%',
+                              maxWidth: '50%',
                               height: '100%',
-                              maxHeight: '80%',
+                              maxHeight: '50%',
                               display: 'block',
                               objectFit: 'contain',
                             }}

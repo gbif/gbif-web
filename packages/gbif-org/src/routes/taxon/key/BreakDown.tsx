@@ -2,7 +2,7 @@ import Highcharts, { chartPatterns } from '@/components/dashboard/charts/highcha
 import { chartsClass } from '@/components/dashboard/charts/OneDimensionalChart';
 import { CardHeader } from '@/components/dashboard/shared';
 import { ErrorBlock } from '@/components/ErrorBoundary';
-import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/largeCard';
 import rankEnum from '@/enums/basic/rank.json';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import HighchartsReact from 'highcharts-react-official';

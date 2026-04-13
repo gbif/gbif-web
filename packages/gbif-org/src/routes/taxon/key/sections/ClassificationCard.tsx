@@ -4,8 +4,6 @@ import { CardDescription } from '@/components/ui/smallCard';
 import { FormattedMessage } from 'react-intl';
 import { TaxonTree } from '../../search/views/tree';
 import { ColFeedback } from './ColFeedback';
-import { Tree } from '../../search/views/tree/components/decomposed';
-import { TaxonomicNode } from '../../search/views/tree/tree';
 
 type Props = {
   datasetKey: string;

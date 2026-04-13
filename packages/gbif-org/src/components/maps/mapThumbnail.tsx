@@ -42,6 +42,7 @@ type Props = {
   basemapStyle?: BasemapStyle;
   overlayStyle?: OverlayStyle;
   blend?: boolean;
+  hexPerTile?: number;
   className?: string;
   capabilitiesParams?: Params; // Additional params to determine if map can be shown, e.g. taxonKey, datasetKey etc. This is used in the useHasMap hook to check if there is data to show on the map, and can be extended with any other params that the capabilities endpoint accepts.
 };
@@ -51,9 +52,11 @@ export function MapThumbnail({
   basemapStyle = 'gbif-middle', // default value for basemapStyle
   overlayStyle = 'classic-noborder.poly', // default value for overlayStyle
   blend, // how to blend overaly with basemap
+  hexPerTile = 20, // how many hexagons per tile, only used for hexagonal binning
   className,
 }: Props) {
   const hasMap = useHasMap(capabilitiesParams ?? {});
+  console.log('hasMap', hasMap, capabilitiesParams);
   if (!hasMap) return false;
 
   const queryString = stringify(capabilitiesParams ?? {});
@@ -82,14 +85,14 @@ export function MapThumbnail({
           onError={(e: any) => (e.target.style.visibility = 'hidden')}
           src={`${
             import.meta.env.PUBLIC_API_V2
-          }/map/occurrence/density/0/0/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${queryString}`}
+          }/map/occurrence/density/0/0/0@Hx.png?bin=hex&hexPerTile=${hexPerTile}&style=${overlayStyle}&srs=EPSG:4326&${queryString}`}
         />
         <img
           className="g-w-1/2 g-inline-block"
           onError={(e: any) => (e.target.style.visibility = 'hidden')}
           src={`${
             import.meta.env.PUBLIC_API_V2
-          }/map/occurrence/density/0/1/0@Hx.png?bin=hex&hexPerTile=20&style=${overlayStyle}&srs=EPSG:4326&${queryString}`}
+          }/map/occurrence/density/0/1/0@Hx.png?bin=hex&hexPerTile=${hexPerTile}&style=${overlayStyle}&srs=EPSG:4326&${queryString}`}
         />
       </div>
     </div>
