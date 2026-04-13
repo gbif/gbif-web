@@ -74,7 +74,7 @@ export default function AboutBackbone() {
             <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} />
             {showTaxonBreakdown && (
               <div id="breakdown">
-                <TaxonBreakdown taxon={taxon} />
+                {/* <TaxonBreakdown taxon={taxon} /> */}
 
                 <BreakdownCard taxonKey={taxon.taxonID} datasetKey={taxon.datasetKey} />
               </div>

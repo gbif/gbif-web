@@ -45,6 +45,17 @@ const getTaxonFacet =
       ]);
   };
 
+function sortBreakdownRecursively(items) {
+  if (!items) return items;
+  return items
+    .filter((t) => t.species > 0)
+    .sort((a, b) => b.species - a.species)
+    .map((item) => ({
+      ...item,
+      breakdown: sortBreakdownRecursively(item.breakdown),
+    }));
+}
+
 const sharedTaxonFields = {
   dataset: ({ datasetKey }, args, { dataSources }) =>
     dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
@@ -85,9 +96,7 @@ const sharedTaxonFields = {
       .then((response) => {
         const breakdown = !sortByCount
           ? response?.breakdown
-          : (response.breakdown ?? [])
-              .filter((t) => t.species > 0)
-              .sort((a, b) => b.species - a.species);
+          : sortBreakdownRecursively(response.breakdown ?? []);
         return { ...response, breakdown };
       }),
   wikiData: ({ taxonID }, args, { dataSources }) =>
