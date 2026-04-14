@@ -3,7 +3,6 @@ import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, TaxonomyIcon } from '@/components/highlights';
-import { HyperText } from '@/components/hyperText';
 import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -32,7 +31,6 @@ import { useIsSpeciesOrBelow } from './taxonUtil';
 import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
-import { Formatted } from 'maplibre-gl';
 
 const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
 
@@ -147,7 +145,7 @@ const SectionTabs = ({
     }
 
     return tabsToDisplay;
-  }, []);
+  }, [occurrenceCount, isNub]);
 
   return <Tabs links={tabs} />;
 };
@@ -379,7 +377,7 @@ const PageHeader = ({
                           searchParams={{ taxonId: taxon.taxonID }}
                           className="hover:g-underline"
                         >
-                          <FormattedMessage id="counts.nSpecies" values={{ total: 123456 }} />
+                          <FormattedMessage id="counts.nSpecies" values={{ total: 10000000000 }} />
                         </DynamicLink>
                       </GenericFeature>
                       {!isPrimaryTaxonomy && taxon?.references && (

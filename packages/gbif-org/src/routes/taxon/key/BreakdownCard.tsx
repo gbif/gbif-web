@@ -1,6 +1,7 @@
 import Highcharts, { generateChartsPalette } from '@/components/dashboard/charts/highcharts';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { SkeletonParagraph } from '@/components/ui/skeleton';
 import { CardDescription } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { TaxonBreakdown2Query, TaxonBreakdown2QueryVariables } from '@/gql/graphql';
@@ -314,10 +315,15 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
         <CardTitle>
           <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
         </CardTitle>
-        <CardDescription>Major groups per number of species</CardDescription>
+        <CardDescription>
+          <FormattedMessage
+            id="taxon.largestGroupsDescription"
+            defaultMessage="Major groups per number of species"
+          />
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        {loading && <p>Loading...</p>}
+        {loading && <SkeletonParagraph />}
         {isEmpty && !loading && (
           <p>
             <FormattedMessage

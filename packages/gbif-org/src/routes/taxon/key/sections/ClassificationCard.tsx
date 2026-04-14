@@ -18,7 +18,9 @@ export default function ClassificationCard({ datasetKey, taxonKey }: Props) {
     >
       <Card className="g-mb-4" id="classification">
         <CardHeader>
-          <CardTitle>Classification and descendants</CardTitle>
+          <CardTitle>
+            <FormattedMessage id="taxon.classificationAndDescendants" />
+          </CardTitle>
           <CardDescription>
             <ColFeedback />
           </CardDescription>

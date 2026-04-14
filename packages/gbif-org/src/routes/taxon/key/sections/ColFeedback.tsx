@@ -13,7 +13,7 @@ export function ColFeedback() {
             rel="noopener noreferrer"
             className="g-underline"
           >
-            <FormattedMessage id="link" defaultMessage="Leave feedback." />
+            <FormattedMessage id="taxon.colLeaveFeedback" defaultMessage="Leave feedback." />
           </a>
         ),
       }}
