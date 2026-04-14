@@ -1,13 +1,14 @@
 import Highcharts, { generateChartsPalette } from '@/components/dashboard/charts/highcharts';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { CardDescription } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { TaxonBreakdown2Query, TaxonBreakdown2QueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import HighchartsReact from 'highcharts-react-official';
 import { useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 
 const TAXON_BREAKDOWN = /* GraphQL */ `
@@ -76,6 +77,9 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
   const createLink = useLink();
   const navigate = useNavigate();
   const { theme } = useConfig();
+  const intl = useIntl();
+  const otherLabel = intl.formatMessage({ id: 'taxon.other', defaultMessage: 'Other' });
+  const speciesLabel = intl.formatMessage({ id: 'taxon.species', defaultMessage: 'species' });
 
   const chartOptions = useMemo((): Highcharts.Options => {
     const themeColors = (
@@ -177,7 +181,12 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
     // If the outer ring is already populated, a matching blank filler is added
     // so both rings cover the same total arc.
     if (smallChildrenTotal > 0) {
-      innerData.push({ name: 'Other', y: smallChildrenTotal, color: '#fafafa' });
+      innerData.push({
+        name: otherLabel,
+        y: smallChildrenTotal,
+        color: '#fafafa',
+        custom: { isOther: true },
+      });
       if (hasRealOuterSlices) {
         outerData.push({
           name: '',
@@ -232,7 +241,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       },
       tooltip: {
         headerFormat: '',
-        pointFormat: '<b>{point.name}</b>: {point.y} species',
+        pointFormat: `<b>{point.name}</b>: {point.y} ${speciesLabel}`,
       },
       series: [
         {
@@ -249,6 +258,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: function (this: any) {
               if (this.point.custom?.hasOuterBreakdown) return null;
+              if (this.point.custom?.isOther) return null;
               return (this.y ?? 0) > 1
                 ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                 : null;
@@ -278,7 +288,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           : []),
       ],
     };
-  }, [breakdown, createLink, navigate, theme?.chartColors]);
+  }, [breakdown, createLink, navigate, theme?.chartColors, otherLabel, speciesLabel]);
 
   return <HighchartsReact highcharts={Highcharts} options={chartOptions} />;
 }
@@ -297,6 +307,7 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
         <CardTitle>
           <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
         </CardTitle>
+        <CardDescription>Largest groups per number of species</CardDescription>
       </CardHeader>
       <CardContent>
         {loading && <p>Loading...</p>}
