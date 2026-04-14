@@ -1,5 +1,5 @@
 import Properties from '@/components/properties';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { OccurrenceMediaDetailsFragment, OccurrenceQuery, Term } from '@/gql/graphql';
 import { truncateMiddle } from '@/utils/truncateString';
 import { useEffect, useState } from 'react';
@@ -126,18 +126,15 @@ function Sounds({
               <div>
                 {knownFormat && media.identifier && (
                   <>
-                    <audio controls>
-                      <source src={media.identifier} type={format} />
-                      Unable to play
-                    </audio>
-                    {
-                      <CardContent>
-                        <a href={termMap?.references?.value || media.identifier}>
-                          <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
-                          <RiExternalLinkLine />
-                        </a>
-                      </CardContent>
-                    }
+                    <div className="g-flex g-justify-center g-p-4">
+                      <audio controls>
+                        <source src={media.identifier} type={format} />
+                        Unable to play
+                      </audio>
+                    </div>
+                    {(termMap?.references?.value || media.identifier) && (
+                      <TryPublisherSiteLink href={termMap?.references?.value || media.identifier!} />
+                    )}
                   </>
                 )}
               </div>
@@ -176,15 +173,7 @@ function MovingImages({
                       Unable to play
                     </video>
                     {(termMap?.references?.value || media.identifier) && (
-                      <div>
-                        <a
-                          href={termMap?.references?.value || media.identifier}
-                          className="g-px-2 g-py-1 g-bg-slate-300 g-block"
-                        >
-                          <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
-                          <RiExternalLinkLine />
-                        </a>
-                      </div>
+                      <TryPublisherSiteLink href={termMap?.references?.value || media.identifier!} />
                     )}
                   </>
                 )}
@@ -193,7 +182,7 @@ function MovingImages({
                     <div className="gb-download-icon">
                       <MdFileDownload />
                     </div>
-                    <div>Download media file</div>
+                    <div><FormattedMessage id="occurrenceDetails.downloadMediaFile" /></div>
                   </a>
                 )}
               </div>
@@ -203,6 +192,20 @@ function MovingImages({
         );
       })}
     </>
+  );
+}
+
+function TryPublisherSiteLink({ href }: { href: string }) {
+  return (
+    <div>
+      <a
+        href={href}
+        className="g-px-2 g-py-1 g-bg-slate-300 g-text-slate-600 g-text-sm g-block"
+      >
+        <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
+        <RiExternalLinkLine className="g-inline" />
+      </a>
+    </div>
   );
 }
 
