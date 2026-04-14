@@ -235,14 +235,16 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           name: 'Species',
           data: innerData,
           innerSize: '30%',
-          size: hasOuterRing ? '60%' : '80%',
+          size: hasOuterRing ? '55%' : '80%',
           dataLabels: {
             // Show names outside the inner ring; Highcharts handles overlap.
             // All significant children are worth labelling — they are already
             // at least MIN_SLICE_PERCENT of the total.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: function (this: any) {
-              return this.point.name || null;
+              return (this.y ?? 0) > 1
+                ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
+                : null;
             },
             distance: 30,
           },
@@ -254,7 +256,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                 name: 'Species',
                 data: outerData,
                 size: '80%',
-                innerSize: '60%',
+                innerSize: '70%',
                 dataLabels: {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   formatter: function (this: any) {
