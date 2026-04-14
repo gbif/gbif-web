@@ -3,10 +3,10 @@
     "tabs": {
       "summary": "요약",
       "dataPublishing": "데이터 발간",
-      "dataAbout": "",
+      "dataAbout": "관련 데이터",
       "participation": "참여",
-      "publicationsFrom": "",
-      "publicationsAbout": "",
+      "publicationsFrom": "출처 발간물",
+      "publicationsAbout": "관련 발간물",
       "news": "뉴스",
       "alienSpecies": "외래종",
       "projects": "프로젝트"
@@ -22,18 +22,18 @@
     "notParticipant": "참여자 없음",
     "notParticipantDescription": "이 국가는 GBIF 참여자가 아닙니다",
     "countryNamingDisclaimer": "국가 및 영역의 이름은 {ISO_STANDARD_LINK_TEXT}에 기반합니다.",
-    "isoStandardLinkText": "",
+    "isoStandardLinkText": "ISO 3166-1 표준",
     "counts": {
       "occurrences": "",
       "datasets": "",
       "publishers": "",
       "countriesAndAreasContributeData": "",
-      "publishedOccurrences": "",
-      "publishedDatasets": "",
+      "publishedOccurrences": "발간된 출현값",
+      "publishedDatasets": "발간된 데이터셋",
       "countriesAndAreasCoveredByDataFrom": "",
       "publishersFrom": ""
     },
-    "activityReport": "",
-    "contacts": ""
+    "activityReport": "활동 보고서",
+    "contacts": "연락처"
   }
 }
