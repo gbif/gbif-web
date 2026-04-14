@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "純詮釋資料集無統計數據",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "此網站並未包含資料集中的所有記錄。 造訪 [GBIF.org]({datasetUrl}) 探索完整資料集。",
   "viewArticle": "觀看文章",
   "registeredDate": "註冊於 {DATE}",

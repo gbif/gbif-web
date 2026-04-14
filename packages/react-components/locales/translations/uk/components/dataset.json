@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "Відсутні показники для наборів, що містять лише метадані",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "Не всі записи з цього набору даних відображені на цьому сайті. Відвідайте [GBIF.org]({datasetUrl}), щоб переглянути повний набір даних.",
   "viewArticle": "Перегляд статті",
   "registeredDate": "Дата реєстрації {DATE}",

@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "אין סטטיסטיקות למסדי נתונים של מטא־דאטה בלבד",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "לא כל הרשומות ממסד הנתונים נכללות באתר זה. בקרו ב־[GBIF.org]({datasetUrl}) כדי לחקור את מסד הנתונים המלא.",
   "viewArticle": "צפו במאמר",
   "registeredDate": "נרשם {DATE}",

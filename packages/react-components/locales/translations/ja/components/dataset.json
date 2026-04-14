@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "メタデータのみのデータセットにつき、統計情報なし",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "",
   "viewArticle": "記事を見る",
   "registeredDate": "登録日 {DATE}",
