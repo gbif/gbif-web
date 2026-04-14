@@ -19,7 +19,7 @@
   "collectionGrSciColl": "Collection GrSciColl",
   "recordedAndIdentifiedBy": "Enregistré et identifié par",
   "tryPublisherSiteForFailingMedia": "Si le média ne s'affiche pas correctement, essayez plutôt le site de l'éditeur",
-  "downloadMediaFile": "",
+  "downloadMediaFile": "Télécharger le fichier média",
   "screenReader": {
     "title": "Détails de l'occurrence"
   },
