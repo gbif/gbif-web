@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "Aucune statistique disponible pour les jeux de données de métadonnées",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "Tous les enregistrements du jeu de données ne sont pas inclus sur ce site. Visitez [GBIF.org]({datasetUrl}) pour explorer l'ensemble des données.",
   "viewArticle": "Afficher l’article",
   "registeredDate": "Date d'enregistrement {DATE}",
