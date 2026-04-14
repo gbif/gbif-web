@@ -71,7 +71,7 @@ export default function AboutBackbone() {
           stack={false}
         >
           <div className="g-order-last">
-            <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} />
+            {/* <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} /> */}
             {showTaxonBreakdown && (
               <div id="breakdown">
                 {/* <TaxonBreakdown taxon={taxon} /> */}
@@ -79,7 +79,7 @@ export default function AboutBackbone() {
                 <BreakdownCard taxonKey={taxon.taxonID} datasetKey={taxon.datasetKey} />
               </div>
             )}
-            {hasPreprocessedMap && (
+            {/* {hasPreprocessedMap && (
               <div id="map">
                 <MapWidget
                   className="g-mb-4"
@@ -99,12 +99,12 @@ export default function AboutBackbone() {
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
             {hasBibliography && <BibliographyCard taxonInfo={taxonInfo} />}
             {hasWikiDataIdentifiers && <TaxonIdentifiersCard slowTaxon={slowTaxon} />}
-            <CitationCard taxonInfo={taxonInfo} />
+            <CitationCard taxonInfo={taxonInfo} /> */}
           </div>
           {!hideSidebar && (
             <Aside>
               {hasPreprocessedMap && (
-                <>
+                <a href="#map" className="g-block">
                   <MapThumbnail
                     blend
                     hexPerTile={48}
@@ -112,7 +112,7 @@ export default function AboutBackbone() {
                     overlayStyle="classic-noborder.poly"
                     className="g-mb-4 g-rounded"
                   />
-                </>
+                </a>
               )}
               <AsideSticky>
                 <Card>

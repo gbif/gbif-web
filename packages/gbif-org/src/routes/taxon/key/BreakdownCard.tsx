@@ -1,7 +1,4 @@
-import Highcharts, {
-  chartPatterns,
-  generateChartsPalette,
-} from '@/components/dashboard/charts/highcharts';
+import Highcharts, { generateChartsPalette } from '@/components/dashboard/charts/highcharts';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
@@ -52,17 +49,7 @@ type BreakdownNode = NonNullable<
   NonNullable<NonNullable<TaxonBreakdown2Query['taxonInfo']>['taxon']>['checklistBankBreakdown']
 >;
 
-// Maximum number of taxa nodes (inner + outer slices) before grouping small taxa into
-// gray "Other" categories. Tune this to balance chart detail vs. render performance.
-const MAX_TAXA_IN_CHART = 300;
-
-// If the largest inner slice is below this fraction of the total, skip the outer ring
-// and render a plain pie chart instead (the breakdown would be too fragmented).
-const MIN_INNER_FRACTION_FOR_OUTER = 0.1;
-
-// If the largest outer (grandchild) slice is below this fraction of the total, also
-// skip the outer ring — the second level would be indistinguishably small.
-const MIN_OUTER_FRACTION_FOR_OUTER = 0.01;
+const MIN_SLICE_PERCENT = 0.01; // slices below this fraction of the total are grouped into "Other"
 
 type BreakdownChartProps = {
   breakdown: BreakdownNode;
@@ -80,84 +67,21 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
         : (Highcharts.getOptions().colors ?? [])
     ) as string[];
 
-    const allChildren = (breakdown.children ?? []).filter(
+    const children = (breakdown.children ?? []).filter(
       (c): c is NonNullable<typeof c> => c != null
     );
 
-    // Count total nodes (inner children + all grandchildren across all children)
-    const totalNodes =
-      allChildren.length +
-      allChildren.reduce((sum, c) => sum + (c.children ?? []).filter((g) => g != null).length, 0);
-
-    let displayChildren = allChildren;
-    let innerOtherSpecies = 0;
-
-    if (totalNodes > MAX_TAXA_IN_CHART) {
-      // maxInner: roughly sqrt of the budget so inner*outer ≈ MAX_TAXA_IN_CHART
-      const maxInner = Math.ceil(Math.sqrt(MAX_TAXA_IN_CHART));
-      if (allChildren.length > maxInner) {
-        innerOtherSpecies = allChildren
-          .slice(maxInner)
-          .reduce((sum, c) => sum + (c.species ?? 0), 0);
-        displayChildren = allChildren.slice(0, maxInner);
-      }
-      // Distribute remaining budget evenly across displayed inner children
-      const maxGC = Math.max(
-        1,
-        Math.floor(
-          (MAX_TAXA_IN_CHART - displayChildren.length) / Math.max(1, displayChildren.length)
-        )
-      );
-      displayChildren = displayChildren.map((child) => ({
-        ...child,
-        children: (child.children ?? [])
-          .filter((g): g is NonNullable<typeof g> => g != null)
-          .slice(0, maxGC),
-      }));
-    }
-
-    // Prune inner slices that are less than 3% of total into the "Other" category
-    {
-      const preTotal =
-        displayChildren.reduce((sum, c) => sum + (c.species ?? 0), 0) + innerOtherSpecies;
-      const kept: typeof displayChildren = [];
-      for (const child of displayChildren) {
-        if (preTotal > 0 && (child.species ?? 0) / preTotal < 0.015) {
-          innerOtherSpecies += child.species ?? 0;
-        } else {
-          kept.push(child);
-        }
-      }
-      displayChildren = kept;
-    }
-
-    const isGrouped = totalNodes > MAX_TAXA_IN_CHART;
     const innerData: Highcharts.PointOptionsObject[] = [];
     const outerData: Highcharts.PointOptionsObject[] = [];
-    const totalSpecies =
-      displayChildren.reduce((sum, c) => sum + (c.species ?? 0), 0) + innerOtherSpecies;
+    const totalSpecies = children.reduce((sum, c) => sum + (c.species ?? 0), 0);
+    const minSliceSpecies = totalSpecies * MIN_SLICE_PERCENT;
 
-    // If the largest inner or outer slice doesn't reach the minimum fraction, skip the outer ring.
-    const largestInnerFraction =
-      totalSpecies > 0
-        ? Math.max(...displayChildren.map((c) => (c.species ?? 0) / totalSpecies), 0)
-        : 0;
-    const largestOuterFraction =
-      totalSpecies > 0
-        ? Math.max(
-            0,
-            ...displayChildren.flatMap((c) =>
-              (c.children ?? [])
-                .filter((g): g is NonNullable<typeof g> => g != null)
-                .map((g) => (g.species ?? 0) / totalSpecies)
-            )
-          )
-        : 0;
-    const showOuterRing =
-      largestInnerFraction >= MIN_INNER_FRACTION_FOR_OUTER &&
-      largestOuterFraction >= MIN_OUTER_FRACTION_FOR_OUTER;
+    const largeChildren = children.filter((c) => (c.species ?? 0) >= minSliceSpecies);
+    const smallChildrenTotal = children
+      .filter((c) => (c.species ?? 0) < minSliceSpecies)
+      .reduce((sum, c) => sum + (c.species ?? 0), 0);
 
-    displayChildren.forEach((child, idx) => {
+    largeChildren.forEach((child, idx) => {
       const color = themeColors[idx % themeColors.length];
       const parentSpecies = child.species ?? 0;
       innerData.push({ name: child.name ?? '', y: parentSpecies, color, custom: { id: child.id } });
@@ -165,11 +89,14 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       const grandchildren = (child.children ?? []).filter(
         (g): g is NonNullable<typeof g> => g != null
       );
-      const grandchildrenSum = grandchildren.reduce((sum, g) => sum + (g.species ?? 0), 0);
-      const count = grandchildren.length;
+      const largeGrandchildren = grandchildren.filter((g) => (g.species ?? 0) >= minSliceSpecies);
+      const largeGrandchildrenSum = largeGrandchildren.reduce(
+        (sum, g) => sum + (g.species ?? 0),
+        0
+      );
+      const count = largeGrandchildren.length;
 
-      grandchildren.forEach((grandchild, jdx) => {
-        if (!showOuterRing) return;
+      largeGrandchildren.forEach((grandchild, jdx) => {
         // brighten from +0.3 (light) to -0.3 (dark) across siblings
         const brightness = count > 1 ? 0.3 - (jdx / (count - 1)) * 0.6 : 0;
         outerData.push({
@@ -180,43 +107,34 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
         });
       });
 
-      // Filler slice so the outer ring always covers the same angular span as its parent inner slice.
-      // When there are no children at all, use the parent color so the ring looks seamless.
-      // When children exist but don't account for all species (or some were capped), add a
-      // visible "Other" remainder — shown in gray when grouping is active.
-      const remainder = parentSpecies - grandchildrenSum;
-      if (showOuterRing && remainder > 0) {
+      // Filler slice: covers small grandchildren (< threshold) + any angular gap from missing data.
+      const remainder = parentSpecies - largeGrandchildrenSum;
+      if (remainder > 0) {
         const isBlank = grandchildren.length === 0;
         outerData.push({
           name: isBlank ? '' : `Other ${child.name ?? ''}`,
           y: remainder,
-          color: isBlank
-            ? (color as string)
-            : isGrouped
-              ? '#eee' //chartPatterns.OTHER
-              : (Highcharts.color(color).brighten(-0.4).get() as string),
+          color: isBlank ? (color as string) : '#fafafa',
           dataLabels: { enabled: !isBlank },
         });
       }
     });
 
-    // If inner children were capped, add a gray "Other" inner slice and a matching outer filler
-    if (innerOtherSpecies > 0) {
-      innerData.push({
-        name: 'Other',
-        y: innerOtherSpecies,
-        color: '#eee', //chartPatterns.OTHER,
-        // no custom.id → click handler returns early (no navigation)
-      });
-      if (showOuterRing) {
+    // Group all children below the threshold into a single "Other" slice.
+    if (smallChildrenTotal > 0) {
+      const needsOuterFiller = outerData.length > 0;
+      innerData.push({ name: 'Other', y: smallChildrenTotal, color: '#fafafa' });
+      if (needsOuterFiller) {
         outerData.push({
           name: '',
-          y: innerOtherSpecies,
-          color: '#eee', //chartPatterns.OTHER,
+          y: smallChildrenTotal,
+          color: '#fafafa',
           dataLabels: { enabled: false },
         });
       }
     }
+
+    const hasOuterRing = outerData.length > 0;
 
     const handleClick = (e: Highcharts.PointClickEventObject) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -237,6 +155,16 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       title: { text: '' },
       credits: { enabled: false },
       plotOptions: {
+        series: {
+          states: {
+            hover: {
+              halo: null,
+            },
+            inactive: {
+              opacity: 1,
+            },
+          },
+        },
         pie: {
           shadow: false,
           center: ['50%', '50%'],
@@ -257,7 +185,8 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           type: 'pie',
           name: 'Species',
           data: innerData,
-          size: showOuterRing ? '60%' : '80%',
+          innerSize: '30%',
+          size: hasOuterRing ? '60%' : '80%',
           dataLabels: {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: function (this: any) {
@@ -266,7 +195,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
             distance: -30,
           },
         },
-        ...(showOuterRing
+        ...(hasOuterRing
           ? [
               {
                 type: 'pie' as const,

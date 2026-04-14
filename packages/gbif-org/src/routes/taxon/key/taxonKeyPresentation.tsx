@@ -31,6 +31,7 @@ import { HeaderImageCarousel } from './sections/SidebarImageCarousel';
 import { useIsSpeciesOrBelow } from './taxonUtil';
 import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
+import { Classification } from '@/components/classification';
 
 const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
 
@@ -296,6 +297,42 @@ const PageHeader = ({
                           </DynamicLink>
                         </Button>
                       </>
+                    )}
+
+                    {!taxon.acceptedTaxon && taxonInfo?.classification && (
+                      // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
+                      <Classification className="g-mt-2 g-flex g-flex-wrap g-gap-1 g-items-center">
+                        {taxonInfo.classification.slice(0, 2).map((c) => (
+                          <span key={c.taxonID} className="g-flex g-items-center">
+                            <DynamicLink
+                              className="hover:g-underline"
+                              pageId="taxonKey"
+                              variables={{ key: c.taxonID.toString() }}
+                            >
+                              {c.scientificName}
+                            </DynamicLink>
+                          </span>
+                        ))}
+                        {taxonInfo.classification.length > 3 && <span>...</span>}
+                        {taxonInfo.classification.length > 2 && (
+                          <span className="g-flex g-items-center">
+                            <DynamicLink
+                              className="hover:g-underline"
+                              pageId="taxonKey"
+                              variables={{
+                                key: taxonInfo.classification[
+                                  taxonInfo.classification.length - 1
+                                ].taxonID.toString(),
+                              }}
+                            >
+                              {
+                                taxonInfo.classification[taxonInfo.classification.length - 1]
+                                  .scientificName
+                              }
+                            </DynamicLink>
+                          </span>
+                        )}
+                      </Classification>
                     )}
 
                     {taxonInfo.vernacularName && (
