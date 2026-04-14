@@ -38,7 +38,7 @@ export default function About() {
   const { collection } = useCollectionKeyLoaderData();
   const { contentMetrics } = useContext(CollectionKeyContext);
   const { count, loading } = useCount({
-    v1Endpoint: '/occurrence/search',
+    apiEndpoint: '/v1/occurrence/search',
     params: { collectionKey: key },
   });
   const removeSidebarThreshold = useBelow(1100);

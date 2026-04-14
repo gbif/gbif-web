@@ -1,15 +1,6 @@
 import { Table } from '@/components/dashboard/shared';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Dataset,
-  TaxonVernacularNamesQuery,
-  TaxonVernacularNamesQueryVariables,
-} from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
-import { DynamicLink } from '@/reactRouterPlugins';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const DEFAULT_LIMIT = 10;

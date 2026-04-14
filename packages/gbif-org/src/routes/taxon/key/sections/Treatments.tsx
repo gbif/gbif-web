@@ -9,6 +9,7 @@ import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from './VernacularNameTable';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Formatted } from 'maplibre-gl';
 
 const DEFAULT_LIMIT = 3;
 
@@ -71,17 +72,24 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
                     <div className="g-mt-1 g-mb-1">
                       <div className="g-flex g-text-sm g-text-slate-500 g-mb-1">
                         <div className="g-flex-auto" />
-                        <a href={treatment?.link} target="_blank" rel="noreferrer">
-                          <MdLink /> {treatment?.dataset?.publishingOrganizationTitle}
-                        </a>
+                        {treatment?.references && (
+                          <a href={treatment?.references} target="_blank" rel="noreferrer">
+                            <MdLink /> {treatment?.dataset?.publishingOrganizationTitle}
+                          </a>
+                        )}
                       </div>
-                      <HyperText text={treatment?.dataset?.citation?.text} />
-                      <div className="g-text-sm g-text-slate-500 g-mt-1">
-                        <FormattedMessage id={`taxon.source`} />:{' '}
-                        <DynamicLink pageId="datasetKey" variables={{ key: treatment?.datasetKey }}>
-                          {treatment?.dataset?.title}
-                        </DynamicLink>
-                      </div>
+                      <HyperText text={treatment?.dataset?.citation?.text} fallback />
+                      {treatment?.datasetKey && (
+                        <div className="g-text-sm g-text-slate-500 g-mt-1">
+                          <FormattedMessage id={`taxon.source`} />:{' '}
+                          <DynamicLink
+                            pageId="datasetKey"
+                            variables={{ key: treatment?.datasetKey }}
+                          >
+                            {treatment?.dataset?.title ?? <FormattedMessage id="unknown" />}
+                          </DynamicLink>
+                        </div>
+                      )}
                     </div>
                   </td>
                 </tr>

@@ -6,9 +6,9 @@ import { CardDescription } from '@/components/ui/smallCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Paging } from '../VernacularNameTable';
+import { Paging } from './VernacularNameTable';
 import { ColFeedback } from './ColFeedback';
-import { InfoPill } from '../Synonyms';
+import { InfoPill } from './Synonyms';
 
 const DEFAULT_LIMIT = 10;
 

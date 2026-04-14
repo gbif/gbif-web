@@ -2,7 +2,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { SlowTaxonQuery } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
-import WikiDataIdentifiers from '../WikiDataIdentifiers';
+import WikiDataIdentifiers from './WikiDataIdentifiers';
 
 type Props = {
   slowTaxon: SlowTaxonQuery | undefined;

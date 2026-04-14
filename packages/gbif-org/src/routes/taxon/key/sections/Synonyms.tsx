@@ -3,7 +3,6 @@ import { TaxonKeyQuery } from '@/gql/graphql';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Button } from '@/components/ui/button';
-import { Pills } from '@/routes/resource/key/components/pills';
 import { cn } from '@/utils/shadcn';
 
 const LIMIT = 10;

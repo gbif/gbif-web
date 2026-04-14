@@ -65,9 +65,8 @@ export function TaxonKey({
 }) {
   if (data.taxonInfo?.taxon == null) throw new NotFoundError();
 
-  const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
   return (
-    <PageHeader data={data} vernacularNameInfo={vernacularNameInfo}>
+    <PageHeader data={data}>
       <TaxonKeyContext.Provider
         value={{
           data: data,
@@ -93,7 +92,7 @@ export const NonBackbonePresentation = ({
   headLess: boolean;
 }) => {
   return !headLess ? (
-    <PageHeader data={data} vernacularNameInfo={undefined}>
+    <PageHeader data={data}>
       <TaxonKeyContext.Provider
         value={{
           data: data,
@@ -150,23 +149,23 @@ const SectionTabs = ({
   return <Tabs links={tabs} />;
 };
 
-const PageHeader = ({
-  data,
-  vernacularNameInfo,
-  children,
-}: {
-  data: TaxonKeyQuery;
-  vernacularNameInfo?: any;
-  children?: React.ReactNode;
-}) => {
+const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.ReactNode }) => {
   const { taxonInfo } = data;
   const taxon = taxonInfo?.taxon;
   if (!taxon) throw new NotFoundError();
 
   const isPrimaryTaxonomy = taxonInfo?.taxon?.datasetKey === primaryChecklist;
   const { count, loading: countLoading } = useCount({
-    v1Endpoint: '/occurrence/search',
+    apiEndpoint: '/v1/occurrence/search',
     params: { taxonKey: taxonInfo?.taxon?.taxonID, checklistKey: primaryChecklist },
+  });
+
+  const { count: speciesCount } = useCount({
+    apiEndpoint: `/v2/taxon/search/${primaryChecklist}`,
+    params: {
+      taxonId: taxonInfo?.taxon?.taxonID,
+      taxonRank: 'SPECIES',
+    },
   });
 
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon.taxonRank);
@@ -370,16 +369,21 @@ const PageHeader = ({
                 <HeaderInfo className="g-flex-none g-mb-0">
                   <HeaderInfoMain>
                     <FeatureList>
-                      <GenericFeature>
-                        <TaxonomyIcon />
-                        <DynamicLink
-                          pageId="taxonSearch"
-                          searchParams={{ taxonId: taxon.taxonID }}
-                          className="hover:g-underline"
-                        >
-                          <FormattedMessage id="counts.nSpecies" values={{ total: 10000000000 }} />
-                        </DynamicLink>
-                      </GenericFeature>
+                      {speciesCount > 0 && (
+                        <GenericFeature>
+                          <TaxonomyIcon />
+                          <DynamicLink
+                            pageId="taxonSearch"
+                            searchParams={{ taxonId: taxon.taxonID }}
+                            className="hover:g-underline"
+                          >
+                            <FormattedMessage
+                              id="counts.nSpecies"
+                              values={{ total: speciesCount }}
+                            />
+                          </DynamicLink>
+                        </GenericFeature>
+                      )}
                       {!isPrimaryTaxonomy && taxon?.references && (
                         <Homepage url={taxon.references} />
                       )}

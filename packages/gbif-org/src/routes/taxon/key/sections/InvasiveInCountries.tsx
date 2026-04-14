@@ -111,7 +111,7 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
                     <td className="g-text-end">
                       {e?.isCountry ? (
                         <Count
-                          v1Endpoint="/occurrence/search"
+                          apiEndpoint="/v1/occurrence/search"
                           params={{
                             taxonKey: taxonInfo?.taxon?.taxonID,
                             country: e.countryCode,

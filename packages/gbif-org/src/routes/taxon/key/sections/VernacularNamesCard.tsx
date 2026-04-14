@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { CardDescription } from '@/components/ui/smallCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
-import { VernacularNameTable } from '../VernacularNameTable';
+import { VernacularNameTable } from './VernacularNameTable';
 import { ColFeedback } from './ColFeedback';
 
 type Props = {

@@ -208,10 +208,10 @@ function TaxaMain({
   );
 }
 
-export function Taxa(props) {
+export function Taxa({ defaultRank, ...props }) {
   return (
     <ChartClickWrapper {...props}>
-      <TaxaMain />
+      <TaxaMain defaultRank={defaultRank} />
     </ChartClickWrapper>
   );
 }

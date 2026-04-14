@@ -3,12 +3,11 @@ import { MapWidget } from '@/components/maps/mapWidget';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useContext, useState, useCallback } from 'react';
-import TaxonBreakdown from './BreakDown';
-import { InvasiveInCountries } from './InvasiveInCountries';
+import { InvasiveInCountries } from './sections/InvasiveInCountries';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
-import TreatmentsCard from './Treatments';
-import TypeMaterial from './TypeSpecimens';
+import TreatmentsCard from './sections/Treatments';
+import TypeMaterial from './sections/TypeSpecimens';
 import { NotFoundError } from '@/errors';
 import { useConfig } from '@/config/config';
 import BibliographyCard from './sections/BibliographyCard';
@@ -23,7 +22,7 @@ import { Card } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';
 import { Aside, AsideSticky, SidebarLayout } from '../../occurrence/key/pagelayouts';
-import BreakdownCard, { useTaxonBreakdown } from './BreakdownCard';
+import { BreakdownCard, useTaxonBreakdown } from './sections/breakdown';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -129,7 +128,10 @@ export default function AboutBackbone() {
                       </Li>
                       {showTaxonBreakdown && hasBreakdownData && (
                         <Li to="#breakdown">
-                          <FormattedMessage id="taxon.breakdown" defaultMessage="Breakdown" />
+                          <FormattedMessage
+                            id="taxon.largestGroups"
+                            defaultMessage="Largest groups"
+                          />
                         </Li>
                       )}
                       {hasPreprocessedMap && (

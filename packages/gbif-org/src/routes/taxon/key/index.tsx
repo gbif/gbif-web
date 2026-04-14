@@ -1,11 +1,10 @@
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { redirectDocument } from 'react-router-dom';
 import TaxonKeyAbout from './About';
 import Metrics from './Metrics';
-import VerbatimTaxon from './Verbatim';
 import { TaxonKey, taxonLoader } from './taxonKey';
+
 const id = 'taxonKey';
 
 export const taxonKeyRoute: RouteObjectWithPlugins = {
@@ -39,11 +38,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'verbatim',
-      element: (
-        <ErrorBoundary type="PAGE" errorMessage="taxon.errors.verbatim">
-          <VerbatimTaxon />
-        </ErrorBoundary>
-      ),
+      loader: () => redirectDocument('../'),
     },
   ],
 };

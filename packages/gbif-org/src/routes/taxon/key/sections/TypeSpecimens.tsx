@@ -4,7 +4,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { VocabularyValue } from '@/components/vocabularyValue';
 import {
-  Rank,
   TaxonKeyQuery,
   TaxonTypeSpecimensQuery,
   TaxonTypeSpecimensQueryVariables,
@@ -15,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import DNAsequence from './DNAsequence';
 import { Paging } from './VernacularNameTable';
-import { typeSpecimenPredicate } from './taxonUtil';
+import { typeSpecimenPredicate } from '../taxonUtil';
 
 const DEFAULT_LIMIT = 10;
 
@@ -32,11 +31,10 @@ const TypeMaterial = ({
     (TaxonTypeSpecimensQuery['occurrenceSearch']['documents']['results'][number] | null)[]
   >([]);
   const [isSynonym, setIsSynonym] = useState(false);
-  const {
-    data: typeSecimens,
-    load: typeSpecimensLoad,
-    loading,
-  } = useQuery<TaxonTypeSpecimensQuery, TaxonTypeSpecimensQueryVariables>(TYPE_MATERIAL_QUERY, {
+  const { data: typeSecimens, load: typeSpecimensLoad } = useQuery<
+    TaxonTypeSpecimensQuery,
+    TaxonTypeSpecimensQueryVariables
+  >(TYPE_MATERIAL_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
   });
@@ -75,7 +73,7 @@ const TypeMaterial = ({
             return (
               x?.originalUsageMatch?.usage?.key === (taxonInfo?.taxon?.taxonID || '').toString() &&
               x?.originalUsageMatch?.diagnostics?.matchType === 'EXACT' &&
-              x?.originalUsageMatch?.diagnostics?.confidence > 90
+              (x?.originalUsageMatch?.diagnostics?.confidence ?? 0) > 90
             );
           }
         })
@@ -83,7 +81,7 @@ const TypeMaterial = ({
     } else {
       onHasData?.(false);
     }
-  }, [typeSecimens?.occurrenceSearch?.documents?.results, isSynonym, taxonInfo]);
+  }, [typeSecimens?.occurrenceSearch?.documents?.results, isSynonym, taxonInfo, onHasData]);
 
   useEffect(() => {
     onHasData?.(filteredData.length > 0);

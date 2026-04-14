@@ -160,7 +160,7 @@ const TAXON_QUERY = /* GraphQL */ `
         treatments: related(datasetType: ARTICLE) {
           taxonID
           datasetKey
-          link
+          references
           dataset {
             title
             citation {
@@ -185,7 +185,7 @@ const TAXON_QUERY = /* GraphQL */ `
             taxonID
             scientificName
             threatStatus
-            link
+            references
           }
         }
       }
@@ -221,80 +221,6 @@ const TAXON_QUERY = /* GraphQL */ `
         scientificNameAuthorship
         taxonRank
       }
-      # key
-      # nubKey
-      # sourceTaxon {
-      #   key
-      #   references
-      #   datasetKey
-      #   dataset {
-      #     title
-      #   }
-      # }
-      # issues
-      # scientificName
-      # canonicalName
-      # origin
-      # kingdom
-      # formattedName(useFallback: true)
-      # rank
-      # taxonomicStatus
-      # publishedIn
-      # references
-      # datasetKey
-      # speciesCount
-      # distributionsCount: distributions(limit: 10, offset: 0) {
-      #   results {
-      #     taxonKey
-      #   }
-      # }
-      # iucnStatus {
-      #   references
-      #   distribution {
-      #     taxonKey
-      #     threatStatus
-      #   }
-      # }
-      # dataset {
-      #   title
-      #   key
-      #   citation {
-      #     text
-      #     citationProvidedBySource
-      #   }
-      # }
-      # vernacular: vernacularNames(limit: 100, offset: 0) {
-      #   results {
-      #     taxonKey
-      #     language
-      #     vernacularName
-      #   }
-      # }
-      # parents {
-      #   rank
-      #   scientificName
-      #   canonicalName
-      #   formattedName
-      #   key
-      # }
-      # acceptedTaxon {
-      #   key
-      #   formattedName
-      #   scientificName
-      # }
-      # synonyms(limit: 100, offset: 0) {
-      #   results {
-      #     key
-      #     scientificName
-      #     canonicalName
-      #     authorship
-      #     rank
-      #     publishedIn
-      #   }
-      # }
-      # imagesCount: occurrenceMedia(limit: 0, offset: 0) {
-      #   count
-      # }
     }
   }
 `;

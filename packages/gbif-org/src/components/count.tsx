@@ -17,7 +17,7 @@ const queues: {
 } = {};
 
 export type CountProps = {
-  v1Endpoint: string;
+  apiEndpoint: string;
   params?: Record<string, undefined | string | number | (number | string)[]>;
   queueId?: string;
   property?: string;
@@ -28,8 +28,8 @@ type Props = CountProps & {
   message?: string;
 };
 
-export function Count({ v1Endpoint, params, queueId, property, message }: Props) {
-  const { count, loading, error } = useCount({ v1Endpoint, params, queueId, property });
+export function Count({ apiEndpoint, params, queueId, property, message }: Props) {
+  const { count, loading, error } = useCount({ apiEndpoint, params, queueId, property });
 
   if (loading || typeof count === 'undefined') {
     return (
@@ -110,7 +110,7 @@ export function useGraphQLCount({ predicate, query }: { predicate: any; query: s
 }
 
 export function useCount({
-  v1Endpoint,
+  apiEndpoint,
   params = {},
   queueId = 'counts',
   property = 'count',
@@ -122,7 +122,7 @@ export function useCount({
 
   const paramId = hash(
     JSON.stringify({
-      v1Endpoint,
+      apiEndpoint,
       params,
     })
   );
@@ -130,7 +130,7 @@ export function useCount({
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    const endpoint = `${import.meta.env.PUBLIC_API_V1}${v1Endpoint}?${stringify({
+    const endpoint = `${import.meta.env.PUBLIC_API}${apiEndpoint}?${stringify({
       limit: 0,
       ...params,
     })}`;
@@ -176,7 +176,7 @@ export function useCount({
     };
     // We are tracking the params via a calculated ID
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [v1Endpoint, property, paramId, queueId, responseIsNumber]);
+  }, [apiEndpoint, property, paramId, queueId, responseIsNumber]);
 
   return { count, loading, error };
 }

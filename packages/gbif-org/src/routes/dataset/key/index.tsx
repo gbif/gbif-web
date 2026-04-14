@@ -1,7 +1,6 @@
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import TaxonKeyAbout from '@/routes/taxon/key/About';
 import { taxonLoader } from '@/routes/taxon/key/taxonKey';
-import VerbatimTaxon from '@/routes/taxon/key/Verbatim';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import {
@@ -68,7 +67,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
         },
         {
           path: 'verbatim',
-          element: <VerbatimTaxon headLess={true} />,
+          loader: () => redirectDocument('../'),
         },
       ],
     },

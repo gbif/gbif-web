@@ -296,7 +296,7 @@ const typeDef = gql`
     taxonomicStatus: String!
     nomenclaturalCode: String
     extinct: Boolean
-    link: String
+    references: String
     label: String!
 
     acceptedNameUsage: String
@@ -348,7 +348,6 @@ const typeDef = gql`
     sourceID: ID
     references: String
     taxonRemarks: String
-    link: String
     issues: [String]
 
     dataset: Dataset
@@ -405,7 +404,7 @@ const typeDef = gql`
     taxonRank: String
     taxonomicStatus: String
     nomenclaturalCode: String
-    link: String
+    references: String
     label: String
     threatStatus: String
   }

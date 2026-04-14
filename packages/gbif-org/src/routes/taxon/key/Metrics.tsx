@@ -1,16 +1,17 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
-// import { Taxa } from '@/components/dashboard/Taxonomy';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useTaxonKeyLoaderData } from '.';
-import { useIsFamilyOrAbove } from './taxonUtil';
+import { useIsFamilyOrAbove, useNextMajorRank } from './taxonUtil';
+
 export default function Metrics() {
   const { data } = useTaxonKeyLoaderData();
   const taxon = data?.taxonInfo?.taxon;
 
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.taxonRank ?? '');
+  const nextMajorRank = useNextMajorRank(taxon?.taxonRank ?? 'GENUS');
 
   const predicate = {
     type: 'equals',
@@ -30,7 +31,11 @@ export default function Metrics() {
 
               {/* TODO taxonpi: this chart no longer works as it relies on the old API. IT looks like it is a copy pasted version of the existing taxon chart, si I'm not sure what the benefit is. For now I've replaced it with the one below */}
               {/* <Taxa predicate={predicate} className="g-mb-4" /> */}
-              <charts.Taxa predicate={predicate} className="g-mb-4" />
+              <charts.Taxa
+                predicate={predicate}
+                className="g-mb-4"
+                defaultRank={nextMajorRank?.toLowerCase()}
+              />
 
               <charts.DataQuality predicate={predicate} className="g-mb-4" />
               <charts.Months predicate={predicate} className="g-mb-4" />

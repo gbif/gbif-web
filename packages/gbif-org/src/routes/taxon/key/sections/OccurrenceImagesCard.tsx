@@ -2,7 +2,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
-import OccurrenceImages from '../OccurrenceImages';
+import OccurrenceImages from './OccurrenceImages';
 
 type Taxon = NonNullable<NonNullable<TaxonKeyQuery['taxonInfo']>['taxon']>;
 

@@ -44,7 +44,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={3000000000}
           label={<FormattedMessage id="homepage.counts.occurrences" />}
           countOptions={{
-            v1Endpoint: '/occurrence/search',
+            apiEndpoint: '/v1/occurrence/search',
             params: {
               occurrenceStatus: 'PRESENT',
             },

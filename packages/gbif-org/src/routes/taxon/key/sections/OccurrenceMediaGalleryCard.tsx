@@ -1,6 +1,6 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Img } from '@/components/Img';
-import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Card } from '@/components/ui/largeCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useRef, useState } from 'react';
@@ -92,9 +92,20 @@ function OccurrenceMediaGalleryContent({ taxon }: Props) {
             </button>
 
             {/* Counter badge */}
-            <span className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5 g-pointer-events-none">
+            {/* <span className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5 g-pointer-events-none">
               {activeIndex + 1} / {results.length}
-            </span>
+            </span> */}
+
+            {/* View all */}
+            {total > 0 && (
+              <DynamicLink
+                pageId="occurrenceSearch"
+                searchParams={gallerySearchParams}
+                className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5 g-pointer-events-none"
+              >
+                <MdImage size={12} /> <FormattedMessage id="phrases.viewAllImages" />
+              </DynamicLink>
+            )}
           </>
         )}
 
@@ -112,13 +123,17 @@ function OccurrenceMediaGalleryContent({ taxon }: Props) {
               <div className="g-absolute g-bottom-10 g-start-2 g-bg-neutral-800/90 g-text-white g-text-xs g-rounded g-px-3 g-py-2 g-max-w-xs g-space-y-1">
                 {current.rightsHolder && (
                   <p>
-                    <span className="g-opacity-70">Rights holder: </span>
+                    <span className="g-opacity-70">
+                      <FormattedMessage id="occurrenceFieldNames.rightsHolder" />:{' '}
+                    </span>
                     {current.rightsHolder}
                   </p>
                 )}
                 {current.license && (
                   <p>
-                    <span className="g-opacity-70">License: </span>
+                    <span className="g-opacity-70">
+                      <FormattedMessage id="occurrenceFieldNames.license" />:{' '}
+                    </span>
                     {current.license}
                   </p>
                 )}
@@ -154,20 +169,6 @@ function OccurrenceMediaGalleryContent({ taxon }: Props) {
               />
             </button>
           ))}
-        </div>
-      )}
-
-      {/* See all link */}
-      {total > 0 && (
-        <div className="g-border-t g-px-3 g-py-2 g-flex g-justify-end">
-          <DynamicLink
-            pageId="occurrenceSearch"
-            searchParams={gallerySearchParams}
-            className="g-inline-flex g-items-center g-gap-1.5 g-text-sm g-text-primary hover:g-underline"
-          >
-            <MdImage size={16} />
-            <FormattedNumber value={total} /> <FormattedMessage id="taxon.occurrenceImages" />
-          </DynamicLink>
         </div>
       )}
     </Card>

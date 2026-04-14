@@ -2,7 +2,6 @@ import { useCount } from '@/components/count';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FeatureList, Homepage } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
-import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -15,7 +14,6 @@ import Citation from './Citation';
 import ClassificationSideBar from './ClassificationSideBar';
 import { DistributionsTable } from './Distributions';
 import Synonyms from './Synonyms';
-import TaxonImages from './TaxonImages';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import { VernacularNameTable } from './VernacularNameTable';
@@ -25,7 +23,7 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
   const { key } = useParams();
   // const { data } = useTaxonKeyLoaderData();
   const { count, loading } = useCount({
-    v1Endpoint: '/occurrence/search',
+    apiEndpoint: '/v1/occurrence/search',
     params: { taxonKey: key },
   });
   const removeSidebar = useBelow(1100);
@@ -87,7 +85,7 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                 </CardContent>
               </Card>
             )}
-            {slowTaxon?.taxon?.media?.results?.length > 0 && (
+            {/* {slowTaxon?.taxon?.media?.results?.length > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
@@ -100,7 +98,7 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                   </ErrorBoundary>
                 </CardContent>
               </Card>
-            )}
+            )} */}
             {isFamilyOrAbove &&
               data?.taxon?.taxonomicStatus === 'ACCEPTED' &&
               data.taxon.origin !== 'DENORMED_CLASSIFICATION' && (
