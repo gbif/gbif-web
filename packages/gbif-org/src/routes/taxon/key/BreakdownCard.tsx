@@ -49,7 +49,24 @@ type BreakdownNode = NonNullable<
   NonNullable<NonNullable<TaxonBreakdown2Query['taxonInfo']>['taxon']>['checklistBankBreakdown']
 >;
 
-const MIN_SLICE_PERCENT = 0.01; // slices below this fraction of the total are grouped into "Other"
+// Slices whose species count is below this fraction of the total are collapsed into an "Other" slice.
+const MIN_SLICE_PERCENT = 0.01;
+
+/**
+ * Splits an array of breakdown nodes into two groups:
+ * - `significant`: nodes whose species count meets or exceeds `threshold`
+ *   (these get their own named slice in the chart)
+ * - `remainder`: nodes below `threshold` that will be collapsed into an "Other" slice
+ */
+function splitByThreshold<T extends { species?: number | null }>(
+  nodes: T[],
+  threshold: number
+): { significant: T[]; remainder: T[] } {
+  return {
+    significant: nodes.filter((n) => (n.species ?? 0) >= threshold),
+    remainder: nodes.filter((n) => (n.species ?? 0) < threshold),
+  };
+}
 
 type BreakdownChartProps = {
   breakdown: BreakdownNode;
@@ -73,32 +90,58 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
 
     const innerData: Highcharts.PointOptionsObject[] = [];
     const outerData: Highcharts.PointOptionsObject[] = [];
+    // True only when at least one real grandchild slice is pushed to outerData.
+    // Plain filler slices (added when a child has no grandchildren at all) don't count,
+    // because an outer ring made entirely of fillers just duplicates the inner ring.
+    let hasRealOuterSlices = false;
+
+    // Total species across all direct children — used to compute the per-slice threshold.
     const totalSpecies = children.reduce((sum, c) => sum + (c.species ?? 0), 0);
     const minSliceSpecies = totalSpecies * MIN_SLICE_PERCENT;
 
-    const largeChildren = children.filter((c) => (c.species ?? 0) >= minSliceSpecies);
-    const smallChildrenTotal = children
-      .filter((c) => (c.species ?? 0) < minSliceSpecies)
-      .reduce((sum, c) => sum + (c.species ?? 0), 0);
+    // ── Inner ring ────────────────────────────────────────────────────────────
+    // Each significant child gets its own named slice.
+    // Children below the threshold are summed and added as a single "Other" slice.
+    const { significant: significantChildren, remainder: smallChildren } = splitByThreshold(
+      children,
+      minSliceSpecies
+    );
+    const smallChildrenTotal = smallChildren.reduce((sum, c) => sum + (c.species ?? 0), 0);
 
-    largeChildren.forEach((child, idx) => {
+    significantChildren.forEach((child, idx) => {
       const color = themeColors[idx % themeColors.length];
-      const parentSpecies = child.species ?? 0;
-      innerData.push({ name: child.name ?? '', y: parentSpecies, color, custom: { id: child.id } });
+      const childSpeciesCount = child.species ?? 0;
 
+      innerData.push({
+        name: child.name ?? '',
+        y: childSpeciesCount,
+        color,
+        custom: { id: child.id },
+      });
+
+      // ── Outer ring ──────────────────────────────────────────────────────────
+      // Each significant child is further broken down into its grandchildren.
       const grandchildren = (child.children ?? []).filter(
         (g): g is NonNullable<typeof g> => g != null
       );
-      const largeGrandchildren = grandchildren.filter((g) => (g.species ?? 0) >= minSliceSpecies);
-      const largeGrandchildrenSum = largeGrandchildren.reduce(
+
+      // Only grandchildren above the threshold get their own outer slice.
+      // Smaller grandchildren are lumped into a labelled filler slice below.
+      const { significant: significantGrandchildren } = splitByThreshold(
+        grandchildren,
+        minSliceSpecies
+      );
+      const significantGrandchildrenSum = significantGrandchildren.reduce(
         (sum, g) => sum + (g.species ?? 0),
         0
       );
-      const count = largeGrandchildren.length;
+      const grandchildCount = significantGrandchildren.length;
 
-      largeGrandchildren.forEach((grandchild, jdx) => {
-        // brighten from +0.3 (light) to -0.3 (dark) across siblings
-        const brightness = count > 1 ? 0.3 - (jdx / (count - 1)) * 0.6 : 0;
+      if (significantGrandchildren.length > 0) hasRealOuterSlices = true;
+
+      significantGrandchildren.forEach((grandchild, jdx) => {
+        // Vary brightness from +0.3 (lightest, first) to -0.3 (darkest, last) across siblings.
+        const brightness = grandchildCount > 1 ? 0.3 - (jdx / (grandchildCount - 1)) * 0.6 : 0;
         outerData.push({
           name: grandchild.name ?? '',
           y: grandchild.species ?? 0,
@@ -107,24 +150,31 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
         });
       });
 
-      // Filler slice: covers small grandchildren (< threshold) + any angular gap from missing data.
-      const remainder = parentSpecies - largeGrandchildrenSum;
-      if (remainder > 0) {
-        const isBlank = grandchildren.length === 0;
+      // Filler slice: pads the outer ring so its arc always matches the inner slice.
+      // The filler covers any species not represented by significant grandchildren —
+      // either because the child has no grandchildren at all, or because some were
+      // below the threshold.
+      // - No grandchildren at all → plain filler (parent colour, no label)
+      // - Some grandchildren were below threshold → grey "Other {child}" slice with label
+      const fillerSpecies = childSpeciesCount - significantGrandchildrenSum;
+      if (fillerSpecies > 0) {
+        const hasNoGrandchildren = grandchildren.length === 0;
         outerData.push({
-          name: isBlank ? '' : `Other ${child.name ?? ''}`,
-          y: remainder,
-          color: isBlank ? (color as string) : '#fafafa',
-          dataLabels: { enabled: !isBlank },
+          name: hasNoGrandchildren ? '' : `Other ${child.name ?? ''}`,
+          y: fillerSpecies,
+          color: hasNoGrandchildren ? (color as string) : '#fafafa',
+          dataLabels: { enabled: !hasNoGrandchildren },
         });
       }
     });
 
-    // Group all children below the threshold into a single "Other" slice.
+    // ── Inner "Other" slice ───────────────────────────────────────────────────
+    // Aggregates all children below the threshold into one grey slice.
+    // If the outer ring is already populated, a matching blank filler is added
+    // so both rings cover the same total arc.
     if (smallChildrenTotal > 0) {
-      const needsOuterFiller = outerData.length > 0;
       innerData.push({ name: 'Other', y: smallChildrenTotal, color: '#fafafa' });
-      if (needsOuterFiller) {
+      if (hasRealOuterSlices) {
         outerData.push({
           name: '',
           y: smallChildrenTotal,
@@ -134,7 +184,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       }
     }
 
-    const hasOuterRing = outerData.length > 0;
+    const hasOuterRing = hasRealOuterSlices;
 
     const handleClick = (e: Highcharts.PointClickEventObject) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

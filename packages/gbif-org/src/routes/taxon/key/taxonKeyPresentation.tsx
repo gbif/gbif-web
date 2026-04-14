@@ -299,6 +299,27 @@ const PageHeader = ({
                       </>
                     )}
 
+                    {!taxon.acceptedTaxon && taxonInfo.vernacularName && (
+                      <div className="g-mb-1">
+                        <SimpleTooltip
+                          asChild
+                          title={
+                            <FormattedMessage
+                              id="phrases.commonNameAccordingTo"
+                              values={{ source: 'Catalogue of Life' }} // TODO taxonapi: if this is no longer a variable, then we can remove the variable
+                            />
+                          }
+                        >
+                          <span className="g-text-slate-600 g-inline-flex g-items-center">
+                            <span className="g-me-1">
+                              {taxonInfo.vernacularName.vernacularName}
+                            </span>
+                            <MdInfoOutline />
+                          </span>
+                        </SimpleTooltip>
+                      </div>
+                    )}
+
                     {!taxon.acceptedTaxon && taxonInfo?.classification && (
                       // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
                       <Classification className="g-mt-2 g-flex g-flex-wrap g-gap-1 g-items-center">
@@ -333,23 +354,6 @@ const PageHeader = ({
                           </span>
                         )}
                       </Classification>
-                    )}
-
-                    {taxonInfo.vernacularName && (
-                      <SimpleTooltip
-                        asChild
-                        title={
-                          <FormattedMessage
-                            id="phrases.commonNameAccordingTo"
-                            values={{ source: 'Catalogue of Life' }} // TODO taxonapi: if this is no longer a variable, then we can remove the variable
-                          />
-                        }
-                      >
-                        <span className="g-text-slate-600 g-inline-flex g-items-center">
-                          <span className="g-me-1">{taxonInfo.vernacularName.vernacularName}</span>
-                          <MdInfoOutline />
-                        </span>
-                      </SimpleTooltip>
                     )}
                   </div>
                 </div>
