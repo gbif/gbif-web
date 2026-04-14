@@ -60,8 +60,8 @@
   },
   "noStatsForMetadata": "No statistics available for metadata only datasets",
   "metadataOnlyWithData": {
-    "title": "Metadata only dataset with data",
-    "description": "This dataset was published as a metadata-only dataset but contains occurrence data. This indicates that the data was wrongly mapped."
+    "title": "Metadata-only dataset with data",
+    "description": "This dataset was published as a metadata-only dataset but contains occurrence data. This suggests that the data may have been mapped incorrectly."
   },
   "siteScopeSmallerThanDataset": "Not all records from the dataset are included on this site. Visit [GBIF.org]({datasetUrl}) to explore the full dataset.",
   "viewArticle": "View article",
