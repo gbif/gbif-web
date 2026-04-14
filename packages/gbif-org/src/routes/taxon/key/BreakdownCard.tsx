@@ -254,7 +254,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                 name: 'Species',
                 data: outerData,
                 size: '80%',
-                innerSize: '65%',
+                innerSize: '60%',
                 dataLabels: {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   formatter: function (this: any) {
@@ -262,7 +262,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                       ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                       : null;
                   },
-                  distance: 30,
+                  distance: 0,
                 },
               },
             ]
@@ -286,7 +286,7 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
     <Card className="g-mb-4" id="breakdown">
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id="taxon.breakdown" defaultMessage="Breakdown" />
+          <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
         </CardTitle>
       </CardHeader>
       <CardContent>
