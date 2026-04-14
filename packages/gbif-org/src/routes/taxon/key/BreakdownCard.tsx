@@ -4,7 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { CardDescription } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { TaxonBreakdown2Query, TaxonBreakdown2QueryVariables } from '@/gql/graphql';
+import useAbove from '@/hooks/useAbove';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import HighchartsReact from 'highcharts-react-official';
 import { useMemo } from 'react';
@@ -297,6 +299,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
 }
 
 function BreakdownContent({ taxonKey, datasetKey }: Props) {
+  const showPie = useAbove(800);
   const { data, loading } = useQuery<TaxonBreakdown2Query, TaxonBreakdown2QueryVariables>(
     TAXON_BREAKDOWN,
     { variables: { key: taxonKey, datasetKey } }
@@ -314,7 +317,8 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
       </CardHeader>
       <CardContent>
         {loading && <p>Loading...</p>}
-        {breakdown && <BreakdownChart breakdown={breakdown} />}
+        {breakdown && showPie && <BreakdownChart breakdown={breakdown} />}
+        {breakdown && !showPie && <LargestTaxaList breakdown={breakdown} />}
       </CardContent>
     </Card>
   );
@@ -330,5 +334,96 @@ export default function BreakdownCard({ taxonKey, datasetKey }: Props) {
     >
       <BreakdownContent taxonKey={taxonKey} datasetKey={datasetKey} />
     </ErrorBoundary>
+  );
+}
+
+const MAX_LIST_ENTRIES = 10;
+// Children whose species count is at least this fraction of the total get their own sub-list row.
+const MIN_SUBLIST_PERCENT = 0.05;
+
+type TaxonRowNode = NonNullable<NonNullable<NonNullable<BreakdownNode['children']>[number]>>;
+
+type TaxonBarRowProps = {
+  node: TaxonRowNode;
+  /** Bar width as a percentage (0–100), pre-calculated by the parent. */
+  barWidth: number;
+  speciesLabel: string;
+  children?: React.ReactNode;
+};
+
+/** A single linked row with a name, species count, proportional bar, and optional sub-list. */
+function TaxonBarRow({ node, barWidth, speciesLabel, children }: TaxonBarRowProps) {
+  return (
+    <li key={node.id}>
+      <DynamicLink
+        pageId="taxonKey"
+        variables={{ key: node.id ?? '' }}
+        className="g-flex-1 g-min-w-0 g-bg-slate-50 g-px-3 g-py-1 g-rounded hover:g-bg-slate-100 g-block"
+      >
+        <div className="g-flex g-items-baseline g-justify-between g-gap-2 g-mb-0.5 g-text-sm">
+          {node.name}
+          <span className="g-text-slate-500 g-shrink-0 g-text-xs">
+            {(node.species ?? 0).toLocaleString()} {speciesLabel}
+          </span>
+        </div>
+        <div className="g-h-1">
+          <div
+            className="g-h-1 g-rounded-full g-bg-primary-400"
+            style={{ width: `${barWidth}%` }}
+          />
+        </div>
+      </DynamicLink>
+      {children}
+    </li>
+  );
+}
+
+function LargestTaxaList({ breakdown }: { breakdown: BreakdownNode }) {
+  const intl = useIntl();
+  const speciesLabel = intl.formatMessage({ id: 'taxon.species', defaultMessage: 'species' });
+
+  const entries = (breakdown.children ?? [])
+    .filter((c): c is NonNullable<typeof c> => c != null)
+    .slice(0, MAX_LIST_ENTRIES);
+
+  // Scale bars relative to the total species across all children so bar lengths
+  // reflect each group's share of the whole taxon, not just the top 10.
+  const totalSpecies =
+    (breakdown.children ?? []).reduce((sum, c) => sum + (c?.species ?? 0), 0) || 1;
+
+  return (
+    <ol className="g-space-y-1">
+      {entries.map((child) => {
+        const count = child.species ?? 0;
+        const barWidth = Math.round((count / totalSpecies) * 100);
+
+        // Sub-list: grandchildren that each represent ≥ MIN_SUBLIST_PERCENT of the total.
+        const significantGrandchildren = (child.children ?? []).filter(
+          (g): g is NonNullable<typeof g> =>
+            g != null && (g.species ?? 0) / totalSpecies >= MIN_SUBLIST_PERCENT
+        );
+
+        return (
+          <TaxonBarRow key={child.id} node={child} barWidth={barWidth} speciesLabel={speciesLabel}>
+            {significantGrandchildren.length > 0 && (
+              <ul className="g-mt-0.5 g-ml-4 g-space-y-0.5">
+                {significantGrandchildren.map((grandchild) => {
+                  const gcCount = grandchild.species ?? 0;
+                  const gcBarWidth = Math.round((gcCount / totalSpecies) * 100);
+                  return (
+                    <TaxonBarRow
+                      key={grandchild.id}
+                      node={grandchild}
+                      barWidth={gcBarWidth}
+                      speciesLabel={speciesLabel}
+                    />
+                  );
+                })}
+              </ul>
+            )}
+          </TaxonBarRow>
+        );
+      })}
+    </ol>
   );
 }

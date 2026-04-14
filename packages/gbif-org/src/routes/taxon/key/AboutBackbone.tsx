@@ -68,7 +68,7 @@ export default function AboutBackbone() {
         <SidebarLayout
           // reverse
           className="g-grid-cols-[250px_minmax(0,1fr)] xl:g-grid-cols-[300px_minmax(0,1fr)]"
-          stack={false}
+          stack={hideSidebar}
         >
           <div className="g-order-last">
             {/* <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} /> */}
