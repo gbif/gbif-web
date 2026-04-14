@@ -4,6 +4,7 @@
     "SMALL": "Institution-level biodiversity data mobilization grant",
     "NATIONAL": "National biodiversity data mobilization grant",
     "DATA_USE": "Data-use grant",
+    "MULTI_INSTITUTIONAL": "Multi-institutional biodiversity data mobilization grant",
     "undefined": "Not specified"
   },
   "projectStatus": {
