@@ -171,7 +171,6 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           name: '',
           y: fillerSpecies,
           color: '#fafafa',
-          dataLabels: { enabled: false },
         });
       }
     });
@@ -192,7 +191,6 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           name: '',
           y: smallChildrenTotal,
           color: '#fafafa',
-          dataLabels: { enabled: false },
         });
       }
     }
@@ -241,7 +239,11 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       },
       tooltip: {
         headerFormat: '',
-        pointFormat: `<b>{point.name}</b>: {point.y} ${speciesLabel}`,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        formatter: function (this: any) {
+          if (!this.point.name) return false;
+          return `<b>${this.point.name}</b>: ${this.y} ${speciesLabel}`;
+        },
       },
       series: [
         {
@@ -277,6 +279,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                 dataLabels: {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   formatter: function (this: any) {
+                    if (!this.point.name) return null;
                     return (this.y ?? 0) > 1
                       ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                       : null;
@@ -307,7 +310,7 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
         <CardTitle>
           <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
         </CardTitle>
-        <CardDescription>Largest groups per number of species</CardDescription>
+        <CardDescription>Major groups per number of species</CardDescription>
       </CardHeader>
       <CardContent>
         {loading && <p>Loading...</p>}
