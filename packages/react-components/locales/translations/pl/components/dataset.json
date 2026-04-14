@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "Brak dostępnych statystyk dla zbiorów zawierających tylko metadane",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "Nie wszystkie wyniki z zestawu danych są uwzględnione na tej stronie. Korzystanie z pełnego zestawu możliwe po wejściu na [GBIF.org]({datasetUrl}).",
   "viewArticle": "Zobacz artykuł",
   "registeredDate": "Zarejestrowano {DATE}",
