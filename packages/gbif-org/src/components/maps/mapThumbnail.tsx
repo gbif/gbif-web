@@ -56,7 +56,6 @@ export function MapThumbnail({
   className,
 }: Props) {
   const hasMap = useHasMap(capabilitiesParams ?? {});
-  console.log('hasMap', hasMap, capabilitiesParams);
   if (!hasMap) return false;
 
   const queryString = stringify(capabilitiesParams ?? {});

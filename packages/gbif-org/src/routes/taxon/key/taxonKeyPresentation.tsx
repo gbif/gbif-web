@@ -411,7 +411,7 @@ const PageHeader = ({
                           }}
                         >
                           {countLoading ? (
-                            <FormattedMessage id="taxon.loading" />
+                            <FormattedMessage id="phrases.loading" />
                           ) : (
                             <FormattedMessage id="counts.nOccurrences" values={{ total: count }} />
                           )}
