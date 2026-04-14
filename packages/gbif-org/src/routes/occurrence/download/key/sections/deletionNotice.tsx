@@ -1,13 +1,11 @@
 import { longDateFormatProps } from '@/components/dateFormats';
 import { HyperText } from '@/components/hyperText';
-import { JazzIcon } from '@/components/JazzIcon';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { useConfig } from '@/config/config';
+import { UserAvatarSection } from '@/components/userAvatarSection';
 import { useUser } from '@/contexts/UserContext';
 import { Download_Status, UsersDownloadKeyQuery } from '@/gql/graphql';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Download } from '../downloadKey';
@@ -48,7 +46,7 @@ export function DeletionNotice({
 
   if (!isUsersDownload) return content;
 
-  return <TrustedSection>{content}</TrustedSection>;
+  return <UserAvatarSection>{content}</UserAvatarSection>;
 }
 
 function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['download'] }) {
@@ -125,39 +123,3 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
   );
 }
 
-export function TrustedSection({ children }: { children: React.ReactNode }) {
-  const { isGBIFOrg } = useConfig();
-  if (!isGBIFOrg) {
-    return null;
-  } else {
-    return <TrustedSectionInner>{children}</TrustedSectionInner>;
-  }
-}
-
-function TrustedSectionInner({ children }: { children: React.ReactNode }) {
-  const { user } = useUser();
-
-  if (!user) return null;
-  return (
-    <div className="g-flex g-gap-4 g-mb-8">
-      <DynamicLink
-        pageId="user-profile"
-        className="g-w-16 g-h-16 g-flex-none g-rounded-full g-hidden md:g-block"
-      >
-        {user?.photo ? (
-          <img
-            src={user.photo}
-            alt={`${user.firstName} ${user.lastName}`}
-            className="g-w-full g-h-full g-object-cover g-rounded-lg"
-          />
-        ) : (
-          <JazzIcon
-            seed={user?.userName ?? user?.email ?? 'unknown'}
-            className="g-rounded-lg g-block"
-          />
-        )}
-      </DynamicLink>
-      <div className="g-flex-grow">{children}</div>
-    </div>
-  );
-}

@@ -56,7 +56,7 @@ import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/shadcn';
 import { PublishingCountries } from './about/PublishingCountries';
-import { TrustedSection } from '@/routes/occurrence/download/key/sections/deletionNotice';
+import { UserAvatarSection } from '@/components/userAvatarSection';
 import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -251,9 +251,7 @@ export function DatasetKeyAbout() {
               </div>
             )}
 
-            <TrustedSection>
-              <Trusted dataset={dataset} />
-            </TrustedSection>
+            <Trusted dataset={dataset} />
 
             {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
               <Alert variant="destructive" className="g-mb-4">
@@ -813,11 +811,11 @@ function DataSummaryInfo({
   );
 }
 
-function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
+function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> }) {
   const { user } = useUser();
 
   const isUserDatasetContact = useMemo(() => {
-    if (!user || !dataset?.volatileContributors) return false;
+    if (!user || !dataset.volatileContributors) return false;
     // has matching email
     const matchingEmail = dataset.volatileContributors.some((contact) =>
       contact?.email?.some((email) => email === user.email)
@@ -829,14 +827,14 @@ function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
     // or user is registry admin
     const isAdmin = user?.roles?.includes('REGISTRY_ADMIN');
     return matchingEmail || matchingOrcid || isAdmin;
-  }, [user, dataset?.volatileContributors]);
+  }, [user, dataset.volatileContributors]);
 
-  if (!isUserDatasetContact || !dataset) {
+  if (!isUserDatasetContact) {
     return null;
   }
 
   return (
-    <>
+    <UserAvatarSection>
       <div className="g-text-slate-600 g-mb-1">
         <FormattedMessage id="dataset.registry.becauseTrustedContact" />
       </div>
@@ -868,7 +866,7 @@ function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
           </div>
         )}
       </div>
-    </>
+    </UserAvatarSection>
   );
 }
 
