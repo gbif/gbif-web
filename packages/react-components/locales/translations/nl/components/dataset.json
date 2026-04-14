@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "Geen statistieken beschikbaar voor datasets met alleen metadata",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "Niet alle gegevens van de dataset zijn opgenomen op deze site. Bezoek [GBIF.org]({datasetUrl}) om de volledige data te bekijken.",
   "viewArticle": "Bekijk artikel",
   "registeredDate": "Geregistreerd {DATE}",
