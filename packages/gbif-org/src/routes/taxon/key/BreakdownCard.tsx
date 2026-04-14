@@ -154,16 +154,15 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       // The filler covers any species not represented by significant grandchildren —
       // either because the child has no grandchildren at all, or because some were
       // below the threshold.
-      // - No grandchildren at all → plain filler (parent colour, no label)
-      // - Some grandchildren were below threshold → grey "Other {child}" slice with label
+      // Fillers are always unlabelled; the inner ring carries the labels instead.
       const fillerSpecies = childSpeciesCount - significantGrandchildrenSum;
       if (fillerSpecies > 0) {
         const hasNoGrandchildren = grandchildren.length === 0;
         outerData.push({
-          name: hasNoGrandchildren ? '' : `Other ${child.name ?? ''}`,
+          name: '',
           y: fillerSpecies,
           color: hasNoGrandchildren ? (color as string) : '#fafafa',
-          dataLabels: { enabled: !hasNoGrandchildren },
+          dataLabels: { enabled: false },
         });
       }
     });
@@ -238,11 +237,14 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           innerSize: '30%',
           size: hasOuterRing ? '60%' : '80%',
           dataLabels: {
+            // Show names outside the inner ring; Highcharts handles overlap.
+            // All significant children are worth labelling — they are already
+            // at least MIN_SLICE_PERCENT of the total.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: function (this: any) {
-              return (this.y ?? 0) > totalSpecies / 10 ? this.point.name : null;
+              return this.point.name || null;
             },
-            distance: -30,
+            distance: 30,
           },
         },
         ...(hasOuterRing
@@ -252,7 +254,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                 name: 'Species',
                 data: outerData,
                 size: '80%',
-                innerSize: '60%',
+                innerSize: '65%',
                 dataLabels: {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   formatter: function (this: any) {
@@ -260,6 +262,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                       ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                       : null;
                   },
+                  distance: 30,
                 },
               },
             ]
