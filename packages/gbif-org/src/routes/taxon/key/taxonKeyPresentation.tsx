@@ -231,7 +231,7 @@ const PageHeader = ({
                           icon
                           contentClassName="g-w-auto g-max-w-[min(42rem,100vw)]"
                           title={
-                            <span className="g-uppercase">
+                            <span className="">
                               <FormattedMessage
                                 id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`}
                               />
@@ -243,10 +243,12 @@ const PageHeader = ({
                       )
                     }
                   >
-                    <FormattedMessage
-                      id={`enums.rank.${taxon.taxonRank}`}
-                      defaultMessage={taxon.taxonRank || ''}
-                    />
+                    <DynamicLink pageId="taxonSearch" searchParams={{ taxonRank: taxon.taxonRank }}>
+                      <FormattedMessage
+                        id={`enums.taxonRank.${taxon.taxonRank}`}
+                        defaultMessage={taxon.taxonRank || ''}
+                      />
+                    </DynamicLink>
                   </ArticlePreTitle>
                   {/* it would be nice to know for sure which fields to expect */}
                   <ArticleTitle className="lg:g-text-3xl">

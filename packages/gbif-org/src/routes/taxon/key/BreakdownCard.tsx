@@ -267,7 +267,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                 ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                 : null;
             },
-            distance: 40,
+            distance: 50,
           },
         },
         ...(hasOuterRing
