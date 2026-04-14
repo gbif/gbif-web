@@ -19,6 +19,7 @@
   "collectionGrSciColl": "Коллекции GrSciColl",
   "recordedAndIdentifiedBy": "Зарегистрировано и идентифицировано",
   "tryPublisherSiteForFailingMedia": "Если медиафайл отображается неправильно, попробуйте перейти на сайт издателя.",
+  "downloadMediaFile": "",
   "screenReader": {
     "title": "Подробности находки "
   },
