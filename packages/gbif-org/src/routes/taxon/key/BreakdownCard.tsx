@@ -112,13 +112,6 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       const color = themeColors[idx % themeColors.length];
       const childSpeciesCount = child.species ?? 0;
 
-      innerData.push({
-        name: child.name ?? '',
-        y: childSpeciesCount,
-        color,
-        custom: { id: child.id },
-      });
-
       // ── Outer ring ──────────────────────────────────────────────────────────
       // Each significant child is further broken down into its grandchildren.
       const grandchildren = (child.children ?? []).filter(
@@ -126,7 +119,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       );
 
       // Only grandchildren above the threshold get their own outer slice.
-      // Smaller grandchildren are lumped into a labelled filler slice below.
+      // Smaller grandchildren are lumped into an unlabelled filler slice below.
       const { significant: significantGrandchildren } = splitByThreshold(
         grandchildren,
         minSliceSpecies
@@ -137,7 +130,19 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       );
       const grandchildCount = significantGrandchildren.length;
 
-      if (significantGrandchildren.length > 0) hasRealOuterSlices = true;
+      // A child "has outer breakdown" when it contributes real (named) slices to the
+      // outer ring. We store this flag on the inner point so the label formatter can
+      // suppress the inner label for those slices — their outer-ring slices carry the
+      // labels, and inner connectors would originate from behind the outer ring.
+      const childHasOuterBreakdown = significantGrandchildren.length > 0;
+      if (childHasOuterBreakdown) hasRealOuterSlices = true;
+
+      innerData.push({
+        name: child.name ?? '',
+        y: childSpeciesCount,
+        color,
+        custom: { id: child.id, hasOuterBreakdown: childHasOuterBreakdown },
+      });
 
       significantGrandchildren.forEach((grandchild, jdx) => {
         // Vary brightness from +0.3 (lightest, first) to -0.3 (darkest, last) across siblings.
@@ -154,7 +159,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       // The filler covers any species not represented by significant grandchildren —
       // either because the child has no grandchildren at all, or because some were
       // below the threshold.
-      // Fillers are always unlabelled; the inner ring carries the labels instead.
+      // Fillers are always unlabelled; the inner ring carries the labels for those slices.
       const fillerSpecies = childSpeciesCount - significantGrandchildrenSum;
       if (fillerSpecies > 0) {
         const hasNoGrandchildren = grandchildren.length === 0;
@@ -235,13 +240,15 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
           name: 'Species',
           data: innerData,
           innerSize: '30%',
-          size: hasOuterRing ? '55%' : '80%',
+          size: hasOuterRing ? '50%' : '80%',
           dataLabels: {
-            // Show names outside the inner ring; Highcharts handles overlap.
-            // All significant children are worth labelling — they are already
-            // at least MIN_SLICE_PERCENT of the total.
+            // Only label inner slices that have NO outer-ring breakdown.
+            // Slices that are broken down in the outer ring get their labels
+            // from there; inner connectors would originate behind the outer ring
+            // and look detached.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: function (this: any) {
+              if (this.point.custom?.hasOuterBreakdown) return null;
               return (this.y ?? 0) > 1
                 ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                 : null;
