@@ -306,6 +306,7 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
   );
 
   const breakdown = data?.taxonInfo?.taxon?.checklistBankBreakdown;
+  const isEmpty = !breakdown || breakdown.species === 0;
 
   return (
     <Card className="g-mb-4" id="breakdown">
@@ -317,8 +318,16 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
       </CardHeader>
       <CardContent>
         {loading && <p>Loading...</p>}
-        {breakdown && showPie && <BreakdownChart breakdown={breakdown} />}
-        {breakdown && !showPie && <LargestTaxaList breakdown={breakdown} />}
+        {isEmpty && !loading && (
+          <p>
+            <FormattedMessage
+              id="taxon.breakdown.noData"
+              defaultMessage="No breakdown data available for this taxon."
+            />
+          </p>
+        )}
+        {!isEmpty && showPie && <BreakdownChart breakdown={breakdown} />}
+        {!isEmpty && !showPie && <LargestTaxaList breakdown={breakdown} />}
       </CardContent>
     </Card>
   );
@@ -335,6 +344,16 @@ export default function BreakdownCard({ taxonKey, datasetKey }: Props) {
       <BreakdownContent taxonKey={taxonKey} datasetKey={datasetKey} />
     </ErrorBoundary>
   );
+}
+
+export function useTaxonBreakdown({ taxonKey, datasetKey }: Props) {
+  const { data, loading } = useQuery<TaxonBreakdown2Query, TaxonBreakdown2QueryVariables>(
+    TAXON_BREAKDOWN,
+    { variables: { key: taxonKey, datasetKey } }
+  );
+  const breakdown = data?.taxonInfo?.taxon?.checklistBankBreakdown;
+  const hasData = !!breakdown && (breakdown?.children?.length ?? 0) > 0;
+  return { hasData, loading };
 }
 
 const MAX_LIST_ENTRIES = 10;

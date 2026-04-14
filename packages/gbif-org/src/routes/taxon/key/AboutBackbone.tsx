@@ -23,7 +23,7 @@ import { Card } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';
 import { Aside, AsideSticky, SidebarLayout } from '../../occurrence/key/pagelayouts';
-import BreakdownCard from './BreakdownCard';
+import BreakdownCard, { useTaxonBreakdown } from './BreakdownCard';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -49,6 +49,10 @@ export default function AboutBackbone() {
   });
 
   const showTaxonBreakdown = isFamilyOrAbove && taxon.taxonomicStatus === 'ACCEPTED';
+  const { hasData: hasBreakdownData } = useTaxonBreakdown({
+    taxonKey: taxon.taxonID,
+    datasetKey: taxon.datasetKey,
+  });
   const showSynonyms = taxon.taxonomicStatus === 'ACCEPTED' && hasSynonyms;
   const hasVernacularNames = (taxonInfo?.vernacularNames?.length ?? 0) > 0;
   const hasTreatments = (taxonInfo?.taxon?.treatments?.length ?? 0) > 0;
@@ -71,15 +75,14 @@ export default function AboutBackbone() {
           stack={hideSidebar}
         >
           <div className="g-order-last">
-            {/* <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} /> */}
-            {showTaxonBreakdown && (
+            <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} />
+            {showTaxonBreakdown && hasBreakdownData && (
               <div id="breakdown">
                 {/* <TaxonBreakdown taxon={taxon} /> */}
-
                 <BreakdownCard taxonKey={taxon.taxonID} datasetKey={taxon.datasetKey} />
               </div>
             )}
-            {/* {hasPreprocessedMap && (
+            {hasPreprocessedMap && (
               <div id="map">
                 <MapWidget
                   className="g-mb-4"
@@ -99,7 +102,7 @@ export default function AboutBackbone() {
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
             {hasBibliography && <BibliographyCard taxonInfo={taxonInfo} />}
             {hasWikiDataIdentifiers && <TaxonIdentifiersCard slowTaxon={slowTaxon} />}
-            <CitationCard taxonInfo={taxonInfo} /> */}
+            <CitationCard taxonInfo={taxonInfo} />
           </div>
           {!hideSidebar && (
             <Aside>
@@ -124,7 +127,7 @@ export default function AboutBackbone() {
                           defaultMessage="Classification"
                         />
                       </Li>
-                      {showTaxonBreakdown && (
+                      {showTaxonBreakdown && hasBreakdownData && (
                         <Li to="#breakdown">
                           <FormattedMessage id="taxon.breakdown" defaultMessage="Breakdown" />
                         </Li>
