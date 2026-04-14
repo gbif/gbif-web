@@ -255,10 +255,9 @@ export function DatasetKeyAbout() {
 
             {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
               <Alert variant="destructive" className="g-mb-4">
-                <AlertTitle>Metadata only dataset with data</AlertTitle>
+                <AlertTitle><FormattedMessage id="dataset.metadataOnlyWithData.title" /></AlertTitle>
                 <AlertDescription>
-                  This dataset was published as a metadata-only dataset but contains occurrence
-                  data. This indicates that the data was wrongly mapped.
+                  <FormattedMessage id="dataset.metadataOnlyWithData.description" />
                 </AlertDescription>
               </Alert>
             )}
