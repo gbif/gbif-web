@@ -159,14 +159,14 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       // The filler covers any species not represented by significant grandchildren —
       // either because the child has no grandchildren at all, or because some were
       // below the threshold.
-      // Fillers are always unlabelled; the inner ring carries the labels for those slices.
+      // All fillers use the same neutral grey so they are visually inert; a coloured
+      // filler would look like a meaningful genus breakdown when it isn't one.
       const fillerSpecies = childSpeciesCount - significantGrandchildrenSum;
       if (fillerSpecies > 0) {
-        const hasNoGrandchildren = grandchildren.length === 0;
         outerData.push({
           name: '',
           y: fillerSpecies,
-          color: hasNoGrandchildren ? (color as string) : '#fafafa',
+          color: '#fafafa',
           dataLabels: { enabled: false },
         });
       }
@@ -253,7 +253,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                 ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                 : null;
             },
-            distance: 30,
+            distance: 40,
           },
         },
         ...(hasOuterRing
