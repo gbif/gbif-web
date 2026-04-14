@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "No hay estadísticas disponibles para los conjuntos de solo metadatos.",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "No todos los registros del conjunto de datos están incluidos en este sitio. Visite [GBIF.org]({datasetUrl}) para explorar el conjunto de datos completo.",
   "viewArticle": "Ver artículo",
   "registeredDate": "Registrado",
