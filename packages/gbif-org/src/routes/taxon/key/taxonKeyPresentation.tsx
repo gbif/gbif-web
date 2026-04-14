@@ -2,7 +2,7 @@ import { useCount } from '@/components/count';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
-import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
+import { FeatureList, GenericFeature, Homepage, TaxonomyIcon } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
@@ -125,12 +125,18 @@ export const NonBackbonePresentation = ({
   );
 };
 
-const SectionTabs = ({ isNub }: { isNub: boolean }) => {
+const SectionTabs = ({
+  isNub,
+  occurrenceCount = 0,
+}: {
+  isNub: boolean;
+  occurrenceCount?: number;
+}) => {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
     ];
-    if (isNub) {
+    if (isNub && occurrenceCount > 0) {
       tabsToDisplay.push({
         to: 'metrics',
         children: (
@@ -362,6 +368,16 @@ const PageHeader = ({
                 <HeaderInfo className="g-flex-none g-mb-0">
                   <HeaderInfoMain>
                     <FeatureList>
+                      <GenericFeature>
+                        <TaxonomyIcon />
+                        <DynamicLink
+                          pageId="taxonSearch"
+                          searchParams={{ taxonId: taxon.taxonID }}
+                          className="hover:g-underline"
+                        >
+                          <FormattedMessage id="counts.nSpecies" values={{ total: 123456 }} />
+                        </DynamicLink>
+                      </GenericFeature>
                       {!isPrimaryTaxonomy && taxon?.references && (
                         <Homepage url={taxon.references} />
                       )}
@@ -408,7 +424,7 @@ const PageHeader = ({
             </div>
             <div className="g-border-b g-mt-4"></div>
             {/* TODO taxonapi: not sure what this is */}
-            <SectionTabs isNub={isPrimaryTaxonomy} />
+            <SectionTabs isNub={isPrimaryTaxonomy} occurrenceCount={count} />
           </ArticleTextContainer>
         </PageContainer>
         <ErrorBoundary invalidateOn={taxon?.taxonID}>{children}</ErrorBoundary>

@@ -10,6 +10,7 @@
   "nOccurrences": "{total, plural, one {# occurrence} other {# occurrences}}",
   "nRecords": "{total, plural, one {# record} other {# records}}",
   "nTaxa": "{total, plural, one {# taxon} other {# taxa}}",
+  "nSpecies": "{total, plural, one {# species} other {# species}}",
   "nCitations": "{total, plural, one {# citation} other {# citations}}",
   "nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
   "nNames": "{total, plural, one {# name} other {# names}}",
