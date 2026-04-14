@@ -347,12 +347,11 @@ type TaxonBarRowProps = {
   node: TaxonRowNode;
   /** Bar width as a percentage (0–100), pre-calculated by the parent. */
   barWidth: number;
-  speciesLabel: string;
   children?: React.ReactNode;
 };
 
 /** A single linked row with a name, species count, proportional bar, and optional sub-list. */
-function TaxonBarRow({ node, barWidth, speciesLabel, children }: TaxonBarRowProps) {
+function TaxonBarRow({ node, barWidth, children }: TaxonBarRowProps) {
   return (
     <li key={node.id}>
       <DynamicLink
@@ -360,13 +359,15 @@ function TaxonBarRow({ node, barWidth, speciesLabel, children }: TaxonBarRowProp
         variables={{ key: node.id ?? '' }}
         className="g-flex-1 g-min-w-0 g-bg-slate-50 g-px-3 g-py-1 g-rounded hover:g-bg-slate-100 g-block"
       >
-        <div className="g-flex g-items-baseline g-justify-between g-gap-2 g-mb-0.5 g-text-sm">
-          {node.name}
+        {/* Mobile: two lines (name + count); desktop: single line with count right-aligned */}
+        <div className="g-flex g-flex-col sm:g-flex-row sm:g-items-baseline sm:g-justify-between g-gap-x-2 g-text-sm">
+          <span className="g-truncate">{node.name}</span>
           <span className="g-text-slate-500 g-shrink-0 g-text-xs">
-            {(node.species ?? 0).toLocaleString()} {speciesLabel}
+            {(node.species ?? 0).toLocaleString()}
           </span>
         </div>
-        <div className="g-h-1">
+        {/* Bar: hidden on mobile, visible on desktop */}
+        <div className="g-h-1 g-mt-0.5 g-hidden sm:g-block">
           <div
             className="g-h-1 g-rounded-full g-bg-primary-400"
             style={{ width: `${barWidth}%` }}
@@ -379,9 +380,6 @@ function TaxonBarRow({ node, barWidth, speciesLabel, children }: TaxonBarRowProp
 }
 
 function LargestTaxaList({ breakdown }: { breakdown: BreakdownNode }) {
-  const intl = useIntl();
-  const speciesLabel = intl.formatMessage({ id: 'taxon.species', defaultMessage: 'species' });
-
   const entries = (breakdown.children ?? [])
     .filter((c): c is NonNullable<typeof c> => c != null)
     .slice(0, MAX_LIST_ENTRIES);
@@ -404,19 +402,14 @@ function LargestTaxaList({ breakdown }: { breakdown: BreakdownNode }) {
         );
 
         return (
-          <TaxonBarRow key={child.id} node={child} barWidth={barWidth} speciesLabel={speciesLabel}>
+          <TaxonBarRow key={child.id} node={child} barWidth={barWidth}>
             {significantGrandchildren.length > 0 && (
               <ul className="g-mt-0.5 g-ml-4 g-space-y-0.5">
                 {significantGrandchildren.map((grandchild) => {
                   const gcCount = grandchild.species ?? 0;
                   const gcBarWidth = Math.round((gcCount / totalSpecies) * 100);
                   return (
-                    <TaxonBarRow
-                      key={grandchild.id}
-                      node={grandchild}
-                      barWidth={gcBarWidth}
-                      speciesLabel={speciesLabel}
-                    />
+                    <TaxonBarRow key={grandchild.id} node={grandchild} barWidth={gcBarWidth} />
                   );
                 })}
               </ul>
