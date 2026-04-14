@@ -32,6 +32,7 @@ import { useIsSpeciesOrBelow } from './taxonUtil';
 import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
+import { Formatted } from 'maplibre-gl';
 
 const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
 
@@ -220,7 +221,10 @@ const PageHeader = ({
                           />
                         </div>
                         <div className="g-absolute g-bottom-1 g-mx-auto g-text-center g-bg-slate-100 g-opacity-50 g-p-1 g-rounded g-text-sm g-text-slate-800">
-                          No records with images
+                          <FormattedMessage
+                            id="taxon.noRecordsWithImages"
+                            defaultMessage="No records with images"
+                          />
                         </div>
                       </div>
                     </div>

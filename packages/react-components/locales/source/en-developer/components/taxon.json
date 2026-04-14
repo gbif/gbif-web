@@ -18,6 +18,7 @@
   "dna": "DNA",
   "occurrenceImages": "Occurrence images",
   "taxonImages": "Taxon images",
+  "noRecordsWithImages": "No records with images",
   "taxonIdentifiers": "Taxon identifiers",
   "synonymsAndCombinations": "Synonyms and combinations",
   "inChecklist": "In {checklist}",
