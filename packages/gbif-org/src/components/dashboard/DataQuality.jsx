@@ -3,7 +3,7 @@ import useQuery from '@/hooks/useQuery';
 import { removeEmptyPredicates } from '@/utils/removeEmptyPredicates';
 import { FormattedMessage } from 'react-intl';
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
-import { Card, CardContent, CardTitle } from '../ui/smallCard';
+import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
 
 export function DataQuality({ predicate, q, checklistKey, optional = [], ...props }) {
@@ -100,6 +100,12 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
         <CardTitle>
           <FormattedMessage id="dashboard.richness" defaultMessage="Data richness" />
         </CardTitle>
+        <CardDescription>
+          <FormattedMessage
+            id="dashboard.numberOfOccurrences"
+            defaultMessage="Number of occurrences"
+          />
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div>

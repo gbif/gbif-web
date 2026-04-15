@@ -137,9 +137,7 @@ const SectionTabs = ({
     if (isNub && occurrenceCount > 0) {
       tabsToDisplay.push({
         to: 'metrics',
-        children: (
-          <FormattedMessage id="taxon.tabs.occurrenceMetrics" defaultMessage="Occurrence metrics" />
-        ),
+        children: <FormattedMessage id="taxon.tabs.metrics" defaultMessage="Metrics" />,
       });
     }
 
