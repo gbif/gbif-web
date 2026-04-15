@@ -5,7 +5,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext, useState, useCallback } from 'react';
 import { InvasiveInCountries } from './sections/InvasiveInCountries';
 import { TaxonKeyContext } from './taxonKeyPresentation';
-import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
+import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import TreatmentsCard from './sections/Treatments';
 import TypeMaterial from './sections/TypeSpecimens';
 import { NotFoundError } from '@/errors';

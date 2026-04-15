@@ -4,6 +4,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { VocabularyValue } from '@/components/vocabularyValue';
 import {
+  PredicateType,
   TaxonKeyQuery,
   TaxonTypeSpecimensQuery,
   TaxonTypeSpecimensQueryVariables,
@@ -14,7 +15,6 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import DNAsequence from './DNAsequence';
 import { Paging } from './VernacularNameTable';
-import { typeSpecimenPredicate } from '../taxonUtil';
 
 const DEFAULT_LIMIT = 10;
 
@@ -49,7 +49,7 @@ const TypeMaterial = ({
       setFilteredData([]);
       typeSpecimensLoad({
         variables: {
-          predicate: typeSpecimenPredicate({
+          predicate: getTypeSpecimenPredicate({
             taxonKey: synonym ? acceptedNameUsageID : taxonID,
             checklistKey: taxon.datasetKey,
           }),
@@ -282,3 +282,43 @@ const TYPE_MATERIAL_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+function getTypeSpecimenPredicate({
+  taxonKey,
+  checklistKey,
+}: {
+  taxonKey: string;
+  checklistKey?: string;
+}) {
+  return {
+    type: PredicateType.And,
+    predicates: [
+      {
+        type: PredicateType.Not,
+        predicate: {
+          type: PredicateType.Equals,
+          key: 'typeStatus',
+          value: 'NotAType',
+        },
+      },
+      {
+        type: PredicateType.Not,
+        predicate: {
+          type: PredicateType.Equals,
+          key: 'datasetKey',
+          value: '55b9ac33-0532-46d3-9796-c4c157f2b097',
+        },
+      },
+      {
+        type: PredicateType.IsNotNull,
+        key: 'typeStatus',
+      },
+      {
+        type: PredicateType.Equals,
+        key: 'taxonKey',
+        value: taxonKey,
+        checklistKey: checklistKey,
+      },
+    ],
+  };
+}

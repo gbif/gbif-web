@@ -12,10 +12,9 @@ import { useParams } from 'react-router-dom';
 import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
 import ClassificationSideBar from './ClassificationSideBar';
-import { DistributionsTable } from './Distributions';
 import Synonyms from './Synonyms';
 import { TaxonKeyContext } from './taxonKeyPresentation';
-import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
+import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import { VernacularNameTable } from './VernacularNameTable';
 export default function AboutNonBackbone({ headLess = false }: { headLess?: boolean }) {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
@@ -134,23 +133,6 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                     total={taxon?.vernacularCount?.results?.length || 0}
                     taxonKey={taxon.key}
                   />
-                </CardContent>
-              </Card>
-            )}
-            {(taxon?.distributionsCount?.results?.length ?? 0) > 0 && (
-              <Card className="g-mb-4" id="distributions">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage id="taxon.distributions" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ErrorBoundary type="BLOCK" errorMessage="taxon.errors.distributions">
-                    <DistributionsTable
-                      total={taxon?.distributionsCount?.results?.length || 0}
-                      taxonKey={taxon.key}
-                    />
-                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}

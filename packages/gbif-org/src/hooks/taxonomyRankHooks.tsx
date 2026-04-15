@@ -1,5 +1,4 @@
 import rankEnum from '@/enums/basic/rank.json';
-import { PredicateType } from '@/gql/graphql';
 import { useEffect, useState } from 'react';
 
 const majorRanks = new Set(['KINGDOM', 'PHYLUM', 'CLASS', 'ORDER', 'FAMILY', 'GENUS', 'SPECIES']);
@@ -46,57 +45,3 @@ export function useIsAboveFamily(rank: string) {
 
   return isAboveFamily;
 }
-
-export const typeSpecimenPredicate = ({
-  taxonKey,
-  checklistKey,
-}: {
-  taxonKey: string;
-  checklistKey?: string;
-}) => ({
-  type: PredicateType.And,
-  predicates: [
-    {
-      type: PredicateType.Not,
-      predicate: {
-        type: PredicateType.Equals,
-        key: 'typeStatus',
-        value: 'NotAType',
-      },
-    },
-    {
-      type: PredicateType.Not,
-      predicate: {
-        type: PredicateType.Equals,
-        key: 'datasetKey',
-        value: '55b9ac33-0532-46d3-9796-c4c157f2b097',
-      },
-    },
-    {
-      type: PredicateType.IsNotNull,
-      key: 'typeStatus',
-    },
-    {
-      type: PredicateType.Equals,
-      key: 'taxonKey',
-      value: taxonKey,
-      checklistKey: checklistKey,
-    },
-  ],
-});
-
-export const imagePredicate = (taxonKey: string) => ({
-  type: PredicateType.And,
-  predicates: [
-    {
-      type: PredicateType.Equals,
-      key: 'taxonKey',
-      value: taxonKey,
-    },
-    {
-      type: PredicateType.Equals,
-      key: 'mediaType',
-      value: 'StillImage',
-    },
-  ],
-});

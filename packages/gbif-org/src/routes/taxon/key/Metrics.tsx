@@ -4,7 +4,7 @@ import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useTaxonKeyLoaderData } from '.';
-import { useIsFamilyOrAbove, useNextMajorRank } from './taxonUtil';
+import { useIsFamilyOrAbove, useNextMajorRank } from '@/hooks/taxonomyRankHooks';
 
 export default function Metrics() {
   const { data } = useTaxonKeyLoaderData();

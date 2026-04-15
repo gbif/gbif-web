@@ -27,7 +27,7 @@ import { getTaxonSchema } from '../../../utils/schemaOrg';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
 import { HeaderImageCarousel } from './sections/SidebarImageCarousel';
-import { useIsSpeciesOrBelow } from './taxonUtil';
+import { useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
