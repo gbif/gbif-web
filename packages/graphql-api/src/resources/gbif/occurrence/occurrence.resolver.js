@@ -701,7 +701,6 @@ export default {
     taxon: ({ key, _checklistKey }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.taxonAPI
-
         .getTaxon({ key, datasetKey: _checklistKey })
         .catch((err) => {
           // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it

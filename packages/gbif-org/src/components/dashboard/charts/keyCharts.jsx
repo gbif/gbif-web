@@ -1,7 +1,9 @@
 import { DynamicLink } from '@/reactRouterPlugins';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { ChartWrapper } from './EnumChartGenerator';
 import { KeyChartGenerator, VocabularyChartGenerator } from './KeyChartGenerator';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 // import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
 
 export function Datasets({
@@ -381,14 +383,17 @@ export function EstablishmentMeans({
 
 export function Synonyms({
   predicate: providedPredicate,
+  checklistKey,
   detailsRoute,
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
+  const defaultChecklistKey = useChecklistKey();
   const synonymPredicate = {
     type: 'equals',
     key: 'taxonomicStatus',
     value: 'SYNONYM',
+    checklistKey: checklistKey ?? defaultChecklistKey,
   };
 
   const predicate = providedPredicate
@@ -398,24 +403,48 @@ export function Synonyms({
       }
     : synonymPredicate;
 
+  const GQL_QUERY = `
+    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        documents(size: 0) {
+          total
+        }
+        cardinality {
+          total: usageKey(checklistKey: $checklistKey)
+        }
+        facet {
+          results: usageKey(size: $size, from: $from, checklistKey: $checklistKey) {
+            key
+            count
+            entity: taxon {
+              title: scientificName
+              accepted: acceptedNameUsage
+              acceptedKey: acceptedNameUsageID
+            }
+            occurrences {
+              metaPredicate
+              _meta
+            }
+          }
+        }
+      }
+    }
+  `;
+
   return (
-    <KeyChartGenerator
+    <ChartWrapper
       {...{
         predicate,
         detailsRoute,
+        checklistKey,
         currentFilter,
-        fieldName: 'usageKey',
+        gqlQuery: GQL_QUERY,
+        predicateKey: 'usageKey',
         disableUnknown: true,
         disableOther: true,
         facetSize: 10,
         options: ['TABLE', 'MAP'],
-        includeMapPredicate: true,
         applyChecklistKey: true,
-        gqlEntity: `taxon {
-          title: scientificName
-          accepted: acceptedNameUsage
-          acceptedKey: acceptedNameUsageID
-        }`,
         title: <FormattedMessage id="dashboard.synonyms" defaultMessage="Synonyms" />,
         subtitleKey: 'dashboard.numberOfOccurrences',
         transform: (data) => {
