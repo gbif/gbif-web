@@ -55,6 +55,8 @@ const newRedirects = [
   { incoming: '/occurrence/taxonomy', target: '/occurrence/search?view=dashboard' },
   { incoming: '/occurrence/download', target: '/occurrence/search?view=download' },
 
+  { incoming: '/species/search', target: '/taxon/search' },
+
   { incoming: '/resource/search?contentType=literature', target: '/literature/search' },
 
   { incoming: '/the-gbif-network/africa', target: '/the-gbif-network' },

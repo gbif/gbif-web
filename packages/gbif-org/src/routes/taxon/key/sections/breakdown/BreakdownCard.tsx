@@ -30,6 +30,9 @@ type BreakdownNode = NonNullable<
 // Slices whose species count is below this fraction of the total are collapsed into an "Other" slice.
 const MIN_SLICE_PERCENT = 0.01;
 
+// Slices below this percentage of the total will have their data labels (with connector lines) hidden.
+const MIN_LABEL_PERCENT = 2;
+
 /**
  * Splits an array of breakdown nodes into two groups:
  * - `significant`: nodes whose species count meets or exceeds `threshold`
@@ -238,6 +241,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
             formatter: function (this: any) {
               if (this.point.custom?.hasOuterBreakdown) return null;
               if (this.point.custom?.isOther) return null;
+              if ((this.percentage ?? 0) < MIN_LABEL_PERCENT) return null;
               return (this.y ?? 0) > 1
                 ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                 : null;
@@ -257,6 +261,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   formatter: function (this: any) {
                     if (!this.point.name) return null;
+                    if ((this.percentage ?? 0) < MIN_LABEL_PERCENT) return null;
                     return (this.y ?? 0) > 1
                       ? `<b>${this.point.name}:</b> ${(this.y as number).toLocaleString('en-GB')}`
                       : null;
