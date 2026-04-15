@@ -1,4 +1,7 @@
-import Highcharts, { generateChartsPalette } from '@/components/dashboard/charts/highcharts';
+import Highcharts, {
+  chartPatterns,
+  generateChartsPalette,
+} from '@/components/dashboard/charts/highcharts';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { SkeletonParagraph } from '@/components/ui/skeleton';
@@ -157,7 +160,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       innerData.push({
         name: otherLabel,
         y: smallChildrenTotal,
-        color: '#fafafa',
+        color: chartPatterns.OTHER,
         custom: { isOther: true },
       });
       if (hasRealOuterSlices) {
