@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "Pro datové sady obsahující pouze metadata nejsou k dispozici žádné statistiky.",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "Na této stránce nejsou uvedeny všechny záznamy z datové sady. Chcete-li si prohlédnout celou datovou sadu, navštivte [GBIF.org]({datasetUrl}).",
   "viewArticle": "Zobrazit článek",
   "registeredDate": "Zaregistrováno {DATE}",

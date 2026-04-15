@@ -6,7 +6,6 @@ export const NETWORK_PARTICIPANTS_QUERY = /* GraphQL */ `
   query GbifNetworkParticipants {
     nodeSteeringGroup {
       name
-      title
       institutionName
       address
       addressCountry

@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "لا توجد إحصاءات متاحة للبيانات الوصفية فقط لمجموعات البيانات",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "",
   "viewArticle": "عرض المقال",
   "registeredDate": "مسجل في {DATE}",

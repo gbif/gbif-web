@@ -52,7 +52,7 @@
   "cites": "CITES",
   "immediateChildren": "přímo podřazená položka",
   "referenceTaxon": "Referenční taxon",
-  "showLess": "",
+  "showLess": "Zobrazit méně",
   "showAll": "Zobrazit vše",
   "errors": {
     "treatments": "",

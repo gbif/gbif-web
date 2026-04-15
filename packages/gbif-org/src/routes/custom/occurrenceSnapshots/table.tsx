@@ -58,7 +58,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
                   <td key={'date'} className="g-p-4 ">
                     {
                       <FormattedMessage
-                        id={`downloadFormat.${res.request.format}`}
+                        id={`enums.downloadFormat.${res.request.format}`}
                         defaultMessage={res.request.format}
                       />
                     }

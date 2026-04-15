@@ -24,7 +24,7 @@ type ExtendedParticipant = Participant & {
 type ParticipantType = ParticipationStatus | 'OTHER_ASSOCIATE' | 'UNKNOWN';
 
 const uniqueRegions = ['AFRICA', 'ASIA', 'EUROPE', 'LATIN_AMERICA', 'NORTH_AMERICA', 'OCEANIA'];
-const types = ['AFFILIATE', 'OTHER_ASSOCIATE', 'VOTING'];
+const types = ['AFFILIATE', 'ASSOCIATE', 'OTHER_ASSOCIATE', 'VOTING'];
 
 const regionOptions = uniqueRegions.map((region) => ({
   key: region,

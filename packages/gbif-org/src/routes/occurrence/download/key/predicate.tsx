@@ -1,5 +1,6 @@
 import {
   CollectionLabel,
+  CoordinateUncertaintyLabel,
   DatasetLabel,
   DegreeOfEstablishmentLabel,
   DepthLabel,
@@ -293,7 +294,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'GBIF_REGION':
             return getTranslation(`enums.gbifRegion.${constantCase(value)}`, `"${value}"`);
           case 'COORDINATE_UNCERTAINTY_IN_METERS':
-            return value;
+            return <CoordinateUncertaintyLabel id={predicate} />;
           case 'PARENT_EVENT_ID':
             return value;
           case 'RECORDED_BY':

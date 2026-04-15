@@ -26,7 +26,7 @@
   "unknown": "לא ידוע",
   "usingStartDates": "לטווחי תאריכים, נעשה שימוש בתאריך ההתחלה.",
   "iucnThreatStatus": "קטגוריית הרשימה האדומה של IUCN",
-  "iucnThreatStatusDescription": "מינים שמסווגים כקרובים לאיום (NT) או בסיכון גבוה יותר לפי הרשימה האדומה של IUCN.",
+  "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "מדדים אלה מבוססים על רשומות ששותפו דרך GBIF",
   "notVocabularyWarning": "מומן במשותף על ידי",
   "taxonomicBreakdown": "מומן במשותף על ידי",

@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "",
   "viewArticle": "Se artikel",
   "registeredDate": "Registreret {DATE}",

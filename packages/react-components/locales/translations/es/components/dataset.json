@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "No hay estadísticas disponibles para los conjuntos de solo metadatos.",
+  "metadataOnlyWithData": {
+    "title": "Conjunto de datos de sólo metadatos que contiene datos",
+    "description": "Este conjunto de datos se publicó como un conjunto de datos de sólo metadatos, pero incluye datos de presencia. Esto sugiere que los datos podrían haberse asignado incorrectamente."
+  },
   "siteScopeSmallerThanDataset": "No todos los registros del conjunto de datos están incluidos en este sitio. Visite [GBIF.org]({datasetUrl}) para explorar el conjunto de datos completo.",
   "viewArticle": "Ver artículo",
   "registeredDate": "Registrado",

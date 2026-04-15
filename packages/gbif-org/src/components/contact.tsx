@@ -78,12 +78,10 @@ export function ContactImage({ personId }: { personId: string }) {
 }
 
 export function ContactTitle({
-  title,
   firstName,
   lastName,
   children,
 }: {
-  title?: string | null;
   firstName?: string | null;
   lastName?: string | null;
   children?: React.ReactNode;
@@ -96,7 +94,7 @@ export function ContactTitle({
     );
   }
 
-  const name = [title, firstName, lastName].filter(Boolean).join(' ');
+  const name = [firstName, lastName].filter(Boolean).join(' ');
   return (
     <h4 className="g-text-base">
       {children}

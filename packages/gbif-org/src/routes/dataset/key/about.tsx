@@ -50,13 +50,13 @@ import { SamplingDescription } from './about/SamplingDescription';
 import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
-import { truncate } from '@/utils/truncate';
+import { notNull } from '@/utils/notNull';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { useHasMap } from '@/components/maps/mapThumbnail';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/utils/shadcn';
 import { PublishingCountries } from './about/PublishingCountries';
-import { TrustedSection } from '@/routes/occurrence/download/key/sections/deletionNotice';
+import { UserAvatarSection } from '@/components/userAvatarSection';
 import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -251,16 +251,13 @@ export function DatasetKeyAbout() {
               </div>
             )}
 
-            <TrustedSection>
-              <Trusted dataset={dataset} />
-            </TrustedSection>
+            <Trusted dataset={dataset} />
 
             {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
               <Alert variant="destructive" className="g-mb-4">
-                <AlertTitle>Metadata only dataset with data</AlertTitle>
+                <AlertTitle><FormattedMessage id="dataset.metadataOnlyWithData.title" /></AlertTitle>
                 <AlertDescription>
-                  This dataset was published as a metadata-only dataset but contains occurrence
-                  data. This indicates that the data was wrongly mapped.
+                  <FormattedMessage id="dataset.metadataOnlyWithData.description" />
                 </AlertDescription>
               </Alert>
             )}
@@ -499,66 +496,7 @@ export function DatasetKeyAbout() {
           </div>
           {!removeSidebar && (
             <Aside>
-              {hasLocalContext &&
-                dataset.localContexts?.map((localContext) => {
-                  if (!localContext?.project_page) return null;
-                  return (
-                    <Card className="g-mb-4 gbif-word-break" key={localContext?.project_page}>
-                      <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                        <div className="g-flex-none g-me-2">
-                          <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                            <ExternalLinkIcon />
-                          </div>
-                        </div>
-                        <div className="g-flex-auto g-mt-0.5">
-                          <a
-                            href={localContext?.project_page}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="g-flex g-items-center g-underline"
-                          >
-                            <h5 className="g-font-bold">{localContext?.title}</h5>
-                          </a>
-                          {localContext?.description && (
-                            <div className="g-text-slate-500 [&_a]:g-underline">
-                              {truncate(localContext?.description, 120)}
-                            </div>
-                          )}
-                          <ul className="g-mt-2">
-                            {localContext?.notes
-                              ?.filter((x) => x)
-                              .map((note, i) => {
-                                if (!note || !note.img_url) return null;
-                                return (
-                                  <li
-                                    className="g-flex g-items-start g-mb-2"
-                                    key={`${note.name}-${i}`}
-                                  >
-                                    <img
-                                      className="g-flex-none g-me-2 g-w-5 g-h-5"
-                                      src={note.img_url}
-                                      alt={note.name}
-                                      title={note.name}
-                                    />
-                                    <div className="g-flex-auto">
-                                      <a
-                                        href={note.pageUrl}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="g-underline g-text-inherit"
-                                      >
-                                        {note.name}
-                                      </a>
-                                    </div>
-                                  </li>
-                                );
-                              })}
-                          </ul>
-                        </div>
-                      </CardContentSmall>
-                    </Card>
-                  );
-                })}
+              {hasLocalContext && <LocalContextCards localContexts={dataset.localContexts} />}
               <AsideSticky className="-g-mt-4">
                 <Card>
                   <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
@@ -877,11 +815,11 @@ function DataSummaryInfo({
   );
 }
 
-function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
+function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> }) {
   const { user } = useUser();
 
   const isUserDatasetContact = useMemo(() => {
-    if (!user || !dataset?.volatileContributors) return false;
+    if (!user || !dataset.volatileContributors) return false;
     // has matching email
     const matchingEmail = dataset.volatileContributors.some((contact) =>
       contact?.email?.some((email) => email === user.email)
@@ -893,14 +831,14 @@ function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
     // or user is registry admin
     const isAdmin = user?.roles?.includes('REGISTRY_ADMIN');
     return matchingEmail || matchingOrcid || isAdmin;
-  }, [user, dataset?.volatileContributors]);
+  }, [user, dataset.volatileContributors]);
 
-  if (!isUserDatasetContact || !dataset) {
+  if (!isUserDatasetContact) {
     return null;
   }
 
   return (
-    <>
+    <UserAvatarSection>
       <div className="g-text-slate-600 g-mb-1">
         <FormattedMessage id="dataset.registry.becauseTrustedContact" />
       </div>
@@ -932,6 +870,100 @@ function Trusted({ dataset }: { dataset: DatasetQuery['dataset'] }) {
           </div>
         )}
       </div>
+    </UserAvatarSection>
+  );
+}
+
+type LocalContexts = NonNullable<DatasetQuery['dataset']>['localContexts'];
+
+function LocalContextCards({ localContexts }: { localContexts?: LocalContexts }) {
+  return (
+    <>
+      {localContexts?.filter(notNull).map((localContext) => {
+        if (!localContext.project_page) return null;
+        const notices = (localContext.notice ?? [])
+          .filter(notNull)
+          .filter((n) => n.name && n.img_url);
+        const labels = (localContext.labels ?? [])
+          .filter(notNull)
+          .filter((l) => l.name && l.img_url);
+
+        // Group labels by community name
+        const labelsByCommunity = new Map<string, typeof labels>();
+        for (const label of labels) {
+          const community = label.communityName ?? '';
+          if (!labelsByCommunity.has(community)) {
+            labelsByCommunity.set(community, []);
+          }
+          labelsByCommunity.get(community)!.push(label);
+        }
+
+        return (
+          <Card className="g-mb-4 gbif-word-break" key={localContext.project_page}>
+            <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+              <div className="g-flex-none g-me-2">
+                <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                  <ExternalLinkIcon />
+                </div>
+              </div>
+              <div className="g-flex-auto g-mt-0.5">
+                <a
+                  href={localContext.project_page}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="g-flex g-items-center g-underline"
+                >
+                  <h5 className="g-font-bold">{localContext.title}</h5>
+                </a>
+                {notices.length > 0 && (
+                  <ul className="g-mt-2">
+                    {notices.map((notice, i) => (
+                      <li className="g-flex g-items-center g-mb-2" key={`${notice.name}-${i}`}>
+                        <img
+                          className="g-flex-none g-me-2 g-w-5 g-h-5 g-object-contain"
+                          src={notice.img_url ?? undefined}
+                          alt={notice.name ?? undefined}
+                          title={notice.name ?? undefined}
+                        />
+                        <span>{notice.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {[...labelsByCommunity.entries()].map(([communityName, communityLabels]) => (
+                  <div key={communityName}>
+                    {communityName && (
+                      <p className="g-mt-2 g-text-slate-500">
+                        <FormattedMessage
+                          id="dataset.localContextsLabelsAppliedBy"
+                          defaultMessage="{count, plural, one{Label} other{Labels}} applied by {communityName}"
+                          values={{
+                            count: communityLabels.length,
+                            communityName,
+                          }}
+                        />
+                      </p>
+                    )}
+                    <ul className="g-mt-2">
+                      {communityLabels.map((label, i) => (
+                        <li className="g-flex g-items-center g-mb-2" key={`${label.name}-${i}`}>
+                          <img
+                            className="g-flex-none g-me-2 g-w-5 g-h-5 g-object-contain"
+                            src={label.img_url ?? undefined}
+                            alt={label.name ?? undefined}
+                            title={label.name ?? undefined}
+                          />
+                          <span>{label.name}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </CardContentSmall>
+          </Card>
+        );
+      })}
     </>
   );
 }

@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Card } from '../../ui/smallCard';
-import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
+import { Tertiary } from './Tertiary';
 import { AboutButton } from '../aboutButton';
 import { PolygonLabel } from '../displayNames';
 import { AdditionalFilterProps, ApplyCancel, filterLocationConfig } from '../filterTools';
@@ -257,39 +257,5 @@ const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
     );
   }
 );
-
-export function Tertiary({
-  value,
-  setValue,
-}: {
-  value?: boolean | string;
-  setValue: (val?: boolean) => void;
-}) {
-  return (
-    <ToggleGroup
-      type="single"
-      size="sm"
-      value={typeof value === 'undefined' ? 'either' : value.toString()}
-      variant="primary"
-      onValueChange={(val) => {
-        if (val === 'either' || val === undefined || val === '') {
-          setValue(undefined);
-        } else {
-          setValue(val.toString() === 'true');
-        }
-      }}
-    >
-      <ToggleGroupItem value="true" variant="primary">
-        <FormattedMessage id="search.ternary.yes" />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="false" variant="primary">
-        <FormattedMessage id="search.ternary.no" />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="either" variant="primary">
-        <FormattedMessage id="search.ternary.either" />
-      </ToggleGroupItem>
-    </ToggleGroup>
-  );
-}
 
 export default GeometryFilter;

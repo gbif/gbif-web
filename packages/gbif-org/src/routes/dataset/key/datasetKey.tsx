@@ -226,12 +226,14 @@ const DATASET_QUERY = /* GraphQL */ `
       localContexts {
         project_page
         title
-        description
-        notes {
+        notice {
           name
           img_url
-          description
-          pageUrl
+        }
+        labels {
+          name
+          img_url
+          communityName
         }
       }
       gridded {
@@ -376,11 +378,11 @@ export function DatasetPage() {
     return false;
   }, [occData]);
 
-  const showSpeciesTab = !!dataset.checklistBankDataset?.key;
+  const showSpeciesTab = dataset.type === DatasetType.Checklist;
   const withEventId = occData?.withEvents?.documents?.total || 0;
   const showEventsTab =
     (config.datasetKey?.showEvents && withEventId > 0) ||
-    (dataset.type === 'SAMPLING_EVENT' &&
+    (dataset.type === DatasetType.SamplingEvent &&
       import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled');
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;

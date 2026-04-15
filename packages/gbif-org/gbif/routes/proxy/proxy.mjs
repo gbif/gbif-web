@@ -8,13 +8,26 @@ const cache = {};
 
 function getCachedResponse(name, graphqlQuery) {
   return async function (req, res) {
-    const { locale = 'en' } = req.query;
+    const { locale = 'en', preview } = req.query;
+
+    // In preview mode, bypass cache and fetch directly with the preview header
+    if (preview === 'true') {
+      try {
+        const data = await getData({ query: graphqlQuery, locale, preview: true });
+        res.set('Cache-Control', 'no-store, no-cache');
+        res.json(data);
+      } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch data' });
+      }
+      return;
+    }
+
     const cacheKey = `${name}-${locale}`;
     // If we have a cached version, return it immediately and refresh in background
     if (cache[cacheKey]) {
       res.json(cache[cacheKey]);
       // Refresh cache in background (fire and forget)
-      refreshCache(name, { query: graphqlQuery, headers: { locale } }).catch(() => {
+      refreshCache(cacheKey, { query: graphqlQuery, locale }).catch(() => {
         // Silently fail - we'll try again on next request
       });
       return;
@@ -36,20 +49,22 @@ async function refreshCache(cacheKey, { query, variables, locale }) {
   return result;
 }
 
-async function getData({ query, variables, locale }) {
+async function getData({ query, variables, locale, preview }) {
   return fetchFromGraphQL({
     query,
     variables,
     locale,
+    preview,
   });
 }
 
-async function fetchFromGraphQL({ query, variables, locale }) {
+async function fetchFromGraphQL({ query, variables, locale, preview }) {
   return fetch(PUBLIC_GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       locale: locale || 'en',
+      preview: preview ? 'true' : 'false',
     },
     body: JSON.stringify({ query, variables }),
   })

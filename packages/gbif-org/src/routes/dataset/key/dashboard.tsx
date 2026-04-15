@@ -296,7 +296,7 @@ function IssuesMetrics({ predicate }: { predicate: Predicate }) {
           predicate={predicate}
           visibilityThreshold={0}
           interactive={false}
-          options={['TABLE', 'COLUMN', 'PIE']}
+          defaultOption="TABLE"
         />
       </DashBoardLayout>
     </ClientSideOnly>

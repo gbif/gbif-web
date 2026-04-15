@@ -9,8 +9,6 @@ const typeDef = gql`
     bc_labels: [LocalContextLabel]
     tk_labels: [LocalContextLabel]
     labels: [LocalContextLabel]
-    notes: [LocalContextNote]
-    communityName: String
   }
 
   type LocalContextNotice {
@@ -37,16 +35,8 @@ const typeDef = gql`
     img_url: String
     svg_url: String
     label_text(lang: String): String
+    communityName: String
     translations: [LocalContextTranslation]
-  }
-
-  type LocalContextNote {
-    unique_id: String
-    pageUrl: String
-    name(lang: String): String
-    img_url: String
-    svg_url: String
-    description(lang: String): String
   }
 
   type LocalContextTranslation {

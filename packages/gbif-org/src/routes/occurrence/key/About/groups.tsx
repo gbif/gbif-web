@@ -3,7 +3,7 @@ import { GadmClassification } from '@/components/classification';
 import { ConceptValue } from '@/components/conceptValue';
 import { HelpLine } from '@/components/helpText';
 import { GeoJsonMap } from '@/components/maps/geojsonMap';
-import { generatePointGeoJson } from '@/components/maps/geojsonMap/GeoJsonMap';
+import { generatePointGeoJson } from '@/components/maps/geojsonMap/generatePointGeoJson';
 import Properties, { Property } from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
@@ -393,14 +393,12 @@ function Location({
 }: {
   showAll: boolean;
   termMap: any;
-  occurrence: any;
+  occurrence: OccurrenceQuery['occurrence'];
 }) {
-  const [geoJson2] = useState(
-    generatePointGeoJson({
-      lat: occurrence?.coordinates?.lat as number,
-      lon: occurrence?.coordinates?.lon as number,
-    })
-  );
+  const geoJson2 = generatePointGeoJson({
+    lat: occurrence?.coordinates?.lat,
+    lon: occurrence?.coordinates?.lon,
+  });
   const wkt = wellknown.parse(termMap?.footprintWKT?.value || '');
   const invalidWkt = termMap?.footprintWKT?.value && termMap?.footprintWKT?.value !== '' && !wkt;
   return (
@@ -411,7 +409,7 @@ function Location({
         </CardTitle>
       </CardHeader>
       <CardContent className="g-w-full">
-        {!!occurrence.coordinates?.lon && !!occurrence.coordinates?.lat && (
+        {!!occurrence?.coordinates?.lon && !!occurrence?.coordinates?.lat && (
           <div className="g-mb-4 g-min-w-64">
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
               {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
@@ -426,16 +424,10 @@ function Location({
                             geometry: wkt ?? geoJson2,
                             properties: {},
                           },
-                          generatePointGeoJson({
-                            lat: occurrence?.coordinates.lat as number,
-                            lon: occurrence?.coordinates.lon as number,
-                          }),
+                          geoJson2,
                         ],
                       }
-                    : generatePointGeoJson({
-                        lat: occurrence?.coordinates.lat as number,
-                        lon: occurrence?.coordinates.lon as number,
-                      })
+                    : geoJson2
                 }
                 className="g-w-full g-rounded g-overflow-hidden"
                 initialCenter={[occurrence.coordinates.lon, occurrence.coordinates.lat]}

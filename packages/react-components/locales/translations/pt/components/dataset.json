@@ -59,6 +59,10 @@
     }
   },
   "noStatsForMetadata": "Não há estatísticas disponíveis para conjuntos de dados somente de metadados",
+  "metadataOnlyWithData": {
+    "title": "",
+    "description": ""
+  },
   "siteScopeSmallerThanDataset": "",
   "viewArticle": "Ver artigo",
   "registeredDate": "Registado {DATE}",

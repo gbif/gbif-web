@@ -16,12 +16,14 @@ import { HomePageCounts } from './counts';
 import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 import { useNotifyOfPartialDataIfErrors } from '../rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
+import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
 
-async function homepageLoader({ locale }: LoaderArgs) {
-  const apiUrl = `${import.meta.env.PUBLIC_BASE_URL}/unstable-api/cached-response/home?locale=${
-    locale.cmsLocale ?? 'en'
-  }`;
-  const response = await fetch(apiUrl);
+async function homepageLoader({ locale, isPreview }: LoaderArgs) {
+  const response = await fetchCachedResponse({
+    route: '/home',
+    preview: isPreview,
+    locale: locale.cmsLocale ?? 'en',
+  });
 
   if (!response.ok) {
     // just swallow errors here and let the page render with partial data
