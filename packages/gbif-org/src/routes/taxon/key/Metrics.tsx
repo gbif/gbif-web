@@ -29,9 +29,8 @@ export default function Metrics() {
             <DashBoardLayout>
               {/* <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" /> */}
 
-              {/* TODO taxonpi: this chart no longer works as it relies on the old API. IT looks like it is a copy pasted version of the existing taxon chart, si I'm not sure what the benefit is. For now I've replaced it with the one below */}
               {/* <Taxa predicate={predicate} className="g-mb-4" /> */}
-              <charts.Taxa
+              {/* <charts.Taxa
                 predicate={predicate}
                 className="g-mb-4"
                 defaultRank={nextMajorRank?.toLowerCase()}
@@ -41,7 +40,7 @@ export default function Metrics() {
               <charts.Months predicate={predicate} className="g-mb-4" />
               <charts.Datasets predicate={predicate} className="g-mb-4" />
               <charts.Country predicate={predicate} className="g-mb-4" />
-              <charts.BasisOfRecord predicate={predicate} className="g-mb-4" />
+              <charts.BasisOfRecord predicate={predicate} className="g-mb-4" /> */}
               <charts.Synonyms predicate={predicate} className="g-mb-4" />
             </DashBoardLayout>
           )}

@@ -397,6 +397,7 @@ export function Synonyms({
         predicates: [providedPredicate, synonymPredicate],
       }
     : synonymPredicate;
+
   return (
     <KeyChartGenerator
       {...{
