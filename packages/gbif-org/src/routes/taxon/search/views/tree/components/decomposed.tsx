@@ -1,5 +1,6 @@
 import { FilterIcon } from '@/components/icons/icons';
 import { TaxonChildrenQuery, TaxonChildrenQueryVariables } from '@/gql/graphql';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { useQuery } from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import {
@@ -12,7 +13,6 @@ import {
   useCallback,
 } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 
 // --- TYPES ---
 export interface TaxonData {
@@ -86,11 +86,13 @@ export const TreeItem = ({
   childrenCount,
   defaultExpanded = false,
   taxonID,
+  datasetKey,
 }: {
   children: ReactNode;
   childrenCount: number;
   defaultExpanded?: boolean;
   taxonID: string;
+  datasetKey: string;
 }) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const contentId = useId();
@@ -113,10 +115,10 @@ export const TreeItem = ({
   const loadMore = useCallback(() => {
     if (isExpanded && childrenCount > 0) {
       const newOffset = offset + LIMIT;
-      load({ variables: { key: taxonID, limit: LIMIT, offset: newOffset } });
+      load({ variables: { key: taxonID, limit: LIMIT, offset: newOffset, datasetKey } });
       setOffset(newOffset);
     }
-  }, [taxonID, load, offset, isExpanded, childrenCount]);
+  }, [taxonID, load, offset, isExpanded, childrenCount, datasetKey]);
 
   useEffect(() => {
     if (data?.taxon?.children?.results) {
@@ -131,9 +133,9 @@ export const TreeItem = ({
 
   useEffect(() => {
     if (isExpanded && childrenCount > 0) {
-      load({ variables: { key: taxonID, limit: LIMIT, offset: 0 } });
+      load({ variables: { key: taxonID, limit: LIMIT, offset: 0, datasetKey } });
     }
-  }, [load, taxonID, isExpanded, childrenCount]);
+  }, [load, taxonID, isExpanded, childrenCount, datasetKey]);
 
   return (
     <TreeItemContext.Provider
@@ -164,25 +166,41 @@ export const TreeHeader = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon: TaxonData }) => (
-  <div className="g-flex-1 g-flex g-items-center g-justify-between">
-    <div className="g-flex-1 g-flex g-items-start">
-      <div className="g-flex-grow">
-        {/* TODO taxonapi: fix the link so it accounts for primary vs dataset */}
-        <DynamicLink
-          pageId="taxonKey"
-          variables={{ datasetKey, key: taxon.taxonID }}
-          className="g-text-primary-700 g-whitespace-nowrap"
-        >
-          <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
-        </DynamicLink>
-      </div>
-      <div className="g-text-gray-500 g-ms-3 g-flex-none">
-        <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
+export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon: TaxonData }) => {
+  const defaultChecklistKey = useChecklistKey();
+  const isDefaultTaxonomy = datasetKey === defaultChecklistKey;
+  return (
+    <div className="g-flex-1 g-flex g-items-center g-justify-between">
+      <div className="g-flex-1 g-flex g-items-start">
+        <div className="g-flex-grow">
+          {/* TODO taxonapi: fix the link so it accounts for primary vs dataset */}
+          {isDefaultTaxonomy && (
+            <DynamicLink
+              pageId="taxonKey"
+              variables={{ key: taxon.taxonID }}
+              className="g-text-primary-700 g-whitespace-nowrap"
+            >
+              <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
+            </DynamicLink>
+          )}
+          {!isDefaultTaxonomy && (
+            <DynamicLink
+              pageId="datasetKey"
+              variables={{ key: datasetKey }}
+              path={`/taxon/${taxon.taxonID}`}
+              className="g-text-primary-700 g-whitespace-nowrap"
+            >
+              <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
+            </DynamicLink>
+          )}
+        </div>
+        <div className="g-text-gray-500 g-ms-3 g-flex-none">
+          <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 /** * 4. THE NESTED LIST (<ul>)
  * Lives inside the parent <li>, creating the hierarchy.

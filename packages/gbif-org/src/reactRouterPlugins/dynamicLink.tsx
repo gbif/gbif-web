@@ -16,6 +16,7 @@ export type DynamicLinkProps<T extends React.ElementType> = {
   variables?: Record<string, string>;
   pageId?: string;
   searchParams?: ParamQuery;
+  path?: string;
   keepExistingSearchParams?: boolean;
 } & Omit<React.ComponentPropsWithoutRef<T>, 'to'> &
   Partial<Pick<LinkProps, 'to'>>;
@@ -36,11 +37,13 @@ export function useLink() {
       variables = {},
       searchParams,
       keepExistingSearchParams = false,
+      path,
     }: {
       pageId?: string;
       variables?: Record<string, string>;
       searchParams?: ParamQuery;
       keepExistingSearchParams?: boolean;
+      path?: string;
     }): LinkData => {
       let isHref = false;
       let link: string | null = null;
@@ -66,7 +69,7 @@ export function useLink() {
         if (page?.path) {
           // use the path provided
 
-          link = page.path;
+          link = page.path + (path ?? '');
           // if path do not start with http and not with a slash, then add a slash to the begining
           if (!link.startsWith('http') && !link.startsWith('/')) {
             link = `/${link}`;
@@ -142,12 +145,14 @@ export function useDynamicLink({
   pageId,
   searchParams,
   keepExistingSearchParams = false,
+  path,
 }: {
   to?: string | object;
   variables?: Record<string, string>;
   pageId?: string;
   searchParams?: ParamQuery;
   keepExistingSearchParams?: boolean;
+  path?: string;
 }): LinkData {
   const createLink = useLink();
   const { localizeLink } = useI18n();
@@ -165,6 +170,7 @@ export function useDynamicLink({
         variables,
         searchParams,
         keepExistingSearchParams,
+        path,
       });
       if (!link) {
         console.warn(`Page with id ${pageId} not found`);
@@ -195,6 +201,7 @@ export function useDynamicLink({
     variables,
     pageId,
     searchParams,
+    path,
     pages,
     to,
     createLink,
@@ -212,6 +219,7 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
   variables,
   pageId,
   searchParams,
+  path,
   keepExistingSearchParams,
   ...props
 }: DynamicLinkProps<T>): React.ReactElement {
@@ -221,6 +229,7 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
     pageId,
     searchParams,
     keepExistingSearchParams,
+    path,
   });
 
   return <DynamicLinkPresentation linkData={linkData} as={as} {...props} />;

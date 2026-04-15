@@ -2,19 +2,21 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { CardDescription } from '@/components/ui/smallCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
+import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { VernacularNameTable } from './VernacularNameTable';
 import { ColFeedback } from './ColFeedback';
 
 type Props = {
   taxonInfo: TaxonKeyQuery['taxonInfo'];
+  className?: string;
 };
 
-function VernacularNamesContent({ taxonInfo }: Props) {
+function VernacularNamesContent({ taxonInfo, className }: Props) {
   if (taxonInfo?.vernacularNames?.length === 0) return null;
 
   return (
-    <Card className="g-mb-4" id="vernacularNames">
+    <Card className={cn('g-mb-4', className)} id="vernacularNames">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="taxon.vernacularNames" />
@@ -30,13 +32,13 @@ function VernacularNamesContent({ taxonInfo }: Props) {
   );
 }
 
-export default function VernacularNamesCard({ taxonInfo }: Props) {
+export default function VernacularNamesCard({ taxonInfo, className }: Props) {
   return (
     <ErrorBoundary
       type="BLOCK"
       errorMessage={<FormattedMessage id="taxon.errors.vernacularNames" />}
     >
-      <VernacularNamesContent taxonInfo={taxonInfo} />
+      <VernacularNamesContent taxonInfo={taxonInfo} className={className} />
     </ErrorBoundary>
   );
 }

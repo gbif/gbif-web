@@ -459,7 +459,7 @@ const typeDef = gql`
     measurementOrFacts: [MeasurementOrFact!]
     bibliography: [Bibliography!]!
     distributions: [Distribution!]
-    media: [Media!]
+    media(limit: Int): [Media!]
     vernacularNames: [VernacularName!]
     classification: [TaxonClassification!]
     synonyms: TaxonSynonyms

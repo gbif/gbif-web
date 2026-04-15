@@ -335,12 +335,12 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                 <HeaderInfo className="g-flex-none g-mb-0">
                   <HeaderInfoMain>
                     <FeatureList>
-                      {speciesCount > 0 && (
+                      {(speciesCount ?? 0) > 0 && (
                         <GenericFeature>
                           <TaxonomyIcon />
                           <DynamicLink
                             pageId="taxonSearch"
-                            searchParams={{ taxonId: taxon.taxonID }}
+                            searchParams={{ taxonId: taxon.taxonID, taxonRank: 'SPECIES' }}
                             className="hover:g-underline"
                           >
                             <FormattedMessage
@@ -360,7 +360,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                             statusCategory={taxon.relatedInfo?.redlist?.threatStatus}
                             as="a"
                             href={
-                              taxon.relatedInfo?.redlist?.link ??
+                              taxon.relatedInfo?.redlist?.references ??
                               `https://www.iucnredlist.org/search?query=${taxon.scientificName}&searchType=species`
                             }
                             target="_blank"

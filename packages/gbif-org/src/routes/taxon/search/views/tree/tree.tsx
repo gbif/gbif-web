@@ -5,7 +5,6 @@ import {
   TaxonParentsQueryVariables,
 } from '@/gql/graphql';
 import {
-  GotToNode,
   TaxonData,
   Tree,
   TreeGroup,
@@ -61,21 +60,10 @@ export function SearchPageTree({ entityDrawerPrefix }: { entityDrawerPrefix: str
   );
 }
 
-export function TaxonTree({
-  datasetKey,
-  taxonKey,
-  excludeParents,
-}: {
-  datasetKey: string;
-  taxonKey: string;
-  excludeParents?: boolean;
-}) {
-  const { setField } = useContext(FilterContext);
-
-  const { data, error, loading, load } = useQuery<DatasetRootsQuery, DatasetRootsQueryVariables>(
-    DATASET_ROOTS,
-    { lazyLoad: true }
-  );
+export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonKey: string }) {
+  const { data, load } = useQuery<DatasetRootsQuery, DatasetRootsQueryVariables>(DATASET_ROOTS, {
+    lazyLoad: true,
+  });
 
   const {
     data: parentData,
@@ -87,7 +75,7 @@ export function TaxonTree({
   useEffect(() => {
     if (!taxonKey) {
       load({ variables: { datasetKey, limit: 100, offset: 0 } });
-    } else if (!excludeParents) {
+    } else {
       loadParents({ variables: { datasetKey, key: taxonKey } });
     }
   }, [datasetKey, taxonKey, load, loadParents]);
@@ -173,6 +161,7 @@ export const TaxonomicNode = ({
       childrenCount={data.childrenCount}
       taxonID={data.taxonID}
       defaultExpanded={defaultExpanded}
+      datasetKey={datasetKey}
     >
       <TreeHeader>
         <TreeToggle />

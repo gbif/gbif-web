@@ -293,6 +293,10 @@ export default {
           ?.citation ?? null
       );
     },
+    media: ({ media }, { limit = 20 }) => {
+      // the api returns all possible images, but we want to limit it, so we do the limiting here
+      return media?.slice(0, limit) ?? [];
+    },
     groupIconSVG: ({ group }, args, { dataSources }) =>
       group
         ? dataSources.taxonAPI

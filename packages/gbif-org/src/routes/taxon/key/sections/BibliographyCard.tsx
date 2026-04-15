@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { CardDescription } from '@/components/ui/smallCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
+import { cn } from '@/utils/shadcn';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from '@/components/paging';
@@ -14,15 +15,16 @@ const DEFAULT_LIMIT = 10;
 
 type Props = {
   taxonInfo: TaxonKeyQuery['taxonInfo'];
+  className?: string;
 };
 
-function BibliographyContent({ taxonInfo }: Props) {
+function BibliographyContent({ taxonInfo, className }: Props) {
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [offset, setOffset] = useState(0);
   const bibliography = taxonInfo?.bibliography ?? [];
 
   return (
-    <Card className="g-mb-4" id="bibliography">
+    <Card className={cn('g-mb-4', className)} id="bibliography">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="taxon.bibliography" />
@@ -108,10 +110,10 @@ function BibliographyContent({ taxonInfo }: Props) {
   );
 }
 
-export default function BibliographyCard({ taxonInfo }: Props) {
+export default function BibliographyCard({ taxonInfo, className }: Props) {
   return (
     <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.bibliography" />}>
-      <BibliographyContent taxonInfo={taxonInfo} />
+      <BibliographyContent taxonInfo={taxonInfo} className={className} />
     </ErrorBoundary>
   );
 }

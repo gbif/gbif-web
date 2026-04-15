@@ -1,6 +1,7 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { CardDescription } from '@/components/ui/smallCard';
+import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { TaxonTree } from '../../search/views/tree';
 import { ColFeedback } from './ColFeedback';
@@ -8,15 +9,16 @@ import { ColFeedback } from './ColFeedback';
 type Props = {
   datasetKey: string;
   taxonKey: string | number;
+  className?: string;
 };
 
-export default function ClassificationCard({ datasetKey, taxonKey }: Props) {
+export default function ClassificationCard({ datasetKey, taxonKey, className }: Props) {
   return (
     <ErrorBoundary
       type="BLOCK"
       errorMessage={<FormattedMessage id="taxon.errors.classification" />}
     >
-      <Card className="g-mb-4" id="classification">
+      <Card className={cn('g-mb-4', className)} id="classification">
         <CardHeader>
           <CardTitle>
             <FormattedMessage id="taxon.classificationAndDescendants" />

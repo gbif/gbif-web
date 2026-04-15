@@ -44,7 +44,7 @@ export function useTaxonBreakdown({
   );
   const breakdown = data?.taxonInfo?.taxon?.checklistBankBreakdown;
   let hasData = !!breakdown && (breakdown?.children?.length ?? 0) > 0;
-  if (breakdown?.children?.length === 1 && (breakdown.children?.[0]?.children ?? []).length === 1) {
+  if (breakdown?.children?.length === 1 && (breakdown.children?.[0]?.children ?? []).length < 2) {
     hasData = false;
   }
   return { hasData, loading };

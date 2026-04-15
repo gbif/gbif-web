@@ -189,6 +189,14 @@ const TAXON_QUERY = /* GraphQL */ `
           isOriginalNameUsage
         }
       }
+      media {
+        identifier
+        title
+        references
+        type
+        creator
+        license
+      }
       vernacularNames {
         vernacularName
         language

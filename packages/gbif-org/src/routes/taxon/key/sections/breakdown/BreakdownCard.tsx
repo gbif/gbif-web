@@ -8,6 +8,7 @@ import { SkeletonParagraph } from '@/components/ui/skeleton';
 import { CardDescription } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { TaxonBreakdown2Query, TaxonBreakdown2QueryVariables } from '@/gql/graphql';
+import { cn } from '@/utils/shadcn';
 import useAbove from '@/hooks/useAbove';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -21,6 +22,7 @@ import { TAXON_BREAKDOWN } from './useTaxonBreakdown';
 type Props = {
   taxonKey: string;
   datasetKey: string;
+  className?: string;
 };
 
 type BreakdownNode = NonNullable<
@@ -278,7 +280,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
   return <HighchartsReact highcharts={Highcharts} options={chartOptions} />;
 }
 
-function BreakdownContent({ taxonKey, datasetKey }: Props) {
+function BreakdownContent({ taxonKey, datasetKey, className }: Props) {
   const showPie = useAbove(800);
   const { data, loading } = useQuery<TaxonBreakdown2Query, TaxonBreakdown2QueryVariables>(
     TAXON_BREAKDOWN,
@@ -289,7 +291,7 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
   const isEmpty = !breakdown || breakdown.species === 0;
 
   return (
-    <Card className="g-mb-4" id="breakdown">
+    <Card className={cn('g-mb-4', className)} id="breakdown">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
@@ -318,7 +320,7 @@ function BreakdownContent({ taxonKey, datasetKey }: Props) {
   );
 }
 
-export default function BreakdownCard({ taxonKey, datasetKey }: Props) {
+export default function BreakdownCard({ taxonKey, datasetKey, className }: Props) {
   return (
     <ErrorBoundary
       type="BLOCK"
@@ -326,7 +328,7 @@ export default function BreakdownCard({ taxonKey, datasetKey }: Props) {
         <FormattedMessage id="taxon.errors.breakdown" defaultMessage="Failed to load breakdown" />
       }
     >
-      <BreakdownContent taxonKey={taxonKey} datasetKey={datasetKey} />
+      <BreakdownContent taxonKey={taxonKey} datasetKey={datasetKey} className={className} />
     </ErrorBoundary>
   );
 }

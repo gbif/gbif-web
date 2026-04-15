@@ -1,16 +1,18 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
+import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import Citation from './Citation';
 
 type Props = {
   taxonInfo: TaxonKeyQuery['taxonInfo'];
+  className?: string;
 };
 
-function CitationContent({ taxonInfo }: Props) {
+function CitationContent({ taxonInfo, className }: Props) {
   return (
-    <Card className="g-mb-4" id="citation">
+    <Card className={cn('g-mb-4', className)} id="citation">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="phrases.citation" />
@@ -23,10 +25,10 @@ function CitationContent({ taxonInfo }: Props) {
   );
 }
 
-export default function CitationCard({ taxonInfo }: Props) {
+export default function CitationCard({ taxonInfo, className }: Props) {
   return (
     <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.citation" />}>
-      <CitationContent taxonInfo={taxonInfo} />
+      <CitationContent taxonInfo={taxonInfo} className={className} />
     </ErrorBoundary>
   );
 }
