@@ -21,7 +21,7 @@ export async function taxonLoader({ params, graphql, locale }: LoaderArgs) {
   const key = params.taxonKey || (params.key as string);
   const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
-    datasetKey: primaryChecklist,
+    datasetKey: params.key ?? primaryChecklist,
     language: locale?.iso3LetterCode ?? 'eng', // TODO taxonapi: get from user preferences
   });
 

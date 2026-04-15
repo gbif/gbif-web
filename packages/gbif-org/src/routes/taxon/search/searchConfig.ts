@@ -10,6 +10,9 @@ export const config: FilterConfigType = {
         supportedTypes: ['fuzzy'],
       },
     },
+    datasetKey: {
+      singleValue: true,
+    },
   },
 };
 

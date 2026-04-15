@@ -7819,7 +7819,7 @@ export type QueryTaxonSearchArgs = {
   authorship?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   authorshipYear?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   code?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  datasetKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  datasetKey?: InputMaybe<Scalars['ID']['input']>;
   extinct?: InputMaybe<Scalars['Boolean']['input']>;
   facet?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   facetLimit?: InputMaybe<Scalars['Int']['input']>;
@@ -8632,7 +8632,7 @@ export type TaxonSearchInput = {
   authorship?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   authorshipYear?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   code?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  datasetKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  datasetKey?: InputMaybe<Scalars['ID']['input']>;
   extinct?: InputMaybe<Scalars['Boolean']['input']>;
   facet?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   facetLimit?: InputMaybe<Scalars['Int']['input']>;

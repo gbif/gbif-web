@@ -8,7 +8,7 @@ const typeDef = gql`
     checklistMetadata(checklistKey: ID!): ChecklistMeta
 
     taxonSearch(
-      datasetKey: [ID]
+      datasetKey: ID
       taxonRank: [String]
       taxonID: [ID]
       taxonomicStatus: [String]
@@ -35,7 +35,7 @@ const typeDef = gql`
   }
 
   input TaxonSearchInput {
-    datasetKey: [ID]
+    datasetKey: ID
     taxonRank: [String]
     taxonId: [ID]
     taxonomicStatus: [String]

@@ -183,11 +183,17 @@ export default {
       parent,
       { datasetKey = DEFAULT_CHECKLIST_KEY, query, ...args },
       { dataSources },
-    ) =>
-      dataSources.taxonAPI.taxonSearch({
-        query: { ...args, ...query },
-        datasetKey,
-      }),
+    ) => {
+      const { datasetKey: datasetKeyQuery, ...queryWithoutDataset } =
+        query || {};
+      const finalQuery = { ...args, ...queryWithoutDataset };
+      const finalDatasetKey = datasetKeyQuery || datasetKey;
+
+      return dataSources.taxonAPI.taxonSearch({
+        query: finalQuery,
+        datasetKey: finalDatasetKey,
+      });
+    },
     taxonInfo: (
       parent,
       { datasetKey = DEFAULT_CHECKLIST_KEY, key },

@@ -67,12 +67,12 @@ const NoneEmptyTab = () => {
   const config = useConfig();
   const [searchContext, setSearchContext] = useState({
     ...config.taxonSearch,
-    scope: { datasetKey: [datasetKey] },
+    scope: { datasetKey: datasetKey },
   });
   useEffect(() => {
     setSearchContext({
       ...config.taxonSearch,
-      scope: { datasetKey: [datasetKey] },
+      scope: { datasetKey: datasetKey },
     });
   }, [config?.taxonSearch, datasetKey]);
 
