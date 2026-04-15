@@ -48,12 +48,12 @@ function TaxonSearchPageInner(): React.ReactElement {
         */}
       <section className="g-bg-white">
         <Card>
-          <TaxonViewTabs
+          {/* <TaxonViewTabs
             setView={setView}
             view={view}
             defaultView={defaultView}
             tabs={searchContext.tabs}
-          />
+          /> */}
           <FilterBarWithActions filters={visibleFilters} />
         </Card>
       </section>

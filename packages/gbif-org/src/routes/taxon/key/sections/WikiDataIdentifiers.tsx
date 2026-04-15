@@ -1,13 +1,7 @@
 import { WikiDataIdentifier } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
 
-const WikiDataIdentifiers = ({
-  identifiers,
-  source,
-}: {
-  identifiers: WikiDataIdentifier[];
-  source: WikiDataIdentifier;
-}) => {
+const WikiDataIdentifiers = ({ identifiers }: { identifiers: WikiDataIdentifier[] }) => {
   return (
     <div className="g-text-sm g-text-slate-500">
       <div className="g-flex g-flex-wrap g-gap-1">
@@ -21,16 +15,22 @@ const WikiDataIdentifiers = ({
           </a>
         ))}
       </div>
-      {source && (
-        <div className="g-mt-2 g-prose g-text-sm">
-          <span>
-            <FormattedMessage id="taxon.source" />
-          </span>{' '}
-          <a href={source?.url}>wikidata:{source?.id}</a>
-        </div>
-      )}
     </div>
   );
 };
+
+export function WikidataIdentifiersSource({ url, id }: { url: string; id: string }) {
+  return (
+    <span>
+      <span>
+        <FormattedMessage id="taxon.source" />
+      </span>
+      {': '}
+      <a href={url} className="g-underline" rel="noopener noreferrer">
+        wikidata:{id}
+      </a>
+    </span>
+  );
+}
 
 export default WikiDataIdentifiers;

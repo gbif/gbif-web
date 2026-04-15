@@ -31,12 +31,21 @@ export const TAXON_BREAKDOWN = /* GraphQL */ `
   }
 `;
 
-export function useTaxonBreakdown({ taxonKey, datasetKey }: Props) {
+export function useTaxonBreakdown({
+  taxonKey,
+  datasetKey,
+}: {
+  taxonKey: string;
+  datasetKey: string;
+}) {
   const { data, loading } = useQuery<TaxonBreakdown2Query, TaxonBreakdown2QueryVariables>(
     TAXON_BREAKDOWN,
     { variables: { key: taxonKey, datasetKey } }
   );
   const breakdown = data?.taxonInfo?.taxon?.checklistBankBreakdown;
-  const hasData = !!breakdown && (breakdown?.children?.length ?? 0) > 0;
+  let hasData = !!breakdown && (breakdown?.children?.length ?? 0) > 0;
+  if (breakdown?.children?.length === 1 && (breakdown.children?.[0]?.children ?? []).length === 1) {
+    hasData = false;
+  }
   return { hasData, loading };
 }

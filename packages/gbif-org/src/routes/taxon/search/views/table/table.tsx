@@ -52,43 +52,6 @@ const TAXON_SEARCH_QUERY = /* GraphQL */ `
       }
     }
   }
-  # query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
-  #   taxonSearch(query: $query, offset: $offset, limit: $limit, hl: true) {
-  #     count
-  #     offset
-  #     endOfRecords
-  #     results {
-  #       taxonID
-  #       nubKey
-  #       scientificName
-  #       label
-  #       kingdom
-  #       phylum
-  #       class
-  #       order
-  #       family
-  #       genus
-  #       species
-  #       taxonomicStatus
-  #       rank
-  #       datasetKey
-  #       dataset {
-  #         title
-  #       }
-  #       accepted
-  #       acceptedKey
-  #       numDescendants
-  #       highlights
-  #       vernacularNames(limit: 2, language: "eng") {
-  #         results {
-  #           vernacularName
-  #           source
-  #           sourceTaxonKey
-  #         }
-  #       }
-  #     }
-  #   }
-  # }
 `;
 
 type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = NonNullable<

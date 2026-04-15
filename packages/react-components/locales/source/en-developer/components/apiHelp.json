@@ -26,8 +26,9 @@
   "searchDatasets": "Get all datasets.",
   "singleNode": "Get a single node.",
   "searchNodes": "Search nodes.",
-  "singleSpecies": "Get a single species.",
-  "searchSpecies": "Get all species.",
+  "singleTaxon": "Get a single taxon.",
+  "singleTaxonDetails": "Get details of a single taxon.",
+  "searchTaxa": "Search for taxa.",
   "singleDerivedDataset": "Get a single derived dataset",
   "derivedDatasetContributingDatasets": "Get datasets contributing with data to a derived dataset"
 }
