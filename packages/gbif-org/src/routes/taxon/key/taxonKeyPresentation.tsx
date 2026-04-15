@@ -31,6 +31,7 @@ import { useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
+import AboutNonBackbone from './AboutNonBackbone';
 
 const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
 
@@ -80,46 +81,13 @@ export function TaxonKey({
   );
 }
 
-export const NonBackbonePresentation = ({
-  data,
-  slowTaxon,
-  slowTaxonLoading,
-  headLess = false,
-}: {
-  data: TaxonKeyQuery;
-  slowTaxon?: SlowTaxonQuery;
-  slowTaxonLoading: boolean;
-  headLess: boolean;
-}) => {
-  return !headLess ? (
-    <PageHeader data={data}>
-      <TaxonKeyContext.Provider
-        value={{
-          data: data,
-          slowTaxon: slowTaxon,
-          slowTaxonLoading: slowTaxonLoading,
-        }}
-      >
-        <Outlet />
-      </TaxonKeyContext.Provider>
-    </PageHeader>
-  ) : (
-    <TaxonKeyContext.Provider
-      value={{
-        data: data,
-        slowTaxon: slowTaxon,
-        slowTaxonLoading: slowTaxonLoading,
-      }}
-    >
-      <ArticleContainer className="g-bg-slate-100 g-p-0 lg:g-pb-0">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <Card>
-            <SectionTabs isNub={false} />
-          </Card>
-        </ArticleTextContainer>
-      </ArticleContainer>
-      <Outlet />
-    </TaxonKeyContext.Provider>
+export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
+  return (
+    <ArticleContainer className="g-bg-slate-100 g-p-0 lg:g-pb-0">
+      <ArticleTextContainer className="g-max-w-screen-xl">
+        <AboutNonBackbone data={data} />
+      </ArticleTextContainer>
+    </ArticleContainer>
   );
 };
 

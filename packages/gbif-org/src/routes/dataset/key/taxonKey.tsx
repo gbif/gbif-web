@@ -4,6 +4,6 @@ import EmptyTab from '@/components/EmptyTab';
 
 export const DatasetTaxonKey = () => {
   const { showSpeciesTab } = useDatasetKeyContext();
-  if (showSpeciesTab) return <NonBackboneTaxon headLess={true} />;
+  if (showSpeciesTab) return <NonBackboneTaxon />;
   return <EmptyTab />;
 };

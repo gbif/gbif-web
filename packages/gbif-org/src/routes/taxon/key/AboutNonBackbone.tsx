@@ -9,21 +9,20 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
 import ClassificationSideBar from './ClassificationSideBar';
 import Synonyms from './Synonyms';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import { VernacularNameTable } from './VernacularNameTable';
-export default function AboutNonBackbone({ headLess = false }: { headLess?: boolean }) {
-  const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
+import { TaxonKeyQuery } from '@/gql/graphql';
 
-  const { key } = useParams();
+export default function AboutNonBackbone({ data }: { data: TaxonKeyQuery }) {
+  const { taxonKey } = useParams();
   // const { data } = useTaxonKeyLoaderData();
   const { count, loading } = useCount({
     apiEndpoint: '/v1/occurrence/search',
-    params: { taxonKey: key },
+    params: { taxonKey: taxonKey },
   });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
@@ -39,23 +38,22 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
 
   if (!taxon) return null;
   return (
-    <ArticleContainer className={`g-bg-slate-100 ${headLess ? 'g-p-4 lg:g-pt-4' : ''}`}>
+    <ArticleContainer className={`g-bg-slate-100`}>
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
-            {headLess && (
-              <Card className="g-mb-4">
-                <CardHeader>
-                  <CardTitle>
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: taxon?.formattedName || taxon?.scientificName || '',
-                      }}
-                    />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {/*  {taxon.parents && (
+            <Card className="g-mb-4">
+              <CardHeader>
+                <CardTitle>
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: taxon?.formattedName || taxon?.scientificName || '',
+                    }}
+                  />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/*  {taxon.parents && (
                     <div>
                       <TaxonClassification
                         showIcon={false}
@@ -69,21 +67,20 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                       />
                     </div>
                   )} */}
-                  {taxon.publishedIn && (
-                    <span className="g-inline">
-                      <FormattedMessage id="taxon.publishedIn" />{' '}
-                      <HyperText
-                        className="prose-links g-inline [&_p]:g-inline"
-                        text={taxon.publishedIn}
-                      />
-                    </span>
-                  )}
-                  <FeatureList>
-                    {taxon?.references && <Homepage url={taxon.references} />}
-                  </FeatureList>
-                </CardContent>
-              </Card>
-            )}
+                {taxon.publishedIn && (
+                  <span className="g-inline">
+                    <FormattedMessage id="taxon.publishedIn" />{' '}
+                    <HyperText
+                      className="prose-links g-inline [&_p]:g-inline"
+                      text={taxon.publishedIn}
+                    />
+                  </span>
+                )}
+                <FeatureList>
+                  {taxon?.references && <Homepage url={taxon.references} />}
+                </FeatureList>
+              </CardContent>
+            </Card>
             {/* {slowTaxon?.taxon?.media?.results?.length > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>

@@ -18,10 +18,28 @@ import { NotFoundError } from '@/errors';
 const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
 
 export async function taxonLoader({ params, graphql, locale }: LoaderArgs) {
-  const key = params.taxonKey || (params.key as string);
+  const key = params.key as string;
   const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
-    datasetKey: params.key ?? primaryChecklist,
+    datasetKey: primaryChecklist,
+    language: locale?.iso3LetterCode ?? 'eng', // TODO taxonapi: get from user preferences
+  });
+
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['taxonInfo.taxon'],
+    errors,
+    requiredObjects: [data?.taxonInfo?.taxon],
+  });
+
+  return { errors, data };
+}
+
+export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs) {
+  const key = params.taxonKey as string;
+  const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
+    key,
+    datasetKey: params.key as string,
     language: locale?.iso3LetterCode ?? 'eng', // TODO taxonapi: get from user preferences
   });
 
@@ -81,40 +99,10 @@ const BackboneTaxon = () => {
   return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
 };
 
-export const NonBackboneTaxon = ({ headLess = false }) => {
+export const NonBackboneTaxon = () => {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
 
-  const {
-    data: slowTaxon,
-    load: slowTaxonLoad,
-    loading: slowTaxonLoading,
-  } = useQuery<NonBackboneSlowTaxonQuery, NonBackboneSlowTaxonQueryVariables>(
-    NON_BACKBONE_SLOW_TAXON,
-    {
-      lazyLoad: true,
-      throwAllErrors: false,
-    }
-  );
-
-  useEffect(() => {
-    const id = data.taxonInfo?.taxon?.taxonID;
-    if (typeof id !== 'undefined') {
-      slowTaxonLoad({
-        variables: {
-          key: id.toString(),
-          datasetKey: primaryChecklist,
-        },
-      });
-    }
-  }, [data.taxonInfo?.taxon?.taxonID, slowTaxonLoad]);
-  return (
-    <NonBackbonePresentation
-      headLess={headLess}
-      data={data}
-      slowTaxon={slowTaxon}
-      slowTaxonLoading={slowTaxonLoading}
-    />
-  );
+  return <NonBackbonePresentation data={data} />;
 };
 
 export { TaxonPageSkeleton } from './taxonKeyPresentation';

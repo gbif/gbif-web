@@ -1,6 +1,6 @@
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import TaxonKeyAbout from '@/routes/taxon/key/About';
-import { taxonLoader } from '@/routes/taxon/key/taxonKey';
+import { datasetTaxonLoader, taxonLoader } from '@/routes/taxon/key/taxonKey';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import {
@@ -59,17 +59,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'taxon/:taxonKey',
       element: <DatasetTaxonKey />,
-      loader: taxonLoader,
-      children: [
-        {
-          index: true,
-          element: <TaxonKeyAbout headLess={true} />,
-        },
-        {
-          path: 'verbatim',
-          loader: () => redirectDocument('../'),
-        },
-      ],
+      loader: datasetTaxonLoader,
     },
     {
       path: 'events',

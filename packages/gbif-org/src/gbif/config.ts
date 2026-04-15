@@ -226,7 +226,7 @@ export const gbifConfig: Config = {
   },
   taxonSearch: {
     scope: {
-      datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
+      datasetKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
     },
     highlightedFilters: ['q', 'taxonomicStatus', 'taxonRank', 'taxonId', 'issue'],
   },
