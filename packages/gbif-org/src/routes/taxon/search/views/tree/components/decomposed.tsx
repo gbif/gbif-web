@@ -207,7 +207,9 @@ export const TreeGroup = ({
       {loading && <li className="g-py-2 g-text-sm g-text-gray-500">Loading...</li>}
       {!loading && !endOfRecords && (
         <li className="g-text-sm g-text-primary-500 g-ps-4">
-          <button onClick={() => loadMore()}>Load more</button>
+          <button onClick={() => loadMore()}>
+            <FormattedMessage id="phrases.loadMore" defaultMessage="Load more" />
+          </button>
         </li>
       )}
     </ul>

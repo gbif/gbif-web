@@ -1,14 +1,14 @@
 import { Table } from '@/components/dashboard/shared';
+import { Paging } from '@/components/paging';
 import { Button } from '@/components/ui/button';
+import { TaxonKeyQuery } from '@/gql/graphql';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const DEFAULT_LIMIT = 10;
 
 interface VernacularNameTableProps {
-  columnTitle?: string;
-  vernacularName?: string | null;
-  language?: string | null;
+  vernacularNames: NonNullable<NonNullable<TaxonKeyQuery['taxonInfo']>['vernacularNames']>;
 }
 
 export function VernacularNameTable({ vernacularNames }: VernacularNameTableProps) {
@@ -77,36 +77,5 @@ export function VernacularNameTable({ vernacularNames }: VernacularNameTableProp
         />
       </div>
     </>
-  );
-}
-
-interface PagingProps {
-  next: () => void;
-  prev: () => void;
-  isLastPage: boolean;
-  isFirstPage: boolean;
-}
-
-export function Paging({ next, prev, isLastPage, isFirstPage }: PagingProps) {
-  if (isFirstPage && isLastPage) return null;
-  return (
-    <div className="g-mb-2">
-      {!(isLastPage && isFirstPage) && (
-        <Button
-          size="sm"
-          variant="secondary"
-          onClick={prev}
-          className="g-me-2"
-          disabled={isFirstPage}
-        >
-          <FormattedMessage id="pagination.previous" />
-        </Button>
-      )}
-      {!isLastPage && (
-        <Button size="sm" variant="secondary" onClick={next}>
-          <FormattedMessage id="pagination.next" />
-        </Button>
-      )}
-    </div>
   );
 }

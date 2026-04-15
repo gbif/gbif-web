@@ -14,7 +14,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import DNAsequence from './DNAsequence';
-import { Paging } from './VernacularNameTable';
+import { Paging } from '@/components/paging';
 
 const DEFAULT_LIMIT = 10;
 

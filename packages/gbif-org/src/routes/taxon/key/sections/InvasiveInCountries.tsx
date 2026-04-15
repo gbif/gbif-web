@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
-import { Paging } from './VernacularNameTable';
+import { Paging } from '@/components/paging';
 import { useState } from 'react';
 
 const DEFAULT_LIMIT = 10;

@@ -6,7 +6,7 @@ import { CardDescription } from '@/components/ui/smallCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Paging } from './VernacularNameTable';
+import { Paging } from '@/components/paging';
 import { ColFeedback } from './ColFeedback';
 import { InfoPill } from './Synonyms';
 

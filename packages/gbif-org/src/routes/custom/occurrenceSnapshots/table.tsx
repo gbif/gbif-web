@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
 import { ShortDate } from '@/components/dateFormats';
-import { Paging } from '../../taxon/key/sections/VernacularNameTable';
+import { Paging } from '@/components/paging';
 import { useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';

@@ -7,7 +7,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Paging } from './VernacularNameTable';
+import { Paging } from '@/components/paging';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Formatted } from 'maplibre-gl';
 

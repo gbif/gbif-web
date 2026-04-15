@@ -11,6 +11,8 @@ type Props = {
 };
 
 function VernacularNamesContent({ taxonInfo }: Props) {
+  if (taxonInfo?.vernacularNames?.length === 0) return null;
+
   return (
     <Card className="g-mb-4" id="vernacularNames">
       <CardHeader>
@@ -22,7 +24,7 @@ function VernacularNamesContent({ taxonInfo }: Props) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <VernacularNameTable vernacularNames={taxonInfo?.vernacularNames} />
+        <VernacularNameTable vernacularNames={taxonInfo?.vernacularNames ?? []} />
       </CardContent>
     </Card>
   );
