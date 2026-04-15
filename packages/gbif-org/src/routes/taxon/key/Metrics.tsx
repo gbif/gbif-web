@@ -29,8 +29,7 @@ export default function Metrics() {
             <DashBoardLayout>
               {/* <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" /> */}
 
-              {/* <Taxa predicate={predicate} className="g-mb-4" /> */}
-              {/* <charts.Taxa
+              <charts.Taxa
                 predicate={predicate}
                 className="g-mb-4"
                 defaultRank={nextMajorRank?.toLowerCase()}
@@ -40,7 +39,7 @@ export default function Metrics() {
               <charts.Months predicate={predicate} className="g-mb-4" />
               <charts.Datasets predicate={predicate} className="g-mb-4" />
               <charts.Country predicate={predicate} className="g-mb-4" />
-              <charts.BasisOfRecord predicate={predicate} className="g-mb-4" /> */}
+              <charts.BasisOfRecord predicate={predicate} className="g-mb-4" />
               <charts.Synonyms predicate={predicate} className="g-mb-4" />
             </DashBoardLayout>
           )}
