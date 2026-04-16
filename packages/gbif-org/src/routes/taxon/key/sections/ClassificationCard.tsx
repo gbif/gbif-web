@@ -8,7 +8,7 @@ import { ColFeedback } from './ColFeedback';
 
 type Props = {
   datasetKey: string;
-  taxonKey: string | number;
+  taxonKey: string;
   className?: string;
 };
 

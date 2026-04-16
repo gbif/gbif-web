@@ -32,6 +32,7 @@ import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
 import AboutNonBackbone from './AboutNonBackbone';
+import { Input } from '@/components/ui/input';
 
 const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
 
@@ -83,9 +84,29 @@ export function TaxonKey({
 
 export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
   return (
-    <ArticleContainer className="g-bg-slate-100 g-p-0 lg:g-pb-0">
+    <ArticleContainer className="g-bg-slate-100 g-p-0">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        <AboutNonBackbone data={data} />
+        {data.taxonInfo?.taxon?.datasetKey && (
+          <div className="g-flex g-items-center g-gap-2 g-mb-4">
+            {/* START: Link back to search . SPACE . Input box */}
+            <Button asChild variant="outline" className="g-flex-none g-bg-white">
+              <DynamicLink
+                pageId="datasetKey"
+                variables={{ key: data.taxonInfo?.taxon?.datasetKey }}
+                path={`/taxon`}
+              >
+                <FormattedMessage id="taxon.viewAllTaxa" defaultMessage="View all" />
+              </DynamicLink>
+            </Button>
+            {/* <div className="g-flex-grow"></div>
+            <div className="g-flex-none g-bg-white">
+              <Input className="g-max-w-96" />
+            </div> */}
+          </div>
+        )}
+        <Card className="g-overflow-hidden g-mb-8">
+          <AboutNonBackbone data={data} />
+        </Card>
       </ArticleTextContainer>
     </ArticleContainer>
   );

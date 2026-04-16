@@ -8,6 +8,7 @@ import { cn } from '@/utils/shadcn';
 const LIMIT = 10;
 const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
   const [showAll, setShowAll] = useState(false);
+  const datasetKey = taxonInfo?.taxon?.datasetKey ?? import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
   const count =
     taxonInfo?.synonyms?.heterotypic?.flat().concat(taxonInfo?.synonyms?.homotypic || []).length ??
@@ -26,7 +27,7 @@ const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
         {taxonInfo?.synonyms?.homotypic?.slice(0, showAll ? undefined : LIMIT).map((synonym) => {
           return (
             <li key={synonym.taxonID} className="g-py-1 g-border-t g-border-gray-200">
-              <Synonym synonym={synonym} type="homotypic" />
+              <Synonym synonym={synonym} type="homotypic" datasetKey={datasetKey} />
             </li>
           );
         })}
@@ -40,11 +41,11 @@ const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
             const remaining = synonyms.slice(1);
             return (
               <li key={first.taxonID} className="g-py-1 g-border-t g-border-gray-200">
-                <Synonym synonym={first} type="heterotypic" />
+                <Synonym synonym={first} type="heterotypic" datasetKey={datasetKey} />
                 {remaining.map((synonym) => (
                   <ul key={synonym.taxonID} className="g-ms-4">
                     <li>
-                      <Synonym synonym={synonym} type="homotypic" />
+                      <Synonym synonym={synonym} type="homotypic" datasetKey={datasetKey} />
                     </li>
                   </ul>
                 ))}
@@ -59,6 +60,7 @@ const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
 function Synonym({
   synonym,
   type,
+  datasetKey,
 }: {
   synonym: {
     taxonID: string;
@@ -66,11 +68,12 @@ function Synonym({
     isOriginalNameUsage?: boolean;
   };
   type: 'homotypic' | 'heterotypic';
+  datasetKey: string;
 }) {
   return (
     <DynamicLink
       pageId="taxonKey"
-      variables={{ key: synonym.taxonID }}
+      variables={{ key: synonym.taxonID, datasetKey }}
       className="g-text-decoration-none g-text-primary-500"
     >
       {type === 'homotypic' ? '≡ ' : '= '}

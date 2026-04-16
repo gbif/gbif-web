@@ -24,8 +24,14 @@ import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
-  query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
-    taxonSearch(query: $query, offset: $offset, limit: $limit) {
+  query TaxonSearch(
+    $offset: Int
+    $limit: Int
+    $query: TaxonSearchInput
+    $sortBy: TaxonSearchSortBy
+    $reverse: Boolean
+  ) {
+    taxonSearch(query: $query, offset: $offset, limit: $limit, sortBy: $sortBy, reverse: $reverse) {
       count
       offset
       endOfRecords

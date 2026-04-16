@@ -12,28 +12,22 @@ type Props = {
   className?: string;
 };
 
-function SynonymsContent({ taxonInfo, className }: Props) {
-  return (
-    <Card className={cn('g-mb-4', className)} id="synonyms">
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage id="taxon.synonymsAndCombinations" />
-        </CardTitle>
-        <CardDescription>
-          <ColFeedback />
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Synonyms taxonInfo={taxonInfo} />
-      </CardContent>
-    </Card>
-  );
-}
-
 export default function SynonymsCard({ taxonInfo, className }: Props) {
   return (
     <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.synonyms" />}>
-      <SynonymsContent taxonInfo={taxonInfo} className={className} />
+      <Card className={cn('g-mb-4', className)} id="synonyms">
+        <CardHeader>
+          <CardTitle>
+            <FormattedMessage id="taxon.synonymsAndCombinations" />
+          </CardTitle>
+          <CardDescription>
+            <ColFeedback />
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Synonyms taxonInfo={taxonInfo} />
+        </CardContent>
+      </Card>
     </ErrorBoundary>
   );
 }

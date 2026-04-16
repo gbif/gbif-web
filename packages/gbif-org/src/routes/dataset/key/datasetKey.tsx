@@ -568,7 +568,7 @@ export function DatasetPage() {
                 />
               }
             >
-              <DynamicLink pageId="datasetSearch">
+              <DynamicLink pageId="datasetSearch" searchParams={{ type: dataset.type }}>
                 <FormattedMessage id={`dataset.longType.${dataset.type}`} />
               </DynamicLink>
             </ArticlePreTitle>

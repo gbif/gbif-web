@@ -8,6 +8,7 @@ export const TAXON_BREAKDOWN = /* GraphQL */ `
         key: taxonID
         rank: taxonRank
         scientificName
+        datasetKey
         checklistBankBreakdown: breakdown(sortByCount: true) {
           id: taxonID
           name: scientificName

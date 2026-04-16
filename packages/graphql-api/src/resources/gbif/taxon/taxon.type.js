@@ -22,6 +22,9 @@ const typeDef = gql`
       issue: [String]
       q: String
 
+      searchType: TaxonSearchQType
+      sortBy: TaxonSearchSortBy
+      reverse: Boolean
       limit: Int
       offset: Int
       facet: [String]
@@ -32,6 +35,18 @@ const typeDef = gql`
       query: TaxonSearchInput
     ): TaxonSearchResult
     datasetRoots(datasetKey: ID, limit: Int, offset: Int): TaxonTreeResults
+  }
+
+  enum TaxonSearchQType {
+    WORDS
+    EXACT
+    FUZZY
+  }
+
+  enum TaxonSearchSortBy {
+    NAME
+    TAXONOMIC
+    RELEVANCE
   }
 
   input TaxonSearchInput {
@@ -49,6 +64,9 @@ const typeDef = gql`
     issue: [String]
     q: String
 
+    searchType: TaxonSearchQType
+    sortBy: TaxonSearchSortBy
+    reverse: Boolean
     limit: Int
     offset: Int
     facet: [String]

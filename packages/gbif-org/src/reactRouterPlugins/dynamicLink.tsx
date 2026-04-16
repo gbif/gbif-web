@@ -48,6 +48,14 @@ export function useLink() {
       let isHref = false;
       let link: string | null = null;
       // if a pageId is provided, use the pageId to get the link
+
+      if (pageId === 'taxonKey' && variables.key && variables.datasetKey) {
+        if (variables.datasetKey !== import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY) {
+          pageId = 'datasetKey';
+          path = `/taxon/${variables.key}`;
+          variables = { key: variables.datasetKey };
+        }
+      }
       if (pageId && pages) {
         // first find the page with the provided pageId
         const page = pages.find((page) => page.id === pageId);

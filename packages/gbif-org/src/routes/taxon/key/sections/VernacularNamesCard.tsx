@@ -12,33 +12,26 @@ type Props = {
   className?: string;
 };
 
-function VernacularNamesContent({ taxonInfo, className }: Props) {
-  if (taxonInfo?.vernacularNames?.length === 0) return null;
-
-  return (
-    <Card className={cn('g-mb-4', className)} id="vernacularNames">
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage id="taxon.vernacularNames" />
-        </CardTitle>
-        <CardDescription>
-          <ColFeedback />
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <VernacularNameTable vernacularNames={taxonInfo?.vernacularNames ?? []} />
-      </CardContent>
-    </Card>
-  );
-}
-
 export default function VernacularNamesCard({ taxonInfo, className }: Props) {
+  if (taxonInfo?.vernacularNames?.length === 0) return null;
   return (
     <ErrorBoundary
       type="BLOCK"
       errorMessage={<FormattedMessage id="taxon.errors.vernacularNames" />}
     >
-      <VernacularNamesContent taxonInfo={taxonInfo} className={className} />
+      <Card className={cn('g-mb-4', className)} id="vernacularNames">
+        <CardHeader>
+          <CardTitle>
+            <FormattedMessage id="taxon.vernacularNames" />
+          </CardTitle>
+          <CardDescription>
+            <ColFeedback />
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <VernacularNameTable vernacularNames={taxonInfo?.vernacularNames ?? []} />;
+        </CardContent>
+      </Card>
     </ErrorBoundary>
   );
 }

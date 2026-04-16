@@ -83,12 +83,13 @@ export default function AboutBackbone() {
             )}
             {hasPreprocessedMap && (
               <div id="map">
-                <MapWidget
-                  className="g-mb-4"
-                  capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }}
-                  mapStyle="CLASSIC_HEX"
-                  persistStyleSelection
-                />
+                <Card className="g-mb-4 g-overflow-hidden">
+                  <MapWidget
+                    capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }}
+                    mapStyle="CLASSIC_HEX"
+                    persistStyleSelection
+                  />
+                </Card>
               </div>
             )}
             {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}

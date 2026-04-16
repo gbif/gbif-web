@@ -53,9 +53,10 @@ function splitByThreshold<T extends { species?: number | null }>(
 
 type BreakdownChartProps = {
   breakdown: BreakdownNode;
+  datasetKey: string;
 };
 
-function BreakdownChart({ breakdown }: BreakdownChartProps) {
+function BreakdownChart({ breakdown, datasetKey }: BreakdownChartProps) {
   const createLink = useLink();
   const navigate = useNavigate();
   const { theme } = useConfig();
@@ -183,8 +184,8 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const id = (e.point as any).custom?.id;
       if (!id) return;
-      let { to } = createLink({ pageId: 'taxonKey', variables: { key: id } });
-      if (!to) to = `/species/${id}`;
+      let { to } = createLink({ pageId: 'taxonKey', variables: { key: id, datasetKey } });
+      if (!to) to = `/taxon/${id}`;
       const url = typeof to === 'string' ? to : '';
       if (e.ctrlKey || e.metaKey || e.shiftKey) {
         window.open(url, '_blank', 'noopener,noreferrer');
@@ -280,7 +281,7 @@ function BreakdownChart({ breakdown }: BreakdownChartProps) {
   return <HighchartsReact highcharts={Highcharts} options={chartOptions} />;
 }
 
-function BreakdownContent({ taxonKey, datasetKey, className }: Props) {
+export function BreakdownContent({ taxonKey, datasetKey }: Props) {
   const showPie = useAbove(800);
   const { data, loading } = useQuery<TaxonBreakdown2Query, TaxonBreakdown2QueryVariables>(
     TAXON_BREAKDOWN,
@@ -291,32 +292,19 @@ function BreakdownContent({ taxonKey, datasetKey, className }: Props) {
   const isEmpty = !breakdown || breakdown.species === 0;
 
   return (
-    <Card className={cn('g-mb-4', className)} id="breakdown">
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
-        </CardTitle>
-        <CardDescription>
+    <>
+      {loading && <SkeletonParagraph />}
+      {isEmpty && !loading && (
+        <p>
           <FormattedMessage
-            id="taxon.largestGroupsDescription"
-            defaultMessage="Major groups per number of species"
+            id="taxon.breakdown.noData"
+            defaultMessage="No breakdown data available for this taxon."
           />
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        {loading && <SkeletonParagraph />}
-        {isEmpty && !loading && (
-          <p>
-            <FormattedMessage
-              id="taxon.breakdown.noData"
-              defaultMessage="No breakdown data available for this taxon."
-            />
-          </p>
-        )}
-        {!isEmpty && showPie && <BreakdownChart breakdown={breakdown} />}
-        {!isEmpty && !showPie && <LargestTaxaList breakdown={breakdown} />}
-      </CardContent>
-    </Card>
+        </p>
+      )}
+      {!isEmpty && showPie && <BreakdownChart breakdown={breakdown} datasetKey={datasetKey} />}
+      {!isEmpty && !showPie && <LargestTaxaList breakdown={breakdown} datasetKey={datasetKey} />}
+    </>
   );
 }
 
@@ -328,7 +316,22 @@ export default function BreakdownCard({ taxonKey, datasetKey, className }: Props
         <FormattedMessage id="taxon.errors.breakdown" defaultMessage="Failed to load breakdown" />
       }
     >
-      <BreakdownContent taxonKey={taxonKey} datasetKey={datasetKey} className={className} />
+      <Card className={cn('g-mb-4', className)} id="breakdown">
+        <CardHeader>
+          <CardTitle>
+            <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
+          </CardTitle>
+          <CardDescription>
+            <FormattedMessage
+              id="taxon.largestGroupsDescription"
+              defaultMessage="Major groups per number of species"
+            />
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <BreakdownContent taxonKey={taxonKey} datasetKey={datasetKey} />
+        </CardContent>
+      </Card>
     </ErrorBoundary>
   );
 }
@@ -344,15 +347,16 @@ type TaxonBarRowProps = {
   /** Bar width as a percentage (0–100), pre-calculated by the parent. */
   barWidth: number;
   children?: React.ReactNode;
+  datasetKey: string;
 };
 
 /** A single linked row with a name, species count, proportional bar, and optional sub-list. */
-function TaxonBarRow({ node, barWidth, children }: TaxonBarRowProps) {
+function TaxonBarRow({ node, barWidth, children, datasetKey }: TaxonBarRowProps) {
   return (
     <li key={node.id}>
       <DynamicLink
         pageId="taxonKey"
-        variables={{ key: node.id ?? '' }}
+        variables={{ key: node.id ?? '', datasetKey }}
         className="g-flex-1 g-min-w-0 g-bg-slate-50 g-px-3 g-py-1 g-rounded hover:g-bg-slate-100 g-block"
       >
         {/* Mobile: two lines (name + count); desktop: single line with count right-aligned */}
@@ -375,7 +379,13 @@ function TaxonBarRow({ node, barWidth, children }: TaxonBarRowProps) {
   );
 }
 
-function LargestTaxaList({ breakdown }: { breakdown: BreakdownNode }) {
+function LargestTaxaList({
+  breakdown,
+  datasetKey,
+}: {
+  breakdown: BreakdownNode;
+  datasetKey: string;
+}) {
   const entries = (breakdown.children ?? [])
     .filter((c): c is NonNullable<typeof c> => c != null)
     .slice(0, MAX_LIST_ENTRIES);
@@ -398,7 +408,7 @@ function LargestTaxaList({ breakdown }: { breakdown: BreakdownNode }) {
         );
 
         return (
-          <TaxonBarRow key={child.id} node={child} barWidth={barWidth}>
+          <TaxonBarRow key={child.id} node={child} barWidth={barWidth} datasetKey={datasetKey}>
             {significantGrandchildren.length > 0 && (
               <ul className="g-mt-0.5 g-ml-4 g-space-y-0.5">
                 {significantGrandchildren.map((grandchild) => {
