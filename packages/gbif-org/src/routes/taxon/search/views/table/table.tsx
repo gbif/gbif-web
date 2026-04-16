@@ -13,7 +13,7 @@ import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
-import { TaxonSearchQuery, TaxonSearchQueryVariables } from '@/gql/graphql';
+import { TaxonSearchQuery, TaxonSearchQueryVariables, TaxonSearchSortBy } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
@@ -112,12 +112,15 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
+    const hasFreeTextSearch = filter.must?.q && filter.must?.q.length > 0;
+
     load({
       variables: {
         query: {
           ...query,
           limit: paginationState.pageSize,
           offset: paginationState.pageIndex * paginationState.pageSize,
+          sortBy: hasFreeTextSearch ? TaxonSearchSortBy.Relevance : TaxonSearchSortBy.Taxonomic,
         },
       },
     });
