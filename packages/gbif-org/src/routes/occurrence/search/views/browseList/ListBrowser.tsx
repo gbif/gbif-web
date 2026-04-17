@@ -13,7 +13,6 @@ const entityTypes = {
   d: 'datasetKey',
   p: 'publisherKey',
   t: 'taxonKey',
-  tx: 'taxonKey',
   c: 'collectionKey',
   i: 'institutionKey',
   n: 'networkKey',
@@ -37,12 +36,7 @@ export default function EntityDrawer() {
     }
   }
   const key = previewKey ? previewKey.substring(previewKey.indexOf('_') + 1) : undefined;
-  const entitylink =
-    abbreviation === 'tx'
-      ? null
-      : key
-        ? createLink({ pageId: `${type}`, variables: { key: key } })
-        : null;
+  const entitylink = key ? createLink({ pageId: `${type}`, variables: { key: key } }) : null;
 
   const getCurrentIndex = () => {
     return orderedList.findIndex((o) => o?.toString() === previewKey?.toString());

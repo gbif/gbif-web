@@ -2,15 +2,16 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { Card } from '@/components/ui/smallCard';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
-import { FilterProvider } from '@/contexts/filter';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
@@ -18,8 +19,9 @@ import { searchConfig } from './searchConfig';
 import { Table } from './views/table';
 import { SearchPageTree } from './views/tree';
 import PageMetaData from '@/components/PageMetaData';
+import { ChecklistKeyContext } from '../ChecklistKeyContext';
 
-export function TaxonSearchPage({ datasetKey }: { datasetKey?: string }): React.ReactElement {
+export function TaxonSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset', 'from'],
@@ -37,14 +39,20 @@ export function TaxonSearchPage({ datasetKey }: { datasetKey?: string }): React.
 
       <SearchContextProvider searchContext={config.taxonSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
-          <TaxonSearchPageInner datasetKey={datasetKey} />
+          <TaxonSearchPageInner
+            datasetKey={import.meta.env.PUBLIC_GBIF_ORG_DEFAULT_CHECKLIST_KEY}
+          />
         </FilterProvider>
       </SearchContextProvider>
     </>
   );
 }
 
-export function TaxonSearchPageInner({ datasetKey }: { datasetKey?: string }): React.ReactElement {
+export function TaxonSearchPageInner({
+  datasetKey = import.meta.env.PUBLIC_GBIF_ORG_DEFAULT_CHECKLIST_KEY,
+}: {
+  datasetKey?: string;
+}): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig, datasetKey });
   const defaultView = searchContext?.tabs?.[0] ?? 'table';
@@ -67,7 +75,7 @@ export function TaxonSearchPageInner({ datasetKey }: { datasetKey?: string }): R
   }, [filters, view]);
 
   return (
-    <>
+    <ChecklistKeyContext.Provider value={{ datasetKey }}>
       <EntityDrawer />
       <DataHeader
         className="g-bg-white"
@@ -85,11 +93,59 @@ export function TaxonSearchPageInner({ datasetKey }: { datasetKey?: string }): R
       </DataHeader>
 
       <section>
-        <FilterBarWithActions filters={visibleFilters} />
+        <FilterBarWithActions filters={visibleFilters} className="g-px-4" />
       </section>
 
       <Views view={view} entityDrawerPrefix="t" className="g-py-2 g-px-4 g-bg-slate-100" />
-    </>
+    </ChecklistKeyContext.Provider>
+  );
+}
+
+export function TaxonSearchInner({
+  datasetKey = import.meta.env.PUBLIC_GBIF_ORG_DEFAULT_CHECKLIST_KEY,
+}: {
+  datasetKey?: string;
+}): React.ReactElement {
+  const searchContext = useSearchContext();
+  const { filters } = useFilters({ searchConfig, datasetKey });
+  const defaultView = searchContext?.tabs?.[0] ?? 'table';
+  const [view] = useStringParam({
+    key: 'view',
+    defaultValue: defaultView,
+    hideDefault: true,
+  });
+
+  const visibleFilters = useMemo(() => {
+    if (view === 'table') {
+      return filters;
+    } else if (view === 'tree') {
+      return { taxonId: filters.taxonId };
+    } else if (filters.q) {
+      return { q: filters.q };
+    } else {
+      return {};
+    }
+  }, [filters, view]);
+
+  return (
+    <ChecklistKeyContext.Provider value={{ datasetKey }}>
+      <ErrorBoundary showReportButton>
+        <EntityDrawer />
+        <Card>
+          {/* <TaxonViewTabs
+              setView={() => {}}
+              view={view}
+              defaultView={defaultView}
+              tabs={searchContext.tabs}
+            /> */}
+          <div className="g-p2">
+            <FilterBarWithActions filters={visibleFilters} />
+          </div>
+        </Card>
+
+        <Views view={view} entityDrawerPrefix="t" className="g-py-2" />
+      </ErrorBoundary>
+    </ChecklistKeyContext.Provider>
   );
 }
 

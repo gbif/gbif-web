@@ -10,6 +10,8 @@ import {
   filterEnumConfig,
   filterFreeTextConfig,
   FilterSetting,
+  filterSuggestConfig,
+  filterTaxonConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
@@ -18,6 +20,7 @@ import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { taxonIdSuggest } from './taxonIdSuggest';
+import { taxonKeyClbSuggest } from '@/utils/suggestEndpoints';
 
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -89,12 +92,13 @@ export const issuesConfig: filterEnumConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
-export const taxonIdConfig = {
-  filterType: filterConfigTypes.SUGGEST,
+export const taxonIdConfig: filterTaxonConfig = {
+  filterType: filterConfigTypes.TAXON,
   filterHandle: 'taxonId',
   displayName: TaxonKeyLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonIdSuggest,
+  // suggestConfig: taxonIdSuggest,
+  suggestConfig: taxonKeyClbSuggest,
   allowExistence: false,
   allowNegations: false,
   facetQuery: `

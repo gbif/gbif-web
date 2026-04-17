@@ -29,7 +29,7 @@ export default function VernacularNamesCard({ taxonInfo, className }: Props) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <VernacularNameTable vernacularNames={taxonInfo?.vernacularNames ?? []} />;
+          <VernacularNameTable vernacularNames={taxonInfo?.vernacularNames ?? []} />
         </CardContent>
       </Card>
     </ErrorBoundary>

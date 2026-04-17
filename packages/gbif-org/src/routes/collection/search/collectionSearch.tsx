@@ -134,7 +134,7 @@ export function CollectionSearch(): React.ReactElement {
       />
 
       <section className="">
-        <FilterBarWithActions filters={filters} />
+        <FilterBarWithActions filters={filters} className="g-px-4" />
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results

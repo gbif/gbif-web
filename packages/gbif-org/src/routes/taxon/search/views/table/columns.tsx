@@ -24,23 +24,24 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
           const vernacular = taxon.vernacularName?.vernacularName;
           return (
             <div className="g-inline-flex g-items-center g-w-full">
-              {typeof showPreview === 'function' && (
-                <button
-                  className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
-                  onClick={(e) => {
-                    // Prevent the parent link from being triggered
-                    if (taxon.taxon?.taxonID != null)
-                      showPreview(taxon?.taxon?.taxonID?.toString());
-                    e.preventDefault();
-                  }}
-                >
-                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">
-                    <div className="g-flex g-items-center">
-                      <GoSidebarExpand size={16} />
-                    </div>
-                  </SimpleTooltip>
-                </button>
-              )}
+              {typeof showPreview === 'function' &&
+                taxon?.taxon?.datasetKey === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY && (
+                  <button
+                    className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
+                    onClick={(e) => {
+                      // Prevent the parent link from being triggered
+                      if (taxon.taxon?.taxonID != null)
+                        showPreview(taxon?.taxon?.taxonID?.toString());
+                      e.preventDefault();
+                    }}
+                  >
+                    <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">
+                      <div className="g-flex g-items-center">
+                        <GoSidebarExpand size={16} />
+                      </div>
+                    </SimpleTooltip>
+                  </button>
+                )}
               <div>
                 <span
                   className="g-pointer-events-auto"

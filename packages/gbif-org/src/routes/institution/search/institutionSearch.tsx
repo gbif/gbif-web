@@ -168,7 +168,7 @@ export function InstitutionSearch(): React.ReactElement {
       />
 
       <section className="">
-        <FilterBarWithActions filters={filters} />
+        <FilterBarWithActions filters={filters} className="g-px-4" />
         <ErrorBoundary>
           <ArticleContainer className="g-bg-slate-100 g-flex">
             <ArticleTextContainer className="g-flex-auto g-w-full">

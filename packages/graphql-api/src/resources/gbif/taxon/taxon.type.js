@@ -6,7 +6,6 @@ const typeDef = gql`
     taxon(datasetKey: ID, key: ID!): TaxonSimple
     speciesMatchByUsageKey(usageKey: ID!, checklistKey: ID): SpeciesMatchResult
     checklistMetadata(checklistKey: ID!): ChecklistMeta
-
     taxonSearch(
       datasetKey: ID
       taxonRank: [String]

@@ -22,6 +22,7 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
+import { LinkData, useLink } from '@/reactRouterPlugins/dynamicLink';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch(
@@ -31,7 +32,14 @@ const TAXON_SEARCH_QUERY = /* GraphQL */ `
     $sortBy: TaxonSearchSortBy
     $reverse: Boolean
   ) {
-    taxonSearch(query: $query, offset: $offset, limit: $limit, sortBy: $sortBy, reverse: $reverse) {
+    taxonSearch(
+      query: $query
+      offset: $offset
+      limit: $limit
+      sortBy: $sortBy
+      reverse: $reverse
+      searchType: FUZZY
+    ) {
       count
       offset
       endOfRecords
@@ -68,25 +76,6 @@ export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['t
 
 const keySelector = (item: SingleTaxonSearchResult) => item.taxon?.taxonID?.toString() ?? '';
 
-const KeySelectorDatasetTaxon = (item: SingleTaxonSearchResult) =>
-  `${item.taxon?.datasetKey}/taxon/${item.taxon?.taxonID}`;
-
-const rowLinkOptionsDirect: RowLinkOptions<SingleTaxonSearchResult> = {
-  pageId: 'taxonKey',
-};
-
-const rowLinkOptionsDatasetKeyTaxonDirect: RowLinkOptions<SingleTaxonSearchResult> = {
-  pageId: 'datasetKey',
-};
-
-const rowLinkOptionsDrawer: RowLinkOptions<SingleTaxonSearchResult> = {
-  createDrawerKey: ({ key }) => `t_${key}`,
-};
-
-const rowLinkOptionsDatasetKeyTaxonDrawer: RowLinkOptions<SingleTaxonSearchResult> = {
-  createDrawerKey: ({ key }) => `tx_${key}`,
-};
-
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['scientificName'],
   defaultEnabledTableColumns: ['taxonomicStatus', 'rank', 'taxonomy'],
@@ -96,7 +85,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
-  const config = useConfig();
+  const createLink = useLink();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const [, setPreviewKey] = useEntityDrawer();
@@ -151,20 +140,12 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
       fallbackOptions,
     });
 
-  let rowLinkOptions;
-
-  if (entityDrawerPrefix === 'tx') {
-    rowLinkOptions = config.openDrawerOnTableRowClick
-      ? rowLinkOptionsDatasetKeyTaxonDrawer
-      : rowLinkOptionsDatasetKeyTaxonDirect;
-  } else {
-    rowLinkOptions = config.openDrawerOnTableRowClick ? rowLinkOptionsDrawer : rowLinkOptionsDirect;
-  }
-  // the tx prefix is used for taxon search in a non-backbone dataset
-  const createRowLink = useRowLink({
-    rowLinkOptions,
-    keySelector: entityDrawerPrefix === 'tx' ? KeySelectorDatasetTaxon : keySelector,
-  });
+  const createTaxonRowLink = (item: SingleTaxonSearchResult): LinkData => {
+    return createLink({
+      pageId: 'taxonKey',
+      variables: { key: item.taxon?.taxonID ?? '', datasetKey: item.taxon?.datasetKey ?? '' },
+    });
+  };
 
   return (
     <div className="g-flex g-flex-col g-h-full">
@@ -172,7 +153,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
       <ClientSideOnly fallback={<SearchTableServerFallback />}>
         <SearchTable
           filters={filters}
-          createRowLink={createRowLink}
+          createRowLink={createTaxonRowLink}
           keySelector={keySelector}
           lockColumnLocalStoreKey="taxonSearchTableLockColumn"
           selectedColumnsLocalStoreKey="taxonSearchTableSelectedColumns"

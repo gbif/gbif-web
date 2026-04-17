@@ -101,7 +101,7 @@ function OccurrenceMediaGalleryContent({ taxon }: Props) {
               <DynamicLink
                 pageId="occurrenceSearch"
                 searchParams={gallerySearchParams}
-                className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5 g-pointer-events-none"
+                className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5"
               >
                 <MdImage size={12} /> <FormattedMessage id="phrases.viewAllImages" />
               </DynamicLink>
