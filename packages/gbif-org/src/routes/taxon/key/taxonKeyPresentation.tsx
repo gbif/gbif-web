@@ -32,9 +32,8 @@ import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
 import AboutNonBackbone from './AboutNonBackbone';
-import { Input } from '@/components/ui/input';
 
-const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
+const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{

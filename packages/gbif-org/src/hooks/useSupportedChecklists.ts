@@ -11,7 +11,6 @@ const defaultVisibleChecklists =
 const defaultChecklist =
   import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY || 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // default backbone
 
-
 export type ChecklistMetadata = {
   version: string;
   link: string;
@@ -33,16 +32,24 @@ async function getSupportedChecklists(locale: LanguageOption): Promise<Checklist
   });
   const colKey = '7ddf754f-d193-4cc9-b351-99906754a03b';
 
-  const colMetadataResponse = await graphqlService.query<ChecklistMetadataQuery, ChecklistMetadataQueryVariables>(CHECKLIST_METADATA_QUERY, { checklistKey: colKey })
-    .then(response => response.json())
-    .then(json => json.data?.checklistMetadata?.mainIndex);
+  const colMetadataResponse = await graphqlService
+    .query<ChecklistMetadataQuery, ChecklistMetadataQueryVariables>(CHECKLIST_METADATA_QUERY, {
+      checklistKey: colKey,
+    })
+    .then((response) => response.json())
+    .then((json) => json.data?.checklistMetadata?.mainIndex);
 
-  const colMetadata: ChecklistMetadata | undefined = colMetadataResponse?.clbDatasetKey ? {
-    version: colMetadataResponse.version ?? colMetadataResponse.datasetTitle,
-    link: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/${colMetadataResponse.clbDatasetKey}/about`,
-  } : undefined;
+  const colMetadata: ChecklistMetadata | undefined = colMetadataResponse?.clbDatasetKey
+    ? {
+        version: colMetadataResponse.version ?? colMetadataResponse.datasetTitle,
+        link: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/${colMetadataResponse.clbDatasetKey}/about`,
+      }
+    : undefined;
 
-  const hardcodedMetadata: Record<string, { title: string; alias: string; metadata?: ChecklistMetadata }> = {
+  const hardcodedMetadata: Record<
+    string,
+    { title: string; alias: string; metadata?: ChecklistMetadata }
+  > = {
     'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c': {
       title: 'GBIF Backbone Taxonomy',
       alias: 'GBIF',

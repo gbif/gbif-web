@@ -1,6 +1,4 @@
 import {
-  NonBackboneSlowTaxonQuery,
-  NonBackboneSlowTaxonQueryVariables,
   SlowTaxonQuery,
   SlowTaxonQueryVariables,
   TaxonKeyQuery,
@@ -11,11 +9,11 @@ import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { useEffect } from 'react';
-import { Navigate, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
 import { NotFoundError } from '@/errors';
 
-const primaryChecklist = '7ddf754f-d193-4cc9-b351-99906754a03b'; // TODO taxonapi: move to env file
+const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
 export async function taxonLoader({ params, graphql, locale }: LoaderArgs) {
   const key = params.key as string;
@@ -87,7 +85,6 @@ const BackboneTaxon = () => {
     if (typeof id !== 'undefined') {
       slowTaxonLoad({
         variables: {
-          language: locale?.iso3LetterCode ?? 'eng',
           key: id.toString(),
           datasetKey: primaryChecklist,
         },
@@ -238,81 +235,6 @@ const SLOW_TAXON = /* GraphQL */ `
           }
         }
       }
-    }
-  }
-`;
-
-const NON_BACKBONE_SLOW_TAXON = /* GraphQL */ `
-  query NonBackboneSlowTaxon($key: ID!, $datasetKey: ID!) {
-    taxon: taxonInfo(key: $key, datasetKey: $datasetKey) {
-      group
-      # key
-      # nubKey
-      # scientificName
-      # kingdom
-      # formattedName(useFallback: true)
-      # rank
-      # taxonomicStatus
-      # publishedIn
-      # media {
-      #   limit
-      #   endOfRecords
-      #   results {
-      #     identifier
-      #     creator
-      #     rightsHolder
-      #   }
-      # }
-      # dataset {
-      #   citation {
-      #     text
-      #     citationProvidedBySource
-      #   }
-      # }
-      # vernacular: vernacularNames(limit: 10, offset: 0) {
-      #   results {
-      #     taxonKey
-      #   }
-      # }
-      # parents {
-      #   rank
-      #   scientificName
-      #   key
-      # }
-      # acceptedTaxon {
-      #   key
-      #   formattedName
-      #   scientificName
-      # }
-      # combinations {
-      #   key
-      #   nameKey
-      #   acceptedKey
-      #   canonicalName
-      #   authorship
-      #   scientificName
-      #   formattedName
-      #   rank
-      #   taxonomicStatus
-      #   numDescendants
-      # }
-      # synonyms(limit: 100, offset: 0) {
-      #   limit
-      #   offset
-      #   endOfRecords
-      #   results {
-      #     key
-      #     nameKey
-      #     acceptedKey
-      #     canonicalName
-      #     authorship
-      #     scientificName
-      #     formattedName
-      #     rank
-      #     taxonomicStatus
-      #     numDescendants
-      #   }
-      # }
     }
   }
 `;
