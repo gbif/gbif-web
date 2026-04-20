@@ -4,6 +4,7 @@ import {
   TaxonRankLabel,
   TaxonStatusLabel,
   TaxonKeyLabel,
+  TaxonLabel,
 } from '@/components/filters/displayNames';
 import {
   filterConfigTypes,
@@ -95,7 +96,7 @@ export const issuesConfig: filterEnumConfig = {
 export const taxonIdConfig: filterTaxonConfig = {
   filterType: filterConfigTypes.TAXON,
   filterHandle: 'taxonId',
-  displayName: TaxonKeyLabel,
+  displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   // suggestConfig: taxonIdSuggest,
   suggestConfig: taxonKeyClbSuggest,
@@ -109,7 +110,7 @@ export const taxonIdConfig: filterTaxonConfig = {
             name
             count
             item: taxon {
-              formattedName: label
+              title: label
             }
           }
         }

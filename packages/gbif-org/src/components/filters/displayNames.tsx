@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { longDateFormatProps } from '@/components/dateFormats';
 import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 
 // utility function to generate label for range or equal filters
 function rangeOrEqualLabel(
@@ -234,7 +235,7 @@ export function TaxonLabel({
   id: string | number | object;
   checklistKey?: string;
 }) {
-  const { defaultChecklistKey } = useConfig();
+  const defaultChecklistKey = useChecklistKey();
   const [urlChecklistKey] = useStringParam({
     key: 'checklistKey',
     defaultValue: undefined,
@@ -250,10 +251,8 @@ export function TaxonLabel({
           JSON.stringify(variables)
         )}&query=${encodeURIComponent(
           `query($checklistKey: ID) {
-            taxon: speciesMatchByUsageKey(usageKey: "${id}", checklistKey: $checklistKey) {
-              usage {
-                canonicalName
-              }
+            taxon(datasetKey: $checklistKey, key:"${id}") {
+              scientificName
             }
           }`
         )}`
@@ -261,7 +260,7 @@ export function TaxonLabel({
       return {
         promise: promise
           .then((response) => response.json())
-          .then((response) => ({ title: response.data.taxon.usage.canonicalName })),
+          .then((response) => ({ title: response.data.taxon.scientificName })),
         cancel,
       };
     },

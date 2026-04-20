@@ -79,7 +79,7 @@ export function TaxonSearchPageInner({
       <EntityDrawer />
       <DataHeader
         className="g-bg-white"
-        title={<FormattedMessage id="catalogues.species" defaultMessage="Taxon" />}
+        title={<FormattedMessage id="catalogues.taxa" defaultMessage="Taxa" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}

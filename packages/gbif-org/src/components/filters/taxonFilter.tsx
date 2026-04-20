@@ -272,9 +272,6 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       );
     }
 
-    console.log('from filter', filter.checklistKey);
-    console.log('currentChecklistKey', currentChecklistKey);
-
     return (
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div className="g-flex g-flex-none">
@@ -344,7 +341,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                     >
                       <div className="g-flex g-items-center">
                         <span className="g-flex-auto">
-                          <DisplayName id={x} checklistKey={filter.checklistKey} />
+                          <DisplayName id={x} checklistKey={currentChecklistKey} />
                         </span>
                         {!useNegations &&
                           !selectedFacetLoading &&
@@ -395,7 +392,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                         >
                           <div className="g-flex g-items-center">
                             <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
-                              {get(x, suggestionTitlePath ?? 'item.usage.canonicalName') ?? (
+                              {get(x, suggestionTitlePath ?? 'item.title') ?? (
                                 <DisplayName id={x?.name} />
                               )}
                             </span>
