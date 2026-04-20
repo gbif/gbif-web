@@ -273,7 +273,7 @@ export async function getSpeciesMatches({ q, taxonKeys }) {
 //       return result;
 //     })
 //     .slice(0, 5);
-}
+// }
 
 async function getGadmSuggestions({ q, gadmId, limit = 2 }) {
   // https://api.gbif.org/v1/geocode/gadm/search?limit=100&q=k%C3%B8benhavn
