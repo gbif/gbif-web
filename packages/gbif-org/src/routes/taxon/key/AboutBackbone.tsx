@@ -92,13 +92,13 @@ export default function AboutBackbone() {
                 </Card>
               </div>
             )}
-            {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}
-            {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
-            {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
             {isSpeciesOrBelow && (
               <TypeMaterial taxonInfo={taxonInfo} onHasData={onTypeMaterialData} />
             )}
+            {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
             {hasInvasiveData && <InvasiveInCountries taxonInfo={taxonInfo} />}
+            {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}
+            {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
             {hasBibliography && <BibliographyCard taxonInfo={taxonInfo} />}
             {hasWikiDataIdentifiers && <TaxonIdentifiersCard slowTaxon={slowTaxon} />}
@@ -140,24 +140,6 @@ export default function AboutBackbone() {
                           <FormattedMessage id="taxon.map" defaultMessage="Map" />
                         </Li>
                       )}
-                      {hasOccurrenceImages && (
-                        <Li to="#occurrence-images">
-                          <FormattedMessage id="taxon.occurrenceImages" defaultMessage="Images" />
-                        </Li>
-                      )}
-                      {showSynonyms && (
-                        <Li to="#synonyms">
-                          <FormattedMessage id="taxon.synonyms" defaultMessage="Synonyms" />
-                        </Li>
-                      )}
-                      {hasVernacularNames && (
-                        <Li to="#vernacularNames">
-                          <FormattedMessage
-                            id="taxon.vernacularNames"
-                            defaultMessage="Vernacular names"
-                          />
-                        </Li>
-                      )}
                       {hasTypeMaterial && (
                         <Li to="#typeMaterial">
                           <FormattedMessage
@@ -166,9 +148,27 @@ export default function AboutBackbone() {
                           />
                         </Li>
                       )}
+                      {showSynonyms && (
+                        <Li to="#synonyms">
+                          <FormattedMessage id="taxon.synonyms" defaultMessage="Synonyms" />
+                        </Li>
+                      )}
                       {hasInvasiveData && (
                         <Li to="#invasiveInCountries">
                           <FormattedMessage id="taxon.invasive" defaultMessage="Invasive species" />
+                        </Li>
+                      )}
+                      {hasOccurrenceImages && (
+                        <Li to="#occurrence-images">
+                          <FormattedMessage id="taxon.occurrenceImages" defaultMessage="Images" />
+                        </Li>
+                      )}
+                      {hasVernacularNames && (
+                        <Li to="#vernacularNames">
+                          <FormattedMessage
+                            id="taxon.vernacularNames"
+                            defaultMessage="Vernacular names"
+                          />
                         </Li>
                       )}
                       {hasTreatments && (
