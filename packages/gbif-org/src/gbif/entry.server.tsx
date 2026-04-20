@@ -32,8 +32,7 @@ export async function render(req: ExpressRequest) {
 
   const appHtml = ReactDOMServer.renderToString(
     <Root config={gbifConfig} helmetContext={helmetContext}>
-      {/* <StaticRouterProvider router={router} context={context} nonce="the-nonce" /> */}
-      <h1>Server</h1>
+      <StaticRouterProvider router={router} context={context} nonce="the-nonce" />
     </Root>
   );
 
