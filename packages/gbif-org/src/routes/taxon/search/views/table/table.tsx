@@ -130,7 +130,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
 
   // update ordered list on items change
   useEffect(() => {
-    setOrderedList(taxons.map((item) => `${entityDrawerPrefix || 't'}_${item.key}`));
+    setOrderedList(taxons.map((item) => `${entityDrawerPrefix || 't'}_${item.taxon?.taxonID}`));
   }, [taxons, setOrderedList, entityDrawerPrefix]);
 
   const { availableTableColumns, defaultEnabledTableColumns } =

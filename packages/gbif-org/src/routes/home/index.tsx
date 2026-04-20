@@ -144,7 +144,7 @@ function SearchBar() {
           <FormattedMessage id="catalogues.occurrences" />
         </HeaderLink>
         <HeaderLink pageId="taxonSearch" searchParams={{ q }}>
-          <FormattedMessage id="catalogues.taxon" />
+          <FormattedMessage id="catalogues.taxa" />
         </HeaderLink>
         <HeaderLink pageId="datasetSearch" searchParams={{ q }}>
           <FormattedMessage id="catalogues.datasets" />
