@@ -20,7 +20,7 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
         filterKey: 'eventId', // default is same as id
         disableHiding: true,
         minWidth: 250,
-        cell: ({ eventID, eventTypeHierarchyJoined }) => {
+        cell: ({ eventID }) => {
           return (
             <div className="g-inline-flex g-items-start g-w-full">
               {showPreview && typeof showPreview === 'function' && (
@@ -41,10 +41,19 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
               <SetAsFilter field="eventId" value={eventID}>
                 {eventID}
               </SetAsFilter>
-              <div className="g-text-sm g-text-slate-500">{eventTypeHierarchyJoined}</div>
             </div>
           );
         },
+      },
+      {
+        id: 'parentEventId',
+        header: 'filters.parentEventId.name',
+        minWidth: 150,
+        cell: ({ parentEventID }) => (
+          <SetAsFilter field="parentEventId" value={parentEventID}>
+            {parentEventID}
+          </SetAsFilter>
+        ),
       },
       {
         id: 'country',

@@ -8,7 +8,7 @@ import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/smallCard';
+import { Card, CardContent } from '@/components/ui/smallCard';
 import { GenericEventExtension } from './eventExtensions';
 import {
   DatasetEventQuery,
@@ -29,13 +29,11 @@ import { useState, useEffect } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
 import { MdImage, MdEvent } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { useLocation, useLoaderData, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { Images } from '../about/Images';
 import { useDatasetKeyContext } from '../datasetKey';
 import EventList from './eventList';
 import EventTaxonomy from './eventTaxonomy';
-import Properties, { Property } from '@/components/properties';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { ExperimentalAlert } from './datasetEvents';
 
@@ -211,21 +209,6 @@ export const Event = ({
                   )}
                 </div>
               </div>
-              {!!data?.dataset?.samplingDescription?.sampling && (
-                <>
-                  <div className="g-p-0 md:g-p-8 g-pt-0 md:g-pt-8">
-                    <h2 className="g-text-2xl g-font-semibold g-leading-none g-tracking-tight">
-                      <FormattedMessage id="dataset.sampling" />
-                    </h2>
-                  </div>
-                  <CardContent>
-                    <HyperText
-                      text={data?.dataset?.samplingDescription?.sampling}
-                      disableMarkdownParsing
-                    />
-                  </CardContent>
-                </>
-              )}
             </Card>
             {insights?.images?.documents?.total > 0 && (
               <>

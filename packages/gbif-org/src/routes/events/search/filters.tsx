@@ -39,6 +39,7 @@ import {
   humboldtEventDurationUnitConfig,
   humboldtTargetTaxonomicScopeUsageNameConfig,
   humboldtMaterialSampleTypesConfig,
+  parentEventIdConfig,
 } from './filters/textOnly';
 import { sampleSizeUnitConfig } from './filters/wildcard';
 
@@ -79,6 +80,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       continent: generateFilters({ config: continentConfig, searchConfig, formatMessage }),
       dwcaExtension: generateFilters({ config: dwcaExtensionConfig, searchConfig, formatMessage }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      parentEventId: generateFilters({ config: parentEventIdConfig, searchConfig, formatMessage }),
       eventType: generateFilters({ config: eventTypeConfig, searchConfig, formatMessage }),
       // fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),

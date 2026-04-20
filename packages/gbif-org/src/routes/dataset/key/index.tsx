@@ -1,4 +1,8 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import {
+  LoaderArgs,
+  RouteObjectWithPlugins,
+  useRenderedRouteLoaderData,
+} from '@/reactRouterPlugins';
 import TaxonKeyAbout from '@/routes/taxon/key/About';
 import { taxonLoader } from '@/routes/taxon/key/taxonKey';
 import VerbatimTaxon from '@/routes/taxon/key/Verbatim';
@@ -85,7 +89,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'parentevent/:parentEventID',
       element: <DatasetEventID />,
-      loader: parentEventLoader,
+      loader: ({ params }: LoaderArgs) => redirectDocument(`../event/${params.parentEventID}`),
     },
     {
       path: 'download',

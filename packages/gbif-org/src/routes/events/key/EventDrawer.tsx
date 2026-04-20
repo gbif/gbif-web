@@ -13,7 +13,7 @@ import { EVENT_QUERY } from '@/routes/dataset/key/event/eventID';
 // GraphQL query interfaces (you'll need to generate these from your schema)
 
 // graphql query for event
-export const GRAPHQL_EVENT = /* GraphQL */ `
+export const EVENT_KEY_QUERY = /* GraphQL */ `
   query event($eventId: ID, $datasetKey: ID) {
     event(eventId: $eventId, datasetKey: $datasetKey) {
       eventID
@@ -35,21 +35,11 @@ export const GRAPHQL_EVENT = /* GraphQL */ `
       sampleSizeUnit
       sampleSizeValue
       samplingProtocol
-      eventTypeHierarchyJoined
-      eventHierarchyJoined
-      eventTypeHierarchy
-      eventHierarchy
-      eventTypeHierarchy
-      eventHierarchy
       decimalLatitude
       decimalLongitude
       locality
       stateProvince
       locationID
-      parentsLineage {
-        eventID
-        parentEventID
-      }
       extensions {
         audubon
         image
@@ -117,7 +107,7 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
     loading,
     error,
     load,
-  } = useQuery<EventQuery, EventQueryVariables>(GRAPHQL_EVENT, {
+  } = useQuery<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
   });
@@ -164,7 +154,7 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
         });
       }
     }
-  }, [entityKey, load]);
+  }, [entityKey, occLoad]);
 
   useEffect(() => {
     if (occData?.dataset?.type == DatasetType.SamplingEvent && entityKey) {
@@ -198,14 +188,6 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
       </div>
     );
   }
-  /* 
-  if (!data?.event) {
-    return (
-      <div className="g-p-4">
-        <div>Event not found</div>
-      </div>
-    );
-  } */
 
   return (
     <div className="g-p-4 g-bg-slate-100">
@@ -213,7 +195,7 @@ export default function EventDrawer({ entityKey }: { entityKey?: string }) {
         data={occData}
         eventData={eventData}
         eventDataLoading={loading}
-        /* event={data.event} eventSearch={data.eventSearch} */ getEventLink={getEventLink}
+        getEventLink={getEventLink}
       />
     </div>
   );

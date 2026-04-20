@@ -108,6 +108,7 @@ export default {
     month: getEventFacet('month'),
     year: getEventFacet('year'),
     eventId: getEventFacet('eventId'),
+    parentEventId: getEventFacet('parentEventId'),
     dwcaExtension: getEventFacet('dwcaExtension'),
     samplingProtocol: getEventFacet('samplingProtocol'),
     eventType: getEventFacet('eventType'),

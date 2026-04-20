@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 
 import { Event } from './event';
-import { GRAPHQL_EVENT } from '../../../events/key/EventDrawer';
+import { EVENT_KEY_QUERY } from '../../../events/key/EventDrawer';
 import { useDatasetKeyContext } from '../datasetKey';
 import EmptyTab from '@/components/EmptyTab';
 
@@ -59,7 +59,7 @@ const NoneEmptyTab = () => {
     loading,
     error,
     load,
-  } = useQuery<EventQuery, EventQueryVariables>(GRAPHQL_EVENT, {
+  } = useQuery<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
   });

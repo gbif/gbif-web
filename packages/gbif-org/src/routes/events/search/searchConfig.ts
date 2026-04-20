@@ -59,6 +59,7 @@ const otherParams = [
 
   'eventId',
   'eventType',
+  'parentEventId',
 
   'locality',
   'samplingProtocol',

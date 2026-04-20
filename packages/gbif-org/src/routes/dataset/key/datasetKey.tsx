@@ -251,7 +251,6 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $imagePredicate: Predicate
     $coordinatePredicate: Predicate
     $clusterPredicate: Predicate
-    $eventPredicate: Predicate
     $literaturePredicate: Predicate
   ) {
     occurrenceSearch(predicate: $predicate) {
@@ -275,11 +274,6 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
       }
     }
     withClusters: occurrenceSearch(predicate: $clusterPredicate) {
-      documents(size: 0) {
-        total
-      }
-    }
-    withEvents: occurrenceSearch(predicate: $eventPredicate) {
       documents(size: 0) {
         total
       }
@@ -379,11 +373,9 @@ export function DatasetPage() {
   }, [occData]);
 
   const showSpeciesTab = dataset.type === DatasetType.Checklist;
-  const withEventId = occData?.withEvents?.documents?.total || 0;
   const showEventsTab =
-    (config.datasetKey?.showEvents && withEventId > 0) ||
-    (dataset.type === DatasetType.SamplingEvent &&
-      import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled');
+    dataset.type === DatasetType.SamplingEvent &&
+    import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
@@ -402,26 +394,6 @@ export function DatasetPage() {
     }
     if (showSpeciesTab) {
       tabsToDisplay.push({ to: 'species', children: 'Species' });
-      // tabsToDisplay.push({
-      //   to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
-      //     dataset.key
-      //   }/classification`,
-      //   children: (
-      //     <>
-      //       <SimpleTooltip
-      //         title={
-      //           <FormattedMessage
-      //             id="dataset.exploreInChecklistBank"
-      //             defaultMessage="Explore taxonomy via Checklist Bank"
-      //           />
-      //         }
-      //       >
-      //         <FormattedMessage id="dataset.tabs.taxonomy" defaultMessage="Taxonomy" />
-      //         <MdLink />
-      //       </SimpleTooltip>
-      //     </>
-      //   ),
-      // });
     }
     if (showEventsTab) {
       tabsToDisplay.push({
@@ -490,10 +462,6 @@ export function DatasetPage() {
             combinedPredicate,
             { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
           ],
-        },
-        eventPredicate: {
-          type: PredicateType.And,
-          predicates: [combinedPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
         },
         literaturePredicate,
         size: 1,

@@ -40,19 +40,17 @@ const EVENT_SEARCH_QUERY = /* GraphQL */ `
         year
         month
         eventID
+        parentEventID
         locationID
         measurementOrFactTypes
         measurementOrFactMethods
         coordinates
-        eventHierarchyJoined
         formattedCoordinates
         country
         countryCode
         datasetTitle
         datasetKey
         samplingProtocol
-        eventTypeHierarchy
-        eventTypeHierarchyJoined
         stateProvince
         locality
       }
@@ -68,6 +66,7 @@ const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['eventId'],
   defaultEnabledTableColumns: [
     'eventId',
+    'parentEventId',
     'country',
     'coordinates',
     'year',

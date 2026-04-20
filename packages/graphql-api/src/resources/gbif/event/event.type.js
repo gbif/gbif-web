@@ -194,18 +194,8 @@ export default gql`
     measurementOrFactTypes: [String]
     measurementOrFactMethods: [String]
     parentEvent: Event
-    # measurementOrFacts: [Measurement]
-    eventHierarchy: [String]
-    eventHierarchyJoined: String
-    eventTypeHierarchy: [String]
-    eventTypeHierarchyJoined: String
-    eventHierarchyLevels: Int
     eventRemarks: String
     locationID: String
-    """
-    Get number of distinct species for this event and its children
-    """
-    parentsLineage: [EventLineageNode]
     extensions: EventExtensions
     humboldt: [Humboldt]
   }
@@ -213,23 +203,6 @@ export default gql`
   type EventDate {
     from: String
     to: String
-  }
-
-  type TemporalCoverage {
-    gte: String
-    lte: String
-  }
-
-  type Measurement {
-    measurementId: String
-    measurementType: String
-    measurementValue: String
-    measurementUnit: String
-    measurementAccuracy: String
-    measurementDeterminedBy: String
-    measurementDeterminedDate: String
-    measurementMethod: String
-    measurementRemarks: String
   }
 
   type EventFacet {
@@ -265,15 +238,11 @@ export default gql`
     month(limit: Int, offset: Int): [EventFacetResult]
     year(limit: Int, offset: Int): [EventFacetResult]
     eventId(limit: Int, offset: Int): [EventFacetResult]
+    parentEventId(limit: Int, offset: Int): [EventFacetResult]
     dwcaExtension(limit: Int, offset: Int): [EventFacetResult]
     samplingProtocol(limit: Int, offset: Int): [EventFacetResult]
     eventType(limit: Int, offset: Int): [EventFacetResult]
     gadmGid(limit: Int, offset: Int): [EventFacetResult]
-  }
-
-  type EventLineageNode {
-    eventID: ID
-    parentEventID: ID
   }
 
   type EventFacetResult {
