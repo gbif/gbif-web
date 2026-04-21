@@ -2,6 +2,8 @@ import {
   CollectionLabel,
   CoordinateUncertaintyLabel,
   DatasetLabel,
+  DecimalLatitudeLabel,
+  DecimalLongitudeLabel,
   DegreeOfEstablishmentLabel,
   DepthLabel,
   ElevationLabel,
@@ -64,7 +66,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'EVENT_ID':
             return value;
           case 'DECIMAL_LONGITUDE':
-            return value;
+            return <DecimalLongitudeLabel id={predicate} />;
           case 'EVENT_DATE_GTE':
             return value;
           case 'DISTANCE_FROM_CENTROID_IN_METERS':
@@ -206,7 +208,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'ASSOCIATED_SEQUENCES':
             return value;
           case 'DECIMAL_LATITUDE':
-            return value;
+            return <DecimalLatitudeLabel id={predicate} />;
           case 'PREPARATIONS':
             return value;
           case 'EARLIEST_EON_OR_LOWEST_EONOTHEM':
