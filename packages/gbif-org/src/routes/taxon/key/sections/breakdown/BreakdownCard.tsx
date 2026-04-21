@@ -276,7 +276,7 @@ function BreakdownChart({ breakdown, datasetKey }: BreakdownChartProps) {
           : []),
       ],
     };
-  }, [breakdown, createLink, navigate, theme?.chartColors, otherLabel, speciesLabel]);
+  }, [breakdown, createLink, navigate, theme?.chartColors, otherLabel, speciesLabel, datasetKey]);
 
   return <HighchartsReact highcharts={Highcharts} options={chartOptions} />;
 }
