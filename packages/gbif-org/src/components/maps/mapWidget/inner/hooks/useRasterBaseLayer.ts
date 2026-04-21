@@ -2,6 +2,7 @@ import { ProjectionHelpers } from '@/components/maps/openlayers/projections';
 import { useI18n } from '@/reactRouterPlugins';
 import { formatTimeAgo } from '@/utils/formatTimeAgo';
 import type Map from 'ol/Map';
+import { transformExtent } from 'ol/proj';
 import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { mapWidgetOptions } from '../../options';
@@ -60,18 +61,16 @@ export function useRasterBaseLayer({
         extent[3] + height * padding,
       ];
 
-      view.fit(paddedExtent, {
+      view.fit(transformExtent(paddedExtent, 'EPSG:4326', projection.srs), {
         size: map.getSize(),
         padding: [50, 50, 50, 50], // Add some padding around the edges
         maxZoom: 18,
       });
     } else {
-      view.fit([-180, -90, 180, 90]);
+      view.fit(projection.fitExtent, { size: map.getSize() });
     }
     map.setView(view);
-    if ('zoomToFitContainer' in projection) {
-      projection.zoomToFitContainer(map);
-    }
+    projection.zoomToFitContainer?.(map);
   }, [projection, map, capabilities]);
 
   // Swap the base layer when style changes, preserving the current view.
