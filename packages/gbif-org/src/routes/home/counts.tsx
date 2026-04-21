@@ -58,7 +58,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={100000}
           label={<FormattedMessage id="homepage.counts.datasets" />}
           countOptions={{
-            v1Endpoint: '/dataset/search',
+            apiEndpoint: '/v1/dataset/search',
           }}
         />
       </DynamicLink>
@@ -69,7 +69,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={2400}
           label={<FormattedMessage id="homepage.counts.publishers" />}
           countOptions={{
-            v1Endpoint: '/organization/count',
+            apiEndpoint: '/v1/organization/count',
             responseIsNumber: true,
           }}
         />
@@ -84,7 +84,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={12000}
           label={<FormattedMessage id="homepage.counts.literature" />}
           countOptions={{
-            v1Endpoint: '/literature/search',
+            apiEndpoint: '/v1/literature/search',
             params: {
               literatureType: 'journal',
               relevance: 'GBIF_USED',

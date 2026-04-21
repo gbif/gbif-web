@@ -378,7 +378,8 @@ export function DatasetPage() {
     return false;
   }, [occData]);
 
-  const showSpeciesTab = dataset.type === DatasetType.Checklist;
+  const showSpeciesTab =
+    dataset.type === DatasetType.Checklist && dataset.checklistBankDataset != null;
   const withEventId = occData?.withEvents?.documents?.total || 0;
   const showEventsTab =
     (config.datasetKey?.showEvents && withEventId > 0) ||
