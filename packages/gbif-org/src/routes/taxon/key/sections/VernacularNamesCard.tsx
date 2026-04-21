@@ -25,7 +25,10 @@ export default function VernacularNamesCard({ taxonInfo, className }: Props) {
             <FormattedMessage id="taxon.vernacularNames" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback />
+            <ColFeedback
+              taxonId={taxonInfo?.taxon?.taxonID}
+              datasetKey={taxonInfo?.taxon?.datasetKey}
+            />
           </CardDescription>
         </CardHeader>
         <CardContent>

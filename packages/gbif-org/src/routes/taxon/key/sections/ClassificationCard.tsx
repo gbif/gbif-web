@@ -24,7 +24,7 @@ export default function ClassificationCard({ datasetKey, taxonKey, className }: 
             <FormattedMessage id="taxon.classificationAndDescendants" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback />
+            <ColFeedback taxonId={taxonKey} datasetKey={datasetKey} />
           </CardDescription>
         </CardHeader>
         <CardContent className="g-overflow-auto g-text-[15px]/4">
