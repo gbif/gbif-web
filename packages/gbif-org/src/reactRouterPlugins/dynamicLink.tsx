@@ -52,7 +52,7 @@ export function useLink() {
       if (pageId === 'taxonKey' && variables.key && variables.datasetKey) {
         if (variables.datasetKey !== import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY) {
           pageId = 'datasetKey';
-          path = `/taxon/${variables.key}`;
+          path = `/taxon/${encodeURIComponent(variables.key)}`;
           variables = { key: variables.datasetKey };
         }
       }

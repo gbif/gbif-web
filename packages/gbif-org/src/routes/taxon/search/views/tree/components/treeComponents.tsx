@@ -1,4 +1,3 @@
-import { FilterIcon } from '@/components/icons/icons';
 import { TaxonChildrenQuery, TaxonChildrenQueryVariables } from '@/gql/graphql';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { useQuery } from '@/hooks/useQuery';
@@ -17,10 +16,10 @@ import { FormattedMessage } from 'react-intl';
 // --- TYPES ---
 export interface TaxonData {
   taxonID: string;
-  label: string;
+  label?: string | null;
   rank: string;
-  status?: string;
-  childrenCount: number;
+  status?: string | null;
+  childrenCount?: number | null;
   children?: TaxonData[];
 }
 
@@ -49,11 +48,8 @@ const useTreeItem = () => {
 
 // --- COMPONENTS ---
 
-/** * 1. THE ROOT LIST (<ul>)
- */
 export const Tree = ({ children }: { children: ReactNode }) => (
   <nav className="g-w-full g-max-w-3xl" aria-label="Taxonomy Explorer">
-    {/* The top-level list */}
     <ul className="g-m-0 g-p-0 g-list-none">{children}</ul>
   </nav>
 );
@@ -78,9 +74,6 @@ const TAXON_CHILDREN = /* GraphQL */ `
   }
 `;
 
-/** * 2. THE LIST ITEM (<li>)
- * This must wrap both the Header and any nested Groups.
- */
 export const TreeItem = ({
   children,
   childrenCount,
@@ -102,12 +95,12 @@ export const TreeItem = ({
     { lazyLoad: true }
   );
   const [offset, setOffset] = useState(0);
-  const [decendants, setDecendants] = useState<TaxonData[]>([]);
+  const [descendants, setDescendants] = useState<TaxonData[]>([]);
 
   const toggle = () => {
     if (isExpanded) {
       setOffset(0);
-      setDecendants([]);
+      setDescendants([]);
     }
     setIsExpanded(!isExpanded);
   };
@@ -122,11 +115,10 @@ export const TreeItem = ({
 
   useEffect(() => {
     if (data?.taxon?.children?.results) {
-      const results = data?.taxon?.children?.results as TaxonData[];
-      // make sure we only add each unique taxonID once
-      setDecendants((prev) => [
+      const results = data.taxon.children.results as TaxonData[];
+      setDescendants((prev) => [
         ...prev,
-        ...(results?.filter((r) => !prev.some((p) => p.taxonID === r.taxonID)) ?? []),
+        ...results.filter((r) => !prev.some((p) => p.taxonID === r.taxonID)),
       ]);
     }
   }, [data]);
@@ -145,7 +137,7 @@ export const TreeItem = ({
         childrenCount,
         contentId,
         buttonId,
-        children: decendants,
+        children: descendants,
         error: error ?? null,
         loading,
         loadMore,
@@ -157,9 +149,6 @@ export const TreeItem = ({
   );
 };
 
-/** * 3. THE ITEM HEADER
- * Usually contains the toggle and the labels/actions.
- */
 export const TreeHeader = ({ children }: { children: ReactNode }) => (
   <div className="g-flex g-gap-2 g-px-2 g-py-1 g-rounded-md hover:g-bg-gray-50 g-group g-items-center">
     {children}
@@ -174,23 +163,22 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
       <div className="g-flex-1 g-flex g-items-start">
         <div className="g-flex-grow">
           {/* TODO taxonapi: fix the link so it accounts for primary vs dataset */}
-          {isDefaultTaxonomy && (
+          {isDefaultTaxonomy ? (
             <DynamicLink
               pageId="taxonKey"
               variables={{ key: taxon.taxonID }}
               className="g-text-primary-700 g-whitespace-nowrap"
             >
-              <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
+              <span dangerouslySetInnerHTML={{ __html: taxon.label ?? '' }} />
             </DynamicLink>
-          )}
-          {!isDefaultTaxonomy && (
+          ) : (
             <DynamicLink
               pageId="datasetKey"
               variables={{ key: datasetKey }}
               path={`/taxon/${taxon.taxonID}`}
               className="g-text-primary-700 g-whitespace-nowrap"
             >
-              <span dangerouslySetInnerHTML={{ __html: taxon.label }} />
+              <span dangerouslySetInnerHTML={{ __html: taxon.label ?? '' }} />
             </DynamicLink>
           )}
         </div>
@@ -202,30 +190,26 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
   );
 };
 
-/** * 4. THE NESTED LIST (<ul>)
- * Lives inside the parent <li>, creating the hierarchy.
- */
 export const TreeGroup = ({
   nodeRender,
 }: {
   nodeRender: ({ child }: { child: TaxonData }) => ReactNode;
 }) => {
-  const { isExpanded, contentId, buttonId, children, endOfRecords, loading, error, loadMore } =
+  const { isExpanded, contentId, buttonId, children, endOfRecords, loading, loadMore } =
     useTreeItem();
   return (
     <ul
       id={contentId}
       role="region"
       aria-labelledby={buttonId}
-      hidden={!isExpanded} // Follows the Edge bug fix from your reference
-      className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-2`}
-      // className={`g-m-0 g-pl-4 g-list-none g-border-l g-border-gray-300 g-ms-5`}
+      hidden={!isExpanded}
+      className="g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-2"
     >
       {children?.map((child) => nodeRender({ child }))}
       {loading && <li className="g-py-2 g-text-sm g-text-gray-500">Loading...</li>}
       {!loading && !endOfRecords && (
         <li className="g-text-sm g-text-primary-500 g-ps-4">
-          <button onClick={() => loadMore()}>
+          <button onClick={loadMore}>
             <FormattedMessage id="phrases.loadMore" defaultMessage="Load more" />
           </button>
         </li>
@@ -234,8 +218,6 @@ export const TreeGroup = ({
   );
 };
 
-/** * 5. THE TOGGLE
- */
 export const TreeToggle = () => {
   const { isExpanded, toggle, childrenCount, contentId, buttonId } = useTreeItem();
 
@@ -259,17 +241,6 @@ export const TreeToggle = () => {
       >
         <path d="M9 5l7 7-7 7" />
       </svg>
-    </button>
-  );
-};
-
-export const GotToNode = ({ onClick }: { onClick: () => void }) => {
-  return (
-    <button
-      onClick={onClick}
-      className="g-flex g-items-center g-justify-center g-w-6 g-h-6 g-rounded hover:g-bg-gray-200 g-text-gray-400"
-    >
-      <FilterIcon />
     </button>
   );
 };

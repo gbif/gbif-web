@@ -132,7 +132,7 @@ const TypeMaterial = ({
               occ?.typeStatus
                 ?.filter((ts) => !!ts)
                 .map((ts, j) => (
-                  <li key={`${i}-${j}`}>
+                  <li key={`${i}-${j}`} className="g-mb-4">
                     <Tag type="INFO" className="g-me-1">
                       <ConceptValue vocabulary="TypeStatus" name={ts} />
                     </Tag>

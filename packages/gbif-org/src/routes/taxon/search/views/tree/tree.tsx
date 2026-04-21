@@ -12,11 +12,13 @@ import {
   TreeItem,
   TreeNodeLabel,
   TreeToggle,
-} from './components/decomposed';
-import { ReactNode, useContext, useEffect } from 'react';
+} from './components/treeComponents';
+import { useContext, useEffect } from 'react';
 import useQuery from '@/hooks/useQuery';
 import { useSearchContext } from '@/contexts/search';
 import { FilterContext } from '@/contexts/filter';
+import { ErrorMessage } from '@/components/errorMessage';
+import { SkeletonParagraph } from '@/components/ui/skeleton';
 
 const DATASET_ROOTS = /* GraphQL */ `
   query DatasetRoots($limit: Int, $offset: Int, $datasetKey: ID) {
@@ -47,7 +49,11 @@ const PARENTS = /* GraphQL */ `
   }
 `;
 
-export function SearchPageTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
+export function SearchPageTree({
+  entityDrawerPrefix: _entityDrawerPrefix,
+}: {
+  entityDrawerPrefix: string;
+}) {
   const { scope } = useSearchContext();
   const datasetKey = scope?.datasetKey?.[0];
   const currentFilterContext = useContext(FilterContext);
@@ -98,49 +104,38 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
   const tip = parentData?.taxon?.parentTree?.[0];
   const classification = parentData?.taxon?.parentTree?.slice(1) ?? [];
 
-  if (!parentData && parentLoading) {
-    return <div>Loading...</div>;
+  if (parentError && !parentLoading) {
+    return <ErrorMessage>Error loading taxon data</ErrorMessage>;
   }
 
-  if (parentError) {
-    return <div>Error loading taxon data</div>;
+  if (!parentData || parentLoading) {
+    return <SkeletonParagraph lines={6} />;
   }
 
   if (!tip) {
-    return <div>Taxon not found</div>;
+    return <ErrorMessage>Taxon not found</ErrorMessage>;
   }
+
   return (
-    <>
-      <div>
-        <Tree>
-          {/* reduce the position to a nested list of taxons, where each taxon is a child of the previous one. This way we can "pre-expand" the tree down to the currently selected taxon. The taxon should simply be a list item with a ul for the child etc. No styling*/}
-          {classification.reduce(
-            (child, taxon) => {
-              return (
-                <li key={taxon.taxonID} id={taxon.taxonID}>
-                  <TreeHeader>
-                    {/* <GotToNode
-                  onClick={() => {
-                    setField('taxonId', [taxon.taxonID]);
-                  }}
-                /> */}
-                    <TreeNodeLabel taxon={taxon} datasetKey={datasetKey} />
-                  </TreeHeader>
-                  <ul
-                    role="region"
-                    aria-labelledby={taxon.taxonID}
-                    className={`g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-2`}
-                  >
-                    {child}
-                  </ul>
-                </li>
-              );
-            },
-            <TaxonomicNode defaultExpanded={true} data={tip} datasetKey={datasetKey} />
-          )}
-        </Tree>
-      </div>
-    </>
+    <Tree>
+      {classification.reduce(
+        (child, taxon) => (
+          <li key={taxon.taxonID} id={taxon.taxonID}>
+            <TreeHeader>
+              <TreeNodeLabel taxon={taxon} datasetKey={datasetKey} />
+            </TreeHeader>
+            <ul
+              role="region"
+              aria-labelledby={taxon.taxonID}
+              className="g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-2"
+            >
+              {child}
+            </ul>
+          </li>
+        ),
+        <TaxonomicNode defaultExpanded={true} data={tip} datasetKey={datasetKey} />
+      )}
+    </Tree>
   );
 }
 
@@ -151,14 +146,14 @@ export const TaxonomicNode = ({
 }: {
   data: TaxonData;
   defaultExpanded?: boolean;
-  children?: ReactNode;
   datasetKey: string;
 }) => {
-  const hasChildren = data.childrenCount > 0;
+  const childrenCount = data.childrenCount ?? 0;
+  const hasChildren = childrenCount > 0;
 
   return (
     <TreeItem
-      childrenCount={data.childrenCount}
+      childrenCount={childrenCount}
       taxonID={data.taxonID}
       defaultExpanded={defaultExpanded}
       datasetKey={datasetKey}
@@ -168,7 +163,6 @@ export const TaxonomicNode = ({
         <TreeNodeLabel taxon={data} datasetKey={datasetKey} />
       </TreeHeader>
 
-      {/* The "Sub-branch" list (nested inside the LI) */}
       {hasChildren && (
         <TreeGroup
           nodeRender={({ child }) => (
