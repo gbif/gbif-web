@@ -34,7 +34,10 @@ export function ArticlePreTitleSkeleton({ className }: Pick<Props, 'className'>)
 function Primary({ children, clickable }: { children: React.ReactNode; clickable?: boolean }) {
   return (
     <span
-      className={cn('g-text-primary-500 g-font-semibold', clickable && 'hover:g-text-primary-700')}
+      className={cn(
+        'g-font-semibold g-text-slate-700',
+        clickable && 'hover:g-text-primary-700 g-text-primary-500 '
+      )}
     >
       {children}
     </span>
