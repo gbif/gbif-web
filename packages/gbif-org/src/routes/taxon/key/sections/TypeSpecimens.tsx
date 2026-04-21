@@ -94,11 +94,6 @@ const TypeMaterial = ({
           <FormattedMessage id="taxon.typeMaterial" />
         </CardTitle>
       </CardHeader>
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage id="taxon.typeMaterial" />
-        </CardTitle>
-      </CardHeader>
       <CardContent>
         <div className="g-text-sm g-text-slate-500 g-mb-1">
           <>
