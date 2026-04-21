@@ -2,7 +2,7 @@ import { Img } from '@/components/Img';
 import { Card } from '@/components/ui/largeCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 type Taxon = NonNullable<NonNullable<TaxonKeyQuery['taxonInfo']>['taxon']>;
@@ -84,11 +84,15 @@ export function SidebarImageCarousel({ taxon }: Props) {
 export function HeaderImageCarousel({ taxon }: Props) {
   const results = taxon.occurrenceMedia?.results ?? [];
   const [activeIndex, setActiveIndex] = useState(0);
+  const taxonKey = taxon?.taxonID;
+
+  useEffect(() => {
+    setActiveIndex(0); // Reset to first image when taxon changes
+  }, [taxon.taxonID]);
 
   if (results.length === 0) return null;
 
   const current = results[activeIndex];
-  const taxonKey = taxon.taxonID;
   const gallerySearchParams = { view: 'GALLERY', taxonKey: [taxonKey] };
 
   return (

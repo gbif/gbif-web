@@ -81,6 +81,11 @@ export default function AboutBackbone() {
                 <BreakdownCard taxonKey={taxon.taxonID} datasetKey={taxon.datasetKey} />
               </div>
             )}
+            {isSpeciesOrBelow && (
+              <TypeMaterial taxonInfo={taxonInfo} onHasData={onTypeMaterialData} />
+            )}
+            {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
+            {hasInvasiveData && <InvasiveInCountries taxonInfo={taxonInfo} />}
             {hasPreprocessedMap && (
               <div id="map">
                 <Card className="g-mb-4 g-overflow-hidden">
@@ -92,11 +97,6 @@ export default function AboutBackbone() {
                 </Card>
               </div>
             )}
-            {isSpeciesOrBelow && (
-              <TypeMaterial taxonInfo={taxonInfo} onHasData={onTypeMaterialData} />
-            )}
-            {showSynonyms && <SynonymsCard taxonInfo={taxonInfo} />}
-            {hasInvasiveData && <InvasiveInCountries taxonInfo={taxonInfo} />}
             {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}
             {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}
@@ -135,11 +135,6 @@ export default function AboutBackbone() {
                           />
                         </Li>
                       )}
-                      {hasPreprocessedMap && (
-                        <Li to="#map">
-                          <FormattedMessage id="taxon.map" defaultMessage="Map" />
-                        </Li>
-                      )}
                       {hasTypeMaterial && (
                         <Li to="#typeMaterial">
                           <FormattedMessage
@@ -156,6 +151,11 @@ export default function AboutBackbone() {
                       {hasInvasiveData && (
                         <Li to="#invasiveInCountries">
                           <FormattedMessage id="taxon.invasive" defaultMessage="Invasive species" />
+                        </Li>
+                      )}
+                      {hasPreprocessedMap && (
+                        <Li to="#map">
+                          <FormattedMessage id="taxon.map" defaultMessage="Map" />
                         </Li>
                       )}
                       {hasOccurrenceImages && (
