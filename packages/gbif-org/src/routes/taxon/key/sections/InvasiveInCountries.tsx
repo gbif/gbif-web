@@ -69,16 +69,16 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
           <Table removeBorder={false}>
             <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
               <tr>
-                <th className="g-text-start g-whitespace-nowrap">
+                <th className="g-text-start g-whitespace-nowrap g-pe-1">
                   <FormattedMessage id={`taxon.invasives.invasiveIn`} />
                 </th>
-                <th className="g-text-start g-whitespace-nowrap">
+                <th className="g-text-start g-whitespace-nowrap g-pe-1">
                   <FormattedMessage id={`taxon.invasives.accordingTo`} />
                 </th>
-                <th className="g-text-start">
+                <th className="g-text-start g-pe-1">
                   <FormattedMessage id={`taxon.invasives.isInvasive`} />
                 </th>
-                <th className="g-text-end g-whitespace-nowrap">
+                <th className="g-text-end g-whitespace-nowrap g-ps-2">
                   <FormattedMessage id={`taxon.invasives.occurrenceCount`} />
                 </th>
               </tr>
