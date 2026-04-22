@@ -34,8 +34,9 @@ export async function speciesLoader({ params, graphql, locale }: LoaderArgs) {
     requiredObjects: [data?.taxon],
   });
 
-  if (data?.taxon?.related?.[0].taxonID) {
-    return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${data.taxon.related[0].taxonID}`);
+  const newTaxonID = data?.taxon?.related?.[0]?.taxonID;
+  if (newTaxonID) {
+    return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${newTaxonID}`);
   }
 
   return { errors, data };
