@@ -87,24 +87,33 @@ const sharedTaxonFields = {
     });
   },
   breakdown: (
-    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, // TODO: taxonapi the default value should never be relevant, but currently the API is unstable and only return a datasetKey once in a while.
+    { taxonID, taxonRank, datasetKey = DEFAULT_CHECKLIST_KEY }, // TODO: taxonapi the default value should never be relevant, but currently the API is unstable and only return a datasetKey once in a while.
     { sortByCount },
     { dataSources },
-  ) =>
-    dataSources.taxonAPI
+  ) => {
+    if (taxonRank === 'SPECIES' || taxonRank === 'GENUS') return null; // Only above genus level, the breakdown is meaningful, since below that it is mostly a count of occurrences, which is not what we want to show in the breakdown
+    return dataSources.taxonAPI
       .taxonBreakdown({ datasetKey, key: taxonID })
       .then((response) => {
         const breakdown = !sortByCount
           ? response?.breakdown
           : sortBreakdownRecursively(response.breakdown ?? []);
         return { ...response, breakdown };
-      }),
+      })
+      .catch((e) => {
+        if (e?.extensions?.response?.status === 404) {
+          // in case this is due to the breakdown not being available, we want to return null, so that the UI can handle it gracefully, instead of showing an error message. This is a temporary solution until the API is more stable and always return a breakdown (even if it is empty).
+          return null;
+        }
+        throw e;
+      });
+  },
   wikiData: ({ taxonID }, args, { dataSources }) =>
     dataSources.wikidataAPI.getWikiDataTaxonData(taxonID).then((response) => {
       // sort them by label
       return {
         ...response,
-        identifiers: response.identifiers.sort((a, b) =>
+        identifiers: response?.identifiers?.sort((a, b) =>
           stringCompare(a.label.value, b.label.value),
         ),
       };

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { SkeletonParagraph } from '@/components/ui/skeleton';
 import { CardDescription } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
-import { TaxonBreakdown2Query, TaxonBreakdown2QueryVariables } from '@/gql/graphql';
+import { TaxonBreakdownQuery, TaxonBreakdownQueryVariables } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import useAbove from '@/hooks/useAbove';
 import useQuery from '@/hooks/useQuery';
@@ -26,7 +26,7 @@ type Props = {
 };
 
 type BreakdownNode = NonNullable<
-  NonNullable<NonNullable<TaxonBreakdown2Query['taxonInfo']>['taxon']>['checklistBankBreakdown']
+  NonNullable<NonNullable<TaxonBreakdownQuery['taxonInfo']>['taxon']>['checklistBankBreakdown']
 >;
 
 // Slices whose species count is below this fraction of the total are collapsed into an "Other" slice.
@@ -283,7 +283,7 @@ function BreakdownChart({ breakdown, datasetKey }: BreakdownChartProps) {
 
 export function BreakdownContent({ taxonKey, datasetKey }: Props) {
   const showPie = useAbove(800);
-  const { data, loading } = useQuery<TaxonBreakdown2Query, TaxonBreakdown2QueryVariables>(
+  const { data, loading } = useQuery<TaxonBreakdownQuery, TaxonBreakdownQueryVariables>(
     TAXON_BREAKDOWN,
     { variables: { key: taxonKey, datasetKey } }
   );

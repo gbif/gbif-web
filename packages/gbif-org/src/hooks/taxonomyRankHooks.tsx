@@ -45,3 +45,6 @@ export function useIsAboveFamily(rank: string) {
 
   return isAboveFamily;
 }
+
+export const isFamilyOrAbove = (rank: string) => rankEnum.indexOf(rank) <= fmIndex;
+export const isSpeciesOrBelow = (rank: string) => rankEnum.indexOf(rank) >= spIndex;
