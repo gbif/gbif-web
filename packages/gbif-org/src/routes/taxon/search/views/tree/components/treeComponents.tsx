@@ -167,6 +167,11 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
             className="g-text-primary-700 g-whitespace-nowrap"
           >
             <span dangerouslySetInnerHTML={{ __html: taxon.label ?? taxon.taxonID }} />
+            {taxon.status !== 'ACCEPTED' && (
+              <span className="g-ms-2 g-px-1 g-py-0.5 g-text-xs g-font-medium g-text-amber-700 g-bg-amber-200 g-rounded">
+                <FormattedMessage id={`enums.taxonomicStatus.${taxon.status}`} />
+              </span>
+            )}
           </DynamicLink>
         </div>
         <div className="g-text-gray-500 g-ms-3 g-flex-none">
