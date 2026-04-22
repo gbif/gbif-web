@@ -329,7 +329,7 @@ const typeDef = gql`
     breakdown(sortByCount: Boolean): TaxonBreakdown
     wikiData: WikiDataTaxonData
     relatedInfo: RelatedTaxonInfo
-    related(datasetType: RelatedDatasetType): [TaxonSimple!]!
+    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
   }

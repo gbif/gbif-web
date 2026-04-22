@@ -157,30 +157,17 @@ export const TreeHeader = ({ children }: { children: ReactNode }) => (
 
 export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon: TaxonData }) => {
   const defaultChecklistKey = useChecklistKey();
-  const isDefaultTaxonomy = datasetKey === defaultChecklistKey;
   return (
     <div className="g-flex-1 g-flex g-items-center g-justify-between">
       <div className="g-flex-1 g-flex g-items-start">
         <div className="g-flex-grow">
-          {/* TODO taxonapi: fix the link so it accounts for primary vs dataset */}
-          {isDefaultTaxonomy ? (
-            <DynamicLink
-              pageId="taxonKey"
-              variables={{ key: taxon.taxonID }}
-              className="g-text-primary-700 g-whitespace-nowrap"
-            >
-              <span dangerouslySetInnerHTML={{ __html: taxon.label ?? '' }} />
-            </DynamicLink>
-          ) : (
-            <DynamicLink
-              pageId="datasetKey"
-              variables={{ key: datasetKey }}
-              path={`/taxon/${taxon.taxonID}`}
-              className="g-text-primary-700 g-whitespace-nowrap"
-            >
-              <span dangerouslySetInnerHTML={{ __html: taxon.label ?? '' }} />
-            </DynamicLink>
-          )}
+          <DynamicLink
+            pageId="taxonKey"
+            variables={{ key: taxon.taxonID, datasetKey }}
+            className="g-text-primary-700 g-whitespace-nowrap"
+          >
+            <span dangerouslySetInnerHTML={{ __html: taxon.label ?? taxon.taxonID }} />
+          </DynamicLink>
         </div>
         <div className="g-text-gray-500 g-ms-3 g-flex-none">
           <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />

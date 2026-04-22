@@ -20,7 +20,7 @@ export async function taxonLoader({ params, graphql, locale }: LoaderArgs) {
   const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
     datasetKey: primaryChecklist,
-    language: locale?.iso3LetterCode ?? 'eng', // TODO taxonapi: get from user preferences
+    language: locale?.iso3LetterCode ?? 'eng',
   });
 
   const { errors, data } = await response.json();
@@ -38,7 +38,7 @@ export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs
   const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
     datasetKey: params.key as string,
-    language: locale?.iso3LetterCode ?? 'eng', // TODO taxonapi: get from user preferences
+    language: locale?.iso3LetterCode ?? 'eng',
   });
 
   const { errors, data } = await response.json();

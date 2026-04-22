@@ -30,7 +30,6 @@ import ipController from './api-utils/ip2country.ctrl.js';
 import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
 import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
-import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import headerBasedCachePlugin from './plugins/headerBasedCachePlugin';
@@ -140,7 +139,6 @@ async function initializeServer() {
   ipController(app);
   polygonName(app);
   formController(app);
-  suggestFilter(app);
   geometryController(app);
   helperController(app, server);
   sourceArchiveCtrl(app);

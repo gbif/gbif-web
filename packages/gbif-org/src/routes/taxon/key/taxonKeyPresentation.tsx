@@ -111,18 +111,12 @@ export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
   );
 };
 
-const SectionTabs = ({
-  isNub,
-  occurrenceCount = 0,
-}: {
-  isNub: boolean;
-  occurrenceCount?: number;
-}) => {
+const SectionTabs = ({ occurrenceCount = 0 }: { occurrenceCount?: number }) => {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
     ];
-    if (isNub && occurrenceCount > 0) {
+    if (occurrenceCount > 0) {
       tabsToDisplay.push({
         to: 'metrics',
         children: <FormattedMessage id="taxon.tabs.metrics" defaultMessage="Metrics" />,
@@ -130,7 +124,7 @@ const SectionTabs = ({
     }
 
     return tabsToDisplay;
-  }, [occurrenceCount, isNub]);
+  }, [occurrenceCount]);
 
   return <Tabs links={tabs} />;
 };
@@ -163,8 +157,8 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
     <>
       <PageMetaData
         title={taxon.scientificName}
-        jsonLd={isPrimaryTaxonomy ? getTaxonSchema(data) : undefined}
-        path={`/taxon/${taxonInfo?.taxon?.taxonID}`} // TODO taxonapi: this should be updated to match the path for datasets? Or do we exclude them?
+        jsonLd={getTaxonSchema(data)}
+        path={`/taxon/${taxonInfo?.taxon?.taxonID}`} // TODO what about locale here?
         noCanonical
       />
 
@@ -370,11 +364,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                           </DynamicLink>
                         </GenericFeature>
                       )}
-                      {!isPrimaryTaxonomy && taxon?.references && (
-                        <Homepage url={taxon.references} />
-                      )}
-                      {/* TODO taxonapi: what is the equivallent here  */}
-                      {isPrimaryTaxonomy && taxon.relatedInfo?.redlist?.threatStatus && (
+                      {taxon.relatedInfo?.redlist?.threatStatus && (
                         <GenericFeature>
                           <IucnTag
                             statusCategory={taxon.relatedInfo?.redlist?.threatStatus}
@@ -399,7 +389,6 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                           pageId="occurrenceSearch"
                           searchParams={{
                             taxonKey: taxon.taxonID.toString(),
-                            checklistKey: primaryChecklist, // TODO taxonapi: this can be removed once primary checklist is default in occurrence search when taxonKey is used
                           }}
                         >
                           {countLoading ? (
@@ -415,8 +404,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
               </div>
             </div>
             <div className="g-border-b g-mt-4"></div>
-            {/* TODO taxonapi: not sure what this is */}
-            <SectionTabs isNub={isPrimaryTaxonomy} occurrenceCount={count} />
+            <SectionTabs occurrenceCount={count} />
           </ArticleTextContainer>
         </PageContainer>
         <ErrorBoundary invalidateOn={taxon?.taxonID}>{children}</ErrorBoundary>

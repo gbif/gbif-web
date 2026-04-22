@@ -18,7 +18,6 @@ export default async function searchAll({
   locale: string;
 }) {
   try {
-    // TODO taxonAPI: what to do here, the matching is different and so is the data we get back, so we might need to refactor the searchTaxa function a bit to make it work here
     const taxonResults = await searchTaxa({
       query,
       server,

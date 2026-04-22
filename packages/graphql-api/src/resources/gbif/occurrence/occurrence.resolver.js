@@ -867,29 +867,6 @@ export default {
   },
   Globe: {},
   VolatileOccurrenceData: {
-    // TODO taxonapi needs to be rewritten
-    // vernacularNames: (
-    //   { classifications },
-    //   { limit = 10, offset = 0, language, checklistKey, removeDuplicates },
-    //   { dataSources },
-    // ) => {
-    //   const classification = classifications.find(
-    //     (x) => x.checklistKey === checklistKey,
-    //   );
-    //   const taxonKey =
-    //     classification?.acceptedUsage?.key ?? classification?.usage.key;
-    //   if (!taxonKey) return null;
-    //   return null; // TODO taxonAPI version missing
-    //   // return getVernacularNames({
-    //   //   taxonKey,
-    //   //   limit,
-    //   //   offset,
-    //   //   language,
-    //   //   checklistKey,
-    //   //   dataSources,
-    //   //   removeDuplicates,
-    //   // });
-    // },
     features: (occurrence) => occurrence,
     globe: (
       { decimalLatitude, decimalLongitude },
