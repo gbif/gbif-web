@@ -91,7 +91,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           <DynamicLink pageId="datasetSearch" searchParams={{ publishingOrg: [publisher.key] }}>
             <CountTag
               className="hover:g-bg-primary-200"
-              v1Endpoint="/dataset/search"
+              apiEndpoint="/v1/dataset/search"
               params={{ publishingOrg: publisher.key }}
               message="counts.nDatasets"
             />
@@ -102,7 +102,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           >
             <CountTag
               className="hover:g-bg-primary-200"
-              v1Endpoint="/literature/search"
+              apiEndpoint="/v1/literature/search"
               params={{ publishingOrganizationKey: publisher.key }}
               message="counts.nCitations"
             />

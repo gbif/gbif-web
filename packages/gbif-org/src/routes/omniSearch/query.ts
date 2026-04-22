@@ -27,17 +27,14 @@ const OMNI_SEARCH = /* GraphQL */ `
         ...DatasetStubResult
       }
     }
-    # taxonSearch(query: $taxonQuery, limit: 3) {
-    #   count
-    #   offset
-    #   endOfRecords
-    #   results {
-    #     ...TaxonResult
-    #     acceptedTaxon {
-    #       ...TaxonResult
-    #     }
-    #   }
-    # }
+    taxonSearch(query: $taxonQuery, limit: 3, searchType: FUZZY) {
+      count
+      offset
+      endOfRecords
+      results {
+        ...TaxonSearchResultCard
+      }
+    }
 
     resourceSearch(predicate: $resourcePredicate, q: $q, searchable: true) {
       documents(size: 5) {

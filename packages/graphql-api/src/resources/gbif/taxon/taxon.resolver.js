@@ -159,9 +159,23 @@ const sharedTaxonFields = {
     args,
     { dataSources },
   ) =>
-    dataSources.taxonAPI.getParents({
-      key: taxonID,
-      datasetKey,
+    dataSources.taxonAPI
+      .getParents({
+        key: taxonID,
+        datasetKey,
+      })
+      .then((response) => {
+        // reverse ordering as the API is inconsistent, https://github.com/gbif/taxon-ws/issues/48
+        return [...(response ?? [])]?.reverse();
+      }),
+  mapCapabilities: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.occurrenceAPI.getMapCapabilities({
+      taxonKey: taxonID,
+      checklistKey: datasetKey,
     }),
 };
 

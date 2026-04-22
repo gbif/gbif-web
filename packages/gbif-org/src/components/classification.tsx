@@ -20,6 +20,49 @@ export function Classification({
   );
 }
 
+export function TaxonStubClassification({
+  classification,
+  className,
+}: {
+  classification: { scientificName: string | null; taxonID?: string }[];
+  className?: string;
+}) {
+  // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
+  return (
+    <>
+      <Classification className={cn('g-mt-2 g-flex g-flex-wrap g-gap-1 g-items-center', className)}>
+        {classification.slice(0, 2).map((c) => (
+          <TaxonClassificationItem key={c.taxonID ?? c.scientificName} taxon={c} />
+        ))}
+        {classification.length > 3 && <span>...</span>}
+        {classification.length > 2 && (
+          <TaxonClassificationItem taxon={classification[classification.length - 1]} />
+        )}
+      </Classification>
+    </>
+  );
+}
+
+function TaxonClassificationItem({
+  taxon,
+}: {
+  taxon: { scientificName: string | null; taxonID?: string };
+}) {
+  return (
+    <span key={taxon.taxonID} className="g-flex g-items-center">
+      {taxon.taxonID && (
+        <DynamicLink
+          className="hover:g-underline"
+          pageId="taxonKey"
+          variables={{ key: taxon.taxonID.toString() }}
+        >
+          {taxon.scientificName}
+        </DynamicLink>
+      )}
+      {!taxon.taxonID && <span>{taxon.scientificName}</span>}
+    </span>
+  );
+}
 export function TaxonClassification({
   classification,
   majorOnly,

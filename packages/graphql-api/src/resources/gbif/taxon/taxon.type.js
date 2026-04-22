@@ -76,7 +76,7 @@ const typeDef = gql`
   }
 
   type TaxonSearchResult {
-    results: [TaxonResult]!
+    results: [TaxonResult!]!
     limit: Int!
     offset: Int!
     count: Int!
@@ -86,9 +86,9 @@ const typeDef = gql`
   }
 
   type TaxonResult {
-    taxon: TaxonSimple
-    classification: [TaxonClassification!]
-    vernacularNames: [VernacularName!]
+    taxon: TaxonSimple!
+    classification: [TaxonClassification!]!
+    vernacularNames: [VernacularName!]!
     """
     Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
     """
@@ -315,6 +315,7 @@ const typeDef = gql`
     extinct: Boolean
     references: String
     label: String!
+    mapCapabilities: MapCapabilities
 
     acceptedNameUsage: String
 
@@ -380,6 +381,7 @@ const typeDef = gql`
     related(datasetType: RelatedDatasetType): [TaxonSimple!]!
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
+    mapCapabilities: MapCapabilities
   }
 
   type Children {

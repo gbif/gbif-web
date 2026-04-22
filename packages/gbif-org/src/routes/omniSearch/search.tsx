@@ -14,7 +14,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { DatasetResult } from '../dataset/datasetResult';
 import { PublisherResult } from '../publisher/publisherResult';
 import { ResourceSearchResult } from '../resource/search/resourceSearchResult';
-// import { TaxonResult } from '../taxon/taxonResult';
+import { TaxonResult } from '../taxon/taxonResult';
 import { CategoryLinks } from './CategoryLinks';
 import { CountryResult } from './CountryResult';
 import OccurrenceResultCard from './OccurrenceResultCard';
@@ -48,7 +48,7 @@ type ServerResults = {
     recordedBy?: string;
     recordNumber?: string;
   };
-  taxa?: Array<{ key: number; taxon: any }>;
+  taxa?: Array<{ taxonID: string; scientificName: string; mapCapabilities: { total: number } }>;
   participant?: {
     highlighted?: any;
     other?: Array<any>;
@@ -118,7 +118,7 @@ export function SearchPage() {
           },
           taxonQuery: {
             q: q,
-            datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
+            datasetKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
             limit: 3,
             offset: 0,
           },
@@ -188,11 +188,11 @@ export function SearchPage() {
               country: serverResults.country.countryCode,
             },
           });
-        } else if (serverResults.taxa?.[0]?.taxon?.key) {
+        } else if (serverResults.taxa?.[0]?.taxonID) {
           setOccurrenceCategory({
-            label: serverResults.taxa?.[0]?.taxon?.scientificName,
+            label: <span dangerouslySetInnerHTML={{ __html: serverResults.taxa?.[0]?.label }} />,
             searchParams: {
-              taxonKey: serverResults.taxa?.[0]?.taxon?.key,
+              taxonKey: serverResults.taxa?.[0]?.taxonID,
             },
           });
         } else {
@@ -216,13 +216,13 @@ export function SearchPage() {
         cancelFetch();
       }
     };
-  }, [searchQuery, load]);
+  }, [searchQuery, load, locale.iso3LetterCode]);
 
   useEffect(() => {
     // set counts
     if (data) {
       setCounts({
-        taxonSearch: data.taxonSearch.count,
+        taxonSearch: data?.taxonSearch?.count ?? 0,
         datasetSearch: data.datasetSearch.count,
         publisherSearch: data?.organizationSearch?.count || 0,
         resourceSearch: data.resourceSearch?.documents.total || 0,
@@ -257,9 +257,20 @@ export function SearchPage() {
   // remove duplicate results. server results should stay and duplicates in graphql results should be removed
   const remainingTaxaResults =
     data?.taxonSearch?.results.filter((result) => {
-      const isDuplicate = serverResults?.taxa?.some((taxon) => taxon.taxon.key === result.key);
+      const isDuplicate = serverResults?.taxa?.some(
+        (taxon) => taxon?.taxonID === result?.taxon?.taxonID
+      );
       return !isDuplicate;
     }) ?? [];
+
+  // We should only show each accepted taxon once. So if thre are 2 synonym results, then only show one of them
+  const uniqueTaxaResults = remainingTaxaResults.filter((result, index, self) => {
+    const acceptedTaxonID = result.taxon.acceptedTaxon?.taxonID || result.taxon.taxonID;
+    return (
+      index ===
+      self.findIndex((r) => (r.taxon.acceptedTaxon?.taxonID || r.taxon.taxonID) === acceptedTaxonID)
+    );
+  });
 
   // if already in resourceKeywordResults, then do not show it in resourceResults
   const remainingResourceResults =
@@ -308,6 +319,11 @@ export function SearchPage() {
                     </ErrorMessage>
                   )}
 
+                  {serverResults?.taxa &&
+                    serverResults?.taxa?.map((taxon) => (
+                      <TaxonResult key={taxon.taxonID} taxon={taxon} className="g-mb-4" />
+                    ))}
+
                   {serverResults?.country && (
                     <>
                       <CountryResult country={serverResults.country} />
@@ -327,15 +343,6 @@ export function SearchPage() {
                       className="g-bg-white g-mb-4"
                     />
                   ))}
-                  {/* TODO taxonAPI */}
-                  {/* {serverResults?.taxa &&
-                    serverResults?.taxa?.map((taxon) => (
-                      <TaxonResult
-                        key={taxon.taxon.key}
-                        taxon={taxon.taxon}
-                        className="g-bg-white g-mb-4"
-                      />
-                    ))} */}
 
                   {data?.datasetSearch.results.slice(0, 1).map((result) => (
                     <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
@@ -373,7 +380,7 @@ export function SearchPage() {
                     serverResults?.occurrences?.recordNumber && (
                       <OccurrenceResultCard
                         Icon={MdPerson}
-                        searchParams={{ recordedBy: serverResults?.occurrences?.recordNumber }}
+                        searchParams={{ recordNumber: serverResults?.occurrences?.recordNumber }}
                         queryString={serverResults?.occurrences?.recordNumber}
                         label="Record number"
                       />
@@ -386,10 +393,20 @@ export function SearchPage() {
                   {data?.organizationSearch?.results.map((result) => (
                     <PublisherResult key={result.key} publisher={result} />
                   ))}
-                  {/* TODO taxonapi */}
-                  {/* {remainingTaxaResults.map((result) => (
-                    <TaxonResult key={result.key} taxon={result} />
-                  ))} */}
+                  {uniqueTaxaResults.map((result) => {
+                    const isSynonym = result.taxon.acceptedTaxon !== null;
+                    const synonymResult = isSynonym ? { ...result.taxon } : undefined;
+                    const acceptedTaxon = result.taxon.acceptedTaxon ?? result.taxon;
+                    return (
+                      <TaxonResult
+                        key={result.taxon.taxonID}
+                        taxon={acceptedTaxon}
+                        synonym={synonymResult}
+                        vernacularName={result?.vernacularName?.vernacularName}
+                        className="g-mb-4"
+                      />
+                    );
+                  })}
                   {!serverResults?.participant?.highlighted &&
                     serverResults?.participant?.other && (
                       <>

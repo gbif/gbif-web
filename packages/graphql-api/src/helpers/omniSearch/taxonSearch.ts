@@ -1,58 +1,30 @@
-import config from '@/config';
 import { ApolloServer, ExpressContext } from 'apollo-server-express';
+import config from '@/config';
 
 const ENDPOINTS = {
-  speciesMatch: 'https://api.gbif.org/v1/species/match',
+  speciesMatch: 'https://api.gbif.org/v2/species/match',
   capabilities: `${config.apiv2}/map/occurrence/density/capabilities.json`,
   occurrence: 'https://api.gbif.org/v1/occurrence/search',
 } as const;
 
 const TAXON_QUERY = `
-query TaxonSearch(
-  $taxonKey: ID!
-  $languageCode: String = "eng"
-) {
-  taxon(key: $taxonKey) {
-    ...TaxonResult
-    acceptedTaxon {
-      ...TaxonResult
+  query($datasetKey: ID, $taxonKey: ID!) {
+    taxon(datasetKey: $datasetKey, key: $taxonKey) {
+      taxonID
+      datasetKey
+      scientificName
+      taxonRank
+      taxonomicStatus
+      label
+      parentTree {
+        taxonID
+        scientificName
+      }
+      mapCapabilities {
+        total
+      }
     }
   }
-}
-
-fragment TaxonResult on Taxon {
-  key
-  nubKey
-  scientificName
-  canonicalName
-  formattedName(useFallback: true)
-  kingdom
-  phylum
-  class
-  order
-  family
-  genus
-  rank
-  taxonomicStatus
-  mapCapabilities {
-    total
-  }
-  parents {
-    key
-    name: canonicalName
-    rank
-  }
-  accepted
-  acceptedKey
-  numDescendants
-  vernacularNames(limit: 1, language: $languageCode) {
-    results {
-      vernacularName
-      source
-      sourceTaxonKey
-    }
-  }
-}
 `;
 
 export default async function searchTaxa({
@@ -68,44 +40,25 @@ export default async function searchTaxa({
 
   // for each candidate we should get taxon details using graphql and do a capabilities request
   const detailsPromises = candidates.map((c) =>
-    getTaxonDetails(c.usageKey, languageCode, server).then((data) => {
-      const [taxon, capabilities] = data;
-      return {
-        taxon: taxon?.data?.taxon,
-        capabilities,
-        hasOccurrences: capabilities.total > 0,
-        occurrenceCount: null,
-      };
-    }),
+    getTaxonDetails(c.usage.key, languageCode, server),
   );
   const details = await Promise.all(detailsPromises);
-
-  // check the capabilities. if the total is 0, then do an extra call to check the occurrence index
-  const results = await Promise.all(
-    details.map(async (d) => {
-      if (d.capabilities.total > 0) {
-        return d;
-      }
-      const occurrences = await fetch(
-        `${ENDPOINTS.occurrence}?taxonKey=${d.taxon.key}&limit=0`,
-      ).then((r) => r.json());
-      return {
-        ...d,
-        hasOccurrences: occurrences.count > 0,
-        occurrenceCount: occurrences.count,
-      };
-    }),
-  );
-
-  return results;
+  return details.sort((a, b) => {
+    // sort by map capabilities total descending
+    return (b?.mapCapabilities?.total || 0) - (a?.mapCapabilities?.total || 0);
+  });
 }
 
-async function getTaxonCandidates(query: string) {
+async function getTaxonCandidates(
+  query: string,
+): Promise<{ usage: { key: string } }[]> {
   try {
+    // uppercase the first letter as scientific names have that
+    const formattedQuery = query.charAt(0).toUpperCase() + query.slice(1);
     const matchResponse = await fetch(
-      `${ENDPOINTS.speciesMatch}?name=${encodeURIComponent(
-        query,
-      )}&verbose=true`,
+      `${ENDPOINTS.speciesMatch}?scientificName=${encodeURIComponent(
+        formattedQuery,
+      )}&verbose=true&checklistKey=${config.defaultChecklist}`,
     ).then((r) => r.json());
 
     // decide which entries are close enough.
@@ -116,25 +69,27 @@ async function getTaxonCandidates(query: string) {
     const candidates: any[] = [];
     // single response
     if (
-      matchResponse?.usageKey &&
-      matchResponse.confidence > 90 &&
-      (['ACCEPTED', 'SYNONYM'].includes(matchResponse.status) ||
-        matchResponse.matchType === 'EXACT')
+      matchResponse?.usage &&
+      matchResponse?.diagnostics?.confidence > 90 &&
+      (['ACCEPTED', 'SYNONYM'].includes(matchResponse.usage.status) ||
+        matchResponse.diagnostics.matchType === 'EXACT')
     ) {
       candidates.push({ ...matchResponse, alternatives: undefined });
-    } else if (matchResponse.alternatives) {
-      const first = matchResponse.alternatives[0];
+    } else if (matchResponse?.diagnostics?.alternatives) {
+      const first = matchResponse.diagnostics.alternatives[0];
+      const second = matchResponse.diagnostics.alternatives[1];
       if (
-        first.confidence > 90 &&
-        ['ACCEPTED', 'SYNONYM'].includes(first.status)
+        first.diagnostics.confidence > 90 &&
+        ['ACCEPTED', 'SYNONYM'].includes(first.usage.status)
       ) {
         candidates.push(first);
       }
       if (
-        matchResponse.alternatives[1]?.confidence >= first.confidence &&
-        matchResponse.alternatives[1]?.status === 'ACCEPTED'
+        second.diagnostics?.confidence > 90 &&
+        second.diagnostics?.confidence >= first.diagnostics.confidence &&
+        second?.usage?.status === 'ACCEPTED'
       ) {
-        candidates.push(matchResponse.alternatives[1]);
+        candidates.push(second);
       }
     }
     return candidates;
@@ -145,24 +100,17 @@ async function getTaxonCandidates(query: string) {
 }
 
 async function getTaxonDetails(
-  taxonKey: number,
+  taxonKey: string,
   languageCode: string,
   server: ApolloServer<ExpressContext>,
 ) {
-  const taxonPromise = server
+  const variables = { taxonKey, datasetKey: config.defaultChecklist };
+  return server
     .executeOperation({
       query: TAXON_QUERY,
-      variables: { taxonKey, languageCode },
+      variables,
     })
     .then((r) => {
-      return r;
+      return r.data?.taxon;
     });
-
-  const capabilitiesPromise = fetch(
-    `${ENDPOINTS.capabilities}?taxonKey=${taxonKey}`,
-  ).then((r) => {
-    return r.json();
-  });
-
-  return Promise.all([taxonPromise, capabilitiesPromise]);
 }

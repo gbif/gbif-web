@@ -94,20 +94,20 @@ export function DatasetResult({
           <DynamicLink pageId="occurrenceSearch" searchParams={{ datasetKey: [dataset.key] }}>
             <CountTag
               className="hover:g-bg-primary-200"
-              v1Endpoint="/occurrence/search"
+              apiEndpoint="/v1/occurrence/search"
               params={{ datasetKey: dataset.key }}
               message="counts.nOccurrences"
             />
           </DynamicLink>
           <CountTag
-            v1Endpoint="/species/search"
+            apiEndpoint="/v1/species/search"
             params={{ datasetKey: dataset.key, origin: 'SOURCE' }}
             message="counts.nRecords"
           />
           <DynamicLink pageId="literatureSearch" searchParams={{ gbifDatasetKey: [dataset.key] }}>
             <CountTag
               className="hover:g-bg-primary-200"
-              v1Endpoint="/literature/search"
+              apiEndpoint="/v1/literature/search"
               params={{ gbifDatasetKey: dataset.key }}
               message="counts.nCitations"
             />

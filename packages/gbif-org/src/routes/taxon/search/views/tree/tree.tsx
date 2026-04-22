@@ -13,7 +13,7 @@ import {
   TreeNodeLabel,
   TreeToggle,
 } from './components/treeComponents';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import useQuery from '@/hooks/useQuery';
 import { useSearchContext } from '@/contexts/search';
 import { FilterContext } from '@/contexts/filter';
@@ -86,6 +86,10 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
     }
   }, [datasetKey, taxonKey, load, loadParents]);
 
+  const parentTree = useMemo(() => {
+    return [...(parentData?.taxon?.parentTree ?? [])]?.reverse();
+  }, [parentData]);
+
   if (!taxonKey) {
     return (
       <Tree>
@@ -101,8 +105,8 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
     );
   }
 
-  const tip = parentData?.taxon?.parentTree?.[0];
-  const classification = parentData?.taxon?.parentTree?.slice(1) ?? [];
+  const tip = parentTree[0];
+  const classification = parentTree.slice(1) ?? [];
 
   if (parentError && !parentLoading) {
     return <ErrorMessage>Error loading taxon data</ErrorMessage>;
