@@ -21,21 +21,31 @@ import { required } from '@/utils/required';
 import { useEffect, useRef } from 'react';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Outlet, useLoaderData, useParams } from 'react-router-dom';
+import { Outlet, redirect, useLoaderData, useParams } from 'react-router-dom';
 import { isParticipant } from '.';
 import PageMetaData from '@/components/PageMetaData';
 import { ParsedQueryResult } from '@/services/graphQLService';
 
-export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
+export async function countryKeyLoader({ params, request, graphql }: LoaderArgs) {
   const countryCode = required(params.countryCode, 'No countryCode was provided in the URL');
 
+  // Redirect to the UPPERCASE country code route e.g country/to/summary to country/TO/summary
+  if (countryCode !== countryCode.toUpperCase()) {
+    const url = new URL(request.url);
+    url.pathname = url.pathname.replace(
+      `/country/${countryCode}`,
+      `/country/${countryCode.toUpperCase()}`
+    );
+    return redirect(url.toString());
+  }
+
   // Validate country code
-  if (!countryCodes.map((code) => code.toLowerCase()).includes(countryCode.toLowerCase())) {
+  if (!countryCodes.map((code) => code.toUpperCase()).includes(countryCode)) {
     throw new NotFoundLoaderResponse();
   }
 
   return graphql.query<ParticipantQuery, ParticipantQueryVariables>(PARTICIPANT_QUERY, {
-    countryCode: countryCode.toUpperCase(),
+    countryCode: countryCode,
   });
 }
 
