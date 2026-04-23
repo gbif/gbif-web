@@ -34,14 +34,14 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
+import { is404, throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { createContext, useEffect } from 'react';
 import { BsLightningFill } from 'react-icons/bs';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
+import { Outlet, redirect, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
 import getTitle from './Title';
@@ -271,7 +271,7 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
+export async function occurrenceKeyLoader({ params, config, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
   if (['map', 'gallery', 'taxonomy', 'charts', 'download'].includes(key))
     throw new NotFoundLoaderResponse();
@@ -283,6 +283,21 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   );
 
   const { errors, data } = await response.json();
+
+  // If the occurrence does not exist, check whether a raw fragment exists for the key.
+  // If so, redirect to the tombstone/fragment page; otherwise fall through to the 404.
+  const occurrenceMissing = !data?.occurrence || is404({ path: ['occurrence'], errors });
+  if (occurrenceMissing) {
+    try {
+      const fragmentResponse = await fetch(`${config.v1Endpoint}/occurrence/${key}/fragment`);
+      if (fragmentResponse.ok) {
+        return redirect(`/occurrence/${key}/fragment`);
+      }
+    } catch {
+      // ignore and let the normal 404 path handle it
+    }
+  }
+
   throwCriticalErrors({
     path404: ['occurrence'],
     errors,
