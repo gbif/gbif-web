@@ -63,6 +63,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       locality
       eventDate
       typeStatus
+      occurrenceStatus
       references
       issues
       basisOfRecord
@@ -530,7 +531,15 @@ export function OccurrenceKey() {
                         </Tooltip>
                       </TooltipProvider>
                     )}
+                    {occurrence.occurrenceStatus === 'ABSENT' && (
+                      <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
+                        <FormattedMessage
+                          id={`enums.occurrenceStatus.${occurrence.occurrenceStatus}`}
+                        />
+                      </span>
+                    )}
                     {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) &&
+                      occurrence.occurrenceStatus !== 'ABSENT' &&
                       vernacularNameInfo && (
                         <SimpleTooltip
                           asChild
