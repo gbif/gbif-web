@@ -81,7 +81,7 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getTaxGroups() {
-    return this.get('https://api.checklistbank.org/vocab/taxgroup');
+    return this.get(`${this.config.checklistBank}/vocab/taxgroup`);
   }
 
   async getRelated({ datasetKey, key, query = {} }) {

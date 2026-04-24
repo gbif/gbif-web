@@ -49,7 +49,7 @@ const useTreeItem = () => {
 // --- COMPONENTS ---
 
 export const Tree = ({ children }: { children: ReactNode }) => (
-  <nav className="g-w-full g-max-w-3xl" aria-label="Taxonomy Explorer">
+  <nav className="g-w-full" aria-label="Taxonomy Explorer">
     <ul className="g-m-0 g-p-0 g-list-none">{children}</ul>
   </nav>
 );
@@ -156,7 +156,6 @@ export const TreeHeader = ({ children }: { children: ReactNode }) => (
 );
 
 export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon: TaxonData }) => {
-  const defaultChecklistKey = useChecklistKey();
   return (
     <div className="g-flex-1 g-flex g-items-center g-justify-between">
       <div className="g-flex-1 g-flex g-items-start">
@@ -167,7 +166,7 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
             className="g-text-primary-700 g-whitespace-nowrap"
           >
             <span dangerouslySetInnerHTML={{ __html: taxon.label ?? taxon.taxonID }} />
-            {taxon.status !== 'ACCEPTED' && (
+            {!['ACCEPTED', 'PROVISIONALLY_ACCEPTED'].includes(taxon.status ?? 'ACCEPTED') && (
               <span className="g-ms-2 g-px-1 g-py-0.5 g-text-xs g-font-medium g-text-amber-700 g-bg-amber-200 g-rounded">
                 <FormattedMessage id={`enums.taxonomicStatus.${taxon.status}`} />
               </span>

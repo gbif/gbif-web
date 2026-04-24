@@ -74,6 +74,7 @@
   "errors": {
     "treatments": "Could not load treatments",
     "distributions": "Could not load distributions",
+    "classification": "Could not load classification tree",
     "verbatim": "Could not load verbatim taxon data",
     "typeMaterial": "Could not load type material",
     "vernacularNames": "Could not load vernacular names",

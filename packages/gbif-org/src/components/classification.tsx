@@ -24,15 +24,24 @@ export function TaxonStubClassification({
   classification,
   className,
 }: {
-  classification: { scientificName: string | null; taxonID?: string }[];
+  classification: {
+    scientificName?: string | null;
+    taxonID?: string;
+    key?: string;
+    name?: string;
+  }[];
   className?: string;
 }) {
   // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
+  // the APIs provides classification in multiple formats named differently.
   return (
     <>
-      <Classification className={cn('g-mt-2 g-flex g-flex-wrap g-gap-1 g-items-center', className)}>
+      <Classification className={cn('g-flex g-flex-wrap g-gap-1 g-items-center', className)}>
         {classification.slice(0, 2).map((c) => (
-          <TaxonClassificationItem key={c.taxonID ?? c.scientificName} taxon={c} />
+          <TaxonClassificationItem
+            key={c.taxonID ?? c.key ?? c.scientificName ?? c.name}
+            taxon={c}
+          />
         ))}
         {classification.length > 3 && <span>...</span>}
         {classification.length > 2 && (
@@ -46,20 +55,17 @@ export function TaxonStubClassification({
 function TaxonClassificationItem({
   taxon,
 }: {
-  taxon: { scientificName: string | null; taxonID?: string };
+  taxon: { scientificName?: string | null; taxonID?: string; key?: string; name?: string };
 }) {
   return (
-    <span key={taxon.taxonID} className="g-flex g-items-center">
-      {taxon.taxonID && (
-        <DynamicLink
-          className="hover:g-underline"
-          pageId="taxonKey"
-          variables={{ key: taxon.taxonID.toString() }}
-        >
-          {taxon.scientificName}
-        </DynamicLink>
-      )}
-      {!taxon.taxonID && <span>{taxon.scientificName}</span>}
+    <span className="g-flex g-items-center">
+      <DynamicLink
+        className="hover:g-underline"
+        pageId="taxonKey"
+        variables={{ key: taxon.taxonID ?? taxon.key ?? '' }}
+      >
+        {taxon.scientificName ?? taxon.name}
+      </DynamicLink>
     </span>
   );
 }

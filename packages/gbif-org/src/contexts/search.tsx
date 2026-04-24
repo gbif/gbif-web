@@ -43,9 +43,5 @@ export function SearchContextProvider({ searchContext, children }: Props) {
 export function useSearchContext() {
   const searchContext = React.useContext(SearchMetadataContext);
 
-  if (!searchContext) {
-    throw new Error('useSearchContext must be used within a SearchContextProvider');
-  }
-
   return searchContext;
 }

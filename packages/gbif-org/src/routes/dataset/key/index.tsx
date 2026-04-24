@@ -1,6 +1,5 @@
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import TaxonKeyAbout from '@/routes/taxon/key/About';
-import { datasetTaxonLoader, taxonLoader } from '@/routes/taxon/key/taxonKey';
+import { datasetTaxonLoader } from '@/routes/taxon/key/taxonKey';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import {

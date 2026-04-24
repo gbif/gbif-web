@@ -119,8 +119,8 @@ export const gbifConfig: Config = {
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
-  // defaultChecklistKey: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c', // GBIF Backbone Taxonomy
-  availableChecklistKeys: import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
+  defaultChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY, // CoL
+  availableChecklistKeys: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   theme: {
     dense: true,
     primary: '#4C9C2E', // green '#69AA69', purple #4f46e5

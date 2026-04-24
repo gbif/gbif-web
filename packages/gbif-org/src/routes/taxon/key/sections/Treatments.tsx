@@ -86,7 +86,7 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
                             pageId="datasetKey"
                             variables={{ key: treatment?.datasetKey }}
                           >
-                            {treatment?.dataset?.title ?? <FormattedMessage id="unknown" />}
+                            {treatment?.dataset?.title ?? <FormattedMessage id="phrases.unknown" />}
                           </DynamicLink>
                         </div>
                       )}

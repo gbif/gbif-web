@@ -52,23 +52,6 @@ export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs
 }
 
 export function TaxonKey() {
-  const { data } = useLoaderData() as { data: TaxonKeyQuery };
-  const createLink = useLink();
-
-  if (data?.taxonInfo?.taxon?.datasetKey === primaryChecklist) {
-    // TODO taxonapi hardcoded main taxonomy
-    return <BackboneTaxon />;
-  } else {
-    // let { to } = createLink({
-    //   pageId: 'datasetKey',
-    //   variables: { key: `${data?.taxon?.datasetKey}/taxon/${data?.taxon?.key}` },
-    // });
-    // if (!to) to = `/dataset/${data?.taxon?.datasetKey}/taxon/${data?.taxon?.key}`;
-    // return <Navigate to={to} />;
-  }
-}
-
-const BackboneTaxon = () => {
   const { data } = useLoaderData() as { data: TaxonKeyQuery }; // TODO I do not get why this data isn't just passed as a prop from the parent route
   const { locale } = useI18n();
   const {
@@ -94,11 +77,10 @@ const BackboneTaxon = () => {
 
   if (data?.taxonInfo == null) throw new NotFoundError();
   return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
-};
+}
 
 export const NonBackboneTaxon = () => {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
-
   return <NonBackbonePresentation data={data} />;
 };
 

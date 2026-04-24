@@ -58,7 +58,6 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
     }: TaxonSuggestProps,
     ref
   ) => {
-    const siteConfig = useConfig();
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash, negateField } =
@@ -74,7 +73,6 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
     );
     const [useNegations, setUseNegations] = useState(filterSummary?.hasNegations ?? false);
-    const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
     const currentChecklistKey = useChecklistKey();
 
     const About = about;

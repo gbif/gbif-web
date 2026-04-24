@@ -82,7 +82,7 @@ export function TaxonResult({
                   </div>
                 </div>
                 {taxon.parentTree && (
-                  <div className="g-font-normal g-text-slate-700 g-text-sm g-break-words">
+                  <div className="g-font-normal g-text-slate-700 g-text-sm g-break-words g-mt-2 ">
                     <TaxonStubClassification classification={taxon.parentTree} />
                   </div>
                 )}

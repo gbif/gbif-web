@@ -87,7 +87,6 @@ export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
       <ArticleTextContainer className="g-max-w-screen-xl">
         {data.taxonInfo?.taxon?.datasetKey && (
           <div className="g-flex g-items-center g-gap-2 g-mb-4">
-            {/* START: Link back to search . SPACE . Input box */}
             <Button asChild variant="outline" className="g-flex-none g-bg-white">
               <DynamicLink
                 pageId="datasetKey"
@@ -97,10 +96,6 @@ export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
                 <FormattedMessage id="taxon.viewAllTaxa" defaultMessage="View all" />
               </DynamicLink>
             </Button>
-            {/* <div className="g-flex-grow"></div>
-            <div className="g-flex-none g-bg-white">
-              <Input className="g-max-w-96" />
-            </div> */}
           </div>
         )}
         <Card className="g-overflow-hidden g-mb-8">

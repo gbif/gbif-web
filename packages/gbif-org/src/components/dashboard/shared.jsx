@@ -110,11 +110,15 @@ export function Table({ padded = true, removeBorder, ...props }) {
 }
 
 export function BarItem({ children, percent = 0, ...props }) {
-  console.log(percent)
   return (
-    <SimpleTooltip 
-      asChild 
-      title={<FormattedMessage id="counts.nPercentOfTotal" values={{ percentage: formatAsPercentage(percent/100) }} />}
+    <SimpleTooltip
+      asChild
+      title={
+        <FormattedMessage
+          id="counts.nPercentOfTotal"
+          values={{ percentage: formatAsPercentage(percent / 100) }}
+        />
+      }
       side="left"
     >
       <div
