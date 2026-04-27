@@ -73,12 +73,6 @@ const DATASET_QUERY = /* GraphQL */ `
         key
         title
       }
-      metrics {
-        colCoveragePct
-        nubCoveragePct
-        nubMatchingCount
-        colMatchingCount
-      }
       pubDate
       description
       dataLanguage

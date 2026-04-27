@@ -255,7 +255,9 @@ export function DatasetKeyAbout() {
 
             {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
               <Alert variant="destructive" className="g-mb-4">
-                <AlertTitle><FormattedMessage id="dataset.metadataOnlyWithData.title" /></AlertTitle>
+                <AlertTitle>
+                  <FormattedMessage id="dataset.metadataOnlyWithData.title" />
+                </AlertTitle>
                 <AlertDescription>
                   <FormattedMessage id="dataset.metadataOnlyWithData.description" />
                 </AlertDescription>
@@ -633,7 +635,6 @@ function DataSummary({ data, insights }: { data: DatasetQuery; insights?: Datase
   const eventDateLink = btoa(JSON.stringify(eventNotNullFilter));
 
   // for checklists
-  const colOverlap = dataset.metrics?.colCoveragePct;
   const synonymsPercentage = formatAsPercentage((synonyms?.count ?? 0) / (totalTaxa?.count ?? 0));
   const acceptedPercentage = formatAsPercentage((accepted?.count ?? 0) / (totalTaxa?.count ?? 0));
 
@@ -688,24 +689,6 @@ function DataSummary({ data, insights }: { data: DatasetQuery; insights?: Datase
               <FormattedMessage id="counts.nSynonyms" values={{ total: synonyms?.count ?? 0 }} />
               <Progress value={synonymsPercentage} className="g-h-1" />
             </DataSummaryLink>
-
-            {/* {gbifOverlap && (
-              <DataSummaryInfo>
-                <FormattedMessage
-                  id="counts.gbifOverlapPercent"
-                  values={{ percent: gbifOverlap }}
-                />{' '}
-              </DataSummaryInfo>
-            )} */}
-
-            {colOverlap && (
-              <DataSummaryInfo>
-                <FormattedMessage
-                  id="counts.colOverlapPercent"
-                  values={{ percent: colOverlap }}
-                />{' '}
-              </DataSummaryInfo>
-            )}
           </DataSummaryBlock>
         )}
 
