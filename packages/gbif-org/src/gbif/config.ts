@@ -272,7 +272,7 @@ export const gbifConfig: Config = {
       options: {
         ARCTIC: ['NATURAL', 'BRIGHT'],
         PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
-        MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK'], // 'GEOLOGY'
+        MERCATOR: ['NATURAL', 'BRIGHT', 'DARK' /* 'SATELLITE' */], // 'GEOLOGY'
         ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
       },
     },

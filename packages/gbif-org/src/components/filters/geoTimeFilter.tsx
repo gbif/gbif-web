@@ -1,6 +1,4 @@
-import { useConfig } from '@/config/config';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { useSearchContext } from '@/contexts/search';
 import { GeoTimeConceptsQuery, GeoTimeConceptsQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useI18n } from '@/reactRouterPlugins';
@@ -10,7 +8,7 @@ import { nanoid } from 'nanoid';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { SearchSuggest } from '../searchSelect/searchSuggest';
 import { SimpleTooltip } from '../simpleTooltip';
 import { Button } from '../ui/button';
@@ -27,9 +25,6 @@ import {
 import { Option } from './option';
 import { rangeOrTerm } from './rangeFilter';
 
-const partialRegex = /^\d{0,4}(-\d{0,2}){0,2}$/;
-const fullRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-
 type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
     className?: string;
@@ -39,7 +34,6 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
   (
     {
       className,
-      searchConfig,
       filterHandle,
       displayName: DisplayName,
       onApply,
@@ -54,8 +48,10 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     const { filter, toggle, add, setFullField, setFilter, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<(string | number | object)[]>([]);
     const [start, setStart] = useState<string>('');
+    const [startConcept, setStartConcept] = useState<GeoTimeOption | null>(null);
     const [type, setType] = useState<string>('between');
     const [end, setEnd] = useState<string>('');
+    const [endConcept, setEndConcept] = useState<GeoTimeOption | null>(null);
     const [singleDate, setSingleDate] = useState<string>('');
     const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
     const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
@@ -81,11 +77,46 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     const isValidRange = (start: string, end: string) => {
       return start || end;
     };
+
+    // Two periods overlap when end.startAge > start.endAge (end period began before start period finished,
+    // meaning end is contained within start or they partially overlap). Adjacent periods that share
+    // exactly one boundary point (end.startAge === start.endAge) are allowed.
+    const periodsOverlap =
+      type === 'between' &&
+      !!start &&
+      !!end &&
+      startConcept != null &&
+      endConcept != null &&
+      (endConcept.startAge ?? 0) > (startConcept.endAge ?? 0);
+
+    const startFilterFn = useCallback(
+      (concept: GeoTimeOption) => {
+        if (!endConcept) return true;
+        // start period's endAge must be >= end period's startAge
+        return (concept.endAge ?? 0) >= (endConcept.startAge ?? 0);
+      },
+      [endConcept]
+    );
+
+    const endFilterFn = useCallback(
+      (concept: GeoTimeOption) => {
+        if (!startConcept) return true;
+        // end period's startAge must be <= start period's endAge
+        return (concept.startAge ?? 0) <= (startConcept.endAge ?? 0);
+      },
+      [startConcept]
+    );
+
     const errors = {
       start: null,
       singleDate: null,
       end: !isValidRange(start, end) ? (
         <FormattedMessage id="filterSupport.invalidRange" defaultMessage="Invalid range" />
+      ) : periodsOverlap ? (
+        <FormattedMessage
+          id="filterSupport.overlappingPeriods"
+          defaultMessage="The selected periods overlap. Choose a start period that does not include the end period."
+        />
       ) : null,
     };
 
@@ -113,7 +144,9 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
 
     const resetFields = () => {
       setStart('');
+      setStartConcept(null);
       setEnd('');
+      setEndConcept(null);
       setSingleDate('');
       setTouched({ start: false, end: false, singleDate: false });
     };
@@ -132,8 +165,8 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
           type === 'equals'
             ? rangeOrTerm(`${singleDate}`, lowerBound, upperBound)
             : type === 'after'
-            ? rangeOrTerm(`${singleDate},`, lowerBound, upperBound)
-            : rangeOrTerm(`,${singleDate}`, lowerBound, upperBound);
+              ? rangeOrTerm(`${singleDate},`, lowerBound, upperBound)
+              : rangeOrTerm(`,${singleDate}`, lowerBound, upperBound);
 
         add(filterHandle, rangeQuery);
         resetFields();
@@ -337,6 +370,8 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                       ref={ref}
                       value={start}
                       onBlur={() => handleBlur('start')}
+                      filterFn={startFilterFn}
+                      onConceptChange={(concept) => setStartConcept(concept)}
                       onChange={(value) => {
                         setStart(value);
                       }}
@@ -361,6 +396,8 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                       id={inputEndId}
                       value={end}
                       onBlur={() => handleBlur('end')}
+                      filterFn={endFilterFn}
+                      onConceptChange={(concept) => setEndConcept(concept)}
                       onChange={(value) => {
                         setEnd(value);
                       }}
@@ -418,7 +455,7 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                   className="g-flex-none g-mb-2"
                   disabled={
                     type === 'between'
-                      ? !isValidRange(start, end)
+                      ? !isValidRange(start, end) || periodsOverlap
                       : !singleDate || singleDate.length === 0
                   }
                   onClick={handleAdd}
@@ -440,23 +477,27 @@ export type GeoTimeOption = {
   title: string;
   parents?: string;
   startAge?: number;
+  endAge?: number;
 };
 
 const GeoTimeInput = React.forwardRef<
   HTMLInputElement,
   {
+    id?: string;
+    inputMode?: string;
     value: string;
     onChange: (value: string) => void;
+    onConceptChange?: (concept: GeoTimeOption | null) => void;
+    filterFn?: (concept: GeoTimeOption) => boolean;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     className?: string;
-    [key: string]: unknown;
   }
->(({ value, onChange, onBlur, ...props }, ref) => {
+>(({ value, onChange, onConceptChange, filterFn }, ref) => {
   const {
     data: concepts,
     error,
     loading,
-    load,
   } = useQuery<GeoTimeConceptsQuery, GeoTimeConceptsQueryVariables>(GEOTIME_CONCEPTS, {
     lazyLoad: false,
     variables: {
@@ -466,10 +507,6 @@ const GeoTimeInput = React.forwardRef<
 
   const [suggestions, setSuggestions] = useState<GeoTimeOption[]>([]);
   const [data, setVisible] = useState<GeoTimeOption[]>([]);
-  const config = useConfig();
-  const intl = useIntl();
-  const searchContext = useSearchContext();
-  const { locale: currentLocale } = useI18n();
   const [element, setElement] = useState<GeoTimeOption | null>(null);
 
   useEffect(() => {
@@ -477,43 +514,28 @@ const GeoTimeInput = React.forwardRef<
     if (loading || error || !concepts?.vocabularyConceptSearch?.results) return;
     const sorted = concepts.vocabularyConceptSearch.results
       .map((concept) => {
-        const startTag = concept.tags?.find((tag) => tag.name.startsWith('startAge:'));
-        const startAge = startTag ? parseInt(startTag.name.replace('startAge:', ''), 10) : null;
+        const startTag = concept.tags?.find(
+          (tag) => tag != null && tag.name.startsWith('startAge:')
+        );
+        const startAge = startTag
+          ? parseFloat(startTag.name.replace('startAge:', '').trim())
+          : undefined;
+        const endTag = concept.tags?.find((tag) => tag != null && tag.name.startsWith('endAge:'));
+        const endAge = endTag ? parseFloat(endTag.name.replace('endAge:', '').trim()) : undefined;
         return {
           key: concept.name,
           title: concept.uiLabel,
           parents: concept.parents?.map((parent) => parent.uiLabel).join(', '),
           startAge,
+          endAge,
         };
       })
-      .filter((concept) => concept.startAge !== null)
+      .filter((concept) => concept.startAge !== undefined)
       .sort((a, b) => (a.startAge ?? 0) - (b.startAge ?? 0))
       .reverse();
     setVisible(sorted);
     setSuggestions(sorted);
   }, [concepts, loading, error, setVisible, setSuggestions]);
-
-  // useEffect(() => {
-  //   if (!config || !intl || !searchContext || !currentLocale) return;
-  //   const { cancel, promise } = geoTimeSuggest.getSuggestions({
-  //     q: '',
-  //     limit: 200,
-  //     intl,
-  //     searchContext,
-  //     siteConfig: config,
-  //     locale: intl.locale,
-  //     currentLocale,
-  //   });
-
-  //   promise.then((data) => {
-  //     setSuggestions(data);
-  //   });
-  //   return () => {
-  //     if (cancel) {
-  //       cancel();
-  //     }
-  //   };
-  // }, [config, intl, searchContext, currentLocale]);
 
   const search = React.useCallback(
     (searchTerm: string) => {
@@ -544,16 +566,22 @@ const GeoTimeInput = React.forwardRef<
     }
   }, [value, suggestions]);
 
+  const filteredData = React.useMemo(() => {
+    if (!filterFn) return data;
+    return data.filter(filterFn);
+  }, [data, filterFn]);
+
   return (
     <SearchSuggest
       variant="outline"
       className="g-font-normal"
       setSelected={(e) => {
         onChange(e?.key ?? '');
+        onConceptChange?.(e ?? null);
       }}
       selected={element}
       search={search}
-      results={data ?? []}
+      results={filteredData}
       labelSelector={(value) => value.title}
       suggestLabel={(value) => (
         <div>
