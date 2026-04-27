@@ -33,11 +33,13 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getTaxon({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${key}`);
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}`);
   }
 
   async getTaxonInfo({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${key}/info`).then((response) => {
+    return this.get(
+      `/taxon/${datasetKey}/${encodeURIComponent(key)}/info`,
+    ).then((response) => {
       // add logic to add isNamePublishedIn field to the bibliographic item if it matches the taxon namePublishedInID
       const { taxon } = response;
       const namePublishedInID = taxon?.namePublishedInID;
@@ -77,7 +79,9 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getRelatedTaxonInfo({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${key}/relatedInfo`);
+    return this.get(
+      `/taxon/${datasetKey}/${encodeURIComponent(key)}/relatedInfo`,
+    );
   }
 
   async getTaxGroups() {
@@ -85,19 +89,30 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getRelated({ datasetKey, key, query = {} }) {
-    return this.get(`/taxon/${datasetKey}/${key}/related`, query);
+    return this.get(
+      `/taxon/${datasetKey}/${encodeURIComponent(key)}/related`,
+      query,
+    );
   }
 
   async getChildren({ datasetKey, key, query = {} }) {
-    return this.get(`/taxon/tree/${datasetKey}/${key}/children`, query);
+    return this.get(
+      `/taxon/tree/${datasetKey}/${encodeURIComponent(key)}/children`,
+      query,
+    );
   }
 
   async getParents({ datasetKey, key, query = {} }) {
-    return this.get(`/taxon/tree/${datasetKey}/${key}`, query);
+    return this.get(
+      `/taxon/tree/${datasetKey}/${encodeURIComponent(key)}`,
+      query,
+    );
   }
 
   async taxonBreakdown({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${key}/breakdown`);
+    return this.get(
+      `/taxon/${datasetKey}/${encodeURIComponent(key)}/breakdown`,
+    );
   }
 
   async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
