@@ -20,6 +20,22 @@
   "recordedAndIdentifiedBy": "Зарегистрировано и идентифицировано",
   "tryPublisherSiteForFailingMedia": "Если медиафайл отображается неправильно, попробуйте перейти на сайт издателя.",
   "downloadMediaFile": "Загрузить файл с данными медиа",
+  "byRightsHolder": "правообладатель {RIGHTSHOLDER}",
+  "licensedUnder": "",
+  "suggestedCitation": "Предложенный атрибут",
+  "inCountry": {
+    "PRESERVED_SPECIMEN": "",
+    "FOSSIL_SPECIMEN": "",
+    "LIVING_SPECIMEN": "",
+    "HUMAN_OBSERVATION": "",
+    "MACHINE_OBSERVATION": "",
+    "MATERIAL_SAMPLE": "",
+    "MATERIAL_CITATION": "",
+    "OCCURRENCE": "",
+    "OBSERVATION": "",
+    "LITERATURE": "",
+    "UNKNOWN": ""
+  },
   "screenReader": {
     "title": "Подробности находки "
   },
