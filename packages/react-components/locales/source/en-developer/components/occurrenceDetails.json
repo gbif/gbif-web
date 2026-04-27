@@ -20,6 +20,22 @@
   "recordedAndIdentifiedBy": "Recorded and identified by",
   "tryPublisherSiteForFailingMedia": "If the media is not displaying properly then try the publishers site instead",
   "downloadMediaFile": "Download media file",
+  "byRightsHolder": "by {RIGHTSHOLDER}",
+  "licensedUnder": "licensed under {LICENSE}",
+  "suggestedCitation": "Suggested attribution",
+  "inCountry": {
+    "PRESERVED_SPECIMEN": "collected in {COUNTRY}",
+    "FOSSIL_SPECIMEN": "collected in {COUNTRY}",
+    "LIVING_SPECIMEN": "collected in {COUNTRY}",
+    "HUMAN_OBSERVATION": "observed in {COUNTRY}",
+    "MACHINE_OBSERVATION": "observed in {COUNTRY}",
+    "MATERIAL_SAMPLE": "collected in {COUNTRY}",
+    "MATERIAL_CITATION": "recorded in {COUNTRY}",
+    "OCCURRENCE": "recorded in {COUNTRY}",
+    "OBSERVATION": "observed in {COUNTRY}",
+    "LITERATURE": "recorded in {COUNTRY}",
+    "UNKNOWN": "recorded in {COUNTRY}"
+  },
   "screenReader": {
     "title": "Occurrence details"
   },
