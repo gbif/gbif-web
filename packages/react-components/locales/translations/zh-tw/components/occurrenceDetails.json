@@ -20,6 +20,22 @@
   "recordedAndIdentifiedBy": "紀錄及鑑定",
   "tryPublisherSiteForFailingMedia": "",
   "downloadMediaFile": "",
+  "byRightsHolder": "權利人：{RIGHTSHOLDER}",
+  "licensedUnder": "",
+  "suggestedCitation": "引用建議",
+  "inCountry": {
+    "PRESERVED_SPECIMEN": "",
+    "FOSSIL_SPECIMEN": "",
+    "LIVING_SPECIMEN": "",
+    "HUMAN_OBSERVATION": "",
+    "MACHINE_OBSERVATION": "",
+    "MATERIAL_SAMPLE": "",
+    "MATERIAL_CITATION": "",
+    "OCCURRENCE": "",
+    "OBSERVATION": "",
+    "LITERATURE": "",
+    "UNKNOWN": ""
+  },
   "screenReader": {
     "title": ""
   },
