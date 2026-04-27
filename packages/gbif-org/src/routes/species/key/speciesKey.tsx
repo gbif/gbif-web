@@ -1,17 +1,14 @@
 import Properties, { Property, Term, Value } from '@/components/properties';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/largeCard';
 import { DeprecatedTaxonQuery, DeprecatedTaxonQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
+import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
+import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
+import { FormattedMessage } from 'react-intl';
 import { redirect, useLoaderData } from 'react-router-dom';
 
 const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
@@ -47,57 +44,64 @@ export function SpeciesKey() {
 
   return (
     <article>
-      <PageContainer topPadded hasDataHeader className="g-bg-white">
-        <ArticleTextContainer className="g-max-w-screen-md">
-          <Card>
-            <CardHeader>
-              <CardTitle>This page no longer exists</CardTitle>
-              <CardDescription>
-                After 25 years we have retired the GBIF backbone taxonomy and replaced it with a new
-                checklist. This taxon do not have a match in the new checklist and hence cannot be
-                redirected
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div
-                className="g-bg-gray-50 g-p-4 g-rounded g-border g-border-gray-200"
-                style={{ fontFamily: 'monospace' }}
-              >
-                <Properties>
-                  <Property labelId="Scientific name" value={data.taxon?.scientificName} />
-                  <Property labelId="status" value={data.taxon?.taxonomicStatus} />
-                  <Property labelId="rank" value={data.taxon?.taxonRank} />
-                  {(data.taxon?.parentTree?.length ?? 0) > 0 && (
-                    <>
-                      <Term>Classification</Term>
-                      <Value>
-                        <Properties>
-                          {data.taxon?.parentTree?.map((parent) => (
-                            <Property
-                              key={parent.taxonID}
-                              labelId={`${parent.taxonRank}:`}
-                              value={parent.scientificName}
-                            />
-                          ))}
-                        </Properties>
-                      </Value>
-                    </>
-                  )}
-                </Properties>
-              </div>
-              <Button asChild className="g-mt-4 g-w-full">
-                <DynamicLink
-                  pageId="taxonSearch"
-                  searchParams={{
-                    q: data.taxon?.scientificName ?? '',
-                  }}
-                >
-                  Go to taxon search
-                </DynamicLink>
-              </Button>
-            </CardContent>
-          </Card>
+      <PageContainer topPadded bottomPadded className="g-bg-white">
+        <ArticleTextContainer>
+          <ArticlePreTitle clickable>
+            <DynamicLink pageId="taxonSearch">Taxon</DynamicLink>
+          </ArticlePreTitle>
+          <ArticleTitle>{data.taxon?.scientificName ?? 'Unknown taxon'}</ArticleTitle>
+          <ArticleIntro>
+            <p className="g-text-red-500 g-text-base g-font-medium g-pb-2">
+              <FormattedMessage
+                id="taxon.deletedMessage"
+                defaultMessage="This record has been deleted."
+              />
+            </p>
+            <p className="g-text-base">
+              <FormattedMessage
+                id="taxon.deletedDescription"
+                defaultMessage="This record has been deleted."
+              />
+            </p>
+          </ArticleIntro>
         </ArticleTextContainer>
+        <div className="g-py-8">
+          <div className="g-bg-slate-100 g-p-4 md:g-p-8 g-w-full g-max-w-7xl g-m-auto g-overflow-auto">
+            <Properties>
+              <Property labelId="Scientific name" value={data.taxon?.scientificName} />
+              <Property labelId="status" value={data.taxon?.taxonomicStatus} />
+              <Property labelId="rank" value={data.taxon?.taxonRank} />
+              {(data.taxon?.parentTree?.length ?? 0) > 0 && (
+                <>
+                  <Term>Classification</Term>
+                  <Value>
+                    <Properties>
+                      {data.taxon?.parentTree?.map((parent) => (
+                        <Property
+                          key={parent.taxonID}
+                          labelId={`${parent.taxonRank}:`}
+                          value={parent.scientificName}
+                        />
+                      ))}
+                    </Properties>
+                  </Value>
+                </>
+              )}
+            </Properties>
+          </div>
+          <div className="g-max-w-7xl g-m-auto g-mt-4">
+            <Button asChild className="g-w-full">
+              <DynamicLink
+                pageId="taxonSearch"
+                searchParams={{
+                  q: data.taxon?.scientificName ?? '',
+                }}
+              >
+                Go to taxon search
+              </DynamicLink>
+            </Button>
+          </div>
+        </div>
       </PageContainer>
     </article>
   );

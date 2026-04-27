@@ -81,5 +81,7 @@
     "classificationChildren": "Could not load children of this Taxon",
     "breakdown": "Could not load breakdown",
     "invasiveInCountries": "Could not load invasive species information"
-  }
+  },
+  "deletedMessage": "This taxon has been removed from the GBIF taxonomy.",
+  "deletedDescription": "Taxonomies are dynamic and change over time as new information becomes available. This taxon has been removed from the GBIF taxonomy."
 }
