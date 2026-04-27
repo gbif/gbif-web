@@ -3,6 +3,7 @@ import { ArticleSkeleton } from '../../resource/key/components/articleSkeleton';
 import { OccurrenceSnapshotsQuery, OccurrenceSnapshotsQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEffect, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ArticleTextContainer } from '../../resource/key/components/articleTextContainer';
 import { ArticleTitle } from '../../resource/key/components/articleTitle';
 import { PageContainer } from '../../resource/key/components/pageContainer';
@@ -22,15 +23,9 @@ const OCCURRENCE_SNAPSHOTS_QUERY = /* GraphQL */ `
     }
   }
 `;
-/* function occurrenceSnapshotsLoader(args: LoaderArgs) {
-  return args.graphql.query<OccurrenceSnapshotsQuery, undefined>(
-    OCCURRENCE_SNAPSHOTS_QUERY,
-    undefined
-  );
-} */
 
 const OccurrenceSnapshots = () => {
-  //  const { data } = useLoaderData() as { data: OccurrenceSnapshotsQuery };
+  const { formatMessage } = useIntl();
   const [limit, setLimit] = useState(500);
   const [offset, setOffset] = useState(0);
   const { data, load, loading, error } = useQuery<
@@ -50,46 +45,47 @@ const OccurrenceSnapshots = () => {
     });
   }, [load, limit, offset]);
 
+  const link = (href: string) => (chunks: React.ReactNode) => <a href={href}>{chunks}</a>;
+
   return (
     <article>
-      <PageMetaData title="Occurrence snapshots" path="/occurrence-snapshots" nofollow noindex />
+      <PageMetaData
+        title={formatMessage({ id: 'occurrenceSnapshots.title' })}
+        path="/occurrence-snapshots"
+        nofollow
+        noindex
+      />
 
       <PageContainer topPadded className="g-bg-white g-pb-10">
         <ArticleTextContainer className="g-mb-2">
-          <ArticleTitle>Occurrence Snapshots</ArticleTitle>
+          <ArticleTitle>
+            <FormattedMessage id="occurrenceSnapshots.title" />
+          </ArticleTitle>
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-10">
-          Periodic exports of GBIF occurrence data
+          <FormattedMessage id="occurrenceSnapshots.intro" />
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-10">
-          {' '}
-          Every month GBIF takes a full occurrence snapshot, saved in different formats to ease
-          usage. All snapshots are issued with a DOI to simplify citation, and some formats are
-          copied to public clouds for easy use on those environments.
+          <FormattedMessage id="occurrenceSnapshots.description" />
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-2">
-          <ArticleTitle>Cloud-based datasets</ArticleTitle>
+          <ArticleTitle>
+            <FormattedMessage id="occurrenceSnapshots.cloudDatasets.title" />
+          </ArticleTitle>
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-8">
-          GBIF makes data available on the{' '}
-          <a href="https://planetarycomputer.microsoft.com/dataset/gbif">
-            Microsoft Planetary Computer (Azure)
-          </a>
-          , as an <a href="https://registry.opendata.aws/gbif/">Amazon AWS Open Dataset</a> and on a
-          public Google{' '}
-          <a href="https://console.cloud.google.com/storage/browser/public-datasets-gbif">
-            GCS bucket
-          </a>{' '}
-          and{' '}
-          <a href="https://console.cloud.google.com/marketplace/product/bigquery-public-data/gbif-occurrences">
-            BigQuery table
-          </a>
-          . When using cloud-based snapshots, we always recommend creating a{' '}
-          <a href="https://www.gbif.org/citation-guidelines#derivedDatasets">
-            Derived Dataset citation
-          </a>{' '}
-          for the records that you use. When referring to the full dataset, please use the
-          appropriate citation found below.
+          <FormattedMessage
+            id="occurrenceSnapshots.cloudDatasets.description"
+            values={{
+              azure: link('https://planetarycomputer.microsoft.com/dataset/gbif'),
+              aws: link('https://registry.opendata.aws/gbif/'),
+              gcs: link('https://console.cloud.google.com/storage/browser/public-datasets-gbif'),
+              bq: link(
+                'https://console.cloud.google.com/marketplace/product/bigquery-public-data/gbif-occurrences'
+              ),
+              derived: link('https://www.gbif.org/citation-guidelines#derivedDatasets'),
+            }}
+          />
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-10">
           <OccurrenceSnapshotsTable
@@ -103,11 +99,12 @@ const OccurrenceSnapshots = () => {
           />
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-2">
-          <ArticleTitle>Monthly snapshot datasets</ArticleTitle>
+          <ArticleTitle>
+            <FormattedMessage id="occurrenceSnapshots.monthly.title" />
+          </ArticleTitle>
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-8">
-          The monthly exports of GBIF are listed below, available in various formats. Please see the
-          citation on each page.
+          <FormattedMessage id="occurrenceSnapshots.monthly.description" />
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-2">
           <OccurrenceSnapshotsTable results={data?.occurrenceSnapshots?.results} />
@@ -120,7 +117,6 @@ const OccurrenceSnapshots = () => {
 export const occurrenceSnapshotsRoute: RouteObjectWithPlugins = {
   id: 'occurrence-snapshots',
   element: <OccurrenceSnapshots />,
-  /*   loader: occurrenceSnapshotsLoader,
-   */ loadingElement: <ArticleSkeleton />,
+  loadingElement: <ArticleSkeleton />,
   path: 'occurrence-snapshots',
 };

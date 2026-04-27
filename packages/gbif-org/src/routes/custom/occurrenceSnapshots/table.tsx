@@ -1,15 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ShortDate } from '@/components/dateFormats';
 import { Paging } from '../../taxon/key/VernacularNameTable';
 import { useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { DownloadResult } from '../../user/downloads/downloadResult';
-const columns = ['Date', 'Format', 'Citation', 'Filters'];
+const columns = ['date', 'format', 'citation', 'filters'];
 
 const OccurrenceSnapshotsTable = ({ results }) => {
+  const { formatMessage } = useIntl();
   const [offset, setOffset] = useState(0);
   const [dialogContent, setDialogContent] = useState(null);
   const limit = 10;
@@ -26,7 +27,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
                   className="g-p-4 g-text-left g-whitespace-nowrap "
                   style={{ width: `${100 / columns.length}%` }}
                 >
-                  {col}
+                  <FormattedMessage id={`occurrenceSnapshots.table.columns.${col}`} />
                 </th>
               ))}
             </tr>
@@ -70,7 +71,8 @@ const OccurrenceSnapshotsTable = ({ results }) => {
                           GBIF.org
                         </a>{' '}
                         (
-                        <ShortDate value={res.created} />) GBIF Occurrence Download{' '}
+                        <ShortDate value={res.created} />){' '}
+                        <FormattedMessage id="occurrenceSnapshots.table.citation" />{' '}
                         <a className="g-link g-text-blue-500" href={`https://doi.org/${res.doi}`}>
                           https://doi.org/{res.doi}
                         </a>
@@ -80,7 +82,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
                   <td>
                     {res?.request?.predicate && (
                       <Button variant="link" onClick={() => setDialogContent(res)}>
-                        Yes
+                        <FormattedMessage id="occurrenceSnapshots.table.hasFilters" />
                       </Button>
                     )}
                   </td>
@@ -103,7 +105,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
       <Dialog open={!!dialogContent} onOpenChange={() => setDialogContent(null)}>
         <DialogContent
           className="gbif g-max-w-3xl g-p-10 g-bg-opacity-100"
-          title="Download details"
+          title={formatMessage({ id: 'occurrenceSnapshots.table.downloadDetails' })}
         >
           <DownloadResult download={dialogContent || {}} />
         </DialogContent>
