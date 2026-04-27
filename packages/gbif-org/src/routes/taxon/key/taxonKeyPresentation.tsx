@@ -206,6 +206,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
               <div className="g-flex-auto g-flex g-flex-col">
                 <div className="g-flex-auto">
                   <ArticlePreTitle
+                    clickable
                     secondary={
                       taxon.taxonomicStatus === 'DOUBTFUL' ? (
                         <HelpLine

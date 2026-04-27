@@ -475,6 +475,7 @@ export function OccurrenceKey() {
               )}
               <div className="g-flex-grow">
                 <ArticlePreTitle
+                  clickable
                   secondary={
                     occurrence.eventDate ? (
                       <FormattedDateRange date={occurrence?.eventDate} />
