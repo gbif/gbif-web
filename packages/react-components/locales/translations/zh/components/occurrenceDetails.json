@@ -20,6 +20,22 @@
   "recordedAndIdentifiedBy": "记录并识别由",
   "tryPublisherSiteForFailingMedia": "",
   "downloadMediaFile": "",
+  "byRightsHolder": "由 {RIGHTSHOLDER}",
+  "licensedUnder": "",
+  "suggestedCitation": "建议的属性",
+  "inCountry": {
+    "PRESERVED_SPECIMEN": "",
+    "FOSSIL_SPECIMEN": "",
+    "LIVING_SPECIMEN": "",
+    "HUMAN_OBSERVATION": "",
+    "MACHINE_OBSERVATION": "",
+    "MATERIAL_SAMPLE": "",
+    "MATERIAL_CITATION": "",
+    "OCCURRENCE": "",
+    "OBSERVATION": "",
+    "LITERATURE": "",
+    "UNKNOWN": ""
+  },
   "screenReader": {
     "title": "发生细节"
   },
