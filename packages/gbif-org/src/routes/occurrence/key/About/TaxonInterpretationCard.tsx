@@ -99,7 +99,7 @@ export function TaxonInterpretationCard({
               {!useChecklistBankLink && !noMatch && (
                 <DynamicLink
                   className="g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
-                  pageId="speciesKey"
+                  pageId="taxonKey"
                   variables={{ key: classification?.usage?.key }}
                   dangerouslySetInnerHTML={{
                     __html:
@@ -152,7 +152,7 @@ export function TaxonInterpretationCard({
                 <span className="g-text-slate-600 g-font-medium">
                   accepted name:{' '}
                   <DynamicLink
-                    pageId="speciesKey"
+                    pageId="taxonKey"
                     className="g-underline"
                     variables={{ key: classification.acceptedUsage.key }}
                   >

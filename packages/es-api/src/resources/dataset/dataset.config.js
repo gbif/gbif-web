@@ -128,6 +128,10 @@ const config = {
       type: 'keyword',
       field: 'installationTitle',
     },
+    dwcaExtension: {
+      type: 'keyword',
+      field: 'dwca.extensions',
+    },
     institutionKey: {
       type: 'keyword',
       field: 'institutionKey',

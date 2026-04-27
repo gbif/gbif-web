@@ -1,16 +1,10 @@
 import { Classification } from '@/components/classification';
-import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
+import { SuggestFnProps, SuggestionItem, SuggestResponseType } from '@/components/filters/suggest';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { GraphQLService } from '@/services/graphQLService';
 import { FormattedMessage } from 'react-intl';
 import { CANCEL_REQUEST, fetchWithCancel } from './fetchWithCancel';
 import { stringify } from './querystring';
-
-export type SuggestionItem = {
-  key: string;
-  title?: string;
-  description?: string;
-};
 
 export type SuggestConfig = {
   render?: (item: SuggestionItem) => React.ReactNode;
@@ -232,7 +226,6 @@ export const taxonKeySuggest = {
       .then((res) => res.json())
       .then((data) => {
         return data.map((item: { key: string; scientificName: string }) => ({
-          key: item?.key,
           title: item?.scientificName,
           ...item,
         }));
@@ -243,20 +236,24 @@ export const taxonKeySuggest = {
 
 export type TaxonSuggestType = SuggestFnProps & { checklistKey?: string | number };
 
+// https://api.gbif-dev.org/v2/taxon/suggest/90d9e8a6-0ce1-472d-b682-3451095dbc5a?q=Ernobius%20tabidus
+
 export const taxonKeyClbSuggest = {
   render: (item: SuggestionItem) => {
-    const isSynonym = ['ambiguous synonym', 'synonym'].includes(item.status);
-    const notAccepted = item?.status !== 'accepted';
+    const isSynonym = item.isSynonym;
+    const notAccepted = item?.taxonomicStatus !== 'ACCEPTED';
     return (
       <div>
-        {item.match}
+        {item.scientificName}
         <div style={{ maxWidth: '100%', fontSize: '0.85em' }}>
-          {isSynonym && <div className="g-text-orange-500">Synonym for {item.acceptedName}</div>}
+          {isSynonym && (
+            <div className="g-text-orange-500">Synonym for {item.acceptedNameUsage}</div>
+          )}
           {notAccepted && !isSynonym && (
             <div className="g-text-orange-500">
               <FormattedMessage
-                id={`enums.clbTaxonomicStatus.${(item?.status ?? '').replace(' ', '_')}`}
-                defaultMessage={item?.status}
+                id={`enums.clbTaxonomicStatus.${(item?.taxonomicStatus ?? '').replace(' ', '_')}`}
+                defaultMessage={item?.taxonomicStatus}
               />
             </div>
           )}
@@ -278,47 +275,74 @@ export const taxonKeyClbSuggest = {
     checklistKey,
     intl,
   }: TaxonSuggestType): SuggestResponseType => {
-    const abortController = new AbortController();
-    const graphqlService = new GraphQLService({
-      endpoint: siteConfig.graphqlEndpoint,
-      abortSignal: abortController.signal,
-      locale: 'en',
-    });
-
-    const SEARCH = `
-      query($checklistKey: ID!, $q: String!) {
-        clbNameUsageSuggest(q: $q, checklistKey: $checklistKey) {
-          match
-          usageId
-          acceptedUsageId
-          acceptedName
-          rank
-          status
-          suggestion
-          context
-        }
-      }   
-    `;
-    const promise = graphqlService.query(SEARCH, {
-      q,
-      checklistKey: checklistKey,
-    });
-    return {
-      promise: promise
-        .then((res) => res.json())
-        .then((response) => {
-          return (response.data?.clbNameUsageSuggest ?? []).map((i) => ({
-            ...i,
-            title: i.suggestion,
-            key: i.usageId,
+    const { cancel, promise } = fetchWithCancel(
+      `${siteConfig.v2Endpoint}/taxon/suggest/${checklistKey}?limit=20&q=${q}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then((data) => {
+        return data.map(
+          (item: {
+            taxonID: string;
+            scientificName: string;
+            taxonRank: string;
+            taxonomicStatus: string;
+            acceptedNameUsage?: string;
+            acceptedNameUsageID?: string;
+          }) => ({
+            title: item?.scientificName,
+            key: item?.taxonID,
+            isSynonym: !!item.acceptedNameUsageID,
             rankLabel: intl.formatMessage({
-              id: `enums.taxonRank.${i.rank.toUpperCase()}`,
-              defaultMessage: i.rank,
+              id: `enums.taxonRank.${item.taxonRank}`,
+              defaultMessage: item.taxonRank,
             }),
-          }));
-        }),
-      cancel: () => abortController.abort(CANCEL_REQUEST),
-    };
+            ...item,
+          })
+        );
+      });
+    return { cancel, promise: result };
+    // const abortController = new AbortController();
+    // const graphqlService = new GraphQLService({
+    //   endpoint: siteConfig.graphqlEndpoint,
+    //   abortSignal: abortController.signal,
+    //   locale: 'en',
+    // });
+
+    // const SEARCH = `
+    //   query($checklistKey: ID!, $q: String!) {
+    //     clbNameUsageSuggest(q: $q, checklistKey: $checklistKey) {
+    //       match
+    //       usageId
+    //       acceptedUsageId
+    //       acceptedName
+    //       rank
+    //       status
+    //       suggestion
+    //       context
+    //     }
+    //   }
+    // `;
+    // const promise = graphqlService.query(SEARCH, {
+    //   q,
+    //   checklistKey: checklistKey,
+    // });
+    // return {
+    //   promise: promise
+    //     .then((res) => res.json())
+    //     .then((response) => {
+    //       return (response.data?.clbNameUsageSuggest ?? []).map((i) => ({
+    //         ...i,
+    //         title: i.suggestion,
+    //         key: i.usageId,
+    //         rankLabel: intl.formatMessage({
+    //           id: `enums.taxonRank.${i.rank.toUpperCase()}`,
+    //           defaultMessage: i.rank,
+    //         }),
+    //       }));
+    //     }),
+    //   cancel: () => abortController.abort(CANCEL_REQUEST),
+    // };
   },
 };
 

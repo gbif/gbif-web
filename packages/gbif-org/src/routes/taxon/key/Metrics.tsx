@@ -1,21 +1,23 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
-import { Taxa } from '@/components/dashboard/Taxonomy';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useTaxonKeyLoaderData } from '.';
-import { useIsFamilyOrAbove } from './taxonUtil';
+import { useIsFamilyOrAbove, useNextMajorRank } from '@/hooks/taxonomyRankHooks';
+
 export default function Metrics() {
   const { data } = useTaxonKeyLoaderData();
+  const taxon = data?.taxonInfo?.taxon;
 
-  const { taxon } = data;
-  const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
+  const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.taxonRank ?? '');
+  const nextMajorRank = useNextMajorRank(taxon?.taxonRank ?? 'GENUS');
 
   const predicate = {
     type: 'equals',
     key: 'taxonKey',
-    value: taxon?.key,
+    value: taxon?.taxonID,
+    checklistKey: taxon?.datasetKey,
   };
 
   if (!taxon) return null;
@@ -26,7 +28,12 @@ export default function Metrics() {
           {isFamilyOrAbove && (
             <DashBoardLayout>
               {/* <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" /> */}
-              <Taxa predicate={predicate} className="g-mb-4" />
+
+              <charts.Taxa
+                predicate={predicate}
+                className="g-mb-4"
+                defaultRank={nextMajorRank?.toLowerCase()}
+              />
 
               <charts.DataQuality predicate={predicate} className="g-mb-4" />
               <charts.Months predicate={predicate} className="g-mb-4" />

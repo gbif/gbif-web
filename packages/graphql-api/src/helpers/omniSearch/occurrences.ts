@@ -59,12 +59,16 @@ async function search(
   const { signal } = controller;
   setTimeout(() => controller.abort(), OMNI_SEARCH_TIMEOUT);
 
-  const url = `${config.apiv1}/occurrence/search/${field}?limit=2&q=${query}`;
+  const url = `${
+    config.apiv1
+  }/occurrence/search/${field}?limit=2&q=${encodeURIComponent(query)}`;
+
   try {
     const response = await fetch(url, { signal });
     if (response.ok) {
       return response.json().then((data) => filterResults(query, data));
     }
+
     return undefined;
   } catch (error) {
     return undefined;

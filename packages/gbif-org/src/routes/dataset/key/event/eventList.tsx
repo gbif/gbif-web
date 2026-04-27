@@ -7,7 +7,7 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Paging } from '../../../taxon/key/VernacularNameTable';
+import { Paging } from '@/components/paging';
 
 const DEFAULT_LIMIT = 10;
 

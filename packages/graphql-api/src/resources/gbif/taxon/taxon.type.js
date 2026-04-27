@@ -2,60 +2,161 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    taxonSearch(
-      limit: Int
-      offset: Int
-      q: String
-      datasetKey: [ID]
-      rank: [Rank]
-      higherTaxonKey: [ID]
-      status: [TaxonomicStatus]
-      isExtinct: Boolean
-      habitat: [Habitat]
-      origin: [Origin]
-      nameType: [NameType]
-      nomenclaturalStatus: [NomenclaturalStatus]
-      issue: [NameUsageIssue]
-      hl: Boolean
-      qField: [TaxonSearchQField]
-      query: TaxonSearchInput
-    ): TaxonSearchResult
-    backboneSearch(
-      limit: Int
-      offset: Int
-      q: String
-      rank: [Rank]
-      higherTaxonKey: [ID]
-      status: [TaxonomicStatus]
-      isExtinct: Boolean
-      habitat: [Habitat]
-      nameType: [NameType]
-      nomenclaturalStatus: [NomenclaturalStatus]
-      issue: [NameUsageIssue]
-      hl: Boolean
-      qField: [TaxonSearchQField]
-      query: TaxonSearchInput
-    ): TaxonSearchResult
-    taxon(key: ID!): Taxon
-    checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
-
-    """
-    Unstable endpoint! Will return a list of taxon suggestions based on the provided query string. The returned taxonKeys are for the backbone. The datasetKey parameter can be used to restrict the suggestions to a specific checklist, but the results will be matched to the backbone and discarded if there is no match. The limit parameter is indicative only, as the number of results returned may be less than the limit if there are no matches in the backbone or if there is duplicate matches.
-    """
-    taxonSuggestions(
-      limit: Int
-      q: String
-      language: Language
-      preferAccepted: Boolean
-      vernacularNamesOnly: Boolean
-      strictMatching: Boolean
-      checklistKey: ID
-      taxonScope: [ID!]
-    ): [TaxonSuggestion]!
-
-    taxonBySourceId(sourceId: ID!, datasetKey: ID!): Taxon
+    taxonInfo(datasetKey: ID, key: ID!): TaxonInfo
+    taxon(datasetKey: ID, key: ID!): TaxonSimple
     speciesMatchByUsageKey(usageKey: ID!, checklistKey: ID): SpeciesMatchResult
     checklistMetadata(checklistKey: ID!): ChecklistMeta
+    taxonSearch(
+      datasetKey: ID
+      taxonRank: [String]
+      taxonID: [ID]
+      taxonomicStatus: [String]
+      extinct: Boolean
+      nameType: [String]
+      code: [String]
+      origin: [String]
+      group: [String]
+      authorship: [String]
+      authorshipYear: [Int]
+      issue: [String]
+      q: String
+
+      searchType: TaxonSearchQType
+      sortBy: TaxonSearchSortBy
+      reverse: Boolean
+      limit: Int
+      offset: Int
+      facet: [String]
+      facetMinCount: Int
+      facetMultiselect: Boolean
+      facetLimit: Int
+      facetOffset: Int
+      query: TaxonSearchInput
+    ): TaxonSearchResult
+    datasetRoots(datasetKey: ID, limit: Int, offset: Int): TaxonTreeResults
+  }
+
+  enum TaxonSearchQType {
+    WORDS
+    EXACT
+    FUZZY
+  }
+
+  enum TaxonSearchSortBy {
+    NAME
+    TAXONOMIC
+    RELEVANCE
+  }
+
+  input TaxonSearchInput {
+    datasetKey: ID
+    taxonRank: [String]
+    taxonId: [ID]
+    taxonomicStatus: [String]
+    extinct: Boolean
+    nameType: [String]
+    code: [String]
+    origin: [String]
+    group: [String]
+    authorship: [String]
+    authorshipYear: [Int]
+    issue: [String]
+    q: String
+
+    searchType: TaxonSearchQType
+    sortBy: TaxonSearchSortBy
+    reverse: Boolean
+    limit: Int
+    offset: Int
+    facet: [String]
+    facetMinCount: Int
+    facetMultiselect: Boolean
+    facetLimit: Int
+    facetOffset: Int
+  }
+
+  type TaxonSearchResult {
+    results: [TaxonResult!]!
+    limit: Int!
+    offset: Int!
+    count: Int!
+    endOfRecords: Boolean!
+    facet: TaxonFacet
+    _query: JSON
+  }
+
+  type TaxonResult {
+    taxon: TaxonSimple!
+    classification: [TaxonClassification!]!
+    vernacularNames: [VernacularName!]!
+    """
+    Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
+    """
+    vernacularName(language: String): VernacularName
+  }
+
+  type TaxonFacet {
+    taxonRank(limit: Int, offset: Int): [TaxonFacetResult]
+    taxonomicStatus(limit: Int, offset: Int): [TaxonFacetResult]
+    taxonId(limit: Int, offset: Int): [TaxonFacetResult_taxonId]
+    issue(limit: Int, offset: Int): [TaxonFacetResult]
+  }
+
+  type TaxonFacetResult {
+    name: String!
+    count: Int!
+    _query: JSON
+  }
+
+  type TaxonFacetResult_taxonId {
+    name: String!
+    count: Int!
+    _query: JSON
+    taxon: TaxonInfo
+    taxonSearch(
+      datasetKey: [ID]
+      rank: [String]
+      taxonId: [ID]
+      status: [String]
+      extinct: Boolean
+      nameType: [String]
+      code: [String]
+      origin: [String]
+      group: [String]
+      authorship: [String]
+      authorshipYear: [Int]
+      issue: [String]
+      q: String
+
+      limit: Int
+      offset: Int
+      facet: [String]
+      facetMinCount: Int
+      facetMultiselect: Boolean
+      facetLimit: Int
+      facetOffset: Int
+      query: TaxonSearchInput
+    ): TaxonSearchResult
+  }
+
+  type TaxonTreeResults {
+    offset: Int
+    limit: Int
+    endOfRecords: Boolean
+    count: Int
+    results: [TaxonTreeItem!]!
+  }
+
+  type TaxonTreeItem {
+    taxonID: ID!
+    parentNameUsageID: ID
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String!
+    label: String!
+    children: Int!
+    species: Int!
   }
 
   type ChecklistMeta {
@@ -66,120 +167,6 @@ const typeDef = gql`
     clbDatasetKey: ID!
     datasetTitle: String!
     version: String
-  }
-
-  input TaxonSearchInput {
-    limit: Int
-    offset: Int
-    q: String
-    datasetKey: [ID]
-    rank: [Rank]
-    higherTaxonKey: [ID]
-    status: [TaxonomicStatus]
-    isExtinct: Boolean
-    habitat: [Habitat]
-    origin: [Origin]
-    nameType: [NameType]
-    nomenclaturalStatus: [NomenclaturalStatus]
-    issue: [NameUsageIssue]
-    hl: Boolean
-    qField: [TaxonSearchQField]
-  }
-
-  type TaxonSearchResult {
-    results: [Taxon]!
-    limit: Int!
-    offset: Int!
-    count: Int!
-    endOfRecords: Boolean!
-    facet: TaxonFacet
-    _query: JSON
-  }
-
-  type TaxonListResult {
-    results: [Taxon!]!
-    limit: Int!
-    offset: Int!
-    endOfRecords: Boolean!
-  }
-
-  type Taxon {
-    key: Int!
-    nubKey: Int
-
-    kingdom: String
-    phylum: String
-    class: String
-    order: String
-    family: String
-    genus: String
-    species: String
-    kingdomKey: Int
-    phylumKey: Int
-    classKey: Int
-    orderKey: Int
-    familyKey: Int
-    genusKey: Int
-    speciesKey: Int
-
-    accepted: String
-    acceptedKey: Int
-    basionymKey: Int
-    authorship: String
-    canonicalName: String
-    constituentKey: ID
-    constituent: Dataset
-    constituentTitle: String
-    datasetKey: ID
-    dataset: Dataset
-    datasetTitle: String!
-    issues: [String]
-
-    lastCrawled: String
-    lastInterpreted: String
-    nameKey: Int
-    nameType: NameType
-    nomenclaturalStatus: [NomenclaturalStatus]
-    numDescendants: Int
-    origin: Origin
-    parent: String
-    parentKey: Int
-    publishedIn: String
-    rank: Rank
-    references: String
-    remarks: String
-    scientificName: String
-    formattedName(useFallback: Boolean): String
-    sourceTaxonKey: Int
-    synonym: Boolean
-    taxonID: String
-    taxonomicStatus: String
-    vernacularName: String
-    """
-    If hl is true, this field contains the highlights from the search query.
-    """
-    highlights: JSON
-    wikiData: WikiDataTaxonData
-    backboneTaxon: Taxon
-    acceptedTaxon: Taxon
-    """
-    This is an experiment that might be stopped at any time. It is not part of the stable API. It will attempt ti find a nice image to represent the taxon.
-    """
-    taxonImages_volatile(size: Int): [Image]!
-    taxonOccurrenceMedia(
-      limit: Int
-      offset: Int
-      mediaType: MediaType
-    ): TaxonOccurrenceMedia
-    speciesCount: Int
-    checklistBankBreakdown: [ClbBreakdownTaxon]
-    invasiveInCountries: [InvasiveInCountry]
-    iucnStatus: IUCNstatus
-
-    """
-    Get capabilities from map server
-    """
-    mapCapabilities: MapCapabilities
   }
 
   """
@@ -229,87 +216,287 @@ const typeDef = gql`
     children: [ClbBreakdownTaxon]
   }
 
-  type InvasiveInCountry {
-    country: String!
-    isSubCountry: Boolean
-    datasetKey: String!
-    dataset: String
-    scientificName: String
-    nubKey: ID!
-    taxonKey: ID!
-    isInvasive: Boolean
+  type MeasurementOrFact {
+    measurementType: String
+    measurementValue: String
+    measurementRemarks: String
   }
 
-  type IUCNstatus {
-    distribution: TaxonDistribution
+  type Bibliography {
+    referenceID: ID!
+    doi: String
+    citation: String!
+    remarks: String
+    """
+    Indicates whether the taxon name was published in a specific source according to the field namePublishedInID. This is a derived field that checks if the taxon's namePublishedInID matches the referenceID of any bibliography entry.
+    """
+    isNamePublishedIn: Boolean
+  }
+
+  type Distribution {
+    locationID: String
+    locality: String
+    countryCode: String
+    lifeStage: String
+    establishmentMeans: String
+    degreeOfEstablishment: String
+    pathway: String
+    threatStatus: String
+    eventDate: String
+    referenceID: ID
+    remarks: String
+  }
+
+  type Media {
+    identifier: String
+    type: String
+    title: String
+    created: String
+    creator: String
+    license: String
     references: String
+    source: String
+    remarks: String
+  }
+
+  type VernacularName {
+    vernacularName: String
+    language: String
+    temporal: String
+    locality: String
+    countryCode: String
+    sex: String
+    preferredName: Boolean
+    source: String
+    remarks: String
+  }
+
+  type TaxonClassification {
+    taxonID: ID!
+    acceptedNameUsageID: ID
+    parentNameUsageID: ID
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String
+    taxonomicStatus: String
+    nomenclaturalCode: String
+    label: String
+  }
+
+  type TaxonSynonyms {
+    heterotypic: [[Synonym!]]!
+    homotypic: [Synonym!]!
+  }
+
+  type Synonym {
+    taxonID: ID!
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String
+    taxonomicStatus: String
+    nomenclaturalCode: String
+    label: String
+    """
+    Indicates whether the homotypic synonym is the original name usage according to the field originalNameUsageID. This is a derived field that checks if the synonym's taxonID matches the taxon's originalNameUsageID.
+    """
+    isOriginalNameUsage: Boolean
+  }
+
+  type TaxonSimple {
+    datasetKey: ID!
+    taxonID: ID!
+    acceptedNameUsageID: ID
+    parentNameUsageID: ID
+    scientificName: String!
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String!
+    nomenclaturalCode: String
+    extinct: Boolean
+    references: String
+    label: String!
+    mapCapabilities: MapCapabilities
+
+    acceptedNameUsage: String
+
+    dataset: Dataset
+    acceptedTaxon: TaxonSimple
+    occurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
+    breakdown(sortByCount: Boolean): TaxonBreakdown
+    wikiData: WikiDataTaxonData
+    relatedInfo: RelatedTaxonInfo
+    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
+    children(limit: Int, offset: Int): Children
+    parentTree: [TaxonChild!]
+  }
+
+  type TaxonFull {
+    datasetKey: ID!
+    taxonID: ID!
+    acceptedNameUsageID: ID
+    parentNameUsageID: ID
+    scientificName: String!
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String!
+    nomenclaturalCode: String
+    extinct: Boolean
+    label: String!
+    scientificNameID: ID!
+    acceptedNameUsage: String
+    parentNameUsage: String
+    originalNameUsageID: ID
+    originalNameUsage: String
+    nameAccordingTo: String
+    namePublishedInID: String
+    namePhrase: String
+    nomenclaturalStatus: String
+    nameType: String!
+    taxonomicGroup: String
+    genericName: String
+    infragenericEpithet: String
+    specificEpithet: String
+    infraspecificEpithet: String
+    cultivarEpithet: String
+    sourceDatasetKey: String
+    sourceID: ID
+    references: String
+    taxonRemarks: String
+    issues: [String]
+
+    dataset: Dataset
+    acceptedTaxon: TaxonSimple
+    occurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
+    breakdown(sortByCount: Boolean): TaxonBreakdown
+    wikiData: WikiDataTaxonData
+    relatedInfo: RelatedTaxonInfo
+    related(datasetType: RelatedDatasetType): [TaxonSimple!]!
+    children(limit: Int, offset: Int): Children
+    parentTree: [TaxonChild!]
+    mapCapabilities: MapCapabilities
+  }
+
+  type Children {
+    offset: Int!
+    limit: Int!
+    endOfRecords: Boolean!
+    count: Int!
+    results: [TaxonChild!]!
+  }
+
+  type TaxonChild {
+    taxonID: ID!
+    parentNameUsageID: ID
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String
+    label: String
+    children: Int
+    species: Int
+    childrenTree(limit: Int, offset: Int): Children
+  }
+
+  enum RelatedDatasetType {
+    ARTICLE
+  }
+
+  type RelatedTaxonInfo {
+    redlist: Redlist
+    griis: [Griis!]
+  }
+
+  type Redlist {
+    datasetKey: ID!
+    taxonID: ID
+    parentNameUsageID: ID
+    scientificName: String
+    scientificNameAuthorship: String
+    taxonRank: String
+    taxonomicStatus: String
+    nomenclaturalCode: String
+    references: String
+    label: String
+    threatStatus: String
+  }
+
+  type Griis {
+    datasetKey: ID!
+    taxonID: ID!
+    locality: String
+    locationID: String
+    countryCode: String
+    establishmentMeans: String
+    pathway: String
+    eventDate: String
+    source: String
+    isInvasive: Boolean
+
+    dataset: Dataset
+    isCountry: Boolean!
   }
 
   type TaxonBreakdown {
-    name: String!
-    count: Int!
-    _query: JSON
-    taxonSearch(
-      limit: Int
-      offset: Int
-      q: String
-      datasetKey: [ID]
-      rank: [Rank]
-      higherTaxonKey: [ID]
-      status: [TaxonomicStatus]
-      isExtinct: Boolean
-      habitat: [Habitat]
-      nameType: [NameType]
-      nomenclaturalStatus: [NomenclaturalStatus]
-      issue: [NameUsageIssue]
-      hl: String
-    ): TaxonSearchResult!
-    taxon: Taxon
-  }
-
-  type TaxonFacet {
-    rank(limit: Int, offset: Int): [TaxonFacetResult]
-    status(limit: Int, offset: Int): [TaxonFacetResult]
-    higherTaxonKey(limit: Int, offset: Int): [TaxonBreakdown]
-    issue(limit: Int, offset: Int): [TaxonFacetResult]
-  }
-
-  type TaxonFacetResult {
-    name: String!
-    count: Int!
-    _query: JSON
-    taxonSearch(
-      limit: Int
-      offset: Int
-      q: String
-      datasetKey: [ID]
-      rank: [Rank]
-      higherTaxonKey: [Int]
-      status: [TaxonomicStatus]
-      isExtinct: Boolean
-      habitat: [Habitat]
-      nameType: [NameType]
-      nomenclaturalStatus: [NomenclaturalStatus]
-      issue: [NameUsageIssue]
-      hl: String
-    ): TaxonSearchResult!
-  }
-
-  enum TaxonSearchQField {
-    DESCRIPTION
-    VERNACULAR
-    SCIENTIFIC
-  }
-
-  type TaxonSuggestion {
-    key: ID!
+    taxonID: ID!
+    taxonRank: String
     scientificName: String
-    canonicalName: String
-    rank: String
-    classification: [Classification]
-    vernacularName: String
-    taxonomicStatus: String
-    acceptedNameOf: String
+    species: Int
+    breakdown: [TaxonBreakdown]
+  }
+
+  type TaxonOccurrenceMedia {
+    taxonKey: ID!
+    mediaType: MediaType
+    offset: Int!
+    limit: Int!
+    count: Int
+    endOfRecords: Boolean!
+    results: [TaxonOccurrenceMediaResult!]!
+  }
+
+  type TaxonOccurrenceMediaResult {
+    occurrenceKey: ID!
+    identifier: String
+    rightsHolder: String
+    license: String
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
+  }
+
+  type TaxonInfo {
+    group: String
+    groupIconSVG: String
+    checklistBankLink: String
+    # environment: [String]!
+    measurementOrFacts: [MeasurementOrFact!]
+    bibliography: [Bibliography!]!
+    distributions: [Distribution!]
+    media(limit: Int): [Media!]
+    vernacularNames: [VernacularName!]
+    classification: [TaxonClassification!]
+    synonyms: TaxonSynonyms
+    taxon: TaxonFull
+
+    namePublishedIn: String
+    """
+    Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
+    """
+    vernacularName(language: String): VernacularName
+    """
+    Shortcut to get scientific name from the taxon object.
+    """
+    scientificName: String
+    """
+    Shortcut to get scientific name from the taxon object.
+    """
+    label: String
   }
 `;
 

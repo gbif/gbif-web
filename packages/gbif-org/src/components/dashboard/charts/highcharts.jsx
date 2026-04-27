@@ -137,13 +137,13 @@ export function generateChartsPalette(userPalette) {
   return [
     ...palette,
     // for 1-20 generate a color based on the index
-    ...Array.from({ length: palette.length }, (_, i) => {
-      const paletteIndex = i % palette.length;
-      const patternIndex = i % patterns.length;
-      const patternColor = JSON.parse(JSON.stringify(patterns[patternIndex]));
-      patternColor.pattern.path.stroke = palette[paletteIndex];
-      return patternColor;
-    }),
+    // ...Array.from({ length: palette.length }, (_, i) => {
+    //   const paletteIndex = i % palette.length;
+    //   const patternIndex = i % patterns.length;
+    //   const patternColor = JSON.parse(JSON.stringify(patterns[patternIndex]));
+    //   patternColor.pattern.path.stroke = palette[paletteIndex];
+    //   return patternColor;
+    // }),
   ];
 }
 

@@ -1,16 +1,15 @@
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { redirectDocument } from 'react-router-dom';
 import TaxonKeyAbout from './About';
 import Metrics from './Metrics';
-import VerbatimTaxon from './Verbatim';
 import { TaxonKey, taxonLoader } from './taxonKey';
-const id = 'speciesKey';
+
+const id = 'taxonKey';
 
 export const taxonKeyRoute: RouteObjectWithPlugins = {
   id,
-  path: 'species/:key',
+  path: 'taxon/:key',
   gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
     if (!key) return null; // handle dataset/:key/species
     if (typeof key !== 'string' && typeof key !== 'number')
@@ -39,11 +38,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'verbatim',
-      element: (
-        <ErrorBoundary type="PAGE" errorMessage="taxon.errors.verbatim">
-          <VerbatimTaxon />
-        </ErrorBoundary>
-      ),
+      loader: () => redirectDocument('../'),
     },
   ],
 };

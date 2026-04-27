@@ -1,1 +1,1 @@
-export { TaxonTree } from './tree';
+export { TaxonTree, SearchPageTree } from './tree';

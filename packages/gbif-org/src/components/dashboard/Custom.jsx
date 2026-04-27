@@ -101,7 +101,7 @@ function TaxaMain({
           <span>
             {x?.entity?.usage.name}{' '}
             <DynamicLink
-              pageId="speciesKey"
+              pageId="taxonKey"
               variables={{ key: x?.key.toString(), checklistKey: x.entity.checklistKey }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -208,10 +208,10 @@ function TaxaMain({
   );
 }
 
-export function Taxa(props) {
+export function Taxa({ defaultRank, ...props }) {
   return (
     <ChartClickWrapper {...props}>
-      <TaxaMain />
+      <TaxaMain defaultRank={defaultRank} />
     </ChartClickWrapper>
   );
 }

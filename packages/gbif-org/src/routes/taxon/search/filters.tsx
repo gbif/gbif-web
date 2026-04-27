@@ -4,6 +4,7 @@ import {
   TaxonRankLabel,
   TaxonStatusLabel,
   TaxonKeyLabel,
+  TaxonLabel,
 } from '@/components/filters/displayNames';
 import {
   filterConfigTypes,
@@ -11,6 +12,7 @@ import {
   filterFreeTextConfig,
   FilterSetting,
   filterSuggestConfig,
+  filterTaxonConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
@@ -18,7 +20,8 @@ import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
 
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { taxonKeySuggest } from './higherTaxonKeySuggest';
+import { taxonIdSuggest } from './taxonIdSuggest';
+import { taxonKeyClbSuggest } from '@/utils/suggestEndpoints';
 
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -27,9 +30,9 @@ const freeTextConfig: filterFreeTextConfig = {
   filterTranslation: 'filters.q.name',
 };
 
-export const rankConfig: filterEnumConfig = {
+export const taxonRankConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
-  filterHandle: 'rank',
+  filterHandle: 'taxonRank',
   displayName: TaxonRankLabel,
   // options: taxonRankOptions,
   filterTranslation: 'filters.taxonRank.name',
@@ -37,7 +40,7 @@ export const rankConfig: filterEnumConfig = {
     query TaxonRankFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: rank(limit: 100) {
+          field: taxonRank(limit: 100) {
             name
             count
           }
@@ -48,9 +51,9 @@ export const rankConfig: filterEnumConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
-export const statusConfig: filterEnumConfig = {
+export const taxonomicStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
-  filterHandle: 'status',
+  filterHandle: 'taxonomicStatus',
   displayName: TaxonStatusLabel,
   options: taxonStatusOptions,
   filterTranslation: 'filters.taxonomicStatus.name',
@@ -58,7 +61,7 @@ export const statusConfig: filterEnumConfig = {
     query TaxonStatusFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: status(limit: 100) {
+          field: taxonomicStatus(limit: 100) {
             name
             count
           }
@@ -90,23 +93,24 @@ export const issuesConfig: filterEnumConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
-export const highertaxonKeyConfig = {
-  filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'higherTaxonKey',
-  displayName: TaxonKeyLabel,
-  filterTranslation: 'filters.higherTaxonKey.name',
-  suggestConfig: taxonKeySuggest,
+export const taxonIdConfig: filterTaxonConfig = {
+  filterType: filterConfigTypes.TAXON,
+  filterHandle: 'taxonId',
+  displayName: TaxonLabel,
+  filterTranslation: 'filters.taxonKey.name',
+  // suggestConfig: taxonIdSuggest,
+  suggestConfig: taxonKeyClbSuggest,
   allowExistence: false,
   allowNegations: false,
   facetQuery: `
-    query TaxonStatusFacet($query: TaxonSearchInput) {
+    query TaxonIdFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: higherTaxonKey {
+          field: taxonId {
             name
             count
             item: taxon {
-              formattedName(useFallback: true)
+              title: label
             }
           }
         }
@@ -130,11 +134,15 @@ export function useFilters({
   useEffect(() => {
     const nextFilters = {
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
-      rank: generateFilters({ config: rankConfig, searchConfig, formatMessage }),
-      status: generateFilters({ config: statusConfig, searchConfig, formatMessage }),
+      taxonRank: generateFilters({ config: taxonRankConfig, searchConfig, formatMessage }),
+      taxonomicStatus: generateFilters({
+        config: taxonomicStatusConfig,
+        searchConfig,
+        formatMessage,
+      }),
       issue: generateFilters({ config: issuesConfig, searchConfig, formatMessage }),
-      higherTaxonKey: generateFilters({
-        config: highertaxonKeyConfig,
+      taxonId: generateFilters({
+        config: taxonIdConfig,
         searchConfig,
         formatMessage,
       }),

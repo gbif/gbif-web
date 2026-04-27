@@ -408,16 +408,6 @@ const typeDef = gql`
     Feedback options for the occurrence
     """
     feedback: OccurrenceFeedback
-    """
-    Lists all vernacular names for a name usage. The language paramter isn't supported in the official API, so paging will not work properly when using the language parameter
-    """
-    vernacularNames(
-      limit: Int
-      offset: Int
-      language: String
-      checklistKey: ID
-      removeDuplicates: Boolean
-    ): TaxonVernacularNameResult
   }
 
   type OccurrenceFeatures {

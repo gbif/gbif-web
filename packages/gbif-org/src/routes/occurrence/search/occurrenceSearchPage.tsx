@@ -96,6 +96,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
 
       <section>
         <FilterBarWithActions
+          className="g-px-4"
           filters={filters}
           groups={groups}
           additionalActions={<ChecklistSelector />}

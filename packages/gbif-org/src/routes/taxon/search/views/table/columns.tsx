@@ -7,22 +7,9 @@ import { GoSidebarExpand } from 'react-icons/go';
 import { MdInfoOutline, MdLock, MdLockOpen } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleTaxonSearchResult } from './table';
-import { cn } from '@/utils/shadcn';
-import styles from '@/components/classification.module.css';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
-};
-
-const hasHighlightsInTaxonomy = (taxon) => {
-  if (!taxon) return false;
-  let hl = false;
-  return ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].some((rank) => {
-    if (taxon?.[rank] && taxon?.[rank].includes('<em class="gbifHl">')) {
-      hl = true;
-    }
-    return hl;
-  });
 };
 
 export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSearchResult>[] {
@@ -34,51 +21,38 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
         disableHiding: true,
         minWidth: 250,
         cell: (taxon) => {
-          const vernacular = taxon.vernacularNames?.results?.[0];
-          const highlights = taxon.highlights;
-          const hasHlInTaxonomy = hasHighlightsInTaxonomy(taxon);
+          const vernacular = taxon.vernacularName?.vernacularName;
           return (
             <div className="g-inline-flex g-items-center g-w-full">
-              {typeof showPreview === 'function' && (
-                <button
-                  className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
-                  onClick={(e) => {
-                    // Prevent the parent link from being triggered
-                    if (taxon.key != null) showPreview(taxon?.key?.toString());
-                    e.preventDefault();
-                  }}
-                >
-                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">
-                    <div className="g-flex g-items-center">
-                      <GoSidebarExpand size={16} />
-                    </div>
-                  </SimpleTooltip>
-                </button>
-              )}
+              {typeof showPreview === 'function' &&
+                taxon?.taxon?.datasetKey === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY && (
+                  <button
+                    className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
+                    onClick={(e) => {
+                      // Prevent the parent link from being triggered
+                      if (taxon.taxon?.taxonID != null)
+                        showPreview(taxon?.taxon?.taxonID?.toString());
+                      e.preventDefault();
+                    }}
+                  >
+                    <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">
+                      <div className="g-flex g-items-center">
+                        <GoSidebarExpand size={16} />
+                      </div>
+                    </SimpleTooltip>
+                  </button>
+                )}
               <div>
                 <span
                   className="g-pointer-events-auto"
                   dangerouslySetInnerHTML={{
-                    __html: (taxon.formattedName || taxon.scientificName) as string,
+                    __html: taxon.taxon?.label as string,
                   }}
                 />
                 {vernacular && (
-                  <SimpleTooltip
-                    title={`According to ${vernacular.source}`}
-                    side="right"
-                    delayDuration={500}
-                  >
-                    <div className="g-ml-1 g-text-slate-400 g-flex g-items-center">
-                      <span className="g-me-1">{vernacular.vernacularName}</span>
-                      <MdInfoOutline />
-                    </div>
-                  </SimpleTooltip>
-                )}
-                {!hasHlInTaxonomy && highlights?.descriptions?.length > 0 && (
-                  <div className="g-mt-1 g-text-sm g-text-slate-600">
-                    ...{' '}
-                    <span dangerouslySetInnerHTML={{ __html: highlights.descriptions[0] }}></span>{' '}
-                    ...
+                  <div className="g-ml-1 g-text-slate-400 g-flex g-items-center">
+                    <span className="g-me-1">{vernacular}</span>
+                    <MdInfoOutline />
                   </div>
                 )}
               </div>
@@ -110,39 +84,45 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
         id: 'taxonomicStatus',
         header: 'filters.taxonomicStatus.name',
         filterKey: 'status', // default is same as id
-        cell: ({ taxonomicStatus, accepted, acceptedKey }) => (
-          <div>
-            <SetAsFilter field="status" value={taxonomicStatus}>
-              {taxonomicStatus && (
-                <FormattedMessage id={`enums.taxonomicStatus.${taxonomicStatus}`} />
+        cell: ({ taxon, classification }) => {
+          if (!taxon) return null;
+          const { taxonomicStatus, acceptedNameUsageID } = taxon;
+          const lastClassification = classification?.[classification.length - 1];
+          return (
+            <div>
+              <SetAsFilter field="taxonomicStatus" value={taxonomicStatus}>
+                {taxonomicStatus && (
+                  <FormattedMessage id={`enums.taxonomicStatus.${taxonomicStatus}`} />
+                )}
+              </SetAsFilter>
+              {acceptedNameUsageID && (
+                <div className="g-text-slate-400">
+                  <FormattedMessage id="occurrenceFieldNames.acceptedName" />:{' '}
+                  <DynamicLink
+                    className="g-underline g-pointer-events-auto"
+                    // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
+                    to={`/taxon/${acceptedNameUsageID}`}
+                    pageId="taxonKey"
+                    variables={{ key: acceptedNameUsageID }}
+                  >
+                    {lastClassification?.scientificName}
+                  </DynamicLink>
+                </div>
               )}
-            </SetAsFilter>
-            {accepted && (
-              <div className="g-text-slate-400">
-                <FormattedMessage id="occurrenceFieldNames.acceptedName" />:{' '}
-                <DynamicLink
-                  className="g-underline g-pointer-events-auto"
-                  // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
-                  to={`/species/${acceptedKey}`}
-                  pageId="speciesKey"
-                  variables={{ key: acceptedKey }}
-                >
-                  {accepted}
-                </DynamicLink>
-              </div>
-            )}
-          </div>
-        ),
+            </div>
+          );
+        },
         minWidth: 150,
       },
       {
         id: 'rank',
         header: 'filters.taxonRank.name',
-        cell: ({ rank }) => {
-          if (!rank) return null;
+        cell: ({ taxon }) => {
+          if (!taxon || !taxon.taxonRank) return null;
+          const { taxonRank } = taxon;
           return (
-            <SetAsFilter field="rank" value={rank}>
-              <FormattedMessage id={`enums.taxonRank.${rank}`} />
+            <SetAsFilter field="taxonRank" value={taxonRank}>
+              <FormattedMessage id={`enums.taxonRank.${taxonRank}`} />
             </SetAsFilter>
           );
         },
@@ -151,14 +131,10 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
         id: 'taxonomy',
         header: 'tableHeaders.parents',
         cell: (taxon) => {
-          const classification = [];
-          if (taxon.kingdom) classification.push({ rank: 'KINGDOM', name: taxon.kingdom });
-          if (taxon.phylum) classification.push({ rank: 'PHYLUM', name: taxon.phylum });
-          if (taxon.class) classification.push({ rank: 'CLASS', name: taxon.class });
-          if (taxon.order) classification.push({ rank: 'ORDER', name: taxon.order });
-          if (taxon.family) classification.push({ rank: 'FAMILY', name: taxon.family });
-          if (taxon.genus) classification.push({ rank: 'GENUS', name: taxon.genus });
-          if (taxon.species) classification.push({ rank: 'SPECIES', name: taxon.species });
+          const classification = taxon?.classification?.map((x) => ({
+            rank: x.taxonRank,
+            name: x.scientificName,
+          }));
           return <TaxonClassification classification={classification} majorOnly={true} />;
         },
       },

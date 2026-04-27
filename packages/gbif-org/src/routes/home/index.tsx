@@ -143,8 +143,8 @@ function SearchBar() {
         <HeaderLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT', q }}>
           <FormattedMessage id="catalogues.occurrences" />
         </HeaderLink>
-        <HeaderLink pageId="speciesSearch" searchParams={{ q }}>
-          <FormattedMessage id="catalogues.species" />
+        <HeaderLink pageId="taxonSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.taxa" />
         </HeaderLink>
         <HeaderLink pageId="datasetSearch" searchParams={{ q }}>
           <FormattedMessage id="catalogues.datasets" />

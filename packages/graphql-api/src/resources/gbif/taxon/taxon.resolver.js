@@ -1,13 +1,18 @@
-import axios from 'axios';
-import { GraphQLError } from 'graphql';
-import { NotFoundError } from '@/helpers/GraphQL404Error';
-import { isValidIntegerKey } from '@/helpers/utils';
 import config from '@/config';
 
 const DEFAULT_CHECKLIST_KEY =
   config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
 
-const { treatmentPublishers } = config;
+function stringCompare(a, b) {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
+
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
@@ -25,234 +30,168 @@ const getTaxonFacet =
       facetOffset: offset,
     };
     // query the API, and throw away anything but the facet counts
-    return dataSources.taxonAPI.searchTaxa({ query }).then((data) => [
-      ...data.facets[0].counts.map((facet) => ({
-        ...facet,
-        // attach the query, but add the facet as a filter
-        _query: {
-          ...parent._query,
-          [facetKey]: facet.name,
-        },
-      })),
-    ]);
+    return dataSources.taxonAPI
+      .taxonSearch({ datasetKey: parent._datasetKey, query })
+      .then((data) => [
+        ...data.facets[0].counts.map((facet) => ({
+          ...facet,
+          // attach the query, but add the facet as a filter
+          _query: {
+            ...parent._query,
+            [facetKey]: facet.name,
+          },
+          _datasetKey: parent._datasetKey,
+        })),
+      ]);
   };
-const isInvasiveString = (strVerbatim) => {
-  const str = `${strVerbatim}`.toLowerCase().trim();
-  return str === 'invasive' || str === 'true' || str === 'yes';
-};
-const getInvasiveSpeciesInfo = async (
-  { taxonKey, dataset },
-  args,
-  { dataSources },
-) => {
-  // get species from this dataset that is related to this taxonkey
 
-  const related = await dataSources.taxonAPI.getTaxonDetails({
-    resource: 'related',
-    key: taxonKey,
-    query: { datasetKey: dataset.key },
-  });
-  // if there is any related species, then there is invasive species listed in that dataset (assuming the provided dataset is listing invasive species)
-  const species = related.results;
-  // extract country from keyword
-  const keywords = dataset.keywords || [];
-  let invadedCountry = keywords.find((keyword) => {
-    return keyword.startsWith('country_');
-  });
-  // Consider multiple keywords. This allows the publisher to add 2 keywords.
-  // One for the country and another for the territory.
-  // That means that we can still search for all datasets about a country,
-  // while still have the information that it is about a subset
-  const subCountry = keywords.find((keyword) => {
-    return keyword.startsWith('country_') && keyword.length > 10;
-  });
-  if (species.length > 0 && invadedCountry) {
-    // get verbatim species view
-    try {
-      const verbatimSpecies = await dataSources.taxonAPI.getTaxonDetails({
-        resource: 'verbatim',
-        key: species[0].key,
+function sortBreakdownRecursively(items) {
+  if (!items) return items;
+  return items
+    .filter((t) => t.species > 0)
+    .sort((a, b) => b.species - a.species)
+    .map((item) => ({
+      ...item,
+      breakdown: sortBreakdownRecursively(item.breakdown),
+    }));
+}
+
+const sharedTaxonFields = {
+  dataset: ({ datasetKey }, args, { dataSources }) =>
+    dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+  // sourceDataset: ({ sourceDatasetKey }, args, { dataSources }) =>
+  //   dataSources.datasetAPI.getDatasetByKey({ key: sourceDatasetKey }),
+  acceptedTaxon: (
+    { acceptedNameUsageID, datasetKey },
+    args,
+    { dataSources },
+  ) => {
+    if (!acceptedNameUsageID) return null;
+    return dataSources.taxonAPI.getTaxon({
+      key: acceptedNameUsageID,
+      datasetKey,
+    });
+  },
+  occurrenceMedia: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) => {
+    return dataSources.taxonAPI.getTaxonOccurrenceMedia({
+      taxonKey: taxonID,
+      checklistKey: datasetKey,
+      limit: 10,
+      offset: 0,
+      mediaType: 'stillImage',
+      ...args,
+    });
+  },
+  breakdown: (
+    { taxonID, taxonRank, datasetKey = DEFAULT_CHECKLIST_KEY }, // TODO: taxonapi the default value should never be relevant, but currently the API is unstable and only return a datasetKey once in a while.
+    { sortByCount },
+    { dataSources },
+  ) => {
+    if (taxonRank === 'SPECIES' || taxonRank === 'GENUS') return null; // Only above genus level, the breakdown is meaningful, since below that it is mostly a count of occurrences, which is not what we want to show in the breakdown
+    return dataSources.taxonAPI
+      .taxonBreakdown({ datasetKey, key: taxonID })
+      .then((response) => {
+        const breakdown = !sortByCount
+          ? response?.breakdown
+          : sortBreakdownRecursively(response.breakdown ?? []);
+        return { ...response, breakdown };
+      })
+      .catch((e) => {
+        if (e?.extensions?.response?.status === 404) {
+          // in case this is due to the breakdown not being available, we want to return null, so that the UI can handle it gracefully, instead of showing an error message. This is a temporary solution until the API is more stable and always return a breakdown (even if it is empty).
+          return null;
+        }
+        throw e;
       });
-      const profiles =
-        verbatimSpecies?.extensions?.[
-          'http://rs.gbif.org/terms/1.0/SpeciesProfile'
-        ] || [];
-
-      const invasiveInfo = profiles.find(
-        (x) => x['http://rs.gbif.org/terms/1.0/isInvasive'],
-      );
-
-      let isInvasive = false;
-      if (invasiveInfo) {
-        isInvasive = isInvasiveString(
-          invasiveInfo['http://rs.gbif.org/terms/1.0/isInvasive'],
-        );
-      }
-
-      const isSubCountry = !!subCountry; // invadedCountry.length > 10;
-      invadedCountry = invadedCountry.substring(8, 10).toUpperCase();
-      // compose result obj with the properties we need for displaying the list - no need to send full species and dataaset obj.
+  },
+  wikiData: ({ taxonID }, args, { dataSources }) =>
+    dataSources.wikidataAPI.getWikiDataTaxonData(taxonID).then((response) => {
+      // sort them by label
       return {
-        country: invadedCountry,
-        isSubCountry,
-        datasetKey: dataset.key,
-        dataset: dataset.title,
-        scientificName: species[0].scientificName,
-        nubKey: species[0].nubKey,
-        taxonKey: species[0].key,
-        isInvasive,
+        ...response,
+        identifiers: response?.identifiers?.sort((a, b) =>
+          stringCompare(a.label.value, b.label.value),
+        ),
       };
-    } catch (err) {
-      // log error, but continue, it might be that the other in the list will show. This has happened in the past if the APIs are in a bad state due to broken indexing.
-      return null;
-    }
-  } else {
-    return null;
-  }
-};
-
-const getTreatment = async ({ key }, args, { dataSources }) => {
-  const sourceTaxon = await dataSources.taxonAPI.getTaxonByKey({ key });
-  const verbatimSpecies = await await dataSources.taxonAPI.getTaxonDetails({
-    resource: 'verbatim',
-    key,
-  });
-  /*   const images = await getSpeciesMedia(key);
-   */
-  const dataset = await dataSources.datasetAPI.getDatasetByKey({
-    key: sourceTaxon.datasetKey,
-  });
-  const publisher = await dataSources.organizationAPI.getOrganizationByKey({
-    key: dataset.publishingOrganizationKey,
-  });
-  const treatmentCandidate =
-    verbatimSpecies?.extensions?.['http://eol.org/schema/media/Document']?.[0];
-
-  const reference =
-    verbatimSpecies?.extensions?.[
-      'http://eol.org/schema/reference/Reference'
-    ]?.[0];
-
-  if (
-    treatmentCandidate &&
-    treatmentCandidate['http://purl.org/dc/terms/description'] &&
-    treatmentCandidate['http://purl.org/dc/terms/format'] === 'text/html' &&
-    treatmentPublishers.indexOf(dataset.publishingOrganizationKey) > -1
-  ) {
-    const treatment =
-      treatmentCandidate['http://purl.org/dc/terms/description'];
-    const treatmentCitation =
-      treatmentCandidate['http://purl.org/dc/terms/bibliographicCitation'];
-    const treatmentUrl =
-      treatmentCandidate[
-        'http://rs.tdwg.org/dwc/terms/additionalInformationURL'
-      ];
-    return {
-      description: treatment,
-      citation:
-        treatmentCitation ||
-        reference?.['http://eol.org/schema/reference/full_reference'],
-      sourceTaxon,
-      /*       images: images.results,
-       */ publisherTitle: publisher.title,
-      publisherHomepage: publisher?.homepage?.[0],
-      publisherKey: publisher.key,
-      datasetTitle: dataset.title,
-      datasetKey: dataset.key,
-      link: treatmentUrl || sourceTaxon?.references,
-    };
-  }
-  return null;
-};
-
-// this is an ugly hack because we do not model treatments
-const getTreatments = async ({ key }, args, { dataSources }) => {
-  const limit = 1000;
-  const offset = 0;
-
-  // get datasets that deal with this taxon.
-  const datasets = await dataSources.datasetAPI.searchDatasets({
-    query: { taxonKey: key, type: 'CHECKLIST', limit, offset },
-  });
-
-  const treatmentDatasets = datasets?.results.filter((x) => {
-    return treatmentPublishers.indexOf(x.publishingOrganizationKey) > -1;
-  });
-
-  // for each of these datasets look for the related species within those datasets.
-  const decoratedTreatmentDatasets = await Promise.all(
-    treatmentDatasets.map(async (e) => {
-      const related = await dataSources.taxonAPI.getTaxonDetails({
-        resource: 'related',
-        key,
-        query: { datasetKey: e.key },
-      });
-      // if there is any related species, then there is invasive species listed in that dataset (assuming the provided dataset is listing invasive species)
-      const species = related?.results || [];
-
-      // if that related species (which is from plazi) has a reference to plazi, then it probably has a treatment attached to it.
-      const _relatedTaxon = species.find((s) => !!s.references);
-      if (_relatedTaxon) {
-        try {
-          const treatment = await getTreatment(
-            { key: _relatedTaxon.key },
-            args,
-            {
-              dataSources,
-            },
-          );
-          return { ...e, treatment, _relatedTaxon };
-        } catch (err) {
-          console.log(
-            `Error while getting treatment for ${_relatedTaxon.key} in dataset ${e.key}`,
-            err,
-          );
-          return { ...e };
-        }
-      }
-      return { ...e };
     }),
-  );
-
-  // treaments are only those related species that have links to treatment bank
-  // for each treatment lookup the verbatim (from which we use the eol extension to show treatment info)
-  // and get the images for that taxon.
-  const treatments = decoratedTreatmentDatasets
-    .filter((e) => !!e?._relatedTaxon?.references && !!e.treatment)
-    .map((e) => e.treatment);
-  return treatments;
+  relatedInfo: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI
+      .getRelatedTaxonInfo({ key: taxonID, datasetKey })
+      .then((response) => {
+        return {
+          ...response,
+          // sort griis list by countryCode
+          griis: (response.griis ?? []).sort((a, b) =>
+            stringCompare(a.countryCode, b.countryCode),
+          ),
+        };
+      }),
+  related: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI.getRelated({
+      key: taxonID,
+      datasetKey,
+      query: args,
+    }),
+  children: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI.getChildren({
+      key: taxonID,
+      datasetKey,
+      query: args,
+    }),
+  parentTree: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.taxonAPI
+      .getParents({
+        key: taxonID,
+        datasetKey,
+      })
+      .then((response) => {
+        // reverse ordering as the API is inconsistent, https://github.com/gbif/taxon-ws/issues/48
+        return [...(response ?? [])]?.reverse();
+      }),
+  mapCapabilities: (
+    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    args,
+    { dataSources },
+  ) =>
+    dataSources.occurrenceAPI.getMapCapabilities({
+      taxonKey: taxonID,
+      checklistKey: datasetKey,
+    }),
 };
 
-export const extractHighlights = (data) => {
-  const re =
-    /(([^\s>]+)\s){0,3}(\s*<em class="gbifHl">[^<]*<\/em>\s*)+([^\s<]+\s){0,2}([^\s<]*)/;
-
-  const results = data.results.map((item) => {
-    const highlights = { descriptions: [], vernacularNames: [] };
-    if (item.descriptions) {
-      for (let i = 0; i < item.descriptions.length; i++) {
-        const match = re.exec(item.descriptions[i].description);
-        if (match) {
-          highlights.descriptions.push(match[0]);
-        }
-      }
-    }
-
-    if (item.vernacularNames) {
-      for (let i = 0; i < item.vernacularNames.length; i++) {
-        if (
-          item.vernacularNames[i].vernacularName.indexOf(
-            '<em class="gbifHl">',
-          ) > -1
-        ) {
-          highlights.vernacularNames.push(item.vernacularNames[i]);
-        }
-      }
-    }
-    return { ...item, highlights };
-  });
-  return { ...data, results };
-};
+function getVernacularName({ vernacularNames }, { language = 'eng' }) {
+  if (!vernacularNames || vernacularNames.length < 1) return null;
+  const filtered = vernacularNames.filter((item) => item.language === language);
+  if (filtered.length === 0) return null;
+  // count how frequent each vernacularName is used
+  const counts = filtered.reduce((acc, item) => {
+    acc[item.vernacularName] = (acc[item.vernacularName] || 0) + 1;
+    return acc;
+  }, {});
+  // sort the list by the frequency of the vernacularName, this is simply to avoid the odd outliers that occasionally appear since it is a list stiched together from multiple sources
+  filtered.sort((a, b) => counts[b.vernacularName] - counts[a.vernacularName]);
+  return filtered[0];
+}
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -263,26 +202,31 @@ export const extractHighlights = (data) => {
  */
 export default {
   Query: {
-    taxonSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
-      dataSources.taxonAPI
-        .searchTaxa({ query: { ...args, ...query } })
-        .then(extractHighlights),
-    backboneSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
-      dataSources.taxonAPI
-        .searchBackbone({ query: { ...args, ...query } })
-        .then(extractHighlights),
-    taxon: (parent, { key }, { dataSources }) => {
-      if (!isValidIntegerKey(key)) {
-        throw new NotFoundError();
-      }
-      return dataSources.taxonAPI.getTaxonByKey({ key });
+    taxonSearch: (
+      parent,
+      { datasetKey = DEFAULT_CHECKLIST_KEY, query, ...args },
+      { dataSources },
+    ) => {
+      const { datasetKey: datasetKeyQuery, ...queryWithoutDataset } =
+        query || {};
+      const finalQuery = { ...args, ...queryWithoutDataset };
+      const finalDatasetKey = datasetKeyQuery || datasetKey;
+
+      return dataSources.taxonAPI.taxonSearch({
+        query: finalQuery,
+        datasetKey: finalDatasetKey,
+      });
     },
-    checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>
-      dataSources.taxonAPI.getChecklistRoots({ key, query }),
-    taxonSuggestions: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.getSuggestions(query),
-    taxonBySourceId: (parent, { sourceId, datasetKey }, { dataSources }) =>
-      dataSources.taxonAPI.getTaxonBySourceId({ sourceId, datasetKey }),
+    taxonInfo: (
+      parent,
+      { datasetKey = DEFAULT_CHECKLIST_KEY, key },
+      { dataSources },
+    ) => dataSources.taxonAPI.getTaxonInfo({ datasetKey, key }),
+    taxon: (
+      parent,
+      { datasetKey = DEFAULT_CHECKLIST_KEY, key },
+      { dataSources },
+    ) => dataSources.taxonAPI.getTaxon({ datasetKey, key }),
     speciesMatchByUsageKey: (
       parent,
       { usageKey, checklistKey = DEFAULT_CHECKLIST_KEY },
@@ -294,6 +238,39 @@ export default {
       }),
     checklistMetadata: (parent, { checklistKey }, { dataSources }) =>
       dataSources.taxonAPI.getChecklistMetadata({ checklistKey }),
+    datasetRoots: (
+      parent,
+      { datasetKey = DEFAULT_CHECKLIST_KEY },
+      { dataSources },
+    ) => dataSources.taxonAPI.getDatasetTree({ datasetKey }),
+  },
+  TaxonSearchResult: {
+    facet: (parent) => ({
+      _query: { ...parent._query, limit: undefined, offset: undefined },
+      _datasetKey: parent._datasetKey,
+    }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+  },
+  TaxonFacet: {
+    taxonRank: getTaxonFacet('taxonRank'),
+    taxonomicStatus: getTaxonFacet('taxonomicStatus'),
+    issue: getTaxonFacet('issue'),
+    taxonId: getTaxonFacet('taxonId'),
+  },
+  TaxonResult: {
+    vernacularName: getVernacularName,
+  },
+  TaxonFacetResult_taxonId: {
+    taxon: ({ name: key, _datasetKey }, args, { dataSources }) =>
+      dataSources.taxonAPI.getTaxonInfo({ key, datasetKey: _datasetKey }),
+    taxonSearch: (
+      { _datasetKey, _query },
+      { query, ...args },
+      { dataSources },
+    ) =>
+      dataSources.taxonAPI.taxonSearch({
+        datasetKey: _datasetKey,
+        query: { ..._query, ...args, ...query },
+      }),
   },
   ChecklistMetaMainIndex: {
     version: async ({ clbDatasetKey }, args, { dataSources }) => {
@@ -311,190 +288,79 @@ export default {
       }
     },
   },
-  Taxon: {
-    dataset: ({ datasetKey }, args, { dataSources }) =>
-      dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-    sourceTaxon: async ({ sourceTaxonKey }, args, { dataSources }) => {
-      if (!sourceTaxonKey) return null;
-      try {
-        const sourceTaxon = await dataSources.taxonAPI.getTaxonByKey({
-          key: sourceTaxonKey,
-        });
-        return sourceTaxon;
-      } catch (err) {
-        // Swallowing error if source taxon is not found. We see a lot of 404s here
-        return null;
-      }
+  TaxonInfo: {
+    // dataset: ({ datasetKey }, args, { dataSources }) =>
+    //   dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+    // wikiData: ({ key }, args, { dataSources }) =>
+    //   dataSources.wikidataAPI.getWikiDataTaxonData(key),
+    // backboneTaxon: ({ key, nubKey }, args, { dataSources }) => {
+    //   if (typeof nubKey === 'undefined' || key === nubKey) return null;
+    //   return dataSources.taxonAPI.getTaxonByKey({ key: nubKey });
+    // },
+    // acceptedTaxon: ({ key, acceptedKey }, args, { dataSources }) => {
+    //   if (typeof acceptedKey === 'undefined' || key === acceptedKey)
+    //     return null;
+    //   return dataSources.taxonAPI.getTaxonByKey({ key: acceptedKey });
+    // },
+    // mapCapabilities: ({ key }, args, { dataSources }) => {
+    //   if (typeof key === 'undefined') return null;
+    //   return dataSources.occurrenceAPI.getMapCapabilities({ taxonKey: key });
+    // },
+    vernacularName: getVernacularName,
+    scientificName: ({ taxon }) => taxon?.scientificName,
+    label: ({ taxon }) => taxon?.scientificName,
+    namePublishedIn: ({ taxon, bibliography }) => {
+      if (!taxon?.namePublishedInID) return null;
+      return (
+        bibliography.find((b) => b.referenceID === taxon.namePublishedInID)
+          ?.citation ?? null
+      );
     },
-    formattedName: (
-      { key, scientificName },
-      { useFallback },
+    media: ({ media }, { limit = 20 }) => {
+      // the api returns all possible images, but we want to limit it, so we do the limiting here
+      return media?.slice(0, limit) ?? [];
+    },
+    groupIconSVG: ({ group }, args, { dataSources }) =>
+      group
+        ? dataSources.taxonAPI
+            .getTaxGroups()
+            .then((groups) =>
+              groups.find((g) => g.name.toLowerCase() === group.toLowerCase()),
+            )
+            .then((g) => g?.iconSVG ?? null)
+        : null,
+  },
+  TaxonSimple: {
+    ...sharedTaxonFields,
+    acceptedNameUsage: (
+      { acceptedNameUsageID, datasetKey },
+      args,
       { dataSources },
     ) => {
+      if (!acceptedNameUsageID) return null;
       return dataSources.taxonAPI
-        .getParsedName({ key })
-        .then((formattedName) => {
-          return formattedName;
+        .getTaxon({
+          key: acceptedNameUsageID,
+          datasetKey,
         })
-        .catch((err) => {
-          if (useFallback) {
-            return name;
-          }
-          throw err;
+        .then((response) => {
+          return response?.scientificName;
         });
     },
-    wikiData: ({ key }, args, { dataSources }) =>
-      dataSources.wikidataAPI.getWikiDataTaxonData(key),
-    backboneTaxon: ({ key, nubKey }, args, { dataSources }) => {
-      if (typeof nubKey === 'undefined' || key === nubKey) return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key: nubKey });
-    },
-    acceptedTaxon: ({ key, acceptedKey }, args, { dataSources }) => {
-      if (typeof acceptedKey === 'undefined' || key === acceptedKey)
-        return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key: acceptedKey });
-    },
-    mapCapabilities: ({ key }, args, { dataSources }) => {
-      if (typeof key === 'undefined') return null;
-      return dataSources.occurrenceAPI.getMapCapabilities({ taxonKey: key });
-    },
-    taxonImages_volatile: ({ key, nubKey }, { size }, { dataSources }) =>
-      dataSources.taxonMediaAPI.getRepresentativeImages({
-        taxon: nubKey ?? key,
-        dataSources,
-        size,
-      }),
-    speciesCount: ({ key }, args, { dataSources }) =>
-      getTaxonFacet('rank')(
-        { _query: { higherTaxonKey: key } },
-        { limit: 100 },
-        { dataSources },
-      ).then((data) => {
-        return data.find((d) => d.name === 'SPECIES')?.count || 0;
-      }),
-    checklistBankBreakdown: async ({ key }, args, { dataSources }) => {
-      const taxon = await dataSources.taxonAPI.getTaxonByKey({ key });
-      if (taxon.origin === 'DENORMED_CLASSIFICATION') {
-        return null;
-      }
-      const dataset = await dataSources.datasetAPI.getDatasetByKey({
-        key: taxon.datasetKey,
-      });
-      const clbDatasetKey = dataset?.identifiers.find(
-        (i) => i.type === 'CLB_DATASET_KEY',
-      )?.identifier;
-
-      if (clbDatasetKey) {
-        try {
-          const breakdown = await axios.get(
-            `https://api.checklistbank.org/dataset/${clbDatasetKey}/taxon/${
-              taxon.datasetKey === config.gbifBackboneUUID ? key : taxon.taxonID
-            }/breakdown`,
-          );
-          return breakdown.data
-            .filter((t) => t.species > 0)
-            .map((t) => ({
-              ...t,
-              children: t.children
-                .filter((c) => c.species > 0)
-                .sort((a, b) => b.species - a.species),
-            }))
-            .sort((a, b) => b.species - a.species);
-        } catch (e) {
-          throw new Error(
-            e?.response?.data?.message ||
-              e?.message ||
-              `An error occurred while fetching the breakdown for ChecklistBank dataset ${clbDatasetKey} and taxon ${taxon.taxonID}`,
-          );
-        }
-      }
-      console.log(
-        `No CLB_DATASET_KEY found in identifiers for dataset ${dataset?.key}`,
-      );
-      console.log(dataset?.identifiers);
-      throw new GraphQLError(
-        `No CLB_DATASET_KEY found in identifiers for dataset ${dataset?.key}`,
-        {
-          extensions: { code: 'YOUR_ERROR_CODE' },
-        },
-      );
-    },
-    invasiveInCountries: async ({ key }, args, { dataSources }) => {
-      const limit = 500; // get all countries in the world and hope that this publisher only publish one per country and not not invasives
-      const offset = 0;
-      const griisLists = await dataSources.datasetAPI.searchDatasets({
-        query: {
-          taxonKey: key,
-          type: 'CHECKLIST',
-          publishingOrg: config.griisPublisherUUID,
-          limit,
-          offset,
-        },
-      });
-      const results = await Promise.all(
-        griisLists.results.map((dataset) =>
-          getInvasiveSpeciesInfo({ taxonKey: key, dataset }, args, {
-            dataSources,
-          }),
-        ),
-      );
-
-      return results.filter((e) => e);
-    },
-    iucnStatus: async ({ key }, args, { dataSources }) => {
-      const related = await dataSources.taxonAPI.getTaxonDetails({
-        resource: 'related',
-        key,
-        query: { datasetKey: config.iucnDatasetKey },
-      });
-      const iucnTaxon = related?.results?.[0];
-      if (!iucnTaxon) {
-        return null;
-      }
-      const distributions = await dataSources.taxonAPI.getTaxonDetails({
-        resource: 'distributions',
-        key: iucnTaxon.key,
-      });
-
-      if (distributions?.results?.length === 0) {
-        return null;
-      }
-      const globalDistribution = distributions?.results.find((e) =>
-        e.locality ? e.locality.toLowerCase() === 'global' : false,
-      );
-      if (!globalDistribution) {
-        return null;
-      }
-      return {
-        distribution: globalDistribution,
-        references: iucnTaxon.references,
-      };
-    },
-    treatments: getTreatments,
   },
-  TaxonSearchResult: {
-    facet: (parent) => ({
-      _query: { ...parent._query, limit: undefined, offset: undefined },
-    }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+  TaxonFull: {
+    ...sharedTaxonFields,
   },
-  TaxonFacet: {
-    rank: getTaxonFacet('rank'),
-    status: getTaxonFacet('status'),
-    higherTaxonKey: getTaxonFacet('highertaxonKey'),
-    issue: getTaxonFacet('issue'),
+  TaxonChild: {
+    childrenTree: sharedTaxonFields.children,
   },
-  TaxonFacetResult: {
-    taxonSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchTaxa({
-        query: { ...parent._query, ...query },
-      }),
-  },
-  TaxonBreakdown: {
-    taxon: ({ name: key }, args, { dataSources }) =>
-      dataSources.taxonAPI.getTaxonByKey({ key }),
-    taxonSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchTaxa({
-        query: { ...parent._query, ...query },
-      }),
+  Griis: {
+    dataset: ({ datasetKey }, args, { dataSources }) =>
+      dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+    isCountry: ({ locationID, countryCode }) => {
+      if (!countryCode) return false;
+      if (!locationID) return true;
+      return locationID.startsWith('iso:') && locationID.length === 6;
+    },
   },
 };

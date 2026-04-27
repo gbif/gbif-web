@@ -1,7 +1,5 @@
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import TaxonKeyAbout from '@/routes/taxon/key/About';
-import { taxonLoader } from '@/routes/taxon/key/taxonKey';
-import VerbatimTaxon from '@/routes/taxon/key/Verbatim';
+import { datasetTaxonLoader } from '@/routes/taxon/key/taxonKey';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import {
@@ -54,23 +52,13 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
       element: <DatasetKeyPhylo />,
     },
     {
-      path: 'species',
+      path: 'taxon',
       element: <DatasetKeyTaxonSearch />,
     },
     {
-      path: 'species/:taxonKey',
+      path: 'taxon/:taxonKey',
       element: <DatasetTaxonKey />,
-      loader: taxonLoader,
-      children: [
-        {
-          index: true,
-          element: <TaxonKeyAbout headLess={true} />,
-        },
-        {
-          path: 'verbatim',
-          element: <VerbatimTaxon headLess={true} />,
-        },
-      ],
+      loader: datasetTaxonLoader,
     },
     {
       path: 'events',

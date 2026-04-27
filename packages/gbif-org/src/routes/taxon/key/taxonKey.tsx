@@ -1,7 +1,4 @@
-import { NotFoundError } from '@/errors';
 import {
-  NonBackboneSlowTaxonQuery,
-  NonBackboneSlowTaxonQueryVariables,
   SlowTaxonQuery,
   SlowTaxonQueryVariables,
   TaxonKeyQuery,
@@ -12,45 +9,50 @@ import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { useEffect } from 'react';
-import { Navigate, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
-import { imagePredicate } from './taxonUtil';
+import { NotFoundError } from '@/errors';
 
-export async function taxonLoader({ params, graphql }: LoaderArgs) {
-  const key = params.taxonKey || (params.key as string);
+const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
+export async function taxonLoader({ params, graphql, locale }: LoaderArgs) {
+  const key = params.key as string;
   const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
+    datasetKey: primaryChecklist,
+    language: locale?.iso3LetterCode ?? 'eng',
   });
 
   const { errors, data } = await response.json();
   throwCriticalErrors({
-    path404: ['taxon'],
+    path404: ['taxonInfo.taxon'],
     errors,
-    requiredObjects: [data?.taxon],
+    requiredObjects: [data?.taxonInfo?.taxon],
+  });
+
+  return { errors, data };
+}
+
+export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs) {
+  const key = params.taxonKey as string;
+  const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
+    key,
+    datasetKey: params.key as string,
+    language: locale?.iso3LetterCode ?? 'eng',
+  });
+
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['taxonInfo.taxon'],
+    errors,
+    requiredObjects: [data?.taxonInfo?.taxon],
   });
 
   return { errors, data };
 }
 
 export function TaxonKey() {
-  const { data } = useLoaderData() as { data: TaxonKeyQuery };
-  const createLink = useLink();
-
-  if (data?.taxon?.nubKey === data?.taxon?.key) {
-    return <BackboneTaxon />;
-  } else {
-    let { to } = createLink({
-      pageId: 'datasetKey',
-      variables: { key: `${data?.taxon?.datasetKey}/species/${data?.taxon?.key}` },
-    });
-    if (!to) to = `/dataset/${data?.taxon?.datasetKey}/species/${data?.taxon?.key}`;
-    return <Navigate to={to} />;
-  }
-}
-
-const BackboneTaxon = () => {
-  const { data } = useLoaderData() as { data: TaxonKeyQuery };
+  const { data } = useLoaderData() as { data: TaxonKeyQuery }; // TODO I do not get why this data isn't just passed as a prop from the parent route
   const { locale } = useI18n();
   const {
     data: slowTaxon,
@@ -62,275 +64,159 @@ const BackboneTaxon = () => {
   });
 
   useEffect(() => {
-    const id = data.taxon?.key;
+    const id = data.taxonInfo?.taxon?.taxonID;
     if (typeof id !== 'undefined') {
       slowTaxonLoad({
         variables: {
-          language: locale?.iso3LetterCode ?? 'eng',
           key: id.toString(),
+          datasetKey: primaryChecklist,
         },
       });
     }
-  }, [data?.taxon?.key, locale, slowTaxonLoad]);
+  }, [data.taxonInfo?.taxon?.taxonID, locale, slowTaxonLoad]);
 
-  if (data?.taxon == null) throw new NotFoundError();
+  if (data?.taxonInfo == null) throw new NotFoundError();
   return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
-};
+}
 
-export const NonBackboneTaxon = ({ headLess = false }) => {
+export const NonBackboneTaxon = () => {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
-
-  const {
-    data: slowTaxon,
-    load: slowTaxonLoad,
-    loading: slowTaxonLoading,
-  } = useQuery<NonBackboneSlowTaxonQuery, NonBackboneSlowTaxonQueryVariables>(
-    NON_BACKBONE_SLOW_TAXON,
-    {
-      lazyLoad: true,
-      throwAllErrors: false,
-    }
-  );
-
-  useEffect(() => {
-    const id = data.taxon?.key;
-    if (typeof id !== 'undefined') {
-      slowTaxonLoad({
-        variables: {
-          key: id.toString(),
-        },
-      });
-    }
-  }, [data.taxon?.key, slowTaxonLoad]);
-  return (
-    <NonBackbonePresentation
-      headLess={headLess}
-      data={data}
-      slowTaxon={slowTaxon}
-      slowTaxonLoading={slowTaxonLoading}
-    />
-  );
+  return <NonBackbonePresentation data={data} />;
 };
 
 export { TaxonPageSkeleton } from './taxonKeyPresentation';
 
 const TAXON_QUERY = /* GraphQL */ `
-  query TaxonKey($key: ID!) {
-    taxon(key: $key) {
-      key
-      nubKey
-      sourceTaxon {
-        key
-        references
+  query TaxonKey($key: ID!, $datasetKey: ID!, $language: String) {
+    taxonInfo(key: $key, datasetKey: $datasetKey) {
+      group
+      groupIconSVG
+      taxon {
         datasetKey
-        dataset {
-          title
-        }
-      }
-      issues
-      scientificName
-      canonicalName
-      origin
-      kingdom
-      formattedName(useFallback: true)
-      rank
-      taxonomicStatus
-      publishedIn
-      references
-      datasetKey
-      speciesCount
-      distributionsCount: distributions(limit: 10, offset: 0) {
-        results {
-          taxonKey
-        }
-      }
-      iucnStatus {
+        taxonID
+        taxonRank
+        scientificName
+        taxonomicStatus
+        label
         references
-        distribution {
-          taxonKey
-          threatStatus
-        }
-      }
-      dataset {
-        title
-        key
-        citation {
-          text
-          citationProvidedBySource
-        }
-      }
-      vernacular: vernacularNames(limit: 100, offset: 0) {
-        results {
-          taxonKey
-          language
-          vernacularName
-        }
-      }
-      parents {
-        rank
-        scientificName
-        canonicalName
-        formattedName
-        key
-      }
-      acceptedTaxon {
-        key
-        formattedName
-        scientificName
-      }
-      synonyms(limit: 100, offset: 0) {
-        results {
+        acceptedNameUsageID
+        sourceID
+        dataset {
           key
+          title
+          citation {
+            text
+          }
+        }
+        acceptedTaxon {
+          taxonID
+          label
           scientificName
-          canonicalName
-          authorship
-          rank
-          publishedIn
+        }
+        occurrenceMedia(limit: 20) {
+          count
+          results {
+            occurrenceKey
+            identifier
+            license
+            rightsHolder
+            thumbor(height: 800)
+            smallThumbnail: thumbor(height: 100, width: 100)
+          }
+        }
+        treatments: related(datasetType: ARTICLE) {
+          taxonID
+          datasetKey
+          references
+          dataset {
+            title
+            citation {
+              text
+            }
+            publishingOrganizationTitle
+          }
+        }
+        relatedInfo {
+          griis {
+            datasetKey
+            taxonID
+            locality
+            countryCode
+            isInvasive
+            dataset {
+              title
+            }
+            isCountry
+          }
+          redlist {
+            taxonID
+            scientificName
+            threatStatus
+            references
+          }
         }
       }
-      imagesCount: occurrenceMedia(limit: 0, offset: 0) {
-        count
+      synonyms {
+        homotypic {
+          taxonID
+          label
+          isOriginalNameUsage
+        }
+        heterotypic {
+          taxonID
+          label
+          isOriginalNameUsage
+        }
+      }
+      media {
+        identifier
+        title
+        references
+        type
+        creator
+        license
+      }
+      vernacularNames {
+        vernacularName
+        language
+      }
+      bibliography {
+        referenceID
+        doi
+        citation
+        remarks
+        isNamePublishedIn
+      }
+      vernacularName(language: $language) {
+        vernacularName
+      }
+      classification {
+        taxonID
+        scientificName
+        scientificNameAuthorship
+        taxonRank
       }
     }
   }
 `;
 
 const SLOW_TAXON = /* GraphQL */ `
-  query SlowTaxon($key: ID!, $language: String) {
-    taxon(key: $key) {
-      key
-      basionymKey
-      vernacularNames(limit: 1, language: $language) {
-        results {
-          vernacularName
-          source
+  query SlowTaxon($key: ID!, $datasetKey: ID!) {
+    taxonInfo(key: $key, datasetKey: $datasetKey) {
+      taxon {
+        wikiData {
+          source {
+            id
+            url
+          }
+          identifiers {
+            id
+            label
+            description
+            url
+          }
         }
       }
-      combinations {
-        key
-        nameKey
-        acceptedKey
-        canonicalName
-        authorship
-        scientificName
-        formattedName
-        rank
-        taxonomicStatus
-        numDescendants
-      }
-      synonyms(limit: 100, offset: 0) {
-        limit
-        offset
-        endOfRecords
-        results {
-          key
-          nameKey
-          acceptedKey
-          canonicalName
-          authorship
-          scientificName
-          formattedName
-          rank
-          taxonomicStatus
-          numDescendants
-        }
-      }
-      wikiData {
-        source {
-          id
-          url
-        }
-        identifiers {
-          id
-          label
-          description
-          url
-        }
-      }
-    }
-  }
-`;
-
-const NON_BACKBONE_SLOW_TAXON = /* GraphQL */ `
-  query NonBackboneSlowTaxon($key: ID!) {
-    taxon(key: $key) {
-      key
-      nubKey
-      scientificName
-      kingdom
-      formattedName(useFallback: true)
-      rank
-      taxonomicStatus
-      publishedIn
-      media {
-        limit
-        endOfRecords
-        results {
-          identifier
-          creator
-          rightsHolder
-        }
-      }
-      dataset {
-        citation {
-          text
-          citationProvidedBySource
-        }
-      }
-      vernacular: vernacularNames(limit: 10, offset: 0) {
-        results {
-          taxonKey
-        }
-      }
-      parents {
-        rank
-        scientificName
-        key
-      }
-      acceptedTaxon {
-        key
-        formattedName
-        scientificName
-      }
-      combinations {
-        key
-        nameKey
-        acceptedKey
-        canonicalName
-        authorship
-        scientificName
-        formattedName
-        rank
-        taxonomicStatus
-        numDescendants
-      }
-      synonyms(limit: 100, offset: 0) {
-        limit
-        offset
-        endOfRecords
-        results {
-          key
-          nameKey
-          acceptedKey
-          canonicalName
-          authorship
-          scientificName
-          formattedName
-          rank
-          taxonomicStatus
-          numDescendants
-        }
-      }
-    }
-  }
-`;
-
-const TO_NUB_OR_NOT_TO_NUB = /* GraphQL */ `
-  query ToNubOrNotToNub($key: ID!) {
-    taxon(key: $key) {
-      nubKey
-      key
-      datasetKey
     }
   }
 `;

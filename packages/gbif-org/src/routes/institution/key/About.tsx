@@ -38,7 +38,7 @@ const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 export default function About() {
   const { institution } = useInstitutionKeyLoaderData();
   const { count, loading } = useCount({
-    v1Endpoint: '/occurrence/search',
+    apiEndpoint: '/v1/occurrence/search',
     params: { institutionKey: institution.key },
   });
   const removeSidebar = useBelow(1100);

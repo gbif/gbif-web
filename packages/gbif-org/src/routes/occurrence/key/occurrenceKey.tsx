@@ -7,11 +7,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import {
   FeatureList,
   GadmClassification,
+  GenericFeature,
   Homepage,
   IIIF,
   Location,
   SamplingEvent,
   Sequenced,
+  TaxonomyIcon,
   TypeStatus,
 } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
@@ -47,9 +49,10 @@ import { IssueTag, IssueTags } from './properties';
 import getTitle from './Title';
 import PageMetaData from '@/components/PageMetaData';
 import { notNull } from '@/utils/notNull';
+import { TaxonStubClassification } from '@/components/classification';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
-  query Occurrence($key: ID!) {
+  query Occurrence($key: ID!, $defaultChecklistKey: ID) {
     occurrence(key: $key) {
       key
       coordinates
@@ -60,6 +63,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       locality
       eventDate
       typeStatus
+      occurrenceStatus
       references
       issues
       basisOfRecord
@@ -136,6 +140,35 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       }
 
       verbatimScientificName
+      classification(checklistKey: $defaultChecklistKey) {
+        checklistKey
+        usage {
+          rank
+          name
+          key
+        }
+        acceptedUsage {
+          key
+          name
+        }
+        taxonMatch {
+          usage {
+            name
+            key
+            canonicalName
+            formattedName
+          }
+          synonym
+        }
+        classification {
+          key
+          rank
+          name
+        }
+        issues
+        hasTaxonIssues
+        iucnRedListCategoryCode
+      }
       classifications {
         meta {
           mainIndex {
@@ -257,6 +290,7 @@ fragmentManager.register(/* GraphQL */ `
     rightsHolder
     description
     thumbor(height: 800)
+    smallThumbnail: thumbor(height: 100, width: 100)
   }
 `);
 
@@ -279,6 +313,7 @@ export async function occurrenceKeyLoader({ params, config, graphql }: LoaderArg
     OCCURRENCE_QUERY,
     {
       key,
+      defaultChecklistKey: config.defaultChecklistKey,
     }
   );
 
@@ -409,6 +444,11 @@ export function OccurrenceKey() {
 
   const title = getTitle({ occurrence, termMap });
 
+  const hasMatchIssues = occurrence?.classification?.hasTaxonIssues;
+  const usageKey = occurrence.classification?.usage?.key;
+  const acceptedUsage = occurrence.classification?.acceptedUsage;
+  const isMatchedToSynonym = occurrence.classification?.taxonMatch?.synonym;
+
   return (
     <>
       <PageMetaData
@@ -435,7 +475,6 @@ export function OccurrenceKey() {
               )}
               <div className="g-flex-grow">
                 <ArticlePreTitle
-                  clickable={!occurrence.volatile?.features?.isSpecimen}
                   secondary={
                     occurrence.eventDate ? (
                       <FormattedDateRange date={occurrence?.eventDate} />
@@ -445,7 +484,12 @@ export function OccurrenceKey() {
                   }
                 >
                   {occurrence.volatile?.features?.isSpecimen && (
-                    <FormattedMessage id="occurrenceDetails.specimen" defaultMessage="Specimen" />
+                    <DynamicLink
+                      pageId="occurrenceSearch"
+                      searchParams={{ basisOfRecord: ['PRESERVED_SPECIMEN', 'FOSSIL_SPECIMEN'] }}
+                    >
+                      <FormattedMessage id="occurrenceDetails.specimen" defaultMessage="Specimen" />
+                    </DynamicLink>
                   )}
                   {!occurrence.volatile?.features?.isSpecimen && (
                     <DynamicLink pageId="occurrenceSearch">
@@ -461,7 +505,28 @@ export function OccurrenceKey() {
               ></ArticleTitle> */}
                 <ArticleTitle className="lg:g-text-3xl">
                   <>
-                    {title && <span className="g-me-4">{title}</span>}
+                    {title && hasMatchIssues && <span className="g-me-4">{title}</span>}
+                    {title && !hasMatchIssues && usageKey && (
+                      <DynamicLink
+                        pageId="taxonKey"
+                        variables={{
+                          key: usageKey,
+                          datasetKey:
+                            occurrence.classification?.checklistKey ??
+                            import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+                        }}
+                      >
+                        <span
+                          className="g-me-4"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              occurrence.classification?.taxonMatch?.usage?.formattedName ||
+                              occurrence.classification?.taxonMatch?.usage?.name ||
+                              'No title provided',
+                          }}
+                        ></span>
+                      </DynamicLink>
+                    )}
                     {!title && (
                       <span className="g-me-4 g-text-slate-500">
                         <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
@@ -481,7 +546,15 @@ export function OccurrenceKey() {
                         </Tooltip>
                       </TooltipProvider>
                     )}
+                    {occurrence.occurrenceStatus === 'ABSENT' && (
+                      <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
+                        <FormattedMessage
+                          id={`enums.occurrenceStatus.${occurrence.occurrenceStatus}`}
+                        />
+                      </span>
+                    )}
                     {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) &&
+                      occurrence.occurrenceStatus !== 'ABSENT' &&
                       vernacularNameInfo && (
                         <SimpleTooltip
                           asChild
@@ -503,7 +576,7 @@ export function OccurrenceKey() {
                       )}
                   </>
                 </ArticleTitle>
-                {occurrence.organismName && <h2>Organism name: {occurrence.organismName}</h2>}
+
                 <HeaderInfo>
                   <HeaderInfoMain>
                     <div>
@@ -517,11 +590,67 @@ export function OccurrenceKey() {
                           />
                         </div>
                       )} */}
+                      {!hasMatchIssues && !isMatchedToSynonym && (
+                        <div>
+                          <GenericFeature>
+                            <TaxonomyIcon />
+                            <TaxonStubClassification
+                              classification={occurrence.classification?.classification}
+                            />
+                          </GenericFeature>
+                        </div>
+                      )}
+                      {(hasMatchIssues || isMatchedToSynonym) && (
+                        <div>
+                          <GenericFeature>
+                            <TaxonomyIcon />
+                            {hasMatchIssues && (
+                              <>
+                                <span className="g-me-1">Matched to&nbsp;</span>
+                                <DynamicLink
+                                  className="g-underline"
+                                  pageId="taxonKey"
+                                  variables={{
+                                    key: occurrence.classification?.usage.key,
+                                    datasetKey:
+                                      occurrence.classification?.checklistKey ??
+                                      import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+                                  }}
+                                >
+                                  <span
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        occurrence.classification?.taxonMatch?.usage
+                                          .formattedName || '',
+                                    }}
+                                  ></span>
+                                </DynamicLink>
+                              </>
+                            )}
+                            {!hasMatchIssues && isMatchedToSynonym && acceptedUsage && (
+                              <>
+                                <span className="g-me-1">Accepted name&nbsp;</span>
+                                <DynamicLink
+                                  className="g-underline"
+                                  pageId="taxonKey"
+                                  variables={{
+                                    key: occurrence.classification?.acceptedUsage.key,
+                                    datasetKey:
+                                      occurrence.classification?.checklistKey ??
+                                      import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+                                  }}
+                                >
+                                  {occurrence.classification?.acceptedUsage?.name}
+                                </DynamicLink>
+                              </>
+                            )}
+                          </GenericFeature>
+                        </div>
+                      )}
 
                       {occurrence.gadm?.level1 && (
                         <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
-                          <div>
-                            <span className="g-me-1">{occurrence.locality}</span>
+                          <span>
                             {coordinateIssues.length > 0 && (
                               <IssueTags>
                                 {coordinateIssues.map((issue: string) => {
@@ -538,7 +667,7 @@ export function OccurrenceKey() {
                                 })}
                               </IssueTags>
                             )}
-                          </div>
+                          </span>
                         </GadmClassification>
                       )}
                       {!occurrence?.gadm?.level1 && occurrence.countryCode && (
@@ -593,7 +722,7 @@ export function OccurrenceKey() {
                     )} */}
                     </div>
 
-                    <FeatureList className="g-mt-2">
+                    <FeatureList className="">
                       {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
                       {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
                         <TypeStatus types={occurrence.typeStatus.filter(notNull)} />

@@ -80,6 +80,22 @@ export function Lsid({ identifier = '', ...props }) {
   );
 }
 
+export function IucnTag({
+  statusCategory,
+  ...props
+}: {
+  statusCategory: string;
+} & React.ComponentProps<typeof IdentifierTag>) {
+  return (
+    <IdentifierTag {...props}>
+      <IdentifierType className="g-bg-[#ed2a24] g-border-[#c1201b]">IUCN</IdentifierType>
+      <IdentifierValue>
+        <FormattedMessage id={`enums.threatStatus.${statusCategory}`} />
+      </IdentifierValue>
+    </IdentifierTag>
+  );
+}
+
 export function IdentifierType({
   className,
   children,
@@ -92,8 +108,8 @@ export function IdentifierType({
   return (
     <span
       className={cn(
-        className,
-        'gbif-identifierType g-px-2 g-rounded-s g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-border-opacity-20 g-text-primaryContrast-500'
+        'gbif-identifierType g-px-2 g-rounded-s g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-border-opacity-20 g-text-primaryContrast-500',
+        className
       )}
       {...props}
     >

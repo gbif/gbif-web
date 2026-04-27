@@ -46,19 +46,19 @@ const DATASET_QUERY = /* GraphQL */ `
         total
       }
     }
-    totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {
-      count
-    }
-    accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {
-      count
-    }
-    synonyms: taxonSearch(
-      datasetKey: [$key]
-      origin: [SOURCE]
-      status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]
-    ) {
-      count
-    }
+    # totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {
+    #   count
+    # }
+    # accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {
+    #   count
+    # }
+    # synonyms: taxonSearch(
+    #   datasetKey: [$key]
+    #   origin: [SOURCE]
+    #   status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]
+    # ) {
+    #   count
+    # }
     dataset(key: $key) {
       key
       checklistBankDataset {
@@ -378,7 +378,8 @@ export function DatasetPage() {
     return false;
   }, [occData]);
 
-  const showSpeciesTab = dataset.type === DatasetType.Checklist;
+  const showSpeciesTab =
+    dataset.type === DatasetType.Checklist && dataset.checklistBankDataset != null;
   const withEventId = occData?.withEvents?.documents?.total || 0;
   const showEventsTab =
     (config.datasetKey?.showEvents && withEventId > 0) ||
@@ -401,7 +402,10 @@ export function DatasetPage() {
       tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
     if (showSpeciesTab) {
-      tabsToDisplay.push({ to: 'species', children: 'Species' });
+      tabsToDisplay.push({
+        to: 'taxon',
+        children: <FormattedMessage id="dataset.tabs.taxonomy" />,
+      });
       // tabsToDisplay.push({
       //   to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
       //     dataset.key
@@ -565,7 +569,7 @@ export function DatasetPage() {
                 />
               }
             >
-              <DynamicLink pageId="datasetSearch">
+              <DynamicLink pageId="datasetSearch" searchParams={{ type: dataset.type }}>
                 <FormattedMessage id={`dataset.longType.${dataset.type}`} />
               </DynamicLink>
             </ArticlePreTitle>

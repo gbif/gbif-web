@@ -1,10 +1,5 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
-import { uniqBy } from 'lodash';
-import { matchSorter } from 'match-sorter';
 import { stringify } from 'qs';
 import { getTaxonAgent } from '@/requestAgents';
-import { getParsedName } from '@/helpers/scientificName';
-import colSuggest from './colSuggest';
 import QueuedRESTDataSource from '@/QueuedRESTDataSource.js';
 
 class TaxonAPI extends QueuedRESTDataSource {
@@ -13,7 +8,7 @@ class TaxonAPI extends QueuedRESTDataSource {
       // notice that this only is used if the enQueue option is set to true in the request
       concurrency: 10, // Maximum concurrent requests
     });
-    this.baseURL = config.apiv1;
+    this.baseURL = config.apiv2;
     this.config = config;
   }
 
@@ -23,76 +18,91 @@ class TaxonAPI extends QueuedRESTDataSource {
     request.agent = getTaxonAgent(this.baseURL, request.path);
   }
 
-  async searchTaxa({ query }) {
+  async taxonSearch({ datasetKey, query }) {
     const response = await this.get(
-      '/species/search',
+      `/taxon/search/${datasetKey}`,
       stringify(query, { indices: false }),
     );
     response._query = query;
+    response._datasetKey = datasetKey;
     return response;
   }
 
-  async searchBackbone({ query = {} } = {}) {
-    return this.searchTaxa({
-      query: {
-        ...query,
-        datasetKey: this.config.gbifBackboneUUID,
-      },
+  async getDatasetTree({ datasetKey }) {
+    return this.get(`/taxon/tree/${datasetKey}`);
+  }
+
+  async getTaxon({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${key}`);
+  }
+
+  async getTaxonInfo({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${key}/info`).then((response) => {
+      // add logic to add isNamePublishedIn field to the bibliographic item if it matches the taxon namePublishedInID
+      const { taxon } = response;
+      const namePublishedInID = taxon?.namePublishedInID;
+      if (namePublishedInID && response.bibliography) {
+        response.bibliography.forEach((item) => {
+          item.isNamePublishedIn = item.referenceID === namePublishedInID;
+        });
+      }
+      // sort bibliography so that the item with isNamePublishedIn true is first
+      if (response.bibliography) {
+        response.bibliography.sort((a, b) => {
+          if (a.isNamePublishedIn && !b.isNamePublishedIn) {
+            return -1;
+          }
+          if (!a.isNamePublishedIn && b.isNamePublishedIn) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      // next we need to enrich the homotypic synonyms with the boolean isOriginalNameUsage if it match the taxon.originalNameUsageID
+      const originalNameUsageID = taxon?.originalNameUsageID;
+      if (originalNameUsageID && response?.synonyms?.homotypic) {
+        response.synonyms.homotypic.forEach((item) => {
+          item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
+        });
+      }
+      if (originalNameUsageID && response?.synonyms?.heterotypic) {
+        response.synonyms.heterotypic.forEach((item) => {
+          item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
+        });
+      }
+
+      return response;
     });
   }
 
-  // distributions, related, verbatim
-  async getTaxonDetails({ resource, key, query }) {
-    const response = await this.get(
-      `/species/${key}/${resource}`,
-      stringify(query, { indices: false }),
-    );
-    if (query) response._query = query;
-    return response;
+  async getRelatedTaxonInfo({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${key}/relatedInfo`);
   }
 
-  async getTaxonByKey({ key }) {
-    return this.get(`/species/${key}`);
+  async getTaxGroups() {
+    return this.get(`${this.config.checklistBank}/vocab/taxgroup`);
   }
 
-  async getTaxonBySourceId({ sourceId, datasetKey }) {
-    if (!sourceId || !datasetKey) {
-      return null;
-    }
-    const data = await this.get(
-      `/species`,
-      stringify({ sourceId, datasetKey }, { indices: false }),
-    );
-    if (data?.results?.[0]) {
-      return data?.results?.[0];
-    }
-    return null;
+  async getRelated({ datasetKey, key, query = {} }) {
+    return this.get(`/taxon/${datasetKey}/${key}/related`, query);
   }
 
-  async getTaxonNameByKey({ key }) {
-    return this.get(`/species/${key}/name`);
+  async getChildren({ datasetKey, key, query = {} }) {
+    return this.get(`/taxon/tree/${datasetKey}/${key}/children`, query);
   }
 
-  getTaxaByKeys({ taxonKeys }) {
-    return Promise.all(taxonKeys.map((key) => this.getTaxonByKey({ key })));
+  async getParents({ datasetKey, key, query = {} }) {
+    return this.get(`/taxon/tree/${datasetKey}/${key}`, query);
   }
 
-  async getChecklistRoots({ key, query }) {
-    const response = await this.get(
-      `/species/root/${key}`,
-      stringify(query, { indices: false }),
-    );
-    response._query = query;
-    return response;
-  }
-
-  async getParsedName({ key }) {
-    return getParsedName(key, this);
+  async taxonBreakdown({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${key}/breakdown`);
   }
 
   async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
     return this.get(
-      `${this.config.apiv2}/species/match/metadata?`,
+      `/species/match/metadata?`,
       stringify({ checklistKey }, { indices: false }),
     );
   }
@@ -107,7 +117,7 @@ class TaxonAPI extends QueuedRESTDataSource {
   }) {
     const isIncertaeSedis = usageKey === 0 || usageKey === '0';
     return this.get(
-      `${this.config.apiv2}/species/match?`,
+      `/species/match?`,
       stringify(
         { checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey },
         { indices: false },
@@ -135,7 +145,7 @@ class TaxonAPI extends QueuedRESTDataSource {
     checklistKey = this.config.defaultChecklist,
   }) {
     return this.get(
-      `${this.config.apiv2}/species/match?`,
+      `/species/match?`,
       stringify({ checklistKey, scientificName: name }, { indices: false }),
     ).then((result) => {
       if (!result.usage) {
@@ -149,246 +159,18 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
-  async getSuggestions({
+  async getTaxonOccurrenceMedia({
+    taxonKey,
     checklistKey = this.config.defaultChecklist,
-    limit = 20,
-    q,
-    language,
-    vernacularNamesOnly,
-    preferAccepted = true,
-    strictMatching,
-    taxonScope = [],
+    limit,
+    offset,
+    mediaType,
   }) {
-    if (Math.random() > -1) {
-      try {
-        const metadata = await this.getChecklistMetadata({
-          checklistKey,
-        });
-        const result = await colSuggest({
-          q,
-          checklistKey: metadata.mainIndex.clbDatasetKey,
-          language,
-          limit,
-          taxonScope,
-          vernacularNamesOnly,
-          preferAccepted,
-        });
-        return result;
-      } catch (e) {
-        console.error('Error getting checklist metadata', e);
-        throw e;
-      }
-    }
-
-    // get vernacular names
-    const responseVernacularPromise = language
-      ? this.searchTaxa({
-          query: {
-            datasetKey,
-            q,
-            limit: 100,
-            qField: 'VERNACULAR',
-          },
-        })
-      : null;
-
-    // get results matching scientific name
-    let scientificResults = [];
-    if (!vernacularNamesOnly) {
-      // const responseScientific = await this.searchTaxa({
-      //   query: {
-      //     datasetKey,
-      //     q,
-      //     limit: 100,
-      //     qField: 'SCIENTIFIC'
-      //   }
-      // });
-      // responseScientific.results.forEach(x => { delete x.vernacularNames });
-      // scientificResults = responseScientific.results;
-
-      const responseScientificSuggestions = await this.get(
-        `/species/suggest?limit=100&q=${q}&datasetKey=${datasetKey}`,
-      );
-      // for each result, check if it is a synonym=true, if so get the full result and from that the accepted result
-      // e.g. https://api.gbif.org/v1/species/8156363
-      // add acceptedKey to each result
-      await promiseForEach(responseScientificSuggestions, async (x) => {
-        if (x.synonym) {
-          const taxon = await this.getTaxonByKey({ key: x.key });
-          x.acceptedKey = taxon.acceptedKey;
-        }
-      });
-      scientificResults = responseScientificSuggestions;
-    }
-
-    // get results matching vernacular name
-    let vernacularResults = [];
-    if (language && responseVernacularPromise) {
-      const responseVernacular = await responseVernacularPromise;
-
-      // only include vernacular names in the correct language
-      responseVernacular.results.forEach((x) => {
-        x.vernacularNames = x.vernacularNames.filter(
-          (y) => y.language === language,
-        );
-      });
-
-      // remove results where there is no vernacular name in the correct language
-      vernacularResults = responseVernacular.results.filter(
-        (x) => x.vernacularNames.length > 0,
-      );
-    }
-
-    // concatenated results, putting scientific names first
-    const results = scientificResults.concat(vernacularResults);
-
-    results.forEach((x) => {
-      x.vernacularNames = (x.vernacularNames ?? []).map(
-        (x) => x.vernacularName,
-      );
-    });
-
-    // remove duplicates, uniqBy keeps ordering
-    let uniqueResults = uniqBy(results, 'key');
-
-    // if the datasetKey is not the backbone, then we need to get the backbone taxon
-    if (datasetKey !== this.config.gbifBackboneUUID) {
-      const uniqueNubKeyResults = uniqBy(results, 'nubKey');
-      await promiseForEach(uniqueNubKeyResults, async (x) => {
-        // for some reason only some results have a nubKey. There can be two results from the backbone dataset, one has a nubKey the other doesn't. Both accepted names.
-        if (!x.nubKey) {
-        } else {
-          const taxon = await this.getTaxonByKey({ key: x.nubKey });
-          x.backboneTaxon = taxon;
-        }
-      });
-      // remove results without a backbone math
-      uniqueResults = uniqueNubKeyResults.filter((x) => x.backboneTaxon);
-      // flatten results
-      uniqueResults = uniqueResults.map((x) => {
-        return {
-          ...(x.backboneTaxon || x),
-          vernacularNames: x.vernacularNames,
-        };
-      });
-    }
-
-    // get the accepted taxon for each result
-    if (preferAccepted) {
-      await promiseForEach(uniqueResults, async (x) => {
-        if (!x.acceptedKey) return;
-        const acceptedTaxon = await this.getTaxonByKey({ key: x.acceptedKey });
-        x.acceptedTaxon = acceptedTaxon;
-      });
-
-      uniqueResults = uniqueResults.map((x) => {
-        if (!x.acceptedTaxon) {
-          return x;
-        }
-        return {
-          ...x.acceptedTaxon,
-          acceptedNameOf: x.scientificName,
-          vernacularNames: x.vernacularNames,
-        };
-      });
-    }
-
-    // remove duplicate results
-    uniqueResults = uniqBy(uniqueResults, 'key');
-
-    // if a taxonScope is provided, then we need to filter the results to mtch the keys provided.
-    // e.g. taxonScope=[1,56,9786] should remove entries that do not exists in item.higherClassificationMap (form {key: name})
-    let filteredResults = uniqueResults;
-    if (taxonScope && taxonScope.length > 0) {
-      const taxonScopeKeys = taxonScope.map((x) => x.toString());
-      // so for each entry  in unique, we need to remove results where there isn't an overlap between taxonScope and Object.keys(item.higherClassificationMap)
-      filteredResults = uniqueResults.filter((item) => {
-        let keys = [];
-        if (item.higherClassificationMap) {
-          keys = Object.keys(item.higherClassificationMap);
-        } else {
-          // add kingdomKey, phylumKey, classKey, orderKey, familyKey, genusKey, speciesKey to keys and remove undefined
-          keys = [
-            'kingdomKey',
-            'phylumKey',
-            'classKey',
-            'orderKey',
-            'familyKey',
-            'genusKey',
-            'speciesKey',
-          ]
-            .map((x) => item[x])
-            .filter((x) => x);
-        }
-        return taxonScopeKeys.some((x) => keys.includes(x.toString()));
-      });
-    }
-
-    // map results more easily digestable format
-    const structuredResults = filteredResults.map((x) => {
-      // create a classification list
-      const classification = [];
-      [
-        'kingdom',
-        'phylum',
-        'class',
-        'order',
-        'family',
-        'genus',
-        'species',
-      ].forEach((rank) => {
-        if (x[rank]) {
-          classification.push({
-            rank: rank.toUpperCase(),
-            name: x[rank],
-            key: x[`${rank}Key`],
-          });
-        }
-      });
-
-      // there might be many vernacular names in the given language, and we do not know wich of them match the users query. try to sort it by best match.
-      const bestMatchVernacular = matchSorter(x.vernacularNames ?? [], q, {
-        threshold: matchSorter.rankings.NO_MATCH,
-      });
-      const vernacularName = bestMatchVernacular[0];
-      return {
-        key: x.key,
-        scientificName: x.scientificName,
-        canonicalName: x.canonicalName,
-        rank: x.rank,
-        taxonomicStatus: x.taxonomicStatus || x.status,
-        acceptedNameOf: x.acceptedNameOf,
-        vernacularName,
-        classification,
-      };
-    });
-
-    const sortedResults = matchSorter(structuredResults, q, {
-      keys: [
-        'scientificName',
-        'acceptedNameOf',
-        'vernacularName',
-        'canonicalName',
-      ],
-      threshold: strictMatching
-        ? matchSorter.rankings.MATCHES
-        : matchSorter.rankings.NO_MATCH,
-    });
-    return sortedResults;
-  }
-
-  async getTaxonOccurrenceMedia({ taxonKey, limit, offset, mediaType }) {
     return this.get(
-      `/occurrence/experimental/multimedia/species/${taxonKey}/`,
+      `${this.config.apiv1}/occurrence/experimental/multimedia/species/${checklistKey}/${taxonKey}/`,
       { limit, offset, mediaType },
     );
   }
 }
 
 export default TaxonAPI;
-
-async function promiseForEach(array, callback) {
-  for (let i = 0; i < array.length; i++) {
-    await callback(array[i], i, array);
-  }
-}

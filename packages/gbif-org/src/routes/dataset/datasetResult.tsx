@@ -1,4 +1,4 @@
-import { MapThumbnail, MapTypes } from '@/components/maps/mapThumbnail';
+import { MapThumbnail } from '@/components/maps/mapThumbnail';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
@@ -37,8 +37,7 @@ export function DatasetResult({
     <Card className="g-mb-4">
       <MapThumbnail
         blend
-        type={MapTypes.DatasetKey}
-        identifier={dataset.key}
+        capabilitiesParams={{ datasetKey: dataset.key }} // Pass datasetKey to check if there is data to show on the map for this dataset
         overlayStyle="classic-noborder.poly"
         className="min-[500px]:g-hidden"
       />
@@ -79,8 +78,7 @@ export function DatasetResult({
           <div className="g-max-w-48 md:g-max-w-64 g-flex-none">
             <MapThumbnail
               blend
-              type={MapTypes.DatasetKey}
-              identifier={dataset.key}
+              capabilitiesParams={{ datasetKey: dataset.key }} // Pass datasetKey to check if there is data to show on the map for this dataset
               overlayStyle="classic-noborder.poly"
               className="g-rounded g-hidden min-[500px]:g-block"
             />
@@ -96,20 +94,20 @@ export function DatasetResult({
           <DynamicLink pageId="occurrenceSearch" searchParams={{ datasetKey: [dataset.key] }}>
             <CountTag
               className="hover:g-bg-primary-200"
-              v1Endpoint="/occurrence/search"
+              apiEndpoint="/v1/occurrence/search"
               params={{ datasetKey: dataset.key }}
               message="counts.nOccurrences"
             />
           </DynamicLink>
           <CountTag
-            v1Endpoint="/species/search"
+            apiEndpoint="/v1/species/search"
             params={{ datasetKey: dataset.key, origin: 'SOURCE' }}
             message="counts.nRecords"
           />
           <DynamicLink pageId="literatureSearch" searchParams={{ gbifDatasetKey: [dataset.key] }}>
             <CountTag
               className="hover:g-bg-primary-200"
-              v1Endpoint="/literature/search"
+              apiEndpoint="/v1/literature/search"
               params={{ gbifDatasetKey: dataset.key }}
               message="counts.nCitations"
             />

@@ -1,13 +1,13 @@
 /* eslint-disable class-methods-use-this */
 
-import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { get, merge } from 'lodash';
 import wikibase from 'wikibase-sdk';
+import { getDefaultAgent } from '@/requestAgents';
 import { decorateProperty, getItemData, getIUCNRedListData } from './helpers';
 
 const USER_AGENT = 'gbif-graphql/1.0';
-const WIKI_GBIF_TAXON_IDENTIFIER = 'P846';
+const WIKI_GBIF_TAXON_IDENTIFIER = 'P10585';
 const IUCN_TAXON_IDENTIFIER = 'P627';
 const IUCN_CONSERVATION_STATUS = 'P141';
 

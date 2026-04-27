@@ -3,7 +3,6 @@ import { countryKeyRoute } from '@/routes/country/key';
 import { datasetKeyRoute } from '@/routes/dataset/key';
 import { derivedDatasetKeyRoute } from '@/routes/derivedDataset/key';
 import { datasetSearchRoute } from '@/routes/dataset/search';
-import { eventSearchRoute } from '@/routes/events/search/index';
 import { installationKeyRoute } from '@/routes/installation/key';
 import { institutionKeyRoute } from '@/routes/institution/key';
 import { literatureSearchRoute } from '@/routes/literature/search';
@@ -22,6 +21,7 @@ import { taxonKeyRoute } from '@/routes/taxon/key';
 import { taxonSearchRoute } from '@/routes/taxon/search';
 import { collectionSearchRoute } from '@/routes/collection/search';
 import { institutionSearchRoute } from '@/routes/institution/search';
+import { speciesKeyRoute } from '@/routes/species/key';
 
 export const dataRoutes = [
   // search routes first in case of conflict
@@ -51,4 +51,5 @@ export const dataRoutes = [
   nodeKeyRoute,
   // Must be last as alias handling will require match on whildcard
   ...resourceKeyRoutes,
+  speciesKeyRoute,
 ];

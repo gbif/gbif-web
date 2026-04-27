@@ -1,5 +1,6 @@
 import { HelpText } from '@/components/helpText';
 import { Card } from '@/components/ui/smallCard';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { FormattedMessage } from 'react-intl';
 
 export function AboutContent() {
@@ -12,7 +13,15 @@ export function AboutContent() {
   );
 }
 
-export function ApiContent({ id = 5231190 }: { id?: number }) {
+export function ApiContent({
+  id = 5231190,
+  checklistKey,
+}: {
+  id?: number | string;
+  checklistKey?: string;
+}) {
+  const defaultChecklistKey = useChecklistKey();
+  const datasetKey = checklistKey ?? defaultChecklistKey;
   return (
     <div className="g-text-sm g-prose">
       <div className="g-prose g-text-sm [&_h3]:g-m-0 [&_h3]:g-text-sm">
@@ -22,13 +31,21 @@ export function ApiContent({ id = 5231190 }: { id?: number }) {
         <FormattedMessage id="apiHelp.examples" />
       </h4>
       <Card className="g-p-2 g-mb-2">
-        <FormattedMessage id="apiHelp.singleSpecies" /> <br />
-        <a href={`https://api.gbif.org/v1/species/${id}`}>https://api.gbif.org/v1/species/{id}</a>
+        <FormattedMessage id="apiHelp.singleTaxon" /> <br />
+        <a href={`https://api.gbif.org/v2/taxon/${datasetKey}/${id}`}>
+          https://api.gbif.org/v2/taxon/{datasetKey}/{id}
+        </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
-        <FormattedMessage id="apiHelp.searchSpecies" /> <br />
-        <a href={`https://api.gbif.org/v1/species/search?q=Passer`}>
-          https://api.gbif.org/v1/species/search?q=passer
+        <FormattedMessage id="apiHelp.singleTaxonDetails" /> <br />
+        <a href={`https://api.gbif.org/v2/taxon/${datasetKey}/${id}/info`}>
+          https://api.gbif.org/v2/taxon/{datasetKey}/{id}/info
+        </a>
+      </Card>
+      <Card className="g-p-2 g-mb-2">
+        <FormattedMessage id="apiHelp.searchTaxa" /> <br />
+        <a href={`https://api.gbif.org/v2/taxon/search/${datasetKey}?q=Passer`}>
+          https://api.gbif.org/v2/taxon/search/{datasetKey}?q=passer
         </a>
       </Card>
     </div>

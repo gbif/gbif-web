@@ -5,7 +5,6 @@ import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import EmptyValue from '@/components/emptyValue';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HyperText } from '@/components/hyperText';
-import { Message } from '@/components/message';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -16,7 +15,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/largeCard';
-import { Progress } from '@/components/ui/progress';
 import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import {
@@ -29,15 +27,10 @@ import {
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import formatAsPercentage from '@/utils/formatAsPercentage';
 import { useEffect, useMemo, useState } from 'react';
-import { GiDna1 } from 'react-icons/gi';
-import { MdGridOn, MdInfoOutline } from 'react-icons/md';
-import { TiPipette as SamplingIcon } from 'react-icons/ti';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { LongDate } from '@/components/dateFormats';
 import { useDatasetKeyLoaderData } from '.';
@@ -52,9 +45,7 @@ import { TemporalCoverages } from './about/TemporalCoverages';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { notNull } from '@/utils/notNull';
 import { MapWidget } from '@/components/maps/mapWidget';
-import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/utils/shadcn';
+import { useHasMap } from '@/components/maps/mapThumbnail';
 import { PublishingCountries } from './about/PublishingCountries';
 import { UserAvatarSection } from '@/components/userAvatarSection';
 import { useUser } from '@/contexts/UserContext';
@@ -66,8 +57,8 @@ export function DatasetKeyAbout() {
   const config = useConfig();
   const { dataset } = useDatasetKeyLoaderData().data;
   const hasPreprocessedMap = useHasMap({
-    type: MapTypes.DatasetKey,
-    identifier: dataset.key,
+    datasetKey: dataset?.key ?? '',
+    checklistKey: config.defaultChecklistKey,
   });
   const hasLocalContext =
     (dataset.localContexts?.length ?? 0) > 0 && config.experimentalFeatures.localContextEnabled;
@@ -255,7 +246,9 @@ export function DatasetKeyAbout() {
 
             {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
               <Alert variant="destructive" className="g-mb-4">
-                <AlertTitle><FormattedMessage id="dataset.metadataOnlyWithData.title" /></AlertTitle>
+                <AlertTitle>
+                  <FormattedMessage id="dataset.metadataOnlyWithData.title" />
+                </AlertTitle>
                 <AlertDescription>
                   <FormattedMessage id="dataset.metadataOnlyWithData.description" />
                 </AlertDescription>
@@ -293,7 +286,12 @@ export function DatasetKeyAbout() {
 
             {insights?.images?.documents?.total > 0 && (
               <>
-                <Images images={insights?.images} dataset={dataset} className="g-mb-4" />
+                <Images
+                  results={insights?.images?.documents.results}
+                  datasetKey={dataset.key}
+                  total={insights?.images?.documents?.total}
+                  className="g-mb-4"
+                />
               </>
             )}
 
@@ -596,218 +594,6 @@ function getToc(dataset: DatasetKeyLoaderResult['data']['dataset']) {
     citation: true,
   };
   return toc;
-}
-
-function DataSummary({ data, insights }: { data: DatasetQuery; insights?: DatasetInsightsQuery }) {
-  const { dataset, totalTaxa, accepted, synonyms } = data;
-  if (!dataset || dataset.type === DatasetType.Metadata) return null;
-
-  const siteTotal = insights?.siteOccurrences?.documents?.total ?? 0;
-
-  // Calculate percentages
-  const withCoordinates = insights?.withCoordinates?.documents?.total ?? 0;
-  const withEventDate = insights?.withEventDate?.documents?.total ?? 0;
-  const withTaxonMatch = siteTotal - (insights?.withTaxonMatch?.documents?.total ?? 0);
-
-  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / siteTotal);
-  const eventDatePercentage = formatAsPercentage(withEventDate / siteTotal);
-  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / siteTotal);
-
-  // Check for special dataset types
-  const isGridded = (dataset?.gridded?.[0]?.percent ?? 0) > 0.5;
-  const hasDna = (insights?.siteOccurrences?.facet?.dwcaExtension || []).find(
-    (ext) => ext?.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData'
-  );
-  const withEventId = insights?.siteOccurrences?.cardinality?.eventId ?? 0;
-  const labelAsEventDataset =
-    dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / siteTotal < 0.99);
-
-  const taxonMatchFilter = {
-    must: { datasetKey: [dataset.key], taxonKey: [{ type: 'isNotNull' }] },
-  };
-  const taxonMatchLink = btoa(JSON.stringify(taxonMatchFilter));
-
-  const eventNotNullFilter = {
-    must: { datasetKey: [dataset.key], eventDate: [{ type: 'isNotNull' }] },
-  };
-  const eventDateLink = btoa(JSON.stringify(eventNotNullFilter));
-
-  // for checklists
-  const colOverlap = dataset.metrics?.colCoveragePct;
-  const synonymsPercentage = formatAsPercentage((synonyms?.count ?? 0) / (totalTaxa?.count ?? 0));
-  const acceptedPercentage = formatAsPercentage((accepted?.count ?? 0) / (totalTaxa?.count ?? 0));
-
-  return (
-    <>
-      <div className="g-mb-4 g-text-slate-600 g-text-sm g-bg-slate-500/5 g-p-4 g-rounded">
-        {/* Occurrence quality metrics - linkable to occurrence search */}
-        {siteTotal > 0 && (
-          <DataSummaryBlock>
-            <DataSummaryLink
-              pageId="occurrenceSearch"
-              searchParams={{
-                datasetKey: [dataset.key],
-                hasCoordinate: ['true'],
-                hasGeospatialIssue: ['false'],
-              }}
-            >
-              <FormattedMessage
-                id="counts.percentWithCoordinates"
-                values={{ percent: withCoordinatesPercentage }}
-              />
-              <Progress value={parseFloat(withCoordinatesPercentage)} className="g-h-1" />
-            </DataSummaryLink>
-            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: eventDateLink }}>
-              <FormattedMessage
-                id="counts.percentWithDate"
-                values={{ percent: eventDatePercentage }}
-              />
-              <Progress value={parseFloat(eventDatePercentage)} className="g-h-1" />
-            </DataSummaryLink>
-            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: taxonMatchLink }}>
-              <FormattedMessage
-                id="counts.percentWithTaxonMatch"
-                values={{ percent: withTaxonMatchPercentage }}
-              />
-              <Progress value={parseFloat(withTaxonMatchPercentage)} className="g-h-1" />
-            </DataSummaryLink>
-          </DataSummaryBlock>
-        )}
-
-        {/* checklist based metrics - linkable to the taxonomy tab */}
-        {dataset?.type === DatasetType.Checklist && (
-          <DataSummaryBlock>
-            <DataSummaryLink to={`./species?status=ACCEPTED`}>
-              <FormattedMessage
-                id="counts.nAcceptedNames"
-                values={{ total: accepted?.count ?? 0 }}
-              />
-              <Progress value={acceptedPercentage} className="g-h-1" />
-            </DataSummaryLink>
-            <DataSummaryLink to={`./species?status=SYNONYM`}>
-              <FormattedMessage id="counts.nSynonyms" values={{ total: synonyms?.count ?? 0 }} />
-              <Progress value={synonymsPercentage} className="g-h-1" />
-            </DataSummaryLink>
-
-            {/* {gbifOverlap && (
-              <DataSummaryInfo>
-                <FormattedMessage
-                  id="counts.gbifOverlapPercent"
-                  values={{ percent: gbifOverlap }}
-                />{' '}
-              </DataSummaryInfo>
-            )} */}
-
-            {colOverlap && (
-              <DataSummaryInfo>
-                <FormattedMessage
-                  id="counts.colOverlapPercent"
-                  values={{ percent: colOverlap }}
-                />{' '}
-              </DataSummaryInfo>
-            )}
-          </DataSummaryBlock>
-        )}
-
-        {/* Special dataset type indicators - informational only */}
-        {siteTotal > 0 && (isGridded || hasDna || labelAsEventDataset) && (
-          <DataSummaryBlock className="g-mt-4">
-            {isGridded && (
-              <DataSummaryInfo popupContent={<Message id="dataset.griddedDataDescription" />}>
-                <MdGridOn className="g-me-2" />
-                <FormattedMessage id="dataset.griddedData" />
-                <MdInfoOutline />
-              </DataSummaryInfo>
-            )}
-            {hasDna && (
-              <DataSummaryInfo popupContent={<Message id="dataset.includesDnaDescription" />}>
-                <GiDna1 className="g-me-2" />
-                <FormattedMessage id="dataset.includesDna" />
-                <MdInfoOutline />
-              </DataSummaryInfo>
-            )}
-            {labelAsEventDataset && (
-              <DataSummaryInfo
-                popupContent={<Message id="dataset.containsSamplingEventsDescription" />}
-              >
-                <SamplingIcon className="g-me-2" />
-                <FormattedMessage id="dataset.containsSamplingEvents" />
-                <MdInfoOutline />
-              </DataSummaryInfo>
-            )}
-          </DataSummaryBlock>
-        )}
-      </div>
-    </>
-  );
-}
-
-function DataSummaryBlock({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        'g-w-full g-flex g-flex-wrap md:g-flex-nowrap sm:g-items-end g-flex-col sm:g-flex-row',
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
-function DataSummaryLink({
-  children,
-  pageId,
-  searchParams,
-  to,
-  className,
-}: {
-  children: React.ReactNode;
-  pageId?: string;
-  searchParams?: Record<string, string | string[]>;
-  to?: string;
-  className?: string;
-}) {
-  return (
-    <DynamicLink
-      to={to}
-      pageId={pageId}
-      searchParams={searchParams}
-      className={cn('sm:g-w-1/3 sm:g-flex-none g-px-2 hover:g-text-primary-700', className)}
-    >
-      {children}
-    </DynamicLink>
-  );
-}
-
-function DataSummaryInfo({
-  children,
-  popupContent,
-  className,
-}: {
-  children: React.ReactNode;
-  popupContent?: React.ReactNode;
-  className?: string;
-}) {
-  const classes =
-    'sm:g-w-1/3 sm:g-flex-none g-border-2 g-rounded-full g-border-primary-500 g-px-2 g-py-1 g-flex-inline g-gap-1 g-items-center';
-  if (!popupContent) {
-    return <div className={cn(classes, className)}>{children}</div>;
-  }
-  return (
-    <Popover>
-      <PopoverTrigger className={cn(classes, 'g-cursor-pointer', className)}>
-        {children}
-      </PopoverTrigger>
-      <PopoverContent className="g-prose g-w-96">{popupContent}</PopoverContent>
-    </Popover>
-  );
 }
 
 function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> }) {

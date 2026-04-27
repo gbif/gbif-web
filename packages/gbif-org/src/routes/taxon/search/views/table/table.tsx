@@ -13,7 +13,7 @@ import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
-import { TaxonSearchQuery, TaxonSearchQueryVariables } from '@/gql/graphql';
+import { TaxonSearchQuery, TaxonSearchQueryVariables, TaxonSearchSortBy } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
@@ -22,41 +22,46 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
+import { LinkData, useLink } from '@/reactRouterPlugins/dynamicLink';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
-  query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
-    taxonSearch(query: $query, offset: $offset, limit: $limit, hl: true) {
+  query TaxonSearch(
+    $offset: Int
+    $limit: Int
+    $query: TaxonSearchInput
+    $sortBy: TaxonSearchSortBy
+    $reverse: Boolean
+  ) {
+    taxonSearch(
+      query: $query
+      offset: $offset
+      limit: $limit
+      sortBy: $sortBy
+      reverse: $reverse
+      searchType: FUZZY
+    ) {
       count
       offset
       endOfRecords
       results {
-        key
-        nubKey
-        scientificName
-        formattedName(useFallback: true)
-        kingdom
-        phylum
-        class
-        order
-        family
-        genus
-        species
-        taxonomicStatus
-        rank
-        datasetKey
-        dataset {
-          title
-        }
-        accepted
-        acceptedKey
-        numDescendants
-        highlights
-        vernacularNames(limit: 2, language: "eng") {
-          results {
-            vernacularName
-            source
-            sourceTaxonKey
+        taxon {
+          taxonID
+          scientificName
+          label
+          taxonomicStatus
+          taxonRank
+          datasetKey
+          dataset {
+            title
           }
+          acceptedNameUsageID
+        }
+        classification {
+          scientificName
+          taxonRank
+        }
+        vernacularName(language: "eng") {
+          vernacularName
         }
       }
     }
@@ -69,26 +74,7 @@ type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = N
 
 export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['taxonSearch']>;
 
-const keySelector = (item: SingleTaxonSearchResult) => item.key?.toString() ?? '';
-
-const KeySelectorDatasetTaxon = (item: SingleTaxonSearchResult) =>
-  `${item.datasetKey}/species/${item.key}`;
-
-const rowLinkOptionsDirect: RowLinkOptions<SingleTaxonSearchResult> = {
-  pageId: 'speciesKey',
-};
-
-const rowLinkOptionsDatasetKeyTaxonDirect: RowLinkOptions<SingleTaxonSearchResult> = {
-  pageId: 'datasetKey',
-};
-
-const rowLinkOptionsDrawer: RowLinkOptions<SingleTaxonSearchResult> = {
-  createDrawerKey: ({ key }) => `t_${key}`,
-};
-
-const rowLinkOptionsDatasetKeyTaxonDrawer: RowLinkOptions<SingleTaxonSearchResult> = {
-  createDrawerKey: ({ key }) => `tx_${key}`,
-};
+const keySelector = (item: SingleTaxonSearchResult) => item.taxon?.taxonID?.toString() ?? '';
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['scientificName'],
@@ -99,7 +85,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
-  const config = useConfig();
+  const createLink = useLink();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const [, setPreviewKey] = useEntityDrawer();
@@ -115,12 +101,15 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
+    const hasFreeTextSearch = filter.must?.q && filter.must?.q.length > 0;
+
     load({
       variables: {
         query: {
           ...query,
           limit: paginationState.pageSize,
           offset: paginationState.pageIndex * paginationState.pageSize,
+          sortBy: hasFreeTextSearch ? TaxonSearchSortBy.Relevance : TaxonSearchSortBy.Taxonomic,
         },
       },
     });
@@ -141,7 +130,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
 
   // update ordered list on items change
   useEffect(() => {
-    setOrderedList(taxons.map((item) => `${entityDrawerPrefix || 't'}_${item.key}`));
+    setOrderedList(taxons.map((item) => `${entityDrawerPrefix || 't'}_${item.taxon?.taxonID}`));
   }, [taxons, setOrderedList, entityDrawerPrefix]);
 
   const { availableTableColumns, defaultEnabledTableColumns } =
@@ -151,20 +140,12 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
       fallbackOptions,
     });
 
-  let rowLinkOptions;
-
-  if (entityDrawerPrefix === 'tx') {
-    rowLinkOptions = config.openDrawerOnTableRowClick
-      ? rowLinkOptionsDatasetKeyTaxonDrawer
-      : rowLinkOptionsDatasetKeyTaxonDirect;
-  } else {
-    rowLinkOptions = config.openDrawerOnTableRowClick ? rowLinkOptionsDrawer : rowLinkOptionsDirect;
-  }
-  // the tx prefix is used for taxon search in a non-backbone dataset
-  const createRowLink = useRowLink({
-    rowLinkOptions,
-    keySelector: entityDrawerPrefix === 'tx' ? KeySelectorDatasetTaxon : keySelector,
-  });
+  const createTaxonRowLink = (item: SingleTaxonSearchResult): LinkData => {
+    return createLink({
+      pageId: 'taxonKey',
+      variables: { key: item.taxon?.taxonID ?? '', datasetKey: item.taxon?.datasetKey ?? '' },
+    });
+  };
 
   return (
     <div className="g-flex g-flex-col g-h-full">
@@ -172,7 +153,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
       <ClientSideOnly fallback={<SearchTableServerFallback />}>
         <SearchTable
           filters={filters}
-          createRowLink={createRowLink}
+          createRowLink={createTaxonRowLink}
           keySelector={keySelector}
           lockColumnLocalStoreKey="taxonSearchTableLockColumn"
           selectedColumnsLocalStoreKey="taxonSearchTableSelectedColumns"
