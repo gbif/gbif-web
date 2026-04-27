@@ -12,13 +12,15 @@ import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
-import getRedirect from './middleware/redirects.mjs';
+import createGetRedirect from './middleware/redirects.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
 
 const IS_PRODUCTION = env.NODE_ENV === 'production';
 const PORT = parseInt(env.PORT || 3000);
+
+const getRedirect = createGetRedirect(env);
 
 async function main() {
   const app = express();

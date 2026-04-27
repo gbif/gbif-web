@@ -79,7 +79,29 @@ interface UserContextType {
   changeEmail: (challengeCode: string, email: string, userName: string) => Promise<void>;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const notInitialized = () => {
+  throw new Error('UserContext not initialized');
+};
+
+const UserContext = createContext<UserContextType>({
+  user: null,
+  isLoading: false,
+  isLoggedIn: false,
+  login: notInitialized,
+  register: notInitialized,
+  updateForgottenPassword: notInitialized,
+  updateProfile: notInitialized,
+  changePassword: notInitialized,
+  disconnectAccount: notInitialized,
+  logout: notInitialized,
+  refreshUser: notInitialized,
+  resetPassword: notInitialized,
+  confirm: notInitialized,
+  deleteDownload: notInitialized,
+  postponeDownloadDeletion: notInitialized,
+  cancelDownload: notInitialized,
+  changeEmail: notInitialized,
+});
 
 export type UserErrorType =
   | 'UNKNOWN_ERROR'
@@ -536,9 +558,5 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useUser() {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
+  return useContext(UserContext);
 }

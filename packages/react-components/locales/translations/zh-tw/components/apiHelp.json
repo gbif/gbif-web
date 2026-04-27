@@ -2,9 +2,14 @@
   "example": "範例",
   "examples": "範例",
   "singleEntry": "取得單一入口",
+  "downloadKeyDatasets": "為下載提供資料的資料集。",
+  "downloadKeyDatasetsExport": "為下載提供資料的資料集清單",
   "singleOccurrence": "取得單一出現紀錄",
   "searchOccurrences": "取得所有出現紀錄",
   "filterOccurrences": "搜尋出現紀錄",
+  "searchOccurrencesExample": "2000 年至 2024 年 5 月記錄的分類群編號為 9778871 (Flabellina McMurtrie, 1831) 的前五筆出現記錄。",
+  "relatedOccurrences": "相關的出現紀錄 (實驗性)",
+  "occurrenceFragment": "未解釋的記錄",
   "singleInstallation": "取得單一安裝",
   "singleOrganization": "取得單一發布者",
   "searchOrganizations": "搜尋發布者.",
@@ -23,5 +28,6 @@
   "searchNodes": "搜尋節點",
   "singleSpecies": "取得單一物種",
   "searchSpecies": "取得所有物種",
-  "singleDerivedDataset": "取得單一衍生資料集"
+  "singleDerivedDataset": "取得單一衍生資料集",
+  "derivedDatasetContributingDatasets": "取得為衍生資料集提供記錄的資料集"
 }

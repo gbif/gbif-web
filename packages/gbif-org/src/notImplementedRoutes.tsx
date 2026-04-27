@@ -44,10 +44,6 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     element: <NotImplemented />,
   },
   {
-    path: 'system-health',
-    element: <NotImplemented />,
-  },
-  {
     path: 'derived-dataset',
     element: <NotImplemented />,
     children: [

@@ -112,6 +112,8 @@ export const WildcardLabel = ({ id }: { id: string | number | object }) => {
 export const YearLabel = rangeOrEqualLabel('intervals.compactTime');
 export const GeologicalTimeLabel = rangeOrEqualLabel('intervals.compactTime');
 export const CoordinateUncertaintyLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const DecimalLatitudeLabel = rangeOrEqualLabel('intervals.description');
+export const DecimalLongitudeLabel = rangeOrEqualLabel('intervals.description');
 export const distanceFromCentroidInMetersLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
