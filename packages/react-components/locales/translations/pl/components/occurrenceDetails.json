@@ -20,6 +20,22 @@
   "recordedAndIdentifiedBy": "Stwierdzony i zidentyfikowany przez",
   "tryPublisherSiteForFailingMedia": "Jeśli media nie wyświetlają się prawidłowo, spróbuj na stronie publikującego ",
   "downloadMediaFile": "",
+  "byRightsHolder": "przez {RIGHTSHOLDER}",
+  "licensedUnder": "",
+  "suggestedCitation": "Sugerowane przypisanie",
+  "inCountry": {
+    "PRESERVED_SPECIMEN": "",
+    "FOSSIL_SPECIMEN": "",
+    "LIVING_SPECIMEN": "",
+    "HUMAN_OBSERVATION": "",
+    "MACHINE_OBSERVATION": "",
+    "MATERIAL_SAMPLE": "",
+    "MATERIAL_CITATION": "",
+    "OCCURRENCE": "",
+    "OBSERVATION": "",
+    "LITERATURE": "",
+    "UNKNOWN": ""
+  },
   "screenReader": {
     "title": "Szczegóły stwierdzenia"
   },

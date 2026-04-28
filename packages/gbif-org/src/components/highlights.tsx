@@ -218,7 +218,7 @@ export function TypeStatus({ types, className }: { className?: string; types?: s
     <GenericFeature className={className}>
       <TypeStatusIcon />{' '}
       <span style={typeStyle}>
-        <ConceptValue vocabulary="TypeStatus" name={typeStatus} />
+        <ConceptValue vocabulary="TypeStatus" name={typeStatus} hideParentLabels />
       </span>
     </GenericFeature>
   );

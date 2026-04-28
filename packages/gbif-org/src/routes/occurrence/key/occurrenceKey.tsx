@@ -308,7 +308,10 @@ export async function occurrenceKeyLoader({ params, config, graphql }: LoaderArg
   return { errors, occurrence: data!.occurrence! };
 }
 
-export type OccurrenceKeyLoaderResult = Awaited<ReturnType<typeof occurrenceKeyLoader>>;
+export type OccurrenceKeyLoaderResult = Exclude<
+  Awaited<ReturnType<typeof occurrenceKeyLoader>>,
+  Response
+>;
 
 export const OccurrenceKeyContext = createContext<{
   key?: string;

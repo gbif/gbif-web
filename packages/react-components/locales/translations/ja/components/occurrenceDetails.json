@@ -20,6 +20,22 @@
   "recordedAndIdentifiedBy": "",
   "tryPublisherSiteForFailingMedia": "",
   "downloadMediaFile": "",
+  "byRightsHolder": "{RIGHTSHOLDER} により",
+  "licensedUnder": "",
+  "suggestedCitation": "推奨される帰属",
+  "inCountry": {
+    "PRESERVED_SPECIMEN": "",
+    "FOSSIL_SPECIMEN": "",
+    "LIVING_SPECIMEN": "",
+    "HUMAN_OBSERVATION": "",
+    "MACHINE_OBSERVATION": "",
+    "MATERIAL_SAMPLE": "",
+    "MATERIAL_CITATION": "",
+    "OCCURRENCE": "",
+    "OBSERVATION": "",
+    "LITERATURE": "",
+    "UNKNOWN": ""
+  },
   "screenReader": {
     "title": ""
   },

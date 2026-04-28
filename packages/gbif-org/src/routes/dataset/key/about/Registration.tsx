@@ -8,8 +8,13 @@ import React, { useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { LongDate } from '@/components/dateFormats';
+import { DatasetKeyLoaderResult } from '../datasetKey';
 
-export function Registration({ dataset = {}, ...props }) {
+type Props = {
+  dataset: DatasetKeyLoaderResult['data']['dataset'];
+};
+
+export function Registration({ dataset }: Props) {
   const {
     machineTags = [],
     doi,
@@ -179,7 +184,7 @@ export function Registration({ dataset = {}, ...props }) {
         <Button asChild variant="outline">
           <a
             className="g-text-inherit"
-            href={`https://registry.gbif.org/dataset/${dataset.key}/ingestion-history`}
+            href={`${import.meta.env.PUBLIC_REGISTRY}/dataset/${dataset.key}/ingestion-history`}
           >
             <FormattedMessage id="dataset.registry.registrationDetails" />{' '}
             <MdLink className="g-ms-2" />

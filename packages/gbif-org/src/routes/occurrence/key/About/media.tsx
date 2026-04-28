@@ -7,8 +7,10 @@ import { MdFileDownload } from 'react-icons/md';
 import { RiExternalLinkLine } from 'react-icons/ri';
 import { FormattedMessage } from 'react-intl';
 import { BasicField, licenseMap } from '../properties';
+import getTitle from '../Title';
 import { Img } from '@/components/Img';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 const supportedFormats = [
   'audio/ogg',
@@ -63,13 +65,19 @@ export function Media({
       <ul className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
         <Sounds {...{ occurrence, termMap }} />
         <MovingImages {...{ occurrence, termMap }} />
-        <Images occurrence={occurrence} />
+        <Images occurrence={occurrence} termMap={termMap} />
       </ul>
     </div>
   );
 }
 
-function Images({ occurrence, ...props }: { occurrence: OccurrenceQuery['occurrence'] }) {
+function Images({
+  occurrence,
+  termMap,
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  termMap: { [key: string]: Term };
+}) {
   if (!occurrence) return null;
   const imageCount = occurrence.stillImageCount || 0;
   const cap = 100;
@@ -98,7 +106,7 @@ function Images({ occurrence, ...props }: { occurrence: OccurrenceQuery['occurre
                 </a>
               </figure>
             )}
-            <Caption media={media} occurrence={occurrence} />
+            <Caption media={media} occurrence={occurrence} termMap={termMap} />
           </Card>
         </li>
       ))}
@@ -133,12 +141,14 @@ function Sounds({
                       </audio>
                     </div>
                     {(termMap?.references?.value || media.identifier) && (
-                      <TryPublisherSiteLink href={termMap?.references?.value || media.identifier!} />
+                      <TryPublisherSiteLink
+                        href={termMap?.references?.value || media.identifier!}
+                      />
                     )}
                   </>
                 )}
               </div>
-              <Caption media={media} occurrence={occurrence} />
+              <Caption media={media} occurrence={occurrence} termMap={termMap} />
             </Card>
           </li>
         );
@@ -173,7 +183,9 @@ function MovingImages({
                       Unable to play
                     </video>
                     {(termMap?.references?.value || media.identifier) && (
-                      <TryPublisherSiteLink href={termMap?.references?.value || media.identifier!} />
+                      <TryPublisherSiteLink
+                        href={termMap?.references?.value || media.identifier!}
+                      />
                     )}
                   </>
                 )}
@@ -182,11 +194,13 @@ function MovingImages({
                     <div className="gb-download-icon">
                       <MdFileDownload />
                     </div>
-                    <div><FormattedMessage id="occurrenceDetails.downloadMediaFile" /></div>
+                    <div>
+                      <FormattedMessage id="occurrenceDetails.downloadMediaFile" />
+                    </div>
                   </a>
                 )}
               </div>
-              <Caption media={media} occurrence={occurrence} />
+              <Caption media={media} occurrence={occurrence} termMap={termMap} />
             </Card>
           </li>
         );
@@ -198,10 +212,7 @@ function MovingImages({
 function TryPublisherSiteLink({ href }: { href: string }) {
   return (
     <div>
-      <a
-        href={href}
-        className="g-px-2 g-py-1 g-bg-slate-300 g-text-slate-600 g-text-sm g-block"
-      >
+      <a href={href} className="g-px-2 g-py-1 g-bg-slate-300 g-text-slate-600 g-text-sm g-block">
         <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
         <RiExternalLinkLine className="g-inline" />
       </a>
@@ -212,10 +223,11 @@ function TryPublisherSiteLink({ href }: { href: string }) {
 function Caption({
   media,
   occurrence,
-  ...props
+  termMap,
 }: {
   media: OccurrenceMediaDetailsFragment;
   occurrence: OccurrenceQuery['occurrence'];
+  termMap: { [key: string]: Term };
 }) {
   return (
     <figcaption className="g-px-4 g-py-2 [&_a]:g-underline">
@@ -258,8 +270,82 @@ function Caption({
         {media.created && (
           <BasicField label={`occurrenceFieldNames.created`}>{media.created}</BasicField>
         )}
+        {isValidCreativeCommonsLicense(media.license) && occurrence?.key && (
+          <BasicField label={`occurrenceDetails.suggestedCitation`}>
+            <SuggestedAttribution media={media} occurrence={occurrence} termMap={termMap} />
+          </BasicField>
+        )}
       </Properties>
     </figcaption>
+  );
+}
+
+function isValidCreativeCommonsLicense(license?: string | null): boolean {
+  if (!license) return false;
+  if (licenseMap[license]) return true;
+  const v = license.toLowerCase();
+  if (v.includes('creativecommons') || v.includes('creative commons')) return true;
+  if (v.startsWith('cc-') || v.startsWith('cc_')) return true;
+  return false;
+}
+
+function SuggestedAttribution({
+  media,
+  occurrence,
+  termMap,
+}: {
+  media: OccurrenceMediaDetailsFragment;
+  occurrence: NonNullable<OccurrenceQuery['occurrence']>;
+  termMap: { [key: string]: Term };
+}) {
+  const title = getTitle({ occurrence, termMap });
+  return (
+    <span dir="auto">
+      {media.title && <>&ldquo;{media.title}&rdquo; - </>}
+      {title && (
+        <DynamicLink
+          pageId="occurrenceKey"
+          variables={{ key: String(occurrence.key) }}
+          className="g-underline"
+        >
+          <span dangerouslySetInnerHTML={{ __html: title }} />
+        </DynamicLink>
+      )}
+      {occurrence.countryCode && (
+        <>
+          {' '}
+          <FormattedMessage
+            id={`occurrenceDetails.inCountry.${occurrence.basisOfRecord ?? 'UNKNOWN'}`}
+            defaultMessage="Recorded in {COUNTRY}"
+            values={{
+              COUNTRY: (
+                <FormattedMessage
+                  id={`enums.countryCode.${occurrence.countryCode}`}
+                  defaultMessage={occurrence.countryCode}
+                />
+              ),
+            }}
+          />
+        </>
+      )}
+      {media.rightsHolder && (
+        <>
+          {' '}
+          <FormattedMessage
+            id="occurrenceDetails.byRightsHolder"
+            defaultMessage="by {RIGHTSHOLDER}"
+            values={{ RIGHTSHOLDER: media.rightsHolder }}
+          />
+        </>
+      )}
+      {' ('}
+      <FormattedMessage
+        id="occurrenceDetails.licensedUnder"
+        defaultMessage="licensed under {LICENSE}"
+        values={{ LICENSE: <LicenseValue license={media.license!} /> }}
+      />
+      {')'}
+    </span>
   );
 }
 
@@ -275,17 +361,17 @@ function LicenseValue({ license }: { license: string }) {
 
   // Check if the value itself is a known license URL (http/https, with or without /legalcode)
   const normalize = (u: string) =>
-    u.replace(/^https?:\/\//, '').replace(/\/legalcode$/, '').replace(/\/$/, '');
+    u
+      .replace(/^https?:\/\//, '')
+      .replace(/\/legalcode$/, '')
+      .replace(/\/$/, '');
   const matchedEnumKey = Object.entries(licenseMap).find(
     ([, url]) => normalize(license) === normalize(url)
   )?.[0];
   if (matchedEnumKey)
     return (
       <a href={license} className="g-underline">
-        <FormattedMessage
-          id={`enums.license.${matchedEnumKey}`}
-          defaultMessage={matchedEnumKey}
-        />
+        <FormattedMessage id={`enums.license.${matchedEnumKey}`} defaultMessage={matchedEnumKey} />
       </a>
     );
 
