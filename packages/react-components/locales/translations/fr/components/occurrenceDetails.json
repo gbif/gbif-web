@@ -20,6 +20,22 @@
   "recordedAndIdentifiedBy": "Enregistré et identifié par",
   "tryPublisherSiteForFailingMedia": "Si le média ne s'affiche pas correctement, essayez plutôt le site de l'éditeur",
   "downloadMediaFile": "Télécharger le fichier média",
+  "byRightsHolder": "par {RIGHTSHOLDER}",
+  "licensedUnder": "sous licence {LICENSE}",
+  "suggestedCitation": "Suggestion de citation",
+  "inCountry": {
+    "PRESERVED_SPECIMEN": "récolté en/au(x) {COUNTRY}",
+    "FOSSIL_SPECIMEN": "récolté en/au(x) {COUNTRY}",
+    "LIVING_SPECIMEN": "récolté en/au(x) {COUNTRY}",
+    "HUMAN_OBSERVATION": "observé en/au(x) {COUNTRY}",
+    "MACHINE_OBSERVATION": "observé en/au(x) {COUNTRY}",
+    "MATERIAL_SAMPLE": "récolté en/au(x) {COUNTRY}",
+    "MATERIAL_CITATION": "enregistré en/au(x) {COUNTRY}",
+    "OCCURRENCE": "enregistré en/au(x) {COUNTRY}",
+    "OBSERVATION": "observé en/au(x) {COUNTRY}",
+    "LITERATURE": "enregistré en/au(x) {COUNTRY}",
+    "UNKNOWN": "enregistré en/au(x) {COUNTRY}"
+  },
   "screenReader": {
     "title": "Détails de l'occurrence"
   },
