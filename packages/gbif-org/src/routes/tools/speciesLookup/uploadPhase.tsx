@@ -34,14 +34,8 @@ export function UploadPhase({
           <div className="g-px-8 g-pt-7 g-pb-5 g-border-b g-border-slate-100">
             <p className="g-text-slate-700 g-text-sm g-leading-relaxed">
               <FormattedMessage
-                id="tools.speciesLookup.intro1"
+                id="tools.speciesLookup.description"
                 defaultMessage="Normalize species names from a csv file against the GBIF backbone."
-              />
-            </p>
-            <p className="g-text-slate-500 g-text-sm g-leading-relaxed g-mt-1">
-              <FormattedMessage
-                id="tools.speciesLookup.intro2"
-                defaultMessage="The file is expected to have a column called 'scientificName' and an optional column 'kingdom' and 'id'."
               />
             </p>
           </div>
