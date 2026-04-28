@@ -1,0 +1,26 @@
+{
+  "occurrenceSnapshots": {
+    "title": "",
+    "intro": "",
+    "description": "",
+    "cloudDatasets": {
+      "title": "",
+      "description": ""
+    },
+    "monthly": {
+      "title": "",
+      "description": ""
+    },
+    "table": {
+      "columns": {
+        "date": "Datum",
+        "format": "Formaat",
+        "citation": "Bronvermelding",
+        "filters": "Filters"
+      },
+      "citation": "",
+      "hasFilters": "Ja",
+      "downloadDetails": ""
+    }
+  }
+}
