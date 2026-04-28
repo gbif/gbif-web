@@ -9,7 +9,6 @@ import { MdOutlineCloudUpload } from 'react-icons/md';
 type UploadPhaseProps = {
   error?: string;
   isDragOver: boolean;
-  simpleExampleCsv: string;
   advancedExampleCsv: string;
   onFile: (file: File) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -20,7 +19,6 @@ type UploadPhaseProps = {
 export function UploadPhase({
   error,
   isDragOver,
-  simpleExampleCsv,
   advancedExampleCsv,
   onFile,
   onDrop,
@@ -75,7 +73,7 @@ export function UploadPhase({
                   <FormattedMessage id="tools.speciesLookup.or" defaultMessage="or" />
                 </p>
               </div>
-              <Button asChild variant="primaryOutline" size="sm">
+              <Button asChild size="sm">
                 <label className="g-cursor-pointer">
                   <FormattedMessage
                     id="tools.speciesLookup.selectFile"
@@ -92,24 +90,10 @@ export function UploadPhase({
             </div>
 
             <div className="g-mt-6 g-flex g-items-center g-gap-3">
-              <span className="g-text-slate-400 g-text-xs g-shrink-0">
-                <FormattedMessage id="tools.speciesLookup.examples" defaultMessage="Examples:" />
-              </span>
               <div className="g-flex g-gap-2">
                 <Button asChild variant="outline" size="sm">
-                  <a href={simpleExampleCsv} download="simple-example.csv">
-                    <FormattedMessage
-                      id="tools.speciesLookup.simpleExampleCsv"
-                      defaultMessage="SimpleExample.csv"
-                    />
-                  </a>
-                </Button>
-                <Button asChild variant="outline" size="sm">
-                  <a href={advancedExampleCsv} download="advanced-example.csv">
-                    <FormattedMessage
-                      id="tools.speciesLookup.advancedExampleCsv"
-                      defaultMessage="AdvancedExample.csv"
-                    />
+                  <a href={advancedExampleCsv} download="example.csv">
+                    example.csv
                   </a>
                 </Button>
               </div>
