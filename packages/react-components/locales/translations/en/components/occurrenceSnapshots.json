@@ -2,14 +2,14 @@
   "occurrenceSnapshots": {
     "title": "Occurrence snapshots",
     "intro": "Periodic exports of GBIF occurrence data",
-    "description": "Every month GBIF takes a full occurrence snapshot, saved in different formats to ease usage. All snapshots are issued with a DOI to simplify citation, and some formats are copied to public clouds for easy use on those environments.",
+    "description": "Every month, GBIF takes a full occurrence snapshot, saved in different formats to ease usage. All snapshots are issued with a DOI to simplify citation, and some formats are copied to public clouds for easy use in those environments.",
     "cloudDatasets": {
       "title": "Cloud-based datasets",
-      "description": "GBIF makes data available on the <azure>Microsoft Planetary Computer (Azure)</azure>, as an <aws>Amazon AWS Open Dataset</aws> and on a public Google <gcs>GCS bucket</gcs> and <bq>BigQuery table</bq>. When using cloud-based snapshots, we always recommend creating a <derived>Derived Dataset citation</derived> for the records that you use. When referring to the full dataset, please use the appropriate citation found below."
+      "description": "GBIF makes data available in the <azure>Microsoft Planetary Computer (Azure)</azure>, as an <aws>Amazon AWS Open Dataset</aws> and in a Google <gcs>GCS bucket</gcs> and <bq>BigQuery table</bq>. When using cloud-based snapshots, we always recommend creating a <derived>Derived Dataset citation</derived> for the records that you use. When referring to the full dataset, please use the appropriate citation found below."
     },
     "monthly": {
       "title": "Monthly snapshot datasets",
-      "description": "The monthly exports of GBIF are listed below, available in various formats. Please see the citation on each page."
+      "description": "The monthly exports of GBIF occurrence data are listed below, available in various formats. Please see the citation on each page."
     },
     "table": {
       "columns": {
