@@ -1,15 +1,15 @@
 {
   "occurrenceSnapshots": {
-    "title": "",
-    "intro": "",
-    "description": "",
+    "title": "Instantáneas de registros",
+    "intro": "Exportaciones periódicas de registros de presencia de GBIF",
+    "description": "Cada mes, GBIF toma una instantánea completa de los registros, que se guarda en diferentes formatos para facilitar su uso. Todas las instantáneas se publican con un DOI para simplificar su citado, y algunos formatos se copian en nubes públicas para facilitar su uso en esos entornos.",
     "cloudDatasets": {
       "title": "",
       "description": ""
     },
     "monthly": {
-      "title": "",
-      "description": ""
+      "title": "Conjuntos de datos de instantáneas mensuales",
+      "description": "A continuación se enumeran las exportaciones mensuales de registros de presencia de GBIF, disponibles en diversos formatos. Consulte la referencia bibliográfica que figura en cada página."
     },
     "table": {
       "columns": {
