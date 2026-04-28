@@ -135,7 +135,7 @@
         "IDENTIFIED_BY": "",
         "GBIF_ID": "GBIF ID",
         "PUBLISHED_BY_GBIF_REGION": "",
-        "IUCN_RED_LIST_CATEGORY": "",
+        "IUCN_RED_LIST_CATEGORY": "IUCN 적색목록 범주",
         "PATHWAY": "",
         "NETWORK_KEY": "",
         "DWCA_EXTENSION": "",
