@@ -27,6 +27,8 @@
   "singleNode": "Get a single node.",
   "searchNodes": "Search nodes.",
   "singleSpecies": "Get a single species.",
+  "matchSpecies": "Match a name to the GBIF backbone taxonomy.",
+  "suggestSpecies": "Suggest species names.",
   "searchSpecies": "Get all species.",
   "singleDerivedDataset": "Get a single derived dataset",
   "derivedDatasetContributingDatasets": "Get datasets contributing with data to a derived dataset"
