@@ -24,14 +24,14 @@
     "countryNamingDisclaimer": "국가 및 영역의 이름은 {ISO_STANDARD_LINK_TEXT}에 기반합니다.",
     "isoStandardLinkText": "ISO 3166-1 표준",
     "counts": {
-      "occurrences": "",
-      "datasets": "",
-      "publishers": "",
-      "countriesAndAreasContributeData": "",
+      "occurrences": "{숫자, 복수, 0 {Occurrences} 한가지 {Occurrence} 다른 {Occurrences}}",
+      "datasets": "{숫자, 복수, 0 {Datasets} 한가지 {Dataset} 다른 {Dataset}}",
+      "publishers": "{숫자, 복수, 0 {Publishers} 한가지 {Publisher} 다른 {Publishers}}",
+      "countriesAndAreasContributeData": "국가 및 지역 기여 데이터",
       "publishedOccurrences": "발간된 출현값",
       "publishedDatasets": "발간된 데이터셋",
-      "countriesAndAreasCoveredByDataFrom": "",
-      "publishersFrom": ""
+      "countriesAndAreasCoveredByDataFrom": " {TRANSLATED_COUNTRY} 데이터에 포함된 국가 및 지역",
+      "publishersFrom": "{TRANSLATED_COUNTRY}로부터의 발행자"
     },
     "activityReport": "활동 보고서",
     "contacts": "연락처"
