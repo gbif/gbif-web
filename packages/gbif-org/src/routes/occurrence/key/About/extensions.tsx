@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Group } from './groups';
 import { Img } from '@/components/Img';
+import { cn } from '@/utils/shadcn';
+import { Button } from '@/components/ui/button';
 
 export function Preparation({
   occurrence,
@@ -160,11 +162,34 @@ export function DNADerivedData({
   const extensionName = 'dnaDerivedData';
   return (
     <GenericExtension
-      {...{ occurrence, extensionName }}
+      {...{
+        occurrence,
+        extensionName,
+        overwrites: {
+          dna_sequence: ({ item }) => <DNASequence sequence={item['dna_sequence']} />,
+        },
+      }}
       label="occurrenceDetails.extensions.dnaDerivedData.name"
       id={extensionName}
       updateToc={updateToc}
     />
+  );
+}
+
+function DNASequence({ sequence }: { sequence: string }) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div>
+      <div>
+        <code className={cn('g-text-sm', { 'g-line-clamp-2': !expanded })}>{sequence}</code>
+      </div>
+      <Button variant="outline" size="sm" className="g-mt-2" onClick={() => setExpanded((v) => !v)}>
+        <FormattedMessage
+          id={expanded ? 'occurrenceDetails.showLess' : 'occurrenceDetails.showMore'}
+        />
+      </Button>
+    </div>
   );
 }
 
