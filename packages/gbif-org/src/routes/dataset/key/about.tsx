@@ -61,6 +61,7 @@ import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { DatasetKeyLoaderResult } from './datasetKey';
+import { LocalContextCards } from './about/LocalContexts';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -69,9 +70,6 @@ export function DatasetKeyAbout() {
     type: MapTypes.DatasetKey,
     identifier: dataset.key,
   });
-  const hasLocalContext =
-    (dataset.localContexts?.length ?? 0) > 0 && config.experimentalFeatures.localContextEnabled;
-
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
   const [scopedDatasetPredicate, setScopedDatasetPredicate] = useState<Predicate>({
@@ -162,8 +160,11 @@ export function DatasetKeyAbout() {
 
   const chartPredicate = scopedDatasetPredicate;
 
-  const toc = useMemo(() => getToc(dataset), [dataset]);
-  const tableOfContents = useMemo(() => {
+  const toc = useMemo(
+    () => getToc({ dataset, localContextEnabled: config.experimentalFeatures.localContextEnabled }),
+    [dataset, config.experimentalFeatures.localContextEnabled]
+  );
+  const tableOfContents: Array<{ id: string; title: React.ReactElement }> = useMemo(() => {
     const tableOfContents = [
       { id: 'description', title: <FormattedMessage id="dataset.description" /> },
     ];
@@ -209,6 +210,12 @@ export function DatasetKeyAbout() {
         title: <FormattedMessage id="dataset.bibliography" />,
       });
     }
+    if (toc.localContexts) {
+      tableOfContents.push({
+        id: 'localContexts',
+        title: <FormattedMessage id="dataset.localContexts" />,
+      });
+    }
     if (toc.contacts) {
       tableOfContents.push({
         id: 'contacts',
@@ -230,7 +237,6 @@ export function DatasetKeyAbout() {
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        {/* <div className={`${removeSidebar ? '' : 'g-flex'}`}> */}
         <SidebarLayout
           reverse
           className="g-grid-cols-[1fr_250px] xl:g-grid-cols-[1fr_300px]"
@@ -454,6 +460,18 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
+
+            {toc.localContexts && (
+              <div id="localContexts">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="dataset.localContexts" />
+                  </CardTitle>
+                </CardHeader>
+                <LocalContextCards localContexts={dataset.localContexts} />
+              </div>
+            )}
+
             {toc.contacts && (
               <Card className="g-mb-4 gbif-word-break" id="contacts">
                 <CardHeader>
@@ -493,7 +511,6 @@ export function DatasetKeyAbout() {
           </div>
           {!removeSidebar && (
             <Aside>
-              {hasLocalContext && <LocalContextCards localContexts={dataset.localContexts} />}
               <AsideSticky className="-g-mt-4">
                 <Card>
                   <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
@@ -576,7 +593,12 @@ const DATASET_SLOW = /* GraphQL */ `
   }
 `;
 
-function getToc(dataset: DatasetKeyLoaderResult['data']['dataset']) {
+type GetTocOptions = {
+  dataset: DatasetKeyLoaderResult['data']['dataset'];
+  localContextEnabled: boolean;
+};
+
+function getToc({ dataset, localContextEnabled }: GetTocOptions) {
   const hasSamplingDescription =
     dataset?.samplingDescription?.studyExtent ||
     dataset?.samplingDescription?.sampling ||
@@ -594,204 +616,205 @@ function getToc(dataset: DatasetKeyLoaderResult['data']['dataset']) {
     additionalInfo: dataset?.additionalInfo,
     contacts: (dataset?.volatileContributors?.length ?? 0) > 0,
     bibliography: (dataset?.bibliographicCitations?.length ?? 0) > 0,
+    localContexts: localContextEnabled && (dataset?.localContexts?.length ?? 0) > 0,
     registration: true,
     citation: true,
   };
   return toc;
 }
 
-function DataSummary({ data, insights }: { data: DatasetQuery; insights?: DatasetInsightsQuery }) {
-  const { dataset, totalTaxa, accepted, synonyms } = data;
-  if (!dataset || dataset.type === DatasetType.Metadata) return null;
+// function DataSummary({ data, insights }: { data: DatasetQuery; insights?: DatasetInsightsQuery }) {
+//   const { dataset, totalTaxa, accepted, synonyms } = data;
+//   if (!dataset || dataset.type === DatasetType.Metadata) return null;
 
-  const siteTotal = insights?.siteOccurrences?.documents?.total ?? 0;
+//   const siteTotal = insights?.siteOccurrences?.documents?.total ?? 0;
 
-  // Calculate percentages
-  const withCoordinates = insights?.withCoordinates?.documents?.total ?? 0;
-  const withEventDate = insights?.withEventDate?.documents?.total ?? 0;
-  const withTaxonMatch = siteTotal - (insights?.withTaxonMatch?.documents?.total ?? 0);
+//   // Calculate percentages
+//   const withCoordinates = insights?.withCoordinates?.documents?.total ?? 0;
+//   const withEventDate = insights?.withEventDate?.documents?.total ?? 0;
+//   const withTaxonMatch = siteTotal - (insights?.withTaxonMatch?.documents?.total ?? 0);
 
-  const withCoordinatesPercentage = formatAsPercentage(withCoordinates / siteTotal);
-  const eventDatePercentage = formatAsPercentage(withEventDate / siteTotal);
-  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / siteTotal);
+//   const withCoordinatesPercentage = formatAsPercentage(withCoordinates / siteTotal);
+//   const eventDatePercentage = formatAsPercentage(withEventDate / siteTotal);
+//   const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / siteTotal);
 
-  // Check for special dataset types
-  const isGridded = (dataset?.gridded?.[0]?.percent ?? 0) > 0.5;
-  const hasDna = (insights?.siteOccurrences?.facet?.dwcaExtension || []).find(
-    (ext) => ext?.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData'
-  );
-  const withEventId = insights?.siteOccurrences?.cardinality?.eventId ?? 0;
-  const labelAsEventDataset =
-    dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / siteTotal < 0.99);
+//   // Check for special dataset types
+//   const isGridded = (dataset?.gridded?.[0]?.percent ?? 0) > 0.5;
+//   const hasDna = (insights?.siteOccurrences?.facet?.dwcaExtension || []).find(
+//     (ext) => ext?.key === 'http://rs.gbif.org/terms/1.0/DNADerivedData'
+//   );
+//   const withEventId = insights?.siteOccurrences?.cardinality?.eventId ?? 0;
+//   const labelAsEventDataset =
+//     dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / siteTotal < 0.99);
 
-  const taxonMatchFilter = {
-    must: { datasetKey: [dataset.key], taxonKey: [{ type: 'isNotNull' }] },
-  };
-  const taxonMatchLink = btoa(JSON.stringify(taxonMatchFilter));
+//   const taxonMatchFilter = {
+//     must: { datasetKey: [dataset.key], taxonKey: [{ type: 'isNotNull' }] },
+//   };
+//   const taxonMatchLink = btoa(JSON.stringify(taxonMatchFilter));
 
-  const eventNotNullFilter = {
-    must: { datasetKey: [dataset.key], eventDate: [{ type: 'isNotNull' }] },
-  };
-  const eventDateLink = btoa(JSON.stringify(eventNotNullFilter));
+//   const eventNotNullFilter = {
+//     must: { datasetKey: [dataset.key], eventDate: [{ type: 'isNotNull' }] },
+//   };
+//   const eventDateLink = btoa(JSON.stringify(eventNotNullFilter));
 
-  // for checklists
-  const synonymsPercentage = formatAsPercentage((synonyms?.count ?? 0) / (totalTaxa?.count ?? 0));
-  const acceptedPercentage = formatAsPercentage((accepted?.count ?? 0) / (totalTaxa?.count ?? 0));
+//   // for checklists
+//   const synonymsPercentage = formatAsPercentage((synonyms?.count ?? 0) / (totalTaxa?.count ?? 0));
+//   const acceptedPercentage = formatAsPercentage((accepted?.count ?? 0) / (totalTaxa?.count ?? 0));
 
-  return (
-    <>
-      <div className="g-mb-4 g-text-slate-600 g-text-sm g-bg-slate-500/5 g-p-4 g-rounded">
-        {/* Occurrence quality metrics - linkable to occurrence search */}
-        {siteTotal > 0 && (
-          <DataSummaryBlock>
-            <DataSummaryLink
-              pageId="occurrenceSearch"
-              searchParams={{
-                datasetKey: [dataset.key],
-                hasCoordinate: ['true'],
-                hasGeospatialIssue: ['false'],
-              }}
-            >
-              <FormattedMessage
-                id="counts.percentWithCoordinates"
-                values={{ percent: withCoordinatesPercentage }}
-              />
-              <Progress value={parseFloat(withCoordinatesPercentage)} className="g-h-1" />
-            </DataSummaryLink>
-            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: eventDateLink }}>
-              <FormattedMessage
-                id="counts.percentWithDate"
-                values={{ percent: eventDatePercentage }}
-              />
-              <Progress value={parseFloat(eventDatePercentage)} className="g-h-1" />
-            </DataSummaryLink>
-            <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: taxonMatchLink }}>
-              <FormattedMessage
-                id="counts.percentWithTaxonMatch"
-                values={{ percent: withTaxonMatchPercentage }}
-              />
-              <Progress value={parseFloat(withTaxonMatchPercentage)} className="g-h-1" />
-            </DataSummaryLink>
-          </DataSummaryBlock>
-        )}
+//   return (
+//     <>
+//       <div className="g-mb-4 g-text-slate-600 g-text-sm g-bg-slate-500/5 g-p-4 g-rounded">
+//         {/* Occurrence quality metrics - linkable to occurrence search */}
+//         {siteTotal > 0 && (
+//           <DataSummaryBlock>
+//             <DataSummaryLink
+//               pageId="occurrenceSearch"
+//               searchParams={{
+//                 datasetKey: [dataset.key],
+//                 hasCoordinate: ['true'],
+//                 hasGeospatialIssue: ['false'],
+//               }}
+//             >
+//               <FormattedMessage
+//                 id="counts.percentWithCoordinates"
+//                 values={{ percent: withCoordinatesPercentage }}
+//               />
+//               <Progress value={parseFloat(withCoordinatesPercentage)} className="g-h-1" />
+//             </DataSummaryLink>
+//             <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: eventDateLink }}>
+//               <FormattedMessage
+//                 id="counts.percentWithDate"
+//                 values={{ percent: eventDatePercentage }}
+//               />
+//               <Progress value={parseFloat(eventDatePercentage)} className="g-h-1" />
+//             </DataSummaryLink>
+//             <DataSummaryLink pageId="occurrenceSearch" searchParams={{ filter: taxonMatchLink }}>
+//               <FormattedMessage
+//                 id="counts.percentWithTaxonMatch"
+//                 values={{ percent: withTaxonMatchPercentage }}
+//               />
+//               <Progress value={parseFloat(withTaxonMatchPercentage)} className="g-h-1" />
+//             </DataSummaryLink>
+//           </DataSummaryBlock>
+//         )}
 
-        {/* checklist based metrics - linkable to the taxonomy tab */}
-        {dataset?.type === DatasetType.Checklist && (
-          <DataSummaryBlock>
-            <DataSummaryLink to={`./species?status=ACCEPTED`}>
-              <FormattedMessage
-                id="counts.nAcceptedNames"
-                values={{ total: accepted?.count ?? 0 }}
-              />
-              <Progress value={acceptedPercentage} className="g-h-1" />
-            </DataSummaryLink>
-            <DataSummaryLink to={`./species?status=SYNONYM`}>
-              <FormattedMessage id="counts.nSynonyms" values={{ total: synonyms?.count ?? 0 }} />
-              <Progress value={synonymsPercentage} className="g-h-1" />
-            </DataSummaryLink>
-          </DataSummaryBlock>
-        )}
+//         {/* checklist based metrics - linkable to the taxonomy tab */}
+//         {dataset?.type === DatasetType.Checklist && (
+//           <DataSummaryBlock>
+//             <DataSummaryLink to={`./species?status=ACCEPTED`}>
+//               <FormattedMessage
+//                 id="counts.nAcceptedNames"
+//                 values={{ total: accepted?.count ?? 0 }}
+//               />
+//               <Progress value={acceptedPercentage} className="g-h-1" />
+//             </DataSummaryLink>
+//             <DataSummaryLink to={`./species?status=SYNONYM`}>
+//               <FormattedMessage id="counts.nSynonyms" values={{ total: synonyms?.count ?? 0 }} />
+//               <Progress value={synonymsPercentage} className="g-h-1" />
+//             </DataSummaryLink>
+//           </DataSummaryBlock>
+//         )}
 
-        {/* Special dataset type indicators - informational only */}
-        {siteTotal > 0 && (isGridded || hasDna || labelAsEventDataset) && (
-          <DataSummaryBlock className="g-mt-4">
-            {isGridded && (
-              <DataSummaryInfo popupContent={<Message id="dataset.griddedDataDescription" />}>
-                <MdGridOn className="g-me-2" />
-                <FormattedMessage id="dataset.griddedData" />
-                <MdInfoOutline />
-              </DataSummaryInfo>
-            )}
-            {hasDna && (
-              <DataSummaryInfo popupContent={<Message id="dataset.includesDnaDescription" />}>
-                <GiDna1 className="g-me-2" />
-                <FormattedMessage id="dataset.includesDna" />
-                <MdInfoOutline />
-              </DataSummaryInfo>
-            )}
-            {labelAsEventDataset && (
-              <DataSummaryInfo
-                popupContent={<Message id="dataset.containsSamplingEventsDescription" />}
-              >
-                <SamplingIcon className="g-me-2" />
-                <FormattedMessage id="dataset.containsSamplingEvents" />
-                <MdInfoOutline />
-              </DataSummaryInfo>
-            )}
-          </DataSummaryBlock>
-        )}
-      </div>
-    </>
-  );
-}
+//         {/* Special dataset type indicators - informational only */}
+//         {siteTotal > 0 && (isGridded || hasDna || labelAsEventDataset) && (
+//           <DataSummaryBlock className="g-mt-4">
+//             {isGridded && (
+//               <DataSummaryInfo popupContent={<Message id="dataset.griddedDataDescription" />}>
+//                 <MdGridOn className="g-me-2" />
+//                 <FormattedMessage id="dataset.griddedData" />
+//                 <MdInfoOutline />
+//               </DataSummaryInfo>
+//             )}
+//             {hasDna && (
+//               <DataSummaryInfo popupContent={<Message id="dataset.includesDnaDescription" />}>
+//                 <GiDna1 className="g-me-2" />
+//                 <FormattedMessage id="dataset.includesDna" />
+//                 <MdInfoOutline />
+//               </DataSummaryInfo>
+//             )}
+//             {labelAsEventDataset && (
+//               <DataSummaryInfo
+//                 popupContent={<Message id="dataset.containsSamplingEventsDescription" />}
+//               >
+//                 <SamplingIcon className="g-me-2" />
+//                 <FormattedMessage id="dataset.containsSamplingEvents" />
+//                 <MdInfoOutline />
+//               </DataSummaryInfo>
+//             )}
+//           </DataSummaryBlock>
+//         )}
+//       </div>
+//     </>
+//   );
+// }
 
-function DataSummaryBlock({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        'g-w-full g-flex g-flex-wrap md:g-flex-nowrap sm:g-items-end g-flex-col sm:g-flex-row',
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-}
+// function DataSummaryBlock({
+//   children,
+//   className,
+// }: {
+//   children: React.ReactNode;
+//   className?: string;
+// }) {
+//   return (
+//     <div
+//       className={cn(
+//         'g-w-full g-flex g-flex-wrap md:g-flex-nowrap sm:g-items-end g-flex-col sm:g-flex-row',
+//         className
+//       )}
+//     >
+//       {children}
+//     </div>
+//   );
+// }
 
-function DataSummaryLink({
-  children,
-  pageId,
-  searchParams,
-  to,
-  className,
-}: {
-  children: React.ReactNode;
-  pageId?: string;
-  searchParams?: Record<string, string | string[]>;
-  to?: string;
-  className?: string;
-}) {
-  return (
-    <DynamicLink
-      to={to}
-      pageId={pageId}
-      searchParams={searchParams}
-      className={cn('sm:g-w-1/3 sm:g-flex-none g-px-2 hover:g-text-primary-700', className)}
-    >
-      {children}
-    </DynamicLink>
-  );
-}
+// function DataSummaryLink({
+//   children,
+//   pageId,
+//   searchParams,
+//   to,
+//   className,
+// }: {
+//   children: React.ReactNode;
+//   pageId?: string;
+//   searchParams?: Record<string, string | string[]>;
+//   to?: string;
+//   className?: string;
+// }) {
+//   return (
+//     <DynamicLink
+//       to={to}
+//       pageId={pageId}
+//       searchParams={searchParams}
+//       className={cn('sm:g-w-1/3 sm:g-flex-none g-px-2 hover:g-text-primary-700', className)}
+//     >
+//       {children}
+//     </DynamicLink>
+//   );
+// }
 
-function DataSummaryInfo({
-  children,
-  popupContent,
-  className,
-}: {
-  children: React.ReactNode;
-  popupContent?: React.ReactNode;
-  className?: string;
-}) {
-  const classes =
-    'sm:g-w-1/3 sm:g-flex-none g-border-2 g-rounded-full g-border-primary-500 g-px-2 g-py-1 g-flex-inline g-gap-1 g-items-center';
-  if (!popupContent) {
-    return <div className={cn(classes, className)}>{children}</div>;
-  }
-  return (
-    <Popover>
-      <PopoverTrigger className={cn(classes, 'g-cursor-pointer', className)}>
-        {children}
-      </PopoverTrigger>
-      <PopoverContent className="g-prose g-w-96">{popupContent}</PopoverContent>
-    </Popover>
-  );
-}
+// function DataSummaryInfo({
+//   children,
+//   popupContent,
+//   className,
+// }: {
+//   children: React.ReactNode;
+//   popupContent?: React.ReactNode;
+//   className?: string;
+// }) {
+//   const classes =
+//     'sm:g-w-1/3 sm:g-flex-none g-border-2 g-rounded-full g-border-primary-500 g-px-2 g-py-1 g-flex-inline g-gap-1 g-items-center';
+//   if (!popupContent) {
+//     return <div className={cn(classes, className)}>{children}</div>;
+//   }
+//   return (
+//     <Popover>
+//       <PopoverTrigger className={cn(classes, 'g-cursor-pointer', className)}>
+//         {children}
+//       </PopoverTrigger>
+//       <PopoverContent className="g-prose g-w-96">{popupContent}</PopoverContent>
+//     </Popover>
+//   );
+// }
 
 function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> }) {
   const { user } = useUser();
@@ -849,99 +872,5 @@ function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> })
         )}
       </div>
     </UserAvatarSection>
-  );
-}
-
-type LocalContexts = NonNullable<DatasetQuery['dataset']>['localContexts'];
-
-function LocalContextCards({ localContexts }: { localContexts?: LocalContexts }) {
-  return (
-    <>
-      {localContexts?.filter(notNull).map((localContext) => {
-        if (!localContext.project_page) return null;
-        const notices = (localContext.notice ?? [])
-          .filter(notNull)
-          .filter((n) => n.name && n.img_url);
-        const labels = (localContext.labels ?? [])
-          .filter(notNull)
-          .filter((l) => l.name && l.img_url);
-
-        // Group labels by community name
-        const labelsByCommunity = new Map<string, typeof labels>();
-        for (const label of labels) {
-          const community = label.communityName ?? '';
-          if (!labelsByCommunity.has(community)) {
-            labelsByCommunity.set(community, []);
-          }
-          labelsByCommunity.get(community)!.push(label);
-        }
-
-        return (
-          <Card className="g-mb-4 gbif-word-break" key={localContext.project_page}>
-            <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-              <div className="g-flex-none g-me-2">
-                <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                  <ExternalLinkIcon />
-                </div>
-              </div>
-              <div className="g-flex-auto g-mt-0.5">
-                <a
-                  href={localContext.project_page}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="g-flex g-items-center g-underline"
-                >
-                  <h5 className="g-font-bold">{localContext.title}</h5>
-                </a>
-                {notices.length > 0 && (
-                  <ul className="g-mt-2">
-                    {notices.map((notice, i) => (
-                      <li className="g-flex g-items-center g-mb-2" key={`${notice.name}-${i}`}>
-                        <img
-                          className="g-flex-none g-me-2 g-w-5 g-h-5 g-object-contain"
-                          src={notice.img_url ?? undefined}
-                          alt={notice.name ?? undefined}
-                          title={notice.name ?? undefined}
-                        />
-                        <span>{notice.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {[...labelsByCommunity.entries()].map(([communityName, communityLabels]) => (
-                  <div key={communityName}>
-                    {communityName && (
-                      <p className="g-mt-2 g-text-slate-500">
-                        <FormattedMessage
-                          id="dataset.localContextsLabelsAppliedBy"
-                          defaultMessage="{count, plural, one{Label} other{Labels}} applied by {communityName}"
-                          values={{
-                            count: communityLabels.length,
-                            communityName,
-                          }}
-                        />
-                      </p>
-                    )}
-                    <ul className="g-mt-2">
-                      {communityLabels.map((label, i) => (
-                        <li className="g-flex g-items-center g-mb-2" key={`${label.name}-${i}`}>
-                          <img
-                            className="g-flex-none g-me-2 g-w-5 g-h-5 g-object-contain"
-                            src={label.img_url ?? undefined}
-                            alt={label.name ?? undefined}
-                            title={label.name ?? undefined}
-                          />
-                          <span>{label.name}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </CardContentSmall>
-          </Card>
-        );
-      })}
-    </>
   );
 }
