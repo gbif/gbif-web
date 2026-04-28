@@ -23,11 +23,15 @@ export function ApiContent({ id = '4051783990' }: { id?: string }) {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleDataset" /> <br />
-        <a href={`https://api.gbif.org/v1/dataset/${id}`}>https://api.gbif.org/v1/dataset/{id}</a>
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/dataset/${id}`}
+        >{`${import.meta.env.PUBLIC_API}/v1/dataset/${id}`}</a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchDatasets" /> <br />
-        <a href={`https://api.gbif.org/v1/dataset?q=dna`}>https://api.gbif.org/v1/dataset?q=dna</a>
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/dataset?q=dna`}
+        >{`${import.meta.env.PUBLIC_API}/v1/dataset?q=dna`}</a>
       </Card>
     </div>
   );

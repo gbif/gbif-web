@@ -49,12 +49,14 @@ export function ApiContent() {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchCollections" /> <br />
-        <a href="https://api.gbif.org/v1/literature">https://api.gbif.org/v1/literature</a>
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/literature`}
+        >{`${import.meta.env.PUBLIC_API}/v1/literature`}</a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchExample" /> <br />
-        <a href={`https://api.gbif.org/v1/literature/search?q=dna&offset=0&limit=2`}>
-          https://api.gbif.org/v1/literature/search?q=dna&offset=0&limit=2
+        <a href={`${import.meta.env.PUBLIC_API}/v1/literature/search?q=dna&offset=0&limit=2`}>
+          {`${import.meta.env.PUBLIC_API}/v1/literature/search?q=dna&offset=0&limit=2`}
         </a>
       </Card>
     </div>

@@ -23,12 +23,14 @@ export function ApiContent({ id = 5231190 }: { id?: number }) {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleSpecies" /> <br />
-        <a href={`https://api.gbif.org/v1/species/${id}`}>https://api.gbif.org/v1/species/{id}</a>
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/species/${id}`}
+        >{`${import.meta.env.PUBLIC_API}/v1/species/${id}`}</a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchSpecies" /> <br />
-        <a href={`https://api.gbif.org/v1/species/search?q=Passer`}>
-          https://api.gbif.org/v1/species/search?q=passer
+        <a href={`${import.meta.env.PUBLIC_API}/v1/species/search?q=Passer`}>
+          {`${import.meta.env.PUBLIC_API}/v1/species/search?q=passer`}
         </a>
       </Card>
     </div>

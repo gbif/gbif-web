@@ -23,26 +23,29 @@ export function ApiContent({ id = '0058296-160910150852091' }: { id?: string }) 
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleEntry" /> <br />
-        <a href={`https://api.gbif.org/v1/occurrence/download/${id}`} className="g-break-all">
-          https://api.gbif.org/v1/occurrence/download/{id}
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/occurrence/download/${id}`}
+          className="g-break-all"
+        >
+          {`${import.meta.env.PUBLIC_API}/v1/occurrence/download/${id}`}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.downloadKeyDatasets" /> <br />
         <a
-          href={`https://api.gbif.org/v1/occurrence/download/${id}/datasets`}
+          href={`${import.meta.env.PUBLIC_API}/v1/occurrence/download/${id}/datasets`}
           className="g-break-all"
         >
-          https://api.gbif.org/v1/occurrence/download/{id}/datasets
+          {`${import.meta.env.PUBLIC_API}/v1/occurrence/download/${id}/datasets`}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.downloadKeyDatasetsExport" /> <br />
         <a
-          href={`https://api.gbif.org/v1/occurrence/download/${id}/datasets/export?format=TSV`}
+          href={`${import.meta.env.PUBLIC_API}/v1/occurrence/download/${id}/datasets/export?format=TSV`}
           className="g-break-all"
         >
-          https://api.gbif.org/v1/occurrence/download/{id}/datasets/export?format=TSV
+          {`${import.meta.env.PUBLIC_API}/v1/occurrence/download/${id}/datasets/export?format=TSV`}
         </a>
       </Card>
     </div>

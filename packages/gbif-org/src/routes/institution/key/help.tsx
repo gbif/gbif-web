@@ -23,20 +23,20 @@ export function ApiContent({ id = '4051783990' }: { id?: string }) {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleInstitution" /> <br />
-        <a href={`https://api.gbif.org/v1/grscicoll/institution/${id}`}>
-          https://api.gbif.org/v1/grscicoll/institution/{id}
+        <a href={`${import.meta.env.PUBLIC_API}/v1/grscicoll/institution/${id}`}>
+          {`${import.meta.env.PUBLIC_API}/v1/grscicoll/institution/${id}`}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.filterOccurrences" /> <br />
-        <a href={`https://api.gbif.org/v1/occurrence/search?institutionKey=${id}`}>
-          https://api.gbif.org/v1/occurrence/search?institutionKey={id}
+        <a href={`${import.meta.env.PUBLIC_API}/v1/occurrence/search?institutionKey=${id}`}>
+          {`${import.meta.env.PUBLIC_API}/v1/occurrence/search?institutionKey=${id}`}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchCollections" /> <br />
-        <a href={`https://api.gbif.org/v1/grscicoll/collection?institutionKey=${id}`}>
-          https://api.gbif.org/v1/grscicoll/collection?institutionKey={id}
+        <a href={`${import.meta.env.PUBLIC_API}/v1/grscicoll/collection?institutionKey=${id}`}>
+          {`${import.meta.env.PUBLIC_API}/v1/grscicoll/collection?institutionKey=${id}`}
         </a>
       </Card>
     </div>

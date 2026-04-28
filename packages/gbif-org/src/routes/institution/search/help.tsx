@@ -23,14 +23,16 @@ export function ApiContent() {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchInstitutions" /> <br />
-        <a href="https://api.gbif.org/v1/grscicoll/institution">
-          https://api.gbif.org/v1/grscicoll/institution
+        <a href={`${import.meta.env.PUBLIC_API}/v1/grscicoll/institution`}>
+          {`${import.meta.env.PUBLIC_API}/v1/grscicoll/institution`}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchExample" /> <br />
-        <a href={`https://api.gbif.org/v1/grscicoll/institution/search?q=dna&offset=0&limit=2`}>
-          https://api.gbif.org/v1/grscicoll/institution/search?q=dna&offset=0&limit=2
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/grscicoll/institution/search?q=dna&offset=0&limit=2`}
+        >
+          {`${import.meta.env.PUBLIC_API}/v1/grscicoll/institution/search?q=dna&offset=0&limit=2`}
         </a>
       </Card>
     </div>
