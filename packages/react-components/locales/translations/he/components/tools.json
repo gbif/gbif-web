@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": ""
+    },
+    "speciesLookup": {
+      "tools": "",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "",
+      "selectFile": "",
+      "or": "",
+      "dropHere": "",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "מזהה",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "",
+      "options": "אפשרויות",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "אין תוצאות",
+      "noAlternatives": "",
+      "cancel": "",
+      "discard": "בטל",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
