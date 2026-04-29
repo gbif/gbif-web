@@ -143,5 +143,6 @@
   "georeferenceSources": "지리참조 출처",
   "georeferenceVerificationStatus": "지리참조 검증 상태",
   "georeferenceRemarks": "지리참조 비고",
-  "geologicalContextID": "지질학적 맥락 ID"
+  "geologicalContextID": "지질학적 맥락 ID",
+  "iucnRedListCategory": "IUCN 적색목록 범주"
 }
