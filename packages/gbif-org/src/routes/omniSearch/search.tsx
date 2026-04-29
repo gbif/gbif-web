@@ -22,6 +22,8 @@ import { OtherParticipantResult } from './OtherParticipantResult';
 import { SearchInput } from './SearchInput';
 import OMNI_SEARCH from './query';
 import PageMetaData from '@/components/PageMetaData';
+import { extractValidResources } from '../resource/search/resourceSearch';
+import { notNull } from '@/utils/notNull';
 
 export interface CategoryCount {
   type: string;
@@ -57,7 +59,6 @@ type ServerResults = {
 
 export function SearchPage() {
   const { locale } = useI18n();
-  const { formatMessage } = useIntl();
   const {
     data,
     load,
@@ -67,6 +68,13 @@ export function SearchPage() {
     lazyLoad: true,
     notifyOnErrors: true,
   });
+
+  const resourceKeywordSearch = extractValidResources(data?.resourceKeywordSearch);
+  const resourceSearch = extractValidResources(data?.resourceSearch);
+  const organizationSearch = data?.organizationSearch?.results.filter(notNull) ?? [];
+  const taxonSearch = data?.taxonSearch?.results.filter(notNull) ?? [];
+  const datasetSearch = data?.datasetSearch.results ?? [];
+
   const [searchQuery] = useStringParam({
     key: 'q',
     defaultValue: '',
@@ -88,7 +96,7 @@ export function SearchPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let cancelFetch;
+    let cancelFetch: () => void;
     setCounts({
       speciesSearch: 0,
       datasetSearch: 0,
@@ -216,15 +224,15 @@ export function SearchPage() {
         cancelFetch();
       }
     };
-  }, [searchQuery, load]);
+  }, [searchQuery, load, locale.iso3LetterCode]);
 
   useEffect(() => {
     // set counts
     if (data) {
       setCounts({
-        speciesSearch: data.taxonSearch.count,
+        speciesSearch: data.taxonSearch?.count || 0,
         datasetSearch: data.datasetSearch.count,
-        publisherSearch: data?.organizationSearch?.count || 0,
+        publisherSearch: data.organizationSearch?.count || 0,
         resourceSearch: data.resourceSearch?.documents.total || 0,
       });
     }
@@ -237,38 +245,36 @@ export function SearchPage() {
     !serverResults?.occurrences?.catalogNumber &&
     !serverResults?.occurrences?.recordNumber &&
     !serverResults?.taxa?.length &&
-    data?.resourceKeywordSearch?.documents.results.length === 0 &&
-    data?.resourceSearch?.documents.results.length === 0 &&
+    resourceKeywordSearch.length === 0 &&
+    resourceSearch.length === 0 &&
     data?.datasetSearch.results.length === 0 &&
-    data?.organizationSearch?.results.length === 0 &&
-    data?.taxonSearch?.results.length === 0 &&
+    organizationSearch.length === 0 &&
+    taxonSearch.length === 0 &&
     !loading &&
     !dataLoading &&
     searchQuery;
 
   const isloading = loading || dataLoading;
-
-  const title = formatMessage({ id: 'search.crossContentSearch.title' });
-  const description = formatMessage({ id: 'search.crossContentSearch.description' });
-  const placeholder = formatMessage({ id: 'search.crossContentSearch.placeholder' });
-
   const noSearchQuery = !searchQuery || searchQuery === '';
 
   // remove duplicate results. server results should stay and duplicates in graphql results should be removed
   const remainingTaxaResults =
-    data?.taxonSearch?.results.filter((result) => {
+    taxonSearch.filter((result) => {
       const isDuplicate = serverResults?.taxa?.some((taxon) => taxon.taxon.key === result.key);
       return !isDuplicate;
     }) ?? [];
 
   // if already in resourceKeywordResults, then do not show it in resourceResults
   const remainingResourceResults =
-    data?.resourceSearch?.documents.results.filter((result) => {
-      const isDuplicate = data?.resourceKeywordSearch?.documents.results.some(
-        (resource) => resource?.id === result?.id
-      );
+    resourceSearch.filter((result) => {
+      const isDuplicate = resourceKeywordSearch.some((resource) => resource?.id === result?.id);
       return !isDuplicate;
     }) ?? [];
+
+  const { formatMessage } = useIntl();
+  const title = formatMessage({ id: 'search.crossContentSearch.title' });
+  const description = formatMessage({ id: 'search.crossContentSearch.description' });
+  const placeholder = formatMessage({ id: 'search.crossContentSearch.placeholder' });
 
   return (
     <div className="g-min-h-screen g-bg-slate-100 g-border-t g-border-gray-200">
@@ -320,7 +326,7 @@ export function SearchPage() {
                     </>
                   )}
 
-                  {data?.resourceKeywordSearch?.documents.results.map((resource) => (
+                  {resourceKeywordSearch.map((resource) => (
                     <ResourceSearchResult
                       key={resource.id}
                       resource={resource}
@@ -332,11 +338,11 @@ export function SearchPage() {
                       <TaxonResult
                         key={taxon.taxon.key}
                         taxon={taxon.taxon}
-                        className="g-bg-white g-mb-4"
+                        // className="g-bg-white g-mb-4"
                       />
                     ))}
 
-                  {data?.datasetSearch.results.slice(0, 1).map((result) => (
+                  {datasetSearch.slice(0, 1).map((result) => (
                     <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
                   ))}
 
@@ -378,11 +384,11 @@ export function SearchPage() {
                       />
                     )}
 
-                  {data?.datasetSearch.results.slice(1).map((result) => (
+                  {datasetSearch.slice(1).map((result) => (
                     <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
                   ))}
 
-                  {data?.organizationSearch?.results.map((result) => (
+                  {organizationSearch.map((result) => (
                     <PublisherResult key={result.key} publisher={result} />
                   ))}
                   {remainingTaxaResults.map((result) => (

@@ -47,7 +47,7 @@ export function TaxonResult({
   synonym,
 }: {
   taxon: TaxonResultFragment;
-  synonym: TaxonResultFragment;
+  synonym?: TaxonResultFragment;
 }) {
   const acceptedTaxon = taxon?.acceptedTaxon as TaxonResultFragment;
   if (acceptedTaxon) {

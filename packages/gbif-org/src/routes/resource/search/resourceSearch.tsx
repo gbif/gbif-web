@@ -107,11 +107,11 @@ export type Resource = Extract<
   { id: string }
 >;
 
-export function extractValidResources(data: ResourceSearchQuery | undefined): Resource[] {
+export function extractValidResources(
+  searchResult: ResourceSearchQuery['resourceSearch'] | undefined
+): Resource[] {
   return (
-    data?.resourceSearch?.documents?.results?.filter(
-      (result) => result != null && 'id' in result
-    ) || []
+    searchResult?.documents?.results?.filter((result) => result != null && 'id' in result) || []
   );
 }
 
@@ -212,7 +212,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
     window.scrollTo(0, 0);
   }, [filterHash, offset]);
 
-  const resources = useMemo(() => extractValidResources(data), [data]);
+  const resources = useMemo(() => extractValidResources(data?.resourceSearch), [data]);
 
   const { total, size } = data?.resourceSearch?.documents || {};
 
