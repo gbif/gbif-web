@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": ""
+    },
+    "speciesLookup": {
+      "tools": "Værktøjer",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "",
+      "selectFile": "Vælg fil",
+      "or": "eller",
+      "dropHere": "",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "",
+      "options": "",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "",
+      "noAlternatives": "",
+      "cancel": "Annuller",
+      "discard": "",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
