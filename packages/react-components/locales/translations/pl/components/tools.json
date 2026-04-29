@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": ""
+    },
+    "speciesLookup": {
+      "tools": "Narzędzia",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "Normalizuj nazwy gatunków z pliku CSV względem szkieletu taksonomicznego GBIF. Oczekuje się, że plik będzie miał kolumnę o nazwie 'scientificName' i opcjonalne kolumny 'kingdom' i 'id'.",
+      "selectFile": "Wybierz plik",
+      "or": "lub",
+      "dropHere": "Upuść tutaj",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "ID",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "ranga",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "gatunek",
+      "options": "Opcje",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "",
+      "noAlternatives": "",
+      "cancel": "Anuluj",
+      "discard": "",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
