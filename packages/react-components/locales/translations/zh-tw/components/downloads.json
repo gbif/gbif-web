@@ -167,7 +167,7 @@
         "ORGANISM_QUANTITY_TYPE": "生物數量類型",
         "MODIFIED": "已修改",
         "EARLIEST_EPOCH_OR_LOWEST_SERIES": "最早的世或最低的系",
-        "IS_SEQUENCED": "",
+        "IS_SEQUENCED": "已定序",
         "TAXON_ID": "分類群識別碼",
         "EARLIEST_PERIOD_OR_LOWEST_SYSTEM": "最初期或最低的系統",
         "MEDIA_TYPE": "媒體類型",
