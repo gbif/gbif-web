@@ -36,6 +36,8 @@
     "LITERATURE": "",
     "UNKNOWN": ""
   },
+  "showMore": "Показать более подробно",
+  "showLess": "Показать менее подробно",
   "screenReader": {
     "title": "Подробности находки "
   },
