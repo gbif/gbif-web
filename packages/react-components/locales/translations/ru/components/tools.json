@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": "Не видите ваш IPT? Пошлите в <a>GBIF</a> ваши координаты."
+    },
+    "speciesLookup": {
+      "tools": "Инструменты",
+      "lookUp": "Искать",
+      "pageTitle": "Поиск видов",
+      "description": "Стандартизировать названия видов из CSV-файла согласно базовой таксономии GBIF. Файл должен содержать столбец с названием 'научноеНазвание' и необязательный столбец 'царство' и 'id'.",
+      "selectFile": "Выберите файл",
+      "or": "или",
+      "dropHere": "Перетащите сюда",
+      "ifNoKingdom": "Если не указано королевство, тогда предпочтительнее",
+      "matchToBackbone": "Соответствовать правилам GBIF",
+      "matchingProgress": " Соответствует{done} из {total}…",
+      "scientificName": "Научное имя",
+      "preferedKingdom": "Предпочтительное королевство",
+      "colId": "ID (идентификатор)",
+      "colVerbatimScientificName": "Научное название дословно",
+      "colPreferedKingdom": "Предпочтительное королевство",
+      "colMatchType": "Соответствие типа",
+      "colConfidence": "Достоверность",
+      "colScientificNameEditable": "научное наименование (редактируемое)",
+      "colStatus": "Статус",
+      "colRank": "ранг",
+      "colKingdom": "Королевство",
+      "colPhylum": "Тип",
+      "colClass": "класс",
+      "colOrder": "порядок",
+      "colFamily": "семейство",
+      "colGenus": "род",
+      "colSpecies": "вид",
+      "options": "Варианты",
+      "excludeUnmatched": "Исключить не соответствующие",
+      "generateCsv": "Сгенерировать формат CSV",
+      "matchCandidatesFor": "Найти варианты для",
+      "searchSpecies": "поиск видов",
+      "noSuggestions": "Нет результатов",
+      "noAlternatives": "Нет альтернативных соответствий  - использовать вышеуказанный поиск",
+      "cancel": "Отменить",
+      "discard": "Отклонить",
+      "discarded": "Отменено",
+      "downloadAsCsv": "Загрузить как CSV",
+      "downloadDescription": "Ваши результаты готовы к загрузке",
+      "any": "любые"
     }
   }
 }
