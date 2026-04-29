@@ -1,11 +1,16 @@
 /// <reference types="cypress" />
 
-const title = 'Ocean Biodiversity Information System (OBIS)';
-const path = '/network/2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6';
-
 describe('network page', () => {
+  let networkKey;
+  let title;
+
+  before(() => {
+    networkKey = Cypress.env('networkKey');
+    title = Cypress.env('networkTitle');
+  });
+
   beforeEach(() => {
-    cy.visit(path);
+    cy.visit(`/network/${networkKey}`);
   });
 
   it('renders the title', () => {

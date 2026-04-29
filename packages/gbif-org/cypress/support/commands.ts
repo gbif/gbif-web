@@ -35,3 +35,30 @@
 //     }
 //   }
 // }
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Install a DOM watchdog that fails the test if any element matching `selector`
+       * appears at any point for the rest of the test. Useful for transient UI like
+       * toasts that auto-dismiss before a normal `should('not.exist')` could detect
+       * them. Call after `cy.visit()`.
+       */
+      shouldNeverAppear(selector: string): Chainable<void>;
+    }
+  }
+}
+
+Cypress.Commands.add('shouldNeverAppear', (selector: string) => {
+  cy.window({ log: false }).then((win) => {
+    const fail = () => {
+      throw new Error(`Watchdog: element matching "${selector}" appeared during the test`);
+    };
+    if (win.document.querySelector(selector)) fail();
+    const observer = new win.MutationObserver(() => {
+      if (win.document.querySelector(selector)) fail();
+    });
+    observer.observe(win.document.body, { childList: true, subtree: true });
+  });
+});
