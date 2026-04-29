@@ -36,6 +36,8 @@
     "LITERATURE": "",
     "UNKNOWN": ""
   },
+  "showMore": "",
+  "showLess": "Mostrar menos",
   "screenReader": {
     "title": "Detalles del registro biológico"
   },
