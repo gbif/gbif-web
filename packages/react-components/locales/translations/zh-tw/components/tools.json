@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": "沒看到您的 IPT? 將您的座標發送至<a>GBIF</a>"
+    },
+    "speciesLookup": {
+      "tools": "工具",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "從 CSV 檔案標準化物種名稱違反 GBIF 骨幹。檔案應該包含學名、界及識別碼等欄位。",
+      "selectFile": "選擇檔案",
+      "or": "或",
+      "dropHere": "拖放至此處",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "身份",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "排序",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "物種",
+      "options": "選項",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "",
+      "noAlternatives": "",
+      "cancel": "取消",
+      "discard": "",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
