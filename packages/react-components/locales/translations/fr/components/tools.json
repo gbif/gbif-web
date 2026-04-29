@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": ""
+    },
+    "speciesLookup": {
+      "tools": "Outils",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "Normaliser les noms des espèces d’un fichier CSV sur le squelette GBIF. Le fichier devrait avoir une colonne appelée « scientificName » et des colonnes facultatives « kingdom » et « id ».",
+      "selectFile": "Sélectionner un fichier",
+      "or": "ou",
+      "dropHere": "Déposer ici",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "ID",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "rang",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "espèce",
+      "options": "Options",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "",
+      "noAlternatives": "",
+      "cancel": "Annuler",
+      "discard": "",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
