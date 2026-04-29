@@ -36,6 +36,8 @@
     "LITERATURE": "",
     "UNKNOWN": ""
   },
+  "showMore": "",
+  "showLess": "Zobrazit méně",
   "screenReader": {
     "title": "Detaily výskytu"
   },
