@@ -1,7 +1,7 @@
 {
   "tools": {
     "ipt": {
-      "dontSeeYourIpt": ""
+      "dontSeeYourIpt": "沒看到您的 IPT? 將您的座標發送至<a>GBIF</a>"
     }
   }
 }

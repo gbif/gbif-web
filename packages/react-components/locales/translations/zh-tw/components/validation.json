@@ -1,5 +1,8 @@
 {
+  "checkboxRequired": "請勾選此方塊",
+  "required": "請填寫此欄位",
   "invalidEmail": "請提供有效的電子郵址",
+  "invalidURL": "請提供有效的URL。",
   "invalidWebsiteAddress": "請提供有效的網址",
   "pleaseSelectAValue": "請選擇一個值。"
 }
