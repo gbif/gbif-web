@@ -36,6 +36,8 @@
     "LITERATURE": "recorded in {COUNTRY}",
     "UNKNOWN": "recorded in {COUNTRY}"
   },
+  "showMore": "Show more",
+  "showLess": "Show less",
   "screenReader": {
     "title": "Occurrence details"
   },
