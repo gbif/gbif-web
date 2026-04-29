@@ -27,6 +27,8 @@
   "singleNode": "단일 노드 받기.",
   "searchNodes": "노드 검색하기",
   "singleSpecies": "단일 종 받기.",
+  "matchSpecies": "GBIF 근간 분류에 이름 매칭하기.",
+  "suggestSpecies": "종 이름 제안하기.",
   "searchSpecies": "모든 종 받기.",
   "singleDerivedDataset": "단일 파생 데이터셋 받기",
   "derivedDatasetContributingDatasets": "파생 데이터셋의 기록에 기여하는 데이터셋 받기"
