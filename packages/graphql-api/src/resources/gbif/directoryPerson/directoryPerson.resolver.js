@@ -75,14 +75,14 @@ export default {
     profilePicture: ({ id }, args, { dataSources }) =>
       dataSources.directoryPersonAPI.getProfilePicture({
         key: id,
-        query: args,
+        query: { ...args, base64: true },
       }),
   },
   DirectoryContact: {
     profilePicture: ({ id }, args, { dataSources }) =>
       dataSources.directoryPersonAPI.getProfilePicture({
         key: id,
-        query: args,
+        query: { ...args, base64: true },
       }),
     participants: ({ participants }, args, { dataSources }) => {
       return Promise.all(

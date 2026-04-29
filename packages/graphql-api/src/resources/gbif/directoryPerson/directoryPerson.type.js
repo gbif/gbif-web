@@ -74,7 +74,7 @@ const typeDef = gql`
     languages: [String]
     areasExpertise: [String]
     profileDescriptions: [ProfileDescription]
-    profilePicture(base64: Boolean): String
+    profilePicture: String
   }
 
   type DirectoryContact {
@@ -101,7 +101,7 @@ const typeDef = gql`
     languages: [String]
     areasExpertise: [String]
     profileDescriptions: [ProfileDescription]
-    profilePicture(base64: Boolean): String
+    profilePicture: String
     participants: [Participant]
   }
 

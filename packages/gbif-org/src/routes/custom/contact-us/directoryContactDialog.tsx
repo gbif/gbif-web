@@ -25,7 +25,7 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
       email
       orcidId
       jobTitle
-      profilePicture(base64: true)
+      profilePicture
       participants {
         id
         name
