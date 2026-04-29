@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": ""
+    },
+    "speciesLookup": {
+      "tools": "ツール",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "CSVファイルに対してGBIFバックボーンを参照し、種名を正規化します。ファイルには'scientificName’ が必ず含まれ、オプションとして ‘kingdom’ と ‘id’が含まれる必要があります。",
+      "selectFile": "ファイルを選択",
+      "or": "または",
+      "dropHere": "ここにドロップ",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "ランク",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "種",
+      "options": "オプション",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "",
+      "noAlternatives": "",
+      "cancel": "中止",
+      "discard": "",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
