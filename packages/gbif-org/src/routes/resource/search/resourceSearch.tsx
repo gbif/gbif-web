@@ -11,16 +11,15 @@ import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import {
   EventFiltering,
+  Predicate,
   ResourceSearchQuery,
   ResourceSearchQueryVariables,
   ResourceSortBy,
   ResourceSortOrder,
 } from '@/gql/graphql';
 import { useNumberParam, useParam } from '@/hooks/useParam';
-import useQuery from '@/hooks/useQuery';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
-import { ExtractPaginatedResult } from '@/types';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ArticleContainer } from '../key/components/articleContainer';
 import { ArticleTextContainer } from '../key/components/articleTextContainer';
@@ -33,92 +32,18 @@ import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import PageMetaData from '@/components/PageMetaData';
-import { fragmentManager } from '@/services/fragmentManager';
+import { Resource, useResourceSearch, RESOURCE_SEARCH_QUERY } from './useResourceSearch';
 
-export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
-  query ResourceSearch(
-    $from: Int
-    $size: Int
-    $predicate: Predicate
-    $contentType: [ContentType!]
-    $q: String
-    $sortBy: ResourceSortBy
-    $sortOrder: ResourceSortOrder
-    $eventFiltering: EventFiltering
-  ) {
-    resourceSearch(
-      predicate: $predicate
-      contentType: $contentType
-      q: $q
-      searchable: true
-      sortBy: $sortBy
-      sortOrder: $sortOrder
-      eventFiltering: $eventFiltering
-    ) {
-      documents(from: $from, size: $size) {
-        from
-        size
-        total
-        results {
-          ...ResourceSearchResult
-        }
-      }
-    }
-  }
-`;
-
-fragmentManager.register(/* GraphQL */ `
-  fragment ResourceSearchResult on Resource {
-    __typename
-    ... on Composition {
-      ...CompositionResult
-    }
-    ... on News {
-      ...NewsResult
-    }
-    ... on Article {
-      ...ArticleResult
-    }
-    ... on DataUse {
-      ...DataUseResult
-    }
-    ... on MeetingEvent {
-      ...EventResult
-    }
-    ... on GbifProject {
-      ...ProjectResult
-    }
-    ... on Programme {
-      ...ProgrammeResult
-    }
-    ... on Tool {
-      ...ToolResult
-    }
-    ... on Document {
-      ...DocumentResult
-    }
-    ... on Document {
-      ...DocumentResult
-    }
-    ... on NetworkProse {
-      ...NetworkProseResult
-    }
-    ... on Help {
-      ...HelpResult
-    }
-  }
-`);
-
-export type Resource = Extract<
-  ExtractPaginatedResult<ResourceSearchQuery['resourceSearch']>,
-  { id: string }
->;
+export { RESOURCE_SEARCH_QUERY };
+export type { Resource };
 
 export function extractValidResourceSearchResults(
   searchResult: ResourceSearchQuery['resourceSearch'] | undefined
 ): Resource[] {
   return (
-    searchResult?.documents?.results?.filter((result) => result != null && 'id' in result) || []
+    (searchResult?.documents?.results?.filter(
+      (result) => result != null && 'id' in result
+    ) as Resource[]) || []
   );
 }
 
@@ -171,20 +96,14 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
-  const { data, load, loading } = useQuery<ResourceSearchQuery, ResourceSearchQueryVariables>(
-    RESOURCE_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      keepDataWhileLoading: true,
-      forceLoadingTrueOnMount: true,
-      lazyLoad: true,
-    }
-  );
+  const variables = useMemo<ResourceSearchQueryVariables>(() => {
+    const query = getAsQuery({ filter, searchContext, searchConfig }) as {
+      predicate: Predicate | undefined;
+      q: string | undefined;
+      eventFiltering: EventFiltering | undefined;
+    };
 
-  useEffect(() => {
-    const query = getAsQuery({ filter, searchContext, searchConfig });
-
-    const sortingOptions: ResourceSearchQueryVariables = {
+    const sortingOptions: Pick<ResourceSearchQueryVariables, 'sortBy' | 'sortOrder'> = {
       sortBy: ResourceSortBy.CreatedAt,
       sortOrder: ResourceSortOrder.Desc,
     };
@@ -201,27 +120,16 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
       }
     }
 
-    load({
-      variables: {
-        ...query,
-        ...sortingOptions,
-        size: 20,
-        from: offset,
-      },
-    });
-
-    // We use a filterHash to trigger a reload when the filter changes
+    return { ...query, ...sortingOptions };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load, filterHash, searchContext, activeTab, offset]);
+  }, [filterHash, searchContext, activeTab]);
+
+  const { loading, resources, total, size } = useResourceSearch({ variables, offset });
 
   // Scroll to top when changing filter or offset
   useUpdateEffect(() => {
     window.scrollTo(0, 0);
   }, [filterHash, offset]);
-
-  const resources = useMemo(() => extractValidResourceSearchResults(data?.resourceSearch), [data]);
-
-  const { total, size } = data?.resourceSearch?.documents || {};
 
   return (
     <>
