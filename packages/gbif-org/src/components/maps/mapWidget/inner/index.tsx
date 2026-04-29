@@ -106,7 +106,7 @@ export default function MapWidgetInner({
   });
 
   return (
-    <div className={cn('g-relative', className)}>
+    <div className={cn('g-relative', className)} data-cy="map-widget">
       <div className="g-size-full" id={mapId} />
       <Progress
         value={loadingProgress}

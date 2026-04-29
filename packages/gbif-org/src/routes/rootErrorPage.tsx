@@ -105,6 +105,7 @@ export function usePartialDataNotification() {
       toast({
         title: formatMessage({ id: 'error.partialData' }),
         variant: 'destructive',
+        'data-cy': 'partial-data-error',
       });
     }
   }, [location.pathname, toast, formatMessage, hasNotified, setHasNotified]);
