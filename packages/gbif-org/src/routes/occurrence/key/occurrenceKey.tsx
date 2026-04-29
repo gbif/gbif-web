@@ -7,6 +7,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import {
   FeatureList,
   GadmClassification,
+  GeologicalContext,
   Homepage,
   IIIF,
   Location,
@@ -92,6 +93,18 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         }
       }
       institutionCode
+
+      earliestEonOrLowestEonothem
+      earliestEraOrLowestErathem
+      earliestPeriodOrLowestSystem
+      earliestEpochOrLowestSeries
+      earliestAgeOrLowestStage
+      lowestBiostratigraphicZone
+
+      group
+      formation
+      member
+      bed
 
       extensions {
         audubon
@@ -333,6 +346,27 @@ const notableCoordinateIssues = [
   'ZERO_COORDINATE',
 ];
 
+const geologicalIssues = [
+  'ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK',
+  'PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK',
+  'EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK',
+  'AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK',
+  'EON_OR_EONOTHEM_RANK_MISMATCH',
+  'ERA_OR_ERATHEM_RANK_MISMATCH',
+  'PERIOD_OR_SYSTEM_RANK_MISMATCH',
+  'EPOCH_OR_SERIES_RANK_MISMATCH',
+  'AGE_OR_STAGE_RANK_MISMATCH',
+  'EON_OR_EONOTHEM_INVALID_RANGE',
+  'ERA_OR_ERATHEM_INVALID_RANGE',
+  'PERIOD_OR_SYSTEM_INVALID_RANGE',
+  'EPOCH_OR_SERIES_INVALID_RANGE',
+  'AGE_OR_STAGE_INVALID_RANGE',
+  'EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH',
+  'ERA_OR_ERATHEM_AND_PERIOD_OR_SYSTEM_MISMATCH',
+  'PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH',
+  'EPOCH_OR_SERIES_AND_AGE_OR_STAGE_MISMATCH',
+];
+
 export function OccurrenceKey() {
   const location = useLocation();
   const { occurrence, errors } = useLoaderData() as OccurrenceKeyLoaderResult;
@@ -404,6 +438,7 @@ export function OccurrenceKey() {
   // if there are notable coordinate issues, then set a flag so we can show a warning in the header when we show the location
   const coordinateIssues =
     occurrence?.issues?.filter((issue) => notableCoordinateIssues.includes(issue)) ?? [];
+  const hasGeologicalIssues = occurrence?.issues?.some((issue) => geologicalIssues.includes(issue));
 
   // const defaultClassification =
   //   occurrence?.classifications?.find(
@@ -544,12 +579,29 @@ export function OccurrenceKey() {
                           </div>
                         </GadmClassification>
                       )}
+                      <GeologicalContext {...occurrence} className="g-mb-1">
+                        {hasGeologicalIssues && (
+                          <IssueTags>
+                            {occurrence.issues
+                              ?.filter((issue) => geologicalIssues.includes(issue))
+                              .map((issue: string) => (
+                                <IssueTag type="WARNING" key={issue}>
+                                  <FormattedMessage
+                                    id={`enums.occurrenceIssue.${issue}`}
+                                    defaultMessage={prettifyEnum(issue) ?? ''}
+                                  />
+                                </IssueTag>
+                              ))}
+                          </IssueTags>
+                        )}
+                      </GeologicalContext>
                       {!occurrence?.gadm?.level1 && occurrence.countryCode && (
                         <Location
                           countryCode={occurrence.countryCode}
                           city={occurrence.stateProvince}
                         />
                       )}
+
                       {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
                       <GenericFeature className='g-flex g-mb-1'>
                         <PeopleIcon />

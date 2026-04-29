@@ -122,9 +122,6 @@ export function OccurrenceKeyAbout() {
                     <ul className="g-list-none g-m-0 g-p-0 g-my-2">
                       {/* <Li to="#summary">Summary</Li>
                       <Separator /> */}
-                      {toc['geological-context'] && (
-                        <Li to="#geological-context">Geological Context</Li>
-                      )}
                       <Li to="#record">
                         <FormattedMessage id="occurrenceDetails.groups.record" />
                       </Li>
@@ -138,6 +135,9 @@ export function OccurrenceKeyAbout() {
                         <Li to="#event">
                           <FormattedMessage id="occurrenceDetails.groups.event" />
                         </Li>
+                      )}
+                      {toc['geological-context'] && (
+                        <Li to="#geological-context">Geological Context</Li>
                       )}
                       <Li to="#occurrence">
                         <FormattedMessage id="occurrenceDetails.groups.occurrence" />

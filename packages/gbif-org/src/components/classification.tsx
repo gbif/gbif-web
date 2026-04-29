@@ -51,6 +51,69 @@ export function TaxonClassification({
   );
 }
 
+export function GeologicalLayers({
+  earliestEonOrLowestEonothem,
+  earliestEraOrLowestErathem,
+  earliestPeriodOrLowestSystem,
+  earliestEpochOrLowestSeries,
+  earliestAgeOrLowestStage,
+  lowestBiostratigraphicZone,
+  group,
+  formation,
+  member,
+  bed,
+  className,
+  ...props
+}: {
+  earliestEonOrLowestEonothem?: string | null;
+  earliestEraOrLowestErathem?: string | null;
+  earliestPeriodOrLowestSystem?: string | null;
+  earliestEpochOrLowestSeries?: string | null;
+  earliestAgeOrLowestStage?: string | null;
+  lowestBiostratigraphicZone?: string | null;
+  group?: string | null;
+  formation?: string | null;
+  member?: string | null;
+  bed?: string | null;
+  className?: string;
+}) {
+  const chronostratigraphicLayers = [
+    earliestEonOrLowestEonothem,
+    earliestEraOrLowestErathem,
+    earliestPeriodOrLowestSystem,
+    earliestEpochOrLowestSeries,
+    earliestAgeOrLowestStage,
+    lowestBiostratigraphicZone,
+  ];
+  const lithostratigraphicLayers = [group, formation, member, bed];
+
+  const hasChronostratigraphic = chronostratigraphicLayers;
+  const hasLithostratigraphic = lithostratigraphicLayers.some((layer) => !!layer);
+  if (!hasChronostratigraphic && !hasLithostratigraphic) return null;
+  return (
+    <div className={className} {...props}>
+      {hasChronostratigraphic && (
+        <Classification>
+          {chronostratigraphicLayers
+            .filter((layer) => !!layer)
+            .map((layer, index) => (
+              <span key={index}>{layer}</span>
+            ))}
+        </Classification>
+      )}
+      {hasLithostratigraphic && (
+        <Classification>
+          {lithostratigraphicLayers
+            .filter((layer) => !!layer)
+            .map((layer, index) => (
+              <span key={index}>{layer}</span>
+            ))}
+        </Classification>
+      )}
+    </div>
+  );
+}
+
 export function GadmClassification({
   gadm,
   className,

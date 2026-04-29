@@ -7,12 +7,14 @@ import { FormattedMessage } from 'react-intl';
 import {
   Classification,
   GadmClassification as GadmClassificationList,
+  GeologicalLayers,
   TaxonClassification as TaxonClassificationList,
 } from './classification';
 import { ConceptValue } from './conceptValue';
 import { Hostname } from './headerComponents';
 import { IIIFLogoIcon } from './icons/icons';
 import { Skeleton } from './ui/skeleton';
+import { LuClock4 } from 'react-icons/lu';
 export { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
 export { PiTreeViewBold as TaxonomyIcon } from 'react-icons/pi';
 export {
@@ -112,6 +114,69 @@ export function Location({
         {locality && <span>{locality}</span>}
         {children}
       </Classification>
+    </GenericFeature>
+  );
+}
+
+export function GeologicalContext({
+  earliestEonOrLowestEonothem,
+  earliestEraOrLowestErathem,
+  earliestPeriodOrLowestSystem,
+  earliestEpochOrLowestSeries,
+  earliestAgeOrLowestStage,
+  lowestBiostratigraphicZone,
+  group,
+  formation,
+  member,
+  bed,
+  className,
+  children,
+}: {
+  earliestEonOrLowestEonothem?: string | null;
+  earliestEraOrLowestErathem?: string | null;
+  earliestPeriodOrLowestSystem?: string | null;
+  earliestEpochOrLowestSeries?: string | null;
+  earliestAgeOrLowestStage?: string | null;
+  lowestBiostratigraphicZone?: string | null;
+  group?: string | null;
+  formation?: string | null;
+  member?: string | null;
+  bed?: string | null;
+  className?: string;
+  children?: React.ReactNode;
+}) {
+  const chronostratigraphicLayers = [
+    earliestEonOrLowestEonothem,
+    earliestEraOrLowestErathem,
+    earliestPeriodOrLowestSystem,
+    earliestEpochOrLowestSeries,
+    earliestAgeOrLowestStage,
+    lowestBiostratigraphicZone,
+  ];
+  const lithostratigraphicLayers = [group, formation, member, bed];
+
+  const hasChronostratigraphic = chronostratigraphicLayers.some((layer) => !!layer);
+  const hasLithostratigraphic = lithostratigraphicLayers.some((layer) => !!layer);
+  if (!hasChronostratigraphic && !hasLithostratigraphic) return null;
+  return (
+    <GenericFeature>
+      <LuClock4 />
+      <div className={cn('g-flex g-justify-start', className)}>
+        <GeologicalLayers
+          earliestEonOrLowestEonothem={earliestEonOrLowestEonothem}
+          earliestEraOrLowestErathem={earliestEraOrLowestErathem}
+          earliestPeriodOrLowestSystem={earliestPeriodOrLowestSystem}
+          earliestEpochOrLowestSeries={earliestEpochOrLowestSeries}
+          earliestAgeOrLowestStage={earliestAgeOrLowestStage}
+          lowestBiostratigraphicZone={lowestBiostratigraphicZone}
+          group={group}
+          formation={formation}
+          member={member}
+          bed={bed}
+          className="g-inline-block g-me-2"
+        />
+        {children}
+      </div>
     </GenericFeature>
   );
 }
