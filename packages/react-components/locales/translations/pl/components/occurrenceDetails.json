@@ -36,6 +36,8 @@
     "LITERATURE": "",
     "UNKNOWN": ""
   },
+  "showMore": "",
+  "showLess": "",
   "screenReader": {
     "title": "Szczegóły stwierdzenia"
   },
