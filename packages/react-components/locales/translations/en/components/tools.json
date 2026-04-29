@@ -7,7 +7,7 @@
       "tools": "Tools",
       "lookUp": "Look up",
       "pageTitle": "Species lookup",
-      "description": "Normalize species names from a CSV file against the GBIF backbone. The file is expected to be have a column called ‘scientificName’ and an optional column ‘kingdom’ and ‘id’.",
+      "description": "Normalize species names from a CSV file against the GBIF backbone. The file is expected to have the column ‘scientificName’ and optional columns ‘kingdom’ and ‘id’.",
       "selectFile": "Select file",
       "or": "or",
       "dropHere": "Drop here",
