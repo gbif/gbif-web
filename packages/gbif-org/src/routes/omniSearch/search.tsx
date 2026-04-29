@@ -172,6 +172,11 @@ export function SearchPage() {
                   'help',
                 ],
               },
+              {
+                type: PredicateType.In,
+                key: 'keywords',
+                values: [q],
+              },
             ],
           },
         },
