@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": "¿No ve su IPT? Mande sus coordenadas a <a>GBIF</a>"
+    },
+    "speciesLookup": {
+      "tools": "Herramientas",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "Normalizar los nombres de las especies desde un archivo CVS contra la [backbone] de GBIF. Se espera que el archivo tenga una columna denominada 'scientificName' y una columna opcional de 'kingdom' e 'id'.",
+      "selectFile": "Seleccionar archivo",
+      "or": "o",
+      "dropHere": "Soltar aquí",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "ID",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "rango",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "especies",
+      "options": "Opciones",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "Sin resultados",
+      "noAlternatives": "",
+      "cancel": "Cancelar",
+      "discard": "Desechar",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
