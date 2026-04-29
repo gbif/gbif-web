@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": ""
+    },
+    "speciesLookup": {
+      "tools": "أدوات",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "تطبيع أسماء الأنواع من ملف CVS مقابل الاطار الاساسي للمرفق العالمي لمعلومات التنوع الحيوي. يتوقع ان يوجد في الملف عمود يسمى \"الاسم العلمي\"  وعمود اختياري\"المملكة\" و\"المعرف\"",
+      "selectFile": "اختر ملف",
+      "or": "أو",
+      "dropHere": "أسقط هنا",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "الترتيب",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "نوع",
+      "options": "",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "",
+      "noAlternatives": "",
+      "cancel": "إلغاء",
+      "discard": "",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
