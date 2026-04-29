@@ -84,17 +84,19 @@ export function ResultsPhase({
             </table>
           </div>
 
-          <div className="g-flex g-items-center g-justify-between g-flex-wrap g-gap-4 g-p-4 g-border-t g-border-gray-100">
+          <div className="g-flex g-items-center g-justify-end g-flex-wrap g-gap-4 g-p-4 g-border-t g-border-gray-100">
             {displayedSpecies.length > PAGE_SIZE && (
-              <PaginationFooter
-                offset={offset}
-                limit={PAGE_SIZE}
-                count={displayedSpecies.length}
-                onChange={(newOffset) => {
-                  onSetOffset(newOffset);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              />
+              <div className="g-flex-1 g-min-w-0">
+                <PaginationFooter
+                  offset={offset}
+                  limit={PAGE_SIZE}
+                  count={displayedSpecies.length}
+                  onChange={(newOffset) => {
+                    onSetOffset(newOffset);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                />
+              </div>
             )}
             <div className="g-flex g-items-center g-gap-6">
               <label className="g-flex g-items-center g-gap-2 g-cursor-pointer g-text-sm g-text-gray-600">

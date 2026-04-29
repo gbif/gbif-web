@@ -9,7 +9,6 @@ import {
   VirusesIcon,
 } from '@/components/icons/icons';
 
-export const BACKBONE_DATASET_KEY = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 export const MAX_ROWS = 6000;
 export const BATCH_SIZE = 10;
 export const PAGE_SIZE = 20;
@@ -41,18 +40,19 @@ export const CSV_EXPORT_FIELDS = [
   'family',
   'genus',
   'species',
-  'canonicalName',
-  'authorship',
   'usageKey',
   'acceptedUsageKey',
 ] as const;
 
 export type SuggestResult = {
-  key: number;
+  key: string;
   scientificName: string;
-  canonicalName: string;
   rank: string;
   status: string;
+  acceptedKey?: string;
+  accepted?: string;
+  group?: string;
+  context?: string;
   kingdom?: string;
   phylum?: string;
   class?: string;
@@ -67,7 +67,7 @@ export type SpeciesRow = {
   preferedKingdom?: string;
   occurrenceId?: string;
   scientificName?: string;
-  key?: number;
+  key?: string;
   matchType?: string;
   confidence?: number;
   status?: string;
@@ -79,19 +79,17 @@ export type SpeciesRow = {
   family?: string;
   genus?: string;
   species?: string;
-  kingdomKey?: number;
-  phylumKey?: number;
-  classKey?: number;
-  orderKey?: number;
-  familyKey?: number;
-  genusKey?: number;
-  speciesKey?: number;
-  canonicalName?: string;
-  authorship?: string;
-  usageKey?: number;
-  acceptedUsageKey?: number;
+  kingdomKey?: string;
+  phylumKey?: string;
+  classKey?: string;
+  orderKey?: string;
+  familyKey?: string;
+  genusKey?: string;
+  speciesKey?: string;
+  usageKey?: string;
+  acceptedUsageKey?: string;
   accepted?: string;
-  acceptedKey?: number;
+  acceptedKey?: string;
   userEdited?: boolean;
   discarded?: boolean;
   alternatives?: SuggestResult[];

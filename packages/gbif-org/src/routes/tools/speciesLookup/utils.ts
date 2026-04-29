@@ -80,56 +80,134 @@ export function parseCSV(csvString: string): SpeciesRow[] | { error: string } {
 
 // --- API helpers ---
 
+const MAJOR_RANKS = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'] as const;
+type MajorRank = (typeof MAJOR_RANKS)[number];
+
 export function applyMatchData(item: SpeciesRow, data: Record<string, unknown>) {
-  const fields: (keyof SpeciesRow)[] = [
-    'scientificName',
-    'matchType',
-    'confidence',
-    'status',
-    'rank',
-    'kingdom',
-    'phylum',
-    'class',
-    'order',
-    'family',
-    'genus',
-    'species',
-    'kingdomKey',
-    'phylumKey',
-    'classKey',
-    'orderKey',
-    'familyKey',
-    'genusKey',
-    'speciesKey',
-    'accepted',
-    'acceptedKey',
-    'canonicalName',
-    'authorship',
-    'acceptedUsageKey',
-    'usageKey',
-  ];
-  fields.forEach((f) => {
-    (item as Record<string, unknown>)[f] = data[f];
+  const usage = data.usage as Record<string, unknown> | undefined;
+  const acceptedUsage = data.acceptedUsage as Record<string, unknown> | undefined;
+  const diagnostics = data.diagnostics as Record<string, unknown> | undefined;
+  const classification = data.classification as
+    | Array<{ rank: string; name: string; key: string }>
+    | undefined;
+
+  if (usage) {
+    item.key = usage.key as string;
+    item.usageKey = usage.key as string;
+    item.scientificName = usage.name as string;
+    item.rank = usage.rank as string;
+    item.status = (usage.status ?? usage.taxonomicStatus) as string | undefined;
+  } else {
+    item.key = undefined;
+    item.usageKey = undefined;
+    item.scientificName = undefined;
+    item.rank = undefined;
+    item.status = undefined;
+  }
+
+  if (acceptedUsage) {
+    item.acceptedUsageKey = acceptedUsage.key as string;
+    item.accepted = acceptedUsage.name as string;
+    item.acceptedKey = acceptedUsage.key as string;
+  } else {
+    item.acceptedUsageKey = undefined;
+    item.accepted = undefined;
+    item.acceptedKey = undefined;
+  }
+
+  if (diagnostics) {
+    item.matchType = diagnostics.matchType as string;
+    item.confidence = diagnostics.confidence as number;
+  } else {
+    item.matchType = undefined;
+    item.confidence = undefined;
+  }
+
+  // Clear all major Linnaean classification fields first
+  MAJOR_RANKS.forEach((rank) => {
+    (item as Record<string, unknown>)[rank] = undefined;
+    (item as Record<string, unknown>)[`${rank}Key`] = undefined;
   });
-  if (data.taxonomicStatus) item.status = data.taxonomicStatus as string;
-  if (data.usageKey) item.key = data.usageKey as number;
+
+  if (classification) {
+    classification.forEach((c) => {
+      const rank = c.rank?.toLowerCase() as MajorRank;
+      if (MAJOR_RANKS.includes(rank)) {
+        (item as Record<string, unknown>)[rank] = c.name;
+        (item as Record<string, unknown>)[`${rank}Key`] = c.key;
+      }
+    });
+  }
+
   if (item.userEdited) item.matchType = 'EDITED';
 }
 
+export function applySuggestion(item: SpeciesRow, suggestion: SuggestResult) {
+  item.key = suggestion.key;
+  item.usageKey = suggestion.key;
+  item.scientificName = suggestion.scientificName;
+  item.rank = suggestion.rank;
+  item.status = suggestion.status;
+  item.matchType = 'EDITED';
+  item.confidence = undefined;
+
+  item.acceptedUsageKey = suggestion.acceptedKey;
+  item.acceptedKey = suggestion.acceptedKey;
+  item.accepted = suggestion.accepted;
+
+  // Suggest results don't return higher-rank keys; alternatives from the match
+  // call carry classification names but no keys either.
+  MAJOR_RANKS.forEach((rank) => {
+    (item as Record<string, unknown>)[rank] = (suggestion as Record<string, unknown>)[rank];
+    (item as Record<string, unknown>)[`${rank}Key`] = undefined;
+  });
+
+  item.alternatives = undefined;
+  item.discarded = false;
+}
+
 export function toCandidate(a: Record<string, unknown>): SuggestResult {
+  const usage = a.usage as Record<string, unknown> | undefined;
+  const acceptedUsage = a.acceptedUsage as Record<string, unknown> | undefined;
+  const classification = a.classification as
+    | Array<{ rank: string; name: string; key: string }>
+    | undefined;
+
+  const classMap: Partial<Record<MajorRank, string>> = {};
+  if (classification) {
+    classification.forEach((c) => {
+      const rank = c.rank?.toLowerCase() as MajorRank;
+      if (MAJOR_RANKS.includes(rank)) classMap[rank] = c.name;
+    });
+  }
+
   return {
-    key: a.usageKey as number,
-    scientificName: a.scientificName as string,
-    canonicalName: a.canonicalName as string,
-    rank: a.rank as string,
-    status: a.status as string,
-    kingdom: a.kingdom as string | undefined,
-    phylum: a.phylum as string | undefined,
-    class: a.class as string | undefined,
-    order: a.order as string | undefined,
-    family: a.family as string | undefined,
-    genus: a.genus as string | undefined,
-    species: a.species as string | undefined,
+    key: usage?.key as string,
+    scientificName: usage?.name as string,
+    rank: usage?.rank as string,
+    status: (usage?.status ?? usage?.taxonomicStatus) as string,
+    acceptedKey: acceptedUsage?.key as string | undefined,
+    accepted: acceptedUsage?.name as string | undefined,
+    kingdom: classMap.kingdom,
+    phylum: classMap.phylum,
+    class: classMap.class,
+    order: classMap.order,
+    family: classMap.family,
+    genus: classMap.genus,
+    species: classMap.species,
+  };
+}
+
+export function fromTaxonSuggestion(t: Record<string, unknown>): SuggestResult {
+  return {
+    key: t.taxonID as string,
+    scientificName: t.scientificName as string,
+    rank: t.taxonRank as string,
+    status: t.taxonomicStatus as string,
+    acceptedKey: t.acceptedNameUsageID as string | undefined,
+    accepted: t.acceptedNameUsage as string | undefined,
+    group: t.group as string | undefined,
+    context: t.context as string | undefined,
   };
 }
 

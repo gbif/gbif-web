@@ -22,6 +22,7 @@ import { literatureButtonWidgetRoute, literatureSearchWidgetRoute } from '@/rout
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { mdtRoute } from '@/routes/custom/mdt';
+import { nameParserRoute } from '@/routes/tools/nameParser';
 import { speciesLookupRoute } from '@/routes/tools/speciesLookup';
 
 export function createGbifRoutes(config: Config) {
@@ -63,6 +64,7 @@ export function createGbifRoutes(config: Config) {
               faqRoute,
               iptRoute,
               speciesLookupRoute,
+              nameParserRoute,
               ...notImplementedRoutes,
 
               // collectionSearchRoute,

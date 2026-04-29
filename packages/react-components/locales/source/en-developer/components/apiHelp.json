@@ -31,5 +31,6 @@
   "suggestSpecies": "Suggest species names.",
   "searchSpecies": "Get all species.",
   "singleDerivedDataset": "Get a single derived dataset",
+  "parseName": "Parse a single scientific name",
   "derivedDatasetContributingDatasets": "Get datasets contributing with data to a derived dataset"
 }

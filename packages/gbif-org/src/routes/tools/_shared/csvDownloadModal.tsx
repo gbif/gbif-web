@@ -1,17 +1,28 @@
 import { Button } from '@/components/ui/button';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Dialog, DialogOverlay, DialogPortal } from '@/components/ui/dialog';
 import { Card } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { MdOutlineDownload } from 'react-icons/md';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { ReactNode } from 'react';
 
-type DownloadModalProps = {
+type CsvDownloadModalProps = {
   open: boolean;
   downloadUrl: string;
+  filename: string;
+  title: ReactNode;
+  description: ReactNode;
+  cancelLabel: ReactNode;
   onClose: () => void;
 };
 
-export function DownloadModal({ open, downloadUrl, onClose }: DownloadModalProps) {
+export function CsvDownloadModal({
+  open,
+  downloadUrl,
+  filename,
+  title,
+  description,
+  cancelLabel,
+  onClose,
+}: CsvDownloadModalProps) {
   return (
     <Dialog
       open={open}
@@ -33,36 +44,23 @@ export function DownloadModal({ open, downloadUrl, onClose }: DownloadModalProps
         >
           <Card className="g-bg-white g-overflow-hidden">
             <div className="g-px-8 g-pt-7 g-pb-5 g-border-b g-border-slate-100">
-              <p className="g-font-semibold g-text-slate-800 g-text-base">
-                <FormattedMessage
-                  id="tools.speciesLookup.downloadAsCsv"
-                  defaultMessage="Download as .csv"
-                />
-              </p>
-              <p className="g-text-slate-500 g-text-sm g-mt-1">
-                <FormattedMessage
-                  id="tools.speciesLookup.downloadDescription"
-                  defaultMessage="Your results are ready to download."
-                />
-              </p>
+              <p className="g-font-semibold g-text-slate-800 g-text-base">{title}</p>
+              <p className="g-text-slate-500 g-text-sm g-mt-1">{description}</p>
             </div>
 
             <div className="g-p-8 g-flex g-flex-col g-items-center g-gap-4">
               <Button asChild variant="default" className="g-w-full">
                 <a
                   href={downloadUrl}
-                  download="species-match.csv"
+                  download={filename}
                   onClick={() => setTimeout(onClose, 800)}
                 >
-                  <FormattedMessage
-                    id="tools.speciesLookup.downloadAsCsv"
-                    defaultMessage="Download as .csv"
-                  />
+                  {title}
                 </a>
               </Button>
 
               <Button variant="ghost" size="sm" onClick={onClose} className="g-text-slate-400">
-                <FormattedMessage id="tools.speciesLookup.cancel" defaultMessage="Cancel" />
+                {cancelLabel}
               </Button>
             </div>
           </Card>

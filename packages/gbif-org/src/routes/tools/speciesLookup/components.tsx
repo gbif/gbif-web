@@ -21,7 +21,7 @@ export function MatchTypeBadge({ matchType }: { matchType?: string }) {
   );
 }
 
-export function TaxonLink({ usageKey, name }: { usageKey?: number; name?: string }) {
+export function TaxonLink({ usageKey, name }: { usageKey?: string; name?: string }) {
   if (!name) return null;
   if (!usageKey) return <>{name}</>;
   return (
@@ -48,6 +48,9 @@ export function SuggestionRow({ item, onClick }: { item: SuggestResult; onClick:
     .map(({ val }) => val)
     .join(' › ');
 
+  const fallback = [item.context, item.group].filter(Boolean).join(' · ');
+  const subtitle = taxonomy || fallback;
+
   return (
     <button
       className="g-w-full g-text-left g-px-4 g-py-3 hover:g-bg-slate-50 g-border-b g-border-slate-100 g-block g-transition-colors"
@@ -71,7 +74,10 @@ export function SuggestionRow({ item, onClick }: { item: SuggestResult; onClick:
           )}
         </span>
       </div>
-      {taxonomy && <div className="g-text-xs g-text-gray-400 g-mt-0.5">{taxonomy}</div>}
+      {subtitle && <div className="g-text-xs g-text-gray-400 g-mt-0.5">{subtitle}</div>}
+      {item.accepted && (
+        <div className="g-text-xs g-text-gray-400 g-mt-0.5 g-italic">→ {item.accepted}</div>
+      )}
     </button>
   );
 }

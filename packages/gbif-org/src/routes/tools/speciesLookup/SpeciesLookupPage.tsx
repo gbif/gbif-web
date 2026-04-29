@@ -5,13 +5,12 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { CsvDownloadModal } from '../_shared/csvDownloadModal';
 import { ApiContent } from './help';
-import { DownloadModal } from './downloadModal';
 import { EditModal } from './editModal';
 import { ResultsPhase } from './resultsPhase';
 import { SelectKingdomPhase } from './selectKingdomPhase';
 import {
-  BACKBONE_DATASET_KEY,
   BATCH_SIZE,
   CSV_EXPORT_FIELDS,
   Phase,
@@ -19,14 +18,23 @@ import {
   SuggestResult,
 } from './types';
 import { UploadPhase } from './uploadPhase';
-import { applyMatchData, buildCsv, parseCSV, processInBatches, toCandidate } from './utils';
+import {
+  applyMatchData,
+  applySuggestion,
+  buildCsv,
+  fromTaxonSuggestion,
+  parseCSV,
+  processInBatches,
+  toCandidate,
+} from './utils';
 import { Helmet } from 'react-helmet-async';
 import { DataHeader } from '@/components/dataHeader';
 
 export default function SpeciesLookupPage() {
   const { formatMessage } = useIntl();
   const config = useConfig();
-  const v1Endpoint = config.v1Endpoint;
+  const v2Endpoint = config.v2Endpoint;
+  const defaultChecklistKey = config.defaultChecklistKey;
 
   const [phase, setPhase] = useState<Phase>('upload');
   const [species, setSpecies] = useState<SpeciesRow[]>([]);
@@ -114,34 +122,24 @@ export default function SpeciesLookupPage() {
         try {
           const params = new URLSearchParams({
             verbose: 'true',
-            name: item.verbatimScientificName,
+            scientificName: item.verbatimScientificName,
           });
+          if (defaultChecklistKey) params.set('checklistKey', defaultChecklistKey);
           const kingdom = item.preferedKingdom || defaultKingdom;
           if (kingdom) params.set('kingdom', kingdom);
 
-          const matchRes = await fetch(`${v1Endpoint}/species/match?${params}`);
+          const matchRes = await fetch(`${v2Endpoint}/species/match?${params}`);
           if (!matchRes.ok) return;
           const matchData: Record<string, unknown> = await matchRes.json();
 
-          const primaryCandidate = matchData.usageKey ? toCandidate(matchData) : null;
+          const usage = matchData.usage as Record<string, unknown> | undefined;
+          const primaryCandidate = usage?.key ? toCandidate(matchData) : null;
           const alternativeCandidates = Array.isArray(matchData.alternatives)
             ? (matchData.alternatives as Record<string, unknown>[]).map(toCandidate)
             : [];
           item.alternatives = primaryCandidate
             ? [primaryCandidate, ...alternativeCandidates]
             : alternativeCandidates;
-
-          if (matchData.usageKey) {
-            try {
-              const speciesRes = await fetch(`${v1Endpoint}/species/${matchData.usageKey}`);
-              if (speciesRes.ok) {
-                const speciesData: Record<string, unknown> = await speciesRes.json();
-                matchData.authorship = speciesData.authorship;
-              }
-            } catch {
-              // authorship stays undefined
-            }
-          }
 
           applyMatchData(item, matchData);
         } catch {
@@ -155,7 +153,7 @@ export default function SpeciesLookupPage() {
     setIsMatching(false);
     setPhase('results');
     setOffset(0);
-  }, [species, defaultKingdom, v1Endpoint]);
+  }, [species, defaultKingdom, v2Endpoint, defaultChecklistKey]);
 
   // Debounced suggest search
   useEffect(() => {
@@ -166,12 +164,22 @@ export default function SpeciesLookupPage() {
       setIsSuggestLoading(false);
       return;
     }
+    if (!defaultChecklistKey) {
+      setSuggestions([]);
+      setIsSuggestLoading(false);
+      return;
+    }
     setIsSuggestLoading(true);
     const timer = setTimeout(async () => {
       try {
-        const params = new URLSearchParams({ q, datasetKey: BACKBONE_DATASET_KEY, limit: '10' });
-        const res = await fetch(`${v1Endpoint}/species/suggest?${params}`);
-        if (res.ok) setSuggestions(await res.json());
+        const params = new URLSearchParams({ q, limit: '10' });
+        const res = await fetch(
+          `${v2Endpoint}/taxon/suggest/${defaultChecklistKey}?${params}`
+        );
+        if (res.ok) {
+          const data = (await res.json()) as Record<string, unknown>[];
+          setSuggestions(data.map(fromTaxonSuggestion));
+        }
       } catch {
         // ignore
       } finally {
@@ -179,7 +187,7 @@ export default function SpeciesLookupPage() {
       }
     }, 300);
     return () => clearTimeout(timer);
-  }, [searchQuery, itemToEdit, v1Endpoint]);
+  }, [searchQuery, itemToEdit, v2Endpoint, defaultChecklistKey]);
 
   // Focus search input when edit modal opens
   useEffect(() => {
@@ -201,22 +209,14 @@ export default function SpeciesLookupPage() {
   }, []);
 
   const selectSuggestion = useCallback(
-    async (suggestion: SuggestResult) => {
+    (suggestion: SuggestResult) => {
       if (!itemToEdit) return;
-      try {
-        const res = await fetch(`${v1Endpoint}/species/${suggestion.key}`);
-        if (res.ok) {
-          const data: Record<string, unknown> = await res.json();
-          const updated = { ...itemToEdit, userEdited: true };
-          applyMatchData(updated, data);
-          setSpecies((prev) => prev.map((s) => (s === itemToEdit ? updated : s)));
-        }
-      } catch {
-        // ignore
-      }
+      const updated = { ...itemToEdit, userEdited: true };
+      applySuggestion(updated, suggestion);
+      setSpecies((prev) => prev.map((s) => (s === itemToEdit ? updated : s)));
       closeEdit();
     },
-    [itemToEdit, v1Endpoint, closeEdit]
+    [itemToEdit, closeEdit]
   );
 
   const discardMatch = useCallback(() => {
@@ -235,9 +235,6 @@ export default function SpeciesLookupPage() {
     setShowDownload(true);
   }, [species, excludeUnmatched, downloadUrl]);
 
-  const simpleExampleCsv =
-    'data:text/csv;charset=utf-8,' +
-    encodeURIComponent('scientificName\nPuma concolor\nAnimalia\nPlantae\nFungi\n');
   const advancedExampleCsv =
     'data:text/csv;charset=utf-8,' +
     encodeURIComponent(
@@ -270,7 +267,6 @@ export default function SpeciesLookupPage() {
           <UploadPhase
             error={error}
             isDragOver={isDragOver}
-            simpleExampleCsv={simpleExampleCsv}
             advancedExampleCsv={advancedExampleCsv}
             onFile={handleFile}
             onDrop={handleDrop}
@@ -319,9 +315,25 @@ export default function SpeciesLookupPage() {
               onSelectSuggestion={selectSuggestion}
               onDiscard={discardMatch}
             />
-            <DownloadModal
+            <CsvDownloadModal
               open={showDownload}
               downloadUrl={downloadUrl}
+              filename="species-match.csv"
+              title={
+                <FormattedMessage
+                  id="tools.speciesLookup.downloadAsCsv"
+                  defaultMessage="Download as .csv"
+                />
+              }
+              description={
+                <FormattedMessage
+                  id="tools.speciesLookup.downloadDescription"
+                  defaultMessage="Your results are ready to download."
+                />
+              }
+              cancelLabel={
+                <FormattedMessage id="tools.speciesLookup.cancel" defaultMessage="Cancel" />
+              }
               onClose={() => setShowDownload(false)}
             />
           </>
