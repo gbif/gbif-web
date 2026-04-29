@@ -22,7 +22,7 @@ import { OtherParticipantResult } from './OtherParticipantResult';
 import { SearchInput } from './SearchInput';
 import OMNI_SEARCH from './query';
 import PageMetaData from '@/components/PageMetaData';
-import { extractValidResources } from '../resource/search/resourceSearch';
+import { extractValidResourceSearchResults } from '../resource/search/resourceSearch';
 import { notNull } from '@/utils/notNull';
 
 export interface CategoryCount {
@@ -69,8 +69,8 @@ export function SearchPage() {
     notifyOnErrors: true,
   });
 
-  const resourceKeywordSearch = extractValidResources(data?.resourceKeywordSearch);
-  const resourceSearch = extractValidResources(data?.resourceSearch);
+  const resourceKeywordSearch = extractValidResourceSearchResults(data?.resourceKeywordSearch);
+  const resourceSearch = extractValidResourceSearchResults(data?.resourceSearch);
   const organizationSearch = data?.organizationSearch?.results.filter(notNull) ?? [];
   const taxonSearch = data?.taxonSearch?.results.filter(notNull) ?? [];
   const datasetSearch = data?.datasetSearch.results ?? [];

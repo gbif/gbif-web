@@ -33,6 +33,7 @@ import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import PageMetaData from '@/components/PageMetaData';
+import { fragmentManager } from '@/services/fragmentManager';
 
 export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
@@ -59,55 +60,61 @@ export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
         size
         total
         results {
-          __typename
-          ... on Composition {
-            ...CompositionResult
-          }
-          ... on News {
-            ...NewsResult
-          }
-          ... on Article {
-            ...ArticleResult
-          }
-          ... on DataUse {
-            ...DataUseResult
-          }
-          ... on MeetingEvent {
-            ...EventResult
-          }
-          ... on GbifProject {
-            ...ProjectResult
-          }
-          ... on Programme {
-            ...ProgrammeResult
-          }
-          ... on Tool {
-            ...ToolResult
-          }
-          ... on Document {
-            ...DocumentResult
-          }
-          ... on Document {
-            ...DocumentResult
-          }
-          ... on NetworkProse {
-            ...NetworkProseResult
-          }
-          ... on Help {
-            ...HelpResult
-          }
+          ...ResourceSearchResult
         }
       }
     }
   }
 `;
 
+fragmentManager.register(/* GraphQL */ `
+  fragment ResourceSearchResult on Resource {
+    __typename
+    ... on Composition {
+      ...CompositionResult
+    }
+    ... on News {
+      ...NewsResult
+    }
+    ... on Article {
+      ...ArticleResult
+    }
+    ... on DataUse {
+      ...DataUseResult
+    }
+    ... on MeetingEvent {
+      ...EventResult
+    }
+    ... on GbifProject {
+      ...ProjectResult
+    }
+    ... on Programme {
+      ...ProgrammeResult
+    }
+    ... on Tool {
+      ...ToolResult
+    }
+    ... on Document {
+      ...DocumentResult
+    }
+    ... on Document {
+      ...DocumentResult
+    }
+    ... on NetworkProse {
+      ...NetworkProseResult
+    }
+    ... on Help {
+      ...HelpResult
+    }
+  }
+`);
+
 export type Resource = Extract<
   ExtractPaginatedResult<ResourceSearchQuery['resourceSearch']>,
   { id: string }
 >;
 
-export function extractValidResources(
+export function extractValidResourceSearchResults(
   searchResult: ResourceSearchQuery['resourceSearch'] | undefined
 ): Resource[] {
   return (
@@ -212,7 +219,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
     window.scrollTo(0, 0);
   }, [filterHash, offset]);
 
-  const resources = useMemo(() => extractValidResources(data?.resourceSearch), [data]);
+  const resources = useMemo(() => extractValidResourceSearchResults(data?.resourceSearch), [data]);
 
   const { total, size } = data?.resourceSearch?.documents || {};
 

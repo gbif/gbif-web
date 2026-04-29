@@ -10,7 +10,7 @@ import useUpdateEffect from '@/hooks/useUpdateEffect';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import {
-  extractValidResources,
+  extractValidResourceSearchResults,
   RESOURCE_SEARCH_QUERY,
   ResourceSearchResults,
 } from '@/routes/resource/search/resourceSearch';
@@ -45,7 +45,7 @@ export function CountryKeyNews() {
     });
   }, [load, offset, countryCode]);
 
-  const resources = useMemo(() => extractValidResources(data), [data]);
+  const resources = useMemo(() => extractValidResourceSearchResults(data?.resourceSearch), [data]);
 
   const { total, size } = data?.resourceSearch?.documents || {};
 

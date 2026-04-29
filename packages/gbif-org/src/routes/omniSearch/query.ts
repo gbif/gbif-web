@@ -45,40 +45,7 @@ const OMNI_SEARCH = /* GraphQL */ `
         size
         total
         results {
-          __typename
-          ... on Composition {
-            ...CompositionResult
-          }
-          ... on Article {
-            ...ArticleResult
-          }
-          ... on News {
-            ...NewsResult
-          }
-          ... on DataUse {
-            ...DataUseResult
-          }
-          ... on MeetingEvent {
-            ...EventResult
-          }
-          ... on GbifProject {
-            ...ProjectResult
-          }
-          ... on Programme {
-            ...ProgrammeResult
-          }
-          ... on Tool {
-            ...ToolResult
-          }
-          ... on Document {
-            ...DocumentResult
-          }
-          ... on NetworkProse {
-            ...NetworkProseResult
-          }
-          ... on Help {
-            ...HelpResult
-          }
+          ...ResourceSearchResult
         }
       }
     }
@@ -93,40 +60,7 @@ const OMNI_SEARCH = /* GraphQL */ `
         size
         total
         results {
-          __typename
-          ... on Composition {
-            ...CompositionResult
-          }
-          ... on Article {
-            ...ArticleResult
-          }
-          ... on News {
-            ...NewsResult
-          }
-          ... on DataUse {
-            ...DataUseResult
-          }
-          ... on MeetingEvent {
-            ...EventResult
-          }
-          ... on GbifProject {
-            ...ProjectResult
-          }
-          ... on Programme {
-            ...ProgrammeResult
-          }
-          ... on Tool {
-            ...ToolResult
-          }
-          ... on Document {
-            ...DocumentResult
-          }
-          ... on NetworkProse {
-            ...NetworkProseResult
-          }
-          ... on Help {
-            ...HelpResult
-          }
+          ...ResourceSearchResult
         }
       }
     }

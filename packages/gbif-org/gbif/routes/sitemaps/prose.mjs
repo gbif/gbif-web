@@ -24,7 +24,6 @@ const typeNameToPath = {
 };
 
 export const RESOURCE_SEARCH_QUERY = `
-
   query ResourceSearch(
     $from: Int
     $size: Int
@@ -80,51 +79,42 @@ export const RESOURCE_SEARCH_QUERY = `
     id
     title
     urlAlias
-   
   }
-
 
   fragment NewsResult on News {
     id
     title
-   
   }
 
   fragment ArticleResult on Article {
     id
     title
     urlAlias
-   
   }
 
   fragment DataUseResult on DataUse {
     id
     title
-
   }
 
   fragment EventResult on MeetingEvent {
     id
     title
-
   }
 
   fragment ProjectResult on GbifProject {
     id
     title
-
   }
 
   fragment ProgrammeResult on Programme {
     id
     title
-    
   }
 
   fragment ToolResult on Tool {
     id
     title
-   
   }
 
   fragment DocumentResult on Document {
@@ -135,9 +125,7 @@ export const RESOURCE_SEARCH_QUERY = `
   fragment NetworkProseResult on NetworkProse {
     id
     title
-    
   }
-
 `;
 
 async function getAllProse() {
