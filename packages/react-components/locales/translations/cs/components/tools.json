@@ -2,6 +2,48 @@
   "tools": {
     "ipt": {
       "dontSeeYourIpt": ""
+    },
+    "speciesLookup": {
+      "tools": "Nástroje",
+      "lookUp": "",
+      "pageTitle": "",
+      "description": "Normalizace názvů druhů ze souboru CSV podle páteře GBIF. Očekává se, že soubor bude obsahovat sloupec \"scientificName\" a nepovinné sloupce \"kingdom\" a \"id\".",
+      "selectFile": "Vybrat soubor",
+      "or": "nebo",
+      "dropHere": "Přetáhněte sem",
+      "ifNoKingdom": "",
+      "matchToBackbone": "",
+      "matchingProgress": "",
+      "scientificName": "",
+      "preferedKingdom": "",
+      "colId": "ID",
+      "colVerbatimScientificName": "",
+      "colPreferedKingdom": "",
+      "colMatchType": "",
+      "colConfidence": "",
+      "colScientificNameEditable": "",
+      "colStatus": "",
+      "colRank": "zařazení",
+      "colKingdom": "",
+      "colPhylum": "",
+      "colClass": "",
+      "colOrder": "",
+      "colFamily": "",
+      "colGenus": "",
+      "colSpecies": "druh",
+      "options": "Možnosti",
+      "excludeUnmatched": "",
+      "generateCsv": "",
+      "matchCandidatesFor": "",
+      "searchSpecies": "",
+      "noSuggestions": "Žádné výsledky",
+      "noAlternatives": "",
+      "cancel": "Zrušit",
+      "discard": "Zahodit",
+      "discarded": "",
+      "downloadAsCsv": "",
+      "downloadDescription": "",
+      "any": ""
     }
   }
 }
