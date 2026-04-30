@@ -48,7 +48,7 @@
     "nameParser": {
       "tools": "Tools",
       "pageTitle": "Name parser",
-      "description": "Parse scientific names into their components — genus, species, authorship, rank and more.",
+      "description": "Parse scientific names into their components: genus, species, authorship, rank and more.",
       "pasteNamesToParse": "Paste names to parse (one per line)",
       "pasteNamesPlaceholder": "e.g. Abies alba Mill.",
       "parse": "Parse",
