@@ -27,6 +27,8 @@
   "singleNode": "Obtenir un seul nœud.",
   "searchNodes": "Rechercher des nœuds",
   "singleSpecies": "Obtenir une seule espèce.",
+  "matchSpecies": "Associer un nom à la taxonomie de base du GBIF.",
+  "suggestSpecies": "Suggérer des noms d'espèces.",
   "searchSpecies": "Obtenir toutes les espèces.",
   "singleDerivedDataset": "Obtenir un seul jeu de données dérivé",
   "derivedDatasetContributingDatasets": "Obtenir les jeux de données contribuant à un jeu de données dérivé"

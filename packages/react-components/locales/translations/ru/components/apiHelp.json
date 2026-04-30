@@ -27,6 +27,8 @@
   "singleNode": "Указать отдельный узел",
   "searchNodes": "Узлы поиска",
   "singleSpecies": "Получить отдельный вид",
+  "matchSpecies": "Сопоставьте имя с таксономией GBIF",
+  "suggestSpecies": "Предложите названия видов",
   "searchSpecies": "Получить все виды",
   "singleDerivedDataset": "Предоставьте отдельный полученный набор данных ",
   "derivedDatasetContributingDatasets": "Предоставьте наборы данных, содержащие полученный набор данных"
