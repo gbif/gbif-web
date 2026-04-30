@@ -29,5 +29,6 @@
   "singleSpecies": "Obtener una sola especie.",
   "searchSpecies": "Obtener todas las especies.",
   "singleDerivedDataset": "Obtener un único conjunto de datos",
+  "parseName": "Analizar un nombre científico",
   "derivedDatasetContributingDatasets": "Obtener todos los conjuntos de datos que han contribuido al conjunto de datos derivado"
 }
