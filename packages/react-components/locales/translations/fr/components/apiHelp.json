@@ -31,5 +31,6 @@
   "suggestSpecies": "Suggérer des noms d'espèces.",
   "searchSpecies": "Obtenir toutes les espèces.",
   "singleDerivedDataset": "Obtenir un seul jeu de données dérivé",
+  "parseName": "Analyser un seul nom scientifique",
   "derivedDatasetContributingDatasets": "Obtenir les jeux de données contribuant à un jeu de données dérivé"
 }
