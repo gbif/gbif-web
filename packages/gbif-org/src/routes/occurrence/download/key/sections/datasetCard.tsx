@@ -4,15 +4,22 @@ import { FeatureList, GenericFeature } from '@/components/highlights';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { DownloadKeyQuery } from '@/gql/graphql';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { DatasetTable } from './DatasetTable';
+import { DatasetTable, EventDatasetTable } from './DatasetTable';
 import { Download } from '../downloadKey';
 
 type Props = {
   download: Download;
   datasetsByDownload: DownloadKeyQuery['datasetsByDownload'];
+  downloadType?: 'occurrence' | 'event';
 };
 
-export function DatasetCard({ download, datasetsByDownload }: Props) {
+export function DatasetCard({ download, datasetsByDownload, downloadType = 'occurrence' }: Props) {
+  const TableComponent = downloadType === 'event' ? EventDatasetTable : DatasetTable;
+  const tsvExportUrl =
+    downloadType === 'occurrence'
+      ? `${import.meta.env.PUBLIC_API_V1}/occurrence/download/${download.key}/datasets/export?format=TSV`
+      : `${import.meta.env.PUBLIC_API_V1}/experimental/event/download/${download.key}/datasets/export?format=TSV`;
+
   return (
     <Card className="g-mb-4">
       <CardHeader className="!g-pb-1">
@@ -34,18 +41,16 @@ export function DatasetCard({ download, datasetsByDownload }: Props) {
             <FormattedNumber value={download.numberPublishingCountries ?? 0} />
           </GenericFeature>
         </FeatureList>
-        <div className="g-flex g-justify-end">
-          <DownloadAsTSVLink
-            tsvUrl={`${import.meta.env.PUBLIC_API_V1}/occurrence/download/${
-              download.key
-            }/datasets/export?format=TSV`}
-          />
-        </div>
+        {tsvExportUrl && (
+          <div className="g-flex g-justify-end">
+            <DownloadAsTSVLink tsvUrl={tsvExportUrl} />
+          </div>
+        )}
       </CardHeader>
       {datasetsByDownload && (download?.numberDatasets ?? 0) > 0 && (
         <CardContent className="!g-px-0 g-border-t g-overflow-auto">
           <ErrorBoundary type="BLOCK" debugTitle="Failed to load datasets on download page">
-            <DatasetTable
+            <TableComponent
               downloadKey={download.key}
               initialDatasets={datasetsByDownload.results}
               limit={datasetsByDownload.limit}

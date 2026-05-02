@@ -6,10 +6,14 @@ import {
   Download_Status,
   DownloadKeyQuery,
   DownloadKeyQueryVariables,
+  EventDownloadKeyQuery,
+  EventDownloadKeyQueryVariables,
   SlowDownloadKeyQuery,
   SlowDownloadKeyQueryVariables,
   UsersDownloadKeyQuery,
   UsersDownloadKeyQueryVariables,
+  UsersEventDownloadKeyQuery,
+  UsersEventDownloadKeyQueryVariables,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
@@ -24,21 +28,20 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { json, useLoaderData } from 'react-router-dom';
-import { AboutContent, ApiContent } from './help';
-import { DatasetCard } from './sections/datasetCard';
-import { DeletionNotice } from './sections/deletionNotice';
-import { FileCard } from './sections/fileCard';
-import { NotReadyDownload } from './sections/notReadyDownload';
-import { QueryCard } from './sections/queryCard';
-import { SubHeader } from './sections/subHeader';
-import { UserDescription } from './sections/userDescription';
-import { downloadCompleted } from './utils';
 import { useUser } from '@/contexts/UserContext';
 import { useToast } from '@/components/ui/use-toast';
+import { downloadCompleted } from '@/routes/occurrence/download/key/utils';
+import { SubHeader } from '@/routes/occurrence/download/key/sections/subHeader';
+import { FileCard } from '@/routes/occurrence/download/key/sections/fileCard';
+import { DeletionNotice } from '@/routes/occurrence/download/key/sections/deletionNotice';
+import { NotReadyDownload } from '@/routes/occurrence/download/key/sections/notReadyDownload';
+import { QueryCard } from '@/routes/occurrence/download/key/sections/queryCard';
+import { UserDescription } from '@/routes/occurrence/download/key/sections/userDescription';
+import { DatasetCard } from '@/routes/occurrence/download/key/sections/datasetCard';
 
 const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
-  query UsersDownloadKey($key: ID!) {
-    download(key: $key) {
+  query UsersEventDownloadKey($key: ID!) {
+    eventDownload(key: $key) {
       key
       willBeDeletedSoon
       readyForDeletion
@@ -52,8 +55,8 @@ const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
 `;
 
 const DOWNLOAD_QUERY = /* GraphQL */ `
-  query DownloadKey($key: ID!) {
-    download(key: $key) {
+  query EventDownloadKey($key: ID!) {
+    download: eventDownload(key: $key) {
       created
       doi
       downloadLink
@@ -78,7 +81,7 @@ const DOWNLOAD_QUERY = /* GraphQL */ `
       status
       totalRecords
     }
-    datasetsByDownload(key: $key, limit: 50, offset: 0) {
+    datasetsByDownload: datasetsByEventDownload(key: $key, limit: 50, offset: 0) {
       limit
       offset
       endOfRecords
@@ -105,7 +108,7 @@ const SLOW_DOWNLOAD_QUERY = /* GraphQL */ `
 export async function downloadKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  const response = await graphql.query<DownloadKeyQuery, DownloadKeyQueryVariables>(
+  const response = await graphql.query<EventDownloadKeyQuery, EventDownloadKeyQueryVariables>(
     DOWNLOAD_QUERY,
     {
       key,
@@ -167,8 +170,7 @@ export function DownloadKey() {
       </Helmet>
       <DataHeader
         className="g-bg-white"
-        aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={download.key} />}
+        // apiContent={<ApiContent id={download.key} />}
         doi={showCitation ? download?.doi : undefined}
       />
       <ErrorBoundary invalidateOn={download?.key}>
@@ -207,7 +209,11 @@ export function DownloadKey() {
               <UserDescription download={download} />
               <QueryCard download={download} />
               {(download.numberDatasets ?? 0) > 0 && (
-                <DatasetCard download={download} datasetsByDownload={datasetsByDownload} />
+                <DatasetCard
+                  download={download}
+                  datasetsByDownload={datasetsByDownload}
+                  downloadType="event"
+                />
               )}
             </ArticleTextContainer>
           </PageContainer>
@@ -335,8 +341,8 @@ function useSensitiveData(downloadKey: string) {
   const { user } = useUser();
 
   const { data: sensitiveData, load } = useQuery<
-    UsersDownloadKeyQuery,
-    UsersDownloadKeyQueryVariables
+    UsersEventDownloadKeyQuery,
+    UsersEventDownloadKeyQueryVariables
   >(DOWNLOAD_SENSITIVE_QUERY, {
     throwAllErrors: false,
     lazyLoad: true,

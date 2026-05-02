@@ -25,6 +25,7 @@ fragmentManager.register(/* GraphQL */ `
       predicate
       sql: sqlFormatted
       format
+      type
       description
       gbifMachineDescription
       checklistKey
@@ -40,8 +41,9 @@ interface DownloadResultProps {
 export function DownloadResult({ download }: DownloadResultProps) {
   const { size, unit } = formatBytes(download?.size ?? 0, 0);
 
+  const pageId = download.request?.type === 'OCCURRENCE' ? 'downloadKey' : 'eventDownloadKey';
   return (
-    <DynamicLink pageId="downloadKey" variables={{ key: download.key }}>
+    <DynamicLink pageId={pageId} variables={{ key: download.key }}>
       <Card className="g-mb-4 hover:g-shadow-lg g-transition-shadow g-duration-300 hover:g-border-primary-300">
         <article className="">
           <div className="g-p-4 g-flex g-flex-col g-gap-2">

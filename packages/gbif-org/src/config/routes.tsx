@@ -11,6 +11,7 @@ import { literatureSearchRoute } from '@/routes/literature/search';
 import { networkKeyRoute } from '@/routes/network/key';
 import { nodeKeyRoute } from '@/routes/node/key';
 import { downloadKeyRoute } from '@/routes/occurrence/download/key';
+import { eventDownloadKeyRoute } from '@/routes/events/download/key';
 import { occurrenceKeyRoutes } from '@/routes/occurrence/key';
 import { occurrenceSearchRoute } from '@/routes/occurrence/search';
 import { createParticipantKeyRoute } from '@/routes/participant/key';
@@ -44,6 +45,7 @@ export const dataRoutes = [
   networkKeyRoute,
   ...occurrenceKeyRoutes,
   downloadKeyRoute,
+  eventDownloadKeyRoute,
   publisherKeyRoute,
   taxonKeyRoute,
   countryKeyRoute,
