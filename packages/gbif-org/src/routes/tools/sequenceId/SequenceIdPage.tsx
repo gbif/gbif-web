@@ -2,28 +2,35 @@ import { FormattedMessage } from 'react-intl';
 import { CsvDownloadModal } from '../_shared/csvDownloadModal';
 import { ResultsPhase } from './resultsPhase';
 import { UploadPhase } from './uploadPhase';
-import { useNameParserState } from './useNameParserState';
+import { useToolCmsResource } from '../_shared/toolLayout';
+import { useSequenceIdState } from './useSequenceIdState';
 
-export default function NameParserPage() {
+export default function SequenceIdPage() {
+  const cmsResource = useToolCmsResource();
   const {
     phase,
     inputText,
-    names,
-    isParsing,
+    marker,
+    results,
+    matchedCount,
+    isProcessing,
+    isComplete,
     error,
+    matchError,
     isDragOver,
     offset,
-    excludeUnparsed,
+    excludeUnmatched,
     sortColumn,
     sortDirection,
     showDownload,
     downloadUrl,
     setInputText,
+    setMarker,
     setOffset,
-    setExcludeUnparsed,
+    setExcludeUnmatched,
     setShowDownload,
     reset,
-    handleParseText,
+    handleSubmitText,
     handleLoadSample,
     handleFile,
     handleDrop,
@@ -31,18 +38,21 @@ export default function NameParserPage() {
     handleDragLeave,
     handleSort,
     generateCsv,
-  } = useNameParserState();
+  } = useSequenceIdState();
 
   return (
     <>
       {phase === 'upload' && (
         <UploadPhase
           error={error}
-          isParsing={isParsing}
+          isProcessing={isProcessing}
           isDragOver={isDragOver}
           inputText={inputText}
+          marker={marker}
+          hasCmsAbout={!!cmsResource}
           onInputTextChange={setInputText}
-          onParseText={handleParseText}
+          onMarkerChange={setMarker}
+          onSubmit={handleSubmitText}
           onLoadSample={handleLoadSample}
           onFile={handleFile}
           onDrop={handleDrop}
@@ -54,35 +64,40 @@ export default function NameParserPage() {
       {phase === 'results' && (
         <>
           <ResultsPhase
-            names={names}
-            excludeUnparsed={excludeUnparsed}
+            results={results}
+            marker={marker}
+            matchedCount={matchedCount}
+            isProcessing={isProcessing}
+            isComplete={isComplete}
+            matchError={matchError}
+            excludeUnmatched={excludeUnmatched}
             offset={offset}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
             onBack={reset}
             onSetOffset={setOffset}
-            onSetExcludeUnparsed={setExcludeUnparsed}
+            onSetExcludeUnmatched={setExcludeUnmatched}
             onSort={handleSort}
             onGenerateCsv={generateCsv}
           />
           <CsvDownloadModal
             open={showDownload}
             downloadUrl={downloadUrl}
-            filename="parsed-names.csv"
+            filename="blastresult.csv"
             title={
               <FormattedMessage
-                id="tools.nameParser.downloadAsCsv"
+                id="tools.sequenceId.downloadAsCsv"
                 defaultMessage="Download as .csv"
               />
             }
             description={
               <FormattedMessage
-                id="tools.nameParser.downloadDescription"
-                defaultMessage="Your parsed names are ready to download."
+                id="tools.sequenceId.downloadDescription"
+                defaultMessage="Your BLAST results are ready to download."
               />
             }
             cancelLabel={
-              <FormattedMessage id="tools.nameParser.cancel" defaultMessage="Cancel" />
+              <FormattedMessage id="tools.sequenceId.cancel" defaultMessage="Cancel" />
             }
             onClose={() => setShowDownload(false)}
           />

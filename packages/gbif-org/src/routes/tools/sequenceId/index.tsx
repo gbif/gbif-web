@@ -3,19 +3,19 @@ import React, { Suspense } from 'react';
 import { createToolLayoutLoader, ToolAboutTab, ToolLayout } from '../_shared/toolLayout';
 import { ApiContent } from './help';
 
-const SpeciesLookupPage = React.lazy(() => import('./SpeciesLookupPage'));
+const SequenceIdPage = React.lazy(() => import('./SequenceIdPage'));
 
-export const speciesLookupRoute: RouteObjectWithPlugins = {
-  id: 'speciesLookup',
-  path: 'tools/species-lookup',
-  loader: createToolLayoutLoader('species_matching'),
-  element: <ToolLayout defaultTitle="Species lookup" apiContent={<ApiContent />} />,
+export const sequenceIdRoute: RouteObjectWithPlugins = {
+  id: 'sequenceId',
+  path: 'tools/sequence-id',
+  loader: createToolLayoutLoader('sequence_id'),
+  element: <ToolLayout defaultTitle="Sequence ID" apiContent={<ApiContent />} />,
   children: [
     {
       index: true,
       element: (
         <Suspense fallback={null}>
-          <SpeciesLookupPage />
+          <SequenceIdPage />
         </Suspense>
       ),
     },

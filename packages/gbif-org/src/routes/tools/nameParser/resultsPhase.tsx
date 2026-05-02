@@ -47,7 +47,7 @@ export function ResultsPhase({
 
   return (
     <PageContainer className="g-bg-slate-100">
-      <ArticleTextContainer className="g-max-w-screen-xl g-pt-6 g-pb-8">
+      <ArticleTextContainer className="g-max-w-full g-pt-6 g-pb-8">
         <Button variant="ghost" size="sm" className="g-mb-4 g-text-slate-500" onClick={onBack}>
           ↺ <FormattedMessage id="tools.nameParser.startOver" defaultMessage="Start over" />
         </Button>
@@ -117,10 +117,7 @@ export function ResultsPhase({
                 />
               </label>
               <Button onClick={onGenerateCsv}>
-                <FormattedMessage
-                  id="tools.nameParser.generateCsv"
-                  defaultMessage="Generate CSV"
-                />
+                <FormattedMessage id="tools.nameParser.generateCsv" defaultMessage="Generate CSV" />
               </Button>
             </div>
           </div>

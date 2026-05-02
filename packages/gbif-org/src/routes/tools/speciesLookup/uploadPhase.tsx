@@ -27,7 +27,7 @@ export function UploadPhase({
 }: UploadPhaseProps) {
   return (
     <PageContainer className="g-bg-slate-100 g-flex-1">
-      <ArticleTextContainer className="g-max-w-lg g-pt-8 g-pb-12">
+      <ArticleTextContainer className="g-pt-8 g-pb-12">
         <Card className="g-bg-white g-overflow-hidden">
           <div className="g-px-8 g-pt-7 g-pb-5 g-border-b g-border-slate-100">
             <p className="g-text-slate-700 g-text-sm g-leading-relaxed">

@@ -18,7 +18,7 @@ export default {
   Query: {
     resource: async (
       _,
-      { id, alias },
+      { id, alias, machineIdentifier },
       { dataSources, locale, preview },
       info,
     ) => {
@@ -31,9 +31,13 @@ export default {
         });
       }
 
-      if (typeof alias === 'string') {
+      if (typeof alias === 'string' || typeof machineIdentifier === 'string') {
+        const lookupQuery =
+          typeof alias === 'string'
+            ? { urlAlias: alias }
+            : { machineIdentifier };
         const data = await dataSources.resourceSearchAPI.getFirstEntryByQuery(
-          { urlAlias: alias },
+          lookupQuery,
           locale,
         );
 
@@ -54,7 +58,9 @@ export default {
         return data;
       }
 
-      throw new Error('Either id or alias must be provided');
+      throw new Error(
+        'Either id, alias, or machineIdentifier must be provided',
+      );
     },
   },
   Resource: {

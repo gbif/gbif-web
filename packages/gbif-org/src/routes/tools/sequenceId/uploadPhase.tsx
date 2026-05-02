@@ -1,19 +1,31 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { cn } from '@/utils/shadcn';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { MdOutlineCloudUpload } from 'react-icons/md';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { MARKERS } from './types';
 
 type UploadPhaseProps = {
   error?: string;
-  isParsing: boolean;
+  isProcessing: boolean;
   isDragOver: boolean;
   inputText: string;
+  marker: string;
+  hasCmsAbout: boolean;
   onInputTextChange: (value: string) => void;
-  onParseText: () => void;
+  onMarkerChange: (value: string) => void;
+  onSubmit: () => void;
   onLoadSample: () => void;
   onFile: (file: File) => void;
   onDrop: (e: React.DragEvent) => void;
@@ -23,11 +35,14 @@ type UploadPhaseProps = {
 
 export function UploadPhase({
   error,
-  isParsing,
+  isProcessing,
   isDragOver,
   inputText,
+  marker,
+  hasCmsAbout,
   onInputTextChange,
-  onParseText,
+  onMarkerChange,
+  onSubmit,
   onLoadSample,
   onFile,
   onDrop,
@@ -43,10 +58,25 @@ export function UploadPhase({
           <div className="g-px-8 g-pt-7 g-pb-5 g-border-b g-border-slate-100">
             <p className="g-text-slate-700 g-text-sm g-leading-relaxed">
               <FormattedMessage
-                id="tools.nameParser.description"
-                defaultMessage="Parse scientific names into their components — genus, species, authorship, rank and more."
+                id="tools.sequenceId.description"
+                defaultMessage="Identify DNA sequences against a reference database. Files can be uploaded in FASTA or CSV format. CSVs need a column named ‘sequence’ and an optional ‘id’ or ‘occurrenceId’ column. You can also paste FASTA sequences directly into the text field."
               />
             </p>
+            {hasCmsAbout && (
+              <p className="g-text-slate-500 g-text-sm g-mt-3">
+                <FormattedMessage
+                  id="tools.sequenceId.aboutHint"
+                  defaultMessage="See the {aboutLink} for the reference databases used, version information and citations."
+                  values={{
+                    aboutLink: (
+                      <DynamicLink to="about" className="g-underline g-text-primary-600">
+                        <FormattedMessage id="tools.sequenceId.aboutPage" defaultMessage="about page" />
+                      </DynamicLink>
+                    ),
+                  }}
+                />
+              </p>
+            )}
           </div>
 
           <div className="g-p-8">
@@ -56,42 +86,65 @@ export function UploadPhase({
               </div>
             )}
 
+            <div className="g-mb-6">
+              <label className="g-block g-text-sm g-font-medium g-text-slate-700 g-mb-2">
+                <FormattedMessage
+                  id="tools.sequenceId.referenceDatabase"
+                  defaultMessage="Reference database"
+                />
+              </label>
+              <Select value={marker} onValueChange={onMarkerChange} disabled={isProcessing}>
+                <SelectTrigger className="g-max-w-md">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {MARKERS.map((m) => (
+                    <SelectItem key={m.value} value={m.value}>
+                      <span className="g-font-medium">{m.marker}</span>{' '}
+                      <span className="g-text-slate-500">— {m.group}</span>{' '}
+                      <span className="g-text-slate-400 g-text-xs">({m.database})</span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
             <label
-              htmlFor="nameParserInput"
+              htmlFor="sequenceIdInput"
               className="g-block g-text-sm g-font-medium g-text-slate-700 g-mb-2"
             >
               <FormattedMessage
-                id="tools.nameParser.pasteNamesToParse"
-                defaultMessage="Paste names to parse (one per line)"
+                id="tools.sequenceId.pasteSequences"
+                defaultMessage="Paste sequences (FASTA format)"
               />
             </label>
             <Textarea
-              id="nameParserInput"
+              id="sequenceIdInput"
               value={inputText}
               onChange={(e) => onInputTextChange(e.target.value)}
               rows={8}
               placeholder={formatMessage({
-                id: 'tools.nameParser.pasteNamesPlaceholder',
-                defaultMessage: 'e.g. Abies alba Mill.',
+                id: 'tools.sequenceId.pasteSequencesPlaceholder',
+                defaultMessage: '>seq1\nATGC...',
               })}
               className="g-font-mono g-text-sm"
-              disabled={isParsing}
+              disabled={isProcessing}
             />
             <div className="g-mt-3 g-flex g-flex-wrap g-items-center g-gap-2">
-              <Button onClick={onParseText} disabled={isParsing || !inputText.trim()} size="sm">
-                {isParsing ? (
+              <Button onClick={onSubmit} disabled={isProcessing || !inputText.trim()} size="sm">
+                {isProcessing ? (
                   <FormattedMessage
-                    id="tools.nameParser.parsingNames"
-                    defaultMessage="Parsing names…"
+                    id="tools.sequenceId.blasting"
+                    defaultMessage="Blasting sequences…"
                   />
                 ) : (
-                  <FormattedMessage id="tools.nameParser.parse" defaultMessage="Parse" />
+                  <FormattedMessage id="tools.sequenceId.blast" defaultMessage="Blast" />
                 )}
               </Button>
-              <Button variant="outline" size="sm" onClick={onLoadSample} disabled={isParsing}>
+              <Button variant="outline" size="sm" onClick={onLoadSample} disabled={isProcessing}>
                 <FormattedMessage
-                  id="tools.nameParser.loadTestNames"
-                  defaultMessage="Load test names"
+                  id="tools.sequenceId.loadTestData"
+                  defaultMessage="Load test data"
                 />
               </Button>
             </div>
@@ -99,7 +152,7 @@ export function UploadPhase({
             <div className="g-flex g-items-center g-my-6 g-text-xs g-text-slate-400 g-uppercase g-tracking-wide">
               <div className="g-flex-1 g-h-px g-bg-slate-200" />
               <span className="g-px-3">
-                <FormattedMessage id="tools.nameParser.or" defaultMessage="or" />
+                <FormattedMessage id="tools.sequenceId.or" defaultMessage="or" />
               </span>
               <div className="g-flex-1 g-h-px g-bg-slate-200" />
             </div>
@@ -127,22 +180,25 @@ export function UploadPhase({
                   )}
                 >
                   <FormattedMessage
-                    id="tools.nameParser.dropTextFile"
-                    defaultMessage="Drop a text file here"
+                    id="tools.sequenceId.dropFile"
+                    defaultMessage="Drop a FASTA or CSV file here"
                   />
                 </p>
                 <p className="g-text-slate-400 g-text-xs g-mt-1">
-                  <FormattedMessage id="tools.nameParser.or" defaultMessage="or" />
+                  <FormattedMessage id="tools.sequenceId.or" defaultMessage="or" />
                 </p>
               </div>
-              <Button asChild size="sm" disabled={isParsing}>
+              <Button asChild size="sm" disabled={isProcessing}>
                 <label className="g-cursor-pointer">
-                  <FormattedMessage id="tools.nameParser.selectFile" defaultMessage="Select file" />
+                  <FormattedMessage
+                    id="tools.sequenceId.selectFile"
+                    defaultMessage="Select file"
+                  />
                   <input
                     type="file"
-                    accept=".txt,text/plain"
+                    accept=".fasta,.fa,.fna,.csv,.tsv,.txt,text/plain,text/csv"
                     className="g-hidden"
-                    disabled={isParsing}
+                    disabled={isProcessing}
                     onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])}
                   />
                 </label>
