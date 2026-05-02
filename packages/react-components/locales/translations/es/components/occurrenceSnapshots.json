@@ -4,8 +4,8 @@
     "intro": "Exportaciones periódicas de registros de presencia de GBIF",
     "description": "Cada mes, GBIF toma una instantánea completa de los registros, que se guarda en diferentes formatos para facilitar su uso. Todas las instantáneas se publican con un DOI para simplificar su citado, y algunos formatos se copian en nubes públicas para facilitar su uso en esos entornos.",
     "cloudDatasets": {
-      "title": "",
-      "description": ""
+      "title": "Conjuntos de datos basados en la nube",
+      "description": "GBIF pone a disposición los datos en el <azure>Microsoft Planetary Computer (Azure)</azure>, como un <aws>conjunto de datos abierto de Amazon AWS</aws> y en un <gcs>depósito de GCS</gcs> de Google y una <bq>tabla de BigQuery</bq>. Cuando se utilicen instantáneas basadas en la nube, siempre recomendamos crear una <derived>cita del conjunto de datos derivado</derived> para los registros que se utilicen. Cuando se haga referencia al conjunto de datos completo, utilice la cita correspondiente que se indica a continuación."
     },
     "monthly": {
       "title": "Conjuntos de datos de instantáneas mensuales",
