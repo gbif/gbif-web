@@ -4,6 +4,7 @@ export type Endpoints = {
   formsEndpoint: string;
   feedbackEndpoint: string;
   v1Endpoint: string;
+  v2Endpoint: string;
   contentSearchEndpoint: string;
 };
 
@@ -15,6 +16,7 @@ export function getEndpoints(): Endpoints {
     formsEndpoint: import.meta.env.PUBLIC_FORMS_ENDPOINT,
     feedbackEndpoint: import.meta.env.PUBLIC_FEEDBACK_ENDPOINT,
     v1Endpoint: import.meta.env.PUBLIC_API_V1,
+    v2Endpoint: import.meta.env.PUBLIC_API_V2,
   };
 
   return endpoints;
