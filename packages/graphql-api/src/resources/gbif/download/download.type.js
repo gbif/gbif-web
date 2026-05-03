@@ -12,8 +12,19 @@ const typeDef = gql`
       limit: Int
       offset: Int
     ): DatasetDownloadListResults
+    datasetsByEventDownload(
+      key: ID!
+      limit: Int
+      offset: Int
+    ): DatasetDownloadListResults
     download(key: ID!): Download
+    eventDownload(key: ID!): Download
     userDownloads(
+      limit: Int
+      offset: Int
+      username: String!
+    ): DownloadListResults! @cacheControl(maxAge: 0, scope: PRIVATE)
+    userEventDownloads(
       limit: Int
       offset: Int
       username: String!
@@ -70,6 +81,7 @@ const typeDef = gql`
     predicate: JSON
     sendNotification: Boolean
     format: String
+    type: String
     sql: String
     sqlFormatted: String
     description: String

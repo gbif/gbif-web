@@ -154,7 +154,7 @@ export const Event = ({
         <span>
           <DynamicLink
             pageId={'datasetKey'}
-            variables={{ key: `${datasetKey}/events` }}
+            variables={{ key: `${datasetKey}/event` }}
             className="g-text-inherit hover:g-underline"
           >
             <FormattedMessage id="dataset.events" defaultMessage={`Events`} />

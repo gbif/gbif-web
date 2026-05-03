@@ -63,6 +63,13 @@ const apiConfig = {
     url: apiV1 + '/occurrence/download/',
     canonical: 'occurrence/download/',
   },
+  eventCancelDownload: {
+    url: apiV1 + '/experimental/event/download/request/',
+  },
+  eventDownload: {
+    url: apiV1 + '/experimental/event/download/',
+    canonical: 'experimental/event/download/',
+  },
 };
 
 export async function create(body) {
@@ -253,46 +260,70 @@ export async function createDownload(user, query, source) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-export async function cancelDownload(key, username) {
+export async function cancelDownload({ key, type = 'OCCURRENCE', username }) {
   ensureString(username, 'user name');
   ensureString(key, 'download key');
 
+  let url;
+  if (type === 'EVENT') {
+    url = apiConfig.eventCancelDownload.url + key;
+  } else {
+    url = apiConfig.occurrenceCancelDownload.url + key;
+  }
+
   let options = {
-    url: apiConfig.occurrenceCancelDownload.url + key,
+    url: url,
     userName: username,
     method: 'DELETE',
   };
   return authenticatedRequest(options);
 }
 
-export async function deleteDownload(key, username) {
+export async function deleteDownload({ key, type = 'OCCURRENCE', username }) {
   ensureString(username, 'user name');
   ensureString(key, 'download key');
 
-  let erasureDate = Date.now();
-  let updatedDownload = await setDownloadErasureDate(key, erasureDate, username);
+  const erasureDate = new Date().toISOString();
+
+  let updatedDownload = await setDownloadErasureDate({ key, erasureDate, type, username });
   return updatedDownload;
 }
 
-export async function postponeDownloadDeletion(key, username) {
+export async function postponeDownloadDeletion({ key, type = 'OCCURRENCE', username }) {
   ensureString(username, 'user name');
   ensureString(key, 'download key');
 
   let futureDate = new Date();
   futureDate.setDate(futureDate.getDate() + 365);
-  let updatedDownload = await setDownloadErasureDate(key, futureDate, username);
+  const erasureDate = futureDate.toISOString();
+
+  let updatedDownload = await setDownloadErasureDate({
+    key,
+    erasureDate,
+    type,
+    username,
+  });
   return updatedDownload;
 }
 
-async function setDownloadErasureDate(key, erasureDate, username) {
-  let download = await getDownload(key, username);
+async function setDownloadErasureDate({ key, erasureDate, type, username }) {
+  let download = await getDownload({ key, type, username });
+  let url = apiConfig.occurrenceDownload.url + key;
+
+  if (type === 'EVENT') {
+    url = apiConfig.eventDownload.url + key;
+  }
+  let canonicalPath = apiConfig.occurrenceDownload.canonical + key;
+  if (type === 'EVENT') {
+    canonicalPath = apiConfig.eventDownload.canonical + key;
+  }
 
   download.eraseAfter = erasureDate;
   let options = {
     method: 'PUT',
     body: download,
-    url: apiConfig.occurrenceDownload.url + key,
-    canonicalPath: apiConfig.occurrenceDownload.canonical,
+    url: url,
+    canonicalPath: canonicalPath,
     userName: username,
     json: true,
   };
@@ -304,11 +335,16 @@ async function setDownloadErasureDate(key, erasureDate, username) {
   return response.body;
 }
 
-async function getDownload(key) {
+async function getDownload({ key, type = 'OCCURRENCE', username }) {
+  let url = apiConfig.occurrenceDownload.url + key;
+  if (type === 'EVENT') {
+    url = apiConfig.eventDownload.url + key;
+  }
   let options = {
     method: 'GET',
-    url: apiConfig.occurrenceDownload.url + key,
+    url,
     json: true,
+    userName: username,
   };
   const response = await authenticatedRequest(options);
   if (response.statusCode !== 200) {

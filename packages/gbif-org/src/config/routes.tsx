@@ -3,7 +3,7 @@ import { countryKeyRoute } from '@/routes/country/key';
 import { datasetKeyRoute } from '@/routes/dataset/key';
 import { derivedDatasetKeyRoute } from '@/routes/derivedDataset/key';
 import { datasetSearchRoute } from '@/routes/dataset/search';
-import { eventSearchRoute } from '@/routes/events/search/index';
+import { eventSearchRoute } from '@/routes/event/search/index';
 import { installationKeyRoute } from '@/routes/installation/key';
 import { institutionKeyRoute } from '@/routes/institution/key';
 import { literatureSearchRoute } from '@/routes/literature/search';
@@ -11,6 +11,7 @@ import { literatureSearchRoute } from '@/routes/literature/search';
 import { networkKeyRoute } from '@/routes/network/key';
 import { nodeKeyRoute } from '@/routes/node/key';
 import { downloadKeyRoute } from '@/routes/occurrence/download/key';
+import { eventDownloadKeyRoute } from '@/routes/event/download/key';
 import { occurrenceKeyRoutes } from '@/routes/occurrence/key';
 import { occurrenceSearchRoute } from '@/routes/occurrence/search';
 import { createParticipantKeyRoute } from '@/routes/participant/key';
@@ -44,6 +45,7 @@ export const dataRoutes = [
   networkKeyRoute,
   ...occurrenceKeyRoutes,
   downloadKeyRoute,
+  eventDownloadKeyRoute,
   publisherKeyRoute,
   taxonKeyRoute,
   countryKeyRoute,

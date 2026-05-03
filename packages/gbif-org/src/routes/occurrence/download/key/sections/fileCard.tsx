@@ -1,4 +1,3 @@
-import { longDateFormatProps } from '@/components/dateFormats';
 import { HelpLine } from '@/components/helpText';
 import { HyperText } from '@/components/hyperText';
 import Properties from '@/components/properties';
@@ -6,32 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/largeCard';
 import { BasicField } from '@/routes/occurrence/key/properties';
 import { formatBytes } from '@/utils/formatBytes';
-import { useMemo } from 'react';
-import { createIntl, FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { downloadCompleted } from '../utils';
 import { MdDownload } from 'react-icons/md';
 import { UsageReportModal } from './usageReportModal';
 import { useUser } from '@/contexts/UserContext';
 import { Download } from '../downloadKey';
 
-export function FileCard({ download }: { download: Download }) {
+export function FileCard({ download, citation }: { download: Download; citation: string }) {
   const { formatMessage } = useIntl();
   const { isLoggedIn } = useUser();
-  const englishCreationDate = useMemo(() => {
-    const enIntl = createIntl({
-      locale: 'en-GB',
-      messages: {},
-    });
-    return enIntl.formatDate(download.created, longDateFormatProps);
-  }, [download.created]);
 
   const { size, unit } = formatBytes(download.size ?? 0, 0);
-
-  const citation = `GBIF.org (${englishCreationDate}) GBIF Occurrence Download ${
-    download?.doi
-      ? `https://doi.org/${download.doi}`
-      : `${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/download/${download.key}`
-  }`;
 
   const hasCompleted = downloadCompleted(download);
 

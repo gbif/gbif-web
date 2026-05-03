@@ -30,6 +30,12 @@ class DownloadAPI extends RESTDataSource {
     });
   }
 
+  async getUsersEventDownloads({ username, query }) {
+    return this.get(`/experimental/event/download/user/${username}`, query, {
+      cacheOptions: { ttl: 0 },
+    });
+  }
+
   async getDownloadByKey({ key }) {
     return this.get(
       `/occurrence/download/${key}`,
@@ -43,8 +49,25 @@ class DownloadAPI extends RESTDataSource {
     );
   }
 
+  async getEventDownloadByKey({ key }) {
+    return this.get(
+      `/experimental/event/download/${key}`,
+      {
+        statistics: true,
+        cacheBuste: this.context?.user?.userName,
+      },
+      {
+        cacheOptions: { ttl: this.context.user ? 0 : undefined },
+      },
+    );
+  }
+
   async getContributingDatasetsByDownloadKey({ key, query }) {
     return this.get(`/occurrence/download/${key}/datasets`, query);
+  }
+
+  async getContributingDatasetsByEventDownloadKey({ key, query }) {
+    return this.get(`/experimental/event/download/${key}/datasets`, query);
   }
 
   /*

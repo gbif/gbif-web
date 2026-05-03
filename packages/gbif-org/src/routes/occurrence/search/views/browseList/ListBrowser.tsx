@@ -1,7 +1,7 @@
 import { Drawer } from '@/components/drawer/drawer';
 import usePrevious from '@/hooks/usePrevious';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
-import EventDrawer from '@/routes/events/key/EventDrawer';
+import EventDrawer from '@/routes/event/key/EventDrawer';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { FormattedMessage } from 'react-intl';
 import { useEntityDrawer } from './useEntityDrawer';
@@ -41,8 +41,8 @@ export default function EntityDrawer() {
     abbreviation === 'tx'
       ? null
       : key
-      ? createLink({ pageId: `${type}`, variables: { key: key } })
-      : null;
+        ? createLink({ pageId: `${type}`, variables: { key: key } })
+        : null;
 
   const getCurrentIndex = () => {
     return orderedList.findIndex((o) => o?.toString() === previewKey?.toString());
