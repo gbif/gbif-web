@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {# occurrence } other {# occurrences}} downloaded",
+    "nEventsDownloaded": "{total, plural, one {# event } other {# events}} downloaded",
     "nRecordsDownloaded": "{total, plural, one {# record } other {# records}} downloaded",
     "nRowsDownloaded": "{total, plural, one {# row } other {# rows}} downloaded",
     "nConstituentDatasets": "Includes records from {total, plural, one {# dataset} other {# datasets}}",
