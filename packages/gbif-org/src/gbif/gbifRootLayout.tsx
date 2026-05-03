@@ -15,6 +15,7 @@ import toolsRedirects from './toolsRedirects';
 import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
+import { useConfig } from '@/config/config';
 
 export async function headerLoader({ locale }: LoaderArgs) {
   const response = await fetchCachedResponse({
@@ -90,10 +91,13 @@ const LayoutInner = React.memo(
       // Start after a frame so React can finish the initial hydration paint
       requestAnimationFrame(tryScroll);
     }, []);
+    const config = useConfig();
 
     return (
       <UserProvider>
-        <div className="g-flex g-flex-col g-min-h-[100dvh]">
+        <div
+          className={`g-flex g-flex-col g-min-h-[100dvh] ${config.testSite ? 'gbif-test-site' : ''}`}
+        >
           <LoadingIndicator />
           <Header menu={redirectTools(data)} />
           <main className="g-flex-auto">

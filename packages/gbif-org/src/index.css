@@ -51,7 +51,9 @@
 }
 
 .g-box-shadow-br {
-  box-shadow: inset 0 -1px 0 var(--border), inset -1px 0 0 var(--border);
+  box-shadow:
+    inset 0 -1px 0 var(--border),
+    inset -1px 0 0 var(--border);
 }
 
 .gbif .dataProse {
@@ -200,8 +202,9 @@ Add the correct font weight in Edge and Safari.
   kbd,
   samp,
   pre {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-      'Courier New', monospace; /* 1 */
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+      monospace; /* 1 */
     font-feature-settings: normal; /* 2 */
     font-variation-settings: normal; /* 3 */
     font-size: 1em; /* 4 */
@@ -967,6 +970,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     #ff8e5996 10px,
     #ff8e5996 20px
   );
+}
+
+.gbif-test-site .gbif-test-background {
+  background-image: url('/img/test_overlay.png');
+  background-repeat: repeat;
+  background-size: 100px 100px;
 }
 
 .test-box:after {
