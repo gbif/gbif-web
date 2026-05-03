@@ -73,9 +73,9 @@ interface UserContextType {
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   confirm: (code: string, username: string) => Promise<void>;
-  deleteDownload: (downloadKey: string) => Promise<void>;
-  postponeDownloadDeletion: (downloadKey: string) => Promise<void>;
-  cancelDownload: (downloadKey: string) => Promise<void>;
+  deleteDownload: (downloadKey: string, downloadType?: string) => Promise<void>;
+  postponeDownloadDeletion: (downloadKey: string, downloadType?: string) => Promise<void>;
+  cancelDownload: (downloadKey: string, downloadType?: string) => Promise<void>;
   changeEmail: (challengeCode: string, email: string, userName: string) => Promise<void>;
 }
 
@@ -484,11 +484,14 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const deleteDownload = async (downloadKey: string) => {
+  const deleteDownload = async (downloadKey: string, downloadType?: string) => {
     try {
-      const response = await fetch(`/api/user/download/${downloadKey}/delete`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `/api/user/download/${downloadKey}/delete?type=${downloadType ?? 'OCCURRENCE'}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (!response.ok) {
         throw new UserError('UNKNOWN_ERROR', 'Delete download failed. Please try again.');
@@ -499,14 +502,20 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const postponeDownloadDeletion = async (downloadKey: string) => {
+  const postponeDownloadDeletion = async (downloadKey: string, downloadType?: string) => {
     try {
-      const response = await fetch(`/api/user/download/${downloadKey}/postpone`, {
-        method: 'PUT',
-      });
+      const response = await fetch(
+        `/api/user/download/${downloadKey}/postpone?type=${downloadType ?? 'OCCURRENCE'}`,
+        {
+          method: 'PUT',
+        }
+      );
 
       if (!response.ok) {
-        throw new UserError('UNKNOWN_ERROR', 'Delete download failed. Please try again.');
+        throw new UserError(
+          'UNKNOWN_ERROR',
+          'Postpone download deletion failed. Please try again.'
+        );
       }
       return;
     } catch (error) {
@@ -514,11 +523,14 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const cancelDownload = async (downloadKey: string) => {
+  const cancelDownload = async (downloadKey: string, downloadType?: string) => {
     try {
-      const response = await fetch(`/api/user/download/${downloadKey}/cancel`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `/api/user/download/${downloadKey}/cancel?type=${downloadType ?? 'OCCURRENCE'}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (!response.ok) {
         throw new UserError('UNKNOWN_ERROR', 'Cancellation of download failed. Please try again.');

@@ -214,12 +214,12 @@ export function createSqlDownload(req, res) {
 
 export function cancelDownload(req, res) {
   setNoCache(res);
-  const userName = _.get(req, 'user.userName');
-  if (!userName) {
+  const username = _.get(req, 'user.userName');
+  if (!username) {
     res.status(401);
     return res.send();
   }
-  cancelUserDownload(req.params.key, userName)
+  cancelUserDownload({ key: req.params.key, type: req.query.type, username })
     .then(function () {
       res.status(204);
       res.send();
@@ -232,12 +232,12 @@ export function cancelDownload(req, res) {
 
 export function postponeDownloadDeletion(req, res) {
   setNoCache(res);
-  const userName = _.get(req, 'user.userName');
-  if (!userName) {
+  const username = _.get(req, 'user.userName');
+  if (!username) {
     res.status(401);
     return res.send();
   }
-  postponeUserDownloadDeletion(req.params.key, userName)
+  postponeUserDownloadDeletion({ key: req.params.key, type: req.query.type, username })
     .then(function () {
       res.status(204);
       res.send();
@@ -250,16 +250,17 @@ export function postponeDownloadDeletion(req, res) {
 
 export function deleteDownload(req, res) {
   setNoCache(res);
-  const userName = _.get(req, 'user.userName');
-  if (!userName) {
+  const username = _.get(req, 'user.userName');
+  if (!username) {
     res.status(401);
     return res.send();
   }
-  deleteUserDownload(req.params.key, userName)
+  deleteUserDownload({ key: req.params.key, type: req.query.type, username })
     .then(function () {
       res.sendStatus(204);
     })
     .catch(function (err) {
+      console.log(err);
       res.status(err.statusCode || 500);
       res.send();
     });

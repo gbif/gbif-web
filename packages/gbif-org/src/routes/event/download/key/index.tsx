@@ -12,9 +12,9 @@ export const eventDownloadKeyRoute: RouteObjectWithPlugins = {
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
     }
     // assuming that download/request and similar routes go first
-    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/events/download/${key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/event/download/${key}`;
   },
-  path: 'events/download/:key',
+  path: 'event/download/:key',
   loader: downloadKeyLoader,
   loadingElement: <DownloadKeySkeleton />,
   element: <DownloadKey />,

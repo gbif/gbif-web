@@ -20,9 +20,10 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { createIntl, FormattedMessage, useIntl } from 'react-intl';
+import { longDateFormatProps } from '@/components/dateFormats';
 import { json, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { DatasetCard } from './sections/datasetCard';
@@ -46,6 +47,7 @@ const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
       request {
         notificationAddresses
         creator
+        type
       }
     }
   }
@@ -157,6 +159,17 @@ export function DownloadKey() {
   const literatureCount = slowData?.literatureSearch?.documents?.total;
   const showCitation = downloadCompleted(download);
 
+  const englishCreationDate = useMemo(() => {
+    const enIntl = createIntl({ locale: 'en-GB', messages: {} });
+    return enIntl.formatDate(download.created, longDateFormatProps);
+  }, [download.created]);
+
+  const citation = `GBIF.org (${englishCreationDate}) GBIF Occurrence Download ${
+    download?.doi
+      ? `https://doi.org/${download.doi}`
+      : `${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/download/${download.key}`
+  }`;
+
   return (
     <>
       <Helmet>
@@ -196,7 +209,7 @@ export function DownloadKey() {
           <PageContainer className="g-bg-slate-100 g-overflow-hidden">
             <ArticleTextContainer className="g-max-w-screen-xl g-pb-4 g-pt-4">
               <DeletionNotice download={download} userDownload={sensitiveData?.download} />
-              {showCitation && <FileCard download={download} />}
+              {showCitation && <FileCard download={download} citation={citation} />}
               {!showCitation && (
                 <NotReadyDownload
                   status={download.status ?? Download_Status.Failed}
@@ -259,12 +272,26 @@ export function DownloadTitle({ download }: { download: Download }) {
         />
       );
     } else if (download?.request?.format === 'DWCA' || download?.request?.format === 'SIMPLE_CSV') {
-      return (
+      if (download?.request?.type === 'OCCURRENCE') {
+        return (
+          <FormattedMessage
+            id="downloadKey.nOccurrencesDownloaded"
+            values={{ total: download.totalRecords }}
+          />
+        );
+      } else if (download?.request?.type === 'EVENT') {
+        return (
+          <FormattedMessage
+            id="downloadKey.nEventsDownloaded"
+            values={{ total: download.totalRecords }}
+          />
+        );
+      } else {
         <FormattedMessage
-          id="downloadKey.nOccurrencesDownloaded"
+          id="downloadKey.nRecordsDownloaded"
           values={{ total: download.totalRecords }}
-        />
-      );
+        />;
+      }
     } else if (download.totalRecords === 0) {
       return <FormattedMessage id="downloadKey.occurrenceDownload" />;
     } else {

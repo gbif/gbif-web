@@ -19,8 +19,9 @@ export function DeletionNotice({
 }) {
   const { user } = useUser();
   const { formatMessage, formatDate } = useIntl();
+  const eraseAfter = userDownload?.eraseAfter ?? download.eraseAfter;
   // if the download is not successful or does not have an eraseAfter date, return null
-  if (download.status !== Download_Status.Succeeded || !download.eraseAfter) {
+  if (download.status !== Download_Status.Succeeded || !eraseAfter) {
     return null;
   }
 
@@ -28,7 +29,7 @@ export function DeletionNotice({
 
   const downloadDeletionWarning = formatMessage(
     { id: 'downloadKey.downloadDeletionWarning' },
-    { DATE: formatDate(download.eraseAfter, longDateFormatProps) }
+    { DATE: formatDate(eraseAfter, longDateFormatProps) }
   );
 
   const content = (
@@ -58,10 +59,11 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
 
   const handleDeleteDownload = async () => {
     if (isDeleting || !userDownload?.key) return;
+    const type = userDownload.request?.type || 'OCCURRENCE';
 
     setIsDeleting(true);
     try {
-      await deleteDownload(userDownload?.key);
+      await deleteDownload(userDownload?.key, type);
       window.location.reload();
     } catch (error) {
       translatedToast({
@@ -76,10 +78,11 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
 
   const handlePostponeDeletion = async () => {
     if (isPostponing || !userDownload?.key) return;
+    const type = userDownload.request?.type || 'OCCURRENCE';
 
     setIsPostponing(true);
     try {
-      await postponeDownloadDeletion(userDownload?.key);
+      await postponeDownloadDeletion(userDownload?.key, type);
       window.location.reload();
     } catch (error) {
       translatedToast({
@@ -122,4 +125,3 @@ function Actions({ userDownload }: { userDownload: UsersDownloadKeyQuery['downlo
     </div>
   );
 }
-

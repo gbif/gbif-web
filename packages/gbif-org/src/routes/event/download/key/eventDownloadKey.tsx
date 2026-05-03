@@ -10,8 +10,6 @@ import {
   EventDownloadKeyQueryVariables,
   SlowDownloadKeyQuery,
   SlowDownloadKeyQueryVariables,
-  UsersDownloadKeyQuery,
-  UsersDownloadKeyQueryVariables,
   UsersEventDownloadKeyQuery,
   UsersEventDownloadKeyQueryVariables,
 } from '@/gql/graphql';
@@ -24,9 +22,10 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { createIntl, FormattedMessage, useIntl } from 'react-intl';
+import { longDateFormatProps } from '@/components/dateFormats';
 import { json, useLoaderData } from 'react-router-dom';
 import { useUser } from '@/contexts/UserContext';
 import { useToast } from '@/components/ui/use-toast';
@@ -38,10 +37,11 @@ import { NotReadyDownload } from '@/routes/occurrence/download/key/sections/notR
 import { QueryCard } from '@/routes/occurrence/download/key/sections/queryCard';
 import { UserDescription } from '@/routes/occurrence/download/key/sections/userDescription';
 import { DatasetCard } from '@/routes/occurrence/download/key/sections/datasetCard';
+import { DownloadTitle } from '@/routes/occurrence/download/key/downloadKey';
 
 const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
   query UsersEventDownloadKey($key: ID!) {
-    eventDownload(key: $key) {
+    download: eventDownload(key: $key) {
       key
       willBeDeletedSoon
       readyForDeletion
@@ -49,6 +49,7 @@ const DOWNLOAD_SENSITIVE_QUERY = /* GraphQL */ `
       request {
         notificationAddresses
         creator
+        type
       }
     }
   }
@@ -160,6 +161,17 @@ export function DownloadKey() {
   const literatureCount = slowData?.literatureSearch?.documents?.total;
   const showCitation = downloadCompleted(download);
 
+  const englishCreationDate = useMemo(() => {
+    const enIntl = createIntl({ locale: 'en-GB', messages: {} });
+    return enIntl.formatDate(download.created, longDateFormatProps);
+  }, [download.created]);
+
+  const citation = `GBIF.org (${englishCreationDate}) GBIF Event Download ${
+    download?.doi
+      ? `https://doi.org/${download.doi}`
+      : `${import.meta.env.PUBLIC_GBIF_ORG}/event/download/${download.key}`
+  }`;
+
   return (
     <>
       <Helmet>
@@ -198,12 +210,13 @@ export function DownloadKey() {
           <PageContainer className="g-bg-slate-100 g-overflow-hidden">
             <ArticleTextContainer className="g-max-w-screen-xl g-pb-4 g-pt-4">
               <DeletionNotice download={download} userDownload={sensitiveData?.download} />
-              {showCitation && <FileCard download={download} />}
+              {showCitation && <FileCard download={download} citation={citation} />}
               {!showCitation && (
                 <NotReadyDownload
                   status={download.status ?? Download_Status.Failed}
                   notificationAddresses={sensitiveData?.download?.request?.notificationAddresses}
                   downloadKey={download.key}
+                  downloadType={sensitiveData?.download?.request?.type}
                 />
               )}
               <UserDescription download={download} />
@@ -225,63 +238,6 @@ export function DownloadKey() {
 
 export function DownloadKeySkeleton() {
   return <ArticleSkeleton />;
-}
-
-export function DownloadTitle({ download }: { download: Download }) {
-  const errorClassName = 'g-text-orange-700';
-  // logic to create the title based on download state and format
-  if (download.status === 'KILLED' || download.status === 'FAILED') {
-    return (
-      <span className={errorClassName}>
-        <FormattedMessage id="downloadKey.brokenDownload" />
-      </span>
-    );
-  } else if (download.status === 'CANCELLED') {
-    return (
-      <span className={errorClassName}>
-        <FormattedMessage id="downloadKey.cancelled" />
-      </span>
-    );
-  } else if (download.status === 'PREPARING' || download.status === 'RUNNING') {
-    return (
-      <span className="g-flex g-items-center g-gap-4">
-        <FormattedMessage id="downloadKey.underProcessing" />
-        <Spinner className="g-h-6 g-w-6" />
-      </span>
-    );
-  } else {
-    if (download?.request?.format === 'SPECIES_LIST') {
-      return (
-        <FormattedMessage
-          id="downloadKey.nRecordsDownloaded"
-          values={{ total: download.totalRecords }}
-        />
-      );
-    } else if (download?.request?.format === 'SQL_TSV_ZIP') {
-      return (
-        <FormattedMessage
-          id="downloadKey.nRowsDownloaded"
-          values={{ total: download.totalRecords }}
-        />
-      );
-    } else if (download?.request?.format === 'DWCA' || download?.request?.format === 'SIMPLE_CSV') {
-      return (
-        <FormattedMessage
-          id="downloadKey.nOccurrencesDownloaded"
-          values={{ total: download.totalRecords }}
-        />
-      );
-    } else if (download.totalRecords === 0) {
-      return <FormattedMessage id="downloadKey.occurrenceDownload" />;
-    } else {
-      return (
-        <FormattedMessage
-          id="downloadKey.nRecordsDownloaded"
-          values={{ total: download.totalRecords }}
-        />
-      );
-    }
-  }
 }
 
 function useDownloadDataWithAutoRefresh() {
