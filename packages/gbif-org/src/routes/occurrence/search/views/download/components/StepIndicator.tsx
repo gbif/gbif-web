@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { occurrenceDownloadSteps, Step, stepOptions } from './stepOptions';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
 import { useRef } from 'react';
+import { useUser } from '@/contexts/UserContext';
 
 interface StepIndicatorProps {
   currentStep: string;
@@ -13,6 +14,7 @@ export default function StepIndicator({
   currentStep,
   steps = occurrenceDownloadSteps,
 }: StepIndicatorProps) {
+  const { refreshUser } = useUser();
   const intl = useIntl();
   const ref = useRef<HTMLDivElement>(null);
   const progressLabel = intl.formatMessage({
@@ -21,12 +23,13 @@ export default function StepIndicator({
   });
 
   useUpdateEffect(() => {
+    refreshUser();
     if (window.innerHeight < 800) {
       ref.current?.scrollIntoView({ behavior: 'smooth' });
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [currentStep]);
+  }, [currentStep, refreshUser]);
 
   // Calculate progress percentage based on completed steps
   const currentStepIndex = steps.findIndex(
@@ -66,8 +69,8 @@ export default function StepIndicator({
                     isCompleted
                       ? 'g-border-primary-600 g-bg-primary-600'
                       : isCurrent
-                      ? 'g-border-primary-600 g-bg-white'
-                      : 'g-border-gray-300 g-bg-white'
+                        ? 'g-border-primary-600 g-bg-white'
+                        : 'g-border-gray-300 g-bg-white'
                   }`}
                 >
                   {isCompleted ? (
@@ -87,8 +90,8 @@ export default function StepIndicator({
                     isCurrent
                       ? 'g-text-primary-600 g-font-medium'
                       : isCompleted
-                      ? 'g-text-gray-600'
-                      : 'g-text-gray-500'
+                        ? 'g-text-gray-600'
+                        : 'g-text-gray-500'
                   }`}
                 >
                   <FormattedMessage id={step.name} />
