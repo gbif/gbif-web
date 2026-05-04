@@ -7,7 +7,7 @@ import { ArticleAuxiliary } from '@/routes/resource/key/components/articleAuxili
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { ArticleBody } from '@/routes/resource/key/components/articleBody';
 import { ArticleFooterWrapper } from '@/routes/resource/key/components/articleFooterWrapper';
-import { ArticlePreTitle, PreTitleDate } from '@/routes/resource/key/components/articlePreTitle';
+import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
@@ -59,7 +59,6 @@ export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
   const cmsResource = extractCmsResource(data);
   const location = useLocation();
   const cmsTitle = cmsResource?.title;
-  const date = cmsResource?.publicationDate ?? cmsResource?.createdAt;
   const isAboutTab = location.pathname.endsWith('/about');
 
   const outletContext: ToolOutletContext = { cmsResource };
@@ -98,10 +97,6 @@ export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
               links={[
                 {
                   to: '.',
-                  // Anything that isn't /about belongs to the Tool tab — including
-                  // tool sub-routes like an edit form. NavLink's exact match alone
-                  // would not highlight the Tool tab on those nested URLs.
-                  isActive: !isAboutTab,
                   children: <FormattedMessage id="cms.contentType.tool" defaultMessage="Tool" />,
                 },
                 {
