@@ -88,27 +88,28 @@ export function DatasetResult({
         </div>
         <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
           <DynamicLink pageId="datasetSearch" searchParams={{ type: [dataset.type] }}>
-            <Tag className="hover:g-bg-primary-200">
+            <Tag className="hover:g-bg-primary-200 g-m-1 g-mb-0">
               <FormattedMessage id={`dataset.longType.${dataset.type}`} />
             </Tag>
           </DynamicLink>
           <div className="g-flex-grow g-hidden sm:g-block"></div>
           <DynamicLink pageId="occurrenceSearch" searchParams={{ datasetKey: [dataset.key] }}>
             <CountTag
-              className="hover:g-bg-primary-200"
+              className="hover:g-bg-primary-200 g-m-1 g-mb-0"
               v1Endpoint="/occurrence/search"
               params={{ datasetKey: dataset.key }}
               message="counts.nOccurrences"
             />
           </DynamicLink>
           <CountTag
+            className="g-m-1 g-mb-0"
             v1Endpoint="/species/search"
             params={{ datasetKey: dataset.key, origin: 'SOURCE' }}
             message="counts.nRecords"
           />
           <DynamicLink pageId="literatureSearch" searchParams={{ gbifDatasetKey: [dataset.key] }}>
             <CountTag
-              className="hover:g-bg-primary-200"
+              className="hover:g-bg-primary-200 g-m-1 g-mb-0"
               v1Endpoint="/literature/search"
               params={{ gbifDatasetKey: dataset.key }}
               message="counts.nCitations"

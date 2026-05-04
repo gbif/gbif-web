@@ -22,6 +22,7 @@ const typeDef = gql`
     doi: String!
     originalDownloadDOI: String
     description: String
+    excerpt: String
     citation: String
     title: String
     sourceUrl: String

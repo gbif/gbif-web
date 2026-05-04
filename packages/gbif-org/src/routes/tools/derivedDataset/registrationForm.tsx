@@ -1,16 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useUser } from '@/contexts/UserContext';
+import { UserError, useUser } from '@/contexts/UserContext';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { RelatedDatasetsField } from './relatedDatasetsField';
-import {
-  DerivedDatasetPayload,
-  RegistrationResult,
-  RelatedDatasetRow,
-  ServerError,
-} from './types';
+import { DerivedDatasetPayload, RegistrationResult, RelatedDatasetRow } from './types';
 import { buildRelatedDatasetsMap } from './utils';
 
 type Errors = {
@@ -86,7 +81,7 @@ type Props = {
 };
 
 export function RegistrationForm({ mode, doi, initialValues, onSuccess }: Props) {
-  const { user } = useUser();
+  const { registerDerivedDataset, updateDerivedDataset } = useUser();
 
   const [title, setTitle] = useState(initialValues?.title ?? '');
   const [sourceUrl, setSourceUrl] = useState(initialValues?.sourceUrl ?? '');
@@ -159,55 +154,19 @@ export function RegistrationForm({ mode, doi, initialValues, onSuccess }: Props)
       if (originalDownloadDOI.trim()) payload.originalDownloadDOI = originalDownloadDOI.trim();
       if (registrationDate.trim()) payload.registrationDate = registrationDate;
 
-      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-      if (user?.graphqlToken) headers.Authorization = `Bearer ${user.graphqlToken}`;
-
-      const url =
+      const result: RegistrationResult =
         mode === 'edit' && doi
-          ? `/api/user/derived-dataset/${encodeURIComponent(doi)}`
-          : '/api/user/derived-dataset/register';
-      const method = mode === 'edit' ? 'PUT' : 'POST';
+          ? await updateDerivedDataset(doi, payload)
+          : await registerDerivedDataset(payload);
 
-      const response = await fetch(url, {
-        method,
-        headers,
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        let body: ServerError | null = null;
-        try {
-          body = (await response.json()) as ServerError;
-        } catch {
-          // ignore parse errors
-        }
-        if (body?.code && body?.message) {
-          setServerError(`${body.code}: ${body.message}`);
-        } else if (body?.message) {
-          setServerError(body.message);
-        } else {
-          const action = mode === 'edit' ? 'Update' : 'Registration';
-          setServerError(`${action} failed (HTTP ${response.status}).`);
-        }
-        return;
-      }
-
-      // PUT may return 204 No Content; fall back to the known doi.
-      let data: RegistrationResult;
-      if (response.status === 204) {
-        data = { doi: doi ?? '' };
-      } else {
-        try {
-          data = (await response.json()) as RegistrationResult;
-          if (!data.doi && doi) data.doi = doi;
-        } catch {
-          data = { doi: doi ?? '' };
-        }
-      }
-      onSuccess(data);
+      onSuccess(result);
     } catch (err) {
-      console.error(err);
-      setServerError('Could not reach the server. Please check your connection and try again.');
+      if (err instanceof UserError) {
+        setServerError(err.message);
+      } else {
+        console.error(err);
+        setServerError('Could not reach the server. Please check your connection and try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }

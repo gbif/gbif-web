@@ -1,5 +1,5 @@
 import { NotFoundError } from '@/helpers/GraphQL404Error';
-import { isValidDoi } from '@/helpers/utils';
+import { excerpt, isValidDoi } from '@/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -33,6 +33,7 @@ export default {
     },
   },
   DerivedDataset: {
+    excerpt: (src) => excerpt({ body: src.description }),
     contributingDatasets: (
       parent,
       { limit = 10, offset = 0 },

@@ -215,7 +215,7 @@ function RelatedRecord({
               <FormattedMessage id="occurrenceDetails.cluster.clusterTags" />:
             </span>
             {reasons.map((reason: string, key: number) => (
-              <Tag key={key}>
+              <Tag key={key} className="g-m-1 g-mb-0">
                 <FormattedMessage id={`enums.clusterReasons.${reason}`} />
               </Tag>
             ))}

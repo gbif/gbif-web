@@ -1,5 +1,6 @@
 import { LongDate } from '@/components/dateFormats';
 import { DoiTag } from '@/components/identifierTag';
+import { Tag } from '@/components/resultCards';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
 import { DerivedDatasetResultFragment } from '@/gql/graphql';
@@ -11,6 +12,7 @@ fragmentManager.register(/* GraphQL */ `
   fragment DerivedDatasetResult on DerivedDataset {
     doi
     title
+    excerpt
     created
     contributingDatasets {
       count
@@ -31,20 +33,35 @@ function splitDoi(doi: string): { prefix: string; suffix: string } {
 
 export function DerivedDatasetResult({ derivedDataset }: DerivedDatasetResultProps) {
   const { prefix, suffix } = splitDoi(derivedDataset.doi);
-  const detailHref = `${import.meta.env.PUBLIC_GBIF_ORG}/derivedDataset/${derivedDataset.doi}`;
 
   return (
     <Card className="g-mb-4 hover:g-shadow-lg g-transition-shadow g-duration-300">
       <article className="g-p-4 g-flex g-flex-col sm:g-flex-row sm:g-items-start g-gap-3">
         <div className="g-flex-1 g-min-w-0 g-flex g-flex-col g-gap-2">
-          <a href={detailHref} className="hover:g-text-primary-600 g-no-underline">
+          <DynamicLink
+            pageId="derivedDatasetKey"
+            variables={{ doiPrefix: prefix, doiSuffix: suffix }}
+            className="hover:g-text-primary-600 g-no-underline"
+          >
             <h3 className="g-text-base g-font-semibold">
               {derivedDataset.title || derivedDataset.doi}
             </h3>
-          </a>
+          </DynamicLink>
+
+          {derivedDataset.excerpt && (
+            <p className="g-text-sm g-text-slate-600 g-line-clamp-3">{derivedDataset.excerpt}</p>
+          )}
 
           <div className="g-flex g-flex-wrap g-gap-4 g-text-sm g-text-slate-600 g-items-center">
             <DoiTag id={derivedDataset.doi} className="g-me-2 g-text-xs g-hidden md:g-inline" />
+            {typeof derivedDataset.contributingDatasets?.count === 'number' && (
+              <Tag>
+                <FormattedMessage
+                  id="counts.nDatasets"
+                  values={{ total: derivedDataset.contributingDatasets.count }}
+                />
+              </Tag>
+            )}
             <div>
               <FormattedMessage id="downloadKey.created" />:{' '}
               {derivedDataset.created ? (
