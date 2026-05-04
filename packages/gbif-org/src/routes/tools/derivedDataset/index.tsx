@@ -1,5 +1,7 @@
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import React, { Suspense } from 'react';
+import React from 'react';
+import { ToolCardSkeleton } from '../_shared/toolCardSkeleton';
 import { createToolLayoutLoader, ToolAboutTab } from '../_shared/toolLayout';
 import { DerivedDatasetLayout } from './derivedDatasetLayout';
 import { ApiContent } from './help';
@@ -16,17 +18,17 @@ export const derivedDatasetRoute: RouteObjectWithPlugins = {
     {
       index: true,
       element: (
-        <Suspense fallback={null}>
+        <StaticRenderSuspence fallback={<ToolCardSkeleton />}>
           <DerivedDatasetPage />
-        </Suspense>
+        </StaticRenderSuspence>
       ),
     },
     {
       path: 'edit/:doiPrefix/:doiSuffix',
       element: (
-        <Suspense fallback={null}>
+        <StaticRenderSuspence fallback={<ToolCardSkeleton />}>
           <EditDerivedDatasetPage />
-        </Suspense>
+        </StaticRenderSuspence>
       ),
     },
     {
