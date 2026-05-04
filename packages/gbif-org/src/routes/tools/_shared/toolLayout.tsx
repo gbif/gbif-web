@@ -81,7 +81,7 @@ export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
           className={cn('g-bg-white', !isAboutTab && 'g-border-b')}
         >
           <ArticleTextContainer>
-            <ArticlePreTitle clickable secondary={date ? <PreTitleDate date={date} /> : undefined}>
+            <ArticlePreTitle clickable>
               <DynamicLink to="/resource/search?contentType=tool">
                 <FormattedMessage id="cms.contentType.tool" defaultMessage="Tool" />
               </DynamicLink>
@@ -98,6 +98,10 @@ export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
               links={[
                 {
                   to: '.',
+                  // Anything that isn't /about belongs to the Tool tab — including
+                  // tool sub-routes like an edit form. NavLink's exact match alone
+                  // would not highlight the Tool tab on those nested URLs.
+                  isActive: !isAboutTab,
                   children: <FormattedMessage id="cms.contentType.tool" defaultMessage="Tool" />,
                 },
                 {
