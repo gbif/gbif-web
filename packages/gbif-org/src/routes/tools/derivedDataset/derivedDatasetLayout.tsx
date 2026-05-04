@@ -65,13 +65,6 @@ export function DerivedDatasetLayout({ defaultTitle, apiContent }: Props) {
           className={cn('g-bg-white', !isAboutTab && 'g-border-b')}
         >
           <ArticleTextContainer>
-            <ArticlePreTitle clickable>
-              {/* We do not need to use pageId as this is a gbif.org tool only */}
-              <DynamicLink to="/resource/search?contentType=tool">
-                <FormattedMessage id="cms.contentType.tool" defaultMessage="Tool" />
-              </DynamicLink>
-            </ArticlePreTitle>
-
             {cmsTitle ? (
               <ArticleTitle dangerouslySetTitle={{ __html: cmsTitle }} />
             ) : (

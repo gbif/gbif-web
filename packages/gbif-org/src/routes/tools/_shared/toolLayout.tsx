@@ -80,12 +80,6 @@ export function ToolLayout({ defaultTitle, apiContent }: ToolLayoutProps) {
           className={cn('g-bg-white', !isAboutTab && 'g-border-b')}
         >
           <ArticleTextContainer>
-            <ArticlePreTitle clickable>
-              <DynamicLink to="/resource/search?contentType=tool">
-                <FormattedMessage id="cms.contentType.tool" defaultMessage="Tool" />
-              </DynamicLink>
-            </ArticlePreTitle>
-
             {cmsTitle ? (
               <ArticleTitle dangerouslySetTitle={{ __html: cmsTitle }} />
             ) : (
