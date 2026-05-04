@@ -10,10 +10,13 @@ import { FormattedMessage } from 'react-intl';
 import { useToolCmsResource } from '../_shared/toolLayout';
 import { RegistrationForm } from './registrationForm';
 import { RegistrationResult } from './types';
+import { splitDoi } from '@/utils/splitDoi';
 
 export default function DerivedDatasetPage() {
   const cmsResource = useToolCmsResource();
   const [result, setResult] = useState<RegistrationResult | null>(null);
+
+  const { prefix, suffix } = result?.doi ? splitDoi(result.doi) : { prefix: '', suffix: '' };
 
   return (
     <PageContainer className="g-bg-slate-100 g-flex-1">
@@ -84,16 +87,15 @@ export default function DerivedDatasetPage() {
                   }
                   action={
                     <Button asChild>
-                      <a
-                        href={`https://doi.org/${result.doi}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <DynamicLink
+                        pageId="derivedDatasetKey"
+                        variables={{ doiPrefix: prefix, doiSuffix: suffix }}
                       >
                         <FormattedMessage
                           id="tools.derivedDataset.goToDataset"
                           defaultMessage="Go to dataset"
                         />
-                      </a>
+                      </DynamicLink>
                     </Button>
                   }
                   resetMessage={

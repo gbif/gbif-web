@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/largeCard';
 import { DerivedDatasetResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
+import { splitDoi } from '@/utils/splitDoi';
 import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
@@ -23,12 +24,6 @@ fragmentManager.register(/* GraphQL */ `
 interface DerivedDatasetResultProps {
   derivedDataset: DerivedDatasetResultFragment;
   onCancel?: (key: string) => void;
-}
-
-function splitDoi(doi: string): { prefix: string; suffix: string } {
-  const i = doi.indexOf('/');
-  if (i < 0) return { prefix: doi, suffix: '' };
-  return { prefix: doi.slice(0, i), suffix: doi.slice(i + 1) };
 }
 
 export function DerivedDatasetResult({ derivedDataset }: DerivedDatasetResultProps) {
