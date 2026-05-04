@@ -91,13 +91,10 @@ const LayoutInner = React.memo(
       // Start after a frame so React can finish the initial hydration paint
       requestAnimationFrame(tryScroll);
     }, []);
-    const config = useConfig();
 
     return (
       <UserProvider>
-        <div
-          className={`g-flex g-flex-col g-min-h-[100dvh] ${config.testSite ? 'gbif-test-site' : ''}`}
-        >
+        <div className="g-flex g-flex-col g-min-h-[100dvh]">
           <LoadingIndicator />
           <Header menu={redirectTools(data)} />
           <main className="g-flex-auto">
