@@ -20,6 +20,8 @@ import {
   postponeDownloadDeletion,
   deleteDownload,
   changeEmail,
+  createDerivedDataset,
+  updateDerivedDataset,
 } from './controllers.mjs';
 import { getChallenge, requireProofOfWork } from './pow.mjs';
 
@@ -51,4 +53,7 @@ export function register(app) {
   app.delete('/api/user/download/:key/cancel', isAuthenticated, cancelDownload);
   app.put('/api/user/download/:key/postpone', isAuthenticated, postponeDownloadDeletion);
   app.delete('/api/user/download/:key/delete', isAuthenticated, deleteDownload);
+
+  app.post('/api/user/derived-dataset/register', isAuthenticated, createDerivedDataset);
+  app.put('/api/user/derived-dataset/:doi', isAuthenticated, updateDerivedDataset);
 }

@@ -20,6 +20,8 @@ import {
   postponeDownloadDeletion as postponeUserDownloadDeletion,
   cancelDownload as cancelUserDownload,
   changeEmail as changeUserEmail,
+  createDerivedDataset as createUserDerivedDataset,
+  updateDerivedDataset as updateUserDerivedDataset,
 } from './user.model.mjs';
 import _ from 'lodash';
 import { decryptJSON } from './encrypt.mjs';
@@ -265,8 +267,33 @@ export function deleteDownload(req, res) {
       res.send();
     });
 }
+
+export async function createDerivedDataset(req, res) {
+  setNoCache(res);
+  try {
+    const response = await createUserDerivedDataset(req.body, req.user.userName);
+    return res.send(response);
+  } catch (error) {
+    const code = error.statusCode || 500;
+    const message = error.body || error.message || 'Unknown error';
+    res.status(code).json({ message, code });
+  }
+}
+
+export async function updateDerivedDataset(req, res) {
+  setNoCache(res);
+  try {
+    const response = await updateUserDerivedDataset(req.body, req.params.doi, req.user.userName);
+    return res.send(response);
+  } catch (error) {
+    const code = error.statusCode || 500;
+    const message = error.body || error.message || 'Unknown error';
+    res.status(code).json({ message, code });
+  }
+}
+
 /*
-General handler for errors. Essentially return no information but an error code and log the error. 
+General handler for errors. Essentially return no information but an error code and log the error.
 The front end will have to provide generic error handling.
 */
 function handleError(res, statusCode = 500) {
