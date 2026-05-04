@@ -1,9 +1,5 @@
-import { DerivedDatasetQuery, DerivedDatasetQueryVariables } from '@/gql/graphql';
-import {
-  LoaderArgs,
-  RouteObjectWithPlugins,
-  useRenderedRouteLoaderData,
-} from '@/reactRouterPlugins';
+import { DerivedDatasetQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 
 import {
   derivedDatasetLoader,

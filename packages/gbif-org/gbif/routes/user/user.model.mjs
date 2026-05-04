@@ -70,6 +70,10 @@ const apiConfig = {
     url: apiV1 + '/experimental/event/download/',
     canonical: 'experimental/event/download/',
   },
+  derivedDataset: {
+    url: apiV1 + '/derivedDataset',
+    canonical: 'derivedDataset',
+  },
 };
 
 export async function create(body) {
@@ -348,6 +352,36 @@ async function getDownload({ key, type = 'OCCURRENCE', username }) {
   };
   const response = await authenticatedRequest(options);
   if (response.statusCode !== 200) {
+    throw response;
+  }
+  return response.body;
+}
+
+export async function createDerivedDataset(body, userName) {
+  const options = {
+    method: 'POST',
+    body,
+    url: apiConfig.derivedDataset.url,
+    canonicalPath: apiConfig.derivedDataset.canonical,
+    userName,
+  };
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 201) {
+    throw response;
+  }
+  return response.body;
+}
+
+export async function updateDerivedDataset(body, doi, userName) {
+  const options = {
+    method: 'PUT',
+    body,
+    url: `${apiConfig.derivedDataset.url}/${doi}`,
+    canonicalPath: apiConfig.derivedDataset.canonical,
+    userName,
+  };
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 204) {
     throw response;
   }
   return response.body;

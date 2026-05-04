@@ -32,7 +32,7 @@ export function OtherParticipantResult({ participant }: { participant: CrossSear
           </div>
         </div>
         <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-          <Tag>
+          <Tag className="g-m-1 g-mb-0">
             <FormattedMessage
               id={`participant.participationStatus.longForm.${participant.participationStatus}`}
             />

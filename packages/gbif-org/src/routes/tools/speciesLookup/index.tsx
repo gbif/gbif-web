@@ -1,5 +1,7 @@
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import React, { Suspense } from 'react';
+import React from 'react';
+import { ToolCardSkeleton } from '../_shared/toolCardSkeleton';
 import { createToolLayoutLoader, ToolAboutTab, ToolLayout } from '../_shared/toolLayout';
 import { ApiContent } from './help';
 
@@ -14,9 +16,9 @@ export const speciesLookupRoute: RouteObjectWithPlugins = {
     {
       index: true,
       element: (
-        <Suspense fallback={null}>
+        <StaticRenderSuspence fallback={<ToolCardSkeleton />}>
           <SpeciesLookupPage />
-        </Suspense>
+        </StaticRenderSuspence>
       ),
     },
     {

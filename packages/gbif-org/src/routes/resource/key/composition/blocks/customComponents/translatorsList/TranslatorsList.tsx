@@ -181,7 +181,9 @@ export function TranslatorsList({
                       </td>
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         {(translator?.Person?.certifications || []).map((c) => (
-                          <Tag key={c.year}>{c.year}</Tag>
+                          <Tag key={c.year} className="g-m-1 g-mb-0">
+                            {c.year}
+                          </Tag>
                         ))}
                       </td>
                     </tr>

@@ -151,7 +151,7 @@ export function LiteratureResult({ literature }: { literature: LiteratureResultF
         {/* Chips/Tags */}
         <div className="g-flex g-flex-wrap g-gap-2 g-mb-4">
           {literature.literatureType && (
-            <Tag>
+            <Tag className="g-m-1 g-mb-0">
               <DynamicLink
                 to={`/resource/search?contentType=literature&literatureType=${literature.literatureType}`}
               >
@@ -163,7 +163,7 @@ export function LiteratureResult({ literature }: { literature: LiteratureResultF
           )}
 
           {literature.openAccess && (
-            <Tag className="g-bg-green-100 g-text-green-700">
+            <Tag className="g-bg-green-100 g-text-green-700 g-m-1 g-mb-0">
               <DynamicLink to={`/resource/search?contentType=literature&openAccess=true`}>
                 <FormattedMessage id={'resourceSearch.filters.openAccess'} />
               </DynamicLink>
@@ -171,7 +171,7 @@ export function LiteratureResult({ literature }: { literature: LiteratureResultF
           )}
 
           {literature.peerReview && (
-            <Tag className="g-bg-blue-100 g-text-blue-700">
+            <Tag className="g-bg-blue-100 g-text-blue-700 g-m-1 g-mb-0">
               <DynamicLink to={`/resource/search?contentType=literature&peerReview=true`}>
                 <FormattedMessage id={'resourceSearch.filters.peerReview'} />
               </DynamicLink>

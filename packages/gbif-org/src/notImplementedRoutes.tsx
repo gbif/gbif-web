@@ -7,40 +7,12 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     loader: () => redirectDocument('https://techdocs.gbif.org/en/openapi'),
   },
   {
-    path: 'tools/name-parser',
-    loader: () => redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/tools/name-parser`),
-  },
-  {
-    path: 'tools/sequence-id',
-    loader: () => redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/tools/sequence-id`),
-  },
-  {
-    path: 'tools/data-validator',
-    loader: () => redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/tools/data-validator`),
-  },
-  {
     path: 'tools/observation-trends',
     loader: () =>
       redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/tools/observation-trends`),
   },
   {
-    path: 'derived-dataset',
-    loader: () => redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/derived-dataset`),
-    children: [
-      {
-        index: true,
-        loader: () => redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/derived-dataset`),
-      },
-      {
-        path: 'register',
-        loader: () =>
-          redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/derived-dataset/register`),
-      },
-      {
-        path: 'about',
-        loader: () =>
-          redirectDocument(`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/derived-dataset/about`),
-      },
-    ],
+    path: 'derived-dataset/register',
+    loader: () => redirectDocument('../derived-dataset'),
   },
 ];

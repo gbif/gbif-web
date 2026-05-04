@@ -82,7 +82,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
         <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
           {publisher.country && (
             <DynamicLink pageId="publisherSearch" searchParams={{ country: [publisher.country] }}>
-              <Tag className="hover:g-bg-primary-200">
+              <Tag className="hover:g-bg-primary-200 g-m-1 g-mb-0">
                 <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
               </Tag>
             </DynamicLink>
@@ -90,7 +90,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           {/* <div className='g-flex-grow'></div> */}
           <DynamicLink pageId="datasetSearch" searchParams={{ publishingOrg: [publisher.key] }}>
             <CountTag
-              className="hover:g-bg-primary-200"
+              className="hover:g-bg-primary-200 g-m-1 g-mb-0"
               v1Endpoint="/dataset/search"
               params={{ publishingOrg: publisher.key }}
               message="counts.nDatasets"
@@ -101,7 +101,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
             searchParams={{ publishingOrganizationKey: [publisher.key] }}
           >
             <CountTag
-              className="hover:g-bg-primary-200"
+              className="hover:g-bg-primary-200 g-m-1 g-mb-0"
               v1Endpoint="/literature/search"
               params={{ publishingOrganizationKey: publisher.key }}
               message="counts.nCitations"

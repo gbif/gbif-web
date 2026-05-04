@@ -66,13 +66,13 @@ export default function Collections() {
                           {collection.name}
                         </DynamicLink>{' '}
                         {!collection.active && (
-                          <Tag className="g-bg-red-700 g-text-white">
+                          <Tag className="g-bg-red-700 g-text-white g-m-1 g-mb-0">
                             <FormattedMessage id="grscicoll.inactiveCollection" />
                           </Tag>
                         )}
                       </td>
                       <td className="g-px-1 g-py-3">
-                        <Tag className="g-whitespace-nowrap">{collection.code}</Tag>
+                        <Tag className="g-whitespace-nowrap g-m-1 g-mb-0">{collection.code}</Tag>
                       </td>
                       <td className="g-px-1 g-py-3">
                         <div
