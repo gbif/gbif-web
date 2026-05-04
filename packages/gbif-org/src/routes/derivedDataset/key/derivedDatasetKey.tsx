@@ -1,8 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
-import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
 import PageMetaData from '@/components/PageMetaData';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/smallCard';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/largeCard';
 import { DerivedDatasetQuery, DerivedDatasetQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -11,15 +10,15 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { BasicField } from '@/routes/occurrence/key/properties';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
-import { MdDownload, MdLink } from 'react-icons/md';
-import { CopyToClipboard } from '@/components/filters/geometryFilter/RecentInput';
+import { MdDownload } from 'react-icons/md';
 import { FormattedNumber } from '@/components/dashboard/shared';
 import useQuery from '@/hooks/useQuery';
 import { PaginationFooter } from '@/components/pagination';
@@ -144,58 +143,72 @@ export function DerivedDatasetPage() {
               values={{ total: derivedDataset.contributingDatasets.count }}
             />
           </ArticleTitle>
-          {derivedDataset.sourceUrl && (
-            <HeaderInfo>
-              <HeaderInfoMain>
-                <div />
-              </HeaderInfoMain>
-              <HeaderInfoEdit className="g-mt-4">
-                <Button asChild className="g-py-1 g-px-2 g-h-[2rem] g-mb-4">
-                  <a href={derivedDataset.sourceUrl} target="_blank" rel="noopener noreferrer">
-                    <MdLink className="g-me-1" />
-                    <FormattedMessage id="derivedDatasetKey.sourceUrl" />
-                  </a>
-                </Button>
-              </HeaderInfoEdit>
-            </HeaderInfo>
-          )}
         </ArticleTextContainer>
       </PageContainer>
 
       <div className="g-bg-slate-100">
         <ArticleContainer>
           <ArticleTextContainer className="g-max-w-screen-lg">
-            <Card className="g-mb-4">
-              <CardHeader>
-                <CardTitle>
-                  <FormattedMessage id="phrases.pleaseCiteAs" />
-                </CardTitle>
-              </CardHeader>
+            <Card className="g-mb-4 g-pt-8">
               <CardContent>
-                {derivedDataset.citation} <CopyToClipboard text={derivedDataset.citation || ''} />
+                <Properties breakpoint={800} className="[&>dt]:g-w-52">
+                  <BasicField label="phrases.pleaseCiteAs">
+                    <div>
+                      <div>{derivedDataset.citation}</div>
+                      <div style={{ marginTop: '1em' }}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="g-me-1"
+                          onClick={() => {
+                            navigator.clipboard.writeText(derivedDataset.citation || '');
+                          }}
+                        >
+                          <FormattedMessage id="phrases.copy" />
+                        </Button>
+                        <Button asChild variant="outline" size="sm">
+                          <a
+                            href={`https://data.crosscite.org/application/x-research-info-systems/${derivedDataset.doi}`}
+                            className="g-me-1 g-text-inherit"
+                          >
+                            RIS
+                            <MdDownload className="g-ms-1" />
+                          </a>
+                        </Button>
+                        <Button asChild variant="outline" size="sm">
+                          <a
+                            className="g-text-inherit"
+                            href={`https://data.crosscite.org/application/x-bibtex/${derivedDataset.doi}`}
+                          >
+                            BibTex
+                            <MdDownload className="g-ms-1" />
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  </BasicField>
+                </Properties>
               </CardContent>
-              <CardFooter>
-                <Button asChild variant="outline" className="g-py-1 g-px-2 g-h-[2rem] g-mr-1">
-                  <Link
-                    to={`https://data.crosscite.org/application/x-bibtex/${derivedDataset.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MdDownload />
-                    BibTex
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" className="g-py-1 g-px-2 g-h-[2rem]">
-                  <Link
-                    to={`https://data.crosscite.org/application/x-research-info-systems/${derivedDataset.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MdDownload />
-                    RIS
-                  </Link>
-                </Button>
-              </CardFooter>
+              <CardContent className="g-border-t g-border-gray-200 !g-py-4 g-flex g-gap-4 g-flex-col md:g-flex-row">
+                {derivedDataset.sourceUrl && (
+                  <div className="g-w-52 g-flex-none">
+                    <Button className="g-flex-none" variant="default" asChild>
+                      <a href={derivedDataset.sourceUrl} target="_blank" rel="noopener noreferrer">
+                        <FormattedMessage
+                          id="derivedDatasetKey.sourceUrl"
+                          defaultMessage="Access derived dataset"
+                        />
+                      </a>
+                    </Button>
+                  </div>
+                )}
+                <div className="g-text-slate-600 g-flex-auto">
+                  <HyperText
+                    text={formatMessage({ id: 'downloadKey.readDatauseAndTerms' })}
+                    className="[&_a]:g-underline"
+                  />
+                </div>
+              </CardContent>
             </Card>
             <Card className="g-mb-4">
               <CardHeader>
@@ -204,25 +217,25 @@ export function DerivedDatasetPage() {
               <CardContent>
                 <Properties breakpoint={800} className="[&>dt]:g-w-52">
                   <>
-                    <T className="g-font-bold">
+                    <T>
                       <FormattedMessage id={'derivedDatasetKey.title'} defaultMessage={'Title'} />
                     </T>
-                    <V style={{ position: 'relative' }}>
-                      <div style={{ display: 'inline-block', paddingRight: 8 }}>
+                    <V>
+                      <div className="g-break-all g-bg-slate-100 g-p-2 g-rounded g-font-[monospace]">
                         {derivedDataset.title}
                       </div>
                     </V>
                   </>
                   {derivedDataset.description && (
                     <>
-                      <T className="g-font-bold">
+                      <T>
                         <FormattedMessage
                           id={'derivedDatasetKey.description'}
                           defaultMessage={'Description'}
                         />
                       </T>
-                      <V style={{ position: 'relative' }}>
-                        <div style={{ display: 'inline-block', paddingRight: 8 }}>
+                      <V>
+                        <div className="g-break-all g-bg-slate-100 g-p-2 g-rounded g-font-[monospace]">
                           {derivedDataset.description}
                         </div>
                       </V>
@@ -243,15 +256,6 @@ export function DerivedDatasetPage() {
                       </V>
                     </>
                   )}
-                  <>
-                    <T className="g-font-bold"></T>
-                    <V style={{ position: 'relative' }}>
-                      <HyperText
-                        text={formatMessage({ id: 'downloadKey.readDatauseAndTerms' })}
-                        className="[&_a]:g-underline"
-                      />
-                    </V>
-                  </>
                 </Properties>
               </CardContent>
             </Card>
@@ -264,61 +268,63 @@ export function DerivedDatasetPage() {
                   />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <>
-                  <table className="g-w-full g-text-sm g-mb-8 g-bg-white">
-                    <thead>
-                      <tr className="g-transition-colors data-[state=selected]:g-bg-muted">
-                        <th
-                          className="g-p-4 g-text-left g-whitespace-nowrap "
-                          style={{ width: '80%' }}
-                        />
-
-                        <th
-                          className="g-p-4 g-text-left g-whitespace-nowrap "
-                          style={{ width: '20%' }}
+              <CardContent className="!g-px-0 g-overflow-auto">
+                <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+                  <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b g-border-t">
+                    <tr>
+                      <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
+                        <FormattedMessage id="downloadKey.title" defaultMessage="Title" />
+                      </th>
+                      <th
+                        scope="col"
+                        className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                      >
+                        <FormattedMessage id="downloadKey.records" defaultMessage="Records" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {isNoneEmptyArray(contributingDatasets?.results) &&
+                      contributingDatasets.results.map((dataset) => (
+                        <tr
+                          key={dataset.datasetKey}
+                          className="g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700"
                         >
-                          <FormattedMessage id="downloadKey.records" defaultMessage="Records" />
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {isNoneEmptyArray(contributingDatasets?.results) &&
-                        contributingDatasets.results.map((dataset) => (
-                          <tr
-                            key={dataset.datasetKey}
-                            className="g-transition-colors data-[state=selected]:g-bg-muted"
+                          <td
+                            scope="row"
+                            className="g-px-4 md:g-px-8 g-py-3 g-font-medium g-text-slate-900 dark:g-text-white g-min-w-80"
                           >
-                            <td className="g-p-4 ">
-                              <DynamicLink
-                                className="hover:g-text-primary-500"
-                                pageId="datasetKey"
-                                variables={{ key: dataset.datasetKey }}
-                              >
-                                {dataset.datasetTitle}
-                              </DynamicLink>
-                            </td>
-
-                            <td className="g-p-4 ">
-                              <FormattedNumber value={dataset.numberRecords} />
-                            </td>
-                          </tr>
-                        ))}
-                      {!contributingDatasets?.results &&
-                        Array.from({ length: 10 }).map((x, i) => (
-                          <tr key={i}>
-                            <td>
-                              <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                            </td>
-
-                            <td>
-                              <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                            </td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                  {isNoneEmptyArray(contributingDatasets?.results) && (
+                            <DynamicLink
+                              className="g-underline"
+                              pageId="datasetKey"
+                              variables={{ key: dataset.datasetKey }}
+                            >
+                              {dataset.datasetTitle}
+                            </DynamicLink>
+                          </td>
+                          <td className="g-px-4 md:g-px-8 g-py-3 g-text-right rtl:g-text-left">
+                            <FormattedNumber value={dataset.numberRecords} />
+                          </td>
+                        </tr>
+                      ))}
+                    {!contributingDatasets?.results &&
+                      Array.from({ length: 10 }).map((_, i) => (
+                        <tr
+                          key={i}
+                          className="g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700"
+                        >
+                          <td className="g-px-4 md:g-px-8 g-py-3">
+                            <Skeleton className="g-w-24">&nbsp;</Skeleton>
+                          </td>
+                          <td className="g-px-4 md:g-px-8 g-py-3 g-text-right rtl:g-text-left">
+                            <Skeleton className="g-w-12 g-ml-auto">&nbsp;</Skeleton>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+                {isNoneEmptyArray(contributingDatasets?.results) &&
+                  (contributingDatasets.count || 0) > limit && (
                     <PaginationFooter
                       offset={contributingDatasets.offset || 0}
                       count={contributingDatasets.count || 0}
@@ -326,7 +332,6 @@ export function DerivedDatasetPage() {
                       onChange={(x) => setOffset(x)}
                     />
                   )}
-                </>
               </CardContent>
             </Card>
           </ArticleTextContainer>
