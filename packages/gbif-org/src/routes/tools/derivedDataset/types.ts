@@ -15,8 +15,3 @@ export type DerivedDatasetPayload = {
 export type RegistrationResult = {
   doi: string;
 };
-
-export type ServerError = {
-  code?: string;
-  message?: string;
-};
