@@ -18,7 +18,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
-import { MdDownload } from 'react-icons/md';
+import { MdDownload, MdLink } from 'react-icons/md';
 import { FormattedNumber } from '@/components/dashboard/shared';
 import useQuery from '@/hooks/useQuery';
 import { PaginationFooter } from '@/components/pagination';
@@ -119,7 +119,7 @@ export function DerivedDatasetPage() {
         doi={derivedDataset.doi}
       />
 
-      <PageContainer topPadded hasDataHeader className="g-bg-white">
+      <PageContainer topPadded bottomPadded hasDataHeader className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle
             secondary={
@@ -198,6 +198,7 @@ export function DerivedDatasetPage() {
                           id="derivedDatasetKey.sourceUrl"
                           defaultMessage="Access derived dataset"
                         />
+                        <MdLink className="g-ms-1" />
                       </a>
                     </Button>
                   </div>
