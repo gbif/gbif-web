@@ -579,7 +579,19 @@ export function OccurrenceKey() {
                           </div>
                         </GadmClassification>
                       )}
-                      <GeologicalContext {...occurrence} className="g-mb-1">
+                      <GeologicalContext
+                        earliestEonOrLowestEonothem={occurrence.earliestEonOrLowestEonothem}
+                        earliestEraOrLowestErathem={occurrence.earliestEraOrLowestErathem}
+                        earliestPeriodOrLowestSystem={occurrence.earliestPeriodOrLowestSystem}
+                        earliestEpochOrLowestSeries={occurrence.earliestEpochOrLowestSeries}
+                        earliestAgeOrLowestStage={occurrence.earliestAgeOrLowestStage}
+                        lowestBiostratigraphicZone={occurrence.lowestBiostratigraphicZone}
+                        group={occurrence.group}
+                        formation={occurrence.formation}
+                        member={occurrence.member}
+                        bed={occurrence.bed}
+                        className="g-mb-1"
+                      >
                         {hasGeologicalIssues && (
                           <IssueTags>
                             {occurrence.issues
