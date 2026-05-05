@@ -23,7 +23,9 @@ export function ApiContent({ id = '4051783990' }: { id?: string }) {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleNetwork" /> <br />
-        <a href={`https://api.gbif.org/v1/network/${id}`}>https://api.gbif.org/v1/network/{id}</a>
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/network/${id}`}
+        >{`${import.meta.env.PUBLIC_API}/v1/network/${id}`}</a>
       </Card>
     </div>
   );

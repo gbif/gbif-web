@@ -104,7 +104,7 @@ export function InstitutionResult({
             </div>
             <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
               {(institution.collectionCount ?? 0) > 0 && (
-                <Tag>
+                <Tag className="g-m-1 g-mb-0">
                   <FormattedMessage
                     id="counts.nCollections"
                     values={{ total: institution.collectionCount }}
@@ -113,7 +113,7 @@ export function InstitutionResult({
               )}
               <div className="g-flex-grow"></div>
               {institution.numberSpecimens > 0 && (
-                <Tag>
+                <Tag className="g-m-1 g-mb-0">
                   <FormattedMessage
                     id="counts.nRecords"
                     values={{ total: institution.numberSpecimens }}
@@ -121,7 +121,7 @@ export function InstitutionResult({
                 </Tag>
               )}
               {institution.occurrenceCount > 0 && (
-                <Tag className="g-bg-primary-500 g-text-primaryContrast-500">
+                <Tag className="g-bg-primary-500 g-text-primaryContrast-500 g-m-1 g-mb-0">
                   <FormattedMessage
                     id="counts.inGbif"
                     values={{ total: institution.occurrenceCount }}

@@ -13,10 +13,12 @@ export const ConceptValue = ({
   name,
   includeContext,
   hideTooltip,
+  hideParentLabels = false,
 }: {
   vocabulary: string;
   name: string;
   includeContext?: boolean;
+  hideParentLabels?: boolean;
   hideTooltip?: boolean;
 }) => {
   const { locale } = useI18n();
@@ -50,7 +52,8 @@ export const ConceptValue = ({
   if (includeContext) {
     return (
       <>
-        {concept?.uiLabel} {<span className="g-text-slate-500">{parentLabels}</span>}
+        {concept?.uiLabel}{' '}
+        {!hideParentLabels && <span className="g-text-slate-500">{parentLabels}</span>}
         <div>{concept?.uiDefinition}</div>
       </>
     );
@@ -68,7 +71,7 @@ export const ConceptValue = ({
         title={
           <>
             {concept.uiDefinition && <div className="g-mb-2">{concept.uiDefinition}</div>}
-            <div>{parentLabels}</div>
+            {!hideParentLabels && <div>{parentLabels}</div>}
           </>
         }
       >

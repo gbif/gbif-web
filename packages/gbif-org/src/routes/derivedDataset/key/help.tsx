@@ -39,14 +39,17 @@ export function ApiContent({ id = '10.15468/dd.jdja49' }: { id?: string }) {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleDerivedDataset" /> <br />
-        <a className="g-break-all" href={`https://api.gbif.org/v1/derivedDataset/${id}`}>
-          https://api.gbif.org/v1/derivedDataset/{id}
+        <a className="g-break-all" href={`${import.meta.env.PUBLIC_API}/v1/derivedDataset/${id}`}>
+          {`${import.meta.env.PUBLIC_API}/v1/derivedDataset/${id}`}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.derivedDatasetContributingDatasets" /> <br />
-        <a className="g-break-all" href={`https://api.gbif.org/v1/derivedDataset/${id}/datasets`}>
-          https://api.gbif.org/v1/derivedDataset/{id}/datasets
+        <a
+          className="g-break-all"
+          href={`${import.meta.env.PUBLIC_API}/v1/derivedDataset/${id}/datasets`}
+        >
+          {`${import.meta.env.PUBLIC_API}/v1/derivedDataset/${id}/datasets`}
         </a>
       </Card>
     </div>

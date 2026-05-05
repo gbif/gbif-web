@@ -163,9 +163,12 @@ export function MapWidgetOuter({
     }
   }, [rasterStyles, persistStyleSelection]);
 
-
-  let yearFilter: React.ReactNode = <div/>;
-  if (typeof capabilities?.minYear === 'number' && typeof capabilities?.maxYear === 'number' && (capabilities.minYear !== capabilities.maxYear)) {
+  let yearFilter: React.ReactNode = <div />;
+  if (
+    typeof capabilities?.minYear === 'number' &&
+    typeof capabilities?.maxYear === 'number' &&
+    capabilities.minYear !== capabilities.maxYear
+  ) {
     yearFilter = (
       <YearFilter
         isYearFilterActive={isYearFilterActive}

@@ -29,6 +29,8 @@
   "singleTaxon": "Get a single taxon.",
   "singleTaxonDetails": "Get details of a single taxon.",
   "searchTaxa": "Search for taxa.",
+  "matchSpecies": "Match a name to the GBIF backbone taxonomy.",
   "singleDerivedDataset": "Get a single derived dataset",
+  "parseName": "Parse a single scientific name",
   "derivedDatasetContributingDatasets": "Get datasets contributing with data to a derived dataset"
 }

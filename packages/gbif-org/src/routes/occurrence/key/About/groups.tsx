@@ -85,11 +85,11 @@ export function Groups({
 
       {/* <Provenance {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
-      <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Record {...{ showAll, termMap, occurrence, slowOccurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
+      <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Occurrence {...{ updateToc, showAll, termMap, occurrence }} />
       <Event {...{ updateToc, showAll, termMap, occurrence }} />
       <Organism {...{ updateToc, showAll, termMap, occurrence }} />

@@ -24,7 +24,7 @@ export function QueryCard({ download }: { download: Download }) {
   const parameters = download.request?.gbifMachineDescription?.parameters;
 
   useEffect(() => {
-    if (!download.request?.predicate) return;
+    if (!download.request?.predicate || download.request?.type !== 'OCCURRENCE') return;
 
     const { error, filter } = getPredicateAsFilter({
       predicate: download?.request?.predicate,
@@ -41,7 +41,7 @@ export function QueryCard({ download }: { download: Download }) {
     } else {
       setQuery(undefined);
     }
-  }, [download, setQuery]);
+  }, [download, setQuery, filters]);
 
   return (
     <Card className="g-mb-4">

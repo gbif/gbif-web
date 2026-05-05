@@ -167,8 +167,13 @@ async function main() {
           res.set('Cache-Control', 'public, max-age=0, must-revalidate, no-cache, no-store');
         }
 
+        const testClass = env.PUBLIC_TEST_SITE === 'true' ? 'gbif-test-site' : '';
+
         const html = template
-          .replace('<html class="g-m-0 g-p-0">', `<html ${htmlAttributes} class="g-m-0 g-p-0">`)
+          .replace(
+            '<html class="g-m-0 g-p-0">',
+            `<html ${htmlAttributes} class="g-m-0 g-p-0 ${testClass}">`
+          )
           .replace(
             '<body style="margin: 0; padding: 0" class="gbif">',
             `<body ${bodyAttributes} style="margin: 0; padding: 0" class="gbif">`

@@ -24,19 +24,23 @@ export function ApiContent({ id = '4051783990' }: { id?: string }) {
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleNode" /> <br />
         <div className="g-mb-2">
-          <a href={`https://api.gbif.org/v1/node/${id}`}>https://api.gbif.org/v1/node/{id}</a>
+          <a
+            href={`${import.meta.env.PUBLIC_API}/v1/node/${id}`}
+          >{`${import.meta.env.PUBLIC_API}/v1/node/${id}`}</a>
         </div>
         <div className="g-mb-2">
-          <a href={`https://api.gbif.org/v1/node/${id}/dataset`}>/dataset</a>
+          <a href={`${import.meta.env.PUBLIC_API}/v1/node/${id}/dataset`}>/dataset</a>
         </div>
         <div className="g-mb-2">
-          <a href={`https://api.gbif.org/v1/node/${id}/organization`}>/organization</a>
+          <a href={`${import.meta.env.PUBLIC_API}/v1/node/${id}/organization`}>/organization</a>
         </div>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchNodes" /> <br />
         <div>
-          <a href={`https://api.gbif.org/v1/node`}>https://api.gbif.org/v1/node</a>
+          <a
+            href={`${import.meta.env.PUBLIC_API}/v1/node`}
+          >{`${import.meta.env.PUBLIC_API}/v1/node`}</a>
         </div>
       </Card>
     </div>

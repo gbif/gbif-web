@@ -20,6 +20,8 @@ import {
   postponeDownloadDeletion as postponeUserDownloadDeletion,
   cancelDownload as cancelUserDownload,
   changeEmail as changeUserEmail,
+  createDerivedDataset as createUserDerivedDataset,
+  updateDerivedDataset as updateUserDerivedDataset,
 } from './user.model.mjs';
 import _ from 'lodash';
 import { decryptJSON } from './encrypt.mjs';
@@ -214,12 +216,12 @@ export function createSqlDownload(req, res) {
 
 export function cancelDownload(req, res) {
   setNoCache(res);
-  const userName = _.get(req, 'user.userName');
-  if (!userName) {
+  const username = _.get(req, 'user.userName');
+  if (!username) {
     res.status(401);
     return res.send();
   }
-  cancelUserDownload(req.params.key, userName)
+  cancelUserDownload({ key: req.params.key, type: req.query.type, username })
     .then(function () {
       res.status(204);
       res.send();
@@ -232,12 +234,12 @@ export function cancelDownload(req, res) {
 
 export function postponeDownloadDeletion(req, res) {
   setNoCache(res);
-  const userName = _.get(req, 'user.userName');
-  if (!userName) {
+  const username = _.get(req, 'user.userName');
+  if (!username) {
     res.status(401);
     return res.send();
   }
-  postponeUserDownloadDeletion(req.params.key, userName)
+  postponeUserDownloadDeletion({ key: req.params.key, type: req.query.type, username })
     .then(function () {
       res.status(204);
       res.send();
@@ -250,22 +252,48 @@ export function postponeDownloadDeletion(req, res) {
 
 export function deleteDownload(req, res) {
   setNoCache(res);
-  const userName = _.get(req, 'user.userName');
-  if (!userName) {
+  const username = _.get(req, 'user.userName');
+  if (!username) {
     res.status(401);
     return res.send();
   }
-  deleteUserDownload(req.params.key, userName)
+  deleteUserDownload({ key: req.params.key, type: req.query.type, username })
     .then(function () {
       res.sendStatus(204);
     })
     .catch(function (err) {
+      console.log(err);
       res.status(err.statusCode || 500);
       res.send();
     });
 }
+
+export async function createDerivedDataset(req, res) {
+  setNoCache(res);
+  try {
+    const response = await createUserDerivedDataset(req.body, req.user.userName);
+    return res.send(response);
+  } catch (error) {
+    const code = error.statusCode || 500;
+    const message = error.body || error.message || 'Unknown error';
+    res.status(code).json({ message, code });
+  }
+}
+
+export async function updateDerivedDataset(req, res) {
+  setNoCache(res);
+  try {
+    const response = await updateUserDerivedDataset(req.body, req.params.doi, req.user.userName);
+    return res.send(response);
+  } catch (error) {
+    const code = error.statusCode || 500;
+    const message = error.body || error.message || 'Unknown error';
+    res.status(code).json({ message, code });
+  }
+}
+
 /*
-General handler for errors. Essentially return no information but an error code and log the error. 
+General handler for errors. Essentially return no information but an error code and log the error.
 The front end will have to provide generic error handling.
 */
 function handleError(res, statusCode = 500) {

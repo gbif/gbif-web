@@ -53,16 +53,16 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "위도",
+    "placeholderLon": "경도",
     "placeholderDist": ""
   },
   "geometry": {
     "name": "위치",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "위도",
+    "placeholderLon": "경도",
     "placeholderDist": ""
   },
   "relevance": {

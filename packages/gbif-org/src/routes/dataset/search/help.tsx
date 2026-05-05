@@ -23,13 +23,17 @@ export function ApiContent() {
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchDatasets" /> <br />
-        <a href="https://api.gbif.org/v1/dataset/search">https://api.gbif.org/v1/dataset/search</a>
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/dataset/search`}
+        >{`${import.meta.env.PUBLIC_API}/v1/dataset/search`}</a>
       </Card>
       <Card className="g-p-2">
         <FormattedMessage id="apiHelp.searchDatasetsExample" /> <br />
         <br />
-        <a href="https://api.gbif.org/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
-          https://api.gbif.org/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0
+        <a
+          href={`${import.meta.env.PUBLIC_API}/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0`}
+        >
+          {`${import.meta.env.PUBLIC_API}/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0`}
         </a>
       </Card>
     </div>

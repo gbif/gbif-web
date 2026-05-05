@@ -1,7 +1,7 @@
 import { Drawer } from '@/components/drawer/drawer';
 import usePrevious from '@/hooks/usePrevious';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
-import EventDrawer from '@/routes/events/key/EventDrawer';
+import EventDrawer from '@/routes/event/key/EventDrawer';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { FormattedMessage } from 'react-intl';
 import { useEntityDrawer } from './useEntityDrawer';

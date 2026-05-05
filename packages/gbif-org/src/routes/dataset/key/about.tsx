@@ -1,3 +1,4 @@
+import { BulletList } from '@/components/bulletList';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { ContactList } from '@/components/contactList';
 import * as charts from '@/components/dashboard';
@@ -15,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/largeCard';
-import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import {
   DatasetInsightsQuery,
@@ -42,7 +42,6 @@ import { Registration } from './about/Registration';
 import { SamplingDescription } from './about/SamplingDescription';
 import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
-import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { notNull } from '@/utils/notNull';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { useHasMap } from '@/components/maps/mapThumbnail';
@@ -52,6 +51,7 @@ import { useUser } from '@/contexts/UserContext';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { DatasetKeyLoaderResult } from './datasetKey';
+import { LocalContextCards } from './about/LocalContexts';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -60,9 +60,6 @@ export function DatasetKeyAbout() {
     datasetKey: dataset?.key ?? '',
     checklistKey: config.defaultChecklistKey,
   });
-  const hasLocalContext =
-    (dataset.localContexts?.length ?? 0) > 0 && config.experimentalFeatures.localContextEnabled;
-
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
   const [scopedDatasetPredicate, setScopedDatasetPredicate] = useState<Predicate>({
@@ -153,8 +150,11 @@ export function DatasetKeyAbout() {
 
   const chartPredicate = scopedDatasetPredicate;
 
-  const toc = useMemo(() => getToc(dataset), [dataset]);
-  const tableOfContents = useMemo(() => {
+  const toc = useMemo(
+    () => getToc({ dataset, localContextEnabled: config.experimentalFeatures.localContextEnabled }),
+    [dataset, config.experimentalFeatures.localContextEnabled]
+  );
+  const tableOfContents: Array<{ id: string; title: React.ReactElement }> = useMemo(() => {
     const tableOfContents = [
       { id: 'description', title: <FormattedMessage id="dataset.description" /> },
     ];
@@ -200,6 +200,12 @@ export function DatasetKeyAbout() {
         title: <FormattedMessage id="dataset.bibliography" />,
       });
     }
+    if (toc.localContexts) {
+      tableOfContents.push({
+        id: 'localContexts',
+        title: <FormattedMessage id="dataset.localContexts" />,
+      });
+    }
     if (toc.contacts) {
       tableOfContents.push({
         id: 'contacts',
@@ -221,7 +227,6 @@ export function DatasetKeyAbout() {
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        {/* <div className={`${removeSidebar ? '' : 'g-flex'}`}> */}
         <SidebarLayout
           reverse
           className="g-grid-cols-[1fr_250px] xl:g-grid-cols-[1fr_300px]"
@@ -269,6 +274,29 @@ export function DatasetKeyAbout() {
                       </div>
                     )}
                   </div>
+                  {dataset.networks && dataset.networks.length > 0 && (
+                    <div className="g-text-sm g-text-slate-500 g-mt-2">
+                      <FormattedMessage
+                        id="dataset.pNetwork"
+                        values={{ NUMBER: dataset.networks.length }}
+                      />
+                      :{' '}
+                      <BulletList className="g-inline">
+                        {dataset.networks.filter(notNull).map((network) => (
+                          <li key={network.key}>
+                            <DynamicLink
+                              className="hover:g-underline g-text-primary-500"
+                              to={`/network/${network.key}`}
+                              pageId="networkKey"
+                              variables={{ key: network.key }}
+                            >
+                              {network.title}
+                            </DynamicLink>
+                          </li>
+                        ))}
+                      </BulletList>
+                    </div>
+                  )}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -450,6 +478,18 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
+
+            {toc.localContexts && (
+              <div id="localContexts">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="dataset.localContexts" />
+                  </CardTitle>
+                </CardHeader>
+                <LocalContextCards localContexts={dataset.localContexts} />
+              </div>
+            )}
+
             {toc.contacts && (
               <Card className="g-mb-4 gbif-word-break" id="contacts">
                 <CardHeader>
@@ -489,7 +529,6 @@ export function DatasetKeyAbout() {
           </div>
           {!removeSidebar && (
             <Aside>
-              {hasLocalContext && <LocalContextCards localContexts={dataset.localContexts} />}
               <AsideSticky className="-g-mt-4">
                 <Card>
                   <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
@@ -572,7 +611,12 @@ const DATASET_SLOW = /* GraphQL */ `
   }
 `;
 
-function getToc(dataset: DatasetKeyLoaderResult['data']['dataset']) {
+type GetTocOptions = {
+  dataset: DatasetKeyLoaderResult['data']['dataset'];
+  localContextEnabled: boolean;
+};
+
+function getToc({ dataset, localContextEnabled }: GetTocOptions) {
   const hasSamplingDescription =
     dataset?.samplingDescription?.studyExtent ||
     dataset?.samplingDescription?.sampling ||
@@ -590,6 +634,7 @@ function getToc(dataset: DatasetKeyLoaderResult['data']['dataset']) {
     additionalInfo: dataset?.additionalInfo,
     contacts: (dataset?.volatileContributors?.length ?? 0) > 0,
     bibliography: (dataset?.bibliographicCitations?.length ?? 0) > 0,
+    localContexts: localContextEnabled && (dataset?.localContexts?.length ?? 0) > 0,
     registration: true,
     citation: true,
   };
@@ -652,99 +697,5 @@ function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> })
         )}
       </div>
     </UserAvatarSection>
-  );
-}
-
-type LocalContexts = NonNullable<DatasetQuery['dataset']>['localContexts'];
-
-function LocalContextCards({ localContexts }: { localContexts?: LocalContexts }) {
-  return (
-    <>
-      {localContexts?.filter(notNull).map((localContext) => {
-        if (!localContext.project_page) return null;
-        const notices = (localContext.notice ?? [])
-          .filter(notNull)
-          .filter((n) => n.name && n.img_url);
-        const labels = (localContext.labels ?? [])
-          .filter(notNull)
-          .filter((l) => l.name && l.img_url);
-
-        // Group labels by community name
-        const labelsByCommunity = new Map<string, typeof labels>();
-        for (const label of labels) {
-          const community = label.communityName ?? '';
-          if (!labelsByCommunity.has(community)) {
-            labelsByCommunity.set(community, []);
-          }
-          labelsByCommunity.get(community)!.push(label);
-        }
-
-        return (
-          <Card className="g-mb-4 gbif-word-break" key={localContext.project_page}>
-            <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-              <div className="g-flex-none g-me-2">
-                <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                  <ExternalLinkIcon />
-                </div>
-              </div>
-              <div className="g-flex-auto g-mt-0.5">
-                <a
-                  href={localContext.project_page}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="g-flex g-items-center g-underline"
-                >
-                  <h5 className="g-font-bold">{localContext.title}</h5>
-                </a>
-                {notices.length > 0 && (
-                  <ul className="g-mt-2">
-                    {notices.map((notice, i) => (
-                      <li className="g-flex g-items-center g-mb-2" key={`${notice.name}-${i}`}>
-                        <img
-                          className="g-flex-none g-me-2 g-w-5 g-h-5 g-object-contain"
-                          src={notice.img_url ?? undefined}
-                          alt={notice.name ?? undefined}
-                          title={notice.name ?? undefined}
-                        />
-                        <span>{notice.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {[...labelsByCommunity.entries()].map(([communityName, communityLabels]) => (
-                  <div key={communityName}>
-                    {communityName && (
-                      <p className="g-mt-2 g-text-slate-500">
-                        <FormattedMessage
-                          id="dataset.localContextsLabelsAppliedBy"
-                          defaultMessage="{count, plural, one{Label} other{Labels}} applied by {communityName}"
-                          values={{
-                            count: communityLabels.length,
-                            communityName,
-                          }}
-                        />
-                      </p>
-                    )}
-                    <ul className="g-mt-2">
-                      {communityLabels.map((label, i) => (
-                        <li className="g-flex g-items-center g-mb-2" key={`${label.name}-${i}`}>
-                          <img
-                            className="g-flex-none g-me-2 g-w-5 g-h-5 g-object-contain"
-                            src={label.img_url ?? undefined}
-                            alt={label.name ?? undefined}
-                            title={label.name ?? undefined}
-                          />
-                          <span>{label.name}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </CardContentSmall>
-          </Card>
-        );
-      })}
-    </>
   );
 }

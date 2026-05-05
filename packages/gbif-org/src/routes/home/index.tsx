@@ -109,9 +109,11 @@ function HomePage(): React.ReactElement {
 
         <HomePageCounts iconData={home} />
 
-        {home?.blocks?.map((block, idx) => (
-          <BlockItem resource={block} key={idx} />
-        ))}
+        <div data-cy="homepage-blocks">
+          {home?.blocks?.map((block, idx) => (
+            <BlockItem resource={block} key={idx} />
+          ))}
+        </div>
 
         {/* It might make sense to only render this component if the user scrolls close to it */}
         <MapWidget />

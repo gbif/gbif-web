@@ -51,7 +51,7 @@ export function ContactAvatar({
 const CONTACT_IMAGE_QUERY = /* GraphQL */ `
   query ContactImage($personId: ID!) {
     directoryContact(id: $personId) {
-      profilePicture(base64: true)
+      profilePicture
       firstName
       surname
     }

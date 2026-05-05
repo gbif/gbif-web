@@ -27,6 +27,21 @@ export default {
         query: { limit, offset },
       });
     },
+    userEventDownloads: (
+      parent,
+      { username, limit = 10, offset = 0 },
+      { dataSources },
+      info,
+    ) => {
+      info.cacheControl.setCacheHint({
+        maxAge: 0,
+        scope: 'PRIVATE',
+      });
+      return dataSources.downloadAPI.getUsersEventDownloads({
+        username,
+        query: { limit, offset },
+      });
+    },
     occurrenceSnapshots: (
       parent,
       { limit = 10, offset = 0 },
@@ -45,9 +60,30 @@ export default {
         key,
         query: { limit, offset },
       }),
+    datasetsByEventDownload: (
+      parent,
+      { key, limit = 10, offset = 0 },
+      { dataSources },
+    ) =>
+      dataSources.downloadAPI.getContributingDatasetsByEventDownloadKey({
+        key,
+        query: { limit, offset },
+      }),
     download: (parent, { key }, { dataSources }, info) => {
       return dataSources.downloadAPI
         .getDownloadByKey({ key })
+        .then((download) => {
+          if (['PREPARING', 'RUNNING'].indexOf(download?.status) > -1) {
+            info.cacheControl.setCacheHint({
+              maxAge: 5, // seconds
+            });
+          }
+          return download;
+        });
+    },
+    eventDownload: (parent, { key }, { dataSources }, info) => {
+      return dataSources.downloadAPI
+        .getEventDownloadByKey({ key })
         .then((download) => {
           if (['PREPARING', 'RUNNING'].indexOf(download?.status) > -1) {
             info.cacheControl.setCacheHint({

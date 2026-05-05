@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 
 import { Event } from './event';
-import { GRAPHQL_EVENT } from '../../../events/key/EventDrawer';
+import { GRAPHQL_EVENT } from '../../../event/key/EventDrawer';
 import { useDatasetKeyContext } from '../datasetKey';
 import EmptyTab from '@/components/EmptyTab';
 

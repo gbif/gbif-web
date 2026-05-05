@@ -157,8 +157,25 @@ export const Dataset = {
     return dataSources.datasetAPI.getConstituents({ key, query: args });
   },
   volatileContributors: ({ contacts }) => getContributors(contacts),
-  networks: ({ key }, args, { dataSources }) => {
-    return dataSources.datasetAPI.getNetworks({ key });
+  networks: ({ key }, { visibleOnDatasetPage }, { dataSources }) => {
+    return dataSources.datasetAPI.getNetworks({ key }).then((networks) => {
+      if (typeof visibleOnDatasetPage === 'undefined') return networks;
+      /*
+      rule: https://github.com/gbif/gbif-web/issues/1326#issuecomment-3876396786
+      namespace: registry.gbif.org
+      name: visibleOnDatasetPage
+      value: true
+      */
+      return networks.filter((network) => {
+        const mt = network.machineTags?.find(
+          (m) =>
+            m.namespace === 'registry.gbif.org' &&
+            m.name === 'visibleOnDatasetPage' &&
+            m.value === 'true',
+        );
+        return visibleOnDatasetPage ? !!mt : !mt;
+      });
+    });
   },
   metrics: ({ type, key }, args, { dataSources }) => {
     if (type !== 'CHECKLIST') return null;

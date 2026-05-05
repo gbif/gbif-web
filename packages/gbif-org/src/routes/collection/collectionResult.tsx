@@ -109,7 +109,7 @@ export function CollectionResult({
             </div>
             <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
               {collection.code && (
-                <Tag>
+                <Tag className="g-m-1 g-mb-0">
                   <FormattedMessage id="filters.collectionCode.name" />:{' '}
                   {truncate(collection.code, 20)}
                 </Tag>
@@ -124,7 +124,7 @@ export function CollectionResult({
                 </Tag>
               )}
               {collection.occurrenceCount > 0 && (
-                <Tag className="">
+                <Tag className="g-m-1 g-mb-0">
                   <span className="g-flex g-items-center">
                     <GbifLogoIcon className="g-w-3 g-h-3 g-me-1" />
                     <FormattedMessage

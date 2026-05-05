@@ -1,5 +1,6 @@
 import { Base64 } from 'js-base64';
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { DerivedDatasetPayload, RegistrationResult } from '@/routes/tools/derivedDataset/types';
 
 interface User {
   userName: string;
@@ -73,10 +74,15 @@ interface UserContextType {
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   confirm: (code: string, username: string) => Promise<void>;
-  deleteDownload: (downloadKey: string) => Promise<void>;
-  postponeDownloadDeletion: (downloadKey: string) => Promise<void>;
-  cancelDownload: (downloadKey: string) => Promise<void>;
+  deleteDownload: (downloadKey: string, downloadType?: string) => Promise<void>;
+  postponeDownloadDeletion: (downloadKey: string, downloadType?: string) => Promise<void>;
+  cancelDownload: (downloadKey: string, downloadType?: string) => Promise<void>;
   changeEmail: (challengeCode: string, email: string, userName: string) => Promise<void>;
+  registerDerivedDataset: (payload: DerivedDatasetPayload) => Promise<RegistrationResult>;
+  updateDerivedDataset: (
+    doi: string,
+    payload: DerivedDatasetPayload
+  ) => Promise<RegistrationResult>;
 }
 
 const notInitialized = () => {
@@ -101,6 +107,8 @@ const UserContext = createContext<UserContextType>({
   postponeDownloadDeletion: notInitialized,
   cancelDownload: notInitialized,
   changeEmail: notInitialized,
+  registerDerivedDataset: notInitialized,
+  updateDerivedDataset: notInitialized,
 });
 
 export type UserErrorType =
@@ -484,11 +492,14 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const deleteDownload = async (downloadKey: string) => {
+  const deleteDownload = async (downloadKey: string, downloadType?: string) => {
     try {
-      const response = await fetch(`/api/user/download/${downloadKey}/delete`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `/api/user/download/${downloadKey}/delete?type=${downloadType ?? 'OCCURRENCE'}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (!response.ok) {
         throw new UserError('UNKNOWN_ERROR', 'Delete download failed. Please try again.');
@@ -499,14 +510,20 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const postponeDownloadDeletion = async (downloadKey: string) => {
+  const postponeDownloadDeletion = async (downloadKey: string, downloadType?: string) => {
     try {
-      const response = await fetch(`/api/user/download/${downloadKey}/postpone`, {
-        method: 'PUT',
-      });
+      const response = await fetch(
+        `/api/user/download/${downloadKey}/postpone?type=${downloadType ?? 'OCCURRENCE'}`,
+        {
+          method: 'PUT',
+        }
+      );
 
       if (!response.ok) {
-        throw new UserError('UNKNOWN_ERROR', 'Delete download failed. Please try again.');
+        throw new UserError(
+          'UNKNOWN_ERROR',
+          'Postpone download deletion failed. Please try again.'
+        );
       }
       return;
     } catch (error) {
@@ -514,11 +531,14 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const cancelDownload = async (downloadKey: string) => {
+  const cancelDownload = async (downloadKey: string, downloadType?: string) => {
     try {
-      const response = await fetch(`/api/user/download/${downloadKey}/cancel`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `/api/user/download/${downloadKey}/cancel?type=${downloadType ?? 'OCCURRENCE'}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (!response.ok) {
         throw new UserError('UNKNOWN_ERROR', 'Cancellation of download failed. Please try again.');
@@ -529,9 +549,104 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const readDerivedDatasetError = async (response: Response, fallback: string): Promise<string> => {
+    try {
+      const body = (await response.json()) as { code?: string; message?: string };
+      if (body?.code && body?.message) return `${body.code}: ${body.message}`;
+      if (body?.message) return body.message;
+    } catch {
+      // ignore parse errors
+    }
+    return `${fallback} (HTTP ${response.status}).`;
+  };
+
+  const registerDerivedDataset = async (
+    payload: DerivedDatasetPayload
+  ): Promise<RegistrationResult> => {
+    if (!user) {
+      throw new UserError('UNKNOWN_USER', 'User not authenticated');
+    }
+    try {
+      const response = await fetch('/api/user/derived-dataset/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const message = await readDerivedDatasetError(response, 'Registration failed');
+        throw new UserError('FAILED', message);
+      }
+
+      return (await response.json()) as RegistrationResult;
+    } catch (error) {
+      if (error instanceof UserError) throw error;
+      throw new UserError(
+        'UNKNOWN_ERROR',
+        'Could not reach the server. Please check your connection and try again.'
+      );
+    }
+  };
+
+  const updateDerivedDataset = async (
+    doi: string,
+    payload: DerivedDatasetPayload
+  ): Promise<RegistrationResult> => {
+    if (!user) {
+      throw new UserError('UNKNOWN_USER', 'User not authenticated');
+    }
+    try {
+      const response = await fetch(`/api/user/derived-dataset/${encodeURIComponent(doi)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const message = await readDerivedDatasetError(response, 'Update failed');
+        throw new UserError('FAILED', message);
+      }
+
+      // PUT may return 204 No Content; fall back to the doi we already have.
+      if (response.status === 204) return { doi };
+      try {
+        const data = (await response.json()) as RegistrationResult;
+        return { doi: data.doi || doi };
+      } catch {
+        return { doi };
+      }
+    } catch (error) {
+      if (error instanceof UserError) throw error;
+      throw new UserError(
+        'UNKNOWN_ERROR',
+        'Could not reach the server. Please check your connection and try again.'
+      );
+    }
+  };
+
   useEffect(() => {
     refreshUser();
   }, [refreshUser]); // Add refreshUser to the dependency array
+
+  useEffect(() => {
+    if (!user) return;
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') {
+        refreshUser();
+      }
+    };
+    const onFocus = () => refreshUser();
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('focus', onFocus);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('focus', onFocus);
+    };
+  }, [user, refreshUser]);
 
   const value: UserContextType = {
     user,
@@ -552,6 +667,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     deleteDownload,
     postponeDownloadDeletion,
     cancelDownload,
+
+    registerDerivedDataset,
+    updateDerivedDataset,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

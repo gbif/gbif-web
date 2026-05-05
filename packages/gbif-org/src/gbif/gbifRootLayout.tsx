@@ -15,6 +15,7 @@ import toolsRedirects from './toolsRedirects';
 import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
+import { useConfig } from '@/config/config';
 
 export async function headerLoader({ locale }: LoaderArgs) {
   const response = await fetchCachedResponse({

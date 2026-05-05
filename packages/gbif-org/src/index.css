@@ -975,6 +975,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   );
 }
 
+.gbif-test-site .gbif-test-background {
+  background-image: url('/img/test_overlay.png');
+  background-repeat: repeat;
+  background-size: 100px 100px;
+}
+
 .test-box:after {
   content: 'Test';
   font-weight: bold;

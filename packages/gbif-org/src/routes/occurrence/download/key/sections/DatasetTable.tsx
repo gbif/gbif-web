@@ -8,7 +8,7 @@ import { notNull } from '@/utils/notNull';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
-const DOWNLOAD_DATASET_QUERY = /* GraphQL */ `
+const OCCURRENCE_DATASET_QUERY = /* GraphQL */ `
   query DownloadKeyDatasets($key: ID!, $limit: Int, $offset: Int) {
     datasetsByDownload(key: $key, limit: $limit, offset: $offset) {
       limit
@@ -23,6 +23,24 @@ const DOWNLOAD_DATASET_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+const EVENT_DATASET_QUERY = /* GraphQL */ `
+  query EventDownloadKeyDatasets($key: ID!, $limit: Int, $offset: Int) {
+    datasetsByEventDownload(key: $key, limit: $limit, offset: $offset) {
+      limit
+      offset
+      endOfRecords
+      count
+      results {
+        datasetKey
+        datasetTitle
+        numberRecords
+      }
+    }
+  }
+`;
+
+type DatasetListResult = NonNullable<DownloadKeyDatasetsQuery['datasetsByDownload']>;
 
 function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
   return (
@@ -54,23 +72,30 @@ function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
   );
 }
 
-export function DatasetTable({
+export type DatasetTableProps = {
+  downloadKey: string;
+  initialDatasets: DatasetListResult['results'];
+  limit: number;
+  count: number;
+};
+
+function DatasetTableCore({
   downloadKey,
   initialDatasets,
   limit: initialLimit,
   count: initialCount,
-}: {
-  downloadKey: string;
-  initialDatasets: NonNullable<DownloadKeyDatasetsQuery['datasetsByDownload']>['results'];
-  limit: number;
-  count: number;
+  query,
+  extractResults,
+}: DatasetTableProps & {
+  query: string;
+  extractResults: (data: Record<string, DatasetListResult | null | undefined>) => DatasetListResult | null | undefined;
 }) {
   const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const [limit] = useState(initialLimit);
   const { data, load, loading } = useQuery<
-    DownloadKeyDatasetsQuery,
+    Record<string, DatasetListResult | null | undefined>,
     DownloadKeyDatasetsQueryVariables
-  >(DOWNLOAD_DATASET_QUERY, { lazyLoad: true, throwAllErrors: true });
+  >(query, { lazyLoad: true, throwAllErrors: true });
 
   useEffect(() => {
     load({ variables: { key: downloadKey, limit, offset } });
@@ -80,10 +105,10 @@ export function DatasetTable({
     return <SkeletonTable rows={5} columns={2} />;
   }
 
-  const { results } = data?.datasetsByDownload || {};
+  const pageData = data ? extractResults(data) : undefined;
   if (initialDatasets.length === 0) return null;
 
-  const datasets = (results ?? initialDatasets).filter(notNull);
+  const datasets = (pageData?.results ?? initialDatasets).filter(notNull);
 
   return (
     <>
@@ -138,5 +163,25 @@ export function DatasetTable({
         />
       )}
     </>
+  );
+}
+
+export function DatasetTable(props: DatasetTableProps) {
+  return (
+    <DatasetTableCore
+      {...props}
+      query={OCCURRENCE_DATASET_QUERY}
+      extractResults={(d) => d?.datasetsByDownload}
+    />
+  );
+}
+
+export function EventDatasetTable(props: DatasetTableProps) {
+  return (
+    <DatasetTableCore
+      {...props}
+      query={EVENT_DATASET_QUERY}
+      extractResults={(d) => d?.datasetsByEventDownload}
+    />
   );
 }
