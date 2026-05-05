@@ -4,10 +4,12 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
+import { OccurrenceSortBy, SortOrder } from '@/gql/graphql';
 import { useCallback, useState } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
 import { MdBrokenImage, MdEvent } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { MediaSortDropdown, MediaSortMode, MediaSortState } from './mediaSort';
 
 export function MediaPresentation({
   mediaTypes,
@@ -18,6 +20,9 @@ export function MediaPresentation({
   error,
   next,
   onSelect,
+  sortState,
+  onSortChange,
+  onSortOrderChange,
 }: {
   mediaTypes: any;
   results: any;
@@ -27,10 +32,25 @@ export function MediaPresentation({
   error: any;
   next: () => void;
   onSelect: ({ key }: { key: string }) => void;
+  sortState: MediaSortState;
+  onSortChange: (mode: MediaSortMode, sortBy?: OccurrenceSortBy) => void;
+  onSortOrderChange: (order: SortOrder) => void;
 }) {
   return (
     <div className="">
-      <ViewHeader total={total} loading={loading} message="counts.nResultsWithImages" />
+      <div className="g-flex g-items-center g-justify-between g-mb-1">
+        <ViewHeader
+          className="g-mb-0"
+          total={total}
+          loading={loading}
+          message="counts.nResultsWithImages"
+        />
+        <MediaSortDropdown
+          sortState={sortState}
+          onSortChange={onSortChange}
+          onSortOrderChange={onSortOrderChange}
+        />
+      </div>
       {total === 0 && !loading && <NoRecords />}
       <div className="g-flex g-flex-wrap g-mb-12 -g-mx-2 -g-mt-2">
         {results.map((result) => {

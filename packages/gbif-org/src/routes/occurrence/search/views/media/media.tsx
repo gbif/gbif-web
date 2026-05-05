@@ -6,15 +6,19 @@ import { useSearchContext } from '@/contexts/search';
 import {
   OccurrenceMediaSearchQuery,
   OccurrenceMediaSearchQueryVariables,
+  OccurrenceSortBy,
   Predicate,
   PredicateType,
+  SortOrder,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import useLocalStorage from 'use-local-storage';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { MediaPresentation } from './mediaPresentation';
+import { MediaSortMode, MediaSortState } from './mediaSort';
 
 const OCCURRENCE_MEDIA = /* GraphQL */ `
   query occurrenceMediaSearch(
@@ -22,10 +26,19 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
     $predicate: Predicate
     $size: Int
     $from: Int
+    $sortBy: OccurrenceSortBy
+    $sortOrder: SortOrder
+    $shuffle: Int
     $checklistKey: ID
   ) {
     occurrenceSearch(q: $q, predicate: $predicate) {
-      documents(size: $size, from: $from) {
+      documents(
+        size: $size
+        from: $from
+        sortBy: $sortBy
+        sortOrder: $sortOrder
+        shuffle: $shuffle
+      ) {
         total
         size
         from
@@ -62,6 +75,12 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
   }
 `;
 
+const DEFAULT_SORT: MediaSortState = {
+  mode: 'default',
+  sortBy: undefined,
+  sortOrder: SortOrder.Asc,
+};
+
 export function Media({ size: defaultSize = 50 }) {
   const [from, setFrom] = useState(0);
   const searchContext = useSearchContext();
@@ -70,6 +89,11 @@ export function Media({ size: defaultSize = 50 }) {
   const currentFilterContext = useContext(FilterContext);
   const [mediaTypes] = useState(['StillImage']);
   const { scope } = useSearchContext();
+  const [sortState, setSortState] = useLocalStorage<MediaSortState>(
+    'occurrenceMediaSort',
+    DEFAULT_SORT
+  );
+  const [shuffleSeed, setShuffleSeed] = useState<number | undefined>(undefined);
   const { data, error, loading, load } = useQuery<
     OccurrenceMediaSearchQuery,
     OccurrenceMediaSearchQueryVariables
@@ -123,6 +147,19 @@ export function Media({ size: defaultSize = 50 }) {
     }
   }, [error, allData, toast]);
 
+  // Generate a shuffle seed on first entry into random mode (e.g. after a page reload
+  // when the persisted sortState already has mode==='random'). Otherwise clear it.
+  useEffect(() => {
+    if (sortState.mode === 'random') {
+      setShuffleSeed((current) =>
+        typeof current === 'number' ? current : Math.floor(Math.random() * 1_000_000)
+      );
+    } else if (typeof shuffleSeed === 'number') {
+      setShuffleSeed(undefined);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortState.mode]);
+
   useEffect(() => {
     const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
     const predicate: Predicate = {
@@ -137,19 +174,84 @@ export function Media({ size: defaultSize = 50 }) {
         },
       ].filter((x) => x),
     };
-    load({ keepDataWhileLoading: true, variables: { predicate, q: query.q, size, from } });
+    const isSort = sortState.mode === 'sort' && sortState.sortBy;
+    const isRandom = sortState.mode === 'random' && typeof shuffleSeed === 'number';
+    load({
+      keepDataWhileLoading: true,
+      variables: {
+        predicate,
+        q: query.q,
+        size,
+        from,
+        sortBy: isSort ? (sortState.sortBy as OccurrenceSortBy) : undefined,
+        sortOrder: isSort ? sortState.sortOrder : undefined,
+        shuffle: isRandom ? shuffleSeed : undefined,
+      },
+    });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, currentFilterContext.filterHash, scope, load, size]);
+  }, [
+    from,
+    currentFilterContext.filterHash,
+    scope,
+    load,
+    size,
+    sortState.mode,
+    sortState.sortBy,
+    sortState.sortOrder,
+    shuffleSeed,
+  ]);
 
+  // Reset pagination + accumulated data when filters or sort change.
   useEffect(() => {
     setFrom(0);
     setAllData([]);
-  }, [currentFilterContext.filterHash, scope]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    currentFilterContext.filterHash,
+    scope,
+    sortState.mode,
+    sortState.sortBy,
+    sortState.sortOrder,
+    shuffleSeed,
+  ]);
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
   }, [from, size]);
+
+  const onSortChange = useCallback(
+    (mode: MediaSortMode, sortBy?: OccurrenceSortBy) => {
+      if (mode === 'random') {
+        // Generate a fresh seed every time the user (re-)picks random.
+        setShuffleSeed(Math.floor(Math.random() * 1_000_000));
+        setSortState({ mode: 'random', sortBy: undefined, sortOrder: SortOrder.Asc });
+      } else if (mode === 'sort' && sortBy) {
+        // Toggle ASC/DESC if the same field is picked again.
+        if (sortState.mode === 'sort' && sortState.sortBy === sortBy) {
+          setSortState({
+            mode: 'sort',
+            sortBy,
+            sortOrder: sortState.sortOrder === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc,
+          });
+        } else {
+          setSortState({ mode: 'sort', sortBy, sortOrder: SortOrder.Asc });
+        }
+      } else {
+        setSortState(DEFAULT_SORT);
+      }
+    },
+    [setSortState, sortState]
+  );
+
+  const onSortOrderChange = useCallback(
+    (order: SortOrder) => {
+      if (sortState.mode === 'sort') {
+        setSortState({ ...sortState, sortOrder: order });
+      }
+    },
+    [setSortState, sortState]
+  );
 
   return (
     <ErrorBoundary>
@@ -162,6 +264,9 @@ export function Media({ size: defaultSize = 50 }) {
         next={next}
         total={data?.occurrenceSearch?.documents?.total}
         onSelect={({ key }: { key: string | number }) => selectPreview(key)}
+        sortState={sortState}
+        onSortChange={onSortChange}
+        onSortOrderChange={onSortOrderChange}
       />
     </ErrorBoundary>
   );

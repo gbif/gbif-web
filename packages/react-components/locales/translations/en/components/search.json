@@ -38,6 +38,14 @@
   "noResults": "No results",
   "startTyping": "Type to search",
   "rankInGroup": "{rank} in {group}",
+  "sort": {
+    "sortBy": "Sort by",
+    "default": "Default",
+    "random": "Random",
+    "order": "Order",
+    "ascending": "Ascending",
+    "descending": "Descending"
+  },
   "occurrenceClustersView": {
     "about": "About",
     "clusters": "Related",
