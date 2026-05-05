@@ -83,7 +83,6 @@ export function GeologicalLayers({
     earliestPeriodOrLowestSystem,
     earliestEpochOrLowestSeries,
     earliestAgeOrLowestStage,
-    lowestBiostratigraphicZone,
   ];
   const lithostratigraphicLayers = [group, formation, member, bed];
 
@@ -110,6 +109,7 @@ export function GeologicalLayers({
             ))}
         </Classification>
       )}
+      {lowestBiostratigraphicZone && <span>{lowestBiostratigraphicZone}</span>}
     </div>
   );
 }
