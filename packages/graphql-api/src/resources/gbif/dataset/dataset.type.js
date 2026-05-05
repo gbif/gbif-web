@@ -205,7 +205,7 @@ const typeDef = gql`
     publishingOrganization: Organization
 
     constituents(limit: Int, offset: Int): DatasetListResults
-    networks: [Network]!
+    networks(visibleOnDatasetPage: Boolean): [Network]!
     metrics: DatasetChecklistMetrics
     gridded(limit: Int): [GridMetric]
 

@@ -233,6 +233,10 @@ const DATASET_QUERY = /* GraphQL */ `
       gridded {
         percent
       }
+      networks(visibleOnDatasetPage: true) {
+        key
+        title
+      }
     }
   }
 `;

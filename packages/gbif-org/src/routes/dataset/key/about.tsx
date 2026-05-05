@@ -1,3 +1,4 @@
+import { BulletList } from '@/components/bulletList';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { ContactList } from '@/components/contactList';
 import * as charts from '@/components/dashboard';
@@ -5,7 +6,6 @@ import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import EmptyValue from '@/components/emptyValue';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HyperText } from '@/components/hyperText';
-import { Message } from '@/components/message';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -16,8 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/largeCard';
-import { Progress } from '@/components/ui/progress';
-import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import {
   DatasetInsightsQuery,
@@ -33,11 +31,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import formatAsPercentage from '@/utils/formatAsPercentage';
 import { useEffect, useMemo, useState } from 'react';
-import { GiDna1 } from 'react-icons/gi';
-import { MdGridOn, MdInfoOutline } from 'react-icons/md';
-import { TiPipette as SamplingIcon } from 'react-icons/ti';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { LongDate } from '@/components/dateFormats';
 import { useDatasetKeyLoaderData } from '.';
@@ -49,12 +43,9 @@ import { Registration } from './about/Registration';
 import { SamplingDescription } from './about/SamplingDescription';
 import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
-import { ExternalLinkIcon } from '@radix-ui/react-icons';
 import { notNull } from '@/utils/notNull';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/utils/shadcn';
 import { PublishingCountries } from './about/PublishingCountries';
 import { UserAvatarSection } from '@/components/userAvatarSection';
 import { useUser } from '@/contexts/UserContext';
@@ -284,6 +275,29 @@ export function DatasetKeyAbout() {
                       </div>
                     )}
                   </div>
+                  {dataset.networks && dataset.networks.length > 0 && (
+                    <div className="g-text-sm g-text-slate-500 g-mt-2">
+                      <FormattedMessage
+                        id="dataset.pNetwork"
+                        values={{ NUMBER: dataset.networks.length }}
+                      />
+                      :{' '}
+                      <BulletList className="g-inline">
+                        {dataset.networks.filter(notNull).map((network) => (
+                          <li key={network.key}>
+                            <DynamicLink
+                              className="hover:g-underline g-text-primary-500"
+                              to={`/network/${network.key}`}
+                              pageId="networkKey"
+                              variables={{ key: network.key }}
+                            >
+                              {network.title}
+                            </DynamicLink>
+                          </li>
+                        ))}
+                      </BulletList>
+                    </div>
+                  )}
                 </CardDescription>
               </CardHeader>
               <CardContent>
