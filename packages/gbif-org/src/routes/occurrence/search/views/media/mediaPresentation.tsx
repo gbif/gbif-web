@@ -4,12 +4,11 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
-import { OccurrenceSortBy, SortOrder } from '@/gql/graphql';
 import { useCallback, useState } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
 import { MdBrokenImage, MdEvent } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { MediaSortDropdown, MediaSortMode, MediaSortState } from './mediaSort';
+import { MediaGroupDropdown, MediaGroupState } from './mediaSort';
 
 export function MediaPresentation({
   mediaTypes,
@@ -20,22 +19,23 @@ export function MediaPresentation({
   error,
   next,
   onSelect,
-  sortState,
-  onSortChange,
-  onSortOrderChange,
+  groupState,
+  onGroupStateChange,
+  children,
 }: {
   mediaTypes: any;
   results: any;
-  total: number;
+  total?: number;
   endOfRecords: boolean;
   loading: boolean;
   error: any;
   next: () => void;
   onSelect: ({ key }: { key: string }) => void;
-  sortState: MediaSortState;
-  onSortChange: (mode: MediaSortMode, sortBy?: OccurrenceSortBy) => void;
-  onSortOrderChange: (order: SortOrder) => void;
+  groupState: MediaGroupState;
+  onGroupStateChange: (next: MediaGroupState) => void;
+  children?: React.ReactNode;
 }) {
+  const isGrouped = groupState.mode === 'group' && !!groupState.groupBy;
   return (
     <div className="">
       <div className="g-flex g-items-center g-justify-between g-mb-1">
@@ -45,15 +45,44 @@ export function MediaPresentation({
           loading={loading}
           message="counts.nResultsWithImages"
         />
-        <MediaSortDropdown
-          sortState={sortState}
-          onSortChange={onSortChange}
-          onSortOrderChange={onSortOrderChange}
-        />
+        <MediaGroupDropdown state={groupState} onChange={onGroupStateChange} />
       </div>
+      {isGrouped ? (
+        children
+      ) : (
+        <FlatGallery
+          results={results}
+          loading={loading}
+          endOfRecords={endOfRecords}
+          total={total}
+          next={next}
+          onSelect={onSelect}
+        />
+      )}
+    </div>
+  );
+}
+
+function FlatGallery({
+  results,
+  loading,
+  endOfRecords,
+  total,
+  next,
+  onSelect,
+}: {
+  results: any;
+  loading: boolean;
+  endOfRecords: boolean;
+  total?: number;
+  next: () => void;
+  onSelect: ({ key }: { key: string }) => void;
+}) {
+  return (
+    <>
       {total === 0 && !loading && <NoRecords />}
       <div className="g-flex g-flex-wrap g-mb-12 -g-mx-2 -g-mt-2">
-        {results.map((result) => {
+        {results.map((result: any) => {
           const identifier = result.primaryImage?.identifier;
 
           return (
@@ -91,11 +120,11 @@ export function MediaPresentation({
         )}
         <div className="g-flex-1 g-flex-grow-[1000]"></div>
       </div>
-    </div>
+    </>
   );
 }
 
-function GalleryItem({
+export function GalleryItem({
   identifier,
   formattedName,
   countryCode,
@@ -167,7 +196,10 @@ function GalleryItem({
         onClick={onClick}
       >
         {failed && (
-          <div className="gb-image-failed g-h-36 g-mx-auto g-flex g-items-center g-justify-center">
+          <div
+            className="gb-image-failed g-mx-auto g-flex g-items-center g-justify-center"
+            style={{ height }}
+          >
             <MdBrokenImage />
           </div>
         )}
@@ -175,7 +207,8 @@ function GalleryItem({
           <img
             src={identifier}
             alt=""
-            className={`g-h-36 g-mx-auto g-rounded-lg ${coverClass}`}
+            className={`g-mx-auto g-rounded-lg ${coverClass}`}
+            style={{ height }}
             onLoad={onLoad}
             onError={() => setFailed(true)}
           />

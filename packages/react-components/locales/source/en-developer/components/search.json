@@ -38,6 +38,20 @@
   "noResults": "No results",
   "startTyping": "Type to search",
   "rankInGroup": "{rank} in {group}",
+  "sort": {
+    "sortBy": "Sort by",
+    "yearDesc": "Year (newest first)",
+    "yearAsc": "Year (oldest first)"
+  },
+  "group": {
+    "groupBy": "Group by",
+    "default": "Default",
+    "random": "Random",
+    "showMore": "Show {count} more",
+    "cappedHint": "Showing {shown} of {total} groups. Apply more filters to narrow down further.",
+    "useAsFilter": "Use as filter",
+    "unspecified": "Unspecified"
+  },
   "occurrenceClustersView": {
     "about": "About",
     "clusters": "Related",

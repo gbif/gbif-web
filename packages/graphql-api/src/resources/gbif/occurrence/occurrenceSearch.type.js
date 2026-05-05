@@ -178,6 +178,7 @@ const typeDef = gql`
     institutionCode: Long!
     networkKey: Long!
     programme: Long!
+    year: Long!
     taxonKey(checklistKey: ID): Long!
     classKey(checklistKey: ID): Long!
     familyKey(checklistKey: ID): Long!
@@ -206,6 +207,7 @@ const typeDef = gql`
     higherGeography: Long!
     isSequenced: Long!
     sex: Long!
+    lifeStage: Long!
     pathway: Long!
     degreeOfEstablishment: Long!
     islandGroup: Long!

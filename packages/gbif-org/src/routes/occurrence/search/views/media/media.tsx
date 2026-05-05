@@ -17,8 +17,13 @@ import useLocalStorage from 'use-local-storage';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
+import { MediaGrouped } from './mediaGrouped';
 import { MediaPresentation } from './mediaPresentation';
-import { MediaSortMode, MediaSortState } from './mediaSort';
+import { DEFAULT_MEDIA_GROUP_STATE, MediaGroupState } from './mediaSort';
+
+// Fixed seed for the "Random" mode. Keeping this constant means pagination is
+// stable and revisits show the same shuffle order.
+const SHUFFLE_SEED = 12345;
 
 const OCCURRENCE_MEDIA = /* GraphQL */ `
   query occurrenceMediaSearch(
@@ -26,18 +31,18 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
     $predicate: Predicate
     $size: Int
     $from: Int
+    $shuffle: Int
     $sortBy: OccurrenceSortBy
     $sortOrder: SortOrder
-    $shuffle: Int
     $checklistKey: ID
   ) {
     occurrenceSearch(q: $q, predicate: $predicate) {
       documents(
         size: $size
         from: $from
+        shuffle: $shuffle
         sortBy: $sortBy
         sortOrder: $sortOrder
-        shuffle: $shuffle
       ) {
         total
         size
@@ -75,12 +80,6 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
   }
 `;
 
-const DEFAULT_SORT: MediaSortState = {
-  mode: 'default',
-  sortBy: undefined,
-  sortOrder: SortOrder.Asc,
-};
-
 export function Media({ size: defaultSize = 50 }) {
   const [from, setFrom] = useState(0);
   const searchContext = useSearchContext();
@@ -89,11 +88,10 @@ export function Media({ size: defaultSize = 50 }) {
   const currentFilterContext = useContext(FilterContext);
   const [mediaTypes] = useState(['StillImage']);
   const { scope } = useSearchContext();
-  const [sortState, setSortState] = useLocalStorage<MediaSortState>(
-    'occurrenceMediaSort',
-    DEFAULT_SORT
+  const [groupState, setGroupState] = useLocalStorage<MediaGroupState>(
+    'occurrenceMediaGroup',
+    DEFAULT_MEDIA_GROUP_STATE
   );
-  const [shuffleSeed, setShuffleSeed] = useState<number | undefined>(undefined);
   const { data, error, loading, load } = useQuery<
     OccurrenceMediaSearchQuery,
     OccurrenceMediaSearchQueryVariables
@@ -105,6 +103,8 @@ export function Media({ size: defaultSize = 50 }) {
   const [, setPreviewKey] = useEntityDrawer();
 
   const [allData, setAllData] = useState([]);
+
+  const isGrouped = groupState.mode === 'group' && !!groupState.groupBy;
 
   const updateList = useCallback(() => {
     setOrderedList(allData.map((item) => `o_${item.key}`));
@@ -119,6 +119,7 @@ export function Media({ size: defaultSize = 50 }) {
   );
 
   useEffect(() => {
+    if (isGrouped) return;
     setAllData((prev) => {
       const all = [...prev, ...(data?.occurrenceSearch?.documents?.results || [])];
       // get unique by key
@@ -130,35 +131,17 @@ export function Media({ size: defaultSize = 50 }) {
       }, []);
       return unique;
     });
-  }, [data, error, toast]);
+  }, [data, error, toast, isGrouped]);
 
   useEffect(() => {
-    if (error) {
+    if (error && !isGrouped) {
       if (data?.occurrenceSearch?.documents.results) {
         // ignore errors for now - I do not see how they can be critical enough to warn the user given the query we have. At worst the name will show without formatting.
-        // notify the user with a toast about the error but contnue to show the images
-        // toast({
-        //   title: 'Unable to load all content',
-        //   variant: 'destructive',
-        // });
       } else {
         throw error;
       }
     }
-  }, [error, allData, toast]);
-
-  // Generate a shuffle seed on first entry into random mode (e.g. after a page reload
-  // when the persisted sortState already has mode==='random'). Otherwise clear it.
-  useEffect(() => {
-    if (sortState.mode === 'random') {
-      setShuffleSeed((current) =>
-        typeof current === 'number' ? current : Math.floor(Math.random() * 1_000_000)
-      );
-    } else if (typeof shuffleSeed === 'number') {
-      setShuffleSeed(undefined);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortState.mode]);
+  }, [error, allData, toast, isGrouped, data]);
 
   useEffect(() => {
     const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
@@ -169,26 +152,32 @@ export function Media({ size: defaultSize = 50 }) {
         {
           type: 'in',
           key: 'mediaType',
-          // values: ['StillImage', 'MovingImage', 'Sound'],
           values: ['StillImage'],
         },
       ].filter((x) => x),
     };
-    const isSort = sortState.mode === 'sort' && sortState.sortBy;
-    const isRandom = sortState.mode === 'random' && typeof shuffleSeed === 'number';
+    const isRandom = groupState.mode === 'random';
+    const yearSort =
+      groupState.mode === 'yearDesc'
+        ? { sortBy: OccurrenceSortBy.Year, sortOrder: SortOrder.Desc }
+        : groupState.mode === 'yearAsc'
+          ? { sortBy: OccurrenceSortBy.Year, sortOrder: SortOrder.Asc }
+          : undefined;
+    // When grouped, the grouped view fetches its own images. We still run this query
+    // with size:0 so the top-of-page count keeps showing the total records with images.
     load({
       keepDataWhileLoading: true,
       variables: {
         predicate,
         q: query.q,
-        size,
-        from,
-        sortBy: isSort ? (sortState.sortBy as OccurrenceSortBy) : undefined,
-        sortOrder: isSort ? sortState.sortOrder : undefined,
-        shuffle: isRandom ? shuffleSeed : undefined,
+        size: isGrouped ? 0 : size,
+        from: isGrouped ? 0 : from,
+        shuffle: isRandom ? SHUFFLE_SEED : undefined,
+        sortBy: yearSort?.sortBy,
+        sortOrder: yearSort?.sortOrder,
       },
     });
-    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // We are tracking filter changes via a hash that is updated whenever the filter changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     from,
@@ -196,78 +185,44 @@ export function Media({ size: defaultSize = 50 }) {
     scope,
     load,
     size,
-    sortState.mode,
-    sortState.sortBy,
-    sortState.sortOrder,
-    shuffleSeed,
+    groupState.mode,
+    isGrouped,
   ]);
 
-  // Reset pagination + accumulated data when filters or sort change.
+  // Reset pagination + accumulated data when filters or grouping change.
   useEffect(() => {
     setFrom(0);
     setAllData([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    currentFilterContext.filterHash,
-    scope,
-    sortState.mode,
-    sortState.sortBy,
-    sortState.sortOrder,
-    shuffleSeed,
-  ]);
+  }, [currentFilterContext.filterHash, scope, groupState.mode, groupState.groupBy]);
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
   }, [from, size]);
 
-  const onSortChange = useCallback(
-    (mode: MediaSortMode, sortBy?: OccurrenceSortBy) => {
-      if (mode === 'random') {
-        // Generate a fresh seed every time the user (re-)picks random.
-        setShuffleSeed(Math.floor(Math.random() * 1_000_000));
-        setSortState({ mode: 'random', sortBy: undefined, sortOrder: SortOrder.Asc });
-      } else if (mode === 'sort' && sortBy) {
-        // Toggle ASC/DESC if the same field is picked again.
-        if (sortState.mode === 'sort' && sortState.sortBy === sortBy) {
-          setSortState({
-            mode: 'sort',
-            sortBy,
-            sortOrder: sortState.sortOrder === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc,
-          });
-        } else {
-          setSortState({ mode: 'sort', sortBy, sortOrder: SortOrder.Asc });
-        }
-      } else {
-        setSortState(DEFAULT_SORT);
-      }
+  const onGroupStateChange = useCallback(
+    (next: MediaGroupState) => {
+      setGroupState(next);
     },
-    [setSortState, sortState]
-  );
-
-  const onSortOrderChange = useCallback(
-    (order: SortOrder) => {
-      if (sortState.mode === 'sort') {
-        setSortState({ ...sortState, sortOrder: order });
-      }
-    },
-    [setSortState, sortState]
+    [setGroupState]
   );
 
   return (
     <ErrorBoundary>
       <MediaPresentation
         mediaTypes={mediaTypes}
-        results={allData}
+        results={isGrouped ? [] : allData}
         loading={loading}
-        error={error}
+        error={isGrouped ? undefined : error}
         endOfRecords={from + size >= data?.occurrenceSearch?.documents?.total}
         next={next}
         total={data?.occurrenceSearch?.documents?.total}
         onSelect={({ key }: { key: string | number }) => selectPreview(key)}
-        sortState={sortState}
-        onSortChange={onSortChange}
-        onSortOrderChange={onSortOrderChange}
-      />
+        groupState={groupState}
+        onGroupStateChange={onGroupStateChange}
+      >
+        {isGrouped && groupState.groupBy && <MediaGrouped groupBy={groupState.groupBy} />}
+      </MediaPresentation>
     </ErrorBoundary>
   );
 }
