@@ -1,5 +1,6 @@
 import { HelpText } from '@/components/helpText';
 import { Card } from '@/components/ui/smallCard';
+import { apiConstants } from '@/config/apiConstants';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { FormattedMessage } from 'react-intl';
 
@@ -14,7 +15,7 @@ export function AboutContent() {
 }
 
 export function ApiContent({
-  id = 5231190,
+  id = 'F',
   checklistKey,
 }: {
   id?: number | string;
@@ -32,20 +33,20 @@ export function ApiContent({
       </h4>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleTaxon" /> <br />
-        <a href={`https://api.gbif.org/v2/taxon/${datasetKey}/${id}`}>
-          https://api.gbif.org/v2/taxon/{datasetKey}/{id}
+        <a href={`${apiConstants.taxonApi}/${datasetKey}/${id}`}>
+          {apiConstants.taxonApi}/{datasetKey}/{id}
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.singleTaxonDetails" /> <br />
-        <a href={`https://api.gbif.org/v2/taxon/${datasetKey}/${id}/info`}>
-          https://api.gbif.org/v2/taxon/{datasetKey}/{id}/info
+        <a href={`${apiConstants.taxonApi}/${datasetKey}/${id}/info`}>
+          {apiConstants.taxonApi}/{datasetKey}/{id}/info
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
         <FormattedMessage id="apiHelp.searchTaxa" /> <br />
-        <a href={`https://api.gbif.org/v2/taxon/search/${datasetKey}?q=Passer`}>
-          https://api.gbif.org/v2/taxon/search/{datasetKey}?q=passer
+        <a href={`${apiConstants.taxonApi}/search/${datasetKey}?q=Passer`}>
+          {apiConstants.taxonApi}/search/{datasetKey}?q=passer
         </a>
       </Card>
     </div>

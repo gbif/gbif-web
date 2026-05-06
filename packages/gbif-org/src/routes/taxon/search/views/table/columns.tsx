@@ -4,7 +4,6 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
-import { MdInfoOutline, MdLock, MdLockOpen } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleTaxonSearchResult } from './table';
 
@@ -25,17 +24,16 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
           return (
             <div className="g-inline-flex g-items-center g-w-full">
               {typeof showPreview === 'function' &&
-                taxon?.taxon?.datasetKey === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY && (
+                taxon?.datasetKey === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY && (
                   <button
                     className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
                     onClick={(e) => {
                       // Prevent the parent link from being triggered
-                      if (taxon.taxon?.taxonID != null)
-                        showPreview(taxon?.taxon?.taxonID?.toString());
+                      if (taxon?.taxonID != null) showPreview(taxon?.taxonID?.toString());
                       e.preventDefault();
                     }}
                   >
-                    <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">
+                    <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
                       <div className="g-flex g-items-center">
                         <GoSidebarExpand size={16} />
                       </div>
@@ -46,37 +44,16 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                 <span
                   className="g-pointer-events-auto"
                   dangerouslySetInnerHTML={{
-                    __html: taxon.taxon?.label as string,
+                    __html: taxon.label as string,
                   }}
                 />
                 {vernacular && (
                   <div className="g-ml-1 g-text-slate-400 g-flex g-items-center">
                     <span className="g-me-1">{vernacular}</span>
-                    <MdInfoOutline />
                   </div>
                 )}
               </div>
             </div>
-          );
-        },
-        Actions: ({ hideFirstColumnLock, setFirstColumnIsLocked, firstColumnIsLocked }) => {
-          return (
-            <>
-              {!hideFirstColumnLock && (
-                <SimpleTooltip
-                  side="bottom"
-                  asChild
-                  i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
-                  i18nKey={
-                    firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'
-                  }
-                >
-                  <button onClick={() => setFirstColumnIsLocked((v) => !v)}>
-                    {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
-                  </button>
-                </SimpleTooltip>
-              )}
-            </>
           );
         },
       },
@@ -84,8 +61,10 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
         id: 'taxonomicStatus',
         header: 'filters.taxonomicStatus.name',
         filterKey: 'status', // default is same as id
-        cell: ({ taxon, classification }) => {
+        cell: (taxon) => {
           if (!taxon) return null;
+          const { classification } = taxon;
+          // taxonapi hack: the API is awkward here. We need to extract the accepted name from the classification which doesn't live under the taxon.
           const { taxonomicStatus, acceptedNameUsageID } = taxon;
           const lastClassification = classification?.[classification.length - 1];
           return (
@@ -101,9 +80,8 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                   <DynamicLink
                     className="g-underline g-pointer-events-auto"
                     // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
-                    to={`/taxon/${acceptedNameUsageID}`}
                     pageId="taxonKey"
-                    variables={{ key: acceptedNameUsageID }}
+                    variables={{ key: acceptedNameUsageID, datasetKey: taxon.datasetKey ?? '' }}
                   >
                     {lastClassification?.scientificName}
                   </DynamicLink>
@@ -117,7 +95,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
       {
         id: 'rank',
         header: 'filters.taxonRank.name',
-        cell: ({ taxon }) => {
+        cell: (taxon) => {
           if (!taxon || !taxon.taxonRank) return null;
           const { taxonRank } = taxon;
           return (
@@ -130,12 +108,15 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
       {
         id: 'taxonomy',
         header: 'tableHeaders.parents',
+        minWidth: 350,
         cell: (taxon) => {
           const classification = taxon?.classification?.map((x) => ({
             rank: x.taxonRank,
             name: x.scientificName,
           }));
-          return <TaxonClassification classification={classification} majorOnly={true} />;
+          return classification ? (
+            <TaxonClassification classification={classification} majorOnly={true} />
+          ) : null;
         },
       },
     ];

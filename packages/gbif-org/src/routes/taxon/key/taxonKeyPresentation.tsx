@@ -2,7 +2,7 @@ import { useCount } from '@/components/count';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
-import { FeatureList, GenericFeature, Homepage, TaxonomyIcon } from '@/components/highlights';
+import { FeatureList, GenericFeature, TaxonomyIcon } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -32,6 +32,7 @@ import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
 import AboutNonBackbone from './AboutNonBackbone';
+import { apiConstants } from '@/config/apiConstants';
 
 const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
@@ -44,14 +45,9 @@ export const TaxonKeyContext = createContext<{
 }>({
   data: {
     __typename: undefined,
-    taxon: undefined,
-    imagesCount: undefined,
-    /*     typesSpecimenCount: undefined,
-     */
   },
   slowTaxon: {
     __typename: undefined,
-    taxon: undefined,
   },
 });
 
@@ -64,7 +60,7 @@ export function TaxonKey({
   slowTaxon?: SlowTaxonQuery;
   slowTaxonLoading: boolean;
 }) {
-  if (data.taxonInfo?.taxon == null) throw new NotFoundError();
+  if (data.taxonInfo == null) throw new NotFoundError();
 
   return (
     <PageHeader data={data}>
@@ -85,12 +81,12 @@ export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
   return (
     <ArticleContainer className="g-bg-slate-100 g-p-0">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        {data.taxonInfo?.taxon?.datasetKey && (
+        {data.taxonInfo?.datasetKey && (
           <div className="g-flex g-items-center g-gap-2 g-mb-4">
             <Button asChild variant="outline" className="g-flex-none g-bg-white">
               <DynamicLink
                 pageId="datasetKey"
-                variables={{ key: data.taxonInfo?.taxon?.datasetKey }}
+                variables={{ key: data.taxonInfo?.datasetKey }}
                 path={`/taxon`}
               >
                 <FormattedMessage id="taxon.viewAllTaxa" defaultMessage="View all" />
@@ -126,20 +122,21 @@ const SectionTabs = ({ occurrenceCount = 0 }: { occurrenceCount?: number }) => {
 
 const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.ReactNode }) => {
   const { taxonInfo } = data;
-  const taxon = taxonInfo?.taxon;
+  const taxon = taxonInfo;
   if (!taxon) throw new NotFoundError();
 
-  const isPrimaryTaxonomy = taxonInfo?.taxon?.datasetKey === primaryChecklist;
+  const isPrimaryTaxonomy = taxonInfo?.datasetKey === primaryChecklist;
   const { count, loading: countLoading } = useCount({
-    apiEndpoint: '/v1/occurrence/search',
-    params: { taxonKey: taxonInfo?.taxon?.taxonID, checklistKey: primaryChecklist },
+    apiEndpoint: apiConstants.occurrenceSearch,
+    params: { taxonKey: taxonInfo?.taxonID, checklistKey: primaryChecklist },
   });
 
   const { count: speciesCount } = useCount({
-    apiEndpoint: `/v2/taxon/search/${primaryChecklist}`,
+    apiEndpoint: `${apiConstants.taxonApi}/search/${primaryChecklist}`,
     params: {
-      taxonId: taxonInfo?.taxon?.taxonID,
+      taxonId: taxonInfo?.taxonID,
       taxonRank: 'SPECIES',
+      taxonomicStatus: 'ACCEPTED',
     },
   });
 
@@ -153,7 +150,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
       <PageMetaData
         title={taxon.scientificName}
         jsonLd={getTaxonSchema(data)}
-        path={`/taxon/${taxonInfo?.taxon?.taxonID}`} // TODO what about locale here?
+        path={`/taxon/${taxonInfo?.taxonID}`} // TODO what about locale here?
         noCanonical
       />
 
@@ -350,11 +347,15 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                           <TaxonomyIcon />
                           <DynamicLink
                             pageId="taxonSearch"
-                            searchParams={{ taxonId: taxon.taxonID, taxonRank: 'SPECIES' }}
+                            searchParams={{
+                              taxonId: taxon.taxonID,
+                              taxonRank: 'SPECIES',
+                              taxonomicStatus: 'ACCEPTED',
+                            }}
                             className="hover:g-underline"
                           >
                             <FormattedMessage
-                              id="counts.nSpecies"
+                              id="counts.nAcceptedSpecies"
                               values={{ total: speciesCount }}
                             />
                           </DynamicLink>

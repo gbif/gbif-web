@@ -3,6 +3,7 @@ import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { HashLink } from 'react-router-hash-link';
 import { Card } from './ui/smallCard';
+import { MdLink } from 'react-icons/md';
 
 export function GbifLinkCard({ path, className }: { path: string; className?: string }) {
   const config = useConfig();
@@ -15,6 +16,39 @@ export function GbifLinkCard({ path, className }: { path: string; className?: st
           <TocLi>
             <a className="g-text-inherit" href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>
               <FormattedMessage id="phrases.viewOnGBif" />
+            </a>
+          </TocLi>
+        </ul>
+      </nav>
+    </Card>
+  );
+}
+
+export function CatalogueOfLifeCard({
+  datasetKey,
+  taxonID,
+  checklistbankURL,
+  title,
+  className,
+}: {
+  datasetKey: string;
+  taxonID: string;
+  checklistbankURL: string;
+  title?: React.ReactNode;
+  className?: string;
+}) {
+  const url =
+    datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY
+      ? `https://www.catalogueoflife.org/data/taxon/${taxonID}`
+      : checklistbankURL;
+  return (
+    <Card className={cn('', className)}>
+      <nav>
+        <ul className="g-list-none g-m-0 g-p-0 g-my-2">
+          <TocLi>
+            <a className="g-text-inherit" href={url}>
+              {title ?? <FormattedMessage id="taxon.viewOnCatalogueOfLife" />}{' '}
+              <MdLink className="g-inline g-ms-1" />
             </a>
           </TocLi>
         </ul>

@@ -4,13 +4,7 @@ const DEFAULT_CHECKLIST_KEY =
   config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
 
 function stringCompare(a, b) {
-  if (a < b) {
-    return -1;
-  }
-  if (a > b) {
-    return 1;
-  }
-  return 0;
+  return (a ?? '').localeCompare(b ?? '', undefined, { sensitivity: 'base' });
 }
 
 /**
@@ -110,11 +104,16 @@ const sharedTaxonFields = {
   },
   wikiData: ({ taxonID }, args, { dataSources }) =>
     dataSources.wikidataAPI.getWikiDataTaxonData(taxonID).then((response) => {
+      // wikidata has been unpredictabel in what it returns. So be defensive
+      const identifiers = response?.identifiers ?? [];
+      const identifiersWithLabels = identifiers.filter((identifier) => {
+        return identifier?.label?.value;
+      });
       // sort them by label
       return {
         ...response,
-        identifiers: response?.identifiers?.sort((a, b) =>
-          stringCompare(a.label.value, b.label.value),
+        identifiers: identifiersWithLabels.sort((a, b) =>
+          stringCompare(a?.label?.value, b?.label?.value),
         ),
       };
     }),
@@ -159,15 +158,10 @@ const sharedTaxonFields = {
     args,
     { dataSources },
   ) =>
-    dataSources.taxonAPI
-      .getParents({
-        key: taxonID,
-        datasetKey,
-      })
-      .then((response) => {
-        // reverse ordering as the API is inconsistent, https://github.com/gbif/taxon-ws/issues/48
-        return [...(response ?? [])]?.reverse();
-      }),
+    dataSources.taxonAPI.getParents({
+      key: taxonID,
+      datasetKey,
+    }),
   mapCapabilities: (
     { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
     args,
@@ -248,7 +242,7 @@ export default {
     facet: (parent) => ({
       _query: { ...parent._query, limit: undefined, offset: undefined },
       _datasetKey: parent._datasetKey,
-    }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+    }),
   },
   TaxonFacet: {
     taxonRank: getTaxonFacet('taxonRank'),
@@ -257,6 +251,8 @@ export default {
     taxonId: getTaxonFacet('taxonId'),
   },
   TaxonResult: {
+    fallbackID: ({ taxonID, scientificName, taxonomicStatus, taxonRank }) =>
+      taxonID ?? `__${scientificName}-${taxonomicStatus}-${taxonRank}__`,
     vernacularName: getVernacularName,
   },
   TaxonFacetResult_taxonId: {
@@ -289,26 +285,8 @@ export default {
     },
   },
   TaxonInfo: {
-    // dataset: ({ datasetKey }, args, { dataSources }) =>
-    //   dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-    // wikiData: ({ key }, args, { dataSources }) =>
-    //   dataSources.wikidataAPI.getWikiDataTaxonData(key),
-    // backboneTaxon: ({ key, nubKey }, args, { dataSources }) => {
-    //   if (typeof nubKey === 'undefined' || key === nubKey) return null;
-    //   return dataSources.taxonAPI.getTaxonByKey({ key: nubKey });
-    // },
-    // acceptedTaxon: ({ key, acceptedKey }, args, { dataSources }) => {
-    //   if (typeof acceptedKey === 'undefined' || key === acceptedKey)
-    //     return null;
-    //   return dataSources.taxonAPI.getTaxonByKey({ key: acceptedKey });
-    // },
-    // mapCapabilities: ({ key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   return dataSources.occurrenceAPI.getMapCapabilities({ taxonKey: key });
-    // },
+    ...sharedTaxonFields,
     vernacularName: getVernacularName,
-    scientificName: ({ taxon }) => taxon?.scientificName,
-    label: ({ taxon }) => taxon?.scientificName,
     namePublishedIn: ({ taxon, bibliography }) => {
       if (!taxon?.namePublishedInID) return null;
       return (
@@ -320,12 +298,14 @@ export default {
       // the api returns all possible images, but we want to limit it, so we do the limiting here
       return media?.slice(0, limit) ?? [];
     },
-    groupIconSVG: ({ group }, args, { dataSources }) =>
-      group
+    groupIconSVG: ({ taxonomicGroup }, args, { dataSources }) =>
+      taxonomicGroup
         ? dataSources.taxonAPI
             .getTaxGroups()
             .then((groups) =>
-              groups.find((g) => g.name.toLowerCase() === group.toLowerCase()),
+              groups.find(
+                (g) => g.name.toLowerCase() === taxonomicGroup.toLowerCase(),
+              ),
             )
             .then((g) => g?.iconSVG ?? null)
         : null,
@@ -347,9 +327,6 @@ export default {
           return response?.scientificName;
         });
     },
-  },
-  TaxonFull: {
-    ...sharedTaxonFields,
   },
   TaxonChild: {
     childrenTree: sharedTaxonFields.children,

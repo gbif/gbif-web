@@ -3,7 +3,6 @@ import {
   TaxonIssueLabel,
   TaxonRankLabel,
   TaxonStatusLabel,
-  TaxonKeyLabel,
   TaxonLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -11,7 +10,6 @@ import {
   filterEnumConfig,
   filterFreeTextConfig,
   FilterSetting,
-  filterSuggestConfig,
   filterTaxonConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
@@ -20,7 +18,6 @@ import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
 
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { taxonIdSuggest } from './taxonIdSuggest';
 import { taxonKeyClbSuggest } from '@/utils/suggestEndpoints';
 
 const freeTextConfig: filterFreeTextConfig = {

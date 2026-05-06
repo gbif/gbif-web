@@ -5,6 +5,7 @@ import { GraphQLService } from '@/services/graphQLService';
 import { FormattedMessage } from 'react-intl';
 import { CANCEL_REQUEST, fetchWithCancel } from './fetchWithCancel';
 import { stringify } from './querystring';
+import { apiConstants } from '@/config/apiConstants';
 
 export type SuggestConfig = {
   render?: (item: SuggestionItem) => React.ReactNode;
@@ -236,8 +237,7 @@ export const taxonKeySuggest = {
 
 export type TaxonSuggestType = SuggestFnProps & { checklistKey?: string | number };
 
-// https://api.gbif-dev.org/v2/taxon/suggest/90d9e8a6-0ce1-472d-b682-3451095dbc5a?q=Ernobius%20tabidus
-
+// https://api.gbif.org/v2/taxon/suggest/90d9e8a6-0ce1-472d-b682-3451095dbc5a?q=Ernobius%20tabidus
 export const taxonKeyClbSuggest = {
   render: (item: SuggestionItem) => {
     const isSynonym = item.isSynonym;
@@ -269,14 +269,9 @@ export const taxonKeyClbSuggest = {
       </div>
     );
   },
-  getSuggestions: ({
-    q,
-    siteConfig,
-    checklistKey,
-    intl,
-  }: TaxonSuggestType): SuggestResponseType => {
+  getSuggestions: ({ q, checklistKey, intl }: TaxonSuggestType): SuggestResponseType => {
     const { cancel, promise } = fetchWithCancel(
-      `${siteConfig.v2Endpoint}/taxon/suggest/${checklistKey}?limit=20&q=${q}`
+      `${apiConstants.taxonApi}/suggest/${checklistKey}?limit=20&q=${q}`
     );
     const result = promise
       .then((res) => res.json())

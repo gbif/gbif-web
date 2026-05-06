@@ -32,13 +32,14 @@ import { useInstitutionKeyLoaderData } from '.';
 import { GrSciCollMetadata } from './MetaData';
 import { PredicateType } from '@/gql/graphql';
 import { notNull } from '@/utils/notNull';
+import { apiConstants } from '@/config/apiConstants';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 export default function About() {
   const { institution } = useInstitutionKeyLoaderData();
   const { count, loading } = useCount({
-    apiEndpoint: '/v1/occurrence/search',
+    apiEndpoint: apiConstants.occurrenceSearch,
     params: { institutionKey: institution.key },
   });
   const removeSidebar = useBelow(1100);

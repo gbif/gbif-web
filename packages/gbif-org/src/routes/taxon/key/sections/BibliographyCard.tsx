@@ -107,10 +107,7 @@ export default function BibliographyCard({ taxonInfo, className }: Props) {
             <FormattedMessage id="taxon.bibliography" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback
-              taxonId={taxonInfo?.taxon?.taxonID}
-              datasetKey={taxonInfo?.taxon?.datasetKey}
-            />
+            <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
           </CardDescription>
         </CardHeader>
         <CardContent>

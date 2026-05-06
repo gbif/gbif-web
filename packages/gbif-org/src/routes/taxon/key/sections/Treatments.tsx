@@ -1,7 +1,13 @@
 import { Table } from '@/components/dashboard/shared';
 import { HyperText } from '@/components/hyperText';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/largeCard';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useState } from 'react';
@@ -9,7 +15,7 @@ import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from '@/components/paging';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { Formatted } from 'maplibre-gl';
+import { ColFeedback } from './ColFeedback';
 
 const DEFAULT_LIMIT = 3;
 
@@ -31,19 +37,22 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
         <CardTitle>
           <FormattedMessage id="taxon.treatments" />
         </CardTitle>
+        <CardDescription>
+          <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="g-text-sm g-text-slate-500 g-mb-1">
           <>
             <FormattedMessage
               id="counts.nResults"
-              values={{ total: taxonInfo?.taxon?.treatments?.length || 0 }}
+              values={{ total: taxonInfo?.treatments?.length || 0 }}
             />
-            {(taxonInfo?.taxon?.treatments?.length ?? 0) > limit && (
+            {(taxonInfo?.treatments?.length ?? 0) > limit && (
               <Button
                 variant="link"
                 onClick={() => {
-                  setLimit(taxonInfo?.taxon?.treatments?.length || 0);
+                  setLimit(taxonInfo?.treatments?.length || 0);
                   setOffset(0);
                 }}
               >
@@ -66,30 +75,46 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
         <div style={{ overflow: 'auto' }}>
           <Table removeBorder={false}>
             <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
-              {taxonInfo?.taxon?.treatments?.slice(offset, offset + limit).map((treatment, i) => (
+              {taxonInfo?.treatments?.slice(offset, offset + limit).map((treatment, i) => (
                 <tr key={i}>
                   <td>
                     <div className="g-mt-1 g-mb-1">
                       <div className="g-flex g-text-sm g-text-slate-500 g-mb-1">
                         <div className="g-flex-auto" />
-                        {treatment?.references && (
+                        {/* {treatment?.references && (
                           <a href={treatment?.references} target="_blank" rel="noreferrer">
                             <MdLink /> {treatment?.dataset?.publishingOrganizationTitle}
                           </a>
+                        )} */}
+                      </div>
+                      <div className="[&_a]:g-underline">
+                        <HyperText text={treatment?.dataset?.citation?.text} fallback />
+                      </div>
+                      <div className="g-flex g-items-center g-text-sm g-text-slate-500 g-mt-1">
+                        {treatment?.references && (
+                          <a
+                            href={treatment?.references}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="g-me-2 g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-600 g-text-xs g-py-0.5 g-px-2 g-rounded-full g-no-underline g-border"
+                          >
+                            <MdLink /> URL
+                          </a>
+                        )}
+                        {treatment?.datasetKey && (
+                          <div className="g-text-sm g-text-slate-500 g-mt-1">
+                            <FormattedMessage id={`dataset.dataset`} />:{' '}
+                            <DynamicLink
+                              pageId="datasetKey"
+                              variables={{ key: treatment?.datasetKey }}
+                            >
+                              {treatment?.dataset?.title ?? (
+                                <FormattedMessage id="phrases.unknown" />
+                              )}
+                            </DynamicLink>
+                          </div>
                         )}
                       </div>
-                      <HyperText text={treatment?.dataset?.citation?.text} fallback />
-                      {treatment?.datasetKey && (
-                        <div className="g-text-sm g-text-slate-500 g-mt-1">
-                          <FormattedMessage id={`taxon.source`} />:{' '}
-                          <DynamicLink
-                            pageId="datasetKey"
-                            variables={{ key: treatment?.datasetKey }}
-                          >
-                            {treatment?.dataset?.title ?? <FormattedMessage id="phrases.unknown" />}
-                          </DynamicLink>
-                        </div>
-                      )}
                     </div>
                   </td>
                 </tr>
@@ -100,7 +125,7 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
             next={() => setOffset(offset + limit)}
             prev={() => setOffset(offset - limit)}
             isFirstPage={offset === 0}
-            isLastPage={offset + limit >= (taxonInfo?.taxon?.treatments?.length || 0)}
+            isLastPage={offset + limit >= (taxonInfo?.treatments?.length || 0)}
           />
         </div>
       </CardContent>

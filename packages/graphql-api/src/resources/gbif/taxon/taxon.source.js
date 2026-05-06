@@ -8,7 +8,7 @@ class TaxonAPI extends QueuedRESTDataSource {
       // notice that this only is used if the enQueue option is set to true in the request
       concurrency: 10, // Maximum concurrent requests
     });
-    this.baseURL = config.apiv2;
+    this.baseURL = `${config.apiv2}/experimental`;
     this.config = config;
   }
 
@@ -117,7 +117,7 @@ class TaxonAPI extends QueuedRESTDataSource {
 
   async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
     return this.get(
-      `/species/match/metadata?`,
+      `${this.config.apiv2}/species/match/metadata?`,
       stringify({ checklistKey }, { indices: false }),
     );
   }
@@ -132,7 +132,7 @@ class TaxonAPI extends QueuedRESTDataSource {
   }) {
     const isIncertaeSedis = usageKey === 0 || usageKey === '0';
     return this.get(
-      `/species/match?`,
+      `${this.config.apiv2}/species/match?`,
       stringify(
         { checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey },
         { indices: false },
@@ -160,7 +160,7 @@ class TaxonAPI extends QueuedRESTDataSource {
     checklistKey = this.config.defaultChecklist,
   }) {
     return this.get(
-      `/species/match?`,
+      `${this.config.apiv2}/species/match?`,
       stringify({ checklistKey, scientificName: name }, { indices: false }),
     ).then((result) => {
       if (!result.usage) {

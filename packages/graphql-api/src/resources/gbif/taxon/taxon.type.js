@@ -8,29 +8,32 @@ const typeDef = gql`
     checklistMetadata(checklistKey: ID!): ChecklistMeta
     taxonSearch(
       datasetKey: ID
+      taxonId: [ID]
       taxonRank: [String]
-      taxonID: [ID]
       taxonomicStatus: [String]
-      extinct: Boolean
-      nameType: [String]
-      code: [String]
-      origin: [String]
-      group: [String]
-      authorship: [String]
-      authorshipYear: [Int]
       issue: [String]
       q: String
-
-      searchType: TaxonSearchQType
-      sortBy: TaxonSearchSortBy
-      reverse: Boolean
       limit: Int
       offset: Int
-      facet: [String]
-      facetMinCount: Int
-      facetMultiselect: Boolean
-      facetLimit: Int
-      facetOffset: Int
+      sortBy: TaxonSearchSortBy
+      searchType: TaxonSearchQType
+      reverse: Boolean
+
+      # Many of the fields do not work despite the tech docs. For now expose as little as possible
+      # extinct: Boolean
+      # environment: [String]
+      # taxonomicGroup: [String]
+      # nomenclaturalCode: [String]
+      # nameType: [String]
+      # author: [String]
+      # year: [Int]
+      # origin: [String]
+      # searchContent: String
+      # facet: [String]
+      # facetMinCount: Int
+      # facetMultiselect: Boolean
+      # facetLimit: Int
+      # facetOffset: Int
       query: TaxonSearchInput
     ): TaxonSearchResult
     datasetRoots(datasetKey: ID, limit: Int, offset: Int): TaxonTreeResults
@@ -50,29 +53,30 @@ const typeDef = gql`
 
   input TaxonSearchInput {
     datasetKey: ID
-    taxonRank: [String]
     taxonId: [ID]
+    taxonRank: [String]
     taxonomicStatus: [String]
-    extinct: Boolean
-    nameType: [String]
-    code: [String]
-    origin: [String]
-    group: [String]
-    authorship: [String]
-    authorshipYear: [Int]
     issue: [String]
     q: String
-
-    searchType: TaxonSearchQType
-    sortBy: TaxonSearchSortBy
-    reverse: Boolean
     limit: Int
     offset: Int
+    sortBy: TaxonSearchSortBy
+    searchType: TaxonSearchQType
+    reverse: Boolean
     facet: [String]
-    facetMinCount: Int
-    facetMultiselect: Boolean
     facetLimit: Int
     facetOffset: Int
+
+    # Many of the fields do not work despite the tech docs. For now expose as little as possible
+    # extinct: Boolean
+    # environment: [String]
+    # taxonomicGroup: [String]
+    # nomenclaturalCode: [String]
+    # nameType: [String]
+    # author: [String]
+    # year: [Int]
+    # origin: [String]
+    # searchContent: String
   }
 
   type TaxonSearchResult {
@@ -86,13 +90,42 @@ const typeDef = gql`
   }
 
   type TaxonResult {
-    taxon: TaxonSimple!
-    classification: [TaxonClassification!]!
-    vernacularNames: [VernacularName!]!
+    datasetKey: ID!
+    taxonID: ID
+    fallbackID: ID!
+    acceptedNameUsageID: ID
+    acceptedNameUsage: String
+    parentNameUsageID: ID
+    scientificName: String!
+    scientificNameAuthorship: String
+    taxonRank: String!
+    taxonomicStatus: String!
+    nomenclaturalCode: String
+    extinct: Boolean
+    references: String
+    label: String!
+    mapCapabilities: MapCapabilities
+
+    dataset: Dataset
+    acceptedTaxon: TaxonSimple
+    occurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
+    breakdown(sortByCount: Boolean): TaxonBreakdown
+    wikiData: WikiDataTaxonData
+    relatedInfo: RelatedTaxonInfo
+    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
+    children(limit: Int, offset: Int): Children
+    parentTree: [TaxonChild!]
+
+    classification: [TaxonClassification!]
+    vernacularNames: [TaxonSearchResultVernacularName!]
     """
     Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
     """
-    vernacularName(language: String): VernacularName
+    vernacularName(language: String): TaxonSearchResultVernacularName
   }
 
   type TaxonFacet {
@@ -225,6 +258,7 @@ const typeDef = gql`
   type Bibliography {
     referenceID: ID!
     doi: String
+    url: String
     citation: String!
     remarks: String
     """
@@ -271,15 +305,16 @@ const typeDef = gql`
     remarks: String
   }
 
+  type TaxonSearchResultVernacularName {
+    vernacularName: String!
+    language: String
+  }
+
   type TaxonClassification {
     taxonID: ID!
-    acceptedNameUsageID: ID
-    parentNameUsageID: ID
     scientificName: String
     scientificNameAuthorship: String
     taxonRank: String
-    taxonomicStatus: String
-    nomenclaturalCode: String
     label: String
   }
 
@@ -332,56 +367,6 @@ const typeDef = gql`
     related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
-  }
-
-  type TaxonFull {
-    datasetKey: ID!
-    taxonID: ID!
-    acceptedNameUsageID: ID
-    parentNameUsageID: ID
-    scientificName: String!
-    scientificNameAuthorship: String
-    taxonRank: String!
-    taxonomicStatus: String!
-    nomenclaturalCode: String
-    extinct: Boolean
-    label: String!
-    scientificNameID: ID!
-    acceptedNameUsage: String
-    parentNameUsage: String
-    originalNameUsageID: ID
-    originalNameUsage: String
-    nameAccordingTo: String
-    namePublishedInID: String
-    namePhrase: String
-    nomenclaturalStatus: String
-    nameType: String!
-    taxonomicGroup: String
-    genericName: String
-    infragenericEpithet: String
-    specificEpithet: String
-    infraspecificEpithet: String
-    cultivarEpithet: String
-    sourceDatasetKey: String
-    sourceID: ID
-    references: String
-    taxonRemarks: String
-    issues: [String]
-
-    dataset: Dataset
-    acceptedTaxon: TaxonSimple
-    occurrenceMedia(
-      limit: Int
-      offset: Int
-      mediaType: MediaType
-    ): TaxonOccurrenceMedia
-    breakdown(sortByCount: Boolean): TaxonBreakdown
-    wikiData: WikiDataTaxonData
-    relatedInfo: RelatedTaxonInfo
-    related(datasetType: RelatedDatasetType): [TaxonSimple!]!
-    children(limit: Int, offset: Int): Children
-    parentTree: [TaxonChild!]
-    mapCapabilities: MapCapabilities
   }
 
   type Children {
@@ -471,10 +456,41 @@ const typeDef = gql`
   }
 
   type TaxonInfo {
-    group: String
+    taxonID: ID!
+    datasetKey: ID!
+    scientificName: String!
+    scientificNameAuthorship: String
+    taxonRank: String!
+    label: String!
+    acceptedNameUsageID: ID
+    parentNameUsageID: ID
+    taxonomicStatus: String!
+    nomenclaturalCode: String
+    extinct: Boolean
+    references: String
+    threatStatus: String
+    citesAppendix: String
+    acceptedNameUsage: String
+    originalNameUsageID: ID
+    originalNameUsage: String
+    nameAccordingTo: String
+    namePublishedInID: String
+    nameType: String!
+    namePhrase: String
+    nomenclaturalStatus: String
+    genericName: String
+    infragenericEpithet: String
+    specificEpithet: String
+    infraspecificEpithet: String
+    cultivarEpithet: String
+    environment: [String!]
+    taxonomicGroup: String
+    issues: [String]
+    taxonRemarks: String
+    checklistbankURL: String!
+
+    # nested
     groupIconSVG: String
-    checklistBankLink: String
-    # environment: [String]!
     measurementOrFacts: [MeasurementOrFact!]
     bibliography: [Bibliography!]!
     distributions: [Distribution!]
@@ -482,21 +498,32 @@ const typeDef = gql`
     vernacularNames: [VernacularName!]
     classification: [TaxonClassification!]
     synonyms: TaxonSynonyms
-    taxon: TaxonFull
 
+    # derived
+    dataset: Dataset
+    acceptedTaxon: TaxonSimple
+    """
+    Find the correspoing entry in the bibliography that matches the taxon's namePublishedInID and return the citation. If no matching entry is found, it will return null.
+    """
     namePublishedIn: String
     """
     Get a single vernacular name for a given language. If there are multiple vernacular names for the same language, it will return the most frequently occurring one. If there are no vernacular names for the given language, it will return null.
     """
     vernacularName(language: String): VernacularName
-    """
-    Shortcut to get scientific name from the taxon object.
-    """
-    scientificName: String
-    """
-    Shortcut to get scientific name from the taxon object.
-    """
-    label: String
+
+    # related endpoints
+    occurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
+    breakdown(sortByCount: Boolean): TaxonBreakdown
+    wikiData: WikiDataTaxonData
+    relatedInfo: RelatedTaxonInfo
+    related(datasetType: RelatedDatasetType): [TaxonSimple!]!
+    children(limit: Int, offset: Int): Children
+    parentTree: [TaxonChild!]
+    mapCapabilities: MapCapabilities
   }
 `;
 

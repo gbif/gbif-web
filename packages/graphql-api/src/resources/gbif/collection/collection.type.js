@@ -182,7 +182,7 @@ const typeDef = gql`
     recordedBy: [String!]!
     typeStatus: [String!]!
     identifiedBy: [String!]!
-    taxon: TaxonFull
+    taxon: TaxonInfo
     biomeType: String
     objectClassification: String
   }

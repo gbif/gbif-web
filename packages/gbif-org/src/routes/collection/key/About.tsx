@@ -30,6 +30,7 @@ import { useParams } from 'react-router-dom';
 import { useCollectionKeyLoaderData } from '.';
 import { CollectionKeyContext, FeaturedImageContent } from './collectionKeyPresentation';
 import { DescriptorGroups } from './DescriptorGroups';
+import { apiConstants } from '@/config/apiConstants';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
@@ -38,7 +39,7 @@ export default function About() {
   const { collection } = useCollectionKeyLoaderData();
   const { contentMetrics } = useContext(CollectionKeyContext);
   const { count, loading } = useCount({
-    apiEndpoint: '/v1/occurrence/search',
+    apiEndpoint: apiConstants.occurrenceSearch,
     params: { collectionKey: key },
   });
   const removeSidebarThreshold = useBelow(1100);

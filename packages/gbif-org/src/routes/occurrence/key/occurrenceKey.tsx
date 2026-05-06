@@ -548,6 +548,7 @@ export function OccurrenceKey() {
                     {title && !hasMatchIssues && usageKey && (
                       <DynamicLink
                         pageId="taxonKey"
+                        className="hover:g-underline"
                         variables={{
                           key: usageKey,
                           datasetKey:

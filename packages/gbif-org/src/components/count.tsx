@@ -130,7 +130,7 @@ export function useCount({
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    const endpoint = `${import.meta.env.PUBLIC_API}${apiEndpoint}?${stringify({
+    const endpoint = `${apiEndpoint}?${stringify({
       limit: 0,
       ...params,
     })}`;

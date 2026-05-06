@@ -2,15 +2,12 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { getAsQuery } from '@/components/filters/filterTools';
 import {
   FallbackTableOptions,
-  RowLinkOptions,
   SearchTable,
   useAvailableAndDefaultEnabledColumns,
   usePaginationState,
-  useRowLink,
 } from '@/components/searchTable';
 import { SearchTableServerFallback } from '@/components/searchTable/table';
 import { ViewHeader } from '@/components/ViewHeader';
-import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { TaxonSearchQuery, TaxonSearchQueryVariables, TaxonSearchSortBy } from '@/gql/graphql';
@@ -44,18 +41,17 @@ const TAXON_SEARCH_QUERY = /* GraphQL */ `
       offset
       endOfRecords
       results {
-        taxon {
-          taxonID
-          scientificName
-          label
-          taxonomicStatus
-          taxonRank
-          datasetKey
-          dataset {
-            title
-          }
-          acceptedNameUsageID
+        taxonID
+        fallbackID
+        scientificName
+        label
+        taxonomicStatus
+        taxonRank
+        datasetKey
+        dataset {
+          title
         }
+        acceptedNameUsageID
         classification {
           scientificName
           taxonRank
@@ -74,7 +70,7 @@ type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = N
 
 export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['taxonSearch']>;
 
-const keySelector = (item: SingleTaxonSearchResult) => item.taxon?.taxonID?.toString() ?? '';
+const keySelector = (item: SingleTaxonSearchResult) => item.taxonID?.toString() ?? item.fallbackID;
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['scientificName'],
@@ -130,7 +126,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
 
   // update ordered list on items change
   useEffect(() => {
-    setOrderedList(taxons.map((item) => `${entityDrawerPrefix || 't'}_${item.taxon?.taxonID}`));
+    setOrderedList(taxons.map((item) => `${entityDrawerPrefix || 't'}_${item.taxonID}`));
   }, [taxons, setOrderedList, entityDrawerPrefix]);
 
   const { availableTableColumns, defaultEnabledTableColumns } =
@@ -140,10 +136,11 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
       fallbackOptions,
     });
 
-  const createTaxonRowLink = (item: SingleTaxonSearchResult): LinkData => {
+  const createTaxonRowLink = (item: SingleTaxonSearchResult): LinkData | null => {
+    if (!item.taxonID) return null;
     return createLink({
       pageId: 'taxonKey',
-      variables: { key: item.taxon?.taxonID ?? '', datasetKey: item.taxon?.datasetKey ?? '' },
+      variables: { key: item.taxonID ?? '', datasetKey: item.datasetKey ?? '' },
     });
   };
 

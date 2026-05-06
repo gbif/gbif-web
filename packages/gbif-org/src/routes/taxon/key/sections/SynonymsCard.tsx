@@ -21,10 +21,7 @@ export default function SynonymsCard({ taxonInfo, className }: Props) {
             <FormattedMessage id="taxon.synonymsAndCombinations" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback
-              taxonId={taxonInfo?.taxon?.taxonID}
-              datasetKey={taxonInfo?.taxon?.datasetKey}
-            />
+            <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
           </CardDescription>
         </CardHeader>
         <CardContent>

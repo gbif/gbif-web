@@ -17,7 +17,7 @@ import OccurrenceMediaGalleryCard from './sections/OccurrenceMediaGalleryCard';
 import SynonymsCard from './sections/SynonymsCard';
 import TaxonIdentifiersCard from './sections/TaxonIdentifiersCard';
 import VernacularNamesCard from './sections/VernacularNamesCard';
-import { GbifLinkCard, TocLi as Li, Separator } from '@/components/TocHelp';
+import { CatalogueOfLifeCard, GbifLinkCard, TocLi as Li, Separator } from '@/components/TocHelp';
 import { Card } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';
@@ -31,9 +31,9 @@ export default function AboutBackbone() {
   const [hasTypeMaterial, setHasTypeMaterial] = useState(false);
   const onTypeMaterialData = useCallback((hasData: boolean) => setHasTypeMaterial(hasData), []);
 
-  const taxon = data?.taxonInfo?.taxon;
+  const taxon = data?.taxonInfo;
   const taxonInfo = data?.taxonInfo;
-  if (!taxonInfo || !taxon) throw new NotFoundError();
+  if (!taxonInfo) throw new NotFoundError();
 
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.taxonRank);
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.taxonRank);
@@ -54,14 +54,14 @@ export default function AboutBackbone() {
   });
   const showSynonyms = taxon.taxonomicStatus === 'ACCEPTED' && hasSynonyms;
   const hasVernacularNames = (taxonInfo?.vernacularNames?.length ?? 0) > 0;
-  const hasTreatments = (taxonInfo?.taxon?.treatments?.length ?? 0) > 0;
+  const hasTreatments = (taxonInfo?.treatments?.length ?? 0) > 0;
   const hasOccurrenceImages = !!(
     taxon?.occurrenceMedia?.results && (taxon?.occurrenceMedia?.count ?? 0) > 0
   );
   const hasBibliography = (taxonInfo?.bibliography?.length ?? 0) > 0;
-  const hasInvasiveData = !!taxonInfo?.taxon?.relatedInfo?.griis?.length;
+  const hasInvasiveData = !!taxonInfo?.relatedInfo?.griis?.length;
   const hasWikiDataIdentifiers = !!(
-    slowTaxon && (slowTaxon?.taxonInfo?.taxon?.wikiData?.identifiers?.length ?? 0) > 0
+    slowTaxon && (slowTaxon?.taxonInfo?.wikiData?.identifiers?.length ?? 0) > 0
   );
 
   if (!taxon) return null;
@@ -193,9 +193,17 @@ export default function AboutBackbone() {
                     </ul>
                   </nav>
                 </Card>
-                {config.linkToGbifOrg && (
+
+                <CatalogueOfLifeCard
+                  datasetKey={taxon.datasetKey}
+                  taxonID={taxon.taxonID}
+                  checklistbankURL={taxonInfo?.checklistbankURL}
+                  className="g-mt-4"
+                />
+                {/* Linking to gbif.org makes little sense currently as the taxonomies differ */}
+                {/* {config.linkToGbifOrg && (
                   <GbifLinkCard className="g-mt-4" path={`/species/${taxon.taxonID}`} />
-                )}
+                )} */}
               </AsideSticky>
             </Aside>
           )}

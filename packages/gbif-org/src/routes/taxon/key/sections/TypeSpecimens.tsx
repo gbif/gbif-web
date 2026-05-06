@@ -1,8 +1,6 @@
-import { Table } from '@/components/dashboard/shared';
 import { Button } from '@/components/ui/button';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { VocabularyValue } from '@/components/vocabularyValue';
 import {
   PredicateType,
   TaxonKeyQuery,
@@ -18,7 +16,6 @@ import { Paging } from '@/components/paging';
 import { ConceptValue } from '@/components/conceptValue';
 import { Tag } from '@/components/resultCards';
 import { BulletList } from '@/components/bulletList';
-import { MdPerson } from 'react-icons/md';
 
 const DEFAULT_LIMIT = 10;
 
@@ -44,18 +41,17 @@ const TypeMaterial = ({
   });
 
   useEffect(() => {
-    if (!taxonInfo?.taxon) return;
-    const { taxon } = taxonInfo;
-    const { acceptedNameUsageID, taxonID } = taxon;
+    if (!taxonInfo) return;
+    const { acceptedNameUsageID, taxonID } = taxonInfo;
     const synonym = !!acceptedNameUsageID && acceptedNameUsageID !== taxonID;
     setIsSynonym(synonym);
-    if (taxonInfo.taxon.taxonID) {
+    if (taxonInfo.taxonID) {
       setFilteredData([]);
       typeSpecimensLoad({
         variables: {
           predicate: getTypeSpecimenPredicate({
             taxonKey: synonym ? acceptedNameUsageID : taxonID,
-            checklistKey: taxon.datasetKey,
+            checklistKey: taxonInfo.datasetKey,
           }),
           size: 50,
           from: 0,
@@ -72,10 +68,10 @@ const TypeMaterial = ({
       setFilteredData(
         (typeSecimens?.occurrenceSearch?.documents?.results || []).filter((x) => {
           if (!isSynonym) {
-            return x?.classification?.usage?.rank === taxonInfo?.taxon?.taxonRank;
+            return x?.classification?.usage?.rank === taxonInfo?.taxonRank;
           } else {
             return (
-              x?.originalUsageMatch?.usage?.key === (taxonInfo?.taxon?.taxonID || '').toString() &&
+              x?.originalUsageMatch?.usage?.key === (taxonInfo?.taxonID || '').toString() &&
               x?.originalUsageMatch?.diagnostics?.matchType === 'EXACT' &&
               (x?.originalUsageMatch?.diagnostics?.confidence ?? 0) > 90
             );
@@ -133,56 +129,54 @@ const TypeMaterial = ({
                 ?.filter((ts) => !!ts)
                 .map((ts, j) => (
                   <li key={`${i}-${j}`} className="g-mb-4">
-                    <Tag type="INFO" className="g-me-1">
-                      <ConceptValue vocabulary="TypeStatus" name={ts} />
-                    </Tag>
-                    <DynamicLink
-                      className="g-underline"
-                      pageId="occurrenceKey"
-                      variables={{ key: occ?.key ? occ.key.toString() : '' }}
-                    >
-                      <span>
-                        {occ?.originalUsageMatch?.usage?.name ||
-                          occ.typifiedName ||
-                          occ.classification.usage.name}
-                      </span>
-                    </DynamicLink>
-                    {occ.recordedBy && (
-                      <span>
-                        <span className="g-mx-1">{occ.recordedBy}</span>
-                        {occ.year && <span className="g-mx-1"> ({occ.year})</span>}
-                        {occ.country && <span className="g-mx-1"> {occ.country}</span>}.
-                      </span>
-                    )}
-
-                    {occ.catalogNumber && (
-                      <BulletList className="g-text-sm g-text-slate-500">
-                        {occ.institutionCode && <li>{occ.institutionCode}</li>}
-                        {occ.collectionCode && <li> {occ.collectionCode}</li>}
-                        <li> {occ.catalogNumber}</li>
-                      </BulletList>
-                    )}
-
-                    {occ.extensions?.dnaDerivedData?.[0]?.dna_sequence && (
-                      <DNAsequence
-                        sequence={occ.extensions?.dnaDerivedData?.[0].dna_sequence}
-                        marker={occ.extensions?.dnaDerivedData?.[0]?.['MIXS:0000044']}
-                        limit={200}
-                        className={''}
-                      />
-                    )}
-                    {occ?.dataset && (
-                      <div className="g-text-sm g-text-slate-500">
-                        <FormattedMessage id={`taxon.source`} />:{' '}
-                        <DynamicLink
-                          className="g-underline"
-                          pageId="datasetKey"
-                          variables={{ key: occ?.dataset?.key }}
-                        >
-                          {occ?.dataset?.title}
-                        </DynamicLink>
+                    <div className="g-flex g-gap-2 g-items-start">
+                      <div className="g-flex-none">
+                        <Tag className="">
+                          <ConceptValue vocabulary="TypeStatus" name={ts} />
+                        </Tag>
                       </div>
-                    )}
+                      <div className="g-flex-1">
+                        <div>
+                          <span className="g-me-2">
+                            <DynamicLink
+                              className="g-underline"
+                              pageId="occurrenceKey"
+                              variables={{ key: occ?.key ? occ.key.toString() : '' }}
+                            >
+                              <span>
+                                {occ?.originalUsageMatch?.usage?.name ||
+                                  occ.typifiedName ||
+                                  occ.classification.usage.name}
+                              </span>
+                            </DynamicLink>
+                            {occ.recordedBy && (
+                              <span>
+                                <span className="g-ms-2">{occ.recordedBy}</span>
+                                {occ.year && <span> ({occ.year})</span>}
+                                {occ.country && <span> {occ.country}</span>}.
+                              </span>
+                            )}
+                          </span>
+
+                          {occ.catalogNumber && (
+                            <BulletList className="g-text-sm g-text-slate-500 g-inline-block">
+                              {occ.institutionCode && <li>{occ.institutionCode}</li>}
+                              {occ.collectionCode && <li> {occ.collectionCode}</li>}
+                              <li> {occ.catalogNumber}</li>
+                            </BulletList>
+                          )}
+                        </div>
+
+                        {occ.extensions?.dnaDerivedData?.[0]?.dna_sequence && (
+                          <DNAsequence
+                            sequence={occ.extensions?.dnaDerivedData?.[0].dna_sequence}
+                            marker={occ.extensions?.dnaDerivedData?.[0]?.['MIXS:0000044']}
+                            limit={200}
+                            className={''}
+                          />
+                        )}
+                      </div>
+                    </div>
                   </li>
                 ))
             )}

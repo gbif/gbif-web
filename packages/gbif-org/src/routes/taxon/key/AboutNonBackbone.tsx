@@ -22,7 +22,7 @@ import Citation from './sections/Citation';
 const dividerClass = 'g-mt-6 g-pt-6';
 
 export default function AboutNonBackbone({ data, className }: { data: TaxonKeyQuery }) {
-  const taxon = data?.taxonInfo?.taxon;
+  const taxon = data?.taxonInfo;
   const taxonInfo = data?.taxonInfo;
   if (!taxonInfo || !taxon) throw new NotFoundError();
 

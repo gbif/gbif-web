@@ -586,7 +586,6 @@ const typeDef = gql`
     count: Long!
     taxonInfo: TaxonInfo
     taxon: TaxonSimple
-    taxonFull: TaxonFull
     """
     Get whatever minimum shared data we can compile for both backbone and other checklists. The idea is to allow UIs to generate a nice diaplay label with classification
     """

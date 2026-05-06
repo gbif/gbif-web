@@ -1,6 +1,7 @@
 import { MapThumbnail } from '@/components/maps/mapThumbnail';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
+import { apiConstants } from '@/config/apiConstants';
 import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -94,21 +95,21 @@ export function DatasetResult({
           <DynamicLink pageId="occurrenceSearch" searchParams={{ datasetKey: [dataset.key] }}>
             <CountTag
               className="hover:g-bg-primary-200 g-m-1 g-mb-0"
-              apiEndpoint="/v1/occurrence/search"
+              apiEndpoint={apiConstants.occurrenceSearch}
               params={{ datasetKey: dataset.key }}
               message="counts.nOccurrences"
             />
           </DynamicLink>
           <CountTag
             className="g-m-1 g-mb-0"
-            apiEndpoint="/v1/species/search"
-            params={{ datasetKey: dataset.key, origin: 'SOURCE' }}
+            apiEndpoint={`${apiConstants.taxonApi}/search/${dataset.key}`}
+            params={{ origin: 'SOURCE' }}
             message="counts.nRecords"
           />
           <DynamicLink pageId="literatureSearch" searchParams={{ gbifDatasetKey: [dataset.key] }}>
             <CountTag
               className="hover:g-bg-primary-200 g-m-1 g-mb-0"
-              apiEndpoint="/v1/literature/search"
+              apiEndpoint={apiConstants.literatureSearch}
               params={{ gbifDatasetKey: dataset.key }}
               message="counts.nCitations"
             />

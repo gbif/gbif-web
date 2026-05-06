@@ -41,6 +41,7 @@ import { AboutContent, ApiContent } from './help';
 import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
 import PageMetaData from '@/components/PageMetaData';
+import { apiConstants } from '@/config/apiConstants';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(
@@ -267,7 +268,7 @@ function Results({
               country: reactIntl.formatMessage({ id: `enums.countryCode.${userCountry?.country}` }),
             }}
             countProps={{
-              v1Endpoint: '/organization',
+              apiEndpoint: apiConstants.organization,
               params: { country: userCountry?.country, isEndorsed: 'true' },
             }}
           />

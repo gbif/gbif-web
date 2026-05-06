@@ -1,5 +1,6 @@
 import { SuggestFnProps, SuggestionItem, SuggestResponseType } from '@/components/filters/suggest';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { apiConstants } from '@/config/apiConstants';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { SuggestConfig, TaxonDetailsLabel } from '@/utils/suggestEndpoints';
 import { FormattedMessage } from 'react-intl';
@@ -35,11 +36,11 @@ function TaxonIdSuggestLabel(item: SuggestionItem): React.ReactNode {
 
 export const taxonIdSuggest: SuggestConfig = {
   render: TaxonIdSuggestLabel,
-  getSuggestions: ({ q, siteConfig, searchContext }: SuggestFnProps): SuggestResponseType => {
+  getSuggestions: ({ q, searchContext }: SuggestFnProps): SuggestResponseType => {
     const datasetKey =
       searchContext?.scope?.datasetKey ?? import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
     const { cancel, promise } = fetchWithCancel(
-      `${siteConfig.v2Endpoint}/taxon/suggest/${datasetKey}?limit=20&q=${q}`
+      `${apiConstants.taxonApi}/suggest/${datasetKey}?limit=20&q=${q}`
     );
     const result = promise
       .then((res) => res.json())
@@ -63,10 +64,10 @@ export const taxonIdSuggest: SuggestConfig = {
 
 export const taxonKeySuggest = {
   render: TaxonIdSuggestLabel,
-  getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+  getSuggestions: ({ q }: SuggestFnProps): SuggestResponseType => {
     const datasetKey = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
     const { cancel, promise } = fetchWithCancel(
-      `${siteConfig.v2Endpoint}/taxon/suggest/${datasetKey}?limit=20&q=${q}`
+      `${apiConstants.taxonApi}/suggest/${datasetKey}?limit=20&q=${q}`
     );
     const result = promise
       .then((res) => res.json())

@@ -1,7 +1,7 @@
-import { TaxonClassification, TaxonStubClassification } from '@/components/classification';
+import { TaxonStubClassification } from '@/components/classification';
 import { MapThumbnail, MapTypes } from '@/components/maps/mapThumbnail';
 import { Card } from '@/components/ui/largeCard';
-import { TaxonSearchResultDetailsFragment, TaxonSearchResultCardFragment } from '@/gql/graphql';
+import { TaxonSearchResultDetailsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
@@ -12,17 +12,27 @@ fragmentManager.register(/* GraphQL */ `
     vernacularName(language: "eng") {
       vernacularName
     }
-    taxon {
-      ...TaxonSearchResultDetails
-      acceptedTaxon {
-        ...TaxonSearchResultDetails
+    ...TaxonSearchResultDetails
+    acceptedTaxon {
+      taxonID
+      label
+      datasetKey
+      scientificName
+      taxonRank
+      taxonomicStatus
+      parentTree {
+        scientificName
+        taxonID
+      }
+      mapCapabilities {
+        total
       }
     }
   }
 `);
 
 fragmentManager.register(/* GraphQL */ `
-  fragment TaxonSearchResultDetails on TaxonSimple {
+  fragment TaxonSearchResultDetails on TaxonResult {
     taxonID
     label
     datasetKey

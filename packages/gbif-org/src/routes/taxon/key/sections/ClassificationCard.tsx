@@ -48,13 +48,16 @@ export default function ClassificationCard({ datasetKey, taxonKey, className }: 
               getSuggestions={getSuggestions}
               render={taxonKeyClbSuggest.render}
               onSelect={(item) => {
-                let { to } = createLink({ pageId: 'taxonKey', variables: { key: item.key, datasetKey } });
+                let { to } = createLink({
+                  pageId: 'taxonKey',
+                  variables: { key: item.key, datasetKey },
+                });
                 if (!to) to = `/taxon/${item.key}`;
                 navigate(typeof to === 'string' ? to : '');
               }}
             />
           </div>
-          <TaxonTree datasetKey={datasetKey} taxonKey={taxonKey} />
+          <TaxonTree datasetKey={datasetKey} taxonKey={taxonKey} highlightKey={taxonKey} />
         </CardContent>
       </Card>
     </ErrorBoundary>

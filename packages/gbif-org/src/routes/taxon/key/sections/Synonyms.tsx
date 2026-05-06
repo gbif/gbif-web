@@ -8,7 +8,7 @@ import { cn } from '@/utils/shadcn';
 const LIMIT = 10;
 const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
   const [showAll, setShowAll] = useState(false);
-  const datasetKey = taxonInfo?.taxon?.datasetKey ?? import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
+  const datasetKey = taxonInfo?.datasetKey ?? import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
   const count =
     taxonInfo?.synonyms?.heterotypic?.flat().concat(taxonInfo?.synonyms?.homotypic || []).length ??
@@ -71,19 +71,24 @@ function Synonym({
   datasetKey: string;
 }) {
   return (
-    <DynamicLink
-      pageId="taxonKey"
-      variables={{ key: synonym.taxonID, datasetKey }}
-      className="g-text-decoration-none g-text-primary-500"
-    >
-      {type === 'homotypic' ? '≡ ' : '= '}
-      <span dangerouslySetInnerHTML={{ __html: synonym.label }}></span>
+    <>
+      <DynamicLink
+        pageId="taxonKey"
+        variables={{ key: synonym.taxonID, datasetKey }}
+        className="g-text-decoration-none"
+      >
+        {type === 'homotypic' ? '≡ ' : '= '}
+        <span
+          className="g-text-primary-500 hover:g-underline"
+          dangerouslySetInnerHTML={{ __html: synonym.label }}
+        ></span>
+      </DynamicLink>
       {synonym.isOriginalNameUsage && (
         <InfoPill className="g-ms-2">
           <FormattedMessage id="taxon.originalNameUsage" />
         </InfoPill>
       )}
-    </DynamicLink>
+    </>
   );
 }
 

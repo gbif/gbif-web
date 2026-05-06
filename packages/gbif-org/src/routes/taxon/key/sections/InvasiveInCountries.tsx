@@ -8,6 +8,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from '@/components/paging';
 import { useState } from 'react';
+import { apiConstants } from '@/config/apiConstants';
 
 const DEFAULT_LIMIT = 10;
 
@@ -26,7 +27,7 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
 
-  if (!taxonInfo?.taxon?.relatedInfo?.griis?.length) return null;
+  if (!taxonInfo?.relatedInfo?.griis?.length) return null;
 
   const areaCount = taxonInfo.taxon.relatedInfo.griis.length ?? 0;
 
@@ -84,7 +85,7 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
               </tr>
             </thead>
             <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
-              {taxonInfo?.taxon?.relatedInfo?.griis?.slice(offset, offset + limit).map((e, i) => {
+              {taxonInfo?.relatedInfo?.griis?.slice(offset, offset + limit).map((e, i) => {
                 return (
                   <tr key={i}>
                     <td>
@@ -111,9 +112,9 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
                     <td className="g-text-end">
                       {e?.isCountry ? (
                         <Count
-                          apiEndpoint="/v1/occurrence/search"
+                          apiEndpoint={apiConstants.occurrenceSearch}
                           params={{
-                            taxonKey: taxonInfo?.taxon?.taxonID,
+                            taxonKey: taxonInfo?.taxonID,
                             country: e.countryCode,
                             limit: 0,
                           }}

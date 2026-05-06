@@ -2,7 +2,7 @@ import { HyperText } from '@/components/hyperText';
 import { TaxonKeyQuery } from '@/gql/graphql';
 
 const Citation = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
-  const taxon = taxonInfo?.taxon;
+  const taxon = taxonInfo;
   return (
     <HyperText
       className="prose-links"

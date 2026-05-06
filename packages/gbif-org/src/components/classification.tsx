@@ -75,7 +75,7 @@ export function TaxonClassification({
   className,
   datasetKey,
 }: {
-  classification: { rank?: string | null; name?: string | null; key: string }[];
+  classification: { rank?: string | null; name?: string | null; key?: string }[];
   majorOnly?: boolean;
   className?: string;
   datasetKey?: string;
@@ -87,13 +87,16 @@ export function TaxonClassification({
     <Classification className={className}>
       {classificationFiltered.map((c, i) => (
         <span key={i}>
-          <DynamicLink
-            pageId={datasetKey ? 'datasetKey' : 'taxonKey'}
-            variables={{ key: datasetKey ? `${datasetKey}/taxon/${c.key}` : c.key }}
-            className="g-text-inherit hover:g-underline"
-          >
-            <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>
-          </DynamicLink>
+          {c.key && (
+            <DynamicLink
+              pageId={datasetKey ? 'datasetKey' : 'taxonKey'}
+              variables={{ key: datasetKey ? `${datasetKey}/taxon/${c.key}` : c.key }}
+              className="g-text-inherit hover:g-underline"
+            >
+              <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>
+            </DynamicLink>
+          )}
+          {!c.key && <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>}
         </span>
       ))}
     </Classification>

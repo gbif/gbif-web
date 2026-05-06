@@ -61,12 +61,20 @@ export function SearchPageTree({
 
   return (
     <div className="g-p-4">
-      <TaxonTree datasetKey={datasetKey!} taxonKey={taxonId} />
+      <TaxonTree datasetKey={datasetKey!} taxonKey={taxonId} highlightKey={taxonId} />
     </div>
   );
 }
 
-export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonKey: string }) {
+export function TaxonTree({
+  datasetKey,
+  taxonKey,
+  highlightKey,
+}: {
+  datasetKey: string;
+  taxonKey: string;
+  highlightKey?: string;
+}) {
   const { data, load } = useQuery<DatasetRootsQuery, DatasetRootsQueryVariables>(DATASET_ROOTS, {
     lazyLoad: true,
   });
@@ -99,6 +107,7 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
             data={root}
             defaultExpanded={data?.datasetRoots?.results.length === 1}
             datasetKey={datasetKey}
+            highlightKey={highlightKey}
           />
         ))}
       </Tree>
@@ -137,7 +146,12 @@ export function TaxonTree({ datasetKey, taxonKey }: { datasetKey: string; taxonK
             </ul>
           </li>
         ),
-        <TaxonomicNode defaultExpanded={true} data={tip} datasetKey={datasetKey} />
+        <TaxonomicNode
+          defaultExpanded={true}
+          data={tip}
+          datasetKey={datasetKey}
+          highlightKey={highlightKey}
+        />
       )}
     </Tree>
   );
@@ -147,10 +161,12 @@ export const TaxonomicNode = ({
   data,
   defaultExpanded = false,
   datasetKey,
+  highlightKey,
 }: {
   data: TaxonData;
   defaultExpanded?: boolean;
   datasetKey: string;
+  highlightKey?: string;
 }) => {
   const childrenCount = data.childrenCount ?? 0;
   const hasChildren = childrenCount > 0;
@@ -162,7 +178,7 @@ export const TaxonomicNode = ({
       defaultExpanded={defaultExpanded}
       datasetKey={datasetKey}
     >
-      <TreeHeader>
+      <TreeHeader highlighted={data.taxonID === highlightKey}>
         <TreeToggle />
         <TreeNodeLabel taxon={data} datasetKey={datasetKey} />
       </TreeHeader>
@@ -175,6 +191,7 @@ export const TaxonomicNode = ({
               data={child}
               defaultExpanded={false}
               datasetKey={datasetKey}
+              highlightKey={highlightKey}
             />
           )}
         />

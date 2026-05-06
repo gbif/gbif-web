@@ -52,6 +52,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { DatasetKeyLoaderResult } from './datasetKey';
 import { LocalContextCards } from './about/LocalContexts';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export function DatasetKeyAbout() {
   const config = useConfig();

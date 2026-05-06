@@ -6,7 +6,6 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
-import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -25,9 +24,9 @@ export async function taxonLoader({ params, graphql, locale }: LoaderArgs) {
 
   const { errors, data } = await response.json();
   throwCriticalErrors({
-    path404: ['taxonInfo.taxon'],
+    path404: ['taxonInfo'],
     errors,
-    requiredObjects: [data?.taxonInfo?.taxon],
+    requiredObjects: [data?.taxonInfo],
   });
 
   return { errors, data };
@@ -43,9 +42,9 @@ export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs
 
   const { errors, data } = await response.json();
   throwCriticalErrors({
-    path404: ['taxonInfo.taxon'],
+    path404: ['taxonInfo'],
     errors,
-    requiredObjects: [data?.taxonInfo?.taxon],
+    requiredObjects: [data?.taxonInfo],
   });
 
   return { errors, data };
@@ -64,7 +63,7 @@ export function TaxonKey() {
   });
 
   useEffect(() => {
-    const id = data.taxonInfo?.taxon?.taxonID;
+    const id = data.taxonInfo?.taxonID;
     if (typeof id !== 'undefined') {
       slowTaxonLoad({
         variables: {
@@ -73,7 +72,7 @@ export function TaxonKey() {
         },
       });
     }
-  }, [data.taxonInfo?.taxon?.taxonID, locale, slowTaxonLoad]);
+  }, [data.taxonInfo?.taxonID, locale, slowTaxonLoad]);
 
   if (data?.taxonInfo == null) throw new NotFoundError();
   return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
@@ -89,71 +88,69 @@ export { TaxonPageSkeleton } from './taxonKeyPresentation';
 const TAXON_QUERY = /* GraphQL */ `
   query TaxonKey($key: ID!, $datasetKey: ID!, $language: String) {
     taxonInfo(key: $key, datasetKey: $datasetKey) {
-      group
+      group: taxonomicGroup
+      checklistbankURL
       groupIconSVG
-      taxon {
-        datasetKey
+      datasetKey
+      taxonID
+      taxonRank
+      scientificName
+      taxonomicStatus
+      label
+      references
+      acceptedNameUsageID
+      dataset {
+        key
+        title
+        citation {
+          text
+        }
+      }
+      acceptedTaxon {
         taxonID
-        taxonRank
-        scientificName
-        taxonomicStatus
         label
+        scientificName
+      }
+      occurrenceMedia(limit: 20) {
+        count
+        results {
+          occurrenceKey
+          identifier
+          license
+          rightsHolder
+          thumbor(height: 800)
+          smallThumbnail: thumbor(height: 100, width: 100)
+        }
+      }
+      treatments: related(datasetType: ARTICLE) {
+        taxonID
+        datasetKey
         references
-        acceptedNameUsageID
-        sourceID
         dataset {
-          key
           title
           citation {
             text
           }
+          publishingOrganizationTitle
         }
-        acceptedTaxon {
-          taxonID
-          label
-          scientificName
-        }
-        occurrenceMedia(limit: 20) {
-          count
-          results {
-            occurrenceKey
-            identifier
-            license
-            rightsHolder
-            thumbor(height: 800)
-            smallThumbnail: thumbor(height: 100, width: 100)
-          }
-        }
-        treatments: related(datasetType: ARTICLE) {
-          taxonID
+      }
+      relatedInfo {
+        griis {
           datasetKey
-          references
+          taxonID
+          locality
+          countryCode
+          isInvasive
           dataset {
             title
-            citation {
-              text
-            }
-            publishingOrganizationTitle
           }
+          isCountry
         }
-        relatedInfo {
-          griis {
-            datasetKey
-            taxonID
-            locality
-            countryCode
-            isInvasive
-            dataset {
-              title
-            }
-            isCountry
-          }
-          redlist {
-            taxonID
-            scientificName
-            threatStatus
-            references
-          }
+        redlist {
+          taxonID
+          scientificName
+          threatStatus
+          references
         }
       }
       synonyms {
@@ -203,18 +200,16 @@ const TAXON_QUERY = /* GraphQL */ `
 const SLOW_TAXON = /* GraphQL */ `
   query SlowTaxon($key: ID!, $datasetKey: ID!) {
     taxonInfo(key: $key, datasetKey: $datasetKey) {
-      taxon {
-        wikiData {
-          source {
-            id
-            url
-          }
-          identifiers {
-            id
-            label
-            description
-            url
-          }
+      wikiData {
+        source {
+          id
+          url
+        }
+        identifiers {
+          id
+          label
+          description
+          url
         }
       }
     }

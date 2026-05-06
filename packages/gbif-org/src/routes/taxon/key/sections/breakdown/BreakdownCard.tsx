@@ -26,7 +26,7 @@ type Props = {
 };
 
 type BreakdownNode = NonNullable<
-  NonNullable<NonNullable<TaxonBreakdownQuery['taxonInfo']>['taxon']>['checklistBankBreakdown']
+  NonNullable<NonNullable<TaxonBreakdownQuery['taxonInfo']>>['checklistBankBreakdown']
 >;
 
 // Slices whose species count is below this fraction of the total are collapsed into an "Other" slice.
@@ -288,7 +288,7 @@ export function BreakdownContent({ taxonKey, datasetKey }: Props) {
     { variables: { key: taxonKey, datasetKey } }
   );
 
-  const breakdown = data?.taxonInfo?.taxon?.checklistBankBreakdown;
+  const breakdown = data?.taxonInfo?.checklistBankBreakdown;
   const isEmpty = !breakdown || breakdown.species === 0;
 
   return (

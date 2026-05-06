@@ -8,7 +8,7 @@ import { useIsFamilyOrAbove, useNextMajorRank } from '@/hooks/taxonomyRankHooks'
 
 export default function Metrics() {
   const { data } = useTaxonKeyLoaderData();
-  const taxon = data?.taxonInfo?.taxon;
+  const taxon = data?.taxonInfo;
 
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.taxonRank ?? '');
   const nextMajorRank = useNextMajorRank(taxon?.taxonRank ?? 'GENUS');

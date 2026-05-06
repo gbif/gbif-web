@@ -149,8 +149,18 @@ export const TreeItem = ({
   );
 };
 
-export const TreeHeader = ({ children }: { children: ReactNode }) => (
-  <div className="g-flex g-gap-2 g-px-2 g-py-1 g-rounded-md hover:g-bg-gray-50 g-group g-items-center">
+export const TreeHeader = ({
+  children,
+  highlighted,
+}: {
+  children: ReactNode;
+  highlighted?: boolean;
+}) => (
+  <div
+    className={`g-flex g-gap-2 g-px-2 g-py-1 g-rounded-md hover:g-bg-gray-50 g-group g-items-center${
+      highlighted ? ' g-bg-gray-100' : ''
+    }`}
+  >
     {children}
   </div>
 );
@@ -163,7 +173,7 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
           <DynamicLink
             pageId="taxonKey"
             variables={{ key: taxon.taxonID, datasetKey }}
-            className="g-text-primary-700 g-whitespace-nowrap"
+            className="g-text-primary-700 g-whitespace-nowrap hover:g-underline"
           >
             <span dangerouslySetInnerHTML={{ __html: taxon.label ?? taxon.taxonID }} />
             {!['ACCEPTED', 'PROVISIONALLY_ACCEPTED'].includes(taxon.status ?? 'ACCEPTED') && (

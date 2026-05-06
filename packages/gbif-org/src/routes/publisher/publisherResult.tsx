@@ -1,6 +1,7 @@
 import { LongDate } from '@/components/dateFormats';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
+import { apiConstants } from '@/config/apiConstants';
 import { PublisherResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -91,7 +92,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           <DynamicLink pageId="datasetSearch" searchParams={{ publishingOrg: [publisher.key] }}>
             <CountTag
               className="hover:g-bg-primary-200"
-              apiEndpoint="/v1/dataset/search"
+              apiEndpoint={apiConstants.datasetSearch}
               params={{ publishingOrg: publisher.key }}
               message="counts.nDatasets"
             />
@@ -102,7 +103,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           >
             <CountTag
               className="hover:g-bg-primary-200"
-              apiEndpoint="/v1/literature/search"
+              apiEndpoint={apiConstants.literatureSearch}
               params={{ publishingOrganizationKey: publisher.key }}
               message="counts.nCitations"
             />
