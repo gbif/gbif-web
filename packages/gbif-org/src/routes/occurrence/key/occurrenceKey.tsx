@@ -480,7 +480,7 @@ export function OccurrenceKey() {
   //     (classification) => classification?.checklistKey === config.defaultChecklistKey
   //   ) ?? occurrence?.classifications?.[0];
 
-  const { text, title, hasTaxonIssues, noMatch, state } = getTitleParts({ occurrence, termMap });
+  const { text, title, hasTaxonIssues, state } = getTitleParts({ occurrence, termMap });
 
   const usageKey = occurrence.classification?.usage?.key;
   const acceptedUsage = occurrence.classification?.acceptedUsage;

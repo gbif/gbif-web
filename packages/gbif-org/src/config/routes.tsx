@@ -24,6 +24,7 @@ import { taxonSearchRoute } from '@/routes/taxon/search';
 import { collectionSearchRoute } from '@/routes/collection/search';
 import { institutionSearchRoute } from '@/routes/institution/search';
 import { speciesKeyRoute } from '@/routes/species/key';
+import { speciesSearchRoute } from '@/routes/species/search';
 
 export const dataRoutes = [
   // search routes first in case of conflict
@@ -55,4 +56,5 @@ export const dataRoutes = [
   // Must be last as alias handling will require match on whildcard
   ...resourceKeyRoutes,
   speciesKeyRoute,
+  speciesSearchRoute,
 ];

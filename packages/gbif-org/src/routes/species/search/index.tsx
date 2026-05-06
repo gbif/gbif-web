@@ -1,6 +1,5 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { SpeciesSearchPage } from './speciesSearch';
-import { redirectDocument } from '@remix-run/router/dist/utils';
+import { redirectDocument } from 'react-router-dom';
 
 export const speciesSearchRoute: RouteObjectWithPlugins = {
   id: 'speciesSearch',
@@ -8,6 +7,6 @@ export const speciesSearchRoute: RouteObjectWithPlugins = {
   gbifRedirect: (_, { gbifOrgLocalePrefix = '' }) => {
     return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/species/search`;
   },
-  element: <SpeciesSearchPage />,
+  element: null,
   loader: () => redirectDocument('/taxon/search'),
 };
