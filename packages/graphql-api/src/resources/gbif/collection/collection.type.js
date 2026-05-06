@@ -35,6 +35,7 @@ const typeDef = gql`
       descriptorCountry: [Country!]
       typeStatus: [String!]
       taxonKey: [ID!]
+      checklistKey: ID
       query: CollectionSearchInput
     ): CollectionSearchResults
     collection(key: ID!): Collection
@@ -70,6 +71,7 @@ const typeDef = gql`
     descriptorCountry: [Country!]
     typeStatus: [String!]
     taxonKey: [ID!]
+    checklistKey: ID
     machineTagNamespace: [String!]
     sortBy: CollectionsSortField
     sortOrder: SortOrder

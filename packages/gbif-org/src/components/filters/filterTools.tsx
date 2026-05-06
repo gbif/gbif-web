@@ -7,7 +7,7 @@ import {
 } from '@/dataManagement/filterAdapter/filter2predicate';
 import { EventFiltering, Predicate } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
-import { SuggestConfig } from '@/utils/suggestEndpoints';
+import { SuggestConfig, TaxonSuggestType } from '@/utils/suggestEndpoints';
 import React, { useContext } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { Button } from '../ui/button';
@@ -26,7 +26,7 @@ import { QFilter } from './QFilter';
 import { QInlineButtonFilter } from './QInlineButtonFilter';
 import { InlineToggleFilter } from './inlineToggleFilter';
 import { RangeFilter } from './rangeFilter';
-import { SuggestFnProps, SuggestionItem, SuggestResponseType } from './suggest';
+import { SuggestionItem, SuggestResponseType } from './suggest';
 import { SuggestFilter } from './suggestFilter';
 import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
@@ -93,7 +93,7 @@ export type filterTaxonConfig = filterConfigShared & {
   disableFacetsForSelected?: boolean;
   suggestConfig?: {
     render?: (item: SuggestionItem) => React.ReactNode;
-    getSuggestions: (props: SuggestFnProps | { checklistKey?: string }) => SuggestResponseType;
+    getSuggestions: (props: TaxonSuggestType) => SuggestResponseType;
     placeholder?: string;
     getStringValue?: (item: SuggestionItem) => string;
   };

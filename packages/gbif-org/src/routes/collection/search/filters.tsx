@@ -9,6 +9,7 @@ import {
   objectClassificationLabel,
   preservationTypeLabel,
   QuantityLabel,
+  TaxonLabel,
   TypeStatusLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -18,6 +19,7 @@ import {
   filterRangeConfig,
   FilterSetting,
   filterSuggestConfig,
+  filterTaxonConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
@@ -29,6 +31,7 @@ import {
   institutionKeySuggest,
   objectClassificationSuggest,
   preservationTypeSuggest,
+  taxonKeyClbSuggest,
   taxonKeySuggest,
   typeStatusSuggest,
 } from '@/utils/suggestEndpoints';
@@ -93,13 +96,23 @@ const countryConfig: filterSuggestConfig = {
   `,
 };
 
-const taxonKeyConfig: filterSuggestConfig = {
+const taxonKeyConfig_old: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'taxonKey',
   displayName: DefaultTaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeySuggest,
   disableFacetsForSelected: true,
+};
+
+export const taxonKeyConfig: filterTaxonConfig = {
+  filterType: filterConfigTypes.TAXON,
+  filterHandle: 'taxonKey',
+  displayName: TaxonLabel,
+  filterTranslation: 'filters.taxonKey.name',
+  suggestConfig: taxonKeyClbSuggest,
+  allowExistence: false,
+  allowNegations: false,
 };
 
 const descriptorCountryConfig: filterSuggestConfig = {

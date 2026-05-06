@@ -47,11 +47,12 @@ const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function CollectionSearchPage(): React.ReactElement {
+  const config = useConfig();
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset'],
+    defaultChecklistKey: config.defaultChecklistKey,
   });
-  const config = useConfig();
 
   return (
     <>
