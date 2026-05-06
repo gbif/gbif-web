@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/largeCard';
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { MdChevronLeft, MdChevronRight, MdInfo } from 'react-icons/md';
 
 export interface MediaGalleryItem {
@@ -25,12 +25,28 @@ interface MediaGalleryProps {
    */
   renderBottomRight?: (activeIndex: number, total: number) => React.ReactNode;
   id?: string;
+  /** The index to show initially. Clamped to the valid range of items. Defaults to 0. */
+  defaultActiveIndex?: number;
 }
 
-export function MediaGallery({ items, renderBottomRight, id }: MediaGalleryProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+export function MediaGallery({
+  items,
+  renderBottomRight,
+  id,
+  defaultActiveIndex,
+}: MediaGalleryProps) {
+  const [activeIndex, setActiveIndex] = useState(() =>
+    items.length === 0 ? 0 : Math.max(0, Math.min(items.length - 1, defaultActiveIndex ?? 0))
+  );
   const [showInfo, setShowInfo] = useState(false);
   const filmstripRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setActiveIndex(
+      items.length === 0 ? 0 : Math.max(0, Math.min(items.length - 1, defaultActiveIndex ?? 0))
+    );
+    setShowInfo(false);
+  }, [items, defaultActiveIndex]);
 
   if (items.length === 0) return null;
 

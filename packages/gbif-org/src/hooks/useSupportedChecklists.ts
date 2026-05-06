@@ -8,8 +8,7 @@ const supportedChecklists =
   import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS_FOR_DOWNLOAD?.split(',') || [];
 const defaultVisibleChecklists =
   import.meta.env.PUBLIC_DEFAULT_VISIBLE_CHECKLISTS_FOR_DOWNLOAD?.split(',') || [];
-const defaultChecklist =
-  import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY || 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // default backbone
+const defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
 export type ChecklistMetadata = {
   version: string;

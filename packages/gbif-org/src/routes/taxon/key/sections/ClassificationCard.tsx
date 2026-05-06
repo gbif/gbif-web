@@ -41,7 +41,7 @@ export default function ClassificationCard({ datasetKey, taxonKey, className }: 
             <ColFeedback taxonId={taxonKey} datasetKey={datasetKey} />
           </CardDescription>
         </CardHeader>
-        <CardContent className="g-overflow-auto g-text-[15px]/4">
+        <CardContent>
           <div className="g-mb-4">
             <Suggest
               className="g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"

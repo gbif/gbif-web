@@ -85,6 +85,7 @@ function OccurrenceMediaGalleryContent({ taxon }: Props) {
     <MediaGallery
       items={items}
       id="occurrence-images"
+      defaultActiveIndex={1}
       renderBottomRight={
         total > 0
           ? () => (
