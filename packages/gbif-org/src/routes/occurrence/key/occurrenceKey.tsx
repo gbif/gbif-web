@@ -591,7 +591,7 @@ export function OccurrenceKey() {
                           title={
                             <FormattedMessage
                               id="phrases.commonNameAccordingTo"
-                              values={{ source: vernacularNameInfo.reference?.citation }}
+                              values={{ source: 'Catalogue of Life' }}
                             />
                           }
                         >

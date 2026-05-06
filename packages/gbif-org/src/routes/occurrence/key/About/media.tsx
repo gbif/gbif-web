@@ -280,7 +280,7 @@ function Caption({
   );
 }
 
-function isValidCreativeCommonsLicense(license?: string | null): boolean {
+export function isValidCreativeCommonsLicense(license?: string | null): boolean {
   if (!license) return false;
   if (licenseMap[license]) return true;
   const v = license.toLowerCase();
@@ -289,7 +289,7 @@ function isValidCreativeCommonsLicense(license?: string | null): boolean {
   return false;
 }
 
-function SuggestedAttribution({
+export function SuggestedAttribution({
   media,
   occurrence,
   termMap,

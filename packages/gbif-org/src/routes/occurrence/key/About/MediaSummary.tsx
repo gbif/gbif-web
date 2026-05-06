@@ -1,10 +1,11 @@
 import { Img } from '@/components/Img';
 import { MdVideocam } from 'react-icons/md';
 import { MediaGallery, MediaGalleryItem } from '../../media/MediaGallery';
+import { isValidCreativeCommonsLicense, SuggestedAttribution } from './media';
 
 const PLAYABLE_VIDEO_FORMATS = ['video/mp4', 'video/ogg'];
 
-export function MediaSummary({ occurrence }: { occurrence: any }) {
+export function MediaSummary({ occurrence, termMap }: { occurrence: any; termMap: any }) {
   // Build a unified list: still images first, then playable videos
   const rawImages = (occurrence?.stillImages ?? []).filter((img: any) => img.thumbor);
   const rawVideos = (occurrence?.movingImages ?? []).filter((v: any) =>
@@ -46,23 +47,24 @@ export function MediaSummary({ occurrence }: { occurrence: any }) {
         />
       ),
       thumbnailAriaLabel: `Image`,
-      info:
-        img.creator || img.license ? (
-          <>
-            {img.creator && (
-              <p>
-                <span className="g-opacity-70">Creator: </span>
-                {img.creator}
-              </p>
-            )}
-            {img.license && (
-              <p>
-                <span className="g-opacity-70">License: </span>
-                {img.license}
-              </p>
-            )}
-          </>
-        ) : undefined,
+      info: isValidCreativeCommonsLicense(img.license) ? (
+        <SuggestedAttribution media={img} occurrence={occurrence} termMap={termMap} />
+      ) : (
+        <>
+          {img.creator && (
+            <p>
+              <span className="g-opacity-70">Creator: </span>
+              {img.creator}
+            </p>
+          )}
+          {img.license && (
+            <p>
+              <span className="g-opacity-70">License: </span>
+              {img.license}
+            </p>
+          )}
+        </>
+      ),
     })),
     ...rawVideos.map((v: any) => ({
       id: v.identifier,

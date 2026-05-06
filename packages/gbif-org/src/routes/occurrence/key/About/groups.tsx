@@ -79,7 +79,7 @@ export function Groups({
   if (!occurrence) return null;
   return (
     <div style={{ wordBreak: 'break-word' }}>
-      <MediaSummary occurrence={occurrence} />
+      <MediaSummary occurrence={occurrence} termMap={termMap} />
       {/*<SequenceTeaser       {...{ updateToc, showAll, termMap, occurrence, setActiveImage }} />*/}
       {/* <Summary {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
