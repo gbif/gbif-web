@@ -166,7 +166,7 @@
       "aboutHint": "See the {aboutLink} for more on derived datasets.",
       "aboutPage": "about page",
       "loginRequiredTitle": "Sign in to register a derived dataset",
-      "loginRequiredMessage": "A GBIF account is required to register a derived dataset and mint a DOI.",
+      "loginRequiredMessage": "A GBIF account is required to register a derived dataset.",
       "loginRequiredEditMessage": "A GBIF account is required to edit a derived dataset.",
       "invalidUrl": "Please enter a valid URL (starting with http:// or https://).",
       "atLeastOneDataset": "Please provide at least one dataset key and occurrence count.",
