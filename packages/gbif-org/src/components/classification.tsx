@@ -32,6 +32,7 @@ export function TaxonStubClassification({
   }[];
   className?: string;
 }) {
+  if (!classification || classification.length === 0) return null;
   // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
   // the APIs provides classification in multiple formats named differently.
   return (

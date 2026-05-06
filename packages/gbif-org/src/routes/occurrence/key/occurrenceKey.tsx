@@ -47,10 +47,10 @@ import { FormattedMessage } from 'react-intl';
 import { Outlet, redirect, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
-import getTitle from './Title';
 import PageMetaData from '@/components/PageMetaData';
 import { notNull } from '@/utils/notNull';
 import { TaxonStubClassification } from '@/components/classification';
+import getTitleParts from './getTitle';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $defaultChecklistKey: ID) {
@@ -480,18 +480,18 @@ export function OccurrenceKey() {
   //     (classification) => classification?.checklistKey === config.defaultChecklistKey
   //   ) ?? occurrence?.classifications?.[0];
 
-  const title = getTitle({ occurrence, termMap });
+  const { text, title, hasTaxonIssues, noMatch, state } = getTitleParts({ occurrence, termMap });
 
-  const hasMatchIssues = occurrence?.classification?.hasTaxonIssues;
   const usageKey = occurrence.classification?.usage?.key;
   const acceptedUsage = occurrence.classification?.acceptedUsage;
   const isMatchedToSynonym = occurrence.classification?.taxonMatch?.synonym;
 
+  console.log('state', state);
   return (
     <>
       <PageMetaData
         path={`/occurrence/${occurrence?.key}`}
-        title={title || 'Unknown'}
+        title={text || 'Unknown'}
         nofollow
         noCanonical
       />
@@ -539,13 +539,17 @@ export function OccurrenceKey() {
                     </DynamicLink>
                   )}
                 </ArticlePreTitle>
-                {/* <ArticleTitle
-                dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
-              ></ArticleTitle> */}
+
                 <ArticleTitle className="lg:g-text-3xl">
                   <>
-                    {title && hasMatchIssues && <span className="g-me-4">{title}</span>}
-                    {title && !hasMatchIssues && usageKey && (
+                    {state === 'NO_NAME' && (
+                      <span className="g-me-4 g-text-slate-500">
+                        <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
+                      </span>
+                    )}
+                    {state === 'NO_MATCH' && <span className="g-me-4">"{title}"</span>}
+                    {state === 'MATCH_WITH_ISSUES' && <span className="g-me-4">"{title}"</span>}
+                    {state === 'MATCH_NO_ISSUES' && (
                       <DynamicLink
                         pageId="taxonKey"
                         className="hover:g-underline"
@@ -556,23 +560,10 @@ export function OccurrenceKey() {
                             import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
                         }}
                       >
-                        <span
-                          className="g-me-4"
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              occurrence.classification?.taxonMatch?.usage?.formattedName ||
-                              occurrence.classification?.taxonMatch?.usage?.name ||
-                              'No title provided',
-                          }}
-                        ></span>
+                        <span dangerouslySetInnerHTML={{ __html: title }}></span>
                       </DynamicLink>
                     )}
-                    {!title && (
-                      <span className="g-me-4 g-text-slate-500">
-                        <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
-                      </span>
-                    )}
-                    {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
+                    {(state === 'NO_MATCH' || state === 'MATCH_WITH_ISSUES') && (
                       <TooltipProvider>
                         <Tooltip delayDuration={0}>
                           <TooltipTrigger>
@@ -581,7 +572,7 @@ export function OccurrenceKey() {
                             </span>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
+                            <FormattedMessage id="occurrenceDetails.hasTaxonMatchingIssues" />
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
@@ -593,7 +584,8 @@ export function OccurrenceKey() {
                         />
                       </span>
                     )}
-                    {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) &&
+                    {state !== 'MATCH_WITH_ISSUES' &&
+                      state !== 'NO_MATCH' &&
                       occurrence.occurrenceStatus !== 'ABSENT' &&
                       vernacularNameInfo && (
                         <SimpleTooltip
@@ -630,21 +622,23 @@ export function OccurrenceKey() {
                           />
                         </div>
                       )} */}
-                      {!hasMatchIssues && !isMatchedToSynonym && (
+                      {!hasTaxonIssues &&
+                        !isMatchedToSynonym &&
+                        occurrence.classification?.classification?.[0] && (
+                          <div>
+                            <GenericFeature>
+                              <TaxonomyIcon />
+                              <TaxonStubClassification
+                                classification={occurrence.classification?.classification}
+                              />
+                            </GenericFeature>
+                          </div>
+                        )}
+                      {(hasTaxonIssues || isMatchedToSynonym) && (usageKey || acceptedUsage) && (
                         <div>
                           <GenericFeature>
                             <TaxonomyIcon />
-                            <TaxonStubClassification
-                              classification={occurrence.classification?.classification}
-                            />
-                          </GenericFeature>
-                        </div>
-                      )}
-                      {(hasMatchIssues || isMatchedToSynonym) && (
-                        <div>
-                          <GenericFeature>
-                            <TaxonomyIcon />
-                            {hasMatchIssues && (
+                            {hasTaxonIssues && usageKey && (
                               <>
                                 <span className="g-me-1">Matched to&nbsp;</span>
                                 <DynamicLink

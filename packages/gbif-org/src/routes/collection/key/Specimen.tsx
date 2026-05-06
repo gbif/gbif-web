@@ -10,11 +10,12 @@ import { useContext, useEffect, useState } from 'react';
 import { CollectionKeyContext } from './collectionKeyPresentation';
 
 export default function Specimen() {
+  const baseConfig = useConfig();
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset'],
+    defaultChecklistKey: baseConfig.defaultChecklistKey,
   });
-  const baseConfig = useConfig();
   const [config, setConfig] = useState<SearchMetadata | undefined>();
   const { key, contentMetrics } = useContext(CollectionKeyContext);
   const occurrenceSearchConfig = baseConfig?.collectionKey?.occurrenceSearch;

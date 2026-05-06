@@ -7,10 +7,10 @@ import { MdFileDownload } from 'react-icons/md';
 import { RiExternalLinkLine } from 'react-icons/ri';
 import { FormattedMessage } from 'react-intl';
 import { BasicField, licenseMap } from '../properties';
-import getTitle from '../Title';
 import { Img } from '@/components/Img';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { DynamicLink } from '@/reactRouterPlugins';
+import getTitleParts from '../getTitle';
 
 const supportedFormats = [
   'audio/ogg',
@@ -298,7 +298,7 @@ function SuggestedAttribution({
   occurrence: NonNullable<OccurrenceQuery['occurrence']>;
   termMap: { [key: string]: Term };
 }) {
-  const title = getTitle({ occurrence, termMap });
+  const { title } = getTitleParts({ occurrence, termMap });
   return (
     <span dir="auto">
       {media.title && <>&ldquo;{media.title}&rdquo; - </>}

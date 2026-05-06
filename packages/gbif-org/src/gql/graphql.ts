@@ -1078,6 +1078,7 @@ export type CollectionSearchInput = {
   active?: InputMaybe<Array<Scalars['Boolean']['input']>>;
   alternativeCode?: InputMaybe<Array<Scalars['String']['input']>>;
   biomeType?: InputMaybe<Array<Scalars['String']['input']>>;
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   city?: InputMaybe<Array<Scalars['String']['input']>>;
   code?: InputMaybe<Array<Scalars['String']['input']>>;
   contact?: InputMaybe<Array<Scalars['ID']['input']>>;
@@ -7296,6 +7297,7 @@ export type QueryCollectionSearchArgs = {
   active?: InputMaybe<Scalars['Boolean']['input']>;
   alternativeCode?: InputMaybe<Scalars['String']['input']>;
   biomeType?: InputMaybe<Array<Scalars['String']['input']>>;
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   city?: InputMaybe<Scalars['String']['input']>;
   code?: InputMaybe<Scalars['String']['input']>;
   contact?: InputMaybe<Scalars['ID']['input']>;

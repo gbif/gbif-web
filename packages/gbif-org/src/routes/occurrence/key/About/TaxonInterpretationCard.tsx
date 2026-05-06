@@ -1,5 +1,6 @@
 import { BulletList } from '@/components/bulletList';
 import { Classification } from '@/components/classification';
+import { DatasetLabel } from '@/components/filters/displayNames';
 import { ChecklistClassification } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
@@ -162,6 +163,27 @@ export function TaxonInterpretationCard({
               </div>
             )}
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ChecklistNoMatchCard({ checklistKey }: { checklistKey: string }) {
+  return (
+    <div className="g-mb-4 g-w-full g-bg-slate-100 g-rounded">
+      <div className="g-p-4">
+        <div className="g-flex g-items-center g-space-x-2 g-mb-2">
+          <span className="g-text-sm g-font-medium g-text-slate-600">
+            <DatasetLabel id={checklistKey} />
+          </span>
+        </div>
+        <div className="g-flex g-flex-wrap g-gap-1 g-text-xs g-text-slate-700">
+          <BsLightningFill className="g-flex-none g-h-[1.2em]" style={{ color: 'orange' }} />
+          <FormattedMessage
+            id="occurrenceDetails.taxonInterpretation.noMatch"
+            defaultMessage="Could not be interpreted"
+          />
         </div>
       </div>
     </div>

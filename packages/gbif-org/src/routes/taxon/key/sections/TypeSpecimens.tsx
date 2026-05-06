@@ -128,18 +128,13 @@ const TypeMaterial = ({
               occ?.typeStatus
                 ?.filter((ts) => !!ts)
                 .map((ts, j) => (
-                  <li key={`${i}-${j}`} className="g-mb-4">
+                  <li key={`${i}-${j}`} className="g-pb-2 g-mb-2 g-border-b g-border-slate-200">
                     <div className="g-flex g-gap-2 g-items-start">
-                      <div className="g-flex-none">
-                        <Tag className="">
-                          <ConceptValue vocabulary="TypeStatus" name={ts} />
-                        </Tag>
-                      </div>
                       <div className="g-flex-1">
                         <div>
                           <span className="g-me-2">
                             <DynamicLink
-                              className="g-underline"
+                              className="g-text-primary-500 hover:g-underline"
                               pageId="occurrenceKey"
                               variables={{ key: occ?.key ? occ.key.toString() : '' }}
                             >
@@ -175,6 +170,11 @@ const TypeMaterial = ({
                             className={''}
                           />
                         )}
+                      </div>
+                      <div className="g-flex-none">
+                        <Tag className="g-min-w-48">
+                          <ConceptValue vocabulary="TypeStatus" name={ts} />
+                        </Tag>
                       </div>
                     </div>
                   </li>

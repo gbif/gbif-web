@@ -263,21 +263,20 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                     {taxon.acceptedTaxon && (
                       <>
                         <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
-                        <Button asChild variant="link" className="g-p-1">
-                          <DynamicLink
-                            pageId="taxonKey"
-                            variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
-                          >
-                            <span
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  taxon?.acceptedTaxon?.label ||
-                                  taxon?.acceptedTaxon?.scientificName ||
-                                  '',
-                              }}
-                            ></span>
-                          </DynamicLink>
-                        </Button>
+                        <DynamicLink
+                          className="hover:g-underline g-ms-2 g-text-primary-500"
+                          pageId="taxonKey"
+                          variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
+                        >
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                taxon?.acceptedTaxon?.label ||
+                                taxon?.acceptedTaxon?.scientificName ||
+                                '',
+                            }}
+                          ></span>
+                        </DynamicLink>
                       </>
                     )}
 

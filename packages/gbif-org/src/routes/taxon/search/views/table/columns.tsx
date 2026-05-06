@@ -41,12 +41,17 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                   </button>
                 )}
               <div>
-                <span
-                  className="g-pointer-events-auto"
-                  dangerouslySetInnerHTML={{
-                    __html: taxon.label as string,
-                  }}
-                />
+                <DynamicLink
+                  pageId="taxonKey"
+                  variables={{ key: taxon.taxonID, datasetKey: taxon.datasetKey ?? '' }}
+                  className="hover:g-underline g-pointer-events-auto"
+                >
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: taxon.label as string,
+                    }}
+                  />
+                </DynamicLink>
                 {vernacular && (
                   <div className="g-ml-1 g-text-slate-400 g-flex g-items-center">
                     <span className="g-me-1">{vernacular}</span>

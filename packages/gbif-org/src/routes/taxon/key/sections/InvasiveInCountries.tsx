@@ -29,7 +29,7 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
 
   if (!taxonInfo?.relatedInfo?.griis?.length) return null;
 
-  const areaCount = taxonInfo.taxon.relatedInfo.griis.length ?? 0;
+  const areaCount = taxonInfo?.relatedInfo?.griis.length ?? 0;
 
   return (
     <Card className="g-mb-4" id="invasiveInCountries">

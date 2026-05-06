@@ -57,7 +57,7 @@ import {
   ResourceRelationship,
 } from './extensions';
 import { Media } from './media';
-import { TaxonInterpretationCard } from './TaxonInterpretationCard';
+import { TaxonInterpretationCard, ChecklistNoMatchCard } from './TaxonInterpretationCard';
 import { CardDescription } from '@/components/ui/smallCard';
 import { MediaSummary } from './MediaSummary';
 
@@ -368,18 +368,16 @@ function Taxon({
         <div className="g-mt-4 g-border-t g-border-slate-300 g-pt-4">
           <div className="g-mb-2">
             <HelpLine id={'taxonomic-interpretations'} icon />
-
-            {/* Taxonomic Interpretations <MdInfoOutline />
-            <div className="g-bg-slate-200 g-p-2 g-rounded g-text-slate-600 g-text-xs">
-              <HelpText identifier={'taxonomic-interpretations'} />
-            </div> */}
           </div>
-          {filteredClassifications.map((classification) => (
-            <TaxonInterpretationCard
-              key={classification.checklistKey}
-              classification={classification}
-            />
-          ))}
+          {enabledChecklists.map((checklistKey) => {
+            const classification = filteredClassifications?.find(
+              (c) => c.checklistKey === checklistKey
+            );
+            if (classification) {
+              return <TaxonInterpretationCard key={checklistKey} classification={classification} />;
+            }
+            return <ChecklistNoMatchCard key={checklistKey} checklistKey={checklistKey} />;
+          })}
         </div>
       </Group>
     </>

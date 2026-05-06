@@ -105,7 +105,7 @@ export const gbifConfig: Config = {
   //     id: 'speciesKey',
   //   },
   // ],
-  excludedPages: ['collectionKey', 'collectionSearch', 'institutionKey', 'institutionSearch'],
+  // excludedPages: ['collectionKey', 'collectionSearch', 'institutionKey', 'institutionSearch'],
   notFoundPageImageUrl: '/img/404.webp',
   feedback: {
     enabled: true,
