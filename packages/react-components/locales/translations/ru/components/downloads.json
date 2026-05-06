@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {# событие } other {# событий}} загружено",
+    "nEventsDownloaded": "",
     "nRecordsDownloaded": "{total, plural, one {# запись } other {# записей}} загружено",
     "nRowsDownloaded": "{total, plural, one {# строка } other {# строк}} загружено",
     "nConstituentDatasets": "Включены записи{total, plural, one {# набора данных} other {# наборов данных}}",
