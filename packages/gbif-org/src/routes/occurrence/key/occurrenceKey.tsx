@@ -22,7 +22,6 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { NotFoundLoaderResponse } from '@/errors';
 import {
-  OccurrenceIssue,
   OccurrenceQuery,
   OccurrenceQueryVariables,
   SlowOccurrenceKeyQuery,
@@ -548,7 +547,7 @@ export function OccurrenceKey() {
                     )}
                     {state === 'NO_MATCH' && <span className="g-me-4">"{title}"</span>}
                     {state === 'MATCH_WITH_ISSUES' && <span className="g-me-4">"{title}"</span>}
-                    {state === 'MATCH_NO_ISSUES' && (
+                    {state === 'MATCH_NO_ISSUES' && usageKey && (
                       <DynamicLink
                         pageId="taxonKey"
                         className="hover:g-underline"
@@ -612,15 +611,6 @@ export function OccurrenceKey() {
                   <HeaderInfoMain>
                     <div>
                       {/* 2 july 2025 - data products asked to hide the taxonomy - at least as an experiment */}
-                      {/* {defaultClassification.classification && (
-                        <div>
-                          <TaxonClassification
-                            className="g-flex g-mb-2"
-                            majorOnly
-                            classification={defaultClassification?.classification}
-                          />
-                        </div>
-                      )} */}
                       {!hasTaxonIssues &&
                         !isMatchedToSynonym &&
                         occurrence.classification?.classification?.[0] && (
@@ -644,7 +634,7 @@ export function OccurrenceKey() {
                                   className="g-underline"
                                   pageId="taxonKey"
                                   variables={{
-                                    key: occurrence.classification?.usage.key,
+                                    key: usageKey,
                                     datasetKey:
                                       occurrence.classification?.checklistKey ??
                                       import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
@@ -660,20 +650,20 @@ export function OccurrenceKey() {
                                 </DynamicLink>
                               </>
                             )}
-                            {!hasMatchIssues && isMatchedToSynonym && acceptedUsage && (
+                            {!hasTaxonIssues && isMatchedToSynonym && acceptedUsage?.key && (
                               <>
                                 <span className="g-me-1">Accepted name&nbsp;</span>
                                 <DynamicLink
                                   className="g-underline"
                                   pageId="taxonKey"
                                   variables={{
-                                    key: occurrence.classification?.acceptedUsage.key,
+                                    key: acceptedUsage.key,
                                     datasetKey:
                                       occurrence.classification?.checklistKey ??
                                       import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
                                   }}
                                 >
-                                  {occurrence.classification?.acceptedUsage?.name}
+                                  {acceptedUsage?.name}
                                 </DynamicLink>
                               </>
                             )}

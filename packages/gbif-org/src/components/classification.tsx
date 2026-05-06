@@ -26,9 +26,9 @@ export function TaxonStubClassification({
 }: {
   classification: {
     scientificName?: string | null;
-    taxonID?: string;
-    key?: string;
-    name?: string;
+    taxonID?: string | null;
+    key?: string | null;
+    name?: string | null;
   }[];
   className?: string;
 }) {
@@ -56,7 +56,12 @@ export function TaxonStubClassification({
 function TaxonClassificationItem({
   taxon,
 }: {
-  taxon: { scientificName?: string | null; taxonID?: string; key?: string; name?: string };
+  taxon: {
+    scientificName?: string | null;
+    taxonID?: string | null;
+    key?: string | null;
+    name?: string | null;
+  };
 }) {
   return (
     <span className="g-flex g-items-center">
@@ -170,6 +175,7 @@ export function GeologicalLayers({
 export function GadmClassification({
   gadm,
   className,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   children,
   ...props
 }: {
