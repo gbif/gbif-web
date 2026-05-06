@@ -596,7 +596,7 @@ export function OccurrenceKey() {
                           }
                         >
                           <span
-                            className="g-text-slate-300 g-inline-flex g-items-center"
+                            className="g-text-slate-300 g-inline-flex g-items-center g-ms-4"
                             style={{ fontSize: '85%' }}
                           >
                             <span className="g-me-1">{vernacularNameInfo.name}</span>
