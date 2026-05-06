@@ -486,7 +486,6 @@ export function OccurrenceKey() {
   const acceptedUsage = occurrence.classification?.acceptedUsage;
   const isMatchedToSynonym = occurrence.classification?.taxonMatch?.synonym;
 
-  console.log('state', state);
   return (
     <>
       <PageMetaData
