@@ -22,6 +22,7 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { ComponentType } from 'react';
 import { FaSortUp as SortAscIcon, FaSortDown as SortDescIcon } from 'react-icons/fa6';
 import { FormattedMessage } from 'react-intl';
+import { MdSettings } from 'react-icons/md';
 
 export type MediaGroupMode = 'default' | 'random' | 'group' | 'yearDesc' | 'yearAsc';
 
@@ -216,14 +217,8 @@ function SortIcon({ active }: { active: boolean }) {
   // Reuse the table header sort icon: overlapped up/down chevrons.
   return (
     <span className="g-relative g-inline-block g-w-3 g-h-4">
-      <SortAscIcon
+      <MdSettings
         className={cn('g-absolute g-left-0 g-top-0', {
-          'g-text-current': active,
-          'g-text-slate-300': !active,
-        })}
-      />
-      <SortDescIcon
-        className={cn('g-absolute g-left-0 g-bottom-0', {
           'g-text-current': active,
           'g-text-slate-300': !active,
         })}

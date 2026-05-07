@@ -311,7 +311,7 @@ function GroupCard({
   const filterField = field.filterField ?? field.id;
 
   return (
-    <CardShell>
+    <div>
       <CardHeader
         title={<GroupLabel group={group} field={field} />}
         count={group.count}
@@ -322,21 +322,24 @@ function GroupCard({
           }
         }}
       />
-      <CardImages>
-        {results.map((occ) => (
-          <GalleryItem
-            key={occ.key}
-            identifier={occ.primaryImage?.identifier ?? ''}
-            formattedName={getFormattedName(occ)}
-            countryCode={occ.countryCode ?? ''}
-            eventDate={occ.eventDate ?? ''}
-            height={GROUP_IMAGE_HEIGHT}
-            minWidth={0}
-            onClick={() => onSelect(occ.key)}
-          />
-        ))}
-      </CardImages>
-    </CardShell>
+      <CardShell>
+        <CardImages dense>
+          {results.map((occ) => (
+            <GalleryItem
+              key={occ.key}
+              identifier={occ.primaryImage?.identifier ?? ''}
+              formattedName={getFormattedName(occ)}
+              countryCode={occ.countryCode ?? ''}
+              eventDate={occ.eventDate ?? ''}
+              height={GROUP_IMAGE_HEIGHT}
+              minWidth={0}
+              dense
+              onClick={() => onSelect(occ.key)}
+            />
+          ))}
+        </CardImages>
+      </CardShell>
+    </div>
   );
 }
 
@@ -354,10 +357,10 @@ function UnspecifiedGroupCard({
   const { setFullField } = useContext(FilterContext);
   const filterField = field.filterField ?? field.id;
   return (
-    <CardShell>
+    <div>
       <CardHeader
         title={
-          <span className="g-text-slate-500 g-italic">
+          <span className="g-text-slate-500">
             <FormattedMessage id="search.group.unspecified" />
           </span>
         }
@@ -366,21 +369,24 @@ function UnspecifiedGroupCard({
         // "no value" predicate.
         onUseAsFilter={() => setFullField(filterField, [{ type: 'isNull' }], [])}
       />
-      <CardImages>
-        {results.map((occ) => (
-          <GalleryItem
-            key={occ.key}
-            identifier={occ.primaryImage?.identifier ?? ''}
-            formattedName={getFormattedName(occ)}
-            countryCode={occ.countryCode ?? ''}
-            eventDate={occ.eventDate ?? ''}
-            height={GROUP_IMAGE_HEIGHT}
-            minWidth={0}
-            onClick={() => onSelect(occ.key)}
-          />
-        ))}
-      </CardImages>
-    </CardShell>
+      <CardShell>
+        <CardImages dense>
+          {results.map((occ) => (
+            <GalleryItem
+              key={occ.key}
+              identifier={occ.primaryImage?.identifier ?? ''}
+              formattedName={getFormattedName(occ)}
+              countryCode={occ.countryCode ?? ''}
+              eventDate={occ.eventDate ?? ''}
+              height={GROUP_IMAGE_HEIGHT}
+              minWidth={0}
+              dense
+              onClick={() => onSelect(occ.key)}
+            />
+          ))}
+        </CardImages>
+      </CardShell>
+    </div>
   );
 }
 
@@ -404,7 +410,7 @@ function CardHeader({
   const intl = useIntl();
   const label = intl.formatMessage({ id: 'search.group.useAsFilter' });
   return (
-    <div className="g-flex g-items-center g-justify-between g-gap-3 g-px-4 g-py-3 g-border-b g-border-solid g-border-slate-100 g-bg-slate-50/50">
+    <div className="g-flex g-items-center g-justify-between g-gap-3 g-px-4 g-py-2 ">
       <div className="g-flex g-items-baseline g-gap-2 g-min-w-0">
         <h3 className="g-text-base g-font-semibold g-truncate g-text-slate-800 g-m-0">{title}</h3>
         <span className="g-text-xs g-text-slate-500 g-flex-shrink-0">
@@ -427,7 +433,12 @@ function CardHeader({
   );
 }
 
-function CardImages({ children }: { children: React.ReactNode }) {
+function CardImages({ children, dense }: { children: React.ReactNode; dense?: boolean }) {
+  if (dense) {
+    return (
+      <div className="g-flex g-flex-nowrap g-overflow-x-auto g-px-2 g-py-2 g-gap-0">{children}</div>
+    );
+  }
   return (
     <div className="g-flex g-flex-wrap g-px-2 g-py-2">
       {children}
@@ -450,27 +461,29 @@ function GroupLabel({ group, field }: { group: GroupResult; field: GroupField })
 
 function GroupCardSkeleton() {
   return (
-    <CardShell>
-      <div className="g-flex g-items-center g-justify-between g-gap-3 g-px-4 g-py-3 g-border-b g-border-solid g-border-slate-100 g-bg-slate-50/50">
+    <div>
+      <div className="g-flex g-items-center g-justify-between g-gap-3 g-px-4 g-py-2">
         <div className="g-flex g-items-baseline g-gap-2 g-min-w-0 g-flex-1">
           <div className="g-h-5 g-w-48 g-bg-slate-200 g-rounded g-animate-pulse" />
           <div className="g-h-3 g-w-10 g-bg-slate-200 g-rounded g-animate-pulse" />
         </div>
         <div className="g-h-3 g-w-20 g-bg-slate-200 g-rounded g-animate-pulse" />
       </div>
-      <div className="g-flex g-flex-wrap g-px-2 g-py-2 g-animate-pulse">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="g-m-2 g-rounded-lg g-bg-slate-200/70"
-            style={{
-              height: GROUP_IMAGE_HEIGHT,
-              // Vary the widths a little so it reads as a row of mixed-aspect images.
-              width: GROUP_IMAGE_HEIGHT * (0.8 + ((i * 37) % 100) / 100),
-            }}
-          />
-        ))}
-      </div>
-    </CardShell>
+      <CardShell>
+        <div className="g-flex g-flex-nowrap g-overflow-x-auto g-px-2 g-py-2 g-animate-pulse">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className={`g-flex-shrink-0 g-m-2 g-rounded-lg g-bg-slate-200/70${i >= 3 ? ' g-hidden sm:g-block' : ''}`}
+              style={{
+                height: GROUP_IMAGE_HEIGHT,
+                // Vary the widths a little so it reads as a row of mixed-aspect images.
+                width: GROUP_IMAGE_HEIGHT * (0.8 + ((i * 37) % 100) / 100),
+              }}
+            />
+          ))}
+        </div>
+      </CardShell>
+    </div>
   );
 }

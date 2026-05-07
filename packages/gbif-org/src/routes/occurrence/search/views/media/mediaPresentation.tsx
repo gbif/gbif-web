@@ -131,6 +131,7 @@ export function GalleryItem({
   eventDate,
   height = 150,
   minWidth,
+  dense = false,
   onClick = () => {},
 }: {
   identifier: string;
@@ -139,6 +140,7 @@ export function GalleryItem({
   eventDate: string;
   height: number;
   minWidth: number;
+  dense?: boolean;
   onClick: () => void;
 }) {
   const [ratio, setRatio] = useState(1);
@@ -188,8 +190,8 @@ export function GalleryItem({
   );
   return (
     <div
-      className="g-m-2 g-flex-grow g-inline-flex g-flex-col g-overflow-hidden"
-      style={{ flexBasis: width }}
+      className="g-m-2 g-inline-flex g-flex-col g-overflow-hidden"
+      style={dense ? { width, flexShrink: 0 } : { flexBasis: width, flexGrow: 1 }}
     >
       <button
         className="g-inline-block g-rounded-lg g-bg-gray-200/50 g-overflow-hidden g-text-center g-border g-border-solid g-border-transparent hover:g-border-slate-500/20"
