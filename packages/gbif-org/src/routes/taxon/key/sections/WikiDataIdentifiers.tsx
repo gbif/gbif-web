@@ -9,7 +9,7 @@ const WikiDataIdentifiers = ({ identifiers }: { identifiers: WikiDataIdentifier[
           <a
             key={idx}
             href={`${i?.url}`}
-            className="g-inline-flex g-items-center g-py-px g-px-2 g-rounded-full g-border g-border-slate-300 g-bg-slate-50 g-text-primary-600 g-text-xs g-leading-normal g-whitespace-nowrap g-no-underline g-transition-colors hover:g-bg-slate-200"
+            className="g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-600 g-text-xs g-py-0.5 g-px-2 g-rounded-full g-no-underline g-border"
           >
             {i?.label?.value}
           </a>
