@@ -38,6 +38,8 @@ export type GroupField = {
   /** Filter field name to use when the user clicks "Filter by this".
    *  Defaults to `id` when omitted. */
   filterField?: string;
+  /** For rank fields: the groupBy id to switch to when drilling down one rank. */
+  drillDownTo?: string;
 };
 
 export const GROUP_FIELDS: GroupField[] = [
@@ -53,36 +55,42 @@ export const GROUP_FIELDS: GroupField[] = [
     labelId: 'occurrenceFieldNames.genus',
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
+    drillDownTo: 'speciesKey',
   },
   {
     id: 'familyKey',
     labelId: 'occurrenceFieldNames.family',
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
+    drillDownTo: 'genusKey',
   },
   {
     id: 'orderKey',
     labelId: 'occurrenceFieldNames.order',
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
+    drillDownTo: 'familyKey',
   },
   {
     id: 'classKey',
     labelId: 'occurrenceFieldNames.class',
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
+    drillDownTo: 'orderKey',
   },
   {
     id: 'phylumKey',
     labelId: 'occurrenceFieldNames.phylum',
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
+    drillDownTo: 'classKey',
   },
   {
     id: 'kingdomKey',
     labelId: 'occurrenceFieldNames.kingdom',
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
+    drillDownTo: 'phylumKey',
   },
   {
     id: 'countryCode',

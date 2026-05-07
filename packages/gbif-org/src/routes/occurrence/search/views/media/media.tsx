@@ -179,15 +179,7 @@ export function Media({ size: defaultSize = 50 }) {
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    from,
-    currentFilterContext.filterHash,
-    scope,
-    load,
-    size,
-    groupState.mode,
-    isGrouped,
-  ]);
+  }, [from, currentFilterContext.filterHash, scope, load, size, groupState.mode, isGrouped]);
 
   // Reset pagination + accumulated data when filters or grouping change.
   useEffect(() => {
@@ -221,7 +213,12 @@ export function Media({ size: defaultSize = 50 }) {
         groupState={groupState}
         onGroupStateChange={onGroupStateChange}
       >
-        {isGrouped && groupState.groupBy && <MediaGrouped groupBy={groupState.groupBy} />}
+        {isGrouped && groupState.groupBy && (
+          <MediaGrouped
+            groupBy={groupState.groupBy}
+            onGroupByChange={(groupBy) => onGroupStateChange({ mode: 'group', groupBy })}
+          />
+        )}
       </MediaPresentation>
     </ErrorBoundary>
   );

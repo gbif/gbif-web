@@ -14,13 +14,13 @@ import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { GalleryItem } from './mediaPresentation';
 import { GROUP_FIELDS, GroupField } from './mediaSort';
-import { Formatted } from 'maplibre-gl';
 
 const INITIAL_GROUPS = 20;
 const GROUPS_INCREMENT = 20;
 const MAX_GROUPS = 200;
 const IMAGES_PER_GROUP = 16;
 const GROUP_IMAGE_HEIGHT = 180;
+const SHUFFLE_SEED = 12345;
 
 type GroupResult = {
   key: string;
@@ -51,6 +51,7 @@ function buildGroupedQuery(field: GroupField): string {
       $unspecifiedPredicate: Predicate
       $facetSize: Int
       $imageSize: Int
+      $shuffle: Int
       $checklistKey: ID
     ) {
       occurrenceSearch(q: $q, predicate: $predicate) {
@@ -62,7 +63,7 @@ function buildGroupedQuery(field: GroupField): string {
             count
             key
             occurrences {
-              documents(size: $imageSize) {
+              documents(size: $imageSize, shuffle: $shuffle) {
                 total
                 results {
                   key
@@ -89,7 +90,7 @@ function buildGroupedQuery(field: GroupField): string {
         }
       }
       unspecified: occurrenceSearch(q: $q, predicate: $unspecifiedPredicate) {
-        documents(size: $imageSize) {
+        documents(size: $imageSize, shuffle: $shuffle) {
           total
           results {
             key
@@ -118,9 +119,10 @@ function buildGroupedQuery(field: GroupField): string {
 
 type Props = {
   groupBy: string;
+  onGroupByChange?: (groupBy: string) => void;
 };
 
-export function MediaGrouped({ groupBy }: Props) {
+export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const [, setPreviewKey] = useEntityDrawer();
@@ -187,6 +189,7 @@ export function MediaGrouped({ groupBy }: Props) {
         unspecifiedPredicate,
         facetSize,
         imageSize: IMAGES_PER_GROUP,
+        shuffle: SHUFFLE_SEED,
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -229,6 +232,7 @@ export function MediaGrouped({ groupBy }: Props) {
           group={group}
           field={field}
           onSelect={(key) => setPreviewKey(`o_${key}`)}
+          onGroupByChange={onGroupByChange}
         />
       ))}
       {unspecifiedTotal > 0 && (
@@ -293,10 +297,12 @@ function GroupCard({
   group,
   field,
   onSelect,
+  onGroupByChange,
 }: {
   group: GroupResult;
   field: GroupField;
   onSelect: (key: number) => void;
+  onGroupByChange?: (groupBy: string) => void;
 }) {
   const { setFullField } = useContext(FilterContext);
   const results: GroupOccurrence[] = (group.occurrences?.documents?.results ?? []).filter(
@@ -309,8 +315,12 @@ function GroupCard({
       <CardHeader
         title={<GroupLabel group={group} field={field} />}
         count={group.count}
-        // Drill-down: replace any existing values for this field with just this bucket.
-        onUseAsFilter={() => setFullField(filterField, [group.key], [])}
+        onUseAsFilter={() => {
+          setFullField(filterField, [group.key], []);
+          if (field.drillDownTo && onGroupByChange) {
+            onGroupByChange(field.drillDownTo);
+          }
+        }}
       />
       <CardImages>
         {results.map((occ) => (
