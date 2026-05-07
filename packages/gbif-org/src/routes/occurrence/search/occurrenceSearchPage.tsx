@@ -94,7 +94,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         <OccurrenceViewTabs view={view} defaultView={defaultView} tabs={searchContext.tabs} />
       </DataHeader>
 
-      <section>
+      <section className="g-bg-white g-border-b g-border-slate-200">
         <FilterBarWithActions
           className="g-px-4"
           filters={filters}

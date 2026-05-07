@@ -48,7 +48,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                 <DynamicLink
                   pageId="taxonKey"
                   variables={{ key: taxon.taxonID, datasetKey: taxon.datasetKey ?? '' }}
-                  className="hover:g-underline g-pointer-events-auto"
+                  className="hover:g-underline g-pointer-events-auto g-text-inherit"
                 >
                   <span
                     dangerouslySetInnerHTML={{

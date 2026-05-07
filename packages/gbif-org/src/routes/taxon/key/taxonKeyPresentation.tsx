@@ -240,7 +240,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                       <>
                         <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
                         <DynamicLink
-                          className="hover:g-underline g-ms-2 g-text-primary-500"
+                          className="hover:g-underline g-ms-2 g-text-primary-500 g-text-inherit"
                           pageId="taxonKey"
                           variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
                         >
@@ -333,7 +333,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                               taxonRank: 'SPECIES',
                               taxonomicStatus: 'ACCEPTED',
                             }}
-                            className="hover:g-underline g-whitespace-nowrap"
+                            className="hover:g-underline g-text-inherit g-whitespace-nowrap"
                           >
                             <FormattedMessage
                               id="counts.nAcceptedSpecies"
@@ -364,6 +364,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                     <HeaderInfoEdit>
                       <Button className="g-mt-4 g-w-full sm:g-w-auto g-whitespace-nowrap">
                         <DynamicLink
+                          className="g-text-inherit"
                           pageId="occurrenceSearch"
                           searchParams={{
                             taxonKey: taxon.taxonID.toString(),

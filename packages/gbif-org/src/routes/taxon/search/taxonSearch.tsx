@@ -92,7 +92,7 @@ export function TaxonSearchPageInner({
         /> */}
       </DataHeader>
 
-      <section>
+      <section className="g-bg-white g-border-b g-border-slate-200">
         <FilterBarWithActions filters={visibleFilters} className="g-px-4" />
       </section>
 

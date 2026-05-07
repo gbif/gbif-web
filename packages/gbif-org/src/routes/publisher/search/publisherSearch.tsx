@@ -191,7 +191,7 @@ export function PublisherSearch(): React.ReactElement {
       />
 
       <section>
-        <FilterBar>
+        <FilterBar className="g-bg-white">
           <Filters />
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100">

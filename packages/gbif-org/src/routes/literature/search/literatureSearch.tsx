@@ -55,7 +55,9 @@ export function LiteraturePageSearchInner(): React.ReactElement {
       />
 
       <section>
-        <FilterBarWithActions filters={filters} className="g-px-4" />
+        <div className="g-bg-white g-border-b g-border-slate-200">
+          <FilterBarWithActions filters={filters} className="g-px-4" />
+        </div>
 
         <ErrorBoundary>
           <div className="g-py-2 g-px-4 g-bg-slate-100">

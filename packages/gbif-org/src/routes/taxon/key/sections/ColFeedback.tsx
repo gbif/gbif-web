@@ -21,7 +21,7 @@ export function ColFeedback({
         }
         target="_blank"
         rel="noopener noreferrer"
-        className="g-underline"
+        className="g-underline g-text-inherit"
       >
         {linkToCoL ? 'Catalogue of Life' : 'Checklist Bank'}
       </a>
