@@ -18,7 +18,6 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import useBelow from '@/hooks/useBelow';
 import { createContext, useMemo } from 'react';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -141,7 +140,6 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
   });
 
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon.taxonRank);
-  const hideHeaderImage = useBelow(700);
   const hasOccurrenceImages = (taxon?.occurrenceMedia?.count ?? 0) > 0;
 
   const kingdom = taxonInfo?.classification?.find((c) => c.taxonRank === 'KINGDOM')?.scientificName;
@@ -166,41 +164,40 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <div className="g-flex">
-              {!hideHeaderImage && (
-                <div className="g-flex-none g-me-12 g-w-[250px] xl:g-w-[300px] g-self-start">
-                  {hasOccurrenceImages && <HeaderImageCarousel taxon={taxon} />}
-                  {!hasOccurrenceImages && (
-                    <div
-                      className="g-relative g-w-full g-bg-neutral-100 g-rounded g-overflow-hidden"
-                      style={{ paddingBottom: '75%' }}
-                    >
-                      <div className="g-absolute g-inset-0 g-flex g-flex-col g-items-center g-justify-center">
-                        <div className="g-flex g-items-center g-justify-center g-w-full g-h-full">
-                          <img
-                            src={taxonInfo.groupIconSVG}
-                            alt=""
-                            className="g-opacity-60"
-                            style={{
-                              maxWidth: '50%',
-                              height: '100%',
-                              maxHeight: '50%',
-                              display: 'block',
-                              objectFit: 'contain',
-                            }}
-                          />
-                        </div>
-                        <div className="g-absolute g-bottom-1 g-mx-auto g-text-center g-bg-slate-100 g-opacity-50 g-p-1 g-rounded g-text-sm g-text-slate-800">
-                          <FormattedMessage
-                            id="taxon.noRecordsWithImages"
-                            defaultMessage="No records with images"
-                          />
-                        </div>
+              {/* Desktop-only left image column */}
+              <div className="g-hidden sm:g-block g-flex-none g-self-start g-me-12 g-w-[250px] xl:g-w-[300px]">
+                {hasOccurrenceImages && <HeaderImageCarousel taxon={taxon} />}
+                {!hasOccurrenceImages && (
+                  <div
+                    className="g-relative g-w-full g-bg-neutral-100 g-rounded g-overflow-hidden"
+                    style={{ paddingBottom: '75%' }}
+                  >
+                    <div className="g-absolute g-inset-0 g-flex g-flex-col g-items-center g-justify-center">
+                      <div className="g-flex g-items-center g-justify-center g-w-full g-h-full">
+                        <img
+                          src={taxonInfo.groupIconSVG ?? undefined}
+                          alt=""
+                          className="g-opacity-60"
+                          style={{
+                            maxWidth: '50%',
+                            height: '100%',
+                            maxHeight: '50%',
+                            display: 'block',
+                            objectFit: 'contain',
+                          }}
+                        />
+                      </div>
+                      <div className="g-absolute g-bottom-1 g-mx-auto g-text-center g-bg-slate-100 g-opacity-50 g-p-1 g-rounded g-text-sm g-text-slate-800">
+                        <FormattedMessage
+                          id="taxon.noRecordsWithImages"
+                          defaultMessage="No records with images"
+                        />
                       </div>
                     </div>
-                  )}
-                </div>
-              )}
-              <div className="g-flex-auto g-flex g-flex-col">
+                  </div>
+                )}
+              </div>
+              <div className="g-flex-auto g-flex g-flex-col g-min-w-0">
                 <div className="g-flex-auto">
                   <ArticlePreTitle
                     clickable
@@ -338,6 +335,12 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                     )}
                   </div>
                 </div>
+                {/* Mobile-only image — full-width between text and features */}
+                {hasOccurrenceImages && (
+                  <div className="g-block sm:g-hidden g-mt-4">
+                    <HeaderImageCarousel taxon={taxon} />
+                  </div>
+                )}
                 <HeaderInfo className="g-flex-none g-mb-0">
                   <HeaderInfoMain>
                     <FeatureList>
@@ -351,7 +354,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                               taxonRank: 'SPECIES',
                               taxonomicStatus: 'ACCEPTED',
                             }}
-                            className="hover:g-underline"
+                            className="hover:g-underline g-whitespace-nowrap"
                           >
                             <FormattedMessage
                               id="counts.nAcceptedSpecies"
@@ -380,7 +383,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                   </HeaderInfoMain>
                   {isPrimaryTaxonomy && (
                     <HeaderInfoEdit>
-                      <Button>
+                      <Button className="g-mt-4 g-w-full sm:g-w-auto g-whitespace-nowrap">
                         <DynamicLink
                           pageId="occurrenceSearch"
                           searchParams={{

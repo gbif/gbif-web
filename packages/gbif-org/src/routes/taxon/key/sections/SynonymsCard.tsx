@@ -24,7 +24,7 @@ export default function SynonymsCard({ taxonInfo, className }: Props) {
             <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="g-overflow-x-auto">
           <Synonyms taxonInfo={taxonInfo} />
         </CardContent>
       </Card>

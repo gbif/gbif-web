@@ -94,7 +94,7 @@ const TypeMaterial = ({
           <FormattedMessage id="taxon.typeMaterial" />
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="g-overflow-x-auto">
         <div className="g-text-sm g-text-slate-500 g-mb-1">
           <>
             <FormattedMessage id="counts.nResults" values={{ total: filteredData.length }} />

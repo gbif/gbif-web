@@ -18,7 +18,7 @@ function CitationContent({ taxonInfo, className }: Props) {
           <FormattedMessage id="phrases.citation" />
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="g-overflow-x-auto">
         <Citation taxonInfo={taxonInfo} />
       </CardContent>
     </Card>

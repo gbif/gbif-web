@@ -168,24 +168,22 @@ export const TreeHeader = ({
 export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon: TaxonData }) => {
   return (
     <div className="g-flex-1 g-flex g-items-center g-justify-between">
-      <div className="g-flex-1 g-flex g-items-start">
-        <div className="g-flex-grow">
-          <DynamicLink
-            pageId="taxonKey"
-            variables={{ key: taxon.taxonID, datasetKey }}
-            className="g-text-primary-700 g-whitespace-nowrap hover:g-underline"
-          >
-            <span dangerouslySetInnerHTML={{ __html: taxon.label ?? taxon.taxonID }} />
-            {!['ACCEPTED', 'PROVISIONALLY_ACCEPTED'].includes(taxon.status ?? 'ACCEPTED') && (
-              <span className="g-ms-2 g-px-1 g-py-0.5 g-text-xs g-font-medium g-text-amber-700 g-bg-amber-200 g-rounded">
-                <FormattedMessage id={`enums.taxonomicStatus.${taxon.status}`} />
-              </span>
-            )}
-          </DynamicLink>
-        </div>
-        <div className="g-text-gray-500 g-ms-3 g-flex-none">
-          <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
-        </div>
+      <div className="g-flex-grow g-inline-block">
+        <DynamicLink
+          pageId="taxonKey"
+          variables={{ key: taxon.taxonID, datasetKey }}
+          className="g-text-primary-700 g-whitespace-nowrap hover:g-underline"
+        >
+          <span dangerouslySetInnerHTML={{ __html: taxon.label ?? taxon.taxonID }} />
+          {!['ACCEPTED', 'PROVISIONALLY_ACCEPTED'].includes(taxon.status ?? 'ACCEPTED') && (
+            <span className="g-ms-2 g-px-1 g-py-0.5 g-text-xs g-font-medium g-text-amber-700 g-bg-amber-200 g-rounded">
+              <FormattedMessage id={`enums.taxonomicStatus.${taxon.status}`} />
+            </span>
+          )}
+        </DynamicLink>
+      </div>
+      <div className="g-text-gray-500 g-ms-3 g-flex-shrink g-hidden md:g-inline-block">
+        <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
       </div>
     </div>
   );

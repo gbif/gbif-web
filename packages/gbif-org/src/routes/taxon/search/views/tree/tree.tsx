@@ -140,7 +140,7 @@ export function TaxonTree({
             <ul
               role="region"
               aria-labelledby={taxon.taxonID}
-              className="g-m-0 g-list-none g-ps-1 g-ms-1 md:g-ps-2"
+              className="g-m-0 g-list-none md:g-ps-2 md:g-ms-1"
             >
               {child}
             </ul>

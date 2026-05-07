@@ -41,7 +41,7 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
           <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="g-overflow-x-auto">
         <div className="g-text-sm g-text-slate-500 g-mb-1">
           <>
             <FormattedMessage

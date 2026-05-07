@@ -110,7 +110,7 @@ export default function BibliographyCard({ taxonInfo, className }: Props) {
             <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="g-overflow-x-auto">
           <BibliographyContent taxonInfo={taxonInfo} className={className} />
         </CardContent>
       </Card>

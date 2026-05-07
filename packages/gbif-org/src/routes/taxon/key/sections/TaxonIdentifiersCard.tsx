@@ -21,7 +21,7 @@ function TaxonIdentifiersContent({ slowTaxon }: Props) {
           {source && <WikidataIdentifiersSource url={source.url} id={source.id} />}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="g-overflow-x-auto">
         <WikiDataIdentifiers identifiers={slowTaxon?.taxonInfo?.wikiData?.identifiers} />
       </CardContent>
     </Card>
