@@ -37,7 +37,7 @@ export function MediaPresentation({
 }) {
   const isGrouped = groupState.mode === 'group' && !!groupState.groupBy;
   return (
-    <div className="">
+    <div id="gbif-media-view-top" className="">
       <div className="g-flex g-items-center g-justify-between g-mb-1">
         <ViewHeader
           className="g-mb-0"

@@ -423,7 +423,10 @@ function CardHeader({
           size="sm"
           aria-label={label}
           className="g-inline-flex g-items-center g-gap-1 g-flex-shrink-0"
-          onClick={onUseAsFilter}
+          onClick={() => {
+            onUseAsFilter();
+            document.getElementById('gbif-media-view-top')?.scrollIntoView({ behavior: 'smooth' });
+          }}
         >
           <FilterIcon className="g-text-sm" />
           <span className="g-hidden sm:g-inline">{label}</span>
