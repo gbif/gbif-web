@@ -27,6 +27,8 @@
   "singleNode": "Obtener un solo nodo.",
   "searchNodes": "Buscar nodos",
   "singleSpecies": "Obtener una sola especie.",
+  "matchSpecies": "Asocia un nombre al árbol taxonómico de GBIF.",
+  "suggestSpecies": "Sugerir nombres de especies.",
   "searchSpecies": "Obtener todas las especies.",
   "singleDerivedDataset": "Obtener un único conjunto de datos",
   "parseName": "Analizar un nombre científico",
