@@ -71,10 +71,8 @@ export const taxonKeyConfig: filterTaxonConfig = {
           field: taxonKey(checklistKey: $checklistKey) {
             name: key
             count
-            item: taxonMatch(checklistKey: $checklistKey) {
-              usage {
-                canonicalName
-              }
+            item: taxon {
+              title: label
             }
           }
         }

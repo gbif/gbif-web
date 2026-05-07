@@ -67,6 +67,7 @@
     "placeholder": "Search across content...",
     "categories": {
       "speciesSearch": "Species",
+      "taxonSearch": "Taxa",
       "datasetSearch": "Datasets",
       "publisherSearch": "Publishers",
       "occurrenceSearch": "Occurrences",

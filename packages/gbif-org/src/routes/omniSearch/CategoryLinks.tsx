@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import { CategoryCount } from './search';
 
 const categories: CategoryCount[] = [
-  { type: 'speciesSearch', count: 0, label: 'Species', icon: 'Bird' },
+  { type: 'taxonSearch', count: 0, label: 'Taxa', icon: 'Bird' },
   { type: 'datasetSearch', count: 0, label: 'Datasets', icon: 'Database' },
   { type: 'publisherSearch', count: 0, label: 'Publishers', icon: 'Building2' },
   { type: 'resourceSearch', count: 0, label: 'Resources and articles', icon: 'FileText' },

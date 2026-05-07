@@ -11,7 +11,8 @@ const Cites = ({ taxonName, kingdom }) => {
       .then((data) => {
         setData(data);
         setUpdated(new Date(data.updated_at).getFullYear());
-      });
+      })
+      .catch(() => null);
   }, [taxonName, kingdom]);
 
   return data ? (

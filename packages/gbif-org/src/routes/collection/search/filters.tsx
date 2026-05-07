@@ -3,12 +3,12 @@ import {
   booleanLabel,
   collectionContentTypeLabel,
   CountryLabel,
-  DefaultTaxonLabel,
   IdentityLabel,
   InstitutionLabel,
   objectClassificationLabel,
   preservationTypeLabel,
   QuantityLabel,
+  TaxonLabel,
   TypeStatusLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -18,6 +18,7 @@ import {
   filterRangeConfig,
   FilterSetting,
   filterSuggestConfig,
+  filterTaxonConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
@@ -29,7 +30,7 @@ import {
   institutionKeySuggest,
   objectClassificationSuggest,
   preservationTypeSuggest,
-  taxonKeySuggest,
+  taxonKeyClbSuggest,
   typeStatusSuggest,
 } from '@/utils/suggestEndpoints';
 import { useEffect, useState } from 'react';
@@ -93,13 +94,14 @@ const countryConfig: filterSuggestConfig = {
   `,
 };
 
-const taxonKeyConfig: filterSuggestConfig = {
-  filterType: filterConfigTypes.SUGGEST,
+export const taxonKeyConfig: filterTaxonConfig = {
+  filterType: filterConfigTypes.TAXON,
   filterHandle: 'taxonKey',
-  displayName: DefaultTaxonLabel,
+  displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonKeySuggest,
-  disableFacetsForSelected: true,
+  suggestConfig: taxonKeyClbSuggest,
+  allowExistence: false,
+  allowNegations: false,
 };
 
 const descriptorCountryConfig: filterSuggestConfig = {

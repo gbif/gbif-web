@@ -24,9 +24,7 @@ export default function OccurrenceSearchDownload() {
   const siteConfig = useConfig();
   const searchContext = useSearchContext();
   const selectedChecklist =
-    currentFilterContext.filter.checklistKey ??
-    siteConfig.defaultChecklistKey ??
-    import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
+    currentFilterContext.filter.checklistKey ?? siteConfig.defaultChecklistKey;
   const [predicate, setPredicate] = useState<Predicate | undefined>(undefined);
 
   useEffect(() => {

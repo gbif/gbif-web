@@ -1,16 +1,11 @@
 import { Classification } from '@/components/classification';
-import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
+import { SuggestFnProps, SuggestionItem, SuggestResponseType } from '@/components/filters/suggest';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { GraphQLService } from '@/services/graphQLService';
 import { FormattedMessage } from 'react-intl';
 import { CANCEL_REQUEST, fetchWithCancel } from './fetchWithCancel';
 import { stringify } from './querystring';
-
-export type SuggestionItem = {
-  key: string;
-  title?: string;
-  description?: string;
-};
+import { apiConstants } from '@/config/apiConstants';
 
 export type SuggestConfig = {
   render?: (item: SuggestionItem) => React.ReactNode;
@@ -232,7 +227,6 @@ export const taxonKeySuggest = {
       .then((res) => res.json())
       .then((data) => {
         return data.map((item: { key: string; scientificName: string }) => ({
-          key: item?.key,
           title: item?.scientificName,
           ...item,
         }));
@@ -243,20 +237,23 @@ export const taxonKeySuggest = {
 
 export type TaxonSuggestType = SuggestFnProps & { checklistKey?: string | number };
 
+// https://api.gbif.org/v2/taxon/suggest/90d9e8a6-0ce1-472d-b682-3451095dbc5a?q=Ernobius%20tabidus
 export const taxonKeyClbSuggest = {
   render: (item: SuggestionItem) => {
-    const isSynonym = ['ambiguous synonym', 'synonym'].includes(item.status);
-    const notAccepted = item?.status !== 'accepted';
+    const isSynonym = item.isSynonym;
+    const notAccepted = item?.taxonomicStatus !== 'ACCEPTED';
     return (
       <div>
-        {item.match}
+        {item.scientificName}
         <div style={{ maxWidth: '100%', fontSize: '0.85em' }}>
-          {isSynonym && <div className="g-text-orange-500">Synonym for {item.acceptedName}</div>}
+          {isSynonym && (
+            <div className="g-text-orange-500">Synonym for {item.acceptedNameUsage}</div>
+          )}
           {notAccepted && !isSynonym && (
             <div className="g-text-orange-500">
               <FormattedMessage
-                id={`enums.clbTaxonomicStatus.${(item?.status ?? '').replace(' ', '_')}`}
-                defaultMessage={item?.status}
+                id={`enums.clbTaxonomicStatus.${(item?.taxonomicStatus ?? '').replace(' ', '_')}`}
+                defaultMessage={item?.taxonomicStatus}
               />
             </div>
           )}
@@ -272,145 +269,36 @@ export const taxonKeyClbSuggest = {
       </div>
     );
   },
-  getSuggestions: ({
-    q,
-    siteConfig,
-    checklistKey,
-    intl,
-  }: TaxonSuggestType): SuggestResponseType => {
-    const abortController = new AbortController();
-    const graphqlService = new GraphQLService({
-      endpoint: siteConfig.graphqlEndpoint,
-      abortSignal: abortController.signal,
-      locale: 'en',
-    });
-
-    const SEARCH = `
-      query($checklistKey: ID!, $q: String!) {
-        clbNameUsageSuggest(q: $q, checklistKey: $checklistKey) {
-          match
-          usageId
-          acceptedUsageId
-          acceptedName
-          rank
-          status
-          suggestion
-          context
-        }
-      }   
-    `;
-    const promise = graphqlService.query(SEARCH, {
-      q,
-      checklistKey: checklistKey,
-    });
-    return {
-      promise: promise
-        .then((res) => res.json())
-        .then((response) => {
-          return (response.data?.clbNameUsageSuggest ?? []).map((i) => ({
-            ...i,
-            title: i.suggestion,
-            key: i.usageId,
+  getSuggestions: ({ q, checklistKey, intl }: TaxonSuggestType): SuggestResponseType => {
+    const { cancel, promise } = fetchWithCancel(
+      `${apiConstants.taxonApi}/suggest/${checklistKey}?limit=20&q=${q}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then((data) => {
+        return data.map(
+          (item: {
+            taxonID: string;
+            scientificName: string;
+            taxonRank: string;
+            taxonomicStatus: string;
+            acceptedNameUsage?: string;
+            acceptedNameUsageID?: string;
+          }) => ({
+            title: item?.scientificName,
+            key: item?.taxonID,
+            isSynonym: !!item.acceptedNameUsageID,
             rankLabel: intl.formatMessage({
-              id: `enums.taxonRank.${i.rank.toUpperCase()}`,
-              defaultMessage: i.rank,
+              id: `enums.taxonRank.${item.taxonRank}`,
+              defaultMessage: item.taxonRank,
             }),
-          }));
-        }),
-      cancel: () => abortController.abort(CANCEL_REQUEST),
-    };
+            ...item,
+          })
+        );
+      });
+    return { cancel, promise: result };
   },
 };
-
-// export const taxonKeyVernacularSuggest = {
-//   placeholder: 'search.placeholders.default',
-//   // how to get the list of suggestion data
-//   getSuggestions: ({
-//     q,
-//     siteConfig,
-//     currentLocale,
-//     checklistKey,
-//   }: TaxonSuggestType): SuggestResponseType => {
-//     const language = currentLocale.iso3LetterCode ?? 'eng';
-
-//     const abortController = new AbortController();
-//     const graphqlService = new GraphQLService({
-//       endpoint: siteConfig.graphqlEndpoint,
-//       abortSignal: abortController.signal,
-//       locale: 'en',
-//     });
-
-//     const SEARCH = `
-//       query($q: String, $language: Language, $checklistKey: ID) {
-//         taxonSuggestions( q: $q, language: $language, checklistKey: $checklistKey) {
-//           key
-//           scientificName
-//           vernacularName
-//           taxonomicStatus
-//           acceptedNameOf
-//           classification {
-//             name
-//           }
-//         }
-//       }
-//     `;
-//     const promise = graphqlService.query(SEARCH, {
-//       q,
-//       language: language,
-//       checklistKey: checklistKey,
-//     });
-//     return {
-//       promise: promise
-//         .then((res) => res.json())
-//         .then((response) => {
-//           return response.data?.taxonSuggestions.map((i) => ({ ...i, title: i.scientificName }));
-//         }),
-//       cancel: () => abortController.abort(CANCEL_REQUEST),
-//     };
-//   },
-//   // how to map the results to a single string value
-//   // how to display the individual suggestions in the list
-//   render: (suggestion: SuggestionItem) => {
-//     const ranks = suggestion?.classification?.map((rank, i) => <span key={i}>{rank.name}</span>);
-
-//     return (
-//       <div style={{ maxWidth: '100%' }}>
-//         <div className="g-line-clamp-2">
-//           {suggestion.taxonomicStatus !== 'ACCEPTED' && (
-//             <span
-//               className="g-inline-block g-me-1 g-bg-orange-400 g-text-xs g-rounded g-px-0.5 g-text-white"
-//               style={{
-//                 fontSize: '10px',
-//               }}
-//             >
-//               <FormattedMessage id={`enums.taxonomicStatus.${suggestion.taxonomicStatus}`} />
-//             </span>
-//           )}
-//           <span>{suggestion.scientificName}</span>
-//         </div>
-//         {suggestion.vernacularName && (
-//           <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
-//             <div>
-//               <FormattedMessage id="filterSupport.commonName" />:{' '}
-//               <span className="g-text-slate-500">{suggestion.vernacularName}</span>
-//             </div>
-//           </div>
-//         )}
-//         {!suggestion.vernacularName && suggestion.acceptedNameOf && (
-//           <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
-//             <div>
-//               <FormattedMessage id="filterSupport.acceptedNameOf" />:{' '}
-//               <span className="g-text-slate-500">{suggestion.acceptedNameOf}</span>
-//             </div>
-//           </div>
-//         )}
-//         <div className="g-text-slate-400 g-text-xs g-mt-1.5">
-//           <Classification>{ranks}</Classification>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
 
 export const gadGidSuggest = {
   getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {

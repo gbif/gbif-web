@@ -24,6 +24,7 @@ import OMNI_SEARCH from './query';
 import PageMetaData from '@/components/PageMetaData';
 import { extractValidResourceSearchResults } from '../resource/search/resourceSearch';
 import { notNull } from '@/utils/notNull';
+import { useConfig } from '@/config/config';
 
 export interface CategoryCount {
   type: string;
@@ -50,7 +51,12 @@ type ServerResults = {
     recordedBy?: string;
     recordNumber?: string;
   };
-  taxa?: Array<{ key: number; taxon: any }>;
+  taxa?: Array<{
+    taxonID: string;
+    scientificName: string;
+    mapCapabilities: { total: number };
+    acceptedTaxon?: { taxonID: string; scientificName: string; mapCapabilities: { total: number } };
+  } | null>;
   participant?: {
     highlighted?: any;
     other?: Array<any>;
@@ -59,6 +65,7 @@ type ServerResults = {
 
 export function SearchPage() {
   const { locale } = useI18n();
+  const config = useConfig();
   const {
     data,
     load,
@@ -83,7 +90,7 @@ export function SearchPage() {
   const isSmallDevice = useBelow(1000);
   const [serverResults, setServerResults] = useState<ServerResults>({});
   const [counts, setCounts] = useState({
-    speciesSearch: 0,
+    taxonSearch: 0,
     datasetSearch: 0,
     publisherSearch: 0,
     resourceSearch: 0,
@@ -98,7 +105,7 @@ export function SearchPage() {
   useEffect(() => {
     let cancelFetch: () => void;
     setCounts({
-      speciesSearch: 0,
+      taxonSearch: 0,
       datasetSearch: 0,
       publisherSearch: 0,
       resourceSearch: 0,
@@ -107,7 +114,7 @@ export function SearchPage() {
       if (!searchQuery || !searchQuery.trim()) {
         setServerResults({});
         setCounts({
-          speciesSearch: 0,
+          taxonSearch: 0,
           datasetSearch: 0,
           publisherSearch: 0,
           resourceSearch: 0,
@@ -126,7 +133,7 @@ export function SearchPage() {
           },
           taxonQuery: {
             q: q,
-            datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
+            datasetKey: config.defaultChecklistKey,
             limit: 3,
             offset: 0,
           },
@@ -201,11 +208,11 @@ export function SearchPage() {
               country: serverResults.country.countryCode,
             },
           });
-        } else if (serverResults.taxa?.[0]?.taxon?.key) {
+        } else if (serverResults.taxa?.[0]?.taxonID) {
           setOccurrenceCategory({
-            label: serverResults.taxa?.[0]?.taxon?.scientificName,
+            label: <span dangerouslySetInnerHTML={{ __html: serverResults.taxa?.[0]?.label }} />,
             searchParams: {
-              taxonKey: serverResults.taxa?.[0]?.taxon?.key,
+              taxonKey: serverResults.taxa?.[0]?.taxonID,
             },
           });
         } else {
@@ -229,13 +236,13 @@ export function SearchPage() {
         cancelFetch();
       }
     };
-  }, [searchQuery, load, locale.iso3LetterCode]);
+  }, [searchQuery, load, locale.iso3LetterCode, config.defaultChecklistKey]);
 
   useEffect(() => {
     // set counts
     if (data) {
       setCounts({
-        speciesSearch: data.taxonSearch?.count || 0,
+        taxonSearch: data?.taxonSearch?.count ?? 0,
         datasetSearch: data.datasetSearch.count,
         publisherSearch: data.organizationSearch?.count || 0,
         resourceSearch: data.resourceSearch?.documents.total || 0,
@@ -264,10 +271,18 @@ export function SearchPage() {
 
   // remove duplicate results. server results should stay and duplicates in graphql results should be removed
   const remainingTaxaResults =
-    taxonSearch.filter((result) => {
-      const isDuplicate = serverResults?.taxa?.some((taxon) => taxon.taxon.key === result.key);
+    data?.taxonSearch?.results.filter((result) => {
+      const isDuplicate = serverResults?.taxa?.some((taxon) => taxon?.taxonID === result?.taxonID);
       return !isDuplicate;
     }) ?? [];
+
+  // We should only show each accepted taxon once. So if thre are 2 synonym results, then only show one of them
+  const uniqueTaxaResults = remainingTaxaResults.filter((result, index, self) => {
+    const acceptedTaxonID = result.acceptedTaxon?.taxonID || result.taxonID;
+    return (
+      index === self.findIndex((r) => (r.acceptedTaxon?.taxonID || r.taxonID) === acceptedTaxonID)
+    );
+  });
 
   // if already in resourceKeywordResults, then do not show it in resourceResults
   const remainingResourceResults =
@@ -319,6 +334,23 @@ export function SearchPage() {
                     </ErrorMessage>
                   )}
 
+                  {serverResults?.taxa &&
+                    serverResults?.taxa?.map((result) => {
+                      if (!result) return null;
+                      const isSynonym = result.acceptedTaxon !== null;
+                      const synonymResult = isSynonym ? { ...result } : undefined;
+                      const acceptedTaxon = result.acceptedTaxon ?? result;
+                      return (
+                        <TaxonResult
+                          key={result.taxonID}
+                          taxon={acceptedTaxon}
+                          synonym={synonymResult}
+                          // vernacularName={result?.vernacularName?.vernacularName}
+                          className="g-mb-4"
+                        />
+                      );
+                    })}
+
                   {serverResults?.country && (
                     <>
                       <CountryResult country={serverResults.country} />
@@ -338,14 +370,6 @@ export function SearchPage() {
                       className="g-bg-white g-mb-4"
                     />
                   ))}
-                  {serverResults?.taxa &&
-                    serverResults?.taxa?.map((taxon) => (
-                      <TaxonResult
-                        key={taxon.taxon.key}
-                        taxon={taxon.taxon}
-                        // className="g-bg-white g-mb-4"
-                      />
-                    ))}
 
                   {datasetSearch.slice(0, 1).map((result) => (
                     <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
@@ -383,7 +407,7 @@ export function SearchPage() {
                     serverResults?.occurrences?.recordNumber && (
                       <OccurrenceResultCard
                         Icon={MdPerson}
-                        searchParams={{ recordedBy: serverResults?.occurrences?.recordNumber }}
+                        searchParams={{ recordNumber: serverResults?.occurrences?.recordNumber }}
                         queryString={serverResults?.occurrences?.recordNumber}
                         label="Record number"
                       />
@@ -396,9 +420,20 @@ export function SearchPage() {
                   {organizationSearch.map((result) => (
                     <PublisherResult key={result.key} publisher={result} />
                   ))}
-                  {remainingTaxaResults.map((result) => (
-                    <TaxonResult key={result.key} taxon={result} />
-                  ))}
+                  {uniqueTaxaResults.map((result) => {
+                    const isSynonym = result.acceptedTaxon !== null;
+                    const synonymResult = isSynonym ? { ...result } : undefined;
+                    const acceptedTaxon = result.acceptedTaxon ?? result;
+                    return (
+                      <TaxonResult
+                        key={result.taxonID}
+                        taxon={acceptedTaxon}
+                        synonym={synonymResult}
+                        vernacularName={result?.vernacularName?.vernacularName}
+                        className="g-mb-4"
+                      />
+                    );
+                  })}
                   {!serverResults?.participant?.highlighted &&
                     serverResults?.participant?.other && (
                       <>

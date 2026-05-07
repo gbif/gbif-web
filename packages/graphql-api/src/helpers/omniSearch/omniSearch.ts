@@ -36,6 +36,7 @@ export default async function searchAll({
       // techDocs: documentationResults,
     };
   } catch (error) {
+    console.log(error);
     return {
       error: {
         message: 'An error occurred while searching.',

@@ -1,5 +1,6 @@
 // import { useCount } from '@/components/count';
 import { CountProps, useCount } from '@/components/count';
+import { apiConstants } from '@/config/apiConstants';
 import { HomePageCountIconsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -48,7 +49,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={3000000000}
           label={<FormattedMessage id="homepage.counts.occurrences" />}
           countOptions={{
-            v1Endpoint: '/occurrence/search',
+            apiEndpoint: apiConstants.occurrenceSearch,
             params: {
               occurrenceStatus: 'PRESENT',
             },
@@ -63,7 +64,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={100000}
           label={<FormattedMessage id="homepage.counts.datasets" />}
           countOptions={{
-            v1Endpoint: '/dataset/search',
+            apiEndpoint: apiConstants.datasetSearch,
           }}
         />
       </DynamicLink>
@@ -75,7 +76,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={2400}
           label={<FormattedMessage id="homepage.counts.publishers" />}
           countOptions={{
-            v1Endpoint: '/organization/count',
+            apiEndpoint: apiConstants.organization,
             responseIsNumber: true,
           }}
         />
@@ -91,7 +92,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={12000}
           label={<FormattedMessage id="homepage.counts.literature" />}
           countOptions={{
-            v1Endpoint: '/literature/search',
+            apiEndpoint: apiConstants.literatureSearch,
             params: {
               literatureType: 'journal',
               relevance: 'GBIF_USED',

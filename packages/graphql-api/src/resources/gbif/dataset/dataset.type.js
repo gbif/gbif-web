@@ -128,6 +128,7 @@ const typeDef = gql`
     publishingOrganizationKey: ID!
     publishingOrganizationTitle: String
     recordCount: Int
+    nameUsagesCount: Int
     title: String
     type: DatasetType
     subtype: DatasetSubtype

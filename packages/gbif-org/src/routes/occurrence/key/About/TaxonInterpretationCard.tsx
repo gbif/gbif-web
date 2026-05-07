@@ -1,5 +1,7 @@
 import { BulletList } from '@/components/bulletList';
 import { Classification } from '@/components/classification';
+import { DatasetLabel } from '@/components/filters/displayNames';
+import { useConfig } from '@/config/config';
 import { ChecklistClassification } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
@@ -7,32 +9,30 @@ import { BsLightningFill } from 'react-icons/bs';
 import { HiExternalLink as ExternalLinkIcon } from 'react-icons/hi';
 import { FormattedMessage } from 'react-intl';
 
-const speciesPageDatasetKey = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 export function TaxonInterpretationCard({
   classification,
 }: {
   classification: ChecklistClassification;
 }) {
-  const useChecklistBankLink = speciesPageDatasetKey !== classification.checklistKey;
-  const noMatch = classification?.usage?.key.toString() === '0';
+  const config = useConfig();
+  const useChecklistBankLink = config.defaultChecklistKey !== classification.checklistKey;
+  const usageKey = classification?.usage?.key;
+  const usageName = classification?.usage?.name;
+  const noMatch = !usageKey || !usageName;
+  if (noMatch) return <ChecklistNoMatchCard checklistKey={classification.checklistKey} />;
   const issues = classification?.issues ?? [];
-  const useCoLWebsiteLink = false; // import.meta.env.PUBLIC_COL_CHECKLIST_KEY === classification.checklistKey; // uncomment to link to CoL for CoLXR dataset
 
-  const externalDatasetLink = useCoLWebsiteLink
-    ? `https://www.catalogueoflife.org`
-    : `https://www.checklistbank.org/dataset/${classification?.meta?.mainIndex.datasetKey}/about`;
+  const externalDatasetLink = `https://www.checklistbank.org/dataset/${classification?.meta?.mainIndex.clbDatasetKey}/about`;
 
-  const externalTaxonLink = useCoLWebsiteLink
-    ? `https://www.catalogueoflife.org/data/taxon/${classification?.usage?.key}`
-    : `https://www.checklistbank.org/dataset/${
-        classification?.meta?.mainIndex?.datasetKey
-      }/taxon/${encodeURIComponent(classification?.usage?.key)}`;
+  const externalTaxonLink = `https://www.checklistbank.org/dataset/${
+    classification?.meta?.mainIndex?.clbDatasetKey
+  }/taxon/${encodeURIComponent(usageKey)}`;
 
   return (
     <div
       className={cn('g-mb-4 g-w-full g-bg-slate-100 g-rounded', {
         'g-border-s-primary-500 g-border-s-4':
-          classification?.checklistKey === speciesPageDatasetKey,
+          classification?.checklistKey === config.defaultChecklistKey,
       })}
     >
       <div className="g-overflow-hidden g-transition-all g-duration-300">
@@ -60,17 +60,8 @@ export function TaxonInterpretationCard({
                 </DynamicLink>
               )}
             </div>
-
-            {/* <h4
-              className="g-text-lg g-font-medium g-text-gray-900 g-underline"
-              dangerouslySetInnerHTML={{
-                __html:
-                  classification.taxonMatch?.usage.formattedName ??
-                  classification.taxonMatch?.usage.name,
-              }}
-            /> */}
             <h4>
-              {useChecklistBankLink && !noMatch && (
+              {useChecklistBankLink && (
                 <>
                   <a
                     href={externalTaxonLink}
@@ -78,33 +69,19 @@ export function TaxonInterpretationCard({
                     className="g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
                     rel="noopener noreferrer"
                     dangerouslySetInnerHTML={{
-                      __html:
-                        classification.taxonMatch?.usage.formattedName ??
-                        classification.taxonMatch?.usage.name,
+                      __html: classification.taxonMatch?.usage.formattedName ?? usageName,
                     }}
                   />{' '}
                   <ExternalLinkIcon className="g-align-baseline" />
                 </>
               )}
-              {noMatch && (
-                <span
-                  className="g-text-lg g-font-medium g-text-gray-900"
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      classification.taxonMatch?.usage.formattedName ??
-                      classification.taxonMatch?.usage.name,
-                  }}
-                />
-              )}
-              {!useChecklistBankLink && !noMatch && (
+              {!useChecklistBankLink && (
                 <DynamicLink
                   className="g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
-                  pageId="speciesKey"
-                  variables={{ key: classification?.usage?.key }}
+                  pageId="taxonKey"
+                  variables={{ key: usageKey }}
                   dangerouslySetInnerHTML={{
-                    __html:
-                      classification.taxonMatch?.usage.formattedName ??
-                      classification.taxonMatch?.usage.name,
+                    __html: classification.taxonMatch?.usage.formattedName ?? usageName,
                   }}
                 />
               )}
@@ -142,7 +119,7 @@ export function TaxonInterpretationCard({
                 </BulletList>
               </div>
             )}
-            {classification.acceptedUsage.key !== classification.usage.key && (
+            {classification.acceptedUsage.key && classification.acceptedUsage.key !== usageKey && (
               <div className="g-text-xs g-text-slate-700 g-mt-2">
                 {classification.taxonMatch?.synonym && (
                   <span className="g-me-4 g-bg-orange-400 g-rounded-full g-px-2 g-text-white">
@@ -152,7 +129,7 @@ export function TaxonInterpretationCard({
                 <span className="g-text-slate-600 g-font-medium">
                   accepted name:{' '}
                   <DynamicLink
-                    pageId="speciesKey"
+                    pageId="taxonKey"
                     className="g-underline"
                     variables={{ key: classification.acceptedUsage.key }}
                   >
@@ -162,6 +139,27 @@ export function TaxonInterpretationCard({
               </div>
             )}
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ChecklistNoMatchCard({ checklistKey }: { checklistKey: string }) {
+  return (
+    <div className="g-mb-4 g-w-full g-bg-slate-100 g-rounded">
+      <div className="g-p-4">
+        <div className="g-flex g-items-center g-space-x-2 g-mb-2">
+          <span className="g-text-sm g-font-medium g-text-slate-600">
+            <DatasetLabel id={checklistKey} />
+          </span>
+        </div>
+        <div className="g-flex g-flex-wrap g-gap-1 g-text-xs g-text-slate-700">
+          <BsLightningFill className="g-flex-none g-h-[1.2em]" style={{ color: 'orange' }} />
+          <FormattedMessage
+            id="occurrenceDetails.taxonInterpretation.noMatch"
+            defaultMessage="Could not be interpreted"
+          />
         </div>
       </div>
     </div>

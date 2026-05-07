@@ -76,6 +76,7 @@ export function GroupByTable({
                   </td>
                   <td className="g-w-20">
                     <Tooltip
+                      asChild
                       title={
                         <FormattedMessage
                           id="counts.nPercentOfTotal"

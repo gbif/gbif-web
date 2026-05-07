@@ -1,13 +1,7 @@
 import { useConfig } from '@/config/config';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToolUnsavedGuard } from '../_shared/useToolUnsavedGuard';
-import {
-  BATCH_SIZE,
-  CSV_EXPORT_FIELDS,
-  Phase,
-  SpeciesRow,
-  SuggestResult,
-} from './types';
+import { BATCH_SIZE, CSV_EXPORT_FIELDS, Phase, SpeciesRow, SuggestResult } from './types';
 import {
   applyMatchData,
   applySuggestion,
@@ -17,6 +11,7 @@ import {
   processInBatches,
   toCandidate,
 } from './utils';
+import { apiConstants } from '@/config/apiConstants';
 
 export type SpeciesLookupState = {
   phase: Phase;
@@ -211,7 +206,9 @@ export function useSpeciesLookupState(): SpeciesLookupState {
     const timer = setTimeout(async () => {
       try {
         const params = new URLSearchParams({ q, limit: '10' });
-        const res = await fetch(`${v2Endpoint}/taxon/suggest/${defaultChecklistKey}?${params}`);
+        const res = await fetch(
+          `${apiConstants.taxonApi}/suggest/${defaultChecklistKey}?${params}`
+        );
         if (res.ok) {
           const data = (await res.json()) as Record<string, unknown>[];
           setSuggestions(data.map(fromTaxonSuggestion));
