@@ -235,6 +235,9 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
           onGroupByChange={onGroupByChange}
         />
       ))}
+      {freshData && groups.length === 1 && field.drillDownTo && onGroupByChange && (
+        <DrillDownSuggestion drillDownTo={field.drillDownTo} onGroupByChange={onGroupByChange} />
+      )}
       {unspecifiedTotal > 0 && (
         <UnspecifiedGroupCard
           field={field}
@@ -460,6 +463,31 @@ function GroupLabel({ group, field }: { group: GroupResult; field: GroupField })
     return <>{group.key}</>;
   }
   return <ValueLabel id={group.key} />;
+}
+
+function DrillDownSuggestion({
+  drillDownTo,
+  onGroupByChange,
+}: {
+  drillDownTo: string;
+  onGroupByChange: (groupBy: string) => void;
+}) {
+  const nextField = GROUP_FIELDS.find((f) => f.id === drillDownTo);
+  if (!nextField) return null;
+  return (
+    <div className="g-flex g-items-center g-justify-center g-py-3">
+      <button
+        className="g-text-sm g-text-primary-500 hover:g-underline g-flex g-items-center g-gap-1"
+        onClick={() => onGroupByChange(drillDownTo)}
+      >
+        <FormattedMessage
+          id="search.group.drillDownSuggestion"
+          defaultMessage="Only one group? Group by {rank} instead"
+          values={{ rank: <FormattedMessage id={nextField.labelId} /> }}
+        />
+      </button>
+    </div>
+  );
 }
 
 function GroupCardSkeleton() {

@@ -158,7 +158,7 @@ export function MediaGroupDropdown({ state, onChange }: Props) {
 
   return (
     <DropdownMenu>
-      <SimpleTooltip i18nKey="search.group.groupBy" asChild side="left">
+      <SimpleTooltip i18nKey="search.options" asChild side="left">
         <DropdownMenuTrigger
           className={cn(
             'g-relative g-inline-flex g-items-center g-px-1 g-py-0.5 g-rounded hover:g-text-primary-500',
@@ -166,7 +166,7 @@ export function MediaGroupDropdown({ state, onChange }: Props) {
           )}
           aria-label="Group"
         >
-          <SortIcon active={isActive} />
+          <SortIcon />
         </DropdownMenuTrigger>
       </SimpleTooltip>
       {/* Portal directly to <body> so the menu isn't accidentally captured by the
@@ -213,16 +213,11 @@ export function MediaGroupDropdown({ state, onChange }: Props) {
   );
 }
 
-function SortIcon({ active }: { active: boolean }) {
+function SortIcon() {
   // Reuse the table header sort icon: overlapped up/down chevrons.
   return (
     <span className="g-relative g-inline-block g-w-3 g-h-4">
-      <MdSettings
-        className={cn('g-absolute g-left-0 g-top-0', {
-          'g-text-current': active,
-          'g-text-slate-300': !active,
-        })}
-      />
+      <MdSettings className="g-absolute g-left-0 g-top-0 g-text-current" />
     </span>
   );
 }

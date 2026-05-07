@@ -38,6 +38,7 @@
   "noResults": "No results",
   "startTyping": "Type to search",
   "rankInGroup": "{rank} in {group}",
+  "options": "Options",
   "sort": {
     "sortBy": "Sort by",
     "yearDesc": "Year (newest first)",
