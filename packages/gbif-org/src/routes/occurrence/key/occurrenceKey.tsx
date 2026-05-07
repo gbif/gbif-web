@@ -547,20 +547,20 @@ export function OccurrenceKey() {
                     )}
                     {state === 'NO_MATCH' && <span className="g-me-4">"{title}"</span>}
                     {state === 'MATCH_WITH_ISSUES' && <span className="g-me-4">"{title}"</span>}
-                    {state === 'MATCH_NO_ISSUES' && usageKey && (
-                      <DynamicLink
-                        pageId="taxonKey"
-                        className="hover:g-underline"
-                        variables={{
-                          key: usageKey,
-                          datasetKey:
-                            occurrence.classification?.checklistKey ??
-                            import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
-                        }}
-                      >
-                        <span dangerouslySetInnerHTML={{ __html: title }}></span>
-                      </DynamicLink>
-                    )}
+                    {state === 'MATCH_NO_ISSUES' &&
+                      usageKey &&
+                      occurrence.classification?.checklistKey && (
+                        <DynamicLink
+                          pageId="taxonKey"
+                          className="hover:g-underline"
+                          variables={{
+                            key: usageKey,
+                            datasetKey: occurrence.classification?.checklistKey,
+                          }}
+                        >
+                          <span dangerouslySetInnerHTML={{ __html: title }}></span>
+                        </DynamicLink>
+                      )}
                     {(state === 'NO_MATCH' || state === 'MATCH_WITH_ISSUES') && (
                       <TooltipProvider>
                         <Tooltip delayDuration={0}>
@@ -623,53 +623,54 @@ export function OccurrenceKey() {
                             </GenericFeature>
                           </div>
                         )}
-                      {(hasTaxonIssues || isMatchedToSynonym) && (usageKey || acceptedUsage) && (
-                        <div>
-                          <GenericFeature>
-                            <TaxonomyIcon />
-                            {hasTaxonIssues && usageKey && (
-                              <>
-                                <span className="g-me-1">Matched to&nbsp;</span>
-                                <DynamicLink
-                                  className="g-underline"
-                                  pageId="taxonKey"
-                                  variables={{
-                                    key: usageKey,
-                                    datasetKey:
-                                      occurrence.classification?.checklistKey ??
-                                      import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
-                                  }}
-                                >
-                                  <span
-                                    dangerouslySetInnerHTML={{
-                                      __html:
-                                        occurrence.classification?.taxonMatch?.usage
-                                          .formattedName || '',
+                      {(hasTaxonIssues || isMatchedToSynonym) &&
+                        (usageKey || acceptedUsage) &&
+                        occurrence.classification?.checklistKey && (
+                          <div>
+                            <GenericFeature>
+                              <TaxonomyIcon />
+                              {hasTaxonIssues && usageKey && (
+                                <>
+                                  <span className="g-me-1">Matched to&nbsp;</span>
+                                  <DynamicLink
+                                    className="g-underline"
+                                    pageId="taxonKey"
+                                    variables={{
+                                      key: usageKey,
+                                      datasetKey: occurrence.classification?.checklistKey,
                                     }}
-                                  ></span>
-                                </DynamicLink>
-                              </>
-                            )}
-                            {!hasTaxonIssues && isMatchedToSynonym && acceptedUsage?.key && (
-                              <>
-                                <span className="g-me-1">Accepted name&nbsp;</span>
-                                <DynamicLink
-                                  className="g-underline"
-                                  pageId="taxonKey"
-                                  variables={{
-                                    key: acceptedUsage.key,
-                                    datasetKey:
-                                      occurrence.classification?.checklistKey ??
-                                      import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
-                                  }}
-                                >
-                                  {acceptedUsage?.name}
-                                </DynamicLink>
-                              </>
-                            )}
-                          </GenericFeature>
-                        </div>
-                      )}
+                                  >
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html:
+                                          occurrence.classification?.taxonMatch?.usage
+                                            .formattedName || '',
+                                      }}
+                                    ></span>
+                                  </DynamicLink>
+                                </>
+                              )}
+                              {!hasTaxonIssues &&
+                                isMatchedToSynonym &&
+                                acceptedUsage?.key &&
+                                occurrence.classification?.checklistKey && (
+                                  <>
+                                    <span className="g-me-1">Accepted name&nbsp;</span>
+                                    <DynamicLink
+                                      className="g-underline"
+                                      pageId="taxonKey"
+                                      variables={{
+                                        key: acceptedUsage.key,
+                                        datasetKey: occurrence.classification?.checklistKey,
+                                      }}
+                                    >
+                                      {acceptedUsage?.name}
+                                    </DynamicLink>
+                                  </>
+                                )}
+                            </GenericFeature>
+                          </div>
+                        )}
 
                       {occurrence.gadm?.level1 && (
                         <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>

@@ -2,7 +2,7 @@ import { SuggestFnProps, SuggestionItem, SuggestResponseType } from '@/component
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { apiConstants } from '@/config/apiConstants';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
-import { SuggestConfig, TaxonDetailsLabel } from '@/utils/suggestEndpoints';
+import { SuggestConfig } from '@/utils/suggestEndpoints';
 import { FormattedMessage } from 'react-intl';
 
 function TaxonIdSuggestLabel(item: SuggestionItem): React.ReactNode {
@@ -36,36 +36,8 @@ function TaxonIdSuggestLabel(item: SuggestionItem): React.ReactNode {
 
 export const taxonIdSuggest: SuggestConfig = {
   render: TaxonIdSuggestLabel,
-  getSuggestions: ({ q, searchContext }: SuggestFnProps): SuggestResponseType => {
-    const datasetKey =
-      searchContext?.scope?.datasetKey ?? import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
-    const { cancel, promise } = fetchWithCancel(
-      `${apiConstants.taxonApi}/suggest/${datasetKey}?limit=20&q=${q}`
-    );
-    const result = promise
-      .then((res) => res.json())
-      .then((data) => {
-        return data.map(
-          (item: {
-            taxonID: string;
-            scientificName: string;
-            taxonomicStatus: string;
-            context: string;
-          }) => ({
-            ...item,
-            key: item?.taxonID,
-            title: item?.scientificName,
-          })
-        );
-      });
-    return { cancel, promise: result };
-  },
-};
-
-export const taxonKeySuggest = {
-  render: TaxonIdSuggestLabel,
-  getSuggestions: ({ q }: SuggestFnProps): SuggestResponseType => {
-    const datasetKey = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
+  getSuggestions: ({ q, searchContext, siteConfig }: SuggestFnProps): SuggestResponseType => {
+    const datasetKey = searchContext?.checklistKey ?? siteConfig?.defaultChecklistKey;
     const { cancel, promise } = fetchWithCancel(
       `${apiConstants.taxonApi}/suggest/${datasetKey}?limit=20&q=${q}`
     );

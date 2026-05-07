@@ -14,10 +14,16 @@ import { ColFeedback } from './ColFeedback';
 type Props = {
   datasetKey: string;
   taxonKey: string;
+  checklistbankURL: string;
   className?: string;
 };
 
-export default function ClassificationCard({ datasetKey, taxonKey, className }: Props) {
+export default function ClassificationCard({
+  datasetKey,
+  taxonKey,
+  checklistbankURL,
+  className,
+}: Props) {
   const createLink = useLink();
   const navigate = useNavigate();
 
@@ -38,7 +44,11 @@ export default function ClassificationCard({ datasetKey, taxonKey, className }: 
             <FormattedMessage id="taxon.classificationAndDescendants" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback taxonId={taxonKey} datasetKey={datasetKey} />
+            <ColFeedback
+              taxonId={taxonKey}
+              datasetKey={datasetKey}
+              checklistbankURL={checklistbankURL}
+            />
           </CardDescription>
         </CardHeader>
         <CardContent className="g-pb-2 md:g-pb-2">

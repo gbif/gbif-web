@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function VernacularNamesCard({ taxonInfo, className }: Props) {
-  if (taxonInfo?.vernacularNames?.length === 0) return null;
+  if (!taxonInfo || taxonInfo?.vernacularNames?.length === 0) return null;
   return (
     <ErrorBoundary
       type="BLOCK"
@@ -25,7 +25,11 @@ export default function VernacularNamesCard({ taxonInfo, className }: Props) {
             <FormattedMessage id="taxon.vernacularNames" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
+            <ColFeedback
+              taxonId={taxonInfo?.taxonID}
+              datasetKey={taxonInfo?.datasetKey}
+              checklistbankURL={taxonInfo.checklistbankURL}
+            />
           </CardDescription>
         </CardHeader>
         <CardContent className="g-overflow-x-auto">

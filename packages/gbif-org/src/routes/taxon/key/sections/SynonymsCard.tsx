@@ -13,6 +13,7 @@ type Props = {
 };
 
 export default function SynonymsCard({ taxonInfo, className }: Props) {
+  if (!taxonInfo) return null;
   return (
     <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.synonyms" />}>
       <Card className={cn('g-mb-4', className)} id="synonyms">
@@ -21,7 +22,11 @@ export default function SynonymsCard({ taxonInfo, className }: Props) {
             <FormattedMessage id="taxon.synonymsAndCombinations" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
+            <ColFeedback
+              taxonId={taxonInfo.taxonID}
+              datasetKey={taxonInfo.datasetKey}
+              checklistbankURL={taxonInfo.checklistbankURL}
+            />
           </CardDescription>
         </CardHeader>
         <CardContent className="g-overflow-x-auto">

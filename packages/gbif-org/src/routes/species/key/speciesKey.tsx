@@ -11,16 +11,14 @@ import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { FormattedMessage } from 'react-intl';
 import { redirect, useLoaderData } from 'react-router-dom';
 
-const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
-
-export async function speciesLoader({ params, graphql, locale }: LoaderArgs) {
+export async function speciesLoader({ params, graphql, locale, config }: LoaderArgs) {
   const key = params.key as string;
   const response = await graphql.query<DeprecatedTaxonQuery, DeprecatedTaxonQueryVariables>(
     SPECIES_QUERY,
     {
       key,
       oldDatasetKey: import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY,
-      newDatasetKey: primaryChecklist,
+      newDatasetKey: config.defaultChecklistKey,
     }
   );
 

@@ -9,7 +9,7 @@ import {
 import { SearchTableServerFallback } from '@/components/searchTable/table';
 import { ViewHeader } from '@/components/ViewHeader';
 import { FilterContext } from '@/contexts/filter';
-import { useSearchContext } from '@/contexts/search';
+import { TaxonSearchMetadata, useSearchContext } from '@/contexts/search';
 import { TaxonSearchQuery, TaxonSearchQueryVariables, TaxonSearchSortBy } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
@@ -78,7 +78,7 @@ const fallbackOptions: FallbackTableOptions = {
 };
 
 export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
-  const searchContext = useSearchContext();
+  const searchContext: TaxonSearchMetadata = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
   const createLink = useLink();
@@ -103,6 +103,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
       variables: {
         query: {
           ...query,
+          datasetKey: searchContext.checklistKey ?? import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
           limit: paginationState.pageSize,
           offset: paginationState.pageIndex * paginationState.pageSize,
           sortBy: hasFreeTextSearch ? TaxonSearchSortBy.Relevance : TaxonSearchSortBy.Taxonomic,

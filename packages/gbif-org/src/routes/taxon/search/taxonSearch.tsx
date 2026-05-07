@@ -5,13 +5,13 @@ import { FilterBarWithActions } from '@/components/filters/filterBarWithActions'
 import { Card } from '@/components/ui/smallCard';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
@@ -40,7 +40,7 @@ export function TaxonSearchPage(): React.ReactElement {
       <SearchContextProvider searchContext={config.taxonSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <TaxonSearchPageInner
-            datasetKey={import.meta.env.PUBLIC_GBIF_ORG_DEFAULT_CHECKLIST_KEY}
+            datasetKey={config.taxonSearch?.checklistKey ?? config.defaultChecklistKey}
           />
         </FilterProvider>
       </SearchContextProvider>
@@ -49,7 +49,7 @@ export function TaxonSearchPage(): React.ReactElement {
 }
 
 export function TaxonSearchPageInner({
-  datasetKey = import.meta.env.PUBLIC_GBIF_ORG_DEFAULT_CHECKLIST_KEY,
+  datasetKey = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
 }: {
   datasetKey?: string;
 }): React.ReactElement {
@@ -102,7 +102,7 @@ export function TaxonSearchPageInner({
 }
 
 export function TaxonSearchInner({
-  datasetKey = import.meta.env.PUBLIC_GBIF_ORG_DEFAULT_CHECKLIST_KEY,
+  datasetKey = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
 }: {
   datasetKey?: string;
 }): React.ReactElement {

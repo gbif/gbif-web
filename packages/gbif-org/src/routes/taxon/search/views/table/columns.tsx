@@ -6,12 +6,15 @@ import { useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
 import { FormattedMessage } from 'react-intl';
 import { SingleTaxonSearchResult } from './table';
+import { useConfig } from '@/config/config';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
 };
 
 export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSearchResult>[] {
+  const config = useConfig();
+
   return useMemo(() => {
     const columns: ColumnDef<SingleTaxonSearchResult>[] = [
       {
@@ -24,7 +27,8 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
           return (
             <div className="g-inline-flex g-items-center g-w-full">
               {typeof showPreview === 'function' &&
-                taxon?.datasetKey === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY && (
+                taxon?.datasetKey ===
+                  (config.taxonSearch?.checklistKey ?? config.defaultChecklistKey) && (
                   <button
                     className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
                     onClick={(e) => {

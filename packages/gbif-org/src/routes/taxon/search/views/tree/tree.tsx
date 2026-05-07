@@ -49,11 +49,7 @@ const PARENTS = /* GraphQL */ `
   }
 `;
 
-export function SearchPageTree({
-  entityDrawerPrefix: _entityDrawerPrefix,
-}: {
-  entityDrawerPrefix: string;
-}) {
+export function SearchPageTree() {
   const { scope } = useSearchContext();
   const datasetKey = scope?.datasetKey?.[0];
   const currentFilterContext = useContext(FilterContext);

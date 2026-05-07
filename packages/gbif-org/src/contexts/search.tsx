@@ -25,7 +25,7 @@ export type PublisherSearchMetadata = SearchMetadata & {
   enableUserCountryInfo?: boolean;
 };
 
-const SearchMetadataContext = React.createContext<SearchMetadata | null>(null);
+const SearchMetadataContext = React.createContext<SearchMetadata>({});
 
 type Props = {
   children?: React.ReactNode;
@@ -42,6 +42,10 @@ export function SearchContextProvider({ searchContext, children }: Props) {
 
 export function useSearchContext() {
   const searchContext = React.useContext(SearchMetadataContext);
-
   return searchContext;
 }
+
+// Taxon contexts and types
+export type TaxonSearchMetadata = SearchMetadata & {
+  checklistKey?: string;
+};

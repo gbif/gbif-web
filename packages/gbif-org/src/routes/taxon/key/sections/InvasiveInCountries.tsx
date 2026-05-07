@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { Paging } from '@/components/paging';
 import { useState } from 'react';
 import { apiConstants } from '@/config/apiConstants';
+import { DatasetLabel } from '@/components/filters/displayNames';
 
 const DEFAULT_LIMIT = 10;
 
@@ -100,7 +101,7 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
                         variables={{ key: e.datasetKey }}
                         className="g-text-primary-500"
                       >
-                        {e.dataset?.title || e.datasetKey}
+                        <DatasetLabel id={e.datasetKey} />
                       </DynamicLink>
                     </td>
 

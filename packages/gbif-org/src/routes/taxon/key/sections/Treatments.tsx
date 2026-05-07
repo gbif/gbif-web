@@ -16,6 +16,9 @@ import { FormattedMessage } from 'react-intl';
 import { Paging } from '@/components/paging';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ColFeedback } from './ColFeedback';
+import { DatasetLabel } from '@/components/filters/displayNames';
+import { useDatasetCitation } from '@/routes/dataset/key/useDatasetCitation';
+import { SkeletonParagraph } from '@/components/ui/skeleton';
 
 const DEFAULT_LIMIT = 3;
 
@@ -30,6 +33,7 @@ export default function TreatmentsCard({ taxonInfo }: { taxonInfo: TaxonKeyQuery
 const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
+  if (!taxonInfo) return null;
 
   return (
     <Card className="g-mb-4" id="treatments">
@@ -38,7 +42,11 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
           <FormattedMessage id="taxon.treatments" />
         </CardTitle>
         <CardDescription>
-          <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
+          <ColFeedback
+            taxonId={taxonInfo?.taxonID}
+            datasetKey={taxonInfo?.datasetKey}
+            checklistbankURL={taxonInfo.checklistbankURL}
+          />
         </CardDescription>
       </CardHeader>
       <CardContent className="g-overflow-x-auto">
@@ -88,7 +96,11 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
                         )} */}
                       </div>
                       <div className="[&_a]:g-underline">
-                        <HyperText text={treatment?.dataset?.citation?.text} fallback />
+                        {treatment?.datasetKey && (
+                          <div className="">
+                            <DatasetLabel id={treatment.datasetKey} />
+                          </div>
+                        )}
                       </div>
                       <div className="g-flex g-items-center g-text-sm g-text-slate-500 g-mt-1">
                         {treatment?.references && (
@@ -98,21 +110,17 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
                             rel="noreferrer"
                             className="g-me-2 g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-600 g-text-xs g-py-0.5 g-px-2 g-rounded-full g-no-underline g-border"
                           >
-                            <MdLink /> URL
+                            <MdLink /> Source
                           </a>
                         )}
                         {treatment?.datasetKey && (
-                          <div className="g-text-sm g-text-slate-500 g-mt-1">
-                            <FormattedMessage id={`dataset.dataset`} />:{' '}
-                            <DynamicLink
-                              pageId="datasetKey"
-                              variables={{ key: treatment?.datasetKey }}
-                            >
-                              {treatment?.dataset?.title ?? (
-                                <FormattedMessage id="phrases.unknown" />
-                              )}
-                            </DynamicLink>
-                          </div>
+                          <DynamicLink
+                            pageId="datasetKey"
+                            variables={{ key: treatment.datasetKey }}
+                            className="g-me-2 g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-600 g-text-xs g-py-0.5 g-px-2 g-rounded-full g-no-underline g-border"
+                          >
+                            <MdLink /> <FormattedMessage id={`dataset.dataset`} />
+                          </DynamicLink>
                         )}
                       </div>
                     </div>
@@ -132,3 +140,13 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
     </Card>
   );
 };
+
+function DatasetCitation({ datasetKey }: { datasetKey: string }) {
+  const { citation, loading } = useDatasetCitation(datasetKey);
+
+  if (loading) {
+    return <SkeletonParagraph lines={2} />;
+  }
+
+  return <HyperText text={citation || 'No citation available'} />;
+}

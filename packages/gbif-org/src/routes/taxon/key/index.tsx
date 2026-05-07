@@ -11,11 +11,11 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
   id,
   path: 'taxon/:key',
   gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
-    if (!key) return null; // handle dataset/:key/species
+    if (!key) return null; // TODO handle dataset/:key/species
     if (typeof key !== 'string' && typeof key !== 'number')
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/species/${key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/taxon/${key}`;
   },
   loader: taxonLoader,
   /* shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {

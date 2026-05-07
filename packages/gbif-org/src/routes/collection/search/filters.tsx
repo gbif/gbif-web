@@ -3,7 +3,6 @@ import {
   booleanLabel,
   collectionContentTypeLabel,
   CountryLabel,
-  DefaultTaxonLabel,
   IdentityLabel,
   InstitutionLabel,
   objectClassificationLabel,
@@ -32,7 +31,6 @@ import {
   objectClassificationSuggest,
   preservationTypeSuggest,
   taxonKeyClbSuggest,
-  taxonKeySuggest,
   typeStatusSuggest,
 } from '@/utils/suggestEndpoints';
 import { useEffect, useState } from 'react';
@@ -94,15 +92,6 @@ const countryConfig: filterSuggestConfig = {
       }
     }
   `,
-};
-
-const taxonKeyConfig_old: filterSuggestConfig = {
-  filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'taxonKey',
-  displayName: DefaultTaxonLabel,
-  filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonKeySuggest,
-  disableFacetsForSelected: true,
 };
 
 export const taxonKeyConfig: filterTaxonConfig = {

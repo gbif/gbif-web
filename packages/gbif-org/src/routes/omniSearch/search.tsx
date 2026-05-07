@@ -24,6 +24,7 @@ import OMNI_SEARCH from './query';
 import PageMetaData from '@/components/PageMetaData';
 import { extractValidResourceSearchResults } from '../resource/search/resourceSearch';
 import { notNull } from '@/utils/notNull';
+import { useConfig } from '@/config/config';
 
 export interface CategoryCount {
   type: string;
@@ -59,6 +60,7 @@ type ServerResults = {
 
 export function SearchPage() {
   const { locale } = useI18n();
+  const config = useConfig();
   const {
     data,
     load,
@@ -126,7 +128,7 @@ export function SearchPage() {
           },
           taxonQuery: {
             q: q,
-            datasetKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+            datasetKey: config.defaultChecklistKey,
             limit: 3,
             offset: 0,
           },

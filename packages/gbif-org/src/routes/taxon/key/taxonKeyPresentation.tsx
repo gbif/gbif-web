@@ -32,8 +32,7 @@ import { IucnTag } from '@/components/identifierTag';
 import { Classification } from '@/components/classification';
 import AboutNonBackbone from './AboutNonBackbone';
 import { apiConstants } from '@/config/apiConstants';
-
-const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
+import { isSupportedChecklist } from '@/hooks/useSupportedChecklists';
 
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
@@ -124,14 +123,14 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
   const taxon = taxonInfo;
   if (!taxon) throw new NotFoundError();
 
-  const isPrimaryTaxonomy = taxonInfo?.datasetKey === primaryChecklist;
+  const isIndexedChecklist = isSupportedChecklist(taxonInfo.datasetKey);
   const { count, loading: countLoading } = useCount({
     apiEndpoint: apiConstants.occurrenceSearch,
-    params: { taxonKey: taxonInfo?.taxonID, checklistKey: primaryChecklist },
+    params: { taxonKey: taxonInfo?.taxonID, checklistKey: taxonInfo.datasetKey },
   });
 
   const { count: speciesCount } = useCount({
-    apiEndpoint: `${apiConstants.taxonApi}/search/${primaryChecklist}`,
+    apiEndpoint: `${apiConstants.taxonApi}/search/${taxonInfo.datasetKey}`,
     params: {
       taxonId: taxonInfo?.taxonID,
       taxonRank: 'SPECIES',
@@ -237,26 +236,6 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                     />
                   </ArticleTitle>
                   <div>
-                    {!isPrimaryTaxonomy && taxon.dataset && (
-                      <div className="g-mt-2">
-                        <FormattedMessage
-                          id="taxon.inChecklist"
-                          values={{
-                            checklist: (
-                              <DynamicLink
-                                className="hover:g-underline g-text-primary-500 g-ml-1"
-                                to={`/dataset/${taxon.dataset.key}`}
-                                pageId="datasetKey"
-                                variables={{ key: taxon.dataset.key }}
-                              >
-                                {taxon.dataset.title}
-                              </DynamicLink>
-                            ),
-                          }}
-                        />
-                      </div>
-                    )}
-
                     {taxon.acceptedTaxon && (
                       <>
                         <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
@@ -376,12 +355,12 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                           />
                         </GenericFeature>
                       )}
-                      {isPrimaryTaxonomy && isSpeciesOrBelow && (
+                      {isIndexedChecklist && isSpeciesOrBelow && (
                         <Cites taxonName={taxon.scientificName} kingdom={kingdom} />
                       )}
                     </FeatureList>
                   </HeaderInfoMain>
-                  {isPrimaryTaxonomy && (
+                  {isIndexedChecklist && (
                     <HeaderInfoEdit>
                       <Button className="g-mt-4 g-w-full sm:g-w-auto g-whitespace-nowrap">
                         <DynamicLink

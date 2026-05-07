@@ -325,16 +325,17 @@ const typeDef = gql`
 
   type Synonym {
     taxonID: ID!
-    scientificName: String
+    datasetKey: ID!
+    scientificName: String!
     scientificNameAuthorship: String
-    taxonRank: String
-    taxonomicStatus: String
+    taxonRank: String!
+    taxonomicStatus: String!
     nomenclaturalCode: String
-    label: String
+    label: String!
     """
     Indicates whether the homotypic synonym is the original name usage according to the field originalNameUsageID. This is a derived field that checks if the synonym's taxonID matches the taxon's originalNameUsageID.
     """
-    isOriginalNameUsage: Boolean
+    isOriginalNameUsage: Boolean!
   }
 
   type TaxonSimple {

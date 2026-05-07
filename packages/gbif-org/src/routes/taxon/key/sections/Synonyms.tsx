@@ -6,13 +6,15 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 
 const LIMIT = 10;
-const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
+const Synonyms = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonInfo']> }) => {
   const [showAll, setShowAll] = useState(false);
-  const datasetKey = taxonInfo?.datasetKey ?? import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
   const count =
-    taxonInfo?.synonyms?.heterotypic?.flat().concat(taxonInfo?.synonyms?.homotypic || []).length ??
-    0;
+    taxonInfo.synonyms?.heterotypic?.flat().concat(taxonInfo.synonyms?.homotypic || []).length ?? 0;
+  if (!taxonInfo) return null;
+  const datasetKey = taxonInfo.datasetKey;
+  const homotypic = taxonInfo.synonyms?.homotypic || [];
+  const heterotypic = taxonInfo.synonyms?.heterotypic || [];
   return (
     <div>
       <div className="g-text-sm g-text-slate-500 g-mb-1">
@@ -24,18 +26,16 @@ const Synonyms = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
         )}
       </div>
       <ul>
-        {taxonInfo?.synonyms?.homotypic?.slice(0, showAll ? undefined : LIMIT).map((synonym) => {
+        {homotypic.slice(0, showAll ? undefined : LIMIT).map((synonym) => {
           return (
             <li key={synonym.taxonID} className="g-py-1 g-border-t g-border-gray-200">
               <Synonym synonym={synonym} type="homotypic" datasetKey={datasetKey} />
             </li>
           );
         })}
-        {taxonInfo?.synonyms?.heterotypic
-          ?.slice(
-            0,
-            showAll ? undefined : Math.max(0, LIMIT - (taxonInfo?.synonyms?.homotypic?.length || 0))
-          )
+        {heterotypic
+          ?.filter((synonyms): synonyms is NonNullable<typeof synonyms> => synonyms != null)
+          .slice(0, showAll ? undefined : Math.max(0, LIMIT - (homotypic?.length || 0)))
           .map((synonyms) => {
             const first = synonyms[0];
             const remaining = synonyms.slice(1);

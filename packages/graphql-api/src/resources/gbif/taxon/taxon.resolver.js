@@ -268,6 +268,9 @@ export default {
         query: { ..._query, ...args, ...query },
       }),
   },
+  Synonym: {
+    isOriginalNameUsage: ({ originalNameUsageID }) => !!originalNameUsageID,
+  },
   ChecklistMetaMainIndex: {
     version: async ({ clbDatasetKey }, args, { dataSources }) => {
       try {

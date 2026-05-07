@@ -107,7 +107,7 @@ export const taxonIdConfig: filterTaxonConfig = {
             name
             count
             item: taxon {
-              title: label
+              title: scientificName
             }
           }
         }

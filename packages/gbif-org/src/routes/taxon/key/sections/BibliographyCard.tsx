@@ -99,6 +99,7 @@ export function BibliographyContent({ taxonInfo }: Props) {
 }
 
 export default function BibliographyCard({ taxonInfo, className }: Props) {
+  if (!taxonInfo) return null;
   return (
     <ErrorBoundary type="BLOCK" errorMessage={<FormattedMessage id="taxon.errors.bibliography" />}>
       <Card className={cn('g-mb-4', className)} id="bibliography">
@@ -107,7 +108,11 @@ export default function BibliographyCard({ taxonInfo, className }: Props) {
             <FormattedMessage id="taxon.bibliography" />
           </CardTitle>
           <CardDescription>
-            <ColFeedback taxonId={taxonInfo?.taxonID} datasetKey={taxonInfo?.datasetKey} />
+            <ColFeedback
+              taxonId={taxonInfo?.taxonID}
+              datasetKey={taxonInfo?.datasetKey}
+              checklistbankURL={taxonInfo.checklistbankURL}
+            />
           </CardDescription>
         </CardHeader>
         <CardContent className="g-overflow-x-auto">

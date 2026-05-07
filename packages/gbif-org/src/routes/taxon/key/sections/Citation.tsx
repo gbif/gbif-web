@@ -1,12 +1,17 @@
 import { HyperText } from '@/components/hyperText';
+import { SkeletonParagraph } from '@/components/ui/skeleton';
 import { TaxonKeyQuery } from '@/gql/graphql';
+import { useDatasetCitation } from '@/routes/dataset/key/useDatasetCitation';
 
-const Citation = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) => {
-  const taxon = taxonInfo;
+const Citation = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonInfo']> }) => {
+  const { citation, loading } = useDatasetCitation(taxonInfo.datasetKey);
+  if (loading) {
+    return <SkeletonParagraph lines={2} />;
+  }
   return (
     <HyperText
       className="prose-links"
-      text={`${taxon?.label || taxon?.scientificName} in ${taxon?.dataset?.citation?.text}`}
+      text={`${taxonInfo?.label || taxonInfo?.scientificName} in ${citation}`}
     />
   );
 };

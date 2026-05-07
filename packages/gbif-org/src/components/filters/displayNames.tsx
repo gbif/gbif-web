@@ -226,8 +226,8 @@ export function IdentityLabel({ id }: { id: string | number | object }) {
 }
 
 // a special taxonLabel that always use the defult checklistKey from the config
-export function DefaultTaxonLabel({ id }: { id: string | number | object }) {
-  return <TaxonLabel id={id} checklistKey={import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY} />;
+export function BackboneTaxonLabel({ id }: { id: string | number | object }) {
+  return <TaxonLabel id={id} checklistKey={import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY} />;
 }
 
 export function TaxonLabel({

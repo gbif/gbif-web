@@ -11,14 +11,15 @@ import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
 import { NotFoundError } from '@/errors';
+import { useConfig } from '@/config/config';
 
 const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
-export async function taxonLoader({ params, graphql, locale }: LoaderArgs) {
+export async function taxonLoader({ params, graphql, locale, config }: LoaderArgs) {
   const key = params.key as string;
   const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
-    datasetKey: primaryChecklist,
+    datasetKey: config.taxonSearch?.checklistKey ?? primaryChecklist,
     language: locale?.iso3LetterCode ?? 'eng',
   });
 
@@ -51,6 +52,7 @@ export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs
 }
 
 export function TaxonKey() {
+  const config = useConfig();
   const { data } = useLoaderData() as { data: TaxonKeyQuery }; // TODO I do not get why this data isn't just passed as a prop from the parent route
   const { locale } = useI18n();
   const {
@@ -68,11 +70,11 @@ export function TaxonKey() {
       slowTaxonLoad({
         variables: {
           key: id.toString(),
-          datasetKey: primaryChecklist,
+          datasetKey: config.taxonSearch?.checklistKey ?? primaryChecklist,
         },
       });
     }
-  }, [data.taxonInfo?.taxonID, locale, slowTaxonLoad]);
+  }, [data.taxonInfo?.taxonID, locale, slowTaxonLoad, config]);
 
   if (data?.taxonInfo == null) throw new NotFoundError();
   return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
@@ -99,13 +101,6 @@ const TAXON_QUERY = /* GraphQL */ `
       label
       references
       acceptedNameUsageID
-      dataset {
-        key
-        title
-        citation {
-          text
-        }
-      }
       acceptedTaxon {
         taxonID
         label
@@ -126,13 +121,6 @@ const TAXON_QUERY = /* GraphQL */ `
         taxonID
         datasetKey
         references
-        dataset {
-          title
-          citation {
-            text
-          }
-          publishingOrganizationTitle
-        }
       }
       relatedInfo {
         griis {
@@ -141,9 +129,6 @@ const TAXON_QUERY = /* GraphQL */ `
           locality
           countryCode
           isInvasive
-          dataset {
-            title
-          }
           isCountry
         }
         redlist {

@@ -11,6 +11,7 @@ type Props = {
 };
 
 function CitationContent({ taxonInfo, className }: Props) {
+  if (!taxonInfo) return null;
   return (
     <Card className={cn('g-mb-4', className)} id="citation">
       <CardHeader>

@@ -41,13 +41,17 @@ export function CatalogueOfLifeCard({
     datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY
       ? `https://www.catalogueoflife.org/data/taxon/${taxonID}`
       : checklistbankURL;
+  const translationKey =
+    datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY
+      ? 'taxon.viewOnCatalogueOfLife'
+      : 'taxon.viewInChecklistBank';
   return (
     <Card className={cn('', className)}>
       <nav>
         <ul className="g-list-none g-m-0 g-p-0 g-my-2">
           <TocLi>
             <a className="g-text-inherit" href={url}>
-              {title ?? <FormattedMessage id="taxon.viewOnCatalogueOfLife" />}{' '}
+              {title ?? <FormattedMessage id={translationKey} />}{' '}
               <MdLink className="g-inline g-ms-1" />
             </a>
           </TocLi>

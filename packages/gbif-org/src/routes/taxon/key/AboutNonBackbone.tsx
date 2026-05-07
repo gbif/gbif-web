@@ -1,9 +1,7 @@
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useIsFamilyOrAbove } from '@/hooks/taxonomyRankHooks';
 import { NotFoundError } from '@/errors';
 import { BibliographyContent } from './sections/BibliographyCard';
-import { Card, CardContent, CardHeader } from '@/components/ui/largeCard';
+import { CardContent, CardHeader } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
 import { useTaxonBreakdown } from './sections/breakdown';
 import { TaxonKeyQuery } from '@/gql/graphql';
@@ -21,7 +19,7 @@ import Citation from './sections/Citation';
 
 const dividerClass = 'g-mt-6 g-pt-6';
 
-export default function AboutNonBackbone({ data, className }: { data: TaxonKeyQuery }) {
+export default function AboutNonBackbone({ data }: { data: TaxonKeyQuery }) {
   const taxon = data?.taxonInfo;
   const taxonInfo = data?.taxonInfo;
   if (!taxonInfo || !taxon) throw new NotFoundError();

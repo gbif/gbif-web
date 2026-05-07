@@ -15,12 +15,16 @@ const NoneEmptyTab = () => {
   const config = useConfig();
   const [searchContext, setSearchContext] = useState({
     ...config.taxonSearch,
-    scope: { datasetKey: datasetKey },
+    checklistKey: datasetKey,
+    scope: {
+      datasetKey,
+    },
   });
   useEffect(() => {
     setSearchContext({
       ...config.taxonSearch,
-      scope: { datasetKey: datasetKey },
+      checklistKey: datasetKey,
+      scope: { datasetKey },
     });
   }, [config?.taxonSearch, datasetKey]);
 
@@ -28,6 +32,7 @@ const NoneEmptyTab = () => {
     filterConfig: searchConfig,
     paramsToRemove: ['offset', 'from'],
   });
+
   return (
     <SearchContextProvider searchContext={searchContext}>
       <FilterProvider filter={filter} onChange={setFilter}>

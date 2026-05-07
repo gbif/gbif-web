@@ -225,8 +225,9 @@ export const gbifConfig: Config = {
     },
   },
   taxonSearch: {
+    checklistKey: 'bae5856f-da10-4333-90a0-5a2135361b30',
     scope: {
-      datasetKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+      datasetKey: 'bae5856f-da10-4333-90a0-5a2135361b30',
     },
     highlightedFilters: ['q', 'taxonomicStatus', 'taxonRank', 'taxonId', 'issue'],
   },

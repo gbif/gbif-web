@@ -4,6 +4,7 @@ import { useCallback, useContext, useMemo } from 'react';
 import { Link, LinkProps, useLocation, useNavigate } from 'react-router-dom';
 import { PageContext } from './applyPagePaths/plugin';
 import { useI18n } from './i18n';
+import { useConfig } from '@/config/config';
 
 export type LinkData = {
   to: string | object | null;
@@ -26,10 +27,12 @@ export type DynamicLinkProps<T extends React.ElementType> = {
  */
 export function useLink() {
   const { localizeLink, locale } = useI18n();
+  const config = useConfig();
   const location = useLocation();
   const currentPages = useContext(PageContext);
   const parentPages = useContext(ParentPagesContext);
   const pages = parentPages ?? currentPages;
+  const checklistForTaxonSearch = config.taxonSearch?.checklistKey ?? config.defaultChecklistKey;
 
   const createLink = useMemo(() => {
     return ({
@@ -47,10 +50,10 @@ export function useLink() {
     }): LinkData => {
       let isHref = false;
       let link: string | null = null;
-      // if a pageId is provided, use the pageId to get the link
 
+      // if a pageId is provided, use the pageId to get the link
       if (pageId === 'taxonKey' && variables.key && variables.datasetKey) {
-        if (variables.datasetKey !== import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY) {
+        if (variables.datasetKey !== checklistForTaxonSearch) {
           pageId = 'datasetKey';
           path = `/taxon/${encodeURIComponent(variables.key)}`;
           variables = { key: variables.datasetKey };

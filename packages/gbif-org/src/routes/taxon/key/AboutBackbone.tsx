@@ -74,7 +74,11 @@ export default function AboutBackbone() {
           stack={hideSidebar}
         >
           <div className="g-order-last">
-            <ClassificationCard datasetKey={taxon.datasetKey} taxonKey={taxon.taxonID} />
+            <ClassificationCard
+              datasetKey={taxon.datasetKey}
+              taxonKey={taxon.taxonID}
+              checklistbankURL={taxonInfo.checklistbankURL}
+            />
             {showTaxonBreakdown && hasBreakdownData && (
               <div id="breakdown">
                 {/* <TaxonBreakdown taxon={taxon} /> */}

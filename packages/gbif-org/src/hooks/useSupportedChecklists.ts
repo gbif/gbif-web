@@ -10,6 +10,10 @@ const defaultVisibleChecklists =
   import.meta.env.PUBLIC_DEFAULT_VISIBLE_CHECKLISTS_FOR_DOWNLOAD?.split(',') || [];
 const defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
+export function isSupportedChecklist(datasetKey: string) {
+  return import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS.split(',').includes(datasetKey);
+}
+
 export type ChecklistMetadata = {
   version: string;
   link: string;

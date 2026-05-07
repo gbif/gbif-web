@@ -1,6 +1,14 @@
 import { FormattedMessage } from 'react-intl';
 
-export function ColFeedback({ taxonId, datasetKey }: { taxonId?: string; datasetKey?: string }) {
+export function ColFeedback({
+  taxonId,
+  datasetKey,
+  checklistbankURL,
+}: {
+  taxonId?: string;
+  datasetKey?: string;
+  checklistbankURL: string;
+}) {
   const linkToCoL = datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY && taxonId;
   return (
     <>
@@ -9,7 +17,7 @@ export function ColFeedback({ taxonId, datasetKey }: { taxonId?: string; dataset
         href={
           linkToCoL
             ? `https://www.catalogueoflife.org/data/taxon/${encodeURIComponent(taxonId)}`
-            : `https://github.com/CatalogueOfLife/data/issues/new?body=${encodeURIComponent(`Regarding Taxon ID: ${taxonId} in dataset: ${datasetKey}`)}`
+            : checklistbankURL
         }
         target="_blank"
         rel="noopener noreferrer"
