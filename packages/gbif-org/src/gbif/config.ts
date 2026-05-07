@@ -119,8 +119,8 @@ export const gbifConfig: Config = {
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
-  defaultChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY, // CoL
-  availableChecklistKeys: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
+  defaultChecklistKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY, // CoL
+  availableChecklistKeys: [import.meta.env.PUBLIC_COL_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   theme: {
     dense: true,
     primary: '#4C9C2E', // green '#69AA69', purple #4f46e5
@@ -225,9 +225,9 @@ export const gbifConfig: Config = {
     },
   },
   taxonSearch: {
-    checklistKey: 'bae5856f-da10-4333-90a0-5a2135361b30',
+    checklistKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
     scope: {
-      datasetKey: 'bae5856f-da10-4333-90a0-5a2135361b30',
+      datasetKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
     },
     highlightedFilters: ['q', 'taxonomicStatus', 'taxonRank', 'taxonId', 'issue'],
   },
