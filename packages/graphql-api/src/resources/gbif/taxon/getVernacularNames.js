@@ -7,27 +7,19 @@ export default function getVernacularNames({
   dataSources,
   removeDuplicates = false,
 }) {
-  // if the language parameter is present, then we need to fetch all the data and then manually filter it for the language, and the apply limit and offset
-  const newQuery = {
-    limit,
-    offset,
-    language,
-    checklistKey,
-  }; // language and source are ignored by the API
-  if (language || checklistKey) {
+  if (language) {
     newQuery.limit = 1000;
     newQuery.offset = 0;
   }
   return dataSources.taxonAPI
-    .getTaxonDetails({
+    .getTaxonInfo({
       key: taxonKey,
-      resource: 'vernacularNames',
-      query: newQuery,
+      datasetKey: checklistKey,
     })
     .then((response) => {
       let apiResponse = response;
       if (language) {
-        const filtered = response.results.filter(
+        const filtered = response.vernacularNames.filter(
           (item) => item.language === language,
         );
         // count how frequent each vernacularName is used
@@ -66,4 +58,27 @@ export default function getVernacularNames({
         results: apiResponse.results.slice(offset, offset + limit),
       };
     });
+}
+
+export function getOneVernacularName({ data, language }) {
+  /* data has the form:
+  {
+    "vernacularName": "Silver Fir",
+    "language": "dan",
+  }
+  */
+  // the function should return the vernacularName if the language matches, otherwise it should return null
+  // it should return the most frequent entry for that language
+  // It should choose the most frequent occuring vernacularName if there are multiple with the same language.
+  if (!data || !data.results) return null;
+  const filtered = data.results.filter((item) => item.language === language);
+  if (filtered.length === 0) return null;
+  // count how frequent each vernacularName is used
+  const counts = filtered.reduce((acc, item) => {
+    acc[item.vernacularName] = (acc[item.vernacularName] || 0) + 1;
+    return acc;
+  }, {});
+  // sort the list by the frequency of the vernacularName, this is simply to avoid the odd outliers that occasionally appear since it is a list stiched together from multiple sources
+  filtered.sort((a, b) => counts[b.vernacularName] - counts[a.vernacularName]);
+  return filtered[0];
 }

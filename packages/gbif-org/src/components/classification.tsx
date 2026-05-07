@@ -20,13 +20,68 @@ export function Classification({
   );
 }
 
+export function TaxonStubClassification({
+  classification,
+  className,
+}: {
+  classification: {
+    scientificName?: string | null;
+    taxonID?: string | null;
+    key?: string | null;
+    name?: string | null;
+  }[];
+  className?: string;
+}) {
+  if (!classification || classification.length === 0) return null;
+  // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
+  // the APIs provides classification in multiple formats named differently.
+  return (
+    <>
+      <Classification className={cn('g-flex g-flex-wrap g-gap-1 g-items-center', className)}>
+        {classification.slice(0, 2).map((c) => (
+          <TaxonClassificationItem
+            key={c.taxonID ?? c.key ?? c.scientificName ?? c.name}
+            taxon={c}
+          />
+        ))}
+        {classification.length > 3 && <span>...</span>}
+        {classification.length > 2 && (
+          <TaxonClassificationItem taxon={classification[classification.length - 1]} />
+        )}
+      </Classification>
+    </>
+  );
+}
+
+function TaxonClassificationItem({
+  taxon,
+}: {
+  taxon: {
+    scientificName?: string | null;
+    taxonID?: string | null;
+    key?: string | null;
+    name?: string | null;
+  };
+}) {
+  return (
+    <span className="g-flex g-items-center">
+      <DynamicLink
+        className="hover:g-underline g-text-inherit"
+        pageId="taxonKey"
+        variables={{ key: taxon.taxonID ?? taxon.key ?? '' }}
+      >
+        {taxon.scientificName ?? taxon.name}
+      </DynamicLink>
+    </span>
+  );
+}
 export function TaxonClassification({
   classification,
   majorOnly,
   className,
   datasetKey,
 }: {
-  classification: { rank?: string | null; name?: string | null; key: string }[];
+  classification: { rank?: string | null; name?: string | null; key?: string }[];
   majorOnly?: boolean;
   className?: string;
   datasetKey?: string;
@@ -38,13 +93,16 @@ export function TaxonClassification({
     <Classification className={className}>
       {classificationFiltered.map((c, i) => (
         <span key={i}>
-          <DynamicLink
-            pageId={datasetKey ? 'datasetKey' : 'speciesKey'}
-            variables={{ key: datasetKey ? `${datasetKey}/species/${c.key}` : c.key }}
-            className="g-text-inherit hover:g-underline"
-          >
-            <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>
-          </DynamicLink>
+          {c.key && (
+            <DynamicLink
+              pageId={datasetKey ? 'datasetKey' : 'taxonKey'}
+              variables={{ key: datasetKey ? `${datasetKey}/taxon/${c.key}` : c.key }}
+              className="g-text-inherit hover:g-underline"
+            >
+              <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>
+            </DynamicLink>
+          )}
+          {!c.key && <span dangerouslySetInnerHTML={{ __html: c.name ?? '' }}></span>}
         </span>
       ))}
     </Classification>
@@ -83,7 +141,6 @@ export function GeologicalLayers({
     earliestPeriodOrLowestSystem,
     earliestEpochOrLowestSeries,
     earliestAgeOrLowestStage,
-    lowestBiostratigraphicZone,
   ];
   const lithostratigraphicLayers = [group, formation, member, bed];
 
@@ -110,6 +167,7 @@ export function GeologicalLayers({
             ))}
         </Classification>
       )}
+      {lowestBiostratigraphicZone && <span>{lowestBiostratigraphicZone}</span>}
     </div>
   );
 }
@@ -117,6 +175,7 @@ export function GeologicalLayers({
 export function GadmClassification({
   gadm,
   className,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   children,
   ...props
 }: {

@@ -74,6 +74,10 @@ export const mapWidgetOptions: MapWidgetOptions = {
       style: 'gbif-geyser',
     },
     {
+      name: 'GREY',
+      style: 'gbif-middle',
+    },
+    {
       name: 'DARK',
       style: 'gbif-dark',
     },

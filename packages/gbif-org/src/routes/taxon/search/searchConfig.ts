@@ -10,10 +10,13 @@ export const config: FilterConfigType = {
         supportedTypes: ['fuzzy'],
       },
     },
+    datasetKey: {
+      singleValue: true,
+    },
   },
 };
 
-const otherParams = ['status', 'rank', 'higherTaxonKey', 'issue'];
+const otherParams = ['taxonomicStatus', 'taxonRank', 'taxonId', 'issue'];
 
 otherParams.forEach((filter) => {
   config.fields = config.fields ?? {};

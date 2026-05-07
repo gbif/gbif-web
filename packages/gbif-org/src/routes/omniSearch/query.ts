@@ -27,15 +27,12 @@ const OMNI_SEARCH = /* GraphQL */ `
         ...DatasetStubResult
       }
     }
-    taxonSearch(query: $taxonQuery, limit: 3) {
+    taxonSearch(query: $taxonQuery, limit: 3, searchType: FUZZY) {
       count
       offset
       endOfRecords
       results {
-        ...TaxonResult
-        acceptedTaxon {
-          ...TaxonResult
-        }
+        ...TaxonSearchResultCard
       }
     }
 

@@ -7,13 +7,15 @@ export function Img({
   onError,
   className,
   style,
+  src,
   ...props
 }: React.ImgHTMLAttributes<HTMLImageElement> & {
   failedClassName?: string;
   onError?: () => void;
   className?: string;
 }) {
-  const [failed, setFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | undefined>(undefined);
+  const failed = failedSrc !== undefined && failedSrc === src;
   if (failed) {
     return (
       <div
@@ -32,9 +34,10 @@ export function Img({
   return (
     <img
       {...props}
+      src={src}
       style={style}
       onError={() => {
-        setFailed(true);
+        setFailedSrc(src);
         onError && onError();
       }}
       className={className}

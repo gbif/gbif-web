@@ -7,10 +7,10 @@ import { MdFileDownload } from 'react-icons/md';
 import { RiExternalLinkLine } from 'react-icons/ri';
 import { FormattedMessage } from 'react-intl';
 import { BasicField, licenseMap } from '../properties';
-import getTitle from '../Title';
 import { Img } from '@/components/Img';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { DynamicLink } from '@/reactRouterPlugins';
+import getTitleParts from '../getTitle';
 
 const supportedFormats = [
   'audio/ogg',
@@ -245,12 +245,16 @@ function Caption({
         )}
         {media.identifier && (
           <BasicField label={`occurrenceFieldNames.identifier`}>
-            <a href={media.identifier}>{truncateMiddle(media.identifier, 40)}</a>
+            <a href={media.identifier} className="g-text-inherit">
+              {truncateMiddle(media.identifier, 40)}
+            </a>
           </BasicField>
         )}
         {media.references && (
           <BasicField label={`occurrenceFieldNames.references`}>
-            <a href={media.references}>{truncateMiddle(media.references, 40)}</a>
+            <a href={media.references} className="g-text-inherit">
+              {truncateMiddle(media.references, 40)}
+            </a>
           </BasicField>
         )}
         {media.creator && (
@@ -280,7 +284,7 @@ function Caption({
   );
 }
 
-function isValidCreativeCommonsLicense(license?: string | null): boolean {
+export function isValidCreativeCommonsLicense(license?: string | null): boolean {
   if (!license) return false;
   if (licenseMap[license]) return true;
   const v = license.toLowerCase();
@@ -289,7 +293,7 @@ function isValidCreativeCommonsLicense(license?: string | null): boolean {
   return false;
 }
 
-function SuggestedAttribution({
+export function SuggestedAttribution({
   media,
   occurrence,
   termMap,
@@ -298,7 +302,7 @@ function SuggestedAttribution({
   occurrence: NonNullable<OccurrenceQuery['occurrence']>;
   termMap: { [key: string]: Term };
 }) {
-  const title = getTitle({ occurrence, termMap });
+  const { title } = getTitleParts({ occurrence, termMap });
   return (
     <span dir="auto">
       {media.title && <>&ldquo;{media.title}&rdquo; - </>}
@@ -306,7 +310,7 @@ function SuggestedAttribution({
         <DynamicLink
           pageId="occurrenceKey"
           variables={{ key: String(occurrence.key) }}
-          className="g-underline"
+          className="g-underline g-text-inherit"
         >
           <span dangerouslySetInnerHTML={{ __html: title }} />
         </DynamicLink>
@@ -370,7 +374,7 @@ function LicenseValue({ license }: { license: string }) {
   )?.[0];
   if (matchedEnumKey)
     return (
-      <a href={license} className="g-underline">
+      <a href={license} className="g-underline g-text-inherit">
         <FormattedMessage id={`enums.license.${matchedEnumKey}`} defaultMessage={matchedEnumKey} />
       </a>
     );

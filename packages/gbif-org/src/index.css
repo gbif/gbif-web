@@ -552,6 +552,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 
 @layer base {
+  .g-font-header {
+    font-family: var(--headerFontFamily), var(--fontFamily);
+  }
   .classification {
     line-height: 1.2em;
     & > span:after {

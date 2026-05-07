@@ -119,7 +119,7 @@ export function EventSearchPageInner(): React.ReactElement {
         />
       </DataHeader>
 
-      <section>
+      <section className="g-bg-white">
         <FilterOptions filters={filters} searchContext={searchContext} />
       </section>
 

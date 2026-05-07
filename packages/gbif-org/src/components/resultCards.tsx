@@ -7,13 +7,13 @@ type CountTagProps = CountProps & {
 };
 
 export function CountTag({
-  v1Endpoint,
+  apiEndpoint,
   params,
   message = 'counts.nRecords',
   property,
   className,
 }: CountTagProps) {
-  const { count } = useCount({ v1Endpoint, params, property });
+  const { count } = useCount({ apiEndpoint, params, property });
 
   if (typeof count === 'number' && count > 0) {
     return (

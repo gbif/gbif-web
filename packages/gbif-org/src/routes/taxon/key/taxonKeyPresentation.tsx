@@ -1,9 +1,8 @@
 import { useCount } from '@/components/count';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
-import { HyperText } from '@/components/hyperText';
+import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
+import { FeatureList, GenericFeature, TaxonomyIcon } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -26,10 +25,15 @@ import { Outlet } from 'react-router-dom';
 import { getTaxonSchema } from '../../../utils/schemaOrg';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
-import SourceDataset from './SourceDataset';
-import SourceLink from './SourceLink';
-import { useIsSpeciesOrBelow } from './taxonUtil';
+import { HeaderImageCarousel } from './sections/SidebarImageCarousel';
+import { useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import { HelpLine } from '@/components/helpText';
+import { IucnTag } from '@/components/identifierTag';
+import { Classification } from '@/components/classification';
+import AboutNonBackbone from './AboutNonBackbone';
+import { apiConstants } from '@/config/apiConstants';
+import { isSupportedChecklist } from '@/hooks/useSupportedChecklists';
+
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
@@ -39,14 +43,9 @@ export const TaxonKeyContext = createContext<{
 }>({
   data: {
     __typename: undefined,
-    taxon: undefined,
-    imagesCount: undefined,
-    /*     typesSpecimenCount: undefined,
-     */
   },
   slowTaxon: {
     __typename: undefined,
-    taxon: undefined,
   },
 });
 
@@ -59,12 +58,10 @@ export function TaxonKey({
   slowTaxon?: SlowTaxonQuery;
   slowTaxonLoading: boolean;
 }) {
-  if (data.taxon == null) throw new NotFoundError();
-
-  const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
+  if (data.taxonInfo == null) throw new NotFoundError();
 
   return (
-    <PageHeader data={data} vernacularNameInfo={vernacularNameInfo}>
+    <PageHeader data={data}>
       <TaxonKeyContext.Provider
         value={{
           data: data,
@@ -78,88 +75,79 @@ export function TaxonKey({
   );
 }
 
-export const NonBackbonePresentation = ({
-  data,
-  slowTaxon,
-  slowTaxonLoading,
-  headLess = false,
-}: {
-  data: TaxonKeyQuery;
-  slowTaxon?: SlowTaxonQuery;
-  slowTaxonLoading: boolean;
-  headLess: boolean;
-}) => {
-  return !headLess ? (
-    <PageHeader data={data} vernacularNameInfo={undefined}>
-      <TaxonKeyContext.Provider
-        value={{
-          data: data,
-          slowTaxon: slowTaxon,
-          slowTaxonLoading: slowTaxonLoading,
-        }}
-      >
-        <Outlet />
-      </TaxonKeyContext.Provider>
-    </PageHeader>
-  ) : (
-    <TaxonKeyContext.Provider
-      value={{
-        data: data,
-        slowTaxon: slowTaxon,
-        slowTaxonLoading: slowTaxonLoading,
-      }}
-    >
-      <ArticleContainer className="g-bg-slate-100 g-p-0 lg:g-pb-0">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <Card>
-            <SectionTabs isNub={false} hasVerbatim={data.taxon?.origin === 'SOURCE'} />
-          </Card>
-        </ArticleTextContainer>
-      </ArticleContainer>
-      <Outlet />
-    </TaxonKeyContext.Provider>
+export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
+  return (
+    <ArticleContainer className="g-bg-slate-100 g-p-0">
+      <ArticleTextContainer className="g-max-w-screen-xl">
+        {data.taxonInfo?.datasetKey && (
+          <div className="g-flex g-items-center g-gap-2 g-mb-4">
+            <Button asChild variant="outline" className="g-flex-none g-bg-white">
+              <DynamicLink
+                pageId="datasetKey"
+                variables={{ key: data.taxonInfo?.datasetKey }}
+                path={`/taxon`}
+              >
+                <FormattedMessage id="taxon.viewAllTaxa" defaultMessage="View all" />
+              </DynamicLink>
+            </Button>
+          </div>
+        )}
+        <Card className="g-overflow-hidden g-mb-8">
+          <AboutNonBackbone data={data} />
+        </Card>
+      </ArticleTextContainer>
+    </ArticleContainer>
   );
 };
 
-const SectionTabs = ({ isNub, hasVerbatim }: { isNub: boolean; hasVerbatim: boolean }) => {
+const SectionTabs = ({ occurrenceCount = 0 }: { occurrenceCount?: number }) => {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
     ];
-    if (isNub) {
+    if (occurrenceCount > 0) {
       tabsToDisplay.push({
         to: 'metrics',
-        children: <FormattedMessage id="taxon.tabs.metrics" />,
-      });
-    }
-    if (hasVerbatim && !isNub) {
-      tabsToDisplay.push({
-        to: 'verbatim',
-        children: <FormattedMessage id="taxon.tabs.verbatim" />,
+        children: <FormattedMessage id="taxon.tabs.metrics" defaultMessage="Metrics" />,
       });
     }
 
     return tabsToDisplay;
-  }, []);
+  }, [occurrenceCount]);
 
   return <Tabs links={tabs} />;
 };
 
-const PageHeader = ({ data, vernacularNameInfo, children }) => {
-  const { taxon } = data;
-  const isNub = taxon?.nubKey === taxon?.key;
+const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.ReactNode }) => {
+  const { taxonInfo } = data;
+  const taxon = taxonInfo;
+  if (!taxon) throw new NotFoundError();
+
+  const isIndexedChecklist = isSupportedChecklist(taxonInfo.datasetKey);
   const { count, loading: countLoading } = useCount({
-    v1Endpoint: '/occurrence/search',
-    params: { taxonKey: taxon.key },
+    apiEndpoint: apiConstants.occurrenceSearch,
+    params: { taxonKey: taxonInfo?.taxonID, checklistKey: taxonInfo.datasetKey },
   });
 
-  const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
+  const { count: speciesCount } = useCount({
+    apiEndpoint: `${apiConstants.taxonApi}/search/${taxonInfo.datasetKey}`,
+    params: {
+      taxonId: taxonInfo?.taxonID,
+      taxonRank: 'SPECIES',
+      taxonomicStatus: 'ACCEPTED',
+    },
+  });
+
+  const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon.taxonRank);
+  const hasOccurrenceImages = (taxon?.occurrenceMedia?.count ?? 0) > 0;
+
+  const kingdom = taxonInfo?.classification?.find((c) => c.taxonRank === 'KINGDOM')?.scientificName;
   return (
     <>
       <PageMetaData
         title={taxon.scientificName}
-        jsonLd={isNub ? getTaxonSchema(data.taxon) : undefined}
-        path={`/species/${taxon.key}`}
+        jsonLd={getTaxonSchema(data)}
+        path={`/taxon/${taxonInfo?.taxonID}`} // TODO what about locale here?
         noCanonical
       />
 
@@ -168,161 +156,237 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={taxon.key} />}
+        apiContent={<ApiContent id={taxon.taxonID} />}
       />
 
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
-            <ArticlePreTitle
-              secondary={
-                taxon.taxonomicStatus === 'DOUBTFUL' ? (
-                  <HelpLine
-                    id="what-does-the-taxon-status-doubtful-mean-and-when-is-used"
-                    icon
-                    contentClassName="g-w-auto g-max-w-[min(42rem,100vw)]"
-                    title={
-                      <span className="g-uppercase">
-                        <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
-                      </span>
-                    }
-                  />
-                ) : (
-                  <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
-                )
-              }
-            >
-              <FormattedMessage id={`enums.rank.${taxon.rank}`} defaultMessage={taxon.rank || ''} />
-            </ArticlePreTitle>
-            {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle className="lg:g-text-3xl">
-              <span
-                className="g-me-4"
-                dangerouslySetInnerHTML={{
-                  __html: taxon?.formattedName || taxon?.scientificName || '',
-                }}
-              />
-              {vernacularNameInfo && (
-                <SimpleTooltip
-                  asChild
-                  title={
-                    <FormattedMessage
-                      id="phrases.commonNameAccordingTo"
-                      values={{ source: vernacularNameInfo.source }}
-                    />
-                  }
-                >
-                  <span
-                    className="g-text-slate-300 g-inline-flex g-items-center"
-                    style={{ fontSize: '85%' }}
+            <div className="g-flex">
+              {/* Desktop-only left image column */}
+              <div className="g-hidden sm:g-block g-flex-none g-self-start g-me-12 g-w-[250px] xl:g-w-[300px]">
+                {hasOccurrenceImages && <HeaderImageCarousel taxon={taxon} />}
+                {!hasOccurrenceImages && (
+                  <div
+                    className="g-relative g-w-full g-bg-neutral-100 g-rounded g-overflow-hidden"
+                    style={{ paddingBottom: '75%' }}
                   >
-                    <span className="g-me-1">{vernacularNameInfo.vernacularName}</span>
-                    <MdInfoOutline />
-                  </span>
-                </SimpleTooltip>
-              )}
-            </ArticleTitle>
-            <div>
-              {!isNub && taxon.dataset && (
-                <div className="g-mt-2">
-                  <FormattedMessage
-                    id="taxon.inChecklist"
-                    values={{
-                      checklist: (
-                        <DynamicLink
-                          className="hover:g-underline g-text-primary-500 g-ml-1"
-                          to={`/dataset/${taxon.dataset.key}`}
-                          pageId="datasetKey"
-                          variables={{ key: taxon.dataset.key }}
-                        >
-                          {taxon.dataset.title}
-                        </DynamicLink>
-                      ),
-                    }}
-                  />
-                </div>
-              )}
-
-              {taxon.acceptedTaxon && (
-                <>
-                  <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
-                  <Button asChild variant="link" className="g-p-1">
-                    <DynamicLink
-                      pageId="speciesKey"
-                      variables={{ key: taxon?.acceptedTaxon?.key.toString() }}
-                    >
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            taxon?.acceptedTaxon?.formattedName ||
-                            taxon?.acceptedTaxon?.scientificName ||
-                            '',
-                        }}
-                      ></span>
-                    </DynamicLink>
-                  </Button>
-                </>
-              )}
-              {isNub && <SourceDataset taxon={data.taxon} />}
-              {taxon.publishedIn && (
-                <span className="g-inline">
-                  <FormattedMessage id="taxon.publishedIn" />
-                  {': '}
-                  <HyperText
-                    className="prose-links g-inline [&_p]:g-inline"
-                    text={taxon.publishedIn}
-                  />
-                </span>
-              )}
-            </div>
-            <HeaderInfo>
-              <HeaderInfoMain>
-                <FeatureList>
-                  {!isNub && taxon?.references && <Homepage url={taxon.references} />}
-                  {isNub && taxon?.iucnStatus?.distribution?.threatStatus && (
-                    <GenericFeature>
-                      <a href={taxon?.iucnStatus?.references} target="_blank">
+                    <div className="g-absolute g-inset-0 g-flex g-flex-col g-items-center g-justify-center">
+                      <div className="g-flex g-items-center g-justify-center g-w-full g-h-full">
                         <img
-                          width={200}
-                          src={`/iucnStatus/${taxon?.iucnStatus?.distribution?.threatStatus}.png`}
+                          src={taxonInfo.groupIconSVG ?? undefined}
+                          alt=""
+                          className="g-opacity-60"
+                          style={{
+                            maxWidth: '50%',
+                            height: '100%',
+                            maxHeight: '50%',
+                            display: 'block',
+                            objectFit: 'contain',
+                          }}
                         />
-                      </a>
-                    </GenericFeature>
-                  )}
-                  {isNub && isSpeciesOrBelow && (
-                    <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
-                  )}
-                  {isNub && (
-                    <GenericFeature>
-                      <SourceLink taxon={data.taxon} />
-                    </GenericFeature>
-                  )}
-
-                  {isNub && (
-                    <>
-                      <div className="g-flex-auto g-min-w-0" />
-                      <Button>
+                      </div>
+                      <div className="g-absolute g-bottom-1 g-mx-auto g-text-center g-bg-slate-100 g-opacity-50 g-p-1 g-rounded g-text-sm g-text-slate-800">
+                        <FormattedMessage
+                          id="taxon.noRecordsWithImages"
+                          defaultMessage="No records with images"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="g-flex-auto g-flex g-flex-col g-min-w-0">
+                <div className="g-flex-auto">
+                  <ArticlePreTitle
+                    clickable
+                    secondary={
+                      taxon.taxonomicStatus === 'DOUBTFUL' ? (
+                        <HelpLine
+                          id="what-does-the-taxon-status-doubtful-mean-and-when-is-used"
+                          icon
+                          contentClassName="g-w-auto g-max-w-[min(42rem,100vw)]"
+                          title={
+                            <span className="">
+                              <FormattedMessage
+                                id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`}
+                              />
+                            </span>
+                          }
+                        />
+                      ) : (
+                        <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
+                      )
+                    }
+                  >
+                    <DynamicLink pageId="taxonSearch" searchParams={{ taxonRank: taxon.taxonRank }}>
+                      <FormattedMessage
+                        id={`enums.taxonRank.${taxon.taxonRank}`}
+                        defaultMessage={taxon.taxonRank || ''}
+                      />
+                    </DynamicLink>
+                  </ArticlePreTitle>
+                  {/* it would be nice to know for sure which fields to expect */}
+                  <ArticleTitle className="lg:g-text-3xl">
+                    <span
+                      className="g-me-4"
+                      dangerouslySetInnerHTML={{
+                        __html: taxon?.label || taxon?.scientificName || '',
+                      }}
+                    />
+                  </ArticleTitle>
+                  <div>
+                    {taxon.acceptedTaxon && (
+                      <>
+                        <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
                         <DynamicLink
+                          className="hover:g-underline g-ms-2 g-text-primary-500 g-text-inherit"
+                          pageId="taxonKey"
+                          variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
+                        >
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                taxon?.acceptedTaxon?.label ||
+                                taxon?.acceptedTaxon?.scientificName ||
+                                '',
+                            }}
+                          ></span>
+                        </DynamicLink>
+                      </>
+                    )}
+
+                    {!taxon.acceptedTaxon && taxonInfo.vernacularName && (
+                      <div className="g-mb-1">
+                        <SimpleTooltip
+                          asChild
+                          title={
+                            <FormattedMessage
+                              id="phrases.commonNameAccordingTo"
+                              values={{ source: 'Catalogue of Life' }} // TODO taxonapi: if this is no longer a variable, then we can remove the variable
+                            />
+                          }
+                        >
+                          <span className="g-text-slate-600 g-inline-flex g-items-center">
+                            <span className="g-me-1">
+                              {taxonInfo.vernacularName.vernacularName}
+                            </span>
+                            <MdInfoOutline />
+                          </span>
+                        </SimpleTooltip>
+                      </div>
+                    )}
+
+                    {!taxon.acceptedTaxon && taxonInfo?.classification && (
+                      // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
+                      <Classification className="g-mt-2 g-flex g-flex-wrap g-gap-1 g-items-center">
+                        {taxonInfo.classification.slice(0, 2).map((c) => (
+                          <span key={c.taxonID} className="g-flex g-items-center">
+                            <DynamicLink
+                              className="hover:g-underline g-text-inherit"
+                              pageId="taxonKey"
+                              variables={{ key: c.taxonID.toString() }}
+                            >
+                              {c.scientificName}
+                            </DynamicLink>
+                          </span>
+                        ))}
+                        {taxonInfo.classification.length > 3 && <span>...</span>}
+                        {taxonInfo.classification.length > 2 && (
+                          <span className="g-flex g-items-center">
+                            <DynamicLink
+                              className="hover:g-underline g-text-inherit"
+                              pageId="taxonKey"
+                              variables={{
+                                key: taxonInfo.classification[
+                                  taxonInfo.classification.length - 1
+                                ].taxonID.toString(),
+                              }}
+                            >
+                              {
+                                taxonInfo.classification[taxonInfo.classification.length - 1]
+                                  .scientificName
+                              }
+                            </DynamicLink>
+                          </span>
+                        )}
+                      </Classification>
+                    )}
+                  </div>
+                </div>
+                {/* Mobile-only image — full-width between text and features */}
+                {hasOccurrenceImages && (
+                  <div className="g-block sm:g-hidden g-mt-4">
+                    <HeaderImageCarousel taxon={taxon} />
+                  </div>
+                )}
+                <HeaderInfo className="g-flex-none g-mb-0">
+                  <HeaderInfoMain>
+                    <FeatureList>
+                      {(speciesCount ?? 0) > 0 && (
+                        <GenericFeature>
+                          <TaxonomyIcon />
+                          <DynamicLink
+                            pageId="taxonSearch"
+                            searchParams={{
+                              taxonId: taxon.taxonID,
+                              taxonRank: 'SPECIES',
+                              taxonomicStatus: 'ACCEPTED',
+                            }}
+                            className="hover:g-underline g-text-inherit g-whitespace-nowrap"
+                          >
+                            <FormattedMessage
+                              id="counts.nAcceptedSpecies"
+                              values={{ total: speciesCount }}
+                            />
+                          </DynamicLink>
+                        </GenericFeature>
+                      )}
+                      {taxon.relatedInfo?.redlist?.threatStatus && (
+                        <GenericFeature>
+                          <IucnTag
+                            statusCategory={taxon.relatedInfo?.redlist?.threatStatus}
+                            as="a"
+                            href={
+                              taxon.relatedInfo?.redlist?.references ??
+                              `https://www.iucnredlist.org/search?query=${taxon.scientificName}&searchType=species`
+                            }
+                            target="_blank"
+                          />
+                        </GenericFeature>
+                      )}
+                      {isIndexedChecklist && isSpeciesOrBelow && (
+                        <Cites taxonName={taxon.scientificName} kingdom={kingdom} />
+                      )}
+                    </FeatureList>
+                  </HeaderInfoMain>
+                  {isIndexedChecklist && (
+                    <HeaderInfoEdit>
+                      <Button className="g-mt-4 g-w-full sm:g-w-auto g-whitespace-nowrap">
+                        <DynamicLink
+                          className="g-text-inherit"
                           pageId="occurrenceSearch"
-                          searchParams={{ taxonKey: taxon.key.toString() }}
+                          searchParams={{
+                            taxonKey: taxon.taxonID.toString(),
+                          }}
                         >
                           {countLoading ? (
-                            <FormattedMessage id="taxon.loading" />
+                            <FormattedMessage id="phrases.loading" />
                           ) : (
                             <FormattedMessage id="counts.nOccurrences" values={{ total: count }} />
                           )}
                         </DynamicLink>
                       </Button>
-                    </>
+                    </HeaderInfoEdit>
                   )}
-                </FeatureList>
-              </HeaderInfoMain>
-            </HeaderInfo>
+                </HeaderInfo>
+              </div>
+            </div>
             <div className="g-border-b g-mt-4"></div>
-            <SectionTabs isNub={isNub} hasVerbatim={taxon?.origin === 'SOURCE'} />
+            <SectionTabs occurrenceCount={count} />
           </ArticleTextContainer>
         </PageContainer>
-        <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>
+        <ErrorBoundary invalidateOn={taxon?.taxonID}>{children}</ErrorBoundary>
       </article>
     </>
   );

@@ -99,13 +99,13 @@ export const gbifConfig: Config = {
   //     id: 'institutionKey',
   //   },
   //   {
-  //     id: 'speciesSearch',
+  //     id: 'taxonSearch',
   //   },
   //   {
   //     id: 'speciesKey',
   //   },
   // ],
-  excludedPages: ['collectionKey', 'collectionSearch', 'institutionKey', 'institutionSearch'],
+  // excludedPages: ['collectionKey', 'collectionSearch', 'institutionKey', 'institutionSearch'],
   notFoundPageImageUrl: '/img/404.webp',
   feedback: {
     enabled: true,
@@ -119,8 +119,8 @@ export const gbifConfig: Config = {
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
-  // defaultChecklistKey: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c', // GBIF Backbone Taxonomy
-  availableChecklistKeys: import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
+  defaultChecklistKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY, // CoL
+  availableChecklistKeys: [import.meta.env.PUBLIC_COL_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   theme: {
     dense: true,
     primary: '#4C9C2E', // green '#69AA69', purple #4f46e5
@@ -225,10 +225,11 @@ export const gbifConfig: Config = {
     },
   },
   taxonSearch: {
+    checklistKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
     scope: {
-      datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
+      datasetKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
     },
-    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey', 'issue'],
+    highlightedFilters: ['q', 'taxonomicStatus', 'taxonRank', 'taxonId', 'issue'],
   },
   literatureSearch: {
     queryType: 'PREDICATE',

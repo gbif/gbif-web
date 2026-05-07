@@ -23,7 +23,7 @@ export function StandaloneOccurrenceKeyPage({ url }: Props) {
         { id: 'publisherKey' },
         { id: 'collectionKey' },
         { id: 'institutionKey' },
-        { id: 'speciesKey' },
+        { id: 'taxonKey' },
         { id: 'downloadKey' },
       ],
     };

@@ -2,7 +2,7 @@ import {
   booleanLabel,
   CountryLabel,
   DatasetLabel,
-  DefaultTaxonLabel,
+  BackboneTaxonLabel,
   IdentityLabel,
   LiteratureTypeLabel,
   NetworkLabel,
@@ -149,7 +149,7 @@ const countriesOfResearcherConfig: filterSuggestConfig = {
 const taxonKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'gbifTaxonKey',
-  displayName: DefaultTaxonLabel,
+  displayName: BackboneTaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeySuggest,
   about: () => <Message id="resourceSearch.helpText.gbifTaxonKey" />,

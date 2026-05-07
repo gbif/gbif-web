@@ -9,7 +9,7 @@ type UseRowLinkOptions<T> = {
   keySelector: (item: T) => string;
 };
 
-export type CreateRowLink<T> = (item: T) => LinkData;
+export type CreateRowLink<T> = (item: T) => LinkData | null;
 
 const KEY_PLACEHOLDER = '__KEY__';
 
@@ -36,6 +36,7 @@ export function useRowLink<T>({
 
   return useCallback(
     (item: T) => {
+      if (!link?.to) return null;
       if ('createDrawerKey' in rowLinkOptions) {
         return {
           type: link.type,
