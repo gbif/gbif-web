@@ -26,7 +26,7 @@ export function WikidataIdentifiersSource({ url, id }: { url: string; id: string
         <FormattedMessage id="taxon.source" />
       </span>
       {': '}
-      <a href={url} className="g-underline" rel="noopener noreferrer">
+      <a href={url} className="g-underline g-text-inherit" rel="noopener noreferrer">
         wikidata:{id}
       </a>
     </span>

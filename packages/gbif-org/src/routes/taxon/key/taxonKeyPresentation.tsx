@@ -283,7 +283,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                         {taxonInfo.classification.slice(0, 2).map((c) => (
                           <span key={c.taxonID} className="g-flex g-items-center">
                             <DynamicLink
-                              className="hover:g-underline"
+                              className="hover:g-underline g-text-inherit"
                               pageId="taxonKey"
                               variables={{ key: c.taxonID.toString() }}
                             >
@@ -295,7 +295,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                         {taxonInfo.classification.length > 2 && (
                           <span className="g-flex g-items-center">
                             <DynamicLink
-                              className="hover:g-underline"
+                              className="hover:g-underline g-text-inherit"
                               pageId="taxonKey"
                               variables={{
                                 key: taxonInfo.classification[

@@ -552,7 +552,7 @@ export function OccurrenceKey() {
                       occurrence.classification?.checklistKey && (
                         <DynamicLink
                           pageId="taxonKey"
-                          className="hover:g-underline"
+                          className="hover:g-underline g-text-inherit"
                           variables={{
                             key: usageKey,
                             datasetKey: occurrence.classification?.checklistKey,

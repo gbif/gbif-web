@@ -75,11 +75,11 @@ function Synonym({
       <DynamicLink
         pageId="taxonKey"
         variables={{ key: synonym.taxonID, datasetKey }}
-        className="g-text-decoration-none"
+        className="g-text-decoration-none g-text-primary-500"
       >
         {type === 'homotypic' ? '≡ ' : '= '}
         <span
-          className="g-text-primary-500 hover:g-underline"
+          className=" hover:g-underline"
           dangerouslySetInnerHTML={{ __html: synonym.label }}
         ></span>
       </DynamicLink>

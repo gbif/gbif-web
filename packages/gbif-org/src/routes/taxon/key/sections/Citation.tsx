@@ -10,7 +10,7 @@ const Citation = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonIn
   }
   return (
     <HyperText
-      className="prose-links"
+      className="[&_a]:g-underline [&_a]:g-text-inherit"
       text={`${taxonInfo?.label || taxonInfo?.scientificName} in ${citation}`}
     />
   );

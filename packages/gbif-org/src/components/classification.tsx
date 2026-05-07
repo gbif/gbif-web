@@ -66,7 +66,7 @@ function TaxonClassificationItem({
   return (
     <span className="g-flex g-items-center">
       <DynamicLink
-        className="hover:g-underline"
+        className="hover:g-underline g-text-inherit"
         pageId="taxonKey"
         variables={{ key: taxon.taxonID ?? taxon.key ?? '' }}
       >

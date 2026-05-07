@@ -245,12 +245,16 @@ function Caption({
         )}
         {media.identifier && (
           <BasicField label={`occurrenceFieldNames.identifier`}>
-            <a href={media.identifier}>{truncateMiddle(media.identifier, 40)}</a>
+            <a href={media.identifier} className="g-text-inherit">
+              {truncateMiddle(media.identifier, 40)}
+            </a>
           </BasicField>
         )}
         {media.references && (
           <BasicField label={`occurrenceFieldNames.references`}>
-            <a href={media.references}>{truncateMiddle(media.references, 40)}</a>
+            <a href={media.references} className="g-text-inherit">
+              {truncateMiddle(media.references, 40)}
+            </a>
           </BasicField>
         )}
         {media.creator && (
@@ -306,7 +310,7 @@ export function SuggestedAttribution({
         <DynamicLink
           pageId="occurrenceKey"
           variables={{ key: String(occurrence.key) }}
-          className="g-underline"
+          className="g-underline g-text-inherit"
         >
           <span dangerouslySetInnerHTML={{ __html: title }} />
         </DynamicLink>
@@ -370,7 +374,7 @@ function LicenseValue({ license }: { license: string }) {
   )?.[0];
   if (matchedEnumKey)
     return (
-      <a href={license} className="g-underline">
+      <a href={license} className="g-underline g-text-inherit">
         <FormattedMessage id={`enums.license.${matchedEnumKey}`} defaultMessage={matchedEnumKey} />
       </a>
     );
