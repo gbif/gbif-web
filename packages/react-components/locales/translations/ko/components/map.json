@@ -43,6 +43,7 @@
     "CLASSIC": "마젠타",
     "LIGHT": "밝게(라벨 없음)",
     "LIGHT_DETAILS": "밝게",
+    "GREY": "",
     "DARK": "어둡게(라벨 없음)",
     "DARK_DETAILS": "어둡게",
     "OSM": "도로"
