@@ -16,7 +16,7 @@ import { FilterContext } from '@/contexts/filter';
 import { useCallback, useContext, useState } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
 import { LuSettings2 as FilterIcon } from 'react-icons/lu';
-import { MdBrokenImage, MdEvent } from 'react-icons/md';
+import { MdBrokenImage, MdEvent, MdLightbulb } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { MediaGroupDropdown } from './mediaSort';
 import { MediaGroupState, getFormattedName } from './mediaGroupConfig';
@@ -32,6 +32,9 @@ export function MediaPresentation({
   onSelect,
   groupState,
   onGroupStateChange,
+  aboveGallery,
+  headerSuggestions,
+  suggestedGroupByRank,
   children,
 }: {
   mediaTypes: any;
@@ -44,6 +47,9 @@ export function MediaPresentation({
   onSelect: ({ key }: { key: string }) => void;
   groupState: MediaGroupState;
   onGroupStateChange: (next: MediaGroupState) => void;
+  aboveGallery?: React.ReactNode;
+  headerSuggestions?: React.ReactNode;
+  suggestedGroupByRank?: string | null;
   children?: React.ReactNode;
 }) {
   const isGrouped = groupState.mode === 'group' && !!groupState.groupBy;
@@ -56,8 +62,16 @@ export function MediaPresentation({
           loading={loading}
           message="counts.nResultsWithImages"
         />
-        <MediaGroupDropdown state={groupState} onChange={onGroupStateChange} />
+        {headerSuggestions && (
+          <div className="g-hidden lg:g-flex g-flex-1 g-justify-center">{headerSuggestions}</div>
+        )}
+        <MediaGroupDropdown
+          state={groupState}
+          onChange={onGroupStateChange}
+          suggestedGroupByRank={suggestedGroupByRank}
+        />
       </div>
+      {aboveGallery}
       {isGrouped ? (
         children
       ) : (
@@ -258,6 +272,49 @@ export function GalleryItem({
           </SimpleTooltip>
         </div>
       </div>
+    </div>
+  );
+}
+
+export type TaxonSuggestion =
+  | {
+      type: 'filterByParent';
+      taxon: { taxonID: string; scientificName?: string | null; taxonRank: string };
+      onClick: () => void;
+    }
+  | {
+      type: 'groupByRank';
+      rankLabelId: string;
+      onClick: () => void;
+    };
+
+export function TaxonSuggestions({ suggestions }: { suggestions: TaxonSuggestion[] }) {
+  if (suggestions.length === 0) return null;
+  return (
+    <div className="g-flex g-items-start g-gap-1.5 g-text-xs g-text-slate-600">
+      <MdLightbulb className="g-mt-0.5 g-shrink-0 g-text-slate-400" />
+      <ul className="g-flex g-flex-wrap g-gap-x-3 g-gap-y-0.5 g-list-none g-m-0 g-p-0">
+        {suggestions.map((s, i) => (
+          <li key={i}>
+            <button
+              onClick={s.onClick}
+              className="g-underline g-underline-offset-2 g-decoration-slate-300 hover:g-decoration-slate-500 g-transition-colors"
+            >
+              {s.type === 'filterByParent' ? (
+                <>
+                  <FormattedMessage id="search.filterBy" defaultMessage="Filter by" />{' '}
+                  <span className="g-italic">{s.taxon.scientificName}</span>
+                </>
+              ) : (
+                <>
+                  <FormattedMessage id="search.group.groupBy" defaultMessage="Group by" />{' '}
+                  <FormattedMessage id={s.rankLabelId} />
+                </>
+              )}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

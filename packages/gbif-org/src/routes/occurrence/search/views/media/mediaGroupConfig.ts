@@ -122,6 +122,24 @@ export const GROUP_FIELDS: GroupField[] = [
   { id: 'recordedBy', labelId: 'filters.recordedBy.name' },
 ];
 
+/**
+ * Maps a major GBIF rank name (upper-case) to the corresponding GROUP_FIELDS id.
+ * Used to derive a single context-aware "group by rank" suggestion from the
+ * `nextLowerMajorRank` returned by `useParentTaxon`.
+ */
+export const RANK_TO_GROUP_FIELD: Record<string, string> = {
+  KINGDOM: 'kingdomKey',
+  PHYLUM: 'phylumKey',
+  CLASS: 'classKey',
+  ORDER: 'orderKey',
+  FAMILY: 'familyKey',
+  GENUS: 'genusKey',
+  SPECIES: 'speciesKey',
+};
+
+/** The set of GROUP_FIELDS ids that represent taxonomic ranks. */
+export const RANK_GROUP_FIELD_IDS = new Set(Object.values(RANK_TO_GROUP_FIELD));
+
 export type MediaGroupState = {
   mode: MediaGroupMode;
   groupBy?: string;

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -136,6 +137,7 @@ type Props = {
 export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
+  const checklistKey = useChecklistKey();
   const [, setPreviewKey] = useEntityDrawer();
   const [facetSize, setFacetSize] = useState(INITIAL_GROUPS);
 
@@ -198,6 +200,7 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
         q: q.q,
         predicate,
         unspecifiedPredicate,
+        checklistKey,
         facetSize,
         imageSize: IMAGES_PER_GROUP,
         shuffle: SHUFFLE_SEED,
@@ -246,9 +249,6 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
           onGroupByChange={onGroupByChange}
         />
       ))}
-      {freshData && groups.length === 1 && field.drillDownTo && onGroupByChange && (
-        <DrillDownSuggestion drillDownTo={field.drillDownTo} onGroupByChange={onGroupByChange} />
-      )}
       {showInitialSkeleton && (
         <>
           <GroupCardSkeleton />
@@ -370,6 +370,8 @@ function UnspecifiedGroupCard({
       <CardHeader
         title={
           <span className="g-text-slate-500">
+            <FormattedMessage id={field.labelId} />
+            {': '}
             <FormattedMessage id="search.group.unspecified" />
           </span>
         }
@@ -461,26 +463,6 @@ function GroupLabel({ group, field }: { group: GroupResult; field: GroupField })
     return <>{group.key}</>;
   }
   return <ValueLabel id={group.key} />;
-}
-
-function DrillDownSuggestion({
-  drillDownTo,
-  onGroupByChange,
-}: {
-  drillDownTo: string;
-  onGroupByChange: (groupBy: string) => void;
-}) {
-  const nextField = GROUP_FIELDS.find((f) => f.id === drillDownTo);
-  if (!nextField) return null;
-  return (
-    <div className="g-flex g-items-center g-justify-center g-py-3">
-      <Button variant="outline" onClick={() => onGroupByChange(drillDownTo)}>
-        <FormattedMessage id="search.group.groupBy" />
-        {': '}
-        <FormattedMessage id={nextField.labelId} />
-      </Button>
-    </div>
-  );
 }
 
 function GroupCardSkeleton() {

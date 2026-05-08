@@ -3,6 +3,7 @@ import { getAsQuery } from '@/components/filters/filterTools';
 import { useToast } from '@/components/ui/use-toast';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
+import { useParentTaxon } from '@/hooks/useParentTaxon';
 import {
   OccurrenceMediaSearchQuery,
   OccurrenceMediaSearchQueryVariables,
@@ -12,6 +13,7 @@ import {
   SortOrder,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import useLocalStorage from 'use-local-storage';
 import { searchConfig } from '../../searchConfig';
@@ -19,8 +21,18 @@ import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { MediaGrouped } from './mediaGrouped';
-import { GalleryItemSkeleton, MediaPresentation } from './mediaPresentation';
-import { DEFAULT_MEDIA_GROUP_STATE, MediaGroupState } from './mediaGroupConfig';
+import {
+  GalleryItemSkeleton,
+  MediaPresentation,
+  TaxonSuggestion,
+  TaxonSuggestions,
+} from './mediaPresentation';
+import {
+  DEFAULT_MEDIA_GROUP_STATE,
+  GROUP_FIELDS,
+  MediaGroupState,
+  RANK_TO_GROUP_FIELD,
+} from './mediaGroupConfig';
 
 // Fixed seed for the "Random" mode. Keeping this constant means pagination is
 // stable and revisits show the same shuffle order.
@@ -106,11 +118,15 @@ export function Media({ size: defaultSize = 50 }) {
 function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
   const [from, setFrom] = useState(0);
   const searchContext = useSearchContext();
+  const checklistKey = useChecklistKey();
   const size = defaultSize;
   const { toast } = useToast();
   const currentFilterContext = useContext(FilterContext);
   const [mediaTypes] = useState(['StillImage']);
   const { scope } = useSearchContext();
+  const { parent: parentTaxon, nextLowerMajorRank } = useParentTaxon(currentFilterContext.filter, {
+    majorRanksOnly: true,
+  });
   const [groupState, setGroupState] = useLocalStorage<MediaGroupState>(
     'occurrenceMediaGroup',
     DEFAULT_MEDIA_GROUP_STATE
@@ -200,6 +216,7 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
       variables: {
         predicate,
         q: query.q,
+        checklistKey,
         size: isGrouped ? 0 : size,
         from: isGrouped ? 0 : from,
         shuffle: isRandom ? SHUFFLE_SEED : undefined,
@@ -229,6 +246,10 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
     [setGroupState]
   );
 
+  const hasSingleTaxonKey =
+    (currentFilterContext.filter?.must?.taxonKey?.length ?? 0) === 1 &&
+    !currentFilterContext.filter?.mustNot?.taxonKey?.length;
+
   return (
     <ErrorBoundary>
       <MediaPresentation
@@ -242,6 +263,36 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
         onSelect={({ key }: { key: string | number }) => selectPreview(key)}
         groupState={groupState}
         onGroupStateChange={onGroupStateChange}
+        suggestedGroupByRank={hasSingleTaxonKey ? nextLowerMajorRank : null}
+        headerSuggestions={(() => {
+          if (!hasSingleTaxonKey) return null;
+          const suggestions: TaxonSuggestion[] = [];
+          if (parentTaxon) {
+            suggestions.push({
+              type: 'filterByParent',
+              taxon: parentTaxon,
+              onClick: () => currentFilterContext.setField('taxonKey', [parentTaxon.taxonID]),
+            });
+          }
+          if (nextLowerMajorRank && RANK_TO_GROUP_FIELD[nextLowerMajorRank]) {
+            const groupFieldId = RANK_TO_GROUP_FIELD[nextLowerMajorRank];
+            const alreadyGrouped =
+              groupState.mode === 'group' && groupState.groupBy === groupFieldId;
+            const field = GROUP_FIELDS.find((f) => f.id === groupFieldId);
+            if (field && !alreadyGrouped) {
+              suggestions.push({
+                type: 'groupByRank',
+                rankLabelId: field.labelId,
+                onClick: () =>
+                  onGroupStateChange({
+                    mode: 'group',
+                    groupBy: groupFieldId,
+                  }),
+              });
+            }
+          }
+          return suggestions.length > 0 ? <TaxonSuggestions suggestions={suggestions} /> : null;
+        })()}
       >
         {isGrouped && groupState.groupBy && (
           <MediaGrouped

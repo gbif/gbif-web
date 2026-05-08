@@ -10,7 +10,7 @@ import { cn } from '@/utils/shadcn';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { FormattedMessage } from 'react-intl';
 import { MdSettings } from 'react-icons/md';
-import { GROUP_FIELDS, MediaGroupState } from './mediaGroupConfig';
+import { GROUP_FIELDS, MediaGroupState, RANK_TO_GROUP_FIELD } from './mediaGroupConfig';
 
 const RADIO_DEFAULT = '__default__';
 const RADIO_RANDOM = '__random__';
@@ -20,9 +20,12 @@ const RADIO_YEAR_ASC = '__yearAsc__';
 type Props = {
   state: MediaGroupState;
   onChange: (state: MediaGroupState) => void;
+  /** When provided, replaces all static rank group-by options with a single
+   *  suggestion for this rank (e.g. 'SPECIES' when the current filter is a genus). */
+  suggestedGroupByRank?: string | null;
 };
 
-export function MediaGroupDropdown({ state, onChange }: Props) {
+export function MediaGroupDropdown({ state, onChange, suggestedGroupByRank }: Props) {
   const radioValue =
     state.mode === 'random'
       ? RADIO_RANDOM
@@ -104,7 +107,15 @@ export function MediaGroupDropdown({ state, onChange }: Props) {
                 <FormattedMessage id="search.group.groupBy" />
               </DropdownMenuLabel>
               {GROUP_FIELDS.map((field) => (
-                <DropdownMenuRadioItem key={field.id} value={field.id}>
+                <DropdownMenuRadioItem
+                  key={field.id}
+                  value={field.id}
+                  className={
+                    suggestedGroupByRank && RANK_TO_GROUP_FIELD[suggestedGroupByRank] === field.id
+                      ? 'g-font-semibold'
+                      : undefined
+                  }
+                >
                   <FormattedMessage id={field.labelId} />
                 </DropdownMenuRadioItem>
               ))}
