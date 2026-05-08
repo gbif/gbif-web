@@ -58,6 +58,7 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
           classification(checklistKey: $checklistKey) {
             usage {
               name
+              key
             }
             taxonMatch {
               usage {
@@ -65,6 +66,9 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
               }
             }
           }
+          recordedBy
+          datasetKey
+          datasetTitle
           primaryImage {
             identifier: thumbor(height: 400)
           }

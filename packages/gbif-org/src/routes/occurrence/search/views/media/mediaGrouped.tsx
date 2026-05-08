@@ -35,9 +35,12 @@ type GroupResult = {
         eventDate?: string;
         countryCode?: string;
         classification?: {
-          usage?: { name?: string };
+          usage?: { name?: string; key?: string | number };
           taxonMatch?: { usage?: { canonicalName?: string } };
         } | null;
+        recordedBy?: (string | null)[] | null;
+        datasetKey?: string | null;
+        datasetTitle?: string | null;
       } | null>;
     };
   } | null;
@@ -73,9 +76,13 @@ function buildGroupedQuery(field: GroupField): string {
                   verbatimScientificName
                   eventDate
                   countryCode
+                  datasetKey
+                  datasetTitle
+                  recordedBy
                   classification(checklistKey: $checklistKey) {
                     usage {
                       name
+                      key
                     }
                     taxonMatch {
                       usage {
@@ -100,9 +107,13 @@ function buildGroupedQuery(field: GroupField): string {
             verbatimScientificName
             eventDate
             countryCode
+            recordedBy
+            datasetKey
+            datasetTitle
             classification(checklistKey: $checklistKey) {
               usage {
                 name
+                key
               }
               taxonMatch {
                 usage {
@@ -238,14 +249,6 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
       {freshData && groups.length === 1 && field.drillDownTo && onGroupByChange && (
         <DrillDownSuggestion drillDownTo={field.drillDownTo} onGroupByChange={onGroupByChange} />
       )}
-      {unspecifiedTotal > 0 && (
-        <UnspecifiedGroupCard
-          field={field}
-          total={unspecifiedTotal}
-          results={unspecifiedResults}
-          onSelect={(key) => setPreviewKey(`o_${key}`)}
-        />
-      )}
       {showInitialSkeleton && (
         <>
           <GroupCardSkeleton />
@@ -279,6 +282,14 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
           />
         </div>
       )}
+      {unspecifiedTotal > 0 && (
+        <UnspecifiedGroupCard
+          field={field}
+          total={unspecifiedTotal}
+          results={unspecifiedResults}
+          onSelect={(key) => setPreviewKey(`o_${key}`)}
+        />
+      )}
     </div>
   );
 }
@@ -287,7 +298,7 @@ type GroupOccurrence = NonNullable<
   NonNullable<GroupResult['occurrences']>['documents']['results'][number]
 >;
 
-function getFormattedName(occ: GroupOccurrence): string {
+export function getFormattedName(occ: GroupOccurrence): string {
   return (
     occ.classification?.taxonMatch?.usage?.canonicalName ??
     occ.classification?.usage?.name ??
@@ -332,8 +343,12 @@ function GroupCard({
               key={occ.key}
               identifier={occ.primaryImage?.identifier ?? ''}
               formattedName={getFormattedName(occ)}
+              taxonKey={occ.classification?.usage?.key}
               countryCode={occ.countryCode ?? ''}
               eventDate={occ.eventDate ?? ''}
+              recordedBy={occ.recordedBy}
+              datasetKey={occ.datasetKey}
+              datasetTitle={occ.datasetTitle}
               height={GROUP_IMAGE_HEIGHT}
               minWidth={0}
               dense
@@ -381,6 +396,10 @@ function UnspecifiedGroupCard({
               formattedName={getFormattedName(occ)}
               countryCode={occ.countryCode ?? ''}
               eventDate={occ.eventDate ?? ''}
+              taxonKey={occ?.classification?.usage?.key}
+              datasetKey={occ.datasetKey}
+              datasetTitle={occ.datasetTitle}
+              recordedBy={occ.recordedBy}
               height={GROUP_IMAGE_HEIGHT}
               minWidth={0}
               dense
@@ -480,11 +499,9 @@ function DrillDownSuggestion({
         className="g-text-sm g-text-primary-500 hover:g-underline g-flex g-items-center g-gap-1"
         onClick={() => onGroupByChange(drillDownTo)}
       >
-        <FormattedMessage
-          id="search.group.drillDownSuggestion"
-          defaultMessage="Only one group? Group by {rank} instead"
-          values={{ rank: <FormattedMessage id={nextField.labelId} /> }}
-        />
+        <FormattedMessage id="search.group.groupBy" />
+        {': '}
+        <FormattedMessage id={nextField.labelId} />
       </button>
     </div>
   );
