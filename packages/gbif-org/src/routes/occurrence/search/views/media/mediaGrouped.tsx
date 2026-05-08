@@ -48,6 +48,7 @@ type GroupResult = {
 };
 
 function buildGroupedQuery(field: GroupField): string {
+  const ckArg = field.supportsChecklistKey ? '(checklistKey: $checklistKey)' : '';
   return /* GraphQL */ `
     query occurrenceMediaGrouped_${field.id}(
       $q: String
@@ -60,10 +61,10 @@ function buildGroupedQuery(field: GroupField): string {
     ) {
       occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
-          ${field.id}
+          ${field.id}${ckArg}
         }
         facet {
-          ${field.id}(size: $facetSize) {
+          ${field.id}(size: $facetSize, checklistKey: $checklistKey) {
             count
             key
             occurrences {
@@ -190,9 +191,11 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
     };
     const unspecifiedPredicate = {
       type: 'and',
-      predicates: [q.predicate, stillImagePredicate, { type: 'isNull', key: field.id }].filter(
-        (x) => x
-      ),
+      predicates: [
+        q.predicate,
+        stillImagePredicate,
+        { type: 'isNull', key: field.id, checklistKey },
+      ].filter((x) => x),
     };
     loadingForRef.current = currentKey;
     load({
@@ -458,11 +461,12 @@ function CardImages({ children, dense }: { children: React.ReactNode; dense?: bo
 
 function GroupLabel({ group, field }: { group: GroupResult; field: GroupField }) {
   const ValueLabel = field.ValueLabel;
+  const checklistKey = useChecklistKey();
   if (!ValueLabel) {
     // Fields without a label component (e.g. year) — render the bucket key directly.
     return <>{group.key}</>;
   }
-  return <ValueLabel id={group.key} />;
+  return <ValueLabel id={group.key} checklistKey={checklistKey} />;
 }
 
 function GroupCardSkeleton() {

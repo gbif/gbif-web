@@ -12,7 +12,10 @@ import { ComponentType } from 'react';
 
 export type MediaGroupMode = 'default' | 'random' | 'group' | 'yearDesc' | 'yearAsc';
 
-export type GroupValueLabel = ComponentType<{ id: string | number | object }>;
+export type GroupValueLabel = ComponentType<{
+  id: string | number | object;
+  checklistKey?: string;
+}>;
 
 export type GroupField = {
   /** GraphQL facet field name (e.g. 'datasetKey', 'sex'). */
@@ -27,6 +30,8 @@ export type GroupField = {
   filterField?: string;
   /** For rank fields: the groupBy id to switch to when drilling down one rank. */
   drillDownTo?: string;
+  /** Whether the cardinality and facet fields accept a checklistKey argument. True for taxon rank fields. */
+  supportsChecklistKey?: boolean;
 };
 
 /**
@@ -57,6 +62,7 @@ export const GROUP_FIELDS: GroupField[] = [
     labelId: 'occurrenceFieldNames.species',
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
+    supportsChecklistKey: true,
   },
   {
     id: 'genusKey',
@@ -64,6 +70,7 @@ export const GROUP_FIELDS: GroupField[] = [
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
     drillDownTo: 'speciesKey',
+    supportsChecklistKey: true,
   },
   {
     id: 'familyKey',
@@ -71,6 +78,7 @@ export const GROUP_FIELDS: GroupField[] = [
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
     drillDownTo: 'genusKey',
+    supportsChecklistKey: true,
   },
   {
     id: 'orderKey',
@@ -78,6 +86,7 @@ export const GROUP_FIELDS: GroupField[] = [
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
     drillDownTo: 'familyKey',
+    supportsChecklistKey: true,
   },
   {
     id: 'classKey',
@@ -85,6 +94,7 @@ export const GROUP_FIELDS: GroupField[] = [
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
     drillDownTo: 'orderKey',
+    supportsChecklistKey: true,
   },
   {
     id: 'phylumKey',
@@ -92,6 +102,7 @@ export const GROUP_FIELDS: GroupField[] = [
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
     drillDownTo: 'classKey',
+    supportsChecklistKey: true,
   },
   {
     id: 'kingdomKey',
@@ -99,6 +110,7 @@ export const GROUP_FIELDS: GroupField[] = [
     ValueLabel: TaxonLabel,
     filterField: 'taxonKey',
     drillDownTo: 'phylumKey',
+    supportsChecklistKey: true,
   },
   {
     id: 'countryCode',
