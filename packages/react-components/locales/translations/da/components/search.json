@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Art",
+      "taxonSearch": "Taxa",
       "datasetSearch": "Datasæt",
       "publisherSearch": "Forlæggere",
       "occurrenceSearch": "Observationer",
