@@ -337,7 +337,7 @@ function GroupCard({
           }
         }}
       />
-      <CardShell>
+      <Card className="g-overflow-hidden">
         <CardImages dense>
           {results.map((occ) => (
             <GalleryItem
@@ -357,7 +357,7 @@ function GroupCard({
             />
           ))}
         </CardImages>
-      </CardShell>
+      </Card>
     </div>
   );
 }
@@ -388,7 +388,7 @@ function UnspecifiedGroupCard({
         // "no value" predicate.
         onUseAsFilter={() => setFullField(filterField, [{ type: 'isNull' }], [])}
       />
-      <CardShell>
+      <Card className="g-overflow-hidden">
         <CardImages dense>
           {results.map((occ) => (
             <GalleryItem
@@ -408,13 +408,9 @@ function UnspecifiedGroupCard({
             />
           ))}
         </CardImages>
-      </CardShell>
+      </Card>
     </div>
   );
-}
-
-function CardShell({ children }: { children: React.ReactNode }) {
-  return <Card className="g-overflow-hidden">{children}</Card>;
 }
 
 function CardHeader({
@@ -511,7 +507,7 @@ function GroupCardSkeleton() {
         </div>
         <div className="g-h-3 g-w-20 g-bg-slate-200 g-rounded g-animate-pulse" />
       </div>
-      <CardShell>
+      <Card className="g-overflow-hidden">
         <div className="g-flex g-flex-nowrap g-overflow-x-auto g-px-2 g-py-2 g-animate-pulse">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
@@ -525,7 +521,7 @@ function GroupCardSkeleton() {
             />
           ))}
         </div>
-      </CardShell>
+      </Card>
     </div>
   );
 }

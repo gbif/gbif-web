@@ -106,12 +106,15 @@ export function Media({ size: defaultSize = 50 }) {
   const { setOrderedList } = useOrderedList();
   const [, setPreviewKey] = useEntityDrawer();
 
-  const [allData, setAllData] = useState([]);
+  type OccurrenceResult = NonNullable<
+    OccurrenceMediaSearchQuery['occurrenceSearch']
+  >['documents']['results'][number];
+  const [allData, setAllData] = useState<OccurrenceResult[]>([]);
 
   const isGrouped = groupState.mode === 'group' && !!groupState.groupBy;
 
   const updateList = useCallback(() => {
-    setOrderedList(allData.map((item) => `o_${item.key}`));
+    setOrderedList(allData.filter((item) => item != null).map((item) => `o_${item.key}`));
   }, [allData, setOrderedList]);
 
   const selectPreview = useCallback(
@@ -127,8 +130,8 @@ export function Media({ size: defaultSize = 50 }) {
     setAllData((prev) => {
       const all = [...prev, ...(data?.occurrenceSearch?.documents?.results || [])];
       // get unique by key
-      const unique = all.reduce((acc, cur) => {
-        if (acc.find((x) => x.key === cur.key)) {
+      const unique = all.reduce<OccurrenceResult[]>((acc, cur) => {
+        if (!cur || acc.find((x) => x?.key === cur.key)) {
           return acc;
         }
         return [...acc, cur];
@@ -148,13 +151,17 @@ export function Media({ size: defaultSize = 50 }) {
   }, [error, allData, toast, isGrouped, data]);
 
   useEffect(() => {
-    const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
+    const query = getAsQuery({
+      filter: currentFilterContext.filter,
+      searchContext,
+      searchConfig,
+    }) as { predicate: Predicate | undefined; q: string | undefined };
     const predicate: Predicate = {
       type: PredicateType.And,
       predicates: [
         query.predicate,
         {
-          type: 'in',
+          type: PredicateType.In,
           key: 'mediaType',
           values: ['StillImage'],
         },
