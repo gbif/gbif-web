@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "מינים",
+      "taxonSearch": "",
       "datasetSearch": "מסדי נתונים",
       "publisherSearch": "ספקי מידע",
       "occurrenceSearch": "תצפיות",
