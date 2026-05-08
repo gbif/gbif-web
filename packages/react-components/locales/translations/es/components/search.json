@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Especies",
+      "taxonSearch": "Taxones",
       "datasetSearch": "Conjuntos de datos",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Registros de presencia",
