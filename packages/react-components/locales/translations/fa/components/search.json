@@ -37,14 +37,24 @@
   "loading": "",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "لغو",
   "rankInGroup": "",
+  "options": "",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "",
     "random": "",
-    "order": "ترتیب",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": ""
   },
   "occurrenceClustersView": {
     "about": "درباره",
