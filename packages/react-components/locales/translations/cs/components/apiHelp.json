@@ -25,7 +25,5 @@
   "searchExample": "První dvě položky s volným textem \"dna\".",
   "searchDatasets": "Získat všechny datové sady.",
   "singleNode": "Získejte jeden uzel.",
-  "searchNodes": "Hledat uzly",
-  "singleSpecies": "Získejte jeden druh.",
-  "searchSpecies": "Získejte všechny druhy."
+  "searchNodes": "Hledat uzly"
 }

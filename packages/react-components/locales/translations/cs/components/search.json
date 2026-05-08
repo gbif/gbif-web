@@ -38,6 +38,14 @@
   "noResults": "Žádné výsledky",
   "startTyping": "Zadejte hledaný text",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "Výchozí",
+    "random": "",
+    "order": "Řád",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "O",
     "clusters": "Související",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Druhy",
+      "taxonSearch": "Taxony",
       "datasetSearch": "Datové sady",
       "publisherSearch": "Vydavatelé",
       "occurrenceSearch": "Výskyty",

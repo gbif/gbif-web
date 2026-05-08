@@ -26,8 +26,6 @@
   "searchDatasets": "取得所有資料集",
   "singleNode": "取得單一節點",
   "searchNodes": "搜尋節點",
-  "singleSpecies": "取得單一物種",
-  "searchSpecies": "取得所有物種",
   "singleDerivedDataset": "取得單一衍生資料集",
   "derivedDatasetContributingDatasets": "取得為衍生資料集提供記錄的資料集"
 }

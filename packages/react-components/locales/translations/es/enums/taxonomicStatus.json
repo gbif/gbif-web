@@ -5,6 +5,8 @@
   "HETEROTYPIC_SYNONYM": "Sinónimo heterotípico",
   "HOMOTYPIC_SYNONYM": "Sinónimo homotípico",
   "PROPARTE_SYNONYM": "Sinónimo de proparte",
+  "AMBIGUOUS_SYNONYM": "Sinónimo ambiguo",
+  "PROVISIONALLY_ACCEPTED": "Provisionalmente aceptado",
   "MISAPPLIED": "Mal aplicado",
   "INTERMEDIATE_RANK_SYNONYM": "Sinónimo de rango intermedio",
   "DETERMINATION_SYNONYM": "Sinónimo de determinación"

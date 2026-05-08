@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "デフォルト",
+    "random": "",
+    "order": "目",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "・・・について",
     "clusters": "",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "種",
+      "taxonSearch": "分類群",
       "datasetSearch": "データセット",
       "publisherSearch": "出版者",
       "occurrenceSearch": "オカレンス",

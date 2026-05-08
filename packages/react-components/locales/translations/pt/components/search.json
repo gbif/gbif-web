@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "Predefinição",
+    "random": "",
+    "order": "Ordem",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "Sobre",
     "clusters": "",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Espécie",
+      "taxonSearch": "Taxa",
       "datasetSearch": "Conjuntos de dados",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Ocorrências",

@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "الإفتراضي",
+    "random": "",
+    "order": "الرتبة",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "نوع",
+      "taxonSearch": "وحدات تصنيفية",
       "datasetSearch": "مجموعات البيانات",
       "publisherSearch": "الناشرون",
       "occurrenceSearch": "تكرارات",
