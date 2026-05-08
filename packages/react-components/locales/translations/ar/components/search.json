@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "نوع",
+      "taxonSearch": "وحدات تصنيفية",
       "datasetSearch": "مجموعات البيانات",
       "publisherSearch": "الناشرون",
       "occurrenceSearch": "تكرارات",
