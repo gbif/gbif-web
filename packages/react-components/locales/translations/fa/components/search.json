@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "",
+      "taxonSearch": "",
       "datasetSearch": "مجموعه اطلاعات",
       "publisherSearch": "",
       "occurrenceSearch": "",
