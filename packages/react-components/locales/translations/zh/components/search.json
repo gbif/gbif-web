@@ -37,14 +37,24 @@
   "loading": "载入中",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "应用",
+  "cancel": "取消",
   "rankInGroup": "",
+  "options": "选项",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "默认",
     "random": "",
-    "order": "目",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "未指定"
   },
   "occurrenceClustersView": {
     "about": "关于",
