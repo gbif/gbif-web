@@ -38,6 +38,14 @@
   "noResults": "Sin resultados",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "Por defecto",
+    "random": "",
+    "order": "Orden",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "Acerca de",
     "clusters": "Relacionado",
