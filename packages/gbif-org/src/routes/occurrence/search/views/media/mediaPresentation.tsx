@@ -303,7 +303,7 @@ export function TaxonSuggestions({ suggestions }: { suggestions: TaxonSuggestion
               {s.type === 'filterByParent' ? (
                 <>
                   <FormattedMessage id="search.filterBy" defaultMessage="Filter by" />{' '}
-                  <span className="g-italic">{s.taxon.scientificName}</span>
+                  <span>{s.taxon.scientificName}</span>
                 </>
               ) : (
                 <>
