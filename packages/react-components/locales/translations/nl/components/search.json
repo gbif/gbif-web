@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Soorten",
+      "taxonSearch": "Taxa",
       "datasetSearch": "Datasets",
       "publisherSearch": "Uitgevers",
       "occurrenceSearch": "",
