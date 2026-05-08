@@ -43,6 +43,7 @@
     "CLASSIC": "Magenta",
     "LIGHT": "Luz (sem etiquetas)",
     "LIGHT_DETAILS": "Claro",
+    "GREY": "",
     "DARK": "Escuro (sem etiquetas)",
     "DARK_DETAILS": "Escuro",
     "OSM": "Estradas"

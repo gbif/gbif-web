@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "",
+    "random": "",
+    "order": "ترتیب",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "درباره",
     "clusters": "",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "",
+      "taxonSearch": "",
       "datasetSearch": "مجموعه اطلاعات",
       "publisherSearch": "",
       "occurrenceSearch": "",

@@ -43,6 +43,7 @@
     "CLASSIC": "Magenta",
     "LIGHT": "Jasny (bez etykiet)",
     "LIGHT_DETAILS": "Jasny",
+    "GREY": "",
     "DARK": "Ciemny (bez etykiet)",
     "DARK_DETAILS": "Ciemny",
     "OSM": "Drogi"

@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "Standard",
+    "random": "",
+    "order": "Orden",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "Om",
     "clusters": "",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Art",
+      "taxonSearch": "Taxa",
       "datasetSearch": "Datasæt",
       "publisherSearch": "Forlæggere",
       "occurrenceSearch": "Observationer",

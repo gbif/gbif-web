@@ -23,6 +23,7 @@
   "byRightsHolder": "por {RIGHTSHOLDER}",
   "licensedUnder": "bajo una licencia {{LICENSE}}",
   "suggestedCitation": "Atribución sugerida",
+  "hasTaxonMatchingIssues": "",
   "inCountry": {
     "PRESERVED_SPECIMEN": "colectado en {COUNTRY}",
     "FOSSIL_SPECIMEN": "colectado en {COUNTRY}",

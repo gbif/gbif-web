@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "За замовчанням",
+    "random": "",
+    "order": "Порядок/ряд",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Вид",
+      "taxonSearch": "Таксони",
       "datasetSearch": "Наборів даних",
       "publisherSearch": "Видавці",
       "occurrenceSearch": "Знахідки",

@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "",
+    "random": "",
+    "order": "",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
@@ -67,6 +75,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "",
+      "taxonSearch": "",
       "datasetSearch": "Datensätze",
       "publisherSearch": "Herausgeber",
       "occurrenceSearch": "",

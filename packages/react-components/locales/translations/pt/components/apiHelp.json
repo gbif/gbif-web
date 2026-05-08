@@ -25,7 +25,5 @@
   "searchExample": "Primeiras duas entradas com o texto \"dna\".",
   "searchDatasets": "Obter todos os conjuntos de dados.",
   "singleNode": "Obter um único nó.",
-  "searchNodes": "Pesquisar nós",
-  "singleSpecies": "Obter uma única espécie.",
-  "searchSpecies": "Obter todas as espécies."
+  "searchNodes": "Pesquisar nós"
 }
