@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "الإفتراضي",
+    "random": "",
+    "order": "الرتبة",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
