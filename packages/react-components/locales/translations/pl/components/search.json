@@ -37,14 +37,24 @@
   "loading": "Ładowanie",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "Zastosuj",
+  "cancel": "Anuluj",
   "rankInGroup": "",
+  "options": "Opcje",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "Domyślny",
     "random": "",
-    "order": "Rząd",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "Nieokreślona"
   },
   "occurrenceClustersView": {
     "about": "Informacje",
