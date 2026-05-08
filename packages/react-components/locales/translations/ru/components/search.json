@@ -37,23 +37,23 @@
   "loading": "Загрузка",
   "noResults": "Нет результатов",
   "startTyping": "",
-  "addFilters": "",
+  "addFilters": "Добавить фильтры",
   "apply": "Применить",
   "cancel": "Отменить",
   "rankInGroup": "",
   "options": "Варианты",
   "sort": {
-    "sortBy": "",
-    "yearDesc": "",
-    "yearAsc": ""
+    "sortBy": "Сортировать по",
+    "yearDesc": "Год, (сначала самый ранний)",
+    "yearAsc": "Год (сначала самый поздний)"
   },
   "group": {
-    "groupBy": "",
+    "groupBy": "Группировать по",
     "default": "По умолчанию",
-    "random": "",
-    "showMore": "",
-    "cappedHint": "",
-    "useAsFilter": "",
+    "random": "Случайным образом",
+    "showMore": "Показать подробнее{count}",
+    "cappedHint": "Показывать {shown} из {total} групп. Далее применить больше фильтров чтобы сузить поиск.",
+    "useAsFilter": "Установить как фильтр",
     "unspecified": "Не указана"
   },
   "occurrenceClustersView": {
