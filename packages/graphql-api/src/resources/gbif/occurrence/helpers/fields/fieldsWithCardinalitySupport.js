@@ -19,6 +19,8 @@ export default [
   'month',
   'license',
   'sex',
+  'lifeStage',
+  'year',
   'basisOfRecord',
   'fieldNumber',
   'issue',

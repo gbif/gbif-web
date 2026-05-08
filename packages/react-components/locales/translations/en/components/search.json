@@ -55,6 +55,13 @@
     "cappedHint": "Showing {shown} of {total} groups. Apply more filters to narrow down further.",
     "useAsFilter": "Use as filter",
     "unspecified": "Unspecified"
+  "sort": {
+    "sortBy": "Sort by",
+    "default": "Default",
+    "random": "Random",
+    "order": "Order",
+    "ascending": "Ascending",
+    "descending": "Descending"
   },
   "occurrenceClustersView": {
     "about": "About",
