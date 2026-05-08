@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "",
+      "taxonSearch": "",
       "datasetSearch": "데이터셋",
       "publisherSearch": "",
       "occurrenceSearch": "",
