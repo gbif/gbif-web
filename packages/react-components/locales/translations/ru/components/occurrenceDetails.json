@@ -23,7 +23,7 @@
   "byRightsHolder": "правообладатель {RIGHTSHOLDER}",
   "licensedUnder": "Лицензирован по {LICENSE}",
   "suggestedCitation": "Предложенный атрибут",
-  "hasTaxonMatchingIssues": "",
+  "hasTaxonMatchingIssues": "Имеются ли соответствующие таксоны",
   "inCountry": {
     "PRESERVED_SPECIMEN": "Образцы собраны в {COUNTRY}",
     "FOSSIL_SPECIMEN": "Образцы собраны в {COUNTRY}",
