@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Espèce",
+      "taxonSearch": "Taxa",
       "datasetSearch": "Jeux de données",
       "publisherSearch": "Fournisseurs de données",
       "occurrenceSearch": "Occurrences",
