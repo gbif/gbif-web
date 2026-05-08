@@ -18,8 +18,8 @@ import { FaGlobeAfrica } from 'react-icons/fa';
 import { LuSettings2 as FilterIcon } from 'react-icons/lu';
 import { MdBrokenImage, MdEvent } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { MediaGroupDropdown, MediaGroupState } from './mediaSort';
-import { getFormattedName } from './mediaGrouped';
+import { MediaGroupDropdown } from './mediaSort';
+import { MediaGroupState, getFormattedName } from './mediaGroupConfig';
 
 export function MediaPresentation({
   mediaTypes,

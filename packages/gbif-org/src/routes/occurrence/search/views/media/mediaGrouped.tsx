@@ -1,6 +1,5 @@
 import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { FilterContext } from '@/contexts/filter';
@@ -13,7 +12,7 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { GalleryItem } from './mediaPresentation';
-import { GROUP_FIELDS, GroupField } from './mediaSort';
+import { GROUP_FIELDS, GroupField, getFormattedName } from './mediaGroupConfig';
 import { Card } from '@/components/ui/largeCard';
 
 const INITIAL_GROUPS = 20;
@@ -261,7 +260,7 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
         <div className="g-flex g-justify-center g-my-6">
           <Button
             disabled={loading}
-            variant="primaryOutline"
+            variant="outline"
             onClick={() => setFacetSize((s) => Math.min(s + GROUPS_INCREMENT, MAX_GROUPS))}
           >
             {loading ? (
@@ -298,15 +297,6 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
 type GroupOccurrence = NonNullable<
   NonNullable<GroupResult['occurrences']>['documents']['results'][number]
 >;
-
-export function getFormattedName(occ: GroupOccurrence): string {
-  return (
-    occ.classification?.taxonMatch?.usage?.canonicalName ??
-    occ.classification?.usage?.name ??
-    occ.verbatimScientificName ??
-    ''
-  );
-}
 
 function GroupCard({
   group,
@@ -425,28 +415,24 @@ function CardHeader({
   const intl = useIntl();
   const label = intl.formatMessage({ id: 'search.group.useAsFilter' });
   return (
-    <div className="g-flex g-items-center g-justify-between g-gap-3 g-px-4 g-py-2 ">
+    <div className="g-flex g-items-center g-justify-between g-gap-3 g-ps-4 g-py-2 ">
       <div className="g-flex g-items-baseline g-gap-2 g-min-w-0">
         <h3 className="g-text-base g-font-semibold g-truncate g-text-slate-800 g-m-0">{title}</h3>
         <span className="g-text-xs g-text-slate-500 g-flex-shrink-0">
           <FormattedNumber value={count} />
         </span>
       </div>
-      <SimpleTooltip title={label} asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          aria-label={label}
-          className="g-inline-flex g-items-center g-gap-1 g-flex-shrink-0"
-          onClick={() => {
-            onUseAsFilter();
-            document.getElementById('gbif-media-view-top')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        >
-          <FilterIcon className="g-text-sm" />
-          <span className="g-hidden sm:g-inline">{label}</span>
-        </Button>
-      </SimpleTooltip>
+      <button
+        aria-label={label}
+        className="g-text-xs g-ms-1 g-text-slate-700 g-inline-flex g-items-center g-gap-1 g-flex-shrink-0"
+        onClick={() => {
+          onUseAsFilter();
+          document.getElementById('gbif-media-view-top')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+      >
+        <span className="g-hidden sm:g-inline">{label}</span>
+        <FilterIcon className="g-text-sm" />
+      </button>
     </div>
   );
 }

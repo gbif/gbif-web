@@ -1,14 +1,3 @@
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import {
-  BasisOfRecordLabel,
-  CountryLabel,
-  DatasetLabel,
-  EstablishmentMeansLabel,
-  LifeStageLabel,
-  SexLabel,
-  TaxonLabel,
-  TypeStatusVocabularyLabel,
-} from '@/components/filters/displayNames';
 import {
   DropdownMenu,
   DropdownMenuLabel,
@@ -19,132 +8,9 @@ import {
 } from '@/components/ui/dropdownMenu';
 import { cn } from '@/utils/shadcn';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { ComponentType } from 'react';
-import { FaSortUp as SortAscIcon, FaSortDown as SortDescIcon } from 'react-icons/fa6';
 import { FormattedMessage } from 'react-intl';
 import { MdSettings } from 'react-icons/md';
-
-export type MediaGroupMode = 'default' | 'random' | 'group' | 'yearDesc' | 'yearAsc';
-
-export type GroupValueLabel = ComponentType<{ id: string | number | object }>;
-
-export type GroupField = {
-  /** GraphQL facet field name (e.g. 'datasetKey', 'sex'). */
-  id: string;
-  /** i18n key shown in the dropdown menu. */
-  labelId: string;
-  /** Component used to render an individual bucket value (e.g. TaxonLabel).
-   *  Omit for plain values (e.g. year — just render the integer). */
-  ValueLabel?: GroupValueLabel;
-  /** Filter field name to use when the user clicks "Filter by this".
-   *  Defaults to `id` when omitted. */
-  filterField?: string;
-  /** For rank fields: the groupBy id to switch to when drilling down one rank. */
-  drillDownTo?: string;
-};
-
-/**
- * To add a new group, append an entry to GROUP_FIELDS below:
- *
- *   { id: 'myField', labelId: 'some.i18n.key' }
- *
- * - `id`          – the GraphQL facet field name (must be facetable in the occurrence search API).
- * - `labelId`     – i18n message key shown in the dropdown.
- * - `ValueLabel`  – optional React component that renders a bucket value nicely (e.g. a label
- *                   that resolves a key to a human-readable name). Omit for plain text/number
- *                   fields like `recordedBy` or `year` — the raw value is shown directly.
- *                   To add a new label component, create (or find) one in
- *                   `@/components/filters/displayNames`, import it here, and set `ValueLabel`.
- * - `filterField` – the filter key used when clicking "Use as filter". Defaults to `id`.
- *                   Override when the facet field name differs from the filter param
- *                   (e.g. `speciesKey` facets but filters on `taxonKey`).
- * - `drillDownTo` – id of the next finer-grained group to suggest drilling into.
- *                   Only relevant for the taxonomic rank hierarchy.
- *
- * Nothing else needs to change — the dropdown, GraphQL query, cardinality count, and
- * "unspecified" bucket are all generated automatically from this array.
- */
-export const GROUP_FIELDS: GroupField[] = [
-  { id: 'datasetKey', labelId: 'filters.datasetKey.name', ValueLabel: DatasetLabel },
-  {
-    id: 'speciesKey',
-    labelId: 'occurrenceFieldNames.species',
-    ValueLabel: TaxonLabel,
-    filterField: 'taxonKey',
-  },
-  {
-    id: 'genusKey',
-    labelId: 'occurrenceFieldNames.genus',
-    ValueLabel: TaxonLabel,
-    filterField: 'taxonKey',
-    drillDownTo: 'speciesKey',
-  },
-  {
-    id: 'familyKey',
-    labelId: 'occurrenceFieldNames.family',
-    ValueLabel: TaxonLabel,
-    filterField: 'taxonKey',
-    drillDownTo: 'genusKey',
-  },
-  {
-    id: 'orderKey',
-    labelId: 'occurrenceFieldNames.order',
-    ValueLabel: TaxonLabel,
-    filterField: 'taxonKey',
-    drillDownTo: 'familyKey',
-  },
-  {
-    id: 'classKey',
-    labelId: 'occurrenceFieldNames.class',
-    ValueLabel: TaxonLabel,
-    filterField: 'taxonKey',
-    drillDownTo: 'orderKey',
-  },
-  {
-    id: 'phylumKey',
-    labelId: 'occurrenceFieldNames.phylum',
-    ValueLabel: TaxonLabel,
-    filterField: 'taxonKey',
-    drillDownTo: 'classKey',
-  },
-  {
-    id: 'kingdomKey',
-    labelId: 'occurrenceFieldNames.kingdom',
-    ValueLabel: TaxonLabel,
-    filterField: 'taxonKey',
-    drillDownTo: 'phylumKey',
-  },
-  {
-    id: 'countryCode',
-    labelId: 'filters.occurrenceCountry.name',
-    ValueLabel: CountryLabel,
-    filterField: 'country',
-  },
-  { id: 'basisOfRecord', labelId: 'filters.basisOfRecord.name', ValueLabel: BasisOfRecordLabel },
-  { id: 'sex', labelId: 'occurrenceFieldNames.sex', ValueLabel: SexLabel },
-  { id: 'lifeStage', labelId: 'occurrenceFieldNames.lifeStage', ValueLabel: LifeStageLabel },
-  {
-    id: 'typeStatus',
-    labelId: 'occurrenceFieldNames.typeStatus',
-    ValueLabel: TypeStatusVocabularyLabel,
-  },
-  {
-    id: 'establishmentMeans',
-    labelId: 'occurrenceFieldNames.establishmentMeans',
-    ValueLabel: EstablishmentMeansLabel,
-  },
-  { id: 'recordedBy', labelId: 'filters.recordedBy.name' },
-];
-
-export type MediaGroupState = {
-  mode: MediaGroupMode;
-  groupBy?: string;
-};
-
-export const DEFAULT_MEDIA_GROUP_STATE: MediaGroupState = {
-  mode: 'default',
-  groupBy: undefined,
-};
+import { GROUP_FIELDS, MediaGroupState } from './mediaGroupConfig';
 
 const RADIO_DEFAULT = '__default__';
 const RADIO_RANDOM = '__random__';
@@ -178,19 +44,34 @@ export function MediaGroupDropdown({ state, onChange }: Props) {
 
   const isActive = state.mode !== 'default';
 
+  const activeLabelId =
+    state.mode === 'random'
+      ? 'search.group.random'
+      : state.mode === 'yearDesc'
+        ? 'search.sort.yearDesc'
+        : state.mode === 'yearAsc'
+          ? 'search.sort.yearAsc'
+          : state.mode === 'group' && state.groupBy
+            ? GROUP_FIELDS.find((f) => f.id === state.groupBy)?.labelId
+            : undefined;
+
   return (
     <DropdownMenu>
-      <SimpleTooltip i18nKey="search.options" asChild side="left">
-        <DropdownMenuTrigger
-          className={cn(
-            'g-relative g-inline-flex g-items-center g-px-1 g-py-0.5 g-rounded hover:g-text-primary-500',
-            isActive ? 'g-text-slate-600' : 'g-text-slate-400'
-          )}
-          aria-label="Group"
-        >
-          <SortIcon />
-        </DropdownMenuTrigger>
-      </SimpleTooltip>
+      <DropdownMenuTrigger
+        className={cn(
+          'g-relative g-inline-flex g-items-center g-px-1 g-py-0.5 g-rounded g-text-slate-700'
+        )}
+        aria-label="Group"
+      >
+        {isActive && activeLabelId && (
+          <span className="g-text-xs g-mr-1">
+            <FormattedMessage id={activeLabelId} />
+          </span>
+        )}
+        <span className="g-relative g-inline-block g-w-3 g-h-4">
+          <MdSettings className="g-absolute g-left-0 g-top-0 g-text-current" />
+        </span>
+      </DropdownMenuTrigger>
       {/* Portal directly to <body> so the menu isn't accidentally captured by the
           occurrence preview drawer's `.drawer-popover-container` (the gallery's
           dropdown lives outside the drawer). */}
@@ -232,14 +113,5 @@ export function MediaGroupDropdown({ state, onChange }: Props) {
         </div>
       </DropdownMenuPrimitive.Portal>
     </DropdownMenu>
-  );
-}
-
-function SortIcon() {
-  // Reuse the table header sort icon: overlapped up/down chevrons.
-  return (
-    <span className="g-relative g-inline-block g-w-3 g-h-4">
-      <MdSettings className="g-absolute g-left-0 g-top-0 g-text-current" />
-    </span>
   );
 }

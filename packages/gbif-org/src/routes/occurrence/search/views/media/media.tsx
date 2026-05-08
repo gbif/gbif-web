@@ -19,7 +19,7 @@ import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { MediaGrouped } from './mediaGrouped';
 import { MediaPresentation } from './mediaPresentation';
-import { DEFAULT_MEDIA_GROUP_STATE, MediaGroupState } from './mediaSort';
+import { DEFAULT_MEDIA_GROUP_STATE, MediaGroupState } from './mediaGroupConfig';
 
 // Fixed seed for the "Random" mode. Keeping this constant means pagination is
 // stable and revisits show the same shuffle order.
