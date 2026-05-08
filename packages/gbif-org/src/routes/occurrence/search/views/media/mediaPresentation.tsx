@@ -98,7 +98,7 @@ function FlatGallery({
           return (
             <GalleryItem
               onClick={() => onSelect({ key: result.key })}
-              key={result.classification?.usage?.key}
+              key={result.key}
               identifier={identifier}
               formattedName={getFormattedName(result)}
               countryCode={result.countryCode}

@@ -43,6 +43,27 @@ export type GroupField = {
   drillDownTo?: string;
 };
 
+/**
+ * To add a new group, append an entry to GROUP_FIELDS below:
+ *
+ *   { id: 'myField', labelId: 'some.i18n.key' }
+ *
+ * - `id`          – the GraphQL facet field name (must be facetable in the occurrence search API).
+ * - `labelId`     – i18n message key shown in the dropdown.
+ * - `ValueLabel`  – optional React component that renders a bucket value nicely (e.g. a label
+ *                   that resolves a key to a human-readable name). Omit for plain text/number
+ *                   fields like `recordedBy` or `year` — the raw value is shown directly.
+ *                   To add a new label component, create (or find) one in
+ *                   `@/components/filters/displayNames`, import it here, and set `ValueLabel`.
+ * - `filterField` – the filter key used when clicking "Use as filter". Defaults to `id`.
+ *                   Override when the facet field name differs from the filter param
+ *                   (e.g. `speciesKey` facets but filters on `taxonKey`).
+ * - `drillDownTo` – id of the next finer-grained group to suggest drilling into.
+ *                   Only relevant for the taxonomic rank hierarchy.
+ *
+ * Nothing else needs to change — the dropdown, GraphQL query, cardinality count, and
+ * "unspecified" bucket are all generated automatically from this array.
+ */
 export const GROUP_FIELDS: GroupField[] = [
   { id: 'datasetKey', labelId: 'filters.datasetKey.name', ValueLabel: DatasetLabel },
   {
@@ -112,6 +133,7 @@ export const GROUP_FIELDS: GroupField[] = [
     labelId: 'occurrenceFieldNames.establishmentMeans',
     ValueLabel: EstablishmentMeansLabel,
   },
+  { id: 'recordedBy', labelId: 'filters.recordedBy.name' },
 ];
 
 export type MediaGroupState = {
