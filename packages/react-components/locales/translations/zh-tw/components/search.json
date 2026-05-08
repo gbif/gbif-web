@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "種",
+      "taxonSearch": "類群",
       "datasetSearch": "資料集",
       "publisherSearch": "發布者",
       "occurrenceSearch": "出現紀錄",
