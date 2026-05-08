@@ -37,14 +37,24 @@
   "loading": "Загрузка",
   "noResults": "Нет результатов",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "Применить",
+  "cancel": "Отменить",
   "rankInGroup": "",
+  "options": "Варианты",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "По умолчанию",
     "random": "",
-    "order": "Отряд / Порядок",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "Не указана"
   },
   "occurrenceClustersView": {
     "about": "Подробно",
