@@ -1,6 +1,6 @@
 {
   "speciesSearch": {
-    "title": "Species search",
-    "description": "Search for species in GBIF. Free and Open Access to Biodiversity Data."
+    "title": "Taxon search",
+    "description": "Search for taxa in GBIF. Free and Open Access to Biodiversity Data."
   }
 }
