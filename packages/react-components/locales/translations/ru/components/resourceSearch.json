@@ -1,7 +1,7 @@
 {
   "resourceSearch": {
     "title": "Поиск материалов",
-    "resourceDescription": "",
+    "resourceDescription": "Поиск ресурсов в GBIF. Свободный и открытый доступ к данным биоразнообразия.",
     "upcoming": "Предстоящие",
     "past": "Прошедшие",
     "happeningNow": "Происходящее сейчас",
