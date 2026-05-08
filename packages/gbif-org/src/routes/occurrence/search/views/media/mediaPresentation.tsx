@@ -386,7 +386,7 @@ function FilterPopover({
           >
             <span className="g-flex g-flex-col g-min-w-0">
               <span className="g-text-slate-400 g-text-xs">
-                <FormattedMessage id="filters.countryCode.name" defaultMessage="Country" />
+                <FormattedMessage id="filters.country.name" defaultMessage="Country" />
               </span>
               <span className="g-truncate g-text-xs">
                 <FormattedMessage

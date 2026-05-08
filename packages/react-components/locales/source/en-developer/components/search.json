@@ -37,6 +37,9 @@
   "loading": "Loading",
   "noResults": "No results",
   "startTyping": "Type to search",
+  "addFilters": "Add filters",
+  "apply": "Apply",
+  "cancel": "Cancel",
   "rankInGroup": "{rank} in {group}",
   "options": "Options",
   "sort": {

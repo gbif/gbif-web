@@ -14,6 +14,7 @@ import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { GalleryItem } from './mediaPresentation';
 import { GROUP_FIELDS, GroupField } from './mediaSort';
+import { Card } from '@/components/ui/largeCard';
 
 const INITIAL_GROUPS = 20;
 const GROUPS_INCREMENT = 20;
@@ -413,11 +414,7 @@ function UnspecifiedGroupCard({
 }
 
 function CardShell({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="g-bg-white g-rounded-lg g-shadow-sm g-border g-border-solid g-border-slate-200 g-overflow-hidden">
-      {children}
-    </div>
-  );
+  return <Card className="g-overflow-hidden">{children}</Card>;
 }
 
 function CardHeader({
@@ -495,14 +492,11 @@ function DrillDownSuggestion({
   if (!nextField) return null;
   return (
     <div className="g-flex g-items-center g-justify-center g-py-3">
-      <button
-        className="g-text-sm g-text-primary-500 hover:g-underline g-flex g-items-center g-gap-1"
-        onClick={() => onGroupByChange(drillDownTo)}
-      >
+      <Button variant="outline" onClick={() => onGroupByChange(drillDownTo)}>
         <FormattedMessage id="search.group.groupBy" />
         {': '}
         <FormattedMessage id={nextField.labelId} />
-      </button>
+      </Button>
     </div>
   );
 }
