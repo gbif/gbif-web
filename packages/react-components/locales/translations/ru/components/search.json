@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Вид",
+      "taxonSearch": "Таксоны",
       "datasetSearch": "Опубликованных наборов данных",
       "publisherSearch": "Организации",
       "occurrenceSearch": "Находки",
