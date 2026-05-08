@@ -37,14 +37,24 @@
   "loading": "جاري التحميل",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "إلغاء",
   "rankInGroup": "",
+  "options": "",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "الإفتراضي",
     "random": "",
-    "order": "الرتبة",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "غير محدد"
   },
   "occurrenceClustersView": {
     "about": "حول",
