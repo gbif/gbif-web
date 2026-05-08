@@ -38,6 +38,14 @@
   "noResults": "אין תוצאות",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "",
+    "random": "",
+    "order": "",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "אודות",
     "clusters": "מקבצים קשורים",
