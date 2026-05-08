@@ -38,6 +38,14 @@
   "noResults": "",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "默认",
+    "random": "",
+    "order": "目",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "关于",
     "clusters": "",
