@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "種",
+      "taxonSearch": "分類群",
       "datasetSearch": "データセット",
       "publisherSearch": "出版者",
       "occurrenceSearch": "オカレンス",
