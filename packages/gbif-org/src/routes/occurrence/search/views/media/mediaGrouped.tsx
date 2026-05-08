@@ -64,7 +64,7 @@ function buildGroupedQuery(field: GroupField): string {
           ${field.id}${ckArg}
         }
         facet {
-          ${field.id}(size: $facetSize, checklistKey: $checklistKey) {
+          ${field.id}(size: $facetSize${field.supportsChecklistKey ? ', checklistKey: $checklistKey' : ''}) {
             count
             key
             occurrences {
