@@ -67,6 +67,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Druhy",
+      "taxonSearch": "Taxony",
       "datasetSearch": "Datové sady",
       "publisherSearch": "Vydavatelé",
       "occurrenceSearch": "Výskyty",
