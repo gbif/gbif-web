@@ -38,6 +38,14 @@
   "noResults": "Нет результатов",
   "startTyping": "",
   "rankInGroup": "",
+  "sort": {
+    "sortBy": "",
+    "default": "По умолчанию",
+    "random": "",
+    "order": "Отряд / Порядок",
+    "ascending": "",
+    "descending": ""
+  },
   "occurrenceClustersView": {
     "about": "Подробно",
     "clusters": "Связано",
