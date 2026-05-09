@@ -37,23 +37,23 @@
   "loading": "Cargando",
   "noResults": "Sin resultados",
   "startTyping": "",
-  "addFilters": "",
+  "addFilters": "Agregar filtros",
   "apply": "Aplicar",
   "cancel": "Cancelar",
   "rankInGroup": "",
   "options": "Opciones",
   "sort": {
     "sortBy": "Ordenar por",
-    "yearDesc": "",
+    "yearDesc": "Año (más reciente primero)",
     "yearAsc": ""
   },
   "group": {
     "groupBy": "",
     "default": "Por defecto",
-    "random": "",
-    "showMore": "",
+    "random": "Aleatorio",
+    "showMore": "Mostrar {count} más",
     "cappedHint": "",
-    "useAsFilter": "",
+    "useAsFilter": "Usar como filtro",
     "unspecified": "Sin especificar"
   },
   "occurrenceClustersView": {
