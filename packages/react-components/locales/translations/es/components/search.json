@@ -52,7 +52,7 @@
     "default": "Por defecto",
     "random": "Aleatorio",
     "showMore": "Mostrar {count} más",
-    "cappedHint": "",
+    "cappedHint": "Se muestran {shown} de {total} grupos. Aplique más filtros para refinar la búsqueda.",
     "useAsFilter": "Usar como filtro",
     "unspecified": "Sin especificar"
   },
