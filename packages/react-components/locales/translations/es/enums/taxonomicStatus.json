@@ -8,6 +8,7 @@
   "AMBIGUOUS_SYNONYM": "Sinónimo ambiguo",
   "PROVISIONALLY_ACCEPTED": "Provisionalmente aceptado",
   "MISAPPLIED": "Mal aplicado",
+  "BARE_NAME": "Nombre sin clasificación asociada",
   "INTERMEDIATE_RANK_SYNONYM": "Sinónimo de rango intermedio",
   "DETERMINATION_SYNONYM": "Sinónimo de determinación"
 }
