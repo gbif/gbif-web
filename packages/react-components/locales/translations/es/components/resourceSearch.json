@@ -1,7 +1,7 @@
 {
   "resourceSearch": {
     "title": "Búsqueda de recursos",
-    "resourceDescription": "",
+    "resourceDescription": "Buscar recursos en GBIF. Acceso abierto y gratuito a datos sobre biodiversidad.",
     "upcoming": "Próximamente",
     "past": "Pasado",
     "happeningNow": "Lo que pasa ahora",
