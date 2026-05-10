@@ -11,6 +11,8 @@ packages/react-components/locales/dist
 **/*.notes.md
 tmp/
 **/vite.config.ts.timestamp-*
+.claude/
+
 
 # dotenv environment variables file
 /**/*.notes.*
