@@ -45,10 +45,10 @@
   "sort": {
     "sortBy": "Ordenar por",
     "yearDesc": "Año (más reciente primero)",
-    "yearAsc": ""
+    "yearAsc": "Año (el más antiguo primero)"
   },
   "group": {
-    "groupBy": "",
+    "groupBy": "Agrupado por",
     "default": "Por defecto",
     "random": "Aleatorio",
     "showMore": "Mostrar {count} más",
