@@ -1,8 +1,26 @@
 /* eslint-disable no-param-reassign */
-import { select, geoOrthographic, geoPath, geoGraticule } from 'd3';
-import { JSDOM } from 'jsdom';
-import { feature } from 'topojson';
 import world from './landmassLowRes.json';
+
+// d3 (~80ms), jsdom (~550ms) and topojson are only needed when a globe SVG is
+// actually requested. Defer to first call to keep startup cheap.
+let globeDepsPromise;
+const loadGlobeDeps = () => {
+  if (!globeDepsPromise) {
+    globeDepsPromise = Promise.all([
+      import('d3'),
+      import('jsdom'),
+      import('topojson'),
+    ]).then(([d3, jsdomMod, topojsonMod]) => ({
+      select: d3.select,
+      geoOrthographic: d3.geoOrthographic,
+      geoPath: d3.geoPath,
+      geoGraticule: d3.geoGraticule,
+      JSDOM: jsdomMod.JSDOM,
+      feature: topojsonMod.feature,
+    }));
+  }
+  return globeDepsPromise;
+};
 
 const width = 100;
 const height = 100;
@@ -24,6 +42,7 @@ function getPointGeoJson(center) {
 
 // using the dom simulation draw a globe using d3 and return the svg as a string
 function drawGlobe(
+  deps,
   window,
   cb,
   { lat, lng },
@@ -34,6 +53,7 @@ function drawGlobe(
     land: hasLand = true,
   },
 ) {
+  const { select, geoOrthographic, geoPath, geoGraticule, feature } = deps;
   window.d3 = select(window.document); // get d3 into the dom
   window.d3.select('body').append('div').attr('class', 'container'); // make a container div to ease the saving process
 
@@ -100,10 +120,11 @@ function drawGlobe(
     .replace(/(\.\d{3})\d+/g, '$1');
 }
 
-function getGlobeSvg({ center, point, options }) {
+async function getGlobeSvg({ center, point, options }) {
+  const deps = await loadGlobeDeps();
   // fake dom for d3 to use
-  const dom = new JSDOM(`<!DOCTYPE html><body></body>`);
-  return drawGlobe(dom.window, 5, center, point, options);
+  const dom = new deps.JSDOM(`<!DOCTYPE html><body></body>`);
+  return drawGlobe(deps, dom.window, 5, center, point, options);
 }
 
 export default getGlobeSvg;

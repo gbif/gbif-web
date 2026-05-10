@@ -153,14 +153,14 @@ export default {
     },
     occurrence: (_parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
-    globe: (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
+    globe: async (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
       const roundedLat = Math.floor(pLat / 30) * 30;
       const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
       const simpleLon = Math.round(pLon / 30) * 30;
       const lat = typeof cLat === 'number' ? cLat : simpleLat;
       const lon = typeof cLon === 'number' ? cLon : simpleLon;
 
-      const svg = getGlobe({
+      const svg = await getGlobe({
         center: {
           lat,
           lng: lon,
@@ -846,7 +846,7 @@ export default {
   Globe: {},
   VolatileOccurrenceData: {
     features: (occurrence) => occurrence,
-    globe: (
+    globe: async (
       { decimalLatitude, decimalLongitude },
       { sphere, graticule, land },
     ) => {
@@ -860,7 +860,7 @@ export default {
       const lat = Math.min(Math.max(roundedLat, -60), 60);
       const lon = Math.round(decimalLongitude / 15) * 15;
 
-      const svg = getGlobe({
+      const svg = await getGlobe({
         center: {
           lat,
           lng: lon,

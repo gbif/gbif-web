@@ -2,12 +2,29 @@
 Experimental endpoint to provide a human readable form for WKT polygons.
 The idea is to use our geocoding layers to provide results like: denmark, copenhagen area, gentofte and dragør.
 */
-import wellknown from 'wellknown';
-import { bbox, polygon, booleanPointInPolygon, area } from '@turf/turf';
 import axios from 'axios';
 import { uniq } from 'lodash';
 import { Router } from 'express';
 import config from '../config';
+
+// @turf/turf (~1.3s to load) and wellknown are only needed when this endpoint
+// is hit. Defer to first call to keep startup cheap.
+let turfModulePromise;
+const loadTurf = () => {
+  if (!turfModulePromise) {
+    turfModulePromise = Promise.all([
+      import('@turf/turf'),
+      import('wellknown'),
+    ]).then(([turf, wellknown]) => ({
+      bbox: turf.bbox,
+      polygon: turf.polygon,
+      booleanPointInPolygon: turf.booleanPointInPolygon,
+      area: turf.area,
+      wellknown: wellknown.default ?? wellknown,
+    }));
+  }
+  return turfModulePromise;
+};
 
 const router = Router();
 
@@ -15,8 +32,8 @@ export default (app) => {
   app.use('/unstable-api', router);
 };
 
-router.get('/polygon-name', async (req, res, next) => {
-  const wkt = req.query.wkt;
+router.get('/polygon-name', async (req, res) => {
+  const { wkt } = req.query;
   if (!wkt) return res.status(400).json({ error: 'WKT parameter is required' });
   try {
     const { list, area } = await getPolygonName(wkt);
@@ -25,20 +42,21 @@ router.get('/polygon-name', async (req, res, next) => {
     res.set('Cache-Control', 'public, max-age=86400');
     return res.json({
       title,
-      area: area,
+      area,
     });
   } catch (error) {
     console.error('Error in polygon-name:', error.message);
-    return res
-      .status(500)
-      .json({
-        error:
-          'Unable to name polygon. The most likely explanation is that it is an invalid WKT.',
-      });
+    return res.status(500).json({
+      error:
+        'Unable to name polygon. The most likely explanation is that it is an invalid WKT.',
+    });
   }
 });
 
 async function getPolygonName(wkt) {
+  const { bbox, polygon, booleanPointInPolygon, area, wellknown } =
+    await loadTurf();
+
   // Step 1: Parse WKT Geometry
   const geometry = wellknown.parse(wkt);
 
@@ -117,7 +135,7 @@ function sortMetadataByFrequency(metadataList) {
     .map(([key, count]) => {
       const metadata = JSON.parse(key);
       if (metadata.source === 'https://www.marineregions.org/') {
-        metadata.title = metadata.title + ' (Marine Regions)';
+        metadata.title += ' (Marine Regions)';
       }
       return { title: metadata.title, frequency: count };
     })
