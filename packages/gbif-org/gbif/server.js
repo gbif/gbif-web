@@ -139,22 +139,14 @@ async function main() {
     try {
       let template;
       let render;
-      let fallbackHtmlFile;
 
       if (!IS_PRODUCTION) {
         template = await fsp.readFile('gbif/index.html', 'utf8');
         template = await viteDevServer.transformIndexHtml(url, template);
         render = (await viteDevServer.ssrLoadModule('src/gbif/entry.server.tsx')).render;
-
-        // Load fallback html file
-        fallbackHtmlFile = await fsp.readFile('gbif/fallback.html', 'utf8');
-        fallbackHtmlFile = await viteDevServer.transformIndexHtml(url, fallbackHtmlFile);
       } else {
         template = await fsp.readFile('dist/gbif/client/gbif/index.html', 'utf8');
         render = (await import('../dist/gbif/server/entry.server.js')).render;
-
-        // Load fallback html file
-        fallbackHtmlFile = await fsp.readFile('dist/gbif/client/gbif/fallback.html', 'utf8');
       }
 
       try {
@@ -209,6 +201,19 @@ async function main() {
           Number.isInteger(e.status)
         ) {
           status = e.status;
+        }
+
+        // Lazily load the fallback HTML only when render fails. Doing the read +
+        // viteDevServer.transformIndexHtml on every request was wasted work on the happy path
+        // and exposed a race with graphql-codegen --watch where the inline <style> block in
+        // fallback.html is processed by PostCSS/Tailwind while a generated .json/.ts is being
+        // rewritten — surfacing as "Failed to parse JSON file" mid-startup.
+        let fallbackHtmlFile = await fsp.readFile(
+          IS_PRODUCTION ? 'dist/gbif/client/gbif/fallback.html' : 'gbif/fallback.html',
+          'utf8'
+        );
+        if (!IS_PRODUCTION) {
+          fallbackHtmlFile = await viteDevServer.transformIndexHtml(url, fallbackHtmlFile);
         }
 
         res
