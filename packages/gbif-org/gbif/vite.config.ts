@@ -1,4 +1,4 @@
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import { createRequire } from 'module';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig, UserConfig } from 'vite';
