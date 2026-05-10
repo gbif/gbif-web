@@ -12,6 +12,7 @@ import { LuSettings2 as FilterIcon } from 'react-icons/lu';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
+import { useOrderedList } from '../browseList/useOrderedList';
 import { GalleryItem } from './mediaPresentation';
 import { GROUP_FIELDS, GroupField, getFormattedName } from './mediaGroupConfig';
 import { Card } from '@/components/ui/largeCard';
@@ -140,6 +141,7 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
   const searchContext = useSearchContext();
   const checklistKey = useChecklistKey();
   const [, setPreviewKey] = useEntityDrawer();
+  const { setOrderedList } = useOrderedList();
   const [facetSize, setFacetSize] = useState(INITIAL_GROUPS);
 
   const field = useMemo(() => GROUP_FIELDS.find((f) => f.id === groupBy), [groupBy]);
@@ -248,7 +250,10 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
           key={group.key}
           group={group}
           field={field}
-          onSelect={(key) => setPreviewKey(`o_${key}`)}
+          onSelect={(key, groupKeys) => {
+            setOrderedList(groupKeys.map((k) => `o_${k}`));
+            setPreviewKey(`o_${key}`);
+          }}
           onGroupByChange={onGroupByChange}
         />
       ))}
@@ -290,7 +295,10 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
           field={field}
           total={unspecifiedTotal}
           results={unspecifiedResults}
-          onSelect={(key) => setPreviewKey(`o_${key}`)}
+          onSelect={(key, groupKeys) => {
+            setOrderedList(groupKeys.map((k) => `o_${k}`));
+            setPreviewKey(`o_${key}`);
+          }}
         />
       )}
     </div>
@@ -309,7 +317,7 @@ function GroupCard({
 }: {
   group: GroupResult;
   field: GroupField;
-  onSelect: (key: number) => void;
+  onSelect: (key: number, groupKeys: number[]) => void;
   onGroupByChange?: (groupBy: string) => void;
 }) {
   const { setFullField } = useContext(FilterContext);
@@ -346,7 +354,12 @@ function GroupCard({
               height={GROUP_IMAGE_HEIGHT}
               minWidth={0}
               dense
-              onClick={() => onSelect(occ.key)}
+              onClick={() =>
+                onSelect(
+                  occ.key,
+                  results.map((r) => r.key)
+                )
+              }
             />
           ))}
         </CardImages>
@@ -364,7 +377,7 @@ function UnspecifiedGroupCard({
   field: GroupField;
   total: number;
   results: GroupOccurrence[];
-  onSelect: (key: number) => void;
+  onSelect: (key: number, groupKeys: number[]) => void;
 }) {
   const { setFullField } = useContext(FilterContext);
   const filterField = field.filterField ?? field.id;
@@ -399,7 +412,12 @@ function UnspecifiedGroupCard({
               height={GROUP_IMAGE_HEIGHT}
               minWidth={0}
               dense
-              onClick={() => onSelect(occ.key)}
+              onClick={() =>
+                onSelect(
+                  occ.key,
+                  results.map((r) => r.key)
+                )
+              }
             />
           ))}
         </CardImages>
