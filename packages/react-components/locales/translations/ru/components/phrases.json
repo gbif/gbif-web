@@ -30,7 +30,7 @@
   "downloadAsTsv": "Скачать в формате TSV",
   "didYouKnow": "Знаете ли вы?",
   "explore": "Поиск",
-  "testSiteWarning": "",
+  "testSiteWarning": "Это тестовый сайт. Данные этого сайта НЕ будут использоваться или цитироваться.",
   "backHome": "Назад",
   "pageNotFound": "Ошибка 404",
   "noInformation": "Информация отсутствует",
