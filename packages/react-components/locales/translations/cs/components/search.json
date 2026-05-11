@@ -37,14 +37,24 @@
   "loading": "Načítání",
   "noResults": "Žádné výsledky",
   "startTyping": "Zadejte hledaný text",
+  "addFilters": "",
+  "apply": "Použít",
+  "cancel": "Zrušit",
   "rankInGroup": "",
+  "options": "Možnosti",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "Výchozí",
     "random": "",
-    "order": "Řád",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "Nespecifikováno"
   },
   "occurrenceClustersView": {
     "about": "O",

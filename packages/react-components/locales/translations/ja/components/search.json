@@ -37,14 +37,24 @@
   "loading": "読み込み中",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "中止",
   "rankInGroup": "",
+  "options": "オプション",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "デフォルト",
     "random": "",
-    "order": "目",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "未特定"
   },
   "occurrenceClustersView": {
     "about": "・・・について",

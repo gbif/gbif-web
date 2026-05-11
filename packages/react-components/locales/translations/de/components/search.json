@@ -37,14 +37,24 @@
   "loading": "",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "Übernehmen",
+  "cancel": "",
   "rankInGroup": "",
+  "options": "Einstellungen",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "",
     "random": "",
-    "order": "",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "Keine Angabe"
   },
   "occurrenceClustersView": {
     "about": "",

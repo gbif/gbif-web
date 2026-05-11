@@ -37,14 +37,24 @@
   "loading": "Indlæser",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "Annuller",
   "rankInGroup": "",
+  "options": "",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "Standard",
     "random": "",
-    "order": "Orden",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "Uspecificeret"
   },
   "occurrenceClustersView": {
     "about": "Om",

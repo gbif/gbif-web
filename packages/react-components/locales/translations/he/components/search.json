@@ -37,14 +37,24 @@
   "loading": "טוען",
   "noResults": "אין תוצאות",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "החלה",
+  "cancel": "",
   "rankInGroup": "",
+  "options": "אפשרויות",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "",
     "random": "",
-    "order": "",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": ""
   },
   "occurrenceClustersView": {
     "about": "אודות",

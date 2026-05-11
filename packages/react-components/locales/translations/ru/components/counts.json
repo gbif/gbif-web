@@ -10,6 +10,8 @@
   "nOccurrences": "{total, plural, one {# событие} other {# событий}}",
   "nRecords": "{total, plural, one {# запись} other {# записи}}",
   "nTaxa": "{total, plural, one {# таксон} other {# таксонов}}",
+  "nSpecies": "{total, plural, one {# вид} few {# видов} many {# видов} other {# виды}}",
+  "nAcceptedSpecies": "{total, plural, one {# допустимые виды} few {# допустимых видов} many {# допустимых видов} other {# допустимых видов}}",
   "nCitations": "{total, plural, one {# цитирование}  other {# цитирований}}",
   "nSpecimensInGbif": "{total, plural, one {# запись образцов в GBIF} other {# записей образцов в GBIF}}",
   "nNames": "{total, plural, one {# имя} other {# имён}}",
