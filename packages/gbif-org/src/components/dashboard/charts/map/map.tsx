@@ -10,26 +10,74 @@ import { MdLocationPin, MdOutlineDragIndicator as MdDragHandle } from 'react-ico
 import { useOccurrenceCount } from '@/components/count';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { cn } from '@/utils/shadcn';
-import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import useQuery from '@/hooks/useQuery';
 
 const AdHocMap = React.lazy(() => import('@/routes/occurrence/search/views/map/Map/AdHocMap'));
 
+type ResultItem = {
+  key: string;
+  title?: string;
+  description?: string;
+  count: number;
+  hidden?: boolean;
+  colorIndex?: number;
+  filter?: Record<string, unknown[]>;
+  occurrences?: {
+    _meta: { predicate: object };
+    metaPredicate?: string;
+  };
+};
+
+type FacetFilter = { filter: Record<string, unknown[]> };
+
+type FacetMapProps = {
+  contextHash?: string;
+  loading?: boolean;
+  columnTitle?: string;
+  columnCount?: string;
+  results?: ResultItem[];
+  onClick?: (args: FacetFilter) => void;
+  interactive?: boolean;
+  total?: number;
+  palette: string[];
+  distinct?: number;
+};
+
+type MapProps = {
+  facetResults?: {
+    data: unknown;
+    results: ResultItem[];
+    loading: boolean;
+    total: number;
+    distinct: number;
+  };
+  transform?: (data: unknown) => ResultItem[];
+  contextHash?: string;
+  onClick?: (args: FacetFilter) => void;
+  palette: string[];
+  interactive?: boolean;
+};
+
+type SpeciesCountQueryResult = {
+  search?: {
+    cardinality?: {
+      total?: number;
+    };
+  };
+};
+
 function FacetMap({
   contextHash,
   loading,
-  columnTitle = 'Value',
-  columnCount = 'Occurrences',
   results = [],
   onClick,
   interactive = false,
-  total = 800,
   palette,
   distinct = 0,
-  ...props
-}) {
-  const [orderedResults, setOrderedResults] = useState(results);
+}: FacetMapProps) {
+  const [orderedResults, setOrderedResults] = useState<ResultItem[]>(results);
   const [showSpeciesCounts, setShowSpeciesCounts] = useState(false);
 
   // Update ordered results when results prop changes
@@ -58,7 +106,7 @@ function FacetMap({
       <div>
         {[1, 2].map((x) => (
           <React.Fragment key={x}>
-            <Skeleton className="g-h-6" width="60%" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ width: '60%', marginBottom: 12 }} />
             <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
           </React.Fragment>
         ))}
@@ -66,14 +114,14 @@ function FacetMap({
     );
   }
 
-  const reorder = (list, startIndex, endIndex) => {
+  const reorder = (list: ResultItem[], startIndex: number, endIndex: number): ResultItem[] => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
     return result;
   };
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: DropResult) => {
     // Dropped outside the list
     if (!result.destination) {
       return;
@@ -86,16 +134,16 @@ function FacetMap({
 
   const mapProps: AdHocMapProps = {
     overlays: orderedResults
-      .map((r, i) => ({
+      .map((r) => ({
         id: r.key,
-        predicate: r.occurrences?._meta.predicate,
+        predicate: r.occurrences?._meta.predicate ?? {},
         predicateHash: r.occurrences?.metaPredicate || '',
         style: {
-          mapDensityColors: [palette[r.colorIndex % palette.length]],
+          mapDensityColors: [palette[(r.colorIndex ?? 0) % palette.length]],
           mapPointOpacities: [1, 1, 0.95, 0.9, 0.85],
           mapPointSizes: [3, 3, 4, 5, 5],
         },
-        hidden: r.hidden,
+        hidden: r.hidden ?? false,
       }))
       .reverse(),
     loading,
@@ -150,10 +198,9 @@ function FacetMap({
                           key={e.key}
                           row={e}
                           index={i}
-                          total={total}
                           interactive={interactive}
                           onClick={onClick}
-                          color={palette[e.colorIndex % palette.length]}
+                          color={palette[(e.colorIndex ?? 0) % palette.length]}
                           visiblityHandler={(hidden: boolean) => {
                             const newResults = [...orderedResults];
                             newResults[i].hidden = hidden;
@@ -180,16 +227,14 @@ function Row({
   index,
   interactive,
   onClick,
-  total,
   color,
   visiblityHandler,
   showSpeciesCounts,
 }: {
-  row: any;
+  row: ResultItem;
   index: number;
   interactive?: boolean;
-  onClick?: (filter: any) => void;
-  total?: number;
+  onClick?: (args: FacetFilter) => void;
   color?: string;
   visiblityHandler: (hidden: boolean) => void;
   showSpeciesCounts: boolean;
@@ -258,7 +303,7 @@ function Row({
                 <>
                   <div
                     onClick={() => {
-                      if (interactive) onClick({ filter: row.filter });
+                      if (interactive) onClick?.({ filter: row.filter ?? {} });
                     }}
                   >
                     {row.title}
@@ -308,8 +353,8 @@ query distinct($q: String, $predicate: Predicate) {
 }
 `;
 
-function SpeciesCount({ predicate }) {
-  const { data, load, error, loading } = useQuery(query, {
+function SpeciesCount({ predicate }: { predicate?: object }) {
+  const { data, load, error, loading } = useQuery<SpeciesCountQueryResult, { predicate?: object }>(query, {
     lazyLoad: false,
     variables: { predicate },
     queue: {
@@ -339,7 +384,7 @@ function SpeciesCount({ predicate }) {
   return <FormattedNumber value={data?.search?.cardinality?.total || 0} />;
 }
 
-export function Map({ facetResults, transform, contextHash, ...props }) {
+export function Map({ facetResults, transform, contextHash, ...props }: MapProps) {
   if (!facetResults) {
     return null;
   }
