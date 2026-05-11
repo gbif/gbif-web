@@ -243,14 +243,39 @@ export function useSpeciesLookupState(): SpeciesLookupState {
   }, []);
 
   const selectSuggestion = useCallback(
-    (suggestion: SuggestResult) => {
+    async (suggestion: SuggestResult) => {
       if (!itemToEdit) return;
       const updated = { ...itemToEdit, userEdited: true };
       applySuggestion(updated, suggestion);
       setSpecies((prev) => prev.map((s) => (s === itemToEdit ? updated : s)));
       closeEdit();
+
+      // The suggest endpoint (and freshly typed searches) don't return the full
+      // classification. Look it up via the match API so the row in the results
+      // table shows the same ranks + classification as auto-matched rows.
+      if (!suggestion.classification && suggestion.key && defaultChecklistKey) {
+        try {
+          const params = new URLSearchParams({
+            usageKey: suggestion.key,
+            checklistKey: defaultChecklistKey,
+          });
+          const res = await fetch(`${v2Endpoint}/species/match?${params}`);
+          if (!res.ok) return;
+          const matchData: Record<string, unknown> = await res.json();
+          setSpecies((prev) =>
+            prev.map((s) => {
+              if (s.key !== suggestion.key || !s.userEdited) return s;
+              const enriched = { ...s };
+              applyMatchData(enriched, matchData);
+              return enriched;
+            })
+          );
+        } catch {
+          // keep the suggestion-only data
+        }
+      }
     },
-    [itemToEdit, closeEdit]
+    [itemToEdit, closeEdit, v2Endpoint, defaultChecklistKey]
   );
 
   const discardMatch = useCallback(() => {

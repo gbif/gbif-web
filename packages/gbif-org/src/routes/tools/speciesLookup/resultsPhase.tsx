@@ -199,7 +199,7 @@ function ResultRow({ row, onEdit }: { row: SpeciesRow; onEdit: (row: SpeciesRow)
       <td className="g-px-4 g-py-2 g-whitespace-nowrap">
         <TaxonLink usageKey={row.speciesKey} name={row.species} />
       </td>
-      <td className="g-px-4 g-py-2 g-max-w-[24rem]">
+      <td className="g-px-4 g-py-2 g-whitespace-nowrap">
         <ClassificationPath classification={row.classification} selfKey={row.usageKey} />
       </td>
     </tr>

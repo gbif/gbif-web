@@ -41,7 +41,7 @@ export function ClassificationPath({
   if (!classification || classification.length === 0) return null;
   const items = selfKey ? classification.filter((c) => c.key !== selfKey) : classification;
   return (
-    <div className="g-text-xs g-text-slate-600 g-leading-snug">
+    <div className="g-text-xs g-text-slate-600 g-leading-snug g-whitespace-nowrap">
       {items.map((c, i) => (
         <span key={`${c.key}-${i}`}>
           {i > 0 && <span className="g-text-slate-300"> › </span>}
