@@ -17,7 +17,7 @@ import OccurrenceMediaGalleryCard from './sections/OccurrenceMediaGalleryCard';
 import SynonymsCard from './sections/SynonymsCard';
 import TaxonIdentifiersCard from './sections/TaxonIdentifiersCard';
 import VernacularNamesCard from './sections/VernacularNamesCard';
-import { CatalogueOfLifeCard, GbifLinkCard, TocLi as Li, Separator } from '@/components/TocHelp';
+import { CatalogueOfLifeCard, TocLi as Li, Separator } from '@/components/TocHelp';
 import { Card } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';

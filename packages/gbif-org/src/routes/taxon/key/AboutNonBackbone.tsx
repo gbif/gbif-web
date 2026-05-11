@@ -18,9 +18,7 @@ import { VernacularNameTable } from './sections/VernacularNameTable';
 import Citation from './sections/Citation';
 import SunburstSkeleton from '@/components/dashboard/skeletons/SunburstSkeleton';
 
-const BreakdownContent = React.lazy(() =>
-  import('./sections/breakdown/BreakdownContent').then((m) => ({ default: m.BreakdownContent }))
-);
+const BreakdownContent = React.lazy(() => import('./sections/breakdown/BreakdownContent'));
 
 const dividerClass = 'g-mt-6 g-pt-6';
 

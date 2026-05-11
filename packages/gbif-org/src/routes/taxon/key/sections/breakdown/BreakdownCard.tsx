@@ -6,9 +6,7 @@ import { cn } from '@/utils/shadcn';
 import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-const BreakdownContent = React.lazy(() =>
-  import('./BreakdownContent').then((m) => ({ default: m.BreakdownContent }))
-);
+const BreakdownContent = React.lazy(() => import('./BreakdownContent'));
 
 type Props = {
   taxonKey: string;
