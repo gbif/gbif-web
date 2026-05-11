@@ -10,7 +10,7 @@ type Props = {
 
 export default function ChartSkeletonCard({ className, style, children }: Props) {
   return (
-    <Card className={cn('g-overflow-hidden', className)} style={style}>
+    <Card className={cn('g-overflow-hidden g-mb-4', className)} style={style}>
       <div className="g-px-4 g-pt-4 g-pb-4 g-space-y-2">
         <Skeleton className="g-h-4 g-w-2/3" />
         <Skeleton className="g-h-3 g-w-1/3" />
