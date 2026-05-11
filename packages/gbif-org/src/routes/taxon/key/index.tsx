@@ -15,7 +15,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     if (typeof key !== 'string' && typeof key !== 'number')
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/taxon/${key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/species/${key}`; // TODO: temprary nutil we move to the taxon api on gbif.org
   },
   loader: taxonLoader,
   /* shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {
