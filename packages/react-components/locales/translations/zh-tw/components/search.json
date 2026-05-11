@@ -37,14 +37,24 @@
   "loading": "正在載入",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "套用",
+  "cancel": "取消",
   "rankInGroup": "",
+  "options": "選項",
   "sort": {
     "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
     "default": "預設",
     "random": "",
-    "order": "目",
-    "ascending": "",
-    "descending": ""
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "未指定"
   },
   "occurrenceClustersView": {
     "about": "關於",

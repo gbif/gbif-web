@@ -37,14 +37,24 @@
   "loading": "Cargando",
   "noResults": "Sin resultados",
   "startTyping": "",
+  "addFilters": "Agregar filtros",
+  "apply": "Aplicar",
+  "cancel": "Cancelar",
   "rankInGroup": "",
+  "options": "Opciones",
   "sort": {
-    "sortBy": "",
+    "sortBy": "Ordenar por",
+    "yearDesc": "Año (más reciente primero)",
+    "yearAsc": "Año (el más antiguo primero)"
+  },
+  "group": {
+    "groupBy": "Agrupado por",
     "default": "Por defecto",
-    "random": "",
-    "order": "Orden",
-    "ascending": "",
-    "descending": ""
+    "random": "Aleatorio",
+    "showMore": "Mostrar {count} más",
+    "cappedHint": "Se muestran {shown} de {total} grupos. Aplique más filtros para refinar la búsqueda.",
+    "useAsFilter": "Usar como filtro",
+    "unspecified": "Sin especificar"
   },
   "occurrenceClustersView": {
     "about": "Acerca de",
