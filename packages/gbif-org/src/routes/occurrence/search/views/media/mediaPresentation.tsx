@@ -333,7 +333,7 @@ export function GalleryItemSkeleton() {
 
 // Configure which fields are checked by default in the filter popover
 const DEFAULT_CHECKED_FIELDS = {
-  taxonKey: true,
+  taxonKey: false,
   countryCode: false,
   eventDate: false,
   recordedBy: false,
