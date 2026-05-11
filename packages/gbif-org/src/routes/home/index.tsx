@@ -17,6 +17,7 @@ import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 import { useNotifyOfPartialDataIfErrors } from '../rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 async function homepageLoader({ locale, isPreview }: LoaderArgs) {
   const response = await fetchCachedResponse({
@@ -73,6 +74,7 @@ function HomePage(): React.ReactElement {
                       {home?.summary}
                     </h1>
                   </div>
+                  <TestSiteAlert className="g-my-4" />
                   <div className="g-mt-4">
                     <SearchBar />
                     <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-start">

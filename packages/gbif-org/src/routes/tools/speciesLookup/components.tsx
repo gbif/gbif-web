@@ -1,6 +1,6 @@
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
-import { SuggestResult } from './types';
+import { ClassificationItem, SuggestResult } from './types';
 
 export function MatchTypeBadge({ matchType }: { matchType?: string }) {
   if (!matchType) return null;
@@ -28,6 +28,33 @@ export function TaxonLink({ usageKey, name }: { usageKey?: string; name?: string
     <a href={`/species/${usageKey}`} className="g-text-primary-500 hover:g-underline">
       {name}
     </a>
+  );
+}
+
+export function ClassificationPath({
+  classification,
+  selfKey,
+}: {
+  classification?: ClassificationItem[];
+  selfKey?: string;
+}) {
+  if (!classification || classification.length === 0) return null;
+  const items = selfKey ? classification.filter((c) => c.key !== selfKey) : classification;
+  return (
+    <div className="g-text-xs g-text-slate-600 g-leading-snug">
+      {items.map((c, i) => (
+        <span key={`${c.key}-${i}`}>
+          {i > 0 && <span className="g-text-slate-300"> › </span>}
+          <a
+            href={`/species/${c.key}`}
+            className="g-text-slate-600 hover:g-text-primary-500 hover:g-underline"
+            title={c.rank}
+          >
+            {c.name}
+          </a>
+        </span>
+      ))}
+    </div>
   );
 }
 

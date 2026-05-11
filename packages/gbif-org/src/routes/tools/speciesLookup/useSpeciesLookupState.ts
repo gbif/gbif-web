@@ -166,9 +166,10 @@ export function useSpeciesLookupState(): SpeciesLookupState {
           const matchData: Record<string, unknown> = await matchRes.json();
 
           const usage = matchData.usage as Record<string, unknown> | undefined;
+          const diagnostics = matchData.diagnostics as Record<string, unknown> | undefined;
           const primaryCandidate = usage?.key ? toCandidate(matchData) : null;
-          const alternativeCandidates = Array.isArray(matchData.alternatives)
-            ? (matchData.alternatives as Record<string, unknown>[]).map(toCandidate)
+          const alternativeCandidates = Array.isArray(diagnostics?.alternatives)
+            ? (diagnostics.alternatives as Record<string, unknown>[]).map(toCandidate)
             : [];
           item.alternatives = primaryCandidate
             ? [primaryCandidate, ...alternativeCandidates]

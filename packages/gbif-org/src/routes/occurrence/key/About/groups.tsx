@@ -60,8 +60,8 @@ import { Media } from './media';
 import { TaxonInterpretationCard, ChecklistNoMatchCard } from './TaxonInterpretationCard';
 import { CardDescription } from '@/components/ui/smallCard';
 import { MediaSummary } from './MediaSummary';
-
-// const Map = React.lazy(() => import('@/components/maps/map'));
+import { cn } from '@/utils/shadcn';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export function Groups({
   occurrence,
@@ -133,15 +133,17 @@ export function Group({
   children,
   description,
   id,
+  className,
   ...props
 }: {
   label: string;
   id: string;
   description?: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <Card className="g-mb-4" id={id}>
+    <Card className={cn('g-mb-4', className)} id={id}>
       <CardHeader>
         <CardTitle>
           <FormattedMessage id={label} />
@@ -928,7 +930,8 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
 function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
   return (
-    <Group label="phrases.citation" id="citation">
+    <Group label="phrases.citation" id="citation" className="gbif-test-background">
+      <TestSiteAlert className="g-mb-4" />
       <Properties breakpoint={800} className="[&>dt]:g-w-52">
         <BasicField label="phrases.citeAs">
           {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}

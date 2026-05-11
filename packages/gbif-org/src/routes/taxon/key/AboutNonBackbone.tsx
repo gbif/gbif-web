@@ -189,7 +189,7 @@ export default function AboutNonBackbone({ data }: { data: TaxonKeyQuery }) {
           </div>
         )}
         <div className={dividerClass}>
-          <CardTitle className="g-text-lg">
+          <CardTitle className="g-text-lg gbif-test-background">
             <FormattedMessage id="phrases.citation" />
           </CardTitle>
           <Citation taxonInfo={taxonInfo} />

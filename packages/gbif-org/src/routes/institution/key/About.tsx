@@ -33,6 +33,7 @@ import { GrSciCollMetadata } from './MetaData';
 import { PredicateType } from '@/gql/graphql';
 import { notNull } from '@/utils/notNull';
 import { apiConstants } from '@/config/apiConstants';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
@@ -71,6 +72,7 @@ export default function About() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={cn({ 'g-flex': !removeSidebar })}>
           <div className="g-flex-grow">
+            <TestSiteAlert className="g-mb-4" />
             <Card className="g-mb-4" id="description">
               <CardHeader>
                 <CardTitle>

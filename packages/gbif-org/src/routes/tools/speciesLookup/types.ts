@@ -40,9 +40,16 @@ export const CSV_EXPORT_FIELDS = [
   'family',
   'genus',
   'species',
+  'classification',
   'usageKey',
   'acceptedUsageKey',
 ] as const;
+
+export type ClassificationItem = {
+  key: string;
+  name: string;
+  rank: string;
+};
 
 export type SuggestResult = {
   key: string;
@@ -60,6 +67,7 @@ export type SuggestResult = {
   family?: string;
   genus?: string;
   species?: string;
+  classification?: ClassificationItem[];
 };
 
 export type SpeciesRow = {
@@ -90,6 +98,7 @@ export type SpeciesRow = {
   acceptedUsageKey?: string;
   accepted?: string;
   acceptedKey?: string;
+  classification?: ClassificationItem[];
   userEdited?: boolean;
   discarded?: boolean;
   alternatives?: SuggestResult[];

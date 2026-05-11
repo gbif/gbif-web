@@ -6,7 +6,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
-import { MatchTypeBadge, TaxonLink } from './components';
+import { ClassificationPath, MatchTypeBadge, TaxonLink } from './components';
 import { PAGE_SIZE, SpeciesRow } from './types';
 
 const RESULT_COLUMNS: { id: string; defaultMessage: string }[] = [
@@ -28,6 +28,7 @@ const RESULT_COLUMNS: { id: string; defaultMessage: string }[] = [
   { id: 'tools.speciesLookup.colFamily', defaultMessage: 'family' },
   { id: 'tools.speciesLookup.colGenus', defaultMessage: 'genus' },
   { id: 'tools.speciesLookup.colSpecies', defaultMessage: 'species' },
+  { id: 'tools.speciesLookup.colClassification', defaultMessage: 'classification' },
 ];
 
 type ResultsPhaseProps = {
@@ -197,6 +198,9 @@ function ResultRow({ row, onEdit }: { row: SpeciesRow; onEdit: (row: SpeciesRow)
       </td>
       <td className="g-px-4 g-py-2 g-whitespace-nowrap">
         <TaxonLink usageKey={row.speciesKey} name={row.species} />
+      </td>
+      <td className="g-px-4 g-py-2 g-max-w-[24rem]">
+        <ClassificationPath classification={row.classification} selfKey={row.usageKey} />
       </td>
     </tr>
   );

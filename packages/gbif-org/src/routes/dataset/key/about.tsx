@@ -53,6 +53,7 @@ import { Link } from 'react-router-dom';
 import { DatasetKeyLoaderResult } from './datasetKey';
 import { LocalContextCards } from './about/LocalContexts';
 import { DynamicLink } from '@/reactRouterPlugins';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -234,6 +235,7 @@ export function DatasetKeyAbout() {
           stack={removeSidebar}
         >
           <div className="g-flex-grow">
+            <TestSiteAlert className="g-mb-4" />
             {reducedOccurrenceScope && (
               <div>
                 <Alert variant="theme" className="g-mb-4">
@@ -503,7 +505,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            <Card className="g-mb-4 gbif-word-break" id="registration">
+            <Card className="g-mb-4 gbif-word-break gbif-test-background" id="registration">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.registration" />
@@ -515,7 +517,7 @@ export function DatasetKeyAbout() {
                 </ErrorBoundary>
               </CardContent>
             </Card>
-            <Card className="g-mb-4 gbif-word-break" id="citation">
+            <Card className="g-mb-4 gbif-word-break gbif-test-background" id="citation">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.citation" />

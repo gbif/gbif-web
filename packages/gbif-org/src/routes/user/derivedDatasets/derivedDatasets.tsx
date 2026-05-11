@@ -13,6 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import { DerivedDatasetResult } from './derivedDatasetResult';
 import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export function DerivedDatasets() {
   const [offset, setOffset] = useIntParam({
@@ -61,6 +62,7 @@ export function DerivedDatasets() {
 
   return (
     <section>
+      <TestSiteAlert className="g-mb-4" />
       <div className="g-text-end">
         <Button asChild>
           <DynamicLink to="/derived-dataset">

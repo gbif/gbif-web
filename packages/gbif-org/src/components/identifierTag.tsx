@@ -45,13 +45,18 @@ export function LicenceTag({
 }
 
 const testSite = import.meta.env.PUBLIC_TEST_SITE === 'true';
-const testSiteDoiPrefix = testSite ? 'Test DOI' : 'DOI';
-export function DoiTag({ id = '', ...props }) {
+const testSiteDoiPrefix = testSite ? 'Do not cite DOI' : 'DOI';
+export function DoiTag({ id = '', className, ...props }) {
   const sanitizedId = id.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
   return (
-    <IdentifierTag as="a" href={`https://doi.org/${sanitizedId}`} {...props}>
+    <IdentifierTag
+      as="a"
+      href={`https://doi.org/${sanitizedId}`}
+      className={cn(className, testSite ? 'g-select-none g-pointer-events-none' : '')}
+      {...props}
+    >
       <IdentifierType>{testSiteDoiPrefix}</IdentifierType>
-      <IdentifierValue>{sanitizedId}</IdentifierValue>
+      <IdentifierValue className={testSite ? 'g-text-red-500' : ''}>{sanitizedId}</IdentifierValue>
     </IdentifierTag>
   );
 }

@@ -13,7 +13,7 @@ type Props = {
 function CitationContent({ taxonInfo, className }: Props) {
   if (!taxonInfo) return null;
   return (
-    <Card className={cn('g-mb-4', className)} id="citation">
+    <Card className={cn('g-mb-4 gbif-test-background', className)} id="citation">
       <CardHeader>
         <CardTitle>
           <FormattedMessage id="phrases.citation" />

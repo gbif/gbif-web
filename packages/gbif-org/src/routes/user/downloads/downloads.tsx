@@ -10,6 +10,7 @@ import useQuery from '@/hooks/useQuery';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DownloadResult } from './downloadResult';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 type DownloadType = 'occurrences' | 'events';
 
@@ -72,6 +73,7 @@ export function Downloads() {
 
   return (
     <section>
+      <TestSiteAlert className="g-mb-4" />
       {(eventDownloads?.count ?? 0) > 0 && (
         <div className="g-flex g-flex-wrap g-gap-2 g-mb-4">
           <Button

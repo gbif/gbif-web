@@ -11,6 +11,7 @@ import { MdDownload } from 'react-icons/md';
 import { UsageReportModal } from './usageReportModal';
 import { useUser } from '@/contexts/UserContext';
 import { Download } from '../downloadKey';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export function FileCard({ download, citation }: { download: Download; citation: string }) {
   const { formatMessage } = useIntl();
@@ -21,8 +22,9 @@ export function FileCard({ download, citation }: { download: Download; citation:
   const hasCompleted = downloadCompleted(download);
 
   return (
-    <Card className="g-mb-4 g-pt-8">
+    <Card className="g-mb-4 g-pt-8 gbif-test-background">
       <CardContent>
+        <TestSiteAlert className="g-mb-4" />
         <Properties breakpoint={800} className="[&>dt]:g-w-52">
           <BasicField label="phrases.pleaseCiteAs">
             <div>

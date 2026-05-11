@@ -18,6 +18,7 @@ import { Card } from '@/components/ui/largeCard';
 import { MdFileDownload } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FreeTextWarning } from './shared';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export default function OccurrenceSearchDownload() {
   const currentFilterContext = useContext(FilterContext);
@@ -113,6 +114,7 @@ function OccurrenceDownloadFlow({
   return (
     <div className="g-min-h-screen g-py-8">
       <div className="g-max-w-4xl g-mx-auto">
+        <TestSiteAlert className="g-mb-4" />
         <ProtectedForm
           className=""
           title="Please sign in"

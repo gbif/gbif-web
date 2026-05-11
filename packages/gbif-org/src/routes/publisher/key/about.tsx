@@ -28,6 +28,7 @@ import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { usePublisherKeyLoaderData } from '.';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export function PublisherKeyAbout() {
   const { publisher } = usePublisherKeyLoaderData();
@@ -227,6 +228,7 @@ export function PublisherKeyAbout() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
+            <TestSiteAlert className="g-mb-4" />
             <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>

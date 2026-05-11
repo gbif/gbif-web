@@ -12,6 +12,7 @@ import { useOccurrenceKeyLoaderData } from '.';
 import { Groups } from './About/groups';
 import { OccurrenceKeyContext } from './occurrenceKey';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 const extensions = [
   'multimedia',
@@ -93,6 +94,7 @@ export function OccurrenceKeyAbout() {
           stack={hideSidebar}
         >
           <div className="g-order-last">
+            <TestSiteAlert className="g-mb-4" />
             <Groups
               occurrence={occurrence}
               slowOccurrence={slowOccurrence}

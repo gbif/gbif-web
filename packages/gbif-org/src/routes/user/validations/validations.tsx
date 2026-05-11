@@ -11,6 +11,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ValidationResult } from './validationResult';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export function Validations() {
   const [offset, setOffset] = useIntParam({
@@ -58,6 +59,7 @@ export function Validations() {
 
   return (
     <section>
+      <TestSiteAlert className="g-mb-4" />
       {validations?.count === 0 && (
         <>
           <NoRecords messageId="profile.noValidationReports" />

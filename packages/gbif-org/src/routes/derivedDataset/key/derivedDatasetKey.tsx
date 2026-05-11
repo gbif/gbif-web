@@ -149,7 +149,7 @@ export function DerivedDatasetPage() {
       <div className="g-bg-slate-100">
         <ArticleContainer>
           <ArticleTextContainer className="g-max-w-screen-lg">
-            <Card className="g-mb-4 g-pt-8">
+            <Card className="g-mb-4 g-pt-8 gbif-test-background">
               <CardContent>
                 <Properties breakpoint={800} className="[&>dt]:g-w-52">
                   <BasicField label="phrases.pleaseCiteAs">

@@ -1,4 +1,4 @@
-import { MAX_ROWS, SpeciesRow, SuggestResult } from './types';
+import { ClassificationItem, MAX_ROWS, SpeciesRow, SuggestResult } from './types';
 
 // --- CSV parsing ---
 
@@ -87,9 +87,7 @@ export function applyMatchData(item: SpeciesRow, data: Record<string, unknown>) 
   const usage = data.usage as Record<string, unknown> | undefined;
   const acceptedUsage = data.acceptedUsage as Record<string, unknown> | undefined;
   const diagnostics = data.diagnostics as Record<string, unknown> | undefined;
-  const classification = data.classification as
-    | Array<{ rank: string; name: string; key: string }>
-    | undefined;
+  const classification = data.classification as ClassificationItem[] | undefined;
 
   if (usage) {
     item.key = usage.key as string;
@@ -129,6 +127,8 @@ export function applyMatchData(item: SpeciesRow, data: Record<string, unknown>) 
     (item as Record<string, unknown>)[`${rank}Key`] = undefined;
   });
 
+  item.classification = classification;
+
   if (classification) {
     classification.forEach((c) => {
       const rank = c.rank?.toLowerCase() as MajorRank;
@@ -155,12 +155,13 @@ export function applySuggestion(item: SpeciesRow, suggestion: SuggestResult) {
   item.acceptedKey = suggestion.acceptedKey;
   item.accepted = suggestion.accepted;
 
-  // Suggest results don't return higher-rank keys; alternatives from the match
-  // call carry classification names but no keys either.
+  // Suggest results from the v2 taxon API don't return classification.
+  // Alternatives from the match call do — fall back to their flat fields when present.
   MAJOR_RANKS.forEach((rank) => {
     (item as Record<string, unknown>)[rank] = (suggestion as Record<string, unknown>)[rank];
     (item as Record<string, unknown>)[`${rank}Key`] = undefined;
   });
+  item.classification = suggestion.classification;
 
   item.alternatives = undefined;
   item.discarded = false;
@@ -169,9 +170,7 @@ export function applySuggestion(item: SpeciesRow, suggestion: SuggestResult) {
 export function toCandidate(a: Record<string, unknown>): SuggestResult {
   const usage = a.usage as Record<string, unknown> | undefined;
   const acceptedUsage = a.acceptedUsage as Record<string, unknown> | undefined;
-  const classification = a.classification as
-    | Array<{ rank: string; name: string; key: string }>
-    | undefined;
+  const classification = a.classification as ClassificationItem[] | undefined;
 
   const classMap: Partial<Record<MajorRank, string>> = {};
   if (classification) {
@@ -195,6 +194,7 @@ export function toCandidate(a: Record<string, unknown>): SuggestResult {
     family: classMap.family,
     genus: classMap.genus,
     species: classMap.species,
+    classification,
   };
 }
 
@@ -230,6 +230,11 @@ export async function processInBatches<T>(
   }
 }
 
+export function classificationToString(classification?: ClassificationItem[]): string {
+  if (!classification || classification.length === 0) return '';
+  return classification.map((c) => `${c.rank}:${c.name}`).join(' | ');
+}
+
 export function buildCsv(
   species: SpeciesRow[],
   fields: readonly string[],
@@ -245,8 +250,9 @@ export function buildCsv(
         .map((f) => {
           const val = (row as Record<string, unknown>)[f];
           if (val === undefined || val === null) return '';
-          const str = String(val).replace(/"/g, '""');
-          return `"${str}"`;
+          const raw =
+            f === 'classification' ? classificationToString(val as ClassificationItem[]) : String(val);
+          return `"${raw.replace(/"/g, '""')}"`;
         })
         .join(',') + '\n';
   });
