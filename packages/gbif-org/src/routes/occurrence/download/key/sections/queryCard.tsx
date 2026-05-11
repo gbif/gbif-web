@@ -28,23 +28,39 @@ export function QueryCard({ download }: { download: Download }) {
   useEffect(() => {
     if (!download.request?.predicate || download.request?.type !== 'OCCURRENCE') return;
 
-    // Only allow rerunning the query if the download's checklist is one the site supports.
-    // Otherwise the rerun would silently switch the taxonomy, producing different results.
-    const downloadChecklistKey =
-      download.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY;
+    // Only allow rerunning the query if every checklist referenced inside the
+    // predicate is supported by the current site. The top-level
+    // `request.checklistKey` only describes which checklist populated the
+    // download's taxonomic columns; the predicate itself can filter against
+    // additional checklists (explicitly via per-node `checklistKey`, or
+    // implicitly when taxon-supporting fields are used without one — which
+    // implies the GBIF backbone). If any of those isn't available here, the
+    // rerun would silently change the result set.
+    const predicateChecklists = download.request?.predicateChecklists ?? [];
     const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
-    if (!availableChecklistKeys.includes(downloadChecklistKey)) {
+    const allSupported = predicateChecklists.every((key) =>
+      availableChecklistKeys.includes(key),
+    );
+    if (!allSupported) {
       setQuery(undefined);
       return;
     }
+
+    // Pick the checklist to surface in the rerun URL: prefer the one used in
+    // the predicate (so taxon filters resolve identically); fall back to the
+    // download's output checklistKey.
+    const rerunChecklistKey =
+      predicateChecklists.find((key) => key !== siteConfig.defaultChecklistKey) ??
+      predicateChecklists[0] ??
+      download.request?.checklistKey;
 
     const { error, filter } = getPredicateAsFilter({
       predicate: download?.request?.predicate,
       filters,
     });
     if (!error && filter) {
-      if (downloadChecklistKey && downloadChecklistKey !== siteConfig.defaultChecklistKey) {
-        filter.checklistKey = downloadChecklistKey;
+      if (rerunChecklistKey && rerunChecklistKey !== siteConfig.defaultChecklistKey) {
+        filter.checklistKey = rerunChecklistKey;
       }
       const { filter: v1Filter, errors: tooComplexError } = filter2v1(filter, searchConfig);
       if (tooComplexError) {

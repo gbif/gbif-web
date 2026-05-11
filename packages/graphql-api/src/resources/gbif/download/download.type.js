@@ -88,6 +88,14 @@ const typeDef = gql`
     machineDescription: JSON
     gbifMachineDescription: JSON
     checklistKey: ID
+    """
+    Distinct list of checklistKeys referenced anywhere in the download
+    predicate. Both explicit (a checklistKey set on a predicate node) and
+    implicit (a taxon-supporting field used without an explicit
+    checklistKey, in which case the GBIF backbone is implied) are returned.
+    Returns null when the request has no predicate (e.g. SQL downloads).
+    """
+    predicateChecklists: [String!]
     verbatimExtensions: [String!]
     notificationAddresses: [String!]
     creator: String

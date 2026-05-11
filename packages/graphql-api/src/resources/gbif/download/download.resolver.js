@@ -1,5 +1,57 @@
 import { highlight } from 'sql-highlight';
 import { getGbifMachineDescription } from '@/helpers/generateSql';
+import config from '@/config';
+
+const BACKBONE_CHECKLIST_KEY =
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
+
+// Predicate fields that are resolved against a checklist. When one of these
+// is used and the predicate node has no explicit checklistKey, the GBIF
+// backbone is implied (which is how downloads behaved before multi-taxonomy).
+const CHECKLIST_AWARE_PREDICATE_FIELDS = new Set(
+  [
+    'taxonKey',
+    'acceptedTaxonKey',
+    'speciesKey',
+    'genusKey',
+    'familyKey',
+    'orderKey',
+    'classKey',
+    'phylumKey',
+    'kingdomKey',
+    'subgenusKey',
+    'iucnRedListCategory',
+    'issues',
+    'taxonomicIssues',
+  ].map((f) => f.toLowerCase()),
+);
+
+function collectPredicateChecklists(predicate, explicit, usesImplicit) {
+  if (!predicate || typeof predicate !== 'object') return;
+
+  if (Array.isArray(predicate.predicates)) {
+    predicate.predicates.forEach((child) =>
+      collectPredicateChecklists(child, explicit, usesImplicit),
+    );
+  }
+  if (predicate.predicate) {
+    collectPredicateChecklists(predicate.predicate, explicit, usesImplicit);
+  }
+
+  const fieldName = predicate.key ?? predicate.parameter;
+  if (typeof fieldName === 'string') {
+    const isChecklistAware = CHECKLIST_AWARE_PREDICATE_FIELDS.has(
+      fieldName.toLowerCase(),
+    );
+    if (isChecklistAware) {
+      if (predicate.checklistKey) {
+        explicit.add(predicate.checklistKey);
+      } else {
+        usesImplicit.value = true;
+      }
+    }
+  }
+}
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -139,6 +191,18 @@ export default {
       } catch (err) {
         return sql;
       }
+    },
+    predicateChecklists: ({ predicate }) => {
+      if (!predicate) return null;
+      const explicit = new Set();
+      const usesImplicit = { value: false };
+      try {
+        collectPredicateChecklists(predicate, explicit, usesImplicit);
+      } catch (err) {
+        return null;
+      }
+      if (usesImplicit.value) explicit.add(BACKBONE_CHECKLIST_KEY);
+      return Array.from(explicit);
     },
   },
 };
