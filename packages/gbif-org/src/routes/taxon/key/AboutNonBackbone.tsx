@@ -2,6 +2,7 @@ import { useIsFamilyOrAbove } from '@/hooks/taxonomyRankHooks';
 import { NotFoundError } from '@/errors';
 import { BibliographyContent } from './sections/BibliographyCard';
 import { CardContent, CardHeader } from '@/components/ui/largeCard';
+import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useTaxonBreakdown } from './sections/breakdown';
 import { TaxonKeyQuery } from '@/gql/graphql';
@@ -11,11 +12,15 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { MdInfoOutline } from 'react-icons/md';
 import { TaxonTree } from '../search/views/tree';
 import { CardTitle } from '@/components/ui/smallCard';
-import { BreakdownContent } from './sections/breakdown/BreakdownCard';
 import Synonyms from './sections/Synonyms';
 import { TaxonMedia } from './sections/TaxonMedia';
 import { VernacularNameTable } from './sections/VernacularNameTable';
 import Citation from './sections/Citation';
+import SunburstSkeleton from '@/components/dashboard/skeletons/SunburstSkeleton';
+
+const BreakdownContent = React.lazy(() =>
+  import('./sections/breakdown/BreakdownContent').then((m) => ({ default: m.BreakdownContent }))
+);
 
 const dividerClass = 'g-mt-6 g-pt-6';
 
@@ -148,7 +153,9 @@ export default function AboutNonBackbone({ data }: { data: TaxonKeyQuery }) {
             <CardTitle className="g-text-lg">
               <FormattedMessage id="taxon.largestGroups" defaultMessage="Largest Groups" />
             </CardTitle>
-            <BreakdownContent taxonKey={taxon.taxonID} datasetKey={taxon.datasetKey} />
+            <Suspense fallback={<SunburstSkeleton />}>
+              <BreakdownContent taxonKey={taxon.taxonID} datasetKey={taxon.datasetKey} />
+            </Suspense>
           </div>
         )}
         {showSynonyms && (

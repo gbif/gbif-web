@@ -33,7 +33,7 @@ import { useLocation, useLoaderData, Link } from 'react-router-dom';
 import { Images } from '../about/Images';
 import { useDatasetKeyContext } from '../datasetKey';
 import EventList from './eventList';
-import EventTaxonomy from './eventTaxonomy';
+// import EventTaxonomy from './eventTaxonomy';
 import Properties, { Property } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
@@ -272,7 +272,8 @@ export const Event = ({
               </ErrorBoundary>
             )}
 
-            <ErrorBoundary
+            {/* removed for now to remove highcharts from the main bundle */}
+            {/* <ErrorBoundary
               type="BLOCK"
               errorMessage={<FormattedMessage id="dataset.errors.eventList" />}
             >
@@ -282,7 +283,7 @@ export const Event = ({
                 eventID={firstOccurrence?.eventID || parentEventIdFromPath}
                 isParentEvent={!!parentEventIdFromPath}
               />
-            </ErrorBoundary>
+            </ErrorBoundary> */}
             <ClientSideOnly>
               <ErrorBoundary
                 type="BLOCK"
