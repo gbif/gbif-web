@@ -2,6 +2,7 @@ import { BulletList } from '@/components/bulletList';
 import Properties, { Term, Value } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { useConfig } from '@/config/config';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import Base64JsonParam from '@/dataManagement/filterAdapter/useFilterParams';
 import { DownloadKeyQuery } from '@/gql/graphql';
@@ -20,17 +21,31 @@ import { Download } from '../downloadKey';
 
 export function QueryCard({ download }: { download: Download }) {
   const { filters } = useFilters({ searchConfig });
+  const siteConfig = useConfig();
   const [query, setQuery] = useState<ParamQuery>();
   const parameters = download.request?.gbifMachineDescription?.parameters;
 
   useEffect(() => {
     if (!download.request?.predicate || download.request?.type !== 'OCCURRENCE') return;
 
+    // Only allow rerunning the query if the download's checklist is one the site supports.
+    // Otherwise the rerun would silently switch the taxonomy, producing different results.
+    const downloadChecklistKey =
+      download.request?.checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY;
+    const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
+    if (!availableChecklistKeys.includes(downloadChecklistKey)) {
+      setQuery(undefined);
+      return;
+    }
+
     const { error, filter } = getPredicateAsFilter({
       predicate: download?.request?.predicate,
       filters,
     });
     if (!error && filter) {
+      if (downloadChecklistKey && downloadChecklistKey !== siteConfig.defaultChecklistKey) {
+        filter.checklistKey = downloadChecklistKey;
+      }
       const { filter: v1Filter, errors: tooComplexError } = filter2v1(filter, searchConfig);
       if (tooComplexError) {
         // if we cannot serialize the filter to version 1 API, then just serialize the json and put it in the filter param
@@ -41,7 +56,7 @@ export function QueryCard({ download }: { download: Download }) {
     } else {
       setQuery(undefined);
     }
-  }, [download, setQuery, filters]);
+  }, [download, setQuery, filters, siteConfig]);
 
   return (
     <Card className="g-mb-4">
