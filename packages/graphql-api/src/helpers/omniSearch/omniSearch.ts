@@ -11,17 +11,20 @@ export default async function searchAll({
   locale,
   languageCode = 'eng',
   server,
+  checklistKey,
 }: {
   query: string;
   languageCode: string;
   server: ApolloServer<ExpressContext>;
   locale: string;
+  checklistKey?: string;
 }) {
   try {
     const taxonResults = await searchTaxa({
       query,
       server,
       languageCode,
+      checklistKey,
     });
     const countryResult = await searchCountries(query, locale);
     const participantResult = await searchParticipants(query);

@@ -22,6 +22,7 @@ export default (app, server) => {
         server,
         languageCode: req.query.languageCode ?? 'eng',
         locale: req.query.locale ?? 'en',
+        checklistKey: req.query.checklistKey,
       });
       res.json(response);
     } catch (err) {

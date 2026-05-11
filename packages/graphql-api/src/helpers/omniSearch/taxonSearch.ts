@@ -46,16 +46,19 @@ export default async function searchTaxa({
   query,
   server,
   languageCode = 'eng',
+  checklistKey,
 }: {
   query: string;
   languageCode?: string;
   server: ApolloServer<ExpressContext>;
+  checklistKey?: string;
 }) {
-  const candidates = await getTaxonCandidates(query);
+  const resolvedChecklistKey = checklistKey ?? config.defaultChecklist;
+  const candidates = await getTaxonCandidates(query, resolvedChecklistKey);
 
   // for each candidate we should get taxon details using graphql and do a capabilities request
   const detailsPromises = candidates.map((c) =>
-    getTaxonDetails(c.usage.key, languageCode, server),
+    getTaxonDetails(c.usage.key, languageCode, server, resolvedChecklistKey),
   );
   const details = await Promise.all(detailsPromises);
   return details.sort((a, b) => {
@@ -66,6 +69,7 @@ export default async function searchTaxa({
 
 async function getTaxonCandidates(
   query: string,
+  checklistKey: string,
 ): Promise<{ usage: { key: string } }[]> {
   try {
     // uppercase the first letter as scientific names have that
@@ -73,7 +77,7 @@ async function getTaxonCandidates(
     const matchResponse = await fetch(
       `${ENDPOINTS.speciesMatch}?scientificName=${encodeURIComponent(
         formattedQuery,
-      )}&verbose=true&checklistKey=${config.defaultChecklist}`,
+      )}&verbose=true&checklistKey=${checklistKey}`,
     ).then((r) => r.json());
 
     // decide which entries are close enough.
@@ -118,8 +122,9 @@ async function getTaxonDetails(
   taxonKey: string,
   languageCode: string,
   server: ApolloServer<ExpressContext>,
+  checklistKey: string,
 ) {
-  const variables = { taxonKey, datasetKey: config.defaultChecklist };
+  const variables = { taxonKey, datasetKey: checklistKey };
   return server
     .executeOperation({
       query: TAXON_QUERY,

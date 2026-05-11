@@ -194,7 +194,9 @@ export function SearchPage() {
         const { promise, cancel } = fetchWithCancel(
           `${import.meta.env.PUBLIC_WEB_UTILS}/cross-content-search?languageCode=${
             locale.iso3LetterCode
-          }&q=${encodeURIComponent(searchQuery)}`
+          }&q=${encodeURIComponent(searchQuery)}&checklistKey=${encodeURIComponent(
+            config.defaultChecklistKey
+          )}`
         );
         cancelFetch = cancel;
         const serverResults = await promise.then((r) => r.json());
