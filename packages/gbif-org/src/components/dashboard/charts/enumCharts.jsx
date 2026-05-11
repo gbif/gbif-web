@@ -226,7 +226,7 @@ export function IucnCounts(props) {
     <ChartWrapper
       {...{
         fieldName: 'iucnRedListCategory',
-        options: ['PIE', 'TABLE', 'COLUMN'],
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
         enableUnknown: false,
         showUnknownInChart: false,
         value2colorMap: theme?.iucnColors,
