@@ -2,6 +2,10 @@ import { Config } from '@/config/config';
 import { getEndpoints } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
 
+// const SITE_CHECKLIST = import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY; // CoL
+const SITE_CHECKLIST = import.meta.env.PUBLIC_COL_CHECKLIST_KEY; // CoL
+// const SITE_CHECKLIST = import.meta.env.PUBLIC_GBIF_ORG_CHECKLIST; // CoL
+
 // The env options
 // notice the server/client endpoints are needed when doing SSR using docker where the server needs to access services on the internal docker network
 // everywhere else we can just ignore it
@@ -119,8 +123,8 @@ export const gbifConfig: Config = {
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
-  defaultChecklistKey: import.meta.env.PUBLIC_GBIF_ORG_CHECKLIST, // CoL
-  availableChecklistKeys: [import.meta.env.PUBLIC_GBIF_ORG_CHECKLIST], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
+  defaultChecklistKey: SITE_CHECKLIST, // CoL
+  availableChecklistKeys: [SITE_CHECKLIST], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   theme: {
     dense: true,
     primary: '#4C9C2E', // green '#69AA69', purple #4f46e5
@@ -225,9 +229,9 @@ export const gbifConfig: Config = {
     },
   },
   taxonSearch: {
-    checklistKey: import.meta.env.PUBLIC_GBIF_ORG_CHECKLIST,
+    checklistKey: SITE_CHECKLIST,
     scope: {
-      datasetKey: import.meta.env.PUBLIC_GBIF_ORG_CHECKLIST,
+      datasetKey: SITE_CHECKLIST,
     },
     highlightedFilters: ['q', 'taxonomicStatus', 'taxonRank', 'taxonId', 'issue'],
   },

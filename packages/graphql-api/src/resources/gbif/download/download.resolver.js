@@ -1,5 +1,6 @@
 import { highlight } from 'sql-highlight';
 import { getGbifMachineDescription } from '@/helpers/generateSql';
+import { collectPredicateChecklists } from './helpers/collectPredicateChecklists';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -138,6 +139,14 @@ export default {
         return highlighted;
       } catch (err) {
         return sql;
+      }
+    },
+    predicateChecklists: ({ predicate }) => {
+      if (!predicate) return null;
+      try {
+        return Array.from(collectPredicateChecklists(predicate, true));
+      } catch (err) {
+        return null;
       }
     },
   },

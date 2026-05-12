@@ -2,6 +2,7 @@ import { BulletList } from '@/components/bulletList';
 import Properties, { Term, Value } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { useConfig } from '@/config/config';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import Base64JsonParam from '@/dataManagement/filterAdapter/useFilterParams';
 import { DownloadKeyQuery } from '@/gql/graphql';
@@ -20,11 +21,25 @@ import { Download } from '../downloadKey';
 
 export function QueryCard({ download }: { download: Download }) {
   const { filters } = useFilters({ searchConfig });
+  const siteConfig = useConfig();
   const [query, setQuery] = useState<ParamQuery>();
   const parameters = download.request?.gbifMachineDescription?.parameters;
 
   useEffect(() => {
     if (!download.request?.predicate || download.request?.type !== 'OCCURRENCE') return;
+
+    // we can only convert the predicate to filters if there is only one checklistKey and it is the one used by the site
+    const predicateChecklists = download.request?.predicateChecklists ?? [];
+    // we cannot mix checklists in the UI filters
+    if (predicateChecklists.length > 1) {
+      setQuery(undefined);
+      return;
+    }
+    // check that the checklist is the one enabled for the site. If not e.g. taxonKeys will be wrong.
+    if (siteConfig.defaultChecklistKey !== predicateChecklists[0]) {
+      setQuery(undefined);
+      return;
+    }
 
     const { error, filter } = getPredicateAsFilter({
       predicate: download?.request?.predicate,
@@ -41,7 +56,7 @@ export function QueryCard({ download }: { download: Download }) {
     } else {
       setQuery(undefined);
     }
-  }, [download, setQuery, filters]);
+  }, [download, setQuery, filters, siteConfig.defaultChecklistKey]);
 
   return (
     <Card className="g-mb-4">

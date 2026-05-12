@@ -74,6 +74,7 @@ const DOWNLOAD_QUERY = /* GraphQL */ `
         description
         gbifMachineDescription
         checklistKey
+        predicateChecklists
         verbatimExtensions
       }
       size

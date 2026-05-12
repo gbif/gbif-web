@@ -37,10 +37,13 @@ export function getPredicateAsFilter({
   const supportConstantCaseFields = Object.keys(searchConfig.fields).map((x) => constantCase(x));
 
   // make mapping of key values from constant to those existing in searchConfig.fields
-  const fieldMap = Object.keys(searchConfig.fields).reduce((acc, key) => {
-    acc[constantCase(key)] = key;
-    return acc;
-  }, {} as { [key: string]: string });
+  const fieldMap = Object.keys(searchConfig.fields).reduce(
+    (acc, key) => {
+      acc[constantCase(key)] = key;
+      return acc;
+    },
+    {} as { [key: string]: string }
+  );
 
   // check that all predicates. With a different test per type
   // for example if 'AND', then only acceptable if exactly 2 children and it is a range greatherThanOrEquals and lessThanOrEquals of the same key and a known range type
