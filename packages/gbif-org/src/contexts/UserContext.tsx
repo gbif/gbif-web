@@ -632,22 +632,6 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     refreshUser();
   }, [refreshUser]); // Add refreshUser to the dependency array
 
-  useEffect(() => {
-    if (!user) return;
-    const onVisible = () => {
-      if (document.visibilityState === 'visible') {
-        refreshUser();
-      }
-    };
-    const onFocus = () => refreshUser();
-    document.addEventListener('visibilitychange', onVisible);
-    window.addEventListener('focus', onFocus);
-    return () => {
-      document.removeEventListener('visibilitychange', onVisible);
-      window.removeEventListener('focus', onFocus);
-    };
-  }, [user, refreshUser]);
-
   const value: UserContextType = {
     user,
     isLoading,
