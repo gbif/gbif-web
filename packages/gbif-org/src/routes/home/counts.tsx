@@ -76,7 +76,7 @@ export function HomePageCounts({ iconData }: Props) {
           defaultCount={2400}
           label={<FormattedMessage id="homepage.counts.publishers" />}
           countOptions={{
-            apiEndpoint: apiConstants.organization,
+            apiEndpoint: apiConstants.organization + '/count',
             responseIsNumber: true,
           }}
         />
