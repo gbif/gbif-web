@@ -46,6 +46,7 @@
     "filterApplied": "篩選於 {DATE}",
     "query": "",
     "rerunQuery": "再查詢一次",
+    "complexPredicateWarning": "",
     "postpone": "暫緩刪除",
     "deleteDownload": "刪除下載",
     "tellUs": "告訴我們您的資料用途",
