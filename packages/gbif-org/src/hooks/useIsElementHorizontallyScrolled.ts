@@ -8,8 +8,8 @@ export function useIsElementHorizontallyScrolled(elementRef: RefObject<HTMLEleme
 
     const checkTableScroll = () => {
       if (element) {
-        // Determine if table is currently scrolled
-        const currentlyScrolled = element.scrollLeft > 0;
+        // Determine if table is currently scrolled (scrollLeft is negative in RTL)
+        const currentlyScrolled = element.scrollLeft !== 0;
 
         setIsScrolled(currentlyScrolled);
       }

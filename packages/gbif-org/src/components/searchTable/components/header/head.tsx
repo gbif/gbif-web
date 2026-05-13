@@ -58,7 +58,7 @@ export function Head({
       className={cn(
         'g-transition-colors g-sticky g-top-0 g-text-nowrap',
         firstColumnIsLocked && isFirstColumn
-          ? 'g-start-0 g-z-20 g-box-shadow-br g-border-e-0'
+          ? 'g-start-0 g-z-20 g-box-shadow-be g-border-e-0'
           : 'g-box-shadow-b',
         isFirstColumn ? 'g-z-20' : 'g-z-10',
         // Darken the background color when the table is scrolled and the column is locked

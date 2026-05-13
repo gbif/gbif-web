@@ -46,14 +46,24 @@
   box-shadow: inset 0 -1px 0 var(--border);
 }
 
-.g-box-shadow-r {
+.g-box-shadow-e {
   box-shadow: inset -1px 0 0 var(--border);
 }
 
-.g-box-shadow-br {
+[dir='rtl'] .g-box-shadow-e {
+  box-shadow: inset 1px 0 0 var(--border);
+}
+
+.g-box-shadow-be {
   box-shadow:
     inset 0 -1px 0 var(--border),
     inset -1px 0 0 var(--border);
+}
+
+[dir='rtl'] .g-box-shadow-be {
+  box-shadow:
+    inset 0 -1px 0 var(--border),
+    inset 1px 0 0 var(--border);
 }
 
 .gbif .dataProse {
