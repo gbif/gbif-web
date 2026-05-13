@@ -25,9 +25,9 @@
     "description": "The collection in GrSciColl this record was matched to"
   },
   "predicate": {
-    "name": "Predicate",
-    "count": "{num, plural, one { predicate } other {# predicates}}",
-    "description": "A predicate for filtering records."
+    "name": "Complex query",
+    "count": "{num, plural, one { complex query } other {# complex queries}}",
+    "description": "A complex query for filtering records."
   },
   "taxonomicStatus": {
     "name": "Status",
