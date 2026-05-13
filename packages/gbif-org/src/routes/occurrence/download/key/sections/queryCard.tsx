@@ -18,26 +18,36 @@ import { getPredicateAsFilter } from './getPredicateAsFilter';
 import { DatasetLabel } from '@/components/filters/displayNames';
 import { HelpIcon } from '@/components/helpText';
 import { Download } from '../downloadKey';
+import { CardDescription } from '@/components/ui/smallCard';
 
 export function QueryCard({ download }: { download: Download }) {
   const { filters } = useFilters({ searchConfig });
   const siteConfig = useConfig();
   const [query, setQuery] = useState<ParamQuery>();
+  const [showComplexPredicateWarning, setShowComplexPredicateWarning] = useState(false);
   const parameters = download.request?.gbifMachineDescription?.parameters;
 
   useEffect(() => {
     if (!download.request?.predicate || download.request?.type !== 'OCCURRENCE') return;
-
+    setShowComplexPredicateWarning(false);
+    const size = JSON.stringify(download.request.predicate).length;
+    // if the predicate is too long to be converted to filters, then do not show
+    if (size > 2000) {
+      setQuery(undefined);
+      return;
+    }
     // we can only convert the predicate to filters if there is only one checklistKey and it is the one used by the site
     const predicateChecklists = download.request?.predicateChecklists ?? [];
     // we cannot mix checklists in the UI filters
     if (predicateChecklists.length > 1) {
-      setQuery(undefined);
+      setShowComplexPredicateWarning(true);
+      setQuery({ predicate: JSON.stringify(download.request.predicate) });
       return;
     }
     // check that the checklist is the one enabled for the site. If not e.g. taxonKeys will be wrong.
     if (siteConfig.defaultChecklistKey !== predicateChecklists[0]) {
-      setQuery(undefined);
+      setShowComplexPredicateWarning(true);
+      setQuery({ predicate: JSON.stringify(download.request.predicate) });
       return;
     }
 
@@ -54,7 +64,8 @@ export function QueryCard({ download }: { download: Download }) {
         setQuery(v1Filter);
       }
     } else {
-      setQuery(undefined);
+      setShowComplexPredicateWarning(true);
+      setQuery({ predicate: JSON.stringify(download.request.predicate) });
     }
   }, [download, setQuery, filters, siteConfig.defaultChecklistKey]);
 
@@ -73,6 +84,11 @@ export function QueryCard({ download }: { download: Download }) {
             </Button>
           )}
         </CardTitle>
+        {showComplexPredicateWarning && (
+          <CardDescription>
+            <FormattedMessage id="downloadKey.complexPredicateWarning" />
+          </CardDescription>
+        )}
       </CardHeader>
       {parameters && (
         <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
