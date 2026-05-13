@@ -24,6 +24,11 @@
     "count": "{num, plural, one {# collection } other {# collections}}",
     "description": "La collection de GrSciColl à laquelle cet enregistrement a été associé"
   },
+  "predicate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonomicStatus": {
     "name": "Statut",
     "count": "{num, plural, one { statut } other {# statuts}}",
