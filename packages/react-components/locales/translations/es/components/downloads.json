@@ -46,7 +46,7 @@
     "filterApplied": "Filtro aplicado el",
     "query": "Consulta",
     "rerunQuery": "Volver a ejecutar la consulta",
-    "complexPredicateWarning": "",
+    "complexPredicateWarning": "El predicado es demasiado complejo para convertirlo en filtros normales en la interfaz de usuario. Esto también ocurre si la descarga original utilizó una lista de verificación que ya no se usa. En su lugar, se mostrará como una Consulta Compleja que se puede editar en formato JSON.",
     "postpone": "Posponer eliminación",
     "deleteDownload": "Eliminar descarga",
     "tellUs": "Cuéntenos más acerca del uso",
