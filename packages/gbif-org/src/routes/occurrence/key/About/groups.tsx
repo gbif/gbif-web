@@ -934,7 +934,9 @@ function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] })
       <TestSiteAlert className="g-mb-4" />
       <Properties breakpoint={800} className="[&>dt]:g-w-52">
         <BasicField label="phrases.citeAs">
-          {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}
+          <div dir="ltr">
+            {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}
+          </div>
         </BasicField>
       </Properties>
     </Group>

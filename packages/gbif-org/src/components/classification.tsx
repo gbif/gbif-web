@@ -192,7 +192,7 @@ export function GadmClassification({
   if (!gadm) return <span>Unknown</span>;
 
   return (
-    <Classification className={className} {...props}>
+    <Classification className={className} {...props} dir="auto">
       {[0, 1, 2, 3, 4].map((n) => {
         const level = gadm[`level${n}` as keyof typeof gadm];
         return level ? <span key={n}>{level.name}</span> : null;

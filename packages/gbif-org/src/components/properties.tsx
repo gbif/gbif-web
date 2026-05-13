@@ -135,7 +135,7 @@ export function AutomaticPropertyValue({
       return null;
     }
     val = (
-      <BulletList>
+      <BulletList dir="auto">
         {parsedValue.map((v, i) => (
           <li key={i}>
             <AutomaticPropertyValue value={v} formatter={formatter} {...props} />
@@ -150,11 +150,11 @@ export function AutomaticPropertyValue({
   } else if (typeof parsedValue === 'string') {
     val =
       showAll || parsedValue.length < 2000 ? (
-        parsedValue
+        <span dir="auto">{parsedValue}</span>
       ) : (
         <>
-          <span>{parsedValue.slice(0, 2000)}...</span>
-          <Button className="g-p-2" variant="link" onClick={() => setShowAll(true)}>
+          <span dir="auto">{parsedValue.slice(0, 2000)}...</span>
+          <Button dir="auto" className="g-p-2" variant="link" onClick={() => setShowAll(true)}>
             more
           </Button>
         </>

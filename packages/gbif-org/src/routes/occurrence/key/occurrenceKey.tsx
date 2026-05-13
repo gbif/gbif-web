@@ -538,15 +538,23 @@ export function OccurrenceKey() {
                   )}
                 </ArticlePreTitle>
 
-                <ArticleTitle className="lg:g-text-3xl">
+                <ArticleTitle className="lg:g-text-3xl" dir={locale.textDirection ?? 'ltr'}>
                   <>
                     {state === 'NO_NAME' && (
-                      <span className="g-me-4 g-text-slate-500">
+                      <span className="g-me-4 g-text-slate-500" dir="auto">
                         <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
                       </span>
                     )}
-                    {state === 'NO_MATCH' && <span className="g-me-4">"{title}"</span>}
-                    {state === 'MATCH_WITH_ISSUES' && <span className="g-me-4">"{title}"</span>}
+                    {state === 'NO_MATCH' && (
+                      <span className="g-me-4" dir="auto">
+                        "{title}"
+                      </span>
+                    )}
+                    {state === 'MATCH_WITH_ISSUES' && (
+                      <span className="g-me-4" dir="auto">
+                        "{title}"
+                      </span>
+                    )}
                     {state === 'MATCH_NO_ISSUES' &&
                       usageKey &&
                       occurrence.classification?.checklistKey && (
@@ -558,7 +566,7 @@ export function OccurrenceKey() {
                             datasetKey: occurrence.classification?.checklistKey,
                           }}
                         >
-                          <span dangerouslySetInnerHTML={{ __html: title }}></span>
+                          <span dangerouslySetInnerHTML={{ __html: title }} dir="auto"></span>
                         </DynamicLink>
                       )}
                     {(state === 'NO_MATCH' || state === 'MATCH_WITH_ISSUES') && (
@@ -576,7 +584,10 @@ export function OccurrenceKey() {
                       </TooltipProvider>
                     )}
                     {occurrence.occurrenceStatus === 'ABSENT' && (
-                      <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
+                      <span
+                        className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300"
+                        dir="auto"
+                      >
                         <FormattedMessage
                           id={`enums.occurrenceStatus.${occurrence.occurrenceStatus}`}
                         />

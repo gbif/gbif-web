@@ -251,7 +251,7 @@ export function DerivedDatasetPage() {
                         />
                       </T>
                       <V style={{ position: 'relative' }}>
-                        <div style={{ display: 'inline-block', paddingRight: 8 }}>
+                        <div style={{ display: 'inline-block', paddingInlineEnd: 8 }}>
                           <DoiTag doi={derivedDataset.originalDownloadDOI} />
                         </div>
                       </V>
@@ -276,10 +276,7 @@ export function DerivedDatasetPage() {
                       <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
                         <FormattedMessage id="downloadKey.title" defaultMessage="Title" />
                       </th>
-                      <th
-                        scope="col"
-                        className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-end"
-                      >
+                      <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-end">
                         <FormattedMessage id="downloadKey.records" defaultMessage="Records" />
                       </th>
                     </tr>
