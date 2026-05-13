@@ -46,6 +46,7 @@
     "filterApplied": "Фільтр застосовано {DATE}",
     "query": "",
     "rerunQuery": "Повторити запит",
+    "complexPredicateWarning": "",
     "postpone": "Відкласти видалення",
     "deleteDownload": "Видалити завантаження",
     "tellUs": "Розкажіть нам про використання",
