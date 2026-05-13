@@ -27,8 +27,8 @@ export const ConnectedAccountItem: React.FC<ConnectedAccountItemProps> = ({
 }) => {
   const { formatMessage } = useIntl();
   return (
-    <div className="g-flex g-items-center g-justify-between g-p-4 g-space-x-2 g-border g-border-gray-200 g-rounded-lg">
-      <div className="g-flex g-items-center g-space-x-3">
+    <div className="g-flex g-items-center g-justify-between g-p-4 g-gap-2 g-border g-border-gray-200 g-rounded-lg">
+      <div className="g-flex g-items-center g-gap-3">
         <div className="g-w-10 g-h-10 g-bg-gray-50 g-rounded-lg g-flex g-items-center g-justify-center">
           <Icon className="g-w-5 g-h-5 g-text-gray-700" />
         </div>
@@ -41,13 +41,13 @@ export const ConnectedAccountItem: React.FC<ConnectedAccountItemProps> = ({
       </div>
       <div>
         {isConnected ? (
-          <div className="g-flex g-items-center g-space-x-2">
+          <div className="g-flex g-items-center g-gap-2">
             {isEditing && (
               <Button
                 variant="destructive"
                 size="sm"
                 onClick={onDisconnect}
-                className="g-flex g-items-center g-space-x-2 g-whitespace-nowrap"
+                className="g-flex g-items-center g-gap-2 g-whitespace-nowrap"
               >
                 <Unlink className="g-w-4 g-h-4" />
                 <span>{formatMessage({ id: 'profile.connect.disconnect' })}</span>
@@ -57,7 +57,7 @@ export const ConnectedAccountItem: React.FC<ConnectedAccountItemProps> = ({
         ) : (
           <Button
             onClick={onConnect}
-            className={`g-flex g-items-center g-space-x-2 g-whitespace-nowrap`}
+            className={`g-flex g-items-center g-gap-2 g-whitespace-nowrap`}
           >
             <Link className="g-w-4 g-h-4" />
             <span>{formatMessage({ id: 'profile.connect.connect' })}</span>

@@ -143,7 +143,7 @@ export function ConfirmForm() {
         <ErrorMessage errorMessageId={getErrorMessage(error)} />
 
         <div className="g-text-center g-space-y-4">
-          <div className="g-space-x-4">
+          <div className="g-flex g-justify-center g-gap-4">
             <Link
               to={localizeLink('/user/register')}
               className="g-font-medium g-text-primary-700 hover:g-text-primary-600"

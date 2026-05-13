@@ -21,7 +21,7 @@ export function HelpTitle({ id, ...props }: { id: string } & React.HTMLProps<HTM
 
 export function HelpTextSkeleton({ includeTitle }: { includeTitle?: boolean }) {
   return (
-    <div className="g-animate-pulse g-flex g-space-x-4">
+    <div className="g-animate-pulse g-flex g-gap-4">
       <div className="g-flex-1 g-space-y-6 g-py-1">
         {includeTitle && <div className="g-h-2 g-bg-slate-200 g-rounded"></div>}
         <div className="g-space-y-3">

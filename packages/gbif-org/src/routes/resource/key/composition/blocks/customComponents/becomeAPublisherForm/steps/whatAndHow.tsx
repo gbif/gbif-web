@@ -92,7 +92,7 @@ export function WhatAndHow() {
               <RadioGroup
                 value={field.value}
                 onValueChange={field.onChange}
-                className="g-flex g-flex-row g-space-x-4"
+                className="g-flex g-flex-row g-gap-4"
               >
                 <RadioItem
                   value="yes"
@@ -128,7 +128,7 @@ export function WhatAndHow() {
               <RadioGroup
                 value={field.value}
                 onValueChange={field.onChange}
-                className="g-flex g-flex-row g-space-x-4 g-mt-1"
+                className="g-flex g-flex-row g-gap-4 g-mt-1"
               >
                 <RadioItem
                   value="yes"
@@ -171,7 +171,7 @@ export function WhatAndHow() {
               <RadioGroup
                 value={field.value}
                 onValueChange={field.onChange}
-                className="g-flex g-flex-row g-space-x-4 g-mt-1"
+                className="g-flex g-flex-row g-gap-4 g-mt-1"
               >
                 <RadioItem
                   value="yes"

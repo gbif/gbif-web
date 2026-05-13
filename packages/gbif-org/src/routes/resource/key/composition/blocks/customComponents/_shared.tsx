@@ -31,7 +31,7 @@ type RadioItemProps = {
 
 export function RadioItem({ value, label }: RadioItemProps) {
   return (
-    <FormItem className="g-flex g-items-start g-space-x-3 g-space-y-0">
+    <FormItem className="g-flex g-items-start g-gap-3 g-space-y-0">
       <FormControl>
         <RadioGroupItem value={value} />
       </FormControl>
@@ -60,7 +60,7 @@ export function createTypedCheckboxField<Inputs extends FieldValues>() {
         name={name}
         render={({ field }) => (
           <FormItem className={className}>
-            <div className="g-flex g-flex-row g-space-x-3 g-space-y-0 g-cursor-pointer">
+            <div className="g-flex g-flex-row g-gap-3 g-space-y-0 g-cursor-pointer">
               <FormControl>
                 <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} />
               </FormControl>

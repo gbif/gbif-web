@@ -93,7 +93,7 @@ export function UserProfileLayout() {
                 <Card className="g-mb-6">
                   <div className="g-p-6">
                     <div className="md:g-flex g-items-center g-justify-between">
-                      <div className="g-flex g-items-center g-space-x-4">
+                      <div className="g-flex g-items-center g-gap-4">
                         <div className="g-relative">
                           {user?.photo ? (
                             <img
@@ -127,7 +127,7 @@ export function UserProfileLayout() {
                         <Button
                           variant="outline"
                           onClick={logoutHandler}
-                          className="g-flex g-items-center g-space-x-2"
+                          className="g-flex g-items-center g-gap-2"
                         >
                           <LogOut className="g-w-4 g-h-4" />
                           <span>{formatMessage({ id: 'profile.logout' })}</span>

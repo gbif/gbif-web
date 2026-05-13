@@ -343,7 +343,7 @@ const Profile: React.FC = () => {
     <>
       <Card className="g-p-6">
         <div className="g-flex g-justify-between g-items-center g-mb-6">
-          <h2 className="g-text-xl g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2">
+          <h2 className="g-text-xl g-font-bold g-text-gray-900 g-flex g-items-center g-gap-2">
             {/* <Settings className="g-w-5 g-h-5 g-text-primary-600" /> */}
             <span>{formatMessage({ id: 'profile.userProfile' })}</span>
           </h2>
@@ -351,19 +351,19 @@ const Profile: React.FC = () => {
             <Button
               variant="outline"
               onClick={() => setIsEditing(true)}
-              className="g-flex g-items-center g-space-x-2"
+              className="g-flex g-items-center g-gap-2"
             >
               <MdEdit className="g-w-4 g-h-4" />
               <span>{formatMessage({ id: 'profile.startEditing' })}</span>
             </Button>
           ) : (
-            <div className="g-flex g-space-x-3">
+            <div className="g-flex g-gap-3">
               <Button variant="outline" onClick={handleCancel} disabled={isProfileLoading}>
                 {formatMessage({ id: 'profile.cancel' })}
               </Button>
               <FormButton
                 onClick={handleSave}
-                className="g-flex g-items-center g-space-x-2"
+                className="g-flex g-items-center g-gap-2"
                 isLoading={isProfileLoading}
                 disabled={isProfileLoading}
               >
@@ -503,7 +503,7 @@ const Profile: React.FC = () => {
         {/* Connected Accounts Section */}
         <div className="g-mt-8 g-pt-6 g-border-gray-200">
           <div className="g-mb-6">
-            <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2 g-mb-4">
+            <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-gap-2 g-mb-4">
               {/* <Link className="g-w-5 g-h-5 g-text-primary-600" /> */}
               <span>{formatMessage({ id: 'profile.connectedAccounts' })}</span>
             </h3>
@@ -553,7 +553,7 @@ const Profile: React.FC = () => {
       {/* Password Change Section */}
       <Card className="g-mt-4 g-p-6">
         <div className="g-mb-6">
-          <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2 g-mb-4">
+          <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-gap-2 g-mb-4">
             {/* <Lock className="g-w-5 g-h-5 g-text-primary-600" /> */}
             <span>{formatMessage({ id: 'profile.changePassword' })}</span>
           </h3>
@@ -623,7 +623,7 @@ const Profile: React.FC = () => {
           <div className="g-flex g-justify-end g-pt-4">
             <FormButton
               type="submit"
-              className="g-flex g-items-center g-space-x-2"
+              className="g-flex g-items-center g-gap-2"
               isLoading={isPasswordLoading}
               disabled={isPasswordLoading || hasFormErrors(passwordErrors)}
             >

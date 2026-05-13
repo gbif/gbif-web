@@ -413,7 +413,7 @@ export function PublisherDatasetTable({
           {/* Pagination */}
           {maxCount > limit && (
             <div className="g-flex g-justify-center g-mt-4">
-              <div className="g-flex g-items-center g-space-x-2">
+              <div className="g-flex g-items-center g-gap-2">
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}

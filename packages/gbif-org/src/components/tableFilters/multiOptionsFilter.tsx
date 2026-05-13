@@ -94,7 +94,7 @@ export function MultiOptionsFilterComponent({ filter, onSubmit }: Props) {
               </FormItem>
             )}
           />
-          <div className="g-pt-6 g-flex g-items-center g-justify-end g-space-x-4">
+          <div className="g-pt-6 g-flex g-items-center g-justify-end g-gap-4">
             <Button type="reset" variant="outline" onClick={() => setIsOpen(false)}>
               Cancel
             </Button>

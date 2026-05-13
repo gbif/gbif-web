@@ -38,7 +38,7 @@ export function TaxonInterpretationCard({
       <div className="g-overflow-hidden g-transition-all g-duration-300">
         <div className="g-p-4 g-flex g-items-start g-justify-between">
           <div className="g-flex-1">
-            <div className="g-flex g-items-center g-space-x-2 g-mb-2">
+            <div className="g-flex g-items-center g-gap-2 g-mb-2">
               {useChecklistBankLink && (
                 <a
                   href={externalDatasetLink}
@@ -149,7 +149,7 @@ export function ChecklistNoMatchCard({ checklistKey }: { checklistKey: string })
   return (
     <div className="g-mb-4 g-w-full g-bg-slate-100 g-rounded">
       <div className="g-p-4">
-        <div className="g-flex g-items-center g-space-x-2 g-mb-2">
+        <div className="g-flex g-items-center g-gap-2 g-mb-2">
           <span className="g-text-sm g-font-medium g-text-slate-600">
             <DatasetLabel id={checklistKey} />
           </span>
