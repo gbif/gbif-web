@@ -24,6 +24,11 @@
     "count": "{num, plural, one {# colección } other {# colecciones}}",
     "description": "La colección en GrSciColl este registro es coincidente con"
   },
+  "predicate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonomicStatus": {
     "name": "Estado",
     "count": "{num, plural, one {estado} other {# estados}}",
