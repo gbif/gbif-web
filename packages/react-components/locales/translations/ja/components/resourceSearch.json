@@ -1,7 +1,7 @@
 {
   "resourceSearch": {
     "title": "リソース検索",
-    "resourceDescription": "",
+    "resourceDescription": "GBIF（地球規模生物多様性情報機構）の資料を検索します。生物多様性情報は誰でも自由に利用できます。",
     "upcoming": "近日中",
     "past": "過去",
     "happeningNow": "",
