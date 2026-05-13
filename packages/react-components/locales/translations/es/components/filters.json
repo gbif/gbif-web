@@ -25,9 +25,9 @@
     "description": "La colección en GrSciColl este registro es coincidente con"
   },
   "predicate": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Consulta Compleja",
+    "count": "{num, plural, one { consulta compleja } other {# consultas complejas}}",
+    "description": "Una consulta compleja para filtrar registros."
   },
   "taxonomicStatus": {
     "name": "Estado",
