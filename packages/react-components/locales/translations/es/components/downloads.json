@@ -46,6 +46,7 @@
     "filterApplied": "Filtro aplicado el",
     "query": "Consulta",
     "rerunQuery": "Volver a ejecutar la consulta",
+    "complexPredicateWarning": "",
     "postpone": "Posponer eliminación",
     "deleteDownload": "Eliminar descarga",
     "tellUs": "Cuéntenos más acerca del uso",
