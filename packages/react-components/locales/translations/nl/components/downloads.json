@@ -46,6 +46,7 @@
     "filterApplied": "",
     "query": "",
     "rerunQuery": "",
+    "complexPredicateWarning": "",
     "postpone": "",
     "deleteDownload": "Verwijder download",
     "tellUs": "",
