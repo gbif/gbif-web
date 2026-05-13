@@ -17,12 +17,13 @@ import {
 } from '@/components/ui/sheet';
 import { useUser } from '@/contexts/UserContext';
 import { HeaderQuery } from '@/gql/graphql';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { memo, useState } from 'react';
 import { MdLink, MdMenu } from 'react-icons/md';
 
 function MobileMenu({ menu }: { menu: HeaderQuery }) {
+  const { locale } = useI18n();
   const [open, setOpen] = useState(false);
   const { user, isLoggedIn, isLoading } = useUser();
 
@@ -36,12 +37,18 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
           </span>
         </Button>
       </SheetTrigger>
-      <SheetContent className="g-overflow-y-scroll g-p-4">
+      <SheetContent
+        className="g-overflow-y-scroll g-p-4"
+        side={locale.textDirection === 'rtl' ? 'left' : 'right'}
+        dir={locale.textDirection || 'ltr'}
+      >
         <ClientSideOnly>
           <SheetHeader>
             <SheetTitle>
               <div className="g-flex g-py-2 g-items-center">
-                <GbifLogoIcon style={{ fontSize: 25 }} className="g-me-2" /> GBIF
+                <span dir="ltr">
+                  <GbifLogoIcon style={{ fontSize: 25 }} className="g-me-2" /> GBIF
+                </span>
               </div>
             </SheetTitle>
             <VisuallyHidden asChild>
