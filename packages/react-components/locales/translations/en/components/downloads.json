@@ -46,6 +46,7 @@
     "filterApplied": "Filter applied {DATE}",
     "query": "Query",
     "rerunQuery": "Rerun query",
+    "complexPredicateWarning": "The predicate is too complex to be converted to regular filters in the UI. This also happens if the original download used a checklist that is no longer used. Instead it will show as a Complex Query that can be edited as JSON.",
     "postpone": "Postpone deletion",
     "deleteDownload": "Delete download",
     "tellUs": "Tell us about usage",
