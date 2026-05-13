@@ -46,6 +46,7 @@
     "filterApplied": "Filtre appliqué le {DATE}",
     "query": "Requête",
     "rerunQuery": "Relancer la requête",
+    "complexPredicateWarning": "",
     "postpone": "Reporter la suppression",
     "deleteDownload": "Supprimer le téléchargement",
     "tellUs": "Parlez-nous de l'utilisation",
