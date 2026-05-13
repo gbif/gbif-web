@@ -65,17 +65,17 @@
   "activeFilters": "",
   "highlighted": "",
   "predicate": {
-    "help": "",
-    "helpExtended": "",
-    "showHelp": "",
-    "hideHelp": "",
-    "placeholder": "",
-    "emptyPreview": "",
+    "help": "Introduzca un predicado de ocurrencia GBIF en formato JSON. Se combinará con los demás filtros mediante el operador AND.\n\nIntroduce un predicado de registro biológico GBIF en formato JSON. Se combinará con los demás filtros mediante el operador AND.",
+    "helpExtended": "Esta es una herramienta avanzada para crear consultas complejas que no se pueden expresar con los filtros estándar. Consulte la documentación para obtener la referencia completa de predicados y ejemplos.",
+    "showHelp": "Mostrar ayuda",
+    "hideHelp": "Ocultar ayuda",
+    "placeholder": "{\n  \"type\": \"equals\",\n  \"key\": \"COUNTRY\",\n  \"value\": \"DK\"\n}",
+    "emptyPreview": "Nada para previsualizar",
     "edit": "Editar",
     "preview": "Vista previa",
     "reformat": "Reformatear",
     "documentation": "Documentación",
-    "validating": "",
-    "invalidJson": ""
+    "validating": "Validando…",
+    "invalidJson": "El predicado proporcionado no es un JSON válido"
   }
 }
