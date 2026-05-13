@@ -63,5 +63,19 @@
     "failedToSimplify": "No se pudo simplificar la geometría"
   },
   "activeFilters": "",
-  "highlighted": ""
+  "highlighted": "",
+  "predicate": {
+    "help": "",
+    "helpExtended": "",
+    "showHelp": "",
+    "hideHelp": "",
+    "placeholder": "",
+    "emptyPreview": "",
+    "edit": "Editar",
+    "preview": "Vista previa",
+    "reformat": "Reformatear",
+    "documentation": "Documentación",
+    "validating": "",
+    "invalidJson": ""
+  }
 }
