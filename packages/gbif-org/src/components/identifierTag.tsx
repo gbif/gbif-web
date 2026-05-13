@@ -66,7 +66,7 @@ export function OrcId({ href, className }: { href: string; className?: string })
     <a dir="ltr" className={cn('g-inline-block g-no-underline', className)} href={href}>
       <img
         alt="ORCID logo"
-        className="g-mr-1 g-inline-block"
+        className="g-me-1 g-inline-block"
         src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png"
         width="16"
         height="16"

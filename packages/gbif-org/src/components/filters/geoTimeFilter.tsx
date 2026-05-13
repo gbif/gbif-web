@@ -179,7 +179,7 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
         <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
           {selected.length > 0 && (
             <button
-              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-r"
+              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-e"
               onClick={() => setFullField(filterHandle, [], [])}
             >
               <MdDeleteOutline />

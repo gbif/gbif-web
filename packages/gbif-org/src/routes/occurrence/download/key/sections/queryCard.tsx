@@ -327,7 +327,7 @@ function MaxHeightBox({
   return (
     <div className={`g-overflow-hidden g-relative ${heightClassName}`}>
       {children}
-      <div className="g-absolute g-bottom-0 g-left-0 g-right-0 g-h-6 g-bg-gradient-to-t g-from-white g-z-50" />
+      <div className="g-absolute g-bottom-0 g-start-0 g-end-0 g-h-6 g-bg-gradient-to-t g-from-white g-z-50" />
     </div>
   );
 }

@@ -116,7 +116,7 @@ export function RelatedDatasetsField({
             disabled={disabled}
             onClick={() => fileInputRef.current?.click()}
           >
-            <MdAttachFile className="g-mr-1" />
+            <MdAttachFile className="g-me-1" />
             <FormattedMessage id="tools.derivedDataset.chooseFile" defaultMessage="Choose file" />
           </Button>
           <input
@@ -199,7 +199,7 @@ export function RelatedDatasetsField({
                   className="g-flex-1 sm:g-flex-none sm:g-w-32"
                   disabled={disabled}
                 />
-                <div className="g-flex g-items-center g-gap-1 g-shrink-0 g-ml-auto g-min-w-10">
+                <div className="g-flex g-items-center g-gap-1 g-shrink-0 g-ms-auto g-min-w-10">
                   {rows.length > 1 && (
                     <button
                       type="button"

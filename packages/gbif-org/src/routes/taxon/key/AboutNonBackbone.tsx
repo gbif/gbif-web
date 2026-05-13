@@ -54,7 +54,7 @@ export default function AboutNonBackbone({ data }: { data: TaxonKeyQuery }) {
             defaultMessage={taxon.taxonRank || ''}
           />
           {taxon.taxonomicStatus && taxon.taxonomicStatus !== 'ACCEPTED' && (
-            <span className="g-ml-2">
+            <span className="g-ms-2">
               · <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
             </span>
           )}

@@ -171,7 +171,7 @@ export function ResultsPhase({
                     return (
                       <th
                         key={col.key}
-                        className="g-px-4 g-py-3 g-text-left g-font-medium g-text-slate-500 g-whitespace-nowrap"
+                        className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap"
                       >
                         {sortable ? (
                           <button
@@ -388,7 +388,7 @@ function ResultRow({ row, onShowAlignment }: { row: SequenceResult; onShowAlignm
         {truncated}
         {sequence.length > SEQUENCE_PREVIEW_LENGTH && (
           <button
-            className="g-ml-1 g-text-primary-600 hover:g-underline g-font-sans g-whitespace-nowrap"
+            className="g-ms-1 g-text-primary-600 hover:g-underline g-font-sans g-whitespace-nowrap"
             onClick={() => setSequenceExpanded((v) => !v)}
           >
             {sequenceExpanded ? (
@@ -459,7 +459,7 @@ function AlignmentDialog({ result, onClose }: { result?: SequenceResult; onClose
             <div className="g-mt-2 g-space-y-1 g-text-sm g-text-slate-600">
               {scientificName && (
                 <div>
-                  <span className="g-text-slate-500 g-mr-1">
+                  <span className="g-text-slate-500 g-me-1">
                     <FormattedMessage
                       id="tools.sequenceId.colScientificName"
                       defaultMessage="scientificName"
@@ -475,7 +475,7 @@ function AlignmentDialog({ result, onClose }: { result?: SequenceResult; onClose
               <div className="g-flex g-flex-wrap g-gap-x-4 g-gap-y-1">
                 {typeof m.identity === 'number' && (
                   <span>
-                    <span className="g-text-slate-500 g-mr-1">
+                    <span className="g-text-slate-500 g-me-1">
                       <FormattedMessage
                         id="tools.sequenceId.colIdentity"
                         defaultMessage="identity"
@@ -487,7 +487,7 @@ function AlignmentDialog({ result, onClose }: { result?: SequenceResult; onClose
                 )}
                 {typeof m.bitScore === 'number' && (
                   <span>
-                    <span className="g-text-slate-500 g-mr-1">
+                    <span className="g-text-slate-500 g-me-1">
                       <FormattedMessage
                         id="tools.sequenceId.colBitScore"
                         defaultMessage="bitScore"
@@ -499,7 +499,7 @@ function AlignmentDialog({ result, onClose }: { result?: SequenceResult; onClose
                 )}
                 {typeof m.expectValue === 'number' && (
                   <span>
-                    <span className="g-text-slate-500 g-mr-1">
+                    <span className="g-text-slate-500 g-me-1">
                       <FormattedMessage
                         id="tools.sequenceId.colExpectValue"
                         defaultMessage="expectValue"

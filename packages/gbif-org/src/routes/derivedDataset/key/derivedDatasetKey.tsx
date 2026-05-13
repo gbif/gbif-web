@@ -270,7 +270,7 @@ export function DerivedDatasetPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="!g-px-0 g-overflow-auto">
-                <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+                <table className="g-w-full g-text-sm g-text-start g-text-gray-500 dark:g-text-gray-400">
                   <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b g-border-t">
                     <tr>
                       <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
@@ -278,7 +278,7 @@ export function DerivedDatasetPage() {
                       </th>
                       <th
                         scope="col"
-                        className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                        className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-end"
                       >
                         <FormattedMessage id="downloadKey.records" defaultMessage="Records" />
                       </th>
@@ -303,7 +303,7 @@ export function DerivedDatasetPage() {
                               {dataset.datasetTitle}
                             </DynamicLink>
                           </td>
-                          <td className="g-px-4 md:g-px-8 g-py-3 g-text-right rtl:g-text-left">
+                          <td className="g-px-4 md:g-px-8 g-py-3 g-text-end">
                             <FormattedNumber value={dataset.numberRecords} />
                           </td>
                         </tr>
@@ -317,8 +317,8 @@ export function DerivedDatasetPage() {
                           <td className="g-px-4 md:g-px-8 g-py-3">
                             <Skeleton className="g-w-24">&nbsp;</Skeleton>
                           </td>
-                          <td className="g-px-4 md:g-px-8 g-py-3 g-text-right rtl:g-text-left">
-                            <Skeleton className="g-w-12 g-ml-auto">&nbsp;</Skeleton>
+                          <td className="g-px-4 md:g-px-8 g-py-3 g-text-end">
+                            <Skeleton className="g-w-12 g-ms-auto">&nbsp;</Skeleton>
                           </td>
                         </tr>
                       ))}

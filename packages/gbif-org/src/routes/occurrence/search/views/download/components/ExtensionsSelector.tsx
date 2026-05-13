@@ -159,7 +159,7 @@ export default function ExtensionsSelector({
                 <span className={optionStyles.optionTitle}>
                   <FormattedMessage id={`enums.dwcaExtension.${extension}`} />
                   {count != null && (
-                    <span className="g-text-sm g-font-normal g-text-gray-500 g-ml-2">
+                    <span className="g-text-sm g-font-normal g-text-gray-500 g-ms-2">
                       (<FormattedNumber value={count} />)
                     </span>
                   )}

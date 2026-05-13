@@ -84,7 +84,7 @@ export function MultiOptionsFilterComponent({ filter, onSubmit }: Props) {
                             }}
                           />
                         </FormControl>
-                        <FormLabel className="g-font-normal g-pl-2 g-cursor-pointer">
+                        <FormLabel className="g-font-normal g-ps-2 g-cursor-pointer">
                           {option.label}
                         </FormLabel>
                       </FormItem>

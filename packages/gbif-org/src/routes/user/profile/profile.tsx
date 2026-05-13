@@ -566,7 +566,7 @@ const Profile: React.FC = () => {
 
         {passwordUpdateSuccess && (
           <div className="g-flex g-items-center g-p-4 g-mb-4 g-text-green-800 g-border g-border-green-300 g-rounded-lg g-bg-green-50">
-            <CheckCircle className="g-w-5 g-h-5 g-mr-3 g-flex-shrink-0" />
+            <CheckCircle className="g-w-5 g-h-5 g-me-3 g-flex-shrink-0" />
             <span className="g-text-sm g-font-medium">
               {formatMessage({ id: 'profile.passwordUpdated' })}
             </span>

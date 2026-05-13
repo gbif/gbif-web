@@ -36,6 +36,7 @@ const sheetVariants = cva(
         top: 'g-inset-x-0 g-top-0 g-border-b data-[state=closed]:g-slide-out-to-top data-[state=open]:g-slide-in-from-top',
         bottom:
           'g-inset-x-0 g-bottom-0 g-border-t data-[state=closed]:g-slide-out-to-bottom data-[state=open]:g-slide-in-from-bottom',
+        // side="left"/"right" are explicitly physical positions (paired with physical slide-in-from-left/right animations that have no logical equivalent), so keep physical inset/border classes here
         left: 'g-inset-y-0 g-left-0 g-h-full g-w-4/5 g-border-r data-[state=closed]:g-slide-out-to-left data-[state=open]:g-slide-in-from-left sm:g-max-w-sm',
         right:
           'g-inset-y-0 g-right-0 g-h-full g-w-4/5 g-border-l data-[state=closed]:g-slide-out-to-right data-[state=open]:g-slide-in-from-right sm:g-max-w-sm',
@@ -63,7 +64,7 @@ const SheetContent = React.forwardRef<
         className={cn(sheetVariants({ side }), className)}
         {...props}
       >
-        <SheetPrimitive.Close className="g-absolute g-right-4 g-top-4 g-rounded-sm g-opacity-70 g-ring-offset-background g-transition-opacity hover:g-opacity-100 focus:g-outline-none focus:g-ring-2 focus:g-ring-ring focus:g-ring-offset-2 disabled:g-pointer-events-none data-[state=open]:g-bg-secondary">
+        <SheetPrimitive.Close className="g-absolute g-end-4 g-top-4 g-rounded-sm g-opacity-70 g-ring-offset-background g-transition-opacity hover:g-opacity-100 focus:g-outline-none focus:g-ring-2 focus:g-ring-ring focus:g-ring-offset-2 disabled:g-pointer-events-none data-[state=open]:g-bg-secondary">
           <Cross2Icon className="g-h-4 g-w-4" />
           <span className="g-sr-only">Close</span>
         </SheetPrimitive.Close>
@@ -76,7 +77,7 @@ SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn('g-flex g-flex-col g-space-y-2 g-text-center sm:g-text-left', className)}
+    className={cn('g-flex g-flex-col g-space-y-2 g-text-center sm:g-text-start', className)}
     {...props}
   />
 );

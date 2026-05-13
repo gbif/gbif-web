@@ -58,7 +58,7 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn('g-gap-1 g-pl-2.5', className)}
+    className={cn('g-gap-1 g-ps-2.5', className)}
     {...props}
   >
     <ChevronLeftIcon className="g-h-4 g-w-4" />
@@ -73,7 +73,7 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn('g-gap-1 g-pr-2.5', className)}
+    className={cn('g-gap-1 g-pe-2.5', className)}
     {...props}
   >
     <span className="g-hidden sm:g-inline">

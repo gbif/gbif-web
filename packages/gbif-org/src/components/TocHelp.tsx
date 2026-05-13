@@ -74,7 +74,7 @@ export function TocLi({
   children: React.ReactNode;
 } & React.ComponentProps<'li'>) {
   const className =
-    'g-block g-border-l [&_a]:g-block g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 hover:g-text-slate-900 dark:g-text-slate-400 dark:hover:g-text-slate-300';
+    'g-block g-border-s [&_a]:g-block g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 hover:g-text-slate-900 dark:g-text-slate-400 dark:hover:g-text-slate-300';
   if (to) {
     return (
       <li className={className} {...props}>

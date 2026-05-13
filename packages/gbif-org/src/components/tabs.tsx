@@ -88,10 +88,10 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
       )}
     >
       {canScrollLeft && (
-        <div className="g-absolute g-left-0 g-top-0 g-h-[calc(100%-2px)]">
+        <div className="g-absolute g-start-0 g-top-0 g-h-[calc(100%-2px)]">
           <button
             onClick={() => scroll('left')}
-            className="g-m-0 g-pr-3 g-flex g-items-start g-pt-4 g-justify-center g-bg-gradient-to-r g-from-white g-from-50% g-to-transparent g-text-slate-500 hover:g-text-slate-900 g-h-full"
+            className="g-m-0 g-pe-3 g-flex g-items-start g-pt-4 g-justify-center g-bg-gradient-to-r g-from-white g-from-50% g-to-transparent g-text-slate-500 hover:g-text-slate-900 g-h-full"
             aria-label="Scroll left"
           >
             <ChevronLeftIcon className="g-w-4 g-h-4" />
@@ -104,7 +104,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
         className="g-flex g-whitespace-nowrap g-overflow-x-auto -g-mb-px gbif-no-scrollbar"
       >
         {enabledLinks.map(({ to, children, className: cls, isActive }) => (
-          <li key={to2Key(to)} className={cn('g-pr-1')} data-active={isActive ? 'true' : undefined}>
+          <li key={to2Key(to)} className={cn('g-pe-1')} data-active={isActive ? 'true' : undefined}>
             <TabLink
               to={to}
               className={cls}
@@ -118,10 +118,10 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
       </ul>
 
       {canScrollRight && (
-        <div className="g-absolute g-right-0 g-top-0 g-h-[calc(100%-2px)]">
+        <div className="g-absolute g-end-0 g-top-0 g-h-[calc(100%-2px)]">
           <button
             onClick={() => scroll('right')}
-            className="g-m-0 g-pl-3 g-flex g-items-start g-pt-4 g-justify-center g-bg-gradient-to-l g-from-white g-from-50% g-to-transparent g-text-slate-500 hover:g-text-slate-900 g-h-full"
+            className="g-m-0 g-ps-3 g-flex g-items-start g-pt-4 g-justify-center g-bg-gradient-to-l g-from-white g-from-50% g-to-transparent g-text-slate-500 hover:g-text-slate-900 g-h-full"
             aria-label="Scroll right"
           >
             <ChevronRightIcon className="g-w-4 g-h-4" />

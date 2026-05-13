@@ -158,7 +158,7 @@ export function UpdateEmailPage() {
             updateEmail();
           }}
         >
-          <div className="g-text-left">
+          <div className="g-text-start">
             <label className="g-block g-text-sm g-font-medium g-text-gray-700 g-mb-2">
               <span className="g-text-xs g-uppercase g-text-gray-500">
                 <FormattedMessage id="profile.newEmail" defaultMessage="NEW EMAIL" />

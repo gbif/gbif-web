@@ -13,7 +13,7 @@ export function LinkOption({ to, children }: Props) {
         to={to}
         className="g-pointer-events-auto hover:g-text-primary-500 hover:g-underline"
       >
-        <span className="g-pr-1">
+        <span className="g-pe-1">
           <MdLink />
         </span>
       </DynamicLink>

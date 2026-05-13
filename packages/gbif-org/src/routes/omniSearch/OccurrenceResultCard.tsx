@@ -32,7 +32,7 @@ export default function OccurrenceResultCard({
             <h3 className="g-font-medium g-text-gray-900">“{queryString}”</h3>
           </div>
         </div>
-        <div className="g-border-l g-border-gray-100 g-p-3 g-flex g-flex-none g-items-center">
+        <div className="g-border-s g-border-gray-100 g-p-3 g-flex g-flex-none g-items-center">
           <MdChevronRight className="g-h-5 g-w-5 g-text-gray-400 group-hover:g-text-primary-500 g-transition-colors" />
         </div>
       </DynamicLink>

@@ -76,7 +76,7 @@ export function MapThumbnail({
         />
       </div>
       <div
-        className="g-absolute g-top-0 g-left-0 g-w-full"
+        className="g-absolute g-top-0 g-start-0 g-w-full"
         style={blend ? { mixBlendMode: 'lighten' } : {}}
       >
         <img
@@ -139,7 +139,7 @@ export function AdHocMapThumbnail({
           src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`}
         />
       </div>
-      <div className="g-absolute g-top-0 g-left-0 g-right-0 g-bottom-0">
+      <div className="g-absolute g-top-0 g-start-0 g-end-0 g-bottom-0">
         <ClientSideOnly>
           <img
             className="g-w-1/2 g-inline-block"

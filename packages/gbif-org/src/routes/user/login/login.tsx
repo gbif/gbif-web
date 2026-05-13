@@ -218,7 +218,7 @@ export function LoginForm() {
             <div className="g-flex-shrink-0">
               <MdMail className="g-h-5 g-w-5 g-text-green-400" />
             </div>
-            <div className="g-ml-3">
+            <div className="g-ms-3">
               <p className="g-mt-1 g-text-sm g-text-green-700">
                 <FormattedMessage id="profile.resetPasswordMessage" />
               </p>
@@ -328,14 +328,14 @@ export function LoginForm() {
           className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
         >
           <SocialIconGoogle className="g-h-5 g-w-5 g-text-gray-700" />
-          <span className="g-ml-2 g-text-gray-700">Google</span>
+          <span className="g-ms-2 g-text-gray-700">Google</span>
         </a>
         <a
           href="/auth/github/login"
           className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
         >
           <SocialIconGithub className="g-h-5 g-w-5 g-text-gray-700" />
-          <span className="g-ml-2 g-text-gray-700">GitHub</span>
+          <span className="g-ms-2 g-text-gray-700">GitHub</span>
         </a>
       </div>
       <div className="g-grid g-grid-cols-2 g-gap-3">
@@ -344,7 +344,7 @@ export function LoginForm() {
           className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
         >
           <SocialIconOrcid className="g-h-5 g-w-5 g-text-gray-700" />
-          <span className="g-ml-2 g-text-gray-700">ORCiD</span>
+          <span className="g-ms-2 g-text-gray-700">ORCiD</span>
         </a>
       </div>
       <p className="g-text-center g-text-sm g-text-gray-500">
@@ -550,7 +550,7 @@ function RegisterForm() {
             <div className="g-flex-shrink-0">
               <MdMail className="g-h-5 g-w-5 g-text-green-400" />
             </div>
-            <div className="g-ml-3">
+            <div className="g-ms-3">
               <p className="g-text-sm g-text-green-700">
                 <FormattedMessage id="profile.registrationSuccessCheckEmail" />
               </p>
@@ -585,7 +585,7 @@ function RegisterForm() {
             <div className="g-flex-shrink-0">
               <div className="g-h-5 g-w-5 g-border-2 g-border-blue-400 g-border-t-transparent g-rounded-full g-animate-spin"></div>
             </div>
-            <div className="g-ml-3">
+            <div className="g-ms-3">
               <p className="g-text-sm g-text-blue-700">
                 <FormattedMessage id="profile.waitingForServer" />
               </p>
@@ -664,7 +664,7 @@ function RegisterForm() {
           {isLoading
             ? formatMessage({ id: 'profile.creatingAccount' })
             : formatMessage({ id: 'profile.createAccount' })}
-          {!isLoading && <MdArrowRight className="g-ml-2 g-h-4 g-w-4" />}
+          {!isLoading && <MdArrowRight className="g-ms-2 g-h-4 g-w-4" />}
         </FormButton>
       </form>
 

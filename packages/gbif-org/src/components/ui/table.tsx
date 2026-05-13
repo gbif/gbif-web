@@ -53,7 +53,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      'g-h-10 g-px-2 g-text-left g-align-middle g-font-medium g-text-muted-foreground g-border-r last:g-border-r-0',
+      'g-h-10 g-px-2 g-text-start g-align-middle g-font-medium g-text-muted-foreground g-border-e last:g-border-e-0',
       className
     )}
     {...props}
@@ -67,14 +67,14 @@ const TableCell = React.forwardRef<
 >(({ className, linkData, children, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn('g-p-2 last:g-border-r-0 g-border-r g-relative g-align-top', className)}
+    className={cn('g-p-2 last:g-border-e-0 g-border-e g-relative g-align-top', className)}
     {...props}
   >
     {linkData && (
       <DynamicLinkPresentation
         linkData={linkData}
         preventScrollReset={linkData.to?.includes('entity=')}
-        className="g-absolute g-top-0 g-left-0 g-w-full g-h-full"
+        className="g-absolute g-top-0 g-start-0 g-w-full g-h-full"
       />
     )}
     <div className="g-pointer-events-none g-relative">{children}</div>

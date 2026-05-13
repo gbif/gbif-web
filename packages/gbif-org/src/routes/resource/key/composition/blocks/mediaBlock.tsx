@@ -125,7 +125,7 @@ function CallToAction({ link }: { link: Link }) {
             allowFullScreen
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
-            className="g-w-full g-h-full g-absolute g-top-0 g-left-0"
+            className="g-w-full g-h-full g-absolute g-top-0 g-start-0"
           />
         </DialogContent>
       </Dialog>

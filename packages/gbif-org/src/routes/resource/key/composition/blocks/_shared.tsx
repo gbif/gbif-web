@@ -72,7 +72,7 @@ export function MediaBlockImage({ src, alt, title, description, className }: Med
         {description && (
           <figcaption
             dir="auto"
-            className="g-absolute g-bottom-0 g-left-0 g-right-0 g-mx-auto g-max-w-[400px] g-text-sm g-text-slate-500 dark:g-text-slate-400 g-bg-white dark:g-bg-zinc-800 g-border g-border-slate-200 dark:g-border-slate-700 g-px-3 g-py-2 underlineLinks coloredLinks g-opacity-0 group-hover:g-opacity-100 g-transition-opacity g-rounded-md"
+            className="g-absolute g-bottom-0 g-start-0 g-end-0 g-mx-auto g-max-w-[400px] g-text-sm g-text-slate-500 dark:g-text-slate-400 g-bg-white dark:g-bg-zinc-800 g-border g-border-slate-200 dark:g-border-slate-700 g-px-3 g-py-2 underlineLinks coloredLinks g-opacity-0 group-hover:g-opacity-100 g-transition-opacity g-rounded-md"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         )}

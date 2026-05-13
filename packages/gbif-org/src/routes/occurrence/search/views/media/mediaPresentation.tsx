@@ -252,7 +252,7 @@ export function GalleryItem({
           )}
         </button>
         {!failed && (
-          <div className="g-absolute g-bottom-1 g-right-1 g-opacity-0 group-hover/gallery:g-opacity-100 g-transition-opacity">
+          <div className="g-absolute g-bottom-1 g-end-1 g-opacity-0 group-hover/gallery:g-opacity-100 g-transition-opacity">
             <FilterPopover
               taxonKey={taxonKey}
               taxonName={formattedName}

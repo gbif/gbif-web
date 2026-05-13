@@ -68,7 +68,7 @@ function NodeManager() {
   return (
     <TextField
       name="nodeContact.nodeManager"
-      className={cn('g-pl-6', { 'g-hidden': nodeContactType !== 'Node_manager_contacted' })}
+      className={cn('g-ps-6', { 'g-hidden': nodeContactType !== 'Node_manager_contacted' })}
       description={
         <FormattedMessage
           id="hostedPortalApplication.nodeContact.nodeManagerDescription"

@@ -126,7 +126,7 @@ export function BarItem({ children, percent = 0, ...props }) {
         // css={css`position: relative;`}
       >
         <div
-          className="g-absolute g-left-0 g-bg-primary g-opacity-20 g-rounded"
+          className="g-absolute g-start-0 g-bg-primary g-opacity-20 g-rounded"
           style={{ width: `${percent}%`, height: '1.6em' }}
           // css={css`
           //   position: absolute;

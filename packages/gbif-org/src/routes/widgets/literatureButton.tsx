@@ -63,7 +63,7 @@ export function LiteratureButtonInner() {
         }`}
         className="g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-text-white g-text-sm g-px-2 g-py-1 g-w-full g-h-[100vh] g-items-center g-text-center g-flex g-justify-center"
       >
-        <GbifLogoIcon className="g-w-4 g-h-4 g-inline-block g-mr-1" />
+        <GbifLogoIcon className="g-w-4 g-h-4 g-inline-block g-me-1" />
         {loading || !data ? (
           <Spinner />
         ) : (

@@ -378,7 +378,7 @@ function LargestTaxaList({
         return (
           <TaxonBarRow key={child.id} node={child} barWidth={barWidth} datasetKey={datasetKey}>
             {significantGrandchildren.length > 0 && (
-              <ul className="g-mt-0.5 g-ml-4 g-space-y-0.5">
+              <ul className="g-mt-0.5 g-ms-4 g-space-y-0.5">
                 {significantGrandchildren.map((grandchild) => {
                   const gcCount = grandchild.species ?? 0;
                   const gcBarWidth = Math.round((gcCount / totalSpecies) * 100);

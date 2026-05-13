@@ -35,7 +35,7 @@ export default function Properties({
       dense ? '[&>*]:g-mb-2' : '[&>*]:g-mb-3'
     } g-group [&_dl_dt]:g-text-slate-600 ${useDefaultTermWidths ? '[&>dt]:g-w-48' : ''}`;
   } else {
-    css += `[&>dd]:g-mb-4 [&>dt]:g-mb-1 g-group is-vertical g-group-[.is-vertical]:g-ml-2 [&_dl_dt]:g-text-slate-600`;
+    css += `[&>dd]:g-mb-4 [&>dt]:g-mb-1 g-group is-vertical g-group-[.is-vertical]:g-ms-2 [&_dl_dt]:g-text-slate-600`;
   }
   return (
     <dl className={cn(`g-max-w-full ${css}`, className)} {...props}>

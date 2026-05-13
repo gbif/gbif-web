@@ -70,7 +70,7 @@ export function ResultsPhase({
                   {RESULT_COLUMNS.map((col) => (
                     <th
                       key={col.id}
-                      className="g-px-4 g-py-3 g-text-left g-font-medium g-text-slate-500 g-whitespace-nowrap"
+                      className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap"
                     >
                       <FormattedMessage id={col.id} defaultMessage={col.defaultMessage} />
                     </th>
@@ -146,10 +146,10 @@ function ResultRow({ row, onEdit }: { row: SpeciesRow; onEdit: (row: SpeciesRow)
       <td className="g-px-4 g-py-2">
         <MatchTypeBadge matchType={row.matchType} />
       </td>
-      <td className="g-px-4 g-py-2 g-text-right g-text-slate-500">{row.confidence}</td>
+      <td className="g-px-4 g-py-2 g-text-end g-text-slate-500">{row.confidence}</td>
       <td className="g-px-4 g-py-2 g-max-w-[14rem]">
         <button
-          className="g-flex g-items-start g-gap-1.5 g-text-left hover:g-text-primary-600 g-transition-colors g-group g-w-full"
+          className="g-flex g-items-start g-gap-1.5 g-text-start hover:g-text-primary-600 g-transition-colors g-group g-w-full"
           onClick={() => onEdit(row)}
         >
           <span className="g-text-slate-300 group-hover:g-text-primary-400 g-mt-0.5 g-flex-shrink-0">

@@ -43,6 +43,7 @@ const DialogContent = React.forwardRef<
         ref={ref}
         className={cn(
           'gbif g-fixed g-z-50 g-w-full g-border-solid g-bg-background g-shadow-lg',
+          // g-left-[50%] paired with physical g-translate-x-[-50%] centers the dialog; switching to g-start-[50%] would break centering in RTL because translate-x stays physical
           'g-border g-left-[50%] g-top-[50%] g-grid g-max-w-lg g-translate-x-[-50%] g-translate-y-[-50%] g-gap-4 g-p-6 sm:g-rounded-lg',
           'g-duration-200 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[state=closed]:g-slide-out-to-left-1/2 data-[state=closed]:g-slide-out-to-top-[48%] data-[state=open]:g-slide-in-from-left-1/2 data-[state=open]:g-slide-in-from-top-[48%]',
           className
@@ -51,7 +52,7 @@ const DialogContent = React.forwardRef<
       >
         {children}
         {!hideCloseButton && (
-          <DialogPrimitive.Close className="g-absolute g-right-4 g-top-4 g-rounded-sm g-opacity-70 g-ring-offset-background g-transition-opacity hover:g-opacity-100 focus:g-outline-none focus:g-ring-2 focus:g-ring-ring focus:g-ring-offset-2 disabled:g-pointer-events-none data-[state=open]:g-bg-accent data-[state=open]:g-text-muted-foreground">
+          <DialogPrimitive.Close className="g-absolute g-end-4 g-top-4 g-rounded-sm g-opacity-70 g-ring-offset-background g-transition-opacity hover:g-opacity-100 focus:g-outline-none focus:g-ring-2 focus:g-ring-ring focus:g-ring-offset-2 disabled:g-pointer-events-none data-[state=open]:g-bg-accent data-[state=open]:g-text-muted-foreground">
             <Cross2Icon className="g-h-4 g-w-4" />
             <span className="g-sr-only">Close</span>
           </DialogPrimitive.Close>
@@ -75,7 +76,7 @@ const DialogBottomSheetContent = React.forwardRef<
         ref={ref}
         className={cn(
           'gbif dialog-popover-container g-z-50 g-bg-background g-border-0 g-border-t g-border-solid',
-          'g-fixed g-w-full g-top-[75px] g-left-0 g-right-0 g-bottom-auto',
+          'g-fixed g-w-full g-top-[75px] g-start-0 g-end-0 g-bottom-auto',
           // Animations
           'g-duration-300 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-slide-out-to-bottom data-[state=open]:g-slide-in-from-bottom',
           className
@@ -96,7 +97,7 @@ DialogBottomSheetContent.displayName = 'DialogBottomSheetContent';
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn('g-flex g-flex-col g-space-y-1.5 g-text-center sm:g-text-left', className)}
+    className={cn('g-flex g-flex-col g-space-y-1.5 g-text-center sm:g-text-start', className)}
     {...props}
   />
 );

@@ -97,7 +97,7 @@ function HomePage(): React.ReactElement {
           </div>
           {primaryImage?.description && (
             <span
-              className="g-absolute g-right-0 g-bottom-0 g-text-xs g-text-white g-p-1.5 g-font-medium underlineLinks hover:g-bg-gray-900/30"
+              className="g-absolute g-end-0 g-bottom-0 g-text-xs g-text-white g-p-1.5 g-font-medium underlineLinks hover:g-bg-gray-900/30"
               dangerouslySetInnerHTML={{ __html: primaryImage?.description }}
             />
           )}

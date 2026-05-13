@@ -12,8 +12,8 @@ type Props = {
 
 export function SideNavigation({ currentStep, steps, goToStep, className }: Props) {
   return (
-    <div className={cn('g-right-[100%] g-pr-4 g-h-min g-absolute', className)}>
-      <div className="g-h-full g-py-6 g-absolute g-left-5">
+    <div className={cn('g-end-[100%] g-pe-4 g-h-min g-absolute', className)}>
+      <div className="g-h-full g-py-6 g-absolute g-start-5">
         <div className="g-w-px g-h-full g-flex g-flex-col">
           <div
             className="g-bg-primary-500"
@@ -51,7 +51,7 @@ export function SideNavigation({ currentStep, steps, goToStep, className }: Prop
                   {isPast ? <CheckIcon /> : <FormattedNumber value={step.idx + 1} />}
                 </span>
                 <span
-                  className={cn('g-pl-2 g-whitespace-nowrap', {
+                  className={cn('g-ps-2 g-whitespace-nowrap', {
                     'g-text-gray-300': isFuture,
                     'g-text-primary-500': isPast,
                   })}

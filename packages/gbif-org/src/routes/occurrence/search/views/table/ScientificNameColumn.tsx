@@ -27,7 +27,7 @@ export default function ScientificNameColumn({
         <button
           // Used to refocus this button after closing the preview dialog
           data-entity-trigger={entityKey}
-          className="g-pr-3 g-mt-0.5 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
+          className="g-pe-3 g-mt-0.5 g-ps-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
           onClick={() => showPreview(entityKey)}
         >
           <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>

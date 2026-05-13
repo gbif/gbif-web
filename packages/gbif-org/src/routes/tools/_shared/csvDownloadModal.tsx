@@ -50,11 +50,7 @@ export function CsvDownloadModal({
 
             <div className="g-p-8 g-flex g-flex-col g-items-center g-gap-4">
               <Button asChild variant="default" className="g-w-full">
-                <a
-                  href={downloadUrl}
-                  download={filename}
-                  onClick={() => setTimeout(onClose, 800)}
-                >
+                <a href={downloadUrl} download={filename} onClick={() => setTimeout(onClose, 800)}>
                   {title}
                 </a>
               </Button>

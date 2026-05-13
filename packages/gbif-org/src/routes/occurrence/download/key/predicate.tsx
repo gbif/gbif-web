@@ -469,10 +469,10 @@ export const PredicateDisplaySkeleton = () => {
   return (
     <div className="g-space-y-2">
       <Skeleton className="g-w-12 g-h-6" />
-      <Skeleton className="g-ml-10 g-w-28 g-h-6" />
-      <Skeleton className="g-ml-10 g-w-12 g-h-6" />
-      <Skeleton className="g-ml-16 g-w-12 g-h-6" />
-      <Skeleton className="g-ml-16 g-w-12 g-h-6" />
+      <Skeleton className="g-ms-10 g-w-28 g-h-6" />
+      <Skeleton className="g-ms-10 g-w-12 g-h-6" />
+      <Skeleton className="g-ms-16 g-w-12 g-h-6" />
+      <Skeleton className="g-ms-16 g-w-12 g-h-6" />
     </div>
   );
 };

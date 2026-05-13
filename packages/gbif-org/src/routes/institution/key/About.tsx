@@ -407,7 +407,7 @@ export default function About() {
             </Card>
           </div>
           {!removeSidebar && (
-            <aside className="g-flex-none g-min-w-80 g-w-80 g-ml-4">
+            <aside className="g-flex-none g-min-w-80 g-w-80 g-ms-4">
               <InstitutionQuality predicate={predicate} className="g-mb-4" />
               <InstitutionTopTaxa predicate={predicate} className="g-mb-4" />
               <InstitutionTopCountries predicate={predicate} className="g-mb-4" />

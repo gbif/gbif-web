@@ -54,7 +54,7 @@ export const HelpItemResult = ({
           </div>
           <div>
             <DynamicLink
-              className="g-text-base g-font-semibold g-pl-0"
+              className="g-text-base g-font-semibold g-ps-0"
               pageId="faq"
               searchParams={{ question: `${item.identifier}` }}
             >

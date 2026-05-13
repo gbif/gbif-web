@@ -123,7 +123,7 @@ function ParticipantNode() {
       name="applicationType.participantNode"
       render={({ field }) => (
         <FormItem
-          className={cn('g-pl-6', applicationType?.type === 'National_portal' || 'g-hidden')}
+          className={cn('g-ps-6', applicationType?.type === 'National_portal' || 'g-hidden')}
         >
           <FormLabel className="g-font-normal">
             <FormattedMessage
@@ -203,7 +203,7 @@ function PublisherDescription() {
         />
       }
       textarea
-      className={cn('g-pl-6', { 'g-hidden': applicationType !== 'Other_type_of_portal' })}
+      className={cn('g-ps-6', { 'g-hidden': applicationType !== 'Other_type_of_portal' })}
     />
   );
 }

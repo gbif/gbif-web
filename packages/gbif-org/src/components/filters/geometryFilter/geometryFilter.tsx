@@ -40,7 +40,7 @@ const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
           <>
             {count > 0 && (
               <button
-                className={cn('g-mx-1 g-px-1', !!About && 'g-pe-3 g-border-r g-me-2')}
+                className={cn('g-mx-1 g-px-1', !!About && 'g-pe-3 g-border-e g-me-2')}
                 onClick={() => {
                   setFullField(filterHandle, [], []);
                 }}

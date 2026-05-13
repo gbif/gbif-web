@@ -272,12 +272,12 @@ function Row({
             }}
           >
             <td
-              className="!g-mr-0 !g-pr-0 g-w-6 g-cursor-grab active:g-cursor-grabbing"
+              className="!g-me-0 !g-pe-0 g-w-6 g-cursor-grab active:g-cursor-grabbing"
               {...provided.dragHandleProps}
             >
               <MdDragHandle className="g-text-slate-400" />
             </td>
-            <td className="!g-mr-0 !g-pr-0 g-w-5">
+            <td className="!g-me-0 !g-pe-0 g-w-5">
               <div className="g-flex g-items-center g-gap-1">
                 <button
                   onClick={() => {

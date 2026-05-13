@@ -115,7 +115,7 @@ export function FeedbackPopover({ trigger = <MdFeedback /> }): React.ReactElemen
     // Show loading state
     if (loading) {
       return (
-        <Skeleton className="g-mt-4 g-w-full g-p-4 g-h-24 g-text-left g-border g-rounded-lg">
+        <Skeleton className="g-mt-4 g-w-full g-p-4 g-h-24 g-text-start g-border g-rounded-lg">
           Loading
         </Skeleton>
       );
@@ -155,7 +155,7 @@ export function FeedbackPopover({ trigger = <MdFeedback /> }): React.ReactElemen
           {feedback.gbifFeedback && (
             <button
               onClick={() => setSelectedOption('gbif')}
-              className="g-w-full g-p-4 g-text-left g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
+              className="g-w-full g-p-4 g-text-start g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
             >
               <h4 className="g-font-medium g-mb-1">
                 <FormattedMessage id="feedback.contactGbif" defaultMessage="Contact GBIF" />

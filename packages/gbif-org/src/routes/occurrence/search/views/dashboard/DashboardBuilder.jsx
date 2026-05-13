@@ -434,7 +434,7 @@ function Item({
         >
           {/* Custom Drag Handle (Corner) */}
           {!lockedLayout && (
-            <div className="g-py-1 g-absolute g-top-4 -g-right-2 g-z-20 g-rounded-lg g-bg-white g-border g-border-solid g-slate-300 g-flex g-text-center g-justify-center g-flex-col">
+            <div className="g-py-1 g-absolute g-top-4 -g-end-2 g-z-20 g-rounded-lg g-bg-white g-border g-border-solid g-slate-300 g-flex g-text-center g-justify-center g-flex-col">
               <div {...provided.dragHandleProps} className="g-mb-1">
                 <MdDragHandle />
               </div>
@@ -695,7 +695,7 @@ function CreateOptions({ onAdd, chartsTypes }) {
       <select
         value={selectedOption}
         onChange={handleSelectChange}
-        className="g-border-r-8 g-border-transparent"
+        className="g-border-e-8 g-border-transparent"
       >
         <option value="">{messageNew}</option>
         {Object.keys(groupedCharts).map((group) => (

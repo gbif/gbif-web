@@ -44,7 +44,7 @@ type DatasetListResult = NonNullable<DownloadKeyDatasetsQuery['datasetsByDownloa
 
 function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
   return (
-    <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+    <table className="g-w-full g-text-sm g-text-start g-text-gray-500 dark:g-text-gray-400">
       <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
         <tr>
           {Array.from({ length: columns }).map((_, i) => (
@@ -112,7 +112,7 @@ function DatasetTableCore({
 
   return (
     <>
-      <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+      <table className="g-w-full g-text-sm g-text-start g-text-gray-500 dark:g-text-gray-400">
         <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
           <tr>
             <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
@@ -120,7 +120,7 @@ function DatasetTableCore({
             </th>
             <th
               scope="col"
-              className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+              className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-end"
             >
               <FormattedMessage id="downloadKey.records" />
             </th>
@@ -146,7 +146,7 @@ function DatasetTableCore({
                     {dataset.datasetTitle}
                   </DynamicLink>{' '}
                 </td>
-                <td className="g-px-4 md:g-px-8 g-py-3 g-text-right rtl:g-text-left">
+                <td className="g-px-4 md:g-px-8 g-py-3 g-text-end">
                   <FormattedNumber value={dataset?.numberRecords} />
                 </td>
               </tr>

@@ -95,7 +95,7 @@ export function DataHeader({
 }
 
 export function Separator() {
-  return <div className="g-border-l g-border-slate-200 g-h-6 g-mx-2"></div>;
+  return <div className="g-border-s g-border-slate-200 g-h-6 g-mx-2"></div>;
 }
 
 function Popup({

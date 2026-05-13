@@ -95,7 +95,7 @@ function MainNavigation({ menu }: { menu: HeaderQuery }) {
                             </p>
                             <div className="g-relative g-rounded-lg g-mt-4 g-overflow-hidden">
                               <img
-                                className="g-absolute g-top-0 g-left-0 g-bottom-0 g-right-0 g-w-full g-h-full"
+                                className="g-absolute g-top-0 g-start-0 g-bottom-0 g-end-0 g-w-full g-h-full"
                                 src={`http://api.gbif.org/v2/map/occurrence/density/0/0/0@2x.png?srs=EPSG%3A3857&style=purpleYellow.point`}
                               />
                               <img

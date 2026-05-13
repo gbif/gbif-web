@@ -110,7 +110,7 @@ export default function MapWidgetInner({
       <div className="g-size-full" id={mapId} />
       <Progress
         value={loadingProgress}
-        className={cn('g-rounded-none g-absolute g-bottom-0 g-left-0 g-w-full g-h-1', {
+        className={cn('g-rounded-none g-absolute g-bottom-0 g-start-0 g-w-full g-h-1', {
           'g-hidden': hideLoadingProgress,
         })}
       />

@@ -78,7 +78,7 @@ export function ProjectNewsAndEventsTab() {
 
   return (
     <div className="g-pt-4 g-max-w-3xl g-m-auto">
-      <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-right">
+      <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-end">
         <HelpLine title={help?.title} id="how-to-add-events-to-my-project-page" icon />
       </p>
 

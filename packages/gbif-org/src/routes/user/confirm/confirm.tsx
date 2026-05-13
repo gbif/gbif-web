@@ -109,7 +109,7 @@ export function ConfirmForm() {
             <div className="g-flex-shrink-0">
               <MdCheck className="g-h-5 g-w-5 g-text-green-400" />
             </div>
-            <div className="g-ml-3">
+            <div className="g-ms-3">
               <p className="g-text-sm g-font-medium g-text-green-800">
                 <FormattedMessage id="profile.welcome" />
               </p>

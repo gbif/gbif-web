@@ -57,7 +57,7 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
                 className={cn({ 'g-hidden': step.idx !== currentStep.idx })}
               >
                 <SectionHeading className="g-font-semibold">
-                  <span className="g-text-gray-500 g-pr-1">
+                  <span className="g-text-gray-500 g-pe-1">
                     <FormattedMessage
                       id="phrases.stepperFormProgress"
                       values={{
@@ -89,7 +89,7 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
                   )}
                   {step.idx < steps.length - 1 && (
                     <Button
-                      className="g-ml-auto"
+                      className="g-ms-auto"
                       type="button"
                       onClick={() => {
                         nextStep();
@@ -100,7 +100,7 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
                     </Button>
                   )}
                   {step.idx === steps.length - 1 && (
-                    <Button className="g-ml-auto" type="submit">
+                    <Button className="g-ms-auto" type="submit">
                       <FormattedMessage id="phrases.submit" />
                     </Button>
                   )}

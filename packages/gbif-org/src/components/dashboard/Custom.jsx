@@ -429,7 +429,7 @@ function IucnCategory({ code, category, color }) {
     <SimpleTooltip i18nKey={`enums.threatStatus.${category}`}>
       <span
         style={{ backgroundColor: color }}
-        className={`gbif-iucn-status-${code} g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2`}
+        className={`gbif-iucn-status-${code} g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-me-2`}
       >
         {code}
       </span>

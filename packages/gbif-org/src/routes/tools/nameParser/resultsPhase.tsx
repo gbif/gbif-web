@@ -62,7 +62,7 @@ export function ResultsPhase({
                     return (
                       <th
                         key={col.key}
-                        className="g-px-4 g-py-3 g-text-left g-font-medium g-text-slate-500 g-whitespace-nowrap"
+                        className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap"
                       >
                         <button
                           className="g-flex g-items-center g-gap-1 hover:g-text-slate-700 g-transition-colors"

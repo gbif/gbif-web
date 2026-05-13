@@ -37,24 +37,24 @@ export function WhatAndHow() {
 
       <div className="g-flex g-justify-start md:g-justify-between g-flex-wrap g-pt-2">
         <CheckboxField
-          className="g-mb-2 g-mr-4"
+          className="g-mb-2 g-me-4"
           name="whatAndHow.resourceMetadata"
           label={<FormattedMessage id="eoi.resourcesMetaData" defaultMessage="Resource metadata" />}
         />
         <CheckboxField
-          className="g-mb-2 g-mr-4"
+          className="g-mb-2 g-me-4"
           name="whatAndHow.checklistData"
           label={<FormattedMessage id="eoi.checkListData" defaultMessage="Checklist data" />}
         />
         <CheckboxField
-          className="g-mb-2 g-mr-4"
+          className="g-mb-2 g-me-4"
           name="whatAndHow.occurrenceOnlyData"
           label={
             <FormattedMessage id="eoi.occurrenceOnlyData" defaultMessage="Occurrence-only data" />
           }
         />
         <CheckboxField
-          className="g-mb-2 g-mr-4"
+          className="g-mb-2 g-me-4"
           name="whatAndHow.samplingEventData"
           label={
             <FormattedMessage id="eoi.samplingEventData" defaultMessage="Sampling-event data" />

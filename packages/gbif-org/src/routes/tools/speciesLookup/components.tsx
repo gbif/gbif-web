@@ -80,12 +80,12 @@ export function SuggestionRow({ item, onClick }: { item: SuggestResult; onClick:
 
   return (
     <button
-      className="g-w-full g-text-left g-px-4 g-py-3 hover:g-bg-slate-50 g-border-b g-border-slate-100 g-block g-transition-colors"
+      className="g-w-full g-text-start g-px-4 g-py-3 hover:g-bg-slate-50 g-border-b g-border-slate-100 g-block g-transition-colors"
       onClick={onClick}
     >
       <div className="g-font-medium g-text-sm">
         {item.scientificName}
-        <span className="g-ml-2 g-text-xs g-text-gray-400 g-font-normal">
+        <span className="g-ms-2 g-text-xs g-text-gray-400 g-font-normal">
           {item.rank && (
             <FormattedMessage id={`enums.taxonRank.${item.rank}`} defaultMessage={item.rank} />
           )}

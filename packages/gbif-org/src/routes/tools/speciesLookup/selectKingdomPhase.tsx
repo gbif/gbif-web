@@ -96,13 +96,13 @@ export function SelectKingdomPhase({
                 <table className="g-w-full g-text-sm">
                   <thead className="g-sticky g-top-0 g-bg-white g-shadow-sm g-z-10">
                     <tr>
-                      <th className="g-px-4 g-py-3 g-text-left g-font-medium g-text-slate-500 g-whitespace-nowrap">
+                      <th className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap">
                         <FormattedMessage
                           id="tools.speciesLookup.scientificName"
                           defaultMessage="scientificName"
                         />
                       </th>
-                      <th className="g-px-4 g-py-3 g-text-left g-font-medium g-text-slate-500 g-whitespace-nowrap">
+                      <th className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap">
                         <FormattedMessage
                           id="tools.speciesLookup.preferedKingdom"
                           defaultMessage="preferred kingdom"

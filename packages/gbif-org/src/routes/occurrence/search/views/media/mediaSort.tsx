@@ -67,12 +67,12 @@ export function MediaGroupDropdown({ state, onChange, suggestedGroupByRank }: Pr
         aria-label="Group"
       >
         {isActive && activeLabelId && (
-          <span className="g-text-xs g-mr-1">
+          <span className="g-text-xs g-me-1">
             <FormattedMessage id={activeLabelId} />
           </span>
         )}
         <span className="g-relative g-inline-block g-w-3 g-h-4">
-          <MdSettings className="g-absolute g-left-0 g-top-0 g-text-current" />
+          <MdSettings className="g-absolute g-start-0 g-top-0 g-text-current" />
         </span>
       </DropdownMenuTrigger>
       {/* Portal directly to <body> so the menu isn't accidentally captured by the

@@ -32,11 +32,11 @@ export function GithubFeedback({ onClose }: GithubFeedbackProps) {
       href={githubUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="g-block g-w-full g-p-4 g-text-left g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
+      className="g-block g-w-full g-p-4 g-text-start g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
     >
       <h4 className="g-font-medium g-mb-1">
         <FormattedMessage id="feedback.leaveIssueOnGithub" defaultMessage="Leave issue on GitHub" />
-        <MdOpenInNew className="g-ml-2 g-h-4 g-w-4" />
+        <MdOpenInNew className="g-ms-2 g-h-4 g-w-4" />
       </h4>
       <p className="g-text-sm g-text-muted-foreground">
         <FormattedMessage
@@ -70,11 +70,11 @@ export function MailFeedback({ onClose }: GithubFeedbackProps) {
       href={`mailto:${contactEmail}?body=${encodeURIComponent(currentUrl)}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="g-block g-w-full g-p-4 g-text-left g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
+      className="g-block g-w-full g-p-4 g-text-start g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
     >
       <h4 className="g-font-medium g-mb-1">
         <FormattedMessage id="feedback.sendUsAnEmail" defaultMessage="Send us an email" />
-        <MdMailOutline className="g-ml-2 g-h-4 g-w-4" />
+        <MdMailOutline className="g-ms-2 g-h-4 g-w-4" />
       </h4>
       <p className="g-text-sm g-text-muted-foreground">
         <FormattedMessage

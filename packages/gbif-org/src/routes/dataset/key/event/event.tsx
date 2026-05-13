@@ -180,7 +180,7 @@ export const Event = ({
         >
           <div className="g-order-last">
             <Card className="g-mb-4">
-              <div className="g-pt-4 g-pl-4 g-pr-4 g-pb-0">
+              <div className="g-pt-4 g-ps-4 g-pe-4 g-pb-0">
                 <div className="g-flex g-items-center">
                   <div className="g-p-0 md:g-p-4 g-pt-0 md:g-pt-4">
                     <h2 className="g-text-2xl g-font-semibold g-leading-none g-tracking-tight">

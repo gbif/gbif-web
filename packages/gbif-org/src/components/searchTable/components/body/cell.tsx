@@ -34,7 +34,7 @@ export function Cell<T>({
           ? 'g-bg-gray-50'
           : 'g-bg-white',
         {
-          'g-left-0 g-z-10 g-sticky g-border-r-0 g-box-shadow-r':
+          'g-start-0 g-z-10 g-sticky g-border-e-0 g-box-shadow-r':
             firstColumnIsLocked && isFirstColumn,
           'group-hover:g-bg-gray-100': linkData != null,
         }

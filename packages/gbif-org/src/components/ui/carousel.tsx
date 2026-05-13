@@ -186,7 +186,8 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         className={cn(
           'g-absolute  g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-g-left-12 g-top-1/2 -g-translate-y-1/2'
+            ? '-g-start-12 g-top-1/2 -g-translate-y-1/2'
+            // vertical orientation: paired with physical translate-x for centering, so keep physical g-left-1/2
             : '-g-top-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}
@@ -214,7 +215,8 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         className={cn(
           'g-absolute g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-g-right-12 g-top-1/2 -g-translate-y-1/2'
+            ? '-g-end-12 g-top-1/2 -g-translate-y-1/2'
+            // vertical orientation: paired with physical translate-x for centering, so keep physical g-left-1/2
             : '-g-bottom-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}

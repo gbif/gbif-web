@@ -30,7 +30,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                 taxon?.datasetKey ===
                   (config.taxonSearch?.checklistKey ?? config.defaultChecklistKey) && (
                   <button
-                    className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
+                    className="g-pe-3 g-ps-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
                     onClick={(e) => {
                       // Prevent the parent link from being triggered
                       if (taxon?.taxonID != null) showPreview(taxon?.taxonID?.toString());
@@ -57,7 +57,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                   />
                 </DynamicLink>
                 {vernacular && (
-                  <div className="g-ml-1 g-text-slate-400 g-flex g-items-center">
+                  <div className="g-ms-1 g-text-slate-400 g-flex g-items-center">
                     <span className="g-me-1">{vernacular}</span>
                   </div>
                 )}

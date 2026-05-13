@@ -27,7 +27,7 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
                 <button
                   // Used to refocus this button after closing the preview dialog
                   data-entity-trigger={eventID}
-                  className="g-pr-3 g-mt-0.5 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
+                  className="g-pe-3 g-mt-0.5 g-ps-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
                   onClick={() => showPreview(eventID)}
                 >
                   <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
@@ -103,8 +103,8 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
         header: 'occurrenceFieldNames.locality',
         minWidth: 200,
         cell: ({ locality }) => (
-          <InlineLineClamp className="-g-ml-0.5">
-            <SetAsFilter field="locality" value={locality} className="g-ml-0">
+          <InlineLineClamp className="-g-ms-0.5">
+            <SetAsFilter field="locality" value={locality} className="g-ms-0">
               {locality}
             </SetAsFilter>
           </InlineLineClamp>

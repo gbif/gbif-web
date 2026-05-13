@@ -44,7 +44,7 @@ export default function StepIndicator({
         <ol className="g-flex g-justify-between g-items-center g-relative">
           {/* Progress bar background and fill */}
           <div
-            className="g-absolute g-top-4 md:g-top-5 g-left-4 sm:g-left-8 g-right-4 sm:g-right-8 g-h-0.5 g-bg-gray-200 g-z-0"
+            className="g-absolute g-top-4 md:g-top-5 g-start-4 sm:g-start-8 g-end-4 sm:g-end-8 g-h-0.5 g-bg-gray-200 g-z-0"
             aria-hidden="true"
           >
             <div

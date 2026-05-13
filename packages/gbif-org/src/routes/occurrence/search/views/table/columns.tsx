@@ -218,7 +218,7 @@ export function useOccurrenceColumns({
         header: 'filters.datasetKey.name',
         minWidth: 350,
         cell: ({ datasetKey, datasetTitle }) => (
-          <InlineLineClamp className="-g-ml-0.5">
+          <InlineLineClamp className="-g-ms-0.5">
             <LinkOption to={`/dataset/${datasetKey}`}>
               <SetAsFilter field="datasetKey" value={datasetKey}>
                 {datasetTitle}
@@ -448,8 +448,8 @@ export function useOccurrenceColumns({
         header: 'occurrenceFieldNames.locality',
         minWidth: 200,
         cell: ({ locality }) => (
-          <InlineLineClamp className="-g-ml-0.5">
-            <SetAsFilter field="locality" value={locality} className="g-ml-0">
+          <InlineLineClamp className="-g-ms-0.5">
+            <SetAsFilter field="locality" value={locality} className="g-ms-0">
               {locality}
             </SetAsFilter>
           </InlineLineClamp>
@@ -461,8 +461,8 @@ export function useOccurrenceColumns({
         header: 'occurrenceFieldNames.fieldNumber',
         minWidth: 200,
         cell: ({ fieldNumber }) => (
-          <InlineLineClamp className="-g-ml-0.5">
-            <SetAsFilter field="fieldNumber" value={fieldNumber} className="g-ml-0">
+          <InlineLineClamp className="-g-ms-0.5">
+            <SetAsFilter field="fieldNumber" value={fieldNumber} className="g-ms-0">
               {fieldNumber}
             </SetAsFilter>
           </InlineLineClamp>
@@ -474,7 +474,7 @@ export function useOccurrenceColumns({
         header: 'occurrenceFieldNames.individualCount',
         minWidth: 50,
         cell: ({ individualCount }) => (
-          <InlineLineClamp className="-g-ml-0.5">{individualCount}</InlineLineClamp>
+          <InlineLineClamp className="-g-ms-0.5">{individualCount}</InlineLineClamp>
         ),
       },
       {
@@ -483,12 +483,12 @@ export function useOccurrenceColumns({
         header: 'occurrenceFieldNames.organismQuantity',
         minWidth: 50,
         cell: ({ organismQuantity, organismQuantityType }) => (
-          <InlineLineClamp className="-g-ml-0.5">
+          <InlineLineClamp className="-g-ms-0.5">
             {organismQuantity}{' '}
             <SetAsFilter
               field="organismQuantityType"
               value={organismQuantityType}
-              className="g-ml-0"
+              className="g-ms-0"
             >
               {organismQuantityType}
             </SetAsFilter>

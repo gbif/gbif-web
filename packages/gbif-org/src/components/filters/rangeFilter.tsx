@@ -89,7 +89,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
         <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
           {selected.length > 0 && (
             <button
-              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-r"
+              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-e"
               onClick={() => setFullField(filterHandle, [], [])}
             >
               <MdDeleteOutline />
@@ -186,7 +186,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                 }
               }}
             />
-            {/* {selected.length === 0 && <div className="g-hidden group-focus-within:g-block g-pointer-events-none g-absolute g-text-white g-text-sm g-bg-slate-500 g-p-4 g-border g-shadow-md g-left-0 g-right-0 g-mx-2 g-rounded">
+            {/* {selected.length === 0 && <div className="g-hidden group-focus-within:g-block g-pointer-events-none g-absolute g-text-white g-text-sm g-bg-slate-500 g-p-4 g-border g-shadow-md g-start-0 g-end-0 g-mx-2 g-rounded">
               Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends like: 100,
             </div>} */}
           </div>
@@ -205,7 +205,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
           {options}
         </div>
         {selected.length === 0 && (
-          <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-border-solid g-left-0 g-right-0 g-mx-2 g-rounded">
+          <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-border-solid g-start-0 g-end-0 g-mx-2 g-rounded">
             <RangeHelp />
           </div>
         )}

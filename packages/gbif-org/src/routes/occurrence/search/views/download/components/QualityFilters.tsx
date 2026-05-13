@@ -235,7 +235,7 @@ export default function QualityFilters({ onContinue }: QualityFiltersProps) {
               >
                 <button
                   onClick={() => toggleSection(section.id)}
-                  className="g-w-full g-p-6 g-text-left g-flex g-items-center g-justify-between hover:g-bg-gray-50 g-transition-colors"
+                  className="g-w-full g-p-6 g-text-start g-flex g-items-center g-justify-between hover:g-bg-gray-50 g-transition-colors"
                 >
                   <div className="g-flex g-items-center g-gap-4">
                     <div className={`g-p-2 g-bg-${section.color}-100 g-rounded`}>

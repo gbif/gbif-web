@@ -15,7 +15,7 @@ export function DataProviderFeedback({ feedbackOptions }: DataProviderFeedbackPr
         href={feedbackOptions.externalServiceUrl ?? `mailto:${feedbackOptions.contactEmail}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="g-block g-w-full g-p-4 g-text-left g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
+        className="g-block g-w-full g-p-4 g-text-start g-border g-rounded-lg g-bg-gray-50 hover:g-bg-gray-100 g-transition-colors"
       >
         <h4 className="g-font-medium g-mb-1">
           <FormattedMessage

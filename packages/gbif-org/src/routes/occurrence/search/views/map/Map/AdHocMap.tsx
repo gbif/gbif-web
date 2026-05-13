@@ -522,5 +522,5 @@ export default function AdHocMap({
 }
 
 function ToolSeparator() {
-  return <div className="g-h-6 g-border-r g-border-solid g-border-slate-200"></div>;
+  return <div className="g-h-6 g-border-e g-border-solid g-border-slate-200"></div>;
 }

@@ -297,7 +297,7 @@ export function PublisherKeyAbout() {
             )}
           </div>
           {!removeSidebar && (
-            <aside className="g-flex-none g-min-w-80 g-w-80 g-ml-4">
+            <aside className="g-flex-none g-min-w-80 g-w-80 g-ms-4">
               <ActivityReport />
               <Logo />
               <Map />

@@ -1,7 +1,7 @@
 export const optionStyles = {
   optionCard:
     'g-bg-white g-flex g-items-start g-p-4 g-rounded g-border g-border-gray-200 g-cursor-pointer',
-  optionLabel: 'g-ml-3 g-flex-1',
+  optionLabel: 'g-ms-3 g-flex-1',
   optionTitle: 'g-font-medium g-text-slate-900',
   optionDescription: 'g-text-sm g-text-slate-500 g-mt-0.5',
   optionLink:

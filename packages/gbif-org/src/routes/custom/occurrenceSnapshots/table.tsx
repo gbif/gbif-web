@@ -24,7 +24,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
               {columns.map((col, index) => (
                 <th
                   key={index}
-                  className="g-p-4 g-text-left g-whitespace-nowrap "
+                  className="g-p-4 g-text-start g-whitespace-nowrap "
                   style={{ width: `${100 / columns.length}%` }}
                 >
                   <FormattedMessage id={`occurrenceSnapshots.table.columns.${col}`} />
