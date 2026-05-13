@@ -46,6 +46,7 @@
     "filterApplied": "{DATE} フィルターを適用しました。",
     "query": "",
     "rerunQuery": "クエリの再実行",
+    "complexPredicateWarning": "",
     "postpone": "削除を延期します。",
     "deleteDownload": "ダウンロードを削除",
     "tellUs": "使用方法について教えてください。",
