@@ -21,6 +21,7 @@ import { IconFeatures } from './iconFeatures';
 import { SingleOccurrenceSearchResult } from './occurrenceTable';
 import ScientificNameColumn from './ScientificNameColumn';
 import { rangeOrTerm } from '@/components/filters/rangeFilter';
+import { useI18n } from '@/reactRouterPlugins';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -29,6 +30,7 @@ type Args = {
 export function useOccurrenceColumns({
   showPreview,
 }: Args): ColumnDef<SingleOccurrenceSearchResult>[] {
+  const { locale } = useI18n();
   return useMemo(() => {
     const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [
       {
@@ -47,7 +49,7 @@ export function useOccurrenceColumns({
             false
           );
           return (
-            <DropdownMenu>
+            <DropdownMenu dir={locale.textDirection ?? 'ltr'}>
               <DropdownMenuTrigger>
                 <MdSettings />
               </DropdownMenuTrigger>
