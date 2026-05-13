@@ -66,7 +66,7 @@ function Contact({ contact, ...props }) {
             {orcid && (
               <a
                 href={orcid}
-                style={{ marginRight: 16, width: 16, height: 16, display: 'inline-block' }}
+                style={{ marginInlineEnd: 16, width: 16, height: 16, display: 'inline-block' }}
               >
                 <img
                   style={{ pointerEvents: 'none' }}

@@ -22,7 +22,7 @@ import {
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -336,6 +336,7 @@ export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
   const config = useConfig();
+  const { locale } = useI18n();
   const { errors, data } = useLoaderData() as DatasetKeyLoaderResult;
   useNotifyOfPartialDataIfErrors(errors);
 
@@ -572,7 +573,10 @@ export function DatasetPage() {
               </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }} />
+            <ArticleTitle
+              dir={locale.textDirection}
+              dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }}
+            />
 
             <div className="g-mt-2">
               <FormattedMessage id="dataset.publishedBy" />{' '}

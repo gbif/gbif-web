@@ -203,7 +203,7 @@ export const taxonKeySuggest = {
             <span
               style={{
                 display: 'inline-block',
-                marginRight: 8,
+                marginInlineEnd: 8,
                 width: 8,
                 height: 8,
                 borderRadius: 4,

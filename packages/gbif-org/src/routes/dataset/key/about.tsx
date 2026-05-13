@@ -302,7 +302,7 @@ export function DatasetKeyAbout() {
                   )}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent dir="auto">
                 {dataset.description && (
                   <div
                     className="gbif-word-break g-prose g-mb-6 g-max-w-full"
@@ -356,7 +356,7 @@ export function DatasetKeyAbout() {
                     <FormattedMessage id="dataset.purpose" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent dir="auto">
                   <div
                     className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.purpose }}
@@ -372,7 +372,7 @@ export function DatasetKeyAbout() {
                     <FormattedMessage id="dataset.geographicCoverages" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="gbif-word-break">
+                <CardContent className="gbif-word-break" dir="auto">
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
                   {siteTotal > 0 && (
                     <div className="g-mt-4">
@@ -399,7 +399,7 @@ export function DatasetKeyAbout() {
                     <FormattedMessage id="dataset.temporalCoverages" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="gbif-word-break">
+                <CardContent className="gbif-word-break" dir="auto">
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
                   {siteTotal > 0 && (
                     <div className="g-mt-4">
@@ -423,7 +423,7 @@ export function DatasetKeyAbout() {
                     <FormattedMessage id="dataset.taxonomicCoverages" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="gbif-word-break">
+                <CardContent className="gbif-word-break" dir="auto">
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
                   {siteTotal > 0 && (
                     <div className="g-mt-4">
@@ -447,7 +447,7 @@ export function DatasetKeyAbout() {
                     <FormattedMessage id="dataset.methodology" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent dir="auto">
                   <SamplingDescription dataset={dataset} />
                 </CardContent>
               </Card>
@@ -459,7 +459,7 @@ export function DatasetKeyAbout() {
                     <FormattedMessage id="dataset.additionalInfo" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent dir="auto">
                   <div
                     className="g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.additionalInfo }}
@@ -474,7 +474,7 @@ export function DatasetKeyAbout() {
                     <FormattedMessage id="dataset.bibliography" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent dir="auto">
                   <BibliographicCitations
                     bibliographicCitations={dataset?.bibliographicCitations}
                   />

@@ -50,7 +50,7 @@ export function OccurrenceGalleryBar({
           <DynamicLink pageId="occurrenceSearch" searchParams={searchParams}>
             <SimpleTooltip title={<span>Records with images</span>} placement="auto">
               <div className="g-flex g-place-items-center">
-                <MdImage style={{ marginRight: 8 }} />{' '}
+                <MdImage style={{ marginInlineEnd: 8 }} />{' '}
                 <span>
                   <FormattedNumber value={total} />
                 </span>
