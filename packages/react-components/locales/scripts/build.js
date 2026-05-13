@@ -3,6 +3,7 @@ import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 import translationBuilder from './stitchFile.js';
 import createPseudo from './createPseudo.js';
+import createPseudoRTL from './createPseudoRTL.js';
 import fs, { readFileSync } from 'fs';
 import _ from 'lodash';
 import hash from 'object-hash';
@@ -29,7 +30,7 @@ function build(locales) {
   let translationVersions = {};
 
   // iterate over locales except 'en-developer', 'en-pseudo', 'en'
-  const fullLocales = ['en-developer', 'en-pseudo', 'en'];
+  const fullLocales = ['en-developer', 'en-pseudo', 'ar-pseudo', 'en'];
   locales
     .map((locale) =>
       buildLocale({
@@ -65,6 +66,8 @@ function getLocaleName(locale) {
     return 'en-ZZ';
   } else if (locale === 'en-developer') {
     return 'en-DK';
+  } else if (locale === 'ar-pseudo') {
+    return 'ar-ZZ';
   }
   return locale;
 }
@@ -79,6 +82,8 @@ function buildLocale({
   let localeJson;
   if (locale === 'en-pseudo') {
     localeJson = createPseudo(developerEnglishJson);
+  } else if (locale === 'ar-pseudo') {
+    localeJson = createPseudoRTL(developerEnglishJson);
   } else if (locale === 'en-developer') {
     localeJson = developerEnglishJson;
   } else {

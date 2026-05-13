@@ -28,6 +28,18 @@ const languageOptions: LanguageOption[] = [
     mapTileLocale: 'en',
   },
   {
+    code: 'rtltest',
+    localeCode: 'ar-ZZ',
+    label: 'Test RTL',
+    default: false,
+    textDirection: 'rtl',
+    cmsLocale: 'ar',
+    reactIntlLocale: 'ar-SA',
+    gbifOrgLocalePrefix: '',
+    grSciCollLocalePrefix: '',
+    mapTileLocale: 'ar',
+  },
+  {
     code: 'danglish', // TODO, developer english.  while developing it is convinent to have developer english when text change so taht we can see changes immeadiately
     localeCode: 'en-DK',
     label: 'Danglish',
