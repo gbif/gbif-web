@@ -31,6 +31,7 @@ import { SuggestFilter } from './suggestFilter';
 import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
 import { HumboldtBooleansFilter } from './humboldtBooleansFilter';
+import { CustomPredicateFilter } from './customPredicateFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -45,6 +46,7 @@ export enum filterConfigTypes {
   GEOLOGICAL_TIME = 'GEOLOGICAL_TIME',
   INLINE_TOGGLE = 'INLINE_TOGGLE',
   HUMBOLDT_BOOLEANS = 'HUMBOLDT_BOOLEANS',
+  CUSTOM_PREDICATE = 'CUSTOM_PREDICATE',
 }
 
 export type AdditionalFilterProps = {
@@ -156,6 +158,10 @@ export type filterHumboldtBooleansConfig = filterConfigShared & {
   filterType: filterConfigTypes.HUMBOLDT_BOOLEANS;
 };
 
+export type filterCustomPredicateConfig = filterConfigShared & {
+  filterType: filterConfigTypes.CUSTOM_PREDICATE;
+};
+
 // define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
 export type filterConfig =
   | filterBoolConfig
@@ -169,7 +175,8 @@ export type filterConfig =
   | filterGeologicalTimeConfig
   | filterLocationConfig
   | filterInlineToggleConfig
-  | filterHumboldtBooleansConfig;
+  | filterHumboldtBooleansConfig
+  | filterCustomPredicateConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -642,6 +649,35 @@ const getGeologicalTimeFilter = ({
   );
 };
 
+const getCustomPredicateFilter = ({ config }: { config: filterCustomPredicateConfig }) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <CustomPredicateFilter
+          ref={ref}
+          filterHandle={config.filterHandle}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 const getHumboldtBooleansFilter = ({
   config,
   searchConfig,
@@ -885,6 +921,13 @@ export function generateFilters({
         searchConfig,
       }),
     });
+  } else if (config.filterType === filterConfigTypes.CUSTOM_PREDICATE) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getCustomPredicateFilter({ config: config as filterCustomPredicateConfig }),
+      popoverClassName: 'g-w-[600px] g-max-w-[var(--radix-popper-available-width)]',
+    });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);
   }
@@ -1094,10 +1137,12 @@ export function ApplyCancel({
   onApply,
   onCancel,
   pristine,
+  disabled,
 }: {
   onApply?: ({ keepOpen }?: { keepOpen?: boolean }) => void;
   onCancel?: () => void;
   pristine?: boolean;
+  disabled?: boolean;
 }) {
   if (!onApply || !onCancel) return null;
   return (
@@ -1106,7 +1151,13 @@ export function ApplyCancel({
         <FormattedMessage id="filterSupport.cancel" />
       </Button>
       {!pristine && (
-        <Button type="submit" role="button" size="sm" onClick={() => onApply({ keepOpen: false })}>
+        <Button
+          type="submit"
+          role="button"
+          size="sm"
+          disabled={disabled}
+          onClick={() => onApply({ keepOpen: false })}
+        >
           <FormattedMessage id="filterSupport.apply" />
         </Button>
       )}

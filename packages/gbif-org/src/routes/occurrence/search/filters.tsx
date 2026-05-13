@@ -10,6 +10,7 @@ import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { isInClusterConfig, isSequencedConfig, repatriatedConfig } from './filters/booleans';
+import { customPredicateConfig } from './filters/customPredicate';
 import {
   basisOfRecordConfig,
   continentConfig,
@@ -346,6 +347,12 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       repatriated: generateFilters({ config: repatriatedConfig, searchConfig, formatMessage }),
       distanceFromCentroidInMeters: generateFilters({
         config: distanceFromCentroidInMetersConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
+      predicate: generateFilters({
+        config: customPredicateConfig,
         searchConfig,
         formatMessage,
       }),
