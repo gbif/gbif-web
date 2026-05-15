@@ -65,7 +65,7 @@ export function ArticlePage() {
 
       <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
-          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+          <ArticleTitle dir="auto" dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />

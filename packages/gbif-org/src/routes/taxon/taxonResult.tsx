@@ -61,7 +61,7 @@ export function TaxonResult({
   className?: string;
 }) {
   return (
-    <div className={cn('min-[500px]:g-flex g-gap-1', className)}>
+    <div className={cn('min-[500px]:g-flex g-gap-1', className)} dir="auto">
       <Card className="g-flex-1">
         <article>
           <div className="g-p-4">

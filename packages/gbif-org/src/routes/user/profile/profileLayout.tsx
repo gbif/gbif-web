@@ -129,7 +129,7 @@ export function UserProfileLayout() {
                           onClick={logoutHandler}
                           className="g-flex g-items-center g-gap-2"
                         >
-                          <LogOut className="g-w-4 g-h-4" />
+                          <LogOut className="g-w-4 g-h-4 gbif-rtl-icon" />
                           <span>{formatMessage({ id: 'profile.logout' })}</span>
                         </Button>
                       </div>

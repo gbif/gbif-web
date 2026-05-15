@@ -81,7 +81,7 @@ export function MediaGallery({
               aria-label="Previous"
               className="g-absolute g-top-1/2 g-start-2 -g-translate-y-1/2 g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-1 g-leading-none g-transition-colors disabled:g-opacity-30"
             >
-              <MdChevronLeft size={24} />
+              <MdChevronLeft size={24} className="gbif-rtl-icon" />
             </button>
             <button
               onClick={() => goTo(activeIndex + 1)}
@@ -89,7 +89,7 @@ export function MediaGallery({
               aria-label="Next"
               className="g-absolute g-top-1/2 g-end-2 -g-translate-y-1/2 g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-1 g-leading-none g-transition-colors disabled:g-opacity-30"
             >
-              <MdChevronRight size={24} />
+              <MdChevronRight size={24} className="gbif-rtl-icon" />
             </button>
 
             {renderBottomRight?.(activeIndex, items.length)}

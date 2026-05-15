@@ -52,7 +52,7 @@ export function SidebarImageCarousel({ taxon }: Props) {
                 aria-label="Previous image"
               >
                 <span className="g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-0.5 g-leading-none g-transition-colors">
-                  <MdChevronLeft size={18} />
+                  <MdChevronLeft size={18} className="gbif-rtl-icon" />
                 </span>
               </button>
 
@@ -64,7 +64,7 @@ export function SidebarImageCarousel({ taxon }: Props) {
                 aria-label="Next image"
               >
                 <span className="g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-0.5 g-leading-none g-transition-colors">
-                  <MdChevronRight size={18} />
+                  <MdChevronRight size={18} className="gbif-rtl-icon" />
                 </span>
               </button>
 
@@ -129,7 +129,7 @@ export function HeaderImageCarousel({ taxon }: Props) {
               aria-label="Previous image"
             >
               <span className="g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-0.5 g-leading-none g-transition-colors">
-                <MdChevronLeft size={14} />
+                <MdChevronLeft size={14} className="gbif-rtl-icon" />
               </span>
             </button>
 
@@ -140,7 +140,7 @@ export function HeaderImageCarousel({ taxon }: Props) {
               aria-label="Next image"
             >
               <span className="g-bg-neutral-800/70 hover:g-bg-neutral-800 g-text-white g-rounded-full g-p-0.5 g-leading-none g-transition-colors">
-                <MdChevronRight size={14} />
+                <MdChevronRight size={14} className="gbif-rtl-icon" />
               </span>
             </button>
           </>

@@ -55,6 +55,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       trends: getFile(locale, `../${folder}/${locale}/components/trends`).trends,
       country: getFile(locale, `../${folder}/${locale}/components/country`).country,
       directory: getFile(locale, `../${folder}/${locale}/components/directory`),
+      languageSelector: getFile(locale, `../${folder}/${locale}/components/languageSelector`)
+        .languageSelector,
       occurrenceFieldNames: getFile(
         locale,
         `../${folder}/${locale}/components/occurrenceFieldNames`,

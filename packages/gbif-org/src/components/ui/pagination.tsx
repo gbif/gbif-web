@@ -52,16 +52,21 @@ const PaginationLink = ({ className, isActive, size = 'icon', ...props }: Pagina
 PaginationLink.displayName = 'PaginationLink';
 
 const PaginationPrevious = ({
+  isRtl,
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
+}: React.ComponentProps<typeof PaginationLink> & { isRtl?: boolean }) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
     className={cn('g-gap-1 g-ps-2.5', className)}
     {...props}
   >
-    <ChevronLeftIcon className="g-h-4 g-w-4" />
+    {isRtl ? (
+      <ChevronRightIcon className="g-h-4 g-w-4" />
+    ) : (
+      <ChevronLeftIcon className="g-h-4 g-w-4" />
+    )}
     <span className="g-hidden sm:g-inline">
       <FormattedMessage id="pagination.previous" />
     </span>
@@ -69,7 +74,11 @@ const PaginationPrevious = ({
 );
 PaginationPrevious.displayName = 'PaginationPrevious';
 
-const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+const PaginationNext = ({
+  isRtl,
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink> & { isRtl?: boolean }) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"
@@ -79,7 +88,11 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
     <span className="g-hidden sm:g-inline">
       <FormattedMessage id="pagination.next" />
     </span>
-    <ChevronRightIcon className="g-h-4 g-w-4" />
+    {isRtl ? (
+      <ChevronLeftIcon className="g-h-4 g-w-4" />
+    ) : (
+      <ChevronRightIcon className="g-h-4 g-w-4" />
+    )}
   </PaginationLink>
 );
 PaginationNext.displayName = 'PaginationNext';

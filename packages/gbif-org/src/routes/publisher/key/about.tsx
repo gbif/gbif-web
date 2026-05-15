@@ -103,7 +103,7 @@ export function PublisherKeyAbout() {
                 <MdMap />
               </div>
             </div>
-            <div className="g-flex-auto g-text-sm g-prose">
+            <div className="g-flex-auto g-text-sm g-prose" dir="auto">
               <address style={{ fontStyle: 'normal' }}>
                 <div>
                   {publisher.address && publisher.address.length > 0 ? (
@@ -158,7 +158,7 @@ export function PublisherKeyAbout() {
                   {publisher.endorsingNode.title}
                 </a>
               </CardTitleSmall>
-              <div className="g-text-sm g-text-slate-600">
+              <div className="g-text-sm g-text-slate-600" dir="auto">
                 <HelpText identifier="what-is-publisher-endorsement" className="[&_p]:g-mt-0" />
               </div>
             </div>
@@ -178,7 +178,7 @@ export function PublisherKeyAbout() {
                   </DynamicLink>
                 ))}
               </CardTitleSmall>
-              <div className="g-text-sm g-text-slate-600">
+              <div className="g-text-sm g-text-slate-600" dir="auto">
                 <HelpText identifier="what-is-an-installation" className="[&_p]:g-mt-0" />
               </div>
             </div>
@@ -202,7 +202,7 @@ export function PublisherKeyAbout() {
                     ))}
                   </ul>
                 </CardTitleSmall>
-                <div className="g-text-sm g-text-slate-600">
+                <div className="g-text-sm g-text-slate-600" dir="auto">
                   <HelpText identifier="what-is-an-installation" className="[&_p]:g-mt-0" />
                 </div>
               </div>
@@ -213,7 +213,7 @@ export function PublisherKeyAbout() {
                 <FormattedMessage id="publisher.country" />:{' '}
                 <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
               </CardTitleSmall>
-              <div className="g-text-sm g-text-slate-600">
+              <div className="g-text-sm g-text-slate-600" dir="auto">
                 <HelpText identifier="about-publisher-country" className="[&_p]:g-mt-0" />
               </div>
             </div>
@@ -235,7 +235,7 @@ export function PublisherKeyAbout() {
                   <FormattedMessage id="phrases.headers.description" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent dir="auto">
                 {publisher?.description && (
                   <div
                     className="g-prose g-mb-6"

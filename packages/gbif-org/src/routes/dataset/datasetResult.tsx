@@ -5,6 +5,7 @@ import { apiConstants } from '@/config/apiConstants';
 import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
@@ -34,8 +35,9 @@ export function DatasetResult({
   dataset: DatasetStubResultFragment | DatasetResultFragment;
   hidePublisher?: boolean;
 }) {
+  const dir = getTextDirection(dataset.title);
   return (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4" dir={dir}>
       <MapThumbnail
         blend
         capabilitiesParams={{ datasetKey: dataset.key }} // Pass datasetKey to check if there is data to show on the map for this dataset
@@ -44,7 +46,7 @@ export function DatasetResult({
       />
       <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
-          <div className="g-flex-grow">
+          <div className="g-flex-grow" dir={dir}>
             <h3 className="g-text-base g-font-semibold">
               <DynamicLink
                 className="hover:g-text-primary-500"
@@ -71,7 +73,9 @@ export function DatasetResult({
             )}
             {!hidePublisher && dataset.publishingOrganizationTitle && (
               <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
-                <FormattedMessage id="dataset.publishedBy" />{' '}
+                <span>
+                  <FormattedMessage id="dataset.publishedBy" />{' '}
+                </span>
                 <span>{dataset.publishingOrganizationTitle}</span>
               </p>
             )}
@@ -85,7 +89,7 @@ export function DatasetResult({
             />
           </div>
         </div>
-        <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
+        <div dir="auto" className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
           <DynamicLink pageId="datasetSearch" searchParams={{ type: [dataset.type] }}>
             <Tag className="hover:g-bg-primary-200 g-m-1 g-mb-0">
               <FormattedMessage id={`dataset.longType.${dataset.type}`} />

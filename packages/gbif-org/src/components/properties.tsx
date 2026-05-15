@@ -68,13 +68,19 @@ export function Term({
 export function Value({
   children,
   className,
+  dir,
   ...props
 }: {
   children?: React.ReactNode;
+  dir?: 'ltr' | 'rtl' | 'auto';
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('g-break-words g-leading-tight last-of-type:g-mb-0', className)} {...props}>
+    <dd
+      dir={dir ?? 'auto'}
+      className={cn('g-break-words g-leading-tight last-of-type:g-mb-0', className)}
+      {...props}
+    >
       {children}
     </dd>
   );

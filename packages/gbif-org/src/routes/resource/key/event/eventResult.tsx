@@ -6,6 +6,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { mediumDateFormatProps, MediumDate } from '@/components/dateFormats';
+import { getTextDirection } from '@/utils/textDirection';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on MeetingEvent {
@@ -32,9 +33,10 @@ type Props = {
 
 export function EventResult({ event, className }: Props) {
   const primaryLink = event.primaryLink?.url ?? `/event/${event.id}`;
+  const dir = getTextDirection(event.title);
 
   return (
-    <ResultCard.Container className={className}>
+    <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header
         title={
           <span className="g-flex g-items-center g-flex-wrap g-gap-2">

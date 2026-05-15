@@ -391,16 +391,16 @@ export function SearchPage() {
                       Icon={MdPerson}
                       searchParams={{ recordedBy: serverResults?.occurrences?.recordedBy }}
                       queryString={serverResults?.occurrences?.recordedBy}
-                      label="Recorded by"
+                      label={<FormattedMessage id="occurrenceFieldNames.recordedBy" />}
                     />
                   )}
                   {!serverResults?.occurrences?.recordedBy &&
                     serverResults?.occurrences?.catalogNumber && (
                       <OccurrenceResultCard
                         Icon={MdPerson}
-                        searchParams={{ recordedBy: serverResults?.occurrences?.catalogNumber }}
+                        searchParams={{ catalogNumber: serverResults?.occurrences?.catalogNumber }}
                         queryString={serverResults?.occurrences?.catalogNumber}
-                        label="Catalog number"
+                        label={<FormattedMessage id="occurrenceFieldNames.catalogNumber" />}
                       />
                     )}
 
@@ -411,7 +411,7 @@ export function SearchPage() {
                         Icon={MdPerson}
                         searchParams={{ recordNumber: serverResults?.occurrences?.recordNumber }}
                         queryString={serverResults?.occurrences?.recordNumber}
-                        label="Record number"
+                        label={<FormattedMessage id="occurrenceFieldNames.recordNumber" />}
                       />
                     )}
 

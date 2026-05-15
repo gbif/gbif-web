@@ -1,4 +1,4 @@
-export function getPieOptions({ serie, onClick, interactive, colors }) {
+export function getPieOptions({ serie, onClick, interactive, colors, isRtl }) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -53,6 +53,7 @@ export function getPieOptions({ serie, onClick, interactive, colors }) {
     },
     legend: {
       floating: false,
+      rtl: isRtl,
       itemStyle: {
         width: '200px',
         textOverflow: 'ellipsis',

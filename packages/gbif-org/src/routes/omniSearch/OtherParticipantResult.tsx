@@ -2,6 +2,7 @@ import { Tag } from '@/components/resultCards';
 import { ResultCardHeaderBasic } from '@/components/resultCards/resultCardHeader';
 import { Card } from '@/components/ui/largeCard';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { getTextDirection } from '@/utils/textDirection';
 import { FormattedMessage } from 'react-intl';
 
 export type CrossSearchParticipant = {
@@ -15,8 +16,10 @@ export type CrossSearchParticipant = {
 };
 
 export function OtherParticipantResult({ participant }: { participant: CrossSearchParticipant }) {
+  const dir = getTextDirection(participant.name);
+
   return (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4" dir={dir}>
       <article className="g-p-4 lg:g-p-8">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">

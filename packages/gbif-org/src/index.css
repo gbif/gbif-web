@@ -871,6 +871,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 }
 
+[dir='rtl'] .gbif-rtl-icon {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
 .gbif-sqlInput {
   white-space: pre-wrap;
   font-family: monospace;

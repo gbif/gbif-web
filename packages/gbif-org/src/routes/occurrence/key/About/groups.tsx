@@ -148,7 +148,7 @@ export function Group({
         <CardTitle>
           <FormattedMessage id={label} />
         </CardTitle>
-        {description && <CardDescription>{description}</CardDescription>}
+        {description && <CardDescription dir="auto">{description}</CardDescription>}
       </CardHeader>
       <CardContent {...props}>{children}</CardContent>
     </Card>
@@ -913,7 +913,7 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
                     <td>
                       <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />
                     </td>
-                    <td>
+                    <td dir="auto">
                       <FormattedMessage id={`enums.occurrenceIssueDescription.${issue}`} />
                     </td>
                   </tr>

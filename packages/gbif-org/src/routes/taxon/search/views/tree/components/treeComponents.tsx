@@ -227,7 +227,7 @@ export const TreeToggle = () => {
       aria-expanded={isExpanded}
       aria-controls={contentId}
       onClick={toggle}
-      className="g-flex g-items-center g-justify-center g-w-[1.5em] g-h-[1.5em] g-rounded hover:g-bg-gray-200 g-text-gray-400"
+      className="gbif-rtl-icon g-flex g-items-center g-justify-center g-w-[1.5em] g-h-[1.5em] g-rounded hover:g-bg-gray-200 g-text-gray-400"
     >
       <svg
         className={`g-w-[.75em] g-h-[.75em] g-transition-transform ${isExpanded ? 'g-rotate-90' : ''}`}

@@ -1,6 +1,7 @@
 import { ResultCard } from '@/components/resultCards/index';
 import { CompositionResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CompositionResult on Composition {
@@ -21,9 +22,10 @@ type Props = {
 
 export function CompositionResult({ composition, className }: Props) {
   const link = composition.urlAlias ?? `/composition/${composition.id}`;
+  const dir = getTextDirection(composition.title);
 
   return (
-    <ResultCard.Container className={className}>
+    <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header title={composition.title} link={link} />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{composition.excerpt}</ResultCard.Content>

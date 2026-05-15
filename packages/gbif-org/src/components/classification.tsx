@@ -37,7 +37,10 @@ export function TaxonStubClassification({
   // the APIs provides classification in multiple formats named differently.
   return (
     <>
-      <Classification className={cn('g-flex g-flex-wrap g-gap-1 g-items-center', className)}>
+      <Classification
+        dir="ltr"
+        className={cn('g-flex g-flex-wrap g-gap-1 g-items-center', className)}
+      >
         {classification.slice(0, 2).map((c) => (
           <TaxonClassificationItem
             key={c.taxonID ?? c.key ?? c.scientificName ?? c.name}

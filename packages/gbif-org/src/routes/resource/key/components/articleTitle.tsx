@@ -13,7 +13,7 @@ export function ArticleTitle({ dangerouslySetTitle, children, className, testId,
   return (
     <h1
       data-cy={testId}
-      dir={dir ?? 'auto'}
+      dir={dir}
       className={cn(
         'g-text-2xl md:g-text-3xl lg:g-text-4xl g-block g-font-extrabold g-text-slate-900 g-tracking-tight dark:g-text-slate-200',
         className

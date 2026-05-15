@@ -31,13 +31,13 @@ export function Footer({ loading, paginationState, setPaginationState, rowCount 
             <FooterButton
               disable={loading}
               onClick={firstPage}
-              icon={isRtl ? <MdLastPage /> : <MdFirstPage />}
+              icon={<MdFirstPage className="gbif-rtl-icon" />}
               toolTip={<FormattedMessage id="pagination.first" />}
             />
             <FooterButton
               disable={loading}
               onClick={previousPage}
-              icon={isRtl ? <MdChevronRight /> : <MdChevronLeft />}
+              icon={<MdChevronLeft className="gbif-rtl-icon" />}
               toolTip={<FormattedMessage id="pagination.previous" />}
             />
           </>
@@ -60,7 +60,7 @@ export function Footer({ loading, paginationState, setPaginationState, rowCount 
           <FooterButton
             disable={loading}
             onClick={nextPage}
-            icon={isRtl ? <MdChevronLeft /> : <MdChevronRight />}
+            icon={<MdChevronRight className="gbif-rtl-icon" />}
             toolTip={<FormattedMessage id="pagination.next" />}
           />
         )}

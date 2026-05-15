@@ -7,8 +7,10 @@ import {
 } from '@/components/ui/dropdownMenu';
 import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
+import { Formatted } from 'maplibre-gl';
 import React from 'react';
 import { MdCheck, MdTranslate } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 
 export function LanguageSelector({ trigger = <MdTranslate /> }): React.ReactElement {
   const { locale, setLocale } = useI18n();
@@ -17,18 +19,25 @@ export function LanguageSelector({ trigger = <MdTranslate /> }): React.ReactElem
   const primaryTranslations = ['en', 'ar', 'zh', 'fr', 'ru', 'es'];
 
   return (
-    <DropdownMenu modal={false}>
+    <DropdownMenu modal={false} dir={locale.textDirection ?? 'ltr'}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent className="g-w-96 g-shadow-2xl g-p-6">
         <div className="g-grid g-gap-4">
           <div className="g-space-y-2">
-            <h4 className="g-font-medium g-leading-none">Change language</h4>
-            <p className="g-text-sm g-text-muted-foreground">
-              Translations are a community effort. Learn more about the network of{' '}
-              <a className="g-underline" href="/translators">
-                volunteer translators
-              </a>
-              .
+            <h4 className="g-font-medium g-leading-none" dir="auto">
+              <FormattedMessage id="languageSelector.title" />
+            </h4>
+            <p className="g-text-sm g-text-muted-foreground" dir="auto">
+              <FormattedMessage
+                id="languageSelector.description"
+                values={{
+                  translatorsLink: (
+                    <a className="g-underline" href="/translators">
+                      <FormattedMessage id="languageSelector.translatorsLink" />
+                    </a>
+                  ),
+                }}
+              />
             </p>
           </div>
         </div>

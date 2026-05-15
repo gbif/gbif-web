@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/largeCard';
 import { InstitutionResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 import { truncate } from '@/utils/truncate';
 import { GlobeIcon } from '@radix-ui/react-icons';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -34,6 +35,7 @@ export function InstitutionResult({
   excludeCode?: boolean;
   excludeCountry?: boolean;
 }) {
+  const dir = getTextDirection(institution.name);
   const country = institution.country ?? institution.mailingCountry;
 
   const showCode = !excludeCode && institution.code;
@@ -43,7 +45,7 @@ export function InstitutionResult({
       <Wrapper>
         <Card className="g-max-w-full">
           <article className="g-p-4">
-            <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
+            <div className="g-flex g-flex-col md:g-flex-row g-gap-4" dir={dir}>
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
                   <DynamicLink

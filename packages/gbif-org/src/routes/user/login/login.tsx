@@ -326,6 +326,7 @@ export function LoginForm() {
         <a
           href="/auth/google/login"
           className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
+          dir="ltr"
         >
           <SocialIconGoogle className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ms-2 g-text-gray-700">Google</span>
@@ -333,6 +334,7 @@ export function LoginForm() {
         <a
           href="/auth/github/login"
           className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
+          dir="ltr"
         >
           <SocialIconGithub className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ms-2 g-text-gray-700">GitHub</span>
@@ -342,6 +344,7 @@ export function LoginForm() {
         <a
           href="/auth/orcid/login"
           className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
+          dir="ltr"
         >
           <SocialIconOrcid className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ms-2 g-text-gray-700">ORCiD</span>
@@ -664,7 +667,7 @@ function RegisterForm() {
           {isLoading
             ? formatMessage({ id: 'profile.creatingAccount' })
             : formatMessage({ id: 'profile.createAccount' })}
-          {!isLoading && <MdArrowRight className="g-ms-2 g-h-4 g-w-4" />}
+          {!isLoading && <MdArrowRight className="gbif-rtl-icon g-ms-2 g-h-4 g-w-4" />}
         </FormButton>
       </form>
 

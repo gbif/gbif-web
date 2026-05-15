@@ -1,6 +1,7 @@
 import { ResultCard } from '@/components/resultCards/index';
 import { ProgrammeResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProgrammeResult on Programme {
@@ -20,8 +21,10 @@ type Props = {
 
 export function ProgrammeResult({ programme, className }: Props) {
   const link = `/programme/${programme.id}`;
+  const dir = getTextDirection(programme.title);
+
   return (
-    <ResultCard.Container className={className}>
+    <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header
         title={programme.title}
         link={link}

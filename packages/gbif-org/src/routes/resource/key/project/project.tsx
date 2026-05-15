@@ -92,7 +92,7 @@ export function ProjectPage() {
             </DynamicLink>
           </ArticlePreTitle>
 
-          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+          <ArticleTitle dir="auto" dangerouslySetTitle={{ __html: resource.title }} />
 
           {/* <RenderIfChildren className="g-mt-2 g-text-slate-500 dark:g-text-gray-400 g-text-sm g-font-medium g-flex g-items-center g-gap-6"> */}
           <FeatureList className="g-text-slate-500 dark:g-text-gray-400">

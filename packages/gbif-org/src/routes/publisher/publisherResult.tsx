@@ -5,6 +5,7 @@ import { apiConstants } from '@/config/apiConstants';
 import { PublisherResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
@@ -19,6 +20,7 @@ fragmentManager.register(/* GraphQL */ `
 `);
 
 export function PublisherResult({ publisher }: { publisher: PublisherResultFragment }) {
+  const dir = getTextDirection(publisher.title);
   // if the publishers creation date is less than 90 days ago from today, it is considered new and the flag will be used for styling
   const days = 90;
   const isNew =
@@ -26,7 +28,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
     new Date(publisher.created) > new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 
   return (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4" dir={dir}>
       <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
@@ -51,7 +53,10 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
                   />
                 </span>
                 {isNew && (
-                  <span className="g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-rounded g-inline-block">
+                  <span
+                    className="g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-rounded g-inline-block"
+                    dir="auto"
+                  >
                     <FormattedMessage id="publisher.newPublisher" />
                   </span>
                 )}
@@ -80,10 +85,13 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
             </div>
           )}
         </div>
-        <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
+        <div
+          dir="auto"
+          className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap g-gap-1"
+        >
           {publisher.country && (
             <DynamicLink pageId="publisherSearch" searchParams={{ country: [publisher.country] }}>
-              <Tag className="hover:g-bg-primary-200 g-m-1 g-mb-0">
+              <Tag className="hover:g-bg-primary-200">
                 <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
               </Tag>
             </DynamicLink>

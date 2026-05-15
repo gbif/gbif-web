@@ -68,7 +68,7 @@ export function DocumentPage() {
             </DynamicLink>
           </ArticlePreTitle>
 
-          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+          <ArticleTitle dir="auto" dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />

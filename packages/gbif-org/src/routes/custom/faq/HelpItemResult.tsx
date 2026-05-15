@@ -8,6 +8,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { HelpResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
+import { getTextDirection } from '@/utils/textDirection';
 
 fragmentManager.register(/* GraphQL */ `
   fragment HelpResult on Help {
@@ -38,8 +39,10 @@ export const HelpItemResult = ({
       showAsExpanded
   );
 
+  const dir = getTextDirection(item.title);
+
   return (
-    <Card className={(cn('g-mb-4'), className)}>
+    <Card className={(cn('g-mb-4'), className)} dir={dir}>
       <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">

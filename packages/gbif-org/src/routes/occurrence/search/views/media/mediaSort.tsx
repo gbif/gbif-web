@@ -11,6 +11,7 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { FormattedMessage } from 'react-intl';
 import { MdSettings } from 'react-icons/md';
 import { GROUP_FIELDS, MediaGroupState, RANK_TO_GROUP_FIELD } from './mediaGroupConfig';
+import { useI18n } from '@/reactRouterPlugins';
 
 const RADIO_DEFAULT = '__default__';
 const RADIO_RANDOM = '__random__';
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export function MediaGroupDropdown({ state, onChange, suggestedGroupByRank }: Props) {
+  const { locale } = useI18n();
   const radioValue =
     state.mode === 'random'
       ? RADIO_RANDOM
@@ -59,7 +61,7 @@ export function MediaGroupDropdown({ state, onChange, suggestedGroupByRank }: Pr
             : undefined;
 
   return (
-    <DropdownMenu>
+    <DropdownMenu dir={locale.textDirection ?? 'ltr'}>
       <DropdownMenuTrigger
         className={cn(
           'g-relative g-inline-flex g-items-center g-px-1 g-py-0.5 g-rounded g-text-slate-600'
