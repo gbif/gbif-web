@@ -65,7 +65,6 @@ const rawKeyLabel = ({ key }) =>
 
 const yesNoLabel = async ({ key }, { language }) => {
   if (key === null || typeof key === 'undefined') return null;
-  console.log('Translating yes/no facet', { key, language });
   const strKey = key ? 'true' : 'false'; // ES returns 0/1; coerce before translation lookup
   const translated = await getEnumTranslation({
     enumName: 'yesNo',

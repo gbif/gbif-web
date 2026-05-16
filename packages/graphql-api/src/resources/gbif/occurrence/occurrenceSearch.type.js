@@ -150,6 +150,21 @@ const typeDef = gql`
     endDayOfYear: Stats!
     elevation: Stats!
     depth: Stats!
+    coordinatePrecision: Stats!
+    coordinateUncertaintyInMeters: Stats!
+    day: Stats!
+    depthAccuracy: Stats!
+    elevationAccuracy: Stats!
+    individualCount: Stats!
+    maximumDepthInMeters: Stats!
+    maximumDistanceAboveSurfaceInMeters: Stats!
+    maximumElevationInMeters: Stats!
+    minimumDepthInMeters: Stats!
+    minimumDistanceAboveSurfaceInMeters: Stats!
+    minimumElevationInMeters: Stats!
+    organismQuantity: Stats!
+    relativeOrganismQuantity: Stats!
+    sampleSizeValue: Stats!
   }
 
   type OccurrenceCardinality {
@@ -219,6 +234,18 @@ const typeDef = gql`
     organismQuantityType: Long!
     biostratigraphy: Long!
     lithostratigraphy: Long!
+    datasetPublishingCountry: Long!
+    endorsingNodeKey: Long!
+    installationKey: Long!
+    mediaLicenses: Long!
+    occurrenceId: Long!
+    parentEventId: Long!
+    recordNumber: Long!
+    occurrenceStatus: Long!
+    typifiedName: Long!
+    isInCluster: Long!
+    startDayOfYear: Long!
+    endDayOfYear: Long!
   }
 
   type OccurrenceHistogram {
