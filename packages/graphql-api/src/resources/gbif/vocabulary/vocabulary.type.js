@@ -36,6 +36,18 @@ const typeDef = gql`
       includeParents: Boolean
     ): ConceptSearchResult!
     vocabulary(key: ID!): Vocabulary
+
+    geoTimeConceptSearch(
+      limit: Int
+      offset: Int
+      q: String
+      parentKey: ID
+      parent: String
+      name: String
+      includeChildrenCount: Boolean
+      includeChildren: Boolean
+      includeParents: Boolean
+    ): GeoTimeConceptSearchResult!
   }
 
   type Vocabulary {
@@ -144,6 +156,47 @@ const typeDef = gql`
     editorialNotes: [String]
     externalDefinitions: [String]
     vocabularyName: String
+  }
+
+  type GeoTimeConceptSearchResult {
+    results: [GeoTimeConcept!]!
+    limit: Int!
+    offset: Int!
+    count: Int!
+    endOfRecords: Boolean!
+  }
+
+  """
+  A specialised view over the GeoTime vocabulary that surfaces the
+  rank/startAge/endAge tags (encoded as "key: value" strings by the
+  vocabulary service) as structured fields.
+  """
+  type GeoTimeConcept {
+    name: String!
+    vocabularyKey: ID
+    parentKey: ID
+    childrenCount: Int
+    children: [String]
+    parents: [GeoTimeConcept!]
+    tags: [VocabularyTag]!
+    label: [VocabularyLabel]
+    definition: [VocabularyDefinition]!
+    uiLabel(language: String): String!
+    uiDefinition(language: String): String
+    vocabularyName: String
+
+    """
+    Rank of the geological time concept, e.g. "Age", "Epoch", "Period".
+    """
+    rank: String
+    """
+    Start age in millions of years (older boundary).
+    """
+    startAge: Float
+    """
+    End age in millions of years (younger boundary).
+    """
+    endAge: Float
   }
 `;
 
