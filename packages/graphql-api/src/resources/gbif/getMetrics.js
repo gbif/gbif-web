@@ -65,6 +65,10 @@ const getFacet =
           _q: parent._q,
           _parentPredicate: data.meta.predicate,
           _checklistKey: checklistKey,
+          // The originating facet field (e.g. "basisOfRecord", "license").
+          // Carried through so generic FacetResult resolvers can translate
+          // enum-valued keys without a per-field result type.
+          _field: field,
         };
       });
     });

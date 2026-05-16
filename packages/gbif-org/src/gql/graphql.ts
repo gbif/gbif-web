@@ -3168,6 +3168,62 @@ export type GenericFacetResult_String = {
   key: Scalars['String']['output'];
 };
 
+/**
+ * A specialised view over the GeoTime vocabulary that surfaces the
+ * rank/startAge/endAge tags (encoded as "key: value" strings by the
+ * vocabulary service) as structured fields.
+ */
+export type GeoTimeConcept = {
+  __typename?: 'GeoTimeConcept';
+  children?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  childrenCount?: Maybe<Scalars['Int']['output']>;
+  definition: Array<Maybe<VocabularyDefinition>>;
+  /** End age in millions of years (younger boundary). */
+  endAge?: Maybe<Scalars['Float']['output']>;
+  label?: Maybe<Array<Maybe<VocabularyLabel>>>;
+  name: Scalars['String']['output'];
+  parentKey?: Maybe<Scalars['ID']['output']>;
+  parents?: Maybe<Array<GeoTimeConcept>>;
+  /** Rank of the geological time concept, e.g. "Age", "Epoch", "Period". */
+  rank?: Maybe<Scalars['String']['output']>;
+  /** Start age in millions of years (older boundary). */
+  startAge?: Maybe<Scalars['Float']['output']>;
+  tags: Array<Maybe<VocabularyTag>>;
+  uiDefinition?: Maybe<Scalars['String']['output']>;
+  uiLabel: Scalars['String']['output'];
+  vocabularyKey?: Maybe<Scalars['ID']['output']>;
+  vocabularyName?: Maybe<Scalars['String']['output']>;
+};
+
+
+/**
+ * A specialised view over the GeoTime vocabulary that surfaces the
+ * rank/startAge/endAge tags (encoded as "key: value" strings by the
+ * vocabulary service) as structured fields.
+ */
+export type GeoTimeConceptUiDefinitionArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/**
+ * A specialised view over the GeoTime vocabulary that surfaces the
+ * rank/startAge/endAge tags (encoded as "key: value" strings by the
+ * vocabulary service) as structured fields.
+ */
+export type GeoTimeConceptUiLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type GeoTimeConceptSearchResult = {
+  __typename?: 'GeoTimeConceptSearchResult';
+  count: Scalars['Int']['output'];
+  endOfRecords: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<GeoTimeConcept>;
+};
+
 export type GeographicCoverage = {
   __typename?: 'GeographicCoverage';
   boundingBox?: Maybe<BoundingBox>;
@@ -6222,7 +6278,14 @@ export type OccurrenceFacetResult_Boolean = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['Boolean']['output'];
+  /** Display label for this facet bucket. Returns the boolean key as the string "true" or "false". The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_BooleanLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6237,7 +6300,14 @@ export type OccurrenceFacetResult_Collection = {
   collection: Collection;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the collection name. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_CollectionLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6252,7 +6322,14 @@ export type OccurrenceFacetResult_Dataset = {
   count: Scalars['Long']['output'];
   dataset?: Maybe<Dataset>;
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the dataset title. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences?: Maybe<OccurrenceSearchResult>;
+};
+
+
+export type OccurrenceFacetResult_DatasetLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6267,7 +6344,14 @@ export type OccurrenceFacetResult_DegreeOfEstablishment = {
   concept?: Maybe<VocabularyConcept>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The `language` argument selects the translation (defaults to `en`). */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_DegreeOfEstablishmentLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6282,7 +6366,14 @@ export type OccurrenceFacetResult_EstablishmentMeans = {
   concept: VocabularyConcept;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The `language` argument selects the translation (defaults to `en`). */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_EstablishmentMeansLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6296,7 +6387,14 @@ export type OccurrenceFacetResult_Float = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['Float']['output'];
+  /** Display label for this facet bucket. For most numeric facets this is just the key formatted as a string and the `language` argument has no effect. For the small set of enum-valued numeric facets (currently `month`) the label is looked up in the bundled enum translations for the given language, falling back to the raw key. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_FloatLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6311,7 +6409,14 @@ export type OccurrenceFacetResult_Gadm = {
   count: Scalars['Long']['output'];
   gadm: Gadm;
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the GADM region name. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_GadmLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6325,8 +6430,15 @@ export type OccurrenceFacetResult_IdentifiedBy = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the key verbatim (the identifier name string). The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
   occurrencesRecordedBy: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_IdentifiedByLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6347,7 +6459,14 @@ export type OccurrenceFacetResult_Installation = {
   count: Scalars['Long']['output'];
   installation: Node;
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the installation title. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_InstallationLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6362,7 +6481,14 @@ export type OccurrenceFacetResult_Institution = {
   count: Scalars['Long']['output'];
   institution: Institution;
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the institution name. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_InstitutionLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6376,8 +6502,15 @@ export type OccurrenceFacetResult_Network = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the network title. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   network: Network;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_NetworkLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6391,8 +6524,15 @@ export type OccurrenceFacetResult_Node = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the node title. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   node: Node;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_NodeLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6406,8 +6546,15 @@ export type OccurrenceFacetResult_Organization = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the publishing organization title. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
   publisher: Organization;
+};
+
+
+export type OccurrenceFacetResult_OrganizationLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6422,7 +6569,14 @@ export type OccurrenceFacetResult_Pathway = {
   concept?: Maybe<VocabularyConcept>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The `language` argument selects the translation (defaults to `en`). */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_PathwayLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6436,8 +6590,15 @@ export type OccurrenceFacetResult_RecordedBy = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the key verbatim (the recorder name string). The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
   occurrencesIdentifiedBy: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_RecordedByLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6458,7 +6619,14 @@ export type OccurrenceFacetResult_Sex = {
   concept?: Maybe<VocabularyConcept>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The `language` argument selects the translation (defaults to `en`). */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_SexLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6472,7 +6640,14 @@ export type OccurrenceFacetResult_String = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. For enum-valued facets (basisOfRecord, license, mediaType, occurrenceStatus, continent, countryCode, gbifRegion, dwcaExtension, iucnRedListCategory, issue, taxonomicIssue, and the country/license-aliased fields) the label is looked up in the bundled enum translations for the given language, falling back to the raw key. For free-text facets (catalogNumber, locality, recordedBy, ...) the label is the raw key and the `language` argument has no effect. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_StringLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6486,11 +6661,18 @@ export type OccurrenceFacetResult_Taxon = {
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the taxon's scientific name. The `language` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here. */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
   taxon?: Maybe<TaxonSimple>;
   taxonInfo?: Maybe<TaxonInfo>;
   /** Get whatever minimum shared data we can compile for both backbone and other checklists. The idea is to allow UIs to generate a nice diaplay label with classification */
   taxonMatch?: Maybe<SpeciesMatchResult>;
+};
+
+
+export type OccurrenceFacetResult_TaxonLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6510,7 +6692,14 @@ export type OccurrenceFacetResult_TypeStatus = {
   concept?: Maybe<VocabularyConcept>;
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
+  /** Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The `language` argument selects the translation (defaults to `en`). */
+  label?: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_TypeStatusLabelArgs = {
+  language?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -7216,6 +7405,7 @@ export type Query = {
   gbifDocument?: Maybe<Document>;
   gbifHome?: Maybe<Home>;
   gbifProject?: Maybe<GbifProject>;
+  geoTimeConceptSearch: GeoTimeConceptSearchResult;
   globe?: Maybe<Globe>;
   help?: Maybe<Help>;
   installation?: Maybe<Installation>;
@@ -7513,6 +7703,19 @@ export type QueryGbifDocumentArgs = {
 
 export type QueryGbifProjectArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryGeoTimeConceptSearchArgs = {
+  includeChildren?: InputMaybe<Scalars['Boolean']['input']>;
+  includeChildrenCount?: InputMaybe<Scalars['Boolean']['input']>;
+  includeParents?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  parent?: InputMaybe<Scalars['String']['input']>;
+  parentKey?: InputMaybe<Scalars['ID']['input']>;
+  q?: InputMaybe<Scalars['String']['input']>;
 };
 
 

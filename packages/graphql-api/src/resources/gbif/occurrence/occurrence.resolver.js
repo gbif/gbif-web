@@ -27,6 +27,106 @@ import {
 import groupResolver from './helpers/groups/occurrenceGroups';
 import getLongitudeBounds from './helpers/longitudeBounds';
 import termResolver from './helpers/terms/occurrenceTerms';
+import { getTranslatedVocabConceptValue } from '../vocabulary/vocabulary.resolver';
+import getEnumTranslation from '@/helpers/translations';
+
+const translateConceptLabel = getTranslatedVocabConceptValue('label', {
+  useNameAsFallback: true,
+});
+
+// Mapping from facet field name to the enum translation file used for that
+// facet's keys (under `enums.<enumName>.<value>` in the bundled translations).
+// Facets whose keys are free-form strings (catalogNumber, recordedBy, ...) are
+// intentionally absent — for those the raw key is the best label.
+const STRING_FACET_ENUMS = {
+  basisOfRecord: 'basisOfRecord',
+  continent: 'continent',
+  countryCode: 'countryCode',
+  datasetPublishingCountry: 'countryCode',
+  publishingCountry: 'countryCode',
+  dwcaExtension: 'dwcaExtension',
+  issue: 'occurrenceIssue',
+  taxonomicIssue: 'taxonIssue',
+  license: 'license',
+  mediaLicenses: 'license',
+  mediaType: 'mediaType',
+  gbifRegion: 'gbifRegion',
+  publishedByGbifRegion: 'gbifRegion',
+  iucnRedListCategory: 'iucnRedListCategory',
+  occurrenceStatus: 'occurrenceStatus',
+};
+
+const FLOAT_FACET_ENUMS = {
+  month: 'month',
+};
+
+const rawKeyLabel = ({ key }) =>
+  key === null || typeof key === 'undefined' ? null : String(key);
+
+const yesNoLabel = async ({ key }, { language }) => {
+  if (key === null || typeof key === 'undefined') return null;
+  console.log('Translating yes/no facet', { key, language });
+  const strKey = key ? 'true' : 'false'; // ES returns 0/1; coerce before translation lookup
+  const translated = await getEnumTranslation({
+    enumName: 'yesNo',
+    value: strKey,
+    language,
+  });
+  return translated ?? strKey;
+};
+
+const stringLabel = async ({ key, _field }, { language }) => {
+  if (key === null || typeof key === 'undefined') return null;
+  const enumName = STRING_FACET_ENUMS[_field];
+  if (!enumName) return String(key);
+  const translated = await getEnumTranslation({
+    enumName,
+    value: key,
+    language,
+  });
+  return translated ?? String(key);
+};
+
+const floatLabel = async ({ key, _field }, { language }) => {
+  if (key === null || typeof key === 'undefined') return null;
+  const enumName = FLOAT_FACET_ENUMS[_field];
+  if (!enumName) return String(key);
+  const translated = await getEnumTranslation({
+    enumName,
+    value: key,
+    language,
+  });
+  return translated ?? String(key);
+};
+
+const ignore404 = (err) => {
+  if (
+    err?.extensions?.response?.status >= 400 &&
+    err?.extensions?.response?.status < 500
+  ) {
+    return null;
+  }
+  throw err;
+};
+
+const entityLabel =
+  (apiKey, method, field) =>
+  async ({ key }, _args, { dataSources }) => {
+    if (typeof key === 'undefined' || key === null) return null;
+    const entity = await dataSources[apiKey][method]({ key }).catch(ignore404);
+    return entity?.[field] ?? null;
+  };
+
+const conceptLabel =
+  (vocabulary) =>
+  async ({ key }, { language }, { dataSources }) => {
+    if (!key) return null;
+    const concept = await dataSources.vocabularyAPI
+      .getConcept({ vocabulary, concept: key })
+      .catch(ignore404);
+    if (!concept) return null;
+    return translateConceptLabel(concept, { language });
+  };
 
 const DEFAULT_CHECKLIST_KEY =
   config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
@@ -153,7 +253,10 @@ export default {
     },
     occurrence: (_parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
-    globe: async (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
+    globe: async (
+      _parent,
+      { cLat, cLon, pLat, pLon, sphere, graticule, land },
+    ) => {
       const roundedLat = Math.floor(pLat / 30) * 30;
       const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
       const simpleLon = Math.round(pLon / 30) * 30;
@@ -639,12 +742,15 @@ export default {
   OccurrenceHistogram,
   OccurrenceAutoDateHistogram,
   OccurrenceFacetResult_float: {
+    label: floatLabel,
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_string: {
+    label: stringLabel,
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_boolean: {
+    label: yesNoLabel,
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_dataset: {
@@ -652,6 +758,7 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.datasetAPI.getDatasetByKey({ key });
     },
+    label: entityLabel('datasetAPI', 'getDatasetByKey', 'title'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceDatasetSuggestResult: {
@@ -674,12 +781,20 @@ export default {
         concept: key,
       });
     },
+    label: conceptLabel('establishmentMeans'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_gadm: {
     gadm: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
       return dataSources.gadmAPI.getGadmById({ id: key });
+    },
+    label: async ({ key }, _args, { dataSources }) => {
+      if (typeof key === 'undefined' || key === null) return null;
+      const gadm = await dataSources.gadmAPI
+        .getGadmById({ id: key })
+        .catch(ignore404);
+      return gadm?.name ?? null;
     },
     occurrences: facetOccurrenceSearch,
   },
@@ -688,6 +803,7 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.nodeAPI.getNodeByKey({ key });
     },
+    label: entityLabel('nodeAPI', 'getNodeByKey', 'title'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_installation: {
@@ -695,6 +811,7 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.installationAPI.getInstallationByKey({ key });
     },
+    label: entityLabel('installationAPI', 'getInstallationByKey', 'title'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_taxon: {
@@ -739,6 +856,13 @@ export default {
         checklistKey,
       });
     },
+    label: async ({ key, _checklistKey }, _args, { dataSources }) => {
+      if (typeof key === 'undefined' || key === null) return null;
+      const taxon = await dataSources.taxonAPI
+        .getTaxon({ key, datasetKey: _checklistKey })
+        .catch(ignore404);
+      return taxon?.scientificName ?? null;
+    },
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_network: {
@@ -746,6 +870,7 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.networkAPI.getNetworkByKey({ key });
     },
+    label: entityLabel('networkAPI', 'getNetworkByKey', 'title'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_organization: {
@@ -753,6 +878,7 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.organizationAPI.getOrganizationByKey({ key });
     },
+    label: entityLabel('organizationAPI', 'getOrganizationByKey', 'title'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_institution: {
@@ -760,6 +886,7 @@ export default {
       if (!key) return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key });
     },
+    label: entityLabel('institutionAPI', 'getInstitutionByKey', 'name'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_collection: {
@@ -767,6 +894,7 @@ export default {
       if (!key) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key });
     },
+    label: entityLabel('collectionAPI', 'getCollectionByKey', 'name'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_typeStatus: {
@@ -777,6 +905,7 @@ export default {
         concept: key,
       });
     },
+    label: conceptLabel('typeStatus'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_sex: {
@@ -787,6 +916,7 @@ export default {
         concept: key,
       });
     },
+    label: conceptLabel('Sex'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_pathway: {
@@ -797,6 +927,7 @@ export default {
         concept: key,
       });
     },
+    label: conceptLabel('Pathway'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_degreeOfEstablishment: {
@@ -807,9 +938,11 @@ export default {
         concept: key,
       });
     },
+    label: conceptLabel('DegreeOfEstablishment'),
     occurrences: facetOccurrenceSearch,
   },
   OccurrenceFacetResult_recordedBy: {
+    label: rawKeyLabel,
     occurrences: facetOccurrenceSearch,
     occurrencesIdentifiedBy: (parent) => {
       const predicate = {
@@ -827,6 +960,7 @@ export default {
     },
   },
   OccurrenceFacetResult_identifiedBy: {
+    label: rawKeyLabel,
     occurrences: facetOccurrenceSearch,
     occurrencesRecordedBy: (parent) => {
       const predicate = {
