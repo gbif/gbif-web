@@ -61,7 +61,7 @@
         "images": "وسائط متعددة",
         "coordinates": "احداثيات",
         "fileFormat": "صيغة",
-        "estimatedSize": ""
+        "estimatedSize": "الحجم التقديري للبيانات"
       },
       "fileFormats": {
         "tabCsv": ""
