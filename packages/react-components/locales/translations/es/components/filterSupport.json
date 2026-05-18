@@ -25,7 +25,7 @@
   "updateFilter": "Actualizar filtro",
   "setFilter": "Establecer como filtro",
   "noMathcingFilters": "Está documentado",
-  "countsUnavailable": "",
+  "countsUnavailable": "Conteos no disponibles",
   "nameWithTaxonMatchIssue": "Nombre antes de la normalización",
   "commonName": "Nombre común",
   "acceptedNameOf": "Nombre aceptado para",
@@ -62,8 +62,8 @@
     "geometryReducedToBbox": "Geometría reducida a cuadro delimitador",
     "failedToSimplify": "No se pudo simplificar la geometría"
   },
-  "activeFilters": "",
-  "highlighted": "",
+  "activeFilters": "Filtros activos",
+  "highlighted": "Destacado",
   "predicate": {
     "help": "Introduzca un predicado de ocurrencia GBIF en formato JSON. Se combinará con los demás filtros mediante el operador AND.\n\nIntroduce un predicado de registro biológico GBIF en formato JSON. Se combinará con los demás filtros mediante el operador AND.",
     "helpExtended": "Esta es una herramienta avanzada para crear consultas complejas que no se pueden expresar con los filtros estándar. Consulte la documentación para obtener la referencia completa de predicados y ejemplos.",
