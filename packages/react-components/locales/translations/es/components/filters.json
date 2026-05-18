@@ -827,27 +827,27 @@
   },
   "excludedGrowthFormScope": {
     "description": "Las formas de crecimiento o hábitos de los dwc:Organisms explícitamente excluidos del muestreo durante el dwc:Event.",
-    "name": "",
+    "name": "Alcance de Forma de Crecimiento Excluidas",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isGrowthFormScopeFullyReported": {
     "description": "Se informó sobre cada dwc:Organism que se incluía en el ámbito de la forma de crecimiento y que se detectó durante el dwc:Event.",
-    "name": "",
+    "name": "¿Se ha reportado completamente sobre el alcance de la forma de crecimiento?",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "hasNonTargetOrganisms": {
     "description": "Se detectaron y notificaron uno o más dwc:Organisms fuera de los ámbitos de organismos objetivo (eco:targetDegreeOfEstablishmentScope, eco:targetGrowthFormScope y eco:targetLifeStageScope) para este dwc:Event.",
-    "name": "",
+    "name": "Contiene organismos no objetivo",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "verbatimTargetScope": {
     "description": "Descripción literal original del ámbito dwc:Event.",
-    "name": "",
+    "name": "Alcance objetivo literal",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "identificationReferences": {
     "description": "Una lista (concatenada y separada) de referencias (publicación, identificador único global, URI) utilizadas en dwc:Identification.",
-    "name": "",
+    "name": "Referencias de identificación",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "compilationTypes": {
@@ -902,7 +902,7 @@
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
     "description": "La cantidad total detectada para un dwc:Taxon (incluidas sus subcategorías) en un dwc:Event se indica explícitamente en un único registro (valor dwc:organismQuantity) para ese dwc:Taxon.",
-    "name": "",
+    "name": "¿Es la cantidad de categoría objetivo menos específica inclusive?",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "hasVouchers": {
@@ -912,7 +912,7 @@
   },
   "voucherInstitutions": {
     "description": "Una lista (concatenada y separada) de los nombres o acrónimos de las instituciones donde se depositaron los ejemplares de referencia recogidos durante el dwc:Event.",
-    "name": "",
+    "name": "Instituciones proveedoras de datos",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "hasMaterialSamples": {
@@ -932,7 +932,7 @@
   },
   "isSamplingEffortReported": {
     "description": "Se informó sobre el esfuerzo de muestreo asociado al dwc:Event.",
-    "name": "",
+    "name": "¿Se reporta sobre el Esfuerzo de Muestreo?",
     "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "samplingEffortProtocol": {
