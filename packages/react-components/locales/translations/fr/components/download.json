@@ -46,7 +46,7 @@
         "invalid-json": "JSON non valide",
         "invalid-predicate": "Prédicat invalide",
         "faild-to-load-predicate": "Échec du chargement du prédicat",
-        "unexpectedError": "",
+        "unexpectedError": "Une erreur inattendue s'est produite",
         "failedToParseJSON": "",
         "failedToVisualizePredicate": ""
       }
@@ -67,8 +67,8 @@
         "tabCsv": "CSV délimité par des tabulations"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
+        "ifAvailable": "si disponible",
+        "ifSelected": "si sélectionné",
         "links": ""
       }
     },
