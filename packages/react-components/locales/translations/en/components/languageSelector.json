@@ -1,0 +1,7 @@
+{
+  "languageSelector": {
+    "title": "Change language",
+    "description": "Translations are a community effort. Learn more about our network of {translatorsLink}.",
+    "translatorsLink": "volunteer translators"
+  }
+}
