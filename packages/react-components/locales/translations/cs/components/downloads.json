@@ -46,6 +46,7 @@
     "filterApplied": "Použitý filtr {DATE}",
     "query": "Dotaz",
     "rerunQuery": "Znovu spustit dotaz",
+    "complexPredicateWarning": "",
     "postpone": "Odložení vymazání",
     "deleteDownload": "Smazat stažení",
     "tellUs": "Řekněte nám o použití",

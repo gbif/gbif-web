@@ -1,17 +1,17 @@
 {
-  "title": "",
+  "title": "디렉토리",
   "group": {
     "executiveCommittee": {
-      "title": "",
-      "description": ""
+      "title": "집행위원회",
+      "description": "집행위원회는 이사회가 열려있지 않을 때 이사회가 책임을 위임한 영역에서 이사회를 대신합니다. 기능으로는 전략 계획 및 사업 프로그램의 이행을 포함한 이사회에서 내린 결정을 수행하는 사무국의 성과를 모니터링하고 예산을 관리하는 것이 포함됩니다."
     },
     "scienceCommittee": {
-      "title": "",
-      "description": ""
+      "title": "과학위원회",
+      "description": "GBIF 과학위원회는 GBIF 사업 프로그램의 개발과 진행을 감독하고 이사회, 집행위원회, 사무국에 추천하는 자문위원회입니다. 업무에 대한 자세한 내용은 [여기서] 읽을 수 있습니다.(/document/80877/current-terms-of-reference-for-the-science-committee)"
     },
     "budgetCommittee": {
-      "title": "",
-      "description": ""
+      "title": "예산위원회",
+      "description": "예산위원회는 GBIF 기금의 관리와 관련된 다양한 재정적 이슈를 다루는 자문위원회입니다. 다른 기능으로 위원회는 이사회에 제출된 연례 회계보고서의 감사를 관리하고 GBIF의 감사 회사 선정에 지침을 제공합니다. 위원회는 이사회, 집행위원회, 사무국에 추천을 제공합니다. 업무에 관한 자세한 내용은 [여기서] 읽을 수 있습니다. (/document/80669/terms-of-reference-for-the-gbif-budget-committee)"
     },
     "nsg": {
       "title": "노드 운영 위원회",

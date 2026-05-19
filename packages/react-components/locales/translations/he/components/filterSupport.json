@@ -63,5 +63,19 @@
     "failedToSimplify": "פישוט הגאומטריה נכשל"
   },
   "activeFilters": "",
-  "highlighted": ""
+  "highlighted": "",
+  "predicate": {
+    "help": "",
+    "helpExtended": "",
+    "showHelp": "",
+    "hideHelp": "",
+    "placeholder": "",
+    "emptyPreview": "",
+    "edit": "Edit",
+    "preview": "תצוגה מקדימה",
+    "reformat": "",
+    "documentation": "",
+    "validating": "",
+    "invalidJson": ""
+  }
 }

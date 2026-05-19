@@ -24,6 +24,11 @@
     "count": "{num, plural,one {#蒐藏}other {#蒐藏}}",
     "description": "這個紀錄與在 GrSciColl 中的蒐藏相符合"
   },
+  "predicate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonomicStatus": {
     "name": "狀態",
     "count": "",

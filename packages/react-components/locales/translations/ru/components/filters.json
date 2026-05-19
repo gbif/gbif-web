@@ -24,6 +24,11 @@
     "count": "{num, plural, one {# коллекция } other {# коллекций}}",
     "description": "Коллекция в GrSciColl, с которой была сопоставлена эта запись"
   },
+  "predicate": {
+    "name": "Комплексный запрос",
+    "count": "{num, plural, one { сложный запрос } few {# сложных запросов} many {# сложных запросов} other {# сложных запросов}}",
+    "description": "Сложный запрос для фильтрации записей."
+  },
   "taxonomicStatus": {
     "name": "Статус",
     "count": "{num, plural, one { статус } few {# статусов} many {# статусов} other {# статусов}}",

@@ -1,8 +1,17 @@
 {
   "generic": "發生錯誤",
+  "genericRequestFailed": "請求失敗",
+  "genericDescription": "出現未預期的錯誤，請稍後重試。",
   "unknown": "未知錯誤",
   "report": "回報問題",
   "retry": "重試",
+  "partialData": "無法下載全數資料",
+  "reloadPage": "重新整理頁面",
   "hideDetails": "隱藏細節",
-  "showDetails": "顯示細節"
+  "showDetails": "顯示細節",
+  "mapFailed": "無法載入地圖",
+  "partialMapFailure": "部分標題無法載入",
+  "maximumResultLimitExceeded": "分頁可顯示的最大結果數為：{MAX_RESULTS}。請限縮您的搜尋條件或透過下載的方式查看所有結果。",
+  "mapBrowserIssue": "如果問題仍然存在，很可能是因為瀏覽器擴充功能或設定阻擋必要 API（例如 WebGL 和 Canvas）的使用。",
+  "webglUnavailable": "WebGL 無法使用。請檢查您的瀏覽器設定或嘗試使用其他瀏覽器。外掛程式或擴充套件也可能阻擋 WebGL 運行。"
 }

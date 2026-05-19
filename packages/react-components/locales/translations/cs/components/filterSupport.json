@@ -63,5 +63,19 @@
     "failedToSimplify": "Nepodařilo se zjednodušit geometrii"
   },
   "activeFilters": "Aktivní filtry",
-  "highlighted": "Zvýrazněno"
+  "highlighted": "Zvýrazněno",
+  "predicate": {
+    "help": "",
+    "helpExtended": "",
+    "showHelp": "",
+    "hideHelp": "",
+    "placeholder": "",
+    "emptyPreview": "",
+    "edit": "Upravit",
+    "preview": "Náhled",
+    "reformat": "Přeformátovat",
+    "documentation": "Dokumentace",
+    "validating": "",
+    "invalidJson": ""
+  }
 }

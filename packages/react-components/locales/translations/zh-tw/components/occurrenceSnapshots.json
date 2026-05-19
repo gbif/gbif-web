@@ -1,15 +1,15 @@
 {
   "occurrenceSnapshots": {
-    "title": "",
-    "intro": "",
-    "description": "",
+    "title": "出現紀錄快照",
+    "intro": "定期輸出GBIF出現紀錄資料",
+    "description": "GBIF每月都會採集完整的出現紀錄快照，並以不同格式儲存，以方便使用。所有快照都附有DOI，方便引用；部分格式的資料也會上傳到公用雲端，以便在這些環境中使用。",
     "cloudDatasets": {
-      "title": "",
+      "title": "雲端資料集",
       "description": ""
     },
     "monthly": {
-      "title": "",
-      "description": ""
+      "title": "月快照資料集",
+      "description": "以下為使用多種資料格式所列出的GBIF每月輸出的GBIF出現紀錄資料，請參閱每頁的引用資訊。"
     },
     "table": {
       "columns": {
@@ -18,9 +18,9 @@
         "citation": "引用",
         "filters": "篩選"
       },
-      "citation": "",
+      "citation": "GBIF 出現紀錄下載",
       "hasFilters": "是",
-      "downloadDetails": ""
+      "downloadDetails": "下載詳情"
     }
   }
 }

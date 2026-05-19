@@ -1,4 +1,7 @@
 {
+  "PARENT_NAME_USAGE_ID_INVALID": "El ID de uso del nombre parental  es inválido",
+  "ACCEPTED_NAME_USAGE_ID_INVALID": "El ID de uso de nombre aceptado es inválido",
+  "ORIGINAL_NAME_USAGE_ID_INVALID": "El ID de uso del nombre original es inválido.",
   "ACCEPTED_NAME_MISSING": "Falta el nombre aceptado",
   "RANK_INVALID": "Rango inválido",
   "NOMENCLATURAL_STATUS_INVALID": "Estado nomenclatural inválido",
@@ -7,6 +10,7 @@
   "CHAINED_SYNOYM": "Sinónimo encadenado",
   "BASIONYM_AUTHOR_MISMATCH": "El autor del basónimo no coincide",
   "TAXONOMIC_STATUS_MISMATCH": "Discrepancia en el estado taxonómico",
+  "PARENT_CYCLE": "Ciclo principal detectado",
   "CLASSIFICATION_RANK_ORDER_INVALID": "El orden de clasificación no es válido",
   "CLASSIFICATION_NOT_APPLIED": "Clasificación no aplicada",
   "VERNACULAR_NAME_INVALID": "Nombre común inválido",

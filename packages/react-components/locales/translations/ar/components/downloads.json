@@ -46,6 +46,7 @@
     "filterApplied": "تم تطبيق المُرشِّح بتاريخ {DATE}",
     "query": "",
     "rerunQuery": "أعد تشغيل الاستعلام",
+    "complexPredicateWarning": "",
     "postpone": "أرجى الحذف",
     "deleteDownload": "إحذف التنزيل",
     "tellUs": "أخبرنا عن الاستعمال",
@@ -86,7 +87,7 @@
       "or": "أو",
       "not": "ليس",
       "isNotNull": "مُعَرَّف",
-      "isNull": "",
+      "isNull": "غير مُعَرَّف",
       "within": "",
       "geoDistance": "",
       "keys": {

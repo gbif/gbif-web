@@ -40,7 +40,7 @@
       "placeholder": "Introduzca su predicado aquí...",
       "createNewDownload": "Crear una nueva descarga",
       "weHaveRestoredYourPredicate": "Hemos restaurado el predicado en el que estaba trabajando la última vez que estuvo aquí.",
-      "noPredicate": "",
+      "noPredicate": "Sin predicado",
       "currentFilter": "Filtro actual",
       "errors": {
         "invalid-json": "JSON inválido",
@@ -53,7 +53,7 @@
     },
     "downloadOptions": {
       "title": "Opciones de descarga",
-      "chooseChecklist": "",
+      "chooseChecklist": "Elija lista de taxones",
       "chooseChecklistDescription": "Seleccione la lista taxonómica para organizar los nombres de los taxones en su descarga",
       "content": {
         "rawData": "Datos sin procesar",
@@ -67,8 +67,8 @@
         "tabCsv": "CSV delimitado por tabulaciones (para usar en Excel, etc.)"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
+        "ifAvailable": "si está disponible",
+        "ifSelected": "si está seleccionado",
         "links": "enlaces"
       }
     },
