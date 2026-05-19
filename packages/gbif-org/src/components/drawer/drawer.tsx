@@ -31,6 +31,7 @@ export function Drawer({
   screenReaderTitle,
   screenReaderDescription,
 }: Props) {
+  const { locale } = useI18n();
   useEffect(() => {
     function handleKeypress(e: KeyboardEvent) {
       if (!isOpen) return;
@@ -58,6 +59,7 @@ export function Drawer({
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && close()}>
       <Dialog.Portal>
         <Dialog.Overlay
+          dir={locale.textDirection}
           className="gbif g-fixed g-w-full g-h-dvh g-end-0 g-top-0 g-bg-gray-500 g-transition-all g-bg-opacity-50"
           style={{ zIndex: 'var(--drawerZIndex)' }}
         >

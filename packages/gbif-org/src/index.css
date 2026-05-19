@@ -996,6 +996,13 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   background-size: 100px 100px;
 }
 
+.gbif[dir='rtl'] .g-text-site-dir-start {
+  text-align: right;
+}
+.gbif[dir='rtl'] .g-text-site-dir-end {
+  text-align: left;
+}
+
 .test-box:after {
   content: 'Test';
   font-weight: bold;

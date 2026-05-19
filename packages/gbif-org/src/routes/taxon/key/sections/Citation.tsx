@@ -12,9 +12,10 @@ const Citation = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonIn
   }
   return (
     <div className={testSite ? 'g-select-none g-pointer-events-none' : ''}>
-      <TestSiteAlert className="g-mb-4" />
+      <TestSiteAlert className="g-mb-4 g-text-site-dir-start" />
       <HyperText
-        className="[&_a]:g-underline [&_a]:g-text-inherit"
+        dir="auto"
+        className="[&_a]:g-underline [&_a]:g-text-inherit g-text-site-dir-start"
         text={`${taxonInfo?.label || taxonInfo?.scientificName} in ${citation}`}
       />
     </div>

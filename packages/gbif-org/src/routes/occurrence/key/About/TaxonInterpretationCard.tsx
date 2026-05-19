@@ -38,7 +38,7 @@ export function TaxonInterpretationCard({
       <div className="g-overflow-hidden g-transition-all g-duration-300">
         <div className="g-p-4 g-flex g-items-start g-justify-between">
           <div className="g-flex-1">
-            <div className="g-flex g-items-center g-gap-2 g-mb-2">
+            <div className="g-flex g-items-center g-gap-2 g-mb-2 g-text-site-dir-start">
               {useChecklistBankLink && (
                 <a
                   href={externalDatasetLink}
@@ -66,7 +66,7 @@ export function TaxonInterpretationCard({
                   <a
                     href={externalTaxonLink}
                     target="_blank"
-                    className="g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
+                    className="g-text-site-dir-start g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
                     rel="noopener noreferrer"
                     dangerouslySetInnerHTML={{
                       __html: classification.taxonMatch?.usage.formattedName ?? usageName,
@@ -77,7 +77,7 @@ export function TaxonInterpretationCard({
               )}
               {!useChecklistBankLink && (
                 <DynamicLink
-                  className="g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
+                  className="g-text-site-dir-start g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
                   pageId="taxonKey"
                   variables={{ key: usageKey }}
                   dangerouslySetInnerHTML={{
@@ -86,7 +86,7 @@ export function TaxonInterpretationCard({
                 />
               )}
             </h4>
-            <Classification className="g-text-xs g-text-slate-600">
+            <Classification dir="ltr" className="g-text-xs g-text-slate-600 g-text-site-dir-start">
               {classification.classification?.map((rank) => {
                 return (
                   <span key={rank.key}>

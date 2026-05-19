@@ -150,8 +150,15 @@ async function main() {
       }
 
       try {
-        const { appHtml, headHtml, htmlAttributes, bodyAttributes, statusCode, cacheControl } =
-          await render(req);
+        const {
+          appHtml,
+          headHtml,
+          htmlAttributes,
+          bodyAttributes,
+          statusCode,
+          cacheControl,
+          rootDir,
+        } = await render(req);
         if (cacheControl) {
           res.set('Cache-Control', cacheControl);
         }
@@ -169,6 +176,10 @@ async function main() {
           .replace(
             '<body style="margin: 0; padding: 0" class="gbif">',
             `<body ${bodyAttributes} style="margin: 0; padding: 0" class="gbif">`
+          )
+          .replace(
+            '<div id="app" class="gbif">',
+            `<div id="app" class="gbif" dir="${rootDir ?? 'ltr'}">`
           )
           .replace('<!--head-html-->', headHtml)
           .replace('<!--app-html-->', appHtml);

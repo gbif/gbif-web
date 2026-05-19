@@ -305,7 +305,7 @@ export function DatasetKeyAbout() {
               <CardContent dir="auto">
                 {dataset.description && (
                   <div
-                    className="gbif-word-break g-prose g-mb-6 g-max-w-full"
+                    className="gbif-word-break g-prose g-mb-6 g-max-w-full g-text-site-dir-start"
                     dangerouslySetInnerHTML={{ __html: dataset.description }}
                   />
                 )}
@@ -358,7 +358,7 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent dir="auto">
                   <div
-                    className="g-prose g-mb-6 g-max-w-full"
+                    className="g-prose g-mb-6 g-max-w-full g-text-site-dir-start"
                     dangerouslySetInnerHTML={{ __html: dataset.purpose }}
                   />
                 </CardContent>
@@ -448,7 +448,7 @@ export function DatasetKeyAbout() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent dir="auto">
-                  <SamplingDescription dataset={dataset} />
+                  <SamplingDescription dataset={dataset} className="g-text-site-dir-start" />
                 </CardContent>
               </Card>
             )}
@@ -461,7 +461,7 @@ export function DatasetKeyAbout() {
                 </CardHeader>
                 <CardContent dir="auto">
                   <div
-                    className="g-prose g-mb-6 g-max-w-full"
+                    className="g-prose g-mb-6 g-max-w-full g-text-site-dir-start"
                     dangerouslySetInnerHTML={{ __html: dataset.additionalInfo }}
                   />
                 </CardContent>
