@@ -12,7 +12,7 @@
   "regionRequired": "Se requiere cobertura geográfica",
   "taxon": "Cobertura taxonómica",
   "taxonPlaceholder": "Por ejemplo, 'Lepidoptera' o 'setas'",
-  "taxonRequired": "",
+  "taxonRequired": "Se requiere alcance taxonómico",
   "datasetImportance": "¿Por qué este conjunto de datos es importante?",
   "datasetImportancePlaceholder": "Por favor explique por qué este conjunto de datos es importante",
   "priority": "¿Cómo valorarías su importancia?",

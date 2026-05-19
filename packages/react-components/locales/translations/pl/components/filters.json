@@ -24,6 +24,11 @@
     "count": "{num, plural, one {# kolekcja } few {# kolekcje} many {# kolekcji} other {# kolekcje}}",
     "description": "Kolekcja w GrSciColl, do której ten zapis został dopasowany"
   },
+  "predicate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonomicStatus": {
     "name": "Status",
     "count": "{num, plural, one { status } few {# statusy} many {# statusów} other {# statusów}}",

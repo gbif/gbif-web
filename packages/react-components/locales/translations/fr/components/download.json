@@ -1,34 +1,34 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "Requête non-valable",
+    "unsupported.description": "La recherche de texte libre peut être utilisée pour l'exploration mais n'est pas prise en charge pour le téléchargement.",
+    "unsupported.remove": "Supprimer le filtre",
+    "unsupported.error": "Cette requête ne semble pas être valable",
     "download": "Télécharger",
-    "redirectNotice": "",
+    "redirectNotice": "Vous êtes sur le point d'effectuer un téléchargement et vous allez être redirigé vers GBIF.org.\n\nSachez qu'un compte est requis pour le téléchargement de données.",
     "continueToGBIF": "Continuer",
     "continue": "Continuer",
     "invalid": "Non valide",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "Valider",
+    "sqlEditor": "Éditeur SQL",
+    "predicateEditor": "Éditeur de prédicat",
     "sql": {
       "createNewSqlDownload": "Créer un nouveau téléchargement SQL",
-      "placeholder": "",
-      "noSql": "",
+      "placeholder": "Entrez votre requête SQL ici...",
+      "noSql": "Pas de requête SQL",
       "note": {
         "title": "Note",
-        "description": "",
-        "occurrence_search": ""
+        "description": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'{occurrence_search}. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
+        "occurrence_search": "Interface utilisateur de recherche d'occurrences"
       },
       "errors": {
         "invalid-SQL": "SQL non valide",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "network-error": "Erreur réseau",
+        "parsingErrorDescription": "Impossibilité d'analyser la requête SQL",
+        "networkErrorDescription": "Impossibilité de valider la requête SQL à cause d'une erreur système"
       }
     },
-    "create": "",
+    "create": "Créer",
     "about": "À propos",
     "stopEditing": "Arrêter la modification",
     "startEditing": "Commencer la modification",
@@ -37,16 +37,16 @@
     "keep": "Conserver",
     "readTheDocumentation": "Lire la documentation",
     "request": {
-      "placeholder": "",
+      "placeholder": "Entrez votre prédicat ici...",
       "createNewDownload": "Créer un nouveau téléchargement",
-      "weHaveRestoredYourPredicate": "",
-      "noPredicate": "",
+      "weHaveRestoredYourPredicate": "Nous avons restauré le prédicat sur lequel vous travailliez lors de votre dernière visite ici.",
+      "noPredicate": "Pas de prédicat",
       "currentFilter": "Filtre actif",
       "errors": {
         "invalid-json": "JSON non valide",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
-        "unexpectedError": "",
+        "invalid-predicate": "Prédicat invalide",
+        "faild-to-load-predicate": "Échec du chargement du prédicat",
+        "unexpectedError": "Une erreur inattendue s'est produite",
         "failedToParseJSON": "",
         "failedToVisualizePredicate": ""
       }
@@ -67,8 +67,8 @@
         "tabCsv": "CSV délimité par des tabulations"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
+        "ifAvailable": "si disponible",
+        "ifSelected": "si sélectionné",
         "links": ""
       }
     },

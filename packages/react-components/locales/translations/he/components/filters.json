@@ -24,6 +24,11 @@
     "count": "{num, plural, one {אוסף #} other {# אוספים}}",
     "description": "האוסף ב־GrSciColl שאליו הרשומה שויכה"
   },
+  "predicate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonomicStatus": {
     "name": "סטטוס",
     "count": "{num, plural, one {סטטוס} other {# סטטוסים}}",

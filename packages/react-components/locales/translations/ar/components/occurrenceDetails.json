@@ -617,7 +617,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "عمر  التسلسل الزمني",
       "properties": {
         "chronometricAgeID": "",
         "verbatimChronometricAge": "التساويات { is }",

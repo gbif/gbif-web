@@ -1,1 +1,14 @@
-{}
+{
+  "generic": "오류가 발생했습니다",
+  "genericRequestFailed": "요청에 실패했습니다",
+  "genericDescription": "예상치 못한 오류가 발생했습니다. 나중에 다시 시도해주세요.",
+  "unknown": "알 수 없는 오류",
+  "report": "이슈 보고하기",
+  "retry": "재시도",
+  "partialData": "모든 데이터가 로드되지 못했습니다",
+  "reloadPage": "새로고침",
+  "hideDetails": "상세정보 숨기기",
+  "showDetails": "상제정보 보기",
+  "mapFailed": "지도를 가져오지 못했습니다",
+  "partialMapFailure": "일부 타일을 가져오지 못했습니다"
+}
