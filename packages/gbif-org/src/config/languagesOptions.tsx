@@ -105,6 +105,7 @@ const languageOptions: LanguageOption[] = [
     localeCode: 'ar',
     label: 'العربية',
     default: false,
+    cmsLocale: 'ar',
     textDirection: 'rtl',
     reactIntlLocale: 'ar-AE',
     iso3LetterCode: 'ara',
