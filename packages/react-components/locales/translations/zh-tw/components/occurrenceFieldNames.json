@@ -260,5 +260,6 @@
   "gadmClassification": "根據於全球行政區資料庫（GADM）地點",
   "images": "多媒體",
   "eventTypeHierarchyJoined": "結構",
-  "eventType": "事件類型"
+  "eventType": "事件類型",
+  "iucnRedListCategory": "IUCN 瀕危紅皮書類別"
 }
