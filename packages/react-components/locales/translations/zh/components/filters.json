@@ -24,6 +24,11 @@
     "count": "{num, plural, one {# 收藏品 } other {# 收藏品}}",
     "description": "该记录与GrSciColl中相匹配的收藏品"
   },
+  "predicate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonomicStatus": {
     "name": "状态",
     "count": "",

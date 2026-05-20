@@ -35,9 +35,8 @@ export function DatasetResult({
   dataset: DatasetStubResultFragment | DatasetResultFragment;
   hidePublisher?: boolean;
 }) {
-  const dir = getTextDirection(dataset.title);
   return (
-    <Card className="g-mb-4" dir={dir}>
+    <Card className="g-mb-4">
       <MapThumbnail
         blend
         capabilitiesParams={{ datasetKey: dataset.key }} // Pass datasetKey to check if there is data to show on the map for this dataset
@@ -46,33 +45,37 @@ export function DatasetResult({
       />
       <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
-          <div className="g-flex-grow" dir={dir}>
-            <h3 className="g-text-base g-font-semibold">
+          <div className="g-flex-grow">
+            <h3 className="g-text-base g-font-semibold g-text-site-dir-start">
               <DynamicLink
                 className="hover:g-text-primary-500"
                 pageId="datasetKey"
                 variables={{ key: dataset.key }}
+                dir="auto"
               >
                 {dataset.title}
               </DynamicLink>
             </h3>
             {dataset.excerpt && (
-              <p
-                className="g-font-normal g-text-slate-700 g-text-sm"
-                style={{
-                  overflowWrap: 'anywhere',
-                }}
-              >
-                {dataset.excerpt}
-              </p>
+              <div>
+                <p
+                  dir="auto"
+                  className="g-font-normal g-text-slate-700 g-text-sm g-text-site-dir-start"
+                  style={{
+                    overflowWrap: 'anywhere',
+                  }}
+                >
+                  {dataset.excerpt}
+                </p>
+              </div>
             )}
             {!dataset.excerpt && (
-              <p className="g-font-normal g-text-slate-400 g-text-sm">
+              <p className="g-font-normal g-text-slate-400 g-text-sm g-text-site-dir-start">
                 <FormattedMessage id="phrases.noDescriptionProvided" />
               </p>
             )}
             {!hidePublisher && dataset.publishingOrganizationTitle && (
-              <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
+              <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2 g-text-site-dir-start">
                 <span>
                   <FormattedMessage id="dataset.publishedBy" />{' '}
                 </span>

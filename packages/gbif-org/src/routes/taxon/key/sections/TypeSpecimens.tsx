@@ -129,7 +129,7 @@ const TypeMaterial = ({
                 ?.filter((ts) => !!ts)
                 .map((ts, j) => (
                   <li key={`${i}-${j}`} className="g-pb-2 g-mb-2 g-border-b g-border-slate-200">
-                    <div className="g-flex g-gap-2 g-items-start">
+                    <div className="g-flex g-gap-2 g-items-start g-text-site-dir-start" dir="auto">
                       <div className="g-flex-1">
                         <div>
                           <span className="g-me-2">

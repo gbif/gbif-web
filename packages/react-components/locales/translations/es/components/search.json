@@ -36,11 +36,11 @@
   "loadMore": "Más",
   "loading": "Cargando",
   "noResults": "Sin resultados",
-  "startTyping": "",
+  "startTyping": "Tipo de búsqueda",
   "addFilters": "Agregar filtros",
   "apply": "Aplicar",
   "cancel": "Cancelar",
-  "rankInGroup": "",
+  "rankInGroup": "{rank} en {group}",
   "options": "Opciones",
   "sort": {
     "sortBy": "Ordenar por",
@@ -80,16 +80,16 @@
   },
   "crossContentSearch": {
     "title": "Buscar",
-    "description": "",
+    "description": "Busque entre especies, registros biológicos, conjuntos de datos, editores, artículos y más",
     "noSearchTermsEntered": "No se ha introducido el término a buscar",
-    "placeholder": "",
+    "placeholder": "Buscar en todo el contenido...",
     "categories": {
       "speciesSearch": "Especies",
       "taxonSearch": "Taxones",
       "datasetSearch": "Conjuntos de datos",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Registros de presencia",
-      "resourceSearch": ""
+      "resourceSearch": "Recursos y artículos"
     },
     "seeAll": "Ver todo"
   }

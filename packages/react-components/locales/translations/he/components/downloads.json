@@ -46,6 +46,7 @@
     "filterApplied": "מסנן הופעל {DATE}",
     "query": "שאילתה",
     "rerunQuery": "הרצת השאילתה מחדש",
+    "complexPredicateWarning": "",
     "postpone": "דחיית מחיקה",
     "deleteDownload": "מחיקת הורדה",
     "tellUs": "ספרו לנו על השימוש",

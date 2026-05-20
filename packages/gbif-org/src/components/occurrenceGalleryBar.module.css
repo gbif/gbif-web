@@ -9,7 +9,7 @@
     position: absolute;
     margin: 12px;
     bottom: 0;
-    right: 0;
+    inset-inline-end: 0;
   }
   > div {
     width: 100px;

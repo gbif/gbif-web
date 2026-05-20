@@ -24,6 +24,11 @@
     "count": "{num, plural, one {# sbírka} few {# sbírky} many {# sbírek} other {# sbírek}}",
     "description": "Sbírka v GrSciColl, ke které byl tento záznam přiřazen"
   },
+  "predicate": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonomicStatus": {
     "name": "Stav",
     "count": "{num, plural, one {stav} few {# stavy} many {# stavů} other {# stavů}}",

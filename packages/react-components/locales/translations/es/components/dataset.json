@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "Búsqueda de conjuntos de datos",
-  "datasetSearchDescription": "",
+  "datasetSearchDescription": "Buscar taxones en GBIF. Acceso libre y abierto a datos sobre biodiversidad.",
   "longType": {
     "OCCURRENCE": "Conjunto de datos de registros biológicos",
     "CHECKLIST": "Conjunto de datos de listas de chequeo",
@@ -25,36 +25,36 @@
     "events": "Eventos"
   },
   "metricsTab": {
-    "selectGroup": "",
+    "selectGroup": "Seleccionar grupo de métricas",
     "group": {
       "checklist": "Lista de chequeo",
       "downloads": "Descargas",
       "taxonomic": "Taxonomía",
-      "geographic": "",
+      "geographic": "Geográfico",
       "temporal": "Temporal",
-      "qualities": "",
+      "qualities": "Problemas y cualidades",
       "citations": "Citas"
     },
     "checklist": {
-      "notAvailable": "",
-      "overview": "",
-      "overviewDescription": "",
-      "usagesCount": "",
-      "distinctNamesCount": "",
+      "notAvailable": "Las métricas de la lista de taxones no están disponibles para este conjunto de datos.",
+      "overview": "Descripción general de la lista de taxones",
+      "overviewDescription": "Estadísticas descriptivas para este conjunto de datos de lista de taxones",
+      "usagesCount": "Usos totales de nombres",
+      "distinctNamesCount": "Nombres distintos",
       "synonymsCount": "Sinónimos",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
-      "colMatchingCount": "",
-      "colCoveragePct": "",
-      "countByKingdom": "",
-      "countByKingdomDescription": "",
-      "countByRank": "",
-      "countByRankDescription": "",
-      "countByOrigin": "",
-      "countByOriginDescription": "",
+      "nubMatchingCount": "Coincidencias con el listado taxonómico de GBIF",
+      "nubCoveragePct": "Cobertura del listado taxonómico de GBIF",
+      "colMatchingCount": "Coincidencias con COL",
+      "colCoveragePct": "Cobertura de COL",
+      "countByKingdom": "Conteo por Reino",
+      "countByKingdomDescription": "Distribución del uso de nombres en los distintos reinos",
+      "countByRank": "Contar por Rango",
+      "countByRankDescription": "Distribución del uso de nombres en los distintos rangos taxonómicos",
+      "countByOrigin": "Conteo por Origen",
+      "countByOriginDescription": "Distribución del uso de nombres según su origen",
       "origin": "Origen",
-      "countByIssue": "",
-      "countByIssueDescription": "",
+      "countByIssue": "Contar por Problema",
+      "countByIssueDescription": "Distribución de los problemas de calidad de los datos",
       "count": "Número"
     }
   },
@@ -194,6 +194,6 @@
     "occurrenceInfo": "Cofinanciado por"
   },
   "eventTaxonomy": "Distribución taxonómica de los registros de presencia",
-  "noCitations": "",
+  "noCitations": "Aún no hay citas",
   "noOccurrences": "Sin registros biológicos"
 }

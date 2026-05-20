@@ -78,7 +78,10 @@ export function Value({
   return (
     <dd
       dir={dir ?? 'auto'}
-      className={cn('g-break-words g-leading-tight last-of-type:g-mb-0', className)}
+      className={cn(
+        'g-text-site-dir-start g-break-words g-leading-tight last-of-type:g-mb-0',
+        className
+      )}
       {...props}
     >
       {children}
@@ -156,10 +159,14 @@ export function AutomaticPropertyValue({
   } else if (typeof parsedValue === 'string') {
     val =
       showAll || parsedValue.length < 2000 ? (
-        <span dir="auto">{parsedValue}</span>
+        <span dir="auto" className="g-text-site-dir-start">
+          {parsedValue}
+        </span>
       ) : (
         <>
-          <span dir="auto">{parsedValue.slice(0, 2000)}...</span>
+          <span dir="auto" className="g-text-site-dir-start">
+            {parsedValue.slice(0, 2000)}...
+          </span>
           <Button dir="auto" className="g-p-2" variant="link" onClick={() => setShowAll(true)}>
             more
           </Button>

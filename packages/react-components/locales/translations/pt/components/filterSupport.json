@@ -63,5 +63,19 @@
     "failedToSimplify": ""
   },
   "activeFilters": "",
-  "highlighted": ""
+  "highlighted": "",
+  "predicate": {
+    "help": "",
+    "helpExtended": "",
+    "showHelp": "",
+    "hideHelp": "",
+    "placeholder": "",
+    "emptyPreview": "",
+    "edit": "",
+    "preview": "",
+    "reformat": "Reformatar",
+    "documentation": "",
+    "validating": "",
+    "invalidJson": ""
+  }
 }

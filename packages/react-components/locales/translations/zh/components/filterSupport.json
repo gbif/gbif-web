@@ -63,5 +63,19 @@
     "failedToSimplify": ""
   },
   "activeFilters": "",
-  "highlighted": ""
+  "highlighted": "",
+  "predicate": {
+    "help": "",
+    "helpExtended": "",
+    "showHelp": "",
+    "hideHelp": "",
+    "placeholder": "",
+    "emptyPreview": "",
+    "edit": "编辑",
+    "preview": "",
+    "reformat": "重新格式化",
+    "documentation": "",
+    "validating": "",
+    "invalidJson": ""
+  }
 }

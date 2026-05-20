@@ -96,6 +96,11 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
     }
   }, [locale, navigate, location.pathname, availableLocales, defaultLocale, localizeLink]);
 
+  useEffect(() => {
+    const root = document.getElementById('app') ?? document.getElementById('root');
+    if (root) root.setAttribute('dir', locale.textDirection);
+  }, [locale.textDirection]);
+
   return (
     <I18nContext.Provider value={value}>
       <Helmet>

@@ -46,6 +46,7 @@
     "filterApplied": "Filtro aplicado {DATE}",
     "query": "",
     "rerunQuery": "Refazer a consulta",
+    "complexPredicateWarning": "",
     "postpone": "Adiar exclusão",
     "deleteDownload": "Remover transferência",
     "tellUs": "Diga-nos sobre o uso",

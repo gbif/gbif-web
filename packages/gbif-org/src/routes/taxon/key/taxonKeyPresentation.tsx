@@ -29,7 +29,7 @@ import { HeaderImageCarousel } from './sections/SidebarImageCarousel';
 import { useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
-import { Classification } from '@/components/classification';
+import { Classification, TaxonStubClassification } from '@/components/classification';
 import AboutNonBackbone from './AboutNonBackbone';
 import { apiConstants } from '@/config/apiConstants';
 import { isSupportedChecklist } from '@/hooks/useSupportedChecklists';
@@ -279,38 +279,44 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
 
                     {!taxon.acceptedTaxon && taxonInfo?.classification && (
                       // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
-                      <Classification className="g-mt-2 g-flex g-flex-wrap g-gap-1 g-items-center">
-                        {taxonInfo.classification.slice(0, 2).map((c) => (
-                          <span key={c.taxonID} className="g-flex g-items-center">
-                            <DynamicLink
-                              className="hover:g-underline g-text-inherit"
-                              pageId="taxonKey"
-                              variables={{ key: c.taxonID.toString() }}
-                            >
-                              {c.scientificName}
-                            </DynamicLink>
-                          </span>
-                        ))}
-                        {taxonInfo.classification.length > 3 && <span>...</span>}
-                        {taxonInfo.classification.length > 2 && (
-                          <span className="g-flex g-items-center">
-                            <DynamicLink
-                              className="hover:g-underline g-text-inherit"
-                              pageId="taxonKey"
-                              variables={{
-                                key: taxonInfo.classification[
-                                  taxonInfo.classification.length - 1
-                                ].taxonID.toString(),
-                              }}
-                            >
-                              {
-                                taxonInfo.classification[taxonInfo.classification.length - 1]
-                                  .scientificName
-                              }
-                            </DynamicLink>
-                          </span>
-                        )}
-                      </Classification>
+                      <div className="g-text-site-dir-start g-inline-block">
+                        <TaxonStubClassification
+                          className=""
+                          classification={taxonInfo?.classification}
+                        />
+                      </div>
+                      // <Classification className="g-mt-2 g-flex g-flex-wrap g-gap-1 g-items-center">
+                      //   {taxonInfo.classification.slice(0, 2).map((c) => (
+                      //     <span key={c.taxonID} className="g-flex g-items-center">
+                      //       <DynamicLink
+                      //         className="hover:g-underline g-text-inherit"
+                      //         pageId="taxonKey"
+                      //         variables={{ key: c.taxonID.toString() }}
+                      //       >
+                      //         {c.scientificName}
+                      //       </DynamicLink>
+                      //     </span>
+                      //   ))}
+                      //   {taxonInfo.classification.length > 3 && <span>...</span>}
+                      //   {taxonInfo.classification.length > 2 && (
+                      //     <span className="g-flex g-items-center">
+                      //       <DynamicLink
+                      //         className="hover:g-underline g-text-inherit"
+                      //         pageId="taxonKey"
+                      //         variables={{
+                      //           key: taxonInfo.classification[
+                      //             taxonInfo.classification.length - 1
+                      //           ].taxonID.toString(),
+                      //         }}
+                      //       >
+                      //         {
+                      //           taxonInfo.classification[taxonInfo.classification.length - 1]
+                      //             .scientificName
+                      //         }
+                      //       </DynamicLink>
+                      //     </span>
+                      //   )}
+                      // </Classification>
                     )}
                   </div>
                 </div>

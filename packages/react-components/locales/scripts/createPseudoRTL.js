@@ -10,7 +10,8 @@ function createPseudoRTL(object) {
 
   _.each(object, (val, key) => {
     if (typeof val === 'string') {
-      newObject[key] = wrapWithRTL(val);
+      newObject[key] = replaceWithRTL(val);
+      // newObject[key] = wrapWithRTL(val);
     } else if (typeof val === 'object') {
       newObject[key] = createPseudoRTL(val);
     }
@@ -21,6 +22,17 @@ function createPseudoRTL(object) {
 function wrapWithRTL(str) {
   if (str === '') return str;
   return RTL_MARKER + str + RTL_MARKER;
+}
+
+function replaceWithRTL(str) {
+  if (str === '') return str;
+  if (str.indexOf('{') !== -1 || str.indexOf('%s') !== -1) {
+    return RTL_MARKER + '[[[!' + str + '!]]]' + RTL_MARKER;
+  }
+  return str.replace(/./g, (char) => {
+    if (char === ' ') return char; // preserve spaces
+    return RTL_MARKER;
+  });
 }
 
 export default createPseudoRTL;

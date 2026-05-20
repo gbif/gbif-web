@@ -52,10 +52,10 @@ export function BibliographyContent({ taxonInfo }: Props) {
       </div>
       <div style={{ overflow: 'auto' }}>
         <Table removeBorder={false}>
-          <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
+          <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal g-text-site-dir-start">
             {bibliography.slice(offset, offset + limit).map((bib) => (
               <tr key={bib.referenceID}>
-                <td>
+                <td dir="auto">
                   <div className="g-text-slate-800">
                     <span className="g-me-2">
                       {bib.citation}{' '}
