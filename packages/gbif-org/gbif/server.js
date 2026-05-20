@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import fsp from 'node:fs/promises';
+import { createServer as createHttpServer } from 'node:http';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import logger from './config/logger.mjs';
@@ -24,6 +25,11 @@ const getRedirect = createGetRedirect(env);
 
 async function main() {
   const app = express();
+  // Share a single HTTP server between Express and Vite's HMR. Without this, Vite's
+  // middleware mode spins up its own server for HMR on a different port, and the
+  // browser-side HMR client can't reach it — repeated WS reconnect failures cause
+  // @vite/client to fall back to full reloads in a loop when PORT is not the default.
+  const httpServer = createHttpServer(app);
 
   // Add middleware for parsing requests
   app.use(
@@ -90,7 +96,10 @@ async function main() {
 
     viteDevServer = await vite.createServer({
       root: process.cwd(),
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: { server: httpServer },
+      },
       appType: 'custom',
       configFile: './gbif/vite.config.ts',
     });
@@ -248,7 +257,7 @@ async function main() {
     }
   });
 
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     logger.info('Server started successfully', { port: PORT, environment: env.NODE_ENV });
   });
 

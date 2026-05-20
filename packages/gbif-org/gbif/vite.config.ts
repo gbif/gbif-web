@@ -13,9 +13,6 @@ const eventsPolyfill = createRequire(import.meta.url).resolve('events/');
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   const config: UserConfig = {
-    server: {
-      port: 3000,
-    },
     envPrefix: 'PUBLIC_',
     plugins: [react()],
     build: {
