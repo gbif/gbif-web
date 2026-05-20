@@ -11,11 +11,11 @@
   "collection": "蒐藏集",
   "collectionGrSciColl": "GrSciColl 蒐藏",
   "recordedAndIdentifiedBy": "紀錄及鑑定",
-  "eventTypeHierarchyJoined": "",
-  "eventHierarchyJoined": "",
-  "map": "",
-  "backToTaxa": "",
-  "siteLocation": "",
+  "eventTypeHierarchyJoined": "事件形式層級",
+  "eventHierarchyJoined": "事件層級",
+  "map": "位置地圖",
+  "backToTaxa": "回到事件分類",
+  "siteLocation": "地點位置",
   "info": {
     "original": "原始的",
     "excluded": "排除",
@@ -27,25 +27,25 @@
     "record": "紀錄",
     "occurrence": "出現",
     "event": "活動",
-    "dataStructure": "",
+    "dataStructure": "資料結構",
     "identification": "鑑定",
     "taxon": "分類群",
     "location": "地點",
     "organism": "生物體",
     "materialSample": "材料樣本",
     "geologicalContext": "地理背景",
-    "measurementsOrFacts": "",
+    "measurementsOrFacts": "測量",
     "images": "多媒體",
     "other": "其它",
     "methodology": "方法",
-    "taxonomicCoverage": ""
+    "taxonomicCoverage": "分類群涵蓋範圍"
   },
-  "siteTooltip": "",
-  "siteTableLegend": "",
-  "site": "",
-  "siteLoading": "",
+  "siteTooltip": "{count, plural, one {# 事件} other {# 事件}} 在 {site} 在 {date}",
+  "siteTableLegend": "地點/年",
+  "site": "地點: {siteID}",
+  "siteLoading": "地點:{siteID} - 載入詳細資訊",
   "activityDetails": {
-    "monthYear": "",
-    "year": ""
+    "monthYear": "活動詳情 {date, time, ::MMMM::yyyy}",
+    "year": "活動詳情 {date, time, ::yyyy}"
   }
 }
