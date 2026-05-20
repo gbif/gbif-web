@@ -20,7 +20,7 @@
     "project": "專案",
     "taxonomy": "分類學",
     "download": "下載",
-    "phylogeny": "",
+    "phylogeny": "系統發生學",
     "metrics": "指標",
     "events": "事件"
   },
@@ -29,15 +29,15 @@
     "group": {
       "checklist": "物種名錄",
       "downloads": "下載",
-      "taxonomic": "",
-      "geographic": "",
+      "taxonomic": "分類的",
+      "geographic": "地理的",
       "temporal": "時間的",
       "qualities": "",
       "citations": "引用"
     },
     "checklist": {
       "notAvailable": "",
-      "overview": "",
+      "overview": "清單總覽",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
@@ -121,7 +121,7 @@
   "publishingCountriesAreas": "發布國家及地區",
   "originalArchive": "來源檔案",
   "originalArchiveDescription": "",
-  "checklistBankDownload": "",
+  "checklistBankDownload": "從ChecklistBank下載",
   "checklistBankDownloadDescription": "",
   "annotatedEml": "GBIF 註記的詮釋資料",
   "license": "授權",
@@ -187,13 +187,13 @@
     "lastIngestionFailed": "上次接收失敗",
     "outOfSync": "不同步",
     "becauseTrustedContact": "因為您是我們信賴的連絡人",
-    "registrationDetails": ""
+    "registrationDetails": "GBIF 註冊細節"
   },
   "errors": {
     "evenList": "共同資助單位",
     "occurrenceInfo": "共同資助單位"
   },
   "eventTaxonomy": "出現紀錄的分類群分布",
-  "noCitations": "",
+  "noCitations": "尚未有引用",
   "noOccurrences": "無出現紀錄"
 }
