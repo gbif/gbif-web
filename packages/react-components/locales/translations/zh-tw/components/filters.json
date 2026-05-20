@@ -1,18 +1,18 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "達爾文延伸集 (DwC-A)",
     "count": "{num, plural, one { DWCA 延伸集 } other {# DWCA 延伸集}}",
     "description": "在此輸入關於此項目的簡短敘述"
   },
   "locationId": {
     "name": "地點識別碼",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 位置 ID } other {# 位置 IDs}}",
+    "description": "發布者可以選擇指派ID給位置。此欄位未進行標準化處理，這表示您將搜尋發布者提供的資料。"
   },
   "hasCoordinate": {
     "name": "具有座標",
     "count": "具有座標",
-    "description": ""
+    "description": "記錄是否包含座標。"
   },
   "hasGeospatialIssues": {
     "name": "有地理空間問題",
@@ -25,33 +25,33 @@
     "description": "這個紀錄與在 GrSciColl 中的蒐藏相符合"
   },
   "predicate": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "複雜查詢",
+    "count": "{num, plural, one { 複雜查詢 } other {# 複雜查詢}}",
+    "description": "篩選紀錄的複雜查詢"
   },
   "taxonomicStatus": {
     "name": "狀態",
-    "count": "",
+    "count": "{num, plural, one { 狀態 } other {# 狀態}}",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "taxonRank": {
     "name": "分類位階",
-    "count": "",
+    "count": "{num, plural, one {排序} other {#排序}}",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "numberSpecimens": {
     "name": "標本數量",
-    "count": "",
+    "count": "{num, plural, one{ 標本數量} other{ 篩選標本數量}}",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "specimensInGbif": {
     "name": "GBIF 的標本",
     "count": "{num, plural, one{ GBIF 標本數量} other{ 在GBIF之標本}}",
-    "description": ""
+    "description": "GBIF上已發布並與機構條目關聯的標本記錄數量。"
   },
   "iucnRedListCategory": {
     "name": "IUCN 全球紅皮書類別",
-    "count": "",
+    "count": "{num, plural, one { IUCN全球紅皮書分類 } other {# IUCN全球紅皮書分類}}",
     "description": "IUCN瀕危物種红色名錄是根據分類群受到的威脅程度進行分組。"
   },
   "geoDistance": {
@@ -65,7 +65,7 @@
   "geometry": {
     "name": "地點",
     "count": "{num, plural, one {# 篩選} other {# 篩選}}",
-    "description": "",
+    "description": "篩選給定幾何區域內的記錄。此區域可以是點、線、多邊形或邊界框。",
     "placeholderLat": "緯度",
     "placeholderLon": "經度",
     "placeholderDist": "距離"
@@ -86,19 +86,19 @@
     "description": "誰是資源的受眾"
   },
   "biostratigraphy": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "生物地層學",
+    "count": "{num, plural, one { 生物地層學 } other {# 生物地層學}}",
+    "description": "該紀錄的生物地層學背景"
   },
   "lithostratigraphy": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "岩石地層學",
+    "count": "{num, plural, one { 岩石地層學 } other {# 岩石地層學}}",
+    "description": "該紀錄的岩石地層學背景"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "地質時間",
+    "count": "{num, plural, one { 地質時間 } other {# 地質時間}}",
+    "description": "該紀錄的地質時間背景"
   },
   "purposes": {
     "name": "主題",
@@ -107,28 +107,28 @@
   },
   "eventDate": {
     "name": "事件日期",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# 事件日期 } other {# 事件日期}}",
+    "description": "該紀錄何時被蒐集或觀察到"
   },
   "gbifId": {
     "name": "GBIF 識別碼",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { GBIF ID } other {# GBIF IDs}}",
+    "description": "GBIF資料庫中記錄的唯一識別碼。"
   },
   "organismQuantityType": {
     "name": "生物數量類型",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 生物體數量形式 } other {# 生物體數量形式}}",
+    "description": "“生物體數量”的測量形式。"
   },
   "pathway": {
     "name": "路徑",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 路徑 } other {# 路徑}}",
+    "description": "該生物體被引入的路徑。"
   },
   "associatedSequences": {
     "name": "相關序列",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 相關序列 } other {# 相關序列}}",
+    "description": "用於標識與該記錄關聯的任何序列。通常是一個 URL。"
   },
   "degreeOfEstablishment": {
     "name": "設立程度",
@@ -162,17 +162,17 @@
   },
   "identifier": {
     "name": "識別碼",
-    "count": "",
+    "count": "{num, plural, one { 識別ID } other {# 識別ID}}",
     "description": "在此輸入此項目的簡短敘述"
   },
   "institutionType": {
     "name": "類型",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# 形式 } other {# 形式}}",
+    "description": "機構類型 (博物館、植物標本館等)"
   },
   "discipline": {
-    "name": "",
-    "count": "",
+    "name": "規定",
+    "count": "{num, plural, one { 規定 } other {# 規定}}",
     "description": ""
   },
   "collectionContentType": {
@@ -181,8 +181,8 @@
     "description": ""
   },
   "preservationType": {
-    "name": "",
-    "count": "",
+    "name": "保存形式",
+    "count": "{num, plural, one { 保存形式 } other {# 保存形式}}",
     "description": ""
   },
   "biomeType": {
@@ -394,13 +394,13 @@
   },
   "sex": {
     "name": "性別",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 性別 } other {# 性別}}",
+    "description": "生物體的性別"
   },
   "lifeStage": {
     "name": "生活史階段",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 生命階段 } other {# 生命階段}}",
+    "description": "生物體的生命階段"
   },
   "recordedBy": {
     "name": "紀錄者：",
