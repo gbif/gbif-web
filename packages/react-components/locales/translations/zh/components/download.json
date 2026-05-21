@@ -23,7 +23,7 @@
       },
       "errors": {
         "invalid-SQL": "无效网址",
-        "network-error": "",
+        "network-error": "网络异常",
         "parsingErrorDescription": "",
         "networkErrorDescription": ""
       }
