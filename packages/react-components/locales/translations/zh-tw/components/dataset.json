@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "資料集搜尋",
-  "datasetSearchDescription": "",
+  "datasetSearchDescription": "在GBIF中搜尋資料集。免費開源取用生物多樣性資料。",
   "longType": {
     "OCCURRENCE": "出現紀錄資料集",
     "CHECKLIST": "物種名錄資料集",
@@ -25,22 +25,22 @@
     "events": "事件"
   },
   "metricsTab": {
-    "selectGroup": "",
+    "selectGroup": "選擇指標群組",
     "group": {
       "checklist": "物種名錄",
       "downloads": "下載",
       "taxonomic": "分類的",
       "geographic": "地理的",
       "temporal": "時間的",
-      "qualities": "",
+      "qualities": "問題與品質",
       "citations": "引用"
     },
     "checklist": {
-      "notAvailable": "",
-      "overview": "清單總覽",
-      "overviewDescription": "",
-      "usagesCount": "",
-      "distinctNamesCount": "",
+      "notAvailable": "物種名錄指標無法適用此資料集",
+      "overview": "物種名錄總覽",
+      "overviewDescription": "此物種名錄資料集的統計資料總結",
+      "usagesCount": "所有的使用名稱",
+      "distinctNamesCount": "獨特名",
       "synonymsCount": "同種異名",
       "nubMatchingCount": "",
       "nubCoveragePct": "",
@@ -48,13 +48,13 @@
       "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
-      "countByRank": "",
-      "countByRankDescription": "",
+      "countByRank": "以分類位階計數",
+      "countByRankDescription": "名稱使用於分類階層中的分佈",
       "countByOrigin": "",
       "countByOriginDescription": "",
       "origin": "來源",
-      "countByIssue": "",
-      "countByIssueDescription": "",
+      "countByIssue": "依據問題計數",
+      "countByIssueDescription": "資料品質問題的分布",
       "count": "計數"
     }
   },
