@@ -30,10 +30,10 @@ const buttonVariants = cva(
         destructiveSecondary: 'g-bg-transparent g-text-red-600 g-bg-red-50 hover:g-bg-red-100',
       },
       size: {
-        default: 'g-h-9 g-px-4 g-py-2',
-        sm: 'g-h-8 g-rounded-md g-px-3 g-text-xs',
-        lg: 'g-h-10 g-rounded-md g-px-8',
-        icon: 'g-h-9 g-w-9',
+        default: 'g-h-10 sm:g-h-9 g-px-4 g-py-2',
+        sm: 'g-h-9 sm:g-h-8 g-rounded-md g-px-3 g-text-xs',
+        lg: 'g-h-11 sm:g-h-10 g-rounded-md g-px-8',
+        icon: 'g-h-10 g-w-10 sm:g-h-9 sm:g-w-9',
       },
       disabled: {
         true: 'g-cursor-not-allowed g-opacity-50',
@@ -50,8 +50,7 @@ const buttonVariants = cva(
 type ButtonVariantProps = Omit<VariantProps<typeof buttonVariants>, 'disabled'>;
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    ButtonVariantProps {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariantProps {
   asChild?: boolean;
   isLoading?: boolean;
 }

@@ -26,11 +26,16 @@ export const Option = React.forwardRef(
   ) => {
     // const Icon = checked ? MdOutlineRemoveCircle : MdOutlineAddCircle;
     return (
-      <label className={cn('g-flex g-w-full g-cursor-pointer', className)}>
+      <label
+        className={cn(
+          'g-flex g-w-full g-cursor-pointer g-py-2 g-min-h-9 sm:g-min-h-0 sm:g-py-0',
+          className
+        )}
+      >
         <Checkbox
           ref={ref}
           className={cn(
-            'g-flex-none g-me-2 g-mt-0.5',
+            'g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5 ',
             isNegated && 'data-[state=checked]:g-bg-orange-500 data-[state=checked]:g-text-white'
           )}
           checked={checked}
