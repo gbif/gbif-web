@@ -71,7 +71,7 @@
       "colCanonicalName": "",
       "colCanonicalNameWithMarker": "",
       "colCanonicalNameComplete": "",
-      "colRankMarker": "",
+      "colRankMarker": "分類位階標示",
       "excludeUnparsed": "排除未解析的",
       "generateCsv": "產生 CSV 檔案",
       "authorshipMissing": "",
