@@ -7,13 +7,13 @@ type CountTagProps = CountProps & {
 };
 
 export function CountTag({
-  v1Endpoint,
+  apiEndpoint,
   params,
   message = 'counts.nRecords',
   property,
   className,
 }: CountTagProps) {
-  const { count } = useCount({ v1Endpoint, params, property });
+  const { count } = useCount({ apiEndpoint, params, property });
 
   if (typeof count === 'number' && count > 0) {
     return (
@@ -30,7 +30,7 @@ export function Tag({ children, className }: { children: React.ReactNode; classN
   return (
     <span
       className={cn(
-        'g-align-middle g-bg-slate-300/50 g-text-slate-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-m-1 g-mb-0 g-rounded',
+        'g-align-middle g-bg-slate-300/50 g-text-slate-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded',
         className
       )}
     >

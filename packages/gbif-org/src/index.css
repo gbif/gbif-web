@@ -46,12 +46,24 @@
   box-shadow: inset 0 -1px 0 var(--border);
 }
 
-.g-box-shadow-r {
+.g-box-shadow-e {
   box-shadow: inset -1px 0 0 var(--border);
 }
 
-.g-box-shadow-br {
-  box-shadow: inset 0 -1px 0 var(--border), inset -1px 0 0 var(--border);
+[dir='rtl'] .g-box-shadow-e {
+  box-shadow: inset 1px 0 0 var(--border);
+}
+
+.g-box-shadow-be {
+  box-shadow:
+    inset 0 -1px 0 var(--border),
+    inset -1px 0 0 var(--border);
+}
+
+[dir='rtl'] .g-box-shadow-be {
+  box-shadow:
+    inset 0 -1px 0 var(--border),
+    inset 1px 0 0 var(--border);
 }
 
 .gbif .dataProse {
@@ -200,8 +212,9 @@ Add the correct font weight in Edge and Safari.
   kbd,
   samp,
   pre {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-      'Courier New', monospace; /* 1 */
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+      monospace; /* 1 */
     font-feature-settings: normal; /* 2 */
     font-variation-settings: normal; /* 3 */
     font-size: 1em; /* 4 */
@@ -549,6 +562,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 
 @layer base {
+  .g-font-header {
+    font-family: var(--headerFontFamily), var(--fontFamily);
+  }
   .classification {
     line-height: 1.2em;
     & > span:after {
@@ -855,6 +871,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 }
 
+[dir='rtl'] .gbif-rtl-icon {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
 .gbif-sqlInput {
   white-space: pre-wrap;
   font-family: monospace;
@@ -967,6 +988,19 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     #ff8e5996 10px,
     #ff8e5996 20px
   );
+}
+
+.gbif-test-site .gbif-test-background {
+  background-image: url('/img/test_overlay.png');
+  background-repeat: repeat;
+  background-size: 100px 100px;
+}
+
+.gbif[dir='rtl'] .g-text-site-dir-start {
+  text-align: right;
+}
+.gbif[dir='rtl'] .g-text-site-dir-end {
+  text-align: left;
 }
 
 .test-box:after {

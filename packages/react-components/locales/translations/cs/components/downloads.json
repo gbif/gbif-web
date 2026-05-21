@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {# výskyt stažen} few {# výskyty staženy} other {# výskytů staženo}} ",
+    "nEventsDownloaded": "",
     "nRecordsDownloaded": "{total, plural, one {# záznam stažen} few {# záznamy staženy} many {# záznamů staženo} other {# záznamů staženo}}",
     "nRowsDownloaded": "{total, plural, one {# řádek stažen} few {# řádky staženy} many {# řádků staženo} other {# řádků staženo}}",
     "nConstituentDatasets": "Obsahuje záznamy {total, plural, one {z # datové sady} few {ze # datových sad } many {z # datových sad} other {z # datových sad}}",
@@ -45,6 +46,7 @@
     "filterApplied": "Použitý filtr {DATE}",
     "query": "Dotaz",
     "rerunQuery": "Znovu spustit dotaz",
+    "complexPredicateWarning": "",
     "postpone": "Odložení vymazání",
     "deleteDownload": "Smazat stažení",
     "tellUs": "Řekněte nám o použití",

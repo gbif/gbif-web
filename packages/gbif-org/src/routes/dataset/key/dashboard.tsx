@@ -1,49 +1,15 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import DashBoardLayout from '@/components/dashboard/DashboardLayout';
+import { useOccurrenceCount } from '@/components/count';
 import { Button } from '@/components/ui/button';
+import { useConfig } from '@/config/config';
+import { DatasetType, Predicate, PredicateType } from '@/gql/graphql';
 import { useStringParam } from '@/hooks/useParam';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { cn } from '@/utils/shadcn';
-import { FormattedMessage } from 'react-intl';
-import {
-  OccurrenceSummary,
-  Country,
-  GadmGid,
-  EventDate,
-  Months,
-  Taxa,
-  Iucn,
-  IucnCounts,
-  DataQuality,
-  OccurrenceIssue,
-  Continent,
-  LiteratureCreatedAt,
-  LiteratureTopics,
-  LiteratureRelevance,
-  LiteratureCountriesOfCoverage,
-  LiteratureCountriesOfResearcher,
-  LiteratureType,
-  OccurrenceTaxonomySunburst,
-} from '@/components/dashboard';
-import { useConfig } from '@/config/config';
-import { useDatasetKeyLoaderData } from '.';
-import { DatasetType, Predicate, PredicateType } from '@/gql/graphql';
 import { useEffect, useMemo, useState } from 'react';
-import { Downloads } from './dashboard/downloads';
-import { ChecklistMetrics } from './dashboard/checklistMetrics';
-import { NoRecords } from '@/components/noDataMessages';
-import { useOccurrenceCount } from '@/components/count';
-import { Skeleton } from '@/components/ui/skeleton';
-
-type DatasetMetricType =
-  | 'checklist'
-  | 'taxonomic'
-  | 'geographic'
-  | 'temporal'
-  | 'qualities'
-  | 'citations'
-  | 'downloads';
+import { FormattedMessage } from 'react-intl';
+import { useDatasetKeyLoaderData } from '.';
+import DashboardSections, { DashboardGroup } from './dashboard/sections';
 
 export function DatasetKeyDashboard() {
   const config = useConfig();
@@ -57,7 +23,7 @@ export function DatasetKeyDashboard() {
   const { count, error, loading } = useOccurrenceCount({ predicate: scopedDatasetPredicate });
   const hasOccurrences = !loading && !error && count > 0;
 
-  const defaultGroup = 'citations';
+  const defaultGroup: DashboardGroup = 'citations';
   const [group = defaultGroup, setGroup] = useStringParam({
     key: 'group',
     defaultValue: defaultGroup,
@@ -94,7 +60,7 @@ export function DatasetKeyDashboard() {
   const enableListOfDownloads = config?.datasetKey?.enableListOfDownloads ?? false;
   // if it is a checklist dataaset type then add checklist option to tabs. If there are occurrences, then show ocurrence metrics. If there are citations then show citation metrics. always show download tab
   const tabOptions = useMemo(() => {
-    const options: DatasetMetricType[] = ['citations'];
+    const options: DashboardGroup[] = ['citations'];
 
     if (enableListOfDownloads) {
       options.push('downloads');
@@ -154,174 +120,18 @@ export function DatasetKeyDashboard() {
             </Button>
           ))}
         </div>
-        {group === 'checklist' && dataset?.key && (
-          <ClientSideOnly>
-            <ChecklistMetrics datasetKey={dataset.key} />
-          </ClientSideOnly>
-        )}
-        {group === 'taxonomic' && (
-          <HasDataMessage count={count} loading={loading} error={error}>
-            <TaxonomicMetrics predicate={scopedDatasetPredicate} />
-          </HasDataMessage>
-        )}
-        {group === 'geographic' && (
-          <HasDataMessage count={count} loading={loading} error={error}>
-            <GeographicMetrics predicate={scopedDatasetPredicate} />
-          </HasDataMessage>
-        )}
-        {group === 'temporal' && (
-          <HasDataMessage count={count} loading={loading} error={error}>
-            <TemporalMetrics predicate={scopedDatasetPredicate} />
-          </HasDataMessage>
-        )}
-        {group === 'qualities' && (
-          <HasDataMessage count={count} loading={loading} error={error}>
-            <IssuesMetrics predicate={scopedDatasetPredicate} />
-          </HasDataMessage>
-        )}
-        {group === 'citations' && (
-          <>
-            {literatureSearch?.documents.total > 0 && (
-              <CitationMetrics predicate={literatureScope} />
-            )}
-            {literatureSearch?.documents.total === 0 && (
-              <div className="g-my-8 g-text-slate-500">
-                <NoRecords messageId="dataset.noCitations" />
-              </div>
-            )}
-          </>
-        )}
-        {group === 'downloads' && <Downloads />}
+
+        <DashboardSections
+          group={group as DashboardGroup}
+          datasetKey={dataset.key}
+          scopedDatasetPredicate={scopedDatasetPredicate}
+          literatureScope={literatureScope}
+          hasLiterature={(literatureSearch?.documents.total ?? 0) > 0}
+          count={count}
+          loading={loading}
+          error={error}
+        />
       </ArticleTextContainer>
     </ArticleContainer>
-  );
-}
-
-function HasDataMessage({
-  children,
-  count,
-  loading,
-  error,
-}: {
-  children: React.ReactNode;
-  count?: number;
-  loading?: boolean;
-  error?: Error;
-}) {
-  if (loading) {
-    return <Skeleton className="g-h-96" />;
-  }
-  if (count && count > 0) {
-    return <>{children}</>;
-  }
-  return (
-    <div className="g-my-8 g-text-slate-500">
-      <NoRecords messageId="dataset.noOccurrences" />
-    </div>
-  );
-}
-
-function TaxonomicMetrics({ predicate }: { predicate: Predicate }) {
-  return (
-    <ClientSideOnly>
-      <DashBoardLayout>
-        <Taxa predicate={predicate} visibilityThreshold={0} interactive={false} />
-        <Iucn predicate={predicate} visibilityThreshold={0} interactive={false} />
-        <IucnCounts predicate={predicate} visibilityThreshold={1} interactive={false} />
-        <OccurrenceTaxonomySunburst
-          predicate={predicate}
-          visibilityThreshold={0}
-          interactive={false}
-        />
-      </DashBoardLayout>
-    </ClientSideOnly>
-  );
-}
-
-function GeographicMetrics({ predicate }: { predicate: Predicate }) {
-  return (
-    <ClientSideOnly>
-      <DashBoardLayout>
-        <Country
-          predicate={predicate}
-          visibilityThreshold={0}
-          interactive={false}
-          options={['TABLE', 'COLUMN', 'PIE']}
-        />
-        <GadmGid
-          predicate={predicate}
-          visibilityThreshold={0}
-          interactive={false}
-          options={['TABLE']}
-        />
-        <Continent
-          predicate={predicate}
-          visibilityThreshold={0}
-          interactive={false}
-          options={['TABLE', 'COLUMN', 'PIE']}
-        />
-      </DashBoardLayout>
-    </ClientSideOnly>
-  );
-}
-
-function TemporalMetrics({ predicate }: { predicate: Predicate }) {
-  return (
-    <ClientSideOnly>
-      <DashBoardLayout>
-        <EventDate
-          predicate={predicate}
-          visibilityThreshold={1}
-          options={['TIME']}
-          interactive={false}
-        />
-        <Months
-          predicate={predicate}
-          defaultOption="COLUMN"
-          visibilityThreshold={0}
-          interactive={false}
-        />
-      </DashBoardLayout>
-    </ClientSideOnly>
-  );
-}
-
-function IssuesMetrics({ predicate }: { predicate: Predicate }) {
-  return (
-    <ClientSideOnly>
-      <DashBoardLayout>
-        <OccurrenceSummary predicate={predicate} />
-        <DataQuality predicate={predicate} optional={['hasSequence', 'hasCollector', 'hasMedia']} />
-        <OccurrenceIssue
-          predicate={predicate}
-          visibilityThreshold={0}
-          interactive={false}
-          defaultOption="TABLE"
-        />
-      </DashBoardLayout>
-    </ClientSideOnly>
-  );
-}
-
-function CitationMetrics({ predicate }: { predicate: Predicate }) {
-  return (
-    <ClientSideOnly>
-      <DashBoardLayout>
-        <LiteratureCreatedAt visibilityThreshold={0} predicate={predicate} />
-        <LiteratureTopics visibilityThreshold={0} predicate={predicate} />
-        <LiteratureRelevance visibilityThreshold={0} predicate={predicate} />
-        <LiteratureType visibilityThreshold={0} predicate={predicate} />
-        <LiteratureCountriesOfCoverage
-          visibilityThreshold={0}
-          predicate={predicate}
-          options={['TABLE', 'PIE', 'COLUMN']}
-        />
-        <LiteratureCountriesOfResearcher
-          visibilityThreshold={0}
-          predicate={predicate}
-          options={['TABLE', 'PIE', 'COLUMN']}
-        />
-      </DashBoardLayout>
-    </ClientSideOnly>
   );
 }

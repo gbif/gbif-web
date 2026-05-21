@@ -3,6 +3,7 @@ import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { HashLink } from 'react-router-hash-link';
 import { Card } from './ui/smallCard';
+import { MdLink } from 'react-icons/md';
 
 export function GbifLinkCard({ path, className }: { path: string; className?: string }) {
   const config = useConfig();
@@ -15,6 +16,43 @@ export function GbifLinkCard({ path, className }: { path: string; className?: st
           <TocLi>
             <a className="g-text-inherit" href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>
               <FormattedMessage id="phrases.viewOnGBif" />
+            </a>
+          </TocLi>
+        </ul>
+      </nav>
+    </Card>
+  );
+}
+
+export function CatalogueOfLifeCard({
+  datasetKey,
+  taxonID,
+  checklistbankURL,
+  title,
+  className,
+}: {
+  datasetKey: string;
+  taxonID: string;
+  checklistbankURL: string;
+  title?: React.ReactNode;
+  className?: string;
+}) {
+  const url =
+    datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY
+      ? `https://www.catalogueoflife.org/data/taxon/${taxonID}`
+      : checklistbankURL;
+  const translationKey =
+    datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY
+      ? 'taxon.viewOnCatalogueOfLife'
+      : 'taxon.viewInChecklistBank';
+  return (
+    <Card className={cn('', className)}>
+      <nav>
+        <ul className="g-list-none g-m-0 g-p-0 g-my-2">
+          <TocLi>
+            <a className="g-text-inherit" href={url}>
+              {title ?? <FormattedMessage id={translationKey} />}{' '}
+              <MdLink className="g-inline g-ms-1" />
             </a>
           </TocLi>
         </ul>
@@ -36,7 +74,7 @@ export function TocLi({
   children: React.ReactNode;
 } & React.ComponentProps<'li'>) {
   const className =
-    'g-block g-border-l [&_a]:g-block g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 hover:g-text-slate-900 dark:g-text-slate-400 dark:hover:g-text-slate-300';
+    'g-block g-border-s [&_a]:g-block g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 hover:g-text-slate-900 dark:g-text-slate-400 dark:hover:g-text-slate-300';
   if (to) {
     return (
       <li className={className} {...props}>

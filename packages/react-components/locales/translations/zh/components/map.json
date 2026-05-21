@@ -43,6 +43,7 @@
     "CLASSIC": "紫红色",
     "LIGHT": "光线 (无标签)",
     "LIGHT_DETAILS": "淡色",
+    "GREY": "",
     "DARK": "暗色 (无标签)",
     "DARK_DETAILS": "黑色",
     "OSM": "道路"

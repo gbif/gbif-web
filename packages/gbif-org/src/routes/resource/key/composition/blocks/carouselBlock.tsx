@@ -65,12 +65,12 @@ export function CarouselBlock({ resource }: Props) {
     >
       {resource.title && (
         <BlockHeading
-          className="g-pl-4 md:g-pl-0"
+          className="g-ps-4 md:g-ps-0"
           dangerouslySetHeading={{ __html: resource.title }}
         />
       )}
       {resource.body && (
-        <ArticleTextContainer className="g-mt-2 g-mb-10 g-pl-4 md:g-pl-0">
+        <ArticleTextContainer className="g-mt-2 g-mb-10 g-ps-4 md:g-ps-0">
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}

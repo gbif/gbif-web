@@ -4,6 +4,7 @@ import {
   OccurrenceSearchMetadata,
   PublisherSearchMetadata,
   SearchMetadata,
+  TaxonSearchMetadata,
 } from '../contexts/search';
 import { configDefault } from './configDefaults';
 import { Endpoints } from './endpoints';
@@ -74,8 +75,9 @@ export type Config = Endpoints & {
     contactEmail?: string;
   };
   notFoundPageImageUrl?: string;
-  defaultChecklistKey?: string;
-  availableChecklistKeys?: string[];
+  defaultChecklistKey: string;
+  defaultMapChecklistKey: string;
+  availableChecklistKeys: string[];
   suggest?: {
     gadm?: { type: 'PARAMS'; value: { gadmGid: string } };
   };
@@ -133,7 +135,7 @@ export type Config = Endpoints & {
   publisherKey?: {
     literatureSearch: PartialSearchMetadata;
   };
-  taxonSearch?: SearchMetadata;
+  taxonSearch?: TaxonSearchMetadata;
   taxonKey?: {
     literatureSearch: PartialSearchMetadata;
   };

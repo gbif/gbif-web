@@ -37,7 +37,25 @@
   "loading": "Indlæser",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "Annuller",
   "rankInGroup": "",
+  "options": "",
+  "sort": {
+    "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
+    "default": "Standard",
+    "random": "",
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "Uspecificeret"
+  },
   "occurrenceClustersView": {
     "about": "Om",
     "clusters": "",
@@ -67,6 +85,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Art",
+      "taxonSearch": "Taxa",
       "datasetSearch": "Datasæt",
       "publisherSearch": "Forlæggere",
       "occurrenceSearch": "Observationer",

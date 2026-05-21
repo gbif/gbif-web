@@ -33,7 +33,6 @@ import { useLocation, Link } from 'react-router-dom';
 import { Images } from '../about/Images';
 import { useDatasetKeyContext } from '../datasetKey';
 import EventList from './eventList';
-import EventTaxonomy from './eventTaxonomy';
 import { cn } from '@/utils/shadcn';
 import { ExperimentalAlert } from './datasetEvents';
 
@@ -152,7 +151,7 @@ export const Event = ({
         <span>
           <DynamicLink
             pageId={'datasetKey'}
-            variables={{ key: `${datasetKey}/events` }}
+            variables={{ key: `${datasetKey}/event` }}
             className="g-text-inherit hover:g-underline"
           >
             <FormattedMessage id="dataset.events" defaultMessage={`Events`} />
@@ -178,7 +177,7 @@ export const Event = ({
         >
           <div className="g-order-last">
             <Card className="g-mb-4">
-              <div className="g-pt-4 g-pl-4 g-pr-4 g-pb-0">
+              <div className="g-pt-4 g-ps-4 g-pe-4 g-pb-0">
                 <div className="g-flex g-items-center">
                   <div className="g-p-0 md:g-p-4 g-pt-0 md:g-pt-4">
                     <h2 className="g-text-2xl g-font-semibold g-leading-none g-tracking-tight">
@@ -230,7 +229,7 @@ export const Event = ({
                     >
                       <SimpleTooltip title={<span>Records with images</span>} placement="auto">
                         <div className="g-flex g-place-items-center">
-                          <MdImage style={{ marginRight: 8 }} />{' '}
+                          <MdImage style={{ marginInlineEnd: 8 }} />{' '}
                           <span>
                             <FormattedNumber value={insights?.images?.documents?.total} />
                           </span>
@@ -255,7 +254,8 @@ export const Event = ({
               </ErrorBoundary>
             )}
 
-            <ErrorBoundary
+            {/* removed for now to remove highcharts from the main bundle */}
+            {/* <ErrorBoundary
               type="BLOCK"
               errorMessage={<FormattedMessage id="dataset.errors.eventList" />}
             >
@@ -265,7 +265,7 @@ export const Event = ({
                 eventID={firstOccurrence?.eventID || parentEventIdFromPath}
                 isParentEvent={!!parentEventIdFromPath}
               />
-            </ErrorBoundary>
+            </ErrorBoundary> */}
             <ClientSideOnly>
               <ErrorBoundary
                 type="BLOCK"

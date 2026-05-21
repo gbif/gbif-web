@@ -25,7 +25,7 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
       email
       orcidId
       jobTitle
-      profilePicture(base64: true)
+      profilePicture
       participants {
         id
         name
@@ -374,7 +374,7 @@ function DirectoryContactDialogSkeleton() {
 function Separator({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <div className={cn('g-relative', className)}>
-      <hr className="g-absolute g-top-1/2 g-left-0 g-right-0" />
+      <hr className="g-absolute g-top-1/2 g-start-0 g-end-0" />
       <div className="g-relative g-w-full g-text-center">
         <span className="g-bg-white g-px-2">{children}</span>
       </div>

@@ -31,6 +31,7 @@ import {
 } from './filterTools';
 import { Option } from './option';
 import { Suggest } from './suggest';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 
 type TaxonSuggestProps = Omit<filterTaxonConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -57,7 +58,6 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
     }: TaxonSuggestProps,
     ref
   ) => {
-    const siteConfig = useConfig();
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash, negateField } =
@@ -73,7 +73,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
     );
     const [useNegations, setUseNegations] = useState(filterSummary?.hasNegations ?? false);
-    const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
+    const currentChecklistKey = useChecklistKey();
 
     const About = about;
     const {
@@ -107,6 +107,8 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       } else {
         facetLoad({ variables: query, keepDataWhileLoading: true });
       }
+      // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
@@ -169,10 +171,13 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
     useEffect(() => {
       // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
       const selectedFacetLookup =
-        selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
-          acc[x.name] = x.count;
-          return acc;
-        }, {} as Record<string, number>) ?? {};
+        selectedFacetData?.search?.facet?.field?.reduce(
+          (acc, x) => {
+            acc[x.name] = x.count;
+            return acc;
+          },
+          {} as Record<string, number>
+        ) ?? {};
       setFacetLookup(selectedFacetLookup);
     }, [selectedFacetData]);
 
@@ -189,7 +194,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
             <>
               {selected.length > 0 && (
                 <button
-                  className={cn('g-mx-1 g-px-1', !!About && 'g-pe-3 g-border-r g-me-2')}
+                  className={cn('g-mx-1 g-px-1', !!About && 'g-pe-3 g-border-e g-me-2')}
                   onClick={() => {
                     setFullField(filterHandle, [], []);
                   }}
@@ -271,30 +276,15 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full">
-            {availableChecklistKeys.length > 1 && (
-              <div className="g-text-xs g-text-slate-500 g-mb-0.5 g-gap-1 gbif__taxonomy-filter__checklist-selector">
-                <select
-                  className="g-flex-auto g-max-w-full"
-                  value={filter.checklistKey}
-                  onChange={(event) => {
-                    const selectedValue = event.target.value;
-                    const newFilter = setFullField(filterHandle, [], []);
-                    setFilter({ ...newFilter, checklistKey: selectedValue });
-                  }}
-                >
-                  {availableChecklistKeys.map((key) => (
-                    <option key={key} value={key}>
-                      <DatasetLabel id={key} />
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
             {suggestConfig && (
               <Suggest
                 ref={ref}
                 onSelect={(item) =>
-                  add(filterHandle, item.acceptedUsageId ?? item.usageId ?? item.key, useNegations)
+                  add(
+                    filterHandle,
+                    item.acceptedNameUsageID ?? item.acceptedUsageId ?? item.usageId ?? item.key,
+                    useNegations
+                  )
                 }
                 className={cn(
                   'g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset'
@@ -303,7 +293,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                 getSuggestions={(args) => {
                   return suggestConfig.getSuggestions({
                     ...args,
-                    checklistKey: filter.checklistKey,
+                    checklistKey: currentChecklistKey,
                   });
                 }}
                 render={suggestConfig.render}
@@ -351,7 +341,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                     >
                       <div className="g-flex g-items-center">
                         <span className="g-flex-auto">
-                          <DisplayName id={x} checklistKey={filter.checklistKey} />
+                          <DisplayName id={x} checklistKey={currentChecklistKey} />
                         </span>
                         {!useNegations &&
                           !selectedFacetLoading &&
@@ -402,7 +392,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                         >
                           <div className="g-flex g-items-center">
                             <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
-                              {get(x, suggestionTitlePath ?? 'item.usage.canonicalName') ?? (
+                              {get(x, suggestionTitlePath ?? 'item.title') ?? (
                                 <DisplayName id={x?.name} />
                               )}
                             </span>

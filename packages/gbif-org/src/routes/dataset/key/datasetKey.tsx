@@ -22,7 +22,7 @@ import {
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -46,19 +46,19 @@ const DATASET_QUERY = /* GraphQL */ `
         total
       }
     }
-    totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {
-      count
-    }
-    accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {
-      count
-    }
-    synonyms: taxonSearch(
-      datasetKey: [$key]
-      origin: [SOURCE]
-      status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]
-    ) {
-      count
-    }
+    # totalTaxa: taxonSearch(datasetKey: [$key], origin: [SOURCE]) {
+    #   count
+    # }
+    # accepted: taxonSearch(datasetKey: [$key], origin: [SOURCE], status: [ACCEPTED]) {
+    #   count
+    # }
+    # synonyms: taxonSearch(
+    #   datasetKey: [$key]
+    #   origin: [SOURCE]
+    #   status: [SYNONYM, HETEROTYPIC_SYNONYM, PROPARTE_SYNONYM, HOMOTYPIC_SYNONYM]
+    # ) {
+    #   count
+    # }
     dataset(key: $key) {
       key
       checklistBankDataset {
@@ -72,12 +72,6 @@ const DATASET_QUERY = /* GraphQL */ `
       duplicateOfDataset {
         key
         title
-      }
-      metrics {
-        colCoveragePct
-        nubCoveragePct
-        nubMatchingCount
-        colMatchingCount
       }
       pubDate
       description
@@ -239,6 +233,10 @@ const DATASET_QUERY = /* GraphQL */ `
       gridded {
         percent
       }
+      networks(visibleOnDatasetPage: true) {
+        key
+        title
+      }
     }
   }
 `;
@@ -332,6 +330,7 @@ export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
   const config = useConfig();
+  const { locale } = useI18n();
   const { errors, data } = useLoaderData() as DatasetKeyLoaderResult;
   useNotifyOfPartialDataIfErrors(errors);
 
@@ -372,7 +371,8 @@ export function DatasetPage() {
     return false;
   }, [occData]);
 
-  const showSpeciesTab = dataset.type === DatasetType.Checklist;
+  const showSpeciesTab =
+    dataset.type === DatasetType.Checklist && dataset.checklistBankDataset != null;
   const showEventsTab =
     dataset.type === DatasetType.SamplingEvent &&
     import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
@@ -393,7 +393,30 @@ export function DatasetPage() {
       tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
     if (showSpeciesTab) {
-      tabsToDisplay.push({ to: 'species', children: 'Species' });
+      tabsToDisplay.push({
+        to: 'taxon',
+        children: <FormattedMessage id="dataset.tabs.taxonomy" />,
+      });
+      // tabsToDisplay.push({
+      //   to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
+      //     dataset.key
+      //   }/classification`,
+      //   children: (
+      //     <>
+      //       <SimpleTooltip
+      //         title={
+      //           <FormattedMessage
+      //             id="dataset.exploreInChecklistBank"
+      //             defaultMessage="Explore taxonomy via Checklist Bank"
+      //           />
+      //         }
+      //       >
+      //         <FormattedMessage id="dataset.tabs.taxonomy" defaultMessage="Taxonomy" />
+      //         <MdLink />
+      //       </SimpleTooltip>
+      //     </>
+      //   ),
+      // });
     }
     if (showEventsTab) {
       tabsToDisplay.push({
@@ -533,12 +556,15 @@ export function DatasetPage() {
                 />
               }
             >
-              <DynamicLink pageId="datasetSearch">
+              <DynamicLink pageId="datasetSearch" searchParams={{ type: dataset.type }}>
                 <FormattedMessage id={`dataset.longType.${dataset.type}`} />
               </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }} />
+            <ArticleTitle
+              dir={locale.textDirection}
+              dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }}
+            />
 
             <div className="g-mt-2">
               <FormattedMessage id="dataset.publishedBy" />{' '}

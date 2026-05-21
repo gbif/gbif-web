@@ -22,6 +22,7 @@ export function GroupByTable({
   total = 800,
   ...props
 }) {
+  const { locale } = useI18n();
   // maximum count on page
   const maxCount = results.reduce((a, c) => Math.max(a, c.count || 0), 0);
 
@@ -76,6 +77,7 @@ export function GroupByTable({
                   </td>
                   <td className="g-w-20">
                     <Tooltip
+                      asChild
                       title={
                         <FormattedMessage
                           id="counts.nPercentOfTotal"
@@ -86,6 +88,7 @@ export function GroupByTable({
                     >
                       <div>
                         <Progress
+                          dir={locale.textDirection}
                           value={(100 * e.count) / maxCount}
                           className="g-w-20 g-relative g-h-[1em] g-top-0.5"
                         />

@@ -26,7 +26,11 @@ export function Th({
   return (
     <th
       scope="col"
-      className={cn('g-text-left g-whitespace-nowrap', { 'g-cursor-pointer': sortable }, className)}
+      className={cn(
+        'g-text-start g-whitespace-nowrap',
+        { 'g-cursor-pointer': sortable },
+        className
+      )}
       onClick={() => sortable && field && onSort && onSort(field)}
     >
       <div className="g-flex g-items-center g-gap-2">

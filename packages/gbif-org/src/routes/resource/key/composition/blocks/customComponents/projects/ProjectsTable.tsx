@@ -324,14 +324,14 @@ export function ProjectsTable({
                   {visibleColumns.map((col) => (
                     <th
                       key={col.key}
-                      className={`g-p-4 g-text-left g-whitespace-nowrap ${
+                      className={`g-p-4 g-text-start g-whitespace-nowrap ${
                         col.sortable ? 'g-cursor-pointer hover:g-bg-gray-100' : ''
                       }`}
                       onClick={() => handleSort(col)}
                     >
                       {col.label}
                       {col.sortable && (
-                        <span className="g-ml-1 g-inline-block">
+                        <span className="g-ms-1 g-inline-block">
                           {sortKey === col.key ? (
                             sortDir === 'asc' ? (
                               <FaCaretUp />

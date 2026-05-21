@@ -44,7 +44,7 @@ export function HeaderBlock({ resource, resourceType, resourceLink }: Props) {
         )}
 
         {!resource.hideTitle && resource.title && (
-          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+          <ArticleTitle dir="auto" dangerouslySetTitle={{ __html: resource.title }} />
         )}
 
         {resource.summary && (

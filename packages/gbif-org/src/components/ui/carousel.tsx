@@ -1,6 +1,7 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import * as React from 'react';
+import { useI18n } from '@/reactRouterPlugins';
+import { FiArrowLeft as IconLeft, FiArrowRight as IconRight } from 'react-icons/fi';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
@@ -28,6 +29,22 @@ type CarouselContextProps = {
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
+function NextCircleIcon(props: React.HTMLAttributes<HTMLOrSVGElement>) {
+  const { locale } = useI18n();
+  if (locale.textDirection === 'rtl') {
+    return <IconLeft {...props} />;
+  }
+  return <IconRight {...props} />;
+}
+
+function PrevCircleIcon(props: React.HTMLAttributes<HTMLOrSVGElement>) {
+  const { locale } = useI18n();
+  if (locale.textDirection === 'ltr') {
+    return <IconLeft {...props} />;
+  }
+  return <IconRight {...props} />;
+}
+
 function useCarousel() {
   const context = React.useContext(CarouselContext);
 
@@ -49,6 +66,7 @@ const Carousel = React.forwardRef<
     },
     plugins
   );
+  const { locale } = useI18n();
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
 
@@ -73,13 +91,21 @@ const Carousel = React.forwardRef<
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        scrollPrev();
+        if (locale.textDirection == 'rtl') {
+          scrollNext();
+        } else {
+          scrollPrev();
+        }
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
-        scrollNext();
+        if (locale.textDirection == 'rtl') {
+          scrollPrev();
+        } else {
+          scrollNext();
+        }
       }
     },
-    [scrollPrev, scrollNext]
+    [scrollPrev, scrollNext, locale.textDirection]
   );
 
   React.useEffect(() => {
@@ -186,15 +212,16 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         className={cn(
           'g-absolute  g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-g-left-12 g-top-1/2 -g-translate-y-1/2'
-            : '-g-top-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
+            ? '-g-start-12 g-top-1/2 -g-translate-y-1/2'
+            : // vertical orientation: paired with physical translate-x for centering, so keep physical g-left-1/2
+              '-g-top-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
         {...props}
       >
-        <ArrowLeftIcon className="g-h-4 g-w-4" />
+        <PrevCircleIcon className="g-h-4 g-w-4" />
         <span className="g-sr-only">Previous slide</span>
       </Button>
     );
@@ -214,15 +241,16 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         className={cn(
           'g-absolute g-h-8 g-w-8 g-rounded-full',
           orientation === 'horizontal'
-            ? '-g-right-12 g-top-1/2 -g-translate-y-1/2'
-            : '-g-bottom-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
+            ? '-g-end-12 g-top-1/2 -g-translate-y-1/2'
+            : // vertical orientation: paired with physical translate-x for centering, so keep physical g-left-1/2
+              '-g-bottom-12 g-left-1/2 -g-translate-x-1/2 g-rotate-90',
           className
         )}
         disabled={!canScrollNext}
         onClick={scrollNext}
         {...props}
       >
-        <ArrowRightIcon className="g-h-4 g-w-4" />
+        <NextCircleIcon className="g-h-4 g-w-4" />
         <span className="g-sr-only">Next slide</span>
       </Button>
     );
@@ -231,11 +259,10 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 CarouselNext.displayName = 'CarouselNext';
 
 export {
-    type CarouselApi,
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselPrevious,
-    CarouselNext,
+  type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
 };
-

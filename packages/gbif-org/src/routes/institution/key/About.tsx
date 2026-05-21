@@ -32,13 +32,15 @@ import { useInstitutionKeyLoaderData } from '.';
 import { GrSciCollMetadata } from './MetaData';
 import { PredicateType } from '@/gql/graphql';
 import { notNull } from '@/utils/notNull';
+import { apiConstants } from '@/config/apiConstants';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 export default function About() {
   const { institution } = useInstitutionKeyLoaderData();
   const { count, loading } = useCount({
-    v1Endpoint: '/occurrence/search',
+    apiEndpoint: apiConstants.occurrenceSearch,
     params: { institutionKey: institution.key },
   });
   const removeSidebar = useBelow(1100);
@@ -70,6 +72,7 @@ export default function About() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={cn({ 'g-flex': !removeSidebar })}>
           <div className="g-flex-grow">
+            <TestSiteAlert className="g-mb-4" />
             <Card className="g-mb-4" id="description">
               <CardHeader>
                 <CardTitle>
@@ -404,7 +407,7 @@ export default function About() {
             </Card>
           </div>
           {!removeSidebar && (
-            <aside className="g-flex-none g-min-w-80 g-w-80 g-ml-4">
+            <aside className="g-flex-none g-min-w-80 g-w-80 g-ms-4">
               <InstitutionQuality predicate={predicate} className="g-mb-4" />
               <InstitutionTopTaxa predicate={predicate} className="g-mb-4" />
               <InstitutionTopCountries predicate={predicate} className="g-mb-4" />

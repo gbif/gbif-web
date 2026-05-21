@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/largeCard';
 import { InstitutionResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 import { truncate } from '@/utils/truncate';
 import { GlobeIcon } from '@radix-ui/react-icons';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -34,6 +35,7 @@ export function InstitutionResult({
   excludeCode?: boolean;
   excludeCountry?: boolean;
 }) {
+  const dir = getTextDirection(institution.name);
   const country = institution.country ?? institution.mailingCountry;
 
   const showCode = !excludeCode && institution.code;
@@ -43,7 +45,7 @@ export function InstitutionResult({
       <Wrapper>
         <Card className="g-max-w-full">
           <article className="g-p-4">
-            <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
+            <div className="g-flex g-flex-col md:g-flex-row g-gap-4" dir={dir}>
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
                   <DynamicLink
@@ -104,7 +106,7 @@ export function InstitutionResult({
             </div>
             <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
               {(institution.collectionCount ?? 0) > 0 && (
-                <Tag>
+                <Tag className="g-m-1 g-mb-0">
                   <FormattedMessage
                     id="counts.nCollections"
                     values={{ total: institution.collectionCount }}
@@ -113,7 +115,7 @@ export function InstitutionResult({
               )}
               <div className="g-flex-grow"></div>
               {institution.numberSpecimens > 0 && (
-                <Tag>
+                <Tag className="g-m-1 g-mb-0">
                   <FormattedMessage
                     id="counts.nRecords"
                     values={{ total: institution.numberSpecimens }}
@@ -121,7 +123,7 @@ export function InstitutionResult({
                 </Tag>
               )}
               {institution.occurrenceCount > 0 && (
-                <Tag className="g-bg-primary-500 g-text-primaryContrast-500">
+                <Tag className="g-bg-primary-500 g-text-primaryContrast-500 g-m-1 g-mb-0">
                   <FormattedMessage
                     id="counts.inGbif"
                     values={{ total: institution.occurrenceCount }}

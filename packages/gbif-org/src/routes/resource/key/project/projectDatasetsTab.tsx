@@ -59,7 +59,7 @@ export function ProjectDatasetsTab() {
   if (!projectId || !datasets.data || datasets.data?.datasetSearch?.results?.length === 0) {
     return (
       <div className="g-pt-4 g-max-w-3xl g-m-auto">
-        <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-right">
+        <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-end">
           <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon />
         </p>
         <NoResultsTab>
@@ -71,7 +71,7 @@ export function ProjectDatasetsTab() {
 
   return (
     <div className="g-pt-4 g-max-w-3xl g-m-auto">
-      <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-right">
+      <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-end">
         <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon />
       </p>
 

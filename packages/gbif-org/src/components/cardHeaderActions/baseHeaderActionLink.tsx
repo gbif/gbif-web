@@ -26,7 +26,7 @@ export function BaseHeaderActionLink({
       to={url}
     >
       <Icon size={iconSize} />
-      <span className="g-ml-1">{children}</span>
+      <span className="g-ms-1">{children}</span>
     </DynamicLink>
   );
 }

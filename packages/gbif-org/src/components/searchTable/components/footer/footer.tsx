@@ -1,9 +1,10 @@
-import { MdChevronLeft, MdChevronRight, MdFirstPage } from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight, MdFirstPage, MdLastPage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { FooterButton } from './footerButton';
 import { InlineSkeletonWrapper } from '../inlineSkeletonWrapper';
 import { usePagination } from '../../hooks/usePagination';
 import { PaginationState, SetPaginationState } from '../../hooks/usePaginationState';
+import { useI18n } from '@/reactRouterPlugins';
 
 type Props = {
   loading: boolean;
@@ -13,6 +14,8 @@ type Props = {
 };
 
 export function Footer({ loading, paginationState, setPaginationState, rowCount }: Props) {
+  const { locale } = useI18n();
+  const isRtl = locale.textDirection === 'rtl';
   const { hasPreviousPage, firstPage, previousPage, pageNumber, pageCount, hasNextPage, nextPage } =
     usePagination({
       paginationState,
@@ -28,13 +31,13 @@ export function Footer({ loading, paginationState, setPaginationState, rowCount 
             <FooterButton
               disable={loading}
               onClick={firstPage}
-              icon={<MdFirstPage />}
+              icon={<MdFirstPage className="gbif-rtl-icon" />}
               toolTip={<FormattedMessage id="pagination.first" />}
             />
             <FooterButton
               disable={loading}
               onClick={previousPage}
-              icon={<MdChevronLeft />}
+              icon={<MdChevronLeft className="gbif-rtl-icon" />}
               toolTip={<FormattedMessage id="pagination.previous" />}
             />
           </>
@@ -57,7 +60,7 @@ export function Footer({ loading, paginationState, setPaginationState, rowCount 
           <FooterButton
             disable={loading}
             onClick={nextPage}
-            icon={<MdChevronRight />}
+            icon={<MdChevronRight className="gbif-rtl-icon" />}
             toolTip={<FormattedMessage id="pagination.next" />}
           />
         )}

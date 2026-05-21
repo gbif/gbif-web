@@ -121,14 +121,14 @@ export function TranslatorsList({
                   {columns.map((col) => (
                     <th
                       key={col.key}
-                      className={`g-p-4 g-text-left g-whitespace-nowrap ${
+                      className={`g-p-4 g-text-start g-whitespace-nowrap ${
                         col.sortable ? 'g-cursor-pointer hover:g-bg-gray-100' : ''
                       }`}
                       onClick={() => handleSort(col)}
                     >
                       {col.label}
                       {col.sortable && (
-                        <span className="g-ml-1 g-inline-block">
+                        <span className="g-ms-1 g-inline-block">
                           {sortKey === col.key ? (
                             sortDir === 'asc' ? (
                               <FaCaretUp />
@@ -181,7 +181,9 @@ export function TranslatorsList({
                       </td>
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         {(translator?.Person?.certifications || []).map((c) => (
-                          <Tag key={c.year}>{c.year}</Tag>
+                          <Tag key={c.year} className="g-m-1 g-mb-0">
+                            {c.year}
+                          </Tag>
                         ))}
                       </td>
                     </tr>

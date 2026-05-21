@@ -14,6 +14,7 @@ import { createXYZ } from 'ol/tilegrid';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import View from 'ol/View';
 import proj4 from 'proj4';
+import '@/components/maps/projectionDefinitions';
 import { Params } from '../mapWidget/options';
 import { basemaps } from './basemaps';
 import createBasicBaseMapStyle from './styles/basicBaseMap';
@@ -26,15 +27,6 @@ const occurrenceRasterLayerBaseUrl =
 const adhocVectorLayerBaseUrl =
   import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?';
 
-proj4.defs('EPSG:4326', '+proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
-proj4.defs(
-  'EPSG:3575',
-  '+proj=laea +lat_0=90 +lon_0=10 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
-);
-proj4.defs(
-  'EPSG:3031',
-  '+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs'
-);
 register(proj4);
 
 // set up projections and shared variables

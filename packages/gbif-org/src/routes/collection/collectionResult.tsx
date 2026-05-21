@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/largeCard';
 import { CollectionResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 import { truncate } from '@/utils/truncate';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
@@ -42,12 +43,13 @@ export function CollectionResult({
   collection: CollectionResultFragment;
   excludeInstitution?: boolean;
 }) {
+  const dir = getTextDirection(collection.name);
   return (
     <div className="g-mb-4">
       <Wrapper>
         <Card className="g-max-w-full">
           <article className="g-p-4">
-            <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
+            <div className="g-flex g-flex-col md:g-flex-row g-gap-4" dir={dir}>
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
                   <DynamicLink
@@ -109,7 +111,7 @@ export function CollectionResult({
             </div>
             <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
               {collection.code && (
-                <Tag>
+                <Tag className="g-m-1 g-mb-0">
                   <FormattedMessage id="filters.collectionCode.name" />:{' '}
                   {truncate(collection.code, 20)}
                 </Tag>
@@ -124,7 +126,7 @@ export function CollectionResult({
                 </Tag>
               )}
               {collection.occurrenceCount > 0 && (
-                <Tag className="">
+                <Tag className="g-m-1 g-mb-0">
                   <span className="g-flex g-items-center">
                     <GbifLogoIcon className="g-w-3 g-h-3 g-me-1" />
                     <FormattedMessage
@@ -139,7 +141,7 @@ export function CollectionResult({
         </Card>
       </Wrapper>
       {collection?.descriptorMatches && collection?.descriptorMatches.length > 0 && (
-        <div className="g-mx-2 g-bg-slate-50 g-shadow g-rounded-b g-text-sm">
+        <div dir="ltr" className="g-mx-2 g-bg-slate-50 g-shadow g-rounded-b g-text-sm">
           {collection?.descriptorMatches.length > 3 && (
             <div className="g-text-slate-500 g-text-xs g-px-3 g-py-1 -g-mb-2">
               Showing first 3 descriptors

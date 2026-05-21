@@ -1,6 +1,7 @@
 import { Root } from '@/components/root';
 import { gbifConfig } from '@/gbif/config';
 import { createGbifRoutes } from '@/gbif/routes';
+import { extractLocaleFromPathname } from '@/reactRouterPlugins/i18n/extractLocaleFromURL';
 import type { Request as ExpressRequest } from 'express';
 import ReactDOMServer from 'react-dom/server';
 import { FilledContext, HelmetServerState } from 'react-helmet-async';
@@ -9,6 +10,8 @@ import {
   createStaticRouter,
   StaticRouterProvider,
 } from 'react-router-dom/server';
+
+const defaultLanguage = gbifConfig.languages.find((l) => l.default) ?? gbifConfig.languages[0];
 
 // Create routes based on config
 const routes = createGbifRoutes(gbifConfig);
@@ -40,6 +43,15 @@ export async function render(req: ExpressRequest) {
   const headHtml = createHeadHtml(helmet);
   const cacheControl = extractCacheControl(context?.loaderHeaders);
 
+  const localeCode = extractLocaleFromPathname(
+    new URL(fetchRequest.url).pathname,
+    gbifConfig.languages.map((l) => l.code),
+    defaultLanguage.code
+  );
+  const matchedLanguage =
+    gbifConfig.languages.find((l) => l.code === localeCode) ?? defaultLanguage;
+  const rootDir = matchedLanguage.textDirection ?? 'ltr';
+
   return {
     appHtml,
     headHtml,
@@ -47,6 +59,7 @@ export async function render(req: ExpressRequest) {
     bodyAttributes: helmet.bodyAttributes.toString(),
     statusCode: context.statusCode,
     cacheControl,
+    rootDir,
   };
 }
 

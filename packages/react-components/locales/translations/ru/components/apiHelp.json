@@ -26,8 +26,11 @@
   "searchDatasets": "Получить все наборы данных.",
   "singleNode": "Указать отдельный узел",
   "searchNodes": "Узлы поиска",
-  "singleSpecies": "Получить отдельный вид",
-  "searchSpecies": "Получить все виды",
+  "singleTaxon": "Получить отдельный таксон.",
+  "singleTaxonDetails": "Получить детали отдельного таксона.",
+  "searchTaxa": "Поиск таксонов.",
+  "matchSpecies": "Сопоставьте имя с таксономией GBIF",
   "singleDerivedDataset": "Предоставьте отдельный полученный набор данных ",
+  "parseName": "Выделите отдельно научное наименование",
   "derivedDatasetContributingDatasets": "Предоставьте наборы данных, содержащие полученный набор данных"
 }

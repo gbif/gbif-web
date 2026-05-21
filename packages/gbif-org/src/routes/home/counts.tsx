@@ -1,5 +1,6 @@
 // import { useCount } from '@/components/count';
 import { CountProps, useCount } from '@/components/count';
+import { apiConstants } from '@/config/apiConstants';
 import { HomePageCountIconsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -37,14 +38,18 @@ type Props = {
 
 export function HomePageCounts({ iconData }: Props) {
   return (
-    <div className="g-grid g-grid-cols-1 sm:g-grid-cols-2 lg:g-grid-cols-4 g-gap-8 g-max-w-6xl g-m-auto g-px-10 g-py-16">
+    <div
+      data-cy="homepage-counts"
+      className="g-grid g-grid-cols-1 sm:g-grid-cols-2 lg:g-grid-cols-4 g-gap-8 g-max-w-6xl g-m-auto g-px-10 g-py-16"
+    >
       <DynamicLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT' }}>
         <CountItem
+          testId="count-occurrences"
           icon={iconData?.occurrenceIcon?.file.url}
           defaultCount={3000000000}
           label={<FormattedMessage id="homepage.counts.occurrences" />}
           countOptions={{
-            v1Endpoint: '/occurrence/search',
+            apiEndpoint: apiConstants.occurrenceSearch,
             params: {
               occurrenceStatus: 'PRESENT',
             },
@@ -54,22 +59,24 @@ export function HomePageCounts({ iconData }: Props) {
 
       <DynamicLink pageId="datasetSearch">
         <CountItem
+          testId="count-datasets"
           icon={iconData?.datasetIcon?.file.url}
           defaultCount={100000}
           label={<FormattedMessage id="homepage.counts.datasets" />}
           countOptions={{
-            v1Endpoint: '/dataset/search',
+            apiEndpoint: apiConstants.datasetSearch,
           }}
         />
       </DynamicLink>
 
       <DynamicLink pageId="publisherSearch">
         <CountItem
+          testId="count-publishers"
           icon={iconData?.publisherIcon?.file.url}
           defaultCount={2400}
           label={<FormattedMessage id="homepage.counts.publishers" />}
           countOptions={{
-            v1Endpoint: '/organization/count',
+            apiEndpoint: apiConstants.organization + '/count',
             responseIsNumber: true,
           }}
         />
@@ -80,11 +87,12 @@ export function HomePageCounts({ iconData }: Props) {
         searchParams={{ literatureType: 'journal', relevance: 'GBIF_USED', peerReview: 'true' }}
       >
         <CountItem
+          testId="count-literature"
           icon={iconData?.literatureIcon?.file.url}
           defaultCount={12000}
           label={<FormattedMessage id="homepage.counts.literature" />}
           countOptions={{
-            v1Endpoint: '/literature/search',
+            apiEndpoint: apiConstants.literatureSearch,
             params: {
               literatureType: 'journal',
               relevance: 'GBIF_USED',
@@ -102,18 +110,21 @@ function CountItem({
   countOptions,
   defaultCount,
   label,
+  testId,
 }: {
   icon?: string;
   defaultCount: number;
   label: React.ReactNode;
   countOptions: CountProps;
+  testId?: string;
 }) {
   const { count } = useCount(countOptions);
 
   return (
-    <div className="g-flex g-flex-col g-items-center g-flex-1">
+    <div data-cy={testId} className="g-flex g-flex-col g-items-center g-flex-1">
       <img className="g-w-28 g-aspect-square" src={icon} />
       <span
+        data-cy="count-value"
         className={cn('g-text-3xl g-font-medium g-text-gray-600 dark:g-text-slate-200', {
           'g-opacity-50': count == null,
         })}

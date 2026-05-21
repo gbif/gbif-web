@@ -55,6 +55,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       trends: getFile(locale, `../${folder}/${locale}/components/trends`).trends,
       country: getFile(locale, `../${folder}/${locale}/components/country`).country,
       directory: getFile(locale, `../${folder}/${locale}/components/directory`),
+      languageSelector: getFile(locale, `../${folder}/${locale}/components/languageSelector`)
+        .languageSelector,
       occurrenceFieldNames: getFile(
         locale,
         `../${folder}/${locale}/components/occurrenceFieldNames`,
@@ -62,6 +64,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       occurrenceDetails: getFile(locale, `../${folder}/${locale}/components/occurrenceDetails`),
       eventDetails: getFile(locale, `../${folder}/${locale}/components/eventDetails`),
       download: getFile(locale, `../${folder}/${locale}/components/download`).download,
+      occurrenceSnapshots: getFile(locale, `../${folder}/${locale}/components/occurrenceSnapshots`)
+        .occurrenceSnapshots,
       map: getFile(locale, `../${folder}/${locale}/components/map`),
       images: getFile(locale, `../${folder}/${locale}/components/images`),
       error: getFile(locale, `../${folder}/${locale}/components/error`),

@@ -9,7 +9,7 @@ function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>)
 
 function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
   return (
-    <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+    <table className="g-w-full g-text-sm g-text-start g-text-gray-500 dark:g-text-gray-400">
       <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
         <tr>
           {Array.from({ length: columns }).map((_, i) => (

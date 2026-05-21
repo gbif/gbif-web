@@ -45,13 +45,18 @@ export function LicenceTag({
 }
 
 const testSite = import.meta.env.PUBLIC_TEST_SITE === 'true';
-const testSiteDoiPrefix = testSite ? 'Test DOI' : 'DOI';
-export function DoiTag({ id = '', ...props }) {
+const testSiteDoiPrefix = testSite ? 'Do not cite DOI' : 'DOI';
+export function DoiTag({ id = '', className, ...props }) {
   const sanitizedId = id.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
   return (
-    <IdentifierTag as="a" href={`https://doi.org/${sanitizedId}`} {...props}>
+    <IdentifierTag
+      as="a"
+      href={`https://doi.org/${sanitizedId}`}
+      className={cn(className, testSite ? 'g-select-none g-pointer-events-none' : '')}
+      {...props}
+    >
       <IdentifierType>{testSiteDoiPrefix}</IdentifierType>
-      <IdentifierValue>{sanitizedId}</IdentifierValue>
+      <IdentifierValue className={testSite ? 'g-text-red-500' : ''}>{sanitizedId}</IdentifierValue>
     </IdentifierTag>
   );
 }
@@ -61,7 +66,7 @@ export function OrcId({ href, className }: { href: string; className?: string })
     <a dir="ltr" className={cn('g-inline-block g-no-underline', className)} href={href}>
       <img
         alt="ORCID logo"
-        className="g-mr-1 g-inline-block"
+        className="g-me-1 g-inline-block"
         src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png"
         width="16"
         height="16"
@@ -80,6 +85,22 @@ export function Lsid({ identifier = '', ...props }) {
   );
 }
 
+export function IucnTag({
+  statusCategory,
+  ...props
+}: {
+  statusCategory: string;
+} & React.ComponentProps<typeof IdentifierTag>) {
+  return (
+    <IdentifierTag {...props}>
+      <IdentifierType className="g-bg-[#ed2a24] g-border-[#c1201b]">IUCN</IdentifierType>
+      <IdentifierValue>
+        <FormattedMessage id={`enums.threatStatus.${statusCategory}`} />
+      </IdentifierValue>
+    </IdentifierTag>
+  );
+}
+
 export function IdentifierType({
   className,
   children,
@@ -92,8 +113,8 @@ export function IdentifierType({
   return (
     <span
       className={cn(
-        className,
-        'gbif-identifierType g-px-2 g-rounded-s g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-border-opacity-20 g-text-primaryContrast-500'
+        'gbif-identifierType g-px-2 g-rounded-s g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-border-opacity-20 g-text-primaryContrast-500',
+        className
       )}
       {...props}
     >
@@ -140,7 +161,7 @@ export const IdentifierTag = React.forwardRef(
   ) => {
     return (
       <Div
-        dir="ltr"
+        dir="auto"
         ref={ref}
         className={cn(
           'g-inline-block g-text-sm g-text-inherit g-no-underline [&>.gbif-identifierType]:hover:g-primary-600 [&>.gbif-identifierType]:hover:g-text-primaryContrast-600',

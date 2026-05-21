@@ -37,7 +37,25 @@
   "loading": "",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "",
   "rankInGroup": "",
+  "options": "Opzioni",
+  "sort": {
+    "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
+    "default": "",
+    "random": "",
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": ""
+  },
   "occurrenceClustersView": {
     "about": "Informazioni",
     "clusters": "",
@@ -67,6 +85,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "",
+      "taxonSearch": "",
       "datasetSearch": "",
       "publisherSearch": "",
       "occurrenceSearch": "",

@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/dropdownMenu';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useConfig } from '@/config/config';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import React, { useMemo } from 'react';
 import { MdApps, MdCode, MdInfo, MdOutlineFeedback } from 'react-icons/md';
@@ -95,7 +95,7 @@ export function DataHeader({
 }
 
 export function Separator() {
-  return <div className="g-border-l g-border-slate-200 g-h-6 g-mx-2"></div>;
+  return <div className="g-border-s g-border-slate-200 g-h-6 g-mx-2"></div>;
 }
 
 function Popup({
@@ -139,6 +139,7 @@ function CatalogSelector({
   title: React.ReactNode;
   availableCatalogues: string[];
 }) {
+  const { locale } = useI18n();
   const options = useMemo(() => {
     const optionKeys = availableCatalogues.filter((o): o is CatalogueOption =>
       (availableCatalogueOptions as readonly string[]).includes(o)
@@ -148,7 +149,7 @@ function CatalogSelector({
       OCCURRENCE: { pageId: 'occurrenceSearch', label: 'catalogues.occurrences' },
       PUBLISHER: { pageId: 'publisherSearch', label: 'catalogues.publishers' },
       DATASET: { pageId: 'datasetSearch', label: 'catalogues.datasets' },
-      TAXON: { pageId: 'speciesSearch', label: 'catalogues.species' },
+      TAXON: { pageId: 'taxonSearch', label: 'catalogues.taxa' },
       INSTITUTION: { pageId: 'institutionSearch', label: 'catalogues.institutions' },
       COLLECTION: { pageId: 'collectionSearch', label: 'catalogues.collections' },
       LITERATURE: { pageId: 'literatureSearch', label: 'catalogues.literature' },
@@ -161,7 +162,7 @@ function CatalogSelector({
 
   return (
     <div className="g-flex-none g-flex g-items-center">
-      <DropdownMenu>
+      <DropdownMenu dir={locale.textDirection || 'ltr'}>
         <DropdownMenuTrigger>
           <div className="g-flex g-justify-center g-items-center g-px-2 g-pt-2.5 g-pb-2.5">
             <MdApps /> {title && <span className="g-ms-2 g-hidden md:g-block">{title}</span>}

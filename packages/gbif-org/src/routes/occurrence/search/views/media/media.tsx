@@ -3,18 +3,40 @@ import { getAsQuery } from '@/components/filters/filterTools';
 import { useToast } from '@/components/ui/use-toast';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
+import { useParentTaxon } from '@/hooks/useParentTaxon';
 import {
   OccurrenceMediaSearchQuery,
   OccurrenceMediaSearchQueryVariables,
+  OccurrenceSortBy,
   Predicate,
   PredicateType,
+  SortOrder,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import useLocalStorage from 'use-local-storage';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
-import { MediaPresentation } from './mediaPresentation';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { MediaGrouped } from './mediaGrouped';
+import {
+  GalleryItemSkeleton,
+  MediaPresentation,
+  TaxonSuggestion,
+  TaxonSuggestions,
+} from './mediaPresentation';
+import {
+  DEFAULT_MEDIA_GROUP_STATE,
+  GROUP_FIELDS,
+  MediaGroupState,
+  RANK_TO_GROUP_FIELD,
+} from './mediaGroupConfig';
+
+// Fixed seed for the "Random" mode. Keeping this constant means pagination is
+// stable and revisits show the same shuffle order.
+const SHUFFLE_SEED = 12345;
 
 const OCCURRENCE_MEDIA = /* GraphQL */ `
   query occurrenceMediaSearch(
@@ -22,10 +44,19 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
     $predicate: Predicate
     $size: Int
     $from: Int
+    $shuffle: Int
+    $sortBy: OccurrenceSortBy
+    $sortOrder: SortOrder
     $checklistKey: ID
   ) {
     occurrenceSearch(q: $q, predicate: $predicate) {
-      documents(size: $size, from: $from) {
+      documents(
+        size: $size
+        from: $from
+        shuffle: $shuffle
+        sortBy: $sortBy
+        sortOrder: $sortOrder
+      ) {
         total
         size
         from
@@ -40,6 +71,7 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
           classification(checklistKey: $checklistKey) {
             usage {
               name
+              key
             }
             taxonMatch {
               usage {
@@ -47,6 +79,9 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
               }
             }
           }
+          recordedBy
+          datasetKey
+          datasetTitle
           primaryImage {
             identifier: thumbor(height: 400)
           }
@@ -62,14 +97,40 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
   }
 `;
 
+function MediaGalleryFallback() {
+  return (
+    <div className="g-flex g-flex-wrap g-mb-12 -g-mx-2 -g-mt-2">
+      {Array.from({ length: 50 }).map((_, i) => (
+        <GalleryItemSkeleton key={i} />
+      ))}
+    </div>
+  );
+}
+
 export function Media({ size: defaultSize = 50 }) {
+  return (
+    <ClientSideOnly fallback={<MediaGalleryFallback />}>
+      <MediaClient size={defaultSize} />
+    </ClientSideOnly>
+  );
+}
+
+function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
   const [from, setFrom] = useState(0);
   const searchContext = useSearchContext();
+  const checklistKey = useChecklistKey();
   const size = defaultSize;
   const { toast } = useToast();
   const currentFilterContext = useContext(FilterContext);
   const [mediaTypes] = useState(['StillImage']);
   const { scope } = useSearchContext();
+  const { parent: parentTaxon, nextLowerMajorRank } = useParentTaxon(currentFilterContext.filter, {
+    majorRanksOnly: true,
+  });
+  const [groupState, setGroupState] = useLocalStorage<MediaGroupState>(
+    'occurrenceMediaGroup',
+    DEFAULT_MEDIA_GROUP_STATE
+  );
   const { data, error, loading, load } = useQuery<
     OccurrenceMediaSearchQuery,
     OccurrenceMediaSearchQueryVariables
@@ -80,10 +141,15 @@ export function Media({ size: defaultSize = 50 }) {
   const { setOrderedList } = useOrderedList();
   const [, setPreviewKey] = useEntityDrawer();
 
-  const [allData, setAllData] = useState([]);
+  type OccurrenceResult = NonNullable<
+    OccurrenceMediaSearchQuery['occurrenceSearch']
+  >['documents']['results'][number];
+  const [allData, setAllData] = useState<OccurrenceResult[]>([]);
+
+  const isGrouped = groupState.mode === 'group' && !!groupState.groupBy;
 
   const updateList = useCallback(() => {
-    setOrderedList(allData.map((item) => `o_${item.key}`));
+    setOrderedList(allData.filter((item) => item != null).map((item) => `o_${item.key}`));
   }, [allData, setOrderedList]);
 
   const selectPreview = useCallback(
@@ -95,74 +161,146 @@ export function Media({ size: defaultSize = 50 }) {
   );
 
   useEffect(() => {
+    if (isGrouped) return;
     setAllData((prev) => {
       const all = [...prev, ...(data?.occurrenceSearch?.documents?.results || [])];
       // get unique by key
-      const unique = all.reduce((acc, cur) => {
-        if (acc.find((x) => x.key === cur.key)) {
+      const unique = all.reduce<OccurrenceResult[]>((acc, cur) => {
+        if (!cur || acc.find((x) => x?.key === cur.key)) {
           return acc;
         }
         return [...acc, cur];
       }, []);
       return unique;
     });
-  }, [data, error, toast]);
+  }, [data, error, toast, isGrouped]);
 
   useEffect(() => {
-    if (error) {
+    if (error && !isGrouped) {
       if (data?.occurrenceSearch?.documents.results) {
         // ignore errors for now - I do not see how they can be critical enough to warn the user given the query we have. At worst the name will show without formatting.
-        // notify the user with a toast about the error but contnue to show the images
-        // toast({
-        //   title: 'Unable to load all content',
-        //   variant: 'destructive',
-        // });
       } else {
         throw error;
       }
     }
-  }, [error, allData, toast]);
+  }, [error, allData, toast, isGrouped, data]);
 
   useEffect(() => {
-    const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
+    const query = getAsQuery({
+      filter: currentFilterContext.filter,
+      searchContext,
+      searchConfig,
+    }) as { predicate: Predicate | undefined; q: string | undefined };
     const predicate: Predicate = {
       type: PredicateType.And,
       predicates: [
         query.predicate,
         {
-          type: 'in',
+          type: PredicateType.In,
           key: 'mediaType',
-          // values: ['StillImage', 'MovingImage', 'Sound'],
           values: ['StillImage'],
         },
       ].filter((x) => x),
     };
-    load({ keepDataWhileLoading: true, variables: { predicate, q: query.q, size, from } });
-    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    const isRandom = groupState.mode === 'random';
+    const yearSort =
+      groupState.mode === 'yearDesc'
+        ? { sortBy: OccurrenceSortBy.Year, sortOrder: SortOrder.Desc }
+        : groupState.mode === 'yearAsc'
+          ? { sortBy: OccurrenceSortBy.Year, sortOrder: SortOrder.Asc }
+          : undefined;
+    // When grouped, the grouped view fetches its own images. We still run this query
+    // with size:0 so the top-of-page count keeps showing the total records with images.
+    load({
+      keepDataWhileLoading: true,
+      variables: {
+        predicate,
+        q: query.q,
+        checklistKey,
+        size: isGrouped ? 0 : size,
+        from: isGrouped ? 0 : from,
+        shuffle: isRandom ? SHUFFLE_SEED : undefined,
+        sortBy: yearSort?.sortBy,
+        sortOrder: yearSort?.sortOrder,
+      },
+    });
+    // We are tracking filter changes via a hash that is updated whenever the filter changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, currentFilterContext.filterHash, scope, load, size]);
+  }, [from, currentFilterContext.filterHash, scope, load, size, groupState.mode, isGrouped]);
 
+  // Reset pagination + accumulated data when filters or grouping change.
   useEffect(() => {
     setFrom(0);
     setAllData([]);
-  }, [currentFilterContext.filterHash, scope]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentFilterContext.filterHash, scope, groupState.mode, groupState.groupBy]);
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
   }, [from, size]);
 
+  const onGroupStateChange = useCallback(
+    (next: MediaGroupState) => {
+      setGroupState(next);
+    },
+    [setGroupState]
+  );
+
+  const hasSingleTaxonKey =
+    (currentFilterContext.filter?.must?.taxonKey?.length ?? 0) === 1 &&
+    !currentFilterContext.filter?.mustNot?.taxonKey?.length;
+
   return (
     <ErrorBoundary>
       <MediaPresentation
         mediaTypes={mediaTypes}
-        results={allData}
+        results={isGrouped ? [] : allData}
         loading={loading}
-        error={error}
+        error={isGrouped ? undefined : error}
         endOfRecords={from + size >= data?.occurrenceSearch?.documents?.total}
         next={next}
         total={data?.occurrenceSearch?.documents?.total}
         onSelect={({ key }: { key: string | number }) => selectPreview(key)}
-      />
+        groupState={groupState}
+        onGroupStateChange={onGroupStateChange}
+        suggestedGroupByRank={hasSingleTaxonKey ? nextLowerMajorRank : null}
+        headerSuggestions={(() => {
+          if (!hasSingleTaxonKey) return null;
+          const suggestions: TaxonSuggestion[] = [];
+          if (parentTaxon) {
+            suggestions.push({
+              type: 'filterByParent',
+              taxon: parentTaxon,
+              onClick: () => currentFilterContext.setField('taxonKey', [parentTaxon.taxonID]),
+            });
+          }
+          if (nextLowerMajorRank && RANK_TO_GROUP_FIELD[nextLowerMajorRank]) {
+            const groupFieldId = RANK_TO_GROUP_FIELD[nextLowerMajorRank];
+            const alreadyGrouped =
+              groupState.mode === 'group' && groupState.groupBy === groupFieldId;
+            const field = GROUP_FIELDS.find((f) => f.id === groupFieldId);
+            if (field && !alreadyGrouped) {
+              suggestions.push({
+                type: 'groupByRank',
+                rankLabelId: field.labelId,
+                onClick: () =>
+                  onGroupStateChange({
+                    mode: 'group',
+                    groupBy: groupFieldId,
+                  }),
+              });
+            }
+          }
+          return suggestions.length > 0 ? <TaxonSuggestions suggestions={suggestions} /> : null;
+        })()}
+      >
+        {isGrouped && groupState.groupBy && (
+          <MediaGrouped
+            groupBy={groupState.groupBy}
+            onGroupByChange={(groupBy) => onGroupStateChange({ mode: 'group', groupBy })}
+          />
+        )}
+      </MediaPresentation>
     </ErrorBoundary>
   );
 }

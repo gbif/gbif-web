@@ -30,6 +30,8 @@ import { useParams } from 'react-router-dom';
 import { useCollectionKeyLoaderData } from '.';
 import { CollectionKeyContext, FeaturedImageContent } from './collectionKeyPresentation';
 import { DescriptorGroups } from './DescriptorGroups';
+import { apiConstants } from '@/config/apiConstants';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
@@ -38,7 +40,7 @@ export default function About() {
   const { collection } = useCollectionKeyLoaderData();
   const { contentMetrics } = useContext(CollectionKeyContext);
   const { count, loading } = useCount({
-    v1Endpoint: '/occurrence/search',
+    apiEndpoint: apiConstants.occurrenceSearch,
     params: { collectionKey: key },
   });
   const removeSidebarThreshold = useBelow(1100);
@@ -68,6 +70,7 @@ export default function About() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
+            <TestSiteAlert className="g-mb-4" />
             <Card className="g-mb-4">
               <CardHeader>
                 <CardTitle>

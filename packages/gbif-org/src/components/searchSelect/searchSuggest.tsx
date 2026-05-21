@@ -77,7 +77,7 @@ export function SearchSuggest<T>({
           style={{ justifyContent: 'space-between' }}
         >
           {selected ? labelSelector(selected) : noSelectionPlaceholder}
-          <ChevronsUpDown className="g-ml-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
+          <ChevronsUpDown className="g-ms-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -112,7 +112,7 @@ export function SearchSuggest<T>({
                   {suggestLabel ? suggestLabel(result) : labelSelector(result)}
                   <Checkmark
                     className={cn(
-                      'g-mr-2 g-h-4 g-w-4',
+                      'g-me-2 g-h-4 g-w-4',
                       selected && keySelector(selected) === keySelector(result)
                         ? 'g-opacity-100'
                         : 'g-opacity-0'

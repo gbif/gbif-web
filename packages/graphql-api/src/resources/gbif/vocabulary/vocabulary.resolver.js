@@ -14,6 +14,27 @@ export const getTranslatedVocabConceptValue =
     );
   };
 
+// GeoTime concepts carry their structured metadata as "key: value" tag
+// strings (e.g. "rank: Age", "startAge: 259.51"). Pull a single value out
+// of that list by key.
+const getTagValue = (tags, key) => {
+  if (!Array.isArray(tags)) return null;
+  const prefix = `${key}:`;
+  const match = tags.find(
+    (tag) => typeof tag?.name === 'string' && tag.name.startsWith(prefix),
+  );
+  if (!match) return null;
+  const value = match.name.slice(prefix.length).trim();
+  return value.length ? value : null;
+};
+
+const getTagFloat = (tags, key) => {
+  const raw = getTagValue(tags, key);
+  if (raw == null) return null;
+  const num = Number(raw);
+  return Number.isFinite(num) ? num : null;
+};
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -34,6 +55,11 @@ export default {
     ) => dataSources.vocabularyAPI.searchConcepts({ vocabulary, query }),
     vocabularyConcept: (parent, { vocabulary, concept }, { dataSources }) =>
       dataSources.vocabularyAPI.getConcept({ vocabulary, concept }),
+    geoTimeConceptSearch: (parent, query, { dataSources }) =>
+      dataSources.vocabularyAPI.searchConcepts({
+        vocabulary: 'GeoTime',
+        query,
+      }),
   },
   Vocabulary: {
     concepts: ({ name }, args, { dataSources }) => {
@@ -63,5 +89,23 @@ export default {
         });
       });
     },
+  },
+  GeoTimeConcept: {
+    uiLabel: getTranslatedVocabConceptValue('label', {
+      useNameAsFallback: true,
+    }),
+    uiDefinition: getTranslatedVocabConceptValue('definition'),
+    parents: ({ vocabularyName, parents }, args, { dataSources }) => {
+      if (!vocabularyName || !parents) return null;
+      return parents.map((parent) =>
+        dataSources.vocabularyAPI.getConcept({
+          vocabulary: vocabularyName,
+          concept: parent,
+        }),
+      );
+    },
+    rank: ({ tags }) => getTagValue(tags, 'rank'),
+    startAge: ({ tags }) => getTagFloat(tags, 'startAge'),
+    endAge: ({ tags }) => getTagFloat(tags, 'endAge'),
   },
 };

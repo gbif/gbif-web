@@ -110,11 +110,15 @@ export function Table({ padded = true, removeBorder, ...props }) {
 }
 
 export function BarItem({ children, percent = 0, ...props }) {
-  console.log(percent)
   return (
-    <SimpleTooltip 
-      asChild 
-      title={<FormattedMessage id="counts.nPercentOfTotal" values={{ percentage: formatAsPercentage(percent/100) }} />}
+    <SimpleTooltip
+      asChild
+      title={
+        <FormattedMessage
+          id="counts.nPercentOfTotal"
+          values={{ percentage: formatAsPercentage(percent / 100) }}
+        />
+      }
       side="left"
     >
       <div
@@ -122,7 +126,7 @@ export function BarItem({ children, percent = 0, ...props }) {
         // css={css`position: relative;`}
       >
         <div
-          className="g-absolute g-left-0 g-bg-primary g-opacity-20 g-rounded"
+          className="g-absolute g-start-0 g-bg-primary g-opacity-20 g-rounded"
           style={{ width: `${percent}%`, height: '1.6em' }}
           // css={css`
           //   position: absolute;

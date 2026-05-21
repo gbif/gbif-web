@@ -71,7 +71,7 @@ export function VerbatimTextField({
         <FormattedMessage id={fieldName} defaultMessage={startCase(simpleName) ?? ''} />
       </T>
       <V style={{ position: 'relative' }}>
-        <div style={{ display: 'inline-block', paddingRight: 8 }}>
+        <div style={{ display: 'inline-block', paddingInlineEnd: 8 }}>
           <AutomaticPropertyValue value={verbatim} />
         </div>
       </V>
@@ -174,7 +174,7 @@ export function Field({
         <FormattedMessage id={fieldName} defaultMessage={startCase(simpleName) ?? ''} />
       </T>
       <V style={{ position: 'relative' }}>
-        <div style={{ display: 'inline-block', paddingRight: 8 }} {...props}></div>
+        <div style={{ display: 'inline-block', paddingInlineEnd: 8 }} {...props}></div>
         <Chips
           issues={term.issues}
           remarks={term.remarks}

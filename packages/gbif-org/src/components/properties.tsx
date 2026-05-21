@@ -35,7 +35,7 @@ export default function Properties({
       dense ? '[&>*]:g-mb-2' : '[&>*]:g-mb-3'
     } g-group [&_dl_dt]:g-text-slate-600 ${useDefaultTermWidths ? '[&>dt]:g-w-48' : ''}`;
   } else {
-    css += `[&>dd]:g-mb-4 [&>dt]:g-mb-1 g-group is-vertical g-group-[.is-vertical]:g-ml-2 [&_dl_dt]:g-text-slate-600`;
+    css += `[&>dd]:g-mb-4 [&>dt]:g-mb-1 g-group is-vertical g-group-[.is-vertical]:g-ms-2 [&_dl_dt]:g-text-slate-600`;
   }
   return (
     <dl className={cn(`g-max-w-full ${css}`, className)} {...props}>
@@ -68,13 +68,22 @@ export function Term({
 export function Value({
   children,
   className,
+  dir,
   ...props
 }: {
   children?: React.ReactNode;
+  dir?: 'ltr' | 'rtl' | 'auto';
 } & React.HTMLAttributes<HTMLDivElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <dd className={cn('g-break-words g-leading-tight last-of-type:g-mb-0', className)} {...props}>
+    <dd
+      dir={dir ?? 'auto'}
+      className={cn(
+        'g-text-site-dir-start g-break-words g-leading-tight last-of-type:g-mb-0',
+        className
+      )}
+      {...props}
+    >
       {children}
     </dd>
   );
@@ -135,7 +144,7 @@ export function AutomaticPropertyValue({
       return null;
     }
     val = (
-      <BulletList>
+      <BulletList dir="auto">
         {parsedValue.map((v, i) => (
           <li key={i}>
             <AutomaticPropertyValue value={v} formatter={formatter} {...props} />
@@ -150,11 +159,15 @@ export function AutomaticPropertyValue({
   } else if (typeof parsedValue === 'string') {
     val =
       showAll || parsedValue.length < 2000 ? (
-        parsedValue
+        <span dir="auto" className="g-text-site-dir-start">
+          {parsedValue}
+        </span>
       ) : (
         <>
-          <span>{parsedValue.slice(0, 2000)}...</span>
-          <Button className="g-p-2" variant="link" onClick={() => setShowAll(true)}>
+          <span dir="auto" className="g-text-site-dir-start">
+            {parsedValue.slice(0, 2000)}...
+          </span>
+          <Button dir="auto" className="g-p-2" variant="link" onClick={() => setShowAll(true)}>
             more
           </Button>
         </>

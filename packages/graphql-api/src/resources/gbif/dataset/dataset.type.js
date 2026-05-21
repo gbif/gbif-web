@@ -128,6 +128,7 @@ const typeDef = gql`
     publishingOrganizationKey: ID!
     publishingOrganizationTitle: String
     recordCount: Int
+    nameUsagesCount: Int
     title: String
     type: DatasetType
     subtype: DatasetSubtype
@@ -205,7 +206,7 @@ const typeDef = gql`
     publishingOrganization: Organization
 
     constituents(limit: Int, offset: Int): DatasetListResults
-    networks: [Network]!
+    networks(visibleOnDatasetPage: Boolean): [Network]!
     metrics: DatasetChecklistMetrics
     gridded(limit: Int): [GridMetric]
 

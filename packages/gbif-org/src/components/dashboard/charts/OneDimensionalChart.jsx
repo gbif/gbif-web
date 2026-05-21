@@ -18,6 +18,7 @@ import { useConfig } from '@/config/config';
 import { Map } from './map/map';
 import { IoMapSharp } from 'react-icons/io5';
 import { hash } from '@/utils/hash';
+import { useI18n } from '@/reactRouterPlugins';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
@@ -80,6 +81,7 @@ export function OneDimensionalChart({
   value2colorMap,
   ...props
 }) {
+  const { locale } = useI18n();
   const [view, setView] = useUncontrolledProp(
     userView,
     defaultOption ?? options?.[0] ?? 'TABLE',
@@ -155,6 +157,7 @@ export function OneDimensionalChart({
     interactive,
     translations,
     colors: palette,
+    isRtl: locale.textDirection === 'rtl',
   });
 
   const columnOptions = getColumnOptions({

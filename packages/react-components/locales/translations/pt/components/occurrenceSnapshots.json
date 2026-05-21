@@ -1,0 +1,26 @@
+{
+  "occurrenceSnapshots": {
+    "title": "",
+    "intro": "",
+    "description": "",
+    "cloudDatasets": {
+      "title": "",
+      "description": ""
+    },
+    "monthly": {
+      "title": "",
+      "description": ""
+    },
+    "table": {
+      "columns": {
+        "date": "Data",
+        "format": "Formato",
+        "citation": "Citações",
+        "filters": "Filtros"
+      },
+      "citation": "",
+      "hasFilters": "Sim",
+      "downloadDetails": ""
+    }
+  }
+}

@@ -85,7 +85,7 @@ function DatasetResultContent({
   return (
     <Card className="g-p-4 g-mb-2 g-relative">
       <DynamicLink
-        className="g-z-10 g-absolute g-top-0 g-bottom-0 g-left-0 g-right-0"
+        className="g-z-10 g-absolute g-top-0 g-bottom-0 g-start-0 g-end-0"
         to={`/dataset/${item.key}`}
         pageId="datasetKey"
         variables={{ key: item.key }}

@@ -74,7 +74,7 @@ function DescriptorGroupPresentation({
     <div
       style={{ display: 'flex', borderBottom: last ? 'none' : '1px solid #eee', padding: '12px 0' }}
     >
-      <div style={{ marginRight: 12, flex: '0 0 auto' }}>
+      <div style={{ marginInlineEnd: 12, flex: '0 0 auto' }}>
         <div style={{ color: 'var(--color800)' }}>
           <SpreadSheetIcon style={{ fontSize: 18 }} />
         </div>
@@ -90,14 +90,14 @@ function DescriptorGroupPresentation({
               }/grscicoll/collection/${collectionKey}/descriptorGroup/${groupKey}/export?format=CSV`}
               style={{ color: 'var(--color800)' }}
             >
-              <MdDownload style={{ marginRight: 8 }} />
+              <MdDownload style={{ marginInlineEnd: 8 }} />
               <FormattedMessage id="phrases.download" />
             </a>
           </Button>
 
           <Checkbox
             checked={showPreview}
-            style={{ marginLeft: 16, marginRight: 4, verticalAlign: 'middle' }}
+            style={{ marginInlineStart: 16, marginInlineEnd: 4, verticalAlign: 'middle' }}
             onCheckedChange={(checked) => {
               setShowPreview(checked === true);
             }}

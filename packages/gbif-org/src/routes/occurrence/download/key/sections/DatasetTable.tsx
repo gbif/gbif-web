@@ -8,7 +8,7 @@ import { notNull } from '@/utils/notNull';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
-const DOWNLOAD_DATASET_QUERY = /* GraphQL */ `
+const OCCURRENCE_DATASET_QUERY = /* GraphQL */ `
   query DownloadKeyDatasets($key: ID!, $limit: Int, $offset: Int) {
     datasetsByDownload(key: $key, limit: $limit, offset: $offset) {
       limit
@@ -24,9 +24,27 @@ const DOWNLOAD_DATASET_QUERY = /* GraphQL */ `
   }
 `;
 
+const EVENT_DATASET_QUERY = /* GraphQL */ `
+  query EventDownloadKeyDatasets($key: ID!, $limit: Int, $offset: Int) {
+    datasetsByEventDownload(key: $key, limit: $limit, offset: $offset) {
+      limit
+      offset
+      endOfRecords
+      count
+      results {
+        datasetKey
+        datasetTitle
+        numberRecords
+      }
+    }
+  }
+`;
+
+type DatasetListResult = NonNullable<DownloadKeyDatasetsQuery['datasetsByDownload']>;
+
 function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
   return (
-    <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+    <table className="g-w-full g-text-sm g-text-start g-text-gray-500 dark:g-text-gray-400">
       <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
         <tr>
           {Array.from({ length: columns }).map((_, i) => (
@@ -54,23 +72,30 @@ function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
   );
 }
 
-export function DatasetTable({
+export type DatasetTableProps = {
+  downloadKey: string;
+  initialDatasets: DatasetListResult['results'];
+  limit: number;
+  count: number;
+};
+
+function DatasetTableCore({
   downloadKey,
   initialDatasets,
   limit: initialLimit,
   count: initialCount,
-}: {
-  downloadKey: string;
-  initialDatasets: NonNullable<DownloadKeyDatasetsQuery['datasetsByDownload']>['results'];
-  limit: number;
-  count: number;
+  query,
+  extractResults,
+}: DatasetTableProps & {
+  query: string;
+  extractResults: (data: Record<string, DatasetListResult | null | undefined>) => DatasetListResult | null | undefined;
 }) {
   const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const [limit] = useState(initialLimit);
   const { data, load, loading } = useQuery<
-    DownloadKeyDatasetsQuery,
+    Record<string, DatasetListResult | null | undefined>,
     DownloadKeyDatasetsQueryVariables
-  >(DOWNLOAD_DATASET_QUERY, { lazyLoad: true, throwAllErrors: true });
+  >(query, { lazyLoad: true, throwAllErrors: true });
 
   useEffect(() => {
     load({ variables: { key: downloadKey, limit, offset } });
@@ -80,14 +105,14 @@ export function DatasetTable({
     return <SkeletonTable rows={5} columns={2} />;
   }
 
-  const { results } = data?.datasetsByDownload || {};
+  const pageData = data ? extractResults(data) : undefined;
   if (initialDatasets.length === 0) return null;
 
-  const datasets = (results ?? initialDatasets).filter(notNull);
+  const datasets = (pageData?.results ?? initialDatasets).filter(notNull);
 
   return (
     <>
-      <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+      <table className="g-w-full g-text-sm g-text-start g-text-gray-500 dark:g-text-gray-400">
         <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
           <tr>
             <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
@@ -95,7 +120,7 @@ export function DatasetTable({
             </th>
             <th
               scope="col"
-              className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+              className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-end"
             >
               <FormattedMessage id="downloadKey.records" />
             </th>
@@ -121,7 +146,7 @@ export function DatasetTable({
                     {dataset.datasetTitle}
                   </DynamicLink>{' '}
                 </td>
-                <td className="g-px-4 md:g-px-8 g-py-3 g-text-right rtl:g-text-left">
+                <td className="g-px-4 md:g-px-8 g-py-3 g-text-end">
                   <FormattedNumber value={dataset?.numberRecords} />
                 </td>
               </tr>
@@ -138,5 +163,25 @@ export function DatasetTable({
         />
       )}
     </>
+  );
+}
+
+export function DatasetTable(props: DatasetTableProps) {
+  return (
+    <DatasetTableCore
+      {...props}
+      query={OCCURRENCE_DATASET_QUERY}
+      extractResults={(d) => d?.datasetsByDownload}
+    />
+  );
+}
+
+export function EventDatasetTable(props: DatasetTableProps) {
+  return (
+    <DatasetTableCore
+      {...props}
+      query={EVENT_DATASET_QUERY}
+      extractResults={(d) => d?.datasetsByEventDownload}
+    />
   );
 }

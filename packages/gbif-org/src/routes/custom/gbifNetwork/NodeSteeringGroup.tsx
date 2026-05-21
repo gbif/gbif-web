@@ -15,13 +15,13 @@ export default function NodeSteeringGroup({
     <table className="g-w-full">
       <thead>
         <tr>
-          <th className="g-text-left">
+          <th className="g-text-start">
             <FormattedMessage id="gbifNetwork.role" />
           </th>
-          <th className="g-text-left">
+          <th className="g-text-start">
             <FormattedMessage id="gbifNetwork.name" />
           </th>
-          <th className="g-text-left">
+          <th className="g-text-start">
             <FormattedMessage id="gbifNetwork.participant" />
           </th>
         </tr>

@@ -1,0 +1,26 @@
+{
+  "occurrenceSnapshots": {
+    "title": "",
+    "intro": "",
+    "description": "",
+    "cloudDatasets": {
+      "title": "",
+      "description": ""
+    },
+    "monthly": {
+      "title": "",
+      "description": ""
+    },
+    "table": {
+      "columns": {
+        "date": "Datum",
+        "format": "Formát",
+        "citation": "Citace",
+        "filters": "Filtry"
+      },
+      "citation": "",
+      "hasFilters": "Ano",
+      "downloadDetails": ""
+    }
+  }
+}

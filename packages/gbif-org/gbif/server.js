@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import fsp from 'node:fs/promises';
+import { createServer as createHttpServer } from 'node:http';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import logger from './config/logger.mjs';
@@ -12,7 +13,7 @@ import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
-import getRedirect from './middleware/redirects.mjs';
+import createGetRedirect from './middleware/redirects.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
@@ -20,8 +21,15 @@ const env = merge(envFile, process.env);
 const IS_PRODUCTION = env.NODE_ENV === 'production';
 const PORT = parseInt(env.PORT || 3000);
 
+const getRedirect = createGetRedirect(env);
+
 async function main() {
   const app = express();
+  // Share a single HTTP server between Express and Vite's HMR. Without this, Vite's
+  // middleware mode spins up its own server for HMR on a different port, and the
+  // browser-side HMR client can't reach it — repeated WS reconnect failures cause
+  // @vite/client to fall back to full reloads in a loop when PORT is not the default.
+  const httpServer = createHttpServer(app);
 
   // Add middleware for parsing requests
   app.use(
@@ -88,7 +96,10 @@ async function main() {
 
     viteDevServer = await vite.createServer({
       root: process.cwd(),
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: { server: httpServer },
+      },
       appType: 'custom',
       configFile: './gbif/vite.config.ts',
     });
@@ -137,27 +148,26 @@ async function main() {
     try {
       let template;
       let render;
-      let fallbackHtmlFile;
 
       if (!IS_PRODUCTION) {
         template = await fsp.readFile('gbif/index.html', 'utf8');
         template = await viteDevServer.transformIndexHtml(url, template);
         render = (await viteDevServer.ssrLoadModule('src/gbif/entry.server.tsx')).render;
-
-        // Load fallback html file
-        fallbackHtmlFile = await fsp.readFile('gbif/fallback.html', 'utf8');
-        fallbackHtmlFile = await viteDevServer.transformIndexHtml(url, fallbackHtmlFile);
       } else {
         template = await fsp.readFile('dist/gbif/client/gbif/index.html', 'utf8');
         render = (await import('../dist/gbif/server/entry.server.js')).render;
-
-        // Load fallback html file
-        fallbackHtmlFile = await fsp.readFile('dist/gbif/client/gbif/fallback.html', 'utf8');
       }
 
       try {
-        const { appHtml, headHtml, htmlAttributes, bodyAttributes, statusCode, cacheControl } =
-          await render(req);
+        const {
+          appHtml,
+          headHtml,
+          htmlAttributes,
+          bodyAttributes,
+          statusCode,
+          cacheControl,
+          rootDir,
+        } = await render(req);
         if (cacheControl) {
           res.set('Cache-Control', cacheControl);
         }
@@ -165,11 +175,20 @@ async function main() {
           res.set('Cache-Control', 'public, max-age=0, must-revalidate, no-cache, no-store');
         }
 
+        const testClass = env.PUBLIC_TEST_SITE === 'true' ? 'gbif-test-site' : '';
+
         const html = template
-          .replace('<html class="g-m-0 g-p-0">', `<html ${htmlAttributes} class="g-m-0 g-p-0">`)
+          .replace(
+            '<html class="g-m-0 g-p-0">',
+            `<html ${htmlAttributes} class="g-m-0 g-p-0 ${testClass}">`
+          )
           .replace(
             '<body style="margin: 0; padding: 0" class="gbif">',
             `<body ${bodyAttributes} style="margin: 0; padding: 0" class="gbif">`
+          )
+          .replace(
+            '<div id="app" class="gbif">',
+            `<div id="app" class="gbif" dir="${rootDir ?? 'ltr'}">`
           )
           .replace('<!--head-html-->', headHtml)
           .replace('<!--app-html-->', appHtml);
@@ -204,6 +223,19 @@ async function main() {
           status = e.status;
         }
 
+        // Lazily load the fallback HTML only when render fails. Doing the read +
+        // viteDevServer.transformIndexHtml on every request was wasted work on the happy path
+        // and exposed a race with graphql-codegen --watch where the inline <style> block in
+        // fallback.html is processed by PostCSS/Tailwind while a generated .json/.ts is being
+        // rewritten — surfacing as "Failed to parse JSON file" mid-startup.
+        let fallbackHtmlFile = await fsp.readFile(
+          IS_PRODUCTION ? 'dist/gbif/client/gbif/fallback.html' : 'gbif/fallback.html',
+          'utf8'
+        );
+        if (!IS_PRODUCTION) {
+          fallbackHtmlFile = await viteDevServer.transformIndexHtml(url, fallbackHtmlFile);
+        }
+
         res
           .setHeader('Content-Type', 'text/html')
           .setHeader('Cache-Control', 'no-cache')
@@ -225,7 +257,7 @@ async function main() {
     }
   });
 
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     logger.info('Server started successfully', { port: PORT, environment: env.NODE_ENV });
   });
 

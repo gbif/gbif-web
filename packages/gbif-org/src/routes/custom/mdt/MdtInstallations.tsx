@@ -62,16 +62,16 @@ export const MdtInstallations = () => {
           <table className="g-w-full g-text-sm g-mb-8 g-bg-white">
             <thead className="g-shadow-sm">
               <tr>
-                <th className="g-p-4 g-text-left g-whitespace-nowrap " style={{ width: '50%' }}>
+                <th className="g-p-4 g-text-start g-whitespace-nowrap " style={{ width: '50%' }}>
                   <FormattedMessage id="mdt.installations.table.name" defaultMessage="Name" />
                 </th>
-                <th className="g-p-4 g-text-left g-whitespace-nowrap " style={{ width: '25%' }}>
+                <th className="g-p-4 g-text-start g-whitespace-nowrap " style={{ width: '25%' }}>
                   <FormattedMessage
                     id="mdt.installations.table.datasets"
                     defaultMessage="Datasets"
                   />
                 </th>
-                <th className="g-p-4 g-text-left g-whitespace-nowrap " style={{ width: '25%' }}>
+                <th className="g-p-4 g-text-start g-whitespace-nowrap " style={{ width: '25%' }}>
                   <FormattedMessage
                     id="mdt.installations.table.occurrences"
                     defaultMessage="Occurrences"

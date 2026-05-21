@@ -17,6 +17,7 @@ import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 import { useNotifyOfPartialDataIfErrors } from '../rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 async function homepageLoader({ locale, isPreview }: LoaderArgs) {
   const response = await fetchCachedResponse({
@@ -73,6 +74,7 @@ function HomePage(): React.ReactElement {
                       {home?.summary}
                     </h1>
                   </div>
+                  <TestSiteAlert className="g-my-4" />
                   <div className="g-mt-4">
                     <SearchBar />
                     <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-start">
@@ -95,7 +97,7 @@ function HomePage(): React.ReactElement {
           </div>
           {primaryImage?.description && (
             <span
-              className="g-absolute g-right-0 g-bottom-0 g-text-xs g-text-white g-p-1.5 g-font-medium underlineLinks hover:g-bg-gray-900/30"
+              className="g-absolute g-end-0 g-bottom-0 g-text-xs g-text-white g-p-1.5 g-font-medium underlineLinks hover:g-bg-gray-900/30"
               dangerouslySetInnerHTML={{ __html: primaryImage?.description }}
             />
           )}
@@ -109,9 +111,11 @@ function HomePage(): React.ReactElement {
 
         <HomePageCounts iconData={home} />
 
-        {home?.blocks?.map((block, idx) => (
-          <BlockItem resource={block} key={idx} />
-        ))}
+        <div data-cy="homepage-blocks">
+          {home?.blocks?.map((block, idx) => (
+            <BlockItem resource={block} key={idx} />
+          ))}
+        </div>
 
         {/* It might make sense to only render this component if the user scrolls close to it */}
         <MapWidget />
@@ -143,8 +147,8 @@ function SearchBar() {
         <HeaderLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT', q }}>
           <FormattedMessage id="catalogues.occurrences" />
         </HeaderLink>
-        <HeaderLink pageId="speciesSearch" searchParams={{ q }}>
-          <FormattedMessage id="catalogues.species" />
+        <HeaderLink pageId="taxonSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.taxa" />
         </HeaderLink>
         <HeaderLink pageId="datasetSearch" searchParams={{ q }}>
           <FormattedMessage id="catalogues.datasets" />

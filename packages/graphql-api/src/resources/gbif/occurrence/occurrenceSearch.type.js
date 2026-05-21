@@ -150,6 +150,21 @@ const typeDef = gql`
     endDayOfYear: Stats!
     elevation: Stats!
     depth: Stats!
+    coordinatePrecision: Stats!
+    coordinateUncertaintyInMeters: Stats!
+    day: Stats!
+    depthAccuracy: Stats!
+    elevationAccuracy: Stats!
+    individualCount: Stats!
+    maximumDepthInMeters: Stats!
+    maximumDistanceAboveSurfaceInMeters: Stats!
+    maximumElevationInMeters: Stats!
+    minimumDepthInMeters: Stats!
+    minimumDistanceAboveSurfaceInMeters: Stats!
+    minimumElevationInMeters: Stats!
+    organismQuantity: Stats!
+    relativeOrganismQuantity: Stats!
+    sampleSizeValue: Stats!
   }
 
   type OccurrenceCardinality {
@@ -178,6 +193,7 @@ const typeDef = gql`
     institutionCode: Long!
     networkKey: Long!
     programme: Long!
+    year: Long!
     taxonKey(checklistKey: ID): Long!
     classKey(checklistKey: ID): Long!
     familyKey(checklistKey: ID): Long!
@@ -206,6 +222,7 @@ const typeDef = gql`
     higherGeography: Long!
     isSequenced: Long!
     sex: Long!
+    lifeStage: Long!
     pathway: Long!
     degreeOfEstablishment: Long!
     islandGroup: Long!
@@ -217,6 +234,18 @@ const typeDef = gql`
     organismQuantityType: Long!
     biostratigraphy: Long!
     lithostratigraphy: Long!
+    datasetPublishingCountry: Long!
+    endorsingNodeKey: Long!
+    installationKey: Long!
+    mediaLicenses: Long!
+    occurrenceId: Long!
+    parentEventId: Long!
+    recordNumber: Long!
+    occurrenceStatus: Long!
+    typifiedName: Long!
+    isInCluster: Long!
+    startDayOfYear: Long!
+    endDayOfYear: Long!
   }
 
   type OccurrenceHistogram {
@@ -491,6 +520,10 @@ const typeDef = gql`
   type OccurrenceFacetResult_float {
     key: Float!
     count: Long!
+    """
+    Display label for this facet bucket. For most numeric facets this is just the key formatted as a string and the \`language\` argument has no effect. For the small set of enum-valued numeric facets (currently \`month\`) the label is looked up in the bundled enum translations for the given language, falling back to the raw key.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -499,6 +532,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     concept: VocabularyConcept!
+    """
+    Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The \`language\` argument selects the translation (defaults to \`en\`).
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -507,6 +544,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     gadm: Gadm!
+    """
+    Display label for this facet bucket. Returns the GADM region name. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -514,6 +555,10 @@ const typeDef = gql`
   type OccurrenceFacetResult_boolean {
     key: Boolean!
     count: Long!
+    """
+    Display label for this facet bucket. Returns the boolean key as the string "true" or "false". The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -521,6 +566,10 @@ const typeDef = gql`
   type OccurrenceFacetResult_string {
     key: String!
     count: Long!
+    """
+    Display label for this facet bucket. For enum-valued facets (basisOfRecord, license, mediaType, occurrenceStatus, continent, countryCode, gbifRegion, dwcaExtension, iucnRedListCategory, issue, taxonomicIssue, and the country/license-aliased fields) the label is looked up in the bundled enum translations for the given language, falling back to the raw key. For free-text facets (catalogNumber, locality, recordedBy, ...) the label is the raw key and the \`language\` argument has no effect.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -529,6 +578,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     concept: VocabularyConcept
+    """
+    Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The \`language\` argument selects the translation (defaults to \`en\`).
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -537,6 +590,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     concept: VocabularyConcept
+    """
+    Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The \`language\` argument selects the translation (defaults to \`en\`).
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -545,6 +602,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     concept: VocabularyConcept
+    """
+    Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The \`language\` argument selects the translation (defaults to \`en\`).
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -553,6 +614,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     concept: VocabularyConcept
+    """
+    Display label for this facet bucket. Returns the vocabulary concept's translated ui label, falling back to the concept name. The \`language\` argument selects the translation (defaults to \`en\`).
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -561,6 +626,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     dataset: Dataset
+    """
+    Display label for this facet bucket. Returns the dataset title. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult
     _predicate: JSON
   }
@@ -569,6 +638,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     node: Node!
+    """
+    Display label for this facet bucket. Returns the node title. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -577,6 +650,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     installation: Node!
+    """
+    Display label for this facet bucket. Returns the installation title. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -584,14 +661,16 @@ const typeDef = gql`
   type OccurrenceFacetResult_taxon {
     key: String!
     count: Long!
-    """
-    Only apply to backbone taxa at the moment
-    """
-    taxon: Taxon
+    taxonInfo: TaxonInfo
+    taxon: TaxonSimple
     """
     Get whatever minimum shared data we can compile for both backbone and other checklists. The idea is to allow UIs to generate a nice diaplay label with classification
     """
     taxonMatch(checklistKey: ID): SpeciesMatchResult
+    """
+    Display label for this facet bucket. Returns the taxon's scientific name. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -605,6 +684,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     network: Network!
+    """
+    Display label for this facet bucket. Returns the network title. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -613,6 +696,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     publisher: Organization!
+    """
+    Display label for this facet bucket. Returns the publishing organization title. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -621,6 +708,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     institution: Institution!
+    """
+    Display label for this facet bucket. Returns the institution name. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -629,6 +720,10 @@ const typeDef = gql`
     key: String!
     count: Long!
     collection: Collection!
+    """
+    Display label for this facet bucket. Returns the collection name. The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }
@@ -636,6 +731,10 @@ const typeDef = gql`
   type OccurrenceFacetResult_recordedBy {
     key: String!
     count: Long!
+    """
+    Display label for this facet bucket. Returns the key verbatim (the recorder name string). The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     occurrencesIdentifiedBy(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
@@ -644,6 +743,10 @@ const typeDef = gql`
   type OccurrenceFacetResult_identifiedBy {
     key: String!
     count: Long!
+    """
+    Display label for this facet bucket. Returns the key verbatim (the identifier name string). The \`language\` argument is accepted for API consistency across all OccurrenceFacetResult_* types but has no effect here.
+    """
+    label(language: String): String
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     occurrencesRecordedBy(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON

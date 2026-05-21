@@ -4,6 +4,7 @@ import { AddFilterEvent } from '@/contexts/filter';
 import { ProjectResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
+import { getTextDirection } from '@/utils/textDirection';
 import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
@@ -30,8 +31,10 @@ type Props = {
 
 export function ProjectResult({ project, className }: Props) {
   const link = `/project/${project.id}`;
+  const dir = getTextDirection(project.title);
+
   return (
-    <ResultCard.Container className={className}>
+    <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header title={project.title} link={link} contentType="cms.contentType.project" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>

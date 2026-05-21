@@ -37,7 +37,25 @@
   "loading": "载入中",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "应用",
+  "cancel": "取消",
   "rankInGroup": "",
+  "options": "选项",
+  "sort": {
+    "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
+    "default": "默认",
+    "random": "",
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "未指定"
+  },
   "occurrenceClustersView": {
     "about": "关于",
     "clusters": "",
@@ -67,6 +85,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "物种",
+      "taxonSearch": "分类群",
       "datasetSearch": "数据集",
       "publisherSearch": "发布者",
       "occurrenceSearch": "出现记录",

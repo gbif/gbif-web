@@ -43,6 +43,7 @@
     "CLASSIC": "Magenta",
     "LIGHT": "Lys (uden tekst)",
     "LIGHT_DETAILS": "Lys",
+    "GREY": "",
     "DARK": "Mørk (uden tekst)",
     "DARK_DETAILS": "Mørk",
     "OSM": "Veje"

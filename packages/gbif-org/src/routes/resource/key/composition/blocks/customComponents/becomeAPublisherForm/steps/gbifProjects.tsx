@@ -56,7 +56,7 @@ function ProjectIdentifier() {
     <TextField
       name="gbifProjects.projectIdentifier"
       label={<FormattedMessage id="eoi.projectIdentifier" defaultMessage="Project identifier" />}
-      className={cn('g-pl-6', { 'g-hidden': hidden })}
+      className={cn('g-ps-6', { 'g-hidden': hidden })}
       description={
         <FormattedMessage
           id="eoi.pleaseEnterProjectIdentifier"

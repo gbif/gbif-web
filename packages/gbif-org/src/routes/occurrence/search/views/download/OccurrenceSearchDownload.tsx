@@ -18,15 +18,14 @@ import { Card } from '@/components/ui/largeCard';
 import { MdFileDownload } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FreeTextWarning } from './shared';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export default function OccurrenceSearchDownload() {
   const currentFilterContext = useContext(FilterContext);
   const siteConfig = useConfig();
   const searchContext = useSearchContext();
   const selectedChecklist =
-    currentFilterContext.filter.checklistKey ??
-    siteConfig.defaultChecklistKey ??
-    import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
+    currentFilterContext.filter.checklistKey ?? siteConfig.defaultChecklistKey;
   const [predicate, setPredicate] = useState<Predicate | undefined>(undefined);
 
   useEffect(() => {
@@ -115,6 +114,7 @@ function OccurrenceDownloadFlow({
   return (
     <div className="g-min-h-screen g-py-8">
       <div className="g-max-w-4xl g-mx-auto">
+        <TestSiteAlert className="g-mb-4" />
         <ProtectedForm
           className=""
           title="Please sign in"

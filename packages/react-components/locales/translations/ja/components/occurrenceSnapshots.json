@@ -1,0 +1,26 @@
+{
+  "occurrenceSnapshots": {
+    "title": "",
+    "intro": "",
+    "description": "",
+    "cloudDatasets": {
+      "title": "",
+      "description": ""
+    },
+    "monthly": {
+      "title": "",
+      "description": ""
+    },
+    "table": {
+      "columns": {
+        "date": "日付",
+        "format": "フォーマット",
+        "citation": "引用",
+        "filters": "フィルター"
+      },
+      "citation": "",
+      "hasFilters": "はい",
+      "downloadDetails": ""
+    }
+  }
+}

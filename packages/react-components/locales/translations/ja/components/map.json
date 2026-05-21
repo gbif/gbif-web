@@ -43,6 +43,7 @@
     "CLASSIC": "赤紫",
     "LIGHT": "明るい（ラベルなし）",
     "LIGHT_DETAILS": "白系",
+    "GREY": "",
     "DARK": "黒系（ラベルなし）",
     "DARK_DETAILS": "黒系",
     "OSM": "道路"

@@ -202,7 +202,7 @@ function UpdatePasswordForm() {
       <ErrorMessage errorMessageId={getErrorMessage(error)} />
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
-        <div className="g-text-left">
+        <div className="g-text-start">
           <FormInput
             id="password"
             label={formatMessage({ id: 'profile.newPassword' })}
@@ -218,7 +218,7 @@ function UpdatePasswordForm() {
           />
         </div>
 
-        <div className="g-text-left">
+        <div className="g-text-start">
           <FormInput
             id="repeatPassword"
             label={formatMessage({ id: 'profile.repeatNewPassword' })}

@@ -275,25 +275,25 @@ export function PublisherDatasetTable({
         );
       case 'DATASET_COUNT':
         return (
-          <div className="g-text-right">
+          <div className="g-text-end">
             <FormattedNumber value={row.datasetCount} />
           </div>
         );
       case 'OCCURRENCE_COUNT':
         return (
-          <div className="g-text-right">
+          <div className="g-text-end">
             <FormattedNumber value={row.occurrenceCount || 0} />
           </div>
         );
       case 'LITERATURE_COUNT':
         return (
-          <div className="g-text-right">
+          <div className="g-text-end">
             <FormattedNumber value={row.literatureCount || 0} />
           </div>
         );
       case 'NAMESPACE':
         return row.machineTags?.map((tag, index) => (
-          <span key={index} className="g-mr-1">
+          <span key={index} className="g-me-1">
             {translatedValue(tag.value || '')}
           </span>
         ));
@@ -335,7 +335,7 @@ export function PublisherDatasetTable({
                     {config.summaryColumns.map((col, index) => (
                       <th
                         key={index}
-                        className="g-p-4 g-text-left g-whitespace-nowrap g-text-right"
+                        className="g-p-4 g-text-start g-whitespace-nowrap g-text-end"
                         style={{ width: `${100 / config.summaryColumns!.length}%` }}
                       >
                         {col.title}
@@ -348,7 +348,7 @@ export function PublisherDatasetTable({
                     {config.summaryColumns.map((col, index) => (
                       <td
                         key={index}
-                        className="g-p-4 g-text-right"
+                        className="g-p-4 g-text-end"
                         style={{ width: `${100 / config.summaryColumns!.length}%` }}
                       >
                         {renderSummaryCell(col)}
@@ -377,13 +377,13 @@ export function PublisherDatasetTable({
                     {config.columns?.map((col, index) => (
                       <th
                         key={index}
-                        className="g-p-4 g-text-left g-whitespace-nowrap g-cursor-pointer hover:g-bg-gray-100"
+                        className="g-p-4 g-text-start g-whitespace-nowrap g-cursor-pointer hover:g-bg-gray-100"
                         onClick={() => handleSort(col.type)}
                       >
                         <span className="g-inline-block g-text-nowrap">
                           <span>{col.title}</span>
                           {sortKey === columnTypeToSortKey[col.type] && (
-                            <span className="g-ml-1">
+                            <span className="g-ms-1">
                               {sortDir === 'asc' ? <FaCaretUp /> : <FaCaretDown />}
                             </span>
                           )}
@@ -413,7 +413,7 @@ export function PublisherDatasetTable({
           {/* Pagination */}
           {maxCount > limit && (
             <div className="g-flex g-justify-center g-mt-4">
-              <div className="g-flex g-items-center g-space-x-2">
+              <div className="g-flex g-items-center g-gap-2">
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
@@ -445,7 +445,7 @@ export function PublisherDatasetTable({
               <thead className="g-bg-gray-50">
                 <tr>
                   {config.columns?.map((col, index) => (
-                    <th key={index} className="g-p-4 g-text-left g-whitespace-nowrap">
+                    <th key={index} className="g-p-4 g-text-start g-whitespace-nowrap">
                       {col.title}
                     </th>
                   ))}

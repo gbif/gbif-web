@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
-import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import axios from 'axios';
+import { getDefaultAgent } from '@/requestAgents';
 
 class TaxonMediaAPI extends RESTDataSource {
   constructor(config) {

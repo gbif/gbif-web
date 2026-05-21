@@ -37,7 +37,25 @@
   "loading": "טוען",
   "noResults": "אין תוצאות",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "החלה",
+  "cancel": "",
   "rankInGroup": "",
+  "options": "אפשרויות",
+  "sort": {
+    "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
+    "default": "",
+    "random": "",
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": ""
+  },
   "occurrenceClustersView": {
     "about": "אודות",
     "clusters": "מקבצים קשורים",
@@ -67,6 +85,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "מינים",
+      "taxonSearch": "",
       "datasetSearch": "מסדי נתונים",
       "publisherSearch": "ספקי מידע",
       "occurrenceSearch": "תצפיות",

@@ -43,6 +43,8 @@ export function MapPopup({
 
   // Corner arrows are right-angled triangles (half of the full arrow).
   // The two straight edges align with the box corner; the hypotenuse faces the map point.
+  // NB: anchor is a geographic position on the map (independent of document direction),
+  // so the physical g-border-l/r classes below are intentionally not converted to logical g-border-s/e.
   const arrowElement = (() => {
     switch (anchor) {
       // Corners — right-angled triangles flush with the box corner
@@ -73,6 +75,7 @@ export function MapPopup({
   const box = (
     <div className={cn(
       'g-bg-popover g-p-4 g-text-popover-foreground g-outline-none g-relative g-min-w-[200px] g-rounded-md',
+      // anchor is a geographic position on the map (independent of document direction), so keep physical corners
       anchor === 'top-left' && 'g-rounded-tl-none',
       anchor === 'top-right' && 'g-rounded-tr-none',
       anchor === 'bottom-left' && 'g-rounded-bl-none',
@@ -80,7 +83,7 @@ export function MapPopup({
     )}>
       <button
         onClick={onClose}
-        className="g-absolute g-right-1 g-top-1 g-rounded-sm g-opacity-70 g-transition-opacity hover:g-opacity-100 g-cursor-pointer"
+        className="g-absolute g-end-1 g-top-1 g-rounded-sm g-opacity-70 g-transition-opacity hover:g-opacity-100 g-cursor-pointer"
         aria-label="Close popup"
       >
         &#x2715;

@@ -56,13 +56,13 @@ export const SearchInputPresentation = forwardRef<
 >((props, ref) => {
   return (
     <div className="g-relative">
-      <MdSearch className="g-absolute g-left-3 g-top-1/2 g--translate-y-1/2 g-text-gray-400 g-h-5 g-w-5" />
+      <MdSearch className="g-absolute g-start-3 g-top-1/2 g--translate-y-1/2 g-text-gray-400 g-h-5 g-w-5" />
       <input
         type="text"
         ref={ref}
         {...props}
         className={cn(
-          'g-w-full g-pl-10 g-pr-4 g-py-3 g-rounded-lg g-border g-border-solid g-border-gray-200 focus:g-border-primary-500 focus:g-ring-2 focus:g-ring-primary-200 g-transition-all g-outline-none g-text-lg',
+          'g-w-full g-ps-10 g-pe-4 g-py-3 g-rounded-lg g-border g-border-solid g-border-gray-200 focus:g-border-primary-500 focus:g-ring-2 focus:g-ring-primary-200 g-transition-all g-outline-none g-text-lg',
           props?.className
         )}
       />

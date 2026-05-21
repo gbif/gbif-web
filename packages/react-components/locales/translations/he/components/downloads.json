@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {תצפית #} other {# תצפיות}} שהורדו",
+    "nEventsDownloaded": "",
     "nRecordsDownloaded": "{total, plural, one {רשומה #} other {# רשומות}} שהורדו",
     "nRowsDownloaded": "{total, plural, one {שורה #} other {# שורות}} שהורדו",
     "nConstituentDatasets": "כולל רשומות מתוך {total, plural, one {מסד נתונים #} other {# מסדי נתונים}}",
@@ -45,6 +46,7 @@
     "filterApplied": "מסנן הופעל {DATE}",
     "query": "שאילתה",
     "rerunQuery": "הרצת השאילתה מחדש",
+    "complexPredicateWarning": "",
     "postpone": "דחיית מחיקה",
     "deleteDownload": "מחיקת הורדה",
     "tellUs": "ספרו לנו על השימוש",

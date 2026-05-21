@@ -1,5 +1,7 @@
 import express from 'express';
 
+const PORT = parseInt(process.env.PORT || 3000);
+
 const app = express();
 
 app.use(express.static('dist/hp'));
@@ -16,6 +18,6 @@ app.get('*', (_, res) => {
   res.sendFile('hp/index.html', { root: process.cwd() });
 });
 
-app.listen(3000, () => {
-  console.log('listening on port 3000');
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
 });

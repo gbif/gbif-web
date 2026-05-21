@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "",
+    "nEventsDownloaded": "",
     "nRecordsDownloaded": "",
     "nRowsDownloaded": "",
     "nConstituentDatasets": "",
@@ -45,6 +46,7 @@
     "filterApplied": "筛选于 {DATE}",
     "query": "",
     "rerunQuery": "重新运行查询",
+    "complexPredicateWarning": "",
     "postpone": "推迟删除",
     "deleteDownload": "删除下载",
     "tellUs": "告诉我们您的用途",

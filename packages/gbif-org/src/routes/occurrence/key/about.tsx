@@ -12,6 +12,7 @@ import { useOccurrenceKeyLoaderData } from '.';
 import { Groups } from './About/groups';
 import { OccurrenceKeyContext } from './occurrenceKey';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 const extensions = [
   'multimedia',
@@ -89,10 +90,11 @@ export function OccurrenceKeyAbout() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <SidebarLayout
           reverse
-          className="g-grid-cols-[250px_1fr] xl:g-grid-cols-[300px_1fr]"
+          className="g-grid-cols-[250px_minmax(0,1fr)] xl:g-grid-cols-[300px_minmax(0,1fr)]"
           stack={hideSidebar}
         >
           <div className="g-order-last">
+            <TestSiteAlert className="g-mb-4" />
             <Groups
               occurrence={occurrence}
               slowOccurrence={slowOccurrence}
@@ -122,9 +124,6 @@ export function OccurrenceKeyAbout() {
                     <ul className="g-list-none g-m-0 g-p-0 g-my-2">
                       {/* <Li to="#summary">Summary</Li>
                       <Separator /> */}
-                      {toc['geological-context'] && (
-                        <Li to="#geological-context">Geological Context</Li>
-                      )}
                       <Li to="#record">
                         <FormattedMessage id="occurrenceDetails.groups.record" />
                       </Li>
@@ -134,6 +133,11 @@ export function OccurrenceKeyAbout() {
                       <Li to="#location">
                         <FormattedMessage id="occurrenceDetails.groups.location" />
                       </Li>
+                      {toc['geological-context'] && (
+                        <Li to="#geological-context">
+                          <FormattedMessage id="occurrenceDetails.groups.geologicalContext" />
+                        </Li>
+                      )}
                       {toc['event'] && (
                         <Li to="#event">
                           <FormattedMessage id="occurrenceDetails.groups.event" />

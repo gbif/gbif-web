@@ -2,7 +2,7 @@
 export const commonClasses = {
   input: {
     base: 'g-w-full g-px-4 g-py-2 g-border g-rounded-lg focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-primary-500',
-    withIcon: 'g-pl-10',
+    withIcon: 'g-ps-10',
     error: 'g-border-red-500',
     normal: 'g-border-gray-300',
   },
@@ -19,7 +19,7 @@ export const commonClasses = {
     error: 'g-bg-red-50 g-border g-border-red-200 g-text-red-600 g-rounded-lg g-p-4 g-text-sm',
   },
   icon: {
-    inputIcon: 'g-absolute g-left-3 g-top-1/2 g--translate-y-1/2 g-text-gray-400 g-h-5 g-w-5',
+    inputIcon: 'g-absolute g-start-3 g-top-1/2 g--translate-y-1/2 g-text-gray-400 g-h-5 g-w-5',
     large: 'g-h-16 g-w-16',
     medium: 'g-h-12 g-w-12',
   },

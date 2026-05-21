@@ -4,6 +4,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarToday } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { MediumDate } from '@/components/dateFormats';
+import { getTextDirection } from '@/utils/textDirection';
 
 fragmentManager.register(/* GraphQL */ `
   fragment NewsResult on News {
@@ -24,9 +25,10 @@ type Props = {
 
 export function NewsResult({ news, className }: Props) {
   const link = `/news/${news.id}`;
+  const dir = getTextDirection(news.title);
 
   return (
-    <ResultCard.Container className={className}>
+    <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header title={news.title} link={link} contentType="cms.contentType.news" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>

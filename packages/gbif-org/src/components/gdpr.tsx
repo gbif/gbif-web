@@ -61,7 +61,7 @@ export const GDPR = () => {
               was prepared to align with the draft version of the GDPR. As we update our processes
               to comply with GDPR commitments, we have updated the policy to include:
             </p>
-            <ul className="g-list-disc g-pl-5">
+            <ul className="g-list-disc g-ps-5">
               <li>the use of ORCID-based login</li>
               <li>the use of Instagram for social media</li>
               <li>the use of MailChimp for opt-in email</li>

@@ -96,7 +96,7 @@ export default function CoordinatesPicker({
   return (
     <div className="g-w-full g-h-96 g-relative">
       <div className="g-w-full g-h-full" ref={mapElementRef}></div>
-      <div className="g-absolute g-right-2 g-top-2">
+      <div className="g-absolute g-end-2 g-top-2">
         {coordinates ? (
           <Button variant="destructive" onClick={() => setCoordinates(null)}>
             <FormattedMessage id="eoi.clear" defaultMessage="Clear" />

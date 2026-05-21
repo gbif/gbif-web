@@ -1,5 +1,5 @@
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { PredicateType } from '@/gql/graphql';
+import { Predicate, PredicateType } from '@/gql/graphql';
 
 const config: FilterConfigType = {
   fields: {
@@ -9,6 +9,15 @@ const config: FilterConfigType = {
       defaultType: PredicateType.Fuzzy,
       v1: {
         supportedTypes: ['fuzzy'],
+      },
+    },
+    predicate: {
+      singleValue: true,
+      // The value is the raw JSON predicate as a string. We keep it as a plain
+      // string in the URL (no special v1 type) so it round-trips through the
+      // v1 serializer like any other equals-string param.
+      v1: {
+        supportedTypes: ['equals'],
       },
     },
     geometry: {

@@ -8,6 +8,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import useBelow from '@/hooks/useBelow';
+import { useI18n } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 
 function getPages({
@@ -56,6 +57,8 @@ export function PaginationFooter({
   count: number;
   onChange: (offset: number) => void;
 }) {
+  const { locale } = useI18n();
+  const isRtl = locale.textDirection === 'rtl';
   const isMobile = useBelow(640 /* sm from tailwind */);
 
   const { pages, currentPage, previousPageOffset, nextPageOffset, hasBefore, hasAfter } = getPages({
@@ -73,7 +76,7 @@ export function PaginationFooter({
             className="g-text-inherit g-cursor-pointer"
             onClick={() => onChange(previousPageOffset)}
           >
-            <PaginationPrevious className="g-text-inherit" />
+            <PaginationPrevious className="g-text-inherit" isRtl={isRtl} />
           </PaginationItem>
         )}
         {hasBefore && (
@@ -106,7 +109,7 @@ export function PaginationFooter({
             className="g-text-inherit g-cursor-pointer"
             onClick={() => onChange(nextPageOffset)}
           >
-            <PaginationNext className="g-text-inherit" />
+            <PaginationNext className="g-text-inherit" isRtl={isRtl} />
           </PaginationItem>
         )}
       </PaginationContent>

@@ -75,7 +75,7 @@ export const SearchCommand = React.forwardRef<HTMLInputElement, Props<unknown>>(
                 {labelSelector(result)}
                 <Checkmark
                   className={cn(
-                    'g-mr-2 g-h-4 g-w-4',
+                    'g-me-2 g-h-4 g-w-4',
                     selectedKey === keySelector(result) ? 'g-opacity-100' : 'g-opacity-0'
                   )}
                 />

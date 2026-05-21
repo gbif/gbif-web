@@ -37,7 +37,25 @@
   "loading": "جاري التحميل",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "إلغاء",
   "rankInGroup": "",
+  "options": "",
+  "sort": {
+    "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
+    "default": "الإفتراضي",
+    "random": "",
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "غير محدد"
+  },
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
@@ -67,6 +85,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "نوع",
+      "taxonSearch": "وحدات تصنيفية",
       "datasetSearch": "مجموعات البيانات",
       "publisherSearch": "الناشرون",
       "occurrenceSearch": "تكرارات",

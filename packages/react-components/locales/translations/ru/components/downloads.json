@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {# событие } other {# событий}} загружено",
+    "nEventsDownloaded": "Загружены {total, plural, one {# event } few {# events} many {# events} other {# events}} ",
     "nRecordsDownloaded": "{total, plural, one {# запись } other {# записей}} загружено",
     "nRowsDownloaded": "{total, plural, one {# строка } other {# строк}} загружено",
     "nConstituentDatasets": "Включены записи{total, plural, one {# набора данных} other {# наборов данных}}",
@@ -45,6 +46,7 @@
     "filterApplied": "Применен фильтр {DATE}",
     "query": "Запрос",
     "rerunQuery": "Повторное выполнение запроса",
+    "complexPredicateWarning": "Предикат слишком сложен, чтобы его можно было преобразовать в обычные фильтры в пользовательском интерфейсе. Это также происходит если в исходном файле для скачивания использовался контрольный список, который больше не применяется. В этом случае он будет отображаться как сложный запрос, который можно редактировать в формате JSON.",
     "postpone": "Отложенное удаление",
     "deleteDownload": "Удалить загрузку",
     "tellUs": "Расскажите нам об использовании",

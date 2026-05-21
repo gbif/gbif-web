@@ -27,13 +27,13 @@ const DropdownMenuSubTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       'g-flex g-cursor-default g-select-none g-items-center g-rounded-sm g-px-2 g-py-1.5 g-text-sm g-outline-none focus:g-bg-accent data-[state=open]:g-bg-accent',
-      inset && 'g-pl-8',
+      inset && 'g-ps-8',
       className
     )}
     {...props}
   >
     {children}
-    <ChevronRightIcon className="g-ml-auto g-h-4 g-w-4" />
+    <ChevronRightIcon className="g-ms-auto g-h-4 g-w-4" />
   </DropdownMenuPrimitive.SubTrigger>
 ));
 DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName;
@@ -84,7 +84,7 @@ const DropdownMenuItem = React.forwardRef<
     ref={ref}
     className={cn(
       'g-relative g-flex g-cursor-default g-select-none g-items-center g-rounded-sm g-px-2 g-py-1.5 g-text-sm g-outline-none g-transition-colors focus:g-bg-accent focus:g-text-accent-foreground data-[disabled]:g-pointer-events-none data-[disabled]:g-opacity-50',
-      inset && 'g-pl-8',
+      inset && 'g-ps-8',
       className
     )}
     {...props}
@@ -99,13 +99,13 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      'g-relative g-flex g-cursor-default g-select-none g-items-center g-rounded-sm g-py-1.5 g-pl-8 g-pr-2 g-text-sm g-outline-none g-transition-colors focus:g-bg-accent focus:g-text-accent-foreground data-[disabled]:g-pointer-events-none data-[disabled]:g-opacity-50',
+      'g-relative g-flex g-cursor-default g-select-none g-items-center g-rounded-sm g-py-1.5 g-ps-8 g-pe-2 g-text-sm g-outline-none g-transition-colors focus:g-bg-accent focus:g-text-accent-foreground data-[disabled]:g-pointer-events-none data-[disabled]:g-opacity-50',
       className
     )}
     checked={checked}
     {...props}
   >
-    <span className="g-absolute g-left-2 g-flex g-h-3.5 g-w-3.5 g-items-center g-justify-center">
+    <span className="g-absolute g-start-2 g-flex g-h-3.5 g-w-3.5 g-items-center g-justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <CheckIcon className="g-h-4 g-w-4" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -122,12 +122,12 @@ const DropdownMenuRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      'g-relative g-flex g-cursor-default g-select-none g-items-start g-rounded-sm g-py-1.5 g-pl-8 g-pr-2 g-text-sm g-outline-none g-transition-colors focus:g-bg-accent focus:g-text-accent-foreground data-[disabled]:g-pointer-events-none data-[disabled]:g-opacity-50',
+      'g-relative g-flex g-cursor-default g-select-none g-items-start g-rounded-sm g-py-1.5 g-ps-8 g-pe-2 g-text-sm g-outline-none g-transition-colors focus:g-bg-accent focus:g-text-accent-foreground data-[disabled]:g-pointer-events-none data-[disabled]:g-opacity-50',
       className
     )}
     {...props}
   >
-    <span className="g-absolute g-left-2 g-flex g-h-3.5 g-w-3.5 g-items-center g-justify-center">
+    <span className="g-absolute g-start-2 g-flex g-h-3.5 g-w-3.5 g-items-center g-justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <DotFilledIcon className="g-h-4 g-w-4 g-fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -145,7 +145,7 @@ const DropdownMenuLabel = React.forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Label
     ref={ref}
-    className={cn('g-px-2 g-py-1.5 g-text-sm g-font-semibold', inset && 'g-pl-8', className)}
+    className={cn('g-px-2 g-py-1.5 g-text-sm g-font-semibold', inset && 'g-ps-8', className)}
     {...props}
   />
 ));
@@ -166,7 +166,7 @@ DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
   return (
     <span
-      className={cn('g-ml-auto g-text-xs g-tracking-widest g-opacity-60', className)}
+      className={cn('g-ms-auto g-text-xs g-tracking-widest g-opacity-60', className)}
       {...props}
     />
   );

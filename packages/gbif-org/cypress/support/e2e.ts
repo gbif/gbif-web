@@ -18,3 +18,11 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// In-flight fetches that get aborted during React remounts or page teardown can surface
+// as `TypeError: Failed to fetch` unhandled rejections. The app handles this fine for
+// users, but Cypress fails tests on any unhandled rejection. Ignore this specific case
+// so it doesn't mask real failures.
+Cypress.on('uncaught:exception', (err) => {
+  if (err?.message?.includes('Failed to fetch')) return false;
+});

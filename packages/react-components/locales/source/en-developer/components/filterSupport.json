@@ -63,5 +63,19 @@
     "failedToSimplify": "Failed to simplify the geometry"
   },
   "activeFilters": "Active filters",
-  "highlighted": "Highlighted"
+  "highlighted": "Highlighted",
+  "predicate": {
+    "help": "Enter a GBIF occurrence predicate as JSON. It will be combined with the other filters using AND.",
+    "helpExtended": "This is an expert tool for building complex queries that can't be expressed with the standard filters. See the documentation for the full predicate reference and examples.",
+    "showHelp": "Show help",
+    "hideHelp": "Hide help",
+    "placeholder": "{\n  \"type\": \"equals\",\n  \"key\": \"COUNTRY\",\n  \"value\": \"DK\"\n}",
+    "emptyPreview": "Nothing to preview",
+    "edit": "Edit",
+    "preview": "Preview",
+    "reformat": "Reformat",
+    "documentation": "Documentation",
+    "validating": "Validating…",
+    "invalidJson": "The provided predicate is not valid JSON"
+  }
 }

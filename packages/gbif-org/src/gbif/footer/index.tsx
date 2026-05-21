@@ -74,7 +74,7 @@ export function Footer() {
       <section className="g-bg-[#5b5b5b] g-flex g-w-full g-justify-center g-py-6 g-px-6 g-text-sm">
         <DynamicLink to="/news/6PHdgoyIF6RmI7u4VOouuD" className="g-flex g-items-center">
           <img src={gbcLogoUrl} className="g-h-10 g-p-r-6" />
-          <span className="g-pl-4">
+          <span className="g-ps-4">
             <span className="g-font-semibold">GBIF</span> is a Global Core Biodata Resource
           </span>
         </DynamicLink>

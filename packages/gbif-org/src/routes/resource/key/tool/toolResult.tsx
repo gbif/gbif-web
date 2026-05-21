@@ -1,12 +1,17 @@
 import { ResultCard } from '@/components/resultCards/index';
 import { ToolResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
+import { gbifUrlAsRelative } from '@/utils/gbifUrl';
+import { getTextDirection } from '@/utils/textDirection';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ToolResult on Tool {
     id
     title
     excerpt
+    primaryLink {
+      url
+    }
     primaryImage {
       ...ResultCardImage
     }
@@ -19,9 +24,11 @@ type Props = {
 };
 
 export function ToolResult({ tool, className }: Props) {
-  const link = `/tool/${tool.id}`;
+  const link = gbifUrlAsRelative(tool.primaryLink?.url) ?? `/tool/${tool.id}`;
+  const dir = getTextDirection(tool.title);
+
   return (
-    <ResultCard.Container className={className}>
+    <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header title={tool.title} link={link} contentType="cms.contentType.tool" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{tool.excerpt}</ResultCard.Content>

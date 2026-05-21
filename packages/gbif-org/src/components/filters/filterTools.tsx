@@ -7,7 +7,7 @@ import {
 } from '@/dataManagement/filterAdapter/filter2predicate';
 import { EventFiltering, Predicate } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
-import { SuggestConfig } from '@/utils/suggestEndpoints';
+import { SuggestConfig, TaxonSuggestType } from '@/utils/suggestEndpoints';
 import React, { useContext } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { Button } from '../ui/button';
@@ -26,11 +26,12 @@ import { QFilter } from './QFilter';
 import { QInlineButtonFilter } from './QInlineButtonFilter';
 import { InlineToggleFilter } from './inlineToggleFilter';
 import { RangeFilter } from './rangeFilter';
-import { SuggestFnProps, SuggestionItem, SuggestResponseType } from './suggest';
+import { SuggestionItem, SuggestResponseType } from './suggest';
 import { SuggestFilter } from './suggestFilter';
 import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
 import { HumboldtBooleansFilter } from './humboldtBooleansFilter';
+import { CustomPredicateFilter } from './customPredicateFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -45,6 +46,7 @@ export enum filterConfigTypes {
   GEOLOGICAL_TIME = 'GEOLOGICAL_TIME',
   INLINE_TOGGLE = 'INLINE_TOGGLE',
   HUMBOLDT_BOOLEANS = 'HUMBOLDT_BOOLEANS',
+  CUSTOM_PREDICATE = 'CUSTOM_PREDICATE',
 }
 
 export type AdditionalFilterProps = {
@@ -93,7 +95,7 @@ export type filterTaxonConfig = filterConfigShared & {
   disableFacetsForSelected?: boolean;
   suggestConfig?: {
     render?: (item: SuggestionItem) => React.ReactNode;
-    getSuggestions: (props: SuggestFnProps | { checklistKey?: string }) => SuggestResponseType;
+    getSuggestions: (props: TaxonSuggestType) => SuggestResponseType;
     placeholder?: string;
     getStringValue?: (item: SuggestionItem) => string;
   };
@@ -156,6 +158,10 @@ export type filterHumboldtBooleansConfig = filterConfigShared & {
   filterType: filterConfigTypes.HUMBOLDT_BOOLEANS;
 };
 
+export type filterCustomPredicateConfig = filterConfigShared & {
+  filterType: filterConfigTypes.CUSTOM_PREDICATE;
+};
+
 // define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
 export type filterConfig =
   | filterBoolConfig
@@ -169,7 +175,8 @@ export type filterConfig =
   | filterGeologicalTimeConfig
   | filterLocationConfig
   | filterInlineToggleConfig
-  | filterHumboldtBooleansConfig;
+  | filterHumboldtBooleansConfig
+  | filterCustomPredicateConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -642,6 +649,35 @@ const getGeologicalTimeFilter = ({
   );
 };
 
+const getCustomPredicateFilter = ({ config }: { config: filterCustomPredicateConfig }) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <CustomPredicateFilter
+          ref={ref}
+          filterHandle={config.filterHandle}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 const getHumboldtBooleansFilter = ({
   config,
   searchConfig,
@@ -885,6 +921,13 @@ export function generateFilters({
         searchConfig,
       }),
     });
+  } else if (config.filterType === filterConfigTypes.CUSTOM_PREDICATE) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getCustomPredicateFilter({ config: config as filterCustomPredicateConfig }),
+      popoverClassName: 'g-w-[600px] g-max-w-[var(--radix-popper-available-width)]',
+    });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);
   }
@@ -1084,13 +1127,7 @@ export function FilterBar({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        'g-border-b g-border-solid g-py-2 g-px-4 g-bg-paperBackground -g-mb-1',
-        className
-      )}
-      role="search"
-    >
+    <div className={cn('g-py-2 g-px-2 -g-mb-1', className)} role="search">
       {children}
     </div>
   );
@@ -1100,10 +1137,12 @@ export function ApplyCancel({
   onApply,
   onCancel,
   pristine,
+  disabled,
 }: {
   onApply?: ({ keepOpen }?: { keepOpen?: boolean }) => void;
   onCancel?: () => void;
   pristine?: boolean;
+  disabled?: boolean;
 }) {
   if (!onApply || !onCancel) return null;
   return (
@@ -1112,7 +1151,13 @@ export function ApplyCancel({
         <FormattedMessage id="filterSupport.cancel" />
       </Button>
       {!pristine && (
-        <Button type="submit" role="button" size="sm" onClick={() => onApply({ keepOpen: false })}>
+        <Button
+          type="submit"
+          role="button"
+          size="sm"
+          disabled={disabled}
+          onClick={() => onApply({ keepOpen: false })}
+        >
           <FormattedMessage id="filterSupport.apply" />
         </Button>
       )}

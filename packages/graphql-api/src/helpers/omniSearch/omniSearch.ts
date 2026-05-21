@@ -11,17 +11,20 @@ export default async function searchAll({
   locale,
   languageCode = 'eng',
   server,
+  checklistKey,
 }: {
   query: string;
   languageCode: string;
   server: ApolloServer<ExpressContext>;
   locale: string;
+  checklistKey?: string;
 }) {
   try {
     const taxonResults = await searchTaxa({
       query,
       server,
       languageCode,
+      checklistKey,
     });
     const countryResult = await searchCountries(query, locale);
     const participantResult = await searchParticipants(query);
@@ -36,6 +39,7 @@ export default async function searchAll({
       // techDocs: documentationResults,
     };
   } catch (error) {
+    console.log(error);
     return {
       error: {
         message: 'An error occurred while searching.',

@@ -30,7 +30,7 @@ const NavigationMenuList = React.forwardRef<
   <NavigationMenuPrimitive.List
     ref={ref}
     className={cn(
-      'g-group g-flex g-flex-1 g-list-none g-items-center g-justify-center g-space-x-1',
+      'g-group g-flex g-flex-1 g-list-none g-items-center g-justify-center g-gap-1',
       className
     )}
     {...props}
@@ -58,7 +58,7 @@ const NavigationMenuTrigger = React.forwardRef<
   >
     {children}{' '}
     <ChevronDownIcon
-      className="g-relative g-top-[1px] g-ml-1 g-h-3 g-w-3 g-transition g-duration-300 group-data-[state=open]:g-rotate-180"
+      className="g-relative g-top-[1px] g-ms-1 g-h-3 g-w-3 g-transition g-duration-300 group-data-[state=open]:g-rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -72,7 +72,7 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      'g-left-0 g-top-0 g-w-full data-[motion^=from-]:g-animate-in data-[motion^=to-]:g-animate-out data-[motion^=from-]:g-fade-in data-[motion^=to-]:g-fade-out data-[motion=from-end]:g-slide-in-from-right-52 data-[motion=from-start]:g-slide-in-from-left-52 data-[motion=to-end]:g-slide-out-to-right-52 data-[motion=to-start]:g-slide-out-to-left-52 md:g-absolute md:g-w-auto ',
+      'g-start-0 g-top-0 g-w-full data-[motion^=from-]:g-animate-in data-[motion^=to-]:g-animate-out data-[motion^=from-]:g-fade-in data-[motion^=to-]:g-fade-out data-[motion=from-end]:g-slide-in-from-right-52 data-[motion=from-start]:g-slide-in-from-left-52 data-[motion=to-end]:g-slide-out-to-right-52 data-[motion=to-start]:g-slide-out-to-left-52 md:g-absolute md:g-w-auto ',
       className
     )}
     {...props}
@@ -87,7 +87,7 @@ const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
 >(({ className, ...props }, ref) => (
-  <div className={cn('g-absolute g-left-0 g-top-full g-flex g-justify-center')}>
+  <div className={cn('g-absolute g-start-0 g-top-full g-flex g-justify-center')}>
     <NavigationMenuPrimitive.Viewport
       className={cn(
         'g-origin-top-center g-relative g-mt-1.5 g-h-[var(--radix-navigation-menu-viewport-height)] g-w-full g-overflow-hidden g-rounded-md g-border g-border-solid g-bg-popover g-text-popover-foreground g-shadow data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-90 md:g-w-[var(--radix-navigation-menu-viewport-width)]',
@@ -112,7 +112,7 @@ const NavigationMenuIndicator = React.forwardRef<
     )}
     {...props}
   >
-    <div className="g-relative g-top-[60%] g-h-2 g-w-2 g-rotate-45 g-rounded-tl-sm g-bg-border g-border-solid g-shadow-md" />
+    <div className="g-relative g-top-[60%] g-h-2 g-w-2 g-rotate-45 g-rounded-ss-sm g-bg-border g-border-solid g-shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;

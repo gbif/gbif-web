@@ -1,20 +1,20 @@
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
+import { createRequire } from 'module';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig, UserConfig } from 'vite';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
+// `queue-promise` does `require('events')`, which the browser doesn't have. We resolve `events`
+// to the npm `events` polyfill (a transitive dep, API-compatible with Node's built-in) via a
+// resolve alias. This replaces `vite-plugin-node-polyfills`, which set a global `esbuild.banner`
+// that prepended a 75 KB shim to every transformed file's output during dev — adding ~9s to the
+// SSR cold start (~895 source files × banner injection).
+const eventsPolyfill = createRequire(import.meta.url).resolve('events/');
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   const config: UserConfig = {
-    server: {
-      port: 3000,
-    },
     envPrefix: 'PUBLIC_',
-    plugins: [
-      react(),
-      // The queue-promise package uses the events module, which is not available in the browser. This plugin adds a polyfill for the events module.
-      nodePolyfills({ include: ['events'] }),
-    ],
+    plugins: [react()],
     build: {
       emptyOutDir: true,
       outDir: './dist/gbif/client',
@@ -26,7 +26,10 @@ export default defineConfig(({ command }) => {
       },
     },
     resolve: {
-      alias: [{ find: '@', replacement: fileURLToPath(new URL('../src', import.meta.url)) }],
+      alias: [
+        { find: '@', replacement: fileURLToPath(new URL('../src', import.meta.url)) },
+        { find: /^events$/, replacement: eventsPolyfill },
+      ],
     },
   };
 

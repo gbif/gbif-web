@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import AboutBackbone from './AboutBackbone';
-import AboutNonBackbone from './AboutNonBackbone';
 import { TaxonKeyContext } from './taxonKeyPresentation';
+import { NonBackboneTaxon } from './taxonKey';
+import { useConfig } from '@/config/config';
 
-export default function About({ headLess = false }: { headLess?: boolean }) {
+export default function About() {
+  const config = useConfig();
   const { data } = useContext(TaxonKeyContext);
-  // const { data } = useTaxonKeyLoaderData();
-  const { taxon } = data;
-  const isNub = taxon?.nubKey === taxon?.key;
-  return isNub ? <AboutBackbone /> : <AboutNonBackbone headLess={headLess} />;
+  const { taxonInfo } = data;
+  const isPrimary =
+    taxonInfo?.datasetKey === (config.taxonSearch?.checklistKey ?? config.defaultChecklistKey);
+  return isPrimary ? <AboutBackbone /> : <NonBackboneTaxon />;
 }

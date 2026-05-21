@@ -3,7 +3,7 @@ import { countryKeyRoute } from '@/routes/country/key';
 import { datasetKeyRoute } from '@/routes/dataset/key';
 import { derivedDatasetKeyRoute } from '@/routes/derivedDataset/key';
 import { datasetSearchRoute } from '@/routes/dataset/search';
-import { eventSearchRoute } from '@/routes/events/search/index';
+// import { eventSearchRoute } from '@/routes/event/search/index';
 import { installationKeyRoute } from '@/routes/installation/key';
 import { institutionKeyRoute } from '@/routes/institution/key';
 import { literatureSearchRoute } from '@/routes/literature/search';
@@ -11,6 +11,7 @@ import { literatureSearchRoute } from '@/routes/literature/search';
 import { networkKeyRoute } from '@/routes/network/key';
 import { nodeKeyRoute } from '@/routes/node/key';
 import { downloadKeyRoute } from '@/routes/occurrence/download/key';
+import { eventDownloadKeyRoute } from '@/routes/event/download/key';
 import { occurrenceKeyRoutes } from '@/routes/occurrence/key';
 import { occurrenceSearchRoute } from '@/routes/occurrence/search';
 import { createParticipantKeyRoute } from '@/routes/participant/key';
@@ -22,6 +23,8 @@ import { taxonKeyRoute } from '@/routes/taxon/key';
 import { taxonSearchRoute } from '@/routes/taxon/search';
 import { collectionSearchRoute } from '@/routes/collection/search';
 import { institutionSearchRoute } from '@/routes/institution/search';
+import { speciesKeyRoute } from '@/routes/species/key';
+import { speciesSearchRoute } from '@/routes/species/search';
 
 export const dataRoutes = [
   // search routes first in case of conflict
@@ -44,6 +47,7 @@ export const dataRoutes = [
   networkKeyRoute,
   ...occurrenceKeyRoutes,
   downloadKeyRoute,
+  eventDownloadKeyRoute,
   publisherKeyRoute,
   taxonKeyRoute,
   countryKeyRoute,
@@ -51,4 +55,6 @@ export const dataRoutes = [
   nodeKeyRoute,
   // Must be last as alias handling will require match on whildcard
   ...resourceKeyRoutes,
+  speciesKeyRoute,
+  speciesSearchRoute,
 ];

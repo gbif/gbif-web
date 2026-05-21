@@ -270,7 +270,7 @@ export const ClusterPresentation = ({
                       tip={intl.formatMessage({ id: 'pagination.previous' })}
                       onClick={prev}
                     >
-                      <MdChevronLeft />
+                      <MdChevronLeft className="gbif-rtl-icon" />
                     </Button>
                   )}
                   {next && page < totalPages && (
@@ -280,7 +280,7 @@ export const ClusterPresentation = ({
                       tip={intl.formatMessage({ id: 'pagination.next' })}
                       onClick={next}
                     >
-                      <MdChevronRight />
+                      <MdChevronRight className="gbif-rtl-icon" />
                     </Button>
                   )}
                 </div>

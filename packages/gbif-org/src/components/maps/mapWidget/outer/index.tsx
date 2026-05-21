@@ -163,9 +163,12 @@ export function MapWidgetOuter({
     }
   }, [rasterStyles, persistStyleSelection]);
 
-
-  let yearFilter: React.ReactNode = <div/>;
-  if (typeof capabilities?.minYear === 'number' && typeof capabilities?.maxYear === 'number' && (capabilities.minYear !== capabilities.maxYear)) {
+  let yearFilter: React.ReactNode = <div />;
+  if (
+    typeof capabilities?.minYear === 'number' &&
+    typeof capabilities?.maxYear === 'number' &&
+    capabilities.minYear !== capabilities.maxYear
+  ) {
     yearFilter = (
       <YearFilter
         isYearFilterActive={isYearFilterActive}
@@ -186,7 +189,7 @@ export function MapWidgetOuter({
       {isFullScreen && <div className="g-aspect-[2] g-min-h-[300px]  g-w-full g-mb-12" />}
       <div
         className={cn('g-flex g-flex-col g-w-full', {
-          'g-fixed g-z-50 g-top-0 g-left-0 g-h-screen': isFullScreen,
+          'g-fixed g-z-50 g-top-0 g-start-0 g-h-screen': isFullScreen,
         })}
       >
         <div className="g-flex-1 g-w-full g-aspect-[2] g-min-h-[300px] g-bg-gray-100 g-border-t">
@@ -225,7 +228,7 @@ export function MapWidgetOuter({
           {isSmallScreen ? <div /> : yearFilter}
           <div className="g-flex g-items-center g-gap-2">
             <ExploreLink
-              className="g-pr-2"
+              className="g-pe-2"
               boundingBox={boundingBox}
               view={view}
               projection={selectedProjection}

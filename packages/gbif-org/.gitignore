@@ -25,3 +25,6 @@ dist-ssr
 *.sw?
 
 artifacts
+
+# Cypress local environment overrides (copy cypress.env.example.json to cypress.env.json)
+cypress.env.json

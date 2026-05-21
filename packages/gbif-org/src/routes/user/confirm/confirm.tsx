@@ -109,7 +109,7 @@ export function ConfirmForm() {
             <div className="g-flex-shrink-0">
               <MdCheck className="g-h-5 g-w-5 g-text-green-400" />
             </div>
-            <div className="g-ml-3">
+            <div className="g-ms-3">
               <p className="g-text-sm g-font-medium g-text-green-800">
                 <FormattedMessage id="profile.welcome" />
               </p>
@@ -143,7 +143,7 @@ export function ConfirmForm() {
         <ErrorMessage errorMessageId={getErrorMessage(error)} />
 
         <div className="g-text-center g-space-y-4">
-          <div className="g-space-x-4">
+          <div className="g-flex g-justify-center g-gap-4">
             <Link
               to={localizeLink('/user/register')}
               className="g-font-medium g-text-primary-700 hover:g-text-primary-600"

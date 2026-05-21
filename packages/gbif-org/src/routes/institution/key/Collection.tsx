@@ -20,7 +20,7 @@ export default function Collections() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         {isNoneEmptyArray(collections) && (
           <Card className="g-relative g-overflow-x-auto g-rounded g-border g-border-solid g-mb-4">
-            <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+            <table className="g-w-full g-text-sm g-text-start g-text-gray-500 dark:g-text-gray-400">
               <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
                 <tr>
                   <th scope="col" className="g-px-6 g-py-3 g-font-normal">
@@ -34,13 +34,13 @@ export default function Collections() {
                   </th>
                   <th
                     scope="col"
-                    className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                    className="g-px-6 g-py-3 g-font-normal g-text-end"
                   >
                     <FormattedMessage id="grscicoll.specimens" />
                   </th>
                   <th
                     scope="col"
-                    className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                    className="g-px-6 g-py-3 g-font-normal g-text-end"
                   >
                     <FormattedMessage id="tableHeaders.gbifNumberSpecimens" />
                   </th>
@@ -66,13 +66,13 @@ export default function Collections() {
                           {collection.name}
                         </DynamicLink>{' '}
                         {!collection.active && (
-                          <Tag className="g-bg-red-700 g-text-white">
+                          <Tag className="g-bg-red-700 g-text-white g-m-1 g-mb-0">
                             <FormattedMessage id="grscicoll.inactiveCollection" />
                           </Tag>
                         )}
                       </td>
                       <td className="g-px-1 g-py-3">
-                        <Tag className="g-whitespace-nowrap">{collection.code}</Tag>
+                        <Tag className="g-whitespace-nowrap g-m-1 g-mb-0">{collection.code}</Tag>
                       </td>
                       <td className="g-px-1 g-py-3">
                         <div
@@ -80,13 +80,13 @@ export default function Collections() {
                           dangerouslySetInnerHTML={{ __html: collection.excerpt ?? '' }}
                         ></div>
                       </td>
-                      <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">
+                      <td className="g-px-6 g-py-3 g-text-end">
                         {notNull(collection.numberSpecimens) && (
                           <FormattedNumber value={collection.numberSpecimens} />
                         )}
                         {!notNull(collection.numberSpecimens) && <Unknown />}
                       </td>
-                      <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">
+                      <td className="g-px-6 g-py-3 g-text-end">
                         {notNull(collection.occurrenceCount) && (
                           <FormattedNumber value={collection.occurrenceCount} />
                         )}

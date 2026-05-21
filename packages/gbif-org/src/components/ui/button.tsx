@@ -69,7 +69,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <span className="g-flex g-items-center">
-            <svg className="g-animate-spin g-h-5 g-w-5 g-mr-3" viewBox="0 0 24 24">
+            <svg className="g-animate-spin g-h-5 g-w-5 g-me-3" viewBox="0 0 24 24">
               <circle
                 className="g-opacity-25"
                 cx="12"

@@ -104,7 +104,7 @@ export function FormSelect({
         {label}
       </label>
       <div className="g-relative">
-        <div className="g-absolute g-left-3 g-top-1/2 g-transform g--translate-y-1/2 g-text-gray-400 g-z-10">
+        <div className="g-absolute g-start-3 g-top-1/2 g-transform g--translate-y-1/2 g-text-gray-400 g-z-10">
           <Icon className="g-h-5 g-w-5" />
         </div>
         <Select
@@ -119,7 +119,7 @@ export function FormSelect({
         >
           <SelectTrigger
             className={cn(
-              'g-pl-10',
+              'g-ps-10',
               hasError
                 ? 'g-border-red-500 focus:g-border-red-500 focus:g-ring-red-500'
                 : 'g-border-gray-300 focus:g-border-primary-500 focus:g-ring-primary-500'

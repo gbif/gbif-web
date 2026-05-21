@@ -12,8 +12,19 @@ const typeDef = gql`
       limit: Int
       offset: Int
     ): DatasetDownloadListResults
+    datasetsByEventDownload(
+      key: ID!
+      limit: Int
+      offset: Int
+    ): DatasetDownloadListResults
     download(key: ID!): Download
+    eventDownload(key: ID!): Download
     userDownloads(
+      limit: Int
+      offset: Int
+      username: String!
+    ): DownloadListResults! @cacheControl(maxAge: 0, scope: PRIVATE)
+    userEventDownloads(
       limit: Int
       offset: Int
       username: String!
@@ -70,12 +81,21 @@ const typeDef = gql`
     predicate: JSON
     sendNotification: Boolean
     format: String
+    type: String
     sql: String
     sqlFormatted: String
     description: String
     machineDescription: JSON
     gbifMachineDescription: JSON
     checklistKey: ID
+    """
+    Distinct list of checklistKeys referenced anywhere in the download
+    predicate. Both explicit (a checklistKey set on a predicate node) and
+    implicit (a taxon-supporting field used without an explicit
+    checklistKey, in which case the GBIF backbone is implied) are returned.
+    Returns null when the request has no predicate (e.g. SQL downloads).
+    """
+    predicateChecklists: [String!]
     verbatimExtensions: [String!]
     notificationAddresses: [String!]
     creator: String

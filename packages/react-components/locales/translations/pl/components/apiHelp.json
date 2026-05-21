@@ -22,5 +22,6 @@
   "singleDataset": "Pobierz pojedynczy zbiór danych",
   "searchDatasetsExample": "Pierwsze dwa zbiory danych opublikowane w Danii ze swobodnym określeniem \"grzyby\" w tytule lub opisie.",
   "searchExample": "Pierwsze dwa wpisy ze swobodnym określeniem \"dna\".",
-  "searchDatasets": "Pobierz wszystkie zbiory danych"
+  "searchDatasets": "Pobierz wszystkie zbiory danych",
+  "derivedDatasetContributingDatasets": ""
 }

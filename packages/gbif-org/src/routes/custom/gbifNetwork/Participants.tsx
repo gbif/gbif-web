@@ -153,7 +153,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
         <thead>
           <tr>
             <Th
-              className="g-text-left g-min-w-[200px] g-max-w-[400px]"
+              className="g-text-start g-min-w-[200px] g-max-w-[400px]"
               sortable
               field="name"
               sortField={sortField}
@@ -271,7 +271,7 @@ function Summary({
             typeCounts.AFFILIATE > 0 ||
             typeCounts.OTHER_ASSOCIATE > 0) && <span className="g-mx-2">—</span>}
           {typeCounts.VOTING > 0 && (
-            <span className="g-mr-3">
+            <span className="g-me-3">
               <FormattedMessage
                 id="counts.nVotingParticipants"
                 values={{ total: typeCounts.VOTING }}
@@ -279,7 +279,7 @@ function Summary({
             </span>
           )}
           {typeCounts.ASSOCIATE > 0 && (
-            <span className="g-mr-3">
+            <span className="g-me-3">
               <FormattedMessage
                 id="counts.nAssociateParticipants"
                 values={{ total: typeCounts.ASSOCIATE }}
@@ -287,7 +287,7 @@ function Summary({
             </span>
           )}
           {typeCounts.AFFILIATE > 0 && (
-            <span className="g-mr-3">
+            <span className="g-me-3">
               <FormattedMessage
                 id="counts.nAffiliateParticipants"
                 values={{ total: typeCounts.AFFILIATE }}
@@ -295,7 +295,7 @@ function Summary({
             </span>
           )}
           {typeCounts.OTHER_ASSOCIATE > 0 && (
-            <span className="g-mr-3">
+            <span className="g-me-3">
               <FormattedMessage
                 id="counts.nOtherAssociateParticipants"
                 values={{ total: typeCounts.OTHER_ASSOCIATE }}

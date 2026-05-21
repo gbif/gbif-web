@@ -26,8 +26,11 @@
   "searchDatasets": "Obtener todos los conjuntos de datos.",
   "singleNode": "Obtener un solo nodo.",
   "searchNodes": "Buscar nodos",
-  "singleSpecies": "Obtener una sola especie.",
-  "searchSpecies": "Obtener todas las especies.",
+  "singleTaxon": "Obtener un único taxón.",
+  "singleTaxonDetails": "Obtener detalles de un único taxón.",
+  "searchTaxa": "Buscar taxones",
+  "matchSpecies": "Asocia un nombre al árbol taxonómico de GBIF.",
   "singleDerivedDataset": "Obtener un único conjunto de datos",
+  "parseName": "Analizar un nombre científico",
   "derivedDatasetContributingDatasets": "Obtener todos los conjuntos de datos que han contribuido al conjunto de datos derivado"
 }

@@ -84,7 +84,7 @@ export function SuccessState({
             to={secondaryAction.to}
             className={cn('g-w-full', buttonVariants({ variant: 'outline' }))}
           >
-            {secondaryAction.icon && <secondaryAction.icon className="g-mr-2 g-h-4 g-w-4" />}
+            {secondaryAction.icon && <secondaryAction.icon className="g-me-2 g-h-4 g-w-4" />}
             {secondaryAction.text}
           </Link>
         )}
@@ -135,7 +135,7 @@ export function ErrorState({
           {secondaryAction && (
             <Link to={secondaryAction.to} className={buttonVariants({ variant: 'outline' })}>
               <span className="g-flex-inline g-items-center">
-                {secondaryAction.icon && <secondaryAction.icon className="g-mr-2 g-h-4 g-w-4" />}
+                {secondaryAction.icon && <secondaryAction.icon className="g-me-2 g-h-4 g-w-4" />}
                 {secondaryAction.text}
               </span>
             </Link>

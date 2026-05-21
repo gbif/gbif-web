@@ -4,6 +4,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarToday } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { MediumDate } from '@/components/dateFormats';
+import { getTextDirection } from '@/utils/textDirection';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DataUseResult on DataUse {
@@ -24,9 +25,10 @@ type Props = {
 
 export function DataUseResult({ dataUse, className }: Props) {
   const link = `/data-use/${dataUse.id}`;
+  const dir = getTextDirection(dataUse.title);
 
   return (
-    <ResultCard.Container className={className}>
+    <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header title={dataUse.title} link={link} contentType="cms.contentType.dataUse" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>

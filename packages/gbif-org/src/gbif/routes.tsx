@@ -22,6 +22,10 @@ import { literatureButtonWidgetRoute, literatureSearchWidgetRoute } from '@/rout
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { mdtRoute } from '@/routes/custom/mdt';
+import { derivedDatasetRoute } from '@/routes/tools/derivedDataset';
+import { nameParserRoute } from '@/routes/tools/nameParser';
+import { sequenceIdRoute } from '@/routes/tools/sequenceId';
+import { speciesLookupRoute } from '@/routes/tools/speciesLookup';
 
 export function createGbifRoutes(config: Config) {
   return applyReactRouterPlugins(
@@ -61,6 +65,10 @@ export function createGbifRoutes(config: Config) {
               analyticsRoute,
               faqRoute,
               iptRoute,
+              speciesLookupRoute,
+              nameParserRoute,
+              sequenceIdRoute,
+              derivedDatasetRoute,
               ...notImplementedRoutes,
 
               // collectionSearchRoute,

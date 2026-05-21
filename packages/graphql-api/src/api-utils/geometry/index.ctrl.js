@@ -1,16 +1,32 @@
 import { Router } from 'express';
 import axios from 'axios';
-import { stringify } from 'wkt';
-import { applyCommands } from 'mapshaper';
 
 const router = Router();
 
 export default (app) => {
   app.use('/unstable-api/geometry', router);
 };
+
+// mapshaper (~70ms) and wkt are only needed when this endpoint is hit.
+// Defer to first call to keep startup cheap.
+let geomModulePromise;
+const loadGeomDeps = () => {
+  if (!geomModulePromise) {
+    geomModulePromise = Promise.all([import('mapshaper'), import('wkt')]).then(
+      ([mapshaper, wkt]) => ({
+        applyCommands: mapshaper.applyCommands,
+        stringify: wkt.stringify,
+      }),
+    );
+  }
+  return geomModulePromise;
+};
+
 // GBIF Natural
 router.get('/simplify/gadm/:level/:id', async (req, res, next) => {
   try {
+    const { applyCommands, stringify } = await loadGeomDeps();
+
     const response = await axios.get(
       `https://api.gbif-uat.org/v1/geocode/feature/gadm${req.params.level}.json?id=${req.params.id}`,
     );

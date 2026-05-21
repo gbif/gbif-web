@@ -1,4 +1,5 @@
 import { useUser } from '@/contexts/UserContext';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -9,10 +10,15 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children, redirectTo = '/user/login' }: ProtectedRouteProps) {
-  const { user, isLoading } = useUser();
+  const { user, refreshUser, isLoading } = useUser();
   const { localizeLink } = useI18n();
   const location = useLocation();
   const navigate = useNavigate();
+
+  // on first render refresh user data to ensure we have the latest authentication status
+  useUpdateEffect(() => {
+    refreshUser();
+  }, [refreshUser]);
 
   // Show loading state while checking authentication
   if (isLoading) {

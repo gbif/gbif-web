@@ -80,7 +80,7 @@ export default function Editor({
             </h1>
 
             <div className="g-flex g-items-center g-gap-3">
-              <div className="g-flex g-items-center g-gap-2 g-h-8 g-mr-auto g-flex-none">
+              <div className="g-flex g-items-center g-gap-2 g-h-8 g-me-auto g-flex-none">
                 <Label htmlFor="occurrence-download-sql-editing">
                   {isEditing && (
                     <FormattedMessage id="download.stopEditing" defaultMessage="Stop Editing" />
@@ -139,7 +139,7 @@ export default function Editor({
             )}
 
             {isEditing && (
-              <div className="g-absolute g-top-2 g-right-4 g-hidden md:g-block">
+              <div className="g-absolute g-top-2 g-end-4 g-hidden md:g-block">
                 <button
                   onClick={onFormat}
                   className="g-px-2 g-py-1 dark:g-bg-slate-700 g-bg-slate-200 dark:hover:g-bg-slate-600 hover:g-bg-slate-300 dark:g-text-white g-text-slate-900 g-text-sm g-rounded-md g-transition-colors g-duration-200 g-border dark:g-border-slate-600 g-border-slate-300"

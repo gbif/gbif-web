@@ -2,7 +2,7 @@
 import config from '../../config';
 
 const DEFAULT_CHECKLIST_KEY =
-  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
 
 /**
  * Convinent wrapper to generate the facet resolvers.
@@ -64,6 +64,11 @@ const getFacet =
           _predicate: joinedPredicate,
           _q: parent._q,
           _parentPredicate: data.meta.predicate,
+          _checklistKey: checklistKey,
+          // The originating facet field (e.g. "basisOfRecord", "license").
+          // Carried through so generic FacetResult resolvers can translate
+          // enum-valued keys without a per-field result type.
+          _field: field,
         };
       });
     });

@@ -26,7 +26,7 @@
     "funding": "자금조달",
     "coFunding": "공동자금",
     "fundedBy": "자금 출처",
-    "coFundedBy": "",
+    "coFundedBy": "공동 투자 출처",
     "typeOfGrant": "수여 유형",
     "projectStart": "프로젝트 시작",
     "status": "현황",
@@ -77,6 +77,6 @@
     "datasets": "데이터셋",
     "gbifWillAttend": "GBIF 사무국 참석",
     "dataUsedInStudy": "연구에서 참조된 데이터",
-    "resourceDescription": "세계생물다양성정보기구(GBIF)에서 자원을 검색하십시오. 생물다양성 데이터에 대해 무료 및 오픈액세스."
+    "resourceDescription": ""
   }
 }

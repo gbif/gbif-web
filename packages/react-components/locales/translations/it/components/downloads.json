@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "",
+    "nEventsDownloaded": "",
     "nRecordsDownloaded": "",
     "nRowsDownloaded": "",
     "nConstituentDatasets": "",
@@ -45,6 +46,7 @@
     "filterApplied": "",
     "query": "",
     "rerunQuery": "",
+    "complexPredicateWarning": "",
     "postpone": "",
     "deleteDownload": "",
     "tellUs": "",

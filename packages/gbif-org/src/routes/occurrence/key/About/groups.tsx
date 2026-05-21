@@ -12,8 +12,7 @@ import { useConfig } from '@/config/config';
 import { OccurrenceQuery, SlowOccurrenceKeyQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
-import { MdAudiotrack, MdImage } from 'react-icons/md';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import wellknown from 'wellknown';
 import {
   BasicField,
@@ -58,11 +57,11 @@ import {
   ResourceRelationship,
 } from './extensions';
 import { Media } from './media';
-import { TaxonInterpretationCard } from './TaxonInterpretationCard';
-import { Img } from '@/components/Img';
+import { TaxonInterpretationCard, ChecklistNoMatchCard } from './TaxonInterpretationCard';
 import { CardDescription } from '@/components/ui/smallCard';
-
-// const Map = React.lazy(() => import('@/components/maps/map'));
+import { MediaSummary } from './MediaSummary';
+import { cn } from '@/utils/shadcn';
+import TestSiteAlert from '@/components/TestSiteAlert';
 
 export function Groups({
   occurrence,
@@ -80,17 +79,17 @@ export function Groups({
   if (!occurrence) return null;
   return (
     <div style={{ wordBreak: 'break-word' }}>
-      <MediaSummary {...{ updateToc, showAll, termMap, occurrence }} />
+      <MediaSummary occurrence={occurrence} termMap={termMap} />
       {/*<SequenceTeaser       {...{ updateToc, showAll, termMap, occurrence, setActiveImage }} />*/}
       {/* <Summary {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
       {/* <Provenance {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
-      <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Record {...{ showAll, termMap, occurrence, slowOccurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
+      <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Occurrence {...{ updateToc, showAll, termMap, occurrence }} />
       <Event {...{ updateToc, showAll, termMap, occurrence }} />
       <Organism {...{ updateToc, showAll, termMap, occurrence }} />
@@ -134,20 +133,22 @@ export function Group({
   children,
   description,
   id,
+  className,
   ...props
 }: {
   label: string;
   id: string;
   description?: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <Card className="g-mb-4" id={id}>
+    <Card className={cn('g-mb-4', className)} id={id}>
       <CardHeader>
         <CardTitle>
           <FormattedMessage id={label} />
         </CardTitle>
-        {description && <CardDescription>{description}</CardDescription>}
+        {description && <CardDescription dir="auto">{description}</CardDescription>}
       </CardHeader>
       <CardContent {...props}>{children}</CardContent>
     </Card>
@@ -369,18 +370,16 @@ function Taxon({
         <div className="g-mt-4 g-border-t g-border-slate-300 g-pt-4">
           <div className="g-mb-2">
             <HelpLine id={'taxonomic-interpretations'} icon />
-
-            {/* Taxonomic Interpretations <MdInfoOutline />
-            <div className="g-bg-slate-200 g-p-2 g-rounded g-text-slate-600 g-text-xs">
-              <HelpText identifier={'taxonomic-interpretations'} />
-            </div> */}
           </div>
-          {filteredClassifications.map((classification) => (
-            <TaxonInterpretationCard
-              key={classification.checklistKey}
-              classification={classification}
-            />
-          ))}
+          {enabledChecklists.map((checklistKey) => {
+            const classification = filteredClassifications?.find(
+              (c) => c.checklistKey === checklistKey
+            );
+            if (classification) {
+              return <TaxonInterpretationCard key={checklistKey} classification={classification} />;
+            }
+            return <ChecklistNoMatchCard key={checklistKey} checklistKey={checklistKey} />;
+          })}
         </div>
       </Group>
     </>
@@ -882,69 +881,6 @@ function Other({
   );
 }
 
-function MediaSummary({
-  showAll,
-  termMap,
-  occurrence,
-}: {
-  showAll: boolean;
-  termMap: any;
-  occurrence: any;
-}) {
-  const [activeImage, setActiveImage] = useState(0); // the idea with this is that down the line we can link from the gallery to open on a specific image. Or add a carousel
-
-  const hasVideo = occurrence?.movingImageCount > 0;
-  const hasPlayableVideo =
-    hasVideo && ['video/mp4', 'video/ogg'].includes(occurrence?.movingImages[0].format);
-  if (!(occurrence.stillImageCount > 0) && !hasPlayableVideo) return null;
-
-  const hasMore =
-    occurrence.stillImageCount + occurrence.movingImageCount > 1 || occurrence?.soundCount > 0;
-  const count = occurrence.stillImageCount + occurrence.movingImageCount + occurrence.soundCount;
-  const Icon = occurrence.stillImageCount > 0 ? MdImage : MdAudiotrack;
-  return (
-    <Card className="g-mb-4">
-      <div style={{ position: 'relative', background: '#eee' }}>
-        {hasMore && (
-          <a
-            href="#multimedia"
-            className="g-flex g-items-center g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
-          >
-            <Icon className="g-me-1" />
-            <FormattedNumber value={count} />
-          </a>
-        )}
-        {hasPlayableVideo && occurrence?.movingImages[0] && (
-          <video
-            controls
-            style={{ maxWidth: '100%', height: 400, display: 'block', margin: 'auto' }}
-          >
-            <source
-              src={occurrence?.movingImages[0].identifier}
-              type={occurrence?.movingImages[0].format}
-            />
-            Unable to play
-          </video>
-        )}
-
-        {!hasPlayableVideo && (
-          <Img
-            src={occurrence.stillImages[activeImage].thumbor}
-            style={{
-              maxWidth: '100%',
-              maxHeight: 400,
-              display: 'block',
-              margin: 'auto',
-              minHeight: 50,
-            }}
-            failedClassName="g-w-full g-h-24"
-          />
-        )}
-      </div>
-    </Card>
-  );
-}
-
 function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
   return (
@@ -977,7 +913,7 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
                     <td>
                       <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />
                     </td>
-                    <td>
+                    <td dir="auto">
                       <FormattedMessage id={`enums.occurrenceIssueDescription.${issue}`} />
                     </td>
                   </tr>
@@ -994,10 +930,13 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
 function Citation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
   return (
-    <Group label="phrases.citation" id="citation">
+    <Group label="phrases.citation" id="citation" className="gbif-test-background">
+      <TestSiteAlert className="g-mb-4" />
       <Properties breakpoint={800} className="[&>dt]:g-w-52">
         <BasicField label="phrases.citeAs">
-          {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}
+          <div dir="ltr">
+            {occurrence?.dataset?.citation?.text} https://gbif.org/occurrence/{occurrence.key}
+          </div>
         </BasicField>
       </Properties>
     </Group>

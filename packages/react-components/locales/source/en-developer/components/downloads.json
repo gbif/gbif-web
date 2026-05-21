@@ -11,6 +11,7 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {# occurrence } other {# occurrences}} downloaded",
+    "nEventsDownloaded": "{total, plural, one {# event } other {# events}} downloaded",
     "nRecordsDownloaded": "{total, plural, one {# record } other {# records}} downloaded",
     "nRowsDownloaded": "{total, plural, one {# row } other {# rows}} downloaded",
     "nConstituentDatasets": "Includes records from {total, plural, one {# dataset} other {# datasets}}",
@@ -45,6 +46,7 @@
     "filterApplied": "Filter applied {DATE}",
     "query": "Query",
     "rerunQuery": "Rerun query",
+    "complexPredicateWarning": "The predicate is too complex to be converted to regular filters in the UI. This also happens if the original download used a checklist that is no longer used. Instead it will show as a Complex Query that can be edited as JSON.",
     "postpone": "Postpone deletion",
     "deleteDownload": "Delete download",
     "tellUs": "Tell us about usage",

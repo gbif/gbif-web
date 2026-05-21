@@ -37,7 +37,25 @@
   "loading": "Завантаження",
   "noResults": "",
   "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "Скасувати",
   "rankInGroup": "",
+  "options": "",
+  "sort": {
+    "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
+    "default": "За замовчанням",
+    "random": "",
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": "Не вказано"
+  },
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",
@@ -67,6 +85,7 @@
     "placeholder": "",
     "categories": {
       "speciesSearch": "Вид",
+      "taxonSearch": "Таксони",
       "datasetSearch": "Наборів даних",
       "publisherSearch": "Видавці",
       "occurrenceSearch": "Знахідки",

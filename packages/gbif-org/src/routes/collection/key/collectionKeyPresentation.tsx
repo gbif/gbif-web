@@ -319,7 +319,7 @@ export function FeaturedImageContent({
         }}
       />
       {featuredImageLicense && (
-        <div className="g-absolute g-bottom-0 g-left-0 g-p-1 g-text-white">
+        <div className="g-absolute g-bottom-0 g-start-0 g-p-1 g-text-white">
           <SimpleTooltip
             title={
               <div>

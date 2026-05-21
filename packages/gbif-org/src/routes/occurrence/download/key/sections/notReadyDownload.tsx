@@ -11,10 +11,12 @@ export function NotReadyDownload({
   status,
   notificationAddresses,
   downloadKey,
+  downloadType,
 }: {
   status: Download_Status;
   notificationAddresses?: string[] | null;
   downloadKey: string;
+  downloadType?: string;
 }) {
   const [isCancelling, setIsCancelling] = useState(false);
   const { translatedToast } = useToast();
@@ -25,7 +27,7 @@ export function NotReadyDownload({
 
     setIsCancelling(true);
     try {
-      await cancelDownload(downloadKey);
+      await cancelDownload(downloadKey, downloadType ?? 'OCCURRENCE');
       window.location.reload();
     } catch (error) {
       translatedToast({
@@ -94,19 +96,3 @@ export function NotReadyDownload({
     </>
   );
 }
-
-/*
-possible states
-[
-// changing
-"PREPARING",
-"RUNNING",
-"SUSPENDED",
-// final
-"SUCCEEDED",
-"KILLED",
-"FAILED",
-"CANCELLED",
-"FILE_ERASED" // i guess this means succeeded and then later deleted
-]
-*/

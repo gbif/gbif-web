@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import { CategoryCount } from './search';
 
 const categories: CategoryCount[] = [
-  { type: 'speciesSearch', count: 0, label: 'Species', icon: 'Bird' },
+  { type: 'taxonSearch', count: 0, label: 'Taxa', icon: 'Bird' },
   { type: 'datasetSearch', count: 0, label: 'Datasets', icon: 'Database' },
   { type: 'publisherSearch', count: 0, label: 'Publishers', icon: 'Building2' },
   { type: 'resourceSearch', count: 0, label: 'Resources and articles', icon: 'FileText' },
@@ -103,8 +103,8 @@ function ListCard({
             <p className="g-text-sm g-text-gray-500">{description}</p>
           </div>
         </div>
-        <div className="g-border-l g-border-gray-100 g-p-3 g-flex g-flex-none g-items-center">
-          <MdChevronRight className="g-h-5 g-w-5 g-text-gray-400 group-hover:g-text-primary-500 g-transition-colors" />
+        <div className="g-border-s g-border-gray-100 g-p-3 g-flex g-flex-none g-items-center">
+          <MdChevronRight className="gbif-rtl-icon g-h-5 g-w-5 g-text-gray-400 group-hover:g-text-primary-500 g-transition-colors" />
         </div>
       </DynamicLink>
     </Card>

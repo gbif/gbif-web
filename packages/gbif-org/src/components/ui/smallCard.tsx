@@ -36,7 +36,7 @@ const Card = React.forwardRef<
       </CardContent>
     )}
     {loading && !error && (
-      <div className="g-z-10 g-bg-white g-absolute g-text-center g-opacity-80 g-top-0 g-bottom-0 g-left-0 g-right-0">
+      <div className="g-z-10 g-bg-white g-absolute g-text-center g-opacity-80 g-top-0 g-bottom-0 g-start-0 g-end-0">
         <StripeLoader active={true} />
       </div>
     )}

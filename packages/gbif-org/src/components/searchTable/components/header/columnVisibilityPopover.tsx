@@ -26,7 +26,7 @@ export function ColumnVisibilityPopover({
   return (
     <Popover>
       <SimpleTooltip i18nKey="search.table.columnVisibility" asChild side="right">
-        <PopoverTrigger className="g-pr-3 g-pl-1 hover:g-text-primary-500">
+        <PopoverTrigger className="g-pe-3 g-ps-1 hover:g-text-primary-500">
           {/* This 16px width match the drawer icon in the left most cell */}
           <div className="g-w-[16px]">
             <SlOptionsVertical size={14} />

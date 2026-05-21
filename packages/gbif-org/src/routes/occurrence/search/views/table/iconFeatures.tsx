@@ -68,7 +68,7 @@ export function IconFeatures({
         <SimpleTooltip i18nKey="occurrenceDetails.features.eventDate">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdEvent className="g-flex-none g-h-[1.2em]" />
-            <span className="g-ml-3">
+            <span className="g-ms-3">
               <FormattedDateRange date={eventDate} />
             </span>
           </div>
@@ -78,7 +78,7 @@ export function IconFeatures({
         <SimpleTooltip i18nKey="occurrenceDetails.features.hasCoordinates">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdLocationOn className="g-flex-none g-h-[1.2em]" />
-            {!iconsOnly && <span className="g-ml-3">{formattedCoordinates}</span>}
+            {!iconsOnly && <span className="g-ms-3">{formattedCoordinates}</span>}
           </div>
         </SimpleTooltip>
       )}
@@ -87,7 +87,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <FaGlobeAfrica className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <span>{locality ? `${locality}, ` : ''}</span>
                 <span>
                   <FormattedMessage id={`enums.countryCode.${countryCode}`} />
@@ -102,7 +102,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <MdLabel className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} />
               </span>
             )}
@@ -118,7 +118,7 @@ export function IconFeatures({
               <MdImage className="g-flex-none g-h-[1.2em]" />
             )}
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="counts.nImages" values={{ total: stillImageCount }} />
               </span>
             )}
@@ -130,7 +130,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <MdVideocam className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="counts.nVideos" values={{ total: movingImageCount }} />
               </span>
             )}
@@ -142,7 +142,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <AiFillAudio className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="counts.nAudioFiles" values={{ total: soundCount }} />
               </span>
             )}
@@ -154,7 +154,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <GiDna1 className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="occurrenceDetails.features.isSequenced" />
               </span>
             )}
@@ -166,7 +166,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <MdInsertDriveFile className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="occurrenceDetails.features.isTreatment" />
               </span>
             )}
@@ -190,7 +190,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <MdGridOn className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="occurrenceDetails.features.isSamplingEvent" />
               </span>
             )}
@@ -202,7 +202,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <ClusterIcon className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="occurrenceDetails.features.isClustered" />
               </span>
             )}
@@ -214,7 +214,7 @@ export function IconFeatures({
           <div className="g-inline-flex g-items-start g-m-1">
             <BsLightningFill className="g-flex-none g-h-[1.2em]" style={{ color: 'orange' }} />
             {!iconsOnly && (
-              <span className="g-ml-3">
+              <span className="g-ms-3">
                 <FormattedMessage id="counts.nQualityFlags" values={{ total: issueCount }} />
               </span>
             )}

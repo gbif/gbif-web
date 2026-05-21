@@ -8,75 +8,81 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { HeaderQuery } from '@/gql/graphql';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import { memo } from 'react';
 import { MdLink } from 'react-icons/md';
 
 export default memo(MainNavigation) as typeof MainNavigation;
 function MainNavigation({ menu }: { menu: HeaderQuery }) {
+  const { locale } = useI18n();
   const [value, setValue] = React.useState('');
   const children = menu?.gbifHome?.children;
 
   return (
-    <NavigationMenu value={value} onValueChange={setValue} className="g-z-30">
+    <NavigationMenu
+      value={value}
+      onValueChange={setValue}
+      className="g-z-30"
+      dir={locale.textDirection || 'ltr'}
+    >
       <NavigationMenuList>
-            {children?.map((parent) => {
-              const groups = parent?.children?.[0].children ? parent?.children?.length : 1;
-              const widthLookup: { [key: number]: string } = {
-                1: 'lg:g-w-[300px] lg:g-grid-cols-[1fr]',
-                2: 'lg:g-w-[540px] lg:g-grid-cols-[270px_1fr]',
-                3: 'lg:g-w-[810px] lg:g-grid-cols-[270px_1fr_1fr]',
-                4: 'lg:g-w-[1080px] lg:g-grid-cols-[270px_1fr_1fr_1fr]',
-              };
+        {children?.map((parent) => {
+          const groups = parent?.children?.[0].children ? parent?.children?.length : 1;
+          const widthLookup: { [key: number]: string } = {
+            1: 'lg:g-w-[300px] lg:g-grid-cols-[1fr]',
+            2: 'lg:g-w-[540px] lg:g-grid-cols-[270px_1fr]',
+            3: 'lg:g-w-[810px] lg:g-grid-cols-[270px_1fr_1fr]',
+            4: 'lg:g-w-[1080px] lg:g-grid-cols-[270px_1fr_1fr_1fr]',
+          };
 
-              return (
-                <NavigationMenuItem key={parent.id}>
-                  <NavigationMenuTrigger>{parent.title}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className={`g-grid g-gap-1 g-p-4 md:g-w-[270px] ${widthLookup[groups]}`}>
-                      {parent.children?.map((child) => {
-                        if (child?.children && child?.children?.length > 0) {
-                          return (
-                            <li key={child.id}>
-                              <h4 className="g-mt-2 g-ps-2 g-text-slate-500">{child.title}</h4>
-                              <ul className="g-py-4">
-                                {child.children
-                                  .filter((x) => x.link)
-                                  .map((subChild) => (
-                                    <ListItem
-                                      key={subChild.id}
-                                      href={subChild.link}
-                                      title={subChild.title}
-                                      externalLink={!!subChild.externalLink}
-                                      onClick={() => setValue('')}
-                                    >
-                                      {/* {subChild?.description ?? 'Description could go here'} */}
-                                    </ListItem>
-                                  ))}
-                              </ul>
-                            </li>
-                          );
-                        }
-                        return (
-                          <ListItem
-                            onClick={() => setValue('')}
-                            key={child.id}
-                            href={child.link}
-                            title={child.title}
-                            externalLink={!!child.externalLink}
-                          >
-                            {/* {child?.description ?? 'Observations, specimens, samples, and other evidence of species occurrences.'} */}
-                          </ListItem>
-                        );
-                      })}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              );
-            })}
-            {/* Example of custom menu item to discuss with comms */}
-            {/* <NavigationMenuItem>
+          return (
+            <NavigationMenuItem key={parent.id}>
+              <NavigationMenuTrigger>{parent.title}</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className={`g-grid g-gap-1 g-p-4 md:g-w-[270px] ${widthLookup[groups]}`}>
+                  {parent.children?.map((child) => {
+                    if (child?.children && child?.children?.length > 0) {
+                      return (
+                        <li key={child.id}>
+                          <h4 className="g-mt-2 g-ps-2 g-text-slate-500">{child.title}</h4>
+                          <ul className="g-py-4">
+                            {child.children
+                              .filter((x) => x.link)
+                              .map((subChild) => (
+                                <ListItem
+                                  key={subChild.id}
+                                  href={subChild.link}
+                                  title={subChild.title}
+                                  externalLink={!!subChild.externalLink}
+                                  onClick={() => setValue('')}
+                                >
+                                  {/* {subChild?.description ?? 'Description could go here'} */}
+                                </ListItem>
+                              ))}
+                          </ul>
+                        </li>
+                      );
+                    }
+                    return (
+                      <ListItem
+                        onClick={() => setValue('')}
+                        key={child.id}
+                        href={child.link}
+                        title={child.title}
+                        externalLink={!!child.externalLink}
+                      >
+                        {/* {child?.description ?? 'Observations, specimens, samples, and other evidence of species occurrences.'} */}
+                      </ListItem>
+                    );
+                  })}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          );
+        })}
+        {/* Example of custom menu item to discuss with comms */}
+        {/* <NavigationMenuItem>
                 <NavigationMenuTrigger>Explore data</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="g-grid g-gap-1 g-p-4 md:g-w-[400px] lg:g-w-[800px] lg:g-grid-cols-[270px_1fr]">
@@ -95,7 +101,7 @@ function MainNavigation({ menu }: { menu: HeaderQuery }) {
                             </p>
                             <div className="g-relative g-rounded-lg g-mt-4 g-overflow-hidden">
                               <img
-                                className="g-absolute g-top-0 g-left-0 g-bottom-0 g-right-0 g-w-full g-h-full"
+                                className="g-absolute g-top-0 g-start-0 g-bottom-0 g-end-0 g-w-full g-h-full"
                                 src={`http://api.gbif.org/v2/map/occurrence/density/0/0/0@2x.png?srs=EPSG%3A3857&style=purpleYellow.point`}
                               />
                               <img

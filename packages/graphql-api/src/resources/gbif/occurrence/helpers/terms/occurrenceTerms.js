@@ -14,22 +14,17 @@
  *  }
  * }
  */
-import createDOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
 import { isNil, pick } from 'lodash';
 import mdit from 'markdown-it';
+import { sanitizeHtml } from '@/helpers/sanitize-html';
 import interpretationRemark from '@/helpers/enums/interpretationRemark';
 import terms from '../groups/terms.json';
 
-const md = mdit({
-  html: true,
-  linkify: true,
-  typographer: false,
-});
+const md = mdit({ html: true, linkify: true, typographer: false });
+// keep naked .org/.com strings out of <a> tags — values are raw API data,
+// not user-authored prose, so domain-shaped substrings (e.g. names) shouldn't
+// silently become links
 md.linkify.tlds(['org', 'com'], false);
-
-const { window } = new JSDOM('');
-const DOMPurify = createDOMPurify(window);
 
 const groupBy = (arr, key, field) => {
   return arr.reduce((groups, obj) => {
@@ -72,12 +67,9 @@ function getHtmlValue({ value: inputValue, allowedTags }) {
   if (Array.isArray(value)) {
     return value.map((x) => getHtmlValue({ value: x, allowedTags }));
   }
-  const options = {};
-  if (allowedTags) options.ALLOWED_TAGS = allowedTags;
   if (typeof value === 'string' || typeof value === 'number') {
     const dirty = md.renderInline(`${value}`);
-    const clean = DOMPurify.sanitize(dirty, options);
-    return clean;
+    return sanitizeHtml(dirty, { trustLevel: 'untrusted', allowedTags });
   }
   return null;
 }
