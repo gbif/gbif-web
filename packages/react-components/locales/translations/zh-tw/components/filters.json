@@ -36,7 +36,7 @@
   },
   "taxonRank": {
     "name": "分類位階",
-    "count": "{num, plural, one {排序} other {#排序}}",
+    "count": "{num, plural, one {分類位階} other {#分類位階}}",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "numberSpecimens": {
