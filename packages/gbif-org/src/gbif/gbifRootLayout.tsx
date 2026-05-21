@@ -6,6 +6,7 @@ import { UserProvider } from '@/contexts/UserContext';
 import { HeaderQuery, HomePageQuery } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { json, ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
@@ -95,9 +96,15 @@ const LayoutInner = React.memo(
     return (
       <UserProvider>
         <div className="g-flex g-flex-col g-min-h-[100dvh]">
+          <a
+            href="#main-content"
+            className="g-sr-only focus:g-not-sr-only focus:g-fixed focus:g-top-2 focus:g-start-2 focus:g-z-50 focus:g-bg-primary focus:g-text-primaryContrast focus:g-px-4 focus:g-py-2 focus:g-rounded-md focus:g-shadow-lg focus:g-outline-none focus:g-ring-2 focus:g-ring-ring"
+          >
+            <FormattedMessage id="header.skipToMainContent" defaultMessage="Skip to main content" />
+          </a>
           <LoadingIndicator />
           <Header menu={redirectTools(data)} />
-          <main className="g-flex-auto">
+          <main className="g-flex-auto" id="main-content" tabIndex={-1}>
             <AlternativeLanguages />
             <NoscriptNotification />
             <ScrollRestoration />

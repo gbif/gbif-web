@@ -29,6 +29,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       intervals: getFile(locale, `../${folder}/${locale}/components/intervals`),
       filters: getFile(locale, `../${folder}/${locale}/components/filters`),
       feedback: getFile(locale, `../${folder}/${locale}/components/feedback`).feedback,
+      header: getFile(locale, `../${folder}/${locale}/components/header`).header,
       filterSupport: getFile(locale, `../${folder}/${locale}/components/filterSupport`),
       counts: getFile(locale, `../${folder}/${locale}/components/counts`),
       contact: getFile(locale, `../${folder}/${locale}/components/contact`),

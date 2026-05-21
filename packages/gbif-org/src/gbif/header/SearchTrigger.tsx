@@ -15,26 +15,34 @@ import {
 import { Setter } from '@/types';
 
 export function SearchTrigger() {
+  const intl = useIntl();
   const [open, setOpen] = useState(false);
+
+  const searchLabel = intl.formatMessage({
+    id: 'header.search',
+    defaultMessage: 'Search',
+  });
 
   return (
     <>
       {/* Mobile: direct link to omni search (visible <sm) */}
       <div className="sm:g-hidden">
-        <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
-          <DynamicLink pageId="omniSearch" className="g-opacity-80">
-            <MdSearch />
+        <Button variant="ghost" asChild className="g-text-2xl g-px-2 g-mx-0.5 g-min-h-11 g-min-w-11">
+          <DynamicLink pageId="omniSearch" className="g-opacity-80" aria-label={searchLabel}>
+            <MdSearch aria-hidden="true" />
           </DynamicLink>
         </Button>
       </div>
       {/* Desktop: popover with search field (hidden <sm) */}
       <div className="g-hidden sm:g-inline-block">
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger>
-            <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
-              <span className="g-opacity-80">
-                <MdSearch />
-              </span>
+          <PopoverTrigger asChild>
+            <Button
+              variant="ghost"
+              className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80"
+              aria-label={searchLabel}
+            >
+              <MdSearch aria-hidden="true" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="g-w-[24rem] g-p-0">

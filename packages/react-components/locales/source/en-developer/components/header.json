@@ -1,0 +1,11 @@
+{
+  "header": {
+    "changeLanguage": "Change language",
+    "feedback": "Send feedback",
+    "systemStatus": "System status",
+    "profileLinkLabel": "Profile page for {userName}",
+    "siteNavigation": "Site navigation",
+    "search": "Search",
+    "profile": "User profile"
+  }
+}
