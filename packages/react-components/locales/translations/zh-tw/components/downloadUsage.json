@@ -31,12 +31,12 @@
       "PATENT": "專利",
       "NEWSPAPER_ARTICLE": "新聞報導",
       "SOFTWARE_COMPUTER_PROGRAM": "軟體/電腦程式",
-      "HEARING": "聽覺",
+      "HEARING": "公聽會",
       "TELEVISION_BROADCAST": "電視播報",
       "ENCYCLOPEDIA_ARTICLE": "生物百科文章",
       "CASE": "案例",
       "FILM": "影片",
-      "BILL": "帳單",
+      "BILL": "草案",
       "OTHER": "其他（請在下方評論中詳細說明）"
     }
   }
