@@ -1030,3 +1030,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .gbif-map-popup-bare .maplibregl-popup-tip {
   display: none;
 }
+
+/* Respect users who request reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -45,21 +45,39 @@ export function LanguageSelector({ trigger = <MdTranslate /> }): React.ReactElem
           <DropdownMenuSeparator />
           {languages
             .filter((language) => primaryTranslations.includes(language.code))
-            .map((language) => (
-              <DropdownMenuItem key={language.code} onClick={() => setLocale(language.code)}>
-                <span className="g-w-5">{locale.code === language.code && <MdCheck />}</span>
-                {language.label}
-              </DropdownMenuItem>
-            ))}
+            .map((language) => {
+              const isCurrent = locale.code === language.code;
+              return (
+                <DropdownMenuItem
+                  key={language.code}
+                  onClick={() => setLocale(language.code)}
+                  aria-current={isCurrent ? 'true' : undefined}
+                >
+                  <span className="g-w-5" aria-hidden="true">
+                    {isCurrent && <MdCheck />}
+                  </span>
+                  {language.label}
+                </DropdownMenuItem>
+              );
+            })}
           <DropdownMenuSeparator />
           {languages
             .filter((language) => !primaryTranslations.includes(language.code))
-            .map((language) => (
-              <DropdownMenuItem key={language.code} onClick={() => setLocale(language.code)}>
-                <span className="g-w-5">{locale.code === language.code && <MdCheck />}</span>
-                {language.label}
-              </DropdownMenuItem>
-            ))}
+            .map((language) => {
+              const isCurrent = locale.code === language.code;
+              return (
+                <DropdownMenuItem
+                  key={language.code}
+                  onClick={() => setLocale(language.code)}
+                  aria-current={isCurrent ? 'true' : undefined}
+                >
+                  <span className="g-w-5" aria-hidden="true">
+                    {isCurrent && <MdCheck />}
+                  </span>
+                  {language.label}
+                </DropdownMenuItem>
+              );
+            })}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

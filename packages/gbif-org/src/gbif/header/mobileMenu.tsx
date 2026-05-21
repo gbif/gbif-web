@@ -21,20 +21,29 @@ import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { memo, useState } from 'react';
 import { MdLink, MdMenu } from 'react-icons/md';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 function MobileMenu({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();
+  const intl = useIntl();
   const [open, setOpen] = useState(false);
   const { user, isLoggedIn, isLoading } = useUser();
+
+  const openMenuLabel = intl.formatMessage({
+    id: 'header.openNavigationMenu',
+    defaultMessage: 'Open navigation menu',
+  });
 
   const children = menu?.gbifHome?.children;
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger>
-        <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
-          <span>
-            <MdMenu className="g-opacity-80" />
-          </span>
+      <SheetTrigger asChild>
+        <Button
+          variant="ghost"
+          className="g-text-2xl g-px-2 g-mx-0.5 g-min-h-11 g-min-w-11"
+          aria-label={openMenuLabel}
+        >
+          <MdMenu className="g-opacity-80" aria-hidden="true" />
         </Button>
       </SheetTrigger>
       <SheetContent
@@ -56,7 +65,13 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
             </VisuallyHidden>
           </SheetHeader>
 
-          <div className="g-text-sm g-my-4">
+          <nav
+            className="g-text-base g-my-4"
+            aria-label={intl.formatMessage({
+              id: 'header.siteNavigation',
+              defaultMessage: 'Site navigation',
+            })}
+          >
             <Accordion type="single" collapsible className="w-full">
               {children?.map((parent) => {
                 if (!parent.children || parent.children.length === 0) {
@@ -65,35 +80,40 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                       onClick={() => setOpen(false)}
                       key={parent.id}
                       to={parent.link}
-                      className="g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-2 g-text-sm g-transition-all hover:g-underline"
+                      className="g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                     >
                       <div>
-                        {parent.title} {parent.externalLink && <MdLink />}
+                        {parent.title} {parent.externalLink && <MdLink aria-hidden="true" />}
                       </div>
                     </DynamicLink>
                   );
                 }
                 return (
                   <AccordionItem value={parent.id} key={parent.id}>
-                    <AccordionTrigger>{parent.title}</AccordionTrigger>
+                    <AccordionTrigger className="g-py-4 g-min-h-11 g-text-base">
+                      {parent.title}
+                    </AccordionTrigger>
                     <AccordionContent>
-                      <div className="g-bg-slate-200 g-rounded-lg g-px-2">
+                      <div className="g-bg-slate-200 g-rounded-lg g-px-3">
                         <Accordion type="multiple" className="w-full">
                           {parent.children.map((child) => {
                             if (child.children && child.children.length > 0) {
                               return (
                                 <AccordionItem value={child.id} key={child.id}>
-                                  <AccordionTrigger>{child.title}</AccordionTrigger>
+                                  <AccordionTrigger className="g-py-4 g-min-h-11 g-text-base">
+                                    {child.title}
+                                  </AccordionTrigger>
                                   <AccordionContent className="g-ms-0">
                                     {child.children.map((subChild) => (
                                       <DynamicLink
                                         onClick={() => setOpen(false)}
                                         key={subChild.id}
                                         to={subChild.link}
-                                        className="g-text-muted-foreground g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-2 g-text-sm g-transition-all hover:g-underline"
+                                        className="g-text-muted-foreground g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                                       >
                                         <div>
-                                          {subChild.title} {subChild.externalLink && <MdLink />}
+                                          {subChild.title}{' '}
+                                          {subChild.externalLink && <MdLink aria-hidden="true" />}
                                         </div>
                                       </DynamicLink>
                                     ))}
@@ -106,10 +126,11 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                                 onClick={() => setOpen(false)}
                                 key={child.id}
                                 to={child.link}
-                                className="g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-2 g-text-sm g-transition-all hover:g-underline"
+                                className="g-border-b g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                               >
                                 <div>
-                                  {child.title} {child.externalLink && <MdLink />}
+                                  {child.title}{' '}
+                                  {child.externalLink && <MdLink aria-hidden="true" />}
                                 </div>
                               </DynamicLink>
                             );
@@ -127,22 +148,33 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                   <DynamicLink
                     onClick={() => setOpen(false)}
                     to="/user/profile"
-                    className="g-block g-border-b g-font-medium *:g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-text-sm g-transition-all hover:g-underline"
+                    aria-label={intl.formatMessage(
+                      {
+                        id: 'header.profileLinkLabel',
+                        defaultMessage: 'My profile: {userName}',
+                      },
+                      { userName: user.userName }
+                    )}
+                    className="g-block g-border-b g-font-medium *:g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                   >
-                    {user.userName}
+                    <FormattedMessage
+                      id="header.profile"
+                      defaultMessage="Profile"
+                      values={{ userName: user.userName }}
+                    />
                   </DynamicLink>
                 ) : (
                   <DynamicLink
                     onClick={() => setOpen(false)}
                     to="/user/login"
-                    className="g-block g-border-b g-font-medium *:g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-text-sm g-transition-all hover:g-underline"
+                    className="g-block g-border-b g-font-medium *:g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                   >
-                    Login
+                    <FormattedMessage id="profile.loginText" defaultMessage="Login" />
                   </DynamicLink>
                 )}
               </>
             )}
-          </div>
+          </nav>
         </ClientSideOnly>
       </SheetContent>
     </Sheet>
