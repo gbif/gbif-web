@@ -6,10 +6,10 @@ import { truncate } from '@/utils/truncate';
 import set from 'lodash/set';
 import React, { useContext, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Card } from '../../ui/smallCard';
 import { Tertiary } from './Tertiary';
-import { AboutButton } from '../aboutButton';
+import { AboutButton, iconButtonClass } from '../aboutButton';
 import { PolygonLabel } from '../displayNames';
 import { AdditionalFilterProps, ApplyCancel, filterLocationConfig } from '../filterTools';
 import { Option } from '../option';
@@ -25,6 +25,7 @@ type WildcardProps = Omit<filterLocationConfig, 'filterType' | 'filterTranslatio
 
 const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
   ({ className, filterHandle, onApply, onCancel, pristine, about }: WildcardProps, ref) => {
+    const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, setFullField, setFilter, filterHash } = currentFilterContext;
     const hasCoordinate = filter?.must?.hasCoordinate?.[0];
@@ -33,14 +34,17 @@ const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
     const [count, setCount] = useState(selected.length);
 
     const About = about;
+    const clearLabel = formatMessage({ id: 'filterSupport.clear' });
     const options = (
       <>
         <div className="g-flex-auto"></div>
-        <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+        <div className="g-flex-none g-flex g-items-center g-text-base">
           <>
             {count > 0 && (
               <button
-                className={cn('g-mx-1 g-px-1', !!About && 'g-pe-3 g-border-e g-me-2')}
+                type="button"
+                aria-label={clearLabel}
+                className={cn(iconButtonClass, !!About && 'g-border-e g-me-2')}
                 onClick={() => {
                   setFullField(filterHandle, [], []);
                 }}
@@ -145,17 +149,34 @@ const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
             <div className="g-px-4 g-py-1.5">
               <div>
                 <Tabs defaultValue="gbifLocationTabMap">
-                  <TabsList>
-                    <TabsTrigger value="gbifLocationTabMap">
+                  <TabsList
+                    aria-label={formatMessage({
+                      id: 'filterSupport.location.tabsLabel',
+                      defaultMessage: 'Location input method',
+                    })}
+                  >
+                    <TabsTrigger
+                      value="gbifLocationTabMap"
+                      className="g-min-h-9 sm:g-min-h-0 g-px-4"
+                    >
                       <FormattedMessage id="filterSupport.location.map" />
                     </TabsTrigger>
-                    <TabsTrigger value="gbifLocationTabGeometry">
+                    <TabsTrigger
+                      value="gbifLocationTabGeometry"
+                      className="g-min-h-9 sm:g-min-h-0 g-px-4"
+                    >
                       <FormattedMessage id="filterSupport.location.geometry" />
                     </TabsTrigger>
-                    <TabsTrigger value="gbifLocationTabRange">
+                    <TabsTrigger
+                      value="gbifLocationTabRange"
+                      className="g-min-h-9 sm:g-min-h-0 g-px-4"
+                    >
                       <FormattedMessage id="filterSupport.location.range" />
                     </TabsTrigger>
-                    <TabsTrigger value="gbifLocationTabRecent">
+                    <TabsTrigger
+                      value="gbifLocationTabRecent"
+                      className="g-min-h-9 sm:g-min-h-0 g-px-4"
+                    >
                       <FormattedMessage id="filterSupport.location.recent" />
                     </TabsTrigger>
                   </TabsList>

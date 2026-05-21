@@ -14,8 +14,8 @@ import {
   MdShuffle,
 } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { AboutButton } from './aboutButton';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import { AboutButton, iconButtonClass } from './aboutButton';
 import {
   AdditionalFilterProps,
   ApplyCancel,
@@ -53,6 +53,7 @@ export const EnumFilter = React.forwardRef(
     ref
   ) => {
     const searchContext = useSearchContext();
+    const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, setFullField, negateField, setFilter, filterHash } =
       currentFilterContext;
@@ -147,17 +148,23 @@ export const EnumFilter = React.forwardRef(
 
     const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
     const valueOptions = useFacetOptions
-      ? noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? []
-      : enumOptions ?? [];
+      ? (noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? [])
+      : (enumOptions ?? []);
 
     const About = about;
+    const clearLabel = formatMessage({ id: 'filterSupport.clear' });
+    const excludeLabel = formatMessage({ id: 'filterSupport.excludeSelected' });
+    const existenceLabel = formatMessage({ id: 'filterSupport.existence' });
+    const invertLabel = formatMessage({ id: 'filterSupport.invert' });
     const options = (
       <>
         <div className="g-flex-auto"></div>
-        <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+        <div className="g-flex-none g-flex g-items-center g-text-base">
           {selected.length > 0 && (
             <button
-              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-e"
+              type="button"
+              aria-label={clearLabel}
+              className={cn(iconButtonClass, 'g-me-2 g-border-e')}
               onClick={() => setFullField(filterHandle, [], [])}
             >
               <MdDeleteOutline />
@@ -166,7 +173,9 @@ export const EnumFilter = React.forwardRef(
 
           {allowNegations && (
             <button
-              className="g-px-1"
+              type="button"
+              aria-label={excludeLabel}
+              className={iconButtonClass}
               onClick={() => {
                 negateField(filterHandle, !useNegations);
                 setUseNegations(!useNegations);
@@ -187,18 +196,16 @@ export const EnumFilter = React.forwardRef(
 
           {allowExistence && (
             <button
-              className="g-px-1"
+              type="button"
+              aria-label={existenceLabel}
+              className={iconButtonClass}
               onClick={() => {
                 const backup = cleanUpFilter(cloneDeep(filter));
                 setBackupFilter(backup);
                 setFullField(filterHandle, [{ type: 'isNotNull' }], []);
               }}
             >
-              <SimpleTooltip
-                delayDuration={300}
-                title={<FormattedMessage id="filterSupport.existence" />}
-                asChild
-              >
+              <SimpleTooltip delayDuration={300} title={existenceLabel} asChild>
                 <span>
                   <PiEmptyBold />
                 </span>
@@ -206,14 +213,12 @@ export const EnumFilter = React.forwardRef(
             </button>
           )}
 
-          <SimpleTooltip
-            delayDuration={300}
-            title={<FormattedMessage id="filterSupport.invert" />}
-            asChild
-          >
+          <SimpleTooltip delayDuration={300} title={invertLabel} asChild>
             <span>
               <button
-                className="g-px-1"
+                type="button"
+                aria-label={invertLabel}
+                className={iconButtonClass}
                 onClick={() => {
                   // reverse selection
                   const newSelected = valueOptions.filter((x) => !selected.includes(x));
@@ -299,7 +304,7 @@ export const EnumFilter = React.forwardRef(
             {/* Handle the case where all the options are loaded via facets from the API */}
             {!enumOptions && (
               <AsyncOptions loading={loading} error={facetError} className="g-p-2 g-pt-2 g-px-4">
-                <div role="group" className="g-text-sm g-p-2 g-pt-2 g-px-4">
+                <div role="group" className="g-text-base sm:g-text-sm g-p-2 g-pt-2 g-px-4">
                   {valueOptions &&
                     valueOptions.map((x, i) => {
                       return (
@@ -339,7 +344,7 @@ export const EnumFilter = React.forwardRef(
                   </div>
                 )}
 
-                <div role="group" className="g-text-sm g-p-2 g-pt-2 g-px-4">
+                <div role="group" className="g-text-base sm:g-text-sm g-p-2 g-pt-2 g-px-4">
                   {valueOptions &&
                     valueOptions.map((x, i) => {
                       return (

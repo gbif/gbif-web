@@ -89,10 +89,19 @@ export const MobileFilterDrawerContent = React.forwardRef<
     <div className="g-flex g-flex-col g-h-full g-bg-white">
       {activeFilterHandle && (
         <div className="g-flex g-flex-nowrap g-items-center g-border-b">
-          <Button size="sm" variant="ghost" className="g-flex-none" onClick={handleCancel}>
+          <Button
+            size="sm"
+            variant="ghost"
+            aria-label={formatMessage({
+              id: 'filterSupport.backToFilterList',
+              defaultMessage: 'Back to filter list',
+            })}
+            className="g-flex-none g-min-w-11 g-min-h-11 sm:g-min-w-7 sm:g-min-h-7 g-justify-center"
+            onClick={handleCancel}
+          >
             <MdArrowBack />
           </Button>
-          <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
+          <h3 className="g-flex-auto g-text-slate-800 g-text-base g-font-semibold">
             {filters[activeFilterHandle]?.translatedFilterName}
           </h3>
         </div>
@@ -200,7 +209,7 @@ const ActiveFilters = React.memo<ActiveFiltersProps>(
                     e.stopPropagation();
                     onClearFilter(filter.handle);
                   }}
-                  className="g-p-1 g-h-6 g-w-6 g-text-slate-500 hover:g-text-slate-700"
+                  className="g-p-1 g-min-h-9 g-min-w-9 g-justify-center g-text-slate-500 hover:g-text-slate-700"
                   aria-label={`Clear ${filter.translatedFilterName} filter`}
                 >
                   <MdClose className="g-h-4 g-w-4" />

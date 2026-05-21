@@ -140,8 +140,8 @@ export const DateRangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
           type === 'equals'
             ? rangeOrTerm(`${singleDate}`, lowerBound, upperBound)
             : type === 'after'
-            ? rangeOrTerm(`${singleDate},`, lowerBound, upperBound)
-            : rangeOrTerm(`,${singleDate}`, lowerBound, upperBound);
+              ? rangeOrTerm(`${singleDate},`, lowerBound, upperBound)
+              : rangeOrTerm(`,${singleDate}`, lowerBound, upperBound);
 
         add(filterHandle, rangeQuery);
         resetFields();
@@ -225,7 +225,7 @@ export const DateRangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
         </div>
         <div className="g-flex-auto g-overflow-auto">
           <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
-            <div role="group" className="g-text-sm">
+            <div role="group" className="g-text-base sm:g-text-sm">
               {selected.map((option) => {
                 let helpText;
                 if (typeof option === 'string' || typeof option === 'number') {

@@ -112,7 +112,11 @@ const ContentWrapper = React.forwardRef(
               <Button
                 size="sm"
                 variant="ghost"
-                className="g-flex-none"
+                aria-label={formatMessage({
+                  id: 'filterSupport.backToFilterList',
+                  defaultMessage: 'Back to filter list',
+                })}
+                className="g-flex-none g-min-w-11 g-min-h-11 g-justify-center"
                 onClick={() => {
                   if (typeof onApply === 'function') onApply({ keepOpen: true });
                   setActiveFilterHandle(null);

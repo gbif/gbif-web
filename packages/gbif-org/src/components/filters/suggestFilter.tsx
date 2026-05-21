@@ -15,7 +15,7 @@ import {
 } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
-import { AboutButton } from './aboutButton';
+import { AboutButton, iconButtonClass } from './aboutButton';
 import {
   AdditionalFilterProps,
   ApplyCancel,
@@ -164,10 +164,13 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     useEffect(() => {
       // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
       const selectedFacetLookup =
-        selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
+        selectedFacetData?.search?.facet?.field?.reduce(
+          (acc, x) => {
             acc[x.name] = x.count;
             return acc;
-          }, {} as Record<string, number>) ?? {};
+          },
+          {} as Record<string, number>
+        ) ?? {};
       setFacetLookup(selectedFacetLookup);
     }, [selectedFacetData]);
 
@@ -176,15 +179,20 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       (x) => !selectedStrings.includes(x.name)
     );
 
+    const clearLabel = formatMessage({ id: 'filterSupport.clear' });
+    const excludeLabel = formatMessage({ id: 'filterSupport.excludeSelected' });
+    const existenceLabel = formatMessage({ id: 'filterSupport.existence' });
     const options = (
       <>
         <div className="g-flex-auto"></div>
-        <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+        <div className="g-flex-none g-flex g-items-center g-text-base">
           {filterType === 'SELECT' && (
             <>
               {selected.length > 0 && (
                 <button
-                  className={cn('g-mx-1 g-px-1', !!About && 'g-pe-3 g-border-e g-me-2')}
+                  type="button"
+                  aria-label={clearLabel}
+                  className={cn(iconButtonClass, 'g-me-2 g-border-e')}
                   onClick={() => {
                     setFullField(filterHandle, [], []);
                   }}
@@ -194,7 +202,9 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
               )}
               {allowNegations && (
                 <button
-                  className="g-px-1"
+                  type="button"
+                  aria-label={excludeLabel}
+                  className={iconButtonClass}
                   onClick={() => {
                     negateField(filterHandle, !useNegations);
                     setUseNegations(!useNegations);
@@ -217,7 +227,9 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
 
           {allowExistence && (
             <button
-              className="g-px-1"
+              type="button"
+              aria-label={existenceLabel}
+              className={iconButtonClass}
               onClick={() => {
                 const backup = cleanUpFilter(cloneDeep(filter));
                 setBackupFilter(backup);
@@ -325,7 +337,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
         <div className="g-flex-auto g-overflow-auto g-max-h-96 gbif-small-scrollbar">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4')}>
-              <div role="group" className="g-text-sm">
+              <div role="group" className="g-text-base sm:g-text-sm">
                 {selected.map((x) => {
                   return (
                     <Option
@@ -375,7 +387,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                   {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
               <h4 className="g-text-xs g-font-bold g-text-slate-400 g-mb-1">Suggestions</h4>
             </div> */}
-                  <div role="group" className="g-text-sm g-text-slate-600">
+                  <div role="group" className="g-text-base sm:g-text-sm g-text-slate-600">
                     {facetSuggestions.map((x) => {
                       return (
                         <Option

@@ -245,7 +245,7 @@ function getPopoverFilter({
     className?: string;
   }) {
     const title = (
-      <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
+      <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4 g-min-h-11 sm:g-min-h-7">
         <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
           <FormattedMessage id={filterTranslation} />
         </h3>
