@@ -18,7 +18,7 @@
       "noSql": "無SQL查詢",
       "note": {
         "title": "備註",
-        "description": "下載和瀏覽資料最簡單的方法是透過 {occurrence_search}。但對於複雜的查詢和總集，SQL 編輯器提供了更大的靈活性。",
+        "description": "下載和瀏覽資料最簡單的方法是透過 {occurrence_search}。但對於複雜的查詢和匯總，SQL 編輯器提供了更大的靈活性。",
         "occurrence_search": "出現記錄搜尋使用者介面"
       },
       "errors": {
