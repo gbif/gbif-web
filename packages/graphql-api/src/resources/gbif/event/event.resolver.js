@@ -1,6 +1,22 @@
 /* eslint-disable no-param-reassign */
 import { formattedCoordinates, simplifyUrlObjectKeys } from '@/helpers/utils';
 
+/**
+ * Pick scopes from a {checklistKey: [scope, ...]} map.
+ * If a checklistKey is provided, returns only that list.
+ * Otherwise returns the flattened union across all checklists.
+ */
+const pickTaxonomicScopes = (map, checklistKey) => {
+  if (!map || typeof map !== 'object') return null;
+  if (checklistKey) {
+    const list = map[checklistKey];
+    return Array.isArray(list) ? list : null;
+  }
+  return Object.values(map)
+    .filter(Array.isArray)
+    .flat();
+};
+
 // there are many fields that support facets. This function creates the resolvers for all of them
 
 const getEventFacet =
@@ -106,11 +122,20 @@ export default {
         offset,
       });
     },
-
-    /* dataset: ({ datasetKey }, query, { dataSources }) => {
-      if (typeof datasetKey === 'undefined' || datasetKey === null) return null;
-      return dataSources.eventAPI.getDatasetEML({ datasetKey });
-    }, */
+    dataset: ({ datasetKey }, _args, { dataSources }) => {
+      if (!datasetKey) return null;
+      return dataSources.datasetAPI.getDatasetByKey({ key: datasetKey });
+    },
+  },
+  Humboldt: {
+    targetTaxonomicScope: ({ targetTaxonomicScope }, { checklistKey }) =>
+      pickTaxonomicScopes(targetTaxonomicScope, checklistKey),
+    excludedTaxonomicScope: ({ excludedTaxonomicScope }, { checklistKey }) =>
+      pickTaxonomicScopes(excludedTaxonomicScope, checklistKey),
+    nonTargetTaxa: ({ nonTargetTaxa }, { checklistKey }) =>
+      pickTaxonomicScopes(nonTargetTaxa, checklistKey),
+    absentTaxa: ({ absentTaxa }, { checklistKey }) =>
+      pickTaxonomicScopes(absentTaxa, checklistKey),
   },
   EventSearchResult: {
     facet: (parent) => ({

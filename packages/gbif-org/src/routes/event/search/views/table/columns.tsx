@@ -1,4 +1,3 @@
-import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { FormattedDateRange } from '@/components/message';
 import { ColumnDef, SetAsFilter } from '@/components/searchTable';
 import { useMemo } from 'react';
@@ -66,14 +65,6 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
         ),
       },
       {
-        id: 'measurementOrFactTypes',
-        header: 'filters.measurementOrFactTypes.name',
-        cell: ({ measurementOrFactTypes }) => {
-          if (!measurementOrFactTypes) return null;
-          return <span className="g-text-nowrap">{measurementOrFactTypes.join(', ')}</span>;
-        },
-      },
-      {
         id: 'coordinates',
         header: 'filters.coordinates.name',
         cell: ({ formattedCoordinates }) => {
@@ -107,18 +98,6 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
         },
       },
 
-      {
-        id: 'locality',
-        header: 'occurrenceFieldNames.locality',
-        minWidth: 200,
-        cell: ({ locality }) => (
-          <InlineLineClamp className="-g-ms-0.5">
-            <SetAsFilter field="locality" value={locality} className="g-ms-0">
-              {locality}
-            </SetAsFilter>
-          </InlineLineClamp>
-        ),
-      },
       {
         id: 'stateProvince',
         header: 'occurrenceFieldNames.stateProvince',

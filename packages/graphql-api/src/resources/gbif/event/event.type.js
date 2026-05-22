@@ -170,18 +170,14 @@ export default gql`
   type Event {
     eventID: ID!
     eventType: String
-    eventName: String
     parentEventID: ID
     datasetKey: String
-    locality: String
-    datasetTitle: String
     samplingProtocol: String
     samplingProtocols: [String]
     sampleSizeUnit: String
     sampleSizeValue: Float
     stateProvince: String
     country: Country
-    countryCode: String
     continent: String
     waterBody: String
     year: Int
@@ -201,15 +197,17 @@ export default gql`
     depthAccuracy: Float
     elevation: Float
     elevationAccuracy: Float
-    occurrenceCount: Int
-    childEventCount: Int
     coordinates: JSON
     formattedCoordinates: String
-    measurementOrFactTypes: [String]
-    measurementOrFactMethods: [String]
     parentEvent: Event
     """
+    Resolved dataset for this event (registry lookup by datasetKey).
+    """
+    dataset: Dataset
+    """
     Parents of this event, from immediate parent up to the root, as returned by the dataset.
+    Note: the upstream REST endpoint sometimes includes the event itself as the
+    first entry. Consumers should filter self-references.
     """
     parentsLineage: [ParentLineage]
     """
@@ -220,7 +218,6 @@ export default gql`
     Sub-events (direct children) of this event, paged. Powered by the REST endpoint /subEvents.
     """
     subEvents(limit: Int, offset: Int): SubEventsResult
-    eventRemarks: String
     locationID: String
     license: String
     references: String
@@ -247,7 +244,7 @@ export default gql`
     organismQuantity: Float
     organismQuantityType: String
     relativeOrganismQuantity: Float
-    preparations: [String]
+    preparations: String
     media: [MultimediaItem]
     facts: [JSON]
     relations: [JSON]
@@ -386,10 +383,15 @@ export default gql`
     targetGrowthFormScope: [String]
     targetHabitatScope: [String]
     targetLifeStageScope: [String]
-    targetTaxonomicScope(checklistKey: ID): HumboldtTaxonomicScope
-    excludedTaxonomicScope: JSON
-    nonTargetTaxa: JSON
-    absentTaxa: JSON
+    """
+    Target taxa for this Humboldt record. The REST API groups scopes by checklistKey
+    (one list per checklist); pass \`checklistKey\` to restrict to one, or omit to get
+    the flattened scopes from all checklists.
+    """
+    targetTaxonomicScope(checklistKey: ID): [HumboldtTaxonomicScope]
+    excludedTaxonomicScope(checklistKey: ID): [HumboldtTaxonomicScope]
+    nonTargetTaxa(checklistKey: ID): [HumboldtTaxonomicScope]
+    absentTaxa(checklistKey: ID): [HumboldtTaxonomicScope]
     taxonCompletenessProtocols: [String]
     totalAreaSampledUnit: String
     totalAreaSampledValue: Float
@@ -399,15 +401,21 @@ export default gql`
   }
 
   type HumboldtTaxonomicScope {
-    usageKey: ID!
+    usageKey: ID
     usageName: String
     usageRank: String
+    acceptedUsageKey: ID
+    acceptedUsageName: String
+    acceptedUsageRank: String
+    iucnRedListCategory: String
     classification: [HumboldtClassificationNode]
+    issues: [String]
   }
 
   type HumboldtClassificationNode {
-    key: ID!
+    key: ID
     name: String
     rank: String
+    authorship: String
   }
 `;

@@ -124,7 +124,12 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
           </DynamicLink>
         </div>
       )}
-      <SamplingEventDetail data={occData} eventData={eventData} datasetKey={datasetKey!} />
+      <SamplingEventDetail
+        data={occData}
+        eventData={eventData}
+        datasetKey={datasetKey!}
+        narrow
+      />
     </div>
   );
 }

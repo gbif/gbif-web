@@ -39,17 +39,15 @@ const EVENT_SEARCH_QUERY = /* GraphQL */ `
         eventID
         parentEventID
         locationID
-        measurementOrFactTypes
-        measurementOrFactMethods
         coordinates
         formattedCoordinates
         country
-        countryCode
-        datasetTitle
         datasetKey
+        dataset {
+          title
+        }
         samplingProtocol
         stateProvince
-        locality
       }
     }
   }

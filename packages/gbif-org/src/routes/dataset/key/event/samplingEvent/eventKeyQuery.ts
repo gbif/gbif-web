@@ -10,30 +10,105 @@ export const EVENT_KEY_QUERY = /* GraphQL */ `
         from
         to
       }
-      eventName
       coordinates
-      countryCode
       datasetKey
-      datasetTitle
+      dataset {
+        title
+      }
       year
       month
-      occurrenceCount
-      measurementOrFactTypes
+      day
+      subEvents(limit: 0) {
+        count
+      }
       sampleSizeUnit
       sampleSizeValue
       samplingProtocol
+      samplingProtocols
       decimalLatitude
       decimalLongitude
-      locality
+      formattedCoordinates
       stateProvince
       locationID
+      country
+      continent
+      waterBody
+      coordinateUncertaintyInMeters
+      coordinatePrecision
+      distanceFromCentroidInMeters
+      geodeticDatum
+      depth
+      depthAccuracy
+      elevation
+      elevationAccuracy
+      startDayOfYear
+      endDayOfYear
+      dateIdentified
+      license
+      references
+      protocol
+      modified
+      issues
+      crawlId
+      lastCrawled
+      lastInterpreted
+      lastParsed
+      datasetID
+      datasetName
+      publishingCountry
+      publishedByGbifRegion
+      publishingOrgKey
+      hostingOrganizationKey
+      installationKey
+      networkKeys
+      programmeAcronym
+      projectId
+      projectTitle
+      fundingAttribution
+      fundingAttributionID
+      organismQuantity
+      organismQuantityType
+      relativeOrganismQuantity
+      preparations
+      parentEvent {
+        eventID
+        eventType
+      }
+      parentsLineage {
+        id
+        eventType
+      }
+      lineage {
+        id
+        eventID
+        parentEventID
+      }
+      gadm
+      identifiers {
+        identifier
+        type
+      }
+      media {
+        type
+        identifier
+        title
+        format
+        references
+        creator
+        license
+        rightsHolder
+        description
+        created
+        thumbor(height: 400)
+      }
+      facts
+      relations
       extensions {
         audubon
         image
         measurementOrFact
         multimedia
         extendedMeasurementOrFact
-        humboldtEcologicalInventory
       }
       humboldt {
         abundanceCap
@@ -76,6 +151,32 @@ export const EVENT_KEY_QUERY = /* GraphQL */ `
         targetGrowthFormScope
         targetHabitatScope
         targetLifeStageScope
+
+        targetTaxonomicScope {
+          usageKey
+          usageName
+          usageRank
+          classification {
+            key
+            name
+            rank
+          }
+        }
+        excludedTaxonomicScope {
+          usageKey
+          usageName
+          usageRank
+        }
+        nonTargetTaxa {
+          usageKey
+          usageName
+          usageRank
+        }
+        absentTaxa {
+          usageKey
+          usageName
+          usageRank
+        }
 
         taxonCompletenessProtocols
         totalAreaSampledUnit
