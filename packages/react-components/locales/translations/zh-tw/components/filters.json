@@ -132,33 +132,33 @@
   },
   "degreeOfEstablishment": {
     "name": "設立程度",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 設立程度 } other {# 設立程度}}",
+    "description": "生物體在環境中的定殖的程度"
   },
   "endDayOfYear": {
     "name": "結束日序",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 年末之日 } other {# 年末之日}}",
+    "description": "事件結束的當天"
   },
   "startDayOfYear": {
     "name": "起始日序",
     "count": "",
-    "description": ""
+    "description": "事件開始的當天"
   },
   "previousIdentifications": {
     "name": "先前的鑑定",
     "count": "",
-    "description": ""
+    "description": "先前分類群鑑定與該記錄相關。"
   },
   "lastInterpreted": {
     "name": "上次解釋",
     "count": "",
-    "description": ""
+    "description": "該紀錄前次解釋的時間"
   },
   "alternativeCode": {
-    "name": "",
+    "name": "其它代碼",
     "count": "",
-    "description": ""
+    "description": "在其他內容中已用於同一記錄的任何其他代碼 (例如，歷史代碼)"
   },
   "identifier": {
     "name": "識別碼",
@@ -173,7 +173,7 @@
   "discipline": {
     "name": "規定",
     "count": "{num, plural, one { 規定 } other {# 規定}}",
-    "description": ""
+    "description": "由機構所支持的研究學科"
   },
   "collectionContentType": {
     "name": "",
@@ -186,7 +186,7 @@
     "description": ""
   },
   "biomeType": {
-    "name": "",
+    "name": "生物群形式",
     "count": "",
     "description": ""
   },
@@ -348,7 +348,7 @@
     "description": "距離可能被解釋為某個位置座標的最小距離（以公尺為單位）的量測。"
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
+    "name": "距中心的距離 (公尺)",
     "count": "",
     "description": ""
   },
@@ -415,22 +415,22 @@
   "verbatimTaxonId": {
     "name": "逐字分類群識別碼",
     "count": "",
-    "description": ""
+    "description": "發布者提供的分類群識別碼。"
   },
   "islandGroup": {
     "name": "島群",
     "count": "",
-    "description": ""
+    "description": "該地點島嶼群的名稱"
   },
   "island": {
     "name": "島嶼",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { 島嶼 } other {# 島嶼}}",
+    "description": "該地點島嶼的名稱"
   },
   "georeferencedBy": {
     "name": "地理參照：",
     "count": "",
-    "description": ""
+    "description": "負責對原始出現紀錄進行地理參考的個人、團體或組織的名稱。"
   },
   "datasetName": {
     "name": "資料集名稱",
@@ -503,7 +503,7 @@
     "description": ""
   },
   "publishedByGbifRegion": {
-    "name": "",
+    "name": "由 GBIF 區域發布",
     "count": "",
     "description": ""
   },
@@ -806,18 +806,18 @@
     "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   },
   "targetDegreeOfEstablishmentScope": {
-    "description": "",
-    "name": "",
+    "description": "dwc 事件期間採樣目標生物的定殖程度。",
+    "name": "設立程度範圍之目標",
     "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   },
   "excludedDegreeOfEstablishmentScope": {
-    "description": "",
-    "name": "",
+    "description": "排除 dwc 事件期間，採樣目標生物的定殖程度。",
+    "name": "排除設立程度範圍",
     "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   },
   "isDegreeOfEstablishmentScopeFullyReported": {
-    "description": "",
-    "name": "",
+    "description": "每個在定殖範圍之內且排除於 dwc:Event 期間檢測到的 dwc:Organism，皆已報告。",
+    "name": "設立程度的範圍是否已完全呈報?",
     "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   },
   "targetGrowthFormScope": {
@@ -836,7 +836,7 @@
     "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   },
   "hasNonTargetOrganisms": {
-    "description": "",
+    "description": "檢測並回報：此 dwc:Event 中存在一個或多個dwc:Organisms超出目標生物範圍 (eco:targetDegreeOfEstablishmentScope、eco:targetGrowthFormScope 和 eco:targetLifeStageScope)",
     "name": "",
     "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}"
   },
