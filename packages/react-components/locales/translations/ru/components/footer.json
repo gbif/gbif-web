@@ -9,6 +9,8 @@
     "citation": "Цитирование",
     "codeOfConduct": "Нормы поведения",
     "acknowledgements": "Благодарности",
+    "socialNavAriaLabel": "",
+    "navAriaLabel": "",
     "contact": "Связаться с нами"
   }
 }
