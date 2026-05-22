@@ -23,5 +23,13 @@
   "http://rs.gbif.org/terms/1.0/Multimedia": "多媒體",
   "http://rs.gbif.org/terms/1.0/Reference": "參考文獻",
   "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "資源關係",
-  "http://eol.org/schema/reference/Reference": "EOL參考"
+  "http://eol.org/schema/reference/Reference": "EOL參考",
+  "http://eol.org/schema/media/Document": "EOL 文件",
+  "http://rs.gbif.org/terms/1.0/Description": "GBIF 描述",
+  "http://rs.gbif.org/terms/1.0/Distribution": "GBIF 分布",
+  "http://rs.gbif.org/terms/1.0/VernacularName": "GBIF 俗名",
+  "http://rs.gbif.org/terms/1.0/SpeciesProfile": "GBIF 物種檔案",
+  "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "GBIF 類型與標本",
+  "http://rs.tdwg.org/dwc/terms/Event": "達爾文核心集事件",
+  "http://rs.tdwg.org/dwc/terms/MaterialSample": "達爾文核心集材料樣品"
 }
