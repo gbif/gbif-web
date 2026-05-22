@@ -22,8 +22,8 @@
       "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "Informations sur la manière dont le matériel a été préparé - http://data.ggbn.org/schemas/ggbn/terms/Preparation",
       "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "Informations sur la manière dont le matériel a été préservé - http://data.ggbn.org/schemas/ggbn/terms/Preservation",
       "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact": "Mesures ou faits détaillés relatifs à une occurrence biologique, mesures ou faits environnementaux et attributs de la méthode d'échantillonnage - http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact",
-      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "",
-      "http://rs.gbif.org/terms/1.0/DNADerivedData": ""
+      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "Informations sur l'âge chronométrique dans les cas où le moment de la collecte ne coïncide pas avec la période où l'organisme était vivant - http://rs.tdwg.org/chrono/terms/ChronometricAge",
+      "http://rs.gbif.org/terms/1.0/DNADerivedData": "Comprend les informations pertinentes pour les enregistrements dérivés basés sur des analyses ADN - http://rs.gbif.org/terms/1.0/DNADerivedData"
     }
   }
 }
