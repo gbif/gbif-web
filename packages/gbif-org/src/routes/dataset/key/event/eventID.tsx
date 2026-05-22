@@ -6,28 +6,51 @@ import {
   EventQuery,
   EventQueryVariables,
 } from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { useDatasetKeyContext } from '../datasetKey';
 import { DATASET_EVENT_QUERY } from './datasetEventQuery';
 import { InferredEventDetail } from './inferredFromOccurrence/inferredEventDetail';
 import { EVENT_KEY_QUERY } from './samplingEvent/eventKeyQuery';
 import { SamplingEventDetail } from './samplingEvent/samplingEventDetail';
 
-export function eventLoader({ params, graphql }: LoaderArgs) {
+type EventLoaderResult = {
+  data: DatasetEventQuery;
+  eventData: EventQuery | null;
+};
+
+export async function eventLoader({ params, graphql }: LoaderArgs): Promise<EventLoaderResult> {
   const key = required(params.key, 'No key was provided in the URL');
   const eventID = required(params.eventID, 'No Event ID was provided in the URL');
 
-  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(DATASET_EVENT_QUERY, {
-    key,
-    limit: 1,
-    offset: 0,
-    eventID,
-  });
+  // Fetch the dataset-events row + the event API record in parallel. The event
+  // API query only resolves for SAMPLING_EVENT datasets, but we kick it off
+  // unconditionally so the response is ready before render — for non-sampling
+  // datasets the result is simply unused (and any error is swallowed).
+  const [datasetEventsRes, eventRes] = await Promise.all([
+    graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(DATASET_EVENT_QUERY, {
+      key,
+      limit: 1,
+      offset: 0,
+      eventID,
+    }),
+    graphql
+      .query<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
+        eventId: eventID,
+        datasetKey: key,
+      })
+      .catch(() => null),
+  ]);
+
+  const datasetEventsJson = await datasetEventsRes.json();
+  const eventJson = eventRes ? await eventRes.json().catch(() => null) : null;
+
+  return {
+    data: datasetEventsJson.data as DatasetEventQuery,
+    eventData: (eventJson?.data as EventQuery | undefined) ?? null,
+  };
 }
 
 export function parentEventLoader({ params, graphql }: LoaderArgs) {
@@ -59,7 +82,7 @@ export const DatasetEventID = () => {
 };
 
 const DatasetEventDetailDispatcher = () => {
-  const { data } = useLoaderData() as { data: DatasetEventQuery };
+  const { data, eventData } = useLoaderData() as EventLoaderResult;
   const { datasetKey } = useDatasetKeyContext();
   const isSamplingEvent = data?.dataset?.type === DatasetType.SamplingEvent;
 
@@ -67,40 +90,17 @@ const DatasetEventDetailDispatcher = () => {
     <div className="g-bg-slate-100 g-px-4 lg:g-px-8">
       <ArticleTextContainer className="g-max-w-screen-xl g-pb-6">
         {isSamplingEvent ? (
-          <SamplingEventDetailLoader data={data} datasetKey={datasetKey} />
+          <SamplingEventDetail
+            data={data}
+            eventData={eventData ?? undefined}
+            datasetKey={datasetKey}
+          />
         ) : (
           <InferredEventDetail data={data} datasetKey={datasetKey} />
         )}
       </ArticleTextContainer>
     </div>
   );
-};
-
-const SamplingEventDetailLoader = ({
-  data,
-  datasetKey,
-}: {
-  data?: DatasetEventQuery;
-  datasetKey: string;
-}) => {
-  const { eventID } = useParams<{ eventID: string }>();
-  const { data: eventData, load } = useQuery<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: true,
-  });
-
-  useEffect(() => {
-    if (data?.dataset?.key) {
-      load({
-        variables: {
-          eventId: eventID,
-          datasetKey: data?.dataset?.key,
-        },
-      });
-    }
-  }, [data?.dataset?.key, eventID, load]);
-
-  return <SamplingEventDetail data={data} eventData={eventData} datasetKey={datasetKey} />;
 };
 
 export default DatasetEventID;

@@ -144,7 +144,7 @@ function SamplingEffort({ h }: { h: Humboldt }) {
         />
       }
     >
-      <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm">
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
         {(h.samplingEffortValue != null || h.samplingEffortUnit) && (
           <Row label="humboldt.samplingEffort">
             {h.samplingEffortValue} {h.samplingEffortUnit}
@@ -184,7 +184,7 @@ function Protocols({ h }: { h: Humboldt }) {
   if (names.length + descs.length + refs.length + completeness.length === 0) return null;
   return (
     <SubBlock title={<FormattedMessage id="humboldt.protocols" defaultMessage="Protocols" />}>
-      <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm">
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
         {names.length > 0 && <Row label="humboldt.protocolNames">{names.join(', ')}</Row>}
         {descs.length > 0 && (
           <Row label="humboldt.protocolDescriptions">
@@ -479,7 +479,7 @@ function VouchersMaterialSamples({ h }: { h: Humboldt }) {
         />
       }
     >
-      <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm">
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
         {h.hasVouchers != null && (
           <Row label="humboldt.hasVouchers">{h.hasVouchers ? 'Yes' : 'No'}</Row>
         )}
@@ -517,7 +517,7 @@ function InventoryAbundance({ h }: { h: Humboldt }) {
         />
       }
     >
-      <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm">
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
         {inv.length > 0 && <Row label="humboldt.inventoryTypes">{inv.join(', ')}</Row>}
         {compTypes.length > 0 && (
           <Row label="humboldt.compilationTypes">{compTypes.join(', ')}</Row>
@@ -554,7 +554,7 @@ function VerbatimSiteInfo({ h }: { h: Humboldt }) {
         <FormattedMessage id="humboldt.verbatimSite" defaultMessage="Verbatim site info" />
       }
     >
-      <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm">
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
         {names.length > 0 && <Row label="humboldt.verbatimSiteNames">{names.join(', ')}</Row>}
         {descs.length > 0 && (
           <Row label="humboldt.verbatimSiteDescriptions">

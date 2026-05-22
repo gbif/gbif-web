@@ -82,7 +82,7 @@ export function SamplingEventExperimentalAlert() {
     return null;
   }
   return (
-    <Alert variant="info" className="g-mb-4">
+    <Alert variant="warning" className="g-mb-4">
       This is an experimental feature under active development.
     </Alert>
   );

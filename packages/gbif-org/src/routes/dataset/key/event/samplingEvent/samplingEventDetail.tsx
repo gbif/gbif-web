@@ -283,16 +283,18 @@ export const SamplingEventDetail = ({
         label: <FormattedMessage id="dataset.childEvents" defaultMessage="Child events" />,
       });
     }
-    if (total === 0 || !!total) {
+    if (!!total) {
       list.push({
         id: 'occurrences',
         label: <FormattedMessage id="dataset.occurrenceCount" defaultMessage="Occurrences" />,
       });
     }
-    list.push({
-      id: 'taxa',
-      label: <FormattedMessage id="occurrenceDetails.groups.taxon" defaultMessage="Taxa" />,
-    });
+    if (!!total) {
+      list.push({
+        id: 'taxa',
+        label: <FormattedMessage id="occurrenceDetails.groups.taxon" defaultMessage="Taxa" />,
+      });
+    }
     if (mediaItems.length > 0) {
       list.push({
         id: 'media',
@@ -569,7 +571,7 @@ export const SamplingEventDetail = ({
             </div>
 
             <div className="g-mt-4">
-              <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm">
+              <Properties breakpoint={800} className="[&>dt]:g-w-52">
                 <SimpleProperty label="occurrenceDetails.dataset">
                   <DynamicLink
                     pageId="datasetKey"
@@ -616,7 +618,7 @@ export const SamplingEventDetail = ({
           )}
 
           {/* Occurrences insights */}
-          {(total === 0 || !!total) && (
+          {!!total && (
             <Group
               id="occurrences"
               label="dataset.occurrenceCount"
@@ -680,25 +682,27 @@ export const SamplingEventDetail = ({
           )}
 
           {/* Taxa */}
-          <Group id="taxa" label="occurrenceDetails.groups.taxon" className="g-mb-4 g-scroll-mt-24">
-            <ClientSideOnly>
-              <ErrorBoundary
-                type="BLOCK"
-                errorMessage={<FormattedMessage id="dataset.errors.taxa" />}
-              >
-                <Taxa
-                  defaultRank={'species'}
-                  predicate={{
-                    type: PredicateType.And,
-                    predicates: [
-                      { type: PredicateType.Equals, key: 'datasetKey', value: datasetKey },
-                      { type: PredicateType.Equals, key: 'eventId', value: eventID },
-                    ],
-                  }}
-                />
-              </ErrorBoundary>
-            </ClientSideOnly>
-          </Group>
+          {!!total && (
+            <Group id="taxa" label="occurrenceDetails.groups.taxon" className="g-mb-4 g-scroll-mt-24">
+              <ClientSideOnly>
+                <ErrorBoundary
+                  type="BLOCK"
+                  errorMessage={<FormattedMessage id="dataset.errors.taxa" />}
+                >
+                  <Taxa
+                    defaultRank={'species'}
+                    predicate={{
+                      type: PredicateType.And,
+                      predicates: [
+                        { type: PredicateType.Equals, key: 'datasetKey', value: datasetKey },
+                        { type: PredicateType.Equals, key: 'eventId', value: eventID },
+                      ],
+                    }}
+                  />
+                </ErrorBoundary>
+              </ClientSideOnly>
+            </Group>
+          )}
 
           {/* Media */}
           {mediaItems.length > 0 && (
@@ -727,7 +731,7 @@ export const SamplingEventDetail = ({
               defaultMessage="Methodology"
               className="g-mb-4 g-scroll-mt-24"
             >
-              <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm">
+              <Properties breakpoint={800} className="[&>dt]:g-w-52">
                 {event?.samplingProtocol && (
                   <SimpleProperty label="occurrenceFieldNames.samplingProtocol">
                     {event.samplingProtocol}
@@ -856,7 +860,7 @@ export const SamplingEventDetail = ({
               defaultMessage="Provenance"
               className="g-mb-4 g-scroll-mt-24"
             >
-              <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-sm g-text-slate-700">
+              <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-slate-700">
                 {event?.license && (
                   <SimpleProperty label="occurrenceFieldNames.license">
                     {event.license}
