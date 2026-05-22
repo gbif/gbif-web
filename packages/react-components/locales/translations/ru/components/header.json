@@ -1,10 +1,10 @@
 {
   "header": {
     "changeLanguage": "Сменить язык",
-    "feedback": "",
-    "systemStatus": "",
-    "profileLinkLabel": "",
-    "siteNavigation": "",
+    "feedback": "Отправить обратную связь",
+    "systemStatus": "Статус системы",
+    "profileLinkLabel": "Страница профиля {userName}",
+    "siteNavigation": "Навигация по сайту",
     "search": "Поиск",
     "profile": "Профиль пользователя"
   }
