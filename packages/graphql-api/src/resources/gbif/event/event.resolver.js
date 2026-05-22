@@ -79,12 +79,32 @@ export default {
       });
     },
     parentEvent: (
-      { datasetKey, parentEventId: key },
+      { datasetKey, parentEventID: key },
       query,
       { dataSources },
     ) => {
       if (typeof key === 'undefined' || key === null) return null;
       return dataSources.eventAPI.getEventByKey({ eventId: key, datasetKey });
+    },
+    lineage: ({ datasetKey, eventID }, args, { dataSources }) => {
+      if (!datasetKey || !eventID) return null;
+      return dataSources.eventAPI.getEventLineage({
+        eventId: eventID,
+        datasetKey,
+      });
+    },
+    subEvents: (
+      { datasetKey, eventID },
+      { limit, offset },
+      { dataSources },
+    ) => {
+      if (!datasetKey || !eventID) return null;
+      return dataSources.eventAPI.getEventSubEvents({
+        eventId: eventID,
+        datasetKey,
+        limit,
+        offset,
+      });
     },
 
     /* dataset: ({ datasetKey }, query, { dataSources }) => {

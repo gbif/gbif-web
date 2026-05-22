@@ -176,17 +176,31 @@ export default gql`
     locality: String
     datasetTitle: String
     samplingProtocol: String
+    samplingProtocols: [String]
     sampleSizeUnit: String
     sampleSizeValue: Float
     stateProvince: String
     country: Country
     countryCode: String
+    continent: String
+    waterBody: String
     year: Int
     month: Int
     day: Int
+    startDayOfYear: Int
+    endDayOfYear: Int
     eventDate: EventDate
+    dateIdentified: String
     decimalLatitude: Float
     decimalLongitude: Float
+    coordinatePrecision: Float
+    coordinateUncertaintyInMeters: Float
+    distanceFromCentroidInMeters: Float
+    geodeticDatum: String
+    depth: Float
+    depthAccuracy: Float
+    elevation: Float
+    elevationAccuracy: Float
     occurrenceCount: Int
     childEventCount: Int
     coordinates: JSON
@@ -194,10 +208,70 @@ export default gql`
     measurementOrFactTypes: [String]
     measurementOrFactMethods: [String]
     parentEvent: Event
+    """
+    Parents of this event, from immediate parent up to the root, as returned by the dataset.
+    """
+    parentsLineage: [ParentLineage]
+    """
+    Full lineage of this event (REST endpoint /lineage). Each entry is an ancestor with its eventID/parentEventID.
+    """
+    lineage: [Lineage]
+    """
+    Sub-events (direct children) of this event, paged. Powered by the REST endpoint /subEvents.
+    """
+    subEvents(limit: Int, offset: Int): SubEventsResult
     eventRemarks: String
     locationID: String
+    license: String
+    references: String
+    protocol: String
+    issues: [String]
+    modified: String
+    lastCrawled: String
+    lastInterpreted: String
+    lastParsed: String
+    crawlId: Int
+    datasetID: String
+    datasetName: String
+    publishingCountry: String
+    publishedByGbifRegion: String
+    publishingOrgKey: ID
+    hostingOrganizationKey: ID
+    installationKey: ID
+    networkKeys: [ID]
+    programmeAcronym: String
+    projectId: String
+    projectTitle: String
+    fundingAttribution: String
+    fundingAttributionID: String
+    organismQuantity: Float
+    organismQuantityType: String
+    relativeOrganismQuantity: Float
+    preparations: [String]
+    media: [MultimediaItem]
+    facts: [JSON]
+    relations: [JSON]
+    identifiers: [Identifier]
+    gadm: JSON
     extensions: EventExtensions
     humboldt: [Humboldt]
+  }
+
+  type Lineage {
+    id: String
+    eventID: String
+    parentEventID: String
+  }
+
+  type ParentLineage {
+    id: String
+    eventType: String
+  }
+
+  type SubEventsResult {
+    endOfRecords: Boolean
+    count: Int
+    results: [Event]
   }
 
   type EventDate {
@@ -313,6 +387,9 @@ export default gql`
     targetHabitatScope: [String]
     targetLifeStageScope: [String]
     targetTaxonomicScope(checklistKey: ID): HumboldtTaxonomicScope
+    excludedTaxonomicScope: JSON
+    nonTargetTaxa: JSON
+    absentTaxa: JSON
     taxonCompletenessProtocols: [String]
     totalAreaSampledUnit: String
     totalAreaSampledValue: Float

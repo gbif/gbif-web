@@ -92,6 +92,19 @@ class EventAPI extends RESTDataSource {
   async getEventByKey({ eventId, datasetKey }) {
     return this.get(`/event/${datasetKey}/${encodeURIComponent(eventId)}`);
   }
+
+  async getEventLineage({ eventId, datasetKey }) {
+    return this.get(
+      `/event/${datasetKey}/${encodeURIComponent(eventId)}/lineage`,
+    );
+  }
+
+  async getEventSubEvents({ eventId, datasetKey, limit, offset }) {
+    return this.get(
+      `/event/${datasetKey}/${encodeURIComponent(eventId)}/subEvents`,
+      stringify({ limit, offset }, { indices: false }),
+    );
+  }
 }
 
 export default EventAPI;
