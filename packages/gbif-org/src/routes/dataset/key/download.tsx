@@ -1,3 +1,4 @@
+import { DwcaExtensionLabel } from '@/components/filters/displayNames';
 import { Message } from '@/components/message';
 import { Button } from '@/components/ui/button';
 import {
@@ -108,6 +109,18 @@ export function DatasetKeyDownload() {
                         defaultMessage={sourceDownloadEndpoint.type}
                       />
                     </div>
+                    {dataset?.dwca?.extensions && dataset.dwca.extensions.length > 0 && (
+                      <div>
+                        <FormattedMessage id="dataset.extensions" defaultMessage="Extensions" />:
+                        <ul className="g-list-none g-mt-1">
+                          {dataset.dwca.extensions.map((ext) => (
+                            <li key={ext} className="g-rounded g-bg-slate-100 g-px-2 g-py-1 g-mb-1">
+                              {ext && <DwcaExtensionLabel id={ext} />}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>

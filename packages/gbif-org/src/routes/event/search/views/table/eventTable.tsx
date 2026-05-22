@@ -16,10 +16,8 @@ import { EventSearchQuery, EventSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
-import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useEventColumns } from './columns';
@@ -58,7 +56,9 @@ const EVENT_SEARCH_QUERY = /* GraphQL */ `
   }
 `;
 
-export type SingleEventSearchResult = ExtractPaginatedResult<EventSearchQuery['eventSearch']>;
+export type SingleEventSearchResult = NonNullable<
+  NonNullable<EventSearchQuery['eventSearch']>['results'][number]
+>;
 
 const keySelector = (item: SingleEventSearchResult) => item?.eventID?.toString() ?? '';
 
@@ -148,7 +148,7 @@ export function EventTableClient() {
   const createRowLink = (item: SingleEventSearchResult) => {
     return {
       type: 'link',
-      to: `/dataset/${datasetKey}/event/${keySelector(item)}`,
+      to: `/dataset/${item.datasetKey}/event/${keySelector(item)}`,
     } as LinkData;
   }; //useRowLink({ rowLinkOptions, keySelector });
 
@@ -177,24 +177,4 @@ export function EventTableClient() {
       />
     </>
   );
-}
-
-function PartialDataWarning({
-  customMessageKey,
-  customDescriptionKey,
-}: {
-  customMessageKey?: string;
-  customDescriptionKey?: string;
-}) {
-  const { toast } = useToast();
-  useEffect(() => {
-    toast({
-      title: <FormattedMessage id={customMessageKey ?? 'Not all data could be loaded'} />,
-      description: customDescriptionKey ? (
-        <FormattedMessage id={customDescriptionKey} />
-      ) : undefined,
-      variant: 'destructive',
-    });
-  }, [customMessageKey, customDescriptionKey, toast]);
-  return null;
 }

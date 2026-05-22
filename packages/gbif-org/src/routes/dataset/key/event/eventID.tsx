@@ -17,6 +17,8 @@ import { EVENT_KEY_QUERY } from '../../../event/key/EventDrawer';
 
 import { useDatasetKeyContext } from '../datasetKey';
 import EmptyTab from '@/components/EmptyTab';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 
 export function eventLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
@@ -76,7 +78,13 @@ const NoneEmptyTab = () => {
     }
   }, [data?.dataset?.type, data?.dataset?.key, eventID, load]);
 
-  return <Event data={data} eventData={eventData} eventDataLoading={loading} />;
+  return (
+    <div className="g-bg-slate-100 g-px-4 lg:g-px-8">
+      <ArticleTextContainer className="g-max-w-screen-xl">
+        <Event data={data} eventData={eventData} eventDataLoading={loading} />
+      </ArticleTextContainer>
+    </div>
+  );
 };
 
 export default DatasetEventID;

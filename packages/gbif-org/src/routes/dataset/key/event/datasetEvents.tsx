@@ -31,7 +31,7 @@ const NoneEmptyTab = () => {
     const c = {
       ...baseConfig.eventSearch,
       scope: {
-        datasetKey,
+        // datasetKey,// TODO tmp to see more than just one dataset
       },
     };
     setConfig(c);

@@ -199,6 +199,7 @@ const typeDef = gql`
     title: String
     type: DatasetType
     subtype: DatasetSubtype
+    dwca: datasetDwcaInfo
 
     duplicateOfDataset: Dataset
     installation: Installation
@@ -237,6 +238,10 @@ const typeDef = gql`
       eventID: ID
       optParentEventID: ID
     ): DatasetEvents
+  }
+
+  type datasetDwcaInfo {
+    extensions: [String]
   }
 
   type DatasetEvents {

@@ -4,7 +4,6 @@ import { Taxa } from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Globe from '@/components/globe';
 import { OccurrenceIcon } from '@/components/highlights';
-import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
@@ -33,7 +32,6 @@ import { useLocation, Link } from 'react-router-dom';
 import { Images } from '../about/Images';
 import { useDatasetKeyContext } from '../datasetKey';
 import EventList from './eventList';
-import { cn } from '@/utils/shadcn';
 import { ExperimentalAlert } from './datasetEvents';
 
 export const Event = ({
@@ -146,8 +144,8 @@ export const Event = ({
   const sateliteZoom = 12;
 
   return (
-    <div className={cn('g-bg-slate-100', className)}>
-      <Classification className="g-m-auto g-max-w-screen-xl g-p-3">
+    <div className={className}>
+      <Classification className="g-m-auto g-max-w-screen-xl g-p-3 g-text-sm g-text-slate-600">
         <span>
           <DynamicLink
             pageId={'datasetKey'}

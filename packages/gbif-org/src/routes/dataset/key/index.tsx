@@ -61,7 +61,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
       loader: datasetTaxonLoader,
     },
     {
-      path: 'events',
+      path: 'event',
       element: <DatasetEvents />,
       loader: datasetLoader,
     },

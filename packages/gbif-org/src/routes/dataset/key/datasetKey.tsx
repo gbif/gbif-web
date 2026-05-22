@@ -73,6 +73,9 @@ const DATASET_QUERY = /* GraphQL */ `
         key
         title
       }
+      dwca {
+        extensions
+      }
       pubDate
       description
       dataLanguage
@@ -249,6 +252,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $imagePredicate: Predicate
     $coordinatePredicate: Predicate
     $clusterPredicate: Predicate
+    $eventPredicate: Predicate
     $literaturePredicate: Predicate
   ) {
     occurrenceSearch(predicate: $predicate) {
@@ -272,6 +276,11 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
       }
     }
     withClusters: occurrenceSearch(predicate: $clusterPredicate) {
+      documents(size: 0) {
+        total
+      }
+    }
+    withEvents: occurrenceSearch(predicate: $eventPredicate) {
       documents(size: 0) {
         total
       }
@@ -373,9 +382,11 @@ export function DatasetPage() {
 
   const showSpeciesTab =
     dataset.type === DatasetType.Checklist && dataset.checklistBankDataset != null;
-  const showEventsTab =
+  const withEventId = occData?.withEvents?.documents?.total || 0;
+  const hasSamplingEvents =
     dataset.type === DatasetType.SamplingEvent &&
     import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
+  const showEventsTab = config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents);
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
@@ -420,7 +431,7 @@ export function DatasetPage() {
     }
     if (showEventsTab) {
       tabsToDisplay.push({
-        to: 'events',
+        to: 'event',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
@@ -485,6 +496,10 @@ export function DatasetPage() {
             combinedPredicate,
             { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
           ],
+        },
+        eventPredicate: {
+          type: PredicateType.And,
+          predicates: [combinedPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
         },
         literaturePredicate,
         size: 1,

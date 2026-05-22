@@ -62,6 +62,7 @@ import {
   associatedSequencesConfig,
   datasetNameConfig,
   eventIdConfig,
+  parentEventIdConfig,
   fieldNumberConfig,
   gbifIdConfig,
   higherGeographyConfig,
@@ -223,6 +224,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      parentEventId: generateFilters({ config: parentEventIdConfig, searchConfig, formatMessage }),
       fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
 
       isInCluster: generateFilters({ config: isInClusterConfig, searchConfig, formatMessage }),
