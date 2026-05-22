@@ -9,6 +9,8 @@
     "citation": "Cita",
     "codeOfConduct": "Código de Conducta",
     "acknowledgements": "Reconocimientos",
+    "socialNavAriaLabel": "",
+    "navAriaLabel": "",
     "contact": "Contacto"
   }
 }
