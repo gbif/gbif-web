@@ -9,6 +9,8 @@
     "citation": "引用",
     "codeOfConduct": "行为准则",
     "acknowledgements": "致谢",
+    "socialNavAriaLabel": "",
+    "navAriaLabel": "",
     "contact": "联系我们"
   }
 }
