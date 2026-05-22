@@ -1,7 +1,7 @@
 {
   "tabs": {
     "details": "詳細資料",
-    "cluster": "",
+    "cluster": "相關記錄",
     "phylotree": "等於 {is}"
   },
   "occurrence": "出現紀錄",
@@ -771,9 +771,9 @@
         "targetLifeStageScope": "",
         "excludedLifeStageScope": "",
         "isLifeStageScopeFullyReported": "",
-        "targetDegreeOfEstablishmentScope": "",
-        "excludedDegreeOfEstablishmentScope": "",
-        "isDegreeOfEstablishmentScopeFullyReported": "",
+        "targetDegreeOfEstablishmentScope": "設立程度範圍之目標",
+        "excludedDegreeOfEstablishmentScope": "排除設立程度範圍",
+        "isDegreeOfEstablishmentScopeFullyReported": "設立程度的範圍是否已完全呈報?",
         "targetGrowthFormScope": "",
         "excludedGrowthFormScope": "",
         "isGrowthFormScopeFullyReported": "",
