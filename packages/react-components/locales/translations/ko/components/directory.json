@@ -7,66 +7,66 @@
     },
     "scienceCommittee": {
       "title": "과학위원회",
-      "description": "GBIF 과학위원회는 GBIF 사업 프로그램의 개발과 진행을 감독하고 이사회, 집행위원회, 사무국에 추천하는 자문위원회입니다. 업무에 대한 자세한 내용은 [여기서] 읽을 수 있습니다.(/document/80877/current-terms-of-reference-for-the-science-committee)"
+      "description": "GBIF 과학위원회는 GBIF 사업 프로그램의 개발과 진행을 감독하고 이사회, 집행위원회, 사무국에 추천하는 자문위원회입니다. 관련된 자세한 내용은 [여기서](/document/80877/current-terms-of-reference-for-the-science-committee) 읽을 수 있습니다."
     },
     "budgetCommittee": {
       "title": "예산위원회",
-      "description": "예산위원회는 GBIF 기금의 관리와 관련된 다양한 재정적 이슈를 다루는 자문위원회입니다. 다른 기능으로 위원회는 이사회에 제출된 연례 회계보고서의 감사를 관리하고 GBIF의 감사 회사 선정에 지침을 제공합니다. 위원회는 이사회, 집행위원회, 사무국에 추천을 제공합니다. 업무에 관한 자세한 내용은 [여기서] 읽을 수 있습니다. (/document/80669/terms-of-reference-for-the-gbif-budget-committee)"
+      "description": "예산위원회는 GBIF 기금의 관리와 관련된 다양한 재정적 이슈를 다루는 자문위원회입니다. 다른 기능으로 위원회는 이사회에 제출된 연례 회계보고서의 감사를 관리하고 GBIF의 감사 회사 선정에 지침을 제공합니다. 위원회는 이사회, 집행위원회, 사무국에 추천을 제공합니다. 관련된 자세한 내용은 [여기서](/document/80669/terms-of-reference-for-the-gbif-budget-committee) 읽을 수 있습니다. "
     },
     "nsg": {
       "title": "노드 운영 위원회",
-      "description": ""
+      "description": "2011년에 설립된 노드 운영 위원회(NSG)는 [참여자 노드 관리자 위원회](/contact-us/directory?group=nodesCommittee)의 의장과 부의장으로 구성되며 GBIF의 6개 지역([아프리카](/the-gbif-network/africa), [아시아](/the-gbif-network/asia), [유럽 및 중앙아시아](/the-gbif-network/europe), [중남미](/the-gbif-network/latin-america), [북미](/the-gbif-network/north-america) 그리고 [오세아니아](/the-gbif-network/oceania))의 지역 대표가 함께 합니다. NSG의 목적은 유관 GBIF 기구에게 참여자 노드로부터 제공된 피드백에 기반한 구체적인 권고안을 마련하고, GBIF 노드의 활동과 관련된 GBIF의 연간 사업 프로그램에 대한 자문을 제공하는 것입니다."
     },
     "nodesCommittee": {
-      "title": "",
-      "description": ""
+      "title": "노드 관리자 위원회",
+      "description": "참여자 노드 관리자 위원회(혹은 노드 위원회)는 모든 참가자(국가 및 국제기구)로부터 임명된 노드 매니저들에 의해 형성된 동적 그룹입니다. 위원회는 이사회의 투표에 의해 확립되는, 최대 2년 임기의, 3개 의장 지위를 포함합니다. 관련된 자세한 내용은 [여기서](/document/80571/terms-of-reference-for-the-participant-node-managers-committee-nodes) 읽을 수 있습니다."
     },
     "secretariat": {
       "title": "GBIF 사무국",
-      "description": ""
+      "description": "GBIF 사무국은 덴마크 코펜하겐 자연사 박물관에 위치하고 있으며, GBIF 사업 프로그램의 발전, 실행, 보고를 담당합니다. 사무국의 과제는 아래와 같습니다:\n- GBIF 포털과 관련 정보의 운영\n- 데이터 유동화, 발행 및 관리와 관련된 네트워크의 조정 활동\n- 데이터 격차 및 과학을 위한 GBIF 중개 데이터의 모니터링, 그리고\n- 중앙 소통 및 협력 서비스의 운영"
     },
     "voting": {
-      "title": "",
-      "description": ""
+      "title": "투표 참여자",
+      "description": "GBIF 양해각서에 서명하고 GBIF 핵심 기금에 기본적인 재정적 기여에 동의한 국가"
     },
     "associateCountries": {
-      "title": "",
-      "description": ""
+      "title": "관련 참여 국가",
+      "description": "GBIF 양해각서에 서명했지만 GBIF 핵심 기금에 재정적 기여를 하지 않고 GBIF 이사회에 투표권이 없는 국가"
     },
     "associateParticipants": {
-      "title": "",
-      "description": ""
+      "title": "다른 관련 참여자",
+      "description": "GBIF 양해각서에 서명한 정부 간 기구, 국제 기구 및 기타 국제적 활동 범위를 가지는 기관 및 국가"
     }
   },
   "columns": {
-    "role": "",
-    "name": "",
-    "participant": "",
-    "participationStatus": ""
+    "role": "역할",
+    "name": "이름",
+    "participant": "참여자",
+    "participationStatus": "참여자 상태"
   },
-  "details": "",
-  "roles": "",
-  "sinceDate": "",
+  "details": "상세정보",
+  "roles": "역할",
+  "sinceDate": "{DATE}부터",
   "showAllContacts": "모두",
   "person": {
-    "volunteer": "",
-    "name": "",
-    "annualBadges": "",
+    "volunteer": "자원봉사자",
+    "name": "이름",
+    "annualBadges": "연간 배지",
     "language": "언어",
-    "country": "",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
-    "orcId": "",
+    "country": "국가 혹은 지역",
+    "affiliation": "소속",
+    "recipient": "수신자",
+    "areasExpertise": "전문 분야",
+    "orcId": "ORCID iD",
     "year": "연",
-    "email": ""
+    "email": "이메일"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "GBIF 대학원 연구자 상",
+    "EBBE1ST": "1등",
+    "EBBE2ND": "2등",
+    "EBBE3RD": "3등"
   },
-  "prize": "",
+  "prize": "상",
   "year": "연"
 }
