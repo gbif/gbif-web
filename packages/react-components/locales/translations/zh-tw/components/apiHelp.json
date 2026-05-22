@@ -26,6 +26,11 @@
   "searchDatasets": "取得所有資料集",
   "singleNode": "取得單一節點",
   "searchNodes": "搜尋節點",
+  "singleTaxon": "取得單一分類群",
+  "singleTaxonDetails": "取得單一分類群詳細內容",
+  "searchTaxa": "搜尋分類單元",
+  "matchSpecies": "將名稱與 GBIF 主幹分類進行比對。",
   "singleDerivedDataset": "取得單一衍生資料集",
+  "parseName": "解析單一學名",
   "derivedDatasetContributingDatasets": "取得為衍生資料集提供記錄的資料集"
 }
