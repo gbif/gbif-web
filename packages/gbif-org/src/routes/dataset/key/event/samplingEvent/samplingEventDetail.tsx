@@ -2,10 +2,11 @@ import { Classification } from '@/components/classification';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Taxa } from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { InstallationLabel, PublisherLabel } from '@/components/filters/displayNames';
 import { OccurrenceIcon } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
 import Properties from '@/components/properties';
-import { Card } from '@/components/ui/largeCard';
+import { Card, CardContent } from '@/components/ui/largeCard';
 import { Card as SmallCard, CardContent as SmallCardContent } from '@/components/ui/smallCard';
 import { TocLi as Li, Separator } from '@/components/TocHelp';
 import {
@@ -25,7 +26,7 @@ import { cn } from '@/utils/shadcn';
 import { Progress } from '@radix-ui/react-progress';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
-import { MdEvent } from 'react-icons/md';
+import { MdEvent, MdLink } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { EVENT_INSIGHTS_QUERY } from '../eventInsightsQuery';
 import { GenericEventExtension } from './eventExtensions';
@@ -221,11 +222,6 @@ export const SamplingEventDetail = ({
   // REST `childEventCount` is always null; subEvents.count is the source of truth.
   const childEventCount = event?.subEvents?.count ?? 0;
   const parentEvent = event?.parentEvent;
-  // Some datasets include the event itself at the head of parentsLineage; drop it
-  // so the breadcrumb only shows true ancestors.
-  const parentsLineage = (event?.parentsLineage ?? [])
-    .filter((p): p is NonNullable<typeof p> => !!p)
-    .filter((p) => p.id !== event?.eventID);
   const facts = (event?.facts ?? []).filter((x): x is Fact => x != null) as Fact[];
   const relations = (event?.relations ?? []).filter((x): x is Relation => x != null) as Relation[];
   const identifiers = (event?.identifiers ?? []).filter(Boolean);
@@ -259,9 +255,7 @@ export const SamplingEventDetail = ({
     event?.lastCrawled ||
     event?.lastInterpreted ||
     event?.lastParsed ||
-    event?.crawlId ||
     event?.installationKey ||
-    event?.hostingOrganizationKey ||
     event?.publishingOrgKey ||
     (event?.networkKeys ?? []).some(Boolean) ||
     event?.programmeAcronym ||
@@ -335,12 +329,6 @@ export const SamplingEventDetail = ({
         ),
       });
     }
-    if (issues.length > 0) {
-      list.push({
-        id: 'issues',
-        label: <FormattedMessage id="occurrenceDetails.groups.issues" defaultMessage="Issues" />,
-      });
-    }
     if (hasHumboldt) {
       list.push({
         id: 'humboldt',
@@ -350,6 +338,12 @@ export const SamplingEventDetail = ({
             defaultMessage="Humboldt extension"
           />
         ),
+      });
+    }
+    if (issues.length > 0) {
+      list.push({
+        id: 'issues',
+        label: <FormattedMessage id="occurrenceDetails.groups.issues" defaultMessage="Issues" />,
       });
     }
     if (hasProvenance) {
@@ -514,14 +508,6 @@ export const SamplingEventDetail = ({
           </Aside>
         )}
         <div>
-          {/* Lineage breadcrumb above the Summary card */}
-          {parentsLineage.length > 0 && (
-            <LineageBreadcrumb
-              datasetKey={datasetKey}
-              parentsLineage={parentsLineage as Array<{ id?: string | null; eventType?: string | null }>}
-            />
-          )}
-
           {/* Summary card — toned-down header lives here */}
           <Group
             id="summary"
@@ -547,14 +533,11 @@ export const SamplingEventDetail = ({
                       }}
                       className="g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-700 g-text-xs g-rounded g-px-2 g-py-1"
                     >
-                      <span className="g-text-slate-500">
-                        <FormattedMessage
-                          id="dataset.parentEvent"
-                          defaultMessage="Parent event"
-                        />
-                        :
-                      </span>
-                      <span className="g-break-all">{parentEvent.eventID}</span>
+                      <FormattedMessage
+                        id="dataset.parentEvent"
+                        defaultMessage="Parent event"
+                      />
+                      <MdLink aria-hidden />
                     </DynamicLink>
                   )}
                   {childEventCount > 0 && (
@@ -576,7 +559,7 @@ export const SamplingEventDetail = ({
                   <DynamicLink
                     pageId="datasetKey"
                     variables={{ key: datasetKey }}
-                    className="g-text-primary"
+                    className="g-text-inherit g-underline"
                   >
                     {event?.dataset?.title ?? data?.dataset?.title}
                   </DynamicLink>
@@ -813,26 +796,6 @@ export const SamplingEventDetail = ({
             </Group>
           )}
 
-          {/* Issues */}
-          {issues.length > 0 && (
-            <Group
-              id="issues"
-              label="occurrenceDetails.groups.issues"
-              className="g-mb-4 g-scroll-mt-24"
-            >
-              <ul className="g-list-disc g-ms-5 g-text-sm">
-                {issues.map((issue) => (
-                  <li key={issue} className="g-py-0.5">
-                    <FormattedMessage
-                      id={`enums.occurrenceIssue.${issue}`}
-                      defaultMessage={issue}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </Group>
-          )}
-
           {/* Humboldt */}
           {hasHumboldt && <HumboldtSection humboldt={event?.humboldt} />}
 
@@ -852,15 +815,48 @@ export const SamplingEventDetail = ({
             </div>
           )}
 
-          {/* Provenance */}
-          {hasProvenance && (
+          {/* Issues — placed just before Provenance to mirror occurrence-page order */}
+          {issues.length > 0 && (
             <Group
-              id="provenance"
-              label="phrases.provenance"
-              defaultMessage="Provenance"
+              id="issues"
+              label="occurrenceDetails.groups.issues"
+              description={<FormattedMessage id="occurrenceDetails.issuesHelpText" />}
               className="g-mb-4 g-scroll-mt-24"
             >
-              <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-slate-700">
+              <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
+                <table className="gbif-table-style g-text-sm">
+                  <thead>
+                    <tr>
+                      <th className="g-min-w-48">
+                        <FormattedMessage id="occurrenceFieldNames.issue" />
+                      </th>
+                      <th className="g-min-w-96">
+                        <FormattedMessage id="phrases.description" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {issues.map((issue) => (
+                      <tr key={issue}>
+                        <td>
+                          <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />
+                        </td>
+                        <td dir="auto">
+                          <FormattedMessage id={`enums.occurrenceIssueDescription.${issue}`} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Group>
+          )}
+
+          {/* Provenance — matches the low-key occurrence-page Debug section */}
+          {hasProvenance && (
+            <div id="provenance" className="g-mb-4 g-text-sm g-scroll-mt-24">
+              <CardContent>
+                <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-slate-700">
                 {event?.license && (
                   <SimpleProperty label="occurrenceFieldNames.license">
                     {event.license}
@@ -889,29 +885,27 @@ export const SamplingEventDetail = ({
                     {event.lastInterpreted}
                   </SimpleProperty>
                 )}
-                {event?.crawlId != null && (
-                  <SimpleProperty label="occurrenceFieldNames.crawlId">
-                    {event.crawlId}
-                  </SimpleProperty>
-                )}
                 {event?.installationKey && (
                   <SimpleProperty label="occurrenceFieldNames.installationKey">
-                    {event.installationKey}
-                  </SimpleProperty>
-                )}
-                {event?.hostingOrganizationKey && (
-                  <SimpleProperty label="occurrenceFieldNames.hostingOrganizationKey">
-                    {event.hostingOrganizationKey}
+                    <DynamicLink
+                      to={`/installation/${event.installationKey}`}
+                      pageId="installationKey"
+                      variables={{ key: event.installationKey }}
+                      className="g-text-inherit g-underline"
+                    >
+                      <InstallationLabel id={event.installationKey} />
+                    </DynamicLink>
                   </SimpleProperty>
                 )}
                 {event?.publishingOrgKey && (
                   <SimpleProperty label="occurrenceFieldNames.publisher">
                     <DynamicLink
+                      to={`/publisher/${event.publishingOrgKey}`}
                       pageId="publisherKey"
                       variables={{ key: event.publishingOrgKey }}
-                      className="g-text-primary"
+                      className="g-text-inherit g-underline"
                     >
-                      {event.publishingOrgKey}
+                      <PublisherLabel id={event.publishingOrgKey} />
                     </DynamicLink>
                   </SimpleProperty>
                 )}
@@ -940,8 +934,9 @@ export const SamplingEventDetail = ({
                     )}
                   </SimpleProperty>
                 )}
-              </Properties>
-            </Group>
+                </Properties>
+              </CardContent>
+            </div>
           )}
         </div>
       </SidebarLayout>
@@ -1006,40 +1001,6 @@ function ProgressLine({ label, value }: { label: React.ReactNode; value: number 
       <div>{label}</div>
       <Progress value={value} className="g-h-1" />
     </div>
-  );
-}
-
-function LineageBreadcrumb({
-  datasetKey,
-  parentsLineage,
-}: {
-  datasetKey: string;
-  parentsLineage: Array<{ id?: string | null; eventType?: string | null }>;
-}) {
-  // parentsLineage is ordered immediate-parent → root. Reverse for breadcrumb.
-  const ordered = [...parentsLineage].reverse();
-  return (
-    <nav className="g-mb-2 g-text-xs g-text-slate-600">
-      <ol className="g-flex g-flex-wrap g-items-center g-gap-1">
-        {ordered.map((p, i) => (
-          <li key={`${p.id}-${i}`} className="g-inline-flex g-items-center g-gap-1">
-            {p.id ? (
-              <DynamicLink
-                pageId="datasetKey"
-                variables={{ key: `${datasetKey}/event/${encodeURIComponent(p.id)}` }}
-                className="g-text-primary hover:g-underline"
-              >
-                {p.eventType ? <span>{p.eventType}: </span> : null}
-                <span className="g-break-all">{p.id}</span>
-              </DynamicLink>
-            ) : (
-              <span>{p.eventType ?? '?'}</span>
-            )}
-            {i < ordered.length - 1 && <span className="g-text-slate-400">/</span>}
-          </li>
-        ))}
-      </ol>
-    </nav>
   );
 }
 
