@@ -21,7 +21,6 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useEventColumns } from './columns';
-import { useParams } from 'react-router-dom';
 import { LinkData } from '@/reactRouterPlugins/dynamicLink';
 
 const EVENT_SEARCH_QUERY = /* GraphQL */ `
@@ -88,7 +87,6 @@ export function EventTable() {
 
 export function EventTableClient() {
   const searchContext = useSearchContext();
-  const { key: datasetKey } = useParams<{ key: string }>();
 
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
@@ -122,7 +120,8 @@ export function EventTableClient() {
   const [, setPreviewKey] = useEntityDrawer();
 
   const columns = useEventColumns({
-    showPreview: (key) => setPreviewKey(`e_${datasetKey}___${key}`),
+    showPreview: (rowDatasetKey, eventID) =>
+      setPreviewKey(`e_${rowDatasetKey}___${eventID}`),
   });
   if (typeof window !== 'undefined') {
     window.gbif = window.gbif || {};
@@ -135,7 +134,7 @@ export function EventTableClient() {
 
   // update ordered list on items change
   useEffect(() => {
-    setOrderedList(events.map((item) => `e_${item.datasetKey}_${item.eventID}`));
+    setOrderedList(events.map((item) => `e_${item.datasetKey}___${item.eventID}`));
   }, [events, setOrderedList]);
 
   const { availableTableColumns, defaultEnabledTableColumns } =

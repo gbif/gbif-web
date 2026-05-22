@@ -1,30 +1,28 @@
+import EmptyTab from '@/components/EmptyTab';
 import {
   DatasetEventQuery,
   DatasetEventQueryVariables,
+  DatasetType,
   EventQuery,
   EventQueryVariables,
-  DatasetType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
-
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
-
-import { Event } from './event';
-import { EVENT_KEY_QUERY } from '../../../event/key/EventDrawer';
-
 import { useDatasetKeyContext } from '../datasetKey';
-import EmptyTab from '@/components/EmptyTab';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { DATASET_EVENT_QUERY } from './datasetEventQuery';
+import { InferredEventDetail } from './inferredFromOccurrence/inferredEventDetail';
+import { EVENT_KEY_QUERY } from './samplingEvent/eventKeyQuery';
+import { SamplingEventDetail } from './samplingEvent/samplingEventDetail';
 
 export function eventLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
   const eventID = required(params.eventID, 'No Event ID was provided in the URL');
 
-  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(EVENT_QUERY, {
+  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(DATASET_EVENT_QUERY, {
     key,
     limit: 1,
     offset: 0,
@@ -39,7 +37,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
     'No Parent Event ID was provided in the URL'
   );
 
-  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(EVENT_QUERY, {
+  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(DATASET_EVENT_QUERY, {
     optParentEventID: parentEventID,
     key,
     limit: 1,
@@ -47,28 +45,52 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
   });
 }
 
+/**
+ * Dispatcher for the dataset event detail route `/dataset/:key/event/:eventID`.
+ *
+ * Sampling-event datasets get the rich `SamplingEventDetail` view (uses the
+ * event API). Other datasets get `InferredEventDetail` which is derived from
+ * occurrence records.
+ */
 export const DatasetEventID = () => {
   const { showEventsTab } = useDatasetKeyContext();
-  if (showEventsTab) return <NoneEmptyTab />;
+  if (showEventsTab) return <DatasetEventDetailDispatcher />;
   return <EmptyTab />;
 };
 
-const NoneEmptyTab = () => {
+const DatasetEventDetailDispatcher = () => {
   const { data } = useLoaderData() as { data: DatasetEventQuery };
-  const { eventID } = useParams<{ eventID: string }>();
+  const { datasetKey } = useDatasetKeyContext();
+  const isSamplingEvent = data?.dataset?.type === DatasetType.SamplingEvent;
 
-  const {
-    data: eventData,
-    loading,
-    error,
-    load,
-  } = useQuery<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
+  return (
+    <div className="g-bg-slate-100 g-px-4 lg:g-px-8">
+      <ArticleTextContainer className="g-max-w-screen-xl g-pb-6">
+        {isSamplingEvent ? (
+          <SamplingEventDetailLoader data={data} datasetKey={datasetKey} />
+        ) : (
+          <InferredEventDetail data={data} datasetKey={datasetKey} />
+        )}
+      </ArticleTextContainer>
+    </div>
+  );
+};
+
+const SamplingEventDetailLoader = ({
+  data,
+  datasetKey,
+}: {
+  data?: DatasetEventQuery;
+  datasetKey: string;
+}) => {
+  const { eventID } = useParams<{ eventID: string }>();
+  const { data: eventData, load } = useQuery<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
   });
 
   useEffect(() => {
-    if (data?.dataset?.type == DatasetType.SamplingEvent) {
+    if (data?.dataset?.key) {
       load({
         variables: {
           eventId: eventID,
@@ -76,56 +98,9 @@ const NoneEmptyTab = () => {
         },
       });
     }
-  }, [data?.dataset?.type, data?.dataset?.key, eventID, load]);
+  }, [data?.dataset?.key, eventID, load]);
 
-  return (
-    <div className="g-bg-slate-100 g-px-4 lg:g-px-8">
-      <ArticleTextContainer className="g-max-w-screen-xl">
-        <Event data={data} eventData={eventData} eventDataLoading={loading} />
-      </ArticleTextContainer>
-    </div>
-  );
+  return <SamplingEventDetail data={data} eventData={eventData} datasetKey={datasetKey} />;
 };
 
 export default DatasetEventID;
-
-export const EVENT_QUERY = /* GraphQL */ `
-  query DatasetEvent($key: ID!, $limit: Int, $offset: Int, $eventID: ID, $optParentEventID: ID) {
-    dataset(key: $key) {
-      key
-      type
-      samplingDescription {
-        studyExtent
-        methodSteps
-        sampling
-      }
-      events(
-        key: $key
-        limit: $limit
-        offset: $offset
-        eventID: $eventID
-        optParentEventID: $optParentEventID
-      ) {
-        endOfRecords
-        results {
-          eventId
-          firstOccurrence {
-            volatile {
-              globe {
-                svg
-              }
-            }
-            countryCode
-            eventDate
-            key
-            datasetKey
-            decimalLatitude
-            decimalLongitude
-            parentEventID
-            eventID
-          }
-        }
-      }
-    }
-  }
-`;

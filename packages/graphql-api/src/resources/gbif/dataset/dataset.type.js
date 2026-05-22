@@ -231,6 +231,10 @@ const typeDef = gql`
 
     firstOccurrence: Occurrence
     localContexts: [LocalContext]
+    """
+    Volatile and slow: Get occurrence inferred events for this dataset. So not using the event API, but using the occurrence API to search for occurrences with this datasetKey and facet on eventID. And then get the first occurrence for each to guess on what the event looks like (sampling protocol etc.)
+    Using the event API is generally far preferred, but for datasets that is not modelled as a sampling event, this can help to get an idea of the events that are in the dataset.
+    """
     events(
       key: ID!
       limit: Int

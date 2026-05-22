@@ -1,5 +1,6 @@
 import { Table } from '@/components/dashboard/shared';
 import { FormattedDateRange } from '@/components/message';
+import { Paging } from '@/components/paging';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DatasetEventListQuery, DatasetEventListQueryVariables } from '@/gql/graphql';
@@ -7,14 +8,19 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Paging } from '@/components/paging';
 
 const DEFAULT_LIMIT = 10;
 
-// eventID is used to show sibling events
-// parentEventID is used to show child events
-// if both are provided, the eventID will be used to show sibling events
-const EventList = ({
+/**
+ * Tabular listing of events inferred from occurrence records (eventID/parentEventID
+ * fields on occurrence records). Used both for the dataset events tab and for
+ * sibling/child listings on the inferred-event detail page.
+ *
+ * eventID is used to show sibling events.
+ * parentEventID is used to show child events.
+ * If both are provided, the eventID will be used to show sibling events.
+ */
+const InferredEventList = ({
   datasetKey,
   parentEventID,
   eventID,
@@ -169,7 +175,7 @@ const EventList = ({
   );
 };
 
-export default EventList;
+export default InferredEventList;
 
 const EVENT_LIST_QUERY = /* GraphQL */ `
   query DatasetEventList($key: ID!, $limit: Int, $offset: Int, $optParentEventID: ID) {

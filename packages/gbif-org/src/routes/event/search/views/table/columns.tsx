@@ -8,7 +8,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { GoSidebarExpand } from 'react-icons/go';
 
 type Args = {
-  showPreview?: ((id: string) => void) | false;
+  showPreview?: ((datasetKey: string, eventID: string) => void) | false;
 };
 
 export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSearchResult>[] {
@@ -20,15 +20,15 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
         filterKey: 'eventId', // default is same as id
         disableHiding: true,
         minWidth: 250,
-        cell: ({ eventID }) => {
+        cell: ({ eventID, datasetKey }) => {
           return (
             <div className="g-inline-flex g-items-start g-w-full">
-              {showPreview && typeof showPreview === 'function' && (
+              {showPreview && typeof showPreview === 'function' && datasetKey && eventID && (
                 <button
                   // Used to refocus this button after closing the preview dialog
                   data-entity-trigger={eventID}
                   className="g-pe-3 g-mt-0.5 g-ps-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
-                  onClick={() => showPreview(eventID)}
+                  onClick={() => showPreview(datasetKey, eventID)}
                 >
                   <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
                     <div className="g-flex g-items-center">
