@@ -36,10 +36,11 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
                   </SimpleTooltip>
                 </button>
               )}
-
-              <SetAsFilter field="eventId" value={eventID}>
-                {eventID}
-              </SetAsFilter>
+              <div className="g-flex-1">
+                <SetAsFilter field="eventId" value={eventID}>
+                  {eventID}
+                </SetAsFilter>
+              </div>
             </div>
           );
         },

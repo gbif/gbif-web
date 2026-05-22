@@ -540,14 +540,20 @@ export const SamplingEventDetail = ({
                       <MdLink aria-hidden />
                     </DynamicLink>
                   )}
-                  {childEventCount > 0 && (
-                    <span className="g-inline-flex g-items-center g-gap-1 g-bg-primary-50 g-text-primary-700 g-text-xs g-rounded g-px-2 g-py-1">
+                  {childEventCount > 0 && eventID && (
+                    <DynamicLink
+                      pageId="datasetKey"
+                      variables={{ key: `${datasetKey}/event` }}
+                      searchParams={{ parentEventId: eventID }}
+                      className="g-inline-flex g-items-center g-gap-1 g-bg-primary-50 hover:g-bg-primary-100 g-text-primary-700 g-text-xs g-rounded g-px-2 g-py-1"
+                    >
                       <FormattedNumber value={childEventCount} />{' '}
                       <FormattedMessage
                         id="dataset.childEvents"
                         defaultMessage="Child events"
                       />
-                    </span>
+                      <MdLink aria-hidden />
+                    </DynamicLink>
                   )}
                 </div>
               </div>
