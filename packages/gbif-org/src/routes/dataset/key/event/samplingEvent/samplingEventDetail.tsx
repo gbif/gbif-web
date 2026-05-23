@@ -4,11 +4,13 @@ import { Taxa } from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { InstallationLabel, PublisherLabel } from '@/components/filters/displayNames';
 import { OccurrenceIcon } from '@/components/highlights';
+import { GeoJsonMap } from '@/components/maps/geojsonMap';
+import { generatePointGeoJson } from '@/components/maps/geojsonMap/generatePointGeoJson';
 import { FormattedDateRange } from '@/components/message';
 import Properties from '@/components/properties';
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent } from '@/components/ui/largeCard';
-import { Card as SmallCard, CardContent as SmallCardContent } from '@/components/ui/smallCard';
 import { TocLi as Li, Separator } from '@/components/TocHelp';
 import {
   DatasetEventQuery,
@@ -26,8 +28,7 @@ import formatAsPercentage from '@/utils/formatAsPercentage';
 import { cn } from '@/utils/shadcn';
 import { Progress } from '@radix-ui/react-progress';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FaGlobeAfrica } from 'react-icons/fa';
-import { MdEvent, MdLink } from 'react-icons/md';
+import { MdLink } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { EVENT_INSIGHTS_QUERY } from '../eventInsightsQuery';
 import { GenericEventExtension } from './eventExtensions';
@@ -246,6 +247,18 @@ export const SamplingEventDetail = ({
     event?.elevationAccuracy
   );
 
+  const hasLocation = !!(
+    decimalLatitude != null ||
+    decimalLongitude != null ||
+    countryCode ||
+    event?.continent ||
+    event?.waterBody ||
+    event?.stateProvince ||
+    event?.locationID ||
+    gadm?.level0 ||
+    hasGeoPrecision
+  );
+
   const humboldtRecords = (event?.humboldt ?? []).filter(Boolean);
   const hasHumboldt = humboldtRecords.length > 0;
 
@@ -272,6 +285,20 @@ export const SamplingEventDetail = ({
         label: <FormattedMessage id="occurrenceDetails.groups.summary" defaultMessage="Summary" />,
       },
     ];
+    if (mediaItems.length > 0) {
+      list.push({
+        id: 'media',
+        label: <FormattedMessage id="phrases.media" defaultMessage="Media" />,
+      });
+    }
+    if (hasLocation) {
+      list.push({
+        id: 'location',
+        label: (
+          <FormattedMessage id="occurrenceDetails.groups.location" defaultMessage="Location" />
+        ),
+      });
+    }
     if (childEventCount > 0) {
       list.push({
         id: 'child-events',
@@ -288,12 +315,6 @@ export const SamplingEventDetail = ({
       list.push({
         id: 'taxa',
         label: <FormattedMessage id="occurrenceDetails.groups.taxon" defaultMessage="Taxa" />,
-      });
-    }
-    if (mediaItems.length > 0) {
-      list.push({
-        id: 'media',
-        label: <FormattedMessage id="phrases.media" defaultMessage="Media" />,
       });
     }
     if (hasMethodology) {
@@ -422,89 +443,6 @@ export const SamplingEventDetail = ({
                 </nav>
               </Card>
 
-              {/* Map thumbnail */}
-              {decimalLatitude != null && decimalLongitude != null && (
-                <SmallCard className="g-mt-4 g-overflow-hidden">
-                  <a
-                    href={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},12,0/600x400@2x?access_token=${import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="g-block g-relative g-group"
-                  >
-                    <img
-                      src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${decimalLongitude},${decimalLatitude})/${decimalLongitude},${decimalLatitude},8,0/300x180@2x?access_token=${import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN}`}
-                      alt=""
-                      className="g-w-full g-block"
-                    />
-                  </a>
-                  <SmallCardContent className="g-text-xs g-text-slate-600 g-pt-2 g-pb-2">
-                    <div className="g-flex g-items-center g-gap-2">
-                      {countryCode && (
-                        <span className="g-inline-flex g-items-center g-gap-1">
-                          <FaGlobeAfrica />
-                          <FormattedMessage id={`enums.countryCode.${countryCode}`} />
-                        </span>
-                      )}
-                      {eventDate && (
-                        <span className="g-inline-flex g-items-center g-gap-1 g-ms-auto">
-                          <MdEvent />
-                          <EventDateText eventDate={eventDate} />
-                        </span>
-                      )}
-                    </div>
-                  </SmallCardContent>
-                </SmallCard>
-              )}
-
-              {/* Geo precision card */}
-              {hasGeoPrecision && (
-                <SmallCard className="g-mt-4">
-                  <SmallCardContent className="g-pt-3 g-text-xs g-text-slate-700">
-                    <div className="g-font-semibold g-text-slate-600 g-mb-1">
-                      <FormattedMessage
-                        id="phrases.geoPrecision"
-                        defaultMessage="Geo precision"
-                      />
-                    </div>
-                    <dl className="g-grid g-gap-x-2 g-grid-cols-[auto_1fr] g-gap-y-1">
-                      <GeoBit
-                        labelId="occurrenceFieldNames.coordinateUncertaintyInMeters"
-                        value={event?.coordinateUncertaintyInMeters}
-                      />
-                      <GeoBit
-                        labelId="occurrenceFieldNames.coordinatePrecision"
-                        value={event?.coordinatePrecision}
-                      />
-                      <GeoBit
-                        labelId="occurrenceFieldNames.distanceFromCentroidInMeters"
-                        value={event?.distanceFromCentroidInMeters}
-                      />
-                      <GeoBit
-                        labelId="occurrenceFieldNames.geodeticDatum"
-                        value={event?.geodeticDatum}
-                      />
-                      <GeoBit
-                        labelId="occurrenceFieldNames.depth"
-                        value={
-                          event?.depth != null
-                            ? `${event.depth}${event.depthAccuracy ? ` ± ${event.depthAccuracy}` : ''}`
-                            : null
-                        }
-                      />
-                      <GeoBit
-                        labelId="occurrenceFieldNames.elevation"
-                        value={
-                          event?.elevation != null
-                            ? `${event.elevation}${
-                                event.elevationAccuracy ? ` ± ${event.elevationAccuracy}` : ''
-                              }`
-                            : null
-                        }
-                      />
-                    </dl>
-                  </SmallCardContent>
-                </SmallCard>
-              )}
             </AsideSticky>
           </Aside>
         )}
@@ -597,6 +535,126 @@ export const SamplingEventDetail = ({
               </Properties>
             </div>
           </Group>
+
+          {/* Media — promoted up so the visual hook sits right under Summary */}
+          {mediaItems.length > 0 && (
+            <Group
+              id="media"
+              label="phrases.media"
+              defaultMessage="Media"
+              className="g-mb-4 g-scroll-mt-24"
+            >
+              <MediaGallery
+                items={mediaItems}
+                renderBottomRight={(activeIndex, t) => (
+                  <span className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5 g-pointer-events-none">
+                    {activeIndex + 1} / {t}
+                  </span>
+                )}
+              />
+            </Group>
+          )}
+
+          {/* Location — bigger inline map plus location key/value pairs */}
+          {hasLocation && (
+            <Group
+              id="location"
+              label="occurrenceDetails.groups.location"
+              defaultMessage="Location"
+              className="g-mb-4 g-scroll-mt-24"
+            >
+              {decimalLatitude != null && decimalLongitude != null && (
+                <div className="g-mb-4 g-min-w-64">
+                  <StaticRenderSuspence fallback={<div>Loading map...</div>}>
+                    <GeoJsonMap
+                      geoJson={generatePointGeoJson({
+                        lat: decimalLatitude,
+                        lon: decimalLongitude,
+                      })}
+                      className="g-w-full g-rounded g-overflow-hidden"
+                      initialCenter={[decimalLongitude, decimalLatitude]}
+                      initialZoom={1}
+                      rasterStyle="gbif-natural"
+                    />
+                  </StaticRenderSuspence>
+                </div>
+              )}
+              <Properties breakpoint={800} className="[&>dt]:g-w-52">
+                {decimalLatitude != null && (
+                  <SimpleProperty label="occurrenceFieldNames.decimalLatitude">
+                    {decimalLatitude}
+                  </SimpleProperty>
+                )}
+                {decimalLongitude != null && (
+                  <SimpleProperty label="occurrenceFieldNames.decimalLongitude">
+                    {decimalLongitude}
+                  </SimpleProperty>
+                )}
+                {event?.coordinateUncertaintyInMeters != null && (
+                  <SimpleProperty label="occurrenceFieldNames.coordinateUncertaintyInMeters">
+                    {event.coordinateUncertaintyInMeters}
+                  </SimpleProperty>
+                )}
+                {event?.coordinatePrecision != null && (
+                  <SimpleProperty label="occurrenceFieldNames.coordinatePrecision">
+                    {event.coordinatePrecision}
+                  </SimpleProperty>
+                )}
+                {event?.distanceFromCentroidInMeters != null && (
+                  <SimpleProperty label="occurrenceFieldNames.distanceFromCentroidInMeters">
+                    {event.distanceFromCentroidInMeters}
+                  </SimpleProperty>
+                )}
+                {event?.geodeticDatum && (
+                  <SimpleProperty label="occurrenceFieldNames.geodeticDatum">
+                    {event.geodeticDatum}
+                  </SimpleProperty>
+                )}
+                {event?.depth != null && (
+                  <SimpleProperty label="occurrenceFieldNames.depth">
+                    {event.depth}
+                    {event.depthAccuracy != null && ` ± ${event.depthAccuracy}`}
+                  </SimpleProperty>
+                )}
+                {event?.elevation != null && (
+                  <SimpleProperty label="occurrenceFieldNames.elevation">
+                    {event.elevation}
+                    {event.elevationAccuracy != null && ` ± ${event.elevationAccuracy}`}
+                  </SimpleProperty>
+                )}
+                {countryCode && (
+                  <SimpleProperty label="occurrenceFieldNames.country">
+                    <FormattedMessage id={`enums.countryCode.${countryCode}`} />
+                  </SimpleProperty>
+                )}
+                {event?.continent && (
+                  <SimpleProperty label="occurrenceFieldNames.continent">
+                    {event.continent}
+                  </SimpleProperty>
+                )}
+                {event?.waterBody && (
+                  <SimpleProperty label="occurrenceFieldNames.waterBody">
+                    {event.waterBody}
+                  </SimpleProperty>
+                )}
+                {event?.stateProvince && (
+                  <SimpleProperty label="occurrenceFieldNames.stateProvince">
+                    {event.stateProvince}
+                  </SimpleProperty>
+                )}
+                {event?.locationID && (
+                  <SimpleProperty label="occurrenceFieldNames.locationID">
+                    {event.locationID}
+                  </SimpleProperty>
+                )}
+                {gadm?.level0 && (
+                  <SimpleProperty label="occurrenceFieldNames.gadmClassification">
+                    <GadmRegions gadm={gadm} />
+                  </SimpleProperty>
+                )}
+              </Properties>
+            </Group>
+          )}
 
           {/* Sub-events */}
           {childEventCount > 0 && eventID && (
@@ -691,25 +749,6 @@ export const SamplingEventDetail = ({
                   />
                 </ErrorBoundary>
               </ClientSideOnly>
-            </Group>
-          )}
-
-          {/* Media */}
-          {mediaItems.length > 0 && (
-            <Group
-              id="media"
-              label="phrases.media"
-              defaultMessage="Media"
-              className="g-mb-4 g-scroll-mt-24"
-            >
-              <MediaGallery
-                items={mediaItems}
-                renderBottomRight={(activeIndex, t) => (
-                  <span className="g-absolute g-bottom-2 g-end-2 g-bg-neutral-800/70 g-text-white g-text-xs g-rounded g-px-2 g-py-0.5 g-pointer-events-none">
-                    {activeIndex + 1} / {t}
-                  </span>
-                )}
-              />
             </Group>
           )}
 
@@ -1156,24 +1195,6 @@ function GadmRegions({ gadm }: { gadm: GadmShape }) {
         </span>
       ))}
     </span>
-  );
-}
-
-function GeoBit({
-  labelId,
-  value,
-}: {
-  labelId: string;
-  value: number | string | null | undefined;
-}) {
-  if (value == null || value === '') return null;
-  return (
-    <>
-      <dt className="g-text-slate-500">
-        <FormattedMessage id={labelId} defaultMessage={humanize(labelId)} />
-      </dt>
-      <dd className="g-break-words">{value}</dd>
-    </>
   );
 }
 

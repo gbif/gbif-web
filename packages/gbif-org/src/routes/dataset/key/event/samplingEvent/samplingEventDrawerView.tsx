@@ -1,4 +1,5 @@
 import { Alert } from '@/components/ui/alert';
+import { useConfig } from '@/config/config';
 import {
   DatasetEventQuery,
   DatasetEventQueryVariables,
@@ -29,6 +30,7 @@ import { SamplingEventDetail, SamplingEventDetailSkeleton } from './samplingEven
 export default function SamplingEventDrawerView({ entityKey }: { entityKey?: string }) {
   const datasetKey = entityKey?.split('___')[0];
   const eventId = entityKey?.split('___')[1];
+  const { defaultChecklistKey } = useConfig();
 
   const {
     data: occData,
@@ -69,10 +71,11 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
         variables: {
           eventId,
           datasetKey,
+          checklistKey: defaultChecklistKey,
         },
       });
     }
-  }, [occData?.dataset?.type, datasetKey, eventId, load]);
+  }, [occData?.dataset?.type, datasetKey, eventId, defaultChecklistKey, load]);
 
   if (!entityKey) {
     return null;

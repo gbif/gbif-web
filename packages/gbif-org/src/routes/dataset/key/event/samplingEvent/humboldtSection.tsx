@@ -2,6 +2,7 @@ import Properties from '@/components/properties';
 import { EventQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { Group } from '@/routes/occurrence/key/About/groups';
+import { MdCheck, MdRemove } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 
 type Humboldt = NonNullable<NonNullable<NonNullable<EventQuery['event']>['humboldt']>[number]>;
@@ -71,15 +72,12 @@ export function HumboldtSection({
 function HumboldtRecord({ humboldt: h }: { humboldt: Humboldt }) {
   return (
     <div className="g-space-y-5">
-      <SamplingEffort h={h} />
-      <Protocols h={h} />
-      <TargetTaxonomicScope h={h} />
-      <ExcludedNonTargetAbsent h={h} />
-      <ScopeChips h={h} />
-      <VouchersMaterialSamples h={h} />
-      <InventoryAbundance h={h} />
-      <VerbatimSiteInfo h={h} />
-      <ReportingCompleteness h={h} />
+      <ProtocolsBlock h={h} />
+      <SamplingDesignBlock h={h} />
+      <SpatialScopeBlock h={h} />
+      <TemporalScopeBlock h={h} />
+      <EffortBlock h={h} />
+      <TaxonomicOrganismalScopeBlock h={h} />
     </div>
   );
 }
@@ -122,102 +120,20 @@ function nonEmptyList(arr?: ReadonlyArray<string | null> | null): string[] {
   return (arr ?? []).filter((x): x is string => !!x);
 }
 
-function SamplingEffort({ h }: { h: Humboldt }) {
-  const hasAny =
-    h.samplingEffortValue != null ||
-    h.samplingEffortUnit ||
-    h.eventDurationValue != null ||
-    h.eventDurationUnit ||
-    h.siteCount != null ||
-    h.totalAreaSampledValue != null ||
-    h.totalAreaSampledUnit ||
-    h.geospatialScopeAreaValue != null ||
-    h.geospatialScopeAreaUnit ||
-    nonEmptyList(h.samplingPerformedBy).length > 0;
-  if (!hasAny) return null;
-  return (
-    <SubBlock
-      title={
-        <FormattedMessage
-          id="humboldt.samplingEffort"
-          defaultMessage="Sampling effort & extent"
-        />
-      }
+function ScopeName({ scope }: { scope: Scope }) {
+  // Strip authorship (everything after the first comma) from usageName so the
+  // value cell stays compact — full authorship is rarely useful inline.
+  const display = (scope.usageName ?? String(scope.usageKey ?? '')).split(',')[0].trim();
+  return scope.usageKey ? (
+    <DynamicLink
+      pageId="taxonKey"
+      variables={{ key: String(scope.usageKey) }}
+      className="g-text-inherit g-underline"
     >
-      <Properties breakpoint={800} className="[&>dt]:g-w-52">
-        {(h.samplingEffortValue != null || h.samplingEffortUnit) && (
-          <Row label="humboldt.samplingEffort">
-            {h.samplingEffortValue} {h.samplingEffortUnit}
-          </Row>
-        )}
-        {(h.eventDurationValue != null || h.eventDurationUnit) && (
-          <Row label="humboldt.eventDuration">
-            {h.eventDurationValue} {h.eventDurationUnit}
-          </Row>
-        )}
-        {h.siteCount != null && <Row label="humboldt.siteCount">{h.siteCount}</Row>}
-        {(h.totalAreaSampledValue != null || h.totalAreaSampledUnit) && (
-          <Row label="humboldt.totalAreaSampled">
-            {h.totalAreaSampledValue} {h.totalAreaSampledUnit}
-          </Row>
-        )}
-        {(h.geospatialScopeAreaValue != null || h.geospatialScopeAreaUnit) && (
-          <Row label="humboldt.geospatialScopeArea">
-            {h.geospatialScopeAreaValue} {h.geospatialScopeAreaUnit}
-          </Row>
-        )}
-        {nonEmptyList(h.samplingPerformedBy).length > 0 && (
-          <Row label="humboldt.samplingPerformedBy">
-            {nonEmptyList(h.samplingPerformedBy).join(', ')}
-          </Row>
-        )}
-      </Properties>
-    </SubBlock>
-  );
-}
-
-function Protocols({ h }: { h: Humboldt }) {
-  const names = nonEmptyList(h.protocolNames);
-  const descs = nonEmptyList(h.protocolDescriptions);
-  const refs = nonEmptyList(h.protocolReferences);
-  const completeness = nonEmptyList(h.taxonCompletenessProtocols);
-  if (names.length + descs.length + refs.length + completeness.length === 0) return null;
-  return (
-    <SubBlock title={<FormattedMessage id="humboldt.protocols" defaultMessage="Protocols" />}>
-      <Properties breakpoint={800} className="[&>dt]:g-w-52">
-        {names.length > 0 && <Row label="humboldt.protocolNames">{names.join(', ')}</Row>}
-        {descs.length > 0 && (
-          <Row label="humboldt.protocolDescriptions">
-            <ul className="g-list-disc g-ms-5">
-              {descs.map((d, i) => (
-                <li key={i}>{d}</li>
-              ))}
-            </ul>
-          </Row>
-        )}
-        {refs.length > 0 && (
-          <Row label="humboldt.protocolReferences">
-            <ul className="g-list-disc g-ms-5">
-              {refs.map((r, i) => (
-                <li key={i}>
-                  <a
-                    href={r}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="g-text-primary g-underline g-break-all"
-                  >
-                    {r}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </Row>
-        )}
-        {completeness.length > 0 && (
-          <Row label="humboldt.taxonCompletenessProtocols">{completeness.join(', ')}</Row>
-        )}
-      </Properties>
-    </SubBlock>
+      {display}
+    </DynamicLink>
+  ) : (
+    <span>{display}</span>
   );
 }
 
@@ -226,61 +142,34 @@ function ScopeEntry({ scope }: { scope: Scope }) {
     (c): c is NonNullable<typeof c> => !!c
   );
   return (
-    <div className="g-text-sm">
+    <div>
+      <div>
+        <ScopeName scope={scope} />
+        {scope.usageRank && (
+          <span className="g-ms-2 g-text-xs g-text-slate-500 g-uppercase">{scope.usageRank}</span>
+        )}
+      </div>
       {classification.length > 0 && (
-        <ol className="g-flex g-flex-wrap g-gap-1 g-mb-1 g-text-xs g-text-slate-600">
+        <div className="g-mt-0.5 g-text-xs g-text-slate-500">
           {classification.map((c, i) => (
-            <li key={`${c.key}-${i}`} className="g-inline-flex g-items-center g-gap-1">
+            <span key={`${c.key}-${i}`}>
               {c.key ? (
                 <DynamicLink
                   pageId="taxonKey"
                   variables={{ key: String(c.key) }}
-                  className="g-text-primary hover:g-underline"
+                  className="g-text-inherit hover:g-underline"
                 >
                   {c.name}
                 </DynamicLink>
               ) : (
                 <span>{c.name}</span>
               )}
-              {i < classification.length - 1 && <span className="g-text-slate-400">/</span>}
-            </li>
+              {i < classification.length - 1 && <span className="g-mx-1">/</span>}
+            </span>
           ))}
-        </ol>
+        </div>
       )}
-      <div>
-        {scope.usageKey ? (
-          <DynamicLink
-            pageId="taxonKey"
-            variables={{ key: String(scope.usageKey) }}
-            className="g-font-semibold g-text-primary hover:g-underline"
-          >
-            {scope.usageName ?? scope.usageKey}
-          </DynamicLink>
-        ) : (
-          <span className="g-font-semibold">{scope.usageName}</span>
-        )}
-        {scope.usageRank && (
-          <span className="g-ms-2 g-text-xs g-text-slate-500 g-uppercase">{scope.usageRank}</span>
-        )}
-      </div>
     </div>
-  );
-}
-
-function ScopeChip({ scope }: { scope: Scope }) {
-  const label = scope.usageName ?? String(scope.usageKey ?? '');
-  return scope.usageKey ? (
-    <DynamicLink
-      pageId="taxonKey"
-      variables={{ key: String(scope.usageKey) }}
-      className="g-inline-flex g-items-center g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-700 g-text-xs g-rounded g-px-2 g-py-0.5"
-    >
-      {label}
-    </DynamicLink>
-  ) : (
-    <span className="g-inline-flex g-items-center g-bg-slate-100 g-text-slate-700 g-text-xs g-rounded g-px-2 g-py-0.5">
-      {label}
-    </span>
   );
 }
 
@@ -288,273 +177,187 @@ function nonEmptyScopes(arr?: ReadonlyArray<Scope | null> | null): Scope[] {
   return (arr ?? []).filter((s): s is Scope => !!s);
 }
 
-function TargetTaxonomicScope({ h }: { h: Humboldt }) {
-  const scopes = nonEmptyScopes(h.targetTaxonomicScope);
+function ScopeNameList({ scopes }: { scopes: Scope[] }) {
   if (scopes.length === 0) return null;
   return (
-    <SubBlock
-      title={
-        <FormattedMessage
-          id="humboldt.targetTaxonomicScope"
-          defaultMessage="Target taxonomic scope"
-        />
-      }
-    >
-      <div className="g-space-y-3">
-        {scopes.map((scope, i) => (
-          <ScopeEntry key={`${scope.usageKey}-${i}`} scope={scope} />
-        ))}
-      </div>
-    </SubBlock>
+    <span>
+      {scopes.map((s, i) => (
+        <span key={`${s.usageKey}-${i}`}>
+          <ScopeName scope={s} />
+          {i < scopes.length - 1 && <span className="g-text-slate-400">, </span>}
+        </span>
+      ))}
+    </span>
   );
 }
 
-function ScopeChipRow({ label, scopes }: { label: React.ReactNode; scopes: Scope[] }) {
-  if (scopes.length === 0) return null;
+function ReportingPill({ label, value }: { label: React.ReactNode; value: boolean | null | undefined }) {
+  if (value == null) return null;
   return (
-    <div>
-      <div className="g-text-sm g-font-semibold g-text-slate-600 g-mb-1">{label}</div>
-      <div className="g-flex g-flex-wrap g-gap-1">
-        {scopes.map((s, i) => (
-          <ScopeChip key={`${s.usageKey}-${i}`} scope={s} />
-        ))}
-      </div>
+    <span className="g-inline-flex g-items-center g-text-xs g-rounded g-ps-0.5 g-pe-2 g-py-0.5 g-bg-slate-100 g-text-slate-700 g-border g-border-slate-200">
+      <span
+        aria-hidden
+        className={
+          'g-inline-flex g-items-center g-justify-center g-w-4 g-h-4 g-rounded-full g-text-white g-me-1.5 ' +
+          (value ? 'g-bg-green-600' : 'g-bg-red-500')
+        }
+      >
+        {value ? <MdCheck size={10} /> : <MdRemove size={10} />}
+      </span>
+      {label}
+    </span>
+  );
+}
+
+type Pill = { key: string; label: React.ReactNode; value: boolean | null | undefined };
+
+function PillRow({ pills }: { pills: Pill[] }) {
+  const filtered = pills.filter((p) => p.value != null);
+  if (filtered.length === 0) return null;
+  return (
+    <div className="g-flex g-flex-wrap g-gap-1.5">
+      {filtered.map((p) => (
+        <ReportingPill key={p.key} label={p.label} value={p.value} />
+      ))}
     </div>
   );
 }
 
-function ExcludedNonTargetAbsent({ h }: { h: Humboldt }) {
-  const excluded = nonEmptyScopes(h.excludedTaxonomicScope);
-  const nonTarget = nonEmptyScopes(h.nonTargetTaxa);
-  const absent = nonEmptyScopes(h.absentTaxa);
-  if (excluded.length + nonTarget.length + absent.length === 0) return null;
-  return (
-    <SubBlock
-      title={
-        <FormattedMessage
-          id="humboldt.taxaCoverage"
-          defaultMessage="Excluded / non-target / absent taxa"
-        />
-      }
-    >
-      <div className="g-space-y-4">
-        <ScopeChipRow
-          label={<FormattedMessage id="humboldt.excludedTaxa" defaultMessage="Excluded" />}
-          scopes={excluded}
-        />
-        <ScopeChipRow
-          label={<FormattedMessage id="humboldt.nonTargetTaxa" defaultMessage="Non-target" />}
-          scopes={nonTarget}
-        />
-        <ScopeChipRow
-          label={<FormattedMessage id="humboldt.absentTaxa" defaultMessage="Absent" />}
-          scopes={absent}
-        />
-      </div>
-    </SubBlock>
-  );
+function hasAny(values: Array<unknown>) {
+  return values.some((v) => {
+    if (v == null) return false;
+    if (Array.isArray(v)) return v.length > 0;
+    return true;
+  });
 }
 
-function ChipGroup({ label, items }: { label: React.ReactNode; items: string[] }) {
-  if (items.length === 0) return null;
-  return (
-    <div>
-      <div className="g-text-xs g-font-semibold g-uppercase g-text-slate-500 g-mb-1">
-        {label}
-      </div>
-      <div className="g-flex g-flex-wrap g-gap-1">
-        {items.map((x, i) => (
-          <span
-            key={i}
-            className="g-inline-flex g-items-center g-bg-slate-100 g-text-slate-700 g-text-xs g-rounded g-px-2 g-py-0.5"
-          >
-            {x}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ScopeChips({ h }: { h: Humboldt }) {
-  const targets = {
-    growthForm: nonEmptyList(h.targetGrowthFormScope),
-    habitat: nonEmptyList(h.targetHabitatScope),
-    lifeStage: nonEmptyList(h.targetLifeStageScope),
-    establishment: nonEmptyList(h.targetDegreeOfEstablishmentScope),
-  };
-  const excluded = {
-    growthForm: nonEmptyList(h.excludedGrowthFormScope),
-    habitat: nonEmptyList(h.excludedHabitatScope),
-    lifeStage: nonEmptyList(h.excludedLifeStageScope),
-    establishment: nonEmptyList(h.excludedDegreeOfEstablishmentScope),
-  };
-  const hasTarget = Object.values(targets).some((a) => a.length > 0);
-  const hasExcluded = Object.values(excluded).some((a) => a.length > 0);
-  if (!hasTarget && !hasExcluded) return null;
-  return (
-    <SubBlock
-      title={
-        <FormattedMessage id="humboldt.scope" defaultMessage="Target / excluded scope" />
-      }
-    >
-      <div className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
-        {hasTarget && (
-          <div className="g-space-y-3">
-            <div className="g-text-sm g-font-semibold g-text-slate-600">
-              <FormattedMessage id="humboldt.target" defaultMessage="Target" />
-            </div>
-            <ChipGroup
-              label={
-                <FormattedMessage id="humboldt.growthForm" defaultMessage="Growth form" />
-              }
-              items={targets.growthForm}
-            />
-            <ChipGroup
-              label={<FormattedMessage id="humboldt.habitat" defaultMessage="Habitat" />}
-              items={targets.habitat}
-            />
-            <ChipGroup
-              label={<FormattedMessage id="humboldt.lifeStage" defaultMessage="Life stage" />}
-              items={targets.lifeStage}
-            />
-            <ChipGroup
-              label={
-                <FormattedMessage
-                  id="humboldt.degreeOfEstablishment"
-                  defaultMessage="Degree of establishment"
-                />
-              }
-              items={targets.establishment}
-            />
-          </div>
-        )}
-        {hasExcluded && (
-          <div className="g-space-y-3">
-            <div className="g-text-sm g-font-semibold g-text-slate-600">
-              <FormattedMessage id="humboldt.excluded" defaultMessage="Excluded" />
-            </div>
-            <ChipGroup
-              label={
-                <FormattedMessage id="humboldt.growthForm" defaultMessage="Growth form" />
-              }
-              items={excluded.growthForm}
-            />
-            <ChipGroup
-              label={<FormattedMessage id="humboldt.habitat" defaultMessage="Habitat" />}
-              items={excluded.habitat}
-            />
-            <ChipGroup
-              label={<FormattedMessage id="humboldt.lifeStage" defaultMessage="Life stage" />}
-              items={excluded.lifeStage}
-            />
-            <ChipGroup
-              label={
-                <FormattedMessage
-                  id="humboldt.degreeOfEstablishment"
-                  defaultMessage="Degree of establishment"
-                />
-              }
-              items={excluded.establishment}
-            />
-          </div>
-        )}
-      </div>
-    </SubBlock>
-  );
-}
-
-function VouchersMaterialSamples({ h }: { h: Humboldt }) {
-  const vouchers = nonEmptyList(h.voucherInstitutions);
+function ProtocolsBlock({ h }: { h: Humboldt }) {
+  const names = nonEmptyList(h.protocolNames);
+  const descs = nonEmptyList(h.protocolDescriptions);
+  const refs = nonEmptyList(h.protocolReferences);
   const materials = nonEmptyList(h.materialSampleTypes);
-  const hasAny =
-    h.hasVouchers != null || h.hasMaterialSamples != null || vouchers.length + materials.length > 0;
-  if (!hasAny) return null;
-  return (
-    <SubBlock
-      title={
-        <FormattedMessage
-          id="humboldt.vouchersMaterials"
-          defaultMessage="Vouchers & material samples"
-        />
-      }
-    >
-      <Properties breakpoint={800} className="[&>dt]:g-w-52">
-        {h.hasVouchers != null && (
-          <Row label="humboldt.hasVouchers">{h.hasVouchers ? 'Yes' : 'No'}</Row>
-        )}
-        {vouchers.length > 0 && (
-          <Row label="humboldt.voucherInstitutions">{vouchers.join(', ')}</Row>
-        )}
-        {h.hasMaterialSamples != null && (
-          <Row label="humboldt.hasMaterialSamples">{h.hasMaterialSamples ? 'Yes' : 'No'}</Row>
-        )}
-        {materials.length > 0 && (
-          <Row label="humboldt.materialSampleTypes">{materials.join(', ')}</Row>
-        )}
-      </Properties>
-    </SubBlock>
-  );
-}
-
-function InventoryAbundance({ h }: { h: Humboldt }) {
+  const vouchers = nonEmptyList(h.voucherInstitutions);
   const inv = nonEmptyList(h.inventoryTypes);
   const compTypes = nonEmptyList(h.compilationTypes);
   const compSrc = nonEmptyList(h.compilationSourceTypes);
-  const hasAny =
-    inv.length + compTypes.length + compSrc.length > 0 ||
-    h.abundanceCap != null ||
-    h.hasNonTargetOrganisms != null ||
-    h.hasNonTargetTaxa != null ||
-    h.areNonTargetTaxaFullyReported != null;
-  if (!hasAny) return null;
-  return (
-    <SubBlock
-      title={
+  const pills: Pill[] = [
+    {
+      key: 'isAbundanceReported',
+      label: <FormattedMessage id="humboldt.isAbundanceReported" defaultMessage="Abundance reported" />,
+      value: h.isAbundanceReported,
+    },
+    {
+      key: 'isAbundanceCapReported',
+      label: (
         <FormattedMessage
-          id="humboldt.inventoryAbundance"
-          defaultMessage="Inventory & abundance"
+          id="humboldt.isAbundanceCapReported"
+          defaultMessage="Abundance cap reported"
         />
-      }
-    >
-      <Properties breakpoint={800} className="[&>dt]:g-w-52">
-        {inv.length > 0 && <Row label="humboldt.inventoryTypes">{inv.join(', ')}</Row>}
-        {compTypes.length > 0 && (
-          <Row label="humboldt.compilationTypes">{compTypes.join(', ')}</Row>
-        )}
-        {compSrc.length > 0 && (
-          <Row label="humboldt.compilationSourceTypes">{compSrc.join(', ')}</Row>
-        )}
-        {h.abundanceCap != null && <Row label="humboldt.abundanceCap">{h.abundanceCap}</Row>}
-        {h.hasNonTargetOrganisms != null && (
-          <Row label="humboldt.hasNonTargetOrganisms">
-            {h.hasNonTargetOrganisms ? 'Yes' : 'No'}
-          </Row>
-        )}
-        {h.hasNonTargetTaxa != null && (
-          <Row label="humboldt.hasNonTargetTaxa">{h.hasNonTargetTaxa ? 'Yes' : 'No'}</Row>
-        )}
-        {h.areNonTargetTaxaFullyReported != null && (
-          <Row label="humboldt.areNonTargetTaxaFullyReported">
-            {h.areNonTargetTaxaFullyReported ? 'Yes' : 'No'}
-          </Row>
-        )}
-      </Properties>
+      ),
+      value: h.isAbundanceCapReported,
+    },
+    {
+      key: 'isLeastSpecificTargetCategoryQuantityInclusive',
+      label: (
+        <FormattedMessage
+          id="humboldt.isLeastSpecificTargetCategoryQuantityInclusive"
+          defaultMessage="Least-specific target inclusive"
+        />
+      ),
+      value: h.isLeastSpecificTargetCategoryQuantityInclusive,
+    },
+    {
+      key: 'isVegetationCoverReported',
+      label: (
+        <FormattedMessage
+          id="humboldt.isVegetationCoverReported"
+          defaultMessage="Vegetation cover reported"
+        />
+      ),
+      value: h.isVegetationCoverReported,
+    },
+    {
+      key: 'hasMaterialSamples',
+      label: (
+        <FormattedMessage id="humboldt.hasMaterialSamples" defaultMessage="Material samples" />
+      ),
+      value: h.hasMaterialSamples,
+    },
+    {
+      key: 'hasVouchers',
+      label: <FormattedMessage id="humboldt.hasVouchers" defaultMessage="Vouchers" />,
+      value: h.hasVouchers,
+    },
+  ];
+  const show =
+    hasAny([names, descs, refs, materials, vouchers, inv, compTypes, compSrc, h.abundanceCap]) ||
+    pills.some((p) => p.value != null);
+  if (!show) return null;
+  return (
+    <SubBlock title={<FormattedMessage id="humboldt.protocols" defaultMessage="Protocols" />}>
+      <div className="g-space-y-3">
+        <Properties breakpoint={800} className="[&>dt]:g-w-52">
+          {names.length > 0 && <Row label="humboldt.protocolNames">{names.join(', ')}</Row>}
+          {descs.length > 0 && (
+            <Row label="humboldt.protocolDescriptions">
+              <ul className="g-list-disc g-ms-5">
+                {descs.map((d, i) => (
+                  <li key={i}>{d}</li>
+                ))}
+              </ul>
+            </Row>
+          )}
+          {refs.length > 0 && (
+            <Row label="humboldt.protocolReferences">
+              <ul className="g-list-disc g-ms-5">
+                {refs.map((r, i) => (
+                  <li key={i}>
+                    <a
+                      href={r}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="g-text-inherit g-underline g-break-all"
+                    >
+                      {r}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Row>
+          )}
+          {h.abundanceCap != null && <Row label="humboldt.abundanceCap">{h.abundanceCap}</Row>}
+          {materials.length > 0 && (
+            <Row label="humboldt.materialSampleTypes">{materials.join(', ')}</Row>
+          )}
+          {vouchers.length > 0 && (
+            <Row label="humboldt.voucherInstitutions">{vouchers.join(', ')}</Row>
+          )}
+          {inv.length > 0 && <Row label="humboldt.inventoryTypes">{inv.join(', ')}</Row>}
+          {compTypes.length > 0 && (
+            <Row label="humboldt.compilationTypes">{compTypes.join(', ')}</Row>
+          )}
+          {compSrc.length > 0 && (
+            <Row label="humboldt.compilationSourceTypes">{compSrc.join(', ')}</Row>
+          )}
+        </Properties>
+        <PillRow pills={pills} />
+      </div>
     </SubBlock>
   );
 }
 
-function VerbatimSiteInfo({ h }: { h: Humboldt }) {
+function SamplingDesignBlock({ h }: { h: Humboldt }) {
   const names = nonEmptyList(h.verbatimSiteNames);
   const descs = nonEmptyList(h.verbatimSiteDescriptions);
-  if (names.length + descs.length === 0) return null;
+  if (!hasAny([h.siteCount, names, descs])) return null;
   return (
     <SubBlock
       title={
-        <FormattedMessage id="humboldt.verbatimSite" defaultMessage="Verbatim site info" />
+        <FormattedMessage id="humboldt.samplingDesign" defaultMessage="Sampling design" />
       }
     >
       <Properties breakpoint={800} className="[&>dt]:g-w-52">
+        {h.siteCount != null && <Row label="humboldt.siteCount">{h.siteCount}</Row>}
         {names.length > 0 && <Row label="humboldt.verbatimSiteNames">{names.join(', ')}</Row>}
         {descs.length > 0 && (
           <Row label="humboldt.verbatimSiteDescriptions">
@@ -570,77 +373,167 @@ function VerbatimSiteInfo({ h }: { h: Humboldt }) {
   );
 }
 
-function ReportingPill({ label, value }: { label: React.ReactNode; value: boolean | null | undefined }) {
-  if (value == null) return null;
+function SpatialScopeBlock({ h }: { h: Humboldt }) {
+  const targetHabitat = nonEmptyList(h.targetHabitatScope);
+  const excludedHabitat = nonEmptyList(h.excludedHabitatScope);
+  const hasArea =
+    h.geospatialScopeAreaValue != null ||
+    h.geospatialScopeAreaUnit ||
+    h.totalAreaSampledValue != null ||
+    h.totalAreaSampledUnit;
+  if (!hasArea && targetHabitat.length + excludedHabitat.length === 0) return null;
   return (
-    <span
-      className={
-        'g-inline-flex g-items-center g-text-xs g-rounded g-px-2 g-py-0.5 ' +
-        (value
-          ? 'g-bg-green-50 g-text-green-700 g-border g-border-green-200'
-          : 'g-bg-slate-100 g-text-slate-600 g-border g-border-slate-200')
-      }
+    <SubBlock
+      title={<FormattedMessage id="humboldt.spatialScope" defaultMessage="Spatial scope" />}
     >
-      {value ? '✓' : '✗'} <span className="g-ms-1">{label}</span>
-    </span>
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
+        {(h.geospatialScopeAreaValue != null || h.geospatialScopeAreaUnit) && (
+          <Row label="humboldt.geospatialScopeArea">
+            {h.geospatialScopeAreaValue} {h.geospatialScopeAreaUnit}
+          </Row>
+        )}
+        {(h.totalAreaSampledValue != null || h.totalAreaSampledUnit) && (
+          <Row label="humboldt.totalAreaSampled">
+            {h.totalAreaSampledValue} {h.totalAreaSampledUnit}
+          </Row>
+        )}
+        {targetHabitat.length > 0 && (
+          <Row label="humboldt.targetHabitatScope">{targetHabitat.join(', ')}</Row>
+        )}
+        {excludedHabitat.length > 0 && (
+          <Row label="humboldt.excludedHabitatScope">{excludedHabitat.join(', ')}</Row>
+        )}
+      </Properties>
+    </SubBlock>
   );
 }
 
-function ReportingCompleteness({ h }: { h: Humboldt }) {
-  const pills: Array<{ key: string; label: React.ReactNode; value: boolean | null | undefined }> = [
-    {
-      key: 'isAbsenceReported',
-      label: <FormattedMessage id="humboldt.isAbsenceReported" defaultMessage="Absence" />,
-      value: h.isAbsenceReported,
-    },
-    {
-      key: 'isAbundanceReported',
-      label: <FormattedMessage id="humboldt.isAbundanceReported" defaultMessage="Abundance" />,
-      value: h.isAbundanceReported,
-    },
-    {
-      key: 'isAbundanceCapReported',
-      label: (
-        <FormattedMessage id="humboldt.isAbundanceCapReported" defaultMessage="Abundance cap" />
-      ),
-      value: h.isAbundanceCapReported,
-    },
+function TemporalScopeBlock({ h }: { h: Humboldt }) {
+  if (h.eventDurationValue == null && !h.eventDurationUnit) return null;
+  return (
+    <SubBlock
+      title={<FormattedMessage id="humboldt.temporalScope" defaultMessage="Temporal scope" />}
+    >
+      <Properties breakpoint={800} className="[&>dt]:g-w-52">
+        <Row label="humboldt.eventDuration">
+          {h.eventDurationValue} {h.eventDurationUnit}
+        </Row>
+      </Properties>
+    </SubBlock>
+  );
+}
+
+function EffortBlock({ h }: { h: Humboldt }) {
+  const performedBy = nonEmptyList(h.samplingPerformedBy);
+  const hasEffort =
+    h.samplingEffortValue != null || h.samplingEffortUnit || performedBy.length > 0;
+  const pills: Pill[] = [
     {
       key: 'isSamplingEffortReported',
       label: (
         <FormattedMessage
           id="humboldt.isSamplingEffortReported"
-          defaultMessage="Sampling effort"
+          defaultMessage="Sampling effort reported"
         />
       ),
       value: h.isSamplingEffortReported,
     },
+  ];
+  if (!hasEffort && pills.every((p) => p.value == null)) return null;
+  return (
+    <SubBlock title={<FormattedMessage id="humboldt.effort" defaultMessage="Effort" />}>
+      <div className="g-space-y-3">
+        {hasEffort && (
+          <Properties breakpoint={800} className="[&>dt]:g-w-52">
+            {(h.samplingEffortValue != null || h.samplingEffortUnit) && (
+              <Row label="humboldt.samplingEffort">
+                {h.samplingEffortValue} {h.samplingEffortUnit}
+              </Row>
+            )}
+            {performedBy.length > 0 && (
+              <Row label="humboldt.samplingPerformedBy">{performedBy.join(', ')}</Row>
+            )}
+          </Properties>
+        )}
+        <PillRow pills={pills} />
+      </div>
+    </SubBlock>
+  );
+}
+
+function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
+  const targets = nonEmptyScopes(h.targetTaxonomicScope);
+  const excluded = nonEmptyScopes(h.excludedTaxonomicScope);
+  const absent = nonEmptyScopes(h.absentTaxa);
+  const nonTarget = nonEmptyScopes(h.nonTargetTaxa);
+  const completenessProtocols = nonEmptyList(h.taxonCompletenessProtocols);
+  const targetEstablishment = nonEmptyList(h.targetDegreeOfEstablishmentScope);
+  const excludedEstablishment = nonEmptyList(h.excludedDegreeOfEstablishmentScope);
+  const targetGrowthForm = nonEmptyList(h.targetGrowthFormScope);
+  const excludedGrowthForm = nonEmptyList(h.excludedGrowthFormScope);
+  const targetLifeStage = nonEmptyList(h.targetLifeStageScope);
+  const excludedLifeStage = nonEmptyList(h.excludedLifeStageScope);
+  const pills: Pill[] = [
     {
-      key: 'isVegetationCoverReported',
+      key: 'isAbsenceReported',
       label: (
-        <FormattedMessage
-          id="humboldt.isVegetationCoverReported"
-          defaultMessage="Vegetation cover"
-        />
+        <FormattedMessage id="humboldt.isAbsenceReported" defaultMessage="Absence reported" />
       ),
-      value: h.isVegetationCoverReported,
+      value: h.isAbsenceReported,
     },
     {
       key: 'isTaxonomicScopeFullyReported',
       label: (
         <FormattedMessage
           id="humboldt.isTaxonomicScopeFullyReported"
-          defaultMessage="Taxonomic scope fully"
+          defaultMessage="Taxonomic scope fully reported"
         />
       ),
       value: h.isTaxonomicScopeFullyReported,
+    },
+    {
+      key: 'hasNonTargetTaxa',
+      label: (
+        <FormattedMessage id="humboldt.hasNonTargetTaxa" defaultMessage="Non-target taxa" />
+      ),
+      value: h.hasNonTargetTaxa,
+    },
+    {
+      key: 'areNonTargetTaxaFullyReported',
+      label: (
+        <FormattedMessage
+          id="humboldt.areNonTargetTaxaFullyReported"
+          defaultMessage="Non-target taxa fully reported"
+        />
+      ),
+      value: h.areNonTargetTaxaFullyReported,
+    },
+    {
+      key: 'hasNonTargetOrganisms',
+      label: (
+        <FormattedMessage
+          id="humboldt.hasNonTargetOrganisms"
+          defaultMessage="Non-target organisms"
+        />
+      ),
+      value: h.hasNonTargetOrganisms,
+    },
+    {
+      key: 'isDegreeOfEstablishmentScopeFullyReported',
+      label: (
+        <FormattedMessage
+          id="humboldt.isDegreeOfEstablishmentScopeFullyReported"
+          defaultMessage="Establishment fully reported"
+        />
+      ),
+      value: h.isDegreeOfEstablishmentScopeFullyReported,
     },
     {
       key: 'isGrowthFormScopeFullyReported',
       label: (
         <FormattedMessage
           id="humboldt.isGrowthFormScopeFullyReported"
-          defaultMessage="Growth form fully"
+          defaultMessage="Growth form fully reported"
         />
       ),
       value: h.isGrowthFormScopeFullyReported,
@@ -650,46 +543,90 @@ function ReportingCompleteness({ h }: { h: Humboldt }) {
       label: (
         <FormattedMessage
           id="humboldt.isLifeStageScopeFullyReported"
-          defaultMessage="Life stage fully"
+          defaultMessage="Life stage fully reported"
         />
       ),
       value: h.isLifeStageScopeFullyReported,
     },
-    {
-      key: 'isDegreeOfEstablishmentScopeFullyReported',
-      label: (
-        <FormattedMessage
-          id="humboldt.isDegreeOfEstablishmentScopeFullyReported"
-          defaultMessage="Establishment fully"
-        />
-      ),
-      value: h.isDegreeOfEstablishmentScopeFullyReported,
-    },
-    {
-      key: 'isLeastSpecificTargetCategoryQuantityInclusive',
-      label: (
-        <FormattedMessage
-          id="humboldt.isLeastSpecificTargetCategoryQuantityInclusive"
-          defaultMessage="Least-specific target inclusive"
-        />
-      ),
-      value: h.isLeastSpecificTargetCategoryQuantityInclusive,
-    },
-  ].filter((p) => p.value != null);
-  if (pills.length === 0) return null;
+  ];
+  const show =
+    targets.length +
+      excluded.length +
+      absent.length +
+      nonTarget.length +
+      completenessProtocols.length +
+      targetEstablishment.length +
+      excludedEstablishment.length +
+      targetGrowthForm.length +
+      excludedGrowthForm.length +
+      targetLifeStage.length +
+      excludedLifeStage.length >
+      0 || pills.some((p) => p.value != null);
+  if (!show) return null;
   return (
     <SubBlock
       title={
         <FormattedMessage
-          id="humboldt.reportingCompleteness"
-          defaultMessage="Reporting completeness"
+          id="humboldt.taxonomicOrganismalScope"
+          defaultMessage="Taxonomic & organismal scope"
         />
       }
     >
-      <div className="g-flex g-flex-wrap g-gap-1.5">
-        {pills.map((p) => (
-          <ReportingPill key={p.key} label={p.label} value={p.value} />
-        ))}
+      <div className="g-space-y-3">
+        <Properties breakpoint={800} className="[&>dt]:g-w-52">
+          {targets.length > 0 && (
+            <Row label="humboldt.targetTaxonomicScope">
+              <div className="g-space-y-2">
+                {targets.map((scope, i) => (
+                  <ScopeEntry key={`${scope.usageKey}-${i}`} scope={scope} />
+                ))}
+              </div>
+            </Row>
+          )}
+          {excluded.length > 0 && (
+            <Row label="humboldt.excludedTaxonomicScope">
+              <ScopeNameList scopes={excluded} />
+            </Row>
+          )}
+          {absent.length > 0 && (
+            <Row label="humboldt.absentTaxa">
+              <ScopeNameList scopes={absent} />
+            </Row>
+          )}
+          {nonTarget.length > 0 && (
+            <Row label="humboldt.nonTargetTaxa">
+              <ScopeNameList scopes={nonTarget} />
+            </Row>
+          )}
+          {completenessProtocols.length > 0 && (
+            <Row label="humboldt.taxonCompletenessProtocols">
+              {completenessProtocols.join(', ')}
+            </Row>
+          )}
+          {targetEstablishment.length > 0 && (
+            <Row label="humboldt.targetDegreeOfEstablishmentScope">
+              {targetEstablishment.join(', ')}
+            </Row>
+          )}
+          {excludedEstablishment.length > 0 && (
+            <Row label="humboldt.excludedDegreeOfEstablishmentScope">
+              {excludedEstablishment.join(', ')}
+            </Row>
+          )}
+          {targetGrowthForm.length > 0 && (
+            <Row label="humboldt.targetGrowthFormScope">{targetGrowthForm.join(', ')}</Row>
+          )}
+          {excludedGrowthForm.length > 0 && (
+            <Row label="humboldt.excludedGrowthFormScope">{excludedGrowthForm.join(', ')}</Row>
+          )}
+          {targetLifeStage.length > 0 && (
+            <Row label="humboldt.targetLifeStageScope">{targetLifeStage.join(', ')}</Row>
+          )}
+          {excludedLifeStage.length > 0 && (
+            <Row label="humboldt.excludedLifeStageScope">{excludedLifeStage.join(', ')}</Row>
+          )}
+        </Properties>
+        <PillRow pills={pills} />
       </div>
     </SubBlock>
   );

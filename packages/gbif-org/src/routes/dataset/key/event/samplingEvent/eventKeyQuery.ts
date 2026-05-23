@@ -1,7 +1,7 @@
 // Event API query used to fetch the rich event record (only available for
 // proper sampling event datasets).
 export const EVENT_KEY_QUERY = /* GraphQL */ `
-  query event($eventId: ID, $datasetKey: ID) {
+  query event($eventId: ID, $datasetKey: ID, $checklistKey: ID) {
     event(eventId: $eventId, datasetKey: $datasetKey) {
       eventID
       parentEventID
@@ -152,7 +152,7 @@ export const EVENT_KEY_QUERY = /* GraphQL */ `
         targetHabitatScope
         targetLifeStageScope
 
-        targetTaxonomicScope {
+        targetTaxonomicScope(checklistKey: $checklistKey) {
           usageKey
           usageName
           usageRank
@@ -162,17 +162,17 @@ export const EVENT_KEY_QUERY = /* GraphQL */ `
             rank
           }
         }
-        excludedTaxonomicScope {
+        excludedTaxonomicScope(checklistKey: $checklistKey) {
           usageKey
           usageName
           usageRank
         }
-        nonTargetTaxa {
+        nonTargetTaxa(checklistKey: $checklistKey) {
           usageKey
           usageName
           usageRank
         }
-        absentTaxa {
+        absentTaxa(checklistKey: $checklistKey) {
           usageKey
           usageName
           usageRank

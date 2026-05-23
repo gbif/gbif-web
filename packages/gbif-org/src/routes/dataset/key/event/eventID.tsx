@@ -21,7 +21,7 @@ type EventLoaderResult = {
   eventData: EventQuery | null;
 };
 
-export async function eventLoader({ params, graphql }: LoaderArgs): Promise<EventLoaderResult> {
+export async function eventLoader({ params, graphql, config }: LoaderArgs): Promise<EventLoaderResult> {
   const key = required(params.key, 'No key was provided in the URL');
   const eventID = required(params.eventID, 'No Event ID was provided in the URL');
 
@@ -40,6 +40,7 @@ export async function eventLoader({ params, graphql }: LoaderArgs): Promise<Even
       .query<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
         eventId: eventID,
         datasetKey: key,
+        checklistKey: config.defaultChecklistKey,
       })
       .catch(() => null),
   ]);
