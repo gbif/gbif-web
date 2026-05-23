@@ -6,6 +6,7 @@ import { InstallationLabel, PublisherLabel } from '@/components/filters/displayN
 import { OccurrenceIcon } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
 import Properties from '@/components/properties';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent } from '@/components/ui/largeCard';
 import { Card as SmallCard, CardContent as SmallCardContent } from '@/components/ui/smallCard';
 import { TocLi as Li, Separator } from '@/components/TocHelp';
@@ -949,6 +950,72 @@ export const SamplingEventDetail = ({
     </div>
   );
 };
+
+/**
+ * Skeleton placeholder for `SamplingEventDetail`. Shown while the event/data
+ * queries resolve — in the drawer and during in-app navigation from search.
+ * Mirrors the real layout (sidebar + stacked cards) so the page doesn't
+ * reflow once data arrives.
+ */
+export function SamplingEventDetailSkeleton({
+  className = '',
+  narrow = false,
+}: {
+  className?: string;
+  narrow?: boolean;
+}) {
+  return (
+    <div className={className}>
+      <div className="g-m-auto g-max-w-screen-xl g-p-3">
+        <Skeleton className="g-h-4 g-w-64" />
+      </div>
+      <SidebarLayout
+        reverse
+        className={cn(
+          'g-grid-cols-1',
+          !narrow && 'lg:g-grid-cols-[250px_minmax(0,1fr)] xl:g-grid-cols-[300px_minmax(0,1fr)]'
+        )}
+      >
+        {!narrow && (
+          <Aside className="g-hidden lg:g-block">
+            <AsideSticky>
+              <Card>
+                <div className="g-p-3 g-space-y-2">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <Skeleton key={i} className="g-h-4 g-w-3/4" />
+                  ))}
+                </div>
+              </Card>
+            </AsideSticky>
+          </Aside>
+        )}
+        <div>
+          <Card className="g-mb-4">
+            <div className="g-p-4 g-space-y-3">
+              <Skeleton className="g-h-3 g-w-24" />
+              <Skeleton className="g-h-6 g-w-1/2" />
+              <div className="g-flex g-gap-2 g-mt-2">
+                <Skeleton className="g-h-5 g-w-28" />
+                <Skeleton className="g-h-5 g-w-24" />
+              </div>
+              <div className="g-mt-4 g-space-y-2">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="g-flex g-gap-4">
+                    <Skeleton className="g-h-4 g-w-40" />
+                    <Skeleton className="g-h-4 g-flex-1" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
+          <Skeleton className="g-h-40 g-mb-4" />
+          <Skeleton className="g-h-32 g-mb-4" />
+          <Skeleton className="g-h-48 g-mb-4" />
+        </div>
+      </SidebarLayout>
+    </div>
+  );
+}
 
 // ---------- helper components ----------
 

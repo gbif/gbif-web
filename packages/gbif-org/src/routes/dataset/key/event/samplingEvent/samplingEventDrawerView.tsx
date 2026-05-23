@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DATASET_EVENT_QUERY } from '../datasetEventQuery';
 import { EVENT_KEY_QUERY } from './eventKeyQuery';
-import { SamplingEventDetail } from './samplingEventDetail';
+import { SamplingEventDetail, SamplingEventDetailSkeleton } from './samplingEventDetail';
 
 /**
  * Drawer-side view for an event opened from the global event search.
@@ -80,10 +80,8 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
 
   if (loading || occLoading) {
     return (
-      <div className="g-p-4">
-        <div>
-          <FormattedMessage id="phrases.loading" defaultMessage="Loading…" />
-        </div>
+      <div className="g-p-4 g-bg-slate-100">
+        <SamplingEventDetailSkeleton narrow />
       </div>
     );
   }
