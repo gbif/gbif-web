@@ -1,7 +1,7 @@
 {
   "features": "Fonctionnalités",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Inclure l'autorité"
   },
   "citations": "Citations",
   "occurrences": "Occurrences",
