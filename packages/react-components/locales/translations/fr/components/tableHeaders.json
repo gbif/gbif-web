@@ -7,7 +7,7 @@
   "occurrences": "Occurrences",
   "numberSpecimens": "Nombre de spécimens",
   "gbifNumberSpecimens": "Spécimens sur GBIF",
-  "specimenTriplet": "",
+  "specimenTriplet": "Identifiant de spécimen",
   "title": "Titre",
   "titleAndAbstract": "Titre et résumé",
   "altmetric": "Altmétrique",
@@ -25,6 +25,6 @@
   "activeInstitution": "Est actif",
   "author": "Auteur",
   "source": "Journal",
-  "dataReferenced": "",
+  "dataReferenced": "Données utilisées",
   "activeCollection": "Est actif"
 }
