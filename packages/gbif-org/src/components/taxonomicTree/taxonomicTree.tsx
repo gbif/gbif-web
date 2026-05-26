@@ -86,7 +86,7 @@ export function TaxonomicTree({
 
   return (
     <TaxonTreeContext.Provider value={contextValue}>
-      <div className={cn('g-text-sm', className)}>
+      <div className={cn(className)}>
         <ul
           key={resetKey}
           aria-label={intl.formatMessage({

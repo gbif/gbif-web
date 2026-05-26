@@ -92,7 +92,7 @@ export function TaxonChildren({
 
   if (error && !search) {
     return (
-      <li className="g-py-1 g-text-sm g-text-red-500">
+      <li className="g-py-1 g-text-red-500">
         <FormattedMessage id="phrases.error" defaultMessage="Failed to load" />
       </li>
     );
@@ -117,7 +117,7 @@ export function TaxonChildren({
 
   if (total <= 0) {
     return isRoot ? (
-      <li className="g-py-1 g-text-sm g-text-slate-400">
+      <li className="g-py-1 g-text-slate-400">
         <FormattedMessage id="phrases.noResults" defaultMessage="No results" />
       </li>
     ) : null;
@@ -156,7 +156,7 @@ export function TaxonChildren({
         <li className="g-ps-2 g-py-1">
           <button
             type="button"
-            className="g-text-sm g-text-primary-500 hover:g-underline"
+            className="g-text-primary-500 hover:g-underline"
             onClick={() => setSize((s) => s + DEFAULT_SIZE)}
           >
             <FormattedMessage id="phrases.loadMore" defaultMessage="Load more" />
@@ -259,7 +259,7 @@ function TaxonTreeNode({ node, autoExpand }: { node: TaxonNode; autoExpand: bool
           }
           onClick={() => node.taxonKey != null && onToggleSelect(node.taxonKey)}
           className={cn(
-            'g-flex-none g-ms-1 g-px-2 g-py-0.5 g-rounded g-border g-border-solid g-text-sm g-tabular-nums',
+            'g-flex-none g-ms-1 g-px-2 g-py-0.5 g-rounded g-border g-border-solid g-tabular-nums',
             isPlaceholder && 'g-border-dashed g-border-slate-200 g-text-slate-400 g-cursor-default',
             !isPlaceholder &&
               (selected

@@ -21,7 +21,12 @@ export function OccurrenceTaxonomyTree({
         </CardTitle>
       </CardHeader>
       <CardContent className="g-overflow-auto g-max-h-[32rem] gbif-small-scrollbar">
-        <TaxonomicTree predicate={predicate} q={q} checklistKey={checklistKey} />
+        <TaxonomicTree
+          predicate={predicate}
+          q={q}
+          checklistKey={checklistKey}
+          className="g-text-sm"
+        />
       </CardContent>
     </Card>
   );
