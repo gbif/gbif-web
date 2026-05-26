@@ -86,8 +86,8 @@ export function TaxonChildren({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  // Loading on first fetch, or while we are advancing past an empty rank.
-  if ((loading && buckets.length === 0) || deeperRankWithData !== -1) {
+  // While advancing past an empty rank we are still effectively loading.
+  if (deeperRankWithData !== -1) {
     return <TreeChildrenSkeleton />;
   }
 
@@ -99,7 +99,13 @@ export function TaxonChildren({
     );
   }
 
-  if (!search) return null;
+  // No data yet (initial fetch in flight) or reloading with nothing to show.
+  // With lazyLoad the query sits in a "not loading, no data" state until the
+  // load effect runs, so key the skeleton off the absence of data rather than
+  // the loading flag.
+  if (!search || (loading && buckets.length === 0)) {
+    return <TreeChildrenSkeleton />;
+  }
 
   const childRankIndex = facetIndex;
   const childRank = TAXON_RANKS[childRankIndex];
