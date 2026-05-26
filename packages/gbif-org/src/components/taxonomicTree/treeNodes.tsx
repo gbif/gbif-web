@@ -69,18 +69,24 @@ export function TaxonChildren({
   const cardinality = search?.cardinality ?? {};
   const buckets = (search?.facet?.children ?? []).filter((b): b is TaxonBucket => b != null);
 
-  // Skip empty ranks: if the rank we faceted has no buckets but a deeper rank
-  // has values, jump to the first deeper rank that has data.
+  // When the faceted rank has no buckets, look for the first deeper rank that
+  // does have data. If one exists we skip the empty rank entirely; if none
+  // does, the records simply aren't classified below this point and we surface
+  // an expandable "No <rank>" placeholder instead of rendering nothing.
+  const deeperRankWithData =
+    search && buckets.length === 0
+      ? TAXON_RANKS.findIndex((r, i) => i > facetIndex && Number(cardinality[r.key]) > 0)
+      : -1;
+
   useEffect(() => {
-    if (!search || buckets.length > 0) return;
-    const next = TAXON_RANKS.findIndex(
-      (r, i) => i > facetIndex && Number(cardinality[r.key]) > 0
-    );
-    if (next !== -1) setFacetIndex(next);
+    if (search && buckets.length === 0 && deeperRankWithData !== -1) {
+      setFacetIndex(deeperRankWithData);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  if (loading && buckets.length === 0) {
+  // Loading on first fetch, or while we are advancing past an empty rank.
+  if ((loading && buckets.length === 0) || deeperRankWithData !== -1) {
     return (
       <li className="g-py-1 g-text-sm g-text-slate-400">
         <FormattedMessage id="phrases.loading" defaultMessage="Loading…" />
@@ -88,7 +94,7 @@ export function TaxonChildren({
     );
   }
 
-  if (error) {
+  if (error && !search) {
     return (
       <li className="g-py-1 g-text-sm g-text-red-500">
         <FormattedMessage id="phrases.error" defaultMessage="Failed to load" />
@@ -96,15 +102,18 @@ export function TaxonChildren({
     );
   }
 
-  if (buckets.length === 0) return null;
+  if (!search) return null;
 
   const childRankIndex = facetIndex;
   const childRank = TAXON_RANKS[childRankIndex];
   const total = Number(search?.documents?.total ?? 0);
   const sum = buckets.reduce((acc, b) => acc + Number(b.count), 0);
+  // With no buckets sum is 0, so the placeholder represents the whole node.
   const placeholderCount = total - sum;
   const truncated = Number(cardinality[childRank.key] ?? 0) > buckets.length;
   const autoExpandSingle = buckets.length === 1 && placeholderCount <= 0;
+
+  if (total <= 0) return null;
 
   return (
     <>
