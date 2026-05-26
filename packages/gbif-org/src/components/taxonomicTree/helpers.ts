@@ -1,11 +1,13 @@
 import { Predicate, PredicateType } from '@/gql/graphql';
 
+// A facetable rank: `rank` is the enum value (for labels/taxonMatch) and `key`
+// is the occurrence facet/cardinality field used to drill into it.
 export type RankDef = { rank: string; key: string };
 
-// The occurrence index only exposes facets for these main Linnean ranks (each
-// accepts a checklistKey). Anything in between (subphylum, superorder, ...) is
-// not facetable, so the tree is built from these comparable ranks only.
-export const TAXON_RANKS: RankDef[] = [
+// Default rank set: the main Linnean ranks, which are the only ranks the
+// occurrence index currently exposes facets for (each accepts a checklistKey).
+// Pass a different ordered list via the `ranks` prop to build a different tree.
+export const MAJOR_TAXON_RANKS: RankDef[] = [
   { rank: 'KINGDOM', key: 'kingdomKey' },
   { rank: 'PHYLUM', key: 'phylumKey' },
   { rank: 'CLASS', key: 'classKey' },
@@ -15,8 +17,6 @@ export const TAXON_RANKS: RankDef[] = [
   { rank: 'SPECIES', key: 'speciesKey' },
 ];
 
-export const LAST_RANK_INDEX = TAXON_RANKS.length - 1;
-
 // A node is described by the chain of rank constraints from the root down to it.
 // taxonKey === null means "this rank is absent" (the inferred placeholder), which
 // is expressed as an isNull predicate and can be drilled into thanks to negation.
@@ -25,13 +25,14 @@ export type Constraint = { rankIndex: number; taxonKey: string | null };
 export function buildNodePredicate(
   base: Predicate | undefined | null,
   constraints: Constraint[],
+  ranks: RankDef[],
   checklistKey?: string
 ): Predicate | undefined {
   const parts: Predicate[] = [];
   if (base) parts.push(base);
 
   for (const c of constraints) {
-    const key = TAXON_RANKS[c.rankIndex].key;
+    const key = ranks[c.rankIndex].key;
     if (c.taxonKey === null) {
       parts.push({
         type: PredicateType.IsNull,
@@ -57,14 +58,16 @@ export function buildNodePredicate(
 // cardinality of every remaining rank (used to skip empty ranks and detect
 // truncation) and the facet for one specific rank.
 export function buildChildrenQuery({
+  ranks,
   cardinalityFromIndex,
   facetIndex,
 }: {
+  ranks: RankDef[];
   cardinalityFromIndex: number;
   facetIndex: number;
 }): string {
-  const cardinalityRanks = TAXON_RANKS.slice(cardinalityFromIndex);
-  const facetKey = TAXON_RANKS[facetIndex].key;
+  const cardinalityRanks = ranks.slice(cardinalityFromIndex);
+  const facetKey = ranks[facetIndex].key;
   return /* GraphQL */ `
 query taxonTreeChildren($predicate: Predicate, $q: String, $checklistKey: ID, $size: Int) {
   search: occurrenceSearch(predicate: $predicate, q: $q, size: 0) {

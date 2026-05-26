@@ -8,8 +8,6 @@ import {
   buildChildrenQuery,
   buildNodePredicate,
   Constraint,
-  LAST_RANK_INDEX,
-  TAXON_RANKS,
   TaxonBucket,
   TaxonChildrenResult,
   TaxonChildrenVariables,
@@ -38,7 +36,8 @@ export function TaxonChildren({
   parentRankIndex: number;
   parentConstraints: Constraint[];
 }) {
-  const { basePredicate, q, checklistKey } = useTaxonTree();
+  const { basePredicate, q, checklistKey, ranks } = useTaxonTree();
+  const isRoot = parentRankIndex < 0;
   const childStart = parentRankIndex + 1;
   const [facetIndex, setFacetIndex] = useState(childStart);
   const [size, setSize] = useState(DEFAULT_SIZE);
@@ -47,14 +46,14 @@ export function TaxonChildren({
   // stable serialization to avoid refetching expanded nodes unnecessarily.
   const constraintsKey = JSON.stringify(parentConstraints);
   const predicate = useMemo(
-    () => buildNodePredicate(basePredicate, parentConstraints, checklistKey),
+    () => buildNodePredicate(basePredicate, parentConstraints, ranks, checklistKey),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [basePredicate, constraintsKey, checklistKey]
+    [basePredicate, constraintsKey, ranks, checklistKey]
   );
 
   const query = useMemo(
-    () => buildChildrenQuery({ cardinalityFromIndex: childStart, facetIndex }),
-    [childStart, facetIndex]
+    () => buildChildrenQuery({ ranks, cardinalityFromIndex: childStart, facetIndex }),
+    [ranks, childStart, facetIndex]
   );
 
   const { data, loading, error, load } = useQuery<TaxonChildrenResult, TaxonChildrenVariables>(
@@ -76,7 +75,7 @@ export function TaxonChildren({
   // an expandable "No <rank>" placeholder instead of rendering nothing.
   const deeperRankWithData =
     search && buckets.length === 0
-      ? TAXON_RANKS.findIndex((r, i) => i > facetIndex && Number(cardinality[r.key]) > 0)
+      ? ranks.findIndex((r, i) => i > facetIndex && Number(cardinality[r.key]) > 0)
       : -1;
 
   useEffect(() => {
@@ -108,7 +107,7 @@ export function TaxonChildren({
   }
 
   const childRankIndex = facetIndex;
-  const childRank = TAXON_RANKS[childRankIndex];
+  const childRank = ranks[childRankIndex];
   const total = Number(search?.documents?.total ?? 0);
   const sum = buckets.reduce((acc, b) => acc + Number(b.count), 0);
   // With no buckets sum is 0, so the placeholder represents the whole node.
@@ -116,7 +115,13 @@ export function TaxonChildren({
   const truncated = Number(cardinality[childRank.key] ?? 0) > buckets.length;
   const autoExpandSingle = buckets.length === 1 && placeholderCount <= 0;
 
-  if (total <= 0) return null;
+  if (total <= 0) {
+    return isRoot ? (
+      <li className="g-py-1 g-text-sm g-text-slate-400">
+        <FormattedMessage id="phrases.noResults" defaultMessage="No results" />
+      </li>
+    ) : null;
+  }
 
   return (
     <>
@@ -164,8 +169,8 @@ export function TaxonChildren({
 
 function TaxonTreeNode({ node, autoExpand }: { node: TaxonNode; autoExpand: boolean }) {
   const { formatMessage } = useIntl();
-  const { selectedKeys, onToggleSelect } = useTaxonTree();
-  const expandable = node.rankIndex < LAST_RANK_INDEX;
+  const { selectedKeys, onToggleSelect, ranks } = useTaxonTree();
+  const expandable = node.rankIndex < ranks.length - 1;
   const [expanded, setExpanded] = useState(autoExpand);
 
   // A node can become "the only child" after its parent finishes loading.
@@ -188,6 +193,8 @@ function TaxonTreeNode({ node, autoExpand }: { node: TaxonNode; autoExpand: bool
       )
     : node.name;
 
+  // The name segment expands the node; for leaves (deepest rank) it falls back
+  // to toggling the filter so a leaf taxon can still be selected.
   const handleName = () => {
     if (expandable) {
       setExpanded((e) => !e);
@@ -203,37 +210,53 @@ function TaxonTreeNode({ node, autoExpand }: { node: TaxonNode; autoExpand: bool
           type="button"
           onClick={handleName}
           aria-expanded={expandable ? expanded : undefined}
-          className={cn(
-            'gbif-rtl-icon g-flex-none g-flex g-items-center g-justify-center g-w-5 g-h-5 g-me-1 g-text-slate-400',
-            !expandable && 'g-invisible'
-          )}
+          title={displayName}
+          className="g-flex-none g-flex g-items-center g-text-start"
         >
-          <svg
-            className={cn('g-w-3 g-h-3 g-transition-transform', expanded && 'g-rotate-90')}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
+          <span
+            aria-hidden
+            className={cn(
+              'gbif-rtl-icon g-flex-none g-flex g-items-center g-justify-center g-w-5 g-h-5 g-me-1 g-text-slate-400',
+              !expandable && 'g-invisible'
+            )}
           >
-            <path d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-
-        <button
-          type="button"
-          onClick={handleName}
-          className={cn(
-            'g-flex-none g-px-2 g-py-0.5 g-rounded g-border g-border-solid g-bg-white g-text-start',
-            'hover:g-bg-slate-50',
-            isPlaceholder ? 'g-border-dashed g-text-slate-400 g-italic' : 'g-border-slate-200'
-          )}
-        >
-          {displayName}
+            <svg
+              className={cn('g-w-3 g-h-3 g-transition-transform', expanded && 'g-rotate-90')}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+            >
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+          <span
+            className={cn(
+              'g-px-2 g-py-0.5 g-rounded g-border g-border-solid g-bg-white g-whitespace-nowrap',
+              'hover:g-bg-slate-50',
+              isPlaceholder
+                ? 'g-border-dashed g-text-slate-400 g-italic'
+                : selected
+                  ? 'g-border-primary-500'
+                  : 'g-border-slate-200'
+            )}
+          >
+            {displayName}
+          </span>
         </button>
 
         <button
           type="button"
           disabled={isPlaceholder}
+          aria-pressed={isPlaceholder ? undefined : selected}
+          aria-label={
+            isPlaceholder
+              ? undefined
+              : formatMessage(
+                  { id: 'taxonomicTree.filterBy', defaultMessage: 'Filter by {name}' },
+                  { name: node.name }
+                )
+          }
           onClick={() => node.taxonKey != null && onToggleSelect(node.taxonKey)}
           className={cn(
             'g-flex-none g-ms-1 g-px-2 g-py-0.5 g-rounded g-border g-border-solid g-text-sm g-tabular-nums',
