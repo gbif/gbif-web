@@ -10,7 +10,7 @@
     "pleaseLogin": "Veuillez vous connecter pour laisser un commentaire.",
     "pleaseLoginReason": "En raison du volume important de pourriels dans notre système de commentaires, nous exigeons que les utilisateurs se connectent.",
     "sendEmailTo": "Envoyer un courriel à {emailLink}",
-    "emailHelpdesk": "",
+    "emailHelpdesk": "Envoyer un courriel au helpdesk",
     "summary": "Résumé",
     "description": "Description",
     "required": "Obligatoire",
