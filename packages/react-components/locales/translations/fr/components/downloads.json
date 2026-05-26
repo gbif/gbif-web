@@ -46,7 +46,7 @@
     "filterApplied": "Filtre appliqué le {DATE}",
     "query": "Requête",
     "rerunQuery": "Relancer la requête",
-    "complexPredicateWarning": "",
+    "complexPredicateWarning": "Le prédicat est trop complexe pour être converti en filtres standard dans l'interface utilisateur. Cela se produit également si le téléchargement d'origine utilisait une liste de contrôle qui n'est plus utilisée. Il s'affichera alors sous la forme d'une requête complexe pouvant être modifiée au format JSON.",
     "postpone": "Reporter la suppression",
     "deleteDownload": "Supprimer le téléchargement",
     "tellUs": "Parlez-nous de l'utilisation",
@@ -67,7 +67,7 @@
     "downloadStarted": "Le téléchargement a démarré et est en cours de traitement.",
     "downloadExpectTime": "Le téléchargement peut prendre jusqu'à 3 heures à se terminer. La plupart des téléchargements sont terminés en 15 minutes.",
     "notificationEmailAddresses": "Un courriel de notification avec un lien pour télécharger les résultats sera envoyé à l'adresse suivante une fois prêt :",
-    "sqlGeneratedUsingPredicate": "",
+    "sqlGeneratedUsingPredicate": "La requête SQL a été générée à l'aide de ce prédicat",
     "status": {
       "PREPARING": "En préparation",
       "SUSPENDED": "Interrompu",
