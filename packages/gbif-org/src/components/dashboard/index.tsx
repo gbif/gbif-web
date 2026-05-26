@@ -89,3 +89,4 @@ export const Iucn = lazyChart('Iucn');
 export const DataQuality = lazyChart('DataQuality');
 export const OccurrenceSummary = lazyChart('OccurrenceSummary');
 export const OccurrenceTaxonomySunburst = lazyChart('OccurrenceTaxonomySunburst');
+export const OccurrenceTaxonomyTree = lazyChart('OccurrenceTaxonomyTree');

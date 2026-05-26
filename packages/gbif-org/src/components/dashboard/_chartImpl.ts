@@ -9,3 +9,4 @@ export * from './Custom';
 export { DataQuality } from './DataQuality';
 export { OccurrenceSummary } from './OccurrenceSummary';
 export { OccurrenceTaxonomySunburst } from './OccurrenceTaxonomySunburst';
+export { OccurrenceTaxonomyTree } from './OccurrenceTaxonomyTree';

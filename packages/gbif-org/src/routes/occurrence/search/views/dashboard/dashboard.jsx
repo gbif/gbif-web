@@ -281,6 +281,12 @@ const preconfiguredCharts = {
       return <charts.OccurrenceTaxonomySunburst predicate={predicate} {...props} />;
     },
   },
+  taxonomicTree: {
+    translation: 'dashboard.taxonomicTree',
+    component: ({ predicate, ...props }) => {
+      return <charts.OccurrenceTaxonomyTree predicate={predicate} {...props} />;
+    },
+  },
   collectionKey: {
     translation: 'filters.collectionKey.name',
     component: ({ predicate, ...props }) => {
