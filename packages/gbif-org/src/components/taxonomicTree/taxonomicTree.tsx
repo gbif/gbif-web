@@ -1,5 +1,3 @@
-import { Option } from '@/components/filters/option';
-import { TaxonLabel } from '@/components/filters/displayNames';
 import { FilterContext } from '@/contexts/filter';
 import { Predicate } from '@/gql/graphql';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
@@ -16,10 +14,12 @@ export type TaxonomicTreeProps = {
   q?: string;
   checklistKey?: string;
   className?: string;
-  // Override the default filter-backed selection (e.g. from a chart that wants
-  // to drive selection itself). When omitted the component reads/writes the
-  // taxonKey occurrence filter directly.
+  // The currently selected taxa, used to highlight matching nodes. When omitted
+  // the component reads the taxonKey occurrence filter directly.
   selectedKeys?: string[];
+  // Called when a node's count is clicked. When omitted the component toggles
+  // the taxonKey occurrence filter directly. The component never renders the
+  // selection itself — that is left to the surrounding filter UI.
   onToggleSelect?: (taxonKey: string) => void;
 };
 
@@ -63,20 +63,6 @@ export function TaxonomicTree({
   return (
     <TaxonTreeContext.Provider value={contextValue}>
       <div className={cn('g-text-sm', className)}>
-        {selectedKeys.length > 0 && (
-          <div className="g-mb-2 g-pb-2 g-border-b g-border-slate-200" role="group">
-            {selectedKeys.map((key) => (
-              <Option
-                key={key}
-                checked
-                className="g-mb-1"
-                onClick={() => onToggleSelect(key)}
-              >
-                <TaxonLabel id={key} checklistKey={resolvedChecklistKey} />
-              </Option>
-            ))}
-          </div>
-        )}
         <nav aria-label="Taxonomic tree">
           <ul key={resetKey} className="g-m-0 g-p-0 g-list-none">
             <TaxonChildren parentRankIndex={-1} parentConstraints={[]} />
