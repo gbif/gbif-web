@@ -180,7 +180,7 @@ function TaxonTreeNode({ node, autoExpand }: { node: TaxonNode; autoExpand: bool
 
   const displayName = isPlaceholder
     ? formatMessage(
-        { id: 'taxonomicTree.withoutRank', defaultMessage: 'No {rank}' },
+        { id: 'taxonomicTree.unknownRank', defaultMessage: 'Unknown {rank}' },
         { rank: rankLabel }
       )
     : node.name;
