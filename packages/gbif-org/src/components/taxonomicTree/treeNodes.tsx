@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { useQuery } from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
@@ -87,11 +88,7 @@ export function TaxonChildren({
 
   // Loading on first fetch, or while we are advancing past an empty rank.
   if ((loading && buckets.length === 0) || deeperRankWithData !== -1) {
-    return (
-      <li className="g-py-1 g-text-sm g-text-slate-400">
-        <FormattedMessage id="phrases.loading" defaultMessage="Loading…" />
-      </li>
-    );
+    return <TreeChildrenSkeleton />;
   }
 
   if (error && !search) {
@@ -251,5 +248,23 @@ function TaxonTreeNode({ node, autoExpand }: { node: TaxonNode; autoExpand: bool
         </ul>
       )}
     </li>
+  );
+}
+
+const SKELETON_WIDTHS = ['g-w-40', 'g-w-28', 'g-w-32', 'g-w-24'];
+
+function TreeChildrenSkeleton() {
+  return (
+    <>
+      {SKELETON_WIDTHS.map((width, i) => (
+        <li key={i} className="g-list-none">
+          <div className="g-flex g-items-center g-py-0.5">
+            <span className="g-flex-none g-w-5 g-h-5 g-me-1" />
+            <Skeleton className={cn('g-flex-none g-h-6', width)} />
+            <Skeleton className="g-flex-none g-ms-1 g-h-6 g-w-12" />
+          </div>
+        </li>
+      ))}
+    </>
   );
 }
