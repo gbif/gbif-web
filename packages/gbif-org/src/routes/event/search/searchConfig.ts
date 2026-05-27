@@ -51,6 +51,11 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    humboldtAbundanceCap: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -103,6 +108,7 @@ const otherParams = [
   'humboldtTotalAreaSampledValue',
   'humboldtEventDurationValue',
   'humboldtEventDurationUnit',
+  'humboldtAbundanceCap',
   'humboldtTargetTaxonomicScopeUsageName',
   'humboldtIsTaxonomicScopeFullyReported',
 ];
