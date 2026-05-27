@@ -260,7 +260,7 @@ export const EnumFilter = React.forwardRef(
 
     return (
       <div
-        className="g-flex g-flex-col g-overflow-hidden g-max-h-[90dvh]"
+        className="g-flex g-flex-col g-flex-1 g-min-h-0 g-overflow-hidden g-max-h-[var(--radix-popover-content-available-height,90dvh)]"
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             if (typeof onApply === 'function') {

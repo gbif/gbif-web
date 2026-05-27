@@ -294,7 +294,12 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       Object.keys(prunedFilter.mustNot ?? {}).length > 0;
 
     return (
-      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
+      <div
+        className={cn(
+          'g-flex g-flex-col g-flex-1 g-min-h-0 g-max-h-[var(--radix-popover-content-available-height,100dvh)]',
+          className
+        )}
+      >
         <div
           className={cn(
             'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center'

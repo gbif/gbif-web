@@ -31,10 +31,12 @@ const PopoverContent = React.forwardRef<
           ref={ref}
           align={align}
           sideOffset={sideOffset}
+          collisionPadding={8}
           style={{
-            // in theory adding this would make the popover scrollable, but it doesn't work since then we cut of dropdowns within the popover as well
-            // maxHeight: `var(--radix-popover-content-available-height)`,
-            // overflow: "auto",
+            // Cap the popover to the space Radix found for it so it never overflows the viewport
+            // after a flip. We deliberately do NOT set overflow:auto here — that would clip inner
+            // Radix portals and downshift autosuggests. Inner filter content handles its own scroll.
+            maxHeight: `var(--radix-popover-content-available-height)`,
             ...style,
           }}
           className={cn(

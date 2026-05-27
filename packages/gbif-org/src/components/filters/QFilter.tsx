@@ -25,7 +25,12 @@ export const QFilter = React.forwardRef<HTMLInputElement, QFilterProps>(
     }, [filterHash, filterHandle]);
 
     return (
-      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
+      <div
+        className={cn(
+          'g-flex g-flex-col g-flex-1 g-min-h-0 g-max-h-[var(--radix-popover-content-available-height,100dvh)]',
+          className
+        )}
+      >
         <div className="g-flex g-flex-none">
           <SearchInput
             ref={ref}
