@@ -291,82 +291,82 @@
     "dataUseAgreementTitle": "Accord sur l'utilisation des données",
     "dataUseAgreementText": "En téléchargeant ces données, vous reconnaissez avoir lu et accepté les conditions du [contrat d'utilisation des données](/terms/data-user)",
     "largeDownloadAcknowledgment": "Confirmation de téléchargement volumineux",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "largeDownloadEstimatedSize": "La taille estimée du téléchargement est de {size}.",
+    "largeDownloadConnectionSpeed": "Avec une connexion Internet de {speed} Mb/s, le téléchargement prendrait environ {time}.",
+    "largeDownloadDiskSpace": "Une fois le fichier téléchargé, vous aurez besoin d'environ {size} d'espace disque libre pour décompresser les données.",
+    "largeDownloadRowCount": "Le jeu de données contient {count} lignes de données.",
     "largeDownloadExcelWarning": "Un jeu de données de cette taille est difficile à analyser sur votre ordinateur de bureau normal. Vous aurez probablement besoin d’un accès à une sorte de service de calcul partagé.",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Statut des termes",
+    "createDownload": "Créer le téléchargement",
+    "completeRequirements": "Veuillez remplir toutes les conditions requises pour continuer",
     "steps": {
       "quality": {
         "name": "Qualité",
-        "description": ""
+        "description": "Appliquer des filtres de qualité"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Filtrer",
+        "description": "Créer un prédicat de filtrage"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "SQL",
+        "description": "Écrire une requête SQL"
       },
       "format": {
         "name": "Format",
-        "description": ""
+        "description": "Choisir un format de téléchargement"
       },
       "configure": {
         "name": "Configurer",
-        "description": ""
+        "description": "Définir les options et les champs"
       },
       "terms": {
         "name": "Termes",
-        "description": ""
+        "description": "Accepter les conditions générales"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Données d'occurrence simples",
+        "description": "Un fichier CSV seul délimité par des tabulations contenant des données d'occurrence standardisées et interprétées."
       },
       "DWCA": {
         "title": "Archive Darwin Core",
-        "description": ""
+        "description": "Plusieurs fichiers (données de base, valeurs brutes, données interprétées, extensions) pour une utilisation détaillée ou spécialisée. Le téléchargement est personnalisable en sélectionnant les extensions nécessaires."
       },
       "SPECIES_LIST": {
         "title": "Liste des espèces en format CSV",
-        "description": ""
+        "description": "Liste de tous les noms de taxons distincts avec leur nombre d'occurrences."
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Cube d'occurrence",
+        "description": "Nombre d'occurrences dans une grille selon les dimensions taxonomique, spatiale et temporelle. Les dimensions et les agrégations peuvent être configurées à l'étape suivante."
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "SQL",
+        "description": "Requête SQL personnalisée pour extraire des données spécifiques ou effectuer des agrégations. Convient aux utilisateurs avancés maîtrisant SQL."
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "Fichier CSV unique délimité par des tabulations",
+        "multipleCsv": "Plusieurs fichiers CSV",
+        "interpretedData": "Données interprétées uniquement",
+        "rawAndInterpreted": "Données brutes + interprétées",
+        "coordinates": "Coordonnées (si disponibles)",
+        "coordinatesIfSelected": "Coordonnées (si sélectionnées)",
+        "individualOccurrences": "occurrences individuelles",
+        "multimediaLinks": "liens multimédia",
+        "occurrenceCounts": "Nombre d’occurrences"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": "",
+      "title": "référence taxonomique",
+      "description": "Sélectionner la taxonomie qui sera utilisée pour remplir les colonnes taxonomiques dans le téléchargement",
+      "defaultRecommended": "Défaut et recommandé pour la majorité des utilisateurs",
       "version": "Version"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "configuration du cube",
     "invalidSQL": "SQL non valide",
     "title": "Créer un nouveau téléchargement SQL",
     "notification": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'interface utilisateur de recherche d'occurrences. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
@@ -383,7 +383,7 @@
       "EXACT_TAXON": "Taxon exact"
     },
     "cubeTitle": "Télécharger le cube",
-    "cubeDescription": "",
+    "cubeDescription": "configuration spatiale, temporelle et résolution taxonomique",
     "readMore": "En savoir plus",
     "time": {
       "YEAR": "Année",
@@ -466,8 +466,8 @@
     "countHigherTaxonomy": "Nombre d'occurrences à un niveau taxonomique supérieur",
     "coordinateUncertainty": "Inclure une incertitude de coordonnées minimale",
     "errorMinimumDimension": "Au moins une dimension doit être sélectionnée",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "Au moins une dimension doit être sélectionnée",
+    "errorGeneratingSql": "Erreur lors de la génération du SQL",
     "editSql": "Editer en SQL",
     "temporalUncertainty": "Inclure une incertitude temporelle minimale",
     "documentation": "Documentation",
