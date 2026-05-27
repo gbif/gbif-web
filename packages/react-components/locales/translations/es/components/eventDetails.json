@@ -33,7 +33,7 @@
   "extensionTruncated": "Solo se muestran las primeras {shown} de {total} filas.",
   "errors": {
     "taxa": "Error al cargar los taxones",
-    "eventList": "Cofinanciado por"
+    "eventList": "Error al cargar el listado de eventos"
   },
   "info": {
     "original": "Original",
