@@ -220,7 +220,7 @@ const Search = React.forwardRef(
       <div className="g-w-full g-relative">
         <div className="g-w-full g-flex g-flex-col g-gap-1">
           <label className="g-w-fit g-sr-only" {...getLabelProps()}>
-            Search publishers
+            {placeholderText}
           </label>
           {/* <SearchInput placeholder="Search publishers" className="g-w-full" {...getInputProps()} /> */}
           <div
@@ -233,6 +233,7 @@ const Search = React.forwardRef(
             <input
               type="input"
               placeholder={placeholderText}
+              aria-label={placeholderText}
               className={cn(
                 'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-base sm:g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed'
                 // 'focus-visible:g-ring-2 focus-visible:g-ring-blue-400/30 focus-visible:g-ring-offset-0 g-ring-inset',

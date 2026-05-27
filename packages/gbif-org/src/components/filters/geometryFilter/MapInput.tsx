@@ -22,6 +22,7 @@ import proj4 from 'proj4';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { MdDelete, MdEdit, MdZoomIn, MdZoomOut } from 'react-icons/md';
 import { useI18n } from '@/reactRouterPlugins';
+import { useIntl } from 'react-intl';
 
 proj4.defs('EPSG:4326', '+proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
 
@@ -46,6 +47,7 @@ const OpenLayersMap = ({
   geometryList: string[];
   onChange: ({ wkt }: { wkt: string[] }) => void;
 }) => {
+  const { formatMessage } = useIntl();
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<Map | null>(null);
   const [initialGeometries] = useState(geometryList);
@@ -274,6 +276,11 @@ const OpenLayersMap = ({
           <ToggleGroupItem
             value="ZOOM_IN"
             variant="default"
+            aria-label={formatMessage({
+              id: 'filterSupport.location.zoomIn',
+              defaultMessage: 'Zoom in',
+            })}
+            className="g-min-w-11 g-min-h-11"
             onClick={() => {
               if (!map) return;
               const view = map.getView();
@@ -285,6 +292,11 @@ const OpenLayersMap = ({
           <ToggleGroupItem
             value="ZOOM_OUT"
             variant="default"
+            aria-label={formatMessage({
+              id: 'filterSupport.location.zoomOut',
+              defaultMessage: 'Zoom out',
+            })}
+            className="g-min-w-11 g-min-h-11"
             onClick={() => {
               if (!map) return;
               const view = map.getView();
@@ -298,6 +310,11 @@ const OpenLayersMap = ({
           <ToggleGroupItem
             value="DRAW"
             variant={tool === 'DRAW' ? 'primary' : 'default'}
+            aria-label={formatMessage({
+              id: 'filterSupport.location.drawShape',
+              defaultMessage: 'Draw shape',
+            })}
+            className="g-min-w-11 g-min-h-11"
             onClick={() => {
               toggleDrawing();
             }}
@@ -307,6 +324,11 @@ const OpenLayersMap = ({
           <ToggleGroupItem
             value="DELETE"
             variant={tool === 'DELETE' ? 'primary' : 'default'}
+            aria-label={formatMessage({
+              id: 'filterSupport.location.deleteShape',
+              defaultMessage: 'Delete shape',
+            })}
+            className="g-min-w-11 g-min-h-11"
             onClick={() => {
               toggleDelete();
             }}

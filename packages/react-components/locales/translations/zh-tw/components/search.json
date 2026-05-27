@@ -40,7 +40,7 @@
   "addFilters": "",
   "apply": "套用",
   "cancel": "取消",
-  "rankInGroup": "",
+  "rankInGroup": "{rank} 在{group}",
   "options": "選項",
   "sort": {
     "sortBy": "",

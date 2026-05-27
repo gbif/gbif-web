@@ -8,12 +8,12 @@ import { nanoid } from 'nanoid';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { SearchSuggest } from '../searchSelect/searchSuggest';
 import { SimpleTooltip } from '../simpleTooltip';
 import { Button } from '../ui/button';
 import { Card } from '../ui/smallCard';
-import { AboutButton } from './aboutButton';
+import { AboutButton, iconButtonClass } from './aboutButton';
 import {
   AdditionalFilterProps,
   ApplyCancel,
@@ -44,6 +44,7 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     }: RangeProps,
     ref
   ) => {
+    const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<(string | number | object)[]>([]);
@@ -173,13 +174,18 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       }
     }, [type, start, end, singleDate, upperBound, lowerBound, filterHandle, add]);
 
+    const clearLabel = formatMessage({ id: 'filterSupport.clear' });
+    const existenceLabel = formatMessage({ id: 'filterSupport.existence' });
+
     const options = (
       <>
         <div className="g-flex-auto"></div>
-        <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+        <div className="g-flex-none g-flex g-items-center g-text-base">
           {selected.length > 0 && (
             <button
-              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-e"
+              type="button"
+              aria-label={clearLabel}
+              className={cn(iconButtonClass, !!About && 'g-border-e g-me-2')}
               onClick={() => setFullField(filterHandle, [], [])}
             >
               <MdDeleteOutline />
@@ -188,7 +194,8 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
 
           {allowExistence && (
             <button
-              className="g-px-1"
+              type="button"
+              aria-label={existenceLabel}
               onClick={() => {
                 const backup = cleanUpFilter(cloneDeep(filter));
                 setBackupFilter(backup);
@@ -250,7 +257,7 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
         </div>
         <div className="g-flex-auto g-overflow-auto">
           <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
-            <div role="group" className="g-text-sm">
+            <div role="group" className="g-text-base sm:g-text-sm">
               {selected.map((option) => {
                 let helpText;
                 if (typeof option === 'string' || typeof option === 'number') {

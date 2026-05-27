@@ -211,7 +211,7 @@
         "PARENT_EVENT_ID": "父事件ID",
         "RECORDED_BY": "记录者",
         "BASIS_OF_RECORD": "记录基础",
-        "BIOSTRATIGRAPHY": "",
+        "BIOSTRATIGRAPHY": "生物地层学",
         "DATASET_KEY": "数据集"
       }
     }
@@ -276,8 +276,8 @@
     "extensions": "扩展",
     "selectAdditionalExtensions": "",
     "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
+    "selectAll": "全选",
+    "deselectAll": "取消全选",
     "extensionsInfoMessage": "",
     "format": "格式",
     "csvDelimiter": "",

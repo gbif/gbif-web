@@ -26,6 +26,7 @@ import citesController from './api-utils/cites.ctrl';
 import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
 import helperController from './api-utils/helpers.ctrl.js';
+import vsearchCtrl from './api-utils/vsearch.ctrl.js';
 import ipController from './api-utils/ip2country.ctrl.js';
 import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
@@ -141,6 +142,7 @@ async function initializeServer() {
   formController(app);
   geometryController(app);
   helperController(app, server);
+  vsearchCtrl(app);
   sourceArchiveCtrl(app);
   citesController(app);
   app.listen({ port: config.port }, () =>

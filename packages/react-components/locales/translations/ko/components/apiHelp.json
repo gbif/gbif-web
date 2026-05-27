@@ -26,7 +26,11 @@
   "searchDatasets": "모든 데이터셋 받기.",
   "singleNode": "단일 노드 받기.",
   "searchNodes": "노드 검색하기",
+  "singleTaxon": "단일 분류군 받기.",
+  "singleTaxonDetails": "단일 분류군에 대한 상세정보 받기.",
+  "searchTaxa": "분류군 검색.",
   "matchSpecies": "GBIF 근간 분류에 이름 매칭하기.",
   "singleDerivedDataset": "단일 파생 데이터셋 받기",
+  "parseName": "단일 학명 분석",
   "derivedDatasetContributingDatasets": "파생 데이터셋의 기록에 기여하는 데이터셋 받기"
 }

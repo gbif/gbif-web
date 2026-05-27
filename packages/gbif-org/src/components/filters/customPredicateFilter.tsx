@@ -6,13 +6,7 @@ import {
   LuFileText as FileText,
   LuLoader as Loader,
 } from 'react-icons/lu';
-import {
-  MdCleaningServices,
-  MdClose,
-  MdInfoOutline,
-  MdModeEdit,
-  MdPreview,
-} from 'react-icons/md';
+import { MdCleaningServices, MdClose, MdInfoOutline, MdModeEdit, MdPreview } from 'react-icons/md';
 import { interopDefault } from '@/utils/interopDefault';
 import _useLocalStorage from 'use-local-storage';
 // Used to import commonjs module as es6 module

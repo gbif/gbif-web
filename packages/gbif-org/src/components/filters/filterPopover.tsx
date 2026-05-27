@@ -2,9 +2,12 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { MdClose } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { useUncontrolledProp } from 'uncontrollable';
 import { ErrorBoundary } from '../ErrorBoundary';
-import { Dialog, DialogBottomSheetContent, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogBottomSheetContent, DialogTitle, DialogTrigger } from '../ui/dialog';
 import useBelow from '@/hooks/useBelow';
 
 export function FilterPopover({
@@ -79,6 +82,19 @@ export function FilterPopover({
           onPointerDownOutside={() => onApply({ keepOpen: false })}
           className="g-w-full g-p-0"
         >
+          <VisuallyHidden.Root>
+            <DialogTitle>
+              {title ?? <FormattedMessage id="filterSupport.filters" defaultMessage="Filters" />}
+            </DialogTitle>
+          </VisuallyHidden.Root>
+          <button
+            type="button"
+            aria-label="Close filter"
+            onClick={() => onApply({ keepOpen: false })}
+            className="g-absolute g-end-2 g-z-10 g-inline-flex g-items-center g-justify-center g-min-w-11 g-min-h-11 g-rounded g-text-slate-600 hover:g-bg-slate-100"
+          >
+            <MdClose />
+          </button>
           <div className="g-flex g-flex-col g-h-full g-bg-white">
             <ErrorBoundary type="BLOCK">
               <FilterProvider filter={tmpFilter} onChange={onFilterChange}>

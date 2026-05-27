@@ -10,6 +10,8 @@
   "nOccurrences": "{total, plural, one {# 출현} other {# 출현}}",
   "nRecords": "{total, plural, one {# 기록} other {# 기록}}",
   "nTaxa": "{total, plural, one {# 분류군} other {# 분류군}}",
+  "nSpecies": "{total, plural,one {# 종}other {# 종}}",
+  "nAcceptedSpecies": "{total, plural,one {# 승인된 종} other {# 승인된종}}",
   "nCitations": "{total, plural, one {# 인용}other {# 인용}}",
   "nSpecimensInGbif": "{total, plural, one {# GBIF 내 표본기록} other {# GBIF 내 표본기록}}",
   "nNames": "{total, plural, one {# 이름} other {# 이름}}",

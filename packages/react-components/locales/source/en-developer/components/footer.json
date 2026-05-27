@@ -9,6 +9,8 @@
     "citation": "Citation",
     "codeOfConduct": " Code of conduct",
     "acknowledgements": "Acknowledgements",
+    "socialNavAriaLabel": "GBIF on social media",
+    "navAriaLabel": "Footer",
     "contact": "Contact"
   }
 }
