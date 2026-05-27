@@ -436,11 +436,12 @@ export const SamplingEventDetail = ({
                 <nav>
                   <ul className="g-list-none g-m-0 g-p-0 g-my-2">
                     {(() => {
-                      // Extensions render in the page between Humboldt and Issues,
-                      // so splice their TOC entries in at the same spot — Issues
-                      // follows the extensions.
-                      const humboldtIdx = sections.findIndex((s) => s.id === 'humboldt');
-                      const splitAt = humboldtIdx === -1 ? sections.length : humboldtIdx + 1;
+                      // Extensions render on the page just before Issues, so the
+                      // TOC must splice extensions in immediately before the Issues
+                      // entry — otherwise (e.g. no Humboldt section) Issues would
+                      // float above extensions in the TOC but below them on page.
+                      const issuesIdx = sections.findIndex((s) => s.id === 'issues');
+                      const splitAt = issuesIdx === -1 ? sections.length : issuesIdx;
                       const before = sections.slice(0, splitAt);
                       const after = sections.slice(splitAt);
                       return (

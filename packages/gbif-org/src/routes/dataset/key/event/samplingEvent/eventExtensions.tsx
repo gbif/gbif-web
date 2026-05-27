@@ -83,7 +83,7 @@ export function GenericEventExtension({
               onClick={() => setExpanded(true)}
             >
               <FormattedMessage
-                id="eventDetails.showAllNItems"
+                id="phrases.showAllNItems"
                 defaultMessage="Show all {total} items"
                 values={{ total: renderCap }}
               />

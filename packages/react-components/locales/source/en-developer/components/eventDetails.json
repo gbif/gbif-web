@@ -30,7 +30,6 @@
   "media": "Media",
   "record": "Record",
   "relations": "Relations",
-  "showAllNItems": "Show all {n} items",
   "extensionTruncated": "Only the first {shown} of {total} rows are shown.",
   "errors": {
     "taxa": "Error loading taxa",
