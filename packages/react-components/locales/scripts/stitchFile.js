@@ -98,6 +98,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
           .downloadFormat,
         mediaType: getFile(locale, `../${folder}/${locale}/enums/mediaType`),
         occurrenceIssue: getFile(locale, `../${folder}/${locale}/enums/occurrenceIssue`),
+        eventIssue: getFile(locale, `../${folder}/${locale}/enums/eventIssue`),
         occurrenceIssueDescription: getFile(
           locale,
           `../${folder}/${locale}/enums/occurrenceIssueDescription`,
