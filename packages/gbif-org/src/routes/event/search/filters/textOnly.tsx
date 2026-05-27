@@ -1,4 +1,4 @@
-import { IdentityLabel } from '@/components/filters/displayNames';
+import { IdentityLabel, LifeStageLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import { termToGroup } from '../humboldtTerms';
@@ -240,14 +240,13 @@ export const humboldtTargetHabitatScopeConfig: filterSuggestConfig = {
 export const humboldtTargetLifeStageScopeConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'humboldtTargetLifeStageScope',
-  displayName: IdentityLabel,
+  displayName: LifeStageLabel,
   filterTranslation: 'filters.targetLifeStageScope.name',
   allowExistence: true,
   about: () => <Message id="filters.targetLifeStageScope.description" />,
   facetQuery: `
     query humboldtTargetLifeStageScope($query: EventSearchInput, $limit: Int){
       search: eventSearch(query: $query, limit: $limit) {
-        
         facet {
           field: humboldtTargetLifeStageScope {
             name
