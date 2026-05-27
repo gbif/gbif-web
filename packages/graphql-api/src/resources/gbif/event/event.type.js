@@ -335,6 +335,12 @@ export default gql`
     multimedia: [JSON]
     extendedMeasurementOrFact: [JSON]
     humboldtEcologicalInventory: [JSON]
+    reference: [JSON]
+    identifier: [JSON]
+    dnaDerivedData: [JSON]
+    permit: [JSON]
+    preparation: [JSON]
+    releve: [JSON]
   }
 
   type Humboldt {

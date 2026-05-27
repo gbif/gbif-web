@@ -75,6 +75,19 @@ export default {
           event?.extensions?.[
             'http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'
           ],
+        permit:
+          event?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Permit'],
+        preparation:
+          event?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/Preparation'
+          ],
+        dnaDerivedData:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/DNADerivedData'],
+        reference:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
+        identifier:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/Identifier'],
+        releve: event?.extensions?.['http://rs.gbif.org/terms/1.0/Releve'],
       };
       Object.keys(extensions).forEach((key) => {
         const extension = extensions[key];

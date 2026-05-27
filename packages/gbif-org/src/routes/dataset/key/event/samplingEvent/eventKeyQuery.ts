@@ -89,6 +89,12 @@ export const EVENT_KEY_QUERY = /* GraphQL */ `
         measurementOrFact
         multimedia
         extendedMeasurementOrFact
+        reference
+        identifier
+        dnaDerivedData
+        permit
+        preparation
+        releve
       }
       humboldt {
         abundanceCap
