@@ -66,7 +66,7 @@
       "colSpecificEpithet": "Видовой эпитет",
       "colInfraSpecificEpithet": "Внутривидовой эпитет",
       "colAuthorship": "Авторство",
-      "colBracketAuthorship": "Взломанное авторство",
+      "colBracketAuthorship": "",
       "colSensu": "В смысле",
       "colCanonicalName": "Настоящее имя",
       "colCanonicalNameWithMarker": "Настоящее имя с маркером",
