@@ -25,11 +25,13 @@ const InferredEventList = ({
   parentEventID,
   eventID,
   isParentEvent = false,
+  id,
 }: {
   datasetKey: string;
   parentEventID?: string | null;
   eventID?: string | null;
   isParentEvent?: boolean;
+  id?: string;
 }) => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
@@ -58,7 +60,7 @@ const InferredEventList = ({
 
   const events = data?.dataset?.events?.results || [];
   return (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4 g-scroll-mt-24" id={id}>
       <CardHeader>
         <CardTitle>
           {eventID && isParentEvent && (
@@ -77,21 +79,6 @@ const InferredEventList = ({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="g-flex g-justify-center g-items-center">
-          <div className="g-flex-auto"></div>
-
-          {!!parentEventID && !isParentEvent && (
-            <div className="g-flex-none g-font-semibold ">
-              <FormattedMessage id="dataset.parentEvent" defaultMessage={`Parent Event`} />:{' '}
-              <DynamicLink
-                to={`/dataset/${datasetKey}/parentevent/${encodeURIComponent(parentEventID)}`}
-                className="g-text-primary"
-              >
-                {parentEventID}
-              </DynamicLink>
-            </div>
-          )}
-        </div>
         <div style={{ overflow: 'auto' }}>
           <Table removeBorder={false}>
             <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">

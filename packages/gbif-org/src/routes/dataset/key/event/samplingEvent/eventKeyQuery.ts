@@ -44,28 +44,8 @@ export const EVENT_KEY_QUERY = /* GraphQL */ `
       startDayOfYear
       endDayOfYear
       dateIdentified
-      license
-      references
       protocol
-      modified
       issues
-      crawlId
-      lastCrawled
-      lastInterpreted
-      lastParsed
-      datasetID
-      datasetName
-      publishingCountry
-      publishedByGbifRegion
-      publishingOrgKey
-      hostingOrganizationKey
-      installationKey
-      networkKeys
-      programmeAcronym
-      projectId
-      projectTitle
-      fundingAttribution
-      fundingAttributionID
       organismQuantity
       organismQuantityType
       relativeOrganismQuantity

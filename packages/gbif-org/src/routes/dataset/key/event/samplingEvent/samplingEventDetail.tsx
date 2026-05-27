@@ -1,16 +1,19 @@
 import { Classification } from '@/components/classification';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { Taxa } from '@/components/dashboard';
+import { OccurrenceTaxonomySunburst, Taxa } from '@/components/dashboard';
+import EmptyValue from '@/components/emptyValue';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { InstallationLabel, PublisherLabel } from '@/components/filters/displayNames';
-import { OccurrenceIcon } from '@/components/highlights';
+import Globe from '@/components/globe';
+import useBelow from '@/hooks/useBelow';
 import { GeoJsonMap } from '@/components/maps/geojsonMap';
 import { generatePointGeoJson } from '@/components/maps/geojsonMap/generatePointGeoJson';
 import { FormattedDateRange } from '@/components/message';
 import Properties from '@/components/properties';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { Alert } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card, CardContent } from '@/components/ui/largeCard';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { TocLi as Li, Separator } from '@/components/TocHelp';
 import {
   DatasetEventQuery,
@@ -24,10 +27,10 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { Group } from '@/routes/occurrence/key/About/groups';
 import { MediaGallery, MediaGalleryItem } from '@/routes/occurrence/media/MediaGallery';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
-import formatAsPercentage from '@/utils/formatAsPercentage';
 import { cn } from '@/utils/shadcn';
-import { Progress } from '@radix-ui/react-progress';
+import { truncateMiddle } from '@/utils/truncateString';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FaChevronLeft } from 'react-icons/fa';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { EVENT_INSIGHTS_QUERY } from '../eventInsightsQuery';
@@ -68,6 +71,12 @@ export const SamplingEventDetail = ({
 }) => {
   const { eventId, firstOccurrence } = data?.dataset?.events?.results?.[0] ?? {};
   const event = eventData?.event;
+  const hideGlobe = useBelow(800);
+
+  // 404: neither the event API record exists nor does any occurrence on the
+  // dataset reference this eventID. Render a "no such event" panel with a way
+  // back to event search instead of an empty-looking summary.
+  const eventMissing = !event && !data?.dataset?.events?.results?.[0];
 
   const decimalLatitude = event?.decimalLatitude ?? firstOccurrence?.decimalLatitude ?? null;
   const decimalLongitude = event?.decimalLongitude ?? firstOccurrence?.decimalLongitude ?? null;
@@ -75,6 +84,10 @@ export const SamplingEventDetail = ({
   const countryCode = event?.country ?? firstOccurrence?.countryCode;
   const eventDate = event?.eventDate ?? firstOccurrence?.eventDate;
   const eventType = event?.eventType;
+
+  // Occurrence summary (taxa breakdown, ad-hoc map, taxonomy sunburst) is opt-in:
+  // the underlying facet queries are expensive on event-heavy datasets.
+  const [showSummary, setShowSummary] = useState(false);
 
   // Track which extension sub-sections actually rendered, so the TOC can list them.
   const [extToc, setExtToc] = useState<Record<string, boolean>>({});
@@ -112,38 +125,11 @@ export const SamplingEventDetail = ({
             { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
           ],
         },
-        coordinatePredicate: {
-          type: PredicateType.And,
-          predicates: [
-            datasetPredicate,
-            { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
-            { type: PredicateType.Equals, key: 'hasGeospatialIssue', value: 'false' },
-          ],
-        },
-        taxonPredicate: {
-          type: PredicateType.And,
-          predicates: [
-            datasetPredicate,
-            { type: PredicateType.Equals, key: 'issue', value: 'TAXON_MATCH_NONE' },
-          ],
-        },
-        yearPredicate: {
-          type: PredicateType.And,
-          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'year' }],
-        },
       },
     });
   }, [load, datasetKey, eventID]);
 
   const total = insights?.unfiltered?.documents?.total;
-  const withCoordinates = insights?.withCoordinates?.documents?.total;
-  const withYear = insights?.withYear?.documents?.total;
-  const withTaxonMatch =
-    (insights?.unfiltered?.documents?.total ?? 0) -
-    (insights?.withTaxonMatch?.documents?.total ?? 0);
-  const withCoordinatesPercentage = formatAsPercentage(withCoordinates! / total!);
-  const withYearPercentage = formatAsPercentage(withYear! / total!);
-  const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / total!);
 
   const insightImages = insights?.images?.documents?.results ?? [];
   const eventMedia: MediaItem[] = useMemo(
@@ -262,22 +248,6 @@ export const SamplingEventDetail = ({
   const humboldtRecords = (event?.humboldt ?? []).filter(Boolean);
   const hasHumboldt = humboldtRecords.length > 0;
 
-  const hasProvenance = !!(
-    event?.license ||
-    event?.references ||
-    event?.modified ||
-    event?.lastCrawled ||
-    event?.lastInterpreted ||
-    event?.lastParsed ||
-    event?.installationKey ||
-    event?.publishingOrgKey ||
-    (event?.networkKeys ?? []).some(Boolean) ||
-    event?.programmeAcronym ||
-    event?.projectId ||
-    event?.projectTitle ||
-    event?.fundingAttribution
-  );
-
   const sections = useMemo(() => {
     const list: Array<{ id: string; label: React.ReactNode }> = [
       {
@@ -305,16 +275,15 @@ export const SamplingEventDetail = ({
         label: <FormattedMessage id="dataset.childEvents" defaultMessage="Child events" />,
       });
     }
-    if (!!total) {
+    if ((total ?? 0) > 1) {
       list.push({
-        id: 'occurrences',
-        label: <FormattedMessage id="dataset.occurrenceCount" defaultMessage="Occurrences" />,
-      });
-    }
-    if (!!total) {
-      list.push({
-        id: 'taxa',
-        label: <FormattedMessage id="occurrenceDetails.groups.taxon" defaultMessage="Taxa" />,
+        id: 'occurrence-summary',
+        label: (
+          <FormattedMessage
+            id="phrases.occurrenceSummary"
+            defaultMessage="Occurrence summary"
+          />
+        ),
       });
     }
     if (hasMethodology) {
@@ -368,12 +337,6 @@ export const SamplingEventDetail = ({
         label: <FormattedMessage id="occurrenceDetails.groups.issues" defaultMessage="Issues" />,
       });
     }
-    if (hasProvenance) {
-      list.push({
-        id: 'provenance',
-        label: <FormattedMessage id="phrases.provenance" defaultMessage="Provenance" />,
-      });
-    }
     return list;
   }, [
     total,
@@ -385,25 +348,79 @@ export const SamplingEventDetail = ({
     identifiers.length,
     issues.length,
     hasHumboldt,
-    hasProvenance,
   ]);
+
+  if (eventMissing) {
+    return (
+      <div className={className}>
+        {!narrow && (
+          <Classification className="g-m-auto g-max-w-screen-xl g-p-3 g-text-sm g-text-slate-600 g-flex g-items-center g-flex-wrap">
+            <span className="g-inline-flex g-items-center">
+              <DynamicLink
+                pageId={'datasetKey'}
+                variables={{ key: `${datasetKey}/event` }}
+                className="g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-700 g-rounded g-px-2 g-py-0.5 g-leading-none"
+              >
+                <FaChevronLeft aria-hidden className="g-text-xs" />
+                <FormattedMessage id="dataset.allEvents" defaultMessage="All events" />
+              </DynamicLink>
+            </span>
+          </Classification>
+        )}
+        <div className="g-m-auto g-max-w-screen-xl g-p-3">
+          <Alert variant="warning" className="g-mb-4">
+            <FormattedMessage
+              id="dataset.eventNotFound"
+              defaultMessage="We couldn't find an event with this ID on this dataset."
+            />
+          </Alert>
+          <DynamicLink
+            pageId="datasetKey"
+            variables={{ key: `${datasetKey}/event` }}
+          >
+            <Button variant="outline" size="sm">
+              <FaChevronLeft aria-hidden className="g-text-xs g-me-1" />
+              <FormattedMessage
+                id="dataset.backToEventSearch"
+                defaultMessage="Back to event search"
+              />
+            </Button>
+          </DynamicLink>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={className}>
-      <Classification className="g-m-auto g-max-w-screen-xl g-p-3 g-text-sm g-text-slate-600">
-        <span>
-          <DynamicLink
-            pageId={'datasetKey'}
-            variables={{ key: `${datasetKey}/event` }}
-            className="g-text-inherit hover:g-underline"
-          >
-            <FormattedMessage id="dataset.events" defaultMessage={`Events`} />
-          </DynamicLink>
-        </span>
-        <span>
-          <FormattedMessage id="occurrenceFieldNames.eventID" />: {eventID ?? eventId}
-        </span>
-      </Classification>
+      {!narrow && (
+        <Classification className="g-m-auto g-max-w-screen-xl g-p-3 g-text-sm g-text-slate-600 g-flex g-items-center g-flex-wrap">
+          <span className="g-inline-flex g-items-center">
+            <DynamicLink
+              pageId={'datasetKey'}
+              variables={{ key: `${datasetKey}/event` }}
+              className="g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-700 g-rounded g-px-2 g-py-0.5 g-leading-none"
+            >
+              <FaChevronLeft aria-hidden className="g-text-xs" />
+              <FormattedMessage id="dataset.allEvents" defaultMessage="All events" />
+            </DynamicLink>
+          </span>
+          {parentEvent?.eventID && (
+            <span>
+              <DynamicLink
+                pageId="datasetKey"
+                variables={{
+                  key: `${datasetKey}/event/${encodeURIComponent(parentEvent.eventID)}`,
+                }}
+                className="g-text-inherit hover:g-underline"
+              >
+                {truncateMiddle(parentEvent.eventID, 30) || parentEvent.eventID}
+              </DynamicLink>
+            </span>
+          )}
+          <span>{truncateMiddle((eventID ?? eventId) ?? '', 30) || (eventID ?? eventId)}</span>
+        </Classification>
+      )}
       <SamplingEventExperimentalAlert />
       <SidebarLayout
         reverse
@@ -418,27 +435,46 @@ export const SamplingEventDetail = ({
               <Card>
                 <nav>
                   <ul className="g-list-none g-m-0 g-p-0 g-my-2">
-                    {sections.map((s) => (
-                      <Li key={s.id} to={`#${s.id}`}>
-                        {s.label}
-                      </Li>
-                    ))}
-                    {visibleExtensions.length > 0 && (
-                      <>
-                        <Separator />
-                        <Li style={{ color: '#888', fontSize: '85%' }}>
-                          <FormattedMessage id="occurrenceDetails.groups.extensions" />
-                        </Li>
-                        {visibleExtensions.map((ext) => (
-                          <Li key={ext} to={`#${ext}`}>
-                            <FormattedMessage
-                              id={`occurrenceDetails.extensions.${ext}.name`}
-                              defaultMessage={ext}
-                            />
-                          </Li>
-                        ))}
-                      </>
-                    )}
+                    {(() => {
+                      // Extensions render in the page between Humboldt and Issues,
+                      // so splice their TOC entries in at the same spot — Issues
+                      // follows the extensions.
+                      const humboldtIdx = sections.findIndex((s) => s.id === 'humboldt');
+                      const splitAt = humboldtIdx === -1 ? sections.length : humboldtIdx + 1;
+                      const before = sections.slice(0, splitAt);
+                      const after = sections.slice(splitAt);
+                      return (
+                        <>
+                          {before.map((s) => (
+                            <Li key={s.id} to={`#${s.id}`}>
+                              {s.label}
+                            </Li>
+                          ))}
+                          {visibleExtensions.length > 0 && (
+                            <>
+                              <Separator />
+                              <Li style={{ color: '#888', fontSize: '85%' }}>
+                                <FormattedMessage id="occurrenceDetails.groups.extensions" />
+                              </Li>
+                              {visibleExtensions.map((ext) => (
+                                <Li key={ext} to={`#${ext}`}>
+                                  <FormattedMessage
+                                    id={`occurrenceDetails.extensions.${ext}.name`}
+                                    defaultMessage={ext}
+                                  />
+                                </Li>
+                              ))}
+                              {after.length > 0 && <Separator />}
+                            </>
+                          )}
+                          {after.map((s) => (
+                            <Li key={s.id} to={`#${s.id}`}>
+                              {s.label}
+                            </Li>
+                          ))}
+                        </>
+                      );
+                    })()}
                   </ul>
                 </nav>
               </Card>
@@ -494,21 +530,22 @@ export const SamplingEventDetail = ({
                       <MdLink aria-hidden />
                     </DynamicLink>
                   )}
+                  {!!total && (
+                    <DynamicLink
+                      pageId="occurrenceSearch"
+                      searchParams={{ datasetKey, eventId: eventID ?? eventId }}
+                      className="g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-700 g-text-xs g-rounded g-px-2 g-py-1"
+                    >
+                      <FormattedMessage id="counts.nOccurrences" values={{ total }} />
+                      <MdLink aria-hidden />
+                    </DynamicLink>
+                  )}
                 </div>
               </div>
             </div>
 
             <div className="g-mt-4">
               <Properties breakpoint={800} className="[&>dt]:g-w-52">
-                <SimpleProperty label="occurrenceDetails.dataset">
-                  <DynamicLink
-                    pageId="datasetKey"
-                    variables={{ key: datasetKey }}
-                    className="g-text-inherit g-underline"
-                  >
-                    {event?.dataset?.title ?? data?.dataset?.title}
-                  </DynamicLink>
-                </SimpleProperty>
                 <DateLine event={event} fallbackDate={eventDate} />
                 <SampledAtLine
                   event={event}
@@ -521,6 +558,15 @@ export const SamplingEventDetail = ({
                     <GadmRegions gadm={gadm} />
                   </SimpleProperty>
                 )}
+                <SimpleProperty label="occurrenceFieldNames.samplingProtocol">
+                  {event?.samplingProtocol ||
+                    (event?.samplingProtocols as string[] | undefined)
+                      ?.filter(Boolean)
+                      .join(', ') ||
+                    (firstOccurrence?.samplingProtocol ?? [])
+                      .filter((p): p is string => !!p)
+                      .join(', ') || <EmptyValue id="phrases.notProvided" />}
+                </SimpleProperty>
                 {event?.organismQuantity != null && (
                   <SimpleProperty label="occurrenceFieldNames.organismQuantity">
                     {event.organismQuantity}{' '}
@@ -564,7 +610,7 @@ export const SamplingEventDetail = ({
               className="g-mb-4 g-scroll-mt-24"
             >
               {decimalLatitude != null && decimalLongitude != null && (
-                <div className="g-mb-4 g-min-w-64">
+                <div className="g-mb-4 g-min-w-64 g-relative">
                   <StaticRenderSuspence fallback={<div>Loading map...</div>}>
                     <GeoJsonMap
                       geoJson={generatePointGeoJson({
@@ -577,6 +623,14 @@ export const SamplingEventDetail = ({
                       rasterStyle="gbif-natural"
                     />
                   </StaticRenderSuspence>
+                  {!hideGlobe && firstOccurrence?.volatile?.globe && (
+                    <div className="g-absolute g-top-2 g-end-2 g-pointer-events-none g-bg-slate-200/90 g-rounded-full g-shadow-md">
+                      <Globe
+                        {...firstOccurrence.volatile.globe}
+                        className="g-w-14 g-h-14 md:g-w-20 md:g-h-20"
+                      />
+                    </div>
+                  )}
                 </div>
               )}
               <Properties breakpoint={800} className="[&>dt]:g-w-52">
@@ -665,91 +719,73 @@ export const SamplingEventDetail = ({
             />
           )}
 
-          {/* Occurrences insights */}
-          {!!total && (
-            <Group
-              id="occurrences"
-              label="dataset.occurrenceCount"
-              className="g-mb-4 g-scroll-mt-24"
-            >
-              <ErrorBoundary
-                type="BLOCK"
-                errorMessage={<FormattedMessage id="dataset.errors.occurrenceInfo" />}
-              >
-                <div className="g-flex g-text-sm">
-                  <div className="g-flex-none g-me-3">
-                    <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                      <OccurrenceIcon />
-                    </div>
-                  </div>
-                  <div className="g-flex-auto">
-                    <DynamicLink
-                      pageId="occurrenceSearch"
-                      searchParams={{ datasetKey: datasetKey, eventId }}
-                      className="g-text-inherit"
-                    >
-                      <h5 className="g-font-bold">
-                        <FormattedMessage id="counts.nOccurrences" values={{ total }} />
-                      </h5>
-                    </DynamicLink>
-                    {total > 0 && (
-                      <div className="g-text-slate-500 g-mt-2 g-space-y-2 g-max-w-md">
-                        <ProgressLine
-                          label={
-                            <FormattedMessage
-                              id="counts.percentWithCoordinates"
-                              values={{ percent: withCoordinatesPercentage }}
-                            />
-                          }
-                          value={(100 * (withCoordinates ?? 0)) / total}
-                        />
-                        <ProgressLine
-                          label={
-                            <FormattedMessage
-                              id="counts.percentWithYear"
-                              values={{ percent: withYearPercentage }}
-                            />
-                          }
-                          value={(100 * (withYear ?? 0)) / total}
-                        />
-                        <ProgressLine
-                          label={
-                            <FormattedMessage
-                              id="counts.percentWithTaxonMatch"
-                              values={{ percent: withTaxonMatchPercentage }}
-                            />
-                          }
-                          value={(100 * withTaxonMatch) / total}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </ErrorBoundary>
-            </Group>
-          )}
-
-          {/* Taxa */}
-          {!!total && (
-            <Group id="taxa" label="occurrenceDetails.groups.taxon" className="g-mb-4 g-scroll-mt-24">
+          {/* Occurrence summary — opt-in to avoid running expensive facets on every page load.
+              Hidden for events with 0 or 1 occurrence — a breakdown isn't meaningful. */}
+          {(total ?? 0) > 1 && (
+            <div id="occurrence-summary" className="g-mb-4 g-scroll-mt-24">
               <ClientSideOnly>
                 <ErrorBoundary
                   type="BLOCK"
                   errorMessage={<FormattedMessage id="dataset.errors.taxa" />}
                 >
-                  <Taxa
-                    defaultRank={'species'}
-                    predicate={{
-                      type: PredicateType.And,
-                      predicates: [
-                        { type: PredicateType.Equals, key: 'datasetKey', value: datasetKey },
-                        { type: PredicateType.Equals, key: 'eventId', value: eventID },
-                      ],
-                    }}
-                  />
+                  {showSummary ? (
+                    <div className="g-space-y-4">
+                      <Taxa
+                        defaultRank={'species'}
+                        predicate={{
+                          type: PredicateType.And,
+                          predicates: [
+                            { type: PredicateType.Equals, key: 'datasetKey', value: datasetKey },
+                            { type: PredicateType.Equals, key: 'eventId', value: eventID },
+                          ],
+                        }}
+                      />
+                      <OccurrenceTaxonomySunburst
+                        predicate={{
+                          type: PredicateType.And,
+                          predicates: [
+                            { type: PredicateType.Equals, key: 'datasetKey', value: datasetKey },
+                            { type: PredicateType.Equals, key: 'eventId', value: eventID },
+                          ],
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>
+                          <FormattedMessage
+                            id="phrases.occurrenceSummary"
+                            defaultMessage="Occurrence summary"
+                          />
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="g-flex g-items-start g-gap-4">
+                          <p className="g-flex-auto g-min-w-0 g-text-sm g-text-slate-500">
+                            <FormattedMessage
+                              id="dataset.occurrenceSummaryHint"
+                              defaultMessage="A breakdown by taxa and a taxonomic sunburst for this event. The underlying queries can be slow — generate on demand."
+                            />
+                          </p>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="g-flex-none"
+                            onClick={() => setShowSummary(true)}
+                          >
+                            <FormattedMessage
+                              id="dataset.generateOccurrenceSummary"
+                              defaultMessage="Generate summary"
+                            />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
                 </ErrorBoundary>
               </ClientSideOnly>
-            </Group>
+            </div>
           )}
 
           {/* Methodology */}
@@ -861,7 +897,6 @@ export const SamplingEventDetail = ({
             </div>
           )}
 
-          {/* Issues — placed just before Provenance to mirror occurrence-page order */}
           {issues.length > 0 && (
             <Group
               id="issues"
@@ -898,92 +933,6 @@ export const SamplingEventDetail = ({
             </Group>
           )}
 
-          {/* Provenance — matches the low-key occurrence-page Debug section */}
-          {hasProvenance && (
-            <div id="provenance" className="g-mb-4 g-text-sm g-scroll-mt-24">
-              <CardContent>
-                <Properties breakpoint={800} className="[&>dt]:g-w-52 g-text-slate-700">
-                {event?.license && (
-                  <SimpleProperty label="occurrenceFieldNames.license">
-                    {event.license}
-                  </SimpleProperty>
-                )}
-                {event?.references && (
-                  <SimpleProperty label="occurrenceFieldNames.references">
-                    <a
-                      href={event.references}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="g-text-primary g-underline g-break-all"
-                    >
-                      {event.references}
-                    </a>
-                  </SimpleProperty>
-                )}
-                {event?.modified && (
-                  <SimpleProperty label="phrases.modified">{event.modified}</SimpleProperty>
-                )}
-                {event?.lastCrawled && (
-                  <SimpleProperty label="phrases.lastCrawled">{event.lastCrawled}</SimpleProperty>
-                )}
-                {event?.lastInterpreted && (
-                  <SimpleProperty label="phrases.lastInterpreted">
-                    {event.lastInterpreted}
-                  </SimpleProperty>
-                )}
-                {event?.installationKey && (
-                  <SimpleProperty label="occurrenceFieldNames.installationKey">
-                    <DynamicLink
-                      to={`/installation/${event.installationKey}`}
-                      pageId="installationKey"
-                      variables={{ key: event.installationKey }}
-                      className="g-text-inherit g-underline"
-                    >
-                      <InstallationLabel id={event.installationKey} />
-                    </DynamicLink>
-                  </SimpleProperty>
-                )}
-                {event?.publishingOrgKey && (
-                  <SimpleProperty label="occurrenceFieldNames.publisher">
-                    <DynamicLink
-                      to={`/publisher/${event.publishingOrgKey}`}
-                      pageId="publisherKey"
-                      variables={{ key: event.publishingOrgKey }}
-                      className="g-text-inherit g-underline"
-                    >
-                      <PublisherLabel id={event.publishingOrgKey} />
-                    </DynamicLink>
-                  </SimpleProperty>
-                )}
-                {(event?.networkKeys ?? []).filter(Boolean).length > 0 && (
-                  <SimpleProperty label="occurrenceFieldNames.networkKey">
-                    {(event!.networkKeys as string[]).filter(Boolean).join(', ')}
-                  </SimpleProperty>
-                )}
-                {event?.programmeAcronym && (
-                  <SimpleProperty label="occurrenceFieldNames.programme">
-                    {event.programmeAcronym}
-                  </SimpleProperty>
-                )}
-                {(event?.projectId || event?.projectTitle) && (
-                  <SimpleProperty label="occurrenceFieldNames.projectId">
-                    {event?.projectTitle ?? ''}
-                    {event?.projectTitle && event?.projectId ? ' — ' : ''}
-                    {event?.projectId ?? ''}
-                  </SimpleProperty>
-                )}
-                {event?.fundingAttribution && (
-                  <SimpleProperty label="phrases.funding">
-                    {event.fundingAttribution}
-                    {event.fundingAttributionID && (
-                      <span className="g-text-slate-500"> ({event.fundingAttributionID})</span>
-                    )}
-                  </SimpleProperty>
-                )}
-                </Properties>
-              </CardContent>
-            </div>
-          )}
         </div>
       </SidebarLayout>
     </div>
@@ -1107,15 +1056,6 @@ function EventDateText({
   );
 }
 
-function ProgressLine({ label, value }: { label: React.ReactNode; value: number }) {
-  return (
-    <div>
-      <div>{label}</div>
-      <Progress value={value} className="g-h-1" />
-    </div>
-  );
-}
-
 function DateLine({
   event,
   fallbackDate,
@@ -1127,22 +1067,9 @@ function DateLine({
   const hasYmd = event?.year != null || event?.month != null || event?.day != null;
   if (!eventDate && !hasYmd) return null;
   const ymd = [event?.year, event?.month, event?.day].filter((x) => x != null).join('-');
-  const doy =
-    event?.startDayOfYear != null || event?.endDayOfYear != null
-      ? `${event?.startDayOfYear ?? ''}${
-          event?.endDayOfYear && event.endDayOfYear !== event.startDayOfYear
-            ? `–${event.endDayOfYear}`
-            : ''
-        }`
-      : null;
   return (
     <SimpleProperty label="occurrenceFieldNames.eventDate">
       {eventDate ? <EventDateText eventDate={eventDate} /> : ymd}
-      {doy && (
-        <span className="g-text-slate-500 g-ms-2 g-text-xs">
-          (<FormattedMessage id="phrases.dayOfYear" defaultMessage="day of year" />: {doy})
-        </span>
-      )}
     </SimpleProperty>
   );
 }

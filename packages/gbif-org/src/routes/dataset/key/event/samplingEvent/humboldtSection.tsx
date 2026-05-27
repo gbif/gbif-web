@@ -300,29 +300,44 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
           {names.length > 0 && <Row label="humboldt.protocolNames">{names.join(', ')}</Row>}
           {descs.length > 0 && (
             <Row label="humboldt.protocolDescriptions">
-              <ul className="g-list-disc g-ms-5">
-                {descs.map((d, i) => (
-                  <li key={i}>{d}</li>
-                ))}
-              </ul>
+              {descs.length === 1 ? (
+                descs[0]
+              ) : (
+                <ul className="g-list-disc g-ms-5">
+                  {descs.map((d, i) => (
+                    <li key={i}>{d}</li>
+                  ))}
+                </ul>
+              )}
             </Row>
           )}
           {refs.length > 0 && (
             <Row label="humboldt.protocolReferences">
-              <ul className="g-list-disc g-ms-5">
-                {refs.map((r, i) => (
-                  <li key={i}>
-                    <a
-                      href={r}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="g-text-inherit g-underline g-break-all"
-                    >
-                      {r}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {refs.length === 1 ? (
+                <a
+                  href={refs[0]}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="g-text-inherit g-underline g-break-all"
+                >
+                  {refs[0]}
+                </a>
+              ) : (
+                <ul className="g-list-disc g-ms-5">
+                  {refs.map((r, i) => (
+                    <li key={i}>
+                      <a
+                        href={r}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="g-text-inherit g-underline g-break-all"
+                      >
+                        {r}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </Row>
           )}
           {h.abundanceCap != null && <Row label="humboldt.abundanceCap">{h.abundanceCap}</Row>}
@@ -361,11 +376,15 @@ function SamplingDesignBlock({ h }: { h: Humboldt }) {
         {names.length > 0 && <Row label="humboldt.verbatimSiteNames">{names.join(', ')}</Row>}
         {descs.length > 0 && (
           <Row label="humboldt.verbatimSiteDescriptions">
-            <ul className="g-list-disc g-ms-5">
-              {descs.map((d, i) => (
-                <li key={i}>{d}</li>
-              ))}
-            </ul>
+            {descs.length === 1 ? (
+              descs[0]
+            ) : (
+              <ul className="g-list-disc g-ms-5">
+                {descs.map((d, i) => (
+                  <li key={i}>{d}</li>
+                ))}
+              </ul>
+            )}
           </Row>
         )}
       </Properties>

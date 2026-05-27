@@ -24,8 +24,10 @@ export const DATASET_EVENT_QUERY = /* GraphQL */ `
           eventId
           firstOccurrence {
             volatile {
-              globe {
+              globe(sphere: false, land: false, graticule: false) {
                 svg
+                lat
+                lon
               }
             }
             countryCode
@@ -36,6 +38,7 @@ export const DATASET_EVENT_QUERY = /* GraphQL */ `
             decimalLongitude
             parentEventID
             eventID
+            samplingProtocol
           }
         }
       }

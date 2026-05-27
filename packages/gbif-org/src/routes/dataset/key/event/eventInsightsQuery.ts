@@ -1,26 +1,13 @@
-// Shared occurrence-insights query used by both sampling-event and
+// Occurrence-insights query used by both sampling-event and
 // inferred-from-occurrence event detail views to summarise the occurrences
-// that belong to an event.
+// that belong to an event. Kept lean — total + sample images — because the
+// coordinate / year / taxon-match facets are too expensive to run per-event on
+// event-heavy datasets.
 export const EVENT_INSIGHTS_QUERY = /* GraphQL */ `
-  query EventInsights(
-    $imagePredicate: Predicate
-    $coordinatePredicate: Predicate
-    $taxonPredicate: Predicate
-    $yearPredicate: Predicate
-    $datasetPredicate: Predicate
-  ) {
+  query EventInsights($datasetPredicate: Predicate, $imagePredicate: Predicate) {
     unfiltered: occurrenceSearch(predicate: $datasetPredicate) {
       documents(size: 0) {
         total
-      }
-      cardinality {
-        eventId
-      }
-      facet {
-        dwcaExtension {
-          key
-          count
-        }
       }
     }
     images: occurrenceSearch(predicate: $imagePredicate) {
@@ -32,21 +19,6 @@ export const EVENT_INSIGHTS_QUERY = /* GraphQL */ `
             identifier: thumbor(height: 400)
           }
         }
-      }
-    }
-    withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {
-      documents(size: 10) {
-        total
-      }
-    }
-    withTaxonMatch: occurrenceSearch(predicate: $taxonPredicate) {
-      documents(size: 10) {
-        total
-      }
-    }
-    withYear: occurrenceSearch(predicate: $yearPredicate) {
-      documents(size: 10) {
-        total
       }
     }
   }
