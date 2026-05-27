@@ -105,7 +105,7 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
       <div className="g-p-4 g-bg-slate-100">
         <Alert variant="warning">
           <FormattedMessage
-            id="dataset.eventDrawerSamplingEventOnly"
+            id="eventDetails.eventDrawerSamplingEventOnly"
             defaultMessage="Event details in this drawer are only available for sampling event datasets."
           />
         </Alert>

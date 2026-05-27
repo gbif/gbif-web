@@ -83,7 +83,7 @@ export function GenericEventExtension({
               onClick={() => setExpanded(true)}
             >
               <FormattedMessage
-                id="phrases.showAllNItems"
+                id="eventDetails.showAllNItems"
                 defaultMessage="Show all {total} items"
                 values={{ total: renderCap }}
               />
@@ -105,7 +105,7 @@ export function GenericEventExtension({
           {overCap && (
             <div className="g-mt-2 g-text-xs g-text-slate-500">
               <FormattedMessage
-                id="phrases.extensionTruncated"
+                id="eventDetails.extensionTruncated"
                 defaultMessage="Only the first {shown} of {total} items are shown."
                 values={{ shown: MAX_LIMIT, total }}
               />

@@ -8,6 +8,10 @@ import { FormattedMessage } from 'react-intl';
 type Humboldt = NonNullable<NonNullable<NonNullable<EventQuery['event']>['humboldt']>[number]>;
 type Scope = NonNullable<NonNullable<Humboldt['targetTaxonomicScope']>[number]>;
 
+const HEI = 'occurrenceDetails.extensions.humboldtEcologicalInventory';
+const hp = (k: string) => `${HEI}.properties.${k}`;
+const hg = (k: string) => `${HEI}.groups.${k}`;
+
 /**
  * Humboldt-extension section. The Event API returns `humboldt` as a list (one
  * Humboldt record per parent classification target). We iterate and render
@@ -34,7 +38,7 @@ export function HumboldtSection({
         <div className="g-space-y-2">
           <div className="g-text-xs g-text-slate-500">
             <FormattedMessage
-              id="humboldt.recordsHeader"
+              id={`${HEI}.recordsHeader`}
               defaultMessage="{n} Humboldt records — expand to inspect each one."
               values={{ n: records.length }}
             />
@@ -49,11 +53,14 @@ export function HumboldtSection({
                 <span className="g-text-slate-400 g-text-xs g-w-8">#{idx + 1}</span>
                 <span className="g-flex-1 g-truncate">
                   {h.targetTaxonomicScope?.[0]?.usageName ?? (
-                    <FormattedMessage id="phrases.record" defaultMessage="Record" />
+                    <FormattedMessage id="eventDetails.record" defaultMessage="Record" />
                   )}
                   {h.targetTaxonomicScope?.[0]?.usageRank && (
                     <span className="g-ms-2 g-text-xs g-uppercase g-text-slate-400">
-                      {h.targetTaxonomicScope[0].usageRank}
+                      <FormattedMessage
+                        id={`enums.taxonRank.${h.targetTaxonomicScope[0].usageRank}`}
+                        defaultMessage={h.targetTaxonomicScope[0].usageRank}
+                      />
                     </span>
                   )}
                 </span>
@@ -146,11 +153,16 @@ function ScopeEntry({ scope }: { scope: Scope }) {
       <div>
         <ScopeName scope={scope} />
         {scope.usageRank && (
-          <span className="g-ms-2 g-text-xs g-text-slate-500 g-uppercase">{scope.usageRank}</span>
+          <span className="g-ms-2 g-text-sm g-text-slate-500 g-uppercase">
+            <FormattedMessage
+              id={`enums.taxonRank.${scope.usageRank}`}
+              defaultMessage={scope.usageRank}
+            />
+          </span>
         )}
       </div>
       {classification.length > 0 && (
-        <div className="g-mt-0.5 g-text-xs g-text-slate-500">
+        <div className="g-mt-0.5 g-text-sm g-text-slate-500">
           {classification.map((c, i) => (
             <span key={`${c.key}-${i}`}>
               {c.key ? (
@@ -243,14 +255,14 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
   const pills: Pill[] = [
     {
       key: 'isAbundanceReported',
-      label: <FormattedMessage id="humboldt.isAbundanceReported" defaultMessage="Abundance reported" />,
+      label: <FormattedMessage id={hp('isAbundanceReported')} defaultMessage="Abundance reported" />,
       value: h.isAbundanceReported,
     },
     {
       key: 'isAbundanceCapReported',
       label: (
         <FormattedMessage
-          id="humboldt.isAbundanceCapReported"
+          id={hp('isAbundanceCapReported')}
           defaultMessage="Abundance cap reported"
         />
       ),
@@ -260,7 +272,7 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
       key: 'isLeastSpecificTargetCategoryQuantityInclusive',
       label: (
         <FormattedMessage
-          id="humboldt.isLeastSpecificTargetCategoryQuantityInclusive"
+          id={hp('isLeastSpecificTargetCategoryQuantityInclusive')}
           defaultMessage="Least-specific target inclusive"
         />
       ),
@@ -270,7 +282,7 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
       key: 'isVegetationCoverReported',
       label: (
         <FormattedMessage
-          id="humboldt.isVegetationCoverReported"
+          id={hp('isVegetationCoverReported')}
           defaultMessage="Vegetation cover reported"
         />
       ),
@@ -279,13 +291,13 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
     {
       key: 'hasMaterialSamples',
       label: (
-        <FormattedMessage id="humboldt.hasMaterialSamples" defaultMessage="Material samples" />
+        <FormattedMessage id={hp('hasMaterialSamples')} defaultMessage="Material samples" />
       ),
       value: h.hasMaterialSamples,
     },
     {
       key: 'hasVouchers',
-      label: <FormattedMessage id="humboldt.hasVouchers" defaultMessage="Vouchers" />,
+      label: <FormattedMessage id={hp('hasVouchers')} defaultMessage="Vouchers" />,
       value: h.hasVouchers,
     },
   ];
@@ -294,12 +306,12 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
     pills.some((p) => p.value != null);
   if (!show) return null;
   return (
-    <SubBlock title={<FormattedMessage id="humboldt.protocols" defaultMessage="Protocols" />}>
+    <SubBlock title={<FormattedMessage id={hg('protocols')} defaultMessage="Protocols" />}>
       <div className="g-space-y-3">
         <Properties breakpoint={800} className="[&>dt]:g-w-52">
-          {names.length > 0 && <Row label="humboldt.protocolNames">{names.join(', ')}</Row>}
+          {names.length > 0 && <Row label={hp('protocolNames')}>{names.join(', ')}</Row>}
           {descs.length > 0 && (
-            <Row label="humboldt.protocolDescriptions">
+            <Row label={hp('protocolDescriptions')}>
               {descs.length === 1 ? (
                 descs[0]
               ) : (
@@ -312,7 +324,7 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
             </Row>
           )}
           {refs.length > 0 && (
-            <Row label="humboldt.protocolReferences">
+            <Row label={hp('protocolReferences')}>
               {refs.length === 1 ? (
                 <a
                   href={refs[0]}
@@ -340,19 +352,19 @@ function ProtocolsBlock({ h }: { h: Humboldt }) {
               )}
             </Row>
           )}
-          {h.abundanceCap != null && <Row label="humboldt.abundanceCap">{h.abundanceCap}</Row>}
+          {h.abundanceCap != null && <Row label={hp('abundanceCap')}>{h.abundanceCap}</Row>}
           {materials.length > 0 && (
-            <Row label="humboldt.materialSampleTypes">{materials.join(', ')}</Row>
+            <Row label={hp('materialSampleTypes')}>{materials.join(', ')}</Row>
           )}
           {vouchers.length > 0 && (
-            <Row label="humboldt.voucherInstitutions">{vouchers.join(', ')}</Row>
+            <Row label={hp('voucherInstitutions')}>{vouchers.join(', ')}</Row>
           )}
-          {inv.length > 0 && <Row label="humboldt.inventoryTypes">{inv.join(', ')}</Row>}
+          {inv.length > 0 && <Row label={hp('inventoryTypes')}>{inv.join(', ')}</Row>}
           {compTypes.length > 0 && (
-            <Row label="humboldt.compilationTypes">{compTypes.join(', ')}</Row>
+            <Row label={hp('compilationTypes')}>{compTypes.join(', ')}</Row>
           )}
           {compSrc.length > 0 && (
-            <Row label="humboldt.compilationSourceTypes">{compSrc.join(', ')}</Row>
+            <Row label={hp('compilationSourceTypes')}>{compSrc.join(', ')}</Row>
           )}
         </Properties>
         <PillRow pills={pills} />
@@ -368,14 +380,14 @@ function SamplingDesignBlock({ h }: { h: Humboldt }) {
   return (
     <SubBlock
       title={
-        <FormattedMessage id="humboldt.samplingDesign" defaultMessage="Sampling design" />
+        <FormattedMessage id={hg('samplingDesign')} defaultMessage="Sampling design" />
       }
     >
       <Properties breakpoint={800} className="[&>dt]:g-w-52">
-        {h.siteCount != null && <Row label="humboldt.siteCount">{h.siteCount}</Row>}
-        {names.length > 0 && <Row label="humboldt.verbatimSiteNames">{names.join(', ')}</Row>}
+        {h.siteCount != null && <Row label={hp('siteCount')}>{h.siteCount}</Row>}
+        {names.length > 0 && <Row label={hp('verbatimSiteNames')}>{names.join(', ')}</Row>}
         {descs.length > 0 && (
-          <Row label="humboldt.verbatimSiteDescriptions">
+          <Row label={hp('verbatimSiteDescriptions')}>
             {descs.length === 1 ? (
               descs[0]
             ) : (
@@ -403,24 +415,24 @@ function SpatialScopeBlock({ h }: { h: Humboldt }) {
   if (!hasArea && targetHabitat.length + excludedHabitat.length === 0) return null;
   return (
     <SubBlock
-      title={<FormattedMessage id="humboldt.spatialScope" defaultMessage="Spatial scope" />}
+      title={<FormattedMessage id={hg('spatialScope')} defaultMessage="Spatial scope" />}
     >
       <Properties breakpoint={800} className="[&>dt]:g-w-52">
         {(h.geospatialScopeAreaValue != null || h.geospatialScopeAreaUnit) && (
-          <Row label="humboldt.geospatialScopeArea">
+          <Row label={hp('geospatialScopeArea')}>
             {h.geospatialScopeAreaValue} {h.geospatialScopeAreaUnit}
           </Row>
         )}
         {(h.totalAreaSampledValue != null || h.totalAreaSampledUnit) && (
-          <Row label="humboldt.totalAreaSampled">
+          <Row label={hp('totalAreaSampled')}>
             {h.totalAreaSampledValue} {h.totalAreaSampledUnit}
           </Row>
         )}
         {targetHabitat.length > 0 && (
-          <Row label="humboldt.targetHabitatScope">{targetHabitat.join(', ')}</Row>
+          <Row label={hp('targetHabitatScope')}>{targetHabitat.join(', ')}</Row>
         )}
         {excludedHabitat.length > 0 && (
-          <Row label="humboldt.excludedHabitatScope">{excludedHabitat.join(', ')}</Row>
+          <Row label={hp('excludedHabitatScope')}>{excludedHabitat.join(', ')}</Row>
         )}
       </Properties>
     </SubBlock>
@@ -431,10 +443,10 @@ function TemporalScopeBlock({ h }: { h: Humboldt }) {
   if (h.eventDurationValue == null && !h.eventDurationUnit) return null;
   return (
     <SubBlock
-      title={<FormattedMessage id="humboldt.temporalScope" defaultMessage="Temporal scope" />}
+      title={<FormattedMessage id={hg('temporalScope')} defaultMessage="Temporal scope" />}
     >
       <Properties breakpoint={800} className="[&>dt]:g-w-52">
-        <Row label="humboldt.eventDuration">
+        <Row label={hp('eventDuration')}>
           {h.eventDurationValue} {h.eventDurationUnit}
         </Row>
       </Properties>
@@ -451,7 +463,7 @@ function EffortBlock({ h }: { h: Humboldt }) {
       key: 'isSamplingEffortReported',
       label: (
         <FormattedMessage
-          id="humboldt.isSamplingEffortReported"
+          id={hp('isSamplingEffortReported')}
           defaultMessage="Sampling effort reported"
         />
       ),
@@ -460,17 +472,17 @@ function EffortBlock({ h }: { h: Humboldt }) {
   ];
   if (!hasEffort && pills.every((p) => p.value == null)) return null;
   return (
-    <SubBlock title={<FormattedMessage id="humboldt.effort" defaultMessage="Effort" />}>
+    <SubBlock title={<FormattedMessage id={hg('effort')} defaultMessage="Effort" />}>
       <div className="g-space-y-3">
         {hasEffort && (
           <Properties breakpoint={800} className="[&>dt]:g-w-52">
             {(h.samplingEffortValue != null || h.samplingEffortUnit) && (
-              <Row label="humboldt.samplingEffort">
+              <Row label={hp('samplingEffort')}>
                 {h.samplingEffortValue} {h.samplingEffortUnit}
               </Row>
             )}
             {performedBy.length > 0 && (
-              <Row label="humboldt.samplingPerformedBy">{performedBy.join(', ')}</Row>
+              <Row label={hp('samplingPerformedBy')}>{performedBy.join(', ')}</Row>
             )}
           </Properties>
         )}
@@ -496,7 +508,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
     {
       key: 'isAbsenceReported',
       label: (
-        <FormattedMessage id="humboldt.isAbsenceReported" defaultMessage="Absence reported" />
+        <FormattedMessage id={hp('isAbsenceReported')} defaultMessage="Absence reported" />
       ),
       value: h.isAbsenceReported,
     },
@@ -504,7 +516,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
       key: 'isTaxonomicScopeFullyReported',
       label: (
         <FormattedMessage
-          id="humboldt.isTaxonomicScopeFullyReported"
+          id={hp('isTaxonomicScopeFullyReported')}
           defaultMessage="Taxonomic scope fully reported"
         />
       ),
@@ -513,7 +525,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
     {
       key: 'hasNonTargetTaxa',
       label: (
-        <FormattedMessage id="humboldt.hasNonTargetTaxa" defaultMessage="Non-target taxa" />
+        <FormattedMessage id={hp('hasNonTargetTaxa')} defaultMessage="Non-target taxa" />
       ),
       value: h.hasNonTargetTaxa,
     },
@@ -521,7 +533,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
       key: 'areNonTargetTaxaFullyReported',
       label: (
         <FormattedMessage
-          id="humboldt.areNonTargetTaxaFullyReported"
+          id={hp('areNonTargetTaxaFullyReported')}
           defaultMessage="Non-target taxa fully reported"
         />
       ),
@@ -531,7 +543,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
       key: 'hasNonTargetOrganisms',
       label: (
         <FormattedMessage
-          id="humboldt.hasNonTargetOrganisms"
+          id={hp('hasNonTargetOrganisms')}
           defaultMessage="Non-target organisms"
         />
       ),
@@ -541,7 +553,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
       key: 'isDegreeOfEstablishmentScopeFullyReported',
       label: (
         <FormattedMessage
-          id="humboldt.isDegreeOfEstablishmentScopeFullyReported"
+          id={hp('isDegreeOfEstablishmentScopeFullyReported')}
           defaultMessage="Establishment fully reported"
         />
       ),
@@ -551,7 +563,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
       key: 'isGrowthFormScopeFullyReported',
       label: (
         <FormattedMessage
-          id="humboldt.isGrowthFormScopeFullyReported"
+          id={hp('isGrowthFormScopeFullyReported')}
           defaultMessage="Growth form fully reported"
         />
       ),
@@ -561,7 +573,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
       key: 'isLifeStageScopeFullyReported',
       label: (
         <FormattedMessage
-          id="humboldt.isLifeStageScopeFullyReported"
+          id={hp('isLifeStageScopeFullyReported')}
           defaultMessage="Life stage fully reported"
         />
       ),
@@ -586,7 +598,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
     <SubBlock
       title={
         <FormattedMessage
-          id="humboldt.taxonomicOrganismalScope"
+          id={hg('taxonomicOrganismalScope')}
           defaultMessage="Taxonomic & organismal scope"
         />
       }
@@ -594,7 +606,7 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
       <div className="g-space-y-3">
         <Properties breakpoint={800} className="[&>dt]:g-w-52">
           {targets.length > 0 && (
-            <Row label="humboldt.targetTaxonomicScope">
+            <Row label={hp('targetTaxonomicScope')}>
               <div className="g-space-y-2">
                 {targets.map((scope, i) => (
                   <ScopeEntry key={`${scope.usageKey}-${i}`} scope={scope} />
@@ -603,46 +615,46 @@ function TaxonomicOrganismalScopeBlock({ h }: { h: Humboldt }) {
             </Row>
           )}
           {excluded.length > 0 && (
-            <Row label="humboldt.excludedTaxonomicScope">
+            <Row label={hp('excludedTaxonomicScope')}>
               <ScopeNameList scopes={excluded} />
             </Row>
           )}
           {absent.length > 0 && (
-            <Row label="humboldt.absentTaxa">
+            <Row label={hp('absentTaxa')}>
               <ScopeNameList scopes={absent} />
             </Row>
           )}
           {nonTarget.length > 0 && (
-            <Row label="humboldt.nonTargetTaxa">
+            <Row label={hp('nonTargetTaxa')}>
               <ScopeNameList scopes={nonTarget} />
             </Row>
           )}
           {completenessProtocols.length > 0 && (
-            <Row label="humboldt.taxonCompletenessProtocols">
+            <Row label={hp('taxonCompletenessProtocols')}>
               {completenessProtocols.join(', ')}
             </Row>
           )}
           {targetEstablishment.length > 0 && (
-            <Row label="humboldt.targetDegreeOfEstablishmentScope">
+            <Row label={hp('targetDegreeOfEstablishmentScope')}>
               {targetEstablishment.join(', ')}
             </Row>
           )}
           {excludedEstablishment.length > 0 && (
-            <Row label="humboldt.excludedDegreeOfEstablishmentScope">
+            <Row label={hp('excludedDegreeOfEstablishmentScope')}>
               {excludedEstablishment.join(', ')}
             </Row>
           )}
           {targetGrowthForm.length > 0 && (
-            <Row label="humboldt.targetGrowthFormScope">{targetGrowthForm.join(', ')}</Row>
+            <Row label={hp('targetGrowthFormScope')}>{targetGrowthForm.join(', ')}</Row>
           )}
           {excludedGrowthForm.length > 0 && (
-            <Row label="humboldt.excludedGrowthFormScope">{excludedGrowthForm.join(', ')}</Row>
+            <Row label={hp('excludedGrowthFormScope')}>{excludedGrowthForm.join(', ')}</Row>
           )}
           {targetLifeStage.length > 0 && (
-            <Row label="humboldt.targetLifeStageScope">{targetLifeStage.join(', ')}</Row>
+            <Row label={hp('targetLifeStageScope')}>{targetLifeStage.join(', ')}</Row>
           )}
           {excludedLifeStage.length > 0 && (
-            <Row label="humboldt.excludedLifeStageScope">{excludedLifeStage.join(', ')}</Row>
+            <Row label={hp('excludedLifeStageScope')}>{excludedLifeStage.join(', ')}</Row>
           )}
         </Properties>
         <PillRow pills={pills} />

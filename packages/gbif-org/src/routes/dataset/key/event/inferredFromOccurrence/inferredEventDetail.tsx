@@ -170,7 +170,7 @@ export const InferredEventDetail = ({
     if (hasMedia) {
       list.push({
         id: 'media',
-        label: <FormattedMessage id="phrases.media" defaultMessage="Media" />,
+        label: <FormattedMessage id="eventDetails.media" defaultMessage="Media" />,
       });
     }
     if (hasLocation) {
@@ -194,7 +194,7 @@ export const InferredEventDetail = ({
         id: 'occurrence-summary',
         label: (
           <FormattedMessage
-            id="phrases.occurrenceSummary"
+            id="eventDetails.occurrenceSummary"
             defaultMessage="Occurrence summary"
           />
         ),
@@ -214,7 +214,7 @@ export const InferredEventDetail = ({
       <div className={cn('g-pt-8', className)}>
         <Alert variant="warning" className="g-mb-4">
           <FormattedMessage
-            id="dataset.unresolvedInferredEvent"
+            id="eventDetails.unresolvedInferredEvent"
             defaultMessage="We couldn't find a matching event. This dataset is not modelled as an event dataset — events are inferred from occurrence records, and no occurrence on this dataset carries this URL's value as its eventID."
           />
         </Alert>
@@ -232,7 +232,7 @@ export const InferredEventDetail = ({
             className="g-inline-flex g-items-center g-gap-1 g-bg-slate-100 hover:g-bg-slate-200 g-text-slate-700 g-rounded g-px-2 g-py-0.5 g-leading-none"
           >
             <FaChevronLeft aria-hidden className="g-text-xs" />
-            <FormattedMessage id="dataset.allEvents" defaultMessage="All events" />
+            <FormattedMessage id="eventDetails.allEvents" defaultMessage="All events" />
           </DynamicLink>
         </span>
         <span>{truncateMiddle(displayId, 30) || displayId}</span>
@@ -302,7 +302,7 @@ export const InferredEventDetail = ({
                   </SimpleProperty>
                 )}
                 {(countryCode || decimalLatitude != null) && (
-                  <SimpleProperty label="phrases.sampledAt">
+                  <SimpleProperty label="eventDetails.sampledAt">
                     <SampledAt
                       countryCode={countryCode}
                       latitude={decimalLatitude}
@@ -321,7 +321,7 @@ export const InferredEventDetail = ({
           {hasMedia && (
             <Group
               id="media"
-              label="phrases.media"
+              label="eventDetails.media"
               defaultMessage="Media"
               className="g-mb-4 g-scroll-mt-24"
             >
@@ -427,7 +427,7 @@ export const InferredEventDetail = ({
           {/* Sibling or child events */}
           <ErrorBoundary
             type="BLOCK"
-            errorMessage={<FormattedMessage id="dataset.errors.eventList" />}
+            errorMessage={<FormattedMessage id="eventDetails.errors.eventList" />}
           >
             <InferredEventList
               id="events"
@@ -464,7 +464,7 @@ export const InferredEventDetail = ({
                 <ClientSideOnly>
                   <ErrorBoundary
                     type="BLOCK"
-                    errorMessage={<FormattedMessage id="dataset.errors.taxa" />}
+                    errorMessage={<FormattedMessage id="eventDetails.errors.taxa" />}
                   >
                     {showSummary ? (
                       <div className="g-space-y-4">
@@ -476,7 +476,7 @@ export const InferredEventDetail = ({
                         <CardHeader>
                           <CardTitle>
                             <FormattedMessage
-                              id="phrases.occurrenceSummary"
+                              id="eventDetails.occurrenceSummary"
                               defaultMessage="Occurrence summary"
                             />
                           </CardTitle>
@@ -485,7 +485,7 @@ export const InferredEventDetail = ({
                           <div className="g-flex g-items-start g-gap-4">
                             <p className="g-flex-auto g-min-w-0 g-text-sm g-text-slate-500">
                               <FormattedMessage
-                                id="dataset.occurrenceSummaryHint"
+                                id="eventDetails.occurrenceSummaryHint"
                                 defaultMessage="A breakdown by taxa and a taxonomic sunburst for this event. The underlying queries can be slow — generate on demand."
                               />
                             </p>
@@ -496,7 +496,7 @@ export const InferredEventDetail = ({
                               onClick={() => setShowSummary(true)}
                             >
                               <FormattedMessage
-                                id="dataset.generateOccurrenceSummary"
+                                id="eventDetails.generateOccurrenceSummary"
                                 defaultMessage="Generate summary"
                               />
                             </Button>

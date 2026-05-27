@@ -743,7 +743,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "Humboldt Ecological Inventory",
+      "recordsHeader": "{n} Humboldt records — expand to inspect each one.",
+      "groups": {
+        "protocols": "Protocols",
+        "samplingDesign": "Sampling design",
+        "spatialScope": "Spatial scope",
+        "temporalScope": "Temporal scope",
+        "effort": "Effort",
+        "taxonomicOrganismalScope": "Taxonomic & organismal scope"
+      },
       "properties": {
+        "eventDuration": "Event duration",
+        "samplingEffort": "Sampling effort",
+        "geospatialScopeArea": "Geospatial scope area",
+        "totalAreaSampled": "Total area sampled",
         "siteCount": "Site Count",
         "siteNestingDescription": "Site Nesting Description",
         "verbatimSiteDescriptions": "Verbatim Site Descriptions",

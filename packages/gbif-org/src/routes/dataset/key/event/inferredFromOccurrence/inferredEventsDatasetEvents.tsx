@@ -28,7 +28,7 @@ export function InferredEventsNotice() {
   return (
     <Alert variant="warning" className="g-mb-4">
       <FormattedMessage
-        id="dataset.inferredEventsNotice"
+        id="eventDetails.inferredEventsNotice"
         defaultMessage="This dataset is not modelled as an event dataset. The events listed below are inferred from the eventID and parentEventID fields on the occurrence records."
       />
     </Alert>
