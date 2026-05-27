@@ -97,16 +97,15 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         downloadFormat: getFile(locale, `../${folder}/${locale}/enums/downloadFormat`)
           .downloadFormat,
         mediaType: getFile(locale, `../${folder}/${locale}/enums/mediaType`),
+        durationUnit: getFile(locale, `../${folder}/${locale}/enums/durationUnit`).durationUnit,
         occurrenceIssue: getFile(locale, `../${folder}/${locale}/enums/occurrenceIssue`),
         eventIssue: getFile(locale, `../${folder}/${locale}/enums/eventIssue`),
         occurrenceIssueDescription: getFile(
           locale,
           `../${folder}/${locale}/enums/occurrenceIssueDescription`,
         ).occurrenceIssueDescription,
-        eventIssueDescription: getFile(
-          locale,
-          `../${folder}/${locale}/enums/eventIssueDescription`,
-        ).eventIssueDescription,
+        eventIssueDescription: getFile(locale, `../${folder}/${locale}/enums/eventIssueDescription`)
+          .eventIssueDescription,
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),
         taxonRank: getFile(locale, `../${folder}/${locale}/enums/taxonRank`),
         taxonomicStatus: getFile(locale, `../${folder}/${locale}/enums/taxonomicStatus`),

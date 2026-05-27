@@ -300,6 +300,7 @@ export const PurposesLabel = getEnumLabel({ template: (id) => `enums.purposes.${
 export const BasisOfRecordLabel = getEnumLabel({ template: (id) => `enums.basisOfRecord.${id}` });
 export const MediaTypeLabel = getEnumLabel({ template: (id) => `enums.mediaType.${id}` });
 export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` });
+export const DurationUnitLabel = getEnumLabel({ template: (id) => `enums.durationUnit.${id}` });
 export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.${id}` });
 export const GbifRegionLabel = getEnumLabel({ template: (id) => `enums.gbifRegion.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });

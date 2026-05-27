@@ -9,7 +9,12 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { continentConfig, dwcaExtensionConfig, monthConfig } from './filters/enums';
+import {
+  continentConfig,
+  dwcaExtensionConfig,
+  monthConfig,
+  humboldtEventDurationUnitConfig,
+} from './filters/enums';
 import { countryConfig, gadmGidConfig } from './filters/keySuggest';
 import { locationConfig } from './filters/location';
 import {
@@ -35,7 +40,6 @@ import {
   humboldtTargetHabitatScopeConfig,
   humboldtTargetLifeStageScopeConfig,
   humboldtTotalAreaSampledUnitConfig,
-  humboldtEventDurationUnitConfig,
   humboldtTargetTaxonomicScopeUsageNameConfig,
   humboldtMaterialSampleTypesConfig,
   parentEventIdConfig,

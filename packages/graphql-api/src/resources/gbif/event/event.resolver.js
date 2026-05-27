@@ -189,8 +189,8 @@ export default {
     humboldtTotalAreaSampledValue: getEventFacet(
       'humboldtTotalAreaSampledValue',
     ),
-    humboldtEventDurationUnit: getEventFacet('humboldtTargetHabitatScope'),
-    humboldtEventDurationValue: getEventFacet('humboldtTargetHabitatScope'),
+    humboldtEventDurationUnit: getEventFacet('humboldtEventDurationUnit'),
+    humboldtEventDurationValue: getEventFacet('humboldtEventDurationValue'),
     humboldtTargetTaxonomicScopeUsageName: getEventFacet(
       'humboldtTargetTaxonomicScopeUsageName',
     ),
