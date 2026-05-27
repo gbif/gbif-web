@@ -39,9 +39,12 @@ export default function EntityDrawer() {
   let entitylink = null;
   if (key) {
     if (type === 'eventKey') {
-      // Event drawer entityKey is `${datasetKey}___${eventId}`; the canonical page
-      // lives under the dataset route, so build the link from those two parts.
-      const [dsKey, evtId] = key.split('___');
+      // Event drawer entityKey (after `e_` prefix) is `${datasetKey}_${eventId}`.
+      // Dataset keys are UUIDs (no underscores), so the first `_` separates them
+      // from the eventId, which may itself contain underscores.
+      const sepIdx = key.indexOf('_');
+      const dsKey = sepIdx > 0 ? key.slice(0, sepIdx) : '';
+      const evtId = sepIdx > 0 ? key.slice(sepIdx + 1) : '';
       if (dsKey && evtId) {
         entitylink = createLink({
           pageId: 'datasetKey',

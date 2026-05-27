@@ -116,7 +116,7 @@ export function EventTableClient() {
   const [, setPreviewKey] = useEntityDrawer();
 
   const columns = useEventColumns({
-    showPreview: (rowDatasetKey, eventID) => setPreviewKey(`e_${rowDatasetKey}___${eventID}`),
+    showPreview: (rowDatasetKey, eventID) => setPreviewKey(`e_${rowDatasetKey}_${eventID}`),
   });
   if (typeof window !== 'undefined') {
     window.gbif = window.gbif || {};
@@ -129,7 +129,7 @@ export function EventTableClient() {
 
   // update ordered list on items change
   useEffect(() => {
-    setOrderedList(events.map((item) => `e_${item.datasetKey}___${item.eventID}`));
+    setOrderedList(events.map((item) => `e_${item.datasetKey}_${item.eventID}`));
   }, [events, setOrderedList]);
 
   const { availableTableColumns, defaultEnabledTableColumns } =
