@@ -1,4 +1,4 @@
-import { IdentityLabel } from '@/components/filters/displayNames';
+import { booleanLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterBoolConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import { termToGroup } from '../humboldtTerms';
@@ -6,7 +6,7 @@ import { termToGroup } from '../humboldtTerms';
 export const humboldtIsAbundanceCapReportedConfig: filterBoolConfig = {
   filterType: filterConfigTypes.OPTIONAL_BOOL,
   filterHandle: 'humboldtIsAbundanceCapReported',
-  displayName: IdentityLabel,
+  displayName: booleanLabel,
   filterTranslation: 'filters.isAbundanceCapReported.name',
   facetQuery: `
     query HumboldtIsAbundanceCapReported($query: EventSearchInput){
@@ -28,7 +28,7 @@ export const humboldtIsAbundanceCapReportedConfig: filterBoolConfig = {
 export const humboldtIsAbundanceReportedConfig: filterBoolConfig = {
   filterType: filterConfigTypes.OPTIONAL_BOOL,
   filterHandle: 'humboldtIsAbundanceReported',
-  displayName: IdentityLabel,
+  displayName: booleanLabel,
   filterTranslation: 'filters.isAbundanceReported.name',
   facetQuery: `
     query HumboldtIsAbundanceCapReported($query: EventSearchInput){
@@ -50,7 +50,7 @@ export const humboldtIsAbundanceReportedConfig: filterBoolConfig = {
 export const humboldtIsTaxonomicScopeFullyReportedConfig: filterBoolConfig = {
   filterType: filterConfigTypes.OPTIONAL_BOOL,
   filterHandle: 'humboldtIsTaxonomicScopeFullyReported',
-  displayName: IdentityLabel,
+  displayName: booleanLabel,
   filterTranslation: 'filters.isTaxonomicScopeFullyReported.name',
   facetQuery: `
     query HumboldtIsTaxonomicScopeFullyReported($query: EventSearchInput){
