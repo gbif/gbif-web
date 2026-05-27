@@ -12,6 +12,7 @@
   "deletedOnDate": "删除于 {date}",
   "replacedBy": "由{newItem}取代",
   "showAll": "显示全部",
+  "showAllNItems": "",
   "viewAllImages": "",
   "share": "共享",
   "identifier": "标识符",
