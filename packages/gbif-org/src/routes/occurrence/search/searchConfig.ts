@@ -19,6 +19,26 @@ const config: FilterConfigType = {
       v1: {
         supportedTypes: ['equals'],
       },
+      // The stored value is the user's full predicate — either a JSON string
+      // (when set via the custom predicate filter UI) or an already-parsed
+      // object (when loaded from the URL via querystring.tryParse). Return it
+      // as the predicate directly, instead of letting the generic logic wrap
+      // it in an equals-shaped envelope that leaves a stray `key` field on
+      // download predicates.
+      serializer: ({ values }): Predicate | null => {
+        const raw = values?.[0];
+        if (raw == null) return null;
+        let parsed: unknown = raw;
+        if (typeof raw === 'string') {
+          try {
+            parsed = JSON.parse(raw);
+          } catch {
+            return null;
+          }
+        }
+        if (!parsed || typeof parsed !== 'object') return null;
+        return parsed as Predicate;
+      },
     },
     geometry: {
       defaultType: PredicateType.Within,
