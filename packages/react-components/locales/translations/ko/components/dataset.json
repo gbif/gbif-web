@@ -89,6 +89,7 @@
   "studyArea": "연구 영역",
   "publishedBy": "발행자",
   "mediatedBy": "중개자",
+  "extensions": "",
   "description": "설명",
   "metadataLanguage": "메타데이터 언어",
   "dataLanguage": "데이터 언어",
