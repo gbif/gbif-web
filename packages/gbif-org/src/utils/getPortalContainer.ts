@@ -1,19 +1,24 @@
+import React from 'react';
+
 /**
- * Gets the appropriate container for portaling components (Select, Popover, DropdownMenu, etc.)
- * to ensure they are rendered within dialogs/drawers when present.
+ * Context that lets a Dialog/Drawer publish its content node so descendant
+ * popovers, dropdowns, selects and toasts can portal into it instead of
+ * `document.body`. This is needed because modal dialogs use `aria-hidden`
+ * on body siblings; portaling into the dialog's content keeps popovers
+ * accessible to screen readers.
  *
- * This function checks for container classes in order of priority:
- * 1. `.dialog-popover-container` - for dialog/modal containers
- * 2. `.drawer-popover-container` - for drawer containers
- * 3. Falls back to `document.body` if neither is found
- *
- * @returns The HTMLElement container to use for portaling, or undefined on server-side
+ * Components outside of any dialog/drawer get `null` from context and fall
+ * back to `document.body`. This avoids the stale-reference bug that arose
+ * when `document.querySelector('.drawer-popover-container')` was called
+ * during the render that closed the drawer — the container would be
+ * captured just before unmount, leaving the Portal pointing to a detached
+ * DOM node.
  */
-export function getPortalContainer(): HTMLElement | undefined {
+export const PortalContainerContext = React.createContext<HTMLElement | null>(null);
+
+export function usePortalContainer(): HTMLElement | undefined {
+  const fromContext = React.useContext(PortalContainerContext);
+  if (fromContext) return fromContext;
   if (typeof window === 'undefined') return undefined;
-  return (
-    document.querySelector<HTMLElement>('.dialog-popover-container') ??
-    document.querySelector<HTMLElement>('.drawer-popover-container') ??
-    document.body
-  );
+  return document.body;
 }

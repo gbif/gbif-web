@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
 import { useKeyboardHeight } from '@/hooks/useKeyboardHeight';
+import { PortalContainerContext } from '@/utils/getPortalContainer';
 
 const Dialog = DialogPrimitive.Root;
 
@@ -68,12 +69,21 @@ const DialogBottomSheetContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, style, ...props }, ref) => {
   const keyboardHeight = useKeyboardHeight();
+  const [contentNode, setContentNode] = React.useState<HTMLDivElement | null>(null);
+  const composedRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      setContentNode(node);
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    },
+    [ref]
+  );
 
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
-        ref={ref}
+        ref={composedRef}
         className={cn(
           'gbif dialog-popover-container g-z-50 g-bg-background g-border-0 g-border-t g-border-solid',
           'g-fixed g-w-full g-top-[75px] g-start-0 g-end-0 g-bottom-auto',
@@ -88,7 +98,9 @@ const DialogBottomSheetContent = React.forwardRef<
         }}
         {...props}
       >
-        {children}
+        <PortalContainerContext.Provider value={contentNode}>
+          {children}
+        </PortalContainerContext.Provider>
       </DialogPrimitive.Content>
     </DialogPortal>
   );

@@ -5,7 +5,7 @@ import * as React from 'react';
 import { createPortal } from 'react-dom';
 
 import { cn } from '@/utils/shadcn';
-import { getPortalContainer } from '@/utils/getPortalContainer';
+import { usePortalContainer } from '@/utils/getPortalContainer';
 
 const ToastProvider = ToastPrimitives.Provider;
 
@@ -13,7 +13,7 @@ const ToastViewport = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Viewport>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
 >(({ className, ...props }, ref) => {
-  const container = getPortalContainer();
+  const container = usePortalContainer();
   const viewport = (
     <ToastPrimitives.Viewport
       ref={ref}
