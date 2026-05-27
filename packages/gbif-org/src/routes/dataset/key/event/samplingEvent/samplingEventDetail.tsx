@@ -920,10 +920,10 @@ export const SamplingEventDetail = ({
                     {issues.map((issue) => (
                       <tr key={issue}>
                         <td>
-                          <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />
+                          <FormattedMessage id={`enums.eventIssue.${issue}`} />
                         </td>
                         <td dir="auto">
-                          <FormattedMessage id={`enums.occurrenceIssueDescription.${issue}`} />
+                          <FormattedMessage id={`enums.eventIssueDescription.${issue}`} />
                         </td>
                       </tr>
                     ))}
