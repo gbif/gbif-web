@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "Extension DwC-A",
     "count": "",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
@@ -86,17 +86,17 @@
     "description": "Quelle est l'audience de la ressource. "
   },
   "biostratigraphy": {
-    "name": "",
+    "name": "Biostratigraphie",
     "count": "",
     "description": ""
   },
   "lithostratigraphy": {
-    "name": "",
+    "name": "Lithostratigraphie",
     "count": "",
     "description": ""
   },
   "geologicalTime": {
-    "name": "",
+    "name": "Temps géologique",
     "count": "",
     "description": ""
   },
