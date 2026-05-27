@@ -31,6 +31,11 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    humboldtSiteCount: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
     humboldtTotalAreaSampledValue: {
       v1: {
         supportedTypes: ['range', 'equals'],
@@ -59,6 +64,7 @@ const otherParams = [
 
   'eventId',
   'eventType',
+  'parentEventId',
 
   'locality',
   'samplingProtocol',

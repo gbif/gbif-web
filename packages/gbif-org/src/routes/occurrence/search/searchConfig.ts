@@ -141,6 +141,7 @@ const otherParams = [
   'organismId',
   'higherGeography',
   'eventId',
+  'parentEventId',
   'fieldNumber',
   'taxonId',
 

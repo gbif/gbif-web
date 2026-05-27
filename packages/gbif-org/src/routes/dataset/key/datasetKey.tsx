@@ -73,6 +73,9 @@ const DATASET_QUERY = /* GraphQL */ `
         key
         title
       }
+      dwca {
+        extensions
+      }
       pubDate
       description
       dataLanguage
@@ -380,10 +383,10 @@ export function DatasetPage() {
   const showSpeciesTab =
     dataset.type === DatasetType.Checklist && dataset.checklistBankDataset != null;
   const withEventId = occData?.withEvents?.documents?.total || 0;
-  const showEventsTab =
-    (config.datasetKey?.showEvents && withEventId > 0) ||
-    (dataset.type === DatasetType.SamplingEvent &&
-      import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled');
+  const hasSamplingEvents =
+    dataset.type === DatasetType.SamplingEvent &&
+    import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
+  const showEventsTab = config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents);
   const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
@@ -428,7 +431,7 @@ export function DatasetPage() {
     }
     if (showEventsTab) {
       tabsToDisplay.push({
-        to: 'events',
+        to: 'event',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }

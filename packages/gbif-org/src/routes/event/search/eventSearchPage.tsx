@@ -13,6 +13,7 @@ import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { MdDeleteOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -137,9 +138,13 @@ export function EventSearchInner(): React.ReactElement {
     defaultValue: defaultView,
     hideDefault: true,
   });
-
+  const location = useLocation();
   return (
-    <ErrorBoundary showStackTrace showReportButton>
+    <ErrorBoundary
+      showStackTrace
+      showReportButton
+      invalidateOn={location.pathname + location.search}
+    >
       <EntityDrawer />
       <section className="g-bg-white">
         <Card>

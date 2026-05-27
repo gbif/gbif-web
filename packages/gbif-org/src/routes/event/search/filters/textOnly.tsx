@@ -2,6 +2,7 @@ import { IdentityLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import { termToGroup } from '../humboldtTerms';
+
 export const eventIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'eventId',
@@ -15,6 +16,29 @@ export const eventIdConfig: filterSuggestConfig = {
       search: eventSearch(query: $query, limit: $limit) {
         facet {
           field: eventId {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  group: 'event',
+};
+
+export const parentEventIdConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'parentEventId',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.parentEventId.name',
+  allowExistence: false,
+  allowNegations: false,
+  about: () => <Message id="filters.parentEventId.description" />,
+  facetQuery: /* GraphQL */ `
+    query ParentEventEventIdFacet($query: EventSearchInput, $limit: Int) {
+      search: eventSearch(query: $query, limit: $limit) {
+        facet {
+          field: parentEventId {
             name
             count
           }

@@ -1,10 +1,6 @@
-import { get } from 'lodash';
 import { RESTDataSource } from 'apollo-datasource-rest';
-import { Parser } from 'xml2js';
 import { stringify } from 'qs';
 import { getDefaultAgent } from '@/requestAgents';
-
-const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
 
 class EventAPI extends RESTDataSource {
   constructor(config) {
@@ -83,31 +79,6 @@ class EventAPI extends RESTDataSource {
     }
   }
 
-  /* 
-  searchEvents = async ({ query }) => {
-    const body = { ...query, includeMeta: true };
-    console.log(JSON.stringify(body));
-    let response;
-    if (JSON.stringify(body).length < urlSizeLimit) {
-      response = await this.get(
-        '/event',
-        { body: JSON.stringify(body) },
-        { signal: this.context.abortController.signal },
-      );
-    } else {
-      response = await this.post('/event', body, {
-        signal: this.context.abortController.signal,
-      });
-    }
-    // map to support APIv1 naming
-    response.documents.count = response.documents.total;
-    response.documents.limit = response.documents.size;
-    response.documents.offset = response.documents.from;
-    response._predicate = body.predicate;
-    response._q = query.q;
-    return response;
-  }; */
-
   searchEvents = async ({ query, limit, offset }) => {
     const response = await this.get(
       '/event/search',
@@ -119,6 +90,19 @@ class EventAPI extends RESTDataSource {
 
   async getEventByKey({ eventId, datasetKey }) {
     return this.get(`/event/${datasetKey}/${encodeURIComponent(eventId)}`);
+  }
+
+  async getEventLineage({ eventId, datasetKey }) {
+    return this.get(
+      `/event/${datasetKey}/${encodeURIComponent(eventId)}/lineage`,
+    );
+  }
+
+  async getEventSubEvents({ eventId, datasetKey, limit, offset }) {
+    return this.get(
+      `/event/${datasetKey}/${encodeURIComponent(eventId)}/subEvents`,
+      stringify({ limit, offset }, { indices: false }),
+    );
   }
 }
 

@@ -130,6 +130,7 @@ export function Groups({
 
 export function Group({
   label,
+  defaultMessage,
   children,
   description,
   id,
@@ -137,6 +138,7 @@ export function Group({
   ...props
 }: {
   label: string;
+  defaultMessage?: string;
   id: string;
   description?: React.ReactNode;
   children: React.ReactNode;
@@ -146,7 +148,7 @@ export function Group({
     <Card className={cn('g-mb-4', className)} id={id}>
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id={label} />
+          <FormattedMessage id={label} defaultMessage={defaultMessage} />
         </CardTitle>
         {description && <CardDescription dir="auto">{description}</CardDescription>}
       </CardHeader>

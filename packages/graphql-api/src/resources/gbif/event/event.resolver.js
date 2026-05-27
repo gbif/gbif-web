@@ -1,5 +1,23 @@
 /* eslint-disable no-param-reassign */
 import { formattedCoordinates, simplifyUrlObjectKeys } from '@/helpers/utils';
+import config from '@/config';
+
+/**
+ * Pick scopes from a {checklistKey: [scope, ...]} map.
+ * If a checklistKey is provided, returns only that list.
+ * Otherwise returns the flattened union across all checklists.
+ */
+const pickTaxonomicScopes = (
+  map,
+  checklistKey = config.defaultChecklistKey,
+) => {
+  if (!map || typeof map !== 'object') return null;
+  if (checklistKey) {
+    const list = map[checklistKey];
+    return Array.isArray(list) ? list : null;
+  }
+  return Object.values(map).filter(Array.isArray).flat();
+};
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 
@@ -79,18 +97,47 @@ export default {
       });
     },
     parentEvent: (
-      { datasetKey, parentEventId: key },
+      { datasetKey, parentEventID: key },
       query,
       { dataSources },
     ) => {
       if (typeof key === 'undefined' || key === null) return null;
       return dataSources.eventAPI.getEventByKey({ eventId: key, datasetKey });
     },
-
-    /* dataset: ({ datasetKey }, query, { dataSources }) => {
-      if (typeof datasetKey === 'undefined' || datasetKey === null) return null;
-      return dataSources.eventAPI.getDatasetEML({ datasetKey });
-    }, */
+    lineage: ({ datasetKey, eventID }, args, { dataSources }) => {
+      if (!datasetKey || !eventID) return null;
+      return dataSources.eventAPI.getEventLineage({
+        eventId: eventID,
+        datasetKey,
+      });
+    },
+    subEvents: (
+      { datasetKey, eventID },
+      { limit, offset },
+      { dataSources },
+    ) => {
+      if (!datasetKey || !eventID) return null;
+      return dataSources.eventAPI.getEventSubEvents({
+        eventId: eventID,
+        datasetKey,
+        limit,
+        offset,
+      });
+    },
+    dataset: ({ datasetKey }, _args, { dataSources }) => {
+      if (!datasetKey) return null;
+      return dataSources.datasetAPI.getDatasetByKey({ key: datasetKey });
+    },
+  },
+  Humboldt: {
+    targetTaxonomicScope: ({ targetTaxonomicScope }, { checklistKey }) =>
+      pickTaxonomicScopes(targetTaxonomicScope, checklistKey),
+    excludedTaxonomicScope: ({ excludedTaxonomicScope }, { checklistKey }) =>
+      pickTaxonomicScopes(excludedTaxonomicScope, checklistKey),
+    nonTargetTaxa: ({ nonTargetTaxa }, { checklistKey }) =>
+      pickTaxonomicScopes(nonTargetTaxa, checklistKey),
+    absentTaxa: ({ absentTaxa }, { checklistKey }) =>
+      pickTaxonomicScopes(absentTaxa, checklistKey),
   },
   EventSearchResult: {
     facet: (parent) => ({
@@ -108,6 +155,7 @@ export default {
     month: getEventFacet('month'),
     year: getEventFacet('year'),
     eventId: getEventFacet('eventId'),
+    parentEventId: getEventFacet('parentEventId'),
     dwcaExtension: getEventFacet('dwcaExtension'),
     samplingProtocol: getEventFacet('samplingProtocol'),
     eventType: getEventFacet('eventType'),

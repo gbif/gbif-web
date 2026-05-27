@@ -187,6 +187,29 @@ export const eventIdConfig: filterSuggestConfig = {
   group: 'event',
 };
 
+export const parentEventIdConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'parentEventId',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.parentEventId.name',
+  allowExistence: true,
+  allowNegations: true,
+  about: () => <Message id="filters.parentEventId.description" />,
+  facetQuery: /* GraphQL */ `
+    query OccurrenceParentEventIdFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: parentEventId(size: 10) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  group: 'event',
+};
+
 export const fieldNumberConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'fieldNumber',

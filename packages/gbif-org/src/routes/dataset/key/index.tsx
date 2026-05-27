@@ -61,7 +61,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
       loader: datasetTaxonLoader,
     },
     {
-      path: 'events',
+      path: 'event',
       element: <DatasetEvents />,
       loader: datasetLoader,
     },
@@ -73,7 +73,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'parentevent/:parentEventID',
       element: <DatasetEventID />,
-      loader: parentEventLoader,
+      loader: ({ params }: LoaderArgs) => redirectDocument(`../event/${params.parentEventID}`),
     },
     {
       path: 'download',

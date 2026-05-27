@@ -60,7 +60,6 @@ export function GenericEventExtension({
                 item={item}
                 extensionName={extensionName}
                 overwrites={overwrites}
-                style={{ fontSize: '90%' }}
               />
             </ListCard>
           ))}

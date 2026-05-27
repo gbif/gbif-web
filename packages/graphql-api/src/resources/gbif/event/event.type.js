@@ -170,66 +170,110 @@ export default gql`
   type Event {
     eventID: ID!
     eventType: String
-    eventName: String
     parentEventID: ID
     datasetKey: String
-    locality: String
-    datasetTitle: String
     samplingProtocol: String
+    samplingProtocols: [String]
     sampleSizeUnit: String
     sampleSizeValue: Float
     stateProvince: String
     country: Country
-    countryCode: String
+    continent: String
+    waterBody: String
     year: Int
     month: Int
     day: Int
+    startDayOfYear: Int
+    endDayOfYear: Int
     eventDate: EventDate
+    dateIdentified: String
     decimalLatitude: Float
     decimalLongitude: Float
-    occurrenceCount: Int
-    childEventCount: Int
+    coordinatePrecision: Float
+    coordinateUncertaintyInMeters: Float
+    distanceFromCentroidInMeters: Float
+    geodeticDatum: String
+    depth: Float
+    depthAccuracy: Float
+    elevation: Float
+    elevationAccuracy: Float
     coordinates: JSON
     formattedCoordinates: String
-    measurementOrFactTypes: [String]
-    measurementOrFactMethods: [String]
     parentEvent: Event
-    # measurementOrFacts: [Measurement]
-    eventHierarchy: [String]
-    eventHierarchyJoined: String
-    eventTypeHierarchy: [String]
-    eventTypeHierarchyJoined: String
-    eventHierarchyLevels: Int
-    eventRemarks: String
+    """
+    Resolved dataset for this event (registry lookup by datasetKey).
+    """
+    dataset: Dataset
+    """
+    Parents of this event, from immediate parent up to the root, as returned by the dataset.
+    Note: the upstream REST endpoint sometimes includes the event itself as the
+    first entry. Consumers should filter self-references.
+    """
+    parentsLineage: [ParentLineage]
+    """
+    Full lineage of this event (REST endpoint /lineage). Each entry is an ancestor with its eventID/parentEventID.
+    """
+    lineage: [Lineage]
+    """
+    Sub-events (direct children) of this event, paged. Powered by the REST endpoint /subEvents.
+    """
+    subEvents(limit: Int, offset: Int): SubEventsResult
     locationID: String
-    """
-    Get number of distinct species for this event and its children
-    """
-    parentsLineage: [EventLineageNode]
+    license: String
+    references: String
+    protocol: String
+    issues: [String]
+    modified: String
+    lastCrawled: String
+    lastInterpreted: String
+    lastParsed: String
+    crawlId: Int
+    datasetID: String
+    datasetName: String
+    publishingCountry: String
+    publishedByGbifRegion: String
+    publishingOrgKey: ID
+    hostingOrganizationKey: ID
+    installationKey: ID
+    networkKeys: [ID]
+    programmeAcronym: String
+    projectId: String
+    projectTitle: String
+    fundingAttribution: String
+    fundingAttributionID: String
+    organismQuantity: Float
+    organismQuantityType: String
+    relativeOrganismQuantity: Float
+    preparations: String
+    media: [MultimediaItem]
+    facts: [JSON]
+    relations: [JSON]
+    identifiers: [Identifier]
+    gadm: JSON
     extensions: EventExtensions
     humboldt: [Humboldt]
+  }
+
+  type Lineage {
+    id: String
+    eventID: String
+    parentEventID: String
+  }
+
+  type ParentLineage {
+    id: String
+    eventType: String
+  }
+
+  type SubEventsResult {
+    endOfRecords: Boolean
+    count: Int
+    results: [Event]
   }
 
   type EventDate {
     from: String
     to: String
-  }
-
-  type TemporalCoverage {
-    gte: String
-    lte: String
-  }
-
-  type Measurement {
-    measurementId: String
-    measurementType: String
-    measurementValue: String
-    measurementUnit: String
-    measurementAccuracy: String
-    measurementDeterminedBy: String
-    measurementDeterminedDate: String
-    measurementMethod: String
-    measurementRemarks: String
   }
 
   type EventFacet {
@@ -265,15 +309,11 @@ export default gql`
     month(limit: Int, offset: Int): [EventFacetResult]
     year(limit: Int, offset: Int): [EventFacetResult]
     eventId(limit: Int, offset: Int): [EventFacetResult]
+    parentEventId(limit: Int, offset: Int): [EventFacetResult]
     dwcaExtension(limit: Int, offset: Int): [EventFacetResult]
     samplingProtocol(limit: Int, offset: Int): [EventFacetResult]
     eventType(limit: Int, offset: Int): [EventFacetResult]
     gadmGid(limit: Int, offset: Int): [EventFacetResult]
-  }
-
-  type EventLineageNode {
-    eventID: ID
-    parentEventID: ID
   }
 
   type EventFacetResult {
@@ -343,7 +383,15 @@ export default gql`
     targetGrowthFormScope: [String]
     targetHabitatScope: [String]
     targetLifeStageScope: [String]
-    targetTaxonomicScope(checklistKey: ID): HumboldtTaxonomicScope
+    """
+    Target taxa for this Humboldt record. The REST API groups scopes by checklistKey
+    (one list per checklist); pass \`checklistKey\` to restrict to one, or omit to get
+    the flattened scopes from all checklists.
+    """
+    targetTaxonomicScope(checklistKey: ID): [HumboldtTaxonomicScope]
+    excludedTaxonomicScope(checklistKey: ID): [HumboldtTaxonomicScope]
+    nonTargetTaxa(checklistKey: ID): [HumboldtTaxonomicScope]
+    absentTaxa(checklistKey: ID): [HumboldtTaxonomicScope]
     taxonCompletenessProtocols: [String]
     totalAreaSampledUnit: String
     totalAreaSampledValue: Float
@@ -353,15 +401,21 @@ export default gql`
   }
 
   type HumboldtTaxonomicScope {
-    usageKey: ID!
+    usageKey: ID
     usageName: String
     usageRank: String
+    acceptedUsageKey: ID
+    acceptedUsageName: String
+    acceptedUsageRank: String
+    iucnRedListCategory: String
     classification: [HumboldtClassificationNode]
+    issues: [String]
   }
 
   type HumboldtClassificationNode {
-    key: ID!
+    key: ID
     name: String
     rank: String
+    authorship: String
   }
 `;

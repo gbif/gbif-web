@@ -1,5 +1,6 @@
 import { Table } from '@/components/dashboard/shared';
 import { FormattedDateRange } from '@/components/message';
+import { Paging } from '@/components/paging';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DatasetEventListQuery, DatasetEventListQueryVariables } from '@/gql/graphql';
@@ -7,23 +8,30 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Paging } from '@/components/paging';
 
 const DEFAULT_LIMIT = 10;
 
-// eventID is used to show sibling events
-// parentEventID is used to show child events
-// if both are provided, the eventID will be used to show sibling events
-const EventList = ({
+/**
+ * Tabular listing of events inferred from occurrence records (eventID/parentEventID
+ * fields on occurrence records). Used both for the dataset events tab and for
+ * sibling/child listings on the inferred-event detail page.
+ *
+ * eventID is used to show sibling events.
+ * parentEventID is used to show child events.
+ * If both are provided, the eventID will be used to show sibling events.
+ */
+const InferredEventList = ({
   datasetKey,
   parentEventID,
   eventID,
   isParentEvent = false,
+  id,
 }: {
   datasetKey: string;
   parentEventID?: string | null;
   eventID?: string | null;
   isParentEvent?: boolean;
+  id?: string;
 }) => {
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
@@ -52,7 +60,7 @@ const EventList = ({
 
   const events = data?.dataset?.events?.results || [];
   return (
-    <Card className="g-mb-4">
+    <Card className="g-mb-4 g-scroll-mt-24" id={id}>
       <CardHeader>
         <CardTitle>
           {eventID && isParentEvent && (
@@ -71,21 +79,6 @@ const EventList = ({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="g-flex g-justify-center g-items-center">
-          <div className="g-flex-auto"></div>
-
-          {!!parentEventID && !isParentEvent && (
-            <div className="g-flex-none g-font-semibold ">
-              <FormattedMessage id="dataset.parentEvent" defaultMessage={`Parent Event`} />:{' '}
-              <DynamicLink
-                to={`/dataset/${datasetKey}/parentevent/${encodeURIComponent(parentEventID)}`}
-                className="g-text-primary"
-              >
-                {parentEventID}
-              </DynamicLink>
-            </div>
-          )}
-        </div>
         <div style={{ overflow: 'auto' }}>
           <Table removeBorder={false}>
             <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
@@ -169,7 +162,7 @@ const EventList = ({
   );
 };
 
-export default EventList;
+export default InferredEventList;
 
 const EVENT_LIST_QUERY = /* GraphQL */ `
   query DatasetEventList($key: ID!, $limit: Int, $offset: Int, $optParentEventID: ID) {
