@@ -12,6 +12,7 @@
   "deletedOnDate": "Удалено {date}",
   "replacedBy": "Заменено на {newItem}",
   "showAll": "Показать все",
+  "showAllNItems": "",
   "viewAllImages": "Посмотреть все",
   "share": "Поделиться",
   "identifier": "Идентификатор",
