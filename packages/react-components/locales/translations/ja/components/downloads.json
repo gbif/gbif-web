@@ -113,7 +113,7 @@
         "INSTITUTION_CODE": "機関コード",
         "REPATRIATED": "返還された",
         "YEAR": "年",
-        "STATE_PROVINCE": "",
+        "STATE_PROVINCE": "都道府県",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "サンプルサイズの値",
         "OCCURRENCE_ID": "オカレンスID",
@@ -309,7 +309,7 @@
         "description": ""
       },
       "sql": {
-        "name": "",
+        "name": "SQL",
         "description": ""
       },
       "format": {
@@ -343,7 +343,7 @@
         "description": ""
       },
       "SQL_TSV_ZIP": {
-        "title": "",
+        "title": "SQL",
         "description": ""
       },
       "features": {
@@ -387,7 +387,7 @@
     "readMore": "もっと読む",
     "time": {
       "YEAR": "年",
-      "YEARMONTH": "",
+      "YEARMONTH": "年月",
       "DATE": "日付"
     },
     "boolean": {
@@ -404,13 +404,13 @@
     },
     "resolution": {
       "EEA_REFERENCE_GRID": {
-        "25": "",
-        "100": "",
-        "250": "",
-        "1000": "",
-        "10000": "",
-        "50000": "",
-        "100000": ""
+        "25": "25 m",
+        "100": "100 m",
+        "250": "250 m",
+        "1000": "1 km",
+        "10000": "10 km",
+        "50000": "50 km",
+        "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
         "0": "",
@@ -447,12 +447,12 @@
       },
       "MILITARY_GRID_REFERENCE_SYSTEM": {
         "0": "",
-        "1": "",
-        "10": "",
-        "100": "",
-        "1000": "",
-        "10000": "",
-        "100000": ""
+        "1": "1 m",
+        "10": "10 m",
+        "100": "100 m",
+        "1000": "1 km",
+        "10000": "10 km",
+        "100000": "100 km"
       }
     },
     "noneSelected": "",
