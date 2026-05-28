@@ -1,0 +1,422 @@
+import { useConfig } from '@/config/config';
+import { FormattedMessage } from 'react-intl';
+import { ChartWrapper, EnumChartGenerator } from './EnumChartGenerator';
+
+type StandardEnumChartProps = {
+  predicate?: unknown;
+  q?: string;
+  detailsRoute?: string;
+  currentFilter?: Record<string, unknown>; //excluding root predicate
+  fieldName: string;
+  enumKeys?: Array<string | number>;
+  enableUnknown?: boolean;
+  showUnknownInChart?: boolean;
+  enableOther?: boolean;
+  facetSize?: number;
+  subtitleKey?: string;
+  translationTemplate?: string;
+  titleTranslationId?: string;
+  [key: string]: unknown;
+};
+
+function StandardEnumChart({
+  predicate,
+  q,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  fieldName,
+  enumKeys,
+  enableUnknown = false,
+  showUnknownInChart = false,
+  enableOther = false,
+  facetSize = 10,
+  subtitleKey = 'dashboard.numberOfOccurrences',
+  translationTemplate,
+  titleTranslationId,
+  ...props
+}: StandardEnumChartProps) {
+  return (
+    <EnumChartGenerator
+      {...{
+        predicate,
+        q,
+        detailsRoute,
+        currentFilter,
+        enumKeys,
+        translationTemplate: translationTemplate ?? `enums.${fieldName}.{key}`,
+        fieldName: fieldName,
+        disableUnknown: !enableUnknown,
+        showUnknownInChart,
+        disableOther: !enableOther,
+        facetSize,
+        title: (
+          <FormattedMessage
+            id={titleTranslationId ?? `filters.${fieldName}.name`}
+            defaultMessage={fieldName}
+          />
+        ),
+        subtitleKey,
+      }}
+      {...props}
+    />
+  );
+}
+
+type ChartProps = Omit<StandardEnumChartProps, 'fieldName'>;
+
+export function Licenses(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        ...props,
+        includeMapPredicate: true,
+        fieldName: 'license',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+      }}
+    />
+  );
+}
+
+export function BasisOfRecord(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        ...props,
+        includeMapPredicate: true,
+        fieldName: 'basisOfRecord',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+      }}
+    />
+  );
+}
+
+export function Months(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        facetSize: 12,
+        enumKeys: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        enableUnknown: true,
+        showUnknownInChart: true,
+        options: ['COLUMN', 'TABLE', 'PIE', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+        fieldName: 'month',
+      }}
+    />
+  );
+}
+
+export function MediaType(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        facetSize: 10,
+        ...props,
+        fieldName: 'mediaType',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+      }}
+    />
+  );
+}
+
+export function OccurrenceIssue(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        ...props,
+        fieldName: 'issue',
+        translationTemplate: 'enums.occurrenceIssue.{key}',
+        titleTranslationId: 'filters.occurrenceIssue.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+      }}
+    />
+  );
+}
+
+export function Country(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        filterKey: 'country',
+        fieldName: 'countryCode',
+        enableOther: true,
+        enableUnknown: true,
+        titleTranslationId: 'filters.country.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+      }}
+    />
+  );
+}
+
+export function PublishingCountryCode(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        filterKey: 'publishingCountryCode',
+        fieldName: 'publishingCountry',
+        translationTemplate: 'enums.countryCode.{key}',
+        enableOther: true,
+        enableUnknown: true,
+        titleTranslationId: 'filters.publishingCountryCode.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+      }}
+    />
+  );
+}
+
+export function Continent(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        filterKey: 'continent',
+        fieldName: 'continent',
+        enableOther: true,
+        enableUnknown: true,
+        titleTranslationId: 'filters.continent.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+      }}
+    />
+  );
+}
+
+export function DwcaExtension(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+        fieldName: 'dwcaExtension',
+      }}
+    />
+  );
+}
+
+export function Protocol(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        translationTemplate: 'enums.endpointType.{key}',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+        fieldName: 'protocol',
+      }}
+    />
+  );
+}
+
+export function IucnCounts(props: ChartProps) {
+  const { theme } = useConfig();
+  const GQL_QUERY = `
+    query summary($q: String, $hasPredicate: Predicate, $size: Int, $from: Int, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $hasPredicate) {
+        documents(size: 0) {
+          total
+        }
+        cardinality {
+          total: iucnRedListCategory(checklistKey: $checklistKey)
+        }
+        facet {
+          results: iucnRedListCategory(size: $size, from: $from, checklistKey: $checklistKey) {
+            key
+            count
+            occurrences {
+              metaPredicate
+              _meta
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  return (
+    <ChartWrapper
+      {...{
+        fieldName: 'iucnRedListCategory',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        enableUnknown: false,
+        showUnknownInChart: false,
+        value2colorMap: theme?.iucnColors,
+        enableOther: false,
+        facetSize: 10,
+        disableUnknown: true,
+        disableOther: true,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        gqlQuery: GQL_QUERY,
+        predicateKey: 'iucnRedListCategory',
+        applyChecklistKey: true,
+        translationTemplate: 'enums.iucnRedListCategory.{key}',
+        title: (
+          <FormattedMessage
+            id="filters.iucnRedListCategory.name"
+            defaultMessage="iucnRedListCategory"
+          />
+        ),
+        ...props,
+      }}
+    />
+  );
+}
+
+type LiteratureChartProps = {
+  predicate?: unknown;
+  detailsRoute?: string;
+  currentFilter?: Record<string, unknown>; //excluding root predicate
+  [key: string]: unknown;
+};
+
+export function LiteratureTopics({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: LiteratureChartProps) {
+  return (
+    <EnumChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'topics',
+        translationTemplate: 'enums.topics.{key}',
+        facetSize: 50,
+        disableOther: true,
+        disableUnknown: true,
+        options: ['TABLE'],
+        searchType: 'literatureSearch',
+        title: <FormattedMessage id="filters.topics.name" defaultMessage="Topics" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+      }}
+      {...props}
+    />
+  );
+}
+
+export function LiteratureType({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: LiteratureChartProps) {
+  return (
+    <EnumChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'literatureType',
+        translationTemplate: 'enums.literatureType.{key}',
+        facetSize: 50,
+        disableOther: true,
+        disableUnknown: true,
+        options: ['PIE'],
+        searchType: 'literatureSearch',
+        title: <FormattedMessage id="filters.literatureType.name" defaultMessage="Type" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+      }}
+      {...props}
+    />
+  );
+}
+
+export function LiteratureRelevance({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: LiteratureChartProps) {
+  return (
+    <EnumChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'relevance',
+        translationTemplate: 'enums.relevance.{key}',
+        facetSize: 50,
+        disableOther: true,
+        disableUnknown: true,
+        options: ['PIE', 'TABLE', 'COLUMN'],
+        searchType: 'literatureSearch',
+        title: <FormattedMessage id="filters.relevance.name" defaultMessage="Relevance" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+      }}
+      {...props}
+    />
+  );
+}
+
+export function LiteratureCountriesOfResearcher({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: LiteratureChartProps) {
+  return (
+    <EnumChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'countriesOfResearcher',
+        translationTemplate: 'enums.countryCode.{key}',
+        facetSize: 10,
+        disableOther: true,
+        disableUnknown: true,
+        options: ['TABLE', 'PIE', 'COLUMN'],
+        searchType: 'literatureSearch',
+        title: (
+          <FormattedMessage
+            id="filters.countriesOfResearcher.name"
+            defaultMessage="countriesOfResearcher"
+          />
+        ),
+        subtitleKey: 'dashboard.numberOfOccurrences',
+      }}
+      {...props}
+    />
+  );
+}
+
+export function LiteratureCountriesOfCoverage({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}: LiteratureChartProps) {
+  return (
+    <EnumChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'countriesOfCoverage',
+        translationTemplate: 'enums.countryCode.{key}',
+        facetSize: 10,
+        disableOther: true,
+        disableUnknown: true,
+        options: ['TABLE', 'PIE', 'COLUMN'],
+        searchType: 'literatureSearch',
+        title: (
+          <FormattedMessage
+            id="filters.countriesOfCoverage.name"
+            defaultMessage="countriesOfCoverage"
+          />
+        ),
+        subtitleKey: 'dashboard.numberOfOccurrences',
+      }}
+      {...props}
+    />
+  );
+}
