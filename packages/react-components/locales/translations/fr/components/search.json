@@ -1,54 +1,54 @@
 {
   "tabs": {
     "table": "Tableau",
-    "tree": "",
+    "tree": "Arbre",
     "gallery": "Galerie",
-    "media": "",
+    "media": "Média",
     "map": "Carte",
     "datasets": "Jeux de données",
     "events": "Évènements",
     "download": "Télécharger",
-    "clusters": "",
+    "clusters": "Connexe",
     "dashboard": "Tableau de bord",
-    "sites": "",
+    "sites": "Sites",
     "list": "Liste"
   },
   "table": {
     "lockColumn": "Verrouiller la colonne",
-    "unlockColumn": "",
-    "columnVisibility": "",
-    "resetColumnVisibility": "",
-    "openFilter": ""
+    "unlockColumn": "Déverrouiller la colonne",
+    "columnVisibility": "Afficher/masquer les colonnes",
+    "resetColumnVisibility": "Réinitialiser",
+    "openFilter": "Ouvrir le filtre"
   },
   "placeholders": {
     "default": "Rechercher",
     "range": "Intervalle ou valeur unique",
-    "rangeExample": "",
+    "rangeExample": "Ex. 1000, 2000",
     "wildcard": "Rechercher avec * et ? comme caractères génériques",
-    "dateTemplate": "",
-    "locationID": ""
+    "dateTemplate": "aaaa-mm-jj",
+    "locationID": "Recherche par ID de lieu (sensible à la casse)"
   },
   "ternary": {
     "yes": "Oui",
     "no": "Non",
-    "either": ""
+    "either": "L'un ou l'autre"
   },
   "loadMore": "Plus",
   "loading": "Chargement en cours",
-  "noResults": "",
-  "startTyping": "",
-  "addFilters": "",
+  "noResults": "Aucuns résultats",
+  "startTyping": "Saisissez votre recherche",
+  "addFilters": "Ajoutez des filtres",
   "apply": "Appliquer",
   "cancel": "Annuler",
-  "rankInGroup": "",
+  "rankInGroup": "{rank} dans {group}",
   "options": "Options",
   "sort": {
-    "sortBy": "",
-    "yearDesc": "",
-    "yearAsc": ""
+    "sortBy": "Trier par ",
+    "yearDesc": "Année (plus récente en premier)",
+    "yearAsc": "Année (plus ancienne en premier)"
   },
   "group": {
-    "groupBy": "",
+    "groupBy": "Grouper par",
     "default": "Par défaut",
     "random": "",
     "showMore": "",
@@ -58,7 +58,7 @@
   },
   "occurrenceClustersView": {
     "about": "À propos",
-    "clusters": "",
+    "clusters": "Connexe",
     "legend": "Légende",
     "differentPublishers": "",
     "samePublishers": "",
