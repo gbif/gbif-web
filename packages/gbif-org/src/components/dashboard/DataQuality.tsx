@@ -6,9 +6,46 @@ import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-co
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
 
-export function DataQuality({ predicate, q, checklistKey, optional = [], ...props }) {
+type DataQualityKey =
+  | 'hasSequence'
+  | 'hasCollector'
+  | 'hasMedia'
+  | 'hasCoordinates'
+  | 'hasYear'
+  | 'rank';
+
+type Total = { documents?: { total?: number } };
+
+type DataQualityResponse = {
+  occurrenceSearch?: Total;
+  rank?: Total;
+  hasCoordinates?: Total;
+  hasMedia?: Total;
+  hasCollector?: Total;
+  hasYear?: Total;
+  hasSequence?: Total;
+};
+
+type DataQualityProps = {
+  predicate?: unknown;
+  q?: string;
+  checklistKey?: string;
+  optional?: DataQualityKey[];
+  [key: string]: unknown;
+};
+
+export function DataQuality({
+  predicate,
+  q,
+  checklistKey,
+  optional = [],
+  ...props
+}: DataQualityProps) {
   const defaultChecklistKey = useChecklistKey();
-  const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery<DataQualityResponse, Record<string, unknown>>(
+    OCCURRENCE_STATS,
+    { lazyLoad: true }
+  );
 
   useDeepCompareEffect(() => {
     load({
@@ -85,7 +122,7 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
 
   const noData = !data || loading;
   const summary = data?.occurrenceSearch;
-  const total = summary?.documents?.total;
+  const total = summary?.documents?.total ?? 0;
 
   const hideHasSequence =
     (data?.hasSequence?.documents?.total ?? 0) === 0 && optional.includes('hasSequence');
@@ -93,6 +130,9 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
     (data?.hasCollector?.documents?.total ?? 0) === 0 && optional.includes('hasCollector');
   const hideHasMedia =
     (data?.hasMedia?.documents?.total ?? 0) === 0 && optional.includes('hasMedia');
+
+  const percentOf = (value: number | undefined) =>
+    total > 0 ? (100 * (value ?? 0)) / total : 0;
 
   return (
     <Card {...props} loading={noData} error={!!error}>
@@ -110,27 +150,10 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
       <CardContent>
         <div>
           <Table removeBorder>
-            <tbody
-            // css={css`
-            //   >tr > td > div {
-            //     display: flex;
-            //     align-items: center;
-            //   }
-            //   /* td, td > div {
-            //     text-overflow: ellipsis;
-            //     white-space: nowrap;
-            //   } */
-            //   tr {
-            //     td:last-of-type {
-            //       /* width: 80px; */
-            //       text-align: end;
-            //     }
-            //   }
-            //   `}
-            >
+            <tbody>
               <tr>
                 <td>
-                  <BarItem percent={(100 * data?.rank?.documents?.total) / total}>
+                  <BarItem percent={percentOf(data?.rank?.documents?.total)}>
                     <FormattedMessage
                       id="dashboard.identifiedToSpecies"
                       defaultMessage="Identified to species"
@@ -140,26 +163,20 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
                 <td className="g-text-end">
                   <FormattedNumber value={data?.rank?.documents?.total} />
                 </td>
-                {/* <td>
-              <Progress percent={100 * data?.rank?.documents?.total / summary.documents.total} style={{ height: '1em', marginLeft: 'auto' }} />
-            </td> */}
               </tr>
               <tr>
                 <td>
-                  <BarItem percent={(100 * data?.hasCoordinates?.documents?.total) / total}>
+                  <BarItem percent={percentOf(data?.hasCoordinates?.documents?.total)}>
                     <FormattedMessage id="dashboard.withCoordinates" />
                   </BarItem>
                 </td>
                 <td className="g-text-end">
                   <FormattedNumber value={data?.hasCoordinates?.documents?.total} />
                 </td>
-                {/* <td>
-              <Progress percent={100 * data?.hasCoordinates?.documents?.total / total} style={{ height: '1em', marginLeft: 'auto' }} />
-            </td> */}
               </tr>
               <tr>
                 <td>
-                  <BarItem percent={(100 * data?.hasYear?.documents?.total) / total}>
+                  <BarItem percent={percentOf(data?.hasYear?.documents?.total)}>
                     <FormattedMessage id="dashboard.withYear" />
                   </BarItem>
                 </td>
@@ -170,7 +187,7 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
               {!hideHasCollector && (
                 <tr>
                   <td>
-                    <BarItem percent={(100 * data?.hasCollector?.documents?.total) / total}>
+                    <BarItem percent={percentOf(data?.hasCollector?.documents?.total)}>
                       <FormattedMessage id="dashboard.withCollector" />
                     </BarItem>
                   </td>
@@ -182,7 +199,7 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
               {!hideHasMedia && (
                 <tr>
                   <td>
-                    <BarItem percent={(100 * data?.hasMedia?.documents?.total) / total}>
+                    <BarItem percent={percentOf(data?.hasMedia?.documents?.total)}>
                       <FormattedMessage id="dashboard.withMedia" />
                     </BarItem>
                   </td>
@@ -194,7 +211,7 @@ export function DataQuality({ predicate, q, checklistKey, optional = [], ...prop
               {!hideHasSequence && (
                 <tr>
                   <td>
-                    <BarItem percent={(100 * data?.hasSequence?.documents?.total) / total}>
+                    <BarItem percent={percentOf(data?.hasSequence?.documents?.total)}>
                       <FormattedMessage id="dashboard.withSequence" />
                     </BarItem>
                   </td>

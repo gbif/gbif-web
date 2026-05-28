@@ -1,15 +1,37 @@
-// @ts-nocheck
 import { GadmClassification } from '@/components/classification';
 import { normalizeString } from '@/utils/normalizeString';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { FacetResultRow } from './GroupByTable';
 import { KeyChartGenerator } from './KeyChartGenerator';
 
+type StringChartConfig = {
+  fieldName: string;
+  title?: React.ReactNode;
+  subtitleKey?: string;
+  [key: string]: unknown;
+};
+
+type StringChartComponentProps = {
+  predicate?: unknown;
+  detailsRoute?: string;
+  currentFilter?: Record<string, unknown>;
+  disableOther?: boolean;
+  disableUnknown?: boolean;
+  title?: React.ReactNode;
+  [key: string]: unknown;
+};
+
 // a small wrapper to make it easier to add new charts
-function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
-  const titleInput = title ?? (
-    <FormattedMessage id={`filters.${fieldName}.name`} defaultMessage={fieldName} />
-  );
-  return ({
+function getStringChart({
+  fieldName,
+  title,
+  subtitleKey: _subtitleKey,
+  ...rest
+}: StringChartConfig) {
+  const titleInput =
+    title ?? <FormattedMessage id={`filters.${fieldName}.name`} defaultMessage={fieldName} />;
+  return function StringChart({
     predicate,
     detailsRoute,
     currentFilter = {}, //excluding root predicate
@@ -17,7 +39,7 @@ function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
     disableUnknown = false,
     title = titleInput,
     ...props
-  }) => {
+  }: StringChartComponentProps) {
     return (
       <KeyChartGenerator
         {...{
@@ -37,6 +59,34 @@ function getStringChart({ fieldName, title, subtitleKey, ...rest }) {
     );
   };
 }
+
+type StringFacetEntry = {
+  key: string;
+  count: number;
+  occurrences?: FacetResultRow['occurrences'];
+  entity?: {
+    documents?: {
+      results?: Array<{
+        stateProvince?: string;
+        waterBody?: string;
+        identifiedBy?: string[];
+        recordedBy?: string[];
+        catalogNumber?: string;
+        higherGeography?: string[];
+        samplingProtocol?: string[];
+        gadm?: Record<string, { gid: string; name: string }>;
+      }>;
+    };
+  };
+};
+
+type StringFacetData = {
+  search?: {
+    facet?: {
+      results?: StringFacetEntry[];
+    };
+  };
+};
 
 export const InstitutionCodes = getStringChart({
   fieldName: 'institutionCode',
@@ -71,14 +121,14 @@ export const StateProvince = getStringChart({
   showFreeTextWarning: true,
   title: <FormattedMessage id="filters.stateProvince.name" defaultMessage="State province" />,
   gqlEntity: `occurrences {documents(size: 1) {results {stateProvince}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
       const title = x?.entity?.documents?.results?.[0]?.stateProvince ?? x.key;
       return {
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
-        title: title,
+        title,
         plainTextTitle: title,
         filter: { stateProvince: [title] },
       };
@@ -93,14 +143,14 @@ export const WaterBody = getStringChart({
   showFreeTextWarning: true,
   title: <FormattedMessage id="filters.waterBody.name" defaultMessage="Water body" />,
   gqlEntity: `occurrences {documents(size: 1) {results {waterBody}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
       const title = x?.entity?.documents?.results?.[0]?.waterBody ?? x.key;
       return {
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
-        title: title,
+        title,
         plainTextTitle: title,
         filter: { waterBody: [title] },
       };
@@ -114,8 +164,8 @@ export const IdentifiedBy = getStringChart({
   fieldName: 'identifiedBy',
   title: <FormattedMessage id="filters.identifiedBy.name" defaultMessage="Identified by" />,
   gqlEntity: `occurrences {documents(size: 1) {results {identifiedBy}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
       // extract the identifiedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
         x?.entity?.documents?.results?.[0]?.identifiedBy?.find(
@@ -125,7 +175,7 @@ export const IdentifiedBy = getStringChart({
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
-        title: title,
+        title,
         plainTextTitle: title,
         filter: { identifiedBy: [title] },
       };
@@ -139,8 +189,8 @@ export const RecordedBy = getStringChart({
   fieldName: 'recordedBy',
   title: <FormattedMessage id="filters.recordedBy.name" defaultMessage="Recorded by" />,
   gqlEntity: `occurrences {documents(size: 1) {results {recordedBy}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
       // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
         x?.entity?.documents?.results?.[0]?.recordedBy?.find((r) => normalizeString(r) === x.key) ??
@@ -149,7 +199,7 @@ export const RecordedBy = getStringChart({
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
-        title: title,
+        title,
         plainTextTitle: title,
         filter: { recordedBy: [title] },
       };
@@ -179,17 +229,14 @@ export const HigherGeography = getStringChart({
   fieldName: 'higherGeography',
   title: <FormattedMessage id="filters.higherGeography.name" defaultMessage="Higher geography" />,
   gqlEntity: `occurrences {documents(size: 1) {results {higherGeography}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
       const title = x.key;
       return {
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
         title: x.key,
-        // description: <Classification>
-        //   {x?.entity?.documents?.results?.[0]?.higherGeography.map(h => <span>{h}</span>)}
-        // </Classification>,
         plainTextTitle: title,
         filter: { higherGeography: [x.key] },
       };
@@ -203,15 +250,15 @@ export const CatalogNumber = getStringChart({
   fieldName: 'catalogNumber',
   title: <FormattedMessage id="filters.catalogNumber.name" defaultMessage="Catalogue number" />,
   gqlEntity: `occurrences {documents(size: 1) {results {catalogNumber}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
       // extract the catalogNumber value from the first result.
       const title = x?.entity?.documents?.results?.[0]?.catalogNumber ?? x.key;
       return {
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
-        title: title,
+        title,
         plainTextTitle: title,
         filter: { catalogNumber: [title] },
       };
@@ -240,8 +287,8 @@ export const SamplingProtocol = getStringChart({
   showFreeTextWarning: true,
   title: <FormattedMessage id="filters.samplingProtocol.name" defaultMessage="Sampling protocol" />,
   gqlEntity: `occurrences {documents(size: 1) {results {samplingProtocol}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
       // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
         x?.entity?.documents?.results?.[0]?.samplingProtocol?.find(
@@ -251,7 +298,7 @@ export const SamplingProtocol = getStringChart({
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
-        title: title,
+        title,
         plainTextTitle: title,
         filter: { samplingProtocol: [title] },
       };
@@ -261,11 +308,16 @@ export const SamplingProtocol = getStringChart({
   includeMapPredicate: true,
 });
 
-function filterLevels(obj, targetGid) {
-  const result = {};
+function filterLevels<T extends { gid: string }>(
+  obj: Record<string, T> | undefined,
+  targetGid: string
+): Record<string, T> {
+  const result: Record<string, T> = {};
+
+  if (!obj) return result;
 
   for (const level in obj) {
-    if (obj.hasOwnProperty(level)) {
+    if (Object.prototype.hasOwnProperty.call(obj, level)) {
       const currentGid = obj[level].gid;
       result[level] = obj[level];
 
@@ -282,17 +334,22 @@ export const GadmGid = getStringChart({
   fieldName: 'gadmGid',
   title: <FormattedMessage id="filters.gadmGid.name" defaultMessage="Gadm GID" />,
   gqlEntity: `occurrences {documents(size: 1) {results {gadm}}}`,
-  transform: (data) => {
-    return data?.search?.facet?.results?.map((x) => {
-      const a = Object.keys(x?.entity?.documents?.results?.[0]?.gadm ?? {});
-      const gadm = filterLevels(x?.entity?.documents?.results?.[0]?.gadm, x.key);
-      const titleEntry = a?.find((r) => r.gid === x.key);
+  transform: (data: unknown): FacetResultRow[] | undefined => {
+    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
+      const gadmRoot = x?.entity?.documents?.results?.[0]?.gadm;
+      const a = Object.keys(gadmRoot ?? {});
+      const gadm = filterLevels(gadmRoot, x.key);
+      // NOTE: this match against r.gid is unreachable because `a` holds the key names (strings),
+      // not the level objects. Preserved as-is to avoid behavior change during the TS migration.
+      const titleEntry = a?.find(
+        (r) => (r as unknown as { gid?: string }).gid === x.key
+      ) as unknown as { name?: string } | undefined;
       const title = titleEntry?.name ?? x.key;
       return {
         key: x.key,
         count: x.count,
         occurrences: x.occurrences,
-        title: <GadmClassification gadm={gadm} />,
+        title: <GadmClassification gadm={gadm as unknown as Parameters<typeof GadmClassification>[0]['gadm']} />,
         plainTextTitle: title,
         filter: { gadmGid: [x.key] },
       };

@@ -1,53 +1,88 @@
-// @ts-nocheck
-import { useEffect, useState } from 'react';
-import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
-import { CardHeader } from './shared';
-// import { Classification, DropdownButton, Tooltip } from '../../components';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
+import { useConfig } from '@/config/config';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { DynamicLink } from '@/reactRouterPlugins';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { tryParse } from '@/utils/querystring';
+import React, { useEffect, useState } from 'react';
 import { MdArrowDropDown, MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { useUncontrolledProp } from 'uncontrollable';
 import { Classification } from '../classification';
 import { SimpleTooltip } from '../simpleTooltip';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import ChartClickWrapper from './charts/ChartClickWrapper';
-import { ChartMessages, ChartViewOptions } from './charts/OneDimensionalChart';
-import { useConfig } from '@/config/config';
+import { GroupBy, Pagging, useFacets, FacetResultRow } from './charts/GroupByTable';
 import Highcharts, { generateChartsPalette } from './charts/highcharts';
 import { Map } from './charts/map/map';
-import { useUncontrolledProp } from 'uncontrollable';
+import { ChartMessages, ChartViewOptions, ChartView } from './charts/OneDimensionalChart';
+import { CardHeader } from './shared';
 
-const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
-const getDefaultRank = (rank) => {
-  return majorRanks.includes(rank) ? rank : 'family';
+const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'] as const;
+type Rank = (typeof majorRanks)[number];
+
+const getDefaultRank = (rank: string | undefined): Rank => {
+  return (majorRanks as readonly string[]).includes(rank ?? '') ? (rank as Rank) : 'family';
 };
+
+type TaxonFacetEntry = {
+  key: string | number;
+  count: number;
+  occurrences?: FacetResultRow['occurrences'];
+  entity?: {
+    checklistKey?: string;
+    iucnStatus?: string;
+    iucnStatusCode?: string;
+    usage?: { name?: string; canonicalName?: string };
+    classification?: Array<{ key?: string; name?: string; rank: string }>;
+  };
+};
+
+type TaxonFacetData = {
+  search?: {
+    facet?: { results?: TaxonFacetEntry[] };
+    documents?: { total?: number };
+  };
+  isNotNull?: { documents?: { total?: number } };
+};
+
+type TaxaMainProps = {
+  defaultRank?: string;
+  predicate?: Record<string, unknown>;
+  checklistKey?: string;
+  q?: string;
+  handleRedirect?: (args: { filter: Record<string, unknown[]> }) => void;
+  detailsRoute?: string;
+  visibilityThreshold?: number;
+  interactive?: boolean;
+  setView?: (view: ChartView) => void;
+  view?: ChartView;
+  [key: string]: unknown;
+};
+
 function TaxaMain({
   defaultRank,
   predicate,
   checklistKey,
   q,
   handleRedirect,
-  detailsRoute,
   visibilityThreshold,
   interactive,
   setView: setUserView,
   view: userView,
   ...props
-}) {
+}: TaxaMainProps) {
   const { theme } = useConfig();
-  const [view, setView] = useUncontrolledProp(userView, 'TABLE', setUserView);
+  const [view, setView] = useUncontrolledProp<ChartView>(userView, 'TABLE', setUserView);
   const defaultChecklistKey = useChecklistKey();
   const [query, setQuery] = useState(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
-  const [rank, setRank] = useState(getDefaultRank(defaultRank).toUpperCase());
-  const hasPredicates = [
+  const [rank, setRank] = useState<string>(getDefaultRank(defaultRank).toUpperCase());
+  const hasPredicates: Array<Record<string, unknown>> = [
     {
       type: 'isNotNull',
       key: 'taxonKey',
@@ -69,21 +104,26 @@ function TaxaMain({
     },
     query,
   });
-  const { chartColors } = theme;
+  const chartColors = theme?.chartColors;
   const palette = chartColors
     ? generateChartsPalette(chartColors)
-    : Highcharts?.defaultOptions?.colors;
+    : (Highcharts?.defaultOptions?.colors as string[] | undefined);
 
   useEffect(() => {
     setRank(getDefaultRank(defaultRank).toUpperCase());
     setQuery(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
   }, [defaultRank]);
-  if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;
+
+  const facetData = facetResults?.data as TaxonFacetData | undefined;
+  const visibilityThresholdGuard =
+    typeof visibilityThreshold === 'number' ? visibilityThreshold : -1;
+  if ((facetData?.search?.facet?.results?.length ?? 0) <= visibilityThresholdGuard) return null;
 
   const filledPercentage =
-    facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
+    (facetData?.isNotNull?.documents?.total ?? 0) /
+    (facetData?.search?.documents?.total || 1);
 
-  let messages = [];
+  const messages: React.ReactNode[] = [];
   messages.push(
     <div>
       <FormattedMessage
@@ -93,17 +133,20 @@ function TaxaMain({
     </div>
   );
 
-  function transform(data) {
-    return data?.search?.facet?.results?.map((x) => {
+  function transform(data: unknown): FacetResultRow[] | undefined {
+    return (data as TaxonFacetData)?.search?.facet?.results?.map((x) => {
       return {
         key: x?.key,
         title: (
           <span>
-            {x?.entity?.usage.name}{' '}
+            {x?.entity?.usage?.name}{' '}
             <DynamicLink
               pageId="taxonKey"
-              variables={{ key: x?.key.toString(), datasetKey: x.entity.checklistKey }}
-              onClick={(e) => {
+              variables={{
+                key: x?.key.toString(),
+                datasetKey: x.entity?.checklistKey ?? '',
+              }}
+              onClick={(e: React.MouseEvent) => {
                 e.stopPropagation();
               }}
             >
@@ -113,7 +156,7 @@ function TaxaMain({
         ),
         count: x.count,
         occurrences: x.occurrences,
-        filter: { taxonKey: [tryParse(x.key)] },
+        filter: { taxonKey: [tryParse(String(x.key))] },
         description: (
           <Classification className="g-text-xs g-text-slate-600">
             {x?.entity?.classification?.map((rank) => {
@@ -147,12 +190,10 @@ function TaxaMain({
         options={<ChartViewOptions options={['TABLE', 'MAP']} view={view} setView={setView} />}
       >
         <CardTitle>
-          {/* <FormattedMessage id={`enums.taxonRank.${rank.toUpperCase()}`} defaultMessage={rank} /> */}
           <DropdownMenu>
             <DropdownMenuTrigger>
               <span className="g-px-3 g-py-2 g-border g-border-slate-300 g-rounded-md g-cursor-pointer g-inline-flex g-items-center">
                 <FormattedMessage
-                  className="g-me-2"
                   id={`enums.taxonRank.${rank.toUpperCase()}`}
                   defaultMessage={rank}
                 />{' '}
@@ -163,7 +204,7 @@ function TaxaMain({
               {majorRanks.map((rank) => (
                 <DropdownMenuItem
                   key={rank}
-                  onClick={(e) => {
+                  onClick={() => {
                     setRank(rank);
                     setQuery(getTaxonQuery(`${rank}Key`));
                   }}
@@ -184,11 +225,11 @@ function TaxaMain({
       <CardContent>
         {view === 'MAP' && (
           <Map
-            facetResults={facetResults}
-            transform={transform}
+            facetResults={facetResults as unknown as Parameters<typeof Map>[0]['facetResults']}
+            transform={transform as unknown as Parameters<typeof Map>[0]['transform']}
             onClick={handleRedirect}
             interactive={interactive}
-            palette={palette}
+            palette={palette ?? []}
           />
         )}
         {view === 'TABLE' && (
@@ -208,7 +249,12 @@ function TaxaMain({
   );
 }
 
-export function Taxa({ defaultRank, ...props }) {
+type TaxaProps = {
+  defaultRank?: string;
+  [key: string]: unknown;
+};
+
+export function Taxa({ defaultRank, ...props }: TaxaProps) {
   return (
     <ChartClickWrapper {...props}>
       <TaxaMain defaultRank={defaultRank} />
@@ -216,7 +262,7 @@ export function Taxa({ defaultRank, ...props }) {
   );
 }
 
-const getTaxonQuery = (rank) => `
+const getTaxonQuery = (rank: string) => `
 query summary($q: String, $predicate: Predicate, $hasPredicate: Predicate, $size: Int, $from: Int, $checklistKey: ID){
   search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
@@ -256,19 +302,31 @@ query summary($q: String, $predicate: Predicate, $hasPredicate: Predicate, $size
 }
 `;
 
+type IucnMainProps = {
+  predicate?: Record<string, unknown>;
+  checklistKey?: string;
+  q?: string;
+  handleRedirect?: (args: { filter: Record<string, unknown[]> }) => void;
+  visibilityThreshold?: number;
+  detailsRoute?: string;
+  interactive?: boolean;
+  userView?: ChartView;
+  setUserView?: (view: ChartView) => void;
+  [key: string]: unknown;
+};
+
 function IucnMain({
   predicate,
   checklistKey,
   q,
   handleRedirect,
   visibilityThreshold,
-  detailsRoute,
   interactive,
   userView,
   setUserView,
   ...props
-}) {
-  const [view, setView] = useUncontrolledProp(userView, 'TABLE', setUserView);
+}: IucnMainProps) {
+  const [view, setView] = useUncontrolledProp<ChartView>(userView, 'TABLE', setUserView);
   const { theme } = useConfig();
   const defaultChecklistKey = useChecklistKey();
   const facetResults = useFacets({
@@ -287,21 +345,28 @@ function IucnMain({
     },
     query: IUCN_FACETS,
   });
-  const resultCount = facetResults?.data?.search?.facet?.results?.length;
-  if (resultCount <= visibilityThreshold) return null;
+  const facetData = facetResults?.data as TaxonFacetData | undefined;
+  const resultCount = facetData?.search?.facet?.results?.length ?? 0;
+  const visibilityThresholdGuard =
+    typeof visibilityThreshold === 'number' ? visibilityThreshold : -1;
+  if (resultCount <= visibilityThresholdGuard) return null;
 
-  const transform = (data) => {
-    return data?.search?.facet?.results?.map((x) => {
+  const transform = (data: unknown): FacetResultRow[] | undefined => {
+    return (data as TaxonFacetData)?.search?.facet?.results?.map((x) => {
       return {
         key: x.key,
         title: (
           <div>
             <IucnCategory
-              color={theme?.iucnColors?.[x?.entity?.iucnStatusCode]}
+              color={
+                x?.entity?.iucnStatusCode
+                  ? theme?.iucnColors?.[x.entity.iucnStatusCode]
+                  : undefined
+              }
               code={x?.entity?.iucnStatusCode}
               category={x?.entity?.iucnStatus}
             />
-            {x?.entity?.usage.canonicalName}
+            {x?.entity?.usage?.canonicalName}
           </div>
         ),
         count: x.count,
@@ -330,9 +395,10 @@ function IucnMain({
     });
   };
   // use the theme?.iucnColors?.[x?.entity?.iucnStatusCode] approach to create the palette
-  const palette = facetResults?.data?.search?.facet?.results?.map(
-    (x) => theme?.iucnColors?.[x?.entity?.iucnStatusCode]
-  );
+  const palette =
+    (facetData?.search?.facet?.results
+      ?.map((x) => (x?.entity?.iucnStatusCode ? theme?.iucnColors?.[x.entity.iucnStatusCode] : undefined))
+      .filter((c): c is string => Boolean(c)) ?? []);
   return (
     <Card
       {...props}
@@ -355,8 +421,8 @@ function IucnMain({
           <>
             {view === 'MAP' && (
               <Map
-                facetResults={facetResults}
-                transform={transform}
+                facetResults={facetResults as unknown as Parameters<typeof Map>[0]['facetResults']}
+                transform={transform as unknown as Parameters<typeof Map>[0]['transform']}
                 onClick={handleRedirect}
                 interactive={interactive}
                 palette={palette}
@@ -416,7 +482,7 @@ query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checkl
 }
 `;
 
-export function Iucn(props) {
+export function Iucn(props: Record<string, unknown>) {
   return (
     <ChartClickWrapper {...props}>
       <IucnMain />
@@ -424,7 +490,13 @@ export function Iucn(props) {
   );
 }
 
-function IucnCategory({ code, category, color }) {
+type IucnCategoryProps = {
+  code?: string;
+  category?: string;
+  color?: string;
+};
+
+function IucnCategory({ code, category, color }: IucnCategoryProps) {
   return (
     <SimpleTooltip i18nKey={`enums.threatStatus.${category}`}>
       <span

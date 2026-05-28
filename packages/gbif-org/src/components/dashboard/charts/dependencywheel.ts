@@ -1,4 +1,28 @@
-export function getDependencyWheelOptions({ serie, onClick, interactive }) {
+type ChartPoint = {
+  filter?: Record<string, unknown>;
+  name?: unknown;
+  y?: number;
+};
+
+type ChartClickEvent = { filter?: Record<string, unknown>; name?: unknown; count?: number };
+
+type Serie = {
+  name?: string;
+  data?: unknown[];
+  [key: string]: unknown;
+};
+
+type GetDependencyWheelOptionsArgs = {
+  serie: Serie;
+  onClick?: (event: ChartClickEvent, point: unknown) => void;
+  interactive?: boolean;
+};
+
+export function getDependencyWheelOptions({
+  serie,
+  onClick,
+  interactive,
+}: GetDependencyWheelOptionsArgs) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -16,12 +40,14 @@ export function getDependencyWheelOptions({ serie, onClick, interactive }) {
         dataLabels: {
           enabled: true,
         },
-        showInLegend: false,
         point: interactive
           ? {
               events: {
-                click: function () {
-                  onClick({ filter: this.filter, name: this.name, count: this.y }, this);
+                click: function (this: ChartPoint) {
+                  onClick?.(
+                    { filter: this.filter, name: this.name, count: this.y },
+                    this
+                  );
                 },
               },
             }

@@ -1,5 +1,3 @@
-import React, { useCallback, useState } from 'react';
-// import { Button, Progress, Skeleton, Tooltip } from '../../../components';
 import { SimpleTooltip as Tooltip } from '@/components/simpleTooltip';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -7,12 +5,39 @@ import { Skeleton } from '@/components/ui/skeleton';
 import useQuery from '@/hooks/useQuery';
 import { useI18n } from '@/reactRouterPlugins';
 import formatAsPercentage from '@/utils/formatAsPercentage';
+import React, { useCallback, useState } from 'react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { Table } from '../shared';
 
+export type FacetResultRow = {
+  key: string | number;
+  title?: React.ReactNode;
+  count: number;
+  description?: React.ReactNode;
+  filter?: Record<string, unknown[]>;
+  plainTextTitle?: string;
+  occurrences?: {
+    _meta?: { predicate?: object };
+    metaPredicate?: string;
+  };
+  [key: string]: unknown;
+};
+
+type ClickHandler = (args: { filter: Record<string, unknown[]> }) => void;
+
+type GroupByTableProps = {
+  predicate?: unknown;
+  loading?: boolean;
+  columnTitle?: React.ReactNode;
+  columnCount?: React.ReactNode;
+  results?: FacetResultRow[];
+  onClick?: ClickHandler;
+  interactive?: boolean;
+  total?: number;
+};
+
 export function GroupByTable({
-  predicate,
   loading,
   columnTitle,
   columnCount = 'Records',
@@ -20,8 +45,7 @@ export function GroupByTable({
   onClick,
   interactive = false,
   total = 800,
-  ...props
-}) {
+}: GroupByTableProps) {
   const { locale } = useI18n();
   // maximum count on page
   const maxCount = results.reduce((a, c) => Math.max(a, c.count || 0), 0);
@@ -31,7 +55,7 @@ export function GroupByTable({
       <div>
         {[1, 2].map((x) => (
           <React.Fragment key={x}>
-            <Skeleton className="g-h-6" width="60%" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ width: '60%', marginBottom: 12 }} />
             <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
           </React.Fragment>
         ))}
@@ -52,7 +76,7 @@ export function GroupByTable({
           </thead>
         )}
         <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
-          {results.map((e, i) => {
+          {results.map((e) => {
             const fractionOfTotal = e.count / total;
             return (
               <React.Fragment key={e.key}>
@@ -61,16 +85,13 @@ export function GroupByTable({
                     {e.filter && (
                       <div
                         onClick={() => {
-                          if (interactive) onClick({ filter: e.filter });
+                          if (interactive && e.filter) onClick?.({ filter: e.filter });
                         }}
                       >
                         {e.title}
                       </div>
                     )}
                     {!e.filter && <div>{e.title}</div>}
-                    {/* {e.description && (
-                      <div className="g-text-slate-400 g-text-sm g-mb-1">{e.description}</div>
-                    )} */}
                   </td>
                   <td className="g-text-end">
                     <FormattedNumber value={e.count} />
@@ -112,25 +133,24 @@ export function GroupByTable({
   );
 }
 
-export function GroupBy({ facetResults, transform, ...props }) {
-  const {
-    data,
-    results,
-    loading,
-    error,
-    next,
-    prev,
-    first,
-    isLastPage,
-    isFirstPage,
-    total,
-    distinct,
-  } = facetResults;
+export type FacetResults = ReturnType<typeof useFacets>;
+
+type GroupByProps = {
+  facetResults: FacetResults;
+  transform?: (data: unknown) => FacetResultRow[] | undefined;
+  onClick?: ClickHandler;
+  interactive?: boolean;
+  columnTitle?: React.ReactNode;
+  columnCount?: React.ReactNode;
+};
+
+export function GroupBy({ facetResults, transform, ...props }: GroupByProps) {
+  const { data, results, loading, total, distinct } = facetResults;
   const mappedResults = transform ? transform(data) : results;
   return (
     <>
       <div className="g-text-sm g-text-slate-500 g-mb-1">
-        {loading && <Skeleton className="g-h-6 g-mb-2" width="100px" />}
+        {loading && <Skeleton className="g-h-6 g-mb-2" style={{ width: '100px' }} />}
         {!loading && distinct > 0 && (
           <>
             <FormattedMessage id="counts.nResults" values={{ total: distinct }} />
@@ -142,7 +162,11 @@ export function GroupBy({ facetResults, transform, ...props }) {
   );
 }
 
-export function Pagging({ facetResults, ...props }) {
+type PaggingProps = {
+  facetResults: FacetResults;
+};
+
+export function Pagging({ facetResults }: PaggingProps) {
   const { next, prev, isLastPage, isFirstPage } = facetResults;
   if (isFirstPage && isLastPage) return null;
   return (
@@ -167,6 +191,39 @@ export function Pagging({ facetResults, ...props }) {
   );
 }
 
+type UseFacetsArgs = {
+  predicate?: unknown;
+  otherVariables?: Record<string, unknown>;
+  keys?: Array<string | number>;
+  translationTemplate?: string;
+  query: string;
+  size?: number;
+};
+
+type FacetBucket = {
+  key?: string | number;
+  count?: number;
+  doc_count?: number;
+  entity?: {
+    title?: string;
+    description?: React.ReactNode;
+  };
+  [key: string]: unknown;
+};
+
+type FacetQueryData = {
+  search?: {
+    documents?: { total?: number };
+    cardinality?: { total?: number };
+    facet?: {
+      results?: FacetBucket[] | { buckets?: FacetBucket[] };
+    };
+  };
+  isNotNull?: {
+    documents?: { total?: number };
+  };
+};
+
 export function useFacets({
   predicate,
   otherVariables = {},
@@ -174,11 +231,14 @@ export function useFacets({
   translationTemplate,
   query,
   size = 10,
-}) {
-  const [from = 0, setFrom] = useState(0);
+}: UseFacetsArgs) {
+  const [from = 0, setFrom] = useState<number>(0);
   const intl = useIntl();
   const { locale } = useI18n();
-  const { data, error, loading, load } = useQuery(query, { lazyLoad: true, queue: 'dashboard' });
+  const { data, error, loading, load } = useQuery<FacetQueryData, Record<string, unknown>>(query, {
+    lazyLoad: true,
+    queue: { name: 'dashboard' },
+  });
 
   useDeepCompareEffect(() => {
     load({
@@ -200,26 +260,27 @@ export function useFacets({
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
-  });
+  }, [from, size]);
 
   const prev = useCallback(() => {
     setFrom(Math.max(0, from - size));
-  });
+  }, [from, size]);
 
   const first = useCallback(() => {
     setFrom(0);
-  });
+  }, []);
 
-  let buckets = Array.isArray(data?.search?.facet?.results)
-    ? data?.search?.facet?.results
-    : data?.search?.facet?.results?.buckets;
+  const rawResults = data?.search?.facet?.results;
+  const buckets: FacetBucket[] | undefined = Array.isArray(rawResults)
+    ? rawResults
+    : rawResults?.buckets;
 
-  let results = buckets?.map((x) => {
+  let results: FacetResultRow[] | undefined = buckets?.map((x) => {
     return {
       ...x,
-      key: x?.key,
-      title: x?.entity?.title || x?.key,
-      count: x?.count ?? x?.doc_count,
+      key: (x?.key ?? '') as string | number,
+      title: (x?.entity?.title ?? x?.key) as React.ReactNode,
+      count: (x?.count ?? x?.doc_count ?? 0) as number,
       description: x?.entity?.description,
     };
   });
@@ -227,7 +288,9 @@ export function useFacets({
   // If an explicit list of keys is provided, then use that order and fill missing results with count=0
   if (keys && Array.isArray(keys)) {
     results = keys.map((key) => {
-      const result = results ? results.find((x) => x.key.toString() === key.toString()) : undefined;
+      const result = results
+        ? results.find((x) => x.key.toString() === key.toString())
+        : undefined;
       if (result) {
         return result;
       }
@@ -241,11 +304,11 @@ export function useFacets({
   }
 
   // if a translationTemplate of the form "something.else.{key}" is provided, then use that to translate the title
-  if (translationTemplate && results?.length > 0) {
+  if (translationTemplate && results && results.length > 0) {
     results = results.map((x) => {
       return {
         ...x,
-        title: intl.formatMessage({ id: translationTemplate.replace('{key}', x.key) }),
+        title: intl.formatMessage({ id: translationTemplate.replace('{key}', String(x.key)) }),
       };
     });
   }
@@ -254,12 +317,9 @@ export function useFacets({
 
   const total = data?.search?.documents?.total ?? 0;
   const isNotNull = data?.isNotNull?.documents?.total;
-  // what is the sum of values in the current page. Sum the data?.search?.facet?.results
   const pageSum = results?.reduce((acc, x) => acc + x.count, 0) ?? 0;
-  // what is the difference between the total and the sum of the current page
   const otherOrEmptyCount = total - pageSum;
   const otherCount = isNotNull ? isNotNull - pageSum : total - pageSum;
-  // how many entries have no value
   const emptyCount = isNotNull ? total - isNotNull : undefined;
 
   return {

@@ -1,4 +1,26 @@
-export function getPieOptions({ serie, onClick, interactive, colors, isRtl }) {
+type ChartPoint = {
+  filter?: Record<string, unknown>;
+  name?: unknown;
+  y?: number;
+};
+
+type ChartClickEvent = { filter?: Record<string, unknown>; name?: unknown; count?: number };
+
+type Serie = {
+  name?: unknown;
+  data?: ChartPoint[];
+  [key: string]: unknown;
+};
+
+type GetPieOptionsArgs = {
+  serie: Serie;
+  onClick?: (event: ChartClickEvent, point: unknown) => void;
+  interactive?: boolean;
+  colors?: unknown[];
+  isRtl?: boolean;
+};
+
+export function getPieOptions({ serie, onClick, interactive, colors, isRtl }: GetPieOptionsArgs) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -23,8 +45,11 @@ export function getPieOptions({ serie, onClick, interactive, colors, isRtl }) {
         point: interactive
           ? {
               events: {
-                click: function () {
-                  onClick({ filter: this.filter, name: this.name, count: this.y }, this);
+                click: function (this: ChartPoint) {
+                  onClick?.(
+                    { filter: this.filter, name: this.name, count: this.y },
+                    this
+                  );
                 },
               },
             }

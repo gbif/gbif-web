@@ -1,39 +1,49 @@
-// @ts-nocheck
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
+import { useConfig } from '@/config/config';
+import { useI18n } from '@/reactRouterPlugins';
+import formatAsPercentage from '@/utils/formatAsPercentage';
+import { hash } from '@/utils/hash';
 import HighchartsReact from 'highcharts-react-official';
+import React from 'react';
+import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
+import { IoMapSharp } from 'react-icons/io5';
+import { MdViewStream } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useUncontrolledProp } from 'uncontrollable';
 import { CardHeader } from '../shared';
 import { getColumnOptions } from './column';
+import { FacetResultRow, GroupBy, Pagging, useFacets } from './GroupByTable';
 import Highcharts, { chartPatterns, generateChartsPalette } from './highcharts';
-import { getPieOptions } from './pie';
-// import { getTimeSeriesOptions } from './area';
-import { Button } from '@/components/ui/button';
-import formatAsPercentage from '@/utils/formatAsPercentage';
-import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
-import { MdViewStream } from 'react-icons/md';
-import { useUncontrolledProp } from 'uncontrollable';
-import { GroupBy, Pagging, useFacets } from './GroupByTable';
-import { getTimeSeriesOptions } from './time';
-import { useConfig } from '@/config/config';
 import { Map } from './map/map';
-import { IoMapSharp } from 'react-icons/io5';
-import { hash } from '@/utils/hash';
-import { useI18n } from '@/reactRouterPlugins';
+import { getPieOptions } from './pie';
+import { getTimeSeriesOptions } from './time';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
 const enableMapCharts = import.meta.env.PUBLIC_DEFAULT_ENABLE_MAP_CHARTS === 'true';
 
+export type ChartView = 'COLUMN' | 'PIE' | 'TABLE' | 'TIME' | 'MAP';
+
+type ChartViewOptionsProps = {
+  view: ChartView;
+  setView: (view: ChartView) => void;
+  options?: ChartView[];
+};
+
 // Component to control the view options: table, pie chart, bar chart
-export function ChartViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
+export function ChartViewOptions({
+  view,
+  setView,
+  options = ['COLUMN', 'PIE', 'TABLE'],
+}: ChartViewOptionsProps) {
   const allowedOptions = options.filter((option) => {
     if (option === 'MAP' && !enableMapCharts) return false;
     return true;
   });
   if (allowedOptions.length < 2) return null;
 
-  // option to icon component map
-  const iconMap = {
+  const iconMap: Record<ChartView, React.ReactElement> = {
     COLUMN: <BsFillBarChartFill />,
     PIE: <BsPieChartFill />,
     TABLE: <MdViewStream />,
@@ -57,10 +67,36 @@ export function ChartViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'T
   );
 }
 
+type FacetQuery = Parameters<typeof useFacets>[0];
+
+type OneDimensionalChartProps = {
+  facetQuery: FacetQuery;
+  predicateKey: string;
+  detailsRoute?: string;
+  disableOther?: boolean;
+  options?: ChartView[];
+  defaultOption?: ChartView;
+  disableUnknown?: boolean;
+  showUnknownInChart?: boolean;
+  messages?: Array<React.ReactNode | string>;
+  title?: React.ReactNode;
+  subtitleKey?: string;
+  transform?: (data: unknown) => FacetResultRow[] | undefined;
+  currentFilter?: Record<string, unknown>;
+  filterKey?: string;
+  handleRedirect?: (args: { filter?: Record<string, unknown> }) => void;
+  visibilityThreshold?: number;
+  interactive?: boolean;
+  setView?: (view: ChartView) => void;
+  view?: ChartView;
+  showFreeTextWarning?: boolean;
+  value2colorMap?: Record<string, string>;
+  [key: string]: unknown;
+};
+
 export function OneDimensionalChart({
   facetQuery,
   predicateKey,
-  detailsRoute,
   disableOther,
   options = ['TABLE', 'PIE', 'COLUMN'],
   defaultOption,
@@ -70,7 +106,6 @@ export function OneDimensionalChart({
   title,
   subtitleKey,
   transform,
-  currentFilter = {}, //excluding root predicate
   filterKey,
   handleRedirect,
   visibilityThreshold = -1,
@@ -80,9 +115,9 @@ export function OneDimensionalChart({
   showFreeTextWarning,
   value2colorMap,
   ...props
-}) {
+}: OneDimensionalChartProps) {
   const { locale } = useI18n();
-  const [view, setView] = useUncontrolledProp(
+  const [view, setView] = useUncontrolledProp<ChartView>(
     userView,
     defaultOption ?? options?.[0] ?? 'TABLE',
     setUserView
@@ -90,24 +125,26 @@ export function OneDimensionalChart({
   const intl = useIntl();
   const { theme } = useConfig();
   const facetResults = useFacets(facetQuery);
-  // const [view, setView] = useState(defaultOption ?? options?.[0] ?? 'TABLE');
-  const showChart = facetResults?.results?.length > 0;
+  const showChart = (facetResults?.results?.length ?? 0) > 0;
   const { otherCount, emptyCount, distinct } = facetResults;
-  // if (!view) setView(defaultOption ?? options?.[0] ?? 'TABLE');
-  const { chartColors } = theme;
+  const chartColors: string[] | undefined = theme?.chartColors;
   const palette = chartColors
     ? generateChartsPalette(chartColors)
-    : Highcharts?.defaultOptions?.colors;
-  const messages = [...(customMessages ?? [])];
+    : (Highcharts?.defaultOptions?.colors as string[] | undefined);
+  const messages: Array<React.ReactNode | string> = [...(customMessages ?? [])];
   const translations = {
     occurrences: intl.formatMessage({ id: 'dashboard.occurrences' }),
   };
-  facetResults?.results?.forEach((x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] }));
+  facetResults?.results?.forEach(
+    (x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] })
+  );
   const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
-  const data = mappedResults?.map((x) => {
+  const data = mappedResults?.map((x, index) => {
     const customColor = value2colorMap
-      ? value2colorMap[x.key]
-      : chartColors[x.index % chartColors.length];
+      ? value2colorMap[String(x.key)]
+      : chartColors
+      ? chartColors[index % chartColors.length]
+      : undefined;
     return {
       ...x,
       y: x.count,
@@ -116,30 +153,40 @@ export function OneDimensionalChart({
       filter: { [predicateKey]: [x.key] },
       visible: x.count > 0,
       color: customColor,
+    } as FacetResultRow & {
+      y: number;
+      name: React.ReactNode;
+      visible: boolean;
+      color?: string;
     };
   });
 
   // count how many results have data
   const notEmptyResults = data?.filter((x) => x.y > 0);
 
-  if (data && notEmptyResults?.length <= visibilityThreshold) return null;
+  if (data && (notEmptyResults?.length ?? 0) <= visibilityThreshold) return null;
 
   if (view === 'PIE') {
     if (!disableOther && otherCount) {
-      data.push({
+      data?.push({
+        key: '__other__',
+        count: otherCount,
         y: otherCount,
         name: intl.formatMessage({ id: 'dashboard.other' }),
-        color: chartPatterns.OTHER,
+        color: chartPatterns.OTHER as unknown as string,
         visible: true,
+        filter: { [predicateKey]: [] },
       });
     }
     if (showUnknownInChart && emptyCount) {
-      data.push({
+      data?.push({
+        key: '__unknown__',
+        count: emptyCount,
         y: emptyCount,
         name: intl.formatMessage({ id: 'dashboard.unknown' }),
         visible: true,
-        color: chartPatterns.UNKNOWN,
-        filter: { mustNot: { [predicateKey]: [{ type: 'isNotNull' }] } },
+        color: chartPatterns.UNKNOWN as unknown as string,
+        filter: { mustNot: [{ [predicateKey]: [{ type: 'isNotNull' }] }] },
       });
     }
   }
@@ -148,14 +195,12 @@ export function OneDimensionalChart({
     innerSize: '25%',
     name: intl.formatMessage({ id: 'dashboard.occurrences' }),
     data,
-    // color: palette[0],
   };
 
   const pieOptions = getPieOptions({
     serie,
     onClick: handleRedirect,
     interactive,
-    translations,
     colors: palette,
     isRtl: locale.textDirection === 'rtl',
   });
@@ -168,14 +213,15 @@ export function OneDimensionalChart({
   });
 
   // if time series then create the area chart options
-  let timeSeriesOptions;
+  let timeSeriesOptions: ReturnType<typeof getTimeSeriesOptions> | undefined;
   if (view === 'TIME') {
-    const interval = facetResults?.data?.search?.facet?.results?.interval; // e.g. 10y = 10 years, could also be months, days, hours, minutes, seconds, abbreviated as y, M, d, h, m, s
-    // extract the unit and value from the interval
+    const facetSection = facetResults?.data?.search?.facet?.results as
+      | { interval?: string }
+      | undefined;
+    const interval = facetSection?.interval;
     const unit = interval?.slice(-1);
-    const value = parseInt(interval?.slice(0, -1));
-    // translate unit to fulls string for the pointIntervalUnit (year, month, day, hour, minute, second)
-    const unitMap = {
+    const value = interval ? parseInt(interval.slice(0, -1)) : 0;
+    const unitMap: Record<string, string> = {
       y: 'year',
       M: 'month',
       d: 'day',
@@ -184,12 +230,10 @@ export function OneDimensionalChart({
       s: 'second',
     };
 
-    // // rename the data to get names with time interval
     data?.forEach((x) => {
-      const utc = Number.parseInt(x?.utc);
-      // add the interval to the date, and serialize as yyyy-mm-dd - yyyy-mm-dd (start date - end date)
+      const utcRaw = (x as unknown as { utc?: string | number })?.utc;
+      const utc = Number.parseInt(String(utcRaw));
       const startDate = new Date(utc);
-      // add the interval to the startDate (e.g. adding 10 years)
       const endDate = new Date(utc);
 
       if (unit === 'y') endDate.setFullYear(startDate.getFullYear() + value);
@@ -199,9 +243,7 @@ export function OneDimensionalChart({
       if (unit === 'm') endDate.setMinutes(startDate.getMinutes() + value);
       if (unit === 's') endDate.setSeconds(startDate.getSeconds() + value);
 
-      // format the name as start - end. The resolution should reflect the units, so if the units are years, then only show startyear - endyear, but if the units are days, then show startdate - enddate
-      // we should ONLY show the year if the interval is years, otherwise we should show the full date
-      let format = { year: 'numeric' };
+      let format: Intl.DateTimeFormatOptions = { year: 'numeric' };
       if (unit === 'M') format = { year: 'numeric', month: 'short' };
       if (unit === 'd') format = { year: 'numeric', month: 'short', day: 'numeric' };
       if (unit === 'h')
@@ -227,19 +269,17 @@ export function OneDimensionalChart({
       const start = new Intl.DateTimeFormat('en', format).format(startDate);
       const end = new Intl.DateTimeFormat('en', format).format(endDate);
 
-      x.name = `${start} - ${end}`;
-
-      x.utc = utc;
+      (x as unknown as { name: string }).name = `${start} - ${end}`;
+      (x as unknown as { utc: number }).utc = utc;
     });
-    // create the serie
+
+    const firstUtcRaw = (data?.[0] as unknown as { utc?: string | number })?.utc;
     const histogramSerie = {
       innerSize: '25%',
       name: intl.formatMessage({ id: 'dashboard.occurrences' }),
-      // pointStart: -10476864000000,
-      pointStart: Number.parseInt(data?.[0]?.utc), //Date.UTC(1638, 0, 1), // first of April
-      // pointRange: 3600 * 1000 * 24 * 365 * 10, // hourly data
+      pointStart: Number.parseInt(String(firstUtcRaw)),
       pointInterval: value,
-      pointIntervalUnit: unitMap[unit],
+      pointIntervalUnit: unit ? unitMap[unit] : undefined,
       pointPadding: 0,
       groupPadding: 0,
       borderWidth: 0.5,
@@ -256,8 +296,9 @@ export function OneDimensionalChart({
     });
   }
 
-  const filledPercentage =
-    facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
+  const isNotNullTotal = facetResults?.data?.isNotNull?.documents?.total ?? 0;
+  const searchTotal = facetResults?.data?.search?.documents?.total ?? 0;
+  const filledPercentage = searchTotal > 0 ? isNotNullTotal / searchTotal : 0;
 
   if (showFreeTextWarning) {
     messages.push('dashboard.notVocabularyWarning');
@@ -274,18 +315,14 @@ export function OneDimensionalChart({
     );
   }
   const renderedView = view;
-  // the idea with this was that it looks odd with a pie chart with only one value, but it looks even worse with a table with only one value. Similar for column charts. But in reality it was also confusing changing the layout when changing filters, so we removed this.
-  // const singleValue = notEmptyResults?.length === 1 ? notEmptyResults[0] : null;
-  // const renderedView = singleValue ? 'TABLE' : view;
 
-  const contextHash = hash(facetQuery);
+  const contextHash = String(hash(facetQuery));
   return (
     <Card
       {...props}
       loading={facetResults.loading || !facetResults.data}
       error={!!facetResults.error}
     >
-      {/* <CardTitle options={(singleValue || (distinct === 0)) ? null : <ViewOptions options={options} view={view} setView={setView} />}> */}
       <CardHeader options={<ChartViewOptions options={options} view={view} setView={setView} />}>
         <CardTitle>{title && <>{title}</>}</CardTitle>
         {subtitleKey && (
@@ -328,11 +365,11 @@ export function OneDimensionalChart({
                 )}
                 {renderedView === 'MAP' && (
                   <Map
-                    facetResults={facetResults}
-                    transform={transform}
+                    facetResults={facetResults as unknown as Parameters<typeof Map>[0]['facetResults']}
+                    transform={transform as unknown as Parameters<typeof Map>[0]['transform']}
                     onClick={handleRedirect}
                     interactive={interactive}
-                    palette={palette}
+                    palette={palette ?? []}
                     contextHash={contextHash}
                   />
                 )}
@@ -356,7 +393,11 @@ export function OneDimensionalChart({
   );
 }
 
-export function ChartMessages({ messages = [] }) {
+type ChartMessagesProps = {
+  messages?: Array<React.ReactNode | string>;
+};
+
+export function ChartMessages({ messages = [] }: ChartMessagesProps) {
   if (!messages || messages.length === 0) return null;
   return (
     <div className="g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors">
@@ -364,7 +405,7 @@ export function ChartMessages({ messages = [] }) {
         const isString = typeof message === 'string';
         return (
           <div key={i}>
-            {isString && <FormattedMessage id={message} />}
+            {isString && <FormattedMessage id={message as string} />}
             {!isString && message}
           </div>
         );

@@ -1,5 +1,30 @@
-export function getColumnOptions({ serie, onClick, interactive, translations, colors }) {
-  const categories = serie?.data?.map((x) => x.name);
+type ChartPoint = {
+  filter?: Record<string, unknown>;
+  name?: unknown;
+  y?: number;
+};
+
+type ChartClickEvent = { filter?: Record<string, unknown>; name?: unknown; count?: number };
+
+type Serie = {
+  name?: unknown;
+  data?: ChartPoint[];
+  [key: string]: unknown;
+};
+
+type GetTimeSeriesOptionsArgs = {
+  serie: Serie;
+  onClick?: (event: ChartClickEvent, point: unknown) => void;
+  interactive?: boolean;
+  translations: { occurrences?: string };
+};
+
+export function getTimeSeriesOptions({
+  serie,
+  onClick,
+  interactive,
+  translations,
+}: GetTimeSeriesOptionsArgs) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -10,8 +35,8 @@ export function getColumnOptions({ serie, onClick, interactive, translations, co
     },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y}</b>',
+      followPointer: false,
     },
-    colors,
     plotOptions: {
       series: {
         color: {
@@ -27,13 +52,6 @@ export function getColumnOptions({ serie, onClick, interactive, translations, co
           ],
         },
         borderWidth: 0,
-        // shadow: {
-        //   color: '#000',
-        //   width: 3,
-        //   opacity: 0.1,
-        //   offsetX: 0,
-        //   offsetY: 0
-        // }
       },
       column: {
         allowPointSelect: interactive,
@@ -46,8 +64,11 @@ export function getColumnOptions({ serie, onClick, interactive, translations, co
         point: interactive
           ? {
               events: {
-                click: function () {
-                  onClick({ filter: this.filter, name: this.name, count: this.y }, this);
+                click: function (this: ChartPoint) {
+                  onClick?.(
+                    { filter: this.filter, name: this.name, count: this.y },
+                    this
+                  );
                 },
               },
             }
@@ -61,19 +82,15 @@ export function getColumnOptions({ serie, onClick, interactive, translations, co
       text: '',
     },
     xAxis: {
-      // type: 'datetime',
-      categories: categories,
-      crosshair: true, //!!categories && data.results.length > 1,
+      type: 'datetime',
       labels: {
-        formatter: function () {
-          return truncate(this.value, 50);
-        },
+        enabled: true,
       },
       lineColor: '#d0d2da',
     },
     yAxis: {
       title: {
-        text: translations?.occurrences || 'Occurrences',
+        text: translations.occurrences || 'Occurrences',
       },
       gridLineDashStyle: 'LongDash',
       lineColor: '#d0d2da',
@@ -96,17 +113,4 @@ export function getColumnOptions({ serie, onClick, interactive, translations, co
     },
   };
   return options;
-}
-
-// function to truncate long strings so that they end with an ellipsis
-function truncate(str, maxLength) {
-  // test that it is a string, else do nothing
-  if (typeof str !== 'string') {
-    return str;
-  }
-  if (str.length <= maxLength) {
-    return str;
-  }
-
-  return str.substring(0, maxLength) + '...';
 }
