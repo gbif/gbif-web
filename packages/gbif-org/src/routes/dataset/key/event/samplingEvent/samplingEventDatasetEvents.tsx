@@ -54,7 +54,7 @@ function SamplingEventBrowser() {
     const c = {
       ...baseConfig.eventSearch,
       scope: {
-        // datasetKey, // TODO tmp to see more than just one dataset
+        datasetKey,
       },
     };
     setConfig(c);
