@@ -50,46 +50,46 @@
   "group": {
     "groupBy": "Grouper par",
     "default": "Par défaut",
-    "random": "",
-    "showMore": "",
-    "cappedHint": "",
-    "useAsFilter": "",
+    "random": "Aléatoire",
+    "showMore": "Afficher {count} de plus",
+    "cappedHint": "Affichage de {shown} groupes sur {total}. Appliquez d'autres filtres pour affiner la recherche.",
+    "useAsFilter": "Utiliser comme filtre",
     "unspecified": "Non spécifié"
   },
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "Connexe",
     "legend": "Légende",
-    "differentPublishers": "",
-    "samePublishers": "",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "differentPublishers": "Différents éditeurs",
+    "samePublishers": "Même éditeur",
+    "entryPoint": "Point d'entrée",
+    "hasMultipleTaxonKeys": "Contient différentes identifications",
+    "aboutLink": "A propos du lien",
+    "isCapped": "Ce nœud possède plus de connexions que celles affichées ici. Consultez la fiche pour voir la liste complète.",
+    "isDeleted": "Cet enregistrement a depuis été supprimé.",
+    "similarities": "Similitudes",
+    "currentRecord": "Enregistrement actuel",
     "nodeType": {
       "IMAGE": "Image",
       "TYPE": "Spécimens type",
       "TREATMENT": "Traitement",
       "OBSERVATION": "Observation",
       "SPECIMEN": "Spécimen",
-      "SEQUENCE": ""
+      "SEQUENCE": "Séquence"
     }
   },
   "crossContentSearch": {
     "title": "Rechercher",
-    "description": "",
+    "description": "Effectuez une recherche parmi les espèces, les observations, les jeux de données, les éditeurs, les articles et bien plus encore",
     "noSearchTermsEntered": "Aucun mot-clé renseigné",
-    "placeholder": "",
+    "placeholder": "Recherche dans le contenu...",
     "categories": {
       "speciesSearch": "Espèce",
       "taxonSearch": "Taxa",
       "datasetSearch": "Jeux de données",
       "publisherSearch": "Fournisseurs de données",
       "occurrenceSearch": "Occurrences",
-      "resourceSearch": ""
+      "resourceSearch": "Ressources et articles"
     },
     "seeAll": "Tout voir"
   }
