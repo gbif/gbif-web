@@ -3,7 +3,7 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import axios from 'axios';
 import { getDefaultAgent } from '@/requestAgents';
 
-class TaxonMediaAPI extends RESTDataSource {
+export default class TaxonMediaAPI extends RESTDataSource {
   constructor(config) {
     super();
     this.baseURL = config.apiv1;
@@ -136,12 +136,6 @@ class TaxonMediaAPI extends RESTDataSource {
       .slice(0, size);
   }
 }
-
-export default {
-  dataSource: {
-    taxonMediaAPI: TaxonMediaAPI,
-  },
-};
 
 function mapInaturalistToAudobon(photo) {
   return {

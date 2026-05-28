@@ -4,8 +4,8 @@ import { stringify } from 'qs';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { renameProperty } from '@/helpers/utils';
 import { getDefaultAgent } from '@/requestAgents';
-import { ResourceSearchAPI } from '@/resources/gbif/resource/resource.source';
-import { VALID_GBIF_ROLES } from '@/resources/gbif/directoryPerson/validGbifRoles';
+import { ResourceSearchAPI } from '@/resources/resource/resource.source';
+import { VALID_GBIF_ROLES } from '@/resources/directoryPerson/validGbifRoles';
 
 function mergeParticipantData(directoryParticipant, resourceParticipant) {
   return {
