@@ -139,12 +139,8 @@ export function OneDimensionalChart({
     (x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] })
   );
   const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
-  const data = mappedResults?.map((x, index) => {
-    const customColor = value2colorMap
-      ? value2colorMap[String(x.key)]
-      : chartColors
-      ? chartColors[index % chartColors.length]
-      : undefined;
+  const data = mappedResults?.map((x) => {
+    const customColor = value2colorMap ? value2colorMap[String(x.key)] : undefined;
     return {
       ...x,
       y: x.count,
