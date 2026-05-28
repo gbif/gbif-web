@@ -1,4 +1,32 @@
-export function getTimeSeriesOptions({ serie, onClick, interactive, translations }) {
+type ChartPoint = {
+  filter?: Record<string, unknown>;
+  name?: unknown;
+  y?: number;
+};
+
+type ChartClickEvent = { filter?: Record<string, unknown>; name?: unknown; count?: number };
+
+type Serie = {
+  name?: unknown;
+  data?: ChartPoint[];
+  [key: string]: unknown;
+};
+
+type GetColumnOptionsArgs = {
+  serie: Serie;
+  onClick?: ((event: ChartClickEvent, point: unknown) => void) | undefined;
+  interactive?: boolean;
+  translations?: { occurrences?: string };
+  colors?: unknown[];
+};
+
+export function getColumnOptions({
+  serie,
+  onClick,
+  interactive,
+  translations,
+  colors,
+}: GetColumnOptionsArgs) {
   const categories = serie?.data?.map((x) => x.name);
   const options = {
     responsive: true,
@@ -10,8 +38,8 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
     },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y}</b>',
-      followPointer: false,
     },
+    colors,
     plotOptions: {
       series: {
         color: {
@@ -27,13 +55,6 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
           ],
         },
         borderWidth: 0,
-        // shadow: {
-        //   color: '#000',
-        //   width: 3,
-        //   opacity: 0.1,
-        //   offsetX: 0,
-        //   offsetY: 0
-        // }
       },
       column: {
         allowPointSelect: interactive,
@@ -46,8 +67,11 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
         point: interactive
           ? {
               events: {
-                click: function () {
-                  onClick({ filter: this.filter, name: this.name, count: this.y }, this);
+                click: function (this: ChartPoint) {
+                  onClick?.(
+                    { filter: this.filter, name: this.name, count: this.y },
+                    this
+                  );
                 },
               },
             }
@@ -61,21 +85,18 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
       text: '',
     },
     xAxis: {
-      type: 'datetime',
+      categories: categories,
+      crosshair: true,
       labels: {
-        enabled: true,
+        formatter: function (this: { value: unknown }) {
+          return truncate(this.value, 50);
+        },
       },
-      // crosshair: true,//!!categories && data.results.length > 1,
-      // labels: {
-      //   formatter: function () {
-      //     return truncate(this.value, 50);
-      //   }
-      // },
       lineColor: '#d0d2da',
     },
     yAxis: {
       title: {
-        text: translations.occurrences || 'Occurrences',
+        text: translations?.occurrences || 'Occurrences',
       },
       gridLineDashStyle: 'LongDash',
       lineColor: '#d0d2da',
@@ -98,4 +119,15 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
     },
   };
   return options;
+}
+
+function truncate(str: unknown, maxLength: number): unknown {
+  if (typeof str !== 'string') {
+    return str;
+  }
+  if (str.length <= maxLength) {
+    return str;
+  }
+
+  return str.substring(0, maxLength) + '...';
 }

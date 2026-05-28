@@ -1,12 +1,27 @@
 import { ChartWrapper } from './EnumChartGenerator';
 
+type KeyChartGeneratorProps = {
+  predicate?: unknown;
+  detailsRoute?: string;
+  fieldName: string;
+  translationTemplate?: string; // will fallback to "enums.{fieldName}.{key}"
+  facetSize?: number;
+  disableOther?: boolean;
+  disableUnknown?: boolean;
+  currentFilter?: Record<string, unknown>; // excluding root predicate
+  gqlEntity?: string; // e.g. `dataset {title}`
+  searchType?: string;
+  isVocabulary?: boolean;
+  includeMapPredicate?: boolean;
+  [key: string]: unknown;
+};
+
 // this is for generating charts for fields that are foreign keys like taxonKey, collectionKey, datasetKey, etc.
 // for some fields there will always be a value like datasetKey, but e.g. collectionKey is only sparsely filled.
 export function KeyChartGenerator({
   predicate,
   detailsRoute,
   fieldName,
-  translationTemplate, // will fallback to "enums.{fieldName}.{key}"
   facetSize,
   disableOther,
   disableUnknown,
@@ -16,7 +31,7 @@ export function KeyChartGenerator({
   isVocabulary = false,
   includeMapPredicate,
   ...props
-}) {
+}: KeyChartGeneratorProps) {
   const GQL_QUERY = `
     query summary($q: String, $predicate: Predicate${
       !disableUnknown ? ', $hasPredicate: Predicate' : ''
@@ -72,6 +87,13 @@ export function KeyChartGenerator({
   );
 }
 
-export function VocabularyChartGenerator({ isVocabulary = false, ...props }) {
-  return <KeyChartGenerator isVocabulary {...props} />;
+type VocabularyChartGeneratorProps = Omit<KeyChartGeneratorProps, 'isVocabulary'> & {
+  isVocabulary?: boolean;
+};
+
+export function VocabularyChartGenerator({
+  isVocabulary: _isVocabulary = false,
+  ...props
+}: VocabularyChartGeneratorProps) {
+  return <KeyChartGenerator {...(props as KeyChartGeneratorProps)} isVocabulary />;
 }

@@ -1,7 +1,23 @@
-import { FormattedMessage } from 'react-intl';
-// import monthEnum from '../../../enums/basic/month.json';
-import { ChartWrapper, EnumChartGenerator } from './EnumChartGenerator';
 import { useConfig } from '@/config/config';
+import { FormattedMessage } from 'react-intl';
+import { ChartWrapper, EnumChartGenerator } from './EnumChartGenerator';
+
+type StandardEnumChartProps = {
+  predicate?: unknown;
+  q?: string;
+  detailsRoute?: string;
+  currentFilter?: Record<string, unknown>; //excluding root predicate
+  fieldName: string;
+  enumKeys?: Array<string | number>;
+  enableUnknown?: boolean;
+  showUnknownInChart?: boolean;
+  enableOther?: boolean;
+  facetSize?: number;
+  subtitleKey?: string;
+  translationTemplate?: string;
+  titleTranslationId?: string;
+  [key: string]: unknown;
+};
 
 function StandardEnumChart({
   predicate,
@@ -18,7 +34,7 @@ function StandardEnumChart({
   translationTemplate,
   titleTranslationId,
   ...props
-}) {
+}: StandardEnumChartProps) {
   return (
     <EnumChartGenerator
       {...{
@@ -46,7 +62,9 @@ function StandardEnumChart({
   );
 }
 
-export function Licenses(props) {
+type ChartProps = Omit<StandardEnumChartProps, 'fieldName'>;
+
+export function Licenses(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -59,7 +77,7 @@ export function Licenses(props) {
   );
 }
 
-export function BasisOfRecord(props) {
+export function BasisOfRecord(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -72,7 +90,7 @@ export function BasisOfRecord(props) {
   );
 }
 
-export function Months(props) {
+export function Months(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -89,7 +107,7 @@ export function Months(props) {
   );
 }
 
-export function MediaType(props) {
+export function MediaType(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -103,7 +121,7 @@ export function MediaType(props) {
   );
 }
 
-export function OccurrenceIssue(props) {
+export function OccurrenceIssue(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -118,7 +136,7 @@ export function OccurrenceIssue(props) {
   );
 }
 
-export function Country(props) {
+export function Country(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -135,7 +153,7 @@ export function Country(props) {
   );
 }
 
-export function PublishingCountryCode(props) {
+export function PublishingCountryCode(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -153,7 +171,7 @@ export function PublishingCountryCode(props) {
   );
 }
 
-export function Continent(props) {
+export function Continent(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -170,7 +188,7 @@ export function Continent(props) {
   );
 }
 
-export function DwcaExtension(props) {
+export function DwcaExtension(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -183,7 +201,7 @@ export function DwcaExtension(props) {
   );
 }
 
-export function Protocol(props) {
+export function Protocol(props: ChartProps) {
   return (
     <StandardEnumChart
       {...{
@@ -197,7 +215,7 @@ export function Protocol(props) {
   );
 }
 
-export function IucnCounts(props) {
+export function IucnCounts(props: ChartProps) {
   const { theme } = useConfig();
   const GQL_QUERY = `
     query summary($q: String, $hasPredicate: Predicate, $size: Int, $from: Int, $checklistKey: ID) {
@@ -251,12 +269,19 @@ export function IucnCounts(props) {
   );
 }
 
+type LiteratureChartProps = {
+  predicate?: unknown;
+  detailsRoute?: string;
+  currentFilter?: Record<string, unknown>; //excluding root predicate
+  [key: string]: unknown;
+};
+
 export function LiteratureTopics({
   predicate,
   detailsRoute,
   currentFilter = {}, //excluding root predicate
   ...props
-}) {
+}: LiteratureChartProps) {
   return (
     <EnumChartGenerator
       {...{
@@ -283,7 +308,7 @@ export function LiteratureType({
   detailsRoute,
   currentFilter = {}, //excluding root predicate
   ...props
-}) {
+}: LiteratureChartProps) {
   return (
     <EnumChartGenerator
       {...{
@@ -310,7 +335,7 @@ export function LiteratureRelevance({
   detailsRoute,
   currentFilter = {}, //excluding root predicate
   ...props
-}) {
+}: LiteratureChartProps) {
   return (
     <EnumChartGenerator
       {...{
@@ -337,7 +362,7 @@ export function LiteratureCountriesOfResearcher({
   detailsRoute,
   currentFilter = {}, //excluding root predicate
   ...props
-}) {
+}: LiteratureChartProps) {
   return (
     <EnumChartGenerator
       {...{
@@ -369,7 +394,7 @@ export function LiteratureCountriesOfCoverage({
   detailsRoute,
   currentFilter = {}, //excluding root predicate
   ...props
-}) {
+}: LiteratureChartProps) {
   return (
     <EnumChartGenerator
       {...{

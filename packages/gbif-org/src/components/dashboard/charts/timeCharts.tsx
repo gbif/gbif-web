@@ -1,20 +1,50 @@
 import { FormattedMessage } from 'react-intl';
 import { ChartWrapper } from './EnumChartGenerator';
+import { FacetResultRow } from './GroupByTable';
+
+type TimeChartProps = {
+  predicate?: unknown;
+  detailsRoute?: string;
+  fieldName?: string;
+  translationTemplate?: string; // will fallback to "enums.{fieldName}.{key}"
+  facetSize?: number;
+  disableOther?: boolean;
+  disableUnknown?: boolean;
+  currentFilter?: Record<string, unknown>; // excluding root predicate
+  gqlEntity?: string;
+  [key: string]: unknown;
+};
+
+type DateBucket = {
+  key: string;
+  utc: number;
+  date: string;
+  title: string;
+  count: number;
+};
+
+type DateHistogramData = {
+  search?: {
+    facet?: {
+      results?: {
+        interval?: string;
+        buckets?: DateBucket[];
+      };
+    };
+  };
+};
 
 // this is for generating charts for fields that are foreign keys like taxonKey, collectionKey, datasetKey, etc.
 // for some fields there will always be a value like datasetKey, but e.g. collectionKey is only sparsely filled.
 export function EventDate({
   predicate,
   detailsRoute,
-  fieldName,
-  translationTemplate, // will fallback to "enums.{fieldName}.{key}"
   facetSize,
   disableOther,
   disableUnknown,
   currentFilter = {}, // excluding root predicate
-  gqlEntity, // e.g. `dataset {title}`
   ...props
-}) {
+}: TimeChartProps) {
   const GQL_QUERY = `
     query summary($q: String, $predicate: Predicate${
       !disableUnknown ? ', $hasPredicate: Predicate' : ''
@@ -61,13 +91,11 @@ export function EventDate({
         title: <FormattedMessage id="filters.eventDate.name" defaultMessage="Event date" />,
         predicateKey: 'eventDate',
         facetSize,
-        transform: (data) => {
-          return data?.search?.facet?.results?.buckets?.map((x) => {
-            return {
-              ...x,
-              title: x.date,
-            };
-          });
+        transform: (data: unknown): FacetResultRow[] | undefined => {
+          return (data as DateHistogramData)?.search?.facet?.results?.buckets?.map((x) => ({
+            ...x,
+            title: x.date,
+          })) as FacetResultRow[] | undefined;
         },
       }}
       {...props}
@@ -78,15 +106,12 @@ export function EventDate({
 export function LiteratureCreatedAt({
   predicate,
   detailsRoute,
-  fieldName,
-  translationTemplate, // will fallback to "enums.{fieldName}.{key}"
   facetSize,
   disableOther,
   disableUnknown,
   currentFilter = {}, // excluding root predicate
-  gqlEntity, // e.g. `dataset {title}`
   ...props
-}) {
+}: TimeChartProps) {
   const GQL_QUERY = `
     query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}){
       search: literatureSearch(predicate: $predicate) {
@@ -132,13 +157,11 @@ export function LiteratureCreatedAt({
         ),
         predicateKey: 'createdAt',
         facetSize,
-        transform: (data) => {
-          return data?.search?.facet?.results?.buckets?.map((x) => {
-            return {
-              ...x,
-              title: x.date,
-            };
-          });
+        transform: (data: unknown): FacetResultRow[] | undefined => {
+          return (data as DateHistogramData)?.search?.facet?.results?.buckets?.map((x) => ({
+            ...x,
+            title: x.date,
+          })) as FacetResultRow[] | undefined;
         },
       }}
       {...props}

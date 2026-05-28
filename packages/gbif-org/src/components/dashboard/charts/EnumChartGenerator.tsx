@@ -1,7 +1,22 @@
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import ChartClickWrapper from './ChartClickWrapper';
 import { OneDimensionalChart } from './OneDimensionalChart';
-// import ChartClickWrapper from './ChartClickWrapper';
+
+type EnumChartGeneratorProps = {
+  predicate?: unknown;
+  q?: string;
+  detailsRoute?: string;
+  fieldName: string;
+  enumKeys?: Array<string | number>;
+  translationTemplate?: string; // will fallback to "enums.{fieldName}.{key}"
+  facetSize?: number;
+  disableOther?: boolean;
+  disableUnknown?: boolean;
+  currentFilter?: Record<string, unknown>; //excluding root predicate
+  searchType?: string;
+  includeMapPredicate?: boolean;
+  [key: string]: unknown;
+};
 
 export function EnumChartGenerator({
   predicate,
@@ -17,7 +32,7 @@ export function EnumChartGenerator({
   searchType = 'occurrenceSearch',
   includeMapPredicate,
   ...props
-}) {
+}: EnumChartGeneratorProps) {
   const GQL_QUERY = `
     query summary($q: String, $predicate: Predicate${
       !disableUnknown ? ', $hasPredicate: Predicate' : ''
@@ -75,6 +90,24 @@ export function EnumChartGenerator({
   );
 }
 
+type ChartWrapperProps = {
+  predicate?: unknown;
+  checklistKey?: string;
+  translationTemplate?: string;
+  gqlQuery: string;
+  enumKeys?: Array<string | number>;
+  predicateKey: string;
+  facetSize?: number;
+  disableOther?: boolean;
+  disableUnknown?: boolean;
+  q?: string;
+  applyChecklistKey?: boolean;
+  currentFilter?: Record<string, unknown>; //excluding root predicate
+  detailsRoute?: string;
+  interactive?: boolean;
+  [key: string]: unknown;
+};
+
 export function ChartWrapper({
   predicate,
   checklistKey,
@@ -89,9 +122,9 @@ export function ChartWrapper({
   applyChecklistKey,
   currentFilter = {}, //excluding root predicate
   ...props
-}) {
+}: ChartWrapperProps) {
   const defaultChecklistKey = useChecklistKey();
-  const hasPredicates = [
+  const hasPredicates: Array<Record<string, unknown>> = [
     {
       type: 'isNotNull',
       key: predicateKey,
@@ -101,9 +134,16 @@ export function ChartWrapper({
     hasPredicates[0].checklistKey = checklistKey ?? defaultChecklistKey;
   }
   if (predicate) {
-    hasPredicates.push(predicate);
+    hasPredicates.push(predicate as Record<string, unknown>);
   }
-  const facetQuery = {
+  const facetQuery: {
+    size?: number;
+    keys?: Array<string | number>;
+    translationTemplate?: string;
+    predicate?: unknown;
+    query: string;
+    otherVariables: Record<string, unknown>;
+  } = {
     size: facetSize,
     keys: enumKeys,
     translationTemplate,
@@ -122,7 +162,10 @@ export function ChartWrapper({
   }
 
   return (
-    <ChartClickWrapper detailsRoute={props.detailsRoute} interactive={props.interactive}>
+    <ChartClickWrapper
+      detailsRoute={props.detailsRoute as string | undefined}
+      interactive={props.interactive as boolean | undefined}
+    >
       <OneDimensionalChart
         {...{ facetQuery, disableOther, disableUnknown, predicateKey, currentFilter }}
         {...props}
