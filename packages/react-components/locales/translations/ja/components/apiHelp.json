@@ -1,4 +1,6 @@
 {
   "example": "例",
-  "search": "検索"
+  "examples": "例",
+  "search": "検索",
+  "searchTaxa": "タクサを検索"
 }
