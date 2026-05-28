@@ -9,7 +9,7 @@ import {
   getFirstIIIFImage,
   simplifyUrlObjectKeys,
 } from '@/helpers/utils';
-import config from '../../../config';
+import config from '../../config';
 import {
   getAutoDateHistogram,
   getCardinality,

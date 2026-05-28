@@ -1,5 +1,5 @@
 import Thumbor from 'thumbor';
-import config from '../../../../config';
+import config from '../../../config';
 
 const thumbor = new Thumbor(
   config.thumborSecurityKey,

@@ -1,8 +1,5 @@
-import { get, merge } from 'lodash';
-import config from './config';
+import { merge } from 'lodash';
 import * as resources from './resources';
-
-const { organization } = config;
 
 const idResolver = {
   Query: {
@@ -11,10 +8,8 @@ const idResolver = {
   },
 };
 
-// Merge the resovers defined for that organisation
-const resolvers = Object.keys(resources[organization]).reduce(
-  (agg, resource) =>
-    merge(agg, get(resources, `${organization}.${resource}.resolver`)),
+const resolvers = Object.values(resources).reduce(
+  (agg, resource) => merge(agg, resource.resolver),
   {},
 );
 

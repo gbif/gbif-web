@@ -1,5 +1,5 @@
 import md5 from 'md5';
-import config from '../../../config';
+import config from '../../config';
 
 /**
  * fieldName: (parent, args, context, info) => data;

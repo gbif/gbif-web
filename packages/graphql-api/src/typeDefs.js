@@ -1,7 +1,5 @@
 import { gql } from 'apollo-server';
-import { get } from 'lodash';
 import { getEnumTypeDefs } from '@/helpers/enums';
-import config from './config';
 import * as resources from './resources';
 
 const inputTypeDef = gql`
@@ -70,15 +68,11 @@ async function getSchema() {
     }
   `;
 
-  // Map each organisation string to an aggregate array containing all of its typeDefs
-  const { organization } = config;
-  const orgTypeDefs = Object.keys(resources[organization]).map((resource) =>
-    get(resources, `${organization}.${resource}.typeDef`),
+  const resourceTypeDefs = Object.values(resources).map(
+    (resource) => resource.typeDef,
   );
 
-  const typeDefs = [rootQuery, inputTypeDef, ...orgTypeDefs].flat();
-
-  return typeDefs;
+  return [rootQuery, inputTypeDef, ...resourceTypeDefs].flat();
 }
 
 export default getSchema;
