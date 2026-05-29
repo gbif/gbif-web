@@ -37,7 +37,6 @@
     "d3": "^5.16.0",
     "express": "^4.22.2",
     "glob": "^8.0.3",
-    "got": "^10.7.0",
     "graphql": "^16.0.0",
     "graphql-depth-limit": "^1.1.0",
     "graphql-tag": "^2.12.6",

@@ -1,6 +1,5 @@
 import { createHmac } from 'crypto';
-import got from 'got';
-import { stringify } from 'querystring';
+import axios from 'axios';
 
 const NEWLINE = '\n';
 
@@ -31,17 +30,16 @@ function createSignedGetHeader(canonicalPath, config, username) {
 
 async function authenticatedGet({ canonicalPath, query = {}, config }) {
   // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java
-  const searchParams = stringify(query);
   const headers = createSignedGetHeader(canonicalPath, config);
 
-  const response = await got(canonicalPath, {
-    prefixUrl: config.apiv1,
-    searchParams,
+  const response = await axios.get(canonicalPath, {
+    baseURL: config.apiv1,
+    params: query,
     headers,
     responseType: 'json',
   });
 
-  return response.body;
+  return response.data;
 }
 
 export { authenticatedGet, createSignedGetHeader };
