@@ -269,7 +269,7 @@ const preconfiguredCharts = {
   dataQuality: {
     translation: 'dashboard.richness',
     component: ({ predicate, ...props }) => {
-      return <charts.DataQuality predicate={predicate} {...props} />;
+      return <charts.DataQuality predicate={predicate} interactive {...props} />;
     },
   },
   occurrenceSummary: {
