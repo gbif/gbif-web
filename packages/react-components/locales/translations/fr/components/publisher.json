@@ -15,7 +15,7 @@
   "endorsedBy": "Approuvée par",
   "notYetEndorsed": "Pas encore approuvé",
   "pendingEndorsementBy": "Approbation en attente par",
-  "endorsementWithheld": "",
+  "endorsementWithheld": "Approbation non accordée",
   "installations": "Installations",
   "getDownloadReport": "Télécharger le rapport d'activité",
   "contacts": "Contacts",
