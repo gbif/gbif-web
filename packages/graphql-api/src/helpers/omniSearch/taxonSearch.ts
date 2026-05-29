@@ -1,5 +1,6 @@
-import { ApolloServer, ExpressContext } from 'apollo-server-express';
+import { ApolloServer, BaseContext } from '@apollo/server';
 import config from '@/config';
+import createContext from '@/createContext';
 
 const ENDPOINTS = {
   speciesMatch: `${config.apiv2}/species/match`,
@@ -50,7 +51,7 @@ export default async function searchTaxa({
 }: {
   query: string;
   languageCode?: string;
-  server: ApolloServer<ExpressContext>;
+  server: ApolloServer<BaseContext>;
   checklistKey?: string;
 }) {
   const resolvedChecklistKey = checklistKey ?? config.defaultChecklist;
@@ -121,16 +122,37 @@ async function getTaxonCandidates(
 async function getTaxonDetails(
   taxonKey: string,
   languageCode: string,
-  server: ApolloServer<ExpressContext>,
+  server: ApolloServer<BaseContext>,
   checklistKey: string,
 ) {
   const variables = { taxonKey, datasetKey: checklistKey };
+  // Apollo Server 4+ no longer runs the context function for executeOperation,
+  // so we build a context (with initialized data sources) explicitly and pass it
+  // as contextValue. The result shape also changed: data now lives under
+  // body.singleResult instead of directly on the response.
+  const contextValue = createContext({
+    user: undefined,
+    abortController: new AbortController(),
+    userAgent: 'GBIF_GRAPHQL_API',
+    referer: null,
+    locale: 'en-GB',
+    preview: false,
+  });
   return server
-    .executeOperation({
-      query: TAXON_QUERY,
-      variables,
-    })
-    .then((r) => {
-      return r.data?.taxon;
+    .executeOperation(
+      {
+        query: TAXON_QUERY,
+        variables,
+      },
+      { contextValue },
+    )
+    .then((response) => {
+      if (response.body.kind === 'single') {
+        // data is typed as Record<string, unknown>; the previous apollo-server v3
+        // executeOperation returned `any`, so we keep that loose typing here.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (response.body.singleResult.data as any)?.taxon;
+      }
+      return undefined;
     });
 }

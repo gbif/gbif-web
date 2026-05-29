@@ -1,5 +1,5 @@
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 
 class ValidationAPI extends RESTDataSource {
   constructor(config) {
@@ -8,14 +8,14 @@ class ValidationAPI extends RESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
+  willSendRequest(path, request) {
     if (this.context.user) {
       const header = createSignedGetHeader(
-        request.path,
+        path,
         this.config,
         this.context.user.userName,
       );
-      Object.keys(header).forEach((x) => request.headers.set(x, header[x]));
+      Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
     }
   }
 

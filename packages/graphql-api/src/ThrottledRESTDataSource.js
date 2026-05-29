@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import Bottleneck from 'bottleneck';
 
 class ThrottledRESTDataSource extends RESTDataSource {

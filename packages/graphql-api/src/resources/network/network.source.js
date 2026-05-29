@@ -1,5 +1,5 @@
 import { getDefaultAgent } from '@/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import { stringify } from 'qs';
 
 class NetworkAPI extends RESTDataSource {
@@ -8,10 +8,10 @@ class NetworkAPI extends RESTDataSource {
     this.baseURL = config.apiv1;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async searchNetworks({ query }) {

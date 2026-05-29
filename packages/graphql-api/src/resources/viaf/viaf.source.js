@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 
 import { getDefaultAgent } from '@/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 
 function reduce(response) {
   if (!response?.viafID) return undefined;
@@ -32,9 +32,9 @@ class ViafAPI extends RESTDataSource {
     this.baseURL = config.viaf.api;
   }
 
-  willSendRequest(request) {
-    request.headers.set('Accept', 'application/json');
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['Accept'] = 'application/json';
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async getViafByKey({ key }) {

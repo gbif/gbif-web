@@ -15,12 +15,12 @@ class OccurrenceAPI extends QueuedRESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
+  willSendRequest(path, request) {
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getOccurrenceAgent(this.baseURL, request.path);
+    request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getOccurrenceAgent(this.baseURL, path);
   }
 
   async searchOccurrenceDocuments({ query }) {

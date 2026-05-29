@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import PQueue from 'p-queue';
 
 class QueuedRESTDataSource extends RESTDataSource {

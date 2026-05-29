@@ -1,7 +1,7 @@
 import config from '@/config';
 import { getSchema } from '@/helpers/enums';
 import prevVersionEnums from '@/helpers/enums/enums.json';
-import { gql } from 'apollo-server';
+import { gql } from 'graphql-tag';
 import got from 'got';
 import { difference, get, zipObject } from 'lodash';
 import hash from 'object-hash';

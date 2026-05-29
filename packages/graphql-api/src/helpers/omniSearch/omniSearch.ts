@@ -1,4 +1,4 @@
-import { ApolloServer, ExpressContext } from 'apollo-server-express';
+import { ApolloServer, BaseContext } from '@apollo/server';
 import searchCountries from './countrySearch';
 import getOccurrenceMatches from './occurrences';
 import { searchParticipants } from './participantSearch';
@@ -15,7 +15,7 @@ export default async function searchAll({
 }: {
   query: string;
   languageCode: string;
-  server: ApolloServer<ExpressContext>;
+  server: ApolloServer<BaseContext>;
   locale: string;
   checklistKey?: string;
 }) {

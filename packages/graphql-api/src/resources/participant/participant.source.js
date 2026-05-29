@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import pick from 'lodash/pick';
 import { stringify } from 'qs';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
@@ -25,12 +25,12 @@ class ParticipantDirectoryAPI extends RESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
-    const header = createSignedGetHeader(request.path, this.config);
-    Object.keys(header).forEach((x) => request.headers.set(x, header[x]));
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    const header = createSignedGetHeader(path, this.config);
+    Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   /*
