@@ -63,7 +63,7 @@
     "object-hash": "^3.0.0",
     "p-queue": "^6.6.2",
     "qs": "^6.9.3",
-    "requestretry": "^7.1.0",
+    "requestretry": "^8.0.0",
     "sanitize-html": "^2.11.0",
     "sql-highlight": "^6.0.0",
     "thumbor": "^0.1.5",
