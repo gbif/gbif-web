@@ -105,11 +105,11 @@ export function BarItem({ children, percent = 0, ...props }: BarItemProps) {
     >
       <div className="g-relative">
         <div
-          className="g-absolute g-start-0 g-bg-primary g-opacity-20 g-rounded"
+          className="g-absolute g-start-0 g-bg-primary g-opacity-20 g-rounded g-pointer-events-none"
           style={{ width: `${percent}%`, height: '1.6em' }}
           {...props}
         />
-        <div className="g-z-10 g-ms-1">{children}</div>
+        <div className="g-relative g-z-10 g-ms-1">{children}</div>
       </div>
     </SimpleTooltip>
   );
