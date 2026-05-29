@@ -19,6 +19,7 @@ dist
 **/.env.yml
 **/.env.**.*
 **/.env.*
+!.env.example
 .scripts/
 /logs
 
