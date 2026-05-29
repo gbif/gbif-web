@@ -1,11 +1,11 @@
 {
   "durationUnit": {
-    "SECONDS": "",
+    "SECONDS": "Секунды",
     "MINUTES": "Минуты",
     "HOURS": "Часы",
-    "DAYS": "",
-    "WEEKS": "",
-    "MONTHS": "",
-    "YEARS": ""
+    "DAYS": "Дни",
+    "WEEKS": "Недели",
+    "MONTHS": "Месяцы",
+    "YEARS": "Годы"
   }
 }
