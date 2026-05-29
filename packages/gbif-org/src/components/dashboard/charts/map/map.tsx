@@ -6,7 +6,7 @@ import { AdHocMapProps } from '@/routes/occurrence/search/views/map/Map/AdHocMap
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { FormattedNumber, Table } from '../../shared';
 import { SimpleTooltip as Tooltip } from '@/components/simpleTooltip';
-import { MdLocationPin, MdOutlineDragIndicator as MdDragHandle } from 'react-icons/md';
+import { MdLocationPin, MdOutlineDragIndicator as MdDragHandle, MdSwapVert } from 'react-icons/md';
 import { useOccurrenceCount } from '@/components/count';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { cn } from '@/utils/shadcn';
@@ -23,6 +23,7 @@ type ResultItem = {
   count: number;
   hidden?: boolean;
   colorIndex?: number;
+  customColor?: string;
   filter?: Record<string, unknown[]>;
   occurrences?: {
     _meta: { predicate: object };
@@ -78,7 +79,6 @@ function FacetMap({
   distinct = 0,
 }: FacetMapProps) {
   const [orderedResults, setOrderedResults] = useState<ResultItem[]>(results);
-  const [showSpeciesCounts, setShowSpeciesCounts] = useState(false);
 
   // Update ordered results when results prop changes
   useEffect(() => {
@@ -96,10 +96,6 @@ function FacetMap({
       setOrderedResults(results.reverse().map((r, i) => ({ ...r, colorIndex: i })));
     }
   }, [results, orderedResults]);
-
-  useEffect(() => {
-    setShowSpeciesCounts(false);
-  }, [contextHash]);
 
   if (loading) {
     return (
@@ -132,6 +128,22 @@ function FacetMap({
     setOrderedResults(reorderedResults);
   };
 
+  // Resolve the color for a layer: an explicitly chosen color takes precedence
+  // over the color derived from the palette via the colorIndex.
+  const resolveColor = (r: ResultItem): string =>
+    r.customColor ?? palette[(r.colorIndex ?? 0) % palette.length];
+
+  const reverseOrder = () => {
+    setOrderedResults([...orderedResults].reverse());
+  };
+
+  const allHidden = orderedResults.length > 0 && orderedResults.every((r) => r.hidden);
+
+  const toggleAllVisibility = () => {
+    const nextHidden = !allHidden;
+    setOrderedResults(orderedResults.map((r) => ({ ...r, hidden: nextHidden })));
+  };
+
   const mapProps: AdHocMapProps = {
     overlays: orderedResults
       .map((r) => ({
@@ -139,7 +151,7 @@ function FacetMap({
         predicate: r.occurrences?._meta.predicate ?? {},
         predicateHash: r.occurrences?.metaPredicate || '',
         style: {
-          mapDensityColors: [palette[(r.colorIndex ?? 0) % palette.length]],
+          mapDensityColors: [resolveColor(r)],
           mapPointOpacities: [1, 1, 0.95, 0.9, 0.85],
           mapPointSizes: [3, 3, 4, 5, 5],
         },
@@ -162,7 +174,7 @@ function FacetMap({
       <ClientSideOnly>
         <AdHocMap {...mapProps} />
       </ClientSideOnly>
-      <div className="g-text-sm g-text-slate-500 g-mb-1 g-mt-2 g-flex">
+      <div className="g-text-sm g-text-slate-500 g-mt-2 g-flex">
         <div className="g-flex-1">
           {loading && <Skeleton className="g-h-6 g-mb-2" />}
           {!loading && distinct > 0 && (
@@ -171,18 +183,38 @@ function FacetMap({
             </>
           )}
         </div>
-        {!showSpeciesCounts && (
-          <button
-            className="g-flex-none g-hidden md:g-block"
-            onClick={() => setShowSpeciesCounts(true)}
-          >
-            Add species counts
-          </button>
+        {orderedResults.length > 0 && (
+          <div className="g-inline-block g-flex-inline g-items-center g-gap-3 g-text-slate-500">
+            <Tooltip title={<FormattedMessage id="dashboard.reverseOrder" />} side="top">
+              <button
+                className="g-w-6 g-h-6 hover:g-bg-slate-200 g-rounded g-flex g-items-center g-justify-center hover:g-text-slate-700"
+                onClick={reverseOrder}
+              >
+                <MdSwapVert />
+              </button>
+            </Tooltip>
+            <Tooltip
+              title={
+                allHidden ? (
+                  <FormattedMessage id="dashboard.showAll" />
+                ) : (
+                  <FormattedMessage id="dashboard.hideAll" />
+                )
+              }
+              side="top"
+            >
+              <button
+                className="g-w-6 g-h-6 hover:g-bg-slate-200 g-rounded g-flex g-items-center g-justify-center hover:g-text-slate-700"
+                onClick={toggleAllVisibility}
+              >
+                {allHidden ? <IoMdEyeOff /> : <IoMdEye />}
+              </button>
+            </Tooltip>
+          </div>
         )}
-        {showSpeciesCounts && <span className="g-flex-none">Distinct species</span>}
       </div>
       <div style={{ overflow: 'auto' }}>
-        <Table removeBorder={false}>
+        <Table removeBorder={false} className="g-mb-2">
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="facet-map-table">
               {(provided) => (
@@ -200,13 +232,17 @@ function FacetMap({
                           index={i}
                           interactive={interactive}
                           onClick={onClick}
-                          color={palette[(e.colorIndex ?? 0) % palette.length]}
+                          color={resolveColor(e)}
                           visiblityHandler={(hidden: boolean) => {
                             const newResults = [...orderedResults];
-                            newResults[i].hidden = hidden;
+                            newResults[i] = { ...newResults[i], hidden };
                             setOrderedResults(newResults);
                           }}
-                          showSpeciesCounts={showSpeciesCounts}
+                          colorHandler={(customColor: string) => {
+                            const newResults = [...orderedResults];
+                            newResults[i] = { ...newResults[i], customColor };
+                            setOrderedResults(newResults);
+                          }}
                         />
                       );
                     })}
@@ -229,6 +265,7 @@ function Row({
   onClick,
   color,
   visiblityHandler,
+  colorHandler,
   showSpeciesCounts,
 }: {
   row: ResultItem;
@@ -237,6 +274,7 @@ function Row({
   onClick?: (args: FacetFilter) => void;
   color?: string;
   visiblityHandler: (hidden: boolean) => void;
+  colorHandler: (color: string) => void;
   showSpeciesCounts: boolean;
 }) {
   const { count: occurrenceCount } = row;
@@ -287,15 +325,27 @@ function Row({
                   {!row.hidden && <IoMdEye />}
                   {row.hidden && <IoMdEyeOff />}
                 </button>
-                <div
-                  className={cn('g-w-4 g-h-4 g-relative g-rounded-full g-inline-block', {
-                    'g-animate-pulse': loading || typeof count !== 'number',
-                  })}
+                <label
+                  className={cn(
+                    'g-w-4 g-h-4 g-relative g-rounded-full g-inline-block g-cursor-pointer g-overflow-hidden',
+                    {
+                      'g-animate-pulse': loading || typeof count !== 'number',
+                    }
+                  )}
                   style={{
                     backgroundColor: count !== 0 ? color : undefined,
                     border: '1px solid #ccc',
                   }}
-                ></div>
+                  title="Change color"
+                >
+                  <input
+                    type="color"
+                    value={color ?? '#000000'}
+                    onChange={(e) => colorHandler(e.target.value)}
+                    className="g-absolute g-inset-0 g-w-full g-h-full g-p-0 g-border-0 g-opacity-0 g-cursor-pointer"
+                    aria-label="Change layer color"
+                  />
+                </label>
               </div>
             </td>
             <td style={interactive ? { cursor: 'pointer' } : {}}>
@@ -318,7 +368,7 @@ function Row({
             <td className="g-text-end">
               <FormattedNumber value={row.count} />
             </td>
-            <td className="g-w-20">
+            <td className="g-w-20 g-text-end">
               {loading && <Skeleton className="g-h-4 g-w-16 g-inline-block" />}
               {error && <span>-</span>}
               {!loading && count > 0 && (
@@ -354,13 +404,16 @@ query distinct($q: String, $predicate: Predicate) {
 `;
 
 function SpeciesCount({ predicate }: { predicate?: object }) {
-  const { data, load, error, loading } = useQuery<SpeciesCountQueryResult, { predicate?: object }>(query, {
-    lazyLoad: false,
-    variables: { predicate },
-    queue: {
-      name: 'graphql-counts',
-    },
-  });
+  const { data, load, error, loading } = useQuery<SpeciesCountQueryResult, { predicate?: object }>(
+    query,
+    {
+      lazyLoad: false,
+      variables: { predicate },
+      queue: {
+        name: 'graphql-counts',
+      },
+    }
+  );
 
   const predicateId = hash(JSON.stringify(predicate));
 

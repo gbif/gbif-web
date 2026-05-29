@@ -4,6 +4,7 @@ import { FormattedMessage, FormattedNumber as Number } from 'react-intl';
 import { SimpleTooltip } from '../simpleTooltip';
 import { Skeleton } from '../ui/skeleton';
 import { CardHeader as CardHeaderSmall } from '../ui/smallCard';
+import { cn } from '@/utils/shadcn';
 
 type CardProps = React.HTMLAttributes<HTMLDivElement> & {
   padded?: boolean;
@@ -67,19 +68,19 @@ export function CardHeader({
 type TableProps = React.TableHTMLAttributes<HTMLTableElement> & {
   padded?: boolean;
   removeBorder?: boolean;
+  className?: string;
 };
 
-export function Table({
-  padded: _padded = true,
-  removeBorder,
-  ...props
-}: TableProps) {
+export function Table({ padded: _padded = true, className, removeBorder, ...props }: TableProps) {
   return (
     <table
-      className={`g-w-full g-mb-4 g-border-collapse [&_tr]:g-border-separate [&_tr]:g-border-spacing-0
+      className={cn(
+        `g-w-full g-border-collapse [&_tr]:g-border-separate [&_tr]:g-border-spacing-0
     [&_td]:g-py-1 [&_td]:g-px-2 ${removeBorder ? '[&_tr]:g-border-t-0' : '[&_tr]:g-border-t'}
     [&_td:first-of-type]:g-ps-0 [&_td:last-of-type]:g-pe-0
-     `}
+     `,
+        className
+      )}
       {...props}
     ></table>
   );
