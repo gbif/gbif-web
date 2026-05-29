@@ -2,6 +2,10 @@ import { publicEnv } from '../../envConfig.mjs';
 import { NETWORK_PARTICIPANTS_QUERY } from '../../../src/routes/custom/gbifNetwork/networkParticipantQuery.mjs';
 import { HEADER_QUERY } from '../../../src/gbif/header/query.mjs';
 import { HOMEPAGE_QUERY } from '../../../src/routes/home/query.mjs';
+import {
+  OCCURRENCE_SNAPSHOTS_QUERY,
+  OCCURRENCE_SNAPSHOTS_VARIABLES,
+} from '../../../src/routes/custom/occurrenceSnapshots/query.mjs';
 const PUBLIC_GRAPHQL_ENDPOINT = publicEnv.PUBLIC_GRAPHQL_ENDPOINT;
 
 const cache = {};
@@ -93,6 +97,15 @@ function refreshAll() {
     // silently ignore, we do not need the data right away
     console.error('Failed to initialize cache for home', err);
   });
+  // Occurrence snapshots: the underlying REST call is slow (~3-4s cold) and the
+  // page is low traffic, so without a periodic refresh the upstream
+  // RESTDataSource + CDN entries go cold between visits.
+  refreshCache('occurrence-snapshots-en', {
+    query: OCCURRENCE_SNAPSHOTS_QUERY,
+    variables: OCCURRENCE_SNAPSHOTS_VARIABLES,
+  }).catch((err) => {
+    console.error('Failed to initialize cache for occurrence snapshots', err);
+  });
 }
 
 // refresh cache after 30 seconds. A better approach would be to only retry if not populated yet, and then retry with an interval
@@ -100,6 +113,11 @@ function refreshAll() {
 setTimeout(() => {
   refreshAll();
 }, 30 * 1000);
+
+// keep the upstream caches warm so visitors after the initial preheat window
+// don't pay the cold-cache cost.
+const REFRESH_INTERVAL_MS = 30 * 60 * 1000; // 30 minutes
+setInterval(refreshAll, REFRESH_INTERVAL_MS);
 
 refreshAll();
 

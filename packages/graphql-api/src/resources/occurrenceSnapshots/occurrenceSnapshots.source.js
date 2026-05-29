@@ -18,7 +18,13 @@ class OccurrenceSnapshotsAPI extends RESTDataSource {
   }
 
   async getOccurrenceSnapshots({ query }) {
-    return this.get(`/occurrence/download/user/download.gbif.org`, query);
+    // The upstream sends Cache-Control: no-cache because the endpoint is normally
+    // used to list a user's private downloads. For download.gbif.org (public
+    // snapshot listings) the data only changes when a new snapshot is published,
+    // so we override the cache TTL.
+    return this.get(`/occurrence/download/user/download.gbif.org`, query, {
+      cacheOptions: { ttl: 60 * 60 },
+    });
   }
 }
 
