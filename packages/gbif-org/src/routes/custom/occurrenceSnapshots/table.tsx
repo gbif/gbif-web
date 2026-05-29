@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ShortDate } from '@/components/dateFormats';
+import { LongDate, ShortDate } from '@/components/dateFormats';
 import { Paging } from '@/components/paging';
 import { useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -52,11 +52,9 @@ const OccurrenceSnapshotsTable = ({ results }) => {
               ))}
             {results &&
               results.slice(offset, offset + limit).map((res, i) => (
-                <tr className="g-font-bold">
-                  <td key={'date'} className="g-p-4 ">
-                    {<ShortDate value={res.created} />}
-                  </td>
-                  <td key={'date'} className="g-p-4 ">
+                <tr className="g-font-bold" key={i}>
+                  <td className="g-p-4 ">{<ShortDate value={res.created} />}</td>
+                  <td className="g-p-4 ">
                     {
                       <FormattedMessage
                         id={`enums.downloadFormat.${res.request.format}`}
@@ -71,7 +69,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
                           GBIF.org
                         </a>{' '}
                         (
-                        <ShortDate value={res.created} />){' '}
+                        <LongDate value={res.created} />){' '}
                         <FormattedMessage id="occurrenceSnapshots.table.citation" />{' '}
                         <a className="g-link g-text-blue-500" href={`https://doi.org/${res.doi}`}>
                           https://doi.org/{res.doi}
