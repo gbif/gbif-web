@@ -1,5 +1,5 @@
 import { getDefaultAgent } from '@/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import { stringify } from 'qs';
 
 class DatasetAPI extends RESTDataSource {
@@ -9,10 +9,10 @@ class DatasetAPI extends RESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async searchDatasets({ query }) {

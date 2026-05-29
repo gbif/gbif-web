@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import { get, merge } from 'lodash';
 import wikibase from 'wikibase-sdk';
 import { getDefaultAgent } from '@/requestAgents';
@@ -18,10 +18,10 @@ class WikiDataAPI extends RESTDataSource {
     this.wdk = wikibase(config.wikidata);
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', USER_AGENT);
-    request.headers.set('Accept', 'application/json');
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = USER_AGENT;
+    request.headers['Accept'] = 'application/json';
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async getReverseClaims(property, value) {

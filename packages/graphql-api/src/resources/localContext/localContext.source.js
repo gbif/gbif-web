@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import { getDefaultAgent } from '@/requestAgents';
 
 /**
@@ -63,12 +63,12 @@ class LocalContextAPI extends RESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
+  willSendRequest(path, request) {
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.headers.set('X-Api-Key', this.config.localContextApiKey);
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+    request.headers['X-Api-Key'] = this.config.localContextApiKey;
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async getLocalContext(endpoint) {

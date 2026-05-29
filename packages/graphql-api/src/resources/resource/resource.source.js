@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import { translateContentfulResponse } from '@/helpers/utils';
 import { urlSizeLimit } from '@/helpers/utils-ts';
 import { getDefaultAgent } from '@/requestAgents';
@@ -14,10 +14,10 @@ export class ResourceAPI extends ThrottledRESTDataSource {
     this.baseURL = config.apiv1;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async getEntryById({ id, preview, locale, info }) {
@@ -52,10 +52,10 @@ export class ResourceSearchAPI extends RESTDataSource {
     this.baseURL = config.apiEs;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async searchResourceDocuments({ query, locale }) {

@@ -12,10 +12,10 @@ class TaxonAPI extends QueuedRESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getTaxonAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getTaxonAgent(this.baseURL, path);
   }
 
   async taxonSearch({ datasetKey, query }) {

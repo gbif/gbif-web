@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import { getDefaultAgent } from '@/requestAgents';
 
 class StatusPageAPI extends RESTDataSource {
@@ -7,11 +7,11 @@ class StatusPageAPI extends RESTDataSource {
     this.baseURL = config.statusPage;
   }
 
-  willSendRequest(request) {
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
     if (this.baseURL) {
-      request.agent = getDefaultAgent(this.baseURL, request.path);
+      request.agent = getDefaultAgent(this.baseURL, path);
     }
   }
 

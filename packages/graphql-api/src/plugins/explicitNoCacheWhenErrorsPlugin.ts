@@ -1,6 +1,6 @@
-import { PluginDefinition } from 'apollo-server-core';
+import { ApolloServerPlugin } from '@apollo/server';
 
-export const explicitNoCacheWhenErrorsPlugin: PluginDefinition = {
+export const explicitNoCacheWhenErrorsPlugin: ApolloServerPlugin = {
   async requestDidStart() {
     let error = false;
     return {

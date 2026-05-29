@@ -1,7 +1,7 @@
-import { PluginDefinition } from 'apollo-server-core';
+import { ApolloServerPlugin } from '@apollo/server';
 import extractUser from '@/helpers/auth/extractUser';
 
-const headerBasedCachePlugin: PluginDefinition = {
+const headerBasedCachePlugin: ApolloServerPlugin = {
   async requestDidStart() {
     return {
       async willSendResponse({ request, response }) {

@@ -1,6 +1,6 @@
 import { urlSizeLimit } from '@/helpers/utils-ts';
 import { getDefaultAgent } from '@/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 
 const MAX_RESULTS = 3000;
 
@@ -11,11 +11,11 @@ class LiteratureAPI extends RESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
-    request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
-    request.headers.set('User-Agent', this.context.userAgent);
-    request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL, request.path);
+  willSendRequest(path, request) {
+    request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
+    request.headers['User-Agent'] = this.context.userAgent;
+    request.headers['referer'] = this.context.referer;
+    request.agent = getDefaultAgent(this.baseURL, path);
   }
 
   async searchLiteratureDocuments({ query }) {

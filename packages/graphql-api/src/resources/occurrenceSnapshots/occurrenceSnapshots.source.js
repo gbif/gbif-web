@@ -1,4 +1,4 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RESTDataSource } from '@/RESTDataSource';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 
 class OccurrenceSnapshotsAPI extends RESTDataSource {
@@ -8,13 +8,13 @@ class OccurrenceSnapshotsAPI extends RESTDataSource {
     this.config = config;
   }
 
-  willSendRequest(request) {
+  willSendRequest(path, request) {
     const header = createSignedGetHeader(
-      request.path,
+      path,
       this.config,
       'download.gbif.org',
     );
-    Object.keys(header).forEach((x) => request.headers.set(x, header[x]));
+    Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
   }
 
   async getOccurrenceSnapshots({ query }) {
