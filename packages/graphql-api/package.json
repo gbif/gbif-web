@@ -27,7 +27,7 @@
     "@octokit/app": "^15.0.1",
     "@turf/turf": "^6.5.0",
     "agentkeepalive": "^4.5.0",
-    "axios": "^1.4.0",
+    "axios": "^1.16.1",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
     "cheerio": "^1.0.0-rc.3",
@@ -76,7 +76,6 @@
     "winston": "^3.11.0",
     "winston-daily-rotate-file": "^5.0.0",
     "wkt": "^0.1.1",
-    "xml2js": "^0.4.23",
     "yaml": "^1.10.0",
     "zod": "^3.22.4",
     "zod-express-middleware": "^1.4.0"
