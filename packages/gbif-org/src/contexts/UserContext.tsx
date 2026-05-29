@@ -1,5 +1,5 @@
 import { Base64 } from 'js-base64';
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { DerivedDatasetPayload, RegistrationResult } from '@/routes/tools/derivedDataset/types';
 
 interface User {
@@ -138,6 +138,33 @@ export class UserError extends Error {
   }
 }
 
+// Pure helpers — defined at module scope so they have stable references
+// and don't need to participate in useCallback dependency arrays.
+
+function sanitizeUpdatedUser(user: UpdateProfileData): UpdateProfileData {
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    settings: {
+      country: user.settings?.country,
+      locale: user.settings?.locale,
+      has_read_gdpr_terms: user.settings?.has_read_gdpr_terms ?? 'false',
+    },
+  };
+}
+
+async function readDerivedDatasetError(response: Response, fallback: string): Promise<string> {
+  try {
+    const body = (await response.json()) as { code?: string; message?: string };
+    if (body?.code && body?.message) return `${body.code}: ${body.message}`;
+    if (body?.message) return body.message;
+  } catch {
+    // ignore parse errors
+  }
+  return `${fallback} (HTTP ${response.status}).`;
+}
+
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -177,116 +204,128 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   }, [whoAmI]);
 
-  const login = async (data: LoginData): Promise<User> => {
-    try {
-      const response = await fetch('/auth/basic/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+  const login = useCallback(
+    async (data: LoginData): Promise<User> => {
+      try {
+        const response = await fetch('/auth/basic/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
 
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new UserError('INVALID_REQUEST');
-        } else {
-          throw new UserError('UNKNOWN_ERROR');
-        }
-      }
-
-      const result = await response.json();
-
-      // Refresh user data after successful login
-      await refreshUser();
-      return result?.user;
-    } catch (error) {
-      if (error instanceof UserError) {
-        throw error; // Re-throw known UserError
-      }
-      // Handle unexpected errors
-      throw new UserError('UNKNOWN_ERROR');
-    }
-  };
-
-  const register = async (data: RegisterData) => {
-    try {
-      const response = await fetch('/api/user/create', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        if (response.status > 400 && response.status < 500) {
-          // Handle specific client-side errors
-          const error = await response.json();
-          if (error.needNewChallenge) {
-            throw new UserError('INVALID_SOLUTION', 'Registration failed. Please try again.');
-          }
-          if (error.error) {
-            throw new UserError(
-              error.error as UserErrorType,
-              'Registration failed. Please check your input.'
-            );
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new UserError('INVALID_REQUEST');
+          } else {
+            throw new UserError('UNKNOWN_ERROR');
           }
         }
-        throw new UserError('REGISTRATION_FAILED', 'Registration failed. Please check your input.');
-      }
 
-      const result = await response.json();
+        const result = await response.json();
 
-      // Refresh user data after successful registration
-      await refreshUser();
-
-      return result;
-    } catch (error) {
-      if (error instanceof UserError) {
-        throw error;
-      }
-      throw new UserError('REGISTRATION_FAILED');
-    }
-  };
-
-  const updateForgottenPassword = async (data: ForgottenPassword) => {
-    try {
-      const { password, challengeCode, userName } = data;
-      if (!password || !challengeCode || !userName) {
-        throw new Error('Missing required fields for password update');
-      }
-      const response = await fetch('/api/user/update-forgotten-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          password,
-          challengeCode,
-          userName,
-        }),
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new UserError('INVALID_REQUEST', 'Invalid request. Please check your input.');
+        // Refresh user data after successful login
+        await refreshUser();
+        return result?.user;
+      } catch (error) {
+        if (error instanceof UserError) {
+          throw error; // Re-throw known UserError
         }
+        // Handle unexpected errors
         throw new UserError('UNKNOWN_ERROR');
       }
+    },
+    [refreshUser]
+  );
 
-      const result = await response.json();
+  const register = useCallback(
+    async (data: RegisterData) => {
+      try {
+        const response = await fetch('/api/user/create', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
 
-      // Refresh user data after successful registration
-      await refreshUser();
+        if (!response.ok) {
+          if (response.status > 400 && response.status < 500) {
+            // Handle specific client-side errors
+            const error = await response.json();
+            if (error.needNewChallenge) {
+              throw new UserError('INVALID_SOLUTION', 'Registration failed. Please try again.');
+            }
+            if (error.error) {
+              throw new UserError(
+                error.error as UserErrorType,
+                'Registration failed. Please check your input.'
+              );
+            }
+          }
+          throw new UserError(
+            'REGISTRATION_FAILED',
+            'Registration failed. Please check your input.'
+          );
+        }
 
-      return result;
-    } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Password update failed');
-    }
-  };
+        const result = await response.json();
 
-  const logout = async () => {
+        // Refresh user data after successful registration
+        await refreshUser();
+
+        return result;
+      } catch (error) {
+        if (error instanceof UserError) {
+          throw error;
+        }
+        throw new UserError('REGISTRATION_FAILED');
+      }
+    },
+    [refreshUser]
+  );
+
+  const updateForgottenPassword = useCallback(
+    async (data: ForgottenPassword) => {
+      try {
+        const { password, challengeCode, userName } = data;
+        if (!password || !challengeCode || !userName) {
+          throw new Error('Missing required fields for password update');
+        }
+        const response = await fetch('/api/user/update-forgotten-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            password,
+            challengeCode,
+            userName,
+          }),
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new UserError('INVALID_REQUEST', 'Invalid request. Please check your input.');
+          }
+          throw new UserError('UNKNOWN_ERROR');
+        }
+
+        const result = await response.json();
+
+        // Refresh user data after successful registration
+        await refreshUser();
+
+        return result;
+      } catch (error) {
+        throw new Error(error instanceof Error ? error.message : 'Password update failed');
+      }
+    },
+    [refreshUser]
+  );
+
+  const logout = useCallback(async () => {
     try {
       const response = await fetch('/api/user/logout', {
         method: 'POST',
@@ -306,9 +345,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       await refreshUser();
       throw new UserError('UNKNOWN_ERROR');
     }
-  };
+  }, [refreshUser]);
 
-  const resetPassword = async (userNameOrEmail: string) => {
+  const resetPassword = useCallback(async (userNameOrEmail: string) => {
     try {
       const response = await fetch('/api/user/reset-password', {
         method: 'POST',
@@ -327,172 +366,177 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       throw new UserError('UNKNOWN_ERROR');
     }
-  };
+  }, []);
 
-  const changePassword = async (currentPassword: string, newPassword: string) => {
-    try {
-      if (!user) {
-        throw new UserError('UNKNOWN_USER', 'User not authenticated');
-      }
-
-      // Create basic auth header with current password
-      const authData = Base64.encode(user.userName + ':' + currentPassword);
-
-      const response = await fetch('/api/user/update-known-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Basic ${authData}`,
-        },
-        body: JSON.stringify({ password: newPassword }),
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new UserError('INVALID_PASSWORD', 'Current password is incorrect');
-        } else {
-          throw new UserError('UNKNOWN_ERROR', 'Password change failed');
+  const changePassword = useCallback(
+    async (currentPassword: string, newPassword: string) => {
+      try {
+        if (!user) {
+          throw new UserError('UNKNOWN_USER', 'User not authenticated');
         }
-      }
 
-      return;
-    } catch (error) {
-      if (error instanceof UserError) {
-        throw error;
-      }
-      throw new UserError('UNKNOWN_ERROR');
-    }
-  };
+        // Create basic auth header with current password
+        const authData = Base64.encode(user.userName + ':' + currentPassword);
 
-  const sanitizeUpdatedUser = (user: UpdateProfileData): UpdateProfileData => {
-    return {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      settings: {
-        country: user.settings?.country,
-        locale: user.settings?.locale,
-        has_read_gdpr_terms: user.settings?.has_read_gdpr_terms ?? 'false',
-      },
-    };
-  };
+        const response = await fetch('/api/user/update-known-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${authData}`,
+          },
+          body: JSON.stringify({ password: newPassword }),
+        });
 
-  const updateProfile = async (
-    data: UpdateProfileData
-  ): Promise<{
-    emailConfirmationRequired: boolean;
-  }> => {
-    try {
-      const response = await fetch('/api/user/update-profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(sanitizeUpdatedUser(data)),
-      });
-
-      if (!response.ok) {
-        if (response.status === 400) {
-          throw new UserError('INVALID_REQUEST', 'Invalid profile data. Please check your input.');
-        } else if (response.status === 401) {
-          await refreshUser();
-          throw new UserError('UNKNOWN_USER', 'User not authenticated.');
-        } else {
-          throw new UserError('UNKNOWN_ERROR', 'Profile update failed.');
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new UserError('INVALID_PASSWORD', 'Current password is incorrect');
+          } else {
+            throw new UserError('UNKNOWN_ERROR', 'Password change failed');
+          }
         }
+
+        return;
+      } catch (error) {
+        if (error instanceof UserError) {
+          throw error;
+        }
+        throw new UserError('UNKNOWN_ERROR');
       }
-      // Refresh user data after successful profile update
-      await refreshUser();
+    },
+    [user]
+  );
 
-      return {
-        emailConfirmationRequired: data.email !== user?.email,
-      };
-    } catch (error) {
-      if (error instanceof UserError) {
-        throw error;
+  const updateProfile = useCallback(
+    async (
+      data: UpdateProfileData
+    ): Promise<{
+      emailConfirmationRequired: boolean;
+    }> => {
+      try {
+        const response = await fetch('/api/user/update-profile', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(sanitizeUpdatedUser(data)),
+        });
+
+        if (!response.ok) {
+          if (response.status === 400) {
+            throw new UserError(
+              'INVALID_REQUEST',
+              'Invalid profile data. Please check your input.'
+            );
+          } else if (response.status === 401) {
+            await refreshUser();
+            throw new UserError('UNKNOWN_USER', 'User not authenticated.');
+          } else {
+            throw new UserError('UNKNOWN_ERROR', 'Profile update failed.');
+          }
+        }
+        // Refresh user data after successful profile update
+        await refreshUser();
+
+        return {
+          emailConfirmationRequired: data.email !== user?.email,
+        };
+      } catch (error) {
+        if (error instanceof UserError) {
+          throw error;
+        }
+        throw new UserError('UNKNOWN_ERROR');
       }
-      throw new UserError('UNKNOWN_ERROR');
-    }
-  };
+    },
+    [refreshUser, user]
+  );
 
-  const disconnectAccount = async (provider: 'google' | 'github' | 'orcid') => {
-    try {
-      const response = await fetch(`/auth/${provider}/disconnect/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  const disconnectAccount = useCallback(
+    async (provider: 'google' | 'github' | 'orcid') => {
+      try {
+        const response = await fetch(`/auth/${provider}/disconnect/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-      if (!response.ok) {
+        if (!response.ok) {
+          throw new UserError('UNKNOWN_ERROR', `Failed to disconnect from ${provider}`);
+        }
+
+        // Refresh user data to update connection status
+        await refreshUser();
+      } catch (error) {
+        if (error instanceof UserError) {
+          throw error;
+        }
         throw new UserError('UNKNOWN_ERROR', `Failed to disconnect from ${provider}`);
       }
+    },
+    [refreshUser]
+  );
 
-      // Refresh user data to update connection status
-      await refreshUser();
-    } catch (error) {
-      if (error instanceof UserError) {
-        throw error;
+  const changeEmail = useCallback(
+    async (challengeCode: string, email: string, userName: string) => {
+      try {
+        const response = await fetch('/api/user/change-email', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ challengeCode, email, userName }),
+        });
+
+        if (!response.ok) {
+          if (response.status === 422) {
+            throw new UserError('INVALID_REQUEST', 'Invalid email or challenge code.');
+          } else if (response.status === 401) {
+            await refreshUser();
+            throw new UserError('UNKNOWN_USER', 'User not authenticated.');
+          } else {
+            throw new UserError('UNKNOWN_ERROR', 'Confirmation failed. Please check your input.');
+          }
+        }
+
+        const result = await response.json();
+
+        return result;
+      } catch (error) {
+        throw new UserError('UNKNOWN_ERROR');
       }
-      throw new UserError('UNKNOWN_ERROR', `Failed to disconnect from ${provider}`);
-    }
-  };
+    },
+    [refreshUser]
+  );
 
-  const changeEmail = async (challengeCode: string, email: string, userName: string) => {
-    try {
-      const response = await fetch('/api/user/change-email', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ challengeCode, email, userName }),
-      });
+  const confirm = useCallback(
+    async (code: string, username: string) => {
+      try {
+        const response = await fetch('/api/user/confirm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code, username }),
+        });
 
-      if (!response.ok) {
-        if (response.status === 422) {
-          throw new UserError('INVALID_REQUEST', 'Invalid email or challenge code.');
-        } else if (response.status === 401) {
-          await refreshUser();
-          throw new UserError('UNKNOWN_USER', 'User not authenticated.');
-        } else {
+        if (!response.ok) {
           throw new UserError('UNKNOWN_ERROR', 'Confirmation failed. Please check your input.');
         }
+
+        const result = await response.json();
+
+        // Refresh user data after successful confirmation
+        await refreshUser();
+
+        return result;
+      } catch (error) {
+        throw new UserError('UNKNOWN_ERROR');
       }
+    },
+    [refreshUser]
+  );
 
-      const result = await response.json();
-
-      return result;
-    } catch (error) {
-      throw new UserError('UNKNOWN_ERROR');
-    }
-  };
-
-  const confirm = async (code: string, username: string) => {
-    try {
-      const response = await fetch('/api/user/confirm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code, username }),
-      });
-
-      if (!response.ok) {
-        throw new UserError('UNKNOWN_ERROR', 'Confirmation failed. Please check your input.');
-      }
-
-      const result = await response.json();
-
-      // Refresh user data after successful confirmation
-      await refreshUser();
-
-      return result;
-    } catch (error) {
-      throw new UserError('UNKNOWN_ERROR');
-    }
-  };
-
-  const deleteDownload = async (downloadKey: string, downloadType?: string) => {
+  const deleteDownload = useCallback(async (downloadKey: string, downloadType?: string) => {
     try {
       const response = await fetch(
         `/api/user/download/${downloadKey}/delete?type=${downloadType ?? 'OCCURRENCE'}`,
@@ -508,30 +552,33 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       throw new UserError('UNKNOWN_ERROR');
     }
-  };
+  }, []);
 
-  const postponeDownloadDeletion = async (downloadKey: string, downloadType?: string) => {
-    try {
-      const response = await fetch(
-        `/api/user/download/${downloadKey}/postpone?type=${downloadType ?? 'OCCURRENCE'}`,
-        {
-          method: 'PUT',
-        }
-      );
-
-      if (!response.ok) {
-        throw new UserError(
-          'UNKNOWN_ERROR',
-          'Postpone download deletion failed. Please try again.'
+  const postponeDownloadDeletion = useCallback(
+    async (downloadKey: string, downloadType?: string) => {
+      try {
+        const response = await fetch(
+          `/api/user/download/${downloadKey}/postpone?type=${downloadType ?? 'OCCURRENCE'}`,
+          {
+            method: 'PUT',
+          }
         );
-      }
-      return;
-    } catch (error) {
-      throw new UserError('UNKNOWN_ERROR');
-    }
-  };
 
-  const cancelDownload = async (downloadKey: string, downloadType?: string) => {
+        if (!response.ok) {
+          throw new UserError(
+            'UNKNOWN_ERROR',
+            'Postpone download deletion failed. Please try again.'
+          );
+        }
+        return;
+      } catch (error) {
+        throw new UserError('UNKNOWN_ERROR');
+      }
+    },
+    []
+  );
+
+  const cancelDownload = useCallback(async (downloadKey: string, downloadType?: string) => {
     try {
       const response = await fetch(
         `/api/user/download/${downloadKey}/cancel?type=${downloadType ?? 'OCCURRENCE'}`,
@@ -547,114 +594,129 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       throw new UserError('UNKNOWN_ERROR');
     }
-  };
+  }, []);
 
-  const readDerivedDatasetError = async (response: Response, fallback: string): Promise<string> => {
-    try {
-      const body = (await response.json()) as { code?: string; message?: string };
-      if (body?.code && body?.message) return `${body.code}: ${body.message}`;
-      if (body?.message) return body.message;
-    } catch {
-      // ignore parse errors
-    }
-    return `${fallback} (HTTP ${response.status}).`;
-  };
-
-  const registerDerivedDataset = async (
-    payload: DerivedDatasetPayload
-  ): Promise<RegistrationResult> => {
-    if (!user) {
-      throw new UserError('UNKNOWN_USER', 'User not authenticated');
-    }
-    try {
-      const response = await fetch('/api/user/derived-dataset/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const message = await readDerivedDatasetError(response, 'Registration failed');
-        throw new UserError('FAILED', message);
+  const registerDerivedDataset = useCallback(
+    async (payload: DerivedDatasetPayload): Promise<RegistrationResult> => {
+      if (!user) {
+        throw new UserError('UNKNOWN_USER', 'User not authenticated');
       }
-
-      return (await response.json()) as RegistrationResult;
-    } catch (error) {
-      if (error instanceof UserError) throw error;
-      throw new UserError(
-        'UNKNOWN_ERROR',
-        'Could not reach the server. Please check your connection and try again.'
-      );
-    }
-  };
-
-  const updateDerivedDataset = async (
-    doi: string,
-    payload: DerivedDatasetPayload
-  ): Promise<RegistrationResult> => {
-    if (!user) {
-      throw new UserError('UNKNOWN_USER', 'User not authenticated');
-    }
-    try {
-      const response = await fetch(`/api/user/derived-dataset/${encodeURIComponent(doi)}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const message = await readDerivedDatasetError(response, 'Update failed');
-        throw new UserError('FAILED', message);
-      }
-
-      // PUT may return 204 No Content; fall back to the doi we already have.
-      if (response.status === 204) return { doi };
       try {
-        const data = (await response.json()) as RegistrationResult;
-        return { doi: data.doi || doi };
-      } catch {
-        return { doi };
+        const response = await fetch('/api/user/derived-dataset/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          const message = await readDerivedDatasetError(response, 'Registration failed');
+          throw new UserError('FAILED', message);
+        }
+
+        return (await response.json()) as RegistrationResult;
+      } catch (error) {
+        if (error instanceof UserError) throw error;
+        throw new UserError(
+          'UNKNOWN_ERROR',
+          'Could not reach the server. Please check your connection and try again.'
+        );
       }
-    } catch (error) {
-      if (error instanceof UserError) throw error;
-      throw new UserError(
-        'UNKNOWN_ERROR',
-        'Could not reach the server. Please check your connection and try again.'
-      );
-    }
-  };
+    },
+    [user]
+  );
+
+  const updateDerivedDataset = useCallback(
+    async (doi: string, payload: DerivedDatasetPayload): Promise<RegistrationResult> => {
+      if (!user) {
+        throw new UserError('UNKNOWN_USER', 'User not authenticated');
+      }
+      try {
+        const response = await fetch(`/api/user/derived-dataset/${encodeURIComponent(doi)}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          const message = await readDerivedDatasetError(response, 'Update failed');
+          throw new UserError('FAILED', message);
+        }
+
+        // PUT may return 204 No Content; fall back to the doi we already have.
+        if (response.status === 204) return { doi };
+        try {
+          const data = (await response.json()) as RegistrationResult;
+          return { doi: data.doi || doi };
+        } catch {
+          return { doi };
+        }
+      } catch (error) {
+        if (error instanceof UserError) throw error;
+        throw new UserError(
+          'UNKNOWN_ERROR',
+          'Could not reach the server. Please check your connection and try again.'
+        );
+      }
+    },
+    [user]
+  );
 
   useEffect(() => {
     refreshUser();
   }, [refreshUser]); // Add refreshUser to the dependency array
 
-  const value: UserContextType = {
-    user,
-    isLoading,
-    isLoggedIn: !!user,
-    login,
-    register,
-    updateForgottenPassword,
-    updateProfile,
-    changePassword,
-    disconnectAccount,
-    logout,
-    refreshUser,
-    resetPassword,
-    confirm,
-    changeEmail,
-
-    deleteDownload,
-    postponeDownloadDeletion,
-    cancelDownload,
-
-    registerDerivedDataset,
-    updateDerivedDataset,
-  };
+  // All action callbacks above are wrapped in useCallback, so they have
+  // stable identities across renders unless their own dependencies
+  // change. That lets us produce a context value whose reference is
+  // stable across renders too — preserving React.memo / useMemo
+  // boundaries throughout the app for anything that depends on useUser().
+  const value = useMemo<UserContextType>(
+    () => ({
+      user,
+      isLoading,
+      isLoggedIn: !!user,
+      login,
+      register,
+      updateForgottenPassword,
+      updateProfile,
+      changePassword,
+      disconnectAccount,
+      logout,
+      refreshUser,
+      resetPassword,
+      confirm,
+      changeEmail,
+      deleteDownload,
+      postponeDownloadDeletion,
+      cancelDownload,
+      registerDerivedDataset,
+      updateDerivedDataset,
+    }),
+    [
+      user,
+      isLoading,
+      login,
+      register,
+      updateForgottenPassword,
+      updateProfile,
+      changePassword,
+      disconnectAccount,
+      logout,
+      refreshUser,
+      resetPassword,
+      confirm,
+      changeEmail,
+      deleteDownload,
+      postponeDownloadDeletion,
+      cancelDownload,
+      registerDerivedDataset,
+      updateDerivedDataset,
+    ]
+  );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
