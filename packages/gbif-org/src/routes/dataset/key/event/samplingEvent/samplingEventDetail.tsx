@@ -902,7 +902,19 @@ export const SamplingEventDetail = ({
             <Group
               id="issues"
               label="occurrenceDetails.groups.issues"
-              description={<FormattedMessage id="occurrenceDetails.issuesHelpText" />}
+              description={
+                <>
+                  <FormattedMessage id="occurrenceDetails.issuesHelpText" />{' '}
+                  <a
+                    href="https://techdocs.gbif.org/en/data-use/occurrence-issues-and-flags"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="g-underline"
+                  >
+                    <FormattedMessage id="occurrenceDetails.issuesLearnMore" />
+                  </a>
+                </>
+              }
               className="g-mb-4 g-scroll-mt-24"
             >
               <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">

@@ -889,7 +889,19 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
     <Group
       label="occurrenceDetails.groups.issues"
       id="issues"
-      description={<FormattedMessage id="occurrenceDetails.issuesHelpText" />}
+      description={
+        <>
+          <FormattedMessage id="occurrenceDetails.issuesHelpText" />{' '}
+          <a
+            href="https://techdocs.gbif.org/en/data-use/occurrence-issues-and-flags"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="g-underline"
+          >
+            <FormattedMessage id="occurrenceDetails.issuesLearnMore" />
+          </a>
+        </>
+      }
     >
       {(occurrence?.issues?.length ?? 0) === 0 ? (
         <div>
