@@ -23,6 +23,11 @@ export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
 const enableMapCharts = import.meta.env.PUBLIC_DEFAULT_ENABLE_MAP_CHARTS === 'true';
 
+// MAP view is disabled by default everywhere. Wrap a subtree in
+// <MapChartsEnabledContext.Provider value={true}> to opt in (e.g. the
+// occurrence search dashboard). The env var above acts as a master kill-switch.
+export const MapChartsEnabledContext = React.createContext<boolean>(false);
+
 export type ChartView = 'COLUMN' | 'PIE' | 'TABLE' | 'TIME' | 'MAP';
 
 type ChartViewOptionsProps = {
@@ -37,8 +42,9 @@ export function ChartViewOptions({
   setView,
   options = ['COLUMN', 'PIE', 'TABLE'],
 }: ChartViewOptionsProps) {
+  const mapEnabledInContext = React.useContext(MapChartsEnabledContext);
   const allowedOptions = options.filter((option) => {
-    if (option === 'MAP' && !enableMapCharts) return false;
+    if (option === 'MAP' && !(enableMapCharts && mapEnabledInContext)) return false;
     return true;
   });
   if (allowedOptions.length < 2) return null;
@@ -135,9 +141,7 @@ export function OneDimensionalChart({
   const translations = {
     occurrences: intl.formatMessage({ id: 'dashboard.occurrences' }),
   };
-  facetResults?.results?.forEach(
-    (x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] })
-  );
+  facetResults?.results?.forEach((x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] }));
   const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
   const data = mappedResults?.map((x) => {
     const customColor = value2colorMap ? value2colorMap[String(x.key)] : undefined;
@@ -361,7 +365,9 @@ export function OneDimensionalChart({
                 )}
                 {renderedView === 'MAP' && (
                   <Map
-                    facetResults={facetResults as unknown as Parameters<typeof Map>[0]['facetResults']}
+                    facetResults={
+                      facetResults as unknown as Parameters<typeof Map>[0]['facetResults']
+                    }
                     transform={transform as unknown as Parameters<typeof Map>[0]['transform']}
                     onClick={handleRedirect}
                     interactive={interactive}
