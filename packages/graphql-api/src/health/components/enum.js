@@ -2,7 +2,7 @@ import config from '@/config';
 import { getSchema } from '@/helpers/enums';
 import prevVersionEnums from '@/helpers/enums/enums.json';
 import { gql } from 'graphql-tag';
-import got from 'got';
+import axios from 'axios';
 import { difference, get, zipObject } from 'lodash';
 import hash from 'object-hash';
 
@@ -11,14 +11,14 @@ const interval = get(config, 'healthUpdateFrequency.enums', 15 * 60 * 1000); // 
 let status = { status: 'ok', message: null, error: null };
 
 async function getEnumData(url) {
-  const res = await got(url, {
-    prefixUrl: API_V1,
+  const res = await axios.get(url, {
+    baseURL: API_V1,
     responseType: 'json',
   });
-  if (res.statusCode !== 200) {
+  if (res.status !== 200) {
     throw Error(`Unable to get data from: ${url}`);
   }
-  return res.body;
+  return res.data;
 }
 
 async function loadEnums() {

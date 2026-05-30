@@ -28,6 +28,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       tableHeaders: getFile(locale, `../${folder}/${locale}/components/tableHeaders`),
       intervals: getFile(locale, `../${folder}/${locale}/components/intervals`),
       filters: getFile(locale, `../${folder}/${locale}/components/filters`),
+      filterAliases: getFile(locale, `../${folder}/${locale}/components/filterAliases`)
+        .filterAliases,
       feedback: getFile(locale, `../${folder}/${locale}/components/feedback`).feedback,
       header: getFile(locale, `../${folder}/${locale}/components/header`).header,
       filterSupport: getFile(locale, `../${folder}/${locale}/components/filterSupport`),

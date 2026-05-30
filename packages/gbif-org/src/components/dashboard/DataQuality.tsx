@@ -4,6 +4,7 @@ import { removeEmptyPredicates } from '@/utils/removeEmptyPredicates';
 import { FormattedMessage } from 'react-intl';
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
+import ChartClickWrapper from './charts/ChartClickWrapper';
 import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
 
 type DataQualityKey =
@@ -26,21 +27,40 @@ type DataQualityResponse = {
   hasSequence?: Total;
 };
 
+type RedirectFilter = Record<string, unknown[]>;
+
 type DataQualityProps = {
   predicate?: unknown;
   q?: string;
   checklistKey?: string;
   optional?: DataQualityKey[];
+  interactive?: boolean;
+  detailsRoute?: string;
   [key: string]: unknown;
 };
 
-export function DataQuality({
+type DataQualityMainProps = DataQualityProps & {
+  handleRedirect?: (args: { filter?: RedirectFilter }) => void;
+};
+
+export function DataQuality(props: DataQualityProps) {
+  return (
+    <ChartClickWrapper {...props}>
+      <DataQualityMain />
+    </ChartClickWrapper>
+  );
+}
+
+function DataQualityMain({
   predicate,
   q,
   checklistKey,
   optional = [],
+  interactive,
+  handleRedirect,
+  detailsRoute: _detailsRoute,
   ...props
-}: DataQualityProps) {
+}: DataQualityMainProps) {
   const defaultChecklistKey = useChecklistKey();
   const { data, error, loading, load } = useQuery<DataQualityResponse, Record<string, unknown>>(
     OCCURRENCE_STATS,
@@ -131,8 +151,7 @@ export function DataQuality({
   const hideHasMedia =
     (data?.hasMedia?.documents?.total ?? 0) === 0 && optional.includes('hasMedia');
 
-  const percentOf = (value: number | undefined) =>
-    total > 0 ? (100 * (value ?? 0)) / total : 0;
+  const percentOf = (value: number | undefined) => (total > 0 ? (100 * (value ?? 0)) / total : 0);
 
   return (
     <Card {...props} loading={noData} error={!!error}>
@@ -154,10 +173,24 @@ export function DataQuality({
               <tr>
                 <td>
                   <BarItem percent={percentOf(data?.rank?.documents?.total)}>
-                    <FormattedMessage
-                      id="dashboard.identifiedToSpecies"
-                      defaultMessage="Identified to species"
-                    />
+                    <ClickableLabel
+                      filter={{
+                        predicate: [
+                          {
+                            type: 'isNotNull',
+                            parameter: 'SPECIES_KEY',
+                            checklistKey: checklistKey ?? defaultChecklistKey,
+                          },
+                        ],
+                      }}
+                      interactive={interactive}
+                      handleRedirect={handleRedirect}
+                    >
+                      <FormattedMessage
+                        id="dashboard.identifiedToSpecies"
+                        defaultMessage="Identified to species"
+                      />
+                    </ClickableLabel>
                   </BarItem>
                 </td>
                 <td className="g-text-end">
@@ -167,7 +200,13 @@ export function DataQuality({
               <tr>
                 <td>
                   <BarItem percent={percentOf(data?.hasCoordinates?.documents?.total)}>
-                    <FormattedMessage id="dashboard.withCoordinates" />
+                    <ClickableLabel
+                      filter={{ hasCoordinate: [true] }}
+                      interactive={interactive}
+                      handleRedirect={handleRedirect}
+                    >
+                      <FormattedMessage id="dashboard.withCoordinates" />
+                    </ClickableLabel>
                   </BarItem>
                 </td>
                 <td className="g-text-end">
@@ -177,7 +216,13 @@ export function DataQuality({
               <tr>
                 <td>
                   <BarItem percent={percentOf(data?.hasYear?.documents?.total)}>
-                    <FormattedMessage id="dashboard.withYear" />
+                    <ClickableLabel
+                      filter={{ year: [{ type: 'isNotNull' }] }}
+                      interactive={interactive}
+                      handleRedirect={handleRedirect}
+                    >
+                      <FormattedMessage id="dashboard.withYear" />
+                    </ClickableLabel>
                   </BarItem>
                 </td>
                 <td className="g-text-end">
@@ -188,7 +233,13 @@ export function DataQuality({
                 <tr>
                   <td>
                     <BarItem percent={percentOf(data?.hasCollector?.documents?.total)}>
-                      <FormattedMessage id="dashboard.withCollector" />
+                      <ClickableLabel
+                        filter={{ recordedBy: [{ type: 'isNotNull' }] }}
+                        interactive={interactive}
+                        handleRedirect={handleRedirect}
+                      >
+                        <FormattedMessage id="dashboard.withCollector" />
+                      </ClickableLabel>
                     </BarItem>
                   </td>
                   <td className="g-text-end">
@@ -200,7 +251,13 @@ export function DataQuality({
                 <tr>
                   <td>
                     <BarItem percent={percentOf(data?.hasMedia?.documents?.total)}>
-                      <FormattedMessage id="dashboard.withMedia" />
+                      <ClickableLabel
+                        filter={{ mediaType: [{ type: 'isNotNull' }] }}
+                        interactive={interactive}
+                        handleRedirect={handleRedirect}
+                      >
+                        <FormattedMessage id="dashboard.withMedia" />
+                      </ClickableLabel>
                     </BarItem>
                   </td>
                   <td className="g-text-end">
@@ -212,7 +269,13 @@ export function DataQuality({
                 <tr>
                   <td>
                     <BarItem percent={percentOf(data?.hasSequence?.documents?.total)}>
-                      <FormattedMessage id="dashboard.withSequence" />
+                      <ClickableLabel
+                        filter={{ isSequenced: [true] }}
+                        interactive={interactive}
+                        handleRedirect={handleRedirect}
+                      >
+                        <FormattedMessage id="dashboard.withSequence" />
+                      </ClickableLabel>
                     </BarItem>
                   </td>
                   <td className="g-text-end">
@@ -225,6 +288,28 @@ export function DataQuality({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+type ClickableLabelProps = {
+  filter: RedirectFilter;
+  interactive?: boolean;
+  handleRedirect?: (args: { filter?: RedirectFilter }) => void;
+  children: React.ReactNode;
+};
+
+function ClickableLabel({ filter, interactive, handleRedirect, children }: ClickableLabelProps) {
+  if (!interactive || !handleRedirect) return <>{children}</>;
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        handleRedirect({ filter });
+      }}
+      className="g-text-start hover:g-underline"
+    >
+      {children}
+    </button>
   );
 }
 
