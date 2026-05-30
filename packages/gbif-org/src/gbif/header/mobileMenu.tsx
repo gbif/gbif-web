@@ -73,8 +73,8 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
           <SheetHeader>
             <SheetTitle>
               <div className="g-flex g-min-h-11 g-items-center">
-                <span dir="ltr" className="g-text-primary-500">
-                  <GbifLogoIcon style={{ fontSize: 25 }} className="g-me-2" /> GBIF
+                <span dir="ltr" className="g-flex g-items-center">
+                  <GbifLogoIcon style={{ fontSize: 25 }} className="g-me-2 g-text-primary-500" /> GBIF
                 </span>
               </div>
             </SheetTitle>

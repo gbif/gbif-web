@@ -70,24 +70,28 @@ export function DataHeader({
               }
             />
           )}
-          {aboutContent && dataHeader.enableInfoPopup && (
-            <Popup
-              trigger={
-                <MdInfo className="hover:g-text-slate-700 g-text-slate-400 g-block g-text-base" />
-              }
-            >
-              {aboutContent}
-            </Popup>
-          )}
-          {apiContent && dataHeader.enableApiPopup && (
-            <Popup
-              trigger={
-                <MdCode className="hover:g-text-slate-700 g-text-slate-400 g-block g-text-base" />
-              }
-            >
-              {apiContent}
-            </Popup>
-          )}
+          {(aboutContent && dataHeader.enableInfoPopup) || (apiContent && dataHeader.enableApiPopup) ? (
+            <div className="g-hidden md:g-flex g-items-center g-gap-1">
+              {aboutContent && dataHeader.enableInfoPopup && (
+                <Popup
+                  trigger={
+                    <MdInfo className="hover:g-text-slate-700 g-text-slate-400 g-block g-text-base" />
+                  }
+                >
+                  {aboutContent}
+                </Popup>
+              )}
+              {apiContent && dataHeader.enableApiPopup && (
+                <Popup
+                  trigger={
+                    <MdCode className="hover:g-text-slate-700 g-text-slate-400 g-block g-text-base" />
+                  }
+                >
+                  {apiContent}
+                </Popup>
+              )}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
