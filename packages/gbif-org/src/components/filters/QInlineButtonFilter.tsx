@@ -2,7 +2,8 @@ import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
 import { FilterContext } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { MdClose } from 'react-icons/md';
 import { useIntl } from 'react-intl';
 
@@ -48,11 +49,10 @@ function QFilter({
     onChange();
   };
 
-  useEffect(() => {
-    if (!isInputHidden && inputRef.current) {
-      inputRef.current.focus({ preventScroll: true });
-    }
-  }, [isInputHidden]);
+  const handleOpen = useCallback(() => {
+    flushSync(() => setIsInputHidden(false));
+    inputRef.current?.focus({ preventScroll: true });
+  }, []);
 
   useEffect(() => {
     if (value && value !== '') {
@@ -65,7 +65,7 @@ function QFilter({
   return (
     <FilterButton
       onClear={handleClearClick}
-      onOpen={() => setIsInputHidden(false)}
+      onOpen={handleOpen}
       isInputHidden={isInputHidden}
       selectedLabel={
         <span className="g-overflow-hidden g-whitespace-nowrap g-text-ellipsis g-max-w-[250px]">
