@@ -24,12 +24,12 @@ export function SearchTrigger() {
   });
 
   return (
-    <div className="g-hidden sm:g-inline-block">
+    <div className="g-hidden sm:g-flex g-items-center">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80"
+            className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
             aria-label={searchLabel}
           >
             <MdSearch aria-hidden="true" />
