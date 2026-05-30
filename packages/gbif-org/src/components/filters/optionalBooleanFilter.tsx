@@ -87,7 +87,7 @@ export const OptionalBooleanFilter = React.forwardRef(
     const defaultSelected = filter?.must?.[filterHandle]?.[0]?.toString() ?? '';
 
     return (
-      <>
+      <div className="g-flex g-flex-col g-flex-1 g-min-h-0">
         <div
           className={cn(
             'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-0 g-px-4 g-items-center g-pt-2',
@@ -103,7 +103,7 @@ export const OptionalBooleanFilter = React.forwardRef(
             )}
           </div>
         </div>
-        <div className="g-pb-1.5 g-px-4 g-w-full">
+        <div className="g-flex-auto g-pb-1.5 g-px-4 g-w-full">
           <RadioGroup
             onValueChange={(val) => {
               setFullField(filterHandle, val === '' ? [] : [val], []);
@@ -142,7 +142,7 @@ export const OptionalBooleanFilter = React.forwardRef(
           </RadioGroup>
         </div>
         <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
-      </>
+      </div>
     );
   }
 );

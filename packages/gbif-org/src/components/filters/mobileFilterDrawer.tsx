@@ -170,7 +170,7 @@ export const MobileFilterDrawerContent = React.forwardRef<
       </Command>
 
       {activeFilterHandle && Content && (
-        <div className="g-flex-1 g-overflow-y-auto g-min-h-0">
+        <div className="g-flex g-flex-col g-flex-1 g-min-h-0">
           <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
             <Content
               onApply={handleApply}
@@ -244,11 +244,9 @@ const ActiveFilters = React.memo<ActiveFiltersProps>(({ filters, onSelectFilter 
               key={filter.handle}
               value={searchValue}
               onSelect={() => onSelectFilter(filter.handle)}
-              className="g-flex g-items-center"
+              className="g-flex g-items-center g-justify-between g-py-3"
             >
-              <span className="g-font-medium g-text-slate-700">
-                {filter.translatedFilterName}
-              </span>
+              <span className="g-font-medium g-text-slate-700">{filter.translatedFilterName}</span>
               <span className="g-ms-auto g-font-medium g-bg-slate-700 g-text-xs g-rounded-full g-text-white g-size-5 g-flex g-items-center g-justify-center">
                 <FormattedNumber value={summary.defaultCount} />
               </span>
@@ -317,7 +315,7 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
               key={filter.handle}
               value={searchValue}
               onSelect={() => onSelectFilter(filter.handle)}
-              className="g-flex g-items-center g-justify-between"
+              className="g-flex g-items-center g-justify-between g-py-3"
             >
               <div className="g-flex g-items-center g-gap-2">
                 <span className="g-font-medium g-text-slate-700">
@@ -404,6 +402,7 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
                 key={filter.handle}
                 value={searchValue}
                 onSelect={() => onSelectFilter(filter.handle)}
+                className="g-flex g-items-center g-justify-between g-py-3"
               >
                 {filter.translatedFilterName}
                 <MdChevronRight
@@ -431,6 +430,7 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
                       key={filter.handle}
                       value={searchValue}
                       onSelect={() => onSelectFilter(filter.handle)}
+                      className="g-flex g-items-center g-justify-between g-py-3"
                     >
                       {filter.translatedFilterName}
                       <MdChevronRight

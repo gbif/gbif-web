@@ -1146,8 +1146,13 @@ export function ApplyCancel({
 }) {
   if (!onApply || !onCancel) return null;
   return (
-    <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
-      <Button size="sm" variant="outline" onClick={onCancel}>
+    <div className="g-flex-none g-py-3 g-px-4 g-flex g-gap-2 g-justify-between">
+      <Button
+        size="sm"
+        variant="outline"
+        onClick={onCancel}
+        className="g-flex-none g-h-11 g-text-base g-px-4 sm:g-text-xs sm:g-px-3"
+      >
         <FormattedMessage id="filterSupport.cancel" />
       </Button>
       {!pristine && (
@@ -1157,6 +1162,7 @@ export function ApplyCancel({
           size="sm"
           disabled={disabled}
           onClick={() => onApply({ keepOpen: false })}
+          className="g-flex-1 g-h-11 g-text-base g-px-4 sm:g-flex-none sm:g-text-xs sm:g-px-3"
         >
           <FormattedMessage id="filterSupport.apply" />
         </Button>

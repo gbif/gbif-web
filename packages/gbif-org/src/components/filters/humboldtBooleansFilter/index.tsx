@@ -163,7 +163,7 @@ export const HumboldtBooleansFilter = React.forwardRef<HTMLInputElement, Wildcar
             {options}
           </div>
           <div className="g-flex-auto g-overflow-auto gbif-small-scrollbar">
-            <div className="g-max-h-[50dvh] g-px-4 g-text-sm">
+            <div className="sm:g-max-h-[50dvh] g-px-4 g-text-sm">
               {Object.keys(allBooleans).map((key) => (
                 <fieldset key={key} className="g-border-none g-p-0 g-m-0 g-mb-2">
                   <div className="g-me-2">

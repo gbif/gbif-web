@@ -293,7 +293,7 @@ export const EnumFilter = React.forwardRef(
           )}
           {options}
         </div>
-        <div className="g-flex-auto g-overflow-auto g-max-h-96 gbif-small-scrollbar">
+        <div className="g-flex-auto g-overflow-auto sm:g-max-h-96 gbif-small-scrollbar">
           <div className={cn('g-text-base', className)}>
             {facetSuggestions && facetSuggestions.length === 0 && selected?.length === 0 && (
               <div className="g-p-4 g-text-center g-text-sm g-text-slate-400">
