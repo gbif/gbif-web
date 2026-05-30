@@ -4,7 +4,7 @@ import { FilterContext, FilterType } from '@/contexts/filter';
 import { FilterProvider } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import React, { useEffect, useMemo, useState } from 'react';
-import { MdArrowBack, MdClose } from 'react-icons/md';
+import { MdArrowBack, MdChevronRight, MdClose } from 'react-icons/md';
 import { Filters, sortFilters } from './filterTools';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import {
@@ -63,16 +63,6 @@ export const MobileFilterDrawerContent = React.forwardRef<
     setPristine(true);
     setActiveFilterHandle(null);
   }, [filterContext?.filter]);
-
-  // Clear a specific filter
-  const handleClearFilter = React.useCallback(
-    (filterHandle: string) => {
-      if (filterContext?.setFullField) {
-        filterContext.setFullField(filterHandle, [], []);
-      }
-    },
-    [filterContext]
-  );
 
   // Clear every filter in the drawer; preserves checklistKey from the current filter.
   const handleClearAll = React.useCallback(() => {
@@ -171,11 +161,7 @@ export const MobileFilterDrawerContent = React.forwardRef<
         </CommandEmpty>
 
         <CommandList className="g-flex-1 g-px-2 g-overflow-y-auto g-max-h-none" key={listVersion}>
-          <ActiveFilters
-            filters={filters}
-            onSelectFilter={setActiveFilterHandle}
-            onClearFilter={handleClearFilter}
-          />
+          <ActiveFilters filters={filters} onSelectFilter={setActiveFilterHandle} />
 
           <HighlightedFilters filters={filters} onSelectFilter={setActiveFilterHandle} />
 
@@ -223,74 +209,61 @@ MobileFilterDrawerContent.displayName = 'MobileFilterDrawerContent';
 interface ActiveFiltersProps {
   filters: Filters;
   onSelectFilter: (filterHandle: string) => void;
-  onClearFilter: (filterHandle: string) => void;
 }
 
-const ActiveFilters = React.memo<ActiveFiltersProps>(
-  ({ filters, onSelectFilter, onClearFilter }) => {
-    const filterContext = React.useContext(FilterContext);
-    const intl = useIntl();
+const ActiveFilters = React.memo<ActiveFiltersProps>(({ filters, onSelectFilter }) => {
+  const filterContext = React.useContext(FilterContext);
+  const intl = useIntl();
 
-    const activeFilters = React.useMemo(() => {
-      if (!filterContext) return [];
+  const activeFilters = React.useMemo(() => {
+    if (!filterContext) return [];
 
-      return Object.values(filters)
-        .filter((filter) => {
-          const summary = getFilterSummary(filterContext.filter, filter.handle);
-          return summary.defaultCount > 0;
-        })
-        .sort(sortFilters);
-    }, [filters, filterContext]);
+    return Object.values(filters)
+      .filter((filter) => {
+        const summary = getFilterSummary(filterContext.filter, filter.handle);
+        return summary.defaultCount > 0;
+      })
+      .sort(sortFilters);
+  }, [filters, filterContext]);
 
-    if (activeFilters.length === 0) return null;
+  if (activeFilters.length === 0) return null;
 
-    return (
-      <>
-        <CommandGroup heading={<FormattedMessage id="filterSupport.activeFilters" />}>
-          {activeFilters.map((filter) => {
-            const summary = getFilterSummary(filterContext?.filter || {}, filter.handle);
-            const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
-            const aliases = typeof rawAlias === 'string' ? rawAlias : '';
-            const searchValue = aliases
-              ? `${filter.translatedFilterName} ${aliases}`
-              : filter.translatedFilterName;
+  return (
+    <>
+      <CommandGroup heading={<FormattedMessage id="filterSupport.activeFilters" />}>
+        {activeFilters.map((filter) => {
+          const summary = getFilterSummary(filterContext?.filter || {}, filter.handle);
+          const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
+          const aliases = typeof rawAlias === 'string' ? rawAlias : '';
+          const searchValue = aliases
+            ? `${filter.translatedFilterName} ${aliases}`
+            : filter.translatedFilterName;
 
-            return (
-              <CommandItem
-                key={filter.handle}
-                value={searchValue}
-                onSelect={() => onSelectFilter(filter.handle)}
-                className="g-flex g-items-center g-justify-between"
-              >
-                <div className="g-flex g-items-center g-gap-2">
-                  <span className="g-font-medium g-text-primary-600">
-                    {filter.translatedFilterName}
-                  </span>
-                  <span className="g-font-medium g-bg-primary-400 g-text-xs g-rounded-full g-text-primaryContrast g-size-5 g-flex g-items-center g-justify-center">
-                    <FormattedNumber value={summary.defaultCount} />
-                  </span>
-                </div>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClearFilter(filter.handle);
-                  }}
-                  className="g-p-1 g-min-h-9 g-min-w-9 g-justify-center g-text-slate-500 hover:g-text-slate-700"
-                  aria-label={`Clear ${filter.translatedFilterName} filter`}
-                >
-                  <MdClose className="g-h-4 g-w-4" />
-                </Button>
-              </CommandItem>
-            );
-          })}
-        </CommandGroup>
-        <CommandSeparator />
-      </>
-    );
-  }
-);
+          return (
+            <CommandItem
+              key={filter.handle}
+              value={searchValue}
+              onSelect={() => onSelectFilter(filter.handle)}
+              className="g-flex g-items-center"
+            >
+              <span className="g-font-medium g-text-slate-700">
+                {filter.translatedFilterName}
+              </span>
+              <span className="g-ms-auto g-font-medium g-bg-slate-700 g-text-xs g-rounded-full g-text-white g-size-5 g-flex g-items-center g-justify-center">
+                <FormattedNumber value={summary.defaultCount} />
+              </span>
+              <MdChevronRight
+                aria-hidden="true"
+                className="gbif-rtl-icon g-ms-1 g-h-5 g-w-5 g-text-slate-400"
+              />
+            </CommandItem>
+          );
+        })}
+      </CommandGroup>
+      <CommandSeparator />
+    </>
+  );
+});
 
 ActiveFilters.displayName = 'ActiveFilters';
 
@@ -351,6 +324,10 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
                   {filter.translatedFilterName}
                 </span>
               </div>
+              <MdChevronRight
+                aria-hidden="true"
+                className="gbif-rtl-icon g-ms-auto g-h-5 g-w-5 g-text-slate-400"
+              />
             </CommandItem>
           );
         })}
@@ -429,6 +406,10 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
                 onSelect={() => onSelectFilter(filter.handle)}
               >
                 {filter.translatedFilterName}
+                <MdChevronRight
+                  aria-hidden="true"
+                  className="gbif-rtl-icon g-ms-auto g-h-5 g-w-5 g-text-slate-400"
+                />
               </CommandItem>
             );
           })}
@@ -452,6 +433,10 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
                       onSelect={() => onSelectFilter(filter.handle)}
                     >
                       {filter.translatedFilterName}
+                      <MdChevronRight
+                        aria-hidden="true"
+                        className="gbif-rtl-icon g-ms-auto g-h-5 g-w-5 g-text-slate-400"
+                      />
                     </CommandItem>
                   );
                 })}
