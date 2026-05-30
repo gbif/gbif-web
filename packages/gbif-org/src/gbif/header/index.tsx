@@ -57,35 +57,43 @@ export function Header({ menu }: { menu: HeaderQuery }) {
       </div>
       <div className="g-flex-none g-flex" ref={rightSideRef}>
         <SearchTrigger />
-        <LanguageSelector
-          trigger={
-            <Button
-              variant="ghost"
-              className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
-              aria-label={intl.formatMessage({
-                id: 'header.changeLanguage',
-                defaultMessage: 'Change language',
-              })}
-            >
-              <MdTranslate aria-hidden="true" />
-            </Button>
-          }
-        />
-        <FeedbackPopover
-          trigger={
-            <Button
-              variant="ghost"
-              className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
-              aria-label={intl.formatMessage({
-                id: 'header.feedback',
-                defaultMessage: 'Send feedback',
-              })}
-            >
-              <MdOutlineFeedback aria-hidden="true" />
-            </Button>
-          }
-        />
-        <StatusIndicator />
+        <div
+          className={cn({
+            'lg:g-inline-block g-hidden': showMobile === undefined,
+            'g-hidden': showMobile === true,
+            'g-inline-block': showMobile === false,
+          })}
+        >
+          <LanguageSelector
+            trigger={
+              <Button
+                variant="ghost"
+                className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
+                aria-label={intl.formatMessage({
+                  id: 'header.changeLanguage',
+                  defaultMessage: 'Change language',
+                })}
+              >
+                <MdTranslate aria-hidden="true" />
+              </Button>
+            }
+          />
+          <FeedbackPopover
+            trigger={
+              <Button
+                variant="ghost"
+                className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
+                aria-label={intl.formatMessage({
+                  id: 'header.feedback',
+                  defaultMessage: 'Send feedback',
+                })}
+              >
+                <MdOutlineFeedback aria-hidden="true" />
+              </Button>
+            }
+          />
+          <StatusIndicator />
+        </div>
         <div
           className={cn({
             'g-inline-block lg:g-hidden': showMobile === undefined,
@@ -186,7 +194,7 @@ function Container({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className={cn('g-flex g-flex-none g-items-center g-p-2 g-px-4 g-z-30', {
+      className={cn('g-flex g-flex-none g-items-center g-p-2 g-px-4 g-z-30 g-pe-2', {
         'g-absolute g-w-full g-text-white hover:g-bg-[#00000048]': isRoot,
         'transparent-test-stripes': config.testSite,
       })}
