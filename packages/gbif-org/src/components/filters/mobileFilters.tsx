@@ -95,7 +95,8 @@ export function MobileFilters({ filters, groups, className }: MobileFiltersProps
             </Button>
           </DialogTrigger>
           <DialogBottomSheetContent
-            className="g-w-full g-p-0"
+            className="g-w-full g-p-0 g-border-t-0"
+            topOffset={0}
             onOpenAutoFocus={(e) => e.preventDefault()}
           >
             <VisuallyHidden.Root>

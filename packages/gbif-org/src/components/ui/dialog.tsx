@@ -66,8 +66,8 @@ DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogBottomSheetContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, style, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { topOffset?: number }
+>(({ className, children, style, topOffset = 75, ...props }, ref) => {
   const keyboardHeight = useKeyboardHeight();
   const [contentNode, setContentNode] = React.useState<HTMLDivElement | null>(null);
   const composedRef = React.useCallback(
@@ -86,14 +86,15 @@ const DialogBottomSheetContent = React.forwardRef<
         ref={composedRef}
         className={cn(
           'gbif dialog-popover-container g-z-50 g-bg-background g-border-0 g-border-t g-border-solid',
-          'g-fixed g-w-full g-top-[75px] g-start-0 g-end-0 g-bottom-auto',
+          'g-fixed g-w-full g-start-0 g-end-0 g-bottom-auto',
           // Animations
           'g-duration-300 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-slide-out-to-bottom data-[state=open]:g-slide-in-from-bottom',
           className
         )}
         style={{
           ...style,
-          height: `calc(100dvh - ${75 + keyboardHeight}px)`,
+          top: topOffset,
+          height: `calc(100dvh - ${topOffset + keyboardHeight}px)`,
           transition: keyboardHeight === 0 ? 'height 0.1s ease-out' : 'height 0.4s ease-out',
         }}
         {...props}
