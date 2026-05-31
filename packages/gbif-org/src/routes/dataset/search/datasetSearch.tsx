@@ -1,8 +1,10 @@
 import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { DataHeader } from '@/components/dataHeader';
+import { DataHeader, useIsDataHeaderVisible } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
+import { cn } from '@/utils/shadcn';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
@@ -74,6 +76,9 @@ export function DatasetSearch(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const [tsvUrl, setTsvUrl] = useState('');
+  const dataHeaderVisible = useIsDataHeaderVisible({ hideIfNoCatalogue: true });
+  const filterSheetActive = useIsMobileFilterSheetActive(filters);
+  const hideBarOnMobile = dataHeaderVisible && filterSheetActive;
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -135,6 +140,7 @@ export function DatasetSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
         hideIfNoCatalogue={true}
+        mobileFiltersTrigger={<MobileFiltersTrigger filters={filters} />}
       >
         {/* <Tabs
           className="g-border-none"
@@ -149,7 +155,13 @@ export function DatasetSearch(): React.ReactElement {
       </DataHeader>
 
       <section>
-        <FilterBarWithActions filters={filters} className="g-px-4 g-bg-white" />
+        <div className={cn(hideBarOnMobile && 'g-hidden sm:g-block')}>
+          <FilterBarWithActions
+            filters={filters}
+            className="g-px-4 g-bg-white"
+            hideMobileFilters={dataHeaderVisible}
+          />
+        </div>
 
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">

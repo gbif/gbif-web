@@ -15,6 +15,15 @@ import { DoiTag } from './identifierTag';
 import { Button } from './ui/button';
 import { FeedbackPopover } from '@/gbif/header/feedback/feedback';
 
+export function useIsDataHeaderVisible({
+  hideIfNoCatalogue,
+  hideCatalogueSelector,
+}: { hideIfNoCatalogue?: boolean; hideCatalogueSelector?: boolean } = {}) {
+  const { availableCatalogues = [] } = useConfig();
+  if (hideIfNoCatalogue && (availableCatalogues.length < 2 || hideCatalogueSelector)) return false;
+  return true;
+}
+
 export function DataHeader({
   children,
   title,
@@ -24,6 +33,7 @@ export function DataHeader({
   hasBorder,
   hideCatalogueSelector,
   className,
+  mobileFiltersTrigger,
   /**If there are no catalogues, then there is only about and api info available. And that looks odd. In those cases we will just hide it. Notice that this is only relevant for hosted portals */
   hideIfNoCatalogue,
 }: {
@@ -35,6 +45,7 @@ export function DataHeader({
   hideCatalogueSelector?: boolean;
   doi?: string | null;
   className?: string;
+  mobileFiltersTrigger?: React.ReactNode;
   hideIfNoCatalogue?: boolean;
 }) {
   const { availableCatalogues = [], dataHeader, feedback = {} } = useConfig();
@@ -60,6 +71,7 @@ export function DataHeader({
       <div className="g-flex-auto g-min-w-0">{children}</div>
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-items-center g-gap-1">
+          {mobileFiltersTrigger}
           {doi && <DoiTag id={doi} className="g-me-2 g-text-xs g-hidden md:g-inline" />}
           {enabled && showFeedbackInDataHeader && (
             <FeedbackPopover
@@ -70,7 +82,8 @@ export function DataHeader({
               }
             />
           )}
-          {(aboutContent && dataHeader.enableInfoPopup) || (apiContent && dataHeader.enableApiPopup) ? (
+          {(aboutContent && dataHeader.enableInfoPopup) ||
+          (apiContent && dataHeader.enableApiPopup) ? (
             <div className="g-hidden md:g-flex g-items-center g-gap-1">
               {aboutContent && dataHeader.enableInfoPopup && (
                 <Popup
@@ -169,7 +182,8 @@ function CatalogSelector({
       <DropdownMenu dir={locale.textDirection || 'ltr'}>
         <DropdownMenuTrigger>
           <div className="g-flex g-justify-center g-items-center g-px-2 g-pt-2.5 g-pb-2.5">
-            <MdApps /> {title && <span className="g-ms-2 g-hidden md:g-block">{title}</span>}
+            <MdApps className="g-text-xl sm:g-text-base" />{' '}
+            {title && <span className="g-ms-2 g-hidden md:g-block">{title}</span>}
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">

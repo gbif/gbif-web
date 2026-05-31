@@ -2,6 +2,7 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
 import { Card } from '@/components/ui/smallCard';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
@@ -10,6 +11,7 @@ import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
+import { cn } from '@/utils/shadcn';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
 import React, { useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -74,6 +76,8 @@ export function TaxonSearchPageInner({
     }
   }, [filters, view]);
 
+  const filterSheetActive = useIsMobileFilterSheetActive(visibleFilters);
+
   return (
     <ChecklistKeyContext.Provider value={{ datasetKey }}>
       <EntityDrawer />
@@ -83,6 +87,7 @@ export function TaxonSearchPageInner({
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
+        mobileFiltersTrigger={<MobileFiltersTrigger filters={visibleFilters} />}
       >
         {/* <TaxonViewTabs
           setView={setView}
@@ -92,8 +97,13 @@ export function TaxonSearchPageInner({
         /> */}
       </DataHeader>
 
-      <section className="g-bg-white g-border-b g-border-slate-200">
-        <FilterBarWithActions filters={visibleFilters} className="g-px-4" />
+      <section
+        className={cn(
+          'g-bg-white g-border-b g-border-slate-200',
+          filterSheetActive && 'g-hidden sm:g-block'
+        )}
+      >
+        <FilterBarWithActions filters={visibleFilters} className="g-px-4" hideMobileFilters />
       </section>
 
       <Views view={view} entityDrawerPrefix="t" className="g-py-2 g-px-4 g-bg-slate-100" />

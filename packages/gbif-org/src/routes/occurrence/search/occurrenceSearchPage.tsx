@@ -3,6 +3,7 @@ import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ChecklistSelector } from '@/components/filters/checklistSelector';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
 import { Tabs } from '@/components/tabs';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -11,6 +12,7 @@ import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
+import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import PageMetaData from '@/components/PageMetaData';
@@ -74,6 +76,7 @@ const groups = [
 export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const filterSheetActive = useIsMobileFilterSheetActive(filters);
   const defaultView = searchContext.defaultTab ?? searchContext?.tabs?.[0] ?? 'table';
   const [view] = useStringParam({
     key: 'view',
@@ -90,16 +93,23 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
+        mobileFiltersTrigger={<MobileFiltersTrigger filters={filters} groups={groups} />}
       >
         <OccurrenceViewTabs view={view} defaultView={defaultView} tabs={searchContext.tabs} />
       </DataHeader>
 
-      <section className="g-bg-white g-border-b g-border-slate-200">
+      <section
+        className={cn(
+          'g-bg-white g-border-b g-border-slate-200',
+          filterSheetActive && 'g-hidden sm:g-block'
+        )}
+      >
         <FilterBarWithActions
           className="g-px-4"
           filters={filters}
           groups={groups}
           additionalActions={<ChecklistSelector />}
+          hideMobileFilters
         />
       </section>
 

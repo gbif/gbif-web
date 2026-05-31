@@ -1,4 +1,5 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { cn } from '@/utils/shadcn';
 import { DataHeader } from '@/components/dataHeader';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
@@ -31,6 +32,7 @@ import { ResourceSearchTabs } from './resourceSearchTabs';
 import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
 import PageMetaData from '@/components/PageMetaData';
 import { Resource, useResourceSearch, RESOURCE_SEARCH_QUERY } from './useResourceSearch';
 
@@ -91,6 +93,7 @@ type Props = {
 function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const filterSheetActive = useIsMobileFilterSheetActive(filters);
   const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
 
@@ -139,12 +142,13 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
         hasBorder
         // aboutContent={<AboutContent />}
         // apiContent={<ApiContent />}
+        mobileFiltersTrigger={<MobileFiltersTrigger filters={filters} />}
       >
         <ResourceSearchTabs activeTab={activeTab} defaultTab={defaultTab} />
       </DataHeader>
 
-      <Card>
-        <FilterBarWithActions filters={filters} />
+      <Card className={cn(filterSheetActive && 'g-hidden sm:g-block')}>
+        <FilterBarWithActions filters={filters} hideMobileFilters />
       </Card>
 
       <ArticleContainer className="g-bg-slate-100 g-flex">

@@ -1,6 +1,6 @@
 import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { DataHeader } from '@/components/dataHeader';
+import { DataHeader, useIsDataHeaderVisible } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
@@ -36,6 +36,8 @@ import { InstitutionResult } from './institutionResult';
 import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
+import { cn } from '@/utils/shadcn';
 
 const INSTITUTION_SEARCH_QUERY = /* GraphQL */ `
   query InstitutionSearch($query: InstitutionSearchInput, $collectionScope: CollectionSearchInput) {
@@ -89,6 +91,9 @@ export function InstitutionSearch(): React.ReactElement {
   const [geojsonError, setGeojsonError] = useState(false);
   const [geojsonLoading, setGeojsonLoading] = useState(true);
   const [tsvUrl, setTsvUrl] = useState('');
+  const dataHeaderVisible = useIsDataHeaderVisible({ hideIfNoCatalogue: true });
+  const filterSheetActive = useIsMobileFilterSheetActive(filters);
+  const hideBarOnMobile = dataHeaderVisible && filterSheetActive;
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -165,10 +170,17 @@ export function InstitutionSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
         hideIfNoCatalogue={true}
+        mobileFiltersTrigger={<MobileFiltersTrigger filters={filters} />}
       />
 
       <section className="">
-        <FilterBarWithActions filters={filters} className="g-px-4" />
+        <div className={cn(hideBarOnMobile && 'g-hidden sm:g-block')}>
+          <FilterBarWithActions
+            filters={filters}
+            className="g-px-4"
+            hideMobileFilters={dataHeaderVisible}
+          />
+        </div>
         <ErrorBoundary>
           <ArticleContainer className="g-bg-slate-100 g-flex">
             <ArticleTextContainer className="g-flex-auto g-w-full">

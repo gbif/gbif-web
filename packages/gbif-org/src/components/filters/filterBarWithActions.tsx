@@ -15,6 +15,7 @@ interface FilterBarWithActionsProps {
   groups?: string[];
   additionalActions?: React.ReactNode;
   className?: string;
+  hideMobileFilters?: boolean;
 }
 
 export function FilterBarWithActions({
@@ -22,6 +23,7 @@ export function FilterBarWithActions({
   groups,
   additionalActions,
   className,
+  hideMobileFilters = false,
 }: FilterBarWithActionsProps) {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
@@ -42,7 +44,7 @@ export function FilterBarWithActions({
         <FilterButtons filters={filters} searchContext={searchContext} groups={groups} />
       </div>
       <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
-        {shouldShowMobileFilters && (
+        {shouldShowMobileFilters && !hideMobileFilters && (
           <MobileFilters className="sm:g-hidden" filters={filters} groups={groups} />
         )}
         {additionalActions}

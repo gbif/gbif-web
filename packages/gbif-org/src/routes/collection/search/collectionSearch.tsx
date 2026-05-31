@@ -1,6 +1,7 @@
 import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { DataHeader } from '@/components/dataHeader';
+import { DataHeader, useIsDataHeaderVisible } from '@/components/dataHeader';
+import { cn } from '@/utils/shadcn';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -32,6 +33,7 @@ import { AboutContent, ApiContent } from './help';
 import { NoResultsMessage } from './noResultsMessage';
 import { searchConfig } from './searchConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -80,6 +82,9 @@ export function CollectionSearch(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const [tsvUrl, setTsvUrl] = useState('');
+  const dataHeaderVisible = useIsDataHeaderVisible({ hideIfNoCatalogue: true });
+  const filterSheetActive = useIsMobileFilterSheetActive(filters);
+  const hideBarOnMobile = dataHeaderVisible && filterSheetActive;
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -132,10 +137,17 @@ export function CollectionSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
         hideIfNoCatalogue={true}
+        mobileFiltersTrigger={<MobileFiltersTrigger filters={filters} />}
       />
 
       <section className="">
-        <FilterBarWithActions filters={filters} className="g-px-4" />
+        <div className={cn(hideBarOnMobile && 'g-hidden sm:g-block')}>
+          <FilterBarWithActions
+            filters={filters}
+            className="g-px-4"
+            hideMobileFilters={dataHeaderVisible}
+          />
+        </div>
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results
