@@ -49,24 +49,24 @@
   "sinceDate": "{DATE} 以来",
   "showAllContacts": "すべて",
   "person": {
-    "volunteer": "",
+    "volunteer": "ボランティア",
     "name": "名前",
-    "annualBadges": "",
+    "annualBadges": "年間バッジ",
     "language": "言語",
     "country": "国または地域",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
+    "affiliation": "所属",
+    "recipient": "受信者",
+    "areasExpertise": "専門分野",
     "orcId": "ORCID iD",
     "year": "年",
     "email": "メールアドレス"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "GBIF大学院生研究者賞",
+    "EBBE1ST": "一位",
+    "EBBE2ND": "銀賞",
+    "EBBE3RD": "銅賞"
   },
-  "prize": "",
+  "prize": "賞",
   "year": "年"
 }
