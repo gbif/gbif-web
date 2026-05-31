@@ -138,7 +138,7 @@ export const MobileFilterDrawerContent = React.forwardRef<
           return 0;
         }}
       >
-        <div className="g-px-3 g-py-2 g-border-b g-border-solid g-border-slate-200">
+        <div className="g-relative g-px-3 g-py-2 g-border-b g-border-solid g-border-slate-200">
           <CommandInput
             value={searchValue}
             onValueChange={setSearchValue}
@@ -149,8 +149,21 @@ export const MobileFilterDrawerContent = React.forwardRef<
             })}
             wrapperClassName="g-border-b-0 g-rounded g-bg-slate-100 g-px-3 focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
             iconClassName="g-h-5 g-w-5 g-opacity-60"
-            className="g-h-11 g-text-base"
+            className={cn('g-h-11 g-text-base', searchValue && 'g-pe-9')}
           />
+          {searchValue && (
+            <button
+              type="button"
+              aria-label={formatMessage({
+                id: 'filterSupport.clear',
+                defaultMessage: 'Clear',
+              })}
+              onClick={() => setSearchValue('')}
+              className="g-absolute g-top-1/2 g-end-5 g--translate-y-1/2 g-flex g-items-center g-justify-center g-h-7 g-w-7 g-rounded-full g-text-slate-500 hover:g-text-slate-700 hover:g-bg-slate-200 focus:g-outline-none focus-visible:g-ring-2 focus-visible:g-ring-blue-400/70"
+            >
+              <MdClose className="g-h-4 g-w-4" />
+            </button>
+          )}
         </div>
 
         <CommandEmpty className="g-p-4">
