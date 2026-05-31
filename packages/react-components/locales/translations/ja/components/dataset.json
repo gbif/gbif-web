@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "データセット検索",
-  "datasetSearchDescription": "",
+  "datasetSearchDescription": "GBIF内で文献検索。フリーかつオープンアクセスな生物多様性データ",
   "longType": {
     "OCCURRENCE": "オカレンスデータセット",
     "CHECKLIST": "チェックリスト データセット",
