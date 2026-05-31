@@ -79,6 +79,7 @@ class MapLibreMap extends Component<AdHocMapInternalProps> {
     this.handleDrawUpdate = this.handleDrawUpdate.bind(this);
     this.handleDrawDelete = this.handleDrawDelete.bind(this);
     this.handleDrawSelectionChange = this.handleDrawSelectionChange.bind(this);
+    this.reportViewport = this.reportViewport.bind(this);
     this.myRef = React.createRef();
   }
 
@@ -148,6 +149,15 @@ class MapLibreMap extends Component<AdHocMapInternalProps> {
           zoom: this.props.latestEvent.zoom,
           essential: true,
         });
+      } else if (this.props.latestEvent?.type === 'ZOOM_TO_EXTENT') {
+        const { bbox } = this.props.latestEvent;
+        this.map?.fitBounds(
+          [
+            [bbox.left, bbox.bottom],
+            [bbox.right, bbox.top],
+          ],
+          { padding: 40, maxZoom: 12, duration: 1000 }
+        );
       } else if (this.props.latestEvent?.type === 'EXPLORE_AREA') {
         this.exploreArea();
       }
@@ -443,6 +453,17 @@ class MapLibreMap extends Component<AdHocMapInternalProps> {
     });
   }
 
+  reportViewport() {
+    if (!this.map || !this.props.onViewportChange) return;
+    const bounds = this.map.getBounds();
+    this.props.onViewportChange({
+      top: bounds.getNorth(),
+      left: bounds.getWest(),
+      bottom: bounds.getSouth(),
+      right: bounds.getEast(),
+    });
+  }
+
   getStyle(): string | any {
     const basemapStyle = this.props.mapConfig?.basemapStyle || 'klokantech';
     const layerStyle = mapStyles[basemapStyle];
@@ -570,10 +591,14 @@ class MapLibreMap extends Component<AdHocMapInternalProps> {
             lng: center.lng,
             lat: center.lat,
           });
+          this.reportViewport();
         };
 
         map.on('zoomend', saveCurrentPosition);
         map.on('moveend', saveCurrentPosition);
+
+        // Report the initial viewport so consumers know the starting bounds
+        this.reportViewport();
 
         // Add event handlers for all overlay layers
         const setupLayerEvents = (layerName: string) => {
