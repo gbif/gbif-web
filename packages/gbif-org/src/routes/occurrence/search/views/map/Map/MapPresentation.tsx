@@ -3,6 +3,7 @@ import { ViewHeader } from '@/components/ViewHeader';
 import { cn } from '@/utils/shadcn';
 import { OccurrenceOverlay } from './types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
+import { BoundingBox } from '@/types';
 import AdHocMap, { AdHocMapProps } from './AdHocMap';
 
 export interface MapPresentationProps {
@@ -17,6 +18,7 @@ export interface MapPresentationProps {
   mapStyleAttr?: React.CSSProperties;
   features?: string[];
   onFeaturesChange?: (params: { features: string[] }) => void;
+  dataBBox?: BoundingBox | null;
 }
 
 function MapPresentation({
@@ -30,6 +32,7 @@ function MapPresentation({
   className,
   features,
   onFeaturesChange,
+  dataBBox,
 }: MapPresentationProps) {
   const mapProps: AdHocMapProps = {
     overlays,
@@ -40,6 +43,7 @@ function MapPresentation({
     className,
     features,
     onFeaturesChange,
+    dataBBox,
     tools: true,
   };
 

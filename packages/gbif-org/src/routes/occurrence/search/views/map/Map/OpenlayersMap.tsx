@@ -5,6 +5,7 @@ import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { useConfig } from '@/config/config';
 import { PointClickData, OccurrenceOverlay, AdHocMapInternalProps } from './types';
+import { BoundingBox } from '@/types';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
 import { Vector as VectorLayer } from 'ol/layer';
@@ -21,7 +22,7 @@ import * as olInteraction from 'ol/interaction';
 import BaseTileLayer from 'ol/layer/BaseTile';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import OlMap from 'ol/Map';
-import { transform } from 'ol/proj';
+import { transform, transformExtent } from 'ol/proj';
 import ImageTile from 'ol/source/ImageTile';
 import VectorTileSource from 'ol/source/VectorTile';
 import TileGrid from 'ol/tilegrid/TileGrid';
@@ -305,6 +306,8 @@ class Map extends Component<AdHocMapInternalProps, State> {
           this.props.latestEvent.zoom
         );
         this.map?.setView(newView);
+      } else if (this.props.latestEvent?.type === 'ZOOM_TO_EXTENT') {
+        this.zoomToExtent(this.props.latestEvent.bbox);
       } else if (this.props.latestEvent?.type === 'EXPLORE_AREA') {
         this.exploreArea();
       }
@@ -363,6 +366,23 @@ class Map extends Component<AdHocMapInternalProps, State> {
     listener({
       type: 'EXPLORE_AREA',
       bbox: getBoundingBox({ map: this.map }),
+    });
+  }
+
+  zoomToExtent(bbox: BoundingBox) {
+    if (!this.map) return;
+    const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
+    // The data extent is in EPSG:4326, so reproject it into the map projection before fitting
+    const extent = transformExtent(
+      [bbox.left, bbox.bottom, bbox.right, bbox.top],
+      'EPSG:4326',
+      currentProjection.srs
+    );
+    this.map.getView().fit(extent, {
+      size: this.map.getSize(),
+      padding: [40, 40, 40, 40],
+      maxZoom: 12,
+      duration: 1000,
     });
   }
 
@@ -702,6 +722,7 @@ class Map extends Component<AdHocMapInternalProps, State> {
     // attach handlers
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
     const { savePosition } = this.props.mapPosition;
+    const component = this;
     const moveendKey = map.on('moveend', function () {
       const { center, zoom } = map.getView().getState();
       const reprojectedCenter = transform(center, currentProjection.srs, 'EPSG:4326');
@@ -710,6 +731,12 @@ class Map extends Component<AdHocMapInternalProps, State> {
         lng: reprojectedCenter[0],
         lat: reprojectedCenter[1],
       });
+      component.props.onViewportChange?.(getBoundingBox({ map }));
+    });
+
+    // Report the initial viewport once the map has rendered (and has a size)
+    map.once('postrender', function () {
+      component.props.onViewportChange?.(getBoundingBox({ map }));
     });
 
     const pointClickHandler = this.onPointClick;
