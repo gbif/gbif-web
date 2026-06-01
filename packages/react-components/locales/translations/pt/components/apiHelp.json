@@ -25,5 +25,12 @@
   "searchExample": "Primeiras duas entradas com o texto \"dna\".",
   "searchDatasets": "Obter todos os conjuntos de dados.",
   "singleNode": "Obter um único nó.",
-  "searchNodes": "Pesquisar nós"
+  "searchNodes": "Pesquisar nós",
+  "singleTaxon": "Obtenha um único táxon",
+  "singleTaxonDetails": "Obtenha detalhes de um único táxon",
+  "searchTaxa": "Busque por taxa",
+  "matchSpecies": "Associe um nome à taxonomia principal do GBIF.",
+  "singleDerivedDataset": "Obtenha um único conjunto de dados derivado",
+  "parseName": "Analise um único nome científico",
+  "derivedDatasetContributingDatasets": "Obtenha conjuntos de dados que contribuem com registros para um conjunto de dados derivado."
 }
