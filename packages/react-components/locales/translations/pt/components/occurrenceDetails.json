@@ -66,6 +66,7 @@
     "issues": "Questões e sinalizadores"
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "",
   "features": {
     "isClustered": "Agrupado",
     "isSamplingEvent": "Evento de colheita",
@@ -233,7 +234,7 @@
         "biologicalStatus": "Iguais {is}",
         "storageCondition": "Iguais {is}",
         "collectingInstituteID": "",
-        "latitude": "",
+        "latitude": "Latitude",
         "longitude": "",
         "altitude": "",
         "locationID": "ID da Localização",
@@ -315,7 +316,7 @@
         "locationID": "ID da Localização",
         "location": "Localização",
         "longitude": "",
-        "latitude": "",
+        "latitude": "Latitude",
         "altitude": ""
       }
     },
@@ -389,7 +390,7 @@
         "title": "Título",
         "description": "Descrição",
         "spatial": "Espacial",
-        "latitude": "",
+        "latitude": "Latitude",
         "longitude": "",
         "format": "Formato",
         "created": "Criado",
@@ -743,7 +744,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "Extensão Humboldt",
+      "recordsHeader": "",
+      "groups": {
+        "protocols": "",
+        "samplingDesign": "",
+        "spatialScope": "",
+        "temporalScope": "Escala temporal",
+        "effort": "",
+        "taxonomicOrganismalScope": ""
+      },
       "properties": {
+        "eventDuration": "",
+        "samplingEffort": "Esforço de colheita",
+        "geospatialScopeArea": "",
+        "totalAreaSampled": "",
         "siteCount": "",
         "siteNestingDescription": "",
         "verbatimSiteDescriptions": "",
