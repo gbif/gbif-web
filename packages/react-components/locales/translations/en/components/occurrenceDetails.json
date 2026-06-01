@@ -66,6 +66,7 @@
     "issues": "Issues and flags"
   },
   "issuesHelpText": "These issues were identified by GBIF's data quality checks. They are intended to help data users assess the quality and characteristics of the data.",
+  "issuesLearnMore": "Learn more about occurrence issues and flags",
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",
@@ -743,7 +744,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "Humboldt extension",
+      "recordsHeader": "{n} Humboldt records — expand to inspect each one.",
+      "groups": {
+        "protocols": "Protocols",
+        "samplingDesign": "Sampling design",
+        "spatialScope": "Spatial scope",
+        "temporalScope": "Temporal scope",
+        "effort": "Effort",
+        "taxonomicOrganismalScope": "Taxonomic and organismal scope"
+      },
       "properties": {
+        "eventDuration": "Event duration",
+        "samplingEffort": "Sampling effort",
+        "geospatialScopeArea": "Geospatial scope area",
+        "totalAreaSampled": "Total area sampled",
         "siteCount": "Site Count",
         "siteNestingDescription": "Site Nesting Description",
         "verbatimSiteDescriptions": "Verbatim Site Descriptions",

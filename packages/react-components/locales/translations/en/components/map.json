@@ -17,6 +17,8 @@
     "message": "Please check your browser settings and try again."
   },
   "filterByView": "Use visible area as filter",
+  "zoomToData": "Zoom to data extent",
+  "noDataInView": "There is little data in the current view.",
   "projection": "Projection",
   "anyYear": "Any year",
   "exploreArea": "Explore area",
