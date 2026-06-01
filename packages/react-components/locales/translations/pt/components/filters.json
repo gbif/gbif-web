@@ -58,7 +58,7 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
+    "placeholderLat": "Latitude",
     "placeholderLon": "",
     "placeholderDist": ""
   },
@@ -66,7 +66,7 @@
     "name": "Localização",
     "count": "",
     "description": "",
-    "placeholderLat": "",
+    "placeholderLat": "Latitude",
     "placeholderLon": "",
     "placeholderDist": ""
   },
