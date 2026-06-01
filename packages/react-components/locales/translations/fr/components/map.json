@@ -17,6 +17,8 @@
     "message": ""
   },
   "filterByView": "Utiliser la zone visible comme filtre",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "Projection",
   "anyYear": "N'importe quelle année",
   "exploreArea": "Explorez la zone",
