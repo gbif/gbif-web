@@ -66,6 +66,7 @@
     "issues": "Автоматически обнаруженные несоответствия"
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "",
   "features": {
     "isClustered": "Имеет связанные записи",
     "isSamplingEvent": "Описания, учеты или сборы",
@@ -743,7 +744,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "Расширение Гумбольдта",
+      "recordsHeader": "",
+      "groups": {
+        "protocols": "Протоколы",
+        "samplingDesign": "",
+        "spatialScope": "",
+        "temporalScope": "Временной интервал",
+        "effort": "",
+        "taxonomicOrganismalScope": ""
+      },
       "properties": {
+        "eventDuration": "",
+        "samplingEffort": "Объём проделанной работы",
+        "geospatialScopeArea": "",
+        "totalAreaSampled": "",
         "siteCount": "Число сайтов",
         "siteNestingDescription": "Описание вложенности сайтов",
         "verbatimSiteDescriptions": "Дословные описание сайтов",
