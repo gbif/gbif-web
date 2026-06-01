@@ -751,7 +751,7 @@
         "spatialScope": "Spatial scope",
         "temporalScope": "Temporal scope",
         "effort": "Effort",
-        "taxonomicOrganismalScope": "Taxonomic & organismal scope"
+        "taxonomicOrganismalScope": "Taxonomic and organismal scope"
       },
       "properties": {
         "eventDuration": "Event duration",
