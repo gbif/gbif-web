@@ -87,14 +87,14 @@
   "endorsement": "Aval",
   "validationError": {
     "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectTheCountryOfYourOrganization": "Selecione o país/região da sua organização."
   },
-  "thankYouForYourRegistration": "",
+  "thankYouForYourRegistration": "Obrigado por cadastrar sua organização",
   "failedToRegisterOrganization": "",
   "associatedWithGbifProgramme": "",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Você precisa de uma conta para registrar uma nova organização",
+    "message": "Faça login ou crie uma conta para continuar registrando sua organização."
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Registrar outra organização?"
 }
