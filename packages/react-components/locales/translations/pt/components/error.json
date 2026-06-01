@@ -1,1 +1,8 @@
-{}
+{
+  "generic": "Ocorreu um erro",
+  "genericRequestFailed": "A solicitação falhou",
+  "reloadPage": "Atualizar página",
+  "hideDetails": "Ocultar detalhes",
+  "showDetails": "Mostrar detalhes",
+  "partialMapFailure": "Algumas peças não carregaram"
+}
