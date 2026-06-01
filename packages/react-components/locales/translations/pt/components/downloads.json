@@ -137,7 +137,7 @@
         "IDENTIFIED_BY": "Identificado por",
         "GBIF_ID": "ID do GBIF",
         "PUBLISHED_BY_GBIF_REGION": "",
-        "IUCN_RED_LIST_CATEGORY": "",
+        "IUCN_RED_LIST_CATEGORY": "Categoria da Lista Vermelha da IUCN",
         "PATHWAY": "Caminho",
         "NETWORK_KEY": "Rede",
         "DWCA_EXTENSION": "",
@@ -226,7 +226,7 @@
     "invalidJson": "",
     "title": "Crie novo download",
     "invalidUrlPredicate": "",
-    "redirectNotice": ""
+    "redirectNotice": "Parece que você foi redirecionado para cá a partir de outro site. Para fazer o download, você precisa fazer login ou se cadastrar primeiro."
   },
   "downloadReport": {
     "title": "Relatório de transferência",
@@ -263,13 +263,13 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Voltar",
-    "slowDown": "",
-    "unableToCreateDownload": "",
-    "backToFormatSelection": "",
+    "slowDown": "Muitos downloads simultâneos. Tente novamente mais tarde.",
+    "unableToCreateDownload": "Não foi possível criar o download. Tente novamente mais tarde.",
+    "backToFormatSelection": "Voltar à seleção de formato",
     "backToConfiguration": "",
     "estimatedSize": "Iguais {is}",
-    "configure": "",
-    "continueToTerms": "",
+    "configure": "Configure",
+    "continueToTerms": "Continuar para os Termos",
     "downloadSummary": "",
     "weAlsoSupport": "",
     "sqlDownloadsLink": "",
@@ -302,7 +302,7 @@
     "steps": {
       "quality": {
         "name": "Iguais {is}",
-        "description": ""
+        "description": "Aplicar filtros de qualidade"
       },
       "filter": {
         "name": "",
@@ -317,7 +317,7 @@
         "description": ""
       },
       "configure": {
-        "name": "",
+        "name": "Configure",
         "description": ""
       },
       "terms": {
