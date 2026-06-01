@@ -13,5 +13,9 @@
   "nVideos": "{total, plural, one {# vídeo} other {# vídeos}}",
   "nImages": "{total, plural, one {# imagem} other {# imagens}}",
   "nResultsWithCoordinates": "{total, plural, one {# resultado } other {# resultados}} com coordenadas\n",
+  "percentWithCoordinates": "{porcentagem}% com coordenadas",
+  "percentWithYear": "{porcentagem}% com ano",
+  "percentWithDate": "{porcentagem}% com data",
+  "percentWithTaxonMatch": "{porcentagem}% com correspondência taxonômica",
   "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} com imagens\n"
 }
