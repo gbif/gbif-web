@@ -9,7 +9,7 @@
     },
     "monthly": {
       "title": "Instantanés de données mensuels",
-      "description": ""
+      "description": "Les exportations mensuelles des données d'occurrence du GBIF sont répertoriées ci-dessous et disponibles dans différents formats. Veuillez consulter la référence indiquée sur chaque page."
     },
     "table": {
       "columns": {
@@ -18,9 +18,9 @@
         "citation": "Citation",
         "filters": "Filtres"
       },
-      "citation": "",
+      "citation": "Téléchargement des données d'occurrence du GBIF",
       "hasFilters": "Oui",
-      "downloadDetails": ""
+      "downloadDetails": "Détails du téléchargement"
     }
   }
 }
