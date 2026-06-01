@@ -66,6 +66,7 @@
     "issues": "Проблеми та відмітки"
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "",
   "features": {
     "isClustered": "",
     "isSamplingEvent": "Описи, обліки або збори",
@@ -743,7 +744,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "",
+      "recordsHeader": "",
+      "groups": {
+        "protocols": "",
+        "samplingDesign": "",
+        "spatialScope": "",
+        "temporalScope": "Часові рамки",
+        "effort": "",
+        "taxonomicOrganismalScope": ""
+      },
       "properties": {
+        "eventDuration": "",
+        "samplingEffort": "Зусилля, докладені для збору зразків",
+        "geospatialScopeArea": "",
+        "totalAreaSampled": "",
         "siteCount": "",
         "siteNestingDescription": "",
         "verbatimSiteDescriptions": "",
