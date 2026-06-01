@@ -66,7 +66,7 @@
     "issues": "Incidencias y alertas"
   },
   "issuesHelpText": "Estos problemas fueron identificados por los controles de calidad de datos de GBIF. Su objetivo es ayudar a los usuarios de datos a evaluar la calidad y las características de los datos.",
-  "issuesLearnMore": "",
+  "issuesLearnMore": "Más información sobre los problemas y las marcas de los registros",
   "features": {
     "isClustered": "Agrupación",
     "isSamplingEvent": "Evento de muestreo",
@@ -744,19 +744,19 @@
     },
     "humboldtEcologicalInventory": {
       "name": "Extensión Humboldt",
-      "recordsHeader": "",
+      "recordsHeader": "{n} registros Humboldt — expandir para inspeccionar cada uno.",
       "groups": {
         "protocols": "Protocolos",
         "samplingDesign": "Diseño de muestreo",
-        "spatialScope": "",
+        "spatialScope": "Ámbio espacial",
         "temporalScope": "Escala temporal",
-        "effort": "",
-        "taxonomicOrganismalScope": ""
+        "effort": "Esfuerzo",
+        "taxonomicOrganismalScope": "Ámbito taxonómico y de organismos"
       },
       "properties": {
         "eventDuration": "Duración del evento",
         "samplingEffort": "Esfuerzo de muestreo",
-        "geospatialScopeArea": "",
+        "geospatialScopeArea": "Área del ámbito geoespacial",
         "totalAreaSampled": "Área total muestreada",
         "siteCount": "Recuento de sitios",
         "siteNestingDescription": "Descripción del anidamiento de sitios",
