@@ -17,6 +17,8 @@
     "message": ""
   },
   "filterByView": "Utilizza aree visibili come filtro",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "",
   "anyYear": "",
   "exploreArea": "",
