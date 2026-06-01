@@ -17,6 +17,8 @@
     "message": "Rovná se {from}"
   },
   "filterByView": "Použít viditelnou oblast jako filtr",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "Projekce",
   "anyYear": "Jakýkoliv rok",
   "exploreArea": "Prozkoumat oblast",
