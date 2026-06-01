@@ -149,7 +149,7 @@
         "MEMBER": "Membro",
         "SPECIES_KEY": "Espécie",
         "GADM_LEVEL_1_GID": "",
-        "GADM_LEVEL_3_GID": "",
+        "GADM_LEVEL_3_GID": "GADM nível 3 ID",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Idade mais antiga ou estágio inferior",
         "DEGREE_OF_ESTABLISHMENT": "Grau de estabelecimento",
         "DEPTH": "Profundidade",
@@ -157,7 +157,7 @@
         "ORGANISM_ID": "ID do organismo",
         "PUBLISHING_COUNTRY": "País ou área de publicação",
         "SAMPLE_SIZE_UNIT": "Unidade do tamanho da amostra",
-        "LITHOSTRATIGRAPHY": "",
+        "LITHOSTRATIGRAPHY": "Litoestratigrafia",
         "TAXONOMIC_STATUS": "Classificação taxonómica",
         "RECORDED_BY_ID": "Registado por ID",
         "ISLAND_GROUP": "Grupo de ilhas",
@@ -169,7 +169,7 @@
         "ORGANISM_QUANTITY_TYPE": "Tipo de quantidade de organismos",
         "MODIFIED": "Modificado",
         "EARLIEST_EPOCH_OR_LOWEST_SERIES": "Época mais antiga ou série inferior",
-        "IS_SEQUENCED": "",
+        "IS_SEQUENCED": "É sequenciado",
         "TAXON_ID": "ID do táxon",
         "EARLIEST_PERIOD_OR_LOWEST_SYSTEM": "Período mais antigo ou sistema inferior",
         "MEDIA_TYPE": "Tipo de média",
@@ -187,7 +187,7 @@
         "SAMPLING_PROTOCOL": "Protocolo de amostragem",
         "IS_IN_CLUSTER": "Está em cluster",
         "RECORD_NUMBER": "Número de registo",
-        "PUBLISHING_ORG": "",
+        "PUBLISHING_ORG": "Organização publicadora",
         "PROGRAMME": "Programa",
         "COLLECTION_KEY": "Coleção",
         "LICENSE": "Licença",
@@ -196,7 +196,7 @@
         "ELEVATION": "Elevação",
         "SEX": "Sexo",
         "GENUS_KEY": "Género",
-        "CRAWL_ID": "",
+        "CRAWL_ID": "ID de rastreamento",
         "HAS_COORDINATE": "Tem coordenadas",
         "GROUP": "Grupo",
         "LATEST_EPOCH_OR_HIGHEST_SERIES": "Época mais recente ou série superior",
@@ -211,7 +211,7 @@
         "PARENT_EVENT_ID": "ID de evento pai",
         "RECORDED_BY": "Registado por",
         "BASIS_OF_RECORD": "Base do registo",
-        "BIOSTRATIGRAPHY": "",
+        "BIOSTRATIGRAPHY": "Bioestratigrafia",
         "DATASET_KEY": "Conjunto de dados"
       }
     }
@@ -225,7 +225,7 @@
     "reformat": "Reformatar",
     "invalidJson": "",
     "title": "Crie novo download",
-    "invalidUrlPredicate": "",
+    "invalidUrlPredicate": "O predicado na URL é inválido",
     "redirectNotice": "Parece que você foi redirecionado para cá a partir de outro site. Para fazer o download, você precisa fazer login ou se cadastrar primeiro."
   },
   "downloadReport": {
@@ -270,55 +270,55 @@
     "estimatedSize": "Iguais {is}",
     "configure": "Configure",
     "continueToTerms": "Continuar para os Termos",
-    "downloadSummary": "",
+    "downloadSummary": "Resumo do download",
     "weAlsoSupport": "",
     "sqlDownloadsLink": "",
     "extensions": "Extensões",
-    "selectAdditionalExtensions": "",
+    "selectAdditionalExtensions": "Selecione as extensões de dados adicionais a incluir",
     "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAll": "Selecionar tudo",
+    "deselectAll": "Desmarcar tudo",
+    "extensionsInfoMessage": "As extensões fornecem campos de dados adicionais além dos dados principais de ocorrência. Selecione apenas extensões que sejam relevantes para suas necessidades de pesquisa.",
     "format": "Formato",
-    "csvDelimiter": "",
+    "csvDelimiter": "Delimitador CSV",
     "taxonomy": "Taxonomia",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
+    "tabDelimiter": "TAB",
+    "progressLabel": "Progresso",
+    "termsAndConditions": "Termos e Condições",
+    "reviewAndAccept": "Por favor, leia e aceite os termos antes de fazer o download",
+    "dataCitationTitle": "Citação de Dados",
     "dataCitationText": "",
-    "dataUseAgreementTitle": "",
+    "dataUseAgreementTitle": "Acordo de Uso de Dados",
     "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
+    "largeDownloadAcknowledgment": "Confirmação de Download Grande",
     "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
+    "largeDownloadConnectionSpeed": "Em uma conexão de Internet de {velocidade} Mb/s, o download levaria aproximadamente {tempo}.",
     "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "largeDownloadRowCount": "O conjunto de dados possui {count} linhas de dados.",
     "largeDownloadExcelWarning": "Não poderá visualizar ou analisar os dados em aplicações como o Excel ou similar. Um conjunto de dados deste tamanho é difícil de analisar num computador comum. Provavelmente precisará aceder a um serviço de computação distribuído ou ferramenta de 'Big Data'.",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Status dos Termos",
+    "createDownload": "Criar download",
+    "completeRequirements": "Por favor, complete todos os requisitos para continuar.",
     "steps": {
       "quality": {
         "name": "Iguais {is}",
         "description": "Aplicar filtros de qualidade"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Filtro",
+        "description": "Componha um predicado de filtro"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "SQL",
+        "description": "Escreva uma consulta SQL"
       },
       "format": {
         "name": "Formato",
-        "description": ""
+        "description": "Escolha o formato de download"
       },
       "configure": {
         "name": "Configure",
-        "description": ""
+        "description": "Defina as opções e os campos"
       },
       "terms": {
         "name": "",
@@ -343,7 +343,7 @@
         "description": ""
       },
       "SQL_TSV_ZIP": {
-        "title": "",
+        "title": "SQL",
         "description": ""
       },
       "features": {
@@ -410,19 +410,19 @@
         "1000": "",
         "10000": "",
         "50000": "",
-        "100000": ""
+        "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
-        "0": "",
-        "1": "",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": "",
-        "6": ""
+        "0": "Nível 0",
+        "1": "Nível 1",
+        "2": "Nível 2",
+        "3": "Nível 3",
+        "4": "Nível 4",
+        "5": "Nível 5",
+        "6": "Nível 6"
       },
       "ISEA3H_GRID": {
-        "1": "",
+        "1": "Nível 1 (32 células de 17 002 187 km²)",
         "2": "",
         "3": "",
         "4": "",
@@ -446,28 +446,28 @@
         "22": ""
       },
       "MILITARY_GRID_REFERENCE_SYSTEM": {
-        "0": "",
-        "1": "",
-        "10": "",
-        "100": "",
-        "1000": "",
-        "10000": "",
-        "100000": ""
+        "0": "GZJ somente, 6° × 8°",
+        "1": "1 m",
+        "10": "10 m",
+        "100": "100 m",
+        "1000": "1 km",
+        "10000": "10 km",
+        "100000": "100 km"
       }
     },
-    "noneSelected": "",
-    "dimensions": "",
-    "taxonomicDimension": "",
-    "temporalDimension": "",
-    "spatialDimension": "",
-    "spatialResolution": "",
-    "randomPoints": "",
-    "measurements": "",
-    "countHigherTaxonomy": "",
-    "coordinateUncertainty": "",
-    "errorMinimumDimension": "",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "noneSelected": "Nenhum selecionado",
+    "dimensions": "Dimensões",
+    "taxonomicDimension": "Dimensão taxonômica",
+    "temporalDimension": "Dimensão temporal",
+    "spatialDimension": "Dimensão espacial",
+    "spatialResolution": "Resolução espacial",
+    "randomPoints": "Randomizar pontos dentro do círculo de incerteza",
+    "measurements": "Medidas",
+    "countHigherTaxonomy": "Contagem de ocorrências em nível taxonômico superior",
+    "coordinateUncertainty": "Incluir incerteza mínima nas coordenadas",
+    "errorMinimumDimension": "Pelo menos uma dimensão deve ser selecionada",
+    "errorMinimumDimensionForCube": "Pelo menos uma dimensão deve ser selecionada para dados de cubo",
+    "errorGeneratingSql": "Erro ao gerar SQL",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
