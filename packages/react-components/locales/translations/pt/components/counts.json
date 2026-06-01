@@ -17,5 +17,6 @@
   "percentWithYear": "{porcentagem}% com ano",
   "percentWithDate": "{porcentagem}% com data",
   "percentWithTaxonMatch": "{porcentagem}% com correspondência taxonômica",
-  "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} com imagens\n"
+  "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} com imagens\n",
+  "colOverlapPercent": "{porcentagem}% sobreposição com o Catálogo da Vida"
 }
