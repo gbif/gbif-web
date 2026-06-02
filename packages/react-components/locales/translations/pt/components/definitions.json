@@ -14,16 +14,16 @@
       "http://rs.gbif.org/terms/1.0/Multimedia": "Imagens, gravações de áudio ou vídeos, incluindo metadados de mídia e informações de licença - http://rs.gbif.org/terms/1.0/Multimedia",
       "http://rs.gbif.org/terms/1.0/Reference": "Referências da literatura para registros de táxons ou ocorrências - http://rs.gbif.org/terms/1.0/Reference",
       "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "",
+      "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "Informações sobre clonagem de DNA de um material - http://data.ggbn.org/schemas/ggbn/terms/Cloning",
+      "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "Informações sobre a imagem do gel de um material - http://data.ggbn.org/schemas/ggbn/terms/GelImage",
       "http://data.ggbn.org/schemas/ggbn/terms/Loan": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Permit": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "",
+      "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Informações sobre propriedades de amostras de materiais (por exemplo, tecidos, DNA, RNA) - http://data.ggbn.org/schemas/ggbn/terms/MaterialSample",
+      "http://data.ggbn.org/schemas/ggbn/terms/Permit": "Informações sobre licenças associadas a um material - http://data.ggbn.org/schemas/ggbn/terms/Permit",
+      "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "Informações sobre como o material foi preparado - http://data.ggbn.org/schemas/ggbn/terms/Preparation",
+      "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "Informações sobre como o material foi preservado - http://data.ggbn.org/schemas/ggbn/terms/Preservation",
       "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact": "",
-      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "",
-      "http://rs.gbif.org/terms/1.0/DNADerivedData": ""
+      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "Informação de idade cronométrica nos casos em que o evento de coleta não é contemporâneo ao momento em que o organismo estava vivo - http://rs.tdwg.org/chrono/terms/ChronometricAge",
+      "http://rs.gbif.org/terms/1.0/DNADerivedData": "Inclui informações relevantes para registros derivados com base em análise de DNA - http://rs.gbif.org/terms/1.0/DNADerivedData"
     }
   }
 }
