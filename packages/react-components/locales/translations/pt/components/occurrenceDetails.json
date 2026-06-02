@@ -235,7 +235,7 @@
         "storageCondition": "Iguais {is}",
         "collectingInstituteID": "",
         "latitude": "Latitude",
-        "longitude": "",
+        "longitude": "Longitude",
         "altitude": "",
         "locationID": "ID da Localização",
         "breedingID": "",
@@ -315,7 +315,7 @@
         "measurementTrailRemarks": "Iguais {is}",
         "locationID": "ID da Localização",
         "location": "Localização",
-        "longitude": "",
+        "longitude": "Longitude",
         "latitude": "Latitude",
         "altitude": ""
       }
@@ -391,7 +391,7 @@
         "description": "Descrição",
         "spatial": "Espacial",
         "latitude": "Latitude",
-        "longitude": "",
+        "longitude": "Longitude",
         "format": "Formato",
         "created": "Criado",
         "creator": "Criador",
@@ -746,7 +746,7 @@
       "name": "Extensão Humboldt",
       "recordsHeader": "",
       "groups": {
-        "protocols": "",
+        "protocols": "Protocolos",
         "samplingDesign": "",
         "spatialScope": "",
         "temporalScope": "Escala temporal",
