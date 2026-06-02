@@ -1,11 +1,12 @@
 {
-  "PRESERVED_SPECIMEN": "Зразок",
+  "PRESERVED_SPECIMEN": "Колекційний зразок",
   "FOSSIL_SPECIMEN": "Викопний зразок",
   "LIVING_SPECIMEN": "Живий зразок",
   "OBSERVATION": "Спостереження",
-  "HUMAN_OBSERVATION": "Спостереження людиною",
+  "HUMAN_OBSERVATION": "Спостереження людини",
   "MACHINE_OBSERVATION": "Автоматизоване спостереження",
   "MATERIAL_SAMPLE": "Проба матеріалу",
+  "MATERIAL_CITATION": "Згадка в літературі",
   "LITERATURE": "Літературні дані",
   "OCCURRENCE": "Знахідка"
 }
