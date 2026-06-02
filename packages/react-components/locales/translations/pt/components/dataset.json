@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "Pesquisa de conjunto de dados",
-  "datasetSearchDescription": "",
+  "datasetSearchDescription": "Pesquise conjuntos de dados no GBIF. Acesso Livre e Aberto a Dados de Biodiversidade.",
   "longType": {
     "OCCURRENCE": "Conjunto de dados de ocorrência",
     "CHECKLIST": "Conjuntos de dados de checklists",
@@ -20,47 +20,47 @@
     "project": "Projeto",
     "taxonomy": "Taxonomia",
     "download": "Transferir",
-    "phylogeny": "",
+    "phylogeny": "Filogenia",
     "metrics": "Métricas",
     "events": "Eventos"
   },
   "metricsTab": {
-    "selectGroup": "",
+    "selectGroup": "Selecione o grupo de métricas",
     "group": {
       "checklist": "Checklist",
       "downloads": "Transferências",
-      "taxonomic": "",
-      "geographic": "",
+      "taxonomic": "Taxonômico",
+      "geographic": "Geográfico",
       "temporal": "Temporal",
-      "qualities": "",
+      "qualities": "Problemas e qualidades",
       "citations": "Citações"
     },
     "checklist": {
       "notAvailable": "",
       "overview": "Visão geral da lista de espécies",
       "overviewDescription": "Estatísticas resumidas para este conjunto de dados de lista de espécies.",
-      "usagesCount": "",
+      "usagesCount": "Total de utilizações do nome",
       "distinctNamesCount": "",
       "synonymsCount": "Sinónimos",
       "nubMatchingCount": "",
       "nubCoveragePct": "",
       "colMatchingCount": "",
       "colCoveragePct": "Cobertura COL",
-      "countByKingdom": "",
+      "countByKingdom": "Contagem por Reino",
       "countByKingdomDescription": "Distribuição do uso dos nomes entre os reinos",
       "countByRank": "Contagem por categoria",
-      "countByRankDescription": "",
+      "countByRankDescription": "Distribuição do uso dos nomes entre as categorias taxonômicas",
       "countByOrigin": "Contagem por origem",
-      "countByOriginDescription": "",
+      "countByOriginDescription": "Distribuição do uso dos nomes por origem",
       "origin": "Origem",
       "countByIssue": "",
-      "countByIssueDescription": "",
+      "countByIssueDescription": "Distribuição de problemas de qualidade de dados",
       "count": "Contagem"
     }
   },
   "noStatsForMetadata": "Não há estatísticas disponíveis para conjuntos de dados somente de metadados",
   "metadataOnlyWithData": {
-    "title": "",
+    "title": "Conjunto de dados contendo apenas metadados",
     "description": "Este conjunto de dados foi publicado apenas com metadados, mas contém dados de ocorrência. Isso sugere que os dados podem ter sido mapeados incorretamente."
   },
   "siteScopeSmallerThanDataset": "Nem todos os registros do conjunto de dados estão incluídos neste site. Visite [GBIF.org]({datasetUrl}) para explorar o conjunto de dados completo.",
@@ -138,17 +138,17 @@
   "events": "Eventos",
   "boundingBox": "",
   "latitude": "Latitude",
-  "longitude": "",
+  "longitude": "Longitude",
   "verbatim": "Original",
   "occurrenceCount": "Número (quantidade) de registos",
   "inDataset": "Em",
   "samplingArticleLink": "Mais sobre eventos de colheita em GBIF.org",
-  "includesDna": "",
-  "includesDnaDescription": "",
+  "includesDna": "Inclui DNA",
+  "includesDnaDescription": "Existem registros neste conjunto de dados que contêm dados de sequência.",
   "containsSamplingEvents": "",
-  "containsSamplingEventsDescription": "",
+  "containsSamplingEventsDescription": "Este conjunto de dados contém dados de amostragem. Detalhes sobre o método de amostragem aparecem na seção de metodologia da descrição do conjunto de dados.",
   "griddedData": "",
-  "griddedDataDescription": "",
+  "griddedDataDescription": "Com base em nossa análise dos registros, esse conjunto de dados provavelmente contém dados em grade. Leia mais nesta [postagem sobre conjuntos de dados em grade](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Métrica de ocorrências",
   "registry": {
     "failedSinceSuccess": "Tentativas fracassadas desde a última ingestão de sucesso",
@@ -188,13 +188,13 @@
     "lastIngestionFailed": "Última ingestão falhou",
     "outOfSync": "Sem sincronização",
     "becauseTrustedContact": "Porque és um contato confiável",
-    "registrationDetails": ""
+    "registrationDetails": "Detalhes de registro no GBIF"
   },
   "errors": {
     "evenList": "Co-financiado por",
     "occurrenceInfo": "Co-financiado por"
   },
   "eventTaxonomy": "Distribuição taxonómica das ocorrências",
-  "noCitations": "",
+  "noCitations": "Ainda não há citações",
   "noOccurrences": "Nenhuma ocorrência"
 }
