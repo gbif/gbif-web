@@ -313,6 +313,13 @@ export const RESULT_COLUMNS: ResultColumn[] = [
     help: 'Badges representing different identity thresholds.',
   },
   {
+    key: 'image',
+    id: 'tools.sequenceId.colImage',
+    defaultMessage: 'image',
+    helpId: 'tools.sequenceId.help.image',
+    help: 'An example image of the species the sequence was matched to in the GBIF backbone, if one is available.',
+  },
+  {
     key: 'scientificName',
     id: 'tools.sequenceId.colScientificName',
     defaultMessage: 'scientificName',

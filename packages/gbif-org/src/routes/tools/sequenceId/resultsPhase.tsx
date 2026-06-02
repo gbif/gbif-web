@@ -17,8 +17,11 @@ import {
 } from './types';
 import { buildAlignment, sortResults } from './utils';
 import { Classification } from '@/components/classification';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { HelpIcon } from '@/components/helpText';
+import { Skeleton } from '@/components/ui/skeleton';
+import useQuery from '@/hooks/useQuery';
+import { useConfig } from '@/config/config';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 type ResultsPhaseProps = {
   results: SequenceResult[];
@@ -169,7 +172,7 @@ export function ResultsPhase({
                 <tr>
                   {RESULT_COLUMNS.map((col) => {
                     const isActive = sortColumn === col.key;
-                    const sortable = col.key !== 'alignment';
+                    const sortable = col.key !== 'alignment' && col.key !== 'image';
                     return (
                       <th
                         key={col.key}
@@ -330,6 +333,10 @@ function ResultRow({ row, onShowAlignment }: { row: SequenceResult; onShowAlignm
       <td className="g-px-4 g-py-2 g-whitespace-nowrap">
         <MatchTypeBadge matchType={m.matchType} />
       </td>
+      {/* image */}
+      <td className="g-px-4 g-py-2">
+        <SpeciesImageCell taxonKey={usage?.key} />
+      </td>
       {/* scientificName */}
       <td className="g-px-4 g-py-2">
         {usage ? (
@@ -405,6 +412,73 @@ function ResultRow({ row, onShowAlignment }: { row: SequenceResult; onShowAlignm
         )}
       </td>
     </tr>
+  );
+}
+
+// Fetch a single example image for the matched taxon. We query by the same
+// checklist (datasetKey) that the names are matched against — the site's
+// default checklist — so the taxon key resolves against the right backbone.
+const TAXON_MEDIA_QUERY = /* GraphQL */ `
+  query SequenceIdTaxonMedia($key: ID!, $datasetKey: ID!) {
+    taxon(key: $key, datasetKey: $datasetKey) {
+      occurrenceMedia(limit: 1) {
+        results {
+          occurrenceKey
+          thumbor(width: 80, height: 80)
+        }
+      }
+    }
+  }
+`;
+
+type TaxonMediaQueryResult = {
+  taxon?: {
+    occurrenceMedia?: {
+      results?: Array<{ occurrenceKey?: string | null; thumbor?: string | null }> | null;
+    } | null;
+  } | null;
+};
+
+function SpeciesImageCell({ taxonKey }: { taxonKey?: number }) {
+  const { defaultChecklistKey } = useConfig();
+  const enabled = taxonKey != null && !!defaultChecklistKey;
+  const { data, loading } = useQuery<TaxonMediaQueryResult, { key: string; datasetKey: string }>(
+    TAXON_MEDIA_QUERY,
+    {
+      lazyLoad: !enabled,
+      keepDataWhileLoading: true,
+      variables: { key: String(taxonKey), datasetKey: defaultChecklistKey as string },
+      // Throttle so a full page of rows doesn't fire 20 requests at once.
+      queue: { name: 'sequenceIdTaxonMedia', concurrent: 6 },
+    }
+  );
+
+  if (!enabled) return null;
+  if (loading) return <Skeleton className="g-w-10 g-h-10 g-rounded" />;
+
+  const media = data?.taxon?.occurrenceMedia?.results?.[0];
+  if (!media?.thumbor) return null;
+
+  return (
+    <DynamicLink
+      pageId="occurrenceSearch"
+      searchParams={{
+        view: 'GALLERY',
+        taxonKey: [String(taxonKey)],
+        // Open the gallery on the specific occurrence the thumbnail comes from.
+        ...(media.occurrenceKey ? { entity: `o_${media.occurrenceKey}` } : {}),
+      }}
+      target="_blank"
+      rel="noreferrer"
+      className="g-block g-w-10 g-h-10"
+    >
+      <img
+        src={media.thumbor}
+        alt=""
+        loading="lazy"
+        className="g-w-10 g-h-10 g-rounded g-object-cover g-bg-slate-100"
+      />
+    </DynamicLink>
   );
 }
 
