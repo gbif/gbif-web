@@ -1,10 +1,10 @@
 {
   "header": {
     "changeLanguage": "Змінити мову",
-    "feedback": "",
-    "systemStatus": "",
-    "profileLinkLabel": "",
-    "siteNavigation": "",
+    "feedback": "Надіслати відгук",
+    "systemStatus": "Стан системи",
+    "profileLinkLabel": "Сторінка користувача {userName}",
+    "siteNavigation": "Навігація по сайту",
     "search": "Пошук",
     "profile": "Профіль користувача"
   }
