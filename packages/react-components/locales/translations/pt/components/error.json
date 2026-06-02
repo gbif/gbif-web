@@ -4,5 +4,5 @@
   "reloadPage": "Atualizar página",
   "hideDetails": "Ocultar detalhes",
   "showDetails": "Mostrar detalhes",
-  "partialMapFailure": "Algumas peças não carregaram"
+  "partialMapFailure": "Algumas camadas de mosaico não carregaram"
 }
