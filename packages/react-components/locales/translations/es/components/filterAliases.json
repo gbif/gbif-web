@@ -62,7 +62,7 @@
     "gbifTaxonKey": "especie, género, familia, taxón, organismo, nombre",
     "geoDistance": "ubicación, distancia, radio, cerca de, alrededor de, punto",
     "geologicalTime": "Exactitud de las coordenadas inválida",
-    "geometry": "",
+    "geometry": "ubicación, lugar, mapa, área, región, dónde, polígono, caja delimitadora, caja delimitadora, wkt",
     "georeferencedBy": "Exactitud de las coordenadas inválida",
     "geospatialScopeAreaUnit": "Exactitud de las coordenadas inválida",
     "geospatialScopeAreaValue": "Exactitud de las coordenadas inválida",
