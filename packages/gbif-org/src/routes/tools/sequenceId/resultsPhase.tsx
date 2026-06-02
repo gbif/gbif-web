@@ -17,6 +17,8 @@ import {
 } from './types';
 import { buildAlignment, sortResults } from './utils';
 import { Classification } from '@/components/classification';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { HelpIcon } from '@/components/helpText';
 
 type ResultsPhaseProps = {
   results: SequenceResult[];
@@ -173,21 +175,24 @@ export function ResultsPhase({
                         key={col.key}
                         className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap"
                       >
-                        {sortable ? (
-                          <button
-                            className="g-flex g-items-center g-gap-1 hover:g-text-slate-700 g-transition-colors"
-                            onClick={() => onSort(col.key)}
-                          >
+                        <div className="g-flex g-items-center g-gap-1">
+                          {sortable ? (
+                            <button
+                              className="g-flex g-items-center g-gap-1 hover:g-text-slate-700 g-transition-colors"
+                              onClick={() => onSort(col.key)}
+                            >
+                              <FormattedMessage id={col.id} defaultMessage={col.defaultMessage} />
+                              {isActive && (
+                                <span className="g-text-slate-400">
+                                  {sortDirection === 'asc' ? '▲' : '▼'}
+                                </span>
+                              )}
+                            </button>
+                          ) : (
                             <FormattedMessage id={col.id} defaultMessage={col.defaultMessage} />
-                            {isActive && (
-                              <span className="g-text-slate-400">
-                                {sortDirection === 'asc' ? '▲' : '▼'}
-                              </span>
-                            )}
-                          </button>
-                        ) : (
-                          <FormattedMessage id={col.id} defaultMessage={col.defaultMessage} />
-                        )}
+                          )}
+                          {col.help && <HelpIcon helpText={col.help} />}
+                        </div>
                       </th>
                     );
                   })}
@@ -298,7 +303,7 @@ function ResultRow({ row, onShowAlignment }: { row: SequenceResult; onShowAlignm
       : sequence;
 
   return (
-    <tr className="g-border-t g-border-gray-100 hover:g-bg-gray-50 g-text-gray-900 g-align-top">
+    <tr className="g-border-t g-border-gray-100 hover:g-bg-gray-50 g-text-gray-900 g-align-middle">
       {/* occurrenceId */}
       <td className="g-px-4 g-py-2 g-whitespace-nowrap g-font-mono g-text-xs">
         {row.occurrenceId}
