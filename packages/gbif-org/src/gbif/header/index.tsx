@@ -1,4 +1,3 @@
-import { GbifLogoIcon } from '@/components/icons/icons';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/contexts/UserContext';
 import {
@@ -225,7 +224,13 @@ function Logo() {
         }
       )}
     >
-      <GbifLogoIcon style={{ fontSize: 25 }} aria-hidden="true" focusable="false" />
+      {/* <GbifLogoIcon style={{ fontSize: 25 }} aria-hidden="true" focusable="false" /> */}
+      <img
+        src={isRoot ? '/img/logo-web-gbif-nav-white.svg' : '/img/logo-web-gbif-nav-white-bg.svg'}
+        alt=""
+        aria-hidden="true"
+        style={{ height: 25 }}
+      />
     </DynamicLink>
   );
 }
