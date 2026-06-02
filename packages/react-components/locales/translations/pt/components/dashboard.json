@@ -1,9 +1,9 @@
 {
-  "numberOfOccurrences": "",
-  "addNew": "",
-  "removeEmptyGroup": "",
-  "newGroup": "",
-  "invalidLayoutWarning": "",
+  "numberOfOccurrences": "Número de ocorrências",
+  "addNew": "Novo",
+  "removeEmptyGroup": "Remover grupo vazio",
+  "newGroup": "Adicionar novo grupo",
+  "invalidLayoutWarning": "O layout foi criado para uma tela maior.",
   "adaptLayout": "",
   "sharedLayout": "",
   "noData": "Sem dados",
@@ -30,7 +30,7 @@
   "usingStartDates": "Para intervalos de datas, utiliza-se a data inicial.",
   "iucnThreatStatus": "Categoria da Lista Vermelha da IUCN",
   "iucnThreatStatusDescription": "Espécies classificadas como Quase Ameaçadas (NT) ou em maior risco, de acordo com a Lista Vermelha de Espécies Ameaçadas da IUCN.",
-  "metricsFromGbifData": "",
+  "metricsFromGbifData": "Essas métricas são baseadas em registros compartilhados via GBIF.",
   "notVocabularyWarning": "Co-financiado por",
   "taxonomicBreakdown": "Co-financiado por",
   "group": {
