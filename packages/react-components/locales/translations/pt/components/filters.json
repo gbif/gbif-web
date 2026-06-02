@@ -59,7 +59,7 @@
     "count": "",
     "description": "",
     "placeholderLat": "Latitude",
-    "placeholderLon": "",
+    "placeholderLon": "Longitude",
     "placeholderDist": ""
   },
   "geometry": {
@@ -67,7 +67,7 @@
     "count": "",
     "description": "",
     "placeholderLat": "Latitude",
-    "placeholderLon": "",
+    "placeholderLon": "Longitude",
     "placeholderDist": ""
   },
   "relevance": {
