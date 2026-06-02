@@ -4,5 +4,6 @@
   "preservationTypes": "Типи зберігання",
   "personalCollection": "Приватна колекція",
   "accessionStatus": "Можливість доступу",
-  "numberSpecimens": "Кількість зразків у колекції"
+  "numberSpecimens": "Кількість зразків у колекції",
+  "collectionDescriptors": "Характеристики колекції"
 }
