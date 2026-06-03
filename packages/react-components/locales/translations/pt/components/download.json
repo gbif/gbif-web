@@ -10,8 +10,8 @@
     "continue": "Continuar",
     "invalid": "Inválido",
     "validate": "Validar",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "sqlEditor": "Editor SQL",
+    "predicateEditor": "Editor de predicados",
     "sql": {
       "createNewSqlDownload": "Criar nova transferência SQL",
       "placeholder": "Insira sua consulta SQL aqui...",
@@ -46,7 +46,7 @@
         "invalid-json": "JSON inválido",
         "invalid-predicate": "Predicado inválido",
         "faild-to-load-predicate": "Falha ao carregar o predicado",
-        "unexpectedError": "",
+        "unexpectedError": "Ocorreu um erro inesperado",
         "failedToParseJSON": "Não foi possível analisar o JSON",
         "failedToVisualizePredicate": "Falha ao visualizar o predicado. Exibindo JSON bruto"
       }
