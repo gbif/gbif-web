@@ -13,12 +13,12 @@
     "PLATE_CAREE": "Plate carrée"
   },
   "failedToGetUserLocation": {
-    "title": "",
-    "message": ""
+    "title": "Impossible d'obtenir votre position",
+    "message": "Veuillez vérifier les paramètres de votre navigateur et réessayer."
   },
   "filterByView": "Utiliser la zone visible comme filtre",
-  "zoomToData": "",
-  "noDataInView": "",
+  "zoomToData": "Zoomer sur l'étendue des données",
+  "noDataInView": "La vue actuelle contient peu de données.",
   "projection": "Projection",
   "anyYear": "N'importe quelle année",
   "exploreArea": "Explorez la zone",
@@ -45,7 +45,7 @@
     "CLASSIC": "Magenta",
     "LIGHT": "Clair (pas d’étiquettes)",
     "LIGHT_DETAILS": "Clair",
-    "GREY": "",
+    "GREY": "Gris (sans étiquettes)",
     "DARK": "Sombre (pas d’étiquettes)",
     "DARK_DETAILS": "Sombre",
     "OSM": "Routes"
@@ -57,7 +57,7 @@
     "SMALL_SQUARE": "Petits carrés",
     "LARGE_SQUARE": "Carrés"
   },
-  "tilesUnavailable": "",
+  "tilesUnavailable": "Les tuiles de la carte sont temporairement indisponibles.",
   "colors": {
     "CLASSIC": "Classique",
     "FIRE": "Feu",
