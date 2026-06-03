@@ -17,27 +17,44 @@ import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate 
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
 import { useConfig } from '@/config/config';
+import { fallbackHeaderData } from '@/config/fallback';
 
 export async function headerLoader({ locale }: LoaderArgs) {
-  const response = await fetchCachedResponse({
-    route: '/header',
-    // preview: isPreview (preview is disabled for the navigation items in graphql as they will make the preview experience slow)
-    locale: locale.cmsLocale ?? 'en',
-  });
+  try {
+    const response = await fetchCachedResponse({
+      route: '/header',
+      // preview: isPreview (preview is disabled for the navigation items in graphql as they will make the preview experience slow)
+      locale: locale.cmsLocale ?? 'en',
+    });
 
-  if (!response.ok) {
-    // just swallow errors here and let the page render with partial data
+    if (!response.ok) {
+      // The header endpoint is down - render with the bundled fallback menu so
+      // the site still shows a usable navigation instead of a broken header.
+      console.error('Failed to load header data, using bundled fallback');
+      return json(
+        { data: fallbackHeaderData },
+        {
+          headers: {
+            'GBIF-Cache-Control': 'NONE', // option are listed in gbif/entry.server but vite builds fails if trying to export/import things into the server file or vica versa
+          },
+        }
+      ) as HomePageQuery;
+    }
+
+    return { data: await response.json() };
+  } catch (err) {
+    // A network-level rejection would otherwise bubble up to the root error page
+    // and take down the whole site. Degrade gracefully instead.
+    console.error('Failed to load header data, using bundled fallback', err);
     return json(
-      { error: 'Failed to load header data' },
+      { data: fallbackHeaderData },
       {
         headers: {
-          'GBIF-Cache-Control': 'NONE', // option are listed in gbif/entry.server but vite builds fails if trying to export/import things into the server file or vica versa
+          'GBIF-Cache-Control': 'NONE',
         },
       }
     ) as HomePageQuery;
   }
-
-  return { data: await response.json() };
 }
 
 type Props = {

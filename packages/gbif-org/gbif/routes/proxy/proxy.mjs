@@ -1,3 +1,6 @@
+import { readFileSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { publicEnv } from '../../envConfig.mjs';
 import { NETWORK_PARTICIPANTS_QUERY } from '../../../src/routes/custom/gbifNetwork/networkParticipantQuery.mjs';
 import { HEADER_QUERY } from '../../../src/gbif/header/query.mjs';
@@ -8,9 +11,26 @@ import {
 } from '../../../src/routes/custom/occurrenceSnapshots/query.mjs';
 const PUBLIC_GRAPHQL_ENDPOINT = publicEnv.PUBLIC_GRAPHQL_ENDPOINT;
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Bundled fallback used when GraphQL is unreachable on a cold cache, so the
+// header endpoint still serves a usable menu instead of a 500.
+function loadFallback(relativePath) {
+  try {
+    return JSON.parse(
+      readFileSync(path.join(__dirname, '../../../src/config/fallback', relativePath), 'utf8')
+    );
+  } catch (err) {
+    console.error(`Failed to load fallback ${relativePath}`, err);
+    return undefined;
+  }
+}
+
+const HEADER_FALLBACK = loadFallback('header.en.json');
+
 const cache = {};
 
-function getCachedResponse(name, graphqlQuery) {
+function getCachedResponse(name, graphqlQuery, fallback) {
   return async function (req, res) {
     const { locale = 'en', preview } = req.query;
 
@@ -42,6 +62,13 @@ function getCachedResponse(name, graphqlQuery) {
       await refreshCache(cacheKey, { query: graphqlQuery, locale });
       res.json(cache[cacheKey]);
     } catch (error) {
+      // Serve a bundled fallback (if any) so the site can still render rather
+      // than failing because an upstream endpoint is down on a cold cache.
+      if (fallback) {
+        res.set('GBIF-Cache-Control', 'NONE');
+        res.json(fallback);
+        return;
+      }
       res.status(500).json({ error: 'Failed to fetch data' });
     }
   };
@@ -127,6 +154,9 @@ export function register(app) {
     '/unstable-api/cached-response/network-page',
     getCachedResponse('network', NETWORK_PARTICIPANTS_QUERY)
   );
-  app.get('/unstable-api/cached-response/header', getCachedResponse('header', HEADER_QUERY));
+  app.get(
+    '/unstable-api/cached-response/header',
+    getCachedResponse('header', HEADER_QUERY, HEADER_FALLBACK)
+  );
   app.get('/unstable-api/cached-response/home', getCachedResponse('home', HOMEPAGE_QUERY));
 }

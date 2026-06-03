@@ -1,0 +1,101 @@
+{
+  "en": {
+    "messages": "/en.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98",
+    "localeMap": {
+      "iso3LetterCode": "eng",
+      "cms": "en-GB"
+    }
+  },
+  "da": {
+    "messages": "/da.json?v=85ff44a726ebb003e8701aa7107669d9c3184b6e"
+  },
+  "ar": {
+    "messages": "/ar.json?v=471033c4761dfa5d101aea3ff9c86786fb771980"
+  },
+  "de": {
+    "messages": "/de.json?v=ae15ce8f0829357ed688556d41892e55d94a5d78",
+    "localeMap": {
+      "iso3LetterCode": "deu",
+      "vocabulary": "de-DE",
+      "cms": "de"
+    }
+  },
+  "es": {
+    "messages": "/es.json?v=5339d1ff450014dfe026eaea1e1382625b7a63a3",
+    "localeMap": {
+      "gbif_org": "es",
+      "vocabulary": "es-ES",
+      "iso3LetterCode": "spa",
+      "cms": "es"
+    }
+  },
+  "fa": {
+    "messages": "/fa.json?v=b58faf375bc5810a88279dc25dbe55f709067486"
+  },
+  "fj": {
+    "messages": "/fj.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "fr": {
+    "messages": "/fr.json?v=f4d488762d6f633f971f400234e70d2d78e6938d",
+    "localeMap": {
+      "gbif_org": "fr",
+      "iso3LetterCode": "fra",
+      "cms": "fr",
+      "vocabulary": "fr-FR"
+    }
+  },
+  "ja": {
+    "messages": "/ja.json?v=176aa349a8993c0f8e96cc51bf373960f5971a19"
+  },
+  "la": {
+    "messages": "/la.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "niu": {
+    "messages": "/niu.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "nl": {
+    "messages": "/nl.json?v=80042983e4f54bd403201e8d8463f748b4dc57e6"
+  },
+  "pis": {
+    "messages": "/pis.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "pt": {
+    "messages": "/pt.json?v=be23148d93f29ae9628a6eb70027e1cc17c59903"
+  },
+  "pl": {
+    "messages": "/pl.json?v=a2d477e720ed9b67880072e0df4c73c1ebb6b766"
+  },
+  "cs": {
+    "messages": "/cs.json?v=d6733f50a7e209cf3a2d7227cef5a7f2c7254c89"
+  },
+  "it": {
+    "messages": "/it.json?v=9cf59429fd8231b8cd9c18b3e55aea21777f12a1"
+  },
+  "ru": {
+    "messages": "/ru.json?v=41a9625b209f09e43a51475723287484e452089c"
+  },
+  "sm": {
+    "messages": "/sm.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "sw": {
+    "messages": "/sw.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "tkl": {
+    "messages": "/tkl.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "to": {
+    "messages": "/to.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "tvl": {
+    "messages": "/tvl.json?v=fa66f8b5be3713b4526c2b84f088a7a71e8fee98"
+  },
+  "uk": {
+    "messages": "/uk.json?v=c6248e5d8dd01f33fbfecc2a00ec8f522c8e3d8d"
+  },
+  "zh": {
+    "messages": "/zh.json?v=be521e2f62b79afd9a723b52d32c2f6a4c6b3e4a"
+  },
+  "zh-tw": {
+    "messages": "/zh-tw.json?v=84c740dca5e1558ae7232dd246a4bd658b9e6e0c"
+  }
+}

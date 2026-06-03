@@ -1,4 +1,5 @@
 import { Config } from '@/config/config';
+import { fallbackTranslationsEntry, loadFallbackMessages } from '@/config/fallback';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { RouteObjectWithPlugins } from '..';
@@ -21,8 +22,10 @@ export function applyI18nPlugin(
   const translationsPromise = fetch(`${config.translationsEntryEndpoint}/translations.json`)
     .then((r) => r.json())
     .catch((err) => {
-      console.error('Failed to load translations entry file');
-      throw err;
+      // The site must still render even when the translations endpoint is down,
+      // so fall back to the bundled snapshot instead of failing the whole app.
+      console.error('Failed to load translations entry file, using bundled fallback', err);
+      return fallbackTranslationsEntry;
     });
 
   return config.languages.map((localeOption) => {
@@ -43,10 +46,13 @@ export function applyI18nPlugin(
           }`
         )
           .then((r) => r.json())
-          .catch((err) => {
-            console.error('Failed to load translations for language');
-            console.error('Failed language: ', localeOption.code, localeOption.localeCode);
-            throw err;
+          .catch(async (err) => {
+            // Fall back to the bundled messages for this locale (or English) so a
+            // failed translation load degrades gracefully instead of taking down
+            // the whole site.
+            console.error('Failed to load translations for language, using bundled fallback');
+            console.error('Failed language: ', localeOption.code, localeOption.localeCode, err);
+            return loadFallbackMessages(localeOption.localeCode);
           });
         return { messages: { ...messages, ...localeLanguage } };
       },

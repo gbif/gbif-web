@@ -1,0 +1,8 @@
+{
+  "updatedAt": "2026-06-03T13:26:08.301Z",
+  "translationsEndpoint": "https://react-components.gbif.org/lib/translations",
+  "graphqlEndpoint": "https://graphql.gbif.org/graphql",
+  "headerLocale": "en-GB",
+  "locales": 17,
+  "failedLocales": []
+}
