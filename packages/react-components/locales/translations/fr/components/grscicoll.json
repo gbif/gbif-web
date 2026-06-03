@@ -40,22 +40,22 @@
   "incorporatedCollections": "Collections intégrées",
   "unknownSize": "Taille inconnue",
   "dashboard": "Tableau de Bord",
-  "dataCatalog": "",
-  "edit": "",
-  "editHelpText": "",
+  "dataCatalog": "Catalogue de données",
+  "edit": "Modifier",
+  "editHelpText": "Aucune connexion requise",
   "githubHelpText": "Code de conduite",
-  "entryCreated": "",
-  "lastModified": "",
-  "modifiedBy": "",
-  "masterSource": "",
-  "fromInstitution": "",
+  "entryCreated": "Entrée créée",
+  "lastModified": "Dernière modification",
+  "modifiedBy": "Modifié par",
+  "masterSource": "Source principale",
+  "fromInstitution": "De {institution}",
   "tabs": {
     "about": "À propos",
-    "explore": ""
+    "explore": "Explorer le catalogue"
   },
   "citesPermitNumber": "Numéro de permis CITES",
   "collectionDescriptorsHeadline": "Descripteurs de collection",
-  "collectionDescriptorsIntroduction": "",
-  "collectionSearchNoResultsMessage": "",
-  "searchForSpecimens": ""
+  "collectionDescriptorsIntroduction": "Les descripteurs de collection permettent de décrire une collection de manière plus détaillée. Cela peut s'avérer utile pour les collections qui n'ont pas encore été numérisées ou pour celles qui présentent des caractéristiques spécifiques non couvertes par les métadonnées standard relatives aux collections.",
+  "collectionSearchNoResultsMessage": "Les métadonnées des collections sont souvent générales et non exhaustives. Envisagez d'élargir votre champ de recherche ou essayez de rechercher des spécimens numérisés.",
+  "searchForSpecimens": "Recherche de spécimens"
 }
