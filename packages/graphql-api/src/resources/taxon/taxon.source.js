@@ -5,8 +5,9 @@ import QueuedRESTDataSource from '@/QueuedRESTDataSource.js';
 class TaxonAPI extends QueuedRESTDataSource {
   constructor(config) {
     super({
-      // notice that this only is used if the enQueue option is set to true in the request
-      concurrency: 10, // Maximum concurrent requests
+      // Bulkhead pool for the experimental taxon API. Concurrency is configured
+      // per pool in .env (requestPools.taxon.concurrency); see requestPools.ts.
+      pool: 'taxon',
     });
     this.baseURL = `${config.apiv2}/experimental`;
     this.config = config;

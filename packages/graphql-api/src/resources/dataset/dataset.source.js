@@ -1,17 +1,22 @@
-import { getDefaultAgent } from '@/requestAgents';
-import { RESTDataSource } from '@/RESTDataSource';
 import { stringify } from 'qs';
+import { getDefaultAgent } from '@/requestAgents';
+import QueuedRESTDataSource from '@/QueuedRESTDataSource';
 
-class DatasetAPI extends RESTDataSource {
+class DatasetAPI extends QueuedRESTDataSource {
   constructor(config) {
-    super();
+    super({
+      // Serialise a single GraphQL request's dataset fan-out (e.g. a dataset
+      // search where every result resolves its key) so one operation cannot
+      // flood the upstream. Each call still gets its full timeout once it runs.
+      concurrency: 5,
+    });
     this.baseURL = config.apiv1;
     this.config = config;
   }
 
   willSendRequest(path, request) {
     request.headers['User-Agent'] = this.context.userAgent;
-    request.headers['referer'] = this.context.referer;
+    request.headers.referer = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 
@@ -34,7 +39,11 @@ class DatasetAPI extends RESTDataSource {
   }
 
   async getDatasetByKey({ key }) {
-    const response = await this.get(`/dataset/${key}`);
+    const response = await this.get(`/dataset/${key}`, null, {
+      retry: 0,
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
     return response;
   }
 

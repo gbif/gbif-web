@@ -8,8 +8,10 @@ const MAX_RESULTS = 6000;
 class OccurrenceAPI extends QueuedRESTDataSource {
   constructor(config) {
     super({
-      // notice that this only is used if the enQueue option is set to true in the request
-      concurrency: 10, // Maximum concurrent requests
+      // Bulkhead pool for es-api/occurrence traffic. The concurrency limit is
+      // configured per pool in .env (requestPools.occurrence.concurrency) and
+      // enforced process-wide; see requestPools.ts.
+      pool: 'occurrence',
     });
     this.baseURL = config.apiEs;
     this.config = config;

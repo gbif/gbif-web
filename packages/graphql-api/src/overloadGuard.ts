@@ -8,17 +8,20 @@ import config from './config';
  * Pre-Apollo overload guard.
  *
  * Sheds requests with a fast 503 *before* the expensive per-request work (body
- * parse, GraphQL parse/validate, building ~28 data sources). This is the global survival
- * net for when the process itself is saturated. Because it is global it sheds
- * indiscriminately, so it is meant to trigger late.
+ * parse, GraphQL parse/validate, building ~28 data sources). The per-upstream
+ * pools (requestPools.ts) are intended to keep individual upstreams from going
+ * slow and piling up requests, but if the whole process is overloaded
+ * (event loop lag, memory pressure) we want to shed *all* requests before
+ * they even get to the pools.
  *
  * Trigger = any configured signal exceeded (OR'd):
  *   - event-loop lag (primary, adaptive: is the process keeping up?)
  *   - in-flight guarded requests (hard backstop on concurrency/memory)
- *   - heap used vs the real V8 limit (pre-empts GC death-spiral / OOM)
+ *   - heap used
  *
  * Disabled by default and only guards configured paths (default /graphql).
  * `/health` is never guarded so load-balancer probes keep succeeding under load
+ * (guarding it would pull the instance and recreate the original 503 outage).
  *
  * Config (.env `overloadProtection.*`):
  *   enabled, maxEventLoopDelayMs, maxInFlight, maxHeapUsedFraction,
@@ -50,9 +53,15 @@ const settings = {
 const histogram = monitorEventLoopDelay({ resolution: 20 });
 histogram.enable();
 let eventLoopDelayMs = 0;
+let eventLoopDelayMaxMs = 0; // worst single sample in the most recent window
+let peakEventLoopDelayMs = 0; // sticky worst since process start
 const SAMPLE_INTERVAL_MS = 250;
 const sampler = setInterval(() => {
   eventLoopDelayMs = histogram.mean / 1e6; // ns -> ms, mean since last reset
+  eventLoopDelayMaxMs = histogram.max / 1e6;
+  if (eventLoopDelayMaxMs > peakEventLoopDelayMs) {
+    peakEventLoopDelayMs = eventLoopDelayMaxMs;
+  }
   histogram.reset();
 }, SAMPLE_INTERVAL_MS);
 sampler.unref();
@@ -82,6 +91,8 @@ export function getOverloadStats() {
   return {
     enabled: settings.enabled,
     eventLoopDelayMs: Math.round(eventLoopDelayMs * 10) / 10,
+    eventLoopDelayMaxMs: Math.round(eventLoopDelayMaxMs * 10) / 10,
+    peakEventLoopDelayMs: Math.round(peakEventLoopDelayMs * 10) / 10,
     inFlight,
     heapUsedMb: Math.round(process.memoryUsage().heapUsed / 1048576),
     heapUsedPercent: Math.round(heapUsedFraction() * 100),
@@ -94,23 +105,32 @@ export function getOverloadStats() {
 }
 
 export function overloadGuard(req: Request, res: Response, next: NextFunction) {
-  const guarded =
-    settings.enabled &&
-    settings.guardedPaths.some((p) => req.path.startsWith(p));
-  if (!guarded) {
+  // Only concern ourselves with guarded paths (default /graphql; never /health).
+  const onGuardedPath = settings.guardedPaths.some((p) =>
+    req.path.startsWith(p),
+  );
+  if (!onGuardedPath) {
     next();
     return;
   }
 
-  const reason = overloadReason();
-  if (reason) {
-    res.setHeader('Retry-After', String(settings.retryAfterSeconds));
-    console.log('rejected due to overloading:', reason);
-    res.status(503).json({
-      error: 'Service overloaded, please retry shortly.',
-      reason,
-    });
-    return;
+  // Shed only when enabled and overloaded; the in-flight count is tracked
+  // regardless so it is observable on /health even with the guard off (for
+  // tuning the maxInFlight backstop before turning it on).
+  if (settings.enabled) {
+    const reason = overloadReason();
+    if (reason) {
+      // Intentionally no application-level logging here: the guard's job is to do
+      // the minimum under overload, and these are clean HTTP 503s that the edge
+      // (Varnish) already logs. The state that triggered shedding is available
+      // on /health (incl. sticky peakEventLoopDelayMs).
+      res.setHeader('Retry-After', String(settings.retryAfterSeconds));
+      res.status(503).json({
+        error: 'Service overloaded, please retry shortly.',
+        reason,
+      });
+      return;
+    }
   }
 
   inFlight += 1;
