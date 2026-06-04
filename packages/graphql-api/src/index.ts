@@ -33,6 +33,7 @@ import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
 import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
+import overloadGuard from './overloadGuard';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import headerBasedCachePlugin from './plugins/headerBasedCachePlugin';
 import loggingPlugin from './plugins/loggingPlugin';
@@ -121,6 +122,10 @@ async function initializeServer() {
       methods: 'GET,POST,OPTIONS',
     }),
   );
+  // Shed load (fast 503) before the expensive per-request work — body parsing,
+  // GraphQL parse/validate, context build. Only guards configured paths
+  // (default /graphql) and never /health. No-op unless enabled in config.
+  app.use(overloadGuard);
   app.use(express.static('public'));
   app.use(bodyParser.json({ limit: '1mb' }));
 
