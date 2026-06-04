@@ -32,5 +32,5 @@
   "matchSpecies": "Associer un nom à la taxonomie de base du GBIF.",
   "singleDerivedDataset": "Obtenir un seul jeu de données dérivé",
   "parseName": "Analyser un seul nom scientifique",
-  "derivedDatasetContributingDatasets": "Obtenir les jeux de données contribuant à un jeu de données dérivé"
+  "derivedDatasetContributingDatasets": "Obtenir tous les jeux de données contribuant à un jeu de données dérivé"
 }
