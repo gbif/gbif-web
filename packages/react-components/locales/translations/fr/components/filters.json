@@ -1,23 +1,23 @@
 {
   "dwcaExtension": {
     "name": "Extension DwC-A",
-    "count": "",
+    "count": "{num, plural, one { extension DWCA } other {# extensions DWCA}}",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "locationId": {
     "name": "ID de localisation",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {ID de localité } other {# IDs de localité}}",
+    "description": "Les éditeurs peuvent choisir d'attribuer des identifiants à l'emplacement. Ce champ n'est pas normalisé, ce qui signifie que vous effectuez la recherche à partir des données fournies par l'éditeur."
   },
   "hasCoordinate": {
     "name": "A des coordonnées",
     "count": "A des coordonnées",
-    "description": ""
+    "description": "Si l'enregistrement comporte des coordonnées."
   },
   "hasGeospatialIssues": {
     "name": "Présente des problèmes géospatiaux",
     "count": "Présente des problèmes géospatiaux",
-    "description": ""
+    "description": "Si l'enregistrement présente des problèmes géospatiaux."
   },
   "collectionKey": {
     "name": "Collection",
