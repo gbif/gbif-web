@@ -25,9 +25,9 @@
     "description": "La collection de GrSciColl à laquelle cet enregistrement a été associé"
   },
   "predicate": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Requête complexe",
+    "count": "{num, plural, one { requête complexe } other {# requêtes complexes}}",
+    "description": "Une requête complexe pour filtrer les enregistrements."
   },
   "taxonomicStatus": {
     "name": "Statut",
@@ -47,11 +47,11 @@
   "specimensInGbif": {
     "name": "Spécimens sur GBIF",
     "count": "{num, plural, one {comptage des spécimens GBIF} other {# spécimens sur GBIF}}",
-    "description": ""
+    "description": "Nombre d'enregistrements de spécimens publiés sur GBIF et associés à la fiche de l'institution."
   },
   "iucnRedListCategory": {
-    "name": "",
-    "count": "",
+    "name": "Catégorie de la Liste rouge mondiale de l'UICN",
+    "count": "{num, plural, one { catégorie de la Liste rouge mondiale de l'UICN } other {# catégories de la Liste rouge mondiale de l'UICN}}",
     "description": "La Liste rouge des espèces menacées de l'UICN regroupe les taxons selon le niveau de menaces auxquels ils font face."
   },
   "geoDistance": {
@@ -65,7 +65,7 @@
   "geometry": {
     "name": "Lieu",
     "count": "{num, plural, one { filtre } other {# filtres }}",
-    "description": "",
+    "description": "Filtrer les enregistrements situés dans une zone géométrique donnée. Cette zone peut être un point, une ligne, un polygone ou un rectangle de délimitation.",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
     "placeholderDist": "Distance"
@@ -87,18 +87,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigraphie",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { biostratigraphie } other {# biostratigraphies}}",
+    "description": "Le contexte biostratigraphique de l'enregistrement."
   },
   "lithostratigraphy": {
     "name": "Lithostratigraphie",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { lithostratigraphie } other {# lithostratigraphies}}",
+    "description": "Le contexte lithostratigraphique de l'enregistrement."
   },
   "geologicalTime": {
     "name": "Temps géologique",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { temps géologique } other {# temps géologiques }}",
+    "description": "Le contexte géochronologique de l'enregistrement."
   },
   "purposes": {
     "name": "Thème",
@@ -107,13 +107,13 @@
   },
   "eventDate": {
     "name": "Date de l'événement",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# date d'événement } other {# dates d'événement}}",
+    "description": "À quelle date cet enregistrement a-t-il été recueilli ou observé ?"
   },
   "gbifId": {
     "name": "ID du GBIF",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID GBIF } other {# IDs GBIF}}",
+    "description": "L'identifiant unique de l'enregistrement dans la base de données GBIF."
   },
   "organismQuantityType": {
     "name": "Type de quantité d’organisme",
