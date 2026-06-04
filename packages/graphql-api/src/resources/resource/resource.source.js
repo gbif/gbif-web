@@ -2,21 +2,20 @@ import { RESTDataSource } from '@/RESTDataSource';
 import { translateContentfulResponse } from '@/helpers/utils';
 import { urlSizeLimit } from '@/helpers/utils-ts';
 import { getDefaultAgent } from '@/requestAgents';
-import ThrottledRESTDataSource from '@/ThrottledRESTDataSource';
+import QueuedRESTDataSource from '@/QueuedRESTDataSource';
 
-export class ResourceAPI extends ThrottledRESTDataSource {
+export class ResourceAPI extends QueuedRESTDataSource {
   constructor(config) {
     super({
       // notice that this only is used if the throttle option is set to true in the request
-      maxConcurrent: 3, // Maximum concurrent requests
-      minTime: 200, // Minimum amount in ms between requests
+      concurrency: 3, // Maximum concurrent requests
     });
     this.baseURL = config.apiv1;
   }
 
   willSendRequest(path, request) {
     request.headers['User-Agent'] = this.context.userAgent;
-    request.headers['referer'] = this.context.referer;
+    request.headers.referer = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 
@@ -54,7 +53,7 @@ export class ResourceSearchAPI extends RESTDataSource {
 
   willSendRequest(path, request) {
     request.headers['User-Agent'] = this.context.userAgent;
-    request.headers['referer'] = this.context.referer;
+    request.headers.referer = this.context.referer;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 
@@ -70,11 +69,17 @@ export class ResourceSearchAPI extends RESTDataSource {
       response = await this.get(
         '/content',
         { body: JSON.stringify(body) },
-        { signal: this.context.abortController.signal },
+        {
+          signal: this.context.abortController.signal,
+          retry: 1,
+          enQueue: true,
+        },
       );
     } else {
       response = await this.post('/content', body, {
         signal: this.context.abortController.signal,
+        retry: 1,
+        enQueue: true,
       });
     }
     // map to support APIv1 naming
@@ -100,7 +105,11 @@ export class ResourceSearchAPI extends RESTDataSource {
 
   async meta({ query }) {
     const body = { ...query, includeMeta: true };
-    const response = await this.post('/content/meta', body);
+    const response = await this.post('/content/meta', body, {
+      signal: this.context.abortController.signal,
+      retry: 1,
+      enQueue: true,
+    });
     return response;
   }
 }

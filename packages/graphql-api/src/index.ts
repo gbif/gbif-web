@@ -8,7 +8,6 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import { get } from 'lodash';
-import { setMaxListeners } from 'node:events';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
 import depthLimit from 'graphql-depth-limit';
 
@@ -33,6 +32,7 @@ import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
 import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
+import abortControllerForRequest from './helpers/abortOnClientDisconnect';
 import overloadGuard from './overloadGuard';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import headerBasedCachePlugin from './plugins/headerBasedCachePlugin';
@@ -76,7 +76,13 @@ async function initializeServer() {
   // The per-request context. In Apollo Server 4+ the `dataSources` and `context`
   // constructor options were removed; data sources are now created inside the
   // context function (see createContext) and exposed on the returned object.
-  const context = async ({ req, res }: { req: express.Request; res: express.Response }) => {
+  const context = async ({
+    req,
+    res,
+  }: {
+    req: express.Request;
+    res: express.Response;
+  }) => {
     // on all requests attach a user if present
     const user = await extractUser(get(req, 'headers.authorization'));
     if (user) {
@@ -90,17 +96,9 @@ async function initializeServer() {
       res.header('Surrogate-Control', 'no-store');
     }
 
-    // Add express context and a listener for aborted connections. Then data sources have a chance to cancel resources
-    // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
-    // Perhaps the overhead isn't worth it in most cases?
-    const controller = new AbortController();
-    // Default is 10, we exceed this sometimes with nested resolves that utilize cancellation
-    setMaxListeners(100, controller.signal);
-    if (req) {
-      req.on('close', () => {
-        controller.abort();
-      });
-    }
+    // Abort the request's work if the client disconnects before we respond, so
+    // data sources can cancel in-flight upstream calls and drop queued ones.
+    const controller = abortControllerForRequest(req, res);
 
     return createContext({
       user,
@@ -163,9 +161,7 @@ async function initializeServer() {
   sourceArchiveCtrl(app);
   citesController(app);
   app.listen({ port: config.port }, () =>
-    console.log(
-      `🚀 Server ready at http://localhost:${config.port}/graphql`,
-    ),
+    console.log(`🚀 Server ready at http://localhost:${config.port}/graphql`),
   );
 }
 

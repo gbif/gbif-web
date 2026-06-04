@@ -4,7 +4,7 @@ import config from '@/config';
 
 // See https://www.npmjs.com/package/agentkeepalive
 const stdAgent = new HttpsAgent({
-  maxSockets: 8000, // Default = Infinity
+  maxSockets: 512, // Default = Infinity
   keepAlive: true,
 });
 
@@ -21,7 +21,7 @@ const stdRequest = request.defaults({
 
 // seperate pool for occurrence requests as that API often has outages.
 const occurrenceAgent = new HttpsAgent({
-  maxSockets: 8000, // Default = Infinity
+  maxSockets: 512, // Default = Infinity
   keepAlive: true,
 });
 
@@ -38,7 +38,7 @@ const occurrenceRequest = request.defaults({
 
 // seperate pool for species requests as that API often has outages.
 const speciesAgent = new HttpsAgent({
-  maxSockets: 8000, // Default = Infinity
+  maxSockets: 512, // Default = Infinity
   keepAlive: true,
 });
 
@@ -55,7 +55,7 @@ const speciesRequest = request.defaults({
 
 // seperate pool for species requests as that API often has outages.
 const blastAgent = new HttpsAgent({
-  maxSockets: 1000, // Default = Infinity
+  maxSockets: 512, // Default = Infinity
   keepAlive: true,
 });
 
