@@ -8,10 +8,10 @@
     "datasets": "資料集",
     "events": "事件",
     "download": "下載",
-    "clusters": "",
+    "clusters": "相關",
     "dashboard": "統計面板",
     "sites": "等於 {is}",
-    "list": ""
+    "list": "清單"
   },
   "table": {
     "lockColumn": "鎖定欄位",
@@ -23,7 +23,7 @@
   "placeholders": {
     "default": "搜尋",
     "range": "範圍或單一數值",
-    "rangeExample": "",
+    "rangeExample": "例如：1000, 2000",
     "wildcard": "使用 * 和 ? 作為萬用字元進行搜尋",
     "dateTemplate": "",
     "locationID": ""
@@ -36,14 +36,14 @@
   "loadMore": "更多",
   "loading": "正在載入",
   "noResults": "無結果",
-  "startTyping": "",
-  "addFilters": "",
+  "startTyping": "輸入來搜尋",
+  "addFilters": "新增篩選條件",
   "apply": "套用",
   "cancel": "取消",
   "rankInGroup": "{rank} 在{group}",
   "options": "選項",
   "sort": {
-    "sortBy": "",
+    "sortBy": "排序",
     "yearDesc": "",
     "yearAsc": ""
   },
@@ -53,22 +53,22 @@
     "random": "",
     "showMore": "",
     "cappedHint": "",
-    "useAsFilter": "",
+    "useAsFilter": "設為篩選",
     "unspecified": "未指定"
   },
   "occurrenceClustersView": {
     "about": "關於",
-    "clusters": "",
+    "clusters": "相關",
     "legend": "圖例",
-    "differentPublishers": "",
-    "samePublishers": "",
+    "differentPublishers": "不同發布者",
+    "samePublishers": "相同發布者",
     "entryPoint": "",
     "hasMultipleTaxonKeys": "",
     "aboutLink": "",
     "isCapped": "",
     "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "similarities": "相似度",
+    "currentRecord": "當前記錄",
     "nodeType": {
       "IMAGE": "圖像",
       "TYPE": "模式標本",
@@ -80,16 +80,16 @@
   },
   "crossContentSearch": {
     "title": "搜尋",
-    "description": "",
+    "description": "搜尋範圍涵蓋物種、出現記錄、資料集、發布者、文章等",
     "noSearchTermsEntered": "未輸入搜尋字串",
-    "placeholder": "",
+    "placeholder": "搜尋所有內容…",
     "categories": {
       "speciesSearch": "種",
       "taxonSearch": "類群",
       "datasetSearch": "資料集",
       "publisherSearch": "發布者",
       "occurrenceSearch": "出現紀錄",
-      "resourceSearch": ""
+      "resourceSearch": "資源與文章"
     },
     "seeAll": "查看全部"
   }
