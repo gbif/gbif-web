@@ -1,11 +1,11 @@
 {
   "durationUnit": {
-    "SECONDS": "",
+    "SECONDS": "秒",
     "MINUTES": "分鐘",
     "HOURS": "小時",
-    "DAYS": "",
-    "WEEKS": "",
-    "MONTHS": "",
-    "YEARS": ""
+    "DAYS": "日",
+    "WEEKS": "週",
+    "MONTHS": "月",
+    "YEARS": "年"
   }
 }
