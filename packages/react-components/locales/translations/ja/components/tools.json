@@ -181,8 +181,8 @@
       "tooManyRows": "",
       "fileReadFailed": "",
       "tab": {
-        "create": "",
-        "edit": ""
+        "create": "作成する",
+        "edit": "編集"
       }
     }
   }
