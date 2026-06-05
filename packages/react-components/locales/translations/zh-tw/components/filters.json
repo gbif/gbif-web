@@ -142,7 +142,7 @@
   },
   "startDayOfYear": {
     "name": "起始日序",
-    "count": "",
+    "count": "{num, plural, one { 年始之日 } other {# 年使之日}}",
     "description": "事件開始的當天"
   },
   "previousIdentifications": {
