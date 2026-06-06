@@ -1,6 +1,6 @@
 {
   "speciesSearch": {
-    "title": "",
-    "description": ""
+    "title": "分類群検索",
+    "description": "GBIF内で分類群検索。フリーかつオープンアクセスな生物多様性データ"
   }
 }
