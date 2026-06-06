@@ -64,10 +64,10 @@
     "e": "生物の数{from}から"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "サンプルサイズ値は{from}から{to}まで",
+    "lt": "サンプルサイズ値は{to}以下",
+    "gt": "サンプルサイズ値は{from}以上",
+    "e": "サンプルサイズ値は{from}"
   },
   "relativeOrganismQuantity": {
     "between": "相対生物数は{from}から{to}まで",
