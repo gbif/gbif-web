@@ -70,10 +70,10 @@
     "e": ""
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "相対生物数は{from}から{to}まで",
+    "lt": "相対生物数は{to}以上",
+    "gt": "相対生物数は{from}以上",
+    "e": "相対生物数は{from}から"
   },
   "elevation": {
     "between": "標高{from}から{to}まで",
@@ -82,8 +82,8 @@
     "e": "標高{from}から"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": " {latitude},{longitude}の{distance}内",
+    "description": "緯度：{latitude}、経度：{longitude}、距離：{distance}"
   },
   "units": {
     "name": {
