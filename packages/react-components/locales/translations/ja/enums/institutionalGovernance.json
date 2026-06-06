@@ -1,3 +1,13 @@
 {
-  "OTHER": "その他"
+  "ACADEMIC_FEDERAL": "連邦教育機関",
+  "ACADEMIC_FOR_PROFIT": "営利教育機関",
+  "ACADEMIC_LOCAL": "ローカル教育機関",
+  "ACADEMIC_NON_PROFIT": "非営利教育機関",
+  "ACADEMIC_STATE": "州教育機関",
+  "FEDERAL": "連邦",
+  "FOR_PROFIT": "営利団体",
+  "LOCAL": "地方",
+  "NON_PROFIT": "非営利団体",
+  "OTHER": "その他",
+  "STATE": "都道府県・州"
 }
