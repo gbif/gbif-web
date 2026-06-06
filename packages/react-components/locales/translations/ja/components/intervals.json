@@ -1,36 +1,36 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": "",
-    "between": ""
+    "lt": "{to}より小さい",
+    "lte": "{to}以下",
+    "gt": "{from}より大きい",
+    "gte": "{from}以上",
+    "e": "{from}と等しい",
+    "between": "{from}から{to}まで"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
-  },
-  "compactMeters": {
-    "between": "",
+    "between": "{from} から {to} まで",
     "lt": "{to}m以下",
     "gt": "{from}m以上",
-    "e": ""
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from} mから {to} mまで",
+    "lt": "{to}m以下",
+    "gt": "{from}m以上",
+    "e": "{from}m"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} から {to} まで",
+    "lt": "{to}前",
+    "gt": "{from}後",
+    "e": "{from}"
   },
   "geoTime": {
-    "between": "",
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
+    "between": "{from} から {to} まで",
+    "lt": "{to}前",
+    "lte": "{to}前または等しい",
+    "gt": "{from}後",
+    "gte": "{from}後または等しい",
     "e": ""
   },
   "year": {
