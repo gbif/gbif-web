@@ -1,5 +1,6 @@
 {
   "BASIONYM_AUTHOR_MISMATCH": "バシオニムの著者の不一致",
+  "PUBLISHED_BEFORE_GENUS": "ぞくより前に発表されました",
   "TYPE_STATUS_INVALID": "タイプ標本の種類が無効",
   "COUNTRY_INVALID": "国が無効",
   "CHAINED_SYNONYM": "シノニムの連鎖",
