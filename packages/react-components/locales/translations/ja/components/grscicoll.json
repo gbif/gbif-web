@@ -56,6 +56,6 @@
   "citesPermitNumber": "CITES許可番号",
   "collectionDescriptorsHeadline": "コレクション記述子",
   "collectionDescriptorsIntroduction": "コレクション記述子を使用すると、コレクションをより詳細に説明できます。まだデジタル化されていないコレクションや、標準的なコレクションメタデータでは網羅されていない特性を持つコレクションを説明するために役立ちます",
-  "collectionSearchNoResultsMessage": "",
+  "collectionSearchNoResultsMessage": "コレクションのメタデータは多くの場合、概要レベルで網羅的ではありません。検索範囲を広げるか、デジタル化された標本を検索してみてください。",
   "searchForSpecimens": "標本情報を検索する"
 }
