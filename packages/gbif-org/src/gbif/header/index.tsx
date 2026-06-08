@@ -217,7 +217,7 @@ function Logo() {
         defaultMessage: 'GBIF home',
       })}
       className={cn(
-        'g-py-2 g-relative g-text-primary-500 g-inline-flex g-items-center g-min-h-11',
+        'g-py-2 g-relative g-text-primary-500 g-inline-flex g-items-center g-min-h-11 g-me-8',
         {
           'g-text-white': isRoot,
           'test-box': config.testSite,
