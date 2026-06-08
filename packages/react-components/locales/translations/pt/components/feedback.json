@@ -1,43 +1,43 @@
 {
   "feedback": {
-    "title": "",
-    "contactGbif": "",
-    "contactDataProvider": "",
-    "contactUsDescription": "",
-    "contactDataProviderDescription": "",
-    "seeAlsoFaq": "",
+    "title": "Perguntas e comentários",
+    "contactGbif": "Contate o GBIF",
+    "contactDataProvider": "Contato do provedor de dados",
+    "contactUsDescription": "Para questões relacionadas ao site, problemas com o processamento de dados ou dúvidas",
+    "contactDataProviderDescription": "Para questões relacionadas ao registro publicado nesta página",
+    "seeAlsoFaq": "Veja também o {faqLink}",
     "faq": "Perguntas frequentes",
-    "pleaseLogin": "",
+    "pleaseLogin": "Faça login para deixar seu feedback",
     "pleaseLoginReason": "",
-    "sendEmailTo": "",
-    "emailHelpdesk": "",
+    "sendEmailTo": "Enviar e-mail para {emailLink}",
+    "emailHelpdesk": "Suporte por e-mail",
     "summary": "Sumário",
     "description": "Descrição",
     "required": "Obrigatório",
-    "csvWarning": "",
+    "csvWarning": "Parece que seu feedback menciona arquivos CSV. Consulte: {faqLink}",
     "csvFaqEntry": "Entrada de perguntas frequentes sobre arquivos CSV",
     "sendFeedback": "Enviar feedback",
-    "sending": "",
-    "publicRepo": "",
-    "helpDeskOption": "",
-    "helpdesk": "",
-    "communications": "",
+    "sending": "Enviando...",
+    "publicRepo": "O feedback será enviado para {githubLink} em um repositório público.",
+    "helpDeskOption": "Para consultas privadas, entre em contato conosco através do link {helpdeskLink}.",
+    "helpdesk": "Suporte do GBIF",
+    "communications": "Comunicação do GBIF",
     "confirmation": {
       "title": "Obrigado",
-      "description": "",
+      "description": "Seu feedback foi registrado como um problema no GitHub. Se necessário e se os detalhes de contato forem fornecidos, poderemos entrar em contato com você para obter mais informações. Você pode acompanhar o progresso visitando a página do problema.",
       "seeIssue": "Ver problema",
-      "createAnother": ""
+      "createAnother": "Crie outro"
     },
     "failure": {
-      "title": "",
-      "description": "",
-      "tryAgain": ""
+      "title": "Algo deu errado",
+      "description": "O sistema de feedback parece estar inoperante. Envie-nos um e-mail ou vá direto para {githubLink}. Lamentamos o inconveniente.",
+      "tryAgain": "Tente novamente"
     },
-    "orWriteMailTo": "",
-    "leaveIssueOnGithub": "",
+    "orWriteMailTo": "Ou envie um e-mail para {contactLink}",
+    "leaveIssueOnGithub": "Deixe um problema no GitHub",
     "login": "Iniciar sessão",
     "requiresGithubAccount": "",
     "sendUsAnEmail": "",
-    "forPrivateEnquiries": ""
+    "forPrivateEnquiries": "Para consultas privadas ou caso não possua uma conta GitHub."
   }
 }
