@@ -361,6 +361,7 @@ function reduce(item, fields) {
     verbatimScientificName: source.verbatimScientificName,
     media: source.multimediaItems || [],
     facts: source.measurementOrFactItems || [],
+    nucleotideSequences: source.nucleotideSequence || [],
     identifiers: [],
     relations: [],
     extensions: source.verbatim.extensions,

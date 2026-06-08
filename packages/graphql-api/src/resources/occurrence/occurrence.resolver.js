@@ -14,6 +14,7 @@ import {
   getAutoDateHistogram,
   getCardinality,
   getFacet,
+  getNestedFacet,
   getHistogram,
   getStats,
 } from '../getMetrics';
@@ -179,6 +180,26 @@ const facetReducer = (dictionary, facetName) => {
   return dictionary;
 };
 const OccurrenceFacet = facetFields.reduce(facetReducer, {});
+
+// Facets on fields nested inside the nucleotideSequence object. These cannot go through
+// the generic facetFields list because the es-api metric key uses dot-notation
+// (nucleotideSequence.targetGene) while the GraphQL field name cannot contain a dot.
+OccurrenceFacet.nucleotideSequenceTargetGene = getNestedFacet(
+  'nucleotideSequence',
+  'targetGene',
+  getSourceSearch,
+);
+OccurrenceFacet.nucleotideSequenceInvalid = getNestedFacet(
+  'nucleotideSequence',
+  'invalid',
+  getSourceSearch,
+  'boolean',
+);
+OccurrenceFacet.nucleotideSequenceSequenceLength = getNestedFacet(
+  'nucleotideSequence',
+  'sequenceLength',
+  getSourceSearch,
+);
 
 // there are also many fields that support stats. Generate them all.
 const statsReducer = (dictionary, statsName) => {

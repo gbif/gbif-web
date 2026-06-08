@@ -434,6 +434,31 @@ const typeDef = gql`
     isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     isSequenced(size: Int, from: Int): [OccurrenceFacetResult_boolean]
 
+    """
+    Facet on the target gene of nucleotide sequences attached to the occurrence
+    (e.g. COI, ITS_region). Counts are the number of matching occurrences.
+    """
+    nucleotideSequenceTargetGene(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    """
+    Facet on whether attached nucleotide sequences were flagged invalid. Counts are the
+    number of matching occurrences.
+    """
+    nucleotideSequenceInvalid(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    """
+    Facet on the length of attached nucleotide sequences. Counts are the number of
+    matching occurrences.
+    """
+    nucleotideSequenceSequenceLength(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
+
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]
     installationKey(size: Int, from: Int): [OccurrenceFacetResult_installation]
