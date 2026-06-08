@@ -1,10 +1,10 @@
 {
   "definitions": {
     "extension": {
-      "http://rs.tdwg.org/ac/terms/Multimedia": "",
-      "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "",
-      "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "",
-      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "",
+      "http://rs.tdwg.org/ac/terms/Multimedia": "画像、音声録音、動画（メディアメタデータおよびライセンス情報を含む） - http://rs.tdwg.org/ac/terms/Multimedia",
+      "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "サンプルのDNA増幅に関する情報 - http://data.ggbn.org/schemas/ggbn/terms/Amplification",
+      "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "ジーンバンクのアクセッションについて説明しています - http://purl.org/germplasm/germplasmTerm#GermplasmAccession",
+      "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "植物遺伝資源の形質測定 - http://purl.org/germplasm/germplasmTerm#MeasurementScore",
       "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "",
       "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "",
       "http://rs.tdwg.org/dwc/terms/Identification": "",
