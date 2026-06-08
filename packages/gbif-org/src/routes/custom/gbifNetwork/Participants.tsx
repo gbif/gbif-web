@@ -24,7 +24,7 @@ type ExtendedParticipant = Participant & {
 type ParticipantType = ParticipationStatus | 'OTHER_ASSOCIATE' | 'UNKNOWN';
 
 const uniqueRegions = ['AFRICA', 'ASIA', 'EUROPE', 'LATIN_AMERICA', 'NORTH_AMERICA', 'OCEANIA'];
-const types = ['AFFILIATE', 'ASSOCIATE', 'OTHER_ASSOCIATE', 'VOTING'];
+const types = ['ASSOCIATE', 'OTHER_ASSOCIATE', 'VOTING'];
 
 const regionOptions = uniqueRegions.map((region) => ({
   key: region,
@@ -66,7 +66,8 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
             node &&
             node?.participant &&
             node?.participant?.participationStatus !== 'FORMER' &&
-            node.participant.participationStatus !== 'OBSERVER'
+            node.participant.participationStatus !== 'OBSERVER' &&
+            node?.participant?.participationStatus !== 'AFFILIATE'
         )
         .map((x) => ({ ...x, membershipStart: x?.participant?.membershipStart?.substring(0, 4) }))
         // add new field with calculated participation type
@@ -215,11 +216,6 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                   <FormattedMessage
                     id={`gbifNetwork.participationType.${participant.participationType}`}
                   />
-                  {participant.participationType === 'AFFILIATE' && (
-                    <SimpleTooltip title={<FormattedMessage id="gbifNetwork.affiliateHelp" />}>
-                      <MdInfoOutline className="g-ms-1" />
-                    </SimpleTooltip>
-                  )}
                 </span>
               </td>
               <td className="g-text-end">{participant.membershipStart}</td>
@@ -239,7 +235,6 @@ function Summary({
   const typeCounts = useMemo(() => {
     const counts: Record<ParticipantType, number> = {
       VOTING: 0,
-      AFFILIATE: 0,
       ASSOCIATE: 0,
       OTHER_ASSOCIATE: 0,
       FORMER: 0,
@@ -268,7 +263,6 @@ function Summary({
           </span>
           {(typeCounts.VOTING > 0 ||
             typeCounts.ASSOCIATE > 0 ||
-            typeCounts.AFFILIATE > 0 ||
             typeCounts.OTHER_ASSOCIATE > 0) && <span className="g-mx-2">—</span>}
           {typeCounts.VOTING > 0 && (
             <span className="g-me-3">
@@ -283,14 +277,6 @@ function Summary({
               <FormattedMessage
                 id="counts.nAssociateParticipants"
                 values={{ total: typeCounts.ASSOCIATE }}
-              />
-            </span>
-          )}
-          {typeCounts.AFFILIATE > 0 && (
-            <span className="g-me-3">
-              <FormattedMessage
-                id="counts.nAffiliateParticipants"
-                values={{ total: typeCounts.AFFILIATE }}
               />
             </span>
           )}
