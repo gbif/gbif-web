@@ -135,6 +135,7 @@ async function getTaxonDetails(
     abortController: new AbortController(),
     userAgent: 'GBIF_GRAPHQL_API',
     referer: null,
+    clientPriority: null,
     locale: 'en-GB',
     preview: false,
   });

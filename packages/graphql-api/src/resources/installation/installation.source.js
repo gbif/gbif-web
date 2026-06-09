@@ -11,6 +11,7 @@ class InstallationAPI extends RESTDataSource {
   willSendRequest(path, request) {
     request.headers['User-Agent'] = this.context.userAgent;
     request.headers['referer'] = this.context.referer;
+    request.headers['x-client-priority'] = this.context.clientPriority;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 
