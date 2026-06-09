@@ -30,9 +30,10 @@ interface DatasetMetrics {
 
 interface ChecklistMetricsProps {
   datasetKey: string;
+  checklistBankDatasetKey?: number | null;
 }
 
-export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
+export function ChecklistMetrics({ datasetKey, checklistBankDatasetKey }: ChecklistMetricsProps) {
   const [metrics, setMetrics] = useState<DatasetMetrics | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -94,6 +95,32 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
 
   return (
     <>
+      {checklistBankDatasetKey && (
+        <Alert variant="info" className="g-mb-4">
+          <AlertTitle>
+            {/* Explore more metrics in the checklistbank UI */}
+            <FormattedMessage
+              id="dataset.metricsTab.checklist.info"
+              defaultMessage="These metrics provide an overview of the checklist dataset. For more detailed metrics and data exploration, please visit {checklistbank}."
+              values={{
+                checklistbank: (
+                  <a
+                    href={`https://checklistbank.org/dataset/${checklistBankDatasetKey}/imports`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="g-ml-1 g-underline g-inherit"
+                  >
+                    <FormattedMessage
+                      id="dataset.metricsTab.checklist.checklistbank"
+                      defaultMessage="checklistbank"
+                    />
+                  </a>
+                ),
+              }}
+            />
+          </AlertTitle>
+        </Alert>
+      )}
       {/* Overview Card */}
       <Card className="g-mb-4">
         <CardHeader className="gbif-word-break">
@@ -114,19 +141,6 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
           <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
             <table className="gbif-table-style g-text-sm">
               <tbody>
-                {metrics.usagesCount !== undefined && (
-                  <tr className="hover:g-bg-slate-50">
-                    <td className="g-font-medium">
-                      <FormattedMessage
-                        id="dataset.metricsTab.checklist.colCoveragePct"
-                        defaultMessage="COL coverage"
-                      />
-                    </td>
-                    <td className="g-text-end">
-                      <FormattedNumber value={metrics.usagesCount} />
-                    </td>
-                  </tr>
-                )}
                 {metrics.distinctNamesCount !== undefined && (
                   <tr className="hover:g-bg-slate-50">
                     <td className="g-font-medium">
@@ -150,32 +164,6 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                     </td>
                     <td className="g-text-end">
                       <FormattedNumber value={metrics.synonymsCount} />
-                    </td>
-                  </tr>
-                )}
-                {metrics.nubMatchingCount !== undefined && (
-                  <tr className="hover:g-bg-slate-50">
-                    <td className="g-font-medium">
-                      <FormattedMessage
-                        id="dataset.metricsTab.checklist.nubMatchingCount"
-                        defaultMessage="GBIF Backbone matches"
-                      />
-                    </td>
-                    <td className="g-text-end">
-                      <FormattedNumber value={metrics.nubMatchingCount} />
-                    </td>
-                  </tr>
-                )}
-                {metrics.nubCoveragePct !== undefined && (
-                  <tr className="hover:g-bg-slate-50">
-                    <td className="g-font-medium">
-                      <FormattedMessage
-                        id="dataset.metricsTab.checklist.nubCoveragePct"
-                        defaultMessage="GBIF Backbone coverage"
-                      />
-                    </td>
-                    <td className="g-text-end">
-                      <FormattedNumber value={metrics.nubCoveragePct} />%
                     </td>
                   </tr>
                 )}
@@ -299,58 +287,6 @@ export function ChecklistMetrics({ datasetKey }: ChecklistMetricsProps) {
                       <td>
                         <FormattedMessage id={`enums.taxonRank.${rank}`} defaultMessage={rank} />
                       </td>
-                      <td className="g-text-end">
-                        <FormattedNumber value={count} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Count by Origin */}
-      {metrics.countByOrigin && Object.keys(metrics.countByOrigin).length > 0 && (
-        <Card className="g-mb-4">
-          <CardHeader className="gbif-word-break">
-            <CardTitle>
-              <FormattedMessage
-                id="dataset.metricsTab.checklist.countByOrigin"
-                defaultMessage="Count by Origin"
-              />
-            </CardTitle>
-            <CardDescription>
-              <FormattedMessage
-                id="dataset.metricsTab.checklist.countByOriginDescription"
-                defaultMessage="Distribution of name usages by their origin"
-              />
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
-              <table className="gbif-table-style g-text-sm">
-                <thead>
-                  <tr>
-                    <th className="g-min-w-48">
-                      <FormattedMessage
-                        id="dataset.metricsTab.checklist.origin"
-                        defaultMessage="Origin"
-                      />
-                    </th>
-                    <th className="g-text-end">
-                      <FormattedMessage
-                        id="dataset.metricsTab.checklist.count"
-                        defaultMessage="Count"
-                      />
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sortByCount(metrics.countByOrigin).map(([origin, count]) => (
-                    <tr key={origin} className="hover:g-bg-slate-50">
-                      <td>{prettifyEnum(origin)}</td>
                       <td className="g-text-end">
                         <FormattedNumber value={count} />
                       </td>

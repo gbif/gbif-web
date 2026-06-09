@@ -124,6 +124,7 @@ export function DatasetKeyDashboard() {
         <DashboardSections
           group={group as DashboardGroup}
           datasetKey={dataset.key}
+          checklistBankDatasetKey={dataset.checklistBankDataset?.key}
           scopedDatasetPredicate={scopedDatasetPredicate}
           literatureScope={literatureScope}
           hasLiterature={(literatureSearch?.documents.total ?? 0) > 0}
