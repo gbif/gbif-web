@@ -1,11 +1,11 @@
 {
   "occurrenceIssueDescription": {
-    "ZERO_COORDINATE": "",
-    "COORDINATE_OUT_OF_RANGE": "",
-    "COORDINATE_INVALID": "",
-    "COORDINATE_ROUNDED": "",
-    "GEODETIC_DATUM_INVALID": "",
-    "GEODETIC_DATUM_ASSUMED_WGS84": "",
+    "ZERO_COORDINATE": "Les coordonnées sont exactement 0/0, indiquant souvent une coordonnée vide.",
+    "COORDINATE_OUT_OF_RANGE": "Les coordonnées fournies se situent en dehors de la plage des valeurs décimales de latitude et de longitude (-90/90, -180/180).",
+    "COORDINATE_INVALID": "Une valeur de coordonnées est fournie sous une forme quelconque, mais GBIF n'est pas en mesure de l'interpréter. Cela peut s'expliquer, entre autres, par des coordonnées hors limites (supérieures ou inférieures à 90/-90 ou 180/-180, selon le cas) ou par des valeurs textuelles qui ne peuvent pas être interprétées.",
+    "COORDINATE_ROUNDED": "Lors de l'interprétation des données, les coordonnées d'origine sont arrondies à 6 décimales (précision d'environ 1 m).",
+    "GEODETIC_DATUM_INVALID": "Le système géodésique de référence n'a pas pu être interprété, car le terme fourni ne correspond à aucun des vocabulaires de valeurs connues.",
+    "GEODETIC_DATUM_ASSUMED_WGS84": "Si la référence géodésique est vide, le système d'interprétation des données considère que les coordonnées de l'enregistrement sont exprimées en WGS84.",
     "COORDINATE_REPROJECTED": "",
     "COORDINATE_REPROJECTION_FAILED": "La latitude et la longitude décimales n'ont pu être projetées selon le système WGS84 par rapport au référentiel fourni.",
     "COORDINATE_REPROJECTION_SUSPICIOUS": "Indique la réussite de la reprojection des coordonnée selon le référentiel fourni, mais se traduisant par un décalage de référentiel supérieur à 0,1 degrés décimaux.",
