@@ -18,14 +18,18 @@ async function getSitemap(url, replaceText, replaceWith) {
 
 function getTaxonSiteMapIndex() {
   return getSitemap(
-    apiConfig.apiv2.url + '/sitemap/taxon',
-    apiConfig.apiv2.url,
-    publicEnv.PUBLIC_BASE_URL
+    apiConfig.apiv2.url + '/experimental/sitemap/taxon',
+    apiConfig.apiv2.url + '/experimental/sitemap/taxon',
+    publicEnv.PUBLIC_BASE_URL + '/sitemap/taxon'
   );
 }
 
 function getTaxonSiteMap(no) {
-  return getSitemap(apiConfig.apiv2.url + '/sitemap/taxon/' + no + '.txt', 'www', 'www');
+  return getSitemap(
+    apiConfig.apiv2.url + '/experimental/sitemap/taxon/' + no + '.txt',
+    'www',
+    'www'
+  );
 }
 
 export default {
