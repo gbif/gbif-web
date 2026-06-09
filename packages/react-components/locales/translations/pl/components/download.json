@@ -1,24 +1,24 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "Nieobsługiwane zapytanie",
+    "unsupported.description": "Swobodne wyszukiwanie tekstowe może być użyte, ale bez opcji pobierania.",
+    "unsupported.remove": "Usuń filtry",
+    "unsupported.error": "Wygląda na to, że to zapytanie nie jest obsługiwane.",
     "download": "Pobierz",
-    "redirectNotice": "",
+    "redirectNotice": "Zamierzasz pobrać dane, aby to zrobić, zostaniesz przekierowany do GBIF.org.\nPamiętaj, że musisz posiadać konto na GBIF.org, żeby pobrać zawartość.",
     "continueToGBIF": "Kontynuuj",
     "continue": "Kontynuuj",
     "invalid": "Błędny",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "Zatwiedź",
+    "sqlEditor": "Edytor SQL",
+    "predicateEditor": "Edytor wyrażeń warunkowych",
     "sql": {
       "createNewSqlDownload": "Stwórz nowe pobranie SQL",
-      "placeholder": "",
-      "noSql": "",
+      "placeholder": "Wprowadź tutaj swoje zapytanie SQL...",
+      "noSql": "Brak zapytania SQL",
       "note": {
         "title": "Uwaga",
-        "description": "",
+        "description": "Najprostszym sposobem na pobieranie i przeglądanie danych jest {occurrence_search}. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
         "occurrence_search": ""
       },
       "errors": {
