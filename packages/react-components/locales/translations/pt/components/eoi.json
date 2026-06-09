@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Minha organização ainda não está registada.",
   "searchOrganisations": "Pesquisar Organizações",
   "termsAndConditions": "Termos e condições",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "Li e compreendi o <a href='/terms/data-publisher'>Contrato de Publicação de Dados do GBIF</a> e concordo com os termos.",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Compreendo que estou a inscrever-me em nome da minha organização, e confirmo que as autoridades responsáveis da minha instituição estão cientes da minha inscrição.",
   "iUnderstandThatMyOrganizationalInformation": "Compreendo que as informações da minha instituição, incluindo os dados de contato, serão publicados através do GBIF.org.",
   "administrativeContact": "Contato administrativo",
@@ -30,7 +30,7 @@
   "none": "Nenhum",
   "whatAndHow": "O quê e como",
   "helpUsUnderstand": "Ajude-nos a compreender que tipo de dados planejas publicar, e o suporte que precisas.",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "GBIF.org suporta a publicação de quatro tipos de dados, explicados <a href='/dataset-classes'>aqui.</a> A responsabilidade pela formatação dos dados e hospedagem dos conjuntos de dados originais permanece com o publicador dos dados, mas podemos ajudá-lo a encontrar soluções técnicas apropriadas.",
   "whichTypesOfData": "Quais os tipos de dados pretende publicar?",
   "resourcesMetaData": "Metadados de recursos",
   "checkListData": "Checklists",
@@ -42,9 +42,9 @@
   "yes": "Sim",
   "no": "Não",
   "pleaseSelectAValue": "Por favor, selecione um valor",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "Nesse caso, é recomendável que você primeiro tente reutilizar um <a href='https://github.com/gbif/ipt/wiki/dataHostingCentre'>IPT central de hospedagem de dados</a> confiável existente",
   "doYouNeedHelpPublishing": "Precisas de ajuda para a publicação de dados?",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "Você planeja instalar e executar um software de publicação (como o <a href='/ipt'>Integrated Publishing Toolkit – IPT</a> para publicar seus dados diretamente no GBIF.org?",
   "orgDetails": "Informações da Organização",
   "yourChanceToTellGBIF": "Tua chance de dizer aos usuários do GBIF quem és e o que fazes.",
   "orgName": "Nome da organização",
@@ -81,20 +81,20 @@
   "outage": "Estamos com uma interrupção parcial e não aceitamos inscrições no momento",
   "eoiDescription": "Para preparar a publicação de dados através do GBIF, pedimos aos potenciais publicadores para preencher este formulário online. Antes do GBIF indexar teus conjuntos de dados, a instituição deverá receber o aval de publicador de dados, seja de um dos países ou de organizações participantes do GBIF, através de um dos Nós. Se o teu país ainda não participa do GBIF, procuraremos o aval a teu favor na Comunidade GBIF.",
   "eoiTitle": "Tornar-se um publicador",
-  "checkRegistration": "",
+  "checkRegistration": "Verifique o cadastro",
   "organisationDetails": "Informações da Organização",
-  "organisationAddress": "",
+  "organisationAddress": "Endereço da organização",
   "endorsement": "Aval",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "Por favor, selecione sua organização no mapa",
+    "pleaseSelectTheCountryOfYourOrganization": "Selecione o país/região da sua organização."
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "Obrigado por cadastrar sua organização",
+  "failedToRegisterOrganization": "Falha ao registrar a organização",
+  "associatedWithGbifProgramme": "Você está associado a algum projeto financiado por um programa do GBIF?",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Você precisa de uma conta para registrar uma nova organização",
+    "message": "Faça login ou crie uma conta para continuar registrando sua organização."
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Registrar outra organização?"
 }

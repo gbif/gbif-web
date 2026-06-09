@@ -1,52 +1,52 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "サポートされていないクエリ",
+    "unsupported.description": "フリーテキスト検索は使用できますが、ダウンロードのサポートはありません。",
+    "unsupported.remove": "フィルターを外す",
+    "unsupported.error": "このクエリはサポートされていないようです。",
     "download": "ダウンロード",
-    "redirectNotice": "",
+    "redirectNotice": "ダウンロードを開始すると、GBIF.orgにリダイレクトします。\nデータのダウンロードにはアカウントが必要です。",
     "continueToGBIF": "次へ",
     "continue": "次へ",
     "invalid": "無効な値です",
-    "validate": "",
-    "sqlEditor": "",
+    "validate": "確認する",
+    "sqlEditor": "SQLエディタ",
     "predicateEditor": "",
     "sql": {
-      "createNewSqlDownload": "",
-      "placeholder": "",
-      "noSql": "",
+      "createNewSqlDownload": "新しいSQLダウンロードを作成します",
+      "placeholder": "ここにSQLクエリを入力して下さい",
+      "noSql": "SQLクエリはありません",
       "note": {
         "title": "注記",
         "description": "",
         "occurrence_search": ""
       },
       "errors": {
-        "invalid-SQL": "",
-        "network-error": "",
+        "invalid-SQL": "無効なSQL",
+        "network-error": "ネットワークエラーが発生しました",
         "parsingErrorDescription": "",
         "networkErrorDescription": ""
       }
     },
-    "create": "",
+    "create": "作成する",
     "about": "・・・について",
     "stopEditing": "編集を終了する",
     "startEditing": "編集を開始する",
     "reformat": "",
-    "discard": "",
+    "discard": "破棄する",
     "keep": "",
     "readTheDocumentation": "",
     "request": {
       "placeholder": "",
-      "createNewDownload": "",
+      "createNewDownload": "新しいSQLダウンロードを作成します",
       "weHaveRestoredYourPredicate": "",
       "noPredicate": "",
       "currentFilter": "現在のフィルター",
       "errors": {
-        "invalid-json": "",
+        "invalid-json": "無効なJSON",
         "invalid-predicate": "",
         "faild-to-load-predicate": "",
-        "unexpectedError": "",
+        "unexpectedError": "予期しないエラーが発生しました",
         "failedToParseJSON": "",
         "failedToVisualizePredicate": ""
       }
@@ -69,7 +69,7 @@
       "tableValues": {
         "ifAvailable": "",
         "ifSelected": "",
-        "links": ""
+        "links": "リンク"
       }
     },
     "failedToRefreshDownloadStatus": "",

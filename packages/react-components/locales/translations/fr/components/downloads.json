@@ -46,7 +46,7 @@
     "filterApplied": "Filtre appliqué le {DATE}",
     "query": "Requête",
     "rerunQuery": "Relancer la requête",
-    "complexPredicateWarning": "",
+    "complexPredicateWarning": "Le prédicat est trop complexe pour être converti en filtres standard dans l'interface utilisateur. Cela se produit également si le téléchargement d'origine utilisait une liste de contrôle qui n'est plus utilisée. Il s'affichera alors sous la forme d'une requête complexe pouvant être modifiée au format JSON.",
     "postpone": "Reporter la suppression",
     "deleteDownload": "Supprimer le téléchargement",
     "tellUs": "Parlez-nous de l'utilisation",
@@ -67,7 +67,7 @@
     "downloadStarted": "Le téléchargement a démarré et est en cours de traitement.",
     "downloadExpectTime": "Le téléchargement peut prendre jusqu'à 3 heures à se terminer. La plupart des téléchargements sont terminés en 15 minutes.",
     "notificationEmailAddresses": "Un courriel de notification avec un lien pour télécharger les résultats sera envoyé à l'adresse suivante une fois prêt :",
-    "sqlGeneratedUsingPredicate": "",
+    "sqlGeneratedUsingPredicate": "La requête SQL a été générée à l'aide de ce prédicat",
     "status": {
       "PREPARING": "En préparation",
       "SUSPENDED": "Interrompu",
@@ -75,7 +75,7 @@
       "CANCELLED": "Annulé",
       "KILLED": "Tué"
     },
-    "usedChecklistKey": "",
+    "usedChecklistKey": "{checklistName} a été utilisé pour remplir les colonnes taxonomiques dans le téléchargement",
     "predicate": {
       "checklist": "Liste d'espèces",
       "joinDescriptions": {
@@ -93,14 +93,14 @@
       "keys": {
         "EVENT_ID": "ID de l'événement",
         "DECIMAL_LONGITUDE": "Longitude décimale",
-        "EVENT_DATE_GTE": "",
-        "DISTANCE_FROM_CENTROID_IN_METERS": "",
+        "EVENT_DATE_GTE": "Date de l'événement (supérieure ou égale à)",
+        "DISTANCE_FROM_CENTROID_IN_METERS": "Distance du centroïde (m)",
         "DATASET_NAME": "Nom du jeu de données",
-        "GEOLOGICAL_TIME": "",
+        "GEOLOGICAL_TIME": "Temps géologique",
         "ISLAND": "Île",
         "INSTITUTION_KEY": "Institution",
-        "GADM_LEVEL_0_GID": "",
-        "GADM_LEVEL_2_GID": "",
+        "GADM_LEVEL_0_GID": "ID GADM niveau 0",
+        "GADM_LEVEL_2_GID": "ID GADM niveau 2",
         "LATEST_AGE_OR_HIGHEST_STAGE": "Dernier âge ou stage supérieur",
         "OCCURRENCE_STATUS": "Statut de l'occurrence",
         "PROJECT_ID": "Identifiant du projet",
@@ -114,12 +114,12 @@
         "REPATRIATED": "Rapatrié",
         "YEAR": "Année",
         "STATE_PROVINCE": "État/Province",
-        "GADM_GID": "",
+        "GADM_GID": "ID GADM",
         "SAMPLE_SIZE_VALUE": "Valeur de la taille d'échantillonnage",
         "OCCURRENCE_ID": "ID de l'occurence",
         "GEOREFERENCED_BY": "Géoréférencé par",
         "FIELD_NUMBER": "Numéro de terrain",
-        "CATALOG_NUMBER": "",
+        "CATALOG_NUMBER": "Numéro de catalogue",
         "EVENT_DATE": "Date de l'événement",
         "ORGANISM_QUANTITY": "Quantité de l’organisme",
         "PREVIOUS_IDENTIFICATIONS": "Identifications précédentes",
@@ -136,11 +136,11 @@
         "COUNTRY": "Pays",
         "IDENTIFIED_BY": "Identifié par",
         "GBIF_ID": "ID du GBIF",
-        "PUBLISHED_BY_GBIF_REGION": "",
+        "PUBLISHED_BY_GBIF_REGION": "Publié par la région GBIF",
         "IUCN_RED_LIST_CATEGORY": "Catégorie de la liste rouge de l'UICN",
         "PATHWAY": "Chemin",
         "NETWORK_KEY": "Réseau",
-        "DWCA_EXTENSION": "",
+        "DWCA_EXTENSION": "Extension DwC-A",
         "ACCEPTED_TAXON_KEY": "Taxon accepté",
         "CONTINENT": "Continent",
         "OTHER_CATALOG_NUMBERS": "Autres numéros de catalogue",
@@ -148,16 +148,16 @@
         "PROTOCOL": "Protocole ",
         "MEMBER": "Membre",
         "SPECIES_KEY": "Espèce",
-        "GADM_LEVEL_1_GID": "",
-        "GADM_LEVEL_3_GID": "",
+        "GADM_LEVEL_1_GID": "ID GADM niveau 1",
+        "GADM_LEVEL_3_GID": "ID GADM niveau 3",
         "EARLIEST_AGE_OR_LOWEST_STAGE": "Premier âge ou stage inférieur",
-        "DEGREE_OF_ESTABLISHMENT": "",
+        "DEGREE_OF_ESTABLISHMENT": "Degré d'établissement",
         "DEPTH": "Profondeur",
         "RELATIVE_ORGANISM_QUANTITY": "Quantité relative de l'organisme",
         "ORGANISM_ID": "ID de l’organisme",
         "PUBLISHING_COUNTRY": "Pays ou région qui publie",
         "SAMPLE_SIZE_UNIT": "Unité de la taille d'échantillonnage",
-        "LITHOSTRATIGRAPHY": "",
+        "LITHOSTRATIGRAPHY": "Lithostratigraphie",
         "TAXONOMIC_STATUS": "Statut taxonomique",
         "RECORDED_BY_ID": "ID de Enregistré par",
         "ISLAND_GROUP": "Archipel",
@@ -169,7 +169,7 @@
         "ORGANISM_QUANTITY_TYPE": "Type de quantité d’organisme",
         "MODIFIED": "Modifié",
         "EARLIEST_EPOCH_OR_LOWEST_SERIES": "Première époque ou série inférieure",
-        "IS_SEQUENCED": "",
+        "IS_SEQUENCED": "Est séquencé",
         "TAXON_ID": "ID du taxon",
         "EARLIEST_PERIOD_OR_LOWEST_SYSTEM": "Première période ou système inférieur",
         "MEDIA_TYPE": "Type de média",
@@ -187,7 +187,7 @@
         "SAMPLING_PROTOCOL": "Protocole d'échantillonnage",
         "IS_IN_CLUSTER": "Est dans le regroupement",
         "RECORD_NUMBER": "Numéro d'enregristrement",
-        "PUBLISHING_ORG": "",
+        "PUBLISHING_ORG": "Organisation responsable de la publication",
         "PROGRAMME": "Programme",
         "COLLECTION_KEY": "Collection",
         "LICENSE": "Licence",
@@ -196,14 +196,14 @@
         "ELEVATION": "Altitude",
         "SEX": "Sexe",
         "GENUS_KEY": "Genre",
-        "CRAWL_ID": "",
+        "CRAWL_ID": "ID d'exploration",
         "HAS_COORDINATE": "A des coordonnées",
         "GROUP": "Groupe",
         "LATEST_EPOCH_OR_HIGHEST_SERIES": "Dernière époque ou série supérieure",
         "FORMATION": "Formation",
         "ORDER_KEY": "Ordre",
         "ISSUE": "Problème",
-        "TAXONOMIC_ISSUE": "",
+        "TAXONOMIC_ISSUE": "Problème taxonomique",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "Verbatim du nom scientifique",
         "GBIF_REGION": "Région GBIF",
@@ -211,7 +211,7 @@
         "PARENT_EVENT_ID": "ID de l'événement parent",
         "RECORDED_BY": "Enregistré par",
         "BASIS_OF_RECORD": "Base de registre",
-        "BIOSTRATIGRAPHY": "",
+        "BIOSTRATIGRAPHY": "Biostratigraphie",
         "DATASET_KEY": "Ensemble de données"
       }
     }
@@ -263,110 +263,110 @@
   },
   "occurrenceDownloadFlow": {
     "back": "Retour",
-    "slowDown": "",
-    "unableToCreateDownload": "",
+    "slowDown": "Trop de téléchargements simultanés. Veuillez réessayer plus tard.",
+    "unableToCreateDownload": "Impossible de créer le téléchargement. Veuillez réessayer plus tard.",
     "backToFormatSelection": "",
-    "backToConfiguration": "",
+    "backToConfiguration": "Retour à la configuration",
     "estimatedSize": "Taille estimée",
-    "configure": "",
-    "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "configure": "Configurer",
+    "continueToTerms": "Continuer vers les conditions générales",
+    "downloadSummary": "Télécharger le résumé",
+    "weAlsoSupport": "Nous prenons également en charge {link}",
+    "sqlDownloadsLink": "Téléchargements SQL",
     "extensions": "Extensions",
-    "selectAdditionalExtensions": "",
-    "nExtensionsSelected": "",
-    "selectAll": "",
-    "deselectAll": "",
-    "extensionsInfoMessage": "",
+    "selectAdditionalExtensions": "Sélectionnez les extensions de données supplémentaires à inclure",
+    "nExtensionsSelected": "{count, plural, one {# séléctionné} other {# séléctionnés}}",
+    "selectAll": "Tout sélectionner",
+    "deselectAll": "Tout désélectionner",
+    "extensionsInfoMessage": "Les extensions fournissent des champs de données supplémentaires au-delà des données d'occurrence de base. Sélectionnez uniquement les extensions pertinentes pour vos besoins de recherche.",
     "format": "Format",
-    "csvDelimiter": "",
+    "csvDelimiter": "Délimiteur CSV",
     "taxonomy": "Taxonomie",
-    "tabDelimiter": "",
-    "progressLabel": "",
-    "termsAndConditions": "",
-    "reviewAndAccept": "",
-    "dataCitationTitle": "",
-    "dataCitationText": "",
-    "dataUseAgreementTitle": "",
-    "dataUseAgreementText": "",
-    "largeDownloadAcknowledgment": "",
-    "largeDownloadEstimatedSize": "",
-    "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "tabDelimiter": "TAB",
+    "progressLabel": "Progression",
+    "termsAndConditions": "Conditions générales",
+    "reviewAndAccept": "Veuillez lire et accepter les conditions avant de télécharger",
+    "dataCitationTitle": "Citation des données",
+    "dataCitationText": "En téléchargeant ces données, vous acceptez :\n- de suivre les [directives de citation](/citation-guidelines#occDataDownload) pour les données fournies par le GBIF,\n- d’inclure systématiquement le DOI attribué au téléchargement lors de toute citation ou référence aux données dans une publication.",
+    "dataUseAgreementTitle": "Accord sur l'utilisation des données",
+    "dataUseAgreementText": "En téléchargeant ces données, vous reconnaissez avoir lu et accepté les conditions du [contrat d'utilisation des données](/terms/data-user)",
+    "largeDownloadAcknowledgment": "Confirmation de téléchargement volumineux",
+    "largeDownloadEstimatedSize": "La taille estimée du téléchargement est de {size}.",
+    "largeDownloadConnectionSpeed": "Avec une connexion Internet de {speed} Mb/s, le téléchargement prendrait environ {time}.",
+    "largeDownloadDiskSpace": "Une fois le fichier téléchargé, vous aurez besoin d'environ {size} d'espace disque libre pour décompresser les données.",
+    "largeDownloadRowCount": "Le jeu de données contient {count} lignes de données.",
     "largeDownloadExcelWarning": "Un jeu de données de cette taille est difficile à analyser sur votre ordinateur de bureau normal. Vous aurez probablement besoin d’un accès à une sorte de service de calcul partagé.",
-    "termsStatus": "",
-    "createDownload": "",
-    "completeRequirements": "",
+    "termsStatus": "Statut des termes",
+    "createDownload": "Créer le téléchargement",
+    "completeRequirements": "Veuillez remplir toutes les conditions requises pour continuer",
     "steps": {
       "quality": {
         "name": "Qualité",
-        "description": ""
+        "description": "Appliquer des filtres de qualité"
       },
       "filter": {
-        "name": "",
-        "description": ""
+        "name": "Filtrer",
+        "description": "Créer un prédicat de filtrage"
       },
       "sql": {
-        "name": "",
-        "description": ""
+        "name": "SQL",
+        "description": "Écrire une requête SQL"
       },
       "format": {
         "name": "Format",
-        "description": ""
+        "description": "Choisir un format de téléchargement"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "Configurer",
+        "description": "Définir les options et les champs"
       },
       "terms": {
         "name": "Termes",
-        "description": ""
+        "description": "Accepter les conditions générales"
       }
     },
     "downloadFormats": {
       "SIMPLE_CSV": {
-        "title": "",
-        "description": ""
+        "title": "Données d'occurrence simples",
+        "description": "Un fichier CSV seul délimité par des tabulations contenant des données d'occurrence standardisées et interprétées."
       },
       "DWCA": {
         "title": "Archive Darwin Core",
-        "description": ""
+        "description": "Plusieurs fichiers (données de base, valeurs brutes, données interprétées, extensions) pour une utilisation détaillée ou spécialisée. Le téléchargement est personnalisable en sélectionnant les extensions nécessaires."
       },
       "SPECIES_LIST": {
         "title": "Liste des espèces en format CSV",
-        "description": ""
+        "description": "Liste de tous les noms de taxons distincts avec leur nombre d'occurrences."
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "Cube d'occurrence",
+        "description": "Nombre d'occurrences dans une grille selon les dimensions taxonomique, spatiale et temporelle. Les dimensions et les agrégations peuvent être configurées à l'étape suivante."
       },
       "SQL_TSV_ZIP": {
-        "title": "",
-        "description": ""
+        "title": "SQL",
+        "description": "Requête SQL personnalisée pour extraire des données spécifiques ou effectuer des agrégations. Convient aux utilisateurs avancés maîtrisant SQL."
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "Fichier CSV unique délimité par des tabulations",
+        "multipleCsv": "Plusieurs fichiers CSV",
+        "interpretedData": "Données interprétées uniquement",
+        "rawAndInterpreted": "Données brutes + interprétées",
+        "coordinates": "Coordonnées (si disponibles)",
+        "coordinatesIfSelected": "Coordonnées (si sélectionnées)",
+        "individualOccurrences": "occurrences individuelles",
+        "multimediaLinks": "liens multimédia",
+        "occurrenceCounts": "Nombre d’occurrences"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": "",
+      "title": "référence taxonomique",
+      "description": "Sélectionner la taxonomie qui sera utilisée pour remplir les colonnes taxonomiques dans le téléchargement",
+      "defaultRecommended": "Défaut et recommandé pour la majorité des utilisateurs",
       "version": "Version"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
+    "cubeConfiguration": "configuration du cube",
     "invalidSQL": "SQL non valide",
     "title": "Créer un nouveau téléchargement SQL",
     "notification": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'interface utilisateur de recherche d'occurrences. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
@@ -383,7 +383,7 @@
       "EXACT_TAXON": "Taxon exact"
     },
     "cubeTitle": "Télécharger le cube",
-    "cubeDescription": "",
+    "cubeDescription": "configuration spatiale, temporelle et résolution taxonomique",
     "readMore": "En savoir plus",
     "time": {
       "YEAR": "Année",
@@ -466,8 +466,8 @@
     "countHigherTaxonomy": "Nombre d'occurrences à un niveau taxonomique supérieur",
     "coordinateUncertainty": "Inclure une incertitude de coordonnées minimale",
     "errorMinimumDimension": "Au moins une dimension doit être sélectionnée",
-    "errorMinimumDimensionForCube": "",
-    "errorGeneratingSql": "",
+    "errorMinimumDimensionForCube": "Au moins une dimension doit être sélectionnée",
+    "errorGeneratingSql": "Erreur lors de la génération du SQL",
     "editSql": "Editer en SQL",
     "temporalUncertainty": "Inclure une incertitude temporelle minimale",
     "documentation": "Documentation",

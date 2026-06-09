@@ -48,41 +48,41 @@
   "coordinateUncertainty": {
     "between": "Incertitude des coordonnées {from}m à {to}m",
     "lt": "Incertitude des coordonnées en dessous {to}m",
-    "gt": "",
-    "e": ""
+    "gt": "Incertitude des coordonnées au-dessus de {from} m",
+    "e": "L'incertitude des coordonnées est de {from}m"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Profondeur {from} à {to}",
+    "lt": "Profondeur en dessous de {to}",
+    "gt": "Profondeur au-dessus de {to}",
+    "e": "La profondeur est de {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Quantité d'organismes {from} à {to}",
+    "lt": "Quantité d'organismes en dessous de {to}",
+    "gt": "Quantité d'organismes au-dessus de {from}",
+    "e": "La quantité d'organismes est de {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Valeur de la taille de l'échantillon {from} à {to}",
+    "lt": "Valeur de la taille de l'échantillon en dessous de {to}",
+    "gt": "Valeur de la taille de l'échantillon au-dessus de {from}",
+    "e": "La valeur de la taille de l'échantillon est de {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Quantité relative d'organismes de {from} à {to}",
+    "lt": "Quantité relative d'organismes en dessous de {to}",
+    "gt": "Quantité relative d'organismes au-dessus de {from}",
+    "e": "La quantité relative d'organismes est de {from}"
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Altitude de {from} à {to}",
+    "lt": "Altitude en dessous de {to}",
+    "gt": "Altitude au-dessus de {from}",
+    "e": "L'altitude est de {from}"
   },
   "geoDistance": {
-    "short": "",
+    "short": "À {distance} de {latitude},{longitude}",
     "description": "Latitude {latitude}, longitude: {longitude}, distance : {distance}"
   },
   "units": {

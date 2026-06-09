@@ -1,34 +1,34 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "Consulta não suportada",
+    "unsupported.description": "A pesquisa de texto livre pode ser usada para exploração, mas não é suportada para downloads.",
+    "unsupported.remove": "Remover filtro",
+    "unsupported.error": "Parece que esta consulta não é suportada",
     "download": "Transferir",
-    "redirectNotice": "",
+    "redirectNotice": "Você está prestes a fazer o download e será redirecionado para GBIF.org. \n\nObserve que é necessária uma conta para baixar os dados.",
     "continueToGBIF": "Continuar",
     "continue": "Continuar",
     "invalid": "Inválido",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "Validar",
+    "sqlEditor": "Editor SQL",
+    "predicateEditor": "Editor de predicados",
     "sql": {
       "createNewSqlDownload": "Criar nova transferência SQL",
-      "placeholder": "",
-      "noSql": "",
+      "placeholder": "Insira sua consulta SQL aqui...",
+      "noSql": "Sem consulta SQL",
       "note": {
         "title": "Nota",
-        "description": "",
-        "occurrence_search": ""
+        "description": "A maneira mais fácil de baixar e explorar dados é por meio de {occurrence_search}. Mas para consultas e agregações complexas, o editor SQL oferece mais liberdade.",
+        "occurrence_search": "interface de usuário para busca de ocorrências"
       },
       "errors": {
         "invalid-SQL": "SQL inválido",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "network-error": "Erro de rede",
+        "parsingErrorDescription": "Não foi possível analisar o SQL",
+        "networkErrorDescription": "Não foi possível validar o SQL devido a um erro de rede"
       }
     },
-    "create": "",
+    "create": "Criar",
     "about": "Sobre",
     "stopEditing": "Interromper a edição",
     "startEditing": "Começar a editar",
@@ -37,24 +37,24 @@
     "keep": "Manter",
     "readTheDocumentation": "Ler a documentação",
     "request": {
-      "placeholder": "",
+      "placeholder": "Insira seu predicado aqui...",
       "createNewDownload": "Criar nova transferência",
-      "weHaveRestoredYourPredicate": "",
-      "noPredicate": "",
+      "weHaveRestoredYourPredicate": "Restauramos o predicado que você estava trabalhando da última vez que esteve aqui.",
+      "noPredicate": "Nenhum predicado",
       "currentFilter": "Filtro atual",
       "errors": {
         "invalid-json": "JSON inválido",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
-        "unexpectedError": "",
-        "failedToParseJSON": "",
-        "failedToVisualizePredicate": ""
+        "invalid-predicate": "Predicado inválido",
+        "faild-to-load-predicate": "Falha ao carregar o predicado",
+        "unexpectedError": "Ocorreu um erro inesperado",
+        "failedToParseJSON": "Não foi possível analisar o JSON",
+        "failedToVisualizePredicate": "Falha ao visualizar o predicado. Exibindo JSON bruto"
       }
     },
     "downloadOptions": {
       "title": "Opções de transferência",
       "chooseChecklist": "",
-      "chooseChecklistDescription": "",
+      "chooseChecklistDescription": "Selecione a lista de espécies para organizar os nomes dos táxons em seu download",
       "content": {
         "rawData": "Dados brutos",
         "interpretedData": "Dados interpretados",
@@ -67,12 +67,12 @@
         "tabCsv": "CSV delimitado por tabulador"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
-        "links": ""
+        "ifAvailable": "se disponível",
+        "ifSelected": "se selecionado",
+        "links": "links"
       }
     },
-    "failedToRefreshDownloadStatus": "",
-    "descriptionByDownloadCreator": ""
+    "failedToRefreshDownloadStatus": "Falha ao atualizar o status do download",
+    "descriptionByDownloadCreator": "Descrição fornecida pelo criador do download"
   }
 }

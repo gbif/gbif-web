@@ -5,7 +5,10 @@
   "HETEROTYPIC_SYNONYM": "Гетеротипний синонім",
   "HOMOTYPIC_SYNONYM": "Гомотипний синонім",
   "PROPARTE_SYNONYM": "Синонім pro-parte",
+  "AMBIGUOUS_SYNONYM": "Неоднозначний синонім",
+  "PROVISIONALLY_ACCEPTED": "Провізійно прийнятий",
   "MISAPPLIED": "Неправильно застосований",
+  "BARE_NAME": "Лише назва",
   "INTERMEDIATE_RANK_SYNONYM": "Синонім проміжного ранга",
   "DETERMINATION_SYNONYM": "Синонім визначення"
 }

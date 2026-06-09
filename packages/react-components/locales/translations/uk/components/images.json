@@ -1,7 +1,15 @@
 {
+  "identifier": "ID",
   "type": "Тип",
+  "subtypeLiteral": "Різновид",
   "title": "Назва",
   "rights": "Права",
+  "credit": "Авторське зазначення",
+  "providerLiteral": "Надавач",
   "description": "Опис",
-  "format": "Формат"
+  "accessURI": "URL",
+  "accessOriginalURI": "Оригінальна URL-адреса",
+  "format": "Формат",
+  "pixelXDimension": "Ширина",
+  "pixelYDimension": "Висота"
 }

@@ -1,15 +1,15 @@
 {
   "occurrenceSnapshots": {
-    "title": "",
-    "intro": "",
-    "description": "",
+    "title": "オカレンスのスナップショット",
+    "intro": "GBIFオカレンスデータの定期的なエクスポート",
+    "description": "GBIFは毎月、全オカレンス記録のスナップショットを作成し、利用しやすいように様々な形式で保存しています。すべてのスナップショットには引用を容易にするためのDOIが付与されており、一部の形式はパブリッククラウドにコピーされ、それらの環境で簡単に利用できるようになっています。",
     "cloudDatasets": {
-      "title": "",
-      "description": ""
+      "title": "クラウドベースのデータセット",
+      "description": "GBIFは、<azure>Microsoft Planetary Computer (Azure)</azure>、<aws>Amazon AWS Open Dataset</aws>、およびGoogle <gcs>GCSバケット</gcs>と<bq>BigQuery　table</bq>にデータを提供しています。クラウドベースのスナップショットを使用する場合は、使用するレコードに対して<derived>Derived Dataset citation</derived>を作成することをお勧めします。データセット全体を参照する場合は、以下の適切な引用を使用してください。"
     },
     "monthly": {
-      "title": "",
-      "description": ""
+      "title": "月次スナップショットデータセット",
+      "description": "GBIFのオカレンスデータの月次エクスポートは、以下のとおり様々な形式で提供されています。各ページに記載されている出典をご確認ください。"
     },
     "table": {
       "columns": {
@@ -18,9 +18,9 @@
         "citation": "引用",
         "filters": "フィルター"
       },
-      "citation": "",
+      "citation": "GBIFオカレンスのダウンロード",
       "hasFilters": "はい",
-      "downloadDetails": ""
+      "downloadDetails": "詳細をダウンロード"
     }
   }
 }

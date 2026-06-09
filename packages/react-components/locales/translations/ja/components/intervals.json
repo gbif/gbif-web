@@ -1,43 +1,43 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": "",
-    "between": ""
+    "lt": "{to}より小さい",
+    "lte": "{to}以下",
+    "gt": "{from}より大きい",
+    "gte": "{from}以上",
+    "e": "{from}と等しい",
+    "between": "{from}から{to}まで"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
-  },
-  "compactMeters": {
-    "between": "",
+    "between": "{from} から {to} まで",
     "lt": "{to}m以下",
     "gt": "{from}m以上",
-    "e": ""
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from} mから {to} mまで",
+    "lt": "{to}m以下",
+    "gt": "{from}m以上",
+    "e": "{from}m"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} から {to} まで",
+    "lt": "{to}前",
+    "gt": "{from}後",
+    "e": "{from}"
   },
   "geoTime": {
-    "between": "",
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": ""
+    "between": "{from} から {to} まで",
+    "lt": "{to}前",
+    "lte": "{to}前または等しい",
+    "gt": "{from}後",
+    "gte": "{from}後または等しい",
+    "e": "{from}を含める"
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": "",
+    "between": "{from}年から{to}年まで",
+    "lt": "{to}年以前",
+    "gt": "{from}年以後",
+    "e": "年は{from}から",
     "select": {
       "equals": "等しい",
       "between": "間隔",
@@ -46,51 +46,51 @@
     }
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "座標の不確実性は{from}mから{to}mまで",
+    "lt": "座標の不確実性{to}m未満",
+    "gt": "座標の不確実性{from}m以上",
+    "e": "座標の不確実性{from}mから"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "深度{from}から{to}まで",
+    "lt": "深度{to}未満",
+    "gt": "深度{from}以上",
+    "e": "深度{from}から"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "生物の数{from}から{to}まで",
+    "lt": "生物の数{to}以下",
+    "gt": "生物の数{from}以上",
+    "e": "生物の数{from}から"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "サンプルサイズ値は{from}から{to}まで",
+    "lt": "サンプルサイズ値は{to}以下",
+    "gt": "サンプルサイズ値は{from}以上",
+    "e": "サンプルサイズ値は{from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "相対生物数は{from}から{to}まで",
+    "lt": "相対生物数は{to}以上",
+    "gt": "相対生物数は{from}以上",
+    "e": "相対生物数は{from}から"
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "標高{from}から{to}まで",
+    "lt": "標高{to}以下",
+    "gt": "標高{from}以上",
+    "e": "標高{from}から"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": " {latitude},{longitude}の{distance}内",
+    "description": "緯度：{latitude}、経度：{longitude}、距離：{distance}"
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "キロメートル",
+      "m": "メートル",
+      "mi": "マイル",
+      "ft": "フィート"
     }
   }
 }

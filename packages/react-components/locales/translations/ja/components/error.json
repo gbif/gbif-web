@@ -1,1 +1,14 @@
-{}
+{
+  "generic": "エラーが発生しました",
+  "genericRequestFailed": "リクエストに失敗しました",
+  "genericDescription": "予期しないエラーが発生しました。あとでもう一度お試しください。",
+  "unknown": "不明なエラーが発生しました",
+  "report": "問題を報告する",
+  "retry": "再試行",
+  "partialData": "全てのデータを読み込めません",
+  "reloadPage": "ページをリフレッシュする",
+  "hideDetails": "詳細を隠す",
+  "showDetails": "詳細を表示する",
+  "mapFailed": "地図を読み込めません",
+  "partialMapFailure": "一部のタイルが読み込まれていません"
+}

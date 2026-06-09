@@ -1,0 +1,11 @@
+{
+  "durationUnit": {
+    "SECONDS": "Секунди",
+    "MINUTES": "Хвилини",
+    "HOURS": "Години",
+    "DAYS": "Дні",
+    "WEEKS": "Тижні",
+    "MONTHS": "Місяці",
+    "YEARS": "Роки"
+  }
+}

@@ -9,6 +9,8 @@
     "citation": "ציטוט",
     "codeOfConduct": "קוד אתי",
     "acknowledgements": "תודות",
+    "socialNavAriaLabel": "",
+    "navAriaLabel": "",
     "contact": "צור קשר"
   }
 }

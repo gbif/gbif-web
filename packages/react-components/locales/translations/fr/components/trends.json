@@ -13,7 +13,7 @@
     "recordsForPlantae": "Enregistrements pour Plantae",
     "theseChartsIllustrate2": "Ces graphiques illustrent les changements dans le nombre d’espèces pour lesquelles des enregistrements sont disponibles.",
     "speciesCounts": "Nombre d’espèces",
-    "speciesCountDescription": "",
+    "speciesCountDescription": "Le nombre d'espèces est calculé à partir du nombre de noms scientifiques binomiaux pour lesquels le GBIF a reçu des données, organisés autant que possible selon les synonymes répertoriés dans des bases de données clés telles que le Catalogue of Life. Comme de nombreux noms ne sont pas encore inclus dans ces bases de données, une partie d'entre eux correspondent à des synonymes non reconnus et ne représentent pas des espèces valides. Par conséquent, ces dénombrements ne donnent qu'une indication de la richesse spécifique et ne constituent pas un dénombrement précis des espèces. Toutes les données ont été traitées à l'aide de la même version, la plus récente, de la taxonomie de référence commune du GBIF, ce qui permet des comparaisons pertinentes dans le temps.",
     "definition": "Définition",
     "numOccSpeciesByKingdom": "Le nombre d'espèces avec des enregistrements disponibles, classés par règne.",
     "speciesCountByKingdom": "Nombre d’espèces par règne",
@@ -55,21 +55,21 @@
     "halfDegree": "0,5 degré",
     "pointOneDegree": "0,1 degré",
     "dataSharingWithCountryOfOrigin": "Données publiées avec le pays d'origine",
-    "thisChartShowsTheNumberOfRecordsAboutBiodiversityOccurringInCountry": "",
-    "thisChartShowsTheNumberOfRecordsSharedByPublishersWithin": "",
+    "thisChartShowsTheNumberOfRecordsAboutBiodiversityOccurringInCountry": "Ce graphique présente le nombre d'enregistrements relatifs à la biodiversité enregistrés en/au(x) {TRANSLATED_COUNTRY}, en distinguant par des couleurs différentes les enregistrements publiés en/au(x) {TRANSLATED_COUNTRY} et ceux partagés par des contributeurs d'autres pays.",
+    "thisChartShowsTheNumberOfRecordsSharedByPublishersWithin": "Ce graphique montre le nombre d'enregistrements partagés par les éditeurs en/au(x) {TRANSLATED_COUNTRY} au fil du temps, avec des couleurs distinctes pour les enregistrements concernant les espèces présentes en/au(x) {TRANSLATED_COUNTRY} et celles présentes dans d'autres pays.",
     "thisChartShowsGlobalTrends": "Ce graphique montre le nombre total d'enregistrements publiés par l’intermédiaire de GBIF au fil du temps, avec des couleurs distinctes pour les enregistrements publiés depuis le pays où l’espèce est présente, et ceux partagés par les fournisseurs de données d’autres pays.",
     "analytics": "Analytique",
     "global": "Global",
-    "changeOverTimeInDataAboutSpeciesFromCountry": "",
-    "changeOverTimeInTheDataPublishedByInstitutionsWithin": "",
-    "trendsInDataAvailabilityOnTheGbifNetwork": "",
+    "changeOverTimeInDataAboutSpeciesFromCountry": "Évolution au fil du temps des données sur les espèces en/au(x) {TRANSLATED_COUNTRY} disponibles sur GBIF.org.",
+    "changeOverTimeInTheDataPublishedByInstitutionsWithin": "Évolution au fil du temps des données publiées par les institutions en/au(x) {TRANSLATED_COUNTRY} disponibles sur GBIF.org",
+    "trendsInDataAvailabilityOnTheGbifNetwork": "Évolution de la disponibilité des données sur le réseau GBIF, de 2008 à {YEAR}",
     "globalDataTrends": "Tendances globale des données",
-    "countryDataTrends": "",
-    "regionDataTrends": "",
-    "countryPublishingTrends": "",
+    "countryDataTrends": "Tendances des données en/au(x) {TRANSLATED_COUNTRY}",
+    "regionDataTrends": "Tendances des données pour {TRANSLATED_REGION}",
+    "countryPublishingTrends": "Tendances de publication en/au(x) {TRANSLATED_COUNTRY}",
     "analyticsCountry": {
-      "fromDescription": "",
-      "publishedByDescription": ""
+      "fromDescription": "Évolution des données sur les espèces en/au(x) {country} disponibles sur GBIF.org",
+      "publishedByDescription": "Évolution au fil du temps des données publiées par les institutions de/des {country} disponibles sur GBIF.org"
     }
   }
 }

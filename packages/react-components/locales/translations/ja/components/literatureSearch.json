@@ -1,6 +1,6 @@
 {
   "literatureSearch": {
-    "title": "",
-    "description": ""
+    "title": "文献検索",
+    "description": "GBIF内で文献検索。フリーかつオープンアクセスな生物多様性データ"
   }
 }

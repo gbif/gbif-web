@@ -9,6 +9,8 @@
     "citation": "Цитирование",
     "codeOfConduct": "Нормы поведения",
     "acknowledgements": "Благодарности",
+    "socialNavAriaLabel": "GBIF в соцсетях",
+    "navAriaLabel": "Нижний колонтитул",
     "contact": "Связаться с нами"
   }
 }

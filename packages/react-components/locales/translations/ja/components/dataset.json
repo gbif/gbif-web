@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "データセット検索",
-  "datasetSearchDescription": "",
+  "datasetSearchDescription": "GBIF内で文献検索。フリーかつオープンアクセスな生物多様性データ",
   "longType": {
     "OCCURRENCE": "オカレンスデータセット",
     "CHECKLIST": "チェックリスト データセット",
@@ -89,6 +89,7 @@
   "studyArea": "研究された地域",
   "publishedBy": "出版",
   "mediatedBy": "次のサイトを介して：",
+  "extensions": "拡張モジュール",
   "description": "説明",
   "metadataLanguage": "メタデータの言語",
   "dataLanguage": "データの言語",
@@ -136,8 +137,8 @@
   "childEvents": "子イベント",
   "events": "イベント",
   "boundingBox": "",
-  "latitude": "",
-  "longitude": "",
+  "latitude": "緯度",
+  "longitude": "経度",
   "verbatim": "オリジナルのまま",
   "occurrenceCount": "オカレンスのカウント",
   "inDataset": "In",

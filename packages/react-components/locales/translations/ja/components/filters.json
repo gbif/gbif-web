@@ -58,17 +58,17 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "緯度",
+    "placeholderLon": "経度",
+    "placeholderDist": "距離"
   },
   "geometry": {
     "name": "位置情報",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "緯度",
+    "placeholderLon": "経度",
+    "placeholderDist": "距離"
   },
   "relevance": {
     "name": "関連性",
@@ -666,7 +666,7 @@
     "description": ""
   },
   "humboldtBooleans": {
-    "name": "",
+    "name": "Humboldt extension",
     "count": "",
     "description": ""
   },

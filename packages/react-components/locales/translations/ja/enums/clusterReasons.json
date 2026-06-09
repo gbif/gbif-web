@@ -1,1 +1,16 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "同じ受け入れ種",
+  "SAME_DATE": "同じ日付",
+  "APPROXIMATE_DATE": "おおよその日付け",
+  "DIFFERENT_DATE": "日付けが異なる",
+  "SAME_COORDINATES": "同じ座標",
+  "WITHIN_200m": "200m以内",
+  "WITHIN_2Km": "2km以内",
+  "SAME_COUNTRY": "同じ国",
+  "DIFFERENT_COUNTRY": "異なる国",
+  "IDENTIFIERS_OVERLAP": "識別子が重複する",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "他のカタログ番号は重複する",
+  "SAME_RECORDER_NAME": "同じレコーダー名",
+  "SAME_SPECIMEN": "同じ標本",
+  "TYPIFICATION_RELATION": "類型関係"
+}

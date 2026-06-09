@@ -12,6 +12,7 @@
   "deletedOnDate": "Usunięte {date}",
   "replacedBy": "Zastąpione przez {newItem}",
   "showAll": "Pokaż całość",
+  "showAllNItems": "",
   "viewAllImages": "",
   "share": "Udostępnij",
   "identifier": "Identyfikator",
