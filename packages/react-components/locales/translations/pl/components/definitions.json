@@ -21,9 +21,9 @@
       "http://data.ggbn.org/schemas/ggbn/terms/Permit": "Informacje o zezwoleniach związanych z materiałem - http://data.ggbn.org/schemas/ggbn/terms/Permit",
       "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "Informacje o sposobie przygotowania materiału - http://data.ggbn.org/schemas/ggbn/terms/Preparation",
       "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "Informacje o sposobie konserwacji materiału - http://data.ggbn.org/schemas/ggbn/terms/Preservation",
-      "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact": "",
-      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "",
-      "http://rs.gbif.org/terms/1.0/DNADerivedData": ""
+      "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact": "Rozszerzone pomiary lub fakty dotyczące zjawiska biologicznego, pomiary lub fakty środowiskowe oraz atrybuty metody pobierania próbek - http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact",
+      "http://rs.tdwg.org/chrono/terms/ChronometricAge": "Informacje o wieku chronometrycznym w przypadkach, gdy zdarzenie związane ze zbieraniem próbek nie jest współczesne z czasem życia organizmu - http://rs.tdwg.org/chrono/terms/ChronometricAge",
+      "http://rs.gbif.org/terms/1.0/DNADerivedData": "Zawiera istotne informacje dotyczące rekordów uzyskanych na podstawie analizy DNA - http://rs.gbif.org/terms/1.0/DNADerivedData"
     }
   }
 }
