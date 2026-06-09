@@ -76,5 +76,9 @@
   "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Nom scientifique et ID incohérents",
   "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Correspondance taxonomique du nom et ID ambigus",
   "SUSPECTED_TYPE": "Type suspecté",
-  "EVENT_DURATION_UNIT_MISSING": "Unité de durée de l'événement manquante"
+  "GEOSPATIAL_SCOPE_AREA_LOWER_THAN_TOTAL_AREA_SAMPLED": "Zone géospatiale est inférieure à la superficie totale échantillonnée",
+  "EVENT_DURATION_UNIT_MISSING": "Unité de durée de l'événement manquante",
+  "GEOSPATIAL_SCOPE_AREA_UNIT_MISSING": "Unité de mesure de la zone géospatiale manquante",
+  "SAMPLING_EFFORT_UNIT_MISSING": "Unité d'effort d'échantillonnage manquante",
+  "TOTAL_AREA_SAMPLED_UNIT_MISSING": "Unité de surface totale échantillonnée manquante"
 }
