@@ -3,7 +3,7 @@ import LRU from 'lru-cache';
 import hash from 'object-hash';
 import { ParsedQs } from 'qs';
 
-const queryCache = new LRU({ max: 1000 });
+const queryCache = new LRU({ max: 10000 });
 const variablesCache = new LRU({ max: 10000 });
 
 type StoredQuery = string | ParsedQs | string[] | ParsedQs[] | undefined;
