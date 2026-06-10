@@ -98,7 +98,8 @@ graphql-api /health). Top level: `uptimeSeconds`, `inflight` (requests being
 handled across the whole service right now), and `rejecting` (true whenever
 something is being turned away — a gate band is active or a queue is at its hard
 cap). Per queue: `waiting` (queued, not started), `running` (being processed),
-`currentQueueSize` (waiting + running), `concurrencyLimit`, `maxQueueSize`,
+`currentQueueSize` (waiting + running), `largestSeenQueueSize` (high-water mark
+of currentQueueSize since startup), `concurrencyLimit`, `maxQueueSize`,
 cumulative `served` / `failed` / `rejected` counts, and — for the occurrence
 queue — the current `shedding` band. Also reports `eventLoop` lag, including
 `peakEventLoopMetrics`: a snapshot of inflight, heap and queue sizes captured at

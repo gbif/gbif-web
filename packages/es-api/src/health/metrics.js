@@ -19,7 +19,7 @@ let inflight = 0; // service-wide requests being handled right now
 function counted(name) {
   let c = counters.get(name);
   if (!c) {
-    c = { served: 0, failed: 0, rejected: 0, running: 0 };
+    c = { served: 0, failed: 0, rejected: 0, running: 0, largestSeenQueueSize: 0 };
     counters.set(name, c);
   }
   return c;
@@ -90,6 +90,23 @@ function trackInflight(req, res, next) {
 const unbounded = (n) => (Number.isFinite(n) ? n : -1);
 const callable = (o, m) => o && typeof o[m] === 'function';
 
+// High-water mark of each queue's size (waiting + running). express-queue does
+// not expose an enqueue hook, so we sample periodically: a spike shorter than
+// the interval can be missed, but sustained backlogs (what matters for sizing)
+// are caught. getStats() also refreshes it on every /health read.
+const HIGH_WATER_SAMPLE_MS = 1000;
+function sampleHighWater() {
+  queues.forEach(({ queue }, name) => {
+    const inner = queue && queue.queue;
+    const waiting = callable(inner, 'getLength') ? inner.getLength() : 0;
+    const c = counted(name);
+    const current = (waiting > 0 ? waiting : 0) + c.running;
+    if (current > c.largestSeenQueueSize) c.largestSeenQueueSize = current;
+  });
+}
+const highWaterSampler = setInterval(sampleHighWater, HIGH_WATER_SAMPLE_MS);
+highWaterSampler.unref();
+
 // Just the live sizes per queue (no cumulative counters / shedding). Used for
 // the event-loop peak snapshot, where only the point-in-time state matters.
 function getQueueSizes() {
@@ -121,10 +138,15 @@ function getStats() {
       Number.isFinite(maxQueueSize) && waiting >= 0 && waiting >= maxQueueSize;
     if (queueFullNow) rejecting = true;
 
+    const currentQueueSize = (waiting >= 0 ? waiting : 0) + c.running;
+    if (currentQueueSize > c.largestSeenQueueSize) {
+      c.largestSeenQueueSize = currentQueueSize;
+    }
     const entry = {
       waiting, // queued, not yet started
       running: c.running, // currently being processed
-      currentQueueSize: (waiting >= 0 ? waiting : 0) + c.running,
+      currentQueueSize,
+      largestSeenQueueSize: c.largestSeenQueueSize, // high-water mark
       concurrencyLimit: unbounded(concurrencyLimit),
       maxQueueSize: unbounded(maxQueueSize),
       served: c.served,

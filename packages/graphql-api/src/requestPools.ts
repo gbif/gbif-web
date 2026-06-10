@@ -173,13 +173,18 @@ export function getPoolQueue(pool: PoolName): PQueue {
 // they are a coarse "how busy is this upstream" number, not a request count.
 const poolCounters = new Map<
   PoolName,
-  { served: number; failed: number; rejected: number }
+  {
+    served: number;
+    failed: number;
+    rejected: number;
+    largestSeenQueueSize: number;
+  }
 >();
 
 function poolCounter(pool: PoolName) {
   let c = poolCounters.get(pool);
   if (!c) {
-    c = { served: 0, failed: 0, rejected: 0 };
+    c = { served: 0, failed: 0, rejected: 0, largestSeenQueueSize: 0 };
     poolCounters.set(pool, c);
   }
   return c;
@@ -200,6 +205,13 @@ export function runInPool<T>(pool: PoolName, fn: () => Promise<T>): Promise<T> {
   if (Number.isFinite(maxDepth) && queue.size >= maxDepth) {
     counters.rejected += 1;
     return Promise.reject(new PoolOverloadError(pool, queue.size));
+  }
+  // High-water mark of the in-system count (waiting + running). The peak can
+  // only occur when a job is added, so checking here catches it exactly. The +1
+  // is the job we are about to enqueue.
+  const inSystem = queue.size + queue.pending + 1;
+  if (inSystem > counters.largestSeenQueueSize) {
+    counters.largestSeenQueueSize = inSystem;
   }
   return (queue.add(fn) as Promise<T>).then(
     (result) => {
@@ -284,6 +296,7 @@ export function getPoolStats() {
       waiting: number;
       running: number;
       currentQueueSize: number;
+      largestSeenQueueSize: number;
       concurrencyLimit: number;
       maxQueueSize: number;
       served: number;
@@ -298,6 +311,7 @@ export function getPoolStats() {
       waiting: queue.size, // queued, not yet started
       running: queue.pending, // currently in flight
       currentQueueSize: queue.size + queue.pending, // waiting + running
+      largestSeenQueueSize: counters.largestSeenQueueSize, // high-water mark
       concurrencyLimit: unbounded(queue.concurrency as number),
       maxQueueSize: unbounded(resolveMaxQueueDepth(pool)),
       served: counters.served,
