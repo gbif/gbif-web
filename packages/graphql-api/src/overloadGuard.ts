@@ -55,7 +55,7 @@ histogram.enable();
 let eventLoopDelayMs = 0;
 let eventLoopDelayMaxMs = 0; // worst single sample in the most recent window
 let peakEventLoopDelayMs = 0; // sticky worst since process start
-const SAMPLE_INTERVAL_MS = 250;
+const SAMPLE_INTERVAL_MS = 2000;
 const sampler = setInterval(() => {
   eventLoopDelayMs = histogram.mean / 1e6; // ns -> ms, mean since last reset
   eventLoopDelayMaxMs = histogram.max / 1e6;
