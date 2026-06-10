@@ -22,6 +22,7 @@ class DirectoryPersonAPI extends RESTDataSource {
     Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
     request.headers['User-Agent'] = this.context.userAgent;
     request.headers['referer'] = this.context.referer;
+    request.headers['x-client-priority'] = this.context.clientPriority;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 
