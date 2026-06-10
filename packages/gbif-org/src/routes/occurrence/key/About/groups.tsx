@@ -669,6 +669,7 @@ function Organism({
         filterValue={termMap?.organismID?.value}
         occurrence={occurrence}
       />
+      <PlainTextField term={termMap.organismName} showDetails={showAll} />
       <PlainTextField term={termMap.organismScope} showDetails={showAll} />
       <PlainTextField term={termMap.associatedOccurrences} showDetails={showAll} />
       <HtmlField term={termMap.associatedOrganisms} showDetails={showAll} />
