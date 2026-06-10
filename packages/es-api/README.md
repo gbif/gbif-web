@@ -102,7 +102,9 @@ cap). Per queue: `waiting` (queued, not started), `running` (being processed),
 cumulative `served` / `failed` / `rejected` counts, and — for the occurrence
 queue — the current `shedding` band. Also reports `eventLoop` lag, including
 `peakEventLoopMetrics`: a snapshot of inflight, heap and queue sizes captured at
-the worst stall since startup (also logged when it happens). Not cached.
+the worst stall since startup (also logged when it happens), and
+`lastSlowEventLoop` / `slowEventLoopCount`: when the loop was last stalled for
+over a second and how often that has happened since startup. Not cached.
 
 # Start
 for development with Nodemon: `npm start` else `node src/index.js --port=4001`

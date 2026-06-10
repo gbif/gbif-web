@@ -24,6 +24,9 @@ const PEAK_LOG_THRESHOLD_MS = 200;
 // startup spike and suppress logging of later, real stalls.
 const STARTUP_GRACE_SECONDS = 10;
 const SAMPLE_INTERVAL_MS = 2000;
+// A stall this big (a fully blocked loop for >1s) is notable on its own. We
+// record when it last happened and how many times, to get a sense of frequency.
+const SLOW_EVENT_LOOP_MS = 1000;
 
 const histogram = monitorEventLoopDelay({ resolution: RESOLUTION_MS });
 histogram.enable();
@@ -33,6 +36,8 @@ let eventLoopDelayMs = 0; // mean over the most recent window
 let eventLoopDelayMaxMs = 0; // worst single sample in the most recent window
 let peakEventLoopDelayMs = 0; // sticky worst since process start
 let peakEventLoopMetrics = null; // snapshot of service state at that worst stall
+let lastSlowEventLoop = null; // ISO time of the last stall over SLOW_EVENT_LOOP_MS
+let slowEventLoopCount = 0; // how many such stalls since startup
 
 const heapLimitBytes = v8.getHeapStatistics().heap_size_limit;
 
@@ -66,10 +71,8 @@ function captureSnapshot(lagMs) {
 const sampler = setInterval(() => {
   eventLoopDelayMs = trueLag(histogram.mean / 1e6); // ns -> ms, mean since last reset
   eventLoopDelayMaxMs = trueLag(histogram.max / 1e6);
-  if (
-    process.uptime() >= STARTUP_GRACE_SECONDS &&
-    eventLoopDelayMaxMs > peakEventLoopDelayMs
-  ) {
+  const afterGrace = process.uptime() >= STARTUP_GRACE_SECONDS;
+  if (afterGrace && eventLoopDelayMaxMs > peakEventLoopDelayMs) {
     peakEventLoopDelayMs = eventLoopDelayMaxMs;
     peakEventLoopMetrics = captureSnapshot(peakEventLoopDelayMs);
     // Log the moment a new worst-ever stall is observed, with the surrounding
@@ -77,6 +80,10 @@ const sampler = setInterval(() => {
     if (peakEventLoopDelayMs > PEAK_LOG_THRESHOLD_MS) {
       logger.warn('new peak event-loop lag', peakEventLoopMetrics);
     }
+  }
+  if (afterGrace && eventLoopDelayMaxMs > SLOW_EVENT_LOOP_MS) {
+    lastSlowEventLoop = new Date().toISOString();
+    slowEventLoopCount += 1;
   }
   histogram.reset();
 }, SAMPLE_INTERVAL_MS);
@@ -89,6 +96,11 @@ function getEventLoopStats() {
     peakEventLoopDelayMs: Math.round(peakEventLoopDelayMs * 10) / 10,
     // State captured at the worst stall (null until one is recorded).
     peakEventLoopMetrics,
+    // When the loop was last stalled for over a second, and how often that has
+    // happened since startup — a rough sense of how frequent bad stalls are.
+    slowEventLoopThresholdMs: SLOW_EVENT_LOOP_MS,
+    lastSlowEventLoop, // ISO timestamp, null until one occurs
+    slowEventLoopCount,
   };
 }
 
