@@ -100,7 +100,8 @@ something is being turned away — a gate band is active or a queue is at its ha
 cap). Per queue: `waiting` (queued, not started), `running` (being processed),
 `currentQueueSize` (waiting + running), `largestSeenQueueSize` (high-water mark
 of currentQueueSize since startup), `concurrencyLimit`, `maxQueueSize`,
-cumulative `served` / `failed` / `rejected` counts, and — for the occurrence
+cumulative `served` / `failed` / `aborted` (client disconnected) / `rejected`
+counts, and — for the occurrence
 queue — the current `shedding` band. Also reports `eventLoop` lag, including
 `peakEventLoopMetrics`: a snapshot of inflight, heap and queue sizes captured at
 the worst stall since startup (also logged when it happens), and

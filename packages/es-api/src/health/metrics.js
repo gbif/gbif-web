@@ -19,7 +19,14 @@ let inflight = 0; // service-wide requests being handled right now
 function counted(name) {
   let c = counters.get(name);
   if (!c) {
-    c = { served: 0, failed: 0, rejected: 0, running: 0, largestSeenQueueSize: 0 };
+    c = {
+      served: 0,
+      failed: 0,
+      aborted: 0,
+      rejected: 0,
+      running: 0,
+      largestSeenQueueSize: 0,
+    };
     counters.set(name, c);
   }
   return c;
@@ -61,6 +68,7 @@ function recordComplete(name, outcome) {
   if (c.running > 0) c.running -= 1;
   if (outcome === 'served') c.served += 1;
   else if (outcome === 'failed') c.failed += 1;
+  else if (outcome === 'aborted') c.aborted += 1;
 }
 
 function getInflight() {
@@ -151,6 +159,7 @@ function getStats() {
       maxQueueSize: unbounded(maxQueueSize),
       served: c.served,
       failed: c.failed,
+      aborted: c.aborted, // client disconnected before completion
       rejected: c.rejected,
       queueFullNow,
     };

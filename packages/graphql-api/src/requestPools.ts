@@ -176,6 +176,7 @@ const poolCounters = new Map<
   {
     served: number;
     failed: number;
+    aborted: number;
     rejected: number;
     largestSeenQueueSize: number;
   }
@@ -184,10 +185,26 @@ const poolCounters = new Map<
 function poolCounter(pool: PoolName) {
   let c = poolCounters.get(pool);
   if (!c) {
-    c = { served: 0, failed: 0, rejected: 0, largestSeenQueueSize: 0 };
+    c = {
+      served: 0,
+      failed: 0,
+      aborted: 0,
+      rejected: 0,
+      largestSeenQueueSize: 0,
+    };
     poolCounters.set(pool, c);
   }
   return c;
+}
+
+// A client disconnect aborts the upstream call, which surfaces as an AbortError.
+// That is a cancellation, not a failure, so it is counted separately. Our own
+// pool timeout is also implemented via an abort, but it is translated to a
+// PoolTimeoutError (poolTimeout marker) and stays a real failure.
+function isClientCancellation(err: unknown): boolean {
+  const e = err as { name?: string; extensions?: { poolTimeout?: boolean } };
+  if (e?.extensions?.poolTimeout) return false;
+  return e?.name === 'AbortError';
 }
 
 /**
@@ -219,7 +236,9 @@ export function runInPool<T>(pool: PoolName, fn: () => Promise<T>): Promise<T> {
       return result;
     },
     (err) => {
-      counters.failed += 1;
+      // A cancelled request (client disconnect) is not a failure.
+      if (isClientCancellation(err)) counters.aborted += 1;
+      else counters.failed += 1;
       throw err;
     },
   );
@@ -301,6 +320,7 @@ export function getPoolStats() {
       maxQueueSize: number;
       served: number;
       failed: number;
+      aborted: number;
       rejected: number;
       timeoutMs: number;
     }
@@ -316,6 +336,7 @@ export function getPoolStats() {
       maxQueueSize: unbounded(resolveMaxQueueDepth(pool)),
       served: counters.served,
       failed: counters.failed,
+      aborted: counters.aborted, // client disconnected before completion
       rejected: counters.rejected,
       timeoutMs: unbounded(poolTimeoutMs(pool)),
     };
