@@ -10,22 +10,45 @@ const {
   errorLoggingMiddleware,
   admissionGate,
 } = require('./middleware');
+const {
+  registerQueue,
+  registerGate,
+  recordRejection,
+} = require('./health/metrics');
+const health = require('./health');
 const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
 
-const rejectHandler = (req, res) => {
+const ACTIVE_LIMIT = 10;
+const QUEUED_LIMIT = 2000;
+
+function rejectResponse(res) {
   res.status(429);
   res.json({
     error: 429,
     message:
       'Too many concurrent requests. This threshold is shared across users, so it is not only your requests.',
   });
-};
+}
 
-const queueOptions = {
-  activeLimit: 10,
-  queuedLimit: 2000,
-  rejectHandler,
-};
+// Create an express-queue for an endpoint and register it with /health under
+// `name`. Its reject handler (fired when the backlog hits the hard cap) is
+// counted as a `queueFull` rejection. One shared instance is used per endpoint
+// (both GET and POST) so the reported backlog spans the whole endpoint.
+function makeQueue(name) {
+  const q = queue({
+    activeLimit: ACTIVE_LIMIT,
+    queuedLimit: QUEUED_LIMIT,
+    rejectHandler: (req, res) => {
+      recordRejection(name, 'queueFull');
+      rejectResponse(res);
+    },
+  });
+  registerQueue(name, q, {
+    activeLimit: ACTIVE_LIMIT,
+    queuedLimit: QUEUED_LIMIT,
+  });
+  return q;
+}
 
 // Occurrence search is the heaviest, most contended upstream. It keeps a plain
 // FIFO queue (so requests are served in arrival order and nothing starves), but
@@ -36,13 +59,17 @@ const queueOptions = {
 // requests are never evicted — they drain naturally. A single shared queue
 // instance serves both GET and POST /occurrence so the backlog spans the whole
 // endpoint, and one gate reads its depth.
-const occurrenceQueue = queue(queueOptions);
+const occurrenceQueue = makeQueue('occurrence');
 const occurrenceGate = admissionGate({
   getQueueLength: () => occurrenceQueue.queue.getLength(),
   shedBands: _.get(config, 'queue.shedBands', []),
   defaultPriority: _.get(config, 'queue.defaultPriority', 100),
-  rejectHandler,
+  rejectHandler: (req, res) => {
+    recordRejection('occurrence', 'priorityShed');
+    rejectResponse(res);
+  },
 });
+registerGate('occurrence', occurrenceGate);
 
 let content, literature, occurrence, eventOccurrence, dataset, event;
 if (config.content) {
@@ -124,20 +151,22 @@ const temporaryAuthMiddleware = function (req, res, next) {
 // app.use(temporaryAuthMiddleware)
 
 if (content) {
+  const contentQueue = makeQueue('content');
   app.post('/content/meta', asyncMiddleware(metaOnly(content)));
   app.get('/content/meta', asyncMiddleware(metaOnly(content)));
 
-  app.post('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
-  app.get('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
+  app.post('/content', contentQueue, asyncMiddleware(searchResource(content)));
+  app.get('/content', contentQueue, asyncMiddleware(searchResource(content)));
   app.get('/content/key/:id', asyncMiddleware(keyResource(content)));
 }
 
 if (literature) {
+  const literatureQueue = makeQueue('literature');
   app.post('/literature/meta', asyncMiddleware(metaOnly(literature)));
   app.get('/literature/meta', asyncMiddleware(metaOnly(literature)));
 
-  app.post('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
-  app.get('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
+  app.post('/literature', literatureQueue, asyncMiddleware(searchResource(literature)));
+  app.get('/literature', literatureQueue, asyncMiddleware(searchResource(literature)));
   app.get('/literature/key/:id', asyncMiddleware(keyResource(literature)));
 }
 
@@ -172,18 +201,19 @@ if (occurrence) {
 }
 
 if (eventOccurrence) {
+  const eventOccurrenceQueue = makeQueue('event-occurrence');
   app.post('/event-occurrence/meta', asyncMiddleware(metaOnly(eventOccurrence)));
   app.get('/event-occurrence/meta', asyncMiddleware(metaOnly(eventOccurrence)));
 
   app.post(
     '/event-occurrence',
-    queue(queueOptions),
+    eventOccurrenceQueue,
     temporaryAuthMiddleware,
     asyncMiddleware(searchResource(eventOccurrence)),
   );
   app.get(
     '/event-occurrence',
-    queue(queueOptions),
+    eventOccurrenceQueue,
     temporaryAuthMiddleware,
     asyncMiddleware(searchResource(eventOccurrence)),
   );
@@ -197,15 +227,16 @@ if (eventOccurrence) {
 }
 
 if (dataset) {
+  const datasetQueue = makeQueue('dataset');
   app.post(
     '/dataset',
-    queue(queueOptions),
+    datasetQueue,
     temporaryAuthMiddleware,
     asyncMiddleware(searchResource(dataset)),
   );
   app.get(
     '/dataset',
-    queue(queueOptions),
+    datasetQueue,
     temporaryAuthMiddleware,
     asyncMiddleware(searchResource(dataset)),
   );
@@ -214,7 +245,7 @@ if (dataset) {
 
 let eventQueue;
 if (event) {
-  eventQueue = queue(queueOptions);
+  eventQueue = makeQueue('event');
   app.post('/event/meta', asyncMiddleware(metaOnly(event)));
   app.get('/event/meta', asyncMiddleware(metaOnly(event)));
 
@@ -393,6 +424,8 @@ function suggestResource(resource) {
 function metaOnly(resource) {
   return searchResource(resource, true);
 }
+
+app.get('/health', health);
 
 app.get('*', unknownRouteHandler);
 app.use(errorHandler);

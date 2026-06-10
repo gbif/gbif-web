@@ -53,14 +53,6 @@ function admissionGate(options = {}) {
     )
     .sort((a, b) => b.queueAbove - a.queueAbove);
 
-  // No bands -> nothing to shed; hand back a pass-through so call sites can use
-  // the gate unconditionally.
-  if (bands.length === 0) {
-    return function noShedGate(req, res, next) {
-      next();
-    };
-  }
-
   function readPriority(req) {
     const raw = req.headers && req.headers[header];
     const n = parseInt(Array.isArray(raw) ? raw[0] : raw, 10);
@@ -69,20 +61,46 @@ function admissionGate(options = {}) {
     return Math.min(100, Math.max(1, n));
   }
 
-  return function admissionGateMiddleware(req, res, next) {
-    const depth = getQueueLength();
+  // The strictest band whose threshold the current backlog exceeds, or null.
+  function activeBand(depth) {
     for (let i = 0; i < bands.length; i += 1) {
-      if (depth > bands[i].queueAbove) {
-        // Strictest applicable band decides; only now do we read the header.
-        if (readPriority(req) > bands[i].maxPriority) {
-          rejectHandler(req, res);
-          return;
-        }
-        break;
-      }
+      if (depth > bands[i].queueAbove) return bands[i];
     }
-    next();
-  };
+    return null;
+  }
+
+  // A snapshot for /health: are we shedding right now and from which priority.
+  function getShedStatus() {
+    const depth = getQueueLength();
+    const band = activeBand(depth);
+    return {
+      queueLength: depth,
+      rejecting: !!band,
+      maxPriority: band ? band.maxPriority : null,
+      bands,
+    };
+  }
+
+  // No bands -> nothing to shed; a pass-through (still reports its status).
+  let middleware;
+  if (bands.length === 0) {
+    middleware = function noShedGate(req, res, next) {
+      next();
+    };
+  } else {
+    middleware = function admissionGateMiddleware(req, res, next) {
+      const band = activeBand(getQueueLength());
+      // Strictest applicable band decides; only then do we read the header.
+      if (band && readPriority(req) > band.maxPriority) {
+        rejectHandler(req, res);
+        return;
+      }
+      next();
+    };
+  }
+
+  middleware.getShedStatus = getShedStatus;
+  return middleware;
 }
 
 module.exports = admissionGate;

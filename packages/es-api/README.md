@@ -92,6 +92,15 @@ queue:
 port: 4001
 ```
 
+# Health
+`GET /health` reports the live state of the request queues. For each endpoint it
+shows the current backlog (`waiting`/`active`), how many requests have been
+rejected since startup (`queueFull` when the backlog hit its hard cap,
+`priorityShed` when the occurrence priority gate dropped them), and — for the
+occurrence queue — the current `shedding` band. The top-level `rejecting` flag is
+`true` whenever something is being turned away right now (a gate band is active
+or a queue is at its hard cap). Not cached.
+
 # Start
 for development with Nodemon: `npm start` else `node src/index.js --port=4001`
 
