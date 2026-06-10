@@ -117,6 +117,7 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
                           params={{
                             taxonKey: taxonInfo?.taxonID,
                             country: e.countryCode,
+                            checklistKey: taxonInfo?.datasetKey,
                             limit: 0,
                           }}
                         />
