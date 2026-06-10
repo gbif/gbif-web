@@ -90,6 +90,23 @@ function trackInflight(req, res, next) {
 const unbounded = (n) => (Number.isFinite(n) ? n : -1);
 const callable = (o, m) => o && typeof o[m] === 'function';
 
+// Just the live sizes per queue (no cumulative counters / shedding). Used for
+// the event-loop peak snapshot, where only the point-in-time state matters.
+function getQueueSizes() {
+  const out = {};
+  queues.forEach(({ queue }, name) => {
+    const inner = queue && queue.queue;
+    const waiting = callable(inner, 'getLength') ? inner.getLength() : -1;
+    const running = counted(name).running;
+    out[name] = {
+      waiting,
+      running,
+      currentQueueSize: (waiting >= 0 ? waiting : 0) + running,
+    };
+  });
+  return out;
+}
+
 function getStats() {
   const out = {};
   // "rejecting" = are we turning anything away *right now*: either a gate is in
@@ -137,5 +154,6 @@ module.exports = {
   recordComplete,
   trackInflight,
   getInflight,
+  getQueueSizes,
   getStats,
 };

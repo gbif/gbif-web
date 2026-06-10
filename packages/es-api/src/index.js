@@ -17,8 +17,18 @@ const {
   recordAdmit,
   recordComplete,
   trackInflight,
+  getInflight,
+  getQueueSizes,
 } = require('./health/metrics');
 const health = require('./health');
+const { setPeakSnapshotProvider } = require('./health/eventLoop');
+
+// When a new worst event-loop stall is recorded, fold in what the service was
+// doing (inflight + queue sizes) so /health and the log line can explain it.
+setPeakSnapshotProvider(() => ({
+  inflight: getInflight(),
+  queues: getQueueSizes(),
+}));
 const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
 
 const ACTIVE_LIMIT = 10;
