@@ -3,6 +3,7 @@ import v8 from 'node:v8';
 import { get } from 'lodash';
 import type { Request, Response, NextFunction } from 'express';
 import config from './config';
+import logger from './logger';
 
 /**
  * Pre-Apollo overload guard.
@@ -57,6 +58,9 @@ const settings = {
 // floor. We subtract it (clamped at 0) so the reported numbers are *true* lag
 // (how far behind the loop is), not lag + the sampling resolution.
 const RESOLUTION_MS = 20;
+// Only log a new peak once it represents a meaningful stall, otherwise normal
+// jitter would log on every small new high during warmup and spam the logs.
+const PEAK_LOG_THRESHOLD_MS = 200;
 const histogram = monitorEventLoopDelay({ resolution: RESOLUTION_MS });
 histogram.enable();
 const trueLag = (rawMs: number) => Math.max(0, rawMs - RESOLUTION_MS);
@@ -71,14 +75,12 @@ const sampler = setInterval(() => {
     peakEventLoopDelayMs = eventLoopDelayMaxMs;
     // Log the moment a new worst-ever stall is observed so it can be correlated
     // with what the process was doing (startup, a heavy /graphql query, GC).
-    // eslint-disable-next-line no-console
-    console.warn(
-      `[overloadGuard] new peak event-loop lag ${peakEventLoopDelayMs.toFixed(
-        1,
-      )}ms at ${new Date().toISOString()} (uptime ${process
-        .uptime()
-        .toFixed(1)}s)`,
-    );
+    if (peakEventLoopDelayMs > PEAK_LOG_THRESHOLD_MS) {
+      logger.warn('new peak event-loop lag', {
+        eventLoopLagMs: Math.round(peakEventLoopDelayMs * 10) / 10,
+        uptimeSeconds: Math.round(process.uptime() * 10) / 10,
+      });
+    }
   }
   histogram.reset();
 }, SAMPLE_INTERVAL_MS);
