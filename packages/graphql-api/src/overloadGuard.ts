@@ -121,7 +121,7 @@ export function getOverloadStats() {
     eventLoopDelayMs: Math.round(eventLoopDelayMs * 10) / 10,
     eventLoopDelayMaxMs: Math.round(eventLoopDelayMaxMs * 10) / 10,
     peakEventLoopDelayMs: Math.round(peakEventLoopDelayMs * 10) / 10,
-    inFlight,
+    inflight: inFlight,
     heapUsedMb: Math.round(process.memoryUsage().heapUsed / 1048576),
     heapUsedPercent: Math.round(heapUsedFraction() * 100),
     thresholds: {

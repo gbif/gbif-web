@@ -14,7 +14,7 @@ export default (req, res) => {
       uptimeSeconds: Math.round(process.uptime()),
       // requests being handled across the whole service right now (the guard
       // tracks this for /graphql, which is effectively all traffic).
-      inflight: overload.inFlight,
+      inflight: overload.inflight,
       // Per-upstream bulkhead depth/limits. During an incident this shows which
       // pool is backed up (high `waiting`) vs which upstream is just slow.
       requestPools: getPoolStats(),
