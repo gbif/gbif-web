@@ -185,6 +185,7 @@ const typeDef = gql`
     month: Long!
     license: Long!
     basisOfRecord: Long!
+    nucleotideSequenceTargetGene: Long!
     issue: Long!
     taxonomicIssue: Long!
     collectionKey: Long!
@@ -256,6 +257,7 @@ const typeDef = gql`
     depth(interval: Float): Histogram
     startDayOfYear(interval: Float): Histogram
     endDayOfYear(interval: Float): Histogram
+    nucleotideSequenceSequenceLength(interval: Float): Histogram
   }
 
   type OccurrenceAutoDateHistogram {
