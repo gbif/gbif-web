@@ -19,6 +19,10 @@ const health = require('./health');
 const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
 
 const ACTIVE_LIMIT = 10;
+// Occurrence is the heaviest endpoint and previously ran two 10-slot queues
+// (one per GET/POST instance), so it gets a higher cap now that GET+POST share
+// one queue — keeping ~20 concurrent for it while the rest stay at 10.
+const OCCURRENCE_ACTIVE_LIMIT = 20;
 const QUEUED_LIMIT = 2000;
 
 function rejectResponse(res) {
@@ -34,9 +38,9 @@ function rejectResponse(res) {
 // `name`. Its reject handler (fired when the backlog hits the hard cap) is
 // counted as a `queueFull` rejection. One shared instance is used per endpoint
 // (both GET and POST) so the reported backlog spans the whole endpoint.
-function makeQueue(name) {
+function makeQueue(name, activeLimit = ACTIVE_LIMIT) {
   const q = queue({
-    activeLimit: ACTIVE_LIMIT,
+    activeLimit,
     queuedLimit: QUEUED_LIMIT,
     rejectHandler: (req, res) => {
       recordRejection(name, 'queueFull');
@@ -44,7 +48,7 @@ function makeQueue(name) {
     },
   });
   registerQueue(name, q, {
-    activeLimit: ACTIVE_LIMIT,
+    activeLimit,
     queuedLimit: QUEUED_LIMIT,
   });
   return q;
@@ -59,7 +63,7 @@ function makeQueue(name) {
 // requests are never evicted — they drain naturally. A single shared queue
 // instance serves both GET and POST /occurrence so the backlog spans the whole
 // endpoint, and one gate reads its depth.
-const occurrenceQueue = makeQueue('occurrence');
+const occurrenceQueue = makeQueue('occurrence', OCCURRENCE_ACTIVE_LIMIT);
 const occurrenceGate = admissionGate({
   getQueueLength: () => occurrenceQueue.queue.getLength(),
   shedBands: _.get(config, 'queue.shedBands', []),
