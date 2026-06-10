@@ -119,7 +119,7 @@ function getStats() {
     const gate = gates.get(name);
     if (callable(gate, 'getShedStatus')) {
       const shed = gate.getShedStatus();
-      entry.shedding = shed; // { queueLength, rejecting, maxPriority, bands }
+      entry.shedding = shed; // { rejecting, maxPriority, bands }
       if (shed && shed.rejecting) rejecting = true;
     }
 

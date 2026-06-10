@@ -70,11 +70,10 @@ function admissionGate(options = {}) {
   }
 
   // A snapshot for /health: are we shedding right now and from which priority.
+  // (The backlog length itself is reported separately as the queue's `waiting`.)
   function getShedStatus() {
-    const depth = getQueueLength();
-    const band = activeBand(depth);
+    const band = activeBand(getQueueLength());
     return {
-      queueLength: depth,
       rejecting: !!band,
       maxPriority: band ? band.maxPriority : null,
       bands,
