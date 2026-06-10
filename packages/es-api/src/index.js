@@ -5,21 +5,44 @@ const _ = require('lodash');
 const cors = require('cors');
 const config = require('./config');
 var queue = require('express-queue');
-const { loggingMiddleware, errorLoggingMiddleware } = require('./middleware');
+const {
+  loggingMiddleware,
+  errorLoggingMiddleware,
+  admissionGate,
+} = require('./middleware');
 const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
+
+const rejectHandler = (req, res) => {
+  res.status(429);
+  res.json({
+    error: 429,
+    message:
+      'Too many concurrent requests. This threshold is shared across users, so it is not only your requests.',
+  });
+};
 
 const queueOptions = {
   activeLimit: 10,
   queuedLimit: 2000,
-  rejectHandler: (req, res) => {
-    res.status(429);
-    res.json({
-      error: 429,
-      message:
-        'Too many concurrent requests. This threshold is shared across users, so it is not only your requests.',
-    });
-  },
+  rejectHandler,
 };
+
+// Occurrence search is the heaviest, most contended upstream. It keeps a plain
+// FIFO queue (so requests are served in arrival order and nothing starves), but
+// gets a priority admission gate in front: once the backlog is deep, the least
+// important incoming requests are rejected based on the `x-client-priority`
+// header Varnish attaches (lower = more important). The bands come from
+// `queue.shedBands` in config and default to none (no shedding). Already-queued
+// requests are never evicted — they drain naturally. A single shared queue
+// instance serves both GET and POST /occurrence so the backlog spans the whole
+// endpoint, and one gate reads its depth.
+const occurrenceQueue = queue(queueOptions);
+const occurrenceGate = admissionGate({
+  getQueueLength: () => occurrenceQueue.queue.getLength(),
+  shedBands: _.get(config, 'queue.shedBands', []),
+  defaultPriority: _.get(config, 'queue.defaultPriority', 100),
+  rejectHandler,
+});
 
 let content, literature, occurrence, eventOccurrence, dataset, event;
 if (config.content) {
@@ -124,13 +147,15 @@ if (occurrence) {
 
   app.post(
     '/occurrence',
-    queue(queueOptions),
+    occurrenceGate,
+    occurrenceQueue,
     temporaryAuthMiddleware,
     asyncMiddleware(searchResource(occurrence)),
   );
   app.get(
     '/occurrence',
-    queue(queueOptions),
+    occurrenceGate,
+    occurrenceQueue,
     temporaryAuthMiddleware,
     asyncMiddleware(searchResource(occurrence)),
   );
