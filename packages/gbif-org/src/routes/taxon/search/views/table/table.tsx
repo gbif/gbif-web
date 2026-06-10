@@ -29,14 +29,7 @@ const TAXON_SEARCH_QUERY = /* GraphQL */ `
     $sortBy: TaxonSearchSortBy
     $reverse: Boolean
   ) {
-    taxonSearch(
-      query: $query
-      offset: $offset
-      limit: $limit
-      sortBy: $sortBy
-      reverse: $reverse
-      searchType: FUZZY
-    ) {
+    taxonSearch(query: $query, offset: $offset, limit: $limit, sortBy: $sortBy, reverse: $reverse) {
       count
       offset
       endOfRecords
@@ -107,6 +100,7 @@ export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
           limit: paginationState.pageSize,
           offset: paginationState.pageIndex * paginationState.pageSize,
           sortBy: hasFreeTextSearch ? TaxonSearchSortBy.Relevance : TaxonSearchSortBy.Taxonomic,
+          searchContent: ['SCIENTIFIC', 'AUTHORSHIP', 'VERNACULAR'],
         },
       },
     });
