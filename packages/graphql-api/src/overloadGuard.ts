@@ -50,17 +50,35 @@ const settings = {
 
 // The histogram is always enabled (it is cheap) so /health can report event-loop
 // lag even when the guard itself is disabled — useful for tuning the threshold.
-const histogram = monitorEventLoopDelay({ resolution: 20 });
+//
+// monitorEventLoopDelay arms a timer every RESOLUTION_MS and records the *actual*
+// gap between fires. On an idle loop that gap is already ~RESOLUTION_MS and Node
+// does NOT subtract it back out, so every raw sample carries a ~RESOLUTION_MS
+// floor. We subtract it (clamped at 0) so the reported numbers are *true* lag
+// (how far behind the loop is), not lag + the sampling resolution.
+const RESOLUTION_MS = 20;
+const histogram = monitorEventLoopDelay({ resolution: RESOLUTION_MS });
 histogram.enable();
+const trueLag = (rawMs: number) => Math.max(0, rawMs - RESOLUTION_MS);
 let eventLoopDelayMs = 0;
 let eventLoopDelayMaxMs = 0; // worst single sample in the most recent window
 let peakEventLoopDelayMs = 0; // sticky worst since process start
 const SAMPLE_INTERVAL_MS = 250;
 const sampler = setInterval(() => {
-  eventLoopDelayMs = histogram.mean / 1e6; // ns -> ms, mean since last reset
-  eventLoopDelayMaxMs = histogram.max / 1e6;
+  eventLoopDelayMs = trueLag(histogram.mean / 1e6); // ns -> ms, mean since last reset
+  eventLoopDelayMaxMs = trueLag(histogram.max / 1e6);
   if (eventLoopDelayMaxMs > peakEventLoopDelayMs) {
     peakEventLoopDelayMs = eventLoopDelayMaxMs;
+    // Log the moment a new worst-ever stall is observed so it can be correlated
+    // with what the process was doing (startup, a heavy /graphql query, GC).
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[overloadGuard] new peak event-loop lag ${peakEventLoopDelayMs.toFixed(
+        1,
+      )}ms at ${new Date().toISOString()} (uptime ${process
+        .uptime()
+        .toFixed(1)}s)`,
+    );
   }
   histogram.reset();
 }, SAMPLE_INTERVAL_MS);
