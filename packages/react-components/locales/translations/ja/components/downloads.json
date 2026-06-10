@@ -137,7 +137,7 @@
         "IDENTIFIED_BY": "同定者",
         "GBIF_ID": "GBIF ID",
         "PUBLISHED_BY_GBIF_REGION": "",
-        "IUCN_RED_LIST_CATEGORY": "",
+        "IUCN_RED_LIST_CATEGORY": "IUCNレッドリストカテゴリー",
         "PATHWAY": "",
         "NETWORK_KEY": "ネットワーク",
         "DWCA_EXTENSION": "",
