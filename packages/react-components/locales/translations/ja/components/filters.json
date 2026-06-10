@@ -1,32 +1,32 @@
 {
   "dwcaExtension": {
-    "name": "",
-    "count": "",
+    "name": "DWCA拡張形式",
+    "count": "{num, plural, one { DwC-A 拡張形式 } other {# DwC-A 拡張形式}}",
     "description": ""
   },
   "locationId": {
     "name": "採集地ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {位置ID} other {#位置ID}}",
+    "description": "発行者は、場所にIDを割り当てることができます。このフィールドは正規化されていないため、発行者が提供するデータに基づいて検索が行われます。"
   },
   "hasCoordinate": {
     "name": "座標あり",
-    "count": "",
-    "description": ""
+    "count": "座標あり",
+    "description": "レコードに座標が含まれているかどうか。"
   },
   "hasGeospatialIssues": {
     "name": "地理空間情報の解釈に問題あり",
     "count": "地理空間情報の解釈に問題あり",
-    "description": ""
+    "description": "そのレコードに地理空間的な問題があるかどうか。"
   },
   "collectionKey": {
     "name": "コレクション",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one{クレクション} other{#コレクション}}",
+    "description": "このレコードが照合されたGrSciCollのコレクション"
   },
   "predicate": {
-    "name": "",
-    "count": "",
+    "name": "複雑なクエリ",
+    "count": "{num, plural, one { 複雑なクエリ } other {#  複雑なクエリ}}",
     "description": ""
   },
   "taxonomicStatus": {
@@ -112,7 +112,7 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
+    "count": "{num, plural, one { GBIF ID } other {# GBIF IDs}}",
     "description": ""
   },
   "organismQuantityType": {
@@ -156,8 +156,8 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "",
-    "count": "",
+    "name": "代理コード",
+    "count": "{num, plural, one { 代理コード } other {# 代理コード}}",
     "description": ""
   },
   "identifier": {
@@ -167,13 +167,13 @@
   },
   "institutionType": {
     "name": "タイプ",
-    "count": "",
+    "count": "{num, plural, one {#タイプ} other {# タイプ}}",
     "description": ""
   },
   "discipline": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "分野",
+    "count": "{num, plural, one{分野} other{#分野}}",
+    "description": "当機関がサポートする研究分野"
   },
   "collectionContentType": {
     "name": "",
@@ -197,12 +197,12 @@
   },
   "taxonKey": {
     "name": "学名",
-    "count": "",
+    "count": "{num, plural, one {学名} other {# 学名}}",
     "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "学名",
-    "count": "",
+    "count": "{num, plural, one {学名} other {# 学名}}",
     "description": ""
   },
   "basisOfRecord": {
@@ -524,7 +524,7 @@
   },
   "locationID": {
     "name": "採集地ID",
-    "count": "",
+    "count": "{num, plural, one {位置ID} other {#位置ID}}",
     "description": ""
   },
   "measurementOrFactTypes": {
