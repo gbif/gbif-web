@@ -65,7 +65,7 @@ const PEAK_LOG_THRESHOLD_MS = 200;
 // loop once. That is a known systemic cost, not load caused by usage, so ignore
 // it for peak tracking entirely — otherwise the sticky peak would be pinned to a
 // startup spike and suppress logging of later, real stalls.
-const STARTUP_GRACE_SECONDS = 2;
+const STARTUP_GRACE_SECONDS = 10;
 const histogram = monitorEventLoopDelay({ resolution: RESOLUTION_MS });
 histogram.enable();
 const trueLag = (rawMs: number) => Math.max(0, rawMs - RESOLUTION_MS);
