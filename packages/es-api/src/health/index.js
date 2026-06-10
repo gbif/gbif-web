@@ -1,4 +1,4 @@
-const { getStats } = require('./metrics');
+const { getStats, getInflight } = require('./metrics');
 const { getEventLoopStats } = require('./eventLoop');
 
 /**
@@ -15,6 +15,10 @@ module.exports = (req, res) => {
     const { rejecting, queues } = getStats();
     res.json({
       status: 'ok',
+      // seconds since the process started.
+      uptimeSeconds: Math.round(process.uptime()),
+      // requests being handled across the whole service right now.
+      inflight: getInflight(),
       // true when a priority gate is shedding or a queue is at its hard cap.
       rejecting,
       queues,

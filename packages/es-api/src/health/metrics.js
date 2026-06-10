@@ -2,57 +2,93 @@
  * In-process metrics registry backing the /health endpoint.
  *
  * Each endpoint's request queue registers here so /health can report its current
- * backlog and how many requests have been rejected (queue full) or shed by the
- * priority admission gate, plus whether anything is being rejected right now.
+ * backlog and throughput: how many requests are waiting vs running, how many
+ * have been served / failed / rejected, and whether anything is being rejected
+ * right now. It also tracks a service-wide in-flight count.
  *
  * Counters are cumulative since process start; they reset when the process
  * restarts (this is a single-process service with no shared store).
  */
 
-const queues = new Map(); // name -> { queue, activeLimit, queuedLimit }
+const queues = new Map(); // name -> { queue, concurrencyLimit, maxQueueSize }
 const gates = new Map(); // name -> gate middleware exposing getShedStatus()
-const rejections = new Map(); // name -> { queueFull, priorityShed }
+const counters = new Map(); // name -> { served, failed, rejected, running }
 
-function counters(name) {
-  let c = rejections.get(name);
+let inflight = 0; // service-wide requests being handled right now
+
+function counted(name) {
+  let c = counters.get(name);
   if (!c) {
-    c = { queueFull: 0, priorityShed: 0 };
-    rejections.set(name, c);
+    c = { served: 0, failed: 0, rejected: 0, running: 0 };
+    counters.set(name, c);
   }
   return c;
 }
 
-// Register an express-queue instance under an endpoint name. `limits` is just
-// echoed back on /health for context (express-queue does not expose them).
+// Register an express-queue instance under an endpoint name. `limits` is echoed
+// back on /health for context (express-queue does not expose them).
 function registerQueue(name, queue, limits = {}) {
   queues.set(name, {
     queue,
-    activeLimit: limits.activeLimit,
-    queuedLimit: limits.queuedLimit,
+    concurrencyLimit: limits.concurrencyLimit,
+    maxQueueSize: limits.maxQueueSize,
   });
-  counters(name);
+  counted(name);
 }
 
 // Register a priority admission gate (see middleware/admissionGate.js) so its
 // current shedding state is reported alongside the queue it guards.
 function registerGate(name, gate) {
   gates.set(name, gate);
-  counters(name);
+  counted(name);
 }
 
-// Called from the reject handlers when a request is turned away.
-// reason: 'queueFull' (backlog at the hard cap) | 'priorityShed' (gate).
-function recordRejection(name, reason) {
-  const c = counters(name);
-  if (reason === 'priorityShed') c.priorityShed += 1;
-  else c.queueFull += 1;
+// A request was turned away (backlog at the hard cap, or shed by the gate).
+function recordRejection(name) {
+  counted(name).rejected += 1;
 }
 
-function callable(obj, method) {
-  return obj && typeof obj[method] === 'function';
+// A request acquired a slot and started being processed.
+function recordAdmit(name) {
+  counted(name).running += 1;
+}
+
+// A processed request finished. outcome: 'served' | 'failed' | 'aborted'
+// ('aborted' = client disconnected mid-flight; counted as neither served nor
+// failed, but it still frees the running slot).
+function recordComplete(name, outcome) {
+  const c = counted(name);
+  if (c.running > 0) c.running -= 1;
+  if (outcome === 'served') c.served += 1;
+  else if (outcome === 'failed') c.failed += 1;
+}
+
+function getInflight() {
+  return inflight;
+}
+
+// Express middleware: count a request as in-flight for the whole service while
+// it is being handled. /health probes are excluded so they do not inflate it.
+function trackInflight(req, res, next) {
+  if (req.path === '/health') {
+    next();
+    return;
+  }
+  inflight += 1;
+  let released = false;
+  const release = () => {
+    if (!released) {
+      released = true;
+      if (inflight > 0) inflight -= 1;
+    }
+  };
+  res.once('finish', release);
+  res.once('close', release);
+  next();
 }
 
 const unbounded = (n) => (Number.isFinite(n) ? n : -1);
+const callable = (o, m) => o && typeof o[m] === 'function';
 
 function getStats() {
   const out = {};
@@ -60,28 +96,24 @@ function getStats() {
   // a shedding band, or a queue is sitting at its hard backlog cap.
   let rejecting = false;
 
-  queues.forEach(({ queue, activeLimit, queuedLimit }, name) => {
+  queues.forEach(({ queue, concurrencyLimit, maxQueueSize }, name) => {
     const inner = queue && queue.queue;
     const waiting = callable(inner, 'getLength') ? inner.getLength() : -1;
-    const active = callable(inner, 'getActiveCount')
-      ? inner.getActiveCount()
-      : undefined;
-    const rej = counters(name);
+    const c = counted(name);
     const queueFullNow =
-      Number.isFinite(queuedLimit) && waiting >= 0 && waiting >= queuedLimit;
+      Number.isFinite(maxQueueSize) && waiting >= 0 && waiting >= maxQueueSize;
     if (queueFullNow) rejecting = true;
 
     const entry = {
-      waiting,
-      ...(active === undefined ? {} : { active }),
-      activeLimit: unbounded(activeLimit),
-      queuedLimit: unbounded(queuedLimit),
+      waiting, // queued, not yet started
+      running: c.running, // currently being processed
+      currentQueueSize: (waiting >= 0 ? waiting : 0) + c.running,
+      concurrencyLimit: unbounded(concurrencyLimit),
+      maxQueueSize: unbounded(maxQueueSize),
+      served: c.served,
+      failed: c.failed,
+      rejected: c.rejected,
       queueFullNow,
-      rejected: {
-        queueFull: rej.queueFull,
-        priorityShed: rej.priorityShed,
-        total: rej.queueFull + rej.priorityShed,
-      },
     };
 
     const gate = gates.get(name);
@@ -101,5 +133,9 @@ module.exports = {
   registerQueue,
   registerGate,
   recordRejection,
+  recordAdmit,
+  recordComplete,
+  trackInflight,
+  getInflight,
   getStats,
 };

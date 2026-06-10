@@ -14,6 +14,9 @@ const {
   registerQueue,
   registerGate,
   recordRejection,
+  recordAdmit,
+  recordComplete,
+  trackInflight,
 } = require('./health/metrics');
 const health = require('./health');
 const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
@@ -35,23 +38,51 @@ function rejectResponse(res) {
 }
 
 // Create an express-queue for an endpoint and register it with /health under
-// `name`. Its reject handler (fired when the backlog hits the hard cap) is
-// counted as a `queueFull` rejection. One shared instance is used per endpoint
-// (both GET and POST) so the reported backlog spans the whole endpoint.
-function makeQueue(name, activeLimit = ACTIVE_LIMIT) {
+// `name`. Its reject handler (fired when the backlog hits the hard cap) bumps
+// the rejected counter. One shared instance is used per endpoint (both GET and
+// POST) so the reported backlog spans the whole endpoint.
+//
+// We wrap the queue middleware so we can also count running/served/failed:
+// express-queue invokes our `next` only once the request has acquired a slot
+// (is being processed), and the response's finish/close tells us the outcome.
+function makeQueue(name, concurrencyLimit = ACTIVE_LIMIT) {
   const q = queue({
-    activeLimit,
+    activeLimit: concurrencyLimit,
     queuedLimit: QUEUED_LIMIT,
     rejectHandler: (req, res) => {
-      recordRejection(name, 'queueFull');
+      recordRejection(name);
       rejectResponse(res);
     },
   });
-  registerQueue(name, q, {
-    activeLimit,
-    queuedLimit: QUEUED_LIMIT,
+
+  const middleware = (req, res, next) => {
+    q(req, res, (err) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      recordAdmit(name);
+      let settled = false;
+      const finalize = (outcome) => {
+        if (settled) return;
+        settled = true;
+        recordComplete(name, outcome);
+      };
+      res.once('finish', () =>
+        finalize(res.statusCode >= 400 ? 'failed' : 'served'),
+      );
+      res.once('close', () => finalize('aborted'));
+      next();
+    });
+  };
+  // Preserve the introspection handle the gate and /health read.
+  middleware.queue = q.queue;
+
+  registerQueue(name, middleware, {
+    concurrencyLimit,
+    maxQueueSize: QUEUED_LIMIT,
   });
-  return q;
+  return middleware;
 }
 
 // Occurrence search is the heaviest, most contended upstream. It keeps a plain
@@ -69,7 +100,7 @@ const occurrenceGate = admissionGate({
   shedBands: _.get(config, 'queue.shedBands', []),
   defaultPriority: _.get(config, 'queue.defaultPriority', 100),
   rejectHandler: (req, res) => {
-    recordRejection('occurrence', 'priorityShed');
+    recordRejection('occurrence');
     rejectResponse(res);
   },
 });
@@ -123,6 +154,10 @@ if (!config.debug) {
 
 // Add logging middleware
 app.use(loggingMiddleware);
+
+// Count every request as service-wide in-flight while it is handled (for
+// /health). Must run before the route handlers; /health itself is excluded.
+app.use(trackInflight);
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect

@@ -168,6 +168,23 @@ export function getPoolQueue(pool: PoolName): PQueue {
   return queue;
 }
 
+// Cumulative throughput counters per pool, reported on /health. These count
+// individual upstream calls (a single GraphQL request fans out into many), so
+// they are a coarse "how busy is this upstream" number, not a request count.
+const poolCounters = new Map<
+  PoolName,
+  { served: number; failed: number; rejected: number }
+>();
+
+function poolCounter(pool: PoolName) {
+  let c = poolCounters.get(pool);
+  if (!c) {
+    c = { served: 0, failed: 0, rejected: 0 };
+    poolCounters.set(pool, c);
+  }
+  return c;
+}
+
 /**
  * Run `fn` under the process-wide concurrency limit for `pool`. If the pool's
  * queue is already at its configured `maxQueueDepth`, the request is shed
@@ -178,11 +195,22 @@ export function getPoolQueue(pool: PoolName): PQueue {
 export function runInPool<T>(pool: PoolName, fn: () => Promise<T>): Promise<T> {
   const queue = getPoolQueue(pool);
   const maxDepth = resolveMaxQueueDepth(pool);
+  const counters = poolCounter(pool);
   // queue.size = jobs waiting (not yet started); queue.pending = jobs running.
   if (Number.isFinite(maxDepth) && queue.size >= maxDepth) {
+    counters.rejected += 1;
     return Promise.reject(new PoolOverloadError(pool, queue.size));
   }
-  return queue.add(fn) as Promise<T>;
+  return (queue.add(fn) as Promise<T>).then(
+    (result) => {
+      counters.served += 1;
+      return result;
+    },
+    (err) => {
+      counters.failed += 1;
+      throw err;
+    },
+  );
 }
 
 /** Which signal aborted a request first (or `none` if it did not abort). */
@@ -255,17 +283,26 @@ export function getPoolStats() {
     {
       waiting: number;
       running: number;
-      concurrency: number;
-      maxQueueDepth: number;
+      currentQueueSize: number;
+      concurrencyLimit: number;
+      maxQueueSize: number;
+      served: number;
+      failed: number;
+      rejected: number;
       timeoutMs: number;
     }
   > = {};
   Array.from(queues.entries()).forEach(([pool, queue]) => {
+    const counters = poolCounter(pool);
     stats[pool] = {
       waiting: queue.size, // queued, not yet started
       running: queue.pending, // currently in flight
-      concurrency: unbounded(queue.concurrency as number),
-      maxQueueDepth: unbounded(resolveMaxQueueDepth(pool)),
+      currentQueueSize: queue.size + queue.pending, // waiting + running
+      concurrencyLimit: unbounded(queue.concurrency as number),
+      maxQueueSize: unbounded(resolveMaxQueueDepth(pool)),
+      served: counters.served,
+      failed: counters.failed,
+      rejected: counters.rejected,
       timeoutMs: unbounded(poolTimeoutMs(pool)),
     };
   });
