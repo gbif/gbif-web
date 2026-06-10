@@ -23,13 +23,13 @@
     "cancelled": "中止しました。",
     "cancel": "中止",
     "download": "ダウンロード",
-    "DownloadArchive": "",
+    "DownloadArchive": "ダウンロード アーカイブ",
     "records": "レコード",
     "seeAlso": "こちらもご参照ください",
     "title": "タイトル",
     "fileSize": "ファイルサイズ",
     "created": "作成",
-    "aboutDownloadFormatsLink": "",
+    "aboutDownloadFormatsLink": "ダウンロード形式について",
     "occurrences": "オカレンス",
     "largeQueryMessage": "非常に大きいフィルターです。詳細についてはダウンロードを参照してください。",
     "date": "日付",
@@ -89,7 +89,7 @@
       "isNotNull": "定義済み",
       "isNull": "定義されていません",
       "within": "",
-      "geoDistance": "",
+      "geoDistance": "位置からの距離",
       "keys": {
         "EVENT_ID": "イベントID",
         "DECIMAL_LONGITUDE": "１０進法の経度",
@@ -140,7 +140,7 @@
         "IUCN_RED_LIST_CATEGORY": "IUCNレッドリストカテゴリー",
         "PATHWAY": "",
         "NETWORK_KEY": "ネットワーク",
-        "DWCA_EXTENSION": "",
+        "DWCA_EXTENSION": "DwC-A拡張形式",
         "ACCEPTED_TAXON_KEY": "",
         "CONTINENT": "大陸",
         "OTHER_CATALOG_NUMBERS": "その他のカタログ番号",
@@ -187,7 +187,7 @@
         "SAMPLING_PROTOCOL": "サンプリング手順",
         "IS_IN_CLUSTER": "",
         "RECORD_NUMBER": "レコード番号",
-        "PUBLISHING_ORG": "",
+        "PUBLISHING_ORG": "公開（発行）機関",
         "PROGRAMME": "プログラム",
         "COLLECTION_KEY": "コレクション",
         "LICENSE": "ライセンス",
@@ -196,7 +196,7 @@
         "ELEVATION": "標高",
         "SEX": "性別",
         "GENUS_KEY": "属",
-        "CRAWL_ID": "",
+        "CRAWL_ID": "Crawl ID",
         "HAS_COORDINATE": "座標あり",
         "GROUP": "層群",
         "LATEST_EPOCH_OR_HIGHEST_SERIES": "最新の世または最上部の統（地質学）",
@@ -220,11 +220,11 @@
     "title": "マイダウンロード"
   },
   "customDownload": {
-    "invalidFilter": "",
+    "invalidFilter": "無効なフィルター",
     "seeDocumentation": "",
     "reformat": "",
     "invalidJson": "無効なJSON",
-    "title": "",
+    "title": "新しいダウンロードを作成します",
     "invalidUrlPredicate": "",
     "redirectNotice": ""
   },
@@ -264,15 +264,15 @@
   "occurrenceDownloadFlow": {
     "back": "戻る",
     "slowDown": "",
-    "unableToCreateDownload": "",
+    "unableToCreateDownload": "ダウンロードを作成できません。後でもう一度お試しください。",
     "backToFormatSelection": "",
     "backToConfiguration": "",
-    "estimatedSize": "",
+    "estimatedSize": "推定サイズ",
     "configure": "",
     "continueToTerms": "",
-    "downloadSummary": "",
-    "weAlsoSupport": "",
-    "sqlDownloadsLink": "",
+    "downloadSummary": "ダウンロードの概要",
+    "weAlsoSupport": "{link}もサポートしています",
+    "sqlDownloadsLink": "SQLダウンロード",
     "extensions": "拡張モジュール",
     "selectAdditionalExtensions": "",
     "nExtensionsSelected": "",
@@ -293,11 +293,11 @@
     "largeDownloadAcknowledgment": "",
     "largeDownloadEstimatedSize": "",
     "largeDownloadConnectionSpeed": "",
-    "largeDownloadDiskSpace": "",
-    "largeDownloadRowCount": "",
+    "largeDownloadDiskSpace": "ファイルをダウンロードした後、データ解凍のためにさらに{size} 空領域が必要です",
+    "largeDownloadRowCount": "データセットは {count} 行数あります",
     "largeDownloadExcelWarning": "このサイズのデータセットは、通常のデスクトップ コンピューターで分析することは困難です。分散コンピューティング サービスへのアクセスが必要でしょう。",
     "termsStatus": "",
-    "createDownload": "",
+    "createDownload": "ダウンロードを作成します",
     "completeRequirements": "",
     "steps": {
       "quality": {
@@ -310,18 +310,18 @@
       },
       "sql": {
         "name": "SQL",
-        "description": ""
+        "description": "SQLクエリを作成します"
       },
       "format": {
         "name": "フォーマット",
-        "description": ""
+        "description": "ダウンロード形式を選択します"
       },
       "configure": {
-        "name": "",
-        "description": ""
+        "name": "設定します",
+        "description": "オプションとフィールドを設定します"
       },
       "terms": {
-        "name": "",
+        "name": "利用規約",
         "description": ""
       }
     },
@@ -413,8 +413,8 @@
         "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
-        "0": "",
-        "1": "",
+        "0": "レベル0",
+        "1": "レベル1",
         "2": "",
         "3": "",
         "4": "",
