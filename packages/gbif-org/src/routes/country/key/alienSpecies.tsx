@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useIntParam } from '@/hooks/useParam';
 
-const ISSG_DATASET_KEY =
-  import.meta.env.PUBLIC_ISSG_DATASET_KEY ?? 'cdef28b1-db4e-4c58-aa71-3c5238c2d0b5';
+const PUBLIC_ISSG_PUBLISHER_KEY =
+  import.meta.env.PUBLIC_ISSG_PUBLISHER_KEY ?? 'cdef28b1-db4e-4c58-aa71-3c5238c2d0b5';
 export function CountryKeyAlienSpecies() {
   const { countryCode } = useParams();
   const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
@@ -27,14 +27,14 @@ export function CountryKeyAlienSpecies() {
     const keyword = `country_${countryCode}`;
     const downloadUrl = `${
       import.meta.env.PUBLIC_API_V1
-    }/dataset/search/export?format=TSV&keyword=${keyword}&publishingOrg=${ISSG_DATASET_KEY}`;
+    }/dataset/search/export?format=TSV&keyword=${keyword}&publishingOrg=${PUBLIC_ISSG_PUBLISHER_KEY}`;
     setTsvUrl(downloadUrl);
 
     load({
       variables: {
         query: {
           keyword: [keyword],
-          publishingOrg: [ISSG_DATASET_KEY],
+          publishingOrg: [PUBLIC_ISSG_PUBLISHER_KEY],
           limit: 20,
           offset,
         },
