@@ -16,6 +16,40 @@ const counters = new Map(); // name -> { served, failed, rejected, running }
 
 let inflight = 0; // service-wide requests being handled right now
 
+// Histogram of the x-client-priority on incoming requests, to show which
+// priorities we see most. Keyed by the priority value (1-100) or 'unknown' when
+// the header is missing/invalid.
+const priorityCounts = new Map();
+
+function priorityBucket(req) {
+  const raw = req.headers && req.headers['x-client-priority'];
+  const n = parseInt(Array.isArray(raw) ? raw[0] : raw, 10);
+  if (Number.isFinite(n) && n >= 1 && n <= 100) return String(n);
+  return 'unknown';
+}
+
+function recordPriority(req) {
+  const key = priorityBucket(req);
+  priorityCounts.set(key, (priorityCounts.get(key) || 0) + 1);
+}
+
+// Counts as a plain object, numeric priorities ascending, 'unknown' last.
+function getPriorityCounts() {
+  const numeric = [];
+  let unknown = 0;
+  priorityCounts.forEach((count, key) => {
+    if (key === 'unknown') unknown = count;
+    else numeric.push([Number(key), count]);
+  });
+  numeric.sort((a, b) => a[0] - b[0]);
+  const out = {};
+  numeric.forEach(([k, c]) => {
+    out[k] = c;
+  });
+  if (unknown) out.unknown = unknown;
+  return out;
+}
+
 function counted(name) {
   let c = counters.get(name);
   if (!c) {
@@ -82,6 +116,7 @@ function trackInflight(req, res, next) {
     next();
     return;
   }
+  recordPriority(req);
   inflight += 1;
   let released = false;
   const release = () => {
@@ -185,6 +220,7 @@ module.exports = {
   recordComplete,
   trackInflight,
   getInflight,
+  getPriorityCounts,
   getQueueSizes,
   getStats,
 };

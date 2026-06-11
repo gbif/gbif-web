@@ -1,4 +1,4 @@
-const { getStats, getInflight } = require('./metrics');
+const { getStats, getInflight, getPriorityCounts } = require('./metrics');
 const { getEventLoopStats } = require('./eventLoop');
 const { buildNagiosString } = require('./nagios');
 
@@ -23,6 +23,8 @@ module.exports = (req, res) => {
       uptimeSeconds: Math.round(process.uptime()),
       // requests being handled across the whole service right now.
       inflight: getInflight(),
+      // histogram of x-client-priority on incoming requests (which we see most).
+      priorityCounts: getPriorityCounts(),
       // true when a priority gate is shedding or a queue is at its hard cap.
       rejecting,
       queues,
