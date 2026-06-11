@@ -69,19 +69,14 @@ To translate content sourced from Contentful, send an HTTP header named `locale`
 
 ## Docker
 
-Build and publish a multi-architecture image:
-
-```sh
-docker buildx build . --push --platform linux/amd64,linux/arm64 \
-  --tag "$DOCKER_HUB_ORG/graphql-api:$(git rev-parse --short HEAD)"
+Docker images can be built and published to docker hub using the following command
+```
+docker buildx build . --push --platform linux/amd64,linux/arm64 --tag "$DOCKER_HUB_ORG/graphql-api:$(git rev-parse --short HEAD)"
 ```
 
-Run a published image, mounting your local `.env`:
-
-```sh
-docker run -p 4000:4000 \
-  --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env \
-  -d <DOCKER_HUB_ORG_OR_USER>/graphql-api
+To run use:
+```
+docker run -p 4000:4000 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env -d <DOCKER_HUB_OR_OR_USER>/graphql-api
 ```
 
 ## License

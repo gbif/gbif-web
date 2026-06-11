@@ -88,19 +88,14 @@ Index configurations are generated from the Elasticsearch `_mapping` endpoint on
 
 ## Docker
 
-Build and publish a multi-architecture image:
-
-```sh
-docker buildx build . --push --platform linux/amd64,linux/arm64 \
-  --tag "$DOCKER_HUB_ORG/es-api:$(git rev-parse --short HEAD)"
+Docker images can be built and published to docker hub using the following command
+```
+docker buildx build . --push --platform linux/amd64,linux/arm64 --tag "$DOCKER_HUB_ORG/es-api:$(git rev-parse --short HEAD)"
 ```
 
-Run a published image, mounting your local `.env`:
-
-```sh
-docker run -p 4001:4001 \
-  --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env \
-  -d <DOCKER_HUB_ORG_OR_USER>/es-api
+To run use:
+```
+docker run -p 4001:4001 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env -d <DOCKER_HUB_OR_OR_USER>/es-api
 ```
 
 ## License
