@@ -8,7 +8,7 @@
     "seeAlsoFaq": "Veja também o {faqLink}",
     "faq": "Perguntas frequentes",
     "pleaseLogin": "Faça login para deixar seu feedback",
-    "pleaseLoginReason": "",
+    "pleaseLoginReason": "Devido aos grandes volumes de spam em nosso sistema de feedback, solicitamos que os usuários façam login",
     "sendEmailTo": "Enviar e-mail para {emailLink}",
     "emailHelpdesk": "Suporte por e-mail",
     "summary": "Sumário",
@@ -36,8 +36,8 @@
     "orWriteMailTo": "Ou envie um e-mail para {contactLink}",
     "leaveIssueOnGithub": "Deixe um problema no GitHub",
     "login": "Iniciar sessão",
-    "requiresGithubAccount": "",
-    "sendUsAnEmail": "",
+    "requiresGithubAccount": "Requer uma conta do GitHub.",
+    "sendUsAnEmail": "Envie-nos um e-mail",
     "forPrivateEnquiries": "Para consultas privadas ou caso não possua uma conta GitHub."
   }
 }
