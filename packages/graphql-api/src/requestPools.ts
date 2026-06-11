@@ -168,6 +168,11 @@ export function getPoolQueue(pool: PoolName): PQueue {
   return queue;
 }
 
+// Pre-create the known pools at startup so /health (and the Nagios status line)
+// lists them all immediately, instead of only after each is first used.
+const KNOWN_POOLS: PoolName[] = ['occurrence', 'taxon', 'default'];
+KNOWN_POOLS.forEach((pool) => getPoolQueue(pool));
+
 // Cumulative throughput counters per pool, reported on /health. These count
 // individual upstream calls (a single GraphQL request fans out into many), so
 // they are a coarse "how busy is this upstream" number, not a request count.

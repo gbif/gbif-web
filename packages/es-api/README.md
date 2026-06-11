@@ -108,6 +108,7 @@ Index configurations are generated from the Elasticsearch `_mapping` endpoint on
 
 Top level:
 
+- `nagiosString` — a flat, greppable status line for Nagios-style checks, e.g. `SERVICE_OPERATIONAL - QUEUE_OCCURRENCE_OPERATIONAL - QUEUE_DATASET_OPERATIONAL - EVENT_LOOP_OK`. One token per subsystem reflecting its current state (`_OPERATIONAL` / `_REDUCED_CAPACITY` / `_OVERLOADED`), so a check can expect to see `QUEUE_OCCURRENCE_OPERATIONAL` (and alert when it disappears) or expect to not see `QUEUE_OCCURRENCE_OVERLOADED`. The `QUEUE_` prefix keeps tokens from being substrings of one another.
 - `uptimeSeconds` — seconds since the process started.
 - `inflight` — requests being handled across the whole service right now.
 - `rejecting` — true whenever something is being turned away (a gate band is active or a queue is at its hard cap).
