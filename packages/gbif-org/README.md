@@ -556,7 +556,33 @@ Note: To ensure proper code splitting, keep the lazily-imported page `element` i
 
 > **Consequence for server-side rendering:** the server renders with `renderToString`, which cannot suspend, so `StaticRenderSuspence` deliberately renders its `fallback` on the server instead of the lazy component (see `src/components/staticRenderSuspence.tsx`). A lazily-loaded page is therefore **not server-rendered** — the initial HTML contains only the skeleton, and the real content is loaded and rendered on the client after hydration. This is a good trade for interactive or low-traffic pages (tools, tabs), but for pages where server-rendered content matters for SEO or first contentful paint (for example dataset, species and occurrence detail pages), prefer loading the page eagerly.
 >
-> **Splitting without breaking SSR:** if you need both code splitting *and* server-rendered content, use react-router-dom's native route-level `lazy` instead of `React.lazy`. The server builds its routes with `createStaticHandler` (see `src/gbif/entry.server.tsx`), which resolves a route's `lazy` import before `renderToString` runs, so the real element is available on the server. The trade-off is that `lazy` bundles the route's `loader` into the same split chunk, so the loader's data fetch cannot start until that chunk has downloaded — whereas the `React.lazy` approach above keeps the `loader` eager so it fetches in parallel while the element chunk loads.
+> **Splitting without breaking SSR:** if you need both code splitting *and* server-rendered content, use react-router-dom's native route-level `lazy` instead of `React.lazy`. It is resolved before rendering on both ends: the server builds its routes with `createStaticHandler` (see `src/gbif/entry.server.tsx`), which resolves a matched route's `lazy` import before `renderToString` runs, and the client pre-resolves the matched `lazy` routes in `loadLazyRoutes` before `hydrateRoot` (see `src/gbif/entry.client.tsx`), so the server-rendered content hydrates synchronously without a mismatch.
+>
+> Keep the route's `loader` defined **statically** on the route (do not return it from `lazy`). The route plugins wrap the loader at build time to inject `config`, `locale`, `graphql` and `isPreview`, and a loader returned from `lazy` would bypass that injection. Keeping the loader out of the split chunk also lets it start fetching in parallel while the element chunk downloads.
+
+```tsx
+// src/routes/occurrence/search/route.tsx
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { occurrenceSearchLoader } from './occurrenceSearchLoader';
+
+export const occurrenceSearchRoute: RouteObjectWithPlugins = {
+  id: 'occurrence-search-page',
+  path: 'occurrence/search',
+
+  // Stays static so the plugins inject the loader args and it can fetch in parallel.
+  loader: occurrenceSearchLoader,
+  loadingElement: <OccurrenceSearchPageSkeleton />,
+
+  // Code-split only the element. Because `lazy` is resolved before rendering on
+  // the server and before hydration on the client, the element is server-rendered.
+  lazy: async () => {
+    const { OccurrenceSearchPage } = await import('./OccurrenceSearchPage');
+    return { element: <OccurrenceSearchPage /> };
+  },
+};
+```
+
+Note: only return `element` from `lazy` here — returning `loader` would re-introduce the loader into the split chunk and skip the plugin injection described above.
 
 ## Code Formatting
 
