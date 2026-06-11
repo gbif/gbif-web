@@ -489,6 +489,9 @@ Here's an example of registering the demo page:
   id: 'occurrence-page',
   path: 'occurrence/:key',
   loader: occurrenceLoader,
+  // Optional: shown while navigating to this route. A shadcn/ui 'skeleton' is a
+  // good fit here (https://ui.shadcn.com/docs/components/skeleton).
+  loadingElement: <OccurrencePageSkeleton />,
   element: <OccurrencePage />,
 }
 ```
