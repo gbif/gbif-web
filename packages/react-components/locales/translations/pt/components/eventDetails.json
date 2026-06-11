@@ -22,7 +22,7 @@
   "eventDrawerSamplingEventOnly": "",
   "inferredEventsNotice": "Esses eventos foram inferidos a partir de registros de ocorrência e não fazem parte de um conjunto de dados de eventos de amostragem.",
   "unresolvedInferredEvent": "Este evento não pôde ser resolvido.",
-  "occurrenceSummary": "",
+  "occurrenceSummary": "Resumo de ocorrência",
   "occurrenceSummaryHint": "",
   "generateOccurrenceSummary": "Gerar resumo",
   "sampledAt": "Amostrado em",
