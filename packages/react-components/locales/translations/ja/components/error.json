@@ -10,5 +10,8 @@
   "hideDetails": "詳細を隠す",
   "showDetails": "詳細を表示する",
   "mapFailed": "地図を読み込めません",
-  "partialMapFailure": "一部のタイルが読み込まれていません"
+  "partialMapFailure": "一部のタイルが読み込まれていません",
+  "maximumResultLimitExceeded": "ページングで表示できる結果の最大数は{MAX_RESULTS}です。検索条件を絞り込むか、ダウンロードオプションを使用してすべての結果にアクセスしてください。",
+  "mapBrowserIssue": "問題が解決しない場合は、ブラウザの拡張機能や設定によって必要なAPI（WebGLやCanvasなど）の使用が妨げられている可能性が高いです",
+  "webglUnavailable": "WebGLは利用できません。ブラウザの設定を確認するか、別のブラウザをお試しください。プラグインや拡張機能がWebGLをブロックしている場合もあります"
 }

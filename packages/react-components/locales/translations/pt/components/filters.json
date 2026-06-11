@@ -1,18 +1,18 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "Extensão DwC-A",
     "count": "",
     "description": "Deve colocar aqui uma breve descrição da componente"
   },
   "locationId": {
     "name": "ID da Localização",
     "count": "",
-    "description": ""
+    "description": "Os publicadores podem optar por atribuir IDs ao local. Este campo não é normalizado, o que significa que você pesquisa os dados fornecidos pelo publicador."
   },
   "hasCoordinate": {
     "name": "Tem coordenadas",
-    "count": "",
-    "description": ""
+    "count": "Possui coordenadas",
+    "description": "Se o registro possui coordenadas."
   },
   "hasGeospatialIssues": {
     "name": "Tem problemas geoespaciais",
@@ -22,27 +22,27 @@
   "collectionKey": {
     "name": "Coleção",
     "count": "",
-    "description": ""
+    "description": "A coleção no GrSciColl à qual este registro foi associado."
   },
   "predicate": {
-    "name": "",
+    "name": "Consulta complexa",
     "count": "",
-    "description": ""
+    "description": "Uma consulta complexa para filtrar registros."
   },
   "taxonomicStatus": {
     "name": "Estado",
     "count": "",
-    "description": ""
+    "description": "O número de espécimes mantidos indicado na descrição. Este número não reflete quantos registros foram digitalizados e compartilhados."
   },
   "taxonRank": {
     "name": "Nível",
     "count": "",
-    "description": ""
+    "description": "O número de espécimes mantidos indicado na descrição. Este número não reflete quantos registros foram digitalizados e compartilhados."
   },
   "numberSpecimens": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "O número de espécimes mantidos indicado na descrição. Este número não reflete quantos registros foram digitalizados e compartilhados."
   },
   "specimensInGbif": {
     "name": "Espécimes no GBIF",
@@ -52,58 +52,58 @@
   "iucnRedListCategory": {
     "name": "Categoria IUCN da Lista Vermelha Global",
     "count": "",
-    "description": ""
+    "description": "A Lista Vermelha de Espécies Ameaçadas da IUCN agrupa os táxons de acordo com o grau de ameaça que estão."
   },
   "geoDistance": {
-    "name": "",
+    "name": "Distância das coordenadas",
     "count": "",
-    "description": "",
+    "description": "Filtrar registros dentro de uma determinada distância de um ponto",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
-    "placeholderDist": ""
+    "placeholderDist": "Distância"
   },
   "geometry": {
     "name": "Localização",
     "count": "",
-    "description": "",
+    "description": "Filtre registros dentro de uma determinada área geométrica. A área pode ser um ponto, uma linha, um polígono ou uma caixa delimitadora.",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
-    "placeholderDist": ""
+    "placeholderDist": "Distância"
   },
   "relevance": {
     "name": "Relevância",
     "count": "",
-    "description": ""
+    "description": "Como o GBIF é utilizado na literatura"
   },
   "topics": {
     "name": "Tópico",
     "count": "",
-    "description": ""
+    "description": "Quais são os tópicos do registro."
   },
   "audiences": {
     "name": "Audiência",
     "count": "",
-    "description": ""
+    "description": "Quem é o público-alvo deste recurso"
   },
   "biostratigraphy": {
     "name": "Bioestratigrafia",
     "count": "",
-    "description": ""
+    "description": "O contexto bioestratigráfico do registro."
   },
   "lithostratigraphy": {
     "name": "Litoestratigrafia",
     "count": "",
-    "description": ""
+    "description": "O contexto litoestratigráfico do registro."
   },
   "geologicalTime": {
-    "name": "",
+    "name": "Tempo geológico",
     "count": "",
-    "description": ""
+    "description": "O contexto temporal geológico do registro."
   },
   "purposes": {
     "name": "Tópico",
     "count": "",
-    "description": ""
+    "description": "Quais são os objetivos do recurso?"
   },
   "eventDate": {
     "name": "Data do evento",
@@ -113,17 +113,17 @@
   "gbifId": {
     "name": "ID do GBIF",
     "count": "",
-    "description": ""
+    "description": "O identificador único do registro no banco de dados GBIF."
   },
   "organismQuantityType": {
     "name": "Tipo de quantidade de organismos",
     "count": "",
-    "description": ""
+    "description": "O tipo de medida para a \"quantidade de organismos\"."
   },
   "pathway": {
     "name": "Caminho",
     "count": "",
-    "description": ""
+    "description": "A via pela qual o organismo foi introduzido."
   },
   "associatedSequences": {
     "name": "Sequências associadas",
