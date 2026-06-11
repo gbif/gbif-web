@@ -62,7 +62,15 @@
   "CHAINED_SYNONYM": "Synonyme chainé",
   "CLASSIFICATION_RANK_ORDER_INVALID": "Classification au rang de l'ordre non-valide",
   "CLASSIFICATION_NOT_APPLIED": "Classification non-appliquée",
+  "DERIVED_TAXONOMIC_STATUS": "Statut taxonomique dérivé",
+  "TAXONOMIC_STATUS_DOUBTFUL": "Statut taxonomique douteux",
+  "SYNONYM_DATA_MOVED": "Données de synonymes déplacées",
+  "SYNONYM_DATA_REMOVED": "Données de synonymes supprimées",
+  "REFTYPE_INVALID": "Reftype non valide",
   "VERNACULAR_NAME_INVALID": "Nom vernaculaire invalide",
+  "VERNACULAR_LANGUAGE_INVALID": "Langue vernaculaire non valide",
   "DISTRIBUTION_INVALID": "Distribution non valide",
+  "DISTRIBUTION_AREA_INVALID": "Aire de distribution non valide",
+  "DISTRIBUTION_STATUS_INVALID": "Statut de distribution non valide",
   "NO_SPECIES_INCLUDED": "Aucune espèce incluse"
 }
