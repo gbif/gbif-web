@@ -1,52 +1,58 @@
+# Elasticsearch API wrapper
+
+A wrapper around the GBIF Elasticsearch indices. It exposes an index through a GET API similar to GBIF API v1, plus a POST API that uses the predicate structure from the GBIF occurrence download API. The response format differs from the underlying APIs — results are mapped through a reducer into a shape closer to API v1.
+
+> **Note:** This project does not use the public GBIF APIs. Running it requires access to the GBIF VPN to reach the Elasticsearch instances.
+
+## Requirements
+
+- Node.js as specified in [`.nvmrc`](./.nvmrc). Node versions are managed with [nvm](https://github.com/nvm-sh/nvm) — run `nvm use` to switch to the required version.
+- Network access (VPN) to the configured Elasticsearch hosts.
+
 ## Quick start
-The `.env`-file should be placed in root and can be found in `gbif-configuration/gbif-web`.
 
-Make sure you have the correct version on Node installed. We manage node versions with [nvm](https://github.com/nvm-sh/nvm). Type `nvm use` to install the required version. You can also do so manually, see `.nvmrc` for the required version.
+1. Place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`; see [Configuration](#configuration) below for the expected structure.
 
-```
-npm install
-```
+2. Install dependencies:
 
-Start developing with
-```
-npm run start
-```
+   ```sh
+   npm install
+   ```
 
+3. Start the development server (with nodemon):
 
-# A wrapper for the GBIF Elastic Search indices
-This project takes an Elastic Search index and expose it with an API similar to GBIF APIv1 + a predicate search API similar to GBIF download API.
+   ```sh
+   npm start
+   ```
 
-> This project doesn't not use public APIs, so running it require access to our VPN.
+   To run without nodemon: `node src/index.js --port=4001`.
 
-It has a GET API, similar to our other APIs as well as a post API that use the predicate structure from the GBIF occurrence download API. But there are differences. most notably in the response format.
+## API
 
-## Differences in GET
-The GET api is extended to allow for `not` and `isNotNull`. `not` is done by adding an exclamation mark in the begining `!year=2010`. `isNotNull` is done by `publisher=*`.
+### GET API
 
-A new type of aggregation is added, namely stats. Stats can be used on numeric fields `stats=year` will return min, max, avg and count. Cardinality aggregations can be done with `cardinality=year`.
+The GET API mirrors the other GBIF APIs and adds a few extensions:
 
-Nested entities can be queried as objects by order convention and a seperator. So a list of authors can be queried by first name last name by `authors=Tim__Hansen`.
+- **`not`** — prefix a filter with an exclamation mark to negate it: `!year=2010`.
+- **`isNotNull`** — match records where a field has any value: `publisher=*`.
+- **`stats`** — aggregation over numeric fields. `stats=year` returns `min`, `max`, `avg` and `count`.
+- **`cardinality`** — distinct-value count, e.g. `cardinality=year`.
+- **Nested entities** — query a list of objects by ordered convention and a separator. For example, a list of authors can be queried by first and last name with `authors=Tim__Hansen`.
+- **`includeMeta=true`** — returns query metadata: the GET query, the predicate it was transformed into, and the resulting Elasticsearch query.
 
-metadata for the query is returned by `includeMeta=true`. This will return the GET query, the predicate it was transformed to as well as the ES query.
+### POST API (predicates)
 
-The result format is done with a reducer that maps the ES response to something more similar to our APIv1.
+The POST API accepts the predicate structure from the GBIF occurrence download API, with two additional predicate types:
 
-## Differences in predicates
-2 new predicate types added. 
-`nested`: which allows for querying list of objects (such as a list of authors).
-`range`: which is a more compact way to do the same as `greaterThanOrEquals` etc. as we have in the occurrence API.
+- **`nested`** — query a list of objects (such as a list of authors).
+- **`range`** — a more compact alternative to `greaterThanOrEquals` / `lessThanOrEquals` etc. from the occurrence API.
 
-## Suggest a configuration
-The current configurations are generated from the ES `_mapping` endpoint. But not dynamically, but upon request. It is far from perfect, but it is a help instead of typing everything by hand.
+## Configuration
 
-# Install
-requires node v16.13.1
-`npm i`
+Configuration is supplied through an `.env` file (YAML) in the package root. Each index is configured with its Elasticsearch hosts and request options. Example:
 
-
-Environment file example:
 ```yml
-apiKey: something # this is a fixed key that needs to be added in requests. Since it is all behind vpn we could consider removing it
+apiKey: something # a fixed key that must be sent with requests
 
 literature:
   hosts: [http://some.elastic.instance:9200]
@@ -76,11 +82,11 @@ event:
 port: 4001
 ```
 
-# Start
-for development with Nodemon: `npm start` else `node src/index.js --port=4001`
+### Generating a configuration
 
+Index configurations are generated from the Elasticsearch `_mapping` endpoint on request (not dynamically). It is not perfect, but it is a starting point rather than writing every field by hand.
 
-# Docker
+## Docker
 
 Docker images can be built and published to docker hub using the following command
 ```
@@ -89,5 +95,9 @@ docker buildx build . --push --platform linux/amd64,linux/arm64 --tag "$DOCKER_H
 
 To run use:
 ```
-docker run -p 4001:4001 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env -d <DOCKER_HUB_OR_OR_USER>/es-api 
+docker run -p 4001:4001 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env -d <DOCKER_HUB_OR_OR_USER>/es-api
 ```
+
+## License
+
+Apache 2.0.
