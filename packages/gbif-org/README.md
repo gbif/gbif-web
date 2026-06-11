@@ -561,28 +561,19 @@ Note: To ensure proper code splitting, keep the lazily-imported page `element` i
 > Keep the route's `loader` defined **statically** on the route (do not return it from `lazy`). The route plugins wrap the loader at build time to inject `config`, `locale`, `graphql` and `isPreview`, and a loader returned from `lazy` would bypass that injection. Keeping the loader out of the split chunk also lets it start fetching in parallel while the element chunk downloads.
 
 ```tsx
-// src/routes/occurrence/search/route.tsx
-import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { occurrenceSearchLoader } from './occurrenceSearchLoader';
-
-export const occurrenceSearchRoute: RouteObjectWithPlugins = {
+{
   id: 'occurrence-search-page',
   path: 'occurrence/search',
-
-  // Stays static so the plugins inject the loader args and it can fetch in parallel.
-  loader: occurrenceSearchLoader,
-  loadingElement: <OccurrenceSearchPageSkeleton />,
-
-  // Code-split only the element. Because `lazy` is resolved before rendering on
-  // the server and before hydration on the client, the element is server-rendered.
   lazy: async () => {
-    const { OccurrenceSearchPage } = await import('./OccurrenceSearchPage');
+    const { OccurrenceSearchPage } = await import('@/routes/occurrence/search/Page');
     return { element: <OccurrenceSearchPage /> };
   },
-};
+  loader: occurrenceSearchLoader,
+  loadingElement: <OccurrenceSearchPageLoading />,
+}
 ```
 
-Note: only return `element` from `lazy` here — returning `loader` would re-introduce the loader into the split chunk and skip the plugin injection described above.
+Note: `lazy` returns only the `element`; the `loader` stays defined on the route so the plugins still inject its arguments and it can fetch in parallel.
 
 ## Code Formatting
 
