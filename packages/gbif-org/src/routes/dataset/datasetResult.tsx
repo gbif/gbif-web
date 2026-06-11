@@ -107,12 +107,14 @@ export function DatasetResult({
               message="counts.nOccurrences"
             />
           </DynamicLink>
-          <CountTag
-            className="g-m-1 g-mb-0"
-            apiEndpoint={`${apiConstants.taxonApi}/search/${dataset.key}`}
-            params={{ origin: 'SOURCE' }}
-            message="counts.nRecords"
-          />
+          {dataset.type === 'CHECKLIST' && (
+            <CountTag
+              className="g-m-1 g-mb-0"
+              apiEndpoint={`${apiConstants.taxonApi}/search/${dataset.key}`}
+              params={{ origin: 'SOURCE' }}
+              message="counts.nRecords"
+            />
+          )}
           <DynamicLink pageId="literatureSearch" searchParams={{ gbifDatasetKey: [dataset.key] }}>
             <CountTag
               className="hover:g-bg-primary-200 g-m-1 g-mb-0"
