@@ -55,7 +55,7 @@
     "deleteShape": "",
     "invalidWkt": "",
     "aboutWktAndGeoJson": "",
-    "simplificationWarning": "",
+    "simplificationWarning": "我们可以尝试简化几何体，但这可能会导致自相交或其他无效的几何形状。在这种情况下，您需要手动修正几何形状或简化初始几何形状。",
     "simplify": "",
     "useBbox": "",
     "failedParsing": "",
@@ -80,7 +80,7 @@
     "edit": "编辑",
     "preview": "",
     "reformat": "重新格式化",
-    "documentation": "",
+    "documentation": "文档",
     "validating": "",
     "invalidJson": ""
   }

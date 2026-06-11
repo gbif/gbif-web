@@ -49,24 +49,24 @@
   "sinceDate": "Od",
   "showAllContacts": "Wszystko",
   "person": {
-    "volunteer": "",
+    "volunteer": "Wolontariusz",
     "name": "Nazwa",
-    "annualBadges": "",
+    "annualBadges": "Coroczne odznaki",
     "language": "Język",
     "country": "Kraj lub obszar",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
-    "orcId": "",
+    "affiliation": "Afiliacja",
+    "recipient": "Odbiorca",
+    "areasExpertise": "Specjalizacja",
+    "orcId": "Identyfikator ORCID",
     "year": "Rok",
     "email": "Adres e-mail"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "Nagroda GBIF dla młodych naukowców",
+    "EBBE1ST": "Pierwsze miesjce",
+    "EBBE2ND": "Drugie miejsce",
+    "EBBE3RD": "Trzecie miejsce"
   },
-  "prize": "",
+  "prize": "Nagroda",
   "year": "Rok"
 }

@@ -1,22 +1,5 @@
 # New GBIF.org
 
-## Quick start
-The `.env`-file should be placed in root and can be found in `gbif-configuration/gbif-web`.
-
-Make sure you have the correct version on Node installed. We manage node versions with [nvm](https://github.com/nvm-sh/nvm). Type `nvm use` to install the required version. You can also do so manually, see `.nvmrc` for the required version.
-
-```
-npm install
-```
-
-Start developing with
-```
-npm run develop
-```
-
-It needs the [graphql server](https://github.com/gbif/gbif-web/tree/master/packages/graphql-api) and [translations endpoints](https://github.com/gbif/gbif-web/blob/master/packages/react-components/README.md) to start.
-
-
 ## Table of Contents
 
 - [New GBIF.org](#new-gbiforg)
@@ -47,9 +30,10 @@ It needs the [graphql server](https://github.com/gbif/gbif-web/tree/master/packa
       - [`routes.tsx`](#routestsx-1)
   - [Shared Code](#shared-code)
   - [Routing](#routing)
-    - [`SourceRouteObject`](#sourcerouteobject)
-    - [`configureRoutes`](#configureroutes)
-    - [Example of a Custom Route Definition](#example-of-a-custom-route-definition)
+    - [`RouteObjectWithPlugins`](#routeobjectwithplugins)
+    - [`LoaderArgs`](#loaderargs)
+    - [`applyReactRouterPlugins`](#applyreactrouterplugins)
+    - [Example of a route definition](#example-of-a-route-definition)
   - [Styling](#styling)
     - [Conditionally Adding Classes Based on State](#conditionally-adding-classes-based-on-state)
     - [Using Plain Old CSS](#using-plain-old-css)
@@ -65,11 +49,18 @@ It needs the [graphql server](https://github.com/gbif/gbif-web/tree/master/packa
   - [ESLint](#eslint)
   - [Known Issues](#known-issues)
     - [Loading Screens](#loading-screens)
-  - [Common Errors](#common-errors)
 
 ## Get Up and Running
 
-This project requires Node.js version `v22.3.0`.
+This project requires the Node.js version specified in [`.nvmrc`](./.nvmrc). Node versions are managed with [nvm](https://github.com/nvm-sh/nvm) — run `nvm use` to switch to it.
+
+Before starting, place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`. The app also needs the [GraphQL server](https://github.com/gbif/gbif-web/tree/master/packages/graphql-api) and the translations endpoints to be reachable, either running locally or pointing at a deployed instance.
+
+Install dependencies:
+
+```
+npm install
+```
 
 ### How to Start the New GBIF.org in Development Mode
 
@@ -136,9 +127,9 @@ This function renders the HTML of the app and acquires `headHtml`, `htmlAttribut
 
 #### `routes.tsx`
 
-Defines routes for gbif.org using a custom type `SourceRouteObject`, enabling additional properties beyond those supported by `react-router-dom`.
+Defines routes for gbif.org using a custom type `RouteObjectWithPlugins`, enabling additional properties beyond those supported by `react-router-dom`.
 
-Routes are processed by `configureRoutes`, which, among other tasks, replicates routes for each language specified in `config.ts` and injects the config and locale into loader functions. The resulting output is compatible with `react-router-dom`.
+Routes are assembled in `createGbifRoutes(config)` and processed by `applyReactRouterPlugins`, which, among other tasks, replicates routes for each language specified in `config.ts` and injects the config and locale into loader functions. The resulting output is compatible with `react-router-dom`.
 
 ## Hosted Portal Specific Code
 
@@ -169,9 +160,9 @@ This script exports a `render` function that takes a `rootElement` and a `config
 
 #### `routes.tsx`
 
-Houses route definitions for hosted portals, utilizing a custom type `SourceRouteObject`, which accommodates additional properties not supported by `react-router-dom`.
+Houses route definitions for hosted portals, utilizing a custom type `RouteObjectWithPlugins`, which accommodates additional properties not supported by `react-router-dom`.
 
-Routes are processed by `configureRoutes`, duplicating routes for each language in `config.ts` and injecting the config and locale into loader functions. The final output is compatible with `react-router-dom`.
+Routes are processed by `applyReactRouterPlugins`, duplicating routes for each language in `config.ts` and injecting the config and locale into loader functions. The final output is compatible with `react-router-dom`.
 
 ## Shared Code
 
@@ -181,100 +172,116 @@ Code not contained within the `gbif` or `hp` folders is or can be shared across 
 
 Handled by [react-router-dom version 6](https://reactrouter.com/en/main).
 
-We utilize a custom type `SourceRouteObject` for route definition, enhancing standard functionalities.
+Routes are declared with a custom type, `RouteObjectWithPlugins`, which extends the standard `react-router-dom` `RouteObject` with a few extra properties. The whole route tree is then passed through `applyReactRouterPlugins`, which transforms it into a plain `RouteObject[]` that `react-router-dom` understands. For GBIF.org this happens in `createGbifRoutes(config)` (see `src/gbif/routes.tsx`); the Hosted Portal build does the equivalent in `src/hp/routes.tsx`. Both the type and the plugins live in [`src/reactRouterPlugins`](src/reactRouterPlugins).
 
-`configureRoutes` transforms our custom route definitions into a format compatible with `react-router-dom`.
+### `RouteObjectWithPlugins`
 
-### `SourceRouteObject`
-
-Our custom type for route definition, incorporating additional functionalities.
+Our custom route type adds the following properties on top of a `react-router-dom` `RouteObject`:
 
 ```ts
-type SourceRouteObject = Omit<RouteObject, 'loader' | 'children' | 'lazy'> & {
-  // 'key' is optionally used to activate or deactivate the route in the global configuration.
-  key?: string;
+type RouteObjectWithPlugins = {
+  // Optional human-readable description of the route.
+  description?: string;
 
-  // 'loader' is an optional function that supersedes the default loader, adding unique functionality and parameters.
-  loader?: (args: LoaderArgs) => Promise<any>;
+  // An element rendered while navigating to this route.
+  loadingElement?: JSX.Element;
 
-  // 'loadingElement' is an optional React node rendered during the navigation process to this route.
-  loadingElement?: React.ReactNode;
+  // A loader that receives the extended `LoaderArgs` (see below) rather than the
+  // plain react-router-dom loader arguments.
+  loader?: (args: LoaderArgs) => unknown;
 
-  // 'children' are SourceRouteObjects, allowing nested route definitions within this route object.
-  children?: SourceRouteObject[];
+  // A partial config merged over the global config for this route and its children.
+  overrideConfig?: Partial<Config>;
 
-  // 'gbifRedirect' is an optional function enabling redirection to gbif.org for routes not active on hosted portals.
-  gbifRedirect?: (params: Record<string, string | undefined>) => string;
+  // Returns a gbif.org URL to redirect to when the route is not enabled on a
+  // hosted portal (or null to skip the redirect).
+  gbifRedirect?: (
+    params: Record<string, string | undefined>,
+    locale: LanguageOption,
+    searchParams?: ParamQuery
+  ) => string | null;
 
-  // 'lazy' is a function for lazy loading the route's component, improving performance by loading the component only when required.
-  lazy?: () => Promise<Pick<RouteObject, 'element'>>;
+  isCustom?: boolean;
+  isSlugified?: boolean;
+} & RouteObject; // plus all standard RouteObject properties; `children` is typed as RouteObjectWithPlugins[]
+```
+
+### `LoaderArgs`
+
+Loaders do not receive the raw `react-router-dom` arguments. The plugin pipeline wraps every loader and injects extra values, so a loader is called with:
+
+```ts
+type LoaderArgs = LoaderFunctionArgs & {
+  locale: LanguageOption;  // the locale resolved from the URL
+  config: Config;          // the global config (with any route `overrideConfig` applied)
+  graphql: GraphQLService; // a GraphQL client scoped to the request and locale
+  isPreview: boolean;      // true when the URL contains ?preview=true
 };
 ```
 
-### `configureRoutes`
+### `applyReactRouterPlugins`
 
-This function transforms our custom route definitions to a format compatible with `react-router-dom`. It performs the following operations:
+`applyReactRouterPlugins(routes, config)` runs the route tree through a pipeline of plugins (each lives in its own folder under `src/reactRouterPlugins`):
 
-- Duplicates each route for every language, appending a specific path prefix to differentiate them.
-- Wraps the root routes with the `I18nProvider`, thereby making the locale accessible to the route and its child components.
-- Injects the configuration and the selected locale into the loaders, customizing their behavior based on these settings.
-- Removes any routes that are not enabled in the global configuration, ensuring only active routes are processed.
-- Adds a `LoadingElementWrapper` to every route element. This wrapper enables the display of the `loadingElement` specified for the route currently being navigated to.
-- Dispatches a `StartLoadingEvent` within the loader. This event informs the `LoadingElementContext` to display a loading element if one is available.
-- Returns an array of routes that is compatible with `react-router-dom`, ensuring seamless integration with this library.
-- Generates and returns a `RouteMetadata` array. This array facilitates access to some of the custom properties of the routes during runtime, using a context for dynamic retrieval.
+- **Page paths** — applies config-driven path overrides and exposes the active page paths through a context, allowing a hosted portal to customise or exclude individual pages.
+- **Extra occurrence search pages** — injects additional occurrence-search routes derived from the config.
+- **i18n** — duplicates the route tree for every language in `config.languages`, prefixing non-default languages with their language code, and wraps the tree in an `I18nProvider` so the locale is available to routes and their children.
+- **Slugified** — adds slugified path handling.
+- **Extended loader** — wraps each route's `loader` so it receives the extended `LoaderArgs` (locale, config, graphql, isPreview) described above, and applies any `overrideConfig`.
 
-### Example of a Custom Route Definition
+The function returns a `RouteObject[]` array compatible with `react-router-dom`.
 
-```ts
-{
-  // A key identifying the page for enablement/disablement in the global config
-  key: 'dataset-page',
+### Example of a route definition
 
-  // The relative path of the route, considering parent route paths for absolute path determination
+A route is a `RouteObjectWithPlugins`. Page components are typically lazy-loaded with `React.lazy` and rendered inside a Suspense boundary:
+
+```tsx
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import React from 'react';
+
+const DatasetPage = React.lazy(() => import('./datasetKey'));
+
+export const datasetRoute: RouteObjectWithPlugins = {
+  // Identifies the route (used by react-router-dom and for page configuration).
+  id: 'dataset',
+
+  // The relative path; absolute paths are derived from the parent route paths.
   path: 'dataset/:key',
 
-  // A custom loader function receiving global config, selected locale, request, and parameters
+  // A loader receiving the extended LoaderArgs (config, locale, graphql, isPreview).
   loader: datasetLoader,
 
-  // A function generating a redirect link to gbif.org if disabled by the global config
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    return `https://www.gbif.org/dataset/${params.key}`;
-  },
+  // A redirect to gbif.org when the route is disabled on a hosted portal.
+  gbifRedirect: (params) => `https://www.gbif.org/dataset/${params.key}`,
 
-  // An element displayed during navigation to this route
-  loadingElement: <DatasetLoadingPage />,
+  // An element shown while navigating to this route.
+  loadingElement: <DatasetSkeleton />,
 
-  // The primary element displayed upon loader completion
-  element: <DatasetPage />,
+  // The element displayed once the loader resolves.
+  element: <DatasetLayout />,
 
-  // An element displayed in case of loader or element errors
-  errorElement: <DatasetErrorPage />,
-
-  // Function for lazy loading the route component, improving performance by loading only when needed. 'element' should not be used in conjunction with 'lazy'
-  async lazy: () {
-    const { DatasetPage } = await import('@/routes/dataset/key/Page');
-    return { element: <DatasetPage /> }
-  }
-
-  // Child routes for features like tabs, with the default route marked by { index: true }
+  // Child routes for features like tabs; the default tab is marked { index: true }.
   children: [
     {
       index: true,
-      element: <DatasetAboutTab />,
+      element: (
+        <StaticRenderSuspence fallback={<DatasetSkeleton />}>
+          <DatasetPage />
+        </StaticRenderSuspence>
+      ),
     },
     {
       path: 'dashboard',
       element: <DatasetDashboardTab />,
     },
   ],
-}
+};
 ```
 
 More on `react-router-dom` `RouteObject` options: [`Route`](https://reactrouter.com/en/main/route/route).
 
-Note: Some example properties are custom or override the default `RouteObject`. Refer to the `SourceRouteObject` section above for all custom properties.
+Note: Some example properties are custom additions to the default `RouteObject`. Refer to the `RouteObjectWithPlugins` section above for all custom properties.
 
 ## Styling
 
@@ -394,20 +401,20 @@ export const config: Config = {
 
 #### Creating the Page
 
-```tsx
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
-import { OccurrenceQuery, OccurrenceQueryVariables } from '@/gql/graphql';
-import { createGraphQLHelpers } from '@/utils/createGraphQLHelpers';
+A page is made of a **loader** that fetches the data and a **component** that renders it. The loader receives a `graphql` client (already scoped to the request and locale) and runs during both server-side rendering and client-side navigation. GraphQL types are generated by [graphql-codegen](https://the-guild.dev/graphql/codegen) from the `/* GraphQL */`-tagged query strings — run `npm run codegen` once, or `npm run develop`, which watches for changes. Each query must be uniquely named.
 
-/* 
-This function generates helper utilities for efficient and type-safe data fetching, based on a GraphQL query. The preceding GraphQL comment ensures codegen generates relevant types for the query. During development, the codegen will monitor for changes and update types accordingly. It's essential to supply these generated types to the `createGraphQLHelpers` function for type safety. The `load` function enforces the use of all required variables with the correct types. The `useTypedLoaderData` hook ensures type safety for the query response, meaning you'll be aware of the response types and need to handle nullable values. The query must be uniquely named to facilitate the generation of type names.
-*/
-const { load, useTypedLoaderData } = createGraphQLHelpers<
-  OccurrenceQuery,
-  OccurrenceQueryVariables
->(/* GraphQL */ `
+```tsx
+import { useConfig } from '@/config/config';
+import { OccurrenceQuery, OccurrenceQueryVariables } from '@/gql/graphql';
+import { LoaderArgs } from '@/reactRouterPlugins';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
+import { required } from '@/utils/required';
+import { Helmet } from 'react-helmet-async';
+import { useLoaderData } from 'react-router-dom';
+
+// The /* GraphQL */ comment lets codegen discover the query and generate the
+// `OccurrenceQuery` / `OccurrenceQueryVariables` types imported above.
+const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!) {
     occurrence(key: $key) {
       eventDate
@@ -419,14 +426,32 @@ const { load, useTypedLoaderData } = createGraphQLHelpers<
       }
     }
   }
-`);
+`;
 
-// Example of a page component using data from the above query
-export function DetailedOccurrencePage() {
-  const { data } = useTypedLoaderData();
+// Fetches the data for this page. Runs on the server (SSR) and on the client
+// (client-side navigation). `graphql`, `config`, `locale` and `isPreview` are
+// injected by the route plugins; see the Routing section.
+export async function occurrenceLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key was provided in the URL');
 
-  if (data.occurrence == null) throw new Error('404');
-  const occurrence = data.occurrence;
+  const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, {
+    key,
+  });
+  const { errors, data } = await response.json();
+
+  // Throw a 404/critical error if a required object is missing.
+  throwCriticalErrors({ path404: ['occurrence'], errors, requiredObjects: [data?.occurrence] });
+
+  return { errors, occurrence: data.occurrence! };
+}
+
+export type OccurrenceLoaderResult = Awaited<ReturnType<typeof occurrenceLoader>>;
+
+// The page component reads the loader result via `useLoaderData`.
+export function OccurrencePage() {
+  const { occurrence, errors } = useLoaderData() as OccurrenceLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
+  const config = useConfig();
 
   return (
     <>
@@ -439,39 +464,35 @@ export function DetailedOccurrencePage() {
     </>
   );
 }
-
-// Function for fetching data for this page, executed on the server (for SSR) and client (for CSR)
-export async function detailedOccurrenceLoader({ request, params, config, locale }: LoaderArgs) {
-  const key = params.key;
-  if (key == null) throw new Error('No key provided in the URL');
-
-  return load({
-    endpoint: config.graphqlEndpoint,
-    request,
-    variables: {
-      key,
-    },
-  });
-}
-
-// Optional component to display a page-specific loading screen during navigation. For building comprehensive loading screens, consider using the 'skeleton' component from shadcn/ui: https://ui.shadcn.com/docs/components/skeleton
-export function DetailedOccurrencePageLoading() {
-  return <div>Loading...</div>; // Placeholder text; replace with skeleton component as needed
-}
 ```
+
+To fetch additional, non-critical data on the client after the initial render (for example slow metrics), use the `useQuery` hook from `@/hooks/useQuery` inside the component instead of the loader:
+
+```tsx
+import useQuery from '@/hooks/useQuery';
+
+const { data, load } = useQuery<MetricsQuery, MetricsQueryVariables>(METRICS_QUERY, {
+  lazyLoad: true, // don't run until `load` is called
+  notifyOnErrors: true,
+  throwAllErrors: false,
+});
+```
+
 #### Adding the Page to the Router
 
-To integrate the newly created page into the application, it needs to be registered in the router configuration. This process involves updating two separate files: [Hosted Portals Routes](src/hp/routes.tsx) and [GBIF.org Routes](src/gbif/routes.tsx). If the new page is intended to be available on both Hosted Portals and GBIF.org, it must be added to both files.
+To integrate the newly created page into the application, register it in the router configuration. This involves updating two separate files: [Hosted Portals Routes](src/hp/routes.tsx) and [GBIF.org Routes](src/gbif/routes.tsx). If the page should be available on both Hosted Portals and GBIF.org, add it to both.
 
-Here's an example of adding the demo page:
+Here's an example of registering the demo page:
 
 ```tsx
 {
-  key: 'occurrence-page',
+  id: 'occurrence-page',
   path: 'occurrence/:key',
-  loader: detailedOccurrenceLoader,
-  loadingElement: <DetailedOccurrencePageLoading />,
-  element: <DetailedOccurrencePage />,
+  loader: occurrenceLoader,
+  // Optional: shown while navigating to this route. A shadcn/ui 'skeleton' is a
+  // good fit here (https://ui.shadcn.com/docs/components/skeleton).
+  loadingElement: <OccurrencePageSkeleton />,
+  element: <OccurrencePage />,
 }
 ```
 
@@ -507,24 +528,52 @@ It could make sense to wrap a `Suspense` component with an `ErrorBoundary` to ha
 By implementing an `ErrorBoundary` around `Suspense`, you can effectively catch and handle any unexpected issues that might arise during the lazy loading of components, maintaining application stability even in the face of unforeseen errors.
 
 ### Lazy Load a Page
-Lazy loading an entire page is a strategy to reduce the size of the main bundle, resulting in faster hydration processes. `react-router-dom` natively supports this feature.
+Lazy loading an entire page reduces the size of the main bundle, resulting in faster hydration. Page components are loaded with `React.lazy` and rendered inside a Suspense boundary (`StaticRenderSuspence`), so the page's code is split into its own bundle and only fetched when the route is visited.
 
-Here's an example of how to lazy load a route:
+Here's an example of how to lazy load a page:
+
+```tsx
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import React from 'react';
+
+const OccurrenceSearchPage = React.lazy(() => import('@/routes/occurrence/search/Page'));
+
+export const occurrenceSearchRoute: RouteObjectWithPlugins = {
+  id: 'occurrence-search-page',
+  path: 'occurrence/search',
+  loader: occurrenceSearchLoader,
+  loadingElement: <OccurrenceSearchPageSkeleton />,
+  element: (
+    <StaticRenderSuspence fallback={<OccurrenceSearchPageSkeleton />}>
+      <OccurrenceSearchPage />
+    </StaticRenderSuspence>
+  ),
+};
+```
+
+Note: To ensure proper code splitting, keep the lazily-imported page `element` in a different file from the `loader` and `loadingElement`. This keeps the main bundle smaller and accelerates the initial load. The `loader` also fetches the necessary data concurrently while the JavaScript for the page is still downloading.
+
+> **Consequence for server-side rendering:** the server renders with `renderToString`, which cannot suspend, so `StaticRenderSuspence` deliberately renders its `fallback` on the server instead of the lazy component (see `src/components/staticRenderSuspence.tsx`). A lazily-loaded page is therefore **not server-rendered** — the initial HTML contains only the skeleton, and the real content is loaded and rendered on the client after hydration. This is a good trade for interactive or low-traffic pages (tools, tabs), but for pages where server-rendered content matters for SEO or first contentful paint (for example dataset, species and occurrence detail pages), prefer loading the page eagerly.
+>
+> **Splitting without breaking SSR:** if you need both code splitting *and* server-rendered content, use react-router-dom's native route-level `lazy` instead of `React.lazy`. It is resolved before rendering on both ends: the server builds its routes with `createStaticHandler` (see `src/gbif/entry.server.tsx`), which resolves a matched route's `lazy` import before `renderToString` runs, and the client pre-resolves the matched `lazy` routes in `loadLazyRoutes` before `hydrateRoot` (see `src/gbif/entry.client.tsx`), so the server-rendered content hydrates synchronously without a mismatch.
+>
+> Keep the route's `loader` defined **statically** on the route (do not return it from `lazy`). The route plugins wrap the loader at build time to inject `config`, `locale`, `graphql` and `isPreview`, and a loader returned from `lazy` would bypass that injection. Keeping the loader out of the split chunk also lets it start fetching in parallel while the element chunk downloads.
 
 ```tsx
 {
-  key: 'occurrence-search-page',
+  id: 'occurrence-search-page',
   path: 'occurrence/search',
-  async lazy: () {
+  lazy: async () => {
     const { OccurrenceSearchPage } = await import('@/routes/occurrence/search/Page');
-    return { element: <OccurrenceSearchPage /> }
+    return { element: <OccurrenceSearchPage /> };
   },
   loader: occurrenceSearchLoader,
   loadingElement: <OccurrenceSearchPageLoading />,
-},
+}
 ```
 
-Note: To ensure proper code splitting, the `element` should be placed in a different file than the `loader` and `loadingElement`. This division allows the main bundle to remain smaller, accelerating the initial load. Additionally, the `loader` will load the necessary data concurrently while the JavaScript for the page is being loaded, optimizing resource utilization and improving user experience.
+Note: `lazy` returns only the `element`; the `loader` stays defined on the route so the plugins still inject its arguments and it can fetch in parallel.
 
 ## Code Formatting
 
@@ -545,7 +594,3 @@ Loading screens are displayed only when navigating between routes, not during th
 The loading screens are shown while technically still on the route being navigated away from. This means that the URL in the browser will still reflect the previous route while the new one is loading.
 
 Loading screens do not apply when navigating to the same route with different parameters.
-
-## Common Errors
-
-Document any recurrent errors here, along with their solutions.

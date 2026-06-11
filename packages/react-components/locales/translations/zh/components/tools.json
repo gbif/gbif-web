@@ -176,8 +176,8 @@
       "orEnterLabel": "或者在这里输入数据集键/DOIs和发生次数",
       "chooseFile": "",
       "noFileChosen": "",
-      "invalidFileFormat": "",
-      "emptyFile": "",
+      "invalidFileFormat": "无效的文件格式：文件仅支持CSV",
+      "emptyFile": "数据中没有行",
       "tooManyRows": "",
       "fileReadFailed": "",
       "tab": {
