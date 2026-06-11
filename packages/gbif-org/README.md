@@ -69,7 +69,7 @@ It needs the [graphql server](https://github.com/gbif/gbif-web/tree/master/packa
 
 ## Get Up and Running
 
-This project requires Node.js version `v22.3.0`.
+This project requires the Node.js version specified in [`.nvmrc`](./.nvmrc). Run `nvm use` to switch to it.
 
 ### How to Start the New GBIF.org in Development Mode
 
