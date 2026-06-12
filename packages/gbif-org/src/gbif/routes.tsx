@@ -26,6 +26,7 @@ import { derivedDatasetRoute } from '@/routes/tools/derivedDataset';
 import { nameParserRoute } from '@/routes/tools/nameParser';
 import { sequenceIdRoute } from '@/routes/tools/sequenceId';
 import { speciesLookupRoute } from '@/routes/tools/speciesLookup';
+import { backstageRoute } from '@/backstage';
 
 export function createGbifRoutes(config: Config) {
   return applyReactRouterPlugins(
@@ -81,6 +82,8 @@ export function createGbifRoutes(config: Config) {
       },
       literatureSearchWidgetRoute,
       literatureButtonWidgetRoute,
+      // Backstage admin dashboard
+      backstageRoute,
     ],
     config
   );

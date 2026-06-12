@@ -15,6 +15,7 @@ import depthLimit from 'graphql-depth-limit';
 import config from './config';
 import createContext from './createContext';
 import health from './health';
+import adminController from './admin';
 import { graphqlExplorer, hashMiddleware } from './middleware';
 // get the full schema of what types, enums, scalars and queries are available
 import getSchema from './typeDefs';
@@ -148,6 +149,9 @@ async function initializeServer() {
   });
 
   app.get('/health', health);
+
+  // Authenticated runtime settings API for inspecting graphql server settings and changing log level and overload guard settings on the fly.
+  adminController(app);
 
   // Apollo Server 4+ requires start() to be awaited before mounting the middleware.
   await server.start();

@@ -112,4 +112,35 @@ logger.on('error', (err) => {
 // Log initialization message like portal16 did
 logger.info('initialising log');
 
+const VALID_LOG_LEVELS = ['debug', 'info', 'warn', 'error'] as const;
+export type LogLevel = typeof VALID_LOG_LEVELS[number];
+
+/** The level the logger (and its transports) is currently emitting at. */
+export function getLogLevel(): string {
+  return logger.level;
+}
+
+/**
+ * Change the active log level at runtime (e.g. flip to `debug` to capture an
+ * issue, then back to `warn`). Winston's level is mutable, but the transports
+ * carry their own `level`, so we set both — otherwise a transport would keep
+ * filtering at the old level.
+ */
+export function setLogLevel(next: string): LogLevel {
+  const normalized = String(next).toLowerCase();
+  if (!VALID_LOG_LEVELS.includes(normalized as LogLevel)) {
+    throw new Error(
+      `Invalid log level '${next}'. Expected one of: ${VALID_LOG_LEVELS.join(
+        ', ',
+      )}.`,
+    );
+  }
+  logger.level = normalized;
+  logger.transports.forEach((transport) => {
+    // eslint-disable-next-line no-param-reassign
+    transport.level = normalized;
+  });
+  return normalized as LogLevel;
+}
+
 export default logger;

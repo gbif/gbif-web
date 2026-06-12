@@ -191,6 +191,60 @@ export function getOverloadStats() {
   };
 }
 
+// For the max* thresholds, a non-positive / null value means "no limit"
+// (Infinity), matching how `num()` reads them from config at startup. This lets
+// the admin UI disable an individual signal by clearing its field.
+function toLimit(v: number | null | undefined): number {
+  if (v === null || v === undefined) return Infinity;
+  const n = Number(v);
+  if (!Number.isFinite(n) || n <= 0) return Infinity;
+  return n;
+}
+
+/** The editable overload knobs (Infinity reported as -1, mirroring /health). */
+export function getOverloadSettings() {
+  const finite = (n: number) => (Number.isFinite(n) ? n : -1);
+  return {
+    enabled: settings.enabled,
+    maxEventLoopDelayMs: finite(settings.maxEventLoopDelayMs),
+    maxInFlight: finite(settings.maxInFlight),
+    maxHeapUsedFraction: finite(settings.maxHeapUsedFraction),
+    retryAfterSeconds: settings.retryAfterSeconds,
+  };
+}
+
+export type OverloadSettingsPatch = Partial<{
+  enabled: boolean;
+  maxEventLoopDelayMs: number | null;
+  maxInFlight: number | null;
+  maxHeapUsedFraction: number | null;
+  retryAfterSeconds: number;
+}>;
+
+/**
+ * Apply a runtime override to the overload guard. `settings` is read live by
+ * `overloadReason()` and `getOverloadStats()`, so mutating it takes effect on
+ * the next request — no restart. Ephemeral: lost on process restart by design.
+ */
+export function setOverloadSettings(patch: OverloadSettingsPatch) {
+  if (typeof patch.enabled === 'boolean') settings.enabled = patch.enabled;
+  if ('maxEventLoopDelayMs' in patch) {
+    settings.maxEventLoopDelayMs = toLimit(patch.maxEventLoopDelayMs);
+  }
+  if ('maxInFlight' in patch) settings.maxInFlight = toLimit(patch.maxInFlight);
+  if ('maxHeapUsedFraction' in patch) {
+    settings.maxHeapUsedFraction = toLimit(patch.maxHeapUsedFraction);
+  }
+  if (
+    typeof patch.retryAfterSeconds === 'number' &&
+    Number.isFinite(patch.retryAfterSeconds) &&
+    patch.retryAfterSeconds >= 0
+  ) {
+    settings.retryAfterSeconds = patch.retryAfterSeconds;
+  }
+  return getOverloadSettings();
+}
+
 export function overloadGuard(req: Request, res: Response, next: NextFunction) {
   // Only concern ourselves with guarded paths (default /graphql; never /health).
   const onGuardedPath = settings.guardedPaths.some((p) =>
