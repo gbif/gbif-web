@@ -12,13 +12,13 @@
  *
  * Shedding is expressed as bands of `{ queueAbove, maxPriority }`: while the
  * backlog length exceeds `queueAbove`, requests with priority > `maxPriority`
- * are rejected. The most severe matching band wins, e.g.
+ * are rejected. For example:
  *
  *     [{ queueAbove: 100, maxPriority: 50 }, { queueAbove: 200, maxPriority: 30 }]
  *
- * means: over 100 waiting -> reject priority > 50; over 200 -> reject
- * priority > 30. An empty (or omitted) band list disables shedding: the gate
- * becomes a pass-through.
+ * means: over 100 waiting -> reject priority > 50; over 200 also -> reject
+ * priority > 30. A request is rejected if it exceeds the threshold of any band.
+ * An empty (or omitted) band list disables shedding: the gate becomes a pass-through.
  *
  * Options:
  *   - getQueueLength:  () => number, the current backlog length to test bands
@@ -37,68 +37,76 @@ function defaultRejectHandler(req, res) {
   res.status(429).json({ error: 429, message: 'Too many concurrent requests.' });
 }
 
+// Normalise a bands array: keep only well-formed entries.
+function normaliseBands(input) {
+  return (Array.isArray(input) ? input : []).filter(
+    (b) => b && Number.isFinite(b.queueAbove) && Number.isFinite(b.maxPriority),
+  );
+}
+
 function admissionGate(options = {}) {
   const getQueueLength = options.getQueueLength || (() => 0);
   const rejectHandler = options.rejectHandler || defaultRejectHandler;
-  const defaultPriority = Number.isFinite(options.defaultPriority)
-    ? options.defaultPriority
-    : DEFAULT_PRIORITY;
   const header = options.header || DEFAULT_HEADER;
-  // Keep only well-formed bands, most severe first (largest queueAbove first),
-  // so the first one whose threshold is exceeded is the strictest that applies.
-  const bands = (Array.isArray(options.shedBands) ? options.shedBands : [])
-    .filter(
-      (b) =>
-        b && Number.isFinite(b.queueAbove) && Number.isFinite(b.maxPriority),
-    )
-    .sort((a, b) => b.queueAbove - a.queueAbove);
+
+  // Mutable state so the admin endpoint can retune shedding live (see
+  // setBands/setDefaultPriority). The middleware reads it on every request
+  const state = {
+    defaultPriority: Number.isFinite(options.defaultPriority)
+      ? options.defaultPriority
+      : DEFAULT_PRIORITY,
+    bands: normaliseBands(options.shedBands),
+  };
 
   function readPriority(req) {
     const raw = req.headers && req.headers[header];
-    const n = parseInt(Array.isArray(raw) ? raw[0] : raw, 10);
-    if (!Number.isFinite(n)) return defaultPriority;
+    const n = parseInt(raw, 10);
+    if (!Number.isFinite(n)) return state.defaultPriority;
     // clamp into the documented 1-100 range
     return Math.min(100, Math.max(1, n));
   }
 
-  // The strictest band whose threshold the current backlog exceeds, or null.
-  function activeBand(depth) {
-    for (let i = 0; i < bands.length; i += 1) {
-      if (depth > bands[i].queueAbove) return bands[i];
-    }
-    return null;
-  }
-
-  // A snapshot for /health: are we shedding right now and from which priority.
+  // A snapshot for /health: are we shedding right now and from which bands.
   // (The backlog length itself is reported separately as the queue's `waiting`.)
   function getShedStatus() {
-    const band = activeBand(getQueueLength());
+    const depth = getQueueLength();
+    const rejecting = state.bands.some((band) => depth > band.queueAbove);
     return {
-      rejecting: !!band,
-      maxPriority: band ? band.maxPriority : null,
-      bands,
+      rejecting,
+      bands: state.bands,
     };
   }
 
-  // No bands -> nothing to shed; a pass-through (still reports its status).
-  let middleware;
-  if (bands.length === 0) {
-    middleware = function noShedGate(req, res, next) {
-      next();
-    };
-  } else {
-    middleware = function admissionGateMiddleware(req, res, next) {
-      const band = activeBand(getQueueLength());
-      // Strictest applicable band decides; only then do we read the header.
-      if (band && readPriority(req) > band.maxPriority) {
-        rejectHandler(req, res);
-        return;
+  // Always evaluate live; an empty band list is a pass-through.
+  const middleware = function admissionGateMiddleware(req, res, next) {
+    if (state.bands.length > 0) {
+      const depth = getQueueLength();
+      const priority = readPriority(req);
+      // Reject if any band is exceeded and request priority exceeds that band's limit.
+      for (let i = 0; i < state.bands.length; i += 1) {
+        const band = state.bands[i];
+        if (depth > band.queueAbove && priority > band.maxPriority) {
+          rejectHandler(req, res);
+          return;
+        }
       }
-      next();
-    };
-  }
+    }
+    next();
+  };
 
   middleware.getShedStatus = getShedStatus;
+  // The editable shedding config, for the admin endpoint.
+  middleware.getConfig = () => ({
+    defaultPriority: state.defaultPriority,
+    bands: state.bands,
+  });
+  middleware.setBands = (b) => {
+    state.bands = normaliseBands(b);
+  };
+  middleware.setDefaultPriority = (p) => {
+    const n = Number(p);
+    if (Number.isFinite(n)) state.defaultPriority = Math.min(100, Math.max(1, n));
+  };
   return middleware;
 }
 

@@ -1003,6 +1003,8 @@ export type CollectionFacetTypeStatusArgs = {
 
 export enum CollectionFacetParameter {
   AccessionStatus = 'ACCESSION_STATUS',
+  Biome = 'BIOME',
+  BiomeType = 'BIOME_TYPE',
   City = 'CITY',
   ClassKey = 'CLASS_KEY',
   ContentType = 'CONTENT_TYPE',
@@ -1975,6 +1977,7 @@ export enum DatasetSearchParameter {
   ContactUserId = 'CONTACT_USER_ID',
   Continent = 'CONTINENT',
   Country = 'COUNTRY',
+  CreatedDate = 'CREATED_DATE',
   DatasetTitle = 'DATASET_TITLE',
   Decade = 'DECADE',
   Doi = 'DOI',
@@ -2094,6 +2097,15 @@ export type DerivedDatasetListResults = {
   offset: Scalars['Int']['output'];
   results: Array<DerivedDataset>;
 };
+
+export enum DescriptorIssue {
+  BiomeTypeValidationIssue = 'BIOME_TYPE_VALIDATION_ISSUE',
+  ObjectClassificationValidationIssue = 'OBJECT_CLASSIFICATION_VALIDATION_ISSUE',
+  VocabValueDeprecated = 'VOCAB_VALUE_DEPRECATED',
+  VocabValueMatchedDeprecatedLabel = 'VOCAB_VALUE_MATCHED_DEPRECATED_LABEL',
+  VocabValueMatchedLabel = 'VOCAB_VALUE_MATCHED_LABEL',
+  VocabValueNotFound = 'VOCAB_VALUE_NOT_FOUND'
+}
 
 export type DescriptorMatches = {
   __typename?: 'DescriptorMatches';
@@ -2471,6 +2483,16 @@ export enum Download_Status {
   Running = 'RUNNING',
   Succeeded = 'SUCCEEDED',
   Suspended = 'SUSPENDED'
+}
+
+export enum DurationUnit {
+  Days = 'DAYS',
+  Hours = 'HOURS',
+  Minutes = 'MINUTES',
+  Months = 'MONTHS',
+  Seconds = 'SECONDS',
+  Weeks = 'WEEKS',
+  Years = 'YEARS'
 }
 
 export enum EndorsementStatus {
@@ -2868,6 +2890,105 @@ export enum EventFiltering {
   Upcoming = 'upcoming'
 }
 
+export enum EventIssue {
+  AbundanceCapInvalid = 'ABUNDANCE_CAP_INVALID',
+  AreNonTargetTaxaFullyReportedInvalid = 'ARE_NON_TARGET_TAXA_FULLY_REPORTED_INVALID',
+  ContinentCoordinateMismatch = 'CONTINENT_COORDINATE_MISMATCH',
+  ContinentCountryMismatch = 'CONTINENT_COUNTRY_MISMATCH',
+  ContinentDerivedFromCoordinates = 'CONTINENT_DERIVED_FROM_COORDINATES',
+  ContinentDerivedFromCountry = 'CONTINENT_DERIVED_FROM_COUNTRY',
+  ContinentInvalid = 'CONTINENT_INVALID',
+  CoordinateAccuracyInvalid = 'COORDINATE_ACCURACY_INVALID',
+  CoordinateInvalid = 'COORDINATE_INVALID',
+  CoordinateOutOfRange = 'COORDINATE_OUT_OF_RANGE',
+  CoordinatePrecisionInvalid = 'COORDINATE_PRECISION_INVALID',
+  CoordinatePrecisionUncertaintyMismatch = 'COORDINATE_PRECISION_UNCERTAINTY_MISMATCH',
+  CoordinateReprojected = 'COORDINATE_REPROJECTED',
+  CoordinateReprojectionFailed = 'COORDINATE_REPROJECTION_FAILED',
+  CoordinateReprojectionSuspicious = 'COORDINATE_REPROJECTION_SUSPICIOUS',
+  CoordinateRounded = 'COORDINATE_ROUNDED',
+  CoordinateUncertaintyMetersInvalid = 'COORDINATE_UNCERTAINTY_METERS_INVALID',
+  CountryCoordinateMismatch = 'COUNTRY_COORDINATE_MISMATCH',
+  CountryDerivedFromCoordinates = 'COUNTRY_DERIVED_FROM_COORDINATES',
+  CountryInvalid = 'COUNTRY_INVALID',
+  CountryMismatch = 'COUNTRY_MISMATCH',
+  DepthMinMaxSwapped = 'DEPTH_MIN_MAX_SWAPPED',
+  DepthNonNumeric = 'DEPTH_NON_NUMERIC',
+  DepthNotMetric = 'DEPTH_NOT_METRIC',
+  DepthUnlikely = 'DEPTH_UNLIKELY',
+  ElevationMinMaxSwapped = 'ELEVATION_MIN_MAX_SWAPPED',
+  ElevationNonNumeric = 'ELEVATION_NON_NUMERIC',
+  ElevationNotMetric = 'ELEVATION_NOT_METRIC',
+  ElevationUnlikely = 'ELEVATION_UNLIKELY',
+  EventDurationUnitMissing = 'EVENT_DURATION_UNIT_MISSING',
+  EventDurationValueInvalid = 'EVENT_DURATION_VALUE_INVALID',
+  FootprintSrsInvalid = 'FOOTPRINT_SRS_INVALID',
+  FootprintWktInvalid = 'FOOTPRINT_WKT_INVALID',
+  FootprintWktMismatch = 'FOOTPRINT_WKT_MISMATCH',
+  GeodeticDatumAssumedWgs84 = 'GEODETIC_DATUM_ASSUMED_WGS84',
+  GeodeticDatumInvalid = 'GEODETIC_DATUM_INVALID',
+  GeoreferencedDateInvalid = 'GEOREFERENCED_DATE_INVALID',
+  GeoreferencedDateUnlikely = 'GEOREFERENCED_DATE_UNLIKELY',
+  GeospatialScopeAreaLowerThanTotalAreaSampled = 'GEOSPATIAL_SCOPE_AREA_LOWER_THAN_TOTAL_AREA_SAMPLED',
+  GeospatialScopeAreaUnitMissing = 'GEOSPATIAL_SCOPE_AREA_UNIT_MISSING',
+  GeospatialScopeAreaValueInvalid = 'GEOSPATIAL_SCOPE_AREA_VALUE_INVALID',
+  HasMaterialSamplesInvalid = 'HAS_MATERIAL_SAMPLES_INVALID',
+  HasMaterialSamplesMismatch = 'HAS_MATERIAL_SAMPLES_MISMATCH',
+  HasNonTargetOrganismsInvalid = 'HAS_NON_TARGET_ORGANISMS_INVALID',
+  HasNonTargetTaxaInvalid = 'HAS_NON_TARGET_TAXA_INVALID',
+  HasNonTargetTaxaMismatch = 'HAS_NON_TARGET_TAXA_MISMATCH',
+  HasVouchersInvalid = 'HAS_VOUCHERS_INVALID',
+  IdentifiedDateInvalid = 'IDENTIFIED_DATE_INVALID',
+  IdentifiedDateUnlikely = 'IDENTIFIED_DATE_UNLIKELY',
+  InterpretationError = 'INTERPRETATION_ERROR',
+  IsAbsenceReportedInvalid = 'IS_ABSENCE_REPORTED_INVALID',
+  IsAbundanceCapReportedInvalid = 'IS_ABUNDANCE_CAP_REPORTED_INVALID',
+  IsAbundanceReportedInvalid = 'IS_ABUNDANCE_REPORTED_INVALID',
+  IsDegreeOfEstablishmentScopeFullyReportedInvalid = 'IS_DEGREE_OF_ESTABLISHMENT_SCOPE_FULLY_REPORTED_INVALID',
+  IsGrowthFormScopeFullyReportedInvalid = 'IS_GROWTH_FORM_SCOPE_FULLY_REPORTED_INVALID',
+  IsLeastSpecificTargetCategoryQuantityInclusiveInvalid = 'IS_LEAST_SPECIFIC_TARGET_CATEGORY_QUANTITY_INCLUSIVE_INVALID',
+  IsLifeStageScopeFullyReportedInvalid = 'IS_LIFE_STAGE_SCOPE_FULLY_REPORTED_INVALID',
+  IsSamplingEffortReportedInvalid = 'IS_SAMPLING_EFFORT_REPORTED_INVALID',
+  IsTaxonomicScopeFullyReportedInvalid = 'IS_TAXONOMIC_SCOPE_FULLY_REPORTED_INVALID',
+  IsVegetationCoverReportedInvalid = 'IS_VEGETATION_COVER_REPORTED_INVALID',
+  ModifiedDateInvalid = 'MODIFIED_DATE_INVALID',
+  ModifiedDateUnlikely = 'MODIFIED_DATE_UNLIKELY',
+  MultimediaDateInvalid = 'MULTIMEDIA_DATE_INVALID',
+  MultimediaUriInvalid = 'MULTIMEDIA_URI_INVALID',
+  PresumedNegatedLatitude = 'PRESUMED_NEGATED_LATITUDE',
+  PresumedNegatedLongitude = 'PRESUMED_NEGATED_LONGITUDE',
+  PresumedSwappedCoordinate = 'PRESUMED_SWAPPED_COORDINATE',
+  RecordedDateInvalid = 'RECORDED_DATE_INVALID',
+  RecordedDateMismatch = 'RECORDED_DATE_MISMATCH',
+  RecordedDateUnlikely = 'RECORDED_DATE_UNLIKELY',
+  ReferencesUriInvalid = 'REFERENCES_URI_INVALID',
+  SamplingEffortUnitMissing = 'SAMPLING_EFFORT_UNIT_MISSING',
+  SamplingEffortValueInvalid = 'SAMPLING_EFFORT_VALUE_INVALID',
+  ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
+  ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
+  SiteCountInvalid = 'SITE_COUNT_INVALID',
+  SuspectedType = 'SUSPECTED_TYPE',
+  TargetDegreeOfEstablishmentExcluded = 'TARGET_DEGREE_OF_ESTABLISHMENT_EXCLUDED',
+  TargetGrowthFormExcluded = 'TARGET_GROWTH_FORM_EXCLUDED',
+  TargetHabitatScopeExcluded = 'TARGET_HABITAT_SCOPE_EXCLUDED',
+  TargetLifeStageScopeExcluded = 'TARGET_LIFE_STAGE_SCOPE_EXCLUDED',
+  TargetTaxonomicScopeExcluded = 'TARGET_TAXONOMIC_SCOPE_EXCLUDED',
+  TaxonConceptIdNotFound = 'TAXON_CONCEPT_ID_NOT_FOUND',
+  TaxonIdNotFound = 'TAXON_ID_NOT_FOUND',
+  TaxonMatchAggregate = 'TAXON_MATCH_AGGREGATE',
+  TaxonMatchFuzzy = 'TAXON_MATCH_FUZZY',
+  TaxonMatchHigherrank = 'TAXON_MATCH_HIGHERRANK',
+  TaxonMatchNameAndIdAmbiguous = 'TAXON_MATCH_NAME_AND_ID_AMBIGUOUS',
+  TaxonMatchNone = 'TAXON_MATCH_NONE',
+  TaxonMatchScientificNameIdIgnored = 'TAXON_MATCH_SCIENTIFIC_NAME_ID_IGNORED',
+  TaxonMatchTaxonConceptIdIgnored = 'TAXON_MATCH_TAXON_CONCEPT_ID_IGNORED',
+  TaxonMatchTaxonIdIgnored = 'TAXON_MATCH_TAXON_ID_IGNORED',
+  TotalAreaSampledUnitMissing = 'TOTAL_AREA_SAMPLED_UNIT_MISSING',
+  TotalAreaSampledValueInvalid = 'TOTAL_AREA_SAMPLED_VALUE_INVALID',
+  TypeStatusInvalid = 'TYPE_STATUS_INVALID',
+  ZeroCoordinate = 'ZERO_COORDINATE'
+}
+
 export type EventSearchInput = {
   acceptedTaxonKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   associatedSequences?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -3032,6 +3153,7 @@ export enum Extension {
   GermplasmMeasurementScore = 'GERMPLASM_MEASUREMENT_SCORE',
   GermplasmMeasurementTrait = 'GERMPLASM_MEASUREMENT_TRAIT',
   GermplasmMeasurementTrial = 'GERMPLASM_MEASUREMENT_TRIAL',
+  Humboldt = 'HUMBOLDT',
   Identification = 'IDENTIFICATION',
   Identifier = 'IDENTIFIER',
   Image = 'IMAGE',
@@ -3039,6 +3161,7 @@ export enum Extension {
   MaterialSample = 'MATERIAL_SAMPLE',
   MeasurementOrFact = 'MEASUREMENT_OR_FACT',
   Multimedia = 'MULTIMEDIA',
+  Occurrence = 'OCCURRENCE',
   Permit = 'PERMIT',
   Preparation = 'PREPARATION',
   Preservation = 'PRESERVATION',
@@ -3943,6 +4066,8 @@ export enum InterpretationType_RecordType {
   GermplasmMeasurementTraitTable = 'GERMPLASM_MEASUREMENT_TRAIT_TABLE',
   GermplasmMeasurementTrialTable = 'GERMPLASM_MEASUREMENT_TRIAL_TABLE',
   Grscicoll = 'GRSCICOLL',
+  Humboldt = 'HUMBOLDT',
+  HumboldtTable = 'HUMBOLDT_TABLE',
   IdentificationTable = 'IDENTIFICATION_TABLE',
   Identifier = 'IDENTIFIER',
   IdentifierAbsent = 'IDENTIFIER_ABSENT',
@@ -3960,6 +4085,7 @@ export enum InterpretationType_RecordType {
   MultimediaTable = 'MULTIMEDIA_TABLE',
   MultiTaxonomy = 'MULTI_TAXONOMY',
   Occurrence = 'OCCURRENCE',
+  OccurrenceTable = 'OCCURRENCE_TABLE',
   PermitTable = 'PERMIT_TABLE',
   PreparationTable = 'PREPARATION_TABLE',
   PreservationTable = 'PRESERVATION_TABLE',
@@ -8534,9 +8660,11 @@ export type SpeciesMatchUsage = {
 };
 
 export enum SqlDownloadFunction {
+  ArraysOverlap = 'ARRAYS_OVERLAP',
   Contains = 'CONTAINS',
   DegreeMinuteSecondGridCellCode = 'DEGREE_MINUTE_SECOND_GRID_CELL_CODE',
   EeaCellCode = 'EEA_CELL_CODE',
+  EurostatCellCode = 'EUROSTAT_CELL_CODE',
   ExtendedQuarterDegreeGridCellCode = 'EXTENDED_QUARTER_DEGREE_GRID_CELL_CODE',
   GeoDistance = 'GEO_DISTANCE',
   Isea3HCellCode = 'ISEA3H_CELL_CODE',

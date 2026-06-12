@@ -12,6 +12,7 @@ import { helmetConfig } from './helmetConfig.js';
 import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
+import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
 import createGetRedirect from './middleware/redirects.mjs';
 // Load environment variables from .env files and merge them with process.env.
@@ -111,6 +112,7 @@ async function main() {
   }
 
   registerUser(app);
+  registerAdmin(app);
   registerProxies(app);
   registerSitemaps(app);
   registerRobots(app);

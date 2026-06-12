@@ -21,6 +21,7 @@
     "express": "4.17.2",
     "express-queue": "^0.0.13",
     "joi": "17.5.0",
+    "jsonwebtoken": "^9.0.3",
     "lodash": "4.17.21",
     "object-hash": "^3.0.0",
     "qs": "6.10.3",
