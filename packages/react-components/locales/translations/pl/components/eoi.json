@@ -30,7 +30,7 @@
   "none": "Żadne",
   "whatAndHow": "Co i jak",
   "helpUsUnderstand": "Pomóż nam zrozumieć, jakiego typu dane planujesz publikować i jakiego wsparcia możesz potrzebować. ",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "GBIF.org wspiera publikacje czterech typów danych, wyjaśnionych <a href='/dataset-classes'>tutaj</a> .\nOdpowiedzialność za formatowanie danych i udostępnianie oryginalnych zbiorów danych pozostaje przy publikującym dane, ale możemy pomóc w wyszukiwaniu odpowiednich rozwiązań technicznych.",
   "whichTypesOfData": "Które typy danych planujesz publikować?",
   "resourcesMetaData": "Metadane zasobów",
   "checkListData": "Dane dotyczące wykazu gatunków",
@@ -42,9 +42,9 @@
   "yes": "Tak",
   "no": "Nie",
   "pleaseSelectAValue": "Proszę wybrać wartość",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "W takim przypadku zaleca się najpierw próbę ponownego użycia istniejącego, zaufanego  <a href='https://github.com/gbif/ipt/wiki/dataHostingCentre'>IPT data hosting centre</a>",
   "doYouNeedHelpPublishing": "Potrzebujesz pomocy w publikacji swoich danych?",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "Czy planujesz zainstalować i uruchomić oprogramowanie do publikacji (takie jak  <a href='/ipt'>Integrated Publishing Toolkit – IPT</a>), by publikować dane bezpośrednio w GBIF.org?",
   "orgDetails": "Szczegółowe dane organizacji",
   "yourChanceToTellGBIF": "Twoja okazja, by powiedzieć użytkownikom GBIF, kim jesteś i czym się zajmujesz.",
   "orgName": "Nazwa organizacji",
@@ -91,10 +91,10 @@
   },
   "thankYouForYourRegistration": "Dziękujemy za zarejestrowanie organizacji",
   "failedToRegisterOrganization": "Nie udało się zarejestrować organizacji",
-  "associatedWithGbifProgramme": "",
+  "associatedWithGbifProgramme": "Czy jesteś związany z projektem finansowanym przez program GBIF?",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Aby zarejestrować nową organizację, potrzebujesz konta",
+    "message": "Zaloguj się lub utwórz konto, aby kontynuować rejestrację swojej organizacji."
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Zarejestruj kolejną organizację?"
 }
