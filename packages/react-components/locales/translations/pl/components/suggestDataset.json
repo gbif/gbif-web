@@ -40,8 +40,8 @@
   "errorMessage": "Spróbuj ponownie później",
   "licenseNotOpen": "Nie na otwartej licencji",
   "loginToSuggestDataset": {
-    "title": "",
-    "message": ""
+    "title": "Zaloguj się, aby zasugerować zbiór danych",
+    "message": "Aby zaproponować zbiór danych do GBIF, musisz się zalogować."
   },
   "successReset": "Zaproponuj inny zbiór danych"
 }
