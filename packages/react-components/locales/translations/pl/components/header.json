@@ -2,9 +2,9 @@
   "header": {
     "changeLanguage": "Zmień język",
     "feedback": "Wyślij opinię",
-    "systemStatus": "",
-    "profileLinkLabel": "",
-    "siteNavigation": "",
+    "systemStatus": "Status systemu",
+    "profileLinkLabel": "Strona profilowa {userName}",
+    "siteNavigation": "Nawigacja Strony",
     "search": "Wyszukaj",
     "profile": "Profil użytkownika"
   }
