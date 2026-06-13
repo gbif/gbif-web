@@ -118,37 +118,37 @@
   "organismQuantityType": {
     "name": "Type de quantité d’organisme",
     "count": "",
-    "description": ""
+    "description": "Le type de mesure pour la \"quantité d'organismes\"."
   },
   "pathway": {
     "name": "Chemin",
     "count": "",
-    "description": ""
+    "description": "La voie par laquelle l'organisme a été introduit."
   },
   "associatedSequences": {
     "name": "Séquences associées",
     "count": "",
-    "description": ""
+    "description": "Un identifiant de toute séquence associée à l'enregistrement. Généralement une URL."
   },
   "degreeOfEstablishment": {
     "name": "Degré d'établissement",
     "count": "",
-    "description": ""
+    "description": "Le degré d'implantation de l'organisme dans l'environnement."
   },
   "endDayOfYear": {
     "name": "Dernier jour de l'année",
     "count": "",
-    "description": ""
+    "description": "Le jour de l'année où l'événement s'est terminé."
   },
   "startDayOfYear": {
     "name": "Premier jour de l'année",
     "count": "",
-    "description": ""
+    "description": "Le jour de l'année où l'événement a débuté."
   },
   "previousIdentifications": {
     "name": "Identifications précédentes",
     "count": "",
-    "description": ""
+    "description": "Identifications taxonomiques antérieures associées à cet enregistrement."
   },
   "lastInterpreted": {
     "name": "Dernière interprétation",
