@@ -153,12 +153,12 @@
   "lastInterpreted": {
     "name": "Dernière interprétation",
     "count": "",
-    "description": ""
+    "description": "Date de la dernière interprétation de l'enregistrement."
   },
   "alternativeCode": {
-    "name": "",
+    "name": "Code alternatif",
     "count": "",
-    "description": ""
+    "description": "Tout code supplémentaire déjà utilisé pour le même enregistrement dans d'autres contextes (par exemple, des codes historiques)."
   },
   "identifier": {
     "name": "Identifiant",
@@ -168,32 +168,32 @@
   "institutionType": {
     "name": "Type ",
     "count": "",
-    "description": ""
+    "description": "Type d'institution (musée, herbier, etc.)"
   },
   "discipline": {
-    "name": "",
+    "name": "Discipline ",
     "count": "",
-    "description": ""
+    "description": "Les disciplines de recherche soutenues par l'établissement."
   },
   "collectionContentType": {
-    "name": "",
+    "name": "Type de contenu",
     "count": "",
-    "description": ""
+    "description": "Le type d'objets disponibles dans la collection"
   },
   "preservationType": {
-    "name": "",
+    "name": "Type de conservation",
     "count": "",
-    "description": ""
+    "description": "La méthode utilisée pour préserver les objets disponibles dans la collection"
   },
   "biomeType": {
-    "name": "",
+    "name": "Type de biome",
     "count": "",
-    "description": ""
+    "description": "Le type de biome auquel l'organisme est associé."
   },
   "objectClassification": {
-    "name": "",
+    "name": "Classification de l'objet",
     "count": "",
-    "description": ""
+    "description": "La classification du ou des objets de la collection."
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
@@ -203,7 +203,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nom scientifique du taxon",
     "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
-    "description": ""
+    "description": "Filtrer en utilisant les noms scientifiques répertoriés dans les descripteurs de collection fournis dans les métadonnées de la collection, en gardant à l'esprit que toutes les collections ne comportent pas de descripteurs de métadonnées et que les noms se situent souvent à des niveaux taxonomiques supérieurs, tels que l'ordre ou la famille."
   },
   "basisOfRecord": {
     "name": "Base de registre",
@@ -235,11 +235,11 @@
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
+    "name": "Problèmes et drapeaux taxonomiques",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Présente des problèmes taxonomiques",
+    "isNull": "Ne présente pas de problèmes taxonomiques",
+    "description": "Les types de problèmes taxonomiques ou de signaux d'intérêt potentiel découverts lors du traitement des données."
   },
   "occurrenceCountry": {
     "name": "Pays",
@@ -247,17 +247,17 @@
     "description": "Pays ou territoire où l'événement s'est produit"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "Pays ou territoire figurant dans l'adresse de l'enregistrement"
   },
   "preparations": {
     "name": "Préparations",
     "count": "",
-    "description": ""
+    "description": "Comment l'échantillon a été préparé (par exemple, séché)"
   },
   "repatriated": {
     "name": "Rapatrié",
     "count": "",
-    "description": ""
+    "description": "Si l'enregistrement a été rapatrié ou non dans son pays d'origine."
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
@@ -267,7 +267,7 @@
   "q": {
     "name": "Recherche textuelle",
     "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": ""
+    "description": "Recherche en texte intégral dans plusieurs champs"
   },
   "coordinates": {
     "name": "Coordonnées"
@@ -290,7 +290,7 @@
   "datasetId": {
     "name": "ID du jeu de données",
     "count": "",
-    "description": ""
+    "description": "L'identifiant interne de l'éditeur correspondant au jeu de données auquel l'enregistrement est associé. Notez qu'il ne s'agit pas du \"datasetKey\" utilisé sur GBIF pour ce jeu de données."
   },
   "publisherKey": {
     "name": "Fournisseurs de données",
@@ -314,7 +314,7 @@
   "countriesOfCoverage": {
     "name": "Pays ou région de couverture",
     "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
-    "description": ""
+    "description": "Les pays concernés par cet enregistrement."
   },
   "collectionDescriptorCountry": {
     "name": "Pays ou région de couverture",
