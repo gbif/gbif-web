@@ -1,74 +1,74 @@
 {
   "tabs": {
     "table": "Tabela",
-    "tree": "",
+    "tree": "Drzewo",
     "gallery": "Galeria",
-    "media": "",
+    "media": "Multimedia",
     "map": "Mapa",
     "datasets": "Zbiory danych",
     "events": "Zdarzenia",
     "download": "Pobierz",
-    "clusters": "",
+    "clusters": "Powiązane",
     "dashboard": "Kokpit",
-    "sites": "",
+    "sites": "Strony",
     "list": "Lista"
   },
   "table": {
     "lockColumn": "Zablokuj kolumnę",
-    "unlockColumn": "",
-    "columnVisibility": "",
-    "resetColumnVisibility": "",
-    "openFilter": ""
+    "unlockColumn": "Odblokuj Kolumnę",
+    "columnVisibility": "Przełącz kolumny",
+    "resetColumnVisibility": "Zresetuj",
+    "openFilter": "Otwórz filtr"
   },
   "placeholders": {
     "default": "Wyszukaj",
     "range": "Przedział albo pojedyncza wartość",
-    "rangeExample": "",
+    "rangeExample": "Np. 1000,2000",
     "wildcard": "Szukaj używając * i ? jako symboli wieloznacznych",
-    "dateTemplate": "",
-    "locationID": ""
+    "dateTemplate": "rrrr-mm-dd",
+    "locationID": "Wyszukaj według identyfikatora lokalizacji (uwzględniając wielkość liter)"
   },
   "ternary": {
     "yes": "Tak",
     "no": "Nie",
-    "either": ""
+    "either": "Obojętnie"
   },
   "loadMore": "Więcej",
   "loading": "Ładowanie",
-  "noResults": "",
-  "startTyping": "",
-  "addFilters": "",
+  "noResults": "Brak wyników",
+  "startTyping": "Wpisz szukaną frazę",
+  "addFilters": "Dodaj filtry",
   "apply": "Zastosuj",
   "cancel": "Anuluj",
-  "rankInGroup": "",
+  "rankInGroup": "{rank} w {group}",
   "options": "Opcje",
   "sort": {
-    "sortBy": "",
-    "yearDesc": "",
-    "yearAsc": ""
+    "sortBy": "Sortuj wg",
+    "yearDesc": "Rok (najnowsze na początku)",
+    "yearAsc": "Rok (najstarsze na początku)"
   },
   "group": {
-    "groupBy": "",
+    "groupBy": "Grupuj według",
     "default": "Domyślny",
-    "random": "",
-    "showMore": "",
-    "cappedHint": "",
-    "useAsFilter": "",
+    "random": "Losowe",
+    "showMore": "Pokaż {count} więcej",
+    "cappedHint": "Wyświetlono {shown} z {total} grup. Zastosuj więcej filtrów, aby zawęzić wyszukiwanie.",
+    "useAsFilter": "Użyj jako filtr",
     "unspecified": "Nieokreślona"
   },
   "occurrenceClustersView": {
     "about": "Informacje",
-    "clusters": "",
+    "clusters": "Powiązane",
     "legend": "Legenda",
-    "differentPublishers": "",
-    "samePublishers": "",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "differentPublishers": "Inny wydawca.",
+    "samePublishers": "Ten sam wydawca danych",
+    "entryPoint": "Punkt wejścia",
+    "hasMultipleTaxonKeys": "Zawiera inne identyfikacje",
+    "aboutLink": "O linku",
+    "isCapped": "Ten węzeł ma więcej połączeń niż pokazano tutaj. Przejdź do rekordu, aby zobaczyć pełną listę.",
+    "isDeleted": "Ten rekord został już usunięty.",
+    "similarities": "Podobieństwa",
+    "currentRecord": "Bieżący rekord",
     "nodeType": {
       "IMAGE": "Zdjęcie",
       "TYPE": "Typ okazu",
@@ -80,16 +80,16 @@
   },
   "crossContentSearch": {
     "title": "Wyszukaj",
-    "description": "",
+    "description": "Przeszukuj gatunki, wystąpienia, zestawy danych, wydawców, artykuły i nie tylko",
     "noSearchTermsEntered": "Nie wpisano terminów wyszukiwania",
-    "placeholder": "",
+    "placeholder": "Szukaj w treści...",
     "categories": {
       "speciesSearch": "Gatunek\n",
       "taxonSearch": "Taksony",
       "datasetSearch": "Zbiory danych",
       "publisherSearch": "Wydawcy",
       "occurrenceSearch": "Wystąpienia",
-      "resourceSearch": ""
+      "resourceSearch": "Zasoby i artykuły"
     },
     "seeAll": "Zobacz wszystko"
   }
