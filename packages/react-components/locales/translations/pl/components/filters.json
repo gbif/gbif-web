@@ -314,12 +314,12 @@
   "countriesOfCoverage": {
     "name": "Kraj lub obszar zasięgu",
     "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}",
-    "description": ""
+    "description": "Które kraje są objęte rekordem"
   },
   "collectionDescriptorCountry": {
     "name": "Kraj lub obszar zasięgu",
     "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}",
-    "description": ""
+    "description": "Z jakich krajów pochodzą okazy w kolekcji? Należy pamiętać, że nie wszystkie kolekcje mają te informacje."
   },
   "countriesOfResearcher": {
     "name": "Kraj lub obszar badacza",
@@ -348,9 +348,9 @@
     "description": "Miara minimalnej odległości w metrach od współrzędnych, w których lokalna obserwacja może się znajdować. "
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Odległość od centroidu w metrach",
+    "count": "{num, plural, one {odległość od centroidu} few {# odległości od  centroidu} many {#  odległości od  centroidu} other {#  odległości od  centroidu}}",
+    "description": "Odległość od centroidu kraju w metrach"
   },
   "depth": {
     "name": "Głębokość",
@@ -394,13 +394,13 @@
   },
   "sex": {
     "name": "Płeć",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {płeć} few {# płcie} many {# płci} other {# płci}}",
+    "description": "Płeć organizmu"
   },
   "lifeStage": {
     "name": "Stadium rozwoju",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {stadium rozwojowe} few {# stadia rozwojowe} many {# stadiów rozwojowych} other {# stadiów rozwojowych}}",
+    "description": "Stadium rozwojowe organizmu"
   },
   "recordedBy": {
     "name": "Zarejestrowane przez",
@@ -409,38 +409,38 @@
   },
   "fieldNumber": {
     "name": "Numer pola",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { numer pola } few {# numery pól} many {# numerów pół} other {# numerów pól}}",
+    "description": "Identyfikator przypisany lokalizacji przez kolekcjonera."
   },
   "verbatimTaxonId": {
     "name": "Dosłowny identyfikator taksonu",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { dosłowne ID taksonu} few {# dosłowne ID taksonów } many {# dosłownych ID taksonów } other {# dosłownych ID taksonów}}",
+    "description": "Identyfikator taksonu podany przez publikującego dane."
   },
   "islandGroup": {
     "name": "Grupa wysp",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { grupa wysp} few {# grupy wysp } many {# grup wysp } other {# grup wysp}}",
+    "description": "Nazwa grupy wysp, na których znajduje się dana lokalizacja."
   },
   "island": {
     "name": "Wyspa",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { wyspa } few {# wyspy} many {# wysp} other {# wysp}}",
+    "description": "Nazwa wyspy, na której znajduje się lokalizacja."
   },
   "georeferencedBy": {
     "name": "Georeferencjonowane przez",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { zgeoreferencjonowany przez } few {# zgeoreferencjonowany przez} many {# zgeoreferencjonowanych przez} other {# zgeoreferencjonowanych przez}}",
+    "description": "Nazwy osób, grup lub organizacji odpowiedzialnych za georeferencjonowanie oryginalnego wystąpienia."
   },
   "datasetName": {
     "name": "Nazwa zbioru danych",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { nazwa zbioru danych } few {# nazwy zbiorów danych } many {# nazw zbiorów danych } other {# nazw zbiorów danych}}",
+    "description": "Nazwa zbioru danych używana przez instytucję publikującą. Rekordy w zbiorze danych mogą pochodzić z wielu innych zbiorów danych."
   },
   "programme": {
     "name": "Program",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# program} few {# programy} many {# programów} other {# programy, programów}}",
+    "description": "Nazwa programu, z którym powiązany jest rekord."
   },
   "recordNumber": {
     "name": "Numer rekordu",
@@ -450,11 +450,11 @@
   "collectionCode": {
     "name": "Kod kolekcji",
     "count": "{num, plural, one { kod kolekcji } few {# kody kolekcji} many {# kodów kolekcji} other {# kody kolekcji}}",
-    "description": ""
+    "description": "Jaki kod kolekcji jest przypisany do rekordu."
   },
   "projectId": {
     "name": "Identyfikator projektu",
-    "count": "",
+    "count": "{num, plural, one {# ID projektu} few {# ID projektów} many {# ID projektów} other {# ID projekty, projektów}}",
     "description": ""
   },
   "recordedById": {
