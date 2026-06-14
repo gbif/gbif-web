@@ -18,8 +18,10 @@
   "COUNTRY_MISMATCH": "Incompatibilité de pays",
   "COUNTRY_INVALID": "Pays non valide",
   "COUNTRY_DERIVED_FROM_COORDINATES": "Pays déduit à partir des coordonnées",
+  "CONTINENT_COORDINATE_MISMATCH": "Incohérence entre le continent et les coordonnées",
   "CONTINENT_COUNTRY_MISMATCH": "Incompatibilité entre continent et pays",
   "CONTINENT_INVALID": "Continent non valide",
+  "CONTINENT_DERIVED_FROM_COUNTRY": "Continent dérivé du pays",
   "CONTINENT_DERIVED_FROM_COORDINATES": "Continent dérivés des coordonnées",
   "PRESUMED_SWAPPED_COORDINATE": "Coordonnées probablement échangées",
   "PRESUMED_NEGATED_LONGITUDE": "Longitude présumée négative",
@@ -72,5 +74,11 @@
   "TAXON_CONCEPT_ID_NOT_FOUND": "ID du concept taxonomique introuvable",
   "TAXON_ID_NOT_FOUND": "ID de taxon introuvable",
   "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Nom scientifique et ID incohérents",
-  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Correspondance taxonomique du nom et ID ambigus"
+  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Correspondance taxonomique du nom et ID ambigus",
+  "SUSPECTED_TYPE": "Type suspecté",
+  "GEOSPATIAL_SCOPE_AREA_LOWER_THAN_TOTAL_AREA_SAMPLED": "Zone géospatiale est inférieure à la superficie totale échantillonnée",
+  "EVENT_DURATION_UNIT_MISSING": "Unité de durée de l'événement manquante",
+  "GEOSPATIAL_SCOPE_AREA_UNIT_MISSING": "Unité de mesure de la zone géospatiale manquante",
+  "SAMPLING_EFFORT_UNIT_MISSING": "Unité d'effort d'échantillonnage manquante",
+  "TOTAL_AREA_SAMPLED_UNIT_MISSING": "Unité de surface totale échantillonnée manquante"
 }

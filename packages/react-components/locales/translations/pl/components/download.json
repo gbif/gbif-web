@@ -1,60 +1,60 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "Nieobsługiwane zapytanie",
+    "unsupported.description": "Swobodne wyszukiwanie tekstowe może być użyte, ale bez opcji pobierania.",
+    "unsupported.remove": "Usuń filtry",
+    "unsupported.error": "Wygląda na to, że to zapytanie nie jest obsługiwane.",
     "download": "Pobierz",
-    "redirectNotice": "",
+    "redirectNotice": "Zamierzasz pobrać dane, aby to zrobić, zostaniesz przekierowany do GBIF.org.\nPamiętaj, że musisz posiadać konto na GBIF.org, żeby pobrać zawartość.",
     "continueToGBIF": "Kontynuuj",
     "continue": "Kontynuuj",
     "invalid": "Błędny",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "Zatwiedź",
+    "sqlEditor": "Edytor SQL",
+    "predicateEditor": "Edytor wyrażeń warunkowych (predykatów)",
     "sql": {
       "createNewSqlDownload": "Stwórz nowe pobranie SQL",
-      "placeholder": "",
-      "noSql": "",
+      "placeholder": "Wprowadź tutaj swoje zapytanie SQL...",
+      "noSql": "Brak zapytania SQL",
       "note": {
         "title": "Uwaga",
-        "description": "",
-        "occurrence_search": ""
+        "description": "Najprostszym sposobem na pobieranie i przeglądanie danych jest {occurrence_search}. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
+        "occurrence_search": "interfejs użytkownika wyszukiwania wystąpień"
       },
       "errors": {
         "invalid-SQL": "Nieprawidłowy SQL",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "network-error": "Błąd sieci",
+        "parsingErrorDescription": "Nie można przeanalizować kodu SQL",
+        "networkErrorDescription": "Nie można zweryfikować kodu SQL z powodu błędu sieciowego"
       }
     },
-    "create": "",
+    "create": "Utwórz",
     "about": "Informacje",
     "stopEditing": "Zakończ edycje",
     "startEditing": "Rozpocznij edycje",
     "reformat": "Reformatuj",
-    "discard": "",
-    "keep": "",
+    "discard": "Odrzuć",
+    "keep": "Zachowaj",
     "readTheDocumentation": "Przeczytaj dokumentację",
     "request": {
-      "placeholder": "",
+      "placeholder": "Wprowadź predykat",
       "createNewDownload": "Stwórz nowe pobranie",
-      "weHaveRestoredYourPredicate": "",
-      "noPredicate": "",
+      "weHaveRestoredYourPredicate": "Przywróciliśmy predykat, nad którym pracowałeś, gdy tu ostatnio byłeś.",
+      "noPredicate": "Brak predykatu",
       "currentFilter": "Aktualny filtr",
       "errors": {
         "invalid-json": "Nieprawidłowy JSON",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
-        "unexpectedError": "",
-        "failedToParseJSON": "",
-        "failedToVisualizePredicate": ""
+        "invalid-predicate": "Nieprawidłowy predykat",
+        "faild-to-load-predicate": "Nie udało się załadować predykatu",
+        "unexpectedError": "Wystąpił nieoczekiwany błąd",
+        "failedToParseJSON": "Nie można przeanalizować JSON",
+        "failedToVisualizePredicate": "Nie udało się zwizualizować predykatu. Wyświetlanie surowego JSON"
       }
     },
     "downloadOptions": {
       "title": "Opcje pobierania",
-      "chooseChecklist": "",
-      "chooseChecklistDescription": "",
+      "chooseChecklist": "Wybierz checklistę",
+      "chooseChecklistDescription": "Wybierz checklistę taksonomiczną do uporządkowania nazw taksonów w pobranym pliku",
       "content": {
         "rawData": "Surowe dane",
         "interpretedData": "Dane zinterpretowane",
@@ -67,12 +67,12 @@
         "tabCsv": "CSV rozdzielone znakami tabulacji (do użycia w Excelu, etc.)"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
-        "links": ""
+        "ifAvailable": "jeśli dostępne",
+        "ifSelected": "jeśli wybrano",
+        "links": "linki"
       }
     },
-    "failedToRefreshDownloadStatus": "",
-    "descriptionByDownloadCreator": ""
+    "failedToRefreshDownloadStatus": "Nie udało się odświeżyć statusu pobierania",
+    "descriptionByDownloadCreator": "Opis według autora pobierania"
   }
 }
