@@ -593,7 +593,7 @@
     "preservation": {
       "name": "Sposób konserwacji",
       "properties": {
-        "preservationType": "",
+        "preservationType": "Sposób konserwacji",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""
@@ -758,7 +758,7 @@
         "samplingEffort": "Próbkowanie",
         "geospatialScopeArea": "",
         "totalAreaSampled": "",
-        "siteCount": "",
+        "siteCount": "Liczba stanowisk",
         "siteNestingDescription": "",
         "verbatimSiteDescriptions": "",
         "verbatimSiteNames": "",
