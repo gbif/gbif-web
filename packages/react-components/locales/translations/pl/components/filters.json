@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
     "name": "Rozszerzenie DwC-A",
-    "count": "",
+    "count": "{num, plural, one { rozszerzenie DwC-A } few {# rozszerzenia DwC-A} many {# rozszerzeń DwC-A} other {# rozszerzenia DwC-A}}",
     "description": "Tutaj należy umieścić krótki opis komponentu"
   },
   "locationId": {
@@ -25,9 +25,9 @@
     "description": "Kolekcja w GrSciColl, do której ten zapis został dopasowany"
   },
   "predicate": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Zapytanie złożone",
+    "count": "{num, plural, one { zapytanie złożone } few {# zapytania złożone} many {# zapytań złożonych} other {# zapytań złożonych}}",
+    "description": "Złożone zapytanie mające na celu filtrowanie rekordów."
   },
   "taxonomicStatus": {
     "name": "Status",
@@ -87,18 +87,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratygrafia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { biostratygrafia } few {# biostratygrafie} many {# biostratygrafii} other {# biostratygrafii}}",
+    "description": "Kontekst biostratygraficzny rekordu"
   },
   "lithostratigraphy": {
     "name": "Litostratygrafia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { litostratygrafia } few {# litostratygrafie} many {# litostratygrafii} other {# litostratygrafii}}",
+    "description": "Kontekst litostratygraficzny rekordu"
   },
   "geologicalTime": {
     "name": "Czas geologiczny",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { czas geologiczny } few {# czasy geologiczne} many {# czasów geologicznych} other {# czasów geologicznych}}",
+    "description": "Kontekst czasu geologicznego rekordu"
   },
   "purposes": {
     "name": "Temat",
@@ -112,48 +112,48 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
+    "description": "Unikalny identyfikator zdarzenia w bazie danych GBIF"
   },
   "organismQuantityType": {
     "name": "Rodzaj liczebności organizmów",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { rodzaj liczebności organizmów } few {# rodzaje liczebności organizmów} many {# rodzajów liczebności organizmów} other {# rodzajów liczebności organizmów}}",
+    "description": "Sposób pomiaru liczebności organizmów"
   },
   "pathway": {
     "name": "Ścieżka",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ścieżka } few {# ścieżki} many {# ścieżek} other {# ścieżek}}",
+    "description": "Droga którą organizm został wprowadzony"
   },
   "associatedSequences": {
     "name": "Powiązane sekwencje",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { powiązana sekwencja} few {# powiązane sekwencje} many {# powiązanych sekwencji} other {# powiązanych sekwencji}}",
+    "description": "Identyfikator sekwencji powiązanych z rekordem. Zazwyczaj jest to adres URL."
   },
   "degreeOfEstablishment": {
     "name": "Stopień wprowadzenia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { stopień zadomowienia} few {# stopnie zadomowienia} many {# stopni zadomowienia} other {# stopni zadomowienia}}",
+    "description": "Stopień do którego organizm jest zadomowiony w środowisku."
   },
   "endDayOfYear": {
     "name": "Ostatni dzień roku",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ostatni dzień roku} few {# ostatnie dni roku} many {# ostatnich dni roku} other {# ostatnich dni roku}}",
+    "description": "Dzień w roku, w którym wydarzenie się zakończyło."
   },
   "startDayOfYear": {
     "name": "Pierwszy dzień roku",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { pierwszy dzień roku} few {# pierwsze dni roku} many {# pierwszych dni roku} other {# pierwszych dni roku}}",
+    "description": "Dzień w roku, w którym wydarzenie się rozpoczęło."
   },
   "previousIdentifications": {
     "name": "Wcześniejsze oznaczenia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { poprzednia identyfikacja} few {# poprzednie identyfikacje} many {# poprzednich identyfikacji} other {# poprzednich identyfikacji}}",
+    "description": "Poprzednie identyfikacje taksonów powiązane z rekordem."
   },
   "lastInterpreted": {
     "name": "Ostatnio interpretowano",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ostatnia interpretacja} few {# ostatnie interpretacje} many {# ostatnich interpretacji} other {# ostatnich interpretacji}}",
+    "description": "Czas ostatniej interpretacji rekordu."
   },
   "alternativeCode": {
     "name": "Alternatywny kod",
@@ -177,23 +177,23 @@
   },
   "collectionContentType": {
     "name": "Rodzaj treści",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {rodzaj zawartości } few {# rodzaje zawartości} many {# rodzajów zawartości} other {# rodzajów zawartości}}",
+    "description": "Rodzaj obiektów dostępnych w kolekcji"
   },
   "preservationType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sposób konserwacji",
+    "count": "{num, plural, one { sposób konserwacji } few {# sposoby konserwacji} many {# sposobów konserwacji} other {# sposobów konserwacji}}",
+    "description": "Metoda stosowana do konserwacji obiektów dostępnych w kolekcji"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Rodzaj biomu",
+    "count": "{num, plural, one {rodzaj biomu } few {# rodzaje biomów} many {# rodzajów biomów} other {# rodzajów biomów}}",
+    "description": "Rodzaj biomu, z którym organizm jest powiązany."
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Klasyfikacja obiektu",
+    "count": "{num, plural, one {klasyfikacja obiektu} few {#klasyfikacje obiektów} many {# klasyfikacji obiektów} other {# klasyfikacji obiektów}}",
+    "description": "Klasyfikacja obiektu(ów) w kolekcji."
   },
   "taxonKey": {
     "name": "Nazwa naukowa",
@@ -203,7 +203,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nazwa naukowa",
     "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
-    "description": ""
+    "description": "Filtruj, korzystając z nazw naukowych wymienionych w deskryptorach kolekcji zawartych w metadanych kolekcji, pamiętając, że nie wszystkie kolekcje obejmują deskryptory metadanych, a nazwy często znajdują się na wyższych rangach taksonomicznych, takich jak rząd lub rodzina."
   },
   "basisOfRecord": {
     "name": "Podstawa zapisu",
@@ -235,11 +235,11 @@
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Trudności taksonomiczne i ostrzeżenia",
+    "count": "{num, plural, one {trudność taksonomiczna i ostrzeżenie} few {# trudności taksonomiczne i ostrzeżenia} many {# trudności taksonomicznych i ostrzeżeń} other {# trudności taksonomicznych i ostrzeżeń}}",
+    "isNotNull": "Stwierdzone trudności taksonomiczne",
+    "isNull": "Brak stwierdzonych trudności taksonomicznych",
+    "description": "Rodzaj problemów lub potencjalnych problemów taksonomicznych odkrytych podczas przetwarzania danych. "
   },
   "occurrenceCountry": {
     "name": "Państwo lub obszar",
@@ -247,17 +247,17 @@
     "description": "Kraj lub obszar, w którym zdarzenie miało miejsce"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "Kraj lub terytorium w adresie rekordu"
   },
   "preparations": {
     "name": "Przygotowania",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { przygotowanie } few {# przygotowania} many {# przygotowań} other {# przygotowań}}",
+    "description": "Jak próbka była przygotowana (np. wysuszona)"
   },
   "repatriated": {
     "name": "Ponownie wprowadzony ",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { repatriowany } few {# repatriowanych} many {# repatriowanych} other {# repatriowanych}}",
+    "description": "Czy rekord został zwrócony do kraju pochodzenia."
   },
   "publishingCountryCode": {
     "name": "Kraj lub obszar publikujący",
@@ -267,7 +267,7 @@
   "q": {
     "name": "Wyszukiwanie tekstowe",
     "count": "{num, plural, one {ciąg tekstowy} few {# ciągi wyszukiwania} many {# ciągów wyszukiwania} other {# ciągi wyszukiwania}}",
-    "description": ""
+    "description": "Pełnotekstowe wyszukiwanie w kilku polach"
   },
   "coordinates": {
     "name": "Współrzędne"
@@ -289,7 +289,7 @@
   },
   "datasetId": {
     "name": "ID zbioru danych",
-    "count": "",
+    "count": "{num, plural, one {ID zbioru danych} few {# ID zbiorów danych} many {# ID zbiorów danych} other {# ID zbiorów danych}}",
     "description": ""
   },
   "publisherKey": {
@@ -549,8 +549,8 @@
   },
   "dataStructure": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# rodzaj zdarzenia } few {# rodzaje zdarzeń } many {# rodzajów zdarzeń} other {# rodzajów zdarzeń}}",
+    "description": "Struktura danych dla zdarzenia pobierania próbek."
   },
   "samplingProtocol": {
     "name": "Protokół pobierania prób",
@@ -574,7 +574,7 @@
   },
   "isInCluster": {
     "name": "Jest w gromadzie",
-    "count": "",
+    "count": "{num, plural, one {ma powiązane rekordy} few {# mają powiązane rekordy} many {# mają powiązane rekordy} other {# mają powiązane rekordy}}",
     "description": "Czy zapis został określony jako posiadający pokrewne zapisy."
   },
   "isSequenced": {
@@ -585,27 +585,27 @@
   "active": {
     "name": "Aktywny",
     "count": "Aktywny",
-    "description": ""
+    "description": "Czy wpis dotyczy aktywnej kolekcji/instytucji czy historycznego wpisu, który już nie istnieje."
   },
   "activeInstitution": {
     "name": "Aktywne",
     "count": "Aktywne",
-    "description": ""
+    "description": "Czy wpis dotyczy aktywnej instytucji czy historycznego wpisu, który już nie istnieje."
   },
   "activeCollection": {
     "name": "Aktywne",
     "count": "Aktywne",
-    "description": ""
+    "description": "Czy wpis dotyczy aktywnej kolekcji czy historycznego wpisu, który już nie istnieje."
   },
   "publicationDate": {
     "name": "Data publikacji",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {data publikacji} few {# daty publikacji} many {#dat publikacji} other {# dat publikacji}}",
+    "description": "Kiedy opublikowano rekord"
   },
   "personalCollection": {
     "name": "Kolekcja osobista",
     "count": "Kolekcja osobista",
-    "description": ""
+    "description": "Wybiera kolekcje prywatne lub osobiste"
   },
   "datasetType": {
     "name": "Typ zbioru danych",
@@ -625,18 +625,18 @@
   "name": {
     "name": "Nazwa",
     "count": "{num, plural, one { nazwa } few {# nazwy} many {# nazw} other {# nazwy}}",
-    "description": "",
-    "searchPlaceholder": ""
+    "description": "Nazwa podmiotu",
+    "searchPlaceholder": "Szukaj według tytułu/nazwy"
   },
   "city": {
     "name": "Miasto",
     "count": "{num, plural, one { miasto } few {# miasta} many {# miast} other {# miasta}}",
-    "description": ""
+    "description": "Miasto, w którym znajduje się instytucja/kolekcja."
   },
   "code": {
     "name": "Kod",
     "count": "{num, plural, one { kod } few {# kody} many {# kodów} other {# kody}}",
-    "description": ""
+    "description": "Podstawowy kod identyfikujący rekord jako całość. Jeśli nie otrzymasz żadnego wyniku, wypróbuj filtr kodu alternatywnego."
   },
   "verbatimScientificName": {
     "name": "Nazwa naukowa verbatim",
@@ -645,7 +645,7 @@
   },
   "networkKey": {
     "name": "Sieć",
-    "count": "",
+    "count": "{num, plural, one {sieć} few {# sieci} many {# sieci} other {# sieci}}",
     "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "literatureType": {
@@ -666,17 +666,17 @@
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
   "humboldtBooleans": {
-    "name": "",
+    "name": "Rozszerzenie Humboldta",
     "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}",
-    "description": ""
+    "description": "Rozszerzone wsparcie dla wydarzeń Darwin Core Events związanych z inwentaryzacjami przyrodniczymi."
   },
   "siteCount": {
-    "description": "",
-    "name": "",
+    "description": "Łączna liczba poszczególnych stanowisk objętych badaniem dwc:Event.",
+    "name": "Liczba stanowisk",
     "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
   },
   "siteNestingDescription": {
-    "description": "",
+    "description": "Opis tekstowy hierarchicznego projektu próbkowania.",
     "name": "",
     "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
   },
