@@ -76,14 +76,14 @@ export function createGbifRoutes(config: Config) {
               // institutionSearchRoute,
               // Must be last as alias handling will require match on whildcard
               ...dataRoutes,
+              // Backstage admin dashboard
+              backstageRoute,
             ],
           },
         ],
       },
       literatureSearchWidgetRoute,
       literatureButtonWidgetRoute,
-      // Backstage admin dashboard
-      backstageRoute,
     ],
     config
   );
