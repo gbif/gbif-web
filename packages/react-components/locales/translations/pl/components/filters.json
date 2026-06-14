@@ -290,7 +290,7 @@
   "datasetId": {
     "name": "ID zbioru danych",
     "count": "{num, plural, one {ID zbioru danych} few {# ID zbiorów danych} many {# ID zbiorów danych} other {# ID zbiorów danych}}",
-    "description": ""
+    "description": "Wewnętrzny identyfikator wydawcy dla zestawu danych, z którym powiązany jest rekord. Należy zauważyć, że różni się on od klucza datasetKey używanego w GBIF dla tego zestawu danych."
   },
   "publisherKey": {
     "name": "Publikujący",
