@@ -18,7 +18,7 @@ import { appendUser, generateGraphQLToken } from '../auth/utils.mjs';
  * The es-api instances are listed separately in `ADMIN_ES_API_NODES`.
  *
  * Authorisation: the caller must be a logged-in user (cookie JWT) who is on the
- * `ADMIN_USERS` allowlist or holds one of `ADMIN_ROLES` (e.g. REGISTRY_ADMIN).
+ * `ADMIN_USERS` allowlist.
  * Anyone else gets a 404 so the whole admin surface stays invisible. Writes are
  * signed to each instance with a freshly minted GraphQL JWT for the user.
  */
@@ -35,7 +35,6 @@ function parseList(value) {
 }
 
 const ADMIN_USERS = parseList(secretEnv.ADMIN_USERS);
-const ADMIN_ROLES = parseList(secretEnv.ADMIN_ROLES);
 
 // Parse a comma-separated list of base URLs into { url, label } entries; the
 // label shown in the UI is derived from the host. Potentially this could be some
@@ -66,8 +65,6 @@ function getEsNodes() {
 function isAuthorisedAdmin(user) {
   if (!user || !user.userName) return false;
   if (ADMIN_USERS.includes(user.userName)) return true;
-  const roles = Array.isArray(user.roles) ? user.roles : [];
-  return ADMIN_ROLES.some((role) => roles.includes(role));
 }
 
 // 404 (not 403) for anyone not authorised. Runs after `appendUser`, which attaches
