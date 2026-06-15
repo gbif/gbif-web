@@ -19,7 +19,7 @@ const Dashboard = React.lazy(() => import('./Dashboard'));
 // (the same-origin cookie is sent automatically).
 export async function backstageLoader({ request }: LoaderArgs) {
   const cookie = request.headers.get('cookie');
-  const url = new URL('/api/admin/me', new URL(request.url).origin);
+  const url = new URL('/api/admin/me', import.meta.env.PUBLIC_BASE_URL);
   const response = await fetch(url, cookie ? { headers: { cookie } } : undefined);
   if (!response.ok) throw new NotFoundLoaderResponse();
   return null;
