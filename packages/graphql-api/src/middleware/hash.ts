@@ -3,7 +3,7 @@ import LRU from 'lru-cache';
 import hash from 'object-hash';
 import { ParsedQs } from 'qs';
 
-const queryCache = new LRU({ max: 1000 });
+const queryCache = new LRU({ max: 10000 });
 const variablesCache = new LRU({ max: 10000 });
 
 type StoredQuery = string | ParsedQs | string[] | ParsedQs[] | undefined;
@@ -48,7 +48,8 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // if query or variables are provided, then hash for future reference
   if (query) {
     const queryKey = hash(query);
-    queryCache.set(queryKey, query);
+    // only store for POST requests to avoid filling cache with things that fits into GET anyhow
+    if (isPOST) queryCache.set(queryKey, query);
     res.set('X-Graphql-query-ID', queryKey);
     if (queryId && queryId !== queryKey) {
       // A hash has been provided that conflicts with the server hash. return an error
@@ -57,7 +58,8 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
   }
   if (variables) {
     const variablesKey = hash(variables);
-    variablesCache.set(variablesKey, variables);
+    // only store for POST requests to avoid filling cache with things that fits into GET anyhow
+    if (isPOST) variablesCache.set(variablesKey, variables);
     res.set('X-Graphql-variables-ID', variablesKey);
     if (variablesId && variablesId !== variablesKey) {
       // A hash has been provided that conflicts with the server hash. return an error

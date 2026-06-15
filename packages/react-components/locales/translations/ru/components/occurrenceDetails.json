@@ -66,6 +66,7 @@
     "issues": "Автоматически обнаруженные несоответствия"
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "Узнать больше о событиях и флагах",
   "features": {
     "isClustered": "Имеет связанные записи",
     "isSamplingEvent": "Описания, учеты или сборы",
@@ -743,7 +744,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "Расширение Гумбольдта",
+      "recordsHeader": "{n} Записи гумбольдта — расширить каждую для просмотра.",
+      "groups": {
+        "protocols": "Протоколы",
+        "samplingDesign": "Дизайн проб",
+        "spatialScope": "Пространственный просмотр",
+        "temporalScope": "Временной интервал",
+        "effort": "Усилия",
+        "taxonomicOrganismalScope": "Таксономический просмотр и просмотр организмов"
+      },
       "properties": {
+        "eventDuration": "Длительность события",
+        "samplingEffort": "Объём проделанной работы",
+        "geospatialScopeArea": "Область охватагеопространственных данных",
+        "totalAreaSampled": "Общая область отбора проб",
         "siteCount": "Число сайтов",
         "siteNestingDescription": "Описание вложенности сайтов",
         "verbatimSiteDescriptions": "Дословные описание сайтов",

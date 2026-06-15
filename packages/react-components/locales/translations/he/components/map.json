@@ -17,6 +17,8 @@
     "message": "נא לבדוק את הגדרות הדפדפן ולנסות שוב."
   },
   "filterByView": "השתמש באזור הנראה כמסנן",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "הקרנה",
   "anyYear": "כל שנה",
   "exploreArea": "חקור אזור",

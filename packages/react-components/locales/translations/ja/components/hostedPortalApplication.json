@@ -1,6 +1,15 @@
 {
+  "thankYouForYourApplication": "お申し込みありがとうございます",
   "primaryContact": "優先される連絡先",
+  "primaryContactHeading": "このお申し込みの主要連絡先",
+  "portalName": "ポータル名",
+  "dataScope": "データ範囲",
+  "userGroup": "ユーザー グループ",
+  "timelines": "タイムライン",
+  "languages": "言語",
   "termsHeading": "利用規約",
   "name": "名前",
-  "email": "メールアドレス"
+  "email": "メールアドレス",
+  "github": "GitHub ユーザ名",
+  "createNewApplication": "新規申請を作成しますか？"
 }

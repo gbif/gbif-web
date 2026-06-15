@@ -16,6 +16,7 @@ class DatasetByPredicateAPI extends RESTDataSource {
     request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
     request.headers['User-Agent'] = this.context.userAgent;
     request.headers['referer'] = this.context.referer;
+    request.headers['x-client-priority'] = this.context.clientPriority;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 

@@ -3,8 +3,8 @@
     "REGIONAL": "地域の生物多様性データ収集のための助成金",
     "SMALL": "小規模の生物多様性データ収集のための助成金",
     "NATIONAL": "国の生物多様性データ収集のための助成金",
-    "DATA_USE": "",
-    "MULTI_INSTITUTIONAL": "",
+    "DATA_USE": "データ利用助成金",
+    "MULTI_INSTITUTIONAL": "複数機関による生物多様性データ活用助成金",
     "undefined": "情報なし"
   },
   "projectStatus": {

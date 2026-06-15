@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Mon organisation n’est pas déjà enregistrée.",
   "searchOrganisations": "Recherche d'organisations",
   "termsAndConditions": "Termes et conditions",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "J'ai lu et compris le <a href=“/terms/data-publisher”>Contrat de publication de données du GBIF</a> et j'en accepte les conditions.",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Je comprends que je demande l’enregistrement au nom de mon organisation, et je confirme que les autorités responsables de mon organisation sont au courant de cet enregistrement.",
   "iUnderstandThatMyOrganizationalInformation": "Je comprends que les renseignements sur mon organisation, y compris les informations de contact fournies, seront accessibles au public par le biais du site GBIF.org.",
   "administrativeContact": "Contact administratif",
@@ -30,7 +30,7 @@
   "none": "Aucun",
   "whatAndHow": "Quoi et comment",
   "helpUsUnderstand": "Aidez-nous à comprendre le genre de données que vous prévoyez publier, et le soutien dont vous pourriez avoir besoin.",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "GBIF.org prend en charge la publication de quatre types de données, comme expliqué <a href='/dataset-classes'>ici.</a> La mise en forme des données et l'hébergement des jeux de données originaux restent à la charge de l'éditeur des données, mais nous pouvons vous aider à trouver une solution technique adaptée",
   "whichTypesOfData": "Quels types de données prévoyez-vous publier ?",
   "resourcesMetaData": "Métadonnées des ressources",
   "checkListData": "Les listes taxonomiques ",
@@ -42,9 +42,9 @@
   "yes": "Oui",
   "no": "Non",
   "pleaseSelectAValue": "Veuillez sélectionner une valeur",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "Dans ce cas, il est recommandé d'essayer d'abord de réutiliser un <a href='https://github.com/gbif/ipt/wiki/dataHostingCentre'>centre d'hébergement de données IPT</a> existant et fiable",
   "doYouNeedHelpPublishing": "Avez-vous besoin d’aide pour publier vos données ?",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "Prévoyez-vous d'installer et d'exécuter un logiciel de publication (tel que le <a href='/ipt'>Integrated Publishing Toolkit – IPT</a>) pour publier vos données directement sur GBIF.org ?",
   "orgDetails": "Informations sur l'organisation",
   "yourChanceToTellGBIF": "Votre chance de dire aux utilisateurs de GBIF qui vous êtes et ce que vous faites.",
   "orgName": "Nom de l'organisation",
@@ -81,20 +81,20 @@
   "outage": "Nous éprouvons actuellement une panne partielle et nous ne pouvons recevoir aucun enregistrement pour le moment",
   "eoiDescription": "Pour se préparer à la publication de données via GBIF, nous demandons aux potentiels nouveaux fournisseurs de données de remplir ce formulaire en ligne. Avant que GBIF n'indexe votre jeu de données, votre institution doit être approuvé comme fournisseur de données par l’un des pays ou des organisations participant au GBIF, via un nœud GBIF participant. Si votre pays ne participe pas encore au GBIF, nous demanderons l'approbation en votre nom auprès de la communauté GBIF.",
   "eoiTitle": "Devenir un fournisseur de données",
-  "checkRegistration": "",
+  "checkRegistration": "Vérifiez l'enregistrement",
   "organisationDetails": "Informations sur l'organisation",
-  "organisationAddress": "",
+  "organisationAddress": "Adresse de l'organisation",
   "endorsement": "La validation",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "Veuillez sélectionner votre organisation sur la carte",
+    "pleaseSelectTheCountryOfYourOrganization": "Veuillez sélectionner le pays/la région de votre organisation"
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "Merci d'avoir enregistré votre organisation",
+  "failedToRegisterOrganization": "Échec de l'enregistrement de l'organisation",
+  "associatedWithGbifProgramme": "Êtes-vous associé à un projet financé par un programme du GBIF ?",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Vous avez besoin d'un compte pour enregistrer une nouvelle organisation.",
+    "message": "Connectez-vous ou créez un compte pour poursuivre l'enregistrement de votre organisation."
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Enregistrer une autre organisation ?"
 }

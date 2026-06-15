@@ -40,7 +40,7 @@ Sitemap: ${domain}/sitemap-publisher.xml
 Sitemap: ${domain}/sitemap-node.xml
 Sitemap: ${domain}/sitemap-network.xml
 Sitemap: ${domain}/sitemap-installation.xml
-Sitemap: ${domain}/sitemap-species.xml
+Sitemap: ${domain}/sitemap-taxon.xml
 `);
 
 export default render;

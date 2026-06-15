@@ -1,5 +1,5 @@
 {
-  "datasetSearchTitle": "데이터셋 검샐",
+  "datasetSearchTitle": "데이터셋 검색",
   "datasetSearchDescription": "GBIF 내 데이터셋 검색. 생물다양성 데이터에 대한 무료 및 오픈 액세스.",
   "longType": {
     "OCCURRENCE": "출현 데이터셋",
@@ -89,6 +89,7 @@
   "studyArea": "연구 영역",
   "publishedBy": "발행자",
   "mediatedBy": "중개자",
+  "extensions": "",
   "description": "설명",
   "metadataLanguage": "메타데이터 언어",
   "dataLanguage": "데이터 언어",

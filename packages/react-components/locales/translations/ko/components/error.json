@@ -10,5 +10,8 @@
   "hideDetails": "상세정보 숨기기",
   "showDetails": "상제정보 보기",
   "mapFailed": "지도를 가져오지 못했습니다",
-  "partialMapFailure": "일부 타일을 가져오지 못했습니다"
+  "partialMapFailure": "일부 타일을 가져오지 못했습니다",
+  "maximumResultLimitExceeded": "페이지에 표지할 수 있는 결과의 최대 개수는 {MAX_RESULTS}개 입니다. 모든 결과에 접근하려면 검색을 정제하거나 다운로드 옵션을 이용해주세요.",
+  "mapBrowserIssue": "문제가 지속될 경우, 브라우저 확장자 혹은 요구되는 API의 사용을 방해하는 설정값(예. WebGL, Canvas)에 의한 것일 가능성이 높습니다.",
+  "webglUnavailable": "WebGL은 이용 불가합니다. 브라우저 설정을 확인하거나 다른 브라우저로 시도해주세요. 플러그인이나 확장자가 WebGL을 막을 수도 있습니다."
 }

@@ -1,34 +1,34 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "지원하지 않는 쿼리",
+    "unsupported.description": "무료 텍스트 검색은 탐색에는 사용될 수 있으나 다운로드는 지원하지 않습니다.",
+    "unsupported.remove": "필터 제거",
+    "unsupported.error": "이 쿼리는 지원되지 않는 것으로 보입니다",
     "download": "다운로드",
-    "redirectNotice": "",
+    "redirectNotice": "다운로드를 시작하려고 합니다. GBIF.org로 이동합니다. \n\n 데이터 다운로드를 위해서는 계정이 요구됨을 주의해 주십시오.",
     "continueToGBIF": "계속",
     "continue": "계속",
     "invalid": "유효하지 않음",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "확인",
+    "sqlEditor": "SQL 에디터",
+    "predicateEditor": "술어 편집기",
     "sql": {
       "createNewSqlDownload": "새로운 SQL 다운로드 생성",
-      "placeholder": "",
-      "noSql": "",
+      "placeholder": "여기에 SQL 쿼리를 입력하십시오...",
+      "noSql": "SQL 쿼리 없음",
       "note": {
         "title": "노트",
-        "description": "",
-        "occurrence_search": ""
+        "description": "데이터를 다운로드하고 탐색하는 가장 쉬운 방법은 {occurrence_search}를 이용하는 것입니다. 하지만 복잡한 쿼리와 집계 작업의 경우, SQL 에디터가 더 높은 자유도를 제공합니다.",
+        "occurrence_search": "출현 검색 사용자 인터페이스"
       },
       "errors": {
         "invalid-SQL": "유효하지 않은 SQL",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "network-error": "네트워크 오류",
+        "parsingErrorDescription": "SQL 분석 실패",
+        "networkErrorDescription": "네트워크 오류로 인해 SQL을 확인할 수 없습니다"
       }
     },
-    "create": "",
+    "create": "생성",
     "about": "소개",
     "stopEditing": "편집 중단",
     "startEditing": "편집 시작",
@@ -37,18 +37,18 @@
     "keep": "남기기",
     "readTheDocumentation": "문서 읽기",
     "request": {
-      "placeholder": "",
+      "placeholder": "여기에 술어를 입력하세요...",
       "createNewDownload": "새로운 다운로드 만들기",
-      "weHaveRestoredYourPredicate": "",
-      "noPredicate": "",
+      "weHaveRestoredYourPredicate": "이곳에서 마지막으로 작업한 술어를 복원하였습니다.",
+      "noPredicate": "술어 없음",
       "currentFilter": "현재 필터",
       "errors": {
         "invalid-json": "유효하지 않은 JSON",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
-        "unexpectedError": "",
-        "failedToParseJSON": "",
-        "failedToVisualizePredicate": ""
+        "invalid-predicate": "유효하지 않은 술어",
+        "faild-to-load-predicate": "술어 로드 실패",
+        "unexpectedError": "예기치 않은 오류가 발생했습니다",
+        "failedToParseJSON": "JSON을 파싱하지 못했습니다",
+        "failedToVisualizePredicate": "술어를 시각화하는 데 실패했습니다. 원시 JSON을 표시합니"
       }
     },
     "downloadOptions": {
@@ -64,15 +64,15 @@
         "estimatedSize": "추정 데이터 크기"
       },
       "fileFormats": {
-        "tabCsv": ""
+        "tabCsv": "탭으로 구분된 CSV (Excel용, 기타.)"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
-        "links": ""
+        "ifAvailable": "이용가능한 경우",
+        "ifSelected": "선택된 경우",
+        "links": "링크"
       }
     },
-    "failedToRefreshDownloadStatus": "",
-    "descriptionByDownloadCreator": ""
+    "failedToRefreshDownloadStatus": "다운로드 상태를 새로고침하는 데 실패했습니다",
+    "descriptionByDownloadCreator": "다운로드 생성기에 의한 설명"
   }
 }

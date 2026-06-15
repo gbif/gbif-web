@@ -7,56 +7,56 @@
   "locationId": {
     "name": "ID місцезнаходження",
     "count": "",
-    "description": ""
+    "description": "Видавці можуть присвоювати власні ідентифікатори локації. Поле не нормалізоване — пошук здійснюється за даними у вигляді, наданому видавцем."
   },
   "hasCoordinate": {
     "name": "Має координати",
-    "count": "",
-    "description": ""
+    "count": "Має координати",
+    "description": "Чи містить запис координати"
   },
   "hasGeospatialIssues": {
     "name": "Має проблеми з геопросторовою прив'язкою",
     "count": "Має проблеми з геопросторовою прив'язкою",
-    "description": ""
+    "description": "Запис має геопросторові помилки"
   },
   "collectionKey": {
     "name": "Колекція",
-    "count": "",
+    "count": "{num, plural, one {колекція} few {# колекції} many {# колекцій} other {# колекції}}",
     "description": ""
   },
   "predicate": {
-    "name": "",
+    "name": "Складний запит",
     "count": "",
-    "description": ""
+    "description": "Складний запит для фільтрації записів"
   },
   "taxonomicStatus": {
     "name": "Статус",
     "count": "",
-    "description": ""
+    "description": "Задекларована кількість зразків у колекції. Не відповідає кількості оцифрованих і опублікованих записів"
   },
   "taxonRank": {
     "name": "Ранг",
     "count": "",
-    "description": ""
+    "description": "Задекларована кількість зразків у колекції. Не відповідає кількості оцифрованих і опублікованих записів"
   },
   "numberSpecimens": {
-    "name": "",
+    "name": "Кількість зразків",
     "count": "",
-    "description": ""
+    "description": "Задекларована кількість зразків у колекції. Не відповідає кількості оцифрованих і опублікованих записів"
   },
   "specimensInGbif": {
-    "name": "",
+    "name": "Зразки в GBIF",
     "count": "",
     "description": ""
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Категорія Червоного списку МСОП",
     "count": "",
-    "description": ""
+    "description": "Таксони за ступенем загрози Червоного списку МСОП"
   },
   "geoDistance": {
-    "name": "",
-    "count": "",
+    "name": "Відстань за координатами",
+    "count": "{num, plural, one {} few {#} many {#} other {#}}",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -64,7 +64,7 @@
   },
   "geometry": {
     "name": "Місцезнаходження",
-    "count": "",
+    "count": "{num, plural, one {} few {#} many {#} other {#}}",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -131,9 +131,9 @@
     "description": ""
   },
   "degreeOfEstablishment": {
-    "name": "",
+    "name": "Ступінь укорінення виду",
     "count": "",
-    "description": ""
+    "description": "Ступінь укорінення організму в середовищі існування"
   },
   "endDayOfYear": {
     "name": "День кінця року",
@@ -156,7 +156,7 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "",
+    "name": "Альтернативний код",
     "count": "",
     "description": ""
   },

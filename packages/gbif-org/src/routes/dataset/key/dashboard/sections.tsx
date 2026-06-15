@@ -44,11 +44,13 @@ type Props = {
   count?: number;
   loading?: boolean;
   error?: Error;
+  checklistBankDatasetKey?: number | null;
 };
 
 export default function DashboardSections({
   group,
   datasetKey,
+  checklistBankDatasetKey,
   scopedDatasetPredicate,
   literatureScope,
   hasLiterature,
@@ -59,7 +61,10 @@ export default function DashboardSections({
   if (group === 'checklist') {
     return (
       <ClientSideOnly>
-        <ChecklistMetrics datasetKey={datasetKey} />
+        <ChecklistMetrics
+          datasetKey={datasetKey}
+          checklistBankDatasetKey={checklistBankDatasetKey}
+        />
       </ClientSideOnly>
     );
   }

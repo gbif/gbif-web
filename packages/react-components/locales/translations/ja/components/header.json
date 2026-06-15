@@ -1,0 +1,11 @@
+{
+  "header": {
+    "changeLanguage": "言語を変更",
+    "feedback": "フィードバックを送信する",
+    "systemStatus": "システム状況",
+    "profileLinkLabel": "{userName}のプロフィールページ",
+    "siteNavigation": "サイトナビゲーション",
+    "search": "検索",
+    "profile": "ユーザープロフィール"
+  }
+}

@@ -113,6 +113,7 @@
   "habitat": "Habitat",
   "samplingProtocol": "Protocole d'échantillonnage",
   "samplingEffort": "Effort d'échantillonnage",
+  "sampleSize": "Taille de l’échantillon",
   "sampleSizeValue": "Valeur de la taille d'échantillonnage",
   "sampleSizeUnit": "Unité de la taille d'échantillonnage",
   "fieldNotes": "Notes de terrain",

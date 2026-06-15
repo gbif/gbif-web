@@ -68,6 +68,7 @@ class LocalContextAPI extends RESTDataSource {
     request.headers['X-Api-Key'] = this.config.localContextApiKey;
     request.headers['User-Agent'] = this.context.userAgent;
     request.headers['referer'] = this.context.referer;
+    request.headers['x-client-priority'] = this.context.clientPriority;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 

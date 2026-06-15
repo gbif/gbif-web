@@ -17,6 +17,8 @@
     "message": "Gelijk aan {is}"
   },
   "filterByView": "Gebruik zichtbaar gebied als filter",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "Projectie",
   "anyYear": "",
   "exploreArea": "",

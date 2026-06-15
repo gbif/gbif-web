@@ -1,8 +1,17 @@
 {
+  "protectedTitle": "お申し込みにはアカウントが必要です",
+  "protectedMessage": "ログインまたはアカウントを作成して、応募手続きを続けてください",
+  "successTitle": "お申し込みありがとうございます",
+  "primaryContact": "連絡先情報",
+  "primaryContactHeading": "このお申し込みの主要連絡先",
   "description": "説明",
   "descriptionLabel": "説明",
   "typeOfApplication": "タイプ",
   "domain": "ドメイン",
+  "terms": "利用規約",
+  "termsServiceAgreement": "私は<a>サービス契約</a>を読み、私が使用するhosted Metabarcoding Data Toolkitに関する利用規約に同意します。",
+  "termsCommitHelp": "私は、データ公開に取り組むデータ保有者が、GBIFへの公開に必要な適切な支援を受けられるよう尽力することを約束します。",
+  "termsQuarterlyWebinars": "私は四半期ごとに開催されるウェビナーに参加し、ユーザー（データ保有者）にも参加を促してフィードバックを提供していただくよう働きかけます。",
   "personName": "名前",
   "email": "メールアドレス",
   "participantLabel": "参加者"

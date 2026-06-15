@@ -3,6 +3,23 @@ import v8 from 'node:v8';
 import { get } from 'lodash';
 import type { Request, Response, NextFunction } from 'express';
 import config from './config';
+import logger from './logger';
+import { getPoolStats } from './requestPools';
+
+// State captured at the worst event-loop stall, so /health (and the log line)
+// can explain a spike: what was in flight, heap pressure, and per-pool queue
+// sizes at that moment.
+type PeakSnapshot = {
+  eventLoopLagMs: number;
+  atUptimeSeconds: number;
+  inflight: number;
+  heapUsedMb: number;
+  heapUsedPercent: number;
+  requestPools: Record<
+    string,
+    { waiting: number; running: number; currentQueueSize: number }
+  >;
+};
 
 /**
  * Pre-Apollo overload guard.
@@ -50,17 +67,51 @@ const settings = {
 
 // The histogram is always enabled (it is cheap) so /health can report event-loop
 // lag even when the guard itself is disabled — useful for tuning the threshold.
-const histogram = monitorEventLoopDelay({ resolution: 20 });
+//
+// monitorEventLoopDelay arms a timer every RESOLUTION_MS and records the *actual*
+// gap between fires. On an idle loop that gap is already ~RESOLUTION_MS and Node
+// does NOT subtract it back out, so every raw sample carries a ~RESOLUTION_MS
+// floor. We subtract it (clamped at 0) so the reported numbers are *true* lag
+// (how far behind the loop is), not lag + the sampling resolution.
+const RESOLUTION_MS = 20;
+// Only log a new peak once it represents a meaningful stall, otherwise normal
+// jitter would log on every small new high during warmup and spam the logs.
+const PEAK_LOG_THRESHOLD_MS = 200;
+// Startup (module load, JIT warmup, building data sources) reliably stalls the
+// loop once. That is a known systemic cost, not load caused by usage, so ignore
+// it for peak tracking entirely — otherwise the sticky peak would be pinned to a
+// startup spike and suppress logging of later, real stalls.
+const STARTUP_GRACE_SECONDS = 10;
+// A stall this big (a fully blocked loop for >1s) is notable on its own. We
+// record when it last happened and how many times, to get a sense of frequency.
+const SLOW_EVENT_LOOP_MS = 1000;
+const histogram = monitorEventLoopDelay({ resolution: RESOLUTION_MS });
 histogram.enable();
+const trueLag = (rawMs: number) => Math.max(0, rawMs - RESOLUTION_MS);
 let eventLoopDelayMs = 0;
 let eventLoopDelayMaxMs = 0; // worst single sample in the most recent window
 let peakEventLoopDelayMs = 0; // sticky worst since process start
-const SAMPLE_INTERVAL_MS = 250;
+let peakEventLoopMetrics: PeakSnapshot | null = null; // state at that worst stall
+let lastSlowEventLoop: string | null = null; // ISO time of last stall over SLOW_EVENT_LOOP_MS
+let slowEventLoopCount = 0; // how many such stalls since startup
+const SAMPLE_INTERVAL_MS = 2000;
 const sampler = setInterval(() => {
-  eventLoopDelayMs = histogram.mean / 1e6; // ns -> ms, mean since last reset
-  eventLoopDelayMaxMs = histogram.max / 1e6;
-  if (eventLoopDelayMaxMs > peakEventLoopDelayMs) {
+  eventLoopDelayMs = trueLag(histogram.mean / 1e6); // ns -> ms, mean since last reset
+  eventLoopDelayMaxMs = trueLag(histogram.max / 1e6);
+  const afterGrace = process.uptime() >= STARTUP_GRACE_SECONDS;
+  if (afterGrace && eventLoopDelayMaxMs > peakEventLoopDelayMs) {
     peakEventLoopDelayMs = eventLoopDelayMaxMs;
+    peakEventLoopMetrics = captureSnapshot(peakEventLoopDelayMs);
+    // Log the moment a new worst-ever stall is observed, with the surrounding
+    // state, so it can be correlated with what the process was doing (startup,
+    // a heavy /graphql query, GC).
+    if (peakEventLoopDelayMs > PEAK_LOG_THRESHOLD_MS) {
+      logger.warn('new peak event-loop lag', peakEventLoopMetrics);
+    }
+  }
+  if (afterGrace && eventLoopDelayMaxMs > SLOW_EVENT_LOOP_MS) {
+    lastSlowEventLoop = new Date().toISOString();
+    slowEventLoopCount += 1;
   }
   histogram.reset();
 }, SAMPLE_INTERVAL_MS);
@@ -71,6 +122,35 @@ let inFlight = 0;
 
 function heapUsedFraction(): number {
   return process.memoryUsage().heapUsed / heapLimitBytes;
+}
+
+// Just the live sizes per pool for the peak snapshot (drop the cumulative
+// served/failed/rejected counters, which are not point-in-time state).
+function poolSizesSnapshot(): PeakSnapshot['requestPools'] {
+  const out: PeakSnapshot['requestPools'] = {};
+  Object.entries(getPoolStats()).forEach(([pool, s]) => {
+    out[pool] = {
+      waiting: s.waiting,
+      running: s.running,
+      currentQueueSize: s.currentQueueSize,
+    };
+  });
+  return out;
+}
+
+// Capture what the process was doing at a new worst stall. The sampler fires
+// *after* the loop frees up, so this is the state right after the stall — the
+// best available approximation, not the exact instant of the stall.
+function captureSnapshot(lagMs: number): PeakSnapshot {
+  const heapUsed = process.memoryUsage().heapUsed;
+  return {
+    eventLoopLagMs: Math.round(lagMs * 10) / 10,
+    atUptimeSeconds: Math.round(process.uptime() * 10) / 10,
+    inflight: inFlight,
+    heapUsedMb: Math.round(heapUsed / 1048576),
+    heapUsedPercent: Math.round((heapUsed / heapLimitBytes) * 100),
+    requestPools: poolSizesSnapshot(),
+  };
 }
 
 function overloadReason(): string | null {
@@ -93,7 +173,14 @@ export function getOverloadStats() {
     eventLoopDelayMs: Math.round(eventLoopDelayMs * 10) / 10,
     eventLoopDelayMaxMs: Math.round(eventLoopDelayMaxMs * 10) / 10,
     peakEventLoopDelayMs: Math.round(peakEventLoopDelayMs * 10) / 10,
-    inFlight,
+    // State captured at the worst stall (null until one is recorded).
+    peakEventLoopMetrics,
+    // When the loop was last stalled for over a second, and how often that has
+    // happened since startup — a rough sense of how frequent bad stalls are.
+    slowEventLoopThresholdMs: SLOW_EVENT_LOOP_MS,
+    lastSlowEventLoop, // ISO timestamp, null until one occurs
+    slowEventLoopCount,
+    inflight: inFlight,
     heapUsedMb: Math.round(process.memoryUsage().heapUsed / 1048576),
     heapUsedPercent: Math.round(heapUsedFraction() * 100),
     thresholds: {

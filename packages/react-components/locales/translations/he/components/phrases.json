@@ -12,6 +12,7 @@
   "deletedOnDate": "נמחק בתאריך {date}",
   "replacedBy": "הוחלף על ידי {newItem}",
   "showAll": "הצג הכל",
+  "showAllNItems": "",
   "viewAllImages": "",
   "share": "שתף",
   "identifier": "מזהה",

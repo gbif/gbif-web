@@ -1,0 +1,8 @@
+{
+  "updatedAt": "2026-06-08T14:35:24.629Z",
+  "translationsEndpoint": "http://localhost:5002",
+  "graphqlEndpoint": "http://localhost:4002/graphql",
+  "headerLocale": "en",
+  "locales": 20,
+  "failedLocales": []
+}

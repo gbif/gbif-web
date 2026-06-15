@@ -22,6 +22,7 @@ class OccurrenceAPI extends QueuedRESTDataSource {
     request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
     request.headers['User-Agent'] = this.context.userAgent;
     request.headers['referer'] = this.context.referer;
+    request.headers['x-client-priority'] = this.context.clientPriority;
     request.agent = getOccurrenceAgent(this.baseURL, path);
   }
 

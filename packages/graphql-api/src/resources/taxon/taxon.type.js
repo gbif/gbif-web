@@ -17,6 +17,7 @@ const typeDef = gql`
       offset: Int
       sortBy: TaxonSearchSortBy
       searchType: TaxonSearchQType
+      searchContent: [String]
       reverse: Boolean
 
       # Many of the fields do not work despite the tech docs. For now expose as little as possible
@@ -28,7 +29,6 @@ const typeDef = gql`
       # author: [String]
       # year: [Int]
       # origin: [String]
-      # searchContent: String
       # facet: [String]
       # facetMinCount: Int
       # facetMultiselect: Boolean
@@ -62,6 +62,7 @@ const typeDef = gql`
     offset: Int
     sortBy: TaxonSearchSortBy
     searchType: TaxonSearchQType
+    searchContent: [String]
     reverse: Boolean
     facet: [String]
     facetLimit: Int
@@ -76,7 +77,6 @@ const typeDef = gql`
     # author: [String]
     # year: [Int]
     # origin: [String]
-    # searchContent: String
   }
 
   type TaxonSearchResult {

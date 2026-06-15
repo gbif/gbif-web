@@ -1,7 +1,7 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Code de conduite",
+      "VOTING": "Participant votant",
       "ASSOCIATE": "Participant associé",
       "OTHER_ASSOCIATE": "Participant associé (autre que pays)",
       "FORMER": "Ancien",
@@ -10,17 +10,17 @@
       "AFFILIATE": "Affilié au GBIF"
     },
     "affiliateHelp": "Code de conduite",
-    "mapCaptionPublishers": "Code de conduite",
+    "mapCaptionPublishers": "Organisations actives dans la publication de données par pays ou zone",
     "role": "Rôle",
     "name": "Nom",
     "participant": "Participant",
     "type": "Type ",
     "memberSince": "Membre depuis",
     "all": "Tout",
-    "countryParticipants": "Code de conduite",
-    "publishersPerCountry": "Code de conduite",
+    "countryParticipants": "Pays participants",
+    "publishersPerCountry": "Editeurs par pays",
     "clear": "Effacer",
-    "noDescriptionProvided": "",
+    "noDescriptionProvided": "Pas de description fournie pour ce réseau",
     "headlines": {
       "nodesSteeringGroup": "Comité de pilotage des points nodaux",
       "participants": "Participants"

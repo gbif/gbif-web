@@ -3,15 +3,18 @@ import querystring from 'querystring';
 import { fetchWithRetry } from '../auth/utils.mjs';
 import { publicEnv } from '../../envConfig.mjs';
 const apiV1 = publicEnv.PUBLIC_API_V1;
+const apiV2 = publicEnv.PUBLIC_API_V2;
 
 export const apiConfig = {
   base: { url: apiV1 },
+  apiv2: { url: apiV2 },
   datasetSearch: { url: apiV1 + '/dataset/search' },
   publisher: { url: apiV1 + '/organization' },
   installation: { url: apiV1 + '/installation' },
   network: { url: apiV1 + '/network' },
   node: { url: apiV1 + '/node' },
   species: { url: apiV1 + '/species' },
+  taxon: { url: apiV2 + '/taxon' },
 };
 
 function getDatasetIntervals() {

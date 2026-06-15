@@ -106,6 +106,10 @@ async function initializeServer() {
       userAgent: get(req, 'headers.User-Agent') || 'GBIF_GRAPHQL_API',
       // we could also forward the full header I suppose. For now it is just the referer
       referer: get(req, 'headers.referer') || null,
+      // x-client-priority is attached by Varnish (1-100, lower = more important).
+      // We forward it to the upstream APIs so they can prioritise/shed under load
+      // — most importantly the es-api behind occurrence search. null when absent.
+      clientPriority: get(req, 'headers.x-client-priority') || null,
       locale: get(req, 'headers.locale') || 'en-GB',
       preview: get(req, 'headers.preview') === 'true',
       queryId: res ? res.get('X-Graphql-query-ID') : null,

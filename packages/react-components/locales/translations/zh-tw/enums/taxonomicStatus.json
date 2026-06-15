@@ -5,7 +5,10 @@
   "HETEROTYPIC_SYNONYM": "異型同物異名",
   "HOMOTYPIC_SYNONYM": "同型同物異名",
   "PROPARTE_SYNONYM": "部分同物異名",
+  "AMBIGUOUS_SYNONYM": "模糊的同種異名",
+  "PROVISIONALLY_ACCEPTED": "暫時接受",
   "MISAPPLIED": "誤用",
+  "BARE_NAME": "純名",
   "INTERMEDIATE_RANK_SYNONYM": "中等位階同物異名",
   "DETERMINATION_SYNONYM": "確立同物異名"
 }
