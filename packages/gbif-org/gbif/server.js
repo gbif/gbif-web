@@ -13,6 +13,7 @@ import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
+import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
 import createGetRedirect from './middleware/redirects.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
@@ -112,6 +113,7 @@ async function main() {
 
   registerUser(app);
   registerProxies(app);
+  registerResourceSearch(app);
   registerSitemaps(app);
   registerRobots(app);
 
