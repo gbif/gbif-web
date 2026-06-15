@@ -28,7 +28,7 @@ export class ResourceAPI extends QueuedRESTDataSource {
       path,
       {},
       {
-        throttle: preview,
+        enQueue: preview,
         signal: this.context.abortController.signal,
         cacheOptions: {
           ttl: preview
