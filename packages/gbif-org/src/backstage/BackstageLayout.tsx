@@ -6,9 +6,9 @@ import { Outlet } from 'react-router-dom';
 // distinct and free of the public chrome. It mounts its own UserProvider since
 // it lives outside the public layout that normally provides one.
 //
-// Authorisation is enforced server-side: the page route 404s for non-admins
-// before this ever renders, and every /api/admin/* call 404s for non-admins
-// too. The bits here are presentational only.
+// Authorisation is enforced server-side: the route's `backstageLoader` (see
+// ./index.tsx) 404s for non-admins before this ever renders, and every
+// /api/admin/* call 404s for non-admins too. The bits here are presentational only.
 
 function TopBar() {
   const { user, isLoggedIn } = useUser();

@@ -119,6 +119,14 @@ async function fanOut(nodes, perNode) {
 }
 
 export function register(app) {
+  // Cheap auth probe for the UI gate: 200 if the caller passes the full admin
+  // check, 404 otherwise (via requireAdmin). No fan-out, no data. The backstage
+  // route loader hits this so non-admins get the standard 404 page instead of
+  // the (empty) dashboard shell.
+  app.get('/api/admin/me', appendUser, requireAdmin, (req, res) => {
+    res.json({ ok: true });
+  });
+
   // List the instances under management (so the UI can render one column each).
   app.get('/api/admin/nodes', appendUser, requireAdmin, (req, res) => {
     res.json({ nodes: getNodes().map(({ label, url }) => ({ label, url })) });
