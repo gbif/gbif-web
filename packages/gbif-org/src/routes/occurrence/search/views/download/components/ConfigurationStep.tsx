@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl';
 import { FilterType } from '@/contexts/filter';
 import { generateCubeSql, hasFilter } from './cube/cubeService';
 import { DownloadSummary } from './DownloadSummary';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface ConfigurationStepProps {
   selectedFormat: any;
@@ -121,7 +120,7 @@ export default function ConfigurationStep({
   const handleContinue = async () => {
     if (isCubeData && 'cube' in config) {
       // Ensure SQL is generated for cube data before continuing
-      const result = await generateCubeSql(config.cube, predicate);
+      const result = await generateCubeSql(config.cube, predicate, currentContextChecklistKey);
       if (!result.sql) {
         alert('Error generating SQL'); // TODO: Replace with proper error handling UI
         return;
