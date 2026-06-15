@@ -55,7 +55,10 @@ async function resourceSearch(req, res) {
     }
 
     const data = await response.json();
-    res.json(data);
+    res.json({
+      warning: 'This is an internal and unstable endpoint that may change without notice.',
+      ...data,
+    });
   } catch (error) {
     // Network/parse errors are swallowed - we surface a generic 502 instead.
     res.status(502).json({ error: GENERIC_ERROR_MESSAGE });
