@@ -1,6 +1,6 @@
 import pager from './pager.mjs';
 import prose from './prose.mjs';
-import species from './species.mjs';
+import taxon from './taxon.mjs';
 import entity from './templates/entity/entity.mjs';
 import entityIndex from './templates/entity/index.mjs';
 import renderIndex from './templates/index.mjs';
@@ -145,9 +145,9 @@ export function register(app) {
   // app.get('/sitemap-species.xml', getIntervals(pager.species.intervals, 'sitemaps/species/index'));
   // app.get('/sitemap/species/:offset/:limit.xml', getList(pager.species.list, 'sitemaps/species/species'));
   // species in backbone
-  app.get('/sitemap-species.xml', function (req, res, next) {
-    species
-      .getSpeciesSiteMapIndex()
+  app.get('/sitemap-taxon.xml', function (req, res, next) {
+    taxon
+      .getTaxonSiteMapIndex()
       .then(function (sitemapIndex) {
         res.set('Content-Type', 'text/xml');
         res.send(sitemapIndex);
@@ -156,9 +156,9 @@ export function register(app) {
         next(e);
       });
   });
-  app.get('/sitemap/species/:no.txt', function (req, res, next) {
-    species
-      .getSpeciesSiteMap(req.params.no)
+  app.get('/sitemap/taxon/:no.txt', function (req, res, next) {
+    taxon
+      .getTaxonSiteMap(req.params.no)
       .then(function (sitemap) {
         res.set('Content-Type', 'text/plain');
         res.send(sitemap);

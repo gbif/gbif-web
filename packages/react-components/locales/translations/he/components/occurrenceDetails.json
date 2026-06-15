@@ -66,6 +66,7 @@
     "issues": ""
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "",
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "דגימה event",
@@ -743,7 +744,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "",
+      "recordsHeader": "",
+      "groups": {
+        "protocols": "",
+        "samplingDesign": "",
+        "spatialScope": "",
+        "temporalScope": "",
+        "effort": "",
+        "taxonomicOrganismalScope": ""
+      },
       "properties": {
+        "eventDuration": "",
+        "samplingEffort": "",
+        "geospatialScopeArea": "",
+        "totalAreaSampled": "",
         "siteCount": "",
         "siteNestingDescription": "",
         "verbatimSiteDescriptions": "",

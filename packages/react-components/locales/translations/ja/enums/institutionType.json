@@ -1,1 +1,13 @@
-{}
+{
+  "BIOMEDICAL_RESEARCH_INSTITUTE": "生物医学研究所",
+  "BOTANICAL_GARDEN": "植物園",
+  "HERBARIUM": "ハーバリウム",
+  "LIVING_ORGANISM_COLLECTION": "生き物コレクション",
+  "MEDICAL_RESEARCH_INSTITUTE": "医学研究所",
+  "MUSEUM": "博物館",
+  "MUSEUM_HERBARIUM_PRIVATE_NON_PROFIT": "博物館、ハーバリウム、営利団体、非営利団体",
+  "OTHER_INSTITUTIONAL_TYPE": "その他の機関",
+  "OTHER_TYPE_RESEARCH_INSTITUTION_BIOREPOSITORY": "その他の研究機関バイオリポジトリ",
+  "UNIVERSITY_COLLEGE": "大学・カレッジ",
+  "ZOO_AQUARIUM": "動物園・水族館"
+}

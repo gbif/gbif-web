@@ -54,9 +54,18 @@ export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
 
       const authorsCap = 1;
       const displayAuthors = item.authors.filter((x) => x).slice(0, authorsCap);
-      const authorStrings = displayAuthors.map(
-        (author) => `${author?.lastName}, ${author?.firstName?.[0] || ''}.`
-      );
+
+      const authorStrings = displayAuthors.map((author) => {
+        const firstLetter = author?.firstName?.[0];
+        if (!firstLetter) return author?.lastName;
+
+        const firstCode = firstLetter.charCodeAt(0);
+        if (firstCode > 250)
+          return `
+          ${author?.lastName ?? ''}${author?.firstName ?? ''}
+        `;
+        return `${author?.lastName}, ${firstLetter}.`;
+      });
 
       let authorsText = authorStrings.join(' ');
       if (item.authors.length > authorsCap) {

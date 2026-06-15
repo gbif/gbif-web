@@ -13,7 +13,19 @@
   "PARENT_CYCLE": "偵測到上層迴圈",
   "CLASSIFICATION_RANK_ORDER_INVALID": "無效的分類位階順序",
   "CLASSIFICATION_NOT_APPLIED": "分類未被採用",
+  "VERNACULAR_NAME_INVALID": "無效的俗名",
+  "DESCRIPTION_INVALID": "無效的描述",
+  "DISTRIBUTION_INVALID": "無效的分布",
+  "SPECIES_PROFILE_INVALID": "無效的物種檔案",
+  "MULTIMEDIA_INVALID": "無效的多媒體",
+  "ACCEPTED_NAME_NOT_UNIQUE": "有效名稱不是唯一",
+  "PARENT_NAME_NOT_UNIQUE": "上層名稱不是唯一的",
+  "ORIGINAL_NAME_NOT_UNIQUE": "原始名稱不是唯一",
+  "RELATIONSHIP_MISSING": "缺少關聯",
   "CONFLICTING_BASIONYM_COMBINATION": "衝突的基礎名組合",
+  "NO_SPECIES": "沒有物種",
   "ORTHOGRAPHIC_VARIANT": "正交變異",
-  "HOMONYM": "同音異義"
+  "HOMONYM": "同音異義",
+  "UNPARSABLE": "無法解析",
+  "PARTIALLY_PARSABLE": "部分可解析"
 }

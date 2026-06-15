@@ -94,7 +94,12 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'TAXON_CONCEPT_ID':
             return value;
           case 'TAXON_KEY':
-            return <TaxonLabel id={value} checklistKey={checklistKey} />;
+            return (
+              <TaxonLabel
+                id={value}
+                checklistKey={checklistKey ?? import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY}
+              />
+            );
           case 'LATEST_EON_OR_HIGHEST_EONOTHEM':
             return <GeoTimeLabel id={value} />;
           case 'SUBGENUS_KEY':

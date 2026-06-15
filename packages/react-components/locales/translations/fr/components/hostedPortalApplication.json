@@ -34,5 +34,17 @@
   "nodeContact.iAmNodeManager": "Je suis le gestionnaire de nœud",
   "nodeContact.yesContacted": "Oui, je suis en contact avec un gestionnaire de nœud à propos de cette candidature",
   "nodeContact.noContact": "Je n'ai pas encore contacté un gestionnaire de nœud au sujet de cette candidature",
-  "nodeContact.nodeManagerDescription": "Veuillez indiquer le gestionnaire de nœud"
+  "nodeContact.nodeManagerDescription": "Veuillez indiquer le gestionnaire de nœud",
+  "dataScopeDescription": "Veuillez noter que les portails hébergés ne peuvent afficher que les données d'occurrence déjà partagées sur GBIF.org et organisées selon la taxonomie de référence de GBIF. Décrivez brièvement l'étendue des données d'occurrence que vous souhaitez afficher sur un portail hébergé par GBIF, en précisant par exemple l'étendue géographique, taxonomique et temporelle, ou tout autre paramètre. Combien de jeux de données et d'enregistrements disponibles sur GBIF.org correspondent approximativement à cette étendue ? Veuillez inclure des liens vers les recherches GBIF.org, le cas échéant.",
+  "userGroupDescription": "Avez-vous identifié un groupe d'utilisateurs pour le portail ? Comment décririez-vous leurs besoins ? Veuillez également expliquer comment vous avez identifié ce groupe d'utilisateurs et leurs besoins. Si le portail est destiné à remplacer un site web existant, veuillez fournir un lien si possible et expliquer pourquoi vous pensez qu'un portail hébergé constituerait une meilleure solution.",
+  "timelinesDescription": "Y a-t-il des délais à respecter concernant le déploiement, la promotion et l'utilisation continue du portail ?",
+  "languagesDescription": "Dans quelles langues souhaitez-vous que votre portail hébergé soit disponible ? Veuillez noter que vous devrez traduire vous-même votre contenu et votre menu, et que vous devrez peut-être fournir des traductions pour certains éléments courants, tels que les composants de recherche de données, dans des langues autres que l'anglais s'ils ne sont pas déjà disponibles.",
+  "experienceDescription": "Nous gérerons les portails hébergés sur GitHub. Vous devrez rédiger le contenu en utilisant Markdown et YAML. Cela ne présente aucune difficulté et nous pouvons vous orienter vers la documentation et vous apporter une aide à la prise en main si nécessaire. Veuillez indiquer votre niveau d'expérience avec ces langages :",
+  "experience.plenty": "Je maîtrise l'utilisation de GitHub, Markdown et YAML pour la création de contenu web.",
+  "experience.limited": "J'ai déjà un peu d'expérience, mais j'aimerais avoir un peu d'aide pour me lancer",
+  "experience.none": "Je n'ai jamais utilisé GitHub, Markdown ou YAML pour créer du contenu web",
+  "termsLabel": "J'ai lu le <service-agreement-link>contrat de service</service-agreement-link> et le <data-processor-agreement-link>contrat de traitement des données</data-processor-agreement-link> et j'accepte ces conditions générales pour le portail hébergé que je prévois de lancer.",
+  "protectedFormTitle": "Vous avez besoin d'un compte pour demander un portail hébergé",
+  "protectedFormMessage": "Connectez-vous ou créez un compte pour poursuivre votre demande de portail hébergé.",
+  "createNewApplication": "Créer une nouvelle candidature ?"
 }

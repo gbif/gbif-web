@@ -17,6 +17,8 @@
     "message": "等于 {is}"
   },
   "filterByView": "使用可见区域作为过滤器",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "投影",
   "anyYear": "任何年份",
   "exploreArea": "探索区域",

@@ -1,7 +1,15 @@
 {
+  "identifier": "ID",
   "type": "タイプ",
+  "subtypeLiteral": "サブタイプ",
   "title": "タイトル",
   "rights": "権利",
+  "credit": "クレジット",
+  "providerLiteral": "プロバイダー",
   "description": "説明",
-  "format": "フォーマット"
+  "accessURI": "URL",
+  "accessOriginalURI": "オリジナル URL",
+  "format": "フォーマット",
+  "pixelXDimension": "幅",
+  "pixelYDimension": "高さ"
 }

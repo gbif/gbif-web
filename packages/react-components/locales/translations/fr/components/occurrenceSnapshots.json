@@ -8,8 +8,8 @@
       "description": "GBIF met ses données à disposition sur <azure>Microsoft Planetary Computer (Azure)</azure>, sous forme de <aws>Amazon AWS Open Dataset</aws>, ainsi que dans un compartiment <gcs>GCS</gcs> et une table <bq>BigQuery</bq> de Google. Lors de l'utilisation d'instantanés de données dans le cloud, nous recommandons systématiquement de créer une citation de <derived>jeu de Données Dérivé</derived> pour les enregistrements utilisés. Pour faire référence au jeu de données, veuillez utiliser la citation appropriée ci-dessous."
     },
     "monthly": {
-      "title": "",
-      "description": ""
+      "title": "Instantanés de données mensuels",
+      "description": "Les exportations mensuelles des données d'occurrence du GBIF sont répertoriées ci-dessous et disponibles dans différents formats. Veuillez consulter la référence indiquée sur chaque page."
     },
     "table": {
       "columns": {
@@ -18,9 +18,9 @@
         "citation": "Citation",
         "filters": "Filtres"
       },
-      "citation": "",
+      "citation": "Téléchargement des données d'occurrence du GBIF",
       "hasFilters": "Oui",
-      "downloadDetails": ""
+      "downloadDetails": "Détails du téléchargement"
     }
   }
 }

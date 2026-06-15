@@ -17,6 +17,8 @@
     "message": "Igual a {is}"
   },
   "filterByView": "Usar el área visible como filtro",
+  "zoomToData": "Ajustar el zoom a la extensión de los datos",
+  "noDataInView": "La vista actual contiene pocos datos",
   "projection": "Proyección",
   "anyYear": "Cualquier año",
   "exploreArea": "Explora un área",

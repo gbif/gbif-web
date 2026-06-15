@@ -5,7 +5,10 @@
   "HETEROTYPIC_SYNONYM": "異タイプシノニム",
   "HOMOTYPIC_SYNONYM": "同タイプシノニム",
   "PROPARTE_SYNONYM": "部分的シノニム",
+  "AMBIGUOUS_SYNONYM": "曖昧な同義語",
+  "PROVISIONALLY_ACCEPTED": "仮承認",
   "MISAPPLIED": "誤適用",
+  "BARE_NAME": "裸名",
   "INTERMEDIATE_RANK_SYNONYM": "中間ランク シノニム",
   "DETERMINATION_SYNONYM": "Determination synonym"
 }

@@ -9,7 +9,7 @@
     "IUCN": "IUCNのエクスポート",
     "BIONOMIA": "Bionomiaへエクスポート",
     "SIMPLE_PARQUET": "シンプルなパケット",
-    "SQL_TSV_ZIP": "",
-    "CUBE": ""
+    "SQL_TSV_ZIP": "SQL TSV zip",
+    "CUBE": "Cube"
   }
 }

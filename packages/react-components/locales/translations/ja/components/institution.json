@@ -1,4 +1,8 @@
 {
   "institutionalGovernance": "機関のガバナンス",
-  "disciplines": "機関の規律"
+  "type": "機関の種類",
+  "addCollection": "コレクションを追加する",
+  "disciplines": "機関の規律",
+  "numberSpecimens": "機関内の標本数",
+  "unknownCollectionCodesForInstitution": "これらの不明なコレクションコードはこの機関に関連する"
 }

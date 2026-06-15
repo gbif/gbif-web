@@ -250,7 +250,7 @@
     "description": "The name of the organization hosting the dataset in which the record is published."
   },
   "country": {
-    "name": "Country",
+    "name": "Country"
   },
   "countriesOfCoverage": {
     "name": "Country of coverage",
@@ -261,7 +261,7 @@
     "description": "What countries does the collection have specimens from. Notice that not all collections have this information filled."
   },
   "countriesOfResearcher": {
-    "name": "Country of researcher",
+    "name": "Country of researcher"
   },
   "typeStatus": {
     "name": "Type status",

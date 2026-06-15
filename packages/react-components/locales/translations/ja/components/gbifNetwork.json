@@ -9,18 +9,18 @@
       "UNKNOWN": "不明",
       "AFFILIATE": "GBIF提携団体"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "GBIF事務局と正式なパートナーシップ契約を締結した機関",
+    "mapCaptionPublishers": "国別・地域別の活発なGBIFデータを公開した機関",
     "role": "役割",
     "name": "名前",
     "participant": "参加者",
     "type": "タイプ",
     "memberSince": "メンバー登録日",
     "all": "すべて",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "参加国",
+    "publishersPerCountry": "国別の出版者",
     "clear": "消去",
-    "noDescriptionProvided": "",
+    "noDescriptionProvided": "このネットワークに説明がありません",
     "headlines": {
       "nodesSteeringGroup": "ノード運営グループ",
       "participants": "参加国および参加組織"

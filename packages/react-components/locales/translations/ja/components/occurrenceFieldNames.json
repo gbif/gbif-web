@@ -111,6 +111,7 @@
   "habitat": "生息地",
   "samplingProtocol": "サンプリング手順",
   "samplingEffort": "サンプリングの努力量",
+  "sampleSize": "サンプルサイズ",
   "sampleSizeValue": "サンプルサイズの値",
   "sampleSizeUnit": "サンプルサイズの単位",
   "fieldNotes": "フィールドでの記録",
@@ -254,5 +255,11 @@
   "coordinatesTextual": "このレコードは座標なしで公開されていますが、場所に関する説明が含まれています。",
   "coordinatesMissing": "座標が見つかりません",
   "taxonomicClassification": "分類",
-  "images": "マルチメディア"
+  "gadmClassification": "GADMによる位置",
+  "images": "マルチメディア",
+  "eventTypeHierarchyJoined": "構造",
+  "measurementOrFactTypes": "測定または事実",
+  "temporalCoverage": "時間的範囲",
+  "eventType": "イベントタイプ",
+  "iucnRedListCategory": "IUCNレッドリストカテゴリー"
 }

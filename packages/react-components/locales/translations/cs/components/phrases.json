@@ -12,6 +12,7 @@
   "deletedOnDate": "Smazáno {date}",
   "replacedBy": "Nahrazeno {newItem}",
   "showAll": "Zobrazit vše",
+  "showAllNItems": "",
   "viewAllImages": "",
   "share": "Sdílet",
   "identifier": "Identifikátor",

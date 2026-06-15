@@ -66,6 +66,7 @@
     "issues": "Problémy a příznaky"
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "",
   "features": {
     "isClustered": "Ve shluku",
     "isSamplingEvent": "Událost odběru vzorku",
@@ -743,7 +744,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "Rozšíření Humboldt",
+      "recordsHeader": "",
+      "groups": {
+        "protocols": "Protokoly",
+        "samplingDesign": "",
+        "spatialScope": "",
+        "temporalScope": "Časový rozsah",
+        "effort": "",
+        "taxonomicOrganismalScope": ""
+      },
       "properties": {
+        "eventDuration": "",
+        "samplingEffort": "Intenzita odběru vzorků",
+        "geospatialScopeArea": "",
+        "totalAreaSampled": "",
         "siteCount": "",
         "siteNestingDescription": "",
         "verbatimSiteDescriptions": "",

@@ -168,6 +168,50 @@ export function getPoolQueue(pool: PoolName): PQueue {
   return queue;
 }
 
+// Pre-create the known pools at startup so /health (and the Nagios status line)
+// lists them all immediately, instead of only after each is first used.
+const KNOWN_POOLS: PoolName[] = ['occurrence', 'taxon', 'default'];
+KNOWN_POOLS.forEach((pool) => getPoolQueue(pool));
+
+// Cumulative throughput counters per pool, reported on /health. These count
+// individual upstream calls (a single GraphQL request fans out into many), so
+// they are a coarse "how busy is this upstream" number, not a request count.
+const poolCounters = new Map<
+  PoolName,
+  {
+    served: number;
+    failed: number;
+    aborted: number;
+    rejected: number;
+    largestSeenQueueSize: number;
+  }
+>();
+
+function poolCounter(pool: PoolName) {
+  let c = poolCounters.get(pool);
+  if (!c) {
+    c = {
+      served: 0,
+      failed: 0,
+      aborted: 0,
+      rejected: 0,
+      largestSeenQueueSize: 0,
+    };
+    poolCounters.set(pool, c);
+  }
+  return c;
+}
+
+// A client disconnect aborts the upstream call, which surfaces as an AbortError.
+// That is a cancellation, not a failure, so it is counted separately. Our own
+// pool timeout is also implemented via an abort, but it is translated to a
+// PoolTimeoutError (poolTimeout marker) and stays a real failure.
+function isClientCancellation(err: unknown): boolean {
+  const e = err as { name?: string; extensions?: { poolTimeout?: boolean } };
+  if (e?.extensions?.poolTimeout) return false;
+  return e?.name === 'AbortError';
+}
+
 /**
  * Run `fn` under the process-wide concurrency limit for `pool`. If the pool's
  * queue is already at its configured `maxQueueDepth`, the request is shed
@@ -178,11 +222,31 @@ export function getPoolQueue(pool: PoolName): PQueue {
 export function runInPool<T>(pool: PoolName, fn: () => Promise<T>): Promise<T> {
   const queue = getPoolQueue(pool);
   const maxDepth = resolveMaxQueueDepth(pool);
+  const counters = poolCounter(pool);
   // queue.size = jobs waiting (not yet started); queue.pending = jobs running.
   if (Number.isFinite(maxDepth) && queue.size >= maxDepth) {
+    counters.rejected += 1;
     return Promise.reject(new PoolOverloadError(pool, queue.size));
   }
-  return queue.add(fn) as Promise<T>;
+  // High-water mark of the in-system count (waiting + running). The peak can
+  // only occur when a job is added, so checking here catches it exactly. The +1
+  // is the job we are about to enqueue.
+  const inSystem = queue.size + queue.pending + 1;
+  if (inSystem > counters.largestSeenQueueSize) {
+    counters.largestSeenQueueSize = inSystem;
+  }
+  return (queue.add(fn) as Promise<T>).then(
+    (result) => {
+      counters.served += 1;
+      return result;
+    },
+    (err) => {
+      // A cancelled request (client disconnect) is not a failure.
+      if (isClientCancellation(err)) counters.aborted += 1;
+      else counters.failed += 1;
+      throw err;
+    },
+  );
 }
 
 /** Which signal aborted a request first (or `none` if it did not abort). */
@@ -255,17 +319,30 @@ export function getPoolStats() {
     {
       waiting: number;
       running: number;
-      concurrency: number;
-      maxQueueDepth: number;
+      currentQueueSize: number;
+      largestSeenQueueSize: number;
+      concurrencyLimit: number;
+      maxQueueSize: number;
+      served: number;
+      failed: number;
+      aborted: number;
+      rejected: number;
       timeoutMs: number;
     }
   > = {};
   Array.from(queues.entries()).forEach(([pool, queue]) => {
+    const counters = poolCounter(pool);
     stats[pool] = {
       waiting: queue.size, // queued, not yet started
       running: queue.pending, // currently in flight
-      concurrency: unbounded(queue.concurrency as number),
-      maxQueueDepth: unbounded(resolveMaxQueueDepth(pool)),
+      currentQueueSize: queue.size + queue.pending, // waiting + running
+      largestSeenQueueSize: counters.largestSeenQueueSize, // high-water mark
+      concurrencyLimit: unbounded(queue.concurrency as number),
+      maxQueueSize: unbounded(resolveMaxQueueDepth(pool)),
+      served: counters.served,
+      failed: counters.failed,
+      aborted: counters.aborted, // client disconnected before completion
+      rejected: counters.rejected,
       timeoutMs: unbounded(poolTimeoutMs(pool)),
     };
   });

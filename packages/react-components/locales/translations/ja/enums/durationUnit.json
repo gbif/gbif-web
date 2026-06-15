@@ -1,0 +1,11 @@
+{
+  "durationUnit": {
+    "SECONDS": "秒",
+    "MINUTES": "分",
+    "HOURS": "時間",
+    "DAYS": "日間",
+    "WEEKS": "週間",
+    "MONTHS": "ヶ月間",
+    "YEARS": "年間"
+  }
+}

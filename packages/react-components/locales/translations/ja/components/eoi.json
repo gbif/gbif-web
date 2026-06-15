@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "私の組織はまだ登録されていません。",
   "searchOrganisations": "組織を検索",
   "termsAndConditions": "利用規約",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "私は[GBIF のデータ出版者の合意事項]() とその利用規約を読み、理解し、 同意します。",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "私は私の組織を代表して登録を求めます。私の組織の責任者が、この登録について了解していることは確認しています。",
   "iUnderstandThatMyOrganizationalInformation": "連絡先の詳細を含む、私の組織の情報がGBIF.org を通じて公開されることを、私は理解しています。",
   "administrativeContact": "管理者の連絡先",
@@ -30,7 +30,7 @@
   "none": "該当なし",
   "whatAndHow": "何か、方法は？",
   "helpUsUnderstand": "どのようなデータを出版する計画ですか、そのためにはどのようなサポートが必要ですか、教えてください。",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "GBIF.orgは、4 種類のデータ(<a href='/dataset-classes'>こちら</a>に説明）の出版をサポートします。データのフォーマット合わせと元のデータセットの維持・管理に関する責任はデータ出版者にありますが、技術的な問題解決については私たちがお手伝いできます。",
   "whichTypesOfData": "出版したいのは、どのデータ・タイプですか。",
   "resourcesMetaData": "リソースのメタデータ",
   "checkListData": "チェックリストのデータ",
@@ -42,9 +42,9 @@
   "yes": "はい",
   "no": "いいえ",
   "pleaseSelectAValue": "値を選んでください",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "この場合は、まず既存の信頼できる <a href='https://github.com/gbif/ipt/wiki/dataHostingCentre'>IPT data hosting centre</a>の再利用を試してみることをお勧めします ",
   "doYouNeedHelpPublishing": "データ出版に支援が必要ですか。",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "データ出版ソフト（たとえば、 <a href='/ipt'>Integrated Publishing Toolkit – IPT</a> )をインストールして実行し、GBIF.org に直接データを公開する予定ですか？",
   "orgDetails": "機関の詳細情報",
   "yourChanceToTellGBIF": "GBIFユーザーにあなたが何者で、何をしている人かを伝えるチャンスです。",
   "orgName": "組織名",
@@ -81,20 +81,20 @@
   "outage": "部分的な障害が発生しているため、現時点では登録を受け付けていません。",
   "eoiDescription": "GBIF を通じてデータの出版の準備をするには、新しいデータ出版者にはこのオンライン フォームへのご記入をお願いしています。GBIFがあなたのデータセットのインデックスを作成する前に、GBIF の既存の参加者ノードを通じて、国またはGBIF参加機関の一つから、あなたの機関はデータ出版者として承認を受ける必要があります。あなたの国が GBIF にまだ参加していない場合、GBIFがあなたに代わって GBIF コミュニティからの承認が得られるように働きかけます。",
   "eoiTitle": "承認",
-  "checkRegistration": "",
+  "checkRegistration": "登録を確認します",
   "organisationDetails": "機関の詳細情報",
-  "organisationAddress": "",
+  "organisationAddress": "組織の住所",
   "endorsement": "承認",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "マップから機関を選んでください。",
+    "pleaseSelectTheCountryOfYourOrganization": "所属組織の国・地域を選択してください"
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "組織の登録ありがとうございます",
+  "failedToRegisterOrganization": "組織の登録ができません",
+  "associatedWithGbifProgramme": "GBIF プログラムによる資金提供をうけたプロジェクトに関連していますか？",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "新しい組織を登録するにはアカウントが必要です",
+    "message": "組織の登録を続けるには、ログインするかアカウントを作成してください。"
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "他の組織を登録しますか?"
 }
