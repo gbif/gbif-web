@@ -63,8 +63,14 @@ function getEsNodes() {
 }
 
 function isAuthorisedAdmin(user) {
-  if (!user || !user.userName) return false;
-  if (ADMIN_USERS.includes(user.userName)) return true;
+  if (!user || !user.email || !Array.isArray(user.roles)) return false;
+  // Users email must be included in ADMIN_USERS
+  if (!ADMIN_USERS.includes(user.email)) return false;
+  // Must have an gbif.org email
+  if (!user.email.endsWith('@gbif.org')) return false;
+  // Must be gbif registry admin
+  if (!user.roles?.includes('REGISTRY_ADMIN')) return false;
+  return true;
 }
 
 // 404 (not 403) for anyone not authorised. Runs after `appendUser`, which attaches

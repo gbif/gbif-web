@@ -43,6 +43,7 @@ export const generateGraphQLToken = (user, ttl) => {
     userName: user.userName,
     firstName: user.firstName,
     lastName: user.lastName,
+    email: user.email,
   };
   if (user.roles) {
     tokenContent.roles = JSON.stringify(user.roles);

@@ -28,12 +28,20 @@ import type { PoolName } from '@/requestAgents';
 
 const adminUsers: string[] = (get(config, 'adminUsers', []) as string[]) ?? [];
 
-type AdminUser = { userName?: string; roles?: string[] } | null | undefined;
+type AdminUser =
+  | { userName?: string; email?: string; roles?: string[] }
+  | null
+  | undefined;
 
 function isAuthorised(user: AdminUser): boolean {
-  if (!user || !user.userName) return false;
-  if (adminUsers.includes(user.userName)) return true;
-  return false;
+  if (!user || !user.email || !Array.isArray(user.roles)) return false;
+  // Users email must be included in adminUsers in the config
+  if (!adminUsers.includes(user.email)) return false;
+  // Must have an gbif.org email
+  if (!user.email.endsWith('@gbif.org')) return false;
+  // Must be gbif registry admin
+  if (!user.roles?.includes('REGISTRY_ADMIN')) return false;
+  return true;
 }
 
 async function requireAdmin(req: Request, res: Response, next: NextFunction) {
