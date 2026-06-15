@@ -2,11 +2,7 @@ import { useConfig } from '@/config/config';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
-import {
-  parseSequenceFilterValue,
-  resolveSequence,
-  SequenceBin,
-} from '@/utils/sequenceSearch';
+import { parseSequenceFilterValue, resolveSequence, SequenceBin } from '@/utils/sequenceSearch';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { LuLoader as Loader } from 'react-icons/lu';
 import { FormattedMessage } from 'react-intl';
@@ -98,7 +94,7 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
       <div ref={ref} className={cn('g-flex g-flex-col', className)} style={style}>
         <div className="g-flex-auto g-overflow-auto g-p-4">
           <textarea
-            className="g-w-full g-h-28 g-text-xs g-font-mono g-border g-rounded g-p-2 g-resize-y"
+            className="g-w-full g-h-18 g-text-xs g-font-mono g-border g-rounded g-p-2 g-resize-y"
             value={sequence}
             spellCheck={false}
             onChange={(e) => {
@@ -112,7 +108,10 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
           />
           <div className="g-mt-2 g-flex g-items-center g-gap-2">
             <Button size="sm" onClick={search} disabled={loading || !sequence.trim()}>
-              <FormattedMessage id="filters.nucleotideSequenceId.search" defaultMessage="Find similar" />
+              <FormattedMessage
+                id="filters.nucleotideSequenceId.search"
+                defaultMessage="Find similar"
+              />
             </Button>
             {loading && <Loader className="g-animate-spin g-text-slate-400" />}
             {About && (
