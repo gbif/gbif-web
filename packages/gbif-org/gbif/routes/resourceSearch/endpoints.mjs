@@ -3,6 +3,9 @@ import { publicEnv } from '../../envConfig.mjs';
 // New content search API that the legacy /api/resource/search endpoint proxies to.
 const CONTENT_SEARCH_ENDPOINT = publicEnv.PUBLIC_CONTENT_SEARCH;
 
+// Identifies this service (the gbif-org portal server) to the upstream API.
+const USER_AGENT = 'GBIF_ORG_PORTAL';
+
 // Generic message used for all failures. We intentionally do not forward upstream
 // error messages to the client - only a status code and this generic message.
 const GENERIC_ERROR_MESSAGE = 'Failed to fetch content search results';
@@ -42,7 +45,7 @@ async function resourceSearch(req, res) {
 
   try {
     const response = await fetch(url, {
-      headers: { Accept: 'application/json' },
+      headers: { Accept: 'application/json', 'User-Agent': USER_AGENT },
     });
 
     if (!response.ok) {
