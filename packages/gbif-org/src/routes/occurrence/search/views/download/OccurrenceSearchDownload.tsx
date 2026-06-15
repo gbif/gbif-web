@@ -106,10 +106,7 @@ function OccurrenceDownloadFlow({
     );
   }
 
-  const hasCubeSupport = defaultChecklist === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
-  const enabledFormats = hasCubeSupport
-    ? ['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST', 'SQL_CUBE']
-    : ['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST'];
+  const enabledFormats = ['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST', 'SQL_CUBE'];
 
   return (
     <div className="g-min-h-screen g-py-8">
