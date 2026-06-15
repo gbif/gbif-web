@@ -10,6 +10,30 @@ function generateMachineDescription(parameters, sql) {
   return { type: 'CUBE', signature, parameters };
 }
 
+function nameLookup(name, checklistKey) {
+  const lookup = {};
+  // generate for convinence the name lookup for the taxonomic dimensions, e.g. kingdom, phylum, class, order, family, genus
+  const ranks = [
+    'kingdom',
+    'phylum',
+    'class',
+    'order',
+    'family',
+    'genus',
+    'species',
+    'taxon',
+  ];
+  ranks.forEach((rank) => {
+    lookup[
+      rank
+    ] = `occurrence.classificationdetails['${checklistKey}']['${rank}']`;
+    lookup[
+      `${rank}Key`
+    ] = `occurrence.classificationdetails['${checklistKey}']['${rank}Key']`;
+  });
+  return lookup[name] || name;
+}
+
 export function getGbifMachineDescription(machineDescription, sql) {
   // check if the machineDescription is an object, if not return null
   if (typeof machineDescription !== 'object') return null;
@@ -233,6 +257,7 @@ export default async function generateSql(parameters) {
     includeTemporalUncertainty,
     includeSpatialUncertainty,
     predicate,
+    checklistKey,
   } = parameters;
   // generate SQL query
   const dimensions = [];
@@ -261,26 +286,80 @@ export default async function generateSql(parameters) {
   }
 
   if (taxonomy) {
-    const KINGDOM = 'kingdom, kingdomKey';
-    const PHYLUM = `${KINGDOM}, phylum, phylumKey`;
-    const CLASS = `${PHYLUM}, class, classKey`;
-    // const ORDER = `${CLASS}, "order_" as "order", orderKey`; // dev, uat and prod are not aligned on column naming
-    const ORDER = `${CLASS}, "order", orderKey`;
-    const FAMILY = `${ORDER}, family, familyKey`;
-    const GENUS = `${FAMILY}, genus, genusKey`;
-    const SPECIES = `${GENUS}, species, speciesKey`;
-    const EXACT_TAXON = `${SPECIES}, taxonKey, scientificName`;
-    const ACCEPTED_TAXON = `${SPECIES}, acceptedTaxonKey, acceptedScientificName`;
+    const KINGDOM = `${nameLookup('kingdom', checklistKey)}, ${nameLookup(
+      'kingdomKey',
+      checklistKey,
+    )}`;
+    const PHYLUM = `${KINGDOM}, ${nameLookup(
+      'phylum',
+      checklistKey,
+    )}, ${nameLookup('phylumKey', checklistKey)}`;
+    const CLASS = `${PHYLUM}, ${nameLookup(
+      'class',
+      checklistKey,
+    )}, ${nameLookup('classKey', checklistKey)}`;
+    const ORDER = `${CLASS}, ${nameLookup('order', checklistKey)}, ${nameLookup(
+      'orderKey',
+      checklistKey,
+    )}`;
+    const FAMILY = `${ORDER}, ${nameLookup(
+      'family',
+      checklistKey,
+    )}, ${nameLookup('familyKey', checklistKey)}`;
+    const GENUS = `${FAMILY}, ${nameLookup(
+      'genus',
+      checklistKey,
+    )}, ${nameLookup('genusKey', checklistKey)}`;
+    const SPECIES = `${GENUS}, ${nameLookup(
+      'species',
+      checklistKey,
+    )}, ${nameLookup('speciesKey', checklistKey)}`;
+    const EXACT_TAXON = `${SPECIES}, ${nameLookup(
+      'taxonKey',
+      checklistKey,
+    )}, ${nameLookup('scientificName', checklistKey)}`;
+    const ACCEPTED_TAXON = `${SPECIES}, ${nameLookup(
+      'acceptedTaxonKey',
+      checklistKey,
+    )}, ${nameLookup('acceptedScientificName', checklistKey)}`;
 
-    const KINGDOM_GROUP = 'kingdom, kingdomKey';
-    const PHYLUM_GROUP = `${KINGDOM_GROUP}, phylum, phylumKey`;
-    const CLASS_GROUP = `${PHYLUM_GROUP}, class, classKey`;
-    const ORDER_GROUP = `${CLASS_GROUP}, "order", orderKey`;
-    const FAMILY_GROUP = `${ORDER_GROUP}, family, familyKey`;
-    const GENUS_GROUP = `${FAMILY_GROUP}, genus, genusKey`;
-    const SPECIES_GROUP = `${GENUS_GROUP}, species, speciesKey`;
-    const EXACT_TAXON_GROUP = `${SPECIES_GROUP}, taxonKey, scientificName`;
-    const ACCEPTED_TAXON_GROUP = `${SPECIES_GROUP}, acceptedTaxonKey, acceptedScientificName`;
+    // currently identical with above, but keeping separate in case we want to diverge them in the future. For yearmonth for example they need to differ
+    const KINGDOM_GROUP = `${nameLookup('kingdom', checklistKey)}, ${nameLookup(
+      'kingdomKey',
+      checklistKey,
+    )}`;
+    const PHYLUM_GROUP = `${KINGDOM_GROUP}, ${nameLookup(
+      'phylum',
+      checklistKey,
+    )}, ${nameLookup('phylumKey', checklistKey)}`;
+    const CLASS_GROUP = `${PHYLUM_GROUP}, ${nameLookup(
+      'class',
+      checklistKey,
+    )}, ${nameLookup('classKey', checklistKey)}`;
+    const ORDER_GROUP = `${CLASS_GROUP}, ${nameLookup(
+      'order',
+      checklistKey,
+    )}, ${nameLookup('orderKey', checklistKey)}`;
+    const FAMILY_GROUP = `${ORDER_GROUP}, ${nameLookup(
+      'family',
+      checklistKey,
+    )}, ${nameLookup('familyKey', checklistKey)}`;
+    const GENUS_GROUP = `${FAMILY_GROUP}, ${nameLookup(
+      'genus',
+      checklistKey,
+    )}, ${nameLookup('genusKey', checklistKey)}`;
+    const SPECIES_GROUP = `${GENUS_GROUP}, ${nameLookup(
+      'species',
+      checklistKey,
+    )}, ${nameLookup('speciesKey', checklistKey)}`;
+    const EXACT_TAXON_GROUP = `${SPECIES_GROUP}, ${nameLookup(
+      'taxonKey',
+      checklistKey,
+    )}, ${nameLookup('scientificName', checklistKey)}`;
+    const ACCEPTED_TAXON_GROUP = `${SPECIES_GROUP}, ${nameLookup(
+      'acceptedTaxonKey',
+      checklistKey,
+    )}, ${nameLookup('acceptedScientificName', checklistKey)}`;
 
     const lookup = {
       KINGDOM: {
@@ -406,14 +485,17 @@ export default async function generateSql(parameters) {
 
   if (higherGroupsArray.length > 0) {
     const generate = (rank) => {
-      const parts = [`${rank}Key`];
+      const parts = [nameLookup(`${rank}Key`, checklistKey)];
       if (spatial) {
         parts.push(spatialLookup[spatial].dimension);
       }
       if (temporal) {
         parts.push(temporalLookup[temporal].dimension);
       }
-      return `IF(ISNULL(${rank}Key), NULL, SUM(COUNT(*)) OVER (PARTITION BY ${parts.join(
+      return `IF(ISNULL(${nameLookup(
+        `${rank}Key`,
+        checklistKey,
+      )}), NULL, SUM(COUNT(*)) OVER (PARTITION BY ${parts.join(
         ', ',
       )})) AS ${rank}Count`;
     };
