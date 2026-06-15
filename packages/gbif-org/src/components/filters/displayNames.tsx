@@ -116,6 +116,7 @@ export const DecimalLatitudeLabel = rangeOrEqualLabel('intervals.description');
 export const DecimalLongitudeLabel = rangeOrEqualLabel('intervals.description');
 export const distanceFromCentroidInMetersLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const NucleotideSequenceLengthLabel = rangeOrEqualLabel('intervals.compactBasePairs');
 export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const QuantityLabel = rangeOrEqualLabel('intervals.description');
 export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
@@ -389,6 +390,11 @@ export const SexLabel = getEndpointLabel({
 
 export const LifeStageLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/LifeStage/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const TargetGeneLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/target_gene/concepts/${id}`,
   transform: getVocabularyLabel,
 });
 

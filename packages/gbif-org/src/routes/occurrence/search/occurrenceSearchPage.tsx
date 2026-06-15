@@ -7,13 +7,17 @@ import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components
 import { Tabs } from '@/components/tabs';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
-import { FilterProvider } from '@/contexts/filter';
+import { FilterProvider, FilterType } from '@/contexts/filter';
+import {
+  stripSequenceFilterIds,
+  useSequenceAugmentedFilter,
+} from '@/components/filters/sequenceFilter/useSequenceAugmentedFilter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import { cn } from '@/utils/shadcn';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import PageMetaData from '@/components/PageMetaData';
 import { useFilters } from './filters';
@@ -35,6 +39,14 @@ export function OccurrenceSearchPage(): React.ReactElement {
     paramsToRemove: ['offset', 'from'],
     defaultChecklistKey: config.defaultChecklistKey,
   });
+  // The "Similar sequences" filter stores only the sequence + selected bins in the URL;
+  // resolve the matched nucleotideSequenceIDs into the in-memory filter (so the predicate
+  // can be built) and strip them again before persisting back to the URL.
+  const augmentedFilter = useSequenceAugmentedFilter(filter);
+  const persistFilter = useCallback(
+    (next: FilterType) => setFilter(stripSequenceFilterIds(next)),
+    [setFilter]
+  );
   const intl = useIntl();
   const title = intl.formatMessage({
     id: 'occurrenceSearch.title',
@@ -51,7 +63,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
       <PageMetaData title={title} description={description} path="/occurrence/search" />
 
       <SearchContextProvider searchContext={config.occurrenceSearch}>
-        <FilterProvider filter={filter} onChange={setFilter}>
+        <FilterProvider filter={augmentedFilter} onChange={persistFilter}>
           <OccurrenceSearchPageInner />
         </FilterProvider>
       </SearchContextProvider>
@@ -62,6 +74,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
 const groups = [
   'record',
   'occurrence',
+  'nucleotideSequence',
   'organism',
   'materialEntity',
   'event',

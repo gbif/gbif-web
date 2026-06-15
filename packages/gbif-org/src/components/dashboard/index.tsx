@@ -58,9 +58,11 @@ export const EstablishmentMeans = lazyChart('EstablishmentMeans');
 export const Synonyms = lazyChart('Synonyms');
 export const TypeStatus = lazyChart('TypeStatus');
 export const Sex = lazyChart('Sex');
+export const NucleotideSequenceLength = lazyChart('NucleotideSequenceLength');
 
 // stringCharts
 export const InstitutionCodes = lazyChart('InstitutionCodes');
+export const NucleotideSequenceTargetGene = lazyChart('NucleotideSequenceTargetGene');
 export const ProjectId = lazyChart('ProjectId');
 export const DatasetId = lazyChart('DatasetId');
 export const CollectionCodes = lazyChart('CollectionCodes');

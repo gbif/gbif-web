@@ -5111,6 +5111,33 @@ export type NsgMember = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * A nucleotide sequence attached to an occurrence (e.g. a DNA barcode), together with
+ * derived quality metrics. An occurrence may have several.
+ */
+export type NucleotideSequence = {
+  __typename?: 'NucleotideSequence';
+  endsTrimmed?: Maybe<Scalars['Boolean']['output']>;
+  gapsOrWhitespaceRemoved?: Maybe<Scalars['Boolean']['output']>;
+  gcContent?: Maybe<Scalars['Float']['output']>;
+  invalid?: Maybe<Scalars['Boolean']['output']>;
+  nFraction?: Maybe<Scalars['Float']['output']>;
+  nRunsCapped?: Maybe<Scalars['Int']['output']>;
+  naturalLanguageDetected?: Maybe<Scalars['Boolean']['output']>;
+  nonACGTNFraction?: Maybe<Scalars['Float']['output']>;
+  nonIupacFraction?: Maybe<Scalars['Float']['output']>;
+  nucleotideSequenceID?: Maybe<Scalars['String']['output']>;
+  sequence?: Maybe<Scalars['String']['output']>;
+  sequenceLength?: Maybe<Scalars['Int']['output']>;
+  targetGene?: Maybe<NucleotideSequenceTargetGene>;
+};
+
+export type NucleotideSequenceTargetGene = {
+  __typename?: 'NucleotideSequenceTargetGene';
+  concept?: Maybe<Scalars['String']['output']>;
+  lineage?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
 export type Occurrence = {
   __typename?: 'Occurrence';
   abstract?: Maybe<Scalars['String']['output']>;
@@ -5299,6 +5326,7 @@ export type Occurrence = {
   networkKey?: Maybe<Array<Maybe<Scalars['ID']['output']>>>;
   nomenclaturalCode?: Maybe<Scalars['String']['output']>;
   nomenclaturalStatus?: Maybe<Scalars['String']['output']>;
+  nucleotideSequences?: Maybe<Array<Maybe<NucleotideSequence>>>;
   occurrenceID?: Maybe<Scalars['String']['output']>;
   occurrenceRemarks?: Maybe<Scalars['String']['output']>;
   occurrenceStatus?: Maybe<OccurrenceStatus>;
@@ -5478,6 +5506,7 @@ export type OccurrenceCardinality = {
   mediaType: Scalars['Long']['output'];
   month: Scalars['Long']['output'];
   networkKey: Scalars['Long']['output'];
+  nucleotideSequenceTargetGene: Scalars['Long']['output'];
   occurrenceId: Scalars['Long']['output'];
   occurrenceStatus: Scalars['Long']['output'];
   orderKey: Scalars['Long']['output'];
@@ -5688,6 +5717,21 @@ export type OccurrenceFacet = {
   minimumElevationInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   month?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   networkKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Network>>>;
+  /**
+   * Facet on whether attached nucleotide sequences were flagged invalid. Counts are the
+   * number of matching occurrences.
+   */
+  nucleotideSequenceInvalid?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  /**
+   * Facet on the length of attached nucleotide sequences. Counts are the number of
+   * matching occurrences.
+   */
+  nucleotideSequenceSequenceLength?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
+  /**
+   * Facet on the target gene of nucleotide sequences attached to the occurrence
+   * (e.g. COI, ITS_region). Counts are the number of matching occurrences.
+   */
+  nucleotideSequenceTargetGene?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   occurrenceId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   occurrenceStatus?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   orderKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
@@ -6143,6 +6187,24 @@ export type OccurrenceFacetMonthArgs = {
 
 
 export type OccurrenceFacetNetworkKeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetNucleotideSequenceInvalidArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetNucleotideSequenceSequenceLengthArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetNucleotideSequenceTargetGeneArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -6840,6 +6902,7 @@ export type OccurrenceHistogram = {
   depth?: Maybe<Histogram>;
   elevation?: Maybe<Histogram>;
   endDayOfYear?: Maybe<Histogram>;
+  nucleotideSequenceSequenceLength?: Maybe<Histogram>;
   startDayOfYear?: Maybe<Histogram>;
   year?: Maybe<Histogram>;
 };
@@ -6866,6 +6929,11 @@ export type OccurrenceHistogramElevationArgs = {
 
 
 export type OccurrenceHistogramEndDayOfYearArgs = {
+  interval?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type OccurrenceHistogramNucleotideSequenceSequenceLengthArgs = {
   interval?: InputMaybe<Scalars['Float']['input']>;
 };
 
@@ -10892,6 +10960,14 @@ export type OccurrenceFieldNumberFacetQueryVariables = Exact<{
 
 export type OccurrenceFieldNumberFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
 
+export type OccurrenceTargetGeneFacetQueryVariables = Exact<{
+  q?: InputMaybe<Scalars['String']['input']>;
+  predicate?: InputMaybe<Predicate>;
+}>;
+
+
+export type OccurrenceTargetGeneFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
+
 export type OccurrencePathwayFacetQueryVariables = Exact<{
   q?: InputMaybe<Scalars['String']['input']>;
   predicate?: InputMaybe<Predicate>;
@@ -11972,6 +12048,7 @@ export const OccurrenceHigherGeographyFacetDocument = {"kind":"Document","defini
 export const OccurrenceEventIdFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceEventIdFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"eventId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceEventIdFacetQuery, OccurrenceEventIdFacetQueryVariables>;
 export const OccurrenceParentEventIdFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceParentEventIdFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"parentEventId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceParentEventIdFacetQuery, OccurrenceParentEventIdFacetQueryVariables>;
 export const OccurrenceFieldNumberFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceFieldNumberFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"fieldNumber"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceFieldNumberFacetQuery, OccurrenceFieldNumberFacetQueryVariables>;
+export const OccurrenceTargetGeneFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceTargetGeneFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"nucleotideSequenceTargetGene"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceTargetGeneFacetQuery, OccurrenceTargetGeneFacetQueryVariables>;
 export const OccurrencePathwayFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrencePathwayFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"pathway"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrencePathwayFacetQuery, OccurrencePathwayFacetQueryVariables>;
 export const OccurrenceDegreeOfEstablishmentFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceDegreeOfEstablishmentFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"q"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"q"},"value":{"kind":"Variable","name":{"kind":"Name","value":"q"}}},{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"degreeOfEstablishment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"20"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceDegreeOfEstablishmentFacetQuery, OccurrenceDegreeOfEstablishmentFacetQueryVariables>;
 export const ExtensionCountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExtensionCounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dwcaExtension"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<ExtensionCountsQuery, ExtensionCountsQueryVariables>;

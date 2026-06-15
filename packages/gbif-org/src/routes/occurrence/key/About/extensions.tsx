@@ -7,6 +7,10 @@ import { Group } from './groups';
 import { Img } from '@/components/Img';
 import { cn } from '@/utils/shadcn';
 import { Button } from '@/components/ui/button';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { MdSearch } from 'react-icons/md';
+import { SEQUENCE_BIN_DEFS } from '@/utils/sequenceSearch';
 
 export function Preparation({
   occurrence,
@@ -184,11 +188,39 @@ function DNASequence({ sequence }: { sequence: string }) {
       <div>
         <code className={cn('g-text-sm', { 'g-line-clamp-2': !expanded })}>{sequence}</code>
       </div>
-      <Button variant="outline" size="sm" className="g-mt-2" onClick={() => setExpanded((v) => !v)}>
-        <FormattedMessage
-          id={expanded ? 'occurrenceDetails.showLess' : 'occurrenceDetails.showMore'}
-        />
-      </Button>
+      <div className="g-mt-2 g-flex g-items-center g-gap-2">
+        <Button variant="outline" size="sm" onClick={() => setExpanded((v) => !v)}>
+          <FormattedMessage
+            id={expanded ? 'occurrenceDetails.showLess' : 'occurrenceDetails.showMore'}
+          />
+        </Button>
+        <SimpleTooltip
+          title={
+            <FormattedMessage
+              id="occurrenceDetails.searchSimilarSequences"
+              defaultMessage="Search for occurrences with similar sequences"
+            />
+          }
+          asChild
+        >
+          <Button asChild variant="outline" size="sm">
+            <DynamicLink
+              pageId="occurrenceSearch"
+              searchParams={{
+                nucleotideSequenceId: JSON.stringify({
+                  sequence,
+                  // Pre-select the three highest-identity bins (=100, 99.5–100, 99–99.5)
+                  // so the search filters to closely-matching sequences straight away.
+                  selected: SEQUENCE_BIN_DEFS.slice(0, 3).map((b) => b.id),
+                }),
+              }}
+              aria-label="Search for occurrences with similar sequences"
+            >
+              <MdSearch />
+            </DynamicLink>
+          </Button>
+        </SimpleTooltip>
+      </div>
     </div>
   );
 }

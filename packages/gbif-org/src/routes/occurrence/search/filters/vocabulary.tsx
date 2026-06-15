@@ -4,6 +4,7 @@ import {
   LifeStageLabel,
   PathwayLabel,
   SexLabel,
+  TargetGeneLabel,
 } from '@/components/filters/displayNames';
 import {
   filterConfigTypes,
@@ -55,6 +56,29 @@ export const lifeStageConfig: filterEnumConfig = {
   `,
   about: () => <Message id="filters.lifeStage.description" />,
   group: 'occurrence',
+  allowExistence: true,
+  allowNegations: true,
+};
+
+export const nucleotideSequenceTargetGeneConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'nucleotideSequenceTargetGene',
+  displayName: TargetGeneLabel,
+  filterTranslation: 'filters.nucleotideSequenceTargetGene.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceTargetGeneFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        facet {
+          field: nucleotideSequenceTargetGene(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.nucleotideSequenceTargetGene.description" />,
+  group: 'nucleotideSequence',
   allowExistence: true,
   allowNegations: true,
 };

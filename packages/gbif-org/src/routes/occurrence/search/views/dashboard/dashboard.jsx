@@ -92,6 +92,18 @@ const preconfiguredCharts = {
       return <charts.BasisOfRecord predicate={predicate} interactive {...props} />;
     },
   },
+  nucleotideSequenceTargetGene: {
+    translation: 'filters.nucleotideSequenceTargetGene.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.NucleotideSequenceTargetGene predicate={predicate} interactive {...props} />;
+    },
+  },
+  nucleotideSequenceSequenceLength: {
+    translation: 'filters.nucleotideSequenceSequenceLength.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.NucleotideSequenceLength predicate={predicate} interactive {...props} />;
+    },
+  },
   year: {
     component: ({ predicate, ...props }) => {
       return <charts.EventDate options={['TIME']} predicate={predicate} {...props} />;

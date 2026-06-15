@@ -120,6 +120,46 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    // The GraphQL facet field is `nucleotideSequenceTargetGene` (GraphQL names can't
+    // contain dots), but the predicate key must be the dotted `nucleotideSequence.targetGene`
+    // that the es-api / v1 understand (es-api upper-snake-cases it to
+    // NUCLEOTIDE_SEQUENCE_TARGET_GENE).
+    nucleotideSequenceTargetGene: {
+      defaultKey: 'nucleotideSequence.targetGene',
+    },
+    nucleotideSequenceSequenceLength: {
+      defaultKey: 'nucleotideSequence.sequenceLength',
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    // The "similar sequences" filter persists only { sequence, selected } in the URL; the
+    // matched nucleotideSequenceIDs are recomputed and injected (as `ids`) into the
+    // in-memory filter value by useSequenceAugmentedFilter. The serializer turns those IDs
+    // into an `in` predicate on the nested field. While the sequence is still resolving
+    // (no `ids` yet) it emits nothing.
+    nucleotideSequenceId: {
+      serializer: ({ values }): Predicate | null => {
+        const raw = values?.[0];
+        if (raw == null) return null;
+        let parsed: unknown = raw;
+        if (typeof raw === 'string') {
+          try {
+            parsed = JSON.parse(raw);
+          } catch {
+            return null;
+          }
+        }
+        if (!parsed || typeof parsed !== 'object') return null;
+        const { ids } = parsed as { ids?: string[] };
+        if (!Array.isArray(ids) || ids.length === 0) return null;
+        return {
+          type: PredicateType.In,
+          key: 'nucleotideSequence.nucleotideSequenceID',
+          values: [...new Set(ids)],
+        };
+      },
+    },
   },
 };
 

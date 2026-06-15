@@ -250,7 +250,7 @@
     "description": "The name of the organization hosting the dataset in which the record is published."
   },
   "country": {
-    "name": "Country",
+    "name": "Country"
   },
   "countriesOfCoverage": {
     "name": "Country of coverage",
@@ -261,7 +261,7 @@
     "description": "What countries does the collection have specimens from. Notice that not all collections have this information filled."
   },
   "countriesOfResearcher": {
-    "name": "Country of researcher",
+    "name": "Country of researcher"
   },
   "typeStatus": {
     "name": "Type status",
@@ -324,6 +324,32 @@
   "lifeStage": {
     "name": "Life stage",
     "description": "What life stage the organism was in."
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "Target gene",
+    "description": "The gene or gene region targeted by a nucleotide sequence attached to the occurrence (e.g. COI, ITS2)."
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "Sequence length",
+    "description": "The length, in base pairs, of a nucleotide sequence attached to the occurrence."
+  },
+  "nucleotideSequenceId": {
+    "name": "Similar sequences",
+    "description": "Paste a nucleotide sequence to find occurrences whose attached sequences are similar to it, grouped by percent identity.",
+    "search": "Find similar",
+    "uniqueSequences": "{count, plural, one {# distinct sequence} other {# distinct sequences}}",
+    "invalid": "That doesn't look like a valid nucleotide sequence.",
+    "error": "Could not search for similar sequences. Please try again.",
+    "noMatches": "No similar sequences found.",
+    "bin": {
+      "100": "100% (identical)",
+      "99.5": "99.5–100%",
+      "99": "99–99.5%",
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
+    }
   },
   "recordedBy": {
     "name": "Recorded by",

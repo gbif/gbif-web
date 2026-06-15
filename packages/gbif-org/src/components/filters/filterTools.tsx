@@ -32,6 +32,7 @@ import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
 import { HumboldtBooleansFilter } from './humboldtBooleansFilter';
 import { CustomPredicateFilter } from './customPredicateFilter';
+import { SequenceFilter } from './sequenceFilter/SequenceFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -47,6 +48,7 @@ export enum filterConfigTypes {
   INLINE_TOGGLE = 'INLINE_TOGGLE',
   HUMBOLDT_BOOLEANS = 'HUMBOLDT_BOOLEANS',
   CUSTOM_PREDICATE = 'CUSTOM_PREDICATE',
+  SEQUENCE = 'SEQUENCE',
 }
 
 export type AdditionalFilterProps = {
@@ -162,6 +164,10 @@ export type filterCustomPredicateConfig = filterConfigShared & {
   filterType: filterConfigTypes.CUSTOM_PREDICATE;
 };
 
+export type filterSequenceConfig = filterConfigShared & {
+  filterType: filterConfigTypes.SEQUENCE;
+};
+
 // define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
 export type filterConfig =
   | filterBoolConfig
@@ -176,7 +182,8 @@ export type filterConfig =
   | filterLocationConfig
   | filterInlineToggleConfig
   | filterHumboldtBooleansConfig
-  | filterCustomPredicateConfig;
+  | filterCustomPredicateConfig
+  | filterSequenceConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -678,6 +685,36 @@ const getCustomPredicateFilter = ({ config }: { config: filterCustomPredicateCon
   );
 };
 
+const getSequenceFilter = ({ config }: { config: filterSequenceConfig }) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <SequenceFilter
+          ref={ref as React.Ref<HTMLDivElement>}
+          filterHandle={config.filterHandle}
+          about={config.about}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 const getHumboldtBooleansFilter = ({
   config,
   searchConfig,
@@ -927,6 +964,13 @@ export function generateFilters({
       formatMessage,
       Content: getCustomPredicateFilter({ config: config as filterCustomPredicateConfig }),
       popoverClassName: 'g-w-[600px] g-max-w-[var(--radix-popper-available-width)]',
+    });
+  } else if (config.filterType === filterConfigTypes.SEQUENCE) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getSequenceFilter({ config: config as filterSequenceConfig }),
+      popoverClassName: 'g-w-[500px] g-max-w-[var(--radix-popper-available-width)]',
     });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);

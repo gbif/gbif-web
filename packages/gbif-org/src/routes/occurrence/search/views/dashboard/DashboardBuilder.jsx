@@ -545,6 +545,9 @@ const chartGroups = {
       'gbifId',
     ],
   },
+  nucleotideSequence: {
+    values: ['nucleotideSequenceTargetGene', 'nucleotideSequenceSequenceLength'],
+  },
   organism: {
     values: ['organismId', 'previousIdentifications'],
   },
@@ -659,6 +662,7 @@ function CreateOptions({ onAdd, chartsTypes }) {
     views: [],
     record: [],
     occurrence: [],
+    nucleotideSequence: [],
     organism: [],
     materialEntity: [],
     event: [],

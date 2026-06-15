@@ -11,6 +11,7 @@ import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { isInClusterConfig, isSequencedConfig, repatriatedConfig } from './filters/booleans';
 import { customPredicateConfig } from './filters/customPredicate';
+import { nucleotideSequenceIdConfig } from './filters/sequence';
 import {
   basisOfRecordConfig,
   continentConfig,
@@ -52,6 +53,7 @@ import {
   eventDateConfig,
   geologicalTimeConfig,
   lastInterpretedConfig,
+  nucleotideSequenceSequenceLengthConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
   sampleSizeValueConfig,
@@ -79,6 +81,7 @@ import {
   degreeOfEstablishmentConfig,
   establishmentMeansConfig,
   lifeStageConfig,
+  nucleotideSequenceTargetGeneConfig,
   pathwayConfig,
   sexConfig,
 } from './filters/vocabulary';
@@ -174,6 +177,21 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       }),
       lifeStage: generateFilters({
         config: lifeStageConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      nucleotideSequenceTargetGene: generateFilters({
+        config: nucleotideSequenceTargetGeneConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      nucleotideSequenceSequenceLength: generateFilters({
+        config: nucleotideSequenceSequenceLengthConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      nucleotideSequenceId: generateFilters({
+        config: nucleotideSequenceIdConfig,
         searchConfig,
         formatMessage,
       }),

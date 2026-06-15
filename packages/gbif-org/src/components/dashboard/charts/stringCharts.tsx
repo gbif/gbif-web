@@ -95,6 +95,13 @@ export const InstitutionCodes = getStringChart({
   includeMapPredicate: true,
 });
 
+export const NucleotideSequenceTargetGene = getStringChart({
+  fieldName: 'nucleotideSequenceTargetGene',
+  title: <FormattedMessage id="filters.nucleotideSequenceTargetGene.name" defaultMessage="Target gene" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
 export const ProjectId = getStringChart({
   fieldName: 'projectId',
   title: <FormattedMessage id="filters.projectId.name" defaultMessage="Project ID" />,
