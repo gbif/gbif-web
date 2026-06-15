@@ -7,17 +7,37 @@ const CONTENT_SEARCH_ENDPOINT = publicEnv.PUBLIC_CONTENT_SEARCH;
 // error messages to the client - only a status code and this generic message.
 const GENERIC_ERROR_MESSAGE = 'Failed to fetch content search results';
 
+// Map of legacy parameter names to their new names on the content search API.
+// If a legacy param name shows up in the incoming request, it is renamed to the
+// new name before being forwarded. Add entries here as parameters get renamed,
+// e.g. { oldName: 'newName' }.
+const PARAM_RENAME_MAP = {
+  // legacyParam: 'newParam',
+};
+
+// Apply PARAM_RENAME_MAP to a query string, preserving values, ordering and
+// repeated params. Returns the rewritten query string (without leading '?').
+function renameParams(queryString) {
+  const params = new URLSearchParams(queryString);
+  const renamed = new URLSearchParams();
+  for (const [key, value] of params) {
+    renamed.append(PARAM_RENAME_MAP[key] ?? key, value);
+  }
+  return renamed.toString();
+}
+
 // Proxy legacy /api/resource/search?<params> requests to the new content search
-// API, forwarding the query string untouched (e.g. -> https://hp-search.gbif.org/content?<params>).
+// API (e.g. -> https://hp-search.gbif.org/content?<params>), renaming any params
+// listed in PARAM_RENAME_MAP along the way.
 async function resourceSearch(req, res) {
   if (!CONTENT_SEARCH_ENDPOINT) {
     res.status(500).json({ error: GENERIC_ERROR_MESSAGE });
     return;
   }
 
-  // Use the raw query string from originalUrl so parameters are forwarded exactly
-  // as received (preserving encoding and repeated params) rather than re-serialized.
-  const queryString = req.originalUrl.split('?')[1] ?? '';
+  // Take the raw query string from originalUrl, then apply param renames.
+  const rawQueryString = req.originalUrl.split('?')[1] ?? '';
+  const queryString = renameParams(rawQueryString);
   const url = queryString ? `${CONTENT_SEARCH_ENDPOINT}?${queryString}` : CONTENT_SEARCH_ENDPOINT;
 
   try {
