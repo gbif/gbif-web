@@ -5,7 +5,10 @@
   "HETEROTYPIC_SYNONYM": "Synonim heterotypowy",
   "HOMOTYPIC_SYNONYM": "Synonim homotypowy",
   "PROPARTE_SYNONYM": "Synonim proparte",
+  "AMBIGUOUS_SYNONYM": "Wątpliwy synonim",
+  "PROVISIONALLY_ACCEPTED": "Tymczasowo zaakceptowane",
   "MISAPPLIED": "Niepoprawnie zastosowany",
+  "BARE_NAME": "nazwa niezweryfikowana",
   "INTERMEDIATE_RANK_SYNONYM": "Synonim pośredniej rangi",
   "DETERMINATION_SYNONYM": "Synonim oznaczenia"
 }

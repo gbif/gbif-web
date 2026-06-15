@@ -118,47 +118,47 @@
   "organismQuantityType": {
     "name": "Type de quantité d’organisme",
     "count": "",
-    "description": ""
+    "description": "Le type de mesure pour la \"quantité d'organismes\"."
   },
   "pathway": {
     "name": "Chemin",
     "count": "",
-    "description": ""
+    "description": "La voie par laquelle l'organisme a été introduit."
   },
   "associatedSequences": {
     "name": "Séquences associées",
     "count": "",
-    "description": ""
+    "description": "Un identifiant de toute séquence associée à l'enregistrement. Généralement une URL."
   },
   "degreeOfEstablishment": {
     "name": "Degré d'établissement",
     "count": "",
-    "description": ""
+    "description": "Le degré d'implantation de l'organisme dans l'environnement."
   },
   "endDayOfYear": {
     "name": "Dernier jour de l'année",
     "count": "",
-    "description": ""
+    "description": "Le jour de l'année où l'événement s'est terminé."
   },
   "startDayOfYear": {
     "name": "Premier jour de l'année",
     "count": "",
-    "description": ""
+    "description": "Le jour de l'année où l'événement a débuté."
   },
   "previousIdentifications": {
     "name": "Identifications précédentes",
     "count": "",
-    "description": ""
+    "description": "Identifications taxonomiques antérieures associées à cet enregistrement."
   },
   "lastInterpreted": {
     "name": "Dernière interprétation",
     "count": "",
-    "description": ""
+    "description": "Date de la dernière interprétation de l'enregistrement."
   },
   "alternativeCode": {
-    "name": "",
+    "name": "Code alternatif",
     "count": "",
-    "description": ""
+    "description": "Tout code supplémentaire déjà utilisé pour le même enregistrement dans d'autres contextes (par exemple, des codes historiques)."
   },
   "identifier": {
     "name": "Identifiant",
@@ -168,32 +168,32 @@
   "institutionType": {
     "name": "Type ",
     "count": "",
-    "description": ""
+    "description": "Type d'institution (musée, herbier, etc.)"
   },
   "discipline": {
-    "name": "",
+    "name": "Discipline ",
     "count": "",
-    "description": ""
+    "description": "Les disciplines de recherche soutenues par l'établissement."
   },
   "collectionContentType": {
-    "name": "",
+    "name": "Type de contenu",
     "count": "",
-    "description": ""
+    "description": "Le type d'objets disponibles dans la collection"
   },
   "preservationType": {
-    "name": "",
+    "name": "Type de conservation",
     "count": "",
-    "description": ""
+    "description": "La méthode utilisée pour préserver les objets disponibles dans la collection"
   },
   "biomeType": {
-    "name": "",
+    "name": "Type de biome",
     "count": "",
-    "description": ""
+    "description": "Le type de biome auquel l'organisme est associé."
   },
   "objectClassification": {
-    "name": "",
+    "name": "Classification de l'objet",
     "count": "",
-    "description": ""
+    "description": "La classification du ou des objets de la collection."
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
@@ -203,7 +203,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nom scientifique du taxon",
     "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
-    "description": ""
+    "description": "Filtrer en utilisant les noms scientifiques répertoriés dans les descripteurs de collection fournis dans les métadonnées de la collection, en gardant à l'esprit que toutes les collections ne comportent pas de descripteurs de métadonnées et que les noms se situent souvent à des niveaux taxonomiques supérieurs, tels que l'ordre ou la famille."
   },
   "basisOfRecord": {
     "name": "Base de registre",
@@ -235,11 +235,11 @@
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
+    "name": "Problèmes et drapeaux taxonomiques",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Présente des problèmes taxonomiques",
+    "isNull": "Ne présente pas de problèmes taxonomiques",
+    "description": "Les types de problèmes taxonomiques ou de signaux d'intérêt potentiel découverts lors du traitement des données."
   },
   "occurrenceCountry": {
     "name": "Pays",
@@ -247,17 +247,17 @@
     "description": "Pays ou territoire où l'événement s'est produit"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "Pays ou territoire figurant dans l'adresse de l'enregistrement"
   },
   "preparations": {
     "name": "Préparations",
     "count": "",
-    "description": ""
+    "description": "Comment l'échantillon a été préparé (par exemple, séché)"
   },
   "repatriated": {
     "name": "Rapatrié",
     "count": "",
-    "description": ""
+    "description": "Si l'enregistrement a été rapatrié ou non dans son pays d'origine."
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
@@ -267,7 +267,7 @@
   "q": {
     "name": "Recherche textuelle",
     "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": ""
+    "description": "Recherche en texte intégral dans plusieurs champs"
   },
   "coordinates": {
     "name": "Coordonnées"
@@ -290,7 +290,7 @@
   "datasetId": {
     "name": "ID du jeu de données",
     "count": "",
-    "description": ""
+    "description": "L'identifiant interne de l'éditeur correspondant au jeu de données auquel l'enregistrement est associé. Notez qu'il ne s'agit pas du \"datasetKey\" utilisé sur GBIF pour ce jeu de données."
   },
   "publisherKey": {
     "name": "Fournisseurs de données",
@@ -314,12 +314,12 @@
   "countriesOfCoverage": {
     "name": "Pays ou région de couverture",
     "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
-    "description": ""
+    "description": "Les pays concernés par cet enregistrement."
   },
   "collectionDescriptorCountry": {
     "name": "Pays ou région de couverture",
     "count": "{num, plural, one {pays ou zone de couverture} other {# pays ou zones de couverture}}",
-    "description": ""
+    "description": "De quels pays proviennent les spécimens de cette collection ? Veuillez noter que toutes les collections ne fournissent pas cette information."
   },
   "countriesOfResearcher": {
     "name": "Pays ou région du chercheur",
@@ -348,9 +348,9 @@
     "description": "Mesure de la distance minimale en mètres d'une coordonnée à l'intérieur de laquelle une localité peut être interprétée."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
+    "name": "Distance du centroïde en mètre",
     "count": "",
-    "description": ""
+    "description": "La distance en mètres par rapport au centroïde du pays."
   },
   "depth": {
     "name": "Profondeur",
@@ -395,12 +395,12 @@
   "sex": {
     "name": "Sexe",
     "count": "",
-    "description": ""
+    "description": "Le sexe de l'organisme"
   },
   "lifeStage": {
     "name": "Stade de développement",
     "count": "",
-    "description": ""
+    "description": "Le stade de vie de l'organisme."
   },
   "recordedBy": {
     "name": "Enregistré par",
@@ -410,37 +410,37 @@
   "fieldNumber": {
     "name": "Numéro de terrain",
     "count": "",
-    "description": ""
+    "description": "L'identifiant attribué au lieu par le collecteur."
   },
   "verbatimTaxonId": {
     "name": "Verbatim de l'ID du taxon",
     "count": "",
-    "description": ""
+    "description": "L'identifiant du taxon tel que fourni par l'éditeur."
   },
   "islandGroup": {
     "name": "Archipel",
     "count": "",
-    "description": ""
+    "description": "Le nom de l'archipel où se situe le lieu."
   },
   "island": {
     "name": "Île",
     "count": "",
-    "description": ""
+    "description": "Le nom de l'île où se situe le lieu."
   },
   "georeferencedBy": {
     "name": "Géoréférencé par",
     "count": "",
-    "description": ""
+    "description": "Les noms des personnes, groupes ou organisations responsables du géoréférencement de l'occurrence initiale."
   },
   "datasetName": {
     "name": "Nom du jeu de données",
     "count": "",
-    "description": ""
+    "description": "Le nom du jeu de données utilisé par l'éditeur. Les enregistrements d'un jeu de données peuvent provenir de plusieurs autres jeux de données."
   },
   "programme": {
     "name": "Programme",
     "count": "",
-    "description": ""
+    "description": "Le nom du programme auquel l'enregistrement est associé."
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
@@ -490,7 +490,7 @@
   "higherGeography": {
     "name": "Géographie supérieure",
     "count": "",
-    "description": ""
+    "description": "Niveau géographique supérieur auquel se situe l'enregistrement. Il ne s'agit pas d'un champ interprété, mais des données d'origine telles qu'elles ont été fournies par l'éditeur. Plusieurs valeurs peuvent être fournies."
   },
   "stateProvince": {
     "name": "État/Province",
@@ -500,12 +500,12 @@
   "gbifRegion": {
     "name": "Région GBIF",
     "count": "",
-    "description": ""
+    "description": "La région GBIF du lieu."
   },
   "publishedByGbifRegion": {
     "name": "Publié par une région GBIF",
     "count": "",
-    "description": ""
+    "description": "La région GBIF dans laquelle le jeu de données est publié."
   },
   "eventId": {
     "name": "ID de l'événement",
@@ -520,37 +520,37 @@
   "parentEventId": {
     "name": "ID de l'événement parent",
     "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
-    "description": ""
+    "description": "L'identifiant unique de l'événement parent dans l'enregistrement."
   },
   "locationID": {
     "name": "ID de localisation",
     "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
-    "description": ""
+    "description": "L'identifiant unique du site dans l'enregistrement."
   },
   "measurementOrFactTypes": {
-    "name": "",
+    "name": "Types de mesure",
     "count": "",
-    "description": ""
+    "description": "Le type de mesure."
   },
   "measurementOrFactCount": {
-    "name": "",
+    "name": "Compte de mesure",
     "count": "",
-    "description": ""
+    "description": "Le compte d'un type de mesure donné."
   },
   "occurrenceCount": {
     "name": "Nombre d’occurrences",
     "count": "",
-    "description": ""
+    "description": "Nombre d'occurrences pour cet événement"
   },
   "eventType": {
     "name": "Type d'évènement",
     "count": "",
-    "description": ""
+    "description": "Le type de l'événement d'échantillonnage."
   },
   "dataStructure": {
-    "name": "",
+    "name": "Structure",
     "count": "",
-    "description": ""
+    "description": "La structure des données pour l'événement d'échantillonnage."
   },
   "samplingProtocol": {
     "name": "Protocole d'échantillonnage",
@@ -585,27 +585,27 @@
   "active": {
     "name": "Activé",
     "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une collection ou à une institution encore en activité, ou à une mention historique qui n'existe plus."
   },
   "activeInstitution": {
     "name": "Activé",
     "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une institution encore en activité, ou à une mention historique qui n'existe plus."
   },
   "activeCollection": {
     "name": "Activé",
     "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une collection encore en activité, ou à une mention historique qui n'existe plus."
   },
   "publicationDate": {
     "name": "Date de publication",
     "count": "",
-    "description": ""
+    "description": "Quand l'enregistrement a été publié"
   },
   "personalCollection": {
     "name": "Collection personnelle",
     "count": "Collection personnelle",
-    "description": ""
+    "description": "Sélectionne des collections privées ou personnelles"
   },
   "datasetType": {
     "name": "Type de jeu de données",
@@ -625,8 +625,8 @@
   "name": {
     "name": "Nom",
     "count": "{num, plural, one { name } other {# names}}",
-    "description": "",
-    "searchPlaceholder": ""
+    "description": "Le nom de l'entité",
+    "searchPlaceholder": "Recherche par titre/nom"
   },
   "city": {
     "name": "Ville",

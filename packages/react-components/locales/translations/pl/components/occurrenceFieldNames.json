@@ -113,6 +113,7 @@
   "habitat": "Siedlisko",
   "samplingProtocol": "Protokół pobierania próbek",
   "samplingEffort": "Próbkowanie",
+  "sampleSize": "Wielkość próbki",
   "sampleSizeValue": "Wartość wielkość próby",
   "sampleSizeUnit": "Jednostka wielkości próby",
   "fieldNotes": "Notatki terenowe",

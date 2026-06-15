@@ -1,15 +1,15 @@
 {
   "occurrenceSnapshots": {
-    "title": "",
-    "intro": "",
-    "description": "",
+    "title": "Migawki wystąpień",
+    "intro": "Okresowe eksporty danych o wystąpieniach w GBIF",
+    "description": "Co miesiąc GBIF tworzy pełny zrzut wystąpień, zapisywany w różnych formatach, aby ułatwić korzystanie z niego. Wszystkie są opatrzone kodem DOI, co ułatwia cytowanie, a niektóre formaty są kopiowane do chmur publicznych, aby ułatwić korzystanie z nich w tych środowiskach.",
     "cloudDatasets": {
-      "title": "",
-      "description": ""
+      "title": "Zestawy danych w chmurze",
+      "description": "GBIF udostępnia dane w <azure>Microsoft Planetary Computer (Azure)</azure>, jako <aws>Amazon AWS Open Dataset</aws> oraz w Google <gcs>GCS bucket</gcs> i <bq>BigQuery table</bq>. W przypadku korzystania ze zrzutów w chmurze zawsze zalecamy utworzenie <derived>Derived Dataset citation</derived> dla używanych rekordów. Odwołując się do pełnego zestawu danych, prosimy o użycie odpowiedniego cytatu podanego poniżej."
     },
     "monthly": {
-      "title": "",
-      "description": ""
+      "title": "Miesięczny zrzut zbioru danych",
+      "description": "Poniżej znajduje się lista miesięcznych eksportów danych o wystąpieniach GBIF, dostępnych w różnych formatach. Prosimy o zapoznanie się z odnośnikami na każdej stronie."
     },
     "table": {
       "columns": {
@@ -18,9 +18,9 @@
         "citation": "Cytowanie",
         "filters": "Filtry"
       },
-      "citation": "",
+      "citation": "Pobranie wystąpień z GBIF",
       "hasFilters": "Tak",
-      "downloadDetails": ""
+      "downloadDetails": "Szczegóły pobierania"
     }
   }
 }

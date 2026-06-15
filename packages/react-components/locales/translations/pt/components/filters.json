@@ -40,7 +40,7 @@
     "description": "O número de espécimes mantidos indicado na descrição. Este número não reflete quantos registros foram digitalizados e compartilhados."
   },
   "numberSpecimens": {
-    "name": "",
+    "name": "Número de espécimes",
     "count": "",
     "description": "O número de espécimes mantidos indicado na descrição. Este número não reflete quantos registros foram digitalizados e compartilhados."
   },
@@ -348,7 +348,7 @@
     "description": "Uma medida da distância mínima em metros de uma coordenada dentro da qual uma localidade possa ser interpretada como existente."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
+    "name": "Distância do centroide em metros",
     "count": "",
     "description": ""
   },
@@ -503,7 +503,7 @@
     "description": ""
   },
   "publishedByGbifRegion": {
-    "name": "",
+    "name": "Publicado pela região do GBIF",
     "count": "",
     "description": ""
   },
@@ -578,7 +578,7 @@
     "description": "Se foi determinado o registo ter outros registos relacionados."
   },
   "isSequenced": {
-    "name": "",
+    "name": "É sequenciado",
     "count": "",
     "description": ""
   },

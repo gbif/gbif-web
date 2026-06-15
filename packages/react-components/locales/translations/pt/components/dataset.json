@@ -147,7 +147,7 @@
   "includesDnaDescription": "Existem registros neste conjunto de dados que contêm dados de sequência.",
   "containsSamplingEvents": "Contém eventos de amostragem",
   "containsSamplingEventsDescription": "Este conjunto de dados contém dados de amostragem. Detalhes sobre o método de amostragem aparecem na seção de metodologia da descrição do conjunto de dados.",
-  "griddedData": "",
+  "griddedData": "\n",
   "griddedDataDescription": "Com base em nossa análise dos registros, esse conjunto de dados provavelmente contém dados em grade. Leia mais nesta [postagem sobre conjuntos de dados em grade](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Métrica de ocorrências",
   "registry": {
