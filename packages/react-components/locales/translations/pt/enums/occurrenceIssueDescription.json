@@ -64,7 +64,7 @@
     "AMBIGUOUS_COLLECTION": "",
     "INSTITUTION_MATCH_NONE": "",
     "COLLECTION_MATCH_NONE": "",
-    "INSTITUTION_MATCH_FUZZY": "",
+    "INSTITUTION_MATCH_FUZZY": "Uma correspondência foi encontrada no GRSciColl, mas a correspondência foi confusa. Para saber mais sobre por que isso aconteceu, você pode usar a API de pesquisa para ver os \"motivos\" retornados na resposta. Um caso comum é quando o nome é usado em vez do código ou do identificador. Para evitar correspondências confusas, os publicadores devem usar identificadores além dos códigos. Mais detalhes disponíveis neste FAQ.",
     "COLLECTION_MATCH_FUZZY": "",
     "INSTITUTION_COLLECTION_MISMATCH": "",
     "POSSIBLY_ON_LOAN": "Possivelmente em empréstimo",
