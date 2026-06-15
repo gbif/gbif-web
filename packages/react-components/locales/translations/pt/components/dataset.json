@@ -36,16 +36,15 @@
       "citations": "Citações"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "As métricas da lista de espécies não estão disponíveis para este conjunto de dados.",
       "overview": "Visão geral da lista de espécies",
       "overviewDescription": "Estatísticas resumidas para este conjunto de dados de lista de espécies.",
       "usagesCount": "Total de utilizações do nome",
       "distinctNamesCount": "Nomes distintos",
       "synonymsCount": "Sinónimos",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "Cobertura COL",
       "countByKingdom": "Contagem por Reino",
       "countByKingdomDescription": "Distribuição do uso dos nomes entre os reinos",
       "countByRank": "Contagem por categoria",
