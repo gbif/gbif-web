@@ -479,7 +479,7 @@
   },
   "publicationDate": {
     "name": "Data de publicação",
-    "description": ""
+    "description": "Quando foi publicado o registro?"
   },
   "personalCollection": {
     "name": "Coleção pessoal",
