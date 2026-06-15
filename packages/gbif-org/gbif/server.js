@@ -195,13 +195,13 @@ async function main() {
 
         res.setHeader('Content-Type', 'text/html');
 
-        const redirectTo = getRedirect(req, res);
+        const { redirectTo, force } = getRedirect(req, res);
 
-        if (statusCode === 404 && redirectTo) {
-          // Handle list of redirects
-          if (redirectTo) {
-            res.redirect(302, redirectTo);
-          }
+        // Path-only redirects only apply when the route would otherwise 404. Forced redirects
+        // (e.g. query-param redirects like /resource/search?contentType=literature) target a path
+        // that may be a valid route on its own, so they must fire even on a 200 response.
+        if (redirectTo && (force || statusCode === 404)) {
+          res.redirect(302, redirectTo);
         } else {
           res.status(statusCode).end(html);
         }
