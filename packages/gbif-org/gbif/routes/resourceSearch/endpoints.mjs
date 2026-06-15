@@ -15,7 +15,7 @@ const GENERIC_ERROR_MESSAGE = 'Failed to fetch content search results';
 // new name before being forwarded. Add entries here as parameters get renamed,
 // e.g. { oldName: 'newName' }.
 const PARAM_RENAME_MAP = {
-  // legacyParam: 'newParam',
+  programmeId: 'gbifProgramme',
 };
 
 // Apply PARAM_RENAME_MAP to a query string, preserving values, ordering and
