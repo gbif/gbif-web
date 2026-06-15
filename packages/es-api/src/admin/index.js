@@ -20,8 +20,8 @@ const {
  * Authorisation reuses the GraphQL JWT: gbif-org mints a short-lived token for
  * the logged-in user (signed with the shared GraphQL JWT secret) and forwards
  * it here as a Bearer token. We verify the signature with that same secret and
- * read the user from the verified claims (userName + roles, which gbif-org
- * embeds). The user must be on the configured allowlist (`adminUsers`). The endpoint is fail-closed until
+ * read the user from the verified claims (email + roles, which gbif-org
+ * embeds). The user's email must be on the configured allowlist (`adminUsers`). The endpoint is fail-closed until
  * explicitly opened per environment.
  *
  * Config (.env): `graphqlJwtSecret`, `adminUsers`.
@@ -56,16 +56,21 @@ function resolveUser(authorization) {
         roles = [];
       }
     }
-    return { user: { userName: decoded.userName, roles } };
+    return { user: { userName: decoded.userName, email: decoded.email, roles } };
   } catch (err) {
     return { error: `token verification failed: ${err.message}` };
   }
 }
 
 function isAuthorised(user) {
-  if (!user || !user.userName) return false;
-  if (adminUsers.includes(user.userName)) return true;
-  return false;
+  if (!user || !user.email || !Array.isArray(user.roles)) return false;
+  // Must be configured as an ui admin user in the es-api config
+  if (!adminUsers.includes(user.email)) return false;
+  // Must have an gbif.org email
+  if (!user.email.endsWith('@gbif.org')) return false;
+  // Must be gbif registry admin
+  if (!user.roles.includes('REGISTRY_ADMIN')) return false;
+  return true;
 }
 
 function requireAdmin(req, res, next) {
@@ -74,8 +79,9 @@ function requireAdmin(req, res, next) {
   if (!isAuthorised(user)) {
     // Log the precise reason so a 403 is debuggable; the response stays generic.
     logger.warn('admin endpoint rejected request', {
-      reason: error || `user '${user && user.userName}' is not in adminUsers allowlist`,
+      reason: error || `user '${user && user.email}' is not in adminUsers allowlist`,
       userName: user && user.userName,
+      email: user && user.email,
       adminUsersConfigured: adminUsers.length,
       secretConfigured: !!secret,
     });
