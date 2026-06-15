@@ -319,7 +319,7 @@
   "collectionDescriptorCountry": {
     "name": "Pays ou région de couverture",
     "count": "{num, plural, one {pays ou zone de couverture} other {# pays ou zones de couverture}}",
-    "description": ""
+    "description": "De quels pays proviennent les spécimens de cette collection ? Veuillez noter que toutes les collections ne fournissent pas cette information."
   },
   "countriesOfResearcher": {
     "name": "Pays ou région du chercheur",
@@ -348,9 +348,9 @@
     "description": "Mesure de la distance minimale en mètres d'une coordonnée à l'intérieur de laquelle une localité peut être interprétée."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
+    "name": "Distance du centroïde en mètre",
     "count": "",
-    "description": ""
+    "description": "La distance en mètres par rapport au centroïde du pays."
   },
   "depth": {
     "name": "Profondeur",
@@ -395,12 +395,12 @@
   "sex": {
     "name": "Sexe",
     "count": "",
-    "description": ""
+    "description": "Le sexe de l'organisme"
   },
   "lifeStage": {
     "name": "Stade de développement",
     "count": "",
-    "description": ""
+    "description": "Le stade de vie de l'organisme."
   },
   "recordedBy": {
     "name": "Enregistré par",
@@ -410,37 +410,37 @@
   "fieldNumber": {
     "name": "Numéro de terrain",
     "count": "",
-    "description": ""
+    "description": "L'identifiant attribué au lieu par le collecteur."
   },
   "verbatimTaxonId": {
     "name": "Verbatim de l'ID du taxon",
     "count": "",
-    "description": ""
+    "description": "L'identifiant du taxon tel que fourni par l'éditeur."
   },
   "islandGroup": {
     "name": "Archipel",
     "count": "",
-    "description": ""
+    "description": "Le nom de l'archipel où se situe le lieu."
   },
   "island": {
     "name": "Île",
     "count": "",
-    "description": ""
+    "description": "Le nom de l'île où se situe le lieu."
   },
   "georeferencedBy": {
     "name": "Géoréférencé par",
     "count": "",
-    "description": ""
+    "description": "Les noms des personnes, groupes ou organisations responsables du géoréférencement de l'occurrence initiale."
   },
   "datasetName": {
     "name": "Nom du jeu de données",
     "count": "",
-    "description": ""
+    "description": "Le nom du jeu de données utilisé par l'éditeur. Les enregistrements d'un jeu de données peuvent provenir de plusieurs autres jeux de données."
   },
   "programme": {
     "name": "Programme",
     "count": "",
-    "description": ""
+    "description": "Le nom du programme auquel l'enregistrement est associé."
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
@@ -490,7 +490,7 @@
   "higherGeography": {
     "name": "Géographie supérieure",
     "count": "",
-    "description": ""
+    "description": "Niveau géographique supérieur auquel se situe l'enregistrement. Il ne s'agit pas d'un champ interprété, mais des données d'origine telles qu'elles ont été fournies par l'éditeur. Plusieurs valeurs peuvent être fournies."
   },
   "stateProvince": {
     "name": "État/Province",
@@ -500,12 +500,12 @@
   "gbifRegion": {
     "name": "Région GBIF",
     "count": "",
-    "description": ""
+    "description": "La région GBIF du lieu."
   },
   "publishedByGbifRegion": {
     "name": "Publié par une région GBIF",
     "count": "",
-    "description": ""
+    "description": "La région GBIF dans laquelle le jeu de données est publié."
   },
   "eventId": {
     "name": "ID de l'événement",
@@ -520,37 +520,37 @@
   "parentEventId": {
     "name": "ID de l'événement parent",
     "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
-    "description": ""
+    "description": "L'identifiant unique de l'événement parent dans l'enregistrement."
   },
   "locationID": {
     "name": "ID de localisation",
     "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
-    "description": ""
+    "description": "L'identifiant unique du site dans l'enregistrement."
   },
   "measurementOrFactTypes": {
-    "name": "",
+    "name": "Types de mesure",
     "count": "",
-    "description": ""
+    "description": "Le type de mesure."
   },
   "measurementOrFactCount": {
-    "name": "",
+    "name": "Compte de mesure",
     "count": "",
-    "description": ""
+    "description": "Le compte d'un type de mesure donné."
   },
   "occurrenceCount": {
     "name": "Nombre d’occurrences",
     "count": "",
-    "description": ""
+    "description": "Nombre d'occurrences pour cet événement"
   },
   "eventType": {
     "name": "Type d'évènement",
     "count": "",
-    "description": ""
+    "description": "Le type de l'événement d'échantillonnage."
   },
   "dataStructure": {
-    "name": "",
+    "name": "Structure",
     "count": "",
-    "description": ""
+    "description": "La structure des données pour l'événement d'échantillonnage."
   },
   "samplingProtocol": {
     "name": "Protocole d'échantillonnage",
@@ -585,27 +585,27 @@
   "active": {
     "name": "Activé",
     "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une collection ou à une institution encore en activité, ou à une mention historique qui n'existe plus."
   },
   "activeInstitution": {
     "name": "Activé",
     "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une institution encore en activité, ou à une mention historique qui n'existe plus."
   },
   "activeCollection": {
     "name": "Activé",
     "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une collection encore en activité, ou à une mention historique qui n'existe plus."
   },
   "publicationDate": {
     "name": "Date de publication",
     "count": "",
-    "description": ""
+    "description": "Quand l'enregistrement a été publié"
   },
   "personalCollection": {
     "name": "Collection personnelle",
     "count": "Collection personnelle",
-    "description": ""
+    "description": "Sélectionne des collections privées ou personnelles"
   },
   "datasetType": {
     "name": "Type de jeu de données",
@@ -625,8 +625,8 @@
   "name": {
     "name": "Nom",
     "count": "{num, plural, one { name } other {# names}}",
-    "description": "",
-    "searchPlaceholder": ""
+    "description": "Le nom de l'entité",
+    "searchPlaceholder": "Recherche par titre/nom"
   },
   "city": {
     "name": "Ville",
