@@ -29,7 +29,7 @@ function nameLookup(name, checklistKey) {
     ] = `occurrence.classificationdetails['${checklistKey}']['${rank}']`;
     lookup[
       `${rank}Key`
-    ] = `occurrence.classificationdetails['${checklistKey}']['${rank}key']`;
+    ] = `occurrence.classificationdetails['${checklistKey}']['${rank}Key']`;
   });
   return lookup[name] || name;
 }
@@ -184,14 +184,12 @@ async function getWhereClause({
   taxonomicDimension,
   temporalDimension,
   spatialDimension,
-  checklistKey,
 }) {
   const restrictions = [];
   if (taxonomicDimension) {
     const taxonomicRestrictions =
       WHERE_PREDICATE_RESTRICTIONS.taxonomicDimension[taxonomicDimension];
     if (taxonomicRestrictions) {
-      if (checklistKey) taxonomicRestrictions[0].checklistKey = checklistKey;
       restrictions.push(...taxonomicRestrictions);
     }
   }
@@ -230,9 +228,9 @@ async function getWhereClause({
       body: JSON.stringify({ predicate: combinedPredicate }),
     },
   ).then((response) => response.json());
-
   // replace newlines with spaces and replace double spaces with single spaces
   const sqlString = sqlResponse.sql.replace(/\n/g, ' ').replace(/\s\s/g, ' ');
+
   // get rest of text after "WHERE" upper case
   const whereIndex = sqlString.toUpperCase().indexOf('WHERE');
   const sqlWhereClause = sqlString.substring(whereIndex);
@@ -270,7 +268,6 @@ export default async function generateSql(parameters) {
       taxonomicDimension: taxonomy,
       temporalDimension: temporal,
       spatialDimension: spatial,
-      checklistKey,
     });
   } catch (error) {
     return { error: error.message, sql: null };
