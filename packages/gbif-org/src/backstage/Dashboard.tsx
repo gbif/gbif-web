@@ -27,6 +27,31 @@ function fmtLimit(n: number | undefined): string {
   return n < 0 ? '∞' : String(n);
 }
 
+// Render an instance's uptime as the absolute moment it last started, in the
+// viewer's own locale and timezone. A boot timestamp is easier to compare across
+// instances — and to spot a recent restart — than a raw seconds counter. (This
+// only renders client-side, so there is no SSR/locale hydration mismatch.)
+function fmtUpSince(uptimeSeconds: number | undefined): React.ReactNode {
+  if (uptimeSeconds === undefined || uptimeSeconds === null) return '—';
+  const started = new Date(Date.now() - uptimeSeconds * 1000);
+  return <span title={`${uptimeSeconds}s`}>{started.toLocaleString()}</span>;
+}
+
+// The card headline doubles as a link to the instance's /health endpoint so an
+// admin can open the raw JSON in a new tab. Underlined so it reads as a link.
+function NodeHeading({ url, node, className }: { url: string; node: string; className: string }) {
+  return (
+    <a
+      href={`${url}/health`}
+      target="_blank"
+      rel="noreferrer"
+      className={`g-font-medium g-underline g-underline-offset-2 g-break-all ${className}`}
+    >
+      {node}
+    </a>
+  );
+}
+
 function Stat({ label, value, warn }: { label: string; value: React.ReactNode; warn?: boolean }) {
   return (
     <div className="g-flex g-flex-col">
@@ -42,7 +67,7 @@ function HealthCard({ result }: { result: HealthResult }) {
   if (!result.ok || !result.health) {
     return (
       <div className="g-rounded-lg g-border g-border-red-900/60 g-bg-red-950/30 g-p-4">
-        <div className="g-font-medium g-text-red-300">{result.node}</div>
+        <NodeHeading url={result.url} node={result.node} className="g-text-red-300" />
         <div className="g-mt-1 g-text-xs g-text-red-400 g-break-all">
           unreachable{result.status ? ` (${result.status})` : ''}
         </div>
@@ -55,7 +80,7 @@ function HealthCard({ result }: { result: HealthResult }) {
   return (
     <div className="g-rounded-lg g-border g-border-zinc-800 g-bg-zinc-950 g-p-4">
       <div className="g-flex g-items-center g-justify-between">
-        <div className="g-font-medium g-text-zinc-100">{result.node}</div>
+        <NodeHeading url={result.url} node={result.node} className="g-text-zinc-100" />
         <span
           className={`g-text-[11px] g-rounded g-px-1.5 g-py-0.5 ${
             o.enabled ? 'g-bg-emerald-900/50 g-text-emerald-300' : 'g-bg-zinc-800 g-text-zinc-400'
@@ -65,7 +90,7 @@ function HealthCard({ result }: { result: HealthResult }) {
         </span>
       </div>
       <div className="g-mt-3 g-grid g-grid-cols-3 g-gap-3">
-        <Stat label="uptime" value={`${h.uptimeSeconds ?? '—'}s`} />
+        <Stat label="up since" value={fmtUpSince(h.uptimeSeconds)} />
         <Stat label="inflight" value={h.inflight ?? o.inflight ?? '—'} />
         <Stat label="heap" value={`${o.heapUsedPercent ?? '—'}%`} warn={(o.heapUsedPercent ?? 0) > 80} />
         <Stat label="loop ms" value={o.eventLoopDelayMs ?? '—'} />
@@ -88,6 +113,9 @@ function HealthCard({ result }: { result: HealthResult }) {
                 peak
               </th>
               <th className="g-text-right g-font-normal">conc</th>
+              <th className="g-text-right g-font-normal" title="requests served since start">
+                served
+              </th>
               <th className="g-text-right g-font-normal">rej</th>
             </tr>
           </thead>
@@ -99,6 +127,7 @@ function HealthCard({ result }: { result: HealthResult }) {
                 <td className="g-text-right">{p.running}</td>
                 <td className="g-text-right">{p.largestSeenQueueSize}</td>
                 <td className="g-text-right">{fmtLimit(p.concurrencyLimit)}</td>
+                <td className="g-text-right">{p.served}</td>
                 <td className={`g-text-right ${p.rejected > 0 ? 'g-text-amber-400' : ''}`}>
                   {p.rejected}
                 </td>
@@ -118,7 +147,7 @@ function EsHealthCard({ result }: { result: EsHealthResult }) {
   if (!result.ok || !result.health) {
     return (
       <div className="g-rounded-lg g-border g-border-red-900/60 g-bg-red-950/30 g-p-4">
-        <div className="g-font-medium g-text-red-300">{result.node}</div>
+        <NodeHeading url={result.url} node={result.node} className="g-text-red-300" />
         <div className="g-mt-1 g-text-xs g-text-red-400 g-break-all">
           unreachable{result.status ? ` (${result.status})` : ''}
         </div>
@@ -132,7 +161,7 @@ function EsHealthCard({ result }: { result: EsHealthResult }) {
   return (
     <div className="g-rounded-lg g-border g-border-zinc-800 g-bg-zinc-950 g-p-4">
       <div className="g-flex g-items-center g-justify-between">
-        <div className="g-font-medium g-text-zinc-100">{result.node}</div>
+        <NodeHeading url={result.url} node={result.node} className="g-text-zinc-100" />
         <span
           className={`g-text-[11px] g-rounded g-px-1.5 g-py-0.5 ${
             h.rejecting
@@ -144,7 +173,7 @@ function EsHealthCard({ result }: { result: EsHealthResult }) {
         </span>
       </div>
       <div className="g-mt-3 g-grid g-grid-cols-3 g-gap-3">
-        <Stat label="uptime" value={`${h.uptimeSeconds ?? '—'}s`} />
+        <Stat label="up since" value={fmtUpSince(h.uptimeSeconds)} />
         <Stat label="inflight" value={h.inflight ?? '—'} />
         <Stat
           label="priority"
@@ -863,7 +892,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="g-grid g-grid-cols-1 sm:g-grid-cols-2 lg:g-grid-cols-4 g-gap-4">
+      <div className="g-grid g-grid-cols-1 lg:g-grid-cols-2 g-gap-4">
         {healthResults.map((r) => (
           <HealthCard key={r.url} result={r} />
         ))}
