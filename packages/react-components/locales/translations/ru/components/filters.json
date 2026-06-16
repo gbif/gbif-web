@@ -479,7 +479,7 @@
   },
   "publicationDate": {
     "name": "Дата публикации",
-    "description": ""
+    "description": "Когда были опубликованы записи"
   },
   "personalCollection": {
     "name": "Личная коллекция",
