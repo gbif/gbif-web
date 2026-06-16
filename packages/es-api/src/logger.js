@@ -3,6 +3,7 @@ const ecsFormat = require('@elastic/ecs-winston-format');
 const path = require('path');
 const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
+const { getRequestLogContext } = require('./requestContext');
 
 // Get environment and service information
 const env = config.environment || 'local';
@@ -61,6 +62,16 @@ const addFixedFields = winston.format((info) => {
   };
 });
 
+// Merge request-scoped fields (requestId, siteUrl) into every log line for the request.
+const addRequestContext = winston.format((info) => {
+  const requestContext = getRequestLogContext();
+  if (!requestContext) return info;
+  const fields = {};
+  if (requestContext.requestId) fields.requestId = requestContext.requestId;
+  if (requestContext.siteUrl) fields.siteUrl = requestContext.siteUrl;
+  return { ...info, ...fields };
+});
+
 const level = debugLevel;
 console.log(`Logger level set to: ${level}`);
 
@@ -76,6 +87,7 @@ const fileRotateTransport = new DailyRotateFile({
   handleRejections: true,
   format: winston.format.combine(
     addFixedFields(),
+    addRequestContext(),
     winston.format.timestamp(),
     ecsFormat({ convertReqRes: true }),
   ),
@@ -86,7 +98,12 @@ const consoleTransport = new winston.transports.Console({
   level,
   handleExceptions: true,
   handleRejections: true,
-  format: winston.format.combine(addFixedFields(), winston.format.timestamp(), colorizedJsonFormat),
+  format: winston.format.combine(
+    addFixedFields(),
+    addRequestContext(),
+    winston.format.timestamp(),
+    colorizedJsonFormat,
+  ),
 });
 
 // Create the Winston Logger instance
