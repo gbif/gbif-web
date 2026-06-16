@@ -477,6 +477,7 @@ export function DatasetKeyAbout() {
                 <CardContent dir="auto">
                   <BibliographicCitations
                     bibliographicCitations={dataset?.bibliographicCitations}
+                    cap={200}
                   />
                 </CardContent>
               </Card>

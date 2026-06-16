@@ -30,7 +30,7 @@ export function ContactList({ contacts = [], cap = 100, className, ...props }: C
       {contacts.length > cap && (
         <div>
           <FormattedMessage
-            id="contact.showingFirstCap"
+            id="phrases.showingFirstCap"
             defaultMessage="Showing first {cap} contacts"
             values={{ cap }}
           />

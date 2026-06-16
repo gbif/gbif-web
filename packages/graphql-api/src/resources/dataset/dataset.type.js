@@ -148,7 +148,7 @@ const typeDef = gql`
   type Dataset {
     key: ID!
     additionalInfo: String
-    bibliographicCitations: [BibliographicCitation]
+    bibliographicCitations(limit: Int): [BibliographicCitation]
     citation: Citation
     contactsCitation: [ContactsCitation!]
     collections: [JSON]
