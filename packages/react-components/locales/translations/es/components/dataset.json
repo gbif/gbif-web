@@ -36,8 +36,8 @@
       "citations": "Citas"
     },
     "checklist": {
-      "info": "",
-      "checklistbank": "",
+      "info": "Estas métricas ofrecen una visión general del conjunto de datos de la lista de verificación. Para consultar métricas más detalladas y explorar los datos, visite {checklistbank}.",
+      "checklistbank": "ChecklistBank",
       "notAvailable": "Las métricas de la lista de taxones no están disponibles para este conjunto de datos.",
       "overview": "Descripción general de la lista de taxones",
       "overviewDescription": "Estadísticas descriptivas para este conjunto de datos de lista de taxones",
