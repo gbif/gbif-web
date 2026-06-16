@@ -36,8 +36,8 @@
       "citations": "Цитирования"
     },
     "checklist": {
-      "info": "",
-      "checklistbank": "",
+      "info": "Эти метрики дают обзор набора данных контрольного списка. Для более подробных метрик и извлечения данных перейдите по ссылке {checklistbank}",
+      "checklistbank": "Данные контрольного списка ChecklistBank",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
