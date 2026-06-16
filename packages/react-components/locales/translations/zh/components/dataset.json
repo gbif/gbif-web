@@ -36,16 +36,15 @@
       "citations": "引用"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "异名",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",

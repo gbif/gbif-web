@@ -1,62 +1,50 @@
 {
   "dwcaExtension": {
     "name": "Rozszerzenie DwC-A",
-    "count": "{num, plural, one { rozszerzenie DwC-A } few {# rozszerzenia DwC-A} many {# rozszerzeń DwC-A} other {# rozszerzenia DwC-A}}",
     "description": "Tutaj należy umieścić krótki opis komponentu"
   },
   "locationId": {
     "name": "Identyfikator lokalizacji",
-    "count": "{num, plural, one { ID lokalizacji } few {# ID lokalizacji } many {# ID lokalizacji } other {# ID lokalizacji}}",
     "description": "Publikujący mogą zdecydować o przydzieleniu ID do lokalizacji, Ten obszar nie jest znormalizowany, co oznacza, że przegląda się dane tak, jak przedstawił je publikujący."
   },
   "hasCoordinate": {
     "name": "Ma współrzędne",
-    "count": "Ma współrzędne",
     "description": "Czy zapis ma współrzędne."
   },
   "hasGeospatialIssues": {
     "name": "Ma problemy geoprzestrzenne",
-    "count": "Ma problemy geoprzestrzenne",
     "description": "Czy zapis posiada problemy geoprzestrzenne."
   },
   "collectionKey": {
     "name": "Kolekcja",
-    "count": "{num, plural, one {# kolekcja } few {# kolekcje} many {# kolekcji} other {# kolekcje}}",
     "description": "Kolekcja w GrSciColl, do której ten zapis został dopasowany"
   },
   "predicate": {
     "name": "Zapytanie złożone",
-    "count": "{num, plural, one { zapytanie złożone } few {# zapytania złożone} many {# zapytań złożonych} other {# zapytań złożonych}}",
     "description": "Złożone zapytanie mające na celu filtrowanie rekordów."
   },
   "taxonomicStatus": {
     "name": "Status",
-    "count": "{num, plural, one { status } few {# statusy} many {# statusów} other {# statusów}}",
     "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
   },
   "taxonRank": {
     "name": "Kategoria",
-    "count": "{num, plural, one { kategoria } few {# kategorie} many {# kategorii} other {# kategorii}}",
     "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
   },
   "numberSpecimens": {
     "name": "Liczba okazów",
-    "count": "{num, plural, one { liczba okazów } few {# filtry liczby okazów} many {# filtrów liczby okazów} other {# filtry liczby okazów, # filtrów liczby okazów}}",
     "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
   },
   "specimensInGbif": {
     "name": "Okazy w GBIF",
-    "count": "{num, plural, one { okaz w GBIF } few {# okazy w GBIF} many {# okazów w GBIF} other {# okazy w GBIF}}",
     "description": "Liczba zapisów osobników/okazów opublikowanych przez GBIF i posiadających linki do wpisu instytucji."
   },
   "iucnRedListCategory": {
     "name": "Kategorie zagrożenia na czerwonych listach IUCN",
-    "count": "{num, plural, one { kategoria Ogólnoświatowej Czerwonej Listy IUCN  } few {# kategorie Ogólnoświatowej Czerwonej Listy IUCN} many {# kategorii Ogólnoświatowej Czerwonej Listy IUCN} other {# kategorie Ogólnoświatowej Czerwonej Listy IUCN # kategorii Ogólnoświatowej Czerwonej Listy IUCN}}",
     "description": "Czerwona Księga Gatunków Zagrożonych IUCN grupuje taksony według stopnia ich zagrożenia."
   },
   "geoDistance": {
     "name": "Odległość od współrzędnych",
-    "count": "{num, plural, one { filtr } few {# filtry } many {# filtrów } other {# filtry }}",
     "description": "Filtruj według rekordów w danej odległości od punktu",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
@@ -64,7 +52,6 @@
   },
   "geometry": {
     "name": "Lokalizacja",
-    "count": "{num, plural, one { filtr } few {# filtry } many {# filtrów } other {# filtry }}",
     "description": "Filtruj zapisy w danym obszarze geometrycznym. Obszar ten może być punktem, wielokątem, lub ramką wydzielającą.",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
@@ -72,178 +59,144 @@
   },
   "relevance": {
     "name": "Znaczenie",
-    "count": "{num, plural, one { znaczenie } few {# filtry znaczenia} many {# filtrów znaczenia} other {# filtry znaczenia}}",
     "description": "Jak używa się GBIF w literaturze."
   },
   "topics": {
     "name": "Temat",
-    "count": "{num, plural, one { temat } few {# tematy} many {# tematów} other {# tematy}}",
     "description": "Jakie są tematy zapisu. "
   },
   "audiences": {
     "name": "Odbiorcy",
-    "count": "{num, plural, one { odbiorca } few {# odbiorców} many {# odbiorców} other {# odbiorcy}}",
     "description": "Kim są odbiorcy zasobu."
   },
   "biostratigraphy": {
     "name": "Biostratygrafia",
-    "count": "{num, plural, one { biostratygrafia } few {# biostratygrafie} many {# biostratygrafii} other {# biostratygrafii}}",
     "description": "Kontekst biostratygraficzny rekordu"
   },
   "lithostratigraphy": {
     "name": "Litostratygrafia",
-    "count": "{num, plural, one { litostratygrafia } few {# litostratygrafie} many {# litostratygrafii} other {# litostratygrafii}}",
     "description": "Kontekst litostratygraficzny rekordu"
   },
   "geologicalTime": {
     "name": "Czas geologiczny",
-    "count": "{num, plural, one { czas geologiczny } few {# czasy geologiczne} many {# czasów geologicznych} other {# czasów geologicznych}}",
     "description": "Kontekst czasu geologicznego rekordu"
   },
   "purposes": {
     "name": "Temat",
-    "count": "{num, plural, one { cel } few {# cele} many {# celów} other {# cele}}",
     "description": "Jakie są cele zasobu."
   },
   "eventDate": {
     "name": "Data wydarzenia",
-    "count": "{num, plural, one {# data zdarzenia } few {# daty zdarzenia } many {# dat zdarzenia} other {# daty zdarzenia # dat zdarzenia}}",
     "description": "Kiedy zapis został zebrany lub zaobserwowany."
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
     "description": "Unikalny identyfikator zdarzenia w bazie danych GBIF"
   },
   "organismQuantityType": {
     "name": "Rodzaj liczebności organizmów",
-    "count": "{num, plural, one { rodzaj liczebności organizmów } few {# rodzaje liczebności organizmów} many {# rodzajów liczebności organizmów} other {# rodzajów liczebności organizmów}}",
     "description": "Sposób pomiaru liczebności organizmów"
   },
   "pathway": {
     "name": "Ścieżka",
-    "count": "{num, plural, one { ścieżka } few {# ścieżki} many {# ścieżek} other {# ścieżek}}",
     "description": "Droga którą organizm został wprowadzony"
   },
   "associatedSequences": {
     "name": "Powiązane sekwencje",
-    "count": "{num, plural, one { powiązana sekwencja} few {# powiązane sekwencje} many {# powiązanych sekwencji} other {# powiązanych sekwencji}}",
     "description": "Identyfikator sekwencji powiązanych z rekordem. Zazwyczaj jest to adres URL."
   },
   "degreeOfEstablishment": {
     "name": "Stopień wprowadzenia",
-    "count": "{num, plural, one { stopień zadomowienia} few {# stopnie zadomowienia} many {# stopni zadomowienia} other {# stopni zadomowienia}}",
     "description": "Stopień do którego organizm jest zadomowiony w środowisku."
   },
   "endDayOfYear": {
     "name": "Ostatni dzień roku",
-    "count": "{num, plural, one { ostatni dzień roku} few {# ostatnie dni roku} many {# ostatnich dni roku} other {# ostatnich dni roku}}",
     "description": "Dzień w roku, w którym wydarzenie się zakończyło."
   },
   "startDayOfYear": {
     "name": "Pierwszy dzień roku",
-    "count": "{num, plural, one { pierwszy dzień roku} few {# pierwsze dni roku} many {# pierwszych dni roku} other {# pierwszych dni roku}}",
     "description": "Dzień w roku, w którym wydarzenie się rozpoczęło."
   },
   "previousIdentifications": {
     "name": "Wcześniejsze oznaczenia",
-    "count": "{num, plural, one { poprzednia identyfikacja} few {# poprzednie identyfikacje} many {# poprzednich identyfikacji} other {# poprzednich identyfikacji}}",
     "description": "Poprzednie identyfikacje taksonów powiązane z rekordem."
   },
   "lastInterpreted": {
     "name": "Ostatnio interpretowano",
-    "count": "{num, plural, one { ostatnia interpretacja} few {# ostatnie interpretacje} many {# ostatnich interpretacji} other {# ostatnich interpretacji}}",
     "description": "Czas ostatniej interpretacji rekordu."
   },
   "alternativeCode": {
     "name": "Alternatywny kod",
-    "count": "{num, plural, one {# alternatywny kod } few {# alternatywne kody} many {# alternatywnych kodów} other {# alternatywne kody # alternatywnych kodów}}",
     "description": "Jakikolwiek alternatywny kod, jaki jest w użyciu dla tego samego zapisu w innych kontekstach (np. archiwalne kody)"
   },
   "identifier": {
     "name": "Identyfikator",
-    "count": "{num, plural, one {# identyfikator } few {# identyfikatory} many {# identyfikatorów} other {# identyfikatory # identyfikatorów}}",
     "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "institutionType": {
     "name": "Typ",
-    "count": "{num, plural, one {# typ } few {# typy} many {# typów} other {# typy # typów}}",
     "description": "Typ instytucji (muzeum, herbarium, itp.)"
   },
   "discipline": {
     "name": "Dyscyplina",
-    "count": "{num, plural, one {# dyscyplina } few {# dyscypliny} many {# dyscyplin} other {# dyscypliny # dyscyplin}}",
     "description": "Dyscypliny badań wspieranych przez instytucję."
   },
   "collectionContentType": {
     "name": "Rodzaj treści",
-    "count": "{num, plural, one {rodzaj zawartości } few {# rodzaje zawartości} many {# rodzajów zawartości} other {# rodzajów zawartości}}",
     "description": "Rodzaj obiektów dostępnych w kolekcji"
   },
   "preservationType": {
     "name": "Sposób konserwacji",
-    "count": "{num, plural, one { sposób konserwacji } few {# sposoby konserwacji} many {# sposobów konserwacji} other {# sposobów konserwacji}}",
     "description": "Metoda stosowana do konserwacji obiektów dostępnych w kolekcji"
   },
   "biomeType": {
     "name": "Rodzaj biomu",
-    "count": "{num, plural, one {rodzaj biomu } few {# rodzaje biomów} many {# rodzajów biomów} other {# rodzajów biomów}}",
     "description": "Rodzaj biomu, z którym organizm jest powiązany."
   },
   "objectClassification": {
     "name": "Klasyfikacja obiektu",
-    "count": "{num, plural, one {klasyfikacja obiektu} few {#klasyfikacje obiektów} many {# klasyfikacji obiektów} other {# klasyfikacji obiektów}}",
     "description": "Klasyfikacja obiektu(ów) w kolekcji."
   },
   "taxonKey": {
     "name": "Nazwa naukowa",
-    "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
     "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Rdzeniu Taksonomicznym GBIF. Nazwy te są znormalizowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Nazwa naukowa",
-    "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
     "description": "Filtruj, korzystając z nazw naukowych wymienionych w deskryptorach kolekcji zawartych w metadanych kolekcji, pamiętając, że nie wszystkie kolekcje obejmują deskryptory metadanych, a nazwy często znajdują się na wyższych rangach taksonomicznych, takich jak rząd lub rodzina."
   },
   "basisOfRecord": {
     "name": "Podstawa zapisu",
-    "count": "{num, plural, one {podstawa zapisu} few {# podstawy zapisu} many {# podstaw zapisu} other {# podstawy zapisu}}",
     "isNotNull": "Posiada podstawę zapisu",
     "isNull": "Nie posiada podstawy zapisu",
     "description": "Rodzaj podstawy, na której oparty jest zapis."
   },
   "institutionCode": {
     "name": "Kod instytucji",
-    "count": "{num, plural, one {kod instytucji} few {# kody instytucji} many {# kodów instytucji} other {# kody instytucji}}",
     "description": "Kod (lub akronim) instytucji sprawującej pieczę nad obiektem/obiektami lub informacjami, do których odnosi się zapis."
   },
   "catalogNumber": {
     "name": "Numer katalogowy",
-    "count": "{num, plural, one { numer katalogowy } few {# numery katalogowe} many {# numerów katalogowych} other {# numery katalogowe}}",
     "description": "Identyfikator zapisu w katalogu lub kolekcji"
   },
   "mediaType": {
     "name": "Typ nośnika",
-    "count": "{num, plural, one {typ nośnika} few {# typy nośnika} many {# typów nośnika} other {# typy nośnika}}",
     "description": "Typy nośników dostępne dla tego zapisu."
   },
   "occurrenceIssue": {
     "name": "Problemy i komentarze",
-    "count": "{num, plural, one {problem} few {# problemy} many {# problemów} other {# problemy}}",
     "isNotNull": "Występują problemy",
     "isNull": "Nie wystąpiły problemy",
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
   "occurrenceTaxonomicIssue": {
     "name": "Trudności taksonomiczne i ostrzeżenia",
-    "count": "{num, plural, one {trudność taksonomiczna i ostrzeżenie} few {# trudności taksonomiczne i ostrzeżenia} many {# trudności taksonomicznych i ostrzeżeń} other {# trudności taksonomicznych i ostrzeżeń}}",
     "isNotNull": "Stwierdzone trudności taksonomiczne",
     "isNull": "Brak stwierdzonych trudności taksonomicznych",
     "description": "Rodzaj problemów lub potencjalnych problemów taksonomicznych odkrytych podczas przetwarzania danych. "
   },
   "occurrenceCountry": {
     "name": "Państwo lub obszar",
-    "count": "{num, plural, one {kraj lub obszar} few {# kraje lub obszary} many {# krajów lub obszarów} other {# kraje lub obszary}}",
     "description": "Kraj lub obszar, w którym zdarzenie miało miejsce"
   },
   "grsciCollCountry": {
@@ -251,22 +204,18 @@
   },
   "preparations": {
     "name": "Przygotowania",
-    "count": "{num, plural, one { przygotowanie } few {# przygotowania} many {# przygotowań} other {# przygotowań}}",
     "description": "Jak próbka była przygotowana (np. wysuszona)"
   },
   "repatriated": {
     "name": "Ponownie wprowadzony ",
-    "count": "{num, plural, one { repatriowany } few {# repatriowanych} many {# repatriowanych} other {# repatriowanych}}",
     "description": "Czy rekord został zwrócony do kraju pochodzenia."
   },
   "publishingCountryCode": {
     "name": "Kraj lub obszar publikujący",
-    "count": "{num, plural, one {kraj lub obszar publikacji} few {# kraje lub obszary publikacji} many {# krajów lub obszarów publikacji} other {# kraje lub obszary publikacji}}",
     "description": "Kod ISO kraju lub obszaru, w którym znajduje się publikujący"
   },
   "q": {
     "name": "Wyszukiwanie tekstowe",
-    "count": "{num, plural, one {ciąg tekstowy} few {# ciągi wyszukiwania} many {# ciągów wyszukiwania} other {# ciągi wyszukiwania}}",
     "description": "Pełnotekstowe wyszukiwanie w kilku polach"
   },
   "coordinates": {
@@ -274,680 +223,545 @@
   },
   "elevation": {
     "name": "Wysokość",
-    "count": "{num, plural, one {filtr wyniesienia} few {# filtry wyniesienia} many {# filtrów wyniesienia} other {# filtry wyniesienia}}",
     "description": "Wartość wyniesienia nad wertykalnym punktem odniesienia (zazwyczaj poziom morza lub geoida) w metrach."
   },
   "license": {
     "name": "Licencja",
-    "count": "{num, plural, one {licencja} few {# licencje} many {# licencji} other {# licencje}}",
     "description": "Licencja lub odstąpienie, w wyniku których zapis jest udostępniony."
   },
   "datasetKey": {
     "name": "Zbiór danych",
-    "count": "{num, plural, one {zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",
     "description": "Tytuł zbioru danych, w którym udostępnione jest stwierdzenie."
   },
   "datasetId": {
     "name": "ID zbioru danych",
-    "count": "{num, plural, one {ID zbioru danych} few {# ID zbiorów danych} many {# ID zbiorów danych} other {# ID zbiorów danych}}",
     "description": "Wewnętrzny identyfikator wydawcy dla zestawu danych, z którym powiązany jest rekord. Należy zauważyć, że różni się on od klucza datasetKey używanego w GBIF dla tego zestawu danych."
   },
   "publisherKey": {
     "name": "Publikujący",
-    "count": "{num, plural, one {publikujący} few {# publikujących} many {# publikujących} other {# publikujący}}",
     "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego zapis."
   },
   "gbifPublisherKey": {
     "name": "Publikujący w GBIF",
-    "count": "{num, plural, one {publikujący w GBIF} few {# publikujących w GBIF} many {# publikujących w GBIF} other {# publikujący w GBIF}}",
     "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego stwierdzenie."
   },
   "hostingOrganizationKey": {
     "name": "Organizacja goszcząca",
-    "count": "{num, plural, one {host} few {# hostów} many {# hostów} other {# hostowie}}",
     "description": "Nazwa organizacji udostępniającej zbiór danych, w którym zapis jest opublikowany."
   },
   "country": {
-    "name": "Państwo lub obszar",
-    "count": "{num, plural, one {kraj lub obszar} few {# kraje lub obszary} many {# krajów lub obszarów} other {# kraje lub obszary}}"
+    "name": "Państwo lub obszar"
   },
   "countriesOfCoverage": {
     "name": "Kraj lub obszar zasięgu",
-    "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}",
     "description": "Które kraje są objęte rekordem"
   },
   "collectionDescriptorCountry": {
     "name": "Kraj lub obszar zasięgu",
-    "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}",
     "description": "Z jakich krajów pochodzą okazy w kolekcji? Należy pamiętać, że nie wszystkie kolekcje mają te informacje."
   },
   "countriesOfResearcher": {
-    "name": "Kraj lub obszar badacza",
-    "count": "{num, plural, one {kraj lub obszar badacza} few {# kraje lub obszary badacza} many {# krajów lub obszarów badacza} other {# kraje lub obszary badacza}}"
+    "name": "Kraj lub obszar badacza"
   },
   "typeStatus": {
     "name": "Status typu",
-    "count": "{num, plural, one {status typu} few {# statusy typu} many {# statusów typu} other {# statusy typu}}",
     "isNotNull": "Posiada status typu",
     "isNull": "Status typu",
     "description": "Oznaczenie typu okazu."
   },
   "year": {
     "name": "Rok",
-    "count": "{num, plural, one {filtr roku} few {# filtry roku} many {# filtrów roku} other {# filtry roku}}",
     "description": "Rok, w którym zdarzenie miało miejsce."
   },
   "sampleSizeUnit": {
     "name": "Jednostka wielkości próby",
-    "count": "{num, plural, one {jednostka wielkości próby} few {# jednostki wielkości próby} many {# jednostek wielkości próby} other {# jednostki wielkości próby}}",
     "description": "Jednostka miary dla \"wartości wielkości próby\"."
   },
   "coordinateUncertainty": {
     "name": "Niepewność współrzędnych",
-    "count": "{num, plural, one {Niepewność współrzędnych} few {# filtry niepewności współrzędnych} many {# filtrów niepewności współrzędnych} other {# filtry niepewności współrzędnych}}",
     "description": "Miara minimalnej odległości w metrach od współrzędnych, w których lokalna obserwacja może się znajdować. "
   },
   "distanceFromCentroidInMeters": {
     "name": "Odległość od centroidu w metrach",
-    "count": "{num, plural, one {odległość od centroidu} few {# odległości od  centroidu} many {#  odległości od  centroidu} other {#  odległości od  centroidu}}",
     "description": "Odległość od centroidu kraju w metrach"
   },
   "depth": {
     "name": "Głębokość",
-    "count": "{num, plural, one { głębokość } few {# głębokości} many {# głębokości} other {# głębokości}}",
     "description": "Głębokość pod lokalnym poziomem gruntu, w metrach."
   },
   "organismQuantity": {
     "name": "Liczba organizmów",
-    "count": "{num, plural, one { liczebność organizmów } few {# liczebności organizmów} many {# liczebności organizmów} other {# liczebności organizmów}}",
     "description": "Wartość liczebności organizmów, gdzie rodzaj pomiaru jest dany w \"Rodzaju liczebności organizmów\"."
   },
   "sampleSizeValue": {
     "name": "Wartość wielkości próby",
-    "count": "{num, plural, one { wartość wielkości próby } few {# wartości wielkości próby} many {# wartości wielkości próby} other {# wartości wielkości próby}}",
     "description": "Wartość wielkości próby, gdzie jednostki pomiaru są podane w \"Jednostce wielkości próby\""
   },
   "relativeOrganismQuantity": {
     "name": "Względna liczebność organizmów",
-    "count": "{num, plural, one { względna liczebność organizmów } few {# względne liczebności organizmów} many {# względnych liczebności organizmów} other {# względne liczebności organizmów}}",
     "description": "Ilość biologicznego materiału powiązana z wielkością próby, wyliczona jako organismQuantity na sampleSize, jeśli organismQuantityType i sampleSizeUnit są jednoznaczne."
   },
   "month": {
     "name": "Miesiąc",
-    "count": "{num, plural, one { miesiąc } few {# miesiące} many {# miesięcy} other {# miesiące}}",
     "description": "Miesiąc, w którym zdarzenie miało miejsce."
   },
   "continent": {
     "name": "Kontynent",
-    "count": "{num, plural, one { kontynent } few {# kontynenty} many {# kontynentów} other {# kontynenty}}",
     "description": "Nazwa kontynentu, gdzie położona jest lokalizacja. To pole nie jest wypełnione automatycznie, dane pojawią się tylko wtedy, jeśli wydawca je dostarczył. Włączenie tego filtru może ukryć istotne wyniki. "
   },
   "protocol": {
     "name": "Protokół publikacji",
-    "count": "{num, plural, one { protokół } few {# protokoły} many {# protokołów} other {# protokoły}}",
     "description": "Protokół techniczny do udostępniania danych."
   },
   "establishmentMeans": {
     "name": "Sposoby wprowadzenia",
-    "count": "{num, plural, one { sposób wprowadzenia } few {# sposoby wprowadzenia} many {# sposobów wprowadzenia} other {# sposoby wprowadzenia}}",
     "description": "Sposoby wprowadzenia organizmu w dane miejsce o danym czasie."
   },
   "sex": {
     "name": "Płeć",
-    "count": "{num, plural, one {płeć} few {# płcie} many {# płci} other {# płci}}",
     "description": "Płeć organizmu"
   },
   "lifeStage": {
     "name": "Stadium rozwoju",
-    "count": "{num, plural, one {stadium rozwojowe} few {# stadia rozwojowe} many {# stadiów rozwojowych} other {# stadiów rozwojowych}}",
     "description": "Stadium rozwojowe organizmu"
   },
   "recordedBy": {
     "name": "Zarejestrowane przez",
-    "count": "{num, plural, one { zarejestrowane przez } few {# zarejestrowane przez} many {# zarejestrowane przez} other {# zarejestrowane przez}}",
     "description": "Nazwiska osoby/osób, grup lub organizacji, które zarejestrowały oryginalne wystąpienie."
   },
   "fieldNumber": {
     "name": "Numer pola",
-    "count": "{num, plural, one { numer pola } few {# numery pól} many {# numerów pół} other {# numerów pól}}",
     "description": "Identyfikator przypisany lokalizacji przez kolekcjonera."
   },
   "verbatimTaxonId": {
     "name": "Dosłowny identyfikator taksonu",
-    "count": "{num, plural, one { dosłowne ID taksonu} few {# dosłowne ID taksonów } many {# dosłownych ID taksonów } other {# dosłownych ID taksonów}}",
     "description": "Identyfikator taksonu podany przez publikującego dane."
   },
   "islandGroup": {
     "name": "Grupa wysp",
-    "count": "{num, plural, one { grupa wysp} few {# grupy wysp } many {# grup wysp } other {# grup wysp}}",
     "description": "Nazwa grupy wysp, na których znajduje się dana lokalizacja."
   },
   "island": {
     "name": "Wyspa",
-    "count": "{num, plural, one { wyspa } few {# wyspy} many {# wysp} other {# wysp}}",
     "description": "Nazwa wyspy, na której znajduje się lokalizacja."
   },
   "georeferencedBy": {
     "name": "Georeferencjonowane przez",
-    "count": "{num, plural, one { zgeoreferencjonowany przez } few {# zgeoreferencjonowany przez} many {# zgeoreferencjonowanych przez} other {# zgeoreferencjonowanych przez}}",
     "description": "Nazwy osób, grup lub organizacji odpowiedzialnych za georeferencjonowanie oryginalnego wystąpienia."
   },
   "datasetName": {
     "name": "Nazwa zbioru danych",
-    "count": "{num, plural, one { nazwa zbioru danych } few {# nazwy zbiorów danych } many {# nazw zbiorów danych } other {# nazw zbiorów danych}}",
     "description": "Nazwa zbioru danych używana przez instytucję publikującą. Rekordy w zbiorze danych mogą pochodzić z wielu innych zbiorów danych."
   },
   "programme": {
     "name": "Program",
-    "count": "{num, plural, one {# program} few {# programy} many {# programów} other {# programy, programów}}",
     "description": "Nazwa programu, z którym powiązany jest rekord."
   },
   "recordNumber": {
     "name": "Numer rekordu",
-    "count": "{num, plural, one { numer rekordu } few {# numery rekordu} many {# numerów rekordów} other {# numery rekordów}}",
     "description": "Identyfikator nadany zdarzeniu w chwili jego rejestracji."
   },
   "collectionCode": {
     "name": "Kod kolekcji",
-    "count": "{num, plural, one { kod kolekcji } few {# kody kolekcji} many {# kodów kolekcji} other {# kody kolekcji}}",
     "description": "Jaki kod kolekcji jest przypisany do rekordu."
   },
   "projectId": {
     "name": "Identyfikator projektu",
-    "count": "{num, plural, one {# ID projektu} few {# ID projektów} many {# ID projektów} other {# ID projekty, projektów}}",
     "description": "Jaki identyfikator projektu jest powiązany z rekordem."
   },
   "recordedById": {
     "name": "Rejestracja przez ID",
-    "count": "{num, plural, one { rejestracja przez ID } few {# rejestracje przez ID} many {# rejestracji przez ID} other {# rejestracje przez ID}}",
     "description": "Identyfikator osoby/osób, grup lub organizacji odpowiedzialnych za oryginalną rejestrację zdarzenia."
   },
   "identifiedById": {
     "name": "Identyfikacja przez ID",
-    "count": "{num, plural, one { identyfikacja przez id } few {identyfikacje przez id #} many {identyfikacji przez id #} other {identyfikacje przez id #}}",
     "description": "Identyfikator osoby/osób, grup lub organizacji odpowiedzialnych za nadanie nazwy naukowej organizmowi."
   },
   "occurrenceId": {
     "name": "ID wystąpienia",
-    "count": "{num, plural, one { ID wystąpienia } few {# ID wystąpienia} many {# ID wystąpienia} other {# ID wystąpienia}}",
     "description": "Unikatowy identyfikator zapisu wystąpienia"
   },
   "organismId": {
     "name": "Identyfikator organizmu",
-    "count": "{num, plural, one { ID organizmu } few {# ID organizmu} many {#  ID organizmu} other {# ID organizmu}}",
     "description": "Unikalny identyfikator organizmu w zapisie."
   },
   "locality": {
     "name": "Lokalność",
-    "count": "{num, plural, one { lokalność } few {# lokalności} many {# lokalności} other {# lokalności}}",
     "description": "Konkretna część opisu miejsca."
   },
   "waterBody": {
     "name": "Zbiornik wodny",
-    "count": "{num, plural, one { zbiornik wodny } few {# zbiorniki wodne} many {# zbiorników wodnych} other {# zbiorniki wodne}}",
     "description": "Nazwa zbiornika wodnego, w którym ma miejsce lokalizacja."
   },
   "higherGeography": {
     "name": "Geografia wyższego rzędu",
-    "count": "{num, plural, one { zbiornik wodny } few {# zbiorniki wodne} many {# zbiorników wodnych} other {# wyższe jednostki geograficzne}}",
     "description": "Obszar geograficzny, w którym znajduje się rekord. Nie jest to pole interpretowane, lecz oryginalne dane dostarczone przez wydawcę. Można podać wiele wartości."
   },
   "stateProvince": {
     "name": "Region",
-    "count": "{num, plural, one { region } few {# regiony} many {# regionów} other {# regiony}}",
     "description": "Nazwa rejonu administracyjnego zaraz po państwie, w którym znajduje się lokacja. "
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "{num, plural, one { region GBIF } few {# regiony GBIF} many {# regionów GBIF} other {# regionów GBIF}}",
     "description": "Lokalizacja regionu w GBIF."
   },
   "publishedByGbifRegion": {
     "name": "Opublikowane przez region GBIF",
-    "count": "{num, plural, one { region GBIF } few {# regiony GBIF} many {# regionów GBIF} other {# regionów GBIF}}",
     "description": "Region GBIF, w którym opublikowano zbiór danych."
   },
   "eventId": {
     "name": "ID zdarzenia",
-    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
     "description": "Unikalny identyfikator zdarzenia w zapisie."
   },
   "eventID": {
     "name": "ID zdarzenia",
-    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
     "description": "Unikalny identyfikator zdarzenia w zapisie."
   },
   "parentEventId": {
     "name": "ID nadrzędnego zdarzenia",
-    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
     "description": "Unikalny identyfikator zdarzenia nadrzędnego w rekordzie."
   },
   "locationID": {
     "name": "Identyfikator lokalizacji",
-    "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
     "description": "Unikalny identyfikator witryny w rekordzie."
   },
   "measurementOrFactTypes": {
     "name": "Rodzaj pomiaru",
-    "count": "{num, plural, one {# rodzaj pomiaru} few {# rodzaje pomiarów} many {# rodzajów pomiarów} other {# rodzajów pomiarów}}",
     "description": "Rodzaj pomiaru"
   },
   "measurementOrFactCount": {
     "name": "Liczba pomiarów",
-    "count": "{num, plural, one {# liczba pomiarów} few {# liczby pomiarów} many {# liczb pomiarów} other {# liczb pomiarów}}",
     "description": "Liczba pomiarów danego typu."
   },
   "occurrenceCount": {
     "name": "Liczba stwierdzeń",
-    "count": "{num, plural, one {# stwierdzenie} few {# stwierdzenia} many {# stwierdzeń} other {#stwierdzenia}}",
     "description": "Liczba wystąpień dla danego zdarzenia"
   },
   "eventType": {
     "name": "Typ zdarzenia",
-    "count": "{num, plural, one {# rodzaj zdarzenia } few {# rodzaje zdarzeń } many {# rodzajów zdarzeń} other {# rodzajów zdarzeń}}",
     "description": "Rodzaj zdarzenia polegającego na pobieraniu próbek."
   },
   "dataStructure": {
     "name": "Struktura",
-    "count": "{num, plural, one {# rodzaj zdarzenia } few {# rodzaje zdarzeń } many {# rodzajów zdarzeń} other {# rodzajów zdarzeń}}",
     "description": "Struktura danych dla zdarzenia pobierania próbek."
   },
   "samplingProtocol": {
     "name": "Protokół pobierania prób",
-    "count": "{num, plural, one { protokół pobierania próby } few {# protokoły pobierania próby} many {# protokołów pobierania próby} other {# protokoły pobierania próby}}",
     "description": "Nazwa, odniesienie lub opis metody/protokołu użytego podczas pobierania próby."
   },
   "occurrenceStatus": {
     "name": "Status stwierdzenia",
-    "count": "{num, plural, one { status wystąpienia } few {# statusy wystąpienia} many {# statusów wystąpienia} other {# statusy wystąpienia}}",
     "description": "Obecność lub nieobecność jakichkolwiek organizmów z danego taksonu."
   },
   "gadmGid": {
     "name": "Obszar administracyjny",
-    "count": "{num, plural, one { obszar administracyjny } few {# obszary administracyjne} many {# obszarów administracyjnych} other {# obszary administracyjne}}",
     "description": "Nazwa obszaru administracyjnego z GADM.org określonego podczas przetwarzania stwierdzenia."
-  },
-  "identifiedBy": {
-    "description": "Osoba, osoby, grupy lub organizacja odpowiedzialne za identyfikację naukowej nazwy Organizmu.",
-    "name": "Zidentyfikowany przez",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
   },
   "isInCluster": {
     "name": "Jest w gromadzie",
-    "count": "{num, plural, one {ma powiązane rekordy} few {# mają powiązane rekordy} many {# mają powiązane rekordy} other {# mają powiązane rekordy}}",
     "description": "Czy zapis został określony jako posiadający pokrewne zapisy."
   },
   "isSequenced": {
     "name": "Jest zsekwencjonowany",
-    "count": "{num, plural, one { jest zsekwencjonowany } few {# są zsekwencjonowane} many {# jest zsekwencjonowanych} other {# są zsekwencjonowane}}",
     "description": "Czy zapis posiada informację o sekwencji."
   },
   "active": {
     "name": "Aktywny",
-    "count": "Aktywny",
     "description": "Czy wpis dotyczy aktywnej kolekcji/instytucji czy historycznego wpisu, który już nie istnieje."
   },
   "activeInstitution": {
     "name": "Aktywne",
-    "count": "Aktywne",
     "description": "Czy wpis dotyczy aktywnej instytucji czy historycznego wpisu, który już nie istnieje."
   },
   "activeCollection": {
     "name": "Aktywne",
-    "count": "Aktywne",
     "description": "Czy wpis dotyczy aktywnej kolekcji czy historycznego wpisu, który już nie istnieje."
   },
   "publicationDate": {
     "name": "Data publikacji",
-    "count": "{num, plural, one {data publikacji} few {# daty publikacji} many {#dat publikacji} other {# dat publikacji}}",
-    "description": "Kiedy opublikowano rekord"
+    "description": ""
   },
   "personalCollection": {
     "name": "Kolekcja osobista",
-    "count": "Kolekcja osobista",
     "description": "Wybiera kolekcje prywatne lub osobiste"
   },
   "datasetType": {
     "name": "Typ zbioru danych",
-    "count": "{num, plural, one { typ zbioru danych } few {# typy zbioru danych} many {# typów zbiorów danych} other {# typy zbiorów danych}}",
     "description": "Tu wstawić krótki opis komponentu"
   },
   "datasetSubtype": {
     "name": "Podtyp zbioru danych",
-    "count": "{num, plural, one { podtyp zbioru danych } few {# podtypy zbioru danych} many {# podtypów zbiorów danych} other {# podtypy zbioru danych}}",
     "description": "Tu wstawić krótki opis komponentu"
   },
   "institutionKey": {
     "name": "Instytucja",
-    "count": "{num, plural, one { instytucja } few {# instytucje} many {# instytucji} other {# instytucje}}",
     "description": "Nazwa instytucji sprawującej pieczę nad obiektem/obiektami lub informacjami, do których odnosi się zapis."
   },
   "name": {
     "name": "Nazwa",
-    "count": "{num, plural, one { nazwa } few {# nazwy} many {# nazw} other {# nazwy}}",
     "description": "Nazwa podmiotu",
     "searchPlaceholder": "Szukaj według tytułu/nazwy"
   },
   "city": {
     "name": "Miasto",
-    "count": "{num, plural, one { miasto } few {# miasta} many {# miast} other {# miasta}}",
     "description": "Miasto, w którym znajduje się instytucja/kolekcja."
   },
   "code": {
     "name": "Kod",
-    "count": "{num, plural, one { kod } few {# kody} many {# kodów} other {# kody}}",
     "description": "Podstawowy kod identyfikujący rekord jako całość. Jeśli nie otrzymasz żadnego wyniku, wypróbuj filtr kodu alternatywnego."
   },
   "verbatimScientificName": {
     "name": "Nazwa naukowa verbatim",
-    "count": "{num, plural, one { nazwa naukowa verbatim } few {# nazwy naukowe verbatim} many {# nazw naukowych verbatim} other {# nazwy naukowe verbatim}}",
     "description": "Nazwa naukowa taka, jaka podana jest przez publikującego dane bez żadnej normalizacji."
   },
   "networkKey": {
     "name": "Sieć",
-    "count": "{num, plural, one {sieć} few {# sieci} many {# sieci} other {# sieci}}",
     "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "literatureType": {
     "name": "Typ bibliografii",
-    "count": "{num, plural, one { typ bibliografii } few {# typy bibliografii} many {# typów bibliografii} other {# typy bibliografii}}",
     "description": "Z jakim typem bibliografii wiąże się cytowanie."
   },
   "higherTaxonKey": {
     "name": "Wyższy takson",
-    "count": "{num, plural, one {wyższy takson} few {# wyższe taksony} many {# wyższych taksonów} other {# wyższych taksonów}}",
     "description": "Filtrowanie po wyższym taksonie."
   },
   "issueEnum": {
     "name": "Problemy i komentarze",
-    "count": "{num, plural, one {problem} few {# problemy} many {# problemów} other {# problemy}}",
     "isNotNull": "Występują problemy",
     "isNull": "Nie wystąpiły problemy",
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
   "humboldtBooleans": {
     "name": "Rozszerzenie Humboldta",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}",
     "description": "Rozszerzone wsparcie dla wydarzeń Darwin Core Events związanych z inwentaryzacjami przyrodniczymi."
   },
   "siteCount": {
     "description": "Łączna liczba poszczególnych stanowisk objętych badaniem dwc:Event.",
-    "name": "Liczba stanowisk",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Liczba stanowisk"
   },
   "siteNestingDescription": {
     "description": "Opis tekstowy hierarchicznego projektu próbkowania.",
-    "name": "Zagnieżdżony opis miejsca",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Zagnieżdżony opis miejsca"
   },
   "verbatimSiteDescriptions": {
     "description": "Oryginalny opis tekstowy miejsca(miejsc).",
-    "name": "Dosłowny opis miejsca",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Dosłowny opis miejsca"
   },
   "verbatimSiteNames": {
     "description": "Lista (połączona i rozdzielona) oryginalnych nazw miejsc.",
-    "name": "Dosłowne nazwy miejsc",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Dosłowne nazwy miejsc"
   },
   "geospatialScopeAreaValue": {
     "description": "Wartość liczbowa całkowitego obszaru zasięgu geoprzestrzennego dwc:Event.",
-    "name": "Zakres geoprzestrzenny wartość obszaru",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Zakres geoprzestrzenny wartość obszaru"
   },
   "geospatialScopeAreaUnit": {
     "description": "Jednostki powiązane z eco:geospatialScopeAreaValue",
-    "name": "Zakres geoprzestrzenny jednostka obszaru",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Zakres geoprzestrzenny jednostka obszaru"
   },
   "totalAreaSampledValue": {
     "description": "Wartość liczbowa całkowitego obszaru objętego badaniem w ramach dwc:Event.",
-    "name": "Całkowita wartość powierzchni objętej próbą",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Całkowita wartość powierzchni objętej próbą"
   },
   "totalAreaSampledUnit": {
     "description": "Jednostki powiązane z eco:totalAreaSampledValue",
-    "name": "Całkowita powierzchnia pobrana do próby",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Całkowita powierzchnia pobrana do próby"
   },
   "reportedWeather": {
     "description": "Lista warunków pogodowych i klimatycznych panujących podczas wydarzenia dwc:Event.",
-    "name": "Zgłoszona pogoda",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Zgłoszona pogoda"
   },
   "reportedExtremeConditions": {
     "description": "Opis ekstremalnych warunków pogodowych lub środowiskowych, które mogły mieć wpływ na wydarzenie dwc:Event.",
-    "name": "Zgłoszone ekstremalne warunki",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Zgłoszone ekstremalne warunki"
   },
   "targetHabitatScope": {
     "description": "Siedliska objęte badaniem w ramach wydarzenia dwc:Event.",
-    "name": "Rodzaj siedliska docelowego",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Rodzaj siedliska docelowego"
   },
   "excludedHabitatScope": {
     "description": "Siedliska wyraźnie wyłączone z pobierania próbek podczas wydarzenia dwc:Event.",
-    "name": "Rodzaj wykluczonego siedliska",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Rodzaj wykluczonego siedliska"
   },
   "eventDurationValue": {
     "description": "Wartość liczbowa czasu trwania zdarzenia dwc:Event.",
-    "name": "Wartość czasu trwania zdarzenia",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Wartość czasu trwania zdarzenia"
   },
   "eventDurationUnit": {
     "description": "Jednostki powiązane z eco:eventDurationValue.",
-    "name": "Jednostka czasu trwania wydarzenia",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Jednostka czasu trwania wydarzenia"
   },
   "targetTaxonomicScope": {
     "description": "Grupa(y) taksonomiczna(e) objęta(e) badaniem podczas zdarzenia dwc:Event.",
-    "name": "Docelowy zakres taksonomiczny",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Docelowy zakres taksonomiczny"
   },
   "excludedTaxonomicScope": {
     "description": "Grupa(y) taksonomiczna(e) wyraźnie wyłączona(e) z pobierania próbek podczas zdarzenia dwc:Event.",
-    "name": "Wykluczony zakres taksonomiczny",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Wykluczony zakres taksonomiczny"
   },
   "taxonCompletenessReported": {
     "description": "Oświadczenie dotyczące tego, czy dokonano oceny kompletności taksonomicznej zdarzenia dwc:Event.",
-    "name": "Zgłoszono kompletność taksonu",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Zgłoszono kompletność taksonu"
   },
   "taxonCompletenessProtocols": {
     "description": "Opis lub odniesienie (publikacja, adres URL) do metod użytych do określenia eco:taxonCompletenessReported.",
-    "name": "Protokoły kompletności taksonów",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Protokoły kompletności taksonów"
   },
   "isTaxonomicScopeFullyReported": {
     "description": "Zgłoszono każdy dwc:Organism, który został uwzględniony w zakresie taksonomicznym i wykryty podczas dwc:Event.",
-    "name": "Czy zakres taksonomiczny jest w pełni raportowany?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy zakres taksonomiczny jest w pełni raportowany?"
   },
   "isAbsenceReported": {
     "description": "Zgłaszano braki taksonomiczne.",
-    "name": "Czy nieobecność jest zgłaszana?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy nieobecność jest zgłaszana?"
   },
   "absentTaxa": {
     "description": "Lista (połączona i rozdzielona) taksonów uznanych za nieobecne podczas wydarzenia dwc:Event.",
-    "name": "Nieobecne taksony",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Nieobecne taksony"
   },
   "hasNonTargetTaxa": {
     "description": "Wykryto i zgłoszono dla tego zdarzenia dwc:Event jeden lub więcej obiektów dwc:Organisms należących do taksonów spoza docelowego zakresu taksonomicznego (kombinacja eco:targetTaxonomicScope i eco:excludedTaxonomicScope).",
-    "name": "Ma taksony nie będące przedmiotem zainteresowania",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Ma taksony nie będące przedmiotem zainteresowania"
   },
   "nonTargetTaxa": {
     "description": "Lista (połączona i rozdzielona) taksonów zgłoszonych podczas zdarzenia dwc:Event, które znajdują się poza docelowym zakresem taksonomicznym (kombinacja eco:targetTaxonomicScope i eco:excludedTaxonomicScope).",
-    "name": "Taksony niebędące przedmiotem zainteresowania",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Taksony niebędące przedmiotem zainteresowania"
   },
   "areNonTargetTaxaFullyReported": {
     "description": "Zgłoszono każdy dwc:Organism, który znajdował się poza docelowym zakresem taksonomicznym (kombinacja eco:targetTaxonomicScope i eco:excludedTaxonomicScope) i został wykryty podczas zdarzenia dwc:Event, a który można było wykryć za pomocą podanego protokołu (podanego w eco:protocolDescriptions i dwc:samplingProtocol).",
-    "name": "Czy taksony niebędące przedmiotem zainteresowania są w pełni zgłoszone?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy taksony niebędące przedmiotem zainteresowania są w pełni zgłoszone?"
   },
   "targetLifeStageScope": {
     "description": "Klasy wiekowe lub stadiów życiowych dwc:Organisms objęte badaniem podczas dwc:Event.",
-    "name": "Zakres docelowych stadiów życiowych",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Zakres docelowych stadiów życiowych"
   },
   "excludedLifeStageScope": {
     "description": "Klasy wiekowe lub stadia życiowe dwc:Organisms wyraźnie wyłączone z pobierania próbek podczas dwc:Event.",
-    "name": "Wykluczone docelowe stadia życiowe",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Wykluczone docelowe stadia życiowe"
   },
   "isLifeStageScopeFullyReported": {
     "description": "Zgłoszono każdy dwc:Organism, który znajdował się w zakresie stadiów życiowych i został wykryty podczas dwc:Event.",
-    "name": "Czy zakres stadiów życiowych został w pełni zaraportowany?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy zakres stadiów życiowych został w pełni zaraportowany?"
   },
   "targetDegreeOfEstablishmentScope": {
     "description": "Stopień zadomowienia dwc:Organisms objętych badaniem podczas dwc:Event.",
-    "name": "Docelowy wybrany stopień  zadomowienia",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Docelowy wybrany stopień  zadomowienia"
   },
   "excludedDegreeOfEstablishmentScope": {
     "description": "Stopień zadomowienia dwc:Organisms wyraźnie wyłączone z pobierania próbek podczas dwc:Event.",
-    "name": "Ustanowiony wyłączony zakres zadomowienia",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Ustanowiony wyłączony zakres zadomowienia"
   },
   "isDegreeOfEstablishmentScopeFullyReported": {
     "description": "Zgłoszono każdy dwc:Organism, który znajdował się w zakresie stopnia zadomowienia i został wykryty podczas dwc:Event.",
-    "name": "Czy zakres stopnia zadomowienia został w pełni zaraportowany?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy zakres stopnia zadomowienia został w pełni zaraportowany?"
   },
   "targetGrowthFormScope": {
     "description": "Formy wzrostu lub zwyczaje dwc:Organisms objęte badaniem podczas dwc:Event.",
-    "name": "Docelowa wybrana forma wzrostu",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Docelowa wybrana forma wzrostu"
   },
   "excludedGrowthFormScope": {
     "description": "Formy wzrostu lub zwyczaje dwc:Organisms wyraźnie wyłączone z pobierania próbek podczas wydarzenia dwc:Event.",
-    "name": "Formy wzrostu wykluczone z zakresu",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Formy wzrostu wykluczone z zakresu"
   },
   "isGrowthFormScopeFullyReported": {
     "description": "Zgłoszono każdy dwc:Organism, który znajdował się w zakresie formy wzrostu i został wykryty podczas dwc:Event.",
-    "name": "Czy forma wzrostu została w pełni zaraportowana",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy forma wzrostu została w pełni zaraportowana"
   },
   "hasNonTargetOrganisms": {
     "description": "Wykryto i zgłoszono jeden lub więcej obiektów dwc:Organisms spoza zakresów organizmu docelowego (eco:targetDegreeOfEstablishmentScope, eco:targetGrowthFormScope i eco:targetLifeStageScope) dla tego zdarzenia dwc:Event.",
-    "name": "Nie zawiera organizmów docelowych",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Nie zawiera organizmów docelowych"
   },
   "verbatimTargetScope": {
     "description": "Dosłowny, oryginalny opis zakresu dwc:Event.",
-    "name": "Dosłowny zakres docelowy",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Dosłowny zakres docelowy"
+  },
+  "identifiedBy": {
+    "description": "Osoba, osoby, grupy lub organizacja odpowiedzialne za identyfikację naukowej nazwy Organizmu.",
+    "name": "Zidentyfikowany przez"
   },
   "identificationReferences": {
     "description": "Lista (połączona i rozdzielona) odniesień (publikacja, globalny unikatowy identyfikator, URI) używana w dwc:Identification.",
-    "name": "Odnośniki dla identyfikacji",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Odnośniki dla identyfikacji"
   },
   "compilationTypes": {
     "description": "Oświadczenie określające, czy raportowane dane pochodzą ze zdarzeń związanych z próbkowaniem, danych pomocniczych zebranych z innych źródeł, czy też są kombinacją obu tych źródeł.",
-    "name": "Typy kompilacji",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Typy kompilacji"
   },
   "compilationSourceTypes": {
     "description": "Podano typy źródeł danych wykorzystanych w kompilacji.",
-    "name": "Typy źródeł kompilacji",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Typy źródeł kompilacji"
   },
   "inventoryTypes": {
     "description": "Rodzaje procesów wyszukiwania stosowanych do przeprowadzenia inwentaryzacji.",
-    "name": "Rodzaje inwentaryzacji",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Rodzaje inwentaryzacji"
   },
   "protocolNames": {
     "description": "Kategoryczne nazwy opisowe metod używanych podczas zdarzenia dwc:Event.",
-    "name": "Nazwy protokołów",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Nazwy protokołów"
   },
   "protocolDescriptions": {
     "description": "Szczegółowy opis metod użytych podczas wydarzenia dwc:Event.",
-    "name": "Opisy protokołów",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Opisy protokołów"
   },
   "protocolReferences": {
     "description": "Odniesienia do metod użytych podczas dwc:Event.",
-    "name": "Odniesienia do protokołów",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Odniesienia do protokołów"
   },
   "isAbundanceReported": {
     "description": "Podano liczbę zebranych lub zaobserwowanych dwc:Organisms.",
-    "name": "Czy zgłaszana jest liczebność?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy zgłaszana jest liczebność?"
   },
   "isAbundanceCapReported": {
     "description": "Podano maksymalną liczbę dwc:Organisms, określoną lub ograniczoną przez stosowany protokół.",
-    "name": "Czy zgłoszono limit liczebności",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy zgłoszono limit liczebności"
   },
   "abundanceCap": {
     "description": "Zgłoszona maksymalna liczba dwc:Organisms.",
-    "name": "Limit liczebności",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Limit liczebności"
   },
   "isVegetationCoverReported": {
     "description": "Podano wskaźnik pokrycia roślinnością.",
-    "name": "Czy zgłaszane jest pokrycie roślinne",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy zgłaszane jest pokrycie roślinne"
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
     "description": "Całkowita wykryta ilość dla taksonu dwc:Taxon (łącznie z jego podkategoriami) w zdarzeniu dwc:Event jest podawana jawnie w pojedynczym rekordzie (wartość dwc:organismQuantity) dla tego taksonu dwc:Taxon.",
-    "name": "Czy najbardziej ogólna kategoria docelowa uwzględnia ilość?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy najbardziej ogólna kategoria docelowa uwzględnia ilość?"
   },
   "hasVouchers": {
     "description": "Okazy dowodowe zbierano podczas wydarzenia dwc:Event.",
-    "name": "Ma okazy",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Ma okazy"
   },
   "voucherInstitutions": {
     "description": "Lista (połączona i rozdzielona) nazw lub akronimów instytucji, w których złożono okazy zebrane podczas wydarzenia dwc:Event.",
-    "name": "Instytucje okazów",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Instytucje okazów"
   },
   "hasMaterialSamples": {
     "description": "Próbki materiałów pobrano podczas wydarzenia dwc:Event.",
-    "name": "Ma próbki materiału",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Ma próbki materiału"
   },
   "materialSampleTypes": {
     "description": "Lista (połączona i rozdzielona) typów próbek materiałów zebranych podczas zdarzenia dwc:Event.",
-    "name": "Rodzaje próbek materiału",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Rodzaje próbek materiału"
   },
   "samplingPerformedBy": {
     "description": "Osoba, grupa lub organizacja odpowiedzialna za rejestrowanie dwc:Event.",
-    "name": "Pobieranie próbek przeprowadzone przez",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Pobieranie próbek przeprowadzone przez"
   },
   "isSamplingEffortReported": {
     "description": "Zgłoszono wysiłek związany z pobieraniem próbek związany z zdarzeniem dwc:Event.",
-    "name": "Czy zgłaszany jest nakład wysiłku na pobieranie próbek?",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Czy zgłaszany jest nakład wysiłku na pobieranie próbek?"
   },
   "samplingEffortProtocol": {
     "description": "Opis lub odniesienie (publikacja lub adres URL) do metod użytych do określenia wysiłku związanego z pobieraniem próbek",
-    "name": "Protokół nakładu wysiłku próbkowania",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Protokół nakładu wysiłku próbkowania"
   },
   "samplingEffortValue": {
     "description": "Wartość liczbowa wysiłku związanego z pobieraniem próbek podczas zdarzenia dwc:Event.",
-    "name": "Wartość wysiłku próbkowania",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Wartość wysiłku próbkowania"
   },
   "samplingEffortUnit": {
     "description": "Jednostki powiązane z eco:samplingEffortValue.",
-    "name": "Jednostka Wysiłku Próbkowania",
-    "count": "{num, plural, one { Zidentyfikowane przez } few {Zidentyfikowane przez (#)} many {Zidentyfikowane przez (#)} other {Zidentyfikowane przez (#)}}"
+    "name": "Jednostka Wysiłku Próbkowania"
   }
 }

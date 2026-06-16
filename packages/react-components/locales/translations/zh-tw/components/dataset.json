@@ -36,16 +36,15 @@
       "citations": "引用"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "物種名錄指標無法適用此資料集",
       "overview": "物種名錄總覽",
       "overviewDescription": "此物種名錄資料集的統計資料總結",
       "usagesCount": "所有的使用名稱",
       "distinctNamesCount": "獨特名",
       "synonymsCount": "同種異名",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "以界計數",
       "countByKingdomDescription": "名稱使用於界的分佈",
       "countByRank": "以分類位階計數",

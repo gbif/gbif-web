@@ -36,16 +36,15 @@
       "citations": "Citaties"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "Synoniemen",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
