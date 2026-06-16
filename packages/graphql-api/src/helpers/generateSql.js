@@ -11,7 +11,6 @@ function generateMachineDescription(parameters, sql) {
 }
 
 function nameLookup(name, checklistKey) {
-  const lowername = name.toLowerCase();
   const lookup = {};
   // generate for convinence the name lookup for the taxonomic dimensions, e.g. kingdom, phylum, class, order, family, genus
   const ranks = [
@@ -23,20 +22,16 @@ function nameLookup(name, checklistKey) {
     'genus',
     'species',
     'taxon',
-    'acceptedtaxon',
   ];
   ranks.forEach((rank) => {
     lookup[
       rank
     ] = `occurrence.classificationdetails['${checklistKey}']['${rank}']`;
     lookup[
-      `${rank}key`
+      `${rank}Key`
     ] = `occurrence.classificationdetails['${checklistKey}']['${rank}key']`;
   });
-  if (lowername === 'acceptedscientificname') {
-    return `occurrence.classificationdetails['${checklistKey}']['acceptedscientificname']`;
-  }
-  return lookup[lowername] || name;
+  return lookup[name] || name;
 }
 
 export function getGbifMachineDescription(machineDescription, sql) {
@@ -264,7 +259,7 @@ export default async function generateSql(parameters) {
     includeTemporalUncertainty,
     includeSpatialUncertainty,
     predicate,
-    checklistKey = config.gbifBackboneUUID,
+    checklistKey,
   } = parameters;
   // generate SQL query
   const dimensions = [];
