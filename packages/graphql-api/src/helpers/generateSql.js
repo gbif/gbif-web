@@ -12,6 +12,7 @@ function generateMachineDescription(parameters, sql) {
 
 function nameLookup(name, checklistKey) {
   if (checklistKey === config.gbifBackboneUUID) {
+    if (name === 'order') return `occurrence."order"`;
     return `occurrence.${name}`;
   }
   const lowername = name.toLowerCase();
