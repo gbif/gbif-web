@@ -11,6 +11,9 @@ function generateMachineDescription(parameters, sql) {
 }
 
 function nameLookup(name, checklistKey) {
+  if (checklistKey === config.gbifBackboneUUID) {
+    return `occurrence.${name}`;
+  }
   const lowername = name.toLowerCase();
   const lookup = {};
   // generate for convinence the name lookup for the taxonomic dimensions, e.g. kingdom, phylum, class, order, family, genus
