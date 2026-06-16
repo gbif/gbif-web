@@ -6,5 +6,6 @@
   "phone": "Phone",
   "roles": "Roles",
   "userId": "User ID",
-  "name": "Name"
+  "name": "Name",
+  "showingFirstCap": "Showing first {cap} contacts"
 }

@@ -501,7 +501,7 @@ export function DatasetKeyAbout() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ContactList contacts={dataset.volatileContributors} />
+                  <ContactList contacts={dataset.volatileContributors} cap={100} />
                 </CardContent>
               </Card>
             )}

@@ -154,7 +154,7 @@ const typeDef = gql`
     collections: [JSON]
     comments: [JSON]
     contacts: [Contact]
-    volatileContributors: [Contact]
+    volatileContributors(limit: Int): [Contact]
     countryCoverage: [JSON]
     created: DateTime
     createdBy: String

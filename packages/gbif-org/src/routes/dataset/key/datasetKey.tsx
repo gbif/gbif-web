@@ -94,7 +94,7 @@ const DATASET_QUERY = /* GraphQL */ `
           title
         }
       }
-      volatileContributors {
+      volatileContributors(limit: 101) {
         key
         firstName
         lastName
