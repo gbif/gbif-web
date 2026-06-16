@@ -9,9 +9,8 @@ type DataProviderOptions = {
   abortSignal?: AbortSignal;
   preview?: boolean;
   authorization?: string;
-  // The full URL of the page issuing the request. Sent as the x-gbif-site-url header so
-  // the backend knows the exact source page. On the server this must be provided explicitly
-  // (e.g. from the loader's request.url); in the browser it falls back to window.location.href.
+  // The page URL, sent as the x-gbif-site-url header. Useful for debugging on the server; But can of course be spoofed.
+  // falls back to window.location.href in the browser.
   siteUrl?: string;
 };
 

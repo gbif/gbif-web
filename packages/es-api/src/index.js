@@ -6,6 +6,8 @@ const cors = require('cors');
 const config = require('./config');
 var queue = require('express-queue');
 const { loggingMiddleware, errorLoggingMiddleware, admissionGate } = require('./middleware');
+const { randomUUID } = require('crypto');
+const { requestContextStorage } = require('./requestContext');
 const {
   registerQueue,
   registerGate,
@@ -138,6 +140,18 @@ const {
 const app = express();
 app.use(cors());
 app.use(compression());
+// Open a request-scoped store so logger.js can stamp every log line for this
+// request. Reuse the upstream x-request-id (forwarded by graphql-api) so logs
+// correlate across services; generate one for direct callers.
+app.use((req, _res, next) => {
+  requestContextStorage.run(
+    {
+      requestId: req.headers['x-request-id'] || randomUUID(),
+      siteUrl: req.headers['x-gbif-site-url'] || null,
+    },
+    () => next(),
+  );
+});
 app.use(express.static('public'));
 app.use(bodyParser.json({ limit: '1mb' }));
 

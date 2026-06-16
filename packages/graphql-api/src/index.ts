@@ -6,6 +6,7 @@ import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
+import { randomUUID } from 'crypto';
 import express from 'express';
 import { get } from 'lodash';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
@@ -14,6 +15,7 @@ import depthLimit from 'graphql-depth-limit';
 // Local imports
 import config from './config';
 import createContext from './createContext';
+import { getRequestLogContext, requestContextStorage } from './requestContext';
 import health from './health';
 import adminController from './admin';
 import { graphqlExplorer, hashMiddleware } from './middleware';
@@ -111,6 +113,11 @@ async function initializeServer() {
       // We forward it to the upstream APIs so they can prioritise/shed under load
       // — most importantly the es-api behind occurrence search. null when absent.
       clientPriority: get(req, 'headers.x-client-priority') || null,
+      // The page URL that issued the request, forwarded to upstreams (willSendRequest).
+      siteUrl: get(req, 'headers.x-gbif-site-url') || null,
+      // Read from the store (not regenerated) so the forwarded id matches the one we log.
+      requestId: getRequestLogContext()?.requestId,
+      clientIp: get(req, 'headers.x-client-ip') || null,
       locale: get(req, 'headers.locale') || 'en-GB',
       preview: get(req, 'headers.preview') === 'true',
       queryId: res ? res.get('X-Graphql-query-ID') : null,
@@ -125,6 +132,17 @@ async function initializeServer() {
       methods: 'GET,POST,OPTIONS',
     }),
   );
+  // Open a request-scoped store so logger.ts can stamp every log line for this
+  // request. Placed early (before next()) so all downstream async work inherits it.
+  app.use((req, _res, next) => {
+    requestContextStorage.run(
+      {
+        requestId: get(req, 'headers.x-request-id') || randomUUID(),
+        siteUrl: get(req, 'headers.x-gbif-site-url') || null,
+      },
+      () => next(),
+    );
+  });
   // Shed load (fast 503) before the expensive per-request work — body parsing,
   // GraphQL parse/validate, context build. Only guards configured paths
   // (default /graphql) and never /health. No-op unless enabled in config.

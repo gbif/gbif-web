@@ -176,7 +176,14 @@ function getGraphQlLabel({
       const { promise, cancel } = fetchWithCancel(
         `${config.graphqlEndpoint}?query=${encodeURIComponent(
           query
-        )}&variables=${encodeURIComponent(JSON.stringify({ key: id }))}`
+        )}&variables=${encodeURIComponent(JSON.stringify({ key: id }))}`,
+        {
+          headers: {
+            ...(typeof window !== 'undefined'
+              ? { 'x-gbif-site-url': window.location.href }
+              : {}),
+          },
+        }
       );
       return {
         promise: promise.then((response) => response.json()).then(transformer),
