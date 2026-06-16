@@ -227,6 +227,24 @@ async function main() {
           status = e.status;
         }
 
+        // Log the server-side render failure before serving the fallback page. Without this the
+        // server silently swallowed render errors, leaving no trace of why a user got the fallback.
+        // 4xx statuses (e.g. a 404 thrown by a route loader) are expected, so they are logged at
+        // 'warn'; anything else is an unexpected render failure logged at 'error' with the full stack.
+        const renderError =
+          e instanceof Error
+            ? e
+            : new Error(typeof e === 'string' ? e : 'Server-side render failed');
+        if (status >= 500) {
+          logger.logError(renderError, { url, status });
+        } else {
+          logger.warn(`Server-side render returned ${status} for ${url}`, {
+            url,
+            status,
+            error_message: renderError.message,
+          });
+        }
+
         // Lazily load the fallback HTML only when render fails. Doing the read +
         // viteDevServer.transformIndexHtml on every request was wasted work on the happy path
         // and exposed a race with graphql-codegen --watch where the inline <style> block in
@@ -256,7 +274,11 @@ async function main() {
         viteDevServer.ssrFixStacktrace(error);
       }
 
-      console.log(error.stack);
+      logger.logError(error instanceof Error ? error : new Error(String(error)), {
+        url,
+        status: 500,
+        message: 'Failed to load SSR template or render module',
+      });
       res.status(500).end(error.stack);
     }
   });
