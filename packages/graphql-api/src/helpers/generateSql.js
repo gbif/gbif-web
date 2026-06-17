@@ -248,11 +248,11 @@ async function getWhereClause({
   return ` ${sqlWhereClause} `;
 }
 
-const template = `SELECT 
+const template = `SELECT
   {{DIMENSIONS}},
   {{MEASUREMENTS}}
 FROM
-  occurrence 
+  occurrence
 {{FILTERS}}
 GROUP BY
   {{GROUP_BY}}`;
@@ -504,12 +504,7 @@ export default async function generateSql(parameters) {
       if (temporal) {
         parts.push(temporalLookup[temporal].dimension);
       }
-      return `IF(ISNULL(${nameLookup(
-        `${rank}Key`,
-        checklistKey,
-      )}), NULL, SUM(COUNT(*)) OVER (PARTITION BY ${parts.join(
-        ', ',
-      )})) AS ${rank}Count`;
+      return `SUM(COUNT(*)) OVER (PARTITION BY ${parts.join(', ',)}) AS ${rank}Count`;
     };
     const lookup = {
       KINGDOM: generate('kingdom'),
