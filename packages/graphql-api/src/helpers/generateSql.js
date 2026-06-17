@@ -49,131 +49,33 @@ export function getGbifMachineDescription(machineDescription, sql) {
   return null;
 }
 
+const isNotNull = (parameter) => ({ type: 'isNotNull', parameter });
+const hasCoordinate = { type: 'equals', key: 'HAS_COORDINATE', value: 'true' };
+
+// prettier-ignore
 const WHERE_PREDICATE_RESTRICTIONS = {
   taxonomicDimension: {
-    KINGDOM: [
-      {
-        type: 'isNotNull',
-        parameter: 'KINGDOM_KEY',
-      },
-    ],
-    PHYLUM: [
-      {
-        type: 'isNotNull',
-        parameter: 'PHYLUM_KEY',
-      },
-    ],
-    CLASS: [
-      {
-        type: 'isNotNull',
-        parameter: 'CLASS_KEY',
-      },
-    ],
-    ORDER: [
-      {
-        type: 'isNotNull',
-        parameter: 'ORDER_KEY',
-      },
-    ],
-    FAMILY: [
-      {
-        type: 'isNotNull',
-        parameter: 'FAMILY_KEY',
-      },
-    ],
-    GENUS: [
-      {
-        type: 'isNotNull',
-        parameter: 'GENUS_KEY',
-      },
-    ],
-    SPECIES: [
-      {
-        type: 'isNotNull',
-        parameter: 'SPECIES_KEY',
-      },
-    ],
-    EXACT_TAXON: [
-      {
-        type: 'isNotNull',
-        parameter: 'TAXON_KEY',
-      },
-    ],
-    ACCEPTED_TAXON: [
-      {
-        type: 'isNotNull',
-        parameter: 'ACCEPTED_TAXON_KEY',
-      },
-    ],
+    KINGDOM:        [isNotNull('KINGDOM_KEY')],
+    PHYLUM:         [isNotNull('PHYLUM_KEY')],
+    CLASS:          [isNotNull('CLASS_KEY')],
+    ORDER:          [isNotNull('ORDER_KEY')],
+    FAMILY:         [isNotNull('FAMILY_KEY')],
+    GENUS:          [isNotNull('GENUS_KEY')],
+    SPECIES:        [isNotNull('SPECIES_KEY')],
+    EXACT_TAXON:    [isNotNull('TAXON_KEY')],
+    ACCEPTED_TAXON: [isNotNull('ACCEPTED_TAXON_KEY')],
   },
   temporalDimension: {
-    YEAR: [
-      {
-        type: 'isNotNull',
-        parameter: 'YEAR',
-      },
-    ],
-    YEARMONTH: [
-      {
-        type: 'isNotNull',
-        parameter: 'YEAR',
-      },
-      {
-        type: 'isNotNull',
-        parameter: 'MONTH',
-      },
-    ],
-    DATE: [
-      {
-        type: 'isNotNull',
-        parameter: 'YEAR',
-      },
-      {
-        type: 'isNotNull',
-        parameter: 'MONTH',
-      },
-      {
-        type: 'isNotNull',
-        parameter: 'DAY',
-      },
-    ],
+    YEAR:      [isNotNull('YEAR')],
+    YEARMONTH: [isNotNull('YEAR'), isNotNull('MONTH')],
+    DATE:      [isNotNull('YEAR'), isNotNull('MONTH'), isNotNull('DAY')],
   },
   spatialDimension: {
-    EEA_REFERENCE_GRID: [
-      {
-        type: 'equals',
-        key: 'HAS_COORDINATE',
-        value: 'true',
-      },
-    ],
-    EXTENDED_QUARTER_DEGREE_GRID: [
-      {
-        type: 'equals',
-        key: 'HAS_COORDINATE',
-        value: 'true',
-      },
-    ],
-    ISEA3H_GRID: [
-      {
-        type: 'equals',
-        key: 'HAS_COORDINATE',
-        value: 'true',
-      },
-    ],
-    MILITARY_GRID_REFERENCE_SYSTEM: [
-      {
-        type: 'equals',
-        key: 'HAS_COORDINATE',
-        value: 'true',
-      },
-    ],
-    COUNTRY: [
-      {
-        type: 'equals',
-        key: 'HAS_COORDINATE',
-        value: 'true',
-      },
-    ],
+    EEA_REFERENCE_GRID:             [hasCoordinate],
+    EXTENDED_QUARTER_DEGREE_GRID:   [hasCoordinate],
+    ISEA3H_GRID:                    [hasCoordinate],
+    MILITARY_GRID_REFERENCE_SYSTEM: [hasCoordinate],
+    COUNTRY:                        [hasCoordinate],
   },
 };
 
