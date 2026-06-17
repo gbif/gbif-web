@@ -112,10 +112,10 @@ export function ErrorComponent({
 
   const commonContent = (
     <div className="g-max-w-full">
-      <h1 className="g-mb-0 g-text-slate-500 g-font-bold">{displayTitle}</h1>
-      {displayDescription && (
+      <h1 className="g-mb-0 g-text-slate-500 g-font-bold g-mt-2">{displayTitle}</h1>
+      {/* {displayDescription && (
         <p className="g-text-slate-500 g-mt-2 g-text-sm">{displayDescription}</p>
-      )}
+      )} */}
       <div className="g-flex g-flex-row g-gap-2 g-my-4 g-items-center g-justify-center">
         {showReportButton && reload && (
           <Button variant="ghost" size="sm" className="g-text-slate-500" asChild>
