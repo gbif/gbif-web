@@ -37,6 +37,9 @@ function nameLookup(name, checklistKey) {
       `${rank}key`
     ] = `occurrence.classificationdetails['${checklistKey}']['${rank}key']`;
   });
+  if (lowername === 'scientificname') {
+    return `occurrence.classificationdetails['${checklistKey}']['scientificname']`;
+  }
   if (lowername === 'acceptedscientificname') {
     return `occurrence.classificationdetails['${checklistKey}']['acceptedscientificname']`;
   }
