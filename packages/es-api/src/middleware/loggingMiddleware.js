@@ -15,8 +15,13 @@ function loggingMiddleware(req, res, next) {
     const executionTime = process.hrtime(startTime);
     const elapsedMilliseconds = (executionTime[0] * 1e9 + executionTime[1]) / 1e6;
 
+    // Per-request log fields, set on req by the middleware in index.js.
+    const { requestId, siteUrl } = req.logContext || {};
+
     logger.info({
       message: 'ES-API Request',
+      ...(requestId ? { requestId } : {}),
+      ...(siteUrl ? { siteUrl } : {}),
       time: date.toISOString(),
       timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
       executionTimeMs: Math.round(elapsedMilliseconds),
