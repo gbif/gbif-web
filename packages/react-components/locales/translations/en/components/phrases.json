@@ -19,6 +19,7 @@
   "unknownDate": "Unknown date",
   "about": "About",
   "legend": "Legend",
+  "showingFirstCap": "Showing first items: {cap}",
   "citations": "Citations",
   "metrics": "Metrics",
   "datasets": "Datasets",
