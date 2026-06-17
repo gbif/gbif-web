@@ -18,24 +18,10 @@ function nameLookup(name, checklistKey) {
   const lowername = name.toLowerCase();
   const lookup = {};
   // generate for convinence the name lookup for the taxonomic dimensions, e.g. kingdom, phylum, class, order, family, genus
-  const ranks = [
-    'kingdom',
-    'phylum',
-    'class',
-    'order',
-    'family',
-    'genus',
-    'species',
-    'taxon',
-    'acceptedtaxon',
-  ];
+  const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'taxon', 'acceptedtaxon'];
   ranks.forEach((rank) => {
-    lookup[
-      rank
-    ] = `occurrence.classificationdetails['${checklistKey}']['${rank}']`;
-    lookup[
-      `${rank}key`
-    ] = `occurrence.classificationdetails['${checklistKey}']['${rank}key']`;
+    lookup[rank] = `occurrence.classificationdetails['${checklistKey}']['${rank}']`;
+    lookup[`${rank}key`] = `occurrence.classificationdetails['${checklistKey}']['${rank}key']`;
   });
   if (lowername === 'scientificname') {
     return `occurrence.classificationdetails['${checklistKey}']['scientificname']`;
@@ -191,40 +177,29 @@ const WHERE_PREDICATE_RESTRICTIONS = {
   },
 };
 
-async function getWhereClause({
-  predicate,
-  taxonomicDimension,
-  temporalDimension,
-  spatialDimension,
-  checklistKey,
-}) {
+async function getWhereClause({ predicate, taxonomicDimension, temporalDimension, spatialDimension, checklistKey }) {
   const restrictions = [];
   if (taxonomicDimension) {
-    const taxonomicRestrictions =
-      WHERE_PREDICATE_RESTRICTIONS.taxonomicDimension[taxonomicDimension];
+    const taxonomicRestrictions = WHERE_PREDICATE_RESTRICTIONS.taxonomicDimension[taxonomicDimension];
     if (taxonomicRestrictions) {
       if (checklistKey) taxonomicRestrictions[0].checklistKey = checklistKey;
       restrictions.push(...taxonomicRestrictions);
     }
   }
   if (temporalDimension) {
-    const temporalRestrictions =
-      WHERE_PREDICATE_RESTRICTIONS.temporalDimension[temporalDimension];
+    const temporalRestrictions = WHERE_PREDICATE_RESTRICTIONS.temporalDimension[temporalDimension];
     if (temporalRestrictions) {
       restrictions.push(...temporalRestrictions);
     }
   }
   if (spatialDimension) {
-    const spatialRestrictions =
-      WHERE_PREDICATE_RESTRICTIONS.spatialDimension[spatialDimension];
+    const spatialRestrictions = WHERE_PREDICATE_RESTRICTIONS.spatialDimension[spatialDimension];
     if (spatialRestrictions) {
       restrictions.push(...spatialRestrictions);
     }
   }
   if (restrictions.length === 0) {
-    throw new Error(
-      'No restrictions found, which is unexpected as there should always be at least one dimension.',
-    );
+    throw new Error('No restrictions found, which is unexpected as there should always be at least one dimension.');
   }
   const restrictionsPredicate = { type: 'and', predicates: restrictions };
 
@@ -232,16 +207,13 @@ async function getWhereClause({
     ? { type: 'and', predicates: [predicate, restrictionsPredicate] }
     : restrictionsPredicate;
 
-  const sqlResponse = await fetch(
-    `${sqlEndpoint}/occurrence/download/request/sql`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ predicate: combinedPredicate }),
+  const sqlResponse = await fetch(`${sqlEndpoint}/occurrence/download/request/sql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  ).then((response) => response.json());
+    body: JSON.stringify({ predicate: combinedPredicate }),
+  }).then((response) => response.json());
 
   // replace newlines with spaces and replace double spaces with single spaces
   const sqlString = sqlResponse.sql.replace(/\n/g, ' ').replace(/\s\s/g, ' ');
@@ -273,9 +245,8 @@ export default async function generateSql(parameters) {
     predicate,
     checklistKey = config.gbifBackboneUUID,
   } = parameters;
-  // generate SQL query
-  const dimensions = [];
-  let filters = '';
+
+  let filters;
   try {
     filters = await getWhereClause({
       predicate,
@@ -287,252 +258,94 @@ export default async function generateSql(parameters) {
   } catch (error) {
     return { error: error.message, sql: null };
   }
+
+  const dimensions = [];
   const groupBy = [];
   const measurements = ['COUNT(*) AS occurrences'];
+
   if (includeTemporalUncertainty === 'YES') {
-    measurements.push(
-      'MIN(GBIF_TEMPORALUNCERTAINTY(eventdate, eventtime)) AS minTemporalUncertainty',
-    );
+    measurements.push('MIN(GBIF_TEMPORALUNCERTAINTY(eventdate, eventtime)) AS minTemporalUncertainty');
   }
   if (includeSpatialUncertainty === 'YES') {
-    measurements.push(
-      'MIN(COALESCE(coordinateUncertaintyInMeters, 1000)) AS minCoordinateUncertaintyInMeters',
-    );
+    measurements.push('MIN(COALESCE(coordinateUncertaintyInMeters, 1000)) AS minCoordinateUncertaintyInMeters');
   }
 
+  // prettier-ignore
   if (taxonomy) {
-    const KINGDOM = `${nameLookup('kingdom', checklistKey)}, ${nameLookup(
-      'kingdomKey',
-      checklistKey,
-    )}`;
-    const PHYLUM = `${KINGDOM}, ${nameLookup(
-      'phylum',
-      checklistKey,
-    )}, ${nameLookup('phylumKey', checklistKey)}`;
-    const CLASS = `${PHYLUM}, ${nameLookup(
-      'class',
-      checklistKey,
-    )}, ${nameLookup('classKey', checklistKey)}`;
-    const ORDER = `${CLASS}, ${nameLookup('order', checklistKey)}, ${nameLookup(
-      'orderKey',
-      checklistKey,
-    )}`;
-    const FAMILY = `${ORDER}, ${nameLookup(
-      'family',
-      checklistKey,
-    )}, ${nameLookup('familyKey', checklistKey)}`;
-    const GENUS = `${FAMILY}, ${nameLookup(
-      'genus',
-      checklistKey,
-    )}, ${nameLookup('genusKey', checklistKey)}`;
-    const SPECIES = `${GENUS}, ${nameLookup(
-      'species',
-      checklistKey,
-    )}, ${nameLookup('speciesKey', checklistKey)}`;
-    const EXACT_TAXON = `${SPECIES}, ${nameLookup(
-      'taxonKey',
-      checklistKey,
-    )}, ${nameLookup('scientificName', checklistKey)}`;
-    const ACCEPTED_TAXON = `${SPECIES}, ${nameLookup(
-      'acceptedTaxonKey',
-      checklistKey,
-    )}, ${nameLookup('acceptedScientificName', checklistKey)}`;
-
-    // currently identical with above, but keeping separate in case we want to diverge them in the future. For yearmonth for example they need to differ
-    const KINGDOM_GROUP = `${nameLookup('kingdom', checklistKey)}, ${nameLookup(
-      'kingdomKey',
-      checklistKey,
-    )}`;
-    const PHYLUM_GROUP = `${KINGDOM_GROUP}, ${nameLookup(
-      'phylum',
-      checklistKey,
-    )}, ${nameLookup('phylumKey', checklistKey)}`;
-    const CLASS_GROUP = `${PHYLUM_GROUP}, ${nameLookup(
-      'class',
-      checklistKey,
-    )}, ${nameLookup('classKey', checklistKey)}`;
-    const ORDER_GROUP = `${CLASS_GROUP}, ${nameLookup(
-      'order',
-      checklistKey,
-    )}, ${nameLookup('orderKey', checklistKey)}`;
-    const FAMILY_GROUP = `${ORDER_GROUP}, ${nameLookup(
-      'family',
-      checklistKey,
-    )}, ${nameLookup('familyKey', checklistKey)}`;
-    const GENUS_GROUP = `${FAMILY_GROUP}, ${nameLookup(
-      'genus',
-      checklistKey,
-    )}, ${nameLookup('genusKey', checklistKey)}`;
-    const SPECIES_GROUP = `${GENUS_GROUP}, ${nameLookup(
-      'species',
-      checklistKey,
-    )}, ${nameLookup('speciesKey', checklistKey)}`;
-    const EXACT_TAXON_GROUP = `${SPECIES_GROUP}, ${nameLookup(
-      'taxonKey',
-      checklistKey,
-    )}, ${nameLookup('scientificName', checklistKey)}`;
-    const ACCEPTED_TAXON_GROUP = `${SPECIES_GROUP}, ${nameLookup(
-      'acceptedTaxonKey',
-      checklistKey,
-    )}, ${nameLookup('acceptedScientificName', checklistKey)}`;
-
-    const lookup = {
-      KINGDOM: {
-        dimension: KINGDOM,
-        groupBy: KINGDOM_GROUP,
-      },
-      PHYLUM: {
-        dimension: PHYLUM,
-        groupBy: PHYLUM_GROUP,
-      },
-      CLASS: {
-        dimension: CLASS,
-        groupBy: CLASS_GROUP,
-      },
-      ORDER: {
-        dimension: ORDER,
-        groupBy: ORDER_GROUP,
-      },
-      FAMILY: {
-        dimension: FAMILY,
-        groupBy: FAMILY_GROUP,
-      },
-      GENUS: {
-        dimension: GENUS,
-        groupBy: GENUS_GROUP,
-      },
-      SPECIES: {
-        dimension: SPECIES,
-        groupBy: SPECIES_GROUP,
-      },
-      EXACT_TAXON: {
-        dimension: EXACT_TAXON,
-        groupBy: EXACT_TAXON_GROUP,
-      },
-      ACCEPTED_TAXON: {
-        dimension: ACCEPTED_TAXON,
-        groupBy: ACCEPTED_TAXON_GROUP,
-      },
+    const nl = (name) => nameLookup(name, checklistKey);
+    const taxonomyFields = {
+      KINGDOM:        [nl('kingdom'), nl('kingdomKey')],
+      PHYLUM:         [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey')],
+      CLASS:          [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey')],
+      ORDER:          [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey')],
+      FAMILY:         [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey')],
+      GENUS:          [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey')],
+      SPECIES:        [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey')],
+      EXACT_TAXON:    [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey'), nl('taxonKey'), nl('scientificName')],
+      ACCEPTED_TAXON: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey'), nl('acceptedTaxonKey'), nl('acceptedScientificName')],
     };
-    dimensions.push(lookup[taxonomy].dimension);
-    groupBy.push(lookup[taxonomy].groupBy);
+    const fields = taxonomyFields[taxonomy].join(', ');
+    dimensions.push(fields);
+    groupBy.push(fields);
   }
 
   const temporalLookup = {
-    YEAR: {
-      dimension: `"year"`,
-      select: `"year"`,
-      groupBy: `"year"`,
-    },
+    YEAR: { select: `"year"`, groupBy: `"year"`, dimension: `"year"` },
     YEARMONTH: {
-      dimension: `PRINTF('%04d-%02d', "year", "month")`,
       select: `PRINTF('%04d-%02d', "year", "month") AS yearMonth`,
       groupBy: `yearMonth`,
+      dimension: `PRINTF('%04d-%02d', "year", "month")`,
     },
     DATE: {
-      dimension: `PRINTF('%04d-%02d-%02d', "year", "month", "day")`,
       select: `PRINTF('%04d-%02d-%02d', "year", "month", "day") AS yearMonthDay`,
       groupBy: `yearMonthDay`,
+      dimension: `PRINTF('%04d-%02d-%02d', "year", "month", "day")`,
     },
   };
+
   if (temporal) {
-    if (temporal) dimensions.push(`${temporalLookup[temporal].select}`);
+    dimensions.push(temporalLookup[temporal].select);
     groupBy.push(temporalLookup[temporal].groupBy);
   }
 
-  // SPATIAL SECTION
-  let coordinateUncertaintyInMeters = '0.0';
-  if (randomize === 'YES') {
-    coordinateUncertaintyInMeters = `COALESCE(coordinateUncertaintyInMeters, ${defaultUncertainty})`;
-  }
+  const coordinateUncertaintyInMeters =
+    randomize === 'YES' ? `COALESCE(coordinateUncertaintyInMeters, ${defaultUncertainty})` : '0.0';
+  const gridExpr = (fn) => `${fn}(${resolution}, decimalLatitude, decimalLongitude, ${coordinateUncertaintyInMeters})`;
+
+  // prettier-ignore
   const spatialLookup = {
-    EEA_REFERENCE_GRID: {
-      dimension: `GBIF_EEARGCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        )`,
-      groupBy: `eeaCellCode`,
-    },
-    EXTENDED_QUARTER_DEGREE_GRID: {
-      dimension: `GBIF_EQDGCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        )`,
-      groupBy: 'eqdCellCode',
-    },
-    ISEA3H_GRID: {
-      dimension: `GBIF_ISEA3HCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        )`,
-      groupBy: 'isea3hCellCode',
-    },
-    MILITARY_GRID_REFERENCE_SYSTEM: {
-      dimension: `GBIF_MGRSCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        )`,
-      groupBy: 'mgrsCellCode',
-    },
-    COUNTRY: {
-      dimension: `countryCode`,
-      groupBy: 'countryCode',
-    },
+    EEA_REFERENCE_GRID:            { dimension: gridExpr('GBIF_EEARGCode'),  groupBy: 'eeaCellCode' },
+    EXTENDED_QUARTER_DEGREE_GRID:  { dimension: gridExpr('GBIF_EQDGCode'),   groupBy: 'eqdCellCode' },
+    ISEA3H_GRID:                   { dimension: gridExpr('GBIF_ISEA3HCode'), groupBy: 'isea3hCellCode' },
+    MILITARY_GRID_REFERENCE_SYSTEM:{ dimension: gridExpr('GBIF_MGRSCode'),   groupBy: 'mgrsCellCode' },
+    COUNTRY:                       { dimension: 'countryCode',               groupBy: 'countryCode' },
   };
+
   if (spatial) {
-    dimensions.push(
-      `${spatialLookup[spatial].dimension} AS ${spatialLookup[spatial].groupBy}`,
-    );
-    groupBy.push(spatialLookup[spatial].groupBy);
+    const { dimension, groupBy: spatialGroupBy } = spatialLookup[spatial];
+    dimensions.push(`${dimension} AS ${spatialGroupBy}`);
+    groupBy.push(spatialGroupBy);
   }
 
-  // cast higherGroups as array
-  const higherGroupsArray =
-    higherGroups && Array.isArray(higherGroups) ? higherGroups : [higherGroups];
-
-  if (higherGroupsArray.length > 0) {
-    const generate = (rank) => {
-      const parts = [nameLookup(`${rank}Key`, checklistKey)];
-      if (spatial) {
-        parts.push(spatialLookup[spatial].dimension);
-      }
-      if (temporal) {
-        parts.push(temporalLookup[temporal].dimension);
-      }
-      return `SUM(COUNT(*)) OVER (PARTITION BY ${parts.join(', ',)}) AS ${rank}Count`;
-    };
-    const lookup = {
-      KINGDOM: generate('kingdom'),
-      PHYLUM: generate('phylum'),
-      CLASS: generate('class'),
-      ORDER: generate('order'),
-      FAMILY: generate('family'),
-      GENUS: generate('genus'),
-    };
+  if (higherGroups) {
+    const higherGroupsArray = Array.isArray(higherGroups) ? higherGroups : [higherGroups];
     higherGroupsArray.forEach((rank) => {
-      dimensions.push(lookup[rank]);
+      const rankLower = rank.toLowerCase();
+      const rankKey = nameLookup(`${rankLower}Key`, checklistKey);
+      const partitionBy = [rankKey];
+      if (spatial) partitionBy.push(spatialLookup[spatial].dimension);
+      if (temporal) partitionBy.push(temporalLookup[temporal].dimension);
+      dimensions.push(`SUM(COUNT(*)) OVER (PARTITION BY ${partitionBy.join(', ')}) AS ${rankLower}Count`);
     });
   }
-  // remove undefined and null values from dimensions
-  const filteredDimensions = dimensions.filter((dimension) => dimension);
+
   const sql = template
-    .replace('{{DIMENSIONS}}', filteredDimensions.join(', '))
+    .replace('{{DIMENSIONS}}', dimensions.join(', '))
     .replace('{{MEASUREMENTS}}', measurements.join(', '))
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
 
-  return {
-    error: null,
-    sql,
-  };
+  return { error: null, sql };
 }
 
 export async function getSql({ query: parameters }) {
@@ -542,16 +355,13 @@ export async function getSql({ query: parameters }) {
   }
 
   // post to https://api.gbif.org/v1/occurrence/download/request/validate to validate the sql
-  const validation = await fetch(
-    `${sqlEndpoint}/occurrence/download/request/validate`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ sql, format: 'SQL_TSV_ZIP' }),
+  const validation = await fetch(`${sqlEndpoint}/occurrence/download/request/validate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  ).then((response) => response.json());
+    body: JSON.stringify({ sql, format: 'SQL_TSV_ZIP' }),
+  }).then((response) => response.json());
 
   if (!validation.sql) {
     return {
@@ -560,10 +370,7 @@ export async function getSql({ query: parameters }) {
     };
   }
 
-  const machineDescription = generateMachineDescription(
-    parameters,
-    validation.sql,
-  );
+  const machineDescription = generateMachineDescription(parameters, validation.sql);
 
   // create and sign the machineDescription
   return {
