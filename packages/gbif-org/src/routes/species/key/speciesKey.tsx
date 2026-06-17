@@ -1,5 +1,6 @@
 import Properties, { Property, Term, Value } from '@/components/properties';
 import { Button } from '@/components/ui/button';
+import { NotFoundLoaderResponse } from '@/errors';
 import { DeprecatedTaxonQuery, DeprecatedTaxonQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
@@ -13,6 +14,10 @@ import { redirect, useLoaderData } from 'react-router-dom';
 
 export async function speciesLoader({ params, graphql, locale, config }: LoaderArgs) {
   const key = params.key as string;
+  // if not a number just throw a 404
+  if (isNaN(Number(key))) {
+    throw new NotFoundLoaderResponse();
+  }
   const response = await graphql.query<DeprecatedTaxonQuery, DeprecatedTaxonQueryVariables>(
     SPECIES_QUERY,
     {
