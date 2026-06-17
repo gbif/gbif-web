@@ -241,7 +241,11 @@ async function main() {
           logger.warn(`Server-side render returned ${status} for ${url}`, {
             url,
             status,
-            error_message: renderError.message,
+            errors: [
+              {
+                message: renderError.message,
+              },
+            ],
           });
         }
 

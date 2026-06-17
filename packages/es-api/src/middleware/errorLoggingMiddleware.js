@@ -18,7 +18,7 @@ function errorLoggingMiddleware(error, req, res, next) {
     message: error.message ?? 'ES-API Error',
     ...(requestId ? { requestId } : {}),
     ...(siteUrl ? { siteUrl } : {}),
-    error,
+    errors: [error],
     durationMs: Math.round(elapsedMilliseconds),
     request: {
       method: req.method,
