@@ -8,7 +8,7 @@
       "tools": "Tools",
       "lookUp": "Look up",
       "pageTitle": "Species lookup",
-      "description": "Normalize species names from a CSV file against the Catalogue of Life. The file is expected to be have a column called ‘scientificName’ and an optional column ‘kingdom’ and ‘id’.",
+      "description": "Normalize species names from a CSV file against the Catalogue of Life. Expected columns include ‘scientificName’ (mandatory), ‘kingdom’ (optional) and ‘id’ (optional).",
       "selectFile": "Select file",
       "or": "or",
       "dropHere": "Drop here",
