@@ -137,7 +137,7 @@ async function initializeServer() {
   app.use((req, _res, next) => {
     requestContextStorage.run(
       {
-        requestId: get(req, 'headers.x-request-id') || `gql-${randomUUID()}`,
+        requestId: `gql-${randomUUID()}`,
         siteUrl: get(req, 'headers.x-gbif-site-url') || null,
       },
       () => next(),
