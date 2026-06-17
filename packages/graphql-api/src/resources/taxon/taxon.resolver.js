@@ -118,11 +118,14 @@ const sharedTaxonFields = {
       };
     }),
   relatedInfo: (
-    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
+    { taxonID, taxonomicStatus, datasetKey = DEFAULT_CHECKLIST_KEY },
     args,
     { dataSources },
-  ) =>
-    dataSources.taxonAPI
+  ) => {
+    // related fails with a 404 for some status
+    if (taxonomicStatus === 'AMBIGUOUS_SYNONYM') return null;
+    if (taxonomicStatus === 'SYNONYM') return null;
+    return dataSources.taxonAPI
       .getRelatedTaxonInfo({ key: taxonID, datasetKey })
       .then((response) => {
         return {
@@ -132,7 +135,8 @@ const sharedTaxonFields = {
             stringCompare(a.countryCode, b.countryCode),
           ),
         };
-      }),
+      });
+  },
   related: (
     { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
     args,
