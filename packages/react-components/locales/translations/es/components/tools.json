@@ -8,7 +8,7 @@
       "tools": "Herramientas",
       "lookUp": "Buscar",
       "pageTitle": "Búsqueda de especies",
-      "description": "Normaliza los nombres de especies de un archivo CSV utilizando el backbone de GBIF. Se espera que el archivo contenga la columna ‘scientificName’ y, opcionalmente, las columnas ‘kingdom’ e ‘id’.",
+      "description": "",
       "selectFile": "Seleccionar archivo",
       "or": "o",
       "dropHere": "Soltar aquí",
