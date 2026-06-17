@@ -9,8 +9,6 @@ function errorLoggingMiddleware(error, req, res, next) {
   // Per-request log fields, set on req by the middleware in index.js.
   const { requestId, siteUrl } = req.logContext || {};
 
-  const date = new Date();
-
   const executionTime = process.hrtime(startTime);
   const elapsedMilliseconds = (executionTime[0] * 1e9 + executionTime[1]) / 1e6;
 

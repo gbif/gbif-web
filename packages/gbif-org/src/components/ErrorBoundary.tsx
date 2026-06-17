@@ -2,7 +2,6 @@ import { OccurrenceSortBy, SortOrder } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import useLocalStorage from 'use-local-storage';
 import { ErrorImage } from './icons/icons';
 import { Button } from './ui/button';
 import { Card } from './ui/smallCard';
@@ -97,10 +96,6 @@ export function ErrorComponent({
   error: Error;
   reload?: () => void;
 }): React.ReactElement {
-  const [occurrenceSort] = useLocalStorage<{ sortBy?: OccurrenceSortBy; sortOrder: SortOrder }>(
-    'occurrenceSort',
-    { sortBy: undefined, sortOrder: SortOrder.Asc }
-  );
   const [showStack, setShowStack] = useState(false);
   const displayTitle = title ?? (
     <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
@@ -150,7 +145,6 @@ export function ErrorComponent({
                   error,
                   title: debugTitle,
                   additionalInfo: additionalDebugInfo,
-                  occurrenceSort,
                 })
               )}`}
             >

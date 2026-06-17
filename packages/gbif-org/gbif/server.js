@@ -280,7 +280,9 @@ async function main() {
 
       logger.logError(error instanceof Error ? error : new Error(String(error)), {
         url,
-        status: 500,
+        response: {
+          statusCode: 500,
+        },
         message: 'Failed to load SSR template or render module',
       });
       res.status(500).end(error.stack);
