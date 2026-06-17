@@ -22,17 +22,19 @@ function loggingMiddleware(req, res, next) {
       message: 'ES-API Request',
       ...(requestId ? { requestId } : {}),
       ...(siteUrl ? { siteUrl } : {}),
-      time: date.toISOString(),
       durationMs: Math.round(elapsedMilliseconds),
       request: {
-        headers: req.headers,
-        body: req.body,
         method: req.method,
         url: req.url,
+        originalUrl: req.originalUrl,
+        ip: req.ip,
+        referrer: req.get('Referrer'),
+        userAgent: req.get('User-Agent'),
+        body: req.body,
       },
       response: {
         statusCode: res.statusCode,
-        headers: res.headers,
+        cacheControl: res.get('Cache-Control'),
         body: res.body,
       },
     });

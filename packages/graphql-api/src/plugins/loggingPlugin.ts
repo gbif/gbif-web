@@ -35,7 +35,6 @@ const loggingPlugin: ApolloServerPlugin = {
           if (now - lastShedLogAt >= SHED_LOG_INTERVAL_MS) {
             logger.warn({
               message: 'GraphQL 503 (Overloaded - load shed)',
-              time: new Date().toISOString(),
               shedCount: shedSinceLastLog,
               intervalMs: now - lastShedLogAt,
             });
@@ -47,7 +46,6 @@ const loggingPlugin: ApolloServerPlugin = {
       async willSendResponse(requestContext) {
         if (skipWillSendResponse) return;
 
-        const date = new Date();
         // response.http.status is only set by Apollo when it differs from 200,
         // so fall back to 200 when it is absent.
         const statusCode = requestContext?.response?.http?.status ?? 200;
@@ -60,13 +58,16 @@ const loggingPlugin: ApolloServerPlugin = {
         if (!errors || errors.length === 0) {
           logger.info({
             message: 'GraphQL Query',
-            time: date.toISOString(),
-            statusCode,
+            response: {
+              statusCode,
+              cacheControl: requestContext?.response?.http?.headers.get('cache-control'),
+            },
             durationMs: Math.round(elapsedMilliseconds),
             request: {
+              referrer: requestContext?.request?.http?.headers.get('referrer'),
+              userAgent: requestContext?.request?.http?.headers.get('user-agent'),
               operationName: requestContext?.request?.operationName,
               variables: requestContext?.request?.variables,
-              headers: Object.fromEntries((requestContext?.request?.http?.headers?.entries() as any) ?? []),
             },
             playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(
               requestContext?.request?.query ?? '',
@@ -108,13 +109,16 @@ const loggingPlugin: ApolloServerPlugin = {
 
         logger[logLevel]({
           message: logMessage,
-          time: date.toISOString(),
-          statusCode,
+          response: {
+            statusCode,
+            cacheControl: requestContext?.response?.http?.headers.get('cache-control'),
+          },
           durationMs: Math.round(elapsedMilliseconds),
           request: {
+            referrer: requestContext?.request?.http?.headers.get('referrer'),
+            userAgent: requestContext?.request?.http?.headers.get('user-agent'),
             operationName: requestContext?.request?.operationName,
             variables: requestContext?.request?.variables,
-            headers: Object.fromEntries(requestContext?.request?.http?.headers.entries() as any),
           },
           errors,
           playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(requestContext?.request?.query ?? '')}`,

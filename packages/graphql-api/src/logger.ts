@@ -142,11 +142,7 @@ export function getLogLevel(): string {
 export function setLogLevel(next: string): LogLevel {
   const normalized = String(next).toLowerCase();
   if (!VALID_LOG_LEVELS.includes(normalized as LogLevel)) {
-    throw new Error(
-      `Invalid log level '${next}'. Expected one of: ${VALID_LOG_LEVELS.join(
-        ', ',
-      )}.`,
-    );
+    throw new Error(`Invalid log level '${next}'. Expected one of: ${VALID_LOG_LEVELS.join(', ')}.`);
   }
   logger.level = normalized;
   logger.transports.forEach((transport) => {
