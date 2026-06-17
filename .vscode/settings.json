@@ -4,17 +4,14 @@
   "files.autoSaveWorkspaceFilesOnly": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always",
-    "source.fixAll": "always",
     "source.sortMembers": "always"
   },
-  "editor.rulers": [80],
-  "typescript.autoClosingTags": true,
-  "prettier.printWidth": 140,
-  "prettier.singleQuote": false,
+  "editor.rulers": [120],
+  "js/ts.autoClosingTags.enabled": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "notebook.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.requireConfig": false
+  "prettier.requireConfig": true
 }
