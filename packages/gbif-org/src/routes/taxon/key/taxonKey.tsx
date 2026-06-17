@@ -114,7 +114,6 @@ const TAXON_QUERY = /* GraphQL */ `
           license
           rightsHolder
           thumbor(height: 800)
-          smallThumbnail: thumbor(height: 100, width: 100)
         }
       }
       treatments: related(datasetType: ARTICLE) {
