@@ -23,8 +23,7 @@ function loggingMiddleware(req, res, next) {
       ...(requestId ? { requestId } : {}),
       ...(siteUrl ? { siteUrl } : {}),
       time: date.toISOString(),
-      timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
-      executionTimeMs: Math.round(elapsedMilliseconds),
+      durationMs: Math.round(elapsedMilliseconds),
       request: {
         headers: req.headers,
         body: req.body,

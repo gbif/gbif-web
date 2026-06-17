@@ -15,7 +15,6 @@ function errorLoggingMiddleware(error, req, res, next) {
     ...(siteUrl ? { siteUrl } : {}),
     error,
     time: date.toISOString(),
-    timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
     request: {
       headers: req.headers,
       body: req.body,
