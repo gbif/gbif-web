@@ -54,10 +54,10 @@ const loggingPlugin: ApolloServerPlugin = {
 
         const { errors } = requestContext;
 
-        if (!errors || errors.length === 0) {
-          const executionTime = process.hrtime(startTime);
-          const elapsedMilliseconds = (executionTime[0] * 1e9 + executionTime[1]) / 1e6;
+        const executionTime = process.hrtime(startTime);
+        const elapsedMilliseconds = (executionTime[0] * 1e9 + executionTime[1]) / 1e6;
 
+        if (!errors || errors.length === 0) {
           logger.info({
             message: 'GraphQL Query',
             time: date.toISOString(),
@@ -109,10 +109,8 @@ const loggingPlugin: ApolloServerPlugin = {
         logger[logLevel]({
           message: logMessage,
           time: date.toISOString(),
-          timeInCopenhagen: date.toLocaleString('en-GB', {
-            timeZone: 'Europe/Copenhagen',
-          }),
           statusCode,
+          durationMs: Math.round(elapsedMilliseconds),
           request: {
             operationName: requestContext?.request?.operationName,
             variables: requestContext?.request?.variables,
