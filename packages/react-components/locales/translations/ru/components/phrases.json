@@ -19,7 +19,7 @@
   "unknownDate": "Неизвестная дата",
   "about": "Подробнее",
   "legend": "Легенда",
-  "showingFirstCap": "",
+  "showingFirstCap": "Показать первый пункт: {cap}",
   "citations": "Цитирования",
   "metrics": "Показатели",
   "datasets": "Наборы данных",
