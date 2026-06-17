@@ -8,7 +8,7 @@
       "tools": "工具",
       "lookUp": "查找",
       "pageTitle": "物種查找",
-      "description": "將 CSV 檔案中的物種名稱根據 GBIF 骨幹進行標準化。該檔案應包含“scientificName”列，以及可選的“kingdom”和“id”列。",
+      "description": "",
       "selectFile": "選擇檔案",
       "or": "或",
       "dropHere": "拖放至此處",
