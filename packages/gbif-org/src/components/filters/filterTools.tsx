@@ -166,6 +166,9 @@ export type filterCustomPredicateConfig = filterConfigShared & {
 
 export type filterSequenceConfig = filterConfigShared & {
   filterType: filterConfigTypes.SEQUENCE;
+  // Facet query (on nucleotideSequenceNucleotideSequenceID, with an `include` variable) used
+  // to make the identity-bin counts filter-aware under the other active filters.
+  facetQuery?: string;
 };
 
 // define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
@@ -685,7 +688,13 @@ const getCustomPredicateFilter = ({ config }: { config: filterCustomPredicateCon
   );
 };
 
-const getSequenceFilter = ({ config }: { config: filterSequenceConfig }) => {
+const getSequenceFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterSequenceConfig;
+  searchConfig: FilterConfigType;
+}) => {
   return React.forwardRef(
     (
       {
@@ -708,6 +717,8 @@ const getSequenceFilter = ({ config }: { config: filterSequenceConfig }) => {
           ref={ref as React.Ref<HTMLDivElement>}
           filterHandle={config.filterHandle}
           about={config.about}
+          facetQuery={config.facetQuery}
+          searchConfig={searchConfig}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
@@ -969,7 +980,7 @@ export function generateFilters({
     return generateFilter({
       config,
       formatMessage,
-      Content: getSequenceFilter({ config: config as filterSequenceConfig }),
+      Content: getSequenceFilter({ config: config as filterSequenceConfig, searchConfig }),
       popoverClassName: 'g-w-[500px] g-max-w-[var(--radix-popper-available-width)]',
     });
   } else {

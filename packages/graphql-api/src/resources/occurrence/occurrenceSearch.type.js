@@ -460,6 +460,17 @@ const typeDef = gql`
       size: Int
       from: Int
     ): [OccurrenceFacetResult_float]
+    """
+    Facet on the nucleotideSequenceID of attached nucleotide sequences. Pass include to
+    restrict the aggregation to a known set of IDs (for example similarity-search hits); the
+    buckets returned are those IDs that still occur under the current predicate. Counts are the
+    number of matching occurrences.
+    """
+    nucleotideSequenceNucleotideSequenceID(
+      size: Int
+      from: Int
+      include: [String!]
+    ): [OccurrenceFacetResult_string]
 
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]

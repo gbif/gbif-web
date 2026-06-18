@@ -5849,6 +5849,13 @@ export type OccurrenceFacet = {
    */
   nucleotideSequenceInvalid?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   /**
+   * Facet on the nucleotideSequenceID of attached nucleotide sequences. Pass include to
+   * restrict the aggregation to a known set of IDs (for example similarity-search hits); the
+   * buckets returned are those IDs that still occur under the current predicate. Counts are the
+   * number of matching occurrences.
+   */
+  nucleotideSequenceNucleotideSequenceID?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  /**
    * Facet on the length of attached nucleotide sequences. Counts are the number of
    * matching occurrences.
    */
@@ -6320,6 +6327,13 @@ export type OccurrenceFacetNetworkKeyArgs = {
 
 export type OccurrenceFacetNucleotideSequenceInvalidArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetNucleotideSequenceNucleotideSequenceIdArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  include?: InputMaybe<Array<Scalars['String']['input']>>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 

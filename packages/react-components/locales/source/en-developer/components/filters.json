@@ -334,10 +334,12 @@
     "description": "The length, in base pairs, of a nucleotide sequence attached to the occurrence."
   },
   "nucleotideSequenceId": {
-    "name": "Similar sequences",
+    "name": "Sequence similarity",
     "description": "Paste a nucleotide sequence to find occurrences whose attached sequences are similar to it, grouped by percent identity.",
     "search": "Find similar",
     "uniqueSequences": "{count, plural, one {# distinct sequence} other {# distinct sequences}}",
+    "similarityRange": "{from} to {to} %",
+    "similarityExact": "{value} %",
     "invalid": "That doesn't look like a valid nucleotide sequence.",
     "error": "Could not search for similar sequences. Please try again.",
     "noMatches": "No similar sequences found.",

@@ -1,18 +1,28 @@
 import { useConfig } from '@/config/config';
-import { FilterContext, FilterType } from '@/contexts/filter';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import useQuery from '@/hooks/useQuery';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { parseSequenceFilterValue, resolveSequence, SequenceBin } from '@/utils/sequenceSearch';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import cloneDeep from 'lodash/cloneDeep';
+import hash from 'object-hash';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { LuLoader as Loader } from 'react-icons/lu';
 import { FormattedMessage } from 'react-intl';
 import { AboutButton } from '../aboutButton';
-import { ApplyCancel } from '../filterTools';
+import { ApplyCancel, FacetQuery, getAsQuery } from '../filterTools';
 import { Option } from '../option';
 
 type SequenceFilterProps = {
   filterHandle: string;
   about?: React.FC;
+  // Facet on nucleotideSequenceNucleotideSequenceID (with an `include` variable). When
+  // provided, the per-bin counts reflect how many of the matched sequences still occur under
+  // the other active filters.
+  facetQuery?: string;
+  searchConfig: FilterConfigType;
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
   className?: string;
@@ -21,9 +31,10 @@ type SequenceFilterProps = {
 };
 
 export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterProps>(
-  ({ filterHandle, about: About, onApply, onCancel, className, style }, ref) => {
+  ({ filterHandle, about: About, facetQuery, searchConfig, onApply, onCancel, className, style }, ref) => {
     const { filter, setField } = useContext(FilterContext);
     const config = useConfig();
+    const searchContext = useSearchContext();
     // Base for graphql-api unstable-api controllers (vsearch lives here).
     const webUtilsBase = import.meta.env.PUBLIC_WEB_UTILS;
 
@@ -87,6 +98,49 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
       const next = setField(filterHandle, hasSelection ? [value] : []);
       onApply?.({ keepOpen: false, filter: next });
     };
+
+    // --- Filter-aware bin counts -------------------------------------------------------
+    // Restrict a facet on nucleotideSequenceID to the matched (candidate) ids, scoped by the
+    // other active filters (this handle removed), so each bin can show how many of its
+    // sequences still occur under e.g. a country filter. Mirrors the enum-filter pattern.
+    const candidateIds = useMemo(
+      () => Array.from(new Set(bins.flatMap((b) => (Array.isArray(b.ids) ? b.ids : [])))),
+      [bins]
+    );
+    const prunedFilter = useMemo(() => {
+      const pruned = cleanUpFilter(cloneDeep(filter));
+      delete pruned.must?.[filterHandle];
+      delete pruned.mustNot?.[filterHandle];
+      return pruned;
+    }, [filter, filterHandle]);
+    const prunedHash = hash(prunedFilter);
+
+    const { data: facetData, load: facetLoad } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
+      lazyLoad: true,
+    });
+
+    const candidateKey = candidateIds.join(',');
+    useEffect(() => {
+      if (!facetQuery || candidateIds.length === 0) return;
+      const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
+      const extra = { include: candidateIds, size: candidateIds.length };
+      facetLoad({
+        variables:
+          searchContext.queryType === 'V1' ? { query, ...extra } : { ...(query as object), ...extra },
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [facetQuery, candidateKey, prunedHash]);
+
+    // Set of ids that still occur under the other filters. `undefined` while loading/absent →
+    // fall back to the raw vsearch counts.
+    const survivingSet = useMemo(() => {
+      const field = facetData?.search?.facet?.field;
+      if (!field) return undefined;
+      return new Set(field.filter((x) => x?.name).map((x) => x.name as string));
+    }, [facetData]);
+
+    const binCount = (bin: SequenceBin) =>
+      survivingSet ? bin.ids.filter((id) => survivingSet.has(id)).length : bin.ids.length;
 
     const nonEmptyBins = bins.filter((b) => b.ids.length > 0);
 
@@ -164,7 +218,7 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
                       <FormattedMessage
                         id="filters.nucleotideSequenceId.uniqueSequences"
                         defaultMessage="{count, plural, one {# distinct sequence} other {# distinct sequences}}"
-                        values={{ count: bin.ids.length }}
+                        values={{ count: binCount(bin) }}
                       />
                     </span>
                   </span>

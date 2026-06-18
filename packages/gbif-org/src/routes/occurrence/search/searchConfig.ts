@@ -1,5 +1,7 @@
+import { FilterType } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { Predicate, PredicateType } from '@/gql/graphql';
+import { parseSequenceFilterValue } from '@/utils/sequenceSearch';
 
 const config: FilterConfigType = {
   fields: {
@@ -160,6 +162,59 @@ const config: FilterConfigType = {
         };
       },
     },
+    // URL-only synthetic fields. In memory the "Sequence similarity" filter is a single handle
+    // (nucleotideSequenceId holding { sequence, selected }); for a readable URL it is split into
+    // these two params by urlEncodeFilter/urlDecodeFilter below. They are registered here so the
+    // params are observed and round-tripped; serializer:()=>null keeps them out of the predicate
+    // should they ever appear in the filter directly.
+    'nucleotideSequence.sequence': { singleValue: true, serializer: () => null },
+    'nucleotideSequence.similarity': { singleValue: true, serializer: () => null },
+  },
+  // Map the single in-memory handle to/from the two readable URL params. Applied only in the URL
+  // layer (useFilterParams) so the predicate and the popover keep using `nucleotideSequenceId`.
+  urlEncodeFilter: (filter: FilterType): FilterType => {
+    const raw = filter?.must?.nucleotideSequenceId?.[0];
+    if (raw == null) return filter;
+    const value = parseSequenceFilterValue(raw);
+    if (!value?.sequence) return filter;
+    const { nucleotideSequenceId, ...restMust } = filter.must ?? {};
+    return {
+      ...filter,
+      must: {
+        ...restMust,
+        'nucleotideSequence.sequence': [value.sequence],
+        'nucleotideSequence.similarity': [JSON.stringify(value.selected ?? [])],
+      },
+    };
+  },
+  urlDecodeFilter: (filter: FilterType): FilterType => {
+    const must = filter?.must;
+    const seq = must?.['nucleotideSequence.sequence']?.[0];
+    if (must == null || seq == null) return filter;
+    const simRaw = must['nucleotideSequence.similarity']?.[0];
+    let selected: string[] = [];
+    if (Array.isArray(simRaw)) {
+      selected = simRaw.map(String);
+    } else if (typeof simRaw === 'string') {
+      try {
+        const parsed = JSON.parse(simRaw);
+        if (Array.isArray(parsed)) selected = parsed.map(String);
+      } catch {
+        /* leave selected empty */
+      }
+    }
+    const {
+      'nucleotideSequence.sequence': _seq,
+      'nucleotideSequence.similarity': _sim,
+      ...restMust
+    } = must;
+    return {
+      ...filter,
+      must: {
+        ...restMust,
+        nucleotideSequenceId: [JSON.stringify({ sequence: String(seq), selected })],
+      },
+    };
   },
 };
 

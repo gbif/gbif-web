@@ -151,6 +151,28 @@ export function getCachedResolution(rawSequence: string): SequenceResolution | u
   return resolutionCache.get(rawSequence.trim())?.result;
 }
 
+// Summarise the selected identity bins for the chip label. `consecutive` is true when the
+// ticked bins form a contiguous run in SEQUENCE_BIN_DEFS; `from`/`to` are the merged identity
+// span (min of the lowest selected bin to max of the highest). `count` is the number selected.
+export function summariseSelectedBins(selected: string[]): {
+  consecutive: boolean;
+  from: number;
+  to: number;
+  count: number;
+} {
+  const indices = selected
+    .map((id) => SEQUENCE_BIN_DEFS.findIndex((b) => b.id === id))
+    .filter((i) => i >= 0)
+    .sort((a, b) => a - b);
+  const count = indices.length;
+  if (count === 0) return { consecutive: false, from: 0, to: 0, count: 0 };
+  const defs = indices.map((i) => SEQUENCE_BIN_DEFS[i]);
+  const from = Math.min(...defs.map((d) => d.min));
+  const to = Math.max(...defs.map((d) => d.max));
+  const consecutive = indices[indices.length - 1] - indices[0] === count - 1;
+  return { consecutive, from, to, count };
+}
+
 // The unique nucleotideSequenceIDs across the selected bins.
 export function selectedSequenceIds(bins: SequenceBin[], selected: string[]): string[] {
   const selectedSet = new Set(selected);

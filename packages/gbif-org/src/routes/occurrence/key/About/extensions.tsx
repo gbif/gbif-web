@@ -207,12 +207,12 @@ function DNASequence({ sequence }: { sequence: string }) {
             <DynamicLink
               pageId="occurrenceSearch"
               searchParams={{
-                nucleotideSequenceId: JSON.stringify({
-                  sequence,
-                  // Pre-select the three highest-identity bins (=100, 99.5–100, 99–99.5)
-                  // so the search filters to closely-matching sequences straight away.
-                  selected: SEQUENCE_BIN_DEFS.slice(0, 3).map((b) => b.id),
-                }),
+                'nucleotideSequence.sequence': sequence,
+                // Pre-select the three highest-identity bins (=100, 99.5–100, 99–99.5)
+                // so the search filters to closely-matching sequences straight away.
+                'nucleotideSequence.similarity': JSON.stringify(
+                  SEQUENCE_BIN_DEFS.slice(0, 3).map((b) => b.id)
+                ),
               }}
               aria-label="Search for occurrences with similar sequences"
             >
