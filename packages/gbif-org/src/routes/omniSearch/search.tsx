@@ -136,6 +136,10 @@ export function SearchPage() {
             datasetKey: config.defaultChecklistKey,
             limit: 3,
             offset: 0,
+            // Match the taxon search page (routes/taxon/search/views/table/table.tsx)
+            // so the omni search count corresponds to the count shown there. Without
+            // searchContent the API only matches scientific names, yielding a lower count.
+            searchContent: ['SCIENTIFIC', 'AUTHORSHIP', 'VERNACULAR'],
           },
           resourcePredicate: {
             type: PredicateType.And,

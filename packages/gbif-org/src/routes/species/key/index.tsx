@@ -16,6 +16,12 @@ export const speciesKeyRoute: RouteObjectWithPlugins = {
   },
   loader: speciesLoader,
   element: <SpeciesKey />,
+  children: [
+    {
+      // Only here to ensure that parent key is tested. Else just a 404
+      path: 'verbatim',
+    },
+  ],
 };
 
 export function useSpeciesKeyLoaderData() {

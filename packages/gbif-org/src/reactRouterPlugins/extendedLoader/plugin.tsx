@@ -56,6 +56,7 @@ function modifyLoader(
       abortSignal: args[0].request.signal,
       locale: currentLocaleOption.cmsLocale ?? currentLocaleOption.code,
       preview,
+      siteUrl: args[0].request.url,
     });
     args[0].graphql = graphql;
 

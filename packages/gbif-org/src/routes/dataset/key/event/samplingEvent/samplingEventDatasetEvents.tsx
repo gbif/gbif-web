@@ -10,6 +10,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useEffect, useState } from 'react';
 import { useDatasetKeyContext } from '../../datasetKey';
 import InferredEventList from '../inferredFromOccurrence/inferredEventList';
+import { FormattedMessage } from 'react-intl';
 
 /**
  * Event list for datasets of type SAMPLING_EVENT.
@@ -83,7 +84,10 @@ export function SamplingEventExperimentalAlert() {
   }
   return (
     <Alert variant="warning" className="g-mb-4">
-      This is an experimental feature under active development.
+      <FormattedMessage
+        id="dataset.eventWarning"
+        defaultMessage="Event search and filtering are experimental features under active development"
+      />
     </Alert>
   );
 }

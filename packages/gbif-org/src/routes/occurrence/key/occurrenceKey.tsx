@@ -301,6 +301,7 @@ fragmentManager.register(/* GraphQL */ `
     references
     rightsHolder
     description
+    originalImage: thumbor
     thumbor(height: 800)
     smallThumbnail: thumbor(height: 100, width: 100)
   }
@@ -450,7 +451,7 @@ export function OccurrenceKey() {
   ];
   if (occurrence.isInCluster)
     tabs.push({
-      to: 'related',
+      to: 'cluster',
       children: <FormattedMessage id="occurrenceDetails.tabs.cluster" defaultMessage="Related" />,
     });
   if (occurrence.dynamicProperties) {

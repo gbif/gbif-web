@@ -51,7 +51,7 @@ function OccurrenceMediaGalleryContent({ taxon }: Props) {
     ),
     thumbnail: (
       <img
-        src={item.smallThumbnail ?? item.identifier ?? ''}
+        src={item.thumbor ?? item.identifier ?? ''}
         alt=""
         className="g-w-full g-h-full g-object-cover"
         loading="lazy"

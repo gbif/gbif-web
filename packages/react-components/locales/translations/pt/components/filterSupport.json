@@ -17,7 +17,7 @@
   "invert": "Seleção inversa",
   "rangeHelp": "Insira um intervalo ou um único valor. Por exemplo 100.200 ou 100. Ou use espaços em branco para ter extremidades abertas como: 100,",
   "rangeHelpYear": "Insira um intervalo ou um único valor, por exemplo. 2020, 2023 ou 1992. Ou use espaços em branco para ter extremidades abertas, por ex. 2000,",
-  "wildcardHelp": "As pesquisas não diferenciam maiúsculas de minúsculas, mas os acentos são distintos (por exemplo, 'rio' vs 'río'). Use um curinga (por exemplo, 'r?o') para encontrar todas as correspondências.",
+  "wildcardHelp": "",
   "useWildcardPattern": "",
   "useCaseInsensitiveValue": "Buscar correspondência que não diferencie maiúsculas de minúsculas",
   "showSuggestions": "Mostrar sugestões",
@@ -80,7 +80,7 @@
     "edit": "",
     "preview": "",
     "reformat": "Reformatar",
-    "documentation": "",
+    "documentation": "Documentação",
     "validating": "",
     "invalidJson": ""
   }

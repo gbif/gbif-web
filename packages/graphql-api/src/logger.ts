@@ -3,6 +3,7 @@ import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import config from './config';
+import { getRequestLogContext } from './requestContext';
 
 // Get environment and service information
 const env = process.env.NODE_ENV || 'local';
@@ -61,6 +62,16 @@ const addFixedFields = winston.format((info) => {
   };
 });
 
+// Merge request-scoped fields (siteUrl, requestId) into every log line for the request.
+const addRequestContext = winston.format((info) => {
+  const requestContext = getRequestLogContext();
+  if (!requestContext) return info;
+  const fields: Record<string, unknown> = {};
+  if (requestContext.requestId) fields.requestId = requestContext.requestId;
+  if (requestContext.siteUrl) fields.siteUrl = requestContext.siteUrl;
+  return { ...info, ...fields };
+});
+
 const level = debugLevel;
 console.log(`Logger level set to: ${level}`);
 
@@ -76,6 +87,7 @@ const fileRotateTransport = new DailyRotateFile({
   handleRejections: true,
   format: winston.format.combine(
     addFixedFields(),
+    addRequestContext(),
     winston.format.timestamp(),
     ecsFormat({ convertReqRes: true }),
   ),
@@ -88,6 +100,7 @@ const consoleTransport = new winston.transports.Console({
   handleRejections: true,
   format: winston.format.combine(
     addFixedFields(),
+    addRequestContext(),
     winston.format.timestamp(),
     colorizedJsonFormat,
   ),
@@ -111,5 +124,32 @@ logger.on('error', (err) => {
 
 // Log initialization message like portal16 did
 logger.info('initialising log');
+
+const VALID_LOG_LEVELS = ['debug', 'info', 'warn', 'error'] as const;
+export type LogLevel = typeof VALID_LOG_LEVELS[number];
+
+/** The level the logger (and its transports) is currently emitting at. */
+export function getLogLevel(): string {
+  return logger.level;
+}
+
+/**
+ * Change the active log level at runtime (e.g. flip to `debug` to capture an
+ * issue, then back to `warn`). Winston's level is mutable, but the transports
+ * carry their own `level`, so we set both — otherwise a transport would keep
+ * filtering at the old level.
+ */
+export function setLogLevel(next: string): LogLevel {
+  const normalized = String(next).toLowerCase();
+  if (!VALID_LOG_LEVELS.includes(normalized as LogLevel)) {
+    throw new Error(`Invalid log level '${next}'. Expected one of: ${VALID_LOG_LEVELS.join(', ')}.`);
+  }
+  logger.level = normalized;
+  logger.transports.forEach((transport) => {
+    // eslint-disable-next-line no-param-reassign
+    transport.level = normalized;
+  });
+  return normalized as LogLevel;
+}
 
 export default logger;

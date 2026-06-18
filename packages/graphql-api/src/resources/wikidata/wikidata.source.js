@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 
-import { RESTDataSource } from '@/RESTDataSource';
 import { get, merge } from 'lodash';
 import wikibase from 'wikibase-sdk';
+import { RESTDataSource } from '@/RESTDataSource';
 import { getDefaultAgent } from '@/requestAgents';
 import { decorateProperty, getItemData, getIUCNRedListData } from './helpers';
 
@@ -20,7 +20,7 @@ class WikiDataAPI extends RESTDataSource {
 
   willSendRequest(path, request) {
     request.headers['User-Agent'] = USER_AGENT;
-    request.headers['Accept'] = 'application/json';
+    request.headers.Accept = 'application/json';
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 
@@ -55,9 +55,7 @@ class WikiDataAPI extends RESTDataSource {
   async decorateWithPropertyDescriptions(properties, locale = 'en') {
     if (properties.length === 0) return '';
     try {
-      const urls = this.wdk.getManyEntities(
-        properties.map((k) => get(k, `mainsnak.property`)),
-      );
+      const urls = this.wdk.getManyEntities(properties.map((k) => get(k, `mainsnak.property`)));
 
       const responses = await Promise.all(urls.map((url) => this.get(url)));
       const res = merge({}, ...responses);
@@ -75,22 +73,54 @@ class WikiDataAPI extends RESTDataSource {
       const res = await this.get(this.wdk.getEntities([id]));
       return getItemData(id, res, locale);
     } catch (err) {
-      // Handle the error, logging?
-      console.log(err);
+      // ignore errors and return undefined, as this is an optional part of the data and we don't want to fail the whole request if it can't be resolved
+      logger.debug(`Error resolving Wikidata item ${id}: ${err.message}`);
     }
-
     return undefined;
   }
 
-  async getWikiDataTaxonData(key, locale) {
-    const [source, identifiers, identifier, threatStatus] = await Promise.all([
-      this.getTaxonSourceItem(key, locale),
-      this.getTaxonIdentifiersFromGbifTaxonKey(key, locale),
-      this.getIUCNIdentifier(key, locale),
-      this.getIUCNThreatStatus(key, locale),
+  /**
+   * Single entry point for taxon data.
+   *
+   * Previously each of source / identifiers / IUCN identifier / IUCN threat
+   * status independently called getReverseClaims (4x) and getEntities (3x) for
+   * the same GBIF key. Now we resolve the GBIF key -> Wikidata entity once,
+   * fetch that entity once, and derive everything from its `claims`.
+   */
+  async getWikiDataTaxonData(key, locale = 'en') {
+    const empty = {
+      source: null,
+      identifiers: [],
+      iucn: {
+        identifier: null,
+        threatStatus: '',
+      },
+    };
+
+    const reverseClaimResponse = await this.getReverseClaims(WIKI_GBIF_TAXON_IDENTIFIER, key);
+    const entitiesIds = this.wdk.simplify.sparqlResults(reverseClaimResponse);
+    if (!entitiesIds || entitiesIds.length === 0) {
+      return empty;
+    }
+
+    const id = get(entitiesIds, '[0].subject');
+    const entityResponse = await this.getEntities(entitiesIds.map((e) => e.subject));
+    const entityKey = Object.keys(entityResponse?.entities || {})[0];
+    const claims = get(entityResponse, `entities.${entityKey}.claims`) || {};
+
+    // The three pieces that still need extra entity lookups can run in parallel,
+    // but they all share the single `claims` object fetched above.
+    const [identifiers, identifier, threatStatus] = await Promise.all([
+      this.extractTaxonIdentifiers(claims, locale),
+      this.extractIUCNIdentifier(claims, locale),
+      this.extractIUCNThreatStatus(claims, locale),
     ]);
+
     return {
-      source,
+      source: {
+        id,
+        url: `https://www.wikidata.org/wiki/${id}`,
+      },
       identifiers,
       iucn: {
         identifier,
@@ -99,111 +129,47 @@ class WikiDataAPI extends RESTDataSource {
     };
   }
 
-  async getTaxonIdentifiersFromGbifTaxonKey(key, locale) {
-    const reverseClaimResponse = await this.getReverseClaims(
-      WIKI_GBIF_TAXON_IDENTIFIER,
-      key,
-    );
-    const entitiesIds = this.wdk.simplify.sparqlResults(reverseClaimResponse);
-    if (entitiesIds.length === 0) {
-      return null;
-    }
-    const entityResponse = await this.getEntities(
-      entitiesIds.map((e) => e.subject),
-    );
-    const keys = Object.keys(entityResponse.entities);
-    const claims = get(entityResponse.entities, `${keys[0]}.claims`) || [];
-    const claimKeys = Object.keys(claims);
-    const externalIds = claimKeys
+  /**
+   * Pull every external-id claim off the entity and decorate it with the
+   * human-readable property description.
+   */
+  async extractTaxonIdentifiers(claims, locale = 'en') {
+    const externalIds = Object.keys(claims)
       .filter((k) => get(claims, `${k}[0].mainsnak.datatype`) === 'external-id')
       .map((k) => get(claims, `${k}[0]`));
-    const identifiers = await this.decorateWithPropertyDescriptions(
-      externalIds,
-      locale,
-    );
+
+    const identifiers = await this.decorateWithPropertyDescriptions(externalIds, locale);
 
     return identifiers || [];
   }
 
-  async getTaxonSourceItem(key) {
-    try {
-      const reverseClaimResponse = await this.getReverseClaims(
-        WIKI_GBIF_TAXON_IDENTIFIER,
-        key,
-      );
-      const entitiesIds = this.wdk.simplify.sparqlResults(reverseClaimResponse);
-      if (entitiesIds.length === 0) {
-        return null; // throw new Error('not found');
-      }
-      const id = get(entitiesIds, '[0].subject');
-      return {
-        id,
-        url: `https://www.wikidata.org/wiki/${id}`,
-      };
-    } catch (error) {
-      console.log(error);
-      throw error;
+  /**
+   * Resolve the IUCN taxon identifier (P627) claim, if present.
+   */
+  async extractIUCNIdentifier(claims, locale = 'en') {
+    const claim = get(claims, `${IUCN_TAXON_IDENTIFIER}[0]`);
+    if (!claim) {
+      return null;
     }
+
+    return this.decorateWithPropertyDescriptions([claim], locale);
   }
 
-  async getIUCNIdentifier(key, locale) {
-    const reverseClaimResponse = await this.getReverseClaims(
-      WIKI_GBIF_TAXON_IDENTIFIER,
-      key,
-    );
-    const entitiesIds = this.wdk.simplify.sparqlResults(reverseClaimResponse);
-    if (entitiesIds.length === 0) {
-      return null; // throw new Error('not found');
-    }
-    const entityResponse = await this.getEntities(
-      entitiesIds.map((e) => e.subject),
-    );
-    const keys = Object.keys(entityResponse.entities);
-    const claims = get(entityResponse.entities, `${keys[0]}.claims`) || [];
-    const claimKeys = Object.keys(claims);
-    const iucnIdentifier = await this.decorateWithPropertyDescriptions(
-      claimKeys
-        .filter((k) => k === IUCN_TAXON_IDENTIFIER)
-        .map((k) => get(claims, `${k}[0]`)),
-      locale,
-    );
-    return iucnIdentifier;
-  }
-
-  async getIUCNThreatStatus(key, locale) {
-    const reverseClaimResponse = await this.getReverseClaims(
-      WIKI_GBIF_TAXON_IDENTIFIER,
-      key,
-    );
-    const entitiesIds = this.wdk.simplify.sparqlResults(reverseClaimResponse);
-    if (entitiesIds.length === 0) {
-      return null; // throw new Error('not found');
-    }
-    const entityResponse = await this.getEntities(
-      entitiesIds.map((e) => e.subject),
-    );
-    const keys = Object.keys(entityResponse.entities);
-    const claims = get(entityResponse.entities, `${keys[0]}.claims`) || [];
-    const claimKeys = Object.keys(claims);
-
-    const threatStatus = get(
-      claimKeys
-        .filter((k) => k === IUCN_CONSERVATION_STATUS)
-        .map((k) => get(claims, `${k}[0]`)),
-      '[0]',
-    );
+  /**
+   * Resolve the IUCN conservation status (P141) claim into Red List data.
+   */
+  async extractIUCNThreatStatus(claims, locale = 'en') {
+    const threatStatus = get(claims, `${IUCN_CONSERVATION_STATUS}[0]`);
 
     if (!threatStatus) {
       return '';
     }
 
-    const res = await this.getEntities([
-      get(threatStatus, `mainsnak.property`),
+    const [res, value] = await Promise.all([
+      this.getEntities([get(threatStatus, `mainsnak.property`)]),
+      this.resolveWikiDataItem(get(threatStatus, 'mainsnak.datavalue.value.id'), locale),
     ]);
-    const value = await this.resolveWikiDataItem(
-      get(threatStatus, 'mainsnak.datavalue.value.id'),
-      locale,
-    );
+
     return getIUCNRedListData(value, res, threatStatus, locale);
   }
 
@@ -225,11 +191,7 @@ class WikiDataAPI extends RESTDataSource {
   }
 
   async sparqlQuery({ query }) {
-    const response = await this.get(
-      `https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(
-        query,
-      )}`,
-    );
+    const response = await this.get(`https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(query)}`);
     // apollo only accept a few content types so we have to parse it as JSON https://github.com/apollographql/apollo-server/issues/1976
     // const entitiesIds = this.wdk.simplify.sparqlResults(response);
     return JSON.parse(response);

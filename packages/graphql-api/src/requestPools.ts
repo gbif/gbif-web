@@ -91,8 +91,33 @@ const DEFAULT_TIMEOUT_MS = 30000; // conservative: only abort genuinely stuck re
 // One shared queue per pool, created lazily and kept for the life of the process.
 const queues = new Map<PoolName, PQueue>();
 
+// -1 (or any non-finite) is the wire representation of "unbounded".
+const unbounded = (n: number) => (Number.isFinite(n) ? n : -1);
+
+// Runtime overrides applied via the admin endpoint. When a key is present here
+// it wins over the `.env` value; the resolve* functions below consult it first.
+// Ephemeral (in-memory) by design: lost on restart.
+type PoolOverride = Partial<{
+  concurrency: number | string | null;
+  maxQueueDepth: number | string | null;
+  timeoutMs: number | string | null;
+  perRequestConcurrency: number | string | null;
+}>;
+const poolOverrides = new Map<PoolName, PoolOverride>();
+
+// The override value for `key` if set, otherwise the configured `.env` value.
+function poolSettingSource(
+  pool: PoolName,
+  key: keyof PoolOverride,
+  fallback: unknown,
+) {
+  const override = poolOverrides.get(pool);
+  if (override && key in override) return override[key];
+  return get(config, ['requestPools', pool, key], fallback);
+}
+
 function resolveConcurrency(pool: PoolName): number {
-  const value = get(config, ['requestPools', pool, 'concurrency'], Infinity);
+  const value = poolSettingSource(pool, 'concurrency', Infinity);
   // Treat null / 0 / "unbounded" as "no limit" so it can be turned off in config.
   if (
     value === null ||
@@ -107,7 +132,7 @@ function resolveConcurrency(pool: PoolName): number {
 }
 
 function resolveMaxQueueDepth(pool: PoolName): number {
-  const value = get(config, ['requestPools', pool, 'maxQueueDepth'], Infinity);
+  const value = poolSettingSource(pool, 'maxQueueDepth', Infinity);
   if (
     value === null ||
     value === undefined ||
@@ -121,11 +146,7 @@ function resolveMaxQueueDepth(pool: PoolName): number {
 }
 
 export function poolTimeoutMs(pool: PoolName): number {
-  const value = get(
-    config,
-    ['requestPools', pool, 'timeoutMs'],
-    DEFAULT_TIMEOUT_MS,
-  );
+  const value = poolSettingSource(pool, 'timeoutMs', DEFAULT_TIMEOUT_MS);
   if (value === null || value === undefined || value === 'none')
     return Infinity;
   const n = Number(value);
@@ -142,9 +163,9 @@ const DEFAULT_PER_REQUEST_CONCURRENCY = 10;
  * Configurable via `requestPools.<pool>.perRequestConcurrency`.
  */
 export function poolPerRequestConcurrency(pool: PoolName): number {
-  const value = get(
-    config,
-    ['requestPools', pool, 'perRequestConcurrency'],
+  const value = poolSettingSource(
+    pool,
+    'perRequestConcurrency',
     DEFAULT_PER_REQUEST_CONCURRENCY,
   );
   if (
@@ -311,9 +332,67 @@ export function withPoolTimeout<T extends { signal?: AbortSignal }>(
   return { init: { ...init, signal }, abortCause: () => cause };
 }
 
+/** The pools currently known (pre-created at startup, plus any used since). */
+export function getPoolNames(): PoolName[] {
+  return Array.from(queues.keys());
+}
+
+/** The editable per-pool knobs, with the override-or-config value resolved. */
+export function getPoolSettings() {
+  const out: Record<
+    string,
+    {
+      concurrency: number;
+      maxQueueDepth: number;
+      timeoutMs: number;
+      perRequestConcurrency: number;
+    }
+  > = {};
+  getPoolNames().forEach((pool) => {
+    out[pool] = {
+      concurrency: unbounded(resolveConcurrency(pool)),
+      maxQueueDepth: unbounded(resolveMaxQueueDepth(pool)),
+      timeoutMs: unbounded(poolTimeoutMs(pool)),
+      perRequestConcurrency: unbounded(poolPerRequestConcurrency(pool)),
+    };
+  });
+  return out;
+}
+
+export type PoolSettingsPatch = PoolOverride;
+
+/**
+ * Apply a runtime override for one pool. `concurrency` is also pushed onto the
+ * live PQueue immediately (p-queue re-evaluates its running set when the setter
+ * is assigned); the other knobs are read per-call so they take effect on the
+ * next request. Ephemeral: lost on restart.
+ */
+export function setPoolSettings(pool: PoolName, patch: PoolSettingsPatch) {
+  if (!queues.has(pool)) {
+    throw new Error(
+      `Unknown pool '${pool}'. Known pools: ${getPoolNames().join(', ')}.`,
+    );
+  }
+  const next: PoolOverride = { ...(poolOverrides.get(pool) ?? {}) };
+  (
+    [
+      'concurrency',
+      'maxQueueDepth',
+      'timeoutMs',
+      'perRequestConcurrency',
+    ] as const
+  ).forEach((key) => {
+    if (key in patch) next[key] = patch[key];
+  });
+  poolOverrides.set(pool, next);
+  // Apply concurrency to the live queue so it takes effect on in-flight load,
+  // not just newly created queues.
+  getPoolQueue(pool).concurrency = resolveConcurrency(pool);
+  return getPoolSettings()[pool];
+}
+
 /** Lightweight snapshot for diagnostics / health output. (-1 means unbounded.) */
 export function getPoolStats() {
-  const unbounded = (n: number) => (Number.isFinite(n) ? n : -1);
   const stats: Record<
     string,
     {

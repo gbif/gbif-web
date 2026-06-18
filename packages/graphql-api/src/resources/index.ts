@@ -24,6 +24,7 @@ export { default as resource } from './resource';
 export { default as scalars } from './scalars';
 export { default as staffMember } from './staffMember';
 export { default as statusPage } from './statusPage';
+export { default as species } from './species';
 export { default as taxon } from './taxon';
 export { default as taxonMedia } from './taxonMedia';
 export { default as validation } from './validation';

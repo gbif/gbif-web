@@ -36,16 +36,15 @@
       "citations": "인용"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "이 데이터셋은 체크리스트 지표를 이용할 수 없습니다",
       "overview": "체크리스트 개요",
       "overviewDescription": "체크리스트 데이터셋에 대한 요약 통계",
       "usagesCount": "총 이름 사용량",
       "distinctNamesCount": "구별되는 이름",
       "synonymsCount": "이명",
-      "nubMatchingCount": "GBIF 근간 매치",
-      "nubCoveragePct": "GBIF 근간 범위",
       "colMatchingCount": "COL 매치",
-      "colCoveragePct": "COL 평균",
       "countByKingdom": "계를 기준으로 집계",
       "countByKingdomDescription": "계 내에서 이름 사용량 분포",
       "countByRank": "단계별 집계",

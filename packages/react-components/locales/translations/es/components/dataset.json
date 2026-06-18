@@ -36,16 +36,15 @@
       "citations": "Citas"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "Las métricas de la lista de taxones no están disponibles para este conjunto de datos.",
       "overview": "Descripción general de la lista de taxones",
       "overviewDescription": "Estadísticas descriptivas para este conjunto de datos de lista de taxones",
       "usagesCount": "Usos totales de nombres",
       "distinctNamesCount": "Nombres distintos",
       "synonymsCount": "Sinónimos",
-      "nubMatchingCount": "Coincidencias con el listado taxonómico de GBIF",
-      "nubCoveragePct": "Cobertura del listado taxonómico de GBIF",
       "colMatchingCount": "Coincidencias con COL",
-      "colCoveragePct": "Cobertura de COL",
       "countByKingdom": "Conteo por Reino",
       "countByKingdomDescription": "Distribución del uso de nombres en los distintos reinos",
       "countByRank": "Contar por Rango",

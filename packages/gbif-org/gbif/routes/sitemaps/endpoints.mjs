@@ -1,3 +1,4 @@
+import logger from '../../config/logger.mjs';
 import pager from './pager.mjs';
 import prose from './prose.mjs';
 import taxon from './taxon.mjs';
@@ -31,7 +32,7 @@ function getIntervals(f, template, options) {
         res.send(template({ pages, ...options }));
       })
       .catch(function (err) {
-        log.error(err);
+        logger.logError(err, { context: 'sitemap_intervals', path: options?.path });
         next(err);
       });
   };
@@ -50,7 +51,7 @@ function getList(f, template, options) {
         res.send(template({ pages, ...options }));
       })
       .catch(function (err) {
-        log.error(err);
+        logger.logError(err, { context: 'sitemap_list', path: options?.path });
         next(err);
       });
   };
@@ -78,8 +79,12 @@ export function register(app) {
         res.set('Content-Type', 'text/xml');
         res.send(renderProse({ pages }));
       })
-      .catch(function (err) {
-        next(err);
+      .catch(function (e) {
+        if (e.status === 404) {
+          res.status(404).send('Not found');
+        } else {
+          res.status(500).send('Internal server error');
+        }
       });
   });
 
@@ -153,7 +158,11 @@ export function register(app) {
         res.send(sitemapIndex);
       })
       .catch(function (e) {
-        next(e);
+        if (e.status === 404) {
+          res.status(404).send('Not found');
+        } else {
+          res.status(500).send('Internal server error');
+        }
       });
   });
   app.get('/sitemap/taxon/:no.txt', function (req, res, next) {
@@ -164,7 +173,11 @@ export function register(app) {
         res.send(sitemap);
       })
       .catch(function (e) {
-        next(e);
+        if (e.status === 404) {
+          res.status(404).send('Not found');
+        } else {
+          res.status(500).send('Internal server error');
+        }
       });
   });
 }

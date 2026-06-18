@@ -1,9 +1,17 @@
 {
   "generic": "Wystąpił błąd",
+  "genericRequestFailed": "Błąd żądania",
+  "genericDescription": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie później.",
   "unknown": "Nieznany błąd",
   "report": "Zgłoś problem",
   "retry": "Ponów",
+  "partialData": "Nie udało się załadować wszystkich danych",
   "reloadPage": "Odśwież stronę",
   "hideDetails": "Ukryj szczegóły",
-  "showDetails": "Pokaż szczegóły"
+  "showDetails": "Pokaż szczegóły",
+  "mapFailed": "Nie można załadować mapy",
+  "partialMapFailure": "Niektóre kafelki nie załadowały się",
+  "maximumResultLimitExceeded": "Maksymalna liczba wyników dla stronicowania to: {MAX_RESULTS}. Doprecyzuj wyszukiwanie lub skorzystaj z opcji pobierania, aby uzyskać dostęp do wszystkich wyników.",
+  "mapBrowserIssue": "Jeśli problem nadal występuje, najprawdopodobniej jest to spowodowane rozszerzeniami lub ustawieniami przeglądarki, które uniemożliwiają korzystanie z wymaganych interfejsów API (np. WebGL i Canvas)",
+  "webglUnavailable": "WebGL nie jest dostępny. Sprawdź ustawienia przeglądarki lub spróbuj innej. Wtyczki i rozszerzenia również mogą blokować WebGL."
 }

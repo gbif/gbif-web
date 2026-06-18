@@ -86,7 +86,11 @@ const consoleTransport = new winston.transports.Console({
   level,
   handleExceptions: true,
   handleRejections: true,
-  format: winston.format.combine(addFixedFields(), winston.format.timestamp(), colorizedJsonFormat),
+  format: winston.format.combine(
+    addFixedFields(),
+    winston.format.timestamp(),
+    colorizedJsonFormat,
+  ),
 });
 
 // Create the Winston Logger instance
@@ -105,7 +109,6 @@ logger.on('error', (err) => {
   console.error('Logging failed:', err);
 });
 
-// Log initialization message like portal16 did
 logger.info('initialising log');
 
 logger.logError = (error, meta = {}) => {
@@ -115,6 +118,24 @@ logger.logError = (error, meta = {}) => {
     error_stack: error.stack,
     ...meta,
   });
+};
+
+// Runtime log-level control (used by the admin endpoint). Winston's level is
+// mutable, but each transport carries its own level, so set both.
+const VALID_LOG_LEVELS = ['debug', 'info', 'warn', 'error'];
+logger.getLogLevel = () => logger.level;
+logger.setLogLevel = (next) => {
+  const normalized = String(next).toLowerCase();
+  if (!VALID_LOG_LEVELS.includes(normalized)) {
+    throw new Error(
+      `Invalid log level '${next}'. Expected one of: ${VALID_LOG_LEVELS.join(', ')}.`,
+    );
+  }
+  logger.level = normalized;
+  logger.transports.forEach((transport) => {
+    transport.level = normalized;
+  });
+  return normalized;
 };
 
 module.exports = logger;

@@ -36,16 +36,15 @@
       "citations": "Цитирования"
     },
     "checklist": {
+      "info": "Эти метрики дают обзор набора данных контрольного списка. Для более подробных метрик и извлечения данных перейдите по ссылке {checklistbank}",
+      "checklistbank": "Данные контрольного списка ChecklistBank",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "{NUMBER, plural,\n0 {Синонимов}\none {Синоним}\nfew {Синонима}\nmany {Синонимов}\nother {Синонимов}\n}",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",

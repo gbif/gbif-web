@@ -36,16 +36,15 @@
       "citations": "引用"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "このデータセットでは、チェックリスト指標は利用できません",
       "overview": "",
       "overviewDescription": "このチェックリストデータセットの要約統計",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "シノニム",
-      "nubMatchingCount": "GBIF Backbone matches",
-      "nubCoveragePct": "GBIF Backbone coverage",
       "colMatchingCount": "COL matches",
-      "colCoveragePct": "COL coverage",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",

@@ -85,14 +85,14 @@ event:
 # (1-100, lower = more important) that Varnish attaches and the graphql-api
 # forwards. Already-queued requests are never evicted — they drain naturally.
 queue:
-  defaultPriority: 100   # used when the header is missing/invalid
+  defaultPriority: 100 # used when the header is missing/invalid
   # While the backlog exceeds `queueAbove`, requests with priority > `maxPriority`
-  # are rejected (429). Most severe band wins. Omit `shedBands` (or leave it
-  # empty) to disable shedding entirely — the default.
+  # are rejected (429). A request is rejected if it exceeds any band's threshold.
+  # Omit `shedBands` (or leave it empty) to disable shedding entirely — the default.
   shedBands:
-    - queueAbove: 100    # over 100 waiting -> reject priority > 50
+    - queueAbove: 100 # over 100 waiting -> reject priority > 50
       maxPriority: 50
-    - queueAbove: 200    # over 200 waiting -> reject priority > 30
+    - queueAbove: 200 # over 200 waiting -> reject priority > 30
       maxPriority: 30
 
 port: 4001
@@ -119,7 +119,7 @@ Per queue:
 - `waiting` (queued, not started), `running` (being processed), `currentQueueSize` (waiting + running), and `largestSeenQueueSize` (high-water mark of `currentQueueSize` since startup).
 - `concurrencyLimit` and `maxQueueSize`.
 - Cumulative `served` / `failed` / `aborted` (client disconnected) / `rejected` counts.
-- For the occurrence queue, the current `shedding` band.
+- For queues with shedding bands, a `shedding` object with `rejecting` (boolean) and `bands` (the current configuration).
 
 Event loop:
 
@@ -130,11 +130,13 @@ Event loop:
 ## Docker
 
 Docker images can be built and published to docker hub using the following command
+
 ```
 docker buildx build . --push --platform linux/amd64,linux/arm64 --tag "$DOCKER_HUB_ORG/es-api:$(git rev-parse --short HEAD)"
 ```
 
 To run use:
+
 ```
 docker run -p 4001:4001 --mount type=bind,source="$(pwd)"/.env,target=/usr/src/.env -d <DOCKER_HUB_OR_OR_USER>/es-api
 ```

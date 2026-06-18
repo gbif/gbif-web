@@ -4,19 +4,21 @@ import { CubeDimensions } from './types';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '@/reactRouterPlugins';
 import { setTextAreaContentStorageDirectly } from '@/routes/occurrence/download/editor/predicateEditor';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 
 export function useSqlGeneration() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { localizeLink } = useI18n();
+  const currentContextChecklistKey = useChecklistKey();
 
   const generateAndNavigate = async (cube: CubeDimensions, predicate?: any) => {
     setIsGenerating(true);
     setError(null);
 
     try {
-      const result = await generateCubeSql(cube, predicate);
+      const result = await generateCubeSql(cube, predicate, currentContextChecklistKey);
       const useUrl = result.sql.length <= 1700;
       const url = result.sql
         ? `/occurrence/download/sql?${new URLSearchParams(useUrl ? { sql: result.sql } : {})}`

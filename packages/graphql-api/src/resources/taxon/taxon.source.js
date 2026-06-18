@@ -15,33 +15,43 @@ class TaxonAPI extends QueuedRESTDataSource {
 
   willSendRequest(path, request) {
     request.headers['User-Agent'] = this.context.userAgent;
-    request.headers['referer'] = this.context.referer;
-    request.headers['x-client-priority'] = this.context.clientPriority;
+    if (this.context.referer) request.headers.referer = this.context.referer;
+    if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
+    if (this.context.siteUrl) request.headers['x-gbif-site-url'] = this.context.siteUrl;
+    if (this.context.requestId) request.headers['x-request-id'] = this.context.requestId;
+    if (this.context.clientIp) request.headers['x-client-ip'] = this.context.clientIp;
     request.agent = getTaxonAgent(this.baseURL, path);
   }
 
   async taxonSearch({ datasetKey, query }) {
-    const response = await this.get(
-      `/taxon/search/${datasetKey}`,
-      stringify(query, { indices: false }),
-    );
+    const response = await this.get(`/taxon/search/${datasetKey}`, stringify(query, { indices: false }), {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
     response._query = query;
     response._datasetKey = datasetKey;
     return response;
   }
 
   async getDatasetTree({ datasetKey }) {
-    return this.get(`/taxon/tree/${datasetKey}`);
+    return this.get(`/taxon/tree/${datasetKey}`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getTaxon({ datasetKey, key }) {
-    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}`);
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getTaxonInfo({ datasetKey, key }) {
-    return this.get(
-      `/taxon/${datasetKey}/${encodeURIComponent(key)}/info`,
-    ).then((response) => {
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/info`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    }).then((response) => {
       // add logic to add isNamePublishedIn field to the bibliographic item if it matches the taxon namePublishedInID
       const { taxon } = response;
       const namePublishedInID = taxon?.namePublishedInID;
@@ -81,73 +91,73 @@ class TaxonAPI extends QueuedRESTDataSource {
   }
 
   async getRelatedTaxonInfo({ datasetKey, key }) {
-    return this.get(
-      `/taxon/${datasetKey}/${encodeURIComponent(key)}/relatedInfo`,
-    );
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/relatedInfo`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getTaxGroups() {
-    return this.get(`${this.config.checklistBank}/vocab/taxgroup`);
+    return this.get(`${this.config.checklistBank}/vocab/taxgroup`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getRelated({ datasetKey, key, query = {} }) {
-    return this.get(
-      `/taxon/${datasetKey}/${encodeURIComponent(key)}/related`,
-      query,
-    );
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/related`, query, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getChildren({ datasetKey, key, query = {} }) {
-    return this.get(
-      `/taxon/tree/${datasetKey}/${encodeURIComponent(key)}/children`,
-      query,
-    );
+    return this.get(`/taxon/tree/${datasetKey}/${encodeURIComponent(key)}/children`, query, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getParents({ datasetKey, key, query = {} }) {
-    return this.get(
-      `/taxon/tree/${datasetKey}/${encodeURIComponent(key)}`,
-      query,
-    );
+    return this.get(`/taxon/tree/${datasetKey}/${encodeURIComponent(key)}`, query, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async taxonBreakdown({ datasetKey, key }) {
-    return this.get(
-      `/taxon/${datasetKey}/${encodeURIComponent(key)}/breakdown`,
-    );
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/breakdown`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
-    return this.get(
-      `${this.config.apiv2}/species/match/metadata?`,
-      stringify({ checklistKey }, { indices: false }),
-    );
+    return this.get(`${this.config.apiv2}/species/match/metadata?`, stringify({ checklistKey }, { indices: false }), {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
   async getChecklistBankDataset({ clbDatasetKey }) {
-    return this.get(`${this.config.checklistBank}/dataset/${clbDatasetKey}`);
+    return this.get(`${this.config.checklistBank}/dataset/${clbDatasetKey}`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
   }
 
-  async getSpeciesMatchByUsageKey({
-    usageKey,
-    checklistKey = this.config.defaultChecklist,
-  }) {
+  async getSpeciesMatchByUsageKey({ usageKey, checklistKey = this.config.defaultChecklist }) {
     const isIncertaeSedis = usageKey === 0 || usageKey === '0';
     return this.get(
       `${this.config.apiv2}/species/match?`,
-      stringify(
-        { checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey },
-        { indices: false },
-      ),
+      stringify({ checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey }, { indices: false }),
       { enQueue: true, signal: this.context.abortController.signal },
     ).then((result) => {
       if (!result.usage) {
         return null;
       }
       // extract IUCN status if any
-      const iucnEntry = result?.additionalStatus?.find(
-        (x) => x.datasetAlias === 'IUCN',
-      );
+      const iucnEntry = result?.additionalStatus?.find((x) => x.datasetAlias === 'IUCN');
       return {
         ...result,
         checklistKey,
@@ -157,13 +167,11 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
-  async getSpeciesMatchByName({
-    name,
-    checklistKey = this.config.defaultChecklist,
-  }) {
+  async getSpeciesMatchByName({ name, checklistKey = this.config.defaultChecklist }) {
     return this.get(
       `${this.config.apiv2}/species/match?`,
       stringify({ checklistKey, scientificName: name }, { indices: false }),
+      { enQueue: true, signal: this.context.abortController.signal },
     ).then((result) => {
       if (!result.usage) {
         return null;
@@ -176,16 +184,11 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
-  async getTaxonOccurrenceMedia({
-    taxonKey,
-    checklistKey = this.config.defaultChecklist,
-    limit,
-    offset,
-    mediaType,
-  }) {
+  async getTaxonOccurrenceMedia({ taxonKey, checklistKey = this.config.defaultChecklist, limit, offset, mediaType }) {
     return this.get(
       `${this.config.apiv1}/occurrence/experimental/multimedia/species/${checklistKey}/${taxonKey}/`,
       { limit, offset, mediaType },
+      { enQueue: true, signal: this.context.abortController.signal },
     );
   }
 }

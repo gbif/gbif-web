@@ -1,4 +1,9 @@
 {
+  "ACADEMIC_FEDERAL": "Universitaire fédéral ",
+  "ACADEMIC_FOR_PROFIT": "Universitaire à but lucratif",
+  "ACADEMIC_LOCAL": "Universitaire local",
+  "ACADEMIC_NON_PROFIT": "Universitaire sans but lucratif",
+  "ACADEMIC_STATE": "Universitaire état",
   "FEDERAL": "Fédéral",
   "FOR_PROFIT": "À but lucratif",
   "LOCAL": "Local",

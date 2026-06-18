@@ -10,21 +10,33 @@ import { Card, CardContent } from './ui/largeCard';
 interface ContactListProps {
   as?: React.ReactElement;
   contacts?: any[];
+  cap?: number;
   className?: string;
 }
 
-export function ContactList({ contacts = [], className, ...props }: ContactListProps) {
+export function ContactList({ contacts = [], cap = 100, className, ...props }: ContactListProps) {
   return (
-    <ul className={cn('g-p-0 g-m-0 g-list-none', className)} {...props}>
-      {contacts.map((c, i, arr) => (
-        <li
-          className={`${i + 1 !== arr.length ? 'g-border-b' : ''} g-border-slate-200 g-mb-1`}
-          key={`${c.key || i}`}
-        >
-          <Contact contact={c} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className={cn('g-p-0 g-m-0 g-list-none', className)} {...props}>
+        {contacts.slice(0, cap).map((c, i, arr) => (
+          <li
+            className={`${i + 1 !== arr.length ? 'g-border-b' : ''} g-border-slate-200 g-mb-1`}
+            key={`${c.key || i}`}
+          >
+            <Contact contact={c} />
+          </li>
+        ))}
+      </ul>
+      {contacts.length > cap && (
+        <div>
+          <FormattedMessage
+            id="phrases.showingFirstCap"
+            defaultMessage="Showing first {cap} contacts"
+            values={{ cap }}
+          />
+        </div>
+      )}
+    </>
   );
 }
 

@@ -3,6 +3,7 @@ import hash from 'object-hash';
 import { getEnumData } from './enum';
 import config from '@/config';
 import prev from '@/helpers/enums/interpretationRemark.json';
+
 const prevMap = keyBy(prev, 'id');
 
 const second = 1000;
@@ -13,9 +14,7 @@ let status = { status: 'ok', message: null, error: null };
 async function getLatestInterpretationRemark() {
   // Discretely write latest interpretationRemark
   try {
-    const interpretationRemarkLatest = await getEnumData(
-      'enumeration/interpretationRemark',
-    );
+    const interpretationRemarkLatest = await getEnumData('enumeration/interpretationRemark');
     return interpretationRemarkLatest;
   } catch (error) {
     console.log('Failed to fetch latest interpretationRemark from API:');
@@ -27,10 +26,7 @@ async function getLatestInterpretationRemark() {
 
 const getChangedValues = (prevMap, currentMap) => {
   const newValues = difference(Object.keys(currentMap), Object.keys(prevMap));
-  const missingValues = difference(
-    Object.keys(prevMap),
-    Object.keys(currentMap),
-  );
+  const missingValues = difference(Object.keys(prevMap), Object.keys(currentMap));
   let msg = '';
   if (newValues.length) {
     msg += `New values: ${newValues.join(', ')}`;
@@ -43,10 +39,7 @@ const getChangedValues = (prevMap, currentMap) => {
 
 const getTermDiffs = (current, prev) => {
   // First check if they are JSON identical before doing the expensive check
-  if (
-    hash(current, { unorderedArrays: true }) ===
-    hash(prev, { unorderedArrays: true })
-  ) {
+  if (hash(current, { unorderedArrays: true }) === hash(prev, { unorderedArrays: true })) {
     return [];
   }
   return [
@@ -62,21 +55,13 @@ const getChangeReport = async (current) => {
     .map((key) => {
       if (
         currentMap[key] &&
-        hash(currentMap[key], { unorderedArrays: true }) !==
-          hash(prevMap[key], { unorderedArrays: true })
+        hash(currentMap[key], { unorderedArrays: true }) !== hash(prevMap[key], { unorderedArrays: true })
       ) {
         const statusDiffMsg =
-          prevMap[key].status !== currentMap[key].status
-            ? `Status changed to ${currentMap[key].status}`
-            : '';
-        const termsDiffMsg = getTermDiffs(
-          currentMap[key].relatedTerms,
-          prevMap[key].relatedTerms,
-        );
+          prevMap[key].status !== currentMap[key].status ? `Status changed to ${currentMap[key].status}` : '';
+        const termsDiffMsg = getTermDiffs(currentMap[key].relatedTerms, prevMap[key].relatedTerms);
         return statusDiffMsg || termsDiffMsg.length > 0
-          ? `${key}: ${
-              statusDiffMsg ? `${statusDiffMsg}; ` : ''
-            }${termsDiffMsg.join('; ')}`
+          ? `${key}: ${statusDiffMsg ? `${statusDiffMsg}; ` : ''}${termsDiffMsg.join('; ')}`
           : undefined;
       }
       return undefined;

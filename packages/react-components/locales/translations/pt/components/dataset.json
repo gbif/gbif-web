@@ -36,16 +36,15 @@
       "citations": "Citações"
     },
     "checklist": {
+      "info": "Essas métricas fornecem uma visão geral do conjunto de dados da lista de espécies. Para métricas mais detalhadas e exploração de dados, visite {checklistbank}.",
+      "checklistbank": "ChecklistBank",
       "notAvailable": "As métricas da lista de espécies não estão disponíveis para este conjunto de dados.",
       "overview": "Visão geral da lista de espécies",
       "overviewDescription": "Estatísticas resumidas para este conjunto de dados de lista de espécies.",
       "usagesCount": "Total de utilizações do nome",
       "distinctNamesCount": "Nomes distintos",
       "synonymsCount": "Sinónimos",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "Cobertura COL",
       "countByKingdom": "Contagem por Reino",
       "countByKingdomDescription": "Distribuição do uso dos nomes entre os reinos",
       "countByRank": "Contagem por categoria",
@@ -147,7 +146,7 @@
   "includesDnaDescription": "Existem registros neste conjunto de dados que contêm dados de sequência.",
   "containsSamplingEvents": "Contém eventos de amostragem",
   "containsSamplingEventsDescription": "Este conjunto de dados contém dados de amostragem. Detalhes sobre o método de amostragem aparecem na seção de metodologia da descrição do conjunto de dados.",
-  "griddedData": "",
+  "griddedData": "\n",
   "griddedDataDescription": "Com base em nossa análise dos registros, esse conjunto de dados provavelmente contém dados em grade. Leia mais nesta [postagem sobre conjuntos de dados em grade](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Métrica de ocorrências",
   "registry": {

@@ -35,7 +35,7 @@ export const occurrenceKeyRoutes: RouteObjectWithPlugins[] = [
         element: <OccurrenceKeyPhylo />,
       },
       {
-        path: 'related',
+        path: 'cluster',
         element: <OccurrenceKeyCluster />,
       },
     ],

@@ -1,62 +1,50 @@
 {
   "dwcaExtension": {
     "name": "Extension DwC-A",
-    "count": "{num, plural, one { extension DWCA } other {# extensions DWCA}}",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "locationId": {
     "name": "ID de localisation",
-    "count": "{num, plural, one {ID de localité } other {# IDs de localité}}",
     "description": "Les éditeurs peuvent choisir d'attribuer des identifiants à l'emplacement. Ce champ n'est pas normalisé, ce qui signifie que vous effectuez la recherche à partir des données fournies par l'éditeur."
   },
   "hasCoordinate": {
     "name": "A des coordonnées",
-    "count": "A des coordonnées",
     "description": "Si l'enregistrement comporte des coordonnées."
   },
   "hasGeospatialIssues": {
     "name": "Présente des problèmes géospatiaux",
-    "count": "Présente des problèmes géospatiaux",
     "description": "Si l'enregistrement présente des problèmes géospatiaux."
   },
   "collectionKey": {
     "name": "Collection",
-    "count": "{num, plural, one {# collection } other {# collections}}",
     "description": "La collection de GrSciColl à laquelle cet enregistrement a été associé"
   },
   "predicate": {
     "name": "Requête complexe",
-    "count": "{num, plural, one { requête complexe } other {# requêtes complexes}}",
     "description": "Une requête complexe pour filtrer les enregistrements."
   },
   "taxonomicStatus": {
     "name": "Statut",
-    "count": "{num, plural, one { statut } other {# statuts}}",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "taxonRank": {
     "name": "Niveau du taxon",
-    "count": "{num, plural, one { rang } other {# rangs}}",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "numberSpecimens": {
     "name": "Nombre de spécimens",
-    "count": "",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "specimensInGbif": {
     "name": "Spécimens sur GBIF",
-    "count": "{num, plural, one {comptage des spécimens GBIF} other {# spécimens sur GBIF}}",
     "description": "Nombre d'enregistrements de spécimens publiés sur GBIF et associés à la fiche de l'institution."
   },
   "iucnRedListCategory": {
     "name": "Catégorie de la Liste rouge mondiale de l'UICN",
-    "count": "{num, plural, one { catégorie de la Liste rouge mondiale de l'UICN } other {# catégories de la Liste rouge mondiale de l'UICN}}",
     "description": "La Liste rouge des espèces menacées de l'UICN regroupe les taxons selon le niveau de menaces auxquels ils font face."
   },
   "geoDistance": {
     "name": "Distance par rapport aux coordonnées",
-    "count": "{num, plural, one { filtre } other {# filtres }}",
     "description": "Filtrer les enregistrements à une distance donnée d'un point",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
@@ -64,7 +52,6 @@
   },
   "geometry": {
     "name": "Lieu",
-    "count": "{num, plural, one { filtre } other {# filtres }}",
     "description": "Filtrer les enregistrements situés dans une zone géométrique donnée. Cette zone peut être un point, une ligne, un polygone ou un rectangle de délimitation.",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
@@ -72,882 +59,709 @@
   },
   "relevance": {
     "name": "Pertinence",
-    "count": "{num, plural, one { pertinence } other {# filtres de pertinence}}",
     "description": "Comment le GBIF est-il utilisé dans la littérature."
   },
   "topics": {
     "name": "Thème",
-    "count": "{num, plural, one { sujet } other {# sujets}}",
     "description": "Quels sont les sujets de l'enregistrement."
   },
   "audiences": {
     "name": "Public",
-    "count": "{num, plural, one { audience } other {# audiences}}",
     "description": "Quelle est l'audience de la ressource. "
   },
   "biostratigraphy": {
     "name": "Biostratigraphie",
-    "count": "{num, plural, one { biostratigraphie } other {# biostratigraphies}}",
     "description": "Le contexte biostratigraphique de l'enregistrement."
   },
   "lithostratigraphy": {
     "name": "Lithostratigraphie",
-    "count": "{num, plural, one { lithostratigraphie } other {# lithostratigraphies}}",
     "description": "Le contexte lithostratigraphique de l'enregistrement."
   },
   "geologicalTime": {
     "name": "Temps géologique",
-    "count": "{num, plural, one { temps géologique } other {# temps géologiques }}",
     "description": "Le contexte géochronologique de l'enregistrement."
   },
   "purposes": {
     "name": "Thème",
-    "count": "{num, plural, one { but } other {# buts}}",
     "description": "Quels sont les buts de la ressource."
   },
   "eventDate": {
     "name": "Date de l'événement",
-    "count": "{num, plural, one {# date d'événement } other {# dates d'événement}}",
     "description": "À quelle date cet enregistrement a-t-il été recueilli ou observé ?"
   },
   "gbifId": {
     "name": "ID du GBIF",
-    "count": "{num, plural, one { ID GBIF } other {# IDs GBIF}}",
     "description": "L'identifiant unique de l'enregistrement dans la base de données GBIF."
   },
   "organismQuantityType": {
     "name": "Type de quantité d’organisme",
-    "count": "",
-    "description": ""
+    "description": "Le type de mesure pour la \"quantité d'organismes\"."
   },
   "pathway": {
     "name": "Chemin",
-    "count": "",
-    "description": ""
+    "description": "La voie par laquelle l'organisme a été introduit."
   },
   "associatedSequences": {
     "name": "Séquences associées",
-    "count": "",
-    "description": ""
+    "description": "Un identifiant de toute séquence associée à l'enregistrement. Généralement une URL."
   },
   "degreeOfEstablishment": {
     "name": "Degré d'établissement",
-    "count": "",
-    "description": ""
+    "description": "Le degré d'implantation de l'organisme dans l'environnement."
   },
   "endDayOfYear": {
     "name": "Dernier jour de l'année",
-    "count": "",
-    "description": ""
+    "description": "Le jour de l'année où l'événement s'est terminé."
   },
   "startDayOfYear": {
     "name": "Premier jour de l'année",
-    "count": "",
-    "description": ""
+    "description": "Le jour de l'année où l'événement a débuté."
   },
   "previousIdentifications": {
     "name": "Identifications précédentes",
-    "count": "",
-    "description": ""
+    "description": "Identifications taxonomiques antérieures associées à cet enregistrement."
   },
   "lastInterpreted": {
     "name": "Dernière interprétation",
-    "count": "",
-    "description": ""
+    "description": "Date de la dernière interprétation de l'enregistrement."
   },
   "alternativeCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Code alternatif",
+    "description": "Tout code supplémentaire déjà utilisé pour le même enregistrement dans d'autres contextes (par exemple, des codes historiques)."
   },
   "identifier": {
     "name": "Identifiant",
-    "count": "",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "institutionType": {
     "name": "Type ",
-    "count": "",
-    "description": ""
+    "description": "Type d'institution (musée, herbier, etc.)"
   },
   "discipline": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Discipline ",
+    "description": "Les disciplines de recherche soutenues par l'établissement."
   },
   "collectionContentType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Type de contenu",
+    "description": "Le type d'objets disponibles dans la collection"
   },
   "preservationType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Type de conservation",
+    "description": "La méthode utilisée pour préserver les objets disponibles dans la collection"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Type de biome",
+    "description": "Le type de biome auquel l'organisme est associé."
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Classification de l'objet",
+    "description": "La classification du ou des objets de la collection."
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
-    "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
     "description": "Le nom scientifique tel qu'il apparaît dans le squelette taxonomique du GBIF. Ces noms sont normalisés pour faciliter la recherche dans tous les jeux de données. Il est possible qu'un nom fourni à l'origine soit mal interprété ou inconnu. Pour rechercher les noms tels que fournis, utilisez le filtre \"Verbatim du nom scientifique\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Nom scientifique du taxon",
-    "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
-    "description": ""
+    "description": "Filtrer en utilisant les noms scientifiques répertoriés dans les descripteurs de collection fournis dans les métadonnées de la collection, en gardant à l'esprit que toutes les collections ne comportent pas de descripteurs de métadonnées et que les noms se situent souvent à des niveaux taxonomiques supérieurs, tels que l'ordre ou la famille."
   },
   "basisOfRecord": {
     "name": "Base de registre",
-    "count": "{num, plural, one {base d'enregistrement} other {# bases d'enregistrements}}",
     "isNotNull": "A une base d'enregistrement",
     "isNull": "N'a pas une base d'enregistrement",
     "description": "La nature des preuves sur lesquelles se fonde l'enregistrement."
   },
   "institutionCode": {
     "name": "Code de l'institution",
-    "count": "{num, plural, one {code d'institution} other {# codes d'institution}}",
     "description": "Code (ou acronyme) de l'institution a l'autorité sur des objet(s) ou sur les informations visées dans l'enregistrement."
   },
   "catalogNumber": {
     "name": "Numéro de catalogue",
-    "count": "{num, plural, one { catalogue number } other {# catalogue numbers}}",
     "description": "L'identifiant de l'enregistrement dans un catalogue ou une collection."
   },
   "mediaType": {
     "name": "Type de média",
-    "count": "{num, plural, one {media type} other {# media types}}",
     "description": "Les types de médias accessibles pour cet enregistrement."
   },
   "occurrenceIssue": {
     "name": "Problèmes et drapeaux",
-    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "A des problèmes",
     "isNull": "N'a aucun problème",
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Problèmes et drapeaux taxonomiques",
+    "isNotNull": "Présente des problèmes taxonomiques",
+    "isNull": "Ne présente pas de problèmes taxonomiques",
+    "description": "Les types de problèmes taxonomiques ou de signaux d'intérêt potentiel découverts lors du traitement des données."
   },
   "occurrenceCountry": {
     "name": "Pays",
-    "count": "{num, plural, one {country or area} other {# countries or areas}}",
     "description": "Pays ou territoire où l'événement s'est produit"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "Pays ou territoire figurant dans l'adresse de l'enregistrement"
   },
   "preparations": {
     "name": "Préparations",
-    "count": "",
-    "description": ""
+    "description": "Comment l'échantillon a été préparé (par exemple, séché)"
   },
   "repatriated": {
     "name": "Rapatrié",
-    "count": "",
-    "description": ""
+    "description": "Si l'enregistrement a été rapatrié ou non dans son pays d'origine."
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
-    "count": "{num, plural, one {publishing country or area} other {# publishing countries or areas}}",
     "description": "Le code ISO du pays ou du territoire où se trouve l'éditeur de données"
   },
   "q": {
     "name": "Recherche textuelle",
-    "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": ""
+    "description": "Recherche en texte intégral dans plusieurs champs"
   },
   "coordinates": {
     "name": "Coordonnées"
   },
   "elevation": {
     "name": "Altitude",
-    "count": "{num, plural, one {elevation filter} other {# elevation filters}}",
     "description": "La distance au-dessus d'un point de référence vertical (généralement niveau moyen de la mer ou un géoïde) en mètres."
   },
   "license": {
     "name": "Licence",
-    "count": "{num, plural, one {licence} other {# licences}}",
     "description": "La licence légale ou la renonciation sous laquelle l'enregistrement est partagé."
   },
   "datasetKey": {
     "name": "Ensemble de données",
-    "count": "{num, plural, one {dataset} other {# datasets}}",
     "description": "Le titre du jeu de données sous lequel l'enregistrement est partagé."
   },
   "datasetId": {
     "name": "ID du jeu de données",
-    "count": "",
-    "description": ""
+    "description": "L'identifiant interne de l'éditeur correspondant au jeu de données auquel l'enregistrement est associé. Notez qu'il ne s'agit pas du \"datasetKey\" utilisé sur GBIF pour ce jeu de données."
   },
   "publisherKey": {
     "name": "Fournisseurs de données",
-    "count": "{num, plural, one {publisher} other {# publishers}}",
     "description": "Le nom de l'organisation responsable du partage du jeu de données dans lequel l'enregistrement est inclus."
   },
   "gbifPublisherKey": {
     "name": "Éditeur GBIF",
-    "count": "{num, plural, one {éditeur GBIF} other {# éditeurs GBIF}}",
     "description": "Le nom de l'organisation responsable du partage du jeu de données dans lequel l'enregistrement est inclus."
   },
   "hostingOrganizationKey": {
     "name": "Organisation hôte",
-    "count": "{num, plural, one {host} other {# hosts}}",
     "description": "Le nom de l'organisation hébergeant le jeu de données dans lequel l'enregistrement est publié."
   },
   "country": {
-    "name": "Pays",
-    "count": "{num, plural, one {country or area} other {# countries or areas}}"
+    "name": "Pays"
   },
   "countriesOfCoverage": {
     "name": "Pays ou région de couverture",
-    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
-    "description": ""
+    "description": "Les pays concernés par cet enregistrement."
   },
   "collectionDescriptorCountry": {
     "name": "Pays ou région de couverture",
-    "count": "{num, plural, one {pays ou zone de couverture} other {# pays ou zones de couverture}}",
-    "description": ""
+    "description": "De quels pays proviennent les spécimens de cette collection ? Veuillez noter que toutes les collections ne fournissent pas cette information."
   },
   "countriesOfResearcher": {
-    "name": "Pays ou région du chercheur",
-    "count": "{num, plural, one {country or area of researcher} other {# countries or areas of researchers}}"
+    "name": "Pays ou région du chercheur"
   },
   "typeStatus": {
     "name": "Statut du type",
-    "count": "{num, plural, one {type status} other {# type statuses}}",
     "isNotNull": "A un statut de type",
     "isNull": "Le statut du type",
     "description": "La désignation du type d'un spécimen."
   },
   "year": {
     "name": "Année",
-    "count": "{num, plural, one {year filter} other {# year filters}}",
     "description": "L'année au cours de laquelle l'événement s'est produit."
   },
   "sampleSizeUnit": {
     "name": "Unité de la taille d'échantillonnage",
-    "count": "{num, plural, one {sample size unit} other {# sample size units}}",
     "description": "L'unité de mesure pour la \"valeur de la taille de l'échantillon\"."
   },
   "coordinateUncertainty": {
     "name": "Incertitude des coordonnées",
-    "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "Mesure de la distance minimale en mètres d'une coordonnée à l'intérieur de laquelle une localité peut être interprétée."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Distance du centroïde en mètre",
+    "description": "La distance en mètres par rapport au centroïde du pays."
   },
   "depth": {
     "name": "Profondeur",
-    "count": "{num, plural, one { depth } other {# depths}}",
     "description": "La distance en dessous d'une surface locale, en mètres."
   },
   "organismQuantity": {
     "name": "Quantité de l’organisme",
-    "count": "{num, plural, one { organism quantity } other {# organism quantitys}}",
     "description": "La valeur pour la quantité des organismes, où le type de mesures est donné dans le \"type  de quantité d'organismes\". "
   },
   "sampleSizeValue": {
     "name": "Valeur de la taille d'échantillonnage",
-    "count": "{num, plural, one { sample size value } other {# sample size values}}",
     "description": "La valeur pour la taille de l'échantillon, où les unités de mesure sont données dans \"Unité de la taille de l'échantillon\". "
   },
   "relativeOrganismQuantity": {
     "name": "Quantité relative de l'organisme",
-    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
     "description": "La quantité de matière biologique relative à la taille d'un échantillon, calculée en tant qu'organismQuantity per sampleSize lorsque l'organismeQuantityType et sampleSizeUnit sont sans ambiguïté."
   },
   "month": {
     "name": "Mois",
-    "count": "{num, plural, one { month } other {# months}}",
     "description": "L' entier du mois au cours duquel l'événement s'est produit."
   },
   "continent": {
     "name": "Continent",
-    "count": "{num, plural, one { continent } other {# continents}}",
     "description": "Le nom du continent dans lequel se trouve la localité. Ce champ n'est pas inféré, mais seulement rempli si fourni par l'éditeur du jeu de données. L'application de ce filtre peut exclure les enregistrements pertinents."
   },
   "protocol": {
     "name": "Protocole de publication",
-    "count": "{num, plural, one { protocol } other {# protocols}}",
     "description": "Le protocole technique par lequel le jeu de données est partagé."
   },
   "establishmentMeans": {
     "name": "Mode d'établissement",
-    "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "Les moyens par lesquels l'organisme a été introduit à un endroit donné à un moment donné."
   },
   "sex": {
     "name": "Sexe",
-    "count": "",
-    "description": ""
+    "description": "Le sexe de l'organisme"
   },
   "lifeStage": {
     "name": "Stade de développement",
-    "count": "",
-    "description": ""
+    "description": "Le stade de vie de l'organisme."
   },
   "recordedBy": {
     "name": "Enregistré par",
-    "count": "{num, plural, one { recorded by } other {# recorded bys}}",
     "description": "Les noms de la personne, des personnes, des groupes ou des organisations responsables de l'enregistrement de l'occurrence originale."
   },
   "fieldNumber": {
     "name": "Numéro de terrain",
-    "count": "",
-    "description": ""
+    "description": "L'identifiant attribué au lieu par le collecteur."
   },
   "verbatimTaxonId": {
     "name": "Verbatim de l'ID du taxon",
-    "count": "",
-    "description": ""
+    "description": "L'identifiant du taxon tel que fourni par l'éditeur."
   },
   "islandGroup": {
     "name": "Archipel",
-    "count": "",
-    "description": ""
+    "description": "Le nom de l'archipel où se situe le lieu."
   },
   "island": {
     "name": "Île",
-    "count": "",
-    "description": ""
+    "description": "Le nom de l'île où se situe le lieu."
   },
   "georeferencedBy": {
     "name": "Géoréférencé par",
-    "count": "",
-    "description": ""
+    "description": "Les noms des personnes, groupes ou organisations responsables du géoréférencement de l'occurrence initiale."
   },
   "datasetName": {
     "name": "Nom du jeu de données",
-    "count": "",
-    "description": ""
+    "description": "Le nom du jeu de données utilisé par l'éditeur. Les enregistrements d'un jeu de données peuvent provenir de plusieurs autres jeux de données."
   },
   "programme": {
     "name": "Programme",
-    "count": "",
-    "description": ""
+    "description": "Le nom du programme auquel l'enregistrement est associé."
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
-    "count": "{num, plural, one { record number } other {# record numbers}}",
     "description": "Un identifiant donné à l'occurrence au moment où elle a été enregistrée."
   },
   "collectionCode": {
     "name": "Code de la collection",
-    "count": "{num, plural, one { collection code } other {# collection codes}}",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "projectId": {
     "name": "Identifiant du projet",
-    "count": "",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "recordedById": {
     "name": "ID de Enregistré par",
-    "count": "{num, plural, one { recorded by ID } other {# recorded by IDs}}",
     "description": "L'identifiant de la personne, des personnes, des groupes ou des organisations responsables de l'enregistrement de l'occurrence originale."
   },
   "identifiedById": {
     "name": "ID de Identifié par",
-    "count": "{num, plural, one { identified by id } other {identified by #}}",
     "description": "L'identifiant de la personne, des personnes, des groupes ou des organisations responsables de la détermination du nom scientifique de l'organisme."
   },
   "occurrenceId": {
     "name": "ID de l'occurence",
-    "count": "{num, plural, one { occurrence ID } other {# occurrence IDs}}",
     "description": "L'identifiant unique pour l'enregistrement de l'occurrence."
   },
   "organismId": {
     "name": "ID de l’organisme",
-    "count": "{num, plural, one { organism ID } other {# organism IDs}}",
     "description": "L'identifiant unique pour l'organisme dans l'enregistrement."
   },
   "locality": {
     "name": "Localité",
-    "count": "{num, plural, one { locality } other {# localities}}",
     "description": "La partie spécifique de la description du lieu."
   },
   "waterBody": {
     "name": "Étendue d'eau",
-    "count": "{num, plural, one { water body } other {# water bodies}}",
     "description": "Le nom du plan d'eau dans lequel se trouve la localité."
   },
   "higherGeography": {
     "name": "Géographie supérieure",
-    "count": "",
-    "description": ""
+    "description": "Niveau géographique supérieur auquel se situe l'enregistrement. Il ne s'agit pas d'un champ interprété, mais des données d'origine telles qu'elles ont été fournies par l'éditeur. Plusieurs valeurs peuvent être fournies."
   },
   "stateProvince": {
     "name": "État/Province",
-    "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "Le nom de la région administrative la plus proche plus petite que le pays dans lequel se trouve l'emplacement."
   },
   "gbifRegion": {
     "name": "Région GBIF",
-    "count": "",
-    "description": ""
+    "description": "La région GBIF du lieu."
   },
   "publishedByGbifRegion": {
     "name": "Publié par une région GBIF",
-    "count": "",
-    "description": ""
+    "description": "La région GBIF dans laquelle le jeu de données est publié."
   },
   "eventId": {
     "name": "ID de l'événement",
-    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "L'identifiant unique pour l'événement dans l'enregistrement."
   },
   "eventID": {
     "name": "ID de l'événement",
-    "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
     "description": "L'identifiant unique pour l'événement dans l'enregistrement."
   },
   "parentEventId": {
     "name": "ID de l'événement parent",
-    "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
-    "description": ""
+    "description": "L'identifiant unique de l'événement parent dans l'enregistrement."
   },
   "locationID": {
     "name": "ID de localisation",
-    "count": "{num, plural, one { ID d'événement } other {# IDs d'événement}}",
-    "description": ""
+    "description": "L'identifiant unique du site dans l'enregistrement."
   },
   "measurementOrFactTypes": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Types de mesure",
+    "description": "Le type de mesure."
   },
   "measurementOrFactCount": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Compte de mesure",
+    "description": "Le compte d'un type de mesure donné."
   },
   "occurrenceCount": {
     "name": "Nombre d’occurrences",
-    "count": "",
-    "description": ""
+    "description": "Nombre d'occurrences pour cet événement"
   },
   "eventType": {
     "name": "Type d'évènement",
-    "count": "",
-    "description": ""
+    "description": "Le type de l'événement d'échantillonnage."
   },
   "dataStructure": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Structure",
+    "description": "La structure des données pour l'événement d'échantillonnage."
   },
   "samplingProtocol": {
     "name": "Protocole d'échantillonnage",
-    "count": "{num, plural, one { sampling protocol } other {# sampling protocols}}",
     "description": "Le nom, la référence ou la description de la méthode ou du protocole utilisé pendant un événement."
   },
   "occurrenceStatus": {
     "name": "Statut de l'occurrence",
-    "count": "{num, plural, one { occurrence status } other {# occurrence statuses}}",
     "description": "La présence ou l'absence d'organismes du taxon donné."
   },
   "gadmGid": {
     "name": "Zone administrative",
-    "count": "{num, plural, one { administrative area } other {# administrative areas}}",
     "description": "Le nom de toute zone administrative de GADM.org déterminée lors du traitement des enregistrements."
-  },
-  "identifiedBy": {
-    "description": "La personne, les personnes, les groupes ou les organisations responsables de la détermination du nom scientifique de l'Organisme.",
-    "name": "Identifié par",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
   },
   "isInCluster": {
     "name": "Est dans le regroupement",
-    "count": "",
     "description": "Est-ce que l'enregistrement a été déterminé à avoir des enregistrements liés."
   },
   "isSequenced": {
     "name": "Est séquencé",
-    "count": "{num, plural, one { Est séquencé } other {# Sont séquencés}}",
     "description": "Si l'enregistrement a des informations sur les séquences "
   },
   "active": {
     "name": "Activé",
-    "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une collection ou à une institution encore en activité, ou à une mention historique qui n'existe plus."
   },
   "activeInstitution": {
     "name": "Activé",
-    "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une institution encore en activité, ou à une mention historique qui n'existe plus."
   },
   "activeCollection": {
     "name": "Activé",
-    "count": "Activé",
-    "description": ""
+    "description": "Si l'entrée correspond à une collection encore en activité, ou à une mention historique qui n'existe plus."
   },
   "publicationDate": {
     "name": "Date de publication",
-    "count": "",
     "description": ""
   },
   "personalCollection": {
     "name": "Collection personnelle",
-    "count": "Collection personnelle",
-    "description": ""
+    "description": "Sélectionne des collections privées ou personnelles"
   },
   "datasetType": {
     "name": "Type de jeu de données",
-    "count": "{num, plural, one { dataset type } other {# dataset types}}",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "datasetSubtype": {
     "name": "Sous-type du jeu de données",
-    "count": "{num, plural, one { dataset subtype } other {# dataset subtypes}}",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "institutionKey": {
     "name": "Institution",
-    "count": "{num, plural, one { institution } other {# institutions}}",
     "description": "Le nom de l'institution ayant l'autorité sur les objet(s) ou des informations visées dans l'enregistrement."
   },
   "name": {
     "name": "Nom",
-    "count": "{num, plural, one { name } other {# names}}",
-    "description": "",
-    "searchPlaceholder": ""
+    "description": "Le nom de l'entité",
+    "searchPlaceholder": "Recherche par titre/nom"
   },
   "city": {
     "name": "Ville",
-    "count": "{num, plural, one { city } other {# cities}}",
-    "description": ""
+    "description": "Ville où se trouve l'institution ou la collection."
   },
   "code": {
     "name": "Code",
-    "count": "{num, plural, one { code } other {# codes}}",
-    "description": ""
+    "description": "Le code principal qui identifie l'enregistrement dans son ensemble. Si vous n'obtenez aucun résultat, essayez le filtre par code alternatif."
   },
   "verbatimScientificName": {
     "name": "Verbatim du nom scientifique",
-    "count": "{num, plural, one { verbatim scientific name } other {# verbatim scientific names}}",
     "description": "Le nom scientifique comme fourni par l'éditeur de données sans aucune normalisation."
   },
   "networkKey": {
     "name": "Réseau",
-    "count": "",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "literatureType": {
     "name": "Type de littérature",
-    "count": "{num, plural, one { literature type } other {# literature types}}",
     "description": "De quel type de littérature provient la citation."
   },
   "higherTaxonKey": {
     "name": "Taxon supérieur",
-    "count": "{num, plural, one {# taxon} other {# taxons}}",
     "description": "Taxon supérieur pour filtrage"
   },
   "issueEnum": {
     "name": "Problèmes et drapeaux",
-    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "A des problèmes",
     "isNull": "N'a aucun problème",
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "humboldtBooleans": {
     "name": "Extension Humboldt",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
     "description": "Soutien étendu pour les Événements (Events) de Darwin Core correspondants aux inventaires écologiques"
   },
   "siteCount": {
     "description": "Nombre total de sites individuels étudiés au cours du dwc:Event.",
-    "name": "Nombre de Sites",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": "Nombre de Sites"
   },
   "siteNestingDescription": {
     "description": "Description textuelle du plan hiérarchique d'échantillonnage .",
-    "name": "Description de l'Imbrication des Sites",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": "Description de l'Imbrication des Sites"
   },
   "verbatimSiteDescriptions": {
     "description": "Description textuelle originale des sites.",
-    "name": "Descriptions verbatim des Sites",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": "Descriptions verbatim des Sites"
   },
   "verbatimSiteNames": {
     "description": "Une liste (concaténée et séparée) de noms originaux des sites.",
-    "name": "Noms verbatim des Sites",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": "Noms verbatim des Sites"
   },
   "geospatialScopeAreaValue": {
-    "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "description": "La valeur numérique de la superficie totale de la portée géospatiale de l'événement dwc:Event.",
+    "name": "Valeur de la zone d'étendue géospatiale"
   },
   "geospatialScopeAreaUnit": {
-    "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "description": "Les unités associées à eco:geospatialScopeAreaValue",
+    "name": "Unité de la zone d'étendue géospatiale"
   },
   "totalAreaSampledValue": {
-    "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "description": "La valeur numérique de la superficie totale étudiée lors de l'événement dwc:Event.",
+    "name": ""
   },
   "totalAreaSampledUnit": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "reportedWeather": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "reportedExtremeConditions": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "targetHabitatScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "excludedHabitatScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "eventDurationValue": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "eventDurationUnit": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "targetTaxonomicScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "excludedTaxonomicScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "taxonCompletenessReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "taxonCompletenessProtocols": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isTaxonomicScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isAbsenceReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "absentTaxa": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "hasNonTargetTaxa": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "nonTargetTaxa": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "areNonTargetTaxaFullyReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "targetLifeStageScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "excludedLifeStageScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isLifeStageScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "targetDegreeOfEstablishmentScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "excludedDegreeOfEstablishmentScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isDegreeOfEstablishmentScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "targetGrowthFormScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "excludedGrowthFormScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isGrowthFormScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "hasNonTargetOrganisms": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "verbatimTargetScope": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
+  },
+  "identifiedBy": {
+    "description": "La personne, les personnes, les groupes ou les organisations responsables de la détermination du nom scientifique de l'Organisme.",
+    "name": "Identifié par"
   },
   "identificationReferences": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "compilationTypes": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "compilationSourceTypes": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "inventoryTypes": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "protocolNames": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "protocolDescriptions": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "protocolReferences": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isAbundanceReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isAbundanceCapReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "abundanceCap": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isVegetationCoverReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "hasVouchers": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "voucherInstitutions": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "hasMaterialSamples": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "materialSampleTypes": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "samplingPerformedBy": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "isSamplingEffortReported": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "samplingEffortProtocol": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "samplingEffortValue": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   },
   "samplingEffortUnit": {
     "description": "",
-    "name": "",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}"
+    "name": ""
   }
 }

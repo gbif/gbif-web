@@ -7,7 +7,10 @@ async function getPredicateFromGraphQL(
     import.meta.env.PUBLIC_GRAPHQL_ENDPOINT + `?variablesId=${variablesId}&queryId=${queryId}`;
 
   const response = await fetch(endpoint, {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(typeof window !== 'undefined' ? { 'x-gbif-site-url': window.location.href } : {}),
+    },
     signal,
   });
 

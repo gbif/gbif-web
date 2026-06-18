@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-export function BibliographicCitations({ bibliographicCitations = [], ...props }) {
+export function BibliographicCitations({ bibliographicCitations = [], cap = 200, ...props }) {
   // I really dislike "show all"-buttons that only show me one more item. Just show the damn item to begin with then. It is such a disappointing experience.
   // So instead we do: if less than 10 items then show them all. If above 10, then show 5 + expand button.
   // then it feels like you are rewarded for your action
@@ -12,7 +12,7 @@ export function BibliographicCitations({ bibliographicCitations = [], ...props }
     bibliographicCitations.length < 10
       ? bibliographicCitations
       : bibliographicCitations.slice(0, threshold);
-  const hasHidden = bibliographicCitations.length > citations.length;
+  const hasHidden = bibliographicCitations.length > citations.length && threshold < cap;
   return (
     <div className="g-prose g-max-w-full">
       <ul>
@@ -21,9 +21,18 @@ export function BibliographicCitations({ bibliographicCitations = [], ...props }
         ))}
       </ul>
       {hasHidden && (
-        <Button onClick={() => setThreshold(500)}>
+        <Button onClick={() => setThreshold(cap)}>
           <FormattedMessage id="phrases.showAll" />
         </Button>
+      )}
+      {!hasHidden && bibliographicCitations.length > cap && (
+        <div>
+          <FormattedMessage
+            id="phrases.showingFirstCap"
+            defaultMessage="Showing first {cap} contacts"
+            values={{ cap }}
+          />
+        </div>
       )}
     </div>
   );
