@@ -86,6 +86,10 @@ function requireAdmin(req, res, next) {
 async function fetchNodeJson(url, options) {
   const response = await fetch(url, {
     ...options,
+    headers: {
+      'User-Agent': 'GBIF-portal',
+      ...options?.headers,
+    },
     signal: AbortSignal.timeout(NODE_TIMEOUT_MS),
   });
   let body;

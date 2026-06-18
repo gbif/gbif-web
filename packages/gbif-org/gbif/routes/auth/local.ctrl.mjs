@@ -48,6 +48,7 @@ const authenticateGBIF = async (email, password) => {
       headers: {
         Authorization: 'Basic ' + Buffer.from(`${email}:${password}`).toString('base64'),
         'Content-Type': 'application/json',
+        'User-Agent': 'GBIF-portal',
       },
     });
 

@@ -98,9 +98,16 @@ export function logUserIn(res, user) {
 }
 
 export async function fetchWithRetry(url, options = {}, retries = 3, delay = 1000) {
+  const mergedOptions = {
+    ...options,
+    headers: {
+      'User-Agent': 'GBIF-portal',
+      ...options.headers,
+    },
+  };
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url, mergedOptions);
       if (response.status >= 500) throw new Error(`HTTP error! Status: ${response.status}`);
       return response;
     } catch (error) {
