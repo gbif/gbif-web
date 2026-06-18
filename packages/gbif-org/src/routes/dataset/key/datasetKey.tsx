@@ -94,7 +94,7 @@ const DATASET_QUERY = /* GraphQL */ `
           title
         }
       }
-      volatileContributors {
+      volatileContributors(limit: 101) {
         key
         firstName
         lastName
@@ -145,7 +145,7 @@ const DATASET_QUERY = /* GraphQL */ `
         homepage
         logoUrl
       }
-      bibliographicCitations {
+      bibliographicCitations(limit: 201) {
         identifier
         text
       }

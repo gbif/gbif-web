@@ -156,7 +156,11 @@ export const Dataset = {
   constituents: ({ key }, args, { dataSources }) => {
     return dataSources.datasetAPI.getConstituents({ key, query: args });
   },
-  volatileContributors: ({ contacts }) => getContributors(contacts),
+  bibliographicCitations: ({ bibliographicCitations }, { limit }) => {
+    return bibliographicCitations.slice(0, limit);
+  },
+  volatileContributors: ({ contacts }, { limit }) =>
+    getContributors(contacts).slice(0, limit),
   networks: ({ key }, { visibleOnDatasetPage }, { dataSources }) => {
     return dataSources.datasetAPI.getNetworks({ key }).then((networks) => {
       if (typeof visibleOnDatasetPage === 'undefined') return networks;

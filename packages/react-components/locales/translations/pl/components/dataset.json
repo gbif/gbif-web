@@ -36,16 +36,15 @@
       "citations": "Cytowania"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "Metryki checklist nie są dostępne dla tego zestawu danych.",
       "overview": "Przegląd checklist",
       "overviewDescription": "Statystyki podsumowujące dla tego zestawu checklist",
       "usagesCount": "Łączna liczba użyć nazw",
       "distinctNamesCount": "Odrębne nazwy",
       "synonymsCount": "Synonimy",
-      "nubMatchingCount": "Dopasowanie do układu taksonomicznego GBIF",
-      "nubCoveragePct": "Pokrycie układu taksonomicznego GBIF",
       "colMatchingCount": "Dopasowanie do COL",
-      "colCoveragePct": "Pokrycie COL",
       "countByKingdom": "Zliczenie według królestwa",
       "countByKingdomDescription": "Dystrybucja użycia nazw w różnych królestwach",
       "countByRank": "Zliczenie według rangi",

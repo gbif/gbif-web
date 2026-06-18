@@ -36,16 +36,15 @@
       "citations": "Citace"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "Synonyma",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "Počet podle říše",
       "countByKingdomDescription": "",
       "countByRank": "",

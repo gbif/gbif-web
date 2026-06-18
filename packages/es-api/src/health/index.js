@@ -17,10 +17,12 @@ module.exports = (req, res) => {
     const eventLoop = getEventLoopStats();
     res.json({
       status: 'ok',
-      // Flat, greppable status line for Nagios-style string checks.
+      // Flat, status line for Nagios string checks.
       nagiosString: buildNagiosString(queues, eventLoop),
       // seconds since the process started.
       uptimeSeconds: Math.round(process.uptime()),
+      // time when the process started, as an ISO timestamp.
+      uptimeStarted: new Date(Date.now() - process.uptime() * 1000).toISOString(),
       // requests being handled across the whole service right now.
       inflight: getInflight(),
       // histogram of x-client-priority on incoming requests (which we see most).

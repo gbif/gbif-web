@@ -1,4 +1,5 @@
 {
+  "PARENT_NAME_USAGE_ID_INVALID": "Nadrzędny identyfikator użycia nazwy nieważny",
   "CHAINED_SYNOYM": "Ciąg synonimów",
   "TAXONOMIC_STATUS_MISMATCH": "Status taksonomiczny niedopasowany",
   "CLASSIFICATION_NOT_APPLIED": "Klasyfikacja niezastosowana",

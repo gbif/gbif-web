@@ -2,9 +2,7 @@ import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { RESORUCE_OPTIONS } from './resource.constants';
 
 function elasticSearchTypeToGraphQLType(elasticSearchType) {
-  return RESORUCE_OPTIONS.find(
-    (option) => option.elasticSearchType === elasticSearchType,
-  ).graphQLType;
+  return RESORUCE_OPTIONS.find((option) => option.elasticSearchType === elasticSearchType).graphQLType;
 }
 
 /**
@@ -16,30 +14,27 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
  */
 export default {
   Query: {
-    resource: async (
-      _,
-      { id, alias, machineIdentifier },
-      { dataSources, locale, preview },
-      info,
-    ) => {
+    resource: async (_, { id, alias, machineIdentifier }, { dataSources, locale, preview }, info) => {
       if (typeof id === 'string') {
-        return dataSources.resourceAPI.getEntryById({
-          id,
-          locale,
-          preview,
-          info,
-        });
+        return dataSources.resourceAPI
+          .getEntryById({
+            id,
+            locale,
+            preview,
+            info,
+          })
+          .catch((error) => {
+            const status = error.extensions?.response?.status;
+            if (status < 429 && status >= 400) {
+              throw new NotFoundError();
+            }
+            throw error;
+          });
       }
 
       if (typeof alias === 'string' || typeof machineIdentifier === 'string') {
-        const lookupQuery =
-          typeof alias === 'string'
-            ? { urlAlias: alias }
-            : { machineIdentifier };
-        const data = await dataSources.resourceSearchAPI.getFirstEntryByQuery(
-          lookupQuery,
-          locale,
-        );
+        const lookupQuery = typeof alias === 'string' ? { urlAlias: alias } : { machineIdentifier };
+        const data = await dataSources.resourceSearchAPI.getFirstEntryByQuery(lookupQuery, locale);
 
         if (!data) {
           throw new NotFoundError();
@@ -58,18 +53,14 @@ export default {
         return data;
       }
 
-      throw new Error(
-        'Either id, alias, or machineIdentifier must be provided',
-      );
+      throw new Error('Either id, alias, or machineIdentifier must be provided');
     },
   },
   Resource: {
     __resolveType: (src) => {
       const graphqlType = elasticSearchTypeToGraphQLType(src.contentType);
       if (graphqlType) return graphqlType;
-      console.warn(
-        `Unknown content type in resource.resolver.js: ${src.contentType}`,
-      );
+      console.warn(`Unknown content type in resource.resolver.js: ${src.contentType}`);
     },
   },
 };

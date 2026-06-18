@@ -36,16 +36,15 @@
       "citations": "اقتباسات"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "مرادفات",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",

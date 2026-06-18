@@ -1,62 +1,50 @@
 {
   "dwcaExtension": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "locationId": {
     "name": "ID місцезнаходження",
-    "count": "",
     "description": "Видавці можуть присвоювати власні ідентифікатори локації. Поле не нормалізоване — пошук здійснюється за даними у вигляді, наданому видавцем."
   },
   "hasCoordinate": {
     "name": "Має координати",
-    "count": "Має координати",
     "description": "Чи містить запис координати"
   },
   "hasGeospatialIssues": {
     "name": "Має проблеми з геопросторовою прив'язкою",
-    "count": "Має проблеми з геопросторовою прив'язкою",
     "description": "Запис має геопросторові помилки"
   },
   "collectionKey": {
     "name": "Колекція",
-    "count": "{num, plural, one {колекція} few {# колекції} many {# колекцій} other {# колекції}}",
     "description": ""
   },
   "predicate": {
     "name": "Складний запит",
-    "count": "",
     "description": "Складний запит для фільтрації записів"
   },
   "taxonomicStatus": {
     "name": "Статус",
-    "count": "",
     "description": "Задекларована кількість зразків у колекції. Не відповідає кількості оцифрованих і опублікованих записів"
   },
   "taxonRank": {
     "name": "Ранг",
-    "count": "",
     "description": "Задекларована кількість зразків у колекції. Не відповідає кількості оцифрованих і опублікованих записів"
   },
   "numberSpecimens": {
     "name": "Кількість зразків",
-    "count": "",
     "description": "Задекларована кількість зразків у колекції. Не відповідає кількості оцифрованих і опублікованих записів"
   },
   "specimensInGbif": {
     "name": "Зразки в GBIF",
-    "count": "",
     "description": ""
   },
   "iucnRedListCategory": {
     "name": "Категорія Червоного списку МСОП",
-    "count": "",
     "description": "Таксони за ступенем загрози Червоного списку МСОП"
   },
   "geoDistance": {
     "name": "Відстань за координатами",
-    "count": "{num, plural, one {} few {#} many {#} other {#}}",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -64,7 +52,6 @@
   },
   "geometry": {
     "name": "Місцезнаходження",
-    "count": "{num, plural, one {} few {#} many {#} other {#}}",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -72,178 +59,144 @@
   },
   "relevance": {
     "name": "Релевантність",
-    "count": "",
     "description": ""
   },
   "topics": {
     "name": "Тема",
-    "count": "",
     "description": ""
   },
   "audiences": {
     "name": "Аудиторія",
-    "count": "",
     "description": ""
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "geologicalTime": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "purposes": {
     "name": "Тема",
-    "count": "",
     "description": ""
   },
   "eventDate": {
     "name": "Дата події",
-    "count": "",
     "description": ""
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
     "description": ""
   },
   "organismQuantityType": {
     "name": "Одиниці розмірності кількості організмів (наприклад, особини, проективне покриття, маса тощо)",
-    "count": "",
     "description": ""
   },
   "pathway": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "associatedSequences": {
     "name": "Пов'язані сіквенси",
-    "count": "",
     "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Ступінь укорінення виду",
-    "count": "",
     "description": "Ступінь укорінення організму в середовищі існування"
   },
   "endDayOfYear": {
     "name": "День кінця року",
-    "count": "",
     "description": ""
   },
   "startDayOfYear": {
     "name": "День початку року",
-    "count": "",
     "description": ""
   },
   "previousIdentifications": {
     "name": "Попередні ідентифікації",
-    "count": "",
     "description": ""
   },
   "lastInterpreted": {
     "name": "Остання інтерпретація",
-    "count": "",
     "description": ""
   },
   "alternativeCode": {
     "name": "Альтернативний код",
-    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Автор визначення",
-    "count": "",
     "description": ""
   },
   "institutionType": {
     "name": "Тип",
-    "count": "",
     "description": ""
   },
   "discipline": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "preservationType": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "biomeType": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "objectClassification": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "taxonKey": {
     "name": "Наукова назва",
-    "count": "",
     "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "Наукова назва",
-    "count": "",
     "description": ""
   },
   "basisOfRecord": {
     "name": "Основа запису",
-    "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "institutionCode": {
     "name": "Акронім або код установи",
-    "count": "",
     "description": ""
   },
   "catalogNumber": {
     "name": "Каталоговий номер",
-    "count": "",
     "description": ""
   },
   "mediaType": {
     "name": "Тип медіа-файлу",
-    "count": "",
     "description": ""
   },
   "occurrenceIssue": {
     "name": "Проблеми та відмітки",
-    "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
     "name": "",
-    "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "occurrenceCountry": {
     "name": "Країна",
-    "count": "",
     "description": ""
   },
   "grsciCollCountry": {
@@ -251,22 +204,18 @@
   },
   "preparations": {
     "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
-    "count": "",
     "description": ""
   },
   "repatriated": {
     "name": "Репатрійовано",
-    "count": "",
     "description": ""
   },
   "publishingCountryCode": {
     "name": "Країна або регіон, що публікує дані",
-    "count": "",
     "description": ""
   },
   "q": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "coordinates": {
@@ -274,680 +223,545 @@
   },
   "elevation": {
     "name": "Висота",
-    "count": "",
     "description": ""
   },
   "license": {
     "name": "Ліцензія",
-    "count": "",
     "description": ""
   },
   "datasetKey": {
     "name": "Набір даних",
-    "count": "",
     "description": ""
   },
   "datasetId": {
     "name": "ID набору даних",
-    "count": "",
     "description": ""
   },
   "publisherKey": {
     "name": "Видавець",
-    "count": "",
     "description": ""
   },
   "gbifPublisherKey": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "hostingOrganizationKey": {
     "name": "Організація хостингу",
-    "count": "",
     "description": ""
   },
   "country": {
-    "name": "Країна",
-    "count": ""
+    "name": "Країна"
   },
   "countriesOfCoverage": {
     "name": "Країна або область покриття",
-    "count": "",
     "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "Країна або область покриття",
-    "count": "",
     "description": ""
   },
   "countriesOfResearcher": {
-    "name": "Країна або територія дослідника",
-    "count": ""
+    "name": "Країна або територія дослідника"
   },
   "typeStatus": {
     "name": "Статус типового зразка",
-    "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "year": {
     "name": "Рік",
-    "count": "",
     "description": ""
   },
   "sampleSizeUnit": {
     "name": "Одиниця розміру вибірки",
-    "count": "",
     "description": ""
   },
   "coordinateUncertainty": {
     "name": "Похибка координат",
-    "count": "",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "depth": {
     "name": "Глибина",
-    "count": "",
     "description": ""
   },
   "organismQuantity": {
     "name": "Кількість організмів (в одиницях, відсотках, масовій частці тощо)",
-    "count": "",
     "description": ""
   },
   "sampleSizeValue": {
     "name": "Розмір вибірки",
-    "count": "",
     "description": ""
   },
   "relativeOrganismQuantity": {
     "name": "Відносна кількість організмів",
-    "count": "",
     "description": ""
   },
   "month": {
     "name": "Місяць",
-    "count": "",
     "description": ""
   },
   "continent": {
     "name": "Континент",
-    "count": "",
     "description": ""
   },
   "protocol": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "establishmentMeans": {
     "name": "Статус організму (наприклад, нативний, інтродукований, інвазійний тощо)",
-    "count": "",
     "description": ""
   },
   "sex": {
     "name": "Стать",
-    "count": "",
     "description": ""
   },
   "lifeStage": {
     "name": "Життєва стадія",
-    "count": "",
     "description": ""
   },
   "recordedBy": {
     "name": "Хто створив запис",
-    "count": "",
     "description": ""
   },
   "fieldNumber": {
     "name": "Польовий номер",
-    "count": "",
     "description": ""
   },
   "verbatimTaxonId": {
     "name": "Первинний ID таксона",
-    "count": "",
     "description": ""
   },
   "islandGroup": {
     "name": "Група островів",
-    "count": "",
     "description": ""
   },
   "island": {
     "name": "Острів",
-    "count": "",
     "description": ""
   },
   "georeferencedBy": {
     "name": "Автор геоприв'язки",
-    "count": "",
     "description": ""
   },
   "datasetName": {
     "name": "Назва набору даних",
-    "count": "",
     "description": ""
   },
   "programme": {
     "name": "Програма",
-    "count": "",
     "description": ""
   },
   "recordNumber": {
     "name": "Номер запису",
-    "count": "",
     "description": ""
   },
   "collectionCode": {
     "name": "Код колекції",
-    "count": "",
     "description": ""
   },
   "projectId": {
     "name": "ID проєкту",
-    "count": "",
     "description": ""
   },
   "recordedById": {
     "name": "Записано за ID",
-    "count": "",
     "description": ""
   },
   "identifiedById": {
     "name": "Визначено за ID",
-    "count": "",
     "description": ""
   },
   "occurrenceId": {
     "name": "ID знахідки",
-    "count": "",
     "description": ""
   },
   "organismId": {
     "name": "ID організму",
-    "count": "",
     "description": ""
   },
   "locality": {
     "name": "Місцевість",
-    "count": "",
     "description": ""
   },
   "waterBody": {
     "name": "Водний об'єкт",
-    "count": "",
     "description": ""
   },
   "higherGeography": {
     "name": "Географічна місцевість у широкому масштабі",
-    "count": "",
     "description": ""
   },
   "stateProvince": {
     "name": "Область/район",
-    "count": "",
     "description": ""
   },
   "gbifRegion": {
     "name": "Регіон GBIF",
-    "count": "",
     "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "eventId": {
     "name": "ID події",
-    "count": "",
     "description": ""
   },
   "eventID": {
     "name": "ID події",
-    "count": "",
     "description": ""
   },
   "parentEventId": {
     "name": "ID батьківської (об'єднуючої) події",
-    "count": "",
     "description": ""
   },
   "locationID": {
     "name": "ID місцезнаходження",
-    "count": "",
     "description": ""
   },
   "measurementOrFactTypes": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "measurementOrFactCount": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "occurrenceCount": {
     "name": "Кількість знахідок",
-    "count": "",
     "description": ""
   },
   "eventType": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "dataStructure": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "samplingProtocol": {
     "name": "Протокол збору ",
-    "count": "",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "Статус знахідки (відсутня або присутня)",
-    "count": "",
     "description": ""
   },
   "gadmGid": {
     "name": "",
-    "count": "",
     "description": ""
-  },
-  "identifiedBy": {
-    "description": "",
-    "name": "Автор визначення",
-    "count": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "",
     "description": "Ця експериментальна функція виділяє можливі дубльовані та/або пов'язані знахідки."
   },
   "isSequenced": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "active": {
     "name": "Діяльна",
-    "count": "Діяльна",
     "description": ""
   },
   "activeInstitution": {
     "name": "Діяльна",
-    "count": "Діяльна",
     "description": ""
   },
   "activeCollection": {
     "name": "Діяльна",
-    "count": "Діяльна",
     "description": ""
   },
   "publicationDate": {
     "name": "Дата публікації",
-    "count": "",
     "description": ""
   },
   "personalCollection": {
     "name": "Приватна колекція",
-    "count": "Приватна колекція",
     "description": ""
   },
   "datasetType": {
     "name": "Тип набору даних",
-    "count": "",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "institutionKey": {
     "name": "Установа",
-    "count": "",
     "description": ""
   },
   "name": {
     "name": "Ім’я",
-    "count": "",
     "description": "",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Місто",
-    "count": "",
     "description": ""
   },
   "code": {
     "name": "Код",
-    "count": "",
     "description": ""
   },
   "verbatimScientificName": {
     "name": "Первинно вжита наукова назва",
-    "count": "",
     "description": ""
   },
   "networkKey": {
     "name": "Мережа",
-    "count": "",
     "description": ""
   },
   "literatureType": {
     "name": "Тип джерела",
-    "count": "",
     "description": ""
   },
   "higherTaxonKey": {
     "name": "Вищий таксон",
-    "count": "",
     "description": ""
   },
   "issueEnum": {
     "name": "Проблеми та відмітки",
-    "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "humboldtBooleans": {
     "name": "",
-    "count": "",
     "description": ""
   },
   "siteCount": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "siteNestingDescription": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "verbatimSiteDescriptions": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "verbatimSiteNames": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "geospatialScopeAreaValue": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "geospatialScopeAreaUnit": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "totalAreaSampledValue": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "totalAreaSampledUnit": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "reportedWeather": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "reportedExtremeConditions": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "targetHabitatScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "excludedHabitatScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "eventDurationValue": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "eventDurationUnit": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "targetTaxonomicScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "excludedTaxonomicScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "taxonCompletenessReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "taxonCompletenessProtocols": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isTaxonomicScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isAbsenceReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "absentTaxa": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "hasNonTargetTaxa": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "nonTargetTaxa": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "areNonTargetTaxaFullyReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "targetLifeStageScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "excludedLifeStageScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isLifeStageScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "targetDegreeOfEstablishmentScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "excludedDegreeOfEstablishmentScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isDegreeOfEstablishmentScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "targetGrowthFormScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "excludedGrowthFormScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isGrowthFormScopeFullyReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "hasNonTargetOrganisms": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "verbatimTargetScope": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
+  },
+  "identifiedBy": {
+    "description": "",
+    "name": "Автор визначення"
   },
   "identificationReferences": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "compilationTypes": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "compilationSourceTypes": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "inventoryTypes": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "protocolNames": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "protocolDescriptions": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "protocolReferences": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isAbundanceReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isAbundanceCapReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "abundanceCap": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isVegetationCoverReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "hasVouchers": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "voucherInstitutions": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "hasMaterialSamples": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "materialSampleTypes": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "samplingPerformedBy": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "isSamplingEffortReported": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "samplingEffortProtocol": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "samplingEffortValue": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   },
   "samplingEffortUnit": {
     "description": "",
-    "name": "",
-    "count": ""
+    "name": ""
   }
 }

@@ -477,6 +477,7 @@ export function DatasetKeyAbout() {
                 <CardContent dir="auto">
                   <BibliographicCitations
                     bibliographicCitations={dataset?.bibliographicCitations}
+                    cap={200}
                   />
                 </CardContent>
               </Card>
@@ -501,7 +502,7 @@ export function DatasetKeyAbout() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ContactList contacts={dataset.volatileContributors} />
+                  <ContactList contacts={dataset.volatileContributors} cap={100} />
                 </CardContent>
               </Card>
             )}

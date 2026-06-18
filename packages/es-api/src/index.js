@@ -5,11 +5,8 @@ const _ = require('lodash');
 const cors = require('cors');
 const config = require('./config');
 var queue = require('express-queue');
-const {
-  loggingMiddleware,
-  errorLoggingMiddleware,
-  admissionGate,
-} = require('./middleware');
+const { loggingMiddleware, errorLoggingMiddleware, admissionGate } = require('./middleware');
+const { randomUUID } = require('crypto');
 const {
   registerQueue,
   registerGate,
@@ -22,6 +19,7 @@ const {
 } = require('./health/metrics');
 const health = require('./health');
 const { setPeakSnapshotProvider } = require('./health/eventLoop');
+const adminController = require('./admin');
 
 // When a new worst event-loop stall is recorded, fold in what the service was
 // doing (inflight + queue sizes) so /health and the log line can explain it.
@@ -31,10 +29,7 @@ setPeakSnapshotProvider(() => ({
 }));
 const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
 
-const ACTIVE_LIMIT = 10;
-// Occurrence is the heaviest endpoint and previously ran two 10-slot queues
-// (one per GET/POST instance), so it gets a higher cap now that GET+POST share
-// one queue — keeping ~20 concurrent for it while the rest stay at 10.
+const ACTIVE_LIMIT = 20;
 const OCCURRENCE_ACTIVE_LIMIT = 20;
 const QUEUED_LIMIT = 2000;
 
@@ -43,27 +38,25 @@ function rejectResponse(res) {
   res.json({
     error: 429,
     message:
-      'Too many concurrent requests. This threshold is shared across users, so it is not only your requests.',
+      'Too many concurrent requests. This threshold is shared across users. Please retry your request later.',
   });
 }
 
 // Create an express-queue for an endpoint and register it with /health under
-// `name`. Its reject handler (fired when the backlog hits the hard cap) bumps
-// the rejected counter. One shared instance is used per endpoint (both GET and
-// POST) so the reported backlog spans the whole endpoint.
-//
-// We wrap the queue middleware so we can also count running/served/failed:
-// express-queue invokes our `next` only once the request has acquired a slot
-// (is being processed), and the response's finish/close tells us the outcome.
+// `name`.
 function makeQueue(name, concurrencyLimit = ACTIVE_LIMIT) {
-  const q = queue({
+  // Held by reference: express-queue (internally uses mini-queue) reads activeLimit/queuedLimit off this object
+  // live on every admission decision, so the admin endpoint can retune the
+  // queue at runtime by mutating it (see metrics.setQueueLimits).
+  const queueConfig = {
     activeLimit: concurrencyLimit,
     queuedLimit: QUEUED_LIMIT,
     rejectHandler: (req, res) => {
       recordRejection(name);
       rejectResponse(res);
     },
-  });
+  };
+  const q = queue(queueConfig);
 
   const middleware = (req, res, next) => {
     q(req, res, (err) => {
@@ -71,6 +64,8 @@ function makeQueue(name, concurrencyLimit = ACTIVE_LIMIT) {
         next(err);
         return;
       }
+      // A request has acquired a slot and is now running.
+      // Bump the counter and set up hooks to know how it finished.
       recordAdmit(name);
       let settled = false;
       const finalize = (outcome) => {
@@ -78,9 +73,7 @@ function makeQueue(name, concurrencyLimit = ACTIVE_LIMIT) {
         settled = true;
         recordComplete(name, outcome);
       };
-      res.once('finish', () =>
-        finalize(res.statusCode >= 400 ? 'failed' : 'served'),
-      );
+      res.once('finish', () => finalize(res.statusCode >= 400 ? 'failed' : 'served'));
       res.once('close', () => finalize('aborted'));
       next();
     });
@@ -88,32 +81,33 @@ function makeQueue(name, concurrencyLimit = ACTIVE_LIMIT) {
   // Preserve the introspection handle the gate and /health read.
   middleware.queue = q.queue;
 
-  registerQueue(name, middleware, {
-    concurrencyLimit,
-    maxQueueSize: QUEUED_LIMIT,
-  });
+  // this is only to support the health endpoint.
+  registerQueue(
+    name,
+    middleware,
+    {
+      concurrencyLimit,
+      maxQueueSize: QUEUED_LIMIT,
+    },
+    queueConfig,
+  );
   return middleware;
 }
 
-// Occurrence search is the heaviest, most contended upstream. It keeps a plain
-// FIFO queue (so requests are served in arrival order and nothing starves), but
-// gets a priority admission gate in front: once the backlog is deep, the least
-// important incoming requests are rejected based on the `x-client-priority`
-// header Varnish attaches (lower = more important). The bands come from
-// `queue.shedBands` in config and default to none (no shedding). Already-queued
-// requests are never evicted — they drain naturally. A single shared queue
-// instance serves both GET and POST /occurrence so the backlog spans the whole
-// endpoint, and one gate reads its depth.
+// Occurrence search is the heaviest, most contended upstream. In fron of the queue
+// we add a gate that rejects low-priority requests when the backlog is deep.
+// we do not reject requests already in the queue, just new arrivals.
 const occurrenceQueue = makeQueue('occurrence', OCCURRENCE_ACTIVE_LIMIT);
 const occurrenceGate = admissionGate({
   getQueueLength: () => occurrenceQueue.queue.getLength(),
-  shedBands: _.get(config, 'queue.shedBands', []),
+  shedBands: _.get(config, 'queue.shedBands', []), // e.g. if queue above 30, then shed priority > 50 etc.
   defaultPriority: _.get(config, 'queue.defaultPriority', 100),
   rejectHandler: (req, res) => {
     recordRejection('occurrence');
     rejectResponse(res);
   },
 });
+// register the gate with a reference. It is mutable so we can adjust without a restart
 registerGate('occurrence', occurrenceGate);
 
 let content, literature, occurrence, eventOccurrence, dataset, event;
@@ -145,6 +139,16 @@ const {
 const app = express();
 app.use(cors());
 app.use(compression());
+// Attach per-request logging fields to req. Reuse the upstream x-request-id
+// (forwarded by graphql-api) so logs correlate across services; generate one
+// for direct callers. The request/error log middlewares read these off req.
+app.use((req, _res, next) => {
+  req.logContext = {
+    requestId: req.headers['x-request-id'] || `esapi-${randomUUID()}`,
+    siteUrl: req.headers['x-gbif-site-url'] || null,
+  };
+  next();
+});
 app.use(express.static('public'));
 app.use(bodyParser.json({ limit: '1mb' }));
 
@@ -475,6 +479,10 @@ function metaOnly(resource) {
 }
 
 app.get('/health', health);
+
+// Authenticated runtime settings API (log level, queue limits, shedding).
+// Enforces its own admin auth via the shared GraphQL JWT.
+adminController(app);
 
 app.get('*', unknownRouteHandler);
 app.use(errorHandler);

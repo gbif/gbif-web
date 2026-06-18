@@ -3,7 +3,8 @@ import { FaFacebookF, FaLinkedinIn, FaMastodon } from 'react-icons/fa';
 import { FaBluesky } from 'react-icons/fa6';
 import { IoLogoVimeo } from 'react-icons/io5';
 import { FormattedMessage, useIntl } from 'react-intl';
-import gbifLogoUrl from './full-gbif-logo-white.svg';
+// import gbifLogoUrl from './full-gbif-logo-white.svg';
+import gbifLogoUrl from './full_logo_white_25.svg';
 import gbcLogoUrl from './gbc.svg';
 
 const cssSeparator = "after:g-content-['|'] after:g-px-2";

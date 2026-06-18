@@ -17,6 +17,7 @@ export default defineConfig(({ command }) => {
     plugins: [react()],
     build: {
       emptyOutDir: true,
+      sourcemap: true,
       outDir: './dist/gbif/client',
       rollupOptions: {
         input: {

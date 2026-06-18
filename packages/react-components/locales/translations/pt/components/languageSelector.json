@@ -1,7 +1,7 @@
 {
   "languageSelector": {
     "title": "Alterar a língua",
-    "description": "",
-    "translatorsLink": ""
+    "description": "As traduções são um esforço coletivo. Saiba mais sobre nossa rede de {translatorsLink}.",
+    "translatorsLink": "tradutores voluntários"
   }
 }

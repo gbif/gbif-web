@@ -47,7 +47,7 @@
   "entryCreated": "Utworzono wpis",
   "lastModified": "Ostatnia modyfikacja",
   "modifiedBy": "Zmodyfikowane przez",
-  "masterSource": "",
+  "masterSource": "Źródło główne",
   "fromInstitution": "Od {institution}",
   "tabs": {
     "about": "Informacje",
@@ -55,7 +55,7 @@
   },
   "citesPermitNumber": "Numer pozwolenia CITES",
   "collectionDescriptorsHeadline": "Deskryptory kolekcji",
-  "collectionDescriptorsIntroduction": "",
-  "collectionSearchNoResultsMessage": "",
-  "searchForSpecimens": ""
+  "collectionDescriptorsIntroduction": "Deskryptory kolekcji umożliwiają bardziej szczegółowe opisanie kolekcji. Może to być przydatne w przypadku zbiorów, które nie zostały jeszcze zdigitalizowane lub w przypadku zbiorów o specyficznych cechach, które nie są objęte standardowymi metadanymi zbiorów.",
+  "collectionSearchNoResultsMessage": "Metadane kolekcji są często ogólne i niewyczerpujące. Rozważ poszerzenie zakresu lub poszukaj zdigitalizowanych okazów.",
+  "searchForSpecimens": "Szukaj okazów"
 }

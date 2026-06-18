@@ -13,7 +13,7 @@
     "recordsForPlantae": "Stwierdzenia Plantae",
     "theseChartsIllustrate2": "Te wykresy ilustrują zmianę w liczbie gatunków, dla których dostępne są stwierdzenia występowania.",
     "speciesCounts": "Liczba gatunków",
-    "speciesCountDescription": "",
+    "speciesCountDescription": "Liczbę gatunków oblicza się na podstawie liczby dwumianowych nazw naukowych, dla których GBIF otrzymał rekordy danych, uporządkowanych w miarę możliwości przy użyciu synonimów zarejestrowanych w kluczowych bazach danych, takich jak Catalogue of Life. Ponieważ wiele nazw nie zostało jeszcze uwzględnionych w tych bazach danych, pewna część tych nazw będzie nierozpoznanymi synonimami i nie będzie reprezentować prawidłowych gatunków. Dlatego też te liczby mogą być używane wyłącznie jako wskazanie bogactwa i nie odzwierciedlają prawdziwej liczby gatunków. Wszystkie dane zostały przetworzone przy użyciu tej samej, najnowszej wersji wspólnego szkieletu taksonomicznego GBIF, a porównania w czasie są zatem realistyczne.",
     "definition": "Definicja",
     "numOccSpeciesByKingdom": "Liczba gatunków z dostępnymi zapisami występowania, pogrupowanych według królestwa.",
     "speciesCountByKingdom": "Liczba gatunków wg królestwa",
@@ -55,21 +55,21 @@
     "halfDegree": "0,5 stopnia",
     "pointOneDegree": "0,1 stopnia",
     "dataSharingWithCountryOfOrigin": "Udostępnianie danych krajowi pochodzenia",
-    "thisChartShowsTheNumberOfRecordsAboutBiodiversityOccurringInCountry": "",
-    "thisChartShowsTheNumberOfRecordsSharedByPublishersWithin": "",
+    "thisChartShowsTheNumberOfRecordsAboutBiodiversityOccurringInCountry": "Na tym wykresie pokazano liczbę rekordów dotyczących różnorodności biologicznej kraju {{TRANSLATED_COUNTRY}}, przy czym oddzielnymi kolorami oznaczono rekordy opublikowane przez kraj pochodzenia {{TRANSLATED_COUNTRY}} oraz rekordy udostępnione przez wydawców z innych krajów.",
+    "thisChartShowsTheNumberOfRecordsSharedByPublishersWithin": "Na tym wykresie przedstawiono liczbę rekordów udostępnionych przez wydawców z kraju {{TRANSLATED_COUNTRY}} na przestrzeni czasu, przy czym oddzielnymi kolorami oznaczono rekordy dotyczące gatunków występujących w kraju {{TRANSLATED_COUNTRY}} i tych występujących w innych krajach.",
     "thisChartShowsGlobalTrends": "Na wykresie pokazano całkowitą liczbę zapisów opublikowanych w bazie GBIF na przestrzeni czasu, przy czym oddzielnymi kolorami oznaczono zapisy opublikowane w kraju, w którym wystąpił dany gatunek, oraz zapisy udostępnione przez wydawców z innych krajów.",
     "analytics": "Analityka",
     "global": "Globalny",
-    "changeOverTimeInDataAboutSpeciesFromCountry": "",
-    "changeOverTimeInTheDataPublishedByInstitutionsWithin": "",
-    "trendsInDataAvailabilityOnTheGbifNetwork": "",
+    "changeOverTimeInDataAboutSpeciesFromCountry": "Zmiana danych dostępnych w GBIF.org na temat gatunków z {{TRANSLATED_COUNTRY}} w czasie.",
+    "changeOverTimeInTheDataPublishedByInstitutionsWithin": "Zmiana w czasie danych publikowanych w GBIF.org przez instytucje z {{TRANSLATED_COUNTRY}} ",
+    "trendsInDataAvailabilityOnTheGbifNetwork": "Trendy w dostępności danych w sieci GBIF, 2008 do {{YEAR}}",
     "globalDataTrends": "Globalne trendy danych",
-    "countryDataTrends": "",
-    "regionDataTrends": "",
-    "countryPublishingTrends": "",
+    "countryDataTrends": "{{TRANSLATED_COUNTRY}} trendy danych",
+    "regionDataTrends": "Trendy danych dla {{TRANSLATED_REGION}}",
+    "countryPublishingTrends": "{{TRANSLATED_COUNTRY}} trendy publikacji danych",
     "analyticsCountry": {
-      "fromDescription": "",
-      "publishedByDescription": ""
+      "fromDescription": "Zmiana danych dostępnych w GBIF.org na temat gatunków z {{country}} w czasie",
+      "publishedByDescription": "Zmiana w czasie danych dostępnych w GBIF.org publikowanych przez instytucje z {{country}}"
     }
   }
 }

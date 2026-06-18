@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useI18n } from '@/reactRouterPlugins';
 import { Message } from '@/components/message';
 import { ALLOWED_URI_REGEXP } from '@/components/hyperText';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 
 interface TermsStepProps {
   predicate?: any;
@@ -65,6 +66,7 @@ export default function TermsStep({
   onBack,
   source,
 }: TermsStepProps) {
+  const currentContextChecklistKey = useChecklistKey();
   const intl = useIntl();
   const navigate = useNavigate();
   const { localizeLink } = useI18n();
@@ -100,7 +102,11 @@ export default function TermsStep({
     let sql = configuration.sql;
     let machineDescription = configuration.machineDescription;
     if (configuration.cube) {
-      const result = await generateCubeSql(configuration.cube, predicate);
+      const result = await generateCubeSql(
+        configuration.cube,
+        predicate,
+        currentContextChecklistKey
+      );
       if (result.error) {
         alert(intl.formatMessage({ id: 'customSqlDownload.errorGeneratingSql' }));
         setPreparingDownload(false);

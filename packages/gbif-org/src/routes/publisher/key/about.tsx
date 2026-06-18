@@ -150,7 +150,7 @@ export function PublisherKeyAbout() {
     return (
       <CardSmall className="g-mb-4 g-prose">
         <CardContentSmall className="g-mt-4 g-text-sm">
-          {publisher.endorsingNode && (
+          {publisher.endorsingNode && publisher.endorsementApproved && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className="g-mb-2">
                 <FormattedMessage id="publisher.endorsedBy" />:{' '}

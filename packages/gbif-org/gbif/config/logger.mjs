@@ -111,8 +111,12 @@ logger.info('initialising log');
 logger.logError = (error, meta = {}) => {
   logger.error(error.message || 'An error occurred', {
     error,
-    error_message: error.message,
-    error_stack: error.stack,
+    errors: [
+      {
+        message: error.message,
+        stack: error.stack,
+      },
+    ],
     ...meta,
   });
 };

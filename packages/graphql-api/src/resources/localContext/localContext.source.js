@@ -67,8 +67,8 @@ class LocalContextAPI extends RESTDataSource {
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
     request.headers['X-Api-Key'] = this.config.localContextApiKey;
     request.headers['User-Agent'] = this.context.userAgent;
-    request.headers['referer'] = this.context.referer;
-    request.headers['x-client-priority'] = this.context.clientPriority;
+    if (this.context.referer) request.headers['referer'] = this.context.referer;
+    if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 

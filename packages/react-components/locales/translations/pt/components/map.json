@@ -17,7 +17,7 @@
     "message": "Iguais {is}"
   },
   "filterByView": "Use área visível como filtro",
-  "zoomToData": "",
+  "zoomToData": "Ampliar para extensão de dados",
   "noDataInView": "",
   "projection": "Projeção",
   "anyYear": "Qualquer ano",
@@ -38,14 +38,14 @@
     "CLASSIC": "Postos clássicos",
     "STREETS": "Ruas",
     "GLACIER": "Glaciar",
-    "GREEN": "",
+    "GREEN": "Pontos verdes",
     "CUSTOM": "Personalizado"
   },
   "basemap": {
     "CLASSIC": "Magenta",
     "LIGHT": "Luz (sem etiquetas)",
     "LIGHT_DETAILS": "Claro",
-    "GREY": "",
+    "GREY": "Cinza (sem etiquetas)",
     "DARK": "Escuro (sem etiquetas)",
     "DARK_DETAILS": "Escuro",
     "OSM": "Estradas"
@@ -57,7 +57,7 @@
     "SMALL_SQUARE": "Quadrado pequenos",
     "LARGE_SQUARE": "Quadrados"
   },
-  "tilesUnavailable": "",
+  "tilesUnavailable": "Os blocos do mapa estão temporariamente indisponíveis.",
   "colors": {
     "CLASSIC": "Clássico",
     "FIRE": "Fogo",

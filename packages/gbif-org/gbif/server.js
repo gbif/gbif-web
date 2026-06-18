@@ -12,7 +12,9 @@ import { helmetConfig } from './helmetConfig.js';
 import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
+import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
+import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
 import createGetRedirect from './middleware/redirects.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
@@ -111,7 +113,9 @@ async function main() {
   }
 
   registerUser(app);
+  registerAdmin(app);
   registerProxies(app);
+  registerResourceSearch(app);
   registerSitemaps(app);
   registerRobots(app);
 
@@ -195,13 +199,13 @@ async function main() {
 
         res.setHeader('Content-Type', 'text/html');
 
-        const redirectTo = getRedirect(req, res);
+        const { redirectTo, force } = getRedirect(req, res);
 
-        if (statusCode === 404 && redirectTo) {
-          // Handle list of redirects
-          if (redirectTo) {
-            res.redirect(302, redirectTo);
-          }
+        // Path-only redirects only apply when the route would otherwise 404. Forced redirects
+        // (e.g. query-param redirects like /resource/search?contentType=literature) target a path
+        // that may be a valid route on its own, so they must fire even on a 200 response.
+        if (redirectTo && (force || statusCode === 404)) {
+          res.redirect(302, redirectTo);
         } else {
           res.status(statusCode).end(html);
         }
@@ -221,6 +225,28 @@ async function main() {
           Number.isInteger(e.status)
         ) {
           status = e.status;
+        }
+
+        // Log the server-side render failure before serving the fallback page. Without this the
+        // server silently swallowed render errors, leaving no trace of why a user got the fallback.
+        // 4xx statuses (e.g. a 404 thrown by a route loader) are expected, so they are logged at
+        // 'warn'; anything else is an unexpected render failure logged at 'error' with the full stack.
+        const renderError =
+          e instanceof Error
+            ? e
+            : new Error(typeof e === 'string' ? e : 'Server-side render failed');
+        if (status >= 500) {
+          logger.logError(renderError, { url, status });
+        } else {
+          logger.warn(`Server-side render returned ${status} for ${url}`, {
+            url,
+            status,
+            errors: [
+              {
+                message: renderError.message,
+              },
+            ],
+          });
         }
 
         // Lazily load the fallback HTML only when render fails. Doing the read +
@@ -252,7 +278,13 @@ async function main() {
         viteDevServer.ssrFixStacktrace(error);
       }
 
-      console.log(error.stack);
+      logger.logError(error instanceof Error ? error : new Error(String(error)), {
+        url,
+        response: {
+          statusCode: 500,
+        },
+        message: 'Failed to load SSR template or render module',
+      });
       res.status(500).end(error.stack);
     }
   });

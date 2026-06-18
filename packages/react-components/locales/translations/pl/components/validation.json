@@ -1,5 +1,8 @@
 {
+  "checkboxRequired": "Proszę zaznacz to okienko",
+  "required": "Proszę wypełnić to pole.",
   "invalidEmail": "Wprowadź poprawny adres e-mail",
+  "invalidURL": "Podaj prawidłowy adres URL",
   "invalidWebsiteAddress": "Proszę podać aktualny adres strony internetowej",
   "pleaseSelectAValue": "Proszę wybrać wartość"
 }

@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl';
 import { FilterType } from '@/contexts/filter';
 import { generateCubeSql, hasFilter } from './cube/cubeService';
 import { DownloadSummary } from './DownloadSummary';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface ConfigurationStepProps {
   selectedFormat: any;
@@ -121,7 +120,7 @@ export default function ConfigurationStep({
   const handleContinue = async () => {
     if (isCubeData && 'cube' in config) {
       // Ensure SQL is generated for cube data before continuing
-      const result = await generateCubeSql(config.cube, predicate);
+      const result = await generateCubeSql(config.cube, predicate, currentContextChecklistKey);
       if (!result.sql) {
         alert('Error generating SQL'); // TODO: Replace with proper error handling UI
         return;
@@ -147,9 +146,6 @@ export default function ConfigurationStep({
     setActiveSection(activeSection === section ? null : section);
   };
 
-  const invalidCubeChecklist =
-    currentContextChecklistKey !== import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY && isCubeData;
-
   return (
     <div className="g-max-w-4xl g-mx-auto">
       {/* Header */}
@@ -163,89 +159,78 @@ export default function ConfigurationStep({
         </button>
       </div>
 
-      {invalidCubeChecklist && (
-        <Alert variant="info">
-          <AlertTitle>Cube Support Unavailable</AlertTitle>
-          <AlertDescription>
-            No cube support for other checklists than the GBIF backbone
-          </AlertDescription>
-        </Alert>
-      )}
+      <div className="g-grid lg:g-grid-cols-3 g-gap-8">
+        {/* Configuration Sections */}
+        <div className="lg:g-col-span-2 g-space-y-6">
+          {/* Taxonomy Configuration - Always shown */}
+          {!isCubeData && (
+            <TaxonomySelector
+              value={config.checklistKey}
+              onChange={handleTaxonomyChange}
+              isExpanded={activeSection === 'taxonomy'}
+              onToggle={() => toggleSection('taxonomy')}
+            />
+          )}
 
-      {!invalidCubeChecklist && (
-        <div className="g-grid lg:g-grid-cols-3 g-gap-8">
-          {/* Configuration Sections */}
-          <div className="lg:g-col-span-2 g-space-y-6">
-            {/* Taxonomy Configuration - Always shown */}
-            {!isCubeData && (
-              <TaxonomySelector
-                value={config.checklistKey}
-                onChange={handleTaxonomyChange}
-                isExpanded={activeSection === 'taxonomy'}
-                onToggle={() => toggleSection('taxonomy')}
-              />
-            )}
+          {/* Extensions Selection - Only for Darwin Core Archive */}
+          {isDarwinCoreArchive && 'extensions' in config && (
+            <ExtensionsSelector
+              selectedExtensions={config.extensions}
+              onChange={handleExtensionsChange}
+              isExpanded={activeSection === 'extensions'}
+              onToggle={() => toggleSection('extensions')}
+              predicate={predicate}
+            />
+          )}
 
-            {/* Extensions Selection - Only for Darwin Core Archive */}
-            {isDarwinCoreArchive && 'extensions' in config && (
-              <ExtensionsSelector
-                selectedExtensions={config.extensions}
-                onChange={handleExtensionsChange}
-                isExpanded={activeSection === 'extensions'}
-                onToggle={() => toggleSection('extensions')}
-                predicate={predicate}
-              />
-            )}
+          {/* Cube Dimensions - Only for Cube Data */}
+          {isCubeData && 'cube' in config && (
+            <CubeDimensionsSelector
+              cube={config.cube}
+              onChange={handleDimensionsChange}
+              isExpanded={activeSection === 'cube'}
+              onToggle={() => toggleSection('cube')}
+              onValidationChange={handleCubeValidationChange}
+              filter={filter}
+              predicate={predicate}
+            />
+          )}
+        </div>
 
-            {/* Cube Dimensions - Only for Cube Data */}
-            {isCubeData && 'cube' in config && (
-              <CubeDimensionsSelector
-                cube={config.cube}
-                onChange={handleDimensionsChange}
-                isExpanded={activeSection === 'cube'}
-                onToggle={() => toggleSection('cube')}
-                onValidationChange={handleCubeValidationChange}
-                filter={filter}
-                predicate={predicate}
-              />
-            )}
-          </div>
+        {/* Summary Sidebar */}
+        <div className="lg:g-col-span-1">
+          <div className="g-bg-white g-rounded g-shadow-md g-border g-border-gray-200 g-p-6 g-sticky g-top-6">
+            <h3 className="g-font-semibold g-text-gray-900 g-mb-4">
+              <FormattedMessage id="occurrenceDownloadFlow.downloadSummary" />
+            </h3>
 
-          {/* Summary Sidebar */}
-          <div className="lg:g-col-span-1">
-            <div className="g-bg-white g-rounded g-shadow-md g-border g-border-gray-200 g-p-6 g-sticky g-top-6">
-              <h3 className="g-font-semibold g-text-gray-900 g-mb-4">
-                <FormattedMessage id="occurrenceDownloadFlow.downloadSummary" />
-              </h3>
+            <DownloadSummary selectedFormat={selectedFormat} configuration={config} />
 
-              <DownloadSummary selectedFormat={selectedFormat} configuration={config} />
+            <div className="g-mt-6 g-pt-4 g-border-t g-border-gray-200">
+              {canContinue && (
+                <div className="g-text-sm g-text-amber-700 g-bg-amber-50 g-p-3 g-rounded g-mb-4">
+                  <FormattedMessage id="downloadKey.downloadExpectTime" />
+                </div>
+              )}
 
-              <div className="g-mt-6 g-pt-4 g-border-t g-border-gray-200">
-                {canContinue && (
-                  <div className="g-text-sm g-text-amber-700 g-bg-amber-50 g-p-3 g-rounded g-mb-4">
-                    <FormattedMessage id="downloadKey.downloadExpectTime" />
-                  </div>
-                )}
+              {!canContinue && (
+                <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">
+                  <FormattedMessage id="customSqlDownload.errorMinimumDimensionForCube" />
+                </div>
+              )}
 
-                {!canContinue && (
-                  <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">
-                    <FormattedMessage id="customSqlDownload.errorMinimumDimensionForCube" />
-                  </div>
-                )}
-
-                <Button
-                  onClick={handleContinue}
-                  disabled={!canContinue}
-                  className="g-w-full g-flex g-items-center g-justify-center g-gap-2 disabled:g-opacity-50 disabled:g-cursor-not-allowed"
-                >
-                  <FaCog size={16} />
-                  <FormattedMessage id="occurrenceDownloadFlow.continueToTerms" />
-                </Button>
-              </div>
+              <Button
+                onClick={handleContinue}
+                disabled={!canContinue}
+                className="g-w-full g-flex g-items-center g-justify-center g-gap-2 disabled:g-opacity-50 disabled:g-cursor-not-allowed"
+              >
+                <FaCog size={16} />
+                <FormattedMessage id="occurrenceDownloadFlow.continueToTerms" />
+              </Button>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
