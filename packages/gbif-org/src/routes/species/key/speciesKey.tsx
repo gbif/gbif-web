@@ -29,14 +29,29 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
 
   const { errors, data } = await response.json();
   throwCriticalErrors({
-    path404: ['taxon'],
+    path404: ['speciesKey'],
     errors,
-    requiredObjects: [data?.taxon],
+    requiredObjects: [data?.speciesKey],
   });
 
+  // if backbone key we can sometimes redirect to new CoL page
   const newTaxonID = data?.taxon?.related?.[0]?.taxonID;
   if (newTaxonID) {
     return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${newTaxonID}`);
+  }
+  const taxonId = data.speciesKey?.taxonID;
+  const datasetKey = data.speciesKey?.datasetKey;
+
+  if (!taxonId || !datasetKey) {
+    throw new NotFoundLoaderResponse();
+  }
+
+  if (taxonId && datasetKey && datasetKey !== import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY) {
+    return redirect(`${locale.gbifOrgLocalePrefix}/dataset/${datasetKey}/taxon/${taxonId}`);
+  }
+
+  if (data?.taxon) {
+    throw new NotFoundLoaderResponse();
   }
 
   return { errors, data };
@@ -127,6 +142,10 @@ const SPECIES_QUERY = /* GraphQL */ `
         scientificName
         datasetKey
       }
+    }
+    speciesKey(key: $key) {
+      taxonID
+      datasetKey
     }
   }
 `;
