@@ -19,7 +19,7 @@
   "unknownDate": "Fecha desconocida",
   "about": "Acerca de",
   "legend": "Leyenda",
-  "showingFirstCap": "",
+  "showingFirstCap": "Mostrando los primeros elementos: {cap}",
   "citations": "Citaciones",
   "metrics": "Estadísticas",
   "datasets": "Conjuntos de datos",
