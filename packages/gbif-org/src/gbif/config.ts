@@ -185,7 +185,7 @@ export const gbifConfig: Config = {
   //   sourceTitle: 'The IUCN Red List of Threatened Species',
   //   datasetKey: '66dd0960-2d7d-46ee-a491-87b9adcfe7b1',
   // },
-  linkToGbifOrg: true,
+  linkToGbifOrg: false,
   publisherSearch: {
     enableUserCountryInfo: true,
     queryType: 'V1',
