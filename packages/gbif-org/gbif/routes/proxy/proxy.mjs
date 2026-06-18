@@ -93,6 +93,7 @@ async function fetchFromGraphQL({ query, variables, locale, preview }) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'User-Agent': 'GBIF-portal',
       locale: locale || 'en',
       preview: preview ? 'true' : 'false',
     },

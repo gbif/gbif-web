@@ -4,7 +4,7 @@ import { publicEnv } from '../../envConfig.mjs';
 const CONTENT_SEARCH_ENDPOINT = publicEnv.PUBLIC_CONTENT_SEARCH;
 
 // Identifies this service (the gbif-org portal server) to the upstream API.
-const USER_AGENT = 'GBIF_ORG_PORTAL';
+const USER_AGENT = 'GBIF-portal';
 
 // Generic message used for all failures. We intentionally do not forward upstream
 // error messages to the client - only a status code and this generic message.
