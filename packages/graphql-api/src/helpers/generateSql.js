@@ -176,19 +176,46 @@ export default async function generateSql(parameters) {
   if (taxonomy) {
     const nl = (name) => nameLookup(name, checklistKey);
     const taxonomyFields = {
-      KINGDOM:        [nl('kingdom'), nl('kingdomKey')],
-      PHYLUM:         [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey')],
-      CLASS:          [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey')],
-      ORDER:          [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey')],
-      FAMILY:         [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey')],
-      GENUS:          [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey')],
-      SPECIES:        [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey')],
-      EXACT_TAXON:    [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey'), nl('taxonKey'), nl('scientificName')],
-      ACCEPTED_TAXON: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey'), nl('acceptedTaxonKey'), nl('acceptedScientificName')],
+      KINGDOM: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`],
+        groupBy: [nl('kingdom'), nl('kingdomKey')],
+      },
+      PHYLUM: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey')],
+      },
+      CLASS: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`, `${nl('class')} AS class`, `${nl('classKey')} AS classKey`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey')],
+      },
+      ORDER: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`, `${nl('class')} AS class`, `${nl('classKey')} AS classKey`, `${nl('order')} AS "order"`, `${nl('orderKey')} AS orderKey`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey')],
+      },
+      FAMILY: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`, `${nl('class')} AS class`, `${nl('classKey')} AS classKey`, `${nl('order')} AS "order"`, `${nl('orderKey')} AS orderKey`, `${nl('family')} AS family`, `${nl('familyKey')} AS familyKey`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey')],
+      },
+      GENUS: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`, `${nl('class')} AS class`, `${nl('classKey')} AS classKey`, `${nl('order')} AS "order"`, `${nl('orderKey')} AS orderKey`, `${nl('family')} AS family`, `${nl('familyKey')} AS familyKey`, `${nl('genus')} AS genus`, `${nl('genusKey')} AS genusKey`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey')],
+      },
+      SPECIES: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`, `${nl('class')} AS class`, `${nl('classKey')} AS classKey`, `${nl('order')} AS "order"`, `${nl('orderKey')} AS orderKey`, `${nl('family')} AS family`, `${nl('familyKey')} AS familyKey`, `${nl('genus')} AS genus`, `${nl('genusKey')} AS genusKey`, `${nl('species')} AS species`, `${nl('speciesKey')} AS speciesKey`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey')],
+      },
+      EXACT_TAXON: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`, `${nl('class')} AS class`, `${nl('classKey')} AS classKey`, `${nl('order')} AS "order"`, `${nl('orderKey')} AS orderKey`, `${nl('family')} AS family`, `${nl('familyKey')} AS familyKey`, `${nl('genus')} AS genus`, `${nl('genusKey')} AS genusKey`, `${nl('species')} AS species`, `${nl('speciesKey')} AS speciesKey`, `${nl('taxonKey')} AS taxonKey`, `${nl('scientificName')} AS scientificName`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey'), nl('taxonKey'), nl('scientificName')],
+      },
+      ACCEPTED_TAXON: {
+        select: [`${nl('kingdom')} AS kingdom`, `${nl('kingdomKey')} AS kingdomKey`, `${nl('phylum')} AS phylum`, `${nl('phylumKey')} AS phylumKey`, `${nl('class')} AS class`, `${nl('classKey')} AS classKey`, `${nl('order')} AS "order"`, `${nl('orderKey')} AS orderKey`, `${nl('family')} AS family`, `${nl('familyKey')} AS familyKey`, `${nl('genus')} AS genus`, `${nl('genusKey')} AS genusKey`, `${nl('species')} AS species`, `${nl('speciesKey')} AS speciesKey`, `${nl('acceptedTaxonKey')} AS acceptedTaxonKey`, `${nl('acceptedScientificName')} AS acceptedScientificName`],
+        groupBy: [nl('kingdom'), nl('kingdomKey'), nl('phylum'), nl('phylumKey'), nl('class'), nl('classKey'), nl('order'), nl('orderKey'), nl('family'), nl('familyKey'), nl('genus'), nl('genusKey'), nl('species'), nl('speciesKey'), nl('acceptedTaxonKey'), nl('acceptedScientificName')],
+      },
     };
-    const fields = taxonomyFields[taxonomy].join(', ');
-    dimensions.push(fields);
-    groupBy.push(fields);
+    const { select, groupBy: taxonGroupBy } = taxonomyFields[taxonomy];
+    dimensions.push(select.join(', '));
+    groupBy.push(taxonGroupBy.join(', '));
   }
 
   const temporalLookup = {
@@ -247,6 +274,7 @@ export default async function generateSql(parameters) {
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
 
+  console.log('Generated SQL:', sql);
   return { error: null, sql };
 }
 
