@@ -274,7 +274,6 @@ export default async function generateSql(parameters) {
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
 
-  console.log('Generated SQL:', sql);
   return { error: null, sql };
 }
 
