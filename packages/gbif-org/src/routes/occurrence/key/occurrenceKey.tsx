@@ -450,7 +450,7 @@ export function OccurrenceKey() {
   ];
   if (occurrence.isInCluster)
     tabs.push({
-      to: 'related',
+      to: 'cluster',
       children: <FormattedMessage id="occurrenceDetails.tabs.cluster" defaultMessage="Related" />,
     });
   if (occurrence.dynamicProperties) {
