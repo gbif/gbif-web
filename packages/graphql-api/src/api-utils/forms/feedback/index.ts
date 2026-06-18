@@ -97,9 +97,7 @@ function getDescription({
 
   // set timestamps 5 minuttes before and 1 minute after for linking to relevant logs
   __data.__timestamp = {};
-  __data.__timestamp.before = new Date(
-    Date.now() - 1000 * 60 * 5,
-  ).toISOString();
+  __data.__timestamp.before = new Date(Date.now() - 1000 * 60 * 5).toISOString();
   __data.__timestamp.after = new Date(Date.now() + 1000 * 60 * 6).toISOString();
 
   return createMarkdown(__data as FeedbackDTO);
@@ -151,71 +149,62 @@ function isGbifDomainOrLocalhost(href: string | undefined) {
   return true;
 }
 
-feedbackRouter.post(
-  '/bug',
-  isAuthenticated,
-  validateRequest(FormSchema),
-  async (req, res) => {
-    const authReq = req as AuthRequest;
-    try {
-      const agentObject = new UAParser(req.headers['user-agent']).getResult();
-      const agent = `${agentObject.browser.name} ${agentObject.browser.version} / ${agentObject.os.name} ${agentObject.os.version}`;
-      let feedbackType;
-      if (!req?.body?.location) {
-        // fail if no location is provided
-        return res.status(400).json({ message: 'No location provided' });
-      }
-      // check that the domain is allowed. We accept only our own domains which are gbif.org gbif-dev.org gbif-test.org gbif-staging.org
-      // this isn't about security, but simply to avoid spam linking to other domains.
-      if (!isGbifDomainOrLocalhost(req?.body?.location)) {
-        return res.status(400).json({ message: 'Domain not allowed' });
-      }
-      if (req?.body?.location) {
-        // parse location to get domain and path
-        const location = new URL(req?.body?.location);
-        const path = location.pathname;
-        feedbackType = await getFeedbackContentType(path);
-      }
-      const { datasetKey, publishingOrgKey, networkKeys, mention } =
-        feedbackType || {};
-
-      const user = encryptJSON({
-        userName: authReq.user.userName,
-        email: authReq.user.email,
-        firstName: authReq.user.firstName,
-        lastName: authReq.user.lastName,
-        date: new Date(),
-      });
-      const githubUserName =
-        authReq?.user?.systemSettings?.['auth.github.username'];
-      const result = {
-        owner: config.feedback.owner,
-        repo: config.feedback.repository,
-        title: req?.body?.title || '',
-        body: getDescription({
-          form: req.body,
-          agent,
-          referer: req?.body?.location,
-          user,
-          githubUserName,
-          mention,
-          datasetKey,
-          publishingOrgKey,
-          networkKeys,
-        }),
-        labels: ['demo'],
-      };
-      const issue = await createGitHubIssue(result);
-
-      return res
-        .status(200)
-        .json({ message: 'From submitted succesfully', link: issue?.html_url });
-    } catch (error) {
-      logger.error({
-        message: 'Failed to submit feedback form',
-        error,
-      });
-      return res.status(500).json({ message: 'Form submission failed' });
+feedbackRouter.post('/bug', isAuthenticated, validateRequest(FormSchema), async (req, res) => {
+  const authReq = req as AuthRequest;
+  try {
+    const agentObject = new UAParser(req.headers['user-agent']).getResult();
+    const agent = `${agentObject.browser.name} ${agentObject.browser.version} / ${agentObject.os.name} ${agentObject.os.version}`;
+    let feedbackType;
+    if (!req?.body?.location) {
+      // fail if no location is provided
+      return res.status(400).json({ message: 'No location provided' });
     }
-  },
-);
+    // check that the domain is allowed. We accept only our own domains which are gbif.org gbif-dev.org gbif-test.org gbif-staging.org
+    // this isn't about security, but simply to avoid spam linking to other domains.
+    if (!isGbifDomainOrLocalhost(req?.body?.location)) {
+      return res.status(400).json({ message: 'Domain not allowed' });
+    }
+    if (req?.body?.location) {
+      // parse location to get domain and path
+      const location = new URL(req?.body?.location);
+      const path = location.pathname;
+      feedbackType = await getFeedbackContentType(path);
+    }
+    const { datasetKey, publishingOrgKey, networkKeys, mention } = feedbackType || {};
+
+    const user = encryptJSON({
+      userName: authReq.user.userName,
+      email: authReq.user.email,
+      firstName: authReq.user.firstName,
+      lastName: authReq.user.lastName,
+      date: new Date(),
+    });
+    const githubUserName = authReq?.user?.systemSettings?.['auth.github.username'];
+    const result = {
+      owner: config.feedback.owner,
+      repo: config.feedback.repository,
+      title: req?.body?.title || '',
+      body: getDescription({
+        form: req.body,
+        agent,
+        referer: req?.body?.location,
+        user,
+        githubUserName,
+        mention,
+        datasetKey,
+        publishingOrgKey,
+        networkKeys,
+      }),
+      labels: ['demo'],
+    };
+    const issue = await createGitHubIssue(result);
+
+    return res.status(200).json({ message: 'From submitted succesfully', link: issue?.html_url });
+  } catch (error) {
+    logger.error({
+      message: 'Failed to submit feedback form',
+      error,
+    });
+    return res.status(500).json({ message: 'Form submission failed' });
+  }
+});
