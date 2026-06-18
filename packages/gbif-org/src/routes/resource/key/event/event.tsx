@@ -27,6 +27,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import PageMetaData from '@/components/PageMetaData';
 
 export const EventPageSkeleton = ArticleSkeleton;
+const PUBLIC_API = import.meta.env.PUBLIC_API.replace('https://', '').replace('http://', '');
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventPage on MeetingEvent {
@@ -107,7 +108,7 @@ export function EventPage() {
 
           <Button className="g-mt-4" asChild>
             <a
-              href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}
+              href={`webcal://${PUBLIC_API}/v1/newsroom/events/${resource.id}.ics`}
               className="g-flex g-gap-2"
             >
               <MdCalendarMonth />
