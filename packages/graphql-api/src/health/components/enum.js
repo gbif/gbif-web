@@ -14,6 +14,7 @@ async function getEnumData(url) {
   const res = await axios.get(url, {
     baseURL: API_V1,
     responseType: 'json',
+    headers: { 'User-Agent': 'GRAPHQL_health' },
   });
   if (res.status !== 200) {
     throw Error(`Unable to get data from: ${url}`);
