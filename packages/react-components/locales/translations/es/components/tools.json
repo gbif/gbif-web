@@ -8,7 +8,7 @@
       "tools": "Herramientas",
       "lookUp": "Buscar",
       "pageTitle": "Búsqueda de especies",
-      "description": "",
+      "description": "Normaliza los nombres de las especies de un archivo CSV comparándolos con Catalogue of Life. Las columnas previstas son «scientificName» (obligatoria), «kingdom» (opcional) e «id» (opcional).",
       "selectFile": "Seleccionar archivo",
       "or": "o",
       "dropHere": "Soltar aquí",
