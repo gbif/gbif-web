@@ -46,6 +46,10 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
     throw new NotFoundLoaderResponse();
   }
 
+  if (taxonId && datasetKey && datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY) {
+    return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${taxonId}`);
+  }
+
   if (taxonId && datasetKey && datasetKey !== import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY) {
     return redirect(`${locale.gbifOrgLocalePrefix}/dataset/${datasetKey}/taxon/${taxonId}`);
   }
