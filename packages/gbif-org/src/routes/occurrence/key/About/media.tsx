@@ -98,8 +98,8 @@ function Images({
               <figure>
                 <a
                   target="_blank"
-                  href={`https://old.gbif.org/tools/zoom/simple.html?src=${encodeURIComponent(
-                    media.identifier ?? media.thumbor
+                  href={`/tools/zoom/simple.html?src=${encodeURIComponent(
+                    media.originalImage ?? media.thumbor
                   )}`}
                 >
                   <Img src={media.thumbor} failedClassName="g-h-36 g-bg-slate-200" />

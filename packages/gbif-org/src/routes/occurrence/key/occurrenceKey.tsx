@@ -301,6 +301,7 @@ fragmentManager.register(/* GraphQL */ `
     references
     rightsHolder
     description
+    originalImage: thumbor
     thumbor(height: 800)
     smallThumbnail: thumbor(height: 100, width: 100)
   }
