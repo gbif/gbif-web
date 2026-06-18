@@ -98,7 +98,7 @@ function Images({
               <figure>
                 <a
                   target="_blank"
-                  href={`https://www.gbif.org/tools/zoom/simple.html?src=${encodeURIComponent(
+                  href={`https://old.gbif.org/tools/zoom/simple.html?src=${encodeURIComponent(
                     media.identifier ?? media.thumbor
                   )}`}
                 >
