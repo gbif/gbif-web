@@ -31,7 +31,7 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
   throwCriticalErrors({
     path404: ['speciesKey'],
     errors,
-    requiredObjects: [data?.speciesKey],
+    requiredObjects: [],
   });
 
   // if backbone key we can sometimes redirect to new CoL page
