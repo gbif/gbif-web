@@ -195,7 +195,7 @@ feedbackRouter.post('/bug', isAuthenticated, validateRequest(FormSchema), async 
         publishingOrgKey,
         networkKeys,
       }),
-      labels: ['demo'],
+      labels: [],
     };
     const issue = await createGitHubIssue(result);
 
