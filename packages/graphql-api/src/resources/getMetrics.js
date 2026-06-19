@@ -90,7 +90,7 @@ const getFacet =
  */
 const getNestedFacet =
   (nestedKey, childKey, getSearchFunction, valueType) =>
-  (parent, { size = 10, from = 0 }, { dataSources }) => {
+  (parent, { size = 10, from = 0, include }, { dataSources }) => {
     const searchApi = getSearchFunction(dataSources);
     const key = `${nestedKey}.${childKey}`;
     const query = {
@@ -103,6 +103,10 @@ const getNestedFacet =
           key,
           size,
           from,
+          // Restrict the terms aggregation to a known set of values (e.g. the
+          // nucleotideSequenceIDs returned by a vsearch similarity search). es-api
+          // forwards this to the inner terms agg inside the nested aggregation.
+          include,
         },
       },
     };

@@ -200,6 +200,15 @@ OccurrenceFacet.nucleotideSequenceSequenceLength = getNestedFacet(
   'sequenceLength',
   getSourceSearch,
 );
+// Facet on the nucleotideSequenceID. Used with an `include` list to restrict the terms
+// aggregation to a known set of IDs (e.g. the vsearch similarity hits), scoped by the
+// current filter, so the "Similar sequences" UI can show how many of those sequences still
+// occur under the other active filters.
+OccurrenceFacet.nucleotideSequenceNucleotideSequenceID = getNestedFacet(
+  'nucleotideSequence',
+  'nucleotideSequenceID',
+  getSourceSearch,
+);
 
 // there are also many fields that support stats. Generate them all.
 const statsReducer = (dictionary, statsName) => {
