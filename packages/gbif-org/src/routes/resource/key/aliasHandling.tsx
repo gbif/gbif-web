@@ -27,6 +27,34 @@ export async function aliasHandlingLoader(args: LoaderArgs) {
 
   const alias = params['*'];
 
+  // some sanity check to prevent unnecessary GraphQL calls
+  if (typeof alias !== 'string' || alias.trim() === '') {
+    throw new NotFoundLoaderResponse();
+  }
+  const startsWithSubstrings = [
+    'content/',
+    'occurrence/',
+    'species/',
+    'dataset/',
+    'publisher/',
+    'collection/',
+    'institution/',
+    'resource/',
+    'composition/',
+    'article/',
+    'data-use/',
+    'document/',
+  ];
+  const includesSubstrings = ['.', ...startsWithSubstrings.map((substring) => `/${substring}`)];
+  // if an alias starts with or includes any of the substrings, we can be pretty sure it is not a
+  // valid alias and we can skip the GraphQL call
+  const ignoreAlias =
+    startsWithSubstrings.some((substring) => alias.startsWith(substring)) ||
+    includesSubstrings.some((substring) => alias.includes(substring));
+  if (ignoreAlias) {
+    throw new NotFoundLoaderResponse();
+  }
+
   const response = await graphql.query<AliasHandlingQuery, AliasHandlingQueryVariables>(
     ALIAS_HANDLING_FRAGMENT,
     { alias: `/${alias}` }
