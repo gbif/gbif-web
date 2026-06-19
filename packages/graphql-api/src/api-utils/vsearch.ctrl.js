@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Router } from 'express';
-import VsearchParser from 'vsearch-parser';
 import { isbot } from 'isbot';
+import VsearchParser from '../helpers/vsearch/vsearchParser';
 import config from '../config';
 
 const router = Router();
@@ -23,11 +23,7 @@ const router = Router();
  * "target id" will be searchable in occurrence search as nucleotideSequence.nucleotideSequenceID in ES / APIv1
  */
 
-const {
-  sanitizeSequence,
-  vsearchResultToJson,
-  vsearchResultToJsonWithAligment,
-} = new VsearchParser({
+const { sanitizeSequence, vsearchResultToJson, vsearchResultToJsonWithAligment } = new VsearchParser({
   MATCH_THRESHOLD: 99,
   MATCH_CLOSE_THRESHOLD: 97,
 });
@@ -42,9 +38,7 @@ router.get('/vsearch', async (req, res) => {
   if (itIsABot) {
     return res
       .status(418)
-      .send(
-        'Thirdparty endpoints are not available ;for bots to avoid overloading external services.',
-      );
+      .send('Thirdparty endpoints are not available ;for bots to avoid overloading external services.');
   }
   const { sequence, outfmt } = req.query;
   if (!config?.vsearch?.occurrence) {
@@ -59,9 +53,7 @@ router.get('/vsearch', async (req, res) => {
   const sanitizedSequence = sanitizeSequence(sequence);
 
   const response = await axios.get(
-    `${config?.vsearch?.occurrence}?sequence=${sanitizedSequence}&outfmt=${
-      outfmt || 'alnout'
-    }`,
+    `${config?.vsearch?.occurrence}?sequence=${sanitizedSequence}&outfmt=${outfmt || 'alnout'}`,
   );
   if (response.status !== 200) {
     throw response;

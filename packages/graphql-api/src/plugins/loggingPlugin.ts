@@ -66,7 +66,7 @@ const loggingPlugin: ApolloServerPlugin = {
             request: {
               referrer: requestContext?.request?.http?.headers.get('referrer'),
               userAgent: requestContext?.request?.http?.headers.get('user-agent'),
-              operationName: requestContext?.request?.operationName,
+              operationName: requestContext?.operationName,
               variables: requestContext?.request?.variables,
             },
             playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(
@@ -117,7 +117,7 @@ const loggingPlugin: ApolloServerPlugin = {
           request: {
             referrer: requestContext?.request?.http?.headers.get('referrer'),
             userAgent: requestContext?.request?.http?.headers.get('user-agent'),
-            operationName: requestContext?.request?.operationName,
+            operationName: requestContext?.operationName,
             variables: requestContext?.request?.variables,
           },
           errors,
