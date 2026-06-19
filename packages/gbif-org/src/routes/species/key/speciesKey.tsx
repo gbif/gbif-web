@@ -33,9 +33,10 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
     errors,
     requiredObjects: [],
   });
+  debugger;
 
   // if backbone key we can sometimes redirect to new CoL page
-  const newTaxonID = data?.taxon?.related?.[0]?.taxonID;
+  const newTaxonID = data?.speciesKey?.taxon?.related?.[0]?.taxonID;
   if (newTaxonID) {
     return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${newTaxonID}`);
   }
@@ -46,23 +47,33 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
     throw new NotFoundLoaderResponse();
   }
 
+  // for species keys that refer to CoL, we jsut need to remap
   if (taxonId && datasetKey && datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY) {
-    return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${taxonId}`);
+    return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${encodeURIComponent(taxonId)}`);
   }
 
+  // for anything that isn't the backbone or CoL we can redirect to the dataset specific page
   if (taxonId && datasetKey && datasetKey !== import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY) {
-    return redirect(`${locale.gbifOrgLocalePrefix}/dataset/${datasetKey}/taxon/${taxonId}`);
+    return redirect(
+      `${locale.gbifOrgLocalePrefix}/dataset/${datasetKey}/taxon/${encodeURIComponent(taxonId)}`
+    );
   }
 
-  if (data?.taxon) {
+  // this is a bit an odd one. If the speciesKey is present so should the taxon, since the data should always be in CoL
+  // but in case of an inconsistency, we fail. We could also show speciesKey information instead in the tombstone page.
+  if (!data?.speciesKey?.taxon) {
     throw new NotFoundLoaderResponse();
   }
 
+  // It is not a mappable backbone key, not a CoL key and not another known species key.
+  // so it must be a backbone key that has no mapping to CoL.
+  // we will have to show a tombstone page
   return { errors, data };
 }
 
 export function SpeciesKey() {
   const { data } = useLoaderData() as { data: DeprecatedTaxonQuery };
+  const taxon = data.speciesKey?.taxon;
 
   return (
     <article>
@@ -71,7 +82,7 @@ export function SpeciesKey() {
           <ArticlePreTitle clickable>
             <DynamicLink pageId="taxonSearch">Taxon</DynamicLink>
           </ArticlePreTitle>
-          <ArticleTitle>{data.taxon?.scientificName ?? 'Unknown taxon'}</ArticleTitle>
+          <ArticleTitle>{taxon?.scientificName ?? 'Unknown taxon'}</ArticleTitle>
           <ArticleIntro>
             <p className="g-text-red-500 g-text-base g-font-medium g-pb-2">
               <FormattedMessage
@@ -90,15 +101,15 @@ export function SpeciesKey() {
         <div className="g-py-8">
           <div className="g-bg-slate-100 g-p-4 md:g-p-8 g-w-full g-max-w-7xl g-m-auto g-overflow-auto">
             <Properties>
-              <Property labelId="Scientific name" value={data.taxon?.scientificName} />
-              <Property labelId="status" value={data.taxon?.taxonomicStatus} />
-              <Property labelId="rank" value={data.taxon?.taxonRank} />
-              {(data.taxon?.parentTree?.length ?? 0) > 0 && (
+              <Property labelId="Scientific name" value={taxon?.scientificName} />
+              <Property labelId="status" value={taxon?.taxonomicStatus} />
+              <Property labelId="rank" value={taxon?.taxonRank} />
+              {(taxon?.parentTree?.length ?? 0) > 0 && (
                 <>
                   <Term>Classification</Term>
                   <Value>
                     <Properties>
-                      {data.taxon?.parentTree?.map((parent) => (
+                      {taxon?.parentTree?.map((parent) => (
                         <Property
                           key={parent.taxonID}
                           labelId={`${parent.taxonRank}:`}
@@ -116,7 +127,7 @@ export function SpeciesKey() {
               <DynamicLink
                 pageId="taxonSearch"
                 searchParams={{
-                  q: data.taxon?.scientificName ?? '',
+                  q: taxon?.scientificName ?? '',
                 }}
               >
                 Go to taxon search
@@ -131,25 +142,32 @@ export function SpeciesKey() {
 
 const SPECIES_QUERY = /* GraphQL */ `
   query DeprecatedTaxon($key: ID!, $oldDatasetKey: ID!, $newDatasetKey: ID!) {
-    taxon(datasetKey: $oldDatasetKey, key: $key) {
-      taxonID
-      scientificName
-      taxonRank
-      taxonomicStatus
-      parentTree {
-        taxonID
-        scientificName
-        taxonRank
-      }
-      related(datasetKey: [$newDatasetKey]) {
-        taxonID
-        scientificName
-        datasetKey
-      }
-    }
     speciesKey(key: $key) {
       taxonID
       datasetKey
+      kingdom
+      phylum
+      order
+      family
+      genus
+      species
+      scientificName
+      taxon(ifDatasetKey: $oldDatasetKey) {
+        taxonID
+        scientificName
+        taxonRank
+        taxonomicStatus
+        parentTree {
+          taxonID
+          scientificName
+          taxonRank
+        }
+        related(datasetKey: [$newDatasetKey]) {
+          taxonID
+          scientificName
+          datasetKey
+        }
+      }
     }
   }
 `;

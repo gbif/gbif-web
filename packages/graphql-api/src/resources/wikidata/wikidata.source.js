@@ -5,6 +5,7 @@ import wikibase from 'wikibase-sdk';
 import { RESTDataSource } from '@/RESTDataSource';
 import { getDefaultAgent } from '@/requestAgents';
 import { decorateProperty, getItemData, getIUCNRedListData } from './helpers';
+import logger from '@/logger';
 
 const USER_AGENT = 'gbif-graphql/1.0';
 const WIKI_GBIF_TAXON_IDENTIFIER = 'P10585'; // col P10585- backbone P846
