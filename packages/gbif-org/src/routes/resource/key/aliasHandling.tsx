@@ -32,6 +32,7 @@ export async function aliasHandlingLoader(args: LoaderArgs) {
     throw new NotFoundLoaderResponse();
   }
   const startsWithSubstrings = [
+    'api/',
     'content/',
     'occurrence/',
     'species/',
