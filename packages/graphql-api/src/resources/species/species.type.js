@@ -39,6 +39,10 @@ const typeDef = gql`
     class: String
     issues: [String]
     nomenclaturalStatus: [String]
+    """
+    Attempt to map the species to the taxon API.
+    """
+    taxon(ifDatasetKey: ID): TaxonSimple
   }
 `;
 
