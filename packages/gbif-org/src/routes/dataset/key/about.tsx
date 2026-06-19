@@ -684,7 +684,7 @@ function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> })
         </Button>
         <Button variant="outline" asChild>
           <a
-            href={`${import.meta.env.PUBLIC_LOG_URL ?? 'https://logs.gbif.org'}/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-30m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'439da4d0-290a-11ed-8155-a37cb1ead50e',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:'datasetKey.keyword%20%3D%20${dataset.key}'),sort:!(!('@timestamp',desc)))`}
+            href={`https://logs.gbif.org/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-30m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'${import.meta.env.PUBLIC_LOG_VIEW ?? '439da4d0-290a-11ed-8155-a37cb1ead50e'}',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:'datasetKey.keyword%20%3D%20${dataset.key}'),sort:!(!('@timestamp',desc)))`}
             target="_blank"
             rel="noreferrer"
           >
