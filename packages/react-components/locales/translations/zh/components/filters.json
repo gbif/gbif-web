@@ -479,7 +479,7 @@
   },
   "publicationDate": {
     "name": "发布日期",
-    "description": ""
+    "description": "该记录是何时发布的"
   },
   "personalCollection": {
     "name": "个人收藏",
