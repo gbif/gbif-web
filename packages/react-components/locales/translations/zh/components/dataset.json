@@ -36,8 +36,8 @@
       "citations": "引用"
     },
     "checklist": {
-      "info": "",
-      "checklistbank": "",
+      "info": "这些指标提供了清单数据集的概述。欲了解更详细的指标和数据探索，请访问{checklistbank}。",
+      "checklistbank": "清单库",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
