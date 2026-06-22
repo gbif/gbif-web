@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Dystrybucja taksonomiczna wystąpień",
   "noCitations": "Brak cytowań",
-  "noOccurrences": "Brak wystąpień"
+  "noOccurrences": "Brak wystąpień",
+  "eventWarning": ""
 }
