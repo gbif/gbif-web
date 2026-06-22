@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Таксономическое распределение находок",
   "noCitations": "",
-  "noOccurrences": "Нет таких наблюдений"
+  "noOccurrences": "Нет таких наблюдений",
+  "eventWarning": ""
 }
