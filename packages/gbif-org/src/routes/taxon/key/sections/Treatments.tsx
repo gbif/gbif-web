@@ -1,5 +1,4 @@
 import { Table } from '@/components/dashboard/shared';
-import { HyperText } from '@/components/hyperText';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -17,8 +16,6 @@ import { Paging } from '@/components/paging';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ColFeedback } from './ColFeedback';
 import { DatasetLabel } from '@/components/filters/displayNames';
-import { useDatasetCitation } from '@/routes/dataset/key/useDatasetCitation';
-import { SkeletonParagraph } from '@/components/ui/skeleton';
 
 const DEFAULT_LIMIT = 3;
 
@@ -140,13 +137,3 @@ const Treatments = ({ taxonInfo }: { taxonInfo: TaxonKeyQuery['taxonInfo'] }) =>
     </Card>
   );
 };
-
-function DatasetCitation({ datasetKey }: { datasetKey: string }) {
-  const { citation, loading } = useDatasetCitation(datasetKey);
-
-  if (loading) {
-    return <SkeletonParagraph lines={2} />;
-  }
-
-  return <HyperText text={citation || 'No citation available'} />;
-}
