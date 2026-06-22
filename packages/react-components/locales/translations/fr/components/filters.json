@@ -463,7 +463,7 @@
   },
   "isSequenced": {
     "name": "Est séquencé",
-    "description": "Si l'enregistrement a des informations sur les séquences "
+    "description": ""
   },
   "active": {
     "name": "Activé",
