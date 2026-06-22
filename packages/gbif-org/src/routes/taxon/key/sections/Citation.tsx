@@ -6,6 +6,13 @@ import { useDatasetCitation } from '@/routes/dataset/key/useDatasetCitation';
 const testSite = import.meta.env.PUBLIC_TEST_SITE === 'true';
 
 const Citation = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonInfo']> }) => {
+  if (taxonInfo?.datasetKey) {
+    return <CitationContent taxonInfo={taxonInfo} />;
+  }
+  return null;
+};
+
+const CitationContent = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonInfo']> }) => {
   const { citation, loading } = useDatasetCitation(taxonInfo.datasetKey);
   if (loading) {
     return <SkeletonParagraph lines={2} />;
