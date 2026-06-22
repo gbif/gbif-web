@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "出现记录的分类学分布",
   "noCitations": "",
-  "noOccurrences": "没有出现记录"
+  "noOccurrences": "没有出现记录",
+  "eventWarning": ""
 }
