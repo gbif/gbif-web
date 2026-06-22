@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Taxonomic distribution of occurrences",
   "noCitations": "No citations yet",
-  "noOccurrences": "No occurrences"
+  "noOccurrences": "No occurrences",
+  "eventWarning": "Event search and filtering are experimental features under active development"
 }
