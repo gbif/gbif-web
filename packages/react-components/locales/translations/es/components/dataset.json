@@ -196,5 +196,5 @@
   "eventTaxonomy": "Distribución taxonómica de los registros de presencia",
   "noCitations": "Aún no hay citas",
   "noOccurrences": "Sin registros biológicos",
-  "eventWarning": ""
+  "eventWarning": "La búsqueda y el filtrado de eventos son funciones experimentales en fase de desarrollo activo."
 }
