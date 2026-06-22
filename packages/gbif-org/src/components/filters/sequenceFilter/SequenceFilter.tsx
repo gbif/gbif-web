@@ -6,6 +6,7 @@ import useQuery from '@/hooks/useQuery';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import {
+  MAX_VSEARCH_SEQUENCE_LENGTH,
   parseSequenceFilterValue,
   resolveSequence,
   SequenceBin,
@@ -49,7 +50,7 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
     const [bins, setBins] = useState<SequenceBin[]>([]);
     const [selected, setSelected] = useState<string[]>(existing?.selected ?? []);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<'invalid' | 'error' | null>(null);
+    const [error, setError] = useState<'invalid' | 'tooLong' | 'error' | null>(null);
     const [searched, setSearched] = useState(false);
     const [pristine, setPristine] = useState(true);
     const didInit = useRef(false);
@@ -62,7 +63,10 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
       setError(null);
       try {
         const resolution = await resolveSequence(seq, config.v1Endpoint, webUtilsBase);
-        if (resolution.invalid) {
+        if (resolution.tooLong) {
+          setBins([]);
+          setError('tooLong');
+        } else if (resolution.invalid) {
           setBins([]);
           setError('invalid');
         } else {
@@ -95,7 +99,7 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
       setSelected([]);
       setPristine(false);
       const resolution = await resolve(sequence);
-      if (resolution && !resolution.invalid) {
+      if (resolution && !resolution.invalid && !resolution.tooLong) {
         const applied = parseSequenceFilterValue(filter?.must?.[filterHandle]?.[0]);
         if (applied) setField(filterHandle, []);
       }
@@ -194,6 +198,15 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
               <FormattedMessage
                 id="filters.nucleotideSequenceId.invalid"
                 defaultMessage="That doesn't look like a valid nucleotide sequence."
+              />
+            </p>
+          )}
+          {error === 'tooLong' && (
+            <p className="g-mt-3 g-text-sm g-text-orange-600">
+              <FormattedMessage
+                id="filters.nucleotideSequenceId.tooLong"
+                defaultMessage="That sequence is too long. The maximum is {max} bases."
+                values={{ max: MAX_VSEARCH_SEQUENCE_LENGTH }}
               />
             </p>
           )}

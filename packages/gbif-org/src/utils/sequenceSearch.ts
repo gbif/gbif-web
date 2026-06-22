@@ -17,7 +17,15 @@ export type VsearchMatch = { id: string; identity: number };
 export type SequenceBin = { id: string; min: number; max: number; ids: string[] };
 
 // The result of resolving a raw sequence (validation -> vsearch -> binning).
-export type SequenceResolution = { bins: SequenceBin[]; invalid: boolean };
+// `invalid`: the input isn't a usable nucleotide sequence. `tooLong`: it exceeds the vsearch
+// server's max length. Either way no bins/predicate are produced.
+export type SequenceResolution = { bins: SequenceBin[]; invalid: boolean; tooLong?: boolean };
+
+// The upstream vsearch server rejects sequences longer than its max_sequence_length. We check
+// the normalised sequence (what actually gets sent to vsearch) against this client-side too,
+// so the user gets immediate feedback without a wasted round-trip. Mirrored server-side in
+// graphql-api's vsearch.ctrl.js.
+export const MAX_VSEARCH_SEQUENCE_LENGTH = 2048;
 
 // The value the filter persists (URL stays tiny — only the input sequence + which bins
 // are ticked). The matched IDs are NOT stored; they are recomputed from the sequence on
@@ -131,6 +139,13 @@ export function resolveSequence(
       const entry = resolutionCache.get(key);
       if (entry) entry.result = invalidResult;
       return invalidResult;
+    }
+    // The normalised sequence is what gets sent to vsearch; enforce its length limit here.
+    if (validation.sequence.length > MAX_VSEARCH_SEQUENCE_LENGTH) {
+      const tooLongResult: SequenceResolution = { bins: [], invalid: false, tooLong: true };
+      const entry = resolutionCache.get(key);
+      if (entry) entry.result = tooLongResult;
+      return tooLongResult;
     }
     const matches = await fetchVsearchMatches(validation.sequence, webUtilsBaseUrl);
     const result: SequenceResolution = { bins: binMatches(matches), invalid: false };

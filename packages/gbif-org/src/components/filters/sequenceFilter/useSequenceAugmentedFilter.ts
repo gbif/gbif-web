@@ -48,7 +48,8 @@ export function useSequenceAugmentedFilter(filter: FilterType): FilterType {
   return useMemo(() => {
     if (!sequence) return filter;
     const resolution = getCachedResolution(sequence);
-    if (!resolution || resolution.invalid) return filter; // cold/invalid: predicate omitted
+    // cold / invalid / too long: no ids, predicate omitted
+    if (!resolution || resolution.invalid || resolution.tooLong) return filter;
     const ids = selectedSequenceIds(resolution.bins, value?.selected ?? []);
     const augmented = JSON.stringify({ sequence, selected: value?.selected ?? [], ids });
     return {
