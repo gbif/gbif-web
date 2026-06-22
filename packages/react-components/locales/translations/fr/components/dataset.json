@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Distribution taxonomique des occurrences",
   "noCitations": "Pas encore de citations",
-  "noOccurrences": "Aucune occurrence"
+  "noOccurrences": "Aucune occurrence",
+  "eventWarning": ""
 }
