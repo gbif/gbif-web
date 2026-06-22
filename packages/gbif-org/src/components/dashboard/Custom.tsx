@@ -9,7 +9,7 @@ import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { DynamicLink } from '@/reactRouterPlugins';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { tryParse } from '@/utils/querystring';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { MdArrowDropDown, MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useUncontrolledProp } from 'uncontrollable';
@@ -53,6 +53,8 @@ type TaxonFacetData = {
 
 type TaxaMainProps = {
   defaultRank?: string;
+  rank?: string;
+  onParamsChange?: (params: Record<string, unknown>) => void;
   predicate?: Record<string, unknown>;
   checklistKey?: string;
   q?: string;
@@ -67,6 +69,8 @@ type TaxaMainProps = {
 
 function TaxaMain({
   defaultRank,
+  rank: userRank,
+  onParamsChange,
   predicate,
   checklistKey,
   q,
@@ -80,8 +84,28 @@ function TaxaMain({
   const { theme } = useConfig();
   const [view, setView] = useUncontrolledProp<ChartView>(userView, 'TABLE', setUserView);
   const defaultChecklistKey = useChecklistKey();
-  const [query, setQuery] = useState(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
-  const [rank, setRank] = useState<string>(getDefaultRank(defaultRank).toUpperCase());
+  // Local fallback rank, used when the rank isn't persisted via the layout
+  // (e.g. when the Taxa chart is embedded in entity pages rather than the
+  // customizable dashboard). It tracks `defaultRank` so dynamic defaults keep working.
+  const [localRank, setLocalRank] = useState<string>(getDefaultRank(defaultRank).toUpperCase());
+  // When the chart lives in the customizable dashboard, `onParamsChange` is provided
+  // and the selected rank is read from / written to the serialized layout (`p.rank`),
+  // so it survives reload and is included in shared links. Validate the persisted
+  // value (it may come from an untrusted URL) and fall back to the local rank.
+  const persistedRank = typeof userRank === 'string' ? userRank.toUpperCase() : undefined;
+  const rank =
+    persistedRank && (majorRanks as readonly string[]).includes(persistedRank.toLowerCase())
+      ? persistedRank
+      : localRank;
+  const setRank = (value: string) => {
+    const normalized = value.toUpperCase();
+    if (onParamsChange) {
+      onParamsChange({ rank: normalized });
+    } else {
+      setLocalRank(normalized);
+    }
+  };
+  const query = useMemo(() => getTaxonQuery(`${rank.toLowerCase()}Key`), [rank]);
   const hasPredicates: Array<Record<string, unknown>> = [
     {
       type: 'isNotNull',
@@ -109,9 +133,10 @@ function TaxaMain({
     ? generateChartsPalette(chartColors)
     : (Highcharts?.defaultOptions?.colors as string[] | undefined);
 
+  // Keep the local fallback rank in sync when a (possibly dynamic) `defaultRank`
+  // changes. The persisted rank (`userRank`) always takes precedence when present.
   useEffect(() => {
-    setRank(getDefaultRank(defaultRank).toUpperCase());
-    setQuery(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
+    setLocalRank(getDefaultRank(defaultRank).toUpperCase());
   }, [defaultRank]);
 
   const facetData = facetResults?.data as TaxonFacetData | undefined;
@@ -206,7 +231,6 @@ function TaxaMain({
                   key={rank}
                   onClick={() => {
                     setRank(rank);
-                    setQuery(getTaxonQuery(`${rank}Key`));
                   }}
                 >
                   <FormattedMessage
