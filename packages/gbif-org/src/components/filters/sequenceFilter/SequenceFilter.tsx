@@ -5,7 +5,12 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import useQuery from '@/hooks/useQuery';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
-import { parseSequenceFilterValue, resolveSequence, SequenceBin } from '@/utils/sequenceSearch';
+import {
+  parseSequenceFilterValue,
+  resolveSequence,
+  SequenceBin,
+  SequenceResolution,
+} from '@/utils/sequenceSearch';
 import cloneDeep from 'lodash/cloneDeep';
 import hash from 'object-hash';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
@@ -50,9 +55,9 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
     const didInit = useRef(false);
 
     // Core resolve (cache-backed). Does not touch the current selection.
-    const resolve = async (raw: string) => {
+    const resolve = async (raw: string): Promise<SequenceResolution | undefined> => {
       const seq = raw.trim();
-      if (!seq) return;
+      if (!seq) return undefined;
       setLoading(true);
       setError(null);
       try {
@@ -64,8 +69,10 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
           setBins(resolution.bins);
         }
         setSearched(true);
+        return resolution;
       } catch {
         setError('error');
+        return undefined;
       } finally {
         setLoading(false);
       }
@@ -80,11 +87,18 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // A fresh search (new/edited sequence) resets the selection.
+    // A fresh search (new/edited sequence) resets the selection. Once new results arrive,
+    // also clear any previously-applied filter immediately, so the live result set stops
+    // showing the old sequence's matches instead of waiting for the user to click Apply
+    // again. The popover stays open (no onApply) for the new bin picks.
     const search = async () => {
       setSelected([]);
       setPristine(false);
-      await resolve(sequence);
+      const resolution = await resolve(sequence);
+      if (resolution && !resolution.invalid) {
+        const applied = parseSequenceFilterValue(filter?.must?.[filterHandle]?.[0]);
+        if (applied) setField(filterHandle, []);
+      }
     };
 
     const toggleBin = (id: string) => {
