@@ -404,7 +404,9 @@ function Item({
   lockedLayout,
   chartsTypes = {},
 }) {
-  const { t: type, r: resizable = false, p: params = {} } = item;
+  const { t: type, p: params = {} } = item;
+  // Resizable is a code-level property of the chart type, read from the registry.
+  const resizable = chartsTypes[type]?.r ?? false;
   const { h: height = 500, ...componentProps } = params;
   const Component =
     chartsTypes[type]?.component ??
@@ -414,12 +416,19 @@ function Item({
         <div>Broken. Please delete or recreate</div>
       </div>
     ));
+  // Merge new params into the existing serialized params (`p`) so a chart can
+  // persist its own settings (e.g. the selected taxonomic rank) into the
+  // shareable layout without clobbering other params such as the current view
+  // or the resized height.
+  const onParamsChange = (newParams) =>
+    onUpdateItem({ ...item, p: { ...params, ...newParams } }, index);
   const content = (
     <Component
       predicate={predicate}
       q={q}
       {...componentProps}
-      setView={(view) => onUpdateItem({ ...item, p: { view } }, index)}
+      onParamsChange={onParamsChange}
+      setView={(view) => onParamsChange({ view })}
     />
   );
 
