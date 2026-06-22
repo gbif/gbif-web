@@ -612,7 +612,7 @@ function Event({
       <OccurrenceSearchField
         term={termMap.parentEventID}
         showDetails={showAll}
-        filterKey="eventId"
+        filterKey="parentEventId"
         filterValue={termMap?.parentEventID?.value}
         occurrence={occurrence}
       />

@@ -3,17 +3,22 @@ import * as charts from '@/components/dashboard';
 import { MapChartsEnabledContext } from '@/components/dashboard/charts/OneDimensionalChart';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
-import { useJsonParam } from '@/hooks/useParam';
+import { useParam } from '@/hooks/useParam';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
+import { parseLayout, serializeLayout } from './layoutSerialization';
 import { Map } from '../map';
 import { Media } from '../media';
 import { OccurrenceTable as Table } from '../table/occurrenceTable';
 const DashboardBuilder = React.lazy(() => import('./DashboardBuilder'));
 
 export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props }) {
-  const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });
+  const [urlLayout, setUrlLayout] = useParam({
+    key: 'layout',
+    parse: parseLayout,
+    serialize: serializeLayout,
+  });
   const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
   const [chartsTypes, setChartsTypes] = useState([]);
 
@@ -40,7 +45,12 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props
     [setLayoutState, setUrlLayout]
   );
 
-  const isUrlLayoutDifferent = urlLayout && JSON.stringify(urlLayout) !== JSON.stringify(layout);
+  // Compare the canonical serialized form rather than the raw objects: the URL
+  // representation intentionally omits ids/translation and normalizes param
+  // order/types, so a freshly shared layout would otherwise look "different"
+  // from the identical layout in local storage.
+  const isUrlLayoutDifferent =
+    urlLayout && serializeLayout(urlLayout) !== serializeLayout(layout);
   return (
     <MapChartsEnabledContext.Provider value={true}>
       <div>
