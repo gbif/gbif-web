@@ -108,11 +108,7 @@ const typeDef = gql`
 
     dataset: Dataset
     acceptedTaxon: TaxonSimple
-    occurrenceMedia(
-      limit: Int
-      offset: Int
-      mediaType: MediaType
-    ): TaxonOccurrenceMedia
+    occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
     wikiData: WikiDataTaxonData
     relatedInfo: RelatedTaxonInfo
@@ -357,11 +353,7 @@ const typeDef = gql`
 
     dataset: Dataset
     acceptedTaxon: TaxonSimple
-    occurrenceMedia(
-      limit: Int
-      offset: Int
-      mediaType: MediaType
-    ): TaxonOccurrenceMedia
+    occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
     wikiData: WikiDataTaxonData
     relatedInfo: RelatedTaxonInfo
@@ -513,15 +505,11 @@ const typeDef = gql`
     vernacularName(language: String): VernacularName
 
     # related endpoints
-    occurrenceMedia(
-      limit: Int
-      offset: Int
-      mediaType: MediaType
-    ): TaxonOccurrenceMedia
+    occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
     wikiData: WikiDataTaxonData
     relatedInfo: RelatedTaxonInfo
-    related(datasetType: RelatedDatasetType): [TaxonSimple!]!
+    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
     mapCapabilities: MapCapabilities

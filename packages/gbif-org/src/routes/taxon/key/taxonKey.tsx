@@ -21,6 +21,7 @@ export async function taxonLoader({ params, graphql, locale, config }: LoaderArg
     key,
     datasetKey: config.taxonSearch?.checklistKey ?? primaryChecklist,
     language: locale?.iso3LetterCode ?? 'eng',
+    colDatasetKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
   });
 
   const { errors, data } = await response.json();
@@ -39,6 +40,7 @@ export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs
     key,
     datasetKey: params.key as string,
     language: locale?.iso3LetterCode ?? 'eng',
+    colDatasetKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
   });
 
   const { errors, data } = await response.json();
@@ -88,7 +90,7 @@ export const NonBackboneTaxon = () => {
 export { TaxonPageSkeleton } from './taxonKeyPresentation';
 
 const TAXON_QUERY = /* GraphQL */ `
-  query TaxonKey($key: ID!, $datasetKey: ID!, $language: String) {
+  query TaxonKey($key: ID!, $datasetKey: ID!, $language: String, $colDatasetKey: ID!) {
     taxonInfo(key: $key, datasetKey: $datasetKey) {
       group: taxonomicGroup
       checklistbankURL
@@ -120,6 +122,9 @@ const TAXON_QUERY = /* GraphQL */ `
         taxonID
         datasetKey
         references
+      }
+      relatedColEntries: related(datasetKey: [$colDatasetKey]) {
+        taxonID
       }
       relatedInfo {
         griis {
