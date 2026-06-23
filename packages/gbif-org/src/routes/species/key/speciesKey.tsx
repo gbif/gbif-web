@@ -23,7 +23,6 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
     SPECIES_QUERY,
     {
       key,
-      oldDatasetKey: import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY,
       newDatasetKey: config.defaultChecklistKey,
     }
   );
@@ -37,7 +36,7 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
 
   // if backbone key we can sometimes redirect to new CoL page
   const newTaxonID = data?.speciesKey?.taxon?.related?.[0]?.taxonID;
-  if (newTaxonID) {
+  if (newTaxonID && data?.speciesKey?.datasetKey === import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY) {
     return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${newTaxonID}`);
   }
   const taxonId = data.speciesKey?.taxonID;
