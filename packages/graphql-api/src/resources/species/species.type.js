@@ -37,6 +37,7 @@ const typeDef = gql`
     lastCrawled: String
     lastInterpreted: String
     class: String
+    deleted: String
     issues: [String]
     nomenclaturalStatus: [String]
     """

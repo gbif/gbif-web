@@ -111,6 +111,7 @@ export function SpeciesKey() {
               <Property labelId="Scientific name" value={speciesKey?.scientificName} />
               <Property labelId="status" value={speciesKey?.taxonomicStatus} />
               <Property labelId="rank" value={speciesKey?.rank} />
+              <Property labelId="deleted" value={speciesKey?.deleted} />
               {speciesKey?.datasetKey && (
                 <Property labelId="dataset" value={speciesKey?.datasetKey}>
                   <DynamicLink
@@ -191,6 +192,7 @@ const SPECIES_QUERY = /* GraphQL */ `
       scientificName
       taxonomicStatus
       rank
+      deleted
       taxon {
         taxonID
         scientificName
