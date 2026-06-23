@@ -7,6 +7,7 @@ import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-i
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { mediumDateFormatProps, MediumDate } from '@/components/dateFormats';
 import { getTextDirection } from '@/utils/textDirection';
+import { stripTags } from '@/utils/stripTags';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on MeetingEvent {
@@ -34,13 +35,14 @@ type Props = {
 export function EventResult({ event, className }: Props) {
   const primaryLink = event.primaryLink?.url ?? `/event/${event.id}`;
   const dir = getTextDirection(event.title);
+  const title = stripTags(event.title);
 
   return (
     <ResultCard.Container className={className} dir={dir}>
       <ResultCard.Header
         title={
           <span className="g-flex g-items-center g-flex-wrap g-gap-2">
-            {event.title}
+            <span dangerouslySetInnerHTML={{ __html: title }} />
             {event.primaryLink?.url && <MdLink className="g-inline-block g-align-middle" />}
             {isPast(event) && (
               <span className="g-inline-flex g-items-center g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
