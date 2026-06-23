@@ -9,15 +9,11 @@ function errorLoggingMiddleware(error, req, res, next) {
   // Per-request log fields, set on req by the middleware in index.js.
   const { requestId, siteUrl } = req.logContext || {};
 
-  const executionTime = process.hrtime(startTime);
-  const elapsedMilliseconds = (executionTime[0] * 1e9 + executionTime[1]) / 1e6;
-
   logger.error({
     message: error.message ?? 'ES-API Error',
     ...(requestId ? { requestId } : {}),
     ...(siteUrl ? { siteUrl } : {}),
     errors: [error],
-    durationMs: Math.round(elapsedMilliseconds),
     request: {
       method: req.method,
       url: req.url,
