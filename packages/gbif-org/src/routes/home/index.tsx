@@ -73,6 +73,7 @@ function HomePage(): React.ReactElement {
                     >
                       {home?.summary}
                     </h1>
+                    <Link to="/occurrence/download/0074436-260519110011954">download</Link>
                   </div>
                   <TestSiteAlert className="g-my-4" />
                   <div className="g-mt-4">

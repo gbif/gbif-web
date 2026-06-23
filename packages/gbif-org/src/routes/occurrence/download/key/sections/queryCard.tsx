@@ -19,6 +19,7 @@ import { DatasetLabel } from '@/components/filters/displayNames';
 import { HelpIcon } from '@/components/helpText';
 import { Download } from '../downloadKey';
 import { CardDescription } from '@/components/ui/smallCard';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export function QueryCard({ download }: { download: Download }) {
   const { filters } = useFilters({ searchConfig });
@@ -235,7 +236,11 @@ export function PredicateVisual({
                 )}
               </button>
             </div>
-            {!showAsApi && <PredicateDisplay predicate={predicate} />}
+            {!showAsApi && (
+              <ErrorBoundary type="BLOCK">
+                <PredicateDisplay predicate={predicate} />
+              </ErrorBoundary>
+            )}
             {showAsApi && <pre>{JSON.stringify(predicate, null, 2)}</pre>}
           </div>
         </>
