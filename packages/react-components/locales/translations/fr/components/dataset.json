@@ -196,5 +196,5 @@
   "eventTaxonomy": "Distribution taxonomique des occurrences",
   "noCitations": "Pas encore de citations",
   "noOccurrences": "Aucune occurrence",
-  "eventWarning": ""
+  "eventWarning": "La recherche et le filtrage d'événements est une fonctionnalité expérimentale en cours de développement."
 }
