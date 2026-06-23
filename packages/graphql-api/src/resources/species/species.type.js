@@ -42,7 +42,7 @@ const typeDef = gql`
     """
     Attempt to map the species to the taxon API.
     """
-    taxon(ifDatasetKey: ID): TaxonSimple
+    taxon: TaxonSimple
   }
 `;
 
