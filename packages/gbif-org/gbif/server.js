@@ -2,7 +2,6 @@ import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import fsp from 'node:fs/promises';
 import { createServer as createHttpServer } from 'node:http';
 import { merge } from 'ts-deepmerge';
@@ -16,6 +15,7 @@ import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
 import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
 import createGetRedirect from './middleware/redirects.mjs';
+import { requestLogger } from './middleware/requestLogger.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
@@ -49,16 +49,7 @@ async function main() {
     next();
   });
 
-  const morganMiddleware = morgan(':method :url :status :res[content-length] - :response-time ms', {
-    skip: function (req, res) {
-      return res.statusCode < 400;
-    },
-    stream: {
-      write: (message) => logger.http(message.trim()),
-    },
-  });
-
-  app.use(morganMiddleware);
+  app.use(requestLogger);
 
   // Middleware to set shorter cache for responses with status code above 400
   app.use((req, res, next) => {

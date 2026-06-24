@@ -54,7 +54,8 @@ export function requestLogger(req, res, next) {
   res.end = function (chunk, encoding) {
     const duration = Date.now() - startTime;
 
-    logger.info(
+    const logLevel = res.statusCode >= 400 ? 'warn' : 'info';
+    logger[logLevel](
       {
         request: {
           method: req.method,
