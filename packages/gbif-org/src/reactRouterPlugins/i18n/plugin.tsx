@@ -1,10 +1,47 @@
-import { Config } from '@/config/config';
+import { Config, LanguageOption } from '@/config/config';
 import { fallbackTranslationsEntry, loadFallbackMessages } from '@/config/fallback';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { RouteObjectWithPlugins } from '..';
 import { I18nContextProvider } from './i18nContextProvider';
 import { localizeRouteId } from './useLocalizedRouteId';
+
+// Translations are deployed together with gbif-org and cannot change without a
+// redeploy (which restarts the process and clears this cache), so in production
+// successful loads are cached in memory indefinitely - avoiding a per-render
+// fetch of the locale message file on every SSR request. In dev the cache is
+// bypassed so translation edits show up on reload. Failed loads are NOT cached
+// so a transient outage degrades gracefully and is retried on the next request.
+const messageCache = new Map<string, Promise<Record<string, string>>>();
+
+function loadLocaleMessages(
+  messagesUrl: string,
+  localeOption: LanguageOption
+): Promise<Record<string, string>> {
+  if (import.meta.env.PROD) {
+    const cached = messageCache.get(messagesUrl);
+    if (cached) return cached;
+  }
+
+  const promise = fetch(messagesUrl)
+    .then((r) => {
+      if (!r.ok) throw new Error(`Unexpected status ${r.status}`);
+      return r.json();
+    })
+    .catch((err) => {
+      // Fall back to the bundled messages for this locale (or English) so a
+      // failed translation load degrades gracefully instead of taking down
+      // the whole site.
+      console.error('Failed to load translations for language, using bundled fallback');
+      console.error('Failed language: ', localeOption.code, localeOption.localeCode, err);
+      // Do not keep a failed/fallback result cached - retry the live endpoint next time.
+      messageCache.delete(messagesUrl);
+      return loadFallbackMessages(localeOption.localeCode);
+    });
+
+  if (import.meta.env.PROD) messageCache.set(messagesUrl, promise);
+  return promise;
+}
 
 export function applyI18nPlugin(
   routes: RouteObjectWithPlugins[],
@@ -40,20 +77,10 @@ export function applyI18nPlugin(
         // fetch the entry translation file
         const translations = await translationsPromise;
         // now get the actual messages for the locale
-        const messages = await fetch(
-          `${config.translationsEntryEndpoint}${
-            translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
-          }`
-        )
-          .then((r) => r.json())
-          .catch(async (err) => {
-            // Fall back to the bundled messages for this locale (or English) so a
-            // failed translation load degrades gracefully instead of taking down
-            // the whole site.
-            console.error('Failed to load translations for language, using bundled fallback');
-            console.error('Failed language: ', localeOption.code, localeOption.localeCode, err);
-            return loadFallbackMessages(localeOption.localeCode);
-          });
+        const messagesUrl = `${config.translationsEntryEndpoint}${
+          translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
+        }`;
+        const messages = await loadLocaleMessages(messagesUrl, localeOption);
         return { messages: { ...messages, ...localeLanguage } };
       },
       errorElement: <RootErrorPage />,
