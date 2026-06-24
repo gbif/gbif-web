@@ -109,6 +109,9 @@ export function CollectionKey({
                       featuredImageLicense={
                         collection.featuredImageUrl ? collection.featuredImageLicense : null
                       }
+                      featuredImageAttribution={
+                        collection.featuredImageUrl ? collection.featuredImageAttribution : null
+                      }
                     />
                   </div>
                 </div>
@@ -299,9 +302,11 @@ export const CollectionPageSkeleton = ArticleSkeleton;
 
 export function FeaturedImageContent({
   featuredImageLicense,
+  featuredImageAttribution,
   featuredImageUrl,
 }: {
   featuredImageLicense?: string | null;
+  featuredImageAttribution?: string | null;
   featuredImageUrl?: string | null;
 }) {
   if (!featuredImageUrl) return null;
@@ -318,13 +323,26 @@ export function FeaturedImageContent({
           height: '100%',
         }}
       />
-      {featuredImageLicense && (
+      {(featuredImageLicense || featuredImageAttribution) && (
         <div className="g-absolute g-bottom-0 g-start-0 g-p-1 g-text-white">
           <SimpleTooltip
             title={
               <div>
-                <FormattedMessage id="phrases.license" />:{' '}
-                <FormattedMessage id={`enums.license.${featuredImageLicense}`} />
+                {featuredImageAttribution && (
+                  <div>
+                    <FormattedMessage
+                      id="phrases.imageAttribution"
+                      defaultMessage="Attribution"
+                    />
+                    : {featuredImageAttribution}
+                  </div>
+                )}
+                {featuredImageLicense && (
+                  <div>
+                    <FormattedMessage id="phrases.license" />:{' '}
+                    <FormattedMessage id={`enums.license.${featuredImageLicense}`} />
+                  </div>
+                )}
               </div>
             }
           >

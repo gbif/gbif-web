@@ -110,6 +110,9 @@ export function InstitutionKey({
                       featuredImageLicense={
                         institution.featuredImageUrl ? institution.featuredImageLicense : null
                       }
+                      featuredImageAttribution={
+                        institution.featuredImageUrl ? institution.featuredImageAttribution : null
+                      }
                     />
                   </div>
                 </div>

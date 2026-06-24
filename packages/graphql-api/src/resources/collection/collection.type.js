@@ -285,6 +285,7 @@ const typeDef = gql`
 
     featuredImageUrl: String
     featuredImageLicense: License
+    featuredImageAttribution: String
     thumbor(width: Int, height: Int, fitIn: Boolean): String
     """
     This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution.
