@@ -31,21 +31,18 @@ export function requestLogger(req, res, next) {
   // Log request start
   const startTime = Date.now();
 
-  logger.info(
-    {
-      request: {
-        method: req.method,
-        url: req.url,
-        originalUrl: req.originalUrl,
-        ip: req.ip,
-        referrer: req.get('Referrer'),
-        userAgent: req.get('User-Agent'),
-      },
-      requestId: reqId,
-      request_start: true,
+  logger.info(`Request start: ${req.method} ${req.originalUrl}`, {
+    request: {
+      method: req.method,
+      url: req.url,
+      originalUrl: req.originalUrl,
+      ip: req.ip,
+      referrer: req.get('Referrer'),
+      userAgent: req.get('User-Agent'),
     },
-    `Request start: ${req.method} ${req.originalUrl}`
-  );
+    requestId: reqId,
+    request_start: true,
+  });
 
   // Capture the original end function
   const originalEnd = res.end;
@@ -56,6 +53,7 @@ export function requestLogger(req, res, next) {
 
     const logLevel = res.statusCode >= 400 ? 'warn' : 'info';
     logger[logLevel](
+      `Request finish: ${req.method} ${req.originalUrl} - ${res.statusCode} (${duration}ms)`,
       {
         request: {
           method: req.method,
@@ -72,8 +70,7 @@ export function requestLogger(req, res, next) {
           statusCode: res.statusCode,
           cacheControl: res.get('Cache-Control'),
         },
-      },
-      `Request finish: ${req.method} ${req.originalUrl} - ${res.statusCode} (${duration}ms)`
+      }
     );
 
     // Call the original end function
