@@ -105,11 +105,11 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'SUBGENUS_KEY':
             return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'HAS_GEOSPATIAL_ISSUE':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
+            return getTranslation(`enums.yesNo.${camelCase(value + '')}`, `"${value}"`);
           case 'INSTITUTION_CODE':
             return value;
           case 'REPATRIATED':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
+            return getTranslation(`enums.yesNo.${camelCase(value + '')}`, `"${value}"`);
           case 'YEAR':
             return <YearLabel id={predicate} />;
           case 'STATE_PROVINCE':
@@ -225,7 +225,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'EARLIEST_EPOCH_OR_LOWEST_SERIES':
             return <GeoTimeLabel id={value} />;
           case 'IS_SEQUENCED':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
+            return getTranslation(`enums.yesNo.${camelCase(value + '')}`, `"${value}"`);
           case 'TAXON_ID':
             return value;
           case 'EARLIEST_PERIOD_OR_LOWEST_SYSTEM':
@@ -257,7 +257,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'SAMPLING_PROTOCOL':
             return value;
           case 'IS_IN_CLUSTER':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
+            return getTranslation(`enums.yesNo.${camelCase(value + '')}`, `"${value}"`);
           case 'RECORD_NUMBER':
             return value;
           case 'PUBLISHING_ORG':
@@ -281,7 +281,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
           case 'CRAWL_ID':
             return value;
           case 'HAS_COORDINATE':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
+            return getTranslation(`enums.yesNo.${camelCase(value + '')}`, `"${value}"`);
           case 'GROUP':
             return value;
           case 'LATEST_EPOCH_OR_HIGHEST_SERIES':

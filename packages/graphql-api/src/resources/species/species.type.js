@@ -37,12 +37,13 @@ const typeDef = gql`
     lastCrawled: String
     lastInterpreted: String
     class: String
+    deleted: String
     issues: [String]
     nomenclaturalStatus: [String]
     """
     Attempt to map the species to the taxon API.
     """
-    taxon(ifDatasetKey: ID): TaxonSimple
+    taxon: TaxonSimple
   }
 `;
 

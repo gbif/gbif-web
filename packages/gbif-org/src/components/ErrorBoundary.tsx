@@ -9,7 +9,7 @@ import { Card } from './ui/smallCard';
 interface ErrorBoundaryProps {
   children: React.ReactNode;
   invalidateOn?: string | number | boolean | object | null;
-  type?: 'PAGE' | 'BLOCK' | 'CARD';
+  type?: 'PAGE' | 'BLOCK' | 'CARD' | 'INLINE';
   className?: string;
   title?: React.ReactNode;
   errorMessage?: React.ReactNode;
@@ -55,6 +55,14 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     // if there is no error then just return the children
     if (!error) {
       return this.props.children;
+    }
+
+    if (this.props.type === 'INLINE') {
+      return (
+        <span className={cn('g-text-red-500 g-font-bold g-text-sm', this.props.className)}>
+          <FormattedMessage id="error.inline" defaultMessage="Error" />
+        </span>
+      );
     }
 
     return (

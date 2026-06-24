@@ -19,7 +19,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { createContext, useMemo } from 'react';
-import { MdInfoOutline } from 'react-icons/md';
+import { MdInfoOutline, MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { getTaxonSchema } from '../../../utils/schemaOrg';
@@ -29,10 +29,12 @@ import { HeaderImageCarousel } from './sections/SidebarImageCarousel';
 import { useIsSpeciesOrBelow } from '@/hooks/taxonomyRankHooks';
 import { HelpLine } from '@/components/helpText';
 import { IucnTag } from '@/components/identifierTag';
-import { Classification, TaxonStubClassification } from '@/components/classification';
+import { TaxonStubClassification } from '@/components/classification';
 import AboutNonBackbone from './AboutNonBackbone';
 import { apiConstants } from '@/config/apiConstants';
 import { isSupportedChecklist } from '@/hooks/useSupportedChecklists';
+import { TocLi as Li } from '@/components/TocHelp';
+import { Card as SmallCard } from '@/components/ui/smallCard';
 
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
@@ -76,15 +78,20 @@ export function TaxonKey({
 }
 
 export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
+  const taxonInfo = data.taxonInfo;
+  const checklistbankURL = taxonInfo?.checklistbankURL;
+  const relatedColEntry = taxonInfo?.relatedColEntries?.[0];
+  const hasSidebarLinks = checklistbankURL || relatedColEntry;
+
   return (
     <ArticleContainer className="g-bg-slate-100 g-p-0">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        {data.taxonInfo?.datasetKey && (
+        {taxonInfo?.datasetKey && (
           <div className="g-flex g-items-center g-gap-2 g-mb-4">
             <Button asChild variant="outline" className="g-flex-none g-bg-white">
               <DynamicLink
                 pageId="datasetKey"
-                variables={{ key: data.taxonInfo?.datasetKey }}
+                variables={{ key: taxonInfo?.datasetKey }}
                 path={`/taxon`}
               >
                 <FormattedMessage id="taxon.viewAllTaxa" defaultMessage="View all" />
@@ -92,9 +99,43 @@ export const NonBackbonePresentation = ({ data }: { data: TaxonKeyQuery }) => {
             </Button>
           </div>
         )}
-        <Card className="g-overflow-hidden g-mb-8">
-          <AboutNonBackbone data={data} />
-        </Card>
+        <div className="g-grid g-gap-4 g-grid-cols-1 min-[1000px]:g-grid-cols-[minmax(0,1fr)_300px]">
+          <Card className="g-overflow-hidden g-mb-8">
+            <AboutNonBackbone data={data} />
+          </Card>
+          {hasSidebarLinks && (
+            <aside>
+              <div className="g-sticky g-top-[var(--stickyOffset)] g-pt-4 -g-mt-4">
+                <SmallCard>
+                  <nav>
+                    <ul className="g-list-none g-m-0 g-p-0 g-my-2">
+                      {relatedColEntry && (
+                        <Li>
+                          <DynamicLink
+                            className="g-text-inherit"
+                            pageId="taxonKey"
+                            variables={{ key: relatedColEntry.taxonID }}
+                          >
+                            <FormattedMessage
+                              id="taxon.viewInDefaultTaxonomy"
+                              defaultMessage="View in GBIF taxonomy"
+                            />
+                          </DynamicLink>
+                        </Li>
+                      )}
+                      {checklistbankURL && (
+                        <Li href={checklistbankURL}>
+                          <FormattedMessage id="taxon.viewInChecklistBank" />
+                          <MdLink className="g-inline g-ms-1" />
+                        </Li>
+                      )}
+                    </ul>
+                  </nav>
+                </SmallCard>
+              </div>
+            </aside>
+          )}
+        </div>
       </ArticleTextContainer>
     </ArticleContainer>
   );

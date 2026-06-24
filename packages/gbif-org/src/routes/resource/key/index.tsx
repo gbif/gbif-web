@@ -1,4 +1,4 @@
-import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { AliasHandling, aliasHandlingLoader, AliasHandlingSkeleton } from './aliasHandling';
 import { ArticlePage, articlePageLoader, ArticlePageSkeleton } from './article/article';
 import {
@@ -13,6 +13,7 @@ import { NewsPage, newsPageLoader, NewsPageSkeleton } from './news/news';
 import { ProgrammePage, programmePageLoader, ProgrammePageSkeleton } from './programme/programme';
 import { projectKeyRoute } from './project';
 import { resourceRedirectLoader } from './resourceRedirect';
+import { redirect } from 'react-router-dom';
 import { ToolPage, toolPageLoader, ToolPageSkeleton } from './tool/tool';
 
 // These routes are all connected by the fact that
@@ -53,6 +54,11 @@ export const resourceKeyRoutes: RouteObjectWithPlugins[] = [
     loadingElement: <ToolPageSkeleton />,
     element: <ToolPage />,
     isSlugified: true,
+  },
+  {
+    id: 'datause-redirect',
+    path: 'datause/:key',
+    loader: ({ params }: LoaderArgs) => redirect(`/data-use/${params.key}`),
   },
   {
     id: 'data-use-key',

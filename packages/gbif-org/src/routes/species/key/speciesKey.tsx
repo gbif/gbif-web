@@ -1,3 +1,4 @@
+import { DatasetLabel } from '@/components/filters/displayNames';
 import Properties, { Property, Term, Value } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { NotFoundLoaderResponse } from '@/errors';
@@ -10,7 +11,7 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { FormattedMessage } from 'react-intl';
-import { redirect, useLoaderData } from 'react-router-dom';
+import { json, redirect, useLoaderData } from 'react-router-dom';
 
 export async function speciesLoader({ params, graphql, locale, config }: LoaderArgs) {
   const key = params.key as string;
@@ -22,7 +23,6 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
     SPECIES_QUERY,
     {
       key,
-      oldDatasetKey: import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY,
       newDatasetKey: config.defaultChecklistKey,
     }
   );
@@ -33,15 +33,15 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
     errors,
     requiredObjects: [],
   });
-  debugger;
 
   // if backbone key we can sometimes redirect to new CoL page
   const newTaxonID = data?.speciesKey?.taxon?.related?.[0]?.taxonID;
-  if (newTaxonID) {
+  if (newTaxonID && data?.speciesKey?.datasetKey === import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY) {
     return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${newTaxonID}`);
   }
   const taxonId = data.speciesKey?.taxonID;
   const datasetKey = data.speciesKey?.datasetKey;
+  const taxon = data?.speciesKey?.taxon;
 
   if (!taxonId || !datasetKey) {
     throw new NotFoundLoaderResponse();
@@ -53,27 +53,33 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
   }
 
   // for anything that isn't the backbone or CoL we can redirect to the dataset specific page
-  if (taxonId && datasetKey && datasetKey !== import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY) {
+  if (
+    taxon &&
+    taxonId &&
+    datasetKey &&
+    datasetKey !== import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY
+  ) {
     return redirect(
       `${locale.gbifOrgLocalePrefix}/dataset/${datasetKey}/taxon/${encodeURIComponent(taxonId)}`
     );
   }
 
-  // this is a bit an odd one. If the speciesKey is present so should the taxon, since the data should always be in CoL
-  // but in case of an inconsistency, we fail. We could also show speciesKey information instead in the tombstone page.
-  if (!data?.speciesKey?.taxon) {
-    throw new NotFoundLoaderResponse();
-  }
-
   // It is not a mappable backbone key, not a CoL key and not another known species key.
   // so it must be a backbone key that has no mapping to CoL.
   // we will have to show a tombstone page
-  return { errors, data };
+  // return { errors, data };
+  return json(
+    { errors, data },
+    {
+      status: 404,
+    }
+  );
 }
 
 export function SpeciesKey() {
   const { data } = useLoaderData() as { data: DeprecatedTaxonQuery };
-  const taxon = data.speciesKey?.taxon;
+  const speciesKey = data.speciesKey;
+  const isBackbone = data.speciesKey?.datasetKey === import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY;
 
   return (
     <article>
@@ -82,7 +88,7 @@ export function SpeciesKey() {
           <ArticlePreTitle clickable>
             <DynamicLink pageId="taxonSearch">Taxon</DynamicLink>
           </ArticlePreTitle>
-          <ArticleTitle>{taxon?.scientificName ?? 'Unknown taxon'}</ArticleTitle>
+          <ArticleTitle>{speciesKey?.scientificName ?? 'Unknown taxon'}</ArticleTitle>
           <ArticleIntro>
             <p className="g-text-red-500 g-text-base g-font-medium g-pb-2">
               <FormattedMessage
@@ -101,38 +107,68 @@ export function SpeciesKey() {
         <div className="g-py-8">
           <div className="g-bg-slate-100 g-p-4 md:g-p-8 g-w-full g-max-w-7xl g-m-auto g-overflow-auto">
             <Properties>
-              <Property labelId="Scientific name" value={taxon?.scientificName} />
-              <Property labelId="status" value={taxon?.taxonomicStatus} />
-              <Property labelId="rank" value={taxon?.taxonRank} />
-              {(taxon?.parentTree?.length ?? 0) > 0 && (
-                <>
-                  <Term>Classification</Term>
-                  <Value>
-                    <Properties>
-                      {taxon?.parentTree?.map((parent) => (
-                        <Property
-                          key={parent.taxonID}
-                          labelId={`${parent.taxonRank}:`}
-                          value={parent.scientificName}
-                        />
-                      ))}
-                    </Properties>
-                  </Value>
-                </>
+              <Property labelId="Scientific name" value={speciesKey?.scientificName} />
+              <Property labelId="status" value={speciesKey?.taxonomicStatus} />
+              <Property labelId="rank" value={speciesKey?.rank} />
+              <Property labelId="deleted" value={speciesKey?.deleted} />
+              {speciesKey?.datasetKey && (
+                <Property labelId="dataset" value={speciesKey?.datasetKey}>
+                  <DynamicLink
+                    className="g-underline"
+                    pageId="datasetKey"
+                    variables={{ key: speciesKey?.datasetKey ?? '' }}
+                  >
+                    <DatasetLabel id={speciesKey?.datasetKey} /> ({speciesKey?.datasetKey})
+                  </DynamicLink>
+                </Property>
               )}
+              <>
+                <Term>Classification</Term>
+                <Value>
+                  <Properties>
+                    {['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].map(
+                      (rank) => (
+                        <Property
+                          key={rank}
+                          labelId={`${rank}:`}
+                          value={
+                            speciesKey?.[rank as keyof typeof speciesKey] as string | undefined
+                          }
+                        />
+                      )
+                    )}
+                  </Properties>
+                </Value>
+              </>
             </Properties>
           </div>
           <div className="g-max-w-7xl g-m-auto g-mt-4">
-            <Button asChild className="g-w-full">
-              <DynamicLink
-                pageId="taxonSearch"
-                searchParams={{
-                  q: taxon?.scientificName ?? '',
-                }}
-              >
-                Go to taxon search
-              </DynamicLink>
-            </Button>
+            {isBackbone && (
+              <Button asChild className="g-w-full">
+                <DynamicLink
+                  pageId="taxonSearch"
+                  searchParams={{
+                    q: speciesKey?.scientificName ?? '',
+                  }}
+                >
+                  Go to taxon search
+                </DynamicLink>
+              </Button>
+            )}
+
+            {!isBackbone && speciesKey?.datasetKey && (
+              <Button asChild className="g-w-full">
+                <DynamicLink
+                  pageId="datasetKey"
+                  variables={{ key: speciesKey?.datasetKey }}
+                  searchParams={{
+                    q: speciesKey?.scientificName ?? '',
+                  }}
+                >
+                  Go to dataset page
+                </DynamicLink>
+              </Button>
+            )}
           </div>
         </div>
       </PageContainer>
@@ -141,18 +177,22 @@ export function SpeciesKey() {
 }
 
 const SPECIES_QUERY = /* GraphQL */ `
-  query DeprecatedTaxon($key: ID!, $oldDatasetKey: ID!, $newDatasetKey: ID!) {
+  query DeprecatedTaxon($key: ID!, $newDatasetKey: ID!) {
     speciesKey(key: $key) {
       taxonID
       datasetKey
       kingdom
       phylum
+      class
       order
       family
       genus
       species
       scientificName
-      taxon(ifDatasetKey: $oldDatasetKey) {
+      taxonomicStatus
+      rank
+      deleted
+      taxon {
         taxonID
         scientificName
         taxonRank
