@@ -63,10 +63,10 @@
   },
   "award": {
     "GRA": "GBIF研究生研究員獎",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "EBBE1ST": "首獎",
+    "EBBE2ND": "二獎",
+    "EBBE3RD": "三獎"
   },
-  "prize": "",
+  "prize": "獎",
   "year": "年"
 }
