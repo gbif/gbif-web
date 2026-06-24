@@ -27,7 +27,7 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
 
   // Phase 1: cheap query with only the fields needed to decide the redirect target. ~80% of
   // /species hits are 302 redirects, so this avoids fetching the full classification block (only
-  // used by the tombstone page) and the nested taxon.parentTree (used nowhere) on every request.
+  // used by the tombstone page)
   const response = await graphql.query<
     DeprecatedTaxonRedirectQuery,
     DeprecatedTaxonRedirectQueryVariables
