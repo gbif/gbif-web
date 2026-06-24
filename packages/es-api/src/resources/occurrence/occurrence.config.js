@@ -785,6 +785,73 @@ const config = {
       type: 'keyword',
       field: 'recordedByIds.value',
     },
+    nucleotideSequence: {
+      type: 'nested',
+      field: 'nucleotideSequence',
+      config: {
+        prefix: 'nucleotideSequence',
+        options: {
+          nucleotideSequenceID: {
+            type: 'keyword',
+            field: 'nucleotideSequenceID',
+          },
+          // Faceting and filtering both use targetGene.lineage so that the facet counts
+          // stay consistent with the drill-down filter. The v1 search parameter
+          // NUCLEOTIDE_SEQUENCE_TARGET_GENE also matches on the lineage (hierarchical),
+          // e.g. "Ribosomal_RNA" matches every record whose gene lineage contains it.
+          // The leaf value is still available for display via targetGene.concept in the
+          // returned nucleotideSequences objects.
+          targetGene: {
+            type: 'keyword',
+            field: 'targetGene.lineage',
+          },
+          sequence: {
+            type: 'keyword',
+            field: 'sequence',
+          },
+          sequenceLength: {
+            type: 'numeric',
+            field: 'sequenceLength',
+          },
+          gcContent: {
+            type: 'numeric',
+            field: 'gcContent',
+          },
+          nonIupacFraction: {
+            type: 'numeric',
+            field: 'nonIupacFraction',
+          },
+          nonACGTNFraction: {
+            type: 'numeric',
+            field: 'nonACGTNFraction',
+          },
+          nFraction: {
+            type: 'numeric',
+            field: 'nFraction',
+          },
+          nRunsCapped: {
+            type: 'numeric',
+            field: 'nRunsCapped',
+          },
+          naturalLanguageDetected: {
+            type: 'boolean',
+            field: 'naturalLanguageDetected',
+          },
+          endsTrimmed: {
+            type: 'boolean',
+            field: 'endsTrimmed',
+          },
+          gapsOrWhitespaceRemoved: {
+            type: 'boolean',
+            field: 'gapsOrWhitespaceRemoved',
+          },
+          invalid: {
+            type: 'boolean',
+            field: 'invalid',
+          },
+        },
+      },
+    },
   },
 };
 

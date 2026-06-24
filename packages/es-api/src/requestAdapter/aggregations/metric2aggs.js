@@ -3,9 +3,45 @@
 const _ = require('lodash');
 const { ResponseError } = require('../../resources/errorHandler');
 
+// Name of the reverse_nested sub-aggregation added to nested facet buckets so we can
+// report parent-document (e.g. occurrence) counts rather than nested-document counts.
+// The response adapter uses the same key to read those counts back out.
+const REVERSE_NESTED_AGG_KEY = 'reverseNested';
+
 function metric2aggs(metrics = {}, config) {
   const aggs = {};
   for (const [name, metric] of Object.entries(metrics)) {
+    // Aggregating on a field inside a nested object, addressed with dot-notation as
+    // "<nestedKey>.<childKey>" (e.g. nucleotideSequence.targetGene). We wrap the inner
+    // aggregation in an ES `nested` aggregation and re-key it by `name` so the response
+    // adapter unwraps it the same way it unwraps child/join aggregations.
+    if (typeof metric.key === 'string' && metric.key.includes('.')) {
+      const separatorIndex = metric.key.indexOf('.');
+      const parentKey = metric.key.slice(0, separatorIndex);
+      const childKey = metric.key.slice(separatorIndex + 1);
+      const parentConf = _.get(config, `options[${parentKey}]`);
+      if (parentConf && parentConf.type === 'nested') {
+        const innerAggs = metric2aggs(
+          { [name]: { ...metric, key: childKey } },
+          prefixNestedConfig(parentConf),
+        );
+        // For term facets the bucket doc_count counts nested documents (e.g. individual
+        // sequences). Add a reverse_nested sub-aggregation so the response adapter can
+        // report the number of matching parent documents (occurrences) instead.
+        if (metric.type === 'facet' && innerAggs[name] && innerAggs[name].terms) {
+          innerAggs[name].aggs = {
+            ...(innerAggs[name].aggs || {}),
+            [REVERSE_NESTED_AGG_KEY]: { reverse_nested: {} },
+          };
+        }
+        aggs[name] = {
+          nested: { path: parentConf.field },
+          aggs: innerAggs,
+        };
+        continue;
+      }
+    }
+
     const conf = _.get(config, `options[${metric.key}]`);
     if (metric.type !== 'multifacet' && !conf) continue;
     else {
@@ -183,7 +219,25 @@ function metric2aggs(metrics = {}, config) {
 
 module.exports = {
   metric2aggs,
+  REVERSE_NESTED_AGG_KEY,
 };
+
+// Build a config for the children of a nested object where each child field is fully
+// qualified with the nested object's prefix (e.g. `targetGene.concept` ->
+// `nucleotideSequence.targetGene.concept`). ES requires the root-relative path even
+// inside a `nested` aggregation, and metric2aggs reads `conf.field` verbatim.
+function prefixNestedConfig(nestedConf) {
+  const { prefix, options } = nestedConf.config;
+  const prefixedOptions = {};
+  for (const [key, option] of Object.entries(options)) {
+    prefixedOptions[key] = {
+      ...option,
+      field: `${prefix}.${option.field}`,
+      ...(option.displayField ? { displayField: `${prefix}.${option.displayField}` } : {}),
+    };
+  }
+  return { options: prefixedOptions };
+}
 
 function getTemplatedField({ field, variables, defaultTemplateKeys }) {
   if (defaultTemplateKeys) {

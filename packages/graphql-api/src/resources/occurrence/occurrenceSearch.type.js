@@ -185,6 +185,7 @@ const typeDef = gql`
     month: Long!
     license: Long!
     basisOfRecord: Long!
+    nucleotideSequenceTargetGene: Long!
     issue: Long!
     taxonomicIssue: Long!
     collectionKey: Long!
@@ -256,6 +257,7 @@ const typeDef = gql`
     depth(interval: Float): Histogram
     startDayOfYear(interval: Float): Histogram
     endDayOfYear(interval: Float): Histogram
+    nucleotideSequenceSequenceLength(interval: Float): Histogram
   }
 
   type OccurrenceAutoDateHistogram {
@@ -433,6 +435,42 @@ const typeDef = gql`
 
     isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     isSequenced(size: Int, from: Int): [OccurrenceFacetResult_boolean]
+
+    """
+    Facet on the target gene of nucleotide sequences attached to the occurrence
+    (e.g. COI, ITS_region). Counts are the number of matching occurrences.
+    """
+    nucleotideSequenceTargetGene(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    """
+    Facet on whether attached nucleotide sequences were flagged invalid. Counts are the
+    number of matching occurrences.
+    """
+    nucleotideSequenceInvalid(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    """
+    Facet on the length of attached nucleotide sequences. Counts are the number of
+    matching occurrences.
+    """
+    nucleotideSequenceSequenceLength(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
+    """
+    Facet on the nucleotideSequenceID of attached nucleotide sequences. Pass include to
+    restrict the aggregation to a known set of IDs (for example similarity-search hits); the
+    buckets returned are those IDs that still occur under the current predicate. Counts are the
+    number of matching occurrences.
+    """
+    nucleotideSequenceNucleotideSequenceID(
+      size: Int
+      from: Int
+      include: [String!]
+    ): [OccurrenceFacetResult_string]
 
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]
