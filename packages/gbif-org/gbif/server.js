@@ -90,6 +90,25 @@ async function main() {
     app.use(helmet(helmetConfig));
   }
 
+  // Widget routes must be embeddable in third-party iframes.
+  // Run after helmet so we can surgically override only the framing headers.
+  // Set PUBLIC_WIDGET_FRAME_ANCESTORS to restrict to specific origins, e.g.
+  // "https://www.example.com https://partner.org". Defaults to * (same as old site behaviour).
+  const widgetFrameAncestors = env.PUBLIC_WIDGET_FRAME_ANCESTORS || '*';
+  app.use('/api/widgets', (req, res, next) => {
+    res.removeHeader('X-Frame-Options');
+    const csp = res.getHeader('Content-Security-Policy');
+    if (typeof csp === 'string') {
+      const updated = csp.includes('frame-ancestors')
+        ? csp.replace(/frame-ancestors[^;]*/g, `frame-ancestors ${widgetFrameAncestors}`)
+        : `${csp}; frame-ancestors ${widgetFrameAncestors}`;
+      res.setHeader('Content-Security-Policy', updated);
+    } else {
+      res.setHeader('Content-Security-Policy', `frame-ancestors ${widgetFrameAncestors}`);
+    }
+    next();
+  });
+
   // Set up middleware based on the environment.
   let viteDevServer;
 
