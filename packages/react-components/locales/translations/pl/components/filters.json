@@ -463,7 +463,7 @@
   },
   "isSequenced": {
     "name": "Jest zsekwencjonowany",
-    "description": "Czy zapis posiada informację o sekwencji."
+    "description": ""
   },
   "active": {
     "name": "Aktywny",

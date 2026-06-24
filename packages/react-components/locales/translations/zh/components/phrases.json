@@ -19,6 +19,7 @@
   "unknownDate": "日期未知",
   "about": "关于",
   "legend": "图例",
+  "showingFirstCap": "显示前几项：{cap}",
   "citations": "引用",
   "metrics": "指标",
   "datasets": "数据集",

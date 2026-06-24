@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "התפלגות טקסונומית של תצפיות",
   "noCitations": "",
-  "noOccurrences": ""
+  "noOccurrences": "",
+  "eventWarning": ""
 }

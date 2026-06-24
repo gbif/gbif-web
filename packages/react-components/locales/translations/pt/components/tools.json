@@ -8,7 +8,7 @@
       "tools": "Ferramentas",
       "lookUp": "",
       "pageTitle": "",
-      "description": "",
+      "description": "Normalizar nomes de espécies de um arquivo CSV em relação ao Catálogo da Vida. As colunas esperadas incluem ‘scientificName’ (obrigatória), ‘kingdom’ (opcional) e ‘id’ (opcional).",
       "selectFile": "Selecionar ficheiro",
       "or": "ou",
       "dropHere": "Solte aqui",

@@ -19,6 +19,7 @@
   "unknownDate": "Date inconnue",
   "about": "À propos",
   "legend": "Légende",
+  "showingFirstCap": "Affichage des premiers éléments : {cap}",
   "citations": "Citations",
   "metrics": "Statistiques",
   "datasets": "Jeux de données",

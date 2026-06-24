@@ -463,7 +463,7 @@
   },
   "isSequenced": {
     "name": "Je sekvenováno",
-    "description": "Zda záznam obsahuje informace o sekvenci."
+    "description": ""
   },
   "active": {
     "name": "Aktivní",

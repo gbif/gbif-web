@@ -8,7 +8,7 @@
       "tools": "Narzędzia",
       "lookUp": "Zapytania",
       "pageTitle": "Zapytania o gatunki",
-      "description": "Normalizuj nazwy gatunków z pliku CSV względem szkieletu taksonomicznego GBIF. Oczekuje się, że plik będzie miał kolumnę o nazwie 'scientificName' i opcjonalne kolumny 'kingdom' i 'id'.",
+      "description": "",
       "selectFile": "Wybierz plik",
       "or": "lub",
       "dropHere": "Upuść tutaj",

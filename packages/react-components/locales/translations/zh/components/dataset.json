@@ -36,8 +36,8 @@
       "citations": "引用"
     },
     "checklist": {
-      "info": "",
-      "checklistbank": "",
+      "info": "这些指标提供了清单数据集的概述。欲了解更详细的指标和数据探索，请访问{checklistbank}。",
+      "checklistbank": "清单库",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "出现记录的分类学分布",
   "noCitations": "",
-  "noOccurrences": "没有出现记录"
+  "noOccurrences": "没有出现记录",
+  "eventWarning": ""
 }

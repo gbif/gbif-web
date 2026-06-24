@@ -13,6 +13,7 @@
   "COORDINATE_UNCERTAINTY_METERS_INVALID": "Neplatné metry neurčitosti souřadnic",
   "COORDINATE_PRECISION_UNCERTAINTY_MISMATCH": "Nesoulad neurčitosti přesnosti souřadnic",
   "FOOTPRINT_SRS_INVALID": "Stopa SRS neplatná",
+  "FOOTPRINT_WKT_MISMATCH": "Stopa WKT v nesouladu",
   "FOOTPRINT_WKT_INVALID": "Stopa WKT neplatná",
   "COUNTRY_COORDINATE_MISMATCH": "Nesoulad souřadnic země",
   "COUNTRY_MISMATCH": "Nesoulad země",

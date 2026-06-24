@@ -9,7 +9,7 @@
     "IUCN": "IUCN 輸出",
     "BIONOMIA": "Bionomia 輸出格式",
     "SIMPLE_PARQUET": "Simple Parquet（一種 Hadoop 生態圈相容的資料格式）",
-    "SQL_TSV_ZIP": "",
+    "SQL_TSV_ZIP": "SQL TSV 壓縮檔",
     "CUBE": "方塊"
   }
 }
