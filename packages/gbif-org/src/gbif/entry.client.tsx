@@ -2,7 +2,11 @@ import { Root } from '@/components/root';
 import { gbifConfig } from '@/gbif/config';
 import { createGbifRoutes } from '@/gbif/routes';
 import { extractLocaleFromPathname } from '@/reactRouterPlugins/i18n/extractLocaleFromURL';
-import { getMessagesForLocale, loadMessagesFromUrl } from '@/reactRouterPlugins/i18n/loadMessages';
+import {
+  getMessagesForLocale,
+  loadMessagesFromUrl,
+  mergeCustomMessages,
+} from '@/reactRouterPlugins/i18n/loadMessages';
 import { MessagesProvider } from '@/reactRouterPlugins/i18n/messagesContext';
 import { hydrateRoot } from 'react-dom/client';
 import { createBrowserRouter, matchRoutes, RouteObject, RouterProvider } from 'react-router-dom';
@@ -13,6 +17,9 @@ declare global {
     // Inlined by gbif/server.js; the client prepends its own translation endpoint and fetches the
     // exact same file before hydration.
     __I18N_MESSAGES_PATH__?: string;
+    // The translation fetch the server kicks off from <head>, awaited here instead of starting our
+    // own after the route bundle loads. Resolves to the parsed messages, or null on failure.
+    __I18N_MESSAGES_PROMISE__?: Promise<Record<string, string> | null>;
   }
 }
 
@@ -67,6 +74,14 @@ async function loadInitialMessages(): Promise<Record<string, string>> {
   );
   const matchedLanguage =
     gbifConfig.languages.find((l) => l.code === localeCode) ?? defaultLanguage;
+
+  // Prefer the fetch the server already started in <head>; on failure (null) fall through to the
+  // path-based load below, which has its own bundled fallback.
+  const inflight = window.__I18N_MESSAGES_PROMISE__;
+  if (inflight) {
+    const messages = await inflight;
+    if (messages) return mergeCustomMessages(gbifConfig, matchedLanguage, messages);
+  }
 
   // Prepend the client's own translation endpoint to the inlined path so we hit the exact same
   // versioned file the server rendered with (server/client endpoints can differ - docker SSR split).

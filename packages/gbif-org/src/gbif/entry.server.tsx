@@ -54,6 +54,14 @@ export async function render(req: ExpressRequest) {
     resolveMessagesPath(gbifConfig, matchedLanguage),
   ]);
 
+  // Full client-facing URL so the server can start the fetch in <head>. Read the client-baked
+  // endpoint directly: gbifConfig.translationsEntryEndpoint resolves to the server endpoint here
+  // (docker SSR split), so this mirrors the client branch of config.ts's getter.
+  const clientTranslationsEndpoint =
+    import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT_CLIENT ??
+    import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT;
+  const messagesClientUrl = messagesPath ? `${clientTranslationsEndpoint}${messagesPath}` : '';
+
   // Used to capture the head contents
   const helmetContext = {};
 
@@ -78,6 +86,7 @@ export async function render(req: ExpressRequest) {
     cacheControl,
     rootDir,
     messagesPath,
+    messagesClientUrl,
   };
 }
 

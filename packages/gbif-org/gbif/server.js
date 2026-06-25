@@ -189,6 +189,7 @@ async function main() {
           cacheControl,
           rootDir,
           messagesPath,
+          messagesClientUrl,
         } = await render(req);
         if (cacheControl) {
           res.set('Cache-Control', cacheControl);
@@ -199,16 +200,20 @@ async function main() {
 
         const testClass = env.PUBLIC_TEST_SITE === 'true' ? 'gbif-test-site' : '';
 
-        // Inline only the tiny versioned messages path (~30 bytes) instead of the whole ~438 KB
-        // translation dictionary. The client prepends its
-        // own translation endpoint and fetches this exact cacheable file before hydration so its
-        // IntlProvider messages match the SSR render. JSON.stringify + escaping `<` prevents the
-        // value from breaking out of the script element.
+        // Inline the tiny versioned messages path (not the ~438 KB dictionary) and kick off the
+        // fetch here in <head> so it goes out at HTML-parse time, parallel with the JS downloads -
+        // rather than inside hydrate(), which can't run until the route bundle has loaded.
+        // entry.client.tsx reuses this promise; it resolves to null on failure so the client falls
+        // back to the path-based load. Escaping `<` keeps the value inside the script element.
+        const escapeForScript = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
         const i18nScript = messagesPath
-          ? `<script>window.__I18N_MESSAGES_PATH__=${JSON.stringify(messagesPath).replace(
-              /</g,
-              '\\u003c'
-            )}</script>`
+          ? `<script>window.__I18N_MESSAGES_PATH__=${escapeForScript(messagesPath)};` +
+            (messagesClientUrl
+              ? `window.__I18N_MESSAGES_PROMISE__=fetch(${escapeForScript(
+                  messagesClientUrl
+                )}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});`
+              : '') +
+            `</script>`
           : '';
 
         const html = template

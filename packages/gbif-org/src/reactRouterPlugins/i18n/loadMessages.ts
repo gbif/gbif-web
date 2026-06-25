@@ -91,15 +91,14 @@ export async function resolveMessagesUrl(
 // - preserving the "retry on next request" behaviour for transient outages.
 const mergedCache = new WeakMap<Record<string, string>, Record<string, string>>();
 
-// Fetch + merge the messages for a locale from an already-resolved messages URL. Custom messages
-// from config override the loaded ones (matching the previous loader's `{ ...messages, ...custom }`).
-export async function loadMessagesFromUrl(
+// Apply config-level custom message overrides to an already-loaded messages object (`{ ...messages,
+// ...custom }`). Shared by loadMessagesFromUrl and the client's reuse of the in-flight <head> fetch.
+export function mergeCustomMessages(
   config: Config,
   localeOption: LanguageOption,
-  messagesUrl: string
-): Promise<Record<string, string>> {
+  messages: Record<string, string>
+): Record<string, string> {
   const customMessages = config.messages?.[localeOption.code];
-  const messages = await loadLocaleMessages(messagesUrl, localeOption);
 
   // No custom overrides (the gbif.org case): hand back the cached object directly - no per-request
   // copy of the whole dictionary. This was the dominant SSR CPU frame after fix 1c removed the
@@ -113,6 +112,16 @@ export async function loadMessagesFromUrl(
   const merged = { ...messages, ...customMessages };
   mergedCache.set(messages, merged);
   return merged;
+}
+
+// Fetch + merge the messages for a locale from an already-resolved messages URL.
+export async function loadMessagesFromUrl(
+  config: Config,
+  localeOption: LanguageOption,
+  messagesUrl: string
+): Promise<Record<string, string>> {
+  const messages = await loadLocaleMessages(messagesUrl, localeOption);
+  return mergeCustomMessages(config, localeOption, messages);
 }
 
 // Resolve the URL and load the merged messages in one step. Used by the server entry during SSR.
