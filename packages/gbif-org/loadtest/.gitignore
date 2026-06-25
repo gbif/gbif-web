@@ -1,0 +1,8 @@
+# CPU profiles are large, machine-specific, and regenerated on every profiling run.
+profiles/
+*.cpuprofile
+
+# Recordings are intentionally committed (delete this line to ignore them instead) so the
+# benchmark is reproducible without re-hitting the real GBIF API. They can be large; if you
+# prefer not to commit them, uncomment:
+# recordings/
