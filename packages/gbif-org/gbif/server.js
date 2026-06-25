@@ -25,6 +25,12 @@ const PORT = parseInt(env.PORT || 3000);
 
 const getRedirect = createGetRedirect(env);
 
+// The built HTML template is a static build artifact in production; it cannot
+// change without a redeploy (which restarts the process and clears this cache),
+// so read it once instead of on every SSR request. Dev re-reads per request so
+// template edits show up on reload.
+let cachedProdTemplate;
+
 async function main() {
   const app = express();
   // Share a single HTTP server between Express and Vite's HMR. Without this, Vite's
@@ -168,7 +174,8 @@ async function main() {
         template = await viteDevServer.transformIndexHtml(url, template);
         render = (await viteDevServer.ssrLoadModule('src/gbif/entry.server.tsx')).render;
       } else {
-        template = await fsp.readFile('dist/gbif/client/gbif/index.html', 'utf8');
+        cachedProdTemplate ??= await fsp.readFile('dist/gbif/client/gbif/index.html', 'utf8');
+        template = cachedProdTemplate;
         render = (await import('../dist/gbif/server/entry.server.js')).render;
       }
 
