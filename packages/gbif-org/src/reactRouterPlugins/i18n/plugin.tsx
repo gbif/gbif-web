@@ -1,47 +1,19 @@
-import { Config, LanguageOption } from '@/config/config';
-import { fallbackTranslationsEntry, loadFallbackMessages } from '@/config/fallback';
+import { Config } from '@/config/config';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { RouteObjectWithPlugins } from '..';
 import { I18nContextProvider } from './i18nContextProvider';
+import { getMessagesForLocale } from './loadMessages';
 import { localizeRouteId } from './useLocalizedRouteId';
 
-// Translations are deployed together with gbif-org and cannot change without a
-// redeploy (which restarts the process and clears this cache), so in production
-// successful loads are cached in memory indefinitely - avoiding a per-render
-// fetch of the locale message file on every SSR request. In dev the cache is
-// bypassed so translation edits show up on reload. Failed loads are NOT cached
-// so a transient outage degrades gracefully and is retried on the next request.
-const messageCache = new Map<string, Promise<Record<string, string>>>();
-
-function loadLocaleMessages(
-  messagesUrl: string,
-  localeOption: LanguageOption
-): Promise<Record<string, string>> {
-  if (import.meta.env.PROD) {
-    const cached = messageCache.get(messagesUrl);
-    if (cached) return cached;
-  }
-
-  const promise = fetch(messagesUrl)
-    .then((r) => {
-      if (!r.ok) throw new Error(`Unexpected status ${r.status}`);
-      return r.json();
-    })
-    .catch((err) => {
-      // Fall back to the bundled messages for this locale (or English) so a
-      // failed translation load degrades gracefully instead of taking down
-      // the whole site.
-      console.error('Failed to load translations for language, using bundled fallback');
-      console.error('Failed language: ', localeOption.code, localeOption.localeCode, err);
-      // Do not keep a failed/fallback result cached - retry the live endpoint next time.
-      messageCache.delete(messagesUrl);
-      return loadFallbackMessages(localeOption.localeCode);
-    });
-
-  if (import.meta.env.PROD) messageCache.set(messagesUrl, promise);
-  return promise;
-}
+// Messages are NOT returned from this loader on the SERVER: that would serialize the full ~438 KB
+// dictionary into every SSR response. On the server the
+// entry loads messages out-of-band for the render and inlines only the tiny versioned URL, and the
+// client fetches that file before hydration (provided via MessagesProvider).
+//
+// On the CLIENT the loader still runs so a language-switch navigation loads the target locale's
+// messages (blocking, like before, so there is no flash of the wrong language). This loaderData is
+// never serialized - it only ever exists in the browser during client-side navigation.
 
 export function applyI18nPlugin(
   routes: RouteObjectWithPlugins[],
@@ -52,21 +24,10 @@ export function applyI18nPlugin(
       'The root route should not have route: "/" when using the i18n react-router-dom plugin'
     );
   }
-  const { messages: customMessages = {} } = config;
   const defaultLanguage = config.languages.find((language) => language.default);
   if (!defaultLanguage) throw new Error('No default language found');
 
-  const translationsPromise = fetch(`${config.translationsEntryEndpoint}/translations.json`)
-    .then((r) => r.json())
-    .catch((err) => {
-      // The site must still render even when the translations endpoint is down,
-      // so fall back to the bundled snapshot instead of failing the whole app.
-      console.error('Failed to load translations entry file, using bundled fallback', err);
-      return fallbackTranslationsEntry;
-    });
-
   return config.languages.map((localeOption) => {
-    const localeLanguage = customMessages[localeOption.code] ?? {};
     return {
       description: `Root route for ${localeOption.label}`,
       path: defaultLanguage.code === localeOption.code ? '/' : localeOption.code,
@@ -74,14 +35,11 @@ export function applyI18nPlugin(
         return false;
       },
       loader: async () => {
-        // fetch the entry translation file
-        const translations = await translationsPromise;
-        // now get the actual messages for the locale
-        const messagesUrl = `${config.translationsEntryEndpoint}${
-          translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
-        }`;
-        const messages = await loadLocaleMessages(messagesUrl, localeOption);
-        return { messages: { ...messages, ...localeLanguage } };
+        // Server: return nothing (messages come via MessagesProvider for the SSR render, and we must
+        // keep them out of the serialized hydration data). Client: load this locale's messages so
+        // switching language picks up the right dictionary.
+        if (import.meta.env.SSR) return null;
+        return { messages: await getMessagesForLocale(config, localeOption) };
       },
       errorElement: <RootErrorPage />,
       element: (

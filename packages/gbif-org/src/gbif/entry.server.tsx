@@ -2,6 +2,8 @@ import { Root } from '@/components/root';
 import { gbifConfig } from '@/gbif/config';
 import { createGbifRoutes } from '@/gbif/routes';
 import { extractLocaleFromPathname } from '@/reactRouterPlugins/i18n/extractLocaleFromURL';
+import { getMessagesForLocale, resolveMessagesPath } from '@/reactRouterPlugins/i18n/loadMessages';
+import { MessagesProvider } from '@/reactRouterPlugins/i18n/messagesContext';
 import type { Request as ExpressRequest } from 'express';
 import ReactDOMServer from 'react-dom/server';
 import { FilledContext, HelmetServerState } from 'react-helmet-async';
@@ -30,19 +32,11 @@ export async function render(req: ExpressRequest) {
 
   const router = createStaticRouter(dataRoutes, context);
 
-  // Used to capture the head contents
-  const helmetContext = {};
-
-  const appHtml = ReactDOMServer.renderToString(
-    <Root config={gbifConfig} helmetContext={helmetContext}>
-      <StaticRouterProvider router={router} context={context} nonce="the-nonce" />
-    </Root>
-  );
-
-  const helmet = (helmetContext as FilledContext).helmet;
-  const headHtml = createHeadHtml(helmet);
-  const cacheControl = extractCacheControl(context?.loaderHeaders);
-
+  // Resolve the locale before rendering so we can load the matching translation messages
+  // out-of-band (rather than via react-router loaderData, which would serialize the whole
+  // dictionary into the response). We feed the messages
+  // to IntlProvider for the SSR render and inline only the tiny versioned URL so the client can
+  // fetch the exact same file before hydration.
   const localeCode = extractLocaleFromPathname(
     new URL(fetchRequest.url).pathname,
     gbifConfig.languages.map((l) => l.code),
@@ -52,6 +46,29 @@ export async function render(req: ExpressRequest) {
     gbifConfig.languages.find((l) => l.code === localeCode) ?? defaultLanguage;
   const rootDir = matchedLanguage.textDirection ?? 'ltr';
 
+  // Both resolve from the in-memory prod cache after warmup, so this is near-free per request.
+  // We inline the endpoint-independent path (not a full URL) so the client can prepend its own
+  // translation endpoint - the server and client endpoints can differ (docker SSR split).
+  const [messages, messagesPath] = await Promise.all([
+    getMessagesForLocale(gbifConfig, matchedLanguage),
+    resolveMessagesPath(gbifConfig, matchedLanguage),
+  ]);
+
+  // Used to capture the head contents
+  const helmetContext = {};
+
+  const appHtml = ReactDOMServer.renderToString(
+    <Root config={gbifConfig} helmetContext={helmetContext}>
+      <MessagesProvider messages={messages}>
+        <StaticRouterProvider router={router} context={context} nonce="the-nonce" />
+      </MessagesProvider>
+    </Root>
+  );
+
+  const helmet = (helmetContext as FilledContext).helmet;
+  const headHtml = createHeadHtml(helmet);
+  const cacheControl = extractCacheControl(context?.loaderHeaders);
+
   return {
     appHtml,
     headHtml,
@@ -60,6 +77,7 @@ export async function render(req: ExpressRequest) {
     statusCode: context.statusCode,
     cacheControl,
     rootDir,
+    messagesPath,
   };
 }
 

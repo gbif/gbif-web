@@ -188,6 +188,7 @@ async function main() {
           statusCode,
           cacheControl,
           rootDir,
+          messagesPath,
         } = await render(req);
         if (cacheControl) {
           res.set('Cache-Control', cacheControl);
@@ -197,6 +198,18 @@ async function main() {
         }
 
         const testClass = env.PUBLIC_TEST_SITE === 'true' ? 'gbif-test-site' : '';
+
+        // Inline only the tiny versioned messages path (~30 bytes) instead of the whole ~438 KB
+        // translation dictionary. The client prepends its
+        // own translation endpoint and fetches this exact cacheable file before hydration so its
+        // IntlProvider messages match the SSR render. JSON.stringify + escaping `<` prevents the
+        // value from breaking out of the script element.
+        const i18nScript = messagesPath
+          ? `<script>window.__I18N_MESSAGES_PATH__=${JSON.stringify(messagesPath).replace(
+              /</g,
+              '\\u003c'
+            )}</script>`
+          : '';
 
         const html = template
           .replace(
@@ -211,7 +224,7 @@ async function main() {
             '<div id="app" class="gbif">',
             `<div id="app" class="gbif" dir="${rootDir ?? 'ltr'}">`
           )
-          .replace('<!--head-html-->', headHtml)
+          .replace('<!--head-html-->', headHtml + i18nScript)
           .replace('<!--app-html-->', appHtml);
 
         res.setHeader('Content-Type', 'text/html');
