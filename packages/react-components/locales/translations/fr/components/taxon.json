@@ -8,7 +8,7 @@
   "vernacularNames": "Noms vernaculaires",
   "viewOnCatalogueOfLife": "Voir dans Catalogue of Life",
   "viewInChecklistBank": "Voir dans Checklist Bank",
-  "viewInDefaultTaxonomy": "",
+  "viewInDefaultTaxonomy": "Voir dans la taxonomie du GBIF",
   "rank": "Niveau du taxon",
   "source": "Source",
   "specimenIsTypeOf": "de",
@@ -84,6 +84,6 @@
     "breakdown": "Impossible de charger le détail",
     "invasiveInCountries": "Impossible de charger les informations sur les espèces envahissantes"
   },
-  "deletedMessage": "",
-  "deletedDescription": ""
+  "deletedMessage": "Ce taxon a été retiré.",
+  "deletedDescription": "La taxonomie est dynamique et change à travers le temps lorsque de nouvelles informations deviennent disponibles."
 }
