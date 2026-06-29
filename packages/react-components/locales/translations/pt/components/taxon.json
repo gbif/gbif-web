@@ -8,6 +8,7 @@
   "vernacularNames": "Nomes comuns",
   "viewOnCatalogueOfLife": "",
   "viewInChecklistBank": "",
+  "viewInDefaultTaxonomy": "",
   "rank": "Nível",
   "source": "Fonte",
   "specimenIsTypeOf": "Iguais {is}",
