@@ -8,7 +8,7 @@
   "vernacularNames": "Народные названия",
   "viewOnCatalogueOfLife": "Посмотреть в каталоге жизни",
   "viewInChecklistBank": "Посмотреть в банке контрольных списков",
-  "viewInDefaultTaxonomy": "",
+  "viewInDefaultTaxonomy": "Посмотреть в таксономии GBIF",
   "rank": "Ранг",
   "source": "Источник",
   "specimenIsTypeOf": "из",
@@ -84,6 +84,6 @@
     "breakdown": "",
     "invasiveInCountries": ""
   },
-  "deletedMessage": "",
-  "deletedDescription": ""
+  "deletedMessage": "Этот таксон был удалён.",
+  "deletedDescription": "Таксономии являются динамическими и меняются по мере поступления новой информации."
 }
