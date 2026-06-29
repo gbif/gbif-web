@@ -84,6 +84,6 @@
     "breakdown": "",
     "invasiveInCountries": ""
   },
-  "deletedMessage": "",
-  "deletedDescription": ""
+  "deletedMessage": "Este táxon foi removido.",
+  "deletedDescription": "As taxonomias são dinâmicas e mudam ao longo do tempo à medida que novas informações se tornam disponíveis."
 }
