@@ -8,7 +8,7 @@
       "tools": "Outils",
       "lookUp": "Rechercher",
       "pageTitle": "Rechercher une espèce",
-      "description": "Normaliser les noms d'espèces d'un fichier CSV par rapport à la base de données GBIF. Le fichier doit comporter la colonne \"scientificName\" et les colonnes optionnelles \"kingdom\" et \"id\".",
+      "description": "Normaliser des noms d'espèces provenant d'un fichier CSV vers le Catalogue of Life. Les colonnes attendues incluent \"scientificName\" (obligatoire), \"kingdom\" (facultatif) et \"id\" (facultatif).",
       "selectFile": "Sélectionner un fichier",
       "or": "ou",
       "dropHere": "Déposer ici",

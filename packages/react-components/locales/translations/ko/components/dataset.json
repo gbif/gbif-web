@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "출현의 분류학적 분포",
   "noCitations": "아직 인용 없음",
-  "noOccurrences": "출현 없음"
+  "noOccurrences": "출현 없음",
+  "eventWarning": ""
 }

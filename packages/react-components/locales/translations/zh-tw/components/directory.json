@@ -54,19 +54,19 @@
     "annualBadges": "年度徽章",
     "language": "語言",
     "country": "國家或地區",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
-    "orcId": "",
+    "affiliation": "所屬機構",
+    "recipient": "受獎人",
+    "areasExpertise": "專業領域",
+    "orcId": "ORCID iD",
     "year": "年",
     "email": "電子郵件"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "GBIF研究生研究員獎",
+    "EBBE1ST": "首獎",
+    "EBBE2ND": "二獎",
+    "EBBE3RD": "三獎"
   },
-  "prize": "",
+  "prize": "獎",
   "year": "年"
 }
