@@ -209,6 +209,9 @@ export default function About() {
                   featuredImageLicense={
                     collection.featuredImageUrl ? collection.featuredImageLicense : null
                   }
+                  featuredImageAttribution={
+                    collection.featuredImageUrl ? collection.featuredImageAttribution : null
+                  }
                 />
               </Card>
             )}

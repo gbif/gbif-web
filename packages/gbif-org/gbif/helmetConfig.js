@@ -64,9 +64,11 @@ export const helmetConfig = {
       imgSrc: ['*', 'data:'],
       workerSrc: ['blob:', `'self'`],
       upgradeInsecureRequests: process.env.DISABLE_HTTPS_UPGRADE ? null : [], // this is useful for testing a prod build over http in docker
-      // frameAncestors: [ // This leads to conflicting statements in Helmet. Looks like we should either go with frameAncestors or x-frame-options
-      //   'https://www.onezoom.org'
-      // ]
+      // frameAncestors is intentionally absent here. Helmet refuses to send both
+      // X-Frame-Options and frame-ancestors simultaneously (they conflict). X-Frame-Options is by default SAMEORIGIN.
+      // Widget routes that need iframe embedding handle frame-ancestors in a dedicated middleware in
+      // server.js (see the /api/widgets handler) which runs after helmet and overrides
+      // X-Frame-Options for those paths only.
     },
   },
   hsts: {

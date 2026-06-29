@@ -2,7 +2,12 @@ import { DatasetLabel } from '@/components/filters/displayNames';
 import Properties, { Property, Term, Value } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { NotFoundLoaderResponse } from '@/errors';
-import { DeprecatedTaxonQuery, DeprecatedTaxonQueryVariables } from '@/gql/graphql';
+import {
+  DeprecatedTaxonRedirectQuery,
+  DeprecatedTaxonRedirectQueryVariables,
+  DeprecatedTaxonTombstoneQuery,
+  DeprecatedTaxonTombstoneQueryVariables,
+} from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
@@ -19,13 +24,17 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
   if (isNaN(Number(key))) {
     throw new NotFoundLoaderResponse();
   }
-  const response = await graphql.query<DeprecatedTaxonQuery, DeprecatedTaxonQueryVariables>(
-    SPECIES_QUERY,
-    {
-      key,
-      newDatasetKey: config.defaultChecklistKey,
-    }
-  );
+
+  // Phase 1: cheap query with only the fields needed to decide the redirect target. ~80% of
+  // /species hits are 302 redirects, so this avoids fetching the full classification block (only
+  // used by the tombstone page)
+  const response = await graphql.query<
+    DeprecatedTaxonRedirectQuery,
+    DeprecatedTaxonRedirectQueryVariables
+  >(SPECIES_REDIRECT_QUERY, {
+    key,
+    newDatasetKey: config.defaultChecklistKey,
+  });
 
   const { errors, data } = await response.json();
   throwCriticalErrors({
@@ -66,10 +75,15 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
 
   // It is not a mappable backbone key, not a CoL key and not another known species key.
   // so it must be a backbone key that has no mapping to CoL.
-  // we will have to show a tombstone page
-  // return { errors, data };
+  // Phase 2: only now do we fetch the full record needed to render the tombstone page.
+  const tombstoneResponse = await graphql.query<
+    DeprecatedTaxonTombstoneQuery,
+    DeprecatedTaxonTombstoneQueryVariables
+  >(SPECIES_TOMBSTONE_QUERY, { key });
+  const { errors: tombstoneErrors, data: tombstoneData } = await tombstoneResponse.json();
+
   return json(
-    { errors, data },
+    { errors: tombstoneErrors, data: tombstoneData },
     {
       status: 404,
     }
@@ -77,7 +91,7 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
 }
 
 export function SpeciesKey() {
-  const { data } = useLoaderData() as { data: DeprecatedTaxonQuery };
+  const { data } = useLoaderData() as { data: DeprecatedTaxonTombstoneQuery };
   const speciesKey = data.speciesKey;
   const isBackbone = data.speciesKey?.datasetKey === import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY;
 
@@ -176,8 +190,25 @@ export function SpeciesKey() {
   );
 }
 
-const SPECIES_QUERY = /* GraphQL */ `
-  query DeprecatedTaxon($key: ID!, $newDatasetKey: ID!) {
+// Phase 1 — minimal fields needed to decide the redirect target (the common, ~80% path).
+const SPECIES_REDIRECT_QUERY = /* GraphQL */ `
+  query DeprecatedTaxonRedirect($key: ID!, $newDatasetKey: ID!) {
+    speciesKey(key: $key) {
+      taxonID
+      datasetKey
+      taxon {
+        related(datasetKey: [$newDatasetKey]) {
+          taxonID
+        }
+      }
+    }
+  }
+`;
+
+// Phase 2 — the full record the tombstone page renders. Fetched only when a /species key has no
+// modern equivalent to redirect to (~20% of requests). Drops the unused taxon/parentTree block.
+const SPECIES_TOMBSTONE_QUERY = /* GraphQL */ `
+  query DeprecatedTaxonTombstone($key: ID!) {
     speciesKey(key: $key) {
       taxonID
       datasetKey
@@ -192,22 +223,6 @@ const SPECIES_QUERY = /* GraphQL */ `
       taxonomicStatus
       rank
       deleted
-      taxon {
-        taxonID
-        scientificName
-        taxonRank
-        taxonomicStatus
-        parentTree {
-          taxonID
-          scientificName
-          taxonRank
-        }
-        related(datasetKey: [$newDatasetKey]) {
-          taxonID
-          scientificName
-          datasetKey
-        }
-      }
     }
   }
 `;

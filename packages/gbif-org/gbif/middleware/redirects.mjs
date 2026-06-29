@@ -82,18 +82,30 @@ function createGetRedirect(env) {
     return acc;
   }, {});
 
+  // Pre-index query-param redirects by their path so the per-request lookup is
+  // O(candidates-for-this-path) instead of scanning the whole (~2.1k entry) redirect table and
+  // splitting every key on every request. Built once here from redirectTable, preserving its
+  // iteration order so the first-match semantics in findQueryParamRedirect stay identical.
+  const queryParamRedirectsByPath = new Map();
+  for (const [incoming, target] of Object.entries(redirectTable)) {
+    const [incomingPath, incomingQuery] = incoming.split('?');
+    if (!incomingQuery) continue; // mirror the original `incomingQuery` truthy guard (skip path-only)
+    const matchedParams = querystring.parse(incomingQuery);
+    let list = queryParamRedirectsByPath.get(incomingPath);
+    if (!list) queryParamRedirectsByPath.set(incomingPath, (list = []));
+    list.push({ target, matchedParams });
+  }
+
   // Find redirects that match both path and specific query params
   function findQueryParamRedirect(path, queryParams) {
-    for (const [incoming, target] of Object.entries(redirectTable)) {
-      const [incomingPath, incomingQuery] = incoming.split('?');
-      if (incomingPath === path && incomingQuery) {
-        const incomingParams = querystring.parse(incomingQuery);
-        const allMatch = Object.entries(incomingParams).every(
-          ([key, value]) => queryParams[key] === value
-        );
-        if (allMatch) {
-          return { target, matchedParams: incomingParams };
-        }
+    const candidates = queryParamRedirectsByPath.get(path);
+    if (!candidates) return null;
+    for (const { target, matchedParams } of candidates) {
+      const allMatch = Object.entries(matchedParams).every(
+        ([key, value]) => queryParams[key] === value
+      );
+      if (allMatch) {
+        return { target, matchedParams };
       }
     }
     return null;
