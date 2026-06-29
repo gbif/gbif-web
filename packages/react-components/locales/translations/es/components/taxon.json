@@ -8,7 +8,7 @@
   "vernacularNames": "Nombres comunes",
   "viewOnCatalogueOfLife": "Ver en Catalogue of Life",
   "viewInChecklistBank": "Ver en Checklist Bank",
-  "viewInDefaultTaxonomy": "",
+  "viewInDefaultTaxonomy": "Ver en la taxonomía de GBIF",
   "rank": "Rango",
   "source": "Origen",
   "specimenIsTypeOf": "Igual a {is}",
@@ -84,6 +84,6 @@
     "breakdown": "No se pudo cargar el desglose",
     "invasiveInCountries": "No se pudo cargar la información de especies invasoras"
   },
-  "deletedMessage": "",
-  "deletedDescription": ""
+  "deletedMessage": "Este taxón ha sido eliminado.",
+  "deletedDescription": "Las taxonomías son dinámicas y cambian con el tiempo a medida que se dispone de nueva información."
 }
