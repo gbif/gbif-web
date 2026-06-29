@@ -8,6 +8,7 @@
   "vernacularNames": "Народные названия",
   "viewOnCatalogueOfLife": "Посмотреть в каталоге жизни",
   "viewInChecklistBank": "Посмотреть в банке контрольных списков",
+  "viewInDefaultTaxonomy": "",
   "rank": "Ранг",
   "source": "Источник",
   "specimenIsTypeOf": "из",
@@ -83,6 +84,6 @@
     "breakdown": "",
     "invasiveInCountries": ""
   },
-  "deletedMessage": "Этот таксон был удален из таксономии GBIF",
-  "deletedDescription": "  Таксономии являются динамическими и изменяются во времени по мере появления новой информации. Этот таксон был удален из таксономии GBIF."
+  "deletedMessage": "",
+  "deletedDescription": ""
 }
