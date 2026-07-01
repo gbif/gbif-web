@@ -73,13 +73,24 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
   const facetResults = useFacets({ predicate, query });
 
   useEffect(() => {
-    const maxLevelCount = Object.keys(facetResults?.data?.search?.cardinality || {}).reduce(
-      (max, key) => Math.max(max, Number(facetResults?.data?.search?.cardinality?.[key])),
+    const cardinality = facetResults?.data?.search?.cardinality || {};
+    const maxLevelCount = Object.keys(cardinality).reduce(
+      (max, key) => Math.max(max, Number(cardinality?.[key])),
       0
     );
-    if (facetResults?.data?.search?.facet && maxLevelCount < 2) {
-      const nextRanks = rankKeys_.slice(3, rankKeys_.length);
-      setRankKeys(nextRanks);
+    // "Single lineage" = every rank resolves to at most one distinct taxon, so
+    // the sunburst would be a single segment at each level.
+    const singleLineage = maxLevelCount < 2;
+    // The deepest set of ranks we zoom to when the data is a single lineage.
+    const deeperRanks = rankKeys_.slice(3, rankKeys_.length);
+    const alreadyDeepest =
+      rankKeys.length === deeperRanks.length &&
+      rankKeys.every((key, idx) => key === deeperRanks[idx]);
+    if (facetResults?.data?.search?.facet && singleLineage && !alreadyDeepest) {
+      // Zoom into deeper ranks to try to get a more granular chart. If we're
+      // already at the deepest ranks, fall through and render the single
+      // lineage instead of looping forever (which left the card blank).
+      setRankKeys(deeperRanks);
     } else if (facetResults?.data?.search?.facet) {
       let results = [];
       const levelCounts = rankKeys.reduce((acc, key, idx) => {
@@ -88,9 +99,13 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
       }, {});
 
       rankKeys.forEach((rank, idx) => {
+        // Include a rank when it (or the next) actually branches, or when it's
+        // the deepest rank. For a single lineage, include every rank so the full
+        // classification renders as nested single rings instead of nothing.
         if (
-          Number(facetResults?.data?.search?.cardinality?.[rankKeys[idx]]) > 1 ||
-          Number(facetResults?.data?.search?.cardinality?.[rankKeys[idx + 1]]) > 1 ||
+          singleLineage ||
+          Number(cardinality?.[rankKeys[idx]]) > 1 ||
+          Number(cardinality?.[rankKeys[idx + 1]]) > 1 ||
           idx === rankKeys.length - 1
         ) {
           results = [
