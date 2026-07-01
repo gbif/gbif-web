@@ -161,6 +161,15 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
       survivingSet ? bin.ids.filter((id) => survivingSet.has(id)).length : bin.ids.length;
 
     const nonEmptyBins = bins.filter((b) => b.ids.length > 0);
+    // Which bins to render. A bin with no matches is normally hidden, but we keep it visible
+    // when it is currently selected (so a selected interval — e.g. restored from a shared URL —
+    // can't silently disappear and stay unremovable), and we always show the 100% "identical"
+    // bin once a search returned something, so users get an explicit answer on whether an
+    // identical sequence exists (0 distinct sequences) instead of the row just being absent.
+    const visibleBins = bins.filter(
+      (b) =>
+        b.ids.length > 0 || selected.includes(b.id) || (b.id === '100' && nonEmptyBins.length > 0)
+    );
 
     return (
       <div ref={ref} className={cn('g-flex g-flex-col', className)} style={style}>
@@ -219,7 +228,7 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
             </p>
           )}
 
-          {!loading && searched && nonEmptyBins.length === 0 && !error && (
+          {!loading && searched && visibleBins.length === 0 && !error && (
             <p className="g-mt-3 g-text-sm g-text-slate-500">
               <FormattedMessage
                 id="filters.nucleotideSequenceId.noMatches"
@@ -228,9 +237,9 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
             </p>
           )}
 
-          {nonEmptyBins.length > 0 && (
+          {visibleBins.length > 0 && (
             <div className="g-mt-3">
-              {nonEmptyBins.map((bin) => (
+              {visibleBins.map((bin) => (
                 <Option
                   key={bin.id}
                   checked={selected.includes(bin.id)}
