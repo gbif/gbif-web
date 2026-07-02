@@ -66,6 +66,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       occurrenceStatus
       references
       issues
+      nonTaxonomicIssues
       basisOfRecord
       dynamicProperties
       institutionKey

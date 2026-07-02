@@ -335,6 +335,7 @@ function reduce(item, fields) {
     installationKey: source.installationKey,
     institutionKey: source.institutionKey,
     issues: source.issues || [],
+    nonTaxonomicIssues: source.nonTaxonomicIssues || [],
     lastCrawled: source.lastCrawled,
     // lastInterpreted:                    source.lastInterpreted,
     lastParsed: source.lastParsed,

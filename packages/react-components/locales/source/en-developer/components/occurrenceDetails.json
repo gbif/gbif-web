@@ -68,6 +68,9 @@
   },
   "issuesHelpText": "These issues were identified by GBIF's data quality checks. They are intended to help data users assess the quality and characteristics of the data.",
   "issuesLearnMore": "Learn more about occurrence issues and flags",
+  "issues": {
+    "none": "No issues or flags"
+  },
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",

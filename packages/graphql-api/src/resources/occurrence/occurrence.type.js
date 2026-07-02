@@ -141,6 +141,7 @@ const typeDef = gql`
     islandGroup: String
     issued: String
     issues(types: [String!]): [OccurrenceIssue!]
+    nonTaxonomicIssues: [OccurrenceIssue!]
     kingdom: String
     kingdomKey: ID
     language: String
