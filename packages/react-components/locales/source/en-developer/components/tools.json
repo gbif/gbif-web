@@ -32,6 +32,8 @@
       "colFamily": "family",
       "colGenus": "genus",
       "colSpecies": "species",
+      "colCanonicalName": "canonicalName",
+      "colAuthorship": "authorship",
       "options": "Options",
       "excludeUnmatched": "Exclude unmatched",
       "generateCsv": "Generate CSV",

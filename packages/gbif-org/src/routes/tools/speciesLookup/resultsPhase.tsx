@@ -29,6 +29,8 @@ const RESULT_COLUMNS: { id: string; defaultMessage: string }[] = [
   { id: 'tools.speciesLookup.colGenus', defaultMessage: 'genus' },
   { id: 'tools.speciesLookup.colSpecies', defaultMessage: 'species' },
   { id: 'tools.speciesLookup.colClassification', defaultMessage: 'classification' },
+  { id: 'tools.speciesLookup.colCanonicalName', defaultMessage: 'canonicalName' },
+  { id: 'tools.speciesLookup.colAuthorship', defaultMessage: 'authorship' },
 ];
 
 type ResultsPhaseProps = {
@@ -202,6 +204,8 @@ function ResultRow({ row, onEdit }: { row: SpeciesRow; onEdit: (row: SpeciesRow)
       <td className="g-px-4 g-py-2 g-whitespace-nowrap">
         <ClassificationPath classification={row.classification} selfKey={row.usageKey} />
       </td>
+      <td className="g-px-4 g-py-2 g-whitespace-nowrap g-text-slate-600">{row.canonicalName}</td>
+      <td className="g-px-4 g-py-2 g-whitespace-nowrap g-text-slate-600">{row.authorship}</td>
     </tr>
   );
 }
