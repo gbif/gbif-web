@@ -20,6 +20,7 @@ import {
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
+import { useConfig } from '@/config/config';
 import { NotFoundLoaderResponse } from '@/errors';
 import {
   OccurrenceQuery,
@@ -235,7 +236,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
 `;
 
 const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
-  query SlowOccurrenceKey($key: ID!, $language: String!) {
+  query SlowOccurrenceKey($key: ID!, $language: String!, $defaultChecklistKey: ID) {
     occurrence(key: $key) {
       key
       localContexts {
@@ -258,7 +259,7 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
         name
       }
 
-      classification {
+      classification(checklistKey: $defaultChecklistKey) {
         vernacularNames(lang: $language, maxLimit: 1) {
           name
           reference {
@@ -410,6 +411,7 @@ export function OccurrenceKey() {
 
   const hideGlobe = useBelow(800);
   const { locale } = useI18n();
+  const config = useConfig();
 
   const { data: slowData, load: slowLoad } = useQuery<
     SlowOccurrenceKeyQuery,
@@ -426,9 +428,10 @@ export function OccurrenceKey() {
       variables: {
         key: occurrence.key.toString(),
         language: locale.iso3LetterCode ?? 'eng',
+        defaultChecklistKey: config.defaultChecklistKey,
       },
     });
-  }, [slowLoad, occurrence.key, locale?.iso3LetterCode]);
+  }, [slowLoad, occurrence.key, locale?.iso3LetterCode, config.defaultChecklistKey]);
 
   const slowOccurrence = slowData?.occurrence;
 
