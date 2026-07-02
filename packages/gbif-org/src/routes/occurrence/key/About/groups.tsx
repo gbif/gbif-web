@@ -894,6 +894,9 @@ function Other({
 
 function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
+  const nonTaxonomicIssues = occurrence?.nonTaxonomicIssues ?? [];
+  const activeChecklistIssues = occurrence?.classification?.issues ?? [];
+  const issues = Array.from(new Set([...nonTaxonomicIssues, ...activeChecklistIssues]));
   return (
     <Group
       label="occurrenceDetails.groups.issues"
@@ -912,7 +915,7 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
         </>
       }
     >
-      {(occurrence?.issues?.length ?? 0) === 0 ? (
+      {(issues?.length ?? 0) === 0 ? (
         <div>
           <FormattedMessage id="occurrenceDetails.issues.none" />
         </div>
@@ -931,7 +934,7 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
                 </tr>
               </thead>
               <tbody>
-                {occurrence?.issues?.map((issue) => (
+                {issues?.map((issue) => (
                   <tr key={issue}>
                     <td>
                       <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />
