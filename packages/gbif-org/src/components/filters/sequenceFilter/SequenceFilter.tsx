@@ -160,16 +160,12 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
     const binCount = (bin: SequenceBin) =>
       survivingSet ? bin.ids.filter((id) => survivingSet.has(id)).length : bin.ids.length;
 
-    const nonEmptyBins = bins.filter((b) => b.ids.length > 0);
-    // Which bins to render. A bin with no matches is normally hidden, but we keep it visible
-    // when it is currently selected (so a selected interval — e.g. restored from a shared URL —
-    // can't silently disappear and stay unremovable), and we always show the 100% "identical"
-    // bin once a search returned something, so users get an explicit answer on whether an
-    // identical sequence exists (0 distinct sequences) instead of the row just being absent.
-    const visibleBins = bins.filter(
-      (b) =>
-        b.ids.length > 0 || selected.includes(b.id) || (b.id === '100' && nonEmptyBins.length > 0)
-    );
+    // Once a sequence has been resolved, `bins` holds the full set of identity thresholds
+    // (SEQUENCE_BIN_DEFS), each with the matched ids that fall in it. We render every bin —
+    // including empty ones (shown as "0 distinct sequences") — so users see the complete set
+    // of thresholds and get an explicit answer at each level, and so a selected bin (e.g. one
+    // restored from a shared URL) can never silently disappear and stay unremovable.
+    const hasAnyMatch = bins.some((b) => b.ids.length > 0);
 
     return (
       <div ref={ref} className={cn('g-flex g-flex-col', className)} style={style}>
@@ -228,7 +224,7 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
             </p>
           )}
 
-          {!loading && searched && visibleBins.length === 0 && !error && (
+          {!loading && searched && !error && bins.length > 0 && !hasAnyMatch && (
             <p className="g-mt-3 g-text-sm g-text-slate-500">
               <FormattedMessage
                 id="filters.nucleotideSequenceId.noMatches"
@@ -237,9 +233,9 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
             </p>
           )}
 
-          {visibleBins.length > 0 && (
+          {bins.length > 0 && (
             <div className="g-mt-3">
-              {visibleBins.map((bin) => (
+              {bins.map((bin) => (
                 <Option
                   key={bin.id}
                   checked={selected.includes(bin.id)}

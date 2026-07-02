@@ -76,6 +76,13 @@
     "TAXON_CONCEPT_ID_NOT_FOUND": "The taxonConceptID matched a known pattern, but it was not found in the associated checklist. The backbone lookup was performed using either the names or a different ID field from the record. This may indicate a poorly formatted identifier or may be caused by a newly created ID that isn't yet known in the version of the published checklist.",
     "TAXON_ID_NOT_FOUND": "The taxonID found matched a known pattern, but it was not found in the associated checklist. The backbone lookup was performed using either the names or a different ID field from the record. This may indicate a poorly formatted identifier or may be caused by a newly created ID that isn't yet known in the version of the published checklist.",
     "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "The scientificName provided in the occurrence record does not precisely match the name in the registered checklist when using the scientificNameID, taxonID or taxonConceptID to look it up. Publishers are advised to check the IDs are correct, or update the formatting of the names on their records.",
-    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "The GBIF Backbone concept was found using the scientificNameID, taxonID or taxonConceptID, but it differs from what would have been found if the classification names on the record were used. This may indicate a gap in the GBIF backbone, a poor mapping between the checklist and the backbone, or a mismatch between the classification names and the declared IDs (scientificNameID or taxonConceptID) on the occurrence record itself."
+    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "The GBIF Backbone concept was found using the scientificNameID, taxonID or taxonConceptID, but it differs from what would have been found if the classification names on the record were used. This may indicate a gap in the GBIF backbone, a poor mapping between the checklist and the backbone, or a mismatch between the classification names and the declared IDs (scientificNameID or taxonConceptID) on the occurrence record itself.",
+    "NUCLEOTIDE_SEQUENCE_NATURAL_LANGUAGE": "The nucleotide sequence appears to contain natural-language text rather than a valid DNA/RNA sequence.",
+    "NUCLEOTIDE_SEQUENCE_ENDS_TRIMMED": "Leading and/or trailing characters were trimmed from the nucleotide sequence during processing.",
+    "NUCLEOTIDE_SEQUENCE_GAPS_REMOVED": "Gap or whitespace characters were removed from the nucleotide sequence during processing.",
+    "NUCLEOTIDE_SEQUENCE_INVALID": "The nucleotide sequence could not be interpreted as a valid DNA/RNA sequence.",
+    "NUCLEOTIDE_SEQUENCE_HIGH_N_FRACTION": "A high fraction of the nucleotide sequence consists of unknown bases (N).",
+    "NUCLEOTIDE_SEQUENCE_HIGH_AMBIGUITY": "A high fraction of the nucleotide sequence consists of ambiguous (non-ACGTN IUPAC) bases.",
+    "TARGET_GENE_INVALID": "The declared target gene could not be matched to a known target-gene concept."
   }
 }

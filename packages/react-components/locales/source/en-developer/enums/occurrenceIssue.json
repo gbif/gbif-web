@@ -75,5 +75,12 @@
 "TAXON_CONCEPT_ID_NOT_FOUND": "Taxon concept ID not found",
 "TAXON_ID_NOT_FOUND": "Taxon id not found",
 "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Scientific name and ID inconsistent",
-"TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Taxon match name and ID ambiguous"
+"TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Taxon match name and ID ambiguous",
+"NUCLEOTIDE_SEQUENCE_NATURAL_LANGUAGE": "Nucleotide sequence contains natural language",
+"NUCLEOTIDE_SEQUENCE_ENDS_TRIMMED": "Nucleotide sequence ends trimmed",
+"NUCLEOTIDE_SEQUENCE_GAPS_REMOVED": "Nucleotide sequence gaps removed",
+"NUCLEOTIDE_SEQUENCE_INVALID": "Nucleotide sequence invalid",
+"NUCLEOTIDE_SEQUENCE_HIGH_N_FRACTION": "Nucleotide sequence high N fraction",
+"NUCLEOTIDE_SEQUENCE_HIGH_AMBIGUITY": "Nucleotide sequence high ambiguity",
+"TARGET_GENE_INVALID": "Target gene invalid"
 }
