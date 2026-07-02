@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "",
   "issuesLearnMore": "",
+  "issues": {
+    "none": ""
+  },
   "features": {
     "isClustered": "Agrupado",
     "isSamplingEvent": "Evento de colheita",
