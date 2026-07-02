@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "Ces problèmes ont été identifiés lors des contrôles de qualité des données du GBIF. Ils visent à aider les utilisateurs de données à évaluer la qualité et les caractéristiques de ces dernières.",
   "issuesLearnMore": "En savoir plus sur les problèmes d'occurrence et les drapeaux",
+  "issues": {
+    "none": "Aucun problème ni signalement"
+  },
   "features": {
     "isClustered": "Regroupés",
     "isSamplingEvent": "Événement d'échantillonnage",
