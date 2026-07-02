@@ -463,7 +463,7 @@
   },
   "isSequenced": {
     "name": "Est séquencé",
-    "description": "Si l'enregistrement a des informations sur les séquences "
+    "description": "Dans le cas où l'enregistrement a une séquence associée (soit dans une extension de données dérivées d'ADN soit dans associatedSequences)"
   },
   "active": {
     "name": "Activé",

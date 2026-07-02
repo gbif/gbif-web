@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "出現紀錄的分類群分布",
   "noCitations": "尚未有引用",
-  "noOccurrences": "無出現紀錄"
+  "noOccurrences": "無出現紀錄",
+  "eventWarning": ""
 }

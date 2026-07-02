@@ -1,5 +1,8 @@
 {
+  "SUPERDOMAIN": "超域",
   "DOMAIN": "域",
+  "SUBDOMAIN": "亞域",
+  "INFRADOMAIN": "次域",
   "SUPERKINGDOM": "超界",
   "KINGDOM": "界",
   "SUBKINGDOM": "亞界",
