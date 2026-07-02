@@ -28,6 +28,8 @@ export const CSV_EXPORT_FIELDS = [
   'occurrenceId',
   'verbatimScientificName',
   'scientificName',
+  'canonicalName',
+  'authorship',
   'key',
   'matchType',
   'confidence',
@@ -54,6 +56,8 @@ export type ClassificationItem = {
 export type SuggestResult = {
   key: string;
   scientificName: string;
+  canonicalName?: string;
+  authorship?: string;
   rank: string;
   status: string;
   acceptedKey?: string;
@@ -75,6 +79,8 @@ export type SpeciesRow = {
   preferedKingdom?: string;
   occurrenceId?: string;
   scientificName?: string;
+  canonicalName?: string;
+  authorship?: string;
   key?: string;
   matchType?: string;
   confidence?: number;

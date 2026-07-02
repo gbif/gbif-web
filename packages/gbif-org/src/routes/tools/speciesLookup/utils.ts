@@ -93,12 +93,16 @@ export function applyMatchData(item: SpeciesRow, data: Record<string, unknown>) 
     item.key = usage.key as string;
     item.usageKey = usage.key as string;
     item.scientificName = usage.name as string;
+    item.canonicalName = usage.canonicalName as string | undefined;
+    item.authorship = usage.authorship as string | undefined;
     item.rank = usage.rank as string;
     item.status = (usage.status ?? usage.taxonomicStatus) as string | undefined;
   } else {
     item.key = undefined;
     item.usageKey = undefined;
     item.scientificName = undefined;
+    item.canonicalName = undefined;
+    item.authorship = undefined;
     item.rank = undefined;
     item.status = undefined;
   }
@@ -146,6 +150,8 @@ export function applySuggestion(item: SpeciesRow, suggestion: SuggestResult) {
   item.key = suggestion.key;
   item.usageKey = suggestion.key;
   item.scientificName = suggestion.scientificName;
+  item.canonicalName = suggestion.canonicalName;
+  item.authorship = suggestion.authorship;
   item.rank = suggestion.rank;
   item.status = suggestion.status;
   item.matchType = 'EDITED';
@@ -183,6 +189,8 @@ export function toCandidate(a: Record<string, unknown>): SuggestResult {
   return {
     key: usage?.key as string,
     scientificName: usage?.name as string,
+    canonicalName: usage?.canonicalName as string | undefined,
+    authorship: usage?.authorship as string | undefined,
     rank: usage?.rank as string,
     status: (usage?.status ?? usage?.taxonomicStatus) as string,
     acceptedKey: acceptedUsage?.key as string | undefined,
