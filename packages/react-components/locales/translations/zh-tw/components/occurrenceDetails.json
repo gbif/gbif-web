@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "這些問題是由GBIF的資料品質檢查發現的。其目的是幫助資料使用者評估資料的品質和特性。",
   "issuesLearnMore": "了解更多關於出現紀錄問題和標誌的資訊",
+  "issues": {
+    "none": ""
+  },
   "features": {
     "isClustered": "已集聚",
     "isSamplingEvent": "調查活動",
