@@ -42,6 +42,70 @@ const fieldsWithChecklistSupport = [
   'IUCN_RED_LIST_CATEGORY',
 ];
 
+const MAX_LABEL_RESOLUTIONS = 15;
+
+const KEYS_WITH_LABEL_RESOLUTION = new Set([
+  'TAXON_KEY',
+  'SPECIES_KEY',
+  'GENUS_KEY',
+  'FAMILY_KEY',
+  'ORDER_KEY',
+  'CLASS_KEY',
+  'PHYLUM_KEY',
+  'KINGDOM_KEY',
+  'ACCEPTED_TAXON_KEY',
+  'SUBGENUS_KEY',
+  'INSTITUTION_KEY',
+  'COLLECTION_KEY',
+  'DATASET_KEY',
+  'NETWORK_KEY',
+  'INSTALLATION_KEY',
+  'PUBLISHING_ORG',
+  'HOSTING_ORGANIZATION_KEY',
+  'GADM_GID',
+  'GADM_LEVEL_0_GID',
+  'GADM_LEVEL_1_GID',
+  'GADM_LEVEL_2_GID',
+  'GADM_LEVEL_3_GID',
+  'PATHWAY',
+  'DEGREE_OF_ESTABLISHMENT',
+  'ESTABLISHMENT_MEANS',
+  'LIFE_STAGE',
+  'SEX',
+  'LATEST_AGE_OR_HIGHEST_STAGE',
+  'EARLIEST_AGE_OR_LOWEST_STAGE',
+  'LATEST_EON_OR_HIGHEST_EONOTHEM',
+  'EARLIEST_EON_OR_LOWEST_EONOTHEM',
+  'LATEST_ERA_OR_HIGHEST_ERATHEM',
+  'EARLIEST_ERA_OR_LOWEST_ERATHEM',
+  'LATEST_PERIOD_OR_HIGHEST_SYSTEM',
+  'EARLIEST_PERIOD_OR_LOWEST_SYSTEM',
+  'LATEST_EPOCH_OR_HIGHEST_SERIES',
+  'EARLIEST_EPOCH_OR_LOWEST_SERIES',
+  'LOWEST_BIOSTRATIGRAPHIC_ZONE',
+  'HIGHEST_BIOSTRATIGRAPHIC_ZONE',
+]);
+
+// Count values in the predicate tree that need a remote label lookup.
+function countLabelResolutions(predicate: any): number {
+  if (!predicate || typeof predicate !== 'object') return 0;
+
+  let count = 0;
+  if (Array.isArray(predicate.predicates)) {
+    for (const child of predicate.predicates) count += countLabelResolutions(child);
+  }
+  if (predicate.predicate) {
+    count += countLabelResolutions(predicate.predicate);
+  }
+
+  const key = predicate.key ? constantCase(predicate.key) : undefined;
+  if (key && KEYS_WITH_LABEL_RESOLUTION.has(key)) {
+    count += Array.isArray(predicate.values) ? predicate.values.length : 1;
+  }
+
+  return count;
+}
+
 export const PredicateDisplay = ({ predicate: predicateRaw }) => {
   const intl = useIntl();
   const { defaultChecklistKey } = useConfig();
@@ -329,8 +393,20 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
     predicate = JSON.parse(predicate);
   }
 
-  if (JSON.stringify(predicate).length > 2000) {
-    return <pre>{JSON.stringify(predicate, null, 2)}</pre>;
+  const labelResolutions = countLabelResolutions(predicate);
+  if (labelResolutions > MAX_LABEL_RESOLUTIONS) {
+    return (
+      <>
+        <div className="g-text-red-600 g-text-xs g-mb-2">
+          <FormattedMessage
+            id="downloadKey.predicate.tooManyLabelResolutions"
+            defaultMessage="Showing this query in a readable form would require {count} label lookups, exceeding the limit of {max}. To reduce load on our services, it is shown as raw JSON instead."
+            values={{ count: labelResolutions, max: MAX_LABEL_RESOLUTIONS }}
+          />
+        </div>
+        <pre>{JSON.stringify(predicate, null, 2)}</pre>
+      </>
+    );
   }
 
   switch (predicate.type) {
