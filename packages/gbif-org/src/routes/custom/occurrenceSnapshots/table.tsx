@@ -1,12 +1,13 @@
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/largeCard';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { SkeletonBody, Table, Th } from '@/components/clientTable';
 import { LongDate, ShortDate } from '@/components/dateFormats';
 import { Paging } from '@/components/paging';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Card } from '@/components/ui/largeCard';
 import { useState } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { DownloadResult } from '../../user/downloads/downloadResult';
+
 const columns = ['date', 'format', 'citation', 'filters'];
 
 const OccurrenceSnapshotsTable = ({ results }) => {
@@ -14,90 +15,60 @@ const OccurrenceSnapshotsTable = ({ results }) => {
   const [offset, setOffset] = useState(0);
   const [dialogContent, setDialogContent] = useState(null);
   const limit = 10;
-  // Table implementation goes here
+
   return (
-    <Card>
-      <div className="g-overflow-auto">
-        <table className="g-w-full g-text-sm">
-          <thead className="g-shadow-sm">
-            <tr>
-              {columns.map((col, index) => (
-                <th
-                  key={index}
-                  className="g-p-4 g-text-start g-whitespace-nowrap "
-                  style={{ width: `${100 / columns.length}%` }}
-                >
-                  <FormattedMessage id={`occurrenceSnapshots.table.columns.${col}`} />
-                </th>
-              ))}
-            </tr>
-          </thead>
+    <Card className="gbif-table-style">
+      <Table>
+        <thead>
+          <tr>
+            {columns.map((col) => (
+              <Th key={col}>
+                <FormattedMessage id={`occurrenceSnapshots.table.columns.${col}`} />
+              </Th>
+            ))}
+          </tr>
+        </thead>
+        {!results && <SkeletonBody rows={10} columns={columns.length} />}
+        {results && (
           <tbody>
-            {!results &&
-              Array.from({ length: 10 }).map((x, i) => (
-                <tr key={i}>
-                  <td>
-                    <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                  </td>
-                  <td>
-                    <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                  </td>
-                  <td>
-                    <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                  </td>
-                  <td>
-                    <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
-                  </td>
-                </tr>
-              ))}
-            {results &&
-              results.slice(offset, offset + limit).map((res, i) => (
-                <tr className="g-font-bold" key={i}>
-                  <td className="g-p-4 ">{<ShortDate value={res.created} />}</td>
-                  <td className="g-p-4 ">
-                    {
-                      <FormattedMessage
-                        id={`enums.downloadFormat.${res.request.format}`}
-                        defaultMessage={res.request.format}
-                      />
-                    }
-                  </td>
-                  <td key={'date'} className="g-p-4 " style={{ width: `50%` }}>
-                    {
-                      <span>
-                        <a href="https://www.gbif.org" className="g-link g-text-blue-500">
-                          GBIF.org
-                        </a>{' '}
-                        (
-                        <LongDate value={res.created} />){' '}
-                        <FormattedMessage id="occurrenceSnapshots.table.citation" />{' '}
-                        <a className="g-link g-text-blue-500" href={`https://doi.org/${res.doi}`}>
-                          https://doi.org/{res.doi}
-                        </a>
-                      </span>
-                    }
-                  </td>
-                  <td>
-                    {res?.request?.predicate && (
-                      <Button variant="link" onClick={() => setDialogContent(res)}>
-                        <FormattedMessage id="occurrenceSnapshots.table.hasFilters" />
-                      </Button>
-                    )}
-                  </td>
-                </tr>
-              ))}
+            {results.slice(offset, offset + limit).map((res, i) => (
+              <tr key={i}>
+                <td className="g-whitespace-nowrap">
+                  <ShortDate value={res.created} />
+                </td>
+                <td>
+                  <FormattedMessage
+                    id={`enums.downloadFormat.${res.request.format}`}
+                    defaultMessage={res.request.format}
+                  />
+                </td>
+                <td className="prose-links">
+                  <a href="https://www.gbif.org">GBIF.org</a> (
+                  <LongDate value={res.created} />){' '}
+                  <FormattedMessage id="occurrenceSnapshots.table.citation" />{' '}
+                  <a href={`https://doi.org/${res.doi}`}>https://doi.org/{res.doi}</a>
+                </td>
+                <td>
+                  {res?.request?.predicate && (
+                    <Button variant="link" onClick={() => setDialogContent(res)}>
+                      <FormattedMessage id="occurrenceSnapshots.table.hasFilters" />
+                    </Button>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
-        </table>
-        <div className="g-flex g-p-4">
-          <div className="g-flex-auto"></div>
-          <div>
-            <Paging
-              next={() => setOffset(offset + limit)}
-              prev={() => setOffset(offset - limit)}
-              isFirstPage={offset === 0}
-              isLastPage={offset + limit >= (results?.length || 0)}
-            />
-          </div>
+        )}
+      </Table>
+      <div className="g-flex g-p-4">
+        <div className="g-flex-auto"></div>
+        <div>
+          <Paging
+            next={() => setOffset(offset + limit)}
+            prev={() => setOffset(offset - limit)}
+            isFirstPage={offset === 0}
+            isLastPage={offset + limit >= (results?.length || 0)}
+          />
         </div>
       </div>
       <Dialog open={!!dialogContent} onOpenChange={() => setDialogContent(null)}>
