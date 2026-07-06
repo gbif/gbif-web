@@ -58,7 +58,7 @@ export function PublishingCountries({ datasetKey }: { datasetKey: string }) {
     <Card className="g-mb-4 gbif-word-break" id="countries">
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id="dataset.publishingCountriesAreas" />
+          <FormattedMessage id="dataset.countryAndAreaCoverage" />
         </CardTitle>
       </CardHeader>
       <CardContent>
