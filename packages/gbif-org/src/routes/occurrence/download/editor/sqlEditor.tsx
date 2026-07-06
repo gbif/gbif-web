@@ -3,6 +3,7 @@ import { highlight } from 'sql-highlight';
 import { validateSql } from './validate';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Editor from './editor';
+import { LineNumberGutter } from './lineNumberGutter';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useTextAreaContent } from './predicateEditor';
@@ -12,25 +13,8 @@ export default function SqlEditor({ onContinue }: { onContinue: (sqlString?: str
   const [sql, setSql] = useTextAreaContent('sql');
   const { formatMessage } = useIntl();
 
-  const handleFormat = useCallback(
-    async (text: string) => {
-      try {
-        const { text: str, error } = await validateSql(text, formatMessage);
-        if (error) {
-          return text;
-        }
-        return str;
-      } catch (error) {
-        return text;
-      }
-    },
-    [formatMessage]
-  );
-
-  const handleValidation = useCallback(
-    (str: string) => validateSql(str, formatMessage),
-    [formatMessage]
-  );
+  // the server-side validation also returns the formatted sql, so one callback serves both
+  const validate = useCallback((text: string) => validateSql(text, formatMessage), [formatMessage]);
 
   return (
     <div className="g-from-sky-50 g-via-blue-50 g-to-indigo-50 g-bg-gradient-to-br">
@@ -40,10 +24,11 @@ export default function SqlEditor({ onContinue }: { onContinue: (sqlString?: str
         PrettyDisplay={SqlVisual}
         text={sql ?? ''}
         setText={setSql}
-        handleFormat={handleFormat}
+        handleFormat={validate}
         onContinue={onContinue}
-        handleValidation={handleValidation}
+        handleValidation={validate}
         placeholder={formatMessage({ id: 'download.sql.placeholder' })}
+        showLineNumbers
       />
       <Alert variant="info" className="g-mt-8 g-max-w-4xl g-mx-auto">
         <AlertTitle>
@@ -76,7 +61,16 @@ function SqlVisual({ content: sql }: { content: string; onError: (error: Error) 
     });
   }, [sql]);
 
+  // unwrapped lines, so line n of the sql is the nth visual row and numbering is a simple count
+  const lineCount = sql ? sql.split('\n').length : 0;
+
   return (
-    <code className="gbif-sqlInput" dangerouslySetInnerHTML={{ __html: highlightedHtml ?? '' }} />
+    <div className="g-flex g-w-fit g-min-w-full">
+      <LineNumberGutter lineCount={lineCount} className="g-bg-slate-50 dark:g-bg-slate-900" />
+      <code
+        className="gbif-sqlInput !g-whitespace-pre"
+        dangerouslySetInnerHTML={{ __html: highlightedHtml ?? '' }}
+      />
+    </div>
   );
 }
