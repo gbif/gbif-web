@@ -24,6 +24,48 @@ export const KINGDOMS = [
   { value: 'archaea', label: 'Archaea', icon: ArchaeaIcon },
 ];
 
+// `key` is the SpeciesRow field the column sorts on (and its cell renders from).
+export const RESULT_COLUMNS: { key: string; id: string; defaultMessage: string }[] = [
+  { key: 'occurrenceId', id: 'tools.speciesLookup.colId', defaultMessage: 'id' },
+  {
+    key: 'verbatimScientificName',
+    id: 'tools.speciesLookup.colVerbatimScientificName',
+    defaultMessage: 'verbatimScientificName',
+  },
+  {
+    key: 'preferedKingdom',
+    id: 'tools.speciesLookup.colPreferedKingdom',
+    defaultMessage: 'preferedKingdom',
+  },
+  { key: 'matchType', id: 'tools.speciesLookup.colMatchType', defaultMessage: 'matchType' },
+  { key: 'confidence', id: 'tools.speciesLookup.colConfidence', defaultMessage: 'confidence' },
+  {
+    key: 'scientificName',
+    id: 'tools.speciesLookup.colScientificNameEditable',
+    defaultMessage: 'scientificName (editable)',
+  },
+  { key: 'status', id: 'tools.speciesLookup.colStatus', defaultMessage: 'status' },
+  { key: 'rank', id: 'tools.speciesLookup.colRank', defaultMessage: 'rank' },
+  { key: 'kingdom', id: 'tools.speciesLookup.colKingdom', defaultMessage: 'kingdom' },
+  { key: 'phylum', id: 'tools.speciesLookup.colPhylum', defaultMessage: 'phylum' },
+  { key: 'class', id: 'tools.speciesLookup.colClass', defaultMessage: 'class' },
+  { key: 'order', id: 'tools.speciesLookup.colOrder', defaultMessage: 'order' },
+  { key: 'family', id: 'tools.speciesLookup.colFamily', defaultMessage: 'family' },
+  { key: 'genus', id: 'tools.speciesLookup.colGenus', defaultMessage: 'genus' },
+  { key: 'species', id: 'tools.speciesLookup.colSpecies', defaultMessage: 'species' },
+  {
+    key: 'classification',
+    id: 'tools.speciesLookup.colClassification',
+    defaultMessage: 'classification',
+  },
+  {
+    key: 'canonicalName',
+    id: 'tools.speciesLookup.colCanonicalName',
+    defaultMessage: 'canonicalName',
+  },
+  { key: 'authorship', id: 'tools.speciesLookup.colAuthorship', defaultMessage: 'authorship' },
+];
+
 export const CSV_EXPORT_FIELDS = [
   'occurrenceId',
   'verbatimScientificName',
@@ -111,3 +153,5 @@ export type SpeciesRow = {
 };
 
 export type Phase = 'upload' | 'selectKingdom' | 'results';
+
+export type SortDirection = 'asc' | 'desc';

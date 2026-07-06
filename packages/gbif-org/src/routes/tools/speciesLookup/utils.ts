@@ -1,4 +1,4 @@
-import { ClassificationItem, MAX_ROWS, SpeciesRow, SuggestResult } from './types';
+import { ClassificationItem, MAX_ROWS, SortDirection, SpeciesRow, SuggestResult } from './types';
 
 // --- CSV parsing ---
 
@@ -236,6 +236,29 @@ export async function processInBatches<T>(
       })
     );
   }
+}
+
+export function sortSpecies(
+  rows: SpeciesRow[],
+  column: string | undefined,
+  direction: SortDirection
+): SpeciesRow[] {
+  if (!column) return rows;
+  const isEmpty = (v: unknown) => v === undefined || v === null || v === '';
+  const sorted = [...rows];
+  sorted.sort((a, b) => {
+    const av = (a as Record<string, unknown>)[column];
+    const bv = (b as Record<string, unknown>)[column];
+    // Always sort empty values last, regardless of direction.
+    if (isEmpty(av)) return isEmpty(bv) ? 0 : 1;
+    if (isEmpty(bv)) return -1;
+    const cmp =
+      typeof av === 'number' && typeof bv === 'number'
+        ? av - bv
+        : String(av).toLowerCase().localeCompare(String(bv).toLowerCase());
+    return direction === 'desc' ? -cmp : cmp;
+  });
+  return sorted;
 }
 
 export function classificationToString(classification?: ClassificationItem[]): string {

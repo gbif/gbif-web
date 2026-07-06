@@ -21,6 +21,8 @@ export default function SpeciesLookupPage() {
     showDownload,
     downloadUrl,
     excludeUnmatched,
+    sortColumn,
+    sortDirection,
     error,
     isDragOver,
     searchInputRef,
@@ -28,6 +30,7 @@ export default function SpeciesLookupPage() {
     setDefaultKingdom,
     setOffset,
     setExcludeUnmatched,
+    handleSort,
     setShowDownload,
     setSearchQuery,
     reset,
@@ -77,10 +80,13 @@ export default function SpeciesLookupPage() {
             species={species}
             excludeUnmatched={excludeUnmatched}
             offset={offset}
+            sortColumn={sortColumn}
+            sortDirection={sortDirection}
             onBack={reset}
             onOpenEdit={openEdit}
             onSetOffset={setOffset}
             onSetExcludeUnmatched={setExcludeUnmatched}
+            onSort={handleSort}
             onGenerateCsv={generateCsv}
           />
           <EditModal

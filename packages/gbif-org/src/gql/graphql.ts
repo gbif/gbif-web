@@ -5249,33 +5249,6 @@ export type NsgMember = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
-/**
- * A nucleotide sequence attached to an occurrence (e.g. a DNA barcode), together with
- * derived quality metrics. An occurrence may have several.
- */
-export type NucleotideSequence = {
-  __typename?: 'NucleotideSequence';
-  endsTrimmed?: Maybe<Scalars['Boolean']['output']>;
-  gapsOrWhitespaceRemoved?: Maybe<Scalars['Boolean']['output']>;
-  gcContent?: Maybe<Scalars['Float']['output']>;
-  invalid?: Maybe<Scalars['Boolean']['output']>;
-  nFraction?: Maybe<Scalars['Float']['output']>;
-  nRunsCapped?: Maybe<Scalars['Int']['output']>;
-  naturalLanguageDetected?: Maybe<Scalars['Boolean']['output']>;
-  nonACGTNFraction?: Maybe<Scalars['Float']['output']>;
-  nonIupacFraction?: Maybe<Scalars['Float']['output']>;
-  nucleotideSequenceID?: Maybe<Scalars['String']['output']>;
-  sequence?: Maybe<Scalars['String']['output']>;
-  sequenceLength?: Maybe<Scalars['Int']['output']>;
-  targetGene?: Maybe<NucleotideSequenceTargetGene>;
-};
-
-export type NucleotideSequenceTargetGene = {
-  __typename?: 'NucleotideSequenceTargetGene';
-  concept?: Maybe<Scalars['String']['output']>;
-  lineage?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-};
-
 export type Occurrence = {
   __typename?: 'Occurrence';
   abstract?: Maybe<Scalars['String']['output']>;
@@ -5465,7 +5438,6 @@ export type Occurrence = {
   nomenclaturalCode?: Maybe<Scalars['String']['output']>;
   nomenclaturalStatus?: Maybe<Scalars['String']['output']>;
   nonTaxonomicIssues?: Maybe<Array<OccurrenceIssue>>;
-  nucleotideSequences?: Maybe<Array<Maybe<NucleotideSequence>>>;
   occurrenceID?: Maybe<Scalars['String']['output']>;
   occurrenceRemarks?: Maybe<Scalars['String']['output']>;
   occurrenceStatus?: Maybe<OccurrenceStatus>;
@@ -5645,7 +5617,6 @@ export type OccurrenceCardinality = {
   mediaType: Scalars['Long']['output'];
   month: Scalars['Long']['output'];
   networkKey: Scalars['Long']['output'];
-  nucleotideSequenceTargetGene: Scalars['Long']['output'];
   occurrenceId: Scalars['Long']['output'];
   occurrenceStatus: Scalars['Long']['output'];
   orderKey: Scalars['Long']['output'];
@@ -5856,28 +5827,6 @@ export type OccurrenceFacet = {
   minimumElevationInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   month?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   networkKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Network>>>;
-  /**
-   * Facet on whether attached nucleotide sequences were flagged invalid. Counts are the
-   * number of matching occurrences.
-   */
-  nucleotideSequenceInvalid?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
-  /**
-   * Facet on the nucleotideSequenceID of attached nucleotide sequences. Pass include to
-   * restrict the aggregation to a known set of IDs (for example similarity-search hits); the
-   * buckets returned are those IDs that still occur under the current predicate. Counts are the
-   * number of matching occurrences.
-   */
-  nucleotideSequenceNucleotideSequenceID?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
-  /**
-   * Facet on the length of attached nucleotide sequences. Counts are the number of
-   * matching occurrences.
-   */
-  nucleotideSequenceSequenceLength?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
-  /**
-   * Facet on the target gene of nucleotide sequences attached to the occurrence
-   * (e.g. COI, ITS_region). Counts are the number of matching occurrences.
-   */
-  nucleotideSequenceTargetGene?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   occurrenceId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   occurrenceStatus?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   orderKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
@@ -6333,31 +6282,6 @@ export type OccurrenceFacetMonthArgs = {
 
 
 export type OccurrenceFacetNetworkKeyArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type OccurrenceFacetNucleotideSequenceInvalidArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type OccurrenceFacetNucleotideSequenceNucleotideSequenceIdArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  include?: InputMaybe<Array<Scalars['String']['input']>>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type OccurrenceFacetNucleotideSequenceSequenceLengthArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type OccurrenceFacetNucleotideSequenceTargetGeneArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -7055,7 +6979,6 @@ export type OccurrenceHistogram = {
   depth?: Maybe<Histogram>;
   elevation?: Maybe<Histogram>;
   endDayOfYear?: Maybe<Histogram>;
-  nucleotideSequenceSequenceLength?: Maybe<Histogram>;
   startDayOfYear?: Maybe<Histogram>;
   year?: Maybe<Histogram>;
 };
@@ -7082,11 +7005,6 @@ export type OccurrenceHistogramElevationArgs = {
 
 
 export type OccurrenceHistogramEndDayOfYearArgs = {
-  interval?: InputMaybe<Scalars['Float']['input']>;
-};
-
-
-export type OccurrenceHistogramNucleotideSequenceSequenceLengthArgs = {
   interval?: InputMaybe<Scalars['Float']['input']>;
 };
 
