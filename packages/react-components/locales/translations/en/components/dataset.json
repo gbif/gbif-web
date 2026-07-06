@@ -119,6 +119,7 @@
   "coverage": "Coverage",
   "additionalInfo": "Additional info",
   "publishingCountriesAreas": "Publishing countries and areas",
+  "countryAndAreaCoverage": "Country and area coverage",
   "originalArchive": "Source archive",
   "originalArchiveDescription": "The source archive is the data as published to GBIF without any normalization or processing via GBIF.",
   "checklistBankDownload": "Download from ChecklistBank",
