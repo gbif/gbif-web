@@ -224,7 +224,8 @@ export function DatasetKeyAbout() {
 
   const total = insights?.unfiltered?.documents?.total;
   const siteTotal = insights?.siteOccurrences?.documents?.total;
-  const reducedOccurrenceScope = siteTotal - total < 0;
+  // only relevant for hosted portals with a custom occurrence scope - on gbif.org the full dataset is always available
+  const reducedOccurrenceScope = !!sitePredicate && siteTotal < total;
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
