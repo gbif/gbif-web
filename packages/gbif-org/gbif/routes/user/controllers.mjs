@@ -53,9 +53,8 @@ export function logout(req, res, next) {
  * Ask for a new password to be sent to the user associated with the username or email
  */
 export async function resetPassword(req, res) {
+  const { userNameOrEmail } = req.body;
   try {
-    const { userNameOrEmail } = req.body;
-
     if (!userNameOrEmail) {
       return res.status(400).json({ message: 'Email is required' });
     }
