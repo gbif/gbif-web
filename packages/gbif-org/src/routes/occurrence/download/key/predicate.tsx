@@ -42,7 +42,7 @@ const fieldsWithChecklistSupport = [
   'IUCN_RED_LIST_CATEGORY',
 ];
 
-const MAX_LABEL_RESOLUTIONS = 15;
+const MAX_LABEL_RESOLUTIONS = 50;
 
 const KEYS_WITH_LABEL_RESOLUTION = new Set([
   'TAXON_KEY',
