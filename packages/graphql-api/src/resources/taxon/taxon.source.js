@@ -184,6 +184,19 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
+  async matchBackboneToCol({ taxonID }) {
+    return this.get(
+      `${this.config.apiv2}/species/match?`,
+      stringify({ checklistKey: 'xcol', taxonID }, { indices: false }),
+      { enQueue: true, signal: this.context.abortController.signal },
+    ).then((result) => {
+      if (!result.usage) {
+        return null;
+      }
+      return result.usage;
+    });
+  }
+
   async getTaxonOccurrenceMedia({ taxonKey, checklistKey = this.config.defaultChecklist, limit, offset, mediaType }) {
     return this.get(
       `${this.config.apiv1}/occurrence/experimental/multimedia/species/${checklistKey}/${taxonKey}/`,
