@@ -9,6 +9,7 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
+      "runtimeVersion": "22.3.0",
       "runtimeArgs": ["run", "develop"],
       "cwd": "${workspaceFolder}/packages/graphql-api",
       "skipFiles": ["<node_internals>/**"],
@@ -20,6 +21,7 @@
       "runtimeArgs": ["start"],
       "cwd": "${workspaceFolder}/packages/react-components",
       "runtimeExecutable": "npm",
+      "runtimeVersion": "22.3.0",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
     },
@@ -29,6 +31,7 @@
       "runtimeArgs": ["run", "serve-translations"],
       "cwd": "${workspaceFolder}/packages/react-components",
       "runtimeExecutable": "npm",
+      "runtimeVersion": "22.3.0",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
     },
@@ -38,6 +41,7 @@
       "runtimeArgs": ["run", "watch-translations"],
       "cwd": "${workspaceFolder}/packages/react-components",
       "runtimeExecutable": "npm",
+      "runtimeVersion": "22.3.0",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
     },
