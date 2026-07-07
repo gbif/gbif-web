@@ -1,13 +1,16 @@
 // this file was 99% written by an AI agent. I'm pressed for time and have only glanced at it. It looks reasonalbe and visually it does what i expect.
+import { SkeletonBody, Th } from '@/components/clientTable';
+import { Paging } from '@/components/paging';
 import { Card } from '@/components/ui/largeCard';
-import { Skeleton } from '@/components/ui/skeleton';
 import { PublisherDatasetTableQuery, PublisherDatasetTableQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
-import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
+
+// Column types whose values are numeric and should be right-aligned
+const NUMERIC_COLUMNS = new Set(['DATASET_COUNT', 'OCCURRENCE_COUNT', 'LITERATURE_COUNT']);
 
 const PUBLISHER_DATASET_TABLE_QUERY = /* GraphQL */ `
   query PublisherDatasetTable(
@@ -93,20 +96,20 @@ interface TableSettings {
   summaryColumns?: SummaryColumn[];
   summaryTitle?: string;
   valueTranslations?: Record<string, string>;
-  numPublishedDatasets: string;
+  numPublishedDatasets?: string;
 }
 
 interface TableRow {
   key: string;
-  title?: string;
-  excerpt?: string;
-  country?: string;
+  title?: string | null;
+  excerpt?: string | null;
+  country?: string | null;
   type: 'dataset' | 'organization';
   url: string;
   datasetCount: number;
-  occurrenceCount?: number;
-  literatureCount?: number;
-  machineTags?: Array<{ name?: string; value?: string }>;
+  occurrenceCount?: number | null;
+  literatureCount?: number | null;
+  machineTags?: Array<{ name?: string; value?: string }> | null;
 }
 
 interface SummaryCounts {
@@ -167,7 +170,7 @@ export function PublisherDatasetTable({
     PublisherDatasetTableQueryVariables
   >(PUBLISHER_DATASET_TABLE_QUERY, { lazyLoad: true });
 
-  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -199,7 +202,7 @@ export function PublisherDatasetTable({
   }
 
   // Combine datasets and organizations into unified structure
-  const datasets: TableRow[] = (data?.datasetSearch?.results || []).map((d) => ({
+  const datasets: TableRow[] = (data?.datasetList?.results || []).map((d) => ({
     key: d.key,
     title: d.title,
     excerpt: d.excerpt,
@@ -212,27 +215,29 @@ export function PublisherDatasetTable({
     machineTags: d.machineTags,
   }));
 
-  const organizations: TableRow[] = (data?.organizationSearch?.results || []).map((o) => ({
-    key: o.key,
-    title: o.title,
-    excerpt: o.excerpt,
-    country: o.country,
-    type: 'organization' as const,
-    url: `/publisher/${o.key}`,
-    datasetCount: o.numPublishedDatasets || 0,
-    occurrenceCount: o.occurrenceCount,
-    literatureCount: o.literatureCount,
-    machineTags: o.machineTags,
-  }));
+  const organizations: TableRow[] = (data?.organizationSearch?.results || [])
+    .filter((o): o is NonNullable<typeof o> => o != null)
+    .map((o) => ({
+      key: o.key,
+      title: o.title,
+      excerpt: o.excerpt,
+      country: o.country,
+      type: 'organization' as const,
+      url: `/publisher/${o.key}`,
+      datasetCount: o.numPublishedDatasets || 0,
+      occurrenceCount: o.occurrenceCount,
+      literatureCount: o.literatureCount,
+      machineTags: o.machineTags,
+    }));
 
   const allResults = [...datasets, ...organizations].sort((a, b) =>
     (a.title || '').localeCompare(b.title || '')
   );
 
+  const sortKey = sortColumn ? columnTypeToSortKey[sortColumn] : null;
   const sortedResults = sortRows(allResults, sortKey, sortDir);
 
-  const totalCount = (data?.datasetSearch?.count || 0) + (data?.organizationSearch?.count || 0);
-  const maxCount = Math.max(data?.datasetSearch?.count || 0, data?.organizationSearch?.count || 0);
+  const maxCount = Math.max(data?.datasetList?.count || 0, data?.organizationSearch?.count || 0);
 
   // Calculate summary counts
   const summaryCounts: SummaryCounts = {
@@ -247,12 +252,11 @@ export function PublisherDatasetTable({
   };
 
   function handleSort(columnType: string) {
-    const mappedSortKey = columnTypeToSortKey[columnType];
-    if (!mappedSortKey) return; // Do not sort if mapping is not defined
-    if (sortKey === mappedSortKey) {
+    if (!columnTypeToSortKey[columnType]) return; // Do not sort if mapping is not defined
+    if (sortColumn === columnType) {
       setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
     } else {
-      setSortKey(mappedSortKey);
+      setSortColumn(columnType);
       setSortDir('asc');
     }
   }
@@ -271,7 +275,10 @@ export function PublisherDatasetTable({
         );
       case 'COUNTRY':
         return (
-          <FormattedMessage id={`enums.countryCode.${row.country}`} defaultMessage={row.country} />
+          <FormattedMessage
+            id={`enums.countryCode.${row.country}`}
+            defaultMessage={row.country ?? undefined}
+          />
         );
       case 'DATASET_COUNT':
         return (
@@ -327,15 +334,15 @@ export function PublisherDatasetTable({
           {config.summaryTitle && (
             <h4 className="g-text-lg g-font-semibold g-mb-4">{config.summaryTitle}</h4>
           )}
-          <Card>
+          <Card className="gbif-table-style">
             <div className="g-overflow-auto">
-              <table className="g-w-full g-text-sm">
-                <thead className="g-shadow-sm">
+              <table className="g-w-full">
+                <thead>
                   <tr>
                     {config.summaryColumns.map((col, index) => (
                       <th
                         key={index}
-                        className="g-p-4 g-text-start g-whitespace-nowrap g-text-end"
+                        className="g-text-end"
                         style={{ width: `${100 / config.summaryColumns!.length}%` }}
                       >
                         {col.title}
@@ -346,11 +353,7 @@ export function PublisherDatasetTable({
                 <tbody>
                   <tr className="g-font-bold">
                     {config.summaryColumns.map((col, index) => (
-                      <td
-                        key={index}
-                        className="g-p-4 g-text-end"
-                        style={{ width: `${100 / config.summaryColumns!.length}%` }}
-                      >
+                      <td key={index} className="g-text-end">
                         {renderSummaryCell(col)}
                       </td>
                     ))}
@@ -366,42 +369,36 @@ export function PublisherDatasetTable({
       {!isLoading && (
         <>
           {title && <h4 className="g-text-lg g-font-semibold g-mb-4">{title}</h4>}
-          <Card>
+          <Card className="gbif-table-style">
             <div
               className="g-overflow-auto"
               style={config.tableStyle ? { ...JSON.parse(`{${config.tableStyle}}`) } : {}}
             >
-              <table className="g-w-full g-text-sm">
-                <thead className="g-sticky g-top-0 g-bg-white g-shadow-sm g-z-10">
+              <table className="g-w-full">
+                <thead>
                   <tr>
                     {config.columns?.map((col, index) => (
-                      <th
+                      <Th
                         key={index}
-                        className="g-p-4 g-text-start g-whitespace-nowrap g-cursor-pointer hover:g-bg-gray-100"
-                        onClick={() => handleSort(col.type)}
+                        sortable={!!columnTypeToSortKey[col.type]}
+                        field={col.type}
+                        sortField={sortColumn ?? undefined}
+                        sortDirection={sortDir}
+                        onSort={handleSort}
+                        className={
+                          NUMERIC_COLUMNS.has(col.type) ? '[&>div]:g-justify-end' : undefined
+                        }
                       >
-                        <span className="g-inline-block g-text-nowrap">
-                          <span>{col.title}</span>
-                          {sortKey === columnTypeToSortKey[col.type] && (
-                            <span className="g-ms-1">
-                              {sortDir === 'asc' ? <FaCaretUp /> : <FaCaretDown />}
-                            </span>
-                          )}
-                        </span>
-                      </th>
+                        {col.title}
+                      </Th>
                     ))}
                   </tr>
                 </thead>
                 <tbody className="prose-links">
                   {sortedResults.map((row) => (
-                    <tr
-                      key={row.key}
-                      className="g-border-t g-border-gray-100 hover:g-bg-gray-50 g-text-gray-900"
-                    >
+                    <tr key={row.key}>
                       {config.columns?.map((col, index) => (
-                        <td key={index} className="g-p-4">
-                          {renderCellContent(row, col)}
-                        </td>
+                        <td key={index}>{renderCellContent(row, col)}</td>
                       ))}
                     </tr>
                   ))}
@@ -412,26 +409,14 @@ export function PublisherDatasetTable({
 
           {/* Pagination */}
           {maxCount > limit && (
-            <div className="g-flex g-justify-center g-mt-4">
-              <div className="g-flex g-items-center g-gap-2">
-                <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  disabled={currentPage === 1}
-                  className="g-px-3 g-py-1 g-border g-rounded g-disabled:opacity-50"
-                >
-                  Previous
-                </button>
-                <span className="g-px-3 g-py-1">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                  disabled={currentPage === totalPages}
-                  className="g-px-3 g-py-1 g-border g-rounded g-disabled:opacity-50"
-                >
-                  Next
-                </button>
-              </div>
+            <div className="g-flex g-p-4">
+              <div className="g-flex-auto" />
+              <Paging
+                next={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                prev={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                isFirstPage={currentPage === 1}
+                isLastPage={currentPage >= totalPages}
+              />
             </div>
           )}
         </>
@@ -439,29 +424,17 @@ export function PublisherDatasetTable({
 
       {/* Loading State */}
       {isLoading && (
-        <Card>
+        <Card className="gbif-table-style">
           <div className="g-overflow-auto">
-            <table className="g-w-full g-text-sm">
-              <thead className="g-bg-gray-50">
+            <table className="g-w-full">
+              <thead>
                 <tr>
                   {config.columns?.map((col, index) => (
-                    <th key={index} className="g-p-4 g-text-start g-whitespace-nowrap">
-                      {col.title}
-                    </th>
+                    <Th key={index}>{col.title}</Th>
                   ))}
                 </tr>
               </thead>
-              <tbody>
-                {Array.from({ length: 10 }).map((_, index) => (
-                  <tr key={index} className="g-border-t g-border-gray-100">
-                    {config.columns?.map((col, colIndex) => (
-                      <td key={colIndex} className="g-p-4">
-                        <Skeleton className="g-w-32 g-h-4">Loading</Skeleton>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
+              <SkeletonBody rows={10} columns={config.columns?.length || 0} />
             </table>
           </div>
         </Card>
