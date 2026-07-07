@@ -16,7 +16,7 @@ const PUBLISHING_COUNTRIES = /* GraphQL */ `
   query datasetPublishingCountries($sitePredicate: Predicate) {
     occurrenceSearch(predicate: $sitePredicate) {
       facet {
-        countryCode(size: 500) {
+        publishingCountry(size: 500) {
           key
           count
         }
@@ -53,17 +53,18 @@ export function PublishingCountries({ datasetKey }: { datasetKey: string }) {
     });
   }, [datasetKey, load]);
 
-  if (!data || error || (data.occurrenceSearch?.facet?.countryCode?.length ?? 0) < 2) return null;
+  if (!data || error || (data.occurrenceSearch?.facet?.publishingCountry?.length ?? 0) < 2)
+    return null;
   return (
     <Card className="g-mb-4 gbif-word-break" id="countries">
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id="dataset.countryAndAreaCoverage" />
+          <FormattedMessage id="dataset.publishingCountriesAreas" />
         </CardTitle>
       </CardHeader>
       <CardContent>
         <BulletList>
-          {data?.occurrenceSearch?.facet?.countryCode
+          {data?.occurrenceSearch?.facet?.publishingCountry
             ?.filter((country) => country)
             ?.slice(0, showAll ? undefined : 10)
             .map((country) => (
@@ -72,7 +73,7 @@ export function PublishingCountries({ datasetKey }: { datasetKey: string }) {
                   pageId="occurrenceSearch"
                   searchParams={{
                     datasetKey,
-                    country: country?.key,
+                    publishingCountry: country?.key,
                   }}
                 >
                   <FormattedMessage id={`enums.countryCode.${country?.key}`} />
@@ -83,7 +84,7 @@ export function PublishingCountries({ datasetKey }: { datasetKey: string }) {
               </li>
             ))}
         </BulletList>
-        {!showAll && (data?.occurrenceSearch?.facet?.countryCode?.length ?? 0) > 10 && (
+        {!showAll && (data?.occurrenceSearch?.facet?.publishingCountry?.length ?? 0) > 10 && (
           <Button
             size="sm"
             variant="primaryOutline"
@@ -91,7 +92,7 @@ export function PublishingCountries({ datasetKey }: { datasetKey: string }) {
             onClick={() => setShowAll(!showAll)}
           >
             <FormattedMessage id="phrases.showAll" /> (
-            <FormattedNumber value={data?.occurrenceSearch?.facet?.countryCode?.length} />)
+            <FormattedNumber value={data?.occurrenceSearch?.facet?.publishingCountry?.length} />)
           </Button>
         )}
       </CardContent>
