@@ -1,7 +1,6 @@
 import config from '@/config';
 
-const DEFAULT_CHECKLIST_KEY =
-  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+const DEFAULT_CHECKLIST_KEY = config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
 
 function stringCompare(a, b) {
   return (a ?? '').localeCompare(b ?? '', undefined, { sensitivity: 'base' });
@@ -24,19 +23,17 @@ const getTaxonFacet =
       facetOffset: offset,
     };
     // query the API, and throw away anything but the facet counts
-    return dataSources.taxonAPI
-      .taxonSearch({ datasetKey: parent._datasetKey, query })
-      .then((data) => [
-        ...data.facets[0].counts.map((facet) => ({
-          ...facet,
-          // attach the query, but add the facet as a filter
-          _query: {
-            ...parent._query,
-            [facetKey]: facet.name,
-          },
-          _datasetKey: parent._datasetKey,
-        })),
-      ]);
+    return dataSources.taxonAPI.taxonSearch({ datasetKey: parent._datasetKey, query }).then((data) => [
+      ...data.facets[0].counts.map((facet) => ({
+        ...facet,
+        // attach the query, but add the facet as a filter
+        _query: {
+          ...parent._query,
+          [facetKey]: facet.name,
+        },
+        _datasetKey: parent._datasetKey,
+      })),
+    ]);
   };
 
 function sortBreakdownRecursively(items) {
@@ -51,26 +48,17 @@ function sortBreakdownRecursively(items) {
 }
 
 const sharedTaxonFields = {
-  dataset: ({ datasetKey }, args, { dataSources }) =>
-    dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+  dataset: ({ datasetKey }, args, { dataSources }) => dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
   // sourceDataset: ({ sourceDatasetKey }, args, { dataSources }) =>
   //   dataSources.datasetAPI.getDatasetByKey({ key: sourceDatasetKey }),
-  acceptedTaxon: (
-    { acceptedNameUsageID, datasetKey },
-    args,
-    { dataSources },
-  ) => {
+  acceptedTaxon: ({ acceptedNameUsageID, datasetKey }, args, { dataSources }) => {
     if (!acceptedNameUsageID) return null;
     return dataSources.taxonAPI.getTaxon({
       key: acceptedNameUsageID,
       datasetKey,
     });
   },
-  occurrenceMedia: (
-    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-    args,
-    { dataSources },
-  ) => {
+  occurrenceMedia: ({ taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, args, { dataSources }) => {
     return dataSources.taxonAPI.getTaxonOccurrenceMedia({
       taxonKey: taxonID,
       checklistKey: datasetKey,
@@ -89,9 +77,7 @@ const sharedTaxonFields = {
     return dataSources.taxonAPI
       .taxonBreakdown({ datasetKey, key: taxonID })
       .then((response) => {
-        const breakdown = !sortByCount
-          ? response?.breakdown
-          : sortBreakdownRecursively(response.breakdown ?? []);
+        const breakdown = !sortByCount ? response?.breakdown : sortBreakdownRecursively(response.breakdown ?? []);
         return { ...response, breakdown };
       })
       .catch((e) => {
@@ -112,65 +98,39 @@ const sharedTaxonFields = {
       // sort them by label
       return {
         ...response,
-        identifiers: identifiersWithLabels.sort((a, b) =>
-          stringCompare(a?.label?.value, b?.label?.value),
-        ),
+        identifiers: identifiersWithLabels.sort((a, b) => stringCompare(a?.label?.value, b?.label?.value)),
       };
     }),
-  relatedInfo: (
-    { taxonID, taxonomicStatus, datasetKey = DEFAULT_CHECKLIST_KEY },
-    args,
-    { dataSources },
-  ) => {
+  relatedInfo: ({ taxonID, taxonomicStatus, datasetKey = DEFAULT_CHECKLIST_KEY }, args, { dataSources }) => {
     // related fails with a 404 for some status
     if (taxonomicStatus === 'AMBIGUOUS_SYNONYM') return null;
     if (taxonomicStatus === 'SYNONYM') return null;
-    return dataSources.taxonAPI
-      .getRelatedTaxonInfo({ key: taxonID, datasetKey })
-      .then((response) => {
-        return {
-          ...response,
-          // sort griis list by countryCode
-          griis: (response.griis ?? []).sort((a, b) =>
-            stringCompare(a.countryCode, b.countryCode),
-          ),
-        };
-      });
+    return dataSources.taxonAPI.getRelatedTaxonInfo({ key: taxonID, datasetKey }).then((response) => {
+      return {
+        ...response,
+        // sort griis list by countryCode
+        griis: (response.griis ?? []).sort((a, b) => stringCompare(a.countryCode, b.countryCode)),
+      };
+    });
   },
-  related: (
-    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-    args,
-    { dataSources },
-  ) =>
+  related: ({ taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, args, { dataSources }) =>
     dataSources.taxonAPI.getRelated({
       key: taxonID,
       datasetKey,
       query: args,
     }),
-  children: (
-    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-    args,
-    { dataSources },
-  ) =>
+  children: ({ taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, args, { dataSources }) =>
     dataSources.taxonAPI.getChildren({
       key: taxonID,
       datasetKey,
       query: args,
     }),
-  parentTree: (
-    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-    args,
-    { dataSources },
-  ) =>
+  parentTree: ({ taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, args, { dataSources }) =>
     dataSources.taxonAPI.getParents({
       key: taxonID,
       datasetKey,
     }),
-  mapCapabilities: (
-    { taxonID, datasetKey = DEFAULT_CHECKLIST_KEY },
-    args,
-    { dataSources },
-  ) =>
+  mapCapabilities: ({ taxonID, datasetKey = DEFAULT_CHECKLIST_KEY }, args, { dataSources }) =>
     dataSources.occurrenceAPI.getMapCapabilities({
       taxonKey: taxonID,
       checklistKey: datasetKey,
@@ -200,13 +160,8 @@ function getVernacularName({ vernacularNames }, { language = 'eng' }) {
  */
 export default {
   Query: {
-    taxonSearch: (
-      parent,
-      { datasetKey = DEFAULT_CHECKLIST_KEY, query, ...args },
-      { dataSources },
-    ) => {
-      const { datasetKey: datasetKeyQuery, ...queryWithoutDataset } =
-        query || {};
+    taxonSearch: (parent, { datasetKey = DEFAULT_CHECKLIST_KEY, query, ...args }, { dataSources }) => {
+      const { datasetKey: datasetKeyQuery, ...queryWithoutDataset } = query || {};
       const finalQuery = { ...args, ...queryWithoutDataset };
       const finalDatasetKey = datasetKeyQuery || datasetKey;
 
@@ -215,32 +170,19 @@ export default {
         datasetKey: finalDatasetKey,
       });
     },
-    taxonInfo: (
-      parent,
-      { datasetKey = DEFAULT_CHECKLIST_KEY, key },
-      { dataSources },
-    ) => dataSources.taxonAPI.getTaxonInfo({ datasetKey, key }),
-    taxon: (
-      parent,
-      { datasetKey = DEFAULT_CHECKLIST_KEY, key },
-      { dataSources },
-    ) => dataSources.taxonAPI.getTaxon({ datasetKey, key }),
-    speciesMatchByUsageKey: (
-      parent,
-      { usageKey, checklistKey = DEFAULT_CHECKLIST_KEY },
-      { dataSources },
-    ) =>
+    taxonInfo: (parent, { datasetKey = DEFAULT_CHECKLIST_KEY, key }, { dataSources }) =>
+      dataSources.taxonAPI.getTaxonInfo({ datasetKey, key }),
+    taxon: (parent, { datasetKey = DEFAULT_CHECKLIST_KEY, key }, { dataSources }) =>
+      dataSources.taxonAPI.getTaxon({ datasetKey, key }),
+    speciesMatchByUsageKey: (parent, { usageKey, checklistKey = DEFAULT_CHECKLIST_KEY }, { dataSources }) =>
       dataSources.taxonAPI.getSpeciesMatchByUsageKey({
         usageKey,
         checklistKey,
       }),
     checklistMetadata: (parent, { checklistKey }, { dataSources }) =>
       dataSources.taxonAPI.getChecklistMetadata({ checklistKey }),
-    datasetRoots: (
-      parent,
-      { datasetKey = DEFAULT_CHECKLIST_KEY },
-      { dataSources },
-    ) => dataSources.taxonAPI.getDatasetTree({ datasetKey }),
+    datasetRoots: (parent, { datasetKey = DEFAULT_CHECKLIST_KEY }, { dataSources }) =>
+      dataSources.taxonAPI.getDatasetTree({ datasetKey }),
   },
   TaxonSearchResult: {
     facet: (parent) => ({
@@ -258,11 +200,7 @@ export default {
     fallbackID: ({ taxonID, scientificName, taxonomicStatus, taxonRank }) =>
       taxonID ?? `__${scientificName}-${taxonomicStatus}-${taxonRank}__`,
     vernacularName: getVernacularName,
-    acceptedTaxon: (
-      { acceptedNameUsageID, datasetKey },
-      args,
-      { dataSources },
-    ) => {
+    acceptedTaxon: ({ acceptedNameUsageID, datasetKey }, args, { dataSources }) => {
       if (!acceptedNameUsageID) return null;
       return dataSources.taxonAPI.getTaxon({
         key: acceptedNameUsageID,
@@ -273,11 +211,7 @@ export default {
   TaxonFacetResult_taxonId: {
     taxon: ({ name: key, _datasetKey }, args, { dataSources }) =>
       dataSources.taxonAPI.getTaxonInfo({ key, datasetKey: _datasetKey }),
-    taxonSearch: (
-      { _datasetKey, _query },
-      { query, ...args },
-      { dataSources },
-    ) =>
+    taxonSearch: ({ _datasetKey, _query }, { query, ...args }, { dataSources }) =>
       dataSources.taxonAPI.taxonSearch({
         datasetKey: _datasetKey,
         query: { ..._query, ...args, ...query },
@@ -294,10 +228,7 @@ export default {
         });
         return response?.version;
       } catch (e) {
-        console.error(
-          `Error fetching version from ChecklistBank for dataset ${clbDatasetKey}`,
-          e,
-        );
+        console.error(`Error fetching version from ChecklistBank for dataset ${clbDatasetKey}`, e);
         return null;
       }
     },
@@ -307,10 +238,7 @@ export default {
     vernacularName: getVernacularName,
     namePublishedIn: ({ taxon, bibliography }) => {
       if (!taxon?.namePublishedInID) return null;
-      return (
-        bibliography.find((b) => b.referenceID === taxon.namePublishedInID)
-          ?.citation ?? null
-      );
+      return bibliography.find((b) => b.referenceID === taxon.namePublishedInID)?.citation ?? null;
     },
     media: ({ media }, { limit = 20 }) => {
       // the api returns all possible images, but we want to limit it, so we do the limiting here
@@ -320,21 +248,13 @@ export default {
       taxonomicGroup
         ? dataSources.taxonAPI
             .getTaxGroups()
-            .then((groups) =>
-              groups.find(
-                (g) => g.name.toLowerCase() === taxonomicGroup.toLowerCase(),
-              ),
-            )
+            .then((groups) => groups.find((g) => g.name.toLowerCase() === taxonomicGroup.toLowerCase()))
             .then((g) => g?.iconSVG ?? null)
         : null,
   },
   TaxonSimple: {
     ...sharedTaxonFields,
-    acceptedNameUsage: (
-      { acceptedNameUsageID, datasetKey },
-      args,
-      { dataSources },
-    ) => {
+    acceptedNameUsage: ({ acceptedNameUsageID, datasetKey }, args, { dataSources }) => {
       if (!acceptedNameUsageID) return null;
       return dataSources.taxonAPI
         .getTaxon({
@@ -350,8 +270,7 @@ export default {
     childrenTree: sharedTaxonFields.children,
   },
   Griis: {
-    dataset: ({ datasetKey }, args, { dataSources }) =>
-      dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+    dataset: ({ datasetKey }, args, { dataSources }) => dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
     isCountry: ({ locationID, countryCode }) => {
       if (!countryCode) return false;
       if (!locationID) return true;
