@@ -16,6 +16,7 @@
   "viewAllImages": "View all",
   "share": "Share",
   "identifier": "Identifier",
+  "dataLoadErrorDescription": "Large parts of the data on this page failed to load. Please refresh the page or try again later. If the problem persists, please contact us.",
   "unknownDate": "Unknown date",
   "about": "About",
   "legend": "Legend",
