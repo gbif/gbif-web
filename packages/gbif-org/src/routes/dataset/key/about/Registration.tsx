@@ -138,12 +138,16 @@ export function Registration({ dataset }: Props) {
           </>
         )}
 
-        <T>
-          <FormattedMessage id="dataset.registry.preferredIdentifier" />
-        </T>
-        <V>
-          <DoiTag id={doi ?? undefined} style={{ textDecoration: 'none' }} />
-        </V>
+        {doi && (
+          <>
+            <T>
+              <FormattedMessage id="dataset.registry.preferredIdentifier" />
+            </T>
+            <V>
+              <DoiTag id={doi} style={{ textDecoration: 'none' }} />
+            </V>
+          </>
+        )}
 
         {visibleIdentifiers.length > 0 && (
           <>
