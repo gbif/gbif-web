@@ -31,7 +31,7 @@ export function usePredicateInformation({ predicate }: { predicate?: Predicate |
   const { data, loading, error, load } = useQuery<
     NormalizePredicateAndCountQuery,
     NormalizePredicateAndCountQueryVariables
-  >(PREDICATE_COUNT_QUERY, { lazyLoad: false });
+  >(PREDICATE_COUNT_QUERY, { lazyLoad: true });
 
   useEffect(() => {
     try {
@@ -54,7 +54,7 @@ export function useNormalizedPredicate({ predicate }: { predicate?: Predicate | 
   const { data, loading, error, load } = useQuery<
     NormalizePredicateQuery,
     NormalizePredicateQueryVariables
-  >(PREDICATE_QUERY);
+  >(PREDICATE_QUERY, { lazyLoad: true });
 
   useEffect(() => {
     if (predicate) {

@@ -155,7 +155,9 @@ export function PublisherPage() {
     data: slowData,
     load,
     error,
-  } = useQuery<PublisherStatsQuery, PublisherStatsQueryVariables>(SLOW_PUBLISHER_QUERY);
+  } = useQuery<PublisherStatsQuery, PublisherStatsQueryVariables>(SLOW_PUBLISHER_QUERY, {
+    lazyLoad: true,
+  });
 
   // Load slow data
   useEffect(() => {
