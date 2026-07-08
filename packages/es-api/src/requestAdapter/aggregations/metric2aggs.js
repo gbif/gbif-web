@@ -50,7 +50,7 @@ function metric2aggs(metrics = {}, config) {
               field: field,
               size: aggSize,
               include: metric.include,
-              shard_size: aggSize * 2 + 50000,
+              shard_size: 100, // see https://github.com/gbif/gbif-web/issues/1896
             },
           };
           if (order) {
