@@ -222,9 +222,18 @@ export function SearchPage() {
             },
           });
         } else {
+          // No country/taxon match — pass the query as free text, since the
+          // occurrence full text search covers fields the omni search does not.
           setOccurrenceCategory({
-            label: <FormattedMessage id="search.crossContentSearch.seeAll" />,
-            searchParams: {},
+            label: (
+              <FormattedMessage
+                id="search.crossContentSearch.searchFor"
+                // bdi isolates the value's text direction so the surrounding
+                // quotes are not reordered in RTL locales
+                values={{ query: <bdi>{q}</bdi> }}
+              />
+            ),
+            searchParams: { q },
           });
         }
       } catch (error) {
@@ -332,7 +341,9 @@ export function SearchPage() {
               {isloading && <CardListSkeleton />}
               {!isloading && (
                 <div className="g-w-full">
-                  {noResults && <NoRecords />}
+                  {noResults && (
+                    <NoRecords className="g-mx-4" messageId="search.crossContentSearch.noResults" />
+                  )}
 
                   {!data && error && (
                     <ErrorMessage>
