@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HyperText } from '@/components/hyperText';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
+import { ErrorMessage } from '@/components/errorMessage';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   Card,
@@ -58,7 +59,7 @@ import TestSiteAlert from '@/components/TestSiteAlert';
 export function DatasetKeyAbout() {
   const config = useConfig();
   const { dataset } = useDatasetKeyLoaderData().data;
-  const hasPreprocessedMap = useHasMap({
+  const { hasMap: hasPreprocessedMap, error: mapError } = useHasMap({
     datasetKey: dataset?.key ?? '',
     checklistKey: config.defaultChecklistKey,
   });
@@ -336,6 +337,7 @@ export function DatasetKeyAbout() {
                 />
               </ClientSideOnly>
             )}
+            {mapError && <ErrorMessage className="g-mb-4">Unable to load map</ErrorMessage>}
             {siteTotal > 0 && (
               <div className="g-text-slate-500">
                 <ClientSideOnly>

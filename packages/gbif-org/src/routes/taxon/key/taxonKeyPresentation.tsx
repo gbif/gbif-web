@@ -165,7 +165,11 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
   if (!taxon) throw new NotFoundError();
 
   const isIndexedChecklist = isSupportedChecklist(taxonInfo.datasetKey);
-  const { count, loading: countLoading } = useCount({
+  const {
+    count,
+    loading: countLoading,
+    error: countError,
+  } = useCount({
     apiEndpoint: apiConstants.occurrenceSearch,
     params: { taxonKey: taxonInfo?.taxonID, checklistKey: taxonInfo.datasetKey },
   });
@@ -419,6 +423,8 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                         >
                           {countLoading ? (
                             <FormattedMessage id="phrases.loading" />
+                          ) : countError ? (
+                            <FormattedMessage id="catalogues.occurrences" />
                           ) : (
                             <FormattedMessage id="counts.nOccurrences" values={{ total: count }} />
                           )}

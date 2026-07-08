@@ -17,18 +17,24 @@ const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
 export async function taxonLoader({ params, graphql, locale, config }: LoaderArgs) {
   const key = params.key as string;
-  const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
+  const variables = {
     key,
     datasetKey: config.taxonSearch?.checklistKey ?? primaryChecklist,
     language: locale?.iso3LetterCode ?? 'eng',
     colDatasetKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
-  });
+  };
+  const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(
+    TAXON_QUERY,
+    variables
+  );
 
   const { errors, data } = await response.json();
   throwCriticalErrors({
     path404: ['taxonInfo'],
     errors,
     requiredObjects: [data?.taxonInfo],
+    query: TAXON_QUERY,
+    variables,
   });
 
   return { errors, data };

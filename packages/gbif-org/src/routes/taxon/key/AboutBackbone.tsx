@@ -23,6 +23,7 @@ import useBelow from '@/hooks/useBelow';
 import { FormattedMessage } from 'react-intl';
 import { Aside, AsideSticky, SidebarLayout } from '../../occurrence/key/pagelayouts';
 import { BreakdownCard, useTaxonBreakdown } from './sections/breakdown';
+import { ErrorMessage } from '@/components/errorMessage';
 
 export default function AboutBackbone() {
   const config = useConfig();
@@ -42,7 +43,7 @@ export default function AboutBackbone() {
     (taxonInfo.synonyms?.homotypic?.length ?? 0) > 0 ||
     (taxonInfo.synonyms?.heterotypic?.flat().length ?? 0) > 0;
 
-  const hasPreprocessedMap = useHasMap({
+  const { hasMap: hasPreprocessedMap, error: mapError } = useHasMap({
     [MapTypes.TaxonKey]: taxon?.taxonID,
     checklistKey: config.defaultChecklistKey,
   });
@@ -101,6 +102,7 @@ export default function AboutBackbone() {
                 </Card>
               </div>
             )}
+            {mapError && <ErrorMessage className="g-mb-4">Unable to load map</ErrorMessage>}
             {hasOccurrenceImages && <OccurrenceMediaGalleryCard taxon={taxon} />}
             {hasVernacularNames && <VernacularNamesCard taxonInfo={taxonInfo} />}
             {hasTreatments && <TreatmentsCard taxonInfo={taxonInfo} />}

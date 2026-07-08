@@ -94,7 +94,6 @@ export function ErrorComponent({
   type,
   className,
   title,
-  errorMessage,
   additionalDebugInfo,
   showReportButton = true,
   showStackTrace,
@@ -102,35 +101,30 @@ export function ErrorComponent({
   reload,
 }: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children' | 'fallback'> & {
   error: Error;
-  reload?: () => void;
+  reload?: () => void | boolean;
 }): React.ReactElement {
   const [showStack, setShowStack] = useState(false);
-  const displayTitle = title ?? (
-    <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
-  );
-  let displayDescription = errorMessage;
-  if (!displayDescription && type === 'PAGE') {
-    displayDescription = (
+  const displayTitle =
+    title ??
+    (reload ? (
       <FormattedMessage
-        id="error.genericDescription"
-        defaultMessage="An unexpected error occurred. Please try again later."
+        id="error.genericRetry"
+        defaultMessage="Something went wrong. Please retry"
       />
-    );
-  }
+    ) : (
+      <FormattedMessage id="error.genericDescription" defaultMessage="Something went wrong" />
+    ));
 
   const commonContent = (
     <div className="g-max-w-full">
       <h1 className="g-mb-0 g-text-slate-500 g-font-bold g-mt-2">{displayTitle}</h1>
-      {/* {displayDescription && (
-        <p className="g-text-slate-500 g-mt-2 g-text-sm">{displayDescription}</p>
-      )} */}
       <div className="g-flex g-flex-row g-gap-2 g-my-4 g-items-center g-justify-center">
-        {showReportButton && reload && (
-          <Button variant="ghost" size="sm" className="g-text-slate-500" asChild>
+        {reload && (
+          <Button size="sm" className="g-text-slate-500" asChild>
             <a
               href=""
               onClick={() => {
-                if (reload) {
+                if (reload && typeof reload === 'function') {
                   reload();
                 } else {
                   if (typeof window !== 'undefined') {
@@ -145,7 +139,7 @@ export function ErrorComponent({
           </Button>
         )}
         {showReportButton && (
-          <Button asChild size="sm">
+          <Button variant="ghost" asChild size="sm">
             <a
               target="_blank"
               href={`https://github.com/gbif/gbif-web/issues/new?body=${encodeURIComponent(

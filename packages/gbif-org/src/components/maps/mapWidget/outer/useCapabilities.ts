@@ -19,6 +19,7 @@ type Args = {
 
 type Result = {
   data?: Capabilities;
+  error: Error | undefined;
 };
 
 export function useCapabilities({ capabilitiesParams }: Args): Result {
