@@ -269,24 +269,6 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
         }
       }
     }
-    literatureSearch(gbifOccurrenceKey: [$key]) {
-      documents(size: 100) {
-        results {
-          title
-          abstract
-          authors {
-            firstName
-            lastName
-          }
-          literatureType
-          year
-          identifiers {
-            doi
-          }
-          websites
-        }
-      }
-    }
   }
 `;
 
@@ -305,7 +287,7 @@ fragmentManager.register(/* GraphQL */ `
     description
     originalImage: thumbor
     thumbor(height: 800)
-    smallThumbnail: thumbor(height: 100, width: 100)
+    smallThumbnail: thumbor(height: 800)
   }
 `);
 
@@ -324,19 +306,20 @@ export async function occurrenceKeyLoader({ params, config, graphql }: LoaderArg
   const key = required(params.key, 'No key was provided in the URL');
   if (['map', 'gallery', 'taxonomy', 'charts', 'download'].includes(key))
     throw new NotFoundLoaderResponse();
+  const variables = {
+    key,
+    defaultChecklistKey: config.defaultChecklistKey,
+  };
   const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(
     OCCURRENCE_QUERY,
-    {
-      key,
-      defaultChecklistKey: config.defaultChecklistKey,
-    }
+    variables
   );
 
   const { errors, data } = await response.json();
 
   // If the occurrence does not exist, check whether a raw fragment exists for the key.
   // If so, redirect to the tombstone/fragment page; otherwise fall through to the 404.
-  const occurrenceMissing = !data?.occurrence || is404({ path: ['occurrence'], errors });
+  const occurrenceMissing = !data?.occurrence && is404({ path: ['occurrence'], errors });
   if (occurrenceMissing) {
     try {
       const fragmentResponse = await fetch(`${config.v1Endpoint}/occurrence/${key}/fragment`);
@@ -352,6 +335,8 @@ export async function occurrenceKeyLoader({ params, config, graphql }: LoaderArg
     path404: ['occurrence'],
     errors,
     requiredObjects: [data?.occurrence],
+    query: 'Too long to include in the error message, see the GraphQL query in occurrenceKey.tsx',
+    variables,
   });
 
   // throwCriticalErrors will throw if the occurrence is not found, so we can safely assume it exists with !
