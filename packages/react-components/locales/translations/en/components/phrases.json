@@ -37,7 +37,7 @@
   "backHome": "Back home",
   "pageNotFound": "404",
   "noInformation": "No information",
-  "noRecords": "No records",
+  "noRecords": "We are unable to find anything matching your search. For additional results, try a more specific search in one of the categories shown here.",
   "noDescriptionProvided": "No description provided",
   "viewOnGBif": "View on GBIF.org",
   "failedToLoadData": "Failed to load data",
