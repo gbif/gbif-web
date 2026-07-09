@@ -78,6 +78,7 @@
     "usedChecklistKey": "{checklistName} a été utilisé pour remplir les colonnes taxonomiques dans le téléchargement",
     "predicate": {
       "checklist": "Liste d'espèces",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "Tous doivent appliquer",
         "or": "Au moins un doit appliquer",
