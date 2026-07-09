@@ -49,6 +49,7 @@
     "IDENTIFIED_DATE_INVALID": "La fecha de identificación proporcionada no se puede interpretar porque no es válida. Las razones incluyen: una fecha inexistente (por ejemplo, «1995-04-34»), faltan partes de la fecha (por ejemplo, sin año), el formato de la fecha no sigue la norma ISO 8601 (AAAA-MM-DD).",
     "BASIS_OF_RECORD_INVALID": "La base del registro proporcionada no se puede interpretar o difiere considerablemente del vocabulario recomendado: https://rs.gbif.org/vocabulary/dwc/basis_of_record",
     "TYPE_STATUS_INVALID": "El estatus de tipo nomenclatural proporcionado no se puede interpretar o difiere considerablemente del vocabulario recomendado: https://registry.gbif.org/vocabulary/TypeStatus.",
+    "SUSPECTED_TYPE": "",
     "MULTIMEDIA_DATE_INVALID": "La fecha de creación indicada no se puede interpretar porque no es válida. Las razones pueden ser: una fecha inexistente (por ejemplo, «1995-04-34»), faltan partes de la fecha (por ejemplo, sin año), el formato de la fecha no sigue la norma ISO 8601 (AAAA-MM-DD).",
     "MULTIMEDIA_URI_INVALID": "La URL multimedia no se puede resolver y puede estar mal formada o contener caracteres no válidos.",
     "REFERENCES_URI_INVALID": "La URL de referencia no se puede resolver y puede estar mal formada o contener caracteres no válidos.",
@@ -76,6 +77,24 @@
     "TAXON_CONCEPT_ID_NOT_FOUND": "El taxonConceptID coincidía con un patrón conocido, pero no se encontró en la lista de verificación asociada. La búsqueda en la base de datos se realizó utilizando los nombres o un campo de identificación diferente del registro. Esto puede indicar un identificador mal formateado o puede deberse a un ID recién creado que aún no se conoce en la versión de la lista de verificación publicada.",
     "TAXON_ID_NOT_FOUND": "El taxonID coincidía con un patrón conocido, pero no se encontró en la lista de verificación asociada. La búsqueda en la base de datos se realizó utilizando los nombres o un campo de identificación diferente del registro. Esto puede indicar un identificador mal formateado o puede deberse a un ID recién creado que aún no se conoce en la versión de la lista de verificación publicada.",
     "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "El scientificName proporcionado en el registro de ocurrencia no coincide exactamente con el nombre que figura en la lista de verificación registrada cuando se utiliza el scientificNameID, taxonID o taxonConceptID para buscarlo. Se recomienda a los Publicadores que comprueben que los identificadores sean correctos o que actualicen el formato de los nombres en sus registros.",
-    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Se encontró un concepto en el backbone taxonómico de GBIF usando el scientificNameID, el taxonID o el taxonConceptID, pero este difiere del que se habría encontrado si se hubieran usado los nombres de clasificación del registro. Esto puede indicar una laguna en el backbone de GBIF, una correspondencia deficiente entre la checklist y el backbone, o una discrepancia entre los nombres de clasificación y los identificadores declarados (scientificNameID o taxonConceptID) en el propio registro de ocurrencia."
+    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Se encontró un concepto en el backbone taxonómico de GBIF usando el scientificNameID, el taxonID o el taxonConceptID, pero este difiere del que se habría encontrado si se hubieran usado los nombres de clasificación del registro. Esto puede indicar una laguna en el backbone de GBIF, una correspondencia deficiente entre la checklist y el backbone, o una discrepancia entre los nombres de clasificación y los identificadores declarados (scientificNameID o taxonConceptID) en el propio registro de ocurrencia.",
+    "ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK": "",
+    "PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK": "",
+    "EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK": "",
+    "AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK": "",
+    "EON_OR_EONOTHEM_RANK_MISMATCH": "",
+    "ERA_OR_ERATHEM_RANK_MISMATCH": "",
+    "PERIOD_OR_SYSTEM_RANK_MISMATCH": "",
+    "EPOCH_OR_SERIES_RANK_MISMATCH": "",
+    "AGE_OR_STAGE_RANK_MISMATCH": "",
+    "EON_OR_EONOTHEM_INVALID_RANGE": "",
+    "ERA_OR_ERATHEM_INVALID_RANGE": "",
+    "PERIOD_OR_SYSTEM_INVALID_RANGE": "",
+    "EPOCH_OR_SERIES_INVALID_RANGE": "",
+    "AGE_OR_STAGE_INVALID_RANGE": "",
+    "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH": "",
+    "ERA_OR_ERATHEM_AND_PERIOD_OR_SYSTEM_MISMATCH": "",
+    "PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH": "",
+    "EPOCH_OR_SERIES_AND_AGE_OR_STAGE_MISMATCH": ""
   }
 }
