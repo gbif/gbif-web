@@ -78,6 +78,7 @@
     "usedChecklistKey": "",
     "predicate": {
       "checklist": "",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "",
         "or": "",
