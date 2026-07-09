@@ -78,6 +78,7 @@
     "usedChecklistKey": "",
     "predicate": {
       "checklist": "名录",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "需全部选用",
         "or": "至少选择一项",
