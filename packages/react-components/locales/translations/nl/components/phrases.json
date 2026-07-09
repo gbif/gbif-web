@@ -16,6 +16,7 @@
   "viewAllImages": "",
   "share": "Delen",
   "identifier": "Identifier",
+  "dataLoadErrorDescription": "",
   "unknownDate": "Onbekende datum",
   "about": "Over",
   "legend": "Legenda",
