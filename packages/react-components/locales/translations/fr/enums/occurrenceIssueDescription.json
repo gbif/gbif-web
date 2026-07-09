@@ -49,6 +49,7 @@
     "IDENTIFIED_DATE_INVALID": "La date d'identification fournie ne peut pas être interprétée car elle n'est pas valide. Les raisons possibles sont les suivantes : date inexistante (par exemple \"1995-04-34\"), données incomplètes (par exemple, absence de l'année), format de date non conforme à la norme ISO 8601 (AAAA-MM-JJ).",
     "BASIS_OF_RECORD_INVALID": "Le terme basisOfRecord fourni est impossible à interpréter ou très différent du vocabulaire recommandé : https://rs.gbif.org/vocabulary/dwc/basis_of_record.",
     "TYPE_STATUS_INVALID": "Le statut de type indiqué est impossible à interpréter ou très différent du vocabulaire recommandé : https://registry.gbif.org/vocabulary/TypeStatus.",
+    "SUSPECTED_TYPE": "",
     "MULTIMEDIA_DATE_INVALID": "La date de création indiquée est invalide et ne peut être interprétée. Les raisons possibles sont les suivantes : date inexistante (par exemple, \"1995-04-34\"), données incomplètes (par exemple, date d’événement sans année), format de date non conforme à la norme ISO 8601 (AAAA-MM-JJ).",
     "MULTIMEDIA_URI_INVALID": "L'URL multimédia ne peut être résolue, elle est peut-être incorrecte ou contient des caractères non valides.",
     "REFERENCES_URI_INVALID": "L'URL des références ne peut être résolue, elle est peut-être incorrecte ou contient des caractères non valides.",
@@ -76,6 +77,24 @@
     "TAXON_CONCEPT_ID_NOT_FOUND": "Le taxonConceptID correspondait à un modèle connu, mais n'a pas été trouvé dans la checklist associée. La recherche dans la structure taxonomique a été effectuée à partir des noms ou d'un autre champ d'identification de l'enregistrement. Cela peut indiquer un identifiant mal formaté ou être dû à un identifiant nouvellement créé qui n'est pas encore répertorié dans la version publiée de la checklist.",
     "TAXON_ID_NOT_FOUND": "Le taxonID correspondait à un modèle connu, mais n'a pas été trouvé dans la checklist associée. La recherche dans la structure taxonomique a été effectuée à partir des noms ou d'un autre champ d'identification de l'enregistrement. Cela peut indiquer un identifiant mal formaté ou être dû à un identifiant nouvellement créé qui n'est pas encore répertorié dans la version publiée de la checklist.",
     "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Le nom scientifique indiqué dans l'enregistrement d'occurrence ne correspond pas exactement au nom figurant dans la checklist enregistrée lors de la recherche par scientificNameID, taxonID ou taxonConceptID. Il est conseillé aux éditeurs de vérifier l'exactitude des identifiants ou de mettre à jour le formatage des noms dans leurs enregistrements.",
-    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Le concept de la structure taxonomique du GBIF a été identifié à l'aide de scientificNameID, taxonID ou taxonConceptID, mais il diffère de celui qui aurait été trouvé si les noms de classification figurant sur l'enregistrement avaient été utilisés. Cela peut indiquer une lacune dans la structure taxonomique du GBIF, une correspondance insuffisante entre la checklist et la structure taxonomique, ou une incohérence entre les noms de classification et les identifiants déclarés (scientificNameID ou taxonConceptID) sur l'enregistrement d'occurrence lui-même."
+    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Le concept de la structure taxonomique du GBIF a été identifié à l'aide de scientificNameID, taxonID ou taxonConceptID, mais il diffère de celui qui aurait été trouvé si les noms de classification figurant sur l'enregistrement avaient été utilisés. Cela peut indiquer une lacune dans la structure taxonomique du GBIF, une correspondance insuffisante entre la checklist et la structure taxonomique, ou une incohérence entre les noms de classification et les identifiants déclarés (scientificNameID ou taxonConceptID) sur l'enregistrement d'occurrence lui-même.",
+    "ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK": "",
+    "PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK": "",
+    "EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK": "",
+    "AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK": "",
+    "EON_OR_EONOTHEM_RANK_MISMATCH": "",
+    "ERA_OR_ERATHEM_RANK_MISMATCH": "",
+    "PERIOD_OR_SYSTEM_RANK_MISMATCH": "",
+    "EPOCH_OR_SERIES_RANK_MISMATCH": "",
+    "AGE_OR_STAGE_RANK_MISMATCH": "",
+    "EON_OR_EONOTHEM_INVALID_RANGE": "",
+    "ERA_OR_ERATHEM_INVALID_RANGE": "",
+    "PERIOD_OR_SYSTEM_INVALID_RANGE": "",
+    "EPOCH_OR_SERIES_INVALID_RANGE": "",
+    "AGE_OR_STAGE_INVALID_RANGE": "",
+    "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH": "",
+    "ERA_OR_ERATHEM_AND_PERIOD_OR_SYSTEM_MISMATCH": "",
+    "PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH": "",
+    "EPOCH_OR_SERIES_AND_AGE_OR_STAGE_MISMATCH": ""
   }
 }
