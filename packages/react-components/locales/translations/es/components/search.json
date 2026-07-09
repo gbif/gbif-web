@@ -92,7 +92,7 @@
       "resourceSearch": "Recursos y artículos"
     },
     "seeAll": "Ver todo",
-    "searchFor": "",
-    "noResults": ""
+    "searchFor": "Buscar “{query}”",
+    "noResults": "No hemos encontrado algo que coincida con su búsqueda. Para obtener más resultados, intente una búsqueda más específica en una de las categorías que se muestran aquí."
   }
 }
