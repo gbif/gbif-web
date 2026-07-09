@@ -78,6 +78,7 @@
     "usedChecklistKey": "다운로드 내 분류학 열을 덧붙이기 위해 {checklistName}이 사용되었습니다",
     "predicate": {
       "checklist": "체크리스트",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "모두 적용되어야 함",
         "or": "적어도 한개는 적용되어야 함",
