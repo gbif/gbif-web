@@ -48,6 +48,7 @@
   "IDENTIFIED_DATE_INVALID": "Fecha identificada errónea",
   "BASIS_OF_RECORD_INVALID": "Base del registro inválida",
   "TYPE_STATUS_INVALID": "Estado del tipo inválido",
+  "SUSPECTED_TYPE": "Tipo nomenclatural presunto",
   "MULTIMEDIA_DATE_INVALID": "Fecha multimedia inválida",
   "MULTIMEDIA_URI_INVALID": "URI de multimedia inválido",
   "REFERENCES_URI_INVALID": "URI de referencias inválido",
