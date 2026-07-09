@@ -197,6 +197,24 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
   }
 
+  async getRelatedEntryInWikidata({ taxonID }) {
+    return this.get(
+      `${this.config.apiv2}/species/match/joins/${taxonID}?`,
+      stringify({ checklistKey: 'xcol' }, { indices: false }),
+      { enQueue: true, signal: this.context.abortController.signal },
+    ).then((result) => {
+      // returns an array. filter for an object with datasetKey = ac5f72cf-172d-4eb4-ad8c-db66ea1c78e5
+      if (!result || !Array.isArray(result) || result.length === 0) {
+        return null;
+      }
+      const wikidataEntry = result.find((entry) => entry.datasetKey === 'ac5f72cf-172d-4eb4-ad8c-db66ea1c78e5');
+      if (!wikidataEntry) {
+        return null;
+      }
+      return wikidataEntry;
+    });
+  }
+
   async getTaxonOccurrenceMedia({ taxonKey, checklistKey = this.config.defaultChecklist, limit, offset, mediaType }) {
     return this.get(
       `${this.config.apiv1}/occurrence/experimental/multimedia/species/${checklistKey}/${taxonKey}/`,

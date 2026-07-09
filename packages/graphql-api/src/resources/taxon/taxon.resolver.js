@@ -88,19 +88,39 @@ const sharedTaxonFields = {
         throw e;
       });
   },
-  wikiData: ({ taxonID }, args, { dataSources }) =>
-    dataSources.wikidataAPI.getWikiDataTaxonData(taxonID).then((response) => {
-      // wikidata has been unpredictabel in what it returns. So be defensive
-      const identifiers = response?.identifiers ?? [];
-      const identifiersWithLabels = identifiers.filter((identifier) => {
-        return identifier?.label?.value;
-      });
-      // sort them by label
-      return {
-        ...response,
-        identifiers: identifiersWithLabels.sort((a, b) => stringCompare(a?.label?.value, b?.label?.value)),
-      };
-    }),
+  wikiData: ({ taxonID, datasetKey }, args, { dataSources }) => {
+    if (!taxonID || !datasetKey) return null;
+    if (datasetKey !== config.defaultChecklist) return null; // wikidata is only available for CatalogueOfLife checklistKey
+    return dataSources.taxonAPI.getRelatedEntryInWikidata({ taxonID }).then((wikidataEntry) => {
+      if (!wikidataEntry) {
+        return null;
+      }
+      const { id: wikidataTaxonID, datasetKey: wikidataDatasetKey } = wikidataEntry;
+      return dataSources.taxonAPI
+        .getTaxonInfo({ key: wikidataTaxonID, datasetKey: wikidataDatasetKey })
+        .then((response) => {
+          // if wikidataEntry has an identifiers list, then filter that to remove identifiers with scope=local
+          if (response.identifiers && Array.isArray(response.identifiers)) {
+            response.identifiers = response.identifiers.filter(
+              (identifier) => identifier.scope !== 'local' && !!identifier.url && !!identifier.title,
+            );
+          }
+          return response;
+        });
+    });
+  },
+  // dataSources.wikidataAPI.getWikiDataTaxonData(taxonID).then((response) => {
+  //   // wikidata has been unpredictabel in what it returns. So be defensive
+  //   const identifiers = response?.identifiers ?? [];
+  //   const identifiersWithLabels = identifiers.filter((identifier) => {
+  //     return identifier?.label?.value;
+  //   });
+  //   // sort them by label
+  //   return {
+  //     ...response,
+  //     identifiers: identifiersWithLabels.sort((a, b) => stringCompare(a?.label?.value, b?.label?.value)),
+  //   };
+  // }),
   relatedInfo: ({ taxonID, taxonomicStatus, datasetKey = DEFAULT_CHECKLIST_KEY }, args, { dataSources }) => {
     // related fails with a 404 for some status
     if (taxonomicStatus === 'AMBIGUOUS_SYNONYM') return null;

@@ -110,7 +110,7 @@ const typeDef = gql`
     acceptedTaxon: TaxonSimple
     occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
-    wikiData: WikiDataTaxonData
+    wikiData: TaxonInfo
     relatedInfo: RelatedTaxonInfo
     related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]
     children(limit: Int, offset: Int): Children
@@ -355,7 +355,7 @@ const typeDef = gql`
     acceptedTaxon: TaxonSimple
     occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
-    wikiData: WikiDataTaxonData
+    wikiData: TaxonInfo
     relatedInfo: RelatedTaxonInfo
     related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]
     children(limit: Int, offset: Int): Children
@@ -491,6 +491,7 @@ const typeDef = gql`
     vernacularNames: [VernacularName!]
     classification: [TaxonClassification!]
     synonyms: TaxonSynonyms
+    identifiers: [TaxonIdentifier!]
 
     # derived
     dataset: Dataset
@@ -507,12 +508,19 @@ const typeDef = gql`
     # related endpoints
     occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
-    wikiData: WikiDataTaxonData
+    wikiData: TaxonInfo
     relatedInfo: RelatedTaxonInfo
     related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
     mapCapabilities: MapCapabilities
+  }
+
+  type TaxonIdentifier {
+    scope: String
+    title: String
+    id: ID
+    url: String
   }
 `;
 

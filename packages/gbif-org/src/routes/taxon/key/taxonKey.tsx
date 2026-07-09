@@ -196,14 +196,13 @@ const SLOW_TAXON = /* GraphQL */ `
   query SlowTaxon($key: ID!, $datasetKey: ID!) {
     taxonInfo(key: $key, datasetKey: $datasetKey) {
       wikiData {
-        source {
-          id
-          url
+        taxonID
+        references
+        dataset {
+          title
         }
         identifiers {
-          id
-          label
-          description
+          title
           url
         }
       }
