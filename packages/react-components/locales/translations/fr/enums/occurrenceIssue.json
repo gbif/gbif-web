@@ -48,6 +48,7 @@
   "IDENTIFIED_DATE_INVALID": "Date d'identification non valide",
   "BASIS_OF_RECORD_INVALID": "Base d’enregistrement (basisOfRecord) non valide",
   "TYPE_STATUS_INVALID": "Statut de type non valide",
+  "SUSPECTED_TYPE": "Type suspecté",
   "MULTIMEDIA_DATE_INVALID": "Date du multimédia non valide",
   "MULTIMEDIA_URI_INVALID": "URI de multimédia non valide",
   "REFERENCES_URI_INVALID": "URI de références non valide",
