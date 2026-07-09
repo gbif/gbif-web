@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
 import DashboardSections, { DashboardGroup } from './dashboard/sections';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export function DatasetKeyDashboard() {
   const config = useConfig();
@@ -120,18 +121,19 @@ export function DatasetKeyDashboard() {
             </Button>
           ))}
         </div>
-
-        <DashboardSections
-          group={group as DashboardGroup}
-          datasetKey={dataset.key}
-          checklistBankDatasetKey={dataset.checklistBankDataset?.key}
-          scopedDatasetPredicate={scopedDatasetPredicate}
-          literatureScope={literatureScope}
-          hasLiterature={(literatureSearch?.documents.total ?? 0) > 0}
-          count={count}
-          loading={loading}
-          error={error}
-        />
+        <ErrorBoundary type="BLOCK" className="g-mb-8" invalidateOn={`${dataset.key}, ${group}`}>
+          <DashboardSections
+            group={group as DashboardGroup}
+            datasetKey={dataset.key}
+            checklistBankDatasetKey={dataset.checklistBankDataset?.key}
+            scopedDatasetPredicate={scopedDatasetPredicate}
+            literatureScope={literatureScope}
+            hasLiterature={(literatureSearch?.documents.total ?? 0) > 0}
+            count={count}
+            loading={loading}
+            error={error}
+          />
+        </ErrorBoundary>
       </ArticleTextContainer>
     </ArticleContainer>
   );
