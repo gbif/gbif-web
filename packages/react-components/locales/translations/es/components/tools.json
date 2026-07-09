@@ -13,7 +13,7 @@
       "or": "o",
       "dropHere": "Soltar aquí",
       "ifNoKingdom": "Si no se especifica ningún reino, entonces prefiero",
-      "matchToChecklist": "",
+      "matchToChecklist": "Coincidencia con Catalogue of Life",
       "matchingProgress": "Coincidencia {done} de {total}…",
       "scientificName": "scientificName",
       "preferedKingdom": "reino preferido",
