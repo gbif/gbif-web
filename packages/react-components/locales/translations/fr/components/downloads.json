@@ -78,7 +78,7 @@
     "usedChecklistKey": "{checklistName} a été utilisé pour remplir les colonnes taxonomiques dans le téléchargement",
     "predicate": {
       "checklist": "Liste d'espèces",
-      "tooManyLabelResolutions": "",
+      "tooManyLabelResolutions": "Afin de montrer cette requête de façon lisible, il faudrait {count} recherches d'étiquettes, excédant la limite maximale de {max} recherches. Pour réduire la charge sur nos services, elle est plutôt montrée dans un format JSON brut.",
       "joinDescriptions": {
         "and": "Tous doivent appliquer",
         "or": "Au moins un doit appliquer",
