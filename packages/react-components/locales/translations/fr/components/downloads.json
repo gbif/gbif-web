@@ -97,7 +97,7 @@
         "EVENT_DATE_GTE": "Date de l'événement (supérieure ou égale à)",
         "DISTANCE_FROM_CENTROID_IN_METERS": "Distance du centroïde (m)",
         "DATASET_NAME": "Nom du jeu de données",
-        "GEOLOGICAL_TIME": "Temps géologique",
+        "GEOLOGICAL_TIME": "Temps géologiques",
         "ISLAND": "Île",
         "INSTITUTION_KEY": "Institution",
         "GADM_LEVEL_0_GID": "ID GADM niveau 0",
