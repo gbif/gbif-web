@@ -91,6 +91,8 @@
       "occurrenceSearch": "",
       "resourceSearch": ""
     },
-    "seeAll": "Alles weergeven"
+    "seeAll": "Alles weergeven",
+    "searchFor": "",
+    "noResults": ""
   }
 }
