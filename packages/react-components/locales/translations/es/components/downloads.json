@@ -78,6 +78,7 @@
     "usedChecklistKey": "{checklistName} se utilizó para rellenar las columnas taxonómicas en la descarga.",
     "predicate": {
       "checklist": "Lista de chequeo",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "Todos deben aplicar",
         "or": "Al menos uno debe aplicar",
