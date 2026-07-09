@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "Estos problemas fueron identificados por los controles de calidad de datos de GBIF. Su objetivo es ayudar a los usuarios de datos a evaluar la calidad y las características de los datos.",
   "issuesLearnMore": "Más información sobre los problemas y las banderas de los registros",
+  "issues": {
+    "none": "Sin incidencias ni banderas"
+  },
   "features": {
     "isClustered": "Agrupación",
     "isSamplingEvent": "Evento de muestreo",

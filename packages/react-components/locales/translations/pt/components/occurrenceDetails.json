@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "",
   "issuesLearnMore": "",
+  "issues": {
+    "none": "Sem problemas ou alertas"
+  },
   "features": {
     "isClustered": "Agrupado",
     "isSamplingEvent": "Evento de colheita",

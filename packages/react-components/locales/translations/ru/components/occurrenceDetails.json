@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "",
   "issuesLearnMore": "Узнать больше о событиях и флагах",
+  "issues": {
+    "none": "Флаги не были установлены"
+  },
   "features": {
     "isClustered": "Имеет связанные записи",
     "isSamplingEvent": "Описания, учеты или сборы",

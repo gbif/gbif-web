@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "",
   "issuesLearnMore": "",
+  "issues": {
+    "none": "問題や警告はありません"
+  },
   "features": {
     "isClustered": "クラスター化された",
     "isSamplingEvent": "サンプリング イベント",
