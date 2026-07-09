@@ -91,6 +91,8 @@
       "occurrenceSearch": "תצפיות",
       "resourceSearch": ""
     },
-    "seeAll": "הצג הכל"
+    "seeAll": "הצג הכל",
+    "searchFor": "",
+    "noResults": ""
   }
 }
