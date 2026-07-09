@@ -91,6 +91,8 @@
       "occurrenceSearch": "Occurrences",
       "resourceSearch": "Ressources et articles"
     },
-    "seeAll": "Tout voir"
+    "seeAll": "Tout voir",
+    "searchFor": "",
+    "noResults": ""
   }
 }
