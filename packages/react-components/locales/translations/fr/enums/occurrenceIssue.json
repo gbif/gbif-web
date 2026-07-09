@@ -82,5 +82,17 @@
   "EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK": "Époque ou série déduite du rang parent",
   "AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK": "Âge ou étage déduit du rang parent",
   "EON_OR_EONOTHEM_RANK_MISMATCH": "Incompatibilité de rang éon ou éonothème",
-  "ERA_OR_ERATHEM_RANK_MISMATCH": "Incompatibilité de rang ère ou érathème"
+  "ERA_OR_ERATHEM_RANK_MISMATCH": "Incompatibilité de rang ère ou érathème",
+  "PERIOD_OR_SYSTEM_RANK_MISMATCH": "Incompatibilité de rang période ou système",
+  "EPOCH_OR_SERIES_RANK_MISMATCH": "Incompatibilité de rang d'époque ou de série",
+  "AGE_OR_STAGE_RANK_MISMATCH": "Incompatibilité de rang d'âge ou d'étage",
+  "EON_OR_EONOTHEM_INVALID_RANGE": "Intervalle d'éon ou d'éonothème invalide",
+  "ERA_OR_ERATHEM_INVALID_RANGE": "Intervalle d'ère ou d'érathème invalide",
+  "PERIOD_OR_SYSTEM_INVALID_RANGE": "Intervalle de période ou de système invalide",
+  "EPOCH_OR_SERIES_INVALID_RANGE": "Intervalle d'époque ou de série invalide",
+  "AGE_OR_STAGE_INVALID_RANGE": "Intervalle d'âge ou d'étage invalide",
+  "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH": "Incompatibilité entre éon/éonothème et ère/érathème",
+  "ERA_OR_ERATHEM_AND_PERIOD_OR_SYSTEM_MISMATCH": "Incompatibilité entre ère/érathème et période/système",
+  "PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH": "Incompatibilité entre période/système et époque/série",
+  "EPOCH_OR_SERIES_AND_AGE_OR_STAGE_MISMATCH": "Incompatibilité entre époque/série et âge/étage"
 }
