@@ -91,6 +91,8 @@
       "occurrenceSearch": "Registros de presencia",
       "resourceSearch": "Recursos y artículos"
     },
-    "seeAll": "Ver todo"
+    "seeAll": "Ver todo",
+    "searchFor": "",
+    "noResults": ""
   }
 }
