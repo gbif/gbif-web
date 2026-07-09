@@ -76,5 +76,11 @@
   "TAXON_CONCEPT_ID_NOT_FOUND": "ID du concept taxonomique introuvable",
   "TAXON_ID_NOT_FOUND": "ID de taxon introuvable",
   "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Nom scientifique et ID incohérents",
-  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Correspondance taxonomique du nom et ID ambigus"
+  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Correspondance taxonomique du nom et ID ambigus",
+  "ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK": "Ère ou érathème déduit du rang parent",
+  "PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK": "Période ou système déduit du rang parent",
+  "EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK": "Époque ou série déduite du rang parent",
+  "AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK": "Âge ou étage déduit du rang parent",
+  "EON_OR_EONOTHEM_RANK_MISMATCH": "Incompatibilité de rang éon ou éonothème",
+  "ERA_OR_ERATHEM_RANK_MISMATCH": "Incompatibilité de rang ère ou érathème"
 }
