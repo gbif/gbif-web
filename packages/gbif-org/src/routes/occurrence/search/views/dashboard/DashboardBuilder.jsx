@@ -607,6 +607,8 @@ const chartGroups = {
       'latestAgeOrHighestStage',
       'lowestBiostratigraphicZone',
       'highestBiostratigraphicZone',
+      'lithostratigraphy',
+      'biostratigraphy',
       'group',
       'formation',
       'member',

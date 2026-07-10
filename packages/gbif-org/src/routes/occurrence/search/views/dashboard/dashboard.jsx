@@ -193,6 +193,18 @@ const preconfiguredCharts = {
       return <charts.SamplingProtocol predicate={predicate} interactive {...props} />;
     },
   },
+  lithostratigraphy: {
+    translation: 'filters.lithostratigraphy.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.Lithostratigraphy predicate={predicate} interactive {...props} />;
+    },
+  },
+  biostratigraphy: {
+    translation: 'filters.biostratigraphy.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.Biostratigraphy predicate={predicate} interactive {...props} />;
+    },
+  },
   typeStatus: {
     component: ({ predicate, ...props }) => {
       return <charts.TypeStatus predicate={predicate} interactive {...props} />;

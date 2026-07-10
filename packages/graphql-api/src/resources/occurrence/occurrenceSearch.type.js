@@ -2,33 +2,11 @@ import { gql } from 'graphql-tag';
 
 const typeDef = gql`
   extend type Query {
-    occurrenceSearch(
-      apiKey: String
-      predicate: Predicate
-      q: String
-      size: Int
-      from: Int
-    ): OccurrenceSearchResult
+    occurrenceSearch(apiKey: String, predicate: Predicate, q: String, size: Int, from: Int): OccurrenceSearchResult
     occurrence(key: ID!): Occurrence
-    globe(
-      cLat: Float
-      cLon: Float
-      pLat: Float
-      pLon: Float
-      sphere: Boolean
-      graticule: Boolean
-      land: Boolean
-    ): Globe
-    occurrenceDatasetSuggest(
-      q: String
-      size: Int
-      predicate: Predicate
-    ): [OccurrenceDatasetSuggestResult]
-    occurrencePublisherSuggest(
-      q: String
-      size: Int
-      predicate: Predicate
-    ): [OccurrencePublisherSuggestResult]
+    globe(cLat: Float, cLon: Float, pLat: Float, pLon: Float, sphere: Boolean, graticule: Boolean, land: Boolean): Globe
+    occurrenceDatasetSuggest(q: String, size: Int, predicate: Predicate): [OccurrenceDatasetSuggestResult]
+    occurrencePublisherSuggest(q: String, size: Int, predicate: Predicate): [OccurrencePublisherSuggestResult]
   }
 
   type OccurrenceDatasetSuggestResult {
@@ -253,16 +231,14 @@ const typeDef = gql`
     year(interval: Float): Histogram
     elevation(interval: Float): Histogram
     decimalLatitude(interval: Float): Histogram
+    geologicalTime(interval: Float): Histogram
     depth(interval: Float): Histogram
     startDayOfYear(interval: Float): Histogram
     endDayOfYear(interval: Float): Histogram
   }
 
   type OccurrenceAutoDateHistogram {
-    eventDate(
-      buckets: Float
-      minimum_interval: String
-    ): AutoDateHistogramResult!
+    eventDate(buckets: Float, minimum_interval: String): AutoDateHistogramResult!
   }
 
   type AutoDateHistogramResult {
@@ -304,10 +280,7 @@ const typeDef = gql`
     collectionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
     continent(size: Int, from: Int): [OccurrenceFacetResult_string]
     countryCode(size: Int, from: Int): [OccurrenceFacetResult_string]
-    datasetPublishingCountry(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
+    datasetPublishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
     dwcaExtension(size: Int, from: Int): [OccurrenceFacetResult_string]
     eventId(size: Int, from: Int): [OccurrenceFacetResult_string]
     fieldNumber(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -315,11 +288,7 @@ const typeDef = gql`
     id(size: Int, from: Int): [OccurrenceFacetResult_string]
     institutionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
     issue(size: Int, from: Int): [OccurrenceFacetResult_string]
-    taxonomicIssue(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_string]
+    taxonomicIssue(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_string]
     license(size: Int, from: Int): [OccurrenceFacetResult_string]
     lifeStage(size: Int, from: Int): [OccurrenceFacetResult_string]
     locality(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -330,21 +299,9 @@ const typeDef = gql`
     organismId(size: Int, from: Int): [OccurrenceFacetResult_string]
     organismQuantityType(size: Int, from: Int): [OccurrenceFacetResult_string]
     parentEventId(size: Int, from: Int): [OccurrenceFacetResult_string]
-    preparations(
-      size: Int
-      from: Int
-      include: String
-    ): [OccurrenceFacetResult_string]
-    biostratigraphy(
-      size: Int
-      from: Int
-      include: String
-    ): [OccurrenceFacetResult_string]
-    lithostratigraphy(
-      size: Int
-      from: Int
-      include: String
-    ): [OccurrenceFacetResult_string]
+    preparations(size: Int, from: Int, include: String): [OccurrenceFacetResult_string]
+    biostratigraphy(size: Int, from: Int, include: String): [OccurrenceFacetResult_string]
+    lithostratigraphy(size: Int, from: Int, include: String): [OccurrenceFacetResult_string]
     programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     projectId(size: Int, from: Int): [OccurrenceFacetResult_string]
     protocol(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -354,10 +311,7 @@ const typeDef = gql`
     samplingProtocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     sex(size: Int, from: Int): [OccurrenceFacetResult_sex]
     pathway(size: Int, from: Int): [OccurrenceFacetResult_pathway]
-    degreeOfEstablishment(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_degreeOfEstablishment]
+    degreeOfEstablishment(size: Int, from: Int): [OccurrenceFacetResult_degreeOfEstablishment]
     stateProvince(size: Int, from: Int): [OccurrenceFacetResult_string]
     typeStatus(size: Int, from: Int): [OccurrenceFacetResult_typeStatus]
     typifiedName(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -372,23 +326,13 @@ const typeDef = gql`
     gbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
     publishedByGbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
 
-    gbifClassification_classificationPath(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
+    gbifClassification_classificationPath(size: Int, from: Int): [OccurrenceFacetResult_string]
     verbatimScientificName(size: Int, from: Int): [OccurrenceFacetResult_string]
-    iucnRedListCategory(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_string]
+    iucnRedListCategory(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_string]
     occurrenceStatus(size: Int): [OccurrenceFacetResult_string]
 
     coordinatePrecision(size: Int, from: Int): [OccurrenceFacetResult_float]
-    coordinateUncertaintyInMeters(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_float]
+    coordinateUncertaintyInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
     crawlId(size: Int, from: Int): [OccurrenceFacetResult_float]
     day(size: Int, from: Int): [OccurrenceFacetResult_float]
     decimalLatitude(size: Int, from: Int): [OccurrenceFacetResult_float]
@@ -400,29 +344,14 @@ const typeDef = gql`
     endDayOfYear(size: Int, from: Int): [OccurrenceFacetResult_float]
     individualCount(size: Int, from: Int): [OccurrenceFacetResult_float]
     maximumDepthInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
-    maximumDistanceAboveSurfaceInMeters(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_float]
-    maximumElevationInMeters(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_float]
+    maximumDistanceAboveSurfaceInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
+    maximumElevationInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
     minimumDepthInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
-    minimumDistanceAboveSurfaceInMeters(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_float]
-    minimumElevationInMeters(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_float]
+    minimumDistanceAboveSurfaceInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
+    minimumElevationInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
     month(size: Int, from: Int): [OccurrenceFacetResult_float]
     organismQuantity(size: Int, from: Int): [OccurrenceFacetResult_float]
-    relativeOrganismQuantity(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_float]
+    relativeOrganismQuantity(size: Int, from: Int): [OccurrenceFacetResult_float]
     sampleSizeValue(size: Int, from: Int): [OccurrenceFacetResult_float]
     startDayOfYear(size: Int, from: Int): [OccurrenceFacetResult_float]
     year(size: Int, from: Int): [OccurrenceFacetResult_float]
@@ -439,82 +368,28 @@ const typeDef = gql`
     installationKey(size: Int, from: Int): [OccurrenceFacetResult_installation]
     networkKey(size: Int, from: Int): [OccurrenceFacetResult_network]
     publishingOrg(size: Int, from: Int): [OccurrenceFacetResult_organization]
-    hostingOrganizationKey(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_organization]
+    hostingOrganizationKey(size: Int, from: Int): [OccurrenceFacetResult_organization]
 
-    establishmentMeans(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_establishmentMeans]
+    establishmentMeans(size: Int, from: Int): [OccurrenceFacetResult_establishmentMeans]
 
     gadmGid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
 
     taxonID(size: Int, from: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int, from: Int): [OccurrenceFacetResult_collection]
     institutionKey(size: Int, from: Int): [OccurrenceFacetResult_institution]
-    recordedBy(
-      size: Int
-      from: Int
-      include: String
-    ): [OccurrenceFacetResult_recordedBy]
-    identifiedBy(
-      size: Int
-      from: Int
-      include: String
-    ): [OccurrenceFacetResult_identifiedBy]
+    recordedBy(size: Int, from: Int, include: String): [OccurrenceFacetResult_recordedBy]
+    identifiedBy(size: Int, from: Int, include: String): [OccurrenceFacetResult_identifiedBy]
 
-    taxonKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    classKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    familyKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    genusKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    kingdomKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    orderKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    phylumKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    speciesKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    acceptedTaxonKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
-    usageKey(
-      size: Int
-      from: Int
-      checklistKey: ID
-    ): [OccurrenceFacetResult_taxon]
+    taxonKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    classKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    familyKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    genusKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    kingdomKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    orderKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    phylumKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    speciesKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    acceptedTaxonKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
+    usageKey(size: Int, from: Int, checklistKey: ID): [OccurrenceFacetResult_taxon]
   }
 
   type OccurrenceFacetResult_float {
