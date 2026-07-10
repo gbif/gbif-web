@@ -20,7 +20,7 @@ export function OccurrenceTaxonomyTree({
           <FormattedMessage id="dashboard.taxonomicTree" defaultMessage="Taxonomic tree" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="g-overflow-auto g-max-h-[32rem] gbif-small-scrollbar">
+      <CardContent className="g-overflow-auto gbif-small-scrollbar">
         <TaxonomicTree
           predicate={predicate}
           q={q}

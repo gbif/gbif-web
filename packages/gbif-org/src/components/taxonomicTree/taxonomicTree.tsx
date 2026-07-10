@@ -38,7 +38,7 @@ export function TaxonomicTree({
   onToggleSelect: onToggleSelectProp,
 }: TaxonomicTreeProps) {
   const intl = useIntl();
-  const { filter, toggle } = useContext(FilterContext);
+  const { filter, setField } = useContext(FilterContext);
   const defaultChecklistKey = useChecklistKey();
   const resolvedChecklistKey = checklistKey ?? defaultChecklistKey;
 
@@ -49,8 +49,8 @@ export function TaxonomicTree({
 
   const onToggleSelect = useCallback(
     (taxonKey: string) =>
-      onToggleSelectProp ? onToggleSelectProp(taxonKey) : toggle(TAXON_FILTER_HANDLE, taxonKey),
-    [onToggleSelectProp, toggle]
+      onToggleSelectProp ? onToggleSelectProp(taxonKey) : setField(TAXON_FILTER_HANDLE, [taxonKey]),
+    [onToggleSelectProp, setField]
   );
 
   // Stable string keys so unrelated re-renders don't rebuild the context value

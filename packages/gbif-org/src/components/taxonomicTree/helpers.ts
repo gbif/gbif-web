@@ -86,6 +86,7 @@ query taxonTreeChildren($predicate: Predicate, $q: String, $checklistKey: ID, $s
           usage {
             key
             name
+            canonicalName
             rank
           }
         }
@@ -100,7 +101,12 @@ export type TaxonBucket = {
   count: number;
   label?: string | null;
   taxon?: {
-    usage?: { key?: string | null; name?: string | null; rank?: string | null } | null;
+    usage?: {
+      key?: string | null;
+      name?: string | null;
+      canonicalName?: string | null;
+      rank?: string | null;
+    } | null;
   } | null;
 };
 

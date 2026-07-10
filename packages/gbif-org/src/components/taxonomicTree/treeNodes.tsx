@@ -128,7 +128,11 @@ export function TaxonChildren({
       {buckets.map((bucket) => {
         const node: TaxonNode = {
           taxonKey: bucket.key,
-          name: bucket.taxon?.usage?.name ?? bucket.label ?? bucket.key,
+          name:
+            bucket.taxon?.usage?.canonicalName ??
+            bucket.taxon?.usage?.name ??
+            bucket.label ??
+            bucket.key,
           rank: bucket.taxon?.usage?.rank ?? childRank.rank,
           count: Number(bucket.count),
           rankIndex: childRankIndex,
@@ -193,57 +197,64 @@ function TaxonTreeNode({ node, autoExpand }: { node: TaxonNode; autoExpand: bool
       )
     : node.name;
 
-  // The name segment expands the node; for leaves (deepest rank) it falls back
-  // to toggling the filter so a leaf taxon can still be selected.
-  const handleName = () => {
-    if (expandable) {
-      setExpanded((e) => !e);
-    } else if (node.taxonKey != null) {
-      onToggleSelect(node.taxonKey);
-    }
-  };
+  // The name segment only toggles expansion. Leaves (deepest rank) have nothing
+  // to expand, so their name is inert — filtering happens via the count button.
+  const caret = (
+    <span
+      aria-hidden
+      className={cn(
+        'gbif-rtl-icon g-flex-none g-flex g-items-center g-justify-center g-w-5 g-h-5 g-me-1 g-text-slate-400',
+        !expandable && 'g-invisible'
+      )}
+    >
+      <svg
+        className={cn('g-w-3 g-h-3 g-transition-transform', expanded && 'g-rotate-90')}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+      >
+        <path d="M9 5l7 7-7 7" />
+      </svg>
+    </span>
+  );
+
+  const nameLabel = (
+    <span
+      className={cn(
+        'g-px-2 g-py-0.5 g-rounded g-border g-border-solid g-bg-white g-whitespace-nowrap',
+        expandable && 'hover:g-bg-slate-50',
+        isPlaceholder
+          ? 'g-border-dashed g-text-slate-400 g-italic'
+          : selected
+            ? 'g-border-primary-500'
+            : 'g-border-slate-200'
+      )}
+    >
+      {displayName}
+    </span>
+  );
 
   return (
     <li className="g-list-none">
       <div className="g-flex g-items-center g-py-0.5">
-        <button
-          type="button"
-          onClick={handleName}
-          aria-expanded={expandable ? expanded : undefined}
-          title={displayName}
-          className="g-flex-none g-flex g-items-center g-text-start"
-        >
-          <span
-            aria-hidden
-            className={cn(
-              'gbif-rtl-icon g-flex-none g-flex g-items-center g-justify-center g-w-5 g-h-5 g-me-1 g-text-slate-400',
-              !expandable && 'g-invisible'
-            )}
+        {expandable ? (
+          <button
+            type="button"
+            onClick={() => setExpanded((e) => !e)}
+            aria-expanded={expanded}
+            title={displayName}
+            className="g-flex-none g-flex g-items-center g-text-start"
           >
-            <svg
-              className={cn('g-w-3 g-h-3 g-transition-transform', expanded && 'g-rotate-90')}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-            >
-              <path d="M9 5l7 7-7 7" />
-            </svg>
-          </span>
-          <span
-            className={cn(
-              'g-px-2 g-py-0.5 g-rounded g-border g-border-solid g-bg-white g-whitespace-nowrap',
-              'hover:g-bg-slate-50',
-              isPlaceholder
-                ? 'g-border-dashed g-text-slate-400 g-italic'
-                : selected
-                  ? 'g-border-primary-500'
-                  : 'g-border-slate-200'
-            )}
-          >
-            {displayName}
-          </span>
-        </button>
+            {caret}
+            {nameLabel}
+          </button>
+        ) : (
+          <div title={displayName} className="g-flex-none g-flex g-items-center g-text-start">
+            {caret}
+            {nameLabel}
+          </div>
+        )}
 
         <button
           type="button"
