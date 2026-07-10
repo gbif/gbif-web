@@ -358,3 +358,19 @@ export const GadmGid = getStringChart({
   options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
   includeMapPredicate: true,
 });
+
+export const Lithostratigraphy = getStringChart({
+  fieldName: 'lithostratigraphy',
+  showFreeTextWarning: true,
+  title: <FormattedMessage id="filters.lithostratigraphy.name" defaultMessage="Lithostratigraphy" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});
+
+export const Biostratigraphy = getStringChart({
+  fieldName: 'biostratigraphy',
+  showFreeTextWarning: true,
+  title: <FormattedMessage id="filters.biostratigraphy.name" defaultMessage="Biostratigraphy" />,
+  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  includeMapPredicate: true,
+});

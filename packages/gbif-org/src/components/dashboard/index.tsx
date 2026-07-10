@@ -76,6 +76,8 @@ export const EventId = lazyChart('EventId');
 export const SampleSizeUnit = lazyChart('SampleSizeUnit');
 export const SamplingProtocol = lazyChart('SamplingProtocol');
 export const GadmGid = lazyChart('GadmGid');
+export const Lithostratigraphy = lazyChart('Lithostratigraphy');
+export const Biostratigraphy = lazyChart('Biostratigraphy');
 
 // timeCharts
 export const EventDate = lazyChart('EventDate');
