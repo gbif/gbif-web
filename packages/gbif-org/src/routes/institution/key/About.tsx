@@ -147,6 +147,9 @@ export default function About() {
                   featuredImageLicense={
                     institution.featuredImageUrl ? institution.featuredImageLicense : null
                   }
+                  featuredImageAttribution={
+                    institution.featuredImageUrl ? institution.featuredImageAttribution : null
+                  }
                 />
               </Card>
             )}

@@ -36,7 +36,25 @@ export default function EntityDrawer() {
     }
   }
   const key = previewKey ? previewKey.substring(previewKey.indexOf('_') + 1) : undefined;
-  const entitylink = key ? createLink({ pageId: `${type}`, variables: { key: key } }) : null;
+  let entitylink = null;
+  if (key) {
+    if (type === 'eventKey') {
+      // Event drawer entityKey (after `e_` prefix) is `${datasetKey}_${eventId}`.
+      // Dataset keys are UUIDs (no underscores), so the first `_` separates them
+      // from the eventId, which may itself contain underscores.
+      const sepIdx = key.indexOf('_');
+      const dsKey = sepIdx > 0 ? key.slice(0, sepIdx) : '';
+      const evtId = sepIdx > 0 ? key.slice(sepIdx + 1) : '';
+      if (dsKey && evtId) {
+        entitylink = createLink({
+          pageId: 'datasetKey',
+          variables: { key: `${dsKey}/event/${encodeURIComponent(evtId)}` },
+        });
+      }
+    } else {
+      entitylink = createLink({ pageId: `${type}`, variables: { key: key } });
+    }
+  }
 
   const getCurrentIndex = () => {
     return orderedList.findIndex((o) => o?.toString() === previewKey?.toString());
@@ -71,7 +89,7 @@ export default function EntityDrawer() {
     <Drawer
       isOpen={typeof key === 'string'}
       close={() => setPreviewKey()}
-      viewOnGbifHref={entitylink?.to}
+      viewOnGbifHref={typeof entitylink?.to === 'string' ? entitylink.to : undefined}
       next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
       onCloseAutoFocus={(e) => handleCloseAutoFocus(e, prevPreviewKey)}

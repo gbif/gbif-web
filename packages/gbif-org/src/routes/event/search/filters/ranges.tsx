@@ -11,7 +11,7 @@ export const yearConfig: filterRangeConfig = {
   filterHandle: 'year',
   displayName: YearLabel,
   filterTranslation: 'filters.year.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.year.description" />,
   rangeExample: () => <Message id="filterSupport.rangeHelpYear" />,
   group: 'event',
@@ -41,7 +41,7 @@ export const humboldtSiteCountConfig: filterRangeConfig = {
   filterHandle: 'humboldtSiteCount',
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.siteCount.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.siteCount.description" />,
   group: termToGroup['siteCount'],
 };
@@ -51,7 +51,7 @@ export const humboldtSamplingEffortValueConfig: filterRangeConfig = {
   filterHandle: 'humboldtSamplingEffortValue',
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.samplingEffortValue.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.samplingEffortValue.description" />,
   group: termToGroup['samplingEffortValue'],
 };
@@ -61,7 +61,7 @@ export const humboldtTotalAreaSampledValueConfig: filterRangeConfig = {
   filterHandle: 'humboldtTotalAreaSampledValue',
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.totalAreaSampledValue.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.totalAreaSampledValue.description" />,
   group: termToGroup['totalAreaSampledValue'],
 };
@@ -71,7 +71,7 @@ export const humboldtEventDurationValueConfig: filterRangeConfig = {
   filterHandle: 'humboldtEventDurationValue',
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.eventDurationValue.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.eventDurationValue.description" />,
   group: termToGroup['eventDurationValue'],
 };
@@ -81,7 +81,7 @@ export const humboldtAbundanceCapConfig: filterRangeConfig = {
   filterHandle: 'humboldtAbundanceCap',
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.abundanceCap.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.abundanceCap.description" />,
   group: termToGroup['abundanceCap'],
 };

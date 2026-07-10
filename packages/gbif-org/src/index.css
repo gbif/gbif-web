@@ -679,6 +679,45 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   @apply [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300;
 }
 
+/* styled scrollbars are always drawn, unlike macOS overlay scrollbars that only appear while scrolling */
+.gbif-editor-scrollbar {
+  @apply [&::-webkit-scrollbar]:g-w-2.5 [&::-webkit-scrollbar]:g-h-2.5 [&::-webkit-scrollbar-track]:g-bg-transparent [&::-webkit-scrollbar-thumb]:g-bg-slate-300 [&::-webkit-scrollbar-thumb:hover]:g-bg-slate-400 [&::-webkit-scrollbar-thumb]:g-rounded-full [&::-webkit-scrollbar-corner]:g-bg-transparent;
+}
+
+/* firefox only; on chromium scrollbar-width would disable the ::-webkit-scrollbar styling above */
+@supports not selector(::-webkit-scrollbar) {
+  .gbif-editor-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.slate.300') transparent;
+  }
+}
+
+/* used by the download editor to signal a failed reformat */
+.gbif-shake {
+  animation: gbif-shake 0.4s ease-in-out;
+}
+
+@keyframes gbif-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-4px);
+  }
+  40%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gbif-shake {
+    animation: none;
+  }
+}
+
 .gbif-no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;

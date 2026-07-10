@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 export const iconButtonClass =
-  'g-inline-flex g-items-center g-justify-center g-min-w-11 g-min-h-11 sm:g-min-w-7 sm:g-min-h-7 g-rounded hover:g-bg-slate-100';
+  'g-inline-flex g-items-center g-justify-center g-min-w-11 g-min-h-11 sm:g-min-w-7 sm:g-min-h-7 g-text-xl sm:g-text-base g-rounded hover:g-bg-slate-100';
 
 export function AboutButton({
   className,

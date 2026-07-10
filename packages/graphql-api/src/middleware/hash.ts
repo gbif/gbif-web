@@ -3,7 +3,7 @@ import LRU from 'lru-cache';
 import hash from 'object-hash';
 import { ParsedQs } from 'qs';
 
-const queryCache = new LRU({ max: 1000 });
+const queryCache = new LRU({ max: 10000 });
 const variablesCache = new LRU({ max: 10000 });
 
 type StoredQuery = string | ParsedQs | string[] | ParsedQs[] | undefined;
@@ -40,11 +40,16 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // used to track if the provided ids are unknown
   let unknownQueryId;
   let unknownVariablesId;
+  // track whether we resolved a hash into a value for a GET request, so we can
+  // rewrite req.url afterwards (see note below the lookups)
+  let resolvedQuery = false;
+  let resolvedVariables = false;
 
   // if query or variables are provided, then hash for future reference
   if (query) {
     const queryKey = hash(query);
-    queryCache.set(queryKey, query);
+    // only store for POST requests to avoid filling cache with things that fits into GET anyhow
+    if (isPOST) queryCache.set(queryKey, query);
     res.set('X-Graphql-query-ID', queryKey);
     if (queryId && queryId !== queryKey) {
       // A hash has been provided that conflicts with the server hash. return an error
@@ -53,7 +58,8 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
   }
   if (variables) {
     const variablesKey = hash(variables);
-    variablesCache.set(variablesKey, variables);
+    // only store for POST requests to avoid filling cache with things that fits into GET anyhow
+    if (isPOST) variablesCache.set(variablesKey, variables);
     res.set('X-Graphql-variables-ID', variablesKey);
     if (variablesId && variablesId !== variablesKey) {
       // A hash has been provided that conflicts with the server hash. return an error
@@ -71,7 +77,10 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
     } else {
       res.set('X-Graphql-query-ID', queryId);
       if (req.method === 'POST') req.body.query = storedQuery;
-      if (req.method === 'GET') req.query.query = storedQuery as StoredQuery;
+      if (req.method === 'GET') {
+        req.query.query = storedQuery as StoredQuery;
+        resolvedQuery = true;
+      }
     }
   }
   // if no variables is provided but a hash is, then try to look it up
@@ -82,9 +91,33 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
     } else {
       res.set('X-Graphql-variables-ID', variablesId);
       if (req.method === 'POST') req.body.variables = storedVariables;
-      if (req.method === 'GET')
+      if (req.method === 'GET') {
         req.query.variables = storedVariables as StoredQuery;
+        resolvedVariables = true;
+      }
     }
+  }
+
+  // Apollo Server 4+ reads GET parameters from the raw request URL
+  // (url.parse(req.url).search), not from the mutable req.query object that
+  // apollo-server v3 used via applyMiddleware. So when we resolve a query or
+  // variables hash for a GET request, we must also rewrite req.url so the
+  // resolved values are visible to Apollo.
+  if (req.method === 'GET' && (resolvedQuery || resolvedVariables)) {
+    const [pathname, existingSearch = ''] = req.url.split('?');
+    const params = new URLSearchParams(existingSearch);
+    if (resolvedQuery) {
+      params.set('query', req.query.query as string);
+    }
+    if (resolvedVariables) {
+      const value = req.query.variables;
+      // Apollo expects `variables` as a JSON string in the query string.
+      params.set(
+        'variables',
+        typeof value === 'string' ? value : JSON.stringify(value),
+      );
+    }
+    req.url = `${pathname}?${params.toString()}`;
   }
 
   // if either hash is unknown, then return with an error asking the client to return the full value

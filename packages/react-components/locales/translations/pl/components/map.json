@@ -13,10 +13,12 @@
     "PLATE_CAREE": "Plate Carrée"
   },
   "failedToGetUserLocation": {
-    "title": "",
-    "message": ""
+    "title": "Nie udało się użyć Twojej lokalizacji.",
+    "message": "Sprawdź ustawienia przeglądarki i spróbuj ponownie."
   },
   "filterByView": "Użyj widocznego obszaru jako filtru",
+  "zoomToData": "Powiększ do zakresu danych",
+  "noDataInView": "W bieżącym widoku jest niewiele danych.",
   "projection": "Rzutowanie",
   "anyYear": "Dowolny rok",
   "exploreArea": "Przeglądaj obszar",
@@ -43,7 +45,7 @@
     "CLASSIC": "Magenta",
     "LIGHT": "Jasny (bez etykiet)",
     "LIGHT_DETAILS": "Jasny",
-    "GREY": "",
+    "GREY": "Szary (bez etykiet)",
     "DARK": "Ciemny (bez etykiet)",
     "DARK_DETAILS": "Ciemny",
     "OSM": "Drogi"
@@ -55,7 +57,7 @@
     "SMALL_SQUARE": "Małe kwadraty",
     "LARGE_SQUARE": "Kwadraty"
   },
-  "tilesUnavailable": "",
+  "tilesUnavailable": "Kafelki mapy są tymczasowo niedostępne",
   "colors": {
     "CLASSIC": "Klasyczny",
     "FIRE": "Ogień",

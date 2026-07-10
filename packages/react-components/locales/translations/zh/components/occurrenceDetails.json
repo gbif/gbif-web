@@ -66,6 +66,10 @@
     "issues": "问题和标志"
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "",
+  "issues": {
+    "none": ""
+  },
   "features": {
     "isClustered": "群集的",
     "isSamplingEvent": "采样事件",
@@ -743,7 +747,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "",
+      "recordsHeader": "",
+      "groups": {
+        "protocols": "",
+        "samplingDesign": "",
+        "spatialScope": "",
+        "temporalScope": "临时范围",
+        "effort": "",
+        "taxonomicOrganismalScope": ""
+      },
       "properties": {
+        "eventDuration": "",
+        "samplingEffort": "取样工作",
+        "geospatialScopeArea": "",
+        "totalAreaSampled": "",
         "siteCount": "",
         "siteNestingDescription": "",
         "verbatimSiteDescriptions": "",

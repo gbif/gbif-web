@@ -14,6 +14,7 @@ import { searchConfig } from '../../../searchConfig';
 import MapPresentation, { MapPresentationProps } from './MapPresentation';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { Skeleton } from '@/components/ui/skeleton';
+import { statsToBoundingBox } from './dataExtentHelpers';
 
 const OCCURRENCE_MAP = /* GraphQL */ `
   query occurrenceMap($q: String, $predicate: Predicate) {
@@ -36,6 +37,34 @@ const OCCURRENCE_MAP_META = /* GraphQL */ `
   }
 `;
 
+// Fetches the min/max latitude and longitude of the result set so we can
+// offer the user to zoom to the extent of the data.
+const OCCURRENCE_MAP_EXTENT = /* GraphQL */ `
+  query occurrenceMapExtent($q: String, $predicate: Predicate) {
+    occurrenceSearch(q: $q, predicate: $predicate) {
+      stats {
+        decimalLatitude {
+          min
+          max
+        }
+        decimalLongitude {
+          min
+          max
+        }
+      }
+    }
+  }
+`;
+
+type OccurrenceMapExtentQuery = {
+  occurrenceSearch?: {
+    stats?: {
+      decimalLatitude?: { min?: number | null; max?: number | null } | null;
+      decimalLongitude?: { min?: number | null; max?: number | null } | null;
+    } | null;
+  } | null;
+};
+
 interface MapProps {
   style?: CSSProperties;
   className?: string;
@@ -51,6 +80,10 @@ interface LoadHashAndCountParams {
     variables: OccurrenceMapQueryVariables;
   }) => void;
   countLoad: (options: {
+    keepDataWhileLoading: boolean;
+    variables: OccurrenceMapQueryVariables;
+  }) => void;
+  extentLoad: (options: {
     keepDataWhileLoading: boolean;
     variables: OccurrenceMapQueryVariables;
   }) => void;
@@ -80,9 +113,15 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
     lazyLoad: true,
     throwAllErrors: true,
   });
+  const { data: extentData, load: extentLoad } = useQuery<
+    OccurrenceMapExtentQuery,
+    OccurrenceMapQueryVariables
+  >(OCCURRENCE_MAP_EXTENT, {
+    lazyLoad: true,
+  });
 
   const loadHashAndCount = useCallback(
-    ({ filter, searchContext, searchConfig, load, countLoad }: LoadHashAndCountParams) => {
+    ({ filter, searchContext, searchConfig, load, countLoad, extentLoad }: LoadHashAndCountParams) => {
       const query = getAsQuery({ filter, searchContext, searchConfig });
       const predicate: Predicate = {
         type: PredicateType.And,
@@ -97,6 +136,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
       };
       load({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
       countLoad({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
+      extentLoad({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
     },
     []
   );
@@ -107,11 +147,20 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
       searchConfig,
       load,
       countLoad,
+      extentLoad,
       searchContext,
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFilterContext.filterHash, searchContext, scope, load, countLoad, loadHashAndCount]);
+  }, [
+    currentFilterContext.filterHash,
+    searchContext,
+    scope,
+    load,
+    countLoad,
+    extentLoad,
+    loadHashAndCount,
+  ]);
 
   // use memo to store the current geometries (filter.must?.geometry ?? []).map((x) => x.toString())
   const features = useMemo(() => {
@@ -136,9 +185,10 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
       searchContext,
       load,
       countLoad,
+      extentLoad,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFilterContext.filterHash, searchContext, searchConfig, load, countLoad]);
+  }, [currentFilterContext.filterHash, searchContext, searchConfig, load, countLoad, extentLoad]);
 
   const handleFeatureChange = useCallback(
     ({ features }: HandleFeatureChangeParams) => {
@@ -148,6 +198,11 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   );
 
   const q = currentFilterContext.filter?.must?.q?.[0];
+
+  const dataBBox = useMemo(
+    () => statsToBoundingBox(extentData?.occurrenceSearch?.stats),
+    [extentData]
+  );
 
   const options: MapPresentationProps = {
     loading: loading || !data,
@@ -166,6 +221,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
     defaultMapSettings: mapSettings,
     onFeaturesChange: handleFeatureChange,
     features,
+    dataBBox,
     style,
     className,
     mapStyleAttr,

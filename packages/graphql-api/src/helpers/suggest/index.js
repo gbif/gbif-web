@@ -3,7 +3,6 @@
 // my ideas: wkt, sequence, has sequence
 // thomas: publishers
 
-// import colSuggest from '@/resources/gbif/taxon/colSuggest';
 import axios from 'axios';
 import { matchSorter } from 'match-sorter';
 import config from '../../config';

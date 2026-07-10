@@ -15,20 +15,26 @@ function loggingMiddleware(req, res, next) {
     const executionTime = process.hrtime(startTime);
     const elapsedMilliseconds = (executionTime[0] * 1e9 + executionTime[1]) / 1e6;
 
+    // Per-request log fields, set on req by the middleware in index.js.
+    const { requestId, siteUrl } = req.logContext || {};
+
     logger.info({
       message: 'ES-API Request',
-      time: date.toISOString(),
-      timeInCopenhagen: date.toLocaleString('en-GB', { timeZone: 'Europe/Copenhagen' }),
-      executionTimeMs: Math.round(elapsedMilliseconds),
+      ...(requestId ? { requestId } : {}),
+      ...(siteUrl ? { siteUrl } : {}),
+      durationMs: Math.round(elapsedMilliseconds),
       request: {
-        headers: req.headers,
-        body: req.body,
         method: req.method,
         url: req.url,
+        originalUrl: req.originalUrl,
+        ip: req.ip,
+        referrer: req.get('Referrer'),
+        userAgent: req.get('User-Agent'),
+        body: req.body,
       },
       response: {
         statusCode: res.statusCode,
-        headers: res.headers,
+        cacheControl: res.get('Cache-Control'),
         body: res.body,
       },
     });

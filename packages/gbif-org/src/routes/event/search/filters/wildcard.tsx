@@ -8,8 +8,8 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
   queryKey: 'sampleSizeUnit',
   displayName: WildcardLabel,
   filterTranslation: 'filters.sampleSizeUnit.name',
-  allowExistence: true,
-  allowNegations: true,
+  allowExistence: false,
+  allowNegations: false,
   suggestQuery: `
     query EventSampleSizeUnitFacet($q: String, $query: EventSearchInput, $size: Int){
       search: eventSearch(q: $q, query: $query) {
@@ -34,8 +34,8 @@ export const eventTypeConfig: filterWildcardConfig = {
   queryKey: 'eventType',
   displayName: WildcardLabel,
   filterTranslation: 'filters.eventType.name',
-  allowExistence: true,
-  allowNegations: true,
+  allowExistence: false,
+  allowNegations: false,
   suggestQuery: `
     query EventTypeFacet($q: String, $query: EventSearchInput, $size: Int){
       search: eventSearch(q: $q, query: $query) {
@@ -62,8 +62,8 @@ export const eventTypeConfig: filterWildcardConfig = {
   queryKey: 'locality',
   displayName: WildcardLabel,
   filterTranslation: 'filters.locality.name',
-  allowExistence: true,
-  allowNegations: true,
+  allowExistence: false,
+  allowNegations: false,
   suggestQuery: `
     query EventLocalityFacet($q: String, $query: EventSearchInput){
       search: eventSearch(q: $q, query: $query) {

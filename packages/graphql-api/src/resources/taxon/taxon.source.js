@@ -1,0 +1,227 @@
+import { stringify } from 'qs';
+import { getTaxonAgent } from '@/requestAgents';
+import QueuedRESTDataSource from '@/QueuedRESTDataSource.js';
+
+class TaxonAPI extends QueuedRESTDataSource {
+  constructor(config) {
+    super({
+      // Bulkhead pool for the experimental taxon API. Concurrency is configured
+      // per pool in .env (requestPools.taxon.concurrency); see requestPools.ts.
+      pool: 'taxon',
+    });
+    this.baseURL = `${config.apiv2}/experimental`;
+    this.config = config;
+  }
+
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    if (this.context.referer) request.headers.referer = this.context.referer;
+    if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
+    if (this.context.siteUrl) request.headers['x-gbif-site-url'] = this.context.siteUrl;
+    if (this.context.requestId) request.headers['x-request-id'] = this.context.requestId;
+    if (this.context.clientIp) request.headers['x-client-ip'] = this.context.clientIp;
+    request.agent = getTaxonAgent(this.baseURL, path);
+  }
+
+  async taxonSearch({ datasetKey, query }) {
+    const response = await this.get(`/taxon/search/${datasetKey}`, stringify(query, { indices: false }), {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+    response._query = query;
+    response._datasetKey = datasetKey;
+    return response;
+  }
+
+  async getDatasetTree({ datasetKey }) {
+    return this.get(`/taxon/tree/${datasetKey}`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getTaxon({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getTaxonInfo({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/info`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    }).then((response) => {
+      // add logic to add isNamePublishedIn field to the bibliographic item if it matches the taxon namePublishedInID
+      const { taxon } = response;
+      const namePublishedInID = taxon?.namePublishedInID;
+      if (namePublishedInID && response.bibliography) {
+        response.bibliography.forEach((item) => {
+          item.isNamePublishedIn = item.referenceID === namePublishedInID;
+        });
+      }
+      // sort bibliography so that the item with isNamePublishedIn true is first
+      if (response.bibliography) {
+        response.bibliography.sort((a, b) => {
+          if (a.isNamePublishedIn && !b.isNamePublishedIn) {
+            return -1;
+          }
+          if (!a.isNamePublishedIn && b.isNamePublishedIn) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      // next we need to enrich the homotypic synonyms with the boolean isOriginalNameUsage if it match the taxon.originalNameUsageID
+      const originalNameUsageID = taxon?.originalNameUsageID;
+      if (originalNameUsageID && response?.synonyms?.homotypic) {
+        response.synonyms.homotypic.forEach((item) => {
+          item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
+        });
+      }
+      if (originalNameUsageID && response?.synonyms?.heterotypic) {
+        response.synonyms.heterotypic.forEach((item) => {
+          item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
+        });
+      }
+
+      return response;
+    });
+  }
+
+  async getRelatedTaxonInfo({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/relatedInfo`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getTaxGroups() {
+    return this.get(`${this.config.checklistBank}/vocab/taxgroup`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getRelated({ datasetKey, key, query = {} }) {
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/related`, query, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getChildren({ datasetKey, key, query = {} }) {
+    return this.get(`/taxon/tree/${datasetKey}/${encodeURIComponent(key)}/children`, query, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getParents({ datasetKey, key, query = {} }) {
+    return this.get(`/taxon/tree/${datasetKey}/${encodeURIComponent(key)}`, query, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async taxonBreakdown({ datasetKey, key }) {
+    return this.get(`/taxon/${datasetKey}/${encodeURIComponent(key)}/breakdown`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
+    return this.get(`${this.config.apiv2}/species/match/metadata?`, stringify({ checklistKey }, { indices: false }), {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getChecklistBankDataset({ clbDatasetKey }) {
+    return this.get(`${this.config.checklistBank}/dataset/${clbDatasetKey}`, null, {
+      enQueue: true,
+      signal: this.context.abortController.signal,
+    });
+  }
+
+  async getSpeciesMatchByUsageKey({ usageKey, checklistKey = this.config.defaultChecklist }) {
+    const isIncertaeSedis = usageKey === 0 || usageKey === '0';
+    return this.get(
+      `${this.config.apiv2}/species/match?`,
+      stringify({ checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey }, { indices: false }),
+      { enQueue: true, signal: this.context.abortController.signal },
+    ).then((result) => {
+      if (!result.usage) {
+        return null;
+      }
+      // extract IUCN status if any
+      const iucnEntry = result?.additionalStatus?.find((x) => x.datasetAlias === 'IUCN');
+      return {
+        ...result,
+        checklistKey,
+        iucnStatus: iucnEntry?.status,
+        iucnStatusCode: iucnEntry?.statusCode,
+      };
+    });
+  }
+
+  async getSpeciesMatchByName({ name, checklistKey = this.config.defaultChecklist }) {
+    return this.get(
+      `${this.config.apiv2}/species/match?`,
+      stringify({ checklistKey, scientificName: name }, { indices: false }),
+      { enQueue: true, signal: this.context.abortController.signal },
+    ).then((result) => {
+      if (!result.usage) {
+        return null;
+      }
+
+      return {
+        ...result,
+        checklistKey,
+      };
+    });
+  }
+
+  async matchBackboneToCol({ taxonID }) {
+    return this.get(
+      `${this.config.apiv2}/species/match?`,
+      stringify({ checklistKey: 'xcol', taxonID }, { indices: false }),
+      { enQueue: true, signal: this.context.abortController.signal },
+    ).then((result) => {
+      if (!result.usage) {
+        return null;
+      }
+      return result.usage;
+    });
+  }
+
+  async getRelatedEntryInWikidata({ taxonID }) {
+    return this.get(
+      `${this.config.apiv2}/species/match/joins/${taxonID}?`,
+      stringify({ checklistKey: 'xcol' }, { indices: false }),
+      { enQueue: true, signal: this.context.abortController.signal },
+    ).then((result) => {
+      // returns an array. filter for an object with datasetKey = ac5f72cf-172d-4eb4-ad8c-db66ea1c78e5
+      if (!result || !Array.isArray(result) || result.length === 0) {
+        return null;
+      }
+      const wikidataEntry = result.find((entry) => entry.datasetKey === 'ac5f72cf-172d-4eb4-ad8c-db66ea1c78e5');
+      if (!wikidataEntry) {
+        return null;
+      }
+      return wikidataEntry;
+    });
+  }
+
+  async getTaxonOccurrenceMedia({ taxonKey, checklistKey = this.config.defaultChecklist, limit, offset, mediaType }) {
+    return this.get(
+      `${this.config.apiv1}/occurrence/experimental/multimedia/species/${checklistKey}/${taxonKey}/`,
+      { limit, offset, mediaType },
+      { enQueue: true, signal: this.context.abortController.signal },
+    );
+  }
+}
+
+export default TaxonAPI;

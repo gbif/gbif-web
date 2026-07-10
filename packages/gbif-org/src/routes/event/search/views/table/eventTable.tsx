@@ -2,13 +2,11 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { getAsQuery } from '@/components/filters/filterTools';
 import {
   FallbackTableOptions,
-  RowLinkOptions,
   useAvailableAndDefaultEnabledColumns,
   usePaginationState,
 } from '@/components/searchTable';
 import { SearchTable } from '@/components/searchTable/index';
 import { SearchTableServerFallback } from '@/components/searchTable/table';
-import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
@@ -16,14 +14,11 @@ import { EventSearchQuery, EventSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
-import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useEventColumns } from './columns';
-import { useParams } from 'react-router-dom';
 import { LinkData } from '@/reactRouterPlugins/dynamicLink';
 
 const EVENT_SEARCH_QUERY = /* GraphQL */ `
@@ -40,27 +35,25 @@ const EVENT_SEARCH_QUERY = /* GraphQL */ `
         year
         month
         eventID
+        parentEventID
         locationID
-        measurementOrFactTypes
-        measurementOrFactMethods
         coordinates
-        eventHierarchyJoined
         formattedCoordinates
         country
-        countryCode
-        datasetTitle
         datasetKey
+        dataset {
+          title
+        }
         samplingProtocol
-        eventTypeHierarchy
-        eventTypeHierarchyJoined
         stateProvince
-        locality
       }
     }
   }
 `;
 
-export type SingleEventSearchResult = ExtractPaginatedResult<EventSearchQuery['eventSearch']>;
+export type SingleEventSearchResult = NonNullable<
+  NonNullable<EventSearchQuery['eventSearch']>['results'][number]
+>;
 
 const keySelector = (item: SingleEventSearchResult) => item?.eventID?.toString() ?? '';
 
@@ -68,6 +61,7 @@ const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['eventId'],
   defaultEnabledTableColumns: [
     'eventId',
+    'parentEventId',
     'country',
     'coordinates',
     'year',
@@ -89,7 +83,6 @@ export function EventTable() {
 
 export function EventTableClient() {
   const searchContext = useSearchContext();
-  const { key: datasetKey } = useParams<{ key: string }>();
 
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
@@ -123,7 +116,7 @@ export function EventTableClient() {
   const [, setPreviewKey] = useEntityDrawer();
 
   const columns = useEventColumns({
-    showPreview: (key) => setPreviewKey(`e_${datasetKey}___${key}`),
+    showPreview: (rowDatasetKey, eventID) => setPreviewKey(`e_${rowDatasetKey}_${eventID}`),
   });
   if (typeof window !== 'undefined') {
     window.gbif = window.gbif || {};
@@ -149,7 +142,7 @@ export function EventTableClient() {
   const createRowLink = (item: SingleEventSearchResult) => {
     return {
       type: 'link',
-      to: `/dataset/${datasetKey}/event/${keySelector(item)}`,
+      to: `/dataset/${item.datasetKey}/event/${keySelector(item)}`,
     } as LinkData;
   }; //useRowLink({ rowLinkOptions, keySelector });
 
@@ -178,24 +171,4 @@ export function EventTableClient() {
       />
     </>
   );
-}
-
-function PartialDataWarning({
-  customMessageKey,
-  customDescriptionKey,
-}: {
-  customMessageKey?: string;
-  customDescriptionKey?: string;
-}) {
-  const { toast } = useToast();
-  useEffect(() => {
-    toast({
-      title: <FormattedMessage id={customMessageKey ?? 'Not all data could be loaded'} />,
-      description: customDescriptionKey ? (
-        <FormattedMessage id={customDescriptionKey} />
-      ) : undefined,
-      variant: 'destructive',
-    });
-  }, [customMessageKey, customDescriptionKey, toast]);
-  return null;
 }

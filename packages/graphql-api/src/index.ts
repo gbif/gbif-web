@@ -1,25 +1,28 @@
+import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheControl';
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
+import { expressMiddleware } from '@as-integrations/express4';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
-import { ApolloServerPluginCacheControl } from 'apollo-server-core';
-import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
+import { randomUUID } from 'crypto';
 import express from 'express';
 import { get } from 'lodash';
-import { setMaxListeners } from 'node:events';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
 import depthLimit from 'graphql-depth-limit';
 
 // Local imports
 import config from './config';
+import createContext from './createContext';
+import { getRequestLogContext, requestContextStorage } from './requestContext';
 import health from './health';
+import adminController from './admin';
 import { graphqlExplorer, hashMiddleware } from './middleware';
 // get the full schema of what types, enums, scalars and queries are available
 import getSchema from './typeDefs';
 // define how to resolve the various types, fields and queries
 import resolvers from './resolvers';
-// how to fetch the actual data and possible format/remap it to match the schemas
-import api from './dataSources';
 // we will attach a user if an authorization header is present.
 import feedbackController from './api-utils/forms/feedback';
 import citesController from './api-utils/cites.ctrl';
@@ -32,6 +35,8 @@ import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
 import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
+import abortControllerForRequest from './helpers/abortOnClientDisconnect';
+import overloadGuard from './overloadGuard';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import headerBasedCachePlugin from './plugins/headerBasedCachePlugin';
 import loggingPlugin from './plugins/loggingPlugin';
@@ -43,58 +48,24 @@ async function initializeServer() {
   const typeDefs = await getSchema();
   const server = new ApolloServer({
     cache: new InMemoryLRUCache(),
-    debug: config.debug,
-    context: async ({ req, res }) => {
-      // on all requests attach a user if present
-      const user = await extractUser(get(req, 'headers.authorization'));
-      if (user) {
-        // it isn't possible to set cache headers on the response object here as the cache control headers will be overwritten by the apollo cache plugin
-        // res.header(
-        //   'Cache-Control',
-        //   'private, no-cache, no-store, must-revalidate',
-        // );
-        res.header('Pragma', 'no-cache');
-        res.header('Expires', '0');
-        res.header('Surrogate-Control', 'no-store');
-      }
-
-      // Add express context and a listener for aborted connections. Then data sources have a chance to cancel resources
-      // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
-      // Perhaps the overhead isn't worth it in most cases?
-      const controller = new AbortController();
-      // Default is 10, we exceed this sometimes with nested resolves that utilize cancellation
-      setMaxListeners(100, controller.signal);
-      if (req) {
-        req.on('close', () => {
-          controller.abort();
-        });
-      }
-
-      return {
-        user,
-        abortController: controller,
-        userAgent: get(req, 'headers.User-Agent') || 'GBIF_GRAPHQL_API',
-        // we could also forward the full header I suppose. For now it is just the referer
-        referer: get(req, 'headers.referer') || null,
-        locale: get(req, 'headers.locale') || 'en-GB',
-        preview: get(req, 'headers.preview') === 'true',
-        queryId: res ? res.get('X-Graphql-query-ID') : null,
-        variablesId: res ? res.get('X-Graphql-variables-ID') : null,
-      };
-    },
     typeDefs,
     resolvers,
-    dataSources: () =>
-      Object.keys(api).reduce(
-        (prev, cur) => ({
-          ...prev,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          [cur]: new (api as { [key: string]: any })[cur](config),
-        }),
-        {},
-      ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
+    // Keep introspection enabled in all environments so the self-hosted GraphiQL
+    // sandbox (served from public/graphql-sandbox.html) can fetch the schema.
+    introspection: true,
+    // Apollo Server 4+ enables CSRF prevention by default, which blocks "simple"
+    // GET requests that lack a JSON content-type (e.g. pasting a /graphql?query=
+    // URL in the browser, shared query links, the loggingPlugin playgroundLink).
+    // We intentionally support GET-by-URL (it powers our GET caching), and the
+    // API authenticates via the Authorization header / JWT rather than cookies,
+    // so the CSRF vector (ambient cookie credentials) does not apply. Disabling
+    // it restores the apollo-server v3 behaviour.
+    csrfPrevention: false,
     validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     plugins: [
+      // We serve our own GraphiQL sandbox via the graphqlExplorer middleware,
+      // so disable Apollo's built-in landing page.
+      ApolloServerPluginLandingPageDisabled(),
       ApolloServerPluginCacheControl({
         defaultMaxAge: config.debug ? 0 : 603,
       }),
@@ -105,6 +76,55 @@ async function initializeServer() {
     logger: console,
   });
 
+  // The per-request context. In Apollo Server 4+ the `dataSources` and `context`
+  // constructor options were removed; data sources are now created inside the
+  // context function (see createContext) and exposed on the returned object.
+  const context = async ({
+    req,
+    res,
+  }: {
+    req: express.Request;
+    res: express.Response;
+  }) => {
+    // on all requests attach a user if present
+    const user = await extractUser(get(req, 'headers.authorization'));
+    if (user) {
+      // it isn't possible to set cache headers on the response object here as the cache control headers will be overwritten by the apollo cache plugin
+      // res.header(
+      //   'Cache-Control',
+      //   'private, no-cache, no-store, must-revalidate',
+      // );
+      res.header('Pragma', 'no-cache');
+      res.header('Expires', '0');
+      res.header('Surrogate-Control', 'no-store');
+    }
+
+    // Abort the request's work if the client disconnects before we respond, so
+    // data sources can cancel in-flight upstream calls and drop queued ones.
+    const controller = abortControllerForRequest(req, res);
+
+    return createContext({
+      user,
+      abortController: controller,
+      userAgent: get(req, 'headers.User-Agent') || 'GBIF_GRAPHQL_API',
+      // we could also forward the full header I suppose. For now it is just the referer
+      referer: get(req, 'headers.referer') || null,
+      // x-client-priority is attached by Varnish (1-100, lower = more important).
+      // We forward it to the upstream APIs so they can prioritise/shed under load
+      // — most importantly the es-api behind occurrence search. null when absent.
+      clientPriority: get(req, 'headers.x-client-priority') || null,
+      // The page URL that issued the request, forwarded to upstreams (willSendRequest).
+      siteUrl: get(req, 'headers.x-gbif-site-url') || null,
+      // Read from the store (not regenerated) so the forwarded id matches the one we log.
+      requestId: getRequestLogContext()?.requestId,
+      clientIp: get(req, 'headers.x-client-ip') || null,
+      locale: get(req, 'headers.locale') || 'en-GB',
+      preview: get(req, 'headers.preview') === 'true',
+      queryId: res ? res.get('X-Graphql-query-ID') : null,
+      variablesId: res ? res.get('X-Graphql-variables-ID') : null,
+    });
+  };
+
   const app = express();
   app.use(compression());
   app.use(
@@ -112,6 +132,21 @@ async function initializeServer() {
       methods: 'GET,POST,OPTIONS',
     }),
   );
+  // Open a request-scoped store so logger.ts can stamp every log line for this
+  // request. Placed early (before next()) so all downstream async work inherits it.
+  app.use((req, _res, next) => {
+    requestContextStorage.run(
+      {
+        requestId: `gql-${randomUUID()}`,
+        siteUrl: get(req, 'headers.x-gbif-site-url') || null,
+      },
+      () => next(),
+    );
+  });
+  // Shed load (fast 503) before the expensive per-request work — body parsing,
+  // GraphQL parse/validate, context build. Only guards configured paths
+  // (default /graphql) and never /health. No-op unless enabled in config.
+  app.use(overloadGuard);
   app.use(express.static('public'));
   app.use(bodyParser.json({ limit: '1mb' }));
 
@@ -133,8 +168,14 @@ async function initializeServer() {
 
   app.get('/health', health);
 
+  // Authenticated runtime settings API for inspecting graphql server settings and changing log level and overload guard settings on the fly.
+  adminController(app);
+
+  // Apollo Server 4+ requires start() to be awaited before mounting the middleware.
   await server.start();
-  server.applyMiddleware({ app });
+  // Mounts on /graphql, after the hash + explorer middleware registered above.
+  // cors() and bodyParser.json() are already applied globally on `app`.
+  app.use('/graphql', expressMiddleware(server, { context }));
   feedbackController(app);
   mapController(app);
   ipController(app);
@@ -146,9 +187,7 @@ async function initializeServer() {
   sourceArchiveCtrl(app);
   citesController(app);
   app.listen({ port: config.port }, () =>
-    console.log(
-      `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`,
-    ),
+    console.log(`🚀 Server ready at http://localhost:${config.port}/graphql`),
   );
 }
 

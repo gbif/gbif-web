@@ -8,6 +8,7 @@
   "vernacularNames": "俗名",
   "viewOnCatalogueOfLife": "",
   "viewInChecklistBank": "",
+  "viewInDefaultTaxonomy": "",
   "rank": "类群排名",
   "source": "来源",
   "specimenIsTypeOf": "等于 {is}",

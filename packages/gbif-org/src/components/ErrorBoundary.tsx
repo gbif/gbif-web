@@ -2,7 +2,6 @@ import { OccurrenceSortBy, SortOrder } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import useLocalStorage from 'use-local-storage';
 import { ErrorImage } from './icons/icons';
 import { Button } from './ui/button';
 import { Card } from './ui/smallCard';
@@ -10,7 +9,7 @@ import { Card } from './ui/smallCard';
 interface ErrorBoundaryProps {
   children: React.ReactNode;
   invalidateOn?: string | number | boolean | object | null;
-  type?: 'PAGE' | 'BLOCK' | 'CARD';
+  type?: 'PAGE' | 'BLOCK' | 'CARD' | 'INLINE';
   className?: string;
   title?: React.ReactNode;
   errorMessage?: React.ReactNode;
@@ -58,6 +57,14 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       return this.props.children;
     }
 
+    if (this.props.type === 'INLINE') {
+      return (
+        <span className={cn('g-text-red-500 g-font-bold g-text-sm', this.props.className)}>
+          <FormattedMessage id="error.inline" defaultMessage="Error" />
+        </span>
+      );
+    }
+
     return (
       this.props.fallback ?? (
         <ErrorComponent
@@ -87,7 +94,6 @@ export function ErrorComponent({
   type,
   className,
   title,
-  errorMessage,
   additionalDebugInfo,
   showReportButton = true,
   showStackTrace,
@@ -95,39 +101,30 @@ export function ErrorComponent({
   reload,
 }: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children' | 'fallback'> & {
   error: Error;
-  reload?: () => void;
+  reload?: () => void | boolean;
 }): React.ReactElement {
-  const [occurrenceSort] = useLocalStorage<{ sortBy?: OccurrenceSortBy; sortOrder: SortOrder }>(
-    'occurrenceSort',
-    { sortBy: undefined, sortOrder: SortOrder.Asc }
-  );
   const [showStack, setShowStack] = useState(false);
-  const displayTitle = title ?? (
-    <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
-  );
-  let displayDescription = errorMessage;
-  if (!displayDescription && type === 'PAGE') {
-    displayDescription = (
+  const displayTitle =
+    title ??
+    (reload ? (
       <FormattedMessage
-        id="error.genericDescription"
-        defaultMessage="An unexpected error occurred. Please try again later."
+        id="error.genericRetry"
+        defaultMessage="Something went wrong. Please retry"
       />
-    );
-  }
+    ) : (
+      <FormattedMessage id="error.genericDescription" defaultMessage="Something went wrong" />
+    ));
 
   const commonContent = (
     <div className="g-max-w-full">
-      <h1 className="g-mb-0 g-text-slate-500 g-font-bold">{displayTitle}</h1>
-      {displayDescription && (
-        <p className="g-text-slate-500 g-mt-2 g-text-sm">{displayDescription}</p>
-      )}
+      <h1 className="g-mb-0 g-text-slate-500 g-font-bold g-mt-2">{displayTitle}</h1>
       <div className="g-flex g-flex-row g-gap-2 g-my-4 g-items-center g-justify-center">
-        {showReportButton && reload && (
-          <Button variant="ghost" size="sm" className="g-text-slate-500" asChild>
+        {reload && (
+          <Button size="sm" className="g-text-slate-500" asChild>
             <a
               href=""
               onClick={() => {
-                if (reload) {
+                if (reload && typeof reload === 'function') {
                   reload();
                 } else {
                   if (typeof window !== 'undefined') {
@@ -142,7 +139,7 @@ export function ErrorComponent({
           </Button>
         )}
         {showReportButton && (
-          <Button asChild size="sm">
+          <Button variant="ghost" asChild size="sm">
             <a
               target="_blank"
               href={`https://github.com/gbif/gbif-web/issues/new?body=${encodeURIComponent(
@@ -150,7 +147,6 @@ export function ErrorComponent({
                   error,
                   title: debugTitle,
                   additionalInfo: additionalDebugInfo,
-                  occurrenceSort,
                 })
               )}`}
             >

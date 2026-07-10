@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "Przeszukiwanie zbiorów danych",
-  "datasetSearchDescription": "",
+  "datasetSearchDescription": "Wyszukaj zbiory danych w GBIF. Bezpłatny i otwarty dostęp do danych dotyczących różnorodności biologicznej.",
   "longType": {
     "OCCURRENCE": "Zbiór danych wystąpień",
     "CHECKLIST": "Zbiór danych dotyczących wykazów gatunków",
@@ -25,43 +25,42 @@
     "events": "Wydarzenia"
   },
   "metricsTab": {
-    "selectGroup": "",
+    "selectGroup": "Wybierz grupę metryk",
     "group": {
       "checklist": "Checklista",
       "downloads": "Pobrania",
-      "taxonomic": "",
-      "geographic": "",
+      "taxonomic": "Taksonomiczne",
+      "geographic": "Geograficzne",
       "temporal": "Czasowy",
-      "qualities": "",
+      "qualities": "Problemy i cechy",
       "citations": "Cytowania"
     },
     "checklist": {
-      "notAvailable": "",
-      "overview": "",
-      "overviewDescription": "",
-      "usagesCount": "",
-      "distinctNamesCount": "",
+      "info": "",
+      "checklistbank": "",
+      "notAvailable": "Metryki checklist nie są dostępne dla tego zestawu danych.",
+      "overview": "Przegląd checklist",
+      "overviewDescription": "Statystyki podsumowujące dla tego zestawu checklist",
+      "usagesCount": "Łączna liczba użyć nazw",
+      "distinctNamesCount": "Odrębne nazwy",
       "synonymsCount": "Synonimy",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
-      "colMatchingCount": "",
-      "colCoveragePct": "",
-      "countByKingdom": "",
-      "countByKingdomDescription": "",
-      "countByRank": "",
-      "countByRankDescription": "",
-      "countByOrigin": "",
-      "countByOriginDescription": "",
+      "colMatchingCount": "Dopasowanie do COL",
+      "countByKingdom": "Zliczenie według królestwa",
+      "countByKingdomDescription": "Dystrybucja użycia nazw w różnych królestwach",
+      "countByRank": "Zliczenie według rangi",
+      "countByRankDescription": "Dystrybucja użycia nazw w różnych rangach taksonomicznych",
+      "countByOrigin": "Zliczenie według źródła",
+      "countByOriginDescription": "Dystrybucja użycia nazw w zależności od pochodzenia",
       "origin": "Źródło",
-      "countByIssue": "",
-      "countByIssueDescription": "",
+      "countByIssue": "Zliczenie według problemu",
+      "countByIssueDescription": "Dystrybucja problemów z jakością danych",
       "count": "Zliczenie"
     }
   },
   "noStatsForMetadata": "Brak dostępnych statystyk dla zbiorów zawierających tylko metadane",
   "metadataOnlyWithData": {
-    "title": "",
-    "description": ""
+    "title": "Zestaw danych zawierający wyłącznie metadane",
+    "description": "Ten zbiór danych został opublikowany jako zbiór samych metadanych, ale zawiera dane o wystąpieniach. Sugeruje to, że dane mogły zostać nieprawidłowo zmapowane."
   },
   "siteScopeSmallerThanDataset": "Nie wszystkie wyniki z zestawu danych są uwzględnione na tej stronie. Korzystanie z pełnego zestawu możliwe po wejściu na [GBIF.org]({datasetUrl}).",
   "viewArticle": "Zobacz artykuł",
@@ -70,7 +69,7 @@
   "dataset": "Zbiór danych",
   "taxonomy": "Taksonomia",
   "localContexts": "Współfinansowany przez",
-  "localContextsLabelsAppliedBy": "",
+  "localContextsLabelsAppliedBy": "{count, plural, one{etykieta} few {etykiety} many {etykiet} other{etykiet}}  zastosowane przez {communityName}",
   "project": "Projekt",
   "metrics": "Wskaźniki",
   "metricsOccurrenceHelpText": "Metryki są oparte na zinterpretowanych danych",
@@ -89,6 +88,7 @@
   "studyArea": "Obszar badawczy",
   "publishedBy": "Opublikowano przez",
   "mediatedBy": "Za pośrednictwem",
+  "extensions": "Rozszerzenia",
   "description": "Opis",
   "metadataLanguage": "Język metadanych",
   "dataLanguage": "Język danych",
@@ -120,14 +120,14 @@
   "additionalInfo": "Dodatkowe informacje",
   "publishingCountriesAreas": "Kraje i regiony publikujące dane",
   "originalArchive": "Archiwum źródłowe",
-  "originalArchiveDescription": "",
-  "checklistBankDownload": "",
-  "checklistBankDownloadDescription": "",
+  "originalArchiveDescription": "Archiwum źródłowe to dane opublikowane w GBIF bez żadnej normalizacji ani przetwarzania przez GBIF.",
+  "checklistBankDownload": "Pobierz z ChecklistBank",
+  "checklistBankDownloadDescription": "To archiwum trafia do GBIF za pośrednictwem ChecklistBank. ChecklistBank oferuje wiele formatów pobierania oraz opcje filtrowania checklist przed pobraniem.",
   "annotatedEml": "Metadane z adnotacjami GBIF",
   "license": "Licencja",
   "recommended": "Polecane",
-  "processedOccurrences": "",
-  "processedOccurrencesDescription": "",
+  "processedOccurrences": "Archiwum zdarzeń z adnotacjami GBIF",
+  "processedOccurrencesDescription": "Pobierz rekordy po przetworzeniu przez GBIF. Podczas przetwarzania nazwy, daty itp. są normalizowane. Dane są również wzbogacane o informacje z innych źródeł.\n\nPamiętaj, że do pobrania treści wymagane jest konto.",
   "noDescriptionProvided": "Opis niedostępny",
   "pNetwork": "{NUMBER, plural, one{sieć} few {sieci} many {sieci} other{sieci}}",
   "parentEvent": "Nadrzędne zdarzenie",
@@ -187,13 +187,14 @@
     "lastIngestionFailed": "Ostatnie wczytywanie się nie powiodło",
     "outOfSync": "Brak synchronizacji",
     "becauseTrustedContact": "Ponieważ jesteś zaufanym kontaktem",
-    "registrationDetails": ""
+    "registrationDetails": "Szczegóły rejestracji GBIF"
   },
   "errors": {
     "evenList": "Współfinansowany przez",
     "occurrenceInfo": "Współfinansowany przez"
   },
   "eventTaxonomy": "Dystrybucja taksonomiczna wystąpień",
-  "noCitations": "",
-  "noOccurrences": "Brak wystąpień"
+  "noCitations": "Brak cytowań",
+  "noOccurrences": "Brak wystąpień",
+  "eventWarning": ""
 }

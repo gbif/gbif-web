@@ -16,6 +16,7 @@ export interface CubeSqlGenerationOptions {
   removeRecordsAtCentroids?: boolean;
   removeFossilsAndLiving?: boolean;
   removeAbsenceRecords?: boolean;
+  checklistKey?: string;
 }
 
 export interface CubeSqlResponse {
@@ -29,7 +30,8 @@ export interface CubeSqlResponse {
  */
 export function convertCubeDimensionsToSqlOptions(
   cube: CubeDimensions,
-  predicate?: any
+  predicate?: any,
+  checklistKey?: string
 ): CubeSqlGenerationOptions {
   const options: CubeSqlGenerationOptions = {
     taxonomy: cube.taxonomicLevel,
@@ -41,6 +43,7 @@ export function convertCubeDimensionsToSqlOptions(
     includeTemporalUncertainty: cube.includeTemporalUncertainty,
     includeSpatialUncertainty: cube.includeSpatialUncertainty,
     predicate,
+    checklistKey,
   };
 
   // Apply data quality filters
@@ -72,6 +75,7 @@ export function convertCubeDimensionsToSqlOptions(
           type: 'in',
           key: 'TAXONOMIC_ISSUE',
           values: ['TAXON_MATCH_FUZZY'],
+          checklistKey,
         },
       });
     }
@@ -117,9 +121,10 @@ export function convertCubeDimensionsToSqlOptions(
  */
 export async function generateCubeSql(
   dimensions: CubeDimensions,
-  predicate?: any
+  predicate?: any,
+  checklistKey?: string
 ): Promise<CubeSqlResponse> {
-  const options = convertCubeDimensionsToSqlOptions(dimensions, predicate);
+  const options = convertCubeDimensionsToSqlOptions(dimensions, predicate, checklistKey);
 
   const response = await fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/generate-sql`, {
     method: 'POST',
@@ -140,7 +145,7 @@ export function hasFilter(filter?: FilterType, field?: string): boolean {
   if (!filter || !field) return false;
   return Boolean(
     typeof filter.must?.[field]?.length !== 'undefined' ||
-      typeof filter.mustNot?.[field]?.length !== 'undefined'
+    typeof filter.mustNot?.[field]?.length !== 'undefined'
   );
 }
 

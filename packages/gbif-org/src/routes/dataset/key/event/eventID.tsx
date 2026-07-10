@@ -1,32 +1,57 @@
+import EmptyTab from '@/components/EmptyTab';
 import {
   DatasetEventQuery,
   DatasetEventQueryVariables,
+  DatasetType,
   EventQuery,
   EventQueryVariables,
-  DatasetType,
 } from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
-
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { required } from '@/utils/required';
-import { useEffect } from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
-
-import { Event } from './event';
-import { GRAPHQL_EVENT } from '../../../event/key/EventDrawer';
+import { useLoaderData } from 'react-router-dom';
 import { useDatasetKeyContext } from '../datasetKey';
-import EmptyTab from '@/components/EmptyTab';
+import { DATASET_EVENT_QUERY } from './datasetEventQuery';
+import { InferredEventDetail } from './inferredFromOccurrence/inferredEventDetail';
+import { EVENT_KEY_QUERY } from './samplingEvent/eventKeyQuery';
+import { SamplingEventDetail } from './samplingEvent/samplingEventDetail';
 
-export function eventLoader({ params, graphql }: LoaderArgs) {
+type EventLoaderResult = {
+  data: DatasetEventQuery;
+  eventData: EventQuery | null;
+};
+
+export async function eventLoader({ params, graphql, config }: LoaderArgs): Promise<EventLoaderResult> {
   const key = required(params.key, 'No key was provided in the URL');
   const eventID = required(params.eventID, 'No Event ID was provided in the URL');
 
-  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(EVENT_QUERY, {
-    key,
-    limit: 1,
-    offset: 0,
-    eventID,
-  });
+  // Fetch the dataset-events row + the event API record in parallel. The event
+  // API query only resolves for SAMPLING_EVENT datasets, but we kick it off
+  // unconditionally so the response is ready before render — for non-sampling
+  // datasets the result is simply unused (and any error is swallowed).
+  const [datasetEventsRes, eventRes] = await Promise.all([
+    graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(DATASET_EVENT_QUERY, {
+      key,
+      limit: 1,
+      offset: 0,
+      eventID,
+    }),
+    graphql
+      .query<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
+        eventId: eventID,
+        datasetKey: key,
+        checklistKey: config.defaultChecklistKey,
+      })
+      .catch(() => null),
+  ]);
+
+  const datasetEventsJson = await datasetEventsRes.json();
+  const eventJson = eventRes ? await eventRes.json().catch(() => null) : null;
+
+  return {
+    data: datasetEventsJson.data as DatasetEventQuery,
+    eventData: (eventJson?.data as EventQuery | undefined) ?? null,
+  };
 }
 
 export function parentEventLoader({ params, graphql }: LoaderArgs) {
@@ -36,7 +61,7 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
     'No Parent Event ID was provided in the URL'
   );
 
-  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(EVENT_QUERY, {
+  return graphql.query<DatasetEventQuery, DatasetEventQueryVariables>(DATASET_EVENT_QUERY, {
     optParentEventID: parentEventID,
     key,
     limit: 1,
@@ -44,79 +69,39 @@ export function parentEventLoader({ params, graphql }: LoaderArgs) {
   });
 }
 
+/**
+ * Dispatcher for the dataset event detail route `/dataset/:key/event/:eventID`.
+ *
+ * Sampling-event datasets get the rich `SamplingEventDetail` view (uses the
+ * event API). Other datasets get `InferredEventDetail` which is derived from
+ * occurrence records.
+ */
 export const DatasetEventID = () => {
   const { showEventsTab } = useDatasetKeyContext();
-  if (showEventsTab) return <NoneEmptyTab />;
+  if (showEventsTab) return <DatasetEventDetailDispatcher />;
   return <EmptyTab />;
 };
 
-const NoneEmptyTab = () => {
-  const { data } = useLoaderData() as { data: DatasetEventQuery };
-  const { eventID } = useParams<{ eventID: string }>();
+const DatasetEventDetailDispatcher = () => {
+  const { data, eventData } = useLoaderData() as EventLoaderResult;
+  const { datasetKey } = useDatasetKeyContext();
+  const isSamplingEvent = data?.dataset?.type === DatasetType.SamplingEvent;
 
-  const {
-    data: eventData,
-    loading,
-    error,
-    load,
-  } = useQuery<EventQuery, EventQueryVariables>(GRAPHQL_EVENT, {
-    lazyLoad: true,
-    throwAllErrors: true,
-  });
-
-  useEffect(() => {
-    if (data?.dataset?.type == DatasetType.SamplingEvent) {
-      load({
-        variables: {
-          eventId: eventID,
-          datasetKey: data?.dataset?.key,
-        },
-      });
-    }
-  }, [data?.dataset?.type, data?.dataset?.key, eventID, load]);
-
-  return <Event data={data} eventData={eventData} eventDataLoading={loading} />;
+  return (
+    <div className="g-bg-slate-100 g-px-4 lg:g-px-8">
+      <ArticleTextContainer className="g-max-w-screen-xl g-pb-6">
+        {isSamplingEvent ? (
+          <SamplingEventDetail
+            data={data}
+            eventData={eventData ?? undefined}
+            datasetKey={datasetKey}
+          />
+        ) : (
+          <InferredEventDetail data={data} datasetKey={datasetKey} />
+        )}
+      </ArticleTextContainer>
+    </div>
+  );
 };
 
 export default DatasetEventID;
-
-export const EVENT_QUERY = /* GraphQL */ `
-  query DatasetEvent($key: ID!, $limit: Int, $offset: Int, $eventID: ID, $optParentEventID: ID) {
-    dataset(key: $key) {
-      key
-      type
-      samplingDescription {
-        studyExtent
-        methodSteps
-        sampling
-      }
-      events(
-        key: $key
-        limit: $limit
-        offset: $offset
-        eventID: $eventID
-        optParentEventID: $optParentEventID
-      ) {
-        endOfRecords
-        results {
-          eventId
-          firstOccurrence {
-            volatile {
-              globe {
-                svg
-              }
-            }
-            countryCode
-            eventDate
-            key
-            datasetKey
-            decimalLatitude
-            decimalLongitude
-            parentEventID
-            eventID
-          }
-        }
-      }
-    }
-  }
-`;

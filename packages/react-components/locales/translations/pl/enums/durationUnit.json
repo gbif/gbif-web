@@ -1,0 +1,11 @@
+{
+  "durationUnit": {
+    "SECONDS": "Sekund/y",
+    "MINUTES": "Minuty",
+    "HOURS": "Godziny",
+    "DAYS": "Dni",
+    "WEEKS": "Tygodnie",
+    "MONTHS": "miesiące",
+    "YEARS": "Lata"
+  }
+}

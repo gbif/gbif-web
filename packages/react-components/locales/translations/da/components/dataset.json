@@ -36,16 +36,15 @@
       "citations": ""
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "Synonymer",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "Undersøgt område",
   "publishedBy": "Udgivet af",
   "mediatedBy": "",
+  "extensions": "",
   "description": "Beskriveslse",
   "metadataLanguage": "Metadata sprog",
   "dataLanguage": "Data sprog",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Taksonomisk distribution af observationer",
   "noCitations": "",
-  "noOccurrences": "Ingen observationer"
+  "noOccurrences": "Ingen observationer",
+  "eventWarning": ""
 }

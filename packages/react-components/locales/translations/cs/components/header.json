@@ -1,0 +1,11 @@
+{
+  "header": {
+    "changeLanguage": "Změnit jazyk",
+    "feedback": "Zanechte zpětnou vazbu",
+    "systemStatus": "Stav systému",
+    "profileLinkLabel": "profilová strana pro {userName}",
+    "siteNavigation": "",
+    "search": "Hledat",
+    "profile": "Uživatelský profil"
+  }
+}

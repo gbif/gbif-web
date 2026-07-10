@@ -1,1 +1,17 @@
-{}
+{
+  "generic": "Ocorreu um erro",
+  "genericRequestFailed": "A solicitação falhou",
+  "genericDescription": "Ocorreu um erro inesperado. Tente novamente mais tarde.",
+  "unknown": "Erro desconhecido",
+  "report": "Reportar problema",
+  "retry": "Reportar problema",
+  "partialData": "Nem todos os dados puderam ser carregados",
+  "reloadPage": "Atualizar página",
+  "hideDetails": "Ocultar detalhes",
+  "showDetails": "Mostrar detalhes",
+  "mapFailed": "Não foi possível carregar o mapa",
+  "partialMapFailure": "Algumas camadas de mosaico não carregaram",
+  "maximumResultLimitExceeded": "O número máximo de resultados para paginação é: {MAX_RESULTS}. Refine sua pesquisa ou use a opção de download para acessar todos os resultados.",
+  "mapBrowserIssue": "Se o problema persistir, provavelmente é devido a extensões ou configurações do navegador que impedem o uso de APIs necessárias (por exemplo, WebGL e Canvas).",
+  "webglUnavailable": "O WebGL não está disponível. Verifique as configurações do seu navegador ou tente usar um navegador diferente. Plugins ou extensões também podem bloquear o WebGL."
+}

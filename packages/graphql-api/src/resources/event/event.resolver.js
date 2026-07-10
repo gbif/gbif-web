@@ -1,0 +1,206 @@
+/* eslint-disable no-param-reassign */
+import { formattedCoordinates, simplifyUrlObjectKeys } from '@/helpers/utils';
+import config from '@/config';
+
+/**
+ * Pick scopes from a {checklistKey: [scope, ...]} map.
+ * If a checklistKey is provided, returns only that list.
+ * Otherwise returns the flattened union across all checklists.
+ */
+const pickTaxonomicScopes = (
+  map,
+  checklistKey = config.defaultChecklistKey,
+) => {
+  if (!map || typeof map !== 'object') return null;
+  if (checklistKey) {
+    const list = map[checklistKey];
+    return Array.isArray(list) ? list : null;
+  }
+  return Object.values(map).filter(Array.isArray).flat();
+};
+
+// there are many fields that support facets. This function creates the resolvers for all of them
+
+const getEventFacet =
+  (facetKey) =>
+  (parent, { limit = 10, offset = 0 }, { dataSources }) => {
+    // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      ...parent._query,
+      limit: 0,
+      facet: facetKey,
+      facetLimit: limit,
+      facetOffset: offset,
+    };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.eventAPI.searchEvents({ query }).then((data) => [
+      ...data.facets[0].counts.map((facet) => ({
+        ...facet,
+        // attach the query, but add the facet as a filter
+        _query: {
+          ...parent._query,
+          [facetKey]: facet.name,
+        },
+      })),
+    ]);
+  };
+
+/**
+ * fieldName: (parent, args, context, info) => data;
+ * parent: An object that contains the result returned from the resolver on the parent type
+ * args: An object that contains the arguments passed to the field
+ * context: An object shared by all resolvers in a GraphQL operation. We use the context to contain per-request state such as authentication information and access our data sources.
+ * info: Information about the execution state of the operation which should only be used in advanced cases
+ */
+export default {
+  Query: {
+    eventSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+      dataSources.eventAPI.searchEvents({ query: { ...args, ...query } }),
+    event: (parent, { eventId, datasetKey }, { dataSources }) =>
+      dataSources.eventAPI.getEventByKey({ eventId, datasetKey }),
+  },
+
+  Event: {
+    extensions: (event) => {
+      const extensions = {
+        audubon: event?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'],
+        image: event?.extensions?.['http://rs.gbif.org/terms/1.0/Image'],
+        humboldtEcologicalInventory:
+          event?.extensions?.['http://rs.tdwg.org/eco/terms/Event'],
+        measurementOrFact:
+          event?.extensions?.['http://rs.tdwg.org/dwc/terms/MeasurementOrFact'],
+        multimedia:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
+        extendedMeasurementOrFact:
+          event?.extensions?.[
+            'http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'
+          ],
+        permit:
+          event?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Permit'],
+        preparation:
+          event?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/Preparation'
+          ],
+        dnaDerivedData:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/DNADerivedData'],
+        reference:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
+        identifier:
+          event?.extensions?.['http://rs.gbif.org/terms/1.0/Identifier'],
+        releve: event?.extensions?.['http://rs.gbif.org/terms/1.0/Releve'],
+      };
+      Object.keys(extensions).forEach((key) => {
+        const extension = extensions[key];
+        // remove empty and half empty values
+        if (Array.isArray(extension) && extension.length > 0) {
+          extensions[key] = extension
+            .filter((x) => Object.keys(x).length > 0)
+            .map(simplifyUrlObjectKeys);
+          if (extensions[key].length === 0) delete extensions[key];
+        } else {
+          delete extensions[key];
+        }
+      });
+      return extensions;
+    },
+    formattedCoordinates: ({ decimalLatitude, decimalLongitude }) => {
+      return formattedCoordinates({
+        lat: decimalLatitude,
+        lon: decimalLongitude,
+      });
+    },
+    parentEvent: (
+      { datasetKey, parentEventID: key },
+      query,
+      { dataSources },
+    ) => {
+      if (typeof key === 'undefined' || key === null) return null;
+      return dataSources.eventAPI.getEventByKey({ eventId: key, datasetKey });
+    },
+    lineage: ({ datasetKey, eventID }, args, { dataSources }) => {
+      if (!datasetKey || !eventID) return null;
+      return dataSources.eventAPI.getEventLineage({
+        eventId: eventID,
+        datasetKey,
+      });
+    },
+    subEvents: (
+      { datasetKey, eventID },
+      { limit, offset },
+      { dataSources },
+    ) => {
+      if (!datasetKey || !eventID) return null;
+      return dataSources.eventAPI.getEventSubEvents({
+        eventId: eventID,
+        datasetKey,
+        limit,
+        offset,
+      });
+    },
+    dataset: ({ datasetKey }, _args, { dataSources }) => {
+      if (!datasetKey) return null;
+      return dataSources.datasetAPI.getDatasetByKey({ key: datasetKey });
+    },
+  },
+  Humboldt: {
+    targetTaxonomicScope: ({ targetTaxonomicScope }, { checklistKey }) =>
+      pickTaxonomicScopes(targetTaxonomicScope, checklistKey),
+    excludedTaxonomicScope: ({ excludedTaxonomicScope }, { checklistKey }) =>
+      pickTaxonomicScopes(excludedTaxonomicScope, checklistKey),
+    nonTargetTaxa: ({ nonTargetTaxa }, { checklistKey }) =>
+      pickTaxonomicScopes(nonTargetTaxa, checklistKey),
+    absentTaxa: ({ absentTaxa }, { checklistKey }) =>
+      pickTaxonomicScopes(absentTaxa, checklistKey),
+  },
+  EventSearchResult: {
+    facet: (parent) => ({
+      _query: { ...parent._query, limit: undefined, offset: undefined },
+    }), // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+  },
+  EventFacet: {
+    country: getEventFacet('country'),
+    continent: getEventFacet('continent'),
+    locality: getEventFacet('locality'),
+    sampleSizeUnit: getEventFacet('sampleSizeUnit'),
+    sampleSizeValue: getEventFacet('sampleSizeValue'),
+    humboldtProtocolNames: getEventFacet('humboldtProtocolNames'),
+    humboldtInventoryTypes: getEventFacet('humboldtInventoryTypes'),
+    month: getEventFacet('month'),
+    year: getEventFacet('year'),
+    eventId: getEventFacet('eventId'),
+    parentEventId: getEventFacet('parentEventId'),
+    dwcaExtension: getEventFacet('dwcaExtension'),
+    samplingProtocol: getEventFacet('samplingProtocol'),
+    eventType: getEventFacet('eventType'),
+    gadmGid: getEventFacet('gadmGid'),
+    humboldtSamplingPerformedBy: getEventFacet('humboldtSamplingPerformedBy'),
+    humboldtSamplingEffortUnit: getEventFacet('humboldtSamplingEffortUnit'),
+    humboldtSamplingEffortValue: getEventFacet('humboldtSamplingEffortValue'),
+
+    humboldtTargetDegreeOfEstablishmentScope: getEventFacet(
+      'humboldtTargetDegreeOfEstablishmentScope',
+    ),
+    humboldtTargetGrowthFormScope: getEventFacet(
+      'humboldtTargetGrowthFormScope',
+    ),
+    humboldtTargetHabitatScope: getEventFacet('humboldtTargetHabitatScope'),
+    humboldtTargetLifeStageScope: getEventFacet('humboldtTargetLifeStageScope'),
+    humboldtTotalAreaSampledUnit: getEventFacet('humboldtTotalAreaSampledUnit'),
+    humboldtTotalAreaSampledValue: getEventFacet(
+      'humboldtTotalAreaSampledValue',
+    ),
+    humboldtEventDurationUnit: getEventFacet('humboldtEventDurationUnit'),
+    humboldtEventDurationValue: getEventFacet('humboldtEventDurationValue'),
+    humboldtTargetTaxonomicScopeUsageName: getEventFacet(
+      'humboldtTargetTaxonomicScopeUsageName',
+    ),
+    humboldtAbundanceCap: getEventFacet('humboldtAbundanceCap'),
+    humboldtMaterialSampleTypes: getEventFacet('humboldtMaterialSampleTypes'),
+  },
+  EventFacetResult: {
+    eventSearch: (parent, query, { dataSources }) =>
+      dataSources.eventAPI.searchEvents({
+        query: { ...parent._query, ...query },
+      }),
+  },
+};

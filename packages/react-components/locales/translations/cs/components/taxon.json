@@ -8,6 +8,7 @@
   "vernacularNames": "Místní názvy",
   "viewOnCatalogueOfLife": "",
   "viewInChecklistBank": "",
+  "viewInDefaultTaxonomy": "",
   "rank": "Zařazení",
   "source": "Zdroj",
   "specimenIsTypeOf": "Rovná se {from}",

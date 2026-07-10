@@ -1,0 +1,53 @@
+import { getDefaultAgent } from '@/requestAgents';
+import { RESTDataSource } from '@/RESTDataSource';
+import { stringify } from 'qs';
+
+class VocabularyAPI extends RESTDataSource {
+  constructor(config) {
+    super();
+    this.baseURL = config.apiv1;
+  }
+
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    if (this.context.referer) request.headers['referer'] = this.context.referer;
+    if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
+    if (this.context.siteUrl) request.headers['x-gbif-site-url'] = this.context.siteUrl;
+    if (this.context.requestId) request.headers['x-request-id'] = this.context.requestId;
+    if (this.context.clientIp) request.headers['x-client-ip'] = this.context.clientIp;
+    request.agent = getDefaultAgent(this.baseURL, path);
+  }
+
+  // since vocabulary search expose non releasd vocabularies, we will remove this option for now
+  // async searchVocabularies({ query }) {
+  //   return this.get('/vocabularies', stringify(query, { indices: false }));
+  // }
+
+  async getVocabulary({ key }) {
+    return this.get(`/vocabularies/${key}`);
+  }
+
+  async searchConcepts({ vocabulary, query }) {
+    return this.get(
+      `/vocabularies/${vocabulary}/concepts/latestRelease?includeParents=true`,
+      stringify(query, { indices: false }),
+    ).then((response) => {
+      response.results.forEach((concept) => {
+        concept.vocabularyName = vocabulary;
+      });
+      return response;
+    });
+  }
+
+  async getConcept({ vocabulary, concept, query }) {
+    return this.get(
+      `/vocabularies/${vocabulary}/concepts/latestRelease/${concept}?includeParents=true`,
+      stringify(query, { indices: false }),
+    ).then((response) => {
+      response.vocabularyName = vocabulary;
+      return response;
+    });
+  }
+}
+
+export default VocabularyAPI;

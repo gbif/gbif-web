@@ -17,7 +17,7 @@
       "matchingProgress": "",
       "scientificName": "",
       "preferedKingdom": "",
-      "colId": "",
+      "colId": "ID",
       "colVerbatimScientificName": "",
       "colPreferedKingdom": "",
       "colMatchType": "",
@@ -181,8 +181,8 @@
       "tooManyRows": "",
       "fileReadFailed": "",
       "tab": {
-        "create": "",
-        "edit": ""
+        "create": "作成する",
+        "edit": "編集"
       }
     }
   }

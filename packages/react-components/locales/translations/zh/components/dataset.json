@@ -36,16 +36,15 @@
       "citations": "引用"
     },
     "checklist": {
+      "info": "这些指标提供了清单数据集的概述。欲了解更详细的指标和数据探索，请访问{checklistbank}。",
+      "checklistbank": "清单库",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "异名",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "研究领域",
   "publishedBy": "发布者",
   "mediatedBy": "经由",
+  "extensions": "扩展",
   "description": "描述",
   "metadataLanguage": "元数据语言",
   "dataLanguage": "数据语言",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "出现记录的分类学分布",
   "noCitations": "",
-  "noOccurrences": "没有出现记录"
+  "noOccurrences": "没有出现记录",
+  "eventWarning": ""
 }

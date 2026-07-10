@@ -7,6 +7,8 @@ import { useProjectKeyLoaderData } from '.';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
 import { FormattedMessage } from 'react-intl';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
+import { ErrorMessage } from '@/components/errorMessage';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on Query {
@@ -41,12 +43,13 @@ export function ProjectDatasetsTab() {
   const projectId = resource?.projectId;
 
   const datasets = useQuery<ProjectDatasetsQuery, ProjectDatasetsQueryVariables>(DATASET_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: !projectId, // Skip query if no projectId
     variables: {
       projectId: projectId ?? '',
     },
   });
+  useNotifyOfPartialDataIfErrors(datasets.error);
 
   if (datasets.loading)
     return (
@@ -64,6 +67,11 @@ export function ProjectDatasetsTab() {
         </p>
         <NoResultsTab>
           <FormattedMessage id="cms.resource.noDatasets" />
+          {datasets.error && (
+            <ErrorMessage>
+              <FormattedMessage id="phrases.loadError" />
+            </ErrorMessage>
+          )}
         </NoResultsTab>
       </div>
     );

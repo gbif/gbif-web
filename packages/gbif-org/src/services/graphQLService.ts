@@ -9,6 +9,9 @@ type DataProviderOptions = {
   abortSignal?: AbortSignal;
   preview?: boolean;
   authorization?: string;
+  // The page URL, sent as the x-gbif-site-url header. Useful for debugging on the server; But can of course be spoofed.
+  // falls back to window.location.href in the browser.
+  siteUrl?: string;
 };
 
 type QueryResult<T> = Promise<
@@ -28,6 +31,7 @@ export class GraphQLService {
   private abortSignal?: AbortSignal;
   private preview: boolean;
   private authorization?: string;
+  private siteUrl?: string;
 
   constructor(options: DataProviderOptions) {
     this.endpoint = options.endpoint;
@@ -35,6 +39,8 @@ export class GraphQLService {
     this.abortSignal = options.abortSignal;
     this.preview = options.preview ?? false;
     this.authorization = options.authorization;
+    this.siteUrl =
+      options.siteUrl ?? (typeof window !== 'undefined' ? window.location.href : undefined);
   }
 
   public async query<TResult, TVariabels>(
@@ -54,6 +60,7 @@ export class GraphQLService {
         locale: this.locale,
         preview: this.preview.toString(),
         ...(this.authorization ? { authorization: this.authorization } : {}),
+        ...(this.siteUrl ? { 'x-gbif-site-url': this.siteUrl } : {}),
       },
       signal: this.abortSignal,
       cache: this.preview || this.authorization ? 'no-cache' : 'default',
@@ -87,6 +94,7 @@ export class GraphQLService {
           locale: this.locale,
           preview: this.preview.toString(),
           ...(this.authorization ? { authorization: this.authorization } : {}),
+          ...(this.siteUrl ? { 'x-gbif-site-url': this.siteUrl } : {}),
         },
         signal: this.abortSignal,
         body: JSON.stringify(postBody),

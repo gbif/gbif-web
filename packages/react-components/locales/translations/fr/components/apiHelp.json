@@ -7,7 +7,7 @@
   "singleOccurrence": "Obtenir une seule occurrence.",
   "searchOccurrences": "Obtenir toutes les occurrences.",
   "filterOccurrences": "Rechercher les occurrences.",
-  "searchOccurrencesExample": "Cinq premières occurrences du taxon dont la clé est 9778871 (Flabellina McMurtrie, 1831) qui ont été enregistrés entre 2000 et 2024.",
+  "searchOccurrencesExample": "Cinq premières occurrences du taxon dont la clé est 9778871 (Flabellina McMurtrie, 1831) qui ont été enregistrés en mai entre 2000 et 2024.",
   "relatedOccurrences": "Occurrences apparentées (expérimental).",
   "occurrenceFragment": "Enregistrement avant interprétation.",
   "singleInstallation": "Obtenir une seule installation.",
@@ -32,5 +32,5 @@
   "matchSpecies": "Associer un nom à la taxonomie de base du GBIF.",
   "singleDerivedDataset": "Obtenir un seul jeu de données dérivé",
   "parseName": "Analyser un seul nom scientifique",
-  "derivedDatasetContributingDatasets": "Obtenir les jeux de données contribuant à un jeu de données dérivé"
+  "derivedDatasetContributingDatasets": "Obtenir tous les jeux de données contribuant à un jeu de données dérivé"
 }

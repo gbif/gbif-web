@@ -36,16 +36,15 @@
       "citations": "استناد"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "",
   "publishedBy": "",
   "mediatedBy": "",
+  "extensions": "افزونه‌ها",
   "description": "توضیحات",
   "metadataLanguage": "زبان ابرداده",
   "dataLanguage": "",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "",
   "noCitations": "",
-  "noOccurrences": ""
+  "noOccurrences": "",
+  "eventWarning": ""
 }

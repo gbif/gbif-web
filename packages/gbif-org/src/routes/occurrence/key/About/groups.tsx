@@ -16,6 +16,8 @@ import { FormattedMessage } from 'react-intl';
 import wellknown from 'wellknown';
 import {
   BasicField,
+  DepthField,
+  ElevationField,
   EnumField,
   HtmlField,
   LicenseField,
@@ -130,6 +132,7 @@ export function Groups({
 
 export function Group({
   label,
+  defaultMessage,
   children,
   description,
   id,
@@ -137,6 +140,7 @@ export function Group({
   ...props
 }: {
   label: string;
+  defaultMessage?: string;
   id: string;
   description?: React.ReactNode;
   children: React.ReactNode;
@@ -146,7 +150,7 @@ export function Group({
     <Card className={cn('g-mb-4', className)} id={id}>
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id={label} />
+          <FormattedMessage id={label} defaultMessage={defaultMessage} />
         </CardTitle>
         {description && <CardDescription dir="auto">{description}</CardDescription>}
       </CardHeader>
@@ -498,16 +502,22 @@ function Location({
             <HtmlField term={termMap.georeferenceSources} showDetails={showAll} />
             <HtmlField term={termMap.georeferenceRemarks} showDetails={showAll} />
 
-            <PlainTextField term={termMap.elevation} showDetails={showAll} />
-            <PlainTextField term={termMap.elevationAccuracy} showDetails={showAll} />
-            <PlainTextField term={termMap.minimumElevationInMeters} showDetails={showAll} />
-            <PlainTextField term={termMap.maximumElevationInMeters} showDetails={showAll} />
+            <ElevationField
+              elevationTerm={termMap.elevation}
+              elevationAccuracyTerm={termMap.elevationAccuracy}
+              minimumElevationTerm={termMap.minimumElevationInMeters}
+              maximumElevationTerm={termMap.maximumElevationInMeters}
+              showDetails={showAll}
+            />
             <PlainTextField term={termMap.verbatimElevation} showDetails={showAll} />
 
-            <PlainTextField term={termMap.depth} showDetails={showAll} />
-            <PlainTextField term={termMap.depthAccuracy} showDetails={showAll} />
-            <PlainTextField term={termMap.minimumDepthInMeters} showDetails={showAll} />
-            <PlainTextField term={termMap.maximumDepthInMeters} showDetails={showAll} />
+            <DepthField
+              depthTerm={termMap.depth}
+              depthAccuracyTerm={termMap.depthAccuracy}
+              minimumDepthTerm={termMap.minimumDepthInMeters}
+              maximumDepthTerm={termMap.maximumDepthInMeters}
+              showDetails={showAll}
+            />
             <PlainTextField term={termMap.verbatimDepth} showDetails={showAll} />
 
             <PlainTextField term={termMap.geodeticDatum} showDetails={showAll} />
@@ -610,7 +620,7 @@ function Event({
       <OccurrenceSearchField
         term={termMap.parentEventID}
         showDetails={showAll}
-        filterKey="eventId"
+        filterKey="parentEventId"
         filterValue={termMap?.parentEventID?.value}
         occurrence={occurrence}
       />
@@ -667,6 +677,7 @@ function Organism({
         filterValue={termMap?.organismID?.value}
         occurrence={occurrence}
       />
+      <PlainTextField term={termMap.organismName} showDetails={showAll} />
       <PlainTextField term={termMap.organismScope} showDetails={showAll} />
       <PlainTextField term={termMap.associatedOccurrences} showDetails={showAll} />
       <HtmlField term={termMap.associatedOrganisms} showDetails={showAll} />
@@ -883,13 +894,28 @@ function Other({
 
 function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   if (!occurrence) return null;
+  const nonTaxonomicIssues = occurrence?.nonTaxonomicIssues ?? [];
+  const activeChecklistIssues = occurrence?.classification?.issues ?? [];
+  const issues = Array.from(new Set([...nonTaxonomicIssues, ...activeChecklistIssues]));
   return (
     <Group
       label="occurrenceDetails.groups.issues"
       id="issues"
-      description={<FormattedMessage id="occurrenceDetails.issuesHelpText" />}
+      description={
+        <>
+          <FormattedMessage id="occurrenceDetails.issuesHelpText" />{' '}
+          <a
+            href="https://techdocs.gbif.org/en/data-use/occurrence-issues-and-flags"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="g-underline"
+          >
+            <FormattedMessage id="occurrenceDetails.issuesLearnMore" />
+          </a>
+        </>
+      }
     >
-      {(occurrence?.issues?.length ?? 0) === 0 ? (
+      {(issues?.length ?? 0) === 0 ? (
         <div>
           <FormattedMessage id="occurrenceDetails.issues.none" />
         </div>
@@ -908,7 +934,7 @@ function Issues({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
                 </tr>
               </thead>
               <tbody>
-                {occurrence?.issues?.map((issue) => (
+                {issues?.map((issue) => (
                   <tr key={issue}>
                     <td>
                       <FormattedMessage id={`enums.occurrenceIssue.${issue}`} />

@@ -7,7 +7,6 @@ const { get2metric, metric2aggs } = require('../../requestAdapter/aggregations')
 const { getSuggestQuery } = require('../../requestAdapter/suggest');
 const normalizePredicate = require('../../requestAdapter/util/normalizePredicate');
 const dataSource = require('./occurrence.dataSource');
-const logger = require('../../logger');
 const { ResponseError } = require('../errorHandler');
 
 function suggestConfig() {

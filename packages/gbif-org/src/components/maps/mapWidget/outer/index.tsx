@@ -6,6 +6,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Projection } from '@/config/config';
 import useBelow from '@/hooks/useBelow';
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { useDynamicNavigate } from '@/reactRouterPlugins/dynamicLink';
 import { BoundingBox } from '@/types';
@@ -137,17 +138,7 @@ export function MapWidgetOuter({
     }
   }, [capabilities?.maxYear]);
 
-  useEffect(() => {
-    if (isFullScreen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isFullScreen]);
+  useLockBodyScroll(isFullScreen);
 
   // Persist style selection to localStorage when it changes (only if persistence is enabled)
   useEffect(() => {

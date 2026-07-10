@@ -1,4 +1,8 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import {
+  LoaderArgs,
+  RouteObjectWithPlugins,
+  useRenderedRouteLoaderData,
+} from '@/reactRouterPlugins';
 import { datasetTaxonLoader } from '@/routes/taxon/key/taxonKey';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
@@ -10,7 +14,7 @@ import {
 } from './datasetKey';
 import { DatasetKeyDownload } from './download';
 import DatasetEvents from './event/datasetEvents';
-import { DatasetEventID, eventLoader, parentEventLoader } from './event/eventID';
+import { DatasetEventID, eventLoader } from './event/eventID';
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
 import { DatasetKeyTaxonSearch } from './taxonSearch';
@@ -61,7 +65,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
       loader: datasetTaxonLoader,
     },
     {
-      path: 'events',
+      path: 'event',
       element: <DatasetEvents />,
       loader: datasetLoader,
     },
@@ -73,7 +77,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'parentevent/:parentEventID',
       element: <DatasetEventID />,
-      loader: parentEventLoader,
+      loader: ({ params }: LoaderArgs) => redirectDocument(`../event/${params.parentEventID}`),
     },
     {
       path: 'download',

@@ -9,8 +9,8 @@ export const gadmGidConfig: filterSuggestConfig = {
   displayName: GadmGidLabel,
   filterTranslation: 'filters.gadmGid.name',
   suggestConfig: gadGidSuggest,
-  allowExistence: true,
-  allowNegations: true,
+  allowExistence: false,
+  allowNegations: false,
   facetQuery: `
     query EventPublisherFacet($q: String, $query: EventSearchInput) {
       search: eventSearch(q: $q, query: $query) {
@@ -33,8 +33,8 @@ export const countryConfig: filterSuggestConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.country.name',
   // suggest will be provided by the useFilters hook
-  allowExistence: true,
-  allowNegations: true,
+  allowExistence: false,
+  allowNegations: false,
   facetQuery: `
     query EventCountryFacet($q: String, $query: EventSearchInput) {
       search: eventSearch(q: $q,query: $query) {

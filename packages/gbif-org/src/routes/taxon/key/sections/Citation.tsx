@@ -3,12 +3,24 @@ import TestSiteAlert from '@/components/TestSiteAlert';
 import { SkeletonParagraph } from '@/components/ui/skeleton';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { useDatasetCitation } from '@/routes/dataset/key/useDatasetCitation';
+import { ErrorMessage } from '@/components/errorMessage';
+
 const testSite = import.meta.env.PUBLIC_TEST_SITE === 'true';
 
 const Citation = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonInfo']> }) => {
-  const { citation, loading } = useDatasetCitation(taxonInfo.datasetKey);
-  if (loading) {
+  if (taxonInfo?.datasetKey) {
+    return <CitationContent taxonInfo={taxonInfo} />;
+  }
+  return null;
+};
+
+const CitationContent = ({ taxonInfo }: { taxonInfo: NonNullable<TaxonKeyQuery['taxonInfo']> }) => {
+  const { citation, loading, error } = useDatasetCitation(taxonInfo.datasetKey);
+  if (loading || (!citation && !error)) {
     return <SkeletonParagraph lines={2} />;
+  }
+  if (error) {
+    return <ErrorMessage>Error loading citation</ErrorMessage>;
   }
   return (
     <div className={testSite ? 'g-select-none g-pointer-events-none' : ''}>

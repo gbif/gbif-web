@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
 import { ClientSideOnly } from '../clientSideOnly';
-import { getPortalContainer } from '@/utils/getPortalContainer';
+import { usePortalContainer } from '@/utils/getPortalContainer';
 
 // focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
 const Select = SelectPrimitive.Root;
@@ -72,9 +72,10 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = 'popper', dir, ...props }, ref) => {
   const contextDir = useDirection();
+  const container = usePortalContainer();
   return (
     <ClientSideOnly>
-      <SelectPrimitive.Portal container={getPortalContainer()}>
+      <SelectPrimitive.Portal container={container}>
         <div className="gbif">
           <SelectPrimitive.Content
             ref={ref}

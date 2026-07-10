@@ -31,7 +31,7 @@ import { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
-import { throwCriticalErrors } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { isPositiveNumber } from '@/utils/isPositiveNumber';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
@@ -58,12 +58,6 @@ const PUBLISHER_QUERY = /* GraphQL */ `
 
       endorsingNode {
         title
-        participant {
-          id
-          name
-          type
-          countryCode
-        }
       }
       endorsingNodeKey
       endorsementApproved
@@ -150,12 +144,16 @@ export type PublisherKeyLoaderResult = Awaited<ReturnType<typeof publisherLoader
 export function PublisherPage() {
   const { toast } = useToast();
   const { publisher, errors } = useLoaderData() as PublisherKeyLoaderResult;
+  useNotifyOfPartialDataIfErrors(errors);
 
   const {
     data: slowData,
     load,
     error,
-  } = useQuery<PublisherStatsQuery, PublisherStatsQueryVariables>(SLOW_PUBLISHER_QUERY);
+  } = useQuery<PublisherStatsQuery, PublisherStatsQueryVariables>(SLOW_PUBLISHER_QUERY, {
+    lazyLoad: true,
+  });
+  useNotifyOfPartialDataIfErrors(error);
 
   // Load slow data
   useEffect(() => {

@@ -1,0 +1,37 @@
+import { getDefaultAgent } from '@/requestAgents';
+import { RESTDataSource } from '@/RESTDataSource';
+
+class CollectionAPI extends RESTDataSource {
+  constructor(config) {
+    super();
+    this.baseURL = config.apiv1;
+  }
+
+  willSendRequest(path, request) {
+    request.headers['User-Agent'] = this.context.userAgent;
+    if (this.context.referer) request.headers['referer'] = this.context.referer;
+    if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
+    if (this.context.siteUrl) request.headers['x-gbif-site-url'] = this.context.siteUrl;
+    if (this.context.requestId) request.headers['x-request-id'] = this.context.requestId;
+    if (this.context.clientIp) request.headers['x-client-ip'] = this.context.clientIp;
+    request.agent = getDefaultAgent(this.baseURL, path);
+  }
+
+  async getCountryCodes() {
+    return this.get('enumeration/basic/Country');
+  }
+
+  async getCollectionByKey({ key }) {
+    return this.get(`/grscicoll/collection/${key}`);
+  }
+
+  /*
+  getCollectionsByKeys({ collectionKeys }) {
+    return Promise.all(
+      collectionKeys.map(key => this.getCollectionByKey({ key })),
+    );
+  }
+  */
+}
+
+export default CollectionAPI;

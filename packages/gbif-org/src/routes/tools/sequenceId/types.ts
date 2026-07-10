@@ -244,29 +244,95 @@ export type SequenceResult = {
 export type Phase = 'upload' | 'results';
 export type SortDirection = 'asc' | 'desc';
 
-export const RESULT_COLUMNS: { key: string; id: string; defaultMessage: string }[] = [
-  { key: 'occurrenceId', id: 'tools.sequenceId.colOccurrenceId', defaultMessage: 'occurrenceId' },
-  { key: 'marker', id: 'tools.sequenceId.colMarker', defaultMessage: 'marker' },
-  { key: 'identity', id: 'tools.sequenceId.colIdentity', defaultMessage: 'identity' },
-  { key: 'bitScore', id: 'tools.sequenceId.colBitScore', defaultMessage: 'bitScore' },
-  { key: 'expectValue', id: 'tools.sequenceId.colExpectValue', defaultMessage: 'expectValue' },
+export type ResultColumn = {
+  key: string;
+  id: string;
+  defaultMessage: string;
+  /** Optional help text shown in a tooltip next to the column header. */
+  help?: string;
+  helpId?: string;
+};
+
+// Help texts ported verbatim from the portal16 implementation
+// (https://github.com/gbif/portal16/blob/master/app/views/pages/tools/sequenceMatching/sequenceMatching.entry.js).
+export const RESULT_COLUMNS: ResultColumn[] = [
+  {
+    key: 'occurrenceId',
+    id: 'tools.sequenceId.colOccurrenceId',
+    defaultMessage: 'occurrenceId',
+    helpId: 'tools.sequenceId.help.occurrenceId',
+    help: 'If you uploaded data in FASTA format, this is the ID line for the sequence. For publication to GBIF occurrenceId must be unique.',
+  },
+  {
+    key: 'marker',
+    id: 'tools.sequenceId.colMarker',
+    defaultMessage: 'marker',
+    helpId: 'tools.sequenceId.help.marker',
+    help: 'The DNA markers, COI, ITS, 16S, 18S, 12S and rbcl are supported',
+  },
+  {
+    key: 'identity',
+    id: 'tools.sequenceId.colIdentity',
+    defaultMessage: 'identity',
+    helpId: 'tools.sequenceId.help.identity',
+    help: 'The extent to which two sequences have the same residues at the same positions in an alignment',
+  },
+  {
+    key: 'bitScore',
+    id: 'tools.sequenceId.colBitScore',
+    defaultMessage: 'bitScore',
+    helpId: 'tools.sequenceId.help.bitScore',
+    help: 'The bit score is the required size of a sequence database in which the current match could be found just by chance. The bit score is a log2 scaled and normalized raw score. Each increase by one doubles the required database size (2^bit-score).',
+  },
+  {
+    key: 'expectValue',
+    id: 'tools.sequenceId.colExpectValue',
+    defaultMessage: 'expectValue',
+    helpId: 'tools.sequenceId.help.expectValue',
+    help: 'The expect value is a parameter that describes the number of hits one can "expect" to see by chance when searching a database of a particular size. It decreases exponentially as the score of the match increases. Hence, a low expect value is better.',
+  },
   {
     key: 'queryCoverage',
     id: 'tools.sequenceId.colQueryCoverage',
     defaultMessage: 'queryCoverage',
+    helpId: 'tools.sequenceId.help.queryCoverage',
+    help: 'How much of the query(input) sequence aligns with the match in the the reference database, in percent.',
   },
-  { key: 'queryLength', id: 'tools.sequenceId.colQueryLength', defaultMessage: 'queryLength' },
-  { key: 'matchType', id: 'tools.sequenceId.colMatchType', defaultMessage: 'matchType' },
+  {
+    key: 'queryLength',
+    id: 'tools.sequenceId.colQueryLength',
+    defaultMessage: 'queryLength',
+    helpId: 'tools.sequenceId.help.queryLength',
+    help: 'Length of the query(input) sequence. Short sequences may give unreliable results.',
+  },
+  {
+    key: 'matchType',
+    id: 'tools.sequenceId.colMatchType',
+    defaultMessage: 'matchType',
+    helpId: 'tools.sequenceId.help.matchType',
+    help: 'Badges representing different identity thresholds.',
+  },
+  {
+    key: 'image',
+    id: 'tools.sequenceId.colImage',
+    defaultMessage: 'image',
+    helpId: 'tools.sequenceId.help.image',
+    help: 'An example image of the species the sequence was matched to in the GBIF backbone, if one is available.',
+  },
   {
     key: 'scientificName',
     id: 'tools.sequenceId.colScientificName',
     defaultMessage: 'scientificName',
+    helpId: 'tools.sequenceId.help.scientificName',
+    help: 'The OTU identifier, which can be used as scientificName when publishing occurrence or sample event data to GBIF',
   },
   { key: 'alignment', id: 'tools.sequenceId.colAlignment', defaultMessage: 'alignment' },
   {
     key: 'classification',
     id: 'tools.sequenceId.colClassification',
     defaultMessage: 'classification',
+    helpId: 'tools.sequenceId.help.classification',
+    help: 'The higher classification of the OTU as represented in the GBIF backbone.',
   },
   { key: 'sequence', id: 'tools.sequenceId.colSequence', defaultMessage: 'sequence' },
 ];

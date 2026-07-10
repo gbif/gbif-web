@@ -87,7 +87,7 @@ export const OptionalBooleanFilter = React.forwardRef(
     const defaultSelected = filter?.must?.[filterHandle]?.[0]?.toString() ?? '';
 
     return (
-      <>
+      <div className="g-flex g-flex-col g-flex-1 g-min-h-0">
         <div
           className={cn(
             'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-0 g-px-4 g-items-center g-pt-2',
@@ -103,46 +103,71 @@ export const OptionalBooleanFilter = React.forwardRef(
             )}
           </div>
         </div>
-        <div className="g-pb-1.5 g-px-4 g-w-full">
+        <div className="g-flex-auto g-pb-1.5 g-px-4 g-w-full g-text-base sm:g-text-sm">
           <RadioGroup
             onValueChange={(val) => {
               setFullField(filterHandle, val === '' ? [] : [val], []);
             }}
             defaultValue={defaultSelected}
-            className="g-gap-1"
+            className="g-gap-0"
           >
-            <label className={cn('g-flex g-w-full')}>
-              <RadioGroupItem value="" className="g-flex-none g-me-2 g-mt-1" />
+            <label
+              className={cn(
+                'g-flex g-w-full g-cursor-pointer g-py-2 g-min-h-9 sm:g-min-h-0 sm:g-py-0 g-mb-2'
+              )}
+            >
+              <RadioGroupItem
+                value=""
+                className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5"
+              />
               <div className="g-flex-auto g-overflow-hidden">
                 <FormattedMessage id="search.ternary.either" />
               </div>
             </label>
-            <label className={cn('g-flex g-w-full g-items-center')}>
-              <RadioGroupItem value="true" className="g-flex-none g-me-2 g-mt-1" />
-              <div className="g-flex-auto g-overflow-hidden">
-                <DisplayName id="true" />
-              </div>
-              {!facetLoading && hasFacets && (
-                <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                  <FormattedNumber value={trueCount ?? 0} />
-                </span>
+            <label
+              className={cn(
+                'g-flex g-w-full g-cursor-pointer g-py-2 g-min-h-9 sm:g-min-h-0 sm:g-py-0 g-mb-2'
               )}
+            >
+              <RadioGroupItem
+                value="true"
+                className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5"
+              />
+              <div className="g-flex g-flex-auto g-items-center g-overflow-hidden">
+                <span className="g-flex-auto">
+                  <DisplayName id="true" />
+                </span>
+                {!facetLoading && hasFacets && (
+                  <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                    <FormattedNumber value={trueCount ?? 0} />
+                  </span>
+                )}
+              </div>
             </label>
-            <label className={cn('g-flex g-w-full g-items-center')}>
-              <RadioGroupItem value="false" className="g-flex-none g-me-2 g-mt-1" />
-              <div className="g-flex-auto g-overflow-hidden">
-                <DisplayName id="false" />
-              </div>
-              {!facetLoading && hasFacets && (
-                <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                  <FormattedNumber value={falseCount ?? 0} />
-                </span>
+            <label
+              className={cn(
+                'g-flex g-w-full g-cursor-pointer g-py-2 g-min-h-9 sm:g-min-h-0 sm:g-py-0 g-mb-2'
               )}
+            >
+              <RadioGroupItem
+                value="false"
+                className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5"
+              />
+              <div className="g-flex g-flex-auto g-items-center g-overflow-hidden">
+                <span className="g-flex-auto">
+                  <DisplayName id="false" />
+                </span>
+                {!facetLoading && hasFacets && (
+                  <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                    <FormattedNumber value={falseCount ?? 0} />
+                  </span>
+                )}
+              </div>
             </label>
           </RadioGroup>
         </div>
         <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
-      </>
+      </div>
     );
   }
 );

@@ -1,7 +1,12 @@
-import { IdentityLabel } from '@/components/filters/displayNames';
-import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
+import { IdentityLabel, LifeStageLabel } from '@/components/filters/displayNames';
+import {
+  filterConfigTypes,
+  filterEnumConfig,
+  filterSuggestConfig,
+} from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import { termToGroup } from '../humboldtTerms';
+
 export const eventIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'eventId',
@@ -15,6 +20,29 @@ export const eventIdConfig: filterSuggestConfig = {
       search: eventSearch(query: $query, limit: $limit) {
         facet {
           field: eventId {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  group: 'event',
+};
+
+export const parentEventIdConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'parentEventId',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.parentEventId.name',
+  allowExistence: false,
+  allowNegations: false,
+  about: () => <Message id="filters.parentEventId.description" />,
+  facetQuery: /* GraphQL */ `
+    query ParentEventEventIdFacet($query: EventSearchInput, $limit: Int) {
+      search: eventSearch(query: $query, limit: $limit) {
+        facet {
+          field: parentEventId {
             name
             count
           }
@@ -126,7 +154,7 @@ export const humboldtSamplingEffortUnitConfig: filterSuggestConfig = {
   filterHandle: 'humboldtSamplingEffortUnit',
   displayName: IdentityLabel,
   filterTranslation: 'filters.samplingEffortUnit.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.samplingEffortUnit.description" />,
   facetQuery: `
     query HumboldtSamplingEffortUnit($query: EventSearchInput, $limit: Int){
@@ -149,7 +177,7 @@ export const humboldtTargetDegreeOfEstablishmentScopeConfig: filterSuggestConfig
   filterHandle: 'humboldtTargetDegreeOfEstablishmentScope',
   displayName: IdentityLabel,
   filterTranslation: 'filters.targetDegreeOfEstablishmentScope.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.samplingEffortUnit.description" />,
   facetQuery: `
     query HumboldtTargetDegreeOfEstablishmentScope($query: EventSearchInput, $limit: Int){
@@ -172,7 +200,7 @@ export const humboldtTargetGrowthFormScopeConfig: filterSuggestConfig = {
   filterHandle: 'humboldtTargetGrowthFormScope',
   displayName: IdentityLabel,
   filterTranslation: 'filters.targetGrowthFormScope.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.targetGrowthFormScope.description" />,
   facetQuery: `
     query HummboldtTargetGrowthFormScope($query: EventSearchInput, $limit: Int){
@@ -195,7 +223,7 @@ export const humboldtTargetHabitatScopeConfig: filterSuggestConfig = {
   filterHandle: 'humboldtTargetHabitatScope',
   displayName: IdentityLabel,
   filterTranslation: 'filters.targetHabitatScope.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.targetHabitatScope.description" />,
   facetQuery: `
     query HumboldtTargetHabitatScope($query: EventSearchInput, $limit: Int){
@@ -216,14 +244,13 @@ export const humboldtTargetHabitatScopeConfig: filterSuggestConfig = {
 export const humboldtTargetLifeStageScopeConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'humboldtTargetLifeStageScope',
-  displayName: IdentityLabel,
+  displayName: LifeStageLabel,
   filterTranslation: 'filters.targetLifeStageScope.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.targetLifeStageScope.description" />,
   facetQuery: `
     query humboldtTargetLifeStageScope($query: EventSearchInput, $limit: Int){
       search: eventSearch(query: $query, limit: $limit) {
-        
         facet {
           field: humboldtTargetLifeStageScope {
             name
@@ -241,7 +268,7 @@ export const humboldtTotalAreaSampledUnitConfig: filterSuggestConfig = {
   filterHandle: 'humboldtTotalAreaSampledUnit',
   displayName: IdentityLabel,
   filterTranslation: 'filters.totalAreaSampledUnit.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.totalAreaSampledUnit.description" />,
   facetQuery: `
     query humboldtTotalAreaSampledUnit($query: EventSearchInput, $limit: Int){
@@ -259,35 +286,12 @@ export const humboldtTotalAreaSampledUnitConfig: filterSuggestConfig = {
   group: termToGroup['totalAreaSampledUnit'],
 };
 
-export const humboldtEventDurationUnitConfig: filterSuggestConfig = {
-  filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'humboldtEventDurationUnit',
-  displayName: IdentityLabel,
-  filterTranslation: 'filters.eventDurationUnit.name',
-  allowExistence: true,
-  about: () => <Message id="filters.eventDurationUnit.description" />,
-  facetQuery: `
-    query humboldtEventDurationUnit($query: EventSearchInput, $limit: Int){
-      search: eventSearch(query: $query, limit: $limit) {
-        
-        facet {
-          field: humboldtEventDurationUnit {
-            name
-            count
-          }
-        }
-      }
-    }
-  `,
-  group: termToGroup['eventDurationUnit'],
-};
-
 export const humboldtTargetTaxonomicScopeUsageNameConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'humboldtTargetTaxonomicScopeUsageName',
   displayName: IdentityLabel,
   filterTranslation: 'filters.targetTaxonomicScope.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.targetTaxonomicScope.description" />,
   facetQuery: `
     query humboldtTargetTaxonomicScopeUsageName($query: EventSearchInput, $limit: Int){
@@ -310,7 +314,7 @@ export const humboldtMaterialSampleTypesConfig: filterSuggestConfig = {
   filterHandle: 'humboldtMaterialSampleTypes',
   displayName: IdentityLabel,
   filterTranslation: 'filters.materialSampleTypes.name',
-  allowExistence: true,
+  allowExistence: false,
   about: () => <Message id="filters.materialSampleTypes.description" />,
   facetQuery: `
     query HumboldtMaterialSampleTypes($query: EventSearchInput, $limit: Int){
@@ -333,8 +337,8 @@ export const localityConfig: filterSuggestConfig = {
   filterHandle: 'locality',
   displayName: IdentityLabel,
   filterTranslation: 'filters.locality.name',
-  allowExistence: true,
-  allowNegations: true,
+  allowExistence: false,
+  allowNegations: false,
   facetQuery: `
     query EventLocalityFacet($query: EventSearchInput, $limit: Int){
       search: eventSearch( query: $query, limit: $limit) {
@@ -357,7 +361,7 @@ export const eventTypeConfig: filterSuggestConfig = {
   filterHandle: 'eventType',
   displayName: IdentityLabel,
   filterTranslation: 'filters.eventType.name',
-  allowExistence: true,
+  allowExistence: false,
   allowNegations: false,
   facetQuery: `
     query EventTypeFacet($q: String, $query: EventSearchInput, $limit: Int){

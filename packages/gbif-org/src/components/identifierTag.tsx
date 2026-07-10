@@ -46,7 +46,7 @@ export function LicenceTag({
 
 const testSite = import.meta.env.PUBLIC_TEST_SITE === 'true';
 const testSiteDoiPrefix = testSite ? 'Do not cite DOI' : 'DOI';
-export function DoiTag({ id = '', className, ...props }) {
+export function DoiTag({ id = '', className = '', ...props }) {
   const sanitizedId = id.replace(/^(.*doi.org\/)?(doi:)?(10\.)/, '10.');
   return (
     <IdentifierTag

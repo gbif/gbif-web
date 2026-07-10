@@ -14,9 +14,43 @@ interface MobileFiltersProps {
   filters: Filters;
   groups?: string[];
   className?: string;
+  buttonClassName?: string;
+  iconClassName?: string;
 }
 
-export function MobileFilters({ filters, groups, className }: MobileFiltersProps) {
+export function useIsMobileFilterSheetActive(filters: Filters): boolean {
+  const searchContext = useSearchContext();
+  return useMemo(
+    () =>
+      Object.keys(filters).filter((filter) => !searchContext?.excludedFilters?.includes(filter))
+        .length > 2,
+    [filters, searchContext]
+  );
+}
+
+export function MobileFiltersTrigger({ filters, groups, className }: MobileFiltersProps) {
+  const active = useIsMobileFilterSheetActive(filters);
+
+  if (!active) return null;
+
+  return (
+    <MobileFilters
+      filters={filters}
+      groups={groups}
+      className={cn('sm:g-hidden', className)}
+      buttonClassName="g-text-inherit g-mb-0"
+      iconClassName="g-text-xl"
+    />
+  );
+}
+
+export function MobileFilters({
+  filters,
+  groups,
+  className,
+  buttonClassName,
+  iconClassName,
+}: MobileFiltersProps) {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { formatMessage } = useIntl();
@@ -81,9 +115,12 @@ export function MobileFilters({ filters, groups, className }: MobileFiltersProps
                     )
                   : formatMessage({ id: 'filterSupport.openFilters', defaultMessage: 'Open filters' })
               }
-              className="g-relative g-px-1 g-mb-1 g-text-slate-400 g-ms-auto"
+              className={cn(
+                'g-relative g-px-1 g-mb-1 g-text-slate-400 g-ms-auto',
+                buttonClassName
+              )}
             >
-              <FilterIcon className="g-text-base" />
+              <FilterIcon className={cn('g-text-base', iconClassName)} />
               {activeFilterCount > 0 && (
                 <span
                   aria-hidden="true"
@@ -95,7 +132,8 @@ export function MobileFilters({ filters, groups, className }: MobileFiltersProps
             </Button>
           </DialogTrigger>
           <DialogBottomSheetContent
-            className="g-w-full g-p-0"
+            className="g-w-full g-p-0 g-border-t-0"
+            topOffset={0}
             onOpenAutoFocus={(e) => e.preventDefault()}
           >
             <VisuallyHidden.Root>

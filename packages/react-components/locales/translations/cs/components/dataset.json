@@ -36,16 +36,15 @@
       "citations": "Citace"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "Synonyma",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "Počet podle říše",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "Studovaná oblast",
   "publishedBy": "Publikováno",
   "mediatedBy": "Zprostředkované od",
+  "extensions": "Rozšíření",
   "description": "Popis",
   "metadataLanguage": "Jazyk metadat",
   "dataLanguage": "jazyk dat",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Taxonomické rozdělení výskytů",
   "noCitations": "Zatím žádné citace",
-  "noOccurrences": "Žádné výskyty"
+  "noOccurrences": "Žádné výskyty",
+  "eventWarning": ""
 }

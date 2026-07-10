@@ -17,6 +17,8 @@
     "message": "التساويات { is }"
   },
   "filterByView": "استخدم المنطقة المرئية كمرشح",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "الإسقاط",
   "anyYear": " اي سنة",
   "exploreArea": "استكشف المنطقة",

@@ -73,6 +73,9 @@ const DATASET_QUERY = /* GraphQL */ `
         key
         title
       }
+      dwca {
+        extensions
+      }
       pubDate
       description
       dataLanguage
@@ -91,7 +94,7 @@ const DATASET_QUERY = /* GraphQL */ `
           title
         }
       }
-      volatileContributors {
+      volatileContributors(limit: 101) {
         key
         firstName
         lastName
@@ -142,7 +145,7 @@ const DATASET_QUERY = /* GraphQL */ `
         homepage
         logoUrl
       }
-      bibliographicCitations {
+      bibliographicCitations(limit: 201) {
         identifier
         text
       }
@@ -229,9 +232,6 @@ const DATASET_QUERY = /* GraphQL */ `
           img_url
           communityName
         }
-      }
-      gridded {
-        percent
       }
       networks(visibleOnDatasetPage: true) {
         key
@@ -380,11 +380,11 @@ export function DatasetPage() {
   const showSpeciesTab =
     dataset.type === DatasetType.Checklist && dataset.checklistBankDataset != null;
   const withEventId = occData?.withEvents?.documents?.total || 0;
-  const showEventsTab =
-    (config.datasetKey?.showEvents && withEventId > 0) ||
-    (dataset.type === DatasetType.SamplingEvent &&
-      import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled');
-  const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
+  const hasSamplingEvents =
+    dataset.type === DatasetType.SamplingEvent &&
+    import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
+  const showEventsTab = config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents);
+  const occurrenceCount = occData?.occurrenceSearch?.documents?.total;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
@@ -428,7 +428,7 @@ export function DatasetPage() {
     }
     if (showEventsTab) {
       tabsToDisplay.push({
-        to: 'events',
+        to: 'event',
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
@@ -658,7 +658,7 @@ export function DatasetPage() {
                     </DynamicLink>
                   </Button>
                 )}
-                {(occurrenceCountOrZero > 0 || dataset.type === 'OCCURRENCE') && (
+                {(occurrenceCount > 0 || dataset.type === 'OCCURRENCE') && (
                   <Button className="g-py-1 g-px-2 g-h-[2rem]" asChild isLoading={loading}>
                     <DynamicLink
                       to="occurrenceSearch"
@@ -666,10 +666,15 @@ export function DatasetPage() {
                       searchParams={{ datasetKey: dataset.key }}
                     >
                       <span className="g-whitespace-nowrap">
-                        <FormattedMessage
-                          id="counts.nOccurrences"
-                          values={{ total: occurrenceCountOrZero }}
-                        />
+                        {Number.isSafeInteger(occurrenceCount) && (
+                          <FormattedMessage
+                            id="counts.nOccurrences"
+                            values={{ total: occurrenceCount }}
+                          />
+                        )}
+                        {!Number.isSafeInteger(occurrenceCount) && (
+                          <FormattedMessage id="catalogues.occurrences" />
+                        )}
                       </span>
                     </DynamicLink>
                   </Button>

@@ -20,6 +20,7 @@ import {
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
+import { useConfig } from '@/config/config';
 import { NotFoundLoaderResponse } from '@/errors';
 import {
   OccurrenceQuery,
@@ -66,6 +67,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       occurrenceStatus
       references
       issues
+      nonTaxonomicIssues
       basisOfRecord
       dynamicProperties
       institutionKey
@@ -234,7 +236,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
 `;
 
 const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
-  query SlowOccurrenceKey($key: ID!, $language: String!) {
+  query SlowOccurrenceKey($key: ID!, $language: String!, $defaultChecklistKey: ID) {
     occurrence(key: $key) {
       key
       localContexts {
@@ -257,31 +259,13 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
         name
       }
 
-      classification {
+      classification(checklistKey: $defaultChecklistKey) {
         vernacularNames(lang: $language, maxLimit: 1) {
           name
           reference {
             id
             citation
           }
-        }
-      }
-    }
-    literatureSearch(gbifOccurrenceKey: [$key]) {
-      documents(size: 100) {
-        results {
-          title
-          abstract
-          authors {
-            firstName
-            lastName
-          }
-          literatureType
-          year
-          identifiers {
-            doi
-          }
-          websites
         }
       }
     }
@@ -301,8 +285,9 @@ fragmentManager.register(/* GraphQL */ `
     references
     rightsHolder
     description
+    originalImage: thumbor
     thumbor(height: 800)
-    smallThumbnail: thumbor(height: 100, width: 100)
+    smallThumbnail: thumbor(height: 800)
   }
 `);
 
@@ -321,19 +306,20 @@ export async function occurrenceKeyLoader({ params, config, graphql }: LoaderArg
   const key = required(params.key, 'No key was provided in the URL');
   if (['map', 'gallery', 'taxonomy', 'charts', 'download'].includes(key))
     throw new NotFoundLoaderResponse();
+  const variables = {
+    key,
+    defaultChecklistKey: config.defaultChecklistKey,
+  };
   const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(
     OCCURRENCE_QUERY,
-    {
-      key,
-      defaultChecklistKey: config.defaultChecklistKey,
-    }
+    variables
   );
 
   const { errors, data } = await response.json();
 
   // If the occurrence does not exist, check whether a raw fragment exists for the key.
   // If so, redirect to the tombstone/fragment page; otherwise fall through to the 404.
-  const occurrenceMissing = !data?.occurrence || is404({ path: ['occurrence'], errors });
+  const occurrenceMissing = !data?.occurrence && is404({ path: ['occurrence'], errors });
   if (occurrenceMissing) {
     try {
       const fragmentResponse = await fetch(`${config.v1Endpoint}/occurrence/${key}/fragment`);
@@ -349,6 +335,8 @@ export async function occurrenceKeyLoader({ params, config, graphql }: LoaderArg
     path404: ['occurrence'],
     errors,
     requiredObjects: [data?.occurrence],
+    query: 'Too long to include in the error message, see the GraphQL query in occurrenceKey.tsx',
+    variables,
   });
 
   // throwCriticalErrors will throw if the occurrence is not found, so we can safely assume it exists with !
@@ -408,6 +396,7 @@ export function OccurrenceKey() {
 
   const hideGlobe = useBelow(800);
   const { locale } = useI18n();
+  const config = useConfig();
 
   const { data: slowData, load: slowLoad } = useQuery<
     SlowOccurrenceKeyQuery,
@@ -424,9 +413,10 @@ export function OccurrenceKey() {
       variables: {
         key: occurrence.key.toString(),
         language: locale.iso3LetterCode ?? 'eng',
+        defaultChecklistKey: config.defaultChecklistKey,
       },
     });
-  }, [slowLoad, occurrence.key, locale?.iso3LetterCode]);
+  }, [slowLoad, occurrence.key, locale?.iso3LetterCode, config.defaultChecklistKey]);
 
   const slowOccurrence = slowData?.occurrence;
 
@@ -450,7 +440,7 @@ export function OccurrenceKey() {
   ];
   if (occurrence.isInCluster)
     tabs.push({
-      to: 'related',
+      to: 'cluster',
       children: <FormattedMessage id="occurrenceDetails.tabs.cluster" defaultMessage="Related" />,
     });
   if (occurrence.dynamicProperties) {

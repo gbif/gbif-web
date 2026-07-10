@@ -1,62 +1,50 @@
 {
   "dwcaExtension": {
     "name": "DwC-A extension",
-    "count": "{num, plural, one { DwC-A extension } other {# DwC-A extensions}}",
     "description": "A short description of the component should be placed here"
   },
   "locationId": {
     "name": "Location ID",
-    "count": "{num, plural, one { location ID } other {# location IDs}}",
     "description": "Publishers can choose to assign IDs to the location. This field is not normalized, meaning that you search data as provided by the publisher."
   },
   "hasCoordinate": {
     "name": "Has coordinate",
-    "count": "Has coordinates",
     "description": "Whether the record has coordinates."
   },
   "hasGeospatialIssues": {
     "name": "Has geospatial issues",
-    "count": "Has geospatial issues",
     "description": "Whether the record has geospatial issues."
   },
   "collectionKey": {
     "name": "Collection",
-    "count": "{num, plural, one { collection } other {# collections}}",
     "description": "The collection in GrSciColl this record was matched to"
   },
   "predicate": {
     "name": "Complex query",
-    "count": "{num, plural, one { complex query } other {# complex queries}}",
     "description": "A complex query for filtering records."
   },
   "taxonomicStatus": {
     "name": "Status",
-    "count": "{num, plural, one { status } other {# statuses}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "taxonRank": {
     "name": "Rank",
-    "count": "{num, plural, one { rank } other {# ranks}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "numberSpecimens": {
     "name": "Number of specimens",
-    "count": "{num, plural, one { specimen count } other {# specimen count filters}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "specimensInGbif": {
     "name": "Specimens in GBIF",
-    "count": "{num, plural, one { specimen in GBIF } other {# specimens in GBIF}}",
     "description": "Number of specimen records published on GBIF and linked to the institution entry."
   },
   "iucnRedListCategory": {
     "name": "IUCN Global Red List Category",
-    "count": "{num, plural, one { IUCN Global Red List category } other {# IUCN Global Red List categories}}",
     "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
   },
   "geoDistance": {
     "name": "Distance from coordinates",
-    "count": "{num, plural, one { filter } other {# filters}}",
     "description": "Filter on records within a given distance from a point",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
@@ -64,7 +52,6 @@
   },
   "geometry": {
     "name": "Location",
-    "count": "{num, plural, one { filter } other {# filters}}",
     "description": "Filter on records within a given geometric area. The area can be a point, a line, a polygon, or a bounding box.",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
@@ -72,178 +59,144 @@
   },
   "relevance": {
     "name": "Relevance",
-    "count": "{num, plural, one { relevance } other {# relevance filters}}",
     "description": "How is GBIF used in the literature."
   },
   "topics": {
     "name": "Topic",
-    "count": "{num, plural, one { topic } other {# topics}}",
     "description": "What are the topics of the record."
   },
   "audiences": {
     "name": "Audience",
-    "count": "{num, plural, one { audience } other {# audiences}}",
     "description": "Who are the audiences for the resource."
   },
   "biostratigraphy": {
     "name": "Biostratigraphy",
-    "count": "{num, plural, one { biostratigraphy } other {# biostratigraphies}}",
     "description": "The biostratigraphic context of the record."
   },
   "lithostratigraphy": {
     "name": "Lithostratigraphy",
-    "count": "{num, plural, one { lithostratigraphy } other {# lithostratigraphies}}",
     "description": "The lithostratigraphic context of the record."
   },
   "geologicalTime": {
     "name": "Geological time",
-    "count": "{num, plural, one { geological time } other {# geological times}}",
     "description": "The geological time context of the record."
   },
   "purposes": {
     "name": "Topic",
-    "count": "{num, plural, one { purpose } other {# purposes}}",
     "description": "What are the purposes of the resource."
   },
   "eventDate": {
     "name": "Event date",
-    "count": "{num, plural, one {# event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "{num, plural, one { GBIF ID } other {# GBIF IDs}}",
     "description": "The unique identifier for the record in the GBIF database."
   },
   "organismQuantityType": {
     "name": "Organism quantity type",
-    "count": "{num, plural, one { organism quantity type } other {# organism quantity types}}",
     "description": "The type of measurement for the \"organism quantity\"."
   },
   "pathway": {
     "name": "Pathway",
-    "count": "{num, plural, one { pathway } other {# pathways}}",
     "description": "The pathway through which the organism was introduced."
   },
   "associatedSequences": {
     "name": "Associated sequences",
-    "count": "{num, plural, one { associated sequence } other {# associated sequences}}",
     "description": "An identifier to any sequences associated with the record. Typically a URL."
   },
   "degreeOfEstablishment": {
     "name": "Degree of establishment",
-    "count": "{num, plural, one { degree of establishment } other {# degrees of establishment}}",
     "description": "The degree to which the organism is established in the environment."
   },
   "endDayOfYear": {
     "name": "End day of year",
-    "count": "{num, plural, one { end day of year } other {# end days of year}}",
     "description": "The day of the year on which the event ended."
   },
   "startDayOfYear": {
     "name": "Start day of year",
-    "count": "{num, plural, one { start day of year } other {# start days of year}}",
     "description": "The day of the year on which the event started."
   },
   "previousIdentifications": {
     "name": "Previous identifications",
-    "count": "{num, plural, one { previous identification } other {# previous identifications}}",
     "description": "Previous taxon identifications associated with the record."
   },
   "lastInterpreted": {
     "name": "Last interpreted",
-    "count": "{num, plural, one { last interpreted } other {# last interpreted}}",
     "description": "Time of the last interpretation of the record."
   },
   "alternativeCode": {
     "name": "Alternative code",
-    "count": "{num, plural, one { alternative code } other {# alternative codes}}",
     "description": "Any additional code that is already in use for the same record in other contexts (for example, historical codes)."
   },
   "identifier": {
     "name": "Identifier",
-    "count": "{num, plural, one { identifier } other {# identifiers}}",
     "description": "A short description of the component should be placed here"
   },
   "institutionType": {
     "name": "Type",
-    "count": "{num, plural, one {# type } other {# types}}",
     "description": "Institution type (museum, herbarium, etc.)"
   },
   "discipline": {
     "name": "Discipline",
-    "count": "{num, plural, one { discipline } other {# disciplines}}",
     "description": "The research disciplines supported by the institution."
   },
   "collectionContentType": {
     "name": "Content type",
-    "count": "{num, plural, one { content type } other {# content types}}",
     "description": "The type of objects available in the collection"
   },
   "preservationType": {
     "name": "Preservation type",
-    "count": "{num, plural, one { preservation type } other {# preservation types}}",
     "description": "The method used to preserve the objects available in the collection"
   },
   "biomeType": {
     "name": "Biome type",
-    "count": "{num, plural, one { biome type } other {# biome types}}",
     "description": "The type of biome with which the organism is associated."
   },
   "objectClassification": {
     "name": "Object classification",
-    "count": "{num, plural, one { object classification } other {# object classifications}}",
     "description": "The classification of the object(s) in the collection."
   },
   "taxonKey": {
     "name": "Scientific name",
-    "count": "{num, plural, one {scientific name} other {# scientific names}}",
     "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "taxonKeyGrSciColl": {
     "name": "Scientific name",
-    "count": "{num, plural, one {scientific name} other {# scientific names}}",
     "description": "Filter using the scientific names listed in the collection descriptors provided in the collection's metadata, noting that not all collections include metadata descriptors and the names are often at higher taxonomic ranks such as order or family."
   },
   "basisOfRecord": {
     "name": "Basis of record",
-    "count": "{num, plural, one {basis of record} other {# bases of records}}",
     "isNotNull": "Has a basis of record",
     "isNull": "Has no basis of record",
     "description": "The nature of the evidence upon which the record is based."
   },
   "institutionCode": {
     "name": "Institution code",
-    "count": "{num, plural, one {institution code} other {# institution codes}}",
     "description": "The code (or acronym) for the institution having custody of the object(s) or information referred to in the record."
   },
   "catalogNumber": {
     "name": "Catalogue number",
-    "count": "{num, plural, one { catalogue number } other {# catalogue numbers}}",
     "description": "The identifier for the record within a catalogue or collection."
   },
   "mediaType": {
     "name": "Media type",
-    "count": "{num, plural, one {media type} other {# media types}}",
     "description": "The types of media accessible for this record."
   },
   "occurrenceIssue": {
     "name": "Issues and flags",
-    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "Has issues",
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceTaxonomicIssue": {
     "name": "Taxonomic issues and flags",
-    "count": "{num, plural, one {taxon issue or flag} other {# taxon issues and flags}}",
     "isNotNull": "Has taxonomic issues",
     "isNull": "Has no taxonomic issues",
     "description": "The types of taxonomic issues or flags of potential interest discovered during processing of the data."
   },
   "occurrenceCountry": {
     "name": "Country or area",
-    "count": "{num, plural, one {country or area} other {# countries or areas}}",
     "description": "The country or territory where the event occurred"
   },
   "grsciCollCountry": {
@@ -251,22 +204,18 @@
   },
   "preparations": {
     "name": "Preparations",
-    "count": "{num, plural, one {preparations} other {# preparations}}",
     "description": "How the specimen has been prepared (e.g. dried)"
   },
   "repatriated": {
     "name": "Repatriated",
-    "count": "{num, plural, one {repatriated} other {# repatriated}}",
     "description": "Whether the record has been repatriated to the country of origin."
   },
   "publishingCountryCode": {
     "name": "Publishing country or area",
-    "count": "{num, plural, one {publishing country or area} other {# publishing countries or areas}}",
     "description": "The ISO code for the country or territory in which the data publisher is located"
   },
   "q": {
     "name": "Full text search",
-    "count": "{num, plural, one {text string} other {# search strings}}",
     "description": "Full text search across several fields"
   },
   "coordinates": {
@@ -274,680 +223,545 @@
   },
   "elevation": {
     "name": "Elevation",
-    "count": "{num, plural, one {elevation filter} other {# elevation filters}}",
     "description": "The distance above a vertical reference point (usually mean sea level or a geoid) in metres."
   },
   "license": {
     "name": "Licence",
-    "count": "{num, plural, one {licence} other {# licences}}",
     "description": "The legal licence or waiver under which the record is shared."
   },
   "datasetKey": {
     "name": "Dataset",
-    "count": "{num, plural, one {dataset} other {# datasets}}",
     "description": "The title of the dataset under which the record is shared."
   },
   "datasetId": {
     "name": "dwc:datasetID",
-    "count": "{num, plural, one {dataset ID} other {# dataset IDs}}",
     "description": "The publishers internal ID for the dataset the record is associated with. Notice that this is different from the datasetKey used on GBIF for the dataset."
   },
   "publisherKey": {
     "name": "Publisher",
-    "count": "{num, plural, one {publisher} other {# publishers}}",
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "gbifPublisherKey": {
     "name": "GBIF publisher",
-    "count": "{num, plural, one {GBIF publisher} other {# GBIF publishers}}",
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "hostingOrganizationKey": {
     "name": "Hosting organization",
-    "count": "{num, plural, one {host} other {# hosts}}",
     "description": "The name of the organization hosting the dataset in which the record is published."
   },
   "country": {
-    "name": "Country or area",
-    "count": "{num, plural, one {country or area} other {# countries or areas}}"
+    "name": "Country or area"
   },
   "countriesOfCoverage": {
     "name": "Country or area of coverage",
-    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
     "description": "Which countries are covered by the record."
   },
   "collectionDescriptorCountry": {
     "name": "Country or area of coverage",
-    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
     "description": "Which countries does the collection have specimens from. Note that not all collections have this information filled."
   },
   "countriesOfResearcher": {
-    "name": "Country or area of researcher",
-    "count": "{num, plural, one {country or area of researcher} other {# countries or areas of researchers}}"
+    "name": "Country or area of researcher"
   },
   "typeStatus": {
     "name": "Type status",
-    "count": "{num, plural, one {type status} other {# type statuses}}",
     "isNotNull": "Has a type status",
     "isNull": "The type status",
     "description": "The type designation of a specimen."
   },
   "year": {
     "name": "Year",
-    "count": "{num, plural, one {year filter} other {# year filters}}",
     "description": "The year in which the event occurred."
   },
   "sampleSizeUnit": {
     "name": "Sample size unit",
-    "count": "{num, plural, one {sample size unit} other {# sample size units}}",
     "description": "The unit of measurement for the \"sample size value\"."
   },
   "coordinateUncertainty": {
     "name": "Coordinate uncertainty",
-    "count": "{num, plural, one {coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
   },
   "distanceFromCentroidInMeters": {
     "name": "Distance from centroid in metres",
-    "count": "{num, plural, one {distance from centroid} other {# distance from centroid filters}}",
     "description": "The distance in meters from the country centroid."
   },
   "depth": {
     "name": "Depth",
-    "count": "{num, plural, one { depth } other {# depths}}",
     "description": "The distance below a local surface, in metres."
   },
   "organismQuantity": {
     "name": "Organism quantity",
-    "count": "{num, plural, one { Organism quantity } other {# Organism quantities}}",
     "description": "The value for the quantity of organisms, where the type of measurement is given in the \"Organism quantity type\"."
   },
   "sampleSizeValue": {
     "name": "Sample size value",
-    "count": "{num, plural, one { sample size value } other {# sample size values}}",
     "description": "The value for the size of a sample, where the units of measurement are given in the \"Sample size unit\"."
   },
   "relativeOrganismQuantity": {
     "name": "Relative organism quantity",
-    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
     "description": "The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous."
   },
   "month": {
     "name": "Month",
-    "count": "{num, plural, one { month } other {# months}}",
     "description": "The integer month in which the event occurred."
   },
   "continent": {
     "name": "Continent",
-    "count": "{num, plural, one { continent } other {# continents}}",
     "description": "The name of the continent in which the location occurs.  This field is not inferred but only populated if provided by the dataset publisher. Applying this filter may exclude relevant records."
   },
   "protocol": {
     "name": "Publishing protocol",
-    "count": "{num, plural, one { protocol } other {# protocols}}",
     "description": "The technical protocol through which the dataset is shared."
   },
   "establishmentMeans": {
     "name": "Establishment means",
-    "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "The means by which the organism was introduced to a given place at a given time."
   },
   "sex": {
     "name": "Sex",
-    "count": "{num, plural, one { sex } other {# sexes}}",
     "description": "The sex of the organism."
   },
   "lifeStage": {
     "name": "Life stage",
-    "count": "{num, plural, one { life stage } other {# life stages}}",
     "description": "The life stage of the organism."
   },
   "recordedBy": {
     "name": "Recorded by",
-    "count": "{num, plural, one { recorded by } other {recorded by #}}",
     "description": "The names of the person, people, groups or organizations responsible for recording the original occurrence."
   },
   "fieldNumber": {
     "name": "Field number",
-    "count": "{num, plural, one { field number } other {# field numbers}}",
     "description": "The identifier assigned to the location by the collector."
   },
   "verbatimTaxonId": {
     "name": "Verbatim taxon ID",
-    "count": "{num, plural, one { verbatim taxon ID } other {# verbatim taxon IDs}}",
     "description": "The taxon identifier as provided by the publisher."
   },
   "islandGroup": {
     "name": "Island group",
-    "count": "{num, plural, one { island group } other {# island groups}}",
     "description": "The name of the island group of the location."
   },
   "island": {
     "name": "Island",
-    "count": "{num, plural, one { island } other {# islands}}",
     "description": "The name of the island of the location."
   },
   "georeferencedBy": {
     "name": "Georeferenced by",
-    "count": "{num, plural, one { georeferenced by } other {georeferenced by #}}",
     "description": "The names of the people, groups or organizations responsible for georeferencing the original occurrence."
   },
   "datasetName": {
     "name": "dwc:datasetName",
-    "count": "{num, plural, one { dataset name } other {# dataset names}}",
     "description": "The name of the dataset used by the publisher. Records in a dataset might come from multiple other datasets."
   },
   "programme": {
     "name": "Programme",
-    "count": "{num, plural, one { programme } other {# programmes}}",
     "description": "The name of the programme with which the record is associated."
   },
   "recordNumber": {
     "name": "Record number",
-    "count": "{num, plural, one { record number } other {# record numbers}}",
     "description": "An identifier given to the occurrence at the time it was recorded."
   },
   "collectionCode": {
     "name": "Collection code",
-    "count": "{num, plural, one { collection code } other {# collection codes}}",
     "description": "What collection code is assigned to the record."
   },
   "projectId": {
     "name": "Project ID",
-    "count": "{num, plural, one { project ID } other {# project IDs}}",
     "description": "What project ID is associated with the record."
   },
   "recordedById": {
     "name": "Recorded by ID",
-    "count": "{num, plural, one { recorded by ID } other {# recorded by IDs}}",
     "description": "The identifier for the person, people, groups or organizations responsible for recording the original occurrence."
   },
   "identifiedById": {
     "name": "Identified by ID",
-    "count": "{num, plural, one { identified by ID } other {# identified by IDs}}",
     "description": "The identifier for the person, people, groups or organizations responsible for determining the scientific name of the organism."
   },
   "occurrenceId": {
     "name": "Occurrence ID",
-    "count": "{num, plural, one { occurrence ID } other {# occurrence IDs}}",
     "description": "The unique identifier for the occurrence record."
   },
   "organismId": {
     "name": "Organism ID",
-    "count": "{num, plural, one { organism ID } other {# organism IDs}}",
     "description": "The unique identifier for the organism in the record."
   },
   "locality": {
     "name": "Locality",
-    "count": "{num, plural, one { locality } other {# localities}}",
     "description": "The specific part of the description of the place."
   },
   "waterBody": {
     "name": "Water body",
-    "count": "{num, plural, one { water body } other {# water bodies}}",
     "description": "The name of the water body in which the location occurs."
   },
   "higherGeography": {
     "name": "Higher geography",
-    "count": "{num, plural, one { water body } other {# higher geographies}}",
     "description": "Higher geography in which the record is located. This is not an interpreted field, but the original data as provided by the publisher. Multiple values can be provided."
   },
   "stateProvince": {
     "name": "State province",
-    "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "The name of the next administrative region smaller than country in which the location occurs."
   },
   "gbifRegion": {
     "name": "GBIF region",
-    "count": "{num, plural, one { GBIF region } other {# GBIF regions}}",
     "description": "The GBIF region of the location."
   },
   "publishedByGbifRegion": {
     "name": "Published by GBIF region",
-    "count": "{num, plural, one { GBIF region } other {# GBIF regions}}",
     "description": "The GBIF region in which the dataset is published."
   },
   "eventId": {
     "name": "Event ID",
-    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the event in the record."
   },
   "eventID": {
     "name": "Event ID",
-    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the event in the record."
   },
   "parentEventId": {
     "name": "Parent event ID",
-    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the Parent Event in the record."
   },
   "locationID": {
     "name": "Location ID",
-    "count": "{num, plural, one { location ID } other {# location IDs}}",
     "description": "The unique identifier for the site in the record."
   },
   "measurementOrFactTypes": {
     "name": "Measurement types",
-    "count": "{num, plural, one { measurement type } other {# measurement types}}",
     "description": "The type of measurement."
   },
   "measurementOrFactCount": {
     "name": "Measurement count",
-    "count": "{num, plural, one { measurement count } other {# measurement counts}}",
     "description": "The count of a given measurement type."
   },
   "occurrenceCount": {
     "name": "Occurrence count",
-    "count": "{num, plural, one { occurrence } other {# occurrences}}",
     "description": "Number of occurrences for the event"
   },
   "eventType": {
     "name": "Event type",
-    "count": "{num, plural, one { event type } other {# event types}}",
     "description": "The type of the sampling event."
   },
   "dataStructure": {
     "name": "Structure",
-    "count": "{num, plural, one { event type } other {# event types}}",
     "description": "The data structure for the sampling event."
   },
   "samplingProtocol": {
     "name": "Sampling protocol",
-    "count": "{num, plural, one { sampling protocol } other {# sampling protocols}}",
     "description": "The name of, reference to or description of the method or protocol used during an event."
   },
   "occurrenceStatus": {
     "name": "Occurrence status",
-    "count": "{num, plural, one { occurrence status } other {# occurrence statuses}}",
     "description": "The presence or absence of any organisms of the given taxon."
   },
   "gadmGid": {
     "name": "Administrative area",
-    "count": "{num, plural, one { administrative area } other {# administrative areas}}",
     "description": "The name of any administrative area from GADM.org determined during record processing."
-  },
-  "identifiedBy": {
-    "description": "A list (concatenated and separated) of names of people, groups or organizations who assigned the dwc:Taxon to the subject.",
-    "name": "Identified by",
-    "count": "{num, plural, one { selected } other {# selected}}"
   },
   "isInCluster": {
     "name": "Has related records",
-    "count": "{num, plural, one { has related records } other {# has related records}}",
     "description": "This experimental feature highlights possible duplicate and/or related occurrences."
   },
   "isSequenced": {
     "name": "Is sequenced",
-    "count": "{num, plural, one { is sequenced } other {# is sequenced}}",
-    "description": "Whether the record has sequence information."
+    "description": "Whether the record has sequence information (either in a DNA-derived data extension and/or associatedSequences)"
   },
   "active": {
     "name": "Active",
-    "count": "Active",
     "description": "Whether the entry corresponds to an active collection/institution or a historical listing that no longer exists."
   },
   "activeInstitution": {
     "name": "Active",
-    "count": "Active",
     "description": "Whether the entry corresponds to an active institution or a historical listing that no longer exists."
   },
   "activeCollection": {
     "name": "Active",
-    "count": "Active",
     "description": "Whether the entry corresponds to an active collection or a historical listing that no longer exists."
   },
   "publicationDate": {
     "name": "Publication date",
-    "count": "{num, plural, one { publication date } other {# publication dates}}",
-    "description": "When was the record was published"
+    "description": "When was the record published"
   },
   "personalCollection": {
     "name": "Personal collection",
-    "count": "Personal collection",
     "description": "Selects private or personal collections"
   },
   "datasetType": {
     "name": "Dataset type",
-    "count": "{num, plural, one { dataset type } other {# dataset types}}",
     "description": "A short description of the component should be placed here"
   },
   "datasetSubtype": {
     "name": "Dataset subtype",
-    "count": "{num, plural, one { dataset subtype } other {# dataset subtypes}}",
     "description": "A short description of the component should be placed here"
   },
   "institutionKey": {
     "name": "Institution",
-    "count": "{num, plural, one { institution } other {# institutions}}",
     "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
     "name": "Name",
-    "count": "{num, plural, one { name } other {# names}}",
     "description": "The entity's name",
     "searchPlaceholder": "Search by title/name"
   },
   "city": {
     "name": "City",
-    "count": "{num, plural, one { city } other {# cities}}",
     "description": "City where the institution/collection can be found."
   },
   "code": {
     "name": "Code",
-    "count": "{num, plural, one { code } other {# codes}}",
     "description": "The primary code that identifies the record as a whole. If you get no result, try the alternative code filter."
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
-    "count": "{num, plural, one { verbatim scientific name } other {# verbatim scientific names}}",
     "description": "The scientific name as provided by the data publisher without any normalization."
   },
   "networkKey": {
     "name": "Network",
-    "count": "{num, plural, one { network } other {# networks}}",
     "description": "A short description of the component should be placed here"
   },
   "literatureType": {
     "name": "Literature type",
-    "count": "{num, plural, one { literature type } other {# literature types}}",
     "description": "What type of literature does the citation come from."
   },
   "higherTaxonKey": {
     "name": "Higher taxon",
-    "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
     "description": "A higher taxon to filter by."
   },
   "issueEnum": {
     "name": "Issues and flags",
-    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "Has issues",
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "humboldtBooleans": {
     "name": "Humboldt extension",
-    "count": "{num, plural, one { selected } other {# selected}}",
     "description": "Extended support for Darwin Core Events related to ecological inventories."
   },
   "siteCount": {
     "description": "Total number of individual sites surveyed during the dwc:Event.",
-    "name": "Site Count",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Site Count"
   },
   "siteNestingDescription": {
     "description": "Textual description of the hierarchical sampling design.",
-    "name": "Site Nesting Description",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Site Nesting Description"
   },
   "verbatimSiteDescriptions": {
     "description": "Original textual description of the site(s).",
-    "name": "Verbatim Site Descriptions",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Verbatim Site Descriptions"
   },
   "verbatimSiteNames": {
     "description": "A list (concatenated and separated) of original site names.",
-    "name": "Verbatim Site Names",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Verbatim Site Names"
   },
   "geospatialScopeAreaValue": {
     "description": "The numeric value for the total area of the geospatial scope of the dwc:Event.",
-    "name": "Geospatial Scope Area Value",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Geospatial Scope Area Value"
   },
   "geospatialScopeAreaUnit": {
     "description": "The units associated with eco:geospatialScopeAreaValue",
-    "name": "Geospatial Scope Area Unit",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Geospatial Scope Area Unit"
   },
   "totalAreaSampledValue": {
     "description": "The numeric value for the total area surveyed during the dwc:Event.",
-    "name": "Total Area Sampled Value",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Total Area Sampled Value"
   },
   "totalAreaSampledUnit": {
     "description": "The units associated with eco:totalAreaSampledValue",
-    "name": "Total Area Sampled Unit",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Total Area Sampled Unit"
   },
   "reportedWeather": {
     "description": "A list of weather or climatic conditions present during the dwc:Event.",
-    "name": "Reported Weather",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Reported Weather"
   },
   "reportedExtremeConditions": {
     "description": "A description of any extreme weather or environmental conditions that may have affected the dwc:Event.",
-    "name": "Reported Extreme Conditions",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Reported Extreme Conditions"
   },
   "targetHabitatScope": {
     "description": "The habitats targeted for sampling during the dwc:Event.",
-    "name": "Target Habitat Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Target Habitat Scope"
   },
   "excludedHabitatScope": {
     "description": "The habitats explicitly excluded from sampling during the dwc:Event.",
-    "name": "Excluded Habitat Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Excluded Habitat Scope"
   },
   "eventDurationValue": {
     "description": "The numeric value for the duration of the dwc:Event.",
-    "name": "Event Duration Value",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Event Duration Value"
   },
   "eventDurationUnit": {
     "description": "The units associated with the eco:eventDurationValue.",
-    "name": "Event Duration Unit",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Event Duration Unit"
   },
   "targetTaxonomicScope": {
     "description": "The taxonomic group(s) targeted for sampling during the dwc:Event.",
-    "name": "Target Taxonomic Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Target Taxonomic Scope"
   },
   "excludedTaxonomicScope": {
     "description": "The taxonomic group(s) explicitly excluded from sampling during the dwc:Event.",
-    "name": "Excluded Taxonomic Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Excluded Taxonomic Scope"
   },
   "taxonCompletenessReported": {
     "description": "Statement about whether the taxonomic completeness of the dwc:Event was assessed.",
-    "name": "Taxon Completeness Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Taxon Completeness Reported"
   },
   "taxonCompletenessProtocols": {
     "description": "A description of or reference (publication, URL) to the methods used to determine eco:taxonCompletenessReported.",
-    "name": "Taxon Completeness Protocols",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Taxon Completeness Protocols"
   },
   "isTaxonomicScopeFullyReported": {
     "description": "Every dwc:Organism that was included within the taxonomic scope, and was detected during the dwc:Event, was reported.",
-    "name": "Is Taxonomic Scope Fully Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Taxonomic Scope Fully Reported"
   },
   "isAbsenceReported": {
     "description": "Taxonomic absences were reported.",
-    "name": "Is Absence Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Absence Reported"
   },
   "absentTaxa": {
     "description": "A list (concatenated and separated) of taxa reported absent during the dwc:Event.",
-    "name": "Absent Taxa",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Absent Taxa"
   },
   "hasNonTargetTaxa": {
     "description": "One or more dwc:Organisms of taxa outside the target taxonomic scope (the combination of eco:targetTaxonomicScope and eco:excludedTaxonomicScope) were detected and reported for this dwc:Event.",
-    "name": "Has Non Target Taxa",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Has Non Target Taxa"
   },
   "nonTargetTaxa": {
     "description": "A list (concatenated and separated) of taxa reported during the dwc:Event that are outside of the target taxonomic scope (the combination of eco:targetTaxonomicScope and eco:excludedTaxonomicScope).",
-    "name": "Non Target Taxa",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Non Target Taxa"
   },
   "areNonTargetTaxaFullyReported": {
     "description": "Every dwc:Organism that was outside of the target taxonomic scope (the combination of eco:targetTaxonomicScope and eco:excludedTaxonomicScope) and detected during the dwc:Event, and that was detectable using the given protocol (given in eco:protocolDescriptions and dwc:samplingProtocol), was reported.",
-    "name": "Are Non Target Taxa Fully Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Are Non Target Taxa Fully Reported"
   },
   "targetLifeStageScope": {
     "description": "The age classes or life stages of the dwc:Organisms targeted for sampling during the dwc:Event.",
-    "name": "Target Life Stage Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Target Life Stage Scope"
   },
   "excludedLifeStageScope": {
     "description": "The age classes or life stages of the dwc:Organisms explicitly excluded from sampling during the dwc:Event.",
-    "name": "Excluded Life Stage Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Excluded Life Stage Scope"
   },
   "isLifeStageScopeFullyReported": {
     "description": "Every dwc:Organism that was included within the life stage scope, and was detected during the dwc:Event, was reported.",
-    "name": "Is Life Stage Scope Fully Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Life Stage Scope Fully Reported"
   },
   "targetDegreeOfEstablishmentScope": {
     "description": "The degrees of establishment of the dwc:Organisms targeted for sampling during the dwc:Event.",
-    "name": "Target Degree Of Establishment Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Target Degree Of Establishment Scope"
   },
   "excludedDegreeOfEstablishmentScope": {
     "description": "The degrees of establishment of the dwc:Organisms explicitly excluded from sampling during the dwc:Event.",
-    "name": "Excluded Degree Of Establishment Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Excluded Degree Of Establishment Scope"
   },
   "isDegreeOfEstablishmentScopeFullyReported": {
     "description": "Every dwc:Organism that was included within the degree of establishment scope, and was detected during the dwc:Event, was reported.",
-    "name": "Is Degree Of Establishment Scope Fully Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Degree Of Establishment Scope Fully Reported"
   },
   "targetGrowthFormScope": {
     "description": "The growth forms or habits of the dwc:Organisms targeted for sampling during the dwc:Event.",
-    "name": "Target Growth Form Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Target Growth Form Scope"
   },
   "excludedGrowthFormScope": {
     "description": "The growth forms or habits of the dwc:Organisms explicitly excluded from sampling during the dwc:Event.",
-    "name": "Excluded Growth Form Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Excluded Growth Form Scope"
   },
   "isGrowthFormScopeFullyReported": {
     "description": "Every dwc:Organism that was included within the growth form scope, and was detected during the dwc:Event, was reported.",
-    "name": "Is Growth Form Scope Fully Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Growth Form Scope Fully Reported"
   },
   "hasNonTargetOrganisms": {
     "description": "One or more dwc:Organisms outside the target organismal scopes (eco:targetDegreeOfEstablishmentScope, eco:targetGrowthFormScope, and eco:targetLifeStageScope) were detected and reported for this dwc:Event.",
-    "name": "Has Non Target Organisms",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Has Non Target Organisms"
   },
   "verbatimTargetScope": {
     "description": "The verbatim original description of the dwc:Event scope.",
-    "name": "Verbatim Target Scope",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Verbatim Target Scope"
+  },
+  "identifiedBy": {
+    "description": "A list (concatenated and separated) of names of people, groups or organizations who assigned the dwc:Taxon to the subject.",
+    "name": "Identified by"
   },
   "identificationReferences": {
     "description": "A list (concatenated and separated) of references (publication, global unique identifier, URI) used in the dwc:Identification.",
-    "name": "Identification References",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Identification References"
   },
   "compilationTypes": {
     "description": "A statement specifying whether data reported are derived from sampling events, ancillary data compiled from other sources, or a combination of both.",
-    "name": "Compilation Types",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Compilation Types"
   },
   "compilationSourceTypes": {
     "description": "The types of data sources contributing to the compilation reported.",
-    "name": "Compilation Source Types",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Compilation Source Types"
   },
   "inventoryTypes": {
     "description": "The types of search processes used to conduct the inventory.",
-    "name": "Inventory Types",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Inventory Types"
   },
   "protocolNames": {
     "description": "Categorical descriptive names for the methods used during the dwc:Event.",
-    "name": "Protocol Names",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Protocol Names"
   },
   "protocolDescriptions": {
     "description": "A detailed description of the methods used during the dwc:Event.",
-    "name": "Protocol Descriptions",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Protocol Descriptions"
   },
   "protocolReferences": {
     "description": "The references to the methods used during the dwc:Event.",
-    "name": "Protocol References",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Protocol References"
   },
   "isAbundanceReported": {
     "description": "The number of dwc:Organisms collected or observed was reported.",
-    "name": "Is Abundance Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Abundance Reported"
   },
   "isAbundanceCapReported": {
     "description": "A maximum number of dwc:Organisms was reported, as specified or restricted by the protocol used.",
-    "name": "Is Abundance Cap Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Abundance Cap Reported"
   },
   "abundanceCap": {
     "description": "The reported maximum number of dwc:Organisms.",
-    "name": "Abundance Cap",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Abundance Cap"
   },
   "isVegetationCoverReported": {
     "description": "A vegetation cover metric was reported.",
-    "name": "Is Vegetation Cover Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Vegetation Cover Reported"
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
     "description": "The total detected quantity for a dwc:Taxon (including subcategories thereof) in a dwc:Event is given explicitly in a single record (dwc:organismQuantity value) for that dwc:Taxon.",
-    "name": "Is Least Specific Target Category Quantity Inclusive",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Least Specific Target Category Quantity Inclusive"
   },
   "hasVouchers": {
     "description": "Specimen vouchers were collected during the dwc:Event.",
-    "name": "Has Vouchers",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Has Vouchers"
   },
   "voucherInstitutions": {
     "description": "A list (concatenated and separated) of the names or acronyms of the institutions where vouchers collected during the dwc:Event were deposited.",
-    "name": "Voucher Institutions",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Voucher Institutions"
   },
   "hasMaterialSamples": {
     "description": "Material samples were collected during the dwc:Event.",
-    "name": "Has Material Samples",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Has Material Samples"
   },
   "materialSampleTypes": {
     "description": "A list (concatenated and separated) of material sample types collected during the dwc:Event.",
-    "name": "Material Sample Types",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Material Sample Types"
   },
   "samplingPerformedBy": {
     "description": "A person, group or organization responsible for recording the dwc:Event.",
-    "name": "Sampling Performed By",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Sampling Performed By"
   },
   "isSamplingEffortReported": {
     "description": "The sampling effort associated with the dwc:Event was reported.",
-    "name": "Is Sampling Effort Reported",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Is Sampling Effort Reported"
   },
   "samplingEffortProtocol": {
     "description": "A description of or reference (publication or URL) to the methods used to determine the sampling effort.",
-    "name": "Sampling Effort Protocol",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Sampling Effort Protocol"
   },
   "samplingEffortValue": {
     "description": "The numeric value for the sampling effort expended during the dwc:Event.",
-    "name": "Sampling Effort Value",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Sampling Effort Value"
   },
   "samplingEffortUnit": {
     "description": "The units associated with the eco:samplingEffortValue.",
-    "name": "Sampling Effort Unit",
-    "count": "{num, plural, one { selected } other {# selected}}"
+    "name": "Sampling Effort Unit"
   }
 }

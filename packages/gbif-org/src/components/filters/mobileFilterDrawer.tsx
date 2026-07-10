@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
+import { DialogClose } from '@/components/ui/dialog';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { FilterProvider } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
-import React, { useEffect, useState } from 'react';
-import { MdArrowBack, MdClose } from 'react-icons/md';
+import React, { useEffect, useMemo, useState } from 'react';
+import { MdArrowBack, MdChevronRight, MdClose } from 'react-icons/md';
 import { Filters, sortFilters } from './filterTools';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import {
@@ -17,6 +18,7 @@ import {
 } from '../ui/command';
 import { getFilterSummary } from './filterTools';
 import { cn } from '@/utils/shadcn';
+import { normalizeString } from '@/utils/normalizeString';
 
 export const MobileFilterDrawerContent = React.forwardRef<
   HTMLDivElement,
@@ -62,15 +64,20 @@ export const MobileFilterDrawerContent = React.forwardRef<
     setActiveFilterHandle(null);
   }, [filterContext?.filter]);
 
-  // Clear a specific filter
-  const handleClearFilter = React.useCallback(
-    (filterHandle: string) => {
-      if (filterContext?.setFullField) {
-        filterContext.setFullField(filterHandle, [], []);
-      }
-    },
-    [filterContext]
-  );
+  // Clear every filter in the drawer; preserves checklistKey from the current filter.
+  const handleClearAll = React.useCallback(() => {
+    if (!filterContext) return;
+    const { checklistKey } = filterContext.filter || {};
+    filterContext.setFilter(checklistKey ? { checklistKey } : {});
+  }, [filterContext]);
+
+  const hasActiveFilters = useMemo(() => {
+    if (!filterContext) return false;
+    return Object.keys(filters).some((handle) => {
+      const summary = getFilterSummary(filterContext.filter, handle);
+      return summary.defaultCount > 0;
+    });
+  }, [filterContext, filters]);
 
   useEffect(() => {
     // Reset pristine state when a filter is selected
@@ -87,8 +94,8 @@ export const MobileFilterDrawerContent = React.forwardRef<
 
   return (
     <div className="g-flex g-flex-col g-h-full g-bg-white">
-      {activeFilterHandle && (
-        <div className="g-flex g-flex-nowrap g-items-center g-border-b">
+      {activeFilterHandle ? (
+        <div className="g-flex g-flex-nowrap g-items-center g-gap-1 g-px-2 g-h-14 g-border-b g-border-solid g-border-slate-200">
           <Button
             size="sm"
             variant="ghost"
@@ -96,30 +103,68 @@ export const MobileFilterDrawerContent = React.forwardRef<
               id: 'filterSupport.backToFilterList',
               defaultMessage: 'Back to filter list',
             })}
-            className="g-flex-none g-min-w-11 g-min-h-11 sm:g-min-w-7 sm:g-min-h-7 g-justify-center"
+            className="g-flex-none g-min-w-11 g-min-h-11 sm:g-min-w-9 sm:g-min-h-9 g-justify-center g-text-slate-600"
             onClick={handleCancel}
           >
-            <MdArrowBack />
+            <MdArrowBack className="g-h-6 g-w-6 sm:g-h-5 sm:g-w-5" />
           </Button>
-          <h3 className="g-flex-auto g-text-slate-800 g-text-base g-font-semibold">
+          <h3 className="g-flex-auto g-text-slate-800 g-text-base g-font-semibold g-m-0">
             {filters[activeFilterHandle]?.translatedFilterName}
           </h3>
+        </div>
+      ) : (
+        <div className="g-flex g-flex-nowrap g-items-center g-justify-between g-px-4 g-h-14 g-border-b g-border-solid g-border-slate-200">
+          <h3 className="g-text-slate-800 g-text-base g-font-semibold g-m-0">
+            <FormattedMessage id="filterSupport.filters" defaultMessage="Filters" />
+          </h3>
+          <DialogClose asChild>
+            <Button
+              size="sm"
+              variant="ghost"
+              aria-label={formatMessage({ id: 'phrases.close', defaultMessage: 'Close' })}
+              className="g-min-w-11 g-min-h-11 sm:g-min-w-9 sm:g-min-h-9 g-justify-center g-text-slate-500 hover:g-text-slate-800 -g-me-2"
+            >
+              <MdClose className="g-h-6 g-w-6 sm:g-h-5 sm:g-w-5" />
+            </Button>
+          </DialogClose>
         </div>
       )}
 
       <Command
-        className={cn('g-h-full', activeFilterHandle && 'g-hidden')}
+        className={cn('g-flex-1 g-min-h-0', activeFilterHandle && 'g-hidden')}
         aria-hidden={activeFilterHandle ? true : undefined}
+        filter={(value, search) => {
+          if (normalizeString(value).includes(normalizeString(search))) return 1;
+          return 0;
+        }}
       >
-        <CommandInput
-          value={searchValue}
-          onValueChange={setSearchValue}
-          autoFocus={false}
-          placeholder={formatMessage({
-            id: 'search.placeholders.default',
-            defaultMessage: 'Search filters',
-          })}
-        />
+        <div className="g-relative g-px-3 g-py-2 g-border-b g-border-solid g-border-slate-200">
+          <CommandInput
+            value={searchValue}
+            onValueChange={setSearchValue}
+            autoFocus={false}
+            placeholder={formatMessage({
+              id: 'search.placeholders.default',
+              defaultMessage: 'Search filters',
+            })}
+            wrapperClassName="g-border-b-0 g-rounded g-bg-slate-100 g-px-3 focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
+            iconClassName="g-h-5 g-w-5 g-opacity-60"
+            className={cn('g-h-11 g-text-base', searchValue && 'g-pe-9')}
+          />
+          {searchValue && (
+            <button
+              type="button"
+              aria-label={formatMessage({
+                id: 'filterSupport.clear',
+                defaultMessage: 'Clear',
+              })}
+              onClick={() => setSearchValue('')}
+              className="g-absolute g-top-1/2 g-end-5 g--translate-y-1/2 g-flex g-items-center g-justify-center g-h-7 g-w-7 g-rounded-full g-text-slate-500 hover:g-text-slate-700 hover:g-bg-slate-200 focus:g-outline-none focus-visible:g-ring-2 focus-visible:g-ring-blue-400/70"
+            >
+              <MdClose className="g-h-4 g-w-4" />
+            </button>
+          )}
+        </div>
 
         <CommandEmpty className="g-p-4">
           <FormattedMessage
@@ -128,12 +173,8 @@ export const MobileFilterDrawerContent = React.forwardRef<
           />
         </CommandEmpty>
 
-        <CommandList className="g-flex-1 g-overflow-y-auto g-max-h-none" key={listVersion}>
-          <ActiveFilters
-            filters={filters}
-            onSelectFilter={setActiveFilterHandle}
-            onClearFilter={handleClearFilter}
-          />
+        <CommandList className="g-flex-1 g-px-2 g-overflow-y-auto g-max-h-none" key={listVersion}>
+          <ActiveFilters filters={filters} onSelectFilter={setActiveFilterHandle} />
 
           <HighlightedFilters filters={filters} onSelectFilter={setActiveFilterHandle} />
 
@@ -142,7 +183,7 @@ export const MobileFilterDrawerContent = React.forwardRef<
       </Command>
 
       {activeFilterHandle && Content && (
-        <div className="g-flex-1 g-overflow-y-auto">
+        <div className="g-flex g-flex-col g-flex-1 g-min-h-0">
           <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
             <Content
               onApply={handleApply}
@@ -151,6 +192,25 @@ export const MobileFilterDrawerContent = React.forwardRef<
               ref={ref as React.ForwardedRef<unknown>}
             />
           </FilterProvider>
+        </div>
+      )}
+
+      {!activeFilterHandle && (
+        <div className="g-flex g-items-center g-gap-2 g-px-4 g-py-3 g-border-t g-border-solid g-border-slate-200 g-bg-white">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleClearAll}
+            disabled={!hasActiveFilters}
+            className="g-flex-none g-h-11 g-px-4 g-text-slate-700 disabled:g-opacity-40"
+          >
+            <FormattedMessage id="filterSupport.clearAll" defaultMessage="Clear all" />
+          </Button>
+          <DialogClose asChild>
+            <Button type="button" className="g-flex-1 g-h-11 g-text-base g-font-medium">
+              <FormattedMessage id="filterSupport.apply" defaultMessage="Apply" />
+            </Button>
+          </DialogClose>
         </div>
       )}
     </div>
@@ -162,67 +222,59 @@ MobileFilterDrawerContent.displayName = 'MobileFilterDrawerContent';
 interface ActiveFiltersProps {
   filters: Filters;
   onSelectFilter: (filterHandle: string) => void;
-  onClearFilter: (filterHandle: string) => void;
 }
 
-const ActiveFilters = React.memo<ActiveFiltersProps>(
-  ({ filters, onSelectFilter, onClearFilter }) => {
-    const filterContext = React.useContext(FilterContext);
+const ActiveFilters = React.memo<ActiveFiltersProps>(({ filters, onSelectFilter }) => {
+  const filterContext = React.useContext(FilterContext);
+  const intl = useIntl();
 
-    const activeFilters = React.useMemo(() => {
-      if (!filterContext) return [];
+  const activeFilters = React.useMemo(() => {
+    if (!filterContext) return [];
 
-      return Object.values(filters)
-        .filter((filter) => {
-          const summary = getFilterSummary(filterContext.filter, filter.handle);
-          return summary.defaultCount > 0;
-        })
-        .sort(sortFilters);
-    }, [filters, filterContext]);
+    return Object.values(filters)
+      .filter((filter) => {
+        const summary = getFilterSummary(filterContext.filter, filter.handle);
+        return summary.defaultCount > 0;
+      })
+      .sort(sortFilters);
+  }, [filters, filterContext]);
 
-    if (activeFilters.length === 0) return null;
+  if (activeFilters.length === 0) return null;
 
-    return (
-      <>
-        <CommandGroup heading={<FormattedMessage id="filterSupport.activeFilters" />}>
-          {activeFilters.map((filter) => {
-            const summary = getFilterSummary(filterContext?.filter || {}, filter.handle);
+  return (
+    <>
+      <CommandGroup heading={<FormattedMessage id="filterSupport.activeFilters" />}>
+        {activeFilters.map((filter) => {
+          const summary = getFilterSummary(filterContext?.filter || {}, filter.handle);
+          const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
+          const aliases = typeof rawAlias === 'string' ? rawAlias : '';
+          const searchValue = aliases
+            ? `${filter.translatedFilterName} ${aliases}`
+            : filter.translatedFilterName;
 
-            return (
-              <CommandItem
-                key={filter.handle}
-                onSelect={() => onSelectFilter(filter.handle)}
-                className="g-flex g-items-center g-justify-between"
-              >
-                <div className="g-flex g-items-center g-gap-2">
-                  <span className="g-font-medium g-text-primary-600">
-                    {filter.translatedFilterName}
-                  </span>
-                  <span className="g-font-medium g-bg-primary-400 g-text-xs g-rounded-full g-text-primaryContrast g-size-5 g-flex g-items-center g-justify-center">
-                    <FormattedNumber value={summary.defaultCount} />
-                  </span>
-                </div>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClearFilter(filter.handle);
-                  }}
-                  className="g-p-1 g-min-h-9 g-min-w-9 g-justify-center g-text-slate-500 hover:g-text-slate-700"
-                  aria-label={`Clear ${filter.translatedFilterName} filter`}
-                >
-                  <MdClose className="g-h-4 g-w-4" />
-                </Button>
-              </CommandItem>
-            );
-          })}
-        </CommandGroup>
-        <CommandSeparator />
-      </>
-    );
-  }
-);
+          return (
+            <CommandItem
+              key={filter.handle}
+              value={searchValue}
+              onSelect={() => onSelectFilter(filter.handle)}
+              className="g-flex g-items-center g-justify-between g-py-3"
+            >
+              <span className="g-font-medium g-text-slate-700">{filter.translatedFilterName}</span>
+              <span className="g-ms-auto g-font-medium g-bg-slate-700 g-text-xs g-rounded-full g-text-white g-size-5 g-flex g-items-center g-justify-center">
+                <FormattedNumber value={summary.defaultCount} />
+              </span>
+              <MdChevronRight
+                aria-hidden="true"
+                className="gbif-rtl-icon g-ms-1 g-h-5 g-w-5 g-text-slate-400"
+              />
+            </CommandItem>
+          );
+        })}
+      </CommandGroup>
+      <CommandSeparator />
+    </>
+  );
+});
 
 ActiveFilters.displayName = 'ActiveFilters';
 
@@ -234,6 +286,7 @@ interface HighlightedFiltersProps {
 const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSelectFilter }) => {
   const searchContext = useSearchContext();
   const filterContext = React.useContext(FilterContext);
+  const intl = useIntl();
 
   const inactiveHighlightedFilters = React.useMemo(() => {
     const highlightedFilters = searchContext?.highlightedFilters || [];
@@ -264,17 +317,31 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
           allFiltersHighlighted ? undefined : <FormattedMessage id="filterSupport.highlighted" />
         }
       >
-        {inactiveHighlightedFilters.map((filter) => (
-          <CommandItem
-            key={filter.handle}
-            onSelect={() => onSelectFilter(filter.handle)}
-            className="g-flex g-items-center g-justify-between"
-          >
-            <div className="g-flex g-items-center g-gap-2">
-              <span className="g-font-medium g-text-slate-700">{filter.translatedFilterName}</span>
-            </div>
-          </CommandItem>
-        ))}
+        {inactiveHighlightedFilters.map((filter) => {
+          const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
+          const aliases = typeof rawAlias === 'string' ? rawAlias : '';
+          const searchValue = aliases
+            ? `${filter.translatedFilterName} ${aliases}`
+            : filter.translatedFilterName;
+          return (
+            <CommandItem
+              key={filter.handle}
+              value={searchValue}
+              onSelect={() => onSelectFilter(filter.handle)}
+              className="g-flex g-items-center g-justify-between g-py-3"
+            >
+              <div className="g-flex g-items-center g-gap-2">
+                <span className="g-font-medium g-text-slate-700">
+                  {filter.translatedFilterName}
+                </span>
+              </div>
+              <MdChevronRight
+                aria-hidden="true"
+                className="gbif-rtl-icon g-ms-auto g-h-5 g-w-5 g-text-slate-400"
+              />
+            </CommandItem>
+          );
+        })}
       </CommandGroup>
       {allFiltersHighlighted || <CommandSeparator />}
     </>
@@ -292,6 +359,7 @@ interface OtherFiltersProps {
 const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectFilter }) => {
   const searchContext = useSearchContext();
   const filterContext = React.useContext(FilterContext);
+  const intl = useIntl();
 
   const { otherFilters, filteredGroups, hasGroups } = React.useMemo(() => {
     // Get highlighted filters (configured to be highlighted by default)
@@ -336,11 +404,27 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
     <>
       {!hasGroups && (
         <CommandGroup>
-          {otherFilters.map((filter) => (
-            <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
-              {filter.translatedFilterName}
-            </CommandItem>
-          ))}
+          {otherFilters.map((filter) => {
+            const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
+            const aliases = typeof rawAlias === 'string' ? rawAlias : '';
+            const searchValue = aliases
+              ? `${filter.translatedFilterName} ${aliases}`
+              : filter.translatedFilterName;
+            return (
+              <CommandItem
+                key={filter.handle}
+                value={searchValue}
+                onSelect={() => onSelectFilter(filter.handle)}
+                className="g-flex g-items-center g-justify-between g-py-3"
+              >
+                {filter.translatedFilterName}
+                <MdChevronRight
+                  aria-hidden="true"
+                  className="gbif-rtl-icon g-ms-auto g-h-5 g-w-5 g-text-slate-400"
+                />
+              </CommandItem>
+            );
+          })}
         </CommandGroup>
       )}
       {hasGroups &&
@@ -348,11 +432,27 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
           return (
             <React.Fragment key={group.name}>
               <CommandGroup heading={<FormattedMessage id={`dashboard.group.${group.name}`} />}>
-                {group.filters.map((filter) => (
-                  <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
-                    {filter.translatedFilterName}
-                  </CommandItem>
-                ))}
+                {group.filters.map((filter) => {
+                  const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
+                  const aliases = typeof rawAlias === 'string' ? rawAlias : '';
+                  const searchValue = aliases
+                    ? `${filter.translatedFilterName} ${aliases}`
+                    : filter.translatedFilterName;
+                  return (
+                    <CommandItem
+                      key={filter.handle}
+                      value={searchValue}
+                      onSelect={() => onSelectFilter(filter.handle)}
+                      className="g-flex g-items-center g-justify-between g-py-3"
+                    >
+                      {filter.translatedFilterName}
+                      <MdChevronRight
+                        aria-hidden="true"
+                        className="gbif-rtl-icon g-ms-auto g-h-5 g-w-5 g-text-slate-400"
+                      />
+                    </CommandItem>
+                  );
+                })}
               </CommandGroup>
               {i < (filteredGroups?.length ?? 0) - 1 && <CommandSeparator />}
             </React.Fragment>

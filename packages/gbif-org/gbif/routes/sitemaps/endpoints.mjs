@@ -1,6 +1,7 @@
+import logger from '../../config/logger.mjs';
 import pager from './pager.mjs';
 import prose from './prose.mjs';
-import species from './species.mjs';
+import taxon from './taxon.mjs';
 import entity from './templates/entity/entity.mjs';
 import entityIndex from './templates/entity/index.mjs';
 import renderIndex from './templates/index.mjs';
@@ -31,7 +32,7 @@ function getIntervals(f, template, options) {
         res.send(template({ pages, ...options }));
       })
       .catch(function (err) {
-        log.error(err);
+        logger.logError(err, { context: 'sitemap_intervals', path: options?.path });
         next(err);
       });
   };
@@ -50,7 +51,7 @@ function getList(f, template, options) {
         res.send(template({ pages, ...options }));
       })
       .catch(function (err) {
-        log.error(err);
+        logger.logError(err, { context: 'sitemap_list', path: options?.path });
         next(err);
       });
   };
@@ -78,8 +79,12 @@ export function register(app) {
         res.set('Content-Type', 'text/xml');
         res.send(renderProse({ pages }));
       })
-      .catch(function (err) {
-        next(err);
+      .catch(function (e) {
+        if (e.status === 404) {
+          res.status(404).send('Not found');
+        } else {
+          res.status(500).send('Internal server error');
+        }
       });
   });
 
@@ -145,26 +150,34 @@ export function register(app) {
   // app.get('/sitemap-species.xml', getIntervals(pager.species.intervals, 'sitemaps/species/index'));
   // app.get('/sitemap/species/:offset/:limit.xml', getList(pager.species.list, 'sitemaps/species/species'));
   // species in backbone
-  app.get('/sitemap-species.xml', function (req, res, next) {
-    species
-      .getSpeciesSiteMapIndex()
+  app.get('/sitemap-taxon.xml', function (req, res, next) {
+    taxon
+      .getTaxonSiteMapIndex()
       .then(function (sitemapIndex) {
         res.set('Content-Type', 'text/xml');
         res.send(sitemapIndex);
       })
       .catch(function (e) {
-        next(e);
+        if (e.status === 404) {
+          res.status(404).send('Not found');
+        } else {
+          res.status(500).send('Internal server error');
+        }
       });
   });
-  app.get('/sitemap/species/:no.txt', function (req, res, next) {
-    species
-      .getSpeciesSiteMap(req.params.no)
+  app.get('/sitemap/taxon/:no.txt', function (req, res, next) {
+    taxon
+      .getTaxonSiteMap(req.params.no)
       .then(function (sitemap) {
         res.set('Content-Type', 'text/plain');
         res.send(sitemap);
       })
       .catch(function (e) {
-        next(e);
+        if (e.status === 404) {
+          res.status(404).send('Not found');
+        } else {
+          res.status(500).send('Internal server error');
+        }
       });
   });
 }

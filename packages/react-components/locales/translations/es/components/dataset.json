@@ -36,16 +36,15 @@
       "citations": "Citas"
     },
     "checklist": {
+      "info": "Estas métricas ofrecen una visión general del conjunto de datos de la lista de verificación. Para consultar métricas más detalladas y explorar los datos, visite {checklistbank}.",
+      "checklistbank": "ChecklistBank",
       "notAvailable": "Las métricas de la lista de taxones no están disponibles para este conjunto de datos.",
       "overview": "Descripción general de la lista de taxones",
       "overviewDescription": "Estadísticas descriptivas para este conjunto de datos de lista de taxones",
       "usagesCount": "Usos totales de nombres",
       "distinctNamesCount": "Nombres distintos",
       "synonymsCount": "Sinónimos",
-      "nubMatchingCount": "Coincidencias con el listado taxonómico de GBIF",
-      "nubCoveragePct": "Cobertura del listado taxonómico de GBIF",
       "colMatchingCount": "Coincidencias con COL",
-      "colCoveragePct": "Cobertura de COL",
       "countByKingdom": "Conteo por Reino",
       "countByKingdomDescription": "Distribución del uso de nombres en los distintos reinos",
       "countByRank": "Contar por Rango",
@@ -89,6 +88,7 @@
   "studyArea": "Área de estudio",
   "publishedBy": "Publicado por",
   "mediatedBy": "Con la ayuda de",
+  "extensions": "Extensiones",
   "description": "Descripción",
   "metadataLanguage": "Idioma de los metadatos",
   "dataLanguage": "Idioma de los datos",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Distribución taxonómica de los registros de presencia",
   "noCitations": "Aún no hay citas",
-  "noOccurrences": "Sin registros biológicos"
+  "noOccurrences": "Sin registros biológicos",
+  "eventWarning": "La búsqueda y el filtrado de eventos son funciones experimentales en fase de desarrollo activo."
 }

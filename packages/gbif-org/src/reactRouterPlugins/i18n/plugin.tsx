@@ -3,7 +3,17 @@ import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { RouteObjectWithPlugins } from '..';
 import { I18nContextProvider } from './i18nContextProvider';
+import { getMessagesForLocale } from './loadMessages';
 import { localizeRouteId } from './useLocalizedRouteId';
+
+// Messages are NOT returned from this loader on the SERVER: that would serialize the full ~438 KB
+// dictionary into every SSR response. On the server the
+// entry loads messages out-of-band for the render and inlines only the tiny versioned URL, and the
+// client fetches that file before hydration (provided via MessagesProvider).
+//
+// On the CLIENT the loader still runs so a language-switch navigation loads the target locale's
+// messages (blocking, like before, so there is no flash of the wrong language). This loaderData is
+// never serialized - it only ever exists in the browser during client-side navigation.
 
 export function applyI18nPlugin(
   routes: RouteObjectWithPlugins[],
@@ -14,19 +24,10 @@ export function applyI18nPlugin(
       'The root route should not have route: "/" when using the i18n react-router-dom plugin'
     );
   }
-  const { messages: customMessages = {} } = config;
   const defaultLanguage = config.languages.find((language) => language.default);
   if (!defaultLanguage) throw new Error('No default language found');
 
-  const translationsPromise = fetch(`${config.translationsEntryEndpoint}/translations.json`)
-    .then((r) => r.json())
-    .catch((err) => {
-      console.error('Failed to load translations entry file');
-      throw err;
-    });
-
   return config.languages.map((localeOption) => {
-    const localeLanguage = customMessages[localeOption.code] ?? {};
     return {
       description: `Root route for ${localeOption.label}`,
       path: defaultLanguage.code === localeOption.code ? '/' : localeOption.code,
@@ -34,21 +35,11 @@ export function applyI18nPlugin(
         return false;
       },
       loader: async () => {
-        // fetch the entry translation file
-        const translations = await translationsPromise;
-        // now get the actual messages for the locale
-        const messages = await fetch(
-          `${config.translationsEntryEndpoint}${
-            translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
-          }`
-        )
-          .then((r) => r.json())
-          .catch((err) => {
-            console.error('Failed to load translations for language');
-            console.error('Failed language: ', localeOption.code, localeOption.localeCode);
-            throw err;
-          });
-        return { messages: { ...messages, ...localeLanguage } };
+        // Server: return nothing (messages come via MessagesProvider for the SSR render, and we must
+        // keep them out of the serialized hydration data). Client: load this locale's messages so
+        // switching language picks up the right dictionary.
+        if (import.meta.env.SSR) return null;
+        return { messages: await getMessagesForLocale(config, localeOption) };
       },
       errorElement: <RootErrorPage />,
       element: (

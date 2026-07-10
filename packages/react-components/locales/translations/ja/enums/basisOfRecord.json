@@ -6,6 +6,7 @@
   "HUMAN_OBSERVATION": "人間による観察",
   "MACHINE_OBSERVATION": "機械による観察",
   "MATERIAL_SAMPLE": "試料",
+  "MATERIAL_CITATION": "資料引用",
   "LITERATURE": "文献",
   "OCCURRENCE": "オカレンス"
 }

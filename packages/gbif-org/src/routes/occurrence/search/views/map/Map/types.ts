@@ -12,6 +12,7 @@ import { MapPosition } from './useMapPosition';
  */
 export type MapEvent =
   | { type: 'ZOOM_TO'; lat: number; lng: number; zoom: number }
+  | { type: 'ZOOM_TO_EXTENT'; bbox: BoundingBox }
   | { type: 'EXPLORE_AREA'; bbox?: BoundingBox }
   | { type: 'ZOOM_IN' }
   | { type: 'ZOOM_OUT' };
@@ -77,6 +78,8 @@ export interface MapInteractionProps {
   onPointClick?: (point: PointClickData) => void;
   /** Callback for loading state changes */
   onLoading?: (loading: boolean) => void;
+  /** Callback when the visible map area (viewport) changes, providing the bounds in EPSG:4326 */
+  onViewportChange?: (bbox: BoundingBox) => void;
 }
 
 /**

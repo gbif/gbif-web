@@ -36,16 +36,15 @@
       "citations": "Citaties"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "Synoniemen",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "Studiegebied",
   "publishedBy": "Gepubliceerd door",
   "mediatedBy": "",
+  "extensions": "Extensies",
   "description": "Beschrijving",
   "metadataLanguage": "Metadata taal",
   "dataLanguage": "Taal van de data",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "",
   "noCitations": "",
-  "noOccurrences": ""
+  "noOccurrences": "",
+  "eventWarning": ""
 }

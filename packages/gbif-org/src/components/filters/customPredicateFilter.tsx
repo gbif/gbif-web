@@ -168,7 +168,14 @@ export const CustomPredicateFilter = React.forwardRef<HTMLDivElement, CustomPred
       // plain div (no tabIndex) so the call becomes a no-op — focus is then
       // either set by our effect (textarea, in edit mode) or stays where it
       // was (preview mode opens with nothing focused).
-      <div ref={ref} style={style} className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
+      <div
+        ref={ref}
+        style={style}
+        className={cn(
+          'g-flex g-flex-col g-flex-1 g-min-h-0 g-max-h-[var(--radix-popover-content-available-height,100dvh)]',
+          className
+        )}
+      >
         <div className="g-flex g-flex-col g-flex-auto g-min-h-0 g-p-3">
           {showExtendedHelp && (
             <div

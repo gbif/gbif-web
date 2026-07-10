@@ -36,16 +36,15 @@
       "citations": "Citations"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "Les mesures de checklist ne sont pas disponibles pour ce dataset.",
       "overview": "Vue d'ensemble de la checklist",
       "overviewDescription": "Résumé des statistiques pour ce dataset checklist",
       "usagesCount": "Total des noms d'usage",
       "distinctNamesCount": "Noms distincts",
       "synonymsCount": "Synonymes",
-      "nubMatchingCount": "Correspondances avec le référentiel taxonomique de GBIF",
-      "nubCoveragePct": "Couverture du référentiel taxonomique de GBIF",
       "colMatchingCount": "Correspondances avec COL",
-      "colCoveragePct": "Couverture de COL",
       "countByKingdom": "Décompte par Règne",
       "countByKingdomDescription": "Distribution des noms d'usage parmis les règnes",
       "countByRank": "Décompte par Rang",
@@ -89,6 +88,7 @@
   "studyArea": "Zone d’étude",
   "publishedBy": "Publié par",
   "mediatedBy": "Servi par",
+  "extensions": "Extensions",
   "description": "Description",
   "metadataLanguage": "Langue des métadonnées",
   "dataLanguage": "Langue des données",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Distribution taxonomique des occurrences",
   "noCitations": "Pas encore de citations",
-  "noOccurrences": "Aucune occurrence"
+  "noOccurrences": "Aucune occurrence",
+  "eventWarning": "La recherche et le filtrage d'événements est une fonctionnalité expérimentale en cours de développement."
 }

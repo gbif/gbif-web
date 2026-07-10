@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { extractLocaleFromPathname } from './extractLocaleFromURL';
+import { useMessages } from './messagesContext';
 import { DirectionProvider } from '@radix-ui/react-direction';
 
 type I18nContextValue = {
@@ -33,7 +34,13 @@ type Props = {
 };
 
 export function I18nContextProvider({ children, locale, defaultLocale, availableLocales }: Props) {
-  const { messages } = useLoaderData() as { messages: Record<string, string> | null };
+  // On the initial (SSR) render the loader returns nothing, so we use the messages provided via
+  // MessagesProvider (server-rendered / fetched before hydration) - this matches the SSR HTML and
+  // avoids a hydration mismatch. On a client-side language switch the (client-only) loader provides
+  // the target locale's messages, which take precedence.
+  const contextMessages = useMessages();
+  const loaderData = useLoaderData() as { messages?: Record<string, string> } | null;
+  const messages = loaderData?.messages ?? contextMessages;
   const location = useLocation();
   const navigate = useNavigate();
 

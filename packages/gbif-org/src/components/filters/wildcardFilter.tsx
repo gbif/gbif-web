@@ -294,7 +294,12 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       Object.keys(prunedFilter.mustNot ?? {}).length > 0;
 
     return (
-      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
+      <div
+        className={cn(
+          'g-flex g-flex-col g-flex-1 g-min-h-0 g-max-h-[var(--radix-popover-content-available-height,100dvh)]',
+          className
+        )}
+      >
         <div
           className={cn(
             'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center'
@@ -312,7 +317,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
           )}
           {options}
         </div>
-        <div className="g-flex-auto g-overflow-auto g-max-h-96 gbif-small-scrollbar">
+        <div className="g-flex-auto g-overflow-auto sm:g-max-h-96 gbif-small-scrollbar">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4')}>
               <div role="group" className="g-text-base sm:g-text-sm">

@@ -1,6 +1,8 @@
-import { FormattedDate } from 'react-intl';
+import { createIntl, FormattedDate } from 'react-intl';
 
 type DateValue = string | number | Date;
+
+const enIntl = createIntl({ locale: 'en-GB', messages: {} });
 
 /** Long form: "24 February 2026" - for detail pages, article headers */
 export const longDateFormatProps = {
@@ -35,4 +37,9 @@ export function YearDate({ value }: { value: DateValue }) {
 export function ShortDate({ value }: { value: string | number | Date }) {
   const date = new Date(value);
   return <>{date.toISOString().slice(0, 10)}</>;
+}
+
+/** "24 February 2026" in English regardless of user locale - for citations */
+export function EnglishLongDate({ value }: { value: DateValue }) {
+  return <>{enIntl.formatDate(value, longDateFormatProps)}</>;
 }

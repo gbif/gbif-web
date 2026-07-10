@@ -176,7 +176,14 @@ function getGraphQlLabel({
       const { promise, cancel } = fetchWithCancel(
         `${config.graphqlEndpoint}?query=${encodeURIComponent(
           query
-        )}&variables=${encodeURIComponent(JSON.stringify({ key: id }))}`
+        )}&variables=${encodeURIComponent(JSON.stringify({ key: id }))}`,
+        {
+          headers: {
+            ...(typeof window !== 'undefined'
+              ? { 'x-gbif-site-url': window.location.href }
+              : {}),
+          },
+        }
       );
       return {
         promise: promise.then((response) => response.json()).then(transformer),
@@ -300,6 +307,7 @@ export const PurposesLabel = getEnumLabel({ template: (id) => `enums.purposes.${
 export const BasisOfRecordLabel = getEnumLabel({ template: (id) => `enums.basisOfRecord.${id}` });
 export const MediaTypeLabel = getEnumLabel({ template: (id) => `enums.mediaType.${id}` });
 export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` });
+export const DurationUnitLabel = getEnumLabel({ template: (id) => `enums.durationUnit.${id}` });
 export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.${id}` });
 export const GbifRegionLabel = getEnumLabel({ template: (id) => `enums.gbifRegion.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });

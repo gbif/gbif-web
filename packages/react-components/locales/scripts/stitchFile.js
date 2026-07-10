@@ -28,6 +28,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       tableHeaders: getFile(locale, `../${folder}/${locale}/components/tableHeaders`),
       intervals: getFile(locale, `../${folder}/${locale}/components/intervals`),
       filters: getFile(locale, `../${folder}/${locale}/components/filters`),
+      filterAliases: getFile(locale, `../${folder}/${locale}/components/filterAliases`)
+        .filterAliases,
       feedback: getFile(locale, `../${folder}/${locale}/components/feedback`).feedback,
       header: getFile(locale, `../${folder}/${locale}/components/header`).header,
       filterSupport: getFile(locale, `../${folder}/${locale}/components/filterSupport`),
@@ -97,11 +99,15 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         downloadFormat: getFile(locale, `../${folder}/${locale}/enums/downloadFormat`)
           .downloadFormat,
         mediaType: getFile(locale, `../${folder}/${locale}/enums/mediaType`),
+        durationUnit: getFile(locale, `../${folder}/${locale}/enums/durationUnit`).durationUnit,
         occurrenceIssue: getFile(locale, `../${folder}/${locale}/enums/occurrenceIssue`),
+        eventIssue: getFile(locale, `../${folder}/${locale}/enums/eventIssue`),
         occurrenceIssueDescription: getFile(
           locale,
           `../${folder}/${locale}/enums/occurrenceIssueDescription`,
         ).occurrenceIssueDescription,
+        eventIssueDescription: getFile(locale, `../${folder}/${locale}/enums/eventIssueDescription`)
+          .eventIssueDescription,
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),
         taxonRank: getFile(locale, `../${folder}/${locale}/enums/taxonRank`),
         taxonomicStatus: getFile(locale, `../${folder}/${locale}/enums/taxonomicStatus`),

@@ -13,6 +13,7 @@ import { Groups } from './About/groups';
 import { OccurrenceKeyContext } from './occurrenceKey';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 import TestSiteAlert from '@/components/TestSiteAlert';
+import { Alert } from '@/components/ui/alert';
 
 const extensions = [
   'multimedia',
@@ -95,6 +96,14 @@ export function OccurrenceKeyAbout() {
         >
           <div className="g-order-last">
             <TestSiteAlert className="g-mb-4" />
+            {!terms && (
+              <Alert variant="destructive" className="g-mb-4">
+                <FormattedMessage
+                  id="phrases.dataLoadErrorDescription"
+                  defaultMessage="Large parts of the data on this page failed to load. Please refresh the page or try again later. If the problem persists, please contact us."
+                />
+              </Alert>
+            )}
             <Groups
               occurrence={occurrence}
               slowOccurrence={slowOccurrence}

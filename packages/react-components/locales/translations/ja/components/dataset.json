@@ -1,6 +1,6 @@
 {
   "datasetSearchTitle": "データセット検索",
-  "datasetSearchDescription": "",
+  "datasetSearchDescription": "GBIF内で文献検索。フリーかつオープンアクセスな生物多様性データ",
   "longType": {
     "OCCURRENCE": "オカレンスデータセット",
     "CHECKLIST": "チェックリスト データセット",
@@ -20,7 +20,7 @@
     "project": "プロジェクト",
     "taxonomy": "分類群",
     "download": "ダウンロード",
-    "phylogeny": "",
+    "phylogeny": "系統発生",
     "metrics": "メトリクス",
     "events": "イベント"
   },
@@ -29,23 +29,22 @@
     "group": {
       "checklist": "チェックリスト",
       "downloads": "ダウンロード数",
-      "taxonomic": "",
-      "geographic": "",
+      "taxonomic": "分類学的",
+      "geographic": "地理的",
       "temporal": "一時的",
       "qualities": "",
       "citations": "引用"
     },
     "checklist": {
-      "notAvailable": "",
+      "info": "",
+      "checklistbank": "",
+      "notAvailable": "このデータセットでは、チェックリスト指標は利用できません",
       "overview": "",
-      "overviewDescription": "",
+      "overviewDescription": "このチェックリストデータセットの要約統計",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "シノニム",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
-      "colMatchingCount": "",
-      "colCoveragePct": "",
+      "colMatchingCount": "COL matches",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -54,23 +53,23 @@
       "countByOriginDescription": "",
       "origin": "由来",
       "countByIssue": "",
-      "countByIssueDescription": "",
+      "countByIssueDescription": "データ品質問題の分布",
       "count": "件数"
     }
   },
   "noStatsForMetadata": "メタデータのみのデータセットにつき、統計情報なし",
   "metadataOnlyWithData": {
-    "title": "",
-    "description": ""
+    "title": "メタデータのみのデータセット（データ付き）",
+    "description": "このデータセットはメタデータのみのデータセットとして発表されていますが、オカレンスデータが含まれています。これは、データのマッピングが誤っている可能性を示唆しています。"
   },
-  "siteScopeSmallerThanDataset": "",
+  "siteScopeSmallerThanDataset": "このサイトには、データセットに含まれる全てのレコードが掲載されているわけではありません。データセット全体をご覧になりたい場合は、[GBIF.org]({datasetUrl})にアクセスしてください。",
   "viewArticle": "記事を見る",
   "registeredDate": "登録日 {DATE}",
   "constituentOf": "構成要素",
   "dataset": "データセット",
   "taxonomy": "分類群",
   "localContexts": "共同出資",
-  "localContextsLabelsAppliedBy": "",
+  "localContextsLabelsAppliedBy": "{count, plural, one{Label} other{Labels}} applied by {communityName}",
   "project": "プロジェクト",
   "metrics": "メトリクス",
   "metricsOccurrenceHelpText": "",
@@ -89,6 +88,7 @@
   "studyArea": "研究された地域",
   "publishedBy": "出版",
   "mediatedBy": "次のサイトを介して：",
+  "extensions": "拡張モジュール",
   "description": "説明",
   "metadataLanguage": "メタデータの言語",
   "dataLanguage": "データの言語",
@@ -127,7 +127,7 @@
   "license": "ライセンス",
   "recommended": "推奨",
   "processedOccurrences": "GBIFがアノーテーションしたアーカイブ",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "GBIF処理後のオカレンスレコードをダウンロードしてください。処理過程で、名前、日付などが正規化されます。また、データは他の情報源からの情報によって拡充されます。\n\nコンテンツのダウンロードにはアカウントが必要です。",
   "noDescriptionProvided": "説明はありません。",
   "pNetwork": "{NUMBER, plural, one{ネットワーク} other{ネットワーク}}",
   "parentEvent": "親イベント",
@@ -136,18 +136,18 @@
   "childEvents": "子イベント",
   "events": "イベント",
   "boundingBox": "",
-  "latitude": "",
-  "longitude": "",
+  "latitude": "緯度",
+  "longitude": "経度",
   "verbatim": "オリジナルのまま",
   "occurrenceCount": "オカレンスのカウント",
   "inDataset": "In",
   "samplingArticleLink": "GBIF.orgにおけるサンプリングイベントをもっと表示",
-  "includesDna": "",
-  "includesDnaDescription": "",
-  "containsSamplingEvents": "",
-  "containsSamplingEventsDescription": "",
-  "griddedData": "",
-  "griddedDataDescription": "",
+  "includesDna": "DNAを含む",
+  "includesDnaDescription": "このデータセットには、塩基配列データを含むレコードが存在します",
+  "containsSamplingEvents": "採取記録が含まれています",
+  "containsSamplingEventsDescription": "このデータセットにはサンプルデータが含まれています。採取方法の詳細については、データセットの説明にある方法の部分をご覧ください。",
+  "griddedData": "Gridded data",
+  "griddedDataDescription": "レコードの分析によると、このデータセットにはgridded dataが含まれている可能性が高いです。Gridded datasetの詳細については、こちらのブログ記事をご覧ください (https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "オカレンスのデータ分析結果",
   "registry": {
     "failedSinceSuccess": "最も最近のデータ取り込み以来試行失敗",
@@ -187,13 +187,14 @@
     "lastIngestionFailed": "前回の取り込み失敗",
     "outOfSync": "未同期",
     "becauseTrustedContact": "信頼された連絡先であるので",
-    "registrationDetails": ""
+    "registrationDetails": "GBIF登録詳細"
   },
   "errors": {
     "evenList": "共同出資",
     "occurrenceInfo": "共同出資"
   },
   "eventTaxonomy": "オカレンスの分類学的分布",
-  "noCitations": "",
-  "noOccurrences": "オカレンスデータがありません"
+  "noCitations": "引用はまだありません",
+  "noOccurrences": "オカレンスデータがありません",
+  "eventWarning": ""
 }

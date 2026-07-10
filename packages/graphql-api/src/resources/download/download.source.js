@@ -1,0 +1,82 @@
+import { RESTDataSource } from '@/RESTDataSource';
+import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
+
+class DownloadAPI extends RESTDataSource {
+  constructor(config) {
+    super();
+    this.baseURL = config.apiv1;
+    this.config = config;
+  }
+
+  willSendRequest(path, request) {
+    if (this.context.user) {
+      const header = createSignedGetHeader(
+        path,
+        this.config,
+        this.context.user.userName,
+      );
+      Object.keys(header).forEach((x) => { request.headers[x] = header[x]; });
+    }
+  }
+
+  async datasetDownloads({ query }) {
+    const { datasetKey, ...params } = query;
+    return this.get(`/occurrence/download/dataset/${datasetKey}`, params);
+  }
+
+  async getUsersDownloads({ username, query }) {
+    return this.get(`/occurrence/download/user/${username}`, query, {
+      cacheOptions: { ttl: 0 },
+    });
+  }
+
+  async getUsersEventDownloads({ username, query }) {
+    return this.get(`/experimental/event/download/user/${username}`, query, {
+      cacheOptions: { ttl: 0 },
+    });
+  }
+
+  async getDownloadByKey({ key }) {
+    return this.get(
+      `/occurrence/download/${key}`,
+      {
+        statistics: true,
+        cacheBuste: this.context?.user?.userName,
+      },
+      {
+        cacheOptions: { ttl: this.context.user ? 0 : undefined },
+      },
+    );
+  }
+
+  async getEventDownloadByKey({ key }) {
+    return this.get(
+      `/experimental/event/download/${key}`,
+      {
+        statistics: true,
+        cacheBuste: this.context?.user?.userName,
+      },
+      {
+        cacheOptions: { ttl: this.context.user ? 0 : undefined },
+      },
+    );
+  }
+
+  async getContributingDatasetsByDownloadKey({ key, query }) {
+    return this.get(`/occurrence/download/${key}/datasets`, query);
+  }
+
+  async getContributingDatasetsByEventDownloadKey({ key, query }) {
+    return this.get(`/experimental/event/download/${key}/datasets`, query);
+  }
+
+  /*
+  getDownloadsByKeys({ downloadKeys }) {
+    return Promise.all(
+      downloadKeys.map(key => this.getDownloadByKey({ key })),
+    );
+  }
+  */
+}
+
+export default DownloadAPI;

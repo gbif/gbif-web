@@ -17,6 +17,8 @@
     "message": ""
   },
   "filterByView": "",
+  "zoomToData": "",
+  "noDataInView": "",
   "projection": "投影法",
   "anyYear": "任意の年",
   "exploreArea": "地域を調べる",

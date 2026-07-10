@@ -4,9 +4,12 @@
   "subtypeLiteral": "子類型",
   "title": "標題",
   "rights": "權利",
+  "credit": "額度",
   "providerLiteral": "提供者",
   "description": "描述",
   "accessURI": "URL",
+  "accessOriginalURI": "原始 URL",
   "format": "格式",
-  "pixelXDimension": "寬度"
+  "pixelXDimension": "寬度",
+  "pixelYDimension": "高度"
 }

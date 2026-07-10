@@ -10,7 +10,8 @@ type Props = {
 };
 
 function TaxonIdentifiersContent({ slowTaxon }: Props) {
-  const source = slowTaxon?.taxonInfo?.wikiData?.source;
+  const source = slowTaxon?.taxonInfo?.wikiData?.references;
+  const id = slowTaxon?.taxonInfo?.wikiData?.taxonID;
   return (
     <Card className="g-mb-4" id="taxonIdentifiers">
       <CardHeader>
@@ -18,7 +19,7 @@ function TaxonIdentifiersContent({ slowTaxon }: Props) {
           <FormattedMessage id="taxon.taxonIdentifiers" />
         </CardTitle>
         <CardDescription>
-          {source && <WikidataIdentifiersSource url={source.url} id={source.id} />}
+          {source && <WikidataIdentifiersSource url={source} id={id} />}
         </CardDescription>
       </CardHeader>
       <CardContent className="g-overflow-x-auto">

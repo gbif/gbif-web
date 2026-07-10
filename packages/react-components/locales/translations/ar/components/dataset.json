@@ -36,16 +36,15 @@
       "citations": "اقتباسات"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "مرادفات",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "منطقة الدراسة",
   "publishedBy": "تم النشر بواسطة",
   "mediatedBy": "بوساطة",
+  "extensions": "اللاحقات",
   "description": "التوصيف",
   "metadataLanguage": "لغة البيانات الوصفية",
   "dataLanguage": "لغة البيانات",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "التوزيع التصنيفي لتكرارات الحدوث",
   "noCitations": "",
-  "noOccurrences": "لا توجد تكرارات"
+  "noOccurrences": "لا توجد تكرارات",
+  "eventWarning": ""
 }

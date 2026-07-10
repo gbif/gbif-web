@@ -101,7 +101,10 @@ export function FilterPopover({
                 {React.isValidElement(child) && (
                   <>
                     {title}
-                    <form onSubmit={(e) => e.preventDefault()}>
+                    <form
+                      onSubmit={(e) => e.preventDefault()}
+                      className="g-flex g-flex-col g-min-h-0 g-flex-1"
+                    >
                       {React.cloneElement(child, {
                         onApply,
                         onCancel,
@@ -133,7 +136,7 @@ export function FilterPopover({
         onEscapeKeyDown={onCancel}
         align="start"
         className={cn(
-          'g-w-96 g-flex g-flex-col g-p-0 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]',
+          'g-w-96 g-flex g-flex-col g-p-0 g-overflow-hidden g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]',
           className
         )}
       >
@@ -142,7 +145,10 @@ export function FilterPopover({
             {React.isValidElement(child) && (
               <>
                 {title}
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form
+                  onSubmit={(e) => e.preventDefault()}
+                  className="g-flex g-flex-col g-min-h-0 g-flex-1"
+                >
                   {React.cloneElement(child, {
                     onApply,
                     onCancel,

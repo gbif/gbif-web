@@ -1,83 +1,29 @@
-import { useConfig } from '@/config/config';
-import { FilterProvider } from '@/contexts/filter';
-import { SearchContextProvider, SearchMetadata } from '@/contexts/search';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { EventSearchInner } from '@/routes/event/search/eventSearchPage';
-import { searchConfig } from '@/routes/event/search/searchConfig';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useEffect, useState } from 'react';
-import { useDatasetKeyContext } from '../datasetKey';
-import EventList from './eventList';
-import { Alert } from '@/components/ui/alert';
 import EmptyTab from '@/components/EmptyTab';
+import { DatasetType } from '@/gql/graphql';
+import { useDatasetKeyContext } from '../datasetKey';
+import InferredEventsDatasetEvents from './inferredFromOccurrence/inferredEventsDatasetEvents';
+import SamplingEventDatasetEvents from './samplingEvent/samplingEventDatasetEvents';
 
+/**
+ * Dispatcher for the dataset "Events" tab.
+ *
+ * Two distinct flows live behind this single route, each with their own
+ * folder of components:
+ *   - Sampling-event datasets render `SamplingEventDatasetEvents`
+ *     (event-API powered browser, with a feature-flag fallback).
+ *   - Other dataset types render `InferredEventsDatasetEvents`, which derives
+ *     events from `eventID`/`parentEventID` on occurrence records.
+ */
 const DatasetEvents = () => {
-  const { showEventsTab } = useDatasetKeyContext();
-  if (showEventsTab) return <NoneEmptyTab />;
-  return <EmptyTab />;
-};
+  const { showEventsTab, datasetType } = useDatasetKeyContext();
 
-const NoneEmptyTab = () => {
-  const [filter, setFilter] = useFilterParams({
-    filterConfig: searchConfig,
-    paramsToRemove: ['offset'],
-  });
-  const baseConfig = useConfig();
-  const [config, setConfig] = useState<SearchMetadata | undefined>();
-  const { datasetKey, datasetType } = useDatasetKeyContext();
+  if (!showEventsTab) return <EmptyTab />;
 
-  useEffect(() => {
-    const c = {
-      ...baseConfig.eventSearch,
-      scope: {
-        datasetKey,
-      },
-    };
-    setConfig(c);
-  }, [baseConfig, datasetKey]);
-
-  if (
-    datasetType === 'SAMPLING_EVENT' &&
-    import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled' &&
-    baseConfig.experimentalFeatures?.eventCoreEnabled
-  ) {
-    // If the dataset is of type sampling event, then show the event search with a dataset filter
-    return (
-      <ArticleContainer className="g-bg-slate-100">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <ExperimentalAlert />
-          {config && (
-            <SearchContextProvider searchContext={config}>
-              <FilterProvider filter={filter} onChange={setFilter}>
-                <EventSearchInner />
-              </FilterProvider>
-            </SearchContextProvider>
-          )}
-        </ArticleTextContainer>
-      </ArticleContainer>
-    );
+  if (datasetType === DatasetType.SamplingEvent) {
+    return <SamplingEventDatasetEvents />;
   }
 
-  return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-4">
-      <ArticleTextContainer className="g-max-w-screen-xl">
-        <EventList datasetKey={datasetKey} />
-      </ArticleTextContainer>
-    </ArticleContainer>
-  );
+  return <InferredEventsDatasetEvents />;
 };
 
 export default DatasetEvents;
-
-export function ExperimentalAlert() {
-  const baseConfig = useConfig();
-  if (!baseConfig.experimentalFeatures?.eventCoreEnabled) {
-    return null;
-  }
-  return (
-    <Alert variant="info" className="g-mb-4">
-      This is an experimental feature under active development.
-    </Alert>
-  );
-}

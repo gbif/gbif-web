@@ -36,16 +36,15 @@
       "citations": ""
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "Studiengebiet",
   "publishedBy": "Veröffentlicht von",
   "mediatedBy": "Vermittelt von",
+  "extensions": "",
   "description": "Beschreibung",
   "metadataLanguage": "Sprache der Metadaten",
   "dataLanguage": "Sprache der Daten",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "",
   "noCitations": "",
-  "noOccurrences": ""
+  "noOccurrences": "",
+  "eventWarning": ""
 }

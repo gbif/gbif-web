@@ -76,6 +76,7 @@ function createHeader(options) {
   let headers = {};
   headers['x-url'] = options.canonicalPath || options.url;
   headers['x-gbif-user'] = options.userName || appKey;
+  headers['User-Agent'] = 'GBIF-portal';
   if (options.method == 'POST' || options.method == 'PUT') {
     headers['Content-MD5'] = crypto
       .createHash('md5')

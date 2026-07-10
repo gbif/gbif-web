@@ -1,7 +1,9 @@
 {
   "TAXONOMIC_AUTHORITY": "Autorité taxonomique",
+  "NOMENCLATOR_AUTHORITY": "Autorité de nomenclature",
   "INVENTORY_THEMATIC": "Inventaire thématique",
   "INVENTORY_REGIONAL": "Inventaire régional",
+  "GLOBAL_SPECIES_DATASET": "Jeu de données mondial sur les espèces",
   "DERIVED_FROM_OCCURRENCE": "Dérivé de l'occurrence",
   "SPECIMEN": "Spécimen",
   "OBSERVATION": "Observation"

@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HyperText } from '@/components/hyperText';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
+import { ErrorMessage } from '@/components/errorMessage';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   Card,
@@ -58,7 +59,7 @@ import TestSiteAlert from '@/components/TestSiteAlert';
 export function DatasetKeyAbout() {
   const config = useConfig();
   const { dataset } = useDatasetKeyLoaderData().data;
-  const hasPreprocessedMap = useHasMap({
+  const { hasMap: hasPreprocessedMap, error: mapError } = useHasMap({
     datasetKey: dataset?.key ?? '',
     checklistKey: config.defaultChecklistKey,
   });
@@ -224,7 +225,8 @@ export function DatasetKeyAbout() {
 
   const total = insights?.unfiltered?.documents?.total;
   const siteTotal = insights?.siteOccurrences?.documents?.total;
-  const reducedOccurrenceScope = siteTotal - total < 0;
+  // only relevant for hosted portals with a custom occurrence scope - on gbif.org the full dataset is always available
+  const reducedOccurrenceScope = !!sitePredicate && siteTotal < total;
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -335,6 +337,7 @@ export function DatasetKeyAbout() {
                 />
               </ClientSideOnly>
             )}
+            {mapError && <ErrorMessage className="g-mb-4">Unable to load map</ErrorMessage>}
             {siteTotal > 0 && (
               <div className="g-text-slate-500">
                 <ClientSideOnly>
@@ -477,6 +480,7 @@ export function DatasetKeyAbout() {
                 <CardContent dir="auto">
                   <BibliographicCitations
                     bibliographicCitations={dataset?.bibliographicCitations}
+                    cap={200}
                   />
                 </CardContent>
               </Card>
@@ -501,7 +505,7 @@ export function DatasetKeyAbout() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ContactList contacts={dataset.volatileContributors} />
+                  <ContactList contacts={dataset.volatileContributors} cap={100} />
                 </CardContent>
               </Card>
             )}
@@ -683,7 +687,7 @@ function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> })
         </Button>
         <Button variant="outline" asChild>
           <a
-            href={`https://logs.gbif.org/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-30m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'439da4d0-290a-11ed-8155-a37cb1ead50e',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:'datasetKey.keyword%20%3D%20${dataset.key}'),sort:!(!('@timestamp',desc)))`}
+            href={`https://logs.gbif.org/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-30m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'${import.meta.env.PUBLIC_LOG_VIEW ?? '439da4d0-290a-11ed-8155-a37cb1ead50e'}',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:'datasetKey.keyword%20%3D%20${dataset.key}'),sort:!(!('@timestamp',desc)))`}
             target="_blank"
             rel="noreferrer"
           >

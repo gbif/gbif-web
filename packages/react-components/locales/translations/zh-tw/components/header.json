@@ -1,0 +1,11 @@
+{
+  "header": {
+    "changeLanguage": "變更語言",
+    "feedback": "傳送回饋意見",
+    "systemStatus": "系統狀態",
+    "profileLinkLabel": "使用者頁面 {userName}",
+    "siteNavigation": "網站導覽",
+    "search": "搜尋",
+    "profile": "使用者個人檔案"
+  }
+}

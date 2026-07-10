@@ -15,6 +15,8 @@ import {
   MdZoomIn,
   MdZoomOut,
   MdDeleteOutline,
+  MdOutlineCenterFocusStrong as ZoomToDataIcon,
+  MdClose,
 } from 'react-icons/md';
 import { PiPolygonFill as DrawIcon } from 'react-icons/pi';
 import { BsLightningFill } from 'react-icons/bs';
@@ -33,6 +35,8 @@ import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles, MapStyleConfig } from './standardMapStyles';
 import { OccurrenceOverlay, MapEvent, PointClickData } from './types';
+import { getOverlapScore, LOW_OVERLAP_THRESHOLD } from './dataExtentHelpers';
+import { BoundingBox } from '@/types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import { ProjectionName } from './types';
 import ListBox from './ListBox';
@@ -93,6 +97,8 @@ export interface AdHocMapProps {
   className?: string;
   features?: string[];
   onFeaturesChange?: (params: { features: string[] }) => void;
+  /** Bounding box (EPSG:4326) of the current result set, used for "zoom to data extent" */
+  dataBBox?: BoundingBox | null;
   tools:
     | boolean
     | {
@@ -131,6 +137,7 @@ export default function AdHocMap({
   className,
   features,
   onFeaturesChange,
+  dataBBox,
   tools,
   loading,
 }: AdHocMapProps) {
@@ -190,7 +197,23 @@ export default function AdHocMap({
   const { toast } = useToast();
   const [mapLoading, setMapLoading] = useState<boolean>(false);
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
+  const [viewportBBox, setViewportBBox] = useState<BoundingBox | null>(null);
+  const [dismissedExtentKey, setDismissedExtentKey] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // A stable key for the current data extent so we can remember whether the
+  // user already dismissed the suggestion for this particular result set.
+  const dataBBoxKey = dataBBox
+    ? `${dataBBox.top},${dataBBox.bottom},${dataBBox.left},${dataBBox.right}`
+    : null;
+
+  const zoomToDataExtent = useCallback(() => {
+    if (dataBBox) broadcastEvent({ type: 'ZOOM_TO_EXTENT', bbox: dataBBox });
+  }, [dataBBox]);
+
+  const dismissExtentSuggestion = useCallback(() => {
+    setDismissedExtentKey(dataBBoxKey);
+  }, [dataBBoxKey]);
 
   const updateLoading = useCallback((loading: boolean) => {
     setMapLoading(loading);
@@ -365,6 +388,16 @@ export default function AdHocMap({
 
   const notPolarProjection = ['PLATE_CAREE', 'MERCATOR'].indexOf(projection) >= 0;
 
+  // Suggest zooming to the data when the current viewport has little/no overlap
+  // with the data extent. The overlap heuristic relies on lat/lng bounding
+  // boxes, which are only meaningful in the non-polar projections.
+  const showExtentSuggestion =
+    notPolarProjection &&
+    !!dataBBox &&
+    !!viewportBBox &&
+    dataBBoxKey !== dismissedExtentKey &&
+    getOverlapScore(viewportBBox, dataBBox) < LOW_OVERLAP_THRESHOLD;
+
   return (
     <div className={cn(`g-flex-auto g-h-96 g-relative g-z-10`, className)} style={style} ref={ref}>
       {listVisible && (
@@ -396,6 +429,36 @@ export default function AdHocMap({
           </div>
         </div>
       )}
+      {showExtentSuggestion && (
+        <div className="g-z-20 g-absolute g-start-0 g-bottom-0 g-end-0 g-flex g-justify-center">
+          <div className="g-flex g-items-center g-gap-3 g-p-2 g-ps-3 g-m-2 g-rounded g-text-sm g-bg-slate-800 g-text-slate-100 g-shadow-lg">
+            <span>
+              <FormattedMessage
+                id="map.noDataInView"
+                defaultMessage="There is little data in the current view."
+              />
+            </span>
+            <button
+              type="button"
+              className="g-font-medium g-underline g-whitespace-nowrap hover:g-text-white"
+              onClick={() => {
+                zoomToDataExtent();
+                dismissExtentSuggestion();
+              }}
+            >
+              <FormattedMessage id="map.zoomToData" defaultMessage="Zoom to data extent" />
+            </button>
+            <button
+              type="button"
+              className="g-p-1 g-rounded hover:g-bg-slate-700"
+              onClick={dismissExtentSuggestion}
+              aria-label={formatMessage({ id: 'intl.close', defaultMessage: 'Close' })}
+            >
+              <MdClose />
+            </button>
+          </div>
+        </div>
+      )}
       <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
         <StripeLoader active={mapLoading || loading} className="g-w-full" />
       </div>
@@ -409,6 +472,18 @@ export default function AdHocMap({
               <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_OUT' })}>
                 <MdZoomOut />
               </MenuButton>
+              {dataBBox && (
+                <SimpleTooltip
+                  asChild
+                  title={
+                    <FormattedMessage id="map.zoomToData" defaultMessage="Zoom to data extent" />
+                  }
+                >
+                  <MenuButton onClick={zoomToDataExtent} className="g-hidden sm:g-inline-flex">
+                    <ZoomToDataIcon />
+                  </MenuButton>
+                </SimpleTooltip>
+              )}
             </>
           )}
           {toolVisibility.location && userLocationEnabled && (
@@ -443,32 +518,47 @@ export default function AdHocMap({
                   <DrawIcon />
                 </MenuButton>
               </SimpleTooltip>
-              {MapComponent === MapComponentML && (
-                <SimpleTooltip
-                  asChild
-                  title={
-                    <FormattedMessage id="map.selectPolygon" defaultMessage="Select/edit polygon" />
-                  }
-                >
-                  <MenuButton
-                    onClick={() => toggleDrawingTool('SELECT')}
-                    className={cn('g-p-2', drawingTool === 'SELECT' && 'g-bg-primary g-text-white')}
+              {!!features && features.length > 0 && (
+                <>
+                  {MapComponent === MapComponentML && (
+                    <SimpleTooltip
+                      asChild
+                      title={
+                        <FormattedMessage
+                          id="map.selectPolygon"
+                          defaultMessage="Select/edit polygon"
+                        />
+                      }
+                    >
+                      <MenuButton
+                        onClick={() => toggleDrawingTool('SELECT')}
+                        className={cn(
+                          'g-p-2',
+                          drawingTool === 'SELECT' && 'g-bg-primary g-text-white'
+                        )}
+                      >
+                        <ModifyPolygonIcon />
+                      </MenuButton>
+                    </SimpleTooltip>
+                  )}
+                  <SimpleTooltip
+                    asChild
+                    title={
+                      <FormattedMessage id="map.deletePolygon" defaultMessage="Delete polygon" />
+                    }
                   >
-                    <ModifyPolygonIcon />
-                  </MenuButton>
-                </SimpleTooltip>
+                    <MenuButton
+                      onClick={() => toggleDrawingTool('DELETE')}
+                      className={cn(
+                        'g-p-2',
+                        drawingTool === 'DELETE' && 'g-bg-primary g-text-white'
+                      )}
+                    >
+                      <MdDeleteOutline />
+                    </MenuButton>
+                  </SimpleTooltip>
+                </>
               )}
-              <SimpleTooltip
-                asChild
-                title={<FormattedMessage id="map.deletePolygon" defaultMessage="Delete polygon" />}
-              >
-                <MenuButton
-                  onClick={() => toggleDrawingTool('DELETE')}
-                  className={cn('g-p-2', drawingTool === 'DELETE' && 'g-bg-primary g-text-white')}
-                >
-                  <MdDeleteOutline />
-                </MenuButton>
-              </SimpleTooltip>
               <ToolSeparator />
             </>
           )}
@@ -504,6 +594,7 @@ export default function AdHocMap({
         className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-solid g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
         onLoading={updateLoading}
         onTileError={failedTileHandler}
+        onViewportChange={setViewportBBox}
         onMapClick={() => showList(false)}
         onPointClick={(data: PointClickData) => {
           loadPointData(data);

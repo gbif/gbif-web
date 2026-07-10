@@ -36,16 +36,15 @@
       "citations": "Цитування"
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "Синоніми",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "Територія досліджень",
   "publishedBy": "Опубліковано",
   "mediatedBy": "За посередництва",
+  "extensions": "Розширення",
   "description": "Опис",
   "metadataLanguage": "Мова метаданих",
   "dataLanguage": "Мова даних",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Розподіл знахідок за таксонами",
   "noCitations": "",
-  "noOccurrences": "Відсутні знахідки"
+  "noOccurrences": "Відсутні знахідки",
+  "eventWarning": ""
 }

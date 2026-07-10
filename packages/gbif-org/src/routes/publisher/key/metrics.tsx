@@ -7,6 +7,7 @@ import { PublisherCountsQuery, PublisherCountsQueryVariables } from '@/gql/graph
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
@@ -18,8 +19,9 @@ export function PublisherKeyMetrics() {
     PublisherCountsQueryVariables
   >(PUBISHER_COUNTS, {
     lazyLoad: true,
-    throwAllErrors: true,
+    throwAllErrors: false,
   });
+  useNotifyOfPartialDataIfErrors(error);
 
   useEffect(() => {
     if (typeof key !== 'undefined') {

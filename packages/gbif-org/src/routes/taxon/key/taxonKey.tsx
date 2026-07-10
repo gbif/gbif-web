@@ -17,17 +17,24 @@ const primaryChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
 export async function taxonLoader({ params, graphql, locale, config }: LoaderArgs) {
   const key = params.key as string;
-  const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
+  const variables = {
     key,
     datasetKey: config.taxonSearch?.checklistKey ?? primaryChecklist,
     language: locale?.iso3LetterCode ?? 'eng',
-  });
+    colDatasetKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
+  };
+  const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(
+    TAXON_QUERY,
+    variables
+  );
 
   const { errors, data } = await response.json();
   throwCriticalErrors({
     path404: ['taxonInfo'],
     errors,
     requiredObjects: [data?.taxonInfo],
+    query: TAXON_QUERY,
+    variables,
   });
 
   return { errors, data };
@@ -39,6 +46,7 @@ export async function datasetTaxonLoader({ params, graphql, locale }: LoaderArgs
     key,
     datasetKey: params.key as string,
     language: locale?.iso3LetterCode ?? 'eng',
+    colDatasetKey: import.meta.env.PUBLIC_COL_CHECKLIST_KEY,
   });
 
   const { errors, data } = await response.json();
@@ -88,7 +96,7 @@ export const NonBackboneTaxon = () => {
 export { TaxonPageSkeleton } from './taxonKeyPresentation';
 
 const TAXON_QUERY = /* GraphQL */ `
-  query TaxonKey($key: ID!, $datasetKey: ID!, $language: String) {
+  query TaxonKey($key: ID!, $datasetKey: ID!, $language: String, $colDatasetKey: ID!) {
     taxonInfo(key: $key, datasetKey: $datasetKey) {
       group: taxonomicGroup
       checklistbankURL
@@ -114,13 +122,15 @@ const TAXON_QUERY = /* GraphQL */ `
           license
           rightsHolder
           thumbor(height: 800)
-          smallThumbnail: thumbor(height: 100, width: 100)
         }
       }
       treatments: related(datasetType: ARTICLE) {
         taxonID
         datasetKey
         references
+      }
+      relatedColEntries: related(datasetKey: [$colDatasetKey]) {
+        taxonID
       }
       relatedInfo {
         griis {
@@ -186,14 +196,13 @@ const SLOW_TAXON = /* GraphQL */ `
   query SlowTaxon($key: ID!, $datasetKey: ID!) {
     taxonInfo(key: $key, datasetKey: $datasetKey) {
       wikiData {
-        source {
-          id
-          url
+        taxonID
+        references
+        dataset {
+          title
         }
         identifiers {
-          id
-          label
-          description
+          title
           url
         }
       }

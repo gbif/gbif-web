@@ -18,7 +18,9 @@ function CountFetcher({ countPart, placeholder }: Props) {
   const [count, setCount] = useState<string | null>(null);
 
   useEffect(() => {
-    const endpoint = createEndpoint(countPart);
+    // just keep as is. We have ported the resource API. If any other old proxy APIs was used, they should instead use our official stable ones
+    // previously we tried to rewrite this
+    const endpoint = countPart;
 
     fetch(endpoint)
       .then((response) => response.json() as Promise<unknown>)
@@ -39,12 +41,6 @@ function CountFetcher({ countPart, placeholder }: Props) {
 const isAbsoluteEndpoint = (countPart: string) => countPart.startsWith('http');
 
 const isRelativeEndpoint = (countPart: string) => countPart.startsWith('/api/');
-
-const createEndpoint = (countPart: string): string => {
-  if (isAbsoluteEndpoint(countPart)) return countPart;
-  const queryParams = countPart.split('?')[1];
-  return `${import.meta.env.PUBLIC_CONTENT_SEARCH}?${queryParams}`;
-};
 
 const isObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null;

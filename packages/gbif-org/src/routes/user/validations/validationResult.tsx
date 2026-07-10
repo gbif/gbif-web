@@ -22,7 +22,7 @@ interface ValidationResultProps {
 
 export function ValidationResult({ validation }: ValidationResultProps) {
   return (
-    <a href={`${import.meta.env.PUBLIC_GBIF_ORG}/tools/data-validator/${validation.key}`}>
+    <a href={`${import.meta.env.PUBLIC_TOOLS_GBIF_ORG}/tools/data-validator/${validation.key}`}>
       <Card className="g-mb-4 hover:g-shadow-lg g-transition-shadow g-duration-300 hover:g-border-primary-300">
         <article className="">
           <div className="g-p-4 g-flex g-flex-col g-gap-2">

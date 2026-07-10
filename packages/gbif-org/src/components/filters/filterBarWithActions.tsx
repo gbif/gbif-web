@@ -15,6 +15,7 @@ interface FilterBarWithActionsProps {
   groups?: string[];
   additionalActions?: React.ReactNode;
   className?: string;
+  hideMobileFilters?: boolean;
 }
 
 export function FilterBarWithActions({
@@ -22,6 +23,7 @@ export function FilterBarWithActions({
   groups,
   additionalActions,
   className,
+  hideMobileFilters = false,
 }: FilterBarWithActionsProps) {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
@@ -42,7 +44,7 @@ export function FilterBarWithActions({
         <FilterButtons filters={filters} searchContext={searchContext} groups={groups} />
       </div>
       <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
-        {shouldShowMobileFilters && (
+        {shouldShowMobileFilters && !hideMobileFilters && (
           <MobileFilters className="sm:g-hidden" filters={filters} groups={groups} />
         )}
         {additionalActions}
@@ -54,7 +56,12 @@ export function FilterBarWithActions({
           <Button
             size="sm"
             variant="ghost"
-            className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
+            className={cn(
+              'g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800',
+              // When the mobile filter sheet is shown, clear-all lives inside the sheet
+              // so we hide the destructive icon on mobile to avoid a tap-target hazard.
+              shouldShowMobileFilters && 'g-hidden sm:g-inline-flex'
+            )}
             onClick={() => filterContext?.setFilter({})}
           >
             <MdDeleteOutline className="g-text-base" />

@@ -1,19 +1,19 @@
 {
   "searchTitle": "Wyszukiwanie wydawców",
-  "searchDescription": "",
+  "searchDescription": "Wyszukaj zbiory danych w GBIF. Bezpłatny i otwarty dostęp do danych dotyczących różnorodności biologicznej.",
   "tabs": {
     "aboutPublisher": "Informacje o wydawcy",
     "metrics": "Statystyki",
     "publishersHomepage": "Strona główna"
   },
-  "joinedDate": "",
+  "joinedDate": "Dołączył {date} lat temu",
   "newPublisher": "Nowy wydawca",
   "technicalContact": "Kontakt w sprawach technicznych",
   "country": "Kraj lub obszar",
   "hosting": "Hosting",
   "description": "Opis",
   "endorsedBy": "Poparte przez",
-  "notYetEndorsed": "",
+  "notYetEndorsed": "Jeszcze nie zatwierdzone",
   "pendingEndorsementBy": "Oczekuje poparcia przez",
   "endorsementWithheld": "Poparcie wstrzymane",
   "installations": "Instalacja",

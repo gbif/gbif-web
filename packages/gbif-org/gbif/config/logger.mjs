@@ -67,8 +67,8 @@ const fileRotateTransport = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   // maxSize: '20m', // Disabled: size-based rotation appends .1, .2 suffixes to the end of filenames which breaks our log matching
-  maxFiles: '14d',
-  level: 'info',
+  maxFiles: '2d',
+  level: debugLevel,
   handleExceptions: true,
   handleRejections: true,
   format: winston.format.combine(
@@ -111,8 +111,12 @@ logger.info('initialising log');
 logger.logError = (error, meta = {}) => {
   logger.error(error.message || 'An error occurred', {
     error,
-    error_message: error.message,
-    error_stack: error.stack,
+    errors: [
+      {
+        message: error.message,
+        stack: error.stack,
+      },
+    ],
     ...meta,
   });
 };

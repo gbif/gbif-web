@@ -163,6 +163,10 @@ export const gbifConfig: Config = {
       EW: '#442D59',
       EX: '#231F20',
     },
+    fontFamily:
+      '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
+    headerFontFamily:
+      '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
     // mapDensityColors: ['#31a354', '#006d2c', '#006d2c', '#006d2c', '#006d2c'], // all dark green
   },
   dataHeader: {
@@ -181,7 +185,7 @@ export const gbifConfig: Config = {
   //   sourceTitle: 'The IUCN Red List of Threatened Species',
   //   datasetKey: '66dd0960-2d7d-46ee-a491-87b9adcfe7b1',
   // },
-  linkToGbifOrg: true,
+  linkToGbifOrg: false,
   publisherSearch: {
     enableUserCountryInfo: true,
     queryType: 'V1',

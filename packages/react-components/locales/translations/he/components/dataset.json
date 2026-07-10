@@ -36,16 +36,15 @@
       "citations": ""
     },
     "checklist": {
+      "info": "",
+      "checklistbank": "",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",
       "usagesCount": "",
       "distinctNamesCount": "",
       "synonymsCount": "",
-      "nubMatchingCount": "",
-      "nubCoveragePct": "",
       "colMatchingCount": "",
-      "colCoveragePct": "",
       "countByKingdom": "",
       "countByKingdomDescription": "",
       "countByRank": "",
@@ -89,6 +88,7 @@
   "studyArea": "תחום מחקר",
   "publishedBy": "פורסם על ידי",
   "mediatedBy": "בתיווך",
+  "extensions": "",
   "description": "תיאור",
   "metadataLanguage": "שפת מטא־דאטה",
   "dataLanguage": "שפת נתונים",
@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "התפלגות טקסונומית של תצפיות",
   "noCitations": "",
-  "noOccurrences": ""
+  "noOccurrences": "",
+  "eventWarning": ""
 }

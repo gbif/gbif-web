@@ -1,60 +1,60 @@
 {
   "download": {
-    "unsupported.title": "",
-    "unsupported.description": "",
-    "unsupported.remove": "",
-    "unsupported.error": "",
+    "unsupported.title": "不支援的查詢",
+    "unsupported.description": "可以使用自由文字搜尋進行瀏覽，但不支援下載。",
+    "unsupported.remove": "移除篩選條件",
+    "unsupported.error": "此查詢似乎不支援。",
     "download": "下載",
-    "redirectNotice": "",
+    "redirectNotice": "您即將下載資料，下載後將被重新導向至 GBIF.org 網站。\n\n請注意，下載資料需要註冊帳號。",
     "continueToGBIF": "繼續操作",
     "continue": "繼續操作",
     "invalid": "無效",
-    "validate": "",
-    "sqlEditor": "",
-    "predicateEditor": "",
+    "validate": "驗證",
+    "sqlEditor": "SQL 編輯器",
+    "predicateEditor": "謂詞編輯器",
     "sql": {
-      "createNewSqlDownload": "",
-      "placeholder": "",
-      "noSql": "",
+      "createNewSqlDownload": "建立新的SQL下載",
+      "placeholder": "在此處輸入您的SQL查詢",
+      "noSql": "無SQL查詢",
       "note": {
         "title": "備註",
-        "description": "",
-        "occurrence_search": ""
+        "description": "下載和瀏覽資料最簡單的方法是透過 {occurrence_search}。但對於複雜的查詢和匯總，SQL 編輯器提供了更大的靈活性。",
+        "occurrence_search": "出現記錄搜尋使用者介面"
       },
       "errors": {
-        "invalid-SQL": "",
-        "network-error": "",
-        "parsingErrorDescription": "",
-        "networkErrorDescription": ""
+        "invalid-SQL": "無效的SQL",
+        "network-error": "網路異常",
+        "parsingErrorDescription": "無法解析 SQL",
+        "networkErrorDescription": "由於網路錯誤無法驗證 SQL"
       }
     },
-    "create": "",
+    "create": "建立",
     "about": "關於",
     "stopEditing": "結束編輯",
     "startEditing": "開始編輯",
     "reformat": "重新編排格式",
-    "discard": "",
-    "keep": "",
+    "discard": "忽略",
+    "keep": "保留",
     "readTheDocumentation": "閱讀文檔",
     "request": {
-      "placeholder": "",
+      "placeholder": "請在此輸入謂詞…",
       "createNewDownload": "重新下載",
-      "weHaveRestoredYourPredicate": "",
-      "noPredicate": "",
+      "weHaveRestoredYourPredicate": "我們已經恢復了您上次造訪時正在處理的謂詞",
+      "noPredicate": "沒有謂詞",
       "currentFilter": "目前篩選條件",
       "errors": {
         "invalid-json": "無效的 JSON",
-        "invalid-predicate": "",
-        "faild-to-load-predicate": "",
-        "unexpectedError": "",
-        "failedToParseJSON": "",
-        "failedToVisualizePredicate": ""
+        "invalid-predicate": "無效謂詞",
+        "faild-to-load-predicate": "無法載入謂詞",
+        "unexpectedError": "發生未預期的錯誤",
+        "failedToParseJSON": "無法解析 JSON",
+        "failedToVisualizePredicate": "無法視覺化謂詞。正在顯示原始 JSON"
       }
     },
     "downloadOptions": {
       "title": "下載選項",
-      "chooseChecklist": "",
-      "chooseChecklistDescription": "",
+      "chooseChecklist": "選擇清單",
+      "chooseChecklistDescription": "選擇用於整理下載檔案中分類群名稱的分類清單",
       "content": {
         "rawData": "原始資料",
         "interpretedData": "已解釋的資料",
@@ -67,12 +67,12 @@
         "tabCsv": "Tab分隔的CSV檔案(用於Excel等)"
       },
       "tableValues": {
-        "ifAvailable": "",
-        "ifSelected": "",
-        "links": ""
+        "ifAvailable": "若可行",
+        "ifSelected": "若已選",
+        "links": "連結"
       }
     },
-    "failedToRefreshDownloadStatus": "",
-    "descriptionByDownloadCreator": ""
+    "failedToRefreshDownloadStatus": "無法更新下載進度",
+    "descriptionByDownloadCreator": "下載創建者所提供的描述"
   }
 }

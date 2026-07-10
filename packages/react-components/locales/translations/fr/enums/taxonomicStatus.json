@@ -5,7 +5,10 @@
   "HETEROTYPIC_SYNONYM": "Synonyme hétérotypique",
   "HOMOTYPIC_SYNONYM": "Synonyme homotypique",
   "PROPARTE_SYNONYM": "Synonyme proparte",
+  "AMBIGUOUS_SYNONYM": "Synonyme ambigu",
+  "PROVISIONALLY_ACCEPTED": "Accepté provisoirement",
   "MISAPPLIED": "Mal appliqué",
+  "BARE_NAME": "Nom simple",
   "INTERMEDIATE_RANK_SYNONYM": "Synonyme de rang intermédiaire",
   "DETERMINATION_SYNONYM": "Synonyme de détermination"
 }

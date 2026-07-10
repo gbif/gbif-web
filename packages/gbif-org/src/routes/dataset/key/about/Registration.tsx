@@ -15,20 +15,15 @@ type Props = {
 };
 
 export function Registration({ dataset }: Props) {
-  const {
-    machineTags = [],
-    doi,
-    endpoints = [],
-    identifiers = [],
-    created,
-    modified,
-    pubDate,
-    installation,
-  } = dataset;
-  const { organization: hostingOrganization } = installation;
+  const { doi, created, modified, pubDate, installation } = dataset;
+  const machineTags = dataset.machineTags ?? [];
+  const endpoints = dataset.endpoints ?? [];
+  const identifiers = dataset.identifiers ?? [];
+  const hostingOrganization = installation?.organization;
   const urlEndpoints = endpoints.filter((x) => x.url);
   const availableIdentifiers = identifiers.filter(
-    (x) => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x?.type) > -1
+    (x): x is NonNullable<typeof x> =>
+      !!x?.type && ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x.type) > -1
   );
 
   const orphanMachineTag = machineTags.find(
@@ -143,12 +138,16 @@ export function Registration({ dataset }: Props) {
           </>
         )}
 
-        <T>
-          <FormattedMessage id="dataset.registry.preferredIdentifier" />
-        </T>
-        <V>
-          <DoiTag id={doi} style={{ textDecoration: 'none' }} />
-        </V>
+        {doi && (
+          <>
+            <T>
+              <FormattedMessage id="dataset.registry.preferredIdentifier" />
+            </T>
+            <V>
+              <DoiTag id={doi} style={{ textDecoration: 'none' }} />
+            </V>
+          </>
+        )}
 
         {visibleIdentifiers.length > 0 && (
           <>
@@ -157,7 +156,7 @@ export function Registration({ dataset }: Props) {
             </T>
             <V>
               <Properties breakpoint={800} horizontal={false}>
-                {visibleIdentifiers.map((identifier, i) => (
+                {visibleIdentifiers.map((identifier) => (
                   <React.Fragment key={identifier.key}>
                     {/* <T>{ identifier.type }</T> */}
                     <V>

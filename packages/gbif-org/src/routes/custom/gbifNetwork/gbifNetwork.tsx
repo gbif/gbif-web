@@ -3,7 +3,7 @@ import { GbifNetworkPageQuery, GbifNetworkParticipantsQuery } from '@/gql/graphq
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { FormattedMessage } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 import { ArticleAuxiliary } from '../../resource/key/components/articleAuxiliary';
 import { ArticleBody } from '../../resource/key/components/articleBody';
 import { ArticleFooterWrapper } from '../../resource/key/components/articleFooterWrapper';
@@ -166,6 +166,17 @@ function GbifNetworkPage() {
   );
 }
 
+const legacyPaths = [
+  'africa',
+  'asia',
+  'europe',
+  'latin-america',
+  'north-america',
+  'oceania',
+  'participant-organisations',
+  'gbif-affiliates',
+];
+
 export const gbifNetworkRoute: RouteObjectWithPlugins = {
   id: 'the-gbif-network',
   element: <GbifNetworkPage />,
@@ -179,4 +190,8 @@ export const gbifNetworkRoute: RouteObjectWithPlugins = {
     }
     return false;
   },
+  children: legacyPaths.map((path) => ({
+    path,
+    loader: () => redirect(`/the-gbif-network?group=${path.toUpperCase().replace(/-/g, '_')}`),
+  })),
 };

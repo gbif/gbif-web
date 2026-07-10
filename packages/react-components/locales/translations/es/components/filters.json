@@ -1,62 +1,50 @@
 {
   "dwcaExtension": {
     "name": "Extensión DwC-A",
-    "count": "{num, plural, one { extensión DwC-A } other {# extensiones DwC-A }}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "locationId": {
     "name": "ID de la Ubicación",
-    "count": "{num, plural, one { ID de ubicación } other {# ID de ubicaciones}}",
     "description": "Los publicadores pueden asignar identificadores a la ubicación. Este campo no está normalizado, lo que significa que se buscan los datos proporcionados por el publicador."
   },
   "hasCoordinate": {
     "name": "Incluye coordenada",
-    "count": "Tiene coordenadas",
     "description": "Si el registro tiene coordenadas."
   },
   "hasGeospatialIssues": {
     "name": "Tiene un problema geoespacial",
-    "count": "Tiene un problema geoespacial",
     "description": "Igual a {is}"
   },
   "collectionKey": {
     "name": "Colección",
-    "count": "{num, plural, one {# colección } other {# colecciones}}",
     "description": "La colección en GrSciColl este registro es coincidente con"
   },
   "predicate": {
     "name": "Consulta Compleja",
-    "count": "{num, plural, one { consulta compleja } other {# consultas complejas}}",
     "description": "Una consulta compleja para filtrar registros."
   },
   "taxonomicStatus": {
     "name": "Estado",
-    "count": "{num, plural, one {estado} other {# estados}}",
     "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
   "taxonRank": {
     "name": "Rango",
-    "count": "{num, plural, one { rango} other {# rangos}}",
     "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
   "numberSpecimens": {
     "name": "Número de especímenes",
-    "count": "{num, plural, one { recuento de especímenes } other {# Filtros de recuento de especímenes}}",
     "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
   "specimensInGbif": {
     "name": "Especímenes en GBIF",
-    "count": "{num, plural, one {# recuento de especímenes en GBIF} other {# especímenes en GBIF}}\n",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "iucnRedListCategory": {
     "name": "Categoría en la Lista Roja de la UICN",
-    "count": "{num, plural, one { Categoría de la Lista Roja Mundial de la UICN } other {# Categorías de la Lista Roja Global de la UICN}}",
     "description": "La Lista Roja de Especies Amenazadas de la UICN agrupa los taxones según su grado de amenaza."
   },
   "geoDistance": {
     "name": "Distancia de coordenadas",
-    "count": "{num, plural, one { filtro } other {# filtros }}",
     "description": "Filtrar los registros dentro de una distancia determinada desde un punto",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
@@ -64,7 +52,6 @@
   },
   "geometry": {
     "name": "Localización/ubicación",
-    "count": "{num, plural, one { filtro } other {# filtros }}",
     "description": "Filtrar registros dentro de un área geométrica determinada. El área puede ser un punto, una línea, un polígono o un cuadro delimitador.",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
@@ -72,178 +59,144 @@
   },
   "relevance": {
     "name": "Relevancia",
-    "count": "{num, plural, one { relevancia } other {# filtros de relevancia}}",
     "description": "¿Cómo se utiliza GBIF en la literatura?"
   },
   "topics": {
     "name": "Tema",
-    "count": "{num, plural, one { asunto } other {# asuntos}}",
     "description": "¿Cuáles son los temas del registro?"
   },
   "audiences": {
     "name": "Audiencia",
-    "count": "{num, plural, one { audiencia } other {# audiencias}}",
     "description": "A quién va dirigido el recurso."
   },
   "biostratigraphy": {
     "name": "Bioestratigrafía",
-    "count": "{num, plural, one { bioestratigrafía } other {# bioestratigrafías}}",
     "description": "El contexto bioestratigráfico del registro."
   },
   "lithostratigraphy": {
     "name": "Litoestratigrafía",
-    "count": "{num, plural, one { litoestratigrafía } other {# litoestratigrafías}}",
     "description": "El contexto litoestratigráfico del registro."
   },
   "geologicalTime": {
     "name": "Tiempo geológico",
-    "count": "{num, plural, one { tiempo geológico } other {# tiempos geológicos}}",
     "description": "El contexto temporal geológico del registro."
   },
   "purposes": {
     "name": "Tema",
-    "count": "{num, plural, one { propósito } other {# propósitos}}",
     "description": "Cuáles son los fines del recurso."
   },
   "eventDate": {
     "name": "Fecha del Evento",
-    "count": "{num, plural, one {# fecha del evento } other {# fechas de los eventos}}",
     "description": "Cuándo se recopiló u observó el registro."
   },
   "gbifId": {
     "name": "ID de GBIF",
-    "count": "{num, plural, one { GBIF ID } other {# GBIF IDs}}",
     "description": "El identificador único del registro en la base de datos de GBIF."
   },
   "organismQuantityType": {
     "name": "Tipo de cantidad del organismo",
-    "count": "{num, plural, one { tipo de cantidad de organismo } other {# tipos de cantidades de organismos}}",
     "description": "El tipo de medida de la «cantidad de organismos»."
   },
   "pathway": {
     "name": "Ruta",
-    "count": "{num, plural, one { camino} other {# caminos}}",
     "description": "La vía por la que se introdujo el organismo."
   },
   "associatedSequences": {
     "name": "Secuencias asociadas",
-    "count": "{num, plural, one { secuencia asociada } other {# secuencias asociadas}}",
     "description": "Un identificador de cualquier secuencia asociada al registro. Normalmente, una URL."
   },
   "degreeOfEstablishment": {
     "name": "Grado de establecimiento",
-    "count": "{num, plural, one { grado de establecimiento } other {# grados de establecimiento}}",
     "description": "El grado en que el organismo está establecido en el medio ambiente"
   },
   "endDayOfYear": {
     "name": "Día Final del Año",
-    "count": "{num, plural, one { día final del año } other {# días finales del año}}",
     "description": "El día del año en que finalizó el evento."
   },
   "startDayOfYear": {
     "name": "Día Inicial del Año",
-    "count": "{num, plural, one { día de inicio del año } other {# días de inicio del año}}",
     "description": "El día del año en que comenzó el evento."
   },
   "previousIdentifications": {
     "name": "Identificaciones previas",
-    "count": "{num, plural, one { identificación previa } other {# identificaciones previas}}",
     "description": "Identificaciones taxonómicas anteriores asociadas al registro."
   },
   "lastInterpreted": {
     "name": "Última interpretación",
-    "count": "{num, plural, one { última interpretación } other {# últimas interpretaciones}}",
     "description": "Hora de la última interpretación del registro."
   },
   "alternativeCode": {
     "name": "Código alternativo",
-    "count": "{num, plural, one {# Código alternativo } other {# Códigos alternativos}}",
     "description": "Código adicional que ya esté en uso para la misma institución en otros contextos (Index Herbariorum; autorrepresentación; referencias utilizadas en los datos de recopilación publicados, etc.)"
   },
   "identifier": {
     "name": "Identificador",
-    "count": "{num, plural, one {# identificador} other {# identificadores}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionType": {
     "name": "Tipo",
-    "count": "{num, plural, one {# tipo} other {# tipos}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "discipline": {
     "name": "Disciplina",
-    "count": "{num, plural, one {# disciplina } other {# disciplinas}}",
     "description": "Las disciplinas de investigación que apoya la institución."
   },
   "collectionContentType": {
     "name": "Tipo de contenido",
-    "count": "{num, plural, one {# tipo de contenido } other {# tipos de contenidos}}",
     "description": "El tipo de objetos disponibles en la colección"
   },
   "preservationType": {
     "name": "Tipo de preservación",
-    "count": "{num, plural, one {# tipo de preservación } other {# tipos de preservaciones}}",
     "description": "El método utilizado para preservar los objetos disponibles en la colección"
   },
   "biomeType": {
     "name": "Tipo de Bioma",
-    "count": "{num, plural, one { tipo de bioma } other {# tipos de bioma}}",
     "description": "El tipo de bioma al que pertenece el organismo."
   },
   "objectClassification": {
     "name": "Clasificación del objeto",
-    "count": "{num, plural, one { clasificación del objeto } other {# clasificaciones del objeto}}",
     "description": "La clasificación de los objetos de la colección."
   },
   "taxonKey": {
     "name": "Nombre científico",
-    "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
     "description": "El nombre científico tal y como aparece en el árbol taxonómico de GBIF. Estos nombres están normalizados para facilitar la búsqueda en los conjuntos de datos. Es posible que un nombre originalmente proporcionado sea malinterpretado o desconocido. Para buscar los nombres tal y como se proporcionaron, utilice el filtro \"Nombre científico original\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Nombre científico",
-    "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
     "description": "Filtre utilizando los nombres científicos enumerados en los descriptores de colección proporcionados en los metadatos de la colección, teniendo en cuenta que no todas las colecciones incluyen descriptores de metadatos y los nombres a menudo están en rangos taxonómicos más altos, como orden o familia."
   },
   "basisOfRecord": {
     "name": "Base del registro",
-    "count": "{num, plural, one {base del registro} other {# bases del registro}}",
     "isNotNull": "Tiene una base del registro",
     "isNull": "No tiene base del registro",
     "description": "La naturaleza de las evidencias en las que se basa el registro.\n"
   },
   "institutionCode": {
     "name": "Código de la institución",
-    "count": "{num, plural, one {código de la institución} other {# códigos de la institución}}",
     "description": "El código (o acrónimo) de la institución que tiene la custodia de los objetos o la información a la que se refiere el registro."
   },
   "catalogNumber": {
     "name": "Número de catálogo",
-    "count": "{num, plural, one { número de catálogo } other {# números de catálogo}}",
     "description": "El identificador del registro dentro de un catálogo o colección."
   },
   "mediaType": {
     "name": "Tipo de medio",
-    "count": "{num, plural, one {tipo de medio} other {# tipos de medios}}\n",
     "description": "Los tipos de medios disponibles para este registro.\n"
   },
   "occurrenceIssue": {
     "name": "Alertas",
-    "count": "{num, plural, one {alerta} other {# alertas}}\n",
     "isNotNull": "Tiene alertas",
     "isNull": "No tiene alertas",
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "occurrenceTaxonomicIssue": {
     "name": "",
-    "count": "{num, plural, one {problema o bandera del taxón} other {# problemas o banderas del taxón}}",
     "isNotNull": "Incidencias taxonómicas",
     "isNull": "No tiene incidencias taxonómicas",
     "description": "Los tipos de problemas taxonómicos o indicadores de interés potencial descubiertos durante el procesamiento de los datos."
   },
   "occurrenceCountry": {
     "name": "Área o país",
-    "count": "{num, plural, one {área o país} other {# áreas o países}}",
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
@@ -251,22 +204,18 @@
   },
   "preparations": {
     "name": "Preparaciones",
-    "count": "{num, plural, one {# preparación} other {# preparaciones}}",
     "description": "Cómo se ha preparado el espécimen (por ejemplo, secado)"
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "{num, plural, one {repatriado} other {# repatriados}}",
     "description": "Si el registro ha sido repatriado al país de origen."
   },
   "publishingCountryCode": {
     "name": "País de publicación",
-    "count": "{num, plural, one {país de publicación} other {# países de publicación}}\n",
     "description": "El código ISO para el país o territorio en el que se encuentra el publicador"
   },
   "q": {
     "name": "Búsqueda de texto",
-    "count": "{num, plural, one {cadena de búsqueda} other {# cadenas de búsqueda}}\n",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "coordinates": {
@@ -274,680 +223,545 @@
   },
   "elevation": {
     "name": "Elevación",
-    "count": "{num, plural, one {filtro de elevación} other {# filtros de elevación}}",
     "description": "La distancia por encima de un punto de referencia vertical (normalmente el nivel del mar o un geoide) en metros."
   },
   "license": {
     "name": "Licencia",
-    "count": "{num, plural, one {licencia} other {# licencias}}\n",
     "description": "La licencia o permiso legal con la que se compartió el registro."
   },
   "datasetKey": {
     "name": "Conjunto de datos",
-    "count": "{num, plural, one {conjunto de datos} other {# conjuntos de datos}}\n",
     "description": "El título del conjunto de datos con el que se compartió el registro."
   },
   "datasetId": {
     "name": "ID del conjunto de datos",
-    "count": "{num, plural, one {identificador del conjunto de datos} other {# identificadores de los conjuntos de datos}}",
     "description": "El ID interno del publicador para el conjunto de datos al que está asociado el registro. Tenga en cuenta que es diferente de la clave de conjunto de datos que se utiliza en GBIF para el conjunto de datos."
   },
   "publisherKey": {
     "name": "Publicador",
-    "count": "{num, plural, one {publicador} other {# publicadores}}",
     "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
   },
   "gbifPublisherKey": {
     "name": "Publicador GBIF",
-    "count": "{num, plural, one {# publicador GBIF} other {# publicadores GBIF}}",
     "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
   },
   "hostingOrganizationKey": {
     "name": "Organización anfitriona",
-    "count": "{num, plural, one {anfitrión} other {# anfitriones}}",
     "description": "El nombre de la organización que aloja el conjunto de datos en el que se publicó el registro."
   },
   "country": {
-    "name": "País",
-    "count": "{num, plural, one {área o país} other {# áreas o países}}"
+    "name": "País"
   },
   "countriesOfCoverage": {
     "name": "País de cobertura",
-    "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
     "description": "¿Qué países están cubiertos por el registro?"
   },
   "collectionDescriptorCountry": {
     "name": "País o área de cobertura",
-    "count": "{num, plural, one {país o área de cobertura} other {# países o áreas de cobertura}}",
     "description": "¿De qué países provienen los especímenes de la colección? Tenga en cuenta que no todas las colecciones incluyen esta información."
   },
   "countriesOfResearcher": {
-    "name": "País o área del investigador",
-    "count": "{num, plural, one {país del investigador} other {# países de los investigadores}}"
+    "name": "País o área del investigador"
   },
   "typeStatus": {
     "name": "Tipo nomenclatural",
-    "count": "{num, plural, one {tipo nomenclatural} other {# tipos nomenclaturales}}",
     "isNotNull": "Tiene un tipo nomenclatural",
     "isNull": "El tipo nomenclatural",
     "description": "La designación del tipo de un espécimen."
   },
   "year": {
     "name": "Año",
-    "count": "{num, plural, one {filtro de año} other { # filtros de año}}",
     "description": "El año en que se produjo el evento."
   },
   "sampleSizeUnit": {
     "name": "Unidad del tamaño de la muestra",
-    "count": "{num, plural, one {unidad del tamaño de la muestra} other {# unidades del tamaño de la muestra}}",
     "description": "La unidad de medida para el \"valor del tamaño de la muestra\""
   },
   "coordinateUncertainty": {
     "name": "Incertidumbre de las coordenadas",
-    "count": "{num, plural, one {Incertidumbre de las coordenadas} other {# filtros de incertidumbre de las coordenadas}}",
     "description": "Una medida de la distancia mínima en metros desde una coordenada dentro de la cual puede interpretarse que se encuentra una localidad."
   },
   "distanceFromCentroidInMeters": {
     "name": "Distancia desde el centroide en metros",
-    "count": "{num, plural, one {distancia desde el centroide} other {# filtros de distancia desde el centroide}}",
     "description": "La distancia en metros desde el centroide del país."
   },
   "depth": {
     "name": "Profundidad",
-    "count": "{num, plural, one { profundidad } other {# profundidades}}",
     "description": "La distancia por debajo de una superficie determinada, en metros."
   },
   "organismQuantity": {
     "name": "Cantidad del organismo",
-    "count": "{num, plural, one { cantidad del organismo } other {# cantidades del organismo}}",
     "description": "El valor de la cantidad del organismo, donde el tipo de medición se da en el \"Tipo de cantidad del organismo\".\n"
   },
   "sampleSizeValue": {
     "name": "Valor del tamaño de la muestra",
-    "count": "{num, plural, one { valor del tamaño de la muestra } other {# valores del tamaño de la muestra}}",
     "description": "El valor del tamaño de una muestra, cuyas unidades de medida se indican en la \"Unidad del tamaño de la muestra\".\n"
   },
   "relativeOrganismQuantity": {
     "name": "Cantidad aproximada del organismo",
-    "count": "{num, plural, one { cantidad aproximada del organismo } other {# cantidades aproximadas del organismo}}",
     "description": "La cantidad de material biológico en relación con el tamaño de una muestra, calculada como \"Cantidad del organismo\" por \"Tamaño de la muestra\" cuando el \"Tipo de cantidad del organismo\" y la \"Unidad del tamaño de la muestra\" son inequívocos.\n"
   },
   "month": {
     "name": "Mes",
-    "count": "{num, plural, one { mes } other {# meses}}",
     "description": "El mes con número entero en el que ocurrió el evento."
   },
   "continent": {
     "name": "Continente",
-    "count": "{num, plural, one { continente } other {# continentes}}",
     "description": "El nombre del continente en el que se encuentra la ubicación.\n"
   },
   "protocol": {
     "name": "Protocolo de publicación",
-    "count": "{num, plural, one { protocolo } other {# protocolos}}",
     "description": "El protocolo técnico a través del cual se compartió el conjunto de datos."
   },
   "establishmentMeans": {
     "name": "Medios de establecimiento",
-    "count": "{num, plural, one { medio de establecimiento } other {# medios de establecimiento}}",
     "description": "El medio por el que el organismo se introdujo en un lugar y en un momento determinados."
   },
   "sex": {
     "name": "Sexo",
-    "count": "{num, plural, one { sexo } other {# sexos}}",
     "description": "El sexo del organismo."
   },
   "lifeStage": {
     "name": "Estadío de desarrollo",
-    "count": "{num, plural, one { fase del ciclo de vida } other {# fases del ciclo de vida}}",
     "description": "La fase del ciclo de vida del organismo."
   },
   "recordedBy": {
     "name": "Registrado por",
-    "count": "{num, plural, one { registrado por } other {# registrado por}}",
     "description": "Los nombres de la persona, personas, grupos u organizaciones responsables de hacer el registro original."
   },
   "fieldNumber": {
     "name": "Número de Campo",
-    "count": "{num, plural, one { número de campo } other {# números de campo}}",
     "description": "El identificador asignado a la ubicación por el recopilador."
   },
   "verbatimTaxonId": {
     "name": "Rango taxonómico original",
-    "count": "{num, plural, one { ID literal del taxón } other {# ID literales del taxón}}",
     "description": "El identificador del taxón facilitado por el publicador."
   },
   "islandGroup": {
     "name": "Grupo de islas",
-    "count": "{num, plural, one { grupo de islas } other {# grupos de islas}}",
     "description": "El nombre del grupo de islas donde se encuentra la ubicación."
   },
   "island": {
     "name": "Isla",
-    "count": "{num, plural, one { isla } other {# islas}}",
     "description": "El nombre de la isla donde se encuentra."
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "{num, plural, one { georreferenciado por } other {georreferenciado por #}}",
     "description": "Los nombres de las personas, grupos u organizaciones responsables de georreferenciar la ocurrencia original."
   },
   "datasetName": {
     "name": "Nombre del conjunto de datos",
-    "count": "{num, plural, one { nombre del conjunto de datos } other {# nombres de los conjuntos de datos}}",
     "description": "El nombre del conjunto de datos utilizado por el publicador. Los registros de un conjunto de datos pueden proceder de varios otros conjuntos de datos."
   },
   "programme": {
     "name": "Programa",
-    "count": "{num, plural, one { programa } other {# programas}}",
     "description": "El nombre del programa con el que está asociado el registro."
   },
   "recordNumber": {
     "name": "Número de registro",
-    "count": "{num, plural, one { número de registro } other {# números de registro}}\n",
     "description": "Un identificador asignado al registro biológico en el momento en que fue registrado."
   },
   "collectionCode": {
     "name": "Código de la colección",
-    "count": "{num, plural, one { código de la colección } other {# códigos de la colección}}\n",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "projectId": {
     "name": "ID del proyecto",
-    "count": "{num, plural, one { ID del proyecto } other {# IDs de los proyectos}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "recordedById": {
     "name": "Registrado por ID",
-    "count": "{num, plural, one { registrado por ID } other {# registrado por ID}}",
     "description": "El identificador de la persona, personas, grupos u organizaciones responsables de documentar el registro biológico original.\n"
   },
   "identifiedById": {
     "name": "Identificado por ID",
-    "count": "{num, plural, one { identificado por ID } other {# identificado por ID}}",
     "description": "El identificador de la persona, personas, grupos u organizaciones responsables de determinar el nombre científico del organismo."
   },
   "occurrenceId": {
     "name": "ID del registro biológico",
-    "count": "{num, plural, one { ID del registro biológico } other {# ID del registro biológico}}",
     "description": "El identificador único para el registro biológico."
   },
   "organismId": {
     "name": "ID del organismo",
-    "count": "{num, plural, one { ID del organismo } other {# ID del organismo}}",
     "description": "El identificador único del organismo en el registro."
   },
   "locality": {
     "name": "Localidad",
-    "count": "{num, plural, one { localidad } other {# localidades}}",
     "description": "La parte específica de la descripción del lugar."
   },
   "waterBody": {
     "name": "Cuerpo de agua",
-    "count": "{num, plural, one { cuerpo de agua } other {# cuerpos de agua}}",
     "description": "El nombre del cuerpo de agua en la que se presenta la ubicación.\n"
   },
   "higherGeography": {
     "name": "Geografía superior",
-    "count": "{num, plural, one { geografía superior } other {# geografías superiores}}",
     "description": "Geografía superior donde se ubica el registro. Este no es un campo interpretado, sino los datos originales proporcionados por el editor. Se pueden proporcionar varios valores."
   },
   "stateProvince": {
     "name": "Departamento/Estado/Provincia",
-    "count": "{num, plural, one { departamento/estado/provincia } other {# departamentos/estados/provincias}}",
     "description": "El nombre de la siguiente región administrativa más pequeña del país en el que se encuentra la localidad."
   },
   "gbifRegion": {
     "name": "Región GBIF",
-    "count": "{num, plural, one { región GBIF } other {# regiones GBIF}}",
     "description": "La región GBIF de la ubicación."
   },
   "publishedByGbifRegion": {
     "name": "Publicado por la región de GBIF",
-    "count": "{num, plural, one { región GBIF } other {# regiones GBIF}}",
     "description": "La región GBIF en la que se publica el conjunto de datos."
   },
   "eventId": {
     "name": "ID del evento",
-    "count": "{num, plural, one { ID del evento } other {# ID del evento}}",
     "description": "El identificador único del evento del registro."
   },
   "eventID": {
     "name": "ID del Evento",
-    "count": "{num, plural, one { ID del evento } other {# ID del evento}}",
     "description": "El identificador único del evento del registro."
   },
   "parentEventId": {
     "name": "ID del evento parental (principal)",
-    "count": "{num, plural, one { ID del evento } other {# ID del evento}}",
     "description": "El identificador único del evento principal en el registro."
   },
   "locationID": {
     "name": "ID de la Ubicación",
-    "count": "{num, plural, one { ID del evento } other {# ID del evento}}",
     "description": "El identificador único del sitio en el registro."
   },
   "measurementOrFactTypes": {
     "name": "Tipos de medición",
-    "count": "{num, plural, one { tipo de medición } other {# tipos de mediciones}}",
     "description": "El tipo de medición."
   },
   "measurementOrFactCount": {
     "name": "Recuento de mediciones",
-    "count": "{num, plural, one { recuento de medición } other {# recuento de mediciones}}",
     "description": "El recuento de un tipo de medición determinado."
   },
   "occurrenceCount": {
     "name": "Número (cantidad) de registros",
-    "count": "{num, plural, one { registro biológico } other {# registros biológicos}}",
     "description": "Número de registros biológicos para el evento"
   },
   "eventType": {
     "name": "Tipo de evento",
-    "count": "{num, plural, one { tipo de evento } other {# tipos de eventos}}",
     "description": "El tipo de evento de muestreo."
   },
   "dataStructure": {
     "name": "Estructura",
-    "count": "{num, plural, one { tipo de evento } other {# tipos de eventos}}",
     "description": "La estructura de datos para el evento de muestreo."
   },
   "samplingProtocol": {
     "name": "Protocolo de muestreo",
-    "count": "{num, plural, one { protocolo de muestreo } other {# protocolos de muestreo}}",
     "description": "Nombre, referencia o descripción del método o protocolo utilizado durante un evento."
   },
   "occurrenceStatus": {
     "name": "Estado del registro biológico",
-    "count": "{num, plural, one { estado del registro biológico } other {# estados del registro biológico}}",
     "description": "La presencia o ausencia de cualquier organismo de un taxón determinado."
   },
   "gadmGid": {
     "name": "Área administrativa GADM",
-    "count": "{num, plural, one { área administrativa GADM } other {# áreas administrativas GADM}}",
     "description": "El nombre del área administrativa en GADM.org según la ubicación de la coordenada."
-  },
-  "identifiedBy": {
-    "description": "La persona, personas, grupos u organizaciones responsables de determinar el nombre científico del organismo.",
-    "name": "Identificado por",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
   },
   "isInCluster": {
     "name": "Está en una agrupación",
-    "count": "{num, plural, one { tiene registros relacionados } other {# tiene registros relacionados}}",
     "description": "Si se determinó que el registro tenía registros relacionados."
   },
   "isSequenced": {
     "name": "Está secuenciado",
-    "count": "{num, plural, one { está secuenciado } other {# están secuenciados}}",
-    "description": "Si el registro tiene secuencias asociadas."
+    "description": "Si el registro contiene información de secuencias (ya sea en una extensión de datos derivada del ADN y/o en associatedSequences)"
   },
   "active": {
     "name": "Activo",
-    "count": "Activo",
     "description": "Si la entrada corresponde a una colección/institución activa o a un listado histórico que ya no existe."
   },
   "activeInstitution": {
     "name": "Activo",
-    "count": "Activo",
     "description": "Si la entrada corresponde a una institución activa o a un listado histórico que ya no existe."
   },
   "activeCollection": {
     "name": "Activo",
-    "count": "Activo",
     "description": "Si la entrada corresponde a una colección activa o a un listado histórico que ya no existe."
   },
   "publicationDate": {
     "name": "Fecha de publicación",
-    "count": "{num, plural, one { fecha de publicación } other {# fechas de publicaciones}}",
-    "description": "Cuándo se publicó el registro"
+    "description": "Cuando se publicó el registro"
   },
   "personalCollection": {
     "name": "Colección personal",
-    "count": "Colección personal",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "datasetType": {
     "name": "Tipo de conjunto de datos",
-    "count": "{num, plural, one { tipo de conjunto de datos } other {# tipos de conjunto de datos}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "datasetSubtype": {
     "name": "Subtipo de conjunto de datos",
-    "count": "{num, plural, one { subtipo de conjunto de datos } other {# subtipos de conjunto de datos}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionKey": {
     "name": "Institución",
-    "count": "{num, plural, one { institución } other {# instituciones}}",
     "description": "El nombre de la institución que custodia el objeto o la información a la que se refiere el registro."
   },
   "name": {
     "name": "Nombre",
-    "count": "{num, plural, one { nombre } other {# nombres}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
     "searchPlaceholder": "Buscar por título/nombre"
   },
   "city": {
     "name": "Ciudad",
-    "count": "{num, plural, one { ciudad } other {# ciudades}}",
     "description": "Ciudad donde se encuentra la institución/colección."
   },
   "code": {
     "name": "Código",
-    "count": "{num, plural, one { código } other {# códigos}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "verbatimScientificName": {
     "name": "Nombre científico original",
-    "count": "{num, plural, one { nombre científico original } other {# nombres científicos originales}}",
     "description": "El nombre científico suministrado por el publicador de datos sin ninguna normalización."
   },
   "networkKey": {
     "name": "Red de datos",
-    "count": "{num, plural, one { clave de la red } other {# claves de la red}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "literatureType": {
     "name": "Tipo de literatura",
-    "count": "{num, plural, one { tipo de literatura } other {# tipos de literatura}}",
     "description": "De qué tipo de literatura proviene la cita."
   },
   "higherTaxonKey": {
     "name": "Taxón superior",
-    "count": "{num, plural, one {taxón superior} other {# taxa superiores}}",
     "description": "Un taxón superior para filtrar."
   },
   "issueEnum": {
     "name": "Problemas y banderas",
-    "count": "{num, plural, one {alerta} other {# alertas}}\n",
     "isNotNull": "Tiene alertas",
     "isNull": "No tiene alertas",
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "humboldtBooleans": {
     "name": "Extensión Humboldt",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}",
     "description": "Soporte extendido para eventos Darwin Core relacionados con inventarios ecológicos."
   },
   "siteCount": {
     "description": "Número total de sitios individuales inspeccionados durante el dwc:Event.",
-    "name": "Recuento de sitios",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Recuento de sitios"
   },
   "siteNestingDescription": {
     "description": "Descripción textual del diseño de muestreo jerárquico.",
-    "name": "Descripción del anidamiento del sitio",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Descripción del anidamiento del sitio"
   },
   "verbatimSiteDescriptions": {
     "description": "Descripción textual original del sitio o sitios.",
-    "name": "Descripciones literales de los sitios",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Descripciones literales de los sitios"
   },
   "verbatimSiteNames": {
     "description": "Una lista (concatenada y separada) de los nombres originales de los sitios.",
-    "name": "Nombres de Sitio Literales",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Nombres de Sitio Literales"
   },
   "geospatialScopeAreaValue": {
     "description": "El valor numérico correspondiente al área total del ámbito geoespacial del dwc:Event.",
-    "name": "Valor del área de ámbito geoespacial",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Valor del área de ámbito geoespacial"
   },
   "geospatialScopeAreaUnit": {
     "description": "Las unidades asociadas con eco:geospatialScopeAreaValue",
-    "name": "Unidad de área de ámbito geoespacial",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Unidad de área de ámbito geoespacial"
   },
   "totalAreaSampledValue": {
     "description": "El valor numérico correspondiente al área total estudiada durante el evento dwc:Event.",
-    "name": "Valor del área total muestreada",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Valor del área total muestreada"
   },
   "totalAreaSampledUnit": {
     "description": "Las unidades asociadas con eco:totalAreaSampledValue",
-    "name": "Unidad de área total muestreada",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Unidad de área total muestreada"
   },
   "reportedWeather": {
     "description": "Una lista de las condiciones meteorológicas o climáticas presentes durante el dwc:Event.",
-    "name": "Clima reportado",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Clima reportado"
   },
   "reportedExtremeConditions": {
     "description": "Descripción de cualquier condición meteorológica o ambiental extrema que pueda haber afectado al evento dwc:Event.",
-    "name": "Condiciones extremas reportadas",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Condiciones extremas reportadas"
   },
   "targetHabitatScope": {
     "description": "Los hábitats seleccionados para el muestreo durante el dwc:Event.",
-    "name": "Ámbito del Hábitat Objetivo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito del Hábitat Objetivo"
   },
   "excludedHabitatScope": {
     "description": "Los hábitats explícitamente excluidos del muestreo durante el dwc:Event.",
-    "name": "Ámbito del Hábitat Excluido",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito del Hábitat Excluido"
   },
   "eventDurationValue": {
     "description": "El valor numérico correspondiente a la duración del dwc:Event.",
-    "name": "Valor de la duración del evento",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Valor de la duración del evento"
   },
   "eventDurationUnit": {
     "description": "Las unidades asociadas con eco:eventDurationValue.",
-    "name": "Unidad de la duración del evento",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Unidad de la duración del evento"
   },
   "targetTaxonomicScope": {
     "description": "El grupo o grupos taxonómicos seleccionados para el muestreo durante el dwc:Event.",
-    "name": "Ámbito del Objetivo Taxonómico",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito del Objetivo Taxonómico"
   },
   "excludedTaxonomicScope": {
     "description": "Los grupos taxonómicos excluidos explícitamente del muestreo durante el dwc:Event.",
-    "name": "Ámbito Taxonómico Excluido",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito Taxonómico Excluido"
   },
   "taxonCompletenessReported": {
     "description": "Declaración sobre si se ha evaluado la exhaustividad taxonómica del dwc:Event.",
-    "name": "Integridad Taxonómica Reportada",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Integridad Taxonómica Reportada"
   },
   "taxonCompletenessProtocols": {
     "description": "Descripción o referencia (publicación, URL) de los métodos utilizados para determinar eco:taxonCompletenessReported.",
-    "name": "Protocolos de Integridad Taxonómica",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Protocolos de Integridad Taxonómica"
   },
   "isTaxonomicScopeFullyReported": {
     "description": "Se informó de cada dwc:Organism que se incluyó dentro del ámbito taxonómico y que se detectó durante el dwc:Event.",
-    "name": "¿Se ha reportado completamente sobre el Alcance Taxonómico?",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "¿Se ha reportado completamente sobre el Alcance Taxonómico?"
   },
   "isAbsenceReported": {
     "description": "Se reportaron ausencias taxonómicas.",
-    "name": "Se reporta ausencia",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Se reporta ausencia"
   },
   "absentTaxa": {
     "description": "Una lista (concatenada y separada) de taxones que se informó que estaban ausentes durante el dwc:Event.",
-    "name": "Taxones ausentes",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Taxones ausentes"
   },
   "hasNonTargetTaxa": {
     "description": "Se detectaron y notificaron uno o más dwc:Organisms de taxones fuera del ámbito taxonómico objetivo (la combinación de eco:targetTaxonomicScope y eco:excludedTaxonomicScope) para este dwc:Event.",
-    "name": "Incluye taxones no objetivo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Incluye taxones no objetivo"
   },
   "nonTargetTaxa": {
     "description": "Una lista (concatenada y separada) de taxones notificados durante el evento dwc:Event que se encuentran fuera del ámbito taxonómico objetivo (la combinación de eco:targetTaxonomicScope y eco:excludedTaxonomicScope).",
-    "name": "Taxones no objetivo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Taxones no objetivo"
   },
   "areNonTargetTaxaFullyReported": {
     "description": "Se informó sobre cada dwc:Organism que se encontraba fuera del ámbito taxonómico objetivo (la combinación de eco:targetTaxonomicScope y eco:excludedTaxonomicScope) y que se detectó durante el dwc:Event, y que era detectable utilizando el protocolo dado (indicado en eco:protocolDescriptions y dwc:samplingProtocol).",
-    "name": "Se reportan exhaustivamente los taxones no objetivo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Se reportan exhaustivamente los taxones no objetivo"
   },
   "targetLifeStageScope": {
     "description": "Las clases de edad o etapas de vida de los dwc:Organisms seleccionados para el muestreo durante el dwc:Event.",
-    "name": "Ámbito de la Fase del Ciclo de Vida",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito de la Fase del Ciclo de Vida"
   },
   "excludedLifeStageScope": {
     "description": "Las clases de edad o etapas de vida de los dwc:Organisms explícitamente excluidos del muestreo durante el dwc:Event.",
-    "name": "Ámbito de la Fase del Ciclo de Vida Excluido",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito de la Fase del Ciclo de Vida Excluido"
   },
   "isLifeStageScopeFullyReported": {
     "description": "Se informó sobre cada dwc:Organism que se incluyó dentro del ámbito de la etapa de vida y que se detectó durante el dwc:Event.",
-    "name": "¿Se reporta completamente sobre el alcance de la Etapa de Vida?",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "¿Se reporta completamente sobre el alcance de la Etapa de Vida?"
   },
   "targetDegreeOfEstablishmentScope": {
     "description": "Los grados de establecimiento de los organismos dwc:Organisms seleccionados para el muestreo durante el dwc:Event.",
-    "name": "Ámbito del Grado de Establecimiento Objetivo\n",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito del Grado de Establecimiento Objetivo\n"
   },
   "excludedDegreeOfEstablishmentScope": {
     "description": "Los grados de establecimiento de los organismos dwc:Organisms seleccionados para el muestreo durante el dwc:Event.",
-    "name": "Ámbito del Grado de Establecimiento Excluido ",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito del Grado de Establecimiento Excluido "
   },
   "isDegreeOfEstablishmentScopeFullyReported": {
     "description": "Se informó sobre cada dwc:Organism que se incluyó dentro del ámbito de la etapa de vida y que se detectó durante el dwc:Event.",
-    "name": "¿Se ha reportado completamente sobre el Grado de Alcance del Establecimiento?",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "¿Se ha reportado completamente sobre el Grado de Alcance del Establecimiento?"
   },
   "targetGrowthFormScope": {
     "description": "Las formas de crecimiento o hábitos de los dwc:Organisms seleccionados para el muestreo durante el evento dwc:Event.",
-    "name": "Ámbito de la Forma de Crecimiento Objetivo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Ámbito de la Forma de Crecimiento Objetivo"
   },
   "excludedGrowthFormScope": {
     "description": "Las formas de crecimiento o hábitos de los dwc:Organisms explícitamente excluidos del muestreo durante el dwc:Event.",
-    "name": "Alcance de Forma de Crecimiento Excluidas",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Alcance de Forma de Crecimiento Excluidas"
   },
   "isGrowthFormScopeFullyReported": {
     "description": "Se informó sobre cada dwc:Organism que se incluía en el ámbito de la forma de crecimiento y que se detectó durante el dwc:Event.",
-    "name": "¿Se ha reportado completamente sobre el alcance de la forma de crecimiento?",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "¿Se ha reportado completamente sobre el alcance de la forma de crecimiento?"
   },
   "hasNonTargetOrganisms": {
     "description": "Se detectaron y notificaron uno o más dwc:Organisms fuera de los ámbitos de organismos objetivo (eco:targetDegreeOfEstablishmentScope, eco:targetGrowthFormScope y eco:targetLifeStageScope) para este dwc:Event.",
-    "name": "Contiene organismos no objetivo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Contiene organismos no objetivo"
   },
   "verbatimTargetScope": {
     "description": "Descripción literal original del ámbito dwc:Event.",
-    "name": "Alcance objetivo literal",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Alcance objetivo literal"
+  },
+  "identifiedBy": {
+    "description": "La persona, personas, grupos u organizaciones responsables de determinar el nombre científico del organismo.",
+    "name": "Identificado por"
   },
   "identificationReferences": {
     "description": "Una lista (concatenada y separada) de referencias (publicación, identificador único global, URI) utilizadas en dwc:Identification.",
-    "name": "Referencias de identificación",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Referencias de identificación"
   },
   "compilationTypes": {
     "description": "Una declaración que especifique si los datos comunicados se derivan de eventos de muestreo, datos auxiliares recopilados de otras fuentes o una combinación de ambos.",
-    "name": "Tipos de compilación",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Tipos de compilación"
   },
   "compilationSourceTypes": {
     "description": "Los tipos de fuentes de datos que contribuyen a la recopilación comunicada.",
-    "name": "Tipos de fuentes de compilación",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Tipos de fuentes de compilación"
   },
   "inventoryTypes": {
     "description": "Los tipos de procesos de búsqueda utilizados para realizar el inventario.",
-    "name": "Tipos de inventario",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Tipos de inventario"
   },
   "protocolNames": {
     "description": "Nombres descriptivos categóricos para los métodos utilizados durante el dwc:Event.",
-    "name": "Nombres de protocolos",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Nombres de protocolos"
   },
   "protocolDescriptions": {
     "description": "Descripción detallada de los métodos utilizados durante el dwc:Event.",
-    "name": "Descripciones de protocolos",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Descripciones de protocolos"
   },
   "protocolReferences": {
     "description": "Las referencias a los métodos utilizados durante el dwc:Event.",
-    "name": "Referencias de los protocolos",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Referencias de los protocolos"
   },
   "isAbundanceReported": {
     "description": "Se reportó el número de dwc:Organisms recolectados u observados.",
-    "name": "Se reporta abundancia",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Se reporta abundancia"
   },
   "isAbundanceCapReported": {
     "description": "Se informó del número máximo de dwc:Organisms, según lo especificado o restringido por el protocolo utilizado.",
-    "name": "Se reporta límite de abundancia",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Se reporta límite de abundancia"
   },
   "abundanceCap": {
     "description": "El número máximo registrado de dwc:Organismos.",
-    "name": "Límite de abundancia",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Límite de abundancia"
   },
   "isVegetationCoverReported": {
     "description": "Se informó sobre una métrica de cobertura vegetal.",
-    "name": "Se reporta cobertura vegetal",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Se reporta cobertura vegetal"
   },
   "isLeastSpecificTargetCategoryQuantityInclusive": {
     "description": "La cantidad total detectada para un dwc:Taxon (incluidas sus subcategorías) en un dwc:Event se indica explícitamente en un único registro (valor dwc:organismQuantity) para ese dwc:Taxon.",
-    "name": "¿Es la cantidad de categoría objetivo menos específica inclusive?",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "¿Es la cantidad de categoría objetivo menos específica inclusive?"
   },
   "hasVouchers": {
     "description": "Se recolectaron ejemplares de referencia durante el dwc:Event.",
-    "name": "Tiene ejemplares de referencia",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Tiene ejemplares de referencia"
   },
   "voucherInstitutions": {
     "description": "Una lista (concatenada y separada) de los nombres o acrónimos de las instituciones donde se depositaron los ejemplares de referencia recogidos durante el dwc:Event.",
-    "name": "Instituciones proveedoras de datos",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Instituciones proveedoras de datos"
   },
   "hasMaterialSamples": {
     "description": "Muestras de material se recolectaron durante el evento dwc:Event.",
-    "name": "Tiene muestras de material",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Tiene muestras de material"
   },
   "materialSampleTypes": {
     "description": "Una lista (concatenada y separada) de los tipos de muestras de material recolectadas durante el dwc:Event.",
-    "name": "Tipos de muestra de material",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Tipos de muestra de material"
   },
   "samplingPerformedBy": {
     "description": "Persona, grupo u organización responsable de registrar el evento dwc:Event.",
-    "name": "Muestreo realizado por",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Muestreo realizado por"
   },
   "isSamplingEffortReported": {
     "description": "Se informó sobre el esfuerzo de muestreo asociado al dwc:Event.",
-    "name": "¿Se reporta sobre el Esfuerzo de Muestreo?",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "¿Se reporta sobre el Esfuerzo de Muestreo?"
   },
   "samplingEffortProtocol": {
     "description": "Descripción o referencia (publicación o URL) de los métodos utilizados para determinar el esfuerzo de muestreo.",
-    "name": "Protocolo de esfuerzo de muestreo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Protocolo de esfuerzo de muestreo"
   },
   "samplingEffortValue": {
     "description": "El valor numérico correspondiente al esfuerzo de muestreo realizado durante el dwc:Event.",
-    "name": "Valor del esfuerzo de muestreo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Valor del esfuerzo de muestreo"
   },
   "samplingEffortUnit": {
     "description": "Las unidades asociadas con eco:samplingEffortValue.",
-    "name": "Unidad de esfuerzo de muestreo",
-    "count": "{num, plural, one { identificado por } other {# identificados por}}"
+    "name": "Unidad de esfuerzo de muestreo"
   }
 }

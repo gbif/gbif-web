@@ -1,7 +1,7 @@
 {
   "languageSelector": {
     "title": "言語を変更",
-    "description": "",
-    "translatorsLink": ""
+    "description": "翻訳はコミュニティの協力によって成り立っています。翻訳者ネットワークの詳細については、こちらをご覧ください（{translatorsLink}）。",
+    "translatorsLink": "翻訳ボランティア"
   }
 }

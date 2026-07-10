@@ -267,7 +267,7 @@
     "unableToCreateDownload": "No se puede crear la descarga. Inténtelo de nuevo más tarde.",
     "backToFormatSelection": "Volver a la selección de formato",
     "backToConfiguration": "Volver a la configuración",
-    "estimatedSize": "Igual a {is}",
+    "estimatedSize": "Tamaño estimado",
     "configure": "Configurar",
     "continueToTerms": "Continuar a los Términos",
     "downloadSummary": "Resumen de la descarga",

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { DynamicLink, useDynamicNavigate } from '@/reactRouterPlugins';
+import { useDynamicNavigate } from '@/reactRouterPlugins';
 import { MdSearch } from 'react-icons/md';
 import { SearchInput } from '@/components/searchInput';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -24,45 +24,34 @@ export function SearchTrigger() {
   });
 
   return (
-    <>
-      {/* Mobile: direct link to omni search (visible <sm) */}
-      <div className="sm:g-hidden">
-        <Button variant="ghost" asChild className="g-text-2xl g-px-2 g-mx-0.5 g-min-h-11 g-min-w-11">
-          <DynamicLink pageId="omniSearch" className="g-opacity-80" aria-label={searchLabel}>
+    <div className="g-hidden sm:g-flex g-items-center">
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="ghost"
+            className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
+            aria-label={searchLabel}
+          >
             <MdSearch aria-hidden="true" />
-          </DynamicLink>
-        </Button>
-      </div>
-      {/* Desktop: popover with search field (hidden <sm) */}
-      <div className="g-hidden sm:g-inline-block">
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="ghost"
-              className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80"
-              aria-label={searchLabel}
-            >
-              <MdSearch aria-hidden="true" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="g-w-[24rem] g-p-0">
-            <Card>
-              <CardHeader>
-                <CardTitle>
-                  <FormattedMessage id="search.crossContentSearch.title" />
-                </CardTitle>
-                <CardDescription>
-                  <FormattedMessage id="search.crossContentSearch.description" />
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Form setOpen={setOpen}></Form>
-              </CardContent>
-            </Card>
-          </PopoverContent>
-        </Popover>
-      </div>
-    </>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="g-w-[24rem] g-p-0">
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <FormattedMessage id="search.crossContentSearch.title" />
+              </CardTitle>
+              <CardDescription>
+                <FormattedMessage id="search.crossContentSearch.description" />
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form setOpen={setOpen}></Form>
+            </CardContent>
+          </Card>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 }
 

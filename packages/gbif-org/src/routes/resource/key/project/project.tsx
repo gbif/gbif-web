@@ -1,5 +1,5 @@
-import { useLiteratureCount } from '@/components/count';
-import { CitationIcon, FeatureList, GenericFeature } from '@/components/highlights';
+import { useCount, useLiteratureCount } from '@/components/count';
+import { CitationIcon, FeatureList, GenericFeature, OccurrenceIcon } from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
 import { ProjectPageFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -16,6 +16,7 @@ import { FundingBanner } from '../components/fundingBanner';
 import { PageContainer } from '../components/pageContainer';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 import PageMetaData from '@/components/PageMetaData';
+import { apiConstants } from '@/config/apiConstants';
 
 export const ProjectPageSkeleton = ArticleSkeleton;
 
@@ -56,6 +57,14 @@ export const projectPageLoader = createResourceLoaderWithRedirect({
 
 export function ProjectPage() {
   const { resource } = useLoaderData() as { resource: ProjectPageFragment };
+  const {
+    count: occurrenceCount,
+    loading: occurrenceLoading,
+    error: occurrenceError,
+  } = useCount({
+    apiEndpoint: apiConstants.occurrenceSearch,
+    params: { projectId: [resource.projectId!] },
+  });
   const {
     count: citationsCount,
     loading: citationsLoading,
@@ -123,6 +132,18 @@ export function ProjectPage() {
                   searchParams={{ gbifProjectIdentifier: resource.projectId }}
                 >
                   <FormattedMessage id="counts.nCitations" values={{ total: citationsCount }} />
+                </DynamicLink>
+              </GenericFeature>
+            )}
+            {(occurrenceCount ?? 0) > 0 && !occurrenceLoading && !occurrenceError && (
+              <GenericFeature className="g-underline">
+                <OccurrenceIcon />
+                <DynamicLink
+                  to="/occurrence/search"
+                  pageId="occurrenceSearch"
+                  searchParams={{ projectId: resource.projectId }}
+                >
+                  <FormattedMessage id="counts.nOccurrences" values={{ total: occurrenceCount }} />
                 </DynamicLink>
               </GenericFeature>
             )}

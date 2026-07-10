@@ -1,13 +1,14 @@
-import { DataHeader } from '@/components/dataHeader';
+import { DataHeader, useIsDataHeaderVisible } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
 import { useConfig } from '@/config/config';
+import { cn } from '@/utils/shadcn';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
@@ -42,6 +43,9 @@ export function LiteratureSearchPage(): React.ReactElement {
 
 export function LiteraturePageSearchInner(): React.ReactElement {
   const { filters } = useFilters({ searchConfig });
+  const dataHeaderVisible = useIsDataHeaderVisible({ hideIfNoCatalogue: true });
+  const filterSheetActive = useIsMobileFilterSheetActive(filters);
+  const hideBarOnMobile = dataHeaderVisible && filterSheetActive;
 
   return (
     <>
@@ -52,11 +56,21 @@ export function LiteraturePageSearchInner(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
         hideIfNoCatalogue={true}
+        mobileFiltersTrigger={<MobileFiltersTrigger filters={filters} />}
       />
 
       <section>
-        <div className="g-bg-white g-border-b g-border-slate-200">
-          <FilterBarWithActions filters={filters} className="g-px-4" />
+        <div
+          className={cn(
+            'g-bg-white g-border-b g-border-slate-200',
+            hideBarOnMobile && 'g-hidden sm:g-block'
+          )}
+        >
+          <FilterBarWithActions
+            filters={filters}
+            className="g-px-4"
+            hideMobileFilters={dataHeaderVisible}
+          />
         </div>
 
         <ErrorBoundary>

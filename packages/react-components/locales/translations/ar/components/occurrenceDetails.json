@@ -66,6 +66,10 @@
     "issues": "مسائل و رايات"
   },
   "issuesHelpText": "",
+  "issuesLearnMore": "",
+  "issues": {
+    "none": ""
+  },
   "features": {
     "isClustered": "",
     "isSamplingEvent": "حدث أخذ العينات",
@@ -743,7 +747,20 @@
     },
     "humboldtEcologicalInventory": {
       "name": "",
+      "recordsHeader": "",
+      "groups": {
+        "protocols": "",
+        "samplingDesign": "",
+        "spatialScope": "",
+        "temporalScope": "النطاق الزمني",
+        "effort": "",
+        "taxonomicOrganismalScope": ""
+      },
       "properties": {
+        "eventDuration": "",
+        "samplingEffort": "جهود أخذ العينات",
+        "geospatialScopeArea": "",
+        "totalAreaSampled": "",
         "siteCount": "",
         "siteNestingDescription": "",
         "verbatimSiteDescriptions": "",

@@ -20,7 +20,7 @@
     "countryParticipants": "Kodeks postępowania",
     "publishersPerCountry": "Kodeks postępowania",
     "clear": "Wyczyść",
-    "noDescriptionProvided": "",
+    "noDescriptionProvided": "Brak opisu dla tej sieci",
     "headlines": {
       "nodesSteeringGroup": "Komisja Sterująca Węzłów",
       "participants": "Uczestnicy"

@@ -275,7 +275,12 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     }
 
     return (
-      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
+      <div
+        className={cn(
+          'g-flex g-flex-col g-flex-1 g-min-h-0 g-max-h-[var(--radix-popover-content-available-height,100dvh)]',
+          className
+        )}
+      >
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full">
             {suggestConfig && (
@@ -334,7 +339,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           )}
           {options}
         </div>
-        <div className="g-flex-auto g-overflow-auto g-max-h-96 gbif-small-scrollbar">
+        <div className="g-flex-auto g-overflow-auto sm:g-max-h-96 gbif-small-scrollbar">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4')}>
               <div role="group" className="g-text-base sm:g-text-sm">

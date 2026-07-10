@@ -1,4 +1,5 @@
 import { LanguageOption } from '@/config/config';
+import { useConfig } from '@/config/config';
 import { ChecklistMetadataQuery, ChecklistMetadataQueryVariables } from '@/gql/graphql';
 import { useI18n } from '@/reactRouterPlugins';
 import { GraphQLService } from '@/services/graphQLService';
@@ -8,7 +9,6 @@ const supportedChecklists =
   import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS_FOR_DOWNLOAD?.split(',') || [];
 const defaultVisibleChecklists =
   import.meta.env.PUBLIC_DEFAULT_VISIBLE_CHECKLISTS_FOR_DOWNLOAD?.split(',') || [];
-const defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 
 export function isSupportedChecklist(datasetKey: string) {
   return import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS.split(',').includes(datasetKey);
@@ -28,7 +28,10 @@ export type Checklist = {
   metadata?: ChecklistMetadata;
 };
 
-async function getSupportedChecklists(locale: LanguageOption): Promise<Checklist[]> {
+async function getSupportedChecklists(
+  locale: LanguageOption,
+  defaultChecklist: string | undefined
+): Promise<Checklist[]> {
   const graphqlService = new GraphQLService({
     endpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
     locale: locale.cmsLocale || locale.localeCode,
@@ -63,23 +66,26 @@ async function getSupportedChecklists(locale: LanguageOption): Promise<Checklist
       metadata: colMetadata,
     },
   };
-  return supportedChecklists.map((key: string) => ({
-    key,
-    title: hardcodedMetadata[key]?.title || key,
-    alias: hardcodedMetadata[key]?.alias || key,
-    isAlwaysVisible: defaultVisibleChecklists.includes(key),
-    isDefault: key === defaultChecklist,
-    metadata: hardcodedMetadata[key]?.metadata,
-  }));
+  return supportedChecklists
+    .map((key: string) => ({
+      key,
+      title: hardcodedMetadata[key]?.title || key,
+      alias: hardcodedMetadata[key]?.alias || key,
+      isAlwaysVisible: defaultVisibleChecklists.includes(key),
+      isDefault: key === defaultChecklist,
+      metadata: hardcodedMetadata[key]?.metadata,
+    }))
+    .sort((a, b) => Number(b.isDefault) - Number(a.isDefault));
 }
 
 export function useSupportedChecklists() {
   const [checklists, setChecklists] = useState<Checklist[]>([]);
   const [loading, setLoading] = useState(true);
   const { locale } = useI18n();
+  const { defaultChecklistKey } = useConfig();
 
   useEffect(() => {
-    getSupportedChecklists(locale)
+    getSupportedChecklists(locale, defaultChecklistKey)
       .then((data) => {
         setChecklists(data);
         setLoading(false);
@@ -88,7 +94,7 @@ export function useSupportedChecklists() {
         console.error('Failed to load checklists:', error);
         setLoading(false);
       });
-  }, [locale]);
+  }, [locale, defaultChecklistKey]);
 
   return { checklists, loading };
 }

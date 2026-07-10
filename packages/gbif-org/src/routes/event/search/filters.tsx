@@ -9,7 +9,12 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { continentConfig, dwcaExtensionConfig, monthConfig } from './filters/enums';
+import {
+  continentConfig,
+  dwcaExtensionConfig,
+  monthConfig,
+  humboldtEventDurationUnitConfig,
+} from './filters/enums';
 import { countryConfig, gadmGidConfig } from './filters/keySuggest';
 import { locationConfig } from './filters/location';
 import {
@@ -30,17 +35,15 @@ import {
   eventTypeConfig,
   humboldtSamplingPerformedByConfig,
   humboldtSamplingEffortUnitConfig,
-  humboldtProtocolReferencesConfig,
   humboldtTargetDegreeOfEstablishmentScopeConfig,
   humboldtTargetGrowthFormScopeConfig,
   humboldtTargetHabitatScopeConfig,
   humboldtTargetLifeStageScopeConfig,
   humboldtTotalAreaSampledUnitConfig,
-  humboldtEventDurationUnitConfig,
   humboldtTargetTaxonomicScopeUsageNameConfig,
   humboldtMaterialSampleTypesConfig,
+  parentEventIdConfig,
 } from './filters/textOnly';
-import { sampleSizeUnitConfig } from './filters/wildcard';
 
 import {
   humboldtIsAbundanceReportedConfig,
@@ -79,6 +82,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       continent: generateFilters({ config: continentConfig, searchConfig, formatMessage }),
       dwcaExtension: generateFilters({ config: dwcaExtensionConfig, searchConfig, formatMessage }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      parentEventId: generateFilters({ config: parentEventIdConfig, searchConfig, formatMessage }),
       eventType: generateFilters({ config: eventTypeConfig, searchConfig, formatMessage }),
       // fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
