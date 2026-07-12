@@ -16,7 +16,7 @@
   "viewAllImages": "Ver todo",
   "share": "Compartir",
   "identifier": "Identificador",
-  "dataLoadErrorDescription": "",
+  "dataLoadErrorDescription": "Gran parte de los datos de esta página no se cargaron. Por favor, actualice la página o inténtelo de nuevo más tarde. Si el problema persiste, póngase en contacto con nosotros.",
   "unknownDate": "Fecha desconocida",
   "about": "Acerca de",
   "legend": "Leyenda",
