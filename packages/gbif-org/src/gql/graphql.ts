@@ -6979,6 +6979,7 @@ export type OccurrenceHistogram = {
   depth?: Maybe<Histogram>;
   elevation?: Maybe<Histogram>;
   endDayOfYear?: Maybe<Histogram>;
+  geologicalTime?: Maybe<Histogram>;
   startDayOfYear?: Maybe<Histogram>;
   year?: Maybe<Histogram>;
 };
@@ -7005,6 +7006,11 @@ export type OccurrenceHistogramElevationArgs = {
 
 
 export type OccurrenceHistogramEndDayOfYearArgs = {
+  interval?: InputMaybe<Scalars['Float']['input']>;
+};
+
+
+export type OccurrenceHistogramGeologicalTimeArgs = {
   interval?: InputMaybe<Scalars['Float']['input']>;
 };
 
