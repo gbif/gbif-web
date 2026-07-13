@@ -25,9 +25,9 @@ import { LuClock4 } from 'react-icons/lu';
 import { Location as LocationComponent } from './eventResult';
 import { DynamicLink } from '@/reactRouterPlugins';
 import PageMetaData from '@/components/PageMetaData';
+import { useConfig } from '@/config/config';
 
 export const EventPageSkeleton = ArticleSkeleton;
-const PUBLIC_API = import.meta.env.PUBLIC_API.replace('https://', '').replace('http://', '');
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventPage on MeetingEvent {
@@ -67,6 +67,7 @@ export const eventPageLoader = createResourceLoaderWithRedirect({
 
 export function EventPage() {
   const { resource } = useLoaderData() as { resource: EventPageFragment };
+  const { v1Endpoint } = useConfig();
 
   const startDate = new Date(resource.start);
   const endDate = resource.end ? new Date(resource.end) : undefined;
@@ -108,7 +109,7 @@ export function EventPage() {
 
           <Button className="g-mt-4" asChild>
             <a
-              href={`webcal://${PUBLIC_API}/v1/newsroom/events/${resource.id}.ics`}
+              href={`${v1Endpoint}/newsroom/events/${resource.id}.ics`}
               className="g-flex g-gap-2"
             >
               <MdCalendarMonth />

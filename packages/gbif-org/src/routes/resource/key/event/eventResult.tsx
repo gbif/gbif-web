@@ -8,6 +8,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { mediumDateFormatProps, MediumDate } from '@/components/dateFormats';
 import { getTextDirection } from '@/utils/textDirection';
 import { stripTags } from '@/utils/stripTags';
+import { useConfig } from '@/config/config';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on MeetingEvent {
@@ -71,6 +72,7 @@ export function EventResult({ event, className }: Props) {
 }
 
 function EventMetadata({ event }: Pick<Props, 'event'>) {
+  const { v1Endpoint } = useConfig();
   // event starts and ends the same day
   const sameDay = event?.start?.substring(0, 10) === event?.end?.substring(0, 10);
 
@@ -105,7 +107,7 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
         {!isPast(event) && (
           <Button asChild variant="secondary">
             <a
-              href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}
+              href={`${v1Endpoint}/newsroom/events/${event.id}.ics`}
               className="g-flex g-gap-2"
             >
               <MdCalendarMonth />
