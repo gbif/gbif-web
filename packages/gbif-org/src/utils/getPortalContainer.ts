@@ -16,6 +16,10 @@ import React from 'react';
  */
 export const PortalContainerContext = React.createContext<HTMLElement | null>(null);
 
+// Marker classes set by DialogBottomSheetContent and Drawer on their content nodes.
+// Used to bridge the context across React root boundaries (see standaloneWrapper.tsx).
+export const PORTAL_CONTAINER_SELECTOR = '.dialog-popover-container, .drawer-popover-container';
+
 export function usePortalContainer(): HTMLElement | undefined {
   const fromContext = React.useContext(PortalContainerContext);
   if (fromContext) return fromContext;
