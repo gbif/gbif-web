@@ -20,7 +20,11 @@ import { Documents } from '../components/documents';
 import { KeyValuePair } from '../components/keyValuePair';
 import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { LuClock4 } from 'react-icons/lu';
 import { Location as LocationComponent } from './eventResult';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -66,7 +70,9 @@ export const eventPageLoader = createResourceLoaderWithRedirect({
 });
 
 export function EventPage() {
-  const { resource } = useLoaderData() as { resource: EventPageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<EventPageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const { v1Endpoint } = useConfig();
 
   const startDate = new Date(resource.start);

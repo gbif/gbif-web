@@ -4,7 +4,11 @@ import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { FundingBanner } from '../components/fundingBanner';
 import { BlockItem } from '../composition/blockItem';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 
 export const ProgrammePageSkeleton = ArticleSkeleton;
@@ -26,7 +30,9 @@ export const programmePageLoader = createResourceLoaderWithRedirect({
 });
 
 export function ProgrammePage() {
-  const { resource } = useLoaderData() as { resource: ProgrammePageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<ProgrammePageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const location = useLocation();
 
   return (

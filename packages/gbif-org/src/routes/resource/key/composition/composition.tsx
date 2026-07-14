@@ -2,7 +2,11 @@ import { CompositionPageFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/articleSkeleton';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { BlockItem } from './blockItem';
 import PageMetaData from '@/components/PageMetaData';
 
@@ -26,7 +30,9 @@ export const compositionPageLoader = createResourceLoaderWithRedirect({
 });
 
 export function CompositionPage() {
-  const { resource } = useLoaderData() as { resource: CompositionPageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<CompositionPageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const location = useLocation();
 
   return (

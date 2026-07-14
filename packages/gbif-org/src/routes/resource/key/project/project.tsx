@@ -14,7 +14,11 @@ import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
 import { FundingBanner } from '../components/fundingBanner';
 import { PageContainer } from '../components/pageContainer';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 import { apiConstants } from '@/config/apiConstants';
 
@@ -56,7 +60,9 @@ export const projectPageLoader = createResourceLoaderWithRedirect({
 });
 
 export function ProjectPage() {
-  const { resource } = useLoaderData() as { resource: ProjectPageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<ProjectPageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const {
     count: occurrenceCount,
     loading: occurrenceLoading,

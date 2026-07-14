@@ -14,7 +14,11 @@ import { ArticleTitle } from '../components/articleTitle';
 import { Documents } from '../components/documents';
 import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 
 export const ArticlePageSkeleton = ArticleSkeleton;
@@ -50,7 +54,9 @@ export const articlePageLoader = createResourceLoaderWithRedirect({
 });
 
 export function ArticlePage() {
-  const { resource } = useLoaderData() as { resource: ArticlePageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<ArticlePageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const location = useLocation();
 
   return (
