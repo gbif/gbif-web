@@ -39,32 +39,31 @@ function extractLocalePrefix(path) {
  * A redirect can live here as long as it never overlaps with a route in the React app.
  */
 export function createGetPreRenderRedirect(env) {
-  const prefixRedirects = [];
-
-  // GRSciColl moved to its own hosted portal. Keep path and query as they are the same on the new
-  // site. https://github.com/gbif/gbif-web/issues/1906
-  if (env.PUBLIC_GRSCICOLL) {
-    prefixRedirects.push({
-      prefix: '/grscicoll',
-      target: env.PUBLIC_GRSCICOLL,
-      // locales that exist on the target site, incoming locale -> target prefix.
-      // Mirrors grSciCollLocalePrefix in src/config/languagesOptions.tsx
-      targetLocalePrefixes: { es: '/es' },
-    });
-  }
-
+  // GRSciColl redirects https://github.com/gbif/gbif-web/issues/1906
   return function getPreRenderRedirect(req) {
+    if (!env.PUBLIC_GRSCICOLL) return undefined;
+
     const [pathOnly, queryString] = req.originalUrl.split('?');
     const { prefix: localePrefix, pathWithoutPrefix } = extractLocalePrefix(pathOnly);
 
-    for (const { prefix, target, targetLocalePrefixes } of prefixRedirects) {
-      if (pathWithoutPrefix === prefix || pathWithoutPrefix.startsWith(`${prefix}/`)) {
-        const remainingPath = pathWithoutPrefix.slice(prefix.length);
-        const targetLocale = targetLocalePrefixes[localePrefix.slice(1)] ?? '';
-        return `${target}${targetLocale}${remainingPath}${queryString ? `?${queryString}` : ''}`;
-      }
+    if (pathWithoutPrefix !== '/grscicoll' && !pathWithoutPrefix.startsWith('/grscicoll/')) {
+      return undefined;
     }
-    return undefined;
+
+    let remainingPath = pathWithoutPrefix.slice('/grscicoll'.length);
+    // The bare prefix used to serve an article about GRSciColl; its replacement on the new site
+    // lives at /about, so the bare prefix goes there instead of the target root.
+    if (remainingPath === '' || remainingPath === '/') {
+      remainingPath = '/about';
+    }
+
+    // Spanish is the only incoming locale that also exists on the target site; all others fall
+    // back to the target default. Mirrors grSciCollLocalePrefix in src/config/languagesOptions.tsx
+    const targetLocale = localePrefix === '/es' ? '/es' : '';
+
+    return `${env.PUBLIC_GRSCICOLL}${targetLocale}${remainingPath}${
+      queryString ? `?${queryString}` : ''
+    }`;
   };
 }
 

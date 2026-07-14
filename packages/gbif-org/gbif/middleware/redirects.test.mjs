@@ -60,15 +60,17 @@ describe('getPostRenderRedirect — non-query paths (regression guards)', () => 
   });
 });
 
-// Baseline behavior matches portal16 (old.gbif.org): 302 to the GRSciColl hosted portal with path
-// and query preserved. See https://github.com/gbif/gbif-web/issues/1906
+// 302 to the GRSciColl hosted portal with path and query preserved, except the bare prefix which
+// goes to /about (it used to serve an article whose replacement lives there).
+// See https://github.com/gbif/gbif-web/issues/1906
 describe('getPreRenderRedirect — GRSciColl moved to its own domain', () => {
   const grscicoll = 'https://scientific-collections.gbif.org';
   const getPreRenderRedirect = createGetPreRenderRedirect({ PUBLIC_GRSCICOLL: grscicoll });
   const runPreRender = (originalUrl) => getPreRenderRedirect({ originalUrl });
 
-  it('redirects the bare prefix', () => {
-    expect(runPreRender('/grscicoll')).toBe(grscicoll);
+  it('redirects the bare prefix to the about page', () => {
+    expect(runPreRender('/grscicoll')).toBe(`${grscicoll}/about`);
+    expect(runPreRender('/grscicoll/')).toBe(`${grscicoll}/about`);
   });
 
   it('preserves the remaining path', () => {
@@ -87,11 +89,12 @@ describe('getPreRenderRedirect — GRSciColl moved to its own domain', () => {
     expect(runPreRender('/es/grscicoll/institution/search')).toBe(
       `${grscicoll}/es/institution/search`
     );
+    expect(runPreRender('/es/grscicoll')).toBe(`${grscicoll}/es/about`);
   });
 
   it('drops locales the target site does not have', () => {
     expect(runPreRender('/fr/grscicoll/collection/search')).toBe(`${grscicoll}/collection/search`);
-    expect(runPreRender('/en/grscicoll')).toBe(grscicoll);
+    expect(runPreRender('/en/grscicoll')).toBe(`${grscicoll}/about`);
   });
 
   it('does not match other paths', () => {
