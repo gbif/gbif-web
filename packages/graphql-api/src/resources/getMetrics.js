@@ -75,6 +75,72 @@ const getFacet =
   };
 
 /**
+ * Facet resolver for a field nested inside a nested object, e.g.
+ * `nucleotideSequence.targetGene`. The es-api accepts the dot-notation key and aggregates
+ * within an ES nested aggregation, returning occurrence-level (reverse_nested) counts. The
+ * per-bucket drill-down predicate is a flat `equals` on the same dot-notation key: es-api
+ * upper-snake-cases it (NUCLEOTIDE_SEQUENCE_TARGET_GENE) for the v1 toesquery endpoint,
+ * which expands it into an ES nested query. A `nested` predicate type is NOT used because
+ * v1 has no such predicate type.
+ * @param {String} nestedKey the nested object, e.g. "nucleotideSequence"
+ * @param {String} childKey the field within the nested object, e.g. "targetGene"
+ * @param {String} [valueType] "boolean" to coerce the drill-down value to a real boolean
+ *   (Elasticsearch returns boolean term keys as 0/1, but the v1 predicate API requires
+ *   true/false). Omit for keyword/numeric fields.
+ */
+const getNestedFacet =
+  (nestedKey, childKey, getSearchFunction, valueType) =>
+  (parent, { size = 10, from = 0, include }, { dataSources }) => {
+    const searchApi = getSearchFunction(dataSources);
+    const key = `${nestedKey}.${childKey}`;
+    const query = {
+      predicate: parent._predicate,
+      q: parent._q,
+      size: 0,
+      metrics: {
+        facet: {
+          type: 'facet',
+          key,
+          size,
+          from,
+          // Restrict the terms aggregation to a known set of values (e.g. the
+          // nucleotideSequenceIDs returned by a vsearch similarity search). es-api
+          // forwards this to the inner terms agg inside the nested aggregation.
+          include,
+        },
+      },
+    };
+    return searchApi({ query }).then((data) => {
+      return data.aggregations.facet.buckets.map((bucket) => {
+        const value =
+          valueType === 'boolean'
+            ? bucket.key === 1 || bucket.key === true
+            : bucket.key;
+        const predicate = {
+          type: 'equals',
+          key,
+          value,
+        };
+        const joinedPredicate = data.meta.predicate
+          ? {
+              type: 'and',
+              predicates: [data.meta.predicate, predicate],
+            }
+          : predicate;
+        return {
+          key: bucket.key,
+          count: bucket.doc_count,
+          // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
+          _predicate: joinedPredicate,
+          _q: parent._q,
+          _parentPredicate: data.meta.predicate,
+          _field: key,
+        };
+      });
+    });
+  };
+
+/**
  * Convinent wrapper to generate the stat resolvers.
  * Given a string (field name) then generate a query and map the result
  * @param {String} field
@@ -239,6 +305,7 @@ export {
   getAutoDateHistogram,
   getCardinality,
   getFacet,
+  getNestedFacet,
   getHistogram,
   getStats,
 };

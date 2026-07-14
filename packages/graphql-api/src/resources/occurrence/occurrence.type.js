@@ -81,6 +81,7 @@ const typeDef = gql`
     extensions: OccurrenceExtensions
     extent: String
     facts: [JSON]
+    nucleotideSequences: [NucleotideSequence]
     family: String
     familyKey: ID
     fieldNotes: String
@@ -582,6 +583,31 @@ const typeDef = gql`
     type: String
     value: String
     person(expand: Boolean): Person
+  }
+
+  """
+  A nucleotide sequence attached to an occurrence (e.g. a DNA barcode), together with
+  derived quality metrics. An occurrence may have several.
+  """
+  type NucleotideSequence {
+    nucleotideSequenceID: String
+    sequence: String
+    sequenceLength: Int
+    gcContent: Float
+    nonIupacFraction: Float
+    nonACGTNFraction: Float
+    nFraction: Float
+    nRunsCapped: Int
+    naturalLanguageDetected: Boolean
+    endsTrimmed: Boolean
+    gapsOrWhitespaceRemoved: Boolean
+    invalid: Boolean
+    targetGene: NucleotideSequenceTargetGene
+  }
+
+  type NucleotideSequenceTargetGene {
+    concept: String
+    lineage: [String]
   }
 
   type MultimediaItem {

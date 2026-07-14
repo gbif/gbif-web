@@ -14,6 +14,7 @@ import {
   getAutoDateHistogram,
   getCardinality,
   getFacet,
+  getNestedFacet,
   getHistogram,
   getStats,
 } from '../getMetrics';
@@ -180,6 +181,35 @@ const facetReducer = (dictionary, facetName) => {
 };
 const OccurrenceFacet = facetFields.reduce(facetReducer, {});
 
+// Facets on fields nested inside the nucleotideSequence object. These cannot go through
+// the generic facetFields list because the es-api metric key uses dot-notation
+// (nucleotideSequence.targetGene) while the GraphQL field name cannot contain a dot.
+OccurrenceFacet.nucleotideSequenceTargetGene = getNestedFacet(
+  'nucleotideSequence',
+  'targetGene',
+  getSourceSearch,
+);
+OccurrenceFacet.nucleotideSequenceInvalid = getNestedFacet(
+  'nucleotideSequence',
+  'invalid',
+  getSourceSearch,
+  'boolean',
+);
+OccurrenceFacet.nucleotideSequenceSequenceLength = getNestedFacet(
+  'nucleotideSequence',
+  'sequenceLength',
+  getSourceSearch,
+);
+// Facet on the nucleotideSequenceID. Used with an `include` list to restrict the terms
+// aggregation to a known set of IDs (e.g. the vsearch similarity hits), scoped by the
+// current filter, so the "Similar sequences" UI can show how many of those sequences still
+// occur under the other active filters.
+OccurrenceFacet.nucleotideSequenceNucleotideSequenceID = getNestedFacet(
+  'nucleotideSequence',
+  'nucleotideSequenceID',
+  getSourceSearch,
+);
+
 // there are also many fields that support stats. Generate them all.
 const statsReducer = (dictionary, statsName) => {
   dictionary[statsName] = getStats(statsName, getSourceSearch);
@@ -193,6 +223,13 @@ const cardinalityReducer = (dictionary, fieldName) => {
   return dictionary;
 };
 const OccurrenceCardinality = cardinalityFields.reduce(cardinalityReducer, {});
+// Cardinality on a nested-object sub-field. The GraphQL field is dot-free
+// (nucleotideSequenceTargetGene) but the es-api metric key must be the dotted
+// nucleotideSequence.targetGene so metric2aggs builds a nested aggregation.
+OccurrenceCardinality.nucleotideSequenceTargetGene = getCardinality(
+  'nucleotideSequence.targetGene',
+  getSourceSearch,
+);
 
 // there are also many fields that support histograms. Generate them all.
 const histogramReducer = (dictionary, fieldName) => {
@@ -200,6 +237,13 @@ const histogramReducer = (dictionary, fieldName) => {
   return dictionary;
 };
 const OccurrenceHistogram = histogramFields.reduce(histogramReducer, {});
+// Histogram on a nested-object sub-field. GraphQL field is dot-free; the es-api metric
+// key is the dotted nucleotideSequence.sequenceLength so metric2aggs wraps the histogram
+// aggregation in a nested aggregation.
+OccurrenceHistogram.nucleotideSequenceSequenceLength = getHistogram(
+  'nucleotideSequence.sequenceLength',
+  getSourceSearch,
+);
 
 // there are also many fields that support date histograms. Generate them all.
 const autoDateHistogramReducer = (dictionary, fieldName) => {
