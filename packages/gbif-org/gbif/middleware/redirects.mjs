@@ -6,74 +6,25 @@ import querystring from 'querystring';
 import redirectList from '../../redirects.json' with { type: 'json' };
 import toolsRedirects from '../../src/gbif/toolsRedirects.js';
 
-// Locale prefixes that have URL prefixes
-const localePrefixes = [
-  // Base locales (always available in all environments)
-  'en', // English (default)
-  'ar', // Arabic
-  'zh', // Chinese (Simplified)
-  'fr', // French
-  'ru', // Russian
-  'es', // Spanish
-  'zh-tw', // Chinese (Traditional)
-  'cs', // Czech
-  'ja', // Japanese
-  'pl', // Polish
-  'pt', // Portuguese
-  'uk', // Ukrainian
-  'it', // Italian
-];
+function createGetRedirect(env) {
+  // Locale prefixes that have URL prefixes
+  const localePrefixes = [
+    // Base locales (always available in all environments)
+    'en', // English (default)
+    'ar', // Arabic
+    'zh', // Chinese (Simplified)
+    'fr', // French
+    'ru', // Russian
+    'es', // Spanish
+    'zh-tw', // Chinese (Traditional)
+    'cs', // Czech
+    'ja', // Japanese
+    'pl', // Polish
+    'pt', // Portuguese
+    'uk', // Ukrainian
+    'it', // Italian
+  ];
 
-// Extract locale prefix from path if present
-function extractLocalePrefix(path) {
-  for (const locale of localePrefixes) {
-    if (path.startsWith(`/${locale}/`) || path === `/${locale}`) {
-      return { prefix: `/${locale}`, pathWithoutPrefix: path.slice(locale.length + 1) || '/' };
-    }
-  }
-  return { prefix: '', pathWithoutPrefix: path };
-}
-
-/**
- * Redirects checked BEFORE the SSR render — a header-only 302 instead of a full SSR pass.
- * A redirect can live here as long as it never overlaps with a route in the React app.
- */
-export function createGetPreRenderRedirect(env) {
-  const prefixRedirects = [];
-
-  // GRSciColl moved to its own hosted portal. Keep path and query as they are the same on the new
-  // site. https://github.com/gbif/gbif-web/issues/1906
-  if (env.PUBLIC_GRSCICOLL) {
-    prefixRedirects.push({
-      prefix: '/grscicoll',
-      target: env.PUBLIC_GRSCICOLL,
-      // locales that exist on the target site, incoming locale -> target prefix.
-      // Mirrors grSciCollLocalePrefix in src/config/languagesOptions.tsx
-      targetLocalePrefixes: { es: '/es' },
-    });
-  }
-
-  return function getPreRenderRedirect(req) {
-    const [pathOnly, queryString] = req.originalUrl.split('?');
-    const { prefix: localePrefix, pathWithoutPrefix } = extractLocalePrefix(pathOnly);
-
-    for (const { prefix, target, targetLocalePrefixes } of prefixRedirects) {
-      if (pathWithoutPrefix === prefix || pathWithoutPrefix.startsWith(`${prefix}/`)) {
-        const remainingPath = pathWithoutPrefix.slice(prefix.length);
-        const targetLocale = targetLocalePrefixes[localePrefix.slice(1)] ?? '';
-        return `${target}${targetLocale}${remainingPath}${queryString ? `?${queryString}` : ''}`;
-      }
-    }
-    return undefined;
-  };
-}
-
-/**
- * Redirects checked AFTER the SSR render. Path-only redirects apply only when the render came back
- * 404, so a request that ends here as a redirect pays for rendering the 404 page first. Redirects
- * can be moved to createGetPreRenderRedirect above over time to skip that cost.
- */
-export function createGetPostRenderRedirect(env) {
   const routesHandledInReactRouter = new Set([
     'article',
     'composition',
@@ -85,6 +36,16 @@ export function createGetPostRenderRedirect(env) {
     'project',
     'tool',
   ]);
+
+  // Extract locale prefix from path if present
+  function extractLocalePrefix(path) {
+    for (const locale of localePrefixes) {
+      if (path.startsWith(`/${locale}/`) || path === `/${locale}`) {
+        return { prefix: `/${locale}`, pathWithoutPrefix: path.slice(locale.length + 1) || '/' };
+      }
+    }
+    return { prefix: '', pathWithoutPrefix: path };
+  }
 
   // These cannot be added to redirects while portal16 is still our main site
   // as they would interfere with the occurrence paths
@@ -150,7 +111,7 @@ export function createGetPostRenderRedirect(env) {
     return null;
   }
 
-  function getPostRenderRedirect(req, res, next) {
+  function getRedirect(req, res, next) {
     // remove query params from url first
     const splitted = req.originalUrl.split('?');
     const pathOnly = splitted[0];
@@ -270,5 +231,7 @@ export function createGetPostRenderRedirect(env) {
     };
   }
 
-  return getPostRenderRedirect;
+  return getRedirect;
 }
+
+export default createGetRedirect;
