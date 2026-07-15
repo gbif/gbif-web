@@ -128,7 +128,19 @@ async function main() {
 
     app.use(viteDevServer.middlewares);
   } else {
-    app.use(express.static('dist/gbif/client', { index: false }));
+    app.use(
+      express.static('dist/gbif/client', {
+        index: false,
+        setHeaders: (res, filePath) => {
+          // Files in assets/ are content-hashed and retained across releases on the host,
+          // so they can be cached forever. Stable names (index.html, public/ copies) keep
+          // the default 10 minute cache.
+          if (filePath.includes('/assets/')) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          }
+        },
+      })
+    );
     app.use(express.static('public', { index: false }));
   }
 
