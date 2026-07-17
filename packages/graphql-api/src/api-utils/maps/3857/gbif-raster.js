@@ -8,7 +8,7 @@ export default {
   },
   sprite: 'https://openmaptiles.github.io/positron-gl-style/sprite',
   glyphs:
-    'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={{maptilerApiKey}}',
+    'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=uviSBUs8IWB6PC4cLu4F',
   sources: {
     openmaptiles: {
       type: 'raster',
