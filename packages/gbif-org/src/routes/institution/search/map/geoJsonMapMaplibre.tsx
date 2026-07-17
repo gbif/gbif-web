@@ -201,9 +201,13 @@ export default function GeoJsonMapMaplibre({
 
       const newMap = new maplibre.Map({
         container: mapRef.current,
+        // the cluster-count labels are the only text drawn here, but their glyphs come from
+        // MapTiler, so without the key the whole markers source fails to render
         style: `${
           import.meta.env.PUBLIC_WEB_UTILS
-        }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=${pixelRatio}`,
+        }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=${pixelRatio}&maptilerApiKey=${
+          config.apiKeys?.maptiler
+        }`,
         center: [lng, lat],
         zoom,
       });
@@ -250,7 +254,15 @@ export default function GeoJsonMapMaplibre({
         if (newMap?.remove) newMap.remove();
       };
     }
-  }, [defaultMapSettings, mapRef, geojson, addLayer, storageKey, PopupContent]);
+  }, [
+    defaultMapSettings,
+    mapRef,
+    geojson,
+    addLayer,
+    storageKey,
+    PopupContent,
+    config.apiKeys?.maptiler,
+  ]);
 
   useEffect(() => {
     if (!map) return;
