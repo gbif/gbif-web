@@ -42,13 +42,13 @@ export function useSuggestedNonCountryNode() {
         .then((json) => json.data.nodeSearch?.results[0]);
 
       if (node && node.participantTitle) {
-        setSuggestedNonCountryNode({
-          key: node.key,
-          title: node.participantTitle,
-        });
-      } else {
-        setSuggestedNonCountryNode(undefined);
+        const suggestion = { key: node.key, title: node.participantTitle };
+        setSuggestedNonCountryNode(suggestion);
+        return suggestion;
       }
+
+      setSuggestedNonCountryNode(undefined);
+      return undefined;
     },
     [graphqlEndpoint, locale.cmsLocale, locale.localeCode]
   );
