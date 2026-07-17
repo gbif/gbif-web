@@ -238,7 +238,8 @@ export default {
       }),
   },
   Synonym: {
-    isOriginalNameUsage: ({ originalNameUsageID }) => !!originalNameUsageID,
+    // set by the taxonInfo enrichment; coerced as the source only sets it when the taxon has an originalNameUsageID
+    isOriginalNameUsage: ({ isOriginalNameUsage }) => !!isOriginalNameUsage,
   },
   ChecklistMetaMainIndex: {
     version: async ({ clbDatasetKey }, args, { dataSources }) => {
@@ -256,9 +257,9 @@ export default {
   TaxonInfo: {
     ...sharedTaxonFields,
     vernacularName: getVernacularName,
-    namePublishedIn: ({ taxon, bibliography }) => {
-      if (!taxon?.namePublishedInID) return null;
-      return bibliography.find((b) => b.referenceID === taxon.namePublishedInID)?.citation ?? null;
+    namePublishedIn: ({ namePublishedInID, bibliography }) => {
+      if (!namePublishedInID) return null;
+      return bibliography?.find((b) => b.referenceID === namePublishedInID)?.citation ?? null;
     },
     media: ({ media }, { limit = 20 }) => {
       // the api returns all possible images, but we want to limit it, so we do the limiting here
