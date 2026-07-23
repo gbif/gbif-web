@@ -91,6 +91,8 @@
       "occurrenceSearch": "出現紀錄",
       "resourceSearch": "資源與文章"
     },
-    "seeAll": "查看全部"
+    "seeAll": "查看全部",
+    "searchFor": "",
+    "noResults": ""
   }
 }

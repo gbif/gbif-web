@@ -91,6 +91,8 @@
       "occurrenceSearch": "Observationer",
       "resourceSearch": ""
     },
-    "seeAll": "Se alle"
+    "seeAll": "Se alle",
+    "searchFor": "",
+    "noResults": ""
   }
 }
