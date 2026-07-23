@@ -245,7 +245,11 @@ const ActiveFilters = React.memo<ActiveFiltersProps>(({ filters, onSelectFilter 
     <>
       <CommandGroup heading={<FormattedMessage id="filterSupport.activeFilters" />}>
         {activeFilters.map((filter) => {
-          const summary = getFilterSummary(filterContext?.filter || {}, filter.handle);
+          const summary = getFilterSummary(
+            filterContext?.filter || {},
+            filter.handle,
+            filter.groupValuesBy
+          );
           const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
           const aliases = typeof rawAlias === 'string' ? rawAlias : '';
           const searchValue = aliases

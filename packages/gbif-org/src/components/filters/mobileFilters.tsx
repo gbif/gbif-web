@@ -88,7 +88,11 @@ export function MobileFilters({
     // Count all active filters
     const otherFilterHandles = Object.keys(otherFilters);
     return otherFilterHandles.reduce((count, handle) => {
-      const summary = getFilterSummary(filterContext.filter, handle);
+      const summary = getFilterSummary(
+        filterContext.filter,
+        handle,
+        otherFilters[handle]?.groupValuesBy
+      );
       return count + summary.defaultCount;
     }, 0);
   }, [filterContext, otherFilters]);

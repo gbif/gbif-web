@@ -25,6 +25,10 @@ const typeDef = gql`
       publishingCountry: [Country]
       dwcaExtension: [String]
       """
+      Table schema URLs of the DwC Data Package resources the dataset contains
+      """
+      dwcdpSchema: [String]
+      """
       Not implemented yet
       """
       continent: [Continent]
@@ -80,6 +84,10 @@ const typeDef = gql`
     decade: [Int]
     publishingCountry: [Country]
     dwcaExtension: [String]
+    """
+    Table schema URLs of the DwC Data Package resources the dataset contains
+    """
+    dwcdpSchema: [String]
     """
     Not implemented yet
     """
@@ -386,6 +394,7 @@ const typeDef = gql`
     projectId(limit: Int, offset: Int): [DatasetFacetResult]
     license(limit: Int, offset: Int): [DatasetFacetResult]
     dwcaExtension(limit: Int, from: Int): [DatasetFacetResult]
+    dwcdpSchema(limit: Int, from: Int): [DatasetFacetResult]
     networkKey(limit: Int, from: Int): [DatasetFacetResult]
   }
 

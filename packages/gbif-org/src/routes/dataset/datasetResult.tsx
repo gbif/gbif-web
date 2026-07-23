@@ -93,9 +93,17 @@ export function DatasetResult({
           </div>
         </div>
         <div dir="auto" className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-          <DynamicLink pageId="datasetSearch" searchParams={{ type: [dataset.type] }}>
+          {/* datasets are not required to have a type, then we link to the unfiltered search */}
+          <DynamicLink
+            pageId="datasetSearch"
+            searchParams={dataset.type ? { type: [dataset.type] } : undefined}
+          >
             <Tag className="hover:g-bg-primary-200 g-m-1 g-mb-0">
-              <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              {dataset.type ? (
+                <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              ) : (
+                <FormattedMessage id="dataset.dataset" />
+              )}
             </Tag>
           </DynamicLink>
           <div className="g-flex-grow g-hidden sm:g-block"></div>

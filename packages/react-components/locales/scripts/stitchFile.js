@@ -137,6 +137,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         datasetType: getFile(locale, `../${folder}/${locale}/enums/datasetType`),
         datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`),
         dwcaExtension: getFile(locale, `../${folder}/${locale}/enums/dwcaExtension`),
+        // keyed by resource name, generated from https://dwc-prerelease.rs.tdwg.org/dwc-dp/1.0_DEV/
+        dwcdpSchema: getFile(locale, `../${folder}/${locale}/enums/dwcdpSchema`),
         identifierType: getFile(locale, `../${folder}/${locale}/enums/identifierType`),
         nameUsageIssue: getFile(locale, `../${folder}/${locale}/enums/nameUsageIssue`),
         yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),

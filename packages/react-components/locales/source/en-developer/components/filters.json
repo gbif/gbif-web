@@ -3,6 +3,10 @@
     "name": "DwC-A extension",
     "description": "A short description of the component should be placed here"
   },
+  "dwcdpSchema": {
+    "name": "DwC-DP resource",
+    "description": "Darwin Core Data Packages organise data into resources such as Event, Occurrence or Material. Filter for datasets that publish a given resource."
+  },
   "locationId": {
     "name": "Location ID",
     "description": "Publishers can choose to assign IDs to the location. This field is not normalised, meaning that you search data as provided by the publisher."

@@ -14,6 +14,8 @@ interface FilterButtonProps {
   filterHandle: string;
   onClear?: (filterContext: FilterContextType) => void;
   getCount?: (filter: FilterType) => number;
+  /** set when one option of this filter maps to several API values, see getFilterSummary */
+  groupValuesBy?: (value: string) => string;
   displayName?: React.ComponentType<{ id: string | number | object; checklistKey?: string }>;
 }
 
@@ -26,6 +28,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
       filterHandle,
       onClear,
       getCount,
+      groupValuesBy,
       displayName: DisplayName = ({ id }) => <>{id}</>,
       ...props
     },
@@ -34,7 +37,8 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
     const currentFilterContext = useContext(FilterContext);
     const { defaultCount, hasNegations, mixed, isNull, isNotNull, firstValue } = getFilterSummary(
       currentFilterContext.filter,
-      filterHandle
+      filterHandle,
+      groupValuesBy
     );
     const count = getCount ? getCount(currentFilterContext.filter) : defaultCount;
     const checklistKey = currentFilterContext.filter.checklistKey;

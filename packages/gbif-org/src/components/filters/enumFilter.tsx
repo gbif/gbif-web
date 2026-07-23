@@ -49,6 +49,7 @@ export const EnumFilter = React.forwardRef(
       about,
       allowNegations,
       allowExistence,
+      groupValuesBy,
     }: EnumProps,
     ref
   ) => {
@@ -147,9 +148,56 @@ export const EnumFilter = React.forwardRef(
     );
 
     const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
-    const valueOptions = useFacetOptions
+    const rawOptions = useFacetOptions
       ? (noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? [])
       : (enumOptions ?? []);
+
+    // One option per group instead of one per API value. Selected values are folded in so a value
+    // the facet no longer returns can still be unselected.
+    const groups = groupValuesBy
+      ? [...rawOptions, ...selected].reduce((map, value) => {
+          const key = groupValuesBy(value);
+          const values = map.get(key);
+          if (!values) {
+            map.set(key, [value]);
+          } else if (!values.includes(value)) {
+            values.push(value);
+          }
+          return map;
+        }, new Map<string, string[]>())
+      : undefined;
+
+    // a group takes the position of its most common value in the unfiltered facet
+    const valueOptions = groups ? [...groups.keys()] : rawOptions;
+
+    // A group shows the summed count of every value behind it
+    const optionCounts =
+      groups && facetSuggestions
+        ? Object.fromEntries(
+            [...groups].map(([key, values]) => [
+              key,
+              values.reduce((sum, value) => sum + (facetSuggestions[value] ?? 0), 0),
+            ])
+          )
+        : facetSuggestions;
+
+    const isSelected = (option: string) =>
+      groups
+        ? (groups.get(option) ?? []).some((value) => selected.includes(value))
+        : selected.includes(option.toString());
+
+    // Toggling a group applies or removes all of its values at once
+    const toggleOption = (option: string) => {
+      if (!groups) {
+        toggle(filterHandle, option, useNegations);
+        return;
+      }
+      const values = groups.get(option) ?? [];
+      const remaining = selected.filter((value) => !values.includes(value));
+      setFullField(filterHandle, isSelected(option) ? remaining : [...remaining, ...values], []);
+    };
+
+    const selectedCount = groups ? valueOptions.filter(isSelected).length : selected.length;
 
     const About = about;
     const clearLabel = formatMessage({ id: 'filterSupport.clear' });
@@ -221,8 +269,12 @@ export const EnumFilter = React.forwardRef(
                 className={iconButtonClass}
                 onClick={() => {
                   // reverse selection
-                  const newSelected = valueOptions.filter((x) => !selected.includes(x));
-                  setFullField(filterHandle, newSelected, []);
+                  const newSelected = valueOptions.filter((x) => !isSelected(x));
+                  setFullField(
+                    filterHandle,
+                    groups ? newSelected.flatMap((x) => groups.get(x) ?? []) : newSelected,
+                    []
+                  );
                 }}
               >
                 <MdShuffle />
@@ -284,10 +336,10 @@ export const EnumFilter = React.forwardRef(
           {selected.length > -1 && (
             <div className="g-flex-none g-text-xs g-font-bold">
               {useNegations && (
-                <FormattedMessage id="counts.nExcluded" values={{ total: selected?.length }} />
+                <FormattedMessage id="counts.nExcluded" values={{ total: selectedCount }} />
               )}
               {!useNegations && (
-                <FormattedMessage id="counts.nSelected" values={{ total: selected?.length }} />
+                <FormattedMessage id="counts.nSelected" values={{ total: selectedCount }} />
               )}
             </div>
           )}
@@ -304,6 +356,12 @@ export const EnumFilter = React.forwardRef(
             {/* Handle the case where all the options are loaded via facets from the API */}
             {!enumOptions && (
               <AsyncOptions loading={loading} error={facetError} className="g-p-2 g-pt-2 g-px-4">
+                {/* only once the unfiltered facet has resolved, otherwise this flashes on mount */}
+                {useFacetOptions && valueOptions.length === 0 && (
+                  <div className="g-p-4 g-text-center g-text-sm g-text-slate-400">
+                    <FormattedMessage id="filterSupport.noSuggestions" />
+                  </div>
+                )}
                 <div role="group" className="g-text-base sm:g-text-sm g-p-2 g-pt-2 g-px-4">
                   {valueOptions &&
                     valueOptions.map((x, i) => {
@@ -313,19 +371,15 @@ export const EnumFilter = React.forwardRef(
                           key={x}
                           ref={i === 0 ? ref : undefined}
                           className="g-mb-2"
-                          onClick={() => {
-                            toggle(filterHandle, x, useNegations);
-                          }}
-                          checked={selected.includes(x.toString())}
+                          onClick={() => toggleOption(x)}
+                          checked={isSelected(x)}
                         >
                           <div className="g-flex g-items-center">
                             <span className="g-flex-auto">
                               <DisplayName id={x} />
                             </span>
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              {facetSuggestions && (
-                                <FormattedNumber value={facetSuggestions[x] ?? 0} />
-                              )}
+                              {optionCounts && <FormattedNumber value={optionCounts[x] ?? 0} />}
                             </span>
                           </div>
                         </Option>
@@ -353,10 +407,8 @@ export const EnumFilter = React.forwardRef(
                           key={x}
                           ref={i === 0 ? ref : undefined}
                           className="g-mb-2"
-                          onClick={() => {
-                            toggle(filterHandle, x, useNegations);
-                          }}
-                          checked={selected.includes(x.toString())}
+                          onClick={() => toggleOption(x)}
+                          checked={isSelected(x)}
                           // helpText="Longer description can go here"
                         >
                           <div className="g-flex g-items-center">
@@ -366,8 +418,8 @@ export const EnumFilter = React.forwardRef(
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                               {loading ? (
                                 <Skeleton className="g-w-8 g-h-4" />
-                              ) : facetSuggestions ? (
-                                <FormattedNumber value={facetSuggestions[x] ?? 0} />
+                              ) : optionCounts ? (
+                                <FormattedNumber value={optionCounts[x] ?? 0} />
                               ) : null}
                             </span>
                           </div>

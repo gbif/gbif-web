@@ -2,6 +2,7 @@ import {
   CountryLabel,
   DatasetTypeLabel,
   DwcaExtensionLabel,
+  DwcdpSchemaLabel,
   IdentityLabel,
   LicenceLabel,
   NetworkLabel,
@@ -21,6 +22,7 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import licenseOptions from '@/enums/basic/license.json';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
+import { dwcdpResourceName } from '@/utils/dwcdpResourceName';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { networkKeySuggest } from '@/utils/suggestEndpoints';
 import { useMemo } from 'react';
@@ -228,6 +230,33 @@ export const dwcaExtensionConfig: filterEnumConfig = {
   `,
 };
 
+/**
+ * The registry indexes DwC Data Packages by table schema url, so we group the facet by resource name
+ * and filter on every url in that group. Titles are translated in enums/dwcdpSchema.
+ */
+export const dwcdpSchemaConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'dwcdpSchema',
+  displayName: DwcdpSchemaLabel,
+  groupValuesBy: dwcdpResourceName,
+  allowNegations: false,
+  allowExistence: false,
+  filterTranslation: 'filters.dwcdpSchema.name',
+  about: () => <Message id="filters.dwcdpSchema.description" />,
+  facetQuery: /* GraphQL */ `
+    query DatasetDwcdpSchemaFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
+        facet {
+          field: dwcdpSchema(limit: 200) {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
   filters: Filters;
 } {
@@ -248,6 +277,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
       type: generateFilters({ config: datasetTypeConfig, searchConfig, formatMessage }),
       dwcaExtension: generateFilters({ config: dwcaExtensionConfig, searchConfig, formatMessage }),
+      dwcdpSchema: generateFilters({ config: dwcdpSchemaConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
     };
   }, [searchConfig, countrySuggest, formatMessage]);

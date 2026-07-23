@@ -121,6 +121,11 @@ export type filterEnumConfig = filterConfigShared & {
   options?: string[];
   allowExistence?: boolean;
   allowNegations?: boolean;
+  /**
+   * Maps a value to the key of the option it belongs under, collapsing several API values into one
+   * option that filters on all of them. Facet driven filters only, without negations or existence.
+   */
+  groupValuesBy?: (value: string) => string;
 };
 
 export type filterRangeConfig = filterConfigShared & {
@@ -435,6 +440,7 @@ const getEnumFilter = ({
           displayName={config.displayName}
           allowExistence={config.allowExistence}
           allowNegations={config.allowNegations}
+          groupValuesBy={config.groupValuesBy}
           searchConfig={searchConfig}
           about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
@@ -741,6 +747,8 @@ export type FilterSetting = {
   filterType: string;
   group?: string;
   order?: number;
+  /** set when one option of this filter maps to several API values, see getFilterSummary */
+  groupValuesBy?: (value: string) => string;
 };
 
 export type Filters = Record<string, FilterSetting>;
@@ -785,6 +793,8 @@ export function generateFilter({
   popoverClassName?: string;
 }): FilterSetting {
   const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
+  // only some filter types support grouping, the rest simply leave it undefined
+  const groupValuesBy = (config as { groupValuesBy?: (value: string) => string }).groupValuesBy;
   let FilterButtonPopover = ({ className }: { className?: string }) => {
     return (
       <PopoverFilter
@@ -795,6 +805,7 @@ export function generateFilter({
             filterHandle={config.filterHandle}
             displayName={config.displayName}
             titleTranslationKey={config.filterTranslation}
+            groupValuesBy={groupValuesBy}
             {...config.filterButtonProps}
           />
         }
@@ -830,6 +841,7 @@ export function generateFilter({
     translatedFilterName: formatMessage({ id: config.filterTranslation }),
     group: config.group,
     order: config.order,
+    groupValuesBy,
   };
 }
 
@@ -1225,7 +1237,12 @@ export type FilterSummaryType = {
   firstValue: { type: string; value: unknown };
 };
 
-export function getFilterSummary(filter: FilterType, handle: string): FilterSummaryType {
+export function getFilterSummary(
+  filter: FilterType,
+  handle: string,
+  /** counts the choices rather than the API values, for filters where one choice sends several */
+  groupValuesBy?: (value: string) => string
+): FilterSummaryType {
   const must = filter?.must?.[handle] || [];
   const mustNot = filter?.mustNot?.[handle] || [];
 
@@ -1233,8 +1250,14 @@ export function getFilterSummary(filter: FilterType, handle: string): FilterSumm
   const isNull = must?.[0]?.type === 'isNull' && must.length === 1;
   const isNotNull = must?.[0]?.type === 'isNotNull' && must.length === 1;
 
+  // non string values (isNull, ranges, ...) are never grouped and always count for one
+  const count = (values: unknown[]) =>
+    groupValuesBy
+      ? new Set(values.map((v) => (typeof v === 'string' ? groupValuesBy(v) : v))).size
+      : values.length;
+
   return {
-    defaultCount: must.length + mustNot.length,
+    defaultCount: count(must) + count(mustNot),
     hasNegations: mustNot.length > 0,
     mixed: must.length > 0 && mustNot.length > 0,
     isNull,

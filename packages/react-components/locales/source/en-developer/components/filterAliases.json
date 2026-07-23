@@ -39,6 +39,7 @@
     "distanceFromCentroidInMeters": "",
     "doi": "identifier, digital object identifier",
     "dwcaExtension": "",
+    "dwcdpSchema": "data package, datapackage, dwc-dp, resource, table",
     "elevation": "altitude, height, above sea level",
     "endDayOfYear": "",
     "establishmentMeans": "native, introduced, invasive, alien",

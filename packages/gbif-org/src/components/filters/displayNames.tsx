@@ -3,7 +3,9 @@ import { useStringParam } from '@/hooks/useParam';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { VocabularyType } from '@/utils/suggestEndpoints';
 import { truncate } from '@/utils/truncate';
+import { dwcdpResourceName } from '@/utils/dwcdpResourceName';
 import isUndefined from 'lodash/isUndefined';
+import startCase from 'lodash/startCase';
 import { useCallback } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { longDateFormatProps } from '@/components/dateFormats';
@@ -132,12 +134,24 @@ export const DateLabel = rangeOrEqualLabel('intervals.compactTime', (value, intl
   return date.toLocaleDateString('da-DK', longDateFormatProps);
 });
 
-function getEnumLabel({ template }: { template: (id: string) => string }) {
+function getEnumLabel({
+  template,
+  fallback,
+}: {
+  template: (id: string) => string;
+  /** used when the enum value has no translation, defaults to showing the raw value */
+  fallback?: (id: string) => string;
+}) {
   return ({ id }: { id: string | number | object }) => {
     const getData = useCallback(
       ({ id }: DisplayNameGetDataProps) => ({
         promise: Promise.resolve({
-          title: <FormattedMessage id={template(id.toString())} defaultMessage={id.toString()} />,
+          title: (
+            <FormattedMessage
+              id={template(id.toString())}
+              defaultMessage={fallback ? fallback(id.toString()) : id.toString()}
+            />
+          ),
         }),
       }),
       []
@@ -312,6 +326,11 @@ export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.
 export const GbifRegionLabel = getEnumLabel({ template: (id) => `enums.gbifRegion.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
+// Renders both grouped options and raw schema urls from the filter bar, so normalise first
+export const DwcdpSchemaLabel = getEnumLabel({
+  template: (id) => `enums.dwcdpSchema.${dwcdpResourceName(id)}`,
+  fallback: (id) => startCase(dwcdpResourceName(id)),
+});
 export const TaxonRankLabel = getEnumLabel({ template: (id) => `enums.taxonRank.${id}` });
 export const TaxonStatusLabel = getEnumLabel({ template: (id) => `enums.taxonomicStatus.${id}` });
 export const TaxonIssueLabel = getEnumLabel({ template: (id) => `enums.taxonIssue.${id}` });

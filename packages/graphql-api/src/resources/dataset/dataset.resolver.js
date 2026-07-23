@@ -288,6 +288,7 @@ export const DatasetFacet = {
   projectId: getFacet('projectId', getSourceSearch),
   license: getFacet('license', getSourceSearch),
   dwcaExtension: getFacet('dwcaExtension', getSourceSearch),
+  dwcdpSchema: getFacet('dwcdpSchema', getSourceSearch),
   networkKey: getFacet('networkKey', getSourceSearch),
 };
 export const DatasetOrganizationFacet = {
