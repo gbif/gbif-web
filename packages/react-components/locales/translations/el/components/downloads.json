@@ -392,8 +392,8 @@
       "DATE": ""
     },
     "boolean": {
-      "YES": "",
-      "NO": ""
+      "YES": "Ναι",
+      "NO": "Όχι"
     },
     "sqlMachineDescriptionIntro": "",
     "occurrenceMeasurements": "",
