@@ -1,0 +1,767 @@
+{
+  "dwcaExtension": {
+    "name": "",
+    "description": ""
+  },
+  "locationId": {
+    "name": "",
+    "description": ""
+  },
+  "hasCoordinate": {
+    "name": "",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "",
+    "description": ""
+  },
+  "collectionKey": {
+    "name": "",
+    "description": ""
+  },
+  "predicate": {
+    "name": "",
+    "description": ""
+  },
+  "taxonomicStatus": {
+    "name": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "description": ""
+  },
+  "specimensInGbif": {
+    "name": "",
+    "description": ""
+  },
+  "iucnRedListCategory": {
+    "name": "",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "",
+    "description": ""
+  },
+  "audiences": {
+    "name": "",
+    "description": ""
+  },
+  "biostratigraphy": {
+    "name": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "",
+    "description": ""
+  },
+  "gbifId": {
+    "name": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "",
+    "description": ""
+  },
+  "alternativeCode": {
+    "name": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "",
+    "description": ""
+  },
+  "discipline": {
+    "name": "",
+    "description": ""
+  },
+  "collectionContentType": {
+    "name": "",
+    "description": ""
+  },
+  "preservationType": {
+    "name": "",
+    "description": ""
+  },
+  "biomeType": {
+    "name": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "",
+    "description": ""
+  },
+  "taxonKeyGrSciColl": {
+    "name": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "",
+    "description": ""
+  },
+  "grsciCollCountry": {
+    "description": ""
+  },
+  "preparations": {
+    "name": "",
+    "description": ""
+  },
+  "repatriated": {
+    "name": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": ""
+  },
+  "elevation": {
+    "name": "",
+    "description": ""
+  },
+  "license": {
+    "name": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "",
+    "description": ""
+  },
+  "datasetId": {
+    "name": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "",
+    "description": ""
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "",
+    "description": ""
+  },
+  "country": {
+    "name": ""
+  },
+  "countriesOfCoverage": {
+    "name": "",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "",
+    "description": ""
+  },
+  "countriesOfResearcher": {
+    "name": ""
+  },
+  "typeStatus": {
+    "name": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "",
+    "description": ""
+  },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "",
+    "description": ""
+  },
+  "month": {
+    "name": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "",
+    "description": ""
+  },
+  "sex": {
+    "name": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "",
+    "description": ""
+  },
+  "verbatimTaxonId": {
+    "name": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "",
+    "description": ""
+  },
+  "island": {
+    "name": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "",
+    "description": ""
+  },
+  "projectId": {
+    "name": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "",
+    "description": ""
+  },
+  "higherGeography": {
+    "name": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "description": ""
+  },
+  "isSequenced": {
+    "name": "",
+    "description": ""
+  },
+  "active": {
+    "name": "",
+    "description": ""
+  },
+  "activeInstitution": {
+    "name": "",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "",
+    "description": ""
+  },
+  "publicationDate": {
+    "name": "",
+    "description": ""
+  },
+  "personalCollection": {
+    "name": "",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "",
+    "description": ""
+  },
+  "name": {
+    "name": "",
+    "description": "",
+    "searchPlaceholder": ""
+  },
+  "city": {
+    "name": "",
+    "description": ""
+  },
+  "code": {
+    "name": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "humboldtBooleans": {
+    "name": "",
+    "description": ""
+  },
+  "siteCount": {
+    "description": "",
+    "name": ""
+  },
+  "siteNestingDescription": {
+    "description": "",
+    "name": ""
+  },
+  "verbatimSiteDescriptions": {
+    "description": "",
+    "name": ""
+  },
+  "verbatimSiteNames": {
+    "description": "",
+    "name": ""
+  },
+  "geospatialScopeAreaValue": {
+    "description": "",
+    "name": ""
+  },
+  "geospatialScopeAreaUnit": {
+    "description": "",
+    "name": ""
+  },
+  "totalAreaSampledValue": {
+    "description": "",
+    "name": ""
+  },
+  "totalAreaSampledUnit": {
+    "description": "",
+    "name": ""
+  },
+  "reportedWeather": {
+    "description": "",
+    "name": ""
+  },
+  "reportedExtremeConditions": {
+    "description": "",
+    "name": ""
+  },
+  "targetHabitatScope": {
+    "description": "",
+    "name": ""
+  },
+  "excludedHabitatScope": {
+    "description": "",
+    "name": ""
+  },
+  "eventDurationValue": {
+    "description": "",
+    "name": ""
+  },
+  "eventDurationUnit": {
+    "description": "",
+    "name": ""
+  },
+  "targetTaxonomicScope": {
+    "description": "",
+    "name": ""
+  },
+  "excludedTaxonomicScope": {
+    "description": "",
+    "name": ""
+  },
+  "taxonCompletenessReported": {
+    "description": "",
+    "name": ""
+  },
+  "taxonCompletenessProtocols": {
+    "description": "",
+    "name": ""
+  },
+  "isTaxonomicScopeFullyReported": {
+    "description": "",
+    "name": ""
+  },
+  "isAbsenceReported": {
+    "description": "",
+    "name": ""
+  },
+  "absentTaxa": {
+    "description": "",
+    "name": ""
+  },
+  "hasNonTargetTaxa": {
+    "description": "",
+    "name": ""
+  },
+  "nonTargetTaxa": {
+    "description": "",
+    "name": ""
+  },
+  "areNonTargetTaxaFullyReported": {
+    "description": "",
+    "name": ""
+  },
+  "targetLifeStageScope": {
+    "description": "",
+    "name": ""
+  },
+  "excludedLifeStageScope": {
+    "description": "",
+    "name": ""
+  },
+  "isLifeStageScopeFullyReported": {
+    "description": "",
+    "name": ""
+  },
+  "targetDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": ""
+  },
+  "excludedDegreeOfEstablishmentScope": {
+    "description": "",
+    "name": ""
+  },
+  "isDegreeOfEstablishmentScopeFullyReported": {
+    "description": "",
+    "name": ""
+  },
+  "targetGrowthFormScope": {
+    "description": "",
+    "name": ""
+  },
+  "excludedGrowthFormScope": {
+    "description": "",
+    "name": ""
+  },
+  "isGrowthFormScopeFullyReported": {
+    "description": "",
+    "name": ""
+  },
+  "hasNonTargetOrganisms": {
+    "description": "",
+    "name": ""
+  },
+  "verbatimTargetScope": {
+    "description": "",
+    "name": ""
+  },
+  "identifiedBy": {
+    "description": "",
+    "name": ""
+  },
+  "identificationReferences": {
+    "description": "",
+    "name": ""
+  },
+  "compilationTypes": {
+    "description": "",
+    "name": ""
+  },
+  "compilationSourceTypes": {
+    "description": "",
+    "name": ""
+  },
+  "inventoryTypes": {
+    "description": "",
+    "name": ""
+  },
+  "protocolNames": {
+    "description": "",
+    "name": ""
+  },
+  "protocolDescriptions": {
+    "description": "",
+    "name": ""
+  },
+  "protocolReferences": {
+    "description": "",
+    "name": ""
+  },
+  "isAbundanceReported": {
+    "description": "",
+    "name": ""
+  },
+  "isAbundanceCapReported": {
+    "description": "",
+    "name": ""
+  },
+  "abundanceCap": {
+    "description": "",
+    "name": ""
+  },
+  "isVegetationCoverReported": {
+    "description": "",
+    "name": ""
+  },
+  "isLeastSpecificTargetCategoryQuantityInclusive": {
+    "description": "",
+    "name": ""
+  },
+  "hasVouchers": {
+    "description": "",
+    "name": ""
+  },
+  "voucherInstitutions": {
+    "description": "",
+    "name": ""
+  },
+  "hasMaterialSamples": {
+    "description": "",
+    "name": ""
+  },
+  "materialSampleTypes": {
+    "description": "",
+    "name": ""
+  },
+  "samplingPerformedBy": {
+    "description": "",
+    "name": ""
+  },
+  "isSamplingEffortReported": {
+    "description": "",
+    "name": ""
+  },
+  "samplingEffortProtocol": {
+    "description": "",
+    "name": ""
+  },
+  "samplingEffortValue": {
+    "description": "",
+    "name": ""
+  },
+  "samplingEffortUnit": {
+    "description": "",
+    "name": ""
+  }
+}
