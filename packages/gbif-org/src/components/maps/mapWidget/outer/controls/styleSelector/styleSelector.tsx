@@ -38,7 +38,8 @@ const defaultBinningOption = binningRecord[mapWidgetOptions.defaults.bin];
 const defaultColorOption = mapWidgetOptions.colors[mapWidgetOptions.defaults.color];
 
 export function StyleSelector({ rasterStyles, setRasterStyles }: Props) {
-  const [tab, setTab] = useState('PREDEFINED');
+  // Open on the tab matching the restored style so a persisted custom style is re-applied
+  const [tab, setTab] = useState(rasterStyles.name === 'CUSTOM' ? 'CUSTOM' : 'PREDEFINED');
   const [selectedBaseMapOption, setSelectedBaseMapOption] = useLocalStorage<BaseMapOption>(
     'mapWidgetOptions.selectedBaseMapOption',
     defaultBaseMapOption
