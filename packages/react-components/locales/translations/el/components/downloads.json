@@ -113,7 +113,7 @@
         "HAS_GEOSPATIAL_ISSUE": "",
         "INSTITUTION_CODE": "",
         "REPATRIATED": "",
-        "YEAR": "",
+        "YEAR": "Έτος",
         "STATE_PROVINCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "",
@@ -387,7 +387,7 @@
     "cubeDescription": "",
     "readMore": "",
     "time": {
-      "YEAR": "",
+      "YEAR": "Έτος",
       "YEARMONTH": "",
       "DATE": ""
     },
