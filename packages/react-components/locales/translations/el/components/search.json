@@ -29,8 +29,8 @@
     "locationID": ""
   },
   "ternary": {
-    "yes": "",
-    "no": "",
+    "yes": "Ναι",
+    "no": "Όχι",
     "either": ""
   },
   "loadMore": "",
