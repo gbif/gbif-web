@@ -91,6 +91,8 @@
       "occurrenceSearch": "出现记录",
       "resourceSearch": ""
     },
-    "seeAll": "查看全部"
+    "seeAll": "查看全部",
+    "searchFor": "",
+    "noResults": ""
   }
 }

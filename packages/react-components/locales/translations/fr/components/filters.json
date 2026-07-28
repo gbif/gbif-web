@@ -78,7 +78,7 @@
     "description": "Le contexte lithostratigraphique de l'enregistrement."
   },
   "geologicalTime": {
-    "name": "Temps géologique",
+    "name": "Temps géologiques",
     "description": "Le contexte géochronologique de l'enregistrement."
   },
   "purposes": {

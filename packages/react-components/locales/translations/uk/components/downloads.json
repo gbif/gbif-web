@@ -78,6 +78,7 @@
     "usedChecklistKey": "",
     "predicate": {
       "checklist": "Таксономічні списки",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "Застосувати всі",
         "or": "Принаймні один повинен бути застосований",

@@ -49,6 +49,7 @@
     "IDENTIFIED_DATE_INVALID": "辨識出的日期無法解析。原因包括：日期不存在（例如「1995-04-34」）、日期部分缺失（例如事件日期缺少年份）、日期格式不符合 ISO 8601 標準（YYYY-MM-DD）。",
     "BASIS_OF_RECORD_INVALID": "提供的記錄無法解析，或相異於建議的詞彙表：https://rs.gbif.org/vocabulary/dwc/basis_of_record。",
     "TYPE_STATUS_INVALID": "提供的型態無法解析，或相異於建議的詞彙表：https://registry.gbif.org/vocabulary/TypeStatus。",
+    "SUSPECTED_TYPE": "",
     "MULTIMEDIA_DATE_INVALID": "提供的創建日期無效，無法解析。原因包括：日期不存在（例如「1995-04-34」）、日期部分缺失（例如事件日期缺少年份）、日期格式不符合 ISO 8601 標準（YYYY-MM-DD）。",
     "MULTIMEDIA_URI_INVALID": "多媒體 URL 無法解析，可能格式錯誤或包含無效字元。",
     "REFERENCES_URI_INVALID": "參照 URL 無法解析，可能格式錯誤或包含無效字元。",
@@ -76,6 +77,24 @@
     "TAXON_CONCEPT_ID_NOT_FOUND": "",
     "TAXON_ID_NOT_FOUND": "",
     "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "",
-    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": ""
+    "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "",
+    "ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK": "",
+    "PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK": "",
+    "EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK": "",
+    "AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK": "",
+    "EON_OR_EONOTHEM_RANK_MISMATCH": "",
+    "ERA_OR_ERATHEM_RANK_MISMATCH": "",
+    "PERIOD_OR_SYSTEM_RANK_MISMATCH": "",
+    "EPOCH_OR_SERIES_RANK_MISMATCH": "",
+    "AGE_OR_STAGE_RANK_MISMATCH": "",
+    "EON_OR_EONOTHEM_INVALID_RANGE": "",
+    "ERA_OR_ERATHEM_INVALID_RANGE": "",
+    "PERIOD_OR_SYSTEM_INVALID_RANGE": "",
+    "EPOCH_OR_SERIES_INVALID_RANGE": "",
+    "AGE_OR_STAGE_INVALID_RANGE": "",
+    "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH": "",
+    "ERA_OR_ERATHEM_AND_PERIOD_OR_SYSTEM_MISMATCH": "",
+    "PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH": "",
+    "EPOCH_OR_SERIES_AND_AGE_OR_STAGE_MISMATCH": ""
   }
 }

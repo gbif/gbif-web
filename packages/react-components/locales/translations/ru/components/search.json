@@ -91,6 +91,8 @@
       "occurrenceSearch": "Находки",
       "resourceSearch": ""
     },
-    "seeAll": "Увидеть все"
+    "seeAll": "Увидеть все",
+    "searchFor": "",
+    "noResults": ""
   }
 }

@@ -91,6 +91,8 @@
       "occurrenceSearch": "تكرارات",
       "resourceSearch": ""
     },
-    "seeAll": "مشاهدة الكل"
+    "seeAll": "مشاهدة الكل",
+    "searchFor": "",
+    "noResults": ""
   }
 }

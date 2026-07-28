@@ -16,6 +16,7 @@
   "viewAllImages": "",
   "share": "共享",
   "identifier": "标识符",
+  "dataLoadErrorDescription": "",
   "unknownDate": "日期未知",
   "about": "关于",
   "legend": "图例",

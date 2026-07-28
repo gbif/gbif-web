@@ -78,6 +78,7 @@
     "usedChecklistKey": "",
     "predicate": {
       "checklist": "",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "All must apply",
         "or": "At least one must apply",
