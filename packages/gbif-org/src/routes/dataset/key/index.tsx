@@ -6,6 +6,7 @@ import {
 import { datasetTaxonLoader } from '@/routes/taxon/key/taxonKey';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
+import { DatasetKeyDataPackage } from './dataPackage';
 import {
   DatasetKeyLoaderResult,
   datasetLoader,
@@ -46,6 +47,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'metrics',
       element: <DatasetKeyDashboard />,
+    },
+    {
+      path: 'data-package',
+      element: <DatasetKeyDataPackage />,
     },
     {
       path: 'project',

@@ -22,7 +22,15 @@
     "download": "Download",
     "phylogeny": "Phylogeny",
     "metrics": "Metrics",
-    "events": "Events"
+    "events": "Events",
+    "dataPackage": "Data package"
+  },
+  "dataPackageTab": {
+    "selectGroup": "Select data package view",
+    "group": {
+      "explore": "Explore",
+      "validation": "Validation"
+    }
   },
   "metricsTab": {
     "selectGroup": "Select metric group",

@@ -19,6 +19,7 @@ import {
   DatasetQuery,
   DatasetQueryVariables,
   DatasetType,
+  EndpointType,
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -300,6 +301,7 @@ type IDatasetKeyContext = {
   showPhylogenyTab: boolean;
   showSpeciesTab: boolean;
   showEventsTab: boolean;
+  showDataPackageTab: boolean;
 };
 
 export const DatasetKeyContext = createContext<IDatasetKeyContext | undefined>(undefined);
@@ -386,7 +388,12 @@ export function DatasetPage() {
   const hasSamplingEvents =
     dataset.type === DatasetType.SamplingEvent &&
     import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
-  const showEventsTab = config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents);
+  const showEventsTab =
+    (config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents)) ?? false;
+  const showDataPackageTab = useMemo(
+    () => (dataset.endpoints ?? []).some((e) => e?.type === EndpointType.DwcDp),
+    [dataset.endpoints]
+  );
   const occurrenceCount = occData?.occurrenceSearch?.documents?.total;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
@@ -435,6 +442,14 @@ export function DatasetPage() {
         children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
       });
     }
+    if (showDataPackageTab) {
+      tabsToDisplay.push({
+        to: 'data-package',
+        children: (
+          <FormattedMessage id="dataset.tabs.dataPackage" defaultMessage={'Data package'} />
+        ),
+      });
+    }
     if (dataset.type !== DatasetType.Metadata) {
       tabsToDisplay.push({
         to: 'metrics',
@@ -446,7 +461,14 @@ export function DatasetPage() {
       children: <FormattedMessage id="dataset.tabs.download" />,
     });
     return tabsToDisplay;
-  }, [showPhylogenyTab, showSpeciesTab, showEventsTab, dataset.type, dataset.project]);
+  }, [
+    showPhylogenyTab,
+    showSpeciesTab,
+    showEventsTab,
+    showDataPackageTab,
+    dataset.type,
+    dataset.project,
+  ]);
 
   useEffect(() => {
     const datasetPredicate = {
@@ -715,6 +737,7 @@ export function DatasetPage() {
             showPhylogenyTab,
             showSpeciesTab,
             showEventsTab,
+            showDataPackageTab,
           }}
         >
           <ErrorBoundary type="PAGE">
