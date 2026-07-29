@@ -1,6 +1,7 @@
 {
   "projectGrantType": {
     "REGIONAL": "Regionale tilskud",
+    "CROSS_REGIONAL": "",
     "SMALL": "Småt tilskud",
     "NATIONAL": "Nationalt tilskud",
     "DATA_USE": "",
