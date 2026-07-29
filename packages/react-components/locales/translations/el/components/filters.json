@@ -58,15 +58,15 @@
     "placeholderDist": ""
   },
   "relevance": {
-    "name": "Relevans",
+    "name": "",
     "description": ""
   },
   "topics": {
-    "name": "Emne",
+    "name": "",
     "description": ""
   },
   "audiences": {
-    "name": "Publikum",
+    "name": "",
     "description": ""
   },
   "biostratigraphy": {
@@ -82,7 +82,7 @@
     "description": ""
   },
   "purposes": {
-    "name": "Emne",
+    "name": "",
     "description": ""
   },
   "eventDate": {
@@ -90,7 +90,7 @@
     "description": ""
   },
   "gbifId": {
-    "name": "GBIF-ID",
+    "name": "",
     "description": ""
   },
   "organismQuantityType": {
@@ -130,7 +130,7 @@
     "description": ""
   },
   "identifier": {
-    "name": "Identifikator",
+    "name": "",
     "description": ""
   },
   "institutionType": {
@@ -158,15 +158,15 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "Videnskabeligt navn",
+    "name": "",
     "description": ""
   },
   "taxonKeyGrSciColl": {
-    "name": "Videnskabeligt navn",
+    "name": "",
     "description": ""
   },
   "basisOfRecord": {
-    "name": "Observationstype",
+    "name": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
@@ -196,7 +196,7 @@
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "Land",
+    "name": "",
     "description": ""
   },
   "grsciCollCountry": {
@@ -207,7 +207,7 @@
     "description": ""
   },
   "repatriated": {
-    "name": "Hjemsendt",
+    "name": "",
     "description": ""
   },
   "publishingCountryCode": {
@@ -219,18 +219,18 @@
     "description": ""
   },
   "coordinates": {
-    "name": "Koordinater"
+    "name": ""
   },
   "elevation": {
     "name": "",
     "description": ""
   },
   "license": {
-    "name": "Licens",
+    "name": "",
     "description": ""
   },
   "datasetKey": {
-    "name": "Datasæt",
+    "name": "",
     "description": ""
   },
   "datasetId": {
@@ -238,7 +238,7 @@
     "description": ""
   },
   "publisherKey": {
-    "name": "Forlægger",
+    "name": "",
     "description": ""
   },
   "gbifPublisherKey": {
@@ -250,18 +250,18 @@
     "description": ""
   },
   "country": {
-    "name": "Land"
+    "name": ""
   },
   "countriesOfCoverage": {
-    "name": "Land eller område der diskuteres",
+    "name": "",
     "description": ""
   },
   "collectionDescriptorCountry": {
-    "name": "Land eller område der diskuteres",
+    "name": "",
     "description": ""
   },
   "countriesOfResearcher": {
-    "name": "Forskers land eller område"
+    "name": ""
   },
   "typeStatus": {
     "name": "",
@@ -270,7 +270,7 @@
     "description": ""
   },
   "year": {
-    "name": "År",
+    "name": "Έτος",
     "description": ""
   },
   "sampleSizeUnit": {
@@ -278,7 +278,7 @@
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "Koordinat usikkerhed",
+    "name": "",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
@@ -354,7 +354,7 @@
     "description": ""
   },
   "programme": {
-    "name": "Program",
+    "name": "",
     "description": ""
   },
   "recordNumber": {
@@ -366,7 +366,7 @@
     "description": ""
   },
   "projectId": {
-    "name": "Projekt-ID",
+    "name": "",
     "description": ""
   },
   "recordedById": {
@@ -378,11 +378,11 @@
     "description": ""
   },
   "occurrenceId": {
-    "name": "Observations-ID",
+    "name": "",
     "description": ""
   },
   "organismId": {
-    "name": "Organisme-ID",
+    "name": "",
     "description": ""
   },
   "locality": {
@@ -434,7 +434,7 @@
     "description": ""
   },
   "occurrenceCount": {
-    "name": "Antal observationer",
+    "name": "",
     "description": ""
   },
   "eventType": {
@@ -498,7 +498,7 @@
     "description": ""
   },
   "name": {
-    "name": "Navn",
+    "name": "",
     "description": "",
     "searchPlaceholder": ""
   },
@@ -519,11 +519,11 @@
     "description": ""
   },
   "literatureType": {
-    "name": "Litteraturtype",
+    "name": "",
     "description": ""
   },
   "higherTaxonKey": {
-    "name": "Højere takson",
+    "name": "",
     "description": ""
   },
   "issueEnum": {

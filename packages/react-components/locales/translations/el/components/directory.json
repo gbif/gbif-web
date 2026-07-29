@@ -2,7 +2,7 @@
   "title": "",
   "group": {
     "executiveCommittee": {
-      "title": "Direktionen",
+      "title": "",
       "description": ""
     },
     "scienceCommittee": {
@@ -39,27 +39,27 @@
     }
   },
   "columns": {
-    "role": "Rolle",
-    "name": "Navn",
-    "participant": "Participant",
-    "participationStatus": "Participant status"
+    "role": "",
+    "name": "",
+    "participant": "",
+    "participationStatus": ""
   },
-  "details": "Detaljer",
-  "roles": "Roller",
-  "sinceDate": "Siden {DATE}",
-  "showAllContacts": "Alle",
+  "details": "",
+  "roles": "",
+  "sinceDate": "",
+  "showAllContacts": "",
   "person": {
     "volunteer": "",
-    "name": "Navn",
+    "name": "",
     "annualBadges": "",
-    "language": "Sprog",
-    "country": "Land eller område",
+    "language": "",
+    "country": "",
     "affiliation": "",
     "recipient": "",
     "areasExpertise": "",
     "orcId": "",
-    "year": "År",
-    "email": "E-mail"
+    "year": "Έτος",
+    "email": ""
   },
   "award": {
     "GRA": "",
@@ -68,5 +68,5 @@
     "EBBE3RD": ""
   },
   "prize": "",
-  "year": "År"
+  "year": "Έτος"
 }

@@ -1,4 +1,7 @@
 {
+  "primaryContactHeading": "이 지원서에 대한 주 연락처",
   "typeOfApplication": "유형",
-  "domain": "역"
+  "domain": "역",
+  "terms": "약관",
+  "submitErrorTitle": "지원서 접수 실패"
 }

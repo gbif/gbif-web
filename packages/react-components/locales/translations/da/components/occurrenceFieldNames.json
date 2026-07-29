@@ -49,6 +49,7 @@
   "temporal": "Tidsrum",
   "title": "Titel",
   "basisOfRecord": "Observationstype",
+  "year": "År",
   "scientificName": "Videnskabeligt navn",
   "acceptedName": "Accepteret navn",
   "kingdom": "Rige",
