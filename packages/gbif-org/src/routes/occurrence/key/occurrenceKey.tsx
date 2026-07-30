@@ -186,7 +186,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       classifications {
         meta {
           mainIndex {
-            datasetKey: clbDatasetKey
+            clbDatasetKey
             datasetTitle
           }
         }
