@@ -28,6 +28,10 @@ export function TaxonInterpretationCard({
     classification?.meta?.mainIndex?.clbDatasetKey
   }/taxon/${encodeURIComponent(usageKey)}`;
 
+  const externalAcceptedTaxonLink = `https://www.checklistbank.org/dataset/${
+    classification?.meta?.mainIndex?.clbDatasetKey
+  }/taxon/${encodeURIComponent(classification?.acceptedUsage?.key ?? '')}`;
+
   return (
     <div
       className={cn('g-mb-4 g-w-full g-bg-slate-100 g-rounded', {
@@ -128,13 +132,25 @@ export function TaxonInterpretationCard({
                 )}
                 <span className="g-text-slate-600 g-font-medium">
                   accepted name:{' '}
-                  <DynamicLink
-                    pageId="taxonKey"
-                    className="g-underline"
-                    variables={{ key: classification.acceptedUsage.key }}
-                  >
-                    {classification.acceptedUsage.name}
-                  </DynamicLink>
+                  {useChecklistBankLink && (
+                    <a
+                      href={externalAcceptedTaxonLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="g-underline"
+                    >
+                      {classification.acceptedUsage.name}
+                    </a>
+                  )}
+                  {!useChecklistBankLink && (
+                    <DynamicLink
+                      pageId="taxonKey"
+                      className="g-underline"
+                      variables={{ key: classification.acceptedUsage.key }}
+                    >
+                      {classification.acceptedUsage.name}
+                    </DynamicLink>
+                  )}
                 </span>
               </div>
             )}
