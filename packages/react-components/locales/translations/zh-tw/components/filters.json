@@ -534,19 +534,19 @@
   },
   "humboldtBooleans": {
     "name": "Humboldt 延伸集",
-    "description": ""
+    "description": "擴展支持與生態調查相關的達爾文核心集事件。"
   },
   "siteCount": {
-    "description": "",
-    "name": ""
+    "description": "在達爾文核心集活動期間所調查的個別地點總數。",
+    "name": "地點數量"
   },
   "siteNestingDescription": {
-    "description": "",
-    "name": ""
+    "description": "關於分層抽樣設計的文字說明。",
+    "name": "網站嵌套說明"
   },
   "verbatimSiteDescriptions": {
-    "description": "",
-    "name": ""
+    "description": "該地點的原始文字描述。",
+    "name": "逐字地點描述"
   },
   "verbatimSiteNames": {
     "description": "",
