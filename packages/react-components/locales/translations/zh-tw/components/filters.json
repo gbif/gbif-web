@@ -142,20 +142,20 @@
     "description": "由機構所支持的研究學科"
   },
   "collectionContentType": {
-    "name": "",
-    "description": ""
+    "name": "內容類別",
+    "description": "館藏中可用的物件類型"
   },
   "preservationType": {
     "name": "保存形式",
-    "description": ""
+    "description": "用於保存館藏品所採用的方法"
   },
   "biomeType": {
     "name": "生物群形式",
-    "description": ""
+    "description": "生物所屬的生物群系類型"
   },
   "objectClassification": {
-    "name": "",
-    "description": ""
+    "name": "物件分類",
+    "description": "館藏中物件的分類。"
   },
   "taxonKey": {
     "name": "學名",
@@ -163,7 +163,7 @@
   },
   "taxonKeyGrSciColl": {
     "name": "學名",
-    "description": ""
+    "description": "請根據該館藏的詮釋資料所提供的描述詞中列出的學名進行篩選，請注意並非所有收藏品都包含詮釋資料描述詞，且這些名稱通常屬於較高的分類階層，例如目或科。"
   },
   "basisOfRecord": {
     "name": "紀錄類型",
@@ -190,25 +190,25 @@
     "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "分類問題與標記",
+    "isNotNull": "存在分類問題",
+    "isNull": "沒有分類問題",
+    "description": "在處理資料時發現的分類問題或潛在感興趣的標誌類型"
   },
   "occurrenceCountry": {
     "name": "國家",
     "description": "事件發生的國家或區域"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "紀錄地址中的國家或地區"
   },
   "preparations": {
     "name": "準備",
-    "description": ""
+    "description": "標本是如何製備的（例如：乾燥）"
   },
   "repatriated": {
     "name": "回返的",
-    "description": ""
+    "description": "該紀錄是否已歸還至來源國。"
   },
   "publishingCountryCode": {
     "name": "發布國家或地區",
@@ -216,7 +216,7 @@
   },
   "q": {
     "name": "文字搜尋",
-    "description": ""
+    "description": "跨多個欄位的全文搜尋"
   },
   "coordinates": {
     "name": "座標"
@@ -235,7 +235,7 @@
   },
   "datasetId": {
     "name": "資料集識別碼",
-    "description": ""
+    "description": "該記錄所關聯之資料集的發布者內部識別碼。請注意，此識別碼與 GBIF 上用於該資料集的 datasetKey 不同。"
   },
   "publisherKey": {
     "name": "發布者",
@@ -254,11 +254,11 @@
   },
   "countriesOfCoverage": {
     "name": "國家覆蓋率",
-    "description": ""
+    "description": "該紀錄涵蓋哪些國家？"
   },
   "collectionDescriptorCountry": {
     "name": "國家或覆蓋地區",
-    "description": ""
+    "description": "該館藏包含來自哪些國家的標本？請注意，並非所有館藏都具有此項資訊。"
   },
   "countriesOfResearcher": {
     "name": "研究者的國家"
@@ -283,7 +283,7 @@
   },
   "distanceFromCentroidInMeters": {
     "name": "距中心的距離 (公尺)",
-    "description": ""
+    "description": "距離該國家中心的距離（單位：公尺）。"
   },
   "depth": {
     "name": "深度",
@@ -331,7 +331,7 @@
   },
   "fieldNumber": {
     "name": "樣區事件編碼",
-    "description": ""
+    "description": "由收集者指派給該位置的識別碼。"
   },
   "verbatimTaxonId": {
     "name": "逐字分類群識別碼",
@@ -351,11 +351,11 @@
   },
   "datasetName": {
     "name": "資料集名稱",
-    "description": ""
+    "description": "發佈者所使用的資料集名稱。一個資料集的記錄可能來自多個其他資料集。"
   },
   "programme": {
     "name": "計畫",
-    "description": ""
+    "description": "與該記錄相關聯的專案名稱。"
   },
   "recordNumber": {
     "name": "紀錄編號",
@@ -363,11 +363,11 @@
   },
   "collectionCode": {
     "name": "蒐藏品代碼",
-    "description": ""
+    "description": "這記錄對應的館藏代碼為？"
   },
   "projectId": {
     "name": "專案 ID",
-    "description": ""
+    "description": "該記錄對應的專案編號為？"
   },
   "recordedById": {
     "name": "記錄者識別碼",
@@ -395,7 +395,7 @@
   },
   "higherGeography": {
     "name": "高階地理",
-    "description": ""
+    "description": "該記錄所屬的更高層級地理區域。這並非經詮釋的欄位，而是發布者所提供的原始資料。可提供多個值。"
   },
   "stateProvince": {
     "name": "州/省",
@@ -403,11 +403,11 @@
   },
   "gbifRegion": {
     "name": "GBIF 地區",
-    "description": ""
+    "description": "該地點所屬的 GBIF 區域。"
   },
   "publishedByGbifRegion": {
     "name": "由 GBIF 區域發布",
-    "description": ""
+    "description": "該資料集所發布的 GBIF 區域。"
   },
   "eventId": {
     "name": "事件識別碼",
@@ -419,31 +419,31 @@
   },
   "parentEventId": {
     "name": "母事件識別碼",
-    "description": ""
+    "description": "事件紀錄中上層的唯一識別碼"
   },
   "locationID": {
     "name": "地點識別碼",
-    "description": ""
+    "description": "事件紀錄中地點的唯一識別碼"
   },
   "measurementOrFactTypes": {
-    "name": "",
-    "description": ""
+    "name": "測量類型",
+    "description": "測量類型。"
   },
   "measurementOrFactCount": {
-    "name": "",
-    "description": ""
+    "name": "測量次數",
+    "description": "特定測量類型的計數。"
   },
   "occurrenceCount": {
     "name": "出現記錄計數",
-    "description": ""
+    "description": "該事件的發生次數"
   },
   "eventType": {
-    "name": "",
-    "description": ""
+    "name": "事件類型",
+    "description": "取樣事件的類型。"
   },
   "dataStructure": {
-    "name": "",
-    "description": ""
+    "name": "結構",
+    "description": "採樣事件的資料結構。"
   },
   "samplingProtocol": {
     "name": "取樣程序",
@@ -463,27 +463,27 @@
   },
   "isSequenced": {
     "name": "已定序",
-    "description": ""
+    "description": "紀錄是否包含序列資訊（無論是在 DNA 衍生資料擴充和/或關聯序列中）"
   },
   "active": {
     "name": "在線",
-    "description": ""
+    "description": "該條目所對應的是現存的館藏／機構，還是已不復存在的歷史條目。"
   },
   "activeInstitution": {
     "name": "在線",
-    "description": ""
+    "description": "該條目所指的機構是現存的，還是已不復存在的歷史機構。"
   },
   "activeCollection": {
     "name": "在線",
-    "description": ""
+    "description": "該條目所指的館藏是現存的，還是已不復存在的歷史館藏。"
   },
   "publicationDate": {
     "name": "發布日期",
-    "description": ""
+    "description": "這份紀錄是何時發表的？"
   },
   "personalCollection": {
     "name": "私人典藏",
-    "description": ""
+    "description": "選擇私人或個人收藏"
   },
   "datasetType": {
     "name": "資料集類型",
@@ -499,16 +499,16 @@
   },
   "name": {
     "name": "名稱",
-    "description": "",
-    "searchPlaceholder": ""
+    "description": "該實體名稱",
+    "searchPlaceholder": "依標題／名稱搜尋"
   },
   "city": {
     "name": "城市",
-    "description": ""
+    "description": "該機構／館藏所在的城市。"
   },
   "code": {
     "name": "蒐藏代碼",
-    "description": ""
+    "description": "用於識別整筆記錄的主要代碼。若未搜尋到結果，請嘗試使用替代代碼篩選器。"
   },
   "verbatimScientificName": {
     "name": "逐字學名",
@@ -524,7 +524,7 @@
   },
   "higherTaxonKey": {
     "name": "高階分類群",
-    "description": ""
+    "description": "有更高分類可以篩選。"
   },
   "issueEnum": {
     "name": "問題和註記",
@@ -533,7 +533,7 @@
     "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
   },
   "humboldtBooleans": {
-    "name": "",
+    "name": "Humboldt 延伸集",
     "description": ""
   },
   "siteCount": {
