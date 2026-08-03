@@ -110,9 +110,9 @@ const typeDef = gql`
     acceptedTaxon: TaxonSimple
     occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
-    wikiData: WikiDataTaxonData
+    wikiData: TaxonInfo
     relatedInfo: RelatedTaxonInfo
-    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
+    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
 
@@ -255,7 +255,7 @@ const typeDef = gql`
     referenceID: ID!
     doi: String
     url: String
-    citation: String!
+    citation: String
     remarks: String
     """
     Indicates whether the taxon name was published in a specific source according to the field namePublishedInID. This is a derived field that checks if the taxon's namePublishedInID matches the referenceID of any bibliography entry.
@@ -355,9 +355,9 @@ const typeDef = gql`
     acceptedTaxon: TaxonSimple
     occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
-    wikiData: WikiDataTaxonData
+    wikiData: TaxonInfo
     relatedInfo: RelatedTaxonInfo
-    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
+    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
   }
@@ -491,6 +491,7 @@ const typeDef = gql`
     vernacularNames: [VernacularName!]
     classification: [TaxonClassification!]
     synonyms: TaxonSynonyms
+    identifiers: [TaxonIdentifier!]
 
     # derived
     dataset: Dataset
@@ -507,12 +508,19 @@ const typeDef = gql`
     # related endpoints
     occurrenceMedia(limit: Int, offset: Int, mediaType: MediaType): TaxonOccurrenceMedia
     breakdown(sortByCount: Boolean): TaxonBreakdown
-    wikiData: WikiDataTaxonData
+    wikiData: TaxonInfo
     relatedInfo: RelatedTaxonInfo
-    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]!
+    related(datasetType: RelatedDatasetType, datasetKey: [ID]): [TaxonSimple!]
     children(limit: Int, offset: Int): Children
     parentTree: [TaxonChild!]
     mapCapabilities: MapCapabilities
+  }
+
+  type TaxonIdentifier {
+    scope: String
+    title: String
+    id: ID
+    url: String
   }
 `;
 

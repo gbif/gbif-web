@@ -8,6 +8,7 @@
   "vernacularNames": "Nazwy zwyczajowe",
   "viewOnCatalogueOfLife": "Zobacz w Catalogue of Life",
   "viewInChecklistBank": "Zobacz w Checklist Bank",
+  "viewInDefaultTaxonomy": "",
   "rank": "Ranga",
   "source": "Źródło",
   "specimenIsTypeOf": "z",
@@ -83,6 +84,6 @@
     "breakdown": "Nie można załadować podziału",
     "invasiveInCountries": "Nie udało się załadować informacji o gatunkach inwazyjnych"
   },
-  "deletedMessage": "Ten takson został usunięty z taksonomii GBIF.",
-  "deletedDescription": "Taksonomie są dynamiczne i zmieniają się w czasie w miarę pojawiania się nowych informacji. Ten takson został usunięty z taksonomii GBIF."
+  "deletedMessage": "",
+  "deletedDescription": ""
 }

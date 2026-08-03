@@ -48,6 +48,7 @@
   "IDENTIFIED_DATE_INVALID": "дата определения некорректна",
   "BASIS_OF_RECORD_INVALID": "некорректная основа записи",
   "TYPE_STATUS_INVALID": "некорректный статус типа ",
+  "SUSPECTED_TYPE": "Предполагаемый тип",
   "MULTIMEDIA_DATE_INVALID": "дата мультимедиа некорректна",
   "MULTIMEDIA_URI_INVALID": "URI мультимедиа недействительный",
   "REFERENCES_URI_INVALID": "URI ссылки недействительный",

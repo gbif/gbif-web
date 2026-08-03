@@ -1,7 +1,7 @@
 {
   "languageSelector": {
     "title": "Změnit jazyk",
-    "description": "",
-    "translatorsLink": ""
+    "description": "Překlady jsou výsledkem společného úsilí celé komunity. Zjistěte více o naší síti {translatorsLink}.",
+    "translatorsLink": "dobrovolných překladatelů"
   }
 }

@@ -43,7 +43,7 @@ export const ConceptValue = ({
 
   if (loading) return <>Loading</>;
   if (!vocabulary || !name || !data || !concept) return <>{name || 'Unknown'}</>;
-  if (error) return <>Error</>;
+  if (error) return <>{name || 'Error'}</>;
 
   const parentLabels =
     concept.parents?.length &&

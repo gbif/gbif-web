@@ -6,12 +6,14 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Projection } from '@/config/config';
 import useBelow from '@/hooks/useBelow';
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { useDynamicNavigate } from '@/reactRouterPlugins/dynamicLink';
 import { BoundingBox } from '@/types';
 import { cn } from '@/utils/shadcn';
 import { lazy, useEffect, useRef, useState } from 'react';
-import { mapWidgetOptions, RasterStyles } from '../options';
+import { RasterStyles } from '../options';
+import { parseStoredStyle, resolveInitialStyle, serializeStyle } from './styleStorage';
 import { BasisOfRecordFilter } from './controls/basisOfRecordFilter';
 import { ClickToExploreAreaButton } from './controls/clickToExploreAreaButton';
 import { ExploreLink } from './controls/exploreLink';
@@ -37,10 +39,9 @@ type Props = {
   persistStyleSelection?: boolean;
 };
 
-const defaultRasterStyles = mapWidgetOptions.predefined.find((x) => x.name === 'GREEN')!;
 const defaultCapabilitiesParams = {}; // Stable reference as fallback prop to prevent cascading rerenders without any real change
 
-const STORAGE_KEY = 'mapWidget.selectedPredefinedStyle';
+const STORAGE_KEY = 'mapWidget.selectedStyle';
 
 export function MapWidgetOuter({
   className,
@@ -57,30 +58,16 @@ export function MapWidgetOuter({
 
   // Get initial style from localStorage if persistence is enabled, otherwise use props/defaults
   const getInitialStyle = (): RasterStyles => {
-    // If mapStyle prop is provided, use it (highest priority)
-    if (mapStyle) {
-      return mapWidgetOptions.predefined.find((x) => x.name === mapStyle) || defaultRasterStyles;
-    }
-
-    // If persistence is enabled, check localStorage
+    let stored: RasterStyles | null = null;
     if (persistStyleSelection && typeof window !== 'undefined') {
       try {
-        const savedStyleName = localStorage.getItem(STORAGE_KEY);
-        if (savedStyleName) {
-          const savedStyle = mapWidgetOptions.predefined.find((x) => x.name === savedStyleName);
-          if (savedStyle) {
-            return savedStyle;
-          }
-        }
+        stored = parseStoredStyle(localStorage.getItem(STORAGE_KEY));
       } catch (e) {
         // Ignore localStorage errors
       }
     }
 
-    // Fall back to defaultStyleName prop or GREEN
-    return (
-      mapWidgetOptions.predefined.find((x) => x.name === defaultStyleName) || defaultRasterStyles
-    );
+    return resolveInitialStyle({ mapStyle, persistStyleSelection, defaultStyleName, stored });
   };
 
   const [rasterStyles, setRasterStyles] = useState<RasterStyles>(getInitialStyle);
@@ -137,26 +124,14 @@ export function MapWidgetOuter({
     }
   }, [capabilities?.maxYear]);
 
-  useEffect(() => {
-    if (isFullScreen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isFullScreen]);
+  useLockBodyScroll(isFullScreen);
 
   // Persist style selection to localStorage when it changes (only if persistence is enabled)
   useEffect(() => {
     if (persistStyleSelection && typeof window !== 'undefined') {
       try {
-        // Only save predefined styles, not custom styles
-        if (rasterStyles.name !== 'CUSTOM') {
-          localStorage.setItem(STORAGE_KEY, rasterStyles.name);
-        }
+        // Persist the full style so custom styles (name + baseMapStyle + params) survive too
+        localStorage.setItem(STORAGE_KEY, serializeStyle(rasterStyles));
       } catch (e) {
         // Ignore localStorage errors
       }

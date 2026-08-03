@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "Problemy te zostały zidentyfikowane podczas kontroli jakości danych GBIF. Mają one pomóc użytkownikom danych ocenić jakość i charakterystykę danych.",
   "issuesLearnMore": "Dowiedz się więcej o problemach dotyczących wystąpień",
+  "issues": {
+    "none": ""
+  },
   "features": {
     "isClustered": "Klastrowany",
     "isSamplingEvent": "Pobieranie prób",

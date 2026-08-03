@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "",
   "issuesLearnMore": "",
+  "issues": {
+    "none": ""
+  },
   "features": {
     "isClustered": "群集的",
     "isSamplingEvent": "采样事件",

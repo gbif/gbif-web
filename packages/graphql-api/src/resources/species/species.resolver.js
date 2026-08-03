@@ -9,7 +9,7 @@ export default {
     },
   },
   SpeciesKey: {
-    taxon: async ({ taxonID, datasetKey, key }, { ifDatasetKey }, { dataSources }) => {
+    taxon: async ({ taxonID, datasetKey, key }, args, { dataSources }) => {
       if (!taxonID || !datasetKey) {
         return null;
       }
@@ -26,6 +26,19 @@ export default {
         }
         throw err;
       });
+    },
+    colMatchId: async ({ taxonID, datasetKey }, args, { dataSources }) => {
+      if (!taxonID || !datasetKey) {
+        return null;
+      }
+      if (datasetKey === config.gbifBackboneUUID) {
+        const match = await dataSources.taxonAPI.matchBackboneToCol({ taxonID });
+        if (!match || !match.key) {
+          return null;
+        }
+        return match.key;
+      }
+      return null;
     },
   },
 };

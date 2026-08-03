@@ -2,5 +2,6 @@
   "primaryContact": "Contato principal",
   "termsHeading": "Termos e condições",
   "name": "Nome",
-  "email": "Email"
+  "email": "Email",
+  "dataScopeDescription": "Observe que os portais hospedados só podem apresentar registros de ocorrências que já estejam disponíveis no GBIF e organizados de acordo com a taxonomia padrão do GBIF. Descreva brevemente o escopo dos dados de ocorrência que você gostaria de apresentar em um portal hospedado pelo GBIF, incluindo, por exemplo, o escopo geográfico, taxonômico e temporal, ou outros parâmetros. Aproximadamente quantos conjuntos de dados e registros atualmente disponíveis no GBIF atendem a esse escopo? Inclua links para pesquisas no GBIF.org, se apropriado."
 }

@@ -295,6 +295,20 @@ const languageOptions: LanguageOption[] = [
     mapTileLocale: 'en',
     cmsLocale: 'fa',
   },
+  {
+    code: 'el',
+    localeCode: 'el',
+    label: 'Ελληνικά',
+    default: false,
+    textDirection: 'ltr',
+    reactIntlLocale: 'el-GR',
+    vocabularyLocale: 'el-GR',
+    iso3LetterCode: 'ell',
+    gbifOrgLocalePrefix: '',
+    grSciCollLocalePrefix: '',
+    mapTileLocale: 'en',
+    cmsLocale: 'el',
+  },
 ];
 
 const enabledLocales = import.meta.env.PUBLIC_ENABLED_LANGUAGES.split(',');

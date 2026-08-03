@@ -131,7 +131,7 @@ function Popup({
           {trigger}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn('g-w-96', className)}>{children}</PopoverContent>
+      <PopoverContent className={cn('g-w-96 g-break-words', className)}>{children}</PopoverContent>
     </Popover>
   );
 }

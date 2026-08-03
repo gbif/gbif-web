@@ -55,7 +55,7 @@ export function MapThumbnail({
   hexPerTile = 20, // how many hexagons per tile, only used for hexagonal binning
   className,
 }: Props) {
-  const hasMap = useHasMap(capabilitiesParams ?? {});
+  const { hasMap } = useHasMap(capabilitiesParams ?? {});
   if (!hasMap) return false;
 
   const queryString = stringify(capabilitiesParams ?? {});
@@ -99,8 +99,8 @@ export function MapThumbnail({
 }
 
 export function useHasMap(capabilitiesParams: Params) {
-  const { data } = useCapabilities({ capabilitiesParams: capabilitiesParams });
-  return data && data.total > 0;
+  const { data, error } = useCapabilities({ capabilitiesParams: capabilitiesParams });
+  return { hasMap: data && data.total > 0, error };
 }
 
 export function AdHocMapThumbnail({

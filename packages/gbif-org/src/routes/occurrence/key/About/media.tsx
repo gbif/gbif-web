@@ -98,7 +98,7 @@ function Images({
               <figure>
                 <a
                   target="_blank"
-                  href={`/tools/zoom/simple.html?src=${encodeURIComponent(
+                  href={`${import.meta.env.PUBLIC_BASE_URL}/tools/zoom/simple.html?src=${encodeURIComponent(
                     media.originalImage ?? media.thumbor
                   )}`}
                 >

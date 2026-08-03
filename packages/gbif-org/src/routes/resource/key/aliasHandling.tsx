@@ -11,6 +11,7 @@ import { useLoaderData } from 'react-router-dom';
 import { ArticlePage, articlePageLoader } from './article/article';
 import { ArticleSkeleton } from './components/articleSkeleton';
 import { CompositionPage, compositionPageLoader } from './composition/composition';
+import { ResourceLoaderResult } from './createResourceLoaderWithRedirect';
 
 export const AliasHandlingSkeleton = ArticleSkeleton;
 
@@ -92,9 +93,10 @@ export async function aliasHandlingLoader(args: LoaderArgs) {
 }
 
 export function AliasHandling() {
-  const { resource } = useLoaderData() as {
-    resource: ArticlePageFragment | CompositionPageFragment;
-  };
+  const { data } = useLoaderData() as ResourceLoaderResult<
+    ArticlePageFragment | CompositionPageFragment
+  >;
+  const { resource } = data;
 
   switch (resource.__typename) {
     case 'Article':

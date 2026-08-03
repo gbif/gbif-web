@@ -15,7 +15,11 @@ import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 
 export const ToolPageSkeleton = ArticleSkeleton;
@@ -53,7 +57,9 @@ export const toolPageLoader = createResourceLoaderWithRedirect({
 });
 
 export function ToolPage() {
-  const { resource } = useLoaderData() as { resource: ToolPageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<ToolPageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const location = useLocation();
 
   return (

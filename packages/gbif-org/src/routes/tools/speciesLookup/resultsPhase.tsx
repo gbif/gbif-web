@@ -5,40 +5,23 @@ import { Card } from '@/components/ui/largeCard';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { cn } from '@/utils/shadcn';
+import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ClassificationPath, MatchTypeBadge, TaxonLink } from './components';
-import { PAGE_SIZE, SpeciesRow } from './types';
-
-const RESULT_COLUMNS: { id: string; defaultMessage: string }[] = [
-  { id: 'tools.speciesLookup.colId', defaultMessage: 'id' },
-  { id: 'tools.speciesLookup.colVerbatimScientificName', defaultMessage: 'verbatimScientificName' },
-  { id: 'tools.speciesLookup.colPreferedKingdom', defaultMessage: 'preferedKingdom' },
-  { id: 'tools.speciesLookup.colMatchType', defaultMessage: 'matchType' },
-  { id: 'tools.speciesLookup.colConfidence', defaultMessage: 'confidence' },
-  {
-    id: 'tools.speciesLookup.colScientificNameEditable',
-    defaultMessage: 'scientificName (editable)',
-  },
-  { id: 'tools.speciesLookup.colStatus', defaultMessage: 'status' },
-  { id: 'tools.speciesLookup.colRank', defaultMessage: 'rank' },
-  { id: 'tools.speciesLookup.colKingdom', defaultMessage: 'kingdom' },
-  { id: 'tools.speciesLookup.colPhylum', defaultMessage: 'phylum' },
-  { id: 'tools.speciesLookup.colClass', defaultMessage: 'class' },
-  { id: 'tools.speciesLookup.colOrder', defaultMessage: 'order' },
-  { id: 'tools.speciesLookup.colFamily', defaultMessage: 'family' },
-  { id: 'tools.speciesLookup.colGenus', defaultMessage: 'genus' },
-  { id: 'tools.speciesLookup.colSpecies', defaultMessage: 'species' },
-  { id: 'tools.speciesLookup.colClassification', defaultMessage: 'classification' },
-];
+import { PAGE_SIZE, RESULT_COLUMNS, SortDirection, SpeciesRow } from './types';
+import { sortSpecies } from './utils';
 
 type ResultsPhaseProps = {
   species: SpeciesRow[];
   excludeUnmatched: boolean;
   offset: number;
+  sortColumn?: string;
+  sortDirection: SortDirection;
   onBack: () => void;
   onOpenEdit: (row: SpeciesRow) => void;
   onSetOffset: (offset: number) => void;
   onSetExcludeUnmatched: (value: boolean) => void;
+  onSort: (column: string) => void;
   onGenerateCsv: () => void;
 };
 
@@ -46,14 +29,24 @@ export function ResultsPhase({
   species,
   excludeUnmatched,
   offset,
+  sortColumn,
+  sortDirection,
   onBack,
   onOpenEdit,
   onSetOffset,
   onSetExcludeUnmatched,
+  onSort,
   onGenerateCsv,
 }: ResultsPhaseProps) {
-  const displayedSpecies = excludeUnmatched ? species.filter((s) => s.key) : species;
-  const visibleResults = displayedSpecies.slice(offset, offset + PAGE_SIZE);
+  const displayedSpecies = useMemo(
+    () => (excludeUnmatched ? species.filter((s) => s.key) : species),
+    [species, excludeUnmatched]
+  );
+  const sortedSpecies = useMemo(
+    () => sortSpecies(displayedSpecies, sortColumn, sortDirection),
+    [displayedSpecies, sortColumn, sortDirection]
+  );
+  const visibleResults = sortedSpecies.slice(offset, offset + PAGE_SIZE);
 
   return (
     <PageContainer className="g-bg-slate-100">
@@ -67,14 +60,33 @@ export function ResultsPhase({
             <table className="g-w-full g-text-sm">
               <thead className="g-sticky g-top-0 g-bg-white g-shadow-sm g-z-10">
                 <tr>
-                  {RESULT_COLUMNS.map((col) => (
-                    <th
-                      key={col.id}
-                      className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap"
-                    >
-                      <FormattedMessage id={col.id} defaultMessage={col.defaultMessage} />
-                    </th>
-                  ))}
+                  {RESULT_COLUMNS.map((col) => {
+                    const isActive = sortColumn === col.key;
+                    // classification is a nested list — no meaningful sort order.
+                    const sortable = col.key !== 'classification';
+                    return (
+                      <th
+                        key={col.key}
+                        className="g-px-4 g-py-3 g-text-start g-font-medium g-text-slate-500 g-whitespace-nowrap"
+                      >
+                        {sortable ? (
+                          <button
+                            className="g-flex g-items-center g-gap-1 hover:g-text-slate-700 g-transition-colors"
+                            onClick={() => onSort(col.key)}
+                          >
+                            <FormattedMessage id={col.id} defaultMessage={col.defaultMessage} />
+                            {isActive && (
+                              <span className="g-text-slate-400">
+                                {sortDirection === 'asc' ? '▲' : '▼'}
+                              </span>
+                            )}
+                          </button>
+                        ) : (
+                          <FormattedMessage id={col.id} defaultMessage={col.defaultMessage} />
+                        )}
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>
@@ -86,12 +98,12 @@ export function ResultsPhase({
           </div>
 
           <div className="g-flex g-items-center g-justify-end g-flex-wrap g-gap-4 g-p-4 g-border-t g-border-gray-100">
-            {displayedSpecies.length > PAGE_SIZE && (
+            {sortedSpecies.length > PAGE_SIZE && (
               <div className="g-flex-1 g-min-w-0">
                 <PaginationFooter
                   offset={offset}
                   limit={PAGE_SIZE}
-                  count={displayedSpecies.length}
+                  count={sortedSpecies.length}
                   onChange={(newOffset) => {
                     onSetOffset(newOffset);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -202,6 +214,8 @@ function ResultRow({ row, onEdit }: { row: SpeciesRow; onEdit: (row: SpeciesRow)
       <td className="g-px-4 g-py-2 g-whitespace-nowrap">
         <ClassificationPath classification={row.classification} selfKey={row.usageKey} />
       </td>
+      <td className="g-px-4 g-py-2 g-whitespace-nowrap g-text-slate-600">{row.canonicalName}</td>
+      <td className="g-px-4 g-py-2 g-whitespace-nowrap g-text-slate-600">{row.authorship}</td>
     </tr>
   );
 }

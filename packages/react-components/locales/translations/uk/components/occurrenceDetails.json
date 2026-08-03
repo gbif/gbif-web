@@ -67,6 +67,9 @@
   },
   "issuesHelpText": "",
   "issuesLearnMore": "",
+  "issues": {
+    "none": ""
+  },
   "features": {
     "isClustered": "",
     "isSamplingEvent": "Описи, обліки або збори",

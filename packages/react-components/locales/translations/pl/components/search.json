@@ -91,6 +91,8 @@
       "occurrenceSearch": "Wystąpienia",
       "resourceSearch": "Zasoby i artykuły"
     },
-    "seeAll": "Zobacz wszystko"
+    "seeAll": "Zobacz wszystko",
+    "searchFor": "",
+    "noResults": ""
   }
 }

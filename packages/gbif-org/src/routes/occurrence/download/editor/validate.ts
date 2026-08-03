@@ -46,6 +46,18 @@ export async function validateSql(
     }
 
     const result = await response.json();
+    // guard against a 2xx body without sql — inserting undefined would corrupt the editor content
+    if (typeof result.sql !== 'string') {
+      return {
+        error: {
+          type: 'invalid',
+          message: formatMessage({
+            id: 'download.sql.parsingErrorDescription',
+            defaultMessage: 'Unable to parse SQL',
+          }),
+        },
+      };
+    }
     return { text: result.sql };
   } catch (e) {
     return {

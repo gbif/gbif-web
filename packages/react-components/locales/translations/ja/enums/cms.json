@@ -5,6 +5,7 @@
     "NATIONAL": "国の生物多様性データ収集のための助成金",
     "DATA_USE": "データ利用助成金",
     "MULTI_INSTITUTIONAL": "複数機関による生物多様性データ活用助成金",
+    "INSTITUTIONAL": "",
     "undefined": "情報なし"
   },
   "projectStatus": {

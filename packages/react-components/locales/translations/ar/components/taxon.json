@@ -8,6 +8,7 @@
   "vernacularNames": "الأسماء العامية الدارجة",
   "viewOnCatalogueOfLife": "",
   "viewInChecklistBank": "",
+  "viewInDefaultTaxonomy": "",
   "rank": "ترتيب",
   "source": "مصدر",
   "specimenIsTypeOf": "التساويات { is }",

@@ -78,6 +78,7 @@
     "usedChecklistKey": "{checklistName} se utilizó para rellenar las columnas taxonómicas en la descarga.",
     "predicate": {
       "checklist": "Lista de chequeo",
+      "tooManyLabelResolutions": "Mostrar esta consulta en un formato legible requeriría {count} búsquedas de etiquetas, lo que supera el límite de {max}. Para reducir la carga en nuestros servicios, se muestra en formato JSON sin procesar.",
       "joinDescriptions": {
         "and": "Todos deben aplicar",
         "or": "Al menos uno debe aplicar",
@@ -267,7 +268,7 @@
     "unableToCreateDownload": "No se puede crear la descarga. Inténtelo de nuevo más tarde.",
     "backToFormatSelection": "Volver a la selección de formato",
     "backToConfiguration": "Volver a la configuración",
-    "estimatedSize": "Igual a {is}",
+    "estimatedSize": "Tamaño estimado",
     "configure": "Configurar",
     "continueToTerms": "Continuar a los Términos",
     "downloadSummary": "Resumen de la descarga",

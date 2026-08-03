@@ -1,4 +1,4 @@
-import { ClassificationItem, MAX_ROWS, SpeciesRow, SuggestResult } from './types';
+import { ClassificationItem, MAX_ROWS, SortDirection, SpeciesRow, SuggestResult } from './types';
 
 // --- CSV parsing ---
 
@@ -93,12 +93,16 @@ export function applyMatchData(item: SpeciesRow, data: Record<string, unknown>) 
     item.key = usage.key as string;
     item.usageKey = usage.key as string;
     item.scientificName = usage.name as string;
+    item.canonicalName = usage.canonicalName as string | undefined;
+    item.authorship = usage.authorship as string | undefined;
     item.rank = usage.rank as string;
     item.status = (usage.status ?? usage.taxonomicStatus) as string | undefined;
   } else {
     item.key = undefined;
     item.usageKey = undefined;
     item.scientificName = undefined;
+    item.canonicalName = undefined;
+    item.authorship = undefined;
     item.rank = undefined;
     item.status = undefined;
   }
@@ -146,6 +150,8 @@ export function applySuggestion(item: SpeciesRow, suggestion: SuggestResult) {
   item.key = suggestion.key;
   item.usageKey = suggestion.key;
   item.scientificName = suggestion.scientificName;
+  item.canonicalName = suggestion.canonicalName;
+  item.authorship = suggestion.authorship;
   item.rank = suggestion.rank;
   item.status = suggestion.status;
   item.matchType = 'EDITED';
@@ -183,6 +189,8 @@ export function toCandidate(a: Record<string, unknown>): SuggestResult {
   return {
     key: usage?.key as string,
     scientificName: usage?.name as string,
+    canonicalName: usage?.canonicalName as string | undefined,
+    authorship: usage?.authorship as string | undefined,
     rank: usage?.rank as string,
     status: (usage?.status ?? usage?.taxonomicStatus) as string,
     acceptedKey: acceptedUsage?.key as string | undefined,
@@ -228,6 +236,29 @@ export async function processInBatches<T>(
       })
     );
   }
+}
+
+export function sortSpecies(
+  rows: SpeciesRow[],
+  column: string | undefined,
+  direction: SortDirection
+): SpeciesRow[] {
+  if (!column) return rows;
+  const isEmpty = (v: unknown) => v === undefined || v === null || v === '';
+  const sorted = [...rows];
+  sorted.sort((a, b) => {
+    const av = (a as Record<string, unknown>)[column];
+    const bv = (b as Record<string, unknown>)[column];
+    // Always sort empty values last, regardless of direction.
+    if (isEmpty(av)) return isEmpty(bv) ? 0 : 1;
+    if (isEmpty(bv)) return -1;
+    const cmp =
+      typeof av === 'number' && typeof bv === 'number'
+        ? av - bv
+        : String(av).toLowerCase().localeCompare(String(bv).toLowerCase());
+    return direction === 'desc' ? -cmp : cmp;
+  });
+  return sorted;
 }
 
 export function classificationToString(classification?: ClassificationItem[]): string {

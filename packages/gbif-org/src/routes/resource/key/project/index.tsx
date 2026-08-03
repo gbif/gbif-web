@@ -42,7 +42,8 @@ export const projectKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function useProjectKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as {
-    resource: ProjectPageFragment;
-  } & ProjectDatasetsTabFragment;
+  const { data } = useRenderedRouteLoaderData(id) as {
+    data: { resource: ProjectPageFragment } & ProjectDatasetsTabFragment;
+  };
+  return data;
 }

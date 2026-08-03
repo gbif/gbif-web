@@ -210,7 +210,6 @@ export default function TypeMaterialCard({
 const TYPE_MATERIAL_QUERY = /* GraphQL */ `
   query TaxonTypeSpecimens($from: Int, $size: Int, $predicate: Predicate) {
     occurrenceSearch(predicate: $predicate) {
-      _meta
       documents(from: $from, size: $size) {
         from
         size

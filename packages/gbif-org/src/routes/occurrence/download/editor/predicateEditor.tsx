@@ -3,7 +3,7 @@ import { PredicateDisplay } from '../key/predicate';
 import Editor from './editor';
 import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { validatePredicate } from './validate';
+import { validatePredicate, ValidationResponse } from './validate';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { getOriginalPredicate } from './usePredicate';
 
@@ -82,14 +82,25 @@ export default function PredicateEditor({
     }
   }, [predicate, setQueryId, setVariablesId, queryId, variablesId]);
 
-  const handleFormat = useCallback(async (text: string) => {
-    try {
-      const obj = JSON.parse(text);
-      return JSON.stringify(obj, null, 2);
-    } catch (error) {
-      return text;
-    }
-  }, []);
+  const handleFormat = useCallback(
+    async (text: string): Promise<ValidationResponse> => {
+      try {
+        const obj = JSON.parse(text);
+        return { text: JSON.stringify(obj, null, 2) };
+      } catch (error) {
+        return {
+          error: {
+            type: 'invalid',
+            message: formatMessage({
+              id: 'download.predicate.invalidJson',
+              defaultMessage: 'The provided predicate is not valid JSON',
+            }),
+          },
+        };
+      }
+    },
+    [formatMessage]
+  );
 
   const handleValidation = useCallback(
     (str: string) => validatePredicate(str, formatMessage),

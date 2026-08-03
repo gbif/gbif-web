@@ -44,7 +44,7 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
   });
 
   // if backbone key we can sometimes redirect to new CoL page
-  const newTaxonID = data?.speciesKey?.taxon?.related?.[0]?.taxonID;
+  const newTaxonID = data?.speciesKey?.colMatchId;
   if (newTaxonID && data?.speciesKey?.datasetKey === import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY) {
     return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${newTaxonID}`);
   }
@@ -56,7 +56,7 @@ export async function speciesLoader({ params, graphql, locale, config }: LoaderA
     throw new NotFoundLoaderResponse();
   }
 
-  // for species keys that refer to CoL, we jsut need to remap
+  // for species keys that refer to CoL, we just need to remap
   if (taxonId && datasetKey && datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY) {
     return redirect(`${locale.gbifOrgLocalePrefix}/taxon/${encodeURIComponent(taxonId)}`);
   }
@@ -196,6 +196,7 @@ const SPECIES_REDIRECT_QUERY = /* GraphQL */ `
     speciesKey(key: $key) {
       taxonID
       datasetKey
+      colMatchId
       taxon {
         related(datasetKey: [$newDatasetKey]) {
           taxonID

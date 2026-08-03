@@ -1,6 +1,6 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "DwC-A 확장자",
     "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
   },
   "locationId": {
@@ -70,15 +70,15 @@
     "description": ""
   },
   "biostratigraphy": {
-    "name": "",
+    "name": "생물층서학",
     "description": ""
   },
   "lithostratigraphy": {
-    "name": "",
+    "name": "암석층서학",
     "description": ""
   },
   "geologicalTime": {
-    "name": "",
+    "name": "지질학적 시간",
     "description": ""
   },
   "purposes": {

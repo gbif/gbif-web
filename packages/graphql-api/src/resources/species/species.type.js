@@ -44,6 +44,10 @@ const typeDef = gql`
     Attempt to map the species to the taxon API.
     """
     taxon: TaxonSimple
+    """
+    If it is a backbone key and there is a match to Catalogue of Life, this is the ID of the match. This can be used to fetch the taxon from COL.
+    """
+    colMatchId: ID
   }
 `;
 

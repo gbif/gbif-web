@@ -8,6 +8,7 @@
   "vernacularNames": "俗名",
   "viewOnCatalogueOfLife": "",
   "viewInChecklistBank": "",
+  "viewInDefaultTaxonomy": "",
   "rank": "分類位階",
   "source": "來源",
   "specimenIsTypeOf": "等於 {is}",

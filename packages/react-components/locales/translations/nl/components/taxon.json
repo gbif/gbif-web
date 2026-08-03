@@ -8,6 +8,7 @@
   "vernacularNames": "Volksnamen",
   "viewOnCatalogueOfLife": "",
   "viewInChecklistBank": "",
+  "viewInDefaultTaxonomy": "",
   "rank": "",
   "source": "Bron",
   "specimenIsTypeOf": "Gelijk aan {is}",

@@ -463,7 +463,7 @@
   },
   "isSequenced": {
     "name": "É sequenciado",
-    "description": ""
+    "description": "Se o registro possui informações de sequência (seja em uma extensão de dados derivada de DNA e/ou em sequências associadas)."
   },
   "active": {
     "name": "Ativo",

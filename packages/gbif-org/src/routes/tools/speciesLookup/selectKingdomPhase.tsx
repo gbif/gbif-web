@@ -86,8 +86,8 @@ export function SelectKingdomPhase({
                 </div>
                 <Button onClick={onMatchNames}>
                   <FormattedMessage
-                    id="tools.speciesLookup.matchToBackbone"
-                    defaultMessage="Match to GBIF backbone"
+                    id="tools.speciesLookup.matchToChecklist"
+                    defaultMessage="Match to Catalogue of Life"
                   />
                 </Button>
               </div>

@@ -91,6 +91,8 @@
       "occurrenceSearch": "オカレンス",
       "resourceSearch": ""
     },
-    "seeAll": "すべて表示"
+    "seeAll": "すべて表示",
+    "searchFor": "",
+    "noResults": ""
   }
 }

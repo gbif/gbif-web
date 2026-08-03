@@ -463,7 +463,7 @@
   },
   "isSequenced": {
     "name": "已定序",
-    "description": "紀錄是否已有定序資訊"
+    "description": ""
   },
   "active": {
     "name": "在線",

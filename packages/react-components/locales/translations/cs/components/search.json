@@ -91,6 +91,8 @@
       "occurrenceSearch": "Výskyty",
       "resourceSearch": ""
     },
-    "seeAll": "Zobrazit vše"
+    "seeAll": "Zobrazit vše",
+    "searchFor": "",
+    "noResults": ""
   }
 }

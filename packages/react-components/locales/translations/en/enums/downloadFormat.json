@@ -1,7 +1,7 @@
 {
   "downloadFormat": {
     "SIMPLE_AVRO": "Apache Avro",
-    "SIMPLE_CSV": "Simple filters",
+    "SIMPLE_CSV": "Simple",
     "DWCA": "Darwin Core Archive",
     "SPECIES_LIST": "Species list",
     "SIMPLE_WITH_VERBATIM_AVRO": "Apache Avro with common interpreted fields and all verbatim fields",

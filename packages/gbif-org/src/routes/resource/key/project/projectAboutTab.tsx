@@ -249,7 +249,6 @@ function ParticipantOrFundingOrganisation({
             <DynamicLink
               to={isCountry ? `/country/${f.countryCode}/participation` : `/participant/${f.id}`}
             >
-              {isCountry && 'GBIF '}
               {f.title?.trim()}
             </DynamicLink>
           );

@@ -3,23 +3,38 @@ import mdAnchor from 'markdown-it-anchor';
 import mdVideo from 'markdown-it-video';
 import { sanitizeHtml } from './sanitize-html';
 
-const md = mdit({
-  html: true,
-  linkify: true,
-  typographer: false,
-  breaks: true,
-});
+function createMarkdownIt(trusted = false) {
+  const instance = mdit({
+    html: true,
+    linkify: true,
+    typographer: false,
+    breaks: true,
+  });
 
-// adding anchor headers to markdown would be nice, but the problem is the navbar offset
-md.use(mdAnchor, {
-  // slugify: function(str){return '_' + encodeURIComponent(format.getSlug(str))}, // option to add a custom slug function. I'm not sure how well the default works - we should test that on the vadious languages
-});
+  // adding anchor headers to markdown would be nice, but the problem is the navbar offset
+  instance.use(mdAnchor, {
+    // slugify: function(str){return '_' + encodeURIComponent(format.getSlug(str))}, // option to add a custom slug function. I'm not sure how well the default works - we should test that on the vadious languages
+  });
 
-// Add support for video embedding
-md.use(mdVideo, {
-  youtube: { width: 640, height: 390 },
-  vimeo: { width: 500, height: 281 },
-});
+  if (trusted) {
+    // Video embeds render as iframes, which only survive the trusted sanitizer.
+    instance.use(mdVideo, {
+      youtube: { width: 640, height: 390 },
+      vimeo: { width: 500, height: 281 },
+    });
+  }
+
+  if (!trusted) {
+    // Untrusted sources are often indented HTML (e.g. pretty-printed EML descriptions);
+    // disable the indented-code-block rule so their tags aren't escaped into a code block.
+    instance.disable('code');
+  }
+
+  return instance;
+}
+
+const md = createMarkdownIt(true);
+const mdUntrusted = createMarkdownIt();
 
 const removeNewLinesOutsidePreAndCodeTags = (input) => {
   // Step 1: Protect <pre>, <code>, <textarea> blocks (tags + contents) with a TAG-SHAPED placeholder
@@ -34,17 +49,12 @@ const removeNewLinesOutsidePreAndCodeTags = (input) => {
   // - If it's only whitespace (e.g., the gap between tags), remove newlines entirely
   s = s.replace(/>([^<]+)</g, (m, text) => {
     const hasNonWS = /\S/.test(text);
-    const cleaned = hasNonWS
-      ? text.replace(/\n+/g, ' ')
-      : text.replace(/\n+/g, '');
+    const cleaned = hasNonWS ? text.replace(/\n+/g, ' ') : text.replace(/\n+/g, '');
     return `>${cleaned}<`;
   });
 
   // Step 3: Restore protected blocks (tags + contents intact)
-  s = s.replace(
-    /<x-protected data-i="(\d+)"><\/x-protected>/g,
-    (_, i) => protectedBlocks[+i],
-  );
+  s = s.replace(/<x-protected data-i="(\d+)"><\/x-protected>/g, (_, i) => protectedBlocks[+i]);
 
   // Optional: remove trailing newlines from the whole string (outside-anything)
   s = s.replace(/\n+$/g, '');
@@ -53,20 +63,14 @@ const removeNewLinesOutsidePreAndCodeTags = (input) => {
 
 export function getHtml(
   value,
-  {
-    allowedTags,
-    allowedAttributes,
-    inline = false,
-    wrapTables = false,
-    trustLevel = 'untrusted',
-    locale,
-  } = {},
+  { allowedTags, allowedAttributes, inline = false, wrapTables = false, trustLevel = 'untrusted', locale } = {},
 ) {
   const options = { wrapTables, trustLevel, locale };
   if (allowedTags) options.allowedTags = allowedTags;
   if (allowedAttributes) options.allowedAttributes = allowedAttributes;
   if (typeof value === 'string' || typeof value === 'number') {
-    const dirty = inline ? md.renderInline(`${value}`) : md.render(`${value}`);
+    const renderer = trustLevel === 'trusted' ? md : mdUntrusted;
+    const dirty = inline ? renderer.renderInline(`${value}`) : renderer.render(`${value}`);
     const clean = sanitizeHtml(dirty, options);
 
     return removeNewLinesOutsidePreAndCodeTags(clean);

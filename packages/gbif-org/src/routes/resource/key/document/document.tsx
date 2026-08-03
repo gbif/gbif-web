@@ -13,7 +13,11 @@ import { ArticleIntro } from '../components/articleIntro';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { ArticlePreTitle, PreTitleDate } from '../components/articlePreTitle';
 import PageMetaData from '@/components/PageMetaData';
 
@@ -49,7 +53,9 @@ export const documentPageLoader = createResourceLoaderWithRedirect({
 });
 
 export function DocumentPage() {
-  const { resource } = useLoaderData() as { resource: DocumentPageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<DocumentPageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const location = useLocation();
 
   return (

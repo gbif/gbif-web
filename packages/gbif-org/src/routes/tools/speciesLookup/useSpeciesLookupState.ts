@@ -1,7 +1,14 @@
 import { useConfig } from '@/config/config';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToolUnsavedGuard } from '../_shared/useToolUnsavedGuard';
-import { BATCH_SIZE, CSV_EXPORT_FIELDS, Phase, SpeciesRow, SuggestResult } from './types';
+import {
+  BATCH_SIZE,
+  CSV_EXPORT_FIELDS,
+  Phase,
+  SortDirection,
+  SpeciesRow,
+  SuggestResult,
+} from './types';
 import {
   applyMatchData,
   applySuggestion,
@@ -27,6 +34,8 @@ export type SpeciesLookupState = {
   showDownload: boolean;
   downloadUrl: string;
   excludeUnmatched: boolean;
+  sortColumn?: string;
+  sortDirection: SortDirection;
   error?: string;
   isDragOver: boolean;
   searchInputRef: React.RefObject<HTMLInputElement>;
@@ -34,6 +43,7 @@ export type SpeciesLookupState = {
   setDefaultKingdom: (k: string | undefined) => void;
   setOffset: (n: number) => void;
   setExcludeUnmatched: (b: boolean) => void;
+  handleSort: (column: string) => void;
   setShowDownload: (b: boolean) => void;
   setSearchQuery: (q: string) => void;
   reset: () => void;
@@ -73,6 +83,8 @@ export function useSpeciesLookupState(): SpeciesLookupState {
   const [showDownload, setShowDownload] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState('');
   const [excludeUnmatched, setExcludeUnmatched] = useState(false);
+  const [sortColumn, setSortColumn] = useState<string | undefined>();
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [error, setError] = useState<string | undefined>();
   const [isDragOver, setIsDragOver] = useState(false);
 
@@ -99,7 +111,22 @@ export function useSpeciesLookupState(): SpeciesLookupState {
     setOffset(0);
     setError(undefined);
     setExcludeUnmatched(false);
+    setSortColumn(undefined);
+    setSortDirection('asc');
   }, []);
+
+  const handleSort = useCallback(
+    (column: string) => {
+      if (sortColumn === column) {
+        setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+      } else {
+        setSortColumn(column);
+        setSortDirection('asc');
+      }
+      setOffset(0);
+    },
+    [sortColumn]
+  );
 
   const handleFile = useCallback((file: File) => {
     const valid =
@@ -308,6 +335,8 @@ export function useSpeciesLookupState(): SpeciesLookupState {
     showDownload,
     downloadUrl,
     excludeUnmatched,
+    sortColumn,
+    sortDirection,
     error,
     isDragOver,
     searchInputRef,
@@ -315,6 +344,7 @@ export function useSpeciesLookupState(): SpeciesLookupState {
     setDefaultKingdom,
     setOffset,
     setExcludeUnmatched,
+    handleSort,
     setShowDownload,
     setSearchQuery,
     reset,

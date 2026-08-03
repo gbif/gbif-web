@@ -78,6 +78,7 @@
     "usedChecklistKey": "{checklistName} 用於填入下載檔案中的分類列。",
     "predicate": {
       "checklist": "物種名錄",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "需全部選用",
         "or": "需至少選用一項",

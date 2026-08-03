@@ -27,7 +27,8 @@ type DatasetCitationVariables = {
 
 export function useDatasetCitation(key: string) {
   const { data, loading, error, load } = useQuery<DatasetCitationResult, DatasetCitationVariables>(
-    DATASET_CITATION_QUERY
+    DATASET_CITATION_QUERY,
+    { lazyLoad: true }
   );
 
   useEffect(() => {

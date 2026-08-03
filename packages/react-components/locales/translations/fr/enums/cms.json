@@ -5,6 +5,7 @@
     "NATIONAL": "Subvention nationale",
     "DATA_USE": "Subvention pour l'utilisation des données",
     "MULTI_INSTITUTIONAL": "Subvention multi-institutionnelle pour la mobilisation de données sur la biodiversité",
+    "INSTITUTIONAL": "Subvention pour la mobilisation des données institutionnelles sur la biodiversité",
     "undefined": "Non spécifié"
   },
   "projectStatus": {

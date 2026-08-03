@@ -26,13 +26,20 @@ export function Header({ menu }: { menu: HeaderQuery }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const rightSideRef = useRef<HTMLDivElement>(null);
-  const { isOverflowing, hasMeasured } = useNavOverflow(containerRef, contentRef, rightSideRef);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const desktopControlsRef = useRef<HTMLDivElement>(null);
+  const { isOverflowing, hasMeasured } = useNavOverflow({
+    containerRef,
+    contentRef,
+    rightSideRef,
+    searchRef,
+    desktopControlsRef,
+  });
 
-  // Before JS measurement, fall back to CSS `lg:` breakpoint classes (same as before).
-  // After measurement, use the JS boolean to toggle visibility.
+  // Before JS measurement, fall back to CSS `lg:` breakpoint classes.
   const showMobile = hasMeasured ? isOverflowing : undefined;
-  // When the desktop nav is collapsed it is still in the DOM. Mark it as `inert`
-  // so it cannot receive focus or be read by assistive tech.
+  // The collapsed desktop nav and controls stay in the DOM so they can be
+  // measured; `inert` keeps them out of focus order and assistive tech.
   const desktopNavInert = showMobile === true ? { inert: '' } : {};
 
   return (
@@ -55,43 +62,55 @@ export function Header({ menu }: { menu: HeaderQuery }) {
         </div>
       </div>
       <div className="g-flex-none g-flex" ref={rightSideRef}>
-        <SearchTrigger />
+        <div className="g-flex" ref={searchRef}>
+          <SearchTrigger />
+        </div>
+        {/* clipped to zero size instead of display:none so the w-max inner element stays measurable */}
         <div
           className={cn({
-            'lg:g-inline-block g-hidden': showMobile === undefined,
-            'g-hidden': showMobile === true,
-            'g-inline-block': showMobile === false,
+            'g-hidden lg:g-block': showMobile === undefined,
+            'g-w-0 g-h-0 g-overflow-hidden g-pointer-events-none': showMobile === true,
+            'g-block': showMobile === false,
           })}
+          aria-hidden={showMobile === true || undefined}
+          {...desktopNavInert}
         >
-          <LanguageSelector
-            trigger={
-              <Button
-                variant="ghost"
-                className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
-                aria-label={intl.formatMessage({
-                  id: 'header.changeLanguage',
-                  defaultMessage: 'Change language',
-                })}
-              >
-                <MdTranslate aria-hidden="true" />
-              </Button>
-            }
-          />
-          <FeedbackPopover
-            trigger={
-              <Button
-                variant="ghost"
-                className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
-                aria-label={intl.formatMessage({
-                  id: 'header.feedback',
-                  defaultMessage: 'Send feedback',
-                })}
-              >
-                <MdOutlineFeedback aria-hidden="true" />
-              </Button>
-            }
-          />
-          <StatusIndicator />
+          <div className="g-w-max g-h-full g-flex" ref={desktopControlsRef}>
+            <div>
+              <LanguageSelector
+                trigger={
+                  <Button
+                    variant="ghost"
+                    className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
+                    aria-label={intl.formatMessage({
+                      id: 'header.changeLanguage',
+                      defaultMessage: 'Change language',
+                    })}
+                  >
+                    <MdTranslate aria-hidden="true" />
+                  </Button>
+                }
+              />
+              <FeedbackPopover
+                trigger={
+                  <Button
+                    variant="ghost"
+                    className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80 g-min-h-11 g-min-w-11"
+                    aria-label={intl.formatMessage({
+                      id: 'header.feedback',
+                      defaultMessage: 'Send feedback',
+                    })}
+                  >
+                    <MdOutlineFeedback aria-hidden="true" />
+                  </Button>
+                }
+              />
+              <StatusIndicator />
+            </div>
+            <div>
+              <ProfileOrLogin />
+            </div>
+          </div>
         </div>
         <div
           className={cn({
@@ -101,15 +120,6 @@ export function Header({ menu }: { menu: HeaderQuery }) {
           })}
         >
           <MobileMenu menu={menu} />
-        </div>
-        <div
-          className={cn({
-            'lg:g-inline-block g-hidden': showMobile === undefined,
-            'g-hidden': showMobile === true,
-            'g-inline-block': showMobile === false,
-          })}
-        >
-          <ProfileOrLogin />
         </div>
       </div>
     </Container>

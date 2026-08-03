@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "التوزيع التصنيفي لتكرارات الحدوث",
   "noCitations": "",
-  "noOccurrences": "لا توجد تكرارات"
+  "noOccurrences": "لا توجد تكرارات",
+  "eventWarning": ""
 }

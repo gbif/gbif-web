@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Taxonomické rozdělení výskytů",
   "noCitations": "Zatím žádné citace",
-  "noOccurrences": "Žádné výskyty"
+  "noOccurrences": "Žádné výskyty",
+  "eventWarning": ""
 }

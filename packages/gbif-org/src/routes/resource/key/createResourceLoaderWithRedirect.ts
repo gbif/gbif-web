@@ -1,8 +1,8 @@
 import { UnexpectedLoaderError } from '@/errors';
-import { QueryError } from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
+import { ParsedQueryResult } from '@/services/graphQLService';
 import { required } from '@/utils/required';
 import { slugify } from '@/utils/slugify';
 import { redirect } from 'react-router-dom';
@@ -88,6 +88,11 @@ export const redirectMapper: Record<ResourceType, (key: string, slug: string | n
   Tool: (key, slug) => `/tool/${key}/${slug}`,
 };
 
+// What the loader resolves with when it does not redirect. The query is assembled at
+// runtime from a fragment name, so codegen cannot type it per page - pages cast their
+// loader data with the fragment type they requested.
+export type ResourceLoaderResult<TResource> = ParsedQueryResult<{ resource: TResource }>;
+
 // If you want to override the default query see how it is done in project.tsx
 type Options =
   | { query: string; resourceType: ResourceType }
@@ -125,7 +130,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
       typeof resource.urlAlias === 'string' &&
       request.url.split('?')[0].endsWith(resource.urlAlias)
     ) {
-      return data;
+      return { data, errors };
     }
 
     // If the resource has a urlAlias and is not at the correct url, redirect to the correct url
@@ -138,12 +143,12 @@ export function createResourceLoaderWithRedirect(options: Options) {
 
     // If the resource type and the slugified key are correct, return the resource
     if (options.resourceType === resource.__typename && params.slug === slugifiedTitle) {
-      return data;
+      return { data, errors };
     }
 
     // If the resource type is correct and there is no slugified key, return the resource
     if (options.resourceType === resource.__typename && slugifiedTitle === null) {
-      return data;
+      return { data, errors };
     }
 
     // Redirect to the correct url

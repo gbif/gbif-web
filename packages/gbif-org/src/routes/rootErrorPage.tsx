@@ -23,8 +23,8 @@ export function RootErrorPage(): React.ReactElement {
       error={error}
       type={'PAGE'}
       // title={this.props.title}
-      errorMessage={error?.message}
       showReportButton={true}
+      reload={true}
     />
   );
 }

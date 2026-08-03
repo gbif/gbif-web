@@ -13,7 +13,11 @@ import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import {
+  createResourceLoaderWithRedirect,
+  ResourceLoaderResult,
+} from '../createResourceLoaderWithRedirect';
+import { useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
 import { DynamicLink } from '@/reactRouterPlugins';
 import PageMetaData from '@/components/PageMetaData';
 
@@ -53,7 +57,9 @@ export const dataUsePageLoader = createResourceLoaderWithRedirect({
 });
 
 export function DataUsePage() {
-  const { resource } = useLoaderData() as { resource: DataUsePageFragment };
+  const { data, errors } = useLoaderData() as ResourceLoaderResult<DataUsePageFragment>;
+  useNotifyOfPartialDataIfErrors(errors);
+  const { resource } = data;
   const location = useLocation();
 
   return (

@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "オカレンスの分類学的分布",
   "noCitations": "引用はまだありません",
-  "noOccurrences": "オカレンスデータがありません"
+  "noOccurrences": "オカレンスデータがありません",
+  "eventWarning": ""
 }

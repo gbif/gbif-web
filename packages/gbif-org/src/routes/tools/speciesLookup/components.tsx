@@ -25,7 +25,7 @@ export function TaxonLink({ usageKey, name }: { usageKey?: string; name?: string
   if (!name) return null;
   if (!usageKey) return <>{name}</>;
   return (
-    <a href={`/species/${usageKey}`} className="g-text-primary-500 hover:g-underline">
+    <a href={`/taxon/${usageKey}`} className="g-text-primary-500 hover:g-underline">
       {name}
     </a>
   );
@@ -46,7 +46,7 @@ export function ClassificationPath({
         <span key={`${c.key}-${i}`}>
           {i > 0 && <span className="g-text-slate-300"> › </span>}
           <a
-            href={`/species/${c.key}`}
+            href={`/taxon/${c.key}`}
             className="g-text-slate-600 hover:g-text-primary-500 hover:g-underline"
             title={c.rank}
           >

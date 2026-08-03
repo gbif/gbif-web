@@ -35,6 +35,7 @@ import { createContext, useContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
 import { ErrorMessage } from '@/components/errorMessage';
@@ -233,9 +234,6 @@ const DATASET_QUERY = /* GraphQL */ `
           communityName
         }
       }
-      gridded {
-        percent
-      }
       networks(visibleOnDatasetPage: true) {
         key
         title
@@ -346,6 +344,8 @@ export function DatasetPage() {
   const dataset = data.dataset;
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
+  // When the author list is too long, show the first few names then "et al." (citation convention).
+  const abbreviatedAuthorCount = 3;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
   const siteOccurrencePredicate = config?.occurrenceSearch?.scope;
 
@@ -387,7 +387,7 @@ export function DatasetPage() {
     dataset.type === DatasetType.SamplingEvent &&
     import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
   const showEventsTab = config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents);
-  const occurrenceCountOrZero = occData?.occurrenceSearch?.documents?.total || 0;
+  const occurrenceCount = occData?.occurrenceSearch?.documents?.total;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
@@ -621,20 +621,29 @@ export function DatasetPage() {
             <HeaderInfo>
               <HeaderInfoMain>
                 <FeatureList>
-                  {contactsCitation.length < contactThreshold && contactsCitation.length > 0 && (
+                  {contactsCitation.length > 0 && (
                     <GenericFeature>
                       <PeopleIcon />
-                      <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
+                      {/* Relative '.' resolves to the About tab (works from any tab and in the
+                          drawer's memory router); HashLink waits for #contacts before scrolling. */}
+                      <HashLink
+                        to={{ pathname: '.', hash: 'contacts' }}
+                        className="g-text-inherit hover:g-underline"
+                      >
+                        {contactsCitation.length < contactThreshold ? (
+                          <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
+                        ) : (
+                          <span>
+                            {contactsCitation
+                              .slice(0, abbreviatedAuthorCount)
+                              .map((c) => c.abbreviatedName)
+                              .join(' • ')}{' '}
+                            <span className="g-italic g-text-slate-500">et al.</span>
+                          </span>
+                        )}
+                      </HashLink>
                     </GenericFeature>
                   )}
-                  {/* It would be good to show this with a link to the contacts, but how to do that so it also works on e.g. the metrics tab? */}
-                  {/* https://github.com/gbif/gbif-web/issues/1360 */}
-                  {/* {contactsCitation.length >= contactThreshold && (
-                    <FormattedMessage
-                      id="counts.nAuthors"
-                      values={{ total: contactsCitation.length }}
-                    />
-                  )} */}
                   {dataset.homepage && <Homepage url={dataset.homepage} />}
                   <GenericFeature>
                     <LicenceTag value={dataset.license} />
@@ -661,7 +670,7 @@ export function DatasetPage() {
                     </DynamicLink>
                   </Button>
                 )}
-                {(occurrenceCountOrZero > 0 || dataset.type === 'OCCURRENCE') && (
+                {(occurrenceCount > 0 || dataset.type === 'OCCURRENCE') && (
                   <Button className="g-py-1 g-px-2 g-h-[2rem]" asChild isLoading={loading}>
                     <DynamicLink
                       to="occurrenceSearch"
@@ -669,10 +678,15 @@ export function DatasetPage() {
                       searchParams={{ datasetKey: dataset.key }}
                     >
                       <span className="g-whitespace-nowrap">
-                        <FormattedMessage
-                          id="counts.nOccurrences"
-                          values={{ total: occurrenceCountOrZero }}
-                        />
+                        {Number.isSafeInteger(occurrenceCount) && (
+                          <FormattedMessage
+                            id="counts.nOccurrences"
+                            values={{ total: occurrenceCount }}
+                          />
+                        )}
+                        {!Number.isSafeInteger(occurrenceCount) && (
+                          <FormattedMessage id="catalogues.occurrences" />
+                        )}
                       </span>
                     </DynamicLink>
                   </Button>

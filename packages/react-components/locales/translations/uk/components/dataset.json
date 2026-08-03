@@ -195,5 +195,6 @@
   },
   "eventTaxonomy": "Розподіл знахідок за таксонами",
   "noCitations": "",
-  "noOccurrences": "Відсутні знахідки"
+  "noOccurrences": "Відсутні знахідки",
+  "eventWarning": ""
 }

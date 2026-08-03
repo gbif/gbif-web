@@ -95,6 +95,11 @@ export default function ExtensionsSelector({
     [intl]
   );
 
+  const extensionsWithRecords = useMemo(
+    () => sortedExtensions.filter((extension) => (countsByExtension.get(extension) ?? 0) > 0),
+    [sortedExtensions, countsByExtension]
+  );
+
   const toggleExtension = (extensionUrl: string) => {
     const newExtensions = selectedExtensions.includes(extensionUrl)
       ? selectedExtensions.filter((url) => url !== extensionUrl)
@@ -128,7 +133,7 @@ export default function ExtensionsSelector({
       <div className="g-flex g-gap-2 g-mb-4">
         <Button
           size="sm"
-          onClick={() => onChange(sortedExtensions)}
+          onClick={() => onChange(countsLoaded ? extensionsWithRecords : sortedExtensions)}
           variant="default"
           type="button"
         >

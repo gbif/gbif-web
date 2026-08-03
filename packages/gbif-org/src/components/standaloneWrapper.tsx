@@ -1,6 +1,7 @@
 import { Config, PageConfig } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { PageContext } from '@/reactRouterPlugins/applyPagePaths/plugin';
+import { PORTAL_CONTAINER_SELECTOR, PortalContainerContext } from '@/utils/getPortalContainer';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
@@ -45,14 +46,22 @@ export function StandaloneWrapper({ routes, url, loadingElement, config }: Props
         routerRef.current = createMemoryRouter(routesWithPlugins);
         setRouterIsReady(true);
 
+        // React context does not cross the createRoot boundary, so the enclosing
+        // drawer/dialog's portal container must be re-provided inside the new root.
+        // Resolved from the live DOM here since the host tree's context value may
+        // not be published yet when this effect captures its closure.
+        const portalContainer = ref.current.closest<HTMLElement>(PORTAL_CONTAINER_SELECTOR);
+
         rootRef.current.render(
-          <ParentPagesContext.Provider
-            value={parentPages.map((page) => ({ ...page, isCustom: true }))}
-          >
-            <StandaloneRoot config={config}>
-              <RouterProvider router={routerRef.current} />
-            </StandaloneRoot>
-          </ParentPagesContext.Provider>
+          <PortalContainerContext.Provider value={portalContainer}>
+            <ParentPagesContext.Provider
+              value={parentPages.map((page) => ({ ...page, isCustom: true }))}
+            >
+              <StandaloneRoot config={config}>
+                <RouterProvider router={routerRef.current} />
+              </StandaloneRoot>
+            </ParentPagesContext.Provider>
+          </PortalContainerContext.Provider>
         );
       }
     });

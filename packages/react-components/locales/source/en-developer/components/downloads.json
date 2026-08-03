@@ -78,6 +78,7 @@
     "usedChecklistKey": "{checklistName} was used to populate the taxonomic columns in the download",
     "predicate": {
       "checklist": "Checklist",
+      "tooManyLabelResolutions": "Showing this query in a readable form would require {count} label lookups, exceeding the limit of {max}. To reduce load on our services, it is shown as raw JSON instead.",
       "joinDescriptions": {
         "and": "All must apply",
         "or": "At least one must apply",

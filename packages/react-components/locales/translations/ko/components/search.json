@@ -91,6 +91,8 @@
       "occurrenceSearch": "",
       "resourceSearch": ""
     },
-    "seeAll": "모두 보기"
+    "seeAll": "모두 보기",
+    "searchFor": "",
+    "noResults": ""
   }
 }
