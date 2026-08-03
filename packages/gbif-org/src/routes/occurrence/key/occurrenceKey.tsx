@@ -31,6 +31,7 @@ import {
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
+import { useTaxonLinks } from '@/hooks/useTaxonLinks';
 import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -50,6 +51,7 @@ import { IssueTag, IssueTags } from './properties';
 import PageMetaData from '@/components/PageMetaData';
 import { notNull } from '@/utils/notNull';
 import { TaxonStubClassification } from '@/components/classification';
+import { EntityLinkPresentation } from '@/components/entityLink';
 import getTitleParts from './getTitle';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
@@ -156,6 +158,11 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       verbatimScientificName
       classification(checklistKey: $defaultChecklistKey) {
         checklistKey
+        meta {
+          mainIndex {
+            clbDatasetKey
+          }
+        }
         usage {
           rank
           name
@@ -186,7 +193,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       classifications {
         meta {
           mainIndex {
-            datasetKey: clbDatasetKey
+            clbDatasetKey
             datasetTitle
           }
         }
@@ -474,6 +481,10 @@ export function OccurrenceKey() {
   const usageKey = occurrence.classification?.usage?.key;
   const acceptedUsage = occurrence.classification?.acceptedUsage;
   const isMatchedToSynonym = occurrence.classification?.taxonMatch?.synonym;
+  const taxonLinks = useTaxonLinks({
+    checklistKey: occurrence.classification?.checklistKey,
+    clbDatasetKey: occurrence.classification?.meta?.mainIndex?.clbDatasetKey,
+  });
 
   return (
     <>
@@ -548,16 +559,12 @@ export function OccurrenceKey() {
                     {state === 'MATCH_NO_ISSUES' &&
                       usageKey &&
                       occurrence.classification?.checklistKey && (
-                        <DynamicLink
-                          pageId="taxonKey"
+                        <EntityLinkPresentation
+                          link={taxonLinks.taxon(usageKey)}
                           className="hover:g-underline g-text-inherit"
-                          variables={{
-                            key: usageKey,
-                            datasetKey: occurrence.classification?.checklistKey,
-                          }}
                         >
                           <span dangerouslySetInnerHTML={{ __html: title }} dir="auto"></span>
-                        </DynamicLink>
+                        </EntityLinkPresentation>
                       )}
                     {(state === 'NO_MATCH' || state === 'MATCH_WITH_ISSUES') && (
                       <TooltipProvider>
@@ -620,6 +627,7 @@ export function OccurrenceKey() {
                               <TaxonomyIcon />
                               <TaxonStubClassification
                                 classification={occurrence.classification?.classification}
+                                getTaxonLink={taxonLinks.taxon}
                               />
                             </GenericFeature>
                           </div>
@@ -633,13 +641,9 @@ export function OccurrenceKey() {
                               {hasTaxonIssues && usageKey && (
                                 <>
                                   <span className="g-me-1">Matched to&nbsp;</span>
-                                  <DynamicLink
+                                  <EntityLinkPresentation
                                     className="g-underline"
-                                    pageId="taxonKey"
-                                    variables={{
-                                      key: usageKey,
-                                      datasetKey: occurrence.classification?.checklistKey,
-                                    }}
+                                    link={taxonLinks.taxon(usageKey)}
                                   >
                                     <span
                                       dangerouslySetInnerHTML={{
@@ -648,7 +652,7 @@ export function OccurrenceKey() {
                                             .formattedName || '',
                                       }}
                                     ></span>
-                                  </DynamicLink>
+                                  </EntityLinkPresentation>
                                 </>
                               )}
                               {!hasTaxonIssues &&
@@ -657,16 +661,12 @@ export function OccurrenceKey() {
                                 occurrence.classification?.checklistKey && (
                                   <>
                                     <span className="g-me-1">Accepted name&nbsp;</span>
-                                    <DynamicLink
+                                    <EntityLinkPresentation
                                       className="g-underline"
-                                      pageId="taxonKey"
-                                      variables={{
-                                        key: acceptedUsage.key,
-                                        datasetKey: occurrence.classification?.checklistKey,
-                                      }}
+                                      link={taxonLinks.taxon(acceptedUsage.key)}
                                     >
                                       {acceptedUsage?.name}
-                                    </DynamicLink>
+                                    </EntityLinkPresentation>
                                   </>
                                 )}
                             </GenericFeature>

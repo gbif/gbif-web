@@ -52,7 +52,6 @@ export const taxonomicStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'taxonomicStatus',
   displayName: TaxonStatusLabel,
-  options: taxonStatusOptions,
   filterTranslation: 'filters.taxonomicStatus.name',
   facetQuery: /* GraphQL */ `
     query TaxonStatusFacet($query: TaxonSearchInput) {
