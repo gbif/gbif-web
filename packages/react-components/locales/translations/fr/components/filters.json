@@ -326,32 +326,32 @@
     "description": "Le stade de vie de l'organisme."
   },
   "nucleotideSequenceTargetGene": {
-    "name": "",
-    "description": ""
+    "name": "Gène cible",
+    "description": "Le gène ou la région génétique ciblée par une séquence nucléotidique associée à l'occurrence (par exemple, COI, ITS2)."
   },
   "nucleotideSequenceSequenceLength": {
-    "name": "",
-    "description": ""
+    "name": "Longueur de la séquence",
+    "description": "La longueur, en paires de bases, d'une séquence nucléotidique (ADN ou ARN) associée à l'occurrence."
   },
   "nucleotideSequenceId": {
-    "name": "",
-    "description": "",
-    "search": "",
-    "uniqueSequences": "",
-    "similarityRange": "",
-    "similarityExact": "",
-    "invalid": "",
-    "tooLong": "",
-    "error": "",
-    "noMatches": "",
+    "name": "Similitude des séquences",
+    "description": "Collez une séquence nucléotidique pour trouver les occurrences dont les séquences associées lui sont similaires, regroupées par pourcentage d'identité.",
+    "search": "Trouver des résultats similaires",
+    "uniqueSequences": "{count, plural, one {# séquence distincte} other {# séquences distinctes}}",
+    "similarityRange": "{from} à {to} %",
+    "similarityExact": "{value} %",
+    "invalid": "La donnée saisie ne semble pas correspondre à une séquence nucléotidique valide.",
+    "tooLong": "La séquence est trop longue. La longueur maximale est de {max} bases.",
+    "error": "Impossible de rechercher des séquences similaires. Veuillez réessayer.",
+    "noMatches": "Aucune séquence similaire n'a été trouvée.",
     "bin": {
-      "100": "",
-      "99.5": "",
-      "99": "",
-      "98": "",
-      "97": "",
-      "96": "",
-      "95": ""
+      "100": "100 % (identique)",
+      "99.5": "99.5–100%",
+      "99": "99–99.5%",
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
     }
   },
   "recordedBy": {
