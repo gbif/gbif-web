@@ -38,6 +38,7 @@
     "record": "记录",
     "taxon": "分类群",
     "occurrence": "出现记录",
+    "nucleotideSequence": "",
     "organism": "生物",
     "materialEntity": "",
     "event": "活动",
