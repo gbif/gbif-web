@@ -20,10 +20,10 @@
     "e": "{from}m"
   },
   "compactBasePairs": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} bp à {to} bp",
+    "lt": "En dessous de {to} bp",
+    "gt": "Au dessus de {from} bp",
+    "e": "{from} bp"
   },
   "compactTime": {
     "between": "{from} à {to}",
