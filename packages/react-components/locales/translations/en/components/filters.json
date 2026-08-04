@@ -331,7 +331,7 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Sequence length",
-    "description": "The length, in base pairs, of a nucleotide sequence attached to the occurrence."
+    "description": "The length, in base pairs, of a nucleotide sequence (DNA or RNA)  attached to the occurrence."
   },
   "nucleotideSequenceId": {
     "name": "Sequence similarity",
@@ -340,8 +340,8 @@
     "uniqueSequences": "{count, plural, one {# distinct sequence} other {# distinct sequences}}",
     "similarityRange": "{from} to {to} %",
     "similarityExact": "{value} %",
-    "invalid": "That doesn't look like a valid nucleotide sequence.",
-    "tooLong": "That sequence is too long. The maximum is {max} bases.",
+    "invalid": "The input doesn't appear to be a valid nucleotide sequence.",
+    "tooLong": "The sequence is too long. The maximum is {max} bases.",
     "error": "Could not search for similar sequences. Please try again.",
     "noMatches": "No similar sequences found.",
     "bin": {
