@@ -38,6 +38,7 @@
     "record": "רשומה",
     "taxon": "טקסון",
     "occurrence": "תצפית",
+    "nucleotideSequence": "",
     "organism": "אורגניזם",
     "materialEntity": "יישות חומרית",
     "event": "אירוע",
