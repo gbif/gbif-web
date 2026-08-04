@@ -76,5 +76,12 @@
   "TAXON_CONCEPT_ID_NOT_FOUND": "Идентификатор концепции таксона не найден",
   "TAXON_ID_NOT_FOUND": "Идентификатор таксона не найден",
   "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Научное название и идентификатор не соответствуют друг другу",
-  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Нет однозначного совпадения названия и идентификатора таксона."
+  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Нет однозначного совпадения названия и идентификатора таксона.",
+  "NUCLEOTIDE_SEQUENCE_NATURAL_LANGUAGE": "Нуклеотидная последовательность содержит элементы естественного языка",
+  "NUCLEOTIDE_SEQUENCE_ENDS_TRIMMED": "Нуклеотидная последовательность обрезана",
+  "NUCLEOTIDE_SEQUENCE_GAPS_REMOVED": "Удалены зазоры в нуклеотидной последовательности",
+  "NUCLEOTIDE_SEQUENCE_INVALID": "Нуклеотидная последовательность неверная",
+  "NUCLEOTIDE_SEQUENCE_HIGH_N_FRACTION": "Нуклеотидная последовательность содержит большое число фракций N",
+  "NUCLEOTIDE_SEQUENCE_HIGH_AMBIGUITY": "Нуклеотидная последовательность маловероятна",
+  "TARGET_GENE_INVALID": "Целевой ген неверен"
 }
