@@ -20,10 +20,10 @@
     "e": "{from}м"
   },
   "compactBasePairs": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "От {from}базовых пар до {to} базовых пар",
+    "lt": "Менее {to} базовых пар",
+    "gt": "Более{from} базовых пар",
+    "e": "Начиная от{from} базовых пар"
   },
   "compactTime": {
     "between": "от {from} до {to}",
