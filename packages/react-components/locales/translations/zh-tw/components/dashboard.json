@@ -38,6 +38,7 @@
     "record": "紀錄",
     "taxon": "分類群",
     "occurrence": "出現",
+    "nucleotideSequence": "",
     "organism": "生物體",
     "materialEntity": "材料實體",
     "event": "活動",
