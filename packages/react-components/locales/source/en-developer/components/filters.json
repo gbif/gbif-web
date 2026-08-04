@@ -331,7 +331,7 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Sequence length",
-    "description": "The length, in base pairs, of a nucleotide sequence attached to the occurrence."
+    "description": "The length, in base pairs, of a nucleotide sequence (DNA or RNA)  attached to the occurrence."
   },
   "nucleotideSequenceId": {
     "name": "Sequence similarity",
