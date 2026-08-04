@@ -326,32 +326,32 @@
     "description": ""
   },
   "nucleotideSequenceTargetGene": {
-    "name": "",
-    "description": ""
+    "name": "Целевой ген",
+    "description": "Ген или зона целевых генов нуклеотидной последовательности, присоединенных к целевой(например, COI, ITS2)."
   },
   "nucleotideSequenceSequenceLength": {
-    "name": "",
-    "description": ""
+    "name": "Длина последовательности",
+    "description": "Длина  присоединенных базовых пар нуклеотидной последовательности (DNA или RNA)"
   },
   "nucleotideSequenceId": {
-    "name": "",
-    "description": "",
-    "search": "",
-    "uniqueSequences": "",
-    "similarityRange": "",
-    "similarityExact": "",
-    "invalid": "",
-    "tooLong": "",
-    "error": "",
-    "noMatches": "",
+    "name": "Сходство последовательностей",
+    "description": "Вставьте нуклеотидную последовательность для нахождения аналогичных, сгруппированных по процентной идентичности",
+    "search": "Найдите похожую",
+    "uniqueSequences": "{count, plural, one {# distinct sequence} few {# distinct sequences} many {# distinct sequences} other {# distinct sequences}}",
+    "similarityRange": "От{from} до {to} %",
+    "similarityExact": "Значение {value} %",
+    "invalid": "Похоже, ввод не является действительной нуклеотидной последовательностью.",
+    "tooLong": "Последовательность слишком длинная. Максимум её равен{max} баз.",
+    "error": "Не удаётся найти подобные последовательности. Попробуйте ещё раз.",
+    "noMatches": "Аналогичная последовательность не найдена.",
     "bin": {
-      "100": "",
-      "99.5": "",
+      "100": "100% (идентичная)",
+      "99.5": "99.5–100%",
       "99": "",
-      "98": "",
-      "97": "",
-      "96": "",
-      "95": ""
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
     }
   },
   "recordedBy": {
