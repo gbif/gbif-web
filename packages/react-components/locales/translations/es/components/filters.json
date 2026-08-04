@@ -325,6 +325,35 @@
     "name": "Estadío de desarrollo",
     "description": "La fase del ciclo de vida del organismo."
   },
+  "nucleotideSequenceTargetGene": {
+    "name": "Gen objetivo",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "uniqueSequences": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
   "recordedBy": {
     "name": "Registrado por",
     "description": "Los nombres de la persona, personas, grupos u organizaciones responsables de hacer el registro original."
