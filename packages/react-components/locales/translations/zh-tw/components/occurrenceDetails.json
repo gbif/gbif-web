@@ -39,6 +39,7 @@
   },
   "showMore": "顯示更多",
   "showLess": "顯示較少",
+  "searchSimilarSequences": "",
   "screenReader": {
     "title": "出現紀錄詳情"
   },
