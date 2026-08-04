@@ -33,6 +33,7 @@ import { WildcardFilter } from './wildcardFilter';
 import { HumboldtBooleansFilter } from './humboldtBooleansFilter';
 import { CustomPredicateFilter } from './customPredicateFilter';
 import { SequenceFilter } from './sequenceFilter/SequenceFilter';
+import { useSequenceResolution } from './sequenceFilter/sequenceResolutionContext';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -770,7 +771,7 @@ export type ContentOnApply = ({
 }) => void;
 
 export type FilterSetting = {
-  Button: React.FC<{ className?: string }>;
+  Button: React.FC<{ className?: string; pending?: boolean }>;
   Popover: React.FC<{ trigger: React.ReactNode }>;
   Content: React.FC<{
     onApply?: ContentOnApply;
@@ -833,7 +834,13 @@ export function generateFilter({
   popoverClassName?: string;
 }): FilterSetting {
   const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
-  let FilterButtonPopover = ({ className }: { className?: string }) => {
+  let FilterButtonPopover = ({
+    className,
+    pending,
+  }: {
+    className?: string;
+    pending?: boolean;
+  }) => {
     return (
       <PopoverFilter
         className={popoverClassName}
@@ -843,6 +850,7 @@ export function generateFilter({
             filterHandle={config.filterHandle}
             displayName={config.displayName}
             titleTranslationKey={config.filterTranslation}
+            pending={pending}
             {...config.filterButtonProps}
           />
         }
@@ -977,12 +985,20 @@ export function generateFilters({
       popoverClassName: 'g-w-[600px] g-max-w-[var(--radix-popper-available-width)]',
     });
   } else if (config.filterType === filterConfigTypes.SEQUENCE) {
-    return generateFilter({
+    const setting = generateFilter({
       config,
       formatMessage,
       Content: getSequenceFilter({ config: config as filterSequenceConfig, searchConfig }),
       popoverClassName: 'g-w-[500px] g-max-w-[var(--radix-popper-available-width)]',
     });
+    // Feed the chip a "resolving" flag so it shows a spinner while the pasted sequence is being
+    // resolved into nucleotideSequenceIDs (published by SequenceResolutionProvider).
+    const BaseButton = setting.Button;
+    setting.Button = ({ className }) => {
+      const { pending } = useSequenceResolution();
+      return <BaseButton className={className} pending={pending} />;
+    };
+    return setting;
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);
   }
