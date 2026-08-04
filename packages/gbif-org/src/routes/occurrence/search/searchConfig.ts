@@ -138,8 +138,7 @@ const config: FilterConfigType = {
     // The "similar sequences" filter persists only { sequence, selected } in the URL; the
     // matched nucleotideSequenceIDs are recomputed and injected (as `ids`) into the
     // in-memory filter value by useSequenceAugmentedFilter. The serializer turns those IDs
-    // into an `in` predicate on the nested field. While the sequence is still resolving
-    // (no `ids` yet) it emits nothing.
+    // into an `in` predicate on the nested field.
     nucleotideSequenceId: {
       serializer: ({ values }): Predicate | null => {
         const raw = values?.[0];
@@ -154,7 +153,21 @@ const config: FilterConfigType = {
         }
         if (!parsed || typeof parsed !== 'object') return null;
         const { ids } = parsed as { ids?: string[] };
-        if (!Array.isArray(ids) || ids.length === 0) return null;
+        // `ids` is absent (not an array) only while the sequence is still resolving — emit
+        // nothing so the result set isn't constrained before the matches are known.
+        if (!Array.isArray(ids)) return null;
+        // Resolved but empty: the selected similarity buckets contain no distinct sequences,
+        // so nothing can match. Emit an impossible-match predicate — an `in` on a sentinel ID
+        // that can never exist (real IDs are 32-char hex) — so the query returns zero
+        // occurrences instead of dropping the constraint and returning everything. (An empty
+        // `in` is not an option: the predicate API rejects it with "<values> may not be empty".)
+        if (ids.length === 0) {
+          return {
+            type: PredicateType.In,
+            key: 'nucleotideSequence.nucleotideSequenceID',
+            values: ['__no_matching_sequence__'],
+          };
+        }
         return {
           type: PredicateType.In,
           key: 'nucleotideSequence.nucleotideSequenceID',
