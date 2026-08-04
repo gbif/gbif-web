@@ -38,6 +38,7 @@
     "record": "Záznam",
     "taxon": "Taxon",
     "occurrence": "Výskyt",
+    "nucleotideSequence": "",
     "organism": "Organismus",
     "materialEntity": "Entita materiálu",
     "event": "Událost",
