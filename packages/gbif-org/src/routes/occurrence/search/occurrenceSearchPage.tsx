@@ -12,6 +12,7 @@ import {
   stripSequenceFilterIds,
   useSequenceAugmentedFilter,
 } from '@/components/filters/sequenceFilter/useSequenceAugmentedFilter';
+import { SequenceResolutionProvider } from '@/components/filters/sequenceFilter/sequenceResolutionContext';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
@@ -42,7 +43,8 @@ export function OccurrenceSearchPage(): React.ReactElement {
   // The "Similar sequences" filter stores only the sequence + selected bins in the URL;
   // resolve the matched nucleotideSequenceIDs into the in-memory filter (so the predicate
   // can be built) and strip them again before persisting back to the URL.
-  const augmentedFilter = useSequenceAugmentedFilter(filter);
+  const { filter: augmentedFilter, sequenceResolutionPending } =
+    useSequenceAugmentedFilter(filter);
   const persistFilter = useCallback(
     (next: FilterType) => setFilter(stripSequenceFilterIds(next)),
     [setFilter]
@@ -64,7 +66,9 @@ export function OccurrenceSearchPage(): React.ReactElement {
 
       <SearchContextProvider searchContext={config.occurrenceSearch}>
         <FilterProvider filter={augmentedFilter} onChange={persistFilter}>
-          <OccurrenceSearchPageInner />
+          <SequenceResolutionProvider value={{ pending: sequenceResolutionPending }}>
+            <OccurrenceSearchPageInner />
+          </SequenceResolutionProvider>
         </FilterProvider>
       </SearchContextProvider>
     </>

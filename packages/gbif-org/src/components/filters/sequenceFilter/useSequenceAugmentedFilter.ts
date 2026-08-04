@@ -19,7 +19,10 @@ export const SEQUENCE_FILTER_HANDLE = 'nucleotideSequenceId';
  * The IDs live only in memory; `stripSequenceFilterIds` removes them before the filter is
  * written back to the URL.
  */
-export function useSequenceAugmentedFilter(filter: FilterType): FilterType {
+export function useSequenceAugmentedFilter(filter: FilterType): {
+  filter: FilterType;
+  sequenceResolutionPending: boolean;
+} {
   const config = useConfig();
   const webUtilsBase = import.meta.env.PUBLIC_WEB_UTILS;
   const [version, setVersion] = useState(0);
@@ -45,7 +48,7 @@ export function useSequenceAugmentedFilter(filter: FilterType): FilterType {
     };
   }, [sequence, config.v1Endpoint, webUtilsBase]);
 
-  return useMemo(() => {
+  const augmentedFilter = useMemo(() => {
     if (!sequence) return filter;
     const resolution = getCachedResolution(sequence);
     // cold / invalid / too long: no ids, predicate omitted
@@ -59,6 +62,19 @@ export function useSequenceAugmentedFilter(filter: FilterType): FilterType {
     // `version` bumps when resolution completes so the memo recomputes with the IDs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, sequence, selectedKey, version]);
+
+  // "Pending" = a sequence is set but its resolution isn't in the cache yet. `invalid` and
+  // `tooLong` are terminal (resolved) states, so they are not pending. Reading the cache here
+  // during render mirrors the memo above; `version` bumps on completion, re-running this and
+  // flipping the flag to false. Consumed by the filter chip to show a spinner while the
+  // sequence resolves into IDs.
+  const resolution = sequence ? getCachedResolution(sequence) : undefined;
+  const sequenceResolutionPending = Boolean(sequence) && !resolution;
+
+  return useMemo(
+    () => ({ filter: augmentedFilter, sequenceResolutionPending }),
+    [augmentedFilter, sequenceResolutionPending]
+  );
 }
 
 // Remove the in-memory `ids` before the filter is serialized to the URL, so the URL only
