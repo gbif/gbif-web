@@ -431,7 +431,7 @@
     "description": ""
   },
   "gbifRegion": {
-    "name": "",
+    "name": "GBIF-region",
     "description": ""
   },
   "publishedByGbifRegion": {
