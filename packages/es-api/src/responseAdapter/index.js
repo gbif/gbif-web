@@ -2,12 +2,16 @@ const _ = require('lodash');
 const { REVERSE_NESTED_AGG_KEY } = require('../requestAdapter/aggregations/metric2aggs');
 
 function queryReducer({ body, size, from, metrics = {} }) {
-  // process aggregations that is nested due to being child/join
+  // Process aggregations wrapped due to being child/join, or a nested facet (optionally with an
+  // inner `filter` for correlation). Peel wrapper aggs that were re-keyed to the metric name
+  // until we reach the terms/stats result. Stops at the first level that has `buckets`, so it
+  // never descends into buckets — safe for the existing single-layer nested facets too.
   Object.keys(metrics).forEach((metricKey) => {
     let metricResult = body.aggregations[metricKey];
-    if (!metricResult.buckets && metricResult[metricKey]) {
-      body.aggregations[metricKey] = metricResult[metricKey];
+    while (metricResult && !metricResult.buckets && metricResult[metricKey]) {
+      metricResult = metricResult[metricKey];
     }
+    if (metricResult) body.aggregations[metricKey] = metricResult;
   });
 
   // For facets on nested objects (dot-notation keys, e.g. nucleotideSequence.targetGene)

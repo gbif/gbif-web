@@ -89,8 +89,8 @@ const getFacet =
  *   true/false). Omit for keyword/numeric fields.
  */
 const getNestedFacet =
-  (nestedKey, childKey, getSearchFunction, valueType) =>
-  (parent, { size = 10, from = 0, include }, { dataSources }) => {
+  (nestedKey, childKey, getSearchFunction, valueType, correlateByField) =>
+  (parent, { size = 10, from = 0, include, sequenceIds }, { dataSources }) => {
     const searchApi = getSearchFunction(dataSources);
     const key = `${nestedKey}.${childKey}`;
     const query = {
@@ -107,6 +107,13 @@ const getNestedFacet =
           // nucleotideSequenceIDs returned by a vsearch similarity search). es-api
           // forwards this to the inner terms agg inside the nested aggregation.
           include,
+          // Correlate the facet to specific nested documents by a sibling field (e.g. count
+          // targetGene only for the sequence IDs matched by the "Similar sequences" filter,
+          // instead of every gene present on the matched occurrences). es-api wraps the inner
+          // aggregation in a `filter` on `${nestedKey}.${correlateByField}`.
+          ...(correlateByField && Array.isArray(sequenceIds) && sequenceIds.length > 0
+            ? { nestedFilter: { key: correlateByField, values: sequenceIds } }
+            : {}),
         },
       },
     };

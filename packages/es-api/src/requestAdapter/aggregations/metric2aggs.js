@@ -21,7 +21,7 @@ function metric2aggs(metrics = {}, config) {
       const childKey = metric.key.slice(separatorIndex + 1);
       const parentConf = _.get(config, `options[${parentKey}]`);
       if (parentConf && parentConf.type === 'nested') {
-        const innerAggs = metric2aggs(
+        let innerAggs = metric2aggs(
           { [name]: { ...metric, key: childKey } },
           prefixNestedConfig(parentConf),
         );
@@ -32,6 +32,27 @@ function metric2aggs(metrics = {}, config) {
           innerAggs[name].aggs = {
             ...(innerAggs[name].aggs || {}),
             [REVERSE_NESTED_AGG_KEY]: { reverse_nested: {} },
+          };
+        }
+        // Optionally correlate the facet to specific nested documents (a sibling `terms`
+        // filter), e.g. the sequence IDs matched by the "Similar sequences" filter. Without
+        // this, a facet on e.g. targetGene counts every gene present on the matched
+        // occurrences (any nested doc), not just the matched sequences' own gene. Re-keyed to
+        // `name` so the response adapter peels this `filter` layer like the `nested` one.
+        const nestedFilter = metric.nestedFilter;
+        if (
+          nestedFilter &&
+          typeof nestedFilter.key === 'string' &&
+          Array.isArray(nestedFilter.values) &&
+          nestedFilter.values.length > 0
+        ) {
+          innerAggs = {
+            [name]: {
+              filter: {
+                terms: { [`${parentConf.field}.${nestedFilter.key}`]: nestedFilter.values },
+              },
+              aggs: innerAggs,
+            },
           };
         }
         aggs[name] = {

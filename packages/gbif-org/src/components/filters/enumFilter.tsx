@@ -6,7 +6,7 @@ import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import cloneDeep from 'lodash/cloneDeep';
 import hash from 'object-hash';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import {
   MdDeleteOutline,
   MdOutlineRemoveCircle,
@@ -49,6 +49,7 @@ export const EnumFilter = React.forwardRef(
       about,
       allowNegations,
       allowExistence,
+      extraFacetVariables,
     }: EnumProps,
     ref
   ) => {
@@ -93,18 +94,28 @@ export const EnumFilter = React.forwardRef(
       }
     }, [filterSummary]);
 
+    // Extra facet variables derived from the current filter (e.g. the "Similar sequences"
+    // matched IDs for the targetGene facet). Merged into both facet queries so the option list
+    // and the counts correlate to those sequences. `filterHash` changes whenever the filter
+    // does (including when the in-memory sequence IDs are injected), so this stays fresh.
+    const extraFacetVars = useMemo(
+      () => (extraFacetVariables ? extraFacetVariables(filter) : undefined),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [extraFacetVariables, filterHash]
+    );
+
     useEffect(() => {
       // if no enums are provided, then get facet values from API using no filters. This will provide is with the possible values for that field.
       // TODO this should be changed to take into account the scope defined at site level
       if (!enumOptions && facetQuery) {
         const query = getAsQuery({ filter: {}, searchContext, searchConfig });
         if (searchContext.queryType === 'V1') {
-          noFilterFacetLoad({ variables: { query: query } });
+          noFilterFacetLoad({ variables: { query: query, ...extraFacetVars } });
         } else {
-          noFilterFacetLoad({ variables: query });
+          noFilterFacetLoad({ variables: { ...query, ...extraFacetVars } });
         }
       }
-    }, [enumOptions, facetQuery, noFilterFacetLoad, searchContext, searchConfig]);
+    }, [enumOptions, facetQuery, noFilterFacetLoad, searchContext, searchConfig, extraFacetVars]);
 
     useEffect(() => {
       if (!facetQuery) return;
@@ -115,11 +126,19 @@ export const EnumFilter = React.forwardRef(
 
       const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
       if (searchContext.queryType === 'V1') {
-        facetLoad({ variables: { query: query } });
+        facetLoad({ variables: { query: query, ...extraFacetVars } });
       } else {
-        facetLoad({ variables: query });
+        facetLoad({ variables: { ...query, ...extraFacetVars } });
       }
-    }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
+    }, [
+      facetQuery,
+      filterBeforeHash,
+      facetLoad,
+      searchContext,
+      searchConfig,
+      filterHandle,
+      extraFacetVars,
+    ]);
 
     useEffect(() => {
       const selectedList = filter?.must?.[filterHandle] ?? filter?.mustNot?.[filterHandle] ?? [];

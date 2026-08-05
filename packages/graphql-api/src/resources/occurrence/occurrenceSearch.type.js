@@ -372,6 +372,12 @@ const typeDef = gql`
     nucleotideSequenceTargetGene(
       size: Int
       from: Int
+      """
+      Restrict the facet to the target genes of a specific set of nucleotideSequenceIDs (e.g.
+      those matched by the "Similar sequences" filter), so counts reflect only those sequences'
+      genes rather than every gene present on the matched occurrences.
+      """
+      sequenceIds: [String]
     ): [OccurrenceFacetResult_string]
     """
     Facet on whether attached nucleotide sequences were flagged invalid. Counts are the

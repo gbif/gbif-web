@@ -124,6 +124,10 @@ export type filterEnumConfig = filterConfigShared & {
   options?: string[];
   allowExistence?: boolean;
   allowNegations?: boolean;
+  // Extra GraphQL variables to merge into the facet queries, derived from the current filter.
+  // Used e.g. by the targetGene facet to pass the "Similar sequences" matched IDs so the facet
+  // correlates to those sequences. Returns {} when nothing extra is needed.
+  extraFacetVariables?: (filter: FilterType) => Record<string, unknown>;
 };
 
 export type filterRangeConfig = filterConfigShared & {
@@ -446,6 +450,7 @@ const getEnumFilter = ({
           displayName={config.displayName}
           allowExistence={config.allowExistence}
           allowNegations={config.allowNegations}
+          extraFacetVariables={config.extraFacetVariables}
           searchConfig={searchConfig}
           about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}

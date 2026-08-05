@@ -188,6 +188,11 @@ OccurrenceFacet.nucleotideSequenceTargetGene = getNestedFacet(
   'nucleotideSequence',
   'targetGene',
   getSourceSearch,
+  undefined,
+  // Correlate this facet to matched sequence IDs (the `sequenceIds` arg) so that, under the
+  // "Similar sequences" filter, it counts only the matched sequences' own gene(s) rather than
+  // every gene on the matched occurrences.
+  'nucleotideSequenceID',
 );
 OccurrenceFacet.nucleotideSequenceInvalid = getNestedFacet(
   'nucleotideSequence',
