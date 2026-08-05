@@ -78,12 +78,14 @@ export const EnumFilter = React.forwardRef(
       lazyLoad: true,
     });
 
-    const { data: noFilterFacetData, load: noFilterFacetLoad } = useQuery<FacetQuery, unknown>(
-      facetQuery ?? '',
-      {
-        lazyLoad: true,
-      }
-    );
+    const {
+      data: noFilterFacetData,
+      loading: noFilterFacetLoading,
+      error: noFilterFacetError,
+      load: noFilterFacetLoad,
+    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
+      lazyLoad: true,
+    });
 
     // watch filter summary and update filter type
     useEffect(() => {
@@ -275,7 +277,19 @@ export const EnumFilter = React.forwardRef(
       );
     }
 
-    const loading = facetLoading || (!facetSuggestions && !!facetQuery);
+    // The counts come from `facetData`, but when options are sourced from the facet (no static
+    // enumOptions) the option list comes from the separate no-filter query. `useQuery` clears
+    // its data on every (re)load and the two queries settle independently, so the loading
+    // booleans alone leave gaps where nothing is shown. Gate the skeleton on the option list
+    // actually being present too — so it stays up until the checkboxes are ready. (An error
+    // takes precedence in AsyncOptions, so this can't spin forever on a failed facet.)
+    const facetOptionsNotReady =
+      !enumOptions && !!facetQuery && !noFilterFacetData?.search?.facet?.field;
+    const loading =
+      facetLoading ||
+      noFilterFacetLoading ||
+      facetOptionsNotReady ||
+      (!facetSuggestions && !!facetQuery);
 
     return (
       <div
@@ -322,7 +336,11 @@ export const EnumFilter = React.forwardRef(
 
             {/* Handle the case where all the options are loaded via facets from the API */}
             {!enumOptions && (
-              <AsyncOptions loading={loading} error={facetError} className="g-p-2 g-pt-2 g-px-4">
+              <AsyncOptions
+                loading={loading}
+                error={facetError ?? noFilterFacetError}
+                className="g-p-2 g-pt-2 g-px-4"
+              >
                 <div role="group" className="g-text-base sm:g-text-sm g-p-2 g-pt-2 g-px-4">
                   {valueOptions &&
                     valueOptions.map((x, i) => {
