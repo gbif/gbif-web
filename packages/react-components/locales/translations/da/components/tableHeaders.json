@@ -1,19 +1,19 @@
 {
-  "features": "",
+  "features": "Egenskaber",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Inkluder forfatterskab"
   },
-  "citations": "",
+  "citations": "Citationer",
   "occurrences": "Observationer",
-  "numberSpecimens": "",
-  "gbifNumberSpecimens": "",
+  "numberSpecimens": "Antal genstande",
+  "gbifNumberSpecimens": "Genstande i GBIF",
   "specimenTriplet": "",
   "title": "Titel",
-  "titleAndAbstract": "",
+  "titleAndAbstract": "Titel og resumé",
   "altmetric": "",
   "registered": "Registreret",
   "hostedDatasets": "",
-  "pubDatasets": "",
+  "pubDatasets": "Offentliggjorte datasæt",
   "commonName": "",
   "images": "Multimedier",
   "species": "Antal arter",
