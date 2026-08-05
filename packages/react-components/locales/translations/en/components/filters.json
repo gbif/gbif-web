@@ -325,6 +325,35 @@
     "name": "Life stage",
     "description": "The life stage of the organism."
   },
+  "nucleotideSequenceTargetGene": {
+    "name": "Target gene",
+    "description": "The gene or gene region targeted by a nucleotide sequence attached to the occurrence (e.g. COI, ITS2)."
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "Sequence length",
+    "description": "The length, in base pairs, of a nucleotide sequence (DNA or RNA)  attached to the occurrence."
+  },
+  "nucleotideSequenceId": {
+    "name": "Sequence similarity",
+    "description": "Paste a nucleotide sequence to find occurrences whose attached sequences are similar to it, grouped by percent identity.",
+    "search": "Find similar",
+    "uniqueSequences": "{count, plural, one {# distinct sequence} other {# distinct sequences}}",
+    "similarityRange": "{from} to {to} %",
+    "similarityExact": "{value} %",
+    "invalid": "The input doesn't appear to be a valid nucleotide sequence.",
+    "tooLong": "The sequence is too long. The maximum is {max} bases.",
+    "error": "Could not search for similar sequences. Please try again.",
+    "noMatches": "No similar sequences found.",
+    "bin": {
+      "100": "100% (identical)",
+      "99.5": "99.5–100%",
+      "99": "99–99.5%",
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
+    }
+  },
   "recordedBy": {
     "name": "Recorded by",
     "description": "The names of the person, people, groups or organizations responsible for recording the original occurrence."
