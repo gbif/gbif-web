@@ -16,7 +16,7 @@
     "description": ""
   },
   "collectionKey": {
-    "name": "",
+    "name": "Samling",
     "description": ""
   },
   "predicate": {
@@ -24,7 +24,7 @@
     "description": ""
   },
   "taxonomicStatus": {
-    "name": "",
+    "name": "Status",
     "description": ""
   },
   "taxonRank": {
@@ -48,14 +48,14 @@
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderDist": "Afstand"
   },
   "geometry": {
     "name": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderDist": "Afstand"
   },
   "relevance": {
     "name": "Relevans",
