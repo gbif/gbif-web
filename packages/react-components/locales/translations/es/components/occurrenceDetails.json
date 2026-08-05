@@ -39,7 +39,7 @@
   },
   "showMore": "Mostrar más",
   "showLess": "Mostrar menos",
-  "searchSimilarSequences": "",
+  "searchSimilarSequences": "Buscar coincidencias con secuencias similares",
   "screenReader": {
     "title": "Detalles del registro biológico"
   },
