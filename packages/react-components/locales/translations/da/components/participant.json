@@ -28,11 +28,11 @@
             "undefined": "Ukendt"
           },
           "longForm": {
-            "VOTING": "Stemmende participant organisation",
-            "ASSOCIATE": "Associeret participant organisation",
-            "OBSERVER": "Observerende participant organisation",
-            "AFFILIATE": "Affilieret participant organisation",
-            "FORMER": "Tidligere participant organisation",
+            "VOTING": "Stemmende medlemsorganisation",
+            "ASSOCIATE": "Associeret medlemsorganisation",
+            "OBSERVER": "Observerende medlemsorganisation",
+            "AFFILIATE": "Affilieret medlemsorganisation",
+            "FORMER": "Tidligere medlemsorganisation",
             "undefined": "Ukendt"
           }
         }
