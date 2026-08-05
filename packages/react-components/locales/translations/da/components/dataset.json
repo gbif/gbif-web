@@ -1,5 +1,5 @@
 {
-  "datasetSearchTitle": "",
+  "datasetSearchTitle": "Datasætsøgning",
   "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Observationsdatasæt",
@@ -33,7 +33,7 @@
       "geographic": "",
       "temporal": "Tidsrum",
       "qualities": "",
-      "citations": ""
+      "citations": "Citationer"
     },
     "checklist": {
       "info": "",
