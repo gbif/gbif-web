@@ -335,7 +335,7 @@
   },
   "nucleotideSequenceId": {
     "name": "Sequence similarity",
-    "description": "Paste a nucleotide sequence (DNA or RNA) to find occurrences whose attached sequences are similar to it, grouped by percent identity.",
+    "description": "Input a nucleotide sequence (DNA or RNA) to find occurrences with attached sequences similar to it; results shown grouped by percent match.",
     "search": "Find similar",
     "uniqueSequences": "{count, plural, one {# distinct sequence} other {# distinct sequences}}",
     "similarityRange": "{from} to {to} %",
