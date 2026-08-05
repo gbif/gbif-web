@@ -20,10 +20,10 @@
     "e": "{from}m"
   },
   "compactBasePairs": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} pb a {to} pb",
+    "lt": "Por debajo de {to} pb",
+    "gt": "Por encima de los {from} pb",
+    "e": "{from} pb"
   },
   "compactTime": {
     "between": "de {from} a {to}",
