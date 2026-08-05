@@ -68,7 +68,7 @@
       },
       "tableValues": {
         "ifAvailable": "",
-        "ifSelected": "",
+        "ifSelected": "hvis valgt",
         "links": ""
       }
     },
