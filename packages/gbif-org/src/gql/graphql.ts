@@ -2437,6 +2437,7 @@ export type Download = {
 export enum DownloadFormat {
   Bionomia = 'BIONOMIA',
   Dwca = 'DWCA',
+  FastaArchive = 'FASTA_ARCHIVE',
   MapOfLife = 'MAP_OF_LIFE',
   SimpleAvro = 'SIMPLE_AVRO',
   SimpleCsv = 'SIMPLE_CSV',
@@ -4887,7 +4888,9 @@ export type MenuItem = {
 };
 
 export enum MetadataType {
+  ColDp = 'COL_DP',
   Dc = 'DC',
+  DwcDp = 'DWC_DP',
   Eml = 'EML'
 }
 
@@ -7140,6 +7143,7 @@ export enum OccurrenceIssue {
   DepthNotMetric = 'DEPTH_NOT_METRIC',
   DepthUnlikely = 'DEPTH_UNLIKELY',
   DifferentOwnerInstitution = 'DIFFERENT_OWNER_INSTITUTION',
+  DuplicateNucleotideSequencesCollapsed = 'DUPLICATE_NUCLEOTIDE_SEQUENCES_COLLAPSED',
   ElevationMinMaxSwapped = 'ELEVATION_MIN_MAX_SWAPPED',
   ElevationNonNumeric = 'ELEVATION_NON_NUMERIC',
   ElevationNotMetric = 'ELEVATION_NOT_METRIC',
@@ -7174,9 +7178,16 @@ export enum OccurrenceIssue {
   ModifiedDateUnlikely = 'MODIFIED_DATE_UNLIKELY',
   MultimediaDateInvalid = 'MULTIMEDIA_DATE_INVALID',
   MultimediaUriInvalid = 'MULTIMEDIA_URI_INVALID',
+  NucleotideSequenceEndsTrimmed = 'NUCLEOTIDE_SEQUENCE_ENDS_TRIMMED',
+  NucleotideSequenceGapsRemoved = 'NUCLEOTIDE_SEQUENCE_GAPS_REMOVED',
+  NucleotideSequenceHighAmbiguity = 'NUCLEOTIDE_SEQUENCE_HIGH_AMBIGUITY',
+  NucleotideSequenceHighNFraction = 'NUCLEOTIDE_SEQUENCE_HIGH_N_FRACTION',
+  NucleotideSequenceInvalid = 'NUCLEOTIDE_SEQUENCE_INVALID',
+  NucleotideSequenceNaturalLanguage = 'NUCLEOTIDE_SEQUENCE_NATURAL_LANGUAGE',
   OccurrenceStatusInferredFromBasisOfRecord = 'OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD',
   OccurrenceStatusInferredFromIndividualCount = 'OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT',
   OccurrenceStatusUnparsable = 'OCCURRENCE_STATUS_UNPARSABLE',
+  ParentEventInfiniteLineage = 'PARENT_EVENT_INFINITE_LINEAGE',
   PeriodOrSystemAndEpochOrSeriesMismatch = 'PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH',
   PeriodOrSystemInferredFromParentRank = 'PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK',
   PeriodOrSystemInvalidRange = 'PERIOD_OR_SYSTEM_INVALID_RANGE',
@@ -7192,6 +7203,7 @@ export enum OccurrenceIssue {
   ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
   ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
   SuspectedType = 'SUSPECTED_TYPE',
+  TargetGeneInvalid = 'TARGET_GENE_INVALID',
   TaxonConceptIdNotFound = 'TAXON_CONCEPT_ID_NOT_FOUND',
   TaxonIdNotFound = 'TAXON_ID_NOT_FOUND',
   TaxonMatchAggregate = 'TAXON_MATCH_AGGREGATE',
@@ -8895,12 +8907,15 @@ export enum StepRunner {
 export enum StepType {
   AbcdToVerbatim = 'ABCD_TO_VERBATIM',
   DwcaToVerbatim = 'DWCA_TO_VERBATIM',
+  DwcdpStage = 'DWCDP_STAGE',
+  DwcdpToVerbatim = 'DWCDP_TO_VERBATIM',
   EventsHdfsView = 'EVENTS_HDFS_VIEW',
   EventsInterpretedToIndex = 'EVENTS_INTERPRETED_TO_INDEX',
   EventsVerbatimToInterpreted = 'EVENTS_VERBATIM_TO_INTERPRETED',
   Fragmenter = 'FRAGMENTER',
   HdfsView = 'HDFS_VIEW',
   InterpretedToIndex = 'INTERPRETED_TO_INDEX',
+  NfsToHdfs = 'NFS_TO_HDFS',
   ToVerbatim = 'TO_VERBATIM',
   ValidatorAbcdToVerbatim = 'VALIDATOR_ABCD_TO_VERBATIM',
   ValidatorCollectMetrics = 'VALIDATOR_COLLECT_METRICS',

@@ -137,6 +137,7 @@ export function Group({
   description,
   id,
   className,
+  titleExtra,
   ...props
 }: {
   label: string;
@@ -145,13 +146,24 @@ export function Group({
   description?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  // Optional content rendered next to the group title (e.g. issue/flag tags for the block).
+  titleExtra?: React.ReactNode;
 }) {
   return (
     <Card className={cn('g-mb-4', className)} id={id}>
       <CardHeader>
-        <CardTitle>
-          <FormattedMessage id={label} defaultMessage={defaultMessage} />
-        </CardTitle>
+        {titleExtra ? (
+          <div className="g-flex g-items-center g-justify-between g-gap-2 g-flex-wrap">
+            <CardTitle>
+              <FormattedMessage id={label} defaultMessage={defaultMessage} />
+            </CardTitle>
+            <div className="g-flex-none">{titleExtra}</div>
+          </div>
+        ) : (
+          <CardTitle>
+            <FormattedMessage id={label} defaultMessage={defaultMessage} />
+          </CardTitle>
+        )}
         {description && <CardDescription dir="auto">{description}</CardDescription>}
       </CardHeader>
       <CardContent {...props}>{children}</CardContent>

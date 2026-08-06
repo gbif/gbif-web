@@ -824,6 +824,62 @@
     ]
   },
   {
+    "id": "NUCLEOTIDE_SEQUENCE_NATURAL_LANGUAGE",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.gbif.org/terms/dna_sequence"
+    ]
+  },
+  {
+    "id": "NUCLEOTIDE_SEQUENCE_ENDS_TRIMMED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.gbif.org/terms/dna_sequence"
+    ]
+  },
+  {
+    "id": "NUCLEOTIDE_SEQUENCE_GAPS_REMOVED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.gbif.org/terms/dna_sequence"
+    ]
+  },
+  {
+    "id": "NUCLEOTIDE_SEQUENCE_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.gbif.org/terms/dna_sequence"
+    ]
+  },
+  {
+    "id": "NUCLEOTIDE_SEQUENCE_HIGH_N_FRACTION",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.gbif.org/terms/dna_sequence"
+    ]
+  },
+  {
+    "id": "NUCLEOTIDE_SEQUENCE_HIGH_AMBIGUITY",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.gbif.org/terms/dna_sequence"
+    ]
+  },
+  {
+    "id": "TARGET_GENE_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "https://w3id.org/mixs/0000044"
+    ]
+  },
+  {
+    "id": "PARENT_EVENT_INFINITE_LINEAGE",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/parentEventID"
+    ]
+  },
+  {
     "id": "PARENT_NAME_USAGE_ID_INVALID",
     "severity": "ERROR",
     "relatedTerms": [
@@ -1085,8 +1141,8 @@
       "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/namePublishedInYear",
       "http://rs.tdwg.org/dwc/terms/parentNameUsage",
-      "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
-      "http://rs.tdwg.org/dwc/terms/scientificName"
+      "http://rs.tdwg.org/dwc/terms/scientificName",
+      "http://rs.tdwg.org/dwc/terms/parentNameUsageID"
     ]
   },
   {

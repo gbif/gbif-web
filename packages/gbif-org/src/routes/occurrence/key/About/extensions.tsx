@@ -11,6 +11,8 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { MdSearch } from 'react-icons/md';
 import { SEQUENCE_BIN_DEFS } from '@/utils/sequenceSearch';
+import { IssueTag, IssueTags } from '../properties';
+import { prettifyEnum } from '@/components/filters/displayNames';
 
 export function Preparation({
   occurrence,
@@ -164,6 +166,16 @@ export function DNADerivedData({
   updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'dnaDerivedData';
+  // Surface the sequence-quality flags for this record next to the block header. These issues
+  // relate to the DNA derived data, so they belong with this block rather than a generic field.
+  const dnaIssues =
+    occurrence?.issues?.filter(
+      (issue) => issue.startsWith('NUCLEOTIDE_SEQUENCE_') || issue === 'TARGET_GENE_INVALID'
+    ) ?? [];
+  // Always show NUCLEOTIDE_SEQUENCE_INVALID first when present; keep the rest in their order.
+  const nucleotideIssues = dnaIssues.includes('NUCLEOTIDE_SEQUENCE_INVALID')
+    ? ['NUCLEOTIDE_SEQUENCE_INVALID', ...dnaIssues.filter((i) => i !== 'NUCLEOTIDE_SEQUENCE_INVALID')]
+    : dnaIssues;
   return (
     <GenericExtension
       {...{
@@ -173,6 +185,20 @@ export function DNADerivedData({
           dna_sequence: ({ item }) => <DNASequence sequence={item['dna_sequence']} />,
         },
       }}
+      titleExtra={
+        nucleotideIssues.length > 0 ? (
+          <IssueTags>
+            {nucleotideIssues.map((issue) => (
+              <IssueTag type="WARNING" key={issue}>
+                <FormattedMessage
+                  id={`enums.occurrenceIssue.${issue}`}
+                  defaultMessage={prettifyEnum(issue) ?? ''}
+                />
+              </IssueTag>
+            ))}
+          </IssueTags>
+        ) : undefined
+      }
       label="occurrenceDetails.extensions.dnaDerivedData.name"
       id={extensionName}
       updateToc={updateToc}
@@ -478,6 +504,7 @@ function GenericExtension({
   extensionName,
   overwrites,
   updateToc,
+  titleExtra,
   ...props
 }: {
   occurrence: OccurrenceQuery['occurrence'];
@@ -486,6 +513,7 @@ function GenericExtension({
   label: string;
   id: string;
   updateToc?: (id: string, visible: boolean) => void;
+  titleExtra?: React.ReactNode;
 }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -503,7 +531,7 @@ function GenericExtension({
   }
 
   return (
-    <Group label={label} id={id} className="g-pt-0 md:g-pt-0" {...props}>
+    <Group label={label} id={id} titleExtra={titleExtra} className="g-pt-0 md:g-pt-0" {...props}>
       {list.length === 1 && (
         <GenericExtensionContent
           item={list[0]}
