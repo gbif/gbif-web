@@ -108,6 +108,12 @@ const preconfiguredCharts = {
       return <charts.NucleotideSequenceTargetGene predicate={predicate} interactive {...props} />;
     },
   },
+  sequencePhylogeny: {
+    translation: 'dashboard.sequencePhylogeny',
+    component: ({ predicate, ...props }) => {
+      return <charts.SequencePhylogeny predicate={predicate} {...props} />;
+    },
+  },
   nucleotideSequenceSequenceLength: {
     translation: 'filters.nucleotideSequenceSequenceLength.name',
     component: ({ predicate, ...props }) => {

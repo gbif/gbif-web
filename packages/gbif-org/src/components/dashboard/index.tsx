@@ -63,6 +63,7 @@ export const NucleotideSequenceLength = lazyChart('NucleotideSequenceLength');
 // stringCharts
 export const InstitutionCodes = lazyChart('InstitutionCodes');
 export const NucleotideSequenceTargetGene = lazyChart('NucleotideSequenceTargetGene');
+export const SequencePhylogeny = lazyChart('SequencePhylogeny');
 export const ProjectId = lazyChart('ProjectId');
 export const DatasetId = lazyChart('DatasetId');
 export const CollectionCodes = lazyChart('CollectionCodes');
