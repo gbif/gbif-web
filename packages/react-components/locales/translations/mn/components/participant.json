@@ -1,0 +1,55 @@
+{
+  "participant": {
+    "participationStatus": {
+      "longForm": {
+        "VOTING": "",
+        "ASSOCIATE": "",
+        "OBSERVER": "",
+        "AFFILIATE": "",
+        "FORMER": "",
+        "undefined": ""
+      },
+      "description": {
+        "VOTING": "",
+        "ASSOCIATE": "",
+        "OBSERVER": "",
+        "AFFILIATE": "",
+        "FORMER": "",
+        "undefined": ""
+      },
+      "type": {
+        "OTHER": {
+          "description": {
+            "VOTING": "",
+            "ASSOCIATE": "",
+            "OBSERVER": "",
+            "AFFILIATE": "",
+            "FORMER": "",
+            "undefined": ""
+          },
+          "longForm": {
+            "VOTING": "",
+            "ASSOCIATE": "",
+            "OBSERVER": "",
+            "AFFILIATE": "",
+            "FORMER": "",
+            "undefined": ""
+          }
+        }
+      }
+    },
+    "participant": "",
+    "node": "",
+    "participantSummary": "",
+    "memberStatus": "",
+    "gbifParticipantSince": "",
+    "headOfDelegation": "",
+    "gbifRegion": "",
+    "countryOrArea": "",
+    "nodeName": "",
+    "nodeEstablished": "",
+    "website": "",
+    "participantNodeManager": "",
+    "pending": ""
+  }
+}
