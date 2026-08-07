@@ -17,13 +17,18 @@ export type Dereplicated = {
  */
 export function dereplicateByThreshold(
   { taxa, matrix }: DistanceResult,
-  threshold: number
+  threshold: number,
+  /** ids that must stay their own representative (never merged) — e.g. the query sequence. */
+  pinnedIds?: Set<string>
 ): Dereplicated {
   // Each cluster holds original indices; `cd` is the complete-linkage distance between clusters
   // (max member-to-member distance), updated on merge via d(i∪j, k) = max(d(i,k), d(j,k)).
   const members: number[][] = taxa.map((_, i) => [i]);
   const cd: number[][] = matrix.map((row) => row.slice());
   const alive = new Set<number>(taxa.map((_, i) => i));
+  // A cluster is pinned if it contains a pinned id; pinned clusters are never merged, so pinned
+  // ids always end up as singleton representatives.
+  const pinned: boolean[] = taxa.map((t) => !!pinnedIds?.has(t));
 
   for (;;) {
     let best = Infinity;
@@ -34,6 +39,7 @@ export function dereplicateByThreshold(
       for (let y = x + 1; y < ids.length; y++) {
         const i = ids[x];
         const j = ids[y];
+        if (pinned[i] || pinned[j]) continue;
         const d = cd[i][j];
         if (d <= threshold && d < best) {
           best = d;

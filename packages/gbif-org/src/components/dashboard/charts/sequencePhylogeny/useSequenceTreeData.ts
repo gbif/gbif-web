@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import useQuery from '@/hooks/useQuery';
+import { useConfig } from '@/config/config';
 
 export type TreePoint = {
   key: number;
@@ -9,11 +10,25 @@ export type TreePoint = {
   targetGene?: string | null;
 };
 
+/** One scientific name observed for a sequence, with how many occurrences carried it. */
+export type NameCount = { taxonKey: string | null; name: string; count: number };
+/** The distribution of scientific names seen for a single nucleotideSequenceID. */
+export type NameAgg = {
+  /** names sorted by count, descending. */
+  names: NameCount[];
+  /** number of distinct taxa (names.length) — > 1 means the sequence is identified ambiguously. */
+  distinct: number;
+  /** occurrences considered for this id (bounded by the map query cap). */
+  sampled: number;
+};
+
 export type SequenceTreeData = {
   /** nucleotideSequenceID -> normalised sequence (tree tips). */
   seqById: Record<string, string>;
   /** nucleotideSequenceID -> occurrences carrying that exact sequence (map dots). */
   pointsById: Record<string, TreePoint[]>;
+  /** nucleotideSequenceID -> scientific-name distribution across its occurrences (tip labels). */
+  namesById: Record<string, NameAgg>;
   matchedIds: string[];
   loading: boolean;
   error?: unknown;
@@ -53,8 +68,10 @@ const TREE_QUERY = /* GraphQL */ `
 `;
 
 // Lighter: per-occurrence coordinates + which matched sequence it carries (no sequence strings).
+// The interpreted name comes from classification.usage (top-level scientificName is not populated
+// on occurrenceSearch documents); usage.key is the taxon key we group names by.
 const MAP_QUERY = /* GraphQL */ `
-  query SequencePhylogenyMap($predicate: Predicate, $size: Int) {
+  query SequencePhylogenyMap($predicate: Predicate, $size: Int, $checklistKey: ID) {
     occurrenceSearch(predicate: $predicate) {
       documents(size: $size) {
         total
@@ -62,7 +79,12 @@ const MAP_QUERY = /* GraphQL */ `
           key
           decimalLatitude
           decimalLongitude
-          scientificName
+          classification(checklistKey: $checklistKey) {
+            usage {
+              name
+              key
+            }
+          }
           nucleotideSequences {
             nucleotideSequenceID
             targetGene {
@@ -97,7 +119,7 @@ type MapResult = {
         key: number;
         decimalLatitude?: number | null;
         decimalLongitude?: number | null;
-        scientificName?: string | null;
+        classification?: { usage?: { name?: string | null; key?: string | number | null } | null } | null;
         nucleotideSequences?: Array<{
           nucleotideSequenceID?: string | null;
           targetGene?: { concept?: string | null } | null;
@@ -141,6 +163,7 @@ function extractSequenceIds(predicate: unknown): string[] {
  * sequence for, so every dot corresponds to a tree tip.
  */
 export function useSequenceTreeData(predicate: unknown): SequenceTreeData {
+  const { defaultChecklistKey } = useConfig();
   const matchedIds = useMemo(() => extractSequenceIds(predicate), [predicate]);
   const matchedKey = matchedIds.join(',');
   const capped = matchedIds.length > MAX_SEQUENCES;
@@ -151,9 +174,9 @@ export function useSequenceTreeData(predicate: unknown): SequenceTreeData {
   useEffect(() => {
     if (matchedIds.length === 0 || capped) return;
     tree.load({ variables: { predicate, size: TREE_FETCH_SIZE } });
-    map.load({ variables: { predicate, size: MAP_FETCH_SIZE } });
+    map.load({ variables: { predicate, size: MAP_FETCH_SIZE, checklistKey: defaultChecklistKey } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matchedKey, capped]);
+  }, [matchedKey, capped, defaultChecklistKey]);
 
   const seqById = useMemo(() => {
     const out: Record<string, string> = {};
@@ -184,10 +207,47 @@ export function useSequenceTreeData(predicate: unknown): SequenceTreeData {
           key: occ.key,
           lat: occ.decimalLatitude,
           lon: occ.decimalLongitude,
-          scientificName: occ.scientificName,
+          scientificName: occ.classification?.usage?.name ?? null,
           targetGene: ns.targetGene?.concept ?? null,
         });
       }
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map.data, seqIdsKey]);
+
+  // Scientific-name distribution per sequence. Aggregated from the raw map results (NOT pointsById)
+  // so coordinate-less occurrences still contribute — names must not depend on georeferencing.
+  // Grouped by taxonKey (fallback to the name string) so synonym/authorship variants of the same
+  // taxon don't read as ambiguity.
+  const namesById = useMemo(() => {
+    const out: Record<string, NameAgg> = {};
+    const have = new Set(seqIdsKey ? seqIdsKey.split(',') : []);
+    // id -> groupKey -> NameCount (accumulator)
+    const acc: Record<string, Map<string, NameCount>> = {};
+    for (const occ of map.data?.occurrenceSearch?.documents?.results ?? []) {
+      const usage = occ.classification?.usage;
+      const name = usage?.name ?? null;
+      const taxonKey = usage?.key != null ? String(usage.key) : null;
+      const groupKey = taxonKey ?? name ?? 'unknown';
+      const seen = new Set<string>();
+      for (const ns of occ.nucleotideSequences ?? []) {
+        const id = ns?.nucleotideSequenceID;
+        if (!id || !have.has(id) || seen.has(id)) continue;
+        seen.add(id);
+        const byKey = (acc[id] ||= new Map());
+        const existing = byKey.get(groupKey);
+        if (existing) existing.count += 1;
+        else byKey.set(groupKey, { taxonKey, name: name ?? 'Unknown', count: 1 });
+      }
+    }
+    for (const [id, byKey] of Object.entries(acc)) {
+      const names = [...byKey.values()].sort((a, b) => b.count - a.count);
+      out[id] = {
+        names,
+        distinct: names.length,
+        sampled: names.reduce((s, n) => s + n.count, 0),
+      };
     }
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -198,6 +258,7 @@ export function useSequenceTreeData(predicate: unknown): SequenceTreeData {
   return {
     seqById,
     pointsById,
+    namesById,
     matchedIds,
     loading: tree.loading || map.loading,
     error: tree.error || map.error,

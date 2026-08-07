@@ -36,8 +36,12 @@ export async function computeAlignment(seqById: Record<string, string>): Promise
  * Cheap step: collapse sequences within `threshold` p-distance into representatives, then build the
  * NJ tree from the representatives. Safe to call synchronously on every threshold change.
  */
-export function buildTreeFromDistance(fullDist: DistanceResult, threshold: number): SequenceTree {
-  const { reps, groups } = dereplicateByThreshold(fullDist, threshold);
+export function buildTreeFromDistance(
+  fullDist: DistanceResult,
+  threshold: number,
+  pinnedIds?: Set<string>
+): SequenceTree {
+  const { reps, groups } = dereplicateByThreshold(fullDist, threshold, pinnedIds);
   if (reps.length === 0) {
     return { newick: '();', taxa: [], tree: { name: null, length: 0, children: [] }, groups: {} };
   }
@@ -51,7 +55,7 @@ export function buildTreeFromDistance(fullDist: DistanceResult, threshold: numbe
 export { alignSequences } from './kalign';
 export { pDistanceMatrix } from './pDistance';
 export { neighborJoining } from './neighborJoining';
-export { assignClades, normalizeTree } from './clades';
+export { normalizeTree } from './clades';
 export { dereplicateByThreshold, reduceMatrix } from './dereplicate';
 export type { DistanceResult } from './pDistance';
-export type { CladeTree, CladeColouring } from './clades';
+export type { CladeTree } from './clades';
