@@ -326,17 +326,17 @@
     "description": "生物體的生命階段"
   },
   "nucleotideSequenceTargetGene": {
-    "name": "",
-    "description": ""
+    "name": "目標基因",
+    "description": "附帶於該出現紀錄資料的核苷酸序列標記之基因或基因區域（例如 COI、ITS2）。"
   },
   "nucleotideSequenceSequenceLength": {
-    "name": "",
-    "description": ""
+    "name": "序列長度",
+    "description": "附帶於出現記錄資料的核苷酸序列（DNA或RNA）的長度（以鹼基對計算）。"
   },
   "nucleotideSequenceId": {
-    "name": "",
-    "description": "",
-    "search": "",
+    "name": "序列相似性",
+    "description": "貼上一組核苷酸序列，以找出附帶序列與其相似的出現紀錄資料，並按照序列一致性百分比進行分組。",
+    "search": "尋找相似項目",
     "uniqueSequences": "",
     "similarityRange": "",
     "similarityExact": "",
