@@ -92,7 +92,7 @@ export function PublisherKeyAbout() {
           >
             <img
               style={{ width: '100%', display: 'block' }}
-              src={`https://${import.meta.env.PUBLIC_TILE_API}/3857/gbif-geyser/static/${publisher.longitude},${publisher.latitude},15/500x250@2x.jpg?marker=${publisher.longitude},${publisher.latitude}|marker-icon-2x.png|scale:0.5`}
+              src={`${import.meta.env.PUBLIC_TILE_API}/3857/gbif-geyser/static/${publisher.longitude},${publisher.latitude},15/500x250@2x.jpg?marker=${publisher.longitude},${publisher.latitude}|marker-icon-2x.png|scale:0.5`}
             />
           </a>
         )}
