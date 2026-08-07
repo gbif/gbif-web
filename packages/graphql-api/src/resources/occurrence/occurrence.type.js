@@ -141,6 +141,7 @@ const typeDef = gql`
     islandGroup: String
     issued: String
     issues(types: [String!]): [OccurrenceIssue!]
+    issuesWithSeverity: [OccurrenceIssueInfo!]
     nonTaxonomicIssues: [OccurrenceIssue!]
     kingdom: String
     kingdomKey: ID
@@ -385,6 +386,17 @@ const typeDef = gql`
     group: String
     simpleName: String
     qualifiedName: String
+  }
+
+  """
+  An occurrence issue together with its severity (INFO, WARNING or ERROR) as
+  classified by the GBIF interpretationRemark vocabulary. Lets the UI colour issue
+  flags by their real severity for issues that are not tied to a core term (e.g. the
+  DNA-derived-data extension flags).
+  """
+  type OccurrenceIssueInfo {
+    id: OccurrenceIssue!
+    severity: String
   }
 
   type TermGroups {

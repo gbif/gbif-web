@@ -69,6 +69,10 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       occurrenceStatus
       references
       issues
+      issuesWithSeverity {
+        id
+        severity
+      }
       nonTaxonomicIssues
       basisOfRecord
       dynamicProperties

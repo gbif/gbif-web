@@ -471,6 +471,12 @@ export default {
         lon: decimalLongitude,
       });
     },
+    issuesWithSeverity: ({ issues }) => {
+      if (!issues) return null;
+      // Pair every issue with its interpretationRemark severity so the UI can colour
+      // flags that are not attached to a core term (e.g. DNA-derived-data extension flags).
+      return issues.map((id) => ({ id, severity: issueSeverityMap[id] ?? null }));
+    },
     issues: ({ issues }, { types }) => {
       if (!issues) return null;
       if (!types) return issues;
