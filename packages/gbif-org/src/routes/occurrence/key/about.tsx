@@ -118,11 +118,11 @@ export function OccurrenceKeyAbout() {
                 <Card className="g-mb-4">
                   <HashLink to="#location" replace className="g-block g-relative g-group">
                     <img
-                      src={`https://api.mapbox.com/styles/v1/mapbox/light-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${overviewZoom},0/250x180@2x?access_token=${import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN}`}
+                      src={`https://${import.meta.env.PUBLIC_TILE_API}/3857/gbif-geyser/static/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${overviewZoom}/250x180@2x.jpg?marker=${occurrence.coordinates.lon},${occurrence.coordinates.lat}|marker-icon-2x.png|scale:0.5`}
                     />
                     <img
                       className="g-absolute g-opacity-0 g-top-0 group-hover:g-opacity-100 g-transition-opacity gb-on-hover"
-                      src={`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-circle+285A98(${occurrence.coordinates.lon},${occurrence.coordinates.lat})/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${sateliteZoom},0/250x180@2x?access_token=${import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN}`}
+                      src={`https://${import.meta.env.PUBLIC_TILE_API}/3857/satellite/static/${occurrence.coordinates.lon},${occurrence.coordinates.lat},${sateliteZoom}/250x180@2x.jpg?marker=${occurrence.coordinates.lon},${occurrence.coordinates.lat}|marker-icon-2x.png|scale:0.5`}
                     />
                   </HashLink>
                 </Card>
