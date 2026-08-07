@@ -337,21 +337,21 @@
     "name": "序列相似性",
     "description": "貼上一組核苷酸序列，以找出附帶序列與其相似的出現紀錄資料，並按照序列一致性百分比進行分組。",
     "search": "尋找相似項目",
-    "uniqueSequences": "",
-    "similarityRange": "",
-    "similarityExact": "",
-    "invalid": "",
-    "tooLong": "",
-    "error": "",
-    "noMatches": "",
+    "uniqueSequences": "{count, plural, one {# 特定序列} other {# 特定序列}}",
+    "similarityRange": "{from} 至 {to} %",
+    "similarityExact": "{value} %",
+    "invalid": "該序列似乎不是有效的序列。",
+    "tooLong": "該序列過長。最大長度為 {max} 個鹼基。",
+    "error": "無法搜尋到相似的序列。請重新嘗試。",
+    "noMatches": "未找到相似的序列。",
     "bin": {
-      "100": "",
-      "99.5": "",
-      "99": "",
-      "98": "",
-      "97": "",
-      "96": "",
-      "95": ""
+      "100": "100%（完全相同）",
+      "99.5": "99.5–100%",
+      "99": "99–99.5%",
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
     }
   },
   "recordedBy": {
@@ -578,36 +578,36 @@
     "name": "逐字地點描述"
   },
   "verbatimSiteNames": {
-    "description": "",
-    "name": ""
+    "description": "原始網站名稱的清單（已串接並分隔）。",
+    "name": "逐字網站名稱"
   },
   "geospatialScopeAreaValue": {
-    "description": "",
-    "name": ""
+    "description": "dwc：事件地理空間範圍總面積的數值。",
+    "name": "地理空間範圍面積數值"
   },
   "geospatialScopeAreaUnit": {
-    "description": "",
-    "name": ""
+    "description": "與 eco:geospatialScopeAreaValue 相關的單位",
+    "name": "地理空間範圍區域單位"
   },
   "totalAreaSampledValue": {
-    "description": "",
-    "name": ""
+    "description": "dwc：事件期間調查的總面積數值。",
+    "name": "總採樣面積值"
   },
   "totalAreaSampledUnit": {
-    "description": "",
-    "name": ""
+    "description": "與 eco:geospatialScopeAreaValue 相關的單位",
+    "name": "總採樣面積單位"
   },
   "reportedWeather": {
-    "description": "",
-    "name": ""
+    "description": "dwc:Event 事件期間的氣象或氣候狀況清單。",
+    "name": "氣象報告"
   },
   "reportedExtremeConditions": {
-    "description": "",
-    "name": ""
+    "description": "請描述任何可能影響 dwc: 事件的極端天氣或環境狀況。",
+    "name": "通報之極端狀況"
   },
   "targetHabitatScope": {
-    "description": "",
-    "name": ""
+    "description": "在 dwc: 事件期間，作為採樣目標之棲息地。",
+    "name": "目標棲息地範圍"
   },
   "excludedHabitatScope": {
     "description": "",
