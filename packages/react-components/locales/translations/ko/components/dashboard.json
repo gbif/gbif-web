@@ -38,6 +38,7 @@
     "record": "기록",
     "taxon": "분류군",
     "occurrence": "출현",
+    "nucleotideSequence": "",
     "organism": "유기체",
     "materialEntity": "물질적 실체",
     "event": "이벤트",

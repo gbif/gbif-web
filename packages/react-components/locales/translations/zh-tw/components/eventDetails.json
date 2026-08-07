@@ -19,7 +19,7 @@
   "allEvents": "全部事件",
   "backToEventSearch": "回到事件搜尋",
   "eventNotFound": "找不到事件",
-  "eventDrawerSamplingEventOnly": "",
+  "eventDrawerSamplingEventOnly": "此側邊欄中的事件詳細資訊僅適用於採樣事件資料集。",
   "inferredEventsNotice": "這些事件是根據事件記錄推斷出來的，並非抽樣事件資料集的一部分。",
   "unresolvedInferredEvent": "此事件無法解析",
   "occurrenceSummary": "出現紀錄總結",

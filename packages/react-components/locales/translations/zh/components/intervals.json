@@ -19,6 +19,12 @@
     "gt": "超过 {from}米",
     "e": "{from}米"
   },
+  "compactBasePairs": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
   "compactTime": {
     "between": "{from} 到 {to}",
     "lt": "之前 {to}",

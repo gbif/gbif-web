@@ -1,6 +1,7 @@
 {
   "projectGrantType": {
     "REGIONAL": "Subvenção regional de mobilização de dados de biodiversidade",
+    "CROSS_REGIONAL": "Financiamento para mobilização de dados da biodiversidade entre regiões",
     "SMALL": "Subvenção institucional de mobilização de dados de biodiversidade",
     "NATIONAL": "Subvenção nacional de mobilização de dados de biodiversidade",
     "DATA_USE": "Subvenção de uso de dados",

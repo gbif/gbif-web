@@ -5,7 +5,7 @@
     "description": "GBIF每月都會採集完整的出現紀錄快照，並以不同格式儲存，以方便使用。所有快照都附有DOI，方便引用；部分格式的資料也會上傳到公用雲端，以便在這些環境中使用。",
     "cloudDatasets": {
       "title": "雲端資料集",
-      "description": ""
+      "description": "GBIF 透過<azure>Microsoft Planetary Computer（Azure）</azure>、<aws>Amazon AWS 開放資料集</aws>，以及 Google<gcs>GCS 儲存桶</gcs>和<bq>BigQuery 資料表</bq>，提供資料存取服務。 使用雲端快照時，我們始終建議針對您所使用的記錄建立「<derived>衍生資料集」引用</derived>。若要引用完整資料集，請使用下方提供的適當引用格式。"
     },
     "monthly": {
       "title": "月快照資料集",

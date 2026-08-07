@@ -38,6 +38,7 @@
     "record": "Запис",
     "taxon": "Таксон",
     "occurrence": "Знахідка",
+    "nucleotideSequence": "",
     "organism": "Організм",
     "materialEntity": "",
     "event": "Подія",

@@ -1,0 +1,98 @@
+{
+  "tabs": {
+    "table": "",
+    "tree": "",
+    "gallery": "",
+    "media": "",
+    "map": "",
+    "datasets": "",
+    "events": "",
+    "download": "",
+    "clusters": "",
+    "dashboard": "",
+    "sites": "",
+    "list": ""
+  },
+  "table": {
+    "lockColumn": "",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
+  },
+  "placeholders": {
+    "default": "",
+    "range": "",
+    "rangeExample": "",
+    "wildcard": "",
+    "dateTemplate": "",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "",
+    "no": "",
+    "either": ""
+  },
+  "loadMore": "",
+  "loading": "",
+  "noResults": "",
+  "startTyping": "",
+  "addFilters": "",
+  "apply": "",
+  "cancel": "",
+  "rankInGroup": "",
+  "options": "",
+  "sort": {
+    "sortBy": "",
+    "yearDesc": "",
+    "yearAsc": ""
+  },
+  "group": {
+    "groupBy": "",
+    "default": "",
+    "random": "",
+    "showMore": "",
+    "cappedHint": "",
+    "useAsFilter": "",
+    "unspecified": ""
+  },
+  "occurrenceClustersView": {
+    "about": "",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "",
+      "SPECIMEN": "",
+      "SEQUENCE": ""
+    }
+  },
+  "crossContentSearch": {
+    "title": "",
+    "description": "",
+    "noSearchTermsEntered": "",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "",
+      "taxonSearch": "",
+      "datasetSearch": "",
+      "publisherSearch": "",
+      "occurrenceSearch": "",
+      "resourceSearch": ""
+    },
+    "seeAll": "",
+    "searchFor": "",
+    "noResults": ""
+  }
+}

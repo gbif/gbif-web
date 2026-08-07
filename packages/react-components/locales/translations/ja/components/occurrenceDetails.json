@@ -39,6 +39,7 @@
   },
   "showMore": "さらに表示します",
   "showLess": "表示を減らします",
+  "searchSimilarSequences": "",
   "screenReader": {
     "title": "オカレンスの詳細"
   },

@@ -325,6 +325,35 @@
     "name": "Estágio de desenvolvimento",
     "description": ""
   },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "uniqueSequences": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
   "recordedBy": {
     "name": "Registado por",
     "description": "Os nomes da pessoa, pessoas, grupos ou organizações responsáveis pelo registo da ocorrência original."
