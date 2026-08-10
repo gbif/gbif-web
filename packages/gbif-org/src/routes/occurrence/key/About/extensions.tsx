@@ -172,10 +172,20 @@ export function DNADerivedData({
     occurrence?.issues?.filter(
       (issue) => issue.startsWith('NUCLEOTIDE_SEQUENCE_') || issue === 'TARGET_GENE_INVALID'
     ) ?? [];
-  // Always show NUCLEOTIDE_SEQUENCE_INVALID first when present; keep the rest in their order.
-  const nucleotideIssues = dnaIssues.includes('NUCLEOTIDE_SEQUENCE_INVALID')
-    ? ['NUCLEOTIDE_SEQUENCE_INVALID', ...dnaIssues.filter((i) => i !== 'NUCLEOTIDE_SEQUENCE_INVALID')]
-    : dnaIssues;
+  // Colour each issue tag by its real interpretationRemark severity rather than a fixed level.
+  // These flags relate to DNA-derived-data extension fields, not core terms, so the per-term
+  // { id, severity } path does not cover them; use the occurrence-level issuesWithSeverity list
+  // instead. Issues with no known severity fall back to the neutral tag colour.
+  const severityByIssue: Record<string, string> = {};
+  occurrence?.issuesWithSeverity?.forEach((issue) => {
+    if (issue?.id && issue?.severity) severityByIssue[issue.id] = issue.severity;
+  });
+  // Order by severity (ERROR → WARNING → INFO → unknown), but always pin
+  // NUCLEOTIDE_SEQUENCE_INVALID first when present.
+  const severityRank: Record<string, number> = { ERROR: 0, WARNING: 1, INFO: 2 };
+  const rankOf = (issue: string) =>
+    issue === 'NUCLEOTIDE_SEQUENCE_INVALID' ? -1 : severityRank[severityByIssue[issue]] ?? 3;
+  const nucleotideIssues = [...dnaIssues].sort((a, b) => rankOf(a) - rankOf(b));
   return (
     <GenericExtension
       {...{
@@ -189,7 +199,7 @@ export function DNADerivedData({
         nucleotideIssues.length > 0 ? (
           <IssueTags>
             {nucleotideIssues.map((issue) => (
-              <IssueTag type="WARNING" key={issue}>
+              <IssueTag type={severityByIssue[issue] ?? 'LIGHT'} key={issue}>
                 <FormattedMessage
                   id={`enums.occurrenceIssue.${issue}`}
                   defaultMessage={prettifyEnum(issue) ?? ''}
