@@ -57,5 +57,6 @@ export { pDistanceMatrix } from './pDistance';
 export { neighborJoining } from './neighborJoining';
 export { normalizeTree } from './clades';
 export { dereplicateByThreshold, reduceMatrix } from './dereplicate';
+export { filterByCoverage, resolvedLength } from './coverage';
 export type { DistanceResult } from './pDistance';
 export type { CladeTree } from './clades';

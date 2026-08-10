@@ -1,5 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Card, CardContent, CardTitle } from '@/components/ui/smallCard';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { FilterContext } from '@/contexts/filter';
 import useBelow from '@/hooks/useBelow';
 import { cn } from '@/utils/shadcn';
@@ -9,7 +10,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { LuLoader as Loader } from 'react-icons/lu';
 import { ColoredPointMap, MapPoint } from './ColoredPointMap';
 import { PhyloTreeView } from './PhyloTreeView';
-import { buildTreeFromDistance, computeAlignment, type DistanceResult } from './compute';
+import {
+  buildTreeFromDistance,
+  computeAlignment,
+  filterByCoverage,
+  type DistanceResult,
+} from './compute';
 import { consensusForMembers } from './compute/consensus';
 import { useSequenceTreeData } from './useSequenceTreeData';
 
@@ -17,6 +23,9 @@ const PANEL_HEIGHT = 520;
 // Sentinel tip id for the user's query sequence (safe as a FASTA header / Newick tip name, and
 // won't collide with a real hex nucleotideSequenceID).
 const QUERY_ID = '__query__';
+// Hide sequences shorter than this fraction of the set's median length — short partials can't be
+// placed reliably by the distance method and distort the tree. Median-relative; tune as needed.
+const COVERAGE_FRACTION = 0.6;
 // Collapse-threshold slider bounds (percent identity). 100 = collapse only identical sequences.
 const COLLAPSE_MIN_PCT = 97;
 const DEFAULT_COLLAPSE_PCT = 99.5;
@@ -66,10 +75,15 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterContext?.filterHash]);
 
-  // Matched sequences plus the query, fed to alignment/tree. Counts/captions stay on the matched set.
+  // Drop matched sequences that are too short to place reliably (see COVERAGE_FRACTION).
+  const coverage = useMemo(() => filterByCoverage(seqById, COVERAGE_FRACTION), [seqById]);
+  const hiddenShortCount = coverage.hiddenIds.length;
+
+  // Kept matched sequences plus the query, fed to alignment/tree. The query is always kept (it is
+  // the user's subject, marked separately). Counts/captions stay on the full matched set.
   const seqForTree = useMemo(
-    () => (querySequence ? { [QUERY_ID]: querySequence, ...seqById } : seqById),
-    [seqById, querySequence]
+    () => (querySequence ? { [QUERY_ID]: querySequence, ...coverage.kept } : coverage.kept),
+    [coverage.kept, querySequence]
   );
   const treeSeqKey = useMemo(() => Object.keys(seqForTree).sort().join(','), [seqForTree]);
 
@@ -320,7 +334,10 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     const out: MapPoint[] = [];
     const seen = new Set<string>();
     for (const [id, pts] of Object.entries(pointsById)) {
-      const rep = repOfId[id] ?? id;
+      // Skip occurrences whose sequence isn't a tree tip (hidden as too short, or otherwise absent),
+      // so the map stays consistent with the tree.
+      const rep = repOfId[id];
+      if (!rep) continue;
       for (const p of pts) {
         const dedupeKey = `${rep}|${p.key}`;
         if (seen.has(dedupeKey)) continue;
@@ -534,6 +551,26 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
                     defaultMessage=" · {d} distinct"
                     values={{ d: distinctMatched }}
                   />
+                )}
+                {hiddenShortCount > 0 && (
+                  <SimpleTooltip
+                    title={
+                      <FormattedMessage
+                        id="dashboard.sequencePhylogeny.shortHiddenTip"
+                        defaultMessage="Sequences shorter than {pct}% of the median length are hidden: too short to place reliably in the tree."
+                        values={{ pct: Math.round(COVERAGE_FRACTION * 100) }}
+                      />
+                    }
+                    asChild
+                  >
+                    <span className="g-ms-2 g-text-amber-600">
+                      <FormattedMessage
+                        id="dashboard.sequencePhylogeny.shortHidden"
+                        defaultMessage="· {n} short hidden"
+                        values={{ n: hiddenShortCount }}
+                      />
+                    </span>
+                  </SimpleTooltip>
                 )}
                 {mapCapped && (
                   <span className="g-ms-2 g-text-amber-600">

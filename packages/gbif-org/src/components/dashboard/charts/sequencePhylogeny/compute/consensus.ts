@@ -22,6 +22,11 @@ const EMPTY: TipConsensus = { primary: null, distinct: 0, ambiguous: false, top:
 
 // UNITE species hypothesis, e.g. "SH1151976.09FU" — a placeholder identifier, not a Linnaean name.
 const SH_HYPOTHESIS = /^SH\d+(\.\d+)?[A-Z]{0,2}$/i;
+// Rank-indicating suffixes for taxa above genus (family/order/class/phylum, across kingdoms). A
+// single capitalised token ending in one of these is a higher taxon, not a genus — so it must not
+// win a species label nor create a false genus conflict (e.g. "Cortinariaceae" vs "Cortinarius").
+const HIGHER_RANK_SUFFIX =
+  /(?:aceae|idae|inae|oidea|oideae|ineae|ales|mycota|mycotina|mycetidae|mycetes|phytina|phyta|opsida|viridae)$/i;
 // Second-token markers that are not real epithets.
 const NON_EPITHET = new Set(['sp', 'sp.', 'spp', 'spp.', 'cf', 'cf.', 'aff', 'aff.', 'indet', 'indet.']);
 
@@ -39,6 +44,7 @@ export function parseName(name: string | null | undefined): ParsedName | null {
   const tokens = trimmed.split(/\s+/);
   const genus = tokens[0];
   if (!/^[A-Z][a-zë-]+$/.test(genus)) return null; // not a capitalised genus (e.g. an SH code)
+  if (HIGHER_RANK_SUFFIX.test(genus)) return null; // a family/order/… — higher than genus
   let epithet: string | null = null;
   if (tokens.length >= 2) {
     const t = tokens[1].toLowerCase();
@@ -91,5 +97,9 @@ export function consensusForMembers(
     if (parsed.epithet) epithets.add(`${parsed.genus} ${parsed.epithet}`);
   }
   const ambiguous = genera.size >= 2 || epithets.size >= 2;
-  return { primary: all[0].name, distinct: all.length, ambiguous, top: all.slice(0, 3), sampled };
+  // Prefer a species binomial for the label when one is present (highest-count binomial, since
+  // `all` is count-ordered), so a more frequent higher-rank identification (genus/family) never
+  // hides a species-level name. Fall back to the most frequent name when there is no binomial.
+  const primary = all.find((nc) => binomialKey(nc.name)) ?? all[0];
+  return { primary: primary.name, distinct: all.length, ambiguous, top: all.slice(0, 3), sampled };
 }

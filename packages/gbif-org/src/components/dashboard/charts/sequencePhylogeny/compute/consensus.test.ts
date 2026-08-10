@@ -13,6 +13,9 @@ describe('binomialKey', () => {
   test('genus-only / higher taxa are not binomials', () => {
     expect(binomialKey('Fusarium')).toBeNull();
     expect(binomialKey('Fungi')).toBeNull();
+    expect(binomialKey('Cortinariaceae')).toBeNull(); // family
+    expect(binomialKey('Agaricales')).toBeNull(); // order
+    expect(binomialKey('Basidiomycota')).toBeNull(); // phylum
   });
 
   test('UNITE species hypotheses are not binomials', () => {
@@ -99,6 +102,37 @@ describe('consensusForMembers ambiguity', () => {
       a: agg(['Fusarium oxysporum', '1'], ['Fusarium oxysporum', '2']),
     });
     expect(c.ambiguous).toBe(false);
+  });
+
+  test('prefers a species binomial for the label even when a higher rank is more frequent', () => {
+    const c = consensusForMembers(['a'], {
+      a: agg(['Cortinariaceae', '100', 8], ['Cortinarius sulphurinus', '200', 2]),
+    });
+    expect(c.primary).toBe('Cortinarius sulphurinus');
+    // higher-rank name is not a conflict with the species
+    expect(c.ambiguous).toBe(false);
+  });
+
+  test('falls back to the most frequent name when no binomial is present', () => {
+    const c = consensusForMembers(['a'], {
+      a: agg(['Cortinariaceae', '100', 5], ['Cortinarius', '300', 2]),
+    });
+    expect(c.primary).toBe('Cortinariaceae');
+  });
+
+  test('a family name does not conflict with a species in that family', () => {
+    const c = consensusForMembers(['a'], {
+      a: agg(['Cortinariaceae', '100', 8], ['Cortinarius sulphurinus', '200', 2]),
+    });
+    expect(c.primary).toBe('Cortinarius sulphurinus');
+    expect(c.ambiguous).toBe(false);
+  });
+
+  test('picks the most frequent binomial when several species are present', () => {
+    const c = consensusForMembers(['a'], {
+      a: agg(['Cortinarius sulphurinus', '1', 2], ['Cortinarius meinhardii', '2', 5], ['Cortinariaceae', '3', 9]),
+    });
+    expect(c.primary).toBe('Cortinarius meinhardii');
   });
 
   test('merges members before deciding', () => {
