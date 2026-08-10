@@ -9,8 +9,8 @@ const render = () =>
     : `
 Disallow: /user/
 Disallow: /*/user/
-Disallow: /search/
-Disallow: /*/search/
+Disallow: /search
+Disallow: /*/search
 Disallow: /occurrence/
 Disallow: /*/occurrence/
 Allow: /occurrence/download/*
