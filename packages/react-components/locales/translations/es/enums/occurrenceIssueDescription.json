@@ -49,7 +49,7 @@
     "IDENTIFIED_DATE_INVALID": "La fecha de identificación proporcionada no se puede interpretar porque no es válida. Las razones incluyen: una fecha inexistente (por ejemplo, «1995-04-34»), faltan partes de la fecha (por ejemplo, sin año), el formato de la fecha no sigue la norma ISO 8601 (AAAA-MM-DD).",
     "BASIS_OF_RECORD_INVALID": "La base del registro proporcionada no se puede interpretar o difiere considerablemente del vocabulario recomendado: https://rs.gbif.org/vocabulary/dwc/basis_of_record",
     "TYPE_STATUS_INVALID": "El estatus de tipo nomenclatural proporcionado no se puede interpretar o difiere considerablemente del vocabulario recomendado: https://registry.gbif.org/vocabulary/TypeStatus.",
-    "SUSPECTED_TYPE": "La descripción del estado del tipo incluye expresiones que indican incertidumbre sobre si el espécimen es un tipo, tales como «posible», «potencial» o «quizás».",
+    "SUSPECTED_TYPE": "El estado del tipo indicado contiene una formulación que expresa incertidumbre sobre si el espécimen es un tipo, como por ejemplo un calificativo como «posible», «potencial» o «tal vez».",
     "MULTIMEDIA_DATE_INVALID": "La fecha de creación indicada no se puede interpretar porque no es válida. Las razones pueden ser: una fecha inexistente (por ejemplo, «1995-04-34»), faltan partes de la fecha (por ejemplo, sin año), el formato de la fecha no sigue la norma ISO 8601 (AAAA-MM-DD).",
     "MULTIMEDIA_URI_INVALID": "La URL multimedia no se puede resolver y puede estar mal formada o contener caracteres no válidos.",
     "REFERENCES_URI_INVALID": "La URL de referencia no se puede resolver y puede estar mal formada o contener caracteres no válidos.",
