@@ -84,7 +84,7 @@
     "NUCLEOTIDE_SEQUENCE_INVALID": "La secuencia nucleotídica no pudo interpretarse como una secuencia válida de ADN/ARN.",
     "NUCLEOTIDE_SEQUENCE_HIGH_N_FRACTION": "Una fracción elevada de la secuencia nucleotídica está compuesta por bases desconocidas (N).",
     "NUCLEOTIDE_SEQUENCE_HIGH_AMBIGUITY": "Una gran parte de la secuencia nucleotídica está compuesta por bases ambiguas (IUPAC no ACGTN).",
-    "TARGET_GENE_INVALID": "No se ha podido asociar el gen diana declarado a ningún concepto conocido de gen diana.",
+    "TARGET_GENE_INVALID": "No se pudo encontrar una correspondencia entre el gen objetivo declarado y un concepto conocido de gen objetivo.",
     "ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK": "El valor proporcionado para la era o el eratema correspondía en realidad a una unidad más específica situada más abajo en la escala de tiempo geológica (por ejemplo, un período o una época). La era o el eratema se dedujo a partir del rango superior de esa unidad.",
     "PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK": "El valor proporcionado para el período o sistema correspondía en realidad a una unidad más específica situada más abajo en la escala de tiempo geológica (por ejemplo, una época o una edad). El período o sistema se dedujo a partir del rango superior a la cual pertenecía.",
     "EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK": "El valor proporcionado para la época o la serie correspondía en realidad a una unidad más específica situada más abajo en la escala de tiempo geológica (por ejemplo, una edad o etapa). La época o la serie se dedujo tomando el rango superior de esa unidad.",
