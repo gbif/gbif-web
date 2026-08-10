@@ -15,8 +15,8 @@ Disallow: /occurrence/
 Disallow: /*/occurrence/
 Allow: /occurrence/download/*
 Allow: /*/occurrence/download/*
-Disallow: /species/search
-Disallow: /*/species/search
+Disallow: /taxon/search
+Disallow: /*/taxon/search
 Disallow: /dataset/search
 Disallow: /*/dataset/search
 Disallow: /publisher/search
