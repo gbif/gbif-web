@@ -28,6 +28,11 @@ const { sanitizeSequence, vsearchResultToJson, vsearchResultToJsonWithAligment }
   MATCH_CLOSE_THRESHOLD: 97,
 });
 
+// The upstream vsearch server rejects sequences longer than its max_sequence_length.
+// Guard here (on the sanitized sequence we forward) to fail fast with a clear message
+// instead of passing an oversized query through.
+const MAX_SEQUENCE_LENGTH = 2048;
+
 export default (app) => {
   app.use('/unstable-api', router);
 };
@@ -51,6 +56,12 @@ router.get('/vsearch', async (req, res) => {
     return;
   }
   const sanitizedSequence = sanitizeSequence(sequence);
+
+  if (sanitizedSequence.length > MAX_SEQUENCE_LENGTH) {
+    return res
+      .status(400)
+      .send(`Sequence exceeds the maximum length of ${MAX_SEQUENCE_LENGTH}.`);
+  }
 
   const response = await axios.get(
     `${config?.vsearch?.occurrence}?sequence=${sanitizedSequence}&outfmt=${outfmt || 'alnout'}`,

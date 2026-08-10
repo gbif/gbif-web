@@ -7,6 +7,12 @@ import { Group } from './groups';
 import { Img } from '@/components/Img';
 import { cn } from '@/utils/shadcn';
 import { Button } from '@/components/ui/button';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { MdSearch } from 'react-icons/md';
+import { SEQUENCE_BIN_DEFS } from '@/utils/sequenceSearch';
+import { IssueTag, IssueTags } from '../properties';
+import { prettifyEnum } from '@/components/filters/displayNames';
 
 export function Preparation({
   occurrence,
@@ -160,6 +166,26 @@ export function DNADerivedData({
   updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'dnaDerivedData';
+  // Surface the sequence-quality flags for this record next to the block header. These issues
+  // relate to the DNA derived data, so they belong with this block rather than a generic field.
+  const dnaIssues =
+    occurrence?.issues?.filter(
+      (issue) => issue.startsWith('NUCLEOTIDE_SEQUENCE_') || issue === 'TARGET_GENE_INVALID'
+    ) ?? [];
+  // Colour each issue tag by its real interpretationRemark severity rather than a fixed level.
+  // These flags relate to DNA-derived-data extension fields, not core terms, so the per-term
+  // { id, severity } path does not cover them; use the occurrence-level issuesWithSeverity list
+  // instead. Issues with no known severity fall back to the neutral tag colour.
+  const severityByIssue: Record<string, string> = {};
+  occurrence?.issuesWithSeverity?.forEach((issue) => {
+    if (issue?.id && issue?.severity) severityByIssue[issue.id] = issue.severity;
+  });
+  // Order by severity (ERROR → WARNING → INFO → unknown), but always pin
+  // NUCLEOTIDE_SEQUENCE_INVALID first when present.
+  const severityRank: Record<string, number> = { ERROR: 0, WARNING: 1, INFO: 2 };
+  const rankOf = (issue: string) =>
+    issue === 'NUCLEOTIDE_SEQUENCE_INVALID' ? -1 : severityRank[severityByIssue[issue]] ?? 3;
+  const nucleotideIssues = [...dnaIssues].sort((a, b) => rankOf(a) - rankOf(b));
   return (
     <GenericExtension
       {...{
@@ -169,6 +195,20 @@ export function DNADerivedData({
           dna_sequence: ({ item }) => <DNASequence sequence={item['dna_sequence']} />,
         },
       }}
+      titleExtra={
+        nucleotideIssues.length > 0 ? (
+          <IssueTags>
+            {nucleotideIssues.map((issue) => (
+              <IssueTag type={severityByIssue[issue] ?? 'LIGHT'} key={issue}>
+                <FormattedMessage
+                  id={`enums.occurrenceIssue.${issue}`}
+                  defaultMessage={prettifyEnum(issue) ?? ''}
+                />
+              </IssueTag>
+            ))}
+          </IssueTags>
+        ) : undefined
+      }
       label="occurrenceDetails.extensions.dnaDerivedData.name"
       id={extensionName}
       updateToc={updateToc}
@@ -184,11 +224,39 @@ function DNASequence({ sequence }: { sequence: string }) {
       <div>
         <code className={cn('g-text-sm', { 'g-line-clamp-2': !expanded })}>{sequence}</code>
       </div>
-      <Button variant="outline" size="sm" className="g-mt-2" onClick={() => setExpanded((v) => !v)}>
-        <FormattedMessage
-          id={expanded ? 'occurrenceDetails.showLess' : 'occurrenceDetails.showMore'}
-        />
-      </Button>
+      <div className="g-mt-2 g-flex g-items-center g-gap-2">
+        <Button variant="outline" size="sm" onClick={() => setExpanded((v) => !v)}>
+          <FormattedMessage
+            id={expanded ? 'occurrenceDetails.showLess' : 'occurrenceDetails.showMore'}
+          />
+        </Button>
+        <SimpleTooltip
+          title={
+            <FormattedMessage
+              id="occurrenceDetails.searchSimilarSequences"
+              defaultMessage="Search for occurrences with similar sequences"
+            />
+          }
+          asChild
+        >
+          <Button asChild variant="outline" size="sm">
+            <DynamicLink
+              pageId="occurrenceSearch"
+              searchParams={{
+                'nucleotideSequence.sequence': sequence,
+                // Pre-select the three highest-identity bins (=100, 99.5–100, 99–99.5)
+                // so the search filters to closely-matching sequences straight away.
+                'nucleotideSequence.similarity': JSON.stringify(
+                  SEQUENCE_BIN_DEFS.slice(0, 3).map((b) => b.id)
+                ),
+              }}
+              aria-label="Search for occurrences with similar sequences"
+            >
+              <MdSearch />
+            </DynamicLink>
+          </Button>
+        </SimpleTooltip>
+      </div>
     </div>
   );
 }
@@ -446,6 +514,7 @@ function GenericExtension({
   extensionName,
   overwrites,
   updateToc,
+  titleExtra,
   ...props
 }: {
   occurrence: OccurrenceQuery['occurrence'];
@@ -454,6 +523,7 @@ function GenericExtension({
   label: string;
   id: string;
   updateToc?: (id: string, visible: boolean) => void;
+  titleExtra?: React.ReactNode;
 }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -471,7 +541,7 @@ function GenericExtension({
   }
 
   return (
-    <Group label={label} id={id} className="g-pt-0 md:g-pt-0" {...props}>
+    <Group label={label} id={id} titleExtra={titleExtra} className="g-pt-0 md:g-pt-0" {...props}>
       {list.length === 1 && (
         <GenericExtensionContent
           item={list[0]}

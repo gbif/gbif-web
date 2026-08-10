@@ -1,5 +1,7 @@
+import { FilterType } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { Predicate, PredicateType } from '@/gql/graphql';
+import { parseSequenceFilterValue } from '@/utils/sequenceSearch';
 
 const config: FilterConfigType = {
   fields: {
@@ -120,6 +122,112 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    // The GraphQL facet field is `nucleotideSequenceTargetGene` (GraphQL names can't
+    // contain dots), but the predicate key must be the dotted `nucleotideSequence.targetGene`
+    // that the es-api / v1 understand (es-api upper-snake-cases it to
+    // NUCLEOTIDE_SEQUENCE_TARGET_GENE).
+    nucleotideSequenceTargetGene: {
+      defaultKey: 'nucleotideSequence.targetGene',
+    },
+    nucleotideSequenceSequenceLength: {
+      defaultKey: 'nucleotideSequence.sequenceLength',
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    // The "similar sequences" filter persists only { sequence, selected } in the URL; the
+    // matched nucleotideSequenceIDs are recomputed and injected (as `ids`) into the
+    // in-memory filter value by useSequenceAugmentedFilter. The serializer turns those IDs
+    // into an `in` predicate on the nested field.
+    nucleotideSequenceId: {
+      serializer: ({ values }): Predicate | null => {
+        const raw = values?.[0];
+        if (raw == null) return null;
+        let parsed: unknown = raw;
+        if (typeof raw === 'string') {
+          try {
+            parsed = JSON.parse(raw);
+          } catch {
+            return null;
+          }
+        }
+        if (!parsed || typeof parsed !== 'object') return null;
+        const { ids } = parsed as { ids?: string[] };
+        // `ids` is absent (not an array) only while the sequence is still resolving — emit
+        // nothing so the result set isn't constrained before the matches are known.
+        if (!Array.isArray(ids)) return null;
+        // Resolved but empty: the selected similarity buckets contain no distinct sequences,
+        // so nothing can match. Emit an impossible-match predicate — an `in` on a sentinel ID
+        // that can never exist (real IDs are 32-char hex) — so the query returns zero
+        // occurrences instead of dropping the constraint and returning everything. (An empty
+        // `in` is not an option: the predicate API rejects it with "<values> may not be empty".)
+        if (ids.length === 0) {
+          return {
+            type: PredicateType.In,
+            key: 'nucleotideSequence.nucleotideSequenceID',
+            values: ['__no_matching_sequence__'],
+          };
+        }
+        return {
+          type: PredicateType.In,
+          key: 'nucleotideSequence.nucleotideSequenceID',
+          values: [...new Set(ids)],
+        };
+      },
+    },
+    // URL-only synthetic fields. In memory the "Sequence similarity" filter is a single handle
+    // (nucleotideSequenceId holding { sequence, selected }); for a readable URL it is split into
+    // these two params by urlEncodeFilter/urlDecodeFilter below. They are registered here so the
+    // params are observed and round-tripped; serializer:()=>null keeps them out of the predicate
+    // should they ever appear in the filter directly.
+    'nucleotideSequence.sequence': { singleValue: true, serializer: () => null },
+    'nucleotideSequence.similarity': { singleValue: true, serializer: () => null },
+  },
+  // Map the single in-memory handle to/from the two readable URL params. Applied only in the URL
+  // layer (useFilterParams) so the predicate and the popover keep using `nucleotideSequenceId`.
+  urlEncodeFilter: (filter: FilterType): FilterType => {
+    const raw = filter?.must?.nucleotideSequenceId?.[0];
+    if (raw == null) return filter;
+    const value = parseSequenceFilterValue(raw);
+    if (!value?.sequence) return filter;
+    const { nucleotideSequenceId, ...restMust } = filter.must ?? {};
+    return {
+      ...filter,
+      must: {
+        ...restMust,
+        'nucleotideSequence.sequence': [value.sequence],
+        'nucleotideSequence.similarity': [JSON.stringify(value.selected ?? [])],
+      },
+    };
+  },
+  urlDecodeFilter: (filter: FilterType): FilterType => {
+    const must = filter?.must;
+    const seq = must?.['nucleotideSequence.sequence']?.[0];
+    if (must == null || seq == null) return filter;
+    const simRaw = must['nucleotideSequence.similarity']?.[0];
+    let selected: string[] = [];
+    if (Array.isArray(simRaw)) {
+      selected = simRaw.map(String);
+    } else if (typeof simRaw === 'string') {
+      try {
+        const parsed = JSON.parse(simRaw);
+        if (Array.isArray(parsed)) selected = parsed.map(String);
+      } catch {
+        /* leave selected empty */
+      }
+    }
+    const {
+      'nucleotideSequence.sequence': _seq,
+      'nucleotideSequence.similarity': _sim,
+      ...restMust
+    } = must;
+    return {
+      ...filter,
+      must: {
+        ...restMust,
+        nucleotideSequenceId: [JSON.stringify({ sequence: String(seq), selected })],
+      },
+    };
   },
 };
 

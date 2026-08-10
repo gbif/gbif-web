@@ -40,6 +40,11 @@ export type FieldType = {
 
 export type FilterConfigType = {
   preFilterTransform?: (filter: FilterType) => FilterType;
+  // Applied ONLY in the URL layer (useFilterParams), not in predicate/v1 building. Lets a
+  // filter use a different, more readable URL representation than its in-memory shape:
+  // urlEncodeFilter runs before serializing to URL params, urlDecodeFilter after parsing them.
+  urlEncodeFilter?: (filter: FilterType) => FilterType;
+  urlDecodeFilter?: (filter: FilterType) => FilterType;
   fields?: {
     [key: string]: FieldType;
   };

@@ -321,7 +321,10 @@ export function OneDimensionalChart({
     <Card
       {...props}
       loading={facetResults.loading || !facetResults.data}
-      error={!!facetResults.error}
+      // Only surface the error card when we have no data to show. A partial error
+      // (e.g. the per-bucket metaPredicate failing because the v2 map service does not
+      // yet support a predicate parameter) should still render the facet chart.
+      error={!!facetResults.error && !facetResults.data}
     >
       <CardHeader options={<ChartViewOptions options={options} view={view} setView={setView} />}>
         <CardTitle>{title && <>{title}</>}</CardTitle>

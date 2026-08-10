@@ -3,6 +3,7 @@ import { FilterContext, FilterContextType, FilterType } from '@/contexts/filter'
 import { cn } from '@/utils/shadcn';
 import React, { useContext } from 'react';
 import { MdClose } from 'react-icons/md';
+import { LuLoader as Loader } from 'react-icons/lu';
 import { FormattedMessage } from 'react-intl';
 import { getFilterSummary } from './filterTools';
 
@@ -17,6 +18,9 @@ interface FilterButtonProps {
   /** set when one option of this filter maps to several API values, see getFilterSummary */
   groupValuesBy?: (value: string) => string;
   displayName?: React.ComponentType<{ id: string | number | object; checklistKey?: string }>;
+  // When the filter value is still being resolved (e.g. the "Similar sequences" filter waiting
+  // on vsearch), show a spinner in the chip instead of the — still provisional — value/count.
+  pending?: boolean;
 }
 
 export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProps>(
@@ -30,6 +34,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
       getCount,
       groupValuesBy,
       displayName: DisplayName = ({ id }) => <>{id}</>,
+      pending = false,
       ...props
     },
     ref
@@ -52,7 +57,8 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
       }
     };
 
-    if (count === 0)
+    // Stay active while resolving so the spinner is visible even if the count is momentarily 0.
+    if (count === 0 && !pending)
       return (
         <InactiveFilterButton
           {...props}
@@ -78,19 +84,21 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
               defaultMessage={titleTranslationKey || 'Unknown'}
             />
           </span>
-          {showFirstValue && (
+          {pending ? (
+            <Loader
+              className="g-ms-2 g-flex-none g-animate-spin g-text-slate-300"
+              aria-label="Resolving…"
+            />
+          ) : showFirstValue ? (
             <span className="g-flex-auto g-text-start g-overflow-ellipsis g-overflow-hidden g-max-w-[400px]">
               <span className="g-mx-1">:</span>
               <DisplayName id={firstValue} checklistKey={checklistKey} />
             </span>
-          )}
-          {count >= 1 && !showFirstValue && (
-            <>
-              <span className="g-ms-2 -g-me-2 g-px-2 g-rounded-lg g-bg-slate-950/20 g-flex-none">
-                {count}
-              </span>
-            </>
-          )}
+          ) : count >= 1 ? (
+            <span className="g-ms-2 -g-me-2 g-px-2 g-rounded-lg g-bg-slate-950/20 g-flex-none">
+              {count}
+            </span>
+          ) : null}
         </span>
       </ActiveFilterButton>
     );

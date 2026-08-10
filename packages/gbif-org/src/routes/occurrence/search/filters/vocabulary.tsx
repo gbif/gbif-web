@@ -4,6 +4,7 @@ import {
   LifeStageLabel,
   PathwayLabel,
   SexLabel,
+  TargetGeneLabel,
 } from '@/components/filters/displayNames';
 import {
   filterConfigTypes,
@@ -11,6 +12,7 @@ import {
   filterSuggestConfig,
 } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
+import { parseSequenceFilterValue } from '@/utils/sequenceSearch';
 import { pathwaySuggest } from '@/utils/suggestEndpoints';
 // import { establishmentMeansSuggest } from '@/utils/suggestEndpoints';
 
@@ -55,6 +57,40 @@ export const lifeStageConfig: filterEnumConfig = {
   `,
   about: () => <Message id="filters.lifeStage.description" />,
   group: 'occurrence',
+  allowExistence: true,
+  allowNegations: true,
+};
+
+export const nucleotideSequenceTargetGeneConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'nucleotideSequenceTargetGene',
+  displayName: TargetGeneLabel,
+  filterTranslation: 'filters.nucleotideSequenceTargetGene.name',
+  // When the "Similar sequences" filter is active the sequence is nested: an occurrence can
+  // carry several sequences, so a plain facet would count every gene present on the matched
+  // occurrences — including other-gene sequences that merely co-occur with the matched one, and
+  // selecting those yields zero results (they don't correlate with the matched sequence IDs).
+  // Passing `sequenceIds` correlates the facet to the matched sequences, so only their own
+  // gene(s) are listed and counted. `sequenceIds` are the in-memory IDs resolved by
+  // useSequenceAugmentedFilter; absent → facet behaves as before.
+  facetQuery: /* GraphQL */ `
+    query OccurrenceTargetGeneFacet($q: String, $predicate: Predicate, $sequenceIds: [String]) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        facet {
+          field: nucleotideSequenceTargetGene(size: 100, sequenceIds: $sequenceIds) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  extraFacetVariables: (filter) => {
+    const ids = parseSequenceFilterValue(filter?.must?.nucleotideSequenceId?.[0])?.ids;
+    return ids && ids.length > 0 ? { sequenceIds: ids } : {};
+  },
+  about: () => <Message id="filters.nucleotideSequenceTargetGene.description" />,
+  group: 'nucleotideSequence',
   allowExistence: true,
   allowNegations: true,
 };

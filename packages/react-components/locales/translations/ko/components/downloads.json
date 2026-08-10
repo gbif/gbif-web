@@ -78,7 +78,7 @@
     "usedChecklistKey": "다운로드 내 분류학 열을 덧붙이기 위해 {checklistName}이 사용되었습니다",
     "predicate": {
       "checklist": "체크리스트",
-      "tooManyLabelResolutions": "",
+      "tooManyLabelResolutions": "이 쿼리를 읽기 쉬운 형식으로 표시하려면 {count} 라벨 조회가 필요하며, 이는 {max}의 제한을 초과합니다. 서비스 부하를 줄이기 위해 원시 JSON 형식으로 대신 표시됩니다.",
       "joinDescriptions": {
         "and": "모두 적용되어야 함",
         "or": "적어도 한개는 적용되어야 함",
@@ -142,7 +142,7 @@
         "PATHWAY": "경로",
         "NETWORK_KEY": "네트워크",
         "DWCA_EXTENSION": "DwC-A 확장자",
-        "ACCEPTED_TAXON_KEY": "승인됨 분류군",
+        "ACCEPTED_TAXON_KEY": "승인된 분류군",
         "CONTINENT": "대륙",
         "OTHER_CATALOG_NUMBERS": "기타 카탈로그 번호",
         "TYPE_STATUS": "유형 상태",
@@ -333,94 +333,94 @@
       },
       "DWCA": {
         "title": "다윈 코어 아카이브",
-        "description": ""
+        "description": "상세하거나 특수한 용도로 사용할 수 있는 여러 파일(핵심 파일, 원시 값, 해석된 데이터, 확장 파일)이 포함되어 있습니다. 특정 확장 파일을 선택하여 다운로드를 맞춤 설정할 수 있습니다."
       },
       "SPECIES_LIST": {
-        "title": "",
-        "description": ""
+        "title": "종 목록",
+        "description": "출현 횟수가 포함된 모든 구별되는 분류군 이름 목록."
       },
       "SQL_CUBE": {
-        "title": "",
-        "description": ""
+        "title": "출현 큐브",
+        "description": "분류학적, 공간적, 시간적 차원별 그리드 내 출현 횟수. 차원과 집계 방식은 다음 단계에서 설정할 수 있습니다."
       },
       "SQL_TSV_ZIP": {
         "title": "SQL",
-        "description": ""
+        "description": "특정 데이터나 집계 결과를 추출하기 위한 사용자 정의 SQL 쿼리입니다. SQL에 익숙한 숙련된 사용자에게 적합합니다."
       },
       "features": {
-        "singleCsv": "",
-        "multipleCsv": "",
-        "interpretedData": "",
-        "rawAndInterpreted": "",
-        "coordinates": "",
-        "coordinatesIfSelected": "",
-        "individualOccurrences": "",
-        "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "singleCsv": "단일 탭으로 구분된 CSV 파일",
+        "multipleCsv": "다중 CSV 파일",
+        "interpretedData": "해석된 데이터만",
+        "rawAndInterpreted": "원시 + 해석된 데이터",
+        "coordinates": "좌표(가능한 경우)",
+        "coordinatesIfSelected": "좌표 (선택한 경우)",
+        "individualOccurrences": "개별 출현값",
+        "multimediaLinks": "멀티미디어 링크",
+        "occurrenceCounts": "출현 집계"
       }
     },
     "taxonomySelector": {
-      "title": "",
-      "description": "",
-      "defaultRecommended": "",
-      "version": ""
+      "title": "분류학적 참고 자료",
+      "description": "다운로드 파일 내 분류 열을 채우는 데 사용할 분류 체계를 선택하십시오.",
+      "defaultRecommended": "기본 설정이며, 대부분의 사용자에게 권장됩니다.",
+      "version": "버전"
     }
   },
   "customSqlDownload": {
-    "cubeConfiguration": "",
-    "invalidSQL": "",
-    "title": "",
-    "notification": "",
-    "occurrenceSearch": "",
+    "cubeConfiguration": "큐브 설정",
+    "invalidSQL": "유효하지 않은 SQL",
+    "title": "새로운 SQL 다운로드 생성",
+    "notification": "데이터를 다운로드하고 탐색하는 가장 쉬운 방법은 출현 검색 사용자 인터페이스를 이용하는 것입니다. 하지만 복잡한 쿼리와 집계 작업의 경우, SQL 에디터가 더 높은 자유도를 제공합니다.",
+    "occurrenceSearch": "출현 검색",
     "taxon": {
-      "KINGDOM": "",
-      "PHYLUM": "",
-      "CLASS": "",
-      "ORDER": "",
-      "FAMILY": "",
-      "GENUS": "",
-      "SPECIES": "",
-      "ACCEPTED_TAXON": "",
-      "EXACT_TAXON": ""
+      "KINGDOM": "계",
+      "PHYLUM": "문",
+      "CLASS": "강",
+      "ORDER": "목",
+      "FAMILY": "과",
+      "GENUS": "속",
+      "SPECIES": "종",
+      "ACCEPTED_TAXON": "승인된 분류군",
+      "EXACT_TAXON": "정확한 분류군"
     },
-    "cubeTitle": "",
-    "cubeDescription": "",
-    "readMore": "",
+    "cubeTitle": "큐브 다운로드",
+    "cubeDescription": "공간적, 시간적, 분류학적 해상도를 설정하세요.",
+    "readMore": "더보기",
     "time": {
       "YEAR": "연",
-      "YEARMONTH": "",
-      "DATE": ""
+      "YEARMONTH": "연도와 월",
+      "DATE": "날짜"
     },
     "boolean": {
-      "YES": "",
-      "NO": ""
+      "YES": "예",
+      "NO": "아니오"
     },
-    "sqlMachineDescriptionIntro": "",
-    "occurrenceMeasurements": "",
+    "sqlMachineDescriptionIntro": "이 SQL 파일은 사용자가 제공한 다음 매개변수를 기반으로 생성되었습니다:",
+    "occurrenceMeasurements": "출현 횟수 (항상 포함)",
     "grid": {
-      "EEA_REFERENCE_GRID": "",
-      "EXTENDED_QUARTER_DEGREE_GRID": "",
-      "ISEA3H_GRID": "",
-      "MILITARY_GRID_REFERENCE_SYSTEM": ""
+      "EEA_REFERENCE_GRID": "EEA 기준 격자 - 유럽 지역 한정",
+      "EXTENDED_QUARTER_DEGREE_GRID": "확장된 1/4도 격자(QDGC)",
+      "ISEA3H_GRID": "ISEA3H 그리드",
+      "MILITARY_GRID_REFERENCE_SYSTEM": "군용 좌표 체계(MGRS)"
     },
     "resolution": {
       "EEA_REFERENCE_GRID": {
-        "25": "",
-        "100": "",
-        "250": "",
-        "1000": "",
-        "10000": "",
-        "50000": "",
-        "100000": ""
+        "25": "25 m",
+        "100": "100m",
+        "250": "250 m",
+        "1000": "1 km",
+        "10000": "10 km",
+        "50000": "50km",
+        "100000": "100 km"
       },
       "EXTENDED_QUARTER_DEGREE_GRID": {
-        "0": "",
-        "1": "",
-        "2": "",
-        "3": "",
-        "4": "",
-        "5": "",
-        "6": ""
+        "0": "레벨 0",
+        "1": "레벨 1",
+        "2": "레벨 2",
+        "3": "레벨 3",
+        "4": "레벨 4",
+        "5": "레벨 5",
+        "6": "레벨 6"
       },
       "ISEA3H_GRID": {
         "1": "",

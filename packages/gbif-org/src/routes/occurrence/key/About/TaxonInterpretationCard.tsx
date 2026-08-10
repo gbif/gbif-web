@@ -2,8 +2,9 @@ import { BulletList } from '@/components/bulletList';
 import { Classification } from '@/components/classification';
 import { DatasetLabel } from '@/components/filters/displayNames';
 import { useConfig } from '@/config/config';
+import { EntityLinkPresentation } from '@/components/entityLink';
 import { ChecklistClassification } from '@/gql/graphql';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { useTaxonLinks } from '@/hooks/useTaxonLinks';
 import { cn } from '@/utils/shadcn';
 import { BsLightningFill } from 'react-icons/bs';
 import { HiExternalLink as ExternalLinkIcon } from 'react-icons/hi';
@@ -15,18 +16,17 @@ export function TaxonInterpretationCard({
   classification: ChecklistClassification;
 }) {
   const config = useConfig();
-  const useChecklistBankLink = config.defaultChecklistKey !== classification.checklistKey;
+  const links = useTaxonLinks({
+    checklistKey: classification.checklistKey,
+    clbDatasetKey: classification?.meta?.mainIndex?.clbDatasetKey,
+  });
   const usageKey = classification?.usage?.key;
   const usageName = classification?.usage?.name;
   const noMatch = !usageKey || !usageName;
   if (noMatch) return <ChecklistNoMatchCard checklistKey={classification.checklistKey} />;
   const issues = classification?.issues ?? [];
 
-  const externalDatasetLink = `https://www.checklistbank.org/dataset/${classification?.meta?.mainIndex.clbDatasetKey}/about`;
-
-  const externalTaxonLink = `https://www.checklistbank.org/dataset/${
-    classification?.meta?.mainIndex?.clbDatasetKey
-  }/taxon/${encodeURIComponent(usageKey)}`;
+  const formattedName = classification.taxonMatch?.usage.formattedName ?? usageName;
 
   return (
     <div
@@ -39,51 +39,24 @@ export function TaxonInterpretationCard({
         <div className="g-p-4 g-flex g-items-start g-justify-between">
           <div className="g-flex-1">
             <div className="g-flex g-items-center g-gap-2 g-mb-2 g-text-site-dir-start">
-              {useChecklistBankLink && (
-                <a
-                  href={externalDatasetLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="g-text-sm g-font-medium g-text-slate-600 hover:g-text-primary-500"
-                >
-                  {classification?.meta?.mainIndex?.datasetTitle}{' '}
-                  {/* <ExternalLinkIcon className="g-align-baseline" /> */}
-                </a>
-              )}
-              {!useChecklistBankLink && (
-                <DynamicLink
-                  className="g-text-sm g-font-medium g-text-slate-600 hover:g-text-primary-500 "
-                  pageId="datasetKey"
-                  variables={{ key: classification?.checklistKey }}
-                >
-                  {classification?.meta?.mainIndex?.datasetTitle}
-                </DynamicLink>
-              )}
+              <EntityLinkPresentation
+                link={links.dataset}
+                className="g-text-sm g-font-medium g-text-slate-600 hover:g-text-primary-500"
+              >
+                {classification?.meta?.mainIndex?.datasetTitle}
+              </EntityLinkPresentation>
             </div>
             <h4>
-              {useChecklistBankLink && (
+              <EntityLinkPresentation
+                link={links.taxon(usageKey)}
+                className="g-text-site-dir-start g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
+                dangerouslySetInnerHTML={{ __html: formattedName }}
+              />
+              {links.taxon(usageKey).kind === 'external' && (
                 <>
-                  <a
-                    href={externalTaxonLink}
-                    target="_blank"
-                    className="g-text-site-dir-start g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
-                    rel="noopener noreferrer"
-                    dangerouslySetInnerHTML={{
-                      __html: classification.taxonMatch?.usage.formattedName ?? usageName,
-                    }}
-                  />{' '}
+                  {' '}
                   <ExternalLinkIcon className="g-align-baseline" />
                 </>
-              )}
-              {!useChecklistBankLink && (
-                <DynamicLink
-                  className="g-text-site-dir-start g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
-                  pageId="taxonKey"
-                  variables={{ key: usageKey }}
-                  dangerouslySetInnerHTML={{
-                    __html: classification.taxonMatch?.usage.formattedName ?? usageName,
-                  }}
-                />
               )}
             </h4>
             <Classification dir="ltr" className="g-text-xs g-text-slate-600 g-text-site-dir-start">
@@ -128,13 +101,12 @@ export function TaxonInterpretationCard({
                 )}
                 <span className="g-text-slate-600 g-font-medium">
                   accepted name:{' '}
-                  <DynamicLink
-                    pageId="taxonKey"
+                  <EntityLinkPresentation
+                    link={links.taxon(classification.acceptedUsage.key)}
                     className="g-underline"
-                    variables={{ key: classification.acceptedUsage.key }}
                   >
                     {classification.acceptedUsage.name}
-                  </DynamicLink>
+                  </EntityLinkPresentation>
                 </span>
               </div>
             )}

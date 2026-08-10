@@ -6,6 +6,7 @@ import {
   ElevationLabel,
   EndDayOfYearLabel,
   GeologicalTimeLabel,
+  NucleotideSequenceLengthLabel,
   OrganismQuantityLabel,
   RelativeOrganismQuantityLabel,
   SampleSizeValueLabel,
@@ -56,6 +57,15 @@ export const depthConfig: filterRangeConfig = {
   filterTranslation: 'filters.depth.name',
   about: () => <Message id="filters.depth.description" />,
   group: 'location',
+};
+
+export const nucleotideSequenceSequenceLengthConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'nucleotideSequenceSequenceLength',
+  displayName: NucleotideSequenceLengthLabel,
+  filterTranslation: 'filters.nucleotideSequenceSequenceLength.name',
+  about: () => <Message id="filters.nucleotideSequenceSequenceLength.description" />,
+  group: 'nucleotideSequence',
 };
 
 export const organismQuantityConfig: filterRangeConfig = {

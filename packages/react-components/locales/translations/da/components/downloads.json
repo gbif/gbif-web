@@ -113,7 +113,7 @@
         "HAS_GEOSPATIAL_ISSUE": "Har geospatiale problemer",
         "INSTITUTION_CODE": "",
         "REPATRIATED": "Hjemsendt",
-        "YEAR": "",
+        "YEAR": "År",
         "STATE_PROVINCE": "",
         "GADM_GID": "",
         "SAMPLE_SIZE_VALUE": "",
@@ -387,7 +387,7 @@
     "cubeDescription": "",
     "readMore": "Læs mere",
     "time": {
-      "YEAR": "",
+      "YEAR": "År",
       "YEARMONTH": "",
       "DATE": "Dato"
     },

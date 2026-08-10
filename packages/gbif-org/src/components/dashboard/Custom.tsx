@@ -209,7 +209,10 @@ function TaxaMain({
     <Card
       {...props}
       loading={facetResults.loading || !facetResults.data}
-      error={!!facetResults.error}
+      // Only surface the error card when we have no data to show, so a partial error
+      // (e.g. per-bucket metaPredicate failing on an unsupported v2-map predicate)
+      // still renders the chart.
+      error={!!facetResults.error && !facetResults.data}
     >
       <CardHeader
         options={<ChartViewOptions options={['TABLE', 'MAP']} view={view} setView={setView} />}
@@ -427,7 +430,10 @@ function IucnMain({
     <Card
       {...props}
       loading={facetResults.loading || !facetResults.data}
-      error={!!facetResults.error}
+      // Only surface the error card when we have no data to show, so a partial error
+      // (e.g. per-bucket metaPredicate failing on an unsupported v2-map predicate)
+      // still renders the chart.
+      error={!!facetResults.error && !facetResults.data}
     >
       <CardHeader
         options={<ChartViewOptions options={['TABLE', 'MAP']} view={view} setView={setView} />}

@@ -116,11 +116,23 @@ function getConfigByKey(key, config) {
     return {
       config: config.options[key].config || config,
     };
-  } else {
-    return {
-      error: new Error(`${key} is not a known field.`),
-    };
   }
+  // Allow dot-notation keys that address a field inside a nested object, e.g.
+  // `nucleotideSequence.targetGene`. These are used as flat predicates (equals/in/range
+  // etc.); the v1 toesquery endpoint understands the upper-snake-cased form
+  // (NUCLEOTIDE_SEQUENCE_TARGET_GENE) that normalizePredicate produces.
+  if (typeof key === 'string' && key.includes('.')) {
+    const separatorIndex = key.indexOf('.');
+    const parentKey = key.slice(0, separatorIndex);
+    const childKey = key.slice(separatorIndex + 1);
+    const parent = config.options[parentKey];
+    if (parent && parent.type === 'nested' && parent.config?.options?.[childKey]) {
+      return { config };
+    }
+  }
+  return {
+    error: new Error(`${key} is not a known field.`),
+  };
 }
 
 function testPredicateKeys(predicate, conf) {

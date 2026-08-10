@@ -81,6 +81,7 @@ const typeDef = gql`
     extensions: OccurrenceExtensions
     extent: String
     facts: [JSON]
+    nucleotideSequences: [NucleotideSequence]
     family: String
     familyKey: ID
     fieldNotes: String
@@ -140,6 +141,7 @@ const typeDef = gql`
     islandGroup: String
     issued: String
     issues(types: [String!]): [OccurrenceIssue!]
+    issuesWithSeverity: [OccurrenceIssueInfo!]
     nonTaxonomicIssues: [OccurrenceIssue!]
     kingdom: String
     kingdomKey: ID
@@ -386,6 +388,17 @@ const typeDef = gql`
     qualifiedName: String
   }
 
+  """
+  An occurrence issue together with its severity (INFO, WARNING or ERROR) as
+  classified by the GBIF interpretationRemark vocabulary. Lets the UI colour issue
+  flags by their real severity for issues that are not tied to a core term (e.g. the
+  DNA-derived-data extension flags).
+  """
+  type OccurrenceIssueInfo {
+    id: OccurrenceIssue!
+    severity: String
+  }
+
   type TermGroups {
     occurrence: JSON!
     record: JSON!
@@ -582,6 +595,31 @@ const typeDef = gql`
     type: String
     value: String
     person(expand: Boolean): Person
+  }
+
+  """
+  A nucleotide sequence attached to an occurrence (e.g. a DNA barcode), together with
+  derived quality metrics. An occurrence may have several.
+  """
+  type NucleotideSequence {
+    nucleotideSequenceID: String
+    sequence: String
+    sequenceLength: Int
+    gcContent: Float
+    nonIupacFraction: Float
+    nonACGTNFraction: Float
+    nFraction: Float
+    nRunsCapped: Int
+    naturalLanguageDetected: Boolean
+    endsTrimmed: Boolean
+    gapsOrWhitespaceRemoved: Boolean
+    invalid: Boolean
+    targetGene: NucleotideSequenceTargetGene
+  }
+
+  type NucleotideSequenceTargetGene {
+    concept: String
+    lineage: [String]
   }
 
   type MultimediaItem {

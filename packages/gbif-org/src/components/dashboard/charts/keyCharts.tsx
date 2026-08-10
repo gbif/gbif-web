@@ -598,3 +598,55 @@ export function Sex({
     />
   );
 }
+
+export function NucleotideSequenceLength({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, // excluding root predicate
+  ...props
+}: KeyChartProps) {
+  // Histogram of nucleotide sequence length in base pairs. The `histogram` field is
+  // aliased to `facet` so useFacets extracts its buckets (it accepts either an array or
+  // a {buckets} object), and the bins render as a column chart. Bin width is 100 bp.
+  const GQL_QUERY = `
+    query summary($q: String, $predicate: Predicate){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        documents(size: 0) {
+          total
+        }
+        facet: histogram {
+          results: nucleotideSequenceSequenceLength(interval: 100) {
+            interval
+            buckets {
+              key
+              count
+            }
+          }
+        }
+      }
+    }
+  `;
+  return (
+    <ChartWrapper
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        gqlQuery: GQL_QUERY,
+        predicateKey: 'nucleotideSequenceSequenceLength',
+        disableUnknown: true,
+        disableOther: true,
+        title: (
+          <FormattedMessage
+            id="filters.nucleotideSequenceSequenceLength.name"
+            defaultMessage="Sequence length"
+          />
+        ),
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        defaultOption: 'COLUMN',
+        options: ['COLUMN', 'TABLE'],
+      }}
+      {...props}
+    />
+  );
+}
