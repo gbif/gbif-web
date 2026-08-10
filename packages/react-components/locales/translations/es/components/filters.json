@@ -327,22 +327,22 @@
   },
   "nucleotideSequenceTargetGene": {
     "name": "Gen objetivo",
-    "description": "El gen o la región génica a la que se dirige una secuencia de nucleótidos asociada a la presencia (por ejemplo, COI, ITS2)."
+    "description": "El gen o la región génica a la que se dirige una secuencia de nucleótidos asociada al registro biológico (por ejemplo, COI, ITS2)."
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longitud de la secuencia",
-    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos (ADN o ARN) unida al registro de biodiversidad."
+    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos (ADN o ARN) unida al registro biológico."
   },
   "nucleotideSequenceId": {
     "name": "Similitud de secuencias",
-    "description": "Pega una secuencia de nucleótidos para encontrar los registros de biodiversidad cuyas secuencias asociadas sean similares a ella, agrupadas por porcentaje de identidad.",
+    "description": "Pega una secuencia de nucleótidos para encontrar los registros biológicos cuyas secuencias asociadas sean similares a ella, agrupadas por porcentaje de identidad.",
     "search": "Buscar similares",
     "uniqueSequences": "{count, plural, one {# secuencia distinta} other {# secuencias distintas}}",
     "similarityRange": "{from} a {to} %",
     "similarityExact": "{value} %",
     "invalid": "La entrada no parece ser una secuencia de nucleótidos válida.",
     "tooLong": "La secuencia es demasiado larga. El máximo es de {max} bases.",
-    "error": "No se pudo buscar secuencias similares. Por favor, inténtalo de nuevo.",
+    "error": "No se han podido buscar secuencias similares. Inténtalo de nuevo.",
     "noMatches": "No se han encontrado secuencias similares.",
     "bin": {
       "100": "100 % (idéntico)",
