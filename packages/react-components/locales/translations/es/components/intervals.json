@@ -22,7 +22,7 @@
   "compactBasePairs": {
     "between": "{from} pb a {to} pb",
     "lt": "Por debajo de {to} pb",
-    "gt": "Por encima de los {from} pb",
+    "gt": "Por encima de {from} pb",
     "e": "{from} pb"
   },
   "compactTime": {
