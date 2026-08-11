@@ -331,11 +331,11 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "序列長度",
-    "description": "附帶於出現記錄資料的核苷酸序列（DNA或RNA）的長度（以鹼基對計算）。"
+    "description": ""
   },
   "nucleotideSequenceId": {
     "name": "序列相似性",
-    "description": "貼上一組核苷酸序列，以找出附帶序列與其相似的出現紀錄資料，並按照序列一致性百分比進行分組。",
+    "description": "",
     "search": "尋找相似項目",
     "uniqueSequences": "{count, plural, one {# 特定序列} other {# 特定序列}}",
     "similarityRange": "{from} 至 {to} %",
