@@ -20,10 +20,10 @@
     "e": "{from} 公尺"
   },
   "compactBasePairs": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} bp 至 {to} bp",
+    "lt": "低於 {to} bp",
+    "gt": "高於 {from} bp",
+    "e": "{from} bp"
   },
   "compactTime": {
     "between": "{from} 到 {to}",
