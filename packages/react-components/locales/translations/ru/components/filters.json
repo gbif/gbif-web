@@ -331,11 +331,11 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Длина последовательности",
-    "description": "Длина  присоединенных базовых пар нуклеотидной последовательности (DNA или RNA)"
+    "description": "Длина, в базовых парах, нуклеотидной последовательности, присоединенной к набллюдению"
   },
   "nucleotideSequenceId": {
     "name": "Сходство последовательностей",
-    "description": "Вставьте нуклеотидную последовательность для нахождения аналогичных, сгруппированных по процентной идентичности",
+    "description": "Ввод нуклеотидной последовательности ( DNA или RNA), найденной для данного наблюдения, с аналогичной последовательностью; показанные результаты сгруппированы по процентному соответствию.",
     "search": "Найдите похожую",
     "uniqueSequences": "{count, plural, one {# distinct sequence} few {# distinct sequences} many {# distinct sequences} other {# distinct sequences}}",
     "similarityRange": "От{from} до {to} %",
