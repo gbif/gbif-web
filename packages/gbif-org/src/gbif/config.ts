@@ -176,9 +176,6 @@ export const gbifConfig: Config = {
   openGraph: {
     site_name: 'GBIF',
   },
-  apiKeys: {
-    maptiler: import.meta.env.PUBLIC_API_KEY_MAPTILER,
-  },
   openDrawerOnTableRowClick: false,
   availableCatalogues: ['OCCURRENCE', 'PUBLISHER', 'DATASET', 'TAXON', 'RESOURCE', 'LITERATURE'],
   // vernacularNames: {
@@ -281,7 +278,7 @@ export const gbifConfig: Config = {
       options: {
         ARCTIC: ['NATURAL', 'BRIGHT'],
         PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
-        MERCATOR: ['NATURAL', 'BRIGHT', 'DARK' /* 'SATELLITE' */], // 'GEOLOGY'
+        MERCATOR: ['NATURAL', 'BRIGHT', 'DARK', 'SATELLITE'], // 'GEOLOGY'
         ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
       },
     },
