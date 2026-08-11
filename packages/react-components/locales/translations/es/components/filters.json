@@ -331,11 +331,11 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longitud de la secuencia",
-    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos (ADN o ARN) unida al registro biológico."
+    "description": ""
   },
   "nucleotideSequenceId": {
     "name": "Similitud de secuencias",
-    "description": "Pega una secuencia de nucleótidos para encontrar los registros biológicos cuyas secuencias asociadas sean similares a ella, agrupadas por porcentaje de identidad.",
+    "description": "",
     "search": "Buscar similares",
     "uniqueSequences": "{count, plural, one {# secuencia distinta} other {# secuencias distintas}}",
     "similarityRange": "{from} a {to} %",
