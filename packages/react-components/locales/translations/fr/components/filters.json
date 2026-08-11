@@ -331,11 +331,11 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longueur de la séquence",
-    "description": "La longueur, en paires de bases, d'une séquence nucléotidique (ADN ou ARN) associée à l'occurrence."
+    "description": "La longueur, en paires de bases, d'une séquence nucléotidique associée à l'occurrence."
   },
   "nucleotideSequenceId": {
     "name": "Similitude des séquences",
-    "description": "Collez une séquence nucléotidique pour trouver les occurrences dont les séquences associées lui sont similaires, regroupées par pourcentage d'identité.",
+    "description": "Entrer une séquence nucléotidique (ADN ou ARN) pour trouver des occurrences avec des séquences similaires ; les résultats sont classés par pourcentage de correspondance.",
     "search": "Trouver des résultats similaires",
     "uniqueSequences": "{count, plural, one {# séquence distincte} other {# séquences distinctes}}",
     "similarityRange": "{from} à {to} %",
