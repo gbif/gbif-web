@@ -1,6 +1,6 @@
 {
   "http://rs.tdwg.org/dwc/terms/Occurrence": "出現",
-  "http://rs.tdwg.org/ac/terms/Multimedia": "奧杜邦多媒體",
+  "http://rs.tdwg.org/ac/terms/Multimedia": "視聽",
   "http://rs.gbif.org/terms/1.0/DNADerivedData": "衍生自 DNA 的資料",
   "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "DNA 擴增",
   "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "克隆",
@@ -30,6 +30,17 @@
   "http://rs.gbif.org/terms/1.0/VernacularName": "GBIF 俗名",
   "http://rs.gbif.org/terms/1.0/SpeciesProfile": "GBIF 物種檔案",
   "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "GBIF 類型與標本",
+  "http://rs.gbif.org/terms/1.0/Releve": "GBIF releve",
   "http://rs.tdwg.org/dwc/terms/Event": "達爾文核心集事件",
-  "http://rs.tdwg.org/dwc/terms/MaterialSample": "達爾文核心集材料樣品"
+  "http://rs.tdwg.org/dwc/terms/MaterialSample": "達爾文核心集材料樣品",
+  "http://ala.org.au/terms/1.0/VerbatimEvent": "ALA 逐字事件",
+  "http://ala.org.au/terms/1.0/VerbatimOccurrence": "ALA 逐字出現紀錄資料",
+  "http://ala.org.au/terms/seedbank/0.1/SeedbankRecord": "ALA 種子銀行紀錄",
+  "http://rs.tdwg.org/eco/terms/Event": "Humboldt 延伸集",
+  "https://terms.catalogueoflife.org/NameRelation": "CoL 名稱關聯",
+  "http://eol.org/schema/agent/Agent": "EOL 代理",
+  "http://purl.org/plic/terms/3.2.1/Endemicity": "PLIC 特有性",
+  "http://purl.org/plic/terms/3.2.1/ThreatStatus": "PLIC 威脅狀態",
+  "http://rs.gbif.org/terms/1.0/Ellenberg": "GBIF Ellenberg",
+  "https://ac.tdwg.org/termlist/": "TDWG 專有名詞表"
 }
