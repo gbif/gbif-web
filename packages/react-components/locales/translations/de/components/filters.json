@@ -335,7 +335,7 @@
   },
   "nucleotideSequenceId": {
     "name": "",
-    "description": "",
+    "description": "Geben Sie eine Nukleotidsequenz (DNA oder RNA) ein, um Vorkommen mit ähnlichen angehängten Sequenzen zu finden; die Ergebnisse werden nach Übereinstimmungsgrad (in Prozent) gruppiert angezeigt.",
     "search": "",
     "uniqueSequences": "",
     "similarityRange": "",
