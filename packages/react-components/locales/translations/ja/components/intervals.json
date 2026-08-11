@@ -19,6 +19,12 @@
     "gt": "{from}m以上",
     "e": "{from}m"
   },
+  "compactBasePairs": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
   "compactTime": {
     "between": "{from} から {to} まで",
     "lt": "{to}前",

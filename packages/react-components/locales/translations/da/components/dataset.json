@@ -1,5 +1,5 @@
 {
-  "datasetSearchTitle": "",
+  "datasetSearchTitle": "Datasætsøgning",
   "datasetSearchDescription": "",
   "longType": {
     "OCCURRENCE": "Observationsdatasæt",
@@ -30,14 +30,14 @@
       "checklist": "Tjekliste",
       "downloads": "Downloads",
       "taxonomic": "",
-      "geographic": "",
+      "geographic": "Geografisk",
       "temporal": "Tidsrum",
       "qualities": "",
-      "citations": ""
+      "citations": "Citationer"
     },
     "checklist": {
       "info": "",
-      "checklistbank": "",
+      "checklistbank": "ChecklistBank",
       "notAvailable": "",
       "overview": "",
       "overviewDescription": "",

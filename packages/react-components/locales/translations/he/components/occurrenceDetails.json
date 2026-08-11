@@ -39,6 +39,7 @@
   },
   "showMore": "",
   "showLess": "",
+  "searchSimilarSequences": "",
   "screenReader": {
     "title": "תצפית details"
   },

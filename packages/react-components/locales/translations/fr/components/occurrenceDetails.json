@@ -39,6 +39,7 @@
   },
   "showMore": "Voir plus",
   "showLess": "Voir moins",
+  "searchSimilarSequences": "Recherchez des occurrences avec des séquences similaires",
   "screenReader": {
     "title": "Détails de l'occurrence"
   },

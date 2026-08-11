@@ -16,7 +16,7 @@
     "description": ""
   },
   "collectionKey": {
-    "name": "",
+    "name": "Samling",
     "description": ""
   },
   "predicate": {
@@ -24,7 +24,7 @@
     "description": ""
   },
   "taxonomicStatus": {
-    "name": "",
+    "name": "Status",
     "description": ""
   },
   "taxonRank": {
@@ -48,14 +48,14 @@
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderDist": "Afstand"
   },
   "geometry": {
     "name": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderDist": "Afstand"
   },
   "relevance": {
     "name": "Relevans",
@@ -325,6 +325,35 @@
     "name": "",
     "description": ""
   },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "uniqueSequences": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
   "recordedBy": {
     "name": "",
     "description": ""
@@ -402,7 +431,7 @@
     "description": ""
   },
   "gbifRegion": {
-    "name": "",
+    "name": "GBIF-region",
     "description": ""
   },
   "publishedByGbifRegion": {

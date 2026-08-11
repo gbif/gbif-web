@@ -1,7 +1,7 @@
 {
   "tabs": {
     "table": "表",
-    "tree": "",
+    "tree": "樹狀圖",
     "gallery": "圖片集",
     "media": "等於 {is}",
     "map": "地圖",
@@ -25,8 +25,8 @@
     "range": "範圍或單一數值",
     "rangeExample": "例如：1000, 2000",
     "wildcard": "使用 * 和 ? 作為萬用字元進行搜尋",
-    "dateTemplate": "",
-    "locationID": ""
+    "dateTemplate": "yyyy-mm-dd",
+    "locationID": "依位置 ID 搜尋（區分大小寫）"
   },
   "ternary": {
     "yes": "是",
@@ -44,15 +44,15 @@
   "options": "選項",
   "sort": {
     "sortBy": "排序",
-    "yearDesc": "",
-    "yearAsc": ""
+    "yearDesc": "年份（最新在前）",
+    "yearAsc": "年份（最舊在前）"
   },
   "group": {
-    "groupBy": "",
+    "groupBy": "依...分組",
     "default": "預設",
-    "random": "",
-    "showMore": "",
-    "cappedHint": "",
+    "random": "隨機",
+    "showMore": "顯示 {count} 更多",
+    "cappedHint": "顯示{total} 中的 {shown} 個群組。請套用更多篩選條件以進一步縮小範圍。",
     "useAsFilter": "設為篩選",
     "unspecified": "未指定"
   },
@@ -62,11 +62,11 @@
     "legend": "圖例",
     "differentPublishers": "不同發布者",
     "samePublishers": "相同發布者",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
+    "entryPoint": "入口",
+    "hasMultipleTaxonKeys": "包含不同的識別資訊",
+    "aboutLink": "關於該連結",
+    "isCapped": "此節點的連結數量比顯示的更多。請前往該記錄以查看完整清單。",
+    "isDeleted": "該記錄已於事後被刪除。",
     "similarities": "相似度",
     "currentRecord": "當前記錄",
     "nodeType": {
@@ -92,7 +92,7 @@
       "resourceSearch": "資源與文章"
     },
     "seeAll": "查看全部",
-    "searchFor": "",
-    "noResults": ""
+    "searchFor": "搜尋「{query}」",
+    "noResults": "我們找不到任何符合您搜尋條件的結果。如需更多結果，請嘗試在這裡顯示的類別中進行更具體的搜尋。"
   }
 }

@@ -1,9 +1,9 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "Associeret participant",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Stemmende deltager",
+      "ASSOCIATE": "Associeret deltager",
+      "OTHER_ASSOCIATE": "Anden associeret deltager",
       "FORMER": "Tidligere",
       "OBSERVER": "Observatør",
       "UNKNOWN": "Ukendt",
@@ -13,7 +13,7 @@
     "mapCaptionPublishers": "",
     "role": "Rolle",
     "name": "Navn",
-    "participant": "Participant",
+    "participant": "Deltager",
     "type": "",
     "memberSince": "Medlem siden",
     "all": "Alle",
@@ -23,7 +23,7 @@
     "noDescriptionProvided": "",
     "headlines": {
       "nodesSteeringGroup": "",
-      "participants": "Participanter"
+      "participants": "Deltagere"
     }
   }
 }

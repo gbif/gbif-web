@@ -1,6 +1,15 @@
 {
+  "identifier": "ID",
+  "type": "Type",
+  "subtypeLiteral": "Undertype",
   "title": "Titel",
   "rights": "Rettigheder",
-  "description": "Beskriveslse",
-  "format": "Format"
+  "credit": "Kildeangivelse",
+  "providerLiteral": "Udbyder",
+  "description": "Beskrivelse",
+  "accessURI": "URL",
+  "accessOriginalURI": "Original URL",
+  "format": "Format",
+  "pixelXDimension": "Bredde",
+  "pixelYDimension": "Højde"
 }

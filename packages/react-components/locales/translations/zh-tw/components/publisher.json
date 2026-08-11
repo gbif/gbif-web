@@ -1,19 +1,19 @@
 {
   "searchTitle": "發布者搜尋",
-  "searchDescription": "",
+  "searchDescription": "在 GBIF 中搜尋發布者。免費且開放存取生物多樣性資料。",
   "tabs": {
     "aboutPublisher": "關於",
     "metrics": "指標",
     "publishersHomepage": "首頁"
   },
-  "joinedDate": "",
+  "joinedDate": "加入於 {date}",
   "newPublisher": "新發布者",
   "technicalContact": "技術聯繫",
   "country": "國家或地區",
   "hosting": "託管",
   "description": "描述",
   "endorsedBy": "認可者：",
-  "notYetEndorsed": "",
+  "notYetEndorsed": "尚未獲得認可",
   "pendingEndorsementBy": "待認可",
   "endorsementWithheld": "認可保留中",
   "installations": "安裝",

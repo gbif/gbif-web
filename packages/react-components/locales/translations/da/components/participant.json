@@ -2,37 +2,37 @@
   "participant": {
     "participationStatus": {
       "longForm": {
-        "VOTING": "",
-        "ASSOCIATE": "Associeret participant",
-        "OBSERVER": "Observerende participant",
+        "VOTING": "Stemmende deltager",
+        "ASSOCIATE": "Associeret deltager",
+        "OBSERVER": "Observerende deltager",
         "AFFILIATE": "Affilieret",
-        "FORMER": "",
+        "FORMER": "Tidligere deltager",
         "undefined": "Ukendt"
       },
       "description": {
-        "VOTING": "En stemmende GBIF participant fra {REGION}",
-        "ASSOCIATE": "En associeret GBIF participant fra {REGION}",
+        "VOTING": "En stemmende GBIF deltager fra {REGION}",
+        "ASSOCIATE": "En associeret GBIF deltager fra {REGION}",
         "OBSERVER": "Et GBIF observerende land fra {REGION}",
-        "AFFILIATE": "En affilieret participant fra {REGION}",
-        "FORMER": "GBIF tidligere participant fra {REGION}",
+        "AFFILIATE": "En affilieret deltager fra {REGION}",
+        "FORMER": "GBIF tidligere deltager fra {REGION}",
         "undefined": "Ukendt"
       },
       "type": {
         "OTHER": {
           "description": {
             "VOTING": "En GBIF stemmende organisation fra {REGION}",
-            "ASSOCIATE": "En associeret participerende organisation fra {REGION}",
-            "OBSERVER": "En observerende participant organisation fra {REGION}",
-            "AFFILIATE": "En affilieret participant organisation fra {REGION}",
-            "FORMER": "En tidligere participant organisation fra {REGION}",
+            "ASSOCIATE": "En associeret organisation fra {REGION}",
+            "OBSERVER": "En observerende organisation fra {REGION}",
+            "AFFILIATE": "En affilieret organisation fra {REGION}",
+            "FORMER": "En tidligere deltagende organisation fra {REGION}",
             "undefined": "Ukendt"
           },
           "longForm": {
-            "VOTING": "Stemmende participant organisation",
-            "ASSOCIATE": "Associeret participant organisation",
-            "OBSERVER": "Observerende participant organisation",
-            "AFFILIATE": "Affilieret participant organisation",
-            "FORMER": "Tidligere participant organisation",
+            "VOTING": "Stemmende organisation",
+            "ASSOCIATE": "Associeret organisation",
+            "OBSERVER": "Observerende organisation",
+            "AFFILIATE": "Affilieret organisation",
+            "FORMER": "Tidligere deltagende organisation",
             "undefined": "Ukendt"
           }
         }
@@ -40,16 +40,16 @@
     },
     "participant": "Participant",
     "node": "",
-    "participantSummary": "",
-    "memberStatus": "",
-    "gbifParticipantSince": "",
+    "participantSummary": "Deltagerresumé",
+    "memberStatus": "Medlemsstatus",
+    "gbifParticipantSince": "GBIF-deltager siden",
     "headOfDelegation": "",
-    "gbifRegion": "",
+    "gbifRegion": "GBIF-region",
     "countryOrArea": "Land eller område",
     "nodeName": "",
     "nodeEstablished": "",
     "website": "Webside",
     "participantNodeManager": "",
-    "pending": ""
+    "pending": "Afventende"
   }
 }
