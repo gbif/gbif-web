@@ -207,7 +207,7 @@
         "TAXONOMIC_ISSUE": "",
         "INSTALLATION_KEY": "Installation",
         "VERBATIM_SCIENTIFIC_NAME": "",
-        "GBIF_REGION": "",
+        "GBIF_REGION": "GBIF-region",
         "COORDINATE_UNCERTAINTY_IN_METERS": "",
         "PARENT_EVENT_ID": "",
         "RECORDED_BY": "",
@@ -276,7 +276,7 @@
     "sqlDownloadsLink": "",
     "extensions": "",
     "selectAdditionalExtensions": "",
-    "nExtensionsSelected": "",
+    "nExtensionsSelected": "{count, plural, one {# valgt} other {# valgt}}",
     "selectAll": "",
     "deselectAll": "",
     "extensionsInfoMessage": "",
@@ -456,7 +456,7 @@
         "100000": ""
       }
     },
-    "noneSelected": "",
+    "noneSelected": "Ingen valgt",
     "dimensions": "",
     "taxonomicDimension": "",
     "temporalDimension": "",

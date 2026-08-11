@@ -38,6 +38,7 @@
     "record": "سجل",
     "taxon": "الوحدة التصنيفية",
     "occurrence": "تكرار",
+    "nucleotideSequence": "",
     "organism": "المتعضي",
     "materialEntity": "",
     "event": "الحدث",

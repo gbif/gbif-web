@@ -325,6 +325,35 @@
     "name": "Životní fáze",
     "description": "Životní stádium organismu"
   },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "uniqueSequences": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
   "recordedBy": {
     "name": "Zaznamenáno od",
     "description": "Jména osoby, osob, skupin nebo organizací odpovědných za zaznamenání původní události."

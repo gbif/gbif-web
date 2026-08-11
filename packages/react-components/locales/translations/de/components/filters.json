@@ -325,6 +325,35 @@
     "name": "",
     "description": ""
   },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "uniqueSequences": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
   "recordedBy": {
     "name": "Sammler/Beobachter",
     "description": "Namen der Personen, Gruppen oder Organisationen, die den Beleg gesammelt bzw. die Beobachtung getätigt haben."

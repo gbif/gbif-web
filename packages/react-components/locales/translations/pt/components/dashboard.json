@@ -38,6 +38,7 @@
     "record": "Registo",
     "taxon": "Táxon",
     "occurrence": "Ocorrência",
+    "nucleotideSequence": "",
     "organism": "Organismo",
     "materialEntity": "",
     "event": "Evento",

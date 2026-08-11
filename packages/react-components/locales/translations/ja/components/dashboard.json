@@ -38,6 +38,7 @@
     "record": "記録",
     "taxon": "分類群",
     "occurrence": "オカレンス",
+    "nucleotideSequence": "",
     "organism": "生物",
     "materialEntity": "",
     "event": "イベント",

@@ -1,13 +1,13 @@
 {
   "features": "功能",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "包含作者資訊"
   },
   "citations": "引用",
   "occurrences": "出現紀錄",
   "numberSpecimens": "標本數量",
   "gbifNumberSpecimens": "GBIF 的標本",
-  "specimenTriplet": "",
+  "specimenTriplet": "標本識別碼",
   "title": "標題",
   "titleAndAbstract": "題目及摘要",
   "altmetric": "另類計量學",
@@ -16,8 +16,8 @@
   "pubDatasets": "已發布的資料集",
   "commonName": "俗名",
   "images": "多媒體",
-  "species": "",
-  "parents": "",
+  "species": "標本數量",
+  "parents": "上層",
   "institution": "機構",
   "collection": "蒐藏集",
   "collectionCount": "蒐藏集",
@@ -25,6 +25,6 @@
   "activeInstitution": "使用中",
   "author": "作者",
   "source": "期刊",
-  "dataReferenced": "",
+  "dataReferenced": "參考資料於",
   "activeCollection": "使用中"
 }

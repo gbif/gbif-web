@@ -5,5 +5,8 @@
  "RANK_INVALID": "Rang ukendt",
  "NOMENCLATURAL_STATUS_INVALID": "Nomenklaturstatus ukendt",
  "TAXONOMIC_STATUS_INVALID": "Taxonomisk status ukendt",
- "SCIENTIFIC_NAME_ASSEMBLED": "ScientificName sammensat"
+ "SCIENTIFIC_NAME_ASSEMBLED": "ScientificName sammensat",
+ "ORIGINAL_NAME_NOT_UNIQUE": "Originalt navn er ikke unikt",
+ "UNPARSABLE": "Navn kan ikke fortolkes",
+ "PARTIALLY_PARSABLE": "Navn delvist fortolket"
 }

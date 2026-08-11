@@ -325,6 +325,35 @@
     "name": "Stadium rozwoju",
     "description": "Stadium rozwojowe organizmu"
   },
+  "nucleotideSequenceTargetGene": {
+    "name": "Docelowy gen",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "uniqueSequences": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
   "recordedBy": {
     "name": "Zarejestrowane przez",
     "description": "Nazwiska osoby/osób, grup lub organizacji, które zarejestrowały oryginalne wystąpienie."

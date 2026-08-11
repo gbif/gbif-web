@@ -1,6 +1,7 @@
 {
   "projectGrantType": {
     "REGIONAL": "Grant na mobilizację danych o różnorodności biologicznej na poziomie regionalnym",
+    "CROSS_REGIONAL": "",
     "SMALL": "Grant na mobilizację danych o różnorodności biologicznej na poziomie instytucji",
     "NATIONAL": "Grant na mobilizację danych o różnorodności biologicznej na poziomie krajowym",
     "DATA_USE": "Grant na wykorzystanie danych",

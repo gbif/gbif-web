@@ -1,6 +1,7 @@
 {
   "projectGrantType": {
     "REGIONAL": "區域生物多樣性資料流通獎助",
+    "CROSS_REGIONAL": "區域生物多樣性資料流動獎助",
     "SMALL": "機構生物多樣性資料流通獎助",
     "NATIONAL": "國家生物多樣性資料流通獎助",
     "DATA_USE": "資料使用獎助",

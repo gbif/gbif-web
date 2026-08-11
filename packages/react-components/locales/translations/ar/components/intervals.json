@@ -19,6 +19,12 @@
     "gt": "أعلى من {from} متر",
     "e": "{from} متر"
   },
+  "compactBasePairs": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
   "compactTime": {
     "between": "{from} إلى {to}",
     "lt": "قبل {to}",

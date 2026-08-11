@@ -38,6 +38,7 @@
     "record": "Eintrag",
     "taxon": "",
     "occurrence": "Vorkommen",
+    "nucleotideSequence": "",
     "organism": "",
     "materialEntity": "",
     "event": "",
