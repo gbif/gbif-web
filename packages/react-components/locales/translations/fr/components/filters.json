@@ -345,7 +345,7 @@
     "error": "Impossible de rechercher des séquences similaires. Veuillez réessayer.",
     "noMatches": "Aucune séquence similaire n'a été trouvée.",
     "bin": {
-      "100": "100 % (identique)",
+      "100": "",
       "99.5": "99.5–100%",
       "99": "99–99.5%",
       "98": "98–99%",
