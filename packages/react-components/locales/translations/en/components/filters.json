@@ -337,7 +337,8 @@
     "name": "Sequence similarity",
     "description": "Input a nucleotide sequence (DNA or RNA) to find occurrences with attached sequences similar to it; results shown grouped by percent match.",
     "search": "Find similar",
-    "uniqueSequences": "{count, plural, one {# distinct sequence} other {# distinct sequences}}",
+    "similarityHeader": "Identity",
+    "distinctSequencesHeader": "Distinct sequences",
     "similarityRange": "{from} to {to} %",
     "similarityExact": "{value} %",
     "invalid": "The input doesn't appear to be a valid nucleotide sequence.",
@@ -345,7 +346,7 @@
     "error": "Could not search for similar sequences. Please try again.",
     "noMatches": "No similar sequences found.",
     "bin": {
-      "100": "100% (identity)",
+      "100": "100%",
       "99.5": "99.5–100%",
       "99": "99–99.5%",
       "98": "98–99%",
