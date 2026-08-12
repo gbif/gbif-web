@@ -331,11 +331,11 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "",
-    "description": ""
+    "description": "Længden, angivet i basepar, af den nukleotidsekvens, der er knyttet til forekomsten."
   },
   "nucleotideSequenceId": {
     "name": "",
-    "description": "",
+    "description": "Indtast en nukleotidsekvens (DNA eller RNA) for at finde forekomster med tilknyttede sekvenser, der ligner den. Resultaterne vises grupperet efter procentvis overensstemmelse.",
     "search": "",
     "uniqueSequences": "",
     "similarityRange": "",
