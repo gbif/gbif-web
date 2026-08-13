@@ -40,6 +40,10 @@
   "showMore": "Show more",
   "showLess": "Show less",
   "searchSimilarSequences": "Search for occurrences with similar sequences",
+  "dnaSequence": {
+    "original": "Original",
+    "sanitized": "Sanitised"
+  },
   "screenReader": {
     "title": "Occurrence details"
   },

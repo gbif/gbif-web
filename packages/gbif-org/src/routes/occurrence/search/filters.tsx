@@ -71,6 +71,7 @@ import {
   identifiedByIdConfig,
   occurrenceIdConfig,
   organismIdConfig,
+  nucleotideSequenceNucleotideSequenceIdConfig,
   previousIdentificationsConfig,
   programmeConfig,
   projectIdConfig,
@@ -192,6 +193,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       }),
       nucleotideSequenceId: generateFilters({
         config: nucleotideSequenceIdConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      nucleotideSequenceNucleotideSequenceID: generateFilters({
+        config: nucleotideSequenceNucleotideSequenceIdConfig,
         searchConfig,
         formatMessage,
       }),

@@ -141,6 +141,33 @@ export const organismIdConfig: filterSuggestConfig = {
   group: 'organism',
 };
 
+// Direct filter on the nested nucleotideSequence.nucleotideSequenceID (paste/enter IDs), modelled
+// on organismId. The GraphQL facet field is the dot-free `nucleotideSequenceNucleotideSequenceID`;
+// the predicate key is remapped to the dotted `nucleotideSequence.nucleotideSequenceID` in
+// searchConfig (like nucleotideSequenceTargetGene).
+export const nucleotideSequenceNucleotideSequenceIdConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'nucleotideSequenceNucleotideSequenceID',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.nucleotideSequenceNucleotideSequenceID.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceNucleotideSequenceIdFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        facet {
+          field: nucleotideSequenceNucleotideSequenceID(size: 10) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  allowExistence: true,
+  allowNegations: true,
+  about: () => <Message id="filters.nucleotideSequenceNucleotideSequenceID.description" />,
+  group: 'nucleotideSequence',
+};
+
 export const higherGeographyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'higherGeography',

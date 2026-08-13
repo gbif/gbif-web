@@ -61,7 +61,7 @@ export function PublisherKeyAbout() {
     if (!publisher?.logoUrl) return null;
     return (
       <CardSmall className="g-mb-4">
-        <div className="g-p-2 md:g-p-4">
+        <div className="g-p-2 md:g-p-4 g-bg-slate-50">
           <ClientSideOnly>
             <img
               className="g-m-auto g-max-w-100 g-max-h-48"

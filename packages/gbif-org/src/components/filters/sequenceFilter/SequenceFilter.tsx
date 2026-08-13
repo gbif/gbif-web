@@ -16,8 +16,10 @@ import cloneDeep from 'lodash/cloneDeep';
 import hash from 'object-hash';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { LuLoader as Loader } from 'react-icons/lu';
-import { FormattedMessage } from 'react-intl';
-import { AboutButton } from '../aboutButton';
+import { MdShuffle } from 'react-icons/md';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { AboutButton, iconButtonClass } from '../aboutButton';
 import { ApplyCancel, FacetQuery, getAsQuery } from '../filterTools';
 import { Option } from '../option';
 
@@ -104,6 +106,12 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
         if (applied) setField(filterHandle, []);
       }
     };
+
+    const intl = useIntl();
+    const invertLabel = intl.formatMessage({ id: 'filterSupport.invert' });
+    // Reverse the current selection across all identity bins; with nothing selected this selects all.
+    const reverseSelection = () =>
+      setSelected(bins.map((b) => b.id).filter((id) => !selected.includes(id)));
 
     const toggleBin = (id: string) => {
       setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
@@ -235,6 +243,37 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
 
           {bins.length > 0 && (
             <div className="g-mt-3">
+              {/* Column headers. The reverse-selection control (selects all when nothing is
+                  selected, mirroring enum filters) sits over the checkbox column, inline with the
+                  "Identity" label. */}
+              <div className="g-flex g-items-center g-justify-between g-gap-4 g-pb-1 g-text-xs g-text-slate-500">
+                <span className="g-flex g-items-center">
+                  <SimpleTooltip delayDuration={300} title={invertLabel} asChild>
+                    <button
+                      type="button"
+                      aria-label={invertLabel}
+                      className={cn(
+                        iconButtonClass,
+                        // override iconButtonClass's g-justify-center so the icon left-aligns with the checkboxes
+                        'g-w-6 g-h-6 g-min-w-6 g-min-h-6 sm:g-min-w-6 sm:g-min-h-6 g-text-base g-justify-start'
+                      )}
+                      onClick={reverseSelection}
+                    >
+                      <MdShuffle />
+                    </button>
+                  </SimpleTooltip>
+                  <FormattedMessage
+                    id="filters.nucleotideSequenceId.similarityHeader"
+                    defaultMessage="Identity"
+                  />
+                </span>
+                <span className="g-flex-none">
+                  <FormattedMessage
+                    id="filters.nucleotideSequenceId.distinctSequencesHeader"
+                    defaultMessage="Distinct sequences"
+                  />
+                </span>
+              </div>
               {bins.map((bin) => (
                 <Option
                   key={bin.id}
@@ -246,13 +285,7 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
                       id={`filters.nucleotideSequenceId.bin.${bin.id}`}
                       defaultMessage={`${bin.min}%`}
                     />
-                    <span className="g-flex-none g-text-slate-500">
-                      <FormattedMessage
-                        id="filters.nucleotideSequenceId.uniqueSequences"
-                        defaultMessage="{count, plural, one {# distinct sequence} other {# distinct sequences}}"
-                        values={{ count: binCount(bin) }}
-                      />
-                    </span>
+                    <span className="g-flex-none g-text-slate-500">{binCount(bin)}</span>
                   </span>
                 </Option>
               ))}
