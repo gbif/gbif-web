@@ -1,10 +1,13 @@
-async function getPredicateFromGraphQL(
-  variablesId: string,
-  queryId: string,
-  signal: AbortSignal
-): Promise<string> {
+const query = `query($predicate: Predicate){
+  occurrenceSearch(predicate: $predicate, size: 0) {
+    _meta
+  }
+}`;
+
+async function getPredicateFromGraphQL(variablesId: string, signal: AbortSignal): Promise<string> {
   const endpoint =
-    import.meta.env.PUBLIC_GRAPHQL_ENDPOINT + `?variablesId=${variablesId}&queryId=${queryId}`;
+    import.meta.env.PUBLIC_GRAPHQL_ENDPOINT +
+    `?variablesId=${variablesId}&query=${encodeURIComponent(query)}`;
 
   const response = await fetch(endpoint, {
     headers: {
@@ -33,10 +36,9 @@ export async function getOriginalPredicate(
   signal: AbortSignal
 ): Promise<string | undefined> {
   const variablesId = searchParams.get('variablesId');
-  const queryId = searchParams.get('queryId');
 
-  if (variablesId && queryId) {
-    return await getPredicateFromGraphQL(variablesId, queryId, signal);
+  if (variablesId) {
+    return await getPredicateFromGraphQL(variablesId, signal);
   }
 
   return searchParams.get('predicate') ?? undefined;
