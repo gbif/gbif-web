@@ -37,7 +37,6 @@ export default function PredicateEditor({
   onContinue: (predicate: string) => void;
 }) {
   const [searchParams] = useSearchParams();
-  const [queryId, setQueryId] = useStringParam({ key: 'queryId', replace: true });
   const [variablesId, setVariablesId] = useStringParam({ key: 'variablesId', replace: true });
   const [predicate, setPredicate] = useTextAreaContent('predicate');
   const { formatMessage } = useIntl();
@@ -55,15 +54,15 @@ export default function PredicateEditor({
   sessionStorage.setItem('downloadSource', source ?? 'unknown');
 
   useEffect(() => {
-    if (predicate || !searchParams.get('queryId')) return;
+    if (predicate || !searchParams.get('variablesId')) return;
     const controller = new AbortController();
 
     const initialize = async () => {
       try {
         const predicateFromQueryId = await getOriginalPredicate(searchParams, controller.signal);
-        if (predicate || !queryId) return;
+        if (predicate || !variablesId) return;
         setTimeout(() => {
-          // set queryid to null and once that is done set predicate
+          // set variablesId to null and once that is done set predicate
           setPredicate(predicateFromQueryId ?? '');
         }, 1);
       } catch (e) {
@@ -73,14 +72,13 @@ export default function PredicateEditor({
 
     initialize();
     return () => controller.abort();
-  }, [searchParams, setPredicate, predicate, queryId]);
+  }, [searchParams, setPredicate, predicate, variablesId]);
 
   useEffect(() => {
-    if (predicate && (queryId || variablesId)) {
-      setQueryId(undefined);
+    if (predicate && variablesId) {
       setVariablesId(undefined);
     }
-  }, [predicate, setQueryId, setVariablesId, queryId, variablesId]);
+  }, [predicate, setVariablesId, variablesId]);
 
   const handleFormat = useCallback(
     async (text: string): Promise<ValidationResponse> => {
