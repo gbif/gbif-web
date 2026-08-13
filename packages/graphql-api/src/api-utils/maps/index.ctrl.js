@@ -33,6 +33,7 @@ const defaultValues = {
   styleName: 'natural',
   background: encodeURIComponent('#e8e5d8'),
   maptilerApiKey: config.maptilerApiKey,
+  originUrl: config.origin,
 };
 
 export default (app) => {
