@@ -32,9 +32,17 @@
             "projection": "EPSG:3031",
             "wrapX": false,
             "maxZoom": 14,
-            "extent": [-4194304, -4194304, 4194304, 4194304],
+            "extent": [
+                -4194304,
+                -4194304,
+                4194304,
+                4194304
+            ],
             "tilegridOptions": {
-                "origin": [-4194304, 4194304],
+                "origin": [
+                    -4194304,
+                    4194304
+                ],
                 "resolutions": [
                     8192.0,
                     4096.0,
@@ -43,10 +51,19 @@
                     512.0,
                     256.0
                 ],
-                "matrixIds": [0, 1, 2, 3, 4, 5],
+                "matrixIds": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
                 "tileSize": 512
             },
-            "attributions": ["<a href='https://wiki.earthdata.nasa.gov/display/GIBS'>NASA EOSDIS GIBS</a>"]
+            "attributions": [
+                "<a href='https://wiki.earthdata.nasa.gov/display/GIBS'>NASA EOSDIS GIBS</a>"
+            ]
         },
         "openmaptiles": {
             "type": "vector",
@@ -56,7 +73,9 @@
             "projection": "EPSG:3031",
             "wrapX": false,
             "maxZoom": 14,
-            "attributions": ["GBIF OSM"],
+            "attributions": [
+                "GBIF OSM"
+            ],
             "tilegridOptions": {
                 "extent": [
                     -12367396.2185,
@@ -91,7 +110,7 @@
         }
     },
     "sprite": "https://openmaptiles.github.io/positron-gl-style/sprite",
-    "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={{maptilerApiKey}}",
+    "glyphs": "{{{originUrl}}}/unstable-api/map-styles/fonts/{fontstack}/{range}.pbf",
     "layers": [
         {
             "id": "background",
@@ -319,7 +338,6 @@
                 "symbol-spacing": 500,
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Medium Italic",
                     "Noto Sans Italic"
                 ],
                 "text-rotation-alignment": "map",
@@ -1509,7 +1527,6 @@
                 "symbol-spacing": 350,
                 "text-field": "{name:latin} {name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-max-angle": 30,
@@ -1556,7 +1573,6 @@
                 "symbol-spacing": 350,
                 "text-field": "{ref}",
                 "text-font": [
-                    "Metropolis Light",
                     "Noto Sans Regular"
                 ],
                 "text-pitch-alignment": "viewport",
@@ -1750,7 +1766,6 @@
                 "text-anchor": "center",
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-justify": "center",
@@ -1795,7 +1810,6 @@
                 "text-anchor": "center",
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-justify": "center",
@@ -1841,7 +1855,6 @@
                 "text-anchor": "left",
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-justify": "left",
@@ -1913,7 +1926,6 @@
                 },
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-justify": "left",
@@ -1998,7 +2010,6 @@
                 },
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-justify": "left",
@@ -2078,7 +2089,6 @@
                 },
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-justify": "left",
@@ -2163,7 +2173,6 @@
                 },
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-justify": "left",
@@ -2208,7 +2217,6 @@
             "layout": {
                 "text-field": "{name:latin}\n{name:nonlatin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-size": 10,
@@ -2251,7 +2259,6 @@
             "layout": {
                 "text-field": "{name:latin}",
                 "text-font": [
-                    "Metropolis Light Italic",
                     "Noto Sans Italic"
                 ],
                 "text-size": {
@@ -2322,7 +2329,6 @@
             "layout": {
                 "text-field": "{name:latin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-size": {
@@ -2394,7 +2400,6 @@
                 "text-anchor": "center",
                 "text-field": "{name:latin}",
                 "text-font": [
-                    "Metropolis Regular",
                     "Noto Sans Regular"
                 ],
                 "text-size": {
