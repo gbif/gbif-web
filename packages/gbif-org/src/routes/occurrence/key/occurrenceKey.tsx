@@ -144,6 +144,17 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         dnaDerivedData
       }
 
+      # Interpreted (sanitised) sequences, used to show a sanitised view of the DNA-derived-data
+      # extension's verbatim dna_sequence. For a single sequence we pair positionally; for several
+      # the DNA block validates the raw sequences to pair them (order isn't guaranteed).
+      nucleotideSequences {
+        nucleotideSequenceID
+        sequence
+        targetGene {
+          concept
+        }
+      }
+
       gadm
 
       stillImageCount

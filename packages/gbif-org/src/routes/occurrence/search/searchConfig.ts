@@ -129,6 +129,11 @@ const config: FilterConfigType = {
     nucleotideSequenceTargetGene: {
       defaultKey: 'nucleotideSequence.targetGene',
     },
+    // Direct ID filter (the GraphQL facet field can't contain dots, but the predicate key must be
+    // the dotted nested field the es-api / v1 understand).
+    nucleotideSequenceNucleotideSequenceID: {
+      defaultKey: 'nucleotideSequence.nucleotideSequenceID',
+    },
     nucleotideSequenceSequenceLength: {
       defaultKey: 'nucleotideSequence.sequenceLength',
       v1: {

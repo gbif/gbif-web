@@ -1,7 +1,7 @@
 import Properties, { Term as T, Value as V } from '@/components/properties';
 import { Card } from '@/components/ui/largeCard';
 import { OccurrenceQuery } from '@/gql/graphql';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Group } from './groups';
 import { Img } from '@/components/Img';
@@ -10,9 +10,11 @@ import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { MdSearch } from 'react-icons/md';
+import { LuLoader as Loader } from 'react-icons/lu';
+import useQuery from '@/hooks/useQuery';
 import { SEQUENCE_BIN_DEFS } from '@/utils/sequenceSearch';
 import { IssueTag, IssueTags } from '../properties';
-import { prettifyEnum } from '@/components/filters/displayNames';
+import { prettifyEnum, TargetGeneLabel } from '@/components/filters/displayNames';
 
 export function Preparation({
   occurrence,
@@ -158,6 +160,54 @@ export function Audubon({
   );
 }
 
+// Batch-validate raw sequences to obtain their sanitised form (used only when an occurrence carries
+// several sequences, where extension-row order can't be trusted). Typed locally so it compiles
+// before codegen has generated types for the new field.
+const SEQUENCE_VALIDATION_QUERY = /* GraphQL */ `
+  query DnaSequenceValidation($sequences: [String!]!) {
+    sequenceValidation(sequences: $sequences) {
+      rawSequence
+      sequence
+      nucleotideSequenceID
+      invalid
+      endsTrimmed
+      gapsOrWhitespaceRemoved
+      naturalLanguageDetected
+      nFraction
+      nonACGTNFraction
+    }
+  }
+`;
+type SequenceValidation = {
+  rawSequence?: string | null;
+  sequence?: string | null;
+  nucleotideSequenceID?: string | null;
+  invalid?: boolean | null;
+  endsTrimmed?: boolean | null;
+  gapsOrWhitespaceRemoved?: boolean | null;
+  naturalLanguageDetected?: boolean | null;
+  nFraction?: number | null;
+  nonACGTNFraction?: number | null;
+};
+type SequenceValidationResult = {
+  sequenceValidation?: Array<SequenceValidation | null> | null;
+};
+
+// Map a single sequence's validation flags to the NUCLEOTIDE_SEQUENCE_* issue enums. Boolean flags
+// map one-to-one; the two fraction-based issues (HIGH_N_FRACTION / HIGH_AMBIGUITY) are threshold
+// derived upstream, so we don't reproduce the thresholds here — instead we only surface them when
+// the occurrence itself reports the issue, attributing it to the sequence with the largest metric
+// (handled by the caller). This helper returns just the boolean-derived issues.
+function booleanIssuesFromValidation(v: SequenceValidation | null | undefined): string[] {
+  if (!v) return [];
+  const issues: string[] = [];
+  if (v.invalid) issues.push('NUCLEOTIDE_SEQUENCE_INVALID');
+  if (v.endsTrimmed) issues.push('NUCLEOTIDE_SEQUENCE_ENDS_TRIMMED');
+  if (v.gapsOrWhitespaceRemoved) issues.push('NUCLEOTIDE_SEQUENCE_GAPS_REMOVED');
+  if (v.naturalLanguageDetected) issues.push('NUCLEOTIDE_SEQUENCE_NATURAL_LANGUAGE');
+  return issues;
+}
+
 export function DNADerivedData({
   occurrence,
   updateToc = () => {},
@@ -186,19 +236,155 @@ export function DNADerivedData({
   const rankOf = (issue: string) =>
     issue === 'NUCLEOTIDE_SEQUENCE_INVALID' ? -1 : severityRank[severityByIssue[issue]] ?? 3;
   const nucleotideIssues = [...dnaIssues].sort((a, b) => rankOf(a) - rankOf(b));
+
+  // Raw (verbatim) sequences from the extension rows, and the sanitised counterparts we can pair
+  // to them. For a single sequence the interpreted nucleotideSequences[0] pairs positionally
+  // (safe at count 1). With several, the extension-row order and the nucleotideSequences order are
+  // not guaranteed to match, so we validate the raw sequences (batched via GraphQL) — the
+  // validation service returns each sequence's sanitised form directly, in input order.
+  const rawSequences: string[] = ((occurrence?.extensions as any)?.[extensionName] ?? [])
+    .map((row: any) => row?.dna_sequence)
+    .filter((s: unknown): s is string => typeof s === 'string' && s.length > 0);
+  const multiple = rawSequences.length >= 2;
+  const rawKey = rawSequences.join('|');
+
+  const validation = useQuery<SequenceValidationResult, unknown>(SEQUENCE_VALIDATION_QUERY, {
+    lazyLoad: true,
+  });
+  useEffect(() => {
+    if (multiple) validation.load({ variables: { sequences: rawSequences } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawKey, multiple]);
+
+  const sanitizedByRaw = useMemo(() => {
+    const out: Record<string, string> = {};
+    if (multiple) {
+      const results = validation.data?.sequenceValidation ?? [];
+      // Results preserve input order; a sanitised value of '' means the raw isn't usable.
+      rawSequences.forEach((raw, i) => {
+        const san = results[i]?.sequence;
+        if (raw && san) out[raw] = san;
+      });
+    } else {
+      const raw = rawSequences[0];
+      const san = occurrence?.nucleotideSequences?.[0]?.sequence;
+      if (raw && san) out[raw] = san;
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [multiple, rawKey, validation.data, occurrence?.nucleotideSequences]);
+  const sanitizing = multiple && validation.loading;
+
+  // Interpreted target gene per raw sequence, so the extension's verbatim target_gene field can show
+  // the inferred concept alongside it. Single sequence pairs positionally (safe at count 1); with
+  // several we pair each raw to its interpreted record by nucleotideSequenceID (from validation).
+  // Invalid sequences have no id (and no interpreted pairing), so they simply show the verbatim value.
+  const interpretedTargetGeneByRaw = useMemo(() => {
+    const out: Record<string, string> = {};
+    const sequences = occurrence?.nucleotideSequences ?? [];
+    if (multiple) {
+      const conceptById: Record<string, string> = {};
+      sequences.forEach((ns) => {
+        const concept = ns?.targetGene?.concept;
+        if (ns?.nucleotideSequenceID && concept) conceptById[ns.nucleotideSequenceID] = concept;
+      });
+      const results = validation.data?.sequenceValidation ?? [];
+      rawSequences.forEach((raw, i) => {
+        const id = results[i]?.nucleotideSequenceID;
+        const concept = id ? conceptById[id] : undefined;
+        if (raw && concept) out[raw] = concept;
+      });
+    } else {
+      const raw = rawSequences[0];
+      const concept = sequences[0]?.targetGene?.concept;
+      if (raw && concept) out[raw] = concept;
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [multiple, rawKey, validation.data, occurrence?.nucleotideSequences]);
+
+  // With several sequences we can attribute each NUCLEOTIDE_SEQUENCE_* issue to the specific
+  // sequence it applies to (from that sequence's validation flags) rather than lumping them all in
+  // the block header. For a single sequence there's nothing to disambiguate, so we keep the header.
+  const dnaIssueSet = new Set<string>(dnaIssues);
+  const perSequenceActive = multiple && !!validation.data?.sequenceValidation;
+  const issuesByRaw = useMemo(() => {
+    const out: Record<string, string[]> = {};
+    if (!perSequenceActive) return out;
+    const results = validation.data?.sequenceValidation ?? [];
+    rawSequences.forEach((raw) => {
+      out[raw] = [];
+    });
+    const add = (raw: string, issue: string) => {
+      if (dnaIssueSet.has(issue) && out[raw] && !out[raw].includes(issue)) out[raw].push(issue);
+    };
+    // Boolean flags map one-to-one to an issue on that sequence.
+    rawSequences.forEach((raw, i) => {
+      booleanIssuesFromValidation(results[i]).forEach((issue) => add(raw, issue));
+    });
+    // Fraction-based issues are threshold-derived upstream; surface them only when the occurrence
+    // reports the issue and attribute to the sequence(s) with the largest metric value.
+    const attributeMax = (issue: string, metric: (v: SequenceValidation | null | undefined) => number) => {
+      if (!dnaIssueSet.has(issue)) return;
+      const max = rawSequences.reduce((m, _, i) => Math.max(m, metric(results[i])), 0);
+      if (max <= 0) return;
+      rawSequences.forEach((raw, i) => {
+        if (metric(results[i]) >= max) add(raw, issue);
+      });
+    };
+    attributeMax('NUCLEOTIDE_SEQUENCE_HIGH_N_FRACTION', (v) => v?.nFraction ?? 0);
+    attributeMax('NUCLEOTIDE_SEQUENCE_HIGH_AMBIGUITY', (v) => v?.nonACGTNFraction ?? 0);
+    // Sort each sequence's issues the same way the header does.
+    Object.keys(out).forEach((raw) => out[raw].sort((a, b) => rankOf(a) - rankOf(b)));
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [perSequenceActive, rawKey, validation.data]);
+
+  // The header shows only issues we couldn't attribute to a specific sequence (e.g.
+  // TARGET_GENE_INVALID, which has no per-sequence validation flag). When not attributing
+  // per-sequence (single sequence, or validation not yet loaded) it shows all of them.
+  const attributedIssues = new Set<string>();
+  Object.values(issuesByRaw).forEach((list) => list.forEach((issue) => attributedIssues.add(issue)));
+  const headerIssues = perSequenceActive
+    ? nucleotideIssues.filter((issue) => !attributedIssues.has(issue))
+    : nucleotideIssues;
+
   return (
     <GenericExtension
       {...{
         occurrence,
         extensionName,
         overwrites: {
-          dna_sequence: ({ item }) => <DNASequence sequence={item['dna_sequence']} />,
+          dna_sequence: ({ item }) => (
+            <DNASequence
+              sequence={item['dna_sequence']}
+              sanitized={sanitizedByRaw[item['dna_sequence']]}
+              sanitizing={sanitizing}
+              issues={issuesByRaw[item['dna_sequence']]}
+              severityByIssue={severityByIssue}
+            />
+          ),
+          // Verbatim target gene lives under the MIxS term key 0000044 (some records may use the
+          // rs.gbif.org 'target_gene' term instead); pair the row to its interpreted concept by
+          // its raw sequence.
+          '0000044': ({ item }) => (
+            <TargetGeneField
+              raw={item['0000044']}
+              interpreted={interpretedTargetGeneByRaw[item['dna_sequence']]}
+            />
+          ),
+          target_gene: ({ item }) => (
+            <TargetGeneField
+              raw={item['target_gene']}
+              interpreted={interpretedTargetGeneByRaw[item['dna_sequence']]}
+            />
+          ),
         },
       }}
       titleExtra={
-        nucleotideIssues.length > 0 ? (
+        headerIssues.length > 0 ? (
           <IssueTags>
-            {nucleotideIssues.map((issue) => (
+            {headerIssues.map((issue) => (
               <IssueTag type={severityByIssue[issue] ?? 'LIGHT'} key={issue}>
                 <FormattedMessage
                   id={`enums.occurrenceIssue.${issue}`}
@@ -216,13 +402,81 @@ export function DNADerivedData({
   );
 }
 
-function DNASequence({ sequence }: { sequence: string }) {
+function DNASequence({
+  sequence,
+  sanitized,
+  sanitizing,
+  issues,
+  severityByIssue,
+}: {
+  sequence: string;
+  // The sanitised counterpart of the verbatim `sequence`, when it could be paired.
+  sanitized?: string | null;
+  // The sanitised form is still being fetched (multi-sequence records validate asynchronously).
+  sanitizing?: boolean;
+  // NUCLEOTIDE_SEQUENCE_* issues attributed to this specific sequence (multi-sequence records only).
+  issues?: string[];
+  // Issue → interpretationRemark severity, for tag colouring.
+  severityByIssue?: Record<string, string>;
+}) {
   const [expanded, setExpanded] = useState(false);
+  const [view, setView] = useState<'original' | 'sanitized'>('original');
+  const hasSanitized = typeof sanitized === 'string' && sanitized.length > 0;
+  // Only offer the toggle when the sanitised form actually differs from the original.
+  const differs = hasSanitized && sanitized !== sequence;
+  const showTabs = differs || sanitizing;
+  const shown = view === 'sanitized' && differs ? sanitized : sequence;
+  const seqIssues = issues ?? [];
 
   return (
     <div>
+      {(showTabs || seqIssues.length > 0) && (
+        <div className="g-mb-2 g-flex g-items-center g-flex-wrap g-gap-2">
+          {showTabs && (
+            <div className="g-inline-flex g-rounded g-border g-border-slate-200 g-text-xs g-overflow-hidden">
+              {(['original', 'sanitized'] as const).map((tab) => {
+                const disabled = tab === 'sanitized' && !differs;
+                return (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setView(tab)}
+                    disabled={disabled}
+                    aria-pressed={view === tab}
+                    className={cn(
+                      'g-px-2 g-py-1 g-flex g-items-center g-gap-1',
+                      view === tab ? 'g-bg-slate-100 g-font-medium' : 'hover:g-bg-slate-50',
+                      disabled && 'g-opacity-50 g-cursor-not-allowed'
+                    )}
+                  >
+                    <FormattedMessage
+                      id={`occurrenceDetails.dnaSequence.${tab}`}
+                      defaultMessage={tab === 'original' ? 'Original' : 'Sanitised'}
+                    />
+                    {tab === 'sanitized' && sanitizing && !differs && (
+                      <Loader className="g-animate-spin g-w-3 g-h-3 g-text-slate-400" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          {seqIssues.length > 0 && (
+            <IssueTags>
+              {seqIssues.map((issue) => (
+                <IssueTag type={severityByIssue?.[issue] ?? 'LIGHT'} key={issue}>
+                  <FormattedMessage
+                    id={`enums.occurrenceIssue.${issue}`}
+                    defaultMessage={prettifyEnum(issue) ?? ''}
+                  />
+                </IssueTag>
+              ))}
+            </IssueTags>
+          )}
+        </div>
+      )}
       <div>
-        <code className={cn('g-text-sm', { 'g-line-clamp-2': !expanded })}>{sequence}</code>
+        <code className={cn('g-text-sm', { 'g-line-clamp-2': !expanded })}>{shown}</code>
       </div>
       <div className="g-mt-2 g-flex g-items-center g-gap-2">
         <Button variant="outline" size="sm" onClick={() => setExpanded((v) => !v)}>
@@ -257,6 +511,38 @@ function DNASequence({ sequence }: { sequence: string }) {
           </Button>
         </SimpleTooltip>
       </div>
+    </div>
+  );
+}
+
+// Shows the verbatim target gene together with the interpreted concept, following the core-term
+// convention (properties.tsx): the interpreted value on top, the verbatim value muted below with an
+// "Original" tag. `interpreted` is a target_gene vocabulary concept id — resolved to its localised
+// label (e.g. "Internal Transcribed Spacer 2 (ITS2)") via the same TargetGeneLabel the filter uses.
+// When nothing could be interpreted we just show the verbatim value.
+function TargetGeneField({ raw, interpreted }: { raw?: string; interpreted?: string | null }) {
+  const hasInterpreted = typeof interpreted === 'string' && interpreted.length > 0;
+  if (!hasInterpreted) return <>{raw}</>;
+  return (
+    <div>
+      <div>
+        <TargetGeneLabel id={interpreted} />{' '}
+        <IssueTags>
+          <IssueTag type="INFO">
+            <FormattedMessage id="occurrenceDetails.info.inferred" defaultMessage="Inferred" />
+          </IssueTag>
+        </IssueTags>
+      </div>
+      {raw && (
+        <div style={{ opacity: 0.6, fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>
+          {raw}{' '}
+          <IssueTags>
+            <IssueTag type="LIGHT">
+              <FormattedMessage id="occurrenceDetails.info.original" defaultMessage="Original" />
+            </IssueTag>
+          </IssueTags>
+        </div>
+      )}
     </div>
   );
 }
