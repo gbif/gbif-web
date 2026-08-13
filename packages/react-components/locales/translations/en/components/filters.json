@@ -355,6 +355,10 @@
       "95": "95–96%"
     }
   },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "Nucleotide sequence ID",
+    "description": "The identifier for a nucleotide sequence attached to the record (nucleotideSequence.nucleotideSequenceID)."
+  },
   "recordedBy": {
     "name": "Recorded by",
     "description": "The names of the person, people, groups or organizations responsible for recording the original occurrence."
