@@ -1,7 +1,7 @@
 import { useStringParam } from '@/hooks/useParam';
 import { PredicateDisplay } from '../key/predicate';
 import Editor from './editor';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { validatePredicate, ValidationResponse } from './validate';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -13,15 +13,18 @@ export function useTextAreaContent(key: string): [string, (text: string) => void
   const sessionStorageKey = `textarea-${key}`;
   const sessionValue = window.sessionStorage.getItem(sessionStorageKey) ?? '';
 
-  function setValue(text: string) {
-    if (text.length > 1200) {
-      window.sessionStorage.setItem(sessionStorageKey, text);
-      setParam(undefined);
-    } else {
-      window.sessionStorage.removeItem(sessionStorageKey);
-      setParam(text);
-    }
-  }
+  const setValue = useCallback(
+    (text: string) => {
+      if (text.length > 1200) {
+        window.sessionStorage.setItem(sessionStorageKey, text);
+        setParam(undefined);
+      } else {
+        window.sessionStorage.removeItem(sessionStorageKey);
+        setParam(text);
+      }
+    },
+    [sessionStorageKey, setParam]
+  );
 
   return [param || sessionValue, setValue];
 }
@@ -36,8 +39,12 @@ export default function PredicateEditor({
 }: {
   onContinue: (predicate: string) => void;
 }) {
-  const [searchParams] = useSearchParams();
-  const [variablesId, setVariablesId] = useStringParam({ key: 'variablesId', replace: true });
+  const [searchParams, setSearchParams] = useSearchParams();
+  // setSearchParams is not stable (https://github.com/remix-run/react-router/issues/9991)
+  const setSearchParamsRef = useRef(setSearchParams);
+  useEffect(() => {
+    setSearchParamsRef.current = setSearchParams;
+  }, [setSearchParams]);
   const [predicate, setPredicate] = useTextAreaContent('predicate');
   const { formatMessage } = useIntl();
 
@@ -54,31 +61,50 @@ export default function PredicateEditor({
   sessionStorage.setItem('downloadSource', source ?? 'unknown');
 
   useEffect(() => {
-    if (predicate || !searchParams.get('variablesId')) return;
+    if (!searchParams.get('variablesId')) return;
     const controller = new AbortController();
 
     const initialize = async () => {
       try {
-        const predicateFromQueryId = await getOriginalPredicate(searchParams, controller.signal);
-        if (predicate || !variablesId) return;
-        setTimeout(() => {
-          // set variablesId to null and once that is done set predicate
-          setPredicate(predicateFromQueryId ?? '');
-        }, 1);
+        const predicateFromVariableId = await getOriginalPredicate(searchParams, controller.signal);
+        if (controller.signal.aborted || !predicateFromVariableId) return;
+        // Write predicate to sessionStorage or URL param and clear variablesId atomically
+        // in a single setSearchParams call to avoid a React Router race where two
+        // consecutive setSearchParams calls each see the original params and the second
+        // overwrites the first.
+        if (predicateFromVariableId.length > 1200) {
+          window.sessionStorage.setItem('textarea-predicate', predicateFromVariableId);
+          setSearchParamsRef.current(
+            (params) => {
+              const next = new URLSearchParams(params);
+              next.delete('predicate');
+              next.delete('variablesId');
+              return next;
+            },
+            { replace: true, preventScrollReset: true }
+          );
+        } else {
+          window.sessionStorage.removeItem('textarea-predicate');
+          setSearchParamsRef.current(
+            (params) => {
+              const next = new URLSearchParams(params);
+              next.set('predicate', predicateFromVariableId);
+              next.delete('variablesId');
+              return next;
+            },
+            { replace: true, preventScrollReset: true }
+          );
+        }
       } catch (e) {
-        // ignore errors
+        if (!controller.signal.aborted) {
+          console.error('Failed to load predicate from variablesId:', e);
+        }
       }
     };
 
     initialize();
     return () => controller.abort();
-  }, [searchParams, setPredicate, predicate, variablesId]);
-
-  useEffect(() => {
-    if (predicate && variablesId) {
-      setVariablesId(undefined);
-    }
-  }, [predicate, setVariablesId, variablesId]);
+  }, [searchParams]);
 
   const handleFormat = useCallback(
     async (text: string): Promise<ValidationResponse> => {
