@@ -3,11 +3,12 @@ import { Card, CardContent, CardTitle } from '@/components/ui/smallCard';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { FilterContext } from '@/contexts/filter';
 import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import { parseSequenceFilterValue } from '@/utils/sequenceSearch';
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { LuLoader as Loader } from 'react-icons/lu';
+import { LuLoader as Loader, LuSettings2 as FilterIcon } from 'react-icons/lu';
 import { ColoredPointMap, MapPoint } from './ColoredPointMap';
 import { PhyloTreeView } from './PhyloTreeView';
 import {
@@ -98,6 +99,8 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
   // a power transform γ = 1/amp that expands short branches relative to long ones (contrast).
   const [branchAmp, setBranchAmp] = useState(2);
   const branchExponent = 1 / branchAmp;
+  // What clicking a tree node does: paint/group clades ('select', default) or re-root the tree.
+  const [interactionMode, setInteractionMode] = useState<'select' | 'reroot'>('select');
 
   // Expensive step (kalign MSA + distance matrix) — runs once per resolved sequence set (query
   // included).
@@ -239,6 +242,20 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     });
   }, []);
   const clearManualGroups = useCallback(() => setManualGroups([]), []);
+  // Every nucleotideSequenceID covered by the manual groups, for the "Use as filter" action. Group
+  // members are tree tips (representatives), so each is expanded to the sequences it collapsed
+  // (groups[rep]); the pinned query tip is not a real record and is excluded.
+  const groupedSequenceIds = useMemo(() => {
+    const out = new Set<string>();
+    for (const group of manualGroups) {
+      for (const rep of group) {
+        for (const id of groups[rep] ?? [rep]) {
+          if (id !== QUERY_ID) out.add(id);
+        }
+      }
+    }
+    return [...out];
+  }, [manualGroups, groups]);
   // Preview the subtree under a hovered internal node (manual mode).
   const [previewIds, setPreviewIds] = useState<Set<string> | null>(null);
   const handleHoverClade = useCallback(
@@ -424,6 +441,7 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
             onSelectTip={toggleSelect}
             onSelectClade={handleSelectClade}
             onHoverClade={handleHoverClade}
+            interactionMode={interactionMode}
             previewIds={previewIds}
             cladeSignatureColour={cladeSignatureColour}
             queryId={querySequence ? QUERY_ID : undefined}
@@ -516,24 +534,73 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
             )}
             {showTree && repCount >= 3 && (
               <div className="g-flex g-items-center g-gap-2 g-text-xs g-text-slate-500">
+                {/* Switch what a node click does: paint/group clades, or re-root the tree. */}
+                <div className="g-inline-flex g-rounded g-border g-border-slate-300 g-overflow-hidden">
+                  {(['select', 'reroot'] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setInteractionMode(m)}
+                      aria-pressed={interactionMode === m}
+                      className={cn(
+                        'g-px-2 g-py-0.5',
+                        interactionMode === m
+                          ? 'g-bg-slate-100 g-font-medium'
+                          : 'hover:g-bg-slate-50'
+                      )}
+                    >
+                      <FormattedMessage
+                        id={`dashboard.sequencePhylogeny.clickMode.${m}`}
+                        defaultMessage={m === 'select' ? 'Select' : 'Re-root'}
+                      />
+                    </button>
+                  ))}
+                </div>
                 {manualGroups.length > 0 ? (
-                  <button
-                    type="button"
-                    onClick={clearManualGroups}
-                    className="g-rounded g-border g-border-slate-300 g-px-2 g-py-0.5 hover:g-bg-slate-100"
-                  >
-                    <FormattedMessage
-                      id="dashboard.sequencePhylogeny.grouping.clear"
-                      defaultMessage="Clear groups ({n})"
-                      values={{ n: manualGroups.length }}
-                    />
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      onClick={clearManualGroups}
+                      className="g-rounded g-border g-border-slate-300 g-px-2 g-py-0.5 hover:g-bg-slate-100"
+                    >
+                      <FormattedMessage
+                        id="dashboard.sequencePhylogeny.grouping.clear"
+                        defaultMessage="Clear groups ({n})"
+                        values={{ n: manualGroups.length }}
+                      />
+                    </button>
+                    {groupedSequenceIds.length > 0 && (
+                      <DynamicLink
+                        pageId="occurrenceSearch"
+                        // Fresh params clear the current search; the grouped sequence ids become a
+                        // nucleotideSequenceID filter and we land on the table view.
+                        searchParams={{
+                          view: 'table',
+                          'nucleotideSequence.nucleotideSequenceID': groupedSequenceIds,
+                        }}
+                        className="g-inline-flex g-items-center g-gap-1 g-rounded g-border g-border-slate-300 g-px-2 g-py-0.5 hover:g-bg-slate-100"
+                      >
+                        <FormattedMessage
+                          id="search.group.useAsFilter"
+                          defaultMessage="Use as filter"
+                        />
+                        <FilterIcon className="g-text-sm" />
+                      </DynamicLink>
+                    )}
+                  </>
                 ) : (
                   <span className="g-text-slate-400">
-                    <FormattedMessage
-                      id="dashboard.sequencePhylogeny.grouping.hint"
-                      defaultMessage="Click a branch point to group its clade"
-                    />
+                    {interactionMode === 'reroot' ? (
+                      <FormattedMessage
+                        id="dashboard.sequencePhylogeny.reroot.hint"
+                        defaultMessage="Click a node to re-root the tree"
+                      />
+                    ) : (
+                      <FormattedMessage
+                        id="dashboard.sequencePhylogeny.grouping.hint"
+                        defaultMessage="Click a branch point to group its clade"
+                      />
+                    )}
                   </span>
                 )}
               </div>

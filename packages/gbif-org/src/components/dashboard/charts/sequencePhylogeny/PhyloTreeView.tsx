@@ -1,5 +1,5 @@
 import { phylotree } from 'phylotree';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import cssAsText from '@/components/phylogeny/styles';
 
 // Same class map the existing Phylogeny component uses, so the shared phylotree CSS applies.
@@ -62,6 +62,9 @@ type Props = {
   onSelectClade?: (tipIds: string[]) => void;
   /** Hover an internal node → its subtree tip ids (or null on leave), for grouping preview. */
   onHoverClade?: (tipIds: string[] | null) => void;
+  /** What a node click does: 'select' (group/link, the default) or 'reroot' (re-root the tree on
+   *  the clicked node, in place via phylotree). */
+  interactionMode?: 'select' | 'reroot';
   /** Subtree tip ids currently previewed (hovered internal node) — highlights those branches/tips. */
   previewIds?: Set<string> | null;
   /** Sorted-tip-id signature ("a|b|c") -> colour for group MRCAs; their stem branch is emphasised. */
@@ -82,6 +85,20 @@ function leavesOf(node: any): string[] {
 }
 
 /**
+ * Find the node in a (headless) phylotree whose subtree tip set exactly matches `target`. Tip names
+ * are unique, so a leaf set identifies a single node — used to map a click on the rendered tree onto
+ * the corresponding node of a fresh tree we can re-root without touching the DOM.
+ */
+function findNodeByLeafSet(tree: any, target: string[]): any {
+  const want = [...target].sort().join('|');
+  let found: any = null;
+  tree.nodes.each((n: any) => {
+    if (!found && leavesOf(n).sort().join('|') === want) found = n;
+  });
+  return found;
+}
+
+/**
  * Renders a Newick tree with phylotree.js into an isolated shadow root (so its CSS doesn't leak),
  * with tip colours and two-way linking hooks. Tip elements are tagged `data-tip="<id>"` so colour
  * and hover/selection highlight can be re-applied on prop changes without re-rendering the tree.
@@ -99,20 +116,32 @@ export function PhyloTreeView({
   onSelectTip,
   onSelectClade,
   onHoverClade,
+  interactionMode = 'select',
   previewIds,
   cladeSignatureColour,
   queryId,
   height = 500,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  // Keep latest callbacks in a ref so the (expensive) render effect only depends on `newick`.
-  const cbRef = useRef({ onHoverTip, onSelectTip, onSelectClade, onHoverClade });
-  cbRef.current = { onHoverTip, onSelectTip, onSelectClade, onHoverClade };
+  // Keep latest callbacks + mode in a ref so the (expensive) render effect only depends on the
+  // rendered Newick and click handlers always read the current mode.
+  const cbRef = useRef({ onHoverTip, onSelectTip, onSelectClade, onHoverClade, interactionMode });
+  cbRef.current = { onHoverTip, onSelectTip, onSelectClade, onHoverClade, interactionMode };
+
+  // Re-rooting: an alternative topology chosen by the user, replacing the incoming `newick` until
+  // the source changes. It is already branch-length-exaggerated (it comes from re-rooting the
+  // rendered tree), so it is rendered as-is; a fresh `newick` or exponent resets it.
+  const [rerootedNewick, setRerootedNewick] = useState<string | null>(null);
+  useEffect(() => setRerootedNewick(null), [newick, branchLengthExponent]);
+  const renderNewick = useMemo(
+    () => rerootedNewick ?? exaggerateBranchLengths(newick, branchLengthExponent),
+    [rerootedNewick, newick, branchLengthExponent]
+  );
 
   // Render the tree once per Newick.
   useEffect(() => {
     const host = ref.current;
-    if (!newick || !host) return;
+    if (!renderNewick || !host) return;
 
     const options = {
       'show-menu': false,
@@ -122,18 +151,40 @@ export function PhyloTreeView({
       'node-styler': (element: any, data: any) => {
         const name: string | undefined = data?.data?.name;
         const isTip = !!name && !data.children;
+        // Re-root on the clicked node. phylotree's own reroot re-renders into a container it manages,
+        // which doesn't exist in our manual shadow-DOM setup — so instead re-root a fresh *headless*
+        // tree (no display ⇒ reroot skips all DOM work), read back its Newick, and let React re-render
+        // from it. The clicked node belongs to the rendered tree, so we locate its counterpart in the
+        // headless tree by leaf set.
+        const reroot = () => {
+          try {
+            const headless: any = new phylotree(renderNewick);
+            const target = findNodeByLeafSet(headless, leavesOf(data));
+            if (!target) return;
+            headless.reroot(target);
+            setRerootedNewick(headless.getNewick());
+          } catch {
+            // Ignore invalid re-root targets (e.g. the current root).
+          }
+        };
         if (isTip) {
           element.attr('data-tip', name);
           element.style('cursor', 'pointer');
           element.on('mouseover', () => cbRef.current.onHoverTip?.(name!));
           element.on('mouseout', () => cbRef.current.onHoverTip?.(null));
-          element.on('click', () => cbRef.current.onSelectTip?.(name!));
+          element.on('click', () => {
+            if (cbRef.current.interactionMode === 'reroot') reroot();
+            else cbRef.current.onSelectTip?.(name!);
+          });
         } else if (cbRef.current.onSelectClade || cbRef.current.onHoverClade) {
-          // Internal node (manual grouping mode): click to group its whole subtree, hover to preview.
+          // Internal node: click groups its subtree (select mode) or re-roots on it (re-root mode);
+          // hover previews the subtree either way.
           const leaves = leavesOf(data);
           element.style('cursor', 'pointer');
-          if (cbRef.current.onSelectClade)
-            element.on('click', () => cbRef.current.onSelectClade?.(leaves));
+          element.on('click', () => {
+            if (cbRef.current.interactionMode === 'reroot') reroot();
+            else cbRef.current.onSelectClade?.(leaves);
+          });
           if (cbRef.current.onHoverClade) {
             element.on('mouseover', () => cbRef.current.onHoverClade?.(leaves));
             element.on('mouseout', () => cbRef.current.onHoverClade?.(null));
@@ -153,7 +204,7 @@ export function PhyloTreeView({
 
     let svg: SVGElement;
     try {
-      const tree: any = new phylotree(exaggerateBranchLengths(newick, branchLengthExponent));
+      const tree: any = new phylotree(renderNewick);
       // phylotree needs render called before display exists; render twice (see phylotree #471).
       tree.render(options);
       tree.display.css(css_classes).update();
@@ -182,11 +233,11 @@ export function PhyloTreeView({
     // `onSelectClade`/`onHoverClade` are included so toggling manual-grouping mode (which flips them
     // between a stable callback and undefined) re-renders the tree and (un)wires the internal-node
     // click/hover handlers.
-  }, [newick, branchLengthExponent, horizontalScale, onSelectClade, onHoverClade]);
+  }, [renderNewick, horizontalScale, onSelectClade, onHoverClade]);
 
-  // Apply colours + hover/selection highlight to the rendered tips (no re-render). Runs whenever
-  // colours, hover, or selection change, and after a fresh render (newick).
-  useEffect(() => {
+  // Apply colours + hover/selection highlight to the rendered tips (no full re-render). Extracted so
+  // the effect below can re-run it after the tree is (re)rendered or any style input changes.
+  const applyStyles = useCallback(() => {
     const shadow = ref.current?.shadowRoot;
     if (!shadow) return;
     const tips = shadow.querySelectorAll<SVGElement>('[data-tip]');
@@ -246,9 +297,6 @@ export function PhyloTreeView({
       el.style.strokeWidth = width;
     });
   }, [
-    newick,
-    branchLengthExponent,
-    horizontalScale,
     colourById,
     labelById,
     tipTitleById,
@@ -258,6 +306,12 @@ export function PhyloTreeView({
     cladeSignatureColour,
     queryId,
   ]);
+
+  // Re-apply after a fresh render (rendered Newick or scale change rebuilds the SVG) or when any
+  // style input changes.
+  useEffect(() => {
+    applyStyles();
+  }, [applyStyles, renderNewick, horizontalScale]);
 
   return <div ref={ref} className="g-overflow-auto g-bg-white" style={{ height }} />;
 }
