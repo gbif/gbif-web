@@ -46,7 +46,7 @@ export function ExecutiveCommitteeTable({ q, onPersonClick }: Props) {
   );
 
   const { sortField, sortDirection, handleSort } = useSorting<Row>({
-    initialSortField: 'name',
+    initialSortField: 'roles',
   });
 
   const people = usePrepareData(data, q, sortField, sortDirection);
