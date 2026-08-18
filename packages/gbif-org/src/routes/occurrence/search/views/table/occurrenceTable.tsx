@@ -121,6 +121,8 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
             name
           }
           organismID
+          elevation
+          depth
           locality
           higherGeography
           stateProvince
