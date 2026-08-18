@@ -43,3 +43,22 @@ export async function getOriginalPredicate(
 
   return searchParams.get('predicate') ?? undefined;
 }
+
+// Reads and clears window.__INITIAL_PREDICATE__, which gbif/server.js inlines into the page
+// when */download/request is hit via a POST form submission (external sites use this instead
+// of a URL param since predicates can be far larger than a URL can carry). It's only present
+// on the response that rendered it, so it's consumed at most once per page load.
+export function consumeInitialPredicate(): string | undefined {
+  if (typeof window === 'undefined') return undefined;
+
+  const predicate = window.__INITIAL_PREDICATE__;
+  window.__INITIAL_PREDICATE__ = undefined;
+
+  if (typeof predicate !== 'string' || predicate.trim() === '') return undefined;
+
+  try {
+    return JSON.stringify(JSON.parse(predicate), null, 2);
+  } catch (e) {
+    return predicate;
+  }
+}
