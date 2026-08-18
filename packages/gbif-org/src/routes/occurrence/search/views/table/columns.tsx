@@ -179,6 +179,22 @@ export function useOccurrenceColumns({
         },
       },
       {
+        id: 'elevation',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'elevation' },
+        header: 'occurrenceFieldNames.elevation',
+        minWidth: 50,
+        cell: ({ elevation }) => (
+          <InlineLineClamp className="-g-ms-0.5">{elevation}</InlineLineClamp>
+        ),
+      },
+      {
+        id: 'depth',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'depth' },
+        header: 'occurrenceFieldNames.depth',
+        minWidth: 50,
+        cell: ({ depth }) => <InlineLineClamp className="-g-ms-0.5">{depth}</InlineLineClamp>,
+      },
+      {
         id: 'year',
         sort: { localStorageKey: 'occurrenceSort', sortBy: 'year' },
         header: 'filters.year.name',
