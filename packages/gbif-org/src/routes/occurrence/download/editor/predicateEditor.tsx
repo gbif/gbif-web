@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { validatePredicate, ValidationResponse } from './validate';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { getOriginalPredicate } from './usePredicate';
+import { consumeInitialPredicate } from './usePredicate';
 
 //a hook to store content in textarea. per default it should store to url, but if above 1200 characters then use session storage instead
 export function useTextAreaContent(key: string): [string, (text: string) => void] {
@@ -61,50 +61,10 @@ export default function PredicateEditor({
   sessionStorage.setItem('downloadSource', source ?? 'unknown');
 
   useEffect(() => {
-    if (!searchParams.get('variablesId')) return;
-    const controller = new AbortController();
-
-    const initialize = async () => {
-      try {
-        const predicateFromVariableId = await getOriginalPredicate(searchParams, controller.signal);
-        if (controller.signal.aborted || !predicateFromVariableId) return;
-        // Write predicate to sessionStorage or URL param and clear variablesId atomically
-        // in a single setSearchParams call to avoid a React Router race where two
-        // consecutive setSearchParams calls each see the original params and the second
-        // overwrites the first.
-        if (predicateFromVariableId.length > 1200) {
-          window.sessionStorage.setItem('textarea-predicate', predicateFromVariableId);
-          setSearchParamsRef.current(
-            (params) => {
-              const next = new URLSearchParams(params);
-              next.delete('predicate');
-              next.delete('variablesId');
-              return next;
-            },
-            { replace: true, preventScrollReset: true }
-          );
-        } else {
-          window.sessionStorage.removeItem('textarea-predicate');
-          setSearchParamsRef.current(
-            (params) => {
-              const next = new URLSearchParams(params);
-              next.set('predicate', predicateFromVariableId);
-              next.delete('variablesId');
-              return next;
-            },
-            { replace: true, preventScrollReset: true }
-          );
-        }
-      } catch (e) {
-        if (!controller.signal.aborted) {
-          console.error('Failed to load predicate from variablesId:', e);
-        }
-      }
-    };
-
-    initialize();
-    return () => controller.abort();
-  }, [searchParams]);
+    const initialPredicate = consumeInitialPredicate();
+    if (!initialPredicate) return;
+    setPredicate(initialPredicate ?? '');
+  }, [setPredicate]);
 
   const handleFormat = useCallback(
     async (text: string): Promise<ValidationResponse> => {

@@ -12,6 +12,9 @@ import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 import { LineNumberGutter } from './lineNumberGutter';
 import { ValidationResponse } from './validate';
 
+const HAS_INITIAL_PREDICATE =
+  typeof window === 'undefined' ? false : !!window.__INITIAL_PREDICATE__;
+
 export default function Editor({
   documentationUrl,
   title,
@@ -37,7 +40,9 @@ export default function Editor({
 }) {
   const { formatMessage } = useIntl();
   const [isValidating, setIsValidating] = useState(false);
-  const [isEditing, setIsEditing] = useState(!text || text.length === 0);
+  const [isEditing, setIsEditing] = useState(
+    !HAS_INITIAL_PREDICATE && (!text || text.length === 0)
+  );
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const lineCount = showLineNumbers ? text.split('\n').length : 0;
