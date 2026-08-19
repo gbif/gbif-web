@@ -297,8 +297,8 @@ export default {
     },
   },
   AcceptedUsage: {
-    taxon: ({ key }, { datasetKey = DEFAULT_CHECKLIST_KEY }, { dataSources }) => {
-      return dataSources.taxonAPI.getTaxonInfo({ key, datasetKey });
+    taxon: ({ key, checklistKey }, _args, { dataSources }) => {
+      return dataSources.taxonAPI.getTaxonInfo({ key, datasetKey: checklistKey });
     },
   },
   ChecklistClassification: {
@@ -307,6 +307,9 @@ export default {
         usageKey: usage.key,
         checklistKey,
       });
+    },
+    acceptedUsage: ({ acceptedUsage, checklistKey }) => {
+      return { ...acceptedUsage, checklistKey };
     },
     meta: ({ checklistKey }, _args, { dataSources }) => {
       return dataSources.taxonAPI.getChecklistMetadata({
