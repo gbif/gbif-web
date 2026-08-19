@@ -505,6 +505,7 @@ const typeDef = gql`
     name: String
     rank: String
     authorship: String
+    taxon: TaxonInfo
   }
 
   type Usage {

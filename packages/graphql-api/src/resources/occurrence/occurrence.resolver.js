@@ -4,27 +4,10 @@ import md5 from 'md5';
 import interpretationRemark from '@/helpers/enums/interpretationRemark';
 import getFeedbackOptions from '@/helpers/feedback';
 import getGlobe from '@/helpers/globe';
-import {
-  formattedCoordinates,
-  getFirstIIIFImage,
-  simplifyUrlObjectKeys,
-} from '@/helpers/utils';
+import { formattedCoordinates, getFirstIIIFImage, simplifyUrlObjectKeys } from '@/helpers/utils';
 import config from '../../config';
-import {
-  getAutoDateHistogram,
-  getCardinality,
-  getFacet,
-  getNestedFacet,
-  getHistogram,
-  getStats,
-} from '../getMetrics';
-import {
-  cardinalityFields,
-  dateHistogramFields,
-  facetFields,
-  histogramFields,
-  statsFields,
-} from './helpers/fields';
+import { getAutoDateHistogram, getCardinality, getFacet, getNestedFacet, getHistogram, getStats } from '../getMetrics';
+import { cardinalityFields, dateHistogramFields, facetFields, histogramFields, statsFields } from './helpers/fields';
 import groupResolver from './helpers/groups/occurrenceGroups';
 import getLongitudeBounds from './helpers/longitudeBounds';
 import termResolver from './helpers/terms/occurrenceTerms';
@@ -61,8 +44,7 @@ const FLOAT_FACET_ENUMS = {
   month: 'month',
 };
 
-const rawKeyLabel = ({ key }) =>
-  key === null || typeof key === 'undefined' ? null : String(key);
+const rawKeyLabel = ({ key }) => (key === null || typeof key === 'undefined' ? null : String(key));
 
 const yesNoLabel = async ({ key }, { language }) => {
   if (key === null || typeof key === 'undefined') return null;
@@ -100,10 +82,7 @@ const floatLabel = async ({ key, _field }, { language }) => {
 };
 
 const ignore404 = (err) => {
-  if (
-    err?.extensions?.response?.status >= 400 &&
-    err?.extensions?.response?.status < 500
-  ) {
+  if (err?.extensions?.response?.status >= 400 && err?.extensions?.response?.status < 500) {
     return null;
   }
   throw err;
@@ -121,15 +100,12 @@ const conceptLabel =
   (vocabulary) =>
   async ({ key }, { language }, { dataSources }) => {
     if (!key) return null;
-    const concept = await dataSources.vocabularyAPI
-      .getConcept({ vocabulary, concept: key })
-      .catch(ignore404);
+    const concept = await dataSources.vocabularyAPI.getConcept({ vocabulary, concept: key }).catch(ignore404);
     if (!concept) return null;
     return translateConceptLabel(concept, { language });
   };
 
-const DEFAULT_CHECKLIST_KEY =
-  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+const DEFAULT_CHECKLIST_KEY = config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
 
 const issueSeverityMap = interpretationRemark.reduce((acc, issue) => {
   acc[issue.id] = issue.severity;
@@ -137,10 +113,7 @@ const issueSeverityMap = interpretationRemark.reduce((acc, issue) => {
 }, {});
 
 export const getSourceSearch = (dataSources) => (args) =>
-  dataSources.occurrenceAPI.searchOccurrences.call(
-    dataSources.occurrenceAPI,
-    args,
-  );
+  dataSources.occurrenceAPI.searchOccurrences.call(dataSources.occurrenceAPI, args);
 
 function createPredicateOverwrite({ field, checklistKey, bucket }) {
   /*
@@ -159,9 +132,7 @@ function createPredicateOverwrite({ field, checklistKey, bucket }) {
     'phylumKey',
     'kingdomKey',
   ];
-  const fieldForPredicate = replaceWithTaxonKey.includes(field)
-    ? 'taxonKey'
-    : field;
+  const fieldForPredicate = replaceWithTaxonKey.includes(field) ? 'taxonKey' : field;
   return {
     type: 'equals',
     key: fieldForPredicate,
@@ -172,11 +143,7 @@ function createPredicateOverwrite({ field, checklistKey, bucket }) {
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
-  dictionary[facetName] = getFacet(
-    facetName,
-    getSourceSearch,
-    createPredicateOverwrite,
-  );
+  dictionary[facetName] = getFacet(facetName, getSourceSearch, createPredicateOverwrite);
   return dictionary;
 };
 const OccurrenceFacet = facetFields.reduce(facetReducer, {});
@@ -194,12 +161,7 @@ OccurrenceFacet.nucleotideSequenceTargetGene = getNestedFacet(
   // every gene on the matched occurrences.
   'nucleotideSequenceID',
 );
-OccurrenceFacet.nucleotideSequenceInvalid = getNestedFacet(
-  'nucleotideSequence',
-  'invalid',
-  getSourceSearch,
-  'boolean',
-);
+OccurrenceFacet.nucleotideSequenceInvalid = getNestedFacet('nucleotideSequence', 'invalid', getSourceSearch, 'boolean');
 OccurrenceFacet.nucleotideSequenceSequenceLength = getNestedFacet(
   'nucleotideSequence',
   'sequenceLength',
@@ -231,10 +193,7 @@ const OccurrenceCardinality = cardinalityFields.reduce(cardinalityReducer, {});
 // Cardinality on a nested-object sub-field. The GraphQL field is dot-free
 // (nucleotideSequenceTargetGene) but the es-api metric key must be the dotted
 // nucleotideSequence.targetGene so metric2aggs builds a nested aggregation.
-OccurrenceCardinality.nucleotideSequenceTargetGene = getCardinality(
-  'nucleotideSequence.targetGene',
-  getSourceSearch,
-);
+OccurrenceCardinality.nucleotideSequenceTargetGene = getCardinality('nucleotideSequence.targetGene', getSourceSearch);
 
 // there are also many fields that support histograms. Generate them all.
 const histogramReducer = (dictionary, fieldName) => {
@@ -255,10 +214,7 @@ const autoDateHistogramReducer = (dictionary, fieldName) => {
   dictionary[fieldName] = getAutoDateHistogram(fieldName, getSourceSearch);
   return dictionary;
 };
-const OccurrenceAutoDateHistogram = dateHistogramFields.reduce(
-  autoDateHistogramReducer,
-  {},
-);
+const OccurrenceAutoDateHistogram = dateHistogramFields.reduce(autoDateHistogramReducer, {});
 
 const searchOccurrences = (parent, query, { dataSources }) => {
   return dataSources.occurrenceAPI.searchOccurrenceDocuments({
@@ -285,26 +241,14 @@ export default {
         _q: args.q,
       };
     },
-    occurrenceDatasetSuggest: (
-      _parent,
-      { predicate, q, size = 10 },
-      { dataSources },
-    ) => {
+    occurrenceDatasetSuggest: (_parent, { predicate, q, size = 10 }, { dataSources }) => {
       return dataSources.occurrenceAPI.datasetSuggest({ predicate, q, size });
     },
-    occurrencePublisherSuggest: (
-      _parent,
-      { predicate, q, size = 10 },
-      { dataSources },
-    ) => {
+    occurrencePublisherSuggest: (_parent, { predicate, q, size = 10 }, { dataSources }) => {
       return dataSources.occurrenceAPI.publisherSuggest({ predicate, q, size });
     },
-    occurrence: (_parent, { key }, { dataSources }) =>
-      dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
-    globe: async (
-      _parent,
-      { cLat, cLon, pLat, pLon, sphere, graticule, land },
-    ) => {
+    occurrence: (_parent, { key }, { dataSources }) => dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
+    globe: async (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
       const roundedLat = Math.floor(pLat / 30) * 30;
       const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
       const simpleLon = Math.round(pLon / 30) * 30;
@@ -334,10 +278,7 @@ export default {
     },
   },
   MultimediaItem: {
-    thumbor: (
-      { identifier, type, occurrenceKey },
-      { fitIn, width = '', height = '' },
-    ) => {
+    thumbor: ({ identifier, type, occurrenceKey }, { fitIn, width = '', height = '' }) => {
       if (!identifier) return null;
       if (type !== 'StillImage') return null;
       if (!occurrenceKey) return null;
@@ -348,13 +289,16 @@ export default {
       try {
         const url = `${config.occurrenceImageCache}/${
           fitIn ? 'fit-in/' : ''
-        }${width}x${height}/occurrence/${occurrenceKey}/media/${md5(
-          identifier ?? '',
-        )}`;
+        }${width}x${height}/occurrence/${occurrenceKey}/media/${md5(identifier ?? '')}`;
         return url;
       } catch (err) {
         return identifier;
       }
+    },
+  },
+  AcceptedUsage: {
+    taxon: ({ key }, { datasetKey = DEFAULT_CHECKLIST_KEY }, { dataSources }) => {
+      return dataSources.taxonAPI.getTaxonInfo({ key, datasetKey });
     },
   },
   ChecklistClassification: {
@@ -379,11 +323,7 @@ export default {
         ]).length > 0
       );
     },
-    vernacularNames: (
-      { checklistKey, usage },
-      { lang, maxLimit },
-      { dataSources },
-    ) => {
+    vernacularNames: ({ checklistKey, usage }, { lang, maxLimit }, { dataSources }) => {
       return dataSources.taxonAPI
         .getChecklistMetadata({
           usageKey: usage.key,
@@ -506,18 +446,12 @@ export default {
       if (!checklistKey) {
         checklistKey = DEFAULT_CHECKLIST_KEY;
       }
-      const classification = classifications.find(
-        (x) => x.checklistKey === checklistKey,
-      );
+      const classification = classifications.find((x) => x.checklistKey === checklistKey);
       if (!classification) return null;
       // if classification, return the classification
       return classification;
     },
-    originalUsageMatch: (
-      { originalNameUsage },
-      { checklistKey },
-      { dataSources },
-    ) => {
+    originalUsageMatch: ({ originalNameUsage }, { checklistKey }, { dataSources }) => {
       if (!originalNameUsage) return null;
       if (!checklistKey) {
         checklistKey = DEFAULT_CHECKLIST_KEY;
@@ -535,10 +469,7 @@ export default {
           from,
           count: response.relatedOccurrences.length,
           currentOccurrence: response.currentOccurrence,
-          relatedOccurrences: response.relatedOccurrences.slice(
-            from,
-            from + size,
-          ),
+          relatedOccurrences: response.relatedOccurrences.slice(from, from + size),
         };
       });
     },
@@ -576,102 +507,40 @@ export default {
       // this is a special field that is used to provide the local context for the occurrence
       // it is used to provide the local context for the occurrence in the UI
       // it is not used in the API, but it is used in the UI to provide the local context for the occurrence
-      return dataSources.localContextAPI.getLocalContextFromOccurrence(
-        occurrence,
-      );
+      return dataSources.localContextAPI.getLocalContextFromOccurrence(occurrence);
     },
     extensions: (occurrence) => {
       const extensions = {
-        audubon:
-          occurrence?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'],
-        amplification:
-          occurrence?.extensions?.[
-            'http://data.ggbn.org/schemas/ggbn/terms/Amplification'
-          ],
-        germplasmAccession:
-          occurrence?.extensions?.[
-            'http://purl.org/germplasm/germplasmTerm#GermplasmAccession'
-          ],
-        germplasmMeasurementScore:
-          occurrence?.extensions?.[
-            'http://purl.org/germplasm/germplasmTerm#MeasurementScore'
-          ],
-        germplasmMeasurementTrait:
-          occurrence?.extensions?.[
-            'http://purl.org/germplasm/germplasmTerm#MeasurementTrait'
-          ],
-        germplasmMeasurementTrial:
-          occurrence?.extensions?.[
-            'http://purl.org/germplasm/germplasmTerm#MeasurementTrial'
-          ],
-        identification:
-          occurrence?.extensions?.[
-            'http://rs.tdwg.org/dwc/terms/Identification'
-          ],
-        identifier:
-          occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Identifier'],
+        audubon: occurrence?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'],
+        amplification: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Amplification'],
+        germplasmAccession: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#GermplasmAccession'],
+        germplasmMeasurementScore: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementScore'],
+        germplasmMeasurementTrait: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementTrait'],
+        germplasmMeasurementTrial: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementTrial'],
+        identification: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/Identification'],
+        identifier: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Identifier'],
         image: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Image'],
-        measurementOrFact:
-          occurrence?.extensions?.[
-            'http://rs.tdwg.org/dwc/terms/MeasurementOrFact'
-          ],
-        multimedia:
-          occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
-        reference:
-          occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
-        eolReference:
-          occurrence?.extensions?.['http://eol.org/schema/reference/Reference'],
-        resourceRelationship:
-          occurrence?.extensions?.[
-            'http://rs.tdwg.org/dwc/terms/ResourceRelationship'
-          ],
-        cloning:
-          occurrence?.extensions?.[
-            'http://data.ggbn.org/schemas/ggbn/terms/Cloning'
-          ],
-        gelImage:
-          occurrence?.extensions?.[
-            'http://data.ggbn.org/schemas/ggbn/terms/GelImage'
-          ],
-        loan: occurrence?.extensions?.[
-          'http://data.ggbn.org/schemas/ggbn/terms/Loan'
-        ],
-        materialSample:
-          occurrence?.extensions?.[
-            'http://data.ggbn.org/schemas/ggbn/terms/MaterialSample'
-          ],
-        permit:
-          occurrence?.extensions?.[
-            'http://data.ggbn.org/schemas/ggbn/terms/Permit'
-          ],
-        preparation:
-          occurrence?.extensions?.[
-            'http://data.ggbn.org/schemas/ggbn/terms/Preparation'
-          ],
-        preservation:
-          occurrence?.extensions?.[
-            'http://data.ggbn.org/schemas/ggbn/terms/Preservation'
-          ],
-        extendedMeasurementOrFact:
-          occurrence?.extensions?.[
-            'http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'
-          ],
-        chronometricAge:
-          occurrence?.extensions?.[
-            'http://rs.tdwg.org/chrono/terms/ChronometricAge'
-          ],
-        dnaDerivedData:
-          occurrence?.extensions?.[
-            'http://rs.gbif.org/terms/1.0/DNADerivedData'
-          ],
+        measurementOrFact: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/MeasurementOrFact'],
+        multimedia: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
+        reference: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
+        eolReference: occurrence?.extensions?.['http://eol.org/schema/reference/Reference'],
+        resourceRelationship: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/ResourceRelationship'],
+        cloning: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Cloning'],
+        gelImage: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/GelImage'],
+        loan: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Loan'],
+        materialSample: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/MaterialSample'],
+        permit: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Permit'],
+        preparation: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Preparation'],
+        preservation: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Preservation'],
+        extendedMeasurementOrFact: occurrence?.extensions?.['http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'],
+        chronometricAge: occurrence?.extensions?.['http://rs.tdwg.org/chrono/terms/ChronometricAge'],
+        dnaDerivedData: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/DNADerivedData'],
       };
       Object.keys(extensions).forEach((key) => {
         const extension = extensions[key];
         // remove empty and half empty values
         if (Array.isArray(extension) && extension.length > 0) {
-          extensions[key] = extension
-            .filter((x) => Object.keys(x).length > 0)
-            .map(simplifyUrlObjectKeys);
+          extensions[key] = extension.filter((x) => Object.keys(x).length > 0).map(simplifyUrlObjectKeys);
           if (extensions[key].length === 0) delete extensions[key];
         } else {
           delete extensions[key];
@@ -772,11 +641,7 @@ export default {
     },
   },
   OccurrenceNameUsage: {
-    formattedName: (
-      { key, name },
-      { useFallback = false },
-      { dataSources },
-    ) => {
+    formattedName: ({ key, name }, { useFallback = false }, { dataSources }) => {
       return dataSources.taxonAPI
         .getParsedName({ key })
         .then((formattedName) => {
@@ -845,9 +710,7 @@ export default {
     },
     label: async ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined' || key === null) return null;
-      const gadm = await dataSources.gadmAPI
-        .getGadmById({ id: key })
-        .catch(ignore404);
+      const gadm = await dataSources.gadmAPI.getGadmById({ id: key }).catch(ignore404);
       return gadm?.name ?? null;
     },
     occurrences: facetOccurrenceSearch,
@@ -871,40 +734,25 @@ export default {
   OccurrenceFacetResult_taxon: {
     taxon: ({ key, _checklistKey }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      return dataSources.taxonAPI
-        .getTaxon({ key, datasetKey: _checklistKey })
-        .catch((err) => {
-          // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
-          if (
-            err?.extensions?.response?.status >= 400 &&
-            err?.extensions?.response?.status < 500
-          ) {
-            return null;
-          }
-          throw err;
-        });
+      return dataSources.taxonAPI.getTaxon({ key, datasetKey: _checklistKey }).catch((err) => {
+        // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
+        if (err?.extensions?.response?.status >= 400 && err?.extensions?.response?.status < 500) {
+          return null;
+        }
+        throw err;
+      });
     },
     taxonInfo: ({ key, _checklistKey }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      return dataSources.taxonAPI
-
-        .getTaxonInfo({ key, datasetKey: _checklistKey })
-        .catch((err) => {
-          // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
-          if (
-            err?.extensions?.response?.status >= 400 &&
-            err?.extensions?.response?.status < 500
-          ) {
-            return null;
-          }
-          throw err;
-        });
+      return dataSources.taxonAPI.getTaxonInfo({ key, datasetKey: _checklistKey }).catch((err) => {
+        // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
+        if (err?.extensions?.response?.status >= 400 && err?.extensions?.response?.status < 500) {
+          return null;
+        }
+        throw err;
+      });
     },
-    taxonMatch: (
-      { key },
-      { checklistKey = DEFAULT_CHECKLIST_KEY },
-      { dataSources },
-    ) => {
+    taxonMatch: ({ key }, { checklistKey = DEFAULT_CHECKLIST_KEY }, { dataSources }) => {
       return dataSources.taxonAPI.getSpeciesMatchByUsageKey({
         usageKey: key,
         checklistKey,
@@ -912,9 +760,7 @@ export default {
     },
     label: async ({ key, _checklistKey }, _args, { dataSources }) => {
       if (typeof key === 'undefined' || key === null) return null;
-      const taxon = await dataSources.taxonAPI
-        .getTaxon({ key, datasetKey: _checklistKey })
-        .catch(ignore404);
+      const taxon = await dataSources.taxonAPI.getTaxon({ key, datasetKey: _checklistKey }).catch(ignore404);
       return taxon?.scientificName ?? null;
     },
     occurrences: facetOccurrenceSearch,
@@ -1034,15 +880,8 @@ export default {
   Globe: {},
   VolatileOccurrenceData: {
     features: (occurrence) => occurrence,
-    globe: async (
-      { decimalLatitude, decimalLongitude },
-      { sphere, graticule, land },
-    ) => {
-      if (
-        typeof decimalLatitude !== 'number' ||
-        typeof decimalLongitude !== 'number'
-      )
-        return null;
+    globe: async ({ decimalLatitude, decimalLongitude }, { sphere, graticule, land }) => {
+      if (typeof decimalLatitude !== 'number' || typeof decimalLongitude !== 'number') return null;
 
       const roundedLat = Math.floor(decimalLatitude / 15) * 15;
       const lat = Math.min(Math.max(roundedLat, -60), 60);
@@ -1083,16 +922,14 @@ export default {
       );
     },
     // plazi this won't work in other environments than prod for now. all in all we should have a better way to detect treatments
-    isTreament: ({ publishingOrgKey }) =>
-      publishingOrgKey === '7ce8aef0-9e92-11dc-8738-b8a03c50a862',
+    isTreament: ({ publishingOrgKey }) => publishingOrgKey === '7ce8aef0-9e92-11dc-8738-b8a03c50a862',
     isClustered: ({ isInCluster }) => {
       return isInCluster;
     },
     isSequenced: ({ isSequenced }) => {
       return isSequenced;
     },
-    isSamplingEvent: (occurrence) =>
-      !!occurrence.eventId && !!occurrence.samplingProtocol,
+    isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol,
     firstIIIF: (occurrence) => {
       return getFirstIIIFImage({ occurrence });
     },

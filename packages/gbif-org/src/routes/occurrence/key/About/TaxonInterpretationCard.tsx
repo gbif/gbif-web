@@ -21,12 +21,18 @@ export function TaxonInterpretationCard({
     clbDatasetKey: classification?.meta?.mainIndex?.clbDatasetKey,
   });
   const usageKey = classification?.usage?.key;
-  const usageName = classification?.usage?.name;
-  const noMatch = !usageKey || !usageName;
+  const usageLabel = classification.taxonMatch?.usage.formattedName ?? classification?.usage?.name;
+  const acceptedLabel =
+    classification?.acceptedUsage?.taxon?.label ?? classification?.acceptedUsage?.name;
+  const acceptedKey = classification?.acceptedUsage?.key;
+  const taxonomy =
+    classification?.acceptedUsage?.taxon?.classification ?? classification.classification;
+
+  const noMatch = !usageKey || !usageLabel;
   if (noMatch) return <ChecklistNoMatchCard checklistKey={classification.checklistKey} />;
   const issues = classification?.issues ?? [];
 
-  const formattedName = classification.taxonMatch?.usage.formattedName ?? usageName;
+  const formattedName = acceptedLabel ?? usageLabel;
 
   return (
     <div
@@ -48,7 +54,7 @@ export function TaxonInterpretationCard({
             </div>
             <h4>
               <EntityLinkPresentation
-                link={links.taxon(usageKey)}
+                link={links.taxon(acceptedKey ?? usageKey)}
                 className="g-text-site-dir-start g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
                 dangerouslySetInnerHTML={{ __html: formattedName }}
               />
@@ -60,7 +66,7 @@ export function TaxonInterpretationCard({
               )}
             </h4>
             <Classification dir="ltr" className="g-text-xs g-text-slate-600 g-text-site-dir-start">
-              {classification.classification?.map((rank) => {
+              {taxonomy?.map((rank) => {
                 return (
                   <span key={rank.key}>
                     {rank.rank && (
@@ -93,20 +99,24 @@ export function TaxonInterpretationCard({
               </div>
             )}
             {classification.acceptedUsage.key && classification.acceptedUsage.key !== usageKey && (
-              <div className="g-text-xs g-text-slate-700 g-mt-2">
-                {classification.taxonMatch?.synonym && (
-                  <span className="g-me-4 g-bg-orange-400 g-rounded-full g-px-2 g-text-white">
-                    <FormattedMessage id="enums.taxonomicStatus.SYNONYM" defaultMessage="Synonym" />
-                  </span>
-                )}
+              <div className="g-text-sm g-text-slate-700 g-mt-2">
                 <span className="g-text-slate-600 g-font-medium">
-                  accepted name:{' '}
+                  <FormattedMessage
+                    id="filterSupport.acceptedNameOf"
+                    defaultMessage="Accepted name for"
+                  />
+                  :{' '}
                   <EntityLinkPresentation
-                    link={links.taxon(classification.acceptedUsage.key)}
-                    className="g-underline"
-                  >
-                    {classification.acceptedUsage.name}
-                  </EntityLinkPresentation>
+                    link={links.taxon(usageKey)}
+                    className="g-text-site-dir-start g-font-medium g-underline hover:g-text-primary-500"
+                    dangerouslySetInnerHTML={{ __html: usageLabel }}
+                  />
+                  {links.taxon(usageKey).kind === 'external' && (
+                    <>
+                      {' '}
+                      <ExternalLinkIcon className="g-align-baseline" />
+                    </>
+                  )}
                 </span>
               </div>
             )}

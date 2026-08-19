@@ -186,6 +186,14 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         acceptedUsage {
           key
           name
+          taxon {
+            label
+            classification {
+              key: taxonID
+              rank: taxonRank
+              name: scientificName
+            }
+          }
         }
         taxonMatch {
           usage {
