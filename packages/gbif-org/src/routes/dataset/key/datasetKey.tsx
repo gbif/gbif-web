@@ -87,6 +87,7 @@ const DATASET_QUERY = /* GraphQL */ `
       publishingOrganizationTitle
       homepage
       additionalInfo
+      acknowledgements
       installation {
         key
         title

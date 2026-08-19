@@ -455,7 +455,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc.additionalInfo && dataset.additionalInfo && (
+            {toc.additionalInfo && (
               <Card className="g-mb-4 gbif-word-break" id="additional-info">
                 <CardHeader>
                   <CardTitle>
@@ -463,10 +463,18 @@ export function DatasetKeyAbout() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent dir="auto">
-                  <div
-                    className="g-prose g-mb-6 g-max-w-full g-text-site-dir-start"
-                    dangerouslySetInnerHTML={{ __html: dataset.additionalInfo }}
-                  />
+                  {dataset.additionalInfo && (
+                    <div
+                      className="g-prose g-mb-6 g-max-w-full g-text-site-dir-start"
+                      dangerouslySetInnerHTML={{ __html: dataset.additionalInfo }}
+                    />
+                  )}
+                  {dataset.acknowledgements && (
+                    <div
+                      className="g-prose g-mb-6 g-max-w-full g-text-site-dir-start"
+                      dangerouslySetInnerHTML={{ __html: dataset.acknowledgements }}
+                    />
+                  )}
                 </CardContent>
               </Card>
             )}
@@ -631,6 +639,8 @@ function getToc({ dataset, localContextEnabled }: GetTocOptions) {
     (dataset?.samplingDescription?.methodSteps &&
       dataset?.samplingDescription?.methodSteps?.length > 0);
 
+  const hasAdditionalSection = dataset?.additionalInfo || dataset?.acknowledgements;
+
   const toc = {
     description: true,
     purpose: dataset?.purpose,
@@ -638,7 +648,7 @@ function getToc({ dataset, localContextEnabled }: GetTocOptions) {
     temporalDescription: (dataset?.temporalCoverages?.length ?? 0) > 0,
     taxonomicDescription: (dataset?.taxonomicCoverages?.length ?? 0) > 0,
     methodology: hasSamplingDescription,
-    additionalInfo: dataset?.additionalInfo,
+    additionalInfo: hasAdditionalSection,
     contacts: (dataset?.volatileContributors?.length ?? 0) > 0,
     bibliography: (dataset?.bibliographicCitations?.length ?? 0) > 0,
     localContexts: localContextEnabled && (dataset?.localContexts?.length ?? 0) > 0,
