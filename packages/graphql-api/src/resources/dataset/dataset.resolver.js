@@ -18,27 +18,18 @@ const getSourceSearch = (dataSources) => (args) =>
 export const Query = {
   datasetSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
     dataSources.datasetAPI.searchDatasets({ query: { ...args, ...query } }),
-  datasetSearchByPredicate: (
-    parent,
-    { query = {}, ...args } = {},
-    { dataSources },
-  ) =>
+  datasetSearchByPredicate: (parent, { query = {}, ...args } = {}, { dataSources }) =>
     dataSources.datasetByPredicateAPI.searchDatasetsByPredicate({
       query: { ...args, ...query },
     }),
-  datasetList: (parent, args, { dataSources }) =>
-    dataSources.datasetAPI.listDatasets({ query: args }),
+  datasetList: (parent, args, { dataSources }) => dataSources.datasetAPI.listDatasets({ query: args }),
   dataset: (parent, { key }, { dataSources }) => {
     if (!isValidUuid(key)) {
       throw new NotFoundError();
     }
     return dataSources.datasetAPI.getDatasetByKey({ key });
   },
-  clbNameUsageSuggest: (
-    parent,
-    { checklistKey = config.defaultChecklist, q, limit = 20 },
-    { dataSources },
-  ) => {
+  clbNameUsageSuggest: (parent, { checklistKey = config.defaultChecklist, q, limit = 20 }, { dataSources }) => {
     return dataSources.taxonAPI
       .getChecklistMetadata({
         checklistKey,
@@ -55,21 +46,12 @@ export const Query = {
 };
 
 export const DatasetSearchStub = {
-  dataset: ({ key }, args, { dataSources }) =>
-    dataSources.datasetAPI.getDatasetByKey({ key }),
-  publishingOrganization: (
-    { publishingOrganizationKey: key },
-    args,
-    { dataSources },
-  ) => {
+  dataset: ({ key }, args, { dataSources }) => dataSources.datasetAPI.getDatasetByKey({ key }),
+  publishingOrganization: ({ publishingOrganizationKey: key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
     return dataSources.organizationAPI.getOrganizationByKey({ key });
   },
-  hostingOrganization: (
-    { hostingOrganizationKey: key },
-    args,
-    { dataSources },
-  ) => {
+  hostingOrganization: ({ hostingOrganizationKey: key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
     return dataSources.organizationAPI.getOrganizationByKey({ key });
   },
@@ -107,9 +89,7 @@ export const Dataset = {
     if (namespace || name || value) {
       return machineTags.filter(
         (mt) =>
-          (!namespace || mt.namespace === namespace) &&
-          (!name || mt.name === name) &&
-          (!value || mt.value === value),
+          (!namespace || mt.namespace === namespace) && (!name || mt.name === name) && (!value || mt.value === value),
       );
     }
     return machineTags;
@@ -117,11 +97,7 @@ export const Dataset = {
   excerpt: (src) => excerpt({ body: src.description }),
   installation: ({ installationKey: key }, args, { dataSources }) =>
     dataSources.installationAPI.getInstallationByKey({ key }),
-  duplicateOfDataset: (
-    { duplicateOfDatasetKey: key },
-    args,
-    { dataSources },
-  ) => {
+  duplicateOfDataset: ({ duplicateOfDatasetKey: key }, args, { dataSources }) => {
     // no need to throw an error, the user have no way of knowing if the key is present
     if (typeof key === 'undefined') return null;
     return dataSources.datasetAPI.getDatasetByKey({ key });
@@ -133,15 +109,9 @@ export const Dataset = {
   ) => {
     if (typeof key === 'undefined') return null;
     if (publishingOrganizationTitle) return publishingOrganizationTitle; // in the search API this field is already added
-    return dataSources.organizationAPI
-      .getOrganizationByKey({ key })
-      .then((org) => org.title);
+    return dataSources.organizationAPI.getOrganizationByKey({ key }).then((org) => org.title);
   },
-  publishingOrganization: (
-    { publishingOrganizationKey: key },
-    args,
-    { dataSources },
-  ) => {
+  publishingOrganization: ({ publishingOrganizationKey: key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
     return dataSources.organizationAPI.getOrganizationByKey({ key });
   },
@@ -159,8 +129,7 @@ export const Dataset = {
   bibliographicCitations: ({ bibliographicCitations }, { limit }) => {
     return bibliographicCitations.slice(0, limit);
   },
-  volatileContributors: ({ contacts }, { limit }) =>
-    getContributors(contacts).slice(0, limit),
+  volatileContributors: ({ contacts }, { limit }) => getContributors(contacts).slice(0, limit),
   networks: ({ key }, { visibleOnDatasetPage }, { dataSources }) => {
     return dataSources.datasetAPI.getNetworks({ key }).then((networks) => {
       if (typeof visibleOnDatasetPage === 'undefined') return networks;
@@ -172,10 +141,7 @@ export const Dataset = {
       */
       return networks.filter((network) => {
         const mt = network.machineTags?.find(
-          (m) =>
-            m.namespace === 'registry.gbif.org' &&
-            m.name === 'visibleOnDatasetPage' &&
-            m.value === 'true',
+          (m) => m.namespace === 'registry.gbif.org' && m.name === 'visibleOnDatasetPage' && m.value === 'true',
         );
         return visibleOnDatasetPage ? !!mt : !mt;
       });
@@ -186,12 +152,11 @@ export const Dataset = {
     return dataSources.datasetAPI.getMetrics({ key });
   },
   gridded: ({ key }, { limit = 1000 }, { dataSources }) => {
-    return dataSources.datasetAPI
-      .getGridded({ key })
-      .then((response) => response.slice(0, limit));
+    return dataSources.datasetAPI.getGridded({ key }).then((response) => response.slice(0, limit));
   },
   description: ({ description }) => getHtml(description),
   purpose: ({ purpose }) => getHtml(purpose),
+  acknowledgements: ({ acknowledgements }) => getHtml(acknowledgements),
   checklistBankDataset: ({ key }, args, { dataSources }) => {
     return dataSources.datasetAPI.getFromChecklistBank({ key });
   },
@@ -220,21 +185,14 @@ export const Dataset = {
   events: getDatasetEvents,
   eventCount: getDatasetEventCount,
   localContexts: ({ machineTags }, args, { dataSources }) => {
-    return dataSources.localContextAPI
-      .getDatasetLocalContext({ machineTags })
-      .then((lc) => {
-        return lc;
-      });
+    return dataSources.localContextAPI.getDatasetLocalContext({ machineTags }).then((lc) => {
+      return lc;
+    });
   },
 };
 
 export const Project = {
-  gbifProject: (
-    { identifier },
-    args,
-    { dataSources, locale, preview },
-    info,
-  ) => {
+  gbifProject: ({ identifier }, args, { dataSources, locale, preview }, info) => {
     return dataSources.resourceAPI
       .getEntryById({
         id: identifier,
@@ -249,9 +207,7 @@ export const Project = {
 export const ClbDataset = {
   import: ({ key }, args, { dataSources }) => {
     const query = Object.keys(args).length > 0 ? args : undefined;
-    return dataSources.datasetAPI
-      .getChecklistBankImport({ key, query })
-      .then((response) => response?.[0]);
+    return dataSources.datasetAPI.getChecklistBankImport({ key, query }).then((response) => response?.[0]);
   },
 };
 
@@ -307,8 +263,7 @@ export const SamplingDescription = {
   sampling: ({ sampling }) => getHtml(sampling),
   qualityControl: ({ qualityControl }) => getHtml(qualityControl),
   methodSteps: ({ methodSteps }) => {
-    if (!Array.isArray(methodSteps) || methodSteps.length === 0)
-      return methodSteps;
+    if (!Array.isArray(methodSteps) || methodSteps.length === 0) return methodSteps;
     return methodSteps.map(getHtml);
   },
 };
