@@ -33,7 +33,7 @@ export function QueryCard({ download }: { download: Download }) {
     setShowComplexPredicateWarning(false);
     const size = JSON.stringify(download.request.predicate).length;
     // if the predicate is too long to be converted to filters, then do not show
-    if (size > 2000) {
+    if (size > 6000) {
       setQuery(undefined);
       return;
     }
