@@ -103,7 +103,7 @@ function reduce(item, fields) {
     format: source.verbatim.core['http://purl.org/dc/terms/format'],
     formation: source.verbatim.core['http://rs.tdwg.org/dwc/terms/formation'],
     // genus:                              source.verbatim.core['http://rs.tdwg.org/dwc/terms/genus'],
-    geodeticDatum: source.verbatim.core['http://rs.tdwg.org/dwc/terms/geodeticDatum'] || 'WGS84',
+    geodeticDatum: source.verbatim.core['http://rs.tdwg.org/dwc/terms/geodeticDatum'],
     geologicalContextID: source.verbatim.core['http://rs.tdwg.org/dwc/terms/geologicalContextID'],
     georeferenceProtocol: source.verbatim.core['http://rs.tdwg.org/dwc/terms/georeferenceProtocol'],
     georeferenceRemarks: source.verbatim.core['http://rs.tdwg.org/dwc/terms/georeferenceRemarks'],
