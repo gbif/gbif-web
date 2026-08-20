@@ -14,9 +14,9 @@
  *  }
  * }
  */
-import interpretationRemark from '@/helpers/enums/interpretationRemark';
 import { isNil, pick } from 'lodash';
-import terms from './terms.json';
+import interpretationRemark from '@/helpers/enums/interpretationRemark';
+import terms from './terms';
 
 const defaultValue = {
   occurrence: [],
@@ -68,9 +68,7 @@ const qualified2Simple = groupBy(terms, 'qualifiedName', 'simpleName');
 const remarkTypes = interpretationRemark.map((remark) => {
   return {
     ...remark,
-    simpleRelatedTerms: remark.relatedTerms.map(
-      (qualifiedName) => qualified2Simple[qualifiedName],
-    ),
+    simpleRelatedTerms: remark.relatedTerms.map((qualifiedName) => qualified2Simple[qualifiedName]),
   };
 });
 
@@ -90,9 +88,7 @@ function getTermSubset(rawTerms) {
   // field terms that are to be included independent of their source. that is included these gbif specific terms
   return rawTerms.filter(
     (term) =>
-      term.source === 'DwcTerm' ||
-      term.source === 'DcTerm' ||
-      typeof termsWhiteList.indexOf(term.simpleName) > -1,
+      term.source === 'DwcTerm' || term.source === 'DcTerm' || typeof termsWhiteList.indexOf(term.simpleName) > -1,
   );
 }
 
@@ -112,10 +108,7 @@ function getRemarks({ value, verbatim, compareWithVerbatim }) {
   }
   if (isNil(value)) return 'NOT_INDEXED';
   if (isNil(verbatim)) return 'INFERRED';
-  if (
-    value.toString().toLowerCase().replace(/_/g, '') !==
-    verbatim.toString().toLowerCase().replace(/_/g, '')
-  )
+  if (value.toString().toLowerCase().replace(/_/g, '') !== verbatim.toString().toLowerCase().replace(/_/g, ''))
     return 'ALTERED';
   return null;
 }
@@ -142,39 +135,27 @@ export default ({ occurrence, verbatim }) => {
   const enrichedTerms = visibleTerms
     .filter(({ qualifiedName, simpleName }) => {
       // remove terms that have no value (neither verbatim or interpreted)
-      return (
-        typeof occurrence[simpleName] !== 'undefined' ||
-        typeof verbatim[qualifiedName] !== 'undefined'
-      );
+      return typeof occurrence[simpleName] !== 'undefined' || typeof verbatim[qualifiedName] !== 'undefined';
     })
-    .map(
-      ({
+    .map(({ qualifiedName, simpleName, group = 'other', source, compareWithVerbatim }) => {
+      // enrich the used terms with related issues, remarks and both verbatim and GBIF view of the value
+      const camelGroup = camelize(group);
+      return {
         qualifiedName,
         simpleName,
-        group = 'other',
+        group: camelGroup,
         source,
-        compareWithVerbatim,
-      }) => {
-        // enrich the used terms with related issues, remarks and both verbatim and GBIF view of the value
-        const camelGroup = camelize(group);
-        return {
-          qualifiedName,
-          simpleName,
-          group: camelGroup,
-          source,
-          label: simpleName,
-          issues: field2issuesOut[simpleName],
-          remarks: getRemarks({
-            value: occurrence[simpleName],
-            verbatim: verbatim[qualifiedName],
-            compareWithVerbatim,
-          }),
+        label: simpleName,
+        issues: field2issuesOut[simpleName],
+        remarks: getRemarks({
           value: occurrence[simpleName],
           verbatim: verbatim[qualifiedName],
-        };
-      },
-      {},
-    );
+          compareWithVerbatim,
+        }),
+        value: occurrence[simpleName],
+        verbatim: verbatim[qualifiedName],
+      };
+    }, {});
   const groups = {
     ...defaultValue,
     ...groupBy(enrichedTerms, 'group'),
