@@ -78,7 +78,7 @@ export function OccurrenceKeyAbout() {
       return map;
     }, {}) ?? {};
 
-  const showAll = false;
+  const showAll = true;
   const isProbablyNotInOcean = occurrence.countryCode;
   const overviewZoom = isProbablyNotInOcean ? 5 : 1;
   const sateliteZoom = isProbablyNotInOcean ? 14 : 1;
