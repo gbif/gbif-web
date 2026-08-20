@@ -477,22 +477,22 @@
     "removeRecordsTaxonIssues": "분류군과 확실하게 일치하지 않는 기록 삭제",
     "removeRecordsAtCentroids": "국가 중심점의 기록 삭제",
     "removeFossilsAndLiving": "화석 및 살아있는 표본에 대한 기록을 삭제(예: 식물원 및 동물원의 기록 등)",
-    "removeAbsenceRecords": "",
+    "removeAbsenceRecords": "부재 기록 삭제",
     "help": {
-      "whatIsThis": "",
-      "dimensions": "",
-      "taxonomicDimension": "",
-      "temporalDimension": "",
-      "dataQuality": "",
-      "grid": "",
-      "gridResolution": "",
-      "randomizePoints": "",
-      "measurements": "",
-      "occurrenceCount": "",
-      "higherTaxonomy": "",
-      "minCoordinateUncertainty": "",
-      "minTemporalUncertainty": "",
-      "editSql": ""
+      "whatIsThis": "이 다운로드 형식을 사용하면 출현 사례를 분류학적, 시간적 및/또는 공간적 특성에 따라 집계할 수 있습니다. 예를 들어, 데이터 큐브를 구성하여 출현 사례를 과, 월, 유럽환경청(EEA) 기준 격자의 격자 셀(3차원)별로 집계하고, 각 조합별 출현 횟수(측정값)를 계산하도록 설정할 수 있습니다. 결과는 CSV 파일로 제공됩니다.\n\n구성이 완료되면 데이터 큐브를 생성하기 위한 SQL 쿼리가 생성됩니다. 보다 고급 기능을 활용하려면 SQL 쿼리를 편집하여 요청한 다운로드 내용을 추가로 맞춤 설정할 수 있습니다.",
+      "dimensions": "차원은 데이터를 집계할 수 있는 기준을 나타냅니다. 더 높은 해상도(예: 과보다 종, 연보다 날짜, 10 km보다 100 m)를 선택하면 범주가 더 많아지므로, 결과적으로 기록의 수도 늘어납니다.",
+      "taxonomicDimension": "이 차원은 분류학적 계층에 따라 출현 횟수를 집계합니다.",
+      "temporalDimension": "이 차원은 시간별로 출현 횟수를 집계합니다.",
+      "dataQuality": "데이터에 적용할 추가 품질 필터",
+      "grid": "이 차원은 공간 격자 내의 출현 횟수를 집계합니다.",
+      "gridResolution": "각 격자 셀의 크기",
+      "randomizePoints": "좌표 불확실성이 하나 이상의 그리드 셀에 걸쳐 있는 출현 기록의 경우, 무작위로 셀을 선택할까요? 그렇지 않은 경우, 해당 기록의 중심점을 포함하는 셀을 사용합니다.",
+      "measurements": "각 차원의 조합에 대해 산출된 정량적 값",
+      "occurrenceCount": "출현 횟수.",
+      "higherTaxonomy": "출현 횟수를 포함해야 하는 추가적인 상위 분류군. 표본 추출 편향을 확인하는 데 유용합니다.",
+      "minCoordinateUncertainty": "기록된 좌표 불확실성 중 가장 작은 값(미터 단위). 데이터의 공간적 정밀도를 확인하는 데 유용합니다.",
+      "minTemporalUncertainty": "기록된 시간 불확실성 중 가장 작은 값(초 단위). 데이터의 시간적 정밀도를 확인하는 데 유용합니다.",
+      "editSql": "데이터를 다운로드하고 탐색하는 가장 쉬운 방법은 출현 검색 사용자 인터페이스를 이용하는 것입니다. 하지만 복잡한 쿼리와 집계 작업의 경우, SQL 에디터가 더 높은 자유도를 제공합니다."
     }
   }
 }
