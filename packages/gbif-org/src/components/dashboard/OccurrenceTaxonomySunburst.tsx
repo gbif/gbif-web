@@ -39,9 +39,8 @@ function ViewOptions({ view, setView, options = ['SUNBURST', 'TREEMAP'] }) {
   );
 }
 
+const rankKeys_ = ['kingdomKey', 'phylumKey', 'classKey', 'orderKey', 'familyKey', 'genusKey'];
 export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, ...props }) {
-  const rankKeys_ = ['kingdomKey', 'phylumKey', 'classKey', 'orderKey', 'familyKey', 'genusKey'];
-
   const defaultChecklistKey = useChecklistKey();
   const [rankKeys, setRankKeys] = useState(rankKeys_.toSpliced(4, rankKeys_.length - 4));
   const [view, setView] = useState('SUNBURST');
@@ -59,7 +58,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
     }
   }, [predicate, checklistKey, defaultChecklistKey]);
 
-  const [query, setQuery] = useState({});
+  const [query, setQuery] = useState('');
   useEffect(() => {
     if (rankKeys.length === 0) return;
 
@@ -70,7 +69,11 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
     );
   }, [rankKeys]);
 
-  const facetResults = useFacets({ predicate, query });
+  const facetResults = useFacets({
+    predicate,
+    query,
+    otherVariables: { checklistKey: checklistKey || defaultChecklistKey },
+  });
 
   useEffect(() => {
     const cardinality = facetResults?.data?.search?.cardinality || {};
