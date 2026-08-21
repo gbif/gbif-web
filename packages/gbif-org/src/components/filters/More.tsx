@@ -8,12 +8,12 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
-import { normalizeString } from '@/utils/normalizeString';
 import { cn } from '@/utils/shadcn';
 import React, { useEffect, useRef } from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FilterPopover } from './filterPopover';
+import { filterSearchScore, getFilterSearchValue } from './filterSearch';
 import { ContentOnApply, Filters, sortFilters } from './filterTools';
 import { FilterIcon } from '../icons/icons';
 
@@ -36,7 +36,7 @@ const ContentWrapper = React.forwardRef(
   ) => {
     const { formatMessage } = useIntl();
     const placeholder = formatMessage({
-      id: 'search.placeholders.default',
+      id: 'search.placeholders.searchForFilter',
       defaultMessage: 'Search filters',
     });
     const searchRef = useRef<HTMLInputElement>(null);
@@ -62,10 +62,7 @@ const ContentWrapper = React.forwardRef(
         <Command
           className={cn(activeFilterHandle && 'g-hidden')}
           aria-hidden={activeFilterHandle ? true : undefined}
-          filter={(value, search) => {
-            if (normalizeString(value).includes(normalizeString(search))) return 1;
-            return 0;
-          }}
+          filter={filterSearchScore}
         >
           <CommandInput
             placeholder={placeholder}
@@ -148,18 +145,21 @@ function Group({
   onSelect: (filterHandle: string) => void;
 }) {
   const intl = useIntl();
-  const header = title ?? (name ? `dashboard.group.${name}` : undefined);
+  const header =
+    title ?? (name ? intl.formatMessage({ id: `dashboard.group.${name}` }) : undefined);
   return (
-    <CommandGroup heading={header ? <FormattedMessage id={header} /> : undefined}>
+    <CommandGroup heading={header}>
       {Object.values(filters)
         .filter((filter) => filter.group === name)
         .sort(sortFilters)
         .map((filter) => {
           const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
           const aliases = typeof rawAlias === 'string' ? rawAlias : '';
-          const searchValue = aliases
-            ? `${filter.translatedFilterName} ${aliases}`
-            : filter.translatedFilterName;
+          const searchValue = getFilterSearchValue({
+            translatedFilterName: filter.translatedFilterName,
+            aliases,
+            group: typeof header === 'string' ? header : undefined,
+          });
           return (
             <CommandItem
               key={filter.handle}
