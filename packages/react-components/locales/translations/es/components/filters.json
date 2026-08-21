@@ -331,11 +331,11 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longitud de la secuencia",
-    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos (ADN o ARN) unida al registro biológico."
+    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos unida al registro biológico."
   },
   "nucleotideSequenceId": {
     "name": "Similitud de secuencias",
-    "description": "Pega una secuencia de nucleótidos para encontrar los registros biológicos cuyas secuencias asociadas sean similares a ella, agrupadas por porcentaje de identidad.",
+    "description": "Introduce una secuencia de nucleótidos (ADN o ARN) para encontrar coincidencias con secuencias adyacentes similares a ella; los resultados se muestran agrupados por porcentaje de coincidencia.",
     "search": "Buscar similares",
     "uniqueSequences": "{count, plural, one {# secuencia distinta} other {# secuencias distintas}}",
     "similarityRange": "{from} a {to} %",
@@ -345,7 +345,7 @@
     "error": "No se han podido buscar secuencias similares. Inténtalo de nuevo.",
     "noMatches": "No se han encontrado secuencias similares.",
     "bin": {
-      "100": "100 % (idéntico)",
+      "100": "100%",
       "99.5": "99,5–100 %",
       "99": "99–99,5 %",
       "98": "98–99%",
