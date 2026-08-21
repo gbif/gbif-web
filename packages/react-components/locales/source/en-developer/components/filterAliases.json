@@ -157,7 +157,7 @@
     "publishingOrg": "publisher, organization, organisation, institution",
     "publishingOrganizationKey": "publisher, organization, organisation, institution",
     "purposes": "",
-    "q": "free text, full text, search, keyword, query",
+    "q": "free text, full text, search, keyword, query, description, remarks, notes",
     "recordNumber": "",
     "recordedBy": "collector, observer, who, person, recorder",
     "recordedById": "",
