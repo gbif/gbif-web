@@ -42,7 +42,7 @@
   "searchSimilarSequences": "Buscar registros biológicos con secuencias similares",
   "dnaSequence": {
     "original": "Original",
-    "sanitized": ""
+    "sanitized": "Depurada"
   },
   "screenReader": {
     "title": "Detalles del registro biológico"
