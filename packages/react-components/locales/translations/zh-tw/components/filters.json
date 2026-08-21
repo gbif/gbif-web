@@ -337,7 +337,8 @@
     "name": "序列相似性",
     "description": "",
     "search": "尋找相似項目",
-    "uniqueSequences": "{count, plural, one {# 特定序列} other {# 特定序列}}",
+    "similarityHeader": "身份",
+    "distinctSequencesHeader": "",
     "similarityRange": "{from} 至 {to} %",
     "similarityExact": "{value} %",
     "invalid": "該序列似乎不是有效的序列。",
@@ -353,6 +354,10 @@
       "96": "96–97%",
       "95": "95–96%"
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "紀錄者：",
