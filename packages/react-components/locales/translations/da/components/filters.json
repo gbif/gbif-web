@@ -337,7 +337,8 @@
     "name": "",
     "description": "Indtast en nukleotidsekvens (DNA eller RNA) for at finde forekomster med tilknyttede sekvenser, der ligner den. Resultaterne vises grupperet efter procentvis overensstemmelse.",
     "search": "",
-    "uniqueSequences": "",
+    "similarityHeader": "",
+    "distinctSequencesHeader": "",
     "similarityRange": "",
     "similarityExact": "",
     "invalid": "",
@@ -353,6 +354,10 @@
       "96": "",
       "95": ""
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "",
