@@ -40,6 +40,10 @@
   "showMore": "",
   "showLess": "",
   "searchSimilarSequences": "",
+  "dnaSequence": {
+    "original": "",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": ""
   },
