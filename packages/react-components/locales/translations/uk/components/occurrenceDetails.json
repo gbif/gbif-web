@@ -40,6 +40,10 @@
   "showMore": "",
   "showLess": "",
   "searchSimilarSequences": "",
+  "dnaSequence": {
+    "original": "Оригінальний вміст",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": ""
   },
