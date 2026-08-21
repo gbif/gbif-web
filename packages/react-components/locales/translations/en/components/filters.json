@@ -337,7 +337,8 @@
     "name": "Sequence similarity",
     "description": "Input a nucleotide sequence (DNA or RNA) to find occurrences with attached sequences similar to it; results shown grouped by percent match.",
     "search": "Find similar",
-    "uniqueSequences": "{count, plural, one {# distinct sequence} other {# distinct sequences}}",
+    "similarityHeader": "Identity",
+    "distinctSequencesHeader": "Distinct sequences",
     "similarityRange": "{from} to {to} %",
     "similarityExact": "{value} %",
     "invalid": "The input doesn't appear to be a valid nucleotide sequence.",
@@ -353,6 +354,10 @@
       "96": "96–97%",
       "95": "95–96%"
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "Nucleotide sequence ID",
+    "description": "The identifier for a nucleotide sequence attached to the record (nucleotideSequence.nucleotideSequenceID)."
   },
   "recordedBy": {
     "name": "Recorded by",
