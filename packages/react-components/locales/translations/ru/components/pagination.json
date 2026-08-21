@@ -3,6 +3,5 @@
   "previous": "Предыдущий",
   "next": "ЗАРЕГИСТРИРОВАТЬСЯ",
   "options": "Варианты",
-  "pageXofY": "Страница {current} из {total}\n",
-  "moreFilters": "подробнее"
+  "pageXofY": "Страница {current} из {total}\n"
 }
