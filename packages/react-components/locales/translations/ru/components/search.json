@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Поиск",
+    "searchForFilter": "",
     "range": "Диапаазон отдельной величины",
     "rangeExample": "Например, 1000, 2000",
     "wildcard": "Поиск с использованием шаблонов * и ? ",
