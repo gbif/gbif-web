@@ -40,6 +40,10 @@
   "showMore": "Mostrar más",
   "showLess": "Mostrar menos",
   "searchSimilarSequences": "Buscar registros biológicos con secuencias similares",
+  "dnaSequence": {
+    "original": "Original",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": "Detalles del registro biológico"
   },

@@ -337,7 +337,8 @@
     "name": "Сходство последовательностей",
     "description": "Ввод нуклеотидной последовательности ( DNA или RNA), найденной для данного наблюдения, с аналогичной последовательностью; показанные результаты сгруппированы по процентному соответствию.",
     "search": "Найдите похожую",
-    "uniqueSequences": "{count, plural, one {# distinct sequence} few {# distinct sequences} many {# distinct sequences} other {# distinct sequences}}",
+    "similarityHeader": "Авторизация",
+    "distinctSequencesHeader": "",
     "similarityRange": "От{from} до {to} %",
     "similarityExact": "Значение {value} %",
     "invalid": "Похоже, ввод не является действительной нуклеотидной последовательностью.",
@@ -353,6 +354,10 @@
       "96": "96–97%",
       "95": "95–96%"
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Кем сделана запись",

@@ -40,6 +40,10 @@
   "showMore": "",
   "showLess": "Zobrazit méně",
   "searchSimilarSequences": "",
+  "dnaSequence": {
+    "original": "Originál",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": "Detaily výskytu"
   },
