@@ -22,7 +22,7 @@
   },
   "placeholders": {
     "default": "Buscar",
-    "searchForFilter": "",
+    "searchForFilter": "Buscar un filtro",
     "range": "Rango o valor único",
     "rangeExample": "Por ejemplo, 1000,2000",
     "wildcard": "Buscar utilizando * y ? como comodines",
