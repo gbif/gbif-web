@@ -40,6 +40,10 @@
   "showMore": "Pokaż więcej",
   "showLess": "Pokaż mniej",
   "searchSimilarSequences": "",
+  "dnaSequence": {
+    "original": "Oryginalne",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": "Szczegóły stwierdzenia"
   },

@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "",
+    "searchForFilter": "",
     "range": "",
     "rangeExample": "",
     "wildcard": "",

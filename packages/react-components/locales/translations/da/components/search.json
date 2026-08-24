@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Søg",
+    "searchForFilter": "",
     "range": "",
     "rangeExample": "",
     "wildcard": "",

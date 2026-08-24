@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "検索",
+    "searchForFilter": "",
     "range": "範囲または単一値",
     "rangeExample": "",
     "wildcard": "",

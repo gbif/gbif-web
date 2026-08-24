@@ -42,7 +42,7 @@
   "searchSimilarSequences": "Поиск случаев с подобными последовательностями",
   "dnaSequence": {
     "original": "Исходное значение",
-    "sanitized": ""
+    "sanitized": "Дезинфицированный"
   },
   "screenReader": {
     "title": "Подробности находки "
