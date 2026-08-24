@@ -331,7 +331,7 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longitud de la secuencia",
-    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos unida al registro biológico."
+    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos asociada al registro biológico."
   },
   "nucleotideSequenceId": {
     "name": "Similitud de secuencias",
