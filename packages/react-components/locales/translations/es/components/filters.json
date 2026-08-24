@@ -338,7 +338,7 @@
     "description": "Introduce una secuencia de nucleótidos (ADN o ARN) para encontrar coincidencias con secuencias adyacentes similares a ella; los resultados se muestran agrupados por porcentaje de coincidencia.",
     "search": "Buscar similares",
     "similarityHeader": "Identidad",
-    "distinctSequencesHeader": "Secuencias únicas",
+    "distinctSequencesHeader": "Secuencias distintas",
     "similarityRange": "{from} a {to} %",
     "similarityExact": "{value} %",
     "invalid": "La entrada no parece ser una secuencia de nucleótidos válida.",
