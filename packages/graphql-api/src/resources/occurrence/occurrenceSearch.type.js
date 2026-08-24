@@ -196,6 +196,10 @@ const typeDef = gql`
     fieldNumber: Long!
     repatriated: Long!
     gadmGid: Long!
+    gadmLevel0Gid: Long!
+    gadmLevel1Gid: Long!
+    gadmLevel2Gid: Long!
+    gadmLevel3Gid: Long!
     organismId: Long!
     projectId: Long!
     higherGeography: Long!
@@ -383,29 +387,19 @@ const typeDef = gql`
     Facet on whether attached nucleotide sequences were flagged invalid. Counts are the
     number of matching occurrences.
     """
-    nucleotideSequenceInvalid(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
+    nucleotideSequenceInvalid(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     """
     Facet on the length of attached nucleotide sequences. Counts are the number of
     matching occurrences.
     """
-    nucleotideSequenceSequenceLength(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_float]
+    nucleotideSequenceSequenceLength(size: Int, from: Int): [OccurrenceFacetResult_float]
     """
     Facet on the nucleotideSequenceID of attached nucleotide sequences. Pass include to
     restrict the aggregation to a known set of IDs (for example similarity-search hits); the
     buckets returned are those IDs that still occur under the current predicate. Counts are the
     number of matching occurrences.
     """
-    nucleotideSequenceNucleotideSequenceID(
-      size: Int
-      from: Int
-      include: [String!]
-    ): [OccurrenceFacetResult_string]
+    nucleotideSequenceNucleotideSequenceID(size: Int, from: Int, include: [String!]): [OccurrenceFacetResult_string]
 
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]
@@ -417,6 +411,10 @@ const typeDef = gql`
     establishmentMeans(size: Int, from: Int): [OccurrenceFacetResult_establishmentMeans]
 
     gadmGid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel0Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel1Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel2Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel3Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
 
     taxonID(size: Int, from: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int, from: Int): [OccurrenceFacetResult_collection]
