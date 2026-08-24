@@ -5627,6 +5627,10 @@ export type OccurrenceCardinality = {
   familyKey: Scalars['Long']['output'];
   fieldNumber: Scalars['Long']['output'];
   gadmGid: Scalars['Long']['output'];
+  gadmLevel0Gid: Scalars['Long']['output'];
+  gadmLevel1Gid: Scalars['Long']['output'];
+  gadmLevel2Gid: Scalars['Long']['output'];
+  gadmLevel3Gid: Scalars['Long']['output'];
   gbifRegion: Scalars['Long']['output'];
   genusKey: Scalars['Long']['output'];
   georeferencedBy: Scalars['Long']['output'];
@@ -5827,6 +5831,10 @@ export type OccurrenceFacet = {
   familyKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   fieldNumber?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gadmGid?: Maybe<Array<Maybe<OccurrenceFacetResult_Gadm>>>;
+  gadmLevel0Gid?: Maybe<Array<Maybe<OccurrenceFacetResult_Gadm>>>;
+  gadmLevel1Gid?: Maybe<Array<Maybe<OccurrenceFacetResult_Gadm>>>;
+  gadmLevel2Gid?: Maybe<Array<Maybe<OccurrenceFacetResult_Gadm>>>;
+  gadmLevel3Gid?: Maybe<Array<Maybe<OccurrenceFacetResult_Gadm>>>;
   gbifClassification_classificationPath?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gbifRegion?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   genusKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
@@ -6126,6 +6134,30 @@ export type OccurrenceFacetFieldNumberArgs = {
 
 
 export type OccurrenceFacetGadmGidArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGadmLevel0GidArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGadmLevel1GidArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGadmLevel2GidArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGadmLevel3GidArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
