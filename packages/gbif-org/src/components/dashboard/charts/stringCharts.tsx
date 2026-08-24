@@ -1,4 +1,3 @@
-import { GadmClassification } from '@/components/classification';
 import { normalizeString } from '@/utils/normalizeString';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -29,8 +28,9 @@ function getStringChart({
   subtitleKey: _subtitleKey,
   ...rest
 }: StringChartConfig) {
-  const titleInput =
-    title ?? <FormattedMessage id={`filters.${fieldName}.name`} defaultMessage={fieldName} />;
+  const titleInput = title ?? (
+    <FormattedMessage id={`filters.${fieldName}.name`} defaultMessage={fieldName} />
+  );
   return function StringChart({
     predicate,
     detailsRoute,
@@ -97,7 +97,9 @@ export const InstitutionCodes = getStringChart({
 
 export const NucleotideSequenceTargetGene = getStringChart({
   fieldName: 'nucleotideSequenceTargetGene',
-  title: <FormattedMessage id="filters.nucleotideSequenceTargetGene.name" defaultMessage="Target gene" />,
+  title: (
+    <FormattedMessage id="filters.nucleotideSequenceTargetGene.name" defaultMessage="Target gene" />
+  ),
   options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
   includeMapPredicate: true,
 });
@@ -315,61 +317,41 @@ export const SamplingProtocol = getStringChart({
   includeMapPredicate: true,
 });
 
-function filterLevels<T extends { gid: string }>(
-  obj: Record<string, T> | undefined,
-  targetGid: string
-): Record<string, T> {
-  const result: Record<string, T> = {};
-
-  if (!obj) return result;
-
-  for (const level in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, level)) {
-      const currentGid = obj[level].gid;
-      result[level] = obj[level];
-
-      if (currentGid === targetGid) {
-        break;
-      }
-    }
-  }
-
-  return result;
-}
-
-export const GadmGid = getStringChart({
-  fieldName: 'gadmGid',
-  title: <FormattedMessage id="filters.gadmGid.name" defaultMessage="Gadm GID" />,
-  gqlEntity: `occurrences {documents(size: 1) {results {gadm}}}`,
-  transform: (data: unknown): FacetResultRow[] | undefined => {
-    return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
-      const gadmRoot = x?.entity?.documents?.results?.[0]?.gadm;
-      const a = Object.keys(gadmRoot ?? {});
-      const gadm = filterLevels(gadmRoot, x.key);
-      // NOTE: this match against r.gid is unreachable because `a` holds the key names (strings),
-      // not the level objects. Preserved as-is to avoid behavior change during the TS migration.
-      const titleEntry = a?.find(
-        (r) => (r as unknown as { gid?: string }).gid === x.key
-      ) as unknown as { name?: string } | undefined;
-      const title = titleEntry?.name ?? x.key;
-      return {
-        key: x.key,
-        count: x.count,
-        occurrences: x.occurrences,
-        title: <GadmClassification gadm={gadm as unknown as Parameters<typeof GadmClassification>[0]['gadm']} />,
-        plainTextTitle: title,
-        filter: { gadmGid: [x.key] },
-      };
-    });
-  },
-  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
-  includeMapPredicate: true,
-});
+// export const GadmGid = getStringChart({
+//   fieldName: 'gadmGid',
+//   title: <FormattedMessage id="filters.gadmGid.name" defaultMessage="Gadm GID" />,
+//   gqlEntity: `occurrences {documents(size: 1) {results {gadm}}}`,
+//   transform: (data: unknown): FacetResultRow[] | undefined => {
+//     return (data as StringFacetData)?.search?.facet?.results?.map((x) => {
+//       const gadmRoot = x?.entity?.documents?.results?.[0]?.gadm;
+//       const a = Object.keys(gadmRoot ?? {});
+//       const gadm = filterLevels(gadmRoot, x.key);
+//       // NOTE: this match against r.gid is unreachable because `a` holds the key names (strings),
+//       // not the level objects. Preserved as-is to avoid behavior change during the TS migration.
+//       const titleEntry = a?.find(
+//         (r) => (r as unknown as { gid?: string }).gid === x.key
+//       ) as unknown as { name?: string } | undefined;
+//       const title = titleEntry?.name ?? x.key;
+//       return {
+//         key: x.key,
+//         count: x.count,
+//         occurrences: x.occurrences,
+//         title: <GadmClassification gadm={gadm as unknown as Parameters<typeof GadmClassification>[0]['gadm']} />,
+//         plainTextTitle: title,
+//         filter: { gadmGid: [x.key] },
+//       };
+//     });
+//   },
+//   options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+//   includeMapPredicate: true,
+// });
 
 export const Lithostratigraphy = getStringChart({
   fieldName: 'lithostratigraphy',
   showFreeTextWarning: true,
-  title: <FormattedMessage id="filters.lithostratigraphy.name" defaultMessage="Lithostratigraphy" />,
+  title: (
+    <FormattedMessage id="filters.lithostratigraphy.name" defaultMessage="Lithostratigraphy" />
+  ),
   options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
   includeMapPredicate: true,
 });
