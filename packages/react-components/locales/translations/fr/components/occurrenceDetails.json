@@ -42,7 +42,7 @@
   "searchSimilarSequences": "Recherchez des occurrences avec des séquences similaires",
   "dnaSequence": {
     "original": "Original",
-    "sanitized": ""
+    "sanitized": "Désinfecté"
   },
   "screenReader": {
     "title": "Détails de l'occurrence"
