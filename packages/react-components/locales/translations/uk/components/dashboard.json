@@ -57,5 +57,6 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "Розподіл знахідок за категорією: {FIELD}",
-  "kingdom": "Царство"
+  "kingdom": "Царство",
+  "sequencePhylogeny": ""
 }
