@@ -57,5 +57,6 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "每 {FIELD} 的物种出现记录",
-  "kingdom": "界"
+  "kingdom": "界",
+  "sequencePhylogeny": ""
 }
