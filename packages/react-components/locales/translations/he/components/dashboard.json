@@ -57,5 +57,6 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "תצפיות לפי {FIELD}",
-  "kingdom": "ממלכה"
+  "kingdom": "ממלכה",
+  "sequencePhylogeny": ""
 }
