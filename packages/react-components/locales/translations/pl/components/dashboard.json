@@ -57,5 +57,6 @@
     "samplingEffort": "Próbkowanie"
   },
   "occurrencesPerField": "Wystąpienia przez {FIELD}",
-  "kingdom": "Królestwo"
+  "kingdom": "Królestwo",
+  "sequencePhylogeny": ""
 }
