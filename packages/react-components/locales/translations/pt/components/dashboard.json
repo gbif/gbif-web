@@ -57,5 +57,6 @@
     "samplingEffort": "Esforço Amostral"
   },
   "occurrencesPerField": "Ocorrências por {FIELD}",
-  "kingdom": "Reino"
+  "kingdom": "Reino",
+  "sequencePhylogeny": ""
 }
