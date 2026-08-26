@@ -57,5 +57,6 @@
     "samplingEffort": "サンプリングの努力量"
   },
   "occurrencesPerField": "{FIELD} ごとのオカレンス",
-  "kingdom": "界"
+  "kingdom": "界",
+  "sequencePhylogeny": ""
 }
