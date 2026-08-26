@@ -57,5 +57,6 @@
     "samplingEffort": "Усилия, затраченные на отбор проб"
   },
   "occurrencesPerField": "Распределение находок по категории: {FIELD}",
-  "kingdom": "Царство"
+  "kingdom": "Царство",
+  "sequencePhylogeny": ""
 }
