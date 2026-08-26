@@ -169,7 +169,15 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     // Tip labels show a short id (first 5 chars) — the full id is kept on the tip's data-tip
     // attribute for colouring/linking.
     const short = (id: string) => `${id.slice(0, 5)}…`;
-    const truncate = (s: string) => (s.length > 24 ? `${s.slice(0, 23)}…` : s);
+    const truncate = (s: string) => (s.length > 36 ? `${s.slice(0, 35)}…` : s);
+    // Strip the author string from a scientific name for the tip label: keep the binomial when the
+    // second word is a species epithet (starts lowercase), otherwise just the first word (a
+    // uninomial genus/higher taxon). The full name stays in the tooltip.
+    const taxonName = (s: string) => {
+      const words = s.trim().split(/\s+/);
+      if (words.length >= 2 && /^[a-z]/.test(words[1])) return `${words[0]} ${words[1]}`;
+      return words[0] ?? s;
+    };
     for (const [rep, members] of Object.entries(groups)) {
       if (rep === QUERY_ID) {
         out[rep] = intl.formatMessage({
@@ -192,7 +200,7 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
       // stays in the tooltip. Fall back to the id when no name is known.
       const consensus = consensusByRep[rep];
       out[rep] = consensus?.primary
-        ? `${truncate(consensus.primary)}${consensus.ambiguous ? ' ▲' : ''}`
+        ? `${truncate(taxonName(consensus.primary))}${consensus.ambiguous ? ' ▲' : ''}`
         : idPart;
     }
     return out;

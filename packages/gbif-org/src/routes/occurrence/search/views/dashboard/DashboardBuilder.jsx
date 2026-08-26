@@ -555,7 +555,7 @@ const chartGroups = {
     ],
   },
   nucleotideSequence: {
-    values: ['nucleotideSequenceTargetGene', 'nucleotideSequenceSequenceLength'],
+    values: ['nucleotideSequenceTargetGene', 'nucleotideSequenceSequenceLength', 'sequencePhylogeny'],
   },
   organism: {
     values: ['organismId', 'previousIdentifications'],
