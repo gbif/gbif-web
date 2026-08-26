@@ -337,7 +337,8 @@
     "name": "",
     "description": "",
     "search": "",
-    "uniqueSequences": "",
+    "similarityHeader": "Identidade",
+    "distinctSequencesHeader": "",
     "similarityRange": "",
     "similarityExact": "",
     "invalid": "",
@@ -353,6 +354,10 @@
       "96": "",
       "95": ""
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Registado por",

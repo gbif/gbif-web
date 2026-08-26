@@ -331,13 +331,14 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longueur de la séquence",
-    "description": "La longueur, en paires de bases, d'une séquence nucléotidique (ADN ou ARN) associée à l'occurrence."
+    "description": "La longueur, en paires de bases, d'une séquence nucléotidique associée à l'occurrence."
   },
   "nucleotideSequenceId": {
     "name": "Similitude des séquences",
-    "description": "Collez une séquence nucléotidique pour trouver les occurrences dont les séquences associées lui sont similaires, regroupées par pourcentage d'identité.",
+    "description": "Entrer une séquence nucléotidique (ADN ou ARN) pour trouver des occurrences avec des séquences similaires ; les résultats sont classés par pourcentage de correspondance.",
     "search": "Trouver des résultats similaires",
-    "uniqueSequences": "{count, plural, one {# séquence distincte} other {# séquences distinctes}}",
+    "similarityHeader": "Identité",
+    "distinctSequencesHeader": "",
     "similarityRange": "{from} à {to} %",
     "similarityExact": "{value} %",
     "invalid": "La donnée saisie ne semble pas correspondre à une séquence nucléotidique valide.",
@@ -345,7 +346,7 @@
     "error": "Impossible de rechercher des séquences similaires. Veuillez réessayer.",
     "noMatches": "Aucune séquence similaire n'a été trouvée.",
     "bin": {
-      "100": "100 % (identique)",
+      "100": "100%",
       "99.5": "99.5–100%",
       "99": "99–99.5%",
       "98": "98–99%",
@@ -353,6 +354,10 @@
       "96": "96–97%",
       "95": "95–96%"
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Enregistré par",

@@ -26,13 +26,15 @@ export default async function searchAll({
       languageCode,
       checklistKey,
     });
-    const countryResult = await searchCountries(query, locale);
+    const countryResults = await searchCountries(query, locale);
     const participantResult = await searchParticipants(query);
     const occurrenceResults = await getOccurrenceMatches(query);
     // const documentationResults = await searchTechDocs(query);
 
     return {
-      country: countryResult,
+      // deprecated: use countries instead. Kept while clients migrate to the list
+      country: countryResults[0],
+      countries: countryResults,
       participant: participantResult,
       taxa: taxonResults,
       occurrences: occurrenceResults,

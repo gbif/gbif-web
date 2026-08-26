@@ -331,13 +331,14 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "",
-    "description": ""
+    "description": "Længden, angivet i basepar, af den nukleotidsekvens, der er knyttet til forekomsten."
   },
   "nucleotideSequenceId": {
     "name": "",
-    "description": "",
+    "description": "Indtast en nukleotidsekvens (DNA eller RNA) for at finde forekomster med tilknyttede sekvenser, der ligner den. Resultaterne vises grupperet efter procentvis overensstemmelse.",
     "search": "",
-    "uniqueSequences": "",
+    "similarityHeader": "",
+    "distinctSequencesHeader": "",
     "similarityRange": "",
     "similarityExact": "",
     "invalid": "",
@@ -345,7 +346,7 @@
     "error": "",
     "noMatches": "",
     "bin": {
-      "100": "",
+      "100": "100%",
       "99.5": "",
       "99": "",
       "98": "",
@@ -353,6 +354,10 @@
       "96": "",
       "95": ""
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "",

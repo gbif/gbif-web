@@ -40,6 +40,10 @@
   "showMore": "顯示更多",
   "showLess": "顯示較少",
   "searchSimilarSequences": "搜尋具有相似序列的出現紀錄資料",
+  "dnaSequence": {
+    "original": "原始的",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": "出現紀錄詳情"
   },

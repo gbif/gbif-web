@@ -331,13 +331,14 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longitud de la secuencia",
-    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos (ADN o ARN) unida al registro biológico."
+    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos unida al registro biológico."
   },
   "nucleotideSequenceId": {
     "name": "Similitud de secuencias",
-    "description": "Pega una secuencia de nucleótidos para encontrar los registros biológicos cuyas secuencias asociadas sean similares a ella, agrupadas por porcentaje de identidad.",
+    "description": "Introduce una secuencia de nucleótidos (ADN o ARN) para encontrar coincidencias con secuencias adyacentes similares a ella; los resultados se muestran agrupados por porcentaje de coincidencia.",
     "search": "Buscar similares",
-    "uniqueSequences": "{count, plural, one {# secuencia distinta} other {# secuencias distintas}}",
+    "similarityHeader": "Identidad",
+    "distinctSequencesHeader": "Secuencias únicas",
     "similarityRange": "{from} a {to} %",
     "similarityExact": "{value} %",
     "invalid": "La entrada no parece ser una secuencia de nucleótidos válida.",
@@ -345,7 +346,7 @@
     "error": "No se han podido buscar secuencias similares. Inténtalo de nuevo.",
     "noMatches": "No se han encontrado secuencias similares.",
     "bin": {
-      "100": "100 % (idéntico)",
+      "100": "100%",
       "99.5": "99,5–100 %",
       "99": "99–99,5 %",
       "98": "98–99%",
@@ -353,6 +354,10 @@
       "96": "96–97%",
       "95": "95–96%"
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "ID de la secuencia de nucleótidos",
+    "description": "El identificador de una secuencia de nucleótidos asociada al registro (nucleotideSequence.nucleotideSequenceID)."
   },
   "recordedBy": {
     "name": "Registrado por",

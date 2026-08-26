@@ -307,7 +307,9 @@ export function Field({
         <FormattedMessage id={fieldName} defaultMessage={startCase(simpleName) ?? ''} />
       </T>
       <V style={{ position: 'relative' }}>
-        <div style={{ display: 'inline-block', paddingInlineEnd: 8 }} {...props}></div>
+        {!isEmpty(value) && (
+          <div style={{ display: 'inline-block', paddingInlineEnd: 8 }} {...props}></div>
+        )}
         <Chips
           issues={term.issues}
           remarks={term.remarks}
@@ -328,7 +330,7 @@ function Provenance({
   showDetails?: boolean;
 }) {
   // should show if inferred or different from original value. Or if user has asked to see everything.
-  if (!term.verbatim) return null;
+  if (!term.verbatim || term.verbatim + '' === term.value + '') return null;
   if (!showDetails && term.remarks !== 'INFERRED' && term.remarks !== 'ALTERED') return null;
   return (
     <div title="Verbatim">

@@ -78,7 +78,6 @@ export const CatalogNumber = lazyChart('CatalogNumber');
 export const EventId = lazyChart('EventId');
 export const SampleSizeUnit = lazyChart('SampleSizeUnit');
 export const SamplingProtocol = lazyChart('SamplingProtocol');
-export const GadmGid = lazyChart('GadmGid');
 export const Lithostratigraphy = lazyChart('Lithostratigraphy');
 export const Biostratigraphy = lazyChart('Biostratigraphy');
 
@@ -88,6 +87,7 @@ export const LiteratureCreatedAt = lazyChart('LiteratureCreatedAt');
 
 // Custom
 export const Taxa = lazyChart('Taxa');
+export const GadmGid = lazyChart('GadmGid');
 export const Iucn = lazyChart('Iucn');
 
 // Top-level

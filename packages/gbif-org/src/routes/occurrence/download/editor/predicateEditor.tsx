@@ -1,11 +1,11 @@
 import { useStringParam } from '@/hooks/useParam';
 import { PredicateDisplay } from '../key/predicate';
 import Editor from './editor';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { validatePredicate, ValidationResponse } from './validate';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { getOriginalPredicate } from './usePredicate';
+import { consumeInitialPredicate } from './usePredicate';
 
 //a hook to store content in textarea. per default it should store to url, but if above 1200 characters then use session storage instead
 export function useTextAreaContent(key: string): [string, (text: string) => void] {
@@ -13,15 +13,18 @@ export function useTextAreaContent(key: string): [string, (text: string) => void
   const sessionStorageKey = `textarea-${key}`;
   const sessionValue = window.sessionStorage.getItem(sessionStorageKey) ?? '';
 
-  function setValue(text: string) {
-    if (text.length > 1200) {
-      window.sessionStorage.setItem(sessionStorageKey, text);
-      setParam(undefined);
-    } else {
-      window.sessionStorage.removeItem(sessionStorageKey);
-      setParam(text);
-    }
-  }
+  const setValue = useCallback(
+    (text: string) => {
+      if (text.length > 1200) {
+        window.sessionStorage.setItem(sessionStorageKey, text);
+        setParam(undefined);
+      } else {
+        window.sessionStorage.removeItem(sessionStorageKey);
+        setParam(text);
+      }
+    },
+    [sessionStorageKey, setParam]
+  );
 
   return [param || sessionValue, setValue];
 }
@@ -36,8 +39,12 @@ export default function PredicateEditor({
 }: {
   onContinue: (predicate: string) => void;
 }) {
-  const [searchParams] = useSearchParams();
-  const [variablesId, setVariablesId] = useStringParam({ key: 'variablesId', replace: true });
+  const [searchParams, setSearchParams] = useSearchParams();
+  // setSearchParams is not stable (https://github.com/remix-run/react-router/issues/9991)
+  const setSearchParamsRef = useRef(setSearchParams);
+  useEffect(() => {
+    setSearchParamsRef.current = setSearchParams;
+  }, [setSearchParams]);
   const [predicate, setPredicate] = useTextAreaContent('predicate');
   const { formatMessage } = useIntl();
 
@@ -54,31 +61,10 @@ export default function PredicateEditor({
   sessionStorage.setItem('downloadSource', source ?? 'unknown');
 
   useEffect(() => {
-    if (predicate || !searchParams.get('variablesId')) return;
-    const controller = new AbortController();
-
-    const initialize = async () => {
-      try {
-        const predicateFromQueryId = await getOriginalPredicate(searchParams, controller.signal);
-        if (predicate || !variablesId) return;
-        setTimeout(() => {
-          // set variablesId to null and once that is done set predicate
-          setPredicate(predicateFromQueryId ?? '');
-        }, 1);
-      } catch (e) {
-        // ignore errors
-      }
-    };
-
-    initialize();
-    return () => controller.abort();
-  }, [searchParams, setPredicate, predicate, variablesId]);
-
-  useEffect(() => {
-    if (predicate && variablesId) {
-      setVariablesId(undefined);
-    }
-  }, [predicate, setVariablesId, variablesId]);
+    const initialPredicate = consumeInitialPredicate();
+    if (!initialPredicate) return;
+    setPredicate(initialPredicate ?? '');
+  }, [setPredicate]);
 
   const handleFormat = useCallback(
     async (text: string): Promise<ValidationResponse> => {

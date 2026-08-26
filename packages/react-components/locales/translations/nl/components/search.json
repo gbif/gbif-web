@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Zoeken",
+    "searchForFilter": "",
     "range": "Bereik of enkele waarde",
     "rangeExample": "",
     "wildcard": "Zoek met * en ? als wildcards",

@@ -331,13 +331,14 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "序列長度",
-    "description": "附帶於出現記錄資料的核苷酸序列（DNA或RNA）的長度（以鹼基對計算）。"
+    "description": ""
   },
   "nucleotideSequenceId": {
     "name": "序列相似性",
-    "description": "貼上一組核苷酸序列，以找出附帶序列與其相似的出現紀錄資料，並按照序列一致性百分比進行分組。",
+    "description": "",
     "search": "尋找相似項目",
-    "uniqueSequences": "{count, plural, one {# 特定序列} other {# 特定序列}}",
+    "similarityHeader": "身份",
+    "distinctSequencesHeader": "",
     "similarityRange": "{from} 至 {to} %",
     "similarityExact": "{value} %",
     "invalid": "該序列似乎不是有效的序列。",
@@ -345,7 +346,7 @@
     "error": "無法搜尋到相似的序列。請重新嘗試。",
     "noMatches": "未找到相似的序列。",
     "bin": {
-      "100": "100%（完全相同）",
+      "100": "",
       "99.5": "99.5–100%",
       "99": "99–99.5%",
       "98": "98–99%",
@@ -353,6 +354,10 @@
       "96": "96–97%",
       "95": "95–96%"
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "紀錄者：",

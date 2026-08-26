@@ -179,6 +179,22 @@ export function useOccurrenceColumns({
         },
       },
       {
+        id: 'elevation',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'elevation' },
+        header: 'occurrenceFieldNames.elevation',
+        minWidth: 50,
+        cell: ({ elevation }) => (
+          <InlineLineClamp className="-g-ms-0.5">{elevation}</InlineLineClamp>
+        ),
+      },
+      {
+        id: 'depth',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'depth' },
+        header: 'occurrenceFieldNames.depth',
+        minWidth: 50,
+        cell: ({ depth }) => <InlineLineClamp className="-g-ms-0.5">{depth}</InlineLineClamp>,
+      },
+      {
         id: 'year',
         sort: { localStorageKey: 'occurrenceSort', sortBy: 'year' },
         header: 'filters.year.name',
@@ -221,7 +237,11 @@ export function useOccurrenceColumns({
         minWidth: 350,
         cell: ({ datasetKey, datasetTitle }) => (
           <InlineLineClamp className="-g-ms-0.5">
-            <LinkOption to={`/dataset/${datasetKey}`}>
+            <LinkOption
+              to={`/dataset/${datasetKey}`}
+              pageId="datasetKey"
+              variables={{ key: datasetKey }}
+            >
               <SetAsFilter field="datasetKey" value={datasetKey}>
                 {datasetTitle}
               </SetAsFilter>
@@ -234,7 +254,11 @@ export function useOccurrenceColumns({
         header: 'filters.publisherKey.name',
         minWidth: 250,
         cell: ({ publishingOrgKey, publisherTitle }) => (
-          <LinkOption to={`/publisher/${publishingOrgKey}`}>
+          <LinkOption
+            pageId="publisherKey"
+            variables={{ key: publishingOrgKey }}
+            to={`/publisher/${publishingOrgKey}`}
+          >
             <SetAsFilter field="publishingOrg" value={publishingOrgKey}>
               {publisherTitle}
             </SetAsFilter>
@@ -382,7 +406,11 @@ export function useOccurrenceColumns({
           if (!institution) {
             if (institutionKey) {
               return (
-                <LinkOption to={`/institution/${institutionKey}`}>
+                <LinkOption
+                  to={`/institution/${institutionKey}`}
+                  pageId="institutionKey"
+                  variables={{ key: institutionKey }}
+                >
                   <SetAsFilter
                     field="institutionKey"
                     value={institutionKey}
@@ -398,7 +426,11 @@ export function useOccurrenceColumns({
           }
 
           return (
-            <LinkOption to={`/institution/${institutionKey}`}>
+            <LinkOption
+              to={`/institution/${institutionKey}`}
+              pageId="institutionKey"
+              variables={{ key: institutionKey }}
+            >
               <SetAsFilter field="institutionKey" value={institutionKey}>
                 <span className="g-me-1">{institution.name}</span>
               </SetAsFilter>
@@ -417,7 +449,11 @@ export function useOccurrenceColumns({
           if (!collection) {
             if (collectionKey) {
               return (
-                <LinkOption to={`/collection/${collectionKey}`}>
+                <LinkOption
+                  to={`/collection/${collectionKey}`}
+                  pageId="collectionKey"
+                  variables={{ key: collectionKey }}
+                >
                   <SetAsFilter
                     field="collectionKey"
                     value={collectionKey}
@@ -433,7 +469,11 @@ export function useOccurrenceColumns({
           }
 
           return (
-            <LinkOption to={`/collection/${collectionKey}`}>
+            <LinkOption
+              to={`/collection/${collectionKey}`}
+              pageId="collectionKey"
+              variables={{ key: collectionKey }}
+            >
               <SetAsFilter field="collectionKey" value={collectionKey}>
                 <span className="g-me-1">{collection.name}</span>
               </SetAsFilter>

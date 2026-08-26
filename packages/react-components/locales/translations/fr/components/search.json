@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Rechercher",
+    "searchForFilter": "",
     "range": "Intervalle ou valeur unique",
     "rangeExample": "Ex. 1000, 2000",
     "wildcard": "Rechercher avec * et ? comme caractères génériques",

@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "بحث",
+    "searchForFilter": "",
     "range": "",
     "rangeExample": "",
     "wildcard": "",

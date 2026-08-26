@@ -335,9 +335,10 @@
   },
   "nucleotideSequenceId": {
     "name": "",
-    "description": "",
+    "description": "Geben Sie eine Nukleotidsequenz (DNA oder RNA) ein, um Vorkommen mit ähnlichen angehängten Sequenzen zu finden; die Ergebnisse werden nach Übereinstimmungsgrad (in Prozent) gruppiert angezeigt.",
     "search": "",
-    "uniqueSequences": "",
+    "similarityHeader": "",
+    "distinctSequencesHeader": "",
     "similarityRange": "",
     "similarityExact": "",
     "invalid": "",
@@ -353,6 +354,10 @@
       "96": "",
       "95": ""
     }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Sammler/Beobachter",
