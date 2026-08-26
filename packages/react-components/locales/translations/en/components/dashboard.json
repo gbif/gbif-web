@@ -57,5 +57,6 @@
     "samplingEffort": "Sampling Effort"
   },
   "occurrencesPerField": "Occurrences per {FIELD}",
-  "kingdom": "Kingdom"
+  "kingdom": "Kingdom",
+  "sequencePhylogeny": "Sequence phylogeny"
 }
