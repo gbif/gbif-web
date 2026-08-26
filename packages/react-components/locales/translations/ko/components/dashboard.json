@@ -57,5 +57,6 @@
     "samplingEffort": "샘플링 노력"
   },
   "occurrencesPerField": "{FIELD} 당 출현",
-  "kingdom": "계"
+  "kingdom": "계",
+  "sequencePhylogeny": ""
 }
