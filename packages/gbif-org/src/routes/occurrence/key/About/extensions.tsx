@@ -303,10 +303,39 @@ export function DNADerivedData({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [multiple, rawKey, validation.data, occurrence?.nucleotideSequences]);
 
+  // Verbatim target gene per raw sequence, read straight from the extension rows (MIxS term 0000044,
+  // or the rs.gbif.org 'target_gene' term). Used to attribute TARGET_GENE_INVALID: that issue has no
+  // per-sequence validation flag, but it applies to a sequence whose verbatim gene failed to
+  // interpret to a concept — i.e. a row with a verbatim value but no interpreted counterpart.
+  const verbatimTargetGeneByRaw = useMemo(() => {
+    const out: Record<string, string> = {};
+    const rows = (occurrence?.extensions as any)?.[extensionName] ?? [];
+    rows.forEach((row: any) => {
+      const raw = row?.dna_sequence;
+      const gene = row?.['0000044'] ?? row?.target_gene;
+      if (typeof raw === 'string' && raw && typeof gene === 'string' && gene.trim()) out[raw] = gene;
+    });
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawKey, occurrence?.extensions]);
+
+  // Raw sequence(s) the occurrence-level TARGET_GENE_INVALID applies to: a verbatim gene present but
+  // no interpreted concept. Works for a single sequence (no validation service needed). If none can
+  // be pinpointed, the issue falls back to the block header.
+  const dnaIssueSet = new Set<string>(dnaIssues);
+  const targetGeneInvalidRaws = useMemo(() => {
+    const set = new Set<string>();
+    if (!dnaIssueSet.has('TARGET_GENE_INVALID')) return set;
+    rawSequences.forEach((raw) => {
+      if (verbatimTargetGeneByRaw[raw] && !interpretedTargetGeneByRaw[raw]) set.add(raw);
+    });
+    return set;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawKey, verbatimTargetGeneByRaw, interpretedTargetGeneByRaw]);
+
   // With several sequences we can attribute each NUCLEOTIDE_SEQUENCE_* issue to the specific
   // sequence it applies to (from that sequence's validation flags) rather than lumping them all in
   // the block header. For a single sequence there's nothing to disambiguate, so we keep the header.
-  const dnaIssueSet = new Set<string>(dnaIssues);
   const perSequenceActive = multiple && !!validation.data?.sequenceValidation;
   const issuesByRaw = useMemo(() => {
     const out: Record<string, string[]> = {};
@@ -340,14 +369,13 @@ export function DNADerivedData({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [perSequenceActive, rawKey, validation.data]);
 
-  // The header shows only issues we couldn't attribute to a specific sequence (e.g.
-  // TARGET_GENE_INVALID, which has no per-sequence validation flag). When not attributing
-  // per-sequence (single sequence, or validation not yet loaded) it shows all of them.
+  // The header shows only issues we couldn't attribute to a specific sequence. The
+  // NUCLEOTIDE_SEQUENCE_* issues placed next to a sequence, and TARGET_GENE_INVALID placed next to a
+  // verbatim target-gene value, are removed from the header.
   const attributedIssues = new Set<string>();
   Object.values(issuesByRaw).forEach((list) => list.forEach((issue) => attributedIssues.add(issue)));
-  const headerIssues = perSequenceActive
-    ? nucleotideIssues.filter((issue) => !attributedIssues.has(issue))
-    : nucleotideIssues;
+  if (targetGeneInvalidRaws.size > 0) attributedIssues.add('TARGET_GENE_INVALID');
+  const headerIssues = nucleotideIssues.filter((issue) => !attributedIssues.has(issue));
 
   return (
     <GenericExtension
@@ -366,17 +394,22 @@ export function DNADerivedData({
           ),
           // Verbatim target gene lives under the MIxS term key 0000044 (some records may use the
           // rs.gbif.org 'target_gene' term instead); pair the row to its interpreted concept by
-          // its raw sequence.
+          // its raw sequence, and surface TARGET_GENE_INVALID here when this row's gene is the one
+          // that failed to interpret.
           '0000044': ({ item }) => (
             <TargetGeneField
               raw={item['0000044']}
               interpreted={interpretedTargetGeneByRaw[item['dna_sequence']]}
+              invalid={targetGeneInvalidRaws.has(item['dna_sequence'])}
+              invalidSeverity={severityByIssue['TARGET_GENE_INVALID']}
             />
           ),
           target_gene: ({ item }) => (
             <TargetGeneField
               raw={item['target_gene']}
               interpreted={interpretedTargetGeneByRaw[item['dna_sequence']]}
+              invalid={targetGeneInvalidRaws.has(item['dna_sequence'])}
+              invalidSeverity={severityByIssue['TARGET_GENE_INVALID']}
             />
           ),
         },
@@ -520,9 +553,43 @@ function DNASequence({
 // "Original" tag. `interpreted` is a target_gene vocabulary concept id — resolved to its localised
 // label (e.g. "Internal Transcribed Spacer 2 (ITS2)") via the same TargetGeneLabel the filter uses.
 // When nothing could be interpreted we just show the verbatim value.
-function TargetGeneField({ raw, interpreted }: { raw?: string; interpreted?: string | null }) {
+function TargetGeneField({
+  raw,
+  interpreted,
+  invalid,
+  invalidSeverity,
+}: {
+  raw?: string;
+  interpreted?: string | null;
+  invalid?: boolean;
+  invalidSeverity?: string;
+}) {
   const hasInterpreted = typeof interpreted === 'string' && interpreted.length > 0;
-  if (!hasInterpreted) return <>{raw}</>;
+  // TARGET_GENE_INVALID belongs on the verbatim value it applies to — the gene string that couldn't
+  // be interpreted — sitting alongside the "Original"/"Inferred" tags.
+  const invalidTag = invalid ? (
+    <IssueTag type={invalidSeverity ?? 'LIGHT'}>
+      <FormattedMessage
+        id="enums.occurrenceIssue.TARGET_GENE_INVALID"
+        defaultMessage="Invalid target gene"
+      />
+    </IssueTag>
+  ) : null;
+  if (!hasInterpreted) {
+    // Nothing was interpreted (typically because the gene is invalid): show the verbatim value with
+    // the issue tag next to it.
+    return (
+      <span>
+        {raw}
+        {invalidTag && (
+          <>
+            {' '}
+            <IssueTags>{invalidTag}</IssueTags>
+          </>
+        )}
+      </span>
+    );
+  }
   return (
     <div>
       <div>
@@ -540,6 +607,7 @@ function TargetGeneField({ raw, interpreted }: { raw?: string; interpreted?: str
             <IssueTag type="LIGHT">
               <FormattedMessage id="occurrenceDetails.info.original" defaultMessage="Original" />
             </IssueTag>
+            {invalidTag}
           </IssueTags>
         </div>
       )}
