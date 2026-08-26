@@ -57,5 +57,6 @@
     "samplingEffort": "Effort d'échantillonnage"
   },
   "occurrencesPerField": "Occurrences par {FIELD}",
-  "kingdom": "Règne"
+  "kingdom": "Règne",
+  "sequencePhylogeny": ""
 }
