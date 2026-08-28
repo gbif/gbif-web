@@ -13,7 +13,13 @@ export type SequenceTree = {
   groups: Record<string, string[]>;
 };
 
-export type Alignment = { ids: string[]; fullDist: DistanceResult; alignmentLength: number };
+export type Alignment = {
+  ids: string[];
+  fullDist: DistanceResult;
+  alignmentLength: number;
+  /** id -> aligned (gapped, equal-length) sequence — the MSA the distances were read from. */
+  aligned: Record<string, string>;
+};
 
 const singleTip = (id: string): CladeTree => ({
   name: null,
@@ -29,11 +35,16 @@ export async function computeAlignment(seqById: Record<string, string>): Promise
   const ids = Object.keys(seqById);
   if (ids.length < 2) {
     const alignmentLength = ids.length === 1 ? seqById[ids[0]]?.length ?? 0 : 0;
-    return { ids, fullDist: { taxa: ids, matrix: ids.map(() => [0]) }, alignmentLength };
+    return {
+      ids,
+      fullDist: { taxa: ids, matrix: ids.map(() => [0]) },
+      alignmentLength,
+      aligned: { ...seqById },
+    };
   }
   const aligned = await alignSequences(seqById);
   const alignmentLength = aligned[ids[0]]?.length ?? 0;
-  return { ids, fullDist: pDistanceMatrix(aligned), alignmentLength };
+  return { ids, fullDist: pDistanceMatrix(aligned), alignmentLength, aligned };
 }
 
 /**
