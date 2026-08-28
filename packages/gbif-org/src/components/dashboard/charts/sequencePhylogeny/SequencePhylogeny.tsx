@@ -89,6 +89,8 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
   const treeSeqKey = useMemo(() => Object.keys(seqForTree).sort().join(','), [seqForTree]);
 
   const [fullDist, setFullDist] = useState<DistanceResult | null>(null);
+  // Alignment column count, kept so the tree build can size the polytomy-collapse epsilon.
+  const [alignLen, setAlignLen] = useState(0);
   const [aligning, setAligning] = useState(false);
   const [computeError, setComputeError] = useState<unknown>(null);
   // Collapse sequences that are >= this % identical into a single representative tip.
@@ -108,6 +110,7 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     const ids = treeSeqKey ? treeSeqKey.split(',') : [];
     if (ids.length < 2) {
       setFullDist(null);
+      setAlignLen(0);
       setAligning(false);
       return;
     }
@@ -117,7 +120,10 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     setFullDist(null);
     computeAlignment(seqForTree)
       .then((res) => {
-        if (!cancelled) setFullDist(res.fullDist);
+        if (!cancelled) {
+          setFullDist(res.fullDist);
+          setAlignLen(res.alignmentLength);
+        }
       })
       .catch((e) => {
         if (!cancelled) setComputeError(e);
@@ -136,9 +142,14 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
   const built = useMemo(
     () =>
       fullDist
-        ? buildTreeFromDistance(fullDist, threshold, querySequence ? new Set([QUERY_ID]) : undefined)
+        ? buildTreeFromDistance(
+            fullDist,
+            threshold,
+            querySequence ? new Set([QUERY_ID]) : undefined,
+            alignLen
+          )
         : null,
-    [fullDist, threshold, querySequence]
+    [fullDist, threshold, querySequence, alignLen]
   );
   const newick = built?.newick ?? null;
   const groups = built?.groups ?? EMPTY_GROUPS;
