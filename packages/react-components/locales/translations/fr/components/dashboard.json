@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "Occurrences par {FIELD}",
   "kingdom": "Règne",
-  "sequencePhylogeny": "",
+  "sequencePhylogeny": "Phylogénie des séquences",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",
   "sequencePhylogeny.about": {
