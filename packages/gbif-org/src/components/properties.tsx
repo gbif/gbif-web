@@ -155,7 +155,10 @@ export function AutomaticPropertyValue({
   } else if (typeof formatter === 'function') {
     val = formatter(parsedValue);
   } else if (typeof value === 'number') {
-    val = <FormattedNumber value={value} />;
+    // Intl.NumberFormat defaults to a maximum of 3 fraction digits, which silently
+    // truncates precision for fields like decimalLatitude/decimalLongitude. Raise the
+    // cap to the spec maximum so the exact value from the API is always shown.
+    val = <FormattedNumber value={value} maximumFractionDigits={20} />;
   } else if (typeof parsedValue === 'string') {
     val =
       showAll || parsedValue.length < 2000 ? (
