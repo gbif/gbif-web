@@ -58,5 +58,15 @@
   },
   "occurrencesPerField": "Ocorrências por {FIELD}",
   "kingdom": "Reino",
-  "sequencePhylogeny": ""
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }
