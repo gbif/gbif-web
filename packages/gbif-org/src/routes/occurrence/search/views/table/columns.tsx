@@ -511,6 +511,17 @@ export function useOccurrenceColumns({
         ),
       },
       {
+        id: 'occurrenceRemarks',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'occurrenceRemarks' },
+        header: 'occurrenceFieldNames.occurrenceRemarks',
+        minWidth: 200,
+        cell: ({ occurrenceRemarks }) => (
+          <InlineLineClamp className="-g-ms-0.5">
+            <span className="g-ms-0">{occurrenceRemarks}</span>
+          </InlineLineClamp>
+        ),
+      },
+      {
         id: 'individualCount',
         sort: { localStorageKey: 'occurrenceSort', sortBy: 'individualCount' },
         header: 'occurrenceFieldNames.individualCount',
