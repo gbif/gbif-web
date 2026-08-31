@@ -2509,6 +2509,136 @@ export enum DurationUnit {
   Years = 'YEARS'
 }
 
+export type DwdpColumnAnalysis = {
+  __typename?: 'DwdpColumnAnalysis';
+  name?: Maybe<Scalars['String']['output']>;
+  populatedValues?: Maybe<Scalars['Int']['output']>;
+  uniqueValues?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpDataTypeViolation = {
+  __typename?: 'DwdpDataTypeViolation';
+  declaredType?: Maybe<Scalars['String']['output']>;
+  field?: Maybe<Scalars['String']['output']>;
+  resource?: Maybe<Scalars['String']['output']>;
+  sampleValues?: Maybe<Array<Scalars['String']['output']>>;
+  violationCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpDescriptorValidation = {
+  __typename?: 'DwdpDescriptorValidation';
+  canProceedToDataAnalysis?: Maybe<Scalars['Boolean']['output']>;
+  issues?: Maybe<Array<DwdpValidationIssue>>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type DwdpEmlValidation = {
+  __typename?: 'DwdpEmlValidation';
+  emlPresent?: Maybe<Scalars['Boolean']['output']>;
+  issues?: Maybe<Array<DwdpValidationIssue>>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type DwdpForeignKeyViolation = {
+  __typename?: 'DwdpForeignKeyViolation';
+  fields?: Maybe<Array<Scalars['String']['output']>>;
+  referenceFields?: Maybe<Array<Scalars['String']['output']>>;
+  referenceResource?: Maybe<Scalars['String']['output']>;
+  resource?: Maybe<Scalars['String']['output']>;
+  sampleRows?: Maybe<Array<Scalars['JSON']['output']>>;
+  violationCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpPrimaryKeyViolation = {
+  __typename?: 'DwdpPrimaryKeyViolation';
+  fields?: Maybe<Array<Scalars['String']['output']>>;
+  resource?: Maybe<Scalars['String']['output']>;
+  sampleRows?: Maybe<Array<Scalars['JSON']['output']>>;
+  violationCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpResourceAnalysisResult = {
+  __typename?: 'DwdpResourceAnalysisResult';
+  columnAnalyses?: Maybe<Array<DwdpColumnAnalysis>>;
+  dataTypeViolations?: Maybe<Array<DwdpDataTypeViolation>>;
+  foreignKeyViolations?: Maybe<Array<DwdpForeignKeyViolation>>;
+  name?: Maybe<Scalars['String']['output']>;
+  primaryKeyViolation?: Maybe<DwdpPrimaryKeyViolation>;
+  totalRows?: Maybe<Scalars['Int']['output']>;
+};
+
+export enum DwdpValidationFeature {
+  Count = 'COUNT',
+  CountDistinct = 'COUNT_DISTINCT',
+  DataTypeConstraint = 'DATA_TYPE_CONSTRAINT',
+  DescriptorValidation = 'DESCRIPTOR_VALIDATION',
+  EmlValidation = 'EML_VALIDATION',
+  ForeignKeyConstraint = 'FOREIGN_KEY_CONSTRAINT',
+  PrimaryKeyUnique = 'PRIMARY_KEY_UNIQUE'
+}
+
+export type DwdpValidationIssue = {
+  __typename?: 'DwdpValidationIssue';
+  detail?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  message?: Maybe<Scalars['String']['output']>;
+  severity?: Maybe<DwdpValidationIssueSeverity>;
+  violationType?: Maybe<DwdpValidationViolationType>;
+};
+
+export enum DwdpValidationIssueSeverity {
+  Error = 'ERROR',
+  Info = 'INFO',
+  Warning = 'WARNING'
+}
+
+export type DwdpValidationMetadata = {
+  __typename?: 'DwdpValidationMetadata';
+  features?: Maybe<Array<DwdpValidationFeature>>;
+  finished?: Maybe<Scalars['String']['output']>;
+  started?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type DwdpValidationReport = {
+  __typename?: 'DwdpValidationReport';
+  attempt?: Maybe<Scalars['String']['output']>;
+  datasetKey: Scalars['ID']['output'];
+  metadata?: Maybe<DwdpValidationMetadata>;
+  result?: Maybe<DwdpValidationResult>;
+};
+
+export type DwdpValidationResult = {
+  __typename?: 'DwdpValidationResult';
+  descriptorValidation?: Maybe<DwdpDescriptorValidation>;
+  emlValidation?: Maybe<DwdpEmlValidation>;
+  resourceAnalysisResults?: Maybe<Array<DwdpResourceAnalysisResult>>;
+};
+
+export enum DwdpValidationViolationType {
+  DescriptorNotFound = 'DESCRIPTOR_NOT_FOUND',
+  EmlMissingCreator = 'EML_MISSING_CREATOR',
+  EmlMissingTitle = 'EML_MISSING_TITLE',
+  EmlXsdUnavailable = 'EML_XSD_UNAVAILABLE',
+  EmlXsdViolation = 'EML_XSD_VIOLATION',
+  FieldTypeMismatch = 'FIELD_TYPE_MISMATCH',
+  FkUnknownReferenceResource = 'FK_UNKNOWN_REFERENCE_RESOURCE',
+  ForeignKeyMissing = 'FOREIGN_KEY_MISSING',
+  InvalidJson = 'INVALID_JSON',
+  InvalidXml = 'INVALID_XML',
+  JsonSchemaUnavailable = 'JSON_SCHEMA_UNAVAILABLE',
+  JsonSchemaViolation = 'JSON_SCHEMA_VIOLATION',
+  MissingName = 'MISSING_NAME',
+  MissingResources = 'MISSING_RESOURCES',
+  PathNotFound = 'PATH_NOT_FOUND',
+  RequiredFieldMissing = 'REQUIRED_FIELD_MISSING',
+  ResourceMissingName = 'RESOURCE_MISSING_NAME',
+  TableSchemaUnavailable = 'TABLE_SCHEMA_UNAVAILABLE',
+  UnknownField = 'UNKNOWN_FIELD',
+  UnknownFieldType = 'UNKNOWN_FIELD_TYPE',
+  UnrecognizedProfileVersion = 'UNRECOGNIZED_PROFILE_VERSION'
+}
+
 export enum EndorsementStatus {
   Endorsed = 'ENDORSED',
   OnHold = 'ON_HOLD',
@@ -7798,6 +7928,12 @@ export type Query = {
   directoryMentors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryTranslators?: Maybe<DirectoryPersonRoleSearchResults>;
   download?: Maybe<Download>;
+  /**
+   * The Darwin Core data package validation report for a dataset, as produced by the
+   * validator service. Defaults to the report for the dataset's latest crawl attempt;
+   * pass attempt to fetch the report for a specific past attempt.
+   */
+  dwdpValidationReport?: Maybe<DwdpValidationReport>;
   event?: Maybe<Event>;
   eventDownload?: Maybe<Download>;
   /** Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation. */
@@ -8071,6 +8207,12 @@ export type QueryDirectoryTranslatorsArgs = {
 
 export type QueryDownloadArgs = {
   key: Scalars['ID']['input'];
+};
+
+
+export type QueryDwdpValidationReportArgs = {
+  attempt?: InputMaybe<Scalars['String']['input']>;
+  datasetKey: Scalars['ID']['input'];
 };
 
 
