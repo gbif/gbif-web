@@ -12,11 +12,7 @@ function formatLocalDateTime(value) {
 
 export default {
   Query: {
-    dwdpValidationReport: async (
-      parent,
-      { datasetKey, attempt },
-      { dataSources },
-    ) => {
+    dwdpValidationReport: async (parent, { datasetKey, attempt }, { dataSources }) => {
       const report = await dataSources.dwdpValidationReportAPI.getValidationReport({
         datasetKey,
         attempt,
