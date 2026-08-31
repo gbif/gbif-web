@@ -58,5 +58,15 @@
   },
   "occurrencesPerField": "Распределение находок по категории: {FIELD}",
   "kingdom": "Царство",
-  "sequencePhylogeny": "Филогенез последовательности"
+  "sequencePhylogeny": "Филогенез последовательности",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }
