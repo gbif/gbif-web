@@ -7,10 +7,7 @@ const typeDef = gql`
     validator service. Defaults to the report for the dataset's latest crawl attempt;
     pass attempt to fetch the report for a specific past attempt.
     """
-    dwdpValidationReport(
-      datasetKey: ID!
-      attempt: String
-    ): DwdpValidationReport
+    dwdpValidationReport(datasetKey: ID!, attempt: String): DwdpValidationReport
   }
 
   type DwdpValidationReport {
