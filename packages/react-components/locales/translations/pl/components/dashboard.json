@@ -58,5 +58,15 @@
   },
   "occurrencesPerField": "Wystąpienia przez {FIELD}",
   "kingdom": "Królestwo",
-  "sequencePhylogeny": ""
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }
