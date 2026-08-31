@@ -58,5 +58,15 @@
   },
   "occurrencesPerField": "Observationer per {FIELD}",
   "kingdom": "Rige",
-  "sequencePhylogeny": "Sekvensfylogeni"
+  "sequencePhylogeny": "Sekvensfylogeni",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }
