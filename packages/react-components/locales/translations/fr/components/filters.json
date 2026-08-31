@@ -338,7 +338,7 @@
     "description": "Entrer une séquence nucléotidique (ADN ou ARN) pour trouver des occurrences avec des séquences similaires ; les résultats sont classés par pourcentage de correspondance.",
     "search": "Trouver des résultats similaires",
     "similarityHeader": "Identité",
-    "distinctSequencesHeader": "",
+    "distinctSequencesHeader": "Séquences distinctes",
     "similarityRange": "{from} à {to} %",
     "similarityExact": "{value} %",
     "invalid": "La donnée saisie ne semble pas correspondre à une séquence nucléotidique valide.",
@@ -356,8 +356,8 @@
     }
   },
   "nucleotideSequenceNucleotideSequenceID": {
-    "name": "",
-    "description": ""
+    "name": "ID de séquence nucléotidique",
+    "description": "L'identifiant d'une séquence nucléotidique associée à l'enregistrement (nucleotideSequence.nucleotideSequenceID)."
   },
   "recordedBy": {
     "name": "Enregistré par",

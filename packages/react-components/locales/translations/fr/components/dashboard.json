@@ -57,5 +57,16 @@
     "samplingEffort": "Effort d'échantillonnage"
   },
   "occurrencesPerField": "Occurrences par {FIELD}",
-  "kingdom": "Règne"
+  "kingdom": "Règne",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

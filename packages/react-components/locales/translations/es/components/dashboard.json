@@ -57,5 +57,16 @@
     "samplingEffort": "Esfuerzo de muestreo"
   },
   "occurrencesPerField": "Registros de presencia por",
-  "kingdom": "Reino"
+  "kingdom": "Reino",
+  "sequencePhylogeny": "Filogenia de secuencias",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

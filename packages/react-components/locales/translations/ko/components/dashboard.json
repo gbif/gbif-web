@@ -57,5 +57,16 @@
     "samplingEffort": "샘플링 노력"
   },
   "occurrencesPerField": "{FIELD} 당 출현",
-  "kingdom": "계"
+  "kingdom": "계",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }
