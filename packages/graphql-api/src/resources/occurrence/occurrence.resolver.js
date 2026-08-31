@@ -349,6 +349,13 @@ export default {
     },
   },
   Occurrence: {
+    occurrenceRemarks: ({ occurrenceRemarks }, { cap }) => {
+      if (cap && occurrenceRemarks) {
+        // if cap less than string length, then cap and add ellipsis. Else return the string as is
+        return occurrenceRemarks.length > cap ? `${occurrenceRemarks.slice(0, cap)}...` : occurrenceRemarks;
+      }
+      return occurrenceRemarks;
+    },
     coordinates: ({ decimalLatitude, decimalLongitude }) => {
       if (typeof decimalLatitude === 'undefined') return null;
       // extract primary image. for now just any image
