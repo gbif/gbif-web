@@ -641,7 +641,11 @@ function Event({
       <PlainTextField term={termMap.eventType} showDetails={true} />
       {showAll && <PlainTextField term={termMap.startDayOfYear} showDetails={showAll} />}
       {showAll && <PlainTextField term={termMap.endDayOfYear} showDetails={showAll} />}
-      {showAll && <PlainTextField term={termMap.year} showDetails={showAll} />}
+      {showAll && (
+        <BasicField label="occurrenceFieldNames.year">
+          {termMap?.year?.value && <span>{termMap?.year.value}</span>}
+        </BasicField>
+      )}
       {showAll && <PlainTextField term={termMap.month} showDetails={showAll} />}
       {showAll && <PlainTextField term={termMap.day} showDetails={showAll} />}
       <PlainTextField term={termMap.verbatimEventDate} showDetails={showAll} />
