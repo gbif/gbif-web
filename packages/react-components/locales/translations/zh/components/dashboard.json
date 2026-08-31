@@ -58,5 +58,15 @@
   },
   "occurrencesPerField": "每 {FIELD} 的物种出现记录",
   "kingdom": "界",
-  "sequencePhylogeny": ""
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }
