@@ -66,7 +66,7 @@
     "title": "Comment cet arbre est construit",
     "align": "Les séquences nucléotidiques distinctes des occurrences correspondantes sont alignées à l'aide de <k>kalign</k> (un outil d'alignement de séquences multiples).",
     "tree": "Les distances génétiques par paires (distance p, sans tenir compte des espaces ni des sites ambigus) sont lues à partir de cet alignement, et un arbre de type « neighbor-joining » est construit à partir de celles-ci. Les branches internes proches de zéro sont représentées sous forme de multifurcations plutôt que sous la forme d'une échelle arbitraire.",
-    "collapse": "",
-    "downloads": ""
+    "collapse": "Le curseur « Collapse » regroupe en une seule branche les séquences présentant au moins le pourcentage d'identité choisi. Les branches sont identifiées par le taxon consensuel des séquences qu'elles représentent.",
+    "downloads": "Les fichiers à télécharger correspondent à la vue actuelle : l'alignement complet (<fasta>FASTA</fasta>) et l'arbre (<newick>Newick</newick>, au niveau de regroupement actuel)."
   }
 }
