@@ -18,6 +18,7 @@ import { DatasetEventID, eventLoader } from './event/eventID';
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
 import { DatasetKeyTaxonSearch } from './taxonSearch';
+import { DatasetKeyValidationReport } from './validationReport';
 import { redirectDocument } from 'react-router-dom';
 import { DatasetTaxonKey } from './taxonKey';
 const id = 'datasetKey';
@@ -82,6 +83,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'download',
       element: <DatasetKeyDownload />,
+    },
+    {
+      path: 'validation',
+      element: <DatasetKeyValidationReport />,
     },
   ],
 };
