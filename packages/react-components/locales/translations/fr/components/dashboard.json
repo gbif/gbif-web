@@ -58,5 +58,15 @@
   },
   "occurrencesPerField": "Occurrences par {FIELD}",
   "kingdom": "Règne",
-  "sequencePhylogeny": ""
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }
