@@ -57,5 +57,16 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "التكرارات لكل {FIELD}",
-  "kingdom": "مملكة"
+  "kingdom": "مملكة",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

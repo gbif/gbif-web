@@ -245,6 +245,7 @@ export const DatasetFacet = {
   license: getFacet('license', getSourceSearch),
   dwcaExtension: getFacet('dwcaExtension', getSourceSearch),
   networkKey: getFacet('networkKey', getSourceSearch),
+  category: getFacet('category', getSourceSearch),
 };
 export const DatasetOrganizationFacet = {
   organization: ({ name: key }, args, { dataSources }) => {

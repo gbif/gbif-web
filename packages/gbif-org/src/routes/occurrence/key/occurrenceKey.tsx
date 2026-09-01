@@ -6,9 +6,9 @@ import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
   FeatureList,
-  GadmClassification,
   GenericFeature,
   GeologicalContext,
+  GlobeIcon,
   Homepage,
   IIIF,
   Location,
@@ -50,7 +50,7 @@ import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
 import PageMetaData from '@/components/PageMetaData';
 import { notNull } from '@/utils/notNull';
-import { TaxonStubClassification } from '@/components/classification';
+import { Classification, TaxonStubClassification } from '@/components/classification';
 import { EntityLinkPresentation } from '@/components/entityLink';
 import getTitleParts from './getTitle';
 
@@ -696,27 +696,38 @@ export function OccurrenceKey() {
                           </div>
                         )}
 
-                      {occurrence.gadm?.level1 && (
-                        <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
-                          <span>
-                            {coordinateIssues.length > 0 && (
-                              <IssueTags>
-                                {coordinateIssues.map((issue: string) => {
-                                  // return <Tag className="g-bg-orange g-text-white">{issue}sdf</Tag>;
-                                  // return <Tag className="g-bg-amber-500 g-text-white">{issue}</Tag>;
-                                  return (
-                                    <IssueTag type="WARNING" key={issue}>
-                                      <FormattedMessage
-                                        id={`enums.occurrenceIssue.${issue}`}
-                                        defaultMessage={prettifyEnum(issue) ?? ''}
-                                      />
-                                    </IssueTag>
-                                  );
-                                })}
-                              </IssueTags>
-                            )}
-                          </span>
-                        </GadmClassification>
+                      {occurrence.countryCode && (
+                        <GenericFeature className="g-flex g-mb-1">
+                          <GlobeIcon />
+                          <div>
+                            <Classification className="g-inline-block g-me-2" dir="auto">
+                              <span>
+                                <FormattedMessage
+                                  id={`enums.countryCode.${occurrence.countryCode}`}
+                                />
+                              </span>
+                              {occurrence.stateProvince && <span>{occurrence.stateProvince}</span>}
+                            </Classification>
+                            <span>
+                              {coordinateIssues.length > 0 && (
+                                <IssueTags>
+                                  {coordinateIssues.map((issue: string) => {
+                                    // return <Tag className="g-bg-orange g-text-white">{issue}sdf</Tag>;
+                                    // return <Tag className="g-bg-amber-500 g-text-white">{issue}</Tag>;
+                                    return (
+                                      <IssueTag type="WARNING" key={issue}>
+                                        <FormattedMessage
+                                          id={`enums.occurrenceIssue.${issue}`}
+                                          defaultMessage={prettifyEnum(issue) ?? ''}
+                                        />
+                                      </IssueTag>
+                                    );
+                                  })}
+                                </IssueTags>
+                              )}
+                            </span>
+                          </div>
+                        </GenericFeature>
                       )}
                       <GeologicalContext
                         earliestEonOrLowestEonothem={occurrence.earliestEonOrLowestEonothem}

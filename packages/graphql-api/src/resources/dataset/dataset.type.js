@@ -24,6 +24,7 @@ const typeDef = gql`
       decade: [Int]
       publishingCountry: [Country]
       dwcaExtension: [String]
+      category: [String]
       """
       Not implemented yet
       """
@@ -80,6 +81,7 @@ const typeDef = gql`
     decade: [Int]
     publishingCountry: [Country]
     dwcaExtension: [String]
+    category: [String]
     """
     Not implemented yet
     """
@@ -382,6 +384,7 @@ const typeDef = gql`
     license(limit: Int, offset: Int): [DatasetFacetResult]
     dwcaExtension(limit: Int, from: Int): [DatasetFacetResult]
     networkKey(limit: Int, from: Int): [DatasetFacetResult]
+    category(limit: Int, offset: Int): [DatasetFacetResult]
   }
 
   type DatasetOrganizationFacet {

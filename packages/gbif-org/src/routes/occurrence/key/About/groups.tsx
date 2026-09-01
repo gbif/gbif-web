@@ -469,13 +469,9 @@ function Location({
               showDetails={showAll}
               getEnum={(value) => `enums.continent.${value}`}
             />
-            <EnumField
-              term={termMap.countryCode}
-              label="occurrenceFieldNames.country"
-              showDetails={showAll}
-              getEnum={(value) => `enums.countryCode.${value}`}
-            />
-            {/* <PlainTextField term={termMap.country} showDetails={showAll} /> */}
+            <PlainTextField term={termMap.country} showDetails={showAll} />
+            <PlainTextField term={termMap.countryCode} showDetails={showAll} />
+
             <PlainTextField term={termMap.waterBody} showDetails={showAll} />
             <PlainTextField term={termMap.islandGroup} showDetails={showAll} />
             <PlainTextField term={termMap.island} showDetails={showAll} />
@@ -641,7 +637,11 @@ function Event({
       <PlainTextField term={termMap.eventType} showDetails={true} />
       {showAll && <PlainTextField term={termMap.startDayOfYear} showDetails={showAll} />}
       {showAll && <PlainTextField term={termMap.endDayOfYear} showDetails={showAll} />}
-      {showAll && <PlainTextField term={termMap.year} showDetails={showAll} />}
+      {showAll && (
+        <BasicField label="occurrenceFieldNames.year">
+          {termMap?.year?.value && <span>{termMap?.year.value}</span>}
+        </BasicField>
+      )}
       {showAll && <PlainTextField term={termMap.month} showDetails={showAll} />}
       {showAll && <PlainTextField term={termMap.day} showDetails={showAll} />}
       <PlainTextField term={termMap.verbatimEventDate} showDetails={showAll} />

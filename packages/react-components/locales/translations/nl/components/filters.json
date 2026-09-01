@@ -3,6 +3,10 @@
     "name": "",
     "description": ""
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "Locatie ID",
     "description": ""

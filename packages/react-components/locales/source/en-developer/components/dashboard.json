@@ -58,5 +58,15 @@
   },
   "occurrencesPerField": "Occurrences per {FIELD}",
   "kingdom": "Kingdom",
-  "sequencePhylogeny": "Sequence phylogeny"
+  "sequencePhylogeny": "Sequence phylogeny",
+  "sequencePhylogeny.downloadAlignment": "Alignment (FASTA)",
+  "sequencePhylogeny.downloadNewick": "Newick",
+  "sequencePhylogeny.about": {
+    "label": "How this tree is built",
+    "title": "How this tree is built",
+    "align": "The distinct nucleotide sequences of the matching occurrences are aligned using <k>kalign</k> (a multiple sequence alignment tool).",
+    "tree": "Pairwise genetic distances (p-distance, ignoring gaps and ambiguous sites) are read from that alignment, and a neighbour-joining tree is built from them. Near-zero internal branches are shown as multifurcations rather than an arbitrary ladder.",
+    "collapse": "The collapse slider merges sequences that are at least the chosen % identical into a single tip. Tips are labelled by the consensus taxon of the sequences they represent.",
+    "downloads": "Downloads reflect the current view: the full alignment (<fasta>FASTA</fasta>) and the tree (<newick>Newick</newick>, at the current collapse level)."
+  }
 }

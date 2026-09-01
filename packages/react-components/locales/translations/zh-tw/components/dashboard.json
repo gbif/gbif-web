@@ -57,5 +57,16 @@
     "samplingEffort": "取樣努力量"
   },
   "occurrencesPerField": "每 {FIELD} 的出現紀錄",
-  "kingdom": "界"
+  "kingdom": "界",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

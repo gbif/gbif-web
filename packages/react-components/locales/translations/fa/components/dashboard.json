@@ -57,5 +57,16 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "",
-  "kingdom": "پادشاهی"
+  "kingdom": "پادشاهی",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

@@ -57,5 +57,16 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "תצפיות לפי {FIELD}",
-  "kingdom": "ממלכה"
+  "kingdom": "ממלכה",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

@@ -57,5 +57,16 @@
     "samplingEffort": "Esforço Amostral"
   },
   "occurrencesPerField": "Ocorrências por {FIELD}",
-  "kingdom": "Reino"
+  "kingdom": "Reino",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

@@ -3,6 +3,10 @@
     "name": "DWCA rozšíření",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "ID polohy",
     "description": "Vydavatelé se mohou rozhodnout přiřadit ID k poloze. Toto pole není normalizované, což znamená, že vyhledáváte údaje tak, jak je poskytl vydavatel."

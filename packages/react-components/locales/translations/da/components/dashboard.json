@@ -57,5 +57,16 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "Observationer per {FIELD}",
-  "kingdom": "Rige"
+  "kingdom": "Rige",
+  "sequencePhylogeny": "Sekvensfylogeni",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

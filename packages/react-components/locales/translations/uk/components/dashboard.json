@@ -57,5 +57,16 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "Розподіл знахідок за категорією: {FIELD}",
-  "kingdom": "Царство"
+  "kingdom": "Царство",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

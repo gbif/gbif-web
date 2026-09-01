@@ -3,6 +3,10 @@
     "name": "Extensión DwC-A",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "ID de la Ubicación",
     "description": "Los publicadores pueden asignar identificadores a la ubicación. Este campo no está normalizado, lo que significa que se buscan los datos proporcionados por el publicador."
@@ -331,14 +335,14 @@
   },
   "nucleotideSequenceSequenceLength": {
     "name": "Longitud de la secuencia",
-    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos unida al registro biológico."
+    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos asociada al registro biológico."
   },
   "nucleotideSequenceId": {
     "name": "Similitud de secuencias",
     "description": "Introduce una secuencia de nucleótidos (ADN o ARN) para encontrar coincidencias con secuencias adyacentes similares a ella; los resultados se muestran agrupados por porcentaje de coincidencia.",
     "search": "Buscar similares",
     "similarityHeader": "Identidad",
-    "distinctSequencesHeader": "Secuencias únicas",
+    "distinctSequencesHeader": "Secuencias distintas",
     "similarityRange": "{from} a {to} %",
     "similarityExact": "{value} %",
     "invalid": "La entrada no parece ser una secuencia de nucleótidos válida.",

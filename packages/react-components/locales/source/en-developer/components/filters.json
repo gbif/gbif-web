@@ -3,6 +3,10 @@
     "name": "DwC-A extension",
     "description": "A short description of the component should be placed here"
   },
+  "category": {
+    "name": "Category",
+    "description": "The category of the dataset, based on the DatasetCategory vocabulary."
+  },
   "locationId": {
     "name": "Location ID",
     "description": "Publishers can choose to assign IDs to the location. This field is not normalised, meaning that you search data as provided by the publisher."

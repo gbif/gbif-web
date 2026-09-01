@@ -178,7 +178,7 @@ const typeDef = gql`
     nomenclaturalCode: String
     nomenclaturalStatus: String
     occurrenceID: String
-    occurrenceRemarks: String
+    occurrenceRemarks(cap: Int): String
     occurrenceStatus: OccurrenceStatus
     order: String
     orderKey: ID

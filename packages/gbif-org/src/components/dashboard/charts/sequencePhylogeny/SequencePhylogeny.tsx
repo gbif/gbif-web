@@ -8,7 +8,11 @@ import { cn } from '@/utils/shadcn';
 import { parseSequenceFilterValue } from '@/utils/sequenceSearch';
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { LuLoader as Loader, LuSettings2 as FilterIcon } from 'react-icons/lu';
+import {
+  LuLoader as Loader,
+  LuSettings2 as FilterIcon,
+  LuDownload as DownloadIcon,
+} from 'react-icons/lu';
 import { ColoredPointMap, MapPoint } from './ColoredPointMap';
 import { PhyloTreeView } from './PhyloTreeView';
 import {
@@ -18,7 +22,112 @@ import {
   type DistanceResult,
 } from './compute';
 import { consensusForMembers } from './compute/consensus';
+import { buildFasta } from './compute/fasta';
 import { useSequenceTreeData } from './useSequenceTreeData';
+import { MdInfoOutline } from 'react-icons/md';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { iconButtonClass } from '@/components/filters/aboutButton';
+
+// Trigger a client-side download of a text file (alignment / newick). Dashboard charts are
+// client-only, so document/URL are available here.
+function downloadText(filename: string, text: string, mime = 'text/plain') {
+  const blob = new Blob([text], { type: `${mime};charset=utf-8` });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+// Info popover (same look as the filters' "about this filter" button) describing how the alignment
+// and tree are produced.
+function AboutTree() {
+  const { formatMessage } = useIntl();
+  const label = formatMessage({
+    id: 'dashboard.sequencePhylogeny.about.label',
+    defaultMessage: 'How this tree is built',
+  });
+  return (
+    <Popover>
+      <PopoverTrigger aria-label={label} className={cn(iconButtonClass, 'g-text-slate-400')}>
+        <SimpleTooltip delayDuration={300} title={label} side="top" asChild>
+          <span>
+            <MdInfoOutline />
+          </span>
+        </SimpleTooltip>
+      </PopoverTrigger>
+      <PopoverContent className="g-w-96 g-text-sm g-text-slate-600 g-space-y-2">
+        <p className="g-font-medium g-text-slate-800">
+          <FormattedMessage
+            id="dashboard.sequencePhylogeny.about.title"
+            defaultMessage="How this tree is built"
+          />
+        </p>
+        <p>
+          <FormattedMessage
+            id="dashboard.sequencePhylogeny.about.align"
+            defaultMessage="The distinct nucleotide sequences of the matching occurrences are aligned in your browser with <k>kalign</k> (a multiple sequence alignment)."
+            values={{
+              k: (chunks) => (
+                <a
+                  href="https://github.com/TimoLassmann/kalign"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="g-underline"
+                >
+                  {chunks}
+                </a>
+              ),
+            }}
+          />
+        </p>
+        <p>
+          <FormattedMessage
+            id="dashboard.sequencePhylogeny.about.tree"
+            defaultMessage="Pairwise genetic distances (p-distance, ignoring gaps and ambiguous sites) are read from that alignment, and a neighbour-joining tree is built from them. Near-zero internal branches are shown as multifurcations rather than an arbitrary ladder."
+          />
+        </p>
+        <p>
+          <FormattedMessage
+            id="dashboard.sequencePhylogeny.about.collapse"
+            defaultMessage="The collapse slider merges sequences that are at least the chosen % identical into a single tip. Tips are labelled by the consensus taxon of the sequences they represent."
+          />
+        </p>
+        <p className="g-text-slate-500">
+          <FormattedMessage
+            id="dashboard.sequencePhylogeny.about.downloads"
+            defaultMessage="Downloads reflect the current view: the full alignment (<fasta>FASTA</fasta>) and the tree (<newick>Newick</newick>, at the current collapse level)."
+            values={{
+              fasta: (chunks) => (
+                <a
+                  href="https://en.wikipedia.org/wiki/FASTA_format"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="g-underline"
+                >
+                  {chunks}
+                </a>
+              ),
+              newick: (chunks) => (
+                <a
+                  href="https://en.wikipedia.org/wiki/Newick_format"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="g-underline"
+                >
+                  {chunks}
+                </a>
+              ),
+            }}
+          />
+        </p>
+      </PopoverContent>
+    </Popover>
+  );
+}
 
 const PANEL_HEIGHT = 520;
 // Sentinel tip id for the user's query sequence (safe as a FASTA header / Newick tip name, and
@@ -89,6 +198,10 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
   const treeSeqKey = useMemo(() => Object.keys(seqForTree).sort().join(','), [seqForTree]);
 
   const [fullDist, setFullDist] = useState<DistanceResult | null>(null);
+  // Alignment column count, kept so the tree build can size the polytomy-collapse epsilon.
+  const [alignLen, setAlignLen] = useState(0);
+  // The MSA rows (id -> gapped sequence), kept so the user can download the alignment.
+  const [aligned, setAligned] = useState<Record<string, string> | null>(null);
   const [aligning, setAligning] = useState(false);
   const [computeError, setComputeError] = useState<unknown>(null);
   // Collapse sequences that are >= this % identical into a single representative tip.
@@ -108,6 +221,8 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     const ids = treeSeqKey ? treeSeqKey.split(',') : [];
     if (ids.length < 2) {
       setFullDist(null);
+      setAlignLen(0);
+      setAligned(null);
       setAligning(false);
       return;
     }
@@ -115,9 +230,14 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     setAligning(true);
     setComputeError(null);
     setFullDist(null);
+    setAligned(null);
     computeAlignment(seqForTree)
       .then((res) => {
-        if (!cancelled) setFullDist(res.fullDist);
+        if (!cancelled) {
+          setFullDist(res.fullDist);
+          setAlignLen(res.alignmentLength);
+          setAligned(res.aligned);
+        }
       })
       .catch((e) => {
         if (!cancelled) setComputeError(e);
@@ -136,12 +256,29 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
   const built = useMemo(
     () =>
       fullDist
-        ? buildTreeFromDistance(fullDist, threshold, querySequence ? new Set([QUERY_ID]) : undefined)
+        ? buildTreeFromDistance(
+            fullDist,
+            threshold,
+            querySequence ? new Set([QUERY_ID]) : undefined,
+            alignLen
+          )
         : null,
-    [fullDist, threshold, querySequence]
+    [fullDist, threshold, querySequence, alignLen]
   );
   const newick = built?.newick ?? null;
   const groups = built?.groups ?? EMPTY_GROUPS;
+
+  // Downloads: the full MSA (all sequences that went into the tree, gapped) and the displayed
+  // tree in Newick (tips = representative nucleotideSequenceIDs at the current collapse threshold).
+  const downloadAlignment = useCallback(() => {
+    if (aligned && Object.keys(aligned).length > 0)
+      downloadText('sequence-phylogeny-alignment.fasta', buildFasta(aligned), 'text/x-fasta');
+  }, [aligned]);
+  const downloadNewick = useCallback(() => {
+    // Bake the current collapse level into the name — the tree's tips depend on it.
+    if (newick)
+      downloadText(`sequence-phylogeny-collapse-${collapsePct.toFixed(1)}pct.nwk`, newick, 'text/x-nh');
+  }, [newick, collapsePct]);
 
   // Representatives (distinct sequences = tree tips) and the collapse mapping.
   const repCount = useMemo(() => Object.keys(groups).length, [groups]);
@@ -488,6 +625,33 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
           />
         </div>
       </div>
+      {/* Downloads: a new row under the tree/map split, so both panels keep the same height. */}
+      <div className="g-mt-2 g-flex g-items-center g-gap-1 g-text-xs g-text-slate-500">
+        <button
+          type="button"
+          onClick={downloadAlignment}
+          disabled={!aligned || Object.keys(aligned).length === 0}
+          className="g-inline-flex g-items-center g-gap-1 g-rounded g-border g-border-slate-300 g-px-2 g-py-0.5 hover:g-bg-slate-100 disabled:g-opacity-40"
+        >
+          <DownloadIcon className="g-text-sm" />
+          <FormattedMessage
+            id="dashboard.sequencePhylogeny.downloadAlignment"
+            defaultMessage="Alignment (FASTA)"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={downloadNewick}
+          disabled={!newick}
+          className="g-inline-flex g-items-center g-gap-1 g-rounded g-border g-border-slate-300 g-px-2 g-py-0.5 hover:g-bg-slate-100 disabled:g-opacity-40"
+        >
+          <DownloadIcon className="g-text-sm" />
+          <FormattedMessage
+            id="dashboard.sequencePhylogeny.downloadNewick"
+            defaultMessage="Newick"
+          />
+        </button>
+      </div>
       </>
     );
   }
@@ -496,12 +660,15 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
     <Card className="g-p-4">
       <CardContent className="g-p-0">
         <div className="g-flex g-items-center g-justify-between g-mb-2 g-gap-2 g-flex-wrap">
-          <CardTitle>
-            <FormattedMessage
-              id="dashboard.sequencePhylogeny"
-              defaultMessage="Sequence phylogeny"
-            />
-          </CardTitle>
+          <div className="g-flex g-items-center g-gap-1">
+            <CardTitle>
+              <FormattedMessage
+                id="dashboard.sequencePhylogeny"
+                defaultMessage="Sequence phylogeny"
+              />
+            </CardTitle>
+            <AboutTree />
+          </div>
           <div className="g-flex g-items-center g-gap-3 g-flex-wrap">
             {showTree && (
               <label className="g-flex g-items-center g-gap-1 g-text-xs g-text-slate-500">
