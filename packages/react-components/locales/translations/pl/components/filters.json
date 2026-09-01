@@ -3,6 +3,10 @@
     "name": "Rozszerzenie DwC-A",
     "description": "Tutaj należy umieścić krótki opis komponentu"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "Identyfikator lokalizacji",
     "description": "Publikujący mogą zdecydować o przydzieleniu ID do lokalizacji, Ten obszar nie jest znormalizowany, co oznacza, że przegląda się dane tak, jak przedstawił je publikujący."

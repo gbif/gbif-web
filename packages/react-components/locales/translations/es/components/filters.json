@@ -3,6 +3,10 @@
     "name": "Extensión DwC-A",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "ID de la Ubicación",
     "description": "Los publicadores pueden asignar identificadores a la ubicación. Este campo no está normalizado, lo que significa que se buscan los datos proporcionados por el publicador."

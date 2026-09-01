@@ -3,6 +3,10 @@
     "name": "",
     "description": "这里应该有一个组件的简短描述"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "位置 ID",
     "description": ""

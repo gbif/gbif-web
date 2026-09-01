@@ -3,6 +3,10 @@
     "name": "DwC-A 확장자",
     "description": "요소에 대한 간략한 설명은 여기 위치해야 합니다"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "위치 ID",
     "description": ""
