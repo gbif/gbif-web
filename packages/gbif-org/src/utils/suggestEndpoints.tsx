@@ -429,6 +429,7 @@ export const objectClassificationSuggest = vocabularySuggest('ObjectClassificati
 export const pathwaySuggest = vocabularySuggest('Pathway');
 export const degreeOfEstablishmentSuggest = vocabularySuggest('DegreeOfEstablishment');
 export const collectionContentTypeSuggest = vocabularySuggest('CollectionContentType');
+export const datasetCategorySuggest = vocabularySuggest('DatasetCategory');
 export const typeStatusSuggest = vocabularySuggest('TypeStatus');
 export const geoTimeSuggest = vocabularySuggest('GeoTime');
 

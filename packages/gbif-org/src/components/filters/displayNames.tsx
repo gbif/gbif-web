@@ -359,6 +359,11 @@ export const collectionContentTypeLabel = getEndpointLabel({
   transform: getVocabularyLabel,
 });
 
+export const datasetCategoryLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/DatasetCategory/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
 export const biomeTypeLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/BiomeType/concepts/${id}`,
   transform: getVocabularyLabel,
