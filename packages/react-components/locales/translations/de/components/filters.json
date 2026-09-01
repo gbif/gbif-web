@@ -3,6 +3,10 @@
     "name": "",
     "description": "Art des Datasets"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "",
     "description": ""
