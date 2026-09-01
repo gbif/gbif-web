@@ -3,6 +3,10 @@
     "name": "達爾文延伸集 (DwC-A)",
     "description": "在此輸入關於此項目的簡短敘述"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "地點識別碼",
     "description": "發布者可以選擇指派ID給位置。此欄位未進行標準化處理，這表示您將搜尋發布者提供的資料。"
