@@ -889,6 +889,7 @@ export function DatasetKeyValidationReport() {
     () => resources.reduce((sum, r) => sum + issueCount(r), 0),
     [resources]
   );
+  const metadataIssueCount = descriptorIssues.length + emlIssues.length;
 
   const [section = 'summary', setSection] = useStringParam({
     key: 'section',
@@ -1014,7 +1015,12 @@ export function DatasetKeyValidationReport() {
                     </span>
                   </div>
                   <RailItem
-                    icon={<StatusIcon ok={integrityIssueCount === 0} blocking={integrityIssueCount > 0} />}
+                    icon={
+                      <StatusIcon
+                        ok={integrityIssueCount === 0 && metadataIssueCount === 0}
+                        blocking={integrityIssueCount > 0}
+                      />
+                    }
                     label={summaryLabel}
                     active={currentSection === 'summary'}
                     onClick={() => setSection('summary')}
