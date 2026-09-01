@@ -193,7 +193,7 @@ export const gbifConfig: Config = {
   },
   datasetSearch: {
     excludedFilters: [],
-    highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
+    highlightedFilters: ['q', 'type', 'category', 'publishingOrg', 'license'],
     // defaultTableColumns: ['title', 'description', 'publisher', 'type', 'occurrenceCount', 'literatureCount'],
     // scope: {
     //   publishingCountry: ['DK'],

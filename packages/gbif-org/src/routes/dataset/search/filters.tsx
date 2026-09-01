@@ -1,5 +1,6 @@
 import {
   CountryLabel,
+  datasetCategoryLabel,
   DatasetTypeLabel,
   DwcaExtensionLabel,
   IdentityLabel,
@@ -22,7 +23,7 @@ import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import licenseOptions from '@/enums/basic/license.json';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
-import { networkKeySuggest } from '@/utils/suggestEndpoints';
+import { datasetCategorySuggest, networkKeySuggest } from '@/utils/suggestEndpoints';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -199,6 +200,29 @@ export const networkKeyConfig: filterSuggestConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
+export const categoryConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'category',
+  displayName: datasetCategoryLabel,
+  filterTranslation: 'filters.category.name',
+  suggestConfig: datasetCategorySuggest,
+  allowExistence: false,
+  allowNegations: false,
+  facetQuery: /* GraphQL */ `
+    query DatasetCategoryFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
+        facet {
+          field: category(limit: 100) {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.category.description" />,
+};
+
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
@@ -240,6 +264,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
       networkKey: generateFilters({ config: networkKeyConfig, searchConfig, formatMessage }),
+      category: generateFilters({ config: categoryConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
         config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,
