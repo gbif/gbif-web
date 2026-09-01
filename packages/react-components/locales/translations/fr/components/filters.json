@@ -3,6 +3,10 @@
     "name": "Extension DwC-A",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "ID de localisation",
     "description": "Les éditeurs peuvent choisir d'attribuer des identifiants à l'emplacement. Ce champ n'est pas normalisé, ce qui signifie que vous effectuez la recherche à partir des données fournies par l'éditeur."
