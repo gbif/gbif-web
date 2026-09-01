@@ -469,13 +469,9 @@ function Location({
               showDetails={showAll}
               getEnum={(value) => `enums.continent.${value}`}
             />
-            <EnumField
-              term={termMap.countryCode}
-              label="occurrenceFieldNames.country"
-              showDetails={showAll}
-              getEnum={(value) => `enums.countryCode.${value}`}
-            />
-            {/* <PlainTextField term={termMap.country} showDetails={showAll} /> */}
+            <PlainTextField term={termMap.country} showDetails={showAll} />
+            <PlainTextField term={termMap.countryCode} showDetails={showAll} />
+
             <PlainTextField term={termMap.waterBody} showDetails={showAll} />
             <PlainTextField term={termMap.islandGroup} showDetails={showAll} />
             <PlainTextField term={termMap.island} showDetails={showAll} />
