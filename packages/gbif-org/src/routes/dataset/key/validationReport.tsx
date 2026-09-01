@@ -2,10 +2,10 @@ import { NoRecords } from '@/components/noDataMessages';
 import { SeverityTag } from '@/components/severityTag';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
+import { Switch } from '@/components/ui/switch';
 import {
   Table,
   TableBody,
@@ -24,13 +24,16 @@ import {
   DwdpResourceAnalysisResult,
   DwdpValidationIssue,
 } from '@/gql/graphql';
+import useAbove from '@/hooks/useAbove';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
+import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { cn } from '@/utils/shadcn';
-import { useEffect, useMemo } from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { useEffect, useMemo, useState } from 'react';
+import { MdCheckCircle, MdError, MdErrorOutline } from 'react-icons/md';
+import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
 
 const VALIDATION_REPORT_QUERY = /* GraphQL */ `
@@ -139,6 +142,86 @@ function worstSeverity(issues: DwdpValidationIssue[]): string {
   return 'INFO';
 }
 
+/* ---------- small shared pieces ---------- */
+
+function StatusIcon({ ok, blocking, size = 18 }: { ok: boolean; blocking?: boolean; size?: number }) {
+  if (ok) return <MdCheckCircle className="g-shrink-0 g-text-primary-500" size={size} aria-hidden />;
+  return (
+    <MdError
+      className={cn('g-shrink-0', blocking ? 'g-text-red-600' : 'g-text-amber-500')}
+      size={size}
+      aria-hidden
+    />
+  );
+}
+
+function RailItem({
+  icon,
+  label,
+  meta,
+  count,
+  active,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: React.ReactNode;
+  meta?: React.ReactNode;
+  count?: number;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'g-flex g-items-center g-gap-2 g-w-full g-min-h-9 g-text-start g-rounded-md g-px-2.5 g-py-2 g-text-sm',
+        active
+          ? 'g-bg-slate-100 g-text-slate-900 g-font-medium'
+          : 'g-text-slate-700 hover:g-bg-slate-50'
+      )}
+    >
+      {icon}
+      <span className="g-flex-1 g-truncate">{label}</span>
+      {meta && <span className="g-text-xs g-text-slate-400 g-shrink-0">{meta}</span>}
+      {!!count && (
+        <span className="g-inline-flex g-items-center g-shrink-0 g-rounded-full g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-px-2 g-py-0.5">
+          {count}
+        </span>
+      )}
+    </button>
+  );
+}
+
+function DetailHeader({ title, meta }: { title: React.ReactNode; meta?: React.ReactNode }) {
+  return (
+    <div className="g-mb-4">
+      <h2 className="g-text-lg g-font-semibold g-text-slate-900">{title}</h2>
+      {meta && <div className="g-text-sm g-text-slate-500 g-mt-0.5">{meta}</div>}
+    </div>
+  );
+}
+
+function StatusLine({
+  icon,
+  title,
+  note,
+}: {
+  icon: React.ReactNode;
+  title: React.ReactNode;
+  note?: React.ReactNode;
+}) {
+  return (
+    <div className="g-flex g-items-start g-gap-3">
+      <span className="g-mt-0.5 g-shrink-0">{icon}</span>
+      <div>
+        <div className="g-text-slate-900">{title}</div>
+        {note && <div className="g-text-sm g-text-slate-500 g-mt-0.5">{note}</div>}
+      </div>
+    </div>
+  );
+}
+
 function Fact({
   label,
   value,
@@ -162,6 +245,159 @@ function Fact({
     </div>
   );
 }
+
+/* ---------- summary section ---------- */
+
+function SummaryDetail({
+  report,
+  resources,
+  descriptorIssues,
+  emlIssues,
+  integrityIssueCount,
+}: {
+  report: NonNullable<DatasetValidationReportQuery['dwdpValidationReport']>;
+  resources: DwdpResourceAnalysisResult[];
+  descriptorIssues: DwdpValidationIssue[];
+  emlIssues: DwdpValidationIssue[];
+  integrityIssueCount: number;
+}) {
+  const started = parseZonelessDateTime(report.metadata?.started);
+  const finished = parseZonelessDateTime(report.metadata?.finished);
+  const durationSeconds =
+    started && finished ? Math.max(0, (finished.getTime() - started.getTime()) / 1000) : undefined;
+  const totalRows = resources.reduce((sum, r) => sum + (r.totalRows ?? 0), 0);
+  const tablesWithIssues = resources.filter((r) => issueCount(r) > 0).length;
+  const metadataIssueCount = descriptorIssues.length + emlIssues.length;
+
+  return (
+    <div>
+      <DetailHeader
+        title={
+          <FormattedMessage id="dataset.validationReport.summary" defaultMessage="Validation summary" />
+        }
+      />
+      <div className="g-flex g-flex-col g-gap-4 g-mb-6">
+        {integrityIssueCount > 0 && (
+          <StatusLine
+            icon={<MdError className="g-text-red-600" size={20} aria-hidden />}
+            title={
+              <span className="g-font-semibold">
+                <FormattedMessage
+                  id="dataset.validationReport.blockingSummary"
+                  defaultMessage="{count, plural, one {# integrity issue} other {# integrity issues}} found in {tables, plural, one {# table} other {# tables}}"
+                  values={{ count: integrityIssueCount, tables: tablesWithIssues }}
+                />
+              </span>
+            }
+            note={
+              <FormattedMessage
+                id="dataset.validationReport.blockingNote"
+                defaultMessage="See the affected tables below for details."
+              />
+            }
+          />
+        )}
+        {metadataIssueCount > 0 && (
+          <StatusLine
+            icon={<MdErrorOutline className="g-text-amber-500" size={20} aria-hidden />}
+            title={
+              <span className="g-font-semibold">
+                <FormattedMessage
+                  id="dataset.validationReport.advisorySummary"
+                  defaultMessage="{count, plural, one {# metadata issue} other {# metadata issues}} in the descriptor and EML document"
+                  values={{ count: metadataIssueCount }}
+                />
+              </span>
+            }
+            note={
+              <FormattedMessage
+                id="dataset.validationReport.advisoryNote"
+                defaultMessage="Advisory only — these do not affect data usability, but are worth reviewing."
+              />
+            }
+          />
+        )}
+        {integrityIssueCount === 0 && metadataIssueCount === 0 && (
+          <StatusLine
+            icon={<MdCheckCircle className="g-text-primary-500" size={20} aria-hidden />}
+            title={
+              <span className="g-font-semibold">
+                <FormattedMessage id="dataset.validationReport.status.valid" defaultMessage="No issues found" />
+              </span>
+            }
+            note={
+              <FormattedMessage
+                id="dataset.validationReport.allClearNote"
+                defaultMessage="Keys, references, descriptor and EML metadata all check out."
+              />
+            }
+          />
+        )}
+      </div>
+      <div className="g-grid g-grid-cols-2 sm:g-grid-cols-3 g-gap-x-6 g-gap-y-4 g-pt-5 g-border-t g-border-slate-200">
+        <Fact
+          label={<FormattedMessage id="dataset.validationReport.processed" defaultMessage="Processed" />}
+          value={
+            finished ? (
+              <FormattedDate
+                value={finished}
+                year="numeric"
+                month="short"
+                day="numeric"
+                hour="2-digit"
+                minute="2-digit"
+              />
+            ) : (
+              '—'
+            )
+          }
+        />
+        <Fact
+          label={<FormattedMessage id="dataset.validationReport.duration" defaultMessage="Duration" />}
+          value={durationSeconds !== undefined ? `${durationSeconds.toFixed(1)}s` : '—'}
+        />
+        <Fact
+          label={<FormattedMessage id="dataset.validationReport.tables" defaultMessage="Tables" />}
+          value={resources.length}
+        />
+        <Fact
+          label={
+            <FormattedMessage id="dataset.validationReport.rowsAnalysed" defaultMessage="Rows analysed" />
+          }
+          value={totalRows.toLocaleString()}
+        />
+        <Fact
+          label={
+            <FormattedMessage id="dataset.validationReport.integrityIssues" defaultMessage="Integrity issues" />
+          }
+          value={integrityIssueCount}
+          tone={integrityIssueCount ? 'error' : undefined}
+        />
+        <Fact
+          label={
+            <FormattedMessage
+              id="dataset.validationReport.descriptorAndEmlIssues"
+              defaultMessage="Descriptor & EML issues"
+            />
+          }
+          value={metadataIssueCount}
+          tone={metadataIssueCount ? 'warn' : undefined}
+        />
+      </div>
+      {report.attempt && (
+        <div className="g-text-xs g-text-slate-500 g-mt-4">
+          <FormattedMessage
+            id="dataset.validationReport.attemptNote"
+            defaultMessage="Showing report for attempt {attempt}. Browsing earlier report versions will be available soon."
+            values={{ attempt: report.attempt }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ---------- descriptor / EML section ---------- */
 
 function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
   const groups = useMemo(() => {
@@ -251,20 +487,24 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
 
 function DescriptorOrEmlDetail({
   title,
+  meta,
   issues,
   validMessageId,
+  validDefaultMessage,
 }: {
   title: React.ReactNode;
+  meta?: React.ReactNode;
   issues: DwdpValidationIssue[];
   validMessageId: string;
+  validDefaultMessage: string;
 }) {
   return (
     <div>
-      <h2 className="g-text-lg g-font-semibold g-mb-4">{title}</h2>
+      <DetailHeader title={title} meta={meta} />
       {issues.length === 0 ? (
         <Alert>
           <AlertDescription>
-            <FormattedMessage id={validMessageId} />
+            <FormattedMessage id={validMessageId} defaultMessage={validDefaultMessage} />
           </AlertDescription>
         </Alert>
       ) : (
@@ -274,12 +514,20 @@ function DescriptorOrEmlDetail({
   );
 }
 
+/* ---------- table (resource) section ---------- */
+
 type ViolationKind = 'pk' | 'fk' | 'dt';
 
-const VIOLATION_LABEL_ID: Record<ViolationKind, string> = {
-  pk: 'dataset.validationReport.primaryKeyViolation',
-  fk: 'dataset.validationReport.foreignKeyViolation',
-  dt: 'dataset.validationReport.dataTypeViolation',
+const VIOLATION_LABEL: Record<ViolationKind, { id: string; defaultMessage: string }> = {
+  pk: { id: 'dataset.validationReport.primaryKeyViolation', defaultMessage: 'Primary key is not unique' },
+  fk: {
+    id: 'dataset.validationReport.foreignKeyViolation',
+    defaultMessage: 'Foreign key has no matching row',
+  },
+  dt: {
+    id: 'dataset.validationReport.dataTypeViolation',
+    defaultMessage: 'Values do not match the declared type',
+  },
 };
 
 function ViolationCard({
@@ -307,7 +555,7 @@ function ViolationCard({
         <AccordionTrigger className="g-bg-red-50 g-px-3 hover:g-no-underline">
           <span className="g-flex g-items-center g-gap-2 g-flex-1 g-text-start">
             <span className="g-font-semibold g-text-red-800">
-              <FormattedMessage id={VIOLATION_LABEL_ID[kind]} />
+              <FormattedMessage id={VIOLATION_LABEL[kind].id} defaultMessage={VIOLATION_LABEL[kind].defaultMessage} />
             </span>
             <span className="g-ms-auto g-text-xs g-font-medium g-text-red-800 g-bg-red-100 g-rounded-full g-px-2 g-py-0.5">
               {violation.violationCount ?? 0}
@@ -440,7 +688,10 @@ function ColumnStatsTable({
 }
 
 function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) {
-  const violations: { kind: ViolationKind; violation: DwdpPrimaryKeyViolation | DwdpForeignKeyViolation | DwdpDataTypeViolation }[] = [
+  const violations: {
+    kind: ViolationKind;
+    violation: DwdpPrimaryKeyViolation | DwdpForeignKeyViolation | DwdpDataTypeViolation;
+  }[] = [
     ...(hasViolations(resource.primaryKeyViolation)
       ? [{ kind: 'pk' as const, violation: resource.primaryKeyViolation as DwdpPrimaryKeyViolation }]
       : []),
@@ -454,21 +705,27 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
 
   return (
     <div>
-      <h2 className="g-text-lg g-font-semibold g-mb-1">{resource.name}</h2>
-      <div className="g-text-sm g-text-slate-500 g-mb-4">
-        <FormattedMessage
-          id="dataset.validationReport.resourceSummary"
-          defaultMessage="{rows} rows analysed across {fields} fields"
-          values={{
-            rows: (resource.totalRows ?? 0).toLocaleString(),
-            fields: resource.columnAnalyses?.length ?? 0,
-          }}
-        />
-      </div>
+      <DetailHeader
+        title={resource.name}
+        meta={
+          <FormattedMessage
+            id="dataset.validationReport.resourceMeta"
+            defaultMessage="{rows} rows · {fields} fields · {count, plural, =0 {no issues} one {# issue} other {# issues}}"
+            values={{
+              rows: (resource.totalRows ?? 0).toLocaleString(),
+              fields: resource.columnAnalyses?.length ?? 0,
+              count: issueCount(resource),
+            }}
+          />
+        }
+      />
       {violations.length === 0 ? (
         <Alert className="g-mb-6">
           <AlertDescription>
-            <FormattedMessage id="dataset.validationReport.noIntegrityIssues" />
+            <FormattedMessage
+              id="dataset.validationReport.noIntegrityIssues"
+              defaultMessage="Keys, references and data types all check out."
+            />
           </AlertDescription>
         </Alert>
       ) : (
@@ -487,8 +744,13 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
   );
 }
 
+/* ---------- page ---------- */
+
 export function DatasetKeyValidationReport() {
+  const { formatMessage } = useIntl();
   const { dataset } = useDatasetKeyLoaderData().data;
+  const showRail = useAbove(900);
+  const [onlyIssues, setOnlyIssues] = useState(false);
 
   const { data, load, loading } = useQuery<
     DatasetValidationReportQuery,
@@ -502,20 +764,16 @@ export function DatasetKeyValidationReport() {
   const report = data?.dwdpValidationReport;
   const result = report?.result;
   const resources = useMemo(() => result?.resourceAnalysisResults ?? [], [result]);
-  const descriptorIssues = useMemo(
-    () => result?.descriptorValidation?.issues ?? [],
-    [result]
-  );
+  const descriptorIssues = useMemo(() => result?.descriptorValidation?.issues ?? [], [result]);
   const emlIssues = useMemo(() => result?.emlValidation?.issues ?? [], [result]);
   const integrityIssueCount = useMemo(
     () => resources.reduce((sum, r) => sum + issueCount(r), 0),
     [resources]
   );
 
-  const defaultSection = descriptorIssues.length > 0 || resources.length === 0 ? 'descriptor' : 'eml';
-  const [section = defaultSection, setSection] = useStringParam({
+  const [section = 'summary', setSection] = useStringParam({
     key: 'section',
-    defaultValue: defaultSection,
+    defaultValue: 'summary',
     hideDefault: true,
   });
 
@@ -543,174 +801,183 @@ export function DatasetKeyValidationReport() {
     );
   }
 
-  const started = parseZonelessDateTime(report.metadata?.started);
-  const finished = parseZonelessDateTime(report.metadata?.finished);
-  const durationSeconds =
-    started && finished ? Math.max(0, (finished.getTime() - started.getTime()) / 1000) : undefined;
-  const totalRows = resources.reduce((sum, r) => sum + (r.totalRows ?? 0), 0);
+  const emlPresent = result?.emlValidation?.emlPresent !== false;
 
-  const statusVariant = integrityIssueCount > 0 ? 'destructive' : descriptorIssues.length + emlIssues.length > 0 ? 'warning' : 'default';
-  const statusMessageId =
-    integrityIssueCount > 0
-      ? 'dataset.validationReport.status.dataIssues'
-      : descriptorIssues.length + emlIssues.length > 0
-        ? 'dataset.validationReport.status.metadataIssues'
-        : 'dataset.validationReport.status.valid';
+  const summaryLabel = formatMessage({
+    id: 'dataset.validationReport.summaryShort',
+    defaultMessage: 'Summary',
+  });
+  const descriptorLabel = formatMessage({
+    id: 'dataset.validationReport.descriptor',
+    defaultMessage: 'Descriptor',
+  });
+  const emlLabel = formatMessage({
+    id: 'dataset.validationReport.eml',
+    defaultMessage: 'EML metadata',
+  });
 
-  const sectionOptions: { key: string; label: React.ReactNode; count: number }[] = [
-    {
-      key: 'descriptor',
-      label: <FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="Descriptor" />,
-      count: descriptorIssues.length,
-    },
-    {
-      key: 'eml',
-      label: <FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />,
-      count: emlIssues.length,
-    },
-    ...resources.map((r) => ({
-      key: `res:${r.name}`,
-      label: r.name,
-      count: issueCount(r),
-    })),
-  ];
-  const currentSection = sectionOptions.some((opt) => opt.key === section) ? section : defaultSection;
-  const currentResource = currentSection.startsWith('res:')
-    ? resources.find((r) => `res:${r.name}` === currentSection)
+  const tableItems = onlyIssues ? resources.filter((r) => issueCount(r) > 0) : resources;
+
+  const currentResource = section.startsWith('res:')
+    ? resources.find((r) => `res:${r.name}` === section)
     : undefined;
+  const currentSection = section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        <Card className="g-mb-6">
-          <CardHeader>
-            <CardTitle>
-              <FormattedMessage
-                id="dataset.validationReport.summary"
-                defaultMessage="Validation summary"
-              />
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="g-flex g-flex-col g-gap-4">
-            <Alert variant={statusVariant}>
-              <AlertTitle>
-                <FormattedMessage id={statusMessageId} />
-              </AlertTitle>
-            </Alert>
-            <div className="g-grid g-grid-cols-2 sm:g-grid-cols-3 lg:g-grid-cols-6 g-gap-4">
-              <Fact
-                label={<FormattedMessage id="dataset.validationReport.processed" defaultMessage="Processed" />}
-                value={
-                  finished ? (
-                    <FormattedDate
-                      value={finished}
-                      year="numeric"
-                      month="short"
-                      day="numeric"
-                      hour="2-digit"
-                      minute="2-digit"
-                    />
-                  ) : (
-                    '—'
-                  )
-                }
-              />
-              <Fact
-                label={<FormattedMessage id="dataset.validationReport.duration" defaultMessage="Duration" />}
-                value={durationSeconds !== undefined ? `${durationSeconds.toFixed(1)}s` : '—'}
-              />
-              <Fact
-                label={<FormattedMessage id="dataset.validationReport.tables" defaultMessage="Tables" />}
-                value={resources.length}
-              />
-              <Fact
-                label={
-                  <FormattedMessage
-                    id="dataset.validationReport.rowsAnalysed"
-                    defaultMessage="Rows analysed"
-                  />
-                }
-                value={totalRows.toLocaleString()}
-              />
-              <Fact
-                label={
-                  <FormattedMessage
-                    id="dataset.validationReport.integrityIssues"
-                    defaultMessage="Integrity issues"
-                  />
-                }
-                value={integrityIssueCount}
-                tone={integrityIssueCount ? 'error' : undefined}
-              />
-              <Fact
-                label={
-                  <FormattedMessage
-                    id="dataset.validationReport.descriptorAndEmlIssues"
-                    defaultMessage="Descriptor & EML issues"
-                  />
-                }
-                value={descriptorIssues.length + emlIssues.length}
-                tone={descriptorIssues.length + emlIssues.length ? 'warn' : undefined}
-              />
-            </div>
-            {report.attempt && (
-              <div className="g-text-xs g-text-slate-500">
-                <FormattedMessage
-                  id="dataset.validationReport.attemptNote"
-                  defaultMessage="Showing report for attempt {attempt}. Browsing earlier report versions will be available soon."
-                  values={{ attempt: report.attempt }}
-                />
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <div className="g-flex g-flex-wrap g-gap-2 g-mb-6">
-          {sectionOptions.map((opt) => (
-            <Button
-              key={opt.key}
-              onClick={() => setSection(opt.key)}
-              variant={currentSection === opt.key ? 'default' : 'plain'}
-              className={cn('g-gap-2', {
-                'g-bg-slate-200 g-border g-border-slate-300': currentSection !== opt.key,
-              })}
+        {!showRail && (
+          <div className="g-mb-4">
+            <label htmlFor="validation-report-section-select" className="g-sr-only">
+              <FormattedMessage id="dataset.validationReport.selectSection" defaultMessage="Select report section" />
+            </label>
+            <select
+              id="validation-report-section-select"
+              value={currentSection}
+              onChange={(e) => setSection(e.target.value)}
+              className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
             >
-              {opt.label}
-              {opt.count > 0 && (
-                <span className="g-inline-flex g-items-center g-rounded-full g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-px-2 g-py-0.5">
-                  {opt.count}
-                </span>
-              )}
-            </Button>
-          ))}
-        </div>
+              <option value="summary">{summaryLabel}</option>
+              <option value="descriptor">
+                {descriptorIssues.length ? `${descriptorLabel} (${descriptorIssues.length})` : descriptorLabel}
+              </option>
+              <option value="eml">{emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}</option>
+              {resources.map((r) => {
+                const n = issueCount(r);
+                return (
+                  <option key={r.name} value={`res:${r.name}`}>
+                    {n ? `${r.name} (${n})` : r.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
 
-        <Card>
-          <CardContent topPadding>
-            {currentSection === 'descriptor' && (
-              <DescriptorOrEmlDetail
-                title={
-                  <FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="Descriptor" />
-                }
-                issues={descriptorIssues}
-                validMessageId="dataset.validationReport.descriptorValid"
-              />
-            )}
-            {currentSection === 'eml' &&
-              (result?.emlValidation?.emlPresent === false ? (
-                <NoRecords messageId="dataset.validationReport.emlNotPresent" />
-              ) : (
-                <DescriptorOrEmlDetail
-                  title={
-                    <FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />
-                  }
-                  issues={emlIssues}
-                  validMessageId="dataset.validationReport.emlValid"
-                />
-              ))}
-            {currentResource && <ResourceDetail resource={currentResource} />}
-          </CardContent>
-        </Card>
+        <SidebarLayout
+          className="g-grid-cols-1 md:g-grid-cols-[260px_minmax(0,1fr)] lg:g-grid-cols-[288px_minmax(0,1fr)]"
+          stack={!showRail}
+        >
+          {showRail && (
+            <Aside>
+              <AsideSticky className="-g-mt-4">
+                <Card className="g-p-2">
+                  <div className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1">
+                    <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                      <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
+                    </span>
+                    <span className="g-ms-auto g-text-xs g-text-slate-500">
+                      <FormattedMessage id="dataset.validationReport.latest" defaultMessage="Latest" />
+                    </span>
+                  </div>
+                  <RailItem
+                    icon={<StatusIcon ok={integrityIssueCount === 0} blocking={integrityIssueCount > 0} />}
+                    label={summaryLabel}
+                    active={currentSection === 'summary'}
+                    onClick={() => setSection('summary')}
+                  />
+                  <RailItem
+                    icon={<StatusIcon ok={descriptorIssues.length === 0} />}
+                    label={descriptorLabel}
+                    count={descriptorIssues.length}
+                    active={currentSection === 'descriptor'}
+                    onClick={() => setSection('descriptor')}
+                  />
+                  <RailItem
+                    icon={<StatusIcon ok={emlIssues.length === 0 && emlPresent} />}
+                    label={emlLabel}
+                    count={emlIssues.length}
+                    active={currentSection === 'eml'}
+                    onClick={() => setSection('eml')}
+                  />
+                  <div className="g-border-t g-border-slate-200 g-my-2" />
+                  <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
+                    <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                      <FormattedMessage id="dataset.validationReport.tables" defaultMessage="Tables" />{' '}
+                      ({resources.length})
+                    </span>
+                  </div>
+                  {resources.length > 0 && (
+                    <label className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1 g-text-xs g-text-slate-500 g-cursor-pointer">
+                      <Switch checked={onlyIssues} onCheckedChange={setOnlyIssues} />
+                      <FormattedMessage
+                        id="dataset.validationReport.onlyTablesWithIssues"
+                        defaultMessage="Only tables with issues"
+                      />
+                    </label>
+                  )}
+                  {tableItems.map((r) => {
+                    const n = issueCount(r);
+                    return (
+                      <RailItem
+                        key={r.name}
+                        icon={<StatusIcon ok={n === 0} blocking={n > 0} />}
+                        label={r.name}
+                        meta={(r.totalRows ?? 0).toLocaleString()}
+                        count={n}
+                        active={currentSection === `res:${r.name}`}
+                        onClick={() => setSection(`res:${r.name}`)}
+                      />
+                    );
+                  })}
+                </Card>
+              </AsideSticky>
+            </Aside>
+          )}
+          <div className="g-min-w-0">
+            <Card>
+              <CardContent topPadding>
+                {currentSection === 'summary' && (
+                  <SummaryDetail
+                    report={report}
+                    resources={resources}
+                    descriptorIssues={descriptorIssues}
+                    emlIssues={emlIssues}
+                    integrityIssueCount={integrityIssueCount}
+                  />
+                )}
+                {currentSection === 'descriptor' && (
+                  <DescriptorOrEmlDetail
+                    title={
+                      <FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="Descriptor" />
+                    }
+                    meta={
+                      <FormattedMessage
+                        id="dataset.validationReport.descriptorMeta"
+                        defaultMessage="{count, plural, =0 {no issues} one {# issue} other {# issues}} · schema and foreign key declarations"
+                        values={{ count: descriptorIssues.length }}
+                      />
+                    }
+                    issues={descriptorIssues}
+                    validMessageId="dataset.validationReport.descriptorValid"
+                    validDefaultMessage="No issues found in the descriptor."
+                  />
+                )}
+                {currentSection === 'eml' &&
+                  (!emlPresent ? (
+                    <NoRecords messageId="dataset.validationReport.emlNotPresent" />
+                  ) : (
+                    <DescriptorOrEmlDetail
+                      title={
+                        <FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />
+                      }
+                      meta={
+                        <FormattedMessage
+                          id="dataset.validationReport.emlMeta"
+                          defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
+                          values={{ count: emlIssues.length }}
+                        />
+                      }
+                      issues={emlIssues}
+                      validMessageId="dataset.validationReport.emlValid"
+                      validDefaultMessage="No issues found in the EML document."
+                    />
+                  ))}
+                {currentResource && <ResourceDetail resource={currentResource} />}
+              </CardContent>
+            </Card>
+          </div>
+        </SidebarLayout>
       </ArticleTextContainer>
     </ArticleContainer>
   );
