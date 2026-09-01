@@ -1,7 +1,7 @@
 import { NoRecords } from '@/components/noDataMessages';
+import { SearchInput } from '@/components/searchInput';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
 import { Switch } from '@/components/ui/switch';
@@ -286,6 +286,22 @@ function StatusLine({
   );
 }
 
+// An "all clear" notice, e.g. "no issues found in the descriptor" — green to read as a
+// pass, matching the green success-message treatment already used elsewhere in the app.
+function SuccessNote({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div
+      className={cn(
+        'g-flex g-items-center g-gap-2 g-p-4 g-rounded-lg g-border g-border-green-200 g-bg-green-50 g-text-sm g-text-green-700',
+        className
+      )}
+    >
+      <MdCheckCircle className="g-shrink-0 g-text-green-600" size={20} aria-hidden />
+      <span>{children}</span>
+    </div>
+  );
+}
+
 function Fact({
   label,
   value,
@@ -497,7 +513,7 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
             <AccordionContent className="g-pb-0 g-pt-0">
               <div className="g-overflow-x-auto g-border-t g-border-slate-200">
                 <Table>
-                  <TableHeader>
+                  <TableHeader className="g-bg-slate-50">
                     <TableRow>
                       <TableHead>
                         <FormattedMessage
@@ -536,10 +552,12 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
                           />
                         </TableCell>
                         <TableCell>{issue.message}</TableCell>
-                        <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-break-all">
+                        <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-whitespace-nowrap">
                           {issue.location}
                         </TableCell>
-                        <TableCell className="g-text-slate-600">{issue.detail ?? '—'}</TableCell>
+                        <TableCell className="g-font-mono g-text-xs g-text-slate-600 g-whitespace-nowrap">
+                          {issue.detail ?? '—'}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -570,11 +588,9 @@ function DescriptorOrEmlDetail({
     <div>
       <DetailHeader title={title} meta={meta} />
       {issues.length === 0 ? (
-        <Alert>
-          <AlertDescription>
-            <FormattedMessage id={validMessageId} defaultMessage={validDefaultMessage} />
-          </AlertDescription>
-        </Alert>
+        <SuccessNote>
+          <FormattedMessage id={validMessageId} defaultMessage={validDefaultMessage} />
+        </SuccessNote>
       ) : (
         <IssueGroups issues={issues} />
       )}
@@ -723,44 +739,71 @@ function ColumnStatsTable({
   columns: DwdpColumnAnalysis[];
   totalRows: number;
 }) {
+  const { formatMessage } = useIntl();
+  const [query, setQuery] = useState('');
+  const filtered = query
+    ? columns.filter((col) => (col.name ?? '').toLowerCase().includes(query.toLowerCase()))
+    : columns;
+
   return (
-    <div className="g-border g-border-slate-200 g-rounded g-overflow-hidden g-overflow-x-auto">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>
-              <FormattedMessage id="dataset.validationReport.field" defaultMessage="Field" />
-            </TableHead>
-            <TableHead>
-              <FormattedMessage id="dataset.validationReport.populated" defaultMessage="Populated" />
-            </TableHead>
-            <TableHead className="g-text-end">
-              <FormattedMessage
-                id="dataset.validationReport.uniqueValues"
-                defaultMessage="Unique values"
-              />
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {columns.map((col) => {
-            const populated = col.populatedValues ?? 0;
-            const pct = totalRows ? Math.round((populated / totalRows) * 100) : 0;
-            return (
-              <TableRow key={col.name}>
-                <TableCell className="g-font-mono g-text-xs">{col.name}</TableCell>
-                <TableCell>
-                  <div className="g-flex g-items-center g-gap-2">
-                    <Progress value={pct} className="g-w-16" />
-                    <span className="g-text-xs g-text-slate-500 g-w-9 g-shrink-0">{pct}%</span>
-                  </div>
-                </TableCell>
-                <TableCell className="g-text-end">{(col.uniqueValues ?? 0).toLocaleString()}</TableCell>
-              </TableRow>
-            );
+    <div>
+      <div className="g-flex g-items-center g-gap-3 g-mb-2">
+        <SearchInput
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={formatMessage({
+            id: 'dataset.validationReport.findField',
+            defaultMessage: 'Find a field',
           })}
-        </TableBody>
-      </Table>
+          className="g-w-full g-max-w-[240px] g-border g-border-slate-300 g-rounded-md g-bg-white g-px-3"
+          inputClassName="g-w-full"
+        />
+        <span className="g-ms-auto g-text-sm g-text-slate-500 g-shrink-0">
+          <FormattedMessage
+            id="dataset.validationReport.fieldsShown"
+            defaultMessage="{shown} of {total} fields"
+            values={{ shown: filtered.length, total: columns.length }}
+          />
+        </span>
+      </div>
+      <div className="g-border g-border-slate-200 g-rounded g-overflow-hidden g-overflow-x-auto g-bg-white">
+        <Table>
+          <TableHeader className="g-bg-slate-50">
+            <TableRow>
+              <TableHead>
+                <FormattedMessage id="dataset.validationReport.field" defaultMessage="Field" />
+              </TableHead>
+              <TableHead>
+                <FormattedMessage id="dataset.validationReport.populated" defaultMessage="Populated" />
+              </TableHead>
+              <TableHead className="g-text-end">
+                <FormattedMessage
+                  id="dataset.validationReport.uniqueValues"
+                  defaultMessage="Unique values"
+                />
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filtered.map((col) => {
+              const populated = col.populatedValues ?? 0;
+              const pct = totalRows ? Math.round((populated / totalRows) * 100) : 0;
+              return (
+                <TableRow key={col.name}>
+                  <TableCell className="g-font-mono g-text-xs">{col.name}</TableCell>
+                  <TableCell>
+                    <div className="g-flex g-items-center g-gap-2">
+                      <Progress value={pct} className="g-w-16" />
+                      <span className="g-text-xs g-text-slate-500 g-w-9 g-shrink-0">{pct}%</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="g-text-end">{(col.uniqueValues ?? 0).toLocaleString()}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
@@ -798,14 +841,12 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
         }
       />
       {violations.length === 0 ? (
-        <Alert className="g-mb-6">
-          <AlertDescription>
-            <FormattedMessage
-              id="dataset.validationReport.noIntegrityIssues"
-              defaultMessage="Keys, references and data types all check out."
-            />
-          </AlertDescription>
-        </Alert>
+        <SuccessNote className="g-mb-6">
+          <FormattedMessage
+            id="dataset.validationReport.noIntegrityIssues"
+            defaultMessage="Keys, references and data types all check out."
+          />
+        </SuccessNote>
       ) : (
         <div className="g-flex g-flex-col g-gap-2 g-mb-6">
           {violations.map((item, i) => (
