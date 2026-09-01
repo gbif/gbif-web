@@ -1,5 +1,4 @@
 import { NoRecords } from '@/components/noDataMessages';
-import { SeverityTag } from '@/components/severityTag';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -32,7 +31,14 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
-import { MdCheckCircle, MdError, MdErrorOutline } from 'react-icons/md';
+import {
+  MdCheckCircle,
+  MdError,
+  MdErrorOutline,
+  MdLinkOff,
+  MdTextFields,
+  MdVpnKey,
+} from 'react-icons/md';
 import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
 
@@ -154,6 +160,64 @@ function StatusIcon({ ok, blocking, size = 18 }: { ok: boolean; blocking?: boole
     />
   );
 }
+
+// A small round badge, e.g. a red circle with "!" for an error-severity group header, or a
+// red circle with a key/link/text icon in front of a table's key/type violation title.
+function RoundBadge({
+  glyph,
+  tone,
+  size = 18,
+}: {
+  glyph: React.ReactNode;
+  tone: 'error' | 'warning' | 'info';
+  size?: number;
+}) {
+  const bg =
+    tone === 'error' ? 'g-bg-red-600' : tone === 'warning' ? 'g-bg-amber-500' : 'g-bg-blue-500';
+  return (
+    <span
+      className={cn(
+        'g-inline-flex g-items-center g-justify-center g-shrink-0 g-rounded-full g-text-white',
+        bg
+      )}
+      style={{ width: size, height: size }}
+      aria-hidden
+    >
+      {glyph}
+    </span>
+  );
+}
+
+const SEVERITY_TONE: Record<string, 'error' | 'warning' | 'info'> = {
+  ERROR: 'error',
+  WARNING: 'warning',
+  INFO: 'info',
+};
+
+function SeverityIcon({ severity, size = 18 }: { severity?: string | null; size?: number }) {
+  const key = severity ?? 'INFO';
+  const tone = SEVERITY_TONE[key] ?? 'info';
+  return (
+    <RoundBadge
+      tone={tone}
+      size={size}
+      glyph={
+        <span className="g-text-[10px] g-font-bold g-leading-none">{key === 'INFO' ? 'i' : '!'}</span>
+      }
+    />
+  );
+}
+
+function severityTint(severity: string): string {
+  if (severity === 'ERROR') return 'g-bg-red-50';
+  if (severity === 'WARNING') return 'g-bg-amber-50';
+  return 'g-bg-blue-50';
+}
+
+// Card look shared by the issue-group and per-table violation cards, matching the design's
+// white, bordered, shadowed "card" surface (the same shadow token largeCard.tsx's Card uses).
+const ISSUE_CARD_CLASS =
+  'g-rounded g-border g-border-slate-200 g-bg-white g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)] g-overflow-hidden g-mb-0';
 
 function RailItem({
   icon,
@@ -417,70 +481,74 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
 
   return (
     <Accordion type="multiple" defaultValue={[groups[0][0]]} className="g-flex g-flex-col g-gap-2">
-      {groups.map(([type, list]) => (
-        <AccordionItem
-          key={type}
-          value={type}
-          className="g-border g-border-slate-200 g-rounded g-px-3 g-mb-0"
-        >
-          <AccordionTrigger className="hover:g-no-underline">
-            <span className="g-flex g-items-center g-gap-2 g-text-start">
-              <SeverityTag severity={worstSeverity(list)} />
-              <span className="g-font-medium">{humanizeViolationType(type)}</span>
-              <span className="g-text-slate-500 g-text-xs">({list.length})</span>
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="g-overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>
-                      <FormattedMessage
-                        id="dataset.validationReport.severityColumn"
-                        defaultMessage="Severity"
-                      />
-                    </TableHead>
-                    <TableHead>
-                      <FormattedMessage
-                        id="dataset.validationReport.messageColumn"
-                        defaultMessage="Problem"
-                      />
-                    </TableHead>
-                    <TableHead>
-                      <FormattedMessage
-                        id="dataset.validationReport.locationColumn"
-                        defaultMessage="Where"
-                      />
-                    </TableHead>
-                    <TableHead>
-                      <FormattedMessage
-                        id="dataset.validationReport.detailColumn"
-                        defaultMessage="Detail"
-                      />
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {list.map((issue, i) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <TableRow key={i}>
-                      <TableCell>
-                        <SeverityTag severity={issue.severity} />
-                      </TableCell>
-                      <TableCell>{issue.message}</TableCell>
-                      <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-break-all">
-                        {issue.location}
-                      </TableCell>
-                      <TableCell className="g-text-slate-600">{issue.detail ?? '—'}</TableCell>
+      {groups.map(([type, list]) => {
+        const worst = worstSeverity(list);
+        return (
+          <AccordionItem key={type} value={type} className={ISSUE_CARD_CLASS}>
+            <AccordionTrigger
+              className={cn('g-px-3.5 g-py-3 hover:g-no-underline', severityTint(worst))}
+            >
+              <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
+                <SeverityIcon severity={worst} />
+                <span className="g-font-semibold g-text-slate-900">{humanizeViolationType(type)}</span>
+                <span className="g-ms-auto g-text-sm g-text-slate-500">{list.length}</span>
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="g-pb-0 g-pt-0">
+              <div className="g-overflow-x-auto g-border-t g-border-slate-200">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>
+                        <FormattedMessage
+                          id="dataset.validationReport.severityColumn"
+                          defaultMessage="Severity"
+                        />
+                      </TableHead>
+                      <TableHead>
+                        <FormattedMessage
+                          id="dataset.validationReport.messageColumn"
+                          defaultMessage="Problem"
+                        />
+                      </TableHead>
+                      <TableHead>
+                        <FormattedMessage
+                          id="dataset.validationReport.locationColumn"
+                          defaultMessage="Where"
+                        />
+                      </TableHead>
+                      <TableHead>
+                        <FormattedMessage
+                          id="dataset.validationReport.detailColumn"
+                          defaultMessage="Detail"
+                        />
+                      </TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
+                  </TableHeader>
+                  <TableBody>
+                    {list.map((issue, i) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <TableRow key={i}>
+                        <TableCell>
+                          <FormattedMessage
+                            id={`dataset.validationReport.severity.${issue.severity ?? 'INFO'}`}
+                            defaultMessage={issue.severity ?? 'Info'}
+                          />
+                        </TableCell>
+                        <TableCell>{issue.message}</TableCell>
+                        <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-break-all">
+                          {issue.location}
+                        </TableCell>
+                        <TableCell className="g-text-slate-600">{issue.detail ?? '—'}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        );
+      })}
     </Accordion>
   );
 }
@@ -518,15 +586,21 @@ function DescriptorOrEmlDetail({
 
 type ViolationKind = 'pk' | 'fk' | 'dt';
 
-const VIOLATION_LABEL: Record<ViolationKind, { id: string; defaultMessage: string }> = {
-  pk: { id: 'dataset.validationReport.primaryKeyViolation', defaultMessage: 'Primary key is not unique' },
+const VIOLATION_LABEL: Record<ViolationKind, { id: string; defaultMessage: string; icon: React.ReactNode }> = {
+  pk: {
+    id: 'dataset.validationReport.primaryKeyViolation',
+    defaultMessage: 'Primary key is not unique',
+    icon: <MdVpnKey size={11} />,
+  },
   fk: {
     id: 'dataset.validationReport.foreignKeyViolation',
     defaultMessage: 'Foreign key has no matching row',
+    icon: <MdLinkOff size={11} />,
   },
   dt: {
     id: 'dataset.validationReport.dataTypeViolation',
     defaultMessage: 'Values do not match the declared type',
+    icon: <MdTextFields size={11} />,
   },
 };
 
@@ -551,18 +625,22 @@ function ViolationCard({
 
   return (
     <Accordion type="single" collapsible defaultValue="item">
-      <AccordionItem value="item" className="g-border g-border-red-200 g-rounded g-overflow-hidden g-mb-0">
-        <AccordionTrigger className="g-bg-red-50 g-px-3 hover:g-no-underline">
-          <span className="g-flex g-items-center g-gap-2 g-flex-1 g-text-start">
+      <AccordionItem
+        value="item"
+        className="g-rounded g-border g-border-red-200 g-bg-white g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)] g-overflow-hidden g-mb-0"
+      >
+        <AccordionTrigger className="g-bg-red-50 g-px-3.5 g-py-3 hover:g-no-underline">
+          <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
+            <RoundBadge tone="error" glyph={VIOLATION_LABEL[kind].icon} />
             <span className="g-font-semibold g-text-red-800">
               <FormattedMessage id={VIOLATION_LABEL[kind].id} defaultMessage={VIOLATION_LABEL[kind].defaultMessage} />
             </span>
-            <span className="g-ms-auto g-text-xs g-font-medium g-text-red-800 g-bg-red-100 g-rounded-full g-px-2 g-py-0.5">
+            <span className="g-ms-auto g-text-sm g-font-medium g-text-red-800">
               {violation.violationCount ?? 0}
             </span>
           </span>
         </AccordionTrigger>
-        <AccordionContent className="g-px-3">
+        <AccordionContent className="g-px-3.5 g-pt-3 g-pb-4 g-border-t g-border-red-100">
           <div className="g-flex g-flex-wrap g-gap-x-8 g-gap-y-3 g-text-sm g-mb-3">
             {fields.length > 0 && (
               <div>
@@ -793,7 +871,10 @@ export function DatasetKeyValidationReport() {
         <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
           <Card>
             <CardContent topPadding>
-              <NoRecords messageId="dataset.validationReport.noReport" />
+              <NoRecords
+                messageId="dataset.validationReport.noReport"
+                defaultMessage="No validation report is available for this dataset yet."
+              />
             </CardContent>
           </Card>
         </ArticleTextContainer>
@@ -801,7 +882,11 @@ export function DatasetKeyValidationReport() {
     );
   }
 
-  const emlPresent = result?.emlValidation?.emlPresent !== false;
+  // EML metadata is optional for a data package, so its absence is not itself an issue to
+  // flag: the EML rail item/tab is only shown when a document was actually found. A direct
+  // link to ?section=eml on a dataset without one still gets an explanation, just without
+  // the surrounding rail/card chrome (see the early return below).
+  const hasEml = result?.emlValidation?.emlPresent === true;
 
   const summaryLabel = formatMessage({
     id: 'dataset.validationReport.summaryShort',
@@ -823,6 +908,19 @@ export function DatasetKeyValidationReport() {
     : undefined;
   const currentSection = section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
 
+  if (currentSection === 'eml' && !hasEml) {
+    return (
+      <ArticleContainer className="g-bg-slate-100 g-pt-4">
+        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
+          <NoRecords
+            messageId="dataset.validationReport.emlNotPresent"
+            defaultMessage="No EML document was found for this dataset."
+          />
+        </ArticleTextContainer>
+      </ArticleContainer>
+    );
+  }
+
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
@@ -841,7 +939,11 @@ export function DatasetKeyValidationReport() {
               <option value="descriptor">
                 {descriptorIssues.length ? `${descriptorLabel} (${descriptorIssues.length})` : descriptorLabel}
               </option>
-              <option value="eml">{emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}</option>
+              {hasEml && (
+                <option value="eml">
+                  {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
+                </option>
+              )}
               {resources.map((r) => {
                 const n = issueCount(r);
                 return (
@@ -883,13 +985,15 @@ export function DatasetKeyValidationReport() {
                     active={currentSection === 'descriptor'}
                     onClick={() => setSection('descriptor')}
                   />
-                  <RailItem
-                    icon={<StatusIcon ok={emlIssues.length === 0 && emlPresent} />}
-                    label={emlLabel}
-                    count={emlIssues.length}
-                    active={currentSection === 'eml'}
-                    onClick={() => setSection('eml')}
-                  />
+                  {hasEml && (
+                    <RailItem
+                      icon={<StatusIcon ok={emlIssues.length === 0} />}
+                      label={emlLabel}
+                      count={emlIssues.length}
+                      active={currentSection === 'eml'}
+                      onClick={() => setSection('eml')}
+                    />
+                  )}
                   <div className="g-border-t g-border-slate-200 g-my-2" />
                   <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
                     <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
@@ -925,9 +1029,12 @@ export function DatasetKeyValidationReport() {
             </Aside>
           )}
           <div className="g-min-w-0">
-            <Card>
-              <CardContent topPadding>
-                {currentSection === 'summary' && (
+            {currentSection === 'summary' && (
+              // Only the Summary view gets the white card surface, matching the design: the
+              // other sections sit directly on the page background, with each issue/table row
+              // providing its own card.
+              <Card>
+                <CardContent topPadding>
                   <SummaryDetail
                     report={report}
                     resources={resources}
@@ -935,47 +1042,40 @@ export function DatasetKeyValidationReport() {
                     emlIssues={emlIssues}
                     integrityIssueCount={integrityIssueCount}
                   />
-                )}
-                {currentSection === 'descriptor' && (
-                  <DescriptorOrEmlDetail
-                    title={
-                      <FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="Descriptor" />
-                    }
-                    meta={
-                      <FormattedMessage
-                        id="dataset.validationReport.descriptorMeta"
-                        defaultMessage="{count, plural, =0 {no issues} one {# issue} other {# issues}} · schema and foreign key declarations"
-                        values={{ count: descriptorIssues.length }}
-                      />
-                    }
-                    issues={descriptorIssues}
-                    validMessageId="dataset.validationReport.descriptorValid"
-                    validDefaultMessage="No issues found in the descriptor."
+                </CardContent>
+              </Card>
+            )}
+            {currentSection === 'descriptor' && (
+              <DescriptorOrEmlDetail
+                title={<FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="Descriptor" />}
+                meta={
+                  <FormattedMessage
+                    id="dataset.validationReport.descriptorMeta"
+                    defaultMessage="{count, plural, =0 {no issues} one {# issue} other {# issues}} · schema and foreign key declarations"
+                    values={{ count: descriptorIssues.length }}
                   />
-                )}
-                {currentSection === 'eml' &&
-                  (!emlPresent ? (
-                    <NoRecords messageId="dataset.validationReport.emlNotPresent" />
-                  ) : (
-                    <DescriptorOrEmlDetail
-                      title={
-                        <FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />
-                      }
-                      meta={
-                        <FormattedMessage
-                          id="dataset.validationReport.emlMeta"
-                          defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
-                          values={{ count: emlIssues.length }}
-                        />
-                      }
-                      issues={emlIssues}
-                      validMessageId="dataset.validationReport.emlValid"
-                      validDefaultMessage="No issues found in the EML document."
-                    />
-                  ))}
-                {currentResource && <ResourceDetail resource={currentResource} />}
-              </CardContent>
-            </Card>
+                }
+                issues={descriptorIssues}
+                validMessageId="dataset.validationReport.descriptorValid"
+                validDefaultMessage="No issues found in the descriptor."
+              />
+            )}
+            {currentSection === 'eml' && (
+              <DescriptorOrEmlDetail
+                title={<FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />}
+                meta={
+                  <FormattedMessage
+                    id="dataset.validationReport.emlMeta"
+                    defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
+                    values={{ count: emlIssues.length }}
+                  />
+                }
+                issues={emlIssues}
+                validMessageId="dataset.validationReport.emlValid"
+                validDefaultMessage="No issues found in the EML document."
+              />
+            )}
+            {currentResource && <ResourceDetail resource={currentResource} />}
           </div>
         </SidebarLayout>
       </ArticleTextContainer>
