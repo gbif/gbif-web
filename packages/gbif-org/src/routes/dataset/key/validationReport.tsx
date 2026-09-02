@@ -2,9 +2,9 @@ import { NoRecords } from '@/components/noDataMessages';
 import { SearchInput } from '@/components/searchInput';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
-import { Switch } from '@/components/ui/switch';
 import {
   Table,
   TableBody,
@@ -26,6 +26,7 @@ import {
 import useAbove from '@/hooks/useAbove';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -33,6 +34,7 @@ import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
 import {
   MdCheckCircle,
+  MdDownload,
   MdError,
   MdErrorOutline,
   MdLinkOff,
@@ -247,21 +249,32 @@ function RailItem({
     >
       {icon}
       <span className="g-flex-1 g-truncate">{label}</span>
-      {meta && <span className="g-text-xs g-text-slate-400 g-shrink-0">{meta}</span>}
       {!!count && (
         <span className="g-inline-flex g-items-center g-shrink-0 g-rounded-full g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-px-2 g-py-0.5">
           {count}
         </span>
       )}
+      {meta && <span className="g-text-xs g-text-slate-400 g-shrink-0">{meta}</span>}
     </button>
   );
 }
 
-function DetailHeader({ title, meta }: { title: React.ReactNode; meta?: React.ReactNode }) {
+function DetailHeader({
+  title,
+  meta,
+  action,
+}: {
+  title: React.ReactNode;
+  meta?: React.ReactNode;
+  action?: React.ReactNode;
+}) {
   return (
-    <div className="g-mb-4">
-      <h2 className="g-text-lg g-font-semibold g-text-slate-900">{title}</h2>
-      {meta && <div className="g-text-sm g-text-slate-500 g-mt-0.5">{meta}</div>}
+    <div className="g-flex g-items-start g-justify-between g-gap-4 g-mb-4">
+      <div>
+        <h2 className="g-text-lg g-font-semibold g-text-slate-900">{title}</h2>
+        {meta && <div className="g-text-sm g-text-slate-500 g-mt-0.5">{meta}</div>}
+      </div>
+      {action && <div className="g-shrink-0">{action}</div>}
     </div>
   );
 }
@@ -348,12 +361,26 @@ function SummaryDetail({
   const totalRows = resources.reduce((sum, r) => sum + (r.totalRows ?? 0), 0);
   const tablesWithIssues = resources.filter((r) => issueCount(r) > 0).length;
   const metadataIssueCount = descriptorIssues.length + emlIssues.length;
+  const reportUrl = `${import.meta.env.PUBLIC_API_V1}/dataset/${encodeURIComponent(report.datasetKey)}/validationreport${
+    report.attempt ? `/${encodeURIComponent(report.attempt)}` : ''
+  }`;
 
   return (
     <div>
       <DetailHeader
         title={
           <FormattedMessage id="dataset.validationReport.summary" defaultMessage="Validation summary" />
+        }
+        action={
+          <Button asChild variant="outline" size="sm">
+            <DynamicLink to={reportUrl}>
+              <MdDownload size={16} className="g-me-1.5" />
+              <FormattedMessage
+                id="dataset.validationReport.downloadReport"
+                defaultMessage="Download report"
+              />
+            </DynamicLink>
+          </Button>
         }
       />
       <div className="g-flex g-flex-col g-gap-4 g-mb-6">
@@ -869,7 +896,6 @@ export function DatasetKeyValidationReport() {
   const { formatMessage } = useIntl();
   const { dataset } = useDatasetKeyLoaderData().data;
   const showRail = useAbove(900);
-  const [onlyIssues, setOnlyIssues] = useState(false);
 
   const { data, load, loading } = useQuery<
     DatasetValidationReportQuery,
@@ -942,8 +968,6 @@ export function DatasetKeyValidationReport() {
     id: 'dataset.validationReport.eml',
     defaultMessage: 'EML metadata',
   });
-
-  const tableItems = onlyIssues ? resources.filter((r) => issueCount(r) > 0) : resources;
 
   const currentResource = section.startsWith('res:')
     ? resources.find((r) => `res:${r.name}` === section)
@@ -1048,16 +1072,7 @@ export function DatasetKeyValidationReport() {
                       ({resources.length})
                     </span>
                   </div>
-                  {resources.length > 0 && (
-                    <label className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1 g-text-xs g-text-slate-500 g-cursor-pointer">
-                      <Switch checked={onlyIssues} onCheckedChange={setOnlyIssues} />
-                      <FormattedMessage
-                        id="dataset.validationReport.onlyTablesWithIssues"
-                        defaultMessage="Only tables with issues"
-                      />
-                    </label>
-                  )}
-                  {tableItems.map((r) => {
+                  {resources.map((r) => {
                     const n = issueCount(r);
                     return (
                       <RailItem
