@@ -1,6 +1,7 @@
 import { NoRecords } from '@/components/noDataMessages';
 import { SearchInput } from '@/components/searchInput';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { useUser } from '@/contexts/UserContext';
 import {
   Accordion,
   AccordionContent,
@@ -30,6 +31,8 @@ import {
   DatasetCrawlAttemptQueryVariables,
   DatasetValidationReportQuery,
   DatasetValidationReportQueryVariables,
+  DatasetValidationReportRawQuery,
+  DatasetValidationReportRawQueryVariables,
   DwdpColumnAnalysis,
   DwdpDataTypeViolation,
   DwdpForeignKeyViolation,
@@ -38,6 +41,7 @@ import {
   DwdpValidationIssue,
 } from '@/gql/graphql';
 import useAbove from '@/hooks/useAbove';
+import { useIsTrustedDatasetContact } from '@/hooks/useIsTrustedDatasetContact';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -126,6 +130,26 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+// A second, lazy-loaded query for the raw, unshaped report — only fetched when the report's
+// version isn't one this schema/UI was built against, so the common case never pays for it.
+const VALIDATION_REPORT_RAW_QUERY = /* GraphQL */ `
+  query DatasetValidationReportRaw($datasetKey: ID!, $attempt: String) {
+    dwdpValidationReport(datasetKey: $datasetKey, attempt: $attempt) {
+      raw
+    }
+  }
+`;
+
+// The only report shape this UI's rendering was built against and verified with. A missing
+// version (older reports predate the field) or a different major version means the report may
+// not match what these components expect, so it's shown as a raw JSON blob instead.
+const SUPPORTED_REPORT_MAJOR_VERSION = 1;
+
+function isSupportedReportVersion(version?: string | null): boolean {
+  if (!version) return false;
+  return parseInt(version.split('.')[0], 10) === SUPPORTED_REPORT_MAJOR_VERSION;
+}
 
 // The crawler tags the dataset with its current crawl attempt number, which is also the
 // attempt number of the latest validation report. Attempts are a plain incrementing integer
@@ -1039,12 +1063,104 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
   );
 }
 
+/* ---------- unsupported report version ---------- */
+
+// The rail's short explanation for why it isn't showing the normal section list — used both
+// when there's no report to show and when the report's version can't be rendered here. The
+// AttemptPicker stays available above this (in the caller), since switching to a different
+// attempt is the one useful thing left to do in either case.
+function RailNote({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="g-flex g-items-start g-gap-2 g-px-2.5 g-py-2 g-text-sm g-text-slate-500">
+      <MdErrorOutline className="g-shrink-0 g-mt-0.5 g-text-amber-500" size={16} aria-hidden />
+      <span>{children}</span>
+    </div>
+  );
+}
+
+// Shown in the content area instead of the normal section cards when the report's version is
+// missing or isn't the one this page's rendering was built against — there's no guarantee the
+// shaped fields these components expect still mean the same thing, so fall back to the raw
+// report data.
+function UnsupportedReportContent({
+  datasetKey,
+  attempt,
+}: {
+  datasetKey: string;
+  attempt?: string;
+}) {
+  const { data, load, loading } = useQuery<
+    DatasetValidationReportRawQuery,
+    DatasetValidationReportRawQueryVariables
+  >(VALIDATION_REPORT_RAW_QUERY, { throwAllErrors: false, lazyLoad: true, notifyOnErrors: true });
+
+  useEffect(() => {
+    load({ variables: { datasetKey, attempt } });
+  }, [load, datasetKey, attempt]);
+
+  const raw = data?.dwdpValidationReport?.raw;
+  const reportUrl = `${import.meta.env.PUBLIC_API_V1}/dataset/${encodeURIComponent(datasetKey)}/validationreport${
+    attempt ? `/${encodeURIComponent(attempt)}` : ''
+  }`;
+
+  return (
+    <div>
+      <Card className="g-mb-4">
+        <CardContent topPadding>
+          <div className="g-flex g-items-start g-justify-between g-gap-4">
+            <StatusLine
+              icon={<MdErrorOutline className="g-text-amber-500" size={20} aria-hidden />}
+              title={
+                <span className="g-font-semibold">
+                  <FormattedMessage
+                    id="dataset.validationReport.unsupportedVersionTitle"
+                    defaultMessage="This report uses an older format"
+                  />
+                </span>
+              }
+              note={
+                <FormattedMessage
+                  id="dataset.validationReport.unsupportedVersion"
+                  defaultMessage="This report is not generated using the current version. Showing the raw report data below instead."
+                />
+              }
+            />
+            <Button asChild variant="outline" size="sm" className="g-shrink-0">
+              <DynamicLink to={reportUrl}>
+                <MdDownload size={16} className="g-me-1.5" />
+                <FormattedMessage
+                  id="dataset.validationReport.downloadReport"
+                  defaultMessage="Download report"
+                />
+              </DynamicLink>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+      {loading || !data ? (
+        <CardListSkeleton />
+      ) : (
+        <div className="g-border g-border-slate-200 g-rounded g-bg-white g-overflow-auto g-max-h-[70vh]">
+          <pre className="g-font-mono g-text-xs g-p-4 g-whitespace-pre-wrap g-break-words">
+            {JSON.stringify(raw, null, 2)}
+          </pre>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ---------- page ---------- */
 
 export function DatasetKeyValidationReport() {
   const { formatMessage } = useIntl();
   const { dataset } = useDatasetKeyLoaderData().data;
   const showRail = useAbove(900);
+  // Same "trusted contact" check as the About page's registry-management section. The tab
+  // itself is only offered to trusted users (see datasetKey.tsx), but this route is still
+  // reachable directly by URL, so it needs its own gate too.
+  const { isTrusted } = useIsTrustedDatasetContact(dataset.volatileContributors);
+  const { isLoggedIn, isLoading: userLoading } = useUser();
 
   const {
     data: crawlData,
@@ -1121,6 +1237,42 @@ export function DatasetKeyValidationReport() {
     hideDefault: true,
   });
 
+  // Not trusted (or the logged-in user hasn't resolved yet, which defaults to not-trusted so
+  // nothing flashes before hiding) — leave the dataset header/tabs from the parent route as
+  // they are and render an empty body, so the user can navigate away or log in.
+  if (!isTrusted) {
+    // The logged-in user is only known client-side (fetched after mount), so while that's
+    // still in flight, show the same loading skeleton as the rest of the page rather than
+    // flashing a "please log in"/"not authorized" message at a user who turns out to be
+    // trusted once their identity resolves.
+    if (userLoading) {
+      return (
+        <ArticleContainer className="g-bg-slate-100 g-pt-4">
+          <ArticleTextContainer className="g-max-w-screen-xl">
+            <CardListSkeleton />
+          </ArticleTextContainer>
+        </ArticleContainer>
+      );
+    }
+    return (
+      <ArticleContainer className="g-bg-slate-100 g-pt-4">
+        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
+          {isLoggedIn ? (
+            <NoRecords
+              messageId="dataset.validationReport.notAuthorized"
+              defaultMessage="You don't have access to this dataset's validation reports."
+            />
+          ) : (
+            <NoRecords
+              messageId="dataset.validationReport.pleaseLogIn"
+              defaultMessage="Please log in to see validation reports."
+            />
+          )}
+        </ArticleTextContainer>
+      </ArticleContainer>
+    );
+  }
+
   if (loading || !data) {
     return (
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -1131,28 +1283,22 @@ export function DatasetKeyValidationReport() {
     );
   }
 
-  if (!report) {
-    return (
-      <ArticleContainer className="g-bg-slate-100 g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
-          <Card>
-            <CardContent topPadding>
-              <NoRecords
-                messageId="dataset.validationReport.noReport"
-                defaultMessage="No validation report is available for this dataset yet."
-              />
-            </CardContent>
-          </Card>
-        </ArticleTextContainer>
-      </ArticleContainer>
-    );
-  }
+  // Neither a missing report (nothing found for the selected attempt) nor a missing/
+  // unrecognised report version guarantee the normal rail sections and shaped fields below
+  // apply — the rail keeps just the attempt picker in both cases, so users can switch to a
+  // different attempt, while the content area falls back to an explanation (see `report` and
+  // `isVersionSupported` usage further down).
+  const isVersionSupported = !!report && isSupportedReportVersion(report.version);
 
   // EML metadata is optional for a data package, so its absence is not itself an issue to
-  // flag: the EML rail item/tab is only shown when a document was actually found. A direct
-  // link to ?section=eml on a dataset without one still gets an explanation, just without
+  // flag. But the validator can still report issues against an absent/unreadable document
+  // (e.g. why it couldn't be read), so the EML rail item/tab is shown whenever there's either
+  // a present document or issues to look at — otherwise those issues would be counted in the
+  // summary's "metadata issues" total with nowhere in the UI to actually see them. A direct
+  // link to ?section=eml on a dataset with neither still gets an explanation, just without
   // the surrounding rail/card chrome (see the early return below).
   const hasEml = result?.emlValidation?.isPresent === true;
+  const showEmlSection = hasEml || emlIssues.length > 0;
 
   const summaryLabel = formatMessage({
     id: 'dataset.validationReport.summaryShort',
@@ -1177,7 +1323,7 @@ export function DatasetKeyValidationReport() {
   const currentSection =
     section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
 
-  if (currentSection === 'eml' && !hasEml) {
+  if (isVersionSupported && currentSection === 'eml' && !showEmlSection) {
     return (
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
         <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
@@ -1211,38 +1357,58 @@ export function DatasetKeyValidationReport() {
                 />
               </div>
             )}
-            <label htmlFor="validation-report-section-select" className="g-sr-only">
-              <FormattedMessage
-                id="dataset.validationReport.selectSection"
-                defaultMessage="Select report section"
-              />
-            </label>
-            <select
-              id="validation-report-section-select"
-              value={currentSection}
-              onChange={(e) => setSection(e.target.value)}
-              className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
-            >
-              <option value="summary">{summaryLabel}</option>
-              <option value="descriptor">
-                {descriptorIssues.length
-                  ? `${descriptorLabel} (${descriptorIssues.length})`
-                  : descriptorLabel}
-              </option>
-              {hasEml && (
-                <option value="eml">
-                  {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
-                </option>
-              )}
-              {resources.map((r) => {
-                const n = issueCount(r);
-                return (
-                  <option key={r.name} value={`res:${r.name}`}>
-                    {n ? `${r.name} (${n})` : r.name}
+            {!report && (
+              <RailNote>
+                <FormattedMessage
+                  id="dataset.validationReport.noReport"
+                  defaultMessage="No validation report is available."
+                />
+              </RailNote>
+            )}
+            {report && !isVersionSupported && (
+              <RailNote>
+                <FormattedMessage
+                  id="dataset.validationReport.unsupportedVersionRailNote"
+                  defaultMessage="This report uses an older format that can't be shown here."
+                />
+              </RailNote>
+            )}
+            {isVersionSupported && (
+              <>
+                <label htmlFor="validation-report-section-select" className="g-sr-only">
+                  <FormattedMessage
+                    id="dataset.validationReport.selectSection"
+                    defaultMessage="Select report section"
+                  />
+                </label>
+                <select
+                  id="validation-report-section-select"
+                  value={currentSection}
+                  onChange={(e) => setSection(e.target.value)}
+                  className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
+                >
+                  <option value="summary">{summaryLabel}</option>
+                  <option value="descriptor">
+                    {descriptorIssues.length
+                      ? `${descriptorLabel} (${descriptorIssues.length})`
+                      : descriptorLabel}
                   </option>
-                );
-              })}
-            </select>
+                  {showEmlSection && (
+                    <option value="eml">
+                      {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
+                    </option>
+                  )}
+                  {resources.map((r) => {
+                    const n = issueCount(r);
+                    return (
+                      <option key={r.name} value={`res:${r.name}`}>
+                        {n ? `${r.name} (${n})` : r.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </>
+            )}
           </div>
         )}
 
@@ -1270,63 +1436,95 @@ export function DatasetKeyValidationReport() {
                       />
                     </span>
                   </div>
-                  <RailItem
-                    icon={
-                      <StatusIcon
-                        ok={integrityIssueCount === 0 && metadataIssueCount === 0}
-                        blocking={integrityIssueCount > 0}
-                      />
-                    }
-                    label={summaryLabel}
-                    active={currentSection === 'summary'}
-                    onClick={() => setSection('summary')}
-                  />
-                  <RailItem
-                    icon={<StatusIcon ok={descriptorIssues.length === 0} />}
-                    label={descriptorLabel}
-                    count={descriptorIssues.length}
-                    active={currentSection === 'descriptor'}
-                    onClick={() => setSection('descriptor')}
-                  />
-                  {hasEml && (
-                    <RailItem
-                      icon={<StatusIcon ok={emlIssues.length === 0} />}
-                      label={emlLabel}
-                      count={emlIssues.length}
-                      active={currentSection === 'eml'}
-                      onClick={() => setSection('eml')}
-                    />
-                  )}
-                  <div className="g-border-t g-border-slate-200 g-my-2" />
-                  <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
-                    <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                      <FormattedMessage
-                        id="dataset.validationReport.tables"
-                        defaultMessage="Tables"
-                      />{' '}
-                      ({resources.length})
-                    </span>
-                  </div>
-                  {resources.map((r) => {
-                    const n = issueCount(r);
-                    return (
+                  {isVersionSupported ? (
+                    <>
                       <RailItem
-                        key={r.name}
-                        icon={<StatusIcon ok={n === 0} blocking={n > 0} />}
-                        label={r.name}
-                        meta={(r.totalRows ?? 0).toLocaleString()}
-                        count={n}
-                        active={currentSection === `res:${r.name}`}
-                        onClick={() => setSection(`res:${r.name}`)}
+                        icon={
+                          <StatusIcon
+                            ok={integrityIssueCount === 0 && metadataIssueCount === 0}
+                            blocking={integrityIssueCount > 0}
+                          />
+                        }
+                        label={summaryLabel}
+                        active={currentSection === 'summary'}
+                        onClick={() => setSection('summary')}
                       />
-                    );
-                  })}
+                      <RailItem
+                        icon={<StatusIcon ok={descriptorIssues.length === 0} />}
+                        label={descriptorLabel}
+                        count={descriptorIssues.length}
+                        active={currentSection === 'descriptor'}
+                        onClick={() => setSection('descriptor')}
+                      />
+                      {showEmlSection && (
+                        <RailItem
+                          icon={<StatusIcon ok={emlIssues.length === 0} />}
+                          label={emlLabel}
+                          count={emlIssues.length}
+                          active={currentSection === 'eml'}
+                          onClick={() => setSection('eml')}
+                        />
+                      )}
+                      <div className="g-border-t g-border-slate-200 g-my-2" />
+                      <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
+                        <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                          <FormattedMessage
+                            id="dataset.validationReport.tables"
+                            defaultMessage="Tables"
+                          />{' '}
+                          ({resources.length})
+                        </span>
+                      </div>
+                      {resources.map((r) => {
+                        const n = issueCount(r);
+                        return (
+                          <RailItem
+                            key={r.name}
+                            icon={<StatusIcon ok={n === 0} blocking={n > 0} />}
+                            label={r.name}
+                            meta={(r.totalRows ?? 0).toLocaleString()}
+                            count={n}
+                            active={currentSection === `res:${r.name}`}
+                            onClick={() => setSection(`res:${r.name}`)}
+                          />
+                        );
+                      })}
+                    </>
+                  ) : !report ? (
+                    <RailNote>
+                      <FormattedMessage
+                        id="dataset.validationReport.noReport"
+                        defaultMessage="No validation report is available."
+                      />
+                    </RailNote>
+                  ) : (
+                    <RailNote>
+                      <FormattedMessage
+                        id="dataset.validationReport.unsupportedVersionRailNote"
+                        defaultMessage="This report uses an older format that can't be shown here."
+                      />
+                    </RailNote>
+                  )}
                 </Card>
               </AsideSticky>
             </Aside>
           )}
           <div className="g-min-w-0">
-            {currentSection === 'summary' && (
+            {!report && (
+              // Matches how empty states are shown elsewhere: no card, just the message on
+              // the page background.
+              <NoRecords
+                messageId="dataset.validationReport.noReport"
+                defaultMessage="No validation report is available."
+              />
+            )}
+            {report && !isVersionSupported && (
+              <UnsupportedReportContent
+                datasetKey={dataset.key}
+                attempt={report.attempt ?? undefined}
+              />
+            )}
+            {report && isVersionSupported && currentSection === 'summary' && (
               // Only the Summary view gets the white card surface, matching the design: the
               // other sections sit directly on the page background, with each issue/table row
               // providing its own card.
@@ -1342,7 +1540,7 @@ export function DatasetKeyValidationReport() {
                 </CardContent>
               </Card>
             )}
-            {currentSection === 'descriptor' && (
+            {isVersionSupported && currentSection === 'descriptor' && (
               <DescriptorOrEmlDetail
                 title={
                   <FormattedMessage
@@ -1362,7 +1560,7 @@ export function DatasetKeyValidationReport() {
                 validDefaultMessage="No issues found in the descriptor."
               />
             )}
-            {currentSection === 'eml' && (
+            {isVersionSupported && currentSection === 'eml' && (
               <DescriptorOrEmlDetail
                 title={
                   <FormattedMessage
@@ -1371,18 +1569,26 @@ export function DatasetKeyValidationReport() {
                   />
                 }
                 meta={
-                  <FormattedMessage
-                    id="dataset.validationReport.emlMeta"
-                    defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
-                    values={{ count: emlIssues.length }}
-                  />
+                  hasEml ? (
+                    <FormattedMessage
+                      id="dataset.validationReport.emlMeta"
+                      defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
+                      values={{ count: emlIssues.length }}
+                    />
+                  ) : (
+                    <FormattedMessage
+                      id="dataset.validationReport.emlMetaNotPresent"
+                      defaultMessage="{count, plural, one {Not present · # issue} other {Not present · # issues}}"
+                      values={{ count: emlIssues.length }}
+                    />
+                  )
                 }
                 issues={emlIssues}
                 validMessageId="dataset.validationReport.emlValid"
                 validDefaultMessage="No issues found in the EML document."
               />
             )}
-            {currentResource && <ResourceDetail resource={currentResource} />}
+            {isVersionSupported && currentResource && <ResourceDetail resource={currentResource} />}
           </div>
         </SidebarLayout>
       </ArticleTextContainer>

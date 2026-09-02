@@ -48,7 +48,7 @@ import { MapWidget } from '@/components/maps/mapWidget';
 import { useHasMap } from '@/components/maps/mapThumbnail';
 import { PublishingCountries } from './about/PublishingCountries';
 import { UserAvatarSection } from '@/components/userAvatarSection';
-import { useUser } from '@/contexts/UserContext';
+import { useIsTrustedDatasetContact } from '@/hooks/useIsTrustedDatasetContact';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { DatasetKeyLoaderResult } from './datasetKey';
@@ -659,22 +659,9 @@ function getToc({ dataset, localContextEnabled }: GetTocOptions) {
 }
 
 function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> }) {
-  const { user } = useUser();
-
-  const isUserDatasetContact = useMemo(() => {
-    if (!user || !dataset.volatileContributors) return false;
-    // has matching email
-    const matchingEmail = dataset.volatileContributors.some((contact) =>
-      contact?.email?.some((email) => email === user.email)
-    );
-    // or has matching orcid in userIdentifiers
-    const matchingOrcid = dataset.volatileContributors.some((contact) =>
-      contact?.userId?.some((identifier) => identifier === user.orcid)
-    );
-    // or user is registry admin
-    const isAdmin = user?.roles?.includes('REGISTRY_ADMIN');
-    return matchingEmail || matchingOrcid || isAdmin;
-  }, [user, dataset.volatileContributors]);
+  const { isTrusted: isUserDatasetContact } = useIsTrustedDatasetContact(
+    dataset.volatileContributors
+  );
 
   if (!isUserDatasetContact) {
     return null;
