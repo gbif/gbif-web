@@ -10,6 +10,7 @@ export default {
         ...report,
         datasetKey,
         attempt,
+        raw: report,
       };
     },
   },

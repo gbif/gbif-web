@@ -14,6 +14,11 @@ const typeDef = gql`
     datasetKey: ID!
     attempt: String
     version: String
+    """
+    The report exactly as returned by the validator, unshaped by this schema. Useful as a
+    fallback when the report's version isn't one this schema/UI was built against.
+    """
+    raw: JSON
     metadata: DwdpValidationMetadata
     result: DwdpValidationResult
   }
