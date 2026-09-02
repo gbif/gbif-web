@@ -1063,17 +1063,15 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
 
 /* ---------- unsupported report version ---------- */
 
-// The rail's short explanation for why it isn't showing the normal section list — the
+// The rail's short explanation for why it isn't showing the normal section list — used both
+// when there's no report to show and when the report's version can't be rendered here. The
 // AttemptPicker stays available above this (in the caller), since switching to a different
-// attempt is the one useful thing left to do here.
-function UnsupportedVersionRailNote() {
+// attempt is the one useful thing left to do in either case.
+function RailNote({ children }: { children: React.ReactNode }) {
   return (
     <div className="g-flex g-items-start g-gap-2 g-px-2.5 g-py-2 g-text-sm g-text-slate-500">
       <MdErrorOutline className="g-shrink-0 g-mt-0.5 g-text-amber-500" size={16} aria-hidden />
-      <FormattedMessage
-        id="dataset.validationReport.unsupportedVersionRailNote"
-        defaultMessage="This report uses an older format that can't be shown here."
-      />
+      <span>{children}</span>
     </div>
   );
 }
@@ -1085,11 +1083,9 @@ function UnsupportedVersionRailNote() {
 function UnsupportedReportContent({
   datasetKey,
   attempt,
-  version,
 }: {
   datasetKey: string;
   attempt?: string;
-  version?: string | null;
 }) {
   const { data, load, loading } = useQuery<
     DatasetValidationReportRawQuery,
@@ -1117,18 +1113,10 @@ function UnsupportedReportContent({
               </span>
             }
             note={
-              version ? (
-                <FormattedMessage
-                  id="dataset.validationReport.unsupportedVersion"
-                  defaultMessage="This report is format version {version}, which this page isn't built to render — there's no guarantee it would display correctly. Showing the raw report data below instead."
-                  values={{ version }}
-                />
-              ) : (
-                <FormattedMessage
-                  id="dataset.validationReport.unsupportedVersionMissing"
-                  defaultMessage="This report predates format versioning, so this page isn't built to render it — there's no guarantee it would display correctly. Showing the raw report data below instead."
-                />
-              )
+              <FormattedMessage
+                id="dataset.validationReport.unsupportedVersion"
+                defaultMessage="This report is not generated using the current version. Showing the raw report data below instead."
+              />
             }
           />
         </CardContent>
@@ -1238,27 +1226,12 @@ export function DatasetKeyValidationReport() {
     );
   }
 
-  if (!report) {
-    return (
-      <ArticleContainer className="g-bg-slate-100 g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
-          <Card>
-            <CardContent topPadding>
-              <NoRecords
-                messageId="dataset.validationReport.noReport"
-                defaultMessage="No validation report is available for this dataset yet."
-              />
-            </CardContent>
-          </Card>
-        </ArticleTextContainer>
-      </ArticleContainer>
-    );
-  }
-
-  // A missing/unrecognised report version means the shaped fields below aren't guaranteed to
-  // mean what this UI assumes, so the rail keeps just the attempt picker and the content area
-  // falls back to the raw report data (see isVersionSupported usage further down).
-  const isVersionSupported = isSupportedReportVersion(report.version);
+  // Neither a missing report (nothing found for the selected attempt) nor a missing/
+  // unrecognised report version guarantee the normal rail sections and shaped fields below
+  // apply — the rail keeps just the attempt picker in both cases, so users can switch to a
+  // different attempt, while the content area falls back to an explanation (see `report` and
+  // `isVersionSupported` usage further down).
+  const isVersionSupported = !!report && isSupportedReportVersion(report.version);
 
   // EML metadata is optional for a data package, so its absence is not itself an issue to
   // flag. But the validator can still report issues against an absent/unreadable document
@@ -1327,7 +1300,23 @@ export function DatasetKeyValidationReport() {
                 />
               </div>
             )}
-            {isVersionSupported ? (
+            {!report && (
+              <RailNote>
+                <FormattedMessage
+                  id="dataset.validationReport.noReport"
+                  defaultMessage="No validation report is available for this dataset."
+                />
+              </RailNote>
+            )}
+            {report && !isVersionSupported && (
+              <RailNote>
+                <FormattedMessage
+                  id="dataset.validationReport.unsupportedVersionRailNote"
+                  defaultMessage="This report uses an older format that can't be shown here."
+                />
+              </RailNote>
+            )}
+            {isVersionSupported && (
               <>
                 <label htmlFor="validation-report-section-select" className="g-sr-only">
                   <FormattedMessage
@@ -1362,8 +1351,6 @@ export function DatasetKeyValidationReport() {
                   })}
                 </select>
               </>
-            ) : (
-              <UnsupportedVersionRailNote />
             )}
           </div>
         )}
@@ -1446,22 +1433,41 @@ export function DatasetKeyValidationReport() {
                         );
                       })}
                     </>
+                  ) : !report ? (
+                    <RailNote>
+                      <FormattedMessage
+                        id="dataset.validationReport.noReport"
+                        defaultMessage="No validation report is available for this dataset."
+                      />
+                    </RailNote>
                   ) : (
-                    <UnsupportedVersionRailNote />
+                    <RailNote>
+                      <FormattedMessage
+                        id="dataset.validationReport.unsupportedVersionRailNote"
+                        defaultMessage="This report uses an older format that can't be shown here."
+                      />
+                    </RailNote>
                   )}
                 </Card>
               </AsideSticky>
             </Aside>
           )}
           <div className="g-min-w-0">
-            {!isVersionSupported && (
+            {!report && (
+              // Matches how empty states are shown elsewhere: no card, just the message on
+              // the page background.
+              <NoRecords
+                messageId="dataset.validationReport.noReport"
+                defaultMessage="No validation report is available for this dataset."
+              />
+            )}
+            {report && !isVersionSupported && (
               <UnsupportedReportContent
                 datasetKey={dataset.key}
                 attempt={report.attempt ?? undefined}
-                version={report.version}
               />
             )}
-            {isVersionSupported && currentSection === 'summary' && (
+            {report && isVersionSupported && currentSection === 'summary' && (
               // Only the Summary view gets the white card surface, matching the design: the
               // other sections sit directly on the page background, with each issue/table row
               // providing its own card.
