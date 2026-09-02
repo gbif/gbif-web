@@ -1,7 +1,12 @@
 import { NoRecords } from '@/components/noDataMessages';
 import { SearchInput } from '@/components/searchInput';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
@@ -140,7 +145,9 @@ const MAX_ATTEMPT_OPTIONS = 10;
 
 // Nothing guarantees a dataset only ever carries a single crawl_attempt machine tag, so take
 // the highest value found rather than assuming array order or length.
-function parseLatestAttempt(tags?: Array<{ value?: string | null } | null> | null): number | undefined {
+function parseLatestAttempt(
+  tags?: Array<{ value?: string | null } | null> | null
+): number | undefined {
   const values = (tags ?? [])
     .map((tag) => (tag?.value ? parseInt(tag.value, 10) : NaN))
     .filter((n): n is number => Number.isFinite(n) && n > 0);
@@ -211,7 +218,10 @@ function AttemptPicker({
     );
   }
   return (
-    <Select value={String(selectedAttempt)} onValueChange={(value) => onChange(parseInt(value, 10))}>
+    <Select
+      value={String(selectedAttempt)}
+      onValueChange={(value) => onChange(parseInt(value, 10))}
+    >
       <SelectTrigger
         className={cn(
           'g-h-6 g-w-auto g-gap-1 g-border-none g-shadow-none g-bg-transparent g-px-1.5 g-py-0 g-text-xs g-text-slate-500 hover:g-bg-slate-100 focus:g-ring-0 focus:g-ring-offset-0',
@@ -239,8 +249,17 @@ function AttemptPicker({
   );
 }
 
-function StatusIcon({ ok, blocking, size = 18 }: { ok: boolean; blocking?: boolean; size?: number }) {
-  if (ok) return <MdCheckCircle className="g-shrink-0 g-text-primary-500" size={size} aria-hidden />;
+function StatusIcon({
+  ok,
+  blocking,
+  size = 18,
+}: {
+  ok: boolean;
+  blocking?: boolean;
+  size?: number;
+}) {
+  if (ok)
+    return <MdCheckCircle className="g-shrink-0 g-text-primary-500" size={size} aria-hidden />;
   return (
     <MdError
       className={cn('g-shrink-0', blocking ? 'g-text-red-600' : 'g-text-amber-500')}
@@ -291,7 +310,9 @@ function SeverityIcon({ severity, size = 18 }: { severity?: string | null; size?
       tone={tone}
       size={size}
       glyph={
-        <span className="g-text-[10px] g-font-bold g-leading-none">{key === 'INFO' ? 'i' : '!'}</span>
+        <span className="g-text-[10px] g-font-bold g-leading-none">
+          {key === 'INFO' ? 'i' : '!'}
+        </span>
       }
     />
   );
@@ -393,11 +414,11 @@ function SuccessNote({ children, className }: { children: React.ReactNode; class
   return (
     <div
       className={cn(
-        'g-flex g-items-center g-gap-2 g-p-4 g-rounded g-border g-border-[#d7e1cf] g-bg-[#eef2ea] g-text-sm g-text-[#3f5735]',
+        'g-flex g-items-center g-gap-2 g-p-4 g-rounded g-border g-border-[#d7e1cf] g-bg-[#e3efd6] g-text-sm g-text-[#3f5735]',
         className
       )}
     >
-      <MdCheckCircle className="g-shrink-0 g-text-[#4b6b45]" size={20} aria-hidden />
+      <MdCheckCircle className="g-shrink-0 g-text-[#4d9c2f]" size={20} aria-hidden />
       <span>{children}</span>
     </div>
   );
@@ -457,7 +478,10 @@ function SummaryDetail({
     <div>
       <DetailHeader
         title={
-          <FormattedMessage id="dataset.validationReport.summary" defaultMessage="Validation summary" />
+          <FormattedMessage
+            id="dataset.validationReport.summary"
+            defaultMessage="Validation summary"
+          />
         }
         action={
           <Button asChild variant="outline" size="sm">
@@ -517,7 +541,10 @@ function SummaryDetail({
             icon={<MdCheckCircle className="g-text-primary-500" size={20} aria-hidden />}
             title={
               <span className="g-font-semibold">
-                <FormattedMessage id="dataset.validationReport.status.valid" defaultMessage="No issues found" />
+                <FormattedMessage
+                  id="dataset.validationReport.status.valid"
+                  defaultMessage="No issues found"
+                />
               </span>
             }
             note={
@@ -531,7 +558,9 @@ function SummaryDetail({
       </div>
       <div className="g-grid g-grid-cols-2 sm:g-grid-cols-3 g-gap-x-6 g-gap-y-4 g-pt-5 g-border-t g-border-slate-200">
         <Fact
-          label={<FormattedMessage id="dataset.validationReport.processed" defaultMessage="Processed" />}
+          label={
+            <FormattedMessage id="dataset.validationReport.processed" defaultMessage="Processed" />
+          }
           value={
             finished ? (
               <FormattedDate
@@ -548,7 +577,9 @@ function SummaryDetail({
           }
         />
         <Fact
-          label={<FormattedMessage id="dataset.validationReport.duration" defaultMessage="Duration" />}
+          label={
+            <FormattedMessage id="dataset.validationReport.duration" defaultMessage="Duration" />
+          }
           value={durationSeconds !== undefined ? `${durationSeconds.toFixed(1)}s` : '—'}
         />
         <Fact
@@ -557,13 +588,19 @@ function SummaryDetail({
         />
         <Fact
           label={
-            <FormattedMessage id="dataset.validationReport.rowsAnalysed" defaultMessage="Rows analysed" />
+            <FormattedMessage
+              id="dataset.validationReport.rowsAnalysed"
+              defaultMessage="Rows analysed"
+            />
           }
           value={totalRows.toLocaleString()}
         />
         <Fact
           label={
-            <FormattedMessage id="dataset.validationReport.integrityIssues" defaultMessage="Integrity issues" />
+            <FormattedMessage
+              id="dataset.validationReport.integrityIssues"
+              defaultMessage="Integrity issues"
+            />
           }
           value={integrityIssueCount}
           tone={integrityIssueCount ? 'error' : undefined}
@@ -612,7 +649,9 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
             >
               <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
                 <SeverityIcon severity={worst} />
-                <span className="g-font-semibold g-text-slate-900">{humanizeViolationType(type)}</span>
+                <span className="g-font-semibold g-text-slate-900">
+                  {humanizeViolationType(type)}
+                </span>
                 <span className="g-ms-auto g-text-sm g-text-slate-500">{list.length}</span>
               </span>
             </AccordionTrigger>
@@ -708,7 +747,10 @@ function DescriptorOrEmlDetail({
 
 type ViolationKind = 'pk' | 'fk' | 'dt';
 
-const VIOLATION_LABEL: Record<ViolationKind, { id: string; defaultMessage: string; icon: React.ReactNode }> = {
+const VIOLATION_LABEL: Record<
+  ViolationKind,
+  { id: string; defaultMessage: string; icon: React.ReactNode }
+> = {
   pk: {
     id: 'dataset.validationReport.primaryKeyViolation',
     defaultMessage: 'Primary key is not unique',
@@ -755,7 +797,10 @@ function ViolationCard({
           <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
             <RoundBadge tone="error" glyph={VIOLATION_LABEL[kind].icon} />
             <span className="g-font-semibold g-text-red-800">
-              <FormattedMessage id={VIOLATION_LABEL[kind].id} defaultMessage={VIOLATION_LABEL[kind].defaultMessage} />
+              <FormattedMessage
+                id={VIOLATION_LABEL[kind].id}
+                defaultMessage={VIOLATION_LABEL[kind].defaultMessage}
+              />
             </span>
             <span className="g-ms-auto g-text-sm g-font-medium g-text-red-800">
               {violation.violationCount ?? 0}
@@ -767,7 +812,10 @@ function ViolationCard({
             {fields.length > 0 && (
               <div>
                 <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage id="dataset.validationReport.fields" defaultMessage="Field(s)" />
+                  <FormattedMessage
+                    id="dataset.validationReport.fields"
+                    defaultMessage="Field(s)"
+                  />
                 </div>
                 <div className="g-font-mono g-text-xs g-flex g-flex-wrap g-gap-x-2">
                   {fields.map((field) => (
@@ -825,7 +873,10 @@ function ViolationCard({
                     id="dataset.validationReport.andNMore"
                     defaultMessage="and {count} more"
                     values={{
-                      count: Math.max((violation.violationCount ?? sampleRows.length) - SAMPLE_CAP, 0),
+                      count: Math.max(
+                        (violation.violationCount ?? sampleRows.length) - SAMPLE_CAP,
+                        0
+                      ),
                     }}
                   />
                 </div>
@@ -880,7 +931,10 @@ function ColumnStatsTable({
                 <FormattedMessage id="dataset.validationReport.field" defaultMessage="Field" />
               </TableHead>
               <TableHead>
-                <FormattedMessage id="dataset.validationReport.populated" defaultMessage="Populated" />
+                <FormattedMessage
+                  id="dataset.validationReport.populated"
+                  defaultMessage="Populated"
+                />
               </TableHead>
               <TableHead className="g-text-end">
                 <FormattedMessage
@@ -895,7 +949,10 @@ function ColumnStatsTable({
               const populated = col.populatedValues ?? 0;
               const pct = totalRows ? Math.round((populated / totalRows) * 100) : 0;
               return (
-                <TableRow key={col.name} className="g-border-b g-border-slate-200 last:g-border-b-0">
+                <TableRow
+                  key={col.name}
+                  className="g-border-b g-border-slate-200 last:g-border-b-0"
+                >
                   <TableCell className="g-font-mono">{col.name}</TableCell>
                   <TableCell>
                     <div className="g-flex g-items-center g-gap-2">
@@ -903,7 +960,9 @@ function ColumnStatsTable({
                       <span className="g-text-slate-500 g-w-9 g-shrink-0">{pct}%</span>
                     </div>
                   </TableCell>
-                  <TableCell className="g-text-end">{(col.uniqueValues ?? 0).toLocaleString()}</TableCell>
+                  <TableCell className="g-text-end">
+                    {(col.uniqueValues ?? 0).toLocaleString()}
+                  </TableCell>
                 </TableRow>
               );
             })}
@@ -920,7 +979,12 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
     violation: DwdpPrimaryKeyViolation | DwdpForeignKeyViolation | DwdpDataTypeViolation;
   }[] = [
     ...(hasViolations(resource.primaryKeyViolation)
-      ? [{ kind: 'pk' as const, violation: resource.primaryKeyViolation as DwdpPrimaryKeyViolation }]
+      ? [
+          {
+            kind: 'pk' as const,
+            violation: resource.primaryKeyViolation as DwdpPrimaryKeyViolation,
+          },
+        ]
       : []),
     ...(resource.foreignKeyViolations ?? [])
       .filter(hasViolations)
@@ -962,9 +1026,15 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
         </div>
       )}
       <h3 className="g-text-base g-font-semibold g-mb-2">
-        <FormattedMessage id="dataset.validationReport.columnStats" defaultMessage="Field summary" />
+        <FormattedMessage
+          id="dataset.validationReport.columnStats"
+          defaultMessage="Field summary"
+        />
       </h3>
-      <ColumnStatsTable columns={resource.columnStatistics ?? []} totalRows={resource.totalRows ?? 0} />
+      <ColumnStatsTable
+        columns={resource.columnStatistics ?? []}
+        totalRows={resource.totalRows ?? 0}
+      />
     </div>
   );
 }
@@ -1104,7 +1174,8 @@ export function DatasetKeyValidationReport() {
   const currentResource = section.startsWith('res:')
     ? resources.find((r) => `res:${r.name}` === section)
     : undefined;
-  const currentSection = section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
+  const currentSection =
+    section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
 
   if (currentSection === 'eml' && !hasEml) {
     return (
@@ -1127,7 +1198,10 @@ export function DatasetKeyValidationReport() {
             {attemptOptions.length > 1 && (
               <div className="g-flex g-items-center g-justify-between g-mb-2">
                 <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                  <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
+                  <FormattedMessage
+                    id="dataset.validationReport.package"
+                    defaultMessage="Package"
+                  />
                 </span>
                 <AttemptPicker
                   latestAttempt={latestAttempt}
@@ -1138,7 +1212,10 @@ export function DatasetKeyValidationReport() {
               </div>
             )}
             <label htmlFor="validation-report-section-select" className="g-sr-only">
-              <FormattedMessage id="dataset.validationReport.selectSection" defaultMessage="Select report section" />
+              <FormattedMessage
+                id="dataset.validationReport.selectSection"
+                defaultMessage="Select report section"
+              />
             </label>
             <select
               id="validation-report-section-select"
@@ -1148,7 +1225,9 @@ export function DatasetKeyValidationReport() {
             >
               <option value="summary">{summaryLabel}</option>
               <option value="descriptor">
-                {descriptorIssues.length ? `${descriptorLabel} (${descriptorIssues.length})` : descriptorLabel}
+                {descriptorIssues.length
+                  ? `${descriptorLabel} (${descriptorIssues.length})`
+                  : descriptorLabel}
               </option>
               {hasEml && (
                 <option value="eml">
@@ -1177,7 +1256,10 @@ export function DatasetKeyValidationReport() {
                 <Card className="g-p-2">
                   <div className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1">
                     <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                      <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
+                      <FormattedMessage
+                        id="dataset.validationReport.package"
+                        defaultMessage="Package"
+                      />
                     </span>
                     <span className="g-ms-auto">
                       <AttemptPicker
@@ -1218,7 +1300,10 @@ export function DatasetKeyValidationReport() {
                   <div className="g-border-t g-border-slate-200 g-my-2" />
                   <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
                     <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                      <FormattedMessage id="dataset.validationReport.tables" defaultMessage="Tables" />{' '}
+                      <FormattedMessage
+                        id="dataset.validationReport.tables"
+                        defaultMessage="Tables"
+                      />{' '}
                       ({resources.length})
                     </span>
                   </div>
@@ -1259,7 +1344,12 @@ export function DatasetKeyValidationReport() {
             )}
             {currentSection === 'descriptor' && (
               <DescriptorOrEmlDetail
-                title={<FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="datapackage.json" />}
+                title={
+                  <FormattedMessage
+                    id="dataset.validationReport.descriptor"
+                    defaultMessage="datapackage.json"
+                  />
+                }
                 meta={
                   <FormattedMessage
                     id="dataset.validationReport.descriptorMeta"
@@ -1274,7 +1364,12 @@ export function DatasetKeyValidationReport() {
             )}
             {currentSection === 'eml' && (
               <DescriptorOrEmlDetail
-                title={<FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />}
+                title={
+                  <FormattedMessage
+                    id="dataset.validationReport.eml"
+                    defaultMessage="EML metadata"
+                  />
+                }
                 meta={
                   <FormattedMessage
                     id="dataset.validationReport.emlMeta"
