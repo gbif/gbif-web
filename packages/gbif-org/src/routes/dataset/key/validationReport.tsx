@@ -1097,28 +1097,42 @@ function UnsupportedReportContent({
   }, [load, datasetKey, attempt]);
 
   const raw = data?.dwdpValidationReport?.raw;
+  const reportUrl = `${import.meta.env.PUBLIC_API_V1}/dataset/${encodeURIComponent(datasetKey)}/validationreport${
+    attempt ? `/${encodeURIComponent(attempt)}` : ''
+  }`;
 
   return (
     <div>
       <Card className="g-mb-4">
         <CardContent topPadding>
-          <StatusLine
-            icon={<MdErrorOutline className="g-text-amber-500" size={20} aria-hidden />}
-            title={
-              <span className="g-font-semibold">
+          <div className="g-flex g-items-start g-justify-between g-gap-4">
+            <StatusLine
+              icon={<MdErrorOutline className="g-text-amber-500" size={20} aria-hidden />}
+              title={
+                <span className="g-font-semibold">
+                  <FormattedMessage
+                    id="dataset.validationReport.unsupportedVersionTitle"
+                    defaultMessage="This report uses an older format"
+                  />
+                </span>
+              }
+              note={
                 <FormattedMessage
-                  id="dataset.validationReport.unsupportedVersionTitle"
-                  defaultMessage="This report uses an older format"
+                  id="dataset.validationReport.unsupportedVersion"
+                  defaultMessage="This report is not generated using the current version. Showing the raw report data below instead."
                 />
-              </span>
-            }
-            note={
-              <FormattedMessage
-                id="dataset.validationReport.unsupportedVersion"
-                defaultMessage="This report is not generated using the current version. Showing the raw report data below instead."
-              />
-            }
-          />
+              }
+            />
+            <Button asChild variant="outline" size="sm" className="g-shrink-0">
+              <DynamicLink to={reportUrl}>
+                <MdDownload size={16} className="g-me-1.5" />
+                <FormattedMessage
+                  id="dataset.validationReport.downloadReport"
+                  defaultMessage="Download report"
+                />
+              </DynamicLink>
+            </Button>
+          </div>
         </CardContent>
       </Card>
       {loading || !data ? (
