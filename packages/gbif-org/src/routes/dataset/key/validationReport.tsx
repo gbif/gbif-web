@@ -1304,7 +1304,7 @@ export function DatasetKeyValidationReport() {
               <RailNote>
                 <FormattedMessage
                   id="dataset.validationReport.noReport"
-                  defaultMessage="No validation report is available for this dataset."
+                  defaultMessage="No validation report is available."
                 />
               </RailNote>
             )}
@@ -1437,7 +1437,7 @@ export function DatasetKeyValidationReport() {
                     <RailNote>
                       <FormattedMessage
                         id="dataset.validationReport.noReport"
-                        defaultMessage="No validation report is available for this dataset."
+                        defaultMessage="No validation report is available."
                       />
                     </RailNote>
                   ) : (
@@ -1458,7 +1458,7 @@ export function DatasetKeyValidationReport() {
               // the page background.
               <NoRecords
                 messageId="dataset.validationReport.noReport"
-                defaultMessage="No validation report is available for this dataset."
+                defaultMessage="No validation report is available."
               />
             )}
             {report && !isVersionSupported && (
