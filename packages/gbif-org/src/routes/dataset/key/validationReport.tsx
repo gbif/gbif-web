@@ -386,17 +386,18 @@ function StatusLine({
   );
 }
 
-// An "all clear" notice, e.g. "no issues found in the descriptor" — green to read as a
-// pass, matching the green success-message treatment already used elsewhere in the app.
+// An "all clear" notice, e.g. "no issues found in the descriptor" — green to read as a pass.
+// Uses a muted, low-saturation green rather than the app's default (quite vivid) green-*
+// success tokens, which read as neon/pastel at this box size.
 function SuccessNote({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div
       className={cn(
-        'g-flex g-items-center g-gap-2 g-p-4 g-rounded-lg g-border g-border-green-200 g-bg-green-50 g-text-sm g-text-green-700',
+        'g-flex g-items-center g-gap-2 g-p-4 g-rounded-lg g-border g-border-[#d7e1cf] g-bg-[#eef2ea] g-text-sm g-text-[#3f5735]',
         className
       )}
     >
-      <MdCheckCircle className="g-shrink-0 g-text-green-600" size={20} aria-hidden />
+      <MdCheckCircle className="g-shrink-0 g-text-[#4b6b45]" size={20} aria-hidden />
       <span>{children}</span>
     </div>
   );
@@ -578,15 +579,6 @@ function SummaryDetail({
           tone={metadataIssueCount ? 'warn' : undefined}
         />
       </div>
-      {report.attempt && (
-        <div className="g-text-xs g-text-slate-500 g-mt-4">
-          <FormattedMessage
-            id="dataset.validationReport.attemptNote"
-            defaultMessage="Showing report for attempt {attempt}."
-            values={{ attempt: report.attempt }}
-          />
-        </div>
-      )}
     </div>
   );
 }
@@ -628,7 +620,7 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
               <div className="g-overflow-x-auto g-border-t g-border-slate-200">
                 <Table>
                   <TableHeader className="g-bg-slate-50">
-                    <TableRow>
+                    <TableRow className="g-border-b g-border-slate-200">
                       <TableHead>
                         <FormattedMessage
                           id="dataset.validationReport.severityColumn"
@@ -658,7 +650,7 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
                   <TableBody>
                     {list.map((issue, i) => (
                       // eslint-disable-next-line react/no-array-index-key
-                      <TableRow key={i}>
+                      <TableRow key={i} className="g-border-b g-border-slate-200 last:g-border-b-0">
                         <TableCell>
                           <FormattedMessage
                             id={`dataset.validationReport.severity.${issue.severity ?? 'INFO'}`}
@@ -883,7 +875,7 @@ function ColumnStatsTable({
       <div className="g-border g-border-slate-200 g-rounded g-overflow-hidden g-overflow-x-auto g-bg-white">
         <Table>
           <TableHeader className="g-bg-slate-50">
-            <TableRow>
+            <TableRow className="g-border-b g-border-slate-200">
               <TableHead>
                 <FormattedMessage id="dataset.validationReport.field" defaultMessage="Field" />
               </TableHead>
@@ -903,12 +895,12 @@ function ColumnStatsTable({
               const populated = col.populatedValues ?? 0;
               const pct = totalRows ? Math.round((populated / totalRows) * 100) : 0;
               return (
-                <TableRow key={col.name}>
-                  <TableCell className="g-font-mono g-text-xs">{col.name}</TableCell>
+                <TableRow key={col.name} className="g-border-b g-border-slate-200 last:g-border-b-0">
+                  <TableCell className="g-font-mono">{col.name}</TableCell>
                   <TableCell>
                     <div className="g-flex g-items-center g-gap-2">
                       <Progress value={pct} className="g-w-16" />
-                      <span className="g-text-xs g-text-slate-500 g-w-9 g-shrink-0">{pct}%</span>
+                      <span className="g-text-slate-500 g-w-9 g-shrink-0">{pct}%</span>
                     </div>
                   </TableCell>
                   <TableCell className="g-text-end">{(col.uniqueValues ?? 0).toLocaleString()}</TableCell>
