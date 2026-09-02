@@ -1149,10 +1149,14 @@ export function DatasetKeyValidationReport() {
   }
 
   // EML metadata is optional for a data package, so its absence is not itself an issue to
-  // flag: the EML rail item/tab is only shown when a document was actually found. A direct
-  // link to ?section=eml on a dataset without one still gets an explanation, just without
+  // flag. But the validator can still report issues against an absent/unreadable document
+  // (e.g. why it couldn't be read), so the EML rail item/tab is shown whenever there's either
+  // a present document or issues to look at — otherwise those issues would be counted in the
+  // summary's "metadata issues" total with nowhere in the UI to actually see them. A direct
+  // link to ?section=eml on a dataset with neither still gets an explanation, just without
   // the surrounding rail/card chrome (see the early return below).
   const hasEml = result?.emlValidation?.isPresent === true;
+  const showEmlSection = hasEml || emlIssues.length > 0;
 
   const summaryLabel = formatMessage({
     id: 'dataset.validationReport.summaryShort',
@@ -1177,7 +1181,7 @@ export function DatasetKeyValidationReport() {
   const currentSection =
     section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
 
-  if (currentSection === 'eml' && !hasEml) {
+  if (currentSection === 'eml' && !showEmlSection) {
     return (
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
         <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
@@ -1229,7 +1233,7 @@ export function DatasetKeyValidationReport() {
                   ? `${descriptorLabel} (${descriptorIssues.length})`
                   : descriptorLabel}
               </option>
-              {hasEml && (
+              {showEmlSection && (
                 <option value="eml">
                   {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
                 </option>
@@ -1288,7 +1292,7 @@ export function DatasetKeyValidationReport() {
                     active={currentSection === 'descriptor'}
                     onClick={() => setSection('descriptor')}
                   />
-                  {hasEml && (
+                  {showEmlSection && (
                     <RailItem
                       icon={<StatusIcon ok={emlIssues.length === 0} />}
                       label={emlLabel}
@@ -1371,11 +1375,19 @@ export function DatasetKeyValidationReport() {
                   />
                 }
                 meta={
-                  <FormattedMessage
-                    id="dataset.validationReport.emlMeta"
-                    defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
-                    values={{ count: emlIssues.length }}
-                  />
+                  hasEml ? (
+                    <FormattedMessage
+                      id="dataset.validationReport.emlMeta"
+                      defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
+                      values={{ count: emlIssues.length }}
+                    />
+                  ) : (
+                    <FormattedMessage
+                      id="dataset.validationReport.emlMetaNotPresent"
+                      defaultMessage="{count, plural, one {Not present · # issue} other {Not present · # issues}}"
+                      values={{ count: emlIssues.length }}
+                    />
+                  )
                 }
                 issues={emlIssues}
                 validMessageId="dataset.validationReport.emlValid"
