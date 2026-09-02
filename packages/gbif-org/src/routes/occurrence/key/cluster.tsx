@@ -172,18 +172,18 @@ function RelatedRecord({
             <p className="g-font-normal g-text-slate-700 g-text-sm">
               <FormattedMessage id="occurrenceDetails.publisher" />:{' '}
               <ConditionalWrapper
-                condition={typeof stub?.publishingOrgKey === 'string'}
+                condition={typeof occurrence?.publishingOrgKey === 'string'}
                 wrapper={(children) => (
                   <DynamicLink
                     className="g-underline"
                     pageId="publisherKey"
-                    variables={{ key: stub!.publishingOrgKey! }}
+                    variables={{ key: occurrence!.publishingOrgKey! }}
                   >
                     {children}
                   </DynamicLink>
                 )}
               >
-                {stub?.publishingOrgName}
+                {occurrence?.publisherTitle}
               </ConditionalWrapper>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
@@ -259,8 +259,6 @@ fragmentManager.register(/* GraphQL */ `
     gbifId
     occurrenceID
     catalogNumber
-    publishingOrgKey
-    publishingOrgName
     datasetKey
     scientificName
   }
@@ -272,6 +270,7 @@ fragmentManager.register(/* GraphQL */ `
     basisOfRecord
     datasetTitle
     publisherTitle
+    publishingOrgKey
     coordinates
     typeStatus
     soundCount

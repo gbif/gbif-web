@@ -369,10 +369,10 @@ const typeDef = gql`
   type RelatedOccurrenceStub {
     gbifId: ID
     scientificName: String
-    publishingOrgKey: ID
-    publishingOrgName: String
+    publishingOrgKey: ID @deprecated(reason: "No longer provided by the clustering API")
+    publishingOrgName: String @deprecated(reason: "No longer provided by the clustering API")
     datasetKey: ID
-    datasetName: [String]
+    datasetName: [String] @deprecated(reason: "No longer provided by the clustering API")
     occurrenceID: String
     catalogNumber: String
   }
