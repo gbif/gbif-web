@@ -2517,6 +2517,136 @@ export enum DurationUnit {
   Years = 'YEARS'
 }
 
+export type DwdpColumnAnalysis = {
+  __typename?: 'DwdpColumnAnalysis';
+  name?: Maybe<Scalars['String']['output']>;
+  populatedValues?: Maybe<Scalars['Int']['output']>;
+  uniqueValues?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpDataTypeViolation = {
+  __typename?: 'DwdpDataTypeViolation';
+  declaredType?: Maybe<Scalars['String']['output']>;
+  field?: Maybe<Scalars['String']['output']>;
+  resource?: Maybe<Scalars['String']['output']>;
+  sampleValues?: Maybe<Array<Scalars['String']['output']>>;
+  violationCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpDescriptorValidation = {
+  __typename?: 'DwdpDescriptorValidation';
+  canProceedToDataAnalysis?: Maybe<Scalars['Boolean']['output']>;
+  issues?: Maybe<Array<DwdpValidationIssue>>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type DwdpEmlValidation = {
+  __typename?: 'DwdpEmlValidation';
+  emlPresent?: Maybe<Scalars['Boolean']['output']>;
+  issues?: Maybe<Array<DwdpValidationIssue>>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type DwdpForeignKeyViolation = {
+  __typename?: 'DwdpForeignKeyViolation';
+  fields?: Maybe<Array<Scalars['String']['output']>>;
+  referenceFields?: Maybe<Array<Scalars['String']['output']>>;
+  referenceResource?: Maybe<Scalars['String']['output']>;
+  resource?: Maybe<Scalars['String']['output']>;
+  sampleRows?: Maybe<Array<Scalars['JSON']['output']>>;
+  violationCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpPrimaryKeyViolation = {
+  __typename?: 'DwdpPrimaryKeyViolation';
+  fields?: Maybe<Array<Scalars['String']['output']>>;
+  resource?: Maybe<Scalars['String']['output']>;
+  sampleRows?: Maybe<Array<Scalars['JSON']['output']>>;
+  violationCount?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DwdpResourceAnalysisResult = {
+  __typename?: 'DwdpResourceAnalysisResult';
+  columnAnalyses?: Maybe<Array<DwdpColumnAnalysis>>;
+  dataTypeViolations?: Maybe<Array<DwdpDataTypeViolation>>;
+  foreignKeyViolations?: Maybe<Array<DwdpForeignKeyViolation>>;
+  name?: Maybe<Scalars['String']['output']>;
+  primaryKeyViolation?: Maybe<DwdpPrimaryKeyViolation>;
+  totalRows?: Maybe<Scalars['Int']['output']>;
+};
+
+export enum DwdpValidationFeature {
+  Count = 'COUNT',
+  CountDistinct = 'COUNT_DISTINCT',
+  DataTypeConstraint = 'DATA_TYPE_CONSTRAINT',
+  DescriptorValidation = 'DESCRIPTOR_VALIDATION',
+  EmlValidation = 'EML_VALIDATION',
+  ForeignKeyConstraint = 'FOREIGN_KEY_CONSTRAINT',
+  PrimaryKeyUnique = 'PRIMARY_KEY_UNIQUE'
+}
+
+export type DwdpValidationIssue = {
+  __typename?: 'DwdpValidationIssue';
+  detail?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  message?: Maybe<Scalars['String']['output']>;
+  severity?: Maybe<DwdpValidationIssueSeverity>;
+  violationType?: Maybe<DwdpValidationViolationType>;
+};
+
+export enum DwdpValidationIssueSeverity {
+  Error = 'ERROR',
+  Info = 'INFO',
+  Warning = 'WARNING'
+}
+
+export type DwdpValidationMetadata = {
+  __typename?: 'DwdpValidationMetadata';
+  features?: Maybe<Array<DwdpValidationFeature>>;
+  finished?: Maybe<Scalars['String']['output']>;
+  started?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type DwdpValidationReport = {
+  __typename?: 'DwdpValidationReport';
+  attempt?: Maybe<Scalars['String']['output']>;
+  datasetKey: Scalars['ID']['output'];
+  metadata?: Maybe<DwdpValidationMetadata>;
+  result?: Maybe<DwdpValidationResult>;
+};
+
+export type DwdpValidationResult = {
+  __typename?: 'DwdpValidationResult';
+  descriptorValidation?: Maybe<DwdpDescriptorValidation>;
+  emlValidation?: Maybe<DwdpEmlValidation>;
+  resourceAnalysisResults?: Maybe<Array<DwdpResourceAnalysisResult>>;
+};
+
+export enum DwdpValidationViolationType {
+  DescriptorNotFound = 'DESCRIPTOR_NOT_FOUND',
+  EmlMissingCreator = 'EML_MISSING_CREATOR',
+  EmlMissingTitle = 'EML_MISSING_TITLE',
+  EmlXsdUnavailable = 'EML_XSD_UNAVAILABLE',
+  EmlXsdViolation = 'EML_XSD_VIOLATION',
+  FieldTypeMismatch = 'FIELD_TYPE_MISMATCH',
+  FkUnknownReferenceResource = 'FK_UNKNOWN_REFERENCE_RESOURCE',
+  ForeignKeyMissing = 'FOREIGN_KEY_MISSING',
+  InvalidJson = 'INVALID_JSON',
+  InvalidXml = 'INVALID_XML',
+  JsonSchemaUnavailable = 'JSON_SCHEMA_UNAVAILABLE',
+  JsonSchemaViolation = 'JSON_SCHEMA_VIOLATION',
+  MissingName = 'MISSING_NAME',
+  MissingResources = 'MISSING_RESOURCES',
+  PathNotFound = 'PATH_NOT_FOUND',
+  RequiredFieldMissing = 'REQUIRED_FIELD_MISSING',
+  ResourceMissingName = 'RESOURCE_MISSING_NAME',
+  TableSchemaUnavailable = 'TABLE_SCHEMA_UNAVAILABLE',
+  UnknownField = 'UNKNOWN_FIELD',
+  UnknownFieldType = 'UNKNOWN_FIELD_TYPE',
+  UnrecognizedProfileVersion = 'UNRECOGNIZED_PROFILE_VERSION'
+}
+
 export enum EndorsementStatus {
   Endorsed = 'ENDORSED',
   OnHold = 'ON_HOLD',
@@ -7811,6 +7941,12 @@ export type Query = {
   directoryMentors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryTranslators?: Maybe<DirectoryPersonRoleSearchResults>;
   download?: Maybe<Download>;
+  /**
+   * The Darwin Core data package validation report for a dataset, as produced by the
+   * validator service. Defaults to the report for the dataset's latest crawl attempt;
+   * pass attempt to fetch the report for a specific past attempt.
+   */
+  dwdpValidationReport?: Maybe<DwdpValidationReport>;
   event?: Maybe<Event>;
   eventDownload?: Maybe<Download>;
   /** Experimental event search endpoint. Use with caution as the API and schema are subject to change without deprecation. */
@@ -8085,6 +8221,12 @@ export type QueryDirectoryTranslatorsArgs = {
 
 export type QueryDownloadArgs = {
   key: Scalars['ID']['input'];
+};
+
+
+export type QueryDwdpValidationReportArgs = {
+  attempt?: InputMaybe<Scalars['String']['input']>;
+  datasetKey: Scalars['ID']['input'];
 };
 
 
@@ -10532,6 +10674,14 @@ export type DatasetCitationQueryVariables = Exact<{
 
 export type DatasetCitationQuery = { __typename?: 'Query', dataset?: { __typename?: 'Dataset', title?: string | null, publishingOrganizationTitle?: string | null, citation?: { __typename?: 'Citation', text: string } | null } | null };
 
+export type DatasetValidationReportQueryVariables = Exact<{
+  datasetKey: Scalars['ID']['input'];
+  attempt?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type DatasetValidationReportQuery = { __typename?: 'Query', dwdpValidationReport?: { __typename?: 'DwdpValidationReport', datasetKey: string, attempt?: string | null, metadata?: { __typename?: 'DwdpValidationMetadata', started?: string | null, finished?: string | null, valid?: boolean | null } | null, result?: { __typename?: 'DwdpValidationResult', descriptorValidation?: { __typename?: 'DwdpDescriptorValidation', valid?: boolean | null, canProceedToDataAnalysis?: boolean | null, issues?: Array<{ __typename?: 'DwdpValidationIssue', severity?: DwdpValidationIssueSeverity | null, violationType?: DwdpValidationViolationType | null, message?: string | null, detail?: string | null, location?: string | null }> | null } | null, emlValidation?: { __typename?: 'DwdpEmlValidation', valid?: boolean | null, emlPresent?: boolean | null, issues?: Array<{ __typename?: 'DwdpValidationIssue', severity?: DwdpValidationIssueSeverity | null, violationType?: DwdpValidationViolationType | null, message?: string | null, detail?: string | null, location?: string | null }> | null } | null, resourceAnalysisResults?: Array<{ __typename?: 'DwdpResourceAnalysisResult', name?: string | null, totalRows?: number | null, columnAnalyses?: Array<{ __typename?: 'DwdpColumnAnalysis', name?: string | null, populatedValues?: number | null, uniqueValues?: number | null }> | null, dataTypeViolations?: Array<{ __typename?: 'DwdpDataTypeViolation', resource?: string | null, field?: string | null, declaredType?: string | null, violationCount?: number | null, sampleValues?: Array<string> | null }> | null, foreignKeyViolations?: Array<{ __typename?: 'DwdpForeignKeyViolation', resource?: string | null, fields?: Array<string> | null, referenceResource?: string | null, referenceFields?: Array<string> | null, violationCount?: number | null, sampleRows?: Array<any> | null }> | null, primaryKeyViolation?: { __typename?: 'DwdpPrimaryKeyViolation', resource?: string | null, fields?: Array<string> | null, violationCount?: number | null, sampleRows?: Array<any> | null } | null }> | null } | null } | null };
+
 export type DatasetSearchQueryVariables = Exact<{
   query?: InputMaybe<DatasetSearchInput>;
 }>;
@@ -12348,6 +12498,7 @@ export const DatasetEventListDocument = {"kind":"Document","definitions":[{"kind
 export const EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"event"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"datasetKey"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"checklistKey"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"event"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"datasetKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"datasetKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventID"}},{"kind":"Field","name":{"kind":"Name","value":"parentEventID"}},{"kind":"Field","name":{"kind":"Name","value":"eventType"}},{"kind":"Field","name":{"kind":"Name","value":"eventDate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"}},{"kind":"Field","name":{"kind":"Name","value":"datasetKey"}},{"kind":"Field","name":{"kind":"Name","value":"dataset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"month"}},{"kind":"Field","name":{"kind":"Name","value":"day"}},{"kind":"Field","name":{"kind":"Name","value":"subEvents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sampleSizeUnit"}},{"kind":"Field","name":{"kind":"Name","value":"sampleSizeValue"}},{"kind":"Field","name":{"kind":"Name","value":"samplingProtocol"}},{"kind":"Field","name":{"kind":"Name","value":"samplingProtocols"}},{"kind":"Field","name":{"kind":"Name","value":"decimalLatitude"}},{"kind":"Field","name":{"kind":"Name","value":"decimalLongitude"}},{"kind":"Field","name":{"kind":"Name","value":"formattedCoordinates"}},{"kind":"Field","name":{"kind":"Name","value":"stateProvince"}},{"kind":"Field","name":{"kind":"Name","value":"locationID"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"continent"}},{"kind":"Field","name":{"kind":"Name","value":"waterBody"}},{"kind":"Field","name":{"kind":"Name","value":"coordinateUncertaintyInMeters"}},{"kind":"Field","name":{"kind":"Name","value":"coordinatePrecision"}},{"kind":"Field","name":{"kind":"Name","value":"distanceFromCentroidInMeters"}},{"kind":"Field","name":{"kind":"Name","value":"geodeticDatum"}},{"kind":"Field","name":{"kind":"Name","value":"depth"}},{"kind":"Field","name":{"kind":"Name","value":"depthAccuracy"}},{"kind":"Field","name":{"kind":"Name","value":"elevation"}},{"kind":"Field","name":{"kind":"Name","value":"elevationAccuracy"}},{"kind":"Field","name":{"kind":"Name","value":"startDayOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"endDayOfYear"}},{"kind":"Field","name":{"kind":"Name","value":"dateIdentified"}},{"kind":"Field","name":{"kind":"Name","value":"protocol"}},{"kind":"Field","name":{"kind":"Name","value":"issues"}},{"kind":"Field","name":{"kind":"Name","value":"organismQuantity"}},{"kind":"Field","name":{"kind":"Name","value":"organismQuantityType"}},{"kind":"Field","name":{"kind":"Name","value":"relativeOrganismQuantity"}},{"kind":"Field","name":{"kind":"Name","value":"preparations"}},{"kind":"Field","name":{"kind":"Name","value":"parentEvent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventID"}},{"kind":"Field","name":{"kind":"Name","value":"eventType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"parentsLineage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"eventType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"lineage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"eventID"}},{"kind":"Field","name":{"kind":"Name","value":"parentEventID"}}]}},{"kind":"Field","name":{"kind":"Name","value":"gadm"}},{"kind":"Field","name":{"kind":"Name","value":"identifiers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"identifier"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"identifier"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"format"}},{"kind":"Field","name":{"kind":"Name","value":"references"}},{"kind":"Field","name":{"kind":"Name","value":"creator"}},{"kind":"Field","name":{"kind":"Name","value":"license"}},{"kind":"Field","name":{"kind":"Name","value":"rightsHolder"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"facts"}},{"kind":"Field","name":{"kind":"Name","value":"relations"}},{"kind":"Field","name":{"kind":"Name","value":"extensions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"audubon"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"measurementOrFact"}},{"kind":"Field","name":{"kind":"Name","value":"multimedia"}},{"kind":"Field","name":{"kind":"Name","value":"extendedMeasurementOrFact"}},{"kind":"Field","name":{"kind":"Name","value":"reference"}},{"kind":"Field","name":{"kind":"Name","value":"identifier"}},{"kind":"Field","name":{"kind":"Name","value":"dnaDerivedData"}},{"kind":"Field","name":{"kind":"Name","value":"permit"}},{"kind":"Field","name":{"kind":"Name","value":"preparation"}},{"kind":"Field","name":{"kind":"Name","value":"releve"}}]}},{"kind":"Field","name":{"kind":"Name","value":"humboldt"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"abundanceCap"}},{"kind":"Field","name":{"kind":"Name","value":"areNonTargetTaxaFullyReported"}},{"kind":"Field","name":{"kind":"Name","value":"compilationSourceTypes"}},{"kind":"Field","name":{"kind":"Name","value":"compilationTypes"}},{"kind":"Field","name":{"kind":"Name","value":"eventDurationUnit"}},{"kind":"Field","name":{"kind":"Name","value":"eventDurationValue"}},{"kind":"Field","name":{"kind":"Name","value":"excludedDegreeOfEstablishmentScope"}},{"kind":"Field","name":{"kind":"Name","value":"excludedGrowthFormScope"}},{"kind":"Field","name":{"kind":"Name","value":"excludedHabitatScope"}},{"kind":"Field","name":{"kind":"Name","value":"excludedLifeStageScope"}},{"kind":"Field","name":{"kind":"Name","value":"geospatialScopeAreaUnit"}},{"kind":"Field","name":{"kind":"Name","value":"geospatialScopeAreaValue"}},{"kind":"Field","name":{"kind":"Name","value":"hasMaterialSamples"}},{"kind":"Field","name":{"kind":"Name","value":"hasNonTargetOrganisms"}},{"kind":"Field","name":{"kind":"Name","value":"hasNonTargetTaxa"}},{"kind":"Field","name":{"kind":"Name","value":"hasVouchers"}},{"kind":"Field","name":{"kind":"Name","value":"inventoryTypes"}},{"kind":"Field","name":{"kind":"Name","value":"isAbsenceReported"}},{"kind":"Field","name":{"kind":"Name","value":"isAbundanceCapReported"}},{"kind":"Field","name":{"kind":"Name","value":"isAbundanceReported"}},{"kind":"Field","name":{"kind":"Name","value":"isDegreeOfEstablishmentScopeFullyReported"}},{"kind":"Field","name":{"kind":"Name","value":"isGrowthFormScopeFullyReported"}},{"kind":"Field","name":{"kind":"Name","value":"isLeastSpecificTargetCategoryQuantityInclusive"}},{"kind":"Field","name":{"kind":"Name","value":"isLifeStageScopeFullyReported"}},{"kind":"Field","name":{"kind":"Name","value":"isSamplingEffortReported"}},{"kind":"Field","name":{"kind":"Name","value":"isTaxonomicScopeFullyReported"}},{"kind":"Field","name":{"kind":"Name","value":"isVegetationCoverReported"}},{"kind":"Field","name":{"kind":"Name","value":"materialSampleTypes"}},{"kind":"Field","name":{"kind":"Name","value":"protocolDescriptions"}},{"kind":"Field","name":{"kind":"Name","value":"protocolNames"}},{"kind":"Field","name":{"kind":"Name","value":"protocolReferences"}},{"kind":"Field","name":{"kind":"Name","value":"samplingEffortUnit"}},{"kind":"Field","name":{"kind":"Name","value":"samplingEffortValue"}},{"kind":"Field","name":{"kind":"Name","value":"samplingPerformedBy"}},{"kind":"Field","name":{"kind":"Name","value":"siteCount"}},{"kind":"Field","name":{"kind":"Name","value":"targetDegreeOfEstablishmentScope"}},{"kind":"Field","name":{"kind":"Name","value":"targetGrowthFormScope"}},{"kind":"Field","name":{"kind":"Name","value":"targetHabitatScope"}},{"kind":"Field","name":{"kind":"Name","value":"targetLifeStageScope"}},{"kind":"Field","name":{"kind":"Name","value":"targetTaxonomicScope"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"checklistKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"checklistKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"usageKey"}},{"kind":"Field","name":{"kind":"Name","value":"usageName"}},{"kind":"Field","name":{"kind":"Name","value":"usageRank"}},{"kind":"Field","name":{"kind":"Name","value":"classification"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"rank"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"excludedTaxonomicScope"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"checklistKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"checklistKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"usageKey"}},{"kind":"Field","name":{"kind":"Name","value":"usageName"}},{"kind":"Field","name":{"kind":"Name","value":"usageRank"}}]}},{"kind":"Field","name":{"kind":"Name","value":"nonTargetTaxa"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"checklistKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"checklistKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"usageKey"}},{"kind":"Field","name":{"kind":"Name","value":"usageName"}},{"kind":"Field","name":{"kind":"Name","value":"usageRank"}}]}},{"kind":"Field","name":{"kind":"Name","value":"absentTaxa"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"checklistKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"checklistKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"usageKey"}},{"kind":"Field","name":{"kind":"Name","value":"usageName"}},{"kind":"Field","name":{"kind":"Name","value":"usageRank"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taxonCompletenessProtocols"}},{"kind":"Field","name":{"kind":"Name","value":"totalAreaSampledUnit"}},{"kind":"Field","name":{"kind":"Name","value":"totalAreaSampledValue"}},{"kind":"Field","name":{"kind":"Name","value":"verbatimSiteDescriptions"}},{"kind":"Field","name":{"kind":"Name","value":"verbatimSiteNames"}},{"kind":"Field","name":{"kind":"Name","value":"voucherInstitutions"}}]}}]}}]}}]} as unknown as DocumentNode<EventQuery, EventQueryVariables>;
 export const SubEventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"subEvents"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"datasetKey"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"event"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"eventId"}}},{"kind":"Argument","name":{"kind":"Name","value":"datasetKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"datasetKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventID"}},{"kind":"Field","name":{"kind":"Name","value":"subEvents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"endOfRecords"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventID"}},{"kind":"Field","name":{"kind":"Name","value":"eventType"}},{"kind":"Field","name":{"kind":"Name","value":"samplingProtocol"}},{"kind":"Field","name":{"kind":"Name","value":"decimalLatitude"}},{"kind":"Field","name":{"kind":"Name","value":"decimalLongitude"}},{"kind":"Field","name":{"kind":"Name","value":"eventDate"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<SubEventsQuery, SubEventsQueryVariables>;
 export const DatasetCitationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetCitation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"citation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"}}]}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]}}]} as unknown as DocumentNode<DatasetCitationQuery, DatasetCitationQueryVariables>;
+export const DatasetValidationReportDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetValidationReport"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"datasetKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"attempt"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dwdpValidationReport"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"datasetKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"datasetKey"}}},{"kind":"Argument","name":{"kind":"Name","value":"attempt"},"value":{"kind":"Variable","name":{"kind":"Name","value":"attempt"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datasetKey"}},{"kind":"Field","name":{"kind":"Name","value":"attempt"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"started"}},{"kind":"Field","name":{"kind":"Name","value":"finished"}},{"kind":"Field","name":{"kind":"Name","value":"valid"}}]}},{"kind":"Field","name":{"kind":"Name","value":"result"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"descriptorValidation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"valid"}},{"kind":"Field","name":{"kind":"Name","value":"canProceedToDataAnalysis"}},{"kind":"Field","name":{"kind":"Name","value":"issues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"severity"}},{"kind":"Field","name":{"kind":"Name","value":"violationType"}},{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"emlValidation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"valid"}},{"kind":"Field","name":{"kind":"Name","value":"emlPresent"}},{"kind":"Field","name":{"kind":"Name","value":"issues"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"severity"}},{"kind":"Field","name":{"kind":"Name","value":"violationType"}},{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"location"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"resourceAnalysisResults"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"totalRows"}},{"kind":"Field","name":{"kind":"Name","value":"columnAnalyses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"populatedValues"}},{"kind":"Field","name":{"kind":"Name","value":"uniqueValues"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dataTypeViolations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resource"}},{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"declaredType"}},{"kind":"Field","name":{"kind":"Name","value":"violationCount"}},{"kind":"Field","name":{"kind":"Name","value":"sampleValues"}}]}},{"kind":"Field","name":{"kind":"Name","value":"foreignKeyViolations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resource"}},{"kind":"Field","name":{"kind":"Name","value":"fields"}},{"kind":"Field","name":{"kind":"Name","value":"referenceResource"}},{"kind":"Field","name":{"kind":"Name","value":"referenceFields"}},{"kind":"Field","name":{"kind":"Name","value":"violationCount"}},{"kind":"Field","name":{"kind":"Name","value":"sampleRows"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryKeyViolation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resource"}},{"kind":"Field","name":{"kind":"Name","value":"fields"}},{"kind":"Field","name":{"kind":"Name","value":"violationCount"}},{"kind":"Field","name":{"kind":"Name","value":"sampleRows"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetValidationReportQuery, DatasetValidationReportQueryVariables>;
 export const DatasetSearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetSearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DatasetStubResult"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetStubResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchStub"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]} as unknown as DocumentNode<DatasetSearchQuery, DatasetSearchQueryVariables>;
 export const DatasetHostingFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetHostingFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"hostingOrg"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","alias":{"kind":"Name","value":"item"},"name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetHostingFacetQuery, DatasetHostingFacetQueryVariables>;
 export const DatasetProjectFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetProjectFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"projectId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetProjectFacetQuery, DatasetProjectFacetQueryVariables>;

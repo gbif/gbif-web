@@ -5,15 +5,16 @@ import { cn } from '@/utils/shadcn';
 type Props = {
   children?: React.ReactNode;
   messageId?: string;
+  defaultMessage?: string;
   className?: string;
 };
 
-export function NoRecords({ messageId, children, className }: Props) {
+export function NoRecords({ messageId, defaultMessage, children, className }: Props) {
   return (
     <div className={cn('g-text-center g-my-8', className)}>
       <NoResultsImage className="-g-mt-8" />
       <h3 dir="auto" className="g-font-bold g-text-slate-400/80 -g-mt-8">
-        <FormattedMessage id={messageId ?? 'phrases.noRecords'} />
+        <FormattedMessage id={messageId ?? 'phrases.noRecords'} defaultMessage={defaultMessage} />
       </h3>
       {children}
     </div>
