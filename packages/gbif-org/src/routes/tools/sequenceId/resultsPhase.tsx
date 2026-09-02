@@ -341,7 +341,7 @@ function ResultRow({ row, onShowAlignment }: { row: SequenceResult; onShowAlignm
       <td className="g-px-4 g-py-2">
         {usage ? (
           <a
-            href={`/species/${usage.key}`}
+            href={`/taxon/${usage.key}`}
             target="_blank"
             rel="noreferrer"
             className="g-text-primary-600 hover:g-underline"
@@ -383,7 +383,7 @@ function ResultRow({ row, onShowAlignment }: { row: SequenceResult; onShowAlignm
             {classification.map((c) => (
               <span key={c.key}>
                 <a
-                  href={`/species/${c.key}`}
+                  href={`/taxon/${c.key}`}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:g-underline g-text-slate-600"

@@ -40,6 +40,18 @@ function ViewOptions({ view, setView, options = ['SUNBURST', 'TREEMAP'] }) {
 }
 
 const rankKeys_ = ['kingdomKey', 'phylumKey', 'classKey', 'orderKey', 'familyKey', 'genusKey'];
+// The GBIF rank enum name for each facet key, used to find a node's parent in its classification by
+// rank rather than by position. Checklists such as CatalogueOfLife include intermediate ranks
+// (SUBPHYLUM, MEGACLASS, SUBFAMILY, …) between the Linnaean ranks we chart, so the parent is NOT
+// simply the second-to-last classification entry — it must be located by its rank name.
+const RANK_BY_KEY: Record<string, string> = {
+  kingdomKey: 'KINGDOM',
+  phylumKey: 'PHYLUM',
+  classKey: 'CLASS',
+  orderKey: 'ORDER',
+  familyKey: 'FAMILY',
+  genusKey: 'GENUS',
+};
 export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, ...props }) {
   const defaultChecklistKey = useChecklistKey();
   const [rankKeys, setRankKeys] = useState(rankKeys_.toSpliced(4, rankKeys_.length - 4));
@@ -95,44 +107,50 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
       // lineage instead of looping forever (which left the card blank).
       setRankKeys(deeperRanks);
     } else if (facetResults?.data?.search?.facet) {
-      let results = [];
-      const levelCounts = rankKeys.reduce((acc, key, idx) => {
-        acc[idx] = Number(facetResults?.data?.search?.cardinality[key]) || 0;
-        return acc;
-      }, {});
+      const facet = facetResults.data.search.facet;
+      // Derive the rings from the FACET RESPONSE itself, in canonical shallow→deep rank order —
+      // NOT from the mutable `rankKeys` state. `rankKeys` can change (the taxonKey/zoom effects) or
+      // lag behind a late-arriving facet response, and indexing buckets by their position in it was
+      // assigning ring levels to the wrong ranks (e.g. an order like Agaricales rendered at the
+      // innermost level). A node's level now always matches its true rank.
+      const ORDERED_KEYS = [
+        'kingdomKey',
+        'phylumKey',
+        'classKey',
+        'orderKey',
+        'familyKey',
+        'genusKey',
+      ];
+      const present = ORDERED_KEYS.filter((rk) => Array.isArray(facet[rk]));
+      // Draw a ring for the shallowest and deepest present rank, plus any rank that branches (more
+      // than one taxon). Single-child intermediate ranks are dropped; their descendants re-link to
+      // the nearest drawn ancestor (by rank name, below), so nothing is orphaned to the centre.
+      const drawn = present.filter(
+        (rk, i) => i === 0 || i === present.length - 1 || (facet[rk]?.length ?? 0) > 1
+      );
 
-      rankKeys.forEach((rank, idx) => {
-        // Include a rank when it (or the next) actually branches, or when it's
-        // the deepest rank. For a single lineage, include every rank so the full
-        // classification renders as nested single rings instead of nothing.
-        if (
-          singleLineage ||
-          Number(cardinality?.[rankKeys[idx]]) > 1 ||
-          Number(cardinality?.[rankKeys[idx + 1]]) > 1 ||
-          idx === rankKeys.length - 1
-        ) {
-          results = [
-            ...results,
-            ...facetResults.data.search.facet[rank].map((item) =>
-              idx === 0
-                ? {
-                    id: `${idx}.${item.key}`,
-                    value: item.count,
-                    name: item.entity.usage?.name,
-                    rank: item.entity.usage?.rank,
-                  }
-                : {
-                    id: `${idx}.${item.key}`,
-                    value: item.count,
-                    name: item.entity.usage?.name,
-                    rank: item.entity.usage?.rank,
-                    parent: `${idx - 1}.${
-                      item.entity.classification?.[item.entity.classification.length - 2]?.key
-                    }`,
-                  }
-            ),
-          ];
-        }
+      let results = [];
+      const levelCounts = {};
+      drawn.forEach((rk, level) => {
+        levelCounts[level] = facet[rk]?.length ?? 0;
+        // The parent ring's rank name, used to locate this node's parent in its classification
+        // (robust to intermediate ranks in checklists like CoL, and to dropped single-child rings).
+        const parentRankName = level > 0 ? RANK_BY_KEY[drawn[level - 1]] : null;
+        results = results.concat(
+          (facet[rk] ?? []).map((item) => {
+            const node = {
+              id: `${level}.${item.key}`,
+              value: item.count,
+              name: item.entity?.usage?.name,
+              rank: item.entity?.usage?.rank,
+            };
+            if (!parentRankName) return node;
+            const parentKey = item.entity?.classification?.find(
+              (c: any) => c.rank === parentRankName
+            )?.key;
+            return { ...node, parent: `${level - 1}.${parentKey}` };
+          })
+        );
       });
 
       const taxonomy = {

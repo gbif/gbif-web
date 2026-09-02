@@ -5748,11 +5748,11 @@ export type OccurrenceAutoDateHistogramEventDateArgs = {
 
 export type OccurrenceCardinality = {
   __typename?: 'OccurrenceCardinality';
-  acceptedTaxonKey: Scalars['Long']['output'];
+  acceptedTaxonKey?: Maybe<Scalars['Long']['output']>;
   basisOfRecord: Scalars['Long']['output'];
   biostratigraphy: Scalars['Long']['output'];
   catalogNumber: Scalars['Long']['output'];
-  classKey: Scalars['Long']['output'];
+  classKey?: Maybe<Scalars['Long']['output']>;
   collectionCode: Scalars['Long']['output'];
   collectionKey: Scalars['Long']['output'];
   continent: Scalars['Long']['output'];
@@ -5767,7 +5767,7 @@ export type OccurrenceCardinality = {
   endorsingNodeKey: Scalars['Long']['output'];
   establishmentMeans: Scalars['Long']['output'];
   eventId: Scalars['Long']['output'];
-  familyKey: Scalars['Long']['output'];
+  familyKey?: Maybe<Scalars['Long']['output']>;
   fieldNumber: Scalars['Long']['output'];
   gadmGid: Scalars['Long']['output'];
   gadmLevel0Gid: Scalars['Long']['output'];
@@ -5775,7 +5775,7 @@ export type OccurrenceCardinality = {
   gadmLevel2Gid: Scalars['Long']['output'];
   gadmLevel3Gid: Scalars['Long']['output'];
   gbifRegion: Scalars['Long']['output'];
-  genusKey: Scalars['Long']['output'];
+  genusKey?: Maybe<Scalars['Long']['output']>;
   georeferencedBy: Scalars['Long']['output'];
   higherGeography: Scalars['Long']['output'];
   hostingOrganizationKey: Scalars['Long']['output'];
@@ -5788,8 +5788,8 @@ export type OccurrenceCardinality = {
   island: Scalars['Long']['output'];
   islandGroup: Scalars['Long']['output'];
   issue: Scalars['Long']['output'];
-  iucnRedListCategory: Scalars['Long']['output'];
-  kingdomKey: Scalars['Long']['output'];
+  iucnRedListCategory?: Maybe<Scalars['Long']['output']>;
+  kingdomKey?: Maybe<Scalars['Long']['output']>;
   license: Scalars['Long']['output'];
   lifeStage: Scalars['Long']['output'];
   lithostratigraphy: Scalars['Long']['output'];
@@ -5801,12 +5801,12 @@ export type OccurrenceCardinality = {
   nucleotideSequenceTargetGene: Scalars['Long']['output'];
   occurrenceId: Scalars['Long']['output'];
   occurrenceStatus: Scalars['Long']['output'];
-  orderKey: Scalars['Long']['output'];
+  orderKey?: Maybe<Scalars['Long']['output']>;
   organismId: Scalars['Long']['output'];
   organismQuantityType: Scalars['Long']['output'];
   parentEventId: Scalars['Long']['output'];
   pathway: Scalars['Long']['output'];
-  phylumKey: Scalars['Long']['output'];
+  phylumKey?: Maybe<Scalars['Long']['output']>;
   preparations: Scalars['Long']['output'];
   programme: Scalars['Long']['output'];
   projectId: Scalars['Long']['output'];
@@ -5820,14 +5820,14 @@ export type OccurrenceCardinality = {
   sampleSizeUnit: Scalars['Long']['output'];
   samplingProtocol: Scalars['Long']['output'];
   sex: Scalars['Long']['output'];
-  speciesKey: Scalars['Long']['output'];
+  speciesKey?: Maybe<Scalars['Long']['output']>;
   startDayOfYear: Scalars['Long']['output'];
   stateProvince: Scalars['Long']['output'];
-  taxonKey: Scalars['Long']['output'];
+  taxonKey?: Maybe<Scalars['Long']['output']>;
   taxonomicIssue: Scalars['Long']['output'];
   typeStatus: Scalars['Long']['output'];
   typifiedName: Scalars['Long']['output'];
-  usageKey: Scalars['Long']['output'];
+  usageKey?: Maybe<Scalars['Long']['output']>;
   verbatimScientificName: Scalars['Long']['output'];
   waterBody: Scalars['Long']['output'];
   year: Scalars['Long']['output'];
