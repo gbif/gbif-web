@@ -279,7 +279,7 @@ fragmentManager.register(/* GraphQL */ `
     formattedCoordinates
     eventDate
     primaryImage {
-      identifier
+      identifier: thumbor(width: 300)
     }
     classification(checklistKey: $clusteringChecklistKey) {
       usage {
