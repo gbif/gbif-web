@@ -23,6 +23,20 @@ module.exports = {
     },
     fontFamily: {
       sans: ['var(--fontFamily)'],
+      // Not theme-driven like `sans` — this app has no configurable monospace brand font, so
+      // `mono` was previously missing here entirely (theme.fontFamily replaces Tailwind's
+      // defaults rather than extending them), silently making every `font-mono`/`g-font-mono`
+      // usage in the app a no-op.
+      mono: [
+        'ui-monospace',
+        'SFMono-Regular',
+        'Menlo',
+        'Monaco',
+        'Consolas',
+        '"Liberation Mono"',
+        '"Courier New"',
+        'monospace',
+      ],
     },
     extend: {
       colors: {

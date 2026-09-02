@@ -584,7 +584,11 @@ export function DatasetPage() {
               }
             >
               <DynamicLink pageId="datasetSearch" searchParams={{ type: dataset.type }}>
-                <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+                {dataset.type ? (
+                  <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+                ) : (
+                  <FormattedMessage id="dataset.dataset" defaultMessage="Dataset" />
+                )}
               </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}

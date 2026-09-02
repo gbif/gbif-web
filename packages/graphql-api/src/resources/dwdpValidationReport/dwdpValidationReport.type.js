@@ -13,6 +13,7 @@ const typeDef = gql`
   type DwdpValidationReport {
     datasetKey: ID!
     attempt: String
+    version: String
     metadata: DwdpValidationMetadata
     result: DwdpValidationResult
   }
@@ -41,14 +42,14 @@ const typeDef = gql`
   }
 
   type DwdpDescriptorValidation {
-    valid: Boolean
-    canProceedToDataAnalysis: Boolean
+    isValid: Boolean
+    hasDataAnalysis: Boolean
     issues: [DwdpValidationIssue!]
   }
 
   type DwdpEmlValidation {
-    valid: Boolean
-    emlPresent: Boolean
+    isValid: Boolean
+    isPresent: Boolean
     issues: [DwdpValidationIssue!]
   }
 
@@ -93,7 +94,7 @@ const typeDef = gql`
   type DwdpResourceAnalysisResult {
     name: String
     totalRows: Int
-    columnAnalyses: [DwdpColumnAnalysis!]
+    columnStatistics: [DwdpColumnAnalysis!]
     dataTypeViolations: [DwdpDataTypeViolation!]
     foreignKeyViolations: [DwdpForeignKeyViolation!]
     primaryKeyViolation: DwdpPrimaryKeyViolation

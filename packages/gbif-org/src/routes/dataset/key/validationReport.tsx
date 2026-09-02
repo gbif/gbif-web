@@ -1,10 +1,22 @@
 import { NoRecords } from '@/components/noDataMessages';
 import { SearchInput } from '@/components/searchInput';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -14,6 +26,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import {
+  DatasetCrawlAttemptQuery,
+  DatasetCrawlAttemptQueryVariables,
   DatasetValidationReportQuery,
   DatasetValidationReportQueryVariables,
   DwdpColumnAnalysis,
@@ -49,6 +63,7 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
     dwdpValidationReport(datasetKey: $datasetKey, attempt: $attempt) {
       datasetKey
       attempt
+      version
       metadata {
         started
         finished
@@ -56,8 +71,8 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
       }
       result {
         descriptorValidation {
-          valid
-          canProceedToDataAnalysis
+          isValid
+          hasDataAnalysis
           issues {
             severity
             violationType
@@ -67,8 +82,8 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
           }
         }
         emlValidation {
-          valid
-          emlPresent
+          isValid
+          isPresent
           issues {
             severity
             violationType
@@ -80,7 +95,7 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
         resourceAnalysisResults {
           name
           totalRows
-          columnAnalyses {
+          columnStatistics {
             name
             populatedValues
             uniqueValues
@@ -111,6 +126,34 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+// The crawler tags the dataset with its current crawl attempt number, which is also the
+// attempt number of the latest validation report. Attempts are a plain incrementing integer
+// starting at 1, so once we know the latest one we can list the (up to 10) preceding ones
+// without a dedicated "list attempts" endpoint.
+const CRAWL_ATTEMPT_QUERY = /* GraphQL */ `
+  query DatasetCrawlAttempt($datasetKey: ID!) {
+    dataset(key: $datasetKey) {
+      crawlAttempt: machineTags(namespace: "crawler.gbif.org", name: "crawl_attempt") {
+        value
+      }
+    }
+  }
+`;
+
+const MAX_ATTEMPT_OPTIONS = 10;
+
+// Nothing guarantees a dataset only ever carries a single crawl_attempt machine tag, so take
+// the highest value found rather than assuming array order or length.
+function parseLatestAttempt(
+  tags?: Array<{ value?: string | null } | null> | null
+): number | undefined {
+  const values = (tags ?? [])
+    .map((tag) => (tag?.value ? parseInt(tag.value, 10) : NaN))
+    .filter((n): n is number => Number.isFinite(n) && n > 0);
+  if (values.length === 0) return undefined;
+  return Math.max(...values);
+}
 
 // The graphql-api resolver normalises Jackson's array-form java.time.LocalDateTime into a
 // zone-less ISO-8601 string (e.g. "2026-08-31T11:59:47.890170096"). Parse it as UTC
@@ -152,8 +195,71 @@ function worstSeverity(issues: DwdpValidationIssue[]): string {
 
 /* ---------- small shared pieces ---------- */
 
-function StatusIcon({ ok, blocking, size = 18 }: { ok: boolean; blocking?: boolean; size?: number }) {
-  if (ok) return <MdCheckCircle className="g-shrink-0 g-text-primary-500" size={size} aria-hidden />;
+// Falls back to a plain "Latest" label (no dropdown) when we don't have a crawl attempt number
+// to work with, e.g. a dataset without a crawler-assigned attempt.
+function AttemptPicker({
+  latestAttempt,
+  attemptOptions,
+  selectedAttempt,
+  onChange,
+  className,
+}: {
+  latestAttempt?: number;
+  attemptOptions: number[];
+  selectedAttempt?: number;
+  onChange: (attempt: number) => void;
+  className?: string;
+}) {
+  if (latestAttempt === undefined || selectedAttempt === undefined || attemptOptions.length <= 1) {
+    return (
+      <span className={cn('g-text-xs g-text-slate-500', className)}>
+        <FormattedMessage id="dataset.validationReport.latest" defaultMessage="Latest" />
+      </span>
+    );
+  }
+  return (
+    <Select
+      value={String(selectedAttempt)}
+      onValueChange={(value) => onChange(parseInt(value, 10))}
+    >
+      <SelectTrigger
+        className={cn(
+          'g-h-6 g-w-auto g-gap-1 g-border-none g-shadow-none g-bg-transparent g-px-1.5 g-py-0 g-text-xs g-text-slate-500 hover:g-bg-slate-100 focus:g-ring-0 focus:g-ring-offset-0',
+          className
+        )}
+      >
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent align="end">
+        {attemptOptions.map((n) => (
+          <SelectItem key={n} value={String(n)} className="g-text-xs">
+            {n === latestAttempt ? (
+              <FormattedMessage id="dataset.validationReport.latest" defaultMessage="Latest" />
+            ) : (
+              <FormattedMessage
+                id="dataset.validationReport.attemptOption"
+                defaultMessage="Attempt {attempt}"
+                values={{ attempt: n }}
+              />
+            )}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
+
+function StatusIcon({
+  ok,
+  blocking,
+  size = 18,
+}: {
+  ok: boolean;
+  blocking?: boolean;
+  size?: number;
+}) {
+  if (ok)
+    return <MdCheckCircle className="g-shrink-0 g-text-primary-500" size={size} aria-hidden />;
   return (
     <MdError
       className={cn('g-shrink-0', blocking ? 'g-text-red-600' : 'g-text-amber-500')}
@@ -204,7 +310,9 @@ function SeverityIcon({ severity, size = 18 }: { severity?: string | null; size?
       tone={tone}
       size={size}
       glyph={
-        <span className="g-text-[10px] g-font-bold g-leading-none">{key === 'INFO' ? 'i' : '!'}</span>
+        <span className="g-text-[10px] g-font-bold g-leading-none">
+          {key === 'INFO' ? 'i' : '!'}
+        </span>
       }
     />
   );
@@ -299,17 +407,18 @@ function StatusLine({
   );
 }
 
-// An "all clear" notice, e.g. "no issues found in the descriptor" — green to read as a
-// pass, matching the green success-message treatment already used elsewhere in the app.
+// An "all clear" notice, e.g. "no issues found in the descriptor" — green to read as a pass.
+// Uses a muted, low-saturation green rather than the app's default (quite vivid) green-*
+// success tokens, which read as neon/pastel at this box size.
 function SuccessNote({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div
       className={cn(
-        'g-flex g-items-center g-gap-2 g-p-4 g-rounded-lg g-border g-border-green-200 g-bg-green-50 g-text-sm g-text-green-700',
+        'g-flex g-items-center g-gap-2 g-p-4 g-rounded g-border g-border-[#d7e1cf] g-bg-[#e3efd6] g-text-sm g-text-[#3f5735]',
         className
       )}
     >
-      <MdCheckCircle className="g-shrink-0 g-text-green-600" size={20} aria-hidden />
+      <MdCheckCircle className="g-shrink-0 g-text-[#4d9c2f]" size={20} aria-hidden />
       <span>{children}</span>
     </div>
   );
@@ -369,7 +478,10 @@ function SummaryDetail({
     <div>
       <DetailHeader
         title={
-          <FormattedMessage id="dataset.validationReport.summary" defaultMessage="Validation summary" />
+          <FormattedMessage
+            id="dataset.validationReport.summary"
+            defaultMessage="Validation summary"
+          />
         }
         action={
           <Button asChild variant="outline" size="sm">
@@ -429,7 +541,10 @@ function SummaryDetail({
             icon={<MdCheckCircle className="g-text-primary-500" size={20} aria-hidden />}
             title={
               <span className="g-font-semibold">
-                <FormattedMessage id="dataset.validationReport.status.valid" defaultMessage="No issues found" />
+                <FormattedMessage
+                  id="dataset.validationReport.status.valid"
+                  defaultMessage="No issues found"
+                />
               </span>
             }
             note={
@@ -443,7 +558,9 @@ function SummaryDetail({
       </div>
       <div className="g-grid g-grid-cols-2 sm:g-grid-cols-3 g-gap-x-6 g-gap-y-4 g-pt-5 g-border-t g-border-slate-200">
         <Fact
-          label={<FormattedMessage id="dataset.validationReport.processed" defaultMessage="Processed" />}
+          label={
+            <FormattedMessage id="dataset.validationReport.processed" defaultMessage="Processed" />
+          }
           value={
             finished ? (
               <FormattedDate
@@ -460,7 +577,9 @@ function SummaryDetail({
           }
         />
         <Fact
-          label={<FormattedMessage id="dataset.validationReport.duration" defaultMessage="Duration" />}
+          label={
+            <FormattedMessage id="dataset.validationReport.duration" defaultMessage="Duration" />
+          }
           value={durationSeconds !== undefined ? `${durationSeconds.toFixed(1)}s` : '—'}
         />
         <Fact
@@ -469,13 +588,19 @@ function SummaryDetail({
         />
         <Fact
           label={
-            <FormattedMessage id="dataset.validationReport.rowsAnalysed" defaultMessage="Rows analysed" />
+            <FormattedMessage
+              id="dataset.validationReport.rowsAnalysed"
+              defaultMessage="Rows analysed"
+            />
           }
           value={totalRows.toLocaleString()}
         />
         <Fact
           label={
-            <FormattedMessage id="dataset.validationReport.integrityIssues" defaultMessage="Integrity issues" />
+            <FormattedMessage
+              id="dataset.validationReport.integrityIssues"
+              defaultMessage="Integrity issues"
+            />
           }
           value={integrityIssueCount}
           tone={integrityIssueCount ? 'error' : undefined}
@@ -491,15 +616,6 @@ function SummaryDetail({
           tone={metadataIssueCount ? 'warn' : undefined}
         />
       </div>
-      {report.attempt && (
-        <div className="g-text-xs g-text-slate-500 g-mt-4">
-          <FormattedMessage
-            id="dataset.validationReport.attemptNote"
-            defaultMessage="Showing report for attempt {attempt}. Browsing earlier report versions will be available soon."
-            values={{ attempt: report.attempt }}
-          />
-        </div>
-      )}
     </div>
   );
 }
@@ -533,7 +649,9 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
             >
               <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
                 <SeverityIcon severity={worst} />
-                <span className="g-font-semibold g-text-slate-900">{humanizeViolationType(type)}</span>
+                <span className="g-font-semibold g-text-slate-900">
+                  {humanizeViolationType(type)}
+                </span>
                 <span className="g-ms-auto g-text-sm g-text-slate-500">{list.length}</span>
               </span>
             </AccordionTrigger>
@@ -541,7 +659,7 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
               <div className="g-overflow-x-auto g-border-t g-border-slate-200">
                 <Table>
                   <TableHeader className="g-bg-slate-50">
-                    <TableRow>
+                    <TableRow className="g-border-b g-border-slate-200">
                       <TableHead>
                         <FormattedMessage
                           id="dataset.validationReport.severityColumn"
@@ -571,7 +689,7 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
                   <TableBody>
                     {list.map((issue, i) => (
                       // eslint-disable-next-line react/no-array-index-key
-                      <TableRow key={i}>
+                      <TableRow key={i} className="g-border-b g-border-slate-200 last:g-border-b-0">
                         <TableCell>
                           <FormattedMessage
                             id={`dataset.validationReport.severity.${issue.severity ?? 'INFO'}`}
@@ -629,7 +747,10 @@ function DescriptorOrEmlDetail({
 
 type ViolationKind = 'pk' | 'fk' | 'dt';
 
-const VIOLATION_LABEL: Record<ViolationKind, { id: string; defaultMessage: string; icon: React.ReactNode }> = {
+const VIOLATION_LABEL: Record<
+  ViolationKind,
+  { id: string; defaultMessage: string; icon: React.ReactNode }
+> = {
   pk: {
     id: 'dataset.validationReport.primaryKeyViolation',
     defaultMessage: 'Primary key is not unique',
@@ -676,7 +797,10 @@ function ViolationCard({
           <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
             <RoundBadge tone="error" glyph={VIOLATION_LABEL[kind].icon} />
             <span className="g-font-semibold g-text-red-800">
-              <FormattedMessage id={VIOLATION_LABEL[kind].id} defaultMessage={VIOLATION_LABEL[kind].defaultMessage} />
+              <FormattedMessage
+                id={VIOLATION_LABEL[kind].id}
+                defaultMessage={VIOLATION_LABEL[kind].defaultMessage}
+              />
             </span>
             <span className="g-ms-auto g-text-sm g-font-medium g-text-red-800">
               {violation.violationCount ?? 0}
@@ -688,7 +812,10 @@ function ViolationCard({
             {fields.length > 0 && (
               <div>
                 <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage id="dataset.validationReport.fields" defaultMessage="Field(s)" />
+                  <FormattedMessage
+                    id="dataset.validationReport.fields"
+                    defaultMessage="Field(s)"
+                  />
                 </div>
                 <div className="g-font-mono g-text-xs g-flex g-flex-wrap g-gap-x-2">
                   {fields.map((field) => (
@@ -746,7 +873,10 @@ function ViolationCard({
                     id="dataset.validationReport.andNMore"
                     defaultMessage="and {count} more"
                     values={{
-                      count: Math.max((violation.violationCount ?? sampleRows.length) - SAMPLE_CAP, 0),
+                      count: Math.max(
+                        (violation.violationCount ?? sampleRows.length) - SAMPLE_CAP,
+                        0
+                      ),
                     }}
                   />
                 </div>
@@ -796,12 +926,15 @@ function ColumnStatsTable({
       <div className="g-border g-border-slate-200 g-rounded g-overflow-hidden g-overflow-x-auto g-bg-white">
         <Table>
           <TableHeader className="g-bg-slate-50">
-            <TableRow>
+            <TableRow className="g-border-b g-border-slate-200">
               <TableHead>
                 <FormattedMessage id="dataset.validationReport.field" defaultMessage="Field" />
               </TableHead>
               <TableHead>
-                <FormattedMessage id="dataset.validationReport.populated" defaultMessage="Populated" />
+                <FormattedMessage
+                  id="dataset.validationReport.populated"
+                  defaultMessage="Populated"
+                />
               </TableHead>
               <TableHead className="g-text-end">
                 <FormattedMessage
@@ -816,15 +949,20 @@ function ColumnStatsTable({
               const populated = col.populatedValues ?? 0;
               const pct = totalRows ? Math.round((populated / totalRows) * 100) : 0;
               return (
-                <TableRow key={col.name}>
-                  <TableCell className="g-font-mono g-text-xs">{col.name}</TableCell>
+                <TableRow
+                  key={col.name}
+                  className="g-border-b g-border-slate-200 last:g-border-b-0"
+                >
+                  <TableCell className="g-font-mono">{col.name}</TableCell>
                   <TableCell>
                     <div className="g-flex g-items-center g-gap-2">
                       <Progress value={pct} className="g-w-16" />
-                      <span className="g-text-xs g-text-slate-500 g-w-9 g-shrink-0">{pct}%</span>
+                      <span className="g-text-slate-500 g-w-9 g-shrink-0">{pct}%</span>
                     </div>
                   </TableCell>
-                  <TableCell className="g-text-end">{(col.uniqueValues ?? 0).toLocaleString()}</TableCell>
+                  <TableCell className="g-text-end">
+                    {(col.uniqueValues ?? 0).toLocaleString()}
+                  </TableCell>
                 </TableRow>
               );
             })}
@@ -841,7 +979,12 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
     violation: DwdpPrimaryKeyViolation | DwdpForeignKeyViolation | DwdpDataTypeViolation;
   }[] = [
     ...(hasViolations(resource.primaryKeyViolation)
-      ? [{ kind: 'pk' as const, violation: resource.primaryKeyViolation as DwdpPrimaryKeyViolation }]
+      ? [
+          {
+            kind: 'pk' as const,
+            violation: resource.primaryKeyViolation as DwdpPrimaryKeyViolation,
+          },
+        ]
       : []),
     ...(resource.foreignKeyViolations ?? [])
       .filter(hasViolations)
@@ -861,7 +1004,7 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
             defaultMessage="{rows} rows · {fields} fields · {count, plural, =0 {no issues} one {# issue} other {# issues}}"
             values={{
               rows: (resource.totalRows ?? 0).toLocaleString(),
-              fields: resource.columnAnalyses?.length ?? 0,
+              fields: resource.columnStatistics?.length ?? 0,
               count: issueCount(resource),
             }}
           />
@@ -883,9 +1026,15 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
         </div>
       )}
       <h3 className="g-text-base g-font-semibold g-mb-2">
-        <FormattedMessage id="dataset.validationReport.columnStats" defaultMessage="Field summary" />
+        <FormattedMessage
+          id="dataset.validationReport.columnStats"
+          defaultMessage="Field summary"
+        />
       </h3>
-      <ColumnStatsTable columns={resource.columnAnalyses ?? []} totalRows={resource.totalRows ?? 0} />
+      <ColumnStatsTable
+        columns={resource.columnStatistics ?? []}
+        totalRows={resource.totalRows ?? 0}
+      />
     </div>
   );
 }
@@ -897,14 +1046,63 @@ export function DatasetKeyValidationReport() {
   const { dataset } = useDatasetKeyLoaderData().data;
   const showRail = useAbove(900);
 
+  const {
+    data: crawlData,
+    load: loadCrawlAttempt,
+    loading: crawlLoading,
+  } = useQuery<DatasetCrawlAttemptQuery, DatasetCrawlAttemptQueryVariables>(CRAWL_ATTEMPT_QUERY, {
+    throwAllErrors: false,
+    lazyLoad: true,
+    notifyOnErrors: false,
+  });
+  // Tracks whether the crawl-attempt lookup has actually been kicked off, so the report query
+  // below can tell "not started yet" apart from "finished, loading flipped back to false" on
+  // the very first render (both read as crawlLoading === false).
+  const [crawlAttemptRequested, setCrawlAttemptRequested] = useState(false);
+
+  useEffect(() => {
+    loadCrawlAttempt({ variables: { datasetKey: dataset.key } });
+    setCrawlAttemptRequested(true);
+  }, [loadCrawlAttempt, dataset.key]);
+
+  const latestAttempt = useMemo(
+    () => parseLatestAttempt(crawlData?.dataset?.crawlAttempt),
+    [crawlData]
+  );
+  const attemptOptions = useMemo(() => {
+    if (latestAttempt === undefined) return [];
+    const count = Math.min(MAX_ATTEMPT_OPTIONS, latestAttempt);
+    return Array.from({ length: count }, (_, i) => latestAttempt - i);
+  }, [latestAttempt]);
+
+  const [attemptParam, setAttemptParam] = useStringParam({
+    key: 'attempt',
+    defaultValue: latestAttempt !== undefined ? String(latestAttempt) : undefined,
+    hideDefault: true,
+  });
+  const selectedAttempt = useMemo(() => {
+    if (latestAttempt === undefined) return undefined;
+    const parsed = attemptParam ? parseInt(attemptParam, 10) : NaN;
+    return attemptOptions.includes(parsed) ? parsed : latestAttempt;
+  }, [attemptParam, latestAttempt, attemptOptions]);
+
   const { data, load, loading } = useQuery<
     DatasetValidationReportQuery,
     DatasetValidationReportQueryVariables
   >(VALIDATION_REPORT_QUERY, { throwAllErrors: false, lazyLoad: true, notifyOnErrors: true });
 
   useEffect(() => {
-    load({ variables: { datasetKey: dataset.key } });
-  }, [load, dataset.key]);
+    // Wait for the crawl-attempt lookup to finish so we know whether to ask for a specific
+    // attempt or (for datasets without a crawler-assigned attempt) fall back to leaving it out,
+    // which the REST endpoint already treats as "give me the latest".
+    if (!crawlAttemptRequested || crawlLoading) return;
+    load({
+      variables: {
+        datasetKey: dataset.key,
+        attempt: selectedAttempt !== undefined ? String(selectedAttempt) : undefined,
+      },
+    });
+  }, [load, dataset.key, crawlAttemptRequested, crawlLoading, selectedAttempt]);
 
   const report = data?.dwdpValidationReport;
   const result = report?.result;
@@ -954,7 +1152,7 @@ export function DatasetKeyValidationReport() {
   // flag: the EML rail item/tab is only shown when a document was actually found. A direct
   // link to ?section=eml on a dataset without one still gets an explanation, just without
   // the surrounding rail/card chrome (see the early return below).
-  const hasEml = result?.emlValidation?.emlPresent === true;
+  const hasEml = result?.emlValidation?.isPresent === true;
 
   const summaryLabel = formatMessage({
     id: 'dataset.validationReport.summaryShort',
@@ -962,17 +1160,22 @@ export function DatasetKeyValidationReport() {
   });
   const descriptorLabel = formatMessage({
     id: 'dataset.validationReport.descriptor',
-    defaultMessage: 'Descriptor',
+    defaultMessage: 'datapackage.json',
   });
   const emlLabel = formatMessage({
     id: 'dataset.validationReport.eml',
     defaultMessage: 'EML metadata',
   });
 
+  const handleAttemptChange = (attempt: number) => {
+    setAttemptParam(attempt === latestAttempt ? undefined : String(attempt));
+  };
+
   const currentResource = section.startsWith('res:')
     ? resources.find((r) => `res:${r.name}` === section)
     : undefined;
-  const currentSection = section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
+  const currentSection =
+    section === 'descriptor' || section === 'eml' || currentResource ? section : 'summary';
 
   if (currentSection === 'eml' && !hasEml) {
     return (
@@ -992,8 +1195,27 @@ export function DatasetKeyValidationReport() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         {!showRail && (
           <div className="g-mb-4">
+            {attemptOptions.length > 1 && (
+              <div className="g-flex g-items-center g-justify-between g-mb-2">
+                <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                  <FormattedMessage
+                    id="dataset.validationReport.package"
+                    defaultMessage="Package"
+                  />
+                </span>
+                <AttemptPicker
+                  latestAttempt={latestAttempt}
+                  attemptOptions={attemptOptions}
+                  selectedAttempt={selectedAttempt}
+                  onChange={handleAttemptChange}
+                />
+              </div>
+            )}
             <label htmlFor="validation-report-section-select" className="g-sr-only">
-              <FormattedMessage id="dataset.validationReport.selectSection" defaultMessage="Select report section" />
+              <FormattedMessage
+                id="dataset.validationReport.selectSection"
+                defaultMessage="Select report section"
+              />
             </label>
             <select
               id="validation-report-section-select"
@@ -1003,7 +1225,9 @@ export function DatasetKeyValidationReport() {
             >
               <option value="summary">{summaryLabel}</option>
               <option value="descriptor">
-                {descriptorIssues.length ? `${descriptorLabel} (${descriptorIssues.length})` : descriptorLabel}
+                {descriptorIssues.length
+                  ? `${descriptorLabel} (${descriptorIssues.length})`
+                  : descriptorLabel}
               </option>
               {hasEml && (
                 <option value="eml">
@@ -1032,10 +1256,18 @@ export function DatasetKeyValidationReport() {
                 <Card className="g-p-2">
                   <div className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1">
                     <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                      <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
+                      <FormattedMessage
+                        id="dataset.validationReport.package"
+                        defaultMessage="Package"
+                      />
                     </span>
-                    <span className="g-ms-auto g-text-xs g-text-slate-500">
-                      <FormattedMessage id="dataset.validationReport.latest" defaultMessage="Latest" />
+                    <span className="g-ms-auto">
+                      <AttemptPicker
+                        latestAttempt={latestAttempt}
+                        attemptOptions={attemptOptions}
+                        selectedAttempt={selectedAttempt}
+                        onChange={handleAttemptChange}
+                      />
                     </span>
                   </div>
                   <RailItem
@@ -1068,7 +1300,10 @@ export function DatasetKeyValidationReport() {
                   <div className="g-border-t g-border-slate-200 g-my-2" />
                   <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
                     <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                      <FormattedMessage id="dataset.validationReport.tables" defaultMessage="Tables" />{' '}
+                      <FormattedMessage
+                        id="dataset.validationReport.tables"
+                        defaultMessage="Tables"
+                      />{' '}
                       ({resources.length})
                     </span>
                   </div>
@@ -1109,7 +1344,12 @@ export function DatasetKeyValidationReport() {
             )}
             {currentSection === 'descriptor' && (
               <DescriptorOrEmlDetail
-                title={<FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="Descriptor" />}
+                title={
+                  <FormattedMessage
+                    id="dataset.validationReport.descriptor"
+                    defaultMessage="datapackage.json"
+                  />
+                }
                 meta={
                   <FormattedMessage
                     id="dataset.validationReport.descriptorMeta"
@@ -1124,7 +1364,12 @@ export function DatasetKeyValidationReport() {
             )}
             {currentSection === 'eml' && (
               <DescriptorOrEmlDetail
-                title={<FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />}
+                title={
+                  <FormattedMessage
+                    id="dataset.validationReport.eml"
+                    defaultMessage="EML metadata"
+                  />
+                }
                 meta={
                   <FormattedMessage
                     id="dataset.validationReport.emlMeta"
