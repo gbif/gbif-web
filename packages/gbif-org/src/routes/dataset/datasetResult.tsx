@@ -95,7 +95,11 @@ export function DatasetResult({
         <div dir="auto" className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
           <DynamicLink pageId="datasetSearch" searchParams={{ type: [dataset.type] }}>
             <Tag className="hover:g-bg-primary-200 g-m-1 g-mb-0">
-              <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              {dataset.type ? (
+                <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+              ) : (
+                <FormattedMessage id="dataset.dataset" defaultMessage="Dataset" />
+              )}
             </Tag>
           </DynamicLink>
           <div className="g-flex-grow g-hidden sm:g-block"></div>
