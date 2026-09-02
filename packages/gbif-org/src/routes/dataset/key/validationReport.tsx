@@ -1090,7 +1090,7 @@ export function DatasetKeyValidationReport() {
   });
   const descriptorLabel = formatMessage({
     id: 'dataset.validationReport.descriptor',
-    defaultMessage: 'Descriptor',
+    defaultMessage: 'datapackage.json',
   });
   const emlLabel = formatMessage({
     id: 'dataset.validationReport.eml',
@@ -1259,7 +1259,7 @@ export function DatasetKeyValidationReport() {
             )}
             {currentSection === 'descriptor' && (
               <DescriptorOrEmlDetail
-                title={<FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="Descriptor" />}
+                title={<FormattedMessage id="dataset.validationReport.descriptor" defaultMessage="datapackage.json" />}
                 meta={
                   <FormattedMessage
                     id="dataset.validationReport.descriptorMeta"
