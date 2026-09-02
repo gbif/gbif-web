@@ -6,6 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   Table,
   TableBody,
   TableCell,
@@ -14,6 +21,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import {
+  DatasetCrawlAttemptQuery,
+  DatasetCrawlAttemptQueryVariables,
   DatasetValidationReportQuery,
   DatasetValidationReportQueryVariables,
   DwdpColumnAnalysis,
@@ -113,6 +122,32 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
   }
 `;
 
+// The crawler tags the dataset with its current crawl attempt number, which is also the
+// attempt number of the latest validation report. Attempts are a plain incrementing integer
+// starting at 1, so once we know the latest one we can list the (up to 10) preceding ones
+// without a dedicated "list attempts" endpoint.
+const CRAWL_ATTEMPT_QUERY = /* GraphQL */ `
+  query DatasetCrawlAttempt($datasetKey: ID!) {
+    dataset(key: $datasetKey) {
+      crawlAttempt: machineTags(namespace: "crawler.gbif.org", name: "crawl_attempt") {
+        value
+      }
+    }
+  }
+`;
+
+const MAX_ATTEMPT_OPTIONS = 10;
+
+// Nothing guarantees a dataset only ever carries a single crawl_attempt machine tag, so take
+// the highest value found rather than assuming array order or length.
+function parseLatestAttempt(tags?: Array<{ value?: string | null } | null> | null): number | undefined {
+  const values = (tags ?? [])
+    .map((tag) => (tag?.value ? parseInt(tag.value, 10) : NaN))
+    .filter((n): n is number => Number.isFinite(n) && n > 0);
+  if (values.length === 0) return undefined;
+  return Math.max(...values);
+}
+
 // The graphql-api resolver normalises Jackson's array-form java.time.LocalDateTime into a
 // zone-less ISO-8601 string (e.g. "2026-08-31T11:59:47.890170096"). Parse it as UTC
 // explicitly here rather than relying on the native Date parser's "no offset -> local time"
@@ -152,6 +187,57 @@ function worstSeverity(issues: DwdpValidationIssue[]): string {
 }
 
 /* ---------- small shared pieces ---------- */
+
+// Falls back to a plain "Latest" label (no dropdown) when we don't have a crawl attempt number
+// to work with, e.g. a dataset without a crawler-assigned attempt.
+function AttemptPicker({
+  latestAttempt,
+  attemptOptions,
+  selectedAttempt,
+  onChange,
+  className,
+}: {
+  latestAttempt?: number;
+  attemptOptions: number[];
+  selectedAttempt?: number;
+  onChange: (attempt: number) => void;
+  className?: string;
+}) {
+  if (latestAttempt === undefined || selectedAttempt === undefined || attemptOptions.length <= 1) {
+    return (
+      <span className={cn('g-text-xs g-text-slate-500', className)}>
+        <FormattedMessage id="dataset.validationReport.latest" defaultMessage="Latest" />
+      </span>
+    );
+  }
+  return (
+    <Select value={String(selectedAttempt)} onValueChange={(value) => onChange(parseInt(value, 10))}>
+      <SelectTrigger
+        className={cn(
+          'g-h-6 g-w-auto g-gap-1 g-border-none g-shadow-none g-bg-transparent g-px-1.5 g-py-0 g-text-xs g-text-slate-500 hover:g-bg-slate-100 focus:g-ring-0 focus:g-ring-offset-0',
+          className
+        )}
+      >
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent align="end">
+        {attemptOptions.map((n) => (
+          <SelectItem key={n} value={String(n)} className="g-text-xs">
+            {n === latestAttempt ? (
+              <FormattedMessage id="dataset.validationReport.latest" defaultMessage="Latest" />
+            ) : (
+              <FormattedMessage
+                id="dataset.validationReport.attemptOption"
+                defaultMessage="Attempt {attempt}"
+                values={{ attempt: n }}
+              />
+            )}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
 
 function StatusIcon({ ok, blocking, size = 18 }: { ok: boolean; blocking?: boolean; size?: number }) {
   if (ok) return <MdCheckCircle className="g-shrink-0 g-text-primary-500" size={size} aria-hidden />;
@@ -496,7 +582,7 @@ function SummaryDetail({
         <div className="g-text-xs g-text-slate-500 g-mt-4">
           <FormattedMessage
             id="dataset.validationReport.attemptNote"
-            defaultMessage="Showing report for attempt {attempt}. Browsing earlier report versions will be available soon."
+            defaultMessage="Showing report for attempt {attempt}."
             values={{ attempt: report.attempt }}
           />
         </div>
@@ -898,14 +984,63 @@ export function DatasetKeyValidationReport() {
   const { dataset } = useDatasetKeyLoaderData().data;
   const showRail = useAbove(900);
 
+  const {
+    data: crawlData,
+    load: loadCrawlAttempt,
+    loading: crawlLoading,
+  } = useQuery<DatasetCrawlAttemptQuery, DatasetCrawlAttemptQueryVariables>(CRAWL_ATTEMPT_QUERY, {
+    throwAllErrors: false,
+    lazyLoad: true,
+    notifyOnErrors: false,
+  });
+  // Tracks whether the crawl-attempt lookup has actually been kicked off, so the report query
+  // below can tell "not started yet" apart from "finished, loading flipped back to false" on
+  // the very first render (both read as crawlLoading === false).
+  const [crawlAttemptRequested, setCrawlAttemptRequested] = useState(false);
+
+  useEffect(() => {
+    loadCrawlAttempt({ variables: { datasetKey: dataset.key } });
+    setCrawlAttemptRequested(true);
+  }, [loadCrawlAttempt, dataset.key]);
+
+  const latestAttempt = useMemo(
+    () => parseLatestAttempt(crawlData?.dataset?.crawlAttempt),
+    [crawlData]
+  );
+  const attemptOptions = useMemo(() => {
+    if (latestAttempt === undefined) return [];
+    const count = Math.min(MAX_ATTEMPT_OPTIONS, latestAttempt);
+    return Array.from({ length: count }, (_, i) => latestAttempt - i);
+  }, [latestAttempt]);
+
+  const [attemptParam, setAttemptParam] = useStringParam({
+    key: 'attempt',
+    defaultValue: latestAttempt !== undefined ? String(latestAttempt) : undefined,
+    hideDefault: true,
+  });
+  const selectedAttempt = useMemo(() => {
+    if (latestAttempt === undefined) return undefined;
+    const parsed = attemptParam ? parseInt(attemptParam, 10) : NaN;
+    return attemptOptions.includes(parsed) ? parsed : latestAttempt;
+  }, [attemptParam, latestAttempt, attemptOptions]);
+
   const { data, load, loading } = useQuery<
     DatasetValidationReportQuery,
     DatasetValidationReportQueryVariables
   >(VALIDATION_REPORT_QUERY, { throwAllErrors: false, lazyLoad: true, notifyOnErrors: true });
 
   useEffect(() => {
-    load({ variables: { datasetKey: dataset.key } });
-  }, [load, dataset.key]);
+    // Wait for the crawl-attempt lookup to finish so we know whether to ask for a specific
+    // attempt or (for datasets without a crawler-assigned attempt) fall back to leaving it out,
+    // which the REST endpoint already treats as "give me the latest".
+    if (!crawlAttemptRequested || crawlLoading) return;
+    load({
+      variables: {
+        datasetKey: dataset.key,
+        attempt: selectedAttempt !== undefined ? String(selectedAttempt) : undefined,
+      },
+    });
+  }, [load, dataset.key, crawlAttemptRequested, crawlLoading, selectedAttempt]);
 
   const report = data?.dwdpValidationReport;
   const result = report?.result;
@@ -970,6 +1105,10 @@ export function DatasetKeyValidationReport() {
     defaultMessage: 'EML metadata',
   });
 
+  const handleAttemptChange = (attempt: number) => {
+    setAttemptParam(attempt === latestAttempt ? undefined : String(attempt));
+  };
+
   const currentResource = section.startsWith('res:')
     ? resources.find((r) => `res:${r.name}` === section)
     : undefined;
@@ -993,6 +1132,19 @@ export function DatasetKeyValidationReport() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         {!showRail && (
           <div className="g-mb-4">
+            {attemptOptions.length > 1 && (
+              <div className="g-flex g-items-center g-justify-between g-mb-2">
+                <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                  <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
+                </span>
+                <AttemptPicker
+                  latestAttempt={latestAttempt}
+                  attemptOptions={attemptOptions}
+                  selectedAttempt={selectedAttempt}
+                  onChange={handleAttemptChange}
+                />
+              </div>
+            )}
             <label htmlFor="validation-report-section-select" className="g-sr-only">
               <FormattedMessage id="dataset.validationReport.selectSection" defaultMessage="Select report section" />
             </label>
@@ -1035,8 +1187,13 @@ export function DatasetKeyValidationReport() {
                     <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
                       <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
                     </span>
-                    <span className="g-ms-auto g-text-xs g-text-slate-500">
-                      <FormattedMessage id="dataset.validationReport.latest" defaultMessage="Latest" />
+                    <span className="g-ms-auto">
+                      <AttemptPicker
+                        latestAttempt={latestAttempt}
+                        attemptOptions={attemptOptions}
+                        selectedAttempt={selectedAttempt}
+                        onChange={handleAttemptChange}
+                      />
                     </span>
                   </div>
                   <RailItem
