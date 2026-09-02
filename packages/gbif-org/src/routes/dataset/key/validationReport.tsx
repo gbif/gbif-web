@@ -393,7 +393,7 @@ function SuccessNote({ children, className }: { children: React.ReactNode; class
   return (
     <div
       className={cn(
-        'g-flex g-items-center g-gap-2 g-p-4 g-rounded-lg g-border g-border-[#d7e1cf] g-bg-[#eef2ea] g-text-sm g-text-[#3f5735]',
+        'g-flex g-items-center g-gap-2 g-p-4 g-rounded g-border g-border-[#d7e1cf] g-bg-[#eef2ea] g-text-sm g-text-[#3f5735]',
         className
       )}
     >
