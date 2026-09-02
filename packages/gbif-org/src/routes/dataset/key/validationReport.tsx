@@ -1,6 +1,7 @@
 import { NoRecords } from '@/components/noDataMessages';
 import { SearchInput } from '@/components/searchInput';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { useUser } from '@/contexts/UserContext';
 import {
   Accordion,
   AccordionContent,
@@ -1159,6 +1160,7 @@ export function DatasetKeyValidationReport() {
   // itself is only offered to trusted users (see datasetKey.tsx), but this route is still
   // reachable directly by URL, so it needs its own gate too.
   const { isTrusted } = useIsTrustedDatasetContact(dataset.volatileContributors);
+  const { isLoggedIn, isLoading: userLoading } = useUser();
 
   const {
     data: crawlData,
@@ -1239,7 +1241,36 @@ export function DatasetKeyValidationReport() {
   // nothing flashes before hiding) — leave the dataset header/tabs from the parent route as
   // they are and render an empty body, so the user can navigate away or log in.
   if (!isTrusted) {
-    return null;
+    // The logged-in user is only known client-side (fetched after mount), so while that's
+    // still in flight, show the same loading skeleton as the rest of the page rather than
+    // flashing a "please log in"/"not authorized" message at a user who turns out to be
+    // trusted once their identity resolves.
+    if (userLoading) {
+      return (
+        <ArticleContainer className="g-bg-slate-100 g-pt-4">
+          <ArticleTextContainer className="g-max-w-screen-xl">
+            <CardListSkeleton />
+          </ArticleTextContainer>
+        </ArticleContainer>
+      );
+    }
+    return (
+      <ArticleContainer className="g-bg-slate-100 g-pt-4">
+        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
+          {isLoggedIn ? (
+            <NoRecords
+              messageId="dataset.validationReport.notAuthorized"
+              defaultMessage="You don't have access to this dataset's validation reports."
+            />
+          ) : (
+            <NoRecords
+              messageId="dataset.validationReport.pleaseLogIn"
+              defaultMessage="Please log in to see validation reports."
+            />
+          )}
+        </ArticleTextContainer>
+      </ArticleContainer>
+    );
   }
 
   if (loading || !data) {
