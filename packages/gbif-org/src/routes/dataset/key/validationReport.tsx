@@ -49,6 +49,7 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
     dwdpValidationReport(datasetKey: $datasetKey, attempt: $attempt) {
       datasetKey
       attempt
+      version
       metadata {
         started
         finished
@@ -56,8 +57,8 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
       }
       result {
         descriptorValidation {
-          valid
-          canProceedToDataAnalysis
+          isValid
+          hasDataAnalysis
           issues {
             severity
             violationType
@@ -67,8 +68,8 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
           }
         }
         emlValidation {
-          valid
-          emlPresent
+          isValid
+          isPresent
           issues {
             severity
             violationType
@@ -80,7 +81,7 @@ const VALIDATION_REPORT_QUERY = /* GraphQL */ `
         resourceAnalysisResults {
           name
           totalRows
-          columnAnalyses {
+          columnStatistics {
             name
             populatedValues
             uniqueValues
@@ -861,7 +862,7 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
             defaultMessage="{rows} rows · {fields} fields · {count, plural, =0 {no issues} one {# issue} other {# issues}}"
             values={{
               rows: (resource.totalRows ?? 0).toLocaleString(),
-              fields: resource.columnAnalyses?.length ?? 0,
+              fields: resource.columnStatistics?.length ?? 0,
               count: issueCount(resource),
             }}
           />
@@ -885,7 +886,7 @@ function ResourceDetail({ resource }: { resource: DwdpResourceAnalysisResult }) 
       <h3 className="g-text-base g-font-semibold g-mb-2">
         <FormattedMessage id="dataset.validationReport.columnStats" defaultMessage="Field summary" />
       </h3>
-      <ColumnStatsTable columns={resource.columnAnalyses ?? []} totalRows={resource.totalRows ?? 0} />
+      <ColumnStatsTable columns={resource.columnStatistics ?? []} totalRows={resource.totalRows ?? 0} />
     </div>
   );
 }
@@ -954,7 +955,7 @@ export function DatasetKeyValidationReport() {
   // flag: the EML rail item/tab is only shown when a document was actually found. A direct
   // link to ?section=eml on a dataset without one still gets an explanation, just without
   // the surrounding rail/card chrome (see the early return below).
-  const hasEml = result?.emlValidation?.emlPresent === true;
+  const hasEml = result?.emlValidation?.isPresent === true;
 
   const summaryLabel = formatMessage({
     id: 'dataset.validationReport.summaryShort',
