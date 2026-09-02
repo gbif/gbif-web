@@ -173,18 +173,21 @@ const typeDef = gql`
     networkKey: Long!
     programme: Long!
     year: Long!
-    taxonKey(checklistKey: ID): Long!
-    classKey(checklistKey: ID): Long!
-    familyKey(checklistKey: ID): Long!
-    genusKey(checklistKey: ID): Long!
-    kingdomKey(checklistKey: ID): Long!
-    orderKey(checklistKey: ID): Long!
-    phylumKey(checklistKey: ID): Long!
-    speciesKey(checklistKey: ID): Long!
-    usageKey(checklistKey: ID): Long!
-    acceptedTaxonKey(checklistKey: ID): Long!
+    # Checklist-scoped cardinalities are nullable: the metric can be unavailable for a given
+    # checklist (e.g. es-api index_not_found for a rank not indexed in that checklist). Nullable so
+    # one failing rank returns null instead of nulling the whole OccurrenceCardinality object.
+    taxonKey(checklistKey: ID): Long
+    classKey(checklistKey: ID): Long
+    familyKey(checklistKey: ID): Long
+    genusKey(checklistKey: ID): Long
+    kingdomKey(checklistKey: ID): Long
+    orderKey(checklistKey: ID): Long
+    phylumKey(checklistKey: ID): Long
+    speciesKey(checklistKey: ID): Long
+    usageKey(checklistKey: ID): Long
+    acceptedTaxonKey(checklistKey: ID): Long
     preparations: Long!
-    iucnRedListCategory(checklistKey: ID): Long!
+    iucnRedListCategory(checklistKey: ID): Long
     establishmentMeans: Long!
     countryCode: Long!
     publishingCountry: Long!

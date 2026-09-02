@@ -203,9 +203,13 @@ const getCardinality =
     };
     // query the API, and throw away anything but the facet counts
     return searchApi({ query })
-      .then((data) => data.aggregations.cardinality.value)
+      .then((data) => data?.aggregations?.cardinality?.value ?? null)
       .catch((err) => {
-        console.log(err);
+        // A single cardinality metric can fail (e.g. es-api index_not_found for a rank not indexed
+        // in the requested checklist). Return null so only this field is null — the schema field is
+        // nullable, so it no longer nulls the whole OccurrenceCardinality object.
+        console.log(`getCardinality(${field}) failed:`, err?.message ?? err);
+        return null;
       });
   };
 
