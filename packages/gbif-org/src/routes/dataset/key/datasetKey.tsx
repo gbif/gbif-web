@@ -446,6 +446,17 @@ export function DatasetPage() {
       to: 'download',
       children: <FormattedMessage id="dataset.tabs.download" />,
     });
+    if (dataset.type !== DatasetType.Metadata) {
+      tabsToDisplay.push({
+        to: 'validation',
+        children: (
+          <FormattedMessage
+            id="dataset.tabs.validationReport"
+            defaultMessage="Validation report"
+          />
+        ),
+      });
+    }
     return tabsToDisplay;
   }, [showPhylogenyTab, showSpeciesTab, showEventsTab, dataset.type, dataset.project]);
 

@@ -4,6 +4,7 @@ export { default as dataset } from './dataset';
 export { default as derivedDataset } from './derivedDataset';
 export { default as directoryPerson } from './directoryPerson';
 export { default as download } from './download';
+export { default as dwdpValidationReport } from './dwdpValidationReport';
 export { default as event } from './event';
 export { default as feedback } from './feedback';
 export { default as gadm } from './gadm';
