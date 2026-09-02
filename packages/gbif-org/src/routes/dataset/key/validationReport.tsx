@@ -40,6 +40,7 @@ import {
   DwdpValidationIssue,
 } from '@/gql/graphql';
 import useAbove from '@/hooks/useAbove';
+import { useIsTrustedDatasetContact } from '@/hooks/useIsTrustedDatasetContact';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -1154,6 +1155,10 @@ export function DatasetKeyValidationReport() {
   const { formatMessage } = useIntl();
   const { dataset } = useDatasetKeyLoaderData().data;
   const showRail = useAbove(900);
+  // Same "trusted contact" check as the About page's registry-management section. The tab
+  // itself is only offered to trusted users (see datasetKey.tsx), but this route is still
+  // reachable directly by URL, so it needs its own gate too.
+  const { isTrusted } = useIsTrustedDatasetContact(dataset.volatileContributors);
 
   const {
     data: crawlData,
@@ -1229,6 +1234,13 @@ export function DatasetKeyValidationReport() {
     defaultValue: 'summary',
     hideDefault: true,
   });
+
+  // Not trusted (or the logged-in user hasn't resolved yet, which defaults to not-trusted so
+  // nothing flashes before hiding) — leave the dataset header/tabs from the parent route as
+  // they are and render an empty body, so the user can navigate away or log in.
+  if (!isTrusted) {
+    return null;
+  }
 
   if (loading || !data) {
     return (
