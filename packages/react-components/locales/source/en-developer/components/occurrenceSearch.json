@@ -2,7 +2,6 @@
   "occurrenceSearch": {
     "title": "Occurrence search",
     "description": "Search for occurrences in Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data.",
-    "imageLicenseInfo": "Be aware that licences applied to images may differ from those applied to occurrence records",
-    "test": "Test"
+    "imageLicenseInfo": "Be aware that licences applied to images may differ from those applied to occurrence records"
   }
 }

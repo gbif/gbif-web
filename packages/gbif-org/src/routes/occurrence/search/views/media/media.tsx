@@ -271,7 +271,6 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
           hasLicenseFilter ? (
             <div className="g-text-sm g-text-slate-500 g-mb-2">
               <FormattedMessage id="occurrenceSearch.imageLicenseInfo" />
-              <FormattedMessage id="occurrenceSearch.test" />
             </div>
           ) : null
         }
