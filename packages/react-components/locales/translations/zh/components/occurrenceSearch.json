@@ -1,6 +1,7 @@
 {
   "occurrenceSearch": {
     "title": "出现记录搜索",
-    "description": "在GBIF中搜索物种出现记录。自由、公开获取的生物多样性数据。"
+    "description": "在GBIF中搜索物种出现记录。自由、公开获取的生物多样性数据。",
+    "imageLicenseInfo": "请注意，此图片的授权可能与出现记录的授权不同。"
   }
 }
