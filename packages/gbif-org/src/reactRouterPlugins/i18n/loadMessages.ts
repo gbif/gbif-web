@@ -2,36 +2,49 @@ import { Config, LanguageOption } from '@/config/config';
 import { fallbackTranslationsEntry, loadFallbackMessages } from '@/config/fallback';
 
 // Shared translation-message loading, used by both the server entry (during SSR render) and the
-// client entry (before hydration). Messages are deliberately kept OUT of react-router loaderData so
-// they are not serialized into every SSR response (~438 KB / 6,232 keys). Both sides load the same
-// versioned file with the same merge logic, so the SSR HTML and the client's first render match.
+// client entry (before hydration). Both sides load the same versioned file with the same merge logic,
+// so the SSR HTML and the client's first render match.
+
+// Note: Messages are deliberately kept OUT of react-router loaderData so
+// they are not serialized into every SSR response (~438 KB / 6,232 keys).
 
 type TranslationsEntry = Record<string, { messages?: string } | undefined>;
 
-// Translations are deployed together with gbif-org and cannot change without a redeploy (which
-// restarts the process and clears these caches), so in production successful loads are cached in
-// memory indefinitely - avoiding a per-render fetch on every SSR request. In dev the per-locale
-// message cache is bypassed so translation edits show up on reload. Failed loads are NOT cached so
-// a transient outage degrades gracefully and is retried on the next request.
+// Message URLs are content-hashed, so a cached entry can never go stale: kept for the process
+// lifetime in production, bypassed in dev so edits show up on reload. Failed loads are never cached.
 const messageCache = new Map<string, Promise<Record<string, string>>>();
-const entryCache = new Map<string, Promise<TranslationsEntry>>();
+
+// translations.json is mutable and published separately from gbif-org, so it must not be pinned for
+// the process lifetime - a server started before the translation deploy would serve the old hashes.
+const ENTRY_CACHE_TTL_MS = 10 * 60 * 1000;
+// A failed load serves the bundled snapshot, held briefly so an outage doesn't refetch per request.
+const ENTRY_CACHE_FALLBACK_TTL_MS = 30 * 1000;
+
+type EntryCacheItem = { expiresAt: number; promise: Promise<TranslationsEntry> };
+const entryCache = new Map<string, EntryCacheItem>();
 
 function loadTranslationsEntry(config: Config): Promise<TranslationsEntry> {
   const url = `${config.translationsEntryEndpoint}/translations.json`;
   const cached = entryCache.get(url);
-  if (cached) return cached;
+  if (cached && Date.now() < cached.expiresAt) return cached.promise;
 
-  const promise = fetch(url)
-    .then((r) => r.json())
+  // Mutated by the catch below, so the fallback expires sooner than a successful load.
+  const item = { expiresAt: Date.now() + ENTRY_CACHE_TTL_MS } as EntryCacheItem;
+  item.promise = fetch(url)
+    .then((r) => {
+      if (!r.ok) throw new Error(`Unexpected status ${r.status}`);
+      return r.json();
+    })
     .catch((err) => {
       // The site must still render even when the translations endpoint is down,
       // so fall back to the bundled snapshot instead of failing the whole app.
       console.error('Failed to load translations entry file, using bundled fallback', err);
+      item.expiresAt = Date.now() + ENTRY_CACHE_FALLBACK_TTL_MS;
       return fallbackTranslationsEntry as TranslationsEntry;
     });
 
-  entryCache.set(url, promise);
-  return promise;
+  entryCache.set(url, item);
+  return item.promise;
 }
 
 function loadLocaleMessages(
