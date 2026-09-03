@@ -46,7 +46,7 @@ export async function render(req: ExpressRequest) {
     gbifConfig.languages.find((l) => l.code === localeCode) ?? defaultLanguage;
   const rootDir = matchedLanguage.textDirection ?? 'ltr';
 
-  // Both resolve from the in-memory prod cache after warmup, so this is near-free per request.
+  // Both resolve from the in-memory caches after warmup, so this is near-free per request.
   // We inline the endpoint-independent path (not a full URL) so the client can prepend its own
   // translation endpoint - the server and client endpoints can differ (docker SSR split).
   const [messages, messagesPath] = await Promise.all([
