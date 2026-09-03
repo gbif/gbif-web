@@ -64,7 +64,7 @@
   "sequencePhylogeny.about": {
     "label": "Cómo se construye este árbol",
     "title": "Cómo se construye este árbol",
-    "align": "Las secuencias de nucleótidos específicas de las coincidencias se alinean mediante <k>kalign</k> (una herramienta de alineación de secuencias múltiples).",
+    "align": "Las distintas secuencias de nucleótidos de los registros biológicos que coinciden se alinean mediante <k>kalign</k> (una herramienta de alineación de secuencias múltiples).",
     "tree": "Las distancias genéticas por pares (p-distancia, ignorando huecos y sitios ambiguos) se leen a partir de esa alineación, y a partir de ellas se construye un árbol vecino que se une. Las ramas internas cercanas a cero se muestran como multifurcaciones en lugar de una escalera arbitraria.",
     "collapse": "El deslizador de colapso fusiona secuencias que son al menos el porcentaje idéntico elegido en una sola punta. Las puntas se etiquetan mediante el taxón de consenso de las secuencias que representan.",
     "downloads": "Las descargas reflejan la vista actual: la alineación completa (<fasta>FASTA</fasta>) y el árbol (<newick>Newick</newick>, en el nivel de expansión actual)."
