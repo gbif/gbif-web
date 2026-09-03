@@ -20,6 +20,7 @@ import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { FormattedMessage } from 'react-intl';
 import { MediaGrouped } from './mediaGrouped';
 import {
   GalleryItemSkeleton,
@@ -250,6 +251,11 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
     (currentFilterContext.filter?.must?.taxonKey?.length ?? 0) === 1 &&
     !currentFilterContext.filter?.mustNot?.taxonKey?.length;
 
+  // The license filter matches the record license, not the license of the individual images.
+  const hasLicenseFilter =
+    (currentFilterContext.filter?.must?.license?.length ?? 0) > 0 ||
+    (currentFilterContext.filter?.mustNot?.license?.length ?? 0) > 0;
+
   return (
     <ErrorBoundary>
       <MediaPresentation
@@ -261,6 +267,13 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
         next={next}
         total={data?.occurrenceSearch?.documents?.total}
         onSelect={({ key }: { key: string | number }) => selectPreview(key)}
+        aboveGallery={
+          hasLicenseFilter ? (
+            <div className="g-text-sm g-text-slate-500 g-mb-2">
+              <FormattedMessage id="occurrenceSearch.imageLicenseInfo" />
+            </div>
+          ) : null
+        }
         groupState={groupState}
         onGroupStateChange={onGroupStateChange}
         suggestedGroupByRank={hasSingleTaxonKey ? nextLowerMajorRank : null}
