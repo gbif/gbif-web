@@ -272,12 +272,12 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
   // tree in Newick (tips = representative nucleotideSequenceIDs at the current collapse threshold).
   const downloadAlignment = useCallback(() => {
     if (aligned && Object.keys(aligned).length > 0)
-      downloadText('sequence-phylogeny-alignment.fasta', buildFasta(aligned), 'text/x-fasta');
+      downloadText('sequence-alignment.fasta', buildFasta(aligned), 'text/x-fasta');
   }, [aligned]);
   const downloadNewick = useCallback(() => {
     // Bake the current collapse level into the name — the tree's tips depend on it.
     if (newick)
-      downloadText(`sequence-phylogeny-collapse-${collapsePct.toFixed(1)}pct.nwk`, newick, 'text/x-nh');
+      downloadText(`sequence-dendrogram-collapse-${collapsePct.toFixed(1)}pct.nwk`, newick, 'text/x-nh');
   }, [newick, collapsePct]);
 
   // Representatives (distinct sequences = tree tips) and the collapse mapping.
@@ -664,7 +664,7 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
             <CardTitle>
               <FormattedMessage
                 id="dashboard.sequencePhylogeny"
-                defaultMessage="Sequence phylogeny"
+                defaultMessage="Sequence dendrogram"
               />
             </CardTitle>
             <AboutTree />
