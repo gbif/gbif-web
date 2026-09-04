@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "Occurrences per {FIELD}",
   "kingdom": "Kingdom",
-  "sequencePhylogeny": "Sequence phylogeny",
+  "sequencePhylogeny": "Sequence dendrogram",
   "sequencePhylogeny.downloadAlignment": "Alignment (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",
   "sequencePhylogeny.about": {
