@@ -8660,13 +8660,10 @@ export type RelatedOccurrenceStub = {
   __typename?: 'RelatedOccurrenceStub';
   catalogNumber?: Maybe<Scalars['String']['output']>;
   datasetKey?: Maybe<Scalars['ID']['output']>;
-  /** @deprecated No longer provided by the clustering API */
   datasetName?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   gbifId?: Maybe<Scalars['ID']['output']>;
   occurrenceID?: Maybe<Scalars['String']['output']>;
-  /** @deprecated No longer provided by the clustering API */
   publishingOrgKey?: Maybe<Scalars['ID']['output']>;
-  /** @deprecated No longer provided by the clustering API */
   publishingOrgName?: Maybe<Scalars['String']['output']>;
   scientificName?: Maybe<Scalars['String']['output']>;
 };

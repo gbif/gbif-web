@@ -663,7 +663,7 @@ export function SequencePhylogeny({ predicate }: { predicate?: unknown }) {
           <div className="g-flex g-items-center g-gap-1">
             <CardTitle>
               <FormattedMessage
-                id="dashboard.sequencePhylogeny"
+                id="dashboard.sequenceDendrogram"
                 defaultMessage="Sequence dendrogram"
               />
             </CardTitle>
