@@ -22,7 +22,7 @@ export function DatasetSearchSuggest({
   className,
 }: Props) {
   const intl = useIntl();
-  const { load, data } = useFetchGet<Array<DatasetOption>>({
+  const { load, data, loading } = useFetchGet<Array<DatasetOption>>({
     lazyLoad: true,
   });
 
@@ -45,11 +45,16 @@ export function DatasetSearchSuggest({
       selected={selected}
       search={searchDatasets}
       results={data ?? []}
+      loading={loading}
       labelSelector={(value) => value.title}
       keySelector={(value) => value.key}
       noSearchResultsPlaceholder={intl.formatMessage({
         id: 'search.noResults',
         defaultMessage: 'No results found',
+      })}
+      loadingPlaceholder={intl.formatMessage({
+        id: 'search.loading',
+        defaultMessage: 'Loading',
       })}
       noSelectionPlaceholder={noSelectionPlaceholder ?? <span>Select a dataset</span>}
       searchInputPlaceholder={intl.formatMessage({

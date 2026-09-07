@@ -20,7 +20,7 @@ function extractCmsResource(data?: ToolLayoutQuery): ToolPageFragment | null {
 
 type Props = {
   defaultTitle: string;
-  apiContent: ReactElement;
+  apiContent?: ReactElement;
 };
 
 // Layout for the Validation report tool, following the same shape as DerivedDatasetLayout:

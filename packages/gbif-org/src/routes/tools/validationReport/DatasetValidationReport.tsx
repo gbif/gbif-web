@@ -505,7 +505,7 @@ function SummaryDetail({
           />
         }
         action={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="outline" size="sm" className="g-hidden sm:g-inline-flex">
             <DynamicLink to={reportUrl}>
               <MdDownload size={16} className="g-me-1.5" />
               <FormattedMessage
@@ -1122,7 +1122,12 @@ function UnsupportedReportContent({
                 />
               }
             />
-            <Button asChild variant="outline" size="sm" className="g-shrink-0">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="g-hidden sm:g-inline-flex g-shrink-0"
+            >
               <DynamicLink to={reportUrl}>
                 <MdDownload size={16} className="g-me-1.5" />
                 <FormattedMessage

@@ -8,8 +8,8 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { useEffect } from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -46,52 +46,53 @@ export default function ValidationReportPage() {
   };
 
   return (
-    <PageContainer className="g-bg-slate-100 g-flex-1">
-      <ArticleTextContainer className="g-pt-8 g-pb-4 g-max-w-screen-xl">
-        <Card className="g-bg-white g-overflow-hidden">
-          {dataset ? (
-            <CardContent
-              topPadding
-              className="g-flex g-items-center g-justify-between g-gap-4 g-flex-wrap"
-            >
-              <div className="g-min-w-0">
-                <div className="g-text-xs g-font-medium g-uppercase g-tracking-wide g-text-slate-500">
-                  <FormattedMessage id="tools.validationReport.dataset" defaultMessage="Dataset" />
+    <div className="g-flex-1 g-flex g-flex-col g-bg-slate-100">
+      <ArticleContainer className="g-bg-slate-100 g-pt-8 g-pb-4">
+        <ArticleTextContainer className="g-max-w-screen-xl">
+          <Card className="g-bg-white g-overflow-hidden">
+            {dataset ? (
+              <CardContent
+                topPadding
+                className="g-flex g-items-center g-justify-between g-gap-4 g-flex-wrap"
+              >
+                <div className="g-min-w-0">
+                  <div className="g-text-xs g-font-medium g-uppercase g-tracking-wide g-text-slate-500">
+                    <FormattedMessage
+                      id="tools.validationReport.dataset"
+                      defaultMessage="Dataset"
+                    />
+                  </div>
+                  <DynamicLink
+                    to={`/dataset/${dataset.key}`}
+                    pageId="datasetKey"
+                    variables={{ key: dataset.key }}
+                    className="g-text-lg g-font-semibold g-text-slate-800 hover:g-underline"
+                  >
+                    {dataset.title}
+                  </DynamicLink>
                 </div>
-                <DynamicLink
-                  to={`/dataset/${dataset.key}`}
-                  pageId="datasetKey"
-                  variables={{ key: dataset.key }}
-                  className="g-text-lg g-font-semibold g-text-slate-800 hover:g-underline"
-                >
-                  {dataset.title}
-                </DynamicLink>
-              </div>
-              <Button variant="outline" size="sm" onClick={() => handleSelect(null)}>
-                <MdArrowBack size={16} className="g-me-1.5" />
-                <FormattedMessage
-                  id="tools.validationReport.backToSearch"
-                  defaultMessage="Back to search"
-                />
-              </Button>
-            </CardContent>
-          ) : (
-            <>
-              <div className="g-px-6 g-pt-6 g-pb-4 g-border-b g-border-slate-100">
+                <Button variant="outline" size="sm" onClick={() => handleSelect(null)}>
+                  <MdArrowBack size={16} className="g-me-1.5" />
+                  <FormattedMessage
+                    id="tools.validationReport.backToSearch"
+                    defaultMessage="Back to search"
+                  />
+                </Button>
+              </CardContent>
+            ) : (
+              <CardContent topPadding>
                 <h2 className="g-text-base g-font-semibold g-text-slate-800">
                   <FormattedMessage
                     id="tools.validationReport.selectDataset"
                     defaultMessage="Select a dataset"
                   />
                 </h2>
-                <p className="g-text-slate-700 g-text-sm g-leading-relaxed g-mt-2">
+                <p className="g-text-slate-700 g-text-sm g-leading-relaxed g-mt-2 g-mb-4">
                   <FormattedMessage
                     id="tools.validationReport.selectDatasetDescription"
                     defaultMessage="Look up a dataset already registered with GBIF to see its Darwin Core data package validation report."
                   />
                 </p>
-              </div>
-              <CardContent topPadding>
                 <DatasetSearchSuggest
                   selected={selected}
                   setSelected={handleSelect}
@@ -111,17 +112,19 @@ export default function ValidationReportPage() {
                   </p>
                 )}
               </CardContent>
-            </>
-          )}
-        </Card>
-      </ArticleTextContainer>
+            )}
+          </Card>
+        </ArticleTextContainer>
+      </ArticleContainer>
 
       {key && loading && (
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <CardListSkeleton />
-        </ArticleTextContainer>
+        <ArticleContainer className="g-bg-slate-100 g-pt-0">
+          <ArticleTextContainer className="g-max-w-screen-xl">
+            <CardListSkeleton />
+          </ArticleTextContainer>
+        </ArticleContainer>
       )}
       {key && !loading && dataset && <DatasetValidationReport datasetKey={key} />}
-    </PageContainer>
+    </div>
   );
 }

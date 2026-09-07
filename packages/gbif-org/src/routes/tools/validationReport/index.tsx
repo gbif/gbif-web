@@ -3,7 +3,6 @@ import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import React from 'react';
 import { ToolCardSkeleton } from '../_shared/toolCardSkeleton';
 import { createToolLayoutLoader, ToolAboutTab } from '../_shared/toolLayout';
-import { ApiContent } from './help';
 import { ValidationReportLayout } from './ValidationReportLayout';
 
 const ValidationReportPage = React.lazy(() => import('./ValidationReportPage'));
@@ -18,12 +17,7 @@ export const validationReportRoute: RouteObjectWithPlugins = {
   id: 'validationReport',
   path: 'tools/validation-report',
   loader: createToolLayoutLoader('dp_data_validator'),
-  element: (
-    <ValidationReportLayout
-      defaultTitle="Darwin Core data package validator"
-      apiContent={<ApiContent />}
-    />
-  ),
+  element: <ValidationReportLayout defaultTitle="Darwin Core data package validator" />,
   children: [
     {
       index: true,
