@@ -345,11 +345,6 @@ function severityTint(severity: string): string {
   return 'g-bg-blue-50';
 }
 
-// Card look shared by the issue-group and per-table violation cards, matching the design's
-// white, bordered, shadowed "card" surface (the same shadow token largeCard.tsx's Card uses).
-const ISSUE_CARD_CLASS =
-  'g-rounded g-border g-border-slate-200 g-bg-white g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)] g-overflow-hidden g-mb-0';
-
 function RailItem({
   icon,
   label,
@@ -664,73 +659,78 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
       {groups.map(([type, list]) => {
         const worst = worstSeverity(list);
         return (
-          <AccordionItem key={type} value={type} className={ISSUE_CARD_CLASS}>
-            <AccordionTrigger
-              className={cn('g-px-3.5 g-py-3 hover:g-no-underline', severityTint(worst))}
-            >
-              <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
-                <SeverityIcon severity={worst} />
-                <span className="g-font-semibold g-text-slate-900">
-                  {humanizeViolationType(type)}
+          <Card key={type} asChild className="g-overflow-hidden g-mb-0">
+            <AccordionItem value={type}>
+              <AccordionTrigger
+                className={cn('g-px-3.5 g-py-3 hover:g-no-underline', severityTint(worst))}
+              >
+                <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
+                  <SeverityIcon severity={worst} />
+                  <span className="g-font-semibold g-text-slate-900">
+                    {humanizeViolationType(type)}
+                  </span>
+                  <span className="g-ms-auto g-text-sm g-text-slate-500">{list.length}</span>
                 </span>
-                <span className="g-ms-auto g-text-sm g-text-slate-500">{list.length}</span>
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="g-pb-0 g-pt-0">
-              <div className="g-overflow-x-auto g-border-t g-border-slate-200">
-                <Table>
-                  <TableHeader className="g-bg-slate-50">
-                    <TableRow className="g-border-b g-border-slate-200">
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.severityColumn"
-                          defaultMessage="Severity"
-                        />
-                      </TableHead>
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.messageColumn"
-                          defaultMessage="Problem"
-                        />
-                      </TableHead>
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.locationColumn"
-                          defaultMessage="Where"
-                        />
-                      </TableHead>
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.detailColumn"
-                          defaultMessage="Detail"
-                        />
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {list.map((issue, i) => (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <TableRow key={i} className="g-border-b g-border-slate-200 last:g-border-b-0">
-                        <TableCell>
+              </AccordionTrigger>
+              <AccordionContent className="g-pb-0 g-pt-0">
+                <div className="g-overflow-x-auto g-border-t g-border-slate-200">
+                  <Table>
+                    <TableHeader className="g-bg-slate-50">
+                      <TableRow className="g-border-b g-border-slate-200">
+                        <TableHead>
                           <FormattedMessage
-                            id={`dataset.validationReport.severity.${issue.severity ?? 'INFO'}`}
-                            defaultMessage={issue.severity ?? 'Info'}
+                            id="dataset.validationReport.severityColumn"
+                            defaultMessage="Severity"
                           />
-                        </TableCell>
-                        <TableCell>{issue.message}</TableCell>
-                        <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-whitespace-nowrap">
-                          {issue.location}
-                        </TableCell>
-                        <TableCell className="g-font-mono g-text-xs g-text-slate-600 g-whitespace-nowrap">
-                          {issue.detail ?? '—'}
-                        </TableCell>
+                        </TableHead>
+                        <TableHead>
+                          <FormattedMessage
+                            id="dataset.validationReport.messageColumn"
+                            defaultMessage="Problem"
+                          />
+                        </TableHead>
+                        <TableHead>
+                          <FormattedMessage
+                            id="dataset.validationReport.locationColumn"
+                            defaultMessage="Where"
+                          />
+                        </TableHead>
+                        <TableHead>
+                          <FormattedMessage
+                            id="dataset.validationReport.detailColumn"
+                            defaultMessage="Detail"
+                          />
+                        </TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+                    </TableHeader>
+                    <TableBody>
+                      {list.map((issue, i) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <TableRow
+                          key={i}
+                          className="g-border-b g-border-slate-200 last:g-border-b-0"
+                        >
+                          <TableCell>
+                            <FormattedMessage
+                              id={`dataset.validationReport.severity.${issue.severity ?? 'INFO'}`}
+                              defaultMessage={issue.severity ?? 'Info'}
+                            />
+                          </TableCell>
+                          <TableCell>{issue.message}</TableCell>
+                          <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-whitespace-nowrap">
+                            {issue.location}
+                          </TableCell>
+                          <TableCell className="g-font-mono g-text-xs g-text-slate-600 g-whitespace-nowrap">
+                            {issue.detail ?? '—'}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Card>
         );
       })}
     </Accordion>
@@ -810,102 +810,101 @@ function ViolationCard({
 
   return (
     <Accordion type="single" collapsible defaultValue="item">
-      <AccordionItem
-        value="item"
-        className="g-rounded g-border g-border-red-200 g-bg-white g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)] g-overflow-hidden g-mb-0"
-      >
-        <AccordionTrigger className="g-bg-red-50 g-px-3.5 g-py-3 hover:g-no-underline">
-          <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
-            <RoundBadge tone="error" glyph={VIOLATION_LABEL[kind].icon} />
-            <span className="g-font-semibold g-text-red-800">
-              <FormattedMessage
-                id={VIOLATION_LABEL[kind].id}
-                defaultMessage={VIOLATION_LABEL[kind].defaultMessage}
-              />
-            </span>
-            <span className="g-ms-auto g-text-sm g-font-medium g-text-red-800">
-              {violation.violationCount ?? 0}
-            </span>
-          </span>
-        </AccordionTrigger>
-        <AccordionContent className="g-px-3.5 g-pt-3 g-pb-4 g-border-t g-border-red-100">
-          <div className="g-flex g-flex-wrap g-gap-x-8 g-gap-y-3 g-text-sm g-mb-3">
-            {fields.length > 0 && (
-              <div>
-                <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.fields"
-                    defaultMessage="Field(s)"
-                  />
-                </div>
-                <div className="g-font-mono g-text-xs g-flex g-flex-wrap g-gap-x-2">
-                  {fields.map((field) => (
-                    <span key={field}>{field}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {fk && (
-              <div>
-                <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.references"
-                    defaultMessage="References"
-                  />
-                </div>
-                <div className="g-font-mono g-text-xs">
-                  {fk.referenceResource}.{(fk.referenceFields ?? []).join(', ')}
-                </div>
-              </div>
-            )}
-            {dt && (
-              <div>
-                <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.declaredType"
-                    defaultMessage="Declared type"
-                  />
-                </div>
-                <div className="g-font-mono g-text-xs">{dt.declaredType}</div>
-              </div>
-            )}
-          </div>
-          {sampleRows.length > 0 && (
-            <div>
-              <div className="g-text-xs g-text-slate-500 g-mb-1">
+      <Card asChild className="g-border-red-200 g-overflow-hidden g-mb-0">
+        <AccordionItem value="item">
+          <AccordionTrigger className="g-bg-red-50 g-px-3.5 g-py-3 hover:g-no-underline">
+            <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
+              <RoundBadge tone="error" glyph={VIOLATION_LABEL[kind].icon} />
+              <span className="g-font-semibold g-text-red-800">
                 <FormattedMessage
-                  id="dataset.validationReport.sampleRows"
-                  defaultMessage="Sample rows"
+                  id={VIOLATION_LABEL[kind].id}
+                  defaultMessage={VIOLATION_LABEL[kind].defaultMessage}
                 />
-              </div>
-              <div className="g-flex g-flex-col g-gap-1">
-                {sampleRows.slice(0, SAMPLE_CAP).map((row, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <code key={i} className="g-font-mono g-text-xs g-break-all g-text-slate-600">
-                    {Object.entries(row)
-                      .map(([k, value]) => `${k}=${value}`)
-                      .join('  ')}
-                  </code>
-                ))}
-              </div>
-              {sampleRows.length > SAMPLE_CAP && (
-                <div className="g-text-xs g-text-slate-400 g-mt-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.andNMore"
-                    defaultMessage="and {count} more"
-                    values={{
-                      count: Math.max(
-                        (violation.violationCount ?? sampleRows.length) - SAMPLE_CAP,
-                        0
-                      ),
-                    }}
-                  />
+              </span>
+              <span className="g-ms-auto g-text-sm g-font-medium g-text-red-800">
+                {violation.violationCount ?? 0}
+              </span>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent className="g-px-3.5 g-pt-3 g-pb-4 g-border-t g-border-red-100">
+            <div className="g-flex g-flex-wrap g-gap-x-8 g-gap-y-3 g-text-sm g-mb-3">
+              {fields.length > 0 && (
+                <div>
+                  <div className="g-text-xs g-text-slate-500 g-mb-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.fields"
+                      defaultMessage="Field(s)"
+                    />
+                  </div>
+                  <div className="g-font-mono g-text-xs g-flex g-flex-wrap g-gap-x-2">
+                    {fields.map((field) => (
+                      <span key={field}>{field}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {fk && (
+                <div>
+                  <div className="g-text-xs g-text-slate-500 g-mb-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.references"
+                      defaultMessage="References"
+                    />
+                  </div>
+                  <div className="g-font-mono g-text-xs">
+                    {fk.referenceResource}.{(fk.referenceFields ?? []).join(', ')}
+                  </div>
+                </div>
+              )}
+              {dt && (
+                <div>
+                  <div className="g-text-xs g-text-slate-500 g-mb-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.declaredType"
+                      defaultMessage="Declared type"
+                    />
+                  </div>
+                  <div className="g-font-mono g-text-xs">{dt.declaredType}</div>
                 </div>
               )}
             </div>
-          )}
-        </AccordionContent>
-      </AccordionItem>
+            {sampleRows.length > 0 && (
+              <div>
+                <div className="g-text-xs g-text-slate-500 g-mb-1">
+                  <FormattedMessage
+                    id="dataset.validationReport.sampleRows"
+                    defaultMessage="Sample rows"
+                  />
+                </div>
+                <div className="g-flex g-flex-col g-gap-1">
+                  {sampleRows.slice(0, SAMPLE_CAP).map((row, i) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <code key={i} className="g-font-mono g-text-xs g-break-all g-text-slate-600">
+                      {Object.entries(row)
+                        .map(([k, value]) => `${k}=${value}`)
+                        .join('  ')}
+                    </code>
+                  ))}
+                </div>
+                {sampleRows.length > SAMPLE_CAP && (
+                  <div className="g-text-xs g-text-slate-400 g-mt-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.andNMore"
+                      defaultMessage="and {count} more"
+                      values={{
+                        count: Math.max(
+                          (violation.violationCount ?? sampleRows.length) - SAMPLE_CAP,
+                          0
+                        ),
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </AccordionContent>
+        </AccordionItem>
+      </Card>
     </Accordion>
   );
 }

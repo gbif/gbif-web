@@ -1,18 +1,28 @@
+import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
 
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        'g-rounded g-border g-border-solid g-border-slate-200 g-bg-card g-text-card-foreground g-scroll-mt-24 g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)]',
-        className
-      )}
-      {...props}
-    />
-  )
+type CardProps = React.HTMLAttributes<HTMLDivElement> & {
+  // Renders the card's styling onto the single child element instead of a wrapping div — for
+  // components (like AccordionItem) that must own the styled DOM node themselves.
+  asChild?: boolean;
+};
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'div';
+    return (
+      <Comp
+        ref={ref}
+        className={cn(
+          'g-rounded g-border g-border-solid g-border-slate-200 g-bg-card g-text-card-foreground g-scroll-mt-24 g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)]',
+          className
+        )}
+        {...props}
+      />
+    );
+  }
 );
 Card.displayName = 'Card';
 

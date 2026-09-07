@@ -9,6 +9,7 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect } from 'react';
 import { MdArrowBack } from 'react-icons/md';
@@ -56,12 +57,12 @@ export default function ValidationReportPage() {
                 className="g-flex g-items-center g-justify-between g-gap-4 g-flex-wrap"
               >
                 <div className="g-min-w-0">
-                  <div className="g-text-xs g-font-medium g-uppercase g-tracking-wide g-text-slate-500">
+                  <ArticlePreTitle className="g-mt-0">
                     <FormattedMessage
                       id="tools.validationReport.dataset"
                       defaultMessage="Dataset"
                     />
-                  </div>
+                  </ArticlePreTitle>
                   <DynamicLink
                     to={`/dataset/${dataset.key}`}
                     pageId="datasetKey"
