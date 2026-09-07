@@ -1242,7 +1242,7 @@ export function DatasetValidationReport({ datasetKey }: Props) {
 
   if (loading || !data) {
     return (
-      <ArticleContainer className="g-bg-slate-100 g-pt-4">
+      <ArticleContainer className="g-pt-4">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <CardListSkeleton />
         </ArticleTextContainer>
@@ -1292,7 +1292,7 @@ export function DatasetValidationReport({ datasetKey }: Props) {
 
   if (isVersionSupported && currentSection === 'eml' && !showEmlSection) {
     return (
-      <ArticleContainer className="g-bg-slate-100 g-pt-4">
+      <ArticleContainer className="g-pt-4">
         <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
           <NoRecords
             messageId="dataset.validationReport.emlNotPresent"
@@ -1304,7 +1304,7 @@ export function DatasetValidationReport({ datasetKey }: Props) {
   }
 
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+    <ArticleContainer className="g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
         {!showRail && (
           <div className="g-mb-4">

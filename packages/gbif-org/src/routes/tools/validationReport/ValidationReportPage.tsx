@@ -48,7 +48,7 @@ export default function ValidationReportPage() {
 
   return (
     <div className="g-flex-1 g-flex g-flex-col g-bg-slate-100">
-      <ArticleContainer className="g-bg-slate-100 g-pt-8 g-pb-4">
+      <ArticleContainer className="g-pt-8 g-pb-8">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <Card className="g-bg-white g-overflow-hidden">
             {dataset ? (
@@ -119,7 +119,7 @@ export default function ValidationReportPage() {
       </ArticleContainer>
 
       {key && loading && (
-        <ArticleContainer className="g-bg-slate-100 g-pt-0">
+        <ArticleContainer className="g-pt-0">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <CardListSkeleton />
           </ArticleTextContainer>
