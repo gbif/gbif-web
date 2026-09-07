@@ -67,8 +67,8 @@ export default function ValidationReportPage() {
                   {dataset.title}
                 </DynamicLink>
               </div>
-              <Button variant="outline" onClick={() => handleSelect(null)}>
-                <MdArrowBack className="g-me-2" />
+              <Button variant="outline" size="sm" onClick={() => handleSelect(null)}>
+                <MdArrowBack size={16} className="g-me-1.5" />
                 <FormattedMessage
                   id="tools.validationReport.backToSearch"
                   defaultMessage="Back to search"
