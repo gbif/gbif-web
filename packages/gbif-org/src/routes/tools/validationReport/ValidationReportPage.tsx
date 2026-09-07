@@ -47,7 +47,7 @@ export default function ValidationReportPage() {
 
   return (
     <PageContainer className="g-bg-slate-100 g-flex-1">
-      <ArticleTextContainer className="g-pt-8 g-pb-12 g-max-w-screen-xl">
+      <ArticleTextContainer className="g-pt-8 g-pb-4 g-max-w-screen-xl">
         <Card className="g-bg-white g-overflow-hidden">
           {dataset ? (
             <CardContent

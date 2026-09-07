@@ -68,7 +68,7 @@ export function ValidationReportLayout({ defaultTitle, apiContent }: Props) {
                   children: (
                     <FormattedMessage
                       id="tools.validationReport.tab.dataset"
-                      defaultMessage="Dataset"
+                      defaultMessage="Dataset reports"
                     />
                   ),
                 },
