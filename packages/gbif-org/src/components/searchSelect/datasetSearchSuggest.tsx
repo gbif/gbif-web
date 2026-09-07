@@ -52,7 +52,10 @@ export function DatasetSearchSuggest({
         defaultMessage: 'No results found',
       })}
       noSelectionPlaceholder={noSelectionPlaceholder ?? <span>Select a dataset</span>}
-      searchInputPlaceholder={noSelectionPlaceholder ?? 'Search datasets...'}
+      searchInputPlaceholder={intl.formatMessage({
+        id: 'tools.validationReport.searchDatasetsPlaceholder',
+        defaultMessage: 'Search datasets...',
+      })}
     />
   );
 }
