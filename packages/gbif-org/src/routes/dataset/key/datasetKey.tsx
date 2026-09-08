@@ -557,6 +557,7 @@ export function DatasetPage() {
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <ArticlePreTitle
+              clickable
               secondary={
                 dataset.type ? (
                   <FormattedMessage id={`dataset.longType.${dataset.type}`} />
@@ -568,7 +569,9 @@ export function DatasetPage() {
                 )
               }
             >
-              <FormattedMessage id="dataset.dataset" defaultMessage="Dataset" />
+              <DynamicLink pageId="datasetSearch" searchParams={{ type: [dataset.type] }}>
+                <FormattedMessage id="dataset.dataset" defaultMessage="Dataset" />
+              </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
             <ArticleTitle
