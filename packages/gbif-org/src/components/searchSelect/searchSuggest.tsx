@@ -17,6 +17,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 type Props<T> = {
   search(searchTerm: string): void;
   results: T[];
+  loading?: boolean;
   selected?: T | null;
   setSelected(value: T | null | undefined): void;
   labelSelector(value: T): React.ReactNode;
@@ -24,6 +25,7 @@ type Props<T> = {
   keySelector(value: T): string;
   noSelectionPlaceholder?: React.ReactNode;
   noSearchResultsPlaceholder?: React.ReactNode;
+  loadingPlaceholder?: React.ReactNode;
   searchInputPlaceholder?: React.ReactNode | string;
   className?: string;
   open?: boolean;
@@ -38,6 +40,7 @@ export function SearchSuggest<T>({
   suggestLabel,
   keySelector,
   results,
+  loading,
   search,
   className,
   open,
@@ -46,6 +49,7 @@ export function SearchSuggest<T>({
   // TODO: Add translations
   noSelectionPlaceholder = 'Select an item',
   noSearchResultsPlaceholder = 'No results found',
+  loadingPlaceholder = 'Loading...',
   searchInputPlaceholder = 'Search...',
 }: Props<T>) {
   const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
@@ -91,7 +95,7 @@ export function SearchSuggest<T>({
             onValueChange={setSearchTerm}
             placeholder={searchInputPlaceholder}
           />
-          <CommandEmpty>{noSearchResultsPlaceholder}</CommandEmpty>
+          <CommandEmpty>{loading ? loadingPlaceholder : noSearchResultsPlaceholder}</CommandEmpty>
           <CommandList>
             <CommandGroup>
               {results.map((result) => (

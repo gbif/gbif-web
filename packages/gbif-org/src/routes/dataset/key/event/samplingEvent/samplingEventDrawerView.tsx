@@ -1,3 +1,4 @@
+import { ErrorBlock } from '@/components/ErrorBoundary';
 import { Alert } from '@/components/ui/alert';
 import { useConfig } from '@/config/config';
 import {
@@ -37,22 +38,20 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
 
   const {
     data: occData,
-    loading: occLoading,
     error: occError,
     load: occLoad,
   } = useQuery<DatasetEventQuery, DatasetEventQueryVariables>(DATASET_EVENT_QUERY, {
     lazyLoad: true,
-    throwAllErrors: true,
+    notifyOnErrors: true,
   });
 
   const {
     data: eventData,
-    loading,
     error,
     load,
   } = useQuery<EventQuery, EventQueryVariables>(EVENT_KEY_QUERY, {
     lazyLoad: true,
-    throwAllErrors: true,
+    notifyOnErrors: true,
   });
 
   useEffect(() => {
@@ -80,11 +79,22 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
     }
   }, [occData?.dataset?.type, datasetKey, eventId, defaultChecklistKey, load]);
 
-  if (!entityKey) {
+  const isSamplingEvent = occData?.dataset?.type === DatasetType.SamplingEvent;
+
+  // `loading` is not a usable signal here - useQuery clears it when it aborts a request
+  // that a newer one superseded. A query has settled once its response has landed,
+  // whether as data or as an error. The event query is only fired once the dataset type
+  // is known, so it counts as settled until that decides it is needed at all.
+  const datasetSettled = occData || occError;
+  const eventSettled = !isSamplingEvent || eventData || error;
+
+  // A malformed entityKey leaves both parts undefined, so the queries never fire -
+  // bail out before the loading check rather than spinning on a skeleton forever.
+  if (!datasetKey || !eventId) {
     return null;
   }
 
-  if (loading || occLoading) {
+  if (!datasetSettled || !eventSettled) {
     return (
       <div className="g-p-4 g-bg-slate-100">
         <SamplingEventDetailSkeleton narrow />
@@ -92,15 +102,18 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
     );
   }
 
-  if (error || occError) {
+  // Partial GraphQL errors are expected - a field that fails to serialize should
+  // render blank, the way the event page does. Only give up when the dataset
+  // record itself is missing, since without it we cannot pick a view.
+  if (!occData?.dataset) {
     return (
       <div className="g-p-4">
-        <div>Error loading event: {(error ?? occError)?.message}</div>
+        <ErrorBlock error={occError ?? error} />
       </div>
     );
   }
 
-  if (occData?.dataset?.type !== DatasetType.SamplingEvent) {
+  if (!isSamplingEvent) {
     return (
       <div className="g-p-4 g-bg-slate-100">
         <Alert variant="warning">
@@ -121,19 +134,14 @@ export default function SamplingEventDrawerView({ entityKey }: { entityKey?: str
         <div className="g-mb-2 g-text-sm g-text-slate-600">
           <DynamicLink
             pageId="datasetKey"
-            variables={{ key: datasetKey! }}
+            variables={{ key: datasetKey }}
             className="g-text-primary hover:g-underline"
           >
             {datasetTitle}
           </DynamicLink>
         </div>
       )}
-      <SamplingEventDetail
-        data={occData}
-        eventData={eventData}
-        datasetKey={datasetKey!}
-        narrow
-      />
+      <SamplingEventDetail data={occData} eventData={eventData} datasetKey={datasetKey} narrow />
     </div>
   );
 }

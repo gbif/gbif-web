@@ -27,6 +27,7 @@ import {
   PredicateType,
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
+import { useHasValidationReport } from '@/hooks/useHasValidationReport';
 import useQuery from '@/hooks/useQuery';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -63,6 +64,7 @@ export function DatasetKeyAbout() {
     datasetKey: dataset?.key ?? '',
     checklistKey: config.defaultChecklistKey,
   });
+  const { hasReport: hasValidationReport } = useHasValidationReport(dataset.key);
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
   const [scopedDatasetPredicate, setScopedDatasetPredicate] = useState<Predicate>({
@@ -252,7 +254,7 @@ export function DatasetKeyAbout() {
               </div>
             )}
 
-            <Trusted dataset={dataset} />
+            <Trusted dataset={dataset} hasValidationReport={hasValidationReport} />
 
             {siteTotal > 0 && dataset.type === DatasetType.Metadata && (
               <Alert variant="destructive" className="g-mb-4">
@@ -525,7 +527,7 @@ export function DatasetKeyAbout() {
               </CardHeader>
               <CardContent>
                 <ErrorBoundary type="BLOCK" showReportButton={false}>
-                  <Registration dataset={dataset} />
+                  <Registration dataset={dataset} hasValidationReport={hasValidationReport} />
                 </ErrorBoundary>
               </CardContent>
             </Card>
@@ -658,7 +660,13 @@ function getToc({ dataset, localContextEnabled }: GetTocOptions) {
   return toc;
 }
 
-function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> }) {
+function Trusted({
+  dataset,
+  hasValidationReport,
+}: {
+  dataset: NonNullable<DatasetQuery['dataset']>;
+  hasValidationReport: boolean;
+}) {
   const { isTrusted: isUserDatasetContact } = useIsTrustedDatasetContact(
     dataset.volatileContributors
   );
@@ -691,6 +699,16 @@ function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> })
             <FormattedMessage id="dataset.logs" defaultMessage="Logs" />
           </a>
         </Button>
+        {hasValidationReport && (
+          <Button variant="outline" asChild>
+            <DynamicLink to={`/tools/validation-report/dataset/${dataset.key}`}>
+              <FormattedMessage
+                id="dataset.registry.validationReport"
+                defaultMessage="Validation report"
+              />
+            </DynamicLink>
+          </Button>
+        )}
       </div>
       <div className="g-text-slate-600 g-mt-2">
         {dataset.modified && (

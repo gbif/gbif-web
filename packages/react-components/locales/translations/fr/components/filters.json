@@ -4,8 +4,8 @@
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "category": {
-    "name": "",
-    "description": ""
+    "name": "Catégorie",
+    "description": "La catégorie du jeu de données, basée sur le vocabulaire DatasetCategory."
   },
   "locationId": {
     "name": "ID de localisation",

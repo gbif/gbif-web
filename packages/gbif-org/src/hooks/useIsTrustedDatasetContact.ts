@@ -1,7 +1,7 @@
 import { useUser } from '@/contexts/UserContext';
 import { useMemo } from 'react';
 
-type VolatileContributor = {
+export type VolatileContributor = {
   email?: Array<string | null> | null;
   userId?: Array<string | null> | null;
 } | null;

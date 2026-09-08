@@ -1,4 +1,5 @@
 import { Drawer } from '@/components/drawer/drawer';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import usePrevious from '@/hooks/usePrevious';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import EventDrawer from '@/routes/event/key/EventDrawer';
@@ -104,7 +105,11 @@ export default function EntityDrawer() {
       screenReaderDescription={undefined}
     >
       {type === 'occurrenceKey' && <StandaloneOccurrenceKeyPage url={`/occurrence/${key}`} />}
-      {type === 'eventKey' && <EventDrawer entityKey={key} />}
+      {type === 'eventKey' && (
+        <ErrorBoundary invalidateOn={previewKey} showReportButton>
+          <EventDrawer entityKey={key} />
+        </ErrorBoundary>
+      )}
       {type === 'datasetKey' && <StandaloneOccurrenceKeyPage url={`/dataset/${key}`} />}
       {type === 'publisherKey' && <StandaloneOccurrenceKeyPage url={`/publisher/${key}`} />}
       {type === 'collectionKey' && <StandaloneOccurrenceKeyPage url={`/collection/${key}`} />}

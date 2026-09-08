@@ -108,7 +108,7 @@ const preconfiguredCharts = {
     },
   },
   sequencePhylogeny: {
-    translation: 'dashboard.sequencePhylogeny',
+    translation: 'dashboard.sequenceDendrogram',
     component: ({ predicate, ...props }) => {
       return <charts.SequencePhylogeny predicate={predicate} {...props} />;
     },

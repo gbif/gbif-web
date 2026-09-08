@@ -1,7 +1,6 @@
 import { NoRecords } from '@/components/noDataMessages';
 import { SearchInput } from '@/components/searchInput';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { useUser } from '@/contexts/UserContext';
 import {
   Accordion,
   AccordionContent,
@@ -41,13 +40,10 @@ import {
   DwdpValidationIssue,
 } from '@/gql/graphql';
 import useAbove from '@/hooks/useAbove';
-import { useIsTrustedDatasetContact } from '@/hooks/useIsTrustedDatasetContact';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
 import {
@@ -60,7 +56,6 @@ import {
   MdVpnKey,
 } from 'react-icons/md';
 import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
-import { useDatasetKeyLoaderData } from '.';
 
 const VALIDATION_REPORT_QUERY = /* GraphQL */ `
   query DatasetValidationReport($datasetKey: ID!, $attempt: String) {
@@ -348,11 +343,6 @@ function severityTint(severity: string): string {
   return 'g-bg-blue-50';
 }
 
-// Card look shared by the issue-group and per-table violation cards, matching the design's
-// white, bordered, shadowed "card" surface (the same shadow token largeCard.tsx's Card uses).
-const ISSUE_CARD_CLASS =
-  'g-rounded g-border g-border-slate-200 g-bg-white g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)] g-overflow-hidden g-mb-0';
-
 function RailItem({
   icon,
   label,
@@ -508,7 +498,7 @@ function SummaryDetail({
           />
         }
         action={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="outline" size="sm" className="g-hidden sm:g-inline-flex">
             <DynamicLink to={reportUrl}>
               <MdDownload size={16} className="g-me-1.5" />
               <FormattedMessage
@@ -667,73 +657,78 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
       {groups.map(([type, list]) => {
         const worst = worstSeverity(list);
         return (
-          <AccordionItem key={type} value={type} className={ISSUE_CARD_CLASS}>
-            <AccordionTrigger
-              className={cn('g-px-3.5 g-py-3 hover:g-no-underline', severityTint(worst))}
-            >
-              <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
-                <SeverityIcon severity={worst} />
-                <span className="g-font-semibold g-text-slate-900">
-                  {humanizeViolationType(type)}
+          <Card key={type} asChild className="g-mb-0">
+            <AccordionItem value={type}>
+              <AccordionTrigger
+                className={cn('g-px-3.5 g-py-3 hover:g-no-underline', severityTint(worst))}
+              >
+                <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
+                  <SeverityIcon severity={worst} />
+                  <span className="g-font-semibold g-text-slate-900">
+                    {humanizeViolationType(type)}
+                  </span>
+                  <span className="g-ms-auto g-text-sm g-text-slate-500">{list.length}</span>
                 </span>
-                <span className="g-ms-auto g-text-sm g-text-slate-500">{list.length}</span>
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="g-pb-0 g-pt-0">
-              <div className="g-overflow-x-auto g-border-t g-border-slate-200">
-                <Table>
-                  <TableHeader className="g-bg-slate-50">
-                    <TableRow className="g-border-b g-border-slate-200">
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.severityColumn"
-                          defaultMessage="Severity"
-                        />
-                      </TableHead>
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.messageColumn"
-                          defaultMessage="Problem"
-                        />
-                      </TableHead>
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.locationColumn"
-                          defaultMessage="Where"
-                        />
-                      </TableHead>
-                      <TableHead>
-                        <FormattedMessage
-                          id="dataset.validationReport.detailColumn"
-                          defaultMessage="Detail"
-                        />
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {list.map((issue, i) => (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <TableRow key={i} className="g-border-b g-border-slate-200 last:g-border-b-0">
-                        <TableCell>
+              </AccordionTrigger>
+              <AccordionContent className="g-pb-0 g-pt-0">
+                <div className="g-overflow-x-auto g-border-t g-border-slate-200">
+                  <Table>
+                    <TableHeader className="g-bg-slate-50">
+                      <TableRow className="g-border-b g-border-slate-200">
+                        <TableHead>
                           <FormattedMessage
-                            id={`dataset.validationReport.severity.${issue.severity ?? 'INFO'}`}
-                            defaultMessage={issue.severity ?? 'Info'}
+                            id="dataset.validationReport.severityColumn"
+                            defaultMessage="Severity"
                           />
-                        </TableCell>
-                        <TableCell>{issue.message}</TableCell>
-                        <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-whitespace-nowrap">
-                          {issue.location}
-                        </TableCell>
-                        <TableCell className="g-font-mono g-text-xs g-text-slate-600 g-whitespace-nowrap">
-                          {issue.detail ?? '—'}
-                        </TableCell>
+                        </TableHead>
+                        <TableHead>
+                          <FormattedMessage
+                            id="dataset.validationReport.messageColumn"
+                            defaultMessage="Problem"
+                          />
+                        </TableHead>
+                        <TableHead>
+                          <FormattedMessage
+                            id="dataset.validationReport.locationColumn"
+                            defaultMessage="Where"
+                          />
+                        </TableHead>
+                        <TableHead>
+                          <FormattedMessage
+                            id="dataset.validationReport.detailColumn"
+                            defaultMessage="Detail"
+                          />
+                        </TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+                    </TableHeader>
+                    <TableBody>
+                      {list.map((issue, i) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <TableRow
+                          key={i}
+                          className="g-border-b g-border-slate-200 last:g-border-b-0"
+                        >
+                          <TableCell>
+                            <FormattedMessage
+                              id={`dataset.validationReport.severity.${issue.severity ?? 'INFO'}`}
+                              defaultMessage={issue.severity ?? 'Info'}
+                            />
+                          </TableCell>
+                          <TableCell>{issue.message}</TableCell>
+                          <TableCell className="g-font-mono g-text-xs g-text-slate-500 g-whitespace-nowrap">
+                            {issue.location}
+                          </TableCell>
+                          <TableCell className="g-font-mono g-text-xs g-text-slate-600 g-whitespace-nowrap">
+                            {issue.detail ?? '—'}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Card>
         );
       })}
     </Accordion>
@@ -813,102 +808,101 @@ function ViolationCard({
 
   return (
     <Accordion type="single" collapsible defaultValue="item">
-      <AccordionItem
-        value="item"
-        className="g-rounded g-border g-border-red-200 g-bg-white g-shadow-[0_10px_40px_-12px_rgba(0,0,0,0.1)] g-overflow-hidden g-mb-0"
-      >
-        <AccordionTrigger className="g-bg-red-50 g-px-3.5 g-py-3 hover:g-no-underline">
-          <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
-            <RoundBadge tone="error" glyph={VIOLATION_LABEL[kind].icon} />
-            <span className="g-font-semibold g-text-red-800">
-              <FormattedMessage
-                id={VIOLATION_LABEL[kind].id}
-                defaultMessage={VIOLATION_LABEL[kind].defaultMessage}
-              />
-            </span>
-            <span className="g-ms-auto g-text-sm g-font-medium g-text-red-800">
-              {violation.violationCount ?? 0}
-            </span>
-          </span>
-        </AccordionTrigger>
-        <AccordionContent className="g-px-3.5 g-pt-3 g-pb-4 g-border-t g-border-red-100">
-          <div className="g-flex g-flex-wrap g-gap-x-8 g-gap-y-3 g-text-sm g-mb-3">
-            {fields.length > 0 && (
-              <div>
-                <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.fields"
-                    defaultMessage="Field(s)"
-                  />
-                </div>
-                <div className="g-font-mono g-text-xs g-flex g-flex-wrap g-gap-x-2">
-                  {fields.map((field) => (
-                    <span key={field}>{field}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {fk && (
-              <div>
-                <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.references"
-                    defaultMessage="References"
-                  />
-                </div>
-                <div className="g-font-mono g-text-xs">
-                  {fk.referenceResource}.{(fk.referenceFields ?? []).join(', ')}
-                </div>
-              </div>
-            )}
-            {dt && (
-              <div>
-                <div className="g-text-xs g-text-slate-500 g-mb-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.declaredType"
-                    defaultMessage="Declared type"
-                  />
-                </div>
-                <div className="g-font-mono g-text-xs">{dt.declaredType}</div>
-              </div>
-            )}
-          </div>
-          {sampleRows.length > 0 && (
-            <div>
-              <div className="g-text-xs g-text-slate-500 g-mb-1">
+      <Card asChild className="g-border-red-200 g-mb-0">
+        <AccordionItem value="item">
+          <AccordionTrigger className="g-bg-red-50 g-px-3.5 g-py-3 hover:g-no-underline">
+            <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
+              <RoundBadge tone="error" glyph={VIOLATION_LABEL[kind].icon} />
+              <span className="g-font-semibold g-text-red-800">
                 <FormattedMessage
-                  id="dataset.validationReport.sampleRows"
-                  defaultMessage="Sample rows"
+                  id={VIOLATION_LABEL[kind].id}
+                  defaultMessage={VIOLATION_LABEL[kind].defaultMessage}
                 />
-              </div>
-              <div className="g-flex g-flex-col g-gap-1">
-                {sampleRows.slice(0, SAMPLE_CAP).map((row, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <code key={i} className="g-font-mono g-text-xs g-break-all g-text-slate-600">
-                    {Object.entries(row)
-                      .map(([k, value]) => `${k}=${value}`)
-                      .join('  ')}
-                  </code>
-                ))}
-              </div>
-              {sampleRows.length > SAMPLE_CAP && (
-                <div className="g-text-xs g-text-slate-400 g-mt-1">
-                  <FormattedMessage
-                    id="dataset.validationReport.andNMore"
-                    defaultMessage="and {count} more"
-                    values={{
-                      count: Math.max(
-                        (violation.violationCount ?? sampleRows.length) - SAMPLE_CAP,
-                        0
-                      ),
-                    }}
-                  />
+              </span>
+              <span className="g-ms-auto g-text-sm g-font-medium g-text-red-800">
+                {violation.violationCount ?? 0}
+              </span>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent className="g-px-3.5 g-pt-3 g-pb-4 g-border-t g-border-red-100">
+            <div className="g-flex g-flex-wrap g-gap-x-8 g-gap-y-3 g-text-sm g-mb-3">
+              {fields.length > 0 && (
+                <div>
+                  <div className="g-text-xs g-text-slate-500 g-mb-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.fields"
+                      defaultMessage="Field(s)"
+                    />
+                  </div>
+                  <div className="g-font-mono g-text-xs g-flex g-flex-wrap g-gap-x-2">
+                    {fields.map((field) => (
+                      <span key={field}>{field}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {fk && (
+                <div>
+                  <div className="g-text-xs g-text-slate-500 g-mb-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.references"
+                      defaultMessage="References"
+                    />
+                  </div>
+                  <div className="g-font-mono g-text-xs">
+                    {fk.referenceResource}.{(fk.referenceFields ?? []).join(', ')}
+                  </div>
+                </div>
+              )}
+              {dt && (
+                <div>
+                  <div className="g-text-xs g-text-slate-500 g-mb-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.declaredType"
+                      defaultMessage="Declared type"
+                    />
+                  </div>
+                  <div className="g-font-mono g-text-xs">{dt.declaredType}</div>
                 </div>
               )}
             </div>
-          )}
-        </AccordionContent>
-      </AccordionItem>
+            {sampleRows.length > 0 && (
+              <div>
+                <div className="g-text-xs g-text-slate-500 g-mb-1">
+                  <FormattedMessage
+                    id="dataset.validationReport.sampleRows"
+                    defaultMessage="Sample rows"
+                  />
+                </div>
+                <div className="g-flex g-flex-col g-gap-1">
+                  {sampleRows.slice(0, SAMPLE_CAP).map((row, i) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <code key={i} className="g-font-mono g-text-xs g-break-all g-text-slate-600">
+                      {Object.entries(row)
+                        .map(([k, value]) => `${k}=${value}`)
+                        .join('  ')}
+                    </code>
+                  ))}
+                </div>
+                {sampleRows.length > SAMPLE_CAP && (
+                  <div className="g-text-xs g-text-slate-400 g-mt-1">
+                    <FormattedMessage
+                      id="dataset.validationReport.andNMore"
+                      defaultMessage="and {count} more"
+                      values={{
+                        count: Math.max(
+                          (violation.violationCount ?? sampleRows.length) - SAMPLE_CAP,
+                          0
+                        ),
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </AccordionContent>
+        </AccordionItem>
+      </Card>
     </Accordion>
   );
 }
@@ -1125,7 +1119,12 @@ function UnsupportedReportContent({
                 />
               }
             />
-            <Button asChild variant="outline" size="sm" className="g-shrink-0">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="g-hidden sm:g-inline-flex g-shrink-0"
+            >
               <DynamicLink to={reportUrl}>
                 <MdDownload size={16} className="g-me-1.5" />
                 <FormattedMessage
@@ -1152,15 +1151,17 @@ function UnsupportedReportContent({
 
 /* ---------- page ---------- */
 
-export function DatasetKeyValidationReport() {
+type Props = {
+  datasetKey: string;
+};
+
+// Renders the full validation report — attempt picker, summary, per-section detail, the raw
+// JSON fallback for an unsupported report version — for a single dataset. Used by the
+// Validation report tool page (tools/validation-report/dataset/:key); the caller is
+// responsible for letting the user pick which dataset, this component just reports on it.
+export function DatasetValidationReport({ datasetKey }: Props) {
   const { formatMessage } = useIntl();
-  const { dataset } = useDatasetKeyLoaderData().data;
   const showRail = useAbove(900);
-  // Same "trusted contact" check as the About page's registry-management section. The tab
-  // itself is only offered to trusted users (see datasetKey.tsx), but this route is still
-  // reachable directly by URL, so it needs its own gate too.
-  const { isTrusted } = useIsTrustedDatasetContact(dataset.volatileContributors);
-  const { isLoggedIn, isLoading: userLoading } = useUser();
 
   const {
     data: crawlData,
@@ -1177,9 +1178,9 @@ export function DatasetKeyValidationReport() {
   const [crawlAttemptRequested, setCrawlAttemptRequested] = useState(false);
 
   useEffect(() => {
-    loadCrawlAttempt({ variables: { datasetKey: dataset.key } });
+    loadCrawlAttempt({ variables: { datasetKey } });
     setCrawlAttemptRequested(true);
-  }, [loadCrawlAttempt, dataset.key]);
+  }, [loadCrawlAttempt, datasetKey]);
 
   const latestAttempt = useMemo(
     () => parseLatestAttempt(crawlData?.dataset?.crawlAttempt),
@@ -1214,11 +1215,11 @@ export function DatasetKeyValidationReport() {
     if (!crawlAttemptRequested || crawlLoading) return;
     load({
       variables: {
-        datasetKey: dataset.key,
+        datasetKey,
         attempt: selectedAttempt !== undefined ? String(selectedAttempt) : undefined,
       },
     });
-  }, [load, dataset.key, crawlAttemptRequested, crawlLoading, selectedAttempt]);
+  }, [load, datasetKey, crawlAttemptRequested, crawlLoading, selectedAttempt]);
 
   const report = data?.dwdpValidationReport;
   const result = report?.result;
@@ -1237,50 +1238,8 @@ export function DatasetKeyValidationReport() {
     hideDefault: true,
   });
 
-  // Not trusted (or the logged-in user hasn't resolved yet, which defaults to not-trusted so
-  // nothing flashes before hiding) — leave the dataset header/tabs from the parent route as
-  // they are and render an empty body, so the user can navigate away or log in.
-  if (!isTrusted) {
-    // The logged-in user is only known client-side (fetched after mount), so while that's
-    // still in flight, show the same loading skeleton as the rest of the page rather than
-    // flashing a "please log in"/"not authorized" message at a user who turns out to be
-    // trusted once their identity resolves.
-    if (userLoading) {
-      return (
-        <ArticleContainer className="g-bg-slate-100 g-pt-4">
-          <ArticleTextContainer className="g-max-w-screen-xl">
-            <CardListSkeleton />
-          </ArticleTextContainer>
-        </ArticleContainer>
-      );
-    }
-    return (
-      <ArticleContainer className="g-bg-slate-100 g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
-          {isLoggedIn ? (
-            <NoRecords
-              messageId="dataset.validationReport.notAuthorized"
-              defaultMessage="You don't have access to this dataset's validation reports."
-            />
-          ) : (
-            <NoRecords
-              messageId="dataset.validationReport.pleaseLogIn"
-              defaultMessage="Please log in to see validation reports."
-            />
-          )}
-        </ArticleTextContainer>
-      </ArticleContainer>
-    );
-  }
-
   if (loading || !data) {
-    return (
-      <ArticleContainer className="g-bg-slate-100 g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <CardListSkeleton />
-        </ArticleTextContainer>
-      </ArticleContainer>
-    );
+    return <CardListSkeleton />;
   }
 
   // Neither a missing report (nothing found for the selected attempt) nor a missing/
@@ -1325,273 +1284,263 @@ export function DatasetKeyValidationReport() {
 
   if (isVersionSupported && currentSection === 'eml' && !showEmlSection) {
     return (
-      <ArticleContainer className="g-bg-slate-100 g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
-          <NoRecords
-            messageId="dataset.validationReport.emlNotPresent"
-            defaultMessage="No EML document was found for this dataset."
-          />
-        </ArticleTextContainer>
-      </ArticleContainer>
+      <div className="g-min-h-[50vh]">
+        <NoRecords
+          messageId="dataset.validationReport.emlNotPresent"
+          defaultMessage="No EML document was found for this dataset."
+        />
+      </div>
     );
   }
 
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-4">
-      <ArticleTextContainer className="g-max-w-screen-xl">
-        {!showRail && (
-          <div className="g-mb-4">
-            {attemptOptions.length > 1 && (
-              <div className="g-flex g-items-center g-justify-between g-mb-2">
-                <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                  <FormattedMessage
-                    id="dataset.validationReport.package"
-                    defaultMessage="Package"
-                  />
-                </span>
-                <AttemptPicker
-                  latestAttempt={latestAttempt}
-                  attemptOptions={attemptOptions}
-                  selectedAttempt={selectedAttempt}
-                  onChange={handleAttemptChange}
-                />
-              </div>
-            )}
-            {!report && (
-              <RailNote>
-                <FormattedMessage
-                  id="dataset.validationReport.noReport"
-                  defaultMessage="No validation report is available."
-                />
-              </RailNote>
-            )}
-            {report && !isVersionSupported && (
-              <RailNote>
-                <FormattedMessage
-                  id="dataset.validationReport.unsupportedVersionRailNote"
-                  defaultMessage="This report uses an older format that can't be shown here."
-                />
-              </RailNote>
-            )}
-            {isVersionSupported && (
-              <>
-                <label htmlFor="validation-report-section-select" className="g-sr-only">
-                  <FormattedMessage
-                    id="dataset.validationReport.selectSection"
-                    defaultMessage="Select report section"
-                  />
-                </label>
-                <select
-                  id="validation-report-section-select"
-                  value={currentSection}
-                  onChange={(e) => setSection(e.target.value)}
-                  className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
-                >
-                  <option value="summary">{summaryLabel}</option>
-                  <option value="descriptor">
-                    {descriptorIssues.length
-                      ? `${descriptorLabel} (${descriptorIssues.length})`
-                      : descriptorLabel}
-                  </option>
-                  {showEmlSection && (
-                    <option value="eml">
-                      {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
-                    </option>
-                  )}
-                  {resources.map((r) => {
-                    const n = issueCount(r);
-                    return (
-                      <option key={r.name} value={`res:${r.name}`}>
-                        {n ? `${r.name} (${n})` : r.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </>
-            )}
-          </div>
-        )}
-
-        <SidebarLayout
-          className="g-grid-cols-1 md:g-grid-cols-[260px_minmax(0,1fr)] lg:g-grid-cols-[288px_minmax(0,1fr)]"
-          stack={!showRail}
-        >
-          {showRail && (
-            <Aside>
-              <AsideSticky className="-g-mt-4">
-                <Card className="g-p-2">
-                  <div className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1">
-                    <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                      <FormattedMessage
-                        id="dataset.validationReport.package"
-                        defaultMessage="Package"
-                      />
-                    </span>
-                    <span className="g-ms-auto">
-                      <AttemptPicker
-                        latestAttempt={latestAttempt}
-                        attemptOptions={attemptOptions}
-                        selectedAttempt={selectedAttempt}
-                        onChange={handleAttemptChange}
-                      />
-                    </span>
-                  </div>
-                  {isVersionSupported ? (
-                    <>
-                      <RailItem
-                        icon={
-                          <StatusIcon
-                            ok={integrityIssueCount === 0 && metadataIssueCount === 0}
-                            blocking={integrityIssueCount > 0}
-                          />
-                        }
-                        label={summaryLabel}
-                        active={currentSection === 'summary'}
-                        onClick={() => setSection('summary')}
-                      />
-                      <RailItem
-                        icon={<StatusIcon ok={descriptorIssues.length === 0} />}
-                        label={descriptorLabel}
-                        count={descriptorIssues.length}
-                        active={currentSection === 'descriptor'}
-                        onClick={() => setSection('descriptor')}
-                      />
-                      {showEmlSection && (
-                        <RailItem
-                          icon={<StatusIcon ok={emlIssues.length === 0} />}
-                          label={emlLabel}
-                          count={emlIssues.length}
-                          active={currentSection === 'eml'}
-                          onClick={() => setSection('eml')}
-                        />
-                      )}
-                      <div className="g-border-t g-border-slate-200 g-my-2" />
-                      <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
-                        <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                          <FormattedMessage
-                            id="dataset.validationReport.tables"
-                            defaultMessage="Tables"
-                          />{' '}
-                          ({resources.length})
-                        </span>
-                      </div>
-                      {resources.map((r) => {
-                        const n = issueCount(r);
-                        return (
-                          <RailItem
-                            key={r.name}
-                            icon={<StatusIcon ok={n === 0} blocking={n > 0} />}
-                            label={r.name}
-                            meta={(r.totalRows ?? 0).toLocaleString()}
-                            count={n}
-                            active={currentSection === `res:${r.name}`}
-                            onClick={() => setSection(`res:${r.name}`)}
-                          />
-                        );
-                      })}
-                    </>
-                  ) : !report ? (
-                    <RailNote>
-                      <FormattedMessage
-                        id="dataset.validationReport.noReport"
-                        defaultMessage="No validation report is available."
-                      />
-                    </RailNote>
-                  ) : (
-                    <RailNote>
-                      <FormattedMessage
-                        id="dataset.validationReport.unsupportedVersionRailNote"
-                        defaultMessage="This report uses an older format that can't be shown here."
-                      />
-                    </RailNote>
-                  )}
-                </Card>
-              </AsideSticky>
-            </Aside>
+    <>
+      {!showRail && (
+        <div className="g-mb-4">
+          {attemptOptions.length > 1 && (
+            <div className="g-flex g-items-center g-justify-between g-mb-2">
+              <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
+              </span>
+              <AttemptPicker
+                latestAttempt={latestAttempt}
+                attemptOptions={attemptOptions}
+                selectedAttempt={selectedAttempt}
+                onChange={handleAttemptChange}
+              />
+            </div>
           )}
-          <div className="g-min-w-0">
-            {!report && (
-              // Matches how empty states are shown elsewhere: no card, just the message on
-              // the page background.
-              <NoRecords
-                messageId="dataset.validationReport.noReport"
+          {!report && (
+            <RailNote>
+              <FormattedMessage
+                id="dataset.validationReport.noReport"
                 defaultMessage="No validation report is available."
               />
-            )}
-            {report && !isVersionSupported && (
-              <UnsupportedReportContent
-                datasetKey={dataset.key}
-                attempt={report.attempt ?? undefined}
+            </RailNote>
+          )}
+          {report && !isVersionSupported && (
+            <RailNote>
+              <FormattedMessage
+                id="dataset.validationReport.unsupportedVersionRailNote"
+                defaultMessage="This report uses an older format that can't be shown here."
               />
-            )}
-            {report && isVersionSupported && currentSection === 'summary' && (
-              // Only the Summary view gets the white card surface, matching the design: the
-              // other sections sit directly on the page background, with each issue/table row
-              // providing its own card.
-              <Card>
-                <CardContent topPadding>
-                  <SummaryDetail
-                    report={report}
-                    resources={resources}
-                    descriptorIssues={descriptorIssues}
-                    emlIssues={emlIssues}
-                    integrityIssueCount={integrityIssueCount}
-                  />
-                </CardContent>
+            </RailNote>
+          )}
+          {isVersionSupported && (
+            <>
+              <label htmlFor="validation-report-section-select" className="g-sr-only">
+                <FormattedMessage
+                  id="dataset.validationReport.selectSection"
+                  defaultMessage="Select report section"
+                />
+              </label>
+              <select
+                id="validation-report-section-select"
+                value={currentSection}
+                onChange={(e) => setSection(e.target.value)}
+                className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
+              >
+                <option value="summary">{summaryLabel}</option>
+                <option value="descriptor">
+                  {descriptorIssues.length
+                    ? `${descriptorLabel} (${descriptorIssues.length})`
+                    : descriptorLabel}
+                </option>
+                {showEmlSection && (
+                  <option value="eml">
+                    {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
+                  </option>
+                )}
+                {resources.map((r) => {
+                  const n = issueCount(r);
+                  return (
+                    <option key={r.name} value={`res:${r.name}`}>
+                      {n ? `${r.name} (${n})` : r.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </>
+          )}
+        </div>
+      )}
+
+      <SidebarLayout
+        className="g-grid-cols-1 md:g-grid-cols-[260px_minmax(0,1fr)] lg:g-grid-cols-[288px_minmax(0,1fr)]"
+        stack={!showRail}
+      >
+        {showRail && (
+          <Aside>
+            <AsideSticky className="-g-mt-4">
+              <Card className="g-p-2">
+                <div className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1">
+                  <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                    <FormattedMessage
+                      id="dataset.validationReport.package"
+                      defaultMessage="Package"
+                    />
+                  </span>
+                  <span className="g-ms-auto">
+                    <AttemptPicker
+                      latestAttempt={latestAttempt}
+                      attemptOptions={attemptOptions}
+                      selectedAttempt={selectedAttempt}
+                      onChange={handleAttemptChange}
+                    />
+                  </span>
+                </div>
+                {isVersionSupported ? (
+                  <>
+                    <RailItem
+                      icon={
+                        <StatusIcon
+                          ok={integrityIssueCount === 0 && metadataIssueCount === 0}
+                          blocking={integrityIssueCount > 0}
+                        />
+                      }
+                      label={summaryLabel}
+                      active={currentSection === 'summary'}
+                      onClick={() => setSection('summary')}
+                    />
+                    <RailItem
+                      icon={<StatusIcon ok={descriptorIssues.length === 0} />}
+                      label={descriptorLabel}
+                      count={descriptorIssues.length}
+                      active={currentSection === 'descriptor'}
+                      onClick={() => setSection('descriptor')}
+                    />
+                    {showEmlSection && (
+                      <RailItem
+                        icon={<StatusIcon ok={emlIssues.length === 0} />}
+                        label={emlLabel}
+                        count={emlIssues.length}
+                        active={currentSection === 'eml'}
+                        onClick={() => setSection('eml')}
+                      />
+                    )}
+                    <div className="g-border-t g-border-slate-200 g-my-2" />
+                    <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
+                      <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                        <FormattedMessage
+                          id="dataset.validationReport.tables"
+                          defaultMessage="Tables"
+                        />{' '}
+                        ({resources.length})
+                      </span>
+                    </div>
+                    {resources.map((r) => {
+                      const n = issueCount(r);
+                      return (
+                        <RailItem
+                          key={r.name}
+                          icon={<StatusIcon ok={n === 0} blocking={n > 0} />}
+                          label={r.name}
+                          meta={(r.totalRows ?? 0).toLocaleString()}
+                          count={n}
+                          active={currentSection === `res:${r.name}`}
+                          onClick={() => setSection(`res:${r.name}`)}
+                        />
+                      );
+                    })}
+                  </>
+                ) : !report ? (
+                  <RailNote>
+                    <FormattedMessage
+                      id="dataset.validationReport.noReport"
+                      defaultMessage="No validation report is available."
+                    />
+                  </RailNote>
+                ) : (
+                  <RailNote>
+                    <FormattedMessage
+                      id="dataset.validationReport.unsupportedVersionRailNote"
+                      defaultMessage="This report uses an older format that can't be shown here."
+                    />
+                  </RailNote>
+                )}
               </Card>
-            )}
-            {isVersionSupported && currentSection === 'descriptor' && (
-              <DescriptorOrEmlDetail
-                title={
+            </AsideSticky>
+          </Aside>
+        )}
+        <div className="g-min-w-0">
+          {!report && (
+            // Matches how empty states are shown elsewhere: no card, just the message on
+            // the page background.
+            <NoRecords
+              messageId="dataset.validationReport.noReport"
+              defaultMessage="No validation report is available."
+            />
+          )}
+          {report && !isVersionSupported && (
+            <UnsupportedReportContent
+              datasetKey={datasetKey}
+              attempt={report.attempt ?? undefined}
+            />
+          )}
+          {report && isVersionSupported && currentSection === 'summary' && (
+            // Only the Summary view gets the white card surface, matching the design: the
+            // other sections sit directly on the page background, with each issue/table row
+            // providing its own card.
+            <Card>
+              <CardContent topPadding>
+                <SummaryDetail
+                  report={report}
+                  resources={resources}
+                  descriptorIssues={descriptorIssues}
+                  emlIssues={emlIssues}
+                  integrityIssueCount={integrityIssueCount}
+                />
+              </CardContent>
+            </Card>
+          )}
+          {isVersionSupported && currentSection === 'descriptor' && (
+            <DescriptorOrEmlDetail
+              title={
+                <FormattedMessage
+                  id="dataset.validationReport.descriptor"
+                  defaultMessage="datapackage.json"
+                />
+              }
+              meta={
+                <FormattedMessage
+                  id="dataset.validationReport.descriptorMeta"
+                  defaultMessage="{count, plural, =0 {no issues} one {# issue} other {# issues}} · schema and foreign key declarations"
+                  values={{ count: descriptorIssues.length }}
+                />
+              }
+              issues={descriptorIssues}
+              validMessageId="dataset.validationReport.descriptorValid"
+              validDefaultMessage="No issues found in the descriptor."
+            />
+          )}
+          {isVersionSupported && currentSection === 'eml' && (
+            <DescriptorOrEmlDetail
+              title={
+                <FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />
+              }
+              meta={
+                hasEml ? (
                   <FormattedMessage
-                    id="dataset.validationReport.descriptor"
-                    defaultMessage="datapackage.json"
+                    id="dataset.validationReport.emlMeta"
+                    defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
+                    values={{ count: emlIssues.length }}
                   />
-                }
-                meta={
+                ) : (
                   <FormattedMessage
-                    id="dataset.validationReport.descriptorMeta"
-                    defaultMessage="{count, plural, =0 {no issues} one {# issue} other {# issues}} · schema and foreign key declarations"
-                    values={{ count: descriptorIssues.length }}
+                    id="dataset.validationReport.emlMetaNotPresent"
+                    defaultMessage="{count, plural, one {Not present · # issue} other {Not present · # issues}}"
+                    values={{ count: emlIssues.length }}
                   />
-                }
-                issues={descriptorIssues}
-                validMessageId="dataset.validationReport.descriptorValid"
-                validDefaultMessage="No issues found in the descriptor."
-              />
-            )}
-            {isVersionSupported && currentSection === 'eml' && (
-              <DescriptorOrEmlDetail
-                title={
-                  <FormattedMessage
-                    id="dataset.validationReport.eml"
-                    defaultMessage="EML metadata"
-                  />
-                }
-                meta={
-                  hasEml ? (
-                    <FormattedMessage
-                      id="dataset.validationReport.emlMeta"
-                      defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
-                      values={{ count: emlIssues.length }}
-                    />
-                  ) : (
-                    <FormattedMessage
-                      id="dataset.validationReport.emlMetaNotPresent"
-                      defaultMessage="{count, plural, one {Not present · # issue} other {Not present · # issues}}"
-                      values={{ count: emlIssues.length }}
-                    />
-                  )
-                }
-                issues={emlIssues}
-                validMessageId="dataset.validationReport.emlValid"
-                validDefaultMessage="No issues found in the EML document."
-              />
-            )}
-            {isVersionSupported && currentResource && <ResourceDetail resource={currentResource} />}
-          </div>
-        </SidebarLayout>
-      </ArticleTextContainer>
-    </ArticleContainer>
+                )
+              }
+              issues={emlIssues}
+              validMessageId="dataset.validationReport.emlValid"
+              validDefaultMessage="No issues found in the EML document."
+            />
+          )}
+          {isVersionSupported && currentResource && <ResourceDetail resource={currentResource} />}
+        </div>
+      </SidebarLayout>
+    </>
   );
 }
