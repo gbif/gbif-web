@@ -12,9 +12,10 @@ import { DatasetKeyLoaderResult } from '../datasetKey';
 
 type Props = {
   dataset: DatasetKeyLoaderResult['data']['dataset'];
+  hasValidationReport: boolean;
 };
 
-export function Registration({ dataset }: Props) {
+export function Registration({ dataset, hasValidationReport }: Props) {
   const { doi, created, modified, pubDate, installation } = dataset;
   const machineTags = dataset.machineTags ?? [];
   const endpoints = dataset.endpoints ?? [];
@@ -189,7 +190,7 @@ export function Registration({ dataset }: Props) {
             <MdLink className="g-ms-2" />
           </a>
         </Button>
-        {dataset.type == null && (
+        {hasValidationReport && (
           <Button asChild variant="outline">
             <DynamicLink to={`/tools/validation-report/dataset/${dataset.key}`}>
               <FormattedMessage
