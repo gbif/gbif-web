@@ -30,7 +30,7 @@ export const EVENT_KEY_QUERY = /* GraphQL */ `
       formattedCoordinates
       stateProvince
       locationID
-      country
+      countryCode
       continent
       waterBody
       coordinateUncertaintyInMeters

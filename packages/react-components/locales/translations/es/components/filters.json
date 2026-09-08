@@ -4,8 +4,8 @@
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "category": {
-    "name": "",
-    "description": ""
+    "name": "Categoría",
+    "description": "La categoría del conjunto de datos, basada en el vocabulario «DatasetCategory»."
   },
   "locationId": {
     "name": "ID de la Ubicación",
