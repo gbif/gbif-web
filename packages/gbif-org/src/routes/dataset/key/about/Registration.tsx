@@ -189,14 +189,16 @@ export function Registration({ dataset }: Props) {
             <MdLink className="g-ms-2" />
           </a>
         </Button>
-        <Button asChild variant="outline">
-          <DynamicLink to={`/tools/validation-report/dataset/${dataset.key}`}>
-            <FormattedMessage
-              id="dataset.registry.validationReport"
-              defaultMessage="Validation report"
-            />
-          </DynamicLink>
-        </Button>
+        {dataset.type == null && (
+          <Button asChild variant="outline">
+            <DynamicLink to={`/tools/validation-report/dataset/${dataset.key}`}>
+              <FormattedMessage
+                id="dataset.registry.validationReport"
+                defaultMessage="Validation report"
+              />
+            </DynamicLink>
+          </Button>
+        )}
       </div>
     </div>
   );

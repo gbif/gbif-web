@@ -691,14 +691,16 @@ function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> })
             <FormattedMessage id="dataset.logs" defaultMessage="Logs" />
           </a>
         </Button>
-        <Button variant="outline" asChild>
-          <DynamicLink to={`/tools/validation-report/dataset/${dataset.key}`}>
-            <FormattedMessage
-              id="dataset.registry.validationReport"
-              defaultMessage="Validation report"
-            />
-          </DynamicLink>
-        </Button>
+        {dataset.type == null && (
+          <Button variant="outline" asChild>
+            <DynamicLink to={`/tools/validation-report/dataset/${dataset.key}`}>
+              <FormattedMessage
+                id="dataset.registry.validationReport"
+                defaultMessage="Validation report"
+              />
+            </DynamicLink>
+          </Button>
+        )}
       </div>
       <div className="g-text-slate-600 g-mt-2">
         {dataset.modified && (

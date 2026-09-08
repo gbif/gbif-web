@@ -12,7 +12,7 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect } from 'react';
-import { MdArrowBack } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DatasetValidationReport } from './DatasetValidationReport';
@@ -73,11 +73,8 @@ export default function ValidationReportPage() {
                   </DynamicLink>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => handleSelect(null)}>
-                  <MdArrowBack size={16} className="g-me-1.5" />
-                  <FormattedMessage
-                    id="tools.validationReport.backToSearch"
-                    defaultMessage="Back to search"
-                  />
+                  <MdClose size={16} className="g-me-1.5" />
+                  <FormattedMessage id="tools.validationReport.clear" defaultMessage="Clear" />
                 </Button>
               </CardContent>
             ) : (
