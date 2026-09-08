@@ -59,9 +59,9 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
         id: 'country',
         header: 'filters.country.name',
         minWidth: 150,
-        cell: ({ country }) => (
-          <SetAsFilter field="country" value={country}>
-            {country && <FormattedMessage id={`enums.countryCode.${country}`} />}
+        cell: ({ countryCode }) => (
+          <SetAsFilter field="country" value={countryCode}>
+            {countryCode && <FormattedMessage id={`enums.countryCode.${countryCode}`} />}
           </SetAsFilter>
         ),
       },

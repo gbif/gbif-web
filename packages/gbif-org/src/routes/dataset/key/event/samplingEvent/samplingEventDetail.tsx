@@ -81,7 +81,7 @@ export const SamplingEventDetail = ({
   const decimalLatitude = event?.decimalLatitude ?? firstOccurrence?.decimalLatitude ?? null;
   const decimalLongitude = event?.decimalLongitude ?? firstOccurrence?.decimalLongitude ?? null;
   const eventID = event?.eventID ?? firstOccurrence?.eventID;
-  const countryCode = event?.country ?? firstOccurrence?.countryCode;
+  const countryCode = event?.countryCode ?? firstOccurrence?.countryCode;
   const eventDate = event?.eventDate ?? firstOccurrence?.eventDate;
   const eventType = event?.eventType;
 

@@ -177,7 +177,10 @@ export default gql`
     sampleSizeUnit: String
     sampleSizeValue: Float
     stateProvince: String
-    country: Country
+    # The event API returns the display name here ("Sweden") and the ISO-2 code
+    # in countryCode - mirroring the occurrence type.
+    country: String
+    countryCode: Country
     continent: String
     waterBody: String
     year: Int
