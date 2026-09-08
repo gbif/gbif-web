@@ -44,8 +44,6 @@ import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
 import {
@@ -1241,13 +1239,7 @@ export function DatasetValidationReport({ datasetKey }: Props) {
   });
 
   if (loading || !data) {
-    return (
-      <ArticleContainer className="g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <CardListSkeleton />
-        </ArticleTextContainer>
-      </ArticleContainer>
-    );
+    return <CardListSkeleton />;
   }
 
   // Neither a missing report (nothing found for the selected attempt) nor a missing/
@@ -1292,273 +1284,263 @@ export function DatasetValidationReport({ datasetKey }: Props) {
 
   if (isVersionSupported && currentSection === 'eml' && !showEmlSection) {
     return (
-      <ArticleContainer className="g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl g-min-h-[50vh]">
-          <NoRecords
-            messageId="dataset.validationReport.emlNotPresent"
-            defaultMessage="No EML document was found for this dataset."
-          />
-        </ArticleTextContainer>
-      </ArticleContainer>
+      <div className="g-min-h-[50vh]">
+        <NoRecords
+          messageId="dataset.validationReport.emlNotPresent"
+          defaultMessage="No EML document was found for this dataset."
+        />
+      </div>
     );
   }
 
   return (
-    <ArticleContainer className="g-pt-4">
-      <ArticleTextContainer className="g-max-w-screen-xl">
-        {!showRail && (
-          <div className="g-mb-4">
-            {attemptOptions.length > 1 && (
-              <div className="g-flex g-items-center g-justify-between g-mb-2">
-                <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                  <FormattedMessage
-                    id="dataset.validationReport.package"
-                    defaultMessage="Package"
-                  />
-                </span>
-                <AttemptPicker
-                  latestAttempt={latestAttempt}
-                  attemptOptions={attemptOptions}
-                  selectedAttempt={selectedAttempt}
-                  onChange={handleAttemptChange}
-                />
-              </div>
-            )}
-            {!report && (
-              <RailNote>
-                <FormattedMessage
-                  id="dataset.validationReport.noReport"
-                  defaultMessage="No validation report is available."
-                />
-              </RailNote>
-            )}
-            {report && !isVersionSupported && (
-              <RailNote>
-                <FormattedMessage
-                  id="dataset.validationReport.unsupportedVersionRailNote"
-                  defaultMessage="This report uses an older format that can't be shown here."
-                />
-              </RailNote>
-            )}
-            {isVersionSupported && (
-              <>
-                <label htmlFor="validation-report-section-select" className="g-sr-only">
-                  <FormattedMessage
-                    id="dataset.validationReport.selectSection"
-                    defaultMessage="Select report section"
-                  />
-                </label>
-                <select
-                  id="validation-report-section-select"
-                  value={currentSection}
-                  onChange={(e) => setSection(e.target.value)}
-                  className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
-                >
-                  <option value="summary">{summaryLabel}</option>
-                  <option value="descriptor">
-                    {descriptorIssues.length
-                      ? `${descriptorLabel} (${descriptorIssues.length})`
-                      : descriptorLabel}
-                  </option>
-                  {showEmlSection && (
-                    <option value="eml">
-                      {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
-                    </option>
-                  )}
-                  {resources.map((r) => {
-                    const n = issueCount(r);
-                    return (
-                      <option key={r.name} value={`res:${r.name}`}>
-                        {n ? `${r.name} (${n})` : r.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </>
-            )}
-          </div>
-        )}
-
-        <SidebarLayout
-          className="g-grid-cols-1 md:g-grid-cols-[260px_minmax(0,1fr)] lg:g-grid-cols-[288px_minmax(0,1fr)]"
-          stack={!showRail}
-        >
-          {showRail && (
-            <Aside>
-              <AsideSticky className="-g-mt-4">
-                <Card className="g-p-2">
-                  <div className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1">
-                    <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                      <FormattedMessage
-                        id="dataset.validationReport.package"
-                        defaultMessage="Package"
-                      />
-                    </span>
-                    <span className="g-ms-auto">
-                      <AttemptPicker
-                        latestAttempt={latestAttempt}
-                        attemptOptions={attemptOptions}
-                        selectedAttempt={selectedAttempt}
-                        onChange={handleAttemptChange}
-                      />
-                    </span>
-                  </div>
-                  {isVersionSupported ? (
-                    <>
-                      <RailItem
-                        icon={
-                          <StatusIcon
-                            ok={integrityIssueCount === 0 && metadataIssueCount === 0}
-                            blocking={integrityIssueCount > 0}
-                          />
-                        }
-                        label={summaryLabel}
-                        active={currentSection === 'summary'}
-                        onClick={() => setSection('summary')}
-                      />
-                      <RailItem
-                        icon={<StatusIcon ok={descriptorIssues.length === 0} />}
-                        label={descriptorLabel}
-                        count={descriptorIssues.length}
-                        active={currentSection === 'descriptor'}
-                        onClick={() => setSection('descriptor')}
-                      />
-                      {showEmlSection && (
-                        <RailItem
-                          icon={<StatusIcon ok={emlIssues.length === 0} />}
-                          label={emlLabel}
-                          count={emlIssues.length}
-                          active={currentSection === 'eml'}
-                          onClick={() => setSection('eml')}
-                        />
-                      )}
-                      <div className="g-border-t g-border-slate-200 g-my-2" />
-                      <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
-                        <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
-                          <FormattedMessage
-                            id="dataset.validationReport.tables"
-                            defaultMessage="Tables"
-                          />{' '}
-                          ({resources.length})
-                        </span>
-                      </div>
-                      {resources.map((r) => {
-                        const n = issueCount(r);
-                        return (
-                          <RailItem
-                            key={r.name}
-                            icon={<StatusIcon ok={n === 0} blocking={n > 0} />}
-                            label={r.name}
-                            meta={(r.totalRows ?? 0).toLocaleString()}
-                            count={n}
-                            active={currentSection === `res:${r.name}`}
-                            onClick={() => setSection(`res:${r.name}`)}
-                          />
-                        );
-                      })}
-                    </>
-                  ) : !report ? (
-                    <RailNote>
-                      <FormattedMessage
-                        id="dataset.validationReport.noReport"
-                        defaultMessage="No validation report is available."
-                      />
-                    </RailNote>
-                  ) : (
-                    <RailNote>
-                      <FormattedMessage
-                        id="dataset.validationReport.unsupportedVersionRailNote"
-                        defaultMessage="This report uses an older format that can't be shown here."
-                      />
-                    </RailNote>
-                  )}
-                </Card>
-              </AsideSticky>
-            </Aside>
+    <>
+      {!showRail && (
+        <div className="g-mb-4">
+          {attemptOptions.length > 1 && (
+            <div className="g-flex g-items-center g-justify-between g-mb-2">
+              <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                <FormattedMessage id="dataset.validationReport.package" defaultMessage="Package" />
+              </span>
+              <AttemptPicker
+                latestAttempt={latestAttempt}
+                attemptOptions={attemptOptions}
+                selectedAttempt={selectedAttempt}
+                onChange={handleAttemptChange}
+              />
+            </div>
           )}
-          <div className="g-min-w-0">
-            {!report && (
-              // Matches how empty states are shown elsewhere: no card, just the message on
-              // the page background.
-              <NoRecords
-                messageId="dataset.validationReport.noReport"
+          {!report && (
+            <RailNote>
+              <FormattedMessage
+                id="dataset.validationReport.noReport"
                 defaultMessage="No validation report is available."
               />
-            )}
-            {report && !isVersionSupported && (
-              <UnsupportedReportContent
-                datasetKey={datasetKey}
-                attempt={report.attempt ?? undefined}
+            </RailNote>
+          )}
+          {report && !isVersionSupported && (
+            <RailNote>
+              <FormattedMessage
+                id="dataset.validationReport.unsupportedVersionRailNote"
+                defaultMessage="This report uses an older format that can't be shown here."
               />
-            )}
-            {report && isVersionSupported && currentSection === 'summary' && (
-              // Only the Summary view gets the white card surface, matching the design: the
-              // other sections sit directly on the page background, with each issue/table row
-              // providing its own card.
-              <Card>
-                <CardContent topPadding>
-                  <SummaryDetail
-                    report={report}
-                    resources={resources}
-                    descriptorIssues={descriptorIssues}
-                    emlIssues={emlIssues}
-                    integrityIssueCount={integrityIssueCount}
-                  />
-                </CardContent>
+            </RailNote>
+          )}
+          {isVersionSupported && (
+            <>
+              <label htmlFor="validation-report-section-select" className="g-sr-only">
+                <FormattedMessage
+                  id="dataset.validationReport.selectSection"
+                  defaultMessage="Select report section"
+                />
+              </label>
+              <select
+                id="validation-report-section-select"
+                value={currentSection}
+                onChange={(e) => setSection(e.target.value)}
+                className="g-w-full g-px-4 g-py-2 g-border g-border-slate-300 g-rounded-md g-bg-white g-text-base focus:g-outline-none focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-transparent"
+              >
+                <option value="summary">{summaryLabel}</option>
+                <option value="descriptor">
+                  {descriptorIssues.length
+                    ? `${descriptorLabel} (${descriptorIssues.length})`
+                    : descriptorLabel}
+                </option>
+                {showEmlSection && (
+                  <option value="eml">
+                    {emlIssues.length ? `${emlLabel} (${emlIssues.length})` : emlLabel}
+                  </option>
+                )}
+                {resources.map((r) => {
+                  const n = issueCount(r);
+                  return (
+                    <option key={r.name} value={`res:${r.name}`}>
+                      {n ? `${r.name} (${n})` : r.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </>
+          )}
+        </div>
+      )}
+
+      <SidebarLayout
+        className="g-grid-cols-1 md:g-grid-cols-[260px_minmax(0,1fr)] lg:g-grid-cols-[288px_minmax(0,1fr)]"
+        stack={!showRail}
+      >
+        {showRail && (
+          <Aside>
+            <AsideSticky className="-g-mt-4">
+              <Card className="g-p-2">
+                <div className="g-flex g-items-center g-gap-2 g-px-2.5 g-py-1.5 g-mb-1">
+                  <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                    <FormattedMessage
+                      id="dataset.validationReport.package"
+                      defaultMessage="Package"
+                    />
+                  </span>
+                  <span className="g-ms-auto">
+                    <AttemptPicker
+                      latestAttempt={latestAttempt}
+                      attemptOptions={attemptOptions}
+                      selectedAttempt={selectedAttempt}
+                      onChange={handleAttemptChange}
+                    />
+                  </span>
+                </div>
+                {isVersionSupported ? (
+                  <>
+                    <RailItem
+                      icon={
+                        <StatusIcon
+                          ok={integrityIssueCount === 0 && metadataIssueCount === 0}
+                          blocking={integrityIssueCount > 0}
+                        />
+                      }
+                      label={summaryLabel}
+                      active={currentSection === 'summary'}
+                      onClick={() => setSection('summary')}
+                    />
+                    <RailItem
+                      icon={<StatusIcon ok={descriptorIssues.length === 0} />}
+                      label={descriptorLabel}
+                      count={descriptorIssues.length}
+                      active={currentSection === 'descriptor'}
+                      onClick={() => setSection('descriptor')}
+                    />
+                    {showEmlSection && (
+                      <RailItem
+                        icon={<StatusIcon ok={emlIssues.length === 0} />}
+                        label={emlLabel}
+                        count={emlIssues.length}
+                        active={currentSection === 'eml'}
+                        onClick={() => setSection('eml')}
+                      />
+                    )}
+                    <div className="g-border-t g-border-slate-200 g-my-2" />
+                    <div className="g-flex g-items-center g-justify-between g-px-2.5 g-py-1">
+                      <span className="g-text-xs g-font-semibold g-uppercase g-tracking-wide g-text-slate-400">
+                        <FormattedMessage
+                          id="dataset.validationReport.tables"
+                          defaultMessage="Tables"
+                        />{' '}
+                        ({resources.length})
+                      </span>
+                    </div>
+                    {resources.map((r) => {
+                      const n = issueCount(r);
+                      return (
+                        <RailItem
+                          key={r.name}
+                          icon={<StatusIcon ok={n === 0} blocking={n > 0} />}
+                          label={r.name}
+                          meta={(r.totalRows ?? 0).toLocaleString()}
+                          count={n}
+                          active={currentSection === `res:${r.name}`}
+                          onClick={() => setSection(`res:${r.name}`)}
+                        />
+                      );
+                    })}
+                  </>
+                ) : !report ? (
+                  <RailNote>
+                    <FormattedMessage
+                      id="dataset.validationReport.noReport"
+                      defaultMessage="No validation report is available."
+                    />
+                  </RailNote>
+                ) : (
+                  <RailNote>
+                    <FormattedMessage
+                      id="dataset.validationReport.unsupportedVersionRailNote"
+                      defaultMessage="This report uses an older format that can't be shown here."
+                    />
+                  </RailNote>
+                )}
               </Card>
-            )}
-            {isVersionSupported && currentSection === 'descriptor' && (
-              <DescriptorOrEmlDetail
-                title={
+            </AsideSticky>
+          </Aside>
+        )}
+        <div className="g-min-w-0">
+          {!report && (
+            // Matches how empty states are shown elsewhere: no card, just the message on
+            // the page background.
+            <NoRecords
+              messageId="dataset.validationReport.noReport"
+              defaultMessage="No validation report is available."
+            />
+          )}
+          {report && !isVersionSupported && (
+            <UnsupportedReportContent
+              datasetKey={datasetKey}
+              attempt={report.attempt ?? undefined}
+            />
+          )}
+          {report && isVersionSupported && currentSection === 'summary' && (
+            // Only the Summary view gets the white card surface, matching the design: the
+            // other sections sit directly on the page background, with each issue/table row
+            // providing its own card.
+            <Card>
+              <CardContent topPadding>
+                <SummaryDetail
+                  report={report}
+                  resources={resources}
+                  descriptorIssues={descriptorIssues}
+                  emlIssues={emlIssues}
+                  integrityIssueCount={integrityIssueCount}
+                />
+              </CardContent>
+            </Card>
+          )}
+          {isVersionSupported && currentSection === 'descriptor' && (
+            <DescriptorOrEmlDetail
+              title={
+                <FormattedMessage
+                  id="dataset.validationReport.descriptor"
+                  defaultMessage="datapackage.json"
+                />
+              }
+              meta={
+                <FormattedMessage
+                  id="dataset.validationReport.descriptorMeta"
+                  defaultMessage="{count, plural, =0 {no issues} one {# issue} other {# issues}} · schema and foreign key declarations"
+                  values={{ count: descriptorIssues.length }}
+                />
+              }
+              issues={descriptorIssues}
+              validMessageId="dataset.validationReport.descriptorValid"
+              validDefaultMessage="No issues found in the descriptor."
+            />
+          )}
+          {isVersionSupported && currentSection === 'eml' && (
+            <DescriptorOrEmlDetail
+              title={
+                <FormattedMessage id="dataset.validationReport.eml" defaultMessage="EML metadata" />
+              }
+              meta={
+                hasEml ? (
                   <FormattedMessage
-                    id="dataset.validationReport.descriptor"
-                    defaultMessage="datapackage.json"
+                    id="dataset.validationReport.emlMeta"
+                    defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
+                    values={{ count: emlIssues.length }}
                   />
-                }
-                meta={
+                ) : (
                   <FormattedMessage
-                    id="dataset.validationReport.descriptorMeta"
-                    defaultMessage="{count, plural, =0 {no issues} one {# issue} other {# issues}} · schema and foreign key declarations"
-                    values={{ count: descriptorIssues.length }}
+                    id="dataset.validationReport.emlMetaNotPresent"
+                    defaultMessage="{count, plural, one {Not present · # issue} other {Not present · # issues}}"
+                    values={{ count: emlIssues.length }}
                   />
-                }
-                issues={descriptorIssues}
-                validMessageId="dataset.validationReport.descriptorValid"
-                validDefaultMessage="No issues found in the descriptor."
-              />
-            )}
-            {isVersionSupported && currentSection === 'eml' && (
-              <DescriptorOrEmlDetail
-                title={
-                  <FormattedMessage
-                    id="dataset.validationReport.eml"
-                    defaultMessage="EML metadata"
-                  />
-                }
-                meta={
-                  hasEml ? (
-                    <FormattedMessage
-                      id="dataset.validationReport.emlMeta"
-                      defaultMessage="{count, plural, =0 {Present · valid against the GBIF EML profile} one {Present · # issue against the GBIF EML profile} other {Present · # issues against the GBIF EML profile}}"
-                      values={{ count: emlIssues.length }}
-                    />
-                  ) : (
-                    <FormattedMessage
-                      id="dataset.validationReport.emlMetaNotPresent"
-                      defaultMessage="{count, plural, one {Not present · # issue} other {Not present · # issues}}"
-                      values={{ count: emlIssues.length }}
-                    />
-                  )
-                }
-                issues={emlIssues}
-                validMessageId="dataset.validationReport.emlValid"
-                validDefaultMessage="No issues found in the EML document."
-              />
-            )}
-            {isVersionSupported && currentResource && <ResourceDetail resource={currentResource} />}
-          </div>
-        </SidebarLayout>
-      </ArticleTextContainer>
-    </ArticleContainer>
+                )
+              }
+              issues={emlIssues}
+              validMessageId="dataset.validationReport.emlValid"
+              validDefaultMessage="No issues found in the EML document."
+            />
+          )}
+          {isVersionSupported && currentResource && <ResourceDetail resource={currentResource} />}
+        </div>
+      </SidebarLayout>
+    </>
   );
 }

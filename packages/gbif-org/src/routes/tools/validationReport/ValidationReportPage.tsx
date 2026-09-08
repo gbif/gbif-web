@@ -48,8 +48,8 @@ export default function ValidationReportPage() {
 
   return (
     <div className="g-flex-1 g-flex g-flex-col g-bg-slate-100">
-      <ArticleContainer className="g-pt-8 g-pb-8">
-        <ArticleTextContainer className="g-max-w-screen-xl">
+      <ArticleContainer className="g-pt-8">
+        <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
           <Card className="g-bg-white g-overflow-hidden">
             {dataset ? (
               <CardContent
@@ -115,17 +115,11 @@ export default function ValidationReportPage() {
               </CardContent>
             )}
           </Card>
+
+          {key && loading && <CardListSkeleton />}
+          {key && !loading && dataset && <DatasetValidationReport datasetKey={key} />}
         </ArticleTextContainer>
       </ArticleContainer>
-
-      {key && loading && (
-        <ArticleContainer className="g-pt-0">
-          <ArticleTextContainer className="g-max-w-screen-xl">
-            <CardListSkeleton />
-          </ArticleTextContainer>
-        </ArticleContainer>
-      )}
-      {key && !loading && dataset && <DatasetValidationReport datasetKey={key} />}
     </div>
   );
 }
