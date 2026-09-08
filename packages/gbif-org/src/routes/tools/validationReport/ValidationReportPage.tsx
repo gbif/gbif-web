@@ -1,4 +1,7 @@
-import { DatasetOption, DatasetSearchSuggest } from '@/components/searchSelect/datasetSearchSuggest';
+import {
+  DatasetOption,
+  DatasetSearchSuggest,
+} from '@/components/searchSelect/datasetSearchSuggest';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/largeCard';
@@ -40,7 +43,9 @@ export default function ValidationReportPage() {
   }, [load, key]);
 
   const dataset = key ? data?.dataset : undefined;
-  const selected: DatasetOption | null = dataset ? { key: dataset.key, title: dataset.title ?? dataset.key } : null;
+  const selected: DatasetOption | null = dataset
+    ? { key: dataset.key, title: dataset.title ?? dataset.key }
+    : null;
 
   const handleSelect = (value: DatasetOption | null | undefined) => {
     navigate(value ? `/tools/validation-report/dataset/${value.key}` : '/tools/validation-report');
@@ -50,7 +55,7 @@ export default function ValidationReportPage() {
     <div className="g-flex-1 g-flex g-flex-col g-bg-slate-100">
       <ArticleContainer className="g-pt-8">
         <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
-          <Card className="g-bg-white g-overflow-hidden">
+          <Card>
             {dataset ? (
               <CardContent
                 topPadding
