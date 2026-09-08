@@ -657,7 +657,7 @@ function IssueGroups({ issues }: { issues: DwdpValidationIssue[] }) {
       {groups.map(([type, list]) => {
         const worst = worstSeverity(list);
         return (
-          <Card key={type} asChild className="g-overflow-hidden g-mb-0">
+          <Card key={type} asChild className="g-mb-0">
             <AccordionItem value={type}>
               <AccordionTrigger
                 className={cn('g-px-3.5 g-py-3 hover:g-no-underline', severityTint(worst))}
@@ -808,7 +808,7 @@ function ViolationCard({
 
   return (
     <Accordion type="single" collapsible defaultValue="item">
-      <Card asChild className="g-border-red-200 g-overflow-hidden g-mb-0">
+      <Card asChild className="g-border-red-200 g-mb-0">
         <AccordionItem value="item">
           <AccordionTrigger className="g-bg-red-50 g-px-3.5 g-py-3 hover:g-no-underline">
             <span className="g-flex g-items-center g-gap-2.5 g-flex-1 g-text-start">
