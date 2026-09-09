@@ -77,7 +77,7 @@ export default function ValidationReportPage() {
                     {dataset.title}
                   </DynamicLink>
                 </div>
-                <Button variant="outline" size="sm" onClick={() => handleSelect(null)}>
+                <Button variant="destructiveSecondary" size="sm" onClick={() => handleSelect(null)}>
                   <MdClose size={16} className="g-me-1.5" />
                   <FormattedMessage id="tools.validationReport.clear" defaultMessage="Clear" />
                 </Button>
