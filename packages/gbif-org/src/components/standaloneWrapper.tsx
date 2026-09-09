@@ -1,8 +1,9 @@
-import { Config, PageConfig } from '@/config/config';
+import { Config } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { PageContext } from '@/reactRouterPlugins/applyPagePaths/plugin';
 import { PORTAL_CONTAINER_SELECTOR, PortalContainerContext } from '@/utils/getPortalContainer';
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { ParentPagesContext } from './parentPagesContext';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   createMemoryRouter,
@@ -138,4 +139,4 @@ function OnRenderDone({ onDone }: { onDone: () => void }) {
   return null;
 }
 
-export const ParentPagesContext = createContext<PageConfig[]>(null!);
+export { ParentPagesContext } from './parentPagesContext';
