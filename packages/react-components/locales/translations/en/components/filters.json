@@ -3,6 +3,10 @@
     "name": "DwC-A extension",
     "description": "A short description of the component should be placed here"
   },
+  "category": {
+    "name": "Category",
+    "description": "The category of the dataset, based on the DatasetCategory vocabulary."
+  },
   "locationId": {
     "name": "Location ID",
     "description": "Publishers can choose to assign IDs to the location. This field is not normalized, meaning that you search data as provided by the publisher."
@@ -324,6 +328,40 @@
   "lifeStage": {
     "name": "Life stage",
     "description": "The life stage of the organism."
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "Target gene",
+    "description": "The gene or gene region targeted by a nucleotide sequence attached to the occurrence (e.g. COI, ITS2)."
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "Sequence length",
+    "description": "The length, in base pairs, of a nucleotide sequence attached to the occurrence."
+  },
+  "nucleotideSequenceId": {
+    "name": "Sequence similarity",
+    "description": "Input a nucleotide sequence (DNA or RNA) to find occurrences with attached sequences similar to it; results shown grouped by percent match.",
+    "search": "Find similar",
+    "similarityHeader": "Identity",
+    "distinctSequencesHeader": "Distinct sequences",
+    "similarityRange": "{from} to {to} %",
+    "similarityExact": "{value} %",
+    "invalid": "The input doesn't appear to be a valid nucleotide sequence.",
+    "tooLong": "The sequence is too long. The maximum is {max} bases.",
+    "error": "Could not search for similar sequences. Please try again.",
+    "noMatches": "No similar sequences found.",
+    "bin": {
+      "100": "100%",
+      "99.5": "99.5–100%",
+      "99": "99–99.5%",
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "Nucleotide sequence ID",
+    "description": "The identifier for a nucleotide sequence attached to the record (nucleotideSequence.nucleotideSequenceID)."
   },
   "recordedBy": {
     "name": "Recorded by",

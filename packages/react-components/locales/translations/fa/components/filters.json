@@ -3,6 +3,10 @@
     "name": "",
     "description": ""
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "",
     "description": ""
@@ -322,6 +326,40 @@
     "description": ""
   },
   "lifeStage": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "similarityHeader": "",
+    "distinctSequencesHeader": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
     "name": "",
     "description": ""
   },

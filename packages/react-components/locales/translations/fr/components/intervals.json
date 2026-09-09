@@ -19,6 +19,12 @@
     "gt": "Supérieur à {from}m",
     "e": "{from}m"
   },
+  "compactBasePairs": {
+    "between": "{from} bp à {to} bp",
+    "lt": "En dessous de {to} bp",
+    "gt": "Au dessus de {from} bp",
+    "e": "{from} bp"
+  },
   "compactTime": {
     "between": "{from} à {to}",
     "lt": "Avant {to}",

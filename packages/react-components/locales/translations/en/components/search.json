@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Search",
+    "searchForFilter": "Search for a filter",
     "range": "Range or single value",
     "rangeExample": "E.g. 1000,2000",
     "wildcard": "Search using * and ? as wildcards",

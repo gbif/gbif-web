@@ -78,6 +78,7 @@
     "usedChecklistKey": "",
     "predicate": {
       "checklist": "قائمة التدقيق",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "يجب تطبيق الكل",
         "or": "يجب تطبيق طلب واحد على الأقل",

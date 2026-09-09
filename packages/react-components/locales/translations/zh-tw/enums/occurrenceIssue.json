@@ -48,6 +48,7 @@
   "IDENTIFIED_DATE_INVALID": "無效的鑑定日期",
   "BASIS_OF_RECORD_INVALID": "無效的紀錄基礎",
   "TYPE_STATUS_INVALID": "無效的類型狀態",
+  "SUSPECTED_TYPE": "存疑型態",
   "MULTIMEDIA_DATE_INVALID": "無效的多媒體日期",
   "MULTIMEDIA_URI_INVALID": "無效的多媒體 uri ",
   "REFERENCES_URI_INVALID": "無效的參照 uri",

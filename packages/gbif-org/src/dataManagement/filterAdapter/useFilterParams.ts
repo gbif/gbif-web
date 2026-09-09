@@ -69,6 +69,9 @@ export function useFilterParams({
     } else {
       f = v12filter(query, filterConfig, defaultChecklistKey);
     }
+    if (filterConfig?.urlDecodeFilter) {
+      f = filterConfig.urlDecodeFilter(f);
+    }
     return f;
   }, [query, filterConfig, defaultChecklistKey]);
 
@@ -79,7 +82,10 @@ export function useFilterParams({
       if (objectHash(cleanUpFilter(nextFilter)) === objectHash(cleanUpFilter(filter))) {
         return;
       }
-      const { filter: v1Filter, errors } = filter2v1(nextFilter, filterConfig);
+      const urlFilter = filterConfig?.urlEncodeFilter
+        ? filterConfig.urlEncodeFilter(nextFilter)
+        : nextFilter;
+      const { filter: v1Filter, errors } = filter2v1(urlFilter, filterConfig);
       if (v1Filter && v1Filter?.checklistKey === defaultChecklistKey) {
         delete v1Filter.checklistKey;
       }

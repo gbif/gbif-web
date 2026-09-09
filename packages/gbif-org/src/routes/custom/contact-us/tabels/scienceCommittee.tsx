@@ -44,7 +44,7 @@ export function ScienceCommitteeTable({ q, onPersonClick }: Props) {
   });
 
   const { sortField, sortDirection, handleSort } = useSorting<Row>({
-    initialSortField: 'name',
+    initialSortField: 'roles',
   });
 
   const people = usePrepareData(data, q, sortField, sortDirection);

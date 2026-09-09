@@ -163,6 +163,7 @@ const typeDef = gql`
     month: Long!
     license: Long!
     basisOfRecord: Long!
+    nucleotideSequenceTargetGene: Long!
     issue: Long!
     taxonomicIssue: Long!
     collectionKey: Long!
@@ -172,18 +173,21 @@ const typeDef = gql`
     networkKey: Long!
     programme: Long!
     year: Long!
-    taxonKey(checklistKey: ID): Long!
-    classKey(checklistKey: ID): Long!
-    familyKey(checklistKey: ID): Long!
-    genusKey(checklistKey: ID): Long!
-    kingdomKey(checklistKey: ID): Long!
-    orderKey(checklistKey: ID): Long!
-    phylumKey(checklistKey: ID): Long!
-    speciesKey(checklistKey: ID): Long!
-    usageKey(checklistKey: ID): Long!
-    acceptedTaxonKey(checklistKey: ID): Long!
+    # Checklist-scoped cardinalities are nullable: the metric can be unavailable for a given
+    # checklist (e.g. es-api index_not_found for a rank not indexed in that checklist). Nullable so
+    # one failing rank returns null instead of nulling the whole OccurrenceCardinality object.
+    taxonKey(checklistKey: ID): Long
+    classKey(checklistKey: ID): Long
+    familyKey(checklistKey: ID): Long
+    genusKey(checklistKey: ID): Long
+    kingdomKey(checklistKey: ID): Long
+    orderKey(checklistKey: ID): Long
+    phylumKey(checklistKey: ID): Long
+    speciesKey(checklistKey: ID): Long
+    usageKey(checklistKey: ID): Long
+    acceptedTaxonKey(checklistKey: ID): Long
     preparations: Long!
-    iucnRedListCategory(checklistKey: ID): Long!
+    iucnRedListCategory(checklistKey: ID): Long
     establishmentMeans: Long!
     countryCode: Long!
     publishingCountry: Long!
@@ -195,6 +199,10 @@ const typeDef = gql`
     fieldNumber: Long!
     repatriated: Long!
     gadmGid: Long!
+    gadmLevel0Gid: Long!
+    gadmLevel1Gid: Long!
+    gadmLevel2Gid: Long!
+    gadmLevel3Gid: Long!
     organismId: Long!
     projectId: Long!
     higherGeography: Long!
@@ -235,6 +243,7 @@ const typeDef = gql`
     depth(interval: Float): Histogram
     startDayOfYear(interval: Float): Histogram
     endDayOfYear(interval: Float): Histogram
+    nucleotideSequenceSequenceLength(interval: Float): Histogram
   }
 
   type OccurrenceAutoDateHistogram {
@@ -363,6 +372,38 @@ const typeDef = gql`
     isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     isSequenced(size: Int, from: Int): [OccurrenceFacetResult_boolean]
 
+    """
+    Facet on the target gene of nucleotide sequences attached to the occurrence
+    (e.g. COI, ITS_region). Counts are the number of matching occurrences.
+    """
+    nucleotideSequenceTargetGene(
+      size: Int
+      from: Int
+      """
+      Restrict the facet to the target genes of a specific set of nucleotideSequenceIDs (e.g.
+      those matched by the "Similar sequences" filter), so counts reflect only those sequences'
+      genes rather than every gene present on the matched occurrences.
+      """
+      sequenceIds: [String]
+    ): [OccurrenceFacetResult_string]
+    """
+    Facet on whether attached nucleotide sequences were flagged invalid. Counts are the
+    number of matching occurrences.
+    """
+    nucleotideSequenceInvalid(size: Int, from: Int): [OccurrenceFacetResult_boolean]
+    """
+    Facet on the length of attached nucleotide sequences. Counts are the number of
+    matching occurrences.
+    """
+    nucleotideSequenceSequenceLength(size: Int, from: Int): [OccurrenceFacetResult_float]
+    """
+    Facet on the nucleotideSequenceID of attached nucleotide sequences. Pass include to
+    restrict the aggregation to a known set of IDs (for example similarity-search hits); the
+    buckets returned are those IDs that still occur under the current predicate. Counts are the
+    number of matching occurrences.
+    """
+    nucleotideSequenceNucleotideSequenceID(size: Int, from: Int, include: [String!]): [OccurrenceFacetResult_string]
+
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]
     installationKey(size: Int, from: Int): [OccurrenceFacetResult_installation]
@@ -373,6 +414,10 @@ const typeDef = gql`
     establishmentMeans(size: Int, from: Int): [OccurrenceFacetResult_establishmentMeans]
 
     gadmGid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel0Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel1Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel2Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
+    gadmLevel3Gid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
 
     taxonID(size: Int, from: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int, from: Int): [OccurrenceFacetResult_collection]

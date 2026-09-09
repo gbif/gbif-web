@@ -96,7 +96,7 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }: GetMapStylesArgs
       labelKey: 'map.styles.satellite',
       component: MapComponentML,
       mapConfig: {
-        basemapStyle: `${MAP_STYLES}/3857/satellite_maptiler?maptilerApiKey=${apiKeys.maptiler}`,
+        basemapStyle: `${MAP_STYLES}/3857/satellite_maptiler${apiKeys.maptiler ? `?maptilerApiKey=${apiKeys.maptiler}` : ''}`,
         projection: 'EPSG_3857',
       },
     },
@@ -112,7 +112,7 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }: GetMapStylesArgs
       labelKey: 'map.styles.natural',
       component: MapComponentML,
       mapConfig: {
-        basemapStyle: `${MAP_STYLES}/3857/gbif-raster-hillshade?${natural}&maptilerApiKey=${apiKeys.maptiler}`,
+        basemapStyle: `${MAP_STYLES}/3857/gbif-raster-hillshade?${natural}${apiKeys.maptiler ? `&maptilerApiKey=${apiKeys.maptiler}` : ''}`,
         projection: 'EPSG_3857',
       },
     },

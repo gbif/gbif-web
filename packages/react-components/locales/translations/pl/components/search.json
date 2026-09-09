@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Wyszukaj",
+    "searchForFilter": "",
     "range": "Przedział albo pojedyncza wartość",
     "rangeExample": "Np. 1000,2000",
     "wildcard": "Szukaj używając * i ? jako symboli wieloznacznych",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "Wystąpienia",
       "resourceSearch": "Zasoby i artykuły"
     },
-    "seeAll": "Zobacz wszystko"
+    "seeAll": "Zobacz wszystko",
+    "searchFor": "",
+    "noResults": ""
   }
 }

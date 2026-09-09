@@ -3,6 +3,5 @@
   "previous": "Precedente",
   "next": "Successivo",
   "options": "Opzioni",
-  "pageXofY": "Pagina {current} di {total}",
-  "moreFilters": "altro"
+  "pageXofY": "Pagina {current} di {total}"
 }

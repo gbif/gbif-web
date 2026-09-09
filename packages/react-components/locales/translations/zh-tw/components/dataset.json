@@ -36,15 +36,15 @@
       "citations": "引用"
     },
     "checklist": {
-      "info": "",
-      "checklistbank": "",
+      "info": "這些指標提供了檢查清單資料集的概覽。如需更詳細的指標及資料探索，請造訪 {checklistbank}。",
+      "checklistbank": "檢查清單庫",
       "notAvailable": "物種名錄指標無法適用此資料集",
       "overview": "物種名錄總覽",
       "overviewDescription": "此物種名錄資料集的統計資料總結",
       "usagesCount": "所有的使用名稱",
       "distinctNamesCount": "獨特名",
       "synonymsCount": "同種異名",
-      "colMatchingCount": "",
+      "colMatchingCount": "COL 配對",
       "countByKingdom": "以界計數",
       "countByKingdomDescription": "名稱使用於界的分佈",
       "countByRank": "以分類位階計數",
@@ -196,5 +196,5 @@
   "eventTaxonomy": "出現紀錄的分類群分布",
   "noCitations": "尚未有引用",
   "noOccurrences": "無出現紀錄",
-  "eventWarning": ""
+  "eventWarning": "事件搜尋與篩選功能目前仍處於實驗階段，正在積極開發中"
 }

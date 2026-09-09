@@ -329,5 +329,5 @@ export const publishedByGbifRegionConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.publishedByGbifRegion.description" />,
-  group: 'location',
+  group: 'provenance',
 };

@@ -78,6 +78,7 @@
     "usedChecklistKey": "",
     "predicate": {
       "checklist": "Kontrolní seznam",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "Všichni musí podat žádost",
         "or": "Alespoň jeden z nich musí splňovat podmínky",

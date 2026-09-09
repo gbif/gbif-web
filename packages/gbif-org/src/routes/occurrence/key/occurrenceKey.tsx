@@ -6,9 +6,9 @@ import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
   FeatureList,
-  GadmClassification,
   GenericFeature,
   GeologicalContext,
+  GlobeIcon,
   Homepage,
   IIIF,
   Location,
@@ -31,6 +31,7 @@ import {
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
+import { useTaxonLinks } from '@/hooks/useTaxonLinks';
 import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -49,7 +50,8 @@ import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
 import PageMetaData from '@/components/PageMetaData';
 import { notNull } from '@/utils/notNull';
-import { TaxonStubClassification } from '@/components/classification';
+import { Classification, TaxonStubClassification } from '@/components/classification';
+import { EntityLinkPresentation } from '@/components/entityLink';
 import getTitleParts from './getTitle';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
@@ -67,6 +69,10 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       occurrenceStatus
       references
       issues
+      issuesWithSeverity {
+        id
+        severity
+      }
       nonTaxonomicIssues
       basisOfRecord
       dynamicProperties
@@ -138,6 +144,17 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         dnaDerivedData
       }
 
+      # Interpreted (sanitised) sequences, used to show a sanitised view of the DNA-derived-data
+      # extension's verbatim dna_sequence. For a single sequence we pair positionally; for several
+      # the DNA block validates the raw sequences to pair them (order isn't guaranteed).
+      nucleotideSequences {
+        nucleotideSequenceID
+        sequence
+        targetGene {
+          concept
+        }
+      }
+
       gadm
 
       stillImageCount
@@ -156,6 +173,11 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       verbatimScientificName
       classification(checklistKey: $defaultChecklistKey) {
         checklistKey
+        meta {
+          mainIndex {
+            clbDatasetKey
+          }
+        }
         usage {
           rank
           name
@@ -164,6 +186,14 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         acceptedUsage {
           key
           name
+          taxon {
+            label
+            classification {
+              key: taxonID
+              rank: taxonRank
+              name: scientificName
+            }
+          }
         }
         taxonMatch {
           usage {
@@ -186,7 +216,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       classifications {
         meta {
           mainIndex {
-            datasetKey: clbDatasetKey
+            clbDatasetKey
             datasetTitle
           }
         }
@@ -474,6 +504,10 @@ export function OccurrenceKey() {
   const usageKey = occurrence.classification?.usage?.key;
   const acceptedUsage = occurrence.classification?.acceptedUsage;
   const isMatchedToSynonym = occurrence.classification?.taxonMatch?.synonym;
+  const taxonLinks = useTaxonLinks({
+    checklistKey: occurrence.classification?.checklistKey,
+    clbDatasetKey: occurrence.classification?.meta?.mainIndex?.clbDatasetKey,
+  });
 
   return (
     <>
@@ -548,16 +582,12 @@ export function OccurrenceKey() {
                     {state === 'MATCH_NO_ISSUES' &&
                       usageKey &&
                       occurrence.classification?.checklistKey && (
-                        <DynamicLink
-                          pageId="taxonKey"
+                        <EntityLinkPresentation
+                          link={taxonLinks.taxon(usageKey)}
                           className="hover:g-underline g-text-inherit"
-                          variables={{
-                            key: usageKey,
-                            datasetKey: occurrence.classification?.checklistKey,
-                          }}
                         >
                           <span dangerouslySetInnerHTML={{ __html: title }} dir="auto"></span>
-                        </DynamicLink>
+                        </EntityLinkPresentation>
                       )}
                     {(state === 'NO_MATCH' || state === 'MATCH_WITH_ISSUES') && (
                       <TooltipProvider>
@@ -620,6 +650,7 @@ export function OccurrenceKey() {
                               <TaxonomyIcon />
                               <TaxonStubClassification
                                 classification={occurrence.classification?.classification}
+                                getTaxonLink={taxonLinks.taxon}
                               />
                             </GenericFeature>
                           </div>
@@ -633,13 +664,9 @@ export function OccurrenceKey() {
                               {hasTaxonIssues && usageKey && (
                                 <>
                                   <span className="g-me-1">Matched to&nbsp;</span>
-                                  <DynamicLink
+                                  <EntityLinkPresentation
                                     className="g-underline"
-                                    pageId="taxonKey"
-                                    variables={{
-                                      key: usageKey,
-                                      datasetKey: occurrence.classification?.checklistKey,
-                                    }}
+                                    link={taxonLinks.taxon(usageKey)}
                                   >
                                     <span
                                       dangerouslySetInnerHTML={{
@@ -648,7 +675,7 @@ export function OccurrenceKey() {
                                             .formattedName || '',
                                       }}
                                     ></span>
-                                  </DynamicLink>
+                                  </EntityLinkPresentation>
                                 </>
                               )}
                               {!hasTaxonIssues &&
@@ -657,43 +684,50 @@ export function OccurrenceKey() {
                                 occurrence.classification?.checklistKey && (
                                   <>
                                     <span className="g-me-1">Accepted name&nbsp;</span>
-                                    <DynamicLink
+                                    <EntityLinkPresentation
                                       className="g-underline"
-                                      pageId="taxonKey"
-                                      variables={{
-                                        key: acceptedUsage.key,
-                                        datasetKey: occurrence.classification?.checklistKey,
-                                      }}
+                                      link={taxonLinks.taxon(acceptedUsage.key)}
                                     >
                                       {acceptedUsage?.name}
-                                    </DynamicLink>
+                                    </EntityLinkPresentation>
                                   </>
                                 )}
                             </GenericFeature>
                           </div>
                         )}
 
-                      {occurrence.gadm?.level1 && (
-                        <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
-                          <span>
-                            {coordinateIssues.length > 0 && (
-                              <IssueTags>
-                                {coordinateIssues.map((issue: string) => {
-                                  // return <Tag className="g-bg-orange g-text-white">{issue}sdf</Tag>;
-                                  // return <Tag className="g-bg-amber-500 g-text-white">{issue}</Tag>;
-                                  return (
-                                    <IssueTag type="WARNING" key={issue}>
-                                      <FormattedMessage
-                                        id={`enums.occurrenceIssue.${issue}`}
-                                        defaultMessage={prettifyEnum(issue) ?? ''}
-                                      />
-                                    </IssueTag>
-                                  );
-                                })}
-                              </IssueTags>
-                            )}
-                          </span>
-                        </GadmClassification>
+                      {occurrence.countryCode && (
+                        <GenericFeature className="g-flex g-mb-1">
+                          <GlobeIcon />
+                          <div>
+                            <Classification className="g-inline-block g-me-2" dir="auto">
+                              <span>
+                                <FormattedMessage
+                                  id={`enums.countryCode.${occurrence.countryCode}`}
+                                />
+                              </span>
+                              {occurrence.stateProvince && <span>{occurrence.stateProvince}</span>}
+                            </Classification>
+                            <span>
+                              {coordinateIssues.length > 0 && (
+                                <IssueTags>
+                                  {coordinateIssues.map((issue: string) => {
+                                    // return <Tag className="g-bg-orange g-text-white">{issue}sdf</Tag>;
+                                    // return <Tag className="g-bg-amber-500 g-text-white">{issue}</Tag>;
+                                    return (
+                                      <IssueTag type="WARNING" key={issue}>
+                                        <FormattedMessage
+                                          id={`enums.occurrenceIssue.${issue}`}
+                                          defaultMessage={prettifyEnum(issue) ?? ''}
+                                        />
+                                      </IssueTag>
+                                    );
+                                  })}
+                                </IssueTags>
+                              )}
+                            </span>
+                          </div>
+                        </GenericFeature>
                       )}
                       <GeologicalContext
                         earliestEonOrLowestEonothem={occurrence.earliestEonOrLowestEonothem}

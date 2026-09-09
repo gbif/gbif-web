@@ -3,6 +3,10 @@
     "name": "DWCA拡張形式",
     "description": ""
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "採集地ID",
     "description": "発行者は、場所にIDを割り当てることができます。このフィールドは正規化されていないため、発行者が提供するデータに基づいて検索が行われます。"
@@ -323,6 +327,40 @@
   },
   "lifeStage": {
     "name": "ライフ ステージ",
+    "description": ""
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "similarityHeader": "アイデンティティ",
+    "distinctSequencesHeader": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
     "description": ""
   },
   "recordedBy": {

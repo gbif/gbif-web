@@ -53,6 +53,7 @@ export function Dashboard() {
           'taxa',
           'sex',
           'occurrenceIssue',
+          'sequencePhylogeny',
           ...chartsTypes,
         ]}
       />

@@ -20,6 +20,9 @@ declare global {
     // The translation fetch the server kicks off from <head>, awaited here instead of starting our
     // own after the route bundle loads. Resolves to the parsed messages, or null on failure.
     __I18N_MESSAGES_PROMISE__?: Promise<Record<string, string> | null>;
+    // A predicate posted to */download/request by an external site, inlined by gbif/server.js.
+    // Consumed once via consumeInitialPredicate (see usePredicate.ts).
+    __INITIAL_PREDICATE__?: string;
   }
 }
 

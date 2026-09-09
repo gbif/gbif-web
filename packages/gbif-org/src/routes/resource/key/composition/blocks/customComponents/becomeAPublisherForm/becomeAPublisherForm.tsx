@@ -4,7 +4,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
@@ -27,6 +27,7 @@ import { OrganizationDetails } from './steps/organizationDetails';
 import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
+import { useSuggestedNonCountryNode } from './useSuggestedNonCountryNode';
 import { useUser } from '@/contexts/UserContext';
 import {
   clearSavedFormProgress,
@@ -185,6 +186,7 @@ function InternalForm({ onSuccess }: InternalFormProps) {
   useSaveFormProgress(STORAGE_KEY, getState);
 
   const { suggestedNodeCountry, updateSuggestedNodeCountry } = useSuggestedNodeCountry();
+  const { setValue } = form;
 
   // Sync the suggested node country when the country changes
   const country = form.watch('organizationAddress.country');
@@ -193,6 +195,42 @@ function InternalForm({ onSuccess }: InternalFormProps) {
       updateSuggestedNodeCountry(country);
     }
   }, [country, updateSuggestedNodeCountry]);
+
+  const { suggestedNonCountryNode, updateSuggestedNonCountryNode } = useSuggestedNonCountryNode();
+
+  // Populate the node option for a participant restored from session storage.
+  // Later participant changes go through handleParticipantChange.
+  useEffect(() => {
+    if (participant?.id) updateSuggestedNonCountryNode(participant.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const latestParticipantIdRef = useRef<string>();
+  const handleParticipantChange = useCallback(
+    async (newParticipant: ValidParticipant) => {
+      setParticipant(newParticipant);
+      latestParticipantIdRef.current = newParticipant.id;
+      const node = await updateSuggestedNonCountryNode(newParticipant.id).catch(() => undefined);
+      // Ignore out-of-order responses when the participant changed again meanwhile
+      if (node && latestParticipantIdRef.current === newParticipant.id) {
+        setValue('endorsingNode', node.key);
+      }
+    },
+    [updateSuggestedNonCountryNode, setValue]
+  );
+
+  // Pre-select the country suggestion when it changes, but never override an explicit user choice
+  const lastAppliedSuggestionRef = useRef<string>();
+  useEffect(() => {
+    const next = suggestedNodeCountry?.key ?? 'other';
+    const prev = lastAppliedSuggestionRef.current;
+    if (prev === next) return;
+    lastAppliedSuggestionRef.current = next;
+    const current = getValues('endorsingNode');
+    if (!current || current === prev) {
+      setValue('endorsingNode', next);
+    }
+  }, [suggestedNodeCountry?.key, getValues, setValue]);
 
   const intl = useIntl();
 
@@ -242,8 +280,9 @@ function InternalForm({ onSuccess }: InternalFormProps) {
           component: () => (
             <Endorsment
               suggestedNodeCountry={suggestedNodeCountry}
+              suggestedNonCountryNode={suggestedNonCountryNode}
               participant={participant}
-              setParticipant={setParticipant}
+              onParticipantChange={handleParticipantChange}
             />
           ),
           fieldset: true,
@@ -279,7 +318,7 @@ function InternalForm({ onSuccess }: InternalFormProps) {
           fieldset: true,
         },
       ]),
-    [suggestedNodeCountry, participant, setParticipant, intl]
+    [suggestedNodeCountry, suggestedNonCountryNode, participant, handleParticipantChange, intl]
   );
 
   const onSubmit = useSubmit({ onSuccess, reset: form.reset });

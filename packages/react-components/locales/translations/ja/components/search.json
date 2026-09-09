@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "検索",
+    "searchForFilter": "",
     "range": "範囲または単一値",
     "rangeExample": "",
     "wildcard": "",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "オカレンス",
       "resourceSearch": ""
     },
-    "seeAll": "すべて表示"
+    "seeAll": "すべて表示",
+    "searchFor": "",
+    "noResults": ""
   }
 }

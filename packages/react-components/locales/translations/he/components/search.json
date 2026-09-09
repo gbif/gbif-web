@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "חיפוש",
+    "searchForFilter": "",
     "range": "טווח או ערך בודד",
     "rangeExample": "למשל: ‎1000,2000",
     "wildcard": "חיפוש באמצעות ‎* ו־? כתווי כלל",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "תצפיות",
       "resourceSearch": ""
     },
-    "seeAll": "הצג הכל"
+    "seeAll": "הצג הכל",
+    "searchFor": "",
+    "noResults": ""
   }
 }

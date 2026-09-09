@@ -3,6 +3,10 @@
     "name": "",
     "description": "这里应该有一个组件的简短描述"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "位置 ID",
     "description": ""
@@ -323,6 +327,40 @@
   },
   "lifeStage": {
     "name": "生命期",
+    "description": ""
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "similarityHeader": "身份",
+    "distinctSequencesHeader": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
     "description": ""
   },
   "recordedBy": {

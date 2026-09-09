@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Поиск",
+    "searchForFilter": "Поиск фильтра",
     "range": "Диапаазон отдельной величины",
     "rangeExample": "Например, 1000, 2000",
     "wildcard": "Поиск с использованием шаблонов * и ? ",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "Находки",
       "resourceSearch": ""
     },
-    "seeAll": "Увидеть все"
+    "seeAll": "Увидеть все",
+    "searchFor": "",
+    "noResults": ""
   }
 }

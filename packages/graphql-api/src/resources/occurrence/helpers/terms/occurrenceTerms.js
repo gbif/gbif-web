@@ -18,7 +18,7 @@ import { isNil, pick } from 'lodash';
 import mdit from 'markdown-it';
 import { sanitizeHtml } from '@/helpers/sanitize-html';
 import interpretationRemark from '@/helpers/enums/interpretationRemark';
-import terms from '../groups/terms.json';
+import terms from '../groups/terms';
 
 const md = mdit({ html: true, linkify: true, typographer: false });
 // keep naked .org/.com strings out of <a> tags — values are raw API data,
@@ -47,9 +47,7 @@ const qualified2Simple = groupBy(terms, 'qualifiedName', 'simpleName');
 const remarkTypes = interpretationRemark.map((remark) => {
   return {
     ...remark,
-    simpleRelatedTerms: remark.relatedTerms.map(
-      (qualifiedName) => qualified2Simple[qualifiedName],
-    ),
+    simpleRelatedTerms: remark.relatedTerms.map((qualifiedName) => qualified2Simple[qualifiedName]),
   };
 });
 
@@ -60,10 +58,7 @@ const remarkMap = remarkTypes.reduce((acc, cur) => {
 
 function getHtmlValue({ value: inputValue, allowedTags }) {
   // use the assumption that values with pipes are multiple values. This is not the case for all fields and might cause headaches in the future
-  const value =
-    typeof inputValue === 'string' && inputValue.includes('|')
-      ? inputValue.split('|')
-      : inputValue;
+  const value = typeof inputValue === 'string' && inputValue.includes('|') ? inputValue.split('|') : inputValue;
   if (Array.isArray(value)) {
     return value.map((x) => getHtmlValue({ value: x, allowedTags }));
   }
@@ -114,40 +109,28 @@ export default ({ occurrence, verbatim }) => {
   const enrichedTerms = terms
     .filter(({ qualifiedName, esField, simpleName }) => {
       // remove terms that have no value (neither verbatim or interpreted)
-      return (
-        typeof occurrence[esField || simpleName] !== 'undefined' ||
-        typeof verbatim[qualifiedName] !== 'undefined'
-      );
+      return typeof occurrence[esField || simpleName] !== 'undefined' || typeof verbatim[qualifiedName] !== 'undefined';
     })
-    .map(
-      ({
+    .map(({ qualifiedName, esField, simpleName, group = 'other', source, compareWithVerbatim }) => {
+      // enrich the used terms with related issues, remarks and both verbatim and GBIF view of the value
+      const camelGroup = camelize(group);
+      const value = occurrence[esField || simpleName];
+      return {
         qualifiedName,
-        esField,
         simpleName,
-        group = 'other',
+        group: camelGroup,
         source,
-        compareWithVerbatim,
-      }) => {
-        // enrich the used terms with related issues, remarks and both verbatim and GBIF view of the value
-        const camelGroup = camelize(group);
-        const value = occurrence[esField || simpleName];
-        return {
-          qualifiedName,
-          simpleName,
-          group: camelGroup,
-          source,
-          label: simpleName,
-          issues: field2issues[simpleName],
-          remarks: getRemarks({
-            value: occurrence[esField || simpleName],
-            verbatim: verbatim[qualifiedName],
-            compareWithVerbatim,
-          }),
-          value,
+        label: simpleName,
+        issues: field2issues[simpleName],
+        remarks: getRemarks({
+          value: occurrence[esField || simpleName],
           verbatim: verbatim[qualifiedName],
-          htmlValue: getHtmlValue({ value, allowedTags: ['i', 'a', 'b'] }),
-        };
-      },
-    );
+          compareWithVerbatim,
+        }),
+        value,
+        verbatim: verbatim[qualifiedName],
+        htmlValue: getHtmlValue({ value, allowedTags: ['i', 'a', 'b'] }),
+      };
+    });
   return enrichedTerms;
 };

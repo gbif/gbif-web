@@ -3,6 +3,10 @@
     "name": "Rozszerzenie DwC-A",
     "description": "Tutaj należy umieścić krótki opis komponentu"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "Identyfikator lokalizacji",
     "description": "Publikujący mogą zdecydować o przydzieleniu ID do lokalizacji, Ten obszar nie jest znormalizowany, co oznacza, że przegląda się dane tak, jak przedstawił je publikujący."
@@ -324,6 +328,40 @@
   "lifeStage": {
     "name": "Stadium rozwoju",
     "description": "Stadium rozwojowe organizmu"
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "Docelowy gen",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "similarityHeader": "Tożsamość",
+    "distinctSequencesHeader": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Zarejestrowane przez",

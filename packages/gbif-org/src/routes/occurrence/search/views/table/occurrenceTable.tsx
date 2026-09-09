@@ -99,6 +99,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           recordedBy
           identifiedBy
           fieldNumber
+          occurrenceRemarks(cap: 150)
           sex
           lifeStage
           recordNumber
@@ -121,6 +122,8 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
             name
           }
           organismID
+          elevation
+          depth
           locality
           higherGeography
           stateProvince

@@ -255,7 +255,7 @@ const typeDef = gql`
     referenceID: ID!
     doi: String
     url: String
-    citation: String!
+    citation: String
     remarks: String
     """
     Indicates whether the taxon name was published in a specific source according to the field namePublishedInID. This is a derived field that checks if the taxon's namePublishedInID matches the referenceID of any bibliography entry.

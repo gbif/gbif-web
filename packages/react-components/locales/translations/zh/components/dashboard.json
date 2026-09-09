@@ -38,6 +38,7 @@
     "record": "记录",
     "taxon": "分类群",
     "occurrence": "出现记录",
+    "nucleotideSequence": "",
     "organism": "生物",
     "materialEntity": "",
     "event": "活动",
@@ -56,5 +57,16 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "每 {FIELD} 的物种出现记录",
-  "kingdom": "界"
+  "kingdom": "界",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

@@ -39,6 +39,11 @@
   },
   "showMore": "さらに表示します",
   "showLess": "表示を減らします",
+  "searchSimilarSequences": "",
+  "dnaSequence": {
+    "original": "オリジナル",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": "オカレンスの詳細"
   },

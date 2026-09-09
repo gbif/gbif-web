@@ -78,6 +78,7 @@
     "usedChecklistKey": "",
     "predicate": {
       "checklist": "チェックリスト",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "すべてを適用する",
         "or": "少なくとも 1 つを適用する",

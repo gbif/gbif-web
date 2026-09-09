@@ -1,7 +1,7 @@
 {
   "downloadFormat": {
     "SIMPLE_AVRO": "Apache Avro",
-    "SIMPLE_CSV": "简单搜索",
+    "SIMPLE_CSV": "CSV",
     "DWCA": "达尔文核心（Darwin Core Archive）",
     "SPECIES_LIST": "物种列表",
     "SIMPLE_WITH_VERBATIM_AVRO": "具有通用解释字段和所有逐字字段的 Apache Avro",

@@ -3,6 +3,10 @@
     "name": "",
     "description": ""
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "",
     "description": ""
@@ -16,7 +20,7 @@
     "description": ""
   },
   "collectionKey": {
-    "name": "",
+    "name": "Samling",
     "description": ""
   },
   "predicate": {
@@ -24,7 +28,7 @@
     "description": ""
   },
   "taxonomicStatus": {
-    "name": "",
+    "name": "Status",
     "description": ""
   },
   "taxonRank": {
@@ -48,14 +52,14 @@
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderDist": "Afstand"
   },
   "geometry": {
     "name": "",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderDist": "Afstand"
   },
   "relevance": {
     "name": "Relevans",
@@ -270,7 +274,7 @@
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "År",
     "description": ""
   },
   "sampleSizeUnit": {
@@ -322,6 +326,40 @@
     "description": ""
   },
   "lifeStage": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": "Længden, angivet i basepar, af den nukleotidsekvens, der er knyttet til forekomsten."
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "Indtast en nukleotidsekvens (DNA eller RNA) for at finde forekomster med tilknyttede sekvenser, der ligner den. Resultaterne vises grupperet efter procentvis overensstemmelse.",
+    "search": "",
+    "similarityHeader": "",
+    "distinctSequencesHeader": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "100%",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
     "name": "",
     "description": ""
   },
@@ -402,7 +440,7 @@
     "description": ""
   },
   "gbifRegion": {
-    "name": "",
+    "name": "GBIF-region",
     "description": ""
   },
   "publishedByGbifRegion": {

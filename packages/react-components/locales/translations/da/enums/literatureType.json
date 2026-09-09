@@ -3,6 +3,8 @@
   "book": "Bog",
   "generic": "Generisk",
   "book_section": "Bogafsnit",
+  "conference_proceedings": "Konferencebidrag",
+  "working_paper": "Preprint",
   "report": "Rapport",
   "web_page": "Webside",
   "thesis": "Afhandling",

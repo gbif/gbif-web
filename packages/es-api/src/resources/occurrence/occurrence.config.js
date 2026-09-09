@@ -292,6 +292,22 @@ const config = {
       type: 'keyword',
       field: 'gadm.gids',
     },
+    gadmLevel0Gid: {
+      type: 'keyword',
+      field: 'gadm.level0Gid',
+    },
+    gadmLevel1Gid: {
+      type: 'keyword',
+      field: 'gadm.level1Gid',
+    },
+    gadmLevel2Gid: {
+      type: 'keyword',
+      field: 'gadm.level2Gid',
+    },
+    gadmLevel3Gid: {
+      type: 'keyword',
+      field: 'gadm.level3Gid',
+    },
     key: {
       type: 'numeric',
       field: 'gbifId',
@@ -784,6 +800,75 @@ const config = {
     recordedById: {
       type: 'keyword',
       field: 'recordedByIds.value',
+    },
+    nucleotideSequence: {
+      type: 'nested',
+      field: 'nucleotideSequence',
+      config: {
+        prefix: 'nucleotideSequence',
+        options: {
+          nucleotideSequenceID: {
+            type: 'keyword',
+            field: 'nucleotideSequenceID',
+          },
+          // Filtering uses targetGene.lineage so the drill-down stays hierarchical: the v1
+          // search parameter NUCLEOTIDE_SEQUENCE_TARGET_GENE matches on the lineage, e.g.
+          // "Ribosomal_RNA" matches every record whose gene lineage contains it.
+          // Faceting/cardinality (via displayField) use the leaf targetGene.concept, so the
+          // filter list and dashboard only show the gene each record is actually annotated
+          // with — not every ancestor concept (e.g. COI without also listing its parents
+          // "Mitochondrial protein coding gene" and "Protein coding gene").
+          targetGene: {
+            type: 'keyword',
+            field: 'targetGene.lineage',
+            displayField: 'targetGene.concept',
+          },
+          sequence: {
+            type: 'keyword',
+            field: 'sequence',
+          },
+          sequenceLength: {
+            type: 'numeric',
+            field: 'sequenceLength',
+          },
+          gcContent: {
+            type: 'numeric',
+            field: 'gcContent',
+          },
+          nonIupacFraction: {
+            type: 'numeric',
+            field: 'nonIupacFraction',
+          },
+          nonACGTNFraction: {
+            type: 'numeric',
+            field: 'nonACGTNFraction',
+          },
+          nFraction: {
+            type: 'numeric',
+            field: 'nFraction',
+          },
+          nRunsCapped: {
+            type: 'numeric',
+            field: 'nRunsCapped',
+          },
+          naturalLanguageDetected: {
+            type: 'boolean',
+            field: 'naturalLanguageDetected',
+          },
+          endsTrimmed: {
+            type: 'boolean',
+            field: 'endsTrimmed',
+          },
+          gapsOrWhitespaceRemoved: {
+            type: 'boolean',
+            field: 'gapsOrWhitespaceRemoved',
+          },
+          invalid: {
+            type: 'boolean',
+            field: 'invalid',
+          },
+        },
+      },
     },
   },
 };

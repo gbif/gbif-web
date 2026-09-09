@@ -1,6 +1,7 @@
 {
   "projectGrantType": {
     "REGIONAL": "منحة اقليمية",
+    "CROSS_REGIONAL": "",
     "SMALL": "منحة صغيرة",
     "NATIONAL": "منحة وطنية",
     "DATA_USE": "",

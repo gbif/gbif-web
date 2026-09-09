@@ -38,6 +38,7 @@
     "record": "기록",
     "taxon": "분류군",
     "occurrence": "출현",
+    "nucleotideSequence": "뉴클레오티드 서열",
     "organism": "유기체",
     "materialEntity": "물질적 실체",
     "event": "이벤트",
@@ -56,5 +57,16 @@
     "samplingEffort": "샘플링 노력"
   },
   "occurrencesPerField": "{FIELD} 당 출현",
-  "kingdom": "계"
+  "kingdom": "계",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

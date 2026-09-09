@@ -61,7 +61,7 @@ export function PublisherKeyAbout() {
     if (!publisher?.logoUrl) return null;
     return (
       <CardSmall className="g-mb-4">
-        <div className="g-p-2 md:g-p-4">
+        <div className="g-p-2 md:g-p-4 g-bg-slate-50">
           <ClientSideOnly>
             <img
               className="g-m-auto g-max-w-100 g-max-h-48"
@@ -92,7 +92,7 @@ export function PublisherKeyAbout() {
           >
             <img
               style={{ width: '100%', display: 'block' }}
-              src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${publisher.longitude},${publisher.latitude})/${publisher.longitude},${publisher.latitude},15,0/500x250@2x?access_token=${import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN}`}
+              src={`${import.meta.env.PUBLIC_TILE_API}/3857/gbif-geyser/static/${publisher.longitude},${publisher.latitude},15/500x250@2x.jpg?marker=${publisher.longitude},${publisher.latitude}|marker-icon-2x.png|scale:0.5`}
             />
           </a>
         )}

@@ -19,6 +19,12 @@
     "gt": "Вище {from}м",
     "e": ""
   },
+  "compactBasePairs": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
   "compactTime": {
     "between": "",
     "lt": "",

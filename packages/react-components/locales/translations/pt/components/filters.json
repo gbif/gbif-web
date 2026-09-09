@@ -3,6 +3,10 @@
     "name": "Extensão DwC-A",
     "description": "Deve colocar aqui uma breve descrição da componente"
   },
+  "category": {
+    "name": "",
+    "description": ""
+  },
   "locationId": {
     "name": "ID da Localização",
     "description": "Os publicadores podem optar por atribuir IDs ao local. Este campo não é normalizado, o que significa que você pesquisa os dados fornecidos pelo publicador."
@@ -323,6 +327,40 @@
   },
   "lifeStage": {
     "name": "Estágio de desenvolvimento",
+    "description": ""
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "",
+    "description": ""
+  },
+  "nucleotideSequenceId": {
+    "name": "",
+    "description": "",
+    "search": "",
+    "similarityHeader": "Identidade",
+    "distinctSequencesHeader": "",
+    "similarityRange": "",
+    "similarityExact": "",
+    "invalid": "",
+    "tooLong": "",
+    "error": "",
+    "noMatches": "",
+    "bin": {
+      "100": "",
+      "99.5": "",
+      "99": "",
+      "98": "",
+      "97": "",
+      "96": "",
+      "95": ""
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "",
     "description": ""
   },
   "recordedBy": {

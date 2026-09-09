@@ -39,6 +39,11 @@
   },
   "showMore": "",
   "showLess": "",
+  "searchSimilarSequences": "",
+  "dnaSequence": {
+    "original": "Origineel",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": ""
   },

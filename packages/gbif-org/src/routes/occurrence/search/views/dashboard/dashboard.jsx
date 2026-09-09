@@ -49,8 +49,7 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props
   // representation intentionally omits ids/translation and normalizes param
   // order/types, so a freshly shared layout would otherwise look "different"
   // from the identical layout in local storage.
-  const isUrlLayoutDifferent =
-    urlLayout && serializeLayout(urlLayout) !== serializeLayout(layout);
+  const isUrlLayoutDifferent = urlLayout && serializeLayout(urlLayout) !== serializeLayout(layout);
   return (
     <MapChartsEnabledContext.Provider value={true}>
       <div>
@@ -102,6 +101,24 @@ const preconfiguredCharts = {
       return <charts.BasisOfRecord predicate={predicate} interactive {...props} />;
     },
   },
+  nucleotideSequenceTargetGene: {
+    translation: 'filters.nucleotideSequenceTargetGene.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.NucleotideSequenceTargetGene predicate={predicate} interactive {...props} />;
+    },
+  },
+  sequencePhylogeny: {
+    translation: 'dashboard.sequenceDendrogram',
+    component: ({ predicate, ...props }) => {
+      return <charts.SequencePhylogeny predicate={predicate} {...props} />;
+    },
+  },
+  nucleotideSequenceSequenceLength: {
+    translation: 'filters.nucleotideSequenceSequenceLength.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.NucleotideSequenceLength predicate={predicate} interactive {...props} />;
+    },
+  },
   year: {
     component: ({ predicate, ...props }) => {
       return <charts.EventDate options={['TIME']} predicate={predicate} {...props} />;
@@ -147,6 +164,7 @@ const preconfiguredCharts = {
     },
   },
   gadmGid: {
+    translation: 'dashboard.gadmLevel',
     component: ({ predicate, ...props }) => {
       return <charts.GadmGid predicate={predicate} interactive {...props} />;
     },

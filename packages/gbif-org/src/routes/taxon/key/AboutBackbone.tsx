@@ -96,7 +96,7 @@ export default function AboutBackbone() {
                 <Card className="g-mb-4 g-overflow-hidden">
                   <MapWidget
                     capabilitiesParams={{ taxonKey: taxon.taxonID, checklistKey: taxon.datasetKey }}
-                    mapStyle="CLASSIC_HEX"
+                    defaultStyleName="CLASSIC_HEX"
                     persistStyleSelection
                   />
                 </Card>

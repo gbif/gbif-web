@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Rechercher",
+    "searchForFilter": "Rechercher un filtre",
     "range": "Intervalle ou valeur unique",
     "rangeExample": "Ex. 1000, 2000",
     "wildcard": "Rechercher avec * et ? comme caractères génériques",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "Occurrences",
       "resourceSearch": "Ressources et articles"
     },
-    "seeAll": "Tout voir"
+    "seeAll": "Tout voir",
+    "searchFor": "Recherche de \"{query}\"",
+    "noResults": "Nous ne parvenons pas à trouver une correspondance avec votre recherche. Pour trouver des résultats supplémentaires, veuillez essayer une recherche plus spécifique pour l'une des catégories montrées ici."
   }
 }

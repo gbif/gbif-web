@@ -29,6 +29,7 @@
     "serve:hp": "npx serve ./dist/hp --cors -p 3030"
   },
   "dependencies": {
+    "@biowasm/aioli": "^3.2.3",
     "@elastic/ecs-winston-format": "^1.5.3",
     "@hello-pangea/dnd": "^17.0.0",
     "@hookform/resolvers": "^3.3.4",
@@ -92,6 +93,7 @@
     "match-sorter": "^6.3.4",
     "morgan": "^1.10.0",
     "nanoid": "^5.1.5",
+    "neighbor-joining": "^1.0.4",
     "node-cache": "^5.1.2",
     "object-hash": "^3.0.0",
     "ol": "^10.4.0",

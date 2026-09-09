@@ -2,5 +2,6 @@
   "first": "Første",
   "previous": "Forrige",
   "next": "Næste",
-  "moreFilters": "mere"
+  "options": "Valg",
+  "pageXofY": "Side {current} af {total}"
 }

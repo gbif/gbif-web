@@ -39,7 +39,7 @@ const EVENT_SEARCH_QUERY = /* GraphQL */ `
         locationID
         coordinates
         formattedCoordinates
-        country
+        countryCode
         datasetKey
         dataset {
           title

@@ -3,6 +3,10 @@
     "name": "Extensión DwC-A",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
+  "category": {
+    "name": "Categoría",
+    "description": "La categoría del conjunto de datos, basada en el vocabulario «DatasetCategory»."
+  },
   "locationId": {
     "name": "ID de la Ubicación",
     "description": "Los publicadores pueden asignar identificadores a la ubicación. Este campo no está normalizado, lo que significa que se buscan los datos proporcionados por el publicador."
@@ -324,6 +328,40 @@
   "lifeStage": {
     "name": "Estadío de desarrollo",
     "description": "La fase del ciclo de vida del organismo."
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "Gen objetivo",
+    "description": "El gen o la región génica a la que se dirige una secuencia de nucleótidos asociada al registro biológico (por ejemplo, COI, ITS2)."
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "Longitud de la secuencia",
+    "description": "La longitud, en pares de bases, de una secuencia de nucleótidos asociada al registro biológico."
+  },
+  "nucleotideSequenceId": {
+    "name": "Similitud de secuencias",
+    "description": "Introduce una secuencia de nucleótidos (ADN o ARN) para encontrar coincidencias con secuencias adyacentes similares a ella; los resultados se muestran agrupados por porcentaje de coincidencia.",
+    "search": "Buscar similares",
+    "similarityHeader": "Identidad",
+    "distinctSequencesHeader": "Secuencias distintas",
+    "similarityRange": "{from} a {to} %",
+    "similarityExact": "{value} %",
+    "invalid": "La entrada no parece ser una secuencia de nucleótidos válida.",
+    "tooLong": "La secuencia es demasiado larga. El máximo es de {max} bases.",
+    "error": "No se han podido buscar secuencias similares. Inténtalo de nuevo.",
+    "noMatches": "No se han encontrado secuencias similares.",
+    "bin": {
+      "100": "100%",
+      "99.5": "99,5–100 %",
+      "99": "99–99,5 %",
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "ID de la secuencia de nucleótidos",
+    "description": "El identificador de una secuencia de nucleótidos asociada al registro (nucleotideSequence.nucleotideSequenceID)."
   },
   "recordedBy": {
     "name": "Registrado por",

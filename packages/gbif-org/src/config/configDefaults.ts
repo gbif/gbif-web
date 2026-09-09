@@ -34,7 +34,7 @@ export const configDefault: Partial<Config> = {
   },
   datasetSearch: {
     excludedFilters: [],
-    highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
+    highlightedFilters: ['q', 'type', 'category', 'publishingOrg', 'license'],
     queryType: 'V1',
   },
   datasetKey: {

@@ -58,17 +58,19 @@ export function DownloadHostedPortal() {
   const q = currentFilterContext?.filter?.must?.q;
   const hasFreeTextSearch = q && q.length > 0;
 
-  let downloadQueryParams = `?checklistKey=${defaultChecklistKey}`;
-
+  // The predicate is sent as the body of a plain form POST rather than as a URL param, since
+  // predicates are regularly larger than a URL can safely carry. gbif.org picks it up from the
+  // posted form field and pre-fills the download editor with it.
+  let serializedPredicate = '';
   try {
-    downloadQueryParams += data._variablesId
-      ? `&variablesId=${data?._variablesId}`
-      : fullPredicate
-        ? `&predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}`
-        : '';
+    serializedPredicate = fullPredicate ? JSON.stringify(fullPredicate) : '';
   } catch (e) {
-    // ignore
+    // ignore - we then simply post nothing and the user starts from an empty editor
   }
+
+  const downloadUrl = `${GBIF_ORG}/${
+    localePrefix ? `${localePrefix}/` : ''
+  }occurrence/download/request?checklistKey=${defaultChecklistKey}`;
 
   return (
     <div className="g-my-20 g-w-96 g-max-w-full g-mx-auto">
@@ -113,15 +115,12 @@ export function DownloadHostedPortal() {
                   </Button>
                 )}
                 {!loading && data && (
-                  <Button className="g-mt-6" asChild>
-                    <a
-                      href={`${GBIF_ORG}/${
-                        localePrefix ? `${localePrefix}/` : ''
-                      }occurrence/download/request${downloadQueryParams}#create`}
-                    >
+                  <form action={downloadUrl} method="post">
+                    <textarea name="predicate" value={serializedPredicate} readOnly hidden />
+                    <Button className="g-mt-6" type="submit">
                       <Message id="download.continueToGBIF" />
-                    </a>
-                  </Button>
+                    </Button>
+                  </form>
                 )}
               </>
             )}

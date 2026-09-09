@@ -58,7 +58,7 @@
     "recipient": "",
     "areasExpertise": "",
     "orcId": "",
-    "year": "",
+    "year": "År",
     "email": "E-mail"
   },
   "award": {
@@ -68,5 +68,5 @@
     "EBBE3RD": ""
   },
   "prize": "",
-  "year": ""
+  "year": "År"
 }

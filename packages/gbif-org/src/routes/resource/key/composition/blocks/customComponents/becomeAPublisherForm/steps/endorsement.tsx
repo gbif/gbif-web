@@ -3,21 +3,21 @@ import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/f
 import { RadioGroup } from '@/components/ui/radio-group';
 import { useConfig } from '@/config/config';
 import { NodeType, ParticipationStatus } from '@/gql/graphql';
-import { Setter } from '@/types';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { RadioItem } from '../../_shared';
 import { Inputs } from '../becomeAPublisherForm';
 import { SuggestedNodeCountry } from '../useSuggestedNodeCountry';
-import { useSuggestedNonCountryNode } from '../useSuggestedNonCountryNode';
+import { SuggestedNonCountryNode } from '../useSuggestedNonCountryNode';
 
 const MemoParticipantSelect = memo(ParticipantSelect);
 
 type Props = {
   suggestedNodeCountry: SuggestedNodeCountry | undefined;
+  suggestedNonCountryNode: SuggestedNonCountryNode | undefined;
   participant: ValidParticipant | undefined;
-  setParticipant: Setter<ValidParticipant | undefined>;
+  onParticipantChange: (participant: ValidParticipant) => void;
 };
 
 const PARTICIPANT_SELECT_FILTERS = {
@@ -25,30 +25,14 @@ const PARTICIPANT_SELECT_FILTERS = {
   participationStatus: ParticipationStatus.Associate,
 };
 
-export function Endorsment({ suggestedNodeCountry, participant, setParticipant }: Props) {
+export function Endorsment({
+  suggestedNodeCountry,
+  suggestedNonCountryNode,
+  participant,
+  onParticipantChange,
+}: Props) {
   const form = useFormContext<Partial<Inputs>>();
   const config = useConfig();
-
-  const { suggestedNonCountryNode, updateSuggestedNonCountryNode } = useSuggestedNonCountryNode();
-  useEffect(() => {
-    if (participant?.id) updateSuggestedNonCountryNode(participant?.id);
-  }, [participant?.id, updateSuggestedNonCountryNode]);
-
-  // Auto-select the endorsing node when a participant is chosen from the dropdown
-  useEffect(() => {
-    if (suggestedNonCountryNode?.key) {
-      form.setValue('endorsingNode', suggestedNonCountryNode.key);
-    }
-  }, [suggestedNonCountryNode?.key, form]);
-
-  // Auto-select the endorsing node based on country membership status
-  useEffect(() => {
-    if (suggestedNodeCountry) {
-      form.setValue('endorsingNode', suggestedNodeCountry.key);
-    } else {
-      form.setValue('endorsingNode', 'other');
-    }
-  }, [suggestedNodeCountry, form]);
 
   return (
     <>
@@ -132,7 +116,7 @@ export function Endorsment({ suggestedNodeCountry, participant, setParticipant }
         <div className="g-pt-2">
           <MemoParticipantSelect
             selected={participant}
-            onChange={setParticipant}
+            onChange={onParticipantChange}
             filters={PARTICIPANT_SELECT_FILTERS}
           />
         </div>

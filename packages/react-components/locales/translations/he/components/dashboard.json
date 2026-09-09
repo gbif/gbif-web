@@ -38,6 +38,7 @@
     "record": "רשומה",
     "taxon": "טקסון",
     "occurrence": "תצפית",
+    "nucleotideSequence": "",
     "organism": "אורגניזם",
     "materialEntity": "יישות חומרית",
     "event": "אירוע",
@@ -56,5 +57,16 @@
     "samplingEffort": ""
   },
   "occurrencesPerField": "תצפיות לפי {FIELD}",
-  "kingdom": "ממלכה"
+  "kingdom": "ממלכה",
+  "sequencePhylogeny": "",
+  "sequencePhylogeny.downloadAlignment": "",
+  "sequencePhylogeny.downloadNewick": "",
+  "sequencePhylogeny.about": {
+    "label": "",
+    "title": "",
+    "align": "",
+    "tree": "",
+    "collapse": "",
+    "downloads": ""
+  }
 }

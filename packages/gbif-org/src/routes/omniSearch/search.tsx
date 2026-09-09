@@ -18,7 +18,7 @@ import { TaxonResult } from '../taxon/taxonResult';
 import { CategoryLinks } from './CategoryLinks';
 import { CountryResult } from './CountryResult';
 import OccurrenceResultCard from './OccurrenceResultCard';
-import { OtherParticipantResult } from './OtherParticipantResult';
+import { CrossSearchParticipant, OtherParticipantResult } from './OtherParticipantResult';
 import { SearchInput } from './SearchInput';
 import OMNI_SEARCH from './query';
 import PageMetaData from '@/components/PageMetaData';
@@ -33,19 +33,15 @@ export interface CategoryCount {
   icon: string;
 }
 
+type CrossSearchCountry = {
+  countryCode: string;
+  participant: CrossSearchParticipant;
+};
+
 type ServerResults = {
-  country?: {
-    countryCode: string;
-    participant: {
-      id: string;
-      participationStatus: string;
-      participantUrl: string;
-      type: string;
-      countryCode: string;
-      name: string;
-      membershipStart: string;
-    };
-  };
+  countries?: Array<CrossSearchCountry>;
+  /** @deprecated the api now returns a list of countries. Kept while the api rolls out */
+  country?: CrossSearchCountry;
   occurrences?: {
     catalogNumber?: string;
     recordedBy?: string;
@@ -205,13 +201,14 @@ export function SearchPage() {
         cancelFetch = cancel;
         const serverResults = await promise.then((r) => r.json());
         setServerResults(serverResults);
-        if (serverResults?.country) {
+        const countryMatches = getCountryMatches(serverResults);
+        // only link the occurrences to a country if the match is unambiguous. A query like
+        // "korea" matches multiple countries and we cannot know which one is meant
+        if (countryMatches.length === 1) {
           setOccurrenceCategory({
-            label: (
-              <FormattedMessage id={`enums.countryCode.${serverResults.country.countryCode}`} />
-            ),
+            label: <FormattedMessage id={`enums.countryCode.${countryMatches[0].countryCode}`} />,
             searchParams: {
-              country: serverResults.country.countryCode,
+              country: countryMatches[0].countryCode,
             },
           });
         } else if (serverResults.taxa?.[0]?.taxonID) {
@@ -265,8 +262,10 @@ export function SearchPage() {
     }
   }, [data, setCounts]);
 
+  const countryResults = getCountryMatches(serverResults);
+
   const noResults =
-    !serverResults?.country &&
+    countryResults.length === 0 &&
     !serverResults?.participant?.highlighted &&
     !serverResults?.occurrences?.recordedBy &&
     !serverResults?.occurrences?.catalogNumber &&
@@ -368,11 +367,9 @@ export function SearchPage() {
                       );
                     })}
 
-                  {serverResults?.country && (
-                    <>
-                      <CountryResult country={serverResults.country} />
-                    </>
-                  )}
+                  {countryResults.map((country) => (
+                    <CountryResult key={country.countryCode} country={country} />
+                  ))}
 
                   {serverResults?.participant?.highlighted && (
                     <>
@@ -485,4 +482,10 @@ export function SearchPage() {
       </div>
     </div>
   );
+}
+
+// the api used to return a single country match and now returns a list. Support both while it rolls out
+function getCountryMatches(serverResults: ServerResults): Array<CrossSearchCountry> {
+  if (serverResults?.countries) return serverResults.countries;
+  return serverResults?.country ? [serverResults.country] : [];
 }

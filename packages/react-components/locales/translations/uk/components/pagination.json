@@ -3,6 +3,5 @@
   "previous": "Назад",
   "next": "Далі",
   "options": "Параметри",
-  "pageXofY": "Сторінка {current} з {total}",
-  "moreFilters": "Детальніше"
+  "pageXofY": "Сторінка {current} з {total}"
 }

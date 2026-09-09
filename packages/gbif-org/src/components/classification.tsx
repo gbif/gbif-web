@@ -1,5 +1,7 @@
+import { EntityLink } from '@/hooks/useTaxonLinks';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
+import { EntityLinkPresentation } from './entityLink';
 import styles from './classification.module.css';
 const majorRanks = ['KINGDOM', 'PHYLUM', 'CLASS', 'ORDER', 'FAMILY', 'GENUS', 'SPECIES'];
 
@@ -23,6 +25,7 @@ export function Classification({
 export function TaxonStubClassification({
   classification,
   className,
+  getTaxonLink,
 }: {
   classification: {
     scientificName?: string | null;
@@ -31,6 +34,8 @@ export function TaxonStubClassification({
     name?: string | null;
   }[];
   className?: string;
+  /** Resolves where each rank links. Without it the crumbs link to this site's taxon pages. */
+  getTaxonLink?: (key?: string | null) => EntityLink;
 }) {
   if (!classification || classification.length === 0) return null;
   // Show the 2 top levels of classification if this is not a synonym. Then ... and then the lowest parent. ... should only show if there is something in between of course. It should be links to the entries
@@ -45,11 +50,15 @@ export function TaxonStubClassification({
           <TaxonClassificationItem
             key={c.taxonID ?? c.key ?? c.scientificName ?? c.name}
             taxon={c}
+            getTaxonLink={getTaxonLink}
           />
         ))}
         {classification.length > 3 && <span>...</span>}
         {classification.length > 2 && (
-          <TaxonClassificationItem taxon={classification[classification.length - 1]} />
+          <TaxonClassificationItem
+            taxon={classification[classification.length - 1]}
+            getTaxonLink={getTaxonLink}
+          />
         )}
       </Classification>
     </>
@@ -58,6 +67,7 @@ export function TaxonStubClassification({
 
 function TaxonClassificationItem({
   taxon,
+  getTaxonLink,
 }: {
   taxon: {
     scientificName?: string | null;
@@ -65,15 +75,32 @@ function TaxonClassificationItem({
     key?: string | null;
     name?: string | null;
   };
+  getTaxonLink?: (key?: string | null) => EntityLink;
 }) {
+  const key = taxon.taxonID ?? taxon.key ?? '';
+  const label = taxon.scientificName ?? taxon.name;
+
+  if (getTaxonLink) {
+    return (
+      <span className="g-flex g-items-center">
+        <EntityLinkPresentation
+          className="hover:g-underline g-text-inherit"
+          link={getTaxonLink(key)}
+        >
+          {label}
+        </EntityLinkPresentation>
+      </span>
+    );
+  }
+
   return (
     <span className="g-flex g-items-center">
       <DynamicLink
         className="hover:g-underline g-text-inherit"
         pageId="taxonKey"
-        variables={{ key: taxon.taxonID ?? taxon.key ?? '' }}
+        variables={{ key }}
       >
-        {taxon.scientificName ?? taxon.name}
+        {label}
       </DynamicLink>
     </span>
   );

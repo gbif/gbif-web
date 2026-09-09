@@ -52,9 +52,15 @@ class TaxonAPI extends QueuedRESTDataSource {
       enQueue: true,
       signal: this.context.abortController.signal,
     }).then((response) => {
+      // sources can contain references that carry an ID but no bibliographic content at all
+      if (response.bibliography) {
+        response.bibliography = response.bibliography.filter(
+          (item) => item.citation || item.doi || item.url || item.remarks,
+        );
+      }
+
       // add logic to add isNamePublishedIn field to the bibliographic item if it matches the taxon namePublishedInID
-      const { taxon } = response;
-      const namePublishedInID = taxon?.namePublishedInID;
+      const { namePublishedInID } = response;
       if (namePublishedInID && response.bibliography) {
         response.bibliography.forEach((item) => {
           item.isNamePublishedIn = item.referenceID === namePublishedInID;
@@ -74,14 +80,15 @@ class TaxonAPI extends QueuedRESTDataSource {
       }
 
       // next we need to enrich the homotypic synonyms with the boolean isOriginalNameUsage if it match the taxon.originalNameUsageID
-      const originalNameUsageID = taxon?.originalNameUsageID;
+      const { originalNameUsageID } = response;
       if (originalNameUsageID && response?.synonyms?.homotypic) {
         response.synonyms.homotypic.forEach((item) => {
           item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
         });
       }
+      // heterotypic synonyms are grouped, so they arrive as a list of lists
       if (originalNameUsageID && response?.synonyms?.heterotypic) {
-        response.synonyms.heterotypic.forEach((item) => {
+        response.synonyms.heterotypic.flat().forEach((item) => {
           item.isOriginalNameUsage = item.taxonID === originalNameUsageID;
         });
       }

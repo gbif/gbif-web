@@ -18,7 +18,7 @@ import {
 } from '../ui/command';
 import { getFilterSummary } from './filterTools';
 import { cn } from '@/utils/shadcn';
-import { normalizeString } from '@/utils/normalizeString';
+import { filterSearchScore, getFilterSearchValue } from './filterSearch';
 
 export const MobileFilterDrawerContent = React.forwardRef<
   HTMLDivElement,
@@ -133,10 +133,7 @@ export const MobileFilterDrawerContent = React.forwardRef<
       <Command
         className={cn('g-flex-1 g-min-h-0', activeFilterHandle && 'g-hidden')}
         aria-hidden={activeFilterHandle ? true : undefined}
-        filter={(value, search) => {
-          if (normalizeString(value).includes(normalizeString(search))) return 1;
-          return 0;
-        }}
+        filter={filterSearchScore}
       >
         <div className="g-relative g-px-3 g-py-2 g-border-b g-border-solid g-border-slate-200">
           <CommandInput
@@ -248,9 +245,10 @@ const ActiveFilters = React.memo<ActiveFiltersProps>(({ filters, onSelectFilter 
           const summary = getFilterSummary(filterContext?.filter || {}, filter.handle);
           const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
           const aliases = typeof rawAlias === 'string' ? rawAlias : '';
-          const searchValue = aliases
-            ? `${filter.translatedFilterName} ${aliases}`
-            : filter.translatedFilterName;
+          const searchValue = getFilterSearchValue({
+            translatedFilterName: filter.translatedFilterName,
+            aliases,
+          });
 
           return (
             <CommandItem
@@ -320,9 +318,10 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
         {inactiveHighlightedFilters.map((filter) => {
           const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
           const aliases = typeof rawAlias === 'string' ? rawAlias : '';
-          const searchValue = aliases
-            ? `${filter.translatedFilterName} ${aliases}`
-            : filter.translatedFilterName;
+          const searchValue = getFilterSearchValue({
+            translatedFilterName: filter.translatedFilterName,
+            aliases,
+          });
           return (
             <CommandItem
               key={filter.handle}
@@ -407,9 +406,10 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
           {otherFilters.map((filter) => {
             const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
             const aliases = typeof rawAlias === 'string' ? rawAlias : '';
-            const searchValue = aliases
-              ? `${filter.translatedFilterName} ${aliases}`
-              : filter.translatedFilterName;
+            const searchValue = getFilterSearchValue({
+              translatedFilterName: filter.translatedFilterName,
+              aliases,
+            });
             return (
               <CommandItem
                 key={filter.handle}
@@ -435,9 +435,10 @@ const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectF
                 {group.filters.map((filter) => {
                   const rawAlias = intl.messages[`filterAliases.${filter.handle}`];
                   const aliases = typeof rawAlias === 'string' ? rawAlias : '';
-                  const searchValue = aliases
-                    ? `${filter.translatedFilterName} ${aliases}`
-                    : filter.translatedFilterName;
+                  const searchValue = getFilterSearchValue({
+                    translatedFilterName: filter.translatedFilterName,
+                    aliases,
+                  });
                   return (
                     <CommandItem
                       key={filter.handle}

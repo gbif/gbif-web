@@ -19,6 +19,12 @@
     "gt": "Nad {from}",
     "e": "{from}m"
   },
+  "compactBasePairs": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
   "compactTime": {
     "between": "{from} do {to}",
     "lt": "Před {to}",

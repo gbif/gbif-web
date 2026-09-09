@@ -39,6 +39,11 @@
   },
   "showMore": "",
   "showLess": "",
+  "searchSimilarSequences": "",
+  "dnaSequence": {
+    "original": "默认",
+    "sanitized": ""
+  },
   "screenReader": {
     "title": "发生细节"
   },

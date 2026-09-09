@@ -19,6 +19,12 @@
     "gt": "выше {from} м",
     "e": "{from}м"
   },
+  "compactBasePairs": {
+    "between": "От {from}базовых пар до {to} базовых пар",
+    "lt": "Менее {to} базовых пар",
+    "gt": "Более{from} базовых пар",
+    "e": "Начиная от{from} базовых пар"
+  },
   "compactTime": {
     "between": "от {from} до {to}",
     "lt": "До {to}",

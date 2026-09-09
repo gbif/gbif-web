@@ -3,6 +3,5 @@
   "previous": "前へ",
   "next": "次へ",
   "options": "オプション",
-  "pageXofY": "{current} / {total} ページ ",
-  "moreFilters": "詳細"
+  "pageXofY": "{current} / {total} ページ "
 }

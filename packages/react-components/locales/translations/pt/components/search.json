@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Pesquisa",
+    "searchForFilter": "",
     "range": "",
     "rangeExample": "",
     "wildcard": "",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "Ocorrências",
       "resourceSearch": ""
     },
-    "seeAll": "Ver todos"
+    "seeAll": "Ver todos",
+    "searchFor": "",
+    "noResults": ""
   }
 }

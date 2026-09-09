@@ -78,6 +78,7 @@
     "usedChecklistKey": "{checklistName} został użyty do wypełnienia kolumn taksonomicznych w pliku do pobrania",
     "predicate": {
       "checklist": "Checklista",
+      "tooManyLabelResolutions": "",
       "joinDescriptions": {
         "and": "Wszystkie muszą mieć zastosowanie",
         "or": "Przynajmniej jeden musi mieć zastosowanie",

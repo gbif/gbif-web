@@ -43,7 +43,7 @@ export function NodeSteeringGroupTable({ q, onPersonClick }: Props) {
   });
 
   const { sortField, sortDirection, handleSort } = useSorting<Row>({
-    initialSortField: 'name',
+    initialSortField: 'role',
   });
 
   const people = usePrepareData(data, q, sortField, sortDirection);

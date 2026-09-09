@@ -1,6 +1,7 @@
 import config from '@/config';
 
 const DEFAULT_CHECKLIST_KEY = config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+const COL_UUID = config.colUUID ?? '7ddf754f-d193-4cc9-b351-99906754a03b'; // COL key for classification
 
 function stringCompare(a, b) {
   return (a ?? '').localeCompare(b ?? '', undefined, { sensitivity: 'base' });
@@ -90,7 +91,7 @@ const sharedTaxonFields = {
   },
   wikiData: ({ taxonID, datasetKey }, args, { dataSources }) => {
     if (!taxonID || !datasetKey) return null;
-    if (datasetKey !== config.defaultChecklist) return null; // wikidata is only available for CatalogueOfLife checklistKey
+    if (datasetKey !== COL_UUID) return null; // wikidata is only available for CatalogueOfLife checklistKey
     return dataSources.taxonAPI.getRelatedEntryInWikidata({ taxonID }).then((wikidataEntry) => {
       if (!wikidataEntry) {
         return null;
@@ -238,7 +239,8 @@ export default {
       }),
   },
   Synonym: {
-    isOriginalNameUsage: ({ originalNameUsageID }) => !!originalNameUsageID,
+    // set by the taxonInfo enrichment; coerced as the source only sets it when the taxon has an originalNameUsageID
+    isOriginalNameUsage: ({ isOriginalNameUsage }) => !!isOriginalNameUsage,
   },
   ChecklistMetaMainIndex: {
     version: async ({ clbDatasetKey }, args, { dataSources }) => {
@@ -256,9 +258,9 @@ export default {
   TaxonInfo: {
     ...sharedTaxonFields,
     vernacularName: getVernacularName,
-    namePublishedIn: ({ taxon, bibliography }) => {
-      if (!taxon?.namePublishedInID) return null;
-      return bibliography.find((b) => b.referenceID === taxon.namePublishedInID)?.citation ?? null;
+    namePublishedIn: ({ namePublishedInID, bibliography }) => {
+      if (!namePublishedInID) return null;
+      return bibliography?.find((b) => b.referenceID === namePublishedInID)?.citation ?? null;
     },
     media: ({ media }, { limit = 20 }) => {
       // the api returns all possible images, but we want to limit it, so we do the limiting here

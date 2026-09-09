@@ -19,6 +19,12 @@
     "gt": "Acima de {from}m",
     "e": "{from}m"
   },
+  "compactBasePairs": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
   "compactTime": {
     "between": "{from} até {to}",
     "lt": "Antes de {to}",

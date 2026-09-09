@@ -18,7 +18,7 @@
         }
     },
     "sprite": "https://labs.gbif.org/klokantech-basic-gl-style/sprite",
-    "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={{maptilerApiKey}}",
+    "glyphs": "{{{originUrl}}}/unstable-api/map-styles/fonts/{fontstack}/{range}.pbf",
     "layers": [
         {
             "id": "background",

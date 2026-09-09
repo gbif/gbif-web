@@ -10,6 +10,8 @@
   "nOccurrences": "{total, plural, one{出現紀錄} other{出現紀錄}}",
   "nRecords": "{total, plural, one{紀錄} other{紀錄}}",
   "nTaxa": "{total, plural, one {# 分類群} other {# 分類群}}",
+  "nSpecies": "{total, plural, one{#物種} other{#物種}}",
+  "nAcceptedSpecies": "{total, plural,one {#有效物種} other {#有效物種}}",
   "nCitations": "{total, plural, one{引用} other{引用}}",
   "nSpecimensInGbif": "{total, plural, one{ GBIF 標本} other{ GBIF 標本}}",
   "nNames": "{total, plural, one {# 命名} other {# 命名}}",

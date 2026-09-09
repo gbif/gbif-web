@@ -30,6 +30,7 @@ const otherParams = [
   'installationKey',
   'endpointType',
   'dwcaExtension',
+  'category',
 ];
 
 otherParams.forEach((filter) => {

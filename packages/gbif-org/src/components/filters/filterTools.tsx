@@ -32,6 +32,8 @@ import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
 import { HumboldtBooleansFilter } from './humboldtBooleansFilter';
 import { CustomPredicateFilter } from './customPredicateFilter';
+import { SequenceFilter } from './sequenceFilter/SequenceFilter';
+import { useSequenceResolution } from './sequenceFilter/sequenceResolutionContext';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -47,6 +49,7 @@ export enum filterConfigTypes {
   INLINE_TOGGLE = 'INLINE_TOGGLE',
   HUMBOLDT_BOOLEANS = 'HUMBOLDT_BOOLEANS',
   CUSTOM_PREDICATE = 'CUSTOM_PREDICATE',
+  SEQUENCE = 'SEQUENCE',
 }
 
 export type AdditionalFilterProps = {
@@ -121,6 +124,10 @@ export type filterEnumConfig = filterConfigShared & {
   options?: string[];
   allowExistence?: boolean;
   allowNegations?: boolean;
+  // Extra GraphQL variables to merge into the facet queries, derived from the current filter.
+  // Used e.g. by the targetGene facet to pass the "Similar sequences" matched IDs so the facet
+  // correlates to those sequences. Returns {} when nothing extra is needed.
+  extraFacetVariables?: (filter: FilterType) => Record<string, unknown>;
 };
 
 export type filterRangeConfig = filterConfigShared & {
@@ -162,6 +169,13 @@ export type filterCustomPredicateConfig = filterConfigShared & {
   filterType: filterConfigTypes.CUSTOM_PREDICATE;
 };
 
+export type filterSequenceConfig = filterConfigShared & {
+  filterType: filterConfigTypes.SEQUENCE;
+  // Facet query (on nucleotideSequenceNucleotideSequenceID, with an `include` variable) used
+  // to make the identity-bin counts filter-aware under the other active filters.
+  facetQuery?: string;
+};
+
 // define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
 export type filterConfig =
   | filterBoolConfig
@@ -176,7 +190,8 @@ export type filterConfig =
   | filterLocationConfig
   | filterInlineToggleConfig
   | filterHumboldtBooleansConfig
-  | filterCustomPredicateConfig;
+  | filterCustomPredicateConfig
+  | filterSequenceConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -435,6 +450,7 @@ const getEnumFilter = ({
           displayName={config.displayName}
           allowExistence={config.allowExistence}
           allowNegations={config.allowNegations}
+          extraFacetVariables={config.extraFacetVariables}
           searchConfig={searchConfig}
           about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
@@ -678,6 +694,44 @@ const getCustomPredicateFilter = ({ config }: { config: filterCustomPredicateCon
   );
 };
 
+const getSequenceFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterSequenceConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <SequenceFilter
+          ref={ref as React.Ref<HTMLDivElement>}
+          filterHandle={config.filterHandle}
+          about={config.about}
+          facetQuery={config.facetQuery}
+          searchConfig={searchConfig}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 const getHumboldtBooleansFilter = ({
   config,
   searchConfig,
@@ -722,7 +776,7 @@ export type ContentOnApply = ({
 }) => void;
 
 export type FilterSetting = {
-  Button: React.FC<{ className?: string }>;
+  Button: React.FC<{ className?: string; pending?: boolean }>;
   Popover: React.FC<{ trigger: React.ReactNode }>;
   Content: React.FC<{
     onApply?: ContentOnApply;
@@ -785,7 +839,13 @@ export function generateFilter({
   popoverClassName?: string;
 }): FilterSetting {
   const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
-  let FilterButtonPopover = ({ className }: { className?: string }) => {
+  let FilterButtonPopover = ({
+    className,
+    pending,
+  }: {
+    className?: string;
+    pending?: boolean;
+  }) => {
     return (
       <PopoverFilter
         className={popoverClassName}
@@ -795,6 +855,7 @@ export function generateFilter({
             filterHandle={config.filterHandle}
             displayName={config.displayName}
             titleTranslationKey={config.filterTranslation}
+            pending={pending}
             {...config.filterButtonProps}
           />
         }
@@ -928,6 +989,21 @@ export function generateFilters({
       Content: getCustomPredicateFilter({ config: config as filterCustomPredicateConfig }),
       popoverClassName: 'g-w-[600px] g-max-w-[var(--radix-popper-available-width)]',
     });
+  } else if (config.filterType === filterConfigTypes.SEQUENCE) {
+    const setting = generateFilter({
+      config,
+      formatMessage,
+      Content: getSequenceFilter({ config: config as filterSequenceConfig, searchConfig }),
+      popoverClassName: 'g-w-[500px] g-max-w-[var(--radix-popper-available-width)]',
+    });
+    // Feed the chip a "resolving" flag so it shows a spinner while the pasted sequence is being
+    // resolved into nucleotideSequenceIDs (published by SequenceResolutionProvider).
+    const BaseButton = setting.Button;
+    setting.Button = ({ className }) => {
+      const { pending } = useSequenceResolution();
+      return <BaseButton className={className} pending={pending} />;
+    };
+    return setting;
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);
   }

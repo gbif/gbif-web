@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Cerca",
+    "searchForFilter": "",
     "range": "Intervallo o valore singolo",
     "rangeExample": "",
     "wildcard": "Ricerca utilizzando * e ? come caratteri generici",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "",
       "resourceSearch": ""
     },
-    "seeAll": ""
+    "seeAll": "",
+    "searchFor": "",
+    "noResults": ""
   }
 }

@@ -3,6 +3,10 @@
     "name": "Extension DwC-A",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
+  "category": {
+    "name": "Catégorie",
+    "description": "La catégorie du jeu de données, basée sur le vocabulaire DatasetCategory."
+  },
   "locationId": {
     "name": "ID de localisation",
     "description": "Les éditeurs peuvent choisir d'attribuer des identifiants à l'emplacement. Ce champ n'est pas normalisé, ce qui signifie que vous effectuez la recherche à partir des données fournies par l'éditeur."
@@ -78,7 +82,7 @@
     "description": "Le contexte lithostratigraphique de l'enregistrement."
   },
   "geologicalTime": {
-    "name": "Temps géologique",
+    "name": "Temps géologiques",
     "description": "Le contexte géochronologique de l'enregistrement."
   },
   "purposes": {
@@ -324,6 +328,40 @@
   "lifeStage": {
     "name": "Stade de développement",
     "description": "Le stade de vie de l'organisme."
+  },
+  "nucleotideSequenceTargetGene": {
+    "name": "Gène cible",
+    "description": "Le gène ou la région génétique ciblée par une séquence nucléotidique associée à l'occurrence (par exemple, COI, ITS2)."
+  },
+  "nucleotideSequenceSequenceLength": {
+    "name": "Longueur de la séquence",
+    "description": "La longueur, en paires de bases, d'une séquence nucléotidique associée à l'occurrence."
+  },
+  "nucleotideSequenceId": {
+    "name": "Similitude des séquences",
+    "description": "Entrer une séquence nucléotidique (ADN ou ARN) pour trouver des occurrences avec des séquences similaires ; les résultats sont classés par pourcentage de correspondance.",
+    "search": "Trouver des résultats similaires",
+    "similarityHeader": "Identité",
+    "distinctSequencesHeader": "Séquences distinctes",
+    "similarityRange": "{from} à {to} %",
+    "similarityExact": "{value} %",
+    "invalid": "La donnée saisie ne semble pas correspondre à une séquence nucléotidique valide.",
+    "tooLong": "La séquence est trop longue. La longueur maximale est de {max} bases.",
+    "error": "Impossible de rechercher des séquences similaires. Veuillez réessayer.",
+    "noMatches": "Aucune séquence similaire n'a été trouvée.",
+    "bin": {
+      "100": "100%",
+      "99.5": "99.5–100%",
+      "99": "99–99.5%",
+      "98": "98–99%",
+      "97": "97–98%",
+      "96": "96–97%",
+      "95": "95–96%"
+    }
+  },
+  "nucleotideSequenceNucleotideSequenceID": {
+    "name": "ID de séquence nucléotidique",
+    "description": "L'identifiant d'une séquence nucléotidique associée à l'enregistrement (nucleotideSequence.nucleotideSequenceID)."
   },
   "recordedBy": {
     "name": "Enregistré par",

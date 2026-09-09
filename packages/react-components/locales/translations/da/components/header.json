@@ -1,10 +1,10 @@
 {
   "header": {
     "changeLanguage": "Skift sprog",
-    "feedback": "",
-    "systemStatus": "",
-    "profileLinkLabel": "",
-    "siteNavigation": "",
+    "feedback": "Send feedback",
+    "systemStatus": "Systemstatus",
+    "profileLinkLabel": "Profilside for {userName}",
+    "siteNavigation": "Webstedsnavigation",
     "search": "Søg",
     "profile": "Brugerprofil"
   }

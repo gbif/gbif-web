@@ -24,6 +24,7 @@ const typeDef = gql`
       decade: [Int]
       publishingCountry: [Country]
       dwcaExtension: [String]
+      category: [String]
       """
       Not implemented yet
       """
@@ -80,6 +81,7 @@ const typeDef = gql`
     decade: [Int]
     publishingCountry: [Country]
     dwcaExtension: [String]
+    category: [String]
     """
     Not implemented yet
     """
@@ -161,6 +163,7 @@ const typeDef = gql`
     curatorialUnits: [JSON]
     dataDescriptions: [DataDescription]
     dataLanguage: String
+    acknowledgements: String
     decades: [Int]
     deleted: DateTime
     description: String
@@ -235,13 +238,7 @@ const typeDef = gql`
     Volatile and slow: Get occurrence inferred events for this dataset. So not using the event API, but using the occurrence API to search for occurrences with this datasetKey and facet on eventID. And then get the first occurrence for each to guess on what the event looks like (sampling protocol etc.)
     Using the event API is generally far preferred, but for datasets that is not modelled as a sampling event, this can help to get an idea of the events that are in the dataset.
     """
-    events(
-      key: ID!
-      limit: Int
-      offset: Int
-      eventID: ID
-      optParentEventID: ID
-    ): DatasetEvents
+    events(key: ID!, limit: Int, offset: Int, eventID: ID, optParentEventID: ID): DatasetEvents
   }
 
   type datasetDwcaInfo {
@@ -387,6 +384,7 @@ const typeDef = gql`
     license(limit: Int, offset: Int): [DatasetFacetResult]
     dwcaExtension(limit: Int, from: Int): [DatasetFacetResult]
     networkKey(limit: Int, from: Int): [DatasetFacetResult]
+    category(limit: Int, offset: Int): [DatasetFacetResult]
   }
 
   type DatasetOrganizationFacet {

@@ -137,6 +137,7 @@ export function Group({
   description,
   id,
   className,
+  titleExtra,
   ...props
 }: {
   label: string;
@@ -145,13 +146,24 @@ export function Group({
   description?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  // Optional content rendered next to the group title (e.g. issue/flag tags for the block).
+  titleExtra?: React.ReactNode;
 }) {
   return (
     <Card className={cn('g-mb-4', className)} id={id}>
       <CardHeader>
-        <CardTitle>
-          <FormattedMessage id={label} defaultMessage={defaultMessage} />
-        </CardTitle>
+        {titleExtra ? (
+          <div className="g-flex g-items-center g-justify-between g-gap-2 g-flex-wrap">
+            <CardTitle>
+              <FormattedMessage id={label} defaultMessage={defaultMessage} />
+            </CardTitle>
+            <div className="g-flex-none">{titleExtra}</div>
+          </div>
+        ) : (
+          <CardTitle>
+            <FormattedMessage id={label} defaultMessage={defaultMessage} />
+          </CardTitle>
+        )}
         {description && <CardDescription dir="auto">{description}</CardDescription>}
       </CardHeader>
       <CardContent {...props}>{children}</CardContent>
@@ -276,7 +288,7 @@ function Record({
 
       <EnumField
         term={termMap.basisOfRecord}
-        showDetails={showAll}
+        showDetails={false}
         getEnum={(value) => `enums.basisOfRecord.${value}`}
       />
       <PlainTextField term={termMap.informationWithheld} showDetails={showAll} />
@@ -457,13 +469,9 @@ function Location({
               showDetails={showAll}
               getEnum={(value) => `enums.continent.${value}`}
             />
-            <EnumField
-              term={termMap.countryCode}
-              label="occurrenceFieldNames.country"
-              showDetails={showAll}
-              getEnum={(value) => `enums.countryCode.${value}`}
-            />
-            {/* <PlainTextField term={termMap.country} showDetails={showAll} /> */}
+            <PlainTextField term={termMap.country} showDetails={showAll} />
+            <PlainTextField term={termMap.countryCode} showDetails={showAll} />
+
             <PlainTextField term={termMap.waterBody} showDetails={showAll} />
             <PlainTextField term={termMap.islandGroup} showDetails={showAll} />
             <PlainTextField term={termMap.island} showDetails={showAll} />
@@ -579,7 +587,7 @@ function Occurrence({
       <HtmlField term={termMap.associatedTaxa} showDetails={showAll} />
       <PlainTextField term={termMap.otherCatalogNumbers} showDetails={showAll} />
       <PlainTextField term={termMap.occurrenceRemarks} showDetails={showAll} />
-      <HtmlField term={termMap.associatedMedia} showDetails={showAll} />
+      <HtmlField term={termMap.associatedMedia} showDetails={true} />
     </PropGroup>
   );
 }
@@ -626,9 +634,14 @@ function Event({
       />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />
+      <PlainTextField term={termMap.eventType} showDetails={true} />
       {showAll && <PlainTextField term={termMap.startDayOfYear} showDetails={showAll} />}
       {showAll && <PlainTextField term={termMap.endDayOfYear} showDetails={showAll} />}
-      {showAll && <PlainTextField term={termMap.year} showDetails={showAll} />}
+      {showAll && (
+        <BasicField label="occurrenceFieldNames.year">
+          {termMap?.year?.value && <span>{termMap?.year.value}</span>}
+        </BasicField>
+      )}
       {showAll && <PlainTextField term={termMap.month} showDetails={showAll} />}
       {showAll && <PlainTextField term={termMap.day} showDetails={showAll} />}
       <PlainTextField term={termMap.verbatimEventDate} showDetails={showAll} />

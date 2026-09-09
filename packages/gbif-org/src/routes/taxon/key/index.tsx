@@ -15,7 +15,12 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     if (typeof key !== 'string' && typeof key !== 'number')
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/species/${key}`; // TODO: temprary nutil we move to the taxon api on gbif.org
+    // Classic backbone usage keys are integers and only /species can remap them to a taxon page.
+    // Anything else is a taxonID, which gbif.org serves from /taxon.
+    const path = /^\d+$/.test(String(key)) ? 'species' : 'taxon';
+    return `${
+      import.meta.env.PUBLIC_GBIF_ORG
+    }${gbifOrgLocalePrefix}/${path}/${encodeURIComponent(key)}`;
   },
   loader: taxonLoader,
   /* shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {

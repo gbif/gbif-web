@@ -3,6 +3,5 @@
   "previous": "Předchozí",
   "next": "Další",
   "options": "Možnosti",
-  "pageXofY": "Stránka {current} z {total}",
-  "moreFilters": "více"
+  "pageXofY": "Stránka {current} z {total}"
 }

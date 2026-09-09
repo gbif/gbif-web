@@ -22,6 +22,7 @@
   },
   "placeholders": {
     "default": "Søg",
+    "searchForFilter": "",
     "range": "",
     "rangeExample": "",
     "wildcard": "",
@@ -41,7 +42,7 @@
   "apply": "",
   "cancel": "Annuller",
   "rankInGroup": "",
-  "options": "",
+  "options": "Valg",
   "sort": {
     "sortBy": "",
     "yearDesc": "",
@@ -91,6 +92,8 @@
       "occurrenceSearch": "Observationer",
       "resourceSearch": ""
     },
-    "seeAll": "Se alle"
+    "seeAll": "Se alle",
+    "searchFor": "",
+    "noResults": ""
   }
 }
