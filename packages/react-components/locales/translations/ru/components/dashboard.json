@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "Распределение находок по категории: {FIELD}",
   "kingdom": "Царство",
-  "sequenceDendrogram": "",
+  "sequenceDendrogram": "Дендрограмма последовательности",
   "sequencePhylogeny.downloadAlignment": "Выравнивание (FASTA)",
   "sequencePhylogeny.downloadNewick": "Ньюик",
   "sequencePhylogeny.about": {
@@ -66,7 +66,7 @@
     "title": "Как построено это дерево",
     "align": "Отличные друг от друга нуклеотидные последовательности совпадающих вхождений выравниваются с помощью <k>kalign</k> (инструмента для множественного выравнивания последовательностей).",
     "tree": "Из этом считываются парные  генетические расстояния и сайты с неопределенными состояниями. Внутренние ветви с длиной близкой к нулю, отображаются как мультифуркации, а не произвольная \"лестничная\" структура.",
-    "collapse": "",
+    "collapse": "Движок\"collapse\" соединяет последовательности в единую подсказку - slider merges sequences—sharing at least the chosen percentage of identity подсказывает выбранный процент идентичности. Tips are labelled with the consensus taxon of the sequences they represent.",
     "downloads": "Загрузка отображает текущий вид: полное выравнивание (<fasta>FASTA</fasta>) и дерево (<newick>Newick</newick>), на данном уровне свёртки."
   }
 }
