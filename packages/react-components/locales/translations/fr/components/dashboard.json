@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "Occurrences par {FIELD}",
   "kingdom": "Règne",
-  "sequenceDendrogram": "",
+  "sequenceDendrogram": "Dendrogramme de séquences",
   "sequencePhylogeny.downloadAlignment": "Alignement (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",
   "sequencePhylogeny.about": {
@@ -66,7 +66,7 @@
     "title": "Comment cet arbre est construit",
     "align": "Les séquences nucléotidiques distinctes des occurrences correspondantes sont alignées à l'aide de <k>kalign</k> (un outil d'alignement de séquences multiples).",
     "tree": "Les distances génétiques par paires (distance p, sans tenir compte des espaces ni des sites ambigus) sont lues à partir de cet alignement, et un arbre de type « neighbor-joining » est construit à partir de celles-ci. Les branches internes proches de zéro sont représentées sous forme de multifurcations plutôt que sous la forme d'une échelle arbitraire.",
-    "collapse": "",
+    "collapse": "Le curseur « Collapse » regroupe les séquences — qui partagent au moins le pourcentage d'identité choisi — en une seule branche. Les branches sont identifiées par le taxon consensuel des séquences qu'elles représentent.",
     "downloads": "Les fichiers à télécharger correspondent à la vue actuelle : l'alignement complet (<fasta>FASTA</fasta>) et l'arbre (<newick>Newick</newick>, au niveau de regroupement actuel)."
   }
 }
