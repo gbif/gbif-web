@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "Výskyty na {FIELD}",
   "kingdom": "Říše",
-  "sequencePhylogeny": "",
+  "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",
   "sequencePhylogeny.about": {
