@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import fsp from 'node:fs/promises';
 import { createServer as createHttpServer } from 'node:http';
+import path from 'node:path';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import logger from './config/logger.mjs';
@@ -128,14 +129,18 @@ async function main() {
 
     app.use(viteDevServer.middlewares);
   } else {
+    // Content-hashed and retained across releases on the host, so they can be cached forever.
+    // Stable names (index.html, public/ copies) keep the default 10 minute cache.
+    // Must be set via setHeaders: the default Cache-Control middleware above already set the
+    // header, and send() only applies its own maxAge/immutable options when none is present.
+    const clientDir = path.resolve('dist/gbif/client');
+    const assetsDir = path.join(clientDir, 'assets') + path.sep;
+
     app.use(
-      express.static('dist/gbif/client', {
+      express.static(clientDir, {
         index: false,
         setHeaders: (res, filePath) => {
-          // Files in assets/ are content-hashed and retained across releases on the host,
-          // so they can be cached forever. Stable names (index.html, public/ copies) keep
-          // the default 10 minute cache.
-          if (filePath.includes('/assets/')) {
+          if (filePath.startsWith(assetsDir)) {
             res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
           }
         },
