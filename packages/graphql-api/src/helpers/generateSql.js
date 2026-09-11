@@ -17,8 +17,8 @@ function nameLookup(name, checklistKey) {
       return `occurrence."order"`;
     }
     return `occurrence.${name}`;
-  }  
-  
+  }
+
   if (checklistKey === config.gbifBackboneUUID) {
     if (name === 'order') {
       return `occurrence.gbif_classification."order"`;
@@ -26,23 +26,12 @@ function nameLookup(name, checklistKey) {
     return `occurrence.gbif_classification.${name}`;
   }
 
-
-
-  // const lowername = name.toLowerCase();
-  // const lookup = {};
-  // // generate for convinence the name lookup for the taxonomic dimensions, e.g. kingdom, phylum, class, order, family, genus
-  // const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'taxon', 'acceptedtaxon'];
-  // ranks.forEach((rank) => {
-  //   lookup[rank] = `occurrence.classificationdetails['${checklistKey}']['${rank}']`;
-  //   lookup[`${rank}key`] = `occurrence.classificationdetails['${checklistKey}']['${rank}key']`;
-  // });
-  // if (lowername === 'scientificname') {
-  //   return `occurrence.classificationdetails['${checklistKey}']['scientificname']`;
-  // }
-  // if (lowername === 'acceptedscientificname') {
-  //   return `occurrence.classificationdetails['${checklistKey}']['acceptedscientificname']`;
-  // }
-  // return lookup[lowername] || name;
+  if (checklistKey === "f5dc22ca-0bb1-4692-8a97-cc7ac54d7ed9") {
+    if (name === 'order') {
+      return `occurrence.za_classification."order"`;
+    }
+    return `occurrence.za_classification.${name}`;
+  }
 }
 
 export function getGbifMachineDescription(machineDescription, sql) {
