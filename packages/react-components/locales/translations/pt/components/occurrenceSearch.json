@@ -1,6 +1,7 @@
 {
   "occurrenceSearch": {
     "title": "Pesquisa de ocorrências",
-    "description": "Pesquisar ocorrências no Global Biodiversity Information Facility. Acesso livre e aberto a Dados de Biodiversidade."
+    "description": "Pesquisar ocorrências no Global Biodiversity Information Facility. Acesso livre e aberto a Dados de Biodiversidade.",
+    "imageLicenseInfo": "Tenha presente de que as licenças aplicadas às imagens podem ser diferentes das aplicadas aos registos"
   }
 }

@@ -1,6 +1,7 @@
 {
   "occurrenceSearch": {
     "title": "Hledání výskytu",
-    "description": "Vyhledávání výskytů v Global Biodiversity Information Facility. Volný a otevřený přístup k datům o biologické rozmanitosti."
+    "description": "Vyhledávání výskytů v Global Biodiversity Information Facility. Volný a otevřený přístup k datům o biologické rozmanitosti.",
+    "imageLicenseInfo": "Uvědomte si, že licence vztahující se na snímky se mohou lišit od licencí vztahujících se na záznamy o výskytu"
   }
 }

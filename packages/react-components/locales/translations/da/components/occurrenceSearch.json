@@ -1,6 +1,7 @@
 {
   "occurrenceSearch": {
     "title": "Søg i observationer",
-    "description": "Søge efter forekomster i Global Biodiversity Information Facility. Gratis og åben adgang til biodiversitetsdata."
+    "description": "Søge efter forekomster i Global Biodiversity Information Facility. Gratis og åben adgang til biodiversitetsdata.",
+    "imageLicenseInfo": "Være opmærksom på, at licenser anvendt på billeder kan afvige fra observationens licens"
   }
 }

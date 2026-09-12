@@ -1,6 +1,7 @@
 {
   "occurrenceSearch": {
     "title": "Buscador de registro de presencia",
-    "description": "Buscar registros en GBIF. Acceso abierto y gratuito a datos sobre biodiversidad."
+    "description": "Buscar registros en GBIF. Acceso abierto y gratuito a datos sobre biodiversidad.",
+    "imageLicenseInfo": "Ten en cuenta que las licencias aplicadas a las imágenes pueden diferir de las aplicadas a los registros biológicos"
   }
 }
