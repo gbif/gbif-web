@@ -88,7 +88,7 @@ export function DataUsePage() {
 
           {resource.resourceUsed && (
             <ArticleIntro className="g-mt-2 g-font-semibold g-text-sm">
-              <FormattedMessage id="cms.datause.dataViaGbif" /> :{' '}
+              <FormattedMessage id="cms.datause.dataViaGbif" />:{' '}
               <span dir="auto">{resource.resourceUsed}</span>
             </ArticleIntro>
           )}
