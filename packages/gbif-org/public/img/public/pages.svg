@@ -6,7 +6,7 @@
   </defs>
   <g id="Group_1506" data-name="Group 1506" transform="translate(0.489 0.489)">
     <g id="Group_1506-2" data-name="Group 1506" transform="translate(-0.489 -0.489)" clip-path="url(#clip-path)">
-      <path id="Path_800" data-name="Path 800" d="M191.784,128.742h0V123.5a2.634,2.634,0,0,0-2.624-2.626H173.418a2.634,2.634,0,0,0-2.624,2.624s0,0,0,0v15.74h0v5.245a2.634,2.634,0,0,0,2.624,2.626H189.16a2.638,2.638,0,0,0,2.622-2.5q0-.065,0-.13Z" transform="translate(-161.289 -113.99)" fill="#4c9c2e"></path>
+      <path id="Path_800" data-name="Path 800" d="M191.784,128.742h0V123.5a2.634,2.634,0,0,0-2.624-2.626H173.418a2.634,2.634,0,0,0-2.624,2.624s0,0,0,0v15.74h0v5.245a2.634,2.634,0,0,0,2.624,2.626H189.16a2.638,2.638,0,0,0,2.622-2.5q0-.065,0-.13Z" transform="translate(-161.289 -113.99)" fill="currentColor"></path>
       <path id="Path_801" data-name="Path 801" d="M260.855,210.176H249.916a.916.916,0,0,1-.916-.916v-4.5a.916.916,0,0,1,.916-.916h10.939a.916.916,0,0,1,.916.916v4.5a.916.916,0,0,1-.916.916" transform="translate(-235.385 -192.605)" fill="#fff"></path>
       <path id="Path_802" data-name="Path 802" d="M346.806,382.635A3.807,3.807,0,1,1,343,378.828a3.807,3.807,0,0,1,3.807,3.807" transform="translate(-320.836 -358.39)" fill="#fff"></path>
       <path id="Path_803" data-name="Path 803" d="M271.084,379.423a.6.6,0,1,1-.6-.6.6.6,0,0,1,.6.6" transform="translate(-255.179 -358.389)" fill="#fff"></path>
