@@ -110,6 +110,16 @@ async function main() {
     next();
   });
 
+  // Images in public/img/public are meant to be hotlinked by third-party sites (e.g. logos).
+  // Helmet defaults to Cross-Origin-Resource-Policy: same-origin, which makes browsers refuse
+  // to load them from other origins. Override it for this path only, and allow CORS so they
+  // can also be fetched or drawn to a canvas.
+  app.use('/img/public', (req, res, next) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
   // Set up middleware based on the environment.
   let viteDevServer;
 
