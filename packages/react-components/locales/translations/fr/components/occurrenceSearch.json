@@ -1,6 +1,7 @@
 {
   "occurrenceSearch": {
     "title": "Recherche d'occurrence",
-    "description": "Rechercher des occurrences dans le Global Biodiversity Information Facility. Accès libre et gratuit aux données sur la biodiversité."
+    "description": "Rechercher des occurrences dans le Global Biodiversity Information Facility. Accès libre et gratuit aux données sur la biodiversité.",
+    "imageLicenseInfo": "Soyez conscients que les licences attribuées aux images peuvent différer de celles attribuées aux occurrences"
   }
 }
