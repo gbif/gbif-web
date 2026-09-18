@@ -272,7 +272,11 @@ export function DownloadTitle({ download }: { download: Download }) {
           values={{ total: download.totalRecords }}
         />
       );
-    } else if (download?.request?.format === 'DWCA' || download?.request?.format === 'SIMPLE_CSV') {
+    } else if (
+      download?.request?.format === 'DWCA' ||
+      download?.request?.format === 'SIMPLE_CSV' ||
+      download?.request?.format === 'FASTA_ARCHIVE'
+    ) {
       if (download?.request?.type === 'OCCURRENCE') {
         return (
           <FormattedMessage

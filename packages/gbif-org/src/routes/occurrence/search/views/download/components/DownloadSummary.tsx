@@ -1,17 +1,21 @@
 import { useSupportedChecklists } from '@/hooks/useSupportedChecklists';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { requiresSequences, supportsExtensions } from './utils';
 
 export function DownloadSummary({
   selectedFormat,
   configuration,
+  sequencedRecords,
 }: {
   selectedFormat: any;
   configuration: any;
+  // Only relevant for formats that hold a subset of the search, so the sidebar can state how many
+  // records the download will actually contain.
+  sequencedRecords?: number;
 }) {
   const { checklists } = useSupportedChecklists();
   // Get configuration summary for sidebar
   const getConfigSummary = () => {
-    const isDarwinCoreArchive = selectedFormat?.id === 'DWCA';
     const summary = [
       {
         label: <FormattedMessage id="occurrenceDownloadFlow.format" />,
@@ -34,7 +38,14 @@ export function DownloadSummary({
       });
     }
 
-    if (isDarwinCoreArchive && 'extensions' in configuration) {
+    if (requiresSequences(selectedFormat?.id) && typeof sequencedRecords === 'number') {
+      summary.push({
+        label: <FormattedMessage id="occurrenceDownloadFlow.sequences.recordsIncluded" />,
+        value: <FormattedNumber value={sequencedRecords} />,
+      });
+    }
+
+    if (supportsExtensions(selectedFormat?.id) && 'extensions' in configuration) {
       summary.push({
         label: <FormattedMessage id="occurrenceDownloadFlow.extensions" />,
         value: configuration.extensions.length.toString(),
