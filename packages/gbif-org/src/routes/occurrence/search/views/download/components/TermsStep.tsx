@@ -4,7 +4,15 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { FaChevronLeft, FaDownload } from 'react-icons/fa';
 import { generateCubeSql } from './cube/cubeService';
 import { DownloadSummary } from './DownloadSummary';
-import { formatFileSize, getEstimatedSizeInBytes, getEstimatedUnzippedSizeInBytes } from './utils';
+import { SequenceAvailabilityNotice } from './SequenceAvailabilityNotice';
+import {
+  formatFileSize,
+  getEstimatedSizeInBytes,
+  getEstimatedUnzippedSizeInBytes,
+  getSequenceAvailability,
+  requiresSequences,
+  supportsExtensions,
+} from './utils';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '@/reactRouterPlugins';
@@ -18,6 +26,8 @@ interface TermsStepProps {
   selectedFormat: any;
   configuration: any;
   totalRecords?: number;
+  sequencedRecords?: number;
+  loadingCounts?: boolean;
   onBack: () => void;
   source?: string | null;
 }
@@ -63,6 +73,8 @@ export default function TermsStep({
   selectedFormat,
   configuration,
   totalRecords,
+  sequencedRecords,
+  loadingCounts,
   onBack,
   source,
 }: TermsStepProps) {
@@ -70,17 +82,25 @@ export default function TermsStep({
   const intl = useIntl();
   const navigate = useNavigate();
   const { localizeLink } = useI18n();
+  const isSequenceFormat = requiresSequences(selectedFormat.id);
+  // A sequence-only download holds the sequenced subset of the search, so that - not the search
+  // total - is what the size estimate and the large download warning are about.
+  const recordsInDownload = (isSequenceFormat ? sequencedRecords : totalRecords) ?? 0;
   // Get zipped download size (what user downloads)
-  const estimatedSizeInBytes = getEstimatedSizeInBytes(selectedFormat.id, totalRecords ?? 0);
+  const estimatedSizeInBytes = getEstimatedSizeInBytes(selectedFormat.id, recordsInDownload);
   // Get unzipped size (disk space needed after extraction)
   const estimatedUnzippedSizeInBytes = getEstimatedUnzippedSizeInBytes(
     selectedFormat.id,
-    totalRecords ?? 0
+    recordsInDownload
   );
-  const isLargeDownload =
-    totalRecords && ['SIMPLE_CSV', 'DWCA'].includes(selectedFormat.id)
-      ? totalRecords > LARGE_DOWNLOAD_OFFSET
-      : false;
+  const isLargeDownload = ['SIMPLE_CSV', 'DWCA'].includes(selectedFormat.id)
+    ? recordsInDownload > LARGE_DOWNLOAD_OFFSET
+    : false;
+  // The filters stay editable while the flow is open, so the format can stop being usable after it
+  // was picked.
+  const blockedByMissingSequences =
+    isSequenceFormat &&
+    getSequenceAvailability({ totalRecords, sequencedRecords, loading: loadingCounts }) === 'none';
 
   const [preparingDownload, setPreparingDownload] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -126,7 +146,7 @@ export default function TermsStep({
         predicate,
         format: format,
         checklistKey: configuration.checklistKey,
-        verbatimExtensions: selectedFormat.id === 'DWCA' ? configuration.extensions : [],
+        verbatimExtensions: supportsExtensions(selectedFormat.id) ? configuration.extensions : [],
         machineDescription: selectedFormat.id === 'SQL_CUBE' ? machineDescription : undefined,
         sql: format === 'SQL_TSV_ZIP' ? sql : undefined,
       }),
@@ -175,6 +195,15 @@ export default function TermsStep({
       <div className="g-grid lg:g-grid-cols-3 g-gap-8">
         {/* Terms Content */}
         <div className="lg:g-col-span-2 g-space-y-6">
+          {/* Sequence availability - the filters can change while this step is open */}
+          {isSequenceFormat && (
+            <SequenceAvailabilityNotice
+              totalRecords={totalRecords}
+              sequencedRecords={sequencedRecords}
+              loading={loadingCounts}
+            />
+          )}
+
           {/* Data Use Agreement */}
           <div className="g-bg-white g-rounded g-shadow-md g-border g-border-gray-200">
             <div className="g-p-6">
@@ -316,7 +345,7 @@ export default function TermsStep({
                             values={{
                               count: (
                                 <strong>
-                                  <FormattedNumber value={totalRecords ?? 0} />
+                                  <FormattedNumber value={recordsInDownload} />
                                 </strong>
                               ),
                             }}
@@ -341,7 +370,11 @@ export default function TermsStep({
               <FormattedMessage id="occurrenceDownloadFlow.downloadSummary" />
             </h3>
 
-            <DownloadSummary selectedFormat={selectedFormat} configuration={configuration} />
+            <DownloadSummary
+              selectedFormat={selectedFormat}
+              configuration={configuration}
+              sequencedRecords={sequencedRecords}
+            />
 
             <div className="g-space-y-3 g-mb-6 g-mt-6">
               <h4 className="g-font-medium g-text-gray-900">
@@ -371,10 +404,19 @@ export default function TermsStep({
               )}
             </div>
 
+            {blockedByMissingSequences && (
+              <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">
+                <FormattedMessage
+                  id="occurrenceDownloadFlow.sequences.noSequencesDescription"
+                  defaultMessage="This format is only available for searches that contain DNA sequences. Add a filter that selects sequenced records to use it."
+                />
+              </div>
+            )}
+
             {error && <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">{error}</div>}
 
             <Button
-              disabled={!allTermsAccepted || preparingDownload}
+              disabled={!allTermsAccepted || preparingDownload || blockedByMissingSequences}
               className={`g-w-full g-flex g-items-center g-justify-center g-gap-2`}
               onClick={handleDownload}
             >

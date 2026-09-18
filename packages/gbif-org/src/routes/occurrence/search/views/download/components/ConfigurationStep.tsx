@@ -9,12 +9,17 @@ import { FormattedMessage } from 'react-intl';
 import { FilterType } from '@/contexts/filter';
 import { generateCubeSql, hasFilter } from './cube/cubeService';
 import { DownloadSummary } from './DownloadSummary';
+import { SequenceAvailabilityNotice } from './SequenceAvailabilityNotice';
+import { getSequenceAvailability, requiresSequences, supportsExtensions } from './utils';
 
 interface ConfigurationStepProps {
   selectedFormat: any;
   defaultChecklist?: string;
   filter?: FilterType;
   predicate?: any;
+  totalRecords?: number;
+  sequencedRecords?: number;
+  loadingCounts?: boolean;
   onBack: () => void;
   onContinue: (config: any) => void;
   initialConfig: any;
@@ -39,14 +44,28 @@ export default function ConfigurationStep({
   defaultChecklist,
   selectedFormat,
   predicate,
+  totalRecords,
+  sequencedRecords,
+  loadingCounts,
   onBack,
   filter,
   onContinue,
   initialConfig,
 }: ConfigurationStepProps) {
   const currentContextChecklistKey = useChecklistKey();
-  const isDarwinCoreArchive = selectedFormat?.id === 'DWCA';
+  // Both Darwin Core Archives and FASTA archives are DwC archives, so both take verbatim extensions
+  // and a taxonomy.
+  const hasExtensions = supportsExtensions(selectedFormat?.id);
+  const isSequenceFormat = requiresSequences(selectedFormat?.id);
   const isCubeData = selectedFormat?.id === 'SQL_CUBE';
+  // The filters can be changed while the flow is open, so a format that was selectable a moment ago
+  // can become unusable. Recheck on every render rather than only at selection time.
+  const sequenceAvailability = getSequenceAvailability({
+    totalRecords,
+    sequencedRecords,
+    loading: loadingCounts,
+  });
+  const blockedByMissingSequences = isSequenceFormat && sequenceAvailability === 'none';
 
   // Initialize configuration based on format
   const getInitialConfig = (): BaseConfig | DarwinCoreConfig | CubeConfig => {
@@ -55,7 +74,7 @@ export default function ConfigurationStep({
       checklistKey: currentContextChecklistKey ?? defaultChecklist,
     };
 
-    if (isDarwinCoreArchive) {
+    if (hasExtensions) {
       return { ...baseConfig, extensions: [] } as DarwinCoreConfig;
     }
 
@@ -86,8 +105,8 @@ export default function ConfigurationStep({
 
   // Determine which section should be expanded initially
   const getInitialActiveSection = () => {
-    if (isDarwinCoreArchive) {
-      return 'extensions'; // Expand extensions for Darwin Core Archive
+    if (hasExtensions) {
+      return 'extensions'; // Expand extensions for Darwin Core based archives
     }
     if (isCubeData) {
       return 'cube'; // Expand cube for Cube Data
@@ -102,7 +121,7 @@ export default function ConfigurationStep({
   };
 
   const handleExtensionsChange = (extensions: string[]) => {
-    if (isDarwinCoreArchive) {
+    if (hasExtensions) {
       setConfig((prev) => ({ ...prev, extensions }));
     }
   };
@@ -140,7 +159,7 @@ export default function ConfigurationStep({
     return isCubeValid;
   };
 
-  const canContinue = isCubeConfigValid();
+  const canContinue = isCubeConfigValid() && !blockedByMissingSequences;
 
   const toggleSection = (section: string) => {
     setActiveSection(activeSection === section ? null : section);
@@ -162,6 +181,15 @@ export default function ConfigurationStep({
       <div className="g-grid lg:g-grid-cols-3 g-gap-8">
         {/* Configuration Sections */}
         <div className="lg:g-col-span-2 g-space-y-6">
+          {/* Sequence availability - the filters can change while this step is open */}
+          {isSequenceFormat && (
+            <SequenceAvailabilityNotice
+              totalRecords={totalRecords}
+              sequencedRecords={sequencedRecords}
+              loading={loadingCounts}
+            />
+          )}
+
           {/* Taxonomy Configuration - Always shown */}
           {!isCubeData && (
             <TaxonomySelector
@@ -172,8 +200,8 @@ export default function ConfigurationStep({
             />
           )}
 
-          {/* Extensions Selection - Only for Darwin Core Archive */}
-          {isDarwinCoreArchive && 'extensions' in config && (
+          {/* Extensions Selection - Only for Darwin Core based archives */}
+          {hasExtensions && 'extensions' in config && (
             <ExtensionsSelector
               selectedExtensions={config.extensions}
               onChange={handleExtensionsChange}
@@ -204,7 +232,11 @@ export default function ConfigurationStep({
               <FormattedMessage id="occurrenceDownloadFlow.downloadSummary" />
             </h3>
 
-            <DownloadSummary selectedFormat={selectedFormat} configuration={config} />
+            <DownloadSummary
+              selectedFormat={selectedFormat}
+              configuration={config}
+              sequencedRecords={sequencedRecords}
+            />
 
             <div className="g-mt-6 g-pt-4 g-border-t g-border-gray-200">
               {canContinue && (
@@ -213,7 +245,16 @@ export default function ConfigurationStep({
                 </div>
               )}
 
-              {!canContinue && (
+              {blockedByMissingSequences && (
+                <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">
+                  <FormattedMessage
+                    id="occurrenceDownloadFlow.sequences.noSequencesDescription"
+                    defaultMessage="This format is only available for searches that contain DNA sequences. Add a filter that selects sequenced records to use it."
+                  />
+                </div>
+              )}
+
+              {!canContinue && !blockedByMissingSequences && (
                 <div className="g-text-red-600 g-text-sm g-font-medium g-mb-4">
                   <FormattedMessage id="customSqlDownload.errorMinimumDimensionForCube" />
                 </div>
