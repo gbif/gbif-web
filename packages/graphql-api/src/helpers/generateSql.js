@@ -86,7 +86,9 @@ async function getWhereClause({ predicate, taxonomicDimension, temporalDimension
   if (taxonomicDimension) {
     const taxonomicRestrictions = WHERE_PREDICATE_RESTRICTIONS.taxonomicDimension[taxonomicDimension];
     if (taxonomicRestrictions) {
-      if (checklistKey) taxonomicRestrictions[0].checklistKey = checklistKey;
+      if (checklistKey && checklistKey !== config.colUUID) {
+        taxonomicRestrictions[0].checklistKey = checklistKey;
+      }
       restrictions.push(...taxonomicRestrictions);
     }
   }
@@ -116,7 +118,7 @@ async function getWhereClause({ predicate, taxonomicDimension, temporalDimension
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ predicate: combinedPredicate }),
+    body: JSON.stringify({ predicate: combinedPredicate, checklistKey: config.colUUID }),
   }).then((response) => response.json());
 
   // replace newlines with spaces and replace double spaces with single spaces
@@ -147,7 +149,7 @@ export default async function generateSql(parameters) {
     includeTemporalUncertainty,
     includeSpatialUncertainty,
     predicate,
-    checklistKey = config.gbifBackboneUUID,
+    checklistKey = config.colUUID,
   } = parameters;
 
   let filters;
