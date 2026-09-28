@@ -29,6 +29,7 @@ import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { usePublisherKeyLoaderData } from '.';
 import TestSiteAlert from '@/components/TestSiteAlert';
+import { BulletList } from '@/components/bulletList';
 
 export function PublisherKeyAbout() {
   const { publisher } = usePublisherKeyLoaderData();
@@ -126,11 +127,19 @@ export function PublisherKeyAbout() {
                     <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
                   </div>
                 )}
-                {publisher.email && (
+                {publisher.email && publisher.email.length > 0 && (
                   <div>
-                    <a href={`mailto:${publisher.email}`} style={{ wordBreak: 'break-all' }}>
-                      {publisher.email}
-                    </a>
+                    <BulletList>
+                      {publisher.email.map((x) => {
+                        return (
+                          <li>
+                            <a href={`mailto:${x}`} style={{ wordBreak: 'break-all' }}>
+                              {x}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </BulletList>
                   </div>
                 )}
                 {publisher.phone && (
