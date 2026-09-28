@@ -61,6 +61,9 @@ export class GraphQLService {
         preview: this.preview.toString(),
         ...(this.authorization ? { authorization: this.authorization } : {}),
         ...(this.siteUrl ? { 'x-gbif-site-url': this.siteUrl } : {}),
+        ...(import.meta.env.PUBLIC_GIT_COMMIT
+          ? { 'x-gbif-client-commit': import.meta.env.PUBLIC_GIT_COMMIT }
+          : {}),
       },
       signal: this.abortSignal,
       cache: this.preview || this.authorization ? 'no-cache' : 'default',
@@ -95,6 +98,9 @@ export class GraphQLService {
           preview: this.preview.toString(),
           ...(this.authorization ? { authorization: this.authorization } : {}),
           ...(this.siteUrl ? { 'x-gbif-site-url': this.siteUrl } : {}),
+          ...(import.meta.env.PUBLIC_GIT_COMMIT
+            ? { 'x-gbif-client-commit': import.meta.env.PUBLIC_GIT_COMMIT }
+            : {}),
         },
         signal: this.abortSignal,
         body: JSON.stringify(postBody),

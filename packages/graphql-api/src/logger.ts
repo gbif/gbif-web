@@ -1,4 +1,5 @@
 import ecsFormat from '@elastic/ecs-winston-format';
+import fs from 'fs';
 import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
@@ -9,6 +10,13 @@ import { getRequestLogContext } from './requestContext';
 const env = process.env.NODE_ENV || 'local';
 const serviceName = 'graphql-api';
 const serviceClass = 'web';
+// Written by `npm run build` from GIT_COMMIT.
+let commit: string | undefined;
+try {
+  commit = fs.readFileSync(path.join(__dirname, '../commit.txt'), 'utf8').trim();
+} catch {
+  commit = undefined;
+}
 const levels = {
   DEBUG: 'debug',
   INFO: 'info',
@@ -59,6 +67,7 @@ const addFixedFields = winston.format((info) => {
     environment: env,
     service: serviceName,
     class: serviceClass,
+    commit,
   };
 });
 
@@ -69,6 +78,7 @@ const addRequestContext = winston.format((info) => {
   const fields: Record<string, unknown> = {};
   if (requestContext.requestId) fields.requestId = requestContext.requestId;
   if (requestContext.siteUrl) fields.siteUrl = requestContext.siteUrl;
+  if (requestContext.clientCommit) fields.clientCommit = requestContext.clientCommit;
   return { ...info, ...fields };
 });
 
