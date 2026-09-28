@@ -196,6 +196,12 @@ const preconfiguredCharts = {
       return <charts.PublishingCountryCode predicate={predicate} interactive {...props} />;
     },
   },
+  publishedByGbifRegion: {
+    translation: 'filters.publishedByGbifRegion.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.PublishedByGbifRegion predicate={predicate} interactive {...props} />;
+    },
+  },
   protocol: {
     component: ({ predicate, ...props }) => {
       return <charts.Protocol predicate={predicate} interactive {...props} />;

@@ -190,7 +190,7 @@ export const IdentifiedBy = getStringChart({
       };
     });
   },
-  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
   includeMapPredicate: true,
 });
 
@@ -214,7 +214,7 @@ export const RecordedBy = getStringChart({
       };
     });
   },
-  options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+  options: ['TABLE', 'PIE', 'COLUMN', 'MAP'],
   includeMapPredicate: true,
 });
 
