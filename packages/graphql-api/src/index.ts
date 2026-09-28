@@ -139,6 +139,7 @@ async function initializeServer() {
       {
         requestId: `gql-${randomUUID()}`,
         siteUrl: get(req, 'headers.x-gbif-site-url') || null,
+        clientCommit: get(req, 'headers.x-gbif-client-commit') || null,
       },
       () => next(),
     );

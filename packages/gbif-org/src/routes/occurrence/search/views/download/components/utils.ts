@@ -8,6 +8,52 @@ export const optionStyles = {
     'g-text-sm g-text-primary-500 g-mt-0.5 g-underline g-inline-flex g-items-center g-gap-1',
 };
 
+// The key of the nested field the FASTA archive is built from. A FASTA archive download is an
+// occurrence download restricted to `nucleotideSequence.sequence IS NOT NULL`, so records in the
+// search without a DNA sequence are simply not part of the archive.
+export const SEQUENCE_KEY = 'nucleotideSequence.sequence';
+
+// Formats that can only contain records with DNA sequences.
+const SEQUENCE_ONLY_FORMATS = ['FASTA_ARCHIVE'];
+
+// Formats that are Darwin Core Archives and therefore support picking verbatim extensions.
+const EXTENSION_FORMATS = ['DWCA', 'FASTA_ARCHIVE'];
+
+export const requiresSequences = (formatId?: string): boolean =>
+  formatId != null && SEQUENCE_ONLY_FORMATS.includes(formatId);
+
+export const supportsExtensions = (formatId?: string): boolean =>
+  formatId != null && EXTENSION_FORMATS.includes(formatId);
+
+// Narrow a predicate to only the records that carry a DNA sequence. Used for counting how much of
+// the current search a sequence-only download would actually contain - it is not sent to the
+// download API, which applies the restriction itself.
+export const withSequenceFilter = (predicate?: unknown): Record<string, unknown> => {
+  const sequenceFilter = { type: 'isNotNull', key: SEQUENCE_KEY };
+  if (!predicate) return sequenceFilter;
+  return { type: 'and', predicates: [predicate, sequenceFilter] };
+};
+
+export type SequenceAvailability = 'loading' | 'unknown' | 'none' | 'partial' | 'all';
+
+// How much of the current search a sequence-only format would cover: nothing at all (the format is
+// unusable), a subset of it, or all of it.
+export const getSequenceAvailability = ({
+  totalRecords,
+  sequencedRecords,
+  loading,
+}: {
+  totalRecords?: number;
+  sequencedRecords?: number;
+  loading?: boolean;
+}): SequenceAvailability => {
+  if (loading) return 'loading';
+  if (typeof sequencedRecords !== 'number') return 'unknown';
+  if (sequencedRecords === 0) return 'none';
+  if (typeof totalRecords === 'number' && sequencedRecords < totalRecords) return 'partial';
+  return 'all';
+};
+
 // Size estimation constants from portal16
 const EST_KB_DWCA = 0.355350332594235;
 const EST_KB_CSV = 0.1161948717948717;

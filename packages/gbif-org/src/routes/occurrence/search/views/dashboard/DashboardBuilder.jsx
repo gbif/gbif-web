@@ -555,7 +555,11 @@ const chartGroups = {
     ],
   },
   nucleotideSequence: {
-    values: ['nucleotideSequenceTargetGene', 'nucleotideSequenceSequenceLength', 'sequencePhylogeny'],
+    values: [
+      'nucleotideSequenceTargetGene',
+      'nucleotideSequenceSequenceLength',
+      'sequencePhylogeny',
+    ],
   },
   organism: {
     values: ['organismId', 'previousIdentifications'],
@@ -636,7 +640,7 @@ const chartGroups = {
     values: [
       'datasetKey',
       'publishingOrg',
-      'PublishingCountryCode',
+      'publishingCountryCode',
       'publishedByGbifRegion',
       'hostingOrganization',
       'networkKey',

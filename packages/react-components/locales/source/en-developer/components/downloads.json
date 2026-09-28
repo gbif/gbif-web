@@ -335,6 +335,10 @@
         "title": "Darwin Core Archive",
         "description": "Multiple files (core, raw values, interpreted data, extensions) for detailed or specialized use. The download can be customized by selecting specific extensions."
       },
+      "FASTA_ARCHIVE": {
+        "title": "FASTA archive",
+        "description": "A Darwin Core Archive of the records that have DNA sequences, with the sequences themselves added as a FASTA file. Only records with a DNA sequence are included."
+      },
       "SPECIES_LIST": {
         "title": "Species list",
         "description": "A distinct list of species with occurrence counts."
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "Coordinates (if selected)",
         "individualOccurrences": "Individual occurrences",
         "multimediaLinks": "Multimedia links",
-        "occurrenceCounts": "Occurrence counts"
+        "occurrenceCounts": "Occurrence counts",
+        "dnaSequences": "DNA sequences (FASTA)",
+        "sequencedRecordsOnly": "Sequenced records only"
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "Select the taxonomy that will be used to populate the taxonomic columns in the download",
       "defaultRecommended": "Default and recommended for most users",
       "version": "Version"
+    },
+    "sequences": {
+      "noSequencesTitle": "No DNA sequences in this search",
+      "noSequencesDescription": "This format is only available for searches that contain DNA sequences.",
+      "someSequencesTitle": "Only records with DNA sequences are included",
+      "someSequencesDescription": "{included} of the {total} records in your search have a DNA sequence. The remaining {discarded} records will not be part of the download.",
+      "recordsIncluded": "Records included"
     }
   },
   "customSqlDownload": {

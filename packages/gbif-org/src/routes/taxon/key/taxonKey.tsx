@@ -175,6 +175,7 @@ const TAXON_QUERY = /* GraphQL */ `
       bibliography {
         referenceID
         doi
+        url
         citation
         remarks
         isNamePublishedIn

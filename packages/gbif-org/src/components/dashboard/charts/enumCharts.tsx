@@ -171,6 +171,24 @@ export function PublishingCountryCode(props: ChartProps) {
   );
 }
 
+export function PublishedByGbifRegion(props: ChartProps) {
+  return (
+    <StandardEnumChart
+      {...{
+        filterKey: 'publishedByGbifRegion',
+        fieldName: 'publishedByGbifRegion',
+        translationTemplate: 'enums.gbifRegion.{key}',
+        enableOther: true,
+        enableUnknown: true,
+        titleTranslationId: 'filters.publishedByGbifRegion.name',
+        options: ['PIE', 'TABLE', 'COLUMN', 'MAP'],
+        includeMapPredicate: true,
+        ...props,
+      }}
+    />
+  );
+}
+
 export function Continent(props: ChartProps) {
   return (
     <StandardEnumChart

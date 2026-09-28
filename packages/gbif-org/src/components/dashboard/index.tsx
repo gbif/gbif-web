@@ -37,6 +37,7 @@ export const MediaType = lazyChart('MediaType');
 export const OccurrenceIssue = lazyChart('OccurrenceIssue');
 export const Country = lazyChart('Country');
 export const PublishingCountryCode = lazyChart('PublishingCountryCode');
+export const PublishedByGbifRegion = lazyChart('PublishedByGbifRegion');
 export const Continent = lazyChart('Continent');
 export const DwcaExtension = lazyChart('DwcaExtension');
 export const Protocol = lazyChart('Protocol');

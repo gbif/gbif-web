@@ -69,6 +69,16 @@ export function BibliographyContent({ taxonInfo }: Props) {
                           {bib.doi}
                         </a>
                       )}
+                      {!bib.doi && bib.url && (
+                        <a
+                          href={`${bib.url}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="g-text-primary-500 hover:g-underline g-underline-offset-2 g-break-all"
+                        >
+                          {bib.url}
+                        </a>
+                      )}
                     </span>
                     {bib.isNamePublishedIn && (
                       <InfoPill>

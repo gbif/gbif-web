@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "{FIELD} 당 출현",
   "kingdom": "계",
-  "sequencePhylogeny": "",
+  "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",
   "sequencePhylogeny.about": {

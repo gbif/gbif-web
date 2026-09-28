@@ -24,6 +24,13 @@ export default defineConfig({
       formats: ['es'],
       fileName: 'gbif-lib',
     },
+    rollupOptions: {
+      output: {
+        // Hashed chunks go in assets/ so the deploy host can merge and age out that folder
+        // without touching the stable-named entry files (gbif-lib.js, style.css).
+        chunkFileNames: 'assets/[name]-[hash].js',
+      },
+    },
   },
   resolve: {
     alias: {

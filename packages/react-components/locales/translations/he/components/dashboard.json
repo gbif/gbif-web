@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "תצפיות לפי {FIELD}",
   "kingdom": "ממלכה",
-  "sequencePhylogeny": "",
+  "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",
   "sequencePhylogeny.about": {

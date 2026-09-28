@@ -58,7 +58,7 @@
   },
   "occurrencesPerField": "",
   "kingdom": "Rijk",
-  "sequencePhylogeny": "",
+  "sequenceDendrogram": "",
   "sequencePhylogeny.downloadAlignment": "",
   "sequencePhylogeny.downloadNewick": "",
   "sequencePhylogeny.about": {

@@ -61,6 +61,7 @@ function OccurrenceDownloadFlow({
 }) {
   const {
     total,
+    sequencedTotal,
     loading,
     error,
     predicate: normalizedPredicate,
@@ -106,7 +107,9 @@ function OccurrenceDownloadFlow({
     );
   }
 
-  const enabledFormats = ['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST', 'SQL_CUBE'];
+  // FASTA archives are always listed, but only selectable when the search holds DNA sequences. The
+  // format selection disables the card and says why when it does not.
+  const enabledFormats = ['SIMPLE_CSV', 'DWCA', 'FASTA_ARCHIVE', 'SPECIES_LIST', 'SQL_CUBE'];
 
   return (
     <div className="g-min-h-screen g-py-8">
@@ -133,6 +136,7 @@ function OccurrenceDownloadFlow({
             <FormatSelection
               onFormatSelect={handleFormatSelect}
               totalRecords={total}
+              sequencedRecords={sequencedTotal}
               loadingCounts={loading}
               enabledFormats={enabledFormats}
               // onBack={() => setCurrentStep('QUALITY')}
@@ -151,6 +155,9 @@ function OccurrenceDownloadFlow({
               onContinue={handleConfigurationComplete}
               filter={filter}
               initialConfig={configuration}
+              totalRecords={total}
+              sequencedRecords={sequencedTotal}
+              loadingCounts={loading}
             />
           )}
 
@@ -160,6 +167,8 @@ function OccurrenceDownloadFlow({
               configuration={configuration}
               predicate={normalizedPredicate}
               totalRecords={total}
+              sequencedRecords={sequencedTotal}
+              loadingCounts={loading}
               onBack={() => setCurrentStep('CONFIGURE')}
             />
           )}

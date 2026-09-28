@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import fsp from 'node:fs/promises';
 import { createServer as createHttpServer } from 'node:http';
+import path from 'node:path';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import logger from './config/logger.mjs';
@@ -110,6 +111,16 @@ async function main() {
     next();
   });
 
+  // Images in public/img/public are meant to be hotlinked by third-party sites (e.g. logos).
+  // Helmet defaults to Cross-Origin-Resource-Policy: same-origin, which makes browsers refuse
+  // to load them from other origins. Override it for this path only, and allow CORS so they
+  // can also be fetched or drawn to a canvas.
+  app.use('/img/public', (req, res, next) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
   // Set up middleware based on the environment.
   let viteDevServer;
 
@@ -128,7 +139,23 @@ async function main() {
 
     app.use(viteDevServer.middlewares);
   } else {
-    app.use(express.static('dist/gbif/client', { index: false }));
+    // Content-hashed and retained across releases on the host, so they can be cached forever.
+    // Stable names (index.html, public/ copies) keep the default 10 minute cache.
+    // Must be set via setHeaders: the default Cache-Control middleware above already set the
+    // header, and send() only applies its own maxAge/immutable options when none is present.
+    const clientDir = path.resolve('dist/gbif/client');
+    const assetsDir = path.join(clientDir, 'assets') + path.sep;
+
+    app.use(
+      express.static(clientDir, {
+        index: false,
+        setHeaders: (res, filePath) => {
+          if (filePath.startsWith(assetsDir)) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          }
+        },
+      })
+    );
     app.use(express.static('public', { index: false }));
   }
 

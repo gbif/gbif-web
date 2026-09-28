@@ -611,6 +611,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     &:last-of-type:after {
       display: none;
     }
+    &:first-of-type {
+      padding-inline-start: 0;
+    }
   }
 }
 

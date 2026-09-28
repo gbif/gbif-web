@@ -25,6 +25,7 @@ export function PredicateDownloadFlow({
 
   const {
     total,
+    sequencedTotal,
     loading,
     error,
     predicate: normalizedPredicate,
@@ -71,9 +72,10 @@ export function PredicateDownloadFlow({
           <FormatSelection
             onFormatSelect={handleFormatSelect}
             totalRecords={total}
+            sequencedRecords={sequencedTotal}
             loadingCounts={loading}
             onBack={() => setCurrentStep('PREDICATE')}
-            enabledFormats={['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST']}
+            enabledFormats={['SIMPLE_CSV', 'DWCA', 'FASTA_ARCHIVE', 'SPECIES_LIST']}
           />
         )}
 
@@ -88,6 +90,9 @@ export function PredicateDownloadFlow({
             predicate={normalizedPredicate}
             onContinue={handleConfigurationComplete}
             initialConfig={configuration}
+            totalRecords={total}
+            sequencedRecords={sequencedTotal}
+            loadingCounts={loading}
           />
         )}
 
@@ -97,6 +102,8 @@ export function PredicateDownloadFlow({
             configuration={configuration}
             predicate={normalizedPredicate}
             totalRecords={total}
+            sequencedRecords={sequencedTotal}
+            loadingCounts={loading}
             onBack={() => setCurrentStep('CONFIGURE')}
             source={source}
           />

@@ -11,25 +11,27 @@ function generateMachineDescription(parameters, sql) {
 }
 
 function nameLookup(name, checklistKey) {
-  if (checklistKey === config.gbifBackboneUUID) {
-    if (name === 'order') return `occurrence."order"`;
+
+  if (checklistKey === config.colUUID) {
+    if (name === 'order') {
+      return `occurrence."order"`;
+    }
     return `occurrence.${name}`;
   }
-  const lowername = name.toLowerCase();
-  const lookup = {};
-  // generate for convinence the name lookup for the taxonomic dimensions, e.g. kingdom, phylum, class, order, family, genus
-  const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'taxon', 'acceptedtaxon'];
-  ranks.forEach((rank) => {
-    lookup[rank] = `occurrence.classificationdetails['${checklistKey}']['${rank}']`;
-    lookup[`${rank}key`] = `occurrence.classificationdetails['${checklistKey}']['${rank}key']`;
-  });
-  if (lowername === 'scientificname') {
-    return `occurrence.classificationdetails['${checklistKey}']['scientificname']`;
+
+  if (checklistKey === config.gbifBackboneUUID) {
+    if (name === 'order') {
+      return `occurrence.gbif_classification."order"`;
+    }
+    return `occurrence.gbif_classification.${name}`;
   }
-  if (lowername === 'acceptedscientificname') {
-    return `occurrence.classificationdetails['${checklistKey}']['acceptedscientificname']`;
+
+  if (checklistKey === "f5dc22ca-0bb1-4692-8a97-cc7ac54d7ed9") {
+    if (name === 'order') {
+      return `occurrence.za_classification."order"`;
+    }
+    return `occurrence.za_classification.${name}`;
   }
-  return lookup[lowername] || name;
 }
 
 export function getGbifMachineDescription(machineDescription, sql) {
@@ -84,7 +86,9 @@ async function getWhereClause({ predicate, taxonomicDimension, temporalDimension
   if (taxonomicDimension) {
     const taxonomicRestrictions = WHERE_PREDICATE_RESTRICTIONS.taxonomicDimension[taxonomicDimension];
     if (taxonomicRestrictions) {
-      if (checklistKey) taxonomicRestrictions[0].checklistKey = checklistKey;
+      if (checklistKey && checklistKey !== config.colUUID) {
+        taxonomicRestrictions[0].checklistKey = checklistKey;
+      }
       restrictions.push(...taxonomicRestrictions);
     }
   }
@@ -114,7 +118,7 @@ async function getWhereClause({ predicate, taxonomicDimension, temporalDimension
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ predicate: combinedPredicate }),
+    body: JSON.stringify({ predicate: combinedPredicate, checklistKey: config.colUUID }),
   }).then((response) => response.json());
 
   // replace newlines with spaces and replace double spaces with single spaces
@@ -145,7 +149,7 @@ export default async function generateSql(parameters) {
     includeTemporalUncertainty,
     includeSpatialUncertainty,
     predicate,
-    checklistKey = config.gbifBackboneUUID,
+    checklistKey = config.colUUID,
   } = parameters;
 
   let filters;
