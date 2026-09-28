@@ -6,6 +6,8 @@ export type RequestLogContext = {
   requestId?: string;
   // The page URL that issued the request (x-gbif-site-url header).
   siteUrl?: string | null;
+  // The client build's commit (x-gbif-client-commit header).
+  clientCommit?: string | null;
 };
 
 // Opened per request by the middleware in index.ts; merged into logs by logger.ts.
