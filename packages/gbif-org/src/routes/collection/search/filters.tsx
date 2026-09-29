@@ -366,12 +366,12 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       country: generateFilters({
-        config: { ...countryConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...countryConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),
       descriptorCountry: generateFilters({
-        config: { ...descriptorCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...descriptorCountryConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),

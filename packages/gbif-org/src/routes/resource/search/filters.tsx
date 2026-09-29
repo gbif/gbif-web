@@ -163,7 +163,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
     const nextFilters = {
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       countriesOfCoverage: generateFilters({
-        config: { ...countriesOfCoverageConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...countriesOfCoverageConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),
@@ -171,13 +171,13 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       countriesOfResearcher: generateFilters({
         config: {
           ...countriesOfResearcherConfig,
-          suggestConfig: { getSuggestions: countrySuggest },
+          suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true },
         },
         searchConfig,
         formatMessage,
       }),
       contractCountry: generateFilters({
-        config: { ...contractCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...contractCountryConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),
