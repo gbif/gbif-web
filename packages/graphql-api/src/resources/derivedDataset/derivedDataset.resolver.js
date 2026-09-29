@@ -1,4 +1,5 @@
 import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { getHtml } from '@/helpers/getHtml';
 import { excerpt, isValidDoi } from '@/helpers/utils';
 
 /**
@@ -33,6 +34,10 @@ export default {
     },
   },
   DerivedDataset: {
+    descriptionHtml: (src, _, { locale }) =>
+      src.description
+        ? getHtml(src.description, { trustLevel: 'markdown', locale })
+        : null,
     excerpt: (src) => excerpt({ body: src.description }),
     contributingDatasets: (
       parent,
