@@ -136,12 +136,7 @@ function GeographicMetrics({ predicate }: { predicate: Predicate }) {
           interactive={false}
           options={['TABLE', 'COLUMN', 'PIE']}
         />
-        <GadmGid
-          predicate={predicate}
-          visibilityThreshold={0}
-          interactive={false}
-          options={['TABLE']}
-        />
+        <GadmGid predicate={predicate} interactive={false} options={['TABLE']} />
         <Continent
           predicate={predicate}
           visibilityThreshold={0}

@@ -4372,6 +4372,7 @@ export type Literature = {
   excerpt?: Maybe<Scalars['String']['output']>;
   /** Extracted GBIF DOIs from the literature tags */
   gbifDOIs: Array<Scalars['String']['output']>;
+  gbifDerivedDatasetDoi?: Maybe<Array<Scalars['ID']['output']>>;
   gbifDownloadKey?: Maybe<Array<Scalars['ID']['output']>>;
   gbifRegion?: Maybe<Array<GbifRegion>>;
   id: Scalars['ID']['output'];
@@ -8226,6 +8227,7 @@ export type QueryLiteratureSearchArgs = {
   doi?: InputMaybe<Array<Scalars['String']['input']>>;
   from?: InputMaybe<Scalars['Int']['input']>;
   gbifDatasetKey?: InputMaybe<Array<Scalars['ID']['input']>>;
+  gbifDerivedDatasetDoi?: InputMaybe<Array<Scalars['ID']['input']>>;
   gbifDownloadKey?: InputMaybe<Array<Scalars['ID']['input']>>;
   gbifNetworkKey?: InputMaybe<Array<Scalars['ID']['input']>>;
   gbifOccurrenceKey?: InputMaybe<Array<Scalars['ID']['input']>>;
