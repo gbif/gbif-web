@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FaChevronLeft, FaCog } from 'react-icons/fa';
 import TaxonomySelector from './TaxonomySelector';
 import ExtensionsSelector from './ExtensionsSelector';
@@ -10,7 +10,12 @@ import { FilterType } from '@/contexts/filter';
 import { generateCubeSql, hasFilter } from './cube/cubeService';
 import { DownloadSummary } from './DownloadSummary';
 import { SequenceAvailabilityNotice } from './SequenceAvailabilityNotice';
-import { getSequenceAvailability, requiresSequences, supportsExtensions } from './utils';
+import {
+  getSequenceAvailability,
+  requiresSequences,
+  supportsExtensions,
+  withSequenceFilter,
+} from './utils';
 
 interface ConfigurationStepProps {
   selectedFormat: any;
@@ -65,6 +70,11 @@ export default function ConfigurationStep({
     sequencedRecords,
     loading: loadingCounts,
   });
+  // A FASTA archive only contains sequenced records, so count extensions on that subset
+  const extensionPredicate = useMemo(
+    () => (isSequenceFormat ? withSequenceFilter(predicate) : predicate),
+    [isSequenceFormat, predicate]
+  );
   const blockedByMissingSequences = isSequenceFormat && sequenceAvailability === 'none';
 
   // Initialize configuration based on format
@@ -207,7 +217,7 @@ export default function ConfigurationStep({
               onChange={handleExtensionsChange}
               isExpanded={activeSection === 'extensions'}
               onToggle={() => toggleSection('extensions')}
-              predicate={predicate}
+              predicate={extensionPredicate}
             />
           )}
 
