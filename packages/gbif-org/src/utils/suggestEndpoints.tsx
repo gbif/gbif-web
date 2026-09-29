@@ -12,6 +12,8 @@ export type SuggestConfig = {
   getSuggestions: (props: SuggestFnProps) => SuggestResponseType;
   placeholder?: string;
   getStringValue?: (item: SuggestionItem) => string;
+  // clear the search input after an item is selected
+  clearOnSelect?: boolean;
 };
 
 export const institutionKeySuggest: SuggestConfig = {
