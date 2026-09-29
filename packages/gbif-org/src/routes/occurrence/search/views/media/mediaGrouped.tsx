@@ -134,9 +134,11 @@ function buildGroupedQuery(field: GroupField): string {
 type Props = {
   groupBy: string;
   onGroupByChange?: (groupBy: string) => void;
+  /** Switch away from grouping to a flat, randomly sorted gallery */
+  onShowRandom?: () => void;
 };
 
-export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
+export function MediaGrouped({ groupBy, onGroupByChange, onShowRandom }: Props) {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const checklistKey = useChecklistKey();
@@ -286,6 +288,29 @@ export function MediaGrouped({ groupBy, onGroupByChange }: Props) {
             values={{
               shown: <FormattedNumber value={groups.length} />,
               total: <FormattedNumber value={totalGroups} />,
+            }}
+          />
+        </div>
+      )}
+      {onShowRandom && groups.length > 0 && (
+        <div className="g-text-center g-text-sm g-text-slate-500 g-my-6">
+          <FormattedMessage
+            id="search.group.moreImagesHint"
+            values={{
+              link: (
+                <button
+                  type="button"
+                  className="g-text-primary-500 g-underline"
+                  onClick={() => {
+                    onShowRandom();
+                    document
+                      .getElementById('gbif-media-view-top')
+                      ?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  <FormattedMessage id="search.group.moreImagesLink" />
+                </button>
+              ),
             }}
           />
         </div>
