@@ -18,6 +18,7 @@ const typeDef = gql`
       publishingOrganizationKey: [ID!]
       gbifNetworkKey: [ID!]
       gbifOccurrenceKey: [ID!]
+      gbifDerivedDatasetDoi: [ID!]
       peerReview: Boolean
       openAccess: Boolean
       gbifDownloadKey: [ID!]
@@ -32,12 +33,7 @@ const typeDef = gql`
     """
     The literature that match the filter
     """
-    documents(
-      size: Int
-      from: Int
-      sortBy: LiteratureSortBy
-      sortOrder: SortOrder
-    ): LiteratureDocuments!
+    documents(size: Int, from: Int, sortBy: LiteratureSortBy, sortOrder: SortOrder): LiteratureDocuments!
     """
     Get number of literature items per distinct values in a field. E.g. how many citations per year.
     """
@@ -101,10 +97,7 @@ const typeDef = gql`
   }
 
   type LiteratureAutoDateHistogram {
-    createdAt(
-      buckets: Float
-      minimum_interval: String
-    ): AutoDateHistogramResult!
+    createdAt(buckets: Float, minimum_interval: String): AutoDateHistogramResult!
   }
 
   type LiteratureCardinality {
@@ -168,6 +161,7 @@ const typeDef = gql`
     countriesOfResearcher: [String!]
     day: Int
     gbifDownloadKey: [ID!]
+    gbifDerivedDatasetDoi: [ID!]
     gbifRegion: [GbifRegion!]
     identifiers: LiteratureIdentifiers
     keywords: [String!]

@@ -17,6 +17,7 @@ const whitelist = [
   'gbifHigherTaxonKey',
   'citationType',
   'gbifRegion',
+  'gbifDerivedDatasetDoi',
   'id',
   'identifiers',
   'keywords',

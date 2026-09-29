@@ -169,6 +169,10 @@ const config = {
       type: 'keyword',
       field: 'gbifDownloadKey',
     },
+    gbifDerivedDatasetDoi: {
+      type: 'keyword',
+      field: 'gbifDerivedDatasetDoi.keyword',
+    },
     gbifOccurrenceKey: {
       type: 'keyword',
       field: 'gbifOccurrenceKey',
