@@ -2095,6 +2095,8 @@ export type DerivedDataset = {
   created?: Maybe<Scalars['DateTime']['output']>;
   createdBy?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  /** The description rendered from markdown and sanitized. Only a small set of tags is allowed, headings are demoted and links open in a new tab */
+  descriptionHtml?: Maybe<Scalars['String']['output']>;
   doi: Scalars['String']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
   modified?: Maybe<Scalars['DateTime']['output']>;
@@ -10606,7 +10608,7 @@ export type DerivedDatasetQueryVariables = Exact<{
 }>;
 
 
-export type DerivedDatasetQuery = { __typename?: 'Query', derivedDataset?: { __typename?: 'DerivedDataset', doi: string, originalDownloadDOI?: string | null, title?: string | null, description?: string | null, sourceUrl?: string | null, created?: string | null, modified?: string | null, createdBy?: string | null, modifiedBy?: string | null, citation?: string | null, contributingDatasets: { __typename?: 'ContributingDatasetsListResult', count: number, limit: number, offset: number, endOfRecords: boolean, results: Array<{ __typename?: 'ContributingDataset', datasetKey: string, datasetDOI?: string | null, datasetTitle?: string | null, citation?: string | null, numberRecords: number }> } } | null };
+export type DerivedDatasetQuery = { __typename?: 'Query', derivedDataset?: { __typename?: 'DerivedDataset', doi: string, originalDownloadDOI?: string | null, title?: string | null, description?: string | null, descriptionHtml?: string | null, sourceUrl?: string | null, created?: string | null, modified?: string | null, createdBy?: string | null, modifiedBy?: string | null, citation?: string | null, contributingDatasets: { __typename?: 'ContributingDatasetsListResult', count: number, limit: number, offset: number, endOfRecords: boolean, results: Array<{ __typename?: 'ContributingDataset', datasetKey: string, datasetDOI?: string | null, datasetTitle?: string | null, citation?: string | null, numberRecords: number }> } } | null };
 
 export type DerivedDatasetAboutQueryVariables = Exact<{
   key: Scalars['String']['input'];

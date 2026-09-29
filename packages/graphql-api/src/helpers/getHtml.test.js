@@ -107,4 +107,15 @@ const a = 1;
       `<div class="gbif-table-wrapper"><table><thead><tr><th>a</th></tr></thead><tbody><tr><td>1</td></tr></tbody></table></div>`,
     );
   });
+
+  it('markdown trust level: keeps code, demotes headings, only allows href and forces new tab links', () => {
+    const result = getHtml(
+      '# Title\n\n[x](https://example.org) <a href="https://example.org" onclick="x()" target="_self" style="color:red">y</a>\n\n```\ncode\n```',
+      { trustLevel: 'markdown' },
+    );
+    assert.strictEqual(
+      result,
+      '<h3>Title</h3><p><a href="https://example.org" target="_blank" rel="noopener noreferrer nofollow">x</a> <a href="https://example.org" target="_blank" rel="noopener noreferrer nofollow">y</a></p><pre><code>code\n</code></pre>',
+    );
+  });
 });
