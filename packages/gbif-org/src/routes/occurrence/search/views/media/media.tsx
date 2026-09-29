@@ -311,6 +311,7 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
           <MediaGrouped
             groupBy={groupState.groupBy}
             onGroupByChange={(groupBy) => onGroupStateChange({ mode: 'group', groupBy })}
+            onShowRandom={() => onGroupStateChange({ mode: 'random', groupBy: undefined })}
           />
         )}
       </MediaPresentation>
