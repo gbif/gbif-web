@@ -1,5 +1,5 @@
-import { FormattedDate, FormattedDateTimeRange, FormattedMessage, useIntl } from 'react-intl';
-import { mediumDateFormatProps } from '@/components/dateFormats';
+import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
+import { DateRange, mediumDateFormatProps } from '@/components/dateFormats';
 import { HyperText } from './hyperText';
 
 export function Message({
@@ -77,12 +77,7 @@ export function FormattedDateRange({
   if (endDate) {
     // if there is an end date, show the start date and end date
     diplayDate = (
-      <FormattedDateTimeRange
-        from={new Date(startDate)}
-        to={new Date(endDate)}
-        {...resolution}
-        timeZone="UTC"
-      />
+      <DateRange from={new Date(startDate)} to={new Date(endDate)} {...resolution} timeZone="UTC" />
     );
   }
   return diplayDate;

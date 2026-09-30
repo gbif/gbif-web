@@ -5,8 +5,8 @@ import { ProjectPageFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarMonth as CalendarIcon, MdEuro as EuroIcon, MdLink } from 'react-icons/md';
-import { FormattedDateTimeRange, FormattedMessage, FormattedNumber } from 'react-intl';
-import { longDateFormatProps } from '@/components/dateFormats';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { DateRange, longDateFormatProps } from '@/components/dateFormats';
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleSkeleton } from '../components/articleSkeleton';
@@ -114,7 +114,7 @@ export function ProjectPage() {
             {resource.start && resource.end && (
               <GenericFeature>
                 <CalendarIcon size={18} />
-                <FormattedDateTimeRange
+                <DateRange
                   from={new Date(resource.start)}
                   to={new Date(resource.end)}
                   {...longDateFormatProps}
