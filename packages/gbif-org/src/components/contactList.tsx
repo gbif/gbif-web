@@ -82,7 +82,7 @@ function Contact({ contact, ...props }) {
               >
                 <img
                   style={{ pointerEvents: 'none' }}
-                  src="https://www.gbif.org/img/orcid_16x16.gif"
+                  src={import.meta.env.PUBLIC_BASE_URL + '/img/public/orcid_16x16.gif'}
                 />
               </a>
             )}

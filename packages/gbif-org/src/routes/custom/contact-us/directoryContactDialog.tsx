@@ -133,7 +133,7 @@ export function DirectoryContactDialogContent({ personId }: Props) {
                 <a href={person.orcidId} className="g-flex g-items-center g-text-inherit g-gap-4">
                   <img
                     style={{ pointerEvents: 'none' }}
-                    src="https://www.gbif.org/img/orcid_16x16.gif"
+                    src={import.meta.env.PUBLIC_BASE_URL + '/img/public/orcid_16x16.gif'}
                     alt="ORCID"
                   />
                   <span>{person.orcidId}</span>
