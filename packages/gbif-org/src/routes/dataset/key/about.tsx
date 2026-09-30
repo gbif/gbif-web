@@ -688,11 +688,14 @@ function Trusted({ dataset }: { dataset: NonNullable<DatasetQuery['dataset']> })
       <div className="g-flex g-gap-2">
         <Button asChild>
           <a
-            href={`${import.meta.env.PUBLIC_REGISTRY}/dataset/${dataset.key}/ingestion-history`}
+            href={`${import.meta.env.PUBLIC_REGISTRY}/dataset/${dataset.key}`}
             target="_blank"
             rel="noreferrer"
           >
-            <FormattedMessage id="dataset.history" defaultMessage="History" />
+            <FormattedMessage
+              id="dataset.trustedContactRegistryLink"
+              defaultMessage="Maangement interface"
+            />
           </a>
         </Button>
         <Button variant="outline" asChild>
