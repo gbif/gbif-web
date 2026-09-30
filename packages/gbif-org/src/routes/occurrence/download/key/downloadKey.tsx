@@ -235,22 +235,30 @@ export function DownloadKeySkeleton() {
   return <ArticleSkeleton />;
 }
 
-export function DownloadTitle({ download }: { download: Download }) {
+export function DownloadTitle({
+  download,
+  ignoreStatus = false,
+}: {
+  download: Download;
+  // When true, the title is based on format only (status may be stale, e.g. in cached lists)
+  ignoreStatus?: boolean;
+}) {
   const errorClassName = 'g-text-orange-700';
   // logic to create the title based on download state and format
-  if (download.status === 'KILLED' || download.status === 'FAILED') {
+  const status = ignoreStatus ? undefined : download.status;
+  if (status === 'KILLED' || status === 'FAILED') {
     return (
       <span className={errorClassName}>
         <FormattedMessage id="downloadKey.brokenDownload" />
       </span>
     );
-  } else if (download.status === 'CANCELLED') {
+  } else if (status === 'CANCELLED') {
     return (
       <span className={errorClassName}>
         <FormattedMessage id="downloadKey.cancelled" />
       </span>
     );
-  } else if (download.status === 'PREPARING' || download.status === 'RUNNING') {
+  } else if (status === 'PREPARING' || status === 'RUNNING') {
     return (
       <span className="g-flex g-items-center g-gap-4">
         <FormattedMessage id="downloadKey.underProcessing" />
