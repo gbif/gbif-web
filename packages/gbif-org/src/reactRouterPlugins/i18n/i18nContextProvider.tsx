@@ -117,6 +117,8 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
         messages={messages || {}}
         locale={locale.reactIntlLocale ?? locale.code}
         defaultLocale={defaultLocale.reactIntlLocale ?? defaultLocale.code}
+        // Format all dates in UTC so SSR (server tz) and hydration (user tz) produce identical output
+        timeZone="UTC"
       >
         <DirectionProvider dir={locale.textDirection}>{children}</DirectionProvider>
       </IntlProvider>
