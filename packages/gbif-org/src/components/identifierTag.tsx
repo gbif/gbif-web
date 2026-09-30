@@ -67,7 +67,7 @@ export function OrcId({ href, className }: { href: string; className?: string })
       <img
         alt="ORCID logo"
         className="g-me-1 g-inline-block"
-        src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png"
+        src={import.meta.env.PUBLIC_BASE_URL + '/img/public/orcid_16x16.gif'}
         width="16"
         height="16"
       />
