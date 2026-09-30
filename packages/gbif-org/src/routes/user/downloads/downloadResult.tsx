@@ -36,9 +36,10 @@ fragmentManager.register(/* GraphQL */ `
 interface DownloadResultProps {
   download: DownloadResultFragment;
   onCancel?: (key: string) => void;
+  hideStatus?: boolean;
 }
 
-export function DownloadResult({ download }: DownloadResultProps) {
+export function DownloadResult({ download, hideStatus }: DownloadResultProps) {
   const { size, unit } = formatBytes(download?.size ?? 0, 0);
 
   const pageId = download.request?.type === 'OCCURRENCE' ? 'downloadKey' : 'eventDownloadKey';
@@ -51,7 +52,7 @@ export function DownloadResult({ download }: DownloadResultProps) {
               <div className="g-flex-grow">
                 <div className="g-flex g-items-center g-gap-2">
                   <h3 className="g-text-base g-font-semibold">
-                    <DownloadTitle download={download} />
+                    <DownloadTitle download={download} ignoreStatus={hideStatus} />
                   </h3>
                 </div>
 
