@@ -444,7 +444,7 @@ export const datasetIdConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.datasetId.description" />,
-  group: 'record',
+  group: 'other',
 };
 
 export const organismQuantityTypeConfig: filterWildcardConfig = {

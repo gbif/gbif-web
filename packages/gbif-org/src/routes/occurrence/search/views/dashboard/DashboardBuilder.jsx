@@ -531,7 +531,6 @@ const chartGroups = {
       'collectionCode',
       'collectionKey',
       'basisOfRecord',
-      'datasetId',
     ],
   },
   occurrence: {
@@ -650,7 +649,7 @@ const chartGroups = {
     ],
   },
   other: {
-    values: ['dataQuality', 'occurrenceSummary'],
+    values: ['dataQuality', 'occurrenceSummary', 'datasetId', 'datasetName'],
   },
 };
 
