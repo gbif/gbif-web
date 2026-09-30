@@ -5,7 +5,7 @@ import { EventResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import { mediumDateFormatProps, MediumDate } from '@/components/dateFormats';
+import { mediumDateFormatProps, MediumDate, toWallClock } from '@/components/dateFormats';
 import { getTextDirection } from '@/utils/textDirection';
 import { stripTags } from '@/utils/stripTags';
 import { useConfig } from '@/config/config';
@@ -75,6 +75,9 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
   const { v1Endpoint } = useConfig();
   // event starts and ends the same day
   const sameDay = event?.start?.substring(0, 10) === event?.end?.substring(0, 10);
+  // wall-clock dates in the authored offset, formatted as UTC (same output on server and client)
+  const start = toWallClock(event.start).date;
+  const end = event.end ? toWallClock(event.end).date : undefined;
 
   return (
     <ResultCard.Metadata className="g-mt-2">
@@ -82,18 +85,18 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
       <div className="g-flex g-items-center">
         <MdCalendarToday className="g-me-2" />
         {/* format start and end dates. if same day, then only show time. if different day, then show date and time. */}
-        <MediumDate value={event.start} />
+        <MediumDate value={start} />
         {/* if starts and ends same day and not an allDayEvent, then show time interval */}
         {sameDay && !event.allDayEvent && (
           <>
             {' '}
-            <FormattedDate value={event.start} hour="numeric" minute="numeric" hour12={false} />
+            <FormattedDate value={start} hour="numeric" minute="numeric" hour12={false} />
           </>
         )}
-        {event.end && !sameDay && (
+        {end && !sameDay && (
           <>
             {' - '}
-            <FormattedDate value={event.end} {...mediumDateFormatProps} hour12={false} />
+            <FormattedDate value={end} {...mediumDateFormatProps} hour12={false} />
           </>
         )}
       </div>
@@ -106,10 +109,7 @@ function EventMetadata({ event }: Pick<Props, 'event'>) {
       <div className="g-mt-2 g-flex g-gap-4">
         {!isPast(event) && (
           <Button asChild variant="secondary">
-            <a
-              href={`${v1Endpoint}/newsroom/events/${event.id}.ics`}
-              className="g-flex g-gap-2"
-            >
+            <a href={`${v1Endpoint}/newsroom/events/${event.id}.ics`} className="g-flex g-gap-2">
               <MdCalendarMonth />
               <FormattedMessage id="cms.resource.addToCalendar" />
             </a>

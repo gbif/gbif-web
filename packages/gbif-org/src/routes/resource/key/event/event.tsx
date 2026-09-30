@@ -1,4 +1,3 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { Button } from '@/components/ui/button';
 import { EventPageFragment } from '@/gql/graphql';
@@ -6,7 +5,7 @@ import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarMonth } from 'react-icons/md';
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, FormattedTime } from 'react-intl';
-import { LongDate, longDateFormatProps } from '@/components/dateFormats';
+import { LongDate, longDateFormatProps, toWallClock } from '@/components/dateFormats';
 import { useLoaderData, useLocation } from 'react-router-dom';
 import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
@@ -75,8 +74,9 @@ export function EventPage() {
   const { resource } = data;
   const { v1Endpoint } = useConfig();
 
-  const startDate = new Date(resource.start);
-  const endDate = resource.end ? new Date(resource.end) : undefined;
+  // Wall-clock dates in the authored offset, formatted as UTC => identical on server and client
+  const { date: startDate, offsetLabel } = toWallClock(resource.start);
+  const endDate = resource.end ? toWallClock(resource.end).date : undefined;
 
   const location = useLocation();
 
@@ -95,11 +95,9 @@ export function EventPage() {
           <ArticlePreTitle
             clickable
             secondary={
-              <ClientSideOnly>
-                <span>
-                  <EventDateRange start={startDate} end={endDate} />
-                </span>
-              </ClientSideOnly>
+              <span>
+                <EventDateRange start={startDate} end={endDate} />
+              </span>
             }
           >
             <DynamicLink to="/resource/search?contentType=event">
@@ -114,10 +112,7 @@ export function EventPage() {
           )}
 
           <Button className="g-mt-4" asChild>
-            <a
-              href={`${v1Endpoint}/newsroom/events/${resource.id}.ics`}
-              className="g-flex g-gap-2"
-            >
+            <a href={`${v1Endpoint}/newsroom/events/${resource.id}.ics`} className="g-flex g-gap-2">
               <MdCalendarMonth />
               <FormattedMessage id="cms.resource.addToCalendar" />
             </a>
@@ -133,7 +128,7 @@ export function EventPage() {
             {!resource.allDayEvent && (
               <span className="g-flex g-items-center g-gap-2">
                 <LuClock4 />
-                <EventTimeRange start={startDate} end={endDate} />
+                <EventTimeRange start={startDate} end={endDate} offsetLabel={offsetLabel} />
               </span>
             )}
 
@@ -190,13 +185,12 @@ export function EventPage() {
               <KeyValuePair
                 label={<FormattedMessage id="cms.resource.when" />}
                 value={
-                  <ClientSideOnly>
-                    <DateTimeRange
-                      start={startDate}
-                      end={endDate}
-                      allDay={resource.allDayEvent ?? undefined}
-                    />
-                  </ClientSideOnly>
+                  <DateTimeRange
+                    start={startDate}
+                    end={endDate}
+                    allDay={resource.allDayEvent ?? undefined}
+                    offsetLabel={offsetLabel}
+                  />
                 }
               />
 
@@ -219,10 +213,11 @@ type RangeProps = {
   end?: Date;
 };
 
+// Dates here are wall-clock dates (see toWallClock) so UTC getters are the correct ones
 const isSameDate = (a: Date, b: Date) =>
-  a.getDate() === b.getDate() &&
-  a.getMonth() === b.getMonth() &&
-  a.getFullYear() === b.getFullYear();
+  a.getUTCDate() === b.getUTCDate() &&
+  a.getUTCMonth() === b.getUTCMonth() &&
+  a.getUTCFullYear() === b.getUTCFullYear();
 
 export function EventDateRange({ start, end }: RangeProps) {
   if (end && !isSameDate(start, end))
@@ -231,26 +226,41 @@ export function EventDateRange({ start, end }: RangeProps) {
   return <LongDate value={start} />;
 }
 
-export function EventTimeRange({ start, end }: RangeProps) {
+export function EventTimeRange({ start, end, offsetLabel }: RangeProps & { offsetLabel?: string }) {
   const timeOptions = {
     hour: 'numeric',
     minute: 'numeric',
     hour12: false,
-    timeZoneName: 'shortGeneric',
   } as const;
 
-  if (!end) return <FormattedTime value={start} {...timeOptions} />;
+  const label = offsetLabel ? ` ${offsetLabel}` : '';
+
+  if (!end)
+    return (
+      <>
+        <FormattedTime value={start} {...timeOptions} />
+        {label}
+      </>
+    );
 
   // Make a copy of the end date and overwrite the date/month/year with the start date
   const mockEnd = new Date(end);
-  mockEnd.setDate(start.getDate());
-  mockEnd.setMonth(start.getMonth());
-  mockEnd.setFullYear(start.getFullYear());
+  mockEnd.setUTCFullYear(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate());
 
-  return <FormattedDateTimeRange from={start} to={mockEnd} {...timeOptions} />;
+  return (
+    <>
+      <FormattedDateTimeRange from={start} to={mockEnd} {...timeOptions} />
+      {label}
+    </>
+  );
 }
 
-function DateTimeRange({ start, end, allDay }: RangeProps & { allDay: boolean | undefined }) {
+function DateTimeRange({
+  start,
+  end,
+  allDay,
+  offsetLabel,
+}: RangeProps & { allDay: boolean | undefined; offsetLabel: string }) {
   const dateOptions = {
     ...longDateFormatProps,
     hour12: false,
@@ -259,12 +269,20 @@ function DateTimeRange({ start, end, allDay }: RangeProps & { allDay: boolean | 
     hour: 'numeric',
     minute: 'numeric',
     hour12: false,
-    timeZoneName: 'long',
   } as const;
 
   if (end && allDay) return <FormattedDateTimeRange from={start} to={end} {...dateOptions} />;
   if (end)
-    return <FormattedDateTimeRange from={start} to={end} {...dateOptions} {...timeOptions} />;
-  if (allDay) return <FormattedDate value={start} {...dateOptions} ti />;
-  return <FormattedDate value={start} {...dateOptions} {...timeOptions} />;
+    return (
+      <>
+        <FormattedDateTimeRange from={start} to={end} {...dateOptions} {...timeOptions} />{' '}
+        {offsetLabel}
+      </>
+    );
+  if (allDay) return <FormattedDate value={start} {...dateOptions} />;
+  return (
+    <>
+      <FormattedDate value={start} {...dateOptions} {...timeOptions} /> {offsetLabel}
+    </>
+  );
 }
