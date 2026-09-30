@@ -65,7 +65,7 @@ export const datasetNameConfig: filterSuggestConfig = {
   `,
   allowExistence: true,
   about: () => <Message id="filters.datasetName.description" />,
-  group: 'record',
+  group: 'other',
 };
 
 export const associatedSequencesConfig: filterSuggestConfig = {
