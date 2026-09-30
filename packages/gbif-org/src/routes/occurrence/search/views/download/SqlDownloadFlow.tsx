@@ -6,18 +6,14 @@ import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Skeleton } from '@/components/ui/skeleton';
 import SqlEditor from '@/routes/occurrence/download/editor/sqlEditor';
 
-export function SqlDownloadFlow({
-  defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
-}: {
-  defaultChecklist?: string;
-}) {
+export function SqlDownloadFlow() {
   const [currentStep, setCurrentStep] = useState<'SQL' | 'TERMS'>('SQL');
   const [selectedFormat] = useState({ id: 'SQL_TSV_ZIP' });
   const [configuration, setConfiguration] = useState(null);
 
   const handleSqlSelect = (sql: any) => {
     setCurrentStep('TERMS');
-    setConfiguration({ sql, checklistKey: defaultChecklist });
+    setConfiguration({ sql });
   };
 
   return (
