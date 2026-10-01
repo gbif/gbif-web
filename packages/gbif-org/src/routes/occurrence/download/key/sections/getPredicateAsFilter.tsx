@@ -97,7 +97,9 @@ export function getPredicateAsFilter({
 
     if (p.type === 'like') {
       // TODO we should check that the field supports like filtering in the UI
-      if (filters[camelKey].filterType === filterConfigTypes.WILDCARD) {
+      // camelKey may resolve to a field that has no UI filter component (e.g. a
+      // serializer-only synthetic field), so guard the registry lookup before access.
+      if (camelKey && filters[camelKey]?.filterType === filterConfigTypes.WILDCARD) {
         filter.mustNot[camelKey] = (filter.mustNot[camelKey] ?? []).concat([
           { type: 'like', value: p.value },
         ]);
@@ -128,7 +130,9 @@ export function getPredicateAsFilter({
 
     if (p.type === 'like') {
       // TODO we should check that the field supports like filtering in the UI
-      if (filters[camelKey].filterType === filterConfigTypes.WILDCARD) {
+      // camelKey may resolve to a field that has no UI filter component (e.g. a
+      // serializer-only synthetic field), so guard the registry lookup before access.
+      if (camelKey && filters[camelKey]?.filterType === filterConfigTypes.WILDCARD) {
         filter.must[camelKey] = (filter.must[camelKey] ?? []).concat([
           { type: 'like', value: p.value },
         ]);
@@ -182,7 +186,10 @@ export function getPredicateAsFilter({
 
     if (p.type === 'isNotNull') {
       // check if allowed. There is a risk here that different naming is used. I will ignore that for now
-      if (filters[camelParameter].allowExistence) {
+      // camelParameter can resolve to a field that exists in searchConfig.fields but has no UI filter
+      // component — e.g. NUCLEOTIDE_SEQUENCE_SEQUENCE, where the real NucleotideSequence.sequence
+      // object member collides with a serializer-only synthetic field. Guard before dereferencing.
+      if (camelParameter && filters[camelParameter]?.allowExistence) {
         filter.must[camelParameter] = (filter.must[camelParameter] ?? []).concat([
           { type: 'isNotNull' },
         ]);
@@ -194,7 +201,8 @@ export function getPredicateAsFilter({
 
     if (p.type === 'isNull') {
       // check if allowed. There is a risk here that different naming is used. I will ignore that for now
-      if (filters[camelParameter].allowExistence) {
+      // See the isNotNull branch above: guard against fields without a UI filter component.
+      if (camelParameter && filters[camelParameter]?.allowExistence) {
         filter.must[camelParameter] = (filter.must[camelParameter] ?? []).concat([
           { type: 'isNull' },
         ]);
