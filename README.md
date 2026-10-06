@@ -17,7 +17,7 @@ This is a monorepo to group GBIF web components and API wrappers that serve UI s
 - [Elasticsearch API wrapper](./packages/es-api/README.md)
 - [React Components library - legacy, only the translation sources in `locales/` are still in use](./packages/react-components/README.md)
 
-For an overview of how the packages fit together and the conventions used in each, see [CLAUDE.md](./CLAUDE.md). It is written for coding agents but is a good short orientation for contributors too.
+For an overview of how the packages fit together and the conventions used in each, see [AGENTS.md](./AGENTS.md). It is written for coding agents but is a good short orientation for contributors too.
 
 ## Adding packages
 
