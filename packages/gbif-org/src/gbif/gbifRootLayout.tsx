@@ -12,11 +12,8 @@ import { Footer } from './footer';
 import { Header } from './header';
 import { GDPR } from '@/components/gdpr';
 import toolsRedirects from './toolsRedirects';
-// eslint-disable-next-line
-import { HEADER_QUERY } from './header/query.mjs'; // only imported to generate types
 import { AlternativeLanguages } from '@/components/alternativeLanguages';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
-import { useConfig } from '@/config/config';
 
 export async function headerLoader({ locale }: LoaderArgs) {
   const response = await fetchCachedResponse({
@@ -50,15 +47,16 @@ export function GbifRootLayout({ children }: Props) {
   return <LayoutInner data={data}>{children}</LayoutInner>;
 }
 
-const redirectTools = (data) => {
+const redirectTools = (data: HeaderQuery) => {
+  const redirects: Record<string, string> = toolsRedirects;
   const toolsRoot = data?.gbifHome?.children?.find((c) => c.id === '6NBwCayI3rNgZdzgqeMnCX');
   if (toolsRoot) {
     toolsRoot.children?.forEach((section) => {
       if (section.children) {
         section.children.forEach((tool) => {
-          if (toolsRedirects?.[tool.link]) {
+          if (tool.link && redirects[tool.link]) {
             tool.externalLink = true;
-            tool.link = toolsRedirects?.[tool.link];
+            tool.link = redirects[tool.link];
           }
         });
       }

@@ -41,7 +41,7 @@ function addPaths(
   excludedPages?: string[]
 ): RouteObjectWithPlugins[] {
   const filteredRoutes = routes
-    .map((route) => {
+    .map((route): RouteObjectWithPlugins | null => {
       const routeCopy = { ...route };
 
       // if the route is in the excludedPages list, remove it and add redirect info
@@ -96,7 +96,7 @@ function addPaths(
       return routeCopy;
     })
     // remove all routes that are not enabled
-    .filter((route) => !!route && !route.isCustom);
+    .filter((route): route is RouteObjectWithPlugins => !!route && !route.isCustom);
 
   return filteredRoutes;
 }

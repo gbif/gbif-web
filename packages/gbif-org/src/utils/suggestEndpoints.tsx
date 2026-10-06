@@ -90,15 +90,21 @@ export const datasetKeyOccurrenceSuggest = {
       predicate: rootPredicate,
       q,
     };
-    const promise = graphqlService.query(SEARCH, variables);
+    const promise = graphqlService.query<
+      {
+        occurrenceDatasetSuggest?: { key: string; count: number; dataset: { title: string } }[];
+      },
+      typeof variables
+    >(SEARCH, variables);
     return {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
+          // undefined when the query fails; the Suggest component tolerates that
           return response.data?.occurrenceDatasetSuggest?.map((i) => ({
             ...i,
             title: i.dataset.title,
-          }));
+          })) as SuggestionItem[];
         }),
       cancel: () => abortController.abort(CANCEL_REQUEST),
     };
@@ -142,15 +148,21 @@ export const publisherKeyOccurrenceSuggest = {
       predicate: rootPredicate,
       q,
     };
-    const promise = graphqlService.query(SEARCH, variables);
+    const promise = graphqlService.query<
+      {
+        occurrencePublisherSuggest?: { key: string; count: number; item: { title: string } }[];
+      },
+      typeof variables
+    >(SEARCH, variables);
     return {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
+          // undefined when the query fails; the Suggest component tolerates that
           return response.data?.occurrencePublisherSuggest?.map((i) => ({
             ...i,
             title: i.item.title,
-          }));
+          })) as SuggestionItem[];
         }),
       cancel: () => abortController.abort(CANCEL_REQUEST),
     };
@@ -172,14 +184,20 @@ export const networkKeySuggest = {
   },
 };
 
-export function TaxonDetailsLabel(taxon) {
-  const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].map(
-    (rank, i) => {
-      return taxon[rank] && rank !== taxon.rank.toLowerCase() ? (
-        <span key={rank}>{taxon[rank]}</span>
-      ) : null;
-    }
-  );
+const HIGHER_RANKS = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'] as const;
+
+// item shape from the v1 species suggest API
+type TaxonSuggestionItem = SuggestionItem & {
+  status?: string;
+  rank?: string;
+} & Partial<Record<(typeof HIGHER_RANKS)[number], string>>;
+
+export function TaxonDetailsLabel(taxon: TaxonSuggestionItem) {
+  const ranks = HIGHER_RANKS.map((rank) => {
+    return taxon[rank] && rank !== taxon.rank?.toLowerCase() ? (
+      <span key={rank}>{taxon[rank]}</span>
+    ) : null;
+  });
 
   return (
     <div style={{ maxWidth: '100%' }}>
@@ -191,7 +209,7 @@ export function TaxonDetailsLabel(taxon) {
 }
 
 export const taxonKeySuggest = {
-  render: (item: SuggestionItem) => {
+  render: (item: TaxonSuggestionItem) => {
     return (
       <div>
         {item.status !== 'ACCEPTED' && (
@@ -240,8 +258,18 @@ export const taxonKeySuggest = {
 export type TaxonSuggestType = SuggestFnProps & { checklistKey?: string | number };
 
 // https://api.gbif.org/v2/taxon/suggest/90d9e8a6-0ce1-472d-b682-3451095dbc5a?q=Ernobius%20tabidus
+// item shape from the v2 taxon suggest API
+type ClbTaxonSuggestionItem = SuggestionItem & {
+  isSynonym?: boolean;
+  taxonomicStatus?: string;
+  scientificName?: string;
+  acceptedNameUsage?: string;
+  context?: string;
+  rankLabel?: string;
+};
+
 export const taxonKeyClbSuggest = {
-  render: (item: SuggestionItem) => {
+  render: (item: ClbTaxonSuggestionItem) => {
     const isSynonym = item.isSynonym;
     const notAccepted = item?.taxonomicStatus !== 'ACCEPTED';
     return (
@@ -329,11 +357,13 @@ export const gadGidSuggest = {
       });
     return { cancel, promise: result };
   },
-  render: function GadmGidSuggestItem(suggestion: SuggestionItem) {
+  render: function GadmGidSuggestItem(
+    suggestion: SuggestionItem & { higherRegions?: { name: string }[] }
+  ) {
     return (
       <div className="g-max-w-full">
         <div>{suggestion.title}</div>
-        {suggestion?.higherRegions?.length > 0 && (
+        {suggestion.higherRegions && suggestion.higherRegions.length > 0 && (
           <Classification className="g-text-slate-500">
             {suggestion.higherRegions.map((x) => (
               <span>{x.name}</span>
@@ -402,11 +432,8 @@ export type VocabularyType = {
   label: { key: number; value: string; language: string }[];
 };
 function extractTitle(vocabularyLocale: string) {
-  return (response: {
-    data: {
-      results: VocabularyType[];
-    };
-  }) => {
+  // response is the raw REST payload; the result is wrapped in `data`
+  return (response: { results: VocabularyType[]; data?: Record<string, unknown> }) => {
     // transform result labels to an object with language as keys
     const results = response?.results?.map((result) => {
       const labels = result.label.reduce((acc: Record<string, string>, label) => {

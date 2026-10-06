@@ -1,5 +1,5 @@
 import { Config } from '@/config/config';
-import { getEndpoints } from '@/config/endpoints';
+import { Endpoints, getEndpoints } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
 
 // const SITE_CHECKLIST = import.meta.env.PUBLIC_CLASSIC_BACKBONE_KEY; // CoL
@@ -9,7 +9,7 @@ const SITE_CHECKLIST = import.meta.env.PUBLIC_COL_CHECKLIST_KEY; // CoL
 // The env options
 // notice the server/client endpoints are needed when doing SSR using docker where the server needs to access services on the internal docker network
 // everywhere else we can just ignore it
-type Options = {
+type Options = Endpoints & {
   baseUrl: string;
   translationsEntryEndpoint: string;
   translationsEntryEndpointServer: string;
@@ -124,6 +124,13 @@ export const gbifConfig: Config = {
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
   defaultChecklistKey: SITE_CHECKLIST, // CoL
+  // same as configDefault, repeated so the unmerged config passed to the route plugins is a full Config
+  testSite: import.meta.env.PUBLIC_TEST_SITE === 'true',
+  defaultMapChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+  hardcodedKeys: {
+    OBISKey: import.meta.env.PUBLIC_KEYS_OBIS_NODE,
+    taiwanNodeidentifier: import.meta.env.PUBLIC_KEYS_TAIWAN_PARTICIPANT,
+  },
   availableChecklistKeys: [SITE_CHECKLIST], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   theme: {
     dense: true,

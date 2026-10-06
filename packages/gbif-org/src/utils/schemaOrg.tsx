@@ -1,28 +1,32 @@
-import { TaxonKeyQuery } from '@/gql/graphql';
+import { DatasetQuery, TaxonKeyQuery } from '@/gql/graphql';
 import get from 'lodash/get';
 
-export const getDatasetSchema = (dataset) => {
+type Dataset = NonNullable<DatasetQuery['dataset']>;
+type Contact = NonNullable<NonNullable<Dataset['volatileContributors']>[number]>;
+type KeywordCollection = NonNullable<NonNullable<Dataset['keywordCollections']>[number]>;
+
+export const getDatasetSchema = (dataset: Dataset) => {
   const authors = (dataset.volatileContributors || [])
-    .filter((c) => c.type === 'ORIGINATOR')
+    .filter((c): c is Contact => c?.type === 'ORIGINATOR')
     .map(function (contact) {
       if (contact.firstName || contact.lastName) {
-        const c = {
+        const userId = contact.userId?.[0] ?? '';
+        const orcid = get(userId.split('//orcid.org/'), '[1]', '');
+        const c: Record<string, unknown> = {
           '@type': 'Person',
           name: `${contact.firstName ? contact.firstName + ' ' : ''}${contact.lastName}`,
-          email: contact.email[0],
-          telephone: contact.phone[0],
+          email: contact.email?.[0],
+          telephone: contact.phone?.[0],
           jobTitle: contact.position,
           identifier:
-            get(contact, 'userId[0]', '').indexOf('//orcid.org/') === -1
-              ? contact.userId[0]
+            userId.indexOf('//orcid.org/') === -1
+              ? contact.userId?.[0]
               : {
-                  '@id':
-                    'https://orcid.org/' + get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
+                  '@id': 'https://orcid.org/' + orcid,
                   '@type': 'PropertyValue',
                   propertyID: 'https://registry.identifiers.org/registry/orcid',
-                  value: 'orcid:' + get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
-                  url:
-                    'https://orcid.org/' + get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
+                  value: 'orcid:' + orcid,
+                  url: 'https://orcid.org/' + orcid,
                 },
           address: {
             '@type': 'PostalAddress',
@@ -46,8 +50,8 @@ export const getDatasetSchema = (dataset) => {
         return {
           '@type': 'Organization',
           name: contact.organization,
-          email: contact.email[0],
-          telephone: contact.phone[0],
+          email: contact.email?.[0],
+          telephone: contact.phone?.[0],
           address: {
             '@type': 'PostalAddress',
             streetAddress: contact.address,
@@ -63,47 +67,46 @@ export const getDatasetSchema = (dataset) => {
     })
     .filter((c) => !!c);
 
+  const keywordCollections = (dataset?.keywordCollections || []).filter(
+    (kc): kc is KeywordCollection => !!kc
+  );
   const keywords = [
-    ...(dataset?.keywordCollections || [])
-      .filter(
-        (kc) =>
-          get(kc, 'thesaurus') &&
-          get(kc, 'thesaurus', '').indexOf('http://rs.gbif.org/vocabulary/') > -1
-      )
+    ...keywordCollections
+      .filter((kc) => kc.thesaurus && kc.thesaurus.indexOf('http://rs.gbif.org/vocabulary/') > -1)
       .map((kc) =>
-        kc.keywords.map((k) => ({
+        (kc.keywords ?? []).map((k) => ({
           '@type': 'DefinedTerm',
           name: k,
           inDefinedTermSet:
             'http://rs.gbif.org/vocabulary/' +
-            get(get(kc, 'thesaurus', '').split('http://rs.gbif.org/vocabulary/'), '[1]', ''),
+            get((kc.thesaurus ?? '').split('http://rs.gbif.org/vocabulary/'), '[1]', ''),
         }))
       ),
-    ...(dataset?.keywordCollections || [])
-      .filter((kc) => !get(kc, 'thesaurus') || get(kc, 'thesaurus') === 'N/A')
+    ...keywordCollections
+      .filter((kc) => !kc.thesaurus || kc.thesaurus === 'N/A')
       .map((kc) =>
-        kc.keywords.map((k) => ({
+        (kc.keywords ?? []).map((k) => ({
           '@type': 'Text',
           name: k,
         }))
       ),
-    ...(dataset?.keywordCollections || [])
+    ...keywordCollections
       .filter(
         (kc) =>
-          get(kc, 'thesaurus') &&
-          get(kc, 'thesaurus') !== 'N/A' &&
-          get(kc, 'thesaurus').indexOf('http://rs.gbif.org/vocabulary/') === -1
+          kc.thesaurus &&
+          kc.thesaurus !== 'N/A' &&
+          kc.thesaurus.indexOf('http://rs.gbif.org/vocabulary/') === -1
       )
       .map((kc) =>
-        kc.keywords.map((k) => ({
+        (kc.keywords ?? []).map((k) => ({
           '@type': 'DefinedTerm',
           name: k,
-          inDefinedTermSet: get(kc, 'thesaurus', ''),
+          inDefinedTermSet: kc.thesaurus ?? '',
         }))
       ),
   ].flat();
 
-  const schema = {
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org/',
     '@type': 'Dataset',
     '@id': 'https://doi.org/' + dataset.doi,
@@ -162,8 +165,8 @@ export const getDatasetSchema = (dataset) => {
     )}`;
   }
 
-  if (get(dataset, 'geographicCoverages[0].boundingBox')) {
-    const box = get(dataset, 'geographicCoverages[0].boundingBox');
+  const box = get(dataset, 'geographicCoverages[0].boundingBox');
+  if (box) {
     schema.spatialCoverage = {
       '@type': 'Place',
       geo: {
@@ -203,7 +206,7 @@ export const getTaxonSchema = (taxonData: TaxonKeyQuery) => {
   if (!taxon || !taxonInfo) {
     return {};
   }
-  const schema = {
+  const schema: Record<string, unknown> = {
     '@context': [
       'https://schema.org/',
       {
@@ -239,10 +242,8 @@ export const getTaxonSchema = (taxonData: TaxonKeyQuery) => {
       taxon.taxonRank.toLowerCase(),
     ],
   };
-  if (taxonInfo.synonyms && get(taxon, 'synonyms[0]')) {
-    schema.alternateName = taxonInfo.synonyms.map((s) => s.scientificName);
-    schema.alternateScientificName = taxonInfo.synonyms.map(getSchemaTaxonName);
-  }
+  // TODO: alternateName/alternateScientificName from synonyms. taxonInfo.synonyms is now grouped
+  // (homotypic/heterotypic) with labels only, so the old array-based mapping never ran.
   if (taxonInfo.vernacularNames && get(taxonInfo, 'vernacularNames[0]')) {
     schema['dwc:vernacularName'] = taxonInfo.vernacularNames.map((v) => ({
       '@language': v.language,
