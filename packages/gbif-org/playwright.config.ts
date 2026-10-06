@@ -36,7 +36,7 @@ export default defineConfig({
     {
       command: 'node e2e/mock/upstream.mjs',
       url: `http://localhost:${MOCK_PORT}/__mock/health`,
-      env: { MOCK_PORT: String(MOCK_PORT), MODE: process.env.MODE ?? 'replay' },
+      env: { E2E_MODE: process.env.E2E_MODE ?? 'replay' },
       reuseExistingServer: false,
       stdout: 'pipe',
     },

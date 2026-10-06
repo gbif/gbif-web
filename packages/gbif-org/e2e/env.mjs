@@ -1,12 +1,11 @@
-// PUBLIC_* values baked into the e2e builds. Vite inlines them at build time, so the mock build
-// and a live build are different builds. Keys are production GBIF values.
+// PUBLIC_* values baked into the e2e build. Vite inlines them at build time, so the mock build
+// and a live build are different builds. Dataset and checklist keys match production so recordings
+// resolve.
 
 export const MOCK_PORT = 4020;
 export const GBIF_PORT = 3100;
-export const HP_PORT = 3200;
 
 export const GBIF_E2E_DIST = 'dist/e2e/gbif';
-export const HP_E2E_DIST = 'dist/e2e/hp';
 
 const constants = {
   PUBLIC_GBIF_ORG: 'https://www.gbif.org',
@@ -23,6 +22,7 @@ const constants = {
   PUBLIC_TEST_SITE: 'false',
 };
 
+/** @param {string} baseUrl @returns {Record<string, string>} */
 export function mockEnv(baseUrl) {
   const mock = `http://localhost:${MOCK_PORT}`;
   return {
