@@ -15,6 +15,12 @@ import {
   FilterSummaryType,
   getFilterSummary,
 } from './filterTools';
+import {
+  FilterValueObject,
+  isFilterValueObject,
+  isRangeFilterValue,
+  RangeBound,
+} from './filterValue';
 import { Option } from './option';
 import { AddInput } from '../addInput';
 
@@ -27,7 +33,6 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
   (
     {
       className,
-      searchConfig,
       regex = /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/,
       filterHandle,
       displayName: DisplayName,
@@ -43,7 +48,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash } = currentFilterContext;
-    const [selected, setSelected] = useState<(string | number | object)[]>([]);
+    const [selected, setSelected] = useState<(string | number | FilterValueObject)[]>([]);
     const [q, setQ] = useState<string>('');
     const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
     const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
@@ -56,7 +61,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       upperBound = 'lte',
       lowerBound = 'gte',
       placeholder = 'search.placeholders.rangeExample',
-    } = {};
+    }: { upperBound?: RangeBound; lowerBound?: RangeBound; placeholder?: string } = {};
 
     const About = about;
     const RangeHelp = rangeExample
@@ -222,6 +227,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
               <div role="group" className="g-text-base sm:g-text-sm">
                 {selected.map((option) => {
                   let helpText;
+                  const range = isRangeFilterValue(option) ? option.value : undefined;
                   if (typeof option === 'string' || typeof option === 'number') {
                     helpText = (
                       <FormattedMessage
@@ -230,7 +236,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                         values={{ from: option }}
                       />
                     );
-                  } else if (option?.type === 'equals') {
+                  } else if (isFilterValueObject(option) && option.type === 'equals') {
                     helpText = (
                       <FormattedMessage
                         id={`intervals.description.e`}
@@ -241,21 +247,19 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                   } else {
                     helpText = (
                       <>
-                        {option?.value && option?.value[lowerBound] && (
+                        {range?.[lowerBound] && (
                           <FormattedMessage
                             id={`intervals.description.${lowerBound}`}
                             defaultMessage={'Filter name'}
-                            values={{ from: option?.value[lowerBound] }}
+                            values={{ from: range?.[lowerBound] }}
                           />
                         )}
-                        {option?.value &&
-                          option?.value[upperBound] &&
-                          option?.value[lowerBound] && <>.&nbsp;</>}
-                        {option?.value && option?.value[upperBound] && (
+                        {range?.[upperBound] && range?.[lowerBound] && <>.&nbsp;</>}
+                        {range?.[upperBound] && (
                           <FormattedMessage
                             id={`intervals.description.${upperBound}`}
                             defaultMessage={'Filter name'}
-                            values={{ to: option?.value[upperBound] }}
+                            values={{ to: range?.[upperBound] }}
                           />
                         )}
                       </>
@@ -264,7 +268,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
 
                   return (
                     <Option
-                      key={option}
+                      key={typeof option === 'object' ? JSON.stringify(option) : option}
                       className="g-mb-2"
                       onClick={() => {
                         toggle(filterHandle, option);
@@ -332,7 +336,7 @@ export function rangeOrTerm(
       .map((s) => (s === '*' || s === '' ? undefined : s));
 
     if (expectNumbers && !cleanedValues.some((x) => x === undefined || isNaN(parseFloat(x)))) {
-      const sortedValues = cleanedValues.map((x) => parseFloat(x)).sort((a, b) => a - b);
+      const sortedValues = cleanedValues.map((x) => parseFloat(x ?? '')).sort((a, b) => a - b);
       return {
         type: 'range',
         value: {

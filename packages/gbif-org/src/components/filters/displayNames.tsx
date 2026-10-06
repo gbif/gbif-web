@@ -1,4 +1,3 @@
-import { useConfig } from '@/config/config';
 import { useStringParam } from '@/hooks/useParam';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { VocabularyType } from '@/utils/suggestEndpoints';
@@ -9,6 +8,9 @@ import { FormattedMessage, IntlShape } from 'react-intl';
 import { longDateFormatProps } from '@/components/dateFormats';
 import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
+import { isFilterValueObject } from './filterValue';
+
+type LabelResult = { title: string; description?: string };
 
 // utility function to generate label for range or equal filters
 function rangeOrEqualLabel(
@@ -16,11 +18,15 @@ function rangeOrEqualLabel(
   formatter?: (value: string | number, intl: IntlShape) => string
 ) {
   const formatValue = formatter ?? ((value: string | number) => value);
-  const getData = ({ id: value, intl }: { id: string | number | object; intl: IntlShape }) => {
+  const getData = ({ id, intl }: { id: string | number | object; intl: IntlShape }) => {
+    const value = isFilterValueObject(id) ? id : undefined;
+    // translations only use the bounds that are present, so absent ones are left unformatted
+    const format = (v: string | number | undefined) =>
+      v === undefined ? undefined : formatValue(v, intl);
     if (value?.type === 'range') {
       let translationKey;
-      const from = value?.value?.gte || value?.value?.gt;
-      const to = value?.value?.lte || value?.value?.lt;
+      const from = value.value.gte || value.value.gt;
+      const to = value.value.lte || value.value.lt;
       if (isUndefined(from)) {
         translationKey = 'lt';
       } else if (isUndefined(to)) {
@@ -32,7 +38,7 @@ function rangeOrEqualLabel(
         <FormattedMessage
           id={`${path}.${translationKey}`}
           defaultMessage={'Filter name'}
-          values={{ from: formatValue(from, intl), to: formatValue(to, intl) }}
+          values={{ from: format(from), to: format(to) }}
         />
       );
     } else if (value?.type === 'equals') {
@@ -40,14 +46,14 @@ function rangeOrEqualLabel(
         <FormattedMessage
           id={`${path}.e`}
           defaultMessage={'Filter name'}
-          values={{ from: formatValue(value?.value, intl), is: formatValue(value?.value, intl) }}
+          values={{ from: formatValue(value.value, intl), is: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'greaterThanOrEquals') {
       return (
         <FormattedMessage
           id="intervals.description.gte"
-          defaultMessage={`>= ${formatValue(value?.value, intl)}`}
+          defaultMessage={`>= ${formatValue(value.value, intl)}`}
           values={{ from: formatValue(value.value, intl) }}
         />
       );
@@ -55,7 +61,7 @@ function rangeOrEqualLabel(
       return (
         <FormattedMessage
           id="intervals.description.lte"
-          defaultMessage={`<= ${formatValue(value?.value, intl)}`}
+          defaultMessage={`<= ${formatValue(value.value, intl)}`}
           values={{ to: formatValue(value.value, intl) }}
         />
       );
@@ -63,7 +69,7 @@ function rangeOrEqualLabel(
       return (
         <FormattedMessage
           id="intervals.description.lt"
-          defaultMessage={`< ${formatValue(value?.value, intl)}`}
+          defaultMessage={`< ${formatValue(value.value, intl)}`}
           values={{ to: formatValue(value.value, intl) }}
         />
       );
@@ -71,7 +77,7 @@ function rangeOrEqualLabel(
       return (
         <FormattedMessage
           id="intervals.description.gt"
-          defaultMessage={`> ${formatValue(value?.value, intl)}`}
+          defaultMessage={`> ${formatValue(value.value, intl)}`}
           values={{ from: formatValue(value.value, intl) }}
         />
       );
@@ -94,7 +100,7 @@ function rangeOrEqualLabel(
 }
 
 export const WildcardLabel = ({ id }: { id: string | number | object }) => {
-  const value = id?.value ?? id;
+  const value = typeof id === 'object' && id !== null && 'value' in id ? id.value : id;
   if (typeof value !== 'string' && typeof value !== 'number') {
     return <span>Unknown</span>;
   }
@@ -102,7 +108,7 @@ export const WildcardLabel = ({ id }: { id: string | number | object }) => {
   const trimmed = stringValue.trim();
   const displayValue = trimmed.length !== stringValue.length ? `"${stringValue}"` : stringValue;
 
-  if (id?.type === 'like' && typeof id?.value === 'string') {
+  if (isFilterValueObject(id) && id.type === 'like' && typeof value === 'string') {
     return <i>{displayValue}</i>;
   }
 
@@ -164,14 +170,21 @@ export function PolygonLabel({ id }: { id: string | number | object }) {
   return <DisplayName getData={getData} id={id} useHtml={false} />;
 }
 
-function getGraphQlLabel({
+type GraphQlLabelResponse<TItem> = { data?: { item?: TItem | null } };
+
+function getGraphQlLabel<TItem>({
   query,
   transform,
 }: {
   query: string;
-  transform?: (response: object) => { title: string; description?: string };
+  transform?: (response: GraphQlLabelResponse<TItem>) => LabelResult;
 }) {
-  const transformer = transform ?? ((response) => ({ title: response?.data?.item?.title }));
+  // an empty title renders as 'Unknown', same as a missing one
+  const transformer =
+    transform ??
+    ((response: GraphQlLabelResponse<{ title?: string | null }>) => ({
+      title: response?.data?.item?.title ?? '',
+    }));
   return ({ id }: { id: string | number | object }) => {
     const getData = useCallback(({ id, config }: DisplayNameGetDataProps) => {
       const { promise, cancel } = fetchWithCancel(
@@ -180,14 +193,12 @@ function getGraphQlLabel({
         )}&variables=${encodeURIComponent(JSON.stringify({ key: id }))}`,
         {
           headers: {
-            ...(typeof window !== 'undefined'
-              ? { 'x-gbif-site-url': window.location.href }
-              : {}),
+            ...(typeof window !== 'undefined' ? { 'x-gbif-site-url': window.location.href } : {}),
           },
         }
       );
       return {
-        promise: promise.then((response) => response.json()).then(transformer),
+        promise: promise.then((response) => response.json()).then((json) => transformer(json)),
         cancel,
       };
     }, []);
@@ -196,17 +207,13 @@ function getGraphQlLabel({
   };
 }
 
-function getEndpointLabel({
+function getEndpointLabel<TResponse>({
   template,
-  transform,
+  transform: transformer,
 }: {
   template: ({ id, v1Endpoint }: { id: string | number | object; v1Endpoint: string }) => string;
-  transform?: (
-    response: object,
-    { id, intl, config }: DisplayNameGetDataProps
-  ) => { title: string; description?: string };
+  transform: (response: TResponse, props: DisplayNameGetDataProps) => LabelResult;
 }) {
-  const transformer = transform ?? ((response) => ({ title: response?.title }));
   return ({ id }: { id: string | number | object }) => {
     const getData = useCallback(({ id, intl, config, currentLocale }: DisplayNameGetDataProps) => {
       const endpoint = template({ id, v1Endpoint: config.v1Endpoint });
@@ -329,7 +336,7 @@ export const booleanLabel = getEnumLabel({ template: (id) => `enums.yesNo.${id}`
 
 export const GadmGidLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/geocode/gadm/${id}`,
-  transform: (response) => ({ title: response?.name }),
+  transform: (response: { name?: string }) => ({ title: response?.name ?? '' }),
 });
 
 export const TypeStatusVocabularyLabel = getEndpointLabel({
@@ -430,7 +437,9 @@ export const InstallationLabel = getGraphQlLabel({
 });
 export const TaxonKeyLabel = getGraphQlLabel({
   query: `query($key:ID!) {item:taxon(key: $key) {scientificName}}`,
-  transform: (response) => ({ title: response?.data?.item?.scientificName }),
+  transform: (response: GraphQlLabelResponse<{ scientificName?: string | null }>) => ({
+    title: response?.data?.item?.scientificName ?? '',
+  }),
 });
 
 export function prettifyEnum(text: string) {

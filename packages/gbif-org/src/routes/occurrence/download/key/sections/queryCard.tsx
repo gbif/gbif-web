@@ -62,7 +62,8 @@ export function QueryCard({ download }: { download: Download }) {
         // if we cannot serialize the filter to version 1 API, then just serialize the json and put it in the filter param
         setQuery({ filter: Base64JsonParam.encode(filter) });
       } else {
-        setQuery(v1Filter);
+        // V1 values can be numbers/booleans, which ParamQuery omits but stringifies fine
+        setQuery(v1Filter as ParamQuery | undefined);
       }
     } else {
       setShowComplexPredicateWarning(true);
@@ -128,7 +129,7 @@ export function QueryCard({ download }: { download: Download }) {
               {parameters?.higherGroups && (
                 <BasicField label="customSqlDownload.countHigherTaxonomy">
                   <BulletList>
-                    {parameters.higherGroups.map((group) => (
+                    {parameters.higherGroups.map((group: string) => (
                       <li key={group}>
                         <FormattedMessage id={`customSqlDownload.taxon.${group}`} />
                       </li>

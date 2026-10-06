@@ -28,11 +28,10 @@ type Props = {
   className?: string;
 };
 
-export default function Map({ coordinates, className }: Props) {
+export default function Map({ coordinates: _coordinates, className }: Props) {
   const mapRef = React.useRef<HTMLDivElement>(null);
 
   useOnMountUnsafe(() => {
-    const place = [coordinates.lon, coordinates.lat];
     const lat = 0;
     const lon = 0;
     const zoom = 0;

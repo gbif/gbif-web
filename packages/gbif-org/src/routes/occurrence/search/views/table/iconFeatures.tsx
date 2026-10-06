@@ -34,7 +34,8 @@ type Props = {
   movingImageCount?: number | null;
   soundCount?: number | null;
   isTreament?: boolean | null;
-  typeStatus?: (TypeStatus | null)[] | null | undefined;
+  // vocabulary concepts, so not limited to the TypeStatus enum
+  typeStatus?: (string | null)[] | null | undefined;
   isSamplingEvent?: boolean | null;
   isClustered?: boolean | null;
   issueCount?: number | null;
@@ -225,7 +226,7 @@ export function IconFeatures({
   );
 }
 
-function getTypeStyle(typeStatus?: TypeStatus | null) {
+function getTypeStyle(typeStatus?: string | null) {
   if (typeStatus) {
     // Someone will ask at some point.
     // https://bugguide.net/node/view/359346

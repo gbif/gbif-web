@@ -553,6 +553,3 @@ export const projections: Record<Projection, ProjectionHelper> = {
 };
 
 export type ProjectionHelpers = (typeof projections)[keyof typeof projections];
-
-// Export for convenience
-export type { Projection };
