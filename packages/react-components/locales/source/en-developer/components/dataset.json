@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Publishing countries and areas",
   "originalArchive": "Source archive",
   "originalArchiveDescription": "The source archive is the data as published to GBIF wihtout any normalisation or processing via GBIF.",
+  "dataPackage": "Data package",
+  "dataPackageDescription": "The data package is the data as published to GBIF in the Darwin Core Data Package format, without any normalisation or processing via GBIF.",
   "checklistBankDownload": "Download from Checklist Bank",
   "checklistBankDownloadDescription": "This archived comes to GBIF via Checklist Bank. Checklist Bank provides multiple download formats as well as options to filter checklists before downloading.",
   "annotatedEml": "GBIF annotated metadata",

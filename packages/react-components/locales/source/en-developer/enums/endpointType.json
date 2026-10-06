@@ -8,6 +8,7 @@
   "DWC_ARCHIVE": "Darwin Core Archive",
   "DIGIR": "DiGIR",
   "CAMTRAP_DP": "Camera Trap Data Package",
+  "DWC_DP": "Darwin Core Data Package",
   "DIGIR_MANIS": "DiGIR MANIS",
   "TAPIR": "TAPIR",
   "BIOCASE": "BioCASe",

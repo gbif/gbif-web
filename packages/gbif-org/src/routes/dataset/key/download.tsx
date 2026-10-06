@@ -30,6 +30,8 @@ export function DatasetKeyDownload() {
     return ['DWC_ARCHIVE', 'CAMTRAP_DP'].includes(e.type);
   });
 
+  const dataPackageEndpoint = dataset?.endpoints?.find((e) => e.type === 'DWC_DP');
+
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
@@ -83,6 +85,38 @@ export function DatasetKeyDownload() {
                       className="g-text-white"
                     >
                       <FormattedMessage id="phrases.continue" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          )}
+          {dataPackageEndpoint && (
+            <div>
+              <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="dataset.dataPackage" defaultMessage="Data package" />
+                  </CardTitle>
+                  <CardDescription className="g-text-base g-prose g-pt-6">
+                    <Message id="dataset.dataPackageDescription" />
+                    <div>
+                      <FormattedMessage id="downloadKey.format" defaultMessage="Format" />:{' '}
+                      <FormattedMessage
+                        id={`enums.endpointType.${dataPackageEndpoint.type}`}
+                        defaultMessage={dataPackageEndpoint.type}
+                      />
+                    </div>
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter>
+                  <Button variant="default" className="g-text-center g-w-full" asChild>
+                    <a
+                      href={`${dataPackageEndpoint.url}`}
+                      rel="noopener noreferrer"
+                      className="g-text-white"
+                    >
+                      <FormattedMessage id="phrases.download" />
                     </a>
                   </Button>
                 </CardFooter>
