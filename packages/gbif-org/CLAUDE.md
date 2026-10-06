@@ -1,92 +1,72 @@
 # gbif-org
 
-The gbif.org site and the hosted-portal browser library. Long-form docs are in `README.md`; this
-file lists the rules that bite and where to look. Run `nvm use` and `npm install` here, not at the
-repo root.
+gbif.org site and hosted-portal library. Long-form reference: `README.md`. `nvm use` and
+`npm install` here, not at the repo root.
 
 ## Commands
 
 | Command | Use |
 |---|---|
-| `npm run develop` | gbif.org dev server plus GraphQL codegen in watch mode |
-| `npm run type-check` | `tsc --noEmit`. Run before every push |
-| `npm run vitest` | unit tests (colocated `*.test.ts`), fast |
-| `npm run codegen` | regenerate `src/gql/` after changing any GraphQL query |
-| `npm run build` / `npm run build:hp` | production builds for gbif.org / hosted portals |
-| `npm run start:hp` | serve the hosted-portal build to simulate a portal |
+| `npm run develop` | dev server + codegen watch |
+| `npm run type-check` | `tsc --noEmit`; run before every push |
+| `npm run vitest` | unit tests, colocated `*.test.ts` |
+| `npm run codegen` | regenerate `src/gql/` after any query change |
+| `npm run build` / `build:hp` | production builds, gbif.org / hosted portals |
+| `npm run start:hp` | serve the hosted-portal build |
 
-`npm test` runs both builds before vitest and is slow; use `npm run vitest` while iterating.
-There is no `lint` script. Run `npx eslint src` (config in `.eslintrc.cjs`). Prettier: width 100,
-single quotes. Neither runs on commit.
+`npm test` builds first and is slow. No `lint` script: `npx eslint src`. Prettier width 100,
+single quotes. Nothing runs on commit.
 
-## Task guides
+## Task guides (`docs/how-to/`)
 
-Step-by-step guides with caveats, in `docs/how-to/`. Read the matching one before starting:
-
-- `docs/how-to/add-a-route.md`: new page or tab, loader, registration, hosted-portal needs.
-- `docs/how-to/code-splitting-and-lazy-loading.md`: before using `React.lazy` on a page.
-- `docs/how-to/add-a-translation.md`: any new user-facing text.
-- `docs/how-to/add-an-occurrence-filter.md`: new search parameter or facet. Spans es-api,
-  graphql-api, and this package.
-- `docs/how-to/add-a-filter-type.md`: a new filter widget kind. Rare; check the existing types in
-  `src/components/filters/filterTools.tsx` first.
+- `add-a-route.md`: page or tab, loader, registration, hosted-portal fallback.
+- `code-splitting-and-lazy-loading.md`: before using `React.lazy` on a page.
+- `add-a-translation.md`: any user-facing text.
+- `add-an-occurrence-filter.md`: search parameter or facet; spans es-api and graphql-api.
+- `add-a-filter-type.md`: new filter widget kind (rare).
+- `add-a-chart.md`: dashboard chart, standard or custom.
 
 ## Two builds, one source
 
-- `gbif/` (package root) is gbif.org: Express `server.js` plus Vite SSR. The backend mostly does
-  auth, redirects, proxying, sitemaps. `src/gbif/` has its entries, config, routes, header, footer.
-- `hp/` (package root) is the hosted-portal library: client-only, no SSR. External Jekyll sites
-  embed it and pass a config object at mount time. `src/hp/` has its entry, routes, and
-  `configAdapter.tsx`, which normalises older portal configs to the current `Config` shape.
-- Everything else under `src/` is shared and **must work in both**: no SSR-only assumptions, no
-  gbif.org-only hardcoding. Anything that varies per site goes through `useConfig()`
-  (`src/config/config.tsx`). Route objects can define `gbifRedirect` so portals send users to
-  gbif.org for pages they do not host.
-- When touching shared components or routes, check the change in the hosted-portal build too
-  (README: "How to Test the Code in an Environment Simulating the Hosted Portals").
+- `gbif/`: Express `server.js` + Vite SSR. Backend does auth, redirects, proxying, sitemaps.
+  `src/gbif/` has entries, config, routes, header, footer.
+- `hp/`: client-only library embedded by external Jekyll sites, which pass a config at mount.
+  `src/hp/` has entry, routes, `configAdapter.tsx` (normalises older portal configs).
+- Everything else in `src/` is shared and **must work in both**: no SSR-only assumptions, nothing
+  gbif.org-specific hardcoded. Per-site variation goes through `useConfig()`
+  (`src/config/config.tsx`). Check the hp build when touching shared code.
 
-## Routing and data loading
+## Routing and data
 
-Reference example: `src/routes/dataset/key/index.tsx` with `datasetKey.tsx`.
+Reference: `src/routes/dataset/key/index.tsx` + `datasetKey.tsx`.
 
-- Routes are `RouteObjectWithPlugins` (`src/reactRouterPlugins/`). Shared data pages are listed
-  once in `dataRoutes` (`src/config/routes.tsx`), which both `src/gbif/routes.tsx` and
-  `src/hp/routes.tsx` consume. gbif.org-only pages go in `src/gbif/routes.tsx`.
-- A route's `id` is a public contract: hosted portals enable and relocate pages by id in their
-  config. Never rename one. Routes in `dataRoutes` must define `gbifRedirect`, and links between
-  pages use `DynamicLink pageId="..."` from `@/reactRouterPlugins`, never hardcoded paths, so a
-  portal that does not host a page falls back to gbif.org.
-- Data is fetched in a `loader({ params, graphql }: LoaderArgs)` which calls `graphql.query<...>()`
-  and then `throwCriticalErrors(...)` (`src/routes/rootErrorPage.tsx`). Loaders run on the server
-  for gbif.org and in the browser for portals.
-- Queries are `/* GraphQL */` string constants. Types come from `@/gql/graphql`, generated by
-  codegen from `src/**/*.{ts,tsx}`. `src/gql/` is committed: after editing a query, run
-  `npm run codegen` and commit the regenerated output. Never edit `src/gql/` by hand.
-- Inside components use `useQuery` from `src/hooks/useQuery.ts`.
-- README "How to" covers SSR routes, client-only routes, code-splitting, and lazy loading.
+- Routes are `RouteObjectWithPlugins` (`src/reactRouterPlugins/`). Shared data pages: `dataRoutes`
+  in `src/config/routes.tsx`, consumed by both routers. gbif.org-only pages: `src/gbif/routes.tsx`.
+- Route `id` is a public contract (portal configs enable pages by id). Never rename. `dataRoutes`
+  entries define `gbifRedirect`; link between pages with `DynamicLink pageId="..."`, never hardcoded
+  paths, so portals without a page fall back to gbif.org.
+- `loader({ params, graphql }: LoaderArgs)` calls `graphql.query<...>()` then `throwCriticalErrors`
+  (`src/routes/rootErrorPage.tsx`). Runs server-side on gbif.org, in the browser on portals.
+- Queries are `/* GraphQL */` strings; types from `@/gql/graphql`. `src/gql/` is committed: run
+  codegen and commit it. Never edit by hand.
+- In components: `useQuery` (`src/hooks/useQuery.ts`).
+- Dashboards: charts in `src/components/dashboard/`, exported via `lazyChart` in its `index.tsx`;
+  occurrence dashboard registry in `src/routes/occurrence/search/views/dashboard/`.
 
 ## Styling
 
-- Tailwind with **prefix `g-`** on every class (`g-flex g-gap-2`). Unprefixed classes do nothing.
-- shadcn/Radix primitives live in `src/components/ui/`. Merge classes with `cn()` from
-  `@/utils/shadcn`.
-- Theme variables are in `src/config/theme/`; portals override them through config, so do not
-  hardcode brand colours.
+- Tailwind with **prefix `g-`** (`g-flex g-gap-2`). Unprefixed classes do nothing.
+- shadcn/Radix primitives in `src/components/ui/`; merge classes with `cn()` from `@/utils/shadcn`.
+- Theme vars in `src/config/theme/`; portals override them. No hardcoded brand colours.
 
-## Config and environment
+## Config, env, i18n
 
-- Only `PUBLIC_*` env vars reach the client. `env.ts` throws on startup if a required one is missing.
-- `.env` is not in the repo (canonical copy in the private `gbif-configuration/gbif-web` repo).
-- gbif.org's site config is `src/gbif/config.ts`. Portals ship their own at runtime.
-
-## i18n
-
-- react-intl. Locale comes from the URL prefix (`src/reactRouterPlugins/i18n/`). Messages are
-  fetched at runtime, not put in loader data.
-- To add a string: add the key to `packages/react-components/locales/source/en-developer/`, then
-  use `<FormattedMessage id="..." />`. Do not inline English text in components.
+- Only `PUBLIC_*` env vars reach the client; `env.ts` throws if a required one is missing. `.env` is
+  not in the repo. gbif.org site config: `src/gbif/config.ts`; portals ship their own.
+- react-intl; locale from the URL prefix (`src/reactRouterPlugins/i18n/`). Messages fetched at
+  runtime. Keys live in `packages/react-components/locales/source/en-developer/`; use
+  `<FormattedMessage id="..." />`. No inline English.
 
 ## Tests
 
-- Vitest via `gbif/vite.config.ts`, tests colocated next to the code they cover.
-- Cypress exists (`cypress/`) but has few specs; do not rely on it for coverage.
+Vitest via `gbif/vite.config.ts`, colocated. Cypress (`cypress/`) has few specs; do not rely on it.

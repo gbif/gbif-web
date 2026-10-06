@@ -1,43 +1,35 @@
 # graphql-api
 
-GraphQL server (Express + Apollo) in front of the GBIF REST APIs and es-api. gbif-org loads
-nearly all its data from here. Run `nvm use` and `npm install` here, not at the repo root.
-
-## Commands
+Express + Apollo in front of the GBIF REST APIs and es-api. `nvm use` and `npm install` here.
 
 | Command | Use |
 |---|---|
 | `npm run develop` | `tsx watch src/index.ts` |
-| `npm test` | ts-mocha over colocated `src/**/*.test.{js,ts}` |
-| `npm run build` | `tsc` plus path-alias rewrite into `dist/` |
+| `npm test` | ts-mocha, colocated `src/**/*.test.{js,ts}` |
+| `npm run build` | `tsc` + alias rewrite to `dist/` |
+| `npm run write-enums` | regenerate `src/helpers/enums/enums.json` from the GBIF API |
 
 ## Task guides
 
-- `docs/how-to/add-a-resource.md`: adding a field, type, or whole resource, with caveats.
-- `../gbif-org/docs/how-to/add-an-occurrence-filter.md`: adding an occurrence facet or filter. The
-  predicate passes through this package unchanged; only facet, cardinality, and stats fields are
-  listed here (`src/resources/occurrence/helpers/fields/`).
+- `docs/how-to/add-a-resource.md`: field, type, or whole resource.
+- `../gbif-org/docs/how-to/add-an-occurrence-filter.md`: occurrence facet or filter. Predicates pass
+  through this package unchanged; only facet, cardinality, and stats fields are listed here
+  (`src/resources/occurrence/helpers/fields/`).
 
-## Layout and the resource pattern
+## Resource pattern
 
-- `src/index.ts` wires Express and Apollo. `src/typeDefs.js`, `src/resolvers.js`, and
-  `src/dataSources.js` aggregate everything registered in `src/resources/index.ts`.
-- One directory per resource under `src/resources/<name>/`. Reference: `src/resources/dataset/`.
-  - `<name>.type.js`: `gql` type defs, extending `Query` where needed.
-  - `<name>.resolver.js`: exports `Query` and per-type field resolvers that call `dataSources`.
-  - `<name>.source.js`: a class extending `QueuedRESTDataSource` (`src/QueuedRESTDataSource.js`),
-    one method per upstream endpoint.
-  - `index.js`: exports `{ resolver, typeDef: [...], dataSource: {...} }`.
-- Adding a resource means creating that directory and registering it in `src/resources/index.ts`.
-- `src/api-utils/` holds plain REST controllers (maps, geometry, blast) that are not GraphQL.
-- Code is mixed JS and TS with the `@/` alias. Match the language of the file you are in.
+- `src/index.ts` wires the server. `typeDefs.js`, `resolvers.js`, `dataSources.js` aggregate what
+  `src/resources/index.ts` registers.
+- One directory per resource, `src/resources/<name>/`. Reference: `src/resources/dataset/`.
+  `<name>.type.js` (gql, `extend type Query`), `<name>.resolver.js` (exports `Query` and per-type
+  resolvers using `dataSources`), `<name>.source.js` (class extending `QueuedRESTDataSource`),
+  `index.js` exporting `{ resolver, typeDef: [...], dataSource: {...} }`.
+- `src/api-utils/`: plain REST controllers (maps, geometry, blast), not GraphQL.
+- Mixed JS and TS, `@/` alias. Match the file you are in.
 
 ## Gotchas
 
-- `.env` is **YAML**, not `KEY=VALUE`. See `.env.example`. `src/config.js` reads it synchronously at
-  import, so tests fail without one.
-- At startup the server fetches enumerations from the live GBIF API to build part of the schema,
-  so booting needs network access.
-- Prettier here is width 120 with trailing commas everywhere, which differs from gbif-org. ESLint is
-  airbnb plus prettier (`.eslintrc`).
-- Tests use `describe`/`it` with `node:assert`. Keep them colocated.
+- `.env` is **YAML** (`.env.example`), read synchronously by `src/config.js` at import. Tests need it.
+- Startup fetches enumerations from the live GBIF API; booting needs network.
+- Prettier width 120, trailing commas everywhere (differs from gbif-org). ESLint airbnb + prettier.
+- Tests: `describe`/`it` with `node:assert`, colocated.
