@@ -58,15 +58,15 @@
   },
   "occurrencesPerField": "{FIELD} 당 출현",
   "kingdom": "계",
-  "sequenceDendrogram": "",
-  "sequencePhylogeny.downloadAlignment": "",
-  "sequencePhylogeny.downloadNewick": "",
+  "sequenceDendrogram": "서열 계통도",
+  "sequencePhylogeny.downloadAlignment": "정렬 (FASTA)",
+  "sequencePhylogeny.downloadNewick": "뉴윅",
   "sequencePhylogeny.about": {
-    "label": "",
-    "title": "",
-    "align": "",
-    "tree": "",
-    "collapse": "",
+    "label": "이 트리가 어떻게 만들어지는지",
+    "title": "이 트리가 어떻게 만들어지는지",
+    "align": "일치하는 출현값들의 구별되는 뉴클레오티드 서열은 <k>kalign</k> (다중 서열 정렬 도구)을 사용하여 정렬됩니다.",
+    "tree": "해당 정렬 결과로부터 쌍간(pairwise) 유전적 거리(p-거리, 갭 및 모호한 위치를 무시함)를 읽고, 이를 바탕으로 이웃 결합 트리(neighbour-joining tree)를 구축합니다. 0에 가까운 내부 가지는 임의의 사다리가 아닌 다중 분기 형태로 표시됩니다.",
+    "collapse": "축소 슬라이더는 선택된 동일성 비율 이상을 공유하는 서열들을 하나의 팁으로 통합합니다. 각 팁에는 해당 서열들이 나타내는 일치 분류군이 표시됩니다.",
     "downloads": ""
   }
 }
