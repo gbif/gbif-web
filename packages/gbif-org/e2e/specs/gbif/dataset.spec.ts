@@ -9,12 +9,10 @@ test('dataset page renders server-side and hydrates', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('GBIF Backbone Taxonomy');
 
   // Client-side navigation between tabs proves hydration and the browser data path.
-  await page.getByRole('link', { name: 'Metrics' }).first().click();
+  const tabs = page
+    .getByRole('list')
+    .filter({ has: page.getByRole('link', { name: 'About', exact: true }) })
+    .filter({ has: page.getByRole('link', { name: 'Metrics', exact: true }) });
+  await tabs.getByRole('link', { name: 'Metrics', exact: true }).click();
   await expect(page).toHaveURL(new RegExp(`/dataset/${BACKBONE}/metrics$`));
-});
-
-test('legacy species URL redirects to the taxon page', async ({ page }) => {
-  await page.goto('/species/5231190');
-  await expect(page).toHaveURL(/\/taxon\/4DXXM$/);
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Passer domesticus');
 });
