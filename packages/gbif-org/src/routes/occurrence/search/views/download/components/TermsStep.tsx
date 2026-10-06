@@ -145,7 +145,8 @@ export default function TermsStep({
       body: JSON.stringify({
         predicate,
         format: format,
-        checklistKey: configuration.checklistKey,
+        // The taxonomy of a free text SQL download is defined by the SQL itself
+        checklistKey: selectedFormat.id === 'SQL_TSV_ZIP' ? undefined : configuration.checklistKey,
         verbatimExtensions: supportsExtensions(selectedFormat.id) ? configuration.extensions : [],
         machineDescription: selectedFormat.id === 'SQL_CUBE' ? machineDescription : undefined,
         sql: format === 'SQL_TSV_ZIP' ? sql : undefined,

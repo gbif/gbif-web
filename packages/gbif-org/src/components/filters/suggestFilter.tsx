@@ -294,6 +294,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 getSuggestions={suggestConfig.getSuggestions}
                 render={suggestConfig.render}
                 getStringValue={suggestConfig.getStringValue}
+                clearOnSelect={suggestConfig.clearOnSelect}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') onApply?.();
                 }}

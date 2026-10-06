@@ -41,6 +41,7 @@ export type SuggestProps = {
   getStringValue?: (item: SuggestionItem) => string;
   placeholder?: string;
   activeItem?: SuggestionItem;
+  clearOnSelect?: boolean;
 };
 
 export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
@@ -55,6 +56,7 @@ export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
       getStringValue,
       placeholder,
       activeItem,
+      clearOnSelect,
     }: SuggestProps,
     ref
   ) => {
@@ -71,6 +73,7 @@ export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
           selected,
           className,
           onSelect,
+          clearOnSelect,
         }}
       />
     );
@@ -88,6 +91,7 @@ const Search = React.forwardRef(
       render,
       placeholder,
       activeItem,
+      clearOnSelect,
       getStringValue = (item: SuggestionItem) => item.title,
     }: {
       onSearch: ({ q, intl }: SuggestFnProps) => {
@@ -102,6 +106,7 @@ const Search = React.forwardRef(
       getStringValue?: (item: SuggestionItem) => string;
       placeholder?: string;
       activeItem?: SuggestionItem;
+      clearOnSelect?: boolean;
     },
     ref
   ) => {
@@ -181,7 +186,10 @@ const Search = React.forwardRef(
       defaultHighlightedIndex: 0,
       stateReducer: (state, actionAndChanges) => {
         const { changes, type } = actionAndChanges;
-        const inputChanges = { ...changes, inputValue: inputValue };
+        // keep the current text (as tracked by downshift) unless we are asked to clear it on selection
+        const keptValue = state.inputValue;
+        const selectionValue = clearOnSelect ? '' : keptValue;
+        const inputChanges = { ...changes, inputValue: keptValue };
         switch (type) {
           case useCombobox.stateChangeTypes.InputChange:
             return changes;
@@ -190,14 +198,14 @@ const Search = React.forwardRef(
               ...inputChanges,
               isOpen: false, // keep menu open after selection.
               highlightedIndex: state.highlightedIndex,
-              inputValue: inputValue, // don't add the item string as input value at selection.
+              inputValue: selectionValue, // don't add the item string as input value at selection.
             };
           case useCombobox.stateChangeTypes.ItemClick:
             return {
               ...inputChanges,
               isOpen: false, // keep menu open after selection.
               highlightedIndex: state.highlightedIndex,
-              inputValue: inputValue, // don't add the item string as input value at selection.
+              inputValue: selectionValue, // don't add the item string as input value at selection.
             };
           default:
             return { ...inputChanges };

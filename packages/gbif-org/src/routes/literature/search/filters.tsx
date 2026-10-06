@@ -413,13 +413,13 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       countriesOfResearcher: generateFilters({
         config: {
           ...countriesOfResearcherConfig,
-          suggestConfig: { getSuggestions: countrySuggest },
+          suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true },
         },
         searchConfig,
         formatMessage,
       }),
       countriesOfCoverage: generateFilters({
-        config: { ...countriesOfCoverageConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...countriesOfCoverageConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),

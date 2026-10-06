@@ -129,12 +129,12 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
       //suggest foreign keys
       country: generateFilters({
-        config: { ...countryConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...countryConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),
       publishingCountry: generateFilters({
-        config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),

@@ -73,7 +73,7 @@ export function Downloads() {
                   values={{ total: download?.numberRecords || 0 }}
                 />
               </div>
-              <DownloadResult download={download?.download} />
+              <DownloadResult download={download?.download} hideStatus />
             </div>
           ))}
 

@@ -24,6 +24,8 @@ type DefaultOptions = {
   allowedIframeHostnames?: string[];
   transformTags?: Record<string, string | Transformer>;
   parser?: ParserOptions;
+  // Attributes that are always set on links, overwriting whatever the author wrote
+  forceLinkAttributes?: Record<string, string>;
 };
 
 const untrustedDefaultOptions: DefaultOptions = {
@@ -48,6 +50,52 @@ const untrustedDefaultOptions: DefaultOptions = {
 export const untrustedHeaderOptions: DefaultOptions = {
   allowedTags: ['i', 'strong', 'em', 'span'],
   allowedAttributes: {},
+};
+
+// Options for user written markdown (e.g. derived dataset descriptions). Only a small set of formatting tags and
+// the href attribute are allowed. Links always open in a new tab, and headings are demoted so they don't compete with the page outline
+const demoteHeading: Transformer = (tagName, attribs) => ({
+  tagName: `h${Math.min(Number(tagName.substring(1)) + 2, 6)}`,
+  attribs,
+});
+
+const markdownDefaultOptions: DefaultOptions = {
+  allowedTags: [
+    'a',
+    'p',
+    'br',
+    'strong',
+    'em',
+    'del',
+    'code',
+    'pre',
+    'ul',
+    'ol',
+    'li',
+    'blockquote',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'hr',
+  ],
+  allowedAttributes: {
+    a: ['href', 'target', 'rel'],
+  },
+  forceLinkAttributes: {
+    target: '_blank',
+    rel: 'noopener noreferrer nofollow',
+  },
+  transformTags: {
+    h1: demoteHeading,
+    h2: demoteHeading,
+    h3: demoteHeading,
+    h4: demoteHeading,
+    h5: demoteHeading,
+    h6: demoteHeading,
+  },
 };
 
 // The trustedDefaultOptions inherits from the untrustedDefaultOptions
@@ -221,6 +269,7 @@ const trustedDefaultOptions = merge<unknown, DefaultOptions, DefaultOptions>(
 const defaultOptionsMap = {
   trusted: trustedDefaultOptions,
   untrusted: untrustedDefaultOptions,
+  markdown: markdownDefaultOptions,
 };
 
 type SanitizeOptions = {
@@ -288,7 +337,7 @@ function createIOptions(options: SanitizeOptions): IOptions {
     attr.href = prefixLinkUrl(attr.href, options.locale);
     return {
       tagName,
-      attribs: attr,
+      attribs: { ...attr, ...defaultOptions.forceLinkAttributes },
     };
   };
 

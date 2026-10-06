@@ -22,6 +22,10 @@ const typeDef = gql`
     doi: String!
     originalDownloadDOI: String
     description: String
+    """
+    The description rendered from markdown and sanitized. Only a small set of tags is allowed, headings are demoted and links open in a new tab
+    """
+    descriptionHtml: String
     excerpt: String
     citation: String
     title: String

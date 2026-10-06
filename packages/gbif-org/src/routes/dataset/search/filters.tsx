@@ -266,7 +266,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       networkKey: generateFilters({ config: networkKeyConfig, searchConfig, formatMessage }),
       category: generateFilters({ config: categoryConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
-        config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
+        config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
         searchConfig,
         formatMessage,
       }),

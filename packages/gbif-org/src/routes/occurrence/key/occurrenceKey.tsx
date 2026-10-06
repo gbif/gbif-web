@@ -757,12 +757,6 @@ export function OccurrenceKey() {
                           </IssueTags>
                         )}
                       </GeologicalContext>
-                      {!occurrence?.gadm?.level1 && occurrence.countryCode && (
-                        <Location
-                          countryCode={occurrence.countryCode}
-                          city={occurrence.stateProvince}
-                        />
-                      )}
 
                       {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
                       <GenericFeature className='g-flex g-mb-1'>
