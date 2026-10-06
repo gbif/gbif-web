@@ -49,7 +49,9 @@ Reference example: `src/routes/dataset/key/index.tsx` with `datasetKey.tsx`.
   once in `dataRoutes` (`src/config/routes.tsx`), which both `src/gbif/routes.tsx` and
   `src/hp/routes.tsx` consume. gbif.org-only pages go in `src/gbif/routes.tsx`.
 - A route's `id` is a public contract: hosted portals enable and relocate pages by id in their
-  config. Never rename one. Routes in `dataRoutes` must define `gbifRedirect`.
+  config. Never rename one. Routes in `dataRoutes` must define `gbifRedirect`, and links between
+  pages use `DynamicLink pageId="..."` from `@/reactRouterPlugins`, never hardcoded paths, so a
+  portal that does not host a page falls back to gbif.org.
 - Data is fetched in a `loader({ params, graphql }: LoaderArgs)` which calls `graphql.query<...>()`
   and then `throwCriticalErrors(...)` (`src/routes/rootErrorPage.tsx`). Loaders run on the server
   for gbif.org and in the browser for portals.

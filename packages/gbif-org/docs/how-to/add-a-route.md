@@ -8,6 +8,34 @@ locale prefixes, portal page config, slugs, and loader injection.
 **Reference example to copy:** `src/routes/dataset/key/index.tsx` (route object with child tabs)
 and `src/routes/dataset/key/datasetKey.tsx` (query, loader, page component, skeleton).
 
+## First decide who serves the route
+
+Not every route exists on hosted portals. Pick one of two options before writing code:
+
+- **gbif.org only.** Tools, custom pages, user pages, anything that needs the Node backend.
+  Register in `src/gbif/routes.tsx`. No `gbifRedirect` is needed.
+- **gbif.org and hosted portals.** Data pages: entity detail and search. Register in `dataRoutes`
+  in `src/config/routes.tsx`, which both routers consume.
+
+For a shared route, remember that a portal chooses which pages it hosts. Its config lists the pages
+it wants in `pages` by route id, optionally with its own `path`, or drops some with
+`excludedPages`. `applyPagePathsPlugin` (`src/reactRouterPlugins/applyPagePaths/plugin.tsx`)
+removes every page the portal did not enable from that portal's router and records it as
+`redirect: true`.
+
+So **every shared route needs a fallback destination on gbif.org**: the
+`gbifRedirect(params, locale, searchParams)` function on the route object. It must return the full
+gbif.org URL for those params, built from `import.meta.env.PUBLIC_GBIF_ORG` plus the locale prefix,
+or `null` when there is nothing sensible to redirect to (see the `key === 'search'` guard in the
+dataset example). Example: a publisher portal that has not enabled `datasetKey` still shows dataset
+titles in occurrence results, and each one links to `https://www.gbif.org/dataset/<key>`.
+
+The fallback only works for links rendered with **`DynamicLink`** (or `useDynamicNavigate`) and a
+`pageId`, exported from `@/reactRouterPlugins`. `DynamicLink` looks the page up in the portal's page
+list and, when it is marked `redirect`, swaps in the `gbifRedirect` URL as an external href. A
+hardcoded `<Link to="/dataset/123">` bypasses this and 404s on the portal. Direct hits on a disabled
+URL are also redirected by the loader wrapper, but that is a safety net, not the mechanism to rely on.
+
 ## Checklist
 
 1. **Create a folder** under `src/routes/<entity>/<kind>/`, e.g. `src/routes/foo/key/`.
@@ -25,13 +53,10 @@ and `src/routes/dataset/key/datasetKey.tsx` (query, loader, page component, skel
    [add-a-translation.md](./add-a-translation.md).
 5. **Write a skeleton** for `loadingElement`, using the shadcn `Skeleton` in `src/components/ui`.
 6. **Export the route object** with a stable `id`, a `path`, `loader`, `loadingElement`, `element`,
-   and `gbifRedirect` (see below). Add child routes for tabs.
-7. **Register it once.**
-   - Data pages that both gbif.org and hosted portals should serve: add to `dataRoutes` in
-     `src/config/routes.tsx`. Both routers import that list. Search routes go before detail
-     routes, and the `resourceKeyRoutes` wildcard must stay last.
-   - gbif.org-only pages (tools, custom pages, user pages): add to `src/gbif/routes.tsx`.
-   - Nothing is added to `src/hp/routes.tsx` for ordinary data pages.
+   and, for shared routes, `gbifRedirect` (see above). Add child routes for tabs.
+7. **Register it once**, in the file chosen above. In `dataRoutes`, search routes go before detail
+   routes and the `resourceKeyRoutes` wildcard must stay last. Nothing is added to
+   `src/hp/routes.tsx` for ordinary data pages.
 8. **Run codegen** (`npm run codegen`, or keep `npm run develop` running). Commit the regenerated
    files in `src/gql/`; they are tracked.
 9. **Verify:** `npm run type-check`, `npm run vitest`, open the page in `npm run develop`, and for
@@ -43,10 +68,9 @@ and `src/routes/dataset/key/datasetKey.tsx` (query, loader, page component, skel
   config (`pages: [{ id: 'datasetKey', path: 'my-datasets/:key' }]`, `excludedPages: ['...']`, see
   `src/reactRouterPlugins/applyPagePaths/plugin.tsx`). Renaming an id breaks existing portal
   configs. Pick a descriptive id (`fooKey`, `fooSearch`) and never change it.
-- **Always define `gbifRedirect`** on routes in `dataRoutes`. When a portal has not enabled the
-  page, links to it are rewritten to gbif.org using this function, and it must return the full
-  gbif.org URL built from `import.meta.env.PUBLIC_GBIF_ORG` plus the locale prefix. Return `null`
-  for params that should not redirect (see the `key === 'search'` guard in the dataset example).
+- **Shared routes need `gbifRedirect` and `DynamicLink`.** See "First decide who serves the route"
+  above. Links elsewhere in the app that point at your page must use `DynamicLink` with your
+  `pageId`; when replacing an old page, grep for hardcoded paths to it.
 - **Shared routes run without SSR on portals.** The loader runs in the browser there, so do not
   rely on server-only globals or on `window` being absent. Anything that varies per site must come
   from `useConfig()` or the `config` loader arg, never be hardcoded.
