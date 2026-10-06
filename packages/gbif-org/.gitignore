@@ -28,3 +28,6 @@ artifacts
 
 # Cypress local environment overrides (copy cypress.env.example.json to cypress.env.json)
 cypress.env.json
+# Playwright e2e output
+e2e/.results
+playwright-report

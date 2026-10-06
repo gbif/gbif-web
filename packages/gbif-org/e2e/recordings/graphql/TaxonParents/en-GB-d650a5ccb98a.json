@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query TaxonParents($datasetKey: ID, $key: ID!) {\n    taxon(datasetKey: $datasetKey, key: $key) {\n      parentTree {\n        taxonID\n        label: scientificName\n        childrenCount: children\n        status: taxonomicStatus\n        rank: taxonRank\n      }\n    }\n  }\n",
+      "variables": {
+        "datasetKey": "7ddf754f-d193-4cc9-b351-99906754a03b",
+        "key": "4DXXM"
+      },
+      "operationName": "TaxonParents"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"taxon\":{\"parentTree\":[{\"taxonID\":\"CS5HF\",\"label\":\"Eukaryota\",\"childrenCount\":16,\"status\":\"ACCEPTED\",\"rank\":\"DOMAIN\"},{\"taxonID\":\"N\",\"label\":\"Animalia\",\"childrenCount\":30529,\"status\":\"ACCEPTED\",\"rank\":\"KINGDOM\"},{\"taxonID\":\"CH2\",\"label\":\"Chordata\",\"childrenCount\":857,\"status\":\"ACCEPTED\",\"rank\":\"PHYLUM\"},{\"taxonID\":\"8V4V3\",\"label\":\"Vertebrata\",\"childrenCount\":1396,\"status\":\"ACCEPTED\",\"rank\":\"SUBPHYLUM\"},{\"taxonID\":\"8V4V5\",\"label\":\"Gnathostomata\",\"childrenCount\":6,\"status\":\"ACCEPTED\",\"rank\":\"INFRAPHYLUM\"},{\"taxonID\":\"8VVWB\",\"label\":\"Osteichthyes\",\"childrenCount\":3,\"status\":\"ACCEPTED\",\"rank\":\"PARVPHYLUM\"},{\"taxonID\":\"9CK8W\",\"label\":\"Tetrapoda\",\"childrenCount\":5,\"status\":\"ACCEPTED\",\"rank\":\"MEGACLASS\"},{\"taxonID\":\"V2\",\"label\":\"Aves\",\"childrenCount\":229,\"status\":\"ACCEPTED\",\"rank\":\"CLASS\"},{\"taxonID\":\"3RL\",\"label\":\"Passeriformes\",\"childrenCount\":457,\"status\":\"ACCEPTED\",\"rank\":\"ORDER\"},{\"taxonID\":\"626DC\",\"label\":\"Passeridae\",\"childrenCount\":17,\"status\":\"ACCEPTED\",\"rank\":\"FAMILY\"},{\"taxonID\":\"6JFY\",\"label\":\"Passer\",\"childrenCount\":31,\"status\":\"ACCEPTED\",\"rank\":\"GENUS\"},{\"taxonID\":\"4DXXM\",\"label\":\"Passer domesticus\",\"childrenCount\":14,\"status\":\"ACCEPTED\",\"rank\":\"SPECIES\"}]}}}\n"
+}
