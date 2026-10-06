@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Udgivende lande og områder",
   "originalArchive": "Kildearkiv",
   "originalArchiveDescription": "GBIF annoteret Arkiv",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "GBIF annoteret Arkiv",
   "checklistBankDownloadDescription": "GBIF annoteret Arkiv",
   "annotatedEml": "GBIF annoteret metadata",
@@ -149,6 +151,7 @@
   "griddedData": "",
   "griddedDataDescription": "",
   "metricsLink": "Observations-grafer",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",
