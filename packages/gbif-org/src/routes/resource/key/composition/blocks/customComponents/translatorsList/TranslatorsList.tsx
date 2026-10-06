@@ -34,9 +34,10 @@ const columns = [
   { key: 'certifications', label: 'Anual badges', sortable: true },
 ];
 
-function sortRows(rows, sortKey, sortDir) {
+// Rows are sorted by dynamic keys, so the comparator works on untyped rows
+function sortRows<T>(rows: T[], sortKey: string, sortDir: 'asc' | 'desc'): T[] {
   if (!sortKey) return rows;
-  return [...rows].sort((a, b) => {
+  return [...rows].sort((a: any, b: any) => {
     let aValue = a?.Person?.[sortKey];
     let bValue = b?.Person?.[sortKey];
     // Special handling for nested call.title
@@ -64,7 +65,7 @@ export function TranslatorsList({
   className,
 }: {
   title?: string;
-  tableStyle?: string;
+  tableStyle?: React.CSSProperties;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<
@@ -99,7 +100,7 @@ export function TranslatorsList({
 
   const sortedTranslators = sortRows(translators, sortKey, sortDir);
 
-  function handleSort(col) {
+  function handleSort(col: (typeof columns)[number]) {
     if (!col.sortable) return;
     if (sortKey === col.key) {
       setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
@@ -153,10 +154,10 @@ export function TranslatorsList({
                       {/* Winner */}
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         <a
-                          href={translator?.Person.orcidId}
+                          href={translator?.Person?.orcidId ?? undefined}
                           className="g-text-blue-600 hover:g-text-blue-800"
                         >
-                          {translator?.Person.firstName} {translator?.Person.surname}
+                          {translator?.Person?.firstName} {translator?.Person?.surname}
                         </a>
                       </td>
                       {/* Languages */}
@@ -166,7 +167,7 @@ export function TranslatorsList({
                             <FormattedMessage
                               key={lang}
                               id={`enums.language.${lang}`}
-                              defaultMessage={lang}
+                              defaultMessage={lang ?? undefined}
                             />
                             <br />
                           </>
@@ -176,13 +177,13 @@ export function TranslatorsList({
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         <FormattedMessage
                           id={`enums.countryCode.${translator?.Person?.countryCode}`}
-                          defaultMessage={translator?.Person?.countryCode}
+                          defaultMessage={translator?.Person?.countryCode ?? undefined}
                         />
                       </td>
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         {(translator?.Person?.certifications || []).map((c) => (
-                          <Tag key={c.year} className="g-m-1 g-mb-0">
-                            {c.year}
+                          <Tag key={c?.year} className="g-m-1 g-mb-0">
+                            {c?.year}
                           </Tag>
                         ))}
                       </td>

@@ -30,9 +30,10 @@ const columns = [
   { key: 'areasExpertise', label: 'Area of Expertise', sortable: true },
 ];
 
-function sortRows(rows, sortKey, sortDir) {
+// Rows are sorted by dynamic keys, so the comparator works on untyped rows
+function sortRows<T>(rows: T[], sortKey: string, sortDir: 'asc' | 'desc'): T[] {
   if (!sortKey) return rows;
-  return [...rows].sort((a, b) => {
+  return [...rows].sort((a: any, b: any) => {
     let aValue = a?.Person?.[sortKey];
     let bValue = b?.Person?.[sortKey];
     // Special handling for nested call.title
@@ -60,7 +61,7 @@ export function MentorsList({
   className,
 }: {
   title?: string;
-  tableStyle?: string;
+  tableStyle?: React.CSSProperties;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<
@@ -95,7 +96,7 @@ export function MentorsList({
 
   const sortedMentors = sortRows(mentors, sortKey, sortDir);
 
-  function handleSort(col) {
+  function handleSort(col: (typeof columns)[number]) {
     if (!col.sortable) return;
     if (sortKey === col.key) {
       setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
@@ -148,11 +149,8 @@ export function MentorsList({
                     >
                       {/* Winner */}
                       <td className="g-px-4 g-py-2">
-                        <a
-                          href={mentor?.Person.orcidId}
-                          className="g-text-blue-600 hover:g-text-blue-800"
-                        >
-                          {mentor?.Person.firstName} {mentor?.Person.surname}
+                        <a className="g-text-blue-600 hover:g-text-blue-800">
+                          {mentor?.Person?.firstName} {mentor?.Person?.surname}
                         </a>
                       </td>
 
@@ -160,7 +158,7 @@ export function MentorsList({
                       <td className="g-px-4 g-py-2">
                         <FormattedMessage
                           id={`enums.countryCode.${mentor?.Person?.countryCode}`}
-                          defaultMessage={mentor?.Person?.countryCode}
+                          defaultMessage={mentor?.Person?.countryCode ?? undefined}
                         />
                       </td>
                       <td className="g-px-4 g-py-2">{mentor?.Person?.areasExpertise}</td>

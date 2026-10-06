@@ -59,7 +59,7 @@ export function NodeSteeringGroupTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="name"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -68,7 +68,7 @@ export function NodeSteeringGroupTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="role"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -95,7 +95,7 @@ export function NodeSteeringGroupTable({ q, onPersonClick }: Props) {
 function usePrepareData(
   data: NodeSteeringGroupQuery | undefined,
   q: string,
-  sortField: keyof Row,
+  sortField: keyof Row | null,
   sortDirection: SortDirection
 ): Row[] {
   const { formatMessage } = useIntl();

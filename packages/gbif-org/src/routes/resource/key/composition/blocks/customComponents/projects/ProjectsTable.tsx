@@ -1,6 +1,11 @@
 import { Card } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PredicateType, ProjectTableQuery, ProjectTableQueryVariables } from '@/gql/graphql';
+import {
+  Predicate,
+  PredicateType,
+  ProjectTableQuery,
+  ProjectTableQueryVariables,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
@@ -86,11 +91,7 @@ const columns: Column[] = [
   { key: 'call', label: 'Call', sortable: true },
 ];
 
-function sortRows(
-  rows: Project[],
-  sortKey: ColumnKey | null,
-  sortDir: 'asc' | 'desc'
-): Project[] {
+function sortRows(rows: Project[], sortKey: ColumnKey | null, sortDir: 'asc' | 'desc'): Project[] {
   if (!sortKey) return rows;
   return [...rows].sort((a, b) => {
     let aValue: unknown = a[sortKey as keyof Project];
@@ -209,13 +210,9 @@ function TableCell({ project, columnKey }: { project: Project; columnKey: Column
         </td>
       );
     case 'projectId':
-      return (
-        <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.projectId}</td>
-      );
+      return <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.projectId}</td>;
     case 'call':
-      return (
-        <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.call?.title}</td>
-      );
+      return <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.call?.title}</td>;
     default:
       return null;
   }
@@ -223,11 +220,10 @@ function TableCell({ project, columnKey }: { project: Project; columnKey: Column
 
 export function ProjectsTable({
   programmeId,
-  tableStyle,
   className,
 }: {
   programmeId?: string;
-  tableStyle?: string;
+  tableStyle?: React.CSSProperties;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<ProjectTableQuery, ProjectTableQueryVariables>(
@@ -238,7 +234,7 @@ export function ProjectsTable({
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
-    const predicates = [
+    const predicates: Predicate[] = [
       {
         type: PredicateType.In,
         key: 'contentType',
@@ -311,7 +307,6 @@ export function ProjectsTable({
       setSortDir('asc');
     }
   }
-
 
   return (
     <>

@@ -36,9 +36,10 @@ const columns = [
   { key: 'orcidId', label: 'ORCID ID', sortable: true },
 ];
 
-function sortRows(rows, sortKey, sortDir) {
+// Rows are sorted by dynamic keys, so the comparator works on untyped rows
+function sortRows<T>(rows: T[], sortKey: string, sortDir: 'asc' | 'desc'): T[] {
   if (!sortKey) return rows;
-  return [...rows].sort((a, b) => {
+  return [...rows].sort((a: any, b: any) => {
     let aValue = a?.Person?.[sortKey];
     let bValue = b?.Person?.[sortKey];
     // Special handling for nested call.title
@@ -66,7 +67,7 @@ export function AmbassadorsList({
   className,
 }: {
   title?: string;
-  tableStyle?: string;
+  tableStyle?: React.CSSProperties;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<
@@ -101,7 +102,7 @@ export function AmbassadorsList({
 
   const sortedAmbassadors = sortRows(ambassadors, sortKey, sortDir);
 
-  function handleSort(col) {
+  function handleSort(col: (typeof columns)[number]) {
     if (!col.sortable) return;
     if (sortKey === col.key) {
       setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
@@ -155,30 +156,30 @@ export function AmbassadorsList({
                       {/* Winner */}
                       <td className="g-px-4 g-py-2">
                         <a
-                          href={'mailto:' + ambassador?.Person.email}
+                          href={'mailto:' + ambassador?.Person?.email}
                           className="g-text-blue-600 hover:g-text-blue-800"
                         >
-                          {ambassador?.Person.firstName} {ambassador?.Person.surname}
+                          {ambassador?.Person?.firstName} {ambassador?.Person?.surname}
                         </a>
                       </td>
 
-                      <td className="g-px-4 g-py-2">{ambassador?.Person.institutionName}</td>
+                      <td className="g-px-4 g-py-2">{ambassador?.Person?.institutionName}</td>
 
                       {/* Country */}
                       <td className="g-px-4 g-py-2">
                         <FormattedMessage
                           id={`enums.countryCode.${ambassador?.Person?.countryCode}`}
-                          defaultMessage={ambassador?.Person?.countryCode}
+                          defaultMessage={ambassador?.Person?.countryCode ?? undefined}
                         />
                       </td>
                       <td className="g-px-4 g-py-2">{ambassador?.Person?.areasExpertise}</td>
                       {/* Winner */}
                       <td className="g-px-4 g-py-2">
                         <a
-                          href={ambassador?.Person.orcidId}
+                          href={ambassador?.Person?.orcidId ?? undefined}
                           className="g-text-blue-600 hover:g-text-blue-800"
                         >
-                          {ambassador?.Person.orcidId}
+                          {ambassador?.Person?.orcidId}
                         </a>
                       </td>
                     </tr>
