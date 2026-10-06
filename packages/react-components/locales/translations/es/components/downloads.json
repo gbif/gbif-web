@@ -336,8 +336,8 @@
         "description": "Múltiples archivos (núcleo, valores sin procesar, datos interpretados, extensiones) para un uso detallado o especializado. La descarga se puede personalizar seleccionando extensiones específicas."
       },
       "FASTA_ARCHIVE": {
-        "title": "",
-        "description": ""
+        "title": "Archivo FASTA",
+        "description": "Un archivo Darwin Core con los registros que contienen secuencias de ADN, en el que las propias secuencias se han añadido como un archivo FASTA. Solo se incluyen los registros que contienen una secuencia de ADN."
       },
       "SPECIES_LIST": {
         "title": "Listas de especies",
@@ -361,8 +361,8 @@
         "individualOccurrences": "Ocurrencias individuales",
         "multimediaLinks": "Enlaces multimedia",
         "occurrenceCounts": "Número (cantidad) de registros",
-        "dnaSequences": "",
-        "sequencedRecordsOnly": ""
+        "dnaSequences": "Secuencias de ADN (FASTA)",
+        "sequencedRecordsOnly": "Solo registros secuenciados"
       }
     },
     "taxonomySelector": {
@@ -372,11 +372,11 @@
       "version": "Versión"
     },
     "sequences": {
-      "noSequencesTitle": "",
-      "noSequencesDescription": "",
-      "someSequencesTitle": "",
-      "someSequencesDescription": "",
-      "recordsIncluded": ""
+      "noSequencesTitle": "No se han encontrado secuencias de ADN en esta búsqueda",
+      "noSequencesDescription": "Este formato solo está disponible para búsquedas que contengan secuencias de ADN.",
+      "someSequencesTitle": "Solo se incluyen los registros con secuencias de ADN",
+      "someSequencesDescription": "{included} de los {total} registros de tu búsqueda tienen una secuencia de ADN. Los {discarded} registros restantes no se incluirán en la descarga.",
+      "recordsIncluded": "Registros incluidos"
     }
   },
   "customSqlDownload": {
