@@ -19,6 +19,14 @@ repo root.
 There is no `lint` script. Run `npx eslint src` (config in `.eslintrc.cjs`). Prettier: width 100,
 single quotes. Neither runs on commit.
 
+## Task guides
+
+Step-by-step guides with caveats, in `docs/how-to/`. Read the matching one before starting:
+
+- `docs/how-to/add-a-route.md`: new page or tab, loader, registration, hosted-portal needs.
+- `docs/how-to/code-splitting-and-lazy-loading.md`: before using `React.lazy` on a page.
+- `docs/how-to/add-a-translation.md`: any new user-facing text.
+
 ## Two builds, one source
 
 - `gbif/` (package root) is gbif.org: Express `server.js` plus Vite SSR. The backend mostly does
@@ -37,8 +45,11 @@ single quotes. Neither runs on commit.
 
 Reference example: `src/routes/dataset/key/index.tsx` with `datasetKey.tsx`.
 
-- Routes are `RouteObjectWithPlugins` (`src/reactRouterPlugins/`), collected in
-  `src/gbif/routes.tsx` and `src/hp/routes.tsx` and passed through `applyReactRouterPlugins`.
+- Routes are `RouteObjectWithPlugins` (`src/reactRouterPlugins/`). Shared data pages are listed
+  once in `dataRoutes` (`src/config/routes.tsx`), which both `src/gbif/routes.tsx` and
+  `src/hp/routes.tsx` consume. gbif.org-only pages go in `src/gbif/routes.tsx`.
+- A route's `id` is a public contract: hosted portals enable and relocate pages by id in their
+  config. Never rename one. Routes in `dataRoutes` must define `gbifRedirect`.
 - Data is fetched in a `loader({ params, graphql }: LoaderArgs)` which calls `graphql.query<...>()`
   and then `throwCriticalErrors(...)` (`src/routes/rootErrorPage.tsx`). Loaders run on the server
   for gbif.org and in the browser for portals.

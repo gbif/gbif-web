@@ -33,9 +33,11 @@ assume the hosted-portal case too: it must work without SSR and must respect `us
 
 ## Where to start
 
-- Most tasks: `packages/gbif-org`. Read `packages/gbif-org/CLAUDE.md` first, then the relevant
-  section of `packages/gbif-org/README.md` (it has a "How to" section for adding routes).
-- Schema or data-shape changes: `packages/graphql-api/CLAUDE.md`.
+- Most tasks: `packages/gbif-org`. Read `packages/gbif-org/CLAUDE.md` first. For a concrete task
+  (new route, new translated string, lazy loading) read the matching guide in
+  `packages/gbif-org/docs/how-to/` before starting. The README holds the long-form reference.
+- Schema or data-shape changes: `packages/graphql-api/CLAUDE.md`, and
+  `packages/graphql-api/docs/how-to/add-a-resource.md` for adding fields or resources.
 - Search or aggregation behaviour that the GraphQL layer only passes through: `packages/es-api`.
 
 ## Cross-cutting conventions

@@ -11,6 +11,10 @@ nearly all its data from here. Run `nvm use` and `npm install` here, not at the 
 | `npm test` | ts-mocha over colocated `src/**/*.test.{js,ts}` |
 | `npm run build` | `tsc` plus path-alias rewrite into `dist/` |
 
+## Task guides
+
+- `docs/how-to/add-a-resource.md`: adding a field, type, or whole resource, with caveats.
+
 ## Layout and the resource pattern
 
 - `src/index.ts` wires Express and Apollo. `src/typeDefs.js`, `src/resolvers.js`, and
