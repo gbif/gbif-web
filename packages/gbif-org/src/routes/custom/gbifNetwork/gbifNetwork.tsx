@@ -20,8 +20,6 @@ import NodeSteeringGroup from './NodeSteeringGroup';
 import Participants from './Participants';
 import useFetchGet from '@/hooks/useFetchGet';
 import { SkeletonTable } from '@/components/ui/skeleton';
-// eslint-disable-next-line
-import { NETWORK_PARTICIPANTS_QUERY } from './networkParticipantQuery.mjs'; // we import this simply to generate types
 import PageMetaData from '@/components/PageMetaData';
 
 const GBIF_NETWORK_QUERY = /* GraphQL */ `
@@ -183,7 +181,7 @@ export const gbifNetworkRoute: RouteObjectWithPlugins = {
   loader: gbifNetworkPageLoader,
   loadingElement: <ArticleSkeleton />,
   path: 'the-gbif-network',
-  shouldRevalidate: ({ currentUrl, nextUrl, defaultShouldRevalidate }) => {
+  shouldRevalidate: ({ currentUrl, nextUrl }) => {
     // Only revalidate if the pathname changed, not search params
     if (currentUrl.pathname !== nextUrl.pathname) {
       return true;

@@ -56,7 +56,7 @@ export function MdtOccurrences() {
               {datasetKeys.length === 0 && (
                 <table>
                   <tbody>
-                    {Array.from({ length: 10 }).map((x, i) => (
+                    {Array.from({ length: 10 }).map((_x, i) => (
                       <tr key={i}>
                         <td>
                           <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />

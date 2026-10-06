@@ -31,9 +31,10 @@ const columns = [
   { key: 'countryCode', label: 'Country or Area', sortable: true },
 ];
 
-function sortRows(rows, sortKey, sortDir) {
+// Rows are sorted by dynamic keys, so the comparator works on untyped rows
+function sortRows<T>(rows: T[], sortKey: string, sortDir: 'asc' | 'desc'): T[] {
   if (!sortKey) return rows;
-  return [...rows].sort((a, b) => {
+  return [...rows].sort((a: any, b: any) => {
     let aValue = a[sortKey];
     let bValue = b[sortKey];
     // Special handling for nested call.title
@@ -68,7 +69,7 @@ export function GraList({
   className,
 }: {
   title?: string;
-  tableStyle?: string;
+  tableStyle?: React.CSSProperties;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<GraWinnersQuery, GraWinnersQueryVariables>(
@@ -103,7 +104,7 @@ export function GraList({
 
   const sortedWinners = sortRows(winners, sortKey, sortDir);
 
-  function handleSort(col) {
+  function handleSort(col: (typeof columns)[number]) {
     if (!col.sortable) return;
     if (sortKey === col.key) {
       setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
@@ -156,16 +157,19 @@ export function GraList({
                     >
                       {/* Year */}
                       <td className="g-px-4 g-py-2">
-                        <YearDate value={winner?.roles[0]?.term.start} />{' '}
+                        <YearDate value={winner?.roles?.[0]?.term?.start ?? undefined} />{' '}
                         <FormattedMessage
-                          id={`directory.award.${winner?.roles[0]?.award}`}
-                          defaultMessage={winner?.roles[0]?.award}
+                          id={`directory.award.${winner?.roles?.[0]?.award}`}
+                          defaultMessage={winner?.roles?.[0]?.award ?? undefined}
                         />
                       </td>
                       {/* Winner */}
                       <td className="g-px-4 g-py-2">
-                        <a href={winner.orcidId} className="g-text-blue-600 hover:g-text-blue-800">
-                          {winner.firstName} {winner.surname}
+                        <a
+                          href={winner?.orcidId ?? undefined}
+                          className="g-text-blue-600 hover:g-text-blue-800"
+                        >
+                          {winner?.firstName} {winner?.surname}
                         </a>
                       </td>
 
@@ -173,7 +177,7 @@ export function GraList({
                       <td className="g-px-4 g-py-2">
                         <FormattedMessage
                           id={`enums.countryCode.${winner?.countryCode}`}
-                          defaultMessage={winner?.countryCode}
+                          defaultMessage={winner?.countryCode ?? undefined}
                         />
                       </td>
                     </tr>

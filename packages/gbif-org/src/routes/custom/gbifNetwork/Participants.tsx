@@ -1,9 +1,7 @@
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { GbifNetworkParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect, useMemo, useState } from 'react';
-import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FilterButtonGroup } from '@/components/filterButtonGroup';
 import { Table, Th } from '@/components/clientTable';
@@ -17,11 +15,16 @@ type Participant = NonNullable<
   NonNullable<GbifNetworkParticipantsQuery['nodeSearch']>['results']
 >[number];
 
-type ExtendedParticipant = Participant & {
-  membershipStart?: string | null; // Add membershipStart as a top-level field
+type ParticipantType = ParticipationStatus | 'OTHER_ASSOCIATE' | 'UNKNOWN';
+
+type ActiveParticipant = NonNullable<Participant> & {
+  participant: NonNullable<NonNullable<Participant>['participant']>;
 };
 
-type ParticipantType = ParticipationStatus | 'OTHER_ASSOCIATE' | 'UNKNOWN';
+type ExtendedParticipant = ActiveParticipant & {
+  membershipStart?: string | null; // Add membershipStart as a top-level field
+  participationType: ParticipantType;
+};
 
 const uniqueRegions = ['AFRICA', 'ASIA', 'EUROPE', 'LATIN_AMERICA', 'NORTH_AMERICA', 'OCEANIA'];
 const types = ['ASSOCIATE', 'OTHER_ASSOCIATE', 'VOTING'];
@@ -62,9 +65,9 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
       // first remove all nodes that have a participation status of FORMER or OBSERVER
       const activeNodes = listData?.nodeSearch?.results
         .filter(
-          (node) =>
-            node &&
-            node?.participant &&
+          (node): node is ActiveParticipant =>
+            !!node &&
+            !!node?.participant &&
             node?.participant?.participationStatus !== 'FORMER' &&
             node.participant.participationStatus !== 'OBSERVER' &&
             node?.participant?.participationStatus !== 'AFFILIATE'
@@ -120,7 +123,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
             )
           );
         case 'memberSince':
-          return multiplier * (a.membershipStart - b.membershipStart);
+          return multiplier * (Number(a.membershipStart) - Number(b.membershipStart));
         case 'region':
           return (
             multiplier *
@@ -139,8 +142,8 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
         <div className="g-mb-6">
           <FilterButtonGroup
             options={filterOptions}
-            selectedValue={selectedFilter}
-            onSelect={setSelectedFilter}
+            selectedValue={selectedFilter ?? null}
+            onSelect={(value) => setSelectedFilter(value ?? undefined)}
             allLabel={<FormattedMessage id="gbifNetwork.all" />}
             clearLabel={<FormattedMessage id="gbifNetwork.clear" />}
           />
@@ -159,7 +162,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
               field="name"
               sortField={sortField}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="gbifNetwork.participant" />
             </Th>
@@ -169,7 +172,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
               field="type"
               sortField={sortField}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="gbifNetwork.type" />
             </Th>
@@ -179,7 +182,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
               field="memberSince"
               sortField={sortField}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="gbifNetwork.memberSince" />
             </Th>
@@ -193,7 +196,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                   pageId={participant.type === 'COUNTRY' ? 'countryKey' : 'participantKey'}
                   variables={
                     participant.type === 'COUNTRY'
-                      ? { countryCode: participant.country }
+                      ? { countryCode: participant.country ?? '' }
                       : { key: participant.participant.id }
                   }
                 >
@@ -239,6 +242,7 @@ function Summary({
       OTHER_ASSOCIATE: 0,
       FORMER: 0,
       OBSERVER: 0,
+      AFFILIATE: 0,
       UNKNOWN: 0,
     };
 
