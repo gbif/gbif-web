@@ -28,6 +28,8 @@ Step-by-step guides with caveats, in `docs/how-to/`. Read the matching one befor
 - `docs/how-to/add-a-translation.md`: any new user-facing text.
 - `docs/how-to/add-an-occurrence-filter.md`: new search parameter or facet. Spans es-api,
   graphql-api, and this package.
+- `docs/how-to/add-a-filter-type.md`: a new filter widget kind. Rare; check the existing types in
+  `src/components/filters/filterTools.tsx` first.
 
 ## Two builds, one source
 

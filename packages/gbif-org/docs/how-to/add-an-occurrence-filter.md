@@ -34,7 +34,9 @@ path.
    OPTIONAL_BOOL, WILDCARD, LOCATION, TAXON, and a few special ones. Each has a config file in
    `src/routes/occurrence/search/filters/` (`enums.tsx`, `keySuggest.tsx`, `ranges.tsx`,
    `textOnly.tsx`, `wildcard.tsx`, `vocabulary.tsx`, `booleans.tsx`). Copy a neighbour of the same
-   kind.
+   kind. These kinds are prebuilt widgets and almost always one fits. If the user needs a genuinely
+   different way to pick a value, that is a new filter type, which is rare; see
+   [add-a-filter-type.md](./add-a-filter-type.md).
 
 ## es-api (only if the filter shows counts, or needs a GET param)
 
