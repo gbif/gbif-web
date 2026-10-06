@@ -36,7 +36,7 @@ export function useRowLink<T>({
 
   return useCallback(
     (item: T) => {
-      if (!link?.to) return null;
+      if (!link?.to || typeof link.to !== 'string') return null;
       if ('createDrawerKey' in rowLinkOptions) {
         return {
           type: link.type,

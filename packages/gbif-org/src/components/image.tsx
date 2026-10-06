@@ -1,5 +1,5 @@
 import { cn } from '@/utils/shadcn';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdBrokenImage, MdImage } from 'react-icons/md';
 
 export function ClientImage({
@@ -10,8 +10,12 @@ export function ClientImage({
   className,
   src,
   ...props
+}: Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'style'> & {
+  wrapperProps?: React.HTMLAttributes<HTMLDivElement>;
+  defaultSize?: React.CSSProperties;
+  style?: React.CSSProperties;
 }) {
-  const imageRef = useRef();
+  const imageRef = useRef<HTMLImageElement>(null);
   const [failed, markAsFailed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [client, setClient] = useState(false);
