@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Země a oblasti zveřejnění",
   "originalArchive": "Archiv zdrojů",
   "originalArchiveDescription": "Zdrojový archiv obsahuje data publikovaná v GBIF bez jakékoli normalizace nebo zpracování prostřednictvím GBIF.",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "Stáhnout z ChecklistBank",
   "checklistBankDownloadDescription": "Tento archivovaný soubor byl do GBIF zaslán prostřednictvím ChecklistBank. ChecklistBank nabízí několik formátů ke stažení a také možnosti filtrování seznamů před stažením.",
   "annotatedEml": "popsaná metadata GBIF",
@@ -149,6 +151,7 @@
   "griddedData": "Data v mřížce",
   "griddedDataDescription": "Na základě naší analýzy záznamů je pravděpodobné, že tato datová sada obsahuje data s mřížkou. Více informací najdete v tomto [příspěvku na blogu o souborech dat s mřížkou](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Metriky výskytu",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "Neúspěšné pokusy od posledního úspěšného ingestu",
     "lastFailed": "Poslední neúspěšný pokus",
