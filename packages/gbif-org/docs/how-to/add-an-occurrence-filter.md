@@ -1,7 +1,16 @@
 # How to add an occurrence search filter
 
 A filter is a URL parameter on occurrence search that becomes part of the GraphQL `predicate`.
-This usually touches three packages, but for different reasons than you might expect:
+What you have to touch depends on what the filter needs:
+
+| You need | Where the work is |
+|---|---|
+| A new filter on a field API v1 already accepts | gbif-org only: filter config, `searchConfig` mapping of the URL parameter, translations, and aliases so people can find it under "More filters" |
+| Counts in the filter popover (a facet) | plus graphql-api (facet field) and es-api (field entry in `occurrence.config.js`) |
+| Sorting by the field, or showing it in result rows | plus the es-api sort whitelist or reducer, and the gbif-org table columns |
+| A field API v1 does not know | a backend change outside this repo first |
+
+Why the backend packages are so lightly involved:
 
 - **The predicate itself passes straight through.** graphql-api forwards it unchanged to es-api,
   and es-api forwards occurrence predicates to API v1 (`/occurrence/search/predicate/toesquery`)
