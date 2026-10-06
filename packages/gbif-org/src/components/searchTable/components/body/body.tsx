@@ -54,7 +54,7 @@ function Body<T>({
                   isFirstColumn={idx === 0}
                   render={column.cell}
                   item={item}
-                  linkData={linkData}
+                  linkData={linkData ?? undefined}
                 />
               ))}
             </TableRow>
