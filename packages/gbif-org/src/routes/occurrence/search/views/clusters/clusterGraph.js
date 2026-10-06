@@ -1,3 +1,4 @@
+// @ts-nocheck -- forked d3 example; d3 ships no type declarations (no @types/d3 installed)
 /*
 this is forked from https://bl.ocks.org/puzzler10/4438752bb93f45dc5ad5214efaa12e4a and modified to my needs
 
