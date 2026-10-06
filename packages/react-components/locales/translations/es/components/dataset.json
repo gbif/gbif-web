@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Países y áreas que publican",
   "originalArchive": "Archivo fuente",
   "originalArchiveDescription": "Archivo de GBIF anotado",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "Archivo de GBIF anotado",
   "checklistBankDownloadDescription": "Archivo de GBIF anotado",
   "annotatedEml": "Metadatos de GBIF anotados",
@@ -149,6 +151,7 @@
   "griddedData": "Datos en cuadrícula",
   "griddedDataDescription": "Basado en el análisis de los registros, es probable que este conjunto de datos contenga datos en cuadrículas. Lee más en este [post sobre conjuntos de datos en cuadrículas](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Métricas de registros biológicos",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "Intentos fallidos desde la última integración exitosa",
     "lastFailed": "Último intento fallido",
