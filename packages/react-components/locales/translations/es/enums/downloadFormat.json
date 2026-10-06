@@ -3,6 +3,7 @@
     "SIMPLE_AVRO": "Apache Avro",
     "SIMPLE_CSV": "Simple",
     "DWCA": "Archivo Darwin Core",
+    "FASTA_ARCHIVE": "",
     "SPECIES_LIST": "Listas de especies",
     "SIMPLE_WITH_VERBATIM_AVRO": "Apache Avro con campos comunes interpretados y todos los campos literales",
     "MAP_OF_LIFE": "Exportar Map of Life",
