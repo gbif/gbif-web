@@ -335,6 +335,10 @@
         "title": "Archivo Darwin Core",
         "description": "Múltiples archivos (núcleo, valores sin procesar, datos interpretados, extensiones) para un uso detallado o especializado. La descarga se puede personalizar seleccionando extensiones específicas."
       },
+      "FASTA_ARCHIVE": {
+        "title": "",
+        "description": ""
+      },
       "SPECIES_LIST": {
         "title": "Listas de especies",
         "description": "Una lista de todos los nombres de taxones distintos con recuentos de ocurrencia."
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "Coordenadas (si se seleccionan)",
         "individualOccurrences": "Ocurrencias individuales",
         "multimediaLinks": "Enlaces multimedia",
-        "occurrenceCounts": "Número (cantidad) de registros"
+        "occurrenceCounts": "Número (cantidad) de registros",
+        "dnaSequences": "",
+        "sequencedRecordsOnly": ""
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "Seleccione la taxonomía que se utilizará para rellenar las columnas taxonómicas en la descarga.",
       "defaultRecommended": "Predeterminado y recomendado para la mayoría de los usuarios.",
       "version": "Versión"
+    },
+    "sequences": {
+      "noSequencesTitle": "",
+      "noSequencesDescription": "",
+      "someSequencesTitle": "",
+      "someSequencesDescription": "",
+      "recordsIncluded": ""
     }
   },
   "customSqlDownload": {
