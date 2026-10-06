@@ -336,8 +336,8 @@
         "description": "Plusieurs fichiers (données de base, valeurs brutes, données interprétées, extensions) pour une utilisation détaillée ou spécialisée. Le téléchargement est personnalisable en sélectionnant les extensions nécessaires."
       },
       "FASTA_ARCHIVE": {
-        "title": "",
-        "description": ""
+        "title": "Archive FASTA",
+        "description": "Une archive Darwin Core contenant les enregistrements comportant des séquences ADN, avec les séquences elles-mêmes ajoutées sous forme de fichier FASTA. Seuls les enregistrements contenant une séquence ADN sont inclus."
       },
       "SPECIES_LIST": {
         "title": "Liste des espèces en format CSV",
@@ -361,8 +361,8 @@
         "individualOccurrences": "occurrences individuelles",
         "multimediaLinks": "liens multimédia",
         "occurrenceCounts": "Nombre d’occurrences",
-        "dnaSequences": "",
-        "sequencedRecordsOnly": ""
+        "dnaSequences": "Séquences d'ADN (FASTA)",
+        "sequencedRecordsOnly": "Enregistrements séquencés uniquement"
       }
     },
     "taxonomySelector": {
@@ -372,11 +372,11 @@
       "version": "Version"
     },
     "sequences": {
-      "noSequencesTitle": "",
-      "noSequencesDescription": "",
-      "someSequencesTitle": "",
+      "noSequencesTitle": "Aucune séquence d'ADN n'a été trouvée lors de cette recherche",
+      "noSequencesDescription": "Ce format n'est disponible que pour les recherches contenant des séquences d'ADN.",
+      "someSequencesTitle": "Seuls les enregistrements contenant des séquences ADN sont inclus",
       "someSequencesDescription": "",
-      "recordsIncluded": ""
+      "recordsIncluded": "Enregistrements inclus"
     }
   },
   "customSqlDownload": {
