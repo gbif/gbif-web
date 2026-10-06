@@ -53,6 +53,8 @@
     "default": "По умолчанию",
     "random": "Случайным образом",
     "showMore": "Показать подробнее{count}",
+    "moreImagesHint": "",
+    "moreImagesLink": "",
     "cappedHint": "Показывать {shown} из {total} групп. Далее применить больше фильтров чтобы сузить поиск.",
     "useAsFilter": "Установить как фильтр",
     "unspecified": "Не указана"
