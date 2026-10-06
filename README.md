@@ -1,29 +1,18 @@
-# GBIF-web
+# gbif-web
 
-This is a monorepo to group GBIF web components and API wrappers that serve UI specific needs.
-
-<!-- TOC -->
-
-- [Packages](#packages)
-- [Adding packages](#adding-packages)
-- [Development](#development)
-- [License](#license)
-  <!-- /TOC -->
+The code behind [gbif.org](https://www.gbif.org) and the GBIF hosted portals, as a monorepo. Each
+package has its own README, lockfile, and `.nvmrc`; install and run inside the package.
 
 ## Packages
 
-- [GBIF.org and hosted portal code base](./packages/gbif-org/README.md)
-- [GraphQL on top of the public GBIF API and es-api](./packages/graphql-api/README.md)
-- [Elasticsearch API wrapper](./packages/es-api/README.md)
-- [React Components library - legacy, only the translation sources in `locales/` are still in use](./packages/react-components/README.md)
-
-## Adding packages
-
-To add another package create a new directory in the packages folder. Since we are using Lerna all package scripts are available from the root by running lerna run {script_name}
+- [gbif-org](./packages/gbif-org/README.md): gbif.org frontend and backend, and the hosted-portal browser library
+- [graphql-api](./packages/graphql-api/README.md): GraphQL layer over the public GBIF API and es-api
+- [es-api](./packages/es-api/README.md): Elasticsearch API wrapper
+- [react-components](./packages/react-components/README.md): legacy; only the translation sources in `locales/` are still in use
 
 ## Development
 
-We use Visual Studio Code. Relevant plugins:
+We use Visual Studio Code with these extensions:
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
@@ -32,4 +21,4 @@ We use Visual Studio Code. Relevant plugins:
 
 ## License
 
-This repository is published under the [Apache License 2.0](LICENSE).
+[Apache License 2.0](LICENSE).
