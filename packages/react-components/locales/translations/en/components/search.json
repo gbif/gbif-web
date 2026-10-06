@@ -53,6 +53,8 @@
     "default": "Default",
     "random": "Random",
     "showMore": "Show {count} more",
+    "moreImagesHint": "To see more images for a group, {link}.",
+    "moreImagesLink": "disable grouping and show a random selection",
     "cappedHint": "Showing {shown} of {total} groups. Apply more filters to narrow down further.",
     "useAsFilter": "Use as filter",
     "unspecified": "Unspecified"

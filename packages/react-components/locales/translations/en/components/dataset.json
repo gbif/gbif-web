@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Publishing countries and areas",
   "originalArchive": "Source archive",
   "originalArchiveDescription": "The source archive is the data as published to GBIF without any normalization or processing via GBIF.",
+  "dataPackage": "Data package",
+  "dataPackageDescription": "The data package is the data as published to GBIF in the Darwin Core Data Package format, without any normalization or processing via GBIF.",
   "checklistBankDownload": "Download from ChecklistBank",
   "checklistBankDownloadDescription": "This archived comes to GBIF via ChecklistBank. ChecklistBank provides multiple download formats as well as options to filter checklists before downloading.",
   "annotatedEml": "GBIF annotated metadata",
@@ -149,6 +151,7 @@
   "griddedData": "Gridded data",
   "griddedDataDescription": "Based on our analysis of the records, this dataset likely contains gridded data. Read more in this [blog post about gridded datasets](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Occurrence metrics",
+  "trustedContactRegistryLink": "Dataset management",
   "registry": {
     "failedSinceSuccess": "Failed attempts since last successful ingestion",
     "lastFailed": "Last failed attempt",
