@@ -12,10 +12,12 @@ This is a monorepo to group GBIF web components and API wrappers that serve UI s
 
 ## Packages
 
-- [React Components library - soon to be deprecated](./packages/react-components/README.md)
-- [Vector tile server](./packages/es2vt/README.md)
 - [GBIF.org and hosted portal code base](./packages/gbif-org/README.md)
-- [GraphQL on top of public GBIF API](./packages/graphql-api/README.md)
+- [GraphQL on top of the public GBIF API and es-api](./packages/graphql-api/README.md)
+- [Elasticsearch API wrapper](./packages/es-api/README.md)
+- [React Components library - legacy, only the translation sources in `locales/` are still in use](./packages/react-components/README.md)
+
+For an overview of how the packages fit together and the conventions used in each, see [CLAUDE.md](./CLAUDE.md). It is written for coding agents but is a good short orientation for contributors too.
 
 ## Adding packages
 
