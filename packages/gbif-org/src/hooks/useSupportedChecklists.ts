@@ -5,9 +5,9 @@ import { useI18n } from '@/reactRouterPlugins';
 import { GraphQLService } from '@/services/graphQLService';
 import { useEffect, useState } from 'react';
 
-const supportedChecklists =
+const supportedChecklists: string[] =
   import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS_FOR_DOWNLOAD?.split(',') || [];
-const defaultVisibleChecklists =
+const defaultVisibleChecklists: string[] =
   import.meta.env.PUBLIC_DEFAULT_VISIBLE_CHECKLISTS_FOR_DOWNLOAD?.split(',') || [];
 
 export function isSupportedChecklist(datasetKey: string) {

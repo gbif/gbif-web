@@ -1,7 +1,7 @@
 import { ParentPagesContext } from '@/components/parentPagesContext';
 import { ParamQuery, stringify } from '@/utils/querystring';
 import { useCallback, useContext, useMemo } from 'react';
-import { Link, LinkProps, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PageContext } from './applyPagePaths/plugin';
 import { useI18n } from './i18n';
 import { useConfig } from '@/config/config';
@@ -12,15 +12,15 @@ export type LinkData = {
 };
 
 export type DynamicLinkProps<T extends React.ElementType> = {
-  to?: string;
+  // null renders an empty link (with a console warning); undefined links to the current page
+  to?: string | null;
   as?: T;
   variables?: Record<string, string>;
   pageId?: string;
   searchParams?: ParamQuery;
   path?: string;
   keepExistingSearchParams?: boolean;
-} & Omit<React.ComponentPropsWithoutRef<T>, 'to'> &
-  Partial<Pick<LinkProps, 'to'>>;
+} & Omit<React.ComponentPropsWithoutRef<T>, 'to'>;
 
 /**
  * This is not ideal as it doesn't handle disabled routes and redirects to gbif.org
@@ -158,7 +158,7 @@ export function useDynamicLink({
   keepExistingSearchParams = false,
   path,
 }: {
-  to?: string | object;
+  to?: string | object | null;
   variables?: Record<string, string>;
   pageId?: string;
   searchParams?: ParamQuery;
@@ -259,9 +259,10 @@ export function DynamicLinkPresentation<T extends React.ElementType = typeof Lin
   ...props
 }: DynamicLinkPresentationProps<T>): React.ReactElement {
   if (linkData.type === 'href') {
-    return <a {...props} href={linkData.to!} />;
+    // href links are always built as strings
+    return <a {...props} href={linkData.to as string} />;
   } else {
-    const LinkComponent = as ?? Link;
+    const LinkComponent: React.ElementType = as ?? Link;
     return <LinkComponent to={linkData.to!} {...props} />;
   }
 }
