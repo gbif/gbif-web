@@ -26,6 +26,8 @@ Step-by-step guides with caveats, in `docs/how-to/`. Read the matching one befor
 - `docs/how-to/add-a-route.md`: new page or tab, loader, registration, hosted-portal needs.
 - `docs/how-to/code-splitting-and-lazy-loading.md`: before using `React.lazy` on a page.
 - `docs/how-to/add-a-translation.md`: any new user-facing text.
+- `docs/how-to/add-an-occurrence-filter.md`: new search parameter or facet. Spans es-api,
+  graphql-api, and this package.
 
 ## Two builds, one source
 

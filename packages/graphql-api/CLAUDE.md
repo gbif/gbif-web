@@ -14,6 +14,9 @@ nearly all its data from here. Run `nvm use` and `npm install` here, not at the 
 ## Task guides
 
 - `docs/how-to/add-a-resource.md`: adding a field, type, or whole resource, with caveats.
+- `../gbif-org/docs/how-to/add-an-occurrence-filter.md`: adding an occurrence facet or filter. The
+  predicate passes through this package unchanged; only facet, cardinality, and stats fields are
+  listed here (`src/resources/occurrence/helpers/fields/`).
 
 ## Layout and the resource pattern
 

@@ -39,6 +39,8 @@ assume the hosted-portal case too: it must work without SSR and must respect `us
 - Schema or data-shape changes: `packages/graphql-api/CLAUDE.md`, and
   `packages/graphql-api/docs/how-to/add-a-resource.md` for adding fields or resources.
 - Search or aggregation behaviour that the GraphQL layer only passes through: `packages/es-api`.
+- A new occurrence search filter or facet touches all three active packages. Follow
+  `packages/gbif-org/docs/how-to/add-an-occurrence-filter.md`, which covers each package's part.
 
 ## Cross-cutting conventions
 

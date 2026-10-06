@@ -9,3 +9,7 @@ shaped like GBIF API v1 and a POST API that takes the occurrence-download predic
 - Layout: `src/resources/` per index, with `requestAdapter/` translating query params and predicates
   into ES queries and `responseAdapter/` reducing ES hits toward the API v1 shape.
 - Plain JavaScript, no TypeScript.
+- Occurrence predicates are not validated here. `src/resources/occurrence/index.js` normalises keys
+  to UPPER_SNAKE and posts them to API v1 `/occurrence/search/predicate/toesquery`. The field list
+  in `occurrence.config.js` governs GET params, facets, and cardinality only. For adding a field see
+  `../gbif-org/docs/how-to/add-an-occurrence-filter.md`.
