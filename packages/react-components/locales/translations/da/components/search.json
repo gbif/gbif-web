@@ -53,6 +53,8 @@
     "default": "Standard",
     "random": "",
     "showMore": "",
+    "moreImagesHint": "",
+    "moreImagesLink": "",
     "cappedHint": "",
     "useAsFilter": "",
     "unspecified": "Uspecificeret"
