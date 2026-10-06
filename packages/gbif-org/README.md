@@ -1,8 +1,8 @@
-# New GBIF.org
+# GBIF.org
 
 ## Table of Contents
 
-- [New GBIF.org](#new-gbiforg)
+- [GBIF.org](#gbiforg)
   - [Table of Contents](#table-of-contents)
   - [Get Up and Running](#get-up-and-running)
     - [How to Start the New GBIF.org in Development Mode](#how-to-start-the-new-gbiforg-in-development-mode)
@@ -39,8 +39,7 @@
     - [Using Plain Old CSS](#using-plain-old-css)
   - [The Global Config](#the-global-config)
   - [How to](#how-to)
-  - [Code Formatting](#code-formatting)
-  - [ESLint](#eslint)
+  - [Code Formatting and ESLint](#code-formatting-and-eslint)
   - [Known Issues](#known-issues)
     - [Loading Screens](#loading-screens)
 
@@ -227,14 +226,11 @@ The function returns a `RouteObject[]` array compatible with `react-router-dom`.
 
 ### Example of a route definition
 
-A route is a `RouteObjectWithPlugins`. Page components are typically lazy-loaded with `React.lazy` and rendered inside a Suspense boundary:
+A route is a `RouteObjectWithPlugins`. Entity pages are imported eagerly so they server-render; see [Code-split and lazy load](docs/how-to/code-splitting-and-lazy-loading.md) before adding `React.lazy`.
 
 ```tsx
-import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import React from 'react';
-
-const DatasetPage = React.lazy(() => import('./datasetKey'));
+import { DatasetPage, DatasetSkeleton, DatasetLayout, datasetLoader } from './datasetKey';
 
 export const datasetRoute: RouteObjectWithPlugins = {
   // Identifies the route (used by react-router-dom and for page configuration).
@@ -259,11 +255,7 @@ export const datasetRoute: RouteObjectWithPlugins = {
   children: [
     {
       index: true,
-      element: (
-        <StaticRenderSuspence fallback={<DatasetSkeleton />}>
-          <DatasetPage />
-        </StaticRenderSuspence>
-      ),
+      element: <DatasetPage />,
     },
     {
       path: 'dashboard',
@@ -279,7 +271,7 @@ Note: Some example properties are custom additions to the default `RouteObject`.
 
 ## Styling
 
-Styling in this project is implemented using [tailwindcss](https://tailwindcss.com/).
+Styling in this project is implemented using [tailwindcss](https://tailwindcss.com/), configured with the class prefix `g-` (`tailwind.config.js`). Every utility class must carry it: `g-flex g-gap-2`, not `flex gap-2`. Unprefixed classes do nothing. The prefix keeps the hosted-portal library from colliding with host-site CSS.
 
 Additionally, we utilize the component library [shadcn/ui](https://ui.shadcn.com/), which enables us to add components incrementally and provides full flexibility to modify these components as needed.
 
@@ -293,9 +285,9 @@ Here is an example of how to use the function:
 import { cn } from '@/utils/shadcn';
 
 const isActive = true;
-const className = cn('border', { 'text-sky-500': isActive });
+const className = cn('g-border', { 'g-text-sky-500': isActive });
 
-console.log(className === 'border text-sky-500'); // true
+console.log(className === 'g-border g-text-sky-500'); // true
 ```
 
 ### Using Plain Old CSS
@@ -400,15 +392,9 @@ Step-by-step guides with caveats live in [`docs/how-to/`](docs/how-to/):
 - [Add a new filter type](docs/how-to/add-a-filter-type.md): a new widget kind, for the rare case where no existing filter type fits.
 - [Add a chart](docs/how-to/add-a-chart.md): standard or custom dashboard chart, lazy export, occurrence dashboard registry and grouping.
 
-## Code Formatting
+## Code Formatting and ESLint
 
-Code formatting within this project is managed using Prettier. To ensure consistency across the codebase, you are encouraged to install the Prettier extension in your code editor. Ideally, enable the 'format on save' feature for automatic formatting. The project's root directory contains a Prettier configuration file, which specifies the formatting rules to be applied. Adhering to these guidelines will help maintain a uniform coding style throughout the project.
-
-## ESLint
-
-This project employs ESLint to enforce coding standards and ensure high-quality code contributions. To facilitate adherence to these standards, it's recommended that you install the ESLint extension in your code editor. This will enable real-time linting, alerting you to any violations of the ESLint rules as you code.
-
-The root directory of the project contains an ESLint configuration file which outlines the specific rules to be followed. By integrating this tool into your development workflow, you can contribute code that consistently meets the project's quality and style guidelines.
+Prettier (`.prettierrc`: width 100, single quotes) and ESLint (`.eslintrc.cjs`) in the package root. Install the editor extensions and enable format on save. Neither runs on commit; run `npx eslint src` and `npm run type-check` before pushing.
 
 ## Known Issues
 

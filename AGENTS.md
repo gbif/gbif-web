@@ -1,6 +1,6 @@
 # gbif-web
 
-The website for [gbif.org](https://www.gbif.org), as a Lerna monorepo. Coding agents load this file
+The website for [gbif.org](https://www.gbif.org), as a monorepo. Coding agents load this file
 at session start. Each package has its own `AGENTS.md`; READMEs hold the long-form reference.
 
 ## Packages
