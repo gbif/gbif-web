@@ -3,22 +3,34 @@ import { useFacets } from './charts/GroupByTable';
 import { Card, CardContent, CardTitle } from '@/components/ui/smallCard';
 import { CardHeader } from './shared';
 
+import type { Options, PointClickCallbackFunction, PointLabelObject } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from './charts/highcharts';
 
 import { TbChartDonut4, TbChartTreemap } from 'react-icons/tb';
 
+import { Predicate } from '@/gql/graphql';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 
 import { Button } from '../ui/button';
 import { FormattedMessage } from 'react-intl';
 
+type ChartView = 'SUNBURST' | 'TREEMAP';
+
 // Component to control the view options: table, pie chart, bar chart
-function ViewOptions({ view, setView, options = ['SUNBURST', 'TREEMAP'] }) {
+function ViewOptions({
+  view,
+  setView,
+  options = ['SUNBURST', 'TREEMAP'],
+}: {
+  view: ChartView;
+  setView: (view: ChartView) => void;
+  options?: ChartView[];
+}) {
   if (options.length < 2) return null;
 
   // option to icon component map
-  const iconMap = {
+  const iconMap: Record<ChartView, React.ReactNode> = {
     SUNBURST: <TbChartDonut4 size={20} />,
     TREEMAP: <TbChartTreemap size={20} />,
   };
@@ -52,19 +64,51 @@ const RANK_BY_KEY: Record<string, string> = {
   familyKey: 'FAMILY',
   genusKey: 'GENUS',
 };
-export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, ...props }) {
+// The facet query is built dynamically per rank key, so its shape differs from useFacets' default.
+type SunburstBucket = {
+  key: string | number;
+  count: number;
+  entity?: {
+    classification?: { key: string; rank: string }[] | null;
+    usage?: { key?: string; name?: string; rank?: string } | null;
+  } | null;
+};
+type SunburstQueryData = {
+  search?: {
+    documents?: { total?: number };
+    cardinality?: Record<string, number>;
+    facet?: Record<string, SunburstBucket[] | undefined>;
+  };
+};
+type SunburstNode = { id: string; value: number; name?: string; rank?: string; parent?: string };
+
+type Props = {
+  predicate?: Predicate;
+  q?: string;
+  checklistKey?: string;
+  click?: PointClickCallbackFunction;
+  [key: string]: unknown;
+};
+
+export function OccurrenceTaxonomySunburst({
+  predicate,
+  q: _q,
+  checklistKey,
+  click,
+  ...props
+}: Props) {
   const defaultChecklistKey = useChecklistKey();
-  const [rankKeys, setRankKeys] = useState(rankKeys_.toSpliced(4, rankKeys_.length - 4));
-  const [view, setView] = useState('SUNBURST');
-  const [sunBurstOptions, setSunBurstOptions] = useState(null);
-  const [treeMapOptions, setTreeMapOptions] = useState(null);
+  const [rankKeys, setRankKeys] = useState(rankKeys_.slice(0, 4));
+  const [view, setView] = useState<ChartView>('SUNBURST');
+  const [sunBurstOptions, setSunBurstOptions] = useState<Options>();
+  const [treeMapOptions, setTreeMapOptions] = useState<Options>();
 
   useEffect(() => {
     if (predicate == null) return;
     const hasTaxonKey =
       predicate?.predicates?.find((p) => p?.key === 'taxonKey')?.values?.length === 1;
     if (!hasTaxonKey) {
-      setRankKeys(rankKeys_.toSpliced(4, rankKeys_.length - 4));
+      setRankKeys(rankKeys_.slice(0, 4));
     } else {
       setRankKeys(rankKeys_);
     }
@@ -87,8 +131,10 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
     otherVariables: { checklistKey: checklistKey || defaultChecklistKey },
   });
 
+  const data = facetResults.data as unknown as SunburstQueryData | undefined;
+
   useEffect(() => {
-    const cardinality = facetResults?.data?.search?.cardinality || {};
+    const cardinality = data?.search?.cardinality || {};
     const maxLevelCount = Object.keys(cardinality).reduce(
       (max, key) => Math.max(max, Number(cardinality?.[key])),
       0
@@ -101,13 +147,13 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
     const alreadyDeepest =
       rankKeys.length === deeperRanks.length &&
       rankKeys.every((key, idx) => key === deeperRanks[idx]);
-    if (facetResults?.data?.search?.facet && singleLineage && !alreadyDeepest) {
+    if (data?.search?.facet && singleLineage && !alreadyDeepest) {
       // Zoom into deeper ranks to try to get a more granular chart. If we're
       // already at the deepest ranks, fall through and render the single
       // lineage instead of looping forever (which left the card blank).
       setRankKeys(deeperRanks);
-    } else if (facetResults?.data?.search?.facet) {
-      const facet = facetResults.data.search.facet;
+    } else if (data?.search?.facet) {
+      const facet = data.search.facet;
       // Derive the rings from the FACET RESPONSE itself, in canonical shallow→deep rank order —
       // NOT from the mutable `rankKeys` state. `rankKeys` can change (the taxonKey/zoom effects) or
       // lag behind a late-arriving facet response, and indexing buckets by their position in it was
@@ -129,8 +175,8 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
         (rk, i) => i === 0 || i === present.length - 1 || (facet[rk]?.length ?? 0) > 1
       );
 
-      let results = [];
-      const levelCounts = {};
+      let results: SunburstNode[] = [];
+      const levelCounts: Record<number, number> = {};
       drawn.forEach((rk, level) => {
         levelCounts[level] = facet[rk]?.length ?? 0;
         // The parent ring's rank name, used to locate this node's parent in its classification
@@ -138,7 +184,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
         const parentRankName = level > 0 ? RANK_BY_KEY[drawn[level - 1]] : null;
         results = results.concat(
           (facet[rk] ?? []).map((item) => {
-            const node = {
+            const node: SunburstNode = {
               id: `${level}.${item.key}`,
               value: item.count,
               name: item.entity?.usage?.name,
@@ -146,7 +192,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
             };
             if (!parentRankName) return node;
             const parentKey = item.entity?.classification?.find(
-              (c: any) => c.rank === parentRankName
+              (c) => c.rank === parentRankName
             )?.key;
             return { ...node, parent: `${level - 1}.${parentKey}` };
           })
@@ -155,16 +201,18 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
 
       const taxonomy = {
         results,
-        count: facetResults.data.search.documents.total,
+        count: data.search.documents?.total,
         levelCounts,
       };
+      const pointEvents =
+        click && typeof click === 'function' ? { point: { events: { click } } } : {};
       const sunBurstOptions_ = {
         plotOptions: {
           sunburst: {
             size: '100%',
           },
         },
-        credits: false,
+        credits: { enabled: false },
         title: {
           text: '',
         },
@@ -181,6 +229,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
             type: 'sunburst',
             turboThreshold: 0,
             data: taxonomy.results,
+            ...pointEvents,
             allowDrillToNode: true, //allowDrillToNode,
             cursor: 'pointer',
 
@@ -229,7 +278,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
           pointFormat: '<b>{point.name} : {point.value}</b> ' + 'Occurrences', //translatedOccurrences,
         },
       };
-      const minCountForTreeMapLabels = Math.round(taxonomy.count / 80);
+      const minCountForTreeMapLabels = Math.round((taxonomy.count ?? 0) / 80);
 
       const treeMapOptions_ = {
         plotOptions: {
@@ -238,7 +287,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
           },
         },
 
-        credits: false,
+        credits: { enabled: false },
         title: {
           text: '',
         },
@@ -267,8 +316,8 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
                 dataLabels: {
                   headers: true,
                   enabled: true,
-                  formatter: function () {
-                    return this.point.options.value > minCountForTreeMapLabels
+                  formatter: function (this: PointLabelObject) {
+                    return (this.point.options.value ?? 0) > minCountForTreeMapLabels
                       ? this.point.name
                       : '';
                   },
@@ -287,8 +336,8 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
                 layoutAlgorithm: 'sliceAndDice',
                 dataLabels: {
                   enabled: taxonomy.levelCounts[2] < 300,
-                  formatter: function () {
-                    return this.point.options.value > minCountForTreeMapLabels
+                  formatter: function (this: PointLabelObject) {
+                    return (this.point.options.value ?? 0) > minCountForTreeMapLabels
                       ? this.point.name
                       : '';
                   },
@@ -303,8 +352,8 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
                 layoutAlgorithm: 'sliceAndDice',
                 dataLabels: {
                   enabled: taxonomy.levelCounts[3] < 500,
-                  formatter: function () {
-                    return this.point.options.value > minCountForTreeMapLabels
+                  formatter: function (this: PointLabelObject) {
+                    return (this.point.options.value ?? 0) > minCountForTreeMapLabels
                       ? this.point.name
                       : '';
                   },
@@ -318,7 +367,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
                 level: 4,
                 layoutAlgorithm: 'sliceAndDice',
                 dataLabels: {
-                  enabled: taxonomy.length < 500,
+                  enabled: taxonomy.results.length < 500,
                 },
                 colorVariation: {
                   key: 'brightness',
@@ -331,6 +380,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
               pointFormat: '<b>{point.name} : {point.value}</b> occurrences',
             },
             data: taxonomy.results,
+            ...pointEvents,
           },
         ],
 
@@ -338,20 +388,9 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
           useGPUTranslations: true,
         },
       };
-      if (click && typeof click === 'function') {
-        treeMapOptions_.series[0].point = {
-          events: {
-            click: click,
-          },
-        };
-        sunBurstOptions_.series[0].point = {
-          events: {
-            click: click,
-          },
-        };
-      }
-      setSunBurstOptions(sunBurstOptions_);
-      setTreeMapOptions(treeMapOptions_);
+      // Highcharts' bundled typings omit several sunburst/treemap level options used here.
+      setSunBurstOptions(sunBurstOptions_ as Options);
+      setTreeMapOptions(treeMapOptions_ as Options);
     }
   }, [facetResults?.data?.search?.facet]);
 
@@ -380,10 +419,10 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
             <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
           </div>
         )}
-        {view === 'SUNBURST' && facetResults?.data?.search?.documents?.total > 0 && (
+        {view === 'SUNBURST' && (facetResults?.data?.search?.documents?.total ?? 0) > 0 && (
           <HighchartsReact highcharts={Highcharts} options={sunBurstOptions} />
         )}
-        {view === 'TREEMAP' && facetResults?.data?.search?.documents?.total > 0 && (
+        {view === 'TREEMAP' && (facetResults?.data?.search?.documents?.total ?? 0) > 0 && (
           <HighchartsReact highcharts={Highcharts} options={treeMapOptions} />
         )}
       </CardContent>
@@ -391,7 +430,7 @@ export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, 
   );
 }
 
-const getTaxonQuery = ({ rankKeys }) => `
+const getTaxonQuery = ({ rankKeys }: { rankKeys: string[] }) => `
 query occurrenceSunburst($q: String, $predicate: Predicate, $checklistKey: ID){
   search: occurrenceSearch(q: $q, predicate: $predicate, size: 0) {
     documents(size: 0) {

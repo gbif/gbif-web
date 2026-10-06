@@ -3,6 +3,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import useQuery from '@/hooks/useQuery';
+import { PredicateType } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import cloneDeep from 'lodash/cloneDeep';
 import hash from 'object-hash';
@@ -28,6 +29,7 @@ import {
   getFilterSummary,
   WildcardQuery,
 } from './filterTools';
+import { FilterValueObject, isFilterValueObject } from './filterValue';
 import { Option, SkeletonOption } from './option';
 
 const initialSize = 25;
@@ -64,7 +66,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
     const { filter, toggle, add, setFullField, setFilter, filterHash, negateField } =
       currentFilterContext;
     const [size, setSize] = useState(initialSize);
-    const [selected, setSelected] = useState<string[]>([]);
+    const [selected, setSelected] = useState<(string | FilterValueObject)[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
     const [prunedFilter, setPrunedFilter] = useState<FilterType>({});
@@ -95,7 +97,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
       if (q && q !== '') {
         predicates.push({
-          type: 'like',
+          type: PredicateType.Like,
           key: queryKey ?? filterHandle,
           value: `${queryString}`,
         });
@@ -185,7 +187,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
     const patternAlreadySelected =
       !!selected.find(
-        (x) => typeof x === 'object' && x.type === 'like' && x.value && x.value === q
+        (x) => isFilterValueObject(x) && x.type === 'like' && x.value && x.value === q
       ) || selectedStrings.includes(q);
 
     const clearLabel = formatMessage({ id: 'filterSupport.clear' });
@@ -325,7 +327,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                   return (
                     <Option
                       isNegated={useNegations}
-                      key={x}
+                      key={typeof x === 'object' ? JSON.stringify(x) : x}
                       className="g-mb-2"
                       onClick={() => {
                         toggle(filterHandle, x, useNegations);

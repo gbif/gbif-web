@@ -13,19 +13,34 @@ import ChartClickWrapper from './charts/ChartClickWrapper';
 import { ChartWrapper } from './charts/EnumChartGenerator';
 const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
 
+type TaxonOccurrencesProps = {
+  predicate?: Record<string, unknown>;
+  handleRedirect?: (args: { filter?: Record<string, unknown> }) => void;
+  detailsRoute?: string;
+  visibilityThreshold?: number;
+  interactive?: boolean;
+  [key: string]: unknown;
+};
+
 function TaxonOccurrences({
   predicate,
-  handleRedirect,
+  handleRedirect: _handleRedirect,
   detailsRoute,
   visibilityThreshold,
-  interactive,
+  interactive: _interactive,
   ...props
-}) {
+}: TaxonOccurrencesProps) {
   const [query, setQuery] = useState(getTaxonQuery('familyKey'));
   const [rank, setRank] = useState('FAMILY');
   const facetResults = useFacets({ predicate, query });
 
-  if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;
+  const results = facetResults?.data?.search?.facet?.results;
+  if (
+    Array.isArray(results) &&
+    visibilityThreshold !== undefined &&
+    results.length <= visibilityThreshold
+  )
+    return null;
 
   return (
     <ChartWrapper
@@ -45,7 +60,7 @@ function TaxonOccurrences({
               {majorRanks.map((rank) => (
                 <DropdownMenuItem
                   key={rank}
-                  onClick={(e) => {
+                  onClick={() => {
                     setRank(rank);
                     setQuery(getTaxonQuery(`${rank}Key`));
                   }}
@@ -72,7 +87,7 @@ function TaxonOccurrences({
   );
 }
 
-export function Taxa(props) {
+export function Taxa(props: Record<string, unknown>) {
   return (
     <ChartClickWrapper {...props}>
       <TaxonOccurrences />
@@ -80,7 +95,7 @@ export function Taxa(props) {
   );
 }
 
-const getTaxonQuery = (rank) => `
+const getTaxonQuery = (rank: string) => `
 query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){
   search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {

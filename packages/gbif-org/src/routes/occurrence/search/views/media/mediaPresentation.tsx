@@ -22,12 +22,10 @@ import { MediaGroupDropdown } from './mediaSort';
 import { MediaGroupState, getFormattedName } from './mediaGroupConfig';
 
 export function MediaPresentation({
-  mediaTypes,
   results,
   total,
   endOfRecords,
   loading,
-  error,
   next,
   onSelect,
   groupState,

@@ -3,27 +3,18 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/utils/shadcn';
 import React from 'react';
 
-export const Option = React.forwardRef(
-  (
-    {
-      className,
-      helpText,
-      checked,
-      onClick,
-      children,
-      onKeyDown,
-      isNegated,
-    }: {
-      helpText?: string | React.ReactNode;
-      checked?: boolean;
-      children: React.ReactNode;
-      onClick: (checked: boolean) => void;
-      className?: string;
-      onKeyDown?: (e: React.KeyboardEvent) => void;
-      isNegated?: boolean;
-    },
-    ref
-  ) => {
+type OptionProps = {
+  helpText?: string | React.ReactNode;
+  checked?: boolean;
+  children: React.ReactNode;
+  onClick: (checked: boolean) => void;
+  className?: string;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
+  isNegated?: boolean;
+};
+
+export const Option = React.forwardRef<HTMLButtonElement, OptionProps>(
+  ({ className, helpText, checked, onClick, children, onKeyDown, isNegated }, ref) => {
     // const Icon = checked ? MdOutlineRemoveCircle : MdOutlineAddCircle;
     return (
       <label

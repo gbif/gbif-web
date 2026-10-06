@@ -28,8 +28,15 @@ import {
   getFilterSummary,
 } from './filterTools';
 import { Option } from './option';
-import { Suggest } from './suggest';
+import { Suggest, SuggestionItem } from './suggest';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
+
+// taxon suggest endpoints return the usage ids alongside the generic fields
+type TaxonSuggestionItem = SuggestionItem & {
+  acceptedNameUsageID?: string;
+  acceptedUsageId?: string;
+  usageId?: string;
+};
 
 type TaxonSuggestProps = Omit<filterTaxonConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -292,7 +299,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
             {suggestConfig && (
               <Suggest
                 ref={ref}
-                onSelect={(item) =>
+                onSelect={(item: TaxonSuggestionItem) =>
                   add(
                     filterHandle,
                     item.acceptedNameUsageID ?? item.acceptedUsageId ?? item.usageId ?? item.key,

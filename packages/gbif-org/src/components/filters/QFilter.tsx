@@ -10,7 +10,7 @@ type QFilterProps = Omit<filterFreeTextConfig, 'filterType' | 'filterTranslation
   };
 
 export const QFilter = React.forwardRef<HTMLInputElement, QFilterProps>(
-  ({ className, filterHandle, onApply, onCancel, ...props }: QFilterProps, ref) => {
+  ({ className, filterHandle, onApply, onCancel }: QFilterProps, ref) => {
     const currentFilterContext = useContext(FilterContext);
     const { filter, add, setField, filterHash } = currentFilterContext;
     const [q, setQ] = useState<string>('');

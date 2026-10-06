@@ -7,9 +7,9 @@ import { FormattedMessage } from 'react-intl';
 import { OccurrencePointQuery } from '@/gql/graphql';
 
 interface ListItemProps {
-  id: string;
+  id?: number | null;
   item: NonNullable<OccurrencePointQuery['occurrenceSearch']>['documents']['results'][0];
-  onClick?: (params: { id: string }) => void;
+  onClick?: (params: { id?: number | null }) => void;
 }
 
 function ListItem({ id, item, onClick = () => {} }: ListItemProps) {
@@ -109,8 +109,8 @@ function ListBox({
       <ul className="gbif-list">
         {results.map((x, index) => {
           return (
-            <li key={x.key}>
-              <ListItem onClick={() => onClick({ index })} id={x.key} item={x} />
+            <li key={x?.key}>
+              <ListItem onClick={() => onClick({ index })} id={x?.key} item={x} />
             </li>
           );
         })}

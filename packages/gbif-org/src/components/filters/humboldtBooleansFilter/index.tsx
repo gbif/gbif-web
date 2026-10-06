@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl';
 import { AboutButton } from '../aboutButton';
 import { AdditionalFilterProps, ApplyCancel, filterHumboldtBooleansConfig } from '../filterTools';
 import { Tertiary } from '../geometryFilter/Tertiary';
-import { object } from 'zod';
 
 type WildcardProps = Omit<filterHumboldtBooleansConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -17,9 +16,9 @@ type WildcardProps = Omit<filterHumboldtBooleansConfig, 'filterType' | 'filterTr
   };
 
 export const HumboldtBooleansFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
-  ({ className, filterHandle, onApply, onCancel, pristine, about }: WildcardProps, ref) => {
+  ({ className, onApply, onCancel, pristine, about }: WildcardProps, _ref) => {
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, setFullField, setFilter, filterHash } = currentFilterContext;
+    const { filter, setFilter, filterHash } = currentFilterContext;
     const humboldtAreNonTargetTaxaFullyReported =
       filter?.must?.humboldtAreNonTargetTaxaFullyReported?.[0];
     const humboldtHasMaterialSamples = filter?.must?.humboldtHasMaterialSamples?.[0];
@@ -164,7 +163,7 @@ export const HumboldtBooleansFilter = React.forwardRef<HTMLInputElement, Wildcar
           </div>
           <div className="g-flex-auto g-overflow-auto gbif-small-scrollbar">
             <div className="sm:g-max-h-[50dvh] g-px-4 g-text-sm">
-              {Object.keys(allBooleans).map((key) => (
+              {(Object.keys(allBooleans) as (keyof typeof allBooleans)[]).map((key) => (
                 <fieldset key={key} className="g-border-none g-p-0 g-m-0 g-mb-2">
                   <div className="g-me-2">
                     <Tertiary
