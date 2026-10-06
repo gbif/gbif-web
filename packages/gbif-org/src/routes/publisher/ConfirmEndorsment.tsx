@@ -59,7 +59,7 @@ function ConfirmEndorsmentPage() {
           <DynamicLink
             to={`/publisher/${searchParams.get('key')}`}
             pageId="publisherKey"
-            variables={{ key: searchParams.get('key') }}
+            variables={{ key: String(searchParams.get('key')) }}
           >
             Go to publisher page
           </DynamicLink>
@@ -77,7 +77,7 @@ function ConfirmEndorsmentPage() {
           <DynamicLink
             to={`/publisher/${searchParams.get('key')}`}
             pageId="publisherKey"
-            variables={{ key: searchParams.get('key') }}
+            variables={{ key: String(searchParams.get('key')) }}
           >
             Go to publisher page
           </DynamicLink>

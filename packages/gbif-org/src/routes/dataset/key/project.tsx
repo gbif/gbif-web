@@ -17,6 +17,7 @@ import { useDatasetKeyLoaderData } from '.';
 import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import useAbove from '@/hooks/useAbove';
+import { notNull } from '@/utils/notNull';
 
 export function DatasetKeyProject() {
   const { project } = useDatasetKeyLoaderData().data.dataset;
@@ -144,7 +145,7 @@ export function DatasetKeyProject() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ContactList contacts={project.contacts} />
+                  <ContactList contacts={project.contacts?.filter(notNull)} />
                 </CardContent>
               </Card>
             )}

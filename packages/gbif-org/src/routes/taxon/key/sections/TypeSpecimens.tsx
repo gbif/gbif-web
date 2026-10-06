@@ -29,7 +29,10 @@ const TypeMaterial = ({
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [filteredData, setFilteredData] = useState<
-    (TaxonTypeSpecimensQuery['occurrenceSearch']['documents']['results'][number] | null)[]
+    (
+      | NonNullable<TaxonTypeSpecimensQuery['occurrenceSearch']>['documents']['results'][number]
+      | null
+    )[]
   >([]);
   const [isSynonym, setIsSynonym] = useState(false);
   const { data: typeSecimens, load: typeSpecimensLoad } = useQuery<
@@ -126,7 +129,7 @@ const TypeMaterial = ({
           <ul>
             {filteredData.slice(offset, offset + limit).map((occ, i) =>
               occ?.typeStatus
-                ?.filter((ts) => !!ts)
+                ?.filter((ts): ts is string => !!ts)
                 .map((ts, j) => (
                   <li key={`${i}-${j}`} className="g-pb-2 g-mb-2 g-border-b g-border-slate-200">
                     <div className="g-flex g-gap-2 g-items-start g-text-site-dir-start" dir="auto">
@@ -141,7 +144,7 @@ const TypeMaterial = ({
                               <span>
                                 {occ?.originalUsageMatch?.usage?.name ||
                                   occ.typifiedName ||
-                                  occ.classification.usage.name}
+                                  occ.classification?.usage?.name}
                               </span>
                             </DynamicLink>
                             {occ.recordedBy && (

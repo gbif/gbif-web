@@ -6,7 +6,7 @@ import { MdImage } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { MediaGallery, MediaGalleryItem } from '@/routes/occurrence/media/MediaGallery';
 
-type Taxon = NonNullable<NonNullable<TaxonKeyQuery['taxonInfo']>['taxon']>;
+type Taxon = NonNullable<TaxonKeyQuery['taxonInfo']>;
 type Props = { taxon: Taxon };
 
 function OccurrenceMediaGalleryContent({ taxon }: Props) {

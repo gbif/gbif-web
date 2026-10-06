@@ -318,7 +318,7 @@ function Results({
             {publishers &&
               publishers.results
                 .slice(0, 2)
-                .map((item) => <PublisherResult key={item.key} publisher={item} />)}
+                .map((item) => item && <PublisherResult key={item.key} publisher={item} />)}
             {publishers.offset === 0 &&
               !!geojson?.features?.length &&
               geojson?.features?.length > 0 && (
@@ -340,7 +340,7 @@ function Results({
             {publishers &&
               publishers.results
                 .slice(2)
-                .map((item) => <PublisherResult key={item.key} publisher={item} />)}
+                .map((item) => item && <PublisherResult key={item.key} publisher={item} />)}
             {publishers?.count && publishers?.count > publishers?.limit && (
               <PaginationFooter
                 offset={publishers.offset}
@@ -422,7 +422,7 @@ function Filters() {
   );
 }
 
-function PopupContent({ features }: { features: { key: string; title: string }[] }) {
+function PopupContent({ features }: { features: Record<string, any>[] }) {
   return (
     <ul className="g-list-disc g-px-2">
       {features.map((x) => (

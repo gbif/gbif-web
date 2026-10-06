@@ -2,7 +2,10 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
-import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
+import {
+  MobileFiltersTrigger,
+  useIsMobileFilterSheetActive,
+} from '@/components/filters/mobileFilters';
 import { Card } from '@/components/ui/smallCard';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
@@ -58,7 +61,7 @@ export function TaxonSearchPageInner({
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig, datasetKey });
   const defaultView = searchContext?.tabs?.[0] ?? 'table';
-  const [view, setView] = useStringParam({
+  const [view] = useStringParam({
     key: 'view',
     defaultValue: defaultView,
     hideDefault: true,
@@ -183,7 +186,7 @@ export function Views({
             onlySetMinHeight
             className="g-bg-white g-flex-1 g-border g-border-solid g-basis-full g-h-1 g-flex g-flex-col g-overflow-auto g-p-4"
           >
-            {view === 'tree' && <SearchPageTree entityDrawerPrefix={entityDrawerPrefix} />}
+            {view === 'tree' && <SearchPageTree />}
           </DynamicHeightDiv>
         )}
       </div>

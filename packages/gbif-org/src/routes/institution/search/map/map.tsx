@@ -20,7 +20,14 @@ export function Map({
     <Card className="g-mb-4">
       {geojson && (
         <GeoJsonMap
-          {...{ geojson, loading: geojsonLoading, error: geojsonError, className, PopupContent, storageKey }}
+          {...{
+            geojson,
+            loading: geojsonLoading,
+            error: geojsonError,
+            className,
+            PopupContent,
+            storageKey,
+          }}
         />
       )}
     </Card>

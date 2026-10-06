@@ -1,7 +1,7 @@
 import { ParentPagesContext } from '@/components/parentPagesContext';
 import { ParamQuery, stringify } from '@/utils/querystring';
 import { useCallback, useContext, useMemo } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, To, useLocation, useNavigate } from 'react-router-dom';
 import { PageContext } from './applyPagePaths/plugin';
 import { useI18n } from './i18n';
 import { useConfig } from '@/config/config';
@@ -13,7 +13,7 @@ export type LinkData = {
 
 export type DynamicLinkProps<T extends React.ElementType> = {
   // null renders an empty link (with a console warning); undefined links to the current page
-  to?: string | null;
+  to?: To | null;
   as?: T;
   variables?: Record<string, string>;
   pageId?: string;
