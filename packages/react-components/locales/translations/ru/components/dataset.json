@@ -121,7 +121,7 @@
   "publishingCountriesAreas": "Страны и регионы, публикующие данные",
   "originalArchive": "Архив - источник",
   "originalArchiveDescription": "Архив, аннотированный GBIF",
-  "dataPackage": "",
+  "dataPackage": "Пакет данных",
   "dataPackageDescription": "",
   "checklistBankDownload": "Архив, аннотированный GBIF",
   "checklistBankDownloadDescription": "Архив, аннотированный GBIF",
@@ -151,7 +151,7 @@
   "griddedData": "Данные с привязкой к сетке",
   "griddedDataDescription": "Этот набор данных, скорее всего, содержит данные с привязкой к сетке (вывод основан на нашем анализе записей). Подробнее - в этом [блоге о наборах данных, привязанных к сетке] (https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Метрики событий",
-  "trustedContactRegistryLink": "",
+  "trustedContactRegistryLink": "Управление данными",
   "registry": {
     "failedSinceSuccess": "Неудачных попыток индексации после последней успешной",
     "lastFailed": "Последняя неудачная попытка индексации",
