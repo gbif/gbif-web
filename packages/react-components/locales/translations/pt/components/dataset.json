@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Áreas e países de publicação",
   "originalArchive": "Ficheiro fonte",
   "originalArchiveDescription": "Ficheiros registados no GBIF",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "Ficheiros registados no GBIF",
   "checklistBankDownloadDescription": "Ficheiros registados no GBIF",
   "annotatedEml": "Metadados registados no GBIF",
@@ -149,6 +151,7 @@
   "griddedData": "\n",
   "griddedDataDescription": "Com base em nossa análise dos registros, esse conjunto de dados provavelmente contém dados em grade. Leia mais nesta [postagem sobre conjuntos de dados em grade](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Métrica de ocorrências",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "Tentativas fracassadas desde a última ingestão de sucesso",
     "lastFailed": "Última tentativa falhada",
