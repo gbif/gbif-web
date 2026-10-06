@@ -1,3 +1,4 @@
+import type { ParamValue } from '@/utils/querystring';
 import { FilterContext, FilterContextType, FilterType } from '@/contexts/filter';
 import { QueryTypeEnum, SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
@@ -871,7 +872,7 @@ export type SearchQuery = {
   predicate?: Predicate;
   q?: string;
   eventFiltering?: EventFiltering;
-  [key: string]: unknown;
+  [key: string]: ParamValue | ParamValue[];
 };
 
 export function getAsQuery({

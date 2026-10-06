@@ -1,9 +1,5 @@
 import { IdentityLabel, LifeStageLabel } from '@/components/filters/displayNames';
-import {
-  filterConfigTypes,
-  filterEnumConfig,
-  filterSuggestConfig,
-} from '@/components/filters/filterTools';
+import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import { termToGroup } from '../humboldtTerms';
 

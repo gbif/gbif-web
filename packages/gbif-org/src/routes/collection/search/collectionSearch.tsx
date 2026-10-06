@@ -33,7 +33,10 @@ import { AboutContent, ApiContent } from './help';
 import { NoResultsMessage } from './noResultsMessage';
 import { searchConfig } from './searchConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
-import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
+import {
+  MobileFiltersTrigger,
+  useIsMobileFilterSheetActive,
+} from '@/components/filters/mobileFilters';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {

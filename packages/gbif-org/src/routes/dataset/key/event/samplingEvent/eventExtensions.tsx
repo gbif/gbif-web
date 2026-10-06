@@ -9,7 +9,7 @@ import { GenericExtensionContent } from '@/routes/occurrence/key/About/extension
 const INITIAL_LIMIT = 5;
 const MAX_LIMIT = 100;
 
-function ListCard(props) {
+function ListCard(props: React.ComponentProps<typeof Card>) {
   return <Card className="g-mb-2 g-p-4 " {...props} />;
 }
 
@@ -37,7 +37,8 @@ export function GenericEventExtension({
     }
   }, [visible, updateToc, id]);
 
-  const list = event?.extensions?.[extensionName];
+  const extensions = event?.extensions as Record<string, unknown> | null | undefined;
+  const list = extensions?.[extensionName] as any[] | null | undefined;
   if (!list || list.length === 0) {
     if (visible) setVisible(false);
     return null;
@@ -96,10 +97,7 @@ export function GenericEventExtension({
               className="g-mt-2 g-ms-2"
               onClick={() => setExpanded(false)}
             >
-              <FormattedMessage
-                id="occurrenceDetails.showLess"
-                defaultMessage="Show less"
-              />
+              <FormattedMessage id="occurrenceDetails.showLess" defaultMessage="Show less" />
             </Button>
           )}
           {overCap && (

@@ -30,7 +30,7 @@ export function MediumDate({ value }: { value: DateValue }) {
 }
 
 /** "2026" */
-export function YearDate({ value }: { value: DateValue }) {
+export function YearDate({ value }: { value?: DateValue }) {
   return <FormattedDate value={value} year="numeric" />;
 }
 
