@@ -397,6 +397,7 @@ Step-by-step guides with caveats live in [`docs/how-to/`](docs/how-to/):
 - [Code-split and lazy load](docs/how-to/code-splitting-and-lazy-loading.md): including how to keep server-side rendering.
 - [Add a translated string](docs/how-to/add-a-translation.md): where the source strings live and how message ids are built.
 - [Add an occurrence search filter](docs/how-to/add-an-occurrence-filter.md): filter config, URL parameter, translations, and the facet work needed in graphql-api and es-api.
+- [Add a new filter type](docs/how-to/add-a-filter-type.md): a new widget kind, for the rare case where no existing filter type fits.
 
 ## Code Formatting
 
