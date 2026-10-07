@@ -1,7 +1,7 @@
 // though simple it would be good to test these. I'm also a bit surprised there isn't an easier way to do this (without including a 10kb library)
 // I used to rely a lot on the now deprecated querystring libarary.
 // perhaps we should just use the query-string library?
-export type ParamValue = string | undefined | null | JSON | object;
+export type ParamValue = string | number | boolean | undefined | null | JSON | object;
 export type ParamQuery = Record<string, ParamValue | ParamValue[]>;
 
 export function stringify(params: ParamQuery) {
@@ -19,7 +19,7 @@ export function asStringParams(params: ParamQuery): URLSearchParams {
         if (typeof value === 'object') {
           searchParams.append(key, JSON.stringify(value));
         } else {
-          searchParams.append(key, value as string);
+          searchParams.append(key, String(value));
         }
       }
     });

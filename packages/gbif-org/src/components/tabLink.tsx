@@ -31,7 +31,9 @@ export function TabLink({ to, children, className, isActive, autoDetectActive }:
         end={(typeof to === 'string' ? to : to.pathname) === '.'}
         as={NavLink}
         preventScrollReset
-        className={(navLinkProps) => classNames(isActive || navLinkProps.isActive)}
+        className={(navLinkProps: { isActive: boolean }) =>
+          classNames(isActive || navLinkProps.isActive)
+        }
       >
         {children}
       </DynamicLink>

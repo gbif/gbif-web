@@ -29,7 +29,7 @@ export default function GeoJsonMapMaplibre({
   const mapRef = useRef(null);
   const [map, setMap] = useState<Map>();
   const [content, setContent] = useState<ReactNode>(null);
-  const [popupLngLat, setPopupLngLat] = useState(null);
+  const [popupLngLat, setPopupLngLat] = useState<[number, number] | null>(null);
   const [zoomEnabled, setZoomEnabled] = useState(false);
 
   const addLayer = useCallback(
@@ -118,9 +118,11 @@ export default function GeoJsonMapMaplibre({
           layers: ['clusters'],
         });
         const clusterId = features[0].properties.cluster_id;
-        const zoom = await map.getSource('markers').getClusterExpansionZoom(clusterId);
+        const source = map.getSource('markers') as maplibre.GeoJSONSource | undefined;
+        if (!source) return;
+        const zoom = await source.getClusterExpansionZoom(clusterId);
         map.easeTo({
-          center: features[0].geometry.coordinates,
+          center: (features[0].geometry as GeoJSON.Point).coordinates as [number, number],
           zoom,
         });
       });
@@ -143,7 +145,10 @@ export default function GeoJsonMapMaplibre({
       // location of the feature, with description HTML from its properties.
       map.on('click', 'unclustered-point', (e) => {
         const features = uniqBy(e.features, (x) => x.properties.key);
-        const coordinates = features[0].geometry?.coordinates.slice();
+        const coordinates = (features[0].geometry as GeoJSON.Point).coordinates.slice() as [
+          number,
+          number,
+        ];
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
@@ -190,7 +195,7 @@ export default function GeoJsonMapMaplibre({
       if (!hasStoredState && geojson.features.length > 0) {
         // get bounding box of geojson layer
         bounds = geojson.features.reduce((bounds, feature) => {
-          return bounds.extend(feature.geometry.coordinates);
+          return bounds.extend((feature.geometry as GeoJSON.Point).coordinates as [number, number]);
         }, new maplibre.LngLatBounds());
 
         // get center and zoom from bounding box
@@ -231,9 +236,13 @@ export default function GeoJsonMapMaplibre({
             (f) => f.properties?.key === storedPopupKey
           );
           if (matchingFeatures.length > 0) {
-            const coordinates = (matchingFeatures[0].geometry as GeoJSON.Point).coordinates.slice();
+            const coordinates = (
+              matchingFeatures[0].geometry as GeoJSON.Point
+            ).coordinates.slice() as [number, number];
             const popupContent = (
-              <PopupContent features={matchingFeatures.map((f) => f.properties as Record<string, any>)} />
+              <PopupContent
+                features={matchingFeatures.map((f) => f.properties as Record<string, any>)}
+              />
             );
             setContent(popupContent);
             setPopupLngLat(coordinates);
@@ -326,9 +335,8 @@ const Popup = ({
       const updateAnchor = () => {
         if (!popupEl) return;
         const detected =
-          anchorClasses.find((a) =>
-            popupEl.classList.contains(`maplibregl-popup-anchor-${a}`)
-          ) ?? 'bottom';
+          anchorClasses.find((a) => popupEl.classList.contains(`maplibregl-popup-anchor-${a}`)) ??
+          'bottom';
         setAnchor(detected);
       };
       updateAnchor();

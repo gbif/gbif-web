@@ -27,15 +27,15 @@ const OCCURRENCE_SNAPSHOTS_QUERY = /* GraphQL */ `
 
 const OccurrenceSnapshots = () => {
   const { formatMessage } = useIntl();
-  const [limit, setLimit] = useState(500);
-  const [offset, setOffset] = useState(0);
-  const { data, load, loading, error } = useQuery<
-    OccurrenceSnapshotsQuery,
-    OccurrenceSnapshotsQueryVariables
-  >(OCCURRENCE_SNAPSHOTS_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: false,
-  });
+  const [limit] = useState(500);
+  const [offset] = useState(0);
+  const { data, load } = useQuery<OccurrenceSnapshotsQuery, OccurrenceSnapshotsQueryVariables>(
+    OCCURRENCE_SNAPSHOTS_QUERY,
+    {
+      lazyLoad: true,
+      throwAllErrors: false,
+    }
+  );
 
   useEffect(() => {
     load({
@@ -80,7 +80,9 @@ const OccurrenceSnapshots = () => {
                 values={{
                   azure: link('https://planetarycomputer.microsoft.com/dataset/gbif'),
                   aws: link('https://registry.opendata.aws/gbif/'),
-                  gcs: link('https://console.cloud.google.com/storage/browser/public-datasets-gbif'),
+                  gcs: link(
+                    'https://console.cloud.google.com/storage/browser/public-datasets-gbif'
+                  ),
                   bq: link(
                     'https://console.cloud.google.com/marketplace/product/bigquery-public-data/gbif-occurrences'
                   ),

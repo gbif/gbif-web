@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: countriesOfResearcher\n        }\n        facet {\n          results: countriesOfResearcher(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "countriesOfResearcher"
+            },
+            {
+              "type": "equals",
+              "key": "gbifDatasetKey",
+              "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":195},\"cardinality\":{\"total\":74},\"facet\":{\"results\":[{\"key\":\"US\",\"count\":29},{\"key\":\"DE\",\"count\":16},{\"key\":\"GB\",\"count\":15},{\"key\":\"BR\",\"count\":13},{\"key\":\"IN\",\"count\":13},{\"key\":\"FR\",\"count\":12},{\"key\":\"RU\",\"count\":11},{\"key\":\"CA\",\"count\":10},{\"key\":\"CH\",\"count\":10},{\"key\":\"ES\",\"count\":10}]}}}}\n"
+}

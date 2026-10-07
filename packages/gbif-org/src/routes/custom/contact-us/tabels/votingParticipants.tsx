@@ -74,27 +74,27 @@ export function VotingParticipantsTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="name"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="directory.columns.name" />
             </Th>
             <Th
               sortable
               field="role"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="directory.columns.role" />
             </Th>
             <Th
               sortable
               field="participantName"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="directory.columns.participant" />
             </Th>

@@ -1,10 +1,9 @@
 import { BulletList } from '@/components/bulletList';
 import EmptyValue from '@/components/emptyValue';
-import { HelpIcon, HelpLine } from '@/components/helpText';
+import { HelpIcon } from '@/components/helpText';
 import useBelow from '@/hooks/useBelow';
 import { cn } from '@/utils/shadcn';
 import { useState } from 'react';
-import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Button } from './ui/button';
 

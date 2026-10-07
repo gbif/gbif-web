@@ -3,17 +3,21 @@ import { Classification } from '@/components/classification';
 import { DatasetLabel } from '@/components/filters/displayNames';
 import { useConfig } from '@/config/config';
 import { EntityLinkPresentation } from '@/components/entityLink';
-import { ChecklistClassification } from '@/gql/graphql';
+import { OccurrenceQuery } from '@/gql/graphql';
 import { useTaxonLinks } from '@/hooks/useTaxonLinks';
 import { cn } from '@/utils/shadcn';
 import { BsLightningFill } from 'react-icons/bs';
 import { HiExternalLink as ExternalLinkIcon } from 'react-icons/hi';
 import { FormattedMessage } from 'react-intl';
 
+type OccurrenceClassification = NonNullable<
+  NonNullable<NonNullable<OccurrenceQuery['occurrence']>['classifications']>[number]
+>;
+
 export function TaxonInterpretationCard({
   classification,
 }: {
-  classification: ChecklistClassification;
+  classification: OccurrenceClassification;
 }) {
   const config = useConfig();
   const links = useTaxonLinks({
@@ -22,11 +26,9 @@ export function TaxonInterpretationCard({
   });
   const usageKey = classification?.usage?.key;
   const usageLabel = classification.taxonMatch?.usage.formattedName ?? classification?.usage?.name;
-  const acceptedLabel =
-    classification?.acceptedUsage?.taxon?.label ?? classification?.acceptedUsage?.name;
+  const acceptedLabel = classification?.acceptedUsage?.name;
   const acceptedKey = classification?.acceptedUsage?.key;
-  const taxonomy =
-    classification?.acceptedUsage?.taxon?.classification ?? classification.classification;
+  const taxonomy = classification.classification;
 
   const noMatch = !usageKey || !usageLabel;
   if (noMatch) return <ChecklistNoMatchCard checklistKey={classification.checklistKey} />;

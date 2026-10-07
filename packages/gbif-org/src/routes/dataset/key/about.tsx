@@ -320,7 +320,7 @@ export function DatasetKeyAbout() {
             {insights?.images?.documents?.total > 0 && (
               <>
                 <Images
-                  results={insights?.images?.documents.results}
+                  results={insights?.images?.documents.results?.filter(notNull) ?? []}
                   datasetKey={dataset.key}
                   total={insights?.images?.documents?.total}
                   className="g-mb-4"
@@ -513,7 +513,7 @@ export function DatasetKeyAbout() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ContactList contacts={dataset.volatileContributors} cap={100} />
+                  <ContactList contacts={dataset.volatileContributors?.filter(notNull)} cap={100} />
                 </CardContent>
               </Card>
             )}

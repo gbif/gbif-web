@@ -6,7 +6,11 @@ export function JazzIcon({
   seed,
   className,
   ...props
-}: { children?: React.ReactNode; seed: string } & React.HTMLAttributes<HTMLDivElement>) {
+}: {
+  children?: React.ReactNode;
+  seed: string;
+  diameter?: number;
+} & React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...props}

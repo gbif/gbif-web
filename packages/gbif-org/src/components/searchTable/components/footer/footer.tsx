@@ -1,10 +1,9 @@
-import { MdChevronLeft, MdChevronRight, MdFirstPage, MdLastPage } from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight, MdFirstPage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { FooterButton } from './footerButton';
 import { InlineSkeletonWrapper } from '../inlineSkeletonWrapper';
 import { usePagination } from '../../hooks/usePagination';
 import { PaginationState, SetPaginationState } from '../../hooks/usePaginationState';
-import { useI18n } from '@/reactRouterPlugins';
 
 type Props = {
   loading: boolean;
@@ -14,8 +13,6 @@ type Props = {
 };
 
 export function Footer({ loading, paginationState, setPaginationState, rowCount }: Props) {
-  const { locale } = useI18n();
-  const isRtl = locale.textDirection === 'rtl';
   const { hasPreviousPage, firstPage, previousPage, pageNumber, pageCount, hasNextPage, nextPage } =
     usePagination({
       paginationState,

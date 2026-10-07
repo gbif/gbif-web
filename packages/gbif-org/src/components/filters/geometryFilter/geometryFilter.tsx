@@ -24,7 +24,7 @@ type WildcardProps = Omit<filterLocationConfig, 'filterType' | 'filterTranslatio
   };
 
 const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
-  ({ className, filterHandle, onApply, onCancel, pristine, about }: WildcardProps, ref) => {
+  ({ className, filterHandle, onApply, onCancel, pristine, about }: WildcardProps, _ref) => {
     const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, setFullField, setFilter, filterHash } = currentFilterContext;

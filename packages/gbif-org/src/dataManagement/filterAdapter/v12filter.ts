@@ -79,7 +79,11 @@ export default function v12filter(
       filter.must[name] = arrayValue;
     }
   });
-  const checklistKey = query?.checklistKey?.[0] ?? query?.checklistKey ?? defaultChecklistKey;
+  const rawChecklistKey = query?.checklistKey;
+  const checklistKey =
+    (Array.isArray(rawChecklistKey) ? rawChecklistKey[0] : undefined) ??
+    rawChecklistKey ??
+    defaultChecklistKey;
   if (typeof checklistKey === 'string') {
     filter.checklistKey = checklistKey;
   }

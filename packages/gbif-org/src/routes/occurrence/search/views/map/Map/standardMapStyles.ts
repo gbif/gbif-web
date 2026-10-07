@@ -161,4 +161,4 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }: GetMapStylesArgs
 
 // Export types for use in other files
 export type { MapStyles, MapStyleKey, GetMapStylesArgs };
-export type { MapStyleConfig, MapConfig } from './mapTypes';
+export type { MapStyleConfig, MapConfig } from './types';

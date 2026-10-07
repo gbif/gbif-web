@@ -67,10 +67,10 @@ export const RangeInput = ({ onAdd }: RangeInputProps) => {
           .replace(/E/g, (+E.toFixed(3)).toString());
 
       // update lat and lon values with new nsew values
-      setMinLatitude(S);
-      setMaxLatitude(N);
-      setMinLongitude(W);
-      setMaxLongitude(E);
+      setMinLatitude(S.toString());
+      setMaxLatitude(N.toString());
+      setMinLongitude(W.toString());
+      setMaxLongitude(E.toString());
 
       onAdd({ wkt: [wkt] });
     } catch (e) {

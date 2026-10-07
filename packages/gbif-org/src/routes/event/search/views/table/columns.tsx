@@ -90,8 +90,8 @@ export function useEventColumns({ showPreview }: Args): ColumnDef<SingleEventSea
           return (
             <span className="g-text-nowrap">
               <FormattedDateRange
-                start={eventDate?.from}
-                end={eventDate?.to}
+                start={eventDate?.from ?? undefined}
+                end={eventDate?.to ?? undefined}
                 format={{ year: 'numeric', month: 'short', day: 'numeric' }}
               />
             </span>

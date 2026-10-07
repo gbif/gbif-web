@@ -353,7 +353,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return { error };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch(error: Error, _errorInfo: React.ErrorInfo) {
     // We do not have a service to do client logging. Could be nice at some point.
     if (this.props.onError) {
       this.props.onError(error);

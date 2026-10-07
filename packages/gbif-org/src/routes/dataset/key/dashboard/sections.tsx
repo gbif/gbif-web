@@ -93,7 +93,6 @@ function HasDataMessage({
   children,
   count,
   loading,
-  error,
 }: {
   children: React.ReactNode;
   count?: number;

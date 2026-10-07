@@ -49,14 +49,17 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
+// Also fed TaxonSimple results and cross-content-search JSON, which share the fields but not __typename.
+export type TaxonResultTaxon = Omit<TaxonSearchResultDetailsFragment, '__typename'>;
+
 export function TaxonResult({
   taxon,
   synonym,
   vernacularName,
   className,
 }: {
-  taxon: TaxonSearchResultDetailsFragment;
-  synonym?: TaxonSearchResultDetailsFragment;
+  taxon: TaxonResultTaxon;
+  synonym?: TaxonResultTaxon;
   vernacularName?: string | null;
   className?: string;
 }) {

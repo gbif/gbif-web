@@ -87,7 +87,7 @@ function getField({
   const serializedValues = mappedValues
     .filter((v) => typeof v !== 'undefined') // remove undefined values
     .map((value) => serializeValue({ value, config, filterName, errors }))
-    .filter((v) => typeof v !== 'undefined'); // remove filters that couldn't be parsed
+    .filter((v): v is string | boolean | number => typeof v !== 'undefined'); // remove filters that couldn't be parsed
 
   if (serializedValues.length === 0) return;
   const singleOrListValues = config.singleValue ? serializedValues[0] : serializedValues;

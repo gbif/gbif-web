@@ -21,7 +21,6 @@ import { GbifFeedback } from './GbifFeedback';
 import { GithubFeedback, MailFeedback } from './GithubFeedback';
 import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
-import TestSiteAlert from '@/components/TestSiteAlert';
 
 type PageType = {
   type: 'occurrenceKey' | null;
@@ -73,7 +72,8 @@ export function FeedbackPopover({
   });
 
   useEffect(() => {
-    if (open && pageType?.id) {
+    // type and key are always set when id is
+    if (open && pageType?.id && pageType.type && pageType.key) {
       load({ variables: { pageType: pageType.type, key: pageType.key } });
     }
   }, [pageType?.id, load, open]);
@@ -232,9 +232,7 @@ export function FeedbackPopover({
   if (isMobile) {
     return (
       <Sheet open={open} onOpenChange={setOpen}>
-        {trigger && controlledOpen === undefined && (
-          <SheetTrigger asChild>{trigger}</SheetTrigger>
-        )}
+        {trigger && controlledOpen === undefined && <SheetTrigger asChild>{trigger}</SheetTrigger>}
         <SheetContent
           side={locale.textDirection === 'rtl' ? 'left' : 'right'}
           className={cn(

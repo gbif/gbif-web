@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { toast as showToast, useToast } from '@/components/ui/use-toast';
 import turfBbox from '@turf/bbox';
 import turfBboxPolygon from '@turf/bbox-polygon';
 import turfKinks from '@turf/kinks';
@@ -13,6 +13,9 @@ import parseGeometry from 'wellknown';
 const wktSizeLimit = 5000;
 const wktFormat = new WKT();
 const geojsonFormat = new GeoJSON();
+
+type Messages = Partial<Record<string, string>>;
+type ToastFn = ReturnType<typeof useToast>['toast'];
 
 interface GeometryInputProps {
   onApply?(...args: unknown[]): unknown;
@@ -212,7 +215,7 @@ export const GeometryInput = ({ onAdd, initialValue = '' }: GeometryInputProps) 
             size="sm"
             variant="default"
             onClick={() => {
-              const success = simplify(inputValue);
+              const success = simplify();
               setSimplificationOffer(!success);
             }}
             className="g-me-2"
@@ -221,12 +224,7 @@ export const GeometryInput = ({ onAdd, initialValue = '' }: GeometryInputProps) 
           </Button>
         )}
         {offerSimplification && (
-          <Button
-            size="sm"
-            variant="primaryOutline"
-            onClick={() => bbox(inputValue)}
-            className="g-me-2"
-          >
+          <Button size="sm" variant="primaryOutline" onClick={() => bbox()} className="g-me-2">
             <FormattedMessage id="filterSupport.location.useBbox" />
           </Button>
         )}
@@ -264,15 +262,26 @@ export const GeometryInput = ({ onAdd, initialValue = '' }: GeometryInputProps) 
   );
 };
 
-function parseStringToWKTs(str: string, messages = {}) {
+type ParseResult =
+  | { error: 'NOT_VALID_WKT' | 'FAILED_PARSING' }
+  | {
+      error?: undefined;
+      geometry: string[];
+      isSimplified?: boolean;
+      orderChanged?: boolean;
+      selfIntersecting?: boolean;
+    };
+
+function parseStringToWKTs(str: string, messages: Messages = {}): ParseResult {
   let i, geojson, feature, isSimplified, selfIntersecting, orderChanged, wktGeom;
-  const wktGeometries = [];
+  const wktGeometries: string[] = [];
   // assume geojson
   try {
     const geojsonGeometry = JSON.parse(str);
     geojson = geojsonFormat.readFeatures(geojsonGeometry);
     for (i = 0; i < geojson.length; i++) {
       feature = geojson[i].getGeometry();
+      if (!feature) throw new Error('Feature has no geometry');
       wktGeom = wktFormat.writeGeometry(feature);
       wktGeom = getRightHandCorrectedWKT(wktGeom);
       const parsedWkt = getAsValidWKT(wktGeom, messages);
@@ -293,7 +302,7 @@ function parseStringToWKTs(str: string, messages = {}) {
       if (!parsedWkt.failed) {
         isSimplified = parsedWkt.isSimplified;
         orderChanged = parsedWkt.orderChanged;
-        (selfIntersecting = parsedWkt.selfIntersecting), wktGeometries.push(parsedWkt.wkt);
+        ((selfIntersecting = parsedWkt.selfIntersecting), wktGeometries.push(parsedWkt.wkt));
       } else {
         return {
           error: 'NOT_VALID_WKT',
@@ -334,7 +343,17 @@ function testWktForIntersections(str: string) {
   };
 }
 
-function getAsValidWKT(testWkt: string, messages = {}, toast: Toast) {
+type ValidWktResult =
+  | { failed: true }
+  | {
+      failed: false;
+      isSimplified: boolean;
+      orderChanged: boolean;
+      selfIntersecting?: boolean;
+      wkt: string;
+    };
+
+function getAsValidWKT(testWkt: string, messages: Messages = {}): ValidWktResult {
   try {
     const simplifiedWkt = formatWkt(testWkt);
     const counterClockwiseWkt = getRightHandCorrectedWKT(simplifiedWkt);
@@ -343,7 +362,7 @@ function getAsValidWKT(testWkt: string, messages = {}, toast: Toast) {
     // check if invalid type
     const isUnsupportedType = hasUnsupportedGeometryType(counterClockwiseWkt);
     if (isUnsupportedType) {
-      toast({
+      showToast({
         title: messages?.onlyPolygonsSupported,
         variant: 'destructive',
       });
@@ -385,7 +404,9 @@ function formatWkt(wktStr: string) {
 function getRightHandCorrectedWKT(wktStr: string) {
   const f = wktFormat.readFeature(wktStr);
   const asGeoJson = geojsonFormat.writeFeature(f, { rightHanded: true });
-  const rightHandCorrectedFeature = geojsonFormat.readFeature(asGeoJson);
+  const readResult = geojsonFormat.readFeature(asGeoJson);
+  // a single serialized feature reads back as a single feature
+  const rightHandCorrectedFeature = Array.isArray(readResult) ? readResult[0] : readResult;
   const newWkt = wktFormat.writeFeature(rightHandCorrectedFeature, {
     rightHanded: true,
     decimals: 5,
@@ -401,9 +422,9 @@ function getSimplified({
 }: {
   str: string;
   tolerance?: number;
-  messages: Record<string, string>;
-  toast: Toast;
-}) {
+  messages: Messages;
+  toast: ToastFn;
+}): string | undefined {
   tolerance = tolerance || 0.001;
   if (typeof tolerance !== 'number') {
     throw new Error('tolerance must be a number');
@@ -412,7 +433,10 @@ function getSimplified({
   if (parsingResult.error) {
     return;
   }
-  const geojson = parseGeometry.parse(parsingResult?.geometry?.[0]);
+  const geojson = parseGeometry.parse(parsingResult.geometry[0]);
+  if (!geojson) {
+    return;
+  }
   const options = { tolerance: tolerance, highQuality: true };
   const simplified = turfSimplify(geojson, options);
   const wkt = parseGeometry.stringify(simplified);
@@ -436,11 +460,14 @@ function getSimplified({
   }
 }
 
-function getBBox(str: string, messages = {}) {
+function getBBox(str: string, messages: Messages = {}) {
   const parsingResult = parseStringToWKTs(str, messages);
+  if (parsingResult.error) throw new Error(parsingResult.error);
   const geom = parseGeometry.parse(parsingResult.geometry[0]);
+  if (!geom) throw new Error('FAILED_PARSING');
   const bbox = turfBbox(geom);
   const bboxPolygon = turfBboxPolygon(bbox);
+  // @ts-expect-error @types/geojson positions are number[], @types/wellknown expects tuples
   const wkt = parseGeometry.stringify(bboxPolygon);
   return wkt;
 }

@@ -25,10 +25,7 @@ export function Media({
   occurrence,
   termMap,
   loading = false,
-  error,
-  className,
   updateToc = () => {},
-  ...props
 }: {
   occurrence: OccurrenceQuery['occurrence'];
   termMap: { [key: string]: Term };
@@ -117,7 +114,6 @@ function Images({
 function Sounds({
   occurrence,
   termMap,
-  ...props
 }: {
   occurrence: OccurrenceQuery['occurrence'];
   termMap: { [key: string]: Term };
@@ -127,7 +123,7 @@ function Sounds({
     <>
       {occurrence.sounds?.map((media: OccurrenceMediaDetailsFragment, index) => {
         const format = media.format;
-        const knownFormat = format && supportedFormats.includes(format); // typescript issues
+        const knownFormat = format && (supportedFormats as readonly string[]).includes(format);
         return (
           <li key={`${media?.identifier}_${index}`}>
             <Card className="g-overflow-hidden">
@@ -160,7 +156,6 @@ function Sounds({
 function MovingImages({
   occurrence,
   termMap,
-  ...props
 }: {
   occurrence: OccurrenceQuery['occurrence'];
   termMap: { [key: string]: Term };

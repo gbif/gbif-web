@@ -68,14 +68,17 @@ export default function OrphanedCollectionCodes({ institutionKey }: { institutio
       </div>
       <ul style={{ fontFamily: 'monospace' }}>
         {data?.orphaned?.facet?.collectionCode &&
-          data?.orphaned?.facet?.collectionCode.map((code) => (
-            <li key={code.key}>
-              <span className="g-font-semibold">{code.key}:</span>
-              <span className="g-mx-2 g-text-slate-500">
-                <FormattedMessage id="counts.nRecords" values={{ total: code.count }} />
-              </span>
-            </li>
-          ))}
+          data?.orphaned?.facet?.collectionCode.map(
+            (code) =>
+              code && (
+                <li key={code.key}>
+                  <span className="g-font-semibold">{code.key}:</span>
+                  <span className="g-mx-2 g-text-slate-500">
+                    <FormattedMessage id="counts.nRecords" values={{ total: code.count }} />
+                  </span>
+                </li>
+              )
+          )}
       </ul>
     </div>
   );

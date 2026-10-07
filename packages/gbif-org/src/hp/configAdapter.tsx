@@ -6,22 +6,65 @@ That should make it easy to copy it to the source file for the user.
 
 import { Config, LanguageOption, PageConfig } from '@/config/config';
 import { languagesOptions } from '@/config/languagesOptions';
+import { OccurrenceSearchMetadata } from '@/contexts/search';
+
+type LegacySearchConfig = {
+  rootFilter?: unknown;
+  rootPredicate?: unknown;
+  highlightedFilters?: string[];
+  excludedFilters?: string[];
+  defaultTableColumns?: string[];
+  availableTableColumns?: string[];
+};
+
+// Pre-version-3 hosted portal configs, as found in the wild. Loosely typed: these come from user-written JS.
+type LegacyConfig = {
+  version?: number;
+  pages?: PageConfig[];
+  routes?: { enabledRoutes?: string[] } & Record<string, { route?: string } | undefined>;
+  occurrence?: LegacySearchConfig & {
+    occurrenceSearchTabs?: string[];
+    mapSettings?: OccurrenceSearchMetadata['mapSettings'];
+  };
+  dataset?: LegacySearchConfig;
+  publisher?: LegacySearchConfig;
+  institution?: LegacySearchConfig;
+  collection?: LegacySearchConfig;
+  literature?: LegacySearchConfig & { rootFilter?: { predicate?: unknown } };
+  languages: (Partial<LanguageOption> & Pick<LanguageOption, 'code'>)[];
+  // either keyed by language code, or a single flat message map used for all languages
+  messages?: Record<string, Record<string, string>> | Record<string, string>;
+  disableInlineTableFilterButtons?: boolean;
+  availableCatalogues?: Config['availableCatalogues'];
+  defaultChecklistKey?: string;
+  theme?: Config['theme'];
+  apiKeys?: Config['apiKeys'];
+  maps?: {
+    locale?: string;
+    defaultProjection?: Config['maps']['mapStyles']['defaultProjection'];
+    defaultMapStyle?: string;
+    mapStyles?: Config['maps']['mapStyles']['options'];
+    addMapStyles?: Config['maps']['addMapStyles'];
+    styleLookup?: Config['maps']['styleLookup'];
+  };
+  suggest?: Config['suggest'];
+};
 
 export function configAdapter(config: object): Partial<Config> {
-  if (config?.version === 3) {
+  if ((config as LegacyConfig)?.version === 3) {
     return config as Partial<Config>;
   } else {
-    return convertedConfig(config);
+    return convertedConfig(config as LegacyConfig);
   }
 }
 
-function convertedConfig(config: object): Partial<Config> {
-  let pages = config?.pages;
+function convertedConfig(config: LegacyConfig): Partial<Config> {
   const routeNames = config?.routes?.enabledRoutes ?? Object.keys(config?.routes ?? {});
-  if (!pages && routeNames) {
-    pages = routeNames.map((route: string) => {
+  const pages: PageConfig[] =
+    config?.pages ??
+    routeNames.map((route: string) => {
       const page: PageConfig = { id: route };
-      const path = config?.routes?.[route]?.route;
+      const path = (config?.routes?.[route] as { route?: string } | undefined)?.route;
       // remove trailing slash and ending slash from path
       const cleanedPath = path?.replace(/^\/|\/$/g, '');
       if (path) {
@@ -29,7 +72,6 @@ function convertedConfig(config: object): Partial<Config> {
       }
       return page;
     });
-  }
 
   // assume that if there is config for a type, then the page should be enabled
   if (config?.occurrence) {
@@ -75,7 +117,7 @@ function convertedConfig(config: object): Partial<Config> {
   }
   const supportedLanguages = languagesOptions;
   // map provided languages to supported languages
-  const mappedLanguages = config?.languages.map((lang: LanguageOption) => {
+  const mappedLanguages = config?.languages.map((lang) => {
     const matchedLanguage = supportedLanguages.find(
       (targetLang: LanguageOption) => (lang.localeCode ?? lang.code) === targetLang.localeCode
     );
@@ -83,7 +125,8 @@ function convertedConfig(config: object): Partial<Config> {
       return { ...matchedLanguage, ...lang, default: lang.default ?? false };
     } else {
       // get english as default
-      const english = supportedLanguages.find((lang: LanguageOption) => lang.code === 'en');
+      // english is always among the supported languages
+      const english = supportedLanguages.find((lang: LanguageOption) => lang.code === 'en')!;
       return {
         ...english,
         code: lang.code,
@@ -116,8 +159,8 @@ function convertedConfig(config: object): Partial<Config> {
     },
     languages: mappedLanguages,
     suggest: config.suggest,
-    messages: config.languages.reduce((acc: any, curr: string) => {
-      acc[curr.code] = config?.messages?.[curr.code] ?? config.messages;
+    messages: config.languages.reduce<Record<string, Record<string, string>>>((acc, curr) => {
+      acc[curr.code] = (config?.messages?.[curr.code] ?? config.messages) as Record<string, string>;
       return acc;
     }, {}),
     occurrenceSearch: {
@@ -167,10 +210,10 @@ function convertedConfig(config: object): Partial<Config> {
   return newConfig as Config;
 }
 
-function mapDatasetFilterNames(list) {
+function mapDatasetFilterNames(list?: string[]) {
   if (!list) return undefined;
   return list.map((name: string) => {
-    const mappedName = {
+    const mappedName: Record<string, string> = {
       anyPublisherKey: 'publishingOrg',
       datasetType: 'type',
       publishingCountryCode: 'publishingCountry',
@@ -180,20 +223,20 @@ function mapDatasetFilterNames(list) {
   });
 }
 
-function mapPublisherFilterNames(list) {
+function mapPublisherFilterNames(list?: string[]) {
   if (!list) return undefined;
   return list.map((name: string) => {
-    const mappedName = {
+    const mappedName: Record<string, string> = {
       countrySingle: 'country',
     };
     return mappedName[name] || name;
   });
 }
 
-function mapCollectionFilterNames(list) {
+function mapCollectionFilterNames(list?: string[]) {
   if (!list) return undefined;
   return list.map((name: string) => {
-    const mappedName = {
+    const mappedName: Record<string, string> = {
       institutionKeySingle: 'institutionKey',
       countryGrSciColl: 'country',
       city: 'city',
@@ -214,10 +257,10 @@ function mapCollectionFilterNames(list) {
   });
 }
 
-function mapInstitutionFilterNames(list) {
+function mapInstitutionFilterNames(list?: string[]) {
   if (!list) return undefined;
   return list.map((name: string) => {
-    const mappedName = {
+    const mappedName: Record<string, string> = {
       q: 'q',
       active: 'active',
       countryGrSciColl: 'country',
@@ -235,10 +278,10 @@ function mapInstitutionFilterNames(list) {
   });
 }
 
-function mapOccurrenceFilterNames(list) {
+function mapOccurrenceFilterNames(list?: string[]) {
   if (!list) return undefined;
   return list.map((name: string) => {
-    const mappedName = {
+    const mappedName: Record<string, string> = {
       occurrenceIssue: 'issue',
       publishingCountryCode: 'publishingCountry',
       publisherKey: 'publishingOrg',
@@ -247,8 +290,8 @@ function mapOccurrenceFilterNames(list) {
   });
 }
 
-function getFromConfiguration(config: any) {
-  const catalogues = [];
+function getFromConfiguration(config: LegacyConfig) {
+  const catalogues: NonNullable<Config['availableCatalogues']> = [];
   if (config?.occurrence) catalogues.push('OCCURRENCE');
   if (config?.dataset) catalogues.push('DATASET');
   if (config?.institution) catalogues.push('INSTITUTION');

@@ -50,37 +50,55 @@ export function MapPopup({
       // Corners — right-angled triangles flush with the box corner
       case 'bottom-left':
         // ◤  top edge + left edge visible, hypotenuse to bottom-right
-        return <div className="g-w-0 g-h-0 g-self-start g-border-t-[10px] g-border-t-popover g-border-r-[10px] g-border-r-transparent" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-start g-border-t-[10px] g-border-t-popover g-border-r-[10px] g-border-r-transparent" />
+        );
       case 'bottom-right':
         // ◥  top edge + right edge visible, hypotenuse to bottom-left
-        return <div className="g-w-0 g-h-0 g-self-end g-border-t-[10px] g-border-t-popover g-border-l-[10px] g-border-l-transparent" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-end g-border-t-[10px] g-border-t-popover g-border-l-[10px] g-border-l-transparent" />
+        );
       case 'top-left':
         // ◣  bottom edge + left edge visible, hypotenuse to top-right
-        return <div className="g-w-0 g-h-0 g-self-start g-border-b-[10px] g-border-b-popover g-border-r-[10px] g-border-r-transparent" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-start g-border-b-[10px] g-border-b-popover g-border-r-[10px] g-border-r-transparent" />
+        );
       case 'top-right':
         // ◢  bottom edge + right edge visible, hypotenuse to top-left
-        return <div className="g-w-0 g-h-0 g-self-end g-border-b-[10px] g-border-b-popover g-border-l-[10px] g-border-l-transparent" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-end g-border-b-[10px] g-border-b-popover g-border-l-[10px] g-border-l-transparent" />
+        );
       // Cardinal directions — full symmetric triangles, centered
       case 'top':
-        return <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-b-popover g-border-t-0" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-b-popover g-border-t-0" />
+        );
       case 'bottom':
-        return <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-t-popover g-border-b-0" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-t-popover g-border-b-0" />
+        );
       case 'left':
-        return <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-r-popover g-border-l-0" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-r-popover g-border-l-0" />
+        );
       case 'right':
-        return <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-l-popover g-border-r-0" />;
+        return (
+          <div className="g-w-0 g-h-0 g-self-center g-border-[10px] g-border-transparent g-border-l-popover g-border-r-0" />
+        );
     }
   })();
 
   const box = (
-    <div className={cn(
-      'g-bg-popover g-p-4 g-text-popover-foreground g-outline-none g-relative g-min-w-[200px] g-rounded-md',
-      // anchor is a geographic position on the map (independent of document direction), so keep physical corners
-      anchor === 'top-left' && 'g-rounded-tl-none',
-      anchor === 'top-right' && 'g-rounded-tr-none',
-      anchor === 'bottom-left' && 'g-rounded-bl-none',
-      anchor === 'bottom-right' && 'g-rounded-br-none',
-    )}>
+    <div
+      className={cn(
+        'g-bg-popover g-p-4 g-text-popover-foreground g-outline-none g-relative g-min-w-[200px] g-rounded-md',
+        // anchor is a geographic position on the map (independent of document direction), so keep physical corners
+        anchor === 'top-left' && 'g-rounded-tl-none',
+        anchor === 'top-right' && 'g-rounded-tr-none',
+        anchor === 'bottom-left' && 'g-rounded-bl-none',
+        anchor === 'bottom-right' && 'g-rounded-br-none'
+      )}
+    >
       <button
         onClick={onClose}
         className="g-absolute g-end-1 g-top-1 g-rounded-sm g-opacity-70 g-transition-opacity hover:g-opacity-100 g-cursor-pointer"

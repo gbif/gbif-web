@@ -9,11 +9,10 @@ import { Card } from '@/components/ui/smallCard';
 import { FormattedMessage } from 'react-intl';
 
 export function AboutContent() {
-  const { title, body, error, loading } = useHelp('what-is-a-collection');
+  const { title, body, loading } = useHelp('what-is-a-collection');
   const {
     title: titleSearch,
     body: bodySearch,
-    error: errorSearch,
     loading: loadingSearch,
   } = useHelp('how-to-use-collection-search');
   if (loading || loadingSearch) return <HelpTextSkeleton includeTitle />;

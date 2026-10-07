@@ -7,7 +7,7 @@ interface GithubFeedbackProps {
   onClose: () => void;
 }
 
-export function GithubFeedback({ onClose }: GithubFeedbackProps) {
+export function GithubFeedback(_props: GithubFeedbackProps) {
   const location = useLocation();
   const { feedback } = useConfig();
   const { githubRepo, githubUsernames = [] } = feedback || {};
@@ -54,7 +54,7 @@ export function GithubFeedback({ onClose }: GithubFeedbackProps) {
   );
 }
 
-export function MailFeedback({ onClose }: GithubFeedbackProps) {
+export function MailFeedback(_props: GithubFeedbackProps) {
   const location = useLocation();
   const { feedback } = useConfig();
   const { contactEmail } = feedback || {};

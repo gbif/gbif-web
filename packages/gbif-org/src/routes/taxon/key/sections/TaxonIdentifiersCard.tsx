@@ -19,11 +19,11 @@ function TaxonIdentifiersContent({ slowTaxon }: Props) {
           <FormattedMessage id="taxon.taxonIdentifiers" />
         </CardTitle>
         <CardDescription>
-          {source && <WikidataIdentifiersSource url={source} id={id} />}
+          {source && <WikidataIdentifiersSource url={source} id={id ?? ''} />}
         </CardDescription>
       </CardHeader>
       <CardContent className="g-overflow-x-auto">
-        <WikiDataIdentifiers identifiers={slowTaxon?.taxonInfo?.wikiData?.identifiers} />
+        <WikiDataIdentifiers identifiers={slowTaxon?.taxonInfo?.wikiData?.identifiers ?? []} />
       </CardContent>
     </Card>
   );

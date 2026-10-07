@@ -16,6 +16,7 @@ import useQuery from '@/hooks/useQuery';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import useLocalStorage from 'use-local-storage';
+import { notNull } from '@/utils/notNull';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
@@ -150,7 +151,7 @@ function MediaClient({ size: defaultSize = 50 }: { size?: number }) {
   const isGrouped = groupState.mode === 'group' && !!groupState.groupBy;
 
   const updateList = useCallback(() => {
-    setOrderedList(allData.filter((item) => item != null).map((item) => `o_${item.key}`));
+    setOrderedList(allData.filter(notNull).map((item) => `o_${item.key}`));
   }, [allData, setOrderedList]);
 
   const selectPreview = useCallback(

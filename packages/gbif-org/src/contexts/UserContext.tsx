@@ -33,10 +33,10 @@ interface RegisterData {
   user: {
     username: string;
     email: string;
-    country: string;
     password: string;
     settings: {
       locale: string;
+      country: string;
     };
   };
   challengeId?: string;

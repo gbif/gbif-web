@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-const SvgMapMemoized = React.memo(function SvgMap({ style }) {
+const SvgMapMemoized = React.memo(function SvgMap(/** @type {{ style: string }} */ { style }) {
   const { formatMessage } = useIntl();
   return (
     <svg

@@ -13,7 +13,7 @@ export function TermsAndConditions() {
             id="eoi.iHaveReadAndUnderstood"
             defaultMessage="I have read and understood GBIF's Data Publisher Agreement and agree to its terms."
           >
-            {(data) => <span dangerouslySetInnerHTML={{ __html: data }}></span>}
+            {(data) => <span dangerouslySetInnerHTML={{ __html: String(data) }}></span>}
           </FormattedMessage>
         }
       />

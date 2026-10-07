@@ -116,7 +116,7 @@ function InvasiveInCountriesContent({ taxonInfo }: { taxonInfo: TaxonKeyQuery['t
                           apiEndpoint={apiConstants.occurrenceSearch}
                           params={{
                             taxonKey: taxonInfo?.taxonID,
-                            country: e.countryCode,
+                            country: e.countryCode ?? undefined,
                             checklistKey: taxonInfo?.datasetKey,
                             limit: 0,
                           }}
