@@ -11,7 +11,7 @@
 // changes not in the repo). Repo changes not yet deployed are only reported.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, globSync, mkdtempSync, readFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readdirSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import {
@@ -56,8 +56,9 @@ function repoSchema() {
 function operations() {
   const documents = [];
   let skipped = 0;
-  for (const file of globSync('src/**/*.{ts,tsx,mjs}')) {
-    if (file.startsWith('src/gql/')) continue;
+  for (const entry of readdirSync('src', { recursive: true, encoding: 'utf8' })) {
+    const file = join('src', entry);
+    if (!/\.(ts|tsx|mjs)$/.test(file) || file.startsWith(join('src', 'gql'))) continue;
     const source = readFileSync(file, 'utf8');
     for (const match of source.matchAll(/\/\*\s*GraphQL\s*\*\/\s*`([^`]*)`/g)) {
       const line = source.slice(source.lastIndexOf('\n', match.index) + 1, match.index);
@@ -70,9 +71,11 @@ function operations() {
   return { documents, skipped };
 }
 
+/** @param {import('graphql').GraphQLSchema} schema */
 function validateOperations(schema) {
   const { documents, skipped } = operations();
   // Fragments live in other files and are joined in at runtime by fragmentManager.
+  /** @type {Map<string, import('graphql').FragmentDefinitionNode>} */
   const fragments = new Map();
   for (const { document } of documents) {
     for (const def of document.definitions) {
@@ -86,6 +89,7 @@ function validateOperations(schema) {
     for (const def of document.definitions) {
       if (def.kind !== Kind.OPERATION_DEFINITION) continue;
       checked++;
+      /** @type {import('graphql').DocumentNode} */
       const withFragments = { kind: Kind.DOCUMENT, definitions: [def, ...fragments.values()] };
       for (const error of validate(schema, withFragments, rules)) {
         failures.push(`${file} ${def.name?.value ?? '(anonymous)'}: ${error.message}`);
