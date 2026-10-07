@@ -3,14 +3,15 @@
     "method": "POST",
     "target": "https://graphql.gbif.org/graphql",
     "body": {
-      "query": "\n  query($predicate: Predicate) {\n    search: occurrenceSearch(predicate: $predicate) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "query": "\n  query OccurrenceCount($predicate: Predicate) {\n    search: occurrenceSearch(predicate: $predicate) {\n      documents {\n        total\n      }\n    }\n  }\n",
       "variables": {
         "predicate": {
           "type": "equals",
           "key": "datasetKey",
           "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
         }
-      }
+      },
+      "operationName": "OccurrenceCount"
     }
   },
   "status": 200,

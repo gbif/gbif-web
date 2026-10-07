@@ -36,4 +36,6 @@ npm run e2e:rerecord               # full run in record mode, then delete record
 - New page or changed query: `npm run e2e:record`, review and commit `recordings/`. A changed query
   is a miss, never a stale replay. `e2e:rerecord` also removes recordings left behind.
 - A miss in replay means the page asked for something not recorded. Re-record; never stub it out.
+- Every GraphQL operation needs a name (`query DatasetTitle($key: ID!)`). The mock refuses unnamed
+  ones in both modes, since recordings are filed by operation name.
 - The recorder warns when a GraphQL response contains `errors`; check those before committing.

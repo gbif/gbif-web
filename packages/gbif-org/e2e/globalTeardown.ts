@@ -12,12 +12,12 @@ export default async function globalTeardown() {
     for (const key of removed) console.log(`  ${key}`);
   }
 
-  const misses: Array<{ key: string; page?: string }> = await fetch(`${MOCK}/__mock/misses`).then(
-    (r) => r.json()
-  );
+  const misses: Array<{ key: string; reason: string; page?: string }> = await fetch(
+    `${MOCK}/__mock/misses`
+  ).then((r) => r.json());
   if (misses.length === 0) return;
-  const list = misses.map((m) => `  ${m.key}  (page: ${m.page ?? 'server'})`).join('\n');
-  throw new Error(
-    `${misses.length} upstream request(s) had no recording. Run npm run e2e:record.\n${list}`
-  );
+  const list = misses
+    .map((m) => `  ${m.key}  (page: ${m.page ?? 'server'}): ${m.reason}`)
+    .join('\n');
+  throw new Error(`${misses.length} upstream request(s) the mock could not answer:\n${list}`);
 }
