@@ -23,7 +23,8 @@ npm run e2e:rerecord               # full run in record mode, then delete record
   Translations come from the bundled `src/config/fallback/`; tiles and map images are stubbed blank.
 - `test.ts`: import `test`/`expect` from here, not from `@playwright/test`. It blocks non-localhost
   requests, waits until the page stops requesting, and fails the test on uncaught errors, React
-  hydration errors and requests without a recording.
+  hydration errors, the partial-data error toast (a GraphQL response with `errors`) and requests
+  without a recording.
 - `globalTeardown.ts`: fails the run on misses no test owns (server-side requests), and prunes
   under `E2E_PRUNE=1`.
 
