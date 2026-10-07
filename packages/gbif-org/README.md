@@ -8,6 +8,7 @@
     - [How to Start the New GBIF.org in Development Mode](#how-to-start-the-new-gbiforg-in-development-mode)
     - [How to Build and Run the New GBIF.org](#how-to-build-and-run-the-new-gbiforg)
     - [How to Test the Code in an Environment Simulating the Hosted Portals](#how-to-test-the-code-in-an-environment-simulating-the-hosted-portals)
+    - [How to Run the End-to-End Tests](#how-to-run-the-end-to-end-tests)
   - [Environment Variables](#environment-variables)
     - [Exposing Environment Variables to the Client](#exposing-environment-variables-to-the-client)
   - [GBIF.org Specific Code](#gbiforg-specific-code)
@@ -68,6 +69,20 @@ To initiate development mode, execute `npm run develop`.
 
 1. Build for Hosted Portals: Run `npm run build:hp`.
 2. Start for Hosted Portals: Run `npm run start:hp`.
+
+### How to Run the End-to-End Tests
+
+Playwright specs in [`e2e/`](e2e/) run against a production build whose upstream requests are
+served by a local record/replay mock, so they work offline without a VPN or `.env`.
+
+1. Install the browser (once per machine): Run `npx playwright install chromium`.
+2. Build: Run `npm run e2e:build`. Repeat after every source change; the run refuses a stale build.
+3. Test: Run `npm run e2e`. Pass Playwright arguments after `--`, e.g.
+   `npm run e2e -- specs/gbif/redirects.spec.ts` or `npm run e2e -- --ui`.
+
+A test fails if the page requests data that has no recording. After adding a page or changing a
+query, run `npm run e2e:record` and commit the new files in `e2e/recordings/`. See
+[`e2e/README.md`](e2e/README.md) for recording and writing specs.
 
 ## Environment Variables
 
