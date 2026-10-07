@@ -90,13 +90,7 @@ type Props = {
   [key: string]: unknown;
 };
 
-export function OccurrenceTaxonomySunburst({
-  predicate,
-  q: _q,
-  checklistKey,
-  click,
-  ...props
-}: Props) {
+export function OccurrenceTaxonomySunburst({ predicate, q, checklistKey, click, ...props }: Props) {
   const defaultChecklistKey = useChecklistKey();
   const [rankKeys, setRankKeys] = useState(rankKeys_.slice(0, 4));
   const [view, setView] = useState<ChartView>('SUNBURST');
@@ -128,7 +122,7 @@ export function OccurrenceTaxonomySunburst({
   const facetResults = useFacets({
     predicate,
     query,
-    otherVariables: { checklistKey: checklistKey || defaultChecklistKey },
+    otherVariables: { q, checklistKey: checklistKey || defaultChecklistKey },
   });
 
   const data = facetResults.data as unknown as SunburstQueryData | undefined;
@@ -367,7 +361,7 @@ export function OccurrenceTaxonomySunburst({
                 level: 4,
                 layoutAlgorithm: 'sliceAndDice',
                 dataLabels: {
-                  enabled: taxonomy.results.length < 500,
+                  enabled: (taxonomy.levelCounts[4] ?? 0) < 500,
                 },
                 colorVariation: {
                   key: 'brightness',

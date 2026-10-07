@@ -18,3 +18,10 @@ export function isFilterValueObject(value: unknown): value is FilterValueObject 
 export function isRangeFilterValue(value: unknown): value is RangeFilterValue {
   return isFilterValueObject(value) && value.type === 'range';
 }
+
+// 0 is a valid bound, so presence can't be tested with truthiness
+export function isPresentBound(
+  bound: string | number | undefined | null
+): bound is string | number {
+  return bound !== undefined && bound !== null && bound !== '';
+}

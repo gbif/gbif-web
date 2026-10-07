@@ -8,7 +8,7 @@ import { FormattedMessage, IntlShape } from 'react-intl';
 import { longDateFormatProps } from '@/components/dateFormats';
 import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
-import { isFilterValueObject } from './filterValue';
+import { isFilterValueObject, isPresentBound } from './filterValue';
 
 type LabelResult = { title: string; description?: string };
 
@@ -25,8 +25,8 @@ function rangeOrEqualLabel(
       v === undefined ? undefined : formatValue(v, intl);
     if (value?.type === 'range') {
       let translationKey;
-      const from = value.value.gte || value.value.gt;
-      const to = value.value.lte || value.value.lt;
+      const from = isPresentBound(value.value.gte) ? value.value.gte : value.value.gt;
+      const to = isPresentBound(value.value.lte) ? value.value.lte : value.value.lt;
       if (isUndefined(from)) {
         translationKey = 'lt';
       } else if (isUndefined(to)) {

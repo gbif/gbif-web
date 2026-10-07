@@ -1,4 +1,5 @@
 import { Config } from '@/config/config';
+import { envDefaults } from '@/config/configDefaults';
 import { Endpoints, getEndpoints } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
 
@@ -124,13 +125,7 @@ export const gbifConfig: Config = {
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
   defaultChecklistKey: SITE_CHECKLIST, // CoL
-  // same as configDefault, repeated so the unmerged config passed to the route plugins is a full Config
-  testSite: import.meta.env.PUBLIC_TEST_SITE === 'true',
-  defaultMapChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
-  hardcodedKeys: {
-    OBISKey: import.meta.env.PUBLIC_KEYS_OBIS_NODE,
-    taiwanNodeidentifier: import.meta.env.PUBLIC_KEYS_TAIWAN_PARTICIPANT,
-  },
+  ...envDefaults,
   availableChecklistKeys: [SITE_CHECKLIST], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   theme: {
     dense: true,
