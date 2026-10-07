@@ -335,6 +335,10 @@
         "title": "達爾文核心集檔案",
         "description": "多種文件 (核心資料、原始數值、已解釋資料、延伸集)，以滿足詳細或特定用途。可透過選擇特定延伸集來自訂下載內容。"
       },
+      "FASTA_ARCHIVE": {
+        "title": "",
+        "description": ""
+      },
       "SPECIES_LIST": {
         "title": "物種清單 CSV 檔",
         "description": "一份清單包含所有不同的分類群名稱及其出現紀錄次數。"
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "座標 (如已選擇)",
         "individualOccurrences": "個別出現紀錄",
         "multimediaLinks": "多媒體連結",
-        "occurrenceCounts": "出現記錄次數"
+        "occurrenceCounts": "出現記錄次數",
+        "dnaSequences": "",
+        "sequencedRecordsOnly": ""
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "選擇將用於填入下載檔案中分類列的分類法",
       "defaultRecommended": "建議大多數使用者選擇預設",
       "version": "版本"
+    },
+    "sequences": {
+      "noSequencesTitle": "",
+      "noSequencesDescription": "",
+      "someSequencesTitle": "",
+      "someSequencesDescription": "",
+      "recordsIncluded": ""
     }
   },
   "customSqlDownload": {

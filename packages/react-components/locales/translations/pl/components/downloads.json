@@ -335,6 +335,10 @@
         "title": "Darwin Core Archive",
         "description": "Wiele plików (podstawowe, surowe wartości, zinterpretowane dane, rozszerzenia) do użytku szczegółowego lub specjalistycznego. Pobieranie można dostosować, wybierając konkretne rozszerzenia."
       },
+      "FASTA_ARCHIVE": {
+        "title": "",
+        "description": ""
+      },
       "SPECIES_LIST": {
         "title": "Lista gatunków",
         "description": "Lista wszystkich odrębnych nazw taksonów wraz z liczbą wystąpień."
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "Współrzędne (jeśli wybrane)",
         "individualOccurrences": "Indywidualne wystąpienia",
         "multimediaLinks": "Linki do multimediów",
-        "occurrenceCounts": "Liczba stwierdzeń"
+        "occurrenceCounts": "Liczba stwierdzeń",
+        "dnaSequences": "",
+        "sequencedRecordsOnly": ""
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "Wybierz taksonomię, która będzie używana do wypełniania kolumn taksonomicznych w pobieraniu",
       "defaultRecommended": "Domyślne i zalecane dla większości użytkowników",
       "version": "Wersja"
+    },
+    "sequences": {
+      "noSequencesTitle": "",
+      "noSequencesDescription": "",
+      "someSequencesTitle": "",
+      "someSequencesDescription": "",
+      "recordsIncluded": ""
     }
   },
   "customSqlDownload": {

@@ -53,6 +53,8 @@
     "default": "Domyślny",
     "random": "Losowe",
     "showMore": "Pokaż {count} więcej",
+    "moreImagesHint": "",
+    "moreImagesLink": "",
     "cappedHint": "Wyświetlono {shown} z {total} grup. Zastosuj więcej filtrów, aby zawęzić wyszukiwanie.",
     "useAsFilter": "Użyj jako filtr",
     "unspecified": "Nieokreślona"

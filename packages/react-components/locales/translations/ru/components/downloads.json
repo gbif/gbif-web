@@ -335,6 +335,10 @@
         "title": "Архив Darwin Core",
         "description": ""
       },
+      "FASTA_ARCHIVE": {
+        "title": "Архив FASTA",
+        "description": "Архив в формате Darwin Core, содержащий записи с последовательностями ДНК, причем сами последовательности добавлены в виде файла FASTA. Включены только записи, содержащие последовательность ДНК."
+      },
       "SPECIES_LIST": {
         "title": "Список видов в формате CSV",
         "description": ""
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "",
         "individualOccurrences": "",
         "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "occurrenceCounts": "",
+        "dnaSequences": "Последовательности ДНК (FASTA)",
+        "sequencedRecordsOnly": "Только записи, расположенные в последовательности"
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "",
       "defaultRecommended": "",
       "version": "Версия"
+    },
+    "sequences": {
+      "noSequencesTitle": "По результатам поиска не найдено ни одной последовательности ДНК",
+      "noSequencesDescription": "Данный формат доступен только для поисковых запросов, содержащих последовательности ДНК.",
+      "someSequencesTitle": "Включены только записи с последовательностями ДНК",
+      "someSequencesDescription": "{included} Из {total} записей, найденных в результате поиска, содержат последовательность ДНК. Остальные {discarded} записи не будут включены в загрузку.",
+      "recordsIncluded": "Включенные записи"
     }
   },
   "customSqlDownload": {

@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "",
   "originalArchive": "",
   "originalArchiveDescription": "",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "",
   "checklistBankDownloadDescription": "",
   "annotatedEml": "",
@@ -149,6 +151,7 @@
   "griddedData": "",
   "griddedDataDescription": "",
   "metricsLink": "",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",

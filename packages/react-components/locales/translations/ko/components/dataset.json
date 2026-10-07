@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "발간 국가 및 지역",
   "originalArchive": "출처 아카이브",
   "originalArchiveDescription": "출처 아카이브는 GBIF를 통한 어떠한 정규화나 가공도 거치지 않은 GBIF로 발간된 데이터입니다",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "체크리스트은행에서 다운로드하기",
   "checklistBankDownloadDescription": "체크리스트은행을 통해 GBIF로 온 보관 내용입니다. 체크리스트은행은 다운로드하기 전에 체크리스트를 필터링할 수 있는 옵션을 포함한 다양한 다운로드 포멧을 제공합니다.",
   "annotatedEml": "GBIF가 주석을 단 메타데이터",
@@ -149,6 +151,7 @@
   "griddedData": "그리드 데이터",
   "griddedDataDescription": "기록에 대한 분석에 기반하여, 이 데이터셋은 그리드 데이터를 가졌을 수 있습니다. 이와 관련해서 [그리드 데이터셋에 대한 블로그 게시물](https://data-blog.gbif.org/post/gridded-datasets-update/)을 읽어주세요.",
   "metricsLink": "출현 지표",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "마지막 성공적인 수집 이후 실패한 시도",
     "lastFailed": "마지막 실패한 시도",

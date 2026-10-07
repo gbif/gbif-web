@@ -335,6 +335,10 @@
         "title": "Darwin Core Archief",
         "description": ""
       },
+      "FASTA_ARCHIVE": {
+        "title": "",
+        "description": ""
+      },
       "SPECIES_LIST": {
         "title": "Soortenlijst",
         "description": ""
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "",
         "individualOccurrences": "",
         "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "occurrenceCounts": "",
+        "dnaSequences": "",
+        "sequencedRecordsOnly": ""
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "",
       "defaultRecommended": "",
       "version": "Versie"
+    },
+    "sequences": {
+      "noSequencesTitle": "",
+      "noSequencesDescription": "",
+      "someSequencesTitle": "",
+      "someSequencesDescription": "",
+      "recordsIncluded": ""
     }
   },
   "customSqlDownload": {

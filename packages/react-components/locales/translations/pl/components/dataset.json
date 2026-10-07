@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Kraje i regiony publikujące dane",
   "originalArchive": "Archiwum źródłowe",
   "originalArchiveDescription": "Archiwum źródłowe to dane opublikowane w GBIF bez żadnej normalizacji ani przetwarzania przez GBIF.",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "Pobierz z ChecklistBank",
   "checklistBankDownloadDescription": "To archiwum trafia do GBIF za pośrednictwem ChecklistBank. ChecklistBank oferuje wiele formatów pobierania oraz opcje filtrowania checklist przed pobraniem.",
   "annotatedEml": "Metadane z adnotacjami GBIF",
@@ -149,6 +151,7 @@
   "griddedData": "Dane siatkowe",
   "griddedDataDescription": "W oparciu o naszą analizę zapisów, ten zbiór danych prawdopodobnie zawiera dane siatkowe. Dowiedz się więcej w tym [wpisie na blogu o danych siatkowych](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Metryki występowania",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "Nieudane próby od ostatniego nieudanego wczytywania danych",
     "lastFailed": "Ostatnia nieudana próba",

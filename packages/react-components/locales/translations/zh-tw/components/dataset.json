@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "發布國家及地區",
   "originalArchive": "來源檔案",
   "originalArchiveDescription": "此來源存檔是未經 GBIF 任何規範化或處理而直接發佈到 GBIF 的資料。",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "從ChecklistBank下載",
   "checklistBankDownloadDescription": "此存檔來自 ChecklistBank，並已上傳至 GBIF。 ChecklistBank 提供多種下載格式，並允許使用者在下載前篩選清單。",
   "annotatedEml": "GBIF 註記的詮釋資料",
@@ -149,6 +151,7 @@
   "griddedData": "網格資料",
   "griddedDataDescription": "根據我們對記錄的分析，此資料集可能包含網格資料。 請閱讀這篇[有關網格化資料集的部落格文章](https://data-blog.gbif.org/post/gridded-datasets-update/) 來了解更多資訊。",
   "metricsLink": "出現紀錄指標",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "自從上次成功接收後，嘗試失敗。",
     "lastFailed": "上次嘗試失敗",

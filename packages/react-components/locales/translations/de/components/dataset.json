@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Veröffentlichendes Länder und Gebiete",
   "originalArchive": "Quellarchiv",
   "originalArchiveDescription": "GBIF-kommentiertes Archiv",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "GBIF-kommentiertes Archiv",
   "checklistBankDownloadDescription": "GBIF-kommentiertes Archiv",
   "annotatedEml": "GBIF kommentierte Metadaten",
@@ -149,6 +151,7 @@
   "griddedData": "",
   "griddedDataDescription": "",
   "metricsLink": "",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "Gescheiterte Versuche seit der letzten erfolgreichen Datenaufnahme",
     "lastFailed": "Letzter gescheiterter Versuch",
