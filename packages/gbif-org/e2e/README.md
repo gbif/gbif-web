@@ -2,8 +2,9 @@
 
 Playwright against production builds of gbif.org and of the hosted-portal library, with every
 `PUBLIC_*` endpoint pointed at a local record/replay mock. Runs offline and deterministically; no
-VPN, no `.env`. Two projects: `gbif` (`specs/gbif/`, SSR on `:3100`) and `hp-all-entities`
-(`specs/hp/`, the library mounted in `hp-sites/all-entities/` on `:3200`, no SSR).
+VPN, no `.env`. Three projects: `gbif` (`specs/gbif/`, SSR on `:3100`), and two hosted portals
+without SSR: `hp-all-entities` (`specs/hp/`, `hp-sites/all-entities/`, `:3200`) and
+`hp-occurrence-only` (`specs/hp-occurrence-only/`, `hp-sites/occurrence-only/`, `:3201`).
 
 ```bash
 npx playwright install chromium   # once per machine
@@ -32,7 +33,8 @@ npm run e2e:rerecord               # full run in record mode, then delete record
   every other path, like a portal's Jekyll page. Add a site as a folder with an `index.html`, plus a
   project and a `webServer` entry in `playwright.config.ts`.
 - `globalTeardown.ts`: fails the run on misses no test owns (server-side requests), and prunes
-  under `E2E_PRUNE=1`.
+  under `E2E_PRUNE=1`. The mock refuses to prune unless every started test passed, so a failed or
+  aborted re-record deletes nothing.
 
 ## Writing a spec
 

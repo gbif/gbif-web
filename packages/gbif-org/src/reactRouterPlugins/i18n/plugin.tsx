@@ -2,6 +2,7 @@ import { Config } from '@/config/config';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { RouteObjectWithPlugins } from '..';
+import { ErrorMessages } from './errorMessages';
 import { I18nContextProvider } from './i18nContextProvider';
 import { getMessagesForLocale } from './loadMessages';
 import { localizeRouteId } from './useLocalizedRouteId';
@@ -28,6 +29,15 @@ export function applyI18nPlugin(
   if (!defaultLanguage) throw new Error('No default language found');
 
   return config.languages.map((localeOption) => {
+    const withI18n = (children: React.ReactNode) => (
+      <I18nContextProvider
+        locale={localeOption}
+        availableLocales={config.languages}
+        defaultLocale={defaultLanguage}
+      >
+        {children}
+      </I18nContextProvider>
+    );
     return {
       description: `Root route for ${localeOption.label}`,
       path: defaultLanguage.code === localeOption.code ? '/' : localeOption.code,
@@ -41,16 +51,14 @@ export function applyI18nPlugin(
         if (import.meta.env.SSR) return null;
         return { messages: await getMessagesForLocale(config, localeOption) };
       },
-      errorElement: <RootErrorPage />,
-      element: (
-        <I18nContextProvider
-          locale={localeOption}
-          availableLocales={config.languages}
-          defaultLocale={defaultLanguage}
-        >
-          <Outlet />
-        </I18nContextProvider>
+      // The error element replaces the element, provider included. A portal that has not enabled
+      // the catch-all alias route hits this on any unknown path, e.g. a disabled page's URL.
+      errorElement: (
+        <ErrorMessages config={config} locale={localeOption}>
+          {withI18n(<RootErrorPage />)}
+        </ErrorMessages>
       ),
+      element: withI18n(<Outlet />),
       children: localizeRouteIds(routes, localeOption.code),
     };
   });

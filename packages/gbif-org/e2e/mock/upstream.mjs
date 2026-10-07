@@ -5,7 +5,8 @@
 // E2E_MODE=replay (default): serve recordings from e2e/recordings. A request without a recording is
 //   answered with an error and logged as a miss; the test fixture and global teardown fail on misses.
 // E2E_MODE=record: serve existing recordings, forward anything else to production GBIF and save it.
-//   POST /__mock/prune afterwards deletes recordings the run never served.
+//   POST /__mock/prune afterwards deletes recordings the run never served, but only after a run in
+//   which every started test passed: a failed or aborted run served too little to judge.
 //
 // Keys are exact (operation + locale + query text + variables, or method + path + query string), so
 // a changed query is a miss rather than a stale replay.
@@ -127,6 +128,8 @@ const served = new Set();
 const inflight = new Map();
 /** @type {Array<Record<string, unknown>>} */
 const misses = [];
+// Reported by the test fixture.
+const tests = { started: 0, passed: 0 };
 
 function loadRecordings(dir = RECORDINGS_DIR, rel = '') {
   if (!existsSync(dir)) return;
@@ -264,8 +267,20 @@ async function handle(req, res) {
     const list = test ? misses.filter((m) => m.test === test) : misses;
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(list));
   }
+  if (url.pathname === '/__mock/test-started' && req.method === 'POST') {
+    tests.started++;
+    return send(res, 204, {}, '');
+  }
+  if (url.pathname === '/__mock/test-passed' && req.method === 'POST') {
+    tests.passed++;
+    return send(res, 204, {}, '');
+  }
   if (url.pathname === '/__mock/prune' && req.method === 'POST') {
     if (MODE !== 'record') return send(res, 409, {}, 'prune only runs in record mode');
+    if (tests.started === 0 || tests.passed !== tests.started) {
+      const message = `not pruning: ${tests.passed} of ${tests.started} started tests passed`;
+      return send(res, 409, {}, message);
+    }
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(prune()));
   }
 
