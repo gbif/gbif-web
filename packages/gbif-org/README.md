@@ -47,7 +47,7 @@
 
 This project requires the Node.js version specified in [`.nvmrc`](./.nvmrc). Node versions are managed with [nvm](https://github.com/nvm-sh/nvm) — run `nvm use` to switch to it.
 
-Before starting, place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`. The app also needs the [GraphQL server](https://github.com/gbif/gbif-web/tree/master/packages/graphql-api) and the translations endpoints to be reachable, either running locally or pointing at a deployed instance.
+Before starting, place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`; [`.env.example`](./.env.example) is a template that runs against the public production endpoints. The app also needs the [GraphQL server](https://github.com/gbif/gbif-web/tree/master/packages/graphql-api) and the translations endpoints to be reachable, either running locally or pointing at a deployed instance.
 
 Install dependencies:
 
