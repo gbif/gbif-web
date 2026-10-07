@@ -7,6 +7,10 @@ export const GBIF_PORT = 3100;
 
 export const GBIF_E2E_DIST = 'dist/e2e/gbif';
 
+// Holds no .env files. Vite and gbif/server.js read .env from here instead of the package root, so a
+// developer's own PUBLIC_* values cannot reach the e2e build or server.
+export const E2E_ENV_DIR = 'e2e';
+
 const constants = {
   PUBLIC_GBIF_ORG: 'https://www.gbif.org',
   PUBLIC_GRSCICOLL: 'https://scientific-collections.gbif.org',

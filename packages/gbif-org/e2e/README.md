@@ -15,6 +15,7 @@ npm run e2e:rerecord               # full run in record mode, then delete record
 
 - `env.mjs`: the `PUBLIC_*` values baked into the e2e build. Vite inlines them at build time, so
   the e2e build is separate from `npm run build` (`gbif/server.js` reads `GBIF_DIST_DIR`).
+  Your local `.env` is ignored by both the build and the server.
   `buildStamp.mjs` fingerprints the build inputs; `globalSetup.ts` compares it before every run.
 - `mock/upstream.mjs`: one server for GraphQL, REST and tiles, on `:4020`. GraphQL GETs are
   answered `unknownQueryId`, so the client falls back to POST and the recording is keyed by
