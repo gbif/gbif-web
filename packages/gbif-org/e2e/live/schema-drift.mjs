@@ -25,6 +25,7 @@ import {
   parse,
   specifiedRules,
   validate,
+  visit,
 } from 'graphql';
 
 const LIVE_ENDPOINT = process.env.SCHEMA_DRIFT_ENDPOINT ?? 'https://graphql.gbif.org/graphql';
@@ -53,9 +54,12 @@ function repoSchema() {
 }
 
 // The same documents graphql-codegen reads: template literals marked /* GraphQL */.
-function operations() {
-  const documents = [];
+function documents() {
+  /** @type {Array<{ file: string, document: import('graphql').DocumentNode }>} */
+  const parsed = [];
+  // Interpolated documents are only complete at runtime; their fragments are unknown here.
   let skipped = 0;
+  const skippedFragments = new Set();
   for (const entry of readdirSync('src', { recursive: true, encoding: 'utf8' })) {
     const file = join('src', entry);
     if (!/\.(ts|tsx|mjs)$/.test(file) || file.startsWith(join('src', 'gql'))) continue;
@@ -63,40 +67,97 @@ function operations() {
     for (const match of source.matchAll(/\/\*\s*GraphQL\s*\*\/\s*`([^`]*)`/g)) {
       const line = source.slice(source.lastIndexOf('\n', match.index) + 1, match.index);
       if (line.trimStart().startsWith('//')) continue;
-      // Interpolated documents are only complete at runtime.
-      if (match[1].includes('${')) skipped++;
-      else documents.push({ file, document: parse(match[1]) });
+      if (match[1].includes('${')) {
+        skipped++;
+        for (const m of match[1].matchAll(/\bfragment\s+(\w+)\s+on\b/g)) skippedFragments.add(m[1]);
+      } else {
+        parsed.push({ file, document: parse(match[1]) });
+      }
     }
   }
-  return { documents, skipped };
+  return { parsed, skipped, skippedFragments };
+}
+
+/**
+ * The fragments a definition spreads, transitively.
+ * @param {import('graphql').ASTNode} node
+ * @param {Map<string, { def: import('graphql').FragmentDefinitionNode }>} fragments
+ * @param {Set<string>} [seen]
+ */
+function spreads(node, fragments, seen = new Set()) {
+  visit(node, {
+    FragmentSpread(spread) {
+      const name = spread.name.value;
+      if (seen.has(name)) return;
+      seen.add(name);
+      const fragment = fragments.get(name);
+      if (fragment) spreads(fragment.def, fragments, seen);
+    },
+  });
+  return seen;
+}
+
+/**
+ * @param {import('graphql').GraphQLError} error
+ * @param {import('graphql').DefinitionNode} def
+ */
+function inside(error, def) {
+  return (error.nodes ?? []).some(
+    (n) =>
+      n.loc?.source === def.loc?.source &&
+      (n.loc?.start ?? -1) >= (def.loc?.start ?? 0) &&
+      (n.loc?.end ?? Infinity) <= (def.loc?.end ?? 0)
+  );
 }
 
 /** @param {import('graphql').GraphQLSchema} schema */
 function validateOperations(schema) {
-  const { documents, skipped } = operations();
+  const { parsed, skipped, skippedFragments } = documents();
   // Fragments live in other files and are joined in at runtime by fragmentManager.
-  /** @type {Map<string, import('graphql').FragmentDefinitionNode>} */
+  /** @type {Map<string, { def: import('graphql').FragmentDefinitionNode, file: string }>} */
   const fragments = new Map();
-  for (const { document } of documents) {
+  for (const { file, document } of parsed) {
     for (const def of document.definitions) {
-      if (def.kind === Kind.FRAGMENT_DEFINITION) fragments.set(def.name.value, def);
+      if (def.kind === Kind.FRAGMENT_DEFINITION) fragments.set(def.name.value, { def, file });
     }
   }
   const rules = specifiedRules.filter((rule) => rule !== NoUnusedFragmentsRule);
+  /**
+   * Validates one definition with the fragments it spreads, keeping only errors located in it, so a
+   * broken fragment is reported once, under its own file.
+   * @param {import('graphql').DefinitionNode} def
+   */
+  const check = (def) => {
+    const used = [...spreads(def, fragments)];
+    const unknown = used.filter((name) => skippedFragments.has(name) && !fragments.has(name));
+    if (unknown.length) return { unknown, errors: [] };
+    /** @type {import('graphql').DocumentNode} */
+    const doc = {
+      kind: Kind.DOCUMENT,
+      definitions: [def, ...used.flatMap((name) => fragments.get(name)?.def ?? [])],
+    };
+    const errors = validate(schema, doc, rules).filter((e) => !e.nodes || inside(e, def));
+    return { unknown, errors };
+  };
+
   const failures = [];
+  /** @type {string[]} */
+  const notChecked = [];
   let checked = 0;
-  for (const { file, document } of documents) {
+  for (const { file, document } of parsed) {
     for (const def of document.definitions) {
-      if (def.kind !== Kind.OPERATION_DEFINITION) continue;
-      checked++;
-      /** @type {import('graphql').DocumentNode} */
-      const withFragments = { kind: Kind.DOCUMENT, definitions: [def, ...fragments.values()] };
-      for (const error of validate(schema, withFragments, rules)) {
-        failures.push(`${file} ${def.name?.value ?? '(anonymous)'}: ${error.message}`);
+      if (def.kind !== Kind.OPERATION_DEFINITION && def.kind !== Kind.FRAGMENT_DEFINITION) continue;
+      const name = def.name?.value ?? '(anonymous)';
+      const { unknown, errors } = check(def);
+      if (unknown.length) {
+        notChecked.push(`${file} ${name} (spreads ${unknown.join(', ')})`);
+        continue;
       }
+      if (def.kind === Kind.OPERATION_DEFINITION) checked++;
+      for (const error of errors) failures.push(`${file} ${name}: ${error.message}`);
     }
   }
-  return { checked, skipped, failures };
+  return { checked, skipped, skippedFragments: [...skippedFragments], notChecked, failures };
 }
 
 /** @param {Array<{ type: string, description: string }>} changes */
@@ -121,8 +182,13 @@ if (undeployed.length) {
 }
 console.log(
   `Operations: ${ops.checked} checked against ${LIVE_ENDPOINT}, ${ops.failures.length} invalid, ` +
-    `${ops.skipped} skipped (interpolated).`
+    `${ops.skipped} interpolated document(s) skipped` +
+    (ops.skippedFragments.length ? ` (fragments ${ops.skippedFragments.join(', ')}).` : '.')
 );
 for (const failure of ops.failures) console.log(`  ${failure}`);
+if (ops.notChecked.length) {
+  console.log(`Not checked, they spread fragments from skipped documents:`);
+  for (const item of ops.notChecked) console.log(`  ${item}`);
+}
 
 process.exitCode = ops.failures.length || deployedOnly.length ? 1 : 0;

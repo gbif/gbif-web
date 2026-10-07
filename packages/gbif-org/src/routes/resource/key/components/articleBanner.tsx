@@ -40,7 +40,7 @@ export function ArticleBanner({ className, image, testId }: Props) {
       <div className={cn('g-max-w-6xl g-m-auto', className)}>
         <figure className="g-flex g-flex-col g-items-center">
           <img
-            data-cy={testId}
+            data-testid={testId}
             src={url}
             alt={image?.description ?? 'No image description provided'}
             className="g-rounded-md g-bg-slate-200 g-max-h-[400px] md:g-max-h-[500px]"
@@ -62,7 +62,7 @@ export function ArticleBanner({ className, image, testId }: Props) {
         <picture className="g-rounded-md">
           <source srcSet={normal} media="(min-width: 800px)" width="1200" height="500" />
           <img
-            data-cy={testId}
+            data-testid={testId}
             src={mobile}
             alt={image?.description ?? 'No image description provided'}
             className="g-rounded-md g-bg-slate-200 g-border g-border-solid g-border-slate-100"
