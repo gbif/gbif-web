@@ -363,7 +363,9 @@ function miss(res, upstream, method, url, body, headers, key, reason) {
   };
   if (upstream.kind === 'graphql') entry.variables = body?.variables;
   misses.push(entry);
-  console.warn(`[mock] MISS (${reason}) ${key} (page: ${entry.page ?? 'unknown'})`);
+  console.warn(
+    `[mock] MISS (${reason}) ${key} ${method} ${entry.path} (page: ${entry.page ?? 'unknown'})`
+  );
   if (upstream.kind === 'graphql') {
     const message = `e2e mock: ${key}: ${reason}`;
     return send(

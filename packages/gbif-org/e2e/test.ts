@@ -46,14 +46,22 @@ function trackRequests(page: Page) {
   };
 }
 
-type Fixtures = { pageErrors: string[] };
+type Fixtures = {
+  pageErrors: string[];
+  // Resolves once the page has stopped requesting. Await it before an action that unmounts what is
+  // loading (switching tabs), or how much got requested depends on timing and replay misses.
+  waitForIdle: () => Promise<void>;
+};
 
 // Every spec imports test from here: the browser only talks to localhost, and an uncaught exception,
 // a hydration mismatch, the partial-data error toast or an unrecorded request fails the test even
 // when its own assertions pass.
 export const test = base.extend<Fixtures>({
+  waitForIdle: async ({ page }, use) => {
+    await use(trackRequests(page));
+  },
   pageErrors: [
-    async ({ page }, use, testInfo) => {
+    async ({ page, waitForIdle }, use, testInfo) => {
       const errors: string[] = [];
       page.on('pageerror', (err) => errors.push(`pageerror: ${err.message}`));
       // The toast auto-dismisses, so watch for it from the first byte of every document.
@@ -89,7 +97,6 @@ export const test = base.extend<Fixtures>({
         }
         return route.continue();
       });
-      const waitForIdle = trackRequests(page);
 
       await use(errors);
 
