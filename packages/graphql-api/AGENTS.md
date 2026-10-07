@@ -31,5 +31,7 @@ Express + Apollo in front of the GBIF REST APIs and es-api. `nvm use` and `npm i
 
 - `.env` is **YAML** (`.env.example`), read synchronously by `src/config.js` at import. Tests need it.
 - Startup fetches enumerations from the live GBIF API; booting needs network.
+- Without the private `.env`, run against production as in `../gbif-org/docs/how-to/run-locally.md`.
+  Elasticsearch-backed fields then 403: `hp-search.gbif.org` is public, only `apiEsKey` is missing.
 - Prettier width 120, trailing commas everywhere (differs from gbif-org). ESLint airbnb + prettier.
 - Tests: `describe`/`it` with `node:assert`, colocated.

@@ -4,7 +4,7 @@ REST wrapper around the GBIF Elasticsearch indices, consumed by graphql-api. GET
 GBIF API v1 plus a POST API taking the occurrence-download predicate structure.
 
 - Needs the **GBIF VPN**. Cannot run here; verify by reading code and `node --check`.
-- `npm start` runs `src/index.js` under nodemon. `.env` not in repo (`README.md`).
+- `npm start` runs `src/index.js` under nodemon. `.env` not in repo; template: `.env.example`.
 - Layout: `src/resources/<index>/`, `requestAdapter/` (params and predicates to ES queries),
   `responseAdapter/` (ES hits to API v1 shape). Plain JavaScript.
 - Occurrence predicates are **not validated here**: `src/resources/occurrence/index.js` normalises

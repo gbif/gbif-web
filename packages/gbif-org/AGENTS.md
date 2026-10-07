@@ -25,6 +25,7 @@ single quotes. Nothing runs on commit.
 - `add-an-occurrence-filter.md`: search parameter or facet; spans es-api and graphql-api.
 - `add-a-filter-type.md`: new filter widget kind (rare).
 - `add-a-chart.md`: dashboard chart, standard or custom.
+- `run-locally.md`: run without the private `.env`, against deployed or local GraphQL; screenshots.
 
 ## Two builds, one source
 
@@ -62,7 +63,8 @@ Reference: `src/routes/dataset/key/index.tsx` + `datasetKey.tsx`.
 ## Config, env, i18n
 
 - Only `PUBLIC_*` env vars reach the client; `env.ts` throws if a required one is missing. `.env` is
-  not in the repo. gbif.org site config: `src/gbif/config.ts`; portals ship their own.
+  not in the repo; `.env.example` is the template. gbif.org site config:
+  `src/gbif/config.ts`; portals ship their own.
 - react-intl; locale from the URL prefix (`src/reactRouterPlugins/i18n/`). Messages fetched at
   runtime. Keys live in `packages/react-components/locales/source/en-developer/`; use
   `<FormattedMessage id="..." />`. No inline English.
