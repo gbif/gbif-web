@@ -194,6 +194,7 @@ type ResourceSearchResultsProps = {
   sort?: ResourceSortValue;
   onSortChange?: (sort: ResourceSortValue) => void;
   hasQuery?: boolean;
+  noResultsMessageId?: string;
 };
 
 export function ResourceSearchResults({
@@ -208,6 +209,7 @@ export function ResourceSearchResults({
   sort,
   onSortChange,
   hasQuery,
+  noResultsMessageId,
 }: ResourceSearchResultsProps) {
   if (loading || total === undefined) {
     return (
@@ -227,7 +229,7 @@ export function ResourceSearchResults({
   if (resources.length === 0) {
     return (
       <div className="g-min-h-52 g-flex g-items-center g-justify-center">
-        <NoRecords />
+        <NoRecords messageId={noResultsMessageId} />
       </div>
     );
   }

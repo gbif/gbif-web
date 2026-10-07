@@ -64,6 +64,7 @@ export function CountryKeyProjects() {
           size={size}
           offset={offset}
           setOffset={setOffset}
+          noResultsMessageId="country.noProjects"
         />
       </ArticleTextContainer>
     </ArticleContainer>

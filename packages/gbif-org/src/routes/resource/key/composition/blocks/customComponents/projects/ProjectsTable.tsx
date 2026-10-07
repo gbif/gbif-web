@@ -223,7 +223,7 @@ export function ProjectsTable({
   className,
 }: {
   programmeId?: string;
-  tableStyle?: React.CSSProperties;
+  tableStyle?: string | null;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<ProjectTableQuery, ProjectTableQueryVariables>(

@@ -7,6 +7,7 @@ import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage } from 'react-intl';
+import { parseTableStyle, sortRows } from '../tableUtils';
 
 const DIRECTORY_TRANSLATORS_QUERY = /* GraphQL */ `
   query DirectoryTranslators {
@@ -34,38 +35,13 @@ const columns = [
   { key: 'certifications', label: 'Anual badges', sortable: true },
 ];
 
-// Rows are sorted by dynamic keys, so the comparator works on untyped rows
-function sortRows<T>(rows: T[], sortKey: string, sortDir: 'asc' | 'desc'): T[] {
-  if (!sortKey) return rows;
-  return [...rows].sort((a: any, b: any) => {
-    let aValue = a?.Person?.[sortKey];
-    let bValue = b?.Person?.[sortKey];
-    // Special handling for nested call.title
-    if (sortKey === 'year') {
-      aValue = a.roles?.[0]?.term?.start || '';
-      bValue = b.roles?.[0]?.term?.start || '';
-    }
-
-    // Numbers
-    if (typeof aValue === 'number' && typeof bValue === 'number') {
-      return sortDir === 'asc' ? aValue - bValue : bValue - aValue;
-    }
-    // Strings
-    aValue = (aValue || '').toString().toLowerCase();
-    bValue = (bValue || '').toString().toLowerCase();
-    if (aValue < bValue) return sortDir === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortDir === 'asc' ? 1 : -1;
-    return 0;
-  });
-}
-
 export function TranslatorsList({
   title,
   tableStyle,
   className,
 }: {
   title?: string;
-  tableStyle?: React.CSSProperties;
+  tableStyle?: string | null;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<
@@ -98,7 +74,12 @@ export function TranslatorsList({
     );
   }
 
-  const sortedTranslators = sortRows(translators, sortKey, sortDir);
+  const sortedTranslators = sortRows(
+    translators,
+    sortKey,
+    sortDir,
+    (row, key) => row?.Person?.[key]
+  );
 
   function handleSort(col: (typeof columns)[number]) {
     if (!col.sortable) return;
@@ -116,7 +97,7 @@ export function TranslatorsList({
         <Card>
           {title && <CardTitle className="g-p-4">{title || ''}</CardTitle>}
           <div className="g-overflow-auto g-max-h-[80vh]">
-            <table className="g-text-sm g-p g-w-full" style={tableStyle || {}}>
+            <table className="g-text-sm g-p g-w-full" style={parseTableStyle(tableStyle)}>
               <thead className="g-sticky g-top-0 g-bg-white g-shadow-sm g-z-10">
                 <tr>
                   {columns.map((col) => (

@@ -20,6 +20,7 @@ import {
   isFilterValueObject,
   isRangeFilterValue,
   RangeBound,
+  isPresentBound,
 } from './filterValue';
 import { Option } from './option';
 import { AddInput } from '../addInput';
@@ -247,15 +248,16 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                   } else {
                     helpText = (
                       <>
-                        {range?.[lowerBound] && (
+                        {isPresentBound(range?.[lowerBound]) && (
                           <FormattedMessage
                             id={`intervals.description.${lowerBound}`}
                             defaultMessage={'Filter name'}
                             values={{ from: range?.[lowerBound] }}
                           />
                         )}
-                        {range?.[upperBound] && range?.[lowerBound] && <>.&nbsp;</>}
-                        {range?.[upperBound] && (
+                        {isPresentBound(range?.[upperBound]) &&
+                          isPresentBound(range?.[lowerBound]) && <>.&nbsp;</>}
+                        {isPresentBound(range?.[upperBound]) && (
                           <FormattedMessage
                             id={`intervals.description.${upperBound}`}
                             defaultMessage={'Filter name'}

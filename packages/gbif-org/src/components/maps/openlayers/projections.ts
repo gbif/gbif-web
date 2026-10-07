@@ -10,6 +10,8 @@ import { transform } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import ImageTile from 'ol/source/ImageTile';
 import VectorTileSource from 'ol/source/VectorTile';
+import type { FeatureLike } from 'ol/Feature';
+import type VectorTile from 'ol/VectorTile';
 import { createXYZ } from 'ol/tilegrid';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import View from 'ol/View';
@@ -72,7 +74,8 @@ export type ProjectionHelper = {
 export interface ProjectionParams extends Record<string, any> {
   srs?: string;
   progress?: TileProgress;
-  onError?: () => void;
+  // status is the HTTP status, or undefined for network and parse errors
+  onError?: (status?: number) => void;
   attributions?: string[];
   siteTheme?: any;
   properties?: any;
@@ -497,6 +500,33 @@ function getAdhocVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Pr
     url: baseUrl + stringify(params),
     wrapX: proj.wrapX,
     maxZoom: 18,
+    // OpenLayers' default loader doesn't expose the HTTP status, which onError needs
+    tileLoadFunction: onError
+      ? (tile, src) => {
+          const vectorTile = tile as VectorTile<FeatureLike>;
+          vectorTile.setLoader((extent, _resolution, projection) => {
+            fetch(src)
+              .then(async (response) => {
+                if (!response.ok) {
+                  onError(response.status);
+                  vectorTile.onError();
+                  return;
+                }
+                const data = await response.arrayBuffer();
+                const format = vectorTile.getFormat();
+                vectorTile.onLoad(
+                  format.readFeatures(data, { extent, featureProjection: projection }),
+                  // MVT always reports its tile-pixel projection
+                  format.readProjection(data)!
+                );
+              })
+              .catch(() => {
+                onError();
+                vectorTile.onError();
+              });
+          });
+        }
+      : undefined,
   });
 
   if (progress) {
@@ -511,12 +541,6 @@ function getAdhocVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Pr
       progress.addLoaded();
     });
   }
-  if (onError) {
-    source.on('tileloaderror', function () {
-      onError();
-    });
-  }
-
   return new VectorTileLayer({
     // extent: proj.extent,
     source: source,
