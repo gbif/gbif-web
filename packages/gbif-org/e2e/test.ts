@@ -83,13 +83,13 @@ export const test = base.extend<Fixtures>({
       // Late client-side fetches must happen inside the test, or they are never recorded and only
       // surface as replay misses.
       await waitForIdle();
-      const misses: Array<{ key: string }> = await fetch(
+      const misses: Array<{ key: string; reason: string }> = await fetch(
         `${MOCK}/__mock/misses?test=${encodeURIComponent(testInfo.testId)}`
       ).then((r) => r.json());
       expect(errors, 'uncaught errors in the page').toEqual([]);
       expect(
-        misses.map((m) => m.key),
-        'requests without a recording; run npm run e2e:record'
+        misses.map((m) => `${m.key}: ${m.reason}`),
+        'requests the mock could not answer'
       ).toEqual([]);
     },
     { auto: true },

@@ -8,7 +8,8 @@
 //   POST /__mock/prune afterwards deletes recordings the run never served.
 //
 // Keys are exact (operation + locale + query text + variables, or method + path + query string), so
-// a changed query is a miss rather than a stale replay. Node built-ins only.
+// a changed query is a miss rather than a stale replay.
+// Unnamed GraphQL operations are misses in both modes. Node built-ins only.
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -90,11 +91,11 @@ function stableStringify(value) {
   return JSON.stringify(value);
 }
 
-/** @param {GraphQLBody | undefined} body */
+/** @param {GraphQLBody | undefined} body @returns {string | undefined} */
 function operationName(body) {
-  if (typeof body?.operationName === 'string') return body.operationName;
+  if (typeof body?.operationName === 'string' && body.operationName) return body.operationName;
   const m = /\b(?:query|mutation)\s+(\w+)/.exec(body?.query ?? '');
-  return m ? m[1] : 'anonymous';
+  return m?.[1];
 }
 
 // The relative file a request is stored in. Also its identity.
@@ -106,7 +107,11 @@ function recordingPath(upstream, method, url, body, headers) {
   if (upstream.kind === 'graphql') {
     const locale = String(headers.locale || 'none');
     const id = `${body?.query ?? ''}\n${stableStringify(body?.variables ?? {})}`;
-    return join('graphql', operationName(body), `${sanitize(locale)}-${hash(id)}.json`);
+    return join(
+      'graphql',
+      operationName(body) ?? 'anonymous',
+      `${sanitize(locale)}-${hash(id)}.json`
+    );
   }
   const params = [...url.searchParams.entries()].sort(([a], [b]) => a.localeCompare(b));
   const query = new URLSearchParams(params).toString();
@@ -295,6 +300,20 @@ async function handle(req, res) {
   const body = raw ? JSON.parse(raw) : undefined;
   const key = recordingPath(upstream, method, url, body, req.headers);
 
+  // Recordings are filed by operation name; unnamed queries would all share one folder.
+  if (upstream.kind === 'graphql' && !operationName(body)) {
+    return miss(
+      res,
+      upstream,
+      method,
+      url,
+      body,
+      req.headers,
+      key,
+      'unnamed GraphQL operation; give it a name'
+    );
+  }
+
   const existing = store.get(key);
   if (existing) {
     served.add(key);
@@ -313,20 +332,40 @@ async function handle(req, res) {
     }
   }
 
-  /** @type {Record<string, unknown>} */
-  const miss = {
+  return miss(
+    res,
+    upstream,
+    method,
+    url,
+    body,
+    req.headers,
     key,
+    'no recording; run npm run e2e:record'
+  );
+}
+
+// Logs the request for the fixture and global teardown, which fail the run on it.
+/**
+ * @param {Response} res @param {Upstream} upstream @param {string} method @param {URL} url
+ * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
+ * @param {string} reason
+ */
+function miss(res, upstream, method, url, body, headers, key, reason) {
+  /** @type {Record<string, unknown>} */
+  const entry = {
+    key,
+    reason,
     method,
     path: url.pathname + url.search,
-    page: req.headers['x-gbif-site-url'] ?? req.headers.referer,
+    page: headers['x-gbif-site-url'] ?? headers.referer,
     // Set by the test fixture on browser requests; server-side requests have none.
-    test: req.headers['x-e2e-test'],
+    test: headers['x-e2e-test'],
   };
-  if (upstream.kind === 'graphql') miss.variables = body?.variables;
-  misses.push(miss);
-  console.warn(`[mock] MISS ${key} (page: ${miss.page ?? 'unknown'})`);
+  if (upstream.kind === 'graphql') entry.variables = body?.variables;
+  misses.push(entry);
+  console.warn(`[mock] MISS (${reason}) ${key} (page: ${entry.page ?? 'unknown'})`);
   if (upstream.kind === 'graphql') {
-    const message = `e2e mock: no recording for ${key}. Run npm run e2e:record.`;
+    const message = `e2e mock: ${key}: ${reason}`;
     return send(
       res,
       200,
