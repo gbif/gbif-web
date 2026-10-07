@@ -1,0 +1,84 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query OmniSearch(\n    $resourcePredicate: Predicate\n    $resourceKeywordPredicate: Predicate\n    $taxonQuery: TaxonSearchInput\n    $datasetQuery: DatasetSearchInput\n    $q: String!\n  ) {\n    organizationSearch(isEndorsed: true, q: $q, limit: 3) {\n      limit\n      count\n      offset\n      results {\n        key\n        title\n        created\n        country\n        logoUrl\n        excerpt\n      }\n    }\n    datasetSearch(query: $datasetQuery) {\n      count\n      limit\n      offset\n      results {\n        ...DatasetStubResult\n      }\n    }\n    taxonSearch(query: $taxonQuery, limit: 3) {\n      count\n      offset\n      endOfRecords\n      results {\n        ...TaxonSearchResultCard\n      }\n    }\n\n    resourceSearch(predicate: $resourcePredicate, q: $q, searchable: true) {\n      documents(size: 5) {\n        from\n        size\n        total\n        results {\n          ...ResourceSearchResult\n        }\n      }\n    }\n\n    resourceKeywordSearch: resourceSearch(\n      predicate: $resourceKeywordPredicate\n      q: $q\n      searchable: true\n    ) {\n      documents(size: 5) {\n        from\n        size\n        total\n        results {\n          ...ResourceSearchResult\n        }\n      }\n    }\n  }\n\n  fragment DatasetStubResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n  }\n\n  fragment TaxonSearchResultCard on TaxonResult {\n    vernacularName(language: \"eng\") {\n      vernacularName\n    }\n    ...TaxonSearchResultDetails\n    acceptedTaxon {\n      taxonID\n      label\n      datasetKey\n      scientificName\n      taxonRank\n      taxonomicStatus\n      parentTree {\n        scientificName\n        taxonID\n      }\n      mapCapabilities {\n        total\n      }\n    }\n  }\n\n  fragment TaxonSearchResultDetails on TaxonResult {\n    taxonID\n    label\n    datasetKey\n    scientificName\n    taxonRank\n    taxonomicStatus\n    parentTree {\n      scientificName\n      taxonID\n    }\n    mapCapabilities {\n      total\n    }\n  }\n\n  fragment ResourceSearchResult on Resource {\n    __typename\n    ... on Composition {\n      ...CompositionResult\n    }\n    ... on News {\n      ...NewsResult\n    }\n    ... on Article {\n      ...ArticleResult\n    }\n    ... on DataUse {\n      ...DataUseResult\n    }\n    ... on MeetingEvent {\n      ...EventResult\n    }\n    ... on GbifProject {\n      ...ProjectResult\n    }\n    ... on Programme {\n      ...ProgrammeResult\n    }\n    ... on Tool {\n      ...ToolResult\n    }\n    ... on Document {\n      ...DocumentResult\n    }\n    ... on Document {\n      ...DocumentResult\n    }\n    ... on NetworkProse {\n      ...NetworkProseResult\n    }\n    ... on Help {\n      ...HelpResult\n    }\n  }\n\n  fragment CompositionResult on Composition {\n    id\n    title\n    excerpt\n    urlAlias\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n\n  fragment ResultCardImage on AssetImage {\n    file {\n      url: thumbor(width: 180, height: 120)\n    }\n  }\n\n  fragment NewsResult on News {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n\n  fragment ArticleResult on Article {\n    id\n    title\n    excerpt\n    urlAlias\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n\n  fragment DataUseResult on DataUse {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n\n  fragment EventResult on MeetingEvent {\n    id\n    title\n    excerpt\n    country\n    location\n    venue\n    start\n    end\n    primaryLink {\n      url\n    }\n    gbifsAttendee\n    allDayEvent\n  }\n\n  fragment ProjectResult on GbifProject {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n    programme {\n      id\n      title\n    }\n    purposes\n  }\n\n  fragment ProgrammeResult on Programme {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n\n  fragment ToolResult on Tool {\n    id\n    title\n    excerpt\n    primaryLink {\n      url\n    }\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n\n  fragment DocumentResult on Document {\n    id\n    title\n    excerpt\n  }\n\n  fragment NetworkProseResult on NetworkProse {\n    id\n    title\n    excerpt\n    networkKey\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n\n  fragment HelpResult on Help {\n    id\n    identifier\n    title\n    body\n    excerpt\n  }\n",
+      "variables": {
+        "q": "puma",
+        "datasetQuery": {
+          "q": "puma",
+          "limit": 3,
+          "offset": 0
+        },
+        "taxonQuery": {
+          "q": "puma",
+          "datasetKey": "7ddf754f-d193-4cc9-b351-99906754a03b",
+          "limit": 3,
+          "offset": 0,
+          "searchContent": [
+            "SCIENTIFIC",
+            "AUTHORSHIP",
+            "VERNACULAR"
+          ]
+        },
+        "resourcePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "in",
+              "key": "contentType",
+              "values": [
+                "news",
+                "article",
+                "composition",
+                "dataUse",
+                "event",
+                "project",
+                "programme",
+                "tool",
+                "document",
+                "network",
+                "help"
+              ]
+            }
+          ]
+        },
+        "resourceKeywordPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "in",
+              "key": "contentType",
+              "values": [
+                "news",
+                "article",
+                "composition",
+                "dataUse",
+                "event",
+                "project",
+                "programme",
+                "tool",
+                "document",
+                "network",
+                "help"
+              ]
+            },
+            {
+              "type": "in",
+              "key": "keywords",
+              "values": [
+                "puma"
+              ]
+            }
+          ]
+        }
+      },
+      "operationName": "OmniSearch"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"organizationSearch\":{\"limit\":3,\"count\":3,\"offset\":0,\"results\":[{\"key\":\"840394c8-20fd-4609-af71-2271e9294895\",\"title\":\"Panthera Costa Rica\",\"created\":\"2025-08-21T15:47:45.843+00:00\",\"country\":\"CR\",\"logoUrl\":\"https://api.gbif.org/v1/image/unsafe/https%3A%2F%2Fraw.githubusercontent.com%2FSIB-Colombia%2Flogos%2Fmain%2Fsocio-SiB-panthera.png\",\"excerpt\":\"Panthera is the only organization in the world dedicated exclusively to the conservation of the planet's 40 wild cat species and the ecosystems in which they live.\\nUsing the expertise of feline…\"},{\"key\":\"a3a2b5eb-9b4c-485f-b4ce-19cfb7de6772\",\"title\":\"Fundación para la Conservación e Investigación JaPu\",\"created\":\"2021-11-20T03:50:51.256+00:00\",\"country\":\"EC\",\"logoUrl\":\"https://japufundacion.org/wp-content/uploads/2023/04/logo-japu-web-fullcolor-2.png\",\"excerpt\":\"JaPu trabaja en proteger los remanentes de Bosque Seco Tropical, restaurar su flora y fauna y en crear corredores ecológicos para salvar no sólo el futuro de estos bosques y su biodiversidad, sino…\"},{\"key\":\"05caa63a-9d93-43c3-b206-a947321ffb27\",\"title\":\"FUNDACION DE CONSERVACIÓN JOCOTOCO\",\"created\":\"2021-08-25T17:39:14.599+00:00\",\"country\":\"EC\",\"logoUrl\":null,\"excerpt\":\"Creamos la Fundación de Conservación Jocotoco en septiembre de 1998. Somos una organización ecuatoriana, no gubernamental (ONG), que trabaja para proteger áreas de importancia crítica de conservación…\"}]},\"datasetSearch\":{\"count\":1156,\"limit\":3,\"offset\":0,\"results\":[{\"key\":\"e869945c-5510-477b-a2cc-3698c714125b\",\"title\":\"Suivi des attaques de Jaguar et Puma\",\"excerpt\":\"Suivi des attaques de Jaguar et Puma\",\"type\":\"OCCURRENCE\",\"publishingOrganizationTitle\":\"UAR PatriNat (OFB-MNHN-CNRS-IRD), Paris\"},{\"key\":\"8f2a01d9-151d-4aab-96dc-a7ef69c0f8fa\",\"title\":\"Caracterización de fauna y flora asociada al plan de conservación del puma (Puma concolor) en los departamentos de Arauca, Vichada y Casanare\",\"excerpt\":\"Para la construcción del plan de conservación y evaluación de alternativas para asegurar la conservación del Puma en la jurisdicción de Corporinoquía, es necesario entender cómo las diversas…\",\"type\":\"OCCURRENCE\",\"publishingOrganizationTitle\":\"Corporación Autónoma Regional de la Orinoquia - Corporinoquia\"},{\"key\":\"f4e2a63b-f389-44cc-bf11-40b664ff559f\",\"title\":\"Description of Babesia coryicola sp. nov. from Florida pumas (Puma concolor coryi) from southern Florida, USA\",\"excerpt\":\"This dataset contains the digitized treatments in Plazi based on the original journal article Shock, Barbara C., Jones, Håkon H., Garrett, Kayla B., Hernandez, Sonia M., Burchfield, Holly J., Haman,…\",\"type\":\"CHECKLIST\",\"publishingOrganizationTitle\":\"Plazi.org taxonomic treatments database\"}]},\"taxonSearch\":{\"count\":119,\"offset\":0,\"endOfRecords\":false,\"results\":[{\"vernacularName\":{\"vernacularName\":\"Mountain Lions\"},\"taxonID\":\"75F9\",\"label\":\"<i>Puma</i> Jardine, 1834\",\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"scientificName\":\"Puma\",\"taxonRank\":\"GENUS\",\"taxonomicStatus\":\"ACCEPTED\",\"parentTree\":null,\"mapCapabilities\":null,\"acceptedTaxon\":null},{\"vernacularName\":{\"vernacularName\":\"Puma\"},\"taxonID\":\"4QHKG\",\"label\":\"<i>Puma concolor</i> (Linnaeus, 1771)\",\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"scientificName\":\"Puma concolor\",\"taxonRank\":\"SPECIES\",\"taxonomicStatus\":\"ACCEPTED\",\"parentTree\":null,\"mapCapabilities\":null,\"acceptedTaxon\":null},{\"vernacularName\":{\"vernacularName\":\"Southern South American Mountain Lion\"},\"taxonID\":\"5KSLR\",\"label\":\"<i>Puma concolor concolor</i> (Linnaeus, 1771)\",\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"scientificName\":\"Puma concolor concolor\",\"taxonRank\":\"SUBSPECIES\",\"taxonomicStatus\":\"ACCEPTED\",\"parentTree\":null,\"mapCapabilities\":null,\"acceptedTaxon\":null}]},\"resourceSearch\":{\"documents\":{\"from\":0,\"size\":5,\"total\":0,\"results\":[]}},\"resourceKeywordSearch\":{\"documents\":{\"from\":0,\"size\":5,\"total\":0,\"results\":[]}}}}\n"
+}

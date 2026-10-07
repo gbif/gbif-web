@@ -1,1 +1,3 @@
 src/gql
+# Recorded upstream responses; written by e2e/mock/upstream.mjs
+e2e/recordings

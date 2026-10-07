@@ -49,17 +49,7 @@ async function hydrate() {
       </MessagesProvider>
     </Root>,
     {
-      onRecoverableError: (error) => {
-        // Ignore intentional suspense errors. See staticRenderSuspence.tsx for more context.
-        if (
-          error instanceof Error &&
-          error.message === 'This component should not be rendered on the server.'
-        ) {
-          return;
-        }
-
-        console.error(error);
-      },
+      onRecoverableError: (error) => console.error(error),
     }
   );
 }

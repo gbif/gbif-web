@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query SlowDownloadKey($key: ID!) {\n    literatureSearch(gbifDownloadKey: [$key], size: 0) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "0012986-260928105237408"
+      },
+      "operationName": "SlowDownloadKey"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"literatureSearch\":{\"documents\":{\"total\":0}}}}\n"
+}
