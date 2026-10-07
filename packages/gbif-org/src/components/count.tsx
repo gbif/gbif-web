@@ -84,7 +84,10 @@ export function useSiteOccurrenceCount({ predicate }: { predicate: any }) {
 }
 
 export function useGraphQLCount({ predicate, query }: { predicate: any; query: string }) {
-  const { data, load, error, loading } = useQuery(query, {
+  const { data, load, error, loading } = useQuery<
+    { search?: { documents: { total: number } } },
+    { predicate: any }
+  >(query, {
     lazyLoad: true,
     variables: { predicate },
     queue: {
@@ -131,7 +134,7 @@ export function useCount({
     const controller = new AbortController();
     const signal = controller.signal;
     const endpoint = `${apiEndpoint}?${stringify({
-      limit: 0,
+      limit: '0',
       ...params,
     })}`;
 

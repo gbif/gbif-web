@@ -25,7 +25,6 @@ import {
   VerbatimTextField,
 } from '../properties';
 import {
-  AgentIds,
   CollectionKey,
   DatasetKey,
   DynamicProperties,
@@ -186,56 +185,6 @@ function PropGroup({
         {children}
       </Properties>
     </Group>
-  );
-}
-
-function Summary({
-  showAll,
-  termMap,
-  occurrence,
-  updateToc = () => {},
-}: {
-  showAll: boolean;
-  termMap: any;
-  occurrence: any;
-  updateToc: (id: string, visible: boolean) => void;
-}) {
-  return (
-    <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.summary" id="summary">
-      {occurrence?.gadm?.level0 && (
-        <BasicField label="occurrenceFieldNames.gadmClassification">
-          <GadmClassification gadm={occurrence.gadm} />
-        </BasicField>
-      )}
-
-      <BasicField label="occurrenceDetails.dataset">
-        <DynamicLink
-          to={`/dataset/${occurrence.datasetKey}`}
-          pageId="datasetKey"
-          variables={{ key: occurrence.datasetKey }}
-        >
-          {occurrence.datasetTitle}
-        </DynamicLink>
-      </BasicField>
-
-      <BasicField label="occurrenceFieldNames.publisher">
-        <DynamicLink
-          to={`/publisher/${occurrence.publishingOrgKey}`}
-          pageId="publisherKey"
-          variables={{ key: occurrence.publishingOrgKey }}
-        >
-          {occurrence.publisherTitle}
-        </DynamicLink>
-      </BasicField>
-
-      <EnumField
-        term={termMap.basisOfRecord}
-        showDetails={showAll}
-        getEnum={(value) => `enums.basisOfRecord.${value}`}
-      />
-      {/* <PlainTextField term={termMap.recordedBy} showDetails={showAll} /> */}
-      <AgentIds {...{ showAll, termMap, occurrence }} />
-    </RenderIfChildren>
   );
 }
 
@@ -703,7 +652,6 @@ function Organism({
 function MaterialSample({
   showAll,
   termMap,
-  occurrence,
   updateToc = () => {},
 }: {
   showAll: boolean;
@@ -734,7 +682,6 @@ function MaterialSample({
 function GeologicalContext({
   showAll,
   termMap,
-  occurrence,
   updateToc = () => {},
 }: {
   showAll: boolean;
@@ -822,15 +769,7 @@ function Identification({
   );
 }
 
-function Other({
-  showAll,
-  termMap,
-  occurrence,
-}: {
-  showAll: boolean;
-  termMap: any;
-  occurrence: any;
-}) {
+function Other({ showAll, termMap }: { showAll: boolean; termMap: any; occurrence: any }) {
   // no reason to test this, this group is always present since GBIF id is required
   return (
     <PropGroup label="occurrenceDetails.groups.other" id="other">
@@ -1012,7 +951,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
             <DynamicLink
               to={`/dataset/${occurrence.datasetKey}`}
               pageId="datasetKey"
-              variables={{ key: occurrence.datasetKey }}
+              variables={{ key: occurrence.datasetKey ?? '' }}
               className="g-text-inherit g-underline"
             >
               {occurrence.datasetTitle}
@@ -1023,7 +962,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
             <DynamicLink
               to={`/publisher/${occurrence.publishingOrgKey}`}
               pageId="publisherKey"
-              variables={{ key: occurrence.publishingOrgKey }}
+              variables={{ key: occurrence.publishingOrgKey ?? '' }}
               className="g-text-inherit g-underline"
             >
               {occurrence.publisherTitle}

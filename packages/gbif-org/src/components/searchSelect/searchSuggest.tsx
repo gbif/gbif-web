@@ -89,7 +89,9 @@ export function SearchSuggest<T>({
           <CommandInput
             value={searchTerm}
             onValueChange={setSearchTerm}
-            placeholder={searchInputPlaceholder}
+            placeholder={
+              typeof searchInputPlaceholder === 'string' ? searchInputPlaceholder : undefined
+            }
           />
           <CommandEmpty>{noSearchResultsPlaceholder}</CommandEmpty>
           <CommandList>

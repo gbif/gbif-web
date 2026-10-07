@@ -9,7 +9,7 @@ import SqlEditor from '@/routes/occurrence/download/editor/sqlEditor';
 export function SqlDownloadFlow() {
   const [currentStep, setCurrentStep] = useState<'SQL' | 'TERMS'>('SQL');
   const [selectedFormat] = useState({ id: 'SQL_TSV_ZIP' });
-  const [configuration, setConfiguration] = useState(null);
+  const [configuration, setConfiguration] = useState<{ sql: any } | null>(null);
 
   const handleSqlSelect = (sql: any) => {
     setCurrentStep('TERMS');

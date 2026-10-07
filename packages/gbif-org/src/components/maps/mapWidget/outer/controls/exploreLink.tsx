@@ -1,5 +1,5 @@
 import { basemaps } from '@/components/maps/openlayers/basemaps';
-import { Projection } from '@/config/config';
+import type { Projection } from '@/components/maps/openlayers/projections';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { BoundingBox } from '@/types';
 import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';

@@ -14,6 +14,8 @@ import { AdHocMapCoreProps } from '@/routes/occurrence/search/views/map/Map/Open
 import { MapConfig, ProjectionName } from '@/routes/occurrence/search/views/map/Map/types';
 import { ParamQuery } from '@/utils/querystring';
 
+export type { Projection } from '@/components/maps/openlayers/projections';
+
 export type PageConfig = {
   id: string;
   isCustom?: boolean;

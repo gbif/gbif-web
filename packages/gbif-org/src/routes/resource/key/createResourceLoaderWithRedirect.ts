@@ -104,7 +104,9 @@ export function createResourceLoaderWithRedirect(options: Options) {
   return async function loader({ params, graphql, locale, request }: LoaderArgs) {
     const key = required(params.key, 'No key provided in the url');
 
-    const response = await graphql.query(query, { key });
+    const response = await graphql.query<{ resource?: object | null }, { key: string }>(query, {
+      key,
+    });
 
     const { errors, data } = await response.json();
     throwCriticalErrors({

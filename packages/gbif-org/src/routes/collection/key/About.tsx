@@ -111,7 +111,7 @@ export default function About() {
                     value={collection.numberSpecimens}
                     labelId="collection.numberSpecimens"
                   />
-                  {!loading && count > 0 && (
+                  {!loading && typeof count === 'number' && count > 0 && (
                     <Property labelId="grscicoll.specimensViaGbif">
                       <DynamicLink to="./specimens">
                         <FormattedNumber value={count} />
@@ -179,25 +179,25 @@ export default function About() {
                 </Properties>
               </CardContent>
             </Card>
-            {collection?.descriptorGroups?.count > 0 && (
+            {(collection?.descriptorGroups?.count ?? 0) > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage
                       id="grscicoll.collectionDescriptorsHeadline"
-                      deafultMessage="Collection description"
+                      defaultMessage="Collection description"
                     />
                   </CardTitle>
 
                   <div className="g-text-slate-500 g-mb-4">
                     <FormattedMessage
                       id="grscicoll.collectionDescriptorsIntroduction"
-                      deafultMessage="Collection description"
+                      defaultMessage="Collection description"
                     />
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <DescriptorGroups collectionKey={key} />
+                  <DescriptorGroups collectionKey={collection.key} />
                 </CardContent>
               </Card>
             )}
@@ -406,10 +406,6 @@ export default function About() {
                       </ul>
                     </Property>
                   )}
-                  <Property
-                    value={collection.additionalNames}
-                    labelId="grscicoll.additionalNames"
-                  />
                   <Property value={identifiers} labelId="grscicoll.identifiers">
                     <ul
                     // css={css`padding: 0; margin: 0; list-style: none;`}
@@ -428,7 +424,15 @@ export default function About() {
                       </li>
 
                       {primaryIdentifiers.map((x, i) => {
-                        const IdentifierItem = ({ link, text, type }) => (
+                        const IdentifierItem = ({
+                          link,
+                          text,
+                          type,
+                        }: {
+                          link: string;
+                          text: string;
+                          type: string;
+                        }) => (
                           <li className="g-mb-4">
                             <div
                               // css={css`color: var(--color400); font-size: 0.9em;`}

@@ -10,6 +10,12 @@ import { ViewHeader } from '@/components/ViewHeader';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
+export type DatasetFacetItem = {
+  count: number;
+  key: string;
+  dataset?: { key: string; title: string; excerpt?: string | null } | null;
+};
+
 export function DatasetPresentation({
   results,
   total,
@@ -18,8 +24,8 @@ export function DatasetPresentation({
   next,
   onSelect,
 }: {
-  results: any;
-  total: number;
+  results: DatasetFacetItem[];
+  total?: number;
   endOfRecords: boolean;
   loading: boolean;
   next: () => void;
@@ -63,7 +69,7 @@ function DatasetResult({
   onSelect,
 }: {
   largest: number;
-  item: any;
+  item: DatasetFacetItem;
   onSelect: ({ key }: { key: string }) => void;
 }) {
   return (
@@ -79,7 +85,7 @@ function DatasetResultContent({
   onSelect,
 }: {
   largest: number;
-  item: any;
+  item: DatasetFacetItem;
   onSelect: ({ key }: { key: string }) => void;
 }) {
   return (
@@ -89,7 +95,7 @@ function DatasetResultContent({
         to={`/dataset/${item.key}`}
         pageId="datasetKey"
         variables={{ key: item.key }}
-        onClick={(event) => {
+        onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
           if (
             event.ctrlKey ||
             event.shiftKey ||

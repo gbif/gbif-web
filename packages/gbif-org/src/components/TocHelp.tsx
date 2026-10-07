@@ -96,6 +96,6 @@ export function TocLi({
   return <li className={className} {...props} children={children} />;
 }
 
-export function Separator(props) {
+export function Separator() {
   return <li className="g-my-1 g-border-t g-border-slate-100"></li>;
 }

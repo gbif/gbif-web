@@ -106,7 +106,8 @@ function countLabelResolutions(predicate: any): number {
   return count;
 }
 
-export const PredicateDisplay = ({ predicate: predicateRaw }) => {
+// Download predicates are untyped JSON from the API (object or serialized string).
+export const PredicateDisplay = ({ predicate: predicateRaw }: { predicate: any }) => {
   const intl = useIntl();
   const { defaultChecklistKey } = useConfig();
   let predicate = predicateRaw;
@@ -118,8 +119,8 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
   );
 
   const getValueTranslation = useMemo(() => {
-    return (predicate) => {
-      const { key, parameter, value, type, checklistKey } = predicate;
+    return (predicate: any) => {
+      const { key, value, type, checklistKey } = predicate;
       // choose label based on key
       // if no label is found, return the value
       const predicateKey = constantCase(key ?? 'UNKNOWN_KEY');
@@ -422,7 +423,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
               {getTranslation(`downloadKey.predicate.joinDescriptions.${predicate.type}`)}
             </span>
           </div>
-          {predicate.predicates.map((p, index) => (
+          {predicate.predicates.map((p: any, index: number) => (
             <li key={index} className={p.type === 'or' || p.type === 'and' ? 'hasChildren' : ''}>
               <div className="pipe"></div>
               <PredicateDisplay predicate={p} />
@@ -457,7 +458,7 @@ export const PredicateDisplay = ({ predicate: predicateRaw }) => {
             )}
           </span>
           <ol className="inlineBulletList">
-            {predicate.values.map((option, index) => (
+            {predicate.values.map((option: any, index: number) => (
               <li
                 key={index}
                 className="node-value"

@@ -7,9 +7,12 @@ import EmptyValue from './emptyValue';
 import Properties, { Property, Term, Value } from './properties';
 import { Card, CardContent } from './ui/largeCard';
 
+// Contacts come from several GraphQL types (dataset, publisher, installation, ...) with differing shapes.
+type ContactData = Record<string, any>;
+
 interface ContactListProps {
   as?: React.ReactElement;
-  contacts?: any[];
+  contacts?: ContactData[];
   cap?: number;
   className?: string;
 }
@@ -40,7 +43,7 @@ export function ContactList({ contacts = [], cap = 100, className, ...props }: C
   );
 }
 
-function Contact({ contact, ...props }) {
+function Contact({ contact }: { contact: ContactData }) {
   const name =
     contact.firstName || contact.lastName
       ? `${contact.firstName || ''} ${contact.lastName || ''}`.trim()
@@ -59,7 +62,7 @@ function Contact({ contact, ...props }) {
   );
 
   const userId = contact.userId || [];
-  const orcid = userId.find((x) => x.indexOf('orcid.org') != -1);
+  const orcid = userId.find((x: string) => x.indexOf('orcid.org') != -1);
 
   const summary = (
     <div className="g-py-2 g-flex g-items-start">
@@ -168,9 +171,17 @@ function Contact({ contact, ...props }) {
   );
 }
 
-function Field({ field, contact = {}, value, ...props }) {
+function Field({
+  field,
+  contact = {},
+  value,
+}: {
+  field: string;
+  contact?: ContactData;
+  value?: React.ReactNode;
+}) {
   if (!value && Array.isArray(contact[field]))
-    return <ArrayField field={field} contact={contact} {...props} />;
+    return <ArrayField field={field} contact={contact} />;
   if (!value && !contact[field]) return null;
 
   return (
@@ -184,7 +195,7 @@ function Field({ field, contact = {}, value, ...props }) {
   );
 }
 
-function ArrayField({ field, contact = {}, value, ...props }) {
+function ArrayField({ field, contact = {} }: { field: string; contact?: ContactData }) {
   if (!contact[field] || contact[field]?.length === 0) return null;
   return (
     <>
@@ -192,7 +203,7 @@ function ArrayField({ field, contact = {}, value, ...props }) {
         <FormattedMessage id={`contact.${field}`} defaultMessage={field} />
       </Term>
       <Value>
-        {contact[field].map((v, i, arr) => (
+        {contact[field].map((v: React.ReactNode, i: number, arr: unknown[]) => (
           <React.Fragment key={i}>
             <div>{v}</div>
             {i + 1 !== arr.length && <br />}
@@ -203,7 +214,7 @@ function ArrayField({ field, contact = {}, value, ...props }) {
   );
 }
 
-function getRoles(contact: any) {
+function getRoles(contact: ContactData): string[] {
   if (contact.roles) return contact.roles;
   if (contact.type) {
     if (Array.isArray(contact.type)) return contact.type;

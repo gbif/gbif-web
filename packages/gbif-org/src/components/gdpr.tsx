@@ -16,9 +16,11 @@ export const GDPR = () => {
   }, [user?.userName, user?.settings?.has_read_gdpr_terms]);
 
   const saveUserSettings = async () => {
+    // The consent toast is only shown to a logged-in user
+    if (!user) return;
     await updateProfile({
       ...user,
-      settings: { ...(user?.settings || {}), has_read_gdpr_terms: 'true' },
+      settings: { ...(user.settings || {}), has_read_gdpr_terms: 'true' },
     });
     toastRef.current?.dismiss();
     console.log('User settings saved');

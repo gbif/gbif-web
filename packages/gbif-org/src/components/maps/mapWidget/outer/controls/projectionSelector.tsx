@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent } from '@/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Projection } from '@/config/config';
+import type { Projection } from '@/components/maps/openlayers/projections';
 import { Setter } from '@/types';
 import { MdLanguage } from 'react-icons/md';
 import { mapWidgetOptions } from '../../options';

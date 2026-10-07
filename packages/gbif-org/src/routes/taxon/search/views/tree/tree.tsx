@@ -51,7 +51,8 @@ const PARENTS = /* GraphQL */ `
 
 export function SearchPageTree() {
   const { scope } = useSearchContext();
-  const datasetKey = scope?.datasetKey?.[0];
+  // the taxon search scope is a v1 query
+  const datasetKey = (scope as { datasetKey?: string[] } | undefined)?.datasetKey?.[0];
   const currentFilterContext = useContext(FilterContext);
   const taxonId = currentFilterContext.filter?.must?.taxonId?.[0];
 

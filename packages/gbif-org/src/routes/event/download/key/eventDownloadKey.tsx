@@ -1,7 +1,6 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { LongDate } from '@/components/dateFormats';
-import { Spinner } from '@/components/ui/spinner';
 import {
   Download_Status,
   DownloadKeyQuery,
@@ -216,7 +215,7 @@ export function DownloadKey() {
                   status={download.status ?? Download_Status.Failed}
                   notificationAddresses={sensitiveData?.download?.request?.notificationAddresses}
                   downloadKey={download.key}
-                  downloadType={sensitiveData?.download?.request?.type}
+                  downloadType={sensitiveData?.download?.request?.type ?? undefined}
                 />
               )}
               <UserDescription download={download} />

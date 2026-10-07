@@ -13,14 +13,29 @@ import { Media } from '../media';
 import { OccurrenceTable as Table } from '../table/occurrenceTable';
 const DashboardBuilder = React.lazy(() => import('./DashboardBuilder'));
 
-export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props }) {
-  const [urlLayout, setUrlLayout] = useParam({
+/**
+ * @typedef {import('./layoutSerialization').Layout} Layout
+ * @typedef {import('./DashboardBuilder').ChartTypes} ChartTypes
+ */
+
+/**
+ * @param {{
+ *   predicate?: import('@/gql/graphql').Predicate,
+ *   q?: string,
+ *   chartsTypes: string[],
+ * }} props
+ */
+export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp }) {
+  const [urlLayout, setUrlLayout] = /** @type {typeof useParam<Layout | undefined>} */ (useParam)({
     key: 'layout',
     parse: parseLayout,
     serialize: serializeLayout,
   });
-  const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
-  const [chartsTypes, setChartsTypes] = useState([]);
+  const [layout = [[]], setLayoutState] = useLocalStorage(
+    'occurrenceDashboardLayout',
+    /** @type {Layout} */ ([[]])
+  );
+  const [chartsTypes, setChartsTypes] = useState(/** @type {ChartTypes} */ ({}));
 
   useEffect(() => {
     const charts = { ...preconfiguredCharts };
@@ -34,12 +49,13 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props
   }, [chartsTypesProp]);
 
   const updateState = useCallback(
+    /** @type {import('./DashboardBuilder').SetLayout} */
     (value, useUrl) => {
       if (useUrl) {
         setUrlLayout(value);
       } else {
         setLayoutState(value);
-        setUrlLayout();
+        setUrlLayout(undefined);
       }
     },
     [setLayoutState, setUrlLayout]
@@ -56,7 +72,7 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props
         {isUrlLayoutDifferent && (
           <div className="g-mb-4">
             <FormattedMessage id="dashboard.sharedLayout" />{' '}
-            <Button className="g-ms-4" onClick={() => setUrlLayout()}>
+            <Button className="g-ms-4" onClick={() => setUrlLayout(undefined)}>
               <FormattedMessage id="phrases.discard" />
             </Button>{' '}
             <Button
@@ -64,7 +80,7 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props
               className="g-ms-4"
               onClick={() => {
                 setLayoutState(urlLayout);
-                setUrlLayout();
+                setUrlLayout(undefined);
               }}
             >
               <FormattedMessage id="phrases.keep" />
@@ -77,13 +93,14 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props
           q={q}
           setState={updateState}
           state={urlLayout ?? layout}
-          {...{ lockedLayout: isUrlLayoutDifferent }}
+          lockedLayout={!!isUrlLayoutDifferent}
         />
       </div>
     </MapChartsEnabledContext.Provider>
   );
 }
 
+/** @type {ChartTypes} */
 const preconfiguredCharts = {
   iucn: {
     translation: 'dashboard.iucnThreatStatus',
@@ -397,11 +414,7 @@ const preconfiguredCharts = {
     component: ({ predicate, ...props }) => {
       return (
         <Card className="g-overflow-y-auto g-h-full g-p-2">
-          <Media
-            size={10}
-            className="g-pt-2 g-border g-border-solid g-rounded g-overflow-auto g-h-full"
-            {...props}
-          />
+          <Media size={10} {...props} />
         </Card>
       );
     },

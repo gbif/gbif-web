@@ -10,17 +10,11 @@ import { PiGitBranchBold as TaxonomyIcon } from 'react-icons/pi';
 import { FormattedMessage } from 'react-intl';
 
 export function AboutContent() {
-  const { title, body, error, loading } = useHelp('what-is-an-occurrence');
-  const {
-    title: titleTaxonomy,
-    body: bodyTaxonomy,
-    error: errorTaxonomy,
-    loading: loadingTaxonomy,
-  } = useHelp('taxonomy-and-occurrence-search');
+  const { title, body, loading } = useHelp('what-is-an-occurrence');
+  const { title: titleTaxonomy, body: bodyTaxonomy } = useHelp('taxonomy-and-occurrence-search');
   const {
     title: titleSearch,
     body: bodySearch,
-    error: errorSearch,
     loading: loadingSearch,
   } = useHelp('how-to-search-occurrences');
   if (loading || loadingSearch) return <HelpTextSkeleton includeTitle />;

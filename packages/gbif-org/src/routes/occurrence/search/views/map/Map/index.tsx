@@ -15,6 +15,7 @@ import MapPresentation, { MapPresentationProps } from './MapPresentation';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { Skeleton } from '@/components/ui/skeleton';
 import { statsToBoundingBox } from './dataExtentHelpers';
+import { notNull } from '@/utils/notNull';
 
 const OCCURRENCE_MAP = /* GraphQL */ `
   query occurrenceMap($q: String, $predicate: Predicate) {
@@ -97,7 +98,7 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   const searchContext: OccurrenceSearchMetadata = useSearchContext();
   const currentFilterContext = useContext(FilterContext);
   const { scope, mapSettings } = searchContext;
-  const { data, error, loading, load } = useQuery<OccurrenceMapQuery, OccurrenceMapQueryVariables>(
+  const { data, loading, load } = useQuery<OccurrenceMapQuery, OccurrenceMapQueryVariables>(
     OCCURRENCE_MAP_META,
     {
       lazyLoad: true,
@@ -106,7 +107,6 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   );
   const {
     data: countData,
-    error: countError,
     loading: countLoading,
     load: countLoad,
   } = useQuery<OccurrenceMapQuery, OccurrenceMapQueryVariables>(OCCURRENCE_MAP, {
@@ -121,18 +121,23 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   });
 
   const loadHashAndCount = useCallback(
-    ({ filter, searchContext, searchConfig, load, countLoad, extentLoad }: LoadHashAndCountParams) => {
+    ({
+      filter,
+      searchContext,
+      searchConfig,
+      load,
+      countLoad,
+      extentLoad,
+    }: LoadHashAndCountParams) => {
       const query = getAsQuery({ filter, searchContext, searchConfig });
+      const hasCoordinate: Predicate = {
+        type: PredicateType.Equals,
+        key: 'hasCoordinate',
+        value: true,
+      };
       const predicate: Predicate = {
         type: PredicateType.And,
-        predicates: [
-          query.predicate,
-          {
-            type: 'equals',
-            key: 'hasCoordinate',
-            value: true,
-          },
-        ].filter((x) => x),
+        predicates: [query.predicate, hasCoordinate].filter(notNull),
       };
       load({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
       countLoad({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });

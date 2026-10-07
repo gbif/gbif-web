@@ -26,14 +26,15 @@ function capLatitudeInCoordinates(coordinates: any): any {
 export function getFeatureAsWKT(feature: Feature): string {
   const asGeoJson = geoJsonFormatter.writeFeature(feature, { rightHanded: true });
   const geoJsonObj = JSON.parse(asGeoJson);
-  
+
   // Cap latitude values in the geometry coordinates
   if (geoJsonObj.geometry && geoJsonObj.geometry.coordinates) {
     geoJsonObj.geometry.coordinates = capLatitudeInCoordinates(geoJsonObj.geometry.coordinates);
   }
-  
+
   const correctedGeoJson = JSON.stringify(geoJsonObj);
-  const rightHandCorrectedFeature = geoJsonFormatter.readFeature(correctedGeoJson);
+  // a single GeoJSON feature in yields a single Feature out
+  const rightHandCorrectedFeature = geoJsonFormatter.readFeature(correctedGeoJson) as Feature;
   const wkt = wktFormatter.writeFeature(rightHandCorrectedFeature, {
     dataProjection: 'EPSG:4326',
     featureProjection: 'EPSG:4326',
@@ -107,11 +108,11 @@ export function geoJSONToWKT(geoJson: GeoJSON.Feature | GeoJSON.Geometry): strin
     const feature = geoJsonFormatter.readFeature(geoJson, {
       dataProjection: 'EPSG:4326',
       featureProjection: 'EPSG:4326',
-    });
+    }) as Feature;
 
     // Convert to WKT with right-handed coordinate order
     const asGeoJson = geoJsonFormatter.writeFeature(feature, { rightHanded: true });
-    const rightHandCorrectedFeature = geoJsonFormatter.readFeature(asGeoJson);
+    const rightHandCorrectedFeature = geoJsonFormatter.readFeature(asGeoJson) as Feature;
     const wkt = wktFormatter.writeFeature(rightHandCorrectedFeature, {
       dataProjection: 'EPSG:4326',
       featureProjection: 'EPSG:4326',

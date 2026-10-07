@@ -46,7 +46,6 @@ export default function StripeLoader({
   active,
   error,
   className,
-  ...props
 }: {
   active?: boolean;
   error?: boolean;

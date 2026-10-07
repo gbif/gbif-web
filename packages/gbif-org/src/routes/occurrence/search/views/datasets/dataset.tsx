@@ -8,7 +8,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
-import { DatasetPresentation } from './datasetPresentation';
+import { DatasetFacetItem, DatasetPresentation } from './datasetPresentation';
 import { useIntl } from 'react-intl';
 
 const OCCURRENCE_DATASETS = `
@@ -32,13 +32,23 @@ query occurrenceDatasets($q: String, $predicate: Predicate, $size: Int) {
 }
 `;
 
+type OccurrenceDatasetsResult = {
+  occurrenceSearch?: {
+    cardinality?: { datasetKey?: number | null } | null;
+    facet?: { datasetKey?: DatasetFacetItem[] | null } | null;
+  } | null;
+};
+
 export function Dataset({ size: defaultSize = 100 }) {
   const { toast } = useToast();
   const notifyOfPartialData = usePartialDataNotification();
   const [from, setFrom] = useState(0);
   const currentFilterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
-  const { data, error, loading, load } = useQuery(OCCURRENCE_DATASETS, {
+  const { data, error, loading, load } = useQuery<
+    OccurrenceDatasetsResult,
+    Record<string, unknown>
+  >(OCCURRENCE_DATASETS, {
     lazyLoad: true,
     throwAllErrors: false,
   });
@@ -46,7 +56,7 @@ export function Dataset({ size: defaultSize = 100 }) {
   const [, setPreviewKey] = useEntityDrawer();
   const [size, setSize] = useState(defaultSize);
 
-  const [allData, setAllData] = useState([]);
+  const [allData, setAllData] = useState<DatasetFacetItem[]>([]);
 
   useEffect(() => {
     if (error && !data?.occurrenceSearch?.facet?.datasetKey) {
@@ -73,7 +83,7 @@ export function Dataset({ size: defaultSize = 100 }) {
     setAllData((prev) => {
       const all = [...prev, ...(data?.occurrenceSearch?.facet?.datasetKey || [])];
       // get unique by key
-      const unique = all.reduce((acc, cur) => {
+      const unique = all.reduce<DatasetFacetItem[]>((acc, cur) => {
         if (acc.find((x) => x.key === cur.key)) {
           return acc;
         }
@@ -114,9 +124,9 @@ export function Dataset({ size: defaultSize = 100 }) {
     <DatasetPresentation
       results={allData}
       loading={loading}
-      endOfRecords={from + size >= total}
+      endOfRecords={total !== undefined && from + size >= (total ?? 0)}
       next={more}
-      total={total}
+      total={total ?? undefined}
       onSelect={({ key }: { key: string | number }) => setPreviewKey(`d_${key}`)}
     />
   );

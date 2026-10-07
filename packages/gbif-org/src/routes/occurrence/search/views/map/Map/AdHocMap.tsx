@@ -30,6 +30,7 @@ import { useConfig } from '@/config/config';
 import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { cn } from '@/utils/shadcn';
+import { notNull } from '@/utils/notNull';
 import { useI18n } from '@/reactRouterPlugins';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
@@ -81,7 +82,8 @@ function parseToolsConfig(
 }
 
 type LayerOptions = Partial<Record<ProjectionName, string[]>>;
-type BasemapOptions = Partial<Record<ProjectionName, MapStyleConfig>>;
+// Keyed by style name, e.g. NATURAL_MERCATOR
+type BasemapOptions = Record<string, MapStyleConfig>;
 type StyleLookup = Partial<Record<ProjectionName, Record<string, string>>>;
 
 const defaultLayerOptions: LayerOptions = {
@@ -160,7 +162,7 @@ export default function AdHocMap({
   );
 
   const updateList = useCallback(() => {
-    setOrderedList(items.filter((x) => x != null).map((item) => `o_${item.key}`));
+    setOrderedList(items.filter(notNull).map((item) => `o_${item.key}`));
   }, [items, setOrderedList]);
 
   const selectPreview = useCallback(
@@ -600,7 +602,7 @@ export default function AdHocMap({
           loadPointData(data);
         }}
         listener={eventListener}
-        onOverlayTileError={onOverlayTileError}
+        registerPredicate={onOverlayTileError}
         containerHeight={height}
         containerWidth={width}
         drawingTool={drawingTool}

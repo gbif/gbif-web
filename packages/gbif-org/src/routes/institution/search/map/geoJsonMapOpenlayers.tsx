@@ -171,7 +171,10 @@ export default function GeoJsonMapOpenlayers({
     // Skip if we have stored state (back-navigation)
     let fittedExtent3857: number[] | null = null;
     if (!hasStoredState && geojson.features.length > 0) {
-      let minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity;
+      let minLng = Infinity,
+        minLat = Infinity,
+        maxLng = -Infinity,
+        maxLat = -Infinity;
       for (const feature of geojson.features) {
         const coords = (feature.geometry as GeoJSON.Point).coordinates;
         if (coords[0] < minLng) minLng = coords[0];
@@ -287,7 +290,7 @@ export default function GeoJsonMapOpenlayers({
         setPopupAnchor(newAnchor);
       }
     };
-    map.on('postrender', updatePopupAnchor);
+    map.on('postrender', () => updatePopupAnchor());
 
     // Save position to session storage on moveend
     map.on('moveend', () => {
@@ -389,10 +392,7 @@ export default function GeoJsonMapOpenlayers({
         onClick={enableInteractions}
         className={cn('[&_button]:g-p-1', className)}
       />
-      <div
-        ref={popupRef}
-        style={{ display: popupContent ? undefined : 'none', cursor: 'auto' }}
-      >
+      <div ref={popupRef} style={{ display: popupContent ? undefined : 'none', cursor: 'auto' }}>
         <MapPopup
           anchor={popupAnchor}
           onClose={() => {

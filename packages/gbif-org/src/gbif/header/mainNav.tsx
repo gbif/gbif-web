@@ -140,13 +140,14 @@ function MainNavigation({ menu }: { menu: HeaderQuery }) {
 }
 
 // Define a custom interface for your props
-interface ListItemProps extends React.ComponentPropsWithoutRef<'a'> {
+interface ListItemProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'title'> {
+  href?: string | null;
   className?: string;
   title?: string;
   externalLink?: boolean;
 }
 
-const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
+const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(
   ({ className, title, children, externalLink, ...props }, ref) => {
     return (
       <li>

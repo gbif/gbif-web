@@ -14,7 +14,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { DatasetResult } from '../dataset/datasetResult';
 import { PublisherResult } from '../publisher/publisherResult';
 import { ResourceSearchResult } from '../resource/search/resourceSearchResult';
-import { TaxonResult } from '../taxon/taxonResult';
+import { TaxonResult, TaxonResultTaxon } from '../taxon/taxonResult';
 import { CategoryLinks } from './CategoryLinks';
 import { CountryResult } from './CountryResult';
 import OccurrenceResultCard from './OccurrenceResultCard';
@@ -47,12 +47,7 @@ type ServerResults = {
     recordedBy?: string;
     recordNumber?: string;
   };
-  taxa?: Array<{
-    taxonID: string;
-    scientificName: string;
-    mapCapabilities: { total: number };
-    acceptedTaxon?: { taxonID: string; scientificName: string; mapCapabilities: { total: number } };
-  } | null>;
+  taxa?: Array<(TaxonResultTaxon & { acceptedTaxon?: TaxonResultTaxon | null }) | null>;
   participant?: {
     highlighted?: any;
     other?: Array<any>;

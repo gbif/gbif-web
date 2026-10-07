@@ -45,7 +45,7 @@ export function PlainTextField(props: {
   onlyShowVerbatim?: boolean;
 }) {
   if (!props.term) return null;
-  const { value, htmlValue } = props.term;
+  const { value } = props.term;
   return (
     <Field {...props}>
       <AutomaticPropertyValue value={value} />
@@ -235,10 +235,8 @@ export function EnumField({
 }
 
 export function LicenseField({
-  getEnum,
   label,
   term,
-  ...props
 }: {
   term: OccurrenceTermFragment;
   getEnum: (value: string) => string;

@@ -70,7 +70,6 @@ type SpeciesCountQueryResult = {
 };
 
 function FacetMap({
-  contextHash,
   loading,
   results = [],
   onClick,
@@ -275,7 +274,7 @@ function Row({
   color?: string;
   visiblityHandler: (hidden: boolean) => void;
   colorHandler: (color: string) => void;
-  showSpeciesCounts: boolean;
+  showSpeciesCounts?: boolean;
 }) {
   const { count: occurrenceCount } = row;
   const predicate = {
@@ -290,7 +289,7 @@ function Row({
     ],
   };
   const { count, loading, error } = useOccurrenceCount({ predicate });
-  const fraction = occurrenceCount ? count / occurrenceCount : 0;
+  const fraction = occurrenceCount && count !== undefined ? count / occurrenceCount : 0;
   const formattedPercentage = formatAsPercentage(fraction);
 
   return (
@@ -371,7 +370,7 @@ function Row({
             <td className="g-w-20 g-text-end">
               {loading && <Skeleton className="g-h-4 g-w-16 g-inline-block" />}
               {error && <span>-</span>}
-              {!loading && count > 0 && (
+              {!loading && (count ?? 0) > 0 && (
                 <Tooltip title={`${count} with occurrences`} side="left">
                   <div>
                     <MdLocationPin className="-g-mt-1" />

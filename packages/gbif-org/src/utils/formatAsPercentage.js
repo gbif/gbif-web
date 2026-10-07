@@ -1,4 +1,9 @@
+/**
+ * @param {number} fraction
+ * @param {number} [max]
+ */
 export default function formatAsPercentage(fraction, max = 100) {
+  /** @type {number | string} */
   var formatedPercentage = 0;
   if (Number.isNaN(fraction)) {
     return 0;
@@ -26,7 +31,7 @@ export default function formatAsPercentage(fraction, max = 100) {
   } else if (fraction < 0.01 && fraction != 0) {
     formatedPercentage = 0.01;
   }
-  if (formatedPercentage > max) {
+  if (Number(formatedPercentage) > max) {
     formatedPercentage = max;
   }
   return formatedPercentage;
