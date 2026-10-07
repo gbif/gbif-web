@@ -62,6 +62,8 @@ export const test = base.extend<Fixtures>({
   },
   pageErrors: [
     async ({ page, waitForIdle }, use, testInfo) => {
+      // The mock prunes recordings only if every started test also reported passing.
+      await fetch(`${MOCK}/__mock/test-started`, { method: 'POST' });
       const errors: string[] = [];
       page.on('pageerror', (err) => errors.push(`pageerror: ${err.message}`));
       // The toast auto-dismisses, so watch for it from the first byte of every document.
@@ -111,6 +113,9 @@ export const test = base.extend<Fixtures>({
         misses.map((m) => `${m.key}: ${m.reason}`),
         'requests the mock could not answer'
       ).toEqual([]);
+      if (testInfo.status === testInfo.expectedStatus) {
+        await fetch(`${MOCK}/__mock/test-passed`, { method: 'POST' });
+      }
     },
     { auto: true },
   ],

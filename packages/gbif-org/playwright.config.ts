@@ -44,6 +44,12 @@ export default defineConfig({
       testDir: './e2e/specs/hp',
       use: { baseURL: `http://localhost:${HP_PORT}` },
     },
+    {
+      // Only occurrence pages enabled, scoped to Denmark.
+      name: 'hp-occurrence-only',
+      testDir: './e2e/specs/hp-occurrence-only',
+      use: { baseURL: `http://localhost:${HP_PORT + 1}` },
+    },
   ],
   webServer: [
     {
@@ -71,6 +77,12 @@ export default defineConfig({
       command: 'node e2e/hp-sites/server.mjs',
       url: `http://localhost:${HP_PORT}/gbif-lib.js`,
       env: { HP_SITE: 'all-entities', PORT: String(HP_PORT) },
+      reuseExistingServer: false,
+    },
+    {
+      command: 'node e2e/hp-sites/server.mjs',
+      url: `http://localhost:${HP_PORT + 1}/gbif-lib.js`,
+      env: { HP_SITE: 'occurrence-only', PORT: String(HP_PORT + 1) },
       reuseExistingServer: false,
     },
   ],
