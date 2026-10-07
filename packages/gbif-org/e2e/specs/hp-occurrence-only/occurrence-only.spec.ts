@@ -31,9 +31,9 @@ test('links to disabled pages fall back to gbif.org', async ({ page }) => {
 // Current behaviour: a disabled page's URL shows the portal's 404 page; it does not redirect to
 // gbif.org (enablePages is commented out in src/reactRouterPlugins/index.ts). Whether it should
 // redirect is open: https://github.com/MortenHofft/gbif-web/issues/22
-test("a disabled page's URL shows the 404 page", async ({ page }) => {
+test("a disabled page's URL shows the 404 page", async ({ page, baseURL }) => {
   await page.goto('/dataset/50c9509d-22c7-4a22-a47d-8c48425ef4a7');
-  await expect(page).toHaveURL(/^http:\/\/localhost:3201\/dataset\//);
+  await expect(page).toHaveURL(`${baseURL}/dataset/50c9509d-22c7-4a22-a47d-8c48425ef4a7`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('404');
   await expect(page.getByText('This page might have existed once')).toBeVisible();
 });

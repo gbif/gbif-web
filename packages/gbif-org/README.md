@@ -72,17 +72,8 @@ To initiate development mode, execute `npm run develop`.
 
 ### How to Run the End-to-End Tests
 
-Playwright specs in [`e2e/`](e2e/) run against a production build whose upstream requests are
-served by a local record/replay mock, so they work offline without a VPN or `.env`.
-
-1. Install the browser (once per machine): Run `npx playwright install chromium`.
-2. Build: Run `npm run e2e:build`. Repeat after every source change; the run refuses a stale build.
-3. Test: Run `npm run e2e`. Pass Playwright arguments after `--`, e.g.
-   `npm run e2e -- specs/gbif/redirects.spec.ts` or `npm run e2e -- --ui`.
-
-A test fails if the page requests data that has no recording. After adding a page or changing a
-query, run `npm run e2e:record` and commit the new files in `e2e/recordings/`. See
-[`e2e/README.md`](e2e/README.md) for recording and writing specs.
+`npm run e2e:build`, then `npm run e2e`: Playwright against recorded upstream data, offline. See
+[`e2e/README.md`](e2e/README.md) for recording, re-recording and writing specs.
 
 ## Environment Variables
 

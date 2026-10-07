@@ -1,12 +1,8 @@
+import { type Row, testRows } from '../../pageRows';
 import { expect, test } from '../../test';
 
 // A hosted portal has no SSR: every loader runs in the browser, so these rows exercise the client
-// data path for each page. Search pages have no h1; their result count shows the search ran.
-type Row = { id: string; url: string; title: string } & (
-  | { h1: string | RegExp }
-  | { resultCount: RegExp }
-);
-
+// data path for each page.
 const ROWS: Row[] = [
   {
     id: 'occurrenceSearch',
@@ -117,23 +113,11 @@ const ROWS: Row[] = [
   },
 ];
 
-for (const row of ROWS) {
-  test(`${row.id}: ${row.url}`, async ({ page }) => {
-    await page.goto(row.url);
-    await expect(page).toHaveTitle(row.title);
-    if ('h1' in row) {
-      await expect(page.getByRole('heading', { level: 1 })).toHaveText(row.h1);
-    } else {
-      await expect(page.getByText(row.resultCount).first()).toBeVisible();
-    }
-  });
-}
+testRows(ROWS);
 
-test('links between enabled pages stay on the portal', async ({ page }) => {
+test('links between enabled pages stay on the portal', async ({ page, baseURL }) => {
   await page.goto('/dataset/50c9509d-22c7-4a22-a47d-8c48425ef4a7');
   await page.getByRole('link', { name: 'iNaturalist.org', exact: true }).first().click();
-  await expect(page).toHaveURL(
-    /^http:\/\/localhost:3200\/publisher\/28eb1a3f-1c15-4a95-931a-4af90ecb574d$/
-  );
+  await expect(page).toHaveURL(`${baseURL}/publisher/28eb1a3f-1c15-4a95-931a-4af90ecb574d`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('iNaturalist.org');
 });

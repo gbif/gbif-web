@@ -1,0 +1,2 @@
+# Recorded upstream responses: collapsed in GitHub diffs and kept out of git diff/log -p.
+packages/gbif-org/e2e/recordings/** linguist-generated=true -diff
