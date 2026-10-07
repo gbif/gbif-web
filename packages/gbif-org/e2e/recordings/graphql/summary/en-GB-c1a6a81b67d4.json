@@ -1,0 +1,64 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: basisOfRecord\n        }\n        facet {\n          results: basisOfRecord(size: $size, from: $from) {\n            key\n            count\n            occurrences {\n              metaPredicate\n              _meta\n            }\n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "in",
+              "key": "country",
+              "values": [
+                "DK"
+              ]
+            },
+            {
+              "type": "equals",
+              "key": "year",
+              "value": "2020",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            }
+          ]
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "basisOfRecord"
+            },
+            {
+              "type": "and",
+              "predicates": [
+                {
+                  "type": "in",
+                  "key": "country",
+                  "values": [
+                    "DK"
+                  ]
+                },
+                {
+                  "type": "equals",
+                  "key": "year",
+                  "value": "2020",
+                  "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                }
+              ]
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":3839636},\"cardinality\":{\"total\":6},\"facet\":{\"results\":[{\"key\":\"HUMAN_OBSERVATION\",\"count\":2917736,\"occurrences\":{\"metaPredicate\":-1703104550,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"HUMAN_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"HUMAN_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"HUMAN_OBSERVATION\"}}}]}}]}}]}}}}},{\"key\":\"MATERIAL_SAMPLE\",\"count\":851985,\"occurrences\":{\"metaPredicate\":-685051950,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"MATERIAL_SAMPLE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"MATERIAL_SAMPLE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"MATERIAL_SAMPLE\"}}}]}}]}}]}}}}},{\"key\":\"PRESERVED_SPECIMEN\",\"count\":51906,\"occurrences\":{\"metaPredicate\":-308881435,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"PRESERVED_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"PRESERVED_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"PRESERVED_SPECIMEN\"}}}]}}]}}]}}}}},{\"key\":\"OCCURRENCE\",\"count\":13214,\"occurrences\":{\"metaPredicate\":608986599,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"OCCURRENCE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"OCCURRENCE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"OCCURRENCE\"}}}]}}]}}]}}}}},{\"key\":\"MACHINE_OBSERVATION\",\"count\":4775,\"occurrences\":{\"metaPredicate\":109912004,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"MACHINE_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"MACHINE_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"MACHINE_OBSERVATION\"}}}]}}]}}]}}}}},{\"key\":\"MATERIAL_CITATION\",\"count\":20,\"occurrences\":{\"metaPredicate\":-954775883,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"MATERIAL_CITATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"MATERIAL_CITATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"MATERIAL_CITATION\"}}}]}}]}}]}}}}}]}}}}\n"
+}
