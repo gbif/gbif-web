@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query TaxonChildren($limit: Int, $offset: Int, $datasetKey: ID, $key: ID!) {\n    taxon(datasetKey: $datasetKey, key: $key) {\n      children(limit: $limit, offset: $offset) {\n        count\n        endOfRecords\n        limit\n        offset\n        results {\n          taxonID\n          label: scientificName\n          rank: taxonRank\n          status: taxonomicStatus\n          childrenCount: children\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "5231190",
+        "limit": 10,
+        "offset": 0,
+        "datasetKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+      },
+      "operationName": "TaxonChildren"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"taxon\":{\"children\":{\"count\":15,\"endOfRecords\":false,\"limit\":10,\"offset\":0,\"results\":[{\"taxonID\":\"6090823\",\"label\":\"Passer domesticus bactrianus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"6090862\",\"label\":\"Passer domesticus balearoibericus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"6090836\",\"label\":\"Passer domesticus biblicus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5231191\",\"label\":\"Passer domesticus domesticus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"11141590\",\"label\":\"Passer domesticus halfae\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"11149538\",\"label\":\"Passer domesticus hispaniolensis\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"6090829\",\"label\":\"Passer domesticus hufufae\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"6090812\",\"label\":\"Passer domesticus hyrcanus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5845699\",\"label\":\"Passer domesticus indicus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"6090844\",\"label\":\"Passer domesticus niloticus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0}]}}}}\n"
+}

@@ -1,11 +1,14 @@
 # e2e
 
-Playwright against a production build of gbif.org whose every `PUBLIC_*` endpoint points at a
-local record/replay mock. Runs offline and deterministically; no VPN, no `.env`.
+Playwright against production builds of gbif.org and of the hosted-portal library, with every
+`PUBLIC_*` endpoint pointed at a local record/replay mock. Runs offline and deterministically; no
+VPN, no `.env`. Two projects: `gbif` (`specs/gbif/`, SSR on `:3100`) and `hp-all-entities`
+(`specs/hp/`, the library mounted in `hp-sites/all-entities/` on `:3200`, no SSR).
 
 ```bash
 npx playwright install chromium   # once per machine
-npm run e2e:build                  # after any source change (~1.5 min); the run refuses a stale build
+npm run e2e:build                  # after any source change (~2.5 min); the run refuses a stale build
+node e2e/build.mjs gbif|hp         # rebuild one target only
 npm run e2e                        # replay recorded upstream data
 npm run e2e:record                 # forward unrecorded requests to production GBIF and save them
 npm run e2e:rerecord               # full run in record mode, then delete recordings no test used
@@ -25,6 +28,9 @@ npm run e2e:rerecord               # full run in record mode, then delete record
   requests, waits until the page stops requesting, and fails the test on uncaught errors, React
   hydration errors, the partial-data error toast (a GraphQL response with `errors`) and requests
   without a recording.
+- `hp-sites/server.mjs`: serves the e2e library build and one site's `index.html` (`HP_SITE`) for
+  every other path, like a portal's Jekyll page. Add a site as a folder with an `index.html`, plus a
+  project and a `webServer` entry in `playwright.config.ts`.
 - `globalTeardown.ts`: fails the run on misses no test owns (server-side requests), and prunes
   under `E2E_PRUNE=1`.
 

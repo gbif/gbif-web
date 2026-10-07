@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query Collection($key: ID!) {\n    collection(key: $key) {\n      key\n      active\n      code\n      name\n      description\n      taxonomicCoverage\n      geographicCoverage\n      temporalCoverage\n      notes\n      homepage\n\n      numberSpecimens\n      incorporatedCollections\n\n      contentTypes\n\n      personalCollection\n      email\n      phone\n\n      catalogUrls\n      apiUrls\n      preservationTypes\n      accessionStatus\n\n      featuredImageUrl: thumbor(width: 1000, height: 667)\n      featuredImageLicense\n      featuredImageAttribution\n      featuredImageUrl_fallback: homepageOGImageUrl_volatile(onlyIfNoImageUrl: true, timeoutMs: 300)\n\n      created\n      deleted\n      modified\n      modifiedBy\n      replacedByCollection {\n        name\n        key\n      }\n\n      institutionKey\n      identifiers {\n        key\n        type\n        identifier\n        primary\n      }\n      contactPersons {\n        key\n        firstName\n        lastName\n        phone\n        email\n        taxonomicExpertise\n        primary\n        position\n        userIds {\n          type\n          id\n        }\n      }\n      alternativeCodes {\n        code\n        description\n      }\n      institution {\n        code\n        name\n        key\n      }\n\n      mailingAddress {\n        address\n        city\n        province\n        postalCode\n        country\n      }\n      address {\n        address\n        city\n        province\n        postalCode\n        country\n      }\n      descriptorGroups(limit: 0) {\n        count\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9"
+      },
+      "operationName": "Collection"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"collection\":{\"key\":\"85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9\",\"active\":true,\"code\":\"E\",\"name\":\"NHMA Entomology Collection\",\"description\":null,\"taxonomicCoverage\":null,\"geographicCoverage\":null,\"temporalCoverage\":null,\"notes\":null,\"homepage\":null,\"numberSpecimens\":null,\"incorporatedCollections\":[],\"contentTypes\":[],\"personalCollection\":false,\"email\":[],\"phone\":[],\"catalogUrls\":[],\"apiUrls\":[],\"preservationTypes\":[],\"accessionStatus\":null,\"featuredImageUrl\":null,\"featuredImageLicense\":null,\"featuredImageAttribution\":null,\"featuredImageUrl_fallback\":null,\"created\":\"2021-12-09T08:24:33.792+00:00\",\"deleted\":null,\"modified\":\"2021-12-09T09:44:19.188+00:00\",\"modifiedBy\":\"fedoras128\",\"replacedByCollection\":null,\"institutionKey\":\"59f46093-8fae-47f3-a9ef-e5fd1d38e4fe\",\"identifiers\":[],\"contactPersons\":[],\"alternativeCodes\":[],\"institution\":{\"code\":\"NHMA\",\"name\":\"Natural History Museum, Aarhus Denmark\",\"key\":\"59f46093-8fae-47f3-a9ef-e5fd1d38e4fe\"},\"mailingAddress\":{\"address\":null,\"city\":\"Aarhus\",\"province\":null,\"postalCode\":null,\"country\":\"DK\"},\"address\":{\"address\":null,\"city\":\"Aarhus\",\"province\":null,\"postalCode\":null,\"country\":\"DK\"},\"descriptorGroups\":{\"count\":0}}}}\n"
+}
