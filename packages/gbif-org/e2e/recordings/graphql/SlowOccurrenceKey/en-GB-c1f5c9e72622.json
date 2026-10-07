@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query SlowOccurrenceKey($key: ID!, $language: String!, $defaultChecklistKey: ID) {\n    occurrence(key: $key) {\n      key\n      localContexts {\n        project_page\n        title\n        notice {\n          name(lang: $language)\n          img_url\n        }\n        labels {\n          name(lang: $language)\n          img_url\n          communityName\n        }\n      }\n      institution {\n        name\n      }\n      collection {\n        name\n      }\n\n      classification(checklistKey: $defaultChecklistKey) {\n        vernacularNames(lang: $language, maxLimit: 1) {\n          name\n          reference {\n            id\n            citation\n          }\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "5938027305",
+        "language": "eng",
+        "defaultChecklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+      },
+      "operationName": "SlowOccurrenceKey"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrence\":{\"key\":5938027305,\"localContexts\":null,\"institution\":null,\"collection\":null,\"classification\":{\"vernacularNames\":[{\"name\":\"Brewer's Blackbird\",\"reference\":null}]}}}}\n"
+}

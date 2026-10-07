@@ -30,6 +30,7 @@ npm run e2e:rerecord               # full run in record mode, then delete record
 
 ## Writing a spec
 
+- New page type: add a row to `specs/gbif/smoke.spec.ts`.
 - Put it in the file for its area (`specs/gbif/<area>.spec.ts`); redirects go in `redirects.spec.ts`.
 - Assert on content (title, `h1`, visible text). Error boundaries swallow render crashes, so "no
   exceptions" alone does not prove the page works.
