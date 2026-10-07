@@ -1,3 +1,4 @@
+import { useConfig } from '@/config/config';
 import useFetchGet from '@/hooks/useFetchGet';
 import React from 'react';
 import { useIntl } from 'react-intl';
@@ -22,6 +23,7 @@ export function OrganizationSearchSugget({
   className,
 }: Props) {
   const intl = useIntl();
+  const config = useConfig();
   const { load, data } = useFetchGet<Array<OrganizationOption>>({
     lazyLoad: true,
   });
@@ -29,11 +31,11 @@ export function OrganizationSearchSugget({
   const searchOrganizations = React.useCallback(
     (searchTerm: string) => {
       load({
-        endpoint: `https://api.gbif.org/v1/organization/suggest?limit=10&q=${searchTerm}`,
+        endpoint: `${config.v1Endpoint}/organization/suggest?limit=10&q=${encodeURIComponent(searchTerm)}`,
         keepDataWhileLoading: true,
       });
     },
-    [load]
+    [load, config.v1Endpoint]
   );
 
   return (
