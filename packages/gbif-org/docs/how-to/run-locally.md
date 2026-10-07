@@ -6,7 +6,7 @@ For seeing a change in the real app, e.g. in a cloud agent session without the p
 ## gbif-org against deployed GraphQL
 
 ```
-CYPRESS_INSTALL_BINARY=0 npm ci   # Cypress binary download is blocked in sandboxes; not needed
+npm ci
 ```
 
 `cp .env.example .env`: public production endpoints and placeholder secrets.
