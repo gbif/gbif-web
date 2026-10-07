@@ -375,7 +375,7 @@
       "noSequencesTitle": "Aucune séquence d'ADN n'a été trouvée lors de cette recherche",
       "noSequencesDescription": "Ce format n'est disponible que pour les recherches contenant des séquences d'ADN.",
       "someSequencesTitle": "Seuls les enregistrements contenant des séquences ADN sont inclus",
-      "someSequencesDescription": "",
+      "someSequencesDescription": "{included} des {total} enregistrements de votre recherche comportent une séquence d'ADN. Les autres {discarded} enregistrements ne seront pas inclus dans le téléchargement.",
       "recordsIncluded": "Enregistrements inclus"
     }
   },
