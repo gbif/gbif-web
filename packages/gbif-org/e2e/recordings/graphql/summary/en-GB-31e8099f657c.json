@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: topics\n        }\n        facet {\n          results: topics(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "topics"
+            },
+            {
+              "type": "equals",
+              "key": "gbifDatasetKey",
+              "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 50,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":195},\"cardinality\":{\"total\":17},\"facet\":{\"results\":[{\"key\":\"ECOLOGY\",\"count\":46},{\"key\":\"SPECIES_DISTRIBUTIONS\",\"count\":42},{\"key\":\"CONSERVATION\",\"count\":37},{\"key\":\"TAXONOMY\",\"count\":31},{\"key\":\"EVOLUTION\",\"count\":20},{\"key\":\"INVASIVES\",\"count\":19},{\"key\":\"HUMAN_HEALTH\",\"count\":16},{\"key\":\"AGRICULTURE\",\"count\":15},{\"key\":\"BIODIVERSITY_SCIENCE\",\"count\":15},{\"key\":\"PHYLOGENETICS\",\"count\":13},{\"key\":\"MARINE\",\"count\":9},{\"key\":\"FRESHWATER\",\"count\":7},{\"key\":\"BIOGEOGRAPHY\",\"count\":6},{\"key\":\"DATA_MANAGEMENT\",\"count\":4},{\"key\":\"DATA_PAPER\",\"count\":3},{\"key\":\"CLIMATE_CHANGE\",\"count\":2},{\"key\":\"ECOSYSTEM_SERVICES\",\"count\":1}]}}}}\n"
+}

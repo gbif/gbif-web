@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/occurrence/search?limit=0&taxonKey=4DXXM&country=AO&checklistKey=7ddf754f-d193-4cc9-b351-99906754a03b"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "{\"offset\":0,\"limit\":0,\"endOfRecords\":false,\"count\":492,\"results\":[],\"facets\":[]}"
+}
