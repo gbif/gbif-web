@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import type { GetModuleInfo } from 'rollup';
 import react from '@vitejs/plugin-react-swc';
 import { createRequire } from 'module';
@@ -72,6 +73,10 @@ export default defineConfig(({ command, isSsrBuild }) => {
               },
             },
       },
+    },
+    // Playwright specs in e2e/ match Vitest's default pattern but are not Vitest tests.
+    test: {
+      exclude: ['**/node_modules/**', '**/dist/**', 'e2e/**'],
     },
     resolve: {
       alias: [

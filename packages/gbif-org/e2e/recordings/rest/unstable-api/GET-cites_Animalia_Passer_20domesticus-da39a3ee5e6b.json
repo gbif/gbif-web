@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://graphql.gbif.org/unstable-api/cites/Animalia/Passer%20domesticus"
+  },
+  "status": 418,
+  "contentType": "text/html; charset=utf-8",
+  "encoding": "utf8",
+  "body": "Thirdparty endpoints are not available for bots to avoid overloading external services."
+}
