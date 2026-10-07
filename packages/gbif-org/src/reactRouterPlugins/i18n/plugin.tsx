@@ -29,8 +29,10 @@ export function applyI18nPlugin(
   if (!defaultLanguage) throw new Error('No default language found');
 
   return config.languages.map((localeOption) => {
+    const id = `i18n-root-${localeOption.code}`;
     const withI18n = (children: React.ReactNode) => (
       <I18nContextProvider
+        routeId={id}
         locale={localeOption}
         availableLocales={config.languages}
         defaultLocale={defaultLanguage}
@@ -39,6 +41,7 @@ export function applyI18nPlugin(
       </I18nContextProvider>
     );
     return {
+      id,
       description: `Root route for ${localeOption.label}`,
       path: defaultLanguage.code === localeOption.code ? '/' : localeOption.code,
       shouldRevalidate() {
@@ -54,7 +57,7 @@ export function applyI18nPlugin(
       // The error element replaces the element, provider included. A portal that has not enabled
       // the catch-all alias route hits this on any unknown path, e.g. a disabled page's URL.
       errorElement: (
-        <ErrorMessages config={config} locale={localeOption}>
+        <ErrorMessages config={config} locale={localeOption} routeId={id}>
           {withI18n(<RootErrorPage />)}
         </ErrorMessages>
       ),

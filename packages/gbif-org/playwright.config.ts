@@ -25,7 +25,8 @@ export default defineConfig({
   globalSetup: './e2e/globalSetup.ts',
   globalTeardown: './e2e/globalTeardown.ts',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
+  // A test.only re-record would run a few tests and prune every other recording.
+  forbidOnly: !!process.env.CI || process.env.E2E_PRUNE === '1',
   retries: 0,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {

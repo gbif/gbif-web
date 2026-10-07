@@ -9,7 +9,6 @@ without SSR: `hp-all-entities` (`specs/hp/`, `hp-sites/all-entities/`, `:3200`) 
 ```bash
 npx playwright install chromium   # once per machine
 npm run e2e:build                  # after any source change (~2.5 min); the run refuses a stale build
-node e2e/build.mjs gbif|hp         # rebuild one target only
 npm run e2e                        # replay recorded upstream data
 npm run e2e:record                 # forward unrecorded requests to production GBIF and save them
 npm run e2e:rerecord               # full run in record mode, then delete recordings no test used

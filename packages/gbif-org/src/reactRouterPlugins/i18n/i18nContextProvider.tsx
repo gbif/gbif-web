@@ -2,7 +2,7 @@ import { LanguageOption } from '@/config/config';
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom';
 import { extractLocaleFromPathname } from './extractLocaleFromURL';
 import { useMessages } from './messagesContext';
 import { DirectionProvider } from '@radix-ui/react-direction';
@@ -28,18 +28,27 @@ export function useI18n() {
 
 type Props = {
   children: React.ReactNode;
+  // The locale route's id. Read by id because this provider also wraps that route's errorElement,
+  // where useLoaderData logs an error and returns undefined.
+  routeId: string;
   locale: LanguageOption;
   defaultLocale: LanguageOption;
   availableLocales: LanguageOption[];
 };
 
-export function I18nContextProvider({ children, locale, defaultLocale, availableLocales }: Props) {
+export function I18nContextProvider({
+  children,
+  routeId,
+  locale,
+  defaultLocale,
+  availableLocales,
+}: Props) {
   // On the initial (SSR) render the loader returns nothing, so we use the messages provided via
   // MessagesProvider (server-rendered / fetched before hydration) - this matches the SSR HTML and
   // avoids a hydration mismatch. On a client-side language switch the (client-only) loader provides
   // the target locale's messages, which take precedence.
   const contextMessages = useMessages();
-  const loaderData = useLoaderData() as { messages?: Record<string, string> } | null;
+  const loaderData = useRouteLoaderData(routeId) as { messages?: Record<string, string> } | null;
   const messages = loaderData?.messages ?? contextMessages;
   const location = useLocation();
   const navigate = useNavigate();
