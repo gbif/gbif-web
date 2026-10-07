@@ -1,6 +1,12 @@
 //actual used
-export function getJazzicon(seed, diameter, className) {
-  diameter = diameter || 100;
+/**
+ * @param {string | number} [seed]
+ * @param {number} [diameterArg]
+ * @param {string} [className]
+ * @returns {string}
+ */
+export function getJazzicon(seed, diameterArg, className) {
+  const diameter = diameterArg || 100;
   seed = seed || Math.random() * Number.MAX_SAFE_INTEGER;
   if (typeof seed !== 'number') seed = hash(seed);
 
@@ -20,6 +26,11 @@ export function getJazzicon(seed, diameter, className) {
 
   let random = mulberry32(seed);
 
+  /**
+   * @param {string[]} remainingColors
+   * @param {number} total
+   * @param {number} i
+   */
   function getRectangle(remainingColors, total, i) {
     const center = diameter / 2;
     const firstRot = random();
@@ -53,6 +64,7 @@ export function getJazzicon(seed, diameter, className) {
 }
 
 //a hash value based on the username could be used as the seed value
+/** @param {string} str */
 var hash = function (str) {
   var hash = 0,
     i,
@@ -66,6 +78,7 @@ var hash = function (str) {
   return hash;
 };
 
+/** @param {number} a */
 function mulberry32(a) {
   return function () {
     var t = (a += 0x6d2b79f5);
@@ -75,6 +88,10 @@ function mulberry32(a) {
   };
 }
 
+/**
+ * @param {string[]} colors
+ * @param {() => number} random
+ */
 let genColor = (colors, random) => {
   const idx = Math.floor(colors.length * random());
   const color = colors.splice(idx, 1)[0];

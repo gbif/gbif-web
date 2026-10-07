@@ -26,7 +26,7 @@ const css_classes = {
 
 type TreeData = {
   nwk?: string;
-  tipTranslation?: unknown;
+  tipTranslation?: Record<string, string> | null;
 };
 const pathToRoot = (node: { parent: never }) => {
   const edgeSelection = [];
@@ -50,7 +50,7 @@ const Phylogeny = ({
   phyloTreeTipLabel?: string;
   phyloTreeFileName: string;
 }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [treeData, setTreeData] = useState<TreeData>({});
   const [loading, setLoading] = useState(true);
@@ -79,7 +79,7 @@ const Phylogeny = ({
         setTreeData({ nwk, tipTranslation });
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setTreeData({});
         setLoading(false);
       });
@@ -103,7 +103,7 @@ const Phylogeny = ({
       }
 
       const selectedNode = phyloTreeTipLabel
-        ? tree.getNodeByName(phyloTreeTipLabel.replaceAll(' ', '_'))
+        ? tree.getNodeByName(phyloTreeTipLabel.replace(/ /g, '_'))
         : null;
       const edgeSelection = selectedNode ? pathToRoot(selectedNode) : [];
       const options = {
@@ -155,7 +155,7 @@ const Phylogeny = ({
         'left-right-spacing:': 'fit-to-size',
         'node-styler': function (
           element: {
-            style: (arg0: string, arg1: string, arg2: string | undefined) => void;
+            style: (arg0: string, arg1: string, arg2?: string) => void;
             on: (arg0: string, arg1: (e: any) => void) => void;
           },
           data: {
@@ -174,7 +174,7 @@ const Phylogeny = ({
           if (data?.data?.name && !data.children) {
             element.style('cursor', 'pointer');
           }
-          element.on('click', function (event: any) {
+          element.on('click', function () {
             if (data.data.name && !data.children) {
               let searchTerm = '';
               const parts = data.data.name.split('_');

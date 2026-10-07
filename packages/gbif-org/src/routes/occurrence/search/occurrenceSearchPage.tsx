@@ -3,7 +3,10 @@ import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ChecklistSelector } from '@/components/filters/checklistSelector';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
-import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
+import {
+  MobileFiltersTrigger,
+  useIsMobileFilterSheetActive,
+} from '@/components/filters/mobileFilters';
 import { Tabs } from '@/components/tabs';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -43,8 +46,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
   // The "Similar sequences" filter stores only the sequence + selected bins in the URL;
   // resolve the matched nucleotideSequenceIDs into the in-memory filter (so the predicate
   // can be built) and strip them again before persisting back to the URL.
-  const { filter: augmentedFilter, sequenceResolutionPending } =
-    useSequenceAugmentedFilter(filter);
+  const { filter: augmentedFilter, sequenceResolutionPending } = useSequenceAugmentedFilter(filter);
   const persistFilter = useCallback(
     (next: FilterType) => setFilter(stripSequenceFilterIds(next)),
     [setFilter]
@@ -150,12 +152,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
       <EntityDrawer />
       <section className="g-bg-white">
         <Card>
-          <OccurrenceViewTabs
-            view={view}
-            defaultView={defaultView}
-            tabs={searchContext.tabs}
-            className="g-border-b"
-          />
+          <OccurrenceViewTabs view={view} defaultView={defaultView} tabs={searchContext.tabs} />
           <FilterBarWithActions filters={filters} groups={groups} />
         </Card>
       </section>

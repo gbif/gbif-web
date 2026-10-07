@@ -12,10 +12,8 @@ import {
   ContactTitle,
   ExpandableContact,
 } from '@/components/contact';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { NodeContactsFragment } from '@/gql/graphql';
-import { DirectoryContactDialogContent } from '@/routes/custom/contact-us/directoryContactDialog';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MaybeArray } from '@/types';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';

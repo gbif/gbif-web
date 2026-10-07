@@ -27,7 +27,6 @@ export function PredicateDownloadFlow({
     total,
     sequencedTotal,
     loading,
-    error,
     predicate: normalizedPredicate,
   } = usePredicateInformation({
     predicate: currentStep !== 'PREDICATE' ? predicate : undefined,

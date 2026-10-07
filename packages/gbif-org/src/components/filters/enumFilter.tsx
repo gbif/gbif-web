@@ -34,7 +34,7 @@ type EnumProps = Omit<filterEnumConfig, 'filterType' | 'filterTranslation'> &
     className?: string;
   };
 
-export const EnumFilter = React.forwardRef(
+export const EnumFilter = React.forwardRef<HTMLButtonElement, EnumProps>(
   (
     {
       className,
@@ -50,7 +50,7 @@ export const EnumFilter = React.forwardRef(
       allowNegations,
       allowExistence,
       extraFacetVariables,
-    }: EnumProps,
+    },
     ref
   ) => {
     const searchContext = useSearchContext();

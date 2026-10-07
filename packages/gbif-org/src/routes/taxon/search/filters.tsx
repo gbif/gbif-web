@@ -14,7 +14,6 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
 
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';

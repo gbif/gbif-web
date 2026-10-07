@@ -1,5 +1,5 @@
 import { buttonVariants } from '@/components/ui/button';
-import { UserError, useUser } from '@/contexts/UserContext';
+import { UserError, UserErrorType, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -36,6 +36,7 @@ import { commonClasses } from '../shared/utils';
 export const LoginSkeleton = ArticleSkeleton;
 
 type ErrorType =
+  | UserErrorType
   | 'CRYPTO_NOT_SUPPORTED'
   | 'PROOF_OF_WORK_FAILED'
   | 'INVALID_SOLUTION'
@@ -529,7 +530,7 @@ function RegisterForm() {
         }
 
         // show error message
-        setError(err.type ?? 'REGISTRATION_FAILED');
+        setError((err as Partial<UserError>)?.type ?? 'REGISTRATION_FAILED');
         setIsLoading(false);
         return;
       }

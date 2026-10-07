@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 
-const Cites = ({ taxonName, kingdom }) => {
-  const [data, setData] = useState(null);
-  const [updated, setUpdated] = useState(null);
+type CitesResponse = { cites_listing?: string; _reference?: string; updated_at: string };
+
+const Cites = ({ taxonName, kingdom }: { taxonName: string; kingdom?: string | null }) => {
+  const [data, setData] = useState<CitesResponse | null>(null);
+  const [updated, setUpdated] = useState<number | null>(null);
   useEffect(() => {
     fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/cites/${kingdom}/${taxonName}`)
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: CitesResponse) => {
         setData(data);
         setUpdated(new Date(data.updated_at).getFullYear());
       })

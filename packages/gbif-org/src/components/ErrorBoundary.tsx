@@ -20,6 +20,9 @@ interface ErrorBoundaryProps {
   fallback?: React.ReactNode;
 }
 
+// QueryError (hooks/useQuery) attaches the failing query for debugging.
+type DebuggableError = Error & { query?: string; variables?: object };
+
 interface ErrorBoundaryState {
   error: Error | null;
 }
@@ -100,7 +103,7 @@ export function ErrorComponent({
   debugTitle,
   reload,
 }: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children' | 'fallback'> & {
-  error: Error;
+  error?: DebuggableError;
   reload?: () => void | boolean;
 }): React.ReactElement {
   const [showStack, setShowStack] = useState(false);
@@ -220,7 +223,7 @@ function generateGithubIssueBody({
   additionalInfo,
   occurrenceSort,
 }: {
-  error: Error;
+  error?: DebuggableError;
   title?: string;
   additionalInfo?: string;
   occurrenceSort?: { sortBy?: OccurrenceSortBy; sortOrder: SortOrder };
@@ -256,11 +259,13 @@ ${url}
 `;
 }
 
-export function ErrorBlock(props) {
+type ErrorComponentProps = Omit<React.ComponentProps<typeof ErrorComponent>, 'type'>;
+
+export function ErrorBlock(props: ErrorComponentProps) {
   return <ErrorComponent {...props} type="BLOCK" />;
 }
 
-export function ErrorPage(props) {
+export function ErrorPage(props: ErrorComponentProps) {
   return <ErrorComponent {...props} type="PAGE" />;
 }
 

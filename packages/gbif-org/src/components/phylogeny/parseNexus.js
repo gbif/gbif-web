@@ -1,5 +1,15 @@
+// @ts-nocheck -- ported third-party NEXUS parser (Rod Page); typed only at its export below.
 /* eslint-disable */
 
+/**
+ * @typedef {{ newick?: string }} NexusTree
+ * @typedef {{ treesblock?: { trees?: NexusTree[]; translate?: Record<string, string> } }} Nexus
+ */
+
+/**
+ * @param {string} nexusString
+ * @returns {Nexus}
+ */
 const parseNexus = (nexusString) => {
   /**
    * Very basic NEXUS parser

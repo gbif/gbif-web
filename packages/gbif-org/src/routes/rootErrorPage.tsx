@@ -20,11 +20,12 @@ export function RootErrorPage(): React.ReactElement {
 
   return (
     <ErrorComponent
-      error={error}
+      // useRouteError is untyped; ErrorComponent copes with non-Error values
+      error={error as Error}
       type={'PAGE'}
       // title={this.props.title}
       showReportButton={true}
-      reload={true}
+      reload={() => window.location.reload()}
     />
   );
 }
@@ -105,7 +106,8 @@ export function usePartialDataNotification() {
       toast({
         title: formatMessage({ id: 'error.partialData' }),
         variant: 'destructive',
-        'data-cy': 'partial-data-error',
+        // data-* attributes reach the Radix root but are not part of its prop type
+        ...{ 'data-cy': 'partial-data-error' },
       });
     }
   }, [location.pathname, toast, formatMessage, hasNotified, setHasNotified]);

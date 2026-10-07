@@ -1,6 +1,7 @@
 import { MultiOptionsFilterComponent } from './multiOptionsFilter';
 import { FilterType, TableFilter } from './types';
-import { SetFilter } from '@/hooks/useFilters';
+
+type SetFilter = (filter: { id: string; values: string[] }) => void;
 
 type Props = {
   filters: Array<TableFilter>;

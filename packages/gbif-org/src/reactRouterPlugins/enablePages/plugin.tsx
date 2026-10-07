@@ -57,7 +57,7 @@ function addRedirectToLoader(
       // but the loader will be called if the page is accessed directly or server side rendered
       // TODO: Do we want to redirect to GBIF.org in this case? A 404 page could maybe be more appropriate
       routeCopy.loader = (...args) => {
-        const redirectPath = route.gbifRedirect?.(args[0].params);
+        const redirectPath = route.gbifRedirect?.(args[0].params, args[0].locale);
         if (redirectPath && !routeCopy.isCustom) {
           return redirectDocument(redirectPath);
         }

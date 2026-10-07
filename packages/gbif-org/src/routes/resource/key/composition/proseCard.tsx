@@ -1,5 +1,4 @@
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
-import { HyperText } from '@/components/hyperText';
 import { ProseCardImgFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';

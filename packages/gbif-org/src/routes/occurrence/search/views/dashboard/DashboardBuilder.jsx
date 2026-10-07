@@ -17,10 +17,25 @@ import {
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useUncontrolledProp } from 'uncontrollable';
 
+/**
+ * @typedef {import('./layoutSerialization').ChartItem} ChartItem
+ * @typedef {import('./layoutSerialization').Layout} Layout
+ * @typedef {{ translation?: string, r?: boolean, component: React.ComponentType<any> }} ChartType
+ * @typedef {Record<string, ChartType>} ChartTypes
+ * @typedef {(value: Layout, useUrl?: boolean) => void} SetLayout
+ * @typedef {(item: ChartItem, index: number) => void} UpdateItem
+ * @typedef {(args: { index: number }) => void} DeleteItem
+ */
+
 function generateRandomId() {
   return Math.random().toString(36).substring(2, 7);
 }
 
+/**
+ * @param {string} type
+ * @param {ChartTypes} chartsTypes
+ * @returns {ChartItem | undefined}
+ */
 const getItem = (type, chartsTypes) => {
   const chart = chartsTypes[type];
   if (!chart) return;
@@ -33,6 +48,12 @@ const getItem = (type, chartsTypes) => {
   };
 };
 
+/**
+ * @template T
+ * @param {T[]} list
+ * @param {number} startIndex
+ * @param {number} endIndex
+ */
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
@@ -41,6 +62,13 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
+/**
+ * @template T
+ * @param {T[]} source
+ * @param {T[]} destination
+ * @param {import('@hello-pangea/dnd').DraggableLocation} droppableSource
+ * @param {import('@hello-pangea/dnd').DraggableLocation} droppableDestination
+ */
 const move = (source, destination, droppableSource, droppableDestination) => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
@@ -48,6 +76,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
   destClone.splice(droppableDestination.index, 0, removed);
 
+  /** @type {Record<string, T[]>} */
   const result = {};
   result[droppableSource.droppableId] = sourceClone;
   result[droppableDestination.droppableId] = destClone;
@@ -56,11 +85,15 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 const grid = 8;
 
-const getItemStyle = (isDragging, draggableStyle, index) => ({
+/**
+ * @param {boolean} isDragging
+ * @param {import('@hello-pangea/dnd').DraggableStyle | undefined} draggableStyle
+ */
+const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
+  userSelect: /** @type {const} */ ('none'),
   margin: `0 0 ${grid * 2}px 0`,
-  position: 'relative',
+  position: /** @type {const} */ ('relative'),
   zindex: 1,
   outlineStyle: isDragging ? 'auto' : '',
   outlineColor: isDragging ? 'deepskyblue' : '',
@@ -72,7 +105,10 @@ const getItemStyle = (isDragging, draggableStyle, index) => ({
   ...draggableStyle,
 });
 
-const getListStyle = ({ isDraggingOver, width, index, maxGroups, groupCount }) => {
+/**
+ * @param {{ isDraggingOver: boolean, width: number, index: number }} args
+ */
+const getListStyle = ({ isDraggingOver, width, index }) => {
   const style =
     index === 0
       ? {
@@ -92,17 +128,29 @@ const getListStyle = ({ isDraggingOver, width, index, maxGroups, groupCount }) =
   };
 };
 
+/**
+ * @param {{
+ *   predicate?: import('@/gql/graphql').Predicate,
+ *   q?: string,
+ *   chartsTypes: ChartTypes,
+ *   state?: Layout,
+ *   setState?: SetLayout,
+ *   lockedLayout?: boolean,
+ * }} props
+ */
 function DashboardBuilder({
   predicate,
   q,
   chartsTypes,
   state: controlledState,
   setState: setControlledState,
-  isUrlLayoutDifferent,
   lockedLayout,
-  ...props
 }) {
-  const [state, setState] = useUncontrolledProp(controlledState, [[]], setControlledState);
+  const [state, setState] = useUncontrolledProp(
+    controlledState,
+    /** @type {Layout} */ ([[]]),
+    setControlledState
+  );
   const { toast } = useToast();
   const [isDragging, setIsDragging] = useState(false);
   const isBelow800 = useBelow(1100);
@@ -157,6 +205,7 @@ function DashboardBuilder({
     setIsDragging(true);
   };
 
+  /** @param {import('@hello-pangea/dnd').DropResult} result */
   function onDragEnd(result) {
     setIsDragging(false);
     const { source, destination } = result;
@@ -185,6 +234,7 @@ function DashboardBuilder({
   }
 
   // add function to update individual item in the state
+  /** @param {{ groupIndex: number, itemIndex: number, item: ChartItem }} args */
   function updateItemProps({ groupIndex, itemIndex, item }) {
     const newState = [...state];
     newState[groupIndex][itemIndex] = item;
@@ -199,6 +249,7 @@ function DashboardBuilder({
     setState([...state, []]);
   }
 
+  /** @param {number} index */
   function removeColumn(index) {
     const newState = [...state];
     newState.splice(index, 1);
@@ -261,10 +312,7 @@ function DashboardBuilder({
                       style={getListStyle({
                         isDraggingOver: snapshot.isDraggingOver,
                         width: 100 / Math.min(maxGroups, state.length),
-                        maxGroups,
-                        groupCount: state.length,
                         index: ind,
-                        deviceSize,
                       })}
                       {...provided.droppableProps}
                     >
@@ -293,8 +341,9 @@ function DashboardBuilder({
                         onAdd={(type) => {
                           // add new item to this group
                           const newState = [...state];
-                          if (getItem(type, chartsTypes)) {
-                            newState[ind].push(getItem(type, chartsTypes));
+                          const item = getItem(type, chartsTypes);
+                          if (item) {
+                            newState[ind].push(item);
                             setState(newState);
                           } else {
                             console.warn('type not found', type);
@@ -352,6 +401,24 @@ function DashboardBuilder({
   );
 }
 
+/**
+ * @param {{
+ *   items: ChartItem[],
+ *   lockedLayout?: boolean,
+ *   onDelete: DeleteItem,
+ *   onAdd: (type: string) => void,
+ *   onUpdateItem: UpdateItem,
+ *   chartsTypes: ChartTypes,
+ *   isDragging: boolean,
+ *   predicate?: import('@/gql/graphql').Predicate,
+ *   q?: string,
+ *   disableAdd: boolean,
+ *   addNewGroup: () => void,
+ *   removeColumn: () => void,
+ *   columnCount: number,
+ *   isLastGroup: boolean,
+ * }} props
+ */
 function Column({
   items: el,
   lockedLayout,
@@ -394,6 +461,18 @@ function Column({
   );
 }
 
+/**
+ * @param {{
+ *   item: ChartItem,
+ *   index: number,
+ *   onDelete: DeleteItem,
+ *   onUpdateItem: UpdateItem,
+ *   predicate?: import('@/gql/graphql').Predicate,
+ *   q?: string,
+ *   lockedLayout?: boolean,
+ *   chartsTypes?: ChartTypes,
+ * }} props
+ */
 function Item({
   item,
   index,
@@ -407,7 +486,8 @@ function Item({
   const { t: type, p: params = {} } = item;
   // Resizable is a code-level property of the chart type, read from the registry.
   const resizable = chartsTypes[type]?.r ?? false;
-  const { h: height = 500, ...componentProps } = params;
+  const { h: height = 500, ...componentProps } =
+    /** @type {{ h?: number, [key: string]: unknown }} */ (params);
   const Component =
     chartsTypes[type]?.component ??
     (() => (
@@ -420,6 +500,7 @@ function Item({
   // persist its own settings (e.g. the selected taxonomic rank) into the
   // shareable layout without clobbering other params such as the current view
   // or the resized height.
+  /** @param {Record<string, unknown>} newParams */
   const onParamsChange = (newParams) =>
     onUpdateItem({ ...item, p: { ...params, ...newParams } }, index);
   const content = (
@@ -428,18 +509,18 @@ function Item({
       q={q}
       {...componentProps}
       onParamsChange={onParamsChange}
-      setView={(view) => onParamsChange({ view })}
+      setView={(/** @type {unknown} */ view) => onParamsChange({ view })}
     />
   );
 
   const canBeResized = resizable && !lockedLayout;
   return (
-    <Draggable key={item.id} draggableId={item.id} index={index}>
+    <Draggable key={item.id} draggableId={/** @type {string} */ (item.id)} index={index}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style, item.index)}
+          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
         >
           {/* Custom Drag Handle (Corner) */}
           {!lockedLayout && (
@@ -477,7 +558,7 @@ function Item({
               size={{
                 height,
               }}
-              onResizeStop={(e, direction, ref, d) => {
+              onResizeStop={(_e, _direction, _ref, d) => {
                 onUpdateItem({ ...item, p: { ...params, h: height + d.height } }, index);
               }}
             >
@@ -490,6 +571,14 @@ function Item({
   );
 }
 
+/**
+ * @param {{
+ *   onAdd: (type: string) => void,
+ *   removeColumn: () => void,
+ *   chartsTypes: ChartTypes,
+ *   columnCount: number,
+ * }} props
+ */
 function EmptyColumn({ onAdd, removeColumn, chartsTypes, columnCount }) {
   // if the columns is empty, then show a larger card with a placeholder graph and provide the user 3 options: add chart, delete column or add additional column.
   return (
@@ -502,6 +591,15 @@ function EmptyColumn({ onAdd, removeColumn, chartsTypes, columnCount }) {
   );
 }
 
+/**
+ * @param {{
+ *   onAdd: (type: string) => void,
+ *   chartsTypes: ChartTypes,
+ *   removeColumn: () => void,
+ *   isEmpty?: boolean,
+ *   columnCount: number,
+ * }} props
+ */
 function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty, columnCount }) {
   const intl = useIntl();
   const messageRemove = intl.formatMessage({ id: 'dashboard.removeEmptyGroup' });
@@ -518,6 +616,7 @@ function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty, columnCount 
   );
 }
 
+/** @type {Record<string, { values: string[] }>} */
 const chartGroups = {
   views: {
     values: ['map', 'table', 'gallery'],
@@ -653,10 +752,13 @@ const chartGroups = {
   },
 };
 
+/**
+ * @param {{ onAdd: (type: string) => void, chartsTypes: ChartTypes }} props
+ */
 function CreateOptions({ onAdd, chartsTypes }) {
   const intl = useIntl();
   const messageNew = intl.formatMessage({ id: 'dashboard.addNew' });
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption] = useState('');
   // get translations for all the dashboard names
   const dashboardTitles = Object.keys(chartsTypes).reduce((acc, type) => {
     acc[type] = intl.formatMessage({
@@ -664,14 +766,16 @@ function CreateOptions({ onAdd, chartsTypes }) {
       defaultMessage: type,
     });
     return acc;
-  }, {});
+  }, /** @type {Record<string, string>} */ ({}));
 
+  /** @param {React.ChangeEvent<HTMLSelectElement>} event */
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     if (selectedValue === '') return;
     onAdd(selectedValue);
   };
 
+  /** @type {Record<string, { value: string, label: string }[]>} */
   const groupOrdering = {
     views: [],
     record: [],

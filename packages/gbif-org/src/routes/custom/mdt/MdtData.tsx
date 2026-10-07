@@ -1,4 +1,4 @@
-import { MdtDatasetsQuery, MdtDatasetsQueryVariables } from '@/gql/graphql';
+import { MdtDatasetsQuery, MdtDatasetsQueryVariables, PredicateType } from '@/gql/graphql';
 import { useQuery } from '@/hooks/useQuery';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
@@ -54,23 +54,20 @@ export const MdtDataContext = createContext<{
 }>({ datasetKeys: [], data: undefined });
 
 const MdtData = () => {
-  const { data, load, loading } = useQuery<MdtDatasetsQuery, MdtDatasetsQueryVariables>(
-    MDT_DATASETS,
-    {
-      lazyLoad: true,
-      throwAllErrors: true,
-    }
-  );
+  const { data, load } = useQuery<MdtDatasetsQuery, MdtDatasetsQueryVariables>(MDT_DATASETS, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  });
 
   const [datasetKeys, setDatasetKeys] = useState<string[]>([]);
   useEffect(() => {
     load({
       variables: {
         predicate: {
-          type: 'or',
+          type: PredicateType.Or,
           predicates: [
             {
-              type: 'in',
+              type: PredicateType.In,
               key: 'key',
               values: [
                 'b25f8b06-feca-4cdd-84a7-f69ecb7410f5',
@@ -88,7 +85,7 @@ const MdtData = () => {
                 '9fc74265-28a7-4d62-97ea-33eb5588562e',
               ],
             },
-            { type: 'like', key: 'q', value: 'converter' },
+            { type: PredicateType.Like, key: 'q', value: 'converter' },
           ],
         },
       },

@@ -93,7 +93,7 @@ export default function About() {
                     value={institution.numberSpecimens}
                     labelId="institution.numberSpecimens"
                   />
-                  {!loading && count > 0 && (
+                  {!loading && typeof count === 'number' && count > 0 && (
                     <Property labelId="grscicoll.specimensViaGbif">
                       <DynamicLink to="./specimens">
                         <FormattedNumber value={count} />
@@ -334,7 +334,15 @@ export default function About() {
                       </li>
 
                       {primaryIdentifiers.map((x, i) => {
-                        const IdentifierItem = ({ link, text, type }) => (
+                        const IdentifierItem = ({
+                          link,
+                          text,
+                          type,
+                        }: {
+                          link: string;
+                          text: string;
+                          type: string;
+                        }) => (
                           <li className="g-mb-4">
                             <div
                               // css={css`color: var(--color400); font-size: 0.9em;`}

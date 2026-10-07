@@ -22,6 +22,12 @@ import {
   FilterSummaryType,
   getFilterSummary,
 } from './filterTools';
+import {
+  FilterValueObject,
+  isFilterValueObject,
+  isRangeFilterValue,
+  RangeBound,
+} from './filterValue';
 import { Option } from './option';
 import { rangeOrTerm } from './rangeFilter';
 
@@ -47,7 +53,7 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash } = currentFilterContext;
-    const [selected, setSelected] = useState<(string | number | object)[]>([]);
+    const [selected, setSelected] = useState<(string | number | FilterValueObject)[]>([]);
     const [start, setStart] = useState<string>('');
     const [startConcept, setStartConcept] = useState<GeoTimeOption | null>(null);
     const [type, setType] = useState<string>('between');
@@ -61,7 +67,10 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     const [filterType, setFilterType] = useState(
       filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
     );
-    const { upperBound = 'lte', lowerBound = 'gte' } = {};
+    const {
+      upperBound = 'lte',
+      lowerBound = 'gte',
+    }: { upperBound?: RangeBound; lowerBound?: RangeBound } = {};
     // generate a stable across renders unique id for the input field using nanoid()
     const inputEndId = useMemo(() => nanoid(), []);
     const [touched, setTouched] = useState({
@@ -265,6 +274,7 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
             <div role="group" className="g-text-base sm:g-text-sm">
               {selected.map((option) => {
                 let helpText;
+                const range = isRangeFilterValue(option) ? option.value : undefined;
                 if (typeof option === 'string' || typeof option === 'number') {
                   helpText = (
                     <FormattedMessage
@@ -273,7 +283,7 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                       values={{ from: option }}
                     />
                   );
-                } else if (option?.type === 'equals') {
+                } else if (isFilterValueObject(option) && option.type === 'equals') {
                   helpText = (
                     <FormattedMessage
                       id={`intervals.geoTime.e`}
@@ -284,21 +294,19 @@ export const GeoTimeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                 } else {
                   helpText = (
                     <>
-                      {option?.value && option?.value[lowerBound] && (
+                      {range?.[lowerBound] && (
                         <FormattedMessage
                           id={`intervals.geoTime.${lowerBound}`}
                           defaultMessage={'Filter name'}
-                          values={{ from: option?.value[lowerBound] }}
+                          values={{ from: range?.[lowerBound] }}
                         />
                       )}
-                      {option?.value && option?.value[upperBound] && option?.value[lowerBound] && (
-                        <>.&nbsp;</>
-                      )}
-                      {option?.value && option?.value[upperBound] && (
+                      {range?.[upperBound] && range?.[lowerBound] && <>.&nbsp;</>}
+                      {range?.[upperBound] && (
                         <FormattedMessage
                           id={`intervals.geoTime.${upperBound}`}
                           defaultMessage={'Filter name'}
-                          values={{ to: option?.value[upperBound] }}
+                          values={{ to: range?.[upperBound] }}
                         />
                       )}
                     </>
@@ -505,7 +513,7 @@ const GeoTimeInput = React.forwardRef<
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     className?: string;
   }
->(({ value, onChange, onConceptChange, filterFn }, ref) => {
+>(({ value, onChange, onConceptChange, filterFn }, _ref) => {
   const {
     data: concepts,
     error,

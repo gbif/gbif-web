@@ -1,4 +1,4 @@
-import { FaCog, FaFileAlt, FaDownload } from 'react-icons/fa';
+import { FaCog, FaFileAlt } from 'react-icons/fa';
 import { ComponentType } from 'react';
 import { FilterIcon } from '@/components/icons/icons';
 import { FaSection } from 'react-icons/fa6';

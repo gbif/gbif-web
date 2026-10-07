@@ -10,8 +10,6 @@ import { MentorsList } from './customComponents/mentorsList';
 import { ProjectsTable } from './customComponents/projects';
 import { PublisherDatasetTable } from './customComponents/publisherDatasetTable';
 import { TranslatorsList } from './customComponents/translatorsList';
-import { ProtectedForm } from '@/components/protectedForm';
-import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -59,7 +57,7 @@ function CustomComponent({
   resource,
 }: {
   resource: CustomComponentBlockDetailsFragment;
-}): React.ReactElement {
+}): React.ReactElement | null {
   if (!resource || !resource.componentType) {
     return null;
   }
@@ -68,19 +66,35 @@ function CustomComponent({
     // but our contentful data does not have them yet and adding them would make the transition to the new gbif.org less smooth.
     case 'translatorsList':
       return (
-        <TranslatorsList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />
+        <TranslatorsList
+          title={resource?.title ?? undefined}
+          tableStyle={resource?.settings?.tablestyle}
+        />
       );
     case 'ambassadorsList':
       return (
-        <AmbassadorsList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />
+        <AmbassadorsList
+          title={resource?.title ?? undefined}
+          tableStyle={resource?.settings?.tablestyle}
+        />
       );
     case 'mentorsList':
-      return <MentorsList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />;
+      return (
+        <MentorsList
+          title={resource?.title ?? undefined}
+          tableStyle={resource?.settings?.tablestyle}
+        />
+      );
     case 'graList':
-      return <GraList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />;
+      return (
+        <GraList title={resource?.title ?? undefined} tableStyle={resource?.settings?.tablestyle} />
+      );
     case 'ebbeWinnersList':
       return (
-        <EbbeWinnersTable title={resource?.title} tableStyle={resource?.settings?.tablestyle} />
+        <EbbeWinnersTable
+          title={resource?.title ?? undefined}
+          tableStyle={resource?.settings?.tablestyle}
+        />
       );
     case 'metabarcodingDataToolForm':
       return <MdtForm />;
@@ -99,7 +113,7 @@ function CustomComponent({
         <PublisherDatasetTable
           className="g-py-8"
           settings={resource?.settings}
-          title={resource?.title}
+          title={resource?.title ?? undefined}
         />
       );
     default:

@@ -14,17 +14,11 @@ const useLocalStorage = interopDefault(_useLocalStorage);
 import { FormattedMessage, useIntl } from 'react-intl';
 import { PredicateDisplay } from '@/routes/occurrence/download/key/predicate';
 import { validatePredicate } from '@/routes/occurrence/download/editor/validate';
-import { ApplyCancel } from './filterTools';
+import { ApplyCancel, ContentOnApply } from './filterTools';
 
 type CustomPredicateFilterProps = {
   filterHandle: string;
-  onApply?: ({
-    keepOpen,
-    filter,
-  }?: {
-    keepOpen?: boolean;
-    filter?: import('@/contexts/filter').FilterType;
-  }) => void;
+  onApply?: ContentOnApply;
   onCancel?: () => void;
   className?: string;
   style?: React.CSSProperties;

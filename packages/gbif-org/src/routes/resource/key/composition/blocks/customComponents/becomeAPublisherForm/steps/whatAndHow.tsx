@@ -24,7 +24,7 @@ export function WhatAndHow() {
           id="eoi.publOfFourTypesOfData"
           defaultMessage="GBIF.org supports publication of four types of data, explained [here.](/dataset-classes) Responsibility for formatting the data and hosting the original datasets remains with the data publisher, but we can help you find appropriate technical solutions."
         >
-          {(data) => <span dangerouslySetInnerHTML={{ __html: data }} />}
+          {(data) => <span dangerouslySetInnerHTML={{ __html: String(data) }} />}
         </FormattedMessage>
       </p>
 
@@ -121,7 +121,7 @@ export function WhatAndHow() {
               <DynamicLink to="/ipt">Integrated Publishing Toolkit – IPT</DynamicLink> to publish
               your data directly to GBIF.org?`}
               >
-                {(data) => <span dangerouslySetInnerHTML={{ __html: data }} />}
+                {(data) => <span dangerouslySetInnerHTML={{ __html: String(data) }} />}
               </FormattedMessage>
             </FormLabel>
             <FormControl>
@@ -151,7 +151,7 @@ export function WhatAndHow() {
             id="eoi.reuseTrustedIPThosting"
             defaultMessage={`In this case, it is recommended that you first try reusing an existing trusted [IPT data hosting centre](https://github.com/gbif/ipt/wiki/dataHostingCentres#data-hosting-centres)`}
           >
-            {(data) => <span dangerouslySetInnerHTML={{ __html: data }} />}
+            {(data) => <span dangerouslySetInnerHTML={{ __html: String(data) }} />}
           </FormattedMessage>
         </p>
       )}

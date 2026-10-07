@@ -36,7 +36,10 @@ import { InstitutionResult } from './institutionResult';
 import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
-import { MobileFiltersTrigger, useIsMobileFilterSheetActive } from '@/components/filters/mobileFilters';
+import {
+  MobileFiltersTrigger,
+  useIsMobileFilterSheetActive,
+} from '@/components/filters/mobileFilters';
 import { cn } from '@/utils/shadcn';
 
 const INSTITUTION_SEARCH_QUERY = /* GraphQL */ `
@@ -272,7 +275,7 @@ function Results({
                     {...{ excludeCode, excludeCountry }}
                   />
                 ))}
-            {institutions.offset === 0 && geojson?.features?.length > 0 && (
+            {institutions.offset === 0 && geojson && (geojson.features?.length ?? 0) > 0 && (
               <div className="g-relative">
                 <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-border-solid g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
                   <FormattedMessage
@@ -318,7 +321,7 @@ function Results({
   );
 }
 
-function PopupContent({ features }: { features: { key: string; name: string }[] }) {
+function PopupContent({ features }: { features: Record<string, any>[] }) {
   return (
     <ul className="g-list-disc g-px-2">
       {features.map((x) => (

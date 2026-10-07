@@ -1,6 +1,10 @@
 import { HyperText } from '@/components/hyperText';
 import Properties, { Term, Value } from '@/components/properties';
+import { DatasetQuery } from '@/gql/graphql';
 import { FormattedMessage } from 'react-intl';
+
+type GeographicCoverageList = NonNullable<DatasetQuery['dataset']>['geographicCoverages'];
+type GeographicCoverageItem = NonNullable<GeographicCoverageList>[number];
 
 // --- Static bounding-box map URL builder ---------------------------------
 
@@ -75,25 +79,30 @@ export function bboxStaticMapUrl(
 
 // -------------------------------------------------------------------------
 
-export function GeographicCoverages({ geographicCoverages, ...props }) {
+export function GeographicCoverages({
+  geographicCoverages,
+}: {
+  geographicCoverages: GeographicCoverageList;
+}) {
   return (
     <>
-      {geographicCoverages.map((coverage, idx) => (
+      {(geographicCoverages ?? []).map((coverage, idx) => (
         <GeographicCoverage coverage={coverage} key={idx} />
       ))}
     </>
   );
 }
 
-function GeographicCoverage({ coverage }) {
-  const bbox = coverage?.boundingBox;
+function GeographicCoverage({ coverage }: { coverage: GeographicCoverageItem }) {
+  // registry bounding boxes always carry all four corners
+  const bbox = coverage?.boundingBox as BoundingBox | null | undefined;
   const hasMappableBbox =
     bbox && bbox.minLatitude > -85 && bbox.maxLatitude < 85 && bbox.minLatitude < bbox.maxLatitude;
 
   let Bbox;
 
-  if (coverage?.boundingBox?.minLatitude) {
-    const { minLongitude, minLatitude, maxLongitude, maxLatitude } = coverage.boundingBox;
+  if (bbox?.minLatitude) {
+    const { minLongitude, minLatitude, maxLongitude, maxLatitude } = bbox;
     Bbox = (
       <Properties useDefaultTermWidths>
         <Term>
@@ -128,7 +137,7 @@ function GeographicCoverage({ coverage }) {
       <Value>
         <HyperText
           className="g-prose"
-          text={coverage.description}
+          text={coverage?.description}
           fallback
           disableMarkdownParsing
         />
@@ -139,7 +148,7 @@ function GeographicCoverage({ coverage }) {
           <Value style={{ width: '100%' }}>
             <img
               style={{ marginTop: 24, maxWidth: '100%', marginBottom: 24 }}
-              src={bboxStaticMapUrl(coverage.boundingBox)}
+              src={bboxStaticMapUrl(bbox)}
               alt=""
             />
             {Bbox}

@@ -152,7 +152,7 @@ export function InstitutionKey({
                 <HeaderInfo>
                   <HeaderInfoMain>
                     <FeatureList>
-                      <Homepage url={institution?.homepage} />
+                      <Homepage url={institution?.homepage ?? undefined} />
                       {contactInfo?.country && (
                         <Location countryCode={contactInfo?.country} city={contactInfo.city} />
                       )}

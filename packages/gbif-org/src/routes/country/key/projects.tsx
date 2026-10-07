@@ -15,7 +15,6 @@ import {
   ResourceSearchResults,
 } from '@/routes/resource/search/resourceSearch';
 import { useEffect, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 
 export function CountryKeyProjects() {
@@ -65,7 +64,7 @@ export function CountryKeyProjects() {
           size={size}
           offset={offset}
           setOffset={setOffset}
-          noResultsMessage={<FormattedMessage id="country.noProjects" />}
+          noResultsMessageId="country.noProjects"
         />
       </ArticleTextContainer>
     </ArticleContainer>

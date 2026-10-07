@@ -18,8 +18,16 @@ const INSTITUTION_SEARCH_QUERY = `
   }
 `;
 
+// The query is not tagged for codegen, so its result is typed by hand.
+type InstitutionStubSearchResult = {
+  list: { results: { title?: string | null; key: string }[] };
+};
+
 export function InstitutionSearchPage(): React.ReactElement {
-  const { data, loading, error } = useQuery(INSTITUTION_SEARCH_QUERY, { variables: { offset: 0 } });
+  const { data, loading } = useQuery<InstitutionStubSearchResult, { offset: number }>(
+    INSTITUTION_SEARCH_QUERY,
+    { variables: { offset: 0 } }
+  );
 
   return (
     <>

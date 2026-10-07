@@ -12,8 +12,6 @@ import { ArticleTextContainer } from '../resource/key/components/articleTextCont
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
 import { HomePageCounts } from './counts';
-// eslint-disable-next-line
-import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 import { useNotifyOfPartialDataIfErrors } from '../rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';

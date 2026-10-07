@@ -7,6 +7,7 @@ import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage } from 'react-intl';
+import { parseTableStyle, sortRows } from '../tableUtils';
 
 const DIRECTORY_TRANSLATORS_QUERY = /* GraphQL */ `
   query DirectoryTranslators {
@@ -34,37 +35,13 @@ const columns = [
   { key: 'certifications', label: 'Anual badges', sortable: true },
 ];
 
-function sortRows(rows, sortKey, sortDir) {
-  if (!sortKey) return rows;
-  return [...rows].sort((a, b) => {
-    let aValue = a?.Person?.[sortKey];
-    let bValue = b?.Person?.[sortKey];
-    // Special handling for nested call.title
-    if (sortKey === 'year') {
-      aValue = a.roles?.[0]?.term?.start || '';
-      bValue = b.roles?.[0]?.term?.start || '';
-    }
-
-    // Numbers
-    if (typeof aValue === 'number' && typeof bValue === 'number') {
-      return sortDir === 'asc' ? aValue - bValue : bValue - aValue;
-    }
-    // Strings
-    aValue = (aValue || '').toString().toLowerCase();
-    bValue = (bValue || '').toString().toLowerCase();
-    if (aValue < bValue) return sortDir === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortDir === 'asc' ? 1 : -1;
-    return 0;
-  });
-}
-
 export function TranslatorsList({
   title,
   tableStyle,
   className,
 }: {
   title?: string;
-  tableStyle?: string;
+  tableStyle?: string | null;
   className?: string;
 }) {
   const { data, error, loading, load } = useQuery<
@@ -97,9 +74,14 @@ export function TranslatorsList({
     );
   }
 
-  const sortedTranslators = sortRows(translators, sortKey, sortDir);
+  const sortedTranslators = sortRows(
+    translators,
+    sortKey,
+    sortDir,
+    (row, key) => row?.Person?.[key]
+  );
 
-  function handleSort(col) {
+  function handleSort(col: (typeof columns)[number]) {
     if (!col.sortable) return;
     if (sortKey === col.key) {
       setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
@@ -115,7 +97,7 @@ export function TranslatorsList({
         <Card>
           {title && <CardTitle className="g-p-4">{title || ''}</CardTitle>}
           <div className="g-overflow-auto g-max-h-[80vh]">
-            <table className="g-text-sm g-p g-w-full" style={tableStyle || {}}>
+            <table className="g-text-sm g-p g-w-full" style={parseTableStyle(tableStyle)}>
               <thead className="g-sticky g-top-0 g-bg-white g-shadow-sm g-z-10">
                 <tr>
                   {columns.map((col) => (
@@ -153,10 +135,10 @@ export function TranslatorsList({
                       {/* Winner */}
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         <a
-                          href={translator?.Person.orcidId}
+                          href={translator?.Person?.orcidId ?? undefined}
                           className="g-text-blue-600 hover:g-text-blue-800"
                         >
-                          {translator?.Person.firstName} {translator?.Person.surname}
+                          {translator?.Person?.firstName} {translator?.Person?.surname}
                         </a>
                       </td>
                       {/* Languages */}
@@ -166,7 +148,7 @@ export function TranslatorsList({
                             <FormattedMessage
                               key={lang}
                               id={`enums.language.${lang}`}
-                              defaultMessage={lang}
+                              defaultMessage={lang ?? undefined}
                             />
                             <br />
                           </>
@@ -176,13 +158,13 @@ export function TranslatorsList({
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         <FormattedMessage
                           id={`enums.countryCode.${translator?.Person?.countryCode}`}
-                          defaultMessage={translator?.Person?.countryCode}
+                          defaultMessage={translator?.Person?.countryCode ?? undefined}
                         />
                       </td>
                       <td className="g-px-4 g-py-2" style={{ verticalAlign: 'top' }}>
                         {(translator?.Person?.certifications || []).map((c) => (
-                          <Tag key={c.year} className="g-m-1 g-mb-0">
-                            {c.year}
+                          <Tag key={c?.year} className="g-m-1 g-mb-0">
+                            {c?.year}
                           </Tag>
                         ))}
                       </td>

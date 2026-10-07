@@ -14,6 +14,7 @@ type FieldConfigType = {
     filterName: string;
     values: any[];
     config: FieldConfigType;
+    checklistKey?: string;
   }) => any;
 };
 
@@ -32,6 +33,7 @@ export type FieldType = {
     filterName: string;
     values: any[];
     config: FieldConfigType;
+    checklistKey?: string;
   }) => Predicate | null;
   v1?: {
     supportedTypes?: string[];
@@ -90,7 +92,7 @@ function getPredicates({
   if (!filters) return [];
   return Object.entries(filters)
     .map(([filterName, values]) => getPredicate({ filterName, values, filterConfig, checklistKey }))
-    .filter((p) => p !== null); // remove filters that couldn't be transformed to a predicate
+    .filter((p): p is Predicate => p !== null); // remove filters that couldn't be transformed to a predicate
 }
 
 function getPredicate({

@@ -35,7 +35,7 @@ export const OptionalBooleanFilter = React.forwardRef(
       about,
       disableFacetsForSelected,
     }: BoolProps,
-    ref
+    _ref
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
@@ -44,7 +44,6 @@ export const OptionalBooleanFilter = React.forwardRef(
 
     const {
       data: facetData,
-      error: facetError,
       loading: facetLoading,
       load: facetLoad,
     } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
@@ -116,10 +115,7 @@ export const OptionalBooleanFilter = React.forwardRef(
                 'g-flex g-w-full g-cursor-pointer g-py-2 g-min-h-9 sm:g-min-h-0 sm:g-py-0 g-mb-2'
               )}
             >
-              <RadioGroupItem
-                value=""
-                className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5"
-              />
+              <RadioGroupItem value="" className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5" />
               <div className="g-flex-auto g-overflow-hidden">
                 <FormattedMessage id="search.ternary.either" />
               </div>
@@ -129,10 +125,7 @@ export const OptionalBooleanFilter = React.forwardRef(
                 'g-flex g-w-full g-cursor-pointer g-py-2 g-min-h-9 sm:g-min-h-0 sm:g-py-0 g-mb-2'
               )}
             >
-              <RadioGroupItem
-                value="true"
-                className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5"
-              />
+              <RadioGroupItem value="true" className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5" />
               <div className="g-flex g-flex-auto g-items-center g-overflow-hidden">
                 <span className="g-flex-auto">
                   <DisplayName id="true" />
@@ -149,10 +142,7 @@ export const OptionalBooleanFilter = React.forwardRef(
                 'g-flex g-w-full g-cursor-pointer g-py-2 g-min-h-9 sm:g-min-h-0 sm:g-py-0 g-mb-2'
               )}
             >
-              <RadioGroupItem
-                value="false"
-                className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5"
-              />
+              <RadioGroupItem value="false" className="g-flex-none g-me-2 g-mt-1 sm:g-mt-0.5" />
               <div className="g-flex g-flex-auto g-items-center g-overflow-hidden">
                 <span className="g-flex-auto">
                   <DisplayName id="false" />

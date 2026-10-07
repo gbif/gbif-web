@@ -3,7 +3,6 @@ import { Base64 } from 'js-base64';
 import isPlainObject from 'lodash/isPlainObject';
 import objectHash from 'object-hash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useNormalizedSearchParams } from '@/hooks/useNormalizedSearchParams';
 import { filter2v1 } from '.';
 import { cleanUpFilter, FilterType } from '../../contexts/filter';

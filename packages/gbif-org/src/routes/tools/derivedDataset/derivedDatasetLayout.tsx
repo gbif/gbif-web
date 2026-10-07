@@ -2,8 +2,6 @@ import { DataHeader } from '@/components/dataHeader';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { ToolLayoutQuery, ToolPageFragment } from '@/gql/graphql';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
