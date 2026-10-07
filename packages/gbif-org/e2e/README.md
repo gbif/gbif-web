@@ -51,3 +51,13 @@ npm run e2e:rerecord               # full run in record mode, then delete record
 - Every GraphQL operation needs a name (`query DatasetTitle($key: ID!)`). The mock refuses unnamed
   ones in both modes, since recordings are filed by operation name.
 - The recorder warns when a GraphQL response contains `errors`; check those before committing.
+
+## Live checks
+
+Not part of `npm run e2e`; they need network access and are meant for a nightly run.
+
+- `npm run e2e:schema-drift` (`live/schema-drift.mjs`): compares the deployed GraphQL schema with
+  the repo's (`packages/graphql-api/tools/printSchema.ts`; needs `npm ci` and a `.env` copied from
+  `.env.example` there) and validates every `/* GraphQL */` operation against the deployed one.
+  Fails on an invalid operation or on something deployed that the repo lacks; undeployed repo
+  changes are only listed.
