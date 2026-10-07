@@ -54,7 +54,7 @@
     "random": "Aléatoire",
     "showMore": "Afficher {count} de plus",
     "moreImagesHint": "Pour voir plus d’images pour un groupe, {link}.",
-    "moreImagesLink": "",
+    "moreImagesLink": "désactive le regroupement et affiche une sélection aléatoire",
     "cappedHint": "Affichage de {shown} groupes sur {total}. Appliquez d'autres filtres pour affiner la recherche.",
     "useAsFilter": "Utiliser comme filtre",
     "unspecified": "Non spécifié"
