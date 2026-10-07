@@ -1,23 +1,24 @@
-// Fingerprint of everything the e2e build bakes in. build.mjs stores it next to the build and
+// Fingerprint of everything the e2e builds bake in. build.mjs stores it next to each build and
 // globalSetup refuses to test a build whose inputs have changed since.
 
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { GBIF_E2E_DIST } from './env.mjs';
 
 const INPUTS = [
   'src',
   'gbif/index.html',
   'gbif/fallback.html',
   'gbif/vite.config.ts',
+  'hp/vite.config.ts',
   'tailwind.config.js',
   'postcss.config.js',
   'package-lock.json',
   'e2e/env.mjs',
 ];
 
-export const STAMP_FILE = join(GBIF_E2E_DIST, 'build-stamp.txt');
+/** @param {string} dist */
+export const stampFile = (dist) => join(dist, 'build-stamp.txt');
 
 /** @param {string} path @returns {string[]} */
 function files(path) {

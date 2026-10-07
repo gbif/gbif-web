@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import { resolve } from 'node:path';
-import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, MOCK_PORT, mockEnv } from './e2e/env.mjs';
+import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_PORT, MOCK_PORT, mockEnv } from './e2e/env.mjs';
 
 // The server refuses to boot without these; the e2e build never authenticates anyone.
 const dummySecrets = {
@@ -29,10 +29,22 @@ export default defineConfig({
   retries: 0,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
-    baseURL: `http://localhost:${GBIF_PORT}`,
     trace: 'retain-on-failure',
     ...devices['Desktop Chrome'],
   },
+  projects: [
+    {
+      name: 'gbif',
+      testDir: './e2e/specs/gbif',
+      use: { baseURL: `http://localhost:${GBIF_PORT}` },
+    },
+    {
+      // Client-only hosted-portal library mounted in a site with every data page enabled.
+      name: 'hp-all-entities',
+      testDir: './e2e/specs/hp',
+      use: { baseURL: `http://localhost:${HP_PORT}` },
+    },
+  ],
   webServer: [
     {
       command: 'node e2e/mock/upstream.mjs',
@@ -53,6 +65,12 @@ export default defineConfig({
         PORT: String(GBIF_PORT),
         GBIF_DIST_DIR: resolve(GBIF_E2E_DIST),
       },
+      reuseExistingServer: false,
+    },
+    {
+      command: 'node e2e/hp-sites/server.mjs',
+      url: `http://localhost:${HP_PORT}/gbif-lib.js`,
+      env: { HP_SITE: 'all-entities', PORT: String(HP_PORT) },
       reuseExistingServer: false,
     },
   ],

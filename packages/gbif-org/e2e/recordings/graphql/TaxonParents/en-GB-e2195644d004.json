@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query TaxonParents($datasetKey: ID, $key: ID!) {\n    taxon(datasetKey: $datasetKey, key: $key) {\n      parentTree {\n        taxonID\n        label: scientificName\n        childrenCount: children\n        status: taxonomicStatus\n        rank: taxonRank\n      }\n    }\n  }\n",
+      "variables": {
+        "datasetKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c",
+        "key": "5231190"
+      },
+      "operationName": "TaxonParents"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"taxon\":{\"parentTree\":[{\"taxonID\":\"1\",\"label\":\"Animalia\",\"childrenCount\":9836,\"status\":\"ACCEPTED\",\"rank\":\"KINGDOM\"},{\"taxonID\":\"44\",\"label\":\"Chordata\",\"childrenCount\":7508,\"status\":\"ACCEPTED\",\"rank\":\"PHYLUM\"},{\"taxonID\":\"212\",\"label\":\"Aves\",\"childrenCount\":3888,\"status\":\"ACCEPTED\",\"rank\":\"CLASS\"},{\"taxonID\":\"729\",\"label\":\"Passeriformes\",\"childrenCount\":602,\"status\":\"ACCEPTED\",\"rank\":\"ORDER\"},{\"taxonID\":\"5264\",\"label\":\"Passeridae\",\"childrenCount\":29,\"status\":\"ACCEPTED\",\"rank\":\"FAMILY\"},{\"taxonID\":\"2492321\",\"label\":\"Passer\",\"childrenCount\":34,\"status\":\"ACCEPTED\",\"rank\":\"GENUS\"},{\"taxonID\":\"5231190\",\"label\":\"Passer domesticus\",\"childrenCount\":15,\"status\":\"ACCEPTED\",\"rank\":\"SPECIES\"}]}}}\n"
+}

@@ -7,6 +7,10 @@ export const GBIF_PORT = 3100;
 
 export const GBIF_E2E_DIST = 'dist/e2e/gbif';
 
+// Hosted-portal library, served by e2e/hp-sites/server.mjs.
+export const HP_PORT = 3200;
+export const HP_E2E_DIST = 'dist/e2e/hp';
+
 // Holds no .env files. Vite and gbif/server.js read .env from here instead of the package root, so a
 // developer's own PUBLIC_* values cannot reach the e2e build or server.
 export const E2E_ENV_DIR = 'e2e';
