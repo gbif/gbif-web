@@ -1,12 +1,4 @@
-import { expect, test } from '../../test';
-
-// Search pages have no h1; their result count proves the search query ran and rendered.
-type Row = {
-  id: string;
-  url: string;
-  title: string;
-  status?: number;
-} & ({ h1: string | RegExp } | { resultCount: RegExp });
+import { type Row, testRows } from '../../pageRows';
 
 // One row per page type: rendered server-side, hydrated, showing its own content. Keys exist in
 // production so the recordings resolve; expected text comes from the recordings.
@@ -175,15 +167,4 @@ const ROWS: Row[] = [
   { id: '404', url: '/this-page-does-not-exist', title: 'GBIF', h1: '404', status: 404 },
 ];
 
-for (const row of ROWS) {
-  test(`${row.id}: ${row.url}`, async ({ page }) => {
-    const response = await page.goto(row.url);
-    expect(response?.status()).toBe(row.status ?? 200);
-    await expect(page).toHaveTitle(row.title);
-    if ('h1' in row) {
-      await expect(page.getByRole('heading', { level: 1 })).toHaveText(row.h1);
-    } else {
-      await expect(page.getByText(row.resultCount).first()).toBeVisible();
-    }
-  });
-}
+testRows(ROWS);

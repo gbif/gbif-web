@@ -26,7 +26,7 @@
     "e2e:build": "node e2e/build.mjs",
     "e2e": "playwright test",
     "e2e:record": "E2E_MODE=record playwright test",
-    "e2e:rerecord": "E2E_MODE=record E2E_PRUNE=1 playwright test",
+    "e2e:rerecord": "E2E_MODE=refresh E2E_PRUNE=1 playwright test",
     "e2e:schema-drift": "node e2e/live/schema-drift.mjs",
     "test": "npm run build && npm run build:hp && npm run vitest",
     "type-check": "tsc --noEmit",

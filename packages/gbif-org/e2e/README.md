@@ -11,7 +11,7 @@ npx playwright install chromium   # once per machine
 npm run e2e:build                  # after any source change (~2.5 min); the run refuses a stale build
 npm run e2e                        # replay recorded upstream data
 npm run e2e:record                 # forward unrecorded requests to production GBIF and save them
-npm run e2e:rerecord               # full run in record mode, then delete recordings no test used
+npm run e2e:rerecord               # fetch every recording again from production, then delete unused ones
 ```
 
 ## How it works
@@ -45,7 +45,11 @@ npm run e2e:rerecord               # full run in record mode, then delete record
 - Before an action that unmounts what is still loading (switching tabs), `await waitForIdle()`
   (a fixture). Otherwise how much gets requested depends on timing, and replay misses.
 - New page or changed query: `npm run e2e:record`, review and commit `recordings/`. A changed query
-  is a miss, never a stale replay. `e2e:rerecord` also removes recordings left behind.
+  is a miss, never a stale replay.
+- `e2e:rerecord` (`E2E_MODE=refresh`) replaces every recording with today's production response and
+  removes those left behind. Review the diff: specs assert titles and counts taken from the
+  recordings, so a refresh can fail rows where editors changed content. That is not a regression;
+  update the expected text.
 - A miss in replay means the page asked for something not recorded. Re-record; never stub it out.
 - Every GraphQL operation needs a name (`query DatasetTitle($key: ID!)`). The mock refuses unnamed
   ones in both modes, since recordings are filed by operation name.

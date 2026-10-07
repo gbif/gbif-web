@@ -5,8 +5,11 @@
 // E2E_MODE=replay (default): serve recordings from e2e/recordings. A request without a recording is
 //   answered with an error and logged as a miss; the test fixture and global teardown fail on misses.
 // E2E_MODE=record: serve existing recordings, forward anything else to production GBIF and save it.
-//   POST /__mock/prune afterwards deletes recordings the run never served, but only after a run in
-//   which every started test passed: a failed or aborted run served too little to judge.
+// E2E_MODE=refresh: forward every request once per run and overwrite its recording, so recordings
+//   follow production data, not just new queries.
+// In both forwarding modes, POST /__mock/prune afterwards deletes recordings the run never served,
+//   but only after a run in which every started test passed: a failed or aborted run served too
+//   little to judge.
 //
 // Keys are exact (operation + locale + query text + variables, or method + path + query string), so
 // a changed query is a miss rather than a stale replay.
@@ -23,6 +26,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const RECORDINGS_DIR = process.env.RECORDINGS_DIR || join(__dirname, '..', 'recordings');
 const FALLBACK_DIR = join(__dirname, '..', '..', 'src', 'config', 'fallback');
 const MODE = (process.env.E2E_MODE || 'replay').toLowerCase();
+const FORWARDS = MODE === 'record' || MODE === 'refresh';
 
 /**
  * @typedef {{ prefix: string, base?: string, kind?: 'graphql' | 'translations' | 'stub' }} Upstream
@@ -276,7 +280,7 @@ async function handle(req, res) {
     return send(res, 204, {}, '');
   }
   if (url.pathname === '/__mock/prune' && req.method === 'POST') {
-    if (MODE !== 'record') return send(res, 409, {}, 'prune only runs in record mode');
+    if (!FORWARDS) return send(res, 409, {}, 'prune only runs in record or refresh mode');
     if (tests.started === 0 || tests.passed !== tests.started) {
       const message = `not pruning: ${tests.passed} of ${tests.started} started tests passed`;
       return send(res, 409, {}, message);
@@ -330,12 +334,13 @@ async function handle(req, res) {
   }
 
   const existing = store.get(key);
-  if (existing) {
+  // Refresh forwards each key once; later identical requests in the run get the fresh recording.
+  if (existing && (MODE !== 'refresh' || served.has(key))) {
     served.add(key);
     return sendRecording(res, existing);
   }
 
-  if (MODE === 'record') {
+  if (FORWARDS) {
     try {
       const rec = await recordOnce(upstream, method, url, body, req.headers, key);
       served.add(key);
