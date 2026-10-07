@@ -6,7 +6,7 @@ import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { build } from 'vite';
 import { computeStamp, stampFile } from './buildStamp.mjs';
-import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_E2E_DIST, HP_PORT, mockEnv } from './env.mjs';
+import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_E2E_DIST, mockEnv } from './env.mjs';
 
 // Taken before building, so an edit made during the build marks the result stale.
 const stamp = computeStamp();
@@ -27,5 +27,6 @@ await viteBuild('gbif/vite.config.ts', GBIF_PORT, {
 });
 writeFileSync(stampFile(GBIF_E2E_DIST), stamp + '\n');
 
-await viteBuild('hp/vite.config.ts', HP_PORT, { build: { outDir: resolve(HP_E2E_DIST) } });
+// Base URL is gbif.org's, as in production: the library links and loads images there.
+await viteBuild('hp/vite.config.ts', GBIF_PORT, { build: { outDir: resolve(HP_E2E_DIST) } });
 writeFileSync(stampFile(HP_E2E_DIST), stamp + '\n');
