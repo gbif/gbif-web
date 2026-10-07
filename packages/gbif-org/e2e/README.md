@@ -35,6 +35,8 @@ npm run e2e:rerecord               # full run in record mode, then delete record
 - Assert on content (title, `h1`, visible text). Error boundaries swallow render crashes, so "no
   exceptions" alone does not prove the page works.
 - Use roles, text and URLs, not CSS classes, so specs survive refactors.
+- Before an action that unmounts what is still loading (switching tabs), `await waitForIdle()`
+  (a fixture). Otherwise how much gets requested depends on timing, and replay misses.
 - New page or changed query: `npm run e2e:record`, review and commit `recordings/`. A changed query
   is a miss, never a stale replay. `e2e:rerecord` also removes recordings left behind.
 - A miss in replay means the page asked for something not recorded. Re-record; never stub it out.

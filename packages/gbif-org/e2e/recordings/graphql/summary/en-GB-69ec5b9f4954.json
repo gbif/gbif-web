@@ -1,0 +1,115 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\nquery summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate, $hasSequence: Predicate){\n  occurrenceSearch(q: $q, predicate: $predicate) {\n    documents(size: 0) {\n      total\n    }\n  }\n  rank: occurrenceSearch(q: $q, predicate: $hasSpeciesRank) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCoordinates: occurrenceSearch(q: $q, predicate: $hasCoordinates) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasMedia: occurrenceSearch(q: $q, predicate: $hasMedia) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCollector: occurrenceSearch(q: $q, predicate: $hasCollector) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasYear: occurrenceSearch(q: $q, predicate: $hasYear) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasSequence: occurrenceSearch(q: $q, predicate: $hasSequence) {\n    documents(size: 0) {\n      total\n    }\n  }\n}\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "taxonKey",
+          "value": "4DXXM",
+          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+        },
+        "hasSpeciesRank": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "4DXXM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "isNotNull",
+              "key": "speciesKey",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            }
+          ]
+        },
+        "hasCoordinates": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "4DXXM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "equals",
+              "key": "hasCoordinate",
+              "value": true
+            }
+          ]
+        },
+        "hasMedia": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "4DXXM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "isNotNull",
+              "key": "mediaType"
+            }
+          ]
+        },
+        "hasCollector": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "4DXXM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "isNotNull",
+              "key": "recordedBy"
+            }
+          ]
+        },
+        "hasYear": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "4DXXM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "isNotNull",
+              "key": "year"
+            }
+          ]
+        },
+        "hasSequence": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "4DXXM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "equals",
+              "key": "isSequenced",
+              "value": true
+            }
+          ]
+        }
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":25885722}},\"rank\":{\"documents\":{\"total\":25885722}},\"hasCoordinates\":{\"documents\":{\"total\":25858985}},\"hasMedia\":{\"documents\":{\"total\":490873}},\"hasCollector\":{\"documents\":{\"total\":24737570}},\"hasYear\":{\"documents\":{\"total\":25774581}},\"hasSequence\":{\"documents\":{\"total\":351}}}}\n"
+}

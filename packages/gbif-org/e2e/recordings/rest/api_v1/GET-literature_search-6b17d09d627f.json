@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/literature/search?limit=0&gbifDatasetKey=f871c197-ac30-45f2-a121-6515ead1b787"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "{\"offset\":0,\"limit\":0,\"endOfRecords\":true,\"count\":0,\"results\":[],\"facets\":[]}"
+}
