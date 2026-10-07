@@ -49,12 +49,25 @@ function trackRequests(page: Page) {
 type Fixtures = { pageErrors: string[] };
 
 // Every spec imports test from here: the browser only talks to localhost, and an uncaught exception,
-// a hydration mismatch or an unrecorded request fails the test even when its own assertions pass.
+// a hydration mismatch, the partial-data error toast or an unrecorded request fails the test even
+// when its own assertions pass.
 export const test = base.extend<Fixtures>({
   pageErrors: [
     async ({ page }, use, testInfo) => {
       const errors: string[] = [];
       page.on('pageerror', (err) => errors.push(`pageerror: ${err.message}`));
+      // The toast auto-dismisses, so watch for it from the first byte of every document.
+      await page.exposeBinding('__e2ePartialDataToast', () => {
+        errors.push('partial-data toast: a GraphQL response had errors');
+      });
+      await page.addInitScript(() => {
+        let reported = false;
+        new MutationObserver(() => {
+          if (reported || !document.querySelector('[data-testid="partial-data-error"]')) return;
+          reported = true;
+          (window as unknown as { __e2ePartialDataToast: () => void }).__e2ePartialDataToast();
+        }).observe(document, { childList: true, subtree: true });
+      });
       page.on('console', (msg) => {
         if (msg.type() === 'error' && HYDRATION_ERROR.test(msg.text())) {
           errors.push(`hydration: ${msg.text()}`);
