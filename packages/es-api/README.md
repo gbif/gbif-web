@@ -11,7 +11,7 @@ A wrapper around the GBIF Elasticsearch indices. It exposes an index through a G
 
 ## Quick start
 
-1. Place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`; see [Configuration](#configuration) below for the expected structure.
+1. Place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`; [`.env.example`](./.env.example) is the template.
 
 2. Install dependencies:
 
@@ -49,54 +49,7 @@ The POST API accepts the predicate structure from the GBIF occurrence download A
 
 ## Configuration
 
-Configuration is supplied through an `.env` file (YAML) in the package root. Each index is configured with its Elasticsearch hosts and request options. Example:
-
-```yml
-apiKey: something # a fixed key that must be sent with requests
-
-literature:
-  hosts: [http://some.elastic.instance:9200]
-  requestTimeout: 30000
-  maxRetries: 3
-  maxResultWindow: 100000
-
-occurrence:
-  hosts: [http://some.elastic.instance:9200]
-  requestTimeout: 60000
-  maxRetries: 3
-  maxResultWindow: 100000
-
-dataset:
-  hosts: [http://some.elastic.instance:9200]
-  requestTimeout: 30000
-  maxRetries: 3
-  maxResultWindow: 100000
-
-event:
-  hosts: [http://some.elastic.instance:9200]
-  requestTimeout: 30000
-  maxRetries: 3
-  maxResultWindow: 100000
-  index: event
-
-# Optional. The occurrence request queue stays plain FIFO, but a priority
-# admission gate in front of it can reject the least important *incoming*
-# requests once the backlog is deep, based on the `x-client-priority` header
-# (1-100, lower = more important) that Varnish attaches and the graphql-api
-# forwards. Already-queued requests are never evicted — they drain naturally.
-queue:
-  defaultPriority: 100 # used when the header is missing/invalid
-  # While the backlog exceeds `queueAbove`, requests with priority > `maxPriority`
-  # are rejected (429). A request is rejected if it exceeds any band's threshold.
-  # Omit `shedBands` (or leave it empty) to disable shedding entirely — the default.
-  shedBands:
-    - queueAbove: 100 # over 100 waiting -> reject priority > 50
-      maxPriority: 50
-    - queueAbove: 200 # over 200 waiting -> reject priority > 30
-      maxPriority: 30
-
-port: 4001
-```
+Configuration is supplied through an `.env` file (YAML) in the package root. [`.env.example`](./.env.example) documents every setting: secrets, upstream API, one section per Elasticsearch index, and optional load shedding.
 
 ### Generating a configuration
 
