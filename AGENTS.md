@@ -33,6 +33,7 @@ respect `useConfig()`.
 - Schema or data-shape changes: `packages/graphql-api/AGENTS.md` and
   `packages/graphql-api/docs/how-to/add-a-resource.md`.
 - Search or aggregation behaviour passed through by GraphQL: `packages/es-api`.
+- Running the site or taking screenshots: `packages/gbif-org/docs/how-to/run-locally.md`.
 - New occurrence filter or facet: `packages/gbif-org/docs/how-to/add-an-occurrence-filter.md`
   covers all three packages.
 
@@ -61,4 +62,5 @@ respect `useConfig()`.
 - Works offline: `npm run type-check`, `npm run vitest` (gbif-org); `npm test` (graphql-api, given
   a `.env`). Prefer these when servers cannot run.
 - `.env` files are not in the repo; canonical copies are in the private `gbif-configuration/gbif-web`.
-  Ask rather than invent values.
+  Each package commits a template (`.env.example`, react-components `.env.example.json`) that runs
+  against public production endpoints with placeholder secrets. Ask rather than invent real secrets.
