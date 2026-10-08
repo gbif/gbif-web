@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query LiteratureTypeFacet($predicate: Predicate) {\n      search: literatureSearch(predicate: $predicate) {\n        facet {\n          field: literatureType(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ",
+      "variables": {},
+      "operationName": "LiteratureTypeFacet"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"journal\",\"count\":30075},{\"name\":\"report\",\"count\":26848},{\"name\":\"working_paper\",\"count\":2555},{\"name\":\"thesis\",\"count\":1077},{\"name\":\"book_section\",\"count\":878},{\"name\":\"conference_proceedings\",\"count\":842},{\"name\":\"generic\",\"count\":287},{\"name\":\"web_page\",\"count\":144},{\"name\":\"book\",\"count\":139},{\"name\":\"encyclopedia_article\",\"count\":57},{\"name\":\"magazine_article\",\"count\":33},{\"name\":\"computer_program\",\"count\":15},{\"name\":\"hearing\",\"count\":6},{\"name\":\"patent\",\"count\":4},{\"name\":\"bill\",\"count\":3},{\"name\":\"newspaper_article\",\"count\":3},{\"name\":\"case\",\"count\":1}]}}}}\n"
+}
