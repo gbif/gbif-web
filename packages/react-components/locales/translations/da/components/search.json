@@ -53,8 +53,8 @@
     "default": "Standard",
     "random": "",
     "showMore": "",
-    "moreImagesHint": "",
-    "moreImagesLink": "",
+    "moreImagesHint": "For at se flere billeder af en gruppe, se {link}.",
+    "moreImagesLink": "Deaktiver gruppering og vis et tilfældigt udvalg",
     "cappedHint": "",
     "useAsFilter": "",
     "unspecified": "Uspecificeret"
