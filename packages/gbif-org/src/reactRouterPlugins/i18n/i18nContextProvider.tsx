@@ -88,9 +88,10 @@ export function I18nContextProvider({
     (locale: string) => {
       let targetLink = localizeLink(location.pathname, locale);
       if (location.search) targetLink += location.search;
+      if (location.hash) targetLink += location.hash;
       navigate(targetLink);
     },
-    [navigate, location.pathname, location.search, localizeLink]
+    [navigate, location.pathname, location.search, location.hash, localizeLink]
   );
 
   const value: I18nContextValue = useMemo(

@@ -139,3 +139,38 @@ for (const [from, to] of [
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Austria');
   });
 }
+
+// Portal sites build their own language selector from the gbifUrlChange event. localizeLink maps
+// the current url to another language, and a visit to it renders in that language.
+test('gbifUrlChange carries a localizeLink that switches the portal language', async ({
+  page,
+  waitForIdle,
+}) => {
+  await page.addInitScript(() => {
+    const w = window as unknown as { __urlChanges: Array<{ url: string; es: string }> };
+    w.__urlChanges = [];
+    window.addEventListener('gbifUrlChange', (e) => {
+      const { url, localizeLink } = (
+        e as CustomEvent<{ url: string; localizeLink: (l: string, t?: string) => string }>
+      ).detail;
+      w.__urlChanges.push({ url, es: localizeLink(url, 'es') });
+    });
+  });
+  const changes = () =>
+    page.evaluate(
+      () => (window as unknown as { __urlChanges: Array<{ url: string; es: string }> }).__urlChanges
+    );
+
+  await page.goto('/dataset/search?q=bird');
+  await waitForIdle();
+  const first = (await changes()).at(-1);
+  expect(first).toEqual({ url: '/dataset/search?q=bird', es: '/es/dataset/search?q=bird' });
+  await expect(page.getByText(/^[\d,]+ datasets$/).first()).toBeVisible();
+
+  await page.goto(first!.es);
+  await waitForIdle();
+  await expect(page).toHaveURL(/\/es\/dataset\/search\?q=bird$/);
+  await expect(page.getByText(/^[\d.]+ conjuntos de datos publicados$/).first()).toBeVisible();
+  const second = (await changes()).at(-1);
+  expect(second?.url).toBe('/es/dataset/search?q=bird');
+});

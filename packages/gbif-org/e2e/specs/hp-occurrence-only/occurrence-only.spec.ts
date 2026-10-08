@@ -37,3 +37,10 @@ test("a disabled page's URL shows the 404 page", async ({ page, baseURL }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('404');
   await expect(page.getByText('This page might have existed once')).toBeVisible();
 });
+
+test('an English-only portal offers no language switch', async ({ page, waitForIdle }) => {
+  await page.goto('/occurrence/search');
+  await waitForIdle();
+  await expect(page.getByRole('button', { name: 'Change language' })).toHaveCount(0);
+  await expect(page.getByText('Español')).toHaveCount(0);
+});
