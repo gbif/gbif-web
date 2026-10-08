@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query HelpText($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n      body\n    }\n  }\n",
+      "variables": {
+        "identifier": "what-is-publisher-endorsement"
+      },
+      "operationName": "HelpText"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"help\":{\"id\":\"21YhZAfdNhurYuaFu6lMtK\",\"identifier\":\"what-is-publisher-endorsement\",\"title\":\"¿Qué es el aval de un publicador?\",\"body\":\"<p>Los nuevos publicadores de datos deben estar avalados por un Participante de GBIF. Este proceso se lleva a cabo para garantizar que el editor es una organización legítima con datos relevantes para el ámbito y los objetivos de GBIF. Más detalles en los <a href=\\\"https://www.gbif.org/es/endorsement-guidelines\\\">criterios y directrices para la aprobación</a>.</p>\"}}}\n"
+}

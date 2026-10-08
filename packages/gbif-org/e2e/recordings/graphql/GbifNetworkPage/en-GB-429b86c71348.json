@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query GbifNetworkPage {\n    resource(alias: \"/the-gbif-network/global\") {\n      __typename\n      ... on Article {\n        id\n        title\n        summary\n        excerpt\n        body\n        secondaryLinks {\n          label\n          url\n        }\n        documents {\n          ...DocumentPreview\n        }\n        topics\n        purposes\n        audiences\n        citation\n        createdAt\n      }\n    }\n  }\n\n  fragment DocumentPreview on DocumentAsset {\n    title\n    file {\n      url\n      fileName\n      contentType\n      volatile_documentType\n      details {\n        size\n      }\n    }\n  }\n",
+      "operationName": "GbifNetworkPage"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"resource\":{\"__typename\":\"Article\",\"id\":\"1t71M1uVewca6yaIi2oEku\",\"title\":\"The Participant network\",\"summary\":\"<p>Countries, economies and international organizations comprise the formal \\\"Participants\\\" that voluntarily collaborate to advance free and open access to biodiversity data</p>\",\"excerpt\":\"Countries, economies and international organizations comprise the formal \\\"Participants\\\" that voluntarily collaborate to advance free and open access to biodiversity data... GBIF is an…\",\"body\":\"<p>GBIF is an intergovernmental initiative whose formal members—known as 'Participants'—consist of countries, economies and international organizations, each of which signs the <a href=\\\"https://www.gbif.org/document/80661/\\\">GBIF Memorandum of Understanding</a> (MOU) and agrees to collaborate in advancing free and open access to biodiversity data. The map below displays GBIF's current national Participants, while the list includes all Participants, including organizations and economies.</p><p>Under the terms of the MOU, each participant designates a \\\"<a href=\\\"https://www.gbif.org/composition/1aKAxGBtIAQwiEBzUjz9q6/\\\"><strong>node</strong></a>\\\" responsible for coordinating GBIF-related activities within a given country or organization, often including management of their own network of data-sharing institutions or \\\"<a href=\\\"https://www.gbif.org/publisher/search\\\"><strong>publishers</strong></a>\\\".</p><p>New participants are encouraged to collaborate within their assigned or selected regions upon joining the GBIF network. Regional meetings, held either annually or biannually, allow participants and their nodes to address common tasks and issues, set regional priorities and stimulate specialization within the region.</p>\",\"secondaryLinks\":null,\"documents\":null,\"topics\":null,\"purposes\":null,\"audiences\":null,\"citation\":null,\"createdAt\":\"2017-08-16T10:18:19.910Z\"}}}\n"
+}

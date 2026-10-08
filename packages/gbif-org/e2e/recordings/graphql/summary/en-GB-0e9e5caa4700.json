@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $hasPredicate: Predicate,  $size: Int, $from: Int){\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: institutionKey\n        }\n        facet {\n          results: institutionKey(size: $size, from: $from) {\n            key\n            count\n            entity: institution {title: name}\n            occurrences {\n              metaPredicate\n              _meta\n            }\n          }\n        }\n      }\n      isNotNull: occurrenceSearch(q: $q, predicate: $hasPredicate) {\n        documents(size: 0) {\n          total\n        }\n      }\n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "publishingOrg",
+          "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "institutionKey"
+            },
+            {
+              "type": "equals",
+              "key": "publishingOrg",
+              "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":169720759},\"cardinality\":{\"total\":0},\"facet\":{\"results\":[]}},\"isNotNull\":{\"documents\":{\"total\":0}}}}\n"
+}

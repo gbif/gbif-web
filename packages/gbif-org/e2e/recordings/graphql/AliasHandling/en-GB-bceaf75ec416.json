@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query AliasHandling($alias: String!) {\n    resource(alias: $alias) {\n      ...ResourceRedirectDetails\n    }\n  }\n\n  fragment ResourceRedirectDetails on Resource {\n    __typename\n    ... on Article {\n      id\n      title\n      urlAlias\n    }\n    ... on Composition {\n      id\n      maybeTitle: title\n      urlAlias\n    }\n    ... on DataUse {\n      id\n      title\n    }\n    ... on Document {\n      id\n      title\n    }\n    ... on MeetingEvent {\n      id\n      title\n    }\n    ... on News {\n      id\n      title\n    }\n    ... on Programme {\n      id\n      title\n    }\n    ... on GbifProject {\n      id\n      title\n    }\n    ... on Tool {\n      id\n      title\n    }\n  }\n",
+      "variables": {
+        "alias": "/awards/ebbe-2026-rules"
+      },
+      "operationName": "AliasHandling"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"resource\":{\"__typename\":\"Article\",\"id\":\"4KY2Ct5v60rocbbjEiwlRN\",\"title\":\"Official Rules: 2026 GBIF Ebbe Nielsen Challenge\",\"urlAlias\":\"/awards/ebbe-2026-rules\"}}}\n"
+}

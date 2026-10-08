@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query InstitutionTopCountries($predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(size: 0) {\n        total\n      }\n      facet {\n        countryCode(size: 10) {\n          count\n          key\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "institutionKey",
+          "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+        }
+      },
+      "operationName": "InstitutionTopCountries"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":508355},\"facet\":{\"countryCode\":[{\"count\":389626,\"key\":\"DK\"},{\"count\":6350,\"key\":\"SE\"},{\"count\":5146,\"key\":\"GR\"},{\"count\":4339,\"key\":\"NO\"},{\"count\":3762,\"key\":\"DE\"},{\"count\":3591,\"key\":\"PL\"},{\"count\":2040,\"key\":\"US\"},{\"count\":1665,\"key\":\"ES\"},{\"count\":1599,\"key\":\"IT\"},{\"count\":1418,\"key\":\"GL\"}]}}}}\n"
+}

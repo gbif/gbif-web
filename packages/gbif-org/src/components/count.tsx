@@ -48,7 +48,7 @@ export function Count({ apiEndpoint, params, queueId, property, message }: Props
 }
 
 const LITERATURE_COUNT_QUERY = `
-  query($predicate: Predicate) {
+  query LiteratureCount($predicate: Predicate) {
     search: literatureSearch(predicate: $predicate) {
       documents {
         total
@@ -57,7 +57,7 @@ const LITERATURE_COUNT_QUERY = `
   }
 `;
 const OCCURRENCE_COUNT_QUERY = `
-  query($predicate: Predicate) {
+  query OccurrenceCount($predicate: Predicate) {
     search: occurrenceSearch(predicate: $predicate) {
       documents {
         total

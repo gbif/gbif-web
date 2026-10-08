@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query HelpText($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n      body\n    }\n  }\n",
+      "variables": {
+        "identifier": "what-is-an-installation"
+      },
+      "operationName": "HelpText"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"help\":{\"id\":\"5RxOgRrAsImHenVGoTCeuX\",\"identifier\":\"what-is-an-installation\",\"title\":\"What is an installation?\",\"body\":\"<p>Installations are servers that make datasets available on the internet. Some publishers run their own technical installations, e.g., using the <a href=\\\"https://www.gbif.org/ipt\\\">IPT</a>, through which data is shared with GBIF. Some installations are collaborations and may be shared by multiple publishers.</p>\"}}}\n"
+}

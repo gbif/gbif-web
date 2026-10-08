@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query DatasetSearch($query: DatasetSearchInput) {\n    datasetSearch(query: $query) {\n      count\n      limit\n      offset\n      results {\n        ...DatasetStubResult\n      }\n    }\n  }\n\n  fragment DatasetStubResult on DatasetSearchStub {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n  }\n",
+      "variables": {
+        "query": {
+          "keyword": [
+            "country_DK"
+          ],
+          "publishingOrg": [
+            "cdef28b1-db4e-4c58-aa71-3c5238c2d0b5"
+          ],
+          "limit": 20,
+          "offset": 0
+        }
+      },
+      "operationName": "DatasetSearch"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"datasetSearch\":{\"count\":2,\"limit\":20,\"offset\":0,\"results\":[{\"key\":\"ad5cba8c-45fb-428c-aafa-7ff013d0fdaf\",\"title\":\"Global Register of Introduced and Invasive Species - Denmark\",\"excerpt\":\"The Global Register of Introduced and Invasive Species (GRIIS) presents validated and verified national checklists of introduced (alien) and invasive alien species at the country, territory, and…\",\"type\":\"CHECKLIST\",\"publishingOrganizationTitle\":\"Invasive Species Specialist Group ISSG\"},{\"key\":\"0046fb5b-505f-49f4-87f7-6069b0fe31d4\",\"title\":\"Global Register of Introduced and Invasive Species - Greenland\",\"excerpt\":\"The Global Register of Introduced and Invasive Species (GRIIS) presents validated and verified checklists of introduced (alien) and invasive alien species at the country, territory, and associated…\",\"type\":\"CHECKLIST\",\"publishingOrganizationTitle\":\"Invasive Species Specialist Group ISSG\"}]}}}\n"
+}

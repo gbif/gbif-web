@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query DatasetCitation($key: ID!) {\n    dataset(key: $key) {\n      title\n      citation {\n        text\n      }\n      publishingOrganizationTitle\n    }\n  }\n",
+      "variables": {
+        "key": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+      },
+      "operationName": "DatasetCitation"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"dataset\":{\"title\":\"GBIF Backbone Taxonomy\",\"citation\":{\"text\":\"GBIF Secretariat (2023). GBIF Backbone Taxonomy. Checklist dataset https://doi.org/10.15468/39omei accessed via GBIF.org on 2026-10-07.\"},\"publishingOrganizationTitle\":\"GBIF Secretariat\"}}}\n"
+}

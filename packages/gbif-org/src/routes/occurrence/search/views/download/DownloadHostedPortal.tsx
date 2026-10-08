@@ -16,7 +16,7 @@ import { useI18n } from '@/reactRouterPlugins';
 const GBIF_ORG = import.meta.env.PUBLIC_GBIF_ORG;
 
 const DOWNLOAD = `
-query($predicate: Predicate){
+query DownloadHostedPortalPredicate($predicate: Predicate){
   _queryId
   _variablesId
   occurrenceSearch(predicate: $predicate, size: 0) {

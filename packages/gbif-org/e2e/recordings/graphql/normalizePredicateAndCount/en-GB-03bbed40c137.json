@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query normalizePredicateAndCount($predicate: Predicate, $sequencePredicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      _meta\n      documents {\n        total\n      }\n    }\n    sequenced: occurrenceSearch(predicate: $sequencePredicate) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "in",
+              "key": "country",
+              "values": [
+                "DK"
+              ]
+            },
+            {
+              "type": "equals",
+              "key": "year",
+              "value": "2020",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            }
+          ]
+        },
+        "sequencePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "and",
+              "predicates": [
+                {
+                  "type": "in",
+                  "key": "country",
+                  "values": [
+                    "DK"
+                  ]
+                },
+                {
+                  "type": "equals",
+                  "key": "year",
+                  "value": "2020",
+                  "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                }
+              ]
+            },
+            {
+              "type": "isNotNull",
+              "key": "nucleotideSequence.sequence"
+            }
+          ]
+        }
+      },
+      "operationName": "normalizePredicateAndCount"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}}]}}]}}},\"documents\":{\"total\":3839636}},\"sequenced\":{\"documents\":{\"total\":513691}}}}\n"
+}

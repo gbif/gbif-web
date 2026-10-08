@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query LiteratureTableSearch($from: Int, $size: Int, $predicate: Predicate, $q: String) {\n    literatureSearch(predicate: $predicate, q: $q) {\n      documents(from: $from, size: $size) {\n        from\n        size\n        total\n        results {\n          id\n          title\n          authors {\n            firstName\n            lastName\n          }\n          countriesOfCoverage\n          countriesOfResearcher\n          year\n          identifiers {\n            doi\n          }\n          gbifDOIs\n          literatureType\n          relevance\n          source\n          topics\n          websites\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "in",
+          "key": "literatureType",
+          "values": [
+            "JOURNAL"
+          ]
+        },
+        "size": 50,
+        "from": 0
+      },
+      "operationName": "LiteratureTableSearch"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"literatureSearch\":{\"documents\":{\"from\":0,\"size\":50,\"total\":0,\"results\":[]}}}}\n"
+}

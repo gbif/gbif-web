@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query OccurrencesPerKingdom($predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      facet {\n        kingdomKey {\n          key\n          count\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "key": "country",
+          "type": "equals",
+          "value": "DK"
+        }
+      },
+      "operationName": "OccurrencesPerKingdom"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"kingdomKey\":[{\"key\":\"1\",\"count\":49487331},{\"key\":\"6\",\"count\":13908899},{\"key\":\"3\",\"count\":2048149},{\"key\":\"5\",\"count\":1707886},{\"key\":\"4\",\"count\":403843},{\"key\":\"7\",\"count\":42070},{\"key\":\"8\",\"count\":5673},{\"key\":\"2\",\"count\":5373},{\"key\":\"0\",\"count\":1402}]}}}}\n"
+}

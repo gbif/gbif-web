@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query LiteratureResearcherCountryFacet($predicate: Predicate) {\n      search: literatureSearch(predicate: $predicate) {\n        facet {\n          field: countriesOfResearcher {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "in",
+          "key": "countriesOfResearcher",
+          "values": [
+            "GB"
+          ]
+        },
+        "size": 1
+      },
+      "operationName": "LiteratureResearcherCountryFacet"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"GB\",\"count\":4037},{\"name\":\"US\",\"count\":1047},{\"name\":\"DE\",\"count\":807},{\"name\":\"ES\",\"count\":540},{\"name\":\"FR\",\"count\":509},{\"name\":\"AU\",\"count\":501},{\"name\":\"NL\",\"count\":413},{\"name\":\"IT\",\"count\":404},{\"name\":\"BE\",\"count\":399},{\"name\":\"BR\",\"count\":393}]}}}}\n"
+}
