@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ToolLayout($machineIdentifier: String!) {\n    resource(machineIdentifier: $machineIdentifier) {\n      __typename\n      ... on Tool {\n        ...ToolPage\n      }\n    }\n  }\n\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    excerpt\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n\n  fragment ArticleBanner on AssetImage {\n    description\n    title\n    file {\n      url\n      details {\n        image {\n          width\n          height\n        }\n      }\n      normal: thumbor(width: 1200, height: 500)\n      mobile: thumbor(width: 800, height: 400)\n    }\n  }\n",
+      "variables": {
+        "machineIdentifier": "sequence_id"
+      },
+      "operationName": "ToolLayout"
+    }
+  },
+  "status": 404,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"errors\":[{\"message\":\"404: Not Found\",\"locations\":[{\"line\":3,\"column\":5}],\"path\":[\"resource\"],\"extensions\":{\"code\":\"NOT_FOUND\",\"stacktrace\":[\"GraphQLError: 404: Not Found\",\"    at new NotFoundError (/srv/graphql/dist/helpers/GraphQL404Error.js:7:9)\",\"    at Object.resource (/srv/graphql/dist/resources/resource/resource/resource.resolver.js:38:27)\",\"    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\"]}}],\"data\":{\"resource\":null}}\n"
+}

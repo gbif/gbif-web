@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query SlowTaxon($key: ID!, $datasetKey: ID!) {\n    taxonInfo(key: $key, datasetKey: $datasetKey) {\n      wikiData {\n        taxonID\n        references\n        dataset {\n          title\n        }\n        identifiers {\n          title\n          url\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "5231190",
+        "datasetKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+      },
+      "operationName": "SlowTaxon"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"taxonInfo\":{\"wikiData\":null}}}\n"
+}

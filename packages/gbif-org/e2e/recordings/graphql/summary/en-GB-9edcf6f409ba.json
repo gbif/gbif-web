@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: relevance\n        }\n        facet {\n          results: relevance(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "relevance"
+            },
+            {
+              "type": "equals",
+              "key": "gbifDatasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 50,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8088},\"cardinality\":{\"total\":9},\"facet\":{\"results\":[{\"key\":\"GBIF_USED\",\"count\":7304},{\"key\":\"GBIF_CITED\",\"count\":693},{\"key\":\"GBIF_MENTIONED\",\"count\":46},{\"key\":\"GBIF_PUBLISHED\",\"count\":35},{\"key\":\"GBIF_DISCUSSED\",\"count\":10},{\"key\":\"GBIF_ACKNOWLEDGED\",\"count\":5},{\"key\":\"GBIF_PRIMARY\",\"count\":5},{\"key\":\"GBIF_AUTHOR\",\"count\":2},{\"key\":\"GBIF_FUNDED\",\"count\":1}]}}}}\n"
+}

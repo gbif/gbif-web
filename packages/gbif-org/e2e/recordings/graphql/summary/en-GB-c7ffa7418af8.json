@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: countriesOfCoverage\n        }\n        facet {\n          results: countriesOfCoverage(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "countriesOfCoverage"
+            },
+            {
+              "type": "equals",
+              "key": "gbifDatasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8088},\"cardinality\":{\"total\":216},\"facet\":{\"results\":[{\"key\":\"US\",\"count\":567},{\"key\":\"MX\",\"count\":322},{\"key\":\"CN\",\"count\":267},{\"key\":\"BR\",\"count\":215},{\"key\":\"CA\",\"count\":198},{\"key\":\"IN\",\"count\":143},{\"key\":\"CO\",\"count\":121},{\"key\":\"RU\",\"count\":116},{\"key\":\"AR\",\"count\":85},{\"key\":\"AU\",\"count\":85}]}}}}\n"
+}

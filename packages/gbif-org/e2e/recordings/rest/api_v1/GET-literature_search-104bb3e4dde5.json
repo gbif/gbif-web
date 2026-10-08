@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/literature/search?limit=0&publishingOrganizationKey=44573c2e-7a52-46c5-9fb0-9e2b8ce9e90d"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "{\"offset\":0,\"limit\":0,\"endOfRecords\":true,\"count\":0,\"results\":[],\"facets\":[]}"
+}

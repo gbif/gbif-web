@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/occurrence/search?limit=0&datasetKey=10524092-539d-4ea4-8539-2e91ad8581a9"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "{\"offset\":0,\"limit\":0,\"endOfRecords\":false,\"count\":201,\"results\":[],\"facets\":[]}"
+}

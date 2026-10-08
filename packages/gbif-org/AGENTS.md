@@ -71,8 +71,9 @@ Reference: `src/routes/dataset/key/index.tsx` + `datasetKey.tsx`.
 
 ## Tests
 
-Vitest via `gbif/vite.config.ts`, colocated. Cypress (`cypress/`) has few specs; do not rely on it.
+Vitest via `gbif/vite.config.ts`, colocated.
 
 Playwright e2e in `e2e/` (read `e2e/README.md`): `npm run e2e:build` then `npm run e2e`, offline
-against recorded upstream data. Rebuild after editing `src/`; the run refuses a stale build. Changed
-a query or added a page: `npm run e2e:record`, commit `e2e/recordings/`.
+against recorded upstream data. Covers gbif.org (SSR) and a hosted portal (client-only). Rebuild
+after editing `src/`; the run refuses a stale build. Changed a query or added a page:
+`npm run e2e:record`, commit `e2e/recordings/`.

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query LiteratureCount($predicate: Predicate) {\n    search: literatureSearch(predicate: $predicate) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifProjectIdentifier",
+          "value": "BID-REG2025-081"
+        }
+      },
+      "operationName": "LiteratureCount"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":0}}}}\n"
+}

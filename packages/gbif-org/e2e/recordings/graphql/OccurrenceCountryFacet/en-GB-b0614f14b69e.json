@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query OccurrenceCountryFacet($q: String, $predicate: Predicate) {\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        facet {\n          field: countryCode {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "in",
+          "key": "country",
+          "values": [
+            "DK"
+          ]
+        },
+        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b",
+        "size": 1
+      },
+      "operationName": "OccurrenceCountryFacet"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"DK\",\"count\":67987009}]}}}}\n"
+}

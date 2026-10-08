@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query occurrenceMetaMap($q: String, $predicate: Predicate) {\n    occurrenceSearch(q: $q, predicate: $predicate) {\n      _meta\n      metaPredicate\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "and",
+              "predicates": [
+                {
+                  "type": "in",
+                  "key": "country",
+                  "values": [
+                    "DK"
+                  ]
+                },
+                {
+                  "type": "equals",
+                  "key": "year",
+                  "value": "2020",
+                  "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                }
+              ]
+            },
+            {
+              "type": "equals",
+              "key": "hasCoordinate",
+              "value": true
+            }
+          ]
+        }
+      },
+      "operationName": "occurrenceMetaMap"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"country\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"year\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"hasCoordinate\",\"value\":true}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"in\",\"key\":\"COUNTRY\",\"values\":[\"DK\"]},{\"type\":\"equals\",\"key\":\"YEAR\",\"value\":\"2020\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"HAS_COORDINATE\",\"value\":true}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"terms\":{\"countryCode\":[\"DK\"]}}]}},{\"bool\":{\"filter\":[{\"term\":{\"year\":{\"value\":\"2020\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"hasCoordinate\":{\"value\":\"true\"}}}]}}]}}]}}},\"metaPredicate\":1398304886}}}\n"
+}

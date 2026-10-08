@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query CountryDetailFrom($isoCode: Country!) {\n    countryDetail(isoCode: $isoCode) {\n      fromOccurrenceCount\n      fromDatasetCount\n      fromCountryCount\n      fromPublisherCount\n    }\n  }\n",
+      "variables": {
+        "isoCode": "DK"
+      },
+      "operationName": "CountryDetailFrom"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"countryDetail\":{\"fromOccurrenceCount\":79200090,\"fromDatasetCount\":150,\"fromCountryCount\":242,\"fromPublisherCount\":36}}}\n"
+}

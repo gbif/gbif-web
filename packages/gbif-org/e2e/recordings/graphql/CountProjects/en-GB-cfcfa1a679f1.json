@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query CountProjects($countryCode: JSON!) {\n    resourceSearch(\n      contentType: PROJECT\n      predicate: { key: \"contractCountry\", type: equals, value: $countryCode }\n    ) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "countryCode": "DK"
+      },
+      "operationName": "CountProjects"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"resourceSearch\":{\"documents\":{\"total\":0}}}}\n"
+}

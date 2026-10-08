@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query CollectionFallbackImage($key: ID!) {\n    collection(key: $key) {\n      featuredImageUrl_fallback: homepageOGImageUrl_volatile(\n        onlyIfNoImageUrl: true\n        timeoutMs: 3000\n      )\n    }\n  }\n",
+      "variables": {
+        "key": "85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9"
+      },
+      "operationName": "CollectionFallbackImage"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"collection\":{\"featuredImageUrl_fallback\":null}}}\n"
+}

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: license\n        }\n        facet {\n          results: license(size: $size, from: $from) {\n            key\n            count\n            occurrences {\n              metaPredicate\n              _meta\n            }\n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "countryCode",
+          "value": "DK"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "license"
+            },
+            {
+              "type": "equals",
+              "key": "countryCode",
+              "value": "DK"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":67987009},\"cardinality\":{\"total\":3},\"facet\":{\"results\":[{\"key\":\"CC_BY_NC_4_0\",\"count\":43755350,\"occurrences\":{\"metaPredicate\":-269466839,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"license\",\"value\":\"CC_BY_NC_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"LICENSE\",\"value\":\"CC_BY_NC_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"license\":{\"value\":\"CC_BY_NC_4_0\"}}}]}}]}}]}}}}},{\"key\":\"CC_BY_4_0\",\"count\":23649061,\"occurrences\":{\"metaPredicate\":-759391119,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"license\",\"value\":\"CC_BY_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"LICENSE\",\"value\":\"CC_BY_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"license\":{\"value\":\"CC_BY_4_0\"}}}]}}]}}]}}}}},{\"key\":\"CC0_1_0\",\"count\":582598,\"occurrences\":{\"metaPredicate\":-1805101186,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"license\",\"value\":\"CC0_1_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"LICENSE\",\"value\":\"CC0_1_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"license\":{\"value\":\"CC0_1_0\"}}}]}}]}}]}}}}}]}}}}\n"
+}

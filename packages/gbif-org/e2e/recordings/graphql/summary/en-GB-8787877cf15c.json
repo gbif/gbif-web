@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: literatureType\n        }\n        facet {\n          results: literatureType(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "literatureType"
+            },
+            {
+              "type": "equals",
+              "key": "gbifDatasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 50,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8088},\"cardinality\":{\"total\":14},\"facet\":{\"results\":[{\"key\":\"journal\",\"count\":5917},{\"key\":\"report\",\"count\":881},{\"key\":\"working_paper\",\"count\":700},{\"key\":\"thesis\",\"count\":249},{\"key\":\"book_section\",\"count\":94},{\"key\":\"conference_proceedings\",\"count\":64},{\"key\":\"generic\",\"count\":55},{\"key\":\"encyclopedia_article\",\"count\":54},{\"key\":\"web_page\",\"count\":47},{\"key\":\"book\",\"count\":13},{\"key\":\"computer_program\",\"count\":8},{\"key\":\"magazine_article\",\"count\":3},{\"key\":\"newspaper_article\",\"count\":2},{\"key\":\"bill\",\"count\":1}]}}}}\n"
+}

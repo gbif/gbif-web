@@ -66,7 +66,7 @@ function HomePage(): React.ReactElement {
                   <div className="g-text-white">
                     <div className="g-mb-8 g-text-lg">{home?.title}</div>
                     <h1
-                      data-cy="heading"
+                      data-testid="heading"
                       className="g-text-4xl md:g-text-5xl g-font-semibold g-text-white"
                     >
                       {home?.summary}
@@ -109,7 +109,7 @@ function HomePage(): React.ReactElement {
 
         <HomePageCounts iconData={home} />
 
-        <div data-cy="homepage-blocks">
+        <div data-testid="homepage-blocks">
           {home?.blocks?.map((block, idx) => (
             <BlockItem resource={block} key={idx} />
           ))}
