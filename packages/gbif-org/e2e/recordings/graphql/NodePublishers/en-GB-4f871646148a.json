@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query NodePublishers($key: ID!, $limit: Int!, $offset: Int!) {\n    node(key: $key) {\n      publisher: organization(limit: $limit, offset: $offset) {\n        limit\n        offset\n        count\n        endOfRecords\n        results {\n          ...PublisherResult\n        }\n      }\n    }\n  }\n\n  fragment PublisherResult on Organization {\n    key\n    title\n    created\n    country\n    logoUrl\n    excerpt\n  }\n",
+      "variables": {
+        "key": "6ab5da69-215e-4b9e-9f50-c72d146eecfc",
+        "limit": 5,
+        "offset": 0
+      },
+      "operationName": "NodePublishers"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"node\":{\"publisher\":{\"limit\":5,\"offset\":0,\"count\":0,\"endOfRecords\":true,\"results\":[]}}}}\n"
+}

@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/occurrence/search?limit=0&datasetKey=76819780-989f-11de-b4d9-b8a03c50a862"
+  },
+  "status": 429,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "[\"Too many API requests have been detected from your client.  To download GBIF occurrence data in bulk, request a download through the website <https://www.gbif.org/occurrence/search>, the API <https://techdocs.gbif.org/en/data-use/api-downloads>, or use the free public cloud datasets <https://www.gbif.org/occurrence-snapshot>.\",\"We can also provide data about downloads, datasets, citations and so on in CSV or some other format, please contact helpdesk@gbif.org.\"]"
+}

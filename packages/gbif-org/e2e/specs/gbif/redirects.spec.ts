@@ -48,6 +48,18 @@ const ROWS: Row[] = [
     final: { url: /\/country\/DK\/summary$/, text: 'Denmark' },
   },
   {
+    // Loader redirect: a COUNTRY participant lives on the country page.
+    from: '/participant/20',
+    location: '/country/AT/summary',
+    final: { url: /\/country\/AT\/summary$/, text: 'Austria' },
+  },
+  {
+    // The locale prefix is kept.
+    from: '/es/participant/20',
+    location: '/es/country/AT/summary',
+    final: { url: /\/es\/country\/AT\/summary$/, text: 'Austria' },
+  },
+  {
     // Forced post-render redirect: the query string, not a 404, triggers it.
     from: '/resource/search?contentType=literature',
     location: '/literature/search',
@@ -83,4 +95,16 @@ test('an unknown path is a 404, not a redirect', async ({ page }) => {
   expect(response.status()).toBe(404);
   await page.goto('/this-page-does-not-exist');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('404');
+});
+
+test('an unknown participant is a 404', async ({ page }) => {
+  const response = await page.goto('/participant/99999999');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('404');
+});
+
+test('a country node leads through its participant to the country page', async ({ page }) => {
+  await page.goto('/node/4ddd294f-02b7-4359-ac33-0806a9ca9c6b');
+  await expect(page).toHaveURL(/\/country\/DK\/summary$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Denmark');
 });

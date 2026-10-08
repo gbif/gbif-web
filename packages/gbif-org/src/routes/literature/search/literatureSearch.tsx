@@ -19,7 +19,7 @@ import PageMetaData from '@/components/PageMetaData';
 export function LiteratureSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
-    paramsToRemove: ['from'],
+    paramsToRemove: ['offset', 'from'],
   });
   const config = useConfig();
   const intl = useIntl();

@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query Participant($countryCode: String!) {\n    nodeCountry(countryCode: $countryCode) {\n      title\n      address\n      gbifRegion\n      participationStatus\n      participant {\n        membershipStart\n        nodeEstablishmentDate\n      }\n      ...ParticipantSummary\n      ...CountryKeyParticipation\n    }\n  }\n\n  fragment ParticipantSummary on Node {\n    title\n    gbifRegion\n    participationStatus\n    participant {\n      membershipStart\n      nodeEstablishmentDate\n      participantUrl\n      rssFeeds {\n        label\n        url\n      }\n      newsletters {\n        label\n        url\n      }\n      linksToSocialMedia {\n        label\n        url\n      }\n    }\n    headOfDelegation: contacts(type: \"HEAD_OF_DELEGATION\") {\n      key\n      firstName\n      lastName\n    }\n    participantNodeManager: contacts(type: \"NODE_MANAGER\") {\n      key\n      firstName\n      lastName\n    }\n    directoryNodes {\n      nodeUrl\n    }\n  }\n\n  fragment CountryKeyParticipation on Node {\n    participant {\n      progressAndPlans\n      nodeMission\n      nodeFunding\n      nodeHistory\n      nodeStructure\n      participationStatus\n    }\n    ...NodeContacts\n  }\n\n  fragment NodeContacts on Node {\n    contacts {\n      key\n      firstName\n      surname\n      lastName\n      institutionName\n\n      organization\n      position\n      roles\n      type\n\n      address\n      city\n      postalCode\n      province\n      country\n\n      homepage\n      email\n      phone\n      userId\n    }\n  }\n",
+      "variables": {
+        "countryCode": "AT"
+      },
+      "operationName": "Participant"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"nodeCountry\":{\"title\":\"GBIF Austria\",\"address\":[\"Spittelauer Lände 5, A-1090 Vienna \\nVienna\\nAustria\"],\"gbifRegion\":\"EUROPE\",\"participationStatus\":\"OBSERVER\",\"participant\":{\"membershipStart\":\"2001-09\",\"nodeEstablishmentDate\":null,\"participantUrl\":null,\"rssFeeds\":null,\"newsletters\":null,\"linksToSocialMedia\":null,\"progressAndPlans\":null,\"nodeMission\":null,\"nodeFunding\":null,\"nodeHistory\":null,\"nodeStructure\":null,\"participationStatus\":\"OBSERVER\"},\"headOfDelegation\":[],\"participantNodeManager\":[],\"directoryNodes\":[{\"nodeUrl\":\"http://www.gbif.at/\"}],\"contacts\":[]}}}\n"
+}

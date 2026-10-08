@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query AliasHandling($alias: String!) {\n    resource(alias: $alias) {\n      ...ResourceRedirectDetails\n    }\n  }\n\n  fragment ResourceRedirectDetails on Resource {\n    __typename\n    ... on Article {\n      id\n      title\n      urlAlias\n    }\n    ... on Composition {\n      id\n      maybeTitle: title\n      urlAlias\n    }\n    ... on DataUse {\n      id\n      title\n    }\n    ... on Document {\n      id\n      title\n    }\n    ... on MeetingEvent {\n      id\n      title\n    }\n    ... on News {\n      id\n      title\n    }\n    ... on Programme {\n      id\n      title\n    }\n    ... on GbifProject {\n      id\n      title\n    }\n    ... on Tool {\n      id\n      title\n    }\n  }\n",
+      "variables": {
+        "alias": "/this-page-does-not-exist"
+      },
+      "operationName": "AliasHandling"
+    }
+  },
+  "status": 404,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"errors\":[{\"message\":\"404: Not Found\",\"locations\":[{\"line\":3,\"column\":5}],\"path\":[\"resource\"],\"extensions\":{\"code\":\"NOT_FOUND\",\"stacktrace\":[\"GraphQLError: 404: Not Found\",\"    at new NotFoundError (/srv/graphql/dist/helpers/GraphQL404Error.js:7:9)\",\"    at Object.resource (/srv/graphql/dist/resources/resource/resource/resource.resolver.js:38:27)\",\"    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\"]}}],\"data\":{\"resource\":null}}\n"
+}

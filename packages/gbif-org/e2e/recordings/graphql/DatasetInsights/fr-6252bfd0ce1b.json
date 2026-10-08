@@ -1,0 +1,109 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query DatasetInsights(\n    $datasetPredicate: Predicate\n    $imagePredicate: Predicate\n    $coordinatePredicate: Predicate\n    $taxonPredicate: Predicate\n    $eventDatePredicate: Predicate\n    $eventPredicate: Predicate\n    $sitePredicate: Predicate\n  ) {\n    unfiltered: occurrenceSearch(predicate: $datasetPredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    siteOccurrences: occurrenceSearch(predicate: $sitePredicate) {\n      documents(size: 0) {\n        total\n      }\n      cardinality {\n        eventId\n      }\n      facet {\n        dwcaExtension {\n          key\n          count\n        }\n      }\n    }\n    images: occurrenceSearch(predicate: $imagePredicate) {\n      documents(size: 10) {\n        total\n        results {\n          key\n          stillImages {\n            identifier: thumbor(height: 400)\n          }\n        }\n      }\n    }\n    withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {\n      documents(size: 10) {\n        total\n      }\n    }\n    withTaxonMatch: occurrenceSearch(predicate: $taxonPredicate) {\n      documents(size: 10) {\n        total\n      }\n    }\n    withEventDate: occurrenceSearch(predicate: $eventDatePredicate) {\n      documents(size: 10) {\n        total\n      }\n    }\n    withEventId: occurrenceSearch(predicate: $eventPredicate) {\n      documents(size: 10) {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "sitePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            }
+          ]
+        },
+        "datasetPredicate": {
+          "type": "equals",
+          "key": "datasetKey",
+          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+        },
+        "imagePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            },
+            {
+              "type": "equals",
+              "key": "mediaType",
+              "value": "StillImage"
+            }
+          ]
+        },
+        "coordinatePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            },
+            {
+              "type": "equals",
+              "key": "hasCoordinate",
+              "value": "true"
+            },
+            {
+              "type": "equals",
+              "key": "hasGeospatialIssue",
+              "value": "false"
+            }
+          ]
+        },
+        "taxonPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            },
+            {
+              "type": "equals",
+              "key": "issue",
+              "value": "TAXON_MATCH_NONE"
+            }
+          ]
+        },
+        "eventDatePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            },
+            {
+              "type": "isNotNull",
+              "key": "eventDate"
+            }
+          ]
+        },
+        "eventPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            },
+            {
+              "type": "isNotNull",
+              "key": "eventId"
+            }
+          ]
+        }
+      },
+      "operationName": "DatasetInsights"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"unfiltered\":{\"documents\":{\"total\":169720759}},\"siteOccurrences\":{\"documents\":{\"total\":169720759},\"cardinality\":{\"eventId\":0},\"facet\":{\"dwcaExtension\":[{\"key\":\"http://rs.gbif.org/terms/1.0/Multimedia\",\"count\":164296373},{\"key\":\"http://rs.gbif.org/terms/1.0/DNADerivedData\",\"count\":76807}]}},\"images\":{\"documents\":{\"total\":163495895,\"results\":[{\"key\":5938027305,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027305/media/2038c50b72f2bc9adc0842e242a2b1f4\"}]},{\"key\":5938027306,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027306/media/ba702f50c403a8e9b107a404ae70b2d1\"}]},{\"key\":5938027307,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027307/media/815514604a1c0aefaa13968ee1a0e4d1\"}]},{\"key\":5938027309,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027309/media/c5dcfbdf439f876ee178aa2b732cf8c0\"}]},{\"key\":5938027310,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027310/media/6d0d9ba293d72a5eca69f6a8355eb8c4\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027310/media/7f7d41d47ddb6d724e97d2171188972f\"}]},{\"key\":5938027311,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027311/media/f4a28f8d370ed5b097302ad6300f388f\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027311/media/588a2ff0c77ebf378eb8c12940f5bbbf\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027311/media/02cf3694c9b206eb407bb356e1552d93\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027311/media/71cdf1a5ddcc0eed67bc8a1d9f9434a4\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027311/media/de63e7c501f30d634cf693542caea9ea\"}]},{\"key\":5938027312,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027312/media/85e183f78704995d07f6b6474ab72a11\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027312/media/40439cf3b5f0374c31a6a26951079d06\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027312/media/d69a1572078e5827249f32b56f2427a8\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027312/media/a5fe1f7de39efa5f7aee07b208ec2614\"}]},{\"key\":5938027313,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027313/media/7daaff7508ab1862205b65d36d1d71ab\"},{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027313/media/a1abfac452219c05d5f63dfe0a803ca6\"}]},{\"key\":5938027315,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027315/media/0e22fa981b5b28d33fe5fdfc38dbea19\"}]},{\"key\":5938027316,\"stillImages\":[{\"identifier\":\"https://api.gbif.org/v1/image/cache/x400/occurrence/5938027316/media/ebc75fcf592ec07833a16edbf7465f1a\"}]}]}},\"withCoordinates\":{\"documents\":{\"total\":169335575}},\"withTaxonMatch\":{\"documents\":{\"total\":0}},\"withEventDate\":{\"documents\":{\"total\":169720759}},\"withEventId\":{\"documents\":{\"total\":0}}}}\n"
+}

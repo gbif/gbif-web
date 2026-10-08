@@ -105,6 +105,12 @@ const ROWS: Row[] = [
   },
   { id: 'countryKey', url: '/country/DK/summary', title: 'Denmark', h1: 'Denmark' },
   {
+    id: 'participantKey',
+    url: '/participant/317',
+    title: 'International Long Term Ecological Research',
+    h1: 'International Long Term Ecological Research',
+  },
+  {
     // A country's node redirects to the country page.
     id: 'nodeKey',
     url: '/node/4ddd294f-02b7-4359-ac33-0806a9ca9c6b',
@@ -120,4 +126,51 @@ test('links between enabled pages stay on the portal', async ({ page, baseURL })
   await page.getByRole('link', { name: 'iNaturalist.org', exact: true }).first().click();
   await expect(page).toHaveURL(`${baseURL}/publisher/28eb1a3f-1c15-4a95-931a-4af90ecb574d`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('iNaturalist.org');
+});
+
+// No SSR, so the redirect is client-side: assert where the browser lands, not a 302.
+for (const [from, to] of [
+  ['/participant/20', /\/country\/AT\/summary$/],
+  ['/es/participant/20', /\/es\/country\/AT\/summary$/],
+] as const) {
+  test(`${from} lands on the country page`, async ({ page }) => {
+    await page.goto(from);
+    await expect(page).toHaveURL(to);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Austria');
+  });
+}
+
+// Portal sites build their own language selector from the gbifUrlChange event. localizeLink maps
+// the current url to another language, and a visit to it renders in that language.
+test('gbifUrlChange carries a localizeLink that switches the portal language', async ({
+  page,
+  waitForIdle,
+}) => {
+  await page.addInitScript(() => {
+    const w = window as unknown as { __urlChanges: Array<{ url: string; es: string }> };
+    w.__urlChanges = [];
+    window.addEventListener('gbifUrlChange', (e) => {
+      const { url, localizeLink } = (
+        e as CustomEvent<{ url: string; localizeLink: (l: string, t?: string) => string }>
+      ).detail;
+      w.__urlChanges.push({ url, es: localizeLink(url, 'es') });
+    });
+  });
+  const changes = () =>
+    page.evaluate(
+      () => (window as unknown as { __urlChanges: Array<{ url: string; es: string }> }).__urlChanges
+    );
+
+  await page.goto('/dataset/search?q=bird');
+  await waitForIdle();
+  const first = (await changes()).at(-1);
+  expect(first).toEqual({ url: '/dataset/search?q=bird', es: '/es/dataset/search?q=bird' });
+  await expect(page.getByText(/^[\d,]+ datasets$/).first()).toBeVisible();
+
+  await page.goto(first!.es);
+  await waitForIdle();
+  await expect(page).toHaveURL(/\/es\/dataset\/search\?q=bird$/);
+  await expect(page.getByText(/^[\d.]+ conjuntos de datos publicados$/).first()).toBeVisible();
+  const second = (await changes()).at(-1);
+  expect(second?.url).toBe('/es/dataset/search?q=bird');
 });

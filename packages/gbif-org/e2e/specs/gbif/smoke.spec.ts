@@ -66,6 +66,13 @@ const ROWS: Row[] = [
   },
   { id: 'countryKey', url: '/country/DK/summary', title: 'Denmark', h1: 'Denmark' },
   {
+    // A non-country participant renders its own page; country participants redirect.
+    id: 'participantKey',
+    url: '/participant/317',
+    title: 'International Long Term Ecological Research',
+    h1: 'International Long Term Ecological Research',
+  },
+  {
     id: 'downloadKey',
     url: '/occurrence/download/0012986-260928105237408',
     title: 'Download 2026-10-06T16:00:51.881+00:00',
