@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ScienceCommittee {\n    scienceCommittee {\n      personId\n      name\n      roles\n    }\n  }\n",
+      "operationName": "ScienceCommittee"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"scienceCommittee\":[{\"personId\":\"4427\",\"name\":\"Tim Littlewood\",\"roles\":[\"SCIENCE_COMMITTEE_CHAIR\"]},{\"personId\":\"4129\",\"name\":\"Hugo de Boer\",\"roles\":[\"SCIENCE_COMMITTEE_1ST_VICE_CHAIR\"]},{\"personId\":\"143\",\"name\":\"Fatima Parker-Allie\",\"roles\":[\"SCIENCE_COMMITTEE_2ND_VICE_CHAIR\"]},{\"personId\":\"4024\",\"name\":\"Jurate De Prins\",\"roles\":[\"SCIENCE_COMMITTEE_3RD_VICE_CHAIR\"]},{\"personId\":\"4285\",\"name\":\"Melodie McGeoch\",\"roles\":[\"SCIENCE_COMMITTEE_MEMBER\"]},{\"personId\":\"4108\",\"name\":\"Enrique Martinez Meyer\",\"roles\":[\"SCIENCE_COMMITTEE_MEMBER\"]},{\"personId\":\"4411\",\"name\":\"Florence Fouque\",\"roles\":[\"SCIENCE_COMMITTEE_MEMBER\"]},{\"personId\":\"3706\",\"name\":\"Martin Kalfatovic\",\"roles\":[\"GOVERNING_BOARD_CHAIR\"]},{\"personId\":\"4318\",\"name\":\"Sharon D. Grant\",\"roles\":[\"GOVERNING_BOARD_1ST_VICE_CHAIR\"]},{\"personId\":\"87\",\"name\":\"Christoph Häuser\",\"roles\":[\"GOVERNING_BOARD_2ND_VICE_CHAIR\"]},{\"personId\":\"41\",\"name\":\"Anne-Sophie Archambeau\",\"roles\":[\"GOVERNING_BOARD_3RD_VICE_CHAIR\"]},{\"personId\":\"4028\",\"name\":\"Joe Miller\",\"roles\":[\"EXECUTIVE_SECRETARY\"]}]}}\n"
+}
