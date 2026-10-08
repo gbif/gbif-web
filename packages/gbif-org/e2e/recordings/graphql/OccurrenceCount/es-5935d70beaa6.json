@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query OccurrenceCount($predicate: Predicate) {\n    search: occurrenceSearch(predicate: $predicate) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "datasetKey",
+          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+        }
+      },
+      "operationName": "OccurrenceCount"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":169720759}}}}\n"
+}

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: literatureSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: topics\n        }\n        facet {\n          results: topics(size: $size, from: $from) {\n            key\n            count\n            \n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "topics"
+            },
+            {
+              "type": "equals",
+              "key": "gbifDatasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 50,
+        "vocabularyLocale": "es-ES"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8088},\"cardinality\":{\"total\":18},\"facet\":{\"results\":[{\"key\":\"ECOLOGY\",\"count\":2050},{\"key\":\"CONSERVATION\",\"count\":1765},{\"key\":\"CLIMATE_CHANGE\",\"count\":1451},{\"key\":\"SPECIES_DISTRIBUTIONS\",\"count\":1101},{\"key\":\"INVASIVES\",\"count\":1083},{\"key\":\"BIODIVERSITY_SCIENCE\",\"count\":556},{\"key\":\"EVOLUTION\",\"count\":556},{\"key\":\"BIOGEOGRAPHY\",\"count\":497},{\"key\":\"TAXONOMY\",\"count\":457},{\"key\":\"AGRICULTURE\",\"count\":382},{\"key\":\"PHYLOGENETICS\",\"count\":314},{\"key\":\"HUMAN_HEALTH\",\"count\":310},{\"key\":\"MARINE\",\"count\":257},{\"key\":\"CITIZEN_SCIENCE\",\"count\":256},{\"key\":\"FRESHWATER\",\"count\":120},{\"key\":\"DATA_PAPER\",\"count\":88},{\"key\":\"ECOSYSTEM_SERVICES\",\"count\":68},{\"key\":\"DATA_MANAGEMENT\",\"count\":40}]}}}}\n"
+}
