@@ -3,7 +3,7 @@
     "SIMPLE_AVRO": "",
     "SIMPLE_CSV": "",
     "DWCA": "",
-    "FASTA_ARCHIVE": "",
+    "FASTA_ARCHIVE": "FASTA-arkiv",
     "SPECIES_LIST": "",
     "SIMPLE_WITH_VERBATIM_AVRO": "",
     "MAP_OF_LIFE": "",
