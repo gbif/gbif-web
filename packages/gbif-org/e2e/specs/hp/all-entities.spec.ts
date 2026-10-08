@@ -105,6 +105,12 @@ const ROWS: Row[] = [
   },
   { id: 'countryKey', url: '/country/DK/summary', title: 'Denmark', h1: 'Denmark' },
   {
+    id: 'participantKey',
+    url: '/participant/317',
+    title: 'International Long Term Ecological Research',
+    h1: 'International Long Term Ecological Research',
+  },
+  {
     // A country's node redirects to the country page.
     id: 'nodeKey',
     url: '/node/4ddd294f-02b7-4359-ac33-0806a9ca9c6b',
@@ -121,3 +127,15 @@ test('links between enabled pages stay on the portal', async ({ page, baseURL })
   await expect(page).toHaveURL(`${baseURL}/publisher/28eb1a3f-1c15-4a95-931a-4af90ecb574d`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('iNaturalist.org');
 });
+
+// No SSR, so the redirect is client-side: assert where the browser lands, not a 302.
+for (const [from, to] of [
+  ['/participant/20', /\/country\/AT\/summary$/],
+  ['/es/participant/20', /\/es\/country\/AT\/summary$/],
+] as const) {
+  test(`${from} lands on the country page`, async ({ page }) => {
+    await page.goto(from);
+    await expect(page).toHaveURL(to);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Austria');
+  });
+}

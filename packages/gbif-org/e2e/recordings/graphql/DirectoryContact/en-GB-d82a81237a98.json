@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query DirectoryContact($id: ID!) {\n    directoryContact(id: $id) {\n      id\n      firstName\n      surname\n      institutionName\n      address\n      countryCode\n      phone\n      email\n      orcidId\n      jobTitle\n      profilePicture\n      participants {\n        id\n        name\n        type\n        countryCode\n        node {\n          contacts(id: $id) {\n            type\n          }\n        }\n        people(id: $id) {\n          role\n          termStart\n        }\n      }\n      roles {\n        role\n        term {\n          start\n          end\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "id": "4433"
+      },
+      "operationName": "DirectoryContact"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"directoryContact\":{\"id\":\"4433\",\"firstName\":\"Tiffany G.\",\"surname\":\"Troxler\",\"institutionName\":\"Florida International University\",\"address\":\"Institute of Environment, an FIU Preeminent Program\\n11200 SW 8th St, \\nMiami, FL, 33199\",\"countryCode\":\"US\",\"phone\":\"+1 305 348 1571, AHC5-368\",\"email\":\"troxlert@fiu.edu\",\"orcidId\":null,\"jobTitle\":\"Associate Professor, Department of Earth and Environment & Director of Science, Sea Level Solutions Center,\",\"profilePicture\":null,\"participants\":[{\"id\":\"317\",\"name\":\"International Long Term Ecological Research\",\"type\":\"OTHER\",\"countryCode\":\"AT\",\"node\":{\"contacts\":[{\"type\":\"HEAD_OF_DELEGATION\"}]},\"people\":[{\"role\":\"HEAD_OF_DELEGATION\",\"termStart\":\"2023-08-28\"}]}],\"roles\":[]}}}\n"
+}
