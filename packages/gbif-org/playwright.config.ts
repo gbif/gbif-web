@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
-import { GBIF_E2E_DIST, GBIF_PORT, MOCK_PORT, mockEnv } from './e2e/env.mjs';
+import { resolve } from 'node:path';
+import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_PORT, MOCK_PORT, mockEnv } from './e2e/env.mjs';
 
 // The server refuses to boot without these; the e2e build never authenticates anyone.
 const dummySecrets = {
@@ -24,14 +25,33 @@ export default defineConfig({
   globalSetup: './e2e/globalSetup.ts',
   globalTeardown: './e2e/globalTeardown.ts',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
+  // A test.only re-record would run a few tests and prune every other recording.
+  forbidOnly: !!process.env.CI || process.env.E2E_PRUNE === '1',
   retries: 0,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
-    baseURL: `http://localhost:${GBIF_PORT}`,
     trace: 'retain-on-failure',
     ...devices['Desktop Chrome'],
   },
+  projects: [
+    {
+      name: 'gbif',
+      testDir: './e2e/specs/gbif',
+      use: { baseURL: `http://localhost:${GBIF_PORT}` },
+    },
+    {
+      // Client-only hosted-portal library mounted in a site with every data page enabled.
+      name: 'hp-all-entities',
+      testDir: './e2e/specs/hp',
+      use: { baseURL: `http://localhost:${HP_PORT}` },
+    },
+    {
+      // Only occurrence pages enabled, scoped to Denmark.
+      name: 'hp-occurrence-only',
+      testDir: './e2e/specs/hp-occurrence-only',
+      use: { baseURL: `http://localhost:${HP_PORT + 1}` },
+    },
+  ],
   webServer: [
     {
       command: 'node e2e/mock/upstream.mjs',
@@ -41,15 +61,29 @@ export default defineConfig({
       stdout: 'pipe',
     },
     {
-      command: 'node gbif/server.js',
+      // server.js loads .env from its working directory.
+      command: `node "${resolve('gbif/server.js')}"`,
+      cwd: E2E_ENV_DIR,
       url: `http://localhost:${GBIF_PORT}/robots.txt`,
       env: {
         ...mockEnv(`http://localhost:${GBIF_PORT}`),
         ...dummySecrets,
         NODE_ENV: 'production',
         PORT: String(GBIF_PORT),
-        GBIF_DIST_DIR: GBIF_E2E_DIST,
+        GBIF_DIST_DIR: resolve(GBIF_E2E_DIST),
       },
+      reuseExistingServer: false,
+    },
+    {
+      command: 'node e2e/hp-sites/server.mjs',
+      url: `http://localhost:${HP_PORT}/gbif-lib.js`,
+      env: { HP_SITE: 'all-entities', PORT: String(HP_PORT) },
+      reuseExistingServer: false,
+    },
+    {
+      command: 'node e2e/hp-sites/server.mjs',
+      url: `http://localhost:${HP_PORT + 1}/gbif-lib.js`,
+      env: { HP_SITE: 'occurrence-only', PORT: String(HP_PORT + 1) },
       reuseExistingServer: false,
     },
   ],

@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query NodeDatasets($key: ID!, $limit: Int!, $offset: Int!) {\n    node(key: $key) {\n      dataset(limit: $limit, offset: $offset) {\n        limit\n        offset\n        count\n        endOfRecords\n        results {\n          ...DatasetResult\n        }\n      }\n    }\n  }\n\n  fragment DatasetResult on Dataset {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n  }\n",
+      "variables": {
+        "key": "6ab5da69-215e-4b9e-9f50-c72d146eecfc",
+        "limit": 5,
+        "offset": 0
+      },
+      "operationName": "NodeDatasets"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"node\":{\"dataset\":{\"limit\":5,\"offset\":0,\"count\":0,\"endOfRecords\":true,\"results\":[]}}}}\n"
+}

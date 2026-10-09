@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($predicate: Predicate, $hasPredicate: Predicate){\n      search: literatureSearch(predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        facet: autoDateHistogram {\n          results: createdAt(buckets: 50, minimum_interval: \"day\") {\n            interval\n            buckets {\n              key: date\n              utc: key\n              date\n              title: date\n              count\n            }\n          }\n        }\n      }\n      isNotNull: literatureSearch(predicate: $hasPredicate) {\n        documents(size: 0) {\n          total\n        }\n      }\n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "createdAt"
+            },
+            {
+              "type": "equals",
+              "key": "gbifDatasetKey",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8088},\"facet\":{\"results\":{\"interval\":\"1y\",\"buckets\":[{\"key\":\"2015-01-01T00:00:00.000Z\",\"utc\":\"1420070400000\",\"date\":\"2015-01-01T00:00:00.000Z\",\"title\":\"2015-01-01T00:00:00.000Z\",\"count\":8},{\"key\":\"2016-01-01T00:00:00.000Z\",\"utc\":\"1451606400000\",\"date\":\"2016-01-01T00:00:00.000Z\",\"title\":\"2016-01-01T00:00:00.000Z\",\"count\":22},{\"key\":\"2017-01-01T00:00:00.000Z\",\"utc\":\"1483228800000\",\"date\":\"2017-01-01T00:00:00.000Z\",\"title\":\"2017-01-01T00:00:00.000Z\",\"count\":46},{\"key\":\"2018-01-01T00:00:00.000Z\",\"utc\":\"1514764800000\",\"date\":\"2018-01-01T00:00:00.000Z\",\"title\":\"2018-01-01T00:00:00.000Z\",\"count\":181},{\"key\":\"2019-01-01T00:00:00.000Z\",\"utc\":\"1546300800000\",\"date\":\"2019-01-01T00:00:00.000Z\",\"title\":\"2019-01-01T00:00:00.000Z\",\"count\":304},{\"key\":\"2020-01-01T00:00:00.000Z\",\"utc\":\"1577836800000\",\"date\":\"2020-01-01T00:00:00.000Z\",\"title\":\"2020-01-01T00:00:00.000Z\",\"count\":644},{\"key\":\"2021-01-01T00:00:00.000Z\",\"utc\":\"1609459200000\",\"date\":\"2021-01-01T00:00:00.000Z\",\"title\":\"2021-01-01T00:00:00.000Z\",\"count\":947},{\"key\":\"2022-01-01T00:00:00.000Z\",\"utc\":\"1640995200000\",\"date\":\"2022-01-01T00:00:00.000Z\",\"title\":\"2022-01-01T00:00:00.000Z\",\"count\":1063},{\"key\":\"2023-01-01T00:00:00.000Z\",\"utc\":\"1672531200000\",\"date\":\"2023-01-01T00:00:00.000Z\",\"title\":\"2023-01-01T00:00:00.000Z\",\"count\":1340},{\"key\":\"2024-01-01T00:00:00.000Z\",\"utc\":\"1704067200000\",\"date\":\"2024-01-01T00:00:00.000Z\",\"title\":\"2024-01-01T00:00:00.000Z\",\"count\":1544},{\"key\":\"2025-01-01T00:00:00.000Z\",\"utc\":\"1735689600000\",\"date\":\"2025-01-01T00:00:00.000Z\",\"title\":\"2025-01-01T00:00:00.000Z\",\"count\":1363},{\"key\":\"2026-01-01T00:00:00.000Z\",\"utc\":\"1767225600000\",\"date\":\"2026-01-01T00:00:00.000Z\",\"title\":\"2026-01-01T00:00:00.000Z\",\"count\":624},{\"key\":\"2027-01-01T00:00:00.000Z\",\"utc\":\"1798761600000\",\"date\":\"2027-01-01T00:00:00.000Z\",\"title\":\"2027-01-01T00:00:00.000Z\",\"count\":1},{\"key\":\"2028-01-01T00:00:00.000Z\",\"utc\":\"1830297600000\",\"date\":\"2028-01-01T00:00:00.000Z\",\"title\":\"2028-01-01T00:00:00.000Z\",\"count\":1}]}}},\"isNotNull\":{\"documents\":{\"total\":8088}}}}\n"
+}

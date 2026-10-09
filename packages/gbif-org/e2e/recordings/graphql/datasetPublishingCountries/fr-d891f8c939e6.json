@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query datasetPublishingCountries($sitePredicate: Predicate) {\n    occurrenceSearch(predicate: $sitePredicate) {\n      facet {\n        publishingCountry(size: 500) {\n          key\n          count\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "sitePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "DATASET_KEY",
+              "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+            }
+          ]
+        }
+      },
+      "operationName": "datasetPublishingCountries"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"publishingCountry\":[{\"key\":\"US\",\"count\":141788615},{\"key\":\"CA\",\"count\":8129348},{\"key\":\"AU\",\"count\":4983187},{\"key\":\"GB\",\"count\":3376375},{\"key\":\"MX\",\"count\":3360170},{\"key\":\"NZ\",\"count\":1947750},{\"key\":\"TW\",\"count\":1006879},{\"key\":\"AR\",\"count\":956532},{\"key\":\"PT\",\"count\":786908},{\"key\":\"ES\",\"count\":614650},{\"key\":\"FI\",\"count\":534290},{\"key\":\"CO\",\"count\":389223},{\"key\":\"LU\",\"count\":330897},{\"key\":\"EC\",\"count\":305377},{\"key\":\"CL\",\"count\":283962},{\"key\":\"SE\",\"count\":227362},{\"key\":\"CR\",\"count\":181528},{\"key\":\"GR\",\"count\":146606},{\"key\":\"PA\",\"count\":132935},{\"key\":\"IL\",\"count\":118419},{\"key\":\"UY\",\"count\":81736},{\"key\":\"GT\",\"count\":38010}]}}}}\n"
+}

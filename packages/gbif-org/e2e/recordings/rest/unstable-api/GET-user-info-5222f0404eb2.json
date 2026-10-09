@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://graphql.gbif.org/unstable-api/user-info?lang=ar"
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"country\":\"US\",\"countryName\":\"الولايات المتحدة الأمريكية\"}"
+}

@@ -90,16 +90,3 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
-
-  cypress:
-    build:
-      context: .
-      dockerfile: packages/gbif-org/Dockerfile.cypress
-    depends_on:
-      gbif-org:
-        condition: service_healthy
-    environment:
-      - CYPRESS_baseUrl=http://gbif-org:6813
-    volumes:
-      - ./cypress-results:/app/cypress/results
-    command: ['--spec', 'cypress/e2e/basicTests/**/*.cy.js']

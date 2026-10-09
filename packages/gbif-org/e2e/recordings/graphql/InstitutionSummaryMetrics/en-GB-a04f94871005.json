@@ -1,0 +1,68 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query InstitutionSummaryMetrics(\n    $key: ID!\n    $collectionScope: CollectionSearchInput\n    $predicate: Predicate\n    $imagePredicate: Predicate\n    $coordinatePredicate: Predicate\n    $clusterPredicate: Predicate\n  ) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    institution(key: $key) {\n      key\n      collections(limit: 200, query: $collectionScope) {\n        key\n        excerpt\n        code\n        name\n        active\n        numberSpecimens\n        richness\n        occurrenceCount\n      }\n    }\n    withImages: occurrenceSearch(predicate: $imagePredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    withClusters: occurrenceSearch(predicate: $clusterPredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "collectionScope": {},
+        "key": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe",
+        "predicate": {
+          "type": "equals",
+          "key": "institutionKey",
+          "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+        },
+        "imagePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "institutionKey",
+              "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+            },
+            {
+              "type": "equals",
+              "key": "mediaType",
+              "value": "StillImage"
+            }
+          ]
+        },
+        "coordinatePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "institutionKey",
+              "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+            },
+            {
+              "type": "equals",
+              "key": "hasCoordinate",
+              "value": "true"
+            }
+          ]
+        },
+        "clusterPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "institutionKey",
+              "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+            },
+            {
+              "type": "equals",
+              "key": "isInCluster",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "operationName": "InstitutionSummaryMetrics"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":508355}},\"institution\":{\"key\":\"59f46093-8fae-47f3-a9ef-e5fd1d38e4fe\",\"collections\":[{\"key\":\"85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9\",\"excerpt\":null,\"code\":\"E\",\"name\":\"NHMA Entomology Collection\",\"active\":true,\"numberSpecimens\":null,\"richness\":10,\"occurrenceCount\":279790},{\"key\":\"07944645-8537-4920-8681-673c8fc8281d\",\"excerpt\":null,\"code\":\"M\",\"name\":\"NHMA Malacology Collection\",\"active\":true,\"numberSpecimens\":null,\"richness\":10,\"occurrenceCount\":40391}]},\"withImages\":{\"documents\":{\"total\":0}},\"withCoordinates\":{\"documents\":{\"total\":189080}},\"withClusters\":{\"documents\":{\"total\":1904}}}}\n"
+}

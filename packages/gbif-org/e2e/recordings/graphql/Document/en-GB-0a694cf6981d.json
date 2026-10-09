@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query Document($key: String!) {\n      resource(id: $key) {\n        ...ResourceRedirectDetails\n        ... on Document {\n          ...DocumentPage\n        }\n      }\n    }\n  \n  fragment ResourceRedirectDetails on Resource {\n    __typename\n    ... on Article {\n      id\n      title\n      urlAlias\n    }\n    ... on Composition {\n      id\n      maybeTitle: title\n      urlAlias\n    }\n    ... on DataUse {\n      id\n      title\n    }\n    ... on Document {\n      id\n      title\n    }\n    ... on MeetingEvent {\n      id\n      title\n    }\n    ... on News {\n      id\n      title\n    }\n    ... on Programme {\n      id\n      title\n    }\n    ... on GbifProject {\n      id\n      title\n    }\n    ... on Tool {\n      id\n      title\n    }\n  }\n\n  fragment DocumentPage on Document {\n    id\n    title\n    createdAt\n    excerpt\n    summary\n    primaryLink {\n      label\n      url\n    }\n    document {\n      title\n      description\n      file {\n        fileName\n        url\n      }\n    }\n    body\n    citation\n  }\n",
+      "variables": {
+        "key": "3zlBKROKrqfTJlWo5PNtBi"
+      },
+      "operationName": "Document"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"resource\":{\"__typename\":\"Document\",\"id\":\"3zlBKROKrqfTJlWo5PNtBi\",\"title\":\"Multi-Factor Authentication (MFA) for Fluxx\",\"createdAt\":\"2026-08-17T11:32:40.099Z\",\"excerpt\":\"This document supports the MFA procedure to be used within GBIF Grants Portal processes.\",\"summary\":null,\"primaryLink\":null,\"document\":{\"title\":\"Multi-Factor Autentication (MFA) FAQs\",\"description\":\"\",\"file\":{\"fileName\":\"Multi-Factor Autentication (MFA) FAQs.pdf\",\"url\":\"//assets.ctfassets.net/uo17ejk9rkwj/4whawxezw2nT8tQBk9dMNk/9dbc4d72f46c5061c8b5cb5e8760ec40/Multi-Factor_Autentication__MFA__FAQs.pdf\"}},\"body\":\"<p>This document supports the MFA procedure to be used within GBIF Grants Portal processes.</p>\",\"citation\":null}}}\n"
+}

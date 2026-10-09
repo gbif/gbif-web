@@ -46,15 +46,38 @@ function trackRequests(page: Page) {
   };
 }
 
-type Fixtures = { pageErrors: string[] };
+type Fixtures = {
+  pageErrors: string[];
+  // Resolves once the page has stopped requesting. Await it before an action that unmounts what is
+  // loading (switching tabs), or how much got requested depends on timing and replay misses.
+  waitForIdle: () => Promise<void>;
+};
 
 // Every spec imports test from here: the browser only talks to localhost, and an uncaught exception,
-// a hydration mismatch or an unrecorded request fails the test even when its own assertions pass.
+// a hydration mismatch, the partial-data error toast or an unrecorded request fails the test even
+// when its own assertions pass.
 export const test = base.extend<Fixtures>({
+  waitForIdle: async ({ page }, use) => {
+    await use(trackRequests(page));
+  },
   pageErrors: [
-    async ({ page }, use, testInfo) => {
+    async ({ page, waitForIdle }, use, testInfo) => {
+      // The mock prunes recordings only if every started test also reported passing.
+      await fetch(`${MOCK}/__mock/test-started`, { method: 'POST' });
       const errors: string[] = [];
       page.on('pageerror', (err) => errors.push(`pageerror: ${err.message}`));
+      // The toast auto-dismisses, so watch for it from the first byte of every document.
+      await page.exposeBinding('__e2ePartialDataToast', () => {
+        errors.push('partial-data toast: a GraphQL response had errors');
+      });
+      await page.addInitScript(() => {
+        let reported = false;
+        new MutationObserver(() => {
+          if (reported || !document.querySelector('[data-testid="partial-data-error"]')) return;
+          reported = true;
+          (window as unknown as { __e2ePartialDataToast: () => void }).__e2ePartialDataToast();
+        }).observe(document, { childList: true, subtree: true });
+      });
       page.on('console', (msg) => {
         if (msg.type() === 'error' && HYDRATION_ERROR.test(msg.text())) {
           errors.push(`hydration: ${msg.text()}`);
@@ -76,21 +99,23 @@ export const test = base.extend<Fixtures>({
         }
         return route.continue();
       });
-      const waitForIdle = trackRequests(page);
 
       await use(errors);
 
       // Late client-side fetches must happen inside the test, or they are never recorded and only
       // surface as replay misses.
       await waitForIdle();
-      const misses: Array<{ key: string }> = await fetch(
+      const misses: Array<{ key: string; reason: string }> = await fetch(
         `${MOCK}/__mock/misses?test=${encodeURIComponent(testInfo.testId)}`
       ).then((r) => r.json());
       expect(errors, 'uncaught errors in the page').toEqual([]);
       expect(
-        misses.map((m) => m.key),
-        'requests without a recording; run npm run e2e:record'
+        misses.map((m) => `${m.key}: ${m.reason}`),
+        'requests the mock could not answer'
       ).toEqual([]);
+      if (testInfo.status === testInfo.expectedStatus) {
+        await fetch(`${MOCK}/__mock/test-passed`, { method: 'POST' });
+      }
     },
     { auto: true },
   ],

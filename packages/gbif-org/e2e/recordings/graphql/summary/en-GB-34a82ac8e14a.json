@@ -1,0 +1,64 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checklistKey: ID) {\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: usageKey(checklistKey: $checklistKey)\n        }\n        facet {\n          results: usageKey(size: $size, from: $from, checklistKey: $checklistKey) {\n            key\n            count\n            entity: taxon {\n              title: scientificName\n              accepted: acceptedNameUsage\n              acceptedKey: acceptedNameUsageID\n            }\n            occurrences {\n              metaPredicate\n              _meta\n            }\n          }\n        }\n      }\n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "taxonKey",
+              "value": "4DXXM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "equals",
+              "key": "taxonomicStatus",
+              "value": "SYNONYM",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            }
+          ]
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "usageKey",
+              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+            },
+            {
+              "type": "and",
+              "predicates": [
+                {
+                  "type": "equals",
+                  "key": "taxonKey",
+                  "value": "4DXXM",
+                  "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                },
+                {
+                  "type": "equals",
+                  "key": "taxonomicStatus",
+                  "value": "SYNONYM",
+                  "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                }
+              ]
+            }
+          ]
+        },
+        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b",
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":2270},\"cardinality\":{\"total\":1},\"facet\":{\"results\":[{\"key\":\"PDTQN\",\"count\":2270,\"entity\":{\"title\":\"Fringilla domestica\",\"accepted\":\"Passer domesticus\",\"acceptedKey\":\"4DXXM\"},\"occurrences\":{\"metaPredicate\":-1089548507,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"taxonomicStatus\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"PDTQN\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"TAXONOMIC_STATUS\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"PDTQN\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.status\":{\"value\":\"SYNONYM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"PDTQN\"}}}]}}]}}]}}}}}]}}}}\n"
+}

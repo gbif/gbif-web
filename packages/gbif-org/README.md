@@ -8,6 +8,7 @@
     - [How to Start the New GBIF.org in Development Mode](#how-to-start-the-new-gbiforg-in-development-mode)
     - [How to Build and Run the New GBIF.org](#how-to-build-and-run-the-new-gbiforg)
     - [How to Test the Code in an Environment Simulating the Hosted Portals](#how-to-test-the-code-in-an-environment-simulating-the-hosted-portals)
+    - [How to Run the End-to-End Tests](#how-to-run-the-end-to-end-tests)
   - [Environment Variables](#environment-variables)
     - [Exposing Environment Variables to the Client](#exposing-environment-variables-to-the-client)
   - [GBIF.org Specific Code](#gbiforg-specific-code)
@@ -68,6 +69,11 @@ To initiate development mode, execute `npm run develop`.
 
 1. Build for Hosted Portals: Run `npm run build:hp`.
 2. Start for Hosted Portals: Run `npm run start:hp`.
+
+### How to Run the End-to-End Tests
+
+`npm run e2e:build`, then `npm run e2e`: Playwright against recorded upstream data, offline. See
+[`e2e/README.md`](e2e/README.md) for recording, re-recording and writing specs.
 
 ## Environment Variables
 

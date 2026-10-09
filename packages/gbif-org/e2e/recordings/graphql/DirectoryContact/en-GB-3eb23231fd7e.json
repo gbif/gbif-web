@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query DirectoryContact($id: ID!) {\n    directoryContact(id: $id) {\n      id\n      firstName\n      surname\n      institutionName\n      address\n      countryCode\n      phone\n      email\n      orcidId\n      jobTitle\n      profilePicture\n      participants {\n        id\n        name\n        type\n        countryCode\n        node {\n          contacts(id: $id) {\n            type\n          }\n        }\n        people(id: $id) {\n          role\n          termStart\n        }\n      }\n      roles {\n        role\n        term {\n          start\n          end\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "id": "49"
+      },
+      "operationName": "DirectoryContact"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"directoryContact\":{\"id\":\"49\",\"firstName\":\"Isabel\",\"surname\":\"Calabuig\",\"institutionName\":\"DanBIF - Danish Biodiversity Information Facility\",\"address\":\"Natural History Museum Denmark (NHMD)\\nUniversity of Copenhagen\\nSection for Digital Collections & Archives \\nGothersgade 130 \\nDK-1123 Copenhagen K\",\"countryCode\":\"DK\",\"phone\":\"+45 35 32 11 03\",\"email\":\"icalabuig@snm.ku.dk\",\"orcidId\":null,\"jobTitle\":\"Additional delegate | Node manager & Data Curator at DanBIF\",\"profilePicture\":null,\"participants\":[{\"id\":\"2\",\"name\":\"Denmark\",\"type\":\"COUNTRY\",\"countryCode\":\"DK\",\"node\":{\"contacts\":[{\"type\":\"ADDITIONAL_DELEGATE\"},{\"type\":\"NODE_MANAGER\"}]},\"people\":[{\"role\":\"ADDITIONAL_DELEGATE\",\"termStart\":\"2000-01-01\"}]}],\"roles\":[{\"role\":\"FINANCIAL_CONTACT\",\"term\":{\"start\":\"2025-01-22\",\"end\":null}}]}}}\n"
+}

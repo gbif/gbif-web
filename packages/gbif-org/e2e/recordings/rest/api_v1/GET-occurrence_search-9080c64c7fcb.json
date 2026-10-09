@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/occurrence/search?limit=0&taxonKey=5231190&country=AR&checklistKey=d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "{\"offset\":0,\"limit\":0,\"endOfRecords\":false,\"count\":170223,\"results\":[],\"facets\":[]}"
+}

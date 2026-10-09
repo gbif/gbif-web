@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query PublisherCounts($key: ID!, $jsonKey: JSON!) {\n    occurrenceSearch(predicate: { type: equals, key: \"publishingOrg\", value: $jsonKey }) {\n      documents(size: 0) {\n        total\n      }\n    }\n    hostedDatasets: datasetSearch(hostingOrg: [$key]) {\n      count\n    }\n    literatureSearch(publishingOrganizationKey: [$key]) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "28eb1a3f-1c15-4a95-931a-4af90ecb574d",
+        "jsonKey": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+      },
+      "operationName": "PublisherCounts"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":169720759}},\"hostedDatasets\":{\"count\":1},\"literatureSearch\":{\"documents\":{\"total\":8088}}}}\n"
+}

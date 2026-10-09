@@ -1,0 +1,87 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query DatasetOccurrenceSearch(\n    $from: Int\n    $size: Int\n    $predicate: Predicate\n    $imagePredicate: Predicate\n    $coordinatePredicate: Predicate\n    $clusterPredicate: Predicate\n    $eventPredicate: Predicate\n    $literaturePredicate: Predicate\n  ) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(from: $from, size: $size) {\n        from\n        size\n        total\n        results {\n          dynamicProperties\n        }\n      }\n    }\n    withImages: occurrenceSearch(predicate: $imagePredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    withClusters: occurrenceSearch(predicate: $clusterPredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    withEvents: occurrenceSearch(predicate: $eventPredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    literatureSearchScoped: literatureSearch(predicate: $literaturePredicate) {\n      documents {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "datasetKey",
+          "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+        },
+        "imagePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+            },
+            {
+              "type": "equals",
+              "key": "mediaType",
+              "value": "StillImage"
+            }
+          ]
+        },
+        "coordinatePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+            },
+            {
+              "type": "equals",
+              "key": "hasCoordinate",
+              "value": "true"
+            }
+          ]
+        },
+        "clusterPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+            },
+            {
+              "type": "equals",
+              "key": "isInCluster",
+              "value": "true"
+            }
+          ]
+        },
+        "eventPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+            },
+            {
+              "type": "isNotNull",
+              "key": "eventId"
+            }
+          ]
+        },
+        "literaturePredicate": {
+          "type": "equals",
+          "key": "gbifDatasetKey",
+          "value": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+        },
+        "size": 1,
+        "from": 0
+      },
+      "operationName": "DatasetOccurrenceSearch"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"from\":0,\"size\":1,\"total\":0,\"results\":[]}},\"withImages\":{\"documents\":{\"total\":0}},\"withCoordinates\":{\"documents\":{\"total\":0}},\"withClusters\":{\"documents\":{\"total\":0}},\"withEvents\":{\"documents\":{\"total\":0}},\"literatureSearchScoped\":{\"documents\":{\"total\":195}}}}\n"
+}

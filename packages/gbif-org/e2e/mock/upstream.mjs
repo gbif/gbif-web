@@ -5,10 +5,15 @@
 // E2E_MODE=replay (default): serve recordings from e2e/recordings. A request without a recording is
 //   answered with an error and logged as a miss; the test fixture and global teardown fail on misses.
 // E2E_MODE=record: serve existing recordings, forward anything else to production GBIF and save it.
-//   POST /__mock/prune afterwards deletes recordings the run never served.
+// E2E_MODE=refresh: forward every request once per run and overwrite its recording, so recordings
+//   follow production data, not just new queries.
+// In both forwarding modes, POST /__mock/prune afterwards deletes recordings the run never served,
+//   but only after a run in which every started test passed: a failed or aborted run served too
+//   little to judge.
 //
 // Keys are exact (operation + locale + query text + variables, or method + path + query string), so
-// a changed query is a miss rather than a stale replay. Node built-ins only.
+// a changed query is a miss rather than a stale replay.
+// Unnamed GraphQL operations are misses in both modes. Node built-ins only.
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -21,6 +26,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const RECORDINGS_DIR = process.env.RECORDINGS_DIR || join(__dirname, '..', 'recordings');
 const FALLBACK_DIR = join(__dirname, '..', '..', 'src', 'config', 'fallback');
 const MODE = (process.env.E2E_MODE || 'replay').toLowerCase();
+const FORWARDS = MODE === 'record' || MODE === 'refresh';
 
 /**
  * @typedef {{ prefix: string, base?: string, kind?: 'graphql' | 'translations' | 'stub' }} Upstream
@@ -90,11 +96,11 @@ function stableStringify(value) {
   return JSON.stringify(value);
 }
 
-/** @param {GraphQLBody | undefined} body */
+/** @param {GraphQLBody | undefined} body @returns {string | undefined} */
 function operationName(body) {
-  if (typeof body?.operationName === 'string') return body.operationName;
+  if (typeof body?.operationName === 'string' && body.operationName) return body.operationName;
   const m = /\b(?:query|mutation)\s+(\w+)/.exec(body?.query ?? '');
-  return m ? m[1] : 'anonymous';
+  return m?.[1];
 }
 
 // The relative file a request is stored in. Also its identity.
@@ -106,7 +112,11 @@ function recordingPath(upstream, method, url, body, headers) {
   if (upstream.kind === 'graphql') {
     const locale = String(headers.locale || 'none');
     const id = `${body?.query ?? ''}\n${stableStringify(body?.variables ?? {})}`;
-    return join('graphql', operationName(body), `${sanitize(locale)}-${hash(id)}.json`);
+    return join(
+      'graphql',
+      operationName(body) ?? 'anonymous',
+      `${sanitize(locale)}-${hash(id)}.json`
+    );
   }
   const params = [...url.searchParams.entries()].sort(([a], [b]) => a.localeCompare(b));
   const query = new URLSearchParams(params).toString();
@@ -122,6 +132,8 @@ const served = new Set();
 const inflight = new Map();
 /** @type {Array<Record<string, unknown>>} */
 const misses = [];
+// Reported by the test fixture.
+const tests = { started: 0, passed: 0 };
 
 function loadRecordings(dir = RECORDINGS_DIR, rel = '') {
   if (!existsSync(dir)) return;
@@ -259,8 +271,20 @@ async function handle(req, res) {
     const list = test ? misses.filter((m) => m.test === test) : misses;
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(list));
   }
+  if (url.pathname === '/__mock/test-started' && req.method === 'POST') {
+    tests.started++;
+    return send(res, 204, {}, '');
+  }
+  if (url.pathname === '/__mock/test-passed' && req.method === 'POST') {
+    tests.passed++;
+    return send(res, 204, {}, '');
+  }
   if (url.pathname === '/__mock/prune' && req.method === 'POST') {
-    if (MODE !== 'record') return send(res, 409, {}, 'prune only runs in record mode');
+    if (!FORWARDS) return send(res, 409, {}, 'prune only runs in record or refresh mode');
+    if (tests.started === 0 || tests.passed !== tests.started) {
+      const message = `not pruning: ${tests.passed} of ${tests.started} started tests passed`;
+      return send(res, 409, {}, message);
+    }
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(prune()));
   }
 
@@ -295,13 +319,28 @@ async function handle(req, res) {
   const body = raw ? JSON.parse(raw) : undefined;
   const key = recordingPath(upstream, method, url, body, req.headers);
 
+  // Recordings are filed by operation name; unnamed queries would all share one folder.
+  if (upstream.kind === 'graphql' && !operationName(body)) {
+    return miss(
+      res,
+      upstream,
+      method,
+      url,
+      body,
+      req.headers,
+      key,
+      'unnamed GraphQL operation; give it a name'
+    );
+  }
+
   const existing = store.get(key);
-  if (existing) {
+  // Refresh forwards each key once; later identical requests in the run get the fresh recording.
+  if (existing && (MODE !== 'refresh' || served.has(key))) {
     served.add(key);
     return sendRecording(res, existing);
   }
 
-  if (MODE === 'record') {
+  if (FORWARDS) {
     try {
       const rec = await recordOnce(upstream, method, url, body, req.headers, key);
       served.add(key);
@@ -313,20 +352,42 @@ async function handle(req, res) {
     }
   }
 
-  /** @type {Record<string, unknown>} */
-  const miss = {
+  return miss(
+    res,
+    upstream,
+    method,
+    url,
+    body,
+    req.headers,
     key,
+    'no recording; run npm run e2e:record'
+  );
+}
+
+// Logs the request for the fixture and global teardown, which fail the run on it.
+/**
+ * @param {Response} res @param {Upstream} upstream @param {string} method @param {URL} url
+ * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
+ * @param {string} reason
+ */
+function miss(res, upstream, method, url, body, headers, key, reason) {
+  /** @type {Record<string, unknown>} */
+  const entry = {
+    key,
+    reason,
     method,
     path: url.pathname + url.search,
-    page: req.headers['x-gbif-site-url'] ?? req.headers.referer,
+    page: headers['x-gbif-site-url'] ?? headers.referer,
     // Set by the test fixture on browser requests; server-side requests have none.
-    test: req.headers['x-e2e-test'],
+    test: headers['x-e2e-test'],
   };
-  if (upstream.kind === 'graphql') miss.variables = body?.variables;
-  misses.push(miss);
-  console.warn(`[mock] MISS ${key} (page: ${miss.page ?? 'unknown'})`);
+  if (upstream.kind === 'graphql') entry.variables = body?.variables;
+  misses.push(entry);
+  console.warn(
+    `[mock] MISS (${reason}) ${key} ${method} ${entry.path} (page: ${entry.page ?? 'unknown'})`
+  );
   if (upstream.kind === 'graphql') {
-    const message = `e2e mock: no recording for ${key}. Run npm run e2e:record.`;
+    const message = `e2e mock: ${key}: ${reason}`;
     return send(
       res,
       200,

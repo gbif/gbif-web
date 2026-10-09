@@ -8,6 +8,7 @@ Express + Apollo in front of the GBIF REST APIs and es-api. `nvm use` and `npm i
 | `npm test` | ts-mocha, colocated `src/**/*.test.{js,ts}` |
 | `npm run build` | `tsc` + alias rewrite to `dist/` |
 | `npm run write-enums` | regenerate `src/helpers/enums/enums.json` from the GBIF API |
+| `npx tsx tools/printSchema.ts <out>` | write the repo schema as SDL; used by gbif-org `npm run e2e:schema-drift` |
 
 ## Task guides
 

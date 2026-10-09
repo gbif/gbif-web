@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v2/experimental/taxon/search/0938172b-2086-439c-a1dd-c21cb0109ed5?limit=0&origin=SOURCE"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "{\"offset\":0,\"limit\":0,\"endOfRecords\":false,\"count\":565684,\"results\":[],\"facets\":[]}"
+}

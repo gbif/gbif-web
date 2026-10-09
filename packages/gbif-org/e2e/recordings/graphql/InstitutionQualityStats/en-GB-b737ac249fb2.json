@@ -1,0 +1,83 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query InstitutionQualityStats(\n    $predicate: Predicate\n    $predicate5: Predicate\n    $predicateCode: Predicate\n  ) {\n    withCollection: occurrenceSearch(predicate: $predicate) {\n      documents(size: 0) {\n        total\n      }\n      cardinality {\n        collectionKey\n      }\n    }\n    withCode: occurrenceSearch(predicate: $predicateCode) {\n      documents(size: 0) {\n        total\n      }\n    }\n    big5: occurrenceSearch(predicate: $predicate5) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "institutionKey",
+              "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+            },
+            {
+              "type": "isNotNull",
+              "key": "collectionKey"
+            }
+          ]
+        },
+        "predicate5": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "institutionKey",
+              "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+            },
+            {
+              "type": "isNotNull",
+              "key": "eventDate"
+            },
+            {
+              "type": "isNotNull",
+              "key": "recordedBy"
+            },
+            {
+              "type": "isNotNull",
+              "key": "identifiedBy"
+            },
+            {
+              "type": "not",
+              "predicate": {
+                "type": "in",
+                "key": "issue",
+                "values": [
+                  "TAXON_MATCH_NONE"
+                ]
+              }
+            }
+          ]
+        },
+        "predicateCode": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "institutionKey",
+              "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+            },
+            {
+              "type": "isNotNull",
+              "key": "collectionCode"
+            },
+            {
+              "type": "not",
+              "predicate": {
+                "type": "isNotNull",
+                "key": "collectionKey"
+              }
+            }
+          ]
+        }
+      },
+      "operationName": "InstitutionQualityStats"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"withCollection\":{\"documents\":{\"total\":320181},\"cardinality\":{\"collectionKey\":2}},\"withCode\":{\"documents\":{\"total\":188173}},\"big5\":{\"documents\":{\"total\":10}}}}\n"
+}

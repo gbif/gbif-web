@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ContactImage($personId: ID!) {\n    directoryContact(id: $personId) {\n      profilePicture\n      firstName\n      surname\n    }\n  }\n",
+      "variables": {
+        "personId": "49"
+      },
+      "operationName": "ContactImage"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"directoryContact\":{\"profilePicture\":null,\"firstName\":\"Isabel\",\"surname\":\"Calabuig\"}}}\n"
+}

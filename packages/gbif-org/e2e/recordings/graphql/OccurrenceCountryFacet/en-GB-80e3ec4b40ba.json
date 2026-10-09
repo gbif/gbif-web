@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query OccurrenceCountryFacet($q: String, $predicate: Predicate) {\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        facet {\n          field: countryCode {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ",
+      "variables": {
+        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+      },
+      "operationName": "OccurrenceCountryFacet"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"US\",\"count\":1322133299},{\"name\":\"GB\",\"count\":262885920},{\"name\":\"AU\",\"count\":259836960},{\"name\":\"CA\",\"count\":221861535},{\"name\":\"FR\",\"count\":215130956},{\"name\":\"SE\",\"count\":173334758},{\"name\":\"NL\",\"count\":149541553},{\"name\":\"NO\",\"count\":96749425},{\"name\":\"ES\",\"count\":95877187},{\"name\":\"DE\",\"count\":83594907}]}}}}\n"
+}

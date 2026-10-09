@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://api.gbif.org/v1/vocabularies/LifeStage/concepts/Adult"
+  },
+  "status": 200,
+  "contentType": "application/json",
+  "encoding": "utf8",
+  "body": "{\"key\":8,\"name\":\"Adult\",\"externalDefinitions\":[],\"editorialNotes\":[],\"created\":\"2021-06-01T12:32:22.217118Z\",\"createdBy\":\"mlopezg\",\"modified\":\"2023-02-28T10:21:50.204464Z\",\"modifiedBy\":\"MattBlissett\",\"vocabularyKey\":1,\"definition\":[{\"key\":24,\"language\":\"en\",\"value\":\"An adult is an organism that has reached sexual maturity\",\"createdBy\":\"migration\",\"created\":\"2023-02-28T10:21:50.204464Z\",\"modifiedBy\":\"migration\",\"modified\":\"2023-02-28T10:21:50.204464Z\"}],\"label\":[{\"key\":170,\"language\":\"nl-NL\",\"value\":\"Volwassen\",\"createdBy\":\"migration\",\"created\":\"2023-02-28T10:21:25.107153Z\"},{\"key\":169,\"language\":\"es-ES\",\"value\":\"Adulto\",\"createdBy\":\"migration\",\"created\":\"2023-02-28T10:21:25.107153Z\"},{\"key\":168,\"language\":\"en\",\"value\":\"Adult\",\"createdBy\":\"migration\",\"created\":\"2023-02-28T10:21:25.107153Z\"}],\"sameAsUris\":[],\"tags\":[],\"vocabularyName\":\"LifeStage\",\"alternativeLabelsLink\":\"https://api.gbif.org/v1/vocabularies/LifeStage/concepts/Adult/alternativeLabels\",\"hiddenLabelsLink\":\"https://api.gbif.org/v1/vocabularies/LifeStage/concepts/Adult/hiddenLabels\"}"
+}
