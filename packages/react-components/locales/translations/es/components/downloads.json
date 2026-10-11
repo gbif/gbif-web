@@ -337,7 +337,7 @@
       },
       "FASTA_ARCHIVE": {
         "title": "Archivo FASTA",
-        "description": "Un archivo Darwin Core con los registros que contienen secuencias de ADN, en el que las propias secuencias se han añadido como un archivo FASTA. Solo se incluyen los registros que contienen una secuencia de ADN."
+        "description": "Un Darwin Core Archive con los registros que contienen secuencias de ADN, en el que las propias secuencias se han añadido como un archivo FASTA. Solo se incluyen los registros que contienen una secuencia de ADN."
       },
       "SPECIES_LIST": {
         "title": "Listas de especies",
