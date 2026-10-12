@@ -12,6 +12,7 @@ npm run e2e:build                  # after any source change (~2.5 min); the run
 npm run e2e                        # replay recorded upstream data
 npm run e2e:record                 # forward unrecorded requests to production GBIF and save them
 npm run e2e:rerecord               # fetch every recording again from production, then delete unused ones
+npm run e2e:live                   # run against live APIs and save nothing (see below)
 ```
 
 ## How it works
@@ -54,6 +55,27 @@ npm run e2e:rerecord               # fetch every recording again from production
 - Every GraphQL operation needs a name (`query DatasetTitle($key: ID!)`). The mock refuses unnamed
   ones in both modes, since recordings are filed by operation name.
 - The recorder warns when a GraphQL response contains `errors`; check those before committing.
+
+## Features whose API is not in production yet
+
+`E2E_MODE=live` forwards every request and saves nothing, so a spec can run against an API that
+only exists on test, dev or your machine:
+
+```bash
+E2E_UPSTREAM=dev npm run e2e:live -- e2e/specs/gbif/my-feature.spec.ts       # prod (default), test, dev
+E2E_GRAPHQL_ORIGIN=http://localhost:4123 npm run e2e:live -- e2e/specs/gbif/my-feature.spec.ts
+```
+
+Record and refresh only run against production, so other environments never end up in
+`recordings/`. Run only the specs you are working on: the rest assert production content, and the
+build still uses production dataset and checklist keys. Once the API is in production, run
+`npm run e2e:record` and commit the recordings. Until then the spec fails in replay, which is the
+point: the frontend should not merge before the API it needs is deployed.
+
+The test and dev hosts sit behind a bot check. The mock passes on each request's user agent, so
+requests the browser makes get through, but those from the gbif.org server (server-side rendering,
+cache warm-up) are refused with an HTML 403 page. Ask for a header that the bot check lets through
+and pass it with `E2E_UPSTREAM_HEADERS='{"x-name":"value"}'`. A local graphql-api has no bot check.
 
 ## Live checks
 

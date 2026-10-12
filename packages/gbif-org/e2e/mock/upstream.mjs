@@ -7,6 +7,11 @@
 // E2E_MODE=record: serve existing recordings, forward anything else to production GBIF and save it.
 // E2E_MODE=refresh: forward every request once per run and overwrite its recording, so recordings
 //   follow production data, not just new queries.
+// E2E_MODE=live: forward every request and save nothing. With E2E_UPSTREAM=test|dev, or
+//   E2E_GRAPHQL_ORIGIN / E2E_API_ORIGIN (e.g. http://localhost:4123 for a local graphql-api), specs
+//   can run against APIs that are not in production yet. Recording only runs against production, so
+//   other environments never end up in e2e/recordings. E2E_UPSTREAM_HEADERS (JSON) adds headers to
+//   every forwarded request.
 // In both forwarding modes, POST /__mock/prune afterwards deletes recordings the run never served,
 //   but only after a run in which every started test passed: a failed or aborted run served too
 //   little to judge.
@@ -27,6 +32,30 @@ const RECORDINGS_DIR = process.env.RECORDINGS_DIR || join(__dirname, '..', 'reco
 const FALLBACK_DIR = join(__dirname, '..', '..', 'src', 'config', 'fallback');
 const MODE = (process.env.E2E_MODE || 'replay').toLowerCase();
 const FORWARDS = MODE === 'record' || MODE === 'refresh';
+const LIVE = MODE === 'live';
+if (!['replay', 'record', 'refresh', 'live'].includes(MODE)) {
+  throw new Error(`Unknown E2E_MODE ${MODE}; use replay, record, refresh or live`);
+}
+
+const ENVIRONMENTS = /** @type {Record<string, { graphql: string, api: string }>} */ ({
+  prod: { graphql: 'https://graphql.gbif.org', api: 'https://api.gbif.org' },
+  test: { graphql: 'https://graphql.gbif-test.org', api: 'https://api.gbif-test.org' },
+  dev: { graphql: 'https://graphql.gbif-dev.org', api: 'https://api.gbif-dev.org' },
+});
+const UPSTREAM_NAME = (process.env.E2E_UPSTREAM || 'prod').toLowerCase();
+const ENVIRONMENT = ENVIRONMENTS[UPSTREAM_NAME];
+if (!ENVIRONMENT) {
+  throw new Error(`Unknown E2E_UPSTREAM ${UPSTREAM_NAME}; use ${Object.keys(ENVIRONMENTS)}`);
+}
+const GRAPHQL_ORIGIN = process.env.E2E_GRAPHQL_ORIGIN || ENVIRONMENT.graphql;
+const API_ORIGIN = process.env.E2E_API_ORIGIN || ENVIRONMENT.api;
+const IS_PROD =
+  GRAPHQL_ORIGIN === ENVIRONMENTS.prod.graphql && API_ORIGIN === ENVIRONMENTS.prod.api;
+if (FORWARDS && !IS_PROD) {
+  throw new Error(
+    `E2E_MODE=${MODE} only records from production; use E2E_MODE=live for ${GRAPHQL_ORIGIN}`
+  );
+}
 
 /**
  * @typedef {{ prefix: string, base?: string, kind?: 'graphql' | 'translations' | 'stub' }} Upstream
@@ -38,16 +67,16 @@ const FORWARDS = MODE === 'record' || MODE === 'refresh';
 
 // Longest prefix wins, so /api/v1 beats /api.
 const UPSTREAMS = /** @type {Upstream[]} */ ([
-  { prefix: '/graphql', base: 'https://graphql.gbif.org/graphql', kind: 'graphql' },
+  { prefix: '/graphql', base: `${GRAPHQL_ORIGIN}/graphql`, kind: 'graphql' },
   // Served from the bundled fallback: in sync with the repo, and not a 500 KB recording per locale
   // that changes with every translation release.
   { prefix: '/translations', kind: 'translations' },
-  { prefix: '/unstable-api', base: 'https://graphql.gbif.org/unstable-api' },
-  { prefix: '/forms', base: 'https://graphql.gbif.org/forms' },
-  { prefix: '/content', base: 'https://graphql.gbif.org/content' },
-  { prefix: '/api/v1', base: 'https://api.gbif.org/v1' },
-  { prefix: '/api/v2', base: 'https://api.gbif.org/v2' },
-  { prefix: '/api', base: 'https://api.gbif.org' },
+  { prefix: '/unstable-api', base: `${GRAPHQL_ORIGIN}/unstable-api` },
+  { prefix: '/forms', base: `${GRAPHQL_ORIGIN}/forms` },
+  { prefix: '/content', base: `${GRAPHQL_ORIGIN}/content` },
+  { prefix: '/api/v1', base: `${API_ORIGIN}/v1` },
+  { prefix: '/api/v2', base: `${API_ORIGIN}/v2` },
+  { prefix: '/api', base: API_ORIGIN },
   // Map tiles and analytics figures are pixels, not data: stubbed so maps render blank and stable.
   { prefix: '/tile', kind: 'stub' },
   { prefix: '/api/v2/map', kind: 'stub' },
@@ -195,14 +224,45 @@ function replacePhotos(body) {
  * @returns {Promise<Recording>}
  */
 async function record(upstream, method, url, body, headers, key) {
+  const rec = await forward(upstream, method, url, body, headers);
+  // GraphQL reports failures with status 200, so check the body too.
+  if (
+    upstream.kind === 'graphql' &&
+    rec.encoding === 'utf8' &&
+    /"errors"\s*:\s*\[/.test(rec.body)
+  ) {
+    console.warn(`[mock] WARNING ${key} recorded with GraphQL errors; check it before committing`);
+  }
+  // Upstream hiccups are not worth freezing into a fixture.
+  if (rec.status < 500) {
+    const file = join(RECORDINGS_DIR, key);
+    mkdirSync(dirname(file), { recursive: true });
+    writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
+    store.set(key, rec);
+  }
+  console.log(`[mock] recorded ${rec.status} ${key}`);
+  return rec;
+}
+
+// Extra headers for every forwarded request, as JSON, e.g. a token that lets tests past the bot
+// check in front of the test and dev hosts.
+const EXTRA_HEADERS = JSON.parse(process.env.E2E_UPSTREAM_HEADERS || '{}');
+
+/**
+ * @param {Upstream} upstream @param {string} method @param {URL} url
+ * @param {GraphQLBody | undefined} body @param {Headers} headers
+ * @returns {Promise<Recording>}
+ */
+async function forward(upstream, method, url, body, headers) {
   const base = String(upstream.base);
   const target =
     upstream.kind === 'graphql'
       ? base
       : base + url.pathname.slice(upstream.prefix.length) + url.search;
   /** @type {Record<string, string>} */
-  const forwardHeaders = { accept: headers.accept || '*/*' };
+  const forwardHeaders = { accept: headers.accept || '*/*', ...EXTRA_HEADERS };
   if (headers.locale) forwardHeaders.locale = String(headers.locale);
+  if (headers['user-agent']) forwardHeaders['user-agent'] = String(headers['user-agent']);
   if (body !== undefined) forwardHeaders['content-type'] = 'application/json';
 
   const response = await fetch(target, {
@@ -214,27 +274,13 @@ async function record(upstream, method, url, body, headers, key) {
   const contentType = response.headers.get('content-type') || 'application/octet-stream';
   const buffer = Buffer.from(await response.arrayBuffer());
   const textual = TEXTUAL.test(contentType);
-  /** @type {Recording} */
-  const rec = {
+  return {
     request: { method, target, ...(body !== undefined ? { body } : {}) },
     status: response.status,
     contentType,
     encoding: textual ? 'utf8' : 'base64',
     body: textual ? replacePhotos(buffer.toString('utf8')) : buffer.toString('base64'),
   };
-  // GraphQL reports failures with status 200, so check the body too.
-  if (upstream.kind === 'graphql' && textual && /"errors"\s*:\s*\[/.test(rec.body)) {
-    console.warn(`[mock] WARNING ${key} recorded with GraphQL errors; check it before committing`);
-  }
-  // Upstream hiccups are not worth freezing into a fixture.
-  if (response.status < 500) {
-    const file = join(RECORDINGS_DIR, key);
-    mkdirSync(dirname(file), { recursive: true });
-    writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
-    store.set(key, rec);
-  }
-  console.log(`[mock] recorded ${response.status} ${key}`);
-  return rec;
 }
 
 // Parallel identical misses share one upstream call and one write.
@@ -346,6 +392,16 @@ async function handle(req, res) {
     );
   }
 
+  if (LIVE) {
+    try {
+      return sendRecording(res, await forward(upstream, method, url, body, req.headers));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[mock] live request failed ${key}: ${message}`);
+      return send(res, 502, {}, message);
+    }
+  }
+
   const existing = store.get(key);
   // Refresh forwards each key once; later identical requests in the run get the fresh recording.
   if (existing && (MODE !== 'refresh' || served.has(key))) {
@@ -418,5 +474,8 @@ createServer((req, res) => {
     send(res, 500, {}, String(err));
   });
 }).listen(MOCK_PORT, () => {
-  console.log(`[mock] ${MODE} mode on :${MOCK_PORT}, ${store.size} recordings`);
+  const source = LIVE
+    ? `forwarding to ${GRAPHQL_ORIGIN} and ${API_ORIGIN}`
+    : `${store.size} recordings`;
+  console.log(`[mock] ${MODE} mode on :${MOCK_PORT}, ${source}`);
 });
