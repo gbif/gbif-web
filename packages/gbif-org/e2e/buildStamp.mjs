@@ -8,6 +8,7 @@ import { join } from 'node:path';
 
 const INPUTS = [
   'src',
+  'public',
   'gbif/index.html',
   'gbif/fallback.html',
   'gbif/vite.config.ts',

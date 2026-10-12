@@ -1,24 +1,28 @@
-// Record/replay stand-in for every upstream gbif-org talks to (GraphQL, translations, REST, tiles).
-// The e2e build bakes http://localhost:<MOCK_PORT>/<prefix> into every PUBLIC_* endpoint, so both
-// the SSR server and the browser hit this server, never the real GBIF services.
+// Stand-in for every upstream gbif-org talks to: GraphQL, REST, forms, content search,
+// translations and tiles. The e2e build bakes http://localhost:<MOCK_PORT>/<prefix> into every
+// PUBLIC_* endpoint (env.mjs), so the gbif.org server and the browser only ever reach this server.
+// Started by playwright.config.ts; node built-ins only.
 //
-// E2E_MODE=replay (default): serve recordings from e2e/recordings. A request without a recording is
-//   answered with an error and logged as a miss; the test fixture and global teardown fail on misses.
-// E2E_MODE=record: serve existing recordings, forward anything else to production GBIF and save it.
-// E2E_MODE=refresh: forward every request once per run and overwrite its recording, so recordings
-//   follow production data, not just new queries.
-// E2E_MODE=live: forward every request and save nothing. With E2E_UPSTREAM=test|dev, or
-//   E2E_GRAPHQL_ORIGIN / E2E_API_ORIGIN (e.g. http://localhost:4123 for a local graphql-api), specs
-//   can run against APIs that are not in production yet. Recording only runs against production, so
-//   other environments never end up in e2e/recordings. E2E_UPSTREAM_HEADERS (JSON) adds headers to
-//   every forwarded request.
-// In both forwarding modes, POST /__mock/prune afterwards deletes recordings the run never served,
-//   but only after a run in which every started test passed: a failed or aborted run served too
-//   little to judge.
+// A request goes through handle():
+//   1. /__mock/* control endpoints: health, misses (read by test.ts and globalTeardown), test
+//      started/passed counts (reported by test.ts), prune (called by globalTeardown).
+//   2. Pick the upstream by longest path prefix (UPSTREAMS). Tiles and analytics images are stubbed
+//      blank; translations come from the bundled src/config/fallback/.
+//   3. GraphQL GETs get {"unknownQueryId":true}, so the client retries as a POST that carries the
+//      operation name, query and variables.
+//   4. Compute the recording key (recordingPath): operation + locale + query text + variables for
+//      GraphQL, method + path + sorted query string for REST. Exact, so a changed query is a miss
+//      rather than a stale replay. Unnamed GraphQL operations are refused in every mode.
+//   5. Answer according to E2E_MODE:
+//      replay (default)  serve the recording; without one, log a miss and answer with an error.
+//      record            serve the recording; without one, fetch from production and save it.
+//      refresh           fetch every key once per run from production and overwrite its recording.
+//      live              fetch from E2E_UPSTREAM (prod, test or dev) or E2E_GRAPHQL_ORIGIN /
+//                        E2E_API_ORIGIN, save nothing. E2E_UPSTREAM_HEADERS (JSON) adds headers.
 //
-// Keys are exact (operation + locale + query text + variables, or method + path + query string), so
-// a changed query is a miss rather than a stale replay.
-// Unnamed GraphQL operations are misses in both modes. Node built-ins only.
+// record and refresh refuse any upstream but production, so recordings never come from test or
+// dev. After a record or refresh run, prune deletes recordings the run never served, but only if
+// every started test passed: a failed or aborted run served too little to judge.
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -28,10 +32,10 @@ import { fileURLToPath } from 'node:url';
 import { MOCK_PORT } from '../env.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const RECORDINGS_DIR = process.env.RECORDINGS_DIR || join(__dirname, '..', 'recordings');
+const RECORDINGS_DIR = join(__dirname, '..', 'recordings');
 const FALLBACK_DIR = join(__dirname, '..', '..', 'src', 'config', 'fallback');
 const MODE = (process.env.E2E_MODE || 'replay').toLowerCase();
-const FORWARDS = MODE === 'record' || MODE === 'refresh';
+const RECORDS = MODE === 'record' || MODE === 'refresh';
 const LIVE = MODE === 'live';
 if (!['replay', 'record', 'refresh', 'live'].includes(MODE)) {
   throw new Error(`Unknown E2E_MODE ${MODE}; use replay, record, refresh or live`);
@@ -51,11 +55,14 @@ const GRAPHQL_ORIGIN = process.env.E2E_GRAPHQL_ORIGIN || ENVIRONMENT.graphql;
 const API_ORIGIN = process.env.E2E_API_ORIGIN || ENVIRONMENT.api;
 const IS_PROD =
   GRAPHQL_ORIGIN === ENVIRONMENTS.prod.graphql && API_ORIGIN === ENVIRONMENTS.prod.api;
-if (FORWARDS && !IS_PROD) {
+if (RECORDS && !IS_PROD) {
   throw new Error(
     `E2E_MODE=${MODE} only records from production; use E2E_MODE=live for ${GRAPHQL_ORIGIN}`
   );
 }
+// Extra headers for every forwarded request, e.g. a token that lets tests past the bot check in
+// front of the test and dev hosts.
+const EXTRA_HEADERS = JSON.parse(process.env.E2E_UPSTREAM_HEADERS || '{}');
 
 /**
  * @typedef {{ prefix: string, base?: string, kind?: 'graphql' | 'translations' | 'stub' }} Upstream
@@ -218,36 +225,7 @@ function replacePhotos(body) {
   );
 }
 
-/**
- * @param {Upstream} upstream @param {string} method @param {URL} url
- * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
- * @returns {Promise<Recording>}
- */
-async function record(upstream, method, url, body, headers, key) {
-  const rec = await forward(upstream, method, url, body, headers);
-  // GraphQL reports failures with status 200, so check the body too.
-  if (
-    upstream.kind === 'graphql' &&
-    rec.encoding === 'utf8' &&
-    /"errors"\s*:\s*\[/.test(rec.body)
-  ) {
-    console.warn(`[mock] WARNING ${key} recorded with GraphQL errors; check it before committing`);
-  }
-  // Upstream hiccups are not worth freezing into a fixture.
-  if (rec.status < 500) {
-    const file = join(RECORDINGS_DIR, key);
-    mkdirSync(dirname(file), { recursive: true });
-    writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
-    store.set(key, rec);
-  }
-  console.log(`[mock] recorded ${rec.status} ${key}`);
-  return rec;
-}
-
-// Extra headers for every forwarded request, as JSON, e.g. a token that lets tests past the bot
-// check in front of the test and dev hosts.
-const EXTRA_HEADERS = JSON.parse(process.env.E2E_UPSTREAM_HEADERS || '{}');
-
+// Fetches the request from the real upstream. Used by record/refresh (then saved) and live.
 /**
  * @param {Upstream} upstream @param {string} method @param {URL} url
  * @param {GraphQLBody | undefined} body @param {Headers} headers
@@ -281,6 +259,33 @@ async function forward(upstream, method, url, body, headers) {
     encoding: textual ? 'utf8' : 'base64',
     body: textual ? replacePhotos(buffer.toString('utf8')) : buffer.toString('base64'),
   };
+}
+
+// Fetches and saves a recording. Answers with server errors are passed on but not saved.
+/**
+ * @param {Upstream} upstream @param {string} method @param {URL} url
+ * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
+ * @returns {Promise<Recording>}
+ */
+async function record(upstream, method, url, body, headers, key) {
+  const rec = await forward(upstream, method, url, body, headers);
+  // GraphQL reports failures with status 200, so check the body too.
+  if (
+    upstream.kind === 'graphql' &&
+    rec.encoding === 'utf8' &&
+    /"errors"\s*:\s*\[/.test(rec.body)
+  ) {
+    console.warn(`[mock] WARNING ${key} recorded with GraphQL errors; check it before committing`);
+  }
+  // Upstream hiccups are not worth freezing into a fixture.
+  if (rec.status < 500) {
+    const file = join(RECORDINGS_DIR, key);
+    mkdirSync(dirname(file), { recursive: true });
+    writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
+    store.set(key, rec);
+  }
+  console.log(`[mock] recorded ${rec.status} ${key}`);
+  return rec;
 }
 
 // Parallel identical misses share one upstream call and one write.
@@ -339,7 +344,7 @@ async function handle(req, res) {
     return send(res, 204, {}, '');
   }
   if (url.pathname === '/__mock/prune' && req.method === 'POST') {
-    if (!FORWARDS) return send(res, 409, {}, 'prune only runs in record or refresh mode');
+    if (!RECORDS) return send(res, 409, {}, 'prune only runs in record or refresh mode');
     if (tests.started === 0 || tests.passed !== tests.started) {
       const message = `not pruning: ${tests.passed} of ${tests.started} started tests passed`;
       return send(res, 409, {}, message);
@@ -409,7 +414,7 @@ async function handle(req, res) {
     return sendRecording(res, existing);
   }
 
-  if (FORWARDS) {
+  if (RECORDS) {
     try {
       const rec = await recordOnce(upstream, method, url, body, req.headers, key);
       served.add(key);
@@ -433,7 +438,8 @@ async function handle(req, res) {
   );
 }
 
-// Logs the request for the fixture and global teardown, which fail the run on it.
+// Logs the request for test.ts (misses tagged with its test id fail that test) and globalTeardown
+// (any miss fails the run), and answers with an error the page can render.
 /**
  * @param {Response} res @param {Upstream} upstream @param {string} method @param {URL} url
  * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
