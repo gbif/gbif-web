@@ -47,6 +47,24 @@ The POST API accepts the predicate structure from the GBIF occurrence download A
 - **`nested`** — query a list of objects (such as a list of authors).
 - **`range`** — a more compact alternative to `greaterThanOrEquals` / `lessThanOrEquals` etc. from the occurrence API.
 
+## Code layout
+
+The service is plain JavaScript, started from `src/index.js`.
+
+- `src/resources/<index>/` has one folder per Elasticsearch index.
+- `requestAdapter/` turns GET parameters and predicates into Elasticsearch queries.
+- `responseAdapter/` maps Elasticsearch hits to a shape close to GBIF API v1.
+
+Occurrence predicates are not validated or translated here. `src/resources/occurrence/index.js`
+normalises the keys to UPPER_SNAKE case and asks GBIF API v1
+(`/occurrence/search/predicate/toesquery`) to turn the predicate into an Elasticsearch query. The
+field list in `occurrence.config.js` therefore only controls GET parameters, facets and cardinality.
+See [Add an occurrence search filter](../gbif-org/docs/how-to/add-an-occurrence-filter.md) for how a
+new field is added across the packages.
+
+Without VPN access the service cannot start. You can still check that edited files parse with
+`node --check <file>`.
+
 ## Configuration
 
 Configuration is supplied through an `.env` file (YAML) in the package root. [`.env.example`](./.env.example) documents every setting: secrets, upstream API, one section per Elasticsearch index, and optional load shedding.

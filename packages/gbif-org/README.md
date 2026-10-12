@@ -8,6 +8,8 @@
     - [How to Start the New GBIF.org in Development Mode](#how-to-start-the-new-gbiforg-in-development-mode)
     - [How to Build and Run the New GBIF.org](#how-to-build-and-run-the-new-gbiforg)
     - [How to Test the Code in an Environment Simulating the Hosted Portals](#how-to-test-the-code-in-an-environment-simulating-the-hosted-portals)
+    - [Useful Commands](#useful-commands)
+  - [Tests](#tests)
   - [Environment Variables](#environment-variables)
     - [Exposing Environment Variables to the Client](#exposing-environment-variables-to-the-client)
   - [GBIF.org Specific Code](#gbiforg-specific-code)
@@ -30,6 +32,7 @@
       - [`routes.tsx`](#routestsx-1)
   - [Shared Code](#shared-code)
   - [Routing](#routing)
+    - [Routes and Data Loading](#routes-and-data-loading)
     - [`RouteObjectWithPlugins`](#routeobjectwithplugins)
     - [`LoaderArgs`](#loaderargs)
     - [`applyReactRouterPlugins`](#applyreactrouterplugins)
@@ -38,6 +41,7 @@
     - [Conditionally Adding Classes Based on State](#conditionally-adding-classes-based-on-state)
     - [Using Plain Old CSS](#using-plain-old-css)
   - [The Global Config](#the-global-config)
+  - [Translations](#translations)
   - [How to](#how-to)
   - [Code Formatting and ESLint](#code-formatting-and-eslint)
   - [Known Issues](#known-issues)
@@ -69,6 +73,25 @@ To initiate development mode, execute `npm run develop`.
 1. Build for Hosted Portals: Run `npm run build:hp`.
 2. Start for Hosted Portals: Run `npm run start:hp`.
 
+### Useful Commands
+
+| Command | What it does |
+|---|---|
+| `npm run develop` | Starts the development server and regenerates GraphQL types as you edit queries. |
+| `npm run type-check` | Runs the TypeScript compiler without emitting files. Worth running before you push. |
+| `npm run vitest` | Runs the unit tests. |
+| `npm run codegen` | Regenerates the GraphQL types in `src/gql/` after a query has changed. |
+| `npm run build` / `npm run build:hp` | Production builds of gbif.org and of the hosted-portal library. |
+| `npm run start:hp` | Serves the hosted-portal build locally. |
+
+`npm test` runs both production builds before the unit tests, so it is slow. There is no lint
+script; run `npx eslint src` instead.
+
+## Tests
+
+Unit tests use [Vitest](https://vitest.dev/) (configured in `gbif/vite.config.ts`) and sit next to
+the code they test, as `*.test.ts` files.
+
 ## Environment Variables
 
 Environment variables are sourced from various `.env` files, depending on the running environment.  
@@ -79,6 +102,8 @@ The `.env` files for this project are located here: [gbif-configuration](https:/
 ### Exposing Environment Variables to the Client
 
 Environment variables starting with `PUBLIC_` are accessible in the client-side build. It is crucial to **NEVER** prefix sensitive variables, such as private API keys, with `PUBLIC_`.
+
+If a required variable is missing, `env.ts` throws an error at startup that names it.
 
 ## GBIF.org Specific Code
 
@@ -159,7 +184,7 @@ Routes are processed by `applyReactRouterPlugins`, duplicating routes for each l
 
 ## Shared Code
 
-Code not contained within the `gbif` or `hp` folders is or can be shared across the application.
+Code not contained within the `gbif` or `hp` folders is or can be shared across the application, which means it has to work in both builds. Hosted portals have no server-side rendering, and each portal is configured differently, so shared code should not rely on running on the server or hardcode anything specific to gbif.org. Settings that vary between sites are read from the global config with `useConfig()` (`src/config/config.tsx`). When you change shared code, it is worth checking the hosted-portal build as well (`npm run build:hp` and `npm run start:hp`).
 
 ## Routing
 
@@ -265,6 +290,18 @@ export const datasetRoute: RouteObjectWithPlugins = {
 };
 ```
 
+### Routes and Data Loading
+
+The dataset page (`src/routes/dataset/key/index.tsx` and `datasetKey.tsx`) is a good example to follow. A few things are worth knowing before adding or changing a page:
+
+- Data pages that hosted portals can use are listed as `dataRoutes` in `src/config/routes.tsx`, which both builds read. Pages that only exist on gbif.org go in `src/gbif/routes.tsx`.
+- Hosted portals choose which pages to enable by route `id`, so an id is effectively part of the portal configuration format. Renaming one will break existing portals.
+- A portal may not enable every page. Each shared route therefore defines `gbifRedirect`, and links between pages use `DynamicLink` with a `pageId` rather than a hardcoded path. That way a link to a page the portal doesn't have takes the visitor to the same page on gbif.org instead of a 404.
+- A loader typically calls `graphql.query()` and then `throwCriticalErrors` (from `src/routes/rootErrorPage.tsx`). Loaders run on the server for gbif.org and in the browser on hosted portals.
+- Queries are written as `/* GraphQL */` template strings, and their TypeScript types are generated into `src/gql/` (imported from `@/gql/graphql`). The generated files are committed, so run `npm run codegen` after changing a query and commit the result rather than editing those files by hand.
+- Components that need to fetch data after the page has loaded use the `useQuery` hook (`src/hooks/useQuery.ts`).
+- Dashboard charts live in `src/components/dashboard/` and are exported through `lazyChart` in its `index.tsx`. The charts available on the occurrence dashboard are registered in `src/routes/occurrence/search/views/dashboard/`.
+
 More on `react-router-dom` `RouteObject` options: [`Route`](https://reactrouter.com/en/main/route/route).
 
 Note: Some example properties are custom additions to the default `RouteObject`. Refer to the `RouteObjectWithPlugins` section above for all custom properties.
@@ -273,7 +310,9 @@ Note: Some example properties are custom additions to the default `RouteObject`.
 
 Styling in this project is implemented using [tailwindcss](https://tailwindcss.com/), configured with the class prefix `g-` (`tailwind.config.js`). Every utility class must carry it: `g-flex g-gap-2`, not `flex gap-2`. Unprefixed classes do nothing. The prefix keeps the hosted-portal library from colliding with host-site CSS.
 
-Additionally, we utilize the component library [shadcn/ui](https://ui.shadcn.com/), which enables us to add components incrementally and provides full flexibility to modify these components as needed.
+Additionally, we utilize the component library [shadcn/ui](https://ui.shadcn.com/), which enables us to add components incrementally and provides full flexibility to modify these components as needed. The shadcn/Radix primitives are in `src/components/ui/`.
+
+Colours and other theme values are CSS variables defined in `src/config/theme/`. Hosted portals override them with their own branding, so use the theme variables rather than hardcoding GBIF colours.
 
 ### Conditionally Adding Classes Based on State
 
@@ -381,6 +420,10 @@ export const config: Config = {
 };
 ```
 
+## Translations
+
+Text is translated with [react-intl](https://formatjs.io/docs/react-intl/). The language is taken from the URL prefix (see `src/reactRouterPlugins/i18n/`) and the translated messages are fetched at runtime. User-facing text should always go through `<FormattedMessage id="..." />` rather than being written inline in English, so it can be translated. The English source strings live in `packages/react-components/locales/source/en-developer/`; [Add a translated string](docs/how-to/add-a-translation.md) explains how to add one.
+
 ## How to
 
 Step-by-step guides with caveats live in [`docs/how-to/`](docs/how-to/):
@@ -391,6 +434,7 @@ Step-by-step guides with caveats live in [`docs/how-to/`](docs/how-to/):
 - [Add an occurrence search filter](docs/how-to/add-an-occurrence-filter.md): filter config, URL parameter, translations, and the facet work needed in graphql-api and es-api.
 - [Add a new filter type](docs/how-to/add-a-filter-type.md): a new widget kind, for the rare case where no existing filter type fits.
 - [Add a chart](docs/how-to/add-a-chart.md): standard or custom dashboard chart, lazy export, occurrence dashboard registry and grouping.
+- [Run locally and take screenshots](docs/how-to/run-locally.md): run the site without access to the private configuration, against a deployed or a local GraphQL API.
 
 ## Code Formatting and ESLint
 
