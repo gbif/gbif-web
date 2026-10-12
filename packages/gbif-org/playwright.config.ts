@@ -2,6 +2,10 @@ import { defineConfig, devices } from '@playwright/test';
 import { resolve } from 'node:path';
 import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_PORT, MOCK_PORT, mockEnv } from './e2e/env.mjs';
 
+// Starts the mock, the gbif.org server on the e2e build and two hosted-portal sites, then runs the
+// specs in three projects against them. globalSetup and globalTeardown wrap the run. See
+// e2e/README.md for how the pieces fit together.
+
 // The server refuses to boot without these; the e2e build never authenticates anyone.
 const dummySecrets = {
   JWT_SECRET: 'e2e',

@@ -1,6 +1,7 @@
-// PUBLIC_* values baked into the e2e build. Vite inlines them at build time, so the mock build
-// and a live build are different builds. Dataset and checklist keys match production so recordings
-// resolve.
+// Ports, output folders and the PUBLIC_* values baked into the e2e build. Read by build.mjs (build
+// time), playwright.config.ts (servers and base URLs) and the mock. Every endpoint points at the
+// mock, so one build serves replay, record and live runs. Changing a value needs npm run e2e:build;
+// the build stamp includes this file. Checklist keys are production's so recordings resolve.
 
 export const MOCK_PORT = 4020;
 export const GBIF_PORT = 3100;

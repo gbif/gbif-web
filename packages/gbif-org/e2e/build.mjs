@@ -1,6 +1,8 @@
-// Production builds of gbif.org and the hosted-portal library with every endpoint pointed at the
-// upstream mock. Output goes to dist/e2e so the regular builds are left alone. Both are always
-// built: their stamps share inputs, so rebuilding one leaves the other stale.
+// npm run e2e:build. Production builds of gbif.org and the hosted-portal library with every endpoint
+// pointed at the upstream mock (env.mjs). Output goes to dist/e2e so the regular builds are left
+// alone; gbif/server.js serves it via GBIF_DIST_DIR and hp-sites/server.mjs serves the library.
+// Each build gets a stamp file that globalSetup checks. Both are always built: their stamps share
+// inputs, so rebuilding one leaves the other stale.
 
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';

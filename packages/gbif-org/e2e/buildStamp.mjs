@@ -1,5 +1,6 @@
 // Fingerprint of everything the e2e builds bake in. build.mjs stores it next to each build and
-// globalSetup refuses to test a build whose inputs have changed since.
+// globalSetup refuses to test a build whose inputs have changed since. When the build starts
+// depending on a new file or folder, add it to INPUTS, or edits to it will not mark the build stale.
 
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
