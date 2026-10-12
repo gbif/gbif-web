@@ -15,6 +15,24 @@ npm run e2e:rerecord               # fetch every recording again from production
 npm run e2e:live                   # run against live APIs and save nothing (see below)
 ```
 
+## How a run fits together
+
+1. `npm run e2e:build` runs `build.mjs`: production builds of gbif.org and the hosted-portal
+   library into `dist/e2e/`, with every `PUBLIC_*` endpoint from `env.mjs` pointed at the mock.
+   It writes a fingerprint of the build inputs (`buildStamp.mjs`) next to each build.
+2. `npm run e2e` starts Playwright with `playwright.config.ts`, which starts four servers: the mock
+   (`mock/upstream.mjs`, `:4020`), the gbif.org server on the e2e build (`:3100`) and two portal
+   sites (`hp-sites/server.mjs`, `:3200` and `:3201`).
+3. `globalSetup.ts` runs once before any test. It refuses a missing or stale build (fingerprint
+   mismatch) and a filtered run with `E2E_PRUNE=1`.
+4. Each spec imports `test` from `test.ts`. Its fixture keeps the browser on localhost, tags mock
+   requests with the test id and fails the test on page errors, hydration errors, the partial-data
+   toast and requests the mock could not answer (misses).
+5. `globalTeardown.ts` runs once after all tests. Under `E2E_PRUNE=1` it asks the mock to delete
+   unused recordings, then fails the run on misses no test owns, such as server-side requests.
+
+`E2E_MODE` only changes what the mock does with a request; the build and the rest stay the same.
+
 ## How it works
 
 - `env.mjs`: the `PUBLIC_*` values baked into the e2e build. Vite inlines them at build time, so

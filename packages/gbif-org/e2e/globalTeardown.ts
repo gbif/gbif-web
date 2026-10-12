@@ -1,8 +1,12 @@
+// Runs once after all tests (playwright.config.ts globalTeardown), while the mock is still up.
+// Prunes unused recordings under E2E_PRUNE=1, then fails the run on misses no test owns.
+
 import { MOCK_PORT } from './env.mjs';
 
 const MOCK = `http://localhost:${MOCK_PORT}`;
 
-// Backstop for misses no test owns, e.g. server-side requests made while rendering a page.
+// Backstop for misses no test owns, e.g. server-side requests made while rendering a page. Misses a
+// test triggers fail that test in test.ts; these have no test id, so only the run can fail.
 export default async function globalTeardown() {
   if (process.env.E2E_PRUNE === '1') {
     const response = await fetch(`${MOCK}/__mock/prune`, { method: 'POST' });

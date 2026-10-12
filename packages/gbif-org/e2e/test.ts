@@ -1,3 +1,8 @@
+// The test fixture every spec imports instead of @playwright/test. Wraps each test: blocks requests
+// that leave localhost, tags mock requests with the test id so misses are attributed, and after the
+// test fails it on page errors, hydration errors, the partial-data toast or mock misses. Also
+// reports started and passed tests to the mock, which only prunes after a fully passing run.
+
 import { test as base, expect, type Page } from '@playwright/test';
 import { MOCK_PORT } from './env.mjs';
 
