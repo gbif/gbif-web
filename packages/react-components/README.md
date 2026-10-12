@@ -1,26 +1,25 @@
-# gbif-react-components
+# gbif-react-components (legacy)
+
+A retired component library (`discontinued/`). Do not add or change components; new UI goes in
+[`packages/gbif-org`](../gbif-org/README.md).
+
+The live part is `locales/`, the translation source for the whole repo:
+
+- `locales/source/en-developer/` (`components/`, `enums/`): English source strings. Add keys here.
+- `locales/translations/`: written by Crowdin. Never edit by hand.
+- `npm run build` runs `locales/build.js` to produce the bundles gbif-org fetches at runtime.
 
 ## Quick start
+
 The `.env.json` file should be placed in the package root and can be found in `gbif-configuration/gbif-web`. [`.env.example.json`](./.env.example.json) is the template.
 
-Make sure you have the correct version on Node installed. We manage node versions with [nvm](https://github.com/nvm-sh/nvm). Type `nvm use` to install the required version. You can also do so manually, see `.nvmrc` for the required version.
+This package uses Node 16, unlike the other packages (24). We manage node versions with [nvm](https://github.com/nvm-sh/nvm). Type `nvm use` to install the required version. You can also do so manually, see `.nvmrc` for the required version.
 
 ```
 npm install
 ```
 
-Start developing with
-```
-npm run start
-```
-
-During development it can be useful to serve and build translation files continously. To do so you should run `npm run watch-translations` and `npm run serve-translations`
-
-# Build storybook
-Build a static storybook version with `npm run build-storybook`
-
-Run it with `npx http-server /storybook-static`.
-Notice that `serve` instead of `http-server` doesn't really work. The previews do not show then.
+During development, rebuild the translation files on change with `npm run watch` and serve them with `npm run serve`.
 
 ## Attribution
 

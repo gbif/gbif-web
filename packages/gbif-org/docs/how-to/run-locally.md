@@ -1,38 +1,49 @@
 # Run locally and take screenshots
 
-For seeing a change in the real app, e.g. in a cloud agent session without the private
-`gbif-configuration/gbif-web` env files. With dummy secrets, login, OAuth and forms do not work.
+How to run gbif.org on your own machine when you don't have access to the private
+`gbif-configuration/gbif-web` environment files, for example as an external contributor. The
+example configuration uses placeholder secrets, so login, OAuth and forms will not work, but you can
+browse the site and see your changes.
 
-## gbif-org against deployed GraphQL
+## Against the deployed GraphQL API
+
+Install the dependencies and copy the example configuration, which points at the public production
+endpoints:
 
 ```
 npm ci
+cp .env.example .env
 ```
 
-`cp .env.example .env`: public production endpoints and placeholder secrets.
+Then start the site with `npm run develop`. It serves http://localhost:3000 with server-side
+rendering and hot reloading, and regenerates the GraphQL types as you edit queries. If you only need
+the server, `NODE_ENV=development node gbif/server.js` does the same without the type generation.
 
-`NODE_ENV=development node gbif/server.js` serves http://localhost:3000 (SSR + Vite HMR).
-`npm run develop` does the same plus codegen watch.
+## Against a local graphql-api
 
-## Against local graphql-api
+If you are changing the GraphQL API as well, run it locally. In `packages/graphql-api`, copy
+`.env.example` to `.env` and start the server with `npx tsx src/index.ts`; it listens on port 4123.
+Then start gbif-org with `PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4123/graphql` set on the command
+line, which takes precedence over the value in `.env`.
 
-In `packages/graphql-api`: `cp .env.example .env`, then `npx tsx src/index.ts` (port 4123). Start
-gbif-org with `PUBLIC_GRAPHQL_ENDPOINT=http://localhost:4123/graphql` on the command line; it
-overrides `.env`.
+With the example configuration, fields that come from the GBIF REST APIs work. Fields backed by
+Elasticsearch (occurrence search and facets) return 403 errors, because `hp-search.gbif.org` needs
+the real `apiEsKey`. Images from the CMS also fail with 400 errors, because the image URLs are
+signed with `thumborSecurityKey`, which is a placeholder in the example.
 
-REST-backed fields work. Elasticsearch-backed ones (occurrence search, facets) return 403 unless
-`apiEsKey` is the real key: `hp-search.gbif.org` is public, only the key is missing. Thumbor URLs it
-signs are invalid without the real `thumborSecurityKey`, so CMS images 400.
+## Taking screenshots with a script
 
-## Screenshots
+Playwright is installed with gbif-org's development dependencies, so you can use it to script
+screenshots, for example to compare a page before and after a change.
 
-Playwright (in gbif-org `node_modules`) with the preinstalled Chromium.
-
-- Layout, text, data: default `chromium.launch()` (headless shell). Faster; use it.
-- Images matter: `chromium.launch({ channel: 'chromium' })`. GBIF's image service
-  (`api.gbif.org/v1/image/…`, Thumbor) answers 400 to the headless shell regardless of user agent
-  or headers, likely fingerprint-based bot filtering. Full Chromium gets 200.
-- CMS assets also load straight from `images.ctfassets.net`; a sandbox must allow that host.
-- Wait for `networkidle` plus a few seconds; maps and charts render late.
-- Never pass the sandbox `HTTPS_PROXY` to Chromium explicitly: it only accepts CONNECT and captures
-  localhost. Chromium picks it up from the environment already.
+- The default headless browser (`chromium.launch()`) is the fastest and is fine for checking layout,
+  text and data.
+- If the images matter, launch full Chromium with `chromium.launch({ channel: 'chromium' })`. GBIF's
+  image service (`api.gbif.org/v1/image/…`) answers the headless browser with 400 errors whatever
+  user agent or headers it sends, probably because of bot filtering. Full Chromium gets the images.
+- CMS images load directly from `images.ctfassets.net`, so that host needs to be reachable.
+- Maps and charts render late. Wait for the network to go idle, and then a few seconds more, before
+  taking the screenshot.
+- If you are behind an HTTP proxy, let Chromium pick it up from the `HTTPS_PROXY` environment
+  variable. Passing the proxy to Chromium explicitly can also route requests to localhost through it,
+  which breaks the local site.
