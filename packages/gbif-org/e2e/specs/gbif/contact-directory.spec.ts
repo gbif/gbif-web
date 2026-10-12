@@ -14,6 +14,10 @@ const GROUPS = [
 ];
 
 const PATH = '/contact-us/directory';
+
+// A person expected to stay in the directory. If they leave, pick someone else from the same group
+// (or change group to theirs), update all four fields and run `npm run e2e:record`.
+const PERSON = { id: '4624', name: 'Daniel Snitting', surname: 'Snitting', group: 'voting' };
 const tableTitle = (page: Page, title: string) =>
   page.getByRole('heading', { level: 3, name: title, exact: true });
 // Body rows only; header rows hold column headers.
@@ -39,10 +43,10 @@ test('search filters in memory, leaves the URL alone and clears', async ({ page,
   await gotoLoaded(page, PATH, waitForIdle);
   const all = await bodyRows(page).count();
 
-  await search(page).fill('Snitting');
+  await search(page).fill(PERSON.surname);
   await expect.poll(() => bodyRows(page).count()).toBeLessThan(all);
   expect(await bodyRows(page).count()).toBeGreaterThan(0);
-  await expect(bodyRows(page).filter({ hasNotText: 'Snitting' })).toHaveCount(0);
+  await expect(bodyRows(page).filter({ hasNotText: PERSON.surname })).toHaveCount(0);
   // Tables without a match are hidden, not left empty.
   expect(await page.getByRole('heading', { level: 3 }).count()).toBeLessThan(GROUPS.length);
   expect(new URL(page.url()).search).toBe('');
@@ -103,11 +107,11 @@ test.describe('group filter', () => {
 });
 
 test.describe('person dialog', () => {
-  test('?personId=4624 opens Daniel Snitting', async ({ page, waitForIdle }) => {
-    await gotoLoaded(page, `${PATH}?personId=4624`, waitForIdle);
-    const dialog = page.getByRole('dialog', { name: 'Daniel Snitting' });
+  test('?personId opens that person', async ({ page, waitForIdle }) => {
+    await gotoLoaded(page, `${PATH}?personId=${PERSON.id}`, waitForIdle);
+    const dialog = page.getByRole('dialog', { name: PERSON.name });
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('heading', { name: 'Daniel Snitting' }).last()).toBeVisible();
+    await expect(dialog.getByRole('heading', { name: PERSON.name }).last()).toBeVisible();
     // Focus moves into the dialog.
     await expect(dialog.locator(':focus')).toHaveCount(1);
   });
@@ -116,24 +120,22 @@ test.describe('person dialog', () => {
     page,
     waitForIdle,
   }) => {
-    await gotoLoaded(page, `${PATH}?group=secretariat`, waitForIdle);
-    const row = bodyRows(page).first();
-    const name = (await row.getByRole('cell').first().innerText()).trim();
-    await row.click();
-    await expect(page).toHaveURL(/personId=\d+/);
-    const dialog = page.getByRole('dialog', { name });
+    await gotoLoaded(page, `${PATH}?group=${PERSON.group}`, waitForIdle);
+    await bodyRows(page).filter({ hasText: PERSON.name }).first().click();
+    await expect(page).toHaveURL(new RegExp(`personId=${PERSON.id}(&|$)`));
+    const dialog = page.getByRole('dialog', { name: PERSON.name });
     await expect(dialog).toBeVisible();
     await waitForIdle();
 
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(page).not.toHaveURL(/personId=/);
-    await expect(page).toHaveURL(/group=secretariat/);
+    await expect(page).toHaveURL(new RegExp(`group=${PERSON.group}`));
   });
 
   test('the close button closes the dialog', async ({ page, waitForIdle }) => {
-    await gotoLoaded(page, `${PATH}?personId=4624`, waitForIdle);
-    const dialog = page.getByRole('dialog', { name: 'Daniel Snitting' });
+    await gotoLoaded(page, `${PATH}?personId=${PERSON.id}`, waitForIdle);
+    const dialog = page.getByRole('dialog', { name: PERSON.name });
     await expect(dialog).toBeVisible();
     await dialog.getByRole('button', { name: 'Close' }).click();
     await expect(page.getByRole('dialog')).toHaveCount(0);

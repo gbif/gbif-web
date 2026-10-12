@@ -13,5 +13,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"directoryContact\":{\"profilePicture\":null,\"firstName\":\"Tiffany G.\",\"surname\":\"Troxler\"}}}\n"
+  "body": "{\"data\":{\"directoryContact\":{\"profilePicture\":null,\"firstName\":\"Tiffany G.\",\"surname\":\"Troxler\"}}}"
 }
