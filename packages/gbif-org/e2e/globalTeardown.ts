@@ -1,5 +1,5 @@
 // Runs once after all tests (playwright.config.ts globalTeardown), while the mock is still up.
-// Prunes unused recordings under E2E_PRUNE=1, then fails the run on misses no test owns.
+// Prunes unused recordings under E2E_PRUNE=1, then fails the run if the mock logged any miss.
 
 import { MOCK_PORT } from './env.mjs';
 

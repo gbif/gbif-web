@@ -1,6 +1,6 @@
-// Live check, not part of `npm run e2e`: compares the deployed GraphQL schema with the repo's and
-// validates every gbif-org operation against the deployed one. Recordings come from production, so
-// drift there would otherwise replay silently.
+// Scheduled check against production, not part of `npm run e2e`: compares the deployed GraphQL
+// schema with the repo's and validates every gbif-org operation against the deployed one. The
+// recordings freeze production as it was, so a later change there would otherwise go unnoticed.
 //
 //   npm run e2e:schema-drift
 //
