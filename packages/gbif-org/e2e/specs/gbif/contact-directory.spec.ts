@@ -17,7 +17,7 @@ const PATH = '/contact-us/directory';
 
 // A person expected to stay in the directory. If they leave, pick someone else from the same group
 // (or change group to theirs), update all four fields and run `npm run e2e:record`.
-const PERSON = { id: '4624', name: 'Daniel Snitting', surname: 'Snitting', group: 'voting' };
+const PERSON = { id: '25', name: 'Susanne Sheldon', surname: 'Sheldon', group: 'secretariat' };
 const tableTitle = (page: Page, title: string) =>
   page.getByRole('heading', { level: 3, name: title, exact: true });
 // Body rows only; header rows hold column headers.
