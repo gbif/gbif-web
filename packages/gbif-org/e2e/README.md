@@ -36,6 +36,30 @@ e2e/
 
 ## How a run works
 
+```
+ npm run e2e:build                     src/, public/, env.mjs
+   build.mjs ──────────────────────────────────┐
+                                               ▼
+                    dist/e2e/gbif  +  dist/e2e/hp  +  build-stamp.txt
+                                               │
+ npm run e2e                                   │ globalSetup: stamp matches the source?
+   playwright.config.ts starts the servers     ▼
+                                     ┌──────────────────────┐
+  spec (test.ts fixture)             │ gbif/server.js :3100 │──┐ server-side rendering
+  drives Chromium ──── page ────────▶│ hp-sites :3200, 3201 │  │ (gbif.org only; the
+        │                            └──────────────────────┘  │ portals are static)
+        │ client-side requests                                 │
+        ▼                                                      ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │ mock/upstream.mjs :4020                                         │
+  │   replay ◀── e2e/recordings/  (record, refresh: writes to it)   │
+  │   record, refresh, live ──▶ GBIF APIs (prod; live: test, dev)   │
+  │   misses ──▶ test.ts fails the test, globalTeardown the run     │
+  └─────────────────────────────────────────────────────────────────┘
+```
+
+Steps in order:
+
 1. **Build** (`npm run e2e:build`, `build.mjs`). Builds gbif.org (client and server) and the
    hosted-portal library into `dist/e2e/`, with every `PUBLIC_*` endpoint from `env.mjs` pointing at
    the mock (`http://localhost:4020/<prefix>`). Vite reads `.env` from `e2e/`, which has none, so a
