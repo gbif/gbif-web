@@ -19,6 +19,9 @@ const INPUTS = [
   'e2e/env.mjs',
 ];
 
+// Vitest files sit next to the code but are not part of the build.
+const UNIT_TEST = /\.test\.[jt]sx?$/;
+
 /** @param {string} dist */
 export const stampFile = (dist) => join(dist, 'build-stamp.txt');
 
@@ -28,7 +31,8 @@ function files(path) {
   if (!statSync(path).isDirectory()) return [path];
   return readdirSync(path)
     .sort()
-    .flatMap((entry) => files(join(path, entry)));
+    .flatMap((entry) => files(join(path, entry)))
+    .filter((file) => !UNIT_TEST.test(file));
 }
 
 export function computeStamp() {

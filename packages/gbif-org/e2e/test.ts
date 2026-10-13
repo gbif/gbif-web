@@ -51,7 +51,26 @@ function trackRequests(page: Page) {
   };
 }
 
+// A broken GraphQL answer for this test; see the Fault type in mock/upstream.mjs.
+export type Fault = {
+  operation: string;
+  variables?: Record<string, unknown>;
+  status?: number;
+  errors?: Array<{ path: string[]; message?: string }>;
+  nulls?: string[][];
+};
+
+// Tests in this worker that have called mockFault.
+const testsWithFaults = new Set<string>();
+
 type Fixtures = {
+  // Errors this test provokes on purpose, e.g. [/^partial-data toast/]. Matching errors no longer
+  // fail the test; assert the outcome in the test instead. Set with test.use().
+  expectedErrors: RegExp[];
+  // Breaks matching GraphQL answers for this test only, until it ends. Call it before page.goto:
+  // from then on, pages open with e2eTest=<test id> in the URL, so the mock also knows which
+  // test the gbif.org server's requests belong to.
+  mockFault: (fault: Fault) => Promise<void>;
   pageErrors: string[];
   // Resolves once the page has stopped requesting. Await it before an action that unmounts what is
   // loading (switching tabs), or how much got requested depends on timing and replay misses.
@@ -62,11 +81,21 @@ type Fixtures = {
 // a hydration mismatch, the partial-data error toast or an unrecorded request fails the test even
 // when its own assertions pass.
 export const test = base.extend<Fixtures>({
+  expectedErrors: [[], { option: true }],
   waitForIdle: async ({ page }, use) => {
     await use(trackRequests(page));
   },
+  mockFault: async ({}, use, testInfo) => {
+    await use(async (fault) => {
+      testsWithFaults.add(testInfo.testId);
+      await fetch(`${MOCK}/__mock/faults`, {
+        method: 'POST',
+        body: JSON.stringify({ ...fault, test: testInfo.testId }),
+      });
+    });
+  },
   pageErrors: [
-    async ({ page, waitForIdle }, use, testInfo) => {
+    async ({ page, waitForIdle, expectedErrors }, use, testInfo) => {
       // The mock prunes recordings only if every started test also reported passing.
       await fetch(`${MOCK}/__mock/test-started`, { method: 'POST' });
       const errors: string[] = [];
@@ -102,6 +131,11 @@ export const test = base.extend<Fixtures>({
             headers: { ...request.headers(), 'x-e2e-test': testInfo.testId },
           });
         }
+        // The gbif.org server passes the page URL on to the mock, which reads the test id from it.
+        if (request.isNavigationRequest() && testsWithFaults.has(testInfo.testId)) {
+          url.searchParams.set('e2eTest', testInfo.testId);
+          return route.continue({ url: url.href });
+        }
         return route.continue();
       });
 
@@ -110,10 +144,15 @@ export const test = base.extend<Fixtures>({
       // Late client-side fetches must happen inside the test, or they are never recorded and only
       // surface as replay misses.
       await waitForIdle();
+      await fetch(`${MOCK}/__mock/faults?test=${encodeURIComponent(testInfo.testId)}`, {
+        method: 'DELETE',
+      });
+      testsWithFaults.delete(testInfo.testId);
       const misses: Array<{ key: string; reason: string }> = await fetch(
         `${MOCK}/__mock/misses?test=${encodeURIComponent(testInfo.testId)}`
       ).then((r) => r.json());
-      expect(errors, 'uncaught errors in the page').toEqual([]);
+      const unexpected = errors.filter((e) => !expectedErrors.some((re) => re.test(e)));
+      expect(unexpected, 'uncaught errors in the page').toEqual([]);
       expect(
         misses.map((m) => `${m.key}: ${m.reason}`),
         'requests the mock could not answer'
