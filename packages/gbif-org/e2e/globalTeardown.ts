@@ -19,8 +19,10 @@ function suiteSize(): number {
   return count({ suites: JSON.parse(out).suites });
 }
 
-// Backstop for misses no test owns, e.g. server-side requests made while rendering a page. Misses a
-// test triggers fail that test in test.ts; these have no test id, so only the run can fail.
+// A miss is a request the mock had no recording for. When the browser makes such a request, it is
+// tagged with the test that made it, and that test fails (test.ts). Requests from the gbif.org
+// server, made while rendering a page, carry no tag, so no test fails for them. Failing the whole
+// run here makes sure those misses are not ignored.
 export default async function globalTeardown() {
   if (process.env.E2E_PRUNE === '1') {
     // The mock prunes only if this many distinct tests ran, so any filter on the run (spec files,
