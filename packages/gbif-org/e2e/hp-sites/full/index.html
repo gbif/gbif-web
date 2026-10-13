@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All entities portal</title>
+    <title>Full portal</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
@@ -11,29 +11,24 @@
     <script type="module">
       import { render, languages } from '/gbif-lib.js';
 
-      // Every dataRoutes page is enabled, so links between entities stay on this site.
+      // Every page a portal may enable: occurrences (and their downloads), datasets, publishers,
+      // collections, institutions and literature. Portals never enable taxon, participant,
+      // country, network or article pages.
       render(document.getElementById('root'), {
         version: 3,
         pages: [
           'occurrenceSearch',
           'occurrenceKey',
+          'downloadKey',
           'datasetSearch',
           'datasetKey',
           'publisherSearch',
           'publisherKey',
-          'taxonSearch',
-          'taxonKey',
           'collectionSearch',
           'collectionKey',
           'institutionSearch',
           'institutionKey',
           'literatureSearch',
-          'installationKey',
-          'networkKey',
-          'downloadKey',
-          'countryKey',
-          'participantKey',
-          'nodeKey',
         ].map((id) => ({ id })),
         languages: languages.filter((l) => ['en', 'es'].includes(l.code)),
       });

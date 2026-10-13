@@ -47,7 +47,7 @@ e2e/
   pageRows.ts          table-driven page checks shared by the smoke and portal specs
   mock/upstream.mjs    the upstream mock: replay, record, refresh or live
   hp-sites/            stand-ins for hosted-portal websites, one folder per site, and their server
-  specs/               gbif/, hp/ and hp-occurrence-only/, one folder per Playwright project
+  specs/               gbif/, hp-full/ and hp-occurrence-only/, one folder per Playwright project
   recordings/          committed upstream responses, written by the mock
   checks/              scripts that run against production on a schedule, outside npm run e2e
   logs/, .results/     server logs and Playwright output, git-ignored
@@ -87,11 +87,11 @@ Steps in order:
 2. **Servers** (`playwright.config.ts`). Playwright starts four servers and waits until they answer:
    - the mock, `mock/upstream.mjs`, on `:4020`;
    - the gbif.org server, `gbif/server.js` on the e2e build, on `:3100`, with dummy secrets;
-   - two portal sites, `hp-sites/server.mjs` with `HP_SITE=all-entities` on `:3200` and
+   - two portal sites, `hp-sites/server.mjs` with `HP_SITE=full` on `:3200` and
      `HP_SITE=occurrence-only` on `:3201`. Each serves the library and its site's `index.html`, the
      way a portal's Jekyll page mounts it.
 3. **globalSetup** compares the stamp with the current source and stops the run if they differ.
-4. **Tests** run in three projects: `gbif` against `:3100`, `hp-all-entities` against `:3200` and
+4. **Tests** run in three projects: `gbif` against `:3100`, `hp-full` against `:3200` and
    `hp-occurrence-only` against `:3201`. Every spec imports `test` from `test.ts`, whose fixture:
    - blocks requests that leave localhost (external images get a grey placeholder);
    - tags each request to the mock with the test id, so a miss is charged to the test that caused it;
@@ -177,7 +177,7 @@ on timing, can be unused in one run and needed in the next.
 ## Testing error handling
 
 The fixture fails a test on any error, so error handling needs specs that cause errors on purpose:
-`specs/gbif/error-handling.spec.ts` and `specs/hp/error-handling.spec.ts`. They check that a small
+`specs/gbif/error-handling.spec.ts` and `specs/hp-full/error-handling.spec.ts`. They check that a small
 GraphQL error leaves the page usable and shows the partial-data toast, and that a critical one
 shows the error page (status 500 on gbif.org) or the 404 page. `src/routes/rootErrorPage.test.ts`
 unit-tests the rules that decide between them (`is404`, `throwCriticalErrors`).
