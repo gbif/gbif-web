@@ -27,6 +27,8 @@ npm run e2e:schema-drift           # scheduled check, see the last section
 - **Stamp**: a hash of the files the e2e build is made from, saved next to the build. If the files
   have changed since, the build is **stale** and the run stops until you rebuild.
 - **Pruning**: deleting the recordings a run did not use (see [Pruning](#pruning)).
+- **Fault**: a broken answer a spec asks the mock for, to test error handling (see
+  [Testing error handling](#testing-error-handling)).
 - **Fixture**: the wrapper in `test.ts` that every test runs inside; it checks for errors and misses.
 - **Project**: a Playwright test group with its own folder in `specs/` and its own site to test.
 
@@ -109,7 +111,7 @@ Steps in order:
 
 `mock/upstream.mjs` handles a request in this order:
 
-1. `/__mock/*`: control endpoints for the fixture and teardown (misses, test counts, prune).
+1. `/__mock/*`: control endpoints for the fixture and teardown (misses, test counts, prune, faults).
 2. Pick the upstream by path prefix: `/graphql`, `/api/v1`, `/content`, … Map tiles and analytics
    images are answered blank. Translations come from the bundled `src/config/fallback/`, so they
    match the repo and do not need recording.
@@ -127,6 +129,9 @@ Steps in order:
 | `record` (`npm run e2e:record`)    | serves it                   | fetches from production            | new responses                       |
 | `refresh` (`npm run e2e:rerecord`) | fetches again, once per run | fetches from production            | everything, then [prunes](#pruning) |
 | `live` (`npm run e2e:live`)        | ignored                     | fetches from `E2E_UPSTREAM`        | nothing                             |
+
+6. If the request matches a fault, break the answer before sending it; see
+   [Testing error handling](#testing-error-handling).
 
 When recording, contact photos are replaced with one small grey image, since they are several MB
 each and no spec checks them. Responses with a server error are passed on but not saved. A GraphQL
@@ -168,6 +173,41 @@ on timing, can be unused in one run and needed in the next.
   titles and counts from the recordings, so it can fail rows where editors changed content. That
   is not a regression; update the expected text. It needs a full run: `globalSetup` refuses it
   with arguments that run only some tests, and the mock refuses to prune after any failure.
+
+## Testing error handling
+
+The fixture fails a test on any error, so error handling needs specs that cause errors on purpose:
+`specs/gbif/error-handling.spec.ts` and `specs/hp/error-handling.spec.ts`. They check that a small
+GraphQL error leaves the page usable and shows the partial-data toast, and that a critical one
+shows the error page (status 500 on gbif.org) or the 404 page. `src/routes/rootErrorPage.test.ts`
+unit-tests the rules that decide between them (`is404`, `throwCriticalErrors`).
+
+A spec breaks answers with the `mockFault` fixture, and lists the errors it expects:
+
+```ts
+test.use({ expectedErrors: [/^partial-data toast/] }); // these no longer fail the test
+
+test('a failed secondary field shows a toast', async ({ page, mockFault }) => {
+  await mockFault({
+    operation: 'Dataset', // GraphQL operation name
+    variables: { key: DATASET }, // optional: only requests with these variables
+    errors: [{ path: ['literatureSearch'] }], // add an error there and null its data
+  });
+  await page.goto(`/dataset/${DATASET}`);
+  await expect(page.getByTestId('partial-data-error')).toBeVisible();
+});
+```
+
+Besides `errors`, a fault can set `nulls` (null the data without an error) or `status` (answer
+with that HTTP status and no data, as if graphql-api were down). The mock applies it to whatever it
+would have sent, in any mode, and never saves it. Faults are cleared when the test ends.
+
+A fault only breaks requests made for the test that asked for it, so tests with faults can run in
+parallel and share keys. Browser requests carry the test id in a header. For requests from the
+gbif.org server (page loaders during server-side rendering), the fixture adds `e2eTest=<test id>`
+to the URL of every page the test opens after `mockFault`; the server passes the page URL on to
+the mock in `x-gbif-site-url`. Call `mockFault` before `page.goto`, and expect the page URL to
+carry the extra `e2eTest` parameter.
 
 ## Running against test, dev or a local API
 

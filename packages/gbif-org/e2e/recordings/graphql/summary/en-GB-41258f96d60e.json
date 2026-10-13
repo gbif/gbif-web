@@ -1,0 +1,108 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\nquery summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate, $hasSequence: Predicate){\n  occurrenceSearch(q: $q, predicate: $predicate) {\n    documents(size: 0) {\n      total\n    }\n  }\n  rank: occurrenceSearch(q: $q, predicate: $hasSpeciesRank) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCoordinates: occurrenceSearch(q: $q, predicate: $hasCoordinates) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasMedia: occurrenceSearch(q: $q, predicate: $hasMedia) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCollector: occurrenceSearch(q: $q, predicate: $hasCollector) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasYear: occurrenceSearch(q: $q, predicate: $hasYear) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasSequence: occurrenceSearch(q: $q, predicate: $hasSequence) {\n    documents(size: 0) {\n      total\n    }\n  }\n}\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "datasetKey",
+          "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+        },
+        "hasSpeciesRank": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+            },
+            {
+              "type": "isNotNull",
+              "key": "speciesKey",
+              "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+            }
+          ]
+        },
+        "hasCoordinates": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+            },
+            {
+              "type": "equals",
+              "key": "hasCoordinate",
+              "value": true
+            }
+          ]
+        },
+        "hasMedia": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+            },
+            {
+              "type": "isNotNull",
+              "key": "mediaType"
+            }
+          ]
+        },
+        "hasCollector": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+            },
+            {
+              "type": "isNotNull",
+              "key": "recordedBy"
+            }
+          ]
+        },
+        "hasYear": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+            },
+            {
+              "type": "isNotNull",
+              "key": "year"
+            }
+          ]
+        },
+        "hasSequence": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "datasetKey",
+              "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+            },
+            {
+              "type": "equals",
+              "key": "isSequenced",
+              "value": true
+            }
+          ]
+        }
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":1331544}},\"rank\":{\"documents\":{\"total\":1214230}},\"hasCoordinates\":{\"documents\":{\"total\":1331541}},\"hasMedia\":{\"documents\":{\"total\":580668}},\"hasCollector\":{\"documents\":{\"total\":1325851}},\"hasYear\":{\"documents\":{\"total\":1303089}},\"hasSequence\":{\"documents\":{\"total\":4746}}}}\n"
+}

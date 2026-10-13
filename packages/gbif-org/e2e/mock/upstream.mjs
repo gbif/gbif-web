@@ -5,7 +5,8 @@
 //
 // A request goes through handle():
 //   1. /__mock/* control endpoints: health, misses (read by test.ts and globalTeardown), test
-//      started/passed counts (reported by test.ts), prune (called by globalTeardown).
+//      started/passed counts (reported by test.ts), prune (called by globalTeardown), faults
+//      (added and cleared by test.ts's mockFault).
 //   2. Pick the upstream by longest path prefix (UPSTREAMS). Tiles and analytics images are stubbed
 //      blank; translations come from the bundled src/config/fallback/.
 //   3. GraphQL GETs get {"unknownQueryId":true}, so the client retries as a POST that carries the
@@ -19,6 +20,8 @@
 //      refresh           fetch every key once per run from production and overwrite its recording.
 //      live              fetch from E2E_UPSTREAM (prod, test or dev) or E2E_GRAPHQL_ORIGIN /
 //                        E2E_API_ORIGIN, save nothing. E2E_UPSTREAM_HEADERS (JSON) adds headers.
+//   6. If a test registered a fault for this GraphQL operation, break the answer before sending it
+//      (see Fault). Faults never reach the recordings.
 //
 // record and refresh refuse any upstream but production, so recordings never come from test or
 // dev. After a record or refresh run, prune deletes recordings the run never served, but only if
@@ -65,6 +68,15 @@ if (RECORDS && !IS_PROD) {
 const EXTRA_HEADERS = JSON.parse(process.env.E2E_UPSTREAM_HEADERS || '{}');
 
 /**
+ * A broken answer a spec asks for, to test error handling. Matches GraphQL requests by operation
+ * name and, if given, a subset of the variables. `status` answers with that HTTP status and no
+ * data, as if graphql-api were down. Otherwise each entry in `errors` adds a GraphQL error at its
+ * path and sets the data there to null, as graphql-api does when a resolver fails; `nulls` sets
+ * data to null without an error.
+ * @typedef {{
+ *   test: string, operation: string, variables?: Record<string, unknown>, status?: number,
+ *   errors?: Array<{ path: string[], message?: string }>, nulls?: string[][]
+ * }} Fault
  * @typedef {{ prefix: string, base?: string, kind?: 'graphql' | 'translations' | 'stub' }} Upstream
  * @typedef {{ query?: string, variables?: unknown, operationName?: string }} GraphQLBody
  * @typedef {{ request: object, status: number, contentType: string, encoding: 'utf8' | 'base64', body: string }} Recording
@@ -170,6 +182,8 @@ const inflight = new Map();
 const misses = [];
 // Reported by the test fixture.
 const tests = { started: 0, passed: 0 };
+/** @type {Fault[]} */
+let faults = [];
 
 function loadRecordings(dir = RECORDINGS_DIR, rel = '') {
   if (!existsSync(dir)) return;
@@ -313,6 +327,54 @@ function prune() {
   return removed;
 }
 
+// A fault only breaks requests made for the test that asked for it. Browser requests carry the
+// test id in x-e2e-test. Requests from the gbif.org server carry the page URL in x-gbif-site-url,
+// to which test.ts adds e2eTest=<id> for tests with faults. (camelCase, since the server redirects
+// kebab-case query parameters to it.) Other requests are never broken.
+/** @param {Headers} headers @returns {string | undefined} */
+function testOf(headers) {
+  if (headers['x-e2e-test']) return String(headers['x-e2e-test']);
+  const page = headers['x-gbif-site-url'];
+  return page ? (new URL(String(page)).searchParams.get('e2eTest') ?? undefined) : undefined;
+}
+
+/** @param {GraphQLBody | undefined} body @param {Headers} headers @returns {Fault | undefined} */
+function findFault(body, headers) {
+  const test = testOf(headers);
+  if (!test) return undefined;
+  return faults.find(
+    (f) =>
+      f.test === test &&
+      f.operation === operationName(body) &&
+      Object.entries(f.variables ?? {}).every(
+        ([name, value]) =>
+          stableStringify(/** @type {Record<string, unknown>} */ (body?.variables ?? {})[name]) ===
+          stableStringify(value)
+      )
+  );
+}
+
+/** @param {Recording} rec @param {Fault} fault @returns {Recording} */
+function applyFault(rec, fault) {
+  const response = JSON.parse(rec.body);
+  /** @param {string[]} path */
+  const setNull = (path) => {
+    const parent = path.slice(0, -1).reduce((obj, step) => obj?.[step], response.data);
+    if (parent && typeof parent === 'object') parent[path[path.length - 1]] = null;
+  };
+  for (const path of fault.nulls ?? []) setNull(path);
+  for (const { path, message = 'e2e fault' } of fault.errors ?? []) {
+    setNull(path);
+    response.errors = [...(response.errors ?? []), { message, path }];
+  }
+  return { ...rec, body: JSON.stringify(response) };
+}
+
+/** @param {Response} res @param {Recording} rec @param {Fault | undefined} fault */
+function reply(res, rec, fault) {
+  sendRecording(res, fault ? applyFault(rec, fault) : rec);
+}
+
 /** @param {import('node:http').IncomingMessage} req @returns {Promise<string>} */
 function readBody(req) {
   return new Promise((resolve, reject) => {
@@ -350,6 +412,14 @@ async function handle(req, res) {
       return send(res, 409, {}, message);
     }
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(prune()));
+  }
+  if (url.pathname === '/__mock/faults' && req.method === 'POST') {
+    faults.push(JSON.parse(await readBody(req)));
+    return send(res, 204, {}, '');
+  }
+  if (url.pathname === '/__mock/faults' && req.method === 'DELETE') {
+    faults = faults.filter((f) => f.test !== url.searchParams.get('test'));
+    return send(res, 204, {}, '');
   }
 
   const upstream = UPSTREAMS.find(
@@ -397,9 +467,14 @@ async function handle(req, res) {
     );
   }
 
+  const fault = upstream.kind === 'graphql' ? findFault(body, req.headers) : undefined;
+  if (fault?.status) {
+    return send(res, fault.status, { 'content-type': 'text/plain' }, 'e2e fault');
+  }
+
   if (LIVE) {
     try {
-      return sendRecording(res, await forward(upstream, method, url, body, req.headers));
+      return reply(res, await forward(upstream, method, url, body, req.headers), fault);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       console.error(`[mock] live request failed ${key}: ${message}`);
@@ -411,14 +486,14 @@ async function handle(req, res) {
   // Refresh forwards each key once; later identical requests in the run get the fresh recording.
   if (existing && (MODE !== 'refresh' || served.has(key))) {
     served.add(key);
-    return sendRecording(res, existing);
+    return reply(res, existing, fault);
   }
 
   if (RECORDS) {
     try {
       const rec = await recordOnce(upstream, method, url, body, req.headers, key);
       served.add(key);
-      return sendRecording(res, rec);
+      return reply(res, rec, fault);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       console.error(`[mock] record failed ${key}: ${message}`);
