@@ -14,17 +14,34 @@ npm run e2e:live                   # no recordings: talk to production, test, de
 npm run e2e:schema-drift           # scheduled check, see the last section
 ```
 
+## Terms
+
+- **Mock**: `mock/upstream.mjs`, a local server that stands in for every GBIF API during tests.
+- **Recording**: one upstream response saved as a JSON file in `recordings/`, replayed by the mock.
+- **Key**: what identifies a recording, and also its file name; built from the request (for
+  GraphQL: operation name, language, query text and variables).
+- **Miss**: a request the mock has no recording for. In replay it fails the test or the run.
+- **Mode**: what the mock does with a request, set by `E2E_MODE`: `replay` recordings (the
+  default), `record` missing ones, `refresh` all of them, or go `live` and save nothing. See
+  [The mock](#the-mock).
+- **Stamp**: a hash of the files the e2e build is made from, saved next to the build. If the files
+  have changed since, the build is **stale** and the run stops until you rebuild.
+- **Pruning**: deleting the recordings a run did not use (see [Pruning](#pruning)).
+- **Fixture**: the wrapper in `test.ts` that every test runs inside; it checks for errors and misses.
+- **Project**: a Playwright test group with its own folder in `specs/` and its own site to test.
+
 ## Layout
 
 ```
-playwright.config.ts   projects, the four servers below, globalSetup and globalTeardown
+playwright.config.ts   test projects, the servers to start, globalSetup and globalTeardown
 e2e/
   env.mjs              ports, output folders and the PUBLIC_* values baked into the e2e build
-  build.mjs            npm run e2e:build: both production builds into dist/e2e/, plus a stamp each
-  buildStamp.mjs       fingerprint of the build inputs, written by build.mjs, checked by globalSetup
-  globalSetup.ts       before all tests: refuses a missing or stale build, or a partial prune run
-  globalTeardown.ts    after all tests: prunes if asked, fails the run on any miss
-  test.ts              the test fixture every spec imports; fails tests on errors and misses
+  build.mjs            npm run e2e:build: builds gbif.org and the portal library into dist/e2e/
+  buildStamp.mjs       computes the stamp; build.mjs saves it, globalSetup compares it
+  globalSetup.ts       before all tests: stops if the build is missing or stale, or if pruning
+                       is asked for in a run that only runs some of the tests
+  globalTeardown.ts    after all tests: prunes if asked, then fails the run if there was any miss
+  test.ts              the fixture: every spec imports test from here
   pageRows.ts          table-driven page checks shared by the smoke and portal specs
   mock/upstream.mjs    the upstream mock: replay, record, refresh or live
   hp-sites/            stand-ins for hosted-portal websites, one folder per site, and their server
