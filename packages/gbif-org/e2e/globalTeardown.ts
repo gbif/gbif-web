@@ -6,16 +6,26 @@ import { MOCK_PORT } from './env.mjs';
 
 const MOCK = `http://localhost:${MOCK_PORT}`;
 
-// Tests in the whole suite: what an unfiltered run would run. --list loads the specs without
-// starting servers or running anything.
+// Tests in the whole suite that are meant to run: what an unfiltered run would start. --list loads
+// the specs without starting servers or running anything. Tests marked skip or fixme never start,
+// so they are not counted.
 function suiteSize(): number {
   const out = execFileSync('npx', ['playwright', 'test', '--list', '--reporter=json'], {
     encoding: 'utf8',
+    // With these set, the JSON reporter writes to a file instead of stdout.
+    env: {
+      ...process.env,
+      PLAYWRIGHT_JSON_OUTPUT_NAME: '',
+      PLAYWRIGHT_JSON_OUTPUT_DIR: '',
+      PLAYWRIGHT_JSON_OUTPUT_FILE: '',
+    },
   });
-  type Suite = { specs?: Array<{ tests: unknown[] }>; suites?: Suite[] };
+  type Suite = { specs?: Array<{ tests: Array<{ expectedStatus: string }> }>; suites?: Suite[] };
   const count = (suite: Suite): number =>
-    (suite.specs ?? []).reduce((n, spec) => n + spec.tests.length, 0) +
-    (suite.suites ?? []).reduce((n, child) => n + count(child), 0);
+    (suite.specs ?? []).reduce(
+      (n, spec) => n + spec.tests.filter((t) => t.expectedStatus !== 'skipped').length,
+      0
+    ) + (suite.suites ?? []).reduce((n, child) => n + count(child), 0);
   return count({ suites: JSON.parse(out).suites });
 }
 

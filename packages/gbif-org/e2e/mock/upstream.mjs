@@ -69,15 +69,8 @@ if (RECORDS && !IS_PROD) {
 const EXTRA_HEADERS = JSON.parse(process.env.E2E_UPSTREAM_HEADERS || '{}');
 
 /**
- * A broken answer a spec asks for, to test error handling. Matches GraphQL requests by operation
- * name and, if given, a subset of the variables. `status` answers with that HTTP status and no
- * data, as if graphql-api were down. Otherwise each entry in `errors` adds a GraphQL error at its
- * path and sets the data there to null, as graphql-api does when a resolver fails; `nulls` sets
- * data to null without an error.
- * @typedef {{
- *   test: string, operation: string, variables?: Record<string, unknown>, status?: number,
- *   errors?: Array<{ path: string[], message?: string }>, nulls?: string[][]
- * }} Fault
+ * A fault as test.ts registers it: see Fault there.
+ * @typedef {import('../test').Fault & { test: string }} Fault
  * @typedef {{ prefix: string, base?: string, kind?: 'graphql' | 'translations' | 'stub' }} Upstream
  * @typedef {{ query?: string, variables?: unknown, operationName?: string }} GraphQLBody
  * @typedef {{ request: object, status: number, contentType: string, encoding: 'utf8' | 'base64', body: string }} Recording
@@ -293,15 +286,26 @@ async function record(upstream, method, url, body, headers, key) {
   ) {
     console.warn(`[mock] WARNING ${key} recorded with GraphQL errors; check it before committing`);
   }
-  // Upstream hiccups are not worth freezing into a fixture.
-  if (rec.status < 500) {
+  if (isWorthSaving(upstream, rec.status)) {
     const file = join(RECORDINGS_DIR, key);
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
     store.set(key, rec);
   }
-  console.log(`[mock] recorded ${rec.status} ${key}`);
+  console.log(
+    `[mock] ${isWorthSaving(upstream, rec.status) ? 'recorded' : 'NOT saved'} ${rec.status} ${key}`
+  );
   return rec;
+}
+
+// Server errors, rate limits (429) and the bot check's 403 are passing trouble, not what the page
+// should be tested against, so they are passed on but not saved. In refresh mode that keeps the
+// old recording. GraphQL answers data with 200, so any 4xx from it counts as trouble too; REST
+// 404s are kept, since some pages are tested against them.
+/** @param {Upstream} upstream @param {number} status */
+function isWorthSaving(upstream, status) {
+  if (status >= 500 || status === 403 || status === 429) return false;
+  return upstream.kind !== 'graphql' || status < 400;
 }
 
 // Parallel identical misses share one upstream call and one write.
@@ -336,7 +340,7 @@ function prune() {
 /** @param {Headers} headers @returns {string | undefined} */
 function testOf(headers) {
   if (headers['x-e2e-test']) return String(headers['x-e2e-test']);
-  const page = headers['x-gbif-site-url'];
+  const page = URL.canParse(String(headers['x-gbif-site-url'])) ? headers['x-gbif-site-url'] : '';
   return page ? (new URL(String(page)).searchParams.get('e2eTest') ?? undefined) : undefined;
 }
 
@@ -358,7 +362,14 @@ function findFault(body, headers) {
 
 /** @param {Recording} rec @param {Fault} fault @returns {Recording} */
 function applyFault(rec, fault) {
-  const response = JSON.parse(rec.body);
+  let response;
+  try {
+    response = JSON.parse(rec.body);
+  } catch {
+    // E.g. an HTML error page from a live upstream: nothing to break, so pass it on as it is.
+    console.warn(`[mock] fault for ${fault.operation} not applied: the answer is not JSON`);
+    return rec;
+  }
   /** @param {string[]} path */
   const setNull = (path) => {
     const parent = path.slice(0, -1).reduce((obj, step) => obj?.[step], response.data);
@@ -401,7 +412,7 @@ async function handle(req, res) {
   }
   if (url.pathname === '/__mock/test-started' && req.method === 'POST') {
     tests.started++;
-    tests.ids.add(url.searchParams.get('test'));
+    tests.ids.add(url.searchParams.get('test') ?? 'unknown');
     return send(res, 204, {}, '');
   }
   if (url.pathname === '/__mock/test-passed' && req.method === 'POST') {
