@@ -83,7 +83,8 @@ Steps in order:
    - reports started and passed tests to the mock, which only prunes after a fully passing run.
 5. **Every upstream call** from the gbif.org server or the browser lands on the mock (next
    section).
-6. **globalTeardown**, under `E2E_PRUNE=1`, asks the mock to delete recordings the run did not use.
+6. **globalTeardown**, under `E2E_PRUNE=1`, asks the mock to delete recordings the run did not use
+   (see [Pruning](#pruning)).
    Then it fails the run if the mock logged any miss. That catches the ones without a test id:
    requests the gbif.org server made while rendering, which no single test can be charged with.
 
@@ -103,16 +104,36 @@ Steps in order:
    never replayed for a new query. Unnamed GraphQL operations are refused in every mode.
 5. Answer according to `E2E_MODE`:
 
-| Mode                               | Has a recording             | Has none                           | Saves                   |
-| ---------------------------------- | --------------------------- | ---------------------------------- | ----------------------- |
-| `replay` (default, `npm run e2e`)  | serves it                   | logs a miss, answers with an error | nothing                 |
-| `record` (`npm run e2e:record`)    | serves it                   | fetches from production            | new responses           |
-| `refresh` (`npm run e2e:rerecord`) | fetches again, once per run | fetches from production            | everything, then prunes |
-| `live` (`npm run e2e:live`)        | ignored                     | fetches from `E2E_UPSTREAM`        | nothing                 |
+| Mode                               | Has a recording             | Has none                           | Saves                               |
+| ---------------------------------- | --------------------------- | ---------------------------------- | ----------------------------------- |
+| `replay` (default, `npm run e2e`)  | serves it                   | logs a miss, answers with an error | nothing                             |
+| `record` (`npm run e2e:record`)    | serves it                   | fetches from production            | new responses                       |
+| `refresh` (`npm run e2e:rerecord`) | fetches again, once per run | fetches from production            | everything, then [prunes](#pruning) |
+| `live` (`npm run e2e:live`)        | ignored                     | fetches from `E2E_UPSTREAM`        | nothing                             |
 
 When recording, contact photos are replaced with one small grey image, since they are several MB
 each and no spec checks them. Responses with a server error are passed on but not saved. A GraphQL
 response with `errors` is saved with a warning; check it before committing.
+
+### Pruning
+
+Pruning deletes the recordings a run did not use. A changed query gets a new key and so a new
+file, but nothing removes the old one; the same goes for removed tests and requests a page no longer
+makes. Without pruning, `recordings/` collects files that nothing reads.
+
+The mock remembers every key it served during the run. With `E2E_PRUNE=1`, `globalTeardown` asks
+the mock (`POST /__mock/prune`) to delete every recording it did not serve. `npm run e2e:rerecord`
+sets it; `E2E_PRUNE=1 npm run e2e:record` prunes after recording only what was missing.
+
+A recording counts as unused if no test in the run requested it, so a partial run would delete the
+recordings of every test it skipped. Two guards prevent that:
+
+- `globalSetup` refuses `E2E_PRUNE=1` with arguments that run only some tests (spec files,
+  `--grep`, `--project`, …), and `playwright.config.ts` refuses `test.only`.
+- The mock prunes only in record and refresh mode, and only if every test that started also passed.
+
+Still review the deleted files before committing: a request a page makes only sometimes, depending
+on timing, can be unused in one run and needed in the next.
 
 ## Writing a spec
 
