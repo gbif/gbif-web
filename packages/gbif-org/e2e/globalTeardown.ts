@@ -1,15 +1,33 @@
 // Runs once after all tests (playwright.config.ts globalTeardown), while the mock is still up.
 // Prunes unused recordings under E2E_PRUNE=1, then fails the run if the mock logged any miss.
 
+import { execFileSync } from 'node:child_process';
 import { MOCK_PORT } from './env.mjs';
 
 const MOCK = `http://localhost:${MOCK_PORT}`;
+
+// Tests in the whole suite: what an unfiltered run would run. --list loads the specs without
+// starting servers or running anything.
+function suiteSize(): number {
+  const out = execFileSync('npx', ['playwright', 'test', '--list', '--reporter=json'], {
+    encoding: 'utf8',
+  });
+  type Suite = { specs?: Array<{ tests: unknown[] }>; suites?: Suite[] };
+  const count = (suite: Suite): number =>
+    (suite.specs ?? []).reduce((n, spec) => n + spec.tests.length, 0) +
+    (suite.suites ?? []).reduce((n, child) => n + count(child), 0);
+  return count({ suites: JSON.parse(out).suites });
+}
 
 // Backstop for misses no test owns, e.g. server-side requests made while rendering a page. Misses a
 // test triggers fail that test in test.ts; these have no test id, so only the run can fail.
 export default async function globalTeardown() {
   if (process.env.E2E_PRUNE === '1') {
-    const response = await fetch(`${MOCK}/__mock/prune`, { method: 'POST' });
+    // The mock prunes only if this many distinct tests ran, so any filter on the run (spec files,
+    // --grep, --project, sharding, ...) stops it without having to know how the run was filtered.
+    const response = await fetch(`${MOCK}/__mock/prune?expected=${suiteSize()}`, {
+      method: 'POST',
+    });
     if (!response.ok) throw new Error(`Prune refused: ${await response.text()}`);
     const removed: string[] = await response.json();
     console.log(`Pruned ${removed.length} unused recording(s)${removed.length ? ':' : '.'}`);

@@ -96,8 +96,10 @@ export const test = base.extend<Fixtures>({
   },
   pageErrors: [
     async ({ page, waitForIdle, expectedErrors }, use, testInfo) => {
-      // The mock prunes recordings only if every started test also reported passing.
-      await fetch(`${MOCK}/__mock/test-started`, { method: 'POST' });
+      // The mock prunes recordings only if every test in the suite started and passed.
+      await fetch(`${MOCK}/__mock/test-started?test=${encodeURIComponent(testInfo.testId)}`, {
+        method: 'POST',
+      });
       const errors: string[] = [];
       page.on('pageerror', (err) => errors.push(`pageerror: ${err.message}`));
       // The toast auto-dismisses, so watch for it from the first byte of every document.

@@ -40,8 +40,7 @@ e2e/
   env.mjs              ports, output folders and the PUBLIC_* values baked into the e2e build
   build.mjs            npm run e2e:build: builds gbif.org and the portal library into dist/e2e/
   buildStamp.mjs       computes the stamp; build.mjs saves it, globalSetup compares it
-  globalSetup.ts       before all tests: stops if the build is missing or stale, or if pruning
-                       is asked for in a run that only runs some of the tests
+  globalSetup.ts       before all tests: stops if the build is missing or stale
   globalTeardown.ts    after all tests: prunes if asked, then fails the run if there was any miss
   test.ts              the fixture: every spec imports test from here
   pageRows.ts          table-driven page checks shared by the smoke and portal specs
@@ -99,7 +98,7 @@ Steps in order:
      GraphQL response had `errors`;
    - after the test, waits for the page to stop requesting, then fails the test on any of the
      above or on a miss with its test id;
-   - reports started and passed tests to the mock, which only prunes after a fully passing run.
+   - reports started and passed tests to the mock, which only prunes after a full, passing run.
 5. **Every upstream call** from the gbif.org server or the browser lands on the mock (next
    section).
 6. **globalTeardown**, under `E2E_PRUNE=1`, asks the mock to delete recordings the run did not use
@@ -148,11 +147,17 @@ the mock (`POST /__mock/prune`) to delete every recording it did not serve. `npm
 sets it; `E2E_PRUNE=1 npm run e2e:record` prunes after recording only what was missing.
 
 A recording counts as unused if no test in the run requested it, so a partial run would delete the
-recordings of every test it skipped. Two guards prevent that:
+recordings of every test it skipped. So the mock prunes only in record and refresh mode, and only
+if the whole suite ran and passed:
 
-- `globalSetup` refuses `E2E_PRUNE=1` with arguments that run only some tests (spec files,
-  `--grep`, `--project`, …), and `playwright.config.ts` refuses `test.only`.
-- The mock prunes only in record and refresh mode, and only if every test that started also passed.
+- `globalTeardown` counts the suite with `playwright test --list` (no arguments, so no filters)
+  and sends that number with the prune request. The fixture reports each test's id as it starts.
+  If fewer distinct tests ran, the run was limited somehow (spec files, `--grep`, `--project`,
+  sharding, …) and the mock refuses. It does not matter how the run was limited.
+- Every test that started must have passed.
+- `test.only` would shrink the `--list` count too, so `playwright.config.ts` forbids it when
+  `E2E_PRUNE=1`. `--repeat-each` gives repeated tests their own ids, so pruning refuses those runs
+  as well.
 
 Still review the deleted files before committing: a request a page makes only sometimes, depending
 on timing, can be unused in one run and needed in the next.
@@ -171,8 +176,8 @@ on timing, can be unused in one run and needed in the next.
 - Every GraphQL operation needs a name (`query DatasetTitle($key: ID!)`): recordings are filed by it.
 - `npm run e2e:rerecord` replaces every recording with today's production response. Specs assert
   titles and counts from the recordings, so it can fail rows where editors changed content. That
-  is not a regression; update the expected text. It needs a full run: `globalSetup` refuses it
-  with arguments that run only some tests, and the mock refuses to prune after any failure.
+  is not a regression; update the expected text. It prunes only after a full run in which every
+  test passed (see [Pruning](#pruning)).
 
 ## Testing error handling
 

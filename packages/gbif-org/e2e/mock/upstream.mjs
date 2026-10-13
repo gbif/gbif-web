@@ -4,8 +4,8 @@
 // Started by playwright.config.ts; node built-ins only.
 //
 // A request goes through handle():
-//   1. /__mock/* control endpoints: health, misses (read by test.ts and globalTeardown), test
-//      started/passed counts (reported by test.ts), prune (called by globalTeardown), faults
+//   1. /__mock/* control endpoints: health, misses (read by test.ts and globalTeardown), tests
+//      started/passed (reported by test.ts), prune (called by globalTeardown), faults
 //      (added and cleared by test.ts's mockFault).
 //   2. Pick the upstream by longest path prefix (UPSTREAMS). Tiles and analytics images are stubbed
 //      blank; translations come from the bundled src/config/fallback/.
@@ -25,7 +25,8 @@
 //
 // record and refresh refuse any upstream but production, so recordings never come from test or
 // dev. After a record or refresh run, prune deletes recordings the run never served, but only if
-// every started test passed: a failed or aborted run served too little to judge.
+// every test in the suite ran and passed: a partial, failed or aborted run served too little to
+// judge.
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -181,7 +182,8 @@ const inflight = new Map();
 /** @type {Array<Record<string, unknown>>} */
 const misses = [];
 // Reported by the test fixture.
-const tests = { started: 0, passed: 0 };
+// ids holds the distinct tests that started, so a repeated test counts once.
+const tests = { started: 0, passed: 0, ids: new Set() };
 /** @type {Fault[]} */
 let faults = [];
 
@@ -399,6 +401,7 @@ async function handle(req, res) {
   }
   if (url.pathname === '/__mock/test-started' && req.method === 'POST') {
     tests.started++;
+    tests.ids.add(url.searchParams.get('test'));
     return send(res, 204, {}, '');
   }
   if (url.pathname === '/__mock/test-passed' && req.method === 'POST') {
@@ -409,6 +412,12 @@ async function handle(req, res) {
     if (!RECORDS) return send(res, 409, {}, 'prune only runs in record or refresh mode');
     if (tests.started === 0 || tests.passed !== tests.started) {
       const message = `not pruning: ${tests.passed} of ${tests.started} started tests passed`;
+      return send(res, 409, {}, message);
+    }
+    // globalTeardown sends the size of the whole suite; fewer distinct tests means a partial run.
+    const expected = Number(url.searchParams.get('expected'));
+    if (tests.ids.size !== expected) {
+      const message = `not pruning: ${tests.ids.size} of the suite's ${expected} tests ran`;
       return send(res, 409, {}, message);
     }
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(prune()));
