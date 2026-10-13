@@ -20,7 +20,8 @@ npm run e2e:schema-drift           # scheduled check, see the last section
 - **Recording**: one upstream response saved as a JSON file in `recordings/`, replayed by the mock.
 - **Key**: what identifies a recording, and also its file name; built from the request (for
   GraphQL: operation name, language, query text and variables).
-- **Miss**: a request the mock has no recording for. In replay it fails the test or the run.
+- **Miss**: a request the mock has no recording for. In replay it fails the test that made it,
+  and always the whole run.
 - **Mode**: what the mock does with a request, set by `E2E_MODE`: `replay` recordings (the
   default), `record` missing ones, `refresh` all of them, or go `live` and save nothing. See
   [The mock](#the-mock).
@@ -133,7 +134,8 @@ Steps in order:
    [Testing error handling](#testing-error-handling).
 
 When recording, contact photos are replaced with one small grey image, since they are several MB
-each and no spec checks them. Responses with a server error are passed on but not saved. A GraphQL
+each and no spec checks them. Server errors, rate limits (429), the bot check's 403 and any other
+GraphQL 4xx are passed on but not saved; in refresh mode the old recording stays. A GraphQL
 response with `errors` is saved with a warning; check it before committing.
 
 ### Pruning
@@ -154,7 +156,9 @@ if the whole suite ran and passed:
   and sends that number with the prune request. The fixture reports each test's id as it starts.
   If fewer distinct tests ran, the run was limited somehow (spec files, `--grep`, `--project`,
   sharding, …) and the mock refuses. It does not matter how the run was limited.
-- Every test that started must have passed.
+- Every test that started must have passed, so a run with `--retries` that needed a retry is
+  refused too.
+- Tests marked `test.skip` or `test.fixme` never start and are not counted.
 - `test.only` would shrink the `--list` count too, so `playwright.config.ts` forbids it when
   `E2E_PRUNE=1`. `--repeat-each` gives repeated tests their own ids, so pruning refuses those runs
   as well.
@@ -164,6 +168,8 @@ on timing, can be unused in one run and needed in the next.
 
 ## Writing a spec
 
+- A miss in replay means the page asked for something not recorded: run `npm run e2e:record`,
+  review and commit `recordings/`. Never stub the request out.
 - New page type: add a row to `specs/gbif/smoke.spec.ts`. Otherwise use the file for its area
   (`specs/gbif/<area>.spec.ts`); redirects go in `redirects.spec.ts`.
 - Assert on content (title, `h1`, visible text). Error boundaries swallow render crashes, so "no
@@ -171,8 +177,6 @@ on timing, can be unused in one run and needed in the next.
 - Use roles, text and URLs, not CSS classes, so specs survive refactors.
 - Before an action that unmounts what is still loading (switching tabs), `await waitForIdle()`.
   Otherwise how much gets requested depends on timing, and replay misses.
-- New page or changed query: `npm run e2e:record`, review and commit `recordings/`.
-- A miss in replay means the page asked for something not recorded. Re-record; never stub it out.
 - Every GraphQL operation needs a name (`query DatasetTitle($key: ID!)`): recordings are filed by it.
 - `npm run e2e:rerecord` replaces every recording with today's production response. Specs assert
   titles and counts from the recordings, so it can fail rows where editors changed content. That
@@ -211,8 +215,9 @@ A fault only breaks requests made for the test that asked for it, so tests with 
 parallel and share keys. Browser requests carry the test id in a header. For requests from the
 gbif.org server (page loaders during server-side rendering), the fixture adds `e2eTest=<test id>`
 to the URL of every page the test opens after `mockFault`; the server passes the page URL on to
-the mock in `x-gbif-site-url`. Call `mockFault` before `page.goto`, and expect the page URL to
-carry the extra `e2eTest` parameter.
+the mock in `x-gbif-site-url`. Call `mockFault` before `page.goto`. Only the request to the server
+carries the parameter; the page itself does not see it, so `page.url()` is unchanged unless the
+server redirects.
 
 ## Running against test, dev or a local API
 
@@ -233,6 +238,20 @@ The test and dev hosts sit behind a bot check. The mock passes on each request's
 requests the browser makes get through, but those from the gbif.org server (server-side rendering,
 cache warm-up) get an HTML 403 page. Ask for a header the bot check accepts and pass it with
 `E2E_UPSTREAM_HEADERS='{"x-name":"value"}'`. A local graphql-api has no bot check.
+
+Translations always come from the bundled `src/config/fallback/`, also in live mode, so a
+translation change that only exists on test or dev does not show.
+
+## Debugging
+
+- Run one spec, or one test: `npm run e2e -- e2e/specs/gbif/dataset.spec.ts`, add `-g "title"`.
+- Watch it: `--headed`, step through it: `--debug`, or use the UI: `--ui`.
+- A failed test keeps a trace in `e2e/.results/`; open it with `npx playwright show-trace <path>`.
+  It has the page, its network requests and its console.
+- The mock's log, including every miss, is printed with the test output, and so are the gbif.org
+  server's error messages. The server's full log is in `e2e/logs/application-<date>.log`.
+- "older than the source": run `npm run e2e:build`. A changed file under `src/`, `public/` or one
+  of the other build inputs (`buildStamp.mjs`) makes the build stale.
 
 ## Scheduled checks
 

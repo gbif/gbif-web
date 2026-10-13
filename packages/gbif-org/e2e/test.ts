@@ -51,7 +51,11 @@ function trackRequests(page: Page) {
   };
 }
 
-// A broken GraphQL answer for this test; see the Fault type in mock/upstream.mjs.
+// A broken answer a spec asks the mock for, to test error handling. Matches GraphQL requests by
+// operation name and, if given, a subset of the variables. `status` answers with that HTTP status
+// and no data, as if graphql-api were down. Otherwise each entry in `errors` adds a GraphQL error
+// at its path and sets the data there to null, as graphql-api does when a resolver fails; `nulls`
+// sets data to null without an error.
 export type Fault = {
   operation: string;
   variables?: Record<string, unknown>;
@@ -145,11 +149,15 @@ export const test = base.extend<Fixtures>({
 
       // Late client-side fetches must happen inside the test, or they are never recorded and only
       // surface as replay misses.
-      await waitForIdle();
-      await fetch(`${MOCK}/__mock/faults?test=${encodeURIComponent(testInfo.testId)}`, {
-        method: 'DELETE',
-      });
-      testsWithFaults.delete(testInfo.testId);
+      try {
+        await waitForIdle();
+      } finally {
+        // Also if the page never went idle: a retry runs with the same test id.
+        await fetch(`${MOCK}/__mock/faults?test=${encodeURIComponent(testInfo.testId)}`, {
+          method: 'DELETE',
+        });
+        testsWithFaults.delete(testInfo.testId);
+      }
       const misses: Array<{ key: string; reason: string }> = await fetch(
         `${MOCK}/__mock/misses?test=${encodeURIComponent(testInfo.testId)}`
       ).then((r) => r.json());

@@ -17,6 +17,7 @@ const INPUTS = [
   'postcss.config.js',
   'package-lock.json',
   'e2e/env.mjs',
+  'e2e/build.mjs',
 ];
 
 // Vitest files sit next to the code but are not part of the build.

@@ -21,6 +21,7 @@ const constants = {
   PUBLIC_GRSCICOLL: 'https://scientific-collections.gbif.org',
   PUBLIC_CHECKLIST_BANK_WEBSITE: 'https://www.checklistbank.org',
   PUBLIC_REGISTRY: 'https://registry.gbif.org',
+  PUBLIC_TOOLS_GBIF_ORG: 'https://tools.gbif.org',
   PUBLIC_ENABLED_LANGUAGES: 'en,es,fr,ar,da',
   PUBLIC_CLASSIC_BACKBONE_KEY: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
   PUBLIC_DEFAULT_CHECKLIST_KEY: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
@@ -29,6 +30,8 @@ const constants = {
     'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c,7ddf754f-d193-4cc9-b351-99906754a03b',
   PUBLIC_CHECKLIST_KEY_FOR_CLUSTERING: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
   PUBLIC_TEST_SITE: 'false',
+  // PUBLIC_STATUS_PAGE_URL stays unset: it makes the header load the status page's script and run
+  // a status query on every page, neither of which can be recorded.
 };
 
 /** @param {string} baseUrl @returns {Record<string, string>} */
