@@ -44,9 +44,9 @@ export default defineConfig({
       use: { baseURL: `http://localhost:${GBIF_PORT}` },
     },
     {
-      // Client-only hosted-portal library mounted in a site with every data page enabled.
-      name: 'hp-all-entities',
-      testDir: './e2e/specs/hp',
+      // Client-only hosted-portal library in a site with every page a portal may enable.
+      name: 'hp-full',
+      testDir: './e2e/specs/hp-full',
       use: { baseURL: `http://localhost:${HP_PORT}` },
     },
     {
@@ -82,7 +82,7 @@ export default defineConfig({
     {
       command: 'node e2e/hp-sites/server.mjs',
       url: `http://localhost:${HP_PORT}/gbif-lib.js`,
-      env: { HP_SITE: 'all-entities', PORT: String(HP_PORT) },
+      env: { HP_SITE: 'full', PORT: String(HP_PORT) },
       reuseExistingServer: false,
     },
     {
