@@ -108,3 +108,21 @@ test('a table row opens the record drawer, and Back closes it', async ({ page, w
   await expect(page).not.toHaveURL(/[?&]entity=/);
   await expect(drawer).toBeHidden();
 });
+
+test('the dataset column links to the dataset page', async ({ page, waitForIdle }) => {
+  await page.goto(DEEP_LINK);
+  await waitForIdle();
+  const headers = await page.locator('thead th').allInnerTexts();
+  const column = headers.findIndex((header) => header.trim() === 'Dataset');
+  expect(column).toBeGreaterThanOrEqual(0);
+
+  // Every cell also holds a link to the record, covering the row. The dataset link is an icon.
+  const hrefs = await page
+    .getByRole('row')
+    .nth(1)
+    .getByRole('cell')
+    .nth(column)
+    .getByRole('link')
+    .evaluateAll((links) => links.map((link) => link.getAttribute('href') ?? ''));
+  expect(hrefs).toContainEqual(expect.stringMatching(/^\/dataset\/[0-9a-f-]{36}$/));
+});
