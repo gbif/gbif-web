@@ -22,6 +22,10 @@ export function getPredicateAsFilter({
   if (!predicate) {
     return { error: 'NO_PREDICATE' };
   }
+  predicate = unwrapNullInclusiveNot(predicate);
+  if (predicate.type === 'and' && Array.isArray(predicate.predicates)) {
+    predicate = { ...predicate, predicates: predicate.predicates.map(unwrapNullInclusiveNot) };
+  }
   if (predicate.type === 'or') {
     return { error: 'UNABLE_TO_CONVERT' };
   }
@@ -215,4 +219,23 @@ export function getPredicateAsFilter({
     return { error: 'UNABLE_TO_CONVERT' };
   }
   return { filter };
+}
+
+// Exclusions in the search are written as `or(isNull(field), not(...))` so that records without a
+// value for the field aren't dropped. Read that shape back as the plain exclusion it came from.
+type LoosePredicate = {
+  type?: string;
+  key?: string;
+  parameter?: string;
+  predicate?: LoosePredicate;
+  predicates?: LoosePredicate[];
+};
+
+function unwrapNullInclusiveNot(predicate: LoosePredicate): LoosePredicate {
+  if (predicate?.type !== 'or' || predicate.predicates?.length !== 2) return predicate;
+  const isNull = predicate.predicates.find((p) => p?.type === 'isNull');
+  const not = predicate.predicates.find((p) => p?.type === 'not');
+  const nullField = isNull?.parameter ?? isNull?.key;
+  if (not && nullField && not.predicate?.key === nullField) return not;
+  return predicate;
 }

@@ -260,6 +260,145 @@ test('it can do pre transformations of the filter', () => {
   });
 });
 
+test('negations include records where the field is empty', () => {
+  expect(
+    filter2predicate({
+      must: {
+        occurrenceStatus: ['PRESENT'],
+      },
+      mustNot: {
+        issue: ['ZERO_COORDINATE', 'COUNTRY_MISMATCH'],
+      },
+    })
+  ).toEqual({
+    type: 'and',
+    predicates: [
+      {
+        key: 'occurrenceStatus',
+        type: 'in',
+        values: ['PRESENT'],
+      },
+      {
+        type: 'or',
+        predicates: [
+          { type: 'isNull', key: 'issue' },
+          {
+            type: 'not',
+            predicate: {
+              key: 'issue',
+              type: 'in',
+              values: ['ZERO_COORDINATE', 'COUNTRY_MISMATCH'],
+            },
+          },
+        ],
+      },
+    ],
+  });
+});
+
+test('negations use the configured key and checklistKey for the null check', () => {
+  expect(
+    filter2predicate(
+      {
+        mustNot: {
+          taxonomicIssue: ['TAXON_MATCH_NONE'],
+          dwcaExtension: ['http://data.ggbn.org/schemas/ggbn/terms/Cloning'],
+        },
+        checklistKey: 'abc',
+      },
+      {
+        fields: {
+          taxonomicIssue: {
+            takesChecklistKey: true,
+          },
+          dwcaExtension: {
+            defaultKey: 'DWCA_EXTENSION',
+          },
+        },
+      }
+    )
+  ).toEqual({
+    type: 'and',
+    predicates: [
+      {
+        type: 'or',
+        predicates: [
+          { type: 'isNull', key: 'taxonomicIssue', checklistKey: 'abc' },
+          {
+            type: 'not',
+            predicate: {
+              key: 'taxonomicIssue',
+              type: 'in',
+              values: ['TAXON_MATCH_NONE'],
+              checklistKey: 'abc',
+            },
+          },
+        ],
+      },
+      {
+        type: 'or',
+        predicates: [
+          { type: 'isNull', key: 'DWCA_EXTENSION' },
+          {
+            type: 'not',
+            predicate: {
+              key: 'DWCA_EXTENSION',
+              type: 'in',
+              values: ['http://data.ggbn.org/schemas/ggbn/terms/Cloning'],
+            },
+          },
+        ],
+      },
+    ],
+  });
+});
+
+test('negations of fields with a custom serializer are left as they are', () => {
+  expect(
+    filter2predicate(
+      {
+        mustNot: {
+          custom: ['a'],
+        },
+      },
+      {
+        fields: {
+          custom: {
+            serializer: ({ values }) => ({
+              type: PredicateType.Equals,
+              key: 'somethingElse',
+              value: values[0],
+            }),
+          },
+        },
+      }
+    )
+  ).toEqual({
+    type: 'not',
+    predicate: {
+      type: 'equals',
+      key: 'somethingElse',
+      value: 'a',
+    },
+  });
+});
+
+test('negated existence filters get no extra null check', () => {
+  expect(
+    filter2predicate({
+      mustNot: {
+        recordedBy: [{ type: 'isNotNull' }],
+      },
+    })
+  ).toEqual({
+    type: 'not',
+    predicate: {
+      key: 'recordedBy',
+      type: 'isNotNull',
+    },
+  });
+});
+
 // TODO: we need tests (and code) for isNull, isNotNull, geometry, ranges, booleans, negations.
 // But it doens't make sense to write them until we have migrated the search to use the
 // predicate structure we have in the official API
