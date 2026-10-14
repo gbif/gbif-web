@@ -37,7 +37,12 @@ function files(path: string): string[] {
 export function computeStamp() {
   const hash = createHash('sha1');
   for (const file of INPUTS.flatMap(files)) {
-    hash.update(file).update('\0').update(readFileSync(file)).update('\0');
+    // A plain Uint8Array: newer TypeScript versions do not accept @types/node 20's Buffer here.
+    hash
+      .update(file)
+      .update('\0')
+      .update(new Uint8Array(readFileSync(file)))
+      .update('\0');
   }
   return hash.digest('hex');
 }
