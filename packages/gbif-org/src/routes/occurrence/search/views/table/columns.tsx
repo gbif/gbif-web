@@ -512,7 +512,6 @@ export function useOccurrenceColumns({
       },
       {
         id: 'occurrenceRemarks',
-        sort: { localStorageKey: 'occurrenceSort', sortBy: 'occurrenceRemarks' },
         header: 'occurrenceFieldNames.occurrenceRemarks',
         minWidth: 200,
         cell: ({ occurrenceRemarks }) => (

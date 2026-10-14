@@ -60,6 +60,7 @@ const allowedSortBy = {
   occurrenceId: 'occurrenceId',
   occurrenceStatus: 'occurrenceStatus',
   organismId: 'organismId',
+  organismQuantity: 'organismQuantity',
   preparations: 'preparationsJoined',
   recordNumber: 'recordNumber',
   recordedBy: 'recordedByJoined',
