@@ -51,6 +51,17 @@ test.describe('paging', () => {
     await expect(page).not.toHaveURL(/offset=/);
   });
 
+  // From page 2, Previous lands on page 1 even when it steps back too far. Page 3 tells them apart.
+  test('Previous from page 3 goes to page 2', async ({ page, waitForIdle }) => {
+    await page.goto(`${PATH}?offset=${2 * PAGE_SIZE}`);
+    await expect(pageLabel(page, 3)).toBeVisible();
+    await waitForIdle();
+
+    await page.getByRole('button', { name: 'Previous' }).click();
+    await expect(pageLabel(page, 2)).toBeVisible();
+    await expect(page).toHaveURL(new RegExp(`[?&]offset=${PAGE_SIZE}(&|$)`));
+  });
+
   test('a deep link opens the page it names', async ({ page }) => {
     await page.goto(`${PATH}?offset=${2 * PAGE_SIZE}`);
     await expect(pageLabel(page, 3)).toBeVisible();
