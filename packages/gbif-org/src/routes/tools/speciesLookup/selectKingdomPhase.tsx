@@ -114,7 +114,9 @@ export function SelectKingdomPhase({
                     {visibleSpecies.map((row, idx) => (
                       <tr key={idx} className="g-border-t g-border-gray-100 hover:g-bg-gray-50">
                         <td className="g-px-4 g-py-2">{row.verbatimScientificName}</td>
-                        <td className="g-px-4 g-py-2 g-text-slate-400">{row.preferedKingdom}</td>
+                        <td className="g-px-4 g-py-2 g-text-slate-400">
+                          {row.preferedKingdom || defaultKingdom}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

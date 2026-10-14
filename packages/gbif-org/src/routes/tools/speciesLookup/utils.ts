@@ -80,6 +80,12 @@ export function parseCSV(csvString: string): SpeciesRow[] | { error: string } {
 
 // --- API helpers ---
 
+// Rows without a kingdom in the file get the kingdom chosen in the tool, so the
+// match request and the results table use the same value.
+export function withPreferredKingdom(rows: SpeciesRow[], defaultKingdom?: string): SpeciesRow[] {
+  return rows.map((row) => ({ ...row, preferedKingdom: row.preferedKingdom || defaultKingdom }));
+}
+
 const MAJOR_RANKS = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'] as const;
 type MajorRank = (typeof MAJOR_RANKS)[number];
 
