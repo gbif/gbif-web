@@ -4,7 +4,7 @@
 // Each build gets a stamp file that globalSetup checks. Both are always built: their stamps share
 // inputs, so rebuilding one leaves the other stale.
 
-import { writeFileSync } from 'node:fs';
+import { rmSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { build, type InlineConfig } from 'vite';
 import { computeStamp, stampFile } from './buildStamp.ts';
@@ -12,6 +12,10 @@ import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_E2E_DIST, mockEnv } from './e
 
 // Taken before building, so an edit made during the build marks the result stale.
 const stamp = computeStamp();
+
+// Vite empties only the output folders, not the stamps beside them. Removed first, so a failed or
+// interrupted build reads as no build rather than as the previous one.
+for (const dist of [GBIF_E2E_DIST, HP_E2E_DIST]) rmSync(stampFile(dist), { force: true });
 
 function viteBuild(configFile: string, port: number, config: InlineConfig) {
   Object.assign(process.env, mockEnv(`http://localhost:${port}`));
