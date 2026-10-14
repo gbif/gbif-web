@@ -60,6 +60,7 @@ const typeDef = gql`
     occurrenceId
     occurrenceStatus
     organismId
+    organismQuantity
     preparations
     recordNumber
     recordedBy

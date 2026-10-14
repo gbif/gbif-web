@@ -194,7 +194,13 @@ export function OccurrenceTableClient() {
     { sortBy: undefined, sortOrder: SortOrder.Asc }
   );
   const { translatedToast } = useToast();
-  const { sortBy: occurrenceSortBy, sortOrder: occurrenceSortOrder } = occurrenceSort;
+  const { sortBy: storedSortBy, sortOrder: occurrenceSortOrder } = occurrenceSort;
+  // A stored value from an older version may no longer be a valid sort field
+  const occurrenceSortBy = Object.values(OccurrenceSortBy).includes(
+    storedSortBy as OccurrenceSortBy
+  )
+    ? storedSortBy
+    : undefined;
   const { locale } = useI18n();
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({

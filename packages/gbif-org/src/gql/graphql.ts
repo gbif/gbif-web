@@ -7392,6 +7392,7 @@ export enum OccurrenceSortBy {
   OccurrenceId = 'occurrenceId',
   OccurrenceStatus = 'occurrenceStatus',
   OrganismId = 'organismId',
+  OrganismQuantity = 'organismQuantity',
   Preparations = 'preparations',
   PublishingCountry = 'publishingCountry',
   RecordNumber = 'recordNumber',
