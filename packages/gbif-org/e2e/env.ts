@@ -1,4 +1,4 @@
-// Ports, output folders and the PUBLIC_* values baked into the e2e build. Read by build.mjs (build
+// Ports, output folders and the PUBLIC_* values baked into the e2e build. Read by build.ts (build
 // time), playwright.config.ts (servers and base URLs) and the mock. Every endpoint points at the
 // mock, so one build serves replay, record and live runs. Changing a value needs npm run e2e:build;
 // the build stamp includes this file. Checklist keys are production's so recordings resolve.
@@ -8,7 +8,7 @@ export const GBIF_PORT = 3100;
 
 export const GBIF_E2E_DIST = 'dist/e2e/gbif';
 
-// Hosted-portal library, served by e2e/hp-sites/server.mjs.
+// Hosted-portal library, served by e2e/hp-sites/server.ts.
 export const HP_PORT = 3200;
 export const HP_E2E_DIST = 'dist/e2e/hp';
 
@@ -34,8 +34,7 @@ const constants = {
   // a status query on every page, neither of which can be recorded.
 };
 
-/** @param {string} baseUrl @returns {Record<string, string>} */
-export function mockEnv(baseUrl) {
+export function mockEnv(baseUrl: string): Record<string, string> {
   const mock = `http://localhost:${MOCK_PORT}`;
   return {
     ...constants,

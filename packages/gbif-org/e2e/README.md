@@ -16,7 +16,7 @@ npm run e2e:schema-drift           # scheduled check, see the last section
 
 ## Terms
 
-- **Mock**: `mock/upstream.mjs`, a local server that stands in for every GBIF API during tests.
+- **Mock**: `mock/upstream.ts`, a local server that stands in for every GBIF API during tests.
 - **Recording**: one upstream response saved as a JSON file in `recordings/`, replayed by the mock.
 - **Key**: what identifies a recording, and also its file name; built from the request (for
   GraphQL: operation name, language, query text and variables).
@@ -38,14 +38,14 @@ npm run e2e:schema-drift           # scheduled check, see the last section
 ```
 playwright.config.ts   test projects, the servers to start, globalSetup and globalTeardown
 e2e/
-  env.mjs              ports, output folders and the PUBLIC_* values baked into the e2e build
-  build.mjs            npm run e2e:build: builds gbif.org and the portal library into dist/e2e/
-  buildStamp.mjs       computes the stamp; build.mjs saves it, globalSetup compares it
+  env.ts              ports, output folders and the PUBLIC_* values baked into the e2e build
+  build.ts            npm run e2e:build: builds gbif.org and the portal library into dist/e2e/
+  buildStamp.ts       computes the stamp; build.ts saves it, globalSetup compares it
   globalSetup.ts       before all tests: stops if the build is missing or stale
   globalTeardown.ts    after all tests: prunes if asked, then fails the run if there was any miss
   test.ts              the fixture: every spec imports test from here
   pageRows.ts          table-driven page checks shared by the smoke and portal specs
-  mock/upstream.mjs    the upstream mock: replay, record, refresh or live
+  mock/upstream.ts    the upstream mock: replay, record, refresh or live
   hp-sites/            stand-ins for hosted-portal websites, one folder per site, and their server
   specs/               gbif/, hp-full/ and hp-occurrence-only/, one folder per Playwright project
   recordings/          committed upstream responses, written by the mock
@@ -53,11 +53,16 @@ e2e/
   logs/, .results/     server logs and Playwright output, git-ignored
 ```
 
+All of it is TypeScript. Playwright compiles the files it loads; the rest (`build.ts`, the mock,
+the portal server, `checks/`) run with plain `node`, which strips the types itself (Node 22.18 or
+later; `.nvmrc` has 24). So use type syntax Node can strip (no `enum`), write relative imports with
+the `.ts` extension, and import types with `import type`.
+
 ## How a run works
 
 ```
- npm run e2e:build                     src/, public/, env.mjs
-   build.mjs ──────────────────────────────────┐
+ npm run e2e:build                     src/, public/, env.ts
+   build.ts ──────────────────────────────────┐
                                                ▼
                     dist/e2e/gbif  +  dist/e2e/hp  +  build-stamp.txt
                                                │
@@ -70,7 +75,7 @@ e2e/
         │ client-side requests                                 │
         ▼                                                      ▼
   ┌─────────────────────────────────────────────────────────────────┐
-  │ mock/upstream.mjs :4020                                         │
+  │ mock/upstream.ts :4020                                         │
   │   replay ◀── e2e/recordings/  (record, refresh: writes to it)   │
   │   record, refresh, live ──▶ GBIF APIs (prod; live: test, dev)   │
   │   misses ──▶ test.ts fails the test, globalTeardown the run     │
@@ -79,15 +84,15 @@ e2e/
 
 Steps in order:
 
-1. **Build** (`npm run e2e:build`, `build.mjs`). Builds gbif.org (client and server) and the
-   hosted-portal library into `dist/e2e/`, with every `PUBLIC_*` endpoint from `env.mjs` pointing at
+1. **Build** (`npm run e2e:build`, `build.ts`). Builds gbif.org (client and server) and the
+   hosted-portal library into `dist/e2e/`, with every `PUBLIC_*` endpoint from `env.ts` pointing at
    the mock (`http://localhost:4020/<prefix>`). Vite reads `.env` from `e2e/`, which has none, so a
    developer's own settings stay out. Next to each build it writes `build-stamp.txt`, a hash of the
-   inputs listed in `buildStamp.mjs`.
+   inputs listed in `buildStamp.ts`.
 2. **Servers** (`playwright.config.ts`). Playwright starts four servers and waits until they answer:
-   - the mock, `mock/upstream.mjs`, on `:4020`;
+   - the mock, `mock/upstream.ts`, on `:4020`;
    - the gbif.org server, `gbif/server.js` on the e2e build, on `:3100`, with dummy secrets;
-   - two portal sites, `hp-sites/server.mjs` with `HP_SITE=full` on `:3200` and
+   - two portal sites, `hp-sites/server.ts` with `HP_SITE=full` on `:3200` and
      `HP_SITE=occurrence-only` on `:3201`. Each serves the library and its site's `index.html`, the
      way a portal's Jekyll page mounts it.
 3. **globalSetup** compares the stamp with the current source and stops the run if they differ.
@@ -109,7 +114,7 @@ Steps in order:
 
 ## The mock
 
-`mock/upstream.mjs` handles a request in this order:
+`mock/upstream.ts` handles a request in this order:
 
 1. `/__mock/*`: control endpoints for the fixture and teardown (misses, test counts, prune, faults).
 2. Pick the upstream by path prefix: `/graphql`, `/api/v1`, `/content`, … Map tiles and analytics
@@ -251,13 +256,13 @@ translation change that only exists on test or dev does not show.
 - The mock's log, including every miss, is printed with the test output, and so are the gbif.org
   server's error messages. The server's full log is in `e2e/logs/application-<date>.log`.
 - "older than the source": run `npm run e2e:build`. A changed file under `src/`, `public/` or one
-  of the other build inputs (`buildStamp.mjs`) makes the build stale.
+  of the other build inputs (`buildStamp.ts`) makes the build stale.
 
 ## Scheduled checks
 
 Not part of `npm run e2e`; they need network access and are meant for a nightly run.
 
-- `npm run e2e:schema-drift` (`checks/schema-drift.mjs`): compares the deployed GraphQL schema with
+- `npm run e2e:schema-drift` (`checks/schema-drift.ts`): compares the deployed GraphQL schema with
   the repo's and validates every `/* GraphQL */` operation against the deployed one. Fails on an
   invalid operation or on something deployed that the repo lacks; repo changes not yet deployed
   are only listed. Needs `npm ci` and a `.env` copied from `.env.example` in

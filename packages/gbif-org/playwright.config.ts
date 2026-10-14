@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import { resolve } from 'node:path';
-import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_PORT, MOCK_PORT, mockEnv } from './e2e/env.mjs';
+import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_PORT, MOCK_PORT, mockEnv } from './e2e/env.ts';
 
 // Starts the mock, the gbif.org server on the e2e build and two hosted-portal sites, then runs the
 // specs in three projects against them. globalSetup and globalTeardown wrap the run. See
@@ -59,7 +59,7 @@ export default defineConfig({
   webServer: [
     {
       // Inherits E2E_MODE, E2E_UPSTREAM and the other E2E_* variables from this process.
-      command: 'node e2e/mock/upstream.mjs',
+      command: 'node e2e/mock/upstream.ts',
       url: `http://localhost:${MOCK_PORT}/__mock/health`,
       reuseExistingServer: false,
       stdout: 'pipe',
@@ -80,13 +80,13 @@ export default defineConfig({
       reuseExistingServer: false,
     },
     {
-      command: 'node e2e/hp-sites/server.mjs',
+      command: 'node e2e/hp-sites/server.ts',
       url: `http://localhost:${HP_PORT}/gbif-lib.js`,
       env: { HP_SITE: 'full', PORT: String(HP_PORT) },
       reuseExistingServer: false,
     },
     {
-      command: 'node e2e/hp-sites/server.mjs',
+      command: 'node e2e/hp-sites/server.ts',
       url: `http://localhost:${HP_PORT + 1}/gbif-lib.js`,
       env: { HP_SITE: 'occurrence-only', PORT: String(HP_PORT + 1) },
       reuseExistingServer: false,

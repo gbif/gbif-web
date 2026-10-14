@@ -1,5 +1,5 @@
 // Writes the schema the repo's typeDefs define, as SDL, to the given file. Used by gbif-org's
-// e2e/checks/schema-drift.mjs. Run from packages/graphql-api: npx tsx tools/printSchema.ts <out>
+// e2e/checks/schema-drift.ts. Run from packages/graphql-api: npx tsx tools/printSchema.ts <out>
 // A file, not stdout: the logger writes to stdout on import.
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { writeFileSync } from 'fs';

@@ -2,7 +2,7 @@
 // Prunes unused recordings under E2E_PRUNE=1, then fails the run if the mock logged any miss.
 
 import { execFileSync } from 'node:child_process';
-import { MOCK_PORT } from './env.mjs';
+import { MOCK_PORT } from './env.ts';
 
 const MOCK = `http://localhost:${MOCK_PORT}`;
 

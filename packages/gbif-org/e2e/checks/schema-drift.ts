@@ -26,6 +26,12 @@ import {
   specifiedRules,
   validate,
   visit,
+  type ASTNode,
+  type DefinitionNode,
+  type DocumentNode,
+  type FragmentDefinitionNode,
+  type GraphQLError,
+  type GraphQLSchema,
 } from 'graphql';
 
 const LIVE_ENDPOINT = process.env.SCHEMA_DRIFT_ENDPOINT ?? 'https://graphql.gbif.org/graphql';
@@ -55,11 +61,10 @@ function repoSchema() {
 
 // The same documents graphql-codegen reads: template literals marked /* GraphQL */.
 function documents() {
-  /** @type {Array<{ file: string, document: import('graphql').DocumentNode }>} */
-  const parsed = [];
+  const parsed: Array<{ file: string; document: DocumentNode }> = [];
   // Interpolated documents are only complete at runtime; their fragments are unknown here.
   let skipped = 0;
-  const skippedFragments = new Set();
+  const skippedFragments = new Set<string>();
   for (const entry of readdirSync('src', { recursive: true, encoding: 'utf8' })) {
     const file = join('src', entry);
     if (!/\.(ts|tsx|mjs)$/.test(file) || file.startsWith(join('src', 'gql'))) continue;
@@ -78,13 +83,12 @@ function documents() {
   return { parsed, skipped, skippedFragments };
 }
 
-/**
- * The fragments a definition spreads, transitively.
- * @param {import('graphql').ASTNode} node
- * @param {Map<string, { def: import('graphql').FragmentDefinitionNode }>} fragments
- * @param {Set<string>} [seen]
- */
-function spreads(node, fragments, seen = new Set()) {
+// The fragments a definition spreads, transitively.
+function spreads(
+  node: ASTNode,
+  fragments: Map<string, { def: FragmentDefinitionNode }>,
+  seen = new Set<string>()
+) {
   visit(node, {
     FragmentSpread(spread) {
       const name = spread.name.value;
@@ -97,11 +101,7 @@ function spreads(node, fragments, seen = new Set()) {
   return seen;
 }
 
-/**
- * @param {import('graphql').GraphQLError} error
- * @param {import('graphql').DefinitionNode} def
- */
-function inside(error, def) {
+function inside(error: GraphQLError, def: DefinitionNode) {
   return (error.nodes ?? []).some(
     (n) =>
       n.loc?.source === def.loc?.source &&
@@ -110,29 +110,23 @@ function inside(error, def) {
   );
 }
 
-/** @param {import('graphql').GraphQLSchema} schema */
-function validateOperations(schema) {
+function validateOperations(schema: GraphQLSchema) {
   const { parsed, skipped, skippedFragments } = documents();
   // Fragments live in other files and are joined in at runtime by fragmentManager.
-  /** @type {Map<string, { def: import('graphql').FragmentDefinitionNode, file: string }>} */
-  const fragments = new Map();
+  const fragments = new Map<string, { def: FragmentDefinitionNode; file: string }>();
   for (const { file, document } of parsed) {
     for (const def of document.definitions) {
       if (def.kind === Kind.FRAGMENT_DEFINITION) fragments.set(def.name.value, { def, file });
     }
   }
   const rules = specifiedRules.filter((rule) => rule !== NoUnusedFragmentsRule);
-  /**
-   * Validates one definition with the fragments it spreads, keeping only errors located in it, so a
-   * broken fragment is reported once, under its own file.
-   * @param {import('graphql').DefinitionNode} def
-   */
-  const check = (def) => {
+  // Validates one definition with the fragments it spreads, keeping only errors located in it, so
+  // a broken fragment is reported once, under its own file.
+  const check = (def: DefinitionNode) => {
     const used = [...spreads(def, fragments)];
     const unknown = used.filter((name) => skippedFragments.has(name) && !fragments.has(name));
     if (unknown.length) return { unknown, errors: [] };
-    /** @type {import('graphql').DocumentNode} */
-    const doc = {
+    const doc: DocumentNode = {
       kind: Kind.DOCUMENT,
       definitions: [def, ...used.flatMap((name) => fragments.get(name)?.def ?? [])],
     };
@@ -140,9 +134,8 @@ function validateOperations(schema) {
     return { unknown, errors };
   };
 
-  const failures = [];
-  /** @type {string[]} */
-  const notChecked = [];
+  const failures: string[] = [];
+  const notChecked: string[] = [];
   let checked = 0;
   for (const { file, document } of parsed) {
     for (const def of document.definitions) {
@@ -160,8 +153,8 @@ function validateOperations(schema) {
   return { checked, skipped, skippedFragments: [...skippedFragments], notChecked, failures };
 }
 
-/** @param {Array<{ type: string, description: string }>} changes */
-const list = (changes) => changes.map((c) => `  ${c.type}: ${c.description}`).join('\n');
+const list = (changes: Array<{ type: string; description: string }>) =>
+  changes.map((c) => `  ${c.type}: ${c.description}`).join('\n');
 
 const live = await liveSchema();
 const repo = repoSchema();
