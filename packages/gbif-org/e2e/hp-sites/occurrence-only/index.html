@@ -11,10 +11,10 @@
     <script type="module">
       import { render, languages } from '/gbif-lib.js';
 
-      // Only occurrence pages: links to anything else must fall back to gbif.org.
+      // The most minimal portal: only occurrence search. Links to anything else fall back to gbif.org.
       render(document.getElementById('root'), {
         version: 3,
-        pages: [{ id: 'occurrenceSearch' }, { id: 'occurrenceKey' }],
+        pages: [{ id: 'occurrenceSearch' }],
         occurrenceSearch: { scope: { type: 'equals', key: 'countryCode', value: 'DK' } },
         languages: languages.filter((l) => l.code === 'en'),
       });

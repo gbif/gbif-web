@@ -50,7 +50,7 @@ export default defineConfig({
       use: { baseURL: `http://localhost:${HP_PORT}` },
     },
     {
-      // Only occurrence pages enabled, scoped to Denmark.
+      // Only occurrence search enabled, scoped to Denmark.
       name: 'hp-occurrence-only',
       testDir: './e2e/specs/hp-occurrence-only',
       use: { baseURL: `http://localhost:${HP_PORT + 1}` },

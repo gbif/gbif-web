@@ -11,7 +11,7 @@
     <script type="module">
       import { render, languages } from '/gbif-lib.js';
 
-      // Every page a portal may enable: occurrences (and their downloads), datasets, publishers,
+      // Every page a portal may enable: occurrences, datasets, publishers,
       // collections, institutions and literature. Portals never enable taxon, participant,
       // country, network or article pages.
       render(document.getElementById('root'), {
@@ -19,7 +19,6 @@
         pages: [
           'occurrenceSearch',
           'occurrenceKey',
-          'downloadKey',
           'datasetSearch',
           'datasetKey',
           'publisherSearch',

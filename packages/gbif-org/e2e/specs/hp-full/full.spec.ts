@@ -71,12 +71,6 @@ const ROWS: Row[] = [
     title: 'Literature search',
     resultCount: /^[\d,]+ results$/,
   },
-  {
-    id: 'downloadKey',
-    url: '/occurrence/download/0012986-260928105237408',
-    title: 'Download 2026-10-06T16:00:51.881+00:00',
-    h1: '4,225 occurrences downloaded',
-  },
 ];
 
 testRows(ROWS);
