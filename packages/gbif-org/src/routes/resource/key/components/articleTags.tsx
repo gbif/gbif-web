@@ -3,6 +3,7 @@ import { notNull } from '@/utils/notNull';
 import { FormattedMessage } from 'react-intl';
 import { ArticleAuxiliary } from './articleAuxiliary';
 import { Pills } from './pills';
+import { getTagSearchParams } from './tagSearchParams';
 
 type Props = {
   resource?: {
@@ -27,6 +28,7 @@ export function ArticleTags({ className, resource = {} }: Props) {
           pills={resource.countriesOfCoverage.filter(notNull).map((x) => ({
             key: x,
             content: <FormattedMessage id={`enums.countryCode.${x}`} />,
+            searchParams: getTagSearchParams('countriesOfCoverage', x),
           }))}
         />
       )}
@@ -37,6 +39,7 @@ export function ArticleTags({ className, resource = {} }: Props) {
           pills={resource.topics.filter(notNull).map((x) => ({
             key: x,
             content: <FormattedMessage id={`enums.topics.${x}`} />,
+            searchParams: getTagSearchParams('topics', x),
           }))}
         />
       )}
@@ -47,6 +50,7 @@ export function ArticleTags({ className, resource = {} }: Props) {
           pills={resource.audiences.filter(notNull).map((x) => ({
             key: x,
             content: <FormattedMessage id={`enums.audiences.${x}`} />,
+            searchParams: getTagSearchParams('audiences', x),
           }))}
         />
       )}
@@ -57,6 +61,7 @@ export function ArticleTags({ className, resource = {} }: Props) {
           pills={resource.purposes.filter(notNull).map((x) => ({
             key: x,
             content: <FormattedMessage id={`enums.purposes.${x}`} />,
+            searchParams: getTagSearchParams('purposes', x),
           }))}
         />
       )}
