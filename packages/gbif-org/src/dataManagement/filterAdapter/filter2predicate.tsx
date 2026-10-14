@@ -60,9 +60,7 @@ export function filter2predicate(
   }
   const { must, mustNot, checklistKey } = filter;
   const positive = getPredicates({ filters: must, filterConfig, checklistKey });
-  const negated = getPredicates({ filters: mustNot, filterConfig, checklistKey }).map(
-    (p): Predicate => ({ type: PredicateType.Not, predicate: p })
-  );
+  const negated = getNegatedPredicates({ filters: mustNot, filterConfig, checklistKey });
 
   const predicates = positive.concat(negated);
 
@@ -91,6 +89,70 @@ function getPredicates({
   return Object.entries(filters)
     .map(([filterName, values]) => getPredicate({ filterName, values, filterConfig, checklistKey }))
     .filter((p) => p !== null); // remove filters that couldn't be transformed to a predicate
+}
+
+// The API leaves out records where the field is empty when a predicate is negated. So excluding
+// a value would also drop every record without any value for that field. To make an exclusion
+// mean "everything but these values", records where the field is null are added back.
+function getNegatedPredicates({
+  filters,
+  filterConfig,
+  checklistKey,
+}: {
+  filters: Record<string, unknown[]> | null | undefined;
+  filterConfig?: FilterConfigType;
+  checklistKey?: string;
+}): Predicate[] {
+  if (!filters) return [];
+  return Object.entries(filters)
+    .map(([filterName, values]): Predicate | null => {
+      const predicate = getPredicate({ filterName, values, filterConfig, checklistKey });
+      if (!predicate) return null;
+      const negated: Predicate = { type: PredicateType.Not, predicate };
+
+      const config = filterConfig?.fields?.[filterName] ?? {};
+      // custom serializers build their own predicate, and existence or distance values can't be
+      // combined with a null check in a meaningful way, so those are negated as they are.
+      // A negated geometry (within) already keeps records without coordinates, and the API
+      // doesn't accept isNull on geometry.
+      const hasSpecialValue = values?.some(
+        (value) =>
+          typeof value === 'object' &&
+          value !== null &&
+          ['isNull', 'isNotNull', 'geoDistance'].includes((value as { type?: string }).type ?? '')
+      );
+      if (config.serializer || hasSpecialValue || config.defaultType === PredicateType.Within) {
+        return negated;
+      }
+
+      return {
+        type: PredicateType.Or,
+        predicates: [getNullPredicate({ filterName, config, checklistKey }), negated],
+      };
+    })
+    .filter((p): p is Predicate => p !== null);
+}
+
+function getNullPredicate({
+  filterName,
+  config,
+  checklistKey,
+}: {
+  filterName: string;
+  config: FieldType;
+  checklistKey?: string;
+}): Predicate {
+  const key = config.defaultKey || filterName;
+  const checklist = config.takesChecklistKey && checklistKey ? { checklistKey } : {};
+  // On nested fields (nucleotideSequence.*) isNull only matches records that have a nested
+  // object without the value, not records with no nested objects at all. not(isNotNull) does.
+  if (key.includes('.')) {
+    return {
+      type: PredicateType.Not,
+      predicate: { type: PredicateType.IsNotNull, key, ...checklist },
+    };
+  }
+  return { type: PredicateType.IsNull, key, ...checklist };
 }
 
 function getPredicate({
