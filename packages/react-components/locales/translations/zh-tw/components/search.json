@@ -53,6 +53,8 @@
     "default": "預設",
     "random": "隨機",
     "showMore": "顯示 {count} 更多",
+    "moreImagesHint": "",
+    "moreImagesLink": "",
     "cappedHint": "顯示{total} 中的 {shown} 個群組。請套用更多篩選條件以進一步縮小範圍。",
     "useAsFilter": "設為篩選",
     "unspecified": "未指定"

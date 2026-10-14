@@ -335,6 +335,10 @@
         "title": "Archive Darwin Core",
         "description": "Plusieurs fichiers (données de base, valeurs brutes, données interprétées, extensions) pour une utilisation détaillée ou spécialisée. Le téléchargement est personnalisable en sélectionnant les extensions nécessaires."
       },
+      "FASTA_ARCHIVE": {
+        "title": "Archive FASTA",
+        "description": "Une archive Darwin Core contenant les enregistrements comportant des séquences ADN, avec les séquences elles-mêmes ajoutées sous forme de fichier FASTA. Seuls les enregistrements contenant une séquence ADN sont inclus."
+      },
       "SPECIES_LIST": {
         "title": "Liste des espèces en format CSV",
         "description": "Liste de tous les noms de taxons distincts avec leur nombre d'occurrences."
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "Coordonnées (si sélectionnées)",
         "individualOccurrences": "occurrences individuelles",
         "multimediaLinks": "liens multimédia",
-        "occurrenceCounts": "Nombre d’occurrences"
+        "occurrenceCounts": "Nombre d’occurrences",
+        "dnaSequences": "Séquences d'ADN (FASTA)",
+        "sequencedRecordsOnly": "Enregistrements séquencés uniquement"
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "Sélectionner la taxonomie qui sera utilisée pour remplir les colonnes taxonomiques dans le téléchargement",
       "defaultRecommended": "Défaut et recommandé pour la majorité des utilisateurs",
       "version": "Version"
+    },
+    "sequences": {
+      "noSequencesTitle": "Aucune séquence d'ADN n'a été trouvée lors de cette recherche",
+      "noSequencesDescription": "Ce format n'est disponible que pour les recherches contenant des séquences d'ADN.",
+      "someSequencesTitle": "Seuls les enregistrements contenant des séquences ADN sont inclus",
+      "someSequencesDescription": "{included} des {total} enregistrements de votre recherche comportent une séquence d'ADN. Les autres {discarded} enregistrements ne seront pas inclus dans le téléchargement.",
+      "recordsIncluded": "Enregistrements inclus"
     }
   },
   "customSqlDownload": {
