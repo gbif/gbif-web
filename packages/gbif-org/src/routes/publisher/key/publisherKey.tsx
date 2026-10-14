@@ -62,7 +62,7 @@ const PUBLISHER_QUERY = /* GraphQL */ `
       endorsingNodeKey
       endorsementApproved
 
-      installation {
+      installation(limit: 50) {
         count
         results {
           key
