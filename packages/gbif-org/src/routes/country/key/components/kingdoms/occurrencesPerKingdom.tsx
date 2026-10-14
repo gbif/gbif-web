@@ -6,6 +6,7 @@ import {
   PredicateType,
 } from '@/gql/graphql';
 import { notNull } from '@/utils/notNull';
+import { groupKingdoms } from './kingdomGroups';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -21,40 +22,16 @@ import protozoaIconUrl from './icons/protozoa.svg';
 import unknownIconUrl from './icons/unknown.svg';
 import virusesIconUrl from './icons/viruses.svg';
 
-type KingdomInfo = { id: number; icon: string };
-
-const kingdomsByName: Record<string, KingdomInfo> = {
-  animalia: { id: 1, icon: animaliaIconUrl },
-  plantae: { id: 6, icon: plantaeIconUrl },
-  fungi: { id: 5, icon: fungiIconUrl },
-  chromista: { id: 4, icon: chromistaIconUrl },
-  protozoa: { id: 7, icon: protozoaIconUrl },
+const iconsByLegacyId: Record<number, string> = {
+  1: animaliaIconUrl,
+  2: archaeaIconUrl,
+  3: bacteriaIconUrl,
+  4: chromistaIconUrl,
+  5: fungiIconUrl,
+  6: plantaeIconUrl,
+  7: protozoaIconUrl,
+  8: virusesIconUrl,
 };
-
-// The Catalogue of Life splits archaea, bacteria and viruses into several kingdoms. Group them by name.
-const archaeaKingdoms = [
-  'thermoproteati',
-  'methanobacteriati',
-  'promethearchaeati',
-  'nanobdellati',
-];
-const bacteriaKingdoms = ['pseudomonadati', 'bacillati', 'fusobacteriati', 'thermotogati'];
-
-// Kingdom names can carry authorship, e.g. "Bacillati (Gibbons & Murray, 1978) Oren & Göker 2024"
-function getKingdomInfo(name: string): KingdomInfo | undefined {
-  const firstWord = name.split(' ')[0].toLowerCase();
-  if (kingdomsByName[firstWord]) return kingdomsByName[firstWord];
-  if (archaeaKingdoms.includes(firstWord) || firstWord.startsWith('archaea')) {
-    return { id: 2, icon: archaeaIconUrl };
-  }
-  if (bacteriaKingdoms.includes(firstWord) || firstWord.startsWith('bacteria')) {
-    return { id: 3, icon: bacteriaIconUrl };
-  }
-  if (firstWord.endsWith('virae') || firstWord.startsWith('virus')) {
-    return { id: 8, icon: virusesIconUrl };
-  }
-  return undefined;
-}
 
 type Props = {
   type: 'publishedBy' | 'about';
@@ -80,17 +57,27 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
     }
   );
 
-  const kingdoms = data?.occurrenceSearch?.facet?.kingdomKey?.filter(notNull).map((kingdom) => {
-    const name = kingdom.taxonMatch?.usage?.name ?? kingdom.key;
-    const info = getKingdomInfo(name);
-    const messageId = `enums.kingdomKey.${info?.id}`;
-    return {
-      key: kingdom.key,
-      count: kingdom.count,
-      icon: info?.icon ?? unknownIconUrl,
-      title: info && messages[messageId] ? formatMessage({ id: messageId }) : name.split(' ')[0],
-    };
-  });
+  const kingdoms = data?.occurrenceSearch?.facet?.kingdomKey
+    ? groupKingdoms(
+        data.occurrenceSearch.facet.kingdomKey.filter(notNull).map((kingdom) => ({
+          key: kingdom.key,
+          count: kingdom.count,
+          name: kingdom.taxonMatch?.usage?.name,
+        }))
+      ).map((group) => {
+        const messageId = `enums.kingdomKey.${group.legacyId}`;
+        return {
+          key: group.id,
+          taxonKeys: group.keys,
+          count: group.count,
+          icon: (group.legacyId != null && iconsByLegacyId[group.legacyId]) || unknownIconUrl,
+          title:
+            group.legacyId != null && messages[messageId]
+              ? formatMessage({ id: messageId })
+              : group.name,
+        };
+      })
+    : undefined;
 
   return (
     <Card>
@@ -110,8 +97,8 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
               <KingdomItem key={kingdom.title} title={kingdom.title} icon={kingdom.icon} />
             ))
           : kingdoms.map((kingdom) => {
-              const searchParams: Record<string, string> = {
-                taxonKey: kingdom.key,
+              const searchParams: Record<string, string | string[]> = {
+                taxonKey: kingdom.taxonKeys,
               };
 
               if (checklistKey) searchParams.checklistKey = checklistKey;
