@@ -72,6 +72,24 @@ test.describe('paging', () => {
   });
 });
 
+// A field missing from the query, or read under the wrong name, leaves the column empty.
+test('the year column shows the years', async ({ page, waitForIdle }) => {
+  await page.goto(PATH);
+  await waitForIdle();
+  const headers = await page.locator('thead th').allInnerTexts();
+  const column = headers.findIndex((header) => header.trim() === 'Year');
+  expect(column).toBeGreaterThanOrEqual(0);
+
+  const rows = page.getByRole('row');
+  const years: string[] = [];
+  for (let i = 1; i <= 10; i++) {
+    years.push((await rows.nth(i).getByRole('cell').nth(column).innerText()).trim());
+  }
+  // Some documents have no year; the rest must show one.
+  expect(years.filter(Boolean).length).toBeGreaterThan(5);
+  for (const year of years.filter(Boolean)) expect(year).toMatch(/^\d{4}$/);
+});
+
 test('applying a filter lowers the count and shows a chip', async ({ page, waitForIdle }) => {
   const total = await unfilteredTotal(page, waitForIdle);
 
