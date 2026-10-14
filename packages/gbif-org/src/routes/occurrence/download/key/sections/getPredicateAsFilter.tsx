@@ -22,18 +22,9 @@ export function getPredicateAsFilter({
   if (!predicate) {
     return { error: 'NO_PREDICATE' };
   }
-  predicate = unwrapNullInclusiveNot(predicate);
-  if (predicate.type === 'and' && Array.isArray(predicate.predicates)) {
-    predicate = { ...predicate, predicates: predicate.predicates.map(unwrapNullInclusiveNot) };
-  }
-  if (predicate.type === 'or') {
+  predicate = unwrapExclusions(predicate);
+  if (!predicate) {
     return { error: 'UNABLE_TO_CONVERT' };
-  }
-  if (predicate.type === 'not') {
-    return { error: 'UNABLE_TO_CONVERT' };
-  }
-  if (predicate.type !== 'and') {
-    predicate = { type: 'and', predicates: [predicate] };
   }
   if (!searchConfig.fields) {
     return { error: 'NO_SEARCH_CONFIG' };
@@ -221,21 +212,52 @@ export function getPredicateAsFilter({
   return { filter };
 }
 
-// Exclusions in the search are written as `or(isNull(field), not(...))` so that records without a
-// value for the field aren't dropped. Read that shape back as the plain exclusion it came from.
 type LoosePredicate = {
   type?: string;
   key?: string;
   parameter?: string;
+  checklistKey?: string;
   predicate?: LoosePredicate;
   predicates?: LoosePredicate[];
 };
 
-function unwrapNullInclusiveNot(predicate: LoosePredicate): LoosePredicate {
-  if (predicate?.type !== 'or' || predicate.predicates?.length !== 2) return predicate;
-  const isNull = predicate.predicates.find((p) => p?.type === 'isNull');
-  const not = predicate.predicates.find((p) => p?.type === 'not');
-  const nullField = isNull?.parameter ?? isNull?.key;
-  if (not && nullField && not.predicate?.key === nullField) return not;
-  return predicate;
+/*
+Exclusions in the search are written as `or(<field is empty>, not(<predicate on field>))` so that
+records without a value aren't dropped. Only that exact shape can be read back as an exclusion.
+A plain `not` (e.g. from an older download) would get the empty values added when serialized
+again, so the search would no longer run the original predicate. Those return undefined, and the
+caller falls back to the predicate filter.
+Returns an 'and' whose exclusions are plain `not` predicates.
+*/
+function unwrapExclusions(predicate: LoosePredicate): LoosePredicate | undefined {
+  const children = predicate.type === 'and' ? (predicate.predicates ?? []) : [predicate];
+  const unwrapped: LoosePredicate[] = [];
+  for (const child of children) {
+    if (child?.type === 'not') return undefined;
+    unwrapped.push(getExclusion(child) ?? child);
+  }
+  return { type: 'and', predicates: unwrapped };
+}
+
+function getExclusion(predicate: LoosePredicate): LoosePredicate | undefined {
+  if (predicate?.type !== 'or' || predicate.predicates?.length !== 2) return undefined;
+  const [first, second] = predicate.predicates;
+  if (isEmptyCheckFor(first, second?.predicate) && second?.type === 'not') return second;
+  if (isEmptyCheckFor(second, first?.predicate) && first?.type === 'not') return first;
+  return undefined;
+}
+
+// isNull(X), or not(isNotNull(X)) for nested fields, with the same key and checklistKey as the
+// predicate it guards
+function isEmptyCheckFor(check?: LoosePredicate, target?: LoosePredicate): boolean {
+  if (!check || !target) return false;
+  const isNestedCheck = check.type === 'not' && check.predicate?.type === 'isNotNull';
+  if (check.type !== 'isNull' && !isNestedCheck) return false;
+  const nullCheck = (isNestedCheck ? check.predicate : check) as LoosePredicate;
+  const key = nullCheck.parameter ?? nullCheck.key;
+  return (
+    !!key &&
+    key === target.key &&
+    (nullCheck.checklistKey ?? undefined) === (target.checklistKey ?? undefined)
+  );
 }

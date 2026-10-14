@@ -399,6 +399,67 @@ test('negated existence filters get no extra null check', () => {
   });
 });
 
+test('a negated geometry is left as it is', () => {
+  expect(
+    filter2predicate(
+      {
+        mustNot: {
+          geometry: ['POLYGON((0 0,1 0,1 1,0 1,0 0))'],
+        },
+      },
+      {
+        fields: {
+          geometry: {
+            defaultType: PredicateType.Within,
+          },
+        },
+      }
+    )
+  ).toEqual({
+    type: 'not',
+    predicate: {
+      type: 'within',
+      key: 'geometry',
+      value: 'POLYGON((0 0,1 0,1 1,0 1,0 0))',
+    },
+  });
+});
+
+test('negations on nested fields check that no nested value exists', () => {
+  expect(
+    filter2predicate(
+      {
+        mustNot: {
+          nucleotideSequenceTargetGene: ['COI'],
+        },
+      },
+      {
+        fields: {
+          nucleotideSequenceTargetGene: {
+            defaultKey: 'nucleotideSequence.targetGene',
+          },
+        },
+      }
+    )
+  ).toEqual({
+    type: 'or',
+    predicates: [
+      {
+        type: 'not',
+        predicate: { type: 'isNotNull', key: 'nucleotideSequence.targetGene' },
+      },
+      {
+        type: 'not',
+        predicate: {
+          key: 'nucleotideSequence.targetGene',
+          type: 'in',
+          values: ['COI'],
+        },
+      },
+    ],
+  });
+});
+
 // TODO: we need tests (and code) for isNull, isNotNull, geometry, ranges, booleans, negations.
 // But it doens't make sense to write them until we have migrated the search to use the
 // predicate structure we have in the official API
