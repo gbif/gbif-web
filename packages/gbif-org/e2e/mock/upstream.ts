@@ -1,6 +1,6 @@
 // Stand-in for every upstream gbif-org talks to: GraphQL, REST, forms, content search,
 // translations and tiles. The e2e build bakes http://localhost:<MOCK_PORT>/<prefix> into every
-// PUBLIC_* endpoint (env.mjs), so the gbif.org server and the browser only ever reach this server.
+// PUBLIC_* endpoint (env.ts), so the gbif.org server and the browser only ever reach this server.
 // Started by playwright.config.ts; node built-ins only.
 //
 // A request goes through handle():
@@ -30,10 +30,16 @@
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
-import { createServer } from 'node:http';
+import {
+  createServer,
+  type IncomingHttpHeaders as Headers,
+  type IncomingMessage,
+  type ServerResponse as Response,
+} from 'node:http';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { MOCK_PORT } from '../env.mjs';
+import { MOCK_PORT } from '../env.ts';
+import type { Fault as TestFault } from '../test.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RECORDINGS_DIR = join(__dirname, '..', 'recordings');
@@ -45,11 +51,11 @@ if (!['replay', 'record', 'refresh', 'live'].includes(MODE)) {
   throw new Error(`Unknown E2E_MODE ${MODE}; use replay, record, refresh or live`);
 }
 
-const ENVIRONMENTS = /** @type {Record<string, { graphql: string, api: string }>} */ ({
+const ENVIRONMENTS: Record<string, { graphql: string; api: string }> = {
   prod: { graphql: 'https://graphql.gbif.org', api: 'https://api.gbif.org' },
   test: { graphql: 'https://graphql.gbif-test.org', api: 'https://api.gbif-test.org' },
   dev: { graphql: 'https://graphql.gbif-dev.org', api: 'https://api.gbif-dev.org' },
-});
+};
 const UPSTREAM_NAME = (process.env.E2E_UPSTREAM || 'prod').toLowerCase();
 const ENVIRONMENT = ENVIRONMENTS[UPSTREAM_NAME];
 if (!ENVIRONMENT) {
@@ -68,18 +74,20 @@ if (RECORDS && !IS_PROD) {
 // front of the test and dev hosts.
 const EXTRA_HEADERS = JSON.parse(process.env.E2E_UPSTREAM_HEADERS || '{}');
 
-/**
- * A fault as test.ts registers it: see Fault there.
- * @typedef {import('../test').Fault & { test: string }} Fault
- * @typedef {{ prefix: string, base?: string, kind?: 'graphql' | 'translations' | 'stub' }} Upstream
- * @typedef {{ query?: string, variables?: unknown, operationName?: string }} GraphQLBody
- * @typedef {{ request: object, status: number, contentType: string, encoding: 'utf8' | 'base64', body: string }} Recording
- * @typedef {import('node:http').IncomingHttpHeaders} Headers
- * @typedef {import('node:http').ServerResponse} Response
- */
+// A fault as test.ts registers it: see Fault there.
+type Fault = TestFault & { test: string };
+type Upstream = { prefix: string; base?: string; kind?: 'graphql' | 'translations' | 'stub' };
+type GraphQLBody = { query?: string; variables?: unknown; operationName?: string };
+type Recording = {
+  request: object;
+  status: number;
+  contentType: string;
+  encoding: 'utf8' | 'base64';
+  body: string;
+};
 
 // Longest prefix wins, so /api/v1 beats /api.
-const UPSTREAMS = /** @type {Upstream[]} */ ([
+const UPSTREAMS: Upstream[] = [
   { prefix: '/graphql', base: `${GRAPHQL_ORIGIN}/graphql`, kind: 'graphql' },
   // Served from the bundled fallback: in sync with the repo, and not a 500 KB recording per locale
   // that changes with every translation release.
@@ -94,7 +102,8 @@ const UPSTREAMS = /** @type {Upstream[]} */ ([
   { prefix: '/tile', kind: 'stub' },
   { prefix: '/api/v2/map', kind: 'stub' },
   { prefix: '/analytics-files', kind: 'stub' },
-]).sort((a, b) => b.prefix.length - a.prefix.length);
+];
+UPSTREAMS.sort((a, b) => b.prefix.length - a.prefix.length);
 
 // 1x1 transparent PNG.
 const EMPTY_PNG = Buffer.from(
@@ -109,13 +118,11 @@ const CORS_HEADERS = {
   'access-control-max-age': '600',
 };
 
-/** @param {string} str */
-function hash(str) {
+function hash(str: string) {
   return createHash('sha1').update(str).digest('hex').slice(0, 12);
 }
 
-/** @param {string} str */
-function sanitize(str) {
+function sanitize(str: string) {
   return str
     .replace(/[^a-zA-Z0-9._-]+/g, '_')
     .replace(/^_+|_+$/g, '')
@@ -123,34 +130,31 @@ function sanitize(str) {
 }
 
 // Key order must not change the key.
-/** @param {unknown} value @returns {string} */
-function stableStringify(value) {
+function stableStringify(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`;
   if (value && typeof value === 'object') {
     return `{${Object.keys(value)
       .sort()
-      .map(
-        (k) =>
-          `${JSON.stringify(k)}:${stableStringify(/** @type {Record<string, unknown>} */ (value)[k])}`
-      )
+      .map((k) => `${JSON.stringify(k)}:${stableStringify((value as Record<string, unknown>)[k])}`)
       .join(',')}}`;
   }
   return JSON.stringify(value);
 }
 
-/** @param {GraphQLBody | undefined} body @returns {string | undefined} */
-function operationName(body) {
+function operationName(body: GraphQLBody | undefined): string | undefined {
   if (typeof body?.operationName === 'string' && body.operationName) return body.operationName;
   const m = /\b(?:query|mutation)\s+(\w+)/.exec(body?.query ?? '');
   return m?.[1];
 }
 
 // The relative file a request is stored in. Also its identity.
-/**
- * @param {Upstream} upstream @param {string} method @param {URL} url
- * @param {GraphQLBody | undefined} body @param {Headers} headers
- */
-function recordingPath(upstream, method, url, body, headers) {
+function recordingPath(
+  upstream: Upstream,
+  method: string,
+  url: URL,
+  body: GraphQLBody | undefined,
+  headers: Headers
+) {
   if (upstream.kind === 'graphql') {
     const locale = String(headers.locale || 'none');
     const id = `${body?.query ?? ''}\n${stableStringify(body?.variables ?? {})}`;
@@ -166,19 +170,14 @@ function recordingPath(upstream, method, url, body, headers) {
   return join('rest', sanitize(upstream.prefix), `${name}-${hash(query)}.json`);
 }
 
-/** @type {Map<string, Recording>} */
-const store = new Map();
-/** @type {Set<string>} */
-const served = new Set();
-/** @type {Map<string, Promise<Recording>>} */
-const inflight = new Map();
-/** @type {Array<Record<string, unknown>>} */
-const misses = [];
+const store: Map<string, Recording> = new Map();
+const served: Set<string> = new Set();
+const inflight: Map<string, Promise<Recording>> = new Map();
+const misses: Array<Record<string, unknown>> = [];
 // Reported by the test fixture.
 // ids holds the distinct tests that started, so a repeated test counts once.
 const tests = { started: 0, passed: 0, ids: new Set() };
-/** @type {Fault[]} */
-let faults = [];
+let faults: Fault[] = [];
 
 function loadRecordings(dir = RECORDINGS_DIR, rel = '') {
   if (!existsSync(dir)) return;
@@ -194,27 +193,26 @@ function loadRecordings(dir = RECORDINGS_DIR, rel = '') {
 // translations.json maps locale -> "/<file>.json?v=<hash>"; the bundled messages are per locale.
 const translationsIndex = JSON.parse(readFileSync(join(FALLBACK_DIR, 'translations.json'), 'utf8'));
 const messagesFileToLocale = new Map(
-  Object.entries(/** @type {Record<string, { messages: string }>} */ (translationsIndex)).map(
+  Object.entries(translationsIndex as Record<string, { messages: string }>).map(
     ([locale, entry]) => [basename(entry.messages.split('?')[0]), locale]
   )
 );
 
-/**
- * @param {Response} res @param {number} status @param {Record<string, string>} headers
- * @param {string | Buffer} body
- */
-function send(res, status, headers, body) {
+function send(
+  res: Response,
+  status: number,
+  headers: Record<string, string>,
+  body: string | Buffer
+) {
   res.writeHead(status, { ...CORS_HEADERS, ...headers });
   res.end(body);
 }
 
-/** @param {Response} res @param {string} file */
-function sendJsonFile(res, file) {
+function sendJsonFile(res: Response, file: string) {
   send(res, 200, { 'content-type': 'application/json' }, readFileSync(file));
 }
 
-/** @param {Response} res @param {Recording} rec */
-function sendRecording(res, rec) {
+function sendRecording(res: Response, rec: Recording) {
   const body = rec.encoding === 'base64' ? Buffer.from(rec.body, 'base64') : rec.body;
   send(res, rec.status, { 'content-type': rec.contentType, 'x-mock': 'replay' }, body);
 }
@@ -226,8 +224,7 @@ const TEXTUAL = /json|text|javascript|xml|html|graphql/i;
 const PLACEHOLDER_PHOTO =
   '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAIAAgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDpqKKKAP/Z';
 
-/** @param {string} body @returns {string} */
-function replacePhotos(body) {
+function replacePhotos(body: string): string {
   if (!body.includes('"profilePicture"')) return body;
   return JSON.stringify(JSON.parse(body), (key, value) =>
     key === 'profilePicture' && typeof value === 'string' && value ? PLACEHOLDER_PHOTO : value
@@ -235,19 +232,22 @@ function replacePhotos(body) {
 }
 
 // Fetches the request from the real upstream. Used by record/refresh (then saved) and live.
-/**
- * @param {Upstream} upstream @param {string} method @param {URL} url
- * @param {GraphQLBody | undefined} body @param {Headers} headers
- * @returns {Promise<Recording>}
- */
-async function forward(upstream, method, url, body, headers) {
+async function forward(
+  upstream: Upstream,
+  method: string,
+  url: URL,
+  body: GraphQLBody | undefined,
+  headers: Headers
+): Promise<Recording> {
   const base = String(upstream.base);
   const target =
     upstream.kind === 'graphql'
       ? base
       : base + url.pathname.slice(upstream.prefix.length) + url.search;
-  /** @type {Record<string, string>} */
-  const forwardHeaders = { accept: headers.accept || '*/*', ...EXTRA_HEADERS };
+  const forwardHeaders: Record<string, string> = {
+    accept: headers.accept || '*/*',
+    ...EXTRA_HEADERS,
+  };
   if (headers.locale) forwardHeaders.locale = String(headers.locale);
   if (headers['user-agent']) forwardHeaders['user-agent'] = String(headers['user-agent']);
   if (body !== undefined) forwardHeaders['content-type'] = 'application/json';
@@ -271,12 +271,14 @@ async function forward(upstream, method, url, body, headers) {
 }
 
 // Fetches and saves a recording. Answers with server errors are passed on but not saved.
-/**
- * @param {Upstream} upstream @param {string} method @param {URL} url
- * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
- * @returns {Promise<Recording>}
- */
-async function record(upstream, method, url, body, headers, key) {
+async function record(
+  upstream: Upstream,
+  method: string,
+  url: URL,
+  body: GraphQLBody | undefined,
+  headers: Headers,
+  key: string
+): Promise<Recording> {
   const rec = await forward(upstream, method, url, body, headers);
   // GraphQL reports failures with status 200, so check the body too.
   if (
@@ -302,26 +304,27 @@ async function record(upstream, method, url, body, headers, key) {
 // should be tested against, so they are passed on but not saved. In refresh mode that keeps the
 // old recording. GraphQL answers data with 200, so any 4xx from it counts as trouble too; REST
 // 404s are kept, since some pages are tested against them.
-/** @param {Upstream} upstream @param {number} status */
-function isWorthSaving(upstream, status) {
+function isWorthSaving(upstream: Upstream, status: number) {
   if (status >= 500 || status === 403 || status === 429) return false;
   return upstream.kind !== 'graphql' || status < 400;
 }
 
 // Parallel identical misses share one upstream call and one write.
-/**
- * @param {Upstream} upstream @param {string} method @param {URL} url
- * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
- * @returns {Promise<Recording>}
- */
-function recordOnce(upstream, method, url, body, headers, key) {
+function recordOnce(
+  upstream: Upstream,
+  method: string,
+  url: URL,
+  body: GraphQLBody | undefined,
+  headers: Headers,
+  key: string
+): Promise<Recording> {
   if (!inflight.has(key)) {
     inflight.set(
       key,
       record(upstream, method, url, body, headers, key).finally(() => inflight.delete(key))
     );
   }
-  return /** @type {Promise<Recording>} */ (inflight.get(key));
+  return inflight.get(key) as Promise<Recording>;
 }
 
 function prune() {
@@ -337,15 +340,13 @@ function prune() {
 // test id in x-e2e-test. Requests from the gbif.org server carry the page URL in x-gbif-site-url,
 // to which test.ts adds e2eTest=<id> for tests with faults. (camelCase, since the server redirects
 // kebab-case query parameters to it.) Other requests are never broken.
-/** @param {Headers} headers @returns {string | undefined} */
-function testOf(headers) {
+function testOf(headers: Headers): string | undefined {
   if (headers['x-e2e-test']) return String(headers['x-e2e-test']);
   const page = URL.canParse(String(headers['x-gbif-site-url'])) ? headers['x-gbif-site-url'] : '';
   return page ? (new URL(String(page)).searchParams.get('e2eTest') ?? undefined) : undefined;
 }
 
-/** @param {GraphQLBody | undefined} body @param {Headers} headers @returns {Fault | undefined} */
-function findFault(body, headers) {
+function findFault(body: GraphQLBody | undefined, headers: Headers): Fault | undefined {
   const test = testOf(headers);
   if (!test) return undefined;
   return faults.find(
@@ -354,14 +355,13 @@ function findFault(body, headers) {
       f.operation === operationName(body) &&
       Object.entries(f.variables ?? {}).every(
         ([name, value]) =>
-          stableStringify(/** @type {Record<string, unknown>} */ (body?.variables ?? {})[name]) ===
+          stableStringify(((body?.variables ?? {}) as Record<string, unknown>)[name]) ===
           stableStringify(value)
       )
   );
 }
 
-/** @param {Recording} rec @param {Fault} fault @returns {Recording} */
-function applyFault(rec, fault) {
+function applyFault(rec: Recording, fault: Fault): Recording {
   let response;
   try {
     response = JSON.parse(rec.body);
@@ -370,8 +370,7 @@ function applyFault(rec, fault) {
     console.warn(`[mock] fault for ${fault.operation} not applied: the answer is not JSON`);
     return rec;
   }
-  /** @param {string[]} path */
-  const setNull = (path) => {
+  const setNull = (path: string[]) => {
     const parent = path.slice(0, -1).reduce((obj, step) => obj?.[step], response.data);
     if (parent && typeof parent === 'object') parent[path[path.length - 1]] = null;
   };
@@ -383,24 +382,20 @@ function applyFault(rec, fault) {
   return { ...rec, body: JSON.stringify(response) };
 }
 
-/** @param {Response} res @param {Recording} rec @param {Fault | undefined} fault */
-function reply(res, rec, fault) {
+function reply(res: Response, rec: Recording, fault: Fault | undefined) {
   sendRecording(res, fault ? applyFault(rec, fault) : rec);
 }
 
-/** @param {import('node:http').IncomingMessage} req @returns {Promise<string>} */
-function readBody(req) {
+function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
-    /** @type {Buffer[]} */
-    const chunks = [];
+    const chunks: Buffer[] = [];
     req.on('data', (c) => chunks.push(c));
     req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
     req.on('error', reject);
   });
 }
 
-/** @param {import('node:http').IncomingMessage} req @param {Response} res */
-async function handle(req, res) {
+async function handle(req: IncomingMessage, res: Response) {
   const url = new URL(req.url ?? '/', `http://localhost:${MOCK_PORT}`);
   if (req.method === 'OPTIONS') return send(res, 204, {}, '');
 
@@ -469,8 +464,7 @@ async function handle(req, res) {
 
   const method = req.method ?? 'GET';
   const raw = method === 'POST' ? await readBody(req) : '';
-  /** @type {GraphQLBody | undefined} */
-  const body = raw ? JSON.parse(raw) : undefined;
+  const body: GraphQLBody | undefined = raw ? JSON.parse(raw) : undefined;
   const key = recordingPath(upstream, method, url, body, req.headers);
 
   // Recordings are filed by operation name; unnamed queries would all share one folder.
@@ -535,14 +529,17 @@ async function handle(req, res) {
 
 // Logs the request for test.ts (misses tagged with its test id fail that test) and globalTeardown
 // (any miss fails the run), and answers with an error the page can render.
-/**
- * @param {Response} res @param {Upstream} upstream @param {string} method @param {URL} url
- * @param {GraphQLBody | undefined} body @param {Headers} headers @param {string} key
- * @param {string} reason
- */
-function miss(res, upstream, method, url, body, headers, key, reason) {
-  /** @type {Record<string, unknown>} */
-  const entry = {
+function miss(
+  res: Response,
+  upstream: Upstream,
+  method: string,
+  url: URL,
+  body: GraphQLBody | undefined,
+  headers: Headers,
+  key: string,
+  reason: string
+) {
+  const entry: Record<string, unknown> = {
     key,
     reason,
     method,

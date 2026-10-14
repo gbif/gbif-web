@@ -1,20 +1,19 @@
 // npm run e2e:build. Production builds of gbif.org and the hosted-portal library with every endpoint
-// pointed at the upstream mock (env.mjs). Output goes to dist/e2e so the regular builds are left
-// alone; gbif/server.js serves it via GBIF_DIST_DIR and hp-sites/server.mjs serves the library.
+// pointed at the upstream mock (env.ts). Output goes to dist/e2e so the regular builds are left
+// alone; gbif/server.js serves it via GBIF_DIST_DIR and hp-sites/server.ts serves the library.
 // Each build gets a stamp file that globalSetup checks. Both are always built: their stamps share
 // inputs, so rebuilding one leaves the other stale.
 
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { build } from 'vite';
-import { computeStamp, stampFile } from './buildStamp.mjs';
-import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_E2E_DIST, mockEnv } from './env.mjs';
+import { build, type InlineConfig } from 'vite';
+import { computeStamp, stampFile } from './buildStamp.ts';
+import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_E2E_DIST, mockEnv } from './env.ts';
 
 // Taken before building, so an edit made during the build marks the result stale.
 const stamp = computeStamp();
 
-/** @param {string} configFile @param {number} port @param {import('vite').InlineConfig} config */
-function viteBuild(configFile, port, config) {
+function viteBuild(configFile: string, port: number, config: InlineConfig) {
   Object.assign(process.env, mockEnv(`http://localhost:${port}`));
   // envDir: a developer's .env would otherwise bake their PUBLIC_* values into the build. Absolute,
   // since hp/vite.config.ts sets root to hp/.

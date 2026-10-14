@@ -4,7 +4,7 @@
 // reports started and passed tests to the mock, which only prunes after a fully passing run.
 
 import { test as base, expect, type Page } from '@playwright/test';
-import { MOCK_PORT } from './env.mjs';
+import { MOCK_PORT } from './env.ts';
 
 // 1x1 grey PNG: external images keep their layout box without depending on the network.
 const PLACEHOLDER_PNG = Buffer.from(

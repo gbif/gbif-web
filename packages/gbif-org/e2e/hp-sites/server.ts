@@ -5,7 +5,7 @@
 import express from 'express';
 import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { HP_E2E_DIST, HP_PORT } from '../env.mjs';
+import { HP_E2E_DIST, HP_PORT } from '../env.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const site = process.env.HP_SITE;
