@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query vocabularyConcept($language: String, $vocabulary: ID!, $concept: ID!) {\n    concept: vocabularyConcept(vocabulary: $vocabulary, concept: $concept) {\n      uiLabel(language: $language)\n      uiDefinition(language: $language)\n      parents {\n        uiLabel(language: $language)\n      }\n    }\n  }\n",
+      "variables": {
+        "vocabulary": "InstitutionType",
+        "concept": "Museum",
+        "language": "en"
+      },
+      "operationName": "vocabularyConcept"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"concept\":{\"uiLabel\":\"Museum\",\"uiDefinition\":null,\"parents\":null}}}\n"
+}

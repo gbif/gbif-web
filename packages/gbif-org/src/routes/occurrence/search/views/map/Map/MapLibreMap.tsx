@@ -332,9 +332,9 @@ class MapLibreMap extends Component<AdHocMapInternalProps> {
       // Only allow direct_select (vertex editing) when SELECT tool is active
       const features = this.draw.getAll().features;
       if (features.length > 0 && !!features[0]?.id) {
-        // this gives a typescript error, but seems to be inline with the API docs: https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/API.md#changemodemode-string-options-object-draw
+        // Draw generates string ids; the GeoJSON Feature type also allows numbers
         this.draw.changeMode('direct_select', {
-          featureId: features[0]?.id,
+          featureId: String(features[0].id),
         });
       } else {
         // No features to select, stay in static mode
@@ -676,9 +676,9 @@ class MapLibreMap extends Component<AdHocMapInternalProps> {
   }
 
   render() {
-    const { style = {}, className } = this.props;
+    const { className } = this.props;
 
-    return <div ref={this.myRef} className={className} style={style} />;
+    return <div ref={this.myRef} className={className} />;
   }
 }
 

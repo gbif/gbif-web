@@ -14,7 +14,7 @@ export function CountryKeyAlienSpecies() {
   const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const [tsvUrl, setTsvUrl] = useState('');
 
-  const { data, error, load, loading } = useQuery<DatasetSearchQuery, DatasetSearchQueryVariables>(
+  const { data, load, loading } = useQuery<DatasetSearchQuery, DatasetSearchQueryVariables>(
     DATASET_SEARCH_QUERY,
     {
       throwAllErrors: true,

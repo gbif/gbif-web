@@ -1,0 +1,66 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query CollectionSummaryMetrics(\n    $predicate: Predicate\n    $imagePredicate: Predicate\n    $coordinatePredicate: Predicate\n    $clusterPredicate: Predicate\n  ) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(size: 0) {\n        total\n      }\n      cardinality {\n        recordedBy\n      }\n    }\n    withImages: occurrenceSearch(predicate: $imagePredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n    withClusters: occurrenceSearch(predicate: $clusterPredicate) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "collectionKey",
+          "value": "85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9"
+        },
+        "imagePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "collectionKey",
+              "value": "85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9"
+            },
+            {
+              "type": "equals",
+              "key": "mediaType",
+              "value": "StillImage"
+            }
+          ]
+        },
+        "coordinatePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "collectionKey",
+              "value": "85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9"
+            },
+            {
+              "type": "equals",
+              "key": "hasCoordinate",
+              "value": "true"
+            }
+          ]
+        },
+        "clusterPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "collectionKey",
+              "value": "85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9"
+            },
+            {
+              "type": "equals",
+              "key": "isInCluster",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "operationName": "CollectionSummaryMetrics"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":279790},\"cardinality\":{\"recordedBy\":78}},\"withImages\":{\"documents\":{\"total\":0}},\"withCoordinates\":{\"documents\":{\"total\":177109}},\"withClusters\":{\"documents\":{\"total\":1893}}}}\n"
+}

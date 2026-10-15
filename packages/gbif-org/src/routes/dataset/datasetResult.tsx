@@ -5,7 +5,6 @@ import { apiConstants } from '@/config/apiConstants';
 import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
-import { getTextDirection } from '@/utils/textDirection';
 import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `

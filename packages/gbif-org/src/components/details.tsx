@@ -27,7 +27,7 @@ export function Details({
       <summary
         className={cn('g-py-2 g-list-none g-flex g-flex-nowrap g-items-start', summaryClassName)}
         onClick={(e) => {
-          if (e.target.href) return;
+          if ((e.target as HTMLAnchorElement).href) return;
           e.preventDefault();
           onControlledChange(!controlledValue);
         }}

@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query DirectoryContact($id: ID!) {\n    directoryContact(id: $id) {\n      id\n      firstName\n      surname\n      institutionName\n      address\n      countryCode\n      phone\n      email\n      orcidId\n      jobTitle\n      profilePicture\n      participants {\n        id\n        name\n        type\n        countryCode\n        node {\n          contacts(id: $id) {\n            type\n          }\n        }\n        people(id: $id) {\n          role\n          termStart\n        }\n      }\n      roles {\n        role\n        term {\n          start\n          end\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "id": "25"
+      },
+      "operationName": "DirectoryContact"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"directoryContact\":{\"id\":\"25\",\"firstName\":\"Susanne\",\"surname\":\"Sheldon\",\"institutionName\":\"Global Biodiversity Information Facility\",\"address\":\"Universitetsparken 15\\nCopenhagen\\n2100\",\"countryCode\":\"DK\",\"phone\":null,\"email\":\"slsheldon@gbif.org\",\"orcidId\":null,\"jobTitle\":\"HR Manager/PA to the Director\",\"profilePicture\":null,\"participants\":[],\"roles\":[{\"role\":\"GBIFS_STAFF_MEMBER\",\"term\":{\"start\":\"2002-05-01\",\"end\":\"2027-04-30\"}}]}}}"
+}

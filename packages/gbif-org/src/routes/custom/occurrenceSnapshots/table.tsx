@@ -7,13 +7,14 @@ import { Card } from '@/components/ui/largeCard';
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { DownloadResult } from '../../user/downloads/downloadResult';
+import { DownloadResultFragment } from '@/gql/graphql';
 
 const columns = ['date', 'format', 'citation', 'filters'];
 
-const OccurrenceSnapshotsTable = ({ results }) => {
+const OccurrenceSnapshotsTable = ({ results }: { results?: DownloadResultFragment[] | null }) => {
   const { formatMessage } = useIntl();
   const [offset, setOffset] = useState(0);
-  const [dialogContent, setDialogContent] = useState(null);
+  const [dialogContent, setDialogContent] = useState<DownloadResultFragment | null>(null);
   const limit = 10;
 
   return (
@@ -38,8 +39,8 @@ const OccurrenceSnapshotsTable = ({ results }) => {
                 </td>
                 <td>
                   <FormattedMessage
-                    id={`enums.downloadFormat.${res.request.format}`}
-                    defaultMessage={res.request.format}
+                    id={`enums.downloadFormat.${res.request?.format}`}
+                    defaultMessage={res.request?.format ?? undefined}
                   />
                 </td>
                 <td className="prose-links">
@@ -76,7 +77,7 @@ const OccurrenceSnapshotsTable = ({ results }) => {
           className="gbif g-max-w-3xl g-p-10 g-bg-opacity-100"
           title={formatMessage({ id: 'occurrenceSnapshots.table.downloadDetails' })}
         >
-          <DownloadResult download={dialogContent || {}} />
+          {dialogContent && <DownloadResult download={dialogContent} />}
         </DialogContent>
       </Dialog>
     </Card>

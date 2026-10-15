@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\nquery summary($q: String, $predicate: Predicate, $checklistKey: ID){\n  occurrenceSearch(q: $q, predicate: $predicate) {\n    documents(size: 0) {\n      total\n    }\n    cardinality {\n      speciesKey(checklistKey: $checklistKey)\n    }\n\n    stats {\n      year {\n        min\n        max\n      }\n    }\n  }\n}\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "datasetKey",
+          "value": "4fa7b334-ce0d-4e88-aaae-2e0c138d049e"
+        },
+        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":1775781186},\"cardinality\":{\"speciesKey\":10617},\"stats\":{\"year\":{\"min\":1789,\"max\":2024}}}}}\n"
+}

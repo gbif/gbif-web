@@ -12,10 +12,13 @@ export function Dashboard() {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   // const [searchPredicate, setSearchPredicate] = useState();
-  const [chartsTypes, setChartsTypes] = useState([]);
+  const [chartsTypes, setChartsTypes] = useState(/** @type {string[]} */ ([]));
 
   const query = useMemo(() => {
-    const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
+    // occurrence search always queries by predicate, never the V1 shape
+    const query = /** @type {{ predicate?: import('@/gql/graphql').Predicate, q?: string }} */ (
+      getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig })
+    );
     return query;
     // const predicate = {
     //   type: 'and',

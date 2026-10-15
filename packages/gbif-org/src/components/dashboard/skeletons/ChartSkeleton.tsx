@@ -6,7 +6,7 @@ type Props = {
   height?: number;
 };
 
-export function ChartSkeleton({ className, style, height = 220 }: Props) {
+export function ChartSkeleton({ height = 220 }: Props) {
   return (
     <div className="g-px-4 g-pb-4 g-flex g-items-end g-gap-2 g-w-full" style={{ height }}>
       <Skeleton className="g-flex-1" style={{ height: '75%' }} />

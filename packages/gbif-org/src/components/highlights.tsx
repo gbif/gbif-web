@@ -49,7 +49,7 @@ export function GenericFeature({
         'g-my-0.5 g-me-12 [&>svg]:g-me-2 [&>svg]:g-leading-2 [&>svg]:g-h-6 [&>svg]:g-flex-none g-inline-flex g-items-start',
         className
       )}
-      data-cy={testId}
+      data-testid={testId}
       {...props}
     >
       {children}
@@ -181,13 +181,7 @@ export function GeologicalContext({
   );
 }
 
-export function Coordinates({
-  str,
-  children,
-}: {
-  str?: string | null;
-  children?: React.ReactNode;
-}) {
+export function Coordinates({ str }: { str?: string | null; children?: React.ReactNode }) {
   if (!str) return null;
   return (
     <GenericFeature>
@@ -220,7 +214,6 @@ export function GadmClassification({
   gadm,
   className,
   children,
-  ...props
 }: {
   gadm: {
     level1: { name: string };

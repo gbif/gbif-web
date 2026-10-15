@@ -73,7 +73,10 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       //suggest foreign keys
       country: generateFilters({
-        config: { ...countryConfig, suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true } },
+        config: {
+          ...countryConfig,
+          suggestConfig: { getSuggestions: countrySuggest, clearOnSelect: true },
+        },
         searchConfig,
         formatMessage,
       }),

@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query datasetPublishingCountries($sitePredicate: Predicate) {\n    occurrenceSearch(predicate: $sitePredicate) {\n      facet {\n        publishingCountry(size: 500) {\n          key\n          count\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "sitePredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "equals",
+              "key": "DATASET_KEY",
+              "value": "84d26682-f762-11e1-a439-00145eb45e9a"
+            }
+          ]
+        }
+      },
+      "operationName": "datasetPublishingCountries"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"publishingCountry\":[{\"key\":\"DK\",\"count\":1331544}]}}}}\n"
+}

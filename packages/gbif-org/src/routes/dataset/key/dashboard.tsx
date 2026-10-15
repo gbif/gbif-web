@@ -22,7 +22,7 @@ export function DatasetKeyDashboard() {
     value: dataset.key,
   });
   const { count, error, loading } = useOccurrenceCount({ predicate: scopedDatasetPredicate });
-  const hasOccurrences = !loading && !error && count > 0;
+  const hasOccurrences = !loading && !error && (count ?? 0) > 0;
 
   const defaultGroup: DashboardGroup = 'citations';
   const [group = defaultGroup, setGroup] = useStringParam({

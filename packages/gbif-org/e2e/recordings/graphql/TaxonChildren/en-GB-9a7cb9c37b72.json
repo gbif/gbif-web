@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query TaxonChildren($limit: Int, $offset: Int, $datasetKey: ID, $key: ID!) {\n    taxon(datasetKey: $datasetKey, key: $key) {\n      children(limit: $limit, offset: $offset) {\n        count\n        endOfRecords\n        limit\n        offset\n        results {\n          taxonID\n          label: scientificName\n          rank: taxonRank\n          status: taxonomicStatus\n          childrenCount: children\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "4DXXM",
+        "limit": 10,
+        "offset": 0,
+        "datasetKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+      },
+      "operationName": "TaxonChildren"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"taxon\":{\"children\":{\"count\":14,\"endOfRecords\":false,\"limit\":10,\"offset\":0,\"results\":[{\"taxonID\":\"5K8P4\",\"label\":\"Passer domesticus bactrianus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5K8P5\",\"label\":\"Passer domesticus balearoibericus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5K8P6\",\"label\":\"Passer domesticus biblicus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5K8P7\",\"label\":\"Passer domesticus domesticus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"RHSQW\",\"label\":\"Passer domesticus halfae\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5K8P8\",\"label\":\"Passer domesticus hufufae\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5K8P9\",\"label\":\"Passer domesticus hyrcanus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"7KHNP\",\"label\":\"Passer domesticus indicus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5K8PB\",\"label\":\"Passer domesticus niloticus\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0},{\"taxonID\":\"5K8PC\",\"label\":\"Passer domesticus parkini\",\"rank\":\"SUBSPECIES\",\"status\":\"ACCEPTED\",\"childrenCount\":0}]}}}}\n"
+}

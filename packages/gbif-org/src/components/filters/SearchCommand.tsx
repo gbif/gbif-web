@@ -1,10 +1,10 @@
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
 } from '@/components//ui/command';
 import { cn } from '@/utils/shadcn';
 import React from 'react';
@@ -24,7 +24,8 @@ type Props<T> = {
   onApply?: () => void;
 };
 
-export const SearchCommand = React.forwardRef<HTMLInputElement, Props<unknown>>(
+// forwardRef drops the generic, so the result is re-typed to keep T inferred at call sites.
+export const SearchCommand = React.forwardRef(
   <T,>(
     {
       search,
@@ -86,4 +87,4 @@ export const SearchCommand = React.forwardRef<HTMLInputElement, Props<unknown>>(
       </Command>
     );
   }
-);
+) as <T>(props: Props<T> & React.RefAttributes<HTMLInputElement>) => React.ReactElement;

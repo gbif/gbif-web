@@ -3,7 +3,6 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
 import { Skeleton } from '@/components/ui/skeleton';
 import { GeoJsonMap } from '@/routes/institution/search/map';
-import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { useQuery } from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import { useMemo } from 'react';
@@ -154,7 +153,12 @@ export function IptInstallationsMap({ textClassName }: { textClassName?: string 
       </div>
 
       {/* Help text */}
-      <p className={cn("g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks g-mt-0.5", textClassName)}>
+      <p
+        className={cn(
+          'g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks g-mt-0.5',
+          textClassName
+        )}
+      >
         <FormattedMessage
           id="tools.ipt.dontSeeYourIpt"
           values={{

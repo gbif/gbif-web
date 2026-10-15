@@ -12,8 +12,6 @@ import { ArticleTextContainer } from '../resource/key/components/articleTextCont
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
 import { HomePageCounts } from './counts';
-// eslint-disable-next-line
-import { HOMEPAGE_QUERY } from './query.mjs'; // only imported to generate types
 import { useNotifyOfPartialDataIfErrors } from '../rootErrorPage';
 import PageMetaData from '@/components/PageMetaData';
 import { fetchCachedResponse } from '@/utils/fetchCachedResponse';
@@ -68,7 +66,7 @@ function HomePage(): React.ReactElement {
                   <div className="g-text-white">
                     <div className="g-mb-8 g-text-lg">{home?.title}</div>
                     <h1
-                      data-cy="heading"
+                      data-testid="heading"
                       className="g-text-4xl md:g-text-5xl g-font-semibold g-text-white"
                     >
                       {home?.summary}
@@ -111,7 +109,7 @@ function HomePage(): React.ReactElement {
 
         <HomePageCounts iconData={home} />
 
-        <div data-cy="homepage-blocks">
+        <div data-testid="homepage-blocks">
           {home?.blocks?.map((block, idx) => (
             <BlockItem resource={block} key={idx} />
           ))}
