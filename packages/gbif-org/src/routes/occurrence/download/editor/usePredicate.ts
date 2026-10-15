@@ -1,4 +1,4 @@
-const query = `query($predicate: Predicate){
+const query = `query DownloadEditorPredicate($predicate: Predicate){
   occurrenceSearch(predicate: $predicate, size: 0) {
     _meta
   }

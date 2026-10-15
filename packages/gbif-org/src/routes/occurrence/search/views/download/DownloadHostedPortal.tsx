@@ -16,7 +16,7 @@ import { useI18n } from '@/reactRouterPlugins';
 const GBIF_ORG = import.meta.env.PUBLIC_GBIF_ORG;
 
 const DOWNLOAD = `
-query($predicate: Predicate){
+query DownloadHostedPortalPredicate($predicate: Predicate){
   _queryId
   _variablesId
   occurrenceSearch(predicate: $predicate, size: 0) {
@@ -28,13 +28,17 @@ query($predicate: Predicate){
 }
 `;
 
+type DownloadCountResult = {
+  occurrenceSearch?: { documents: { total: number }; _meta?: any } | null;
+};
+
 export function DownloadHostedPortal() {
   const defaultChecklistKey = useChecklistKey();
   // const localeSettings = useContext(LocaleContext);
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
   const { locale } = useI18n();
-  const { data, loading, load } = useQuery(DOWNLOAD, {
+  const { data, loading, load } = useQuery<DownloadCountResult, Record<string, unknown>>(DOWNLOAD, {
     lazyLoad: true,
     throwAllErrors: true,
   });
@@ -53,7 +57,7 @@ export function DownloadHostedPortal() {
   }, [currentFilterContext.filterHash, scope, load]);
 
   const fullPredicate = data?.occurrenceSearch?._meta?.normalizedPredicate?.predicate;
-  const err = data?.occurrenceSearch?.meta?.normalizedPredicate?.err;
+  const err = data?.occurrenceSearch?._meta?.normalizedPredicate?.err;
 
   const q = currentFilterContext?.filter?.must?.q;
   const hasFreeTextSearch = q && q.length > 0;

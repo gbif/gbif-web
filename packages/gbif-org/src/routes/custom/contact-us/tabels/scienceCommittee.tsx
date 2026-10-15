@@ -63,7 +63,7 @@ export function ScienceCommitteeTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="name"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -72,7 +72,7 @@ export function ScienceCommitteeTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="roles"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -101,7 +101,7 @@ export function ScienceCommitteeTable({ q, onPersonClick }: Props) {
 function usePrepareData(
   data: ScienceCommitteeQuery | undefined,
   q: string,
-  sortField: keyof Row,
+  sortField: keyof Row | null,
   sortDirection: SortDirection
 ): Row[] {
   const { formatMessage } = useIntl();

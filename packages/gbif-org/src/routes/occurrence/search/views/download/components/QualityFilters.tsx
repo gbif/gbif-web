@@ -19,7 +19,7 @@ interface QualityFiltersProps {
 }
 
 export default function QualityFilters({ onContinue }: QualityFiltersProps) {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Record<string, Record<string, boolean>>>({
     coordinates: {
       requireCoordinates: true,
       removeCoordinateIssues: true,

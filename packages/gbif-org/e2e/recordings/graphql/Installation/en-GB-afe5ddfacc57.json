@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query Installation($key: ID!) {\n    installation(key: $key) {\n      key\n      title\n      description\n      deleted\n      created\n      homepage\n      type\n      endpoints {\n        type\n        url\n      }\n      organization {\n        key\n        title\n      }\n      contacts {\n        key\n        type\n        firstName\n        lastName\n        email\n        phone\n        homepage\n        organization\n        roles\n        userId\n      }\n\n      dataset(limit: 0) {\n        count\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "a3c51b22-e3ff-4ddf-a82e-13f442763e86"
+      },
+      "operationName": "Installation"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"installation\":{\"key\":\"a3c51b22-e3ff-4ddf-a82e-13f442763e86\",\"title\":\"ServCat U.S. Fish and Wildlife Service\",\"description\":\"<p>USFWS HTTP installation for ServCat</p>\",\"deleted\":null,\"created\":\"2026-09-30T13:47:49.996+00:00\",\"homepage\":null,\"type\":\"HTTP_INSTALLATION\",\"endpoints\":[],\"organization\":{\"key\":\"f8dbeca7-3131-41ab-872f-bfad71041f3f\",\"title\":\"United States Fish and Wildlife Service\"},\"contacts\":[],\"dataset\":{\"count\":1}}}}\n"
+}

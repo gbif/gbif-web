@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query BudgetCommittee {\n    budgetCommittee {\n      personId\n      name\n      roles\n    }\n  }\n",
+      "operationName": "BudgetCommittee"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"budgetCommittee\":[{\"personId\":\"2042\",\"name\":\"Raoufou Pierre RADJI\",\"roles\":[\"BUDGET_COMMITTEE_CHAIR\"]},{\"personId\":\"4379\",\"name\":\"JJ Dearborn\",\"roles\":[\"BUDGET_COMMITTEE_2ND_VICE_CHAIR\"]},{\"personId\":\"1530\",\"name\":\"Nils Valland\",\"roles\":[\"BUDGET_COMMITTEE_MEMBER\"]},{\"personId\":\"4559\",\"name\":\"Lydia Gustavs\",\"roles\":[\"BUDGET_COMMITTEE_MEMBER\"]},{\"personId\":\"4185\",\"name\":\"Meredith McKay\",\"roles\":[\"BUDGET_COMMITTEE_MEMBER\"]},{\"personId\":\"54\",\"name\":\"Eric Chenin\",\"roles\":[\"BUDGET_COMMITTEE_MEMBER\"]},{\"personId\":\"3706\",\"name\":\"Martin Kalfatovic\",\"roles\":[\"GOVERNING_BOARD_CHAIR\"]},{\"personId\":\"4028\",\"name\":\"Joe Miller\",\"roles\":[\"EXECUTIVE_SECRETARY\"]}]}}\n"
+}

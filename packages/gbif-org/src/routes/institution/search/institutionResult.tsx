@@ -1,4 +1,3 @@
-import { TypeStatusLabel } from '@/components/filters/displayNames';
 import { Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { InstitutionResultFragment } from '@/gql/graphql';
@@ -7,7 +6,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { getTextDirection } from '@/utils/textDirection';
 import { truncate } from '@/utils/truncate';
 import { GlobeIcon } from '@radix-ui/react-icons';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment InstitutionResult on InstitutionSearchEntity {
@@ -134,63 +133,6 @@ export function InstitutionResult({
           </article>
         </Card>
       </Wrapper>
-      {institution?.descriptorMatches && institution?.descriptorMatches.length > 0 && (
-        <div className="g-mx-2 g-bg-slate-50 g-shadow g-rounded-b g-text-sm">
-          {institution?.descriptorMatches.length > 3 && (
-            <div className="g-text-slate-500 g-text-xs g-px-3 g-py-1 -g-mb-2">
-              Showing first 3 descriptors
-            </div>
-          )}
-          <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
-            <table className="gbif-table-style g-whitespace-nowrap g-text-sm">
-              <thead className="">
-                <tr>
-                  <th>Taxon</th>
-                  <th>Country</th>
-                  <th>Individual count</th>
-                  <th>Recorded by</th>
-                  <th>Identified by</th>
-                  <th>Type status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {institution.descriptorMatches.slice(0, 3).map((descriptor) => (
-                  <tr key={descriptor.key} className="g-text-slate-600">
-                    <td>{descriptor.usageName}</td>
-                    <td>
-                      {descriptor.country && (
-                        <FormattedMessage id={`enums.countryCode.${descriptor.country}`} />
-                      )}
-                    </td>
-                    <td>
-                      {descriptor.individualCount && (
-                        <FormattedNumber value={descriptor.individualCount} />
-                      )}
-                    </td>
-                    <td>
-                      {descriptor.recordedBy &&
-                        descriptor.recordedBy.length > 0 &&
-                        descriptor.recordedBy.join(', ')}
-                    </td>
-                    <td>
-                      {descriptor.identifiedBy &&
-                        descriptor.identifiedBy.length > 0 &&
-                        descriptor.identifiedBy.join(', ')}
-                    </td>
-                    <td>
-                      {descriptor.typeStatus &&
-                        descriptor.typeStatus.length > 0 &&
-                        descriptor.typeStatus.map((typeStatus) => (
-                          <TypeStatusLabel id={typeStatus} />
-                        ))}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

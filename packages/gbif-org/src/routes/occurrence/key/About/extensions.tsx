@@ -16,6 +16,11 @@ import { SEQUENCE_BIN_DEFS } from '@/utils/sequenceSearch';
 import { IssueTag, IssueTags } from '../properties';
 import { prettifyEnum, TargetGeneLabel } from '@/components/filters/displayNames';
 
+type ExtensionName = Exclude<
+  keyof NonNullable<NonNullable<OccurrenceQuery['occurrence']>['extensions']>,
+  '__typename'
+>;
+
 export function Preparation({
   occurrence,
   updateToc = () => {},
@@ -234,7 +239,7 @@ export function DNADerivedData({
   // NUCLEOTIDE_SEQUENCE_INVALID first when present.
   const severityRank: Record<string, number> = { ERROR: 0, WARNING: 1, INFO: 2 };
   const rankOf = (issue: string) =>
-    issue === 'NUCLEOTIDE_SEQUENCE_INVALID' ? -1 : severityRank[severityByIssue[issue]] ?? 3;
+    issue === 'NUCLEOTIDE_SEQUENCE_INVALID' ? -1 : (severityRank[severityByIssue[issue]] ?? 3);
   const nucleotideIssues = [...dnaIssues].sort((a, b) => rankOf(a) - rankOf(b));
 
   // Raw (verbatim) sequences from the extension rows, and the sanitised counterparts we can pair
@@ -313,7 +318,8 @@ export function DNADerivedData({
     rows.forEach((row: any) => {
       const raw = row?.dna_sequence;
       const gene = row?.['0000044'] ?? row?.target_gene;
-      if (typeof raw === 'string' && raw && typeof gene === 'string' && gene.trim()) out[raw] = gene;
+      if (typeof raw === 'string' && raw && typeof gene === 'string' && gene.trim())
+        out[raw] = gene;
     });
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -353,7 +359,10 @@ export function DNADerivedData({
     });
     // Fraction-based issues are threshold-derived upstream; surface them only when the occurrence
     // reports the issue and attribute to the sequence(s) with the largest metric value.
-    const attributeMax = (issue: string, metric: (v: SequenceValidation | null | undefined) => number) => {
+    const attributeMax = (
+      issue: string,
+      metric: (v: SequenceValidation | null | undefined) => number
+    ) => {
       if (!dnaIssueSet.has(issue)) return;
       const max = rawSequences.reduce((m, _, i) => Math.max(m, metric(results[i])), 0);
       if (max <= 0) return;
@@ -373,7 +382,9 @@ export function DNADerivedData({
   // NUCLEOTIDE_SEQUENCE_* issues placed next to a sequence, and TARGET_GENE_INVALID placed next to a
   // verbatim target-gene value, are removed from the header.
   const attributedIssues = new Set<string>();
-  Object.values(issuesByRaw).forEach((list) => list.forEach((issue) => attributedIssues.add(issue)));
+  Object.values(issuesByRaw).forEach((list) =>
+    list.forEach((issue) => attributedIssues.add(issue))
+  );
   if (targetGeneInvalidRaws.size > 0) attributedIssues.add('TARGET_GENE_INVALID');
   const headerIssues = nucleotideIssues.filter((issue) => !attributedIssues.has(issue));
 
@@ -872,7 +883,7 @@ function GenericExtension({
   ...props
 }: {
   occurrence: OccurrenceQuery['occurrence'];
-  extensionName: string;
+  extensionName: ExtensionName;
   overwrites?: { [key: string]: (props: { item: any }) => React.ReactNode };
   label: string;
   id: string;
@@ -908,7 +919,7 @@ function GenericExtension({
           <div style={{ fontSize: '12px' }}>
             <FormattedMessage id="counts.nRows" values={{ total: list.length }} />
           </div>
-          {list.map((item, i) => (
+          {list.map((item: any, i: number) => (
             <ListCard key={i}>
               <GenericExtensionContent
                 item={item}
@@ -958,7 +969,6 @@ function ExtField({
   extensionName,
   field,
   children,
-  ...props
 }: {
   item: any;
   extensionName: string;
@@ -979,7 +989,7 @@ function ExtField({
   );
 }
 
-function ListCard(props) {
+function ListCard(props: React.ComponentProps<typeof Card>) {
   return <Card className="g-mb-2 g-p-4 " {...props} />;
 }
 

@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ToolLayout($machineIdentifier: String!) {\n    resource(machineIdentifier: $machineIdentifier) {\n      __typename\n      ... on Tool {\n        ...ToolPage\n      }\n    }\n  }\n\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    excerpt\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n\n  fragment ArticleBanner on AssetImage {\n    description\n    title\n    file {\n      url\n      details {\n        image {\n          width\n          height\n        }\n      }\n      normal: thumbor(width: 1200, height: 500)\n      mobile: thumbor(width: 800, height: 400)\n    }\n  }\n",
+      "variables": {
+        "machineIdentifier": "species_matching"
+      },
+      "operationName": "ToolLayout"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"resource\":{\"__typename\":\"Tool\",\"id\":\"35eY57p7P4ifcF5RF6SKRZ\",\"title\":\"Species Matching\",\"summary\":\"<p>Upload a CSV of scientific names and match each row to the taxonomy used by GBIF via the species match API, with an optional default kingdom to resolve ambiguities.</p>\",\"excerpt\":\"Upload a CSV of scientific names and match each row to the taxonomy used by GBIF via the species match API, with an optional default kingdom to resolve ambiguities.... This tool is simply a wrapper…\",\"body\":\"<p>This tool is simply a wrapper around our <a href=\\\"https://techdocs.gbif.org/en/openapi/v1/species#/Searching%20names/matchNames\\\">species matching API</a>. A similar tool with more functionalities exists in <a href=\\\"https://www.checklistbank.org/tools/name-match\\\">checklistbank</a></p>\",\"primaryImage\":null,\"primaryLink\":null,\"secondaryLinks\":null,\"citation\":null,\"createdAt\":\"2026-04-29T21:48:30.484Z\",\"author\":null,\"rights\":null,\"rightsHolder\":null,\"publicationDate\":null}}}\n"
+}

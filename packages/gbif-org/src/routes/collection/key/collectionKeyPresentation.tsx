@@ -176,7 +176,7 @@ export function CollectionKey({
                 <HeaderInfo className="g-flex-none g-mb-0">
                   <HeaderInfoMain>
                     <FeatureList>
-                      <Homepage url={collection.homepage} />
+                      <Homepage url={collection.homepage ?? undefined} />
                       {contactInfo?.country && (
                         <Location countryCode={contactInfo.country} city={contactInfo.city} />
                       )}
@@ -330,11 +330,8 @@ export function FeaturedImageContent({
               <div>
                 {featuredImageAttribution && (
                   <div>
-                    <FormattedMessage
-                      id="phrases.imageAttribution"
-                      defaultMessage="Attribution"
-                    />
-                    : {featuredImageAttribution}
+                    <FormattedMessage id="phrases.imageAttribution" defaultMessage="Attribution" />:{' '}
+                    {featuredImageAttribution}
                   </div>
                 )}
                 {featuredImageLicense && (

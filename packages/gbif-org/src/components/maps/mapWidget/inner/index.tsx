@@ -1,5 +1,5 @@
 import { Progress } from '@/components/ui/progress';
-import { Projection } from '@/config/config';
+import type { Projection } from '@/components/maps/openlayers/projections';
 import { BoundingBox, Setter } from '@/types';
 import { cn } from '@/utils/shadcn';
 import Map from 'ol/Map';
@@ -106,7 +106,7 @@ export default function MapWidgetInner({
   });
 
   return (
-    <div className={cn('g-relative', className)} data-cy="map-widget">
+    <div className={cn('g-relative', className)} data-testid="map-widget">
       <div className="g-size-full" id={mapId} />
       <Progress
         value={loadingProgress}

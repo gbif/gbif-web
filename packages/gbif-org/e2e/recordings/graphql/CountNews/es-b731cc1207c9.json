@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query CountNews($countryCode: JSON!) {\n    resourceSearch(\n      contentType: NEWS\n      predicate: { key: \"countriesOfCoverage\", type: equals, value: $countryCode }\n    ) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n",
+      "variables": {
+        "countryCode": "AT"
+      },
+      "operationName": "CountNews"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"resourceSearch\":{\"documents\":{\"total\":5}}}}\n"
+}

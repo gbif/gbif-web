@@ -73,7 +73,7 @@ export function AssociateParticipantsTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="name"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -82,7 +82,7 @@ export function AssociateParticipantsTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="role"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -91,7 +91,7 @@ export function AssociateParticipantsTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="participantName"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >

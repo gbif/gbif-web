@@ -1,15 +1,20 @@
 import { Config } from './config';
 
-export const configDefault: Partial<Config> = {
-  isGBIFOrg: false,
+// Also spread into gbifConfig, which reaches the route plugins before this default is merged in
+export const envDefaults = {
   testSite: import.meta.env.PUBLIC_TEST_SITE === 'true',
-  defaultChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
   defaultMapChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
-  availableChecklistKeys: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   hardcodedKeys: {
     OBISKey: import.meta.env.PUBLIC_KEYS_OBIS_NODE,
     taiwanNodeidentifier: import.meta.env.PUBLIC_KEYS_TAIWAN_PARTICIPANT,
   },
+} satisfies Partial<Config>;
+
+export const configDefault: Partial<Config> = {
+  isGBIFOrg: false,
+  ...envDefaults,
+  defaultChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+  availableChecklistKeys: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   experimentalFeatures: {
     localContextEnabled: false,
     eventCoreEnabled: false,

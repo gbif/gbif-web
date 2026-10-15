@@ -25,10 +25,13 @@ export function VocabularyValue({ value, vocabulary }: Props) {
 
 function getVocabularyLabel(result: any, locale: LanguageOption) {
   // transform result labels to an object with language as keys
-  const labels = result.label.reduce((acc, label) => {
-    acc[label.language] = label.value;
-    return acc;
-  }, {});
+  const labels = result.label.reduce(
+    (acc: Record<string, string>, label: { language: string; value: string }) => {
+      acc[label.language] = label.value;
+      return acc;
+    },
+    {}
+  );
 
   const title = labels[locale.code] || labels.en || result.name || 'Unknown';
   return { title };

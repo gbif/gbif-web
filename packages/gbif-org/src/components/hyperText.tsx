@@ -7,7 +7,8 @@ import pkg from 'isomorphic-dompurify';
 const { sanitize } = pkg;
 
 function sanitizeHtml(dirtyHtml: string, sanitizeOptions: DOMPurify.Config) {
-  return sanitize(dirtyHtml, sanitizeOptions);
+  // The result is injected as an HTML string, so DOM return modes are never valid here.
+  return sanitize(dirtyHtml, { ...sanitizeOptions, RETURN_DOM: false, RETURN_DOM_FRAGMENT: false });
 }
 
 export const ALLOWED_URI_REGEXP =

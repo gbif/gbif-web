@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ParticipantDetails($key: ID!) {\n    participant(key: $key) {\n      ...ParticipantDetails\n      node {\n        ...NodeDetails\n      }\n    }\n  }\n\n  fragment ParticipantDetails on Participant {\n    id\n    type\n    countryCode\n    title: name\n    gbifRegion\n    participationStatus\n    membershipStart\n    nodeEstablishmentDate\n    participantUrl\n    rssFeeds {\n      label\n      url\n    }\n    newsletters {\n      label\n      url\n    }\n    linksToSocialMedia {\n      label\n      url\n    }\n  }\n\n  fragment NodeDetails on Node {\n    key\n    title\n    homepage\n    contacts {\n      key\n      title\n      type\n      firstName\n      surname\n      lastName\n      institutionName\n      email\n      phone\n      homepage\n      organization\n      position\n      roles\n      userId\n      address\n      city\n      postalCode\n      province\n      country\n    }\n    dataset(limit: 0) {\n      count\n    }\n    publisher: organization(limit: 0) {\n      count\n    }\n    headOfDelegation: contacts(type: \"HEAD_OF_DELEGATION\") {\n      key\n      firstName\n      lastName\n    }\n    participantNodeManager: contacts(type: \"NODE_MANAGER\") {\n      key\n      firstName\n      lastName\n    }\n  }\n",
+      "variables": {
+        "key": "99999999"
+      },
+      "operationName": "ParticipantDetails"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"errors\":[{\"message\":\"404: Not Found\",\"locations\":[{\"line\":3,\"column\":5}],\"path\":[\"participant\"],\"extensions\":{\"response\":{\"url\":\"https://api.gbif.org/v1/directory/participant/99999999\",\"status\":404,\"statusText\":\"Not Found\",\"body\":\"Entity not found for uri: /participant/99999999\"},\"code\":\"INTERNAL_SERVER_ERROR\",\"stacktrace\":[\"GraphQLError: 404: Not Found\",\"    at ParticipantDirectoryAPI.errorFromResponse (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:95:16)\",\"    at ParticipantDirectoryAPI.throwIfResponseIsError (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:87:26)\",\"    at /srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:199:32\",\"    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\",\"    at async ParticipantDirectoryAPI.fetch (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:232:56)\",\"    at async ParticipantDirectoryAPI.get (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:111:17)\",\"    at async ParticipantDirectoryAPI.getParticipantByKey (/srv/graphql/dist/resources/participant/participant.source.js:83:29)\",\"    at async ParticipantAPI.getParticipantByDirectoryId (/srv/graphql/dist/resources/participant/participant.source.js:198:38)\"]}}],\"data\":{\"participant\":null}}\n"
+}

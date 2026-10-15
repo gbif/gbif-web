@@ -2,7 +2,6 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { MdCheckCircle } from 'react-icons/md';
-import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { commonClasses } from './utils';
 

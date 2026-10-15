@@ -2,9 +2,6 @@ import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import MdtData from './MdtData';
 import { MdtInstallations } from './MdtInstallations';
 import { MdtOccurrences } from './MdtOccurrences';
-import { createContext } from 'react';
-import { MdtDatasetsQuery } from '@/gql/graphql';
-import { MdLink } from 'react-icons/md';
 
 export const mdtRoute: RouteObjectWithPlugins = {
   id: 'mdt',

@@ -14,7 +14,7 @@ export function CountryKeyParticipation() {
   const { data } = useCountryKeyLoaderData();
   const nodeCountry = data?.nodeCountry;
 
-  if (!isParticipant(nodeCountry?.participant?.participationStatus)) {
+  if (!nodeCountry || !isParticipant(nodeCountry.participant?.participationStatus)) {
     return (
       <EmptyCountryTab
         title={<FormattedMessage id="country.notParticipant" />}

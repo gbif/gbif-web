@@ -48,7 +48,7 @@ export function Count({ apiEndpoint, params, queueId, property, message }: Props
 }
 
 const LITERATURE_COUNT_QUERY = `
-  query($predicate: Predicate) {
+  query LiteratureCount($predicate: Predicate) {
     search: literatureSearch(predicate: $predicate) {
       documents {
         total
@@ -57,7 +57,7 @@ const LITERATURE_COUNT_QUERY = `
   }
 `;
 const OCCURRENCE_COUNT_QUERY = `
-  query($predicate: Predicate) {
+  query OccurrenceCount($predicate: Predicate) {
     search: occurrenceSearch(predicate: $predicate) {
       documents {
         total
@@ -84,7 +84,10 @@ export function useSiteOccurrenceCount({ predicate }: { predicate: any }) {
 }
 
 export function useGraphQLCount({ predicate, query }: { predicate: any; query: string }) {
-  const { data, load, error, loading } = useQuery(query, {
+  const { data, load, error, loading } = useQuery<
+    { search?: { documents: { total: number } } },
+    { predicate: any }
+  >(query, {
     lazyLoad: true,
     variables: { predicate },
     queue: {
@@ -131,7 +134,7 @@ export function useCount({
     const controller = new AbortController();
     const signal = controller.signal;
     const endpoint = `${apiEndpoint}?${stringify({
-      limit: 0,
+      limit: '0',
       ...params,
     })}`;
 

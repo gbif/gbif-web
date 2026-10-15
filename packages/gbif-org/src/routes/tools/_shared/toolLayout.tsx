@@ -2,12 +2,11 @@ import { DataHeader } from '@/components/dataHeader';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { ToolLayoutQuery, ToolPageFragment } from '@/gql/graphql';
-import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleAuxiliary } from '@/routes/resource/key/components/articleAuxiliary';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { ArticleBody } from '@/routes/resource/key/components/articleBody';
 import { ArticleFooterWrapper } from '@/routes/resource/key/components/articleFooterWrapper';
-import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
@@ -30,11 +29,16 @@ const TOOL_LAYOUT_QUERY = /* GraphQL */ `
   }
 `;
 
+// The CMS entry is optional: the page falls back to its default title. graphql-api answers a
+// missing entry with HTTP 404, which would otherwise become the page status. Other statuses pass
+// through unchanged.
 export function createToolLayoutLoader(machineIdentifier: string) {
   return (args: LoaderArgs) =>
-    args.graphql.query<ToolLayoutQuery, { machineIdentifier: string }>(TOOL_LAYOUT_QUERY, {
-      machineIdentifier,
-    });
+    args.graphql
+      .query<ToolLayoutQuery, { machineIdentifier: string }>(TOOL_LAYOUT_QUERY, {
+        machineIdentifier,
+      })
+      .then((response) => (response.status === 404 ? { data: undefined } : response));
 }
 
 function extractCmsResource(data?: ToolLayoutQuery): ToolPageFragment | null {

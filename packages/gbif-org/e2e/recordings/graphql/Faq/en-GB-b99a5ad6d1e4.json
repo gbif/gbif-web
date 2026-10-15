@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query Faq($urlAlias: String) {\n    resourceSearch(urlAlias: $urlAlias, contentType: [ARTICLE]) {\n      documents {\n        total\n        results {\n          ... on Article {\n            __typename\n            id\n            title\n            body\n            summary\n          }\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "urlAlias": "/faq"
+      },
+      "operationName": "Faq"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"resourceSearch\":{\"documents\":{\"total\":1,\"results\":[{\"__typename\":\"Article\",\"id\":\"5z1Wx90aKQKYg0AK0Kiac0\",\"title\":\"FAQ\",\"body\":\"<p>These are some of the most frequently asked questions about GBIF and <a href=\\\"http://GBIF.org\\\">GBIF.org</a>. Please contact us if your questions aren’t answered here.</p>\",\"summary\":\"<p>Answers to some of the most frequently asked questions about GBIF and <a href=\\\"http://GBIF.org\\\">GBIF.org</a></p>\"}]}}}}\n"
+}
