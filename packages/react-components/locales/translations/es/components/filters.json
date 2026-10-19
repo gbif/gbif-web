@@ -20,7 +20,7 @@
     "description": "Igual a {is}"
   },
   "collectionKey": {
-    "name": "Colección",
+    "name": "",
     "description": "La colección en GrSciColl este registro es coincidente con"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Nombre científico",
-    "description": "El nombre científico tal y como aparece en el árbol taxonómico de GBIF. Estos nombres están normalizados para facilitar la búsqueda en los conjuntos de datos. Es posible que un nombre originalmente proporcionado sea malinterpretado o desconocido. Para buscar los nombres tal y como se proporcionaron, utilice el filtro \"Nombre científico original\"."
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "Nombre científico",
@@ -532,7 +532,7 @@
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionKey": {
-    "name": "Institución",
+    "name": "",
     "description": "El nombre de la institución que custodia el objeto o la información a la que se refiere el registro."
   },
   "name": {
