@@ -1,4 +1,4 @@
-import { SpeciesKeyQuery } from '@/gql/graphql';
+import { DeprecatedTaxonTombstoneQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { SpeciesKey, speciesLoader } from './speciesKey';
 
@@ -25,5 +25,5 @@ export const speciesKeyRoute: RouteObjectWithPlugins = {
 };
 
 export function useSpeciesKeyLoaderData() {
-  return useRenderedRouteLoaderData(id) as { data: SpeciesKeyQuery };
+  return useRenderedRouteLoaderData(id) as { data: DeprecatedTaxonTombstoneQuery };
 }

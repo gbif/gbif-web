@@ -1,5 +1,4 @@
 import { TaxonChildrenQuery, TaxonChildrenQueryVariables } from '@/gql/graphql';
-import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { useQuery } from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import {

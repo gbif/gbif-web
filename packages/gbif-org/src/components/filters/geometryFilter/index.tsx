@@ -3,7 +3,10 @@ import React, { Suspense } from 'react';
 
 const GeomFilter = React.lazy(() => import('./geometryFilter'));
 
-export function GeometryFilter({ ...props }) {
+export const GeometryFilter = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentPropsWithoutRef<typeof GeomFilter>
+>((props, ref) => {
   return (
     <Suspense
       fallback={
@@ -12,7 +15,8 @@ export function GeometryFilter({ ...props }) {
         </div>
       }
     >
-      <GeomFilter {...props} />
+      <GeomFilter ref={ref} {...props} />
     </Suspense>
   );
-}
+});
+GeometryFilter.displayName = 'GeometryFilter';

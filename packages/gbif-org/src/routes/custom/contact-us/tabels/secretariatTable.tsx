@@ -61,7 +61,7 @@ export function SecretariatTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="name"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -70,7 +70,7 @@ export function SecretariatTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="jobTitle"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >

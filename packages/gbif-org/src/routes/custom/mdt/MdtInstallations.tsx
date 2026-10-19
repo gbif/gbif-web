@@ -3,7 +3,6 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 
 import { MdtDataContext } from './MdtData';
 import { useContext, useEffect, useState } from 'react';
-import { MdtDatasetsQuery } from '@/gql/graphql';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FormattedMessage } from 'react-intl';
 import { FormattedNumber } from '@/components/dashboard/shared';
@@ -12,13 +11,15 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { MdInfo } from 'react-icons/md';
 
 export const MdtInstallations = () => {
-  const { data }: { data: MdtDatasetsQuery } = useContext(MdtDataContext);
+  const { data } = useContext(MdtDataContext);
   const [summedData, setSummedData] = useState<Array<{
     occurrenceCount: number;
     __typename?: 'Installation';
     key: string;
     title?: string | null;
+    description?: string | null;
     homepage?: string | null;
+    link?: string;
     dataset: {
       __typename?: 'DatasetListResults';
       count: number;
@@ -155,7 +156,7 @@ export const MdtInstallations = () => {
         {!summedData && (
           <table>
             <tbody>
-              {Array.from({ length: 10 }).map((x, i) => (
+              {Array.from({ length: 10 }).map((_x, i) => (
                 <tr key={i}>
                   <td>
                     <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />

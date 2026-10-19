@@ -2,10 +2,12 @@ import { SuggestFnProps, SuggestionItem, SuggestResponseType } from '@/component
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { apiConstants } from '@/config/apiConstants';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
-import { SuggestConfig } from '@/utils/suggestEndpoints';
+import { TaxonSearchMetadata } from '@/contexts/search';
 import { FormattedMessage } from 'react-intl';
 
-function TaxonIdSuggestLabel(item: SuggestionItem): React.ReactNode {
+type TaxonIdSuggestionItem = SuggestionItem & { taxonomicStatus?: string; context?: string };
+
+function TaxonIdSuggestLabel(item: TaxonIdSuggestionItem): React.ReactNode {
   return (
     <div>
       {item.taxonomicStatus !== 'ACCEPTED' && (
@@ -34,10 +36,11 @@ function TaxonIdSuggestLabel(item: SuggestionItem): React.ReactNode {
   );
 }
 
-export const taxonIdSuggest: SuggestConfig = {
+export const taxonIdSuggest = {
   render: TaxonIdSuggestLabel,
   getSuggestions: ({ q, searchContext, siteConfig }: SuggestFnProps): SuggestResponseType => {
-    const datasetKey = searchContext?.checklistKey ?? siteConfig?.defaultChecklistKey;
+    const datasetKey =
+      (searchContext as TaxonSearchMetadata)?.checklistKey ?? siteConfig?.defaultChecklistKey;
     const { cancel, promise } = fetchWithCancel(
       `${apiConstants.taxonApi}/suggest/${datasetKey}?limit=20&q=${q}`
     );

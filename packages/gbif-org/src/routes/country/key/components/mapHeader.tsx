@@ -22,8 +22,8 @@ type CountProps = Omit<ComponentProps<typeof FormattedNumber>, 'value'> & {
   loading?: boolean;
 };
 
-function Count({ loading, ...props }: CountProps) {
-  if (loading || props.value == null) {
+function Count({ loading, value, ...props }: CountProps) {
+  if (loading || value == null) {
     return (
       <span className="g-flex g-h-6 g-w-20 g-items-center g-justify-center">
         <Skeleton className="g-h-5 g-w-20" />
@@ -33,7 +33,11 @@ function Count({ loading, ...props }: CountProps) {
 
   return (
     <span className="group-hover:g-underline g-font-semibold g-text-slate-800">
-      {loading ? <Skeleton className="g-h-3 g-w-20" /> : <FormattedNumber {...props} />}
+      {loading ? (
+        <Skeleton className="g-h-3 g-w-20" />
+      ) : (
+        <FormattedNumber value={value} {...props} />
+      )}
     </span>
   );
 }

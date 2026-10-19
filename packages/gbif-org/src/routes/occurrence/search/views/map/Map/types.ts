@@ -53,7 +53,7 @@ export interface OverlayProps {
   /** Theme for default styling */
   theme?: Partial<Theme>;
   /** Callback when a predicate needs to be registered */
-  registerPredicate?: (predicateHash: string) => void;
+  registerPredicate?: () => void;
   /** Callback when a tile fails to load */
   onTileError?: () => void;
 }
@@ -82,14 +82,16 @@ export interface MapInteractionProps {
   onViewportChange?: (bbox: BoundingBox) => void;
 }
 
+export type DrawingTool = 'DRAW' | 'DELETE' | 'SELECT';
+
 /**
  * Props for drawing/filter functionality
  */
 export interface DrawingProps {
   /** Current drawing tool mode */
-  drawingTool?: string | null;
+  drawingTool?: DrawingTool | null;
   /** Callback when drawing tool changes */
-  onDrawingToolChange?: (tool: string | null) => void;
+  onDrawingToolChange?: (tool: DrawingTool | null) => void;
   /** Current filter geometries as WKT strings */
   features?: string[];
   /** Callback when filter geometries change */
@@ -110,7 +112,8 @@ export interface MapSettings {
  * Combined props for the map component
  */
 export interface AdHocMapInternalProps
-  extends MapEventProps,
+  extends
+    MapEventProps,
     MapInteractionProps,
     DrawingProps,
     Pick<OverlayProps, 'overlays' | 'theme' | 'registerPredicate' | 'onTileError'> {

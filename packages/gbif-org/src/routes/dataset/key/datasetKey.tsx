@@ -39,6 +39,7 @@ import { HashLink } from 'react-router-hash-link';
 import { AboutContent, ApiContent } from './help';
 import { Button } from '@/components/ui/button';
 import { ErrorMessage } from '@/components/errorMessage';
+import { notNull } from '@/utils/notNull';
 
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
@@ -387,7 +388,7 @@ export function DatasetPage() {
   const hasSamplingEvents =
     dataset.type === DatasetType.SamplingEvent &&
     import.meta.env.PUBLIC_ENABLE_SAMPLING_EVENT_BROWSER === 'enabled';
-  const showEventsTab = config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents);
+  const showEventsTab = !!config.datasetKey?.showEvents && (withEventId > 0 || hasSamplingEvents);
   const occurrenceCount = occData?.occurrenceSearch?.documents?.total;
   const citationCountOrZero = occData?.literatureSearchScoped?.documents?.total || 0;
 
@@ -510,7 +511,7 @@ export function DatasetPage() {
   }, [load, dataset.key, siteOccurrencePredicate, config?.literatureSearch?.scope]);
 
   const contributorNames = dataset.volatileContributors
-    ?.filter((c) => c != null)
+    ?.filter(notNull)
     .filter((c) => c.type === 'ORIGINATOR')
     .map((c) => [c.firstName, c.lastName].filter(Boolean).join(' '))
     .filter(Boolean);

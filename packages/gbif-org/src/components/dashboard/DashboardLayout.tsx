@@ -20,14 +20,14 @@ export default function DashBoardLayout({ children, className }: Props) {
     >
       <div>
         {childrenArray
-          .filter((x, i) => i % 2 === 0)
+          .filter((_x, i) => i % 2 === 0)
           .map((x, i) => (
             <React.Fragment key={i}>{x}</React.Fragment>
           ))}
       </div>
       <div>
         {childrenArray
-          .filter((x, i) => i % 2 !== 0)
+          .filter((_x, i) => i % 2 !== 0)
           .map((x, i) => (
             <React.Fragment key={i}>{x}</React.Fragment>
           ))}

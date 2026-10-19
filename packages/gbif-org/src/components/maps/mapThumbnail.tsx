@@ -1,7 +1,7 @@
 // Docs: https://techdocs.gbif.org/en/openapi/v2/maps
 
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { stringify } from '@/utils/querystring';
+import { ParamQuery, stringify } from '@/utils/querystring';
 import { cn } from '@/utils/shadcn';
 import { useCapabilities } from './mapWidget/outer/useCapabilities';
 import { Params } from './mapWidget/options';
@@ -110,7 +110,7 @@ export function AdHocMapThumbnail({
   params,
   className,
 }: {
-  filter: JSON;
+  filter: ParamQuery;
   basemapStyle?: BasemapStyle;
   params?: { [key: string]: string } | null;
   className?: string;

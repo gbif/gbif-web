@@ -20,6 +20,7 @@ import { FormattedMessage } from 'react-intl';
 import { YearDate } from '@/components/dateFormats';
 import { Link } from 'react-router-dom';
 import { useParticipantKeyLoaderData } from '.';
+import { notNull } from '@/utils/notNull';
 
 export function ParticipantKeyAbout() {
   const { data } = useParticipantKeyLoaderData();
@@ -174,8 +175,8 @@ export function NodePublishers({ nodeKey }: { nodeKey?: string }) {
         !isLoading &&
         !error &&
         publishers.results
-          .filter((x) => x)
-          .map((item) => <PublisherResult key={item?.key} publisher={item} />)}
+          .filter(notNull)
+          .map((item) => <PublisherResult key={item.key} publisher={item} />)}
 
       {publishers?.count && publishers?.count > publishers?.limit && (
         <PaginationFooter

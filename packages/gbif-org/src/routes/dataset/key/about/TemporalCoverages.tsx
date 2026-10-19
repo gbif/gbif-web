@@ -1,11 +1,16 @@
 import Properties, { Term, Value } from '@/components/properties';
 import { LongDate } from '@/components/dateFormats';
+import { DatasetQuery } from '@/gql/graphql';
 
-export function TemporalCoverages({ temporalCoverages, ...props }) {
+export function TemporalCoverages({
+  temporalCoverages,
+}: {
+  temporalCoverages: NonNullable<DatasetQuery['dataset']>['temporalCoverages'];
+}) {
   return (
     <>
       <Properties useDefaultTermWidths>
-        {temporalCoverages.map((period, idx) => (
+        {(temporalCoverages ?? []).map((period, idx) => (
           <TemporalCoverage period={period} key={idx} />
         ))}
       </Properties>
@@ -13,7 +18,8 @@ export function TemporalCoverages({ temporalCoverages, ...props }) {
   );
 }
 
-function TemporalCoverage({ period }) {
+// the schema exposes temporal coverages as untyped JSON
+function TemporalCoverage({ period }: { period: any }) {
   return (
     <>
       <Term>{period['@type']}</Term>

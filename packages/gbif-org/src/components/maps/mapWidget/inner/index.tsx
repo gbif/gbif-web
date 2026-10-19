@@ -1,5 +1,5 @@
 import { Progress } from '@/components/ui/progress';
-import { Projection } from '@/config/config';
+import type { Projection } from '@/components/maps/openlayers/projections';
 import { BoundingBox, Setter } from '@/types';
 import { cn } from '@/utils/shadcn';
 import Map from 'ol/Map';

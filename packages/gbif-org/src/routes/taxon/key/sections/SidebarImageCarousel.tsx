@@ -5,7 +5,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
-type Taxon = NonNullable<NonNullable<TaxonKeyQuery['taxonInfo']>['taxon']>;
+type Taxon = NonNullable<TaxonKeyQuery['taxonInfo']>;
 type Props = { taxon: Taxon };
 
 export function SidebarImageCarousel({ taxon }: Props) {

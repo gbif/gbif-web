@@ -80,7 +80,23 @@ export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
   }
 );
 
-const Search = React.forwardRef(
+type SearchProps = {
+  onSearch: ({ q, intl }: SuggestFnProps) => {
+    cancel: () => void;
+    promise: Promise<SuggestionItem[]>;
+  };
+  onSelect: (item: SuggestionItem) => void;
+  className?: string;
+  selected?: (string | number)[];
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  render?: (item: SuggestionItem) => React.ReactNode;
+  getStringValue?: (item: SuggestionItem) => string;
+  placeholder?: string;
+  activeItem?: SuggestionItem;
+  clearOnSelect?: boolean;
+};
+
+const Search = React.forwardRef<HTMLInputElement, SearchProps>(
   (
     {
       onSearch,
@@ -93,20 +109,6 @@ const Search = React.forwardRef(
       activeItem,
       clearOnSelect,
       getStringValue = (item: SuggestionItem) => item.title,
-    }: {
-      onSearch: ({ q, intl }: SuggestFnProps) => {
-        cancel: () => void;
-        promise: Promise<SuggestionItem[]>;
-      };
-      onSelect: (item: SuggestionItem) => void;
-      className?: string;
-      selected?: (string | number)[];
-      onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-      render?: (item: SuggestionItem) => React.ReactNode;
-      getStringValue?: (item: SuggestionItem) => string;
-      placeholder?: string;
-      activeItem?: SuggestionItem;
-      clearOnSelect?: boolean;
     },
     ref
   ) => {
@@ -161,57 +163,50 @@ const Search = React.forwardRef(
       };
     }, [q, intl, searchContext, config, onSearch, currentLocale]);
 
-    const {
-      isOpen,
-      inputValue,
-      getLabelProps,
-      getMenuProps,
-      getInputProps,
-      highlightedIndex,
-      getItemProps,
-    } = useCombobox({
-      onInputValueChange({ inputValue }) {
-        setQ(inputValue);
-      },
-      items: items || [],
-      itemToString(item: SuggestionItem | null) {
-        return item ? getStringValue(item) : '';
-      },
-      // inputValue,
-      selectedItem,
-      onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
-        onSelect(newSelectedItem);
-        setSelectedItem(null);
-      },
-      defaultHighlightedIndex: 0,
-      stateReducer: (state, actionAndChanges) => {
-        const { changes, type } = actionAndChanges;
-        // keep the current text (as tracked by downshift) unless we are asked to clear it on selection
-        const keptValue = state.inputValue;
-        const selectionValue = clearOnSelect ? '' : keptValue;
-        const inputChanges = { ...changes, inputValue: keptValue };
-        switch (type) {
-          case useCombobox.stateChangeTypes.InputChange:
-            return changes;
-          case useCombobox.stateChangeTypes.InputKeyDownEnter:
-            return {
-              ...inputChanges,
-              isOpen: false, // keep menu open after selection.
-              highlightedIndex: state.highlightedIndex,
-              inputValue: selectionValue, // don't add the item string as input value at selection.
-            };
-          case useCombobox.stateChangeTypes.ItemClick:
-            return {
-              ...inputChanges,
-              isOpen: false, // keep menu open after selection.
-              highlightedIndex: state.highlightedIndex,
-              inputValue: selectionValue, // don't add the item string as input value at selection.
-            };
-          default:
-            return { ...inputChanges };
-        }
-      },
-    });
+    const { isOpen, getLabelProps, getMenuProps, getInputProps, highlightedIndex, getItemProps } =
+      useCombobox({
+        onInputValueChange({ inputValue }) {
+          setQ(inputValue);
+        },
+        items: items || [],
+        itemToString(item: SuggestionItem | null) {
+          return item ? getStringValue(item) : '';
+        },
+        // inputValue,
+        selectedItem,
+        onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
+          onSelect(newSelectedItem);
+          setSelectedItem(null);
+        },
+        defaultHighlightedIndex: 0,
+        stateReducer: (state, actionAndChanges) => {
+          const { changes, type } = actionAndChanges;
+          // keep the current text (as tracked by downshift) unless we are asked to clear it on selection
+          const keptValue = state.inputValue;
+          const selectionValue = clearOnSelect ? '' : keptValue;
+          const inputChanges = { ...changes, inputValue: keptValue };
+          switch (type) {
+            case useCombobox.stateChangeTypes.InputChange:
+              return changes;
+            case useCombobox.stateChangeTypes.InputKeyDownEnter:
+              return {
+                ...inputChanges,
+                isOpen: false, // keep menu open after selection.
+                highlightedIndex: state.highlightedIndex,
+                inputValue: selectionValue, // don't add the item string as input value at selection.
+              };
+            case useCombobox.stateChangeTypes.ItemClick:
+              return {
+                ...inputChanges,
+                isOpen: false, // keep menu open after selection.
+                highlightedIndex: state.highlightedIndex,
+                inputValue: selectionValue, // don't add the item string as input value at selection.
+              };
+            default:
+              return { ...inputChanges };
+          }
+        },
+      });
 
     const keyDownHandler = useCallback(
       (event: React.KeyboardEvent<HTMLInputElement>) => {

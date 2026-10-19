@@ -150,7 +150,7 @@ query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 
 
 function Clusters() {
   const [from = 0, setFrom] = useNumberParam({ key: 'offset' });
-  const [graph, setGraph] = useState();
+  const [graph, setGraph] = useState(/** @type {Graph | undefined} */ (undefined));
   const [attempt, setAttempt] = useState(0);
   const [criticalError, setCriticalError] = useState(false);
 
@@ -163,7 +163,10 @@ function Clusters() {
   });
 
   useEffect(() => {
-    const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
+    // occurrence search always queries by predicate, never the V1 shape
+    const query = /** @type {{ predicate?: import('@/gql/graphql').Predicate, q?: string }} */ (
+      getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig })
+    );
     const predicate = {
       type: PredicateType.And,
       predicates: [
@@ -244,6 +247,32 @@ function Clusters() {
 
 export default Clusters;
 
+/**
+ * Occurrence as returned by the untyped clusters query.
+ * @typedef {any} ClusterOccurrence
+ * @typedef {{
+ *   type: string,
+ *   name: string | (() => number),
+ *   key?: number,
+ *   title?: string,
+ *   image?: unknown,
+ *   taxonKey?: string,
+ *   distinctTaxa?: number,
+ *   [key: string]: unknown,
+ * }} GraphNode
+ * @typedef {{ source: string, target: string, reasons?: string[] }} GraphLink
+ * @typedef {{ clusterNodes: GraphNode[], invalidCluster?: boolean }} ClusterBuildContext
+ * @typedef {{ clusterNodes: (number | undefined)[], size: number, distinctTaxa: number, invalidCluster?: boolean }} ClusterContext
+ * @typedef {{ nodes: GraphNode[], links: GraphLink[], clusterMap: Record<string, ClusterContext> }} Graph
+ */
+
+/**
+ * @param {ClusterOccurrence} o
+ * @param {boolean} isEntry
+ * @param {boolean} hasTooManyRelations
+ * @param {number} rootKey
+ * @returns {GraphNode}
+ */
 function getNodeFromOccurrence(o, isEntry, hasTooManyRelations, rootKey) {
   if (!o) {
     return {
@@ -273,6 +302,7 @@ function getNodeFromOccurrence(o, isEntry, hasTooManyRelations, rootKey) {
   };
 }
 
+/** @param {ClusterOccurrence} o */
 function getNodeFromImage(o) {
   return {
     name: `${o.key}_image`,
@@ -282,6 +312,7 @@ function getNodeFromImage(o) {
   };
 }
 
+/** @param {ClusterOccurrence} o */
 function getNodeFromSequence(o) {
   return {
     name: `${o.key}_sequence`,
@@ -290,6 +321,7 @@ function getNodeFromSequence(o) {
   };
 }
 
+/** @param {ClusterOccurrence} o */
 function getNodeFromTypeStatus(o) {
   return {
     name: `${o.key}_type`,
@@ -298,6 +330,14 @@ function getNodeFromTypeStatus(o) {
   };
 }
 
+/**
+ * @param {ClusterOccurrence} x
+ * @param {number} rootKey
+ * @param {GraphNode[]} nodes
+ * @param {GraphLink[]} links
+ * @param {boolean} isEntry
+ * @param {boolean} hasTooManyRelations
+ */
 function processOccurrence(x, rootKey, nodes, links, isEntry, hasTooManyRelations) {
   const mainNode = getNodeFromOccurrence(x, isEntry, hasTooManyRelations, rootKey);
   nodes.push(mainNode);
@@ -326,9 +366,19 @@ function processOccurrence(x, rootKey, nodes, links, isEntry, hasTooManyRelation
   return mainNode;
 }
 
+/**
+ * @param {{
+ *   parent: ClusterOccurrence,
+ *   related: any,
+ *   nodes: GraphNode[],
+ *   links: GraphLink[],
+ *   rootKey: number,
+ *   clusterContext: ClusterBuildContext,
+ * }} args
+ */
 function processRelated({ parent, related, nodes, links, rootKey, clusterContext }) {
   if (related && related.count > 0) {
-    related.relatedOccurrences.forEach((e) => {
+    related.relatedOccurrences.forEach((/** @type {any} */ e) => {
       if (!e.occurrence) {
         clusterContext.invalidCluster = true;
         const mainNode = { type: 'DELETED', key: e?.stub?.gbifID, name: e?.stub?.gbifID + '' };
@@ -360,16 +410,24 @@ function processRelated({ parent, related, nodes, links, rootKey, clusterContext
   }
 }
 
+/**
+ * @param {{ data: any }} args
+ * @returns {Graph}
+ */
 function transformResult({ data }) {
+  /** @type {GraphNode[]} */
   let nodes = [];
+  /** @type {GraphLink[]} */
   let links = [];
+  /** @type {Record<string, ClusterContext>} */
   let clusterMap = {};
   const items = data.occurrenceSearch.documents.results;
-  items.forEach((x) => {
+  items.forEach((/** @type {ClusterOccurrence} */ x) => {
     // should we compare using accepted taxonKeys or not?
     // x.taxon = x.acceptedTaxonKey;
     // x.taxon = x.taxonKey;
 
+    /** @type {ClusterBuildContext} */
     let clusterContext = { clusterNodes: [] };
     if (x.related && x.related.count > 0) {
       const mainNode = processOccurrence(
@@ -392,11 +450,13 @@ function transformResult({ data }) {
 
       const uniqNodes = uniqBy(clusterContext.clusterNodes, (x) => x.key);
       const distinctTaxonKeys = uniqBy(uniqNodes, (x) => x.taxonKey);
-      clusterContext.clusterNodes = uniqNodes.map((x) => x.key);
-      clusterContext.size = clusterContext.clusterNodes.length;
-      clusterContext.distinctTaxa = distinctTaxonKeys.length;
-      mainNode.distinctTaxa = clusterContext.distinctTaxa;
-      clusterMap[x.key] = clusterContext;
+      // the same object is reshaped in place from build context to summary
+      const summary = /** @type {ClusterContext} */ (/** @type {unknown} */ (clusterContext));
+      summary.clusterNodes = uniqNodes.map((x) => x.key);
+      summary.size = summary.clusterNodes.length;
+      summary.distinctTaxa = distinctTaxonKeys.length;
+      mainNode.distinctTaxa = summary.distinctTaxa;
+      clusterMap[x.key] = summary;
     }
   });
 

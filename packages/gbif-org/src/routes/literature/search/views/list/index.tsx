@@ -115,7 +115,6 @@ export function LiteratureListView() {
                 count={data.literatureSearch.documents.total}
                 limit={data.literatureSearch.documents.size}
                 onChange={(x) => setOffset(x)}
-                anchor="literatures"
               />
             )}
           </ClientSideOnly>

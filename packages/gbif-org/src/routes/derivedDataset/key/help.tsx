@@ -3,7 +3,6 @@ import { Card } from '@/components/ui/smallCard';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage } from 'react-intl';
 import { DerivedDatasetAboutQuery, DerivedDatasetAboutQueryVariables } from '@/gql/graphql';
-import { useEffect } from 'react';
 
 const DERIVED_DATASET_ABOUT = /* GraphQL */ `
   query DerivedDatasetAbout($key: String!) {
@@ -70,6 +69,8 @@ export function DerivedDatasetHelpText({
   >(DERIVED_DATASET_ABOUT, { variables: { key: '3mWxb8muy3eUjT1KRmtpXy' } });
 
   const failed = !loading && error;
+  const resource = data?.resource;
+  const body = resource && 'body' in resource ? resource.body : undefined;
   return (
     <div {...props}>
       {(!data || loading) && <HelpTextSkeleton includeTitle={includeTitle} />}
@@ -83,9 +84,7 @@ export function DerivedDatasetHelpText({
       {!loading && !error && (
         <>
           {children}
-          {data?.resource?.body && (
-            <div dangerouslySetInnerHTML={{ __html: data?.resource?.body }} />
-          )}
+          {body && <div dangerouslySetInnerHTML={{ __html: body }} />}
         </>
       )}
     </div>

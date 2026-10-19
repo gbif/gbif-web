@@ -67,7 +67,9 @@ export function NetworkKeyPublisher() {
               </CardTitle>
             </CardHeader>
             {publishers &&
-              publishers.results.map((item) => <PublisherResult key={item.key} publisher={item} />)}
+              publishers.results.map(
+                (item) => item && <PublisherResult key={item.key} publisher={item} />
+              )}
 
             {publishers?.count && publishers?.count > publishers?.limit && (
               <PaginationFooter

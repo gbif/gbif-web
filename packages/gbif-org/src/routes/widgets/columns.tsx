@@ -1,6 +1,9 @@
+import { ColumnDef } from '@/components/searchTable';
 import { MdLink } from 'react-icons/md';
-function getAuthors(item) {
-  const tooLong = item.authors?.length > 10;
+import type { SingleLiteratureSearchResult } from './literatureTable';
+
+function getAuthors(item: SingleLiteratureSearchResult) {
+  const tooLong = (item.authors?.length ?? 0) > 10;
   return (
     (item.authors || [])
       .slice(0, 10)
@@ -12,14 +15,15 @@ function getAuthors(item) {
   );
 }
 
-function getLink(item) {
+// websites is not fetched by the widget query, so links only come from the DOI
+function getLink(item: SingleLiteratureSearchResult & { websites?: string[] | null }) {
   if (item.identifiers?.doi) {
     return `https://doi.org/${item.identifiers.doi}`;
   }
   return item.websites?.[0];
 }
 
-export const columns = [
+export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
   {
     id: 'titleAndAbstract',
     header: 'tableHeaders.titleAndAbstract',

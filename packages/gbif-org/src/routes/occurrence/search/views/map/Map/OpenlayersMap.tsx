@@ -644,8 +644,9 @@ class Map extends Component<AdHocMapInternalProps, State> {
         },
       },
       ...filter,
-      onError: () => {
-        if (this.props.registerPredicate) {
+      onError: (status?: number) => {
+        // 400 means the tile server no longer knows the predicate hash
+        if (status === 400 && this.props.registerPredicate) {
           this.props.registerPredicate();
         }
         if (this.props.onTileError) {

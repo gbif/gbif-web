@@ -1,4 +1,4 @@
-import { Projection } from '@/config/config';
+import type { Projection } from '@/components/maps/openlayers/projections';
 import { MaybeArray } from '@/types';
 import { toRecord } from '@/utils/toRecord';
 

@@ -24,7 +24,8 @@ export function regionLoader({ params }: LoaderArgs) {
 }
 
 export function RegionAnalyticsPage() {
-  const { regionKey } = useParams();
+  // regionLoader guarantees the param exists
+  const { regionKey } = useParams() as { regionKey: string };
   const { formatMessage } = useIntl();
 
   const title = formatMessage(

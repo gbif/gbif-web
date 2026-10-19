@@ -7,10 +7,10 @@ export function GrSciCollMetadata({
   ...props
 }: {
   entity: {
-    created: string;
-    modified: string;
-    modifiedBy: string;
-    masterSourceMetadata: { source: string; sourceId: string };
+    created?: string | null;
+    modified?: string | null;
+    modifiedBy?: string | null;
+    masterSourceMetadata?: { source: string; sourceId: string } | null;
   };
 }) {
   if (!entity) return null;
@@ -18,11 +18,11 @@ export function GrSciCollMetadata({
     <div className="g-text-slate-500 g-flex g-flex-wrap g-items-center g-gap-8" {...props}>
       <div>
         <FormattedMessage id="grscicoll.entryCreated" defaultMessage="Entry created" />:{' '}
-        <LongDate value={entity.created} />
+        <LongDate value={entity.created!} />
       </div>
       <div>
         <FormattedMessage id="grscicoll.lastModified" defaultMessage="Last modified" />:{' '}
-        <LongDate value={entity.modified} />
+        <LongDate value={entity.modified!} />
       </div>
       <div>
         <FormattedMessage id="grscicoll.modifiedBy" defaultMessage="Modified by" />:{' '}
