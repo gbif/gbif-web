@@ -1,13 +1,15 @@
-# New GBIF.org
+# GBIF.org
 
 ## Table of Contents
 
-- [New GBIF.org](#new-gbiforg)
+- [GBIF.org](#gbiforg)
   - [Table of Contents](#table-of-contents)
   - [Get Up and Running](#get-up-and-running)
     - [How to Start the New GBIF.org in Development Mode](#how-to-start-the-new-gbiforg-in-development-mode)
     - [How to Build and Run the New GBIF.org](#how-to-build-and-run-the-new-gbiforg)
     - [How to Test the Code in an Environment Simulating the Hosted Portals](#how-to-test-the-code-in-an-environment-simulating-the-hosted-portals)
+    - [Useful Commands](#useful-commands)
+  - [Tests](#tests)
   - [Environment Variables](#environment-variables)
     - [Exposing Environment Variables to the Client](#exposing-environment-variables-to-the-client)
   - [GBIF.org Specific Code](#gbiforg-specific-code)
@@ -30,6 +32,7 @@
       - [`routes.tsx`](#routestsx-1)
   - [Shared Code](#shared-code)
   - [Routing](#routing)
+    - [Routes and Data Loading](#routes-and-data-loading)
     - [`RouteObjectWithPlugins`](#routeobjectwithplugins)
     - [`LoaderArgs`](#loaderargs)
     - [`applyReactRouterPlugins`](#applyreactrouterplugins)
@@ -38,15 +41,9 @@
     - [Conditionally Adding Classes Based on State](#conditionally-adding-classes-based-on-state)
     - [Using Plain Old CSS](#using-plain-old-css)
   - [The Global Config](#the-global-config)
+  - [Translations](#translations)
   - [How to](#how-to)
-    - [Add a New Route with Server-Side and Client-Side Rendering](#add-a-new-route-with-server-side-and-client-side-rendering)
-      - [Creating the Page](#creating-the-page)
-      - [Adding the Page to the Router](#adding-the-page-to-the-router)
-    - [Add a New Route with Only Client-Side Rendering](#add-a-new-route-with-only-client-side-rendering)
-    - [Code-Split a Section of the App](#code-split-a-section-of-the-app)
-    - [Lazy Load a Page](#lazy-load-a-page)
-  - [Code Formatting](#code-formatting)
-  - [ESLint](#eslint)
+  - [Code Formatting and ESLint](#code-formatting-and-eslint)
   - [Known Issues](#known-issues)
     - [Loading Screens](#loading-screens)
 
@@ -54,7 +51,7 @@
 
 This project requires the Node.js version specified in [`.nvmrc`](./.nvmrc). Node versions are managed with [nvm](https://github.com/nvm-sh/nvm) — run `nvm use` to switch to it.
 
-Before starting, place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`. The app also needs the [GraphQL server](https://github.com/gbif/gbif-web/tree/master/packages/graphql-api) and the translations endpoints to be reachable, either running locally or pointing at a deployed instance.
+Before starting, place an `.env` file in the package root. The canonical configuration lives in `gbif-configuration/gbif-web`; [`.env.example`](./.env.example) is a template that runs against the public production endpoints. The app also needs the [GraphQL server](https://github.com/gbif/gbif-web/tree/master/packages/graphql-api) and the translations endpoints to be reachable, either running locally or pointing at a deployed instance.
 
 Install dependencies:
 
@@ -76,6 +73,25 @@ To initiate development mode, execute `npm run develop`.
 1. Build for Hosted Portals: Run `npm run build:hp`.
 2. Start for Hosted Portals: Run `npm run start:hp`.
 
+### Useful Commands
+
+| Command | What it does |
+|---|---|
+| `npm run develop` | Starts the development server and regenerates GraphQL types as you edit queries. |
+| `npm run type-check` | Runs the TypeScript compiler without emitting files. Worth running before you push. |
+| `npm run vitest` | Runs the unit tests. |
+| `npm run codegen` | Regenerates the GraphQL types in `src/gql/` after a query has changed. |
+| `npm run build` / `npm run build:hp` | Production builds of gbif.org and of the hosted-portal library. |
+| `npm run start:hp` | Serves the hosted-portal build locally. |
+
+`npm test` runs both production builds before the unit tests, so it is slow. There is no lint
+script; run `npx eslint src` instead.
+
+## Tests
+
+Unit tests use [Vitest](https://vitest.dev/) (configured in `gbif/vite.config.ts`) and sit next to
+the code they test, as `*.test.ts` files.
+
 ## Environment Variables
 
 Environment variables are sourced from various `.env` files, depending on the running environment.  
@@ -86,6 +102,8 @@ The `.env` files for this project are located here: [gbif-configuration](https:/
 ### Exposing Environment Variables to the Client
 
 Environment variables starting with `PUBLIC_` are accessible in the client-side build. It is crucial to **NEVER** prefix sensitive variables, such as private API keys, with `PUBLIC_`.
+
+If a required variable is missing, `env.ts` throws an error at startup that names it.
 
 ## GBIF.org Specific Code
 
@@ -166,7 +184,7 @@ Routes are processed by `applyReactRouterPlugins`, duplicating routes for each l
 
 ## Shared Code
 
-Code not contained within the `gbif` or `hp` folders is or can be shared across the application.
+Code not contained within the `gbif` or `hp` folders is or can be shared across the application, which means it has to work in both builds. Hosted portals have no server-side rendering, and each portal is configured differently, so shared code should not rely on running on the server or hardcode anything specific to gbif.org. Settings that vary between sites are read from the global config with `useConfig()` (`src/config/config.tsx`). When you change shared code, it is worth checking the hosted-portal build as well (`npm run build:hp` and `npm run start:hp`).
 
 ## Routing
 
@@ -233,14 +251,11 @@ The function returns a `RouteObject[]` array compatible with `react-router-dom`.
 
 ### Example of a route definition
 
-A route is a `RouteObjectWithPlugins`. Page components are typically lazy-loaded with `React.lazy` and rendered inside a Suspense boundary:
+A route is a `RouteObjectWithPlugins`. Entity pages are imported eagerly so they server-render; see [Code-split and lazy load](docs/how-to/code-splitting-and-lazy-loading.md) before adding `React.lazy`.
 
 ```tsx
-import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import React from 'react';
-
-const DatasetPage = React.lazy(() => import('./datasetKey'));
+import { DatasetPage, DatasetSkeleton, DatasetLayout, datasetLoader } from './datasetKey';
 
 export const datasetRoute: RouteObjectWithPlugins = {
   // Identifies the route (used by react-router-dom and for page configuration).
@@ -265,11 +280,7 @@ export const datasetRoute: RouteObjectWithPlugins = {
   children: [
     {
       index: true,
-      element: (
-        <StaticRenderSuspence fallback={<DatasetSkeleton />}>
-          <DatasetPage />
-        </StaticRenderSuspence>
-      ),
+      element: <DatasetPage />,
     },
     {
       path: 'dashboard',
@@ -279,15 +290,29 @@ export const datasetRoute: RouteObjectWithPlugins = {
 };
 ```
 
+### Routes and Data Loading
+
+The dataset page (`src/routes/dataset/key/index.tsx` and `datasetKey.tsx`) is a good example to follow. A few things are worth knowing before adding or changing a page:
+
+- Data pages that hosted portals can use are listed as `dataRoutes` in `src/config/routes.tsx`, which both builds read. Pages that only exist on gbif.org go in `src/gbif/routes.tsx`.
+- Hosted portals choose which pages to enable by route `id`, so an id is effectively part of the portal configuration format. Renaming one will break existing portals.
+- A portal may not enable every page. Each shared route therefore defines `gbifRedirect`, and links between pages use `DynamicLink` with a `pageId` rather than a hardcoded path. That way a link to a page the portal doesn't have takes the visitor to the same page on gbif.org instead of a 404.
+- A loader typically calls `graphql.query()` and then `throwCriticalErrors` (from `src/routes/rootErrorPage.tsx`). Loaders run on the server for gbif.org and in the browser on hosted portals.
+- Queries are written as `/* GraphQL */` template strings, and their TypeScript types are generated into `src/gql/` (imported from `@/gql/graphql`). The generated files are committed, so run `npm run codegen` after changing a query and commit the result rather than editing those files by hand.
+- Components that need to fetch data after the page has loaded use the `useQuery` hook (`src/hooks/useQuery.ts`).
+- Dashboard charts live in `src/components/dashboard/` and are exported through `lazyChart` in its `index.tsx`. The charts available on the occurrence dashboard are registered in `src/routes/occurrence/search/views/dashboard/`.
+
 More on `react-router-dom` `RouteObject` options: [`Route`](https://reactrouter.com/en/main/route/route).
 
 Note: Some example properties are custom additions to the default `RouteObject`. Refer to the `RouteObjectWithPlugins` section above for all custom properties.
 
 ## Styling
 
-Styling in this project is implemented using [tailwindcss](https://tailwindcss.com/).
+Styling in this project is implemented using [tailwindcss](https://tailwindcss.com/), configured with the class prefix `g-` (`tailwind.config.js`). Every utility class must carry it: `g-flex g-gap-2`, not `flex gap-2`. Unprefixed classes do nothing. The prefix keeps the hosted-portal library from colliding with host-site CSS.
 
-Additionally, we utilize the component library [shadcn/ui](https://ui.shadcn.com/), which enables us to add components incrementally and provides full flexibility to modify these components as needed.
+Additionally, we utilize the component library [shadcn/ui](https://ui.shadcn.com/), which enables us to add components incrementally and provides full flexibility to modify these components as needed. The shadcn/Radix primitives are in `src/components/ui/`.
+
+Colours and other theme values are CSS variables defined in `src/config/theme/`. Hosted portals override them with their own branding, so use the theme variables rather than hardcoding GBIF colours.
 
 ### Conditionally Adding Classes Based on State
 
@@ -299,9 +324,9 @@ Here is an example of how to use the function:
 import { cn } from '@/utils/shadcn';
 
 const isActive = true;
-const className = cn('border', { 'text-sky-500': isActive });
+const className = cn('g-border', { 'g-text-sky-500': isActive });
 
-console.log(className === 'border text-sky-500'); // true
+console.log(className === 'g-border g-text-sky-500'); // true
 ```
 
 ### Using Plain Old CSS
@@ -395,195 +420,25 @@ export const config: Config = {
 };
 ```
 
+## Translations
+
+Text is translated with [react-intl](https://formatjs.io/docs/react-intl/). The language is taken from the URL prefix (see `src/reactRouterPlugins/i18n/`) and the translated messages are fetched at runtime. User-facing text should always go through `<FormattedMessage id="..." />` rather than being written inline in English, so it can be translated. The English source strings live in `packages/react-components/locales/source/en-developer/`; [Add a translated string](docs/how-to/add-a-translation.md) explains how to add one.
+
 ## How to
 
-### Add a New Route with Server-Side and Client-Side Rendering
+Step-by-step guides with caveats live in [`docs/how-to/`](docs/how-to/):
 
-#### Creating the Page
+- [Add a route](docs/how-to/add-a-route.md): query, loader, page, skeleton, registration, `gbifRedirect`, and what hosted portals need.
+- [Code-split and lazy load](docs/how-to/code-splitting-and-lazy-loading.md): including how to keep server-side rendering.
+- [Add a translated string](docs/how-to/add-a-translation.md): where the source strings live and how message ids are built.
+- [Add an occurrence search filter](docs/how-to/add-an-occurrence-filter.md): filter config, URL parameter, translations, and the facet work needed in graphql-api and es-api.
+- [Add a new filter type](docs/how-to/add-a-filter-type.md): a new widget kind, for the rare case where no existing filter type fits.
+- [Add a chart](docs/how-to/add-a-chart.md): standard or custom dashboard chart, lazy export, occurrence dashboard registry and grouping.
+- [Run locally and take screenshots](docs/how-to/run-locally.md): run the site without access to the private configuration, against a deployed or a local GraphQL API.
 
-A page is made of a **loader** that fetches the data and a **component** that renders it. The loader receives a `graphql` client (already scoped to the request and locale) and runs during both server-side rendering and client-side navigation. GraphQL types are generated by [graphql-codegen](https://the-guild.dev/graphql/codegen) from the `/* GraphQL */`-tagged query strings — run `npm run codegen` once, or `npm run develop`, which watches for changes. Each query must be uniquely named.
+## Code Formatting and ESLint
 
-```tsx
-import { useConfig } from '@/config/config';
-import { OccurrenceQuery, OccurrenceQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/reactRouterPlugins';
-import { throwCriticalErrors, useNotifyOfPartialDataIfErrors } from '@/routes/rootErrorPage';
-import { required } from '@/utils/required';
-import { Helmet } from 'react-helmet-async';
-import { useLoaderData } from 'react-router-dom';
-
-// The /* GraphQL */ comment lets codegen discover the query and generate the
-// `OccurrenceQuery` / `OccurrenceQueryVariables` types imported above.
-const OCCURRENCE_QUERY = /* GraphQL */ `
-  query Occurrence($key: ID!) {
-    occurrence(key: $key) {
-      eventDate
-      scientificName
-      coordinates
-      dataset {
-        key
-        title
-      }
-    }
-  }
-`;
-
-// Fetches the data for this page. Runs on the server (SSR) and on the client
-// (client-side navigation). `graphql`, `config`, `locale` and `isPreview` are
-// injected by the route plugins; see the Routing section.
-export async function occurrenceLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key was provided in the URL');
-
-  const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(OCCURRENCE_QUERY, {
-    key,
-  });
-  const { errors, data } = await response.json();
-
-  // Throw a 404/critical error if a required object is missing.
-  throwCriticalErrors({ path404: ['occurrence'], errors, requiredObjects: [data?.occurrence] });
-
-  return { errors, occurrence: data.occurrence! };
-}
-
-export type OccurrenceLoaderResult = Awaited<ReturnType<typeof occurrenceLoader>>;
-
-// The page component reads the loader result via `useLoaderData`.
-export function OccurrencePage() {
-  const { occurrence, errors } = useLoaderData() as OccurrenceLoaderResult;
-  useNotifyOfPartialDataIfErrors(errors);
-  const config = useConfig();
-
-  return (
-    <>
-      {/* Helmet modifies the document head based on the current page. More info: https://www.npmjs.com/package/react-helmet-async */}
-      <Helmet>
-        <title>{occurrence.scientificName}</title>
-      </Helmet>
-
-      <h1>{occurrence.scientificName}</h1>
-    </>
-  );
-}
-```
-
-To fetch additional, non-critical data on the client after the initial render (for example slow metrics), use the `useQuery` hook from `@/hooks/useQuery` inside the component instead of the loader:
-
-```tsx
-import useQuery from '@/hooks/useQuery';
-
-const { data, load } = useQuery<MetricsQuery, MetricsQueryVariables>(METRICS_QUERY, {
-  lazyLoad: true, // don't run until `load` is called
-  notifyOnErrors: true,
-  throwAllErrors: false,
-});
-```
-
-#### Adding the Page to the Router
-
-To integrate the newly created page into the application, register it in the router configuration. This involves updating two separate files: [Hosted Portals Routes](src/hp/routes.tsx) and [GBIF.org Routes](src/gbif/routes.tsx). If the page should be available on both Hosted Portals and GBIF.org, add it to both.
-
-Here's an example of registering the demo page:
-
-```tsx
-{
-  id: 'occurrence-page',
-  path: 'occurrence/:key',
-  loader: occurrenceLoader,
-  // Optional: shown while navigating to this route. A shadcn/ui 'skeleton' is a
-  // good fit here (https://ui.shadcn.com/docs/components/skeleton).
-  loadingElement: <OccurrencePageSkeleton />,
-  element: <OccurrencePage />,
-}
-```
-
-For more information about configuring individual routes, refer to the [Routing](#routing) section.
-
-### Add a New Route with Only Client-Side Rendering
-Currently, a standard method for adding client-side only routes hasn't been established. However, the approach is similar to server-side routes, excluding the `loadingElement` and `loader`. Data fetching and loading state management should be handled directly within the component. 
-
-### Code-Split a Section of the App
-Code splitting can make sense when a specific part of your application is large or not immediately necessary, thereby improving the initial load performance. Vite will automatically create a new bundle for the code that is lazy loaded, ensuring that these larger or less critical components don't affect the initial page load speed.
-
-```tsx
-import { Suspense, lazy } from 'react';
-const MyLazyComponent = lazy(() => import('@/components/MyLazyComponent'));
-
-function Component() {
-  return (
-    <>
-      <p>This text will be there when the component renders</p>
-
-      <Suspense fallback={<p>MyLazyComponent is loading...</p>}>
-        <MyLazyComponent />
-      </Suspense>
-    </>
-  );
-}
-```
-
-This approach is particularly beneficial for large components or features that are not essential to the initial user experience, allowing the primary content to load quickly while deferring the loading of these components until they are needed.
-
-It could make sense to wrap a `Suspense` component with an `ErrorBoundary` to handle scenarios where the dynamically imported component fails to load. This approach provides a robust error handling mechanism, ensuring that your application can gracefully manage loading errors and enhance the overall user experience.
-
-By implementing an `ErrorBoundary` around `Suspense`, you can effectively catch and handle any unexpected issues that might arise during the lazy loading of components, maintaining application stability even in the face of unforeseen errors.
-
-### Lazy Load a Page
-Lazy loading an entire page reduces the size of the main bundle, resulting in faster hydration. Page components are loaded with `React.lazy` and rendered inside a Suspense boundary (`StaticRenderSuspence`), so the page's code is split into its own bundle and only fetched when the route is visited.
-
-Here's an example of how to lazy load a page:
-
-```tsx
-import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
-import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import React from 'react';
-
-const OccurrenceSearchPage = React.lazy(() => import('@/routes/occurrence/search/Page'));
-
-export const occurrenceSearchRoute: RouteObjectWithPlugins = {
-  id: 'occurrence-search-page',
-  path: 'occurrence/search',
-  loader: occurrenceSearchLoader,
-  loadingElement: <OccurrenceSearchPageSkeleton />,
-  element: (
-    <StaticRenderSuspence fallback={<OccurrenceSearchPageSkeleton />}>
-      <OccurrenceSearchPage />
-    </StaticRenderSuspence>
-  ),
-};
-```
-
-Note: To ensure proper code splitting, keep the lazily-imported page `element` in a different file from the `loader` and `loadingElement`. This keeps the main bundle smaller and accelerates the initial load. The `loader` also fetches the necessary data concurrently while the JavaScript for the page is still downloading.
-
-> **Consequence for server-side rendering:** the server renders with `renderToString`, which cannot suspend, so `StaticRenderSuspence` deliberately renders its `fallback` on the server instead of the lazy component (see `src/components/staticRenderSuspence.tsx`). A lazily-loaded page is therefore **not server-rendered** — the initial HTML contains only the skeleton, and the real content is loaded and rendered on the client after hydration. This is a good trade for interactive or low-traffic pages (tools, tabs), but for pages where server-rendered content matters for SEO or first contentful paint (for example dataset, species and occurrence detail pages), prefer loading the page eagerly.
->
-> **Splitting without breaking SSR:** if you need both code splitting *and* server-rendered content, use react-router-dom's native route-level `lazy` instead of `React.lazy`. It is resolved before rendering on both ends: the server builds its routes with `createStaticHandler` (see `src/gbif/entry.server.tsx`), which resolves a matched route's `lazy` import before `renderToString` runs, and the client pre-resolves the matched `lazy` routes in `loadLazyRoutes` before `hydrateRoot` (see `src/gbif/entry.client.tsx`), so the server-rendered content hydrates synchronously without a mismatch.
->
-> Keep the route's `loader` defined **statically** on the route (do not return it from `lazy`). The route plugins wrap the loader at build time to inject `config`, `locale`, `graphql` and `isPreview`, and a loader returned from `lazy` would bypass that injection. Keeping the loader out of the split chunk also lets it start fetching in parallel while the element chunk downloads.
-
-```tsx
-{
-  id: 'occurrence-search-page',
-  path: 'occurrence/search',
-  lazy: async () => {
-    const { OccurrenceSearchPage } = await import('@/routes/occurrence/search/Page');
-    return { element: <OccurrenceSearchPage /> };
-  },
-  loader: occurrenceSearchLoader,
-  loadingElement: <OccurrenceSearchPageLoading />,
-}
-```
-
-Note: `lazy` returns only the `element`; the `loader` stays defined on the route so the plugins still inject its arguments and it can fetch in parallel.
-
-## Code Formatting
-
-Code formatting within this project is managed using Prettier. To ensure consistency across the codebase, you are encouraged to install the Prettier extension in your code editor. Ideally, enable the 'format on save' feature for automatic formatting. The project's root directory contains a Prettier configuration file, which specifies the formatting rules to be applied. Adhering to these guidelines will help maintain a uniform coding style throughout the project.
-
-## ESLint
-
-This project employs ESLint to enforce coding standards and ensure high-quality code contributions. To facilitate adherence to these standards, it's recommended that you install the ESLint extension in your code editor. This will enable real-time linting, alerting you to any violations of the ESLint rules as you code.
-
-The root directory of the project contains an ESLint configuration file which outlines the specific rules to be followed. By integrating this tool into your development workflow, you can contribute code that consistently meets the project's quality and style guidelines.
+Prettier (`.prettierrc`: width 100, single quotes) and ESLint (`.eslintrc.cjs`) in the package root. Install the editor extensions and enable format on save. Neither runs on commit; run `npx eslint src` and `npm run type-check` before pushing.
 
 ## Known Issues
 

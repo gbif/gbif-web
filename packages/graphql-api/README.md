@@ -34,9 +34,36 @@ Once running, the server is available at `http://localhost:<port>/graphql` (the 
 | `npm run develop` | Start the server in watch mode for local development. |
 | `npm run build` | Compile TypeScript to `dist/`. |
 | `npm start` | Run the compiled server from `dist/`. |
-| `npm test` | Run the test suite. |
-| `npm run write-enums` | Regenerate the enum type definitions from the GBIF enumeration API. |
+| `npm test` | Run the test suite with ts-mocha. Needs a `.env` file (see [Configuration](#configuration)). |
+| `npm run write-enums` | Regenerate `src/helpers/enums/enums.json` from the GBIF enumeration API. |
 | `npm run write-interpretation-remark` | Regenerate interpretation remark definitions. |
+
+## Code layout
+
+The server is built with Express and Apollo Server. The code is a mix of JavaScript and TypeScript,
+with `@/` as an alias for `src/`.
+
+- `src/index.ts` sets up the server. `typeDefs.js`, `resolvers.js` and `dataSources.js` collect
+  everything registered in `src/resources/index.ts`.
+- Each resource has its own folder, `src/resources/<name>/`; `src/resources/dataset/` is a good
+  example to follow. A resource folder usually contains:
+  - `<name>.type.js`: the GraphQL type definitions, extending `Query`.
+  - `<name>.resolver.js`: the `Query` resolvers and any per-type resolvers, which fetch data
+    through `dataSources`.
+  - `<name>.source.js`: a data source class extending `QueuedRESTDataSource`.
+  - `index.js`: exports `{ resolver, typeDef: [...], dataSource: {...} }`.
+- `src/api-utils/` holds a few plain REST endpoints (maps, geometry, BLAST) that are not part of
+  the GraphQL schema.
+- Tests sit next to the code they test (`*.test.js` / `*.test.ts`) and use `describe`/`it` with
+  `node:assert`.
+- Formatting uses Prettier with a line width of 120 and trailing commas, which differs from
+  gbif-org. ESLint uses the Airbnb configuration.
+
+For a step-by-step walkthrough, see [Add a resource](docs/how-to/add-a-resource.md). Adding an
+occurrence filter is covered in
+[Add an occurrence search filter](../gbif-org/docs/how-to/add-an-occurrence-filter.md). Occurrence
+predicates pass through this package unchanged; only the fields used for facets, cardinality and
+statistics are listed here, in `src/resources/occurrence/helpers/fields/`.
 
 ## Configuration
 
@@ -46,6 +73,10 @@ Configuration is supplied through the `.env` file in the package root. It define
 - **Overload protection** (`overloadProtection`) — a pre-Apollo guard that sheds load with a fast `503` based on event-loop lag and heap usage. See `src/overloadGuard.ts`.
 
 The schema is partly generated at startup from the live GBIF enumeration API, so the service requires network access to its configured upstreams when it boots.
+
+Despite its name, the `.env` file is YAML. It is read by `src/config.js` as soon as that module is imported, so the tests need it too.
+
+If you don't have access to the private configuration, you can run against the production endpoints as described in [Run locally](../gbif-org/docs/how-to/run-locally.md). Fields backed by Elasticsearch will then return 403 errors: `hp-search.gbif.org` is public, but the `apiEsKey` secret is missing.
 
 ## Translation of resources (Contentful data)
 
