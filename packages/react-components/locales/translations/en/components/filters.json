@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Scientific name",
-    "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
+    "description": "The scientific name as it appears in the Catalogue of Life eXtended Release (COL XR). These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "taxonKeyGrSciColl": {
     "name": "Scientific name",
