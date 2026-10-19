@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n",
+      "variables": {
+        "identifier": "taxonomic-interpretations"
+      },
+      "operationName": "HelpTitle"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"help\":{\"id\":\"1UhCjjJgbGo2phdPyHgG2i\",\"identifier\":\"taxonomic-interpretations\",\"title\":\"Taxonomic interpretation\"}}}\n"
+}

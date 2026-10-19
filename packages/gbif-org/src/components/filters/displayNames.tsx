@@ -267,7 +267,7 @@ export function TaxonLabel({
         `${config.graphqlEndpoint}?variables=${encodeURIComponent(
           JSON.stringify(variables)
         )}&query=${encodeURIComponent(
-          `query($checklistKey: ID) {
+          `query TaxonDisplayName($checklistKey: ID) {
             taxon(datasetKey: $checklistKey, key:"${id}") {
               scientificName
             }
@@ -418,25 +418,25 @@ export const TargetGeneLabel = getEndpointLabel({
 });
 
 export const CollectionLabel = getGraphQlLabel({
-  query: `query($key:ID!) {item:collection(key: $key) {title: name}}`,
+  query: `query CollectionDisplayName($key:ID!) {item:collection(key: $key) {title: name}}`,
 });
 export const InstitutionLabel = getGraphQlLabel({
-  query: `query($key:ID!) {item:institution(key: $key) {title: name}}`,
+  query: `query InstitutionDisplayName($key:ID!) {item:institution(key: $key) {title: name}}`,
 });
 export const DatasetLabel = getGraphQlLabel({
-  query: `query($key:ID!) {item:dataset(key: $key) {title}}`,
+  query: `query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}`,
 });
 export const PublisherLabel = getGraphQlLabel({
-  query: `query($key:ID!) {item:organization(key: $key) {title}}`,
+  query: `query PublisherDisplayName($key:ID!) {item:organization(key: $key) {title}}`,
 });
 export const NetworkLabel = getGraphQlLabel({
-  query: `query($key:ID!) {item:network(key: $key) {title}}`,
+  query: `query NetworkDisplayName($key:ID!) {item:network(key: $key) {title}}`,
 });
 export const InstallationLabel = getGraphQlLabel({
-  query: `query($key:ID!) {item:installation(key: $key) {title}}`,
+  query: `query InstallationDisplayName($key:ID!) {item:installation(key: $key) {title}}`,
 });
 export const TaxonKeyLabel = getGraphQlLabel({
-  query: `query($key:ID!) {item:taxon(key: $key) {scientificName}}`,
+  query: `query TaxonKeyDisplayName($key:ID!) {item:taxon(key: $key) {scientificName}}`,
   transform: (response: GraphQlLabelResponse<{ scientificName?: string | null }>) => ({
     title: response?.data?.item?.scientificName ?? '',
   }),

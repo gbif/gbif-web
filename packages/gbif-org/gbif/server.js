@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import fsp from 'node:fs/promises';
 import { createServer as createHttpServer } from 'node:http';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import logger from './config/logger.mjs';
@@ -26,6 +27,8 @@ const env = merge(envFile, process.env);
 
 const IS_PRODUCTION = env.NODE_ENV === 'production';
 const PORT = parseInt(env.PORT || 3000);
+// Overridden by e2e tests so their mock-endpoint build does not replace the regular one.
+const DIST_DIR = path.resolve(env.GBIF_DIST_DIR || 'dist/gbif');
 
 const getPostRenderRedirect = createGetPostRenderRedirect(env);
 const getPreRenderRedirect = createGetPreRenderRedirect(env);
@@ -143,7 +146,7 @@ async function main() {
     // Stable names (index.html, public/ copies) keep the default 10 minute cache.
     // Must be set via setHeaders: the default Cache-Control middleware above already set the
     // header, and send() only applies its own maxAge/immutable options when none is present.
-    const clientDir = path.resolve('dist/gbif/client');
+    const clientDir = path.join(DIST_DIR, 'client');
     const assetsDir = path.join(clientDir, 'assets') + path.sep;
 
     app.use(
@@ -234,9 +237,13 @@ async function main() {
         template = await viteDevServer.transformIndexHtml(url, template);
         render = (await viteDevServer.ssrLoadModule('src/gbif/entry.server.tsx')).render;
       } else {
-        cachedProdTemplate ??= await fsp.readFile('dist/gbif/client/gbif/index.html', 'utf8');
+        cachedProdTemplate ??= await fsp.readFile(
+          path.join(DIST_DIR, 'client/gbif/index.html'),
+          'utf8'
+        );
         template = cachedProdTemplate;
-        render = (await import('../dist/gbif/server/entry.server.js')).render;
+        render = (await import(pathToFileURL(path.join(DIST_DIR, 'server/entry.server.js')).href))
+          .render;
       }
 
       try {
@@ -360,7 +367,7 @@ async function main() {
         // fallback.html is processed by PostCSS/Tailwind while a generated .json/.ts is being
         // rewritten — surfacing as "Failed to parse JSON file" mid-startup.
         let fallbackHtmlFile = await fsp.readFile(
-          IS_PRODUCTION ? 'dist/gbif/client/gbif/fallback.html' : 'gbif/fallback.html',
+          IS_PRODUCTION ? path.join(DIST_DIR, 'client/gbif/fallback.html') : 'gbif/fallback.html',
           'utf8'
         );
         if (!IS_PRODUCTION) {

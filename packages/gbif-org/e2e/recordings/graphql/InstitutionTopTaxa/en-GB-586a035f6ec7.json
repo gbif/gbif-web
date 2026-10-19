@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query InstitutionTopTaxa($predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      documents(size: 0) {\n        total\n      }\n      facet {\n        taxonKey(size: 10) {\n          count\n          taxon {\n            formattedName: label\n          }\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "institutionKey",
+          "value": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+        }
+      },
+      "operationName": "InstitutionTopTaxa"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":508355},\"facet\":{\"taxonKey\":[{\"count\":501895,\"taxon\":{\"formattedName\":\"Animalia\"}},{\"count\":416982,\"taxon\":{\"formattedName\":\"Arthropoda\"}},{\"count\":403789,\"taxon\":{\"formattedName\":\"Insecta\"}},{\"count\":151363,\"taxon\":{\"formattedName\":\"Lepidoptera\"}},{\"count\":112739,\"taxon\":{\"formattedName\":\"Coleoptera\"}},{\"count\":50024,\"taxon\":{\"formattedName\":\"Mollusca\"}},{\"count\":43298,\"taxon\":{\"formattedName\":\"Geometridae\"}},{\"count\":40430,\"taxon\":{\"formattedName\":\"Diptera\"}},{\"count\":39180,\"taxon\":{\"formattedName\":\"Noctuidae\"}},{\"count\":36945,\"taxon\":{\"formattedName\":\"Gastropoda\"}}]}}}}\n"
+}

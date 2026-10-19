@@ -1543,7 +1543,9 @@
   ],
   "OccurrenceStatus": [
     "PRESENT",
-    "ABSENT"
+    "ABSENT",
+    "DETECTED",
+    "NOT_DETECTED"
   ],
   "OrganizationUsageSortField": [
     "ORGANIZATION_TITLE",

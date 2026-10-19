@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query InstitutionFallbackImage($key: ID!) {\n    institution(key: $key) {\n      featuredImageUrl_fallback: homepageOGImageUrl_volatile(\n        onlyIfNoImageUrl: true\n        timeoutMs: 3000\n      )\n    }\n  }\n",
+      "variables": {
+        "key": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+      },
+      "operationName": "InstitutionFallbackImage"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"institution\":{\"featuredImageUrl_fallback\":\"http://www.naturhistoriskmuseum.dk/Files/Billeder/naturhistorisk-museum-logo.png\"}}}\n"
+}
