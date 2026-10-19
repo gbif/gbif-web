@@ -20,7 +20,7 @@
     "description": "そのレコードに地理空間的な問題があるかどうか。"
   },
   "collectionKey": {
-    "name": "コレクション",
+    "name": "",
     "description": "このレコードが照合されたGrSciCollのコレクション"
   },
   "predicate": {
@@ -532,7 +532,7 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "機関",
+    "name": "",
     "description": ""
   },
   "name": {
