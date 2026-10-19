@@ -20,7 +20,7 @@
     "description": "Whether the record has geospatial issues."
   },
   "collectionKey": {
-    "name": "Collection",
+    "name": "GRSciColl collection",
     "description": "The collection in GrSciColl this record was matched to"
   },
   "predicate": {
@@ -532,7 +532,7 @@
     "description": "A short description of the component should be placed here"
   },
   "institutionKey": {
-    "name": "Institution",
+    "name": "GRSciColl institution",
     "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
