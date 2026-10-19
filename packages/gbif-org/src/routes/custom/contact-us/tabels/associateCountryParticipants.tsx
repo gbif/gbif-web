@@ -74,27 +74,27 @@ export function AssociateCountryParticipantsTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="name"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="directory.columns.name" />
             </Th>
             <Th
               sortable
               field="roles"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="directory.columns.role" />
             </Th>
             <Th
               sortable
               field="participantNames"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
-              onSort={handleSort}
+              onSort={handleSort as (field: string) => void}
             >
               <FormattedMessage id="directory.columns.participant" />
             </Th>

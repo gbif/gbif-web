@@ -65,7 +65,7 @@ export function ExecutiveCommitteeTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="name"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >
@@ -74,7 +74,7 @@ export function ExecutiveCommitteeTable({ q, onPersonClick }: Props) {
             <Th
               sortable
               field="roles"
-              sortField={sortField}
+              sortField={sortField ?? undefined}
               sortDirection={sortDirection}
               onSort={handleSort as (field: string) => void}
             >

@@ -1,3 +1,4 @@
+import type { ParamValue } from '@/utils/querystring';
 import { FilterContext, FilterContextType, FilterType } from '@/contexts/filter';
 import { QueryTypeEnum, SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
@@ -5,7 +6,7 @@ import {
   filter2predicate,
   FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
-import { EventFiltering, Predicate } from '@/gql/graphql';
+import { EventFiltering, Predicate, PredicateType } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import { SuggestConfig, TaxonSuggestType } from '@/utils/suggestEndpoints';
 import React, { useContext } from 'react';
@@ -54,7 +55,7 @@ export enum filterConfigTypes {
 
 export type AdditionalFilterProps = {
   searchConfig: FilterConfigType;
-  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+  onApply?: ContentOnApply;
   onCancel?: () => void;
   pristine?: boolean;
 };
@@ -244,7 +245,7 @@ function getPopoverFilter({
   filterTranslation,
 }: {
   Content: React.FC<{
-    onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+    onApply?: ContentOnApply;
     onCancel?: () => void;
     className?: string;
     style?: React.CSSProperties;
@@ -282,23 +283,8 @@ const getSuggestFilter = ({
   config: filterSuggestConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <SuggestFilter
           ref={ref}
@@ -318,23 +304,8 @@ const getTaxonFilter = ({
   config: filterTaxonConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <TaxonFilter
           ref={ref}
@@ -354,23 +325,8 @@ const getWildcardFilter = ({
   config: filterWildcardConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <WildcardFilter
           ref={ref}
@@ -385,31 +341,19 @@ const getWildcardFilter = ({
 
 const getFreeTextFilter = ({
   config,
+  searchConfig,
 }: {
-  config: filterConfig;
+  config: filterFreeTextConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <QFilter
           ref={ref}
           filterHandle={config.filterHandle}
+          displayName={config.displayName}
+          searchConfig={searchConfig}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
@@ -424,23 +368,8 @@ const getEnumFilter = ({
   config: filterEnumConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLButtonElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <EnumFilter
           ref={ref}
@@ -467,27 +396,13 @@ const getLocationFilter = ({
   config: filterLocationConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <GeometryFilter
           ref={ref}
           {...config}
+          searchConfig={searchConfig}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
@@ -502,23 +417,8 @@ const getOptionalBooleanFilter = ({
   config: filterBoolConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<unknown, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <OptionalBooleanFilter
           ref={ref}
@@ -535,26 +435,13 @@ const getOptionalBooleanFilter = ({
 };
 
 const getInlineToggleFilter = ({ config }: { config: filterInlineToggleConfig }) => {
-  return React.forwardRef(
-    (
-      {
-        className,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      _ref
-    ) => (
-      <InlineToggleFilter
-        className={className}
-        filterHandle={config.filterHandle}
-        options={config.options}
-      />
-    )
-  );
+  return React.forwardRef<unknown, FilterContentProps>(({ className }, _ref) => (
+    <InlineToggleFilter
+      className={className}
+      filterHandle={config.filterHandle}
+      options={config.options}
+    />
+  ));
 };
 
 const getRangeFilter = ({
@@ -564,23 +451,8 @@ const getRangeFilter = ({
   config: filterRangeConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <RangeFilter
           ref={ref}
@@ -600,23 +472,8 @@ const getDateRangeFilter = ({
   config: filterDateRangeConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <DateRangeFilter
           ref={ref}
@@ -636,23 +493,8 @@ const getGeologicalTimeFilter = ({
   config: filterGeologicalTimeConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <GeoTimeFilter
           ref={ref}
@@ -666,23 +508,8 @@ const getGeologicalTimeFilter = ({
 };
 
 const getCustomPredicateFilter = ({ config }: { config: filterCustomPredicateConfig }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLDivElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <CustomPredicateFilter
           ref={ref}
@@ -701,26 +528,11 @@ const getSequenceFilter = ({
   config: filterSequenceConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLDivElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <SequenceFilter
-          ref={ref as React.Ref<HTMLDivElement>}
+          ref={ref}
           filterHandle={config.filterHandle}
           about={config.about}
           facetQuery={config.facetQuery}
@@ -739,27 +551,13 @@ const getHumboldtBooleansFilter = ({
   config: filterHumboldtBooleansConfig;
   searchConfig: FilterConfigType;
 }) => {
-  return React.forwardRef(
-    (
-      {
-        onApply,
-        onCancel,
-        className,
-        style,
-        pristine,
-      }: {
-        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-        onCancel?: () => void;
-        className?: string;
-        style?: React.CSSProperties;
-        pristine?: boolean;
-      },
-      ref
-    ) => {
+  return React.forwardRef<HTMLInputElement, FilterContentProps>(
+    ({ onApply, onCancel, className, style, pristine }, ref) => {
       return (
         <HumboldtBooleansFilter
           ref={ref}
           {...config}
+          searchConfig={searchConfig}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
@@ -767,13 +565,15 @@ const getHumboldtBooleansFilter = ({
   );
 };
 
-export type ContentOnApply = ({
-  keepOpen,
-  filter,
-}?: {
-  keepOpen?: boolean;
-  filter?: FilterType;
-}) => void;
+export type ContentOnApply = (options?: { keepOpen?: boolean; filter?: FilterType }) => void;
+
+type FilterContentProps = {
+  onApply?: ContentOnApply;
+  onCancel?: () => void;
+  className?: string;
+  style?: React.CSSProperties;
+  pristine?: boolean;
+};
 
 export type FilterSetting = {
   Button: React.FC<{ className?: string; pending?: boolean }>;
@@ -809,7 +609,7 @@ type FilterSettingDefaults = {
 };
 
 type ContentShared = {
-  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+  onApply?: ContentOnApply;
   onCancel?: () => void;
   ref: React.ForwardedRef<unknown>;
   className?: string;
@@ -839,13 +639,7 @@ export function generateFilter({
   popoverClassName?: string;
 }): FilterSetting {
   const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
-  let FilterButtonPopover = ({
-    className,
-    pending,
-  }: {
-    className?: string;
-    pending?: boolean;
-  }) => {
+  let FilterButtonPopover = ({ className, pending }: { className?: string; pending?: boolean }) => {
     return (
       <PopoverFilter
         className={popoverClassName}
@@ -879,8 +673,8 @@ export function generateFilter({
 
   return {
     // ...config,
-    allowExistence: config?.allowExistence ?? false,
-    allowNegations: config?.allowNegations ?? false,
+    allowExistence: ('allowExistence' in config && config.allowExistence) || false,
+    allowNegations: ('allowNegations' in config && config.allowNegations) || false,
     filterType: config.filterType,
     Button: FilterButtonPopover,
     Popover: PopoverFilter,
@@ -931,7 +725,7 @@ export function generateFilters({
     return generateFilter({
       config,
       formatMessage,
-      Content: getInlineToggleFilter({ config, searchConfig }),
+      Content: getInlineToggleFilter({ config }),
     });
   } else if (config.filterType === filterConfigTypes.RANGE) {
     return generateFilter({
@@ -1005,7 +799,8 @@ export function generateFilters({
     };
     return setting;
   } else {
-    throw new Error(`Unknown filter type ${config?.filterType}`);
+    // unreachable for typed configs, but configs can come from untyped portal setups
+    throw new Error(`Unknown filter type ${(config as filterConfigShared)?.filterType}`);
   }
 }
 
@@ -1072,6 +867,14 @@ export function getFilterConfig({
  * @param {FilterConfigType} searchConfig - How to map the filters to a query. E.g. how to map it to v1 API or a predicate.
  * @returns {Object} A graphql variable for the query.
  */
+// V1 queries carry arbitrary scope and filter params; predicate queries carry the named fields.
+export type SearchQuery = {
+  predicate?: Predicate;
+  q?: string;
+  eventFiltering?: EventFiltering;
+  [key: string]: ParamValue | ParamValue[];
+};
+
 export function getAsQuery({
   filter,
   searchContext,
@@ -1082,13 +885,7 @@ export function getAsQuery({
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
   queryType?: QueryTypeEnum;
-}):
-  | object
-  | {
-      predicate: Predicate | undefined;
-      q: string | undefined;
-      eventFiltering: EventFiltering | undefined;
-    } {
+}): SearchQuery {
   // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
   if (queryType === 'V1') {
     const v1Filter = filter2v1(filter, searchConfig);
@@ -1099,7 +896,8 @@ export function getAsQuery({
     return { ...scope, ...v1Filter?.filter };
   } else {
     // query by predicate
-    const rootPredicate = searchContext.scope;
+    // SearchMetadata.scope is untyped; in predicate mode it is a predicate
+    const rootPredicate = searchContext.scope as Predicate | undefined;
     let cleanedFilter = filter;
 
     let q: string | undefined;
@@ -1122,14 +920,14 @@ export function getAsQuery({
     }
 
     const currentPredicate = filter2predicate(cleanedFilter, searchConfig);
-    const predicates = [rootPredicate, currentPredicate].filter((x) => x);
+    const predicates = [rootPredicate, currentPredicate].filter((x): x is Predicate => !!x);
     if (predicates.length === 0) {
       return { q, eventFiltering, predicate: undefined, checklistKey: filter.checklistKey };
     } else if (predicates.length === 1) {
       return { predicate: predicates[0], q, eventFiltering, checklistKey: filter.checklistKey };
     } else {
       return {
-        predicate: { type: 'and', predicates },
+        predicate: { type: PredicateType.And, predicates },
         q,
         eventFiltering,
         checklistKey: filter.checklistKey,
@@ -1215,7 +1013,7 @@ export function ApplyCancel({
   pristine,
   disabled,
 }: {
-  onApply?: ({ keepOpen }?: { keepOpen?: boolean }) => void;
+  onApply?: (options?: { keepOpen?: boolean }) => void;
   onCancel?: () => void;
   pristine?: boolean;
   disabled?: boolean;
@@ -1256,7 +1054,7 @@ export function AsyncOptions({
 }: {
   children?: React.ReactNode;
   loading: boolean;
-  error?: Error;
+  error?: Error | boolean;
   className?: string;
   loadingMore?: boolean;
 }) {

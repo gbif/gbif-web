@@ -14,6 +14,7 @@ import { PaginationState } from './hooks/usePaginationState';
 import { CreateRowLink } from './hooks/useRowLink';
 
 interface Props<T> {
+  noHeader?: boolean;
   columns: ColumnDef<T>[];
   data: T[];
   className?: string;

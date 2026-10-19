@@ -81,7 +81,9 @@ async function faqPageLoader({ graphql }: LoaderArgs) {
 function FAQ() {
   const { data, helpData } = useLoaderData() as { data: FaqQuery; helpData: HelpItemQuery };
 
-  const resource = data?.resourceSearch?.documents.results[0];
+  const firstResult = data?.resourceSearch?.documents.results[0];
+  // The loader 404s when there is no result, and the query is restricted to articles
+  const resource = firstResult?.__typename === 'Article' ? firstResult : undefined;
   const ref = useRef<HTMLInputElement>(null);
   /*  const [searchQuery, setSearchQuery] = useStringParam({
     key: 'q',
@@ -109,13 +111,13 @@ function FAQ() {
 
   return (
     <article>
-      <PageMetaData title={resource.title} path="/faq" />
+      <PageMetaData title={resource?.title} path="/faq" />
 
       <PageContainer topPadded className="g-bg-white g-pb-10">
         <ArticleTextContainer className="g-mb-10">
-          <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
+          <ArticleTitle dangerouslySetTitle={{ __html: resource?.title ?? '' }} />
 
-          {resource.summary && (
+          {resource?.summary && (
             <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
           )}
         </ArticleTextContainer>
@@ -184,15 +186,15 @@ function FAQ() {
               </CardHeader>
               {helpData?.resourceSearch?.documents?.results &&
                 helpData.resourceSearch.documents.results
+                  .filter(isHelpResult)
                   .filter((item) => {
                     if (searchParams?.get('question')) {
-                      return item?.identifier === searchParams.get('question');
+                      return item.identifier === searchParams.get('question');
                     } else {
-                      return searchParams?.get('q')
-                        ? item?.title
-                            ?.toLowerCase()
-                            .includes(searchParams.get('q')?.toLowerCase()) ||
-                            item?.body?.toLowerCase().includes(searchParams.get('q')?.toLowerCase())
+                      const q = searchParams?.get('q')?.toLowerCase();
+                      return q
+                        ? item.title?.toLowerCase().includes(q) ||
+                            item.body?.toLowerCase().includes(q)
                         : true;
                     }
                   })
@@ -221,6 +223,16 @@ function FAQ() {
       </PageContainer>
     </article>
   );
+}
+
+type HelpItemResultItem = NonNullable<
+  NonNullable<HelpItemQuery['resourceSearch']>['documents']['results'][number]
+>;
+
+function isHelpResult(
+  item: HelpItemResultItem | null
+): item is Extract<HelpItemResultItem, { __typename: 'Help' }> {
+  return item?.__typename === 'Help';
 }
 
 export const faqRoute: RouteObjectWithPlugins = {

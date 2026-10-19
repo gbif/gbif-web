@@ -8,7 +8,7 @@ import { ClientSideOnly } from '@/components/clientSideOnly.js';
 import { Skeleton } from '@/components/ui/skeleton.js';
 const SvgMap = React.lazy(() => import('./SvgMap.jsx'));
 
-const gradients = {
+const gradients: Record<string, string> = {
   1: '#cbdbc5',
   2: '#b8ceb0',
   4: '#a6c19b',
@@ -25,7 +25,7 @@ export function Map({
   loading,
   className,
 }: {
-  listData: GbifNetworkParticipantsQuery;
+  listData: GbifNetworkParticipantsQuery | undefined;
   loading: boolean;
   className: string;
 }) {
@@ -34,23 +34,29 @@ export function Map({
   const results = listData?.nodeSearch?.results ?? [];
   // map listdata.nodesearch results to a lookup with x.participant.countryCode.toLowerCase() as key and x.participant.participationStatus as value
   const countryLookup = results
-    ?.filter((x) => x.type === 'COUNTRY')
-    .reduce((acc, x) => {
-      if (x.participant?.countryCode) {
-        acc[x.participant.countryCode.toLowerCase()] =
-          x.participant.participationStatus === 'VOTING'
-            ? votingColor
-            : x.participant.participationStatus === 'ASSOCIATE'
-            ? associateColor
-            : '#ffffff';
-      }
-      return acc;
-    }, {} as Record<string, string>);
+    ?.filter((x): x is NonNullable<typeof x> => x?.type === 'COUNTRY')
+    .reduce(
+      (acc, x) => {
+        if (x.participant?.countryCode) {
+          acc[x.participant.countryCode.toLowerCase()] =
+            x.participant.participationStatus === 'VOTING'
+              ? votingColor
+              : x.participant.participationStatus === 'ASSOCIATE'
+                ? associateColor
+                : '#ffffff';
+        }
+        return acc;
+      },
+      {} as Record<string, string>
+    );
 
-  const participants = countries.reduce((acc, c) => {
-    acc[c.toLowerCase()] = countryLookup[c.toLowerCase()] ?? '#ffffff';
-    return acc;
-  }, {} as Record<string, string>);
+  const participants = countries.reduce(
+    (acc, c) => {
+      acc[c.toLowerCase()] = countryLookup[c.toLowerCase()] ?? '#ffffff';
+      return acc;
+    },
+    {} as Record<string, string>
+  );
 
   // fetch data from /unstable-api/network-stats
   useEffect(() => {
@@ -59,7 +65,7 @@ export function Map({
       .then((data) => {
         // const results = data.collectionsPerCountry;
         const results = data.organizationsPerCountry;
-        const lookup = {};
+        const lookup: Record<string, string | undefined> = {};
 
         Object.keys(results).forEach((key) => {
           // select largest gradient color based on number of organizations
@@ -68,12 +74,15 @@ export function Map({
             .reverse()
             .find((g) => results[key] >= g);
 
-          lookup[key.toLowerCase()] = gradients[gradient];
+          lookup[key.toLowerCase()] = gradient === undefined ? undefined : gradients[gradient];
         });
-        const orgs = countries.reduce((acc, c) => {
-          acc[c.toLowerCase()] = lookup[c.toLowerCase()] ?? '#ffffff';
-          return acc;
-        }, {} as Record<string, string>);
+        const orgs = countries.reduce(
+          (acc, c) => {
+            acc[c.toLowerCase()] = lookup[c.toLowerCase()] ?? '#ffffff';
+            return acc;
+          },
+          {} as Record<string, string>
+        );
         setPublishers(orgs);
       });
   }, []);

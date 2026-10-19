@@ -34,7 +34,7 @@ const InferredEventList = ({
   id?: string;
 }) => {
   const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(DEFAULT_LIMIT);
+  const [limit] = useState(DEFAULT_LIMIT);
   const { data, load, loading } = useQuery<DatasetEventListQuery, DatasetEventListQueryVariables>(
     EVENT_LIST_QUERY,
     {
@@ -106,7 +106,7 @@ const InferredEventList = ({
                           pageId={'datasetKey'}
                           variables={{
                             key: `${datasetKey}/event/${encodeURIComponent(
-                              evt?.firstOccurrence?.eventID
+                              String(evt?.firstOccurrence?.eventID)
                             )}`,
                           }}
                           className="g-text-primary"
@@ -115,7 +115,7 @@ const InferredEventList = ({
                         </DynamicLink>
                       </td>
                       <td>
-                        <FormattedDateRange date={evt?.firstOccurrence?.eventDate} />
+                        <FormattedDateRange date={evt?.firstOccurrence?.eventDate ?? undefined} />
                       </td>
                       <td>{evt?.firstOccurrence?.samplingProtocol}</td>
                       <td>
@@ -127,12 +127,12 @@ const InferredEventList = ({
                             datasetKey: datasetKey,
                           }}
                         >
-                          <FormattedNumber value={evt?.occurrenceCount} />
+                          <FormattedNumber value={evt?.occurrenceCount ?? 0} />
                         </DynamicLink>
                       </td>
                     </tr>
                   ))
-                : Array.from({ length: 10 }).map((x, i) => (
+                : Array.from({ length: 10 }).map((_, i) => (
                     <tr key={i}>
                       <td>
                         <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />

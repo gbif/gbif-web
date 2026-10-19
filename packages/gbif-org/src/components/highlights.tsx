@@ -181,13 +181,7 @@ export function GeologicalContext({
   );
 }
 
-export function Coordinates({
-  str,
-  children,
-}: {
-  str?: string | null;
-  children?: React.ReactNode;
-}) {
+export function Coordinates({ str }: { str?: string | null; children?: React.ReactNode }) {
   if (!str) return null;
   return (
     <GenericFeature>
@@ -220,7 +214,6 @@ export function GadmClassification({
   gadm,
   className,
   children,
-  ...props
 }: {
   gadm: {
     level1: { name: string };

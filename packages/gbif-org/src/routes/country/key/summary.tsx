@@ -23,7 +23,7 @@ export function CountryKeySummary() {
 
         <DataFromCountryMap countryCode={countryCode} />
 
-        {isParticipant(data?.nodeCountry?.participant?.participationStatus) && (
+        {data?.nodeCountry && isParticipant(data.nodeCountry.participant?.participationStatus) && (
           <>
             <section>
               <Card>

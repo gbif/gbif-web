@@ -4,7 +4,7 @@
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
-import { Projection } from '@/config/config';
+import type { Projection } from '@/components/maps/openlayers/projections';
 import useBelow from '@/hooks/useBelow';
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';

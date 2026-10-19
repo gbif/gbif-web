@@ -49,23 +49,22 @@ export function getPredicateAsFilter({
   // for example if 'AND', then only acceptable if exactly 2 children and it is a range greatherThanOrEquals and lessThanOrEquals of the same key and a known range type
   // if 'EQUALS' then it is a simple key value pair and always okay if we support the filter
 
-  const filter: FilterType = {
-    must: {},
-    mustNot: {},
-  };
+  const must: Record<string, any[]> = {};
+  const mustNot: Record<string, any[]> = {};
+  const filter: FilterType = { must, mustNot };
 
   /*
   check if there are not predicates among the children. If so, they must be of different keys. And they must be either 'in' or 'equals' or 'like'
   this isn't a catch all solution since type:or predicates with children of type:and could be used to create a not predicate. And it would in some cases be accepted by the UI. 
   For those edge cases I tend to say we should create a predicate filter and link to that instead
    */
-  const notPredicates = predicate.predicates.filter((p) => p.type === 'not');
+  const notPredicates = predicate.predicates.filter((p: any) => p.type === 'not');
   // split predicates into type:not and others
-  const regularPredicates = predicate.predicates.filter((p) => p.type !== 'not');
-  const flattenedNotPredicates = notPredicates.flatMap((p) => p.predicate);
+  const regularPredicates = predicate.predicates.filter((p: any) => p.type !== 'not');
+  const flattenedNotPredicates = notPredicates.flatMap((p: any) => p.predicate);
 
   // check that they are all different keys
-  const notKeys = flattenedNotPredicates.map((p) => p.key);
+  const notKeys = flattenedNotPredicates.map((p: any) => p.key);
   if (notKeys.length !== new Set(notKeys).size) {
     return { error: 'UNABLE_TO_CONVERT' };
   }
@@ -86,12 +85,12 @@ export function getPredicateAsFilter({
       return { error: 'UNABLE_TO_CONVERT' };
     }
     if (p.type === 'equals') {
-      filter.mustNot[camelKey] = (filter.mustNot[camelKey] ?? []).concat([p.value]);
+      mustNot[camelKey] = (mustNot[camelKey] ?? []).concat([p.value]);
       continue;
     }
 
     if (p.type === 'in') {
-      filter.mustNot[camelKey] = (filter.mustNot[camelKey] ?? []).concat(p.values);
+      mustNot[camelKey] = (mustNot[camelKey] ?? []).concat(p.values);
       continue;
     }
 
@@ -100,9 +99,7 @@ export function getPredicateAsFilter({
       // camelKey may resolve to a field that has no UI filter component (e.g. a
       // serializer-only synthetic field), so guard the registry lookup before access.
       if (camelKey && filters[camelKey]?.filterType === filterConfigTypes.WILDCARD) {
-        filter.mustNot[camelKey] = (filter.mustNot[camelKey] ?? []).concat([
-          { type: 'like', value: p.value },
-        ]);
+        mustNot[camelKey] = (mustNot[camelKey] ?? []).concat([{ type: 'like', value: p.value }]);
         continue;
       }
       return { error: 'UNABLE_TO_CONVERT' };
@@ -119,12 +116,12 @@ export function getPredicateAsFilter({
       return { error: 'UNABLE_TO_CONVERT' };
     }
     if (p.type === 'equals') {
-      filter.must[camelKey] = (filter.must[camelKey] ?? []).concat([p.value]);
+      must[camelKey] = (must[camelKey] ?? []).concat([p.value]);
       continue;
     }
 
     if (p.type === 'in') {
-      filter.must[camelKey] = (filter.must[camelKey] ?? []).concat(p.values);
+      must[camelKey] = (must[camelKey] ?? []).concat(p.values);
       continue;
     }
 
@@ -133,9 +130,7 @@ export function getPredicateAsFilter({
       // camelKey may resolve to a field that has no UI filter component (e.g. a
       // serializer-only synthetic field), so guard the registry lookup before access.
       if (camelKey && filters[camelKey]?.filterType === filterConfigTypes.WILDCARD) {
-        filter.must[camelKey] = (filter.must[camelKey] ?? []).concat([
-          { type: 'like', value: p.value },
-        ]);
+        must[camelKey] = (must[camelKey] ?? []).concat([{ type: 'like', value: p.value }]);
         continue;
       }
       return { error: 'UNABLE_TO_CONVERT' };
@@ -143,7 +138,7 @@ export function getPredicateAsFilter({
 
     if (p.type === 'greaterThanOrEquals') {
       if (searchConfig.fields[camelKey]?.v1?.supportedTypes?.includes('range')) {
-        filter.must[camelKey] = (filter.must[camelKey] ?? []).concat([rangeOrTerm(`${p.value},`)]);
+        must[camelKey] = (must[camelKey] ?? []).concat([rangeOrTerm(`${p.value},`)]);
         continue;
       }
       return { error: 'UNABLE_TO_CONVERT' };
@@ -151,7 +146,7 @@ export function getPredicateAsFilter({
 
     if (p.type === 'lessThanOrEquals') {
       if (searchConfig.fields[camelKey]?.v1?.supportedTypes?.includes('range')) {
-        filter.must[camelKey] = (filter.must[camelKey] ?? []).concat([rangeOrTerm(`,${p.value}`)]);
+        must[camelKey] = (must[camelKey] ?? []).concat([rangeOrTerm(`,${p.value}`)]);
         continue;
       }
       return { error: 'UNABLE_TO_CONVERT' };
@@ -160,7 +155,7 @@ export function getPredicateAsFilter({
     if (p.type === 'and') {
       // this is only accepted in the case that there are exactly 2 children and they are of the same key. One greaterThanOrEquals and one lessThanOrEquals
       if (p.predicates.length === 2) {
-        const subPredicates = p.predicates.sort((a, b) => a.type.localeCompare(b.type));
+        const subPredicates = p.predicates.sort((a: any, b: any) => a.type.localeCompare(b.type));
         const p1 = subPredicates[0];
         const p2 = subPredicates[1];
         if (
@@ -173,7 +168,7 @@ export function getPredicateAsFilter({
             return { error: 'UNABLE_TO_CONVERT' };
           }
           if (searchConfig.fields[fieldMap[p1.key]]?.v1?.supportedTypes?.includes('range')) {
-            filter.must[fieldMap[p1.key]] = (filter.must[fieldMap[p1.key]] ?? []).concat([
+            must[fieldMap[p1.key]] = (must[fieldMap[p1.key]] ?? []).concat([
               rangeOrTerm(`${p1.value},${p2.value}`),
             ]);
             continue;
@@ -190,9 +185,7 @@ export function getPredicateAsFilter({
       // component — e.g. NUCLEOTIDE_SEQUENCE_SEQUENCE, where the real NucleotideSequence.sequence
       // object member collides with a serializer-only synthetic field. Guard before dereferencing.
       if (camelParameter && filters[camelParameter]?.allowExistence) {
-        filter.must[camelParameter] = (filter.must[camelParameter] ?? []).concat([
-          { type: 'isNotNull' },
-        ]);
+        must[camelParameter] = (must[camelParameter] ?? []).concat([{ type: 'isNotNull' }]);
         continue;
       }
       console.log('Failed to convert', p);
@@ -203,9 +196,7 @@ export function getPredicateAsFilter({
       // check if allowed. There is a risk here that different naming is used. I will ignore that for now
       // See the isNotNull branch above: guard against fields without a UI filter component.
       if (camelParameter && filters[camelParameter]?.allowExistence) {
-        filter.must[camelParameter] = (filter.must[camelParameter] ?? []).concat([
-          { type: 'isNull' },
-        ]);
+        must[camelParameter] = (must[camelParameter] ?? []).concat([{ type: 'isNull' }]);
         continue;
       }
       console.log('Failed to convert', p);

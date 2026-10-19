@@ -88,7 +88,9 @@ function DatasetTableCore({
   extractResults,
 }: DatasetTableProps & {
   query: string;
-  extractResults: (data: Record<string, DatasetListResult | null | undefined>) => DatasetListResult | null | undefined;
+  extractResults: (
+    data: Record<string, DatasetListResult | null | undefined>
+  ) => DatasetListResult | null | undefined;
 }) {
   const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const [limit] = useState(initialLimit);
@@ -118,10 +120,7 @@ function DatasetTableCore({
             <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
               <FormattedMessage id="downloadKey.title" />
             </th>
-            <th
-              scope="col"
-              className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-end"
-            >
+            <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-end">
               <FormattedMessage id="downloadKey.records" />
             </th>
           </tr>
@@ -141,7 +140,7 @@ function DatasetTableCore({
                     className="g-underline"
                     to={`/dataset/${dataset.datasetKey}`}
                     pageId="datasetKey"
-                    variables={{ key: dataset.datasetKey }}
+                    variables={{ key: dataset.datasetKey ?? '' }}
                   >
                     {dataset.datasetTitle}
                   </DynamicLink>{' '}

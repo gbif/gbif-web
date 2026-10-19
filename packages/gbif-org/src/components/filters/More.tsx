@@ -32,7 +32,7 @@ const ContentWrapper = React.forwardRef(
       filters: Filters;
       groups?: string[];
     },
-    ref
+    _ref
   ) => {
     const { formatMessage } = useIntl();
     const placeholder = formatMessage({

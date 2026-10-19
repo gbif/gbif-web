@@ -207,8 +207,7 @@ export const InferredEventDetail = ({
   // but it doesn't let us relate this event to siblings/children — only the
   // DwC eventID on a real occurrence does. So "unresolved" means we have no
   // DwC eventID, no DwC parentEventID, and we're not in a parentevent view.
-  const isUnresolved =
-    !firstOccurrence?.eventID && !parentEventID && !parentEventIdFromPath;
+  const isUnresolved = !firstOccurrence?.eventID && !parentEventID && !parentEventIdFromPath;
   if (isUnresolved) {
     return (
       <div className={cn('g-pt-8', className)}>
@@ -412,7 +411,7 @@ export const InferredEventDetail = ({
               className="g-mb-4 g-scroll-mt-24"
             >
               <AdHocMapThumbnail
-                filter={{ datasetKey, parentEventId: parentEventIdFromPath } as unknown as JSON}
+                filter={{ datasetKey, parentEventId: parentEventIdFromPath }}
                 className="g-rounded g-overflow-hidden"
                 params={{
                   mode: 'GEO_CENTROID',
@@ -440,76 +439,76 @@ export const InferredEventDetail = ({
 
           {/* Occurrence summary — opt-in, matches the sampling event page.
               Hidden for events with 0 or 1 occurrence — a breakdown isn't meaningful. */}
-          {(total ?? 0) > 1 && (() => {
-            const summaryEventPredicate = isParentView
-              ? {
-                  type: PredicateType.Equals,
-                  key: 'parentEventId',
-                  value: parentEventIdFromPath,
-                }
-              : {
-                  type: PredicateType.Equals,
-                  key: 'eventId',
-                  value: eventID,
-                };
-            const summaryPredicate = {
-              type: PredicateType.And,
-              predicates: [
-                { type: PredicateType.Equals, key: 'datasetKey', value: datasetKey },
-                summaryEventPredicate,
-              ],
-            };
-            return (
-              <div id="occurrence-summary" className="g-mb-4 g-scroll-mt-24">
-                <ClientSideOnly>
-                  <ErrorBoundary
-                    type="BLOCK"
-                    errorMessage={<FormattedMessage id="eventDetails.errors.taxa" />}
-                  >
-                    {showSummary ? (
-                      <div className="g-space-y-4">
-                        <Taxa defaultRank={'species'} predicate={summaryPredicate} />
-                        <OccurrenceTaxonomySunburst predicate={summaryPredicate} />
-                      </div>
-                    ) : (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>
-                            <FormattedMessage
-                              id="eventDetails.occurrenceSummary"
-                              defaultMessage="Occurrence summary"
-                            />
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="g-flex g-items-start g-gap-4">
-                            <p className="g-flex-auto g-min-w-0 g-text-sm g-text-slate-500">
+          {(total ?? 0) > 1 &&
+            (() => {
+              const summaryEventPredicate = isParentView
+                ? {
+                    type: PredicateType.Equals,
+                    key: 'parentEventId',
+                    value: parentEventIdFromPath,
+                  }
+                : {
+                    type: PredicateType.Equals,
+                    key: 'eventId',
+                    value: eventID,
+                  };
+              const summaryPredicate = {
+                type: PredicateType.And,
+                predicates: [
+                  { type: PredicateType.Equals, key: 'datasetKey', value: datasetKey },
+                  summaryEventPredicate,
+                ],
+              };
+              return (
+                <div id="occurrence-summary" className="g-mb-4 g-scroll-mt-24">
+                  <ClientSideOnly>
+                    <ErrorBoundary
+                      type="BLOCK"
+                      errorMessage={<FormattedMessage id="eventDetails.errors.taxa" />}
+                    >
+                      {showSummary ? (
+                        <div className="g-space-y-4">
+                          <Taxa defaultRank={'species'} predicate={summaryPredicate} />
+                          <OccurrenceTaxonomySunburst predicate={summaryPredicate} />
+                        </div>
+                      ) : (
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>
                               <FormattedMessage
-                                id="eventDetails.occurrenceSummaryHint"
-                                defaultMessage="A breakdown by taxa and a taxonomic sunburst for this event. The underlying queries can be slow — generate on demand."
+                                id="eventDetails.occurrenceSummary"
+                                defaultMessage="Occurrence summary"
                               />
-                            </p>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="g-flex-none"
-                              onClick={() => setShowSummary(true)}
-                            >
-                              <FormattedMessage
-                                id="eventDetails.generateOccurrenceSummary"
-                                defaultMessage="Generate summary"
-                              />
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-                  </ErrorBoundary>
-                </ClientSideOnly>
-              </div>
-            );
-          })()}
-
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="g-flex g-items-start g-gap-4">
+                              <p className="g-flex-auto g-min-w-0 g-text-sm g-text-slate-500">
+                                <FormattedMessage
+                                  id="eventDetails.occurrenceSummaryHint"
+                                  defaultMessage="A breakdown by taxa and a taxonomic sunburst for this event. The underlying queries can be slow — generate on demand."
+                                />
+                              </p>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="g-flex-none"
+                                onClick={() => setShowSummary(true)}
+                              >
+                                <FormattedMessage
+                                  id="eventDetails.generateOccurrenceSummary"
+                                  defaultMessage="Generate summary"
+                                />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      )}
+                    </ErrorBoundary>
+                  </ClientSideOnly>
+                </div>
+              );
+            })()}
         </div>
       </SidebarLayout>
     </div>
@@ -579,13 +578,7 @@ function humanize(id: string): string {
     .trim();
 }
 
-function SimpleProperty({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function SimpleProperty({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <>
       <dt className="g-text-slate-600 g-leading-tight">
@@ -621,4 +614,3 @@ function SampledAt({
     </span>
   );
 }
-

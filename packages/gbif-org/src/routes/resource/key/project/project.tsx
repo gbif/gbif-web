@@ -129,7 +129,7 @@ export function ProjectPage() {
               </GenericFeature>
             )}
 
-            {citationsCount > 0 && !citationsLoading && !citationsError && (
+            {!!citationsCount && !citationsLoading && !citationsError && (
               <GenericFeature className="g-underline">
                 <CitationIcon />
                 <DynamicLink

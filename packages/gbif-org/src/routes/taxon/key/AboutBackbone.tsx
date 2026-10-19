@@ -32,9 +32,9 @@ export default function AboutBackbone() {
   const [hasTypeMaterial, setHasTypeMaterial] = useState(false);
   const onTypeMaterialData = useCallback((hasData: boolean) => setHasTypeMaterial(hasData), []);
 
-  const taxon = data?.taxonInfo;
   const taxonInfo = data?.taxonInfo;
   if (!taxonInfo) throw new NotFoundError();
+  const taxon = taxonInfo;
 
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.taxonRank);
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.taxonRank);

@@ -1,7 +1,6 @@
 import { HyperText } from '@/components/hyperText';
 import TestSiteAlert from '@/components/TestSiteAlert';
 import { Button } from '@/components/ui/button';
-import { useI18n } from '@/reactRouterPlugins/i18n/i18nContextProvider';
 import { MdDownload } from 'react-icons/md';
 const testSite = import.meta.env.PUBLIC_TEST_SITE === 'true';
 
@@ -11,7 +10,6 @@ type Props = {
 };
 
 export function Citation({ text, doi }: Props) {
-  const { locale } = useI18n();
   return (
     <div>
       <TestSiteAlert className="g-mb-4" />

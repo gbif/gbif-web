@@ -11,7 +11,6 @@ import {
   GlobeIcon,
   Homepage,
   IIIF,
-  Location,
   SamplingEvent,
   Sequenced,
   TaxonomyIcon,

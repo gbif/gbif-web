@@ -39,6 +39,7 @@ fragmentManager.register(/* GraphQL */ `
 `);
 
 export function LiteratureResult({ literature }: { literature: LiteratureResultFragment }) {
+  const keywords = literature.keywords;
   // Helper function to get the primary link
   const getPrimaryLink = () => {
     if (literature.identifiers?.doi) {
@@ -135,13 +136,13 @@ export function LiteratureResult({ literature }: { literature: LiteratureResultF
         )}
 
         {/* Keywords */}
-        {literature.keywords && literature.keywords.length > 0 && (
+        {keywords && keywords.length > 0 && (
           <div className="g-mb-4">
             <ul className="g-flex g-flex-wrap g-gap-1">
-              {literature.keywords.slice(0, 6).map((keyword, index) => (
+              {keywords.slice(0, 6).map((keyword, index) => (
                 <li key={index} className="g-text-xs g-text-slate-500">
                   {keyword}
-                  {index < Math.min(literature.keywords.length, 6) - 1 && ' •'}
+                  {index < Math.min(keywords.length, 6) - 1 && ' •'}
                 </li>
               ))}
             </ul>
@@ -178,22 +179,6 @@ export function LiteratureResult({ literature }: { literature: LiteratureResultF
             </Tag>
           )}
         </div>
-
-        {/* GBIF DOIs */}
-        {literature.gbifDownloadKey && literature.gbifDownloadKey.length > 0 && (
-          <div className="g-mb-4">
-            <span className="g-text-xs g-text-slate-500 g-block g-mb-2">
-              <FormattedMessage id={'resource.dataUsedInStudy'} />
-            </span>
-            <div className="g-flex g-flex-wrap g-gap-1">
-              {literature.gbifDownloadKey.slice(0, 50).map((doi, index) => (
-                <Tag key={index}>
-                  <DynamicLink to={`https://doi.org/${doi}`}>DOI: {doi}</DynamicLink>
-                </Tag>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Google Scholar link */}
         {googleScholarUrl && (

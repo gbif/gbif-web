@@ -1,5 +1,5 @@
 import { useConfig } from '@/config/config';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
+import { cleanUpFilter, FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
@@ -20,7 +20,7 @@ import { MdShuffle } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { AboutButton, iconButtonClass } from '../aboutButton';
-import { ApplyCancel, FacetQuery, getAsQuery } from '../filterTools';
+import { ApplyCancel, ContentOnApply, FacetQuery, getAsQuery } from '../filterTools';
 import { Option } from '../option';
 
 type SequenceFilterProps = {
@@ -31,7 +31,7 @@ type SequenceFilterProps = {
   // the other active filters.
   facetQuery?: string;
   searchConfig: FilterConfigType;
-  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+  onApply?: ContentOnApply;
   onCancel?: () => void;
   className?: string;
   style?: React.CSSProperties;
@@ -39,7 +39,10 @@ type SequenceFilterProps = {
 };
 
 export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterProps>(
-  ({ filterHandle, about: About, facetQuery, searchConfig, onApply, onCancel, className, style }, ref) => {
+  (
+    { filterHandle, about: About, facetQuery, searchConfig, onApply, onCancel, className, style },
+    ref
+  ) => {
     const { filter, setField } = useContext(FilterContext);
     const config = useConfig();
     const searchContext = useSearchContext();
@@ -152,7 +155,9 @@ export const SequenceFilter = React.forwardRef<HTMLDivElement, SequenceFilterPro
       const extra = { include: candidateIds, size: candidateIds.length };
       facetLoad({
         variables:
-          searchContext.queryType === 'V1' ? { query, ...extra } : { ...(query as object), ...extra },
+          searchContext.queryType === 'V1'
+            ? { query, ...extra }
+            : { ...(query as object), ...extra },
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [facetQuery, candidateKey, prunedHash]);

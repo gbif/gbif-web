@@ -62,14 +62,15 @@ export function CollectionKey({
   );
 }
 
-export function DatasetKey({ occurrence }) {
+export function DatasetKey({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+  if (!occurrence) return null;
   return (
     <BasicField label="occurrenceDetails.dataset">
       <DynamicLink
         className="g-underline"
         to={`/dataset/${occurrence.datasetKey}`}
         pageId="datasetKey"
-        variables={{ key: occurrence.datasetKey }}
+        variables={{ key: occurrence.datasetKey ?? '' }}
       >
         {occurrence.datasetTitle}
       </DynamicLink>
@@ -77,7 +78,10 @@ export function DatasetKey({ occurrence }) {
   );
 }
 
-export function AgentIds({ termMap, showAll, occurrence }) {
+// termMap and occurrence mirror the untyped props of the groups in ./groups
+type AgentProps = { termMap?: any; showAll?: boolean; occurrence: any };
+
+export function AgentIds({ termMap, showAll, occurrence }: AgentProps) {
   if (equal(occurrence.recordedByIDs, occurrence.identifiedByIDs)) {
     return (
       <Agents label="occurrenceDetails.recordedAndIdentifiedBy" value={occurrence.recordedByIDs} />
@@ -92,11 +96,11 @@ export function AgentIds({ termMap, showAll, occurrence }) {
   }
 }
 
-export function RecordedById({ occurrence }) {
+export function RecordedById({ occurrence }: AgentProps) {
   return <Agents label="occurrenceFieldNames.recordedByID" value={occurrence.recordedByIDs} />;
 }
 
-export function IdentifiedById({ occurrence }) {
+export function IdentifiedById({ occurrence }: AgentProps) {
   return <Agents label="occurrenceFieldNames.identifiedByID" value={occurrence.identifiedByIDs} />;
 }
 
