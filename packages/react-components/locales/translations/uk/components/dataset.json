@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "Країни та регіони, що публікують дані",
   "originalArchive": "Вихідний архів",
   "originalArchiveDescription": "Архів анотований GBIF",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "Архів анотований GBIF",
   "checklistBankDownloadDescription": "Архів анотований GBIF",
   "annotatedEml": "GBIF анотовані метадані",
@@ -149,6 +151,7 @@
   "griddedData": "Дані, узагальнені до регулярної сітки",
   "griddedDataDescription": "Виходячи з нашого аналізу записів, цей набір даних, вірогідно, містить дані, узагальнені до регулярної сітки. Дізнатися більше з [допису про набори, узагальнені до регулярної сітки](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "Статистичні показники для знахідок",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "Невдалі спроби з моменту останнього успішного влиття даних",
     "lastFailed": "Остання невдала спроба",

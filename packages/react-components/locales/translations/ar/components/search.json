@@ -53,6 +53,8 @@
     "default": "الإفتراضي",
     "random": "",
     "showMore": "",
+    "moreImagesHint": "",
+    "moreImagesLink": "",
     "cappedHint": "",
     "useAsFilter": "",
     "unspecified": "غير محدد"
