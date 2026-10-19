@@ -20,7 +20,7 @@
     "description": "Запис має геопросторові помилки"
   },
   "collectionKey": {
-    "name": "Колекція",
+    "name": "",
     "description": ""
   },
   "predicate": {
@@ -532,7 +532,7 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "Установа",
+    "name": "",
     "description": ""
   },
   "name": {
