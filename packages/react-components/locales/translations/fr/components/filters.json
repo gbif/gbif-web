@@ -20,7 +20,7 @@
     "description": "Si l'enregistrement présente des problèmes géospatiaux."
   },
   "collectionKey": {
-    "name": "Collection",
+    "name": "",
     "description": "La collection de GrSciColl à laquelle cet enregistrement a été associé"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
-    "description": "Le nom scientifique tel qu'il apparaît dans le squelette taxonomique du GBIF. Ces noms sont normalisés pour faciliter la recherche dans tous les jeux de données. Il est possible qu'un nom fourni à l'origine soit mal interprété ou inconnu. Pour rechercher les noms tels que fournis, utilisez le filtre \"Verbatim du nom scientifique\"."
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "Nom scientifique du taxon",
@@ -532,7 +532,7 @@
     "description": "Une courte description du composant devrait être placée ici"
   },
   "institutionKey": {
-    "name": "Institution",
+    "name": "",
     "description": "Le nom de l'institution ayant l'autorité sur les objet(s) ou des informations visées dans l'enregistrement."
   },
   "name": {
