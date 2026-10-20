@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query InstallationDatasets($installation: ID!, $limit: Int!, $offset: Int!) {\n    installation(key: $installation) {\n      dataset(limit: $limit, offset: $offset) {\n        limit\n        offset\n        count\n        endOfRecords\n        results {\n          ...DatasetResult\n        }\n      }\n    }\n  }\n\n  fragment DatasetResult on Dataset {\n    key\n    title\n    excerpt\n    type\n    publishingOrganizationTitle\n  }\n",
+      "variables": {
+        "installation": "a3c51b22-e3ff-4ddf-a82e-13f442763e86",
+        "limit": 5,
+        "offset": 0
+      },
+      "operationName": "InstallationDatasets"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"installation\":{\"dataset\":{\"limit\":5,\"offset\":0,\"count\":1,\"endOfRecords\":true,\"results\":[{\"key\":\"9559a708-d68f-44ff-ab72-f0b10db20c65\",\"title\":\"Bandon Marsh NWR: Shorebirds - Distribution and Abundance - Bandon Marsh Unit - Darwin Core Archive\",\"excerpt\":\"Shorebird distribution and abundance surveys at the Bandon Marsh Unit of Bandon Marsh National Wildlife Refuge, Oregon, initiated in 2023. This pilot monitoring addresses concern that spring…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"United States Fish and Wildlife Service\"}]}}}}\n"
+}

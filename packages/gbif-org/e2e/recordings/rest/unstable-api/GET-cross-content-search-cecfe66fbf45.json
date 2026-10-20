@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://graphql.gbif.org/unstable-api/cross-content-search?languageCode=eng&q=puma&checklistKey=7ddf754f-d193-4cc9-b351-99906754a03b"
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"countries\":[],\"participant\":{},\"taxa\":[{\"taxonID\":\"75F9\",\"label\":\"<i>Puma</i> Jardine, 1834\",\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"scientificName\":\"Puma\",\"taxonRank\":\"GENUS\",\"taxonomicStatus\":\"ACCEPTED\",\"parentTree\":[{\"scientificName\":\"Eukaryota\",\"taxonID\":\"CS5HF\"},{\"scientificName\":\"Animalia\",\"taxonID\":\"N\"},{\"scientificName\":\"Chordata\",\"taxonID\":\"CH2\"},{\"scientificName\":\"Vertebrata\",\"taxonID\":\"8V4V3\"},{\"scientificName\":\"Gnathostomata\",\"taxonID\":\"8V4V5\"},{\"scientificName\":\"Osteichthyes\",\"taxonID\":\"8VVWB\"},{\"scientificName\":\"Tetrapoda\",\"taxonID\":\"9CK8W\"},{\"scientificName\":\"Mammalia\",\"taxonID\":\"6224G\"},{\"scientificName\":\"Theria\",\"taxonID\":\"6226C\"},{\"scientificName\":\"Eutheria\",\"taxonID\":\"LG\"},{\"scientificName\":\"Carnivora\",\"taxonID\":\"VS\"},{\"scientificName\":\"Feliformia\",\"taxonID\":\"4DL\"},{\"scientificName\":\"Felidae\",\"taxonID\":\"623RM\"},{\"scientificName\":\"Felinae\",\"taxonID\":\"JKL\"},{\"scientificName\":\"Puma\",\"taxonID\":\"75F9\"}],\"mapCapabilities\":{\"total\":16602},\"acceptedTaxon\":null}],\"occurrences\":{}}"
+}

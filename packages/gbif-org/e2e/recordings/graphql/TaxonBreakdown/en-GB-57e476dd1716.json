@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query TaxonBreakdown($key: ID!, $datasetKey: ID!) {\n    taxonInfo(key: $key, datasetKey: $datasetKey) {\n      key: taxonID\n      rank: taxonRank\n      scientificName\n      datasetKey\n      checklistBankBreakdown: breakdown(sortByCount: true) {\n        id: taxonID\n        name: scientificName\n        rank: taxonRank\n        species\n        children: breakdown {\n          id: taxonID\n          name: scientificName\n          rank: taxonRank\n          species\n          children: breakdown {\n            id: taxonID\n            name: scientificName\n            rank: taxonRank\n            species\n          }\n        }\n      }\n    }\n  }\n",
+      "variables": {
+        "key": "4DXXM",
+        "datasetKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+      },
+      "operationName": "TaxonBreakdown"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"taxonInfo\":{\"key\":\"4DXXM\",\"rank\":\"SPECIES\",\"scientificName\":\"Passer domesticus\",\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"checklistBankBreakdown\":null}}}\n"
+}

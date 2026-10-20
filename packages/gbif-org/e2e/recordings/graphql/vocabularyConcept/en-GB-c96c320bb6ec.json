@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query vocabularyConcept($language: String, $vocabulary: ID!, $concept: ID!) {\n    concept: vocabularyConcept(vocabulary: $vocabulary, concept: $concept) {\n      uiLabel(language: $language)\n      uiDefinition(language: $language)\n      parents {\n        uiLabel(language: $language)\n      }\n    }\n  }\n",
+      "variables": {
+        "vocabulary": "TypeStatus",
+        "concept": "Holotype",
+        "language": "en"
+      },
+      "operationName": "vocabularyConcept"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"concept\":{\"uiLabel\":\"holotype\",\"uiDefinition\":\"The one specimen or other element used or designated by the original author at the time of publication of the original description as the nomenclatural type of a species or infraspecific taxon.\",\"parents\":[{\"uiLabel\":\"type\"}]}}}\n"
+}

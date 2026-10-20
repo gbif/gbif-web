@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "target": "https://graphql.gbif.org/unstable-api/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=1"
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"version\":8,\"name\":\"gbif-osm-3857\",\"metadata\":{\"gb:reproject\":false},\"sprite\":\"https://openmaptiles.github.io/positron-gl-style/sprite\",\"glyphs\":\"https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=uviSBUs8IWB6PC4cLu4F\",\"sources\":{\"openmaptiles\":{\"type\":\"raster\",\"tiles\":[\"https://tile.gbif.org/3857/omt/{z}/{x}/{y}@1x.png?style=gbif-osm-en\"],\"projection\":\"EPSG:3857\",\"wrapX\":true,\"maxZoom\":17,\"attribution\":\"<span dir='ltr'>© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, © <a href='https://openmaptiles.org/'>OpenMapTiles</a>, <a href='https://www.gbif.org/citation-guidelines'>GBIF</a></span>\",\"tileSize\":512}},\"layers\":[{\"id\":\"background\",\"paint\":{\"background-color\":\"#f3f3f1\"},\"type\":\"background\"},{\"id\":\"base-layer\",\"type\":\"raster\",\"source\":\"openmaptiles\"}],\"id\":\"gbif-osm-3857\"}"
+}

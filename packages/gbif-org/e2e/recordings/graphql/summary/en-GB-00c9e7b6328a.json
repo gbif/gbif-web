@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: license\n        }\n        facet {\n          results: license(size: $size, from: $from) {\n            key\n            count\n            occurrences {\n              metaPredicate\n              _meta\n            }\n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "networkKey",
+          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "license"
+            },
+            {
+              "type": "equals",
+              "key": "networkKey",
+              "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":314272196},\"cardinality\":{\"total\":3},\"facet\":{\"results\":[{\"key\":\"CC0_1_0\",\"count\":221104432,\"occurrences\":{\"metaPredicate\":-594243087,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"license\",\"value\":\"CC0_1_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"LICENSE\",\"value\":\"CC0_1_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"license\":{\"value\":\"CC0_1_0\"}}}]}}]}}]}}}}},{\"key\":\"CC_BY_4_0\",\"count\":79186365,\"occurrences\":{\"metaPredicate\":453759788,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"license\",\"value\":\"CC_BY_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"LICENSE\",\"value\":\"CC_BY_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"license\":{\"value\":\"CC_BY_4_0\"}}}]}}]}}]}}}}},{\"key\":\"CC_BY_NC_4_0\",\"count\":13981399,\"occurrences\":{\"metaPredicate\":939482532,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"license\",\"value\":\"CC_BY_NC_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"LICENSE\",\"value\":\"CC_BY_NC_4_0\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"license\":{\"value\":\"CC_BY_NC_4_0\"}}}]}}]}}]}}}}}]}}}}\n"
+}
