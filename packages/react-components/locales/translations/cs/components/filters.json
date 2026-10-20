@@ -20,7 +20,7 @@
     "description": "Rovná se {from}"
   },
   "collectionKey": {
-    "name": "Sbírka",
+    "name": "",
     "description": "Sbírka v GrSciColl, ke které byl tento záznam přiřazen"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Vědecký název",
-    "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Přesný vědecký název\"."
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
@@ -532,7 +532,7 @@
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionKey": {
-    "name": "Instituce",
+    "name": "",
     "description": "Název instituce, která má v úschově předmět(y) nebo informace uvedené v záznamu."
   },
   "name": {

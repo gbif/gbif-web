@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
-    "description": "Der normierte wissenschaftliche Name, wie er in der GBIF-Backbone-Taxonomie erscheint. Die wissenschaftlichen Namen werden normalisiert, um die Suche über Datensätze hinweg zu erleichtern. Es ist möglich, dass ein ursprünglich angegebener Name falsch interpretiert oder unbekannt ist. Für eine Suche in den Originalnamen bitte den Filter \"ursprünglicher wissenschaftlicher Name\" verwenden."
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "",
@@ -532,7 +532,7 @@
     "description": "Subtyp des Datatsets"
   },
   "institutionKey": {
-    "name": "Institution",
+    "name": "",
     "description": "Der Name der Institution, auf das Objekt oder die Informationen zum Datensatz verwahrt."
   },
   "name": {

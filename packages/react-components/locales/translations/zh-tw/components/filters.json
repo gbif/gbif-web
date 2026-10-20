@@ -20,7 +20,7 @@
     "description": "等於 {is}"
   },
   "collectionKey": {
-    "name": "蒐藏集",
+    "name": "",
     "description": "這個紀錄與在 GrSciColl 中的蒐藏相符合"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "學名",
-    "description": "GBIF 骨幹分類中出現的學名。這些名稱經過標準化以方便跨資料集的搜尋。最初提供的名稱可能會被誤解或未知。若要搜尋所提供的名稱，請使用「逐字學名」篩選。"
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "學名",
@@ -532,7 +532,7 @@
     "description": "在此輸入此項目的簡短敘述"
   },
   "institutionKey": {
-    "name": "機構",
+    "name": "",
     "description": "對於紀錄的物件或資訊擁有保管權的機構識別碼"
   },
   "name": {

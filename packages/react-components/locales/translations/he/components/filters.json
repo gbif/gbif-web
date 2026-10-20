@@ -20,7 +20,7 @@
     "description": "האם לרשומה יש בעיות גיאו־מרחביות."
   },
   "collectionKey": {
-    "name": "אוסף",
+    "name": "",
     "description": "האוסף ב־GrSciColl שאליו הרשומה שויכה"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "שם מדעי",
-    "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across מסד נתוניםs. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "שם מדעי",
@@ -532,7 +532,7 @@
     "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "institutionKey": {
-    "name": "מוסד",
+    "name": "",
     "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
