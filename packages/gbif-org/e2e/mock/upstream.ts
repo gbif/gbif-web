@@ -19,7 +19,8 @@
 //      record            serve the recording; without one, fetch from production and save it.
 //      refresh           fetch every key once per run from production and overwrite its recording.
 //      live              fetch from E2E_UPSTREAM (prod, test or dev) or E2E_GRAPHQL_ORIGIN /
-//                        E2E_API_ORIGIN, save nothing. E2E_UPSTREAM_HEADERS (JSON) adds headers.
+//                        E2E_API_ORIGIN / E2E_CONTENT_ORIGIN, save nothing. E2E_UPSTREAM_HEADERS
+//                        (JSON) adds headers.
 //   6. If a test registered a fault for this GraphQL operation, break the answer before sending it
 //      (see Fault). Faults never reach the recordings.
 //
@@ -51,10 +52,22 @@ if (!['replay', 'record', 'refresh', 'live'].includes(MODE)) {
   throw new Error(`Unknown E2E_MODE ${MODE}; use replay, record, refresh or live`);
 }
 
-const ENVIRONMENTS: Record<string, { graphql: string; api: string }> = {
-  prod: { graphql: 'https://graphql.gbif.org', api: 'https://api.gbif.org' },
-  test: { graphql: 'https://graphql.gbif-test.org', api: 'https://api.gbif-test.org' },
-  dev: { graphql: 'https://graphql.gbif-dev.org', api: 'https://api.gbif-dev.org' },
+const ENVIRONMENTS: Record<string, { graphql: string; api: string; content: string }> = {
+  prod: {
+    graphql: 'https://graphql.gbif.org',
+    api: 'https://api.gbif.org',
+    content: 'https://hp-search.gbif.org',
+  },
+  test: {
+    graphql: 'https://graphql.gbif-test.org',
+    api: 'https://api.gbif-test.org',
+    content: 'https://hp-search.gbif-test.org',
+  },
+  dev: {
+    graphql: 'https://graphql.gbif-dev.org',
+    api: 'https://api.gbif-dev.org',
+    content: 'https://hp-search.gbif-dev.org',
+  },
 };
 const UPSTREAM_NAME = (process.env.E2E_UPSTREAM || 'prod').toLowerCase();
 const ENVIRONMENT = ENVIRONMENTS[UPSTREAM_NAME];
@@ -63,8 +76,11 @@ if (!ENVIRONMENT) {
 }
 const GRAPHQL_ORIGIN = process.env.E2E_GRAPHQL_ORIGIN || ENVIRONMENT.graphql;
 const API_ORIGIN = process.env.E2E_API_ORIGIN || ENVIRONMENT.api;
+const CONTENT_ORIGIN = process.env.E2E_CONTENT_ORIGIN || ENVIRONMENT.content;
 const IS_PROD =
-  GRAPHQL_ORIGIN === ENVIRONMENTS.prod.graphql && API_ORIGIN === ENVIRONMENTS.prod.api;
+  GRAPHQL_ORIGIN === ENVIRONMENTS.prod.graphql &&
+  API_ORIGIN === ENVIRONMENTS.prod.api &&
+  CONTENT_ORIGIN === ENVIRONMENTS.prod.content;
 if (RECORDS && !IS_PROD) {
   throw new Error(
     `E2E_MODE=${MODE} only records from production; use E2E_MODE=live for ${GRAPHQL_ORIGIN}`
@@ -94,7 +110,7 @@ const UPSTREAMS: Upstream[] = [
   { prefix: '/translations', kind: 'translations' },
   { prefix: '/unstable-api', base: `${GRAPHQL_ORIGIN}/unstable-api` },
   { prefix: '/forms', base: `${GRAPHQL_ORIGIN}/forms` },
-  { prefix: '/content', base: `${GRAPHQL_ORIGIN}/content` },
+  { prefix: '/content', base: `${CONTENT_ORIGIN}/content` },
   { prefix: '/api/v1', base: `${API_ORIGIN}/v1` },
   { prefix: '/api/v2', base: `${API_ORIGIN}/v2` },
   { prefix: '/api', base: API_ORIGIN },

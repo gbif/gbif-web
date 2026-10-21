@@ -233,7 +233,8 @@ E2E_UPSTREAM=dev npm run e2e:live -- e2e/specs/gbif/my-feature.spec.ts       # p
 E2E_GRAPHQL_ORIGIN=http://localhost:4123 npm run e2e:live -- e2e/specs/gbif/my-feature.spec.ts
 ```
 
-`E2E_API_ORIGIN` overrides the REST API the same way. Record and refresh only run against
+`E2E_API_ORIGIN` overrides the REST API the same way, and `E2E_CONTENT_ORIGIN` the content search
+(`/content`, served by hp-search, not graphql-api). Record and refresh only run against
 production, so recordings never come from other environments. Run only the specs you are working
 on: the rest assert production content, and the build still uses production checklist keys. Once
 the API is in production, run `npm run e2e:record` and commit. Until then the spec fails in replay,
