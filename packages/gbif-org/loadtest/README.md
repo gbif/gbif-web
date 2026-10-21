@@ -62,8 +62,9 @@ npm run loadtest:mock:record
 # Terminal B — SSR server
 npm run start:loadtest
 
-# Terminal C — load exactly one taxon page so the mock captures everything SSR needs
-curl -s http://localhost:3000/taxon/2476674 > /dev/null
+# Terminal C — load exactly one taxon page so the mock captures everything SSR needs.
+# Use a Catalogue of Life id: a GBIF backbone id such as 2476674 records a 404.
+curl -s http://localhost:3000/taxon/4CGXP > /dev/null
 ```
 
 You should see `[record] ... saved gql.POST.TaxonKey` (or `gql.GET.<hash>`), plus header and
@@ -144,4 +145,5 @@ rm .env.loadtest
 > Note: the loadtest overlay only takes effect when you build/start with `--mode loadtest`; a normal
 > `npm run build` / `npm start` ignores `.env.loadtest` entirely, so it can sit in the repo root
 > without affecting your regular workflow. For the loadtest, the build bakes the SSR endpoints from
-> `.env.loadtest`; the runtime SSR server reads them from the baked bundle.
+> `.env.loadtest`, and `start:loadtest` / `start:profile` load it with `--env-file` so the server's
+> own proxy caches (header, network, occurrence snapshots) also go to the mock.
