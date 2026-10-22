@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "40b6dcac-cd25-4d2b-bf00-36bc9314ab9a"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"item\":{\"title\":\"Global Register of Introduced and Invasive Species - Aruba\"}}}\n"
+}

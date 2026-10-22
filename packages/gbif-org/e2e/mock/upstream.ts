@@ -10,7 +10,8 @@
 //   2. Pick the upstream by longest path prefix (UPSTREAMS). Tiles and analytics images are stubbed
 //      blank; translations come from the bundled src/config/fallback/.
 //   3. GraphQL GETs get {"unknownQueryId":true}, so the client retries as a POST that carries the
-//      operation name, query and variables.
+//      operation name, query and variables. A GET that already carries ?query= is handled as that
+//      POST.
 //   4. Compute the recording key (recordingPath): operation + locale + query text + variables for
 //      GraphQL, method + path + sorted query string for REST. Exact, so a changed query is a miss
 //      rather than a stale replay. Unnamed GraphQL operations are refused in every mode.
@@ -402,6 +403,14 @@ function reply(res: Response, rec: Recording, fault: Fault | undefined) {
   sendRecording(res, fault ? applyFault(rec, fault) : rec);
 }
 
+function graphQLBodyOf(url: URL): GraphQLBody {
+  const variables = url.searchParams.get('variables');
+  return {
+    query: url.searchParams.get('query') ?? undefined,
+    ...(variables ? { variables: JSON.parse(variables) } : {}),
+  };
+}
+
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
     const chunks: Uint8Array[] = [];
@@ -473,14 +482,20 @@ async function handle(req: IncomingMessage, res: Response) {
     return send(res, 404, {}, `no bundled messages for ${file}`);
   }
 
-  // Forces graphQLService to fall back to POST, which carries operation name and variables.
-  if (upstream.kind === 'graphql' && req.method === 'GET') {
+  // Forces graphQLService to fall back to POST, which carries operation name and variables. GETs
+  // with the query text itself (the filter labels) have no fallback, so they are answered as that POST.
+  const graphQLGet = upstream.kind === 'graphql' && req.method === 'GET';
+  if (graphQLGet && !url.searchParams.has('query')) {
     return send(res, 200, { 'content-type': 'application/json' }, '{"unknownQueryId":true}');
   }
 
-  const method = req.method ?? 'GET';
-  const raw = method === 'POST' ? await readBody(req) : '';
-  const body: GraphQLBody | undefined = raw ? JSON.parse(raw) : undefined;
+  const method = graphQLGet ? 'POST' : (req.method ?? 'GET');
+  const raw = req.method === 'POST' ? await readBody(req) : '';
+  const body: GraphQLBody | undefined = raw
+    ? JSON.parse(raw)
+    : graphQLGet
+      ? graphQLBodyOf(url)
+      : undefined;
   const key = recordingPath(upstream, method, url, body, req.headers);
 
   // Recordings are filed by operation name; unnamed queries would all share one folder.

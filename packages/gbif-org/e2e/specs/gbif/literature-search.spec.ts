@@ -176,20 +176,38 @@ test.describe('More filters', () => {
   });
 });
 
-// One URL per filter: 0 < filtered < unfiltered, and a chip. `chip` is the filter's name.
-const URL_ROWS: Array<{ handle: string; value: string; name: string; exactly?: number }> = [
+// One URL per filter: 0 < filtered < unfiltered, and a chip. `chip` is the filter's name; `label`
+// is the value a key resolves to, so an unresolved "Unknown" fails.
+const URL_ROWS: Array<{
+  handle: string;
+  value: string;
+  name: string;
+  label?: string;
+  exactly?: number;
+}> = [
   { handle: 'q', value: 'sparrow', name: 'Full text search' },
   { handle: 'year', value: '2020', name: 'Year of publication' },
   { handle: 'countriesOfResearcher', value: 'GB', name: 'Country or area of researcher' },
   { handle: 'countriesOfCoverage', value: 'BR', name: 'Country or area of coverage' },
-  { handle: 'gbifDatasetKey', value: '50c9509d-22c7-4a22-a47d-8c48425ef4a7', name: 'Dataset' },
+  {
+    handle: 'gbifDatasetKey',
+    value: '50c9509d-22c7-4a22-a47d-8c48425ef4a7',
+    name: 'Dataset',
+    label: 'iNaturalist Research-grade Observations',
+  },
   {
     handle: 'publishingOrganizationKey',
     value: '28eb1a3f-1c15-4a95-931a-4af90ecb574d',
     name: 'Publisher',
+    label: 'iNaturalist.org',
   },
-  { handle: 'gbifNetworkKey', value: '2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6', name: 'Network' },
-  { handle: 'gbifTaxonKey', value: '212', name: 'Scientific name' },
+  {
+    handle: 'gbifNetworkKey',
+    value: '2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6',
+    name: 'Network',
+    label: 'Ocean Biodiversity Information System (OBIS)',
+  },
+  { handle: 'gbifTaxonKey', value: '212', name: 'Scientific name', label: 'Aves' },
   { handle: 'literatureType', value: 'journal', name: 'Literature type' },
   { handle: 'relevance', value: 'GBIF_USED', name: 'Relevance' },
   { handle: 'topics', value: 'CONSERVATION', name: 'Topic' },
@@ -215,6 +233,7 @@ test.describe('one URL per filter', () => {
       } else {
         await expect(chip(page, row.name)).toBeVisible();
       }
+      if (row.label) await expect(chip(page, row.name)).toContainText(row.label);
       const filtered = await count(page);
       expect(filtered).toBeGreaterThan(0);
       expect(filtered).toBeLessThan(total);

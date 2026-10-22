@@ -121,7 +121,8 @@ Steps in order:
    images are answered blank. Translations come from the bundled `src/config/fallback/`, so they
    match the repo and do not need recording.
 3. GraphQL GETs are answered `{"unknownQueryId":true}`, so the client retries as a POST, which
-   carries the operation name, query text and variables.
+   carries the operation name, query text and variables. GETs that send the query text in
+   `?query=` (the filter chip labels) have no such retry, so they are handled as that POST.
 4. Compute the key, which is also the file name: `recordings/graphql/<Operation>/<locale>-<hash>.json`
    (hash of query text and variables) or `recordings/rest/<prefix>/<METHOD>-<path>-<hash>.json`
    (hash of the sorted query string). Any change to a query makes a new key, so an old recording is

@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "723d7003-acdb-44b0-be0e-1c589aaa7d90"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"item\":{\"title\":\"Global Register of Introduced and Invasive Species - Barbados\"}}}\n"
+}

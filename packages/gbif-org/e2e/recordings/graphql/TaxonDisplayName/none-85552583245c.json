@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query TaxonDisplayName($checklistKey: ID) {\n            taxon(datasetKey: $checklistKey, key:\"FRJJ\") {\n              scientificName\n            }\n          }",
+      "variables": {
+        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"taxon\":{\"scientificName\":\"Apodemus sylvaticus\"}}}\n"
+}

@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query NetworkDisplayName($key:ID!) {item:network(key: $key) {title}}",
+      "variables": {
+        "key": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"item\":{\"title\":\"Ocean Biodiversity Information System (OBIS)\"}}}\n"
+}

@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "query DatasetDisplayName($key:ID!) {item:dataset(key: $key) {title}}",
+      "variables": {
+        "key": "eedb7ade-5c51-4787-9635-949b704e1194"
+      }
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"item\":{\"title\":\"Global Register of Introduced and Invasive Species - Argentina\"}}}\n"
+}
