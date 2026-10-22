@@ -112,8 +112,10 @@ test.describe('person dialog', () => {
     const dialog = page.getByRole('dialog', { name: PERSON.name });
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole('heading', { name: PERSON.name }).last()).toBeVisible();
-    // Focus moves into the dialog.
-    await expect(dialog.locator(':focus')).toHaveCount(1);
+    // Focus moves into the dialog. activeElement, not :focus, which also needs the window focused.
+    await expect
+      .poll(() => dialog.evaluate((el) => el.contains(document.activeElement)))
+      .toBe(true);
   });
 
   test('clicking a person opens the dialog and Escape closes it, keeping group', async ({
