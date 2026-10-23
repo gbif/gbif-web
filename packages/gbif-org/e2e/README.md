@@ -144,6 +144,12 @@ each and no spec checks them. Server errors, rate limits (429), the bot check's 
 GraphQL 4xx are passed on but not saved; in refresh mode the old recording stays. A GraphQL
 response with `errors` is saved with a warning; check it before committing.
 
+The API rate-limits bursts, so the mock makes at most 4 upstream calls at a time
+(`E2E_UPSTREAM_CONCURRENCY` changes that) and retries a 429 up to 3 times after its `Retry-After`.
+If a test times out waiting, the response is still saved; run `npm run e2e:record` again for the
+rest. Headless Chrome's user agent is sent as plain Chrome, since graphql-api answers bots with 418
+on its third-party endpoints (CITES).
+
 ### Pruning
 
 Pruning deletes the recordings a run did not use. A changed query gets a new key and so a new

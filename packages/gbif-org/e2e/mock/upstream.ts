@@ -248,6 +248,34 @@ function replacePhotos(body: string): string {
   );
 }
 
+// The API rate-limits bursts: a record run with every worker loading pages answered some lookups
+// with 429. Calls beyond the cap wait for a free slot; a 429 is retried after Retry-After.
+const UPSTREAM_CONCURRENCY = Number(process.env.E2E_UPSTREAM_CONCURRENCY) || 4;
+const RATE_LIMIT_RETRIES = 3;
+let activeUpstreamCalls = 0;
+const waitingForSlot: (() => void)[] = [];
+
+async function withUpstreamSlot<T>(call: () => Promise<T>): Promise<T> {
+  if (activeUpstreamCalls < UPSTREAM_CONCURRENCY) activeUpstreamCalls++;
+  else await new Promise<void>((resolve) => waitingForSlot.push(resolve));
+  try {
+    return await call();
+  } finally {
+    // Hand the slot straight to the next waiter, or free it.
+    const next = waitingForSlot.shift();
+    if (next) next();
+    else activeUpstreamCalls--;
+  }
+}
+
+function retryAfterMs(header: string | null, attempt: number): number {
+  const seconds = Number(header);
+  if (header && Number.isFinite(seconds)) return Math.min(seconds, 60) * 1000;
+  const date = header ? Date.parse(header) - Date.now() : NaN;
+  if (date > 0) return Math.min(date, 60_000);
+  return 5000 * 2 ** (attempt - 1);
+}
+
 // Fetches the request from the real upstream. Used by record/refresh (then saved) and live.
 async function forward(
   upstream: Upstream,
@@ -266,17 +294,32 @@ async function forward(
     ...EXTRA_HEADERS,
   };
   if (headers.locale) forwardHeaders.locale = String(headers.locale);
-  if (headers['user-agent']) forwardHeaders['user-agent'] = String(headers['user-agent']);
+  // graphql-api answers isbot() user agents with 418 on its third-party endpoints (CITES), and
+  // headless Chrome counts as a bot, so record what a real browser gets.
+  if (headers['user-agent']) {
+    forwardHeaders['user-agent'] = String(headers['user-agent']).replace(
+      'HeadlessChrome',
+      'Chrome'
+    );
+  }
   if (body !== undefined) forwardHeaders['content-type'] = 'application/json';
 
-  const response = await fetch(target, {
-    method,
-    headers: forwardHeaders,
-    body: body === undefined ? undefined : JSON.stringify(body),
-    redirect: 'follow',
+  const { response, buffer } = await withUpstreamSlot(async () => {
+    for (let attempt = 1; ; attempt++) {
+      const response = await fetch(target, {
+        method,
+        headers: forwardHeaders,
+        body: body === undefined ? undefined : JSON.stringify(body),
+        redirect: 'follow',
+      });
+      const buffer = Buffer.from(await response.arrayBuffer());
+      if (response.status !== 429 || attempt > RATE_LIMIT_RETRIES) return { response, buffer };
+      const wait = retryAfterMs(response.headers.get('retry-after'), attempt);
+      console.warn(`[mock] 429 from ${target}; retry ${attempt} in ${wait / 1000}s`);
+      await new Promise((resolve) => setTimeout(resolve, wait));
+    }
   });
   const contentType = response.headers.get('content-type') || 'application/octet-stream';
-  const buffer = Buffer.from(await response.arrayBuffer());
   const textual = TEXTUAL.test(contentType);
   return {
     request: { method, target, ...(body !== undefined ? { body } : {}) },
