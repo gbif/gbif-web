@@ -44,6 +44,17 @@ interface DownloadTimeEstimate {
   formattedTime: string;
 }
 
+// Map the download API's response status to a distinct translated error message.
+// The API returns 400 for invalid requests, 403 for missing/wrong authentication,
+// 420 for too many concurrent downloads, and 500/503 for server errors.
+function messageIdForDownloadError(status: number): string {
+  if (status === 400) return 'occurrenceDownloadFlow.invalidDownloadRequest';
+  if (status === 401 || status === 403) return 'occurrenceDownloadFlow.notAuthorizedForDownload';
+  if (status === 420) return 'occurrenceDownloadFlow.slowDown';
+  if (status >= 500) return 'occurrenceDownloadFlow.downloadServiceUnavailable';
+  return 'occurrenceDownloadFlow.unableToCreateDownload';
+}
+
 function calculateDownloadTime(sizeInBytes: number, speedMbps: number): DownloadTimeEstimate {
   const sizeInMegabits = (sizeInBytes * 8) / (1024 * 1024);
   const timeInSeconds = sizeInMegabits / speedMbps;
@@ -154,7 +165,7 @@ export default function TermsStep({
     })
       .then((response) => {
         if (!response.ok) {
-          setError(intl.formatMessage({ id: 'occurrenceDownloadFlow.slowDown' }));
+          setError(intl.formatMessage({ id: messageIdForDownloadError(response.status) }));
           return;
         }
         return response.json();
