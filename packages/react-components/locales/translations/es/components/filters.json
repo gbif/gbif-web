@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Nombre científico",
-    "description": "El nombre científico tal como aparece en el Catalogue of Life eXtended Release (COL XR). Estos nombres están normalizados para facilitar la búsqueda en distintos conjuntos de datos. Es posible que un nombre proporcionado originalmente sea malinterpretado o resulte desconocido. Para buscar los nombres tal como fueron suministrados, utilice el filtro \"Nombre científico literal\" (Verbatim scientific name)."
+    "description": "El nombre científico tal como aparece en Catalogue of Life eXtended Release (COL XR). Estos nombres están normalizados para facilitar la búsqueda en distintos conjuntos de datos. Es posible que un nombre proporcionado originalmente sea malinterpretado o resulte desconocido. Para buscar los nombres tal como fueron suministrados, utilice el filtro \"Nombre científico original\" (Verbatim scientific name)."
   },
   "taxonKeyGrSciColl": {
     "name": "Nombre científico",
