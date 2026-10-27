@@ -126,6 +126,7 @@
   "islandGroup": "Grupo de islas",
   "island": "Isla",
   "countryCode": "Código del país",
+  "stateProvince": "Estado/Provincia",
   "county": "Condado/Municipio",
   "municipality": "Municipalidad/Centro poblado/Cabecera municipal",
   "locality": "Localidad",
