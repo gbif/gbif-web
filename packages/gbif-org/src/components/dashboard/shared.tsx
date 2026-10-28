@@ -1,7 +1,9 @@
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import React from 'react';
-import { FormattedMessage, FormattedNumber as Number } from 'react-intl';
+import { MdInfoOutline } from 'react-icons/md';
+import { FormattedMessage, FormattedNumber as Number, useIntl } from 'react-intl';
 import { SimpleTooltip } from '../simpleTooltip';
+import { Button } from '../ui/button';
 import { Skeleton } from '../ui/skeleton';
 import { CardHeader as CardHeaderSmall } from '../ui/smallCard';
 import { cn } from '@/utils/shadcn';
@@ -62,6 +64,32 @@ export function CardHeader({
         )}
       </div>
     </CardHeaderSmall>
+  );
+}
+
+// Toggle for the richer help text shown below a card's title and description
+export function InfoToggle({ active, onToggle }: { active: boolean; onToggle: () => void }) {
+  const intl = useIntl();
+  return (
+    <Button
+      variant="link"
+      style={{ padding: '0 5px', height: 'auto' }}
+      className={`g-m-0 ${active ? 'g-text-primary-500' : 'g-text-slate-400'}`}
+      onClick={onToggle}
+      aria-pressed={active}
+      aria-label={intl.formatMessage({ id: 'dashboard.showMoreInfo' })}
+    >
+      <MdInfoOutline size={20} />
+    </Button>
+  );
+}
+
+// Gray panel with the help text, styled like the help box of the year filter
+export function HelpPanel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-border-solid g-rounded g-mt-2 g-space-y-2">
+      {children}
+    </div>
   );
 }
 

@@ -1,11 +1,12 @@
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
 import { removeEmptyPredicates } from '@/utils/removeEmptyPredicates';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import ChartClickWrapper from './charts/ChartClickWrapper';
-import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
+import { BarItem, CardHeader, FormattedNumber, HelpPanel, InfoToggle, Table } from './shared';
 
 type DataQualityKey =
   | 'hasSequence'
@@ -62,6 +63,7 @@ function DataQualityMain({
   ...props
 }: DataQualityMainProps) {
   const defaultChecklistKey = useChecklistKey();
+  const [showHelp, setShowHelp] = React.useState(false);
   const { data, error, loading, load } = useQuery<DataQualityResponse, Record<string, unknown>>(
     OCCURRENCE_STATS,
     { lazyLoad: true }
@@ -155,7 +157,9 @@ function DataQualityMain({
 
   return (
     <Card {...props} loading={noData} error={!!error}>
-      <CardHeader>
+      <CardHeader
+        options={<InfoToggle active={showHelp} onToggle={() => setShowHelp(!showHelp)} />}
+      >
         <CardTitle>
           <FormattedMessage id="dashboard.richness" defaultMessage="Data richness" />
         </CardTitle>
@@ -165,6 +169,19 @@ function DataQualityMain({
             defaultMessage="Number of occurrences"
           />
         </CardDescription>
+        {showHelp && (
+          <HelpPanel>
+            <p>
+              <FormattedMessage id="dashboard.help.dataQuality.intro" />
+            </p>
+            <p>
+              <FormattedMessage id="dashboard.help.dataQuality.identifiedToSpecies" />
+            </p>
+            <p>
+              <FormattedMessage id="dashboard.help.dataQuality.withCollector" />
+            </p>
+          </HelpPanel>
+        )}
       </CardHeader>
       <CardContent>
         <div>
