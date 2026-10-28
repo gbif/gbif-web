@@ -54,6 +54,7 @@
   "day": "Dag",
   "island": "Ø",
   "countryCode": "Landekode",
+  "stateProvince": "Stat/Provins/Område",
   "county": "Amt",
   "municipality": "Kommune",
   "scientificName": "Videnskabeligt navn",
