@@ -1,14 +1,9 @@
+import { useOccurrenceCount } from '@/components/count';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  OccurrencesPerKingdomQuery,
-  OccurrencesPerKingdomQueryVariables,
-  PredicateType,
-} from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { notNull } from '@/utils/notNull';
-import { useMemo } from 'react';
+import { Base64 } from 'js-base64';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import animaliaIconUrl from './icons/animalia.svg';
 import archaeaIconUrl from './icons/archaea.svg';
@@ -20,16 +15,19 @@ import protozoaIconUrl from './icons/protozoa.svg';
 import unknownIconUrl from './icons/unknown.svg';
 import virusesIconUrl from './icons/viruses.svg';
 
+const COL_CHECKLIST_KEY = '7ddf754f-d193-4cc9-b351-99906754a03b';
+
+// colTaxonKey is the Catalogue of Life taxon key. Each tile links to and counts that taxon.
 export const kingdoms = [
-  { id: 1, title: 'Animalia', icon: animaliaIconUrl },
-  { id: 6, title: 'Plantae', icon: plantaeIconUrl },
-  { id: 5, title: 'Fungi', icon: fungiIconUrl },
-  { id: 2, title: 'Archaea', icon: archaeaIconUrl },
-  { id: 3, title: 'Bacteria', icon: bacteriaIconUrl },
-  { id: 4, title: 'Chromista', icon: chromistaIconUrl },
-  { id: 7, title: 'Protozoa', icon: protozoaIconUrl },
-  { id: 8, title: 'Viruses', icon: virusesIconUrl },
-  { id: 0, title: 'incertae sedis', icon: unknownIconUrl },
+  { id: 1, colTaxonKey: 'N', title: 'Animalia', icon: animaliaIconUrl },
+  { id: 6, colTaxonKey: 'P', title: 'Plantae', icon: plantaeIconUrl },
+  { id: 5, colTaxonKey: 'F', title: 'Fungi', icon: fungiIconUrl },
+  { id: 2, colTaxonKey: 'CRLT8', title: 'Archaea', icon: archaeaIconUrl },
+  { id: 3, colTaxonKey: 'CRRY6', title: 'Bacteria', icon: bacteriaIconUrl },
+  { id: 4, colTaxonKey: 'C', title: 'Chromista', icon: chromistaIconUrl },
+  { id: 7, colTaxonKey: 'Z', title: 'Protozoa', icon: protozoaIconUrl },
+  { id: 8, colTaxonKey: 'L2TCC', title: 'Viruses', icon: virusesIconUrl },
+  { id: 0, colTaxonKey: undefined, title: 'incertae sedis', icon: unknownIconUrl },
 ];
 
 type Props = {
@@ -39,27 +37,7 @@ type Props = {
 
 export function OccurrencesPerKingdom({ countryCode, type }: Props) {
   const { formatMessage } = useIntl();
-
-  const predicate = useMemo(() => {
-    return {
-      key: type === 'publishedBy' ? 'publishingCountry' : 'country',
-      type: PredicateType.Equals,
-      value: countryCode,
-    };
-  }, [countryCode, type]);
-
-  const { data } = useQuery<OccurrencesPerKingdomQuery, OccurrencesPerKingdomQueryVariables>(
-    QUERY,
-    {
-      variables: { predicate },
-    }
-  );
-
-  const kingdomCountRecord = data?.occurrenceSearch?.facet?.kingdomKey?.reduce((acc, kingdom) => {
-    if (!kingdom) return acc;
-    acc[kingdom.key] = kingdom.count;
-    return acc;
-  }, {} as Record<string, number>);
+  const countryFilterKey = type === 'publishedBy' ? 'publishingCountry' : 'country';
 
   return (
     <Card>
@@ -75,15 +53,42 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
       </CardHeader>
       <CardContent className="g-flex g-gap-8 g-justify-around g-flex-wrap">
         {kingdoms.filter(notNull).map((kingdom) => {
-          const searchParams: Record<string, string> = {
-            taxonKey: kingdom.id.toString(),
-          };
+          // Kingdoms with a COL taxon key link to that taxon. Incertae sedis has no taxon, so it links to a filter on null taxon keys
+          const searchParams: Record<string, string> = kingdom.colTaxonKey
+            ? { taxonKey: kingdom.colTaxonKey, [countryFilterKey]: countryCode }
+            : {
+                filter: Base64.encode(
+                  JSON.stringify({
+                    must: {
+                      taxonKey: [{ type: 'isNull' }],
+                      [countryFilterKey]: [countryCode],
+                    },
+                    checklistKey: COL_CHECKLIST_KEY,
+                  })
+                ),
+              };
 
-          if (type === 'publishedBy') {
-            searchParams.publishingCountry = countryCode;
-          } else {
-            searchParams.country = countryCode;
-          }
+          // The count uses the same taxon and country as the link
+          const predicate = kingdom.colTaxonKey
+            ? {
+                type: 'and',
+                predicates: [
+                  {
+                    type: 'equals',
+                    key: 'taxonKey',
+                    value: kingdom.colTaxonKey,
+                    checklistKey: COL_CHECKLIST_KEY,
+                  },
+                  { type: 'equals', key: countryFilterKey, value: countryCode },
+                ],
+              }
+            : {
+                type: 'and',
+                predicates: [
+                  { type: 'isNull', key: 'taxonKey', checklistKey: COL_CHECKLIST_KEY },
+                  { type: 'equals', key: countryFilterKey, value: countryCode },
+                ],
+              };
 
           const translatedKingdom = formatMessage({
             id: `enums.kingdomKey.${kingdom.id}`,
@@ -103,13 +108,7 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
                 <div className="g-flex g-flex-col">
                   <span className="g-text-sm">{translatedKingdom}</span>
                   <span className="g-text-sm g-font-bold">
-                    {kingdomCountRecord == null ? (
-                      <div className="g-flex g-flex-row g-h-5 g-w-26 g-items-center">
-                        <Skeleton className="g-w-full g-h-4" />
-                      </div>
-                    ) : (
-                      <FormattedNumber value={kingdomCountRecord[kingdom.id.toString()] ?? 0} />
-                    )}
+                    <KingdomCount predicate={predicate} />
                   </span>
                   <span className="g-text-xs">
                     <FormattedMessage id="dashboard.occurrences" />
@@ -124,15 +123,16 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
   );
 }
 
-const QUERY = /* GraphQL */ `
-  query OccurrencesPerKingdom($predicate: Predicate) {
-    occurrenceSearch(predicate: $predicate) {
-      facet {
-        kingdomKey {
-          key
-          count
-        }
-      }
-    }
+function KingdomCount({ predicate }: { predicate: unknown }) {
+  const { count, loading, error } = useOccurrenceCount({ predicate });
+
+  if (loading || typeof count === 'undefined') {
+    return (
+      <div className="g-flex g-flex-row g-h-5 g-w-26 g-items-center">
+        <Skeleton className="g-w-full g-h-4" />
+      </div>
+    );
   }
-`;
+  if (error) return null;
+  return <FormattedNumber value={count} />;
+}
