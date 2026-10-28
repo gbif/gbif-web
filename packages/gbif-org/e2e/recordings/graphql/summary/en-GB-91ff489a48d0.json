@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n    query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){\n      search: occurrenceSearch(q: $q, predicate: $predicate) {\n        documents(size: 0) {\n          total\n        }\n        cardinality {\n          total: basisOfRecord\n        }\n        facet {\n          results: basisOfRecord(size: $size, from: $from) {\n            key\n            count\n            occurrences {\n              metaPredicate\n              _meta\n            }\n          }\n        }\n      }\n      \n    }\n  ",
+      "variables": {
+        "predicate": {
+          "type": "equals",
+          "key": "publishingOrg",
+          "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+        },
+        "hasPredicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "isNotNull",
+              "key": "basisOfRecord"
+            },
+            {
+              "type": "equals",
+              "key": "publishingOrg",
+              "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+            }
+          ]
+        },
+        "from": 0,
+        "size": 10,
+        "vocabularyLocale": "en"
+      },
+      "operationName": "summary"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":169720759},\"cardinality\":{\"total\":1},\"facet\":{\"results\":[{\"key\":\"HUMAN_OBSERVATION\",\"count\":169720759,\"occurrences\":{\"metaPredicate\":1197661436,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingOrg\",\"value\":\"28eb1a3f-1c15-4a95-931a-4af90ecb574d\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"HUMAN_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_ORG\",\"value\":\"28eb1a3f-1c15-4a95-931a-4af90ecb574d\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"HUMAN_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingOrganizationKey\":{\"value\":\"28eb1a3f-1c15-4a95-931a-4af90ecb574d\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"HUMAN_OBSERVATION\"}}}]}}]}}]}}}}}]}}}}\n"
+}

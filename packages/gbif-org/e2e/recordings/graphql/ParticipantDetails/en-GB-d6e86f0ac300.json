@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ParticipantDetails($key: ID!) {\n    participant(key: $key) {\n      ...ParticipantDetails\n      node {\n        ...NodeDetails\n      }\n    }\n  }\n\n  fragment ParticipantDetails on Participant {\n    id\n    type\n    countryCode\n    title: name\n    gbifRegion\n    participationStatus\n    membershipStart\n    nodeEstablishmentDate\n    participantUrl\n    rssFeeds {\n      label\n      url\n    }\n    newsletters {\n      label\n      url\n    }\n    linksToSocialMedia {\n      label\n      url\n    }\n  }\n\n  fragment NodeDetails on Node {\n    key\n    title\n    homepage\n    contacts {\n      key\n      title\n      type\n      firstName\n      surname\n      lastName\n      institutionName\n      email\n      phone\n      homepage\n      organization\n      position\n      roles\n      userId\n      address\n      city\n      postalCode\n      province\n      country\n    }\n    dataset(limit: 0) {\n      count\n    }\n    publisher: organization(limit: 0) {\n      count\n    }\n    headOfDelegation: contacts(type: \"HEAD_OF_DELEGATION\") {\n      key\n      firstName\n      lastName\n    }\n    participantNodeManager: contacts(type: \"NODE_MANAGER\") {\n      key\n      firstName\n      lastName\n    }\n  }\n",
+      "variables": {
+        "key": "20"
+      },
+      "operationName": "ParticipantDetails"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"participant\":{\"id\":\"20\",\"type\":\"COUNTRY\",\"countryCode\":\"AT\",\"title\":\"Austria\",\"gbifRegion\":\"EUROPE\",\"participationStatus\":\"OBSERVER\",\"membershipStart\":\"2001-09\",\"nodeEstablishmentDate\":null,\"participantUrl\":null,\"rssFeeds\":null,\"newsletters\":null,\"linksToSocialMedia\":null,\"node\":{\"key\":\"1e789bc9-79fc-4e60-a49e-89dfc45a7188\",\"title\":\"GBIF Austria\",\"homepage\":[\"http://www.gbif.at/\"],\"contacts\":[],\"dataset\":{\"count\":19},\"publisher\":{\"count\":13},\"headOfDelegation\":[],\"participantNodeManager\":[]}}}}\n"
+}

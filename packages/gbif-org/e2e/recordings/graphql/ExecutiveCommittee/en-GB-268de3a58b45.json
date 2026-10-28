@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "target": "https://graphql.gbif.org/graphql",
+    "body": {
+      "query": "\n  query ExecutiveCommittee {\n    executiveCommittee {\n      personId\n      name\n      roles\n    }\n  }\n",
+      "operationName": "ExecutiveCommittee"
+    }
+  },
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "encoding": "utf8",
+  "body": "{\"data\":{\"executiveCommittee\":[{\"personId\":\"3706\",\"name\":\"Martin Kalfatovic\",\"roles\":[\"GOVERNING_BOARD_CHAIR\"]},{\"personId\":\"4318\",\"name\":\"Sharon D. Grant\",\"roles\":[\"GOVERNING_BOARD_1ST_VICE_CHAIR\"]},{\"personId\":\"87\",\"name\":\"Christoph Häuser\",\"roles\":[\"GOVERNING_BOARD_2ND_VICE_CHAIR\"]},{\"personId\":\"41\",\"name\":\"Anne-Sophie Archambeau\",\"roles\":[\"GOVERNING_BOARD_3RD_VICE_CHAIR\"]},{\"personId\":\"2042\",\"name\":\"Raoufou Pierre RADJI\",\"roles\":[\"BUDGET_COMMITTEE_CHAIR\"]},{\"personId\":\"4427\",\"name\":\"Tim Littlewood\",\"roles\":[\"SCIENCE_COMMITTEE_CHAIR\"]},{\"personId\":\"3940\",\"name\":\"David Jennings\",\"roles\":[\"NODES_COMMITTEE_CHAIR\"]},{\"personId\":\"4028\",\"name\":\"Joe Miller\",\"roles\":[\"EXECUTIVE_SECRETARY\"]}]}}\n"
+}

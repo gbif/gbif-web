@@ -107,7 +107,7 @@ export function usePartialDataNotification() {
         title: formatMessage({ id: 'error.partialData' }),
         variant: 'destructive',
         // data-* attributes reach the Radix root but are not part of its prop type
-        ...{ 'data-cy': 'partial-data-error' },
+        ...{ 'data-testid': 'partial-data-error' },
       });
     }
   }, [location.pathname, toast, formatMessage, hasNotified, setHasNotified]);
