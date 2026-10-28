@@ -12,7 +12,7 @@ type DataQualityKey =
   | 'hasCollector'
   | 'hasMedia'
   | 'hasCoordinates'
-  | 'hasYear'
+  | 'hasEventDate'
   | 'rank';
 
 type Total = { documents?: { total?: number } };
@@ -23,7 +23,7 @@ type DataQualityResponse = {
   hasCoordinates?: Total;
   hasMedia?: Total;
   hasCollector?: Total;
-  hasYear?: Total;
+  hasEventDate?: Total;
   hasSequence?: Total;
 };
 
@@ -114,13 +114,13 @@ function DataQualityMain({
             },
           ],
         }),
-        hasYear: removeEmptyPredicates({
+        hasEventDate: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
             {
               type: 'isNotNull',
-              key: 'year',
+              key: 'eventDate',
             },
           ],
         }),
@@ -215,18 +215,18 @@ function DataQualityMain({
               </tr>
               <tr>
                 <td>
-                  <BarItem percent={percentOf(data?.hasYear?.documents?.total)}>
+                  <BarItem percent={percentOf(data?.hasEventDate?.documents?.total)}>
                     <ClickableLabel
-                      filter={{ year: [{ type: 'isNotNull' }] }}
+                      filter={{ eventDate: [{ type: 'isNotNull' }] }}
                       interactive={interactive}
                       handleRedirect={handleRedirect}
                     >
-                      <FormattedMessage id="dashboard.withYear" />
+                      <FormattedMessage id="dashboard.withEventDate" />
                     </ClickableLabel>
                   </BarItem>
                 </td>
                 <td className="g-text-end">
-                  <FormattedNumber value={data?.hasYear?.documents?.total} />
+                  <FormattedNumber value={data?.hasEventDate?.documents?.total} />
                 </td>
               </tr>
               {!hideHasCollector && (
@@ -314,7 +314,7 @@ function ClickableLabel({ filter, interactive, handleRedirect, children }: Click
 }
 
 const OCCURRENCE_STATS = `
-query summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate, $hasSequence: Predicate){
+query summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasEventDate: Predicate, $hasSequence: Predicate){
   occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
@@ -340,7 +340,7 @@ query summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $ha
       total
     }
   }
-  hasYear: occurrenceSearch(q: $q, predicate: $hasYear) {
+  hasEventDate: occurrenceSearch(q: $q, predicate: $hasEventDate) {
     documents(size: 0) {
       total
     }
