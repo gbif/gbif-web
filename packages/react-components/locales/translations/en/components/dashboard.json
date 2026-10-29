@@ -37,12 +37,12 @@
   "help": {
     "dataQuality": {
       "intro": "Each row counts the occurrence records that have a given property, out of all records matching the current filter. The bar shows the same share.",
-      "identifiedToSpecies": "Identified to species: Records identified to a species after GBIF interpretation, meaning they have been matched to a species key. The original record might name a species, but if the name is not recognised it does not count.",
+      "identifiedToSpecies": "Identified to species: Records identified to a species after GBIF interpretation, meaning they have been matched to a species key. The original record might name a species, but if the name is not recognized, it does not count.",
       "withCollector": "With collector: Records where the recordedBy field is filled in. A value such as \"no collector\" is not treated as missing."
     },
     "occurrenceSummary": {
       "occurrenceRecords": "Occurrence records: The number of occurrence records matching the current filter.",
-      "species": "Species: The number of distinct species keys after interpretation. A name that is not recognised does not add a species.",
+      "species": "Species: The number of distinct species keys after interpretation. A name that is not recognized does not add a species.",
       "yearRange": "Year range: The earliest and latest value in the year field of the matching records. This is the year field, not the eventDate field."
     }
   },
@@ -69,8 +69,7 @@
     "materialCollected": "Material Collected",
     "samplingEffort": "Sampling Effort"
   },
-  "occurrencesPerField": "Occurrences per {FIELD}",
-  "kingdom": "Kingdom",
+  "occurrencesPerGroup": "Occurrences per group",
   "sequenceDendrogram": "Sequence dendrogram",
   "sequencePhylogeny.downloadAlignment": "Alignment (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",
