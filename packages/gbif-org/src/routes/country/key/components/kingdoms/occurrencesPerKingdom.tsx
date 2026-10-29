@@ -43,12 +43,7 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
     <Card>
       <CardHeader>
         <CardTitle>
-          <FormattedMessage
-            id="dashboard.occurrencesPerField"
-            values={{
-              FIELD: <FormattedMessage id="dashboard.kingdom" />,
-            }}
-          />
+          <FormattedMessage id="dashboard.occurrencesPerGroup" />
         </CardTitle>
       </CardHeader>
       <CardContent className="g-flex g-gap-8 g-justify-around g-flex-wrap">

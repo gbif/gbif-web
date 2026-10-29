@@ -69,8 +69,7 @@
     "materialCollected": "Material Collected",
     "samplingEffort": "Sampling Effort"
   },
-  "occurrencesPerField": "Occurrences per {FIELD}",
-  "kingdom": "Kingdom",
+  "occurrencesPerGroup": "Occurrences per group",
   "sequenceDendrogram": "Sequence dendrogram",
   "sequencePhylogeny.downloadAlignment": "Alignment (FASTA)",
   "sequencePhylogeny.downloadNewick": "Newick",
