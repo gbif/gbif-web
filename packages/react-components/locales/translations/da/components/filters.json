@@ -306,7 +306,7 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Måned",
     "description": ""
   },
   "continent": {
@@ -380,7 +380,7 @@
     "description": ""
   },
   "island": {
-    "name": "",
+    "name": "Ø",
     "description": ""
   },
   "georeferencedBy": {
