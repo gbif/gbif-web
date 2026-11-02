@@ -249,6 +249,10 @@ const config = {
       type: 'keyword',
       field: 'establishmentMeans.concept',
     },
+    datasetCategory: {
+      type: 'keyword',
+      field: 'datasetCategory',
+    },
     pathway: {
       type: 'keyword',
       field: 'pathway.concept',

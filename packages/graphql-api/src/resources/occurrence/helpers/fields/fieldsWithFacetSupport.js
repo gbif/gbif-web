@@ -106,6 +106,7 @@ export default [
   'gbifRegion',
   'publishedByGbifRegion',
   'pathway',
+  'datasetCategory',
   'degreeOfEstablishment',
   'biostratigraphy',
   'lithostratigraphy',

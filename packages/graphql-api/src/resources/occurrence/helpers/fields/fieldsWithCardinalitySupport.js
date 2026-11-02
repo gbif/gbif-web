@@ -64,6 +64,7 @@ export default [
   'gbifRegion',
   'publishedByGbifRegion',
   'pathway',
+  'datasetCategory',
   'degreeOfEstablishment',
   'organismQuantityType',
   'organismId',

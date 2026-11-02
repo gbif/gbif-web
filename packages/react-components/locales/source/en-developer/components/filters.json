@@ -101,6 +101,10 @@
     "name": "Organism quantity type",
     "description": "The type of measurement for the \"organism quantity\"."
   },
+  "datasetCategory": {
+    "name": "Dataset category",
+    "description": "The category of the dataset the occurrence belongs to, based on the DatasetCategory vocabulary. Examples are citizen science, eDNA and DNA reference library."
+  },
   "pathway": {
     "name": "Pathway",
     "description": "The pathway by which the organism was introduced to a given place at a given time."

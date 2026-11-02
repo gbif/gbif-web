@@ -211,6 +211,7 @@ const typeDef = gql`
     sex: Long!
     lifeStage: Long!
     pathway: Long!
+    datasetCategory: Long!
     degreeOfEstablishment: Long!
     islandGroup: Long!
     island: Long!
@@ -321,6 +322,7 @@ const typeDef = gql`
     samplingProtocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     sex(size: Int, from: Int): [OccurrenceFacetResult_sex]
     pathway(size: Int, from: Int): [OccurrenceFacetResult_pathway]
+    datasetCategory(size: Int, from: Int): [OccurrenceFacetResult_string]
     degreeOfEstablishment(size: Int, from: Int): [OccurrenceFacetResult_degreeOfEstablishment]
     stateProvince(size: Int, from: Int): [OccurrenceFacetResult_string]
     typeStatus(size: Int, from: Int): [OccurrenceFacetResult_typeStatus]

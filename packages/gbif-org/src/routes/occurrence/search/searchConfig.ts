@@ -246,6 +246,7 @@ const otherParams = [
   'institutionKey',
   'collectionKey',
   'datasetKey',
+  'datasetCategory',
 
   'establishmentMeans',
   'sex',
