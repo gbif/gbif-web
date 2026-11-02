@@ -373,7 +373,7 @@ export const datasetCategoryLabel = getEndpointLabel({
 
 // The occurrence facet returns the dataset categories in lower case (e.g. citizenscience), but the
 // vocabulary concept endpoint is case sensitive. So we look the concept up in the list instead.
-export const occurrenceDatasetCategoryLabel = getEndpointLabel({
+export const OccurrenceDatasetCategoryLabel = getEndpointLabel({
   template: ({ v1Endpoint }) => `${v1Endpoint}/vocabularies/DatasetCategory/concepts?limit=100`,
   transform: (response: { results: VocabularyType[] }, props) => {
     const concept = response.results.find(

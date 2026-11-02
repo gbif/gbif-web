@@ -14,6 +14,7 @@ import {
   InstitutionLabel,
   LifeStageLabel,
   NetworkLabel,
+  OccurrenceDatasetCategoryLabel,
   OrganismQuantityLabel,
   PathwayLabel,
   PublisherLabel,
@@ -69,6 +70,7 @@ const KEYS_WITH_LABEL_RESOLUTION = new Set([
   'GADM_LEVEL_3_GID',
   'PATHWAY',
   'DEGREE_OF_ESTABLISHMENT',
+  'DATASET_CATEGORY',
   'ESTABLISHMENT_MEANS',
   'LIFE_STAGE',
   'SEX',
@@ -255,6 +257,8 @@ export const PredicateDisplay = ({ predicate: predicateRaw }: { predicate: any }
             return <GeoTimeLabel id={value} />;
           case 'DEGREE_OF_ESTABLISHMENT':
             return <DegreeOfEstablishmentLabel id={value} />;
+          case 'DATASET_CATEGORY':
+            return <OccurrenceDatasetCategoryLabel id={value} />;
           case 'DEPTH':
             return <DepthLabel id={predicate} />;
           case 'RELATIVE_ORGANISM_QUANTITY':

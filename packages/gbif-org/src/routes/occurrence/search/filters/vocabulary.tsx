@@ -5,7 +5,7 @@ import {
   PathwayLabel,
   SexLabel,
   TargetGeneLabel,
-  occurrenceDatasetCategoryLabel,
+  OccurrenceDatasetCategoryLabel,
 } from '@/components/filters/displayNames';
 import {
   filterConfigTypes,
@@ -146,7 +146,7 @@ export const pathwayConfig: filterSuggestConfig = {
 export const datasetCategoryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'datasetCategory',
-  displayName: occurrenceDatasetCategoryLabel,
+  displayName: OccurrenceDatasetCategoryLabel,
   filterTranslation: 'filters.datasetCategory.name',
   suggestConfig: datasetCategorySuggest,
   facetQuery: /* GraphQL */ `
