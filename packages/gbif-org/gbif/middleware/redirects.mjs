@@ -34,6 +34,38 @@ function extractLocalePrefix(path) {
   return { prefix: '', pathWithoutPrefix: path };
 }
 
+// occurrenceStatus was renamed from PRESENT/ABSENT to DETECTED/NOT_DETECTED
+// https://github.com/gbif/gbif-web/issues/2077
+const OCCURRENCE_STATUS_RENAMES = { present: 'DETECTED', absent: 'NOT_DETECTED' };
+
+/**
+ * Old links may still carry occurrenceStatus=PRESENT/ABSENT (any casing). Returns the same URL with
+ * those values mapped to DETECTED/NOT_DETECTED, or undefined when nothing needs to change.
+ * Everything else in the URL (locale prefix, path, other params, their order) is kept as is.
+ */
+export function getOccurrenceStatusRedirect(req) {
+  const [pathOnly, queryString] = req.originalUrl.split('?');
+  if (!queryString || !/occurrence_?status/i.test(queryString)) return undefined;
+
+  const params = new URLSearchParams(queryString);
+  let changed = false;
+  const rewritten = new URLSearchParams();
+  for (const [key, value] of params) {
+    if (key.replace(/_/g, '').toLowerCase() === 'occurrencestatus') {
+      const mapped = value
+        .split(',')
+        .map((v) => OCCURRENCE_STATUS_RENAMES[v.trim().toLowerCase()] ?? v)
+        .join(',');
+      if (mapped !== value) changed = true;
+      rewritten.append(key, mapped);
+    } else {
+      rewritten.append(key, value);
+    }
+  }
+  if (!changed) return undefined;
+  return `${pathOnly}?${rewritten.toString().replace(/%2C/gi, ',')}`;
+}
+
 /**
  * Redirects checked BEFORE the SSR render — a header-only 302 instead of a full SSR pass.
  * A redirect can live here as long as it never overlaps with a route in the React app.

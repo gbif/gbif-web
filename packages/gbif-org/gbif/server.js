@@ -18,6 +18,7 @@ import { register as registerResourceSearch } from './routes/resourceSearch/endp
 import {
   createGetPostRenderRedirect,
   createGetPreRenderRedirect,
+  getOccurrenceStatusRedirect,
 } from './middleware/redirects.mjs';
 import { requestLogger } from './middleware/requestLogger.mjs';
 // Load environment variables from .env files and merge them with process.env.
@@ -216,7 +217,7 @@ async function main() {
   // paths that are known never to match a route in the React app.
   app.use((req, res, next) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-    const redirectTo = getPreRenderRedirect(req);
+    const redirectTo = getOccurrenceStatusRedirect(req) ?? getPreRenderRedirect(req);
     if (redirectTo) return res.redirect(302, redirectTo);
     next();
   });

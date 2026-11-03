@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { createGetPostRenderRedirect, createGetPreRenderRedirect } from './redirects.mjs';
+import {
+  createGetPostRenderRedirect,
+  createGetPreRenderRedirect,
+  getOccurrenceStatusRedirect,
+} from './redirects.mjs';
 
 // Drives the real factory against the real redirect table (redirects.json + newRedirects).
 // Focus: the query-param redirect path that the findQueryParamRedirect optimization touches,
@@ -106,5 +110,35 @@ describe('getPreRenderRedirect — GRSciColl moved to its own domain', () => {
   it('is disabled when the target domain is not configured', () => {
     const noEnv = createGetPreRenderRedirect({});
     expect(noEnv({ originalUrl: '/grscicoll' })).toBeUndefined();
+  });
+});
+
+describe('getOccurrenceStatusRedirect — occurrenceStatus renamed to DETECTED/NOT_DETECTED', () => {
+  const run = (originalUrl) => getOccurrenceStatusRedirect({ originalUrl });
+
+  it('maps old values in any casing', () => {
+    expect(run('/occurrence/search?occurrenceStatus=PRESENT')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED'
+    );
+    expect(run('/occurrence/search?occurrenceStatus=absent')).toBe(
+      '/occurrence/search?occurrenceStatus=NOT_DETECTED'
+    );
+  });
+
+  it('handles repeated and comma separated values and keeps other params and locale', () => {
+    expect(
+      run('/fr/occurrence/search?q=a&occurrenceStatus=PRESENT&occurrenceStatus=ABSENT&year=2000')
+    ).toBe(
+      '/fr/occurrence/search?q=a&occurrenceStatus=DETECTED&occurrenceStatus=NOT_DETECTED&year=2000'
+    );
+    expect(run('/occurrence/search?occurrenceStatus=present,absent')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED,NOT_DETECTED'
+    );
+  });
+
+  it('leaves new values, other params and URLs without a query alone', () => {
+    expect(run('/occurrence/search?occurrenceStatus=DETECTED')).toBeUndefined();
+    expect(run('/occurrence/search?basisOfRecord=PRESENT')).toBeUndefined();
+    expect(run('/occurrence/search')).toBeUndefined();
   });
 });

@@ -602,7 +602,7 @@ export function OccurrenceKey() {
                         </Tooltip>
                       </TooltipProvider>
                     )}
-                    {occurrence.occurrenceStatus === 'ABSENT' && (
+                    {occurrence.occurrenceStatus === 'NOT_DETECTED' && (
                       <span
                         className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300"
                         dir="auto"
@@ -614,7 +614,7 @@ export function OccurrenceKey() {
                     )}
                     {state !== 'MATCH_WITH_ISSUES' &&
                       state !== 'NO_MATCH' &&
-                      occurrence.occurrenceStatus !== 'ABSENT' &&
+                      occurrence.occurrenceStatus !== 'NOT_DETECTED' &&
                       vernacularNameInfo && (
                         <SimpleTooltip
                           asChild

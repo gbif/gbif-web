@@ -7432,6 +7432,8 @@ export type OccurrenceStats = {
 
 export enum OccurrenceStatus {
   Absent = 'ABSENT',
+  Detected = 'DETECTED',
+  NotDetected = 'NOT_DETECTED',
   Present = 'PRESENT'
 }
 
