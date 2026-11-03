@@ -1,5 +1,6 @@
 import { RESTDataSource as ApolloRESTDataSource } from '@apollo/datasource-rest';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import { assertSafeUpstreamPath } from '@/helpers/assertSafeUpstreamPath';
 
 // A single shared HTTP response cache across all data source instances and
 // requests. apollo-datasource-rest v3 used to share the server cache that was
@@ -7,29 +8,6 @@ import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 // gives every instance its own in-memory cache unless one is provided. We keep
 // a process-wide shared cache to preserve the previous cross-request caching.
 const sharedHttpCache = new InMemoryLRUCache();
-
-// Throw if any segment of the request path is "." or ".." (raw or percent
-// encoded). These are the only way a `new URL()` resolution can climb above the
-// intended path prefix, so rejecting them stops path-traversal into other
-// upstream endpoints while leaving every normal path (keys, slugs, encoded
-// values) untouched.
-function assertNoPathTraversal(path) {
-  const pathOnly = String(path).split(/[?#]/, 1)[0];
-  for (const segment of pathOnly.split('/')) {
-    if (segment === '.' || segment === '..') {
-      throw new Error('Path traversal is not allowed in upstream request paths');
-    }
-    let decoded = segment;
-    try {
-      decoded = decodeURIComponent(segment);
-    } catch (err) {
-      // malformed encoding - the raw check above already ran
-    }
-    if (decoded === '.' || decoded === '..') {
-      throw new Error('Path traversal is not allowed in upstream request paths');
-    }
-  }
-}
 
 /**
  * Local base class that adapts the v3 `apollo-datasource-rest` conventions used
@@ -64,11 +42,11 @@ export class RESTDataSource extends ApolloRESTDataSource {
   // trailing slash on the baseURL and stripped the leading slash from the path,
   // which is what all our data sources rely on.
   resolveURL(path, _request) {
-    // Guard against path traversal. A "." or ".." segment lets an interpolated
-    // key (e.g. `/directory/person/${key}`) climb out of its intended prefix and,
-    // because requests are signed with the site credentials, reach other upstream
-    // paths such as `/admin/...`. Legitimate keys never contain these segments.
-    assertNoPathTraversal(path);
+    // Guard against path traversal. A "." or ".." segment (or a backslash, or a
+    // dot segment hidden with tabs/newlines) lets an interpolated key such as
+    // `/directory/person/${key}` climb out of its prefix and, because many
+    // requests are signed, reach other upstream paths such as `/admin/...`.
+    assertSafeUpstreamPath(path);
     if (!this.baseURL) return new URL(path);
     const normalizedBaseURL = this.baseURL.endsWith('/')
       ? this.baseURL

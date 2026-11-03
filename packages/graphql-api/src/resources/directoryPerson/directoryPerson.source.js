@@ -9,13 +9,14 @@ import { stringify } from 'qs';
 import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { isValidIntegerKey } from '@/helpers/utils';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { VALID_GBIF_ROLES } from './validGbifRoles';
 
 // The directory person id is always an integer. Reject anything else so it can
 // never be used to shape the signed upstream path.
 function assertValidPersonKey(key) {
   if (!isValidIntegerKey(key)) {
-    throw new Error('Invalid directory person key');
+    throw new NotFoundError();
   }
 }
 
@@ -119,7 +120,8 @@ class DirectoryPersonAPI extends RESTDataSource {
   }
 
   async getProfilePicture({ key, query }) {
-    assertValidPersonKey(key);
+    // no valid key, no image (same as when the upstream has none)
+    if (!isValidIntegerKey(key)) return null;
     try {
       const image = await this.get(
         `/directory/person/${key}/profilePicture`,
