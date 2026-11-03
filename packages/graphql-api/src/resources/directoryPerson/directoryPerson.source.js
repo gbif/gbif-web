@@ -9,6 +9,7 @@ import { stringify } from 'qs';
 import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { isValidIntegerKey } from '@/helpers/utils';
+import { urlPath } from '@/helpers/urlPath';
 import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { VALID_GBIF_ROLES } from './validGbifRoles';
 
@@ -107,14 +108,14 @@ class DirectoryPersonAPI extends RESTDataSource {
 
   async getDirectoryPersonByKey({ key }) {
     assertValidPersonKey(key);
-    const directoryPerson = await this.get(`/directory/person/${key}`);
+    const directoryPerson = await this.get(urlPath`/directory/person/${key}`);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceDirectoryPerson(directoryPerson);
   }
 
   async getDirectoryContactByKey({ key }) {
     assertValidPersonKey(key);
-    const directoryPerson = await this.get(`/directory/person/${key}`);
+    const directoryPerson = await this.get(urlPath`/directory/person/${key}`);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceDirectoryContact(directoryPerson);
   }
@@ -124,7 +125,7 @@ class DirectoryPersonAPI extends RESTDataSource {
     if (!isValidIntegerKey(key)) return null;
     try {
       const image = await this.get(
-        `/directory/person/${key}/profilePicture`,
+        urlPath`/directory/person/${key}/profilePicture`,
         stringify(query, { indices: false }),
       );
       return image;

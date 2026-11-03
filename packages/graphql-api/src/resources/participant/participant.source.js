@@ -4,6 +4,7 @@ import { stringify } from 'qs';
 import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { isValidIntegerKey, renameProperty } from '@/helpers/utils';
+import { urlPath } from '@/helpers/urlPath';
 import { getDefaultAgent } from '@/requestAgents';
 import { ResourceSearchAPI } from '@/resources/resource/resource.source';
 import { VALID_GBIF_ROLES } from '@/resources/directoryPerson/validGbifRoles';
@@ -85,7 +86,7 @@ class ParticipantDirectoryAPI extends RESTDataSource {
     if (!isValidIntegerKey(key)) {
       throw new NotFoundError();
     }
-    const participant = await this.get(`/directory/participant/${key}`);
+    const participant = await this.get(urlPath`/directory/participant/${key}`);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceParticipant(participant);
   }
