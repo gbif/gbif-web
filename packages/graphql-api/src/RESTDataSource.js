@@ -1,5 +1,6 @@
 import { RESTDataSource as ApolloRESTDataSource } from '@apollo/datasource-rest';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import { assertSafeUpstreamPath, assertWithinBaseURL, isAbsoluteUrl } from '@/helpers/assertSafeUpstreamPath';
 
 // A single shared HTTP response cache across all data source instances and
 // requests. apollo-datasource-rest v3 used to share the server cache that was
@@ -41,12 +42,22 @@ export class RESTDataSource extends ApolloRESTDataSource {
   // trailing slash on the baseURL and stripped the leading slash from the path,
   // which is what all our data sources rely on.
   resolveURL(path, _request) {
+    // Guard against path traversal. A "." or ".." segment (or a backslash, or a
+    // dot segment hidden with tabs/newlines) lets an interpolated key such as
+    // `/directory/person/${key}` climb out of its prefix and, because many
+    // requests are signed, reach other upstream paths such as `/admin/...`.
+    assertSafeUpstreamPath(path);
     if (!this.baseURL) return new URL(path);
     const normalizedBaseURL = this.baseURL.endsWith('/')
       ? this.baseURL
       : `${this.baseURL}/`;
     const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
-    return new URL(normalizedPath, normalizedBaseURL);
+    const url = new URL(normalizedPath, normalizedBaseURL);
+    // A relative path must stay on the base URL's host and under its path, even
+    // if an interpolated value tries to make it absolute (e.g. `/${key}/record`
+    // with key "http://other.host/x?").
+    if (!isAbsoluteUrl(path)) assertWithinBaseURL(url, normalizedBaseURL);
+    return url;
   }
 
   // Convert the legacy `(params, init)` arguments into a v6 request options

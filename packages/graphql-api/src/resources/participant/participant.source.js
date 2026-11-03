@@ -1,8 +1,9 @@
 import { RESTDataSource } from '@/RESTDataSource';
 import pick from 'lodash/pick';
 import { stringify } from 'qs';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
-import { renameProperty } from '@/helpers/utils';
+import { isValidIntegerKey, renameProperty } from '@/helpers/utils';
 import { getDefaultAgent } from '@/requestAgents';
 import { ResourceSearchAPI } from '@/resources/resource/resource.source';
 import { VALID_GBIF_ROLES } from '@/resources/directoryPerson/validGbifRoles';
@@ -81,6 +82,9 @@ class ParticipantDirectoryAPI extends RESTDataSource {
   }
 
   async getParticipantByKey({ key }) {
+    if (!isValidIntegerKey(key)) {
+      throw new NotFoundError();
+    }
     const participant = await this.get(`/directory/participant/${key}`);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceParticipant(participant);

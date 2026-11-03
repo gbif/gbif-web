@@ -8,7 +8,17 @@ import pick from 'lodash/pick';
 import { stringify } from 'qs';
 import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
+import { isValidIntegerKey } from '@/helpers/utils';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { VALID_GBIF_ROLES } from './validGbifRoles';
+
+// The directory person id is always an integer. Reject anything else so it can
+// never be used to shape the signed upstream path.
+function assertValidPersonKey(key) {
+  if (!isValidIntegerKey(key)) {
+    throw new NotFoundError();
+  }
+}
 
 class DirectoryPersonAPI extends RESTDataSource {
   constructor(config) {
@@ -96,18 +106,22 @@ class DirectoryPersonAPI extends RESTDataSource {
   }
 
   async getDirectoryPersonByKey({ key }) {
+    assertValidPersonKey(key);
     const directoryPerson = await this.get(`/directory/person/${key}`);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceDirectoryPerson(directoryPerson);
   }
 
   async getDirectoryContactByKey({ key }) {
+    assertValidPersonKey(key);
     const directoryPerson = await this.get(`/directory/person/${key}`);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceDirectoryContact(directoryPerson);
   }
 
   async getProfilePicture({ key, query }) {
+    // no valid key, no image (same as when the upstream has none)
+    if (!isValidIntegerKey(key)) return null;
     try {
       const image = await this.get(
         `/directory/person/${key}/profilePicture`,

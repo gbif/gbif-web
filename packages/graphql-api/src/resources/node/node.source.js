@@ -1,4 +1,5 @@
 import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { isValidIntegerKey } from '@/helpers/utils';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from '@/RESTDataSource';
@@ -98,6 +99,9 @@ export class NodeDirectoryAPI extends RESTDataSource {
   }
 
   async getNodeByKey({ key }) {
+    if (!isValidIntegerKey(key)) {
+      throw new NotFoundError();
+    }
     const node = await this.get(`/directory/node/${key}`);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceNode(node);
