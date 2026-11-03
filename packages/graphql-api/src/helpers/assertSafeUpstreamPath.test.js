@@ -13,6 +13,7 @@ describe('assertSafeUpstreamPath', () => {
     '/occurrence/search?q=../x',
     'https://query.wikidata.org/sparql?format=json&query=x',
     '/file/my.file..name',
+    '/search/.. ?q=x',
   ].forEach((path) => {
     it(`allows ${JSON.stringify(path)}`, () => {
       assert.doesNotThrow(() => assertSafeUpstreamPath(path));
@@ -27,7 +28,10 @@ describe('assertSafeUpstreamPath', () => {
     '/directory/person/..\\..\\admin\\x',
     '/directory/person/.\t./.\n./admin',
     '/directory/person/.\r./admin',
-    '/directory/person/1\u0000',
+    '/directory/person/1\u0000/x',
+    '/directory/person/.. ',
+    '/directory/person/%2e%2e ',
+    '/directory/person/.. \n',
   ].forEach((path) => {
     it(`rejects ${JSON.stringify(path)}`, () => {
       assert.throws(() => assertSafeUpstreamPath(path));

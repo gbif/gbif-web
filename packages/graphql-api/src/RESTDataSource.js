@@ -1,6 +1,6 @@
 import { RESTDataSource as ApolloRESTDataSource } from '@apollo/datasource-rest';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
-import { assertSafeUpstreamPath } from '@/helpers/assertSafeUpstreamPath';
+import { assertSafeUpstreamPath, assertWithinBaseURL, isAbsoluteUrl } from '@/helpers/assertSafeUpstreamPath';
 
 // A single shared HTTP response cache across all data source instances and
 // requests. apollo-datasource-rest v3 used to share the server cache that was
@@ -52,7 +52,12 @@ export class RESTDataSource extends ApolloRESTDataSource {
       ? this.baseURL
       : `${this.baseURL}/`;
     const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
-    return new URL(normalizedPath, normalizedBaseURL);
+    const url = new URL(normalizedPath, normalizedBaseURL);
+    // A relative path must stay on the base URL's host and under its path, even
+    // if an interpolated value tries to make it absolute (e.g. `/${key}/record`
+    // with key "http://other.host/x?").
+    if (!isAbsoluteUrl(path)) assertWithinBaseURL(url, normalizedBaseURL);
+    return url;
   }
 
   // Convert the legacy `(params, init)` arguments into a v6 request options
