@@ -44,26 +44,32 @@ const OCCURRENCE_STATUS_RENAMES = { present: 'DETECTED', absent: 'NOT_DETECTED' 
  * Everything else in the URL (locale prefix, path, other params, their order) is kept as is.
  */
 export function getOccurrenceStatusRedirect(req) {
-  const [pathOnly, queryString] = req.originalUrl.split('?');
-  if (!queryString || !/occurrence_?status/i.test(queryString)) return undefined;
+  const url = req.originalUrl;
+  const queryStart = url.indexOf('?');
+  if (queryStart === -1) return undefined;
+  const pathOnly = url.slice(0, queryStart);
+  const queryString = url.slice(queryStart + 1);
+  if (!/occurrence_?status/i.test(queryString)) return undefined;
 
-  const params = new URLSearchParams(queryString);
+  // Only touch the occurrenceStatus pairs; every other pair is copied through byte for byte so
+  // encodings (%2C, +, WKT geometries, ...) survive.
   let changed = false;
-  const rewritten = new URLSearchParams();
-  for (const [key, value] of params) {
-    if (key.replace(/_/g, '').toLowerCase() === 'occurrencestatus') {
-      const mapped = value
-        .split(',')
-        .map((v) => OCCURRENCE_STATUS_RENAMES[v.trim().toLowerCase()] ?? v)
-        .join(',');
-      if (mapped !== value) changed = true;
-      rewritten.append(key, mapped);
-    } else {
-      rewritten.append(key, value);
-    }
-  }
+  const pairs = queryString.split('&').map((pair) => {
+    const eq = pair.indexOf('=');
+    if (eq === -1) return pair;
+    const key = pair.slice(0, eq);
+    if (key.replace(/_/g, '').toLowerCase() !== 'occurrencestatus') return pair;
+    const value = pair.slice(eq + 1);
+    const mapped = value
+      .split(/,|%2C/i)
+      .map((v) => OCCURRENCE_STATUS_RENAMES[v.trim().toLowerCase()] ?? v)
+      .join(',');
+    if (mapped === value && key === 'occurrenceStatus') return pair;
+    changed = true;
+    return `occurrenceStatus=${mapped}`;
+  });
   if (!changed) return undefined;
-  return `${pathOnly}?${rewritten.toString().replace(/%2C/gi, ',')}`;
+  return `${pathOnly}?${pairs.join('&')}`;
 }
 
 /**

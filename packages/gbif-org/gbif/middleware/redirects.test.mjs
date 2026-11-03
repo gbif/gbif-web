@@ -141,4 +141,26 @@ describe('getOccurrenceStatusRedirect — occurrenceStatus renamed to DETECTED/N
     expect(run('/occurrence/search?basisOfRecord=PRESENT')).toBeUndefined();
     expect(run('/occurrence/search')).toBeUndefined();
   });
+
+  it('keeps other params byte for byte, including encodings and a second ?', () => {
+    expect(
+      run(
+        '/occurrence/search?q=Smith%2C%20J&geometry=POLYGON((1%202,3%204))&occurrenceStatus=absent'
+      )
+    ).toBe(
+      '/occurrence/search?q=Smith%2C%20J&geometry=POLYGON((1%202,3%204))&occurrenceStatus=NOT_DETECTED'
+    );
+    expect(run('/occurrence/search?q=a?b&occurrenceStatus=present')).toBe(
+      '/occurrence/search?q=a?b&occurrenceStatus=DETECTED'
+    );
+  });
+
+  it('normalises the snake_case key in the same redirect', () => {
+    expect(run('/occurrence/search?occurrence_status=present&q=a')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED&q=a'
+    );
+    expect(run('/occurrence/search?occurrence_status=DETECTED')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED'
+    );
+  });
 });

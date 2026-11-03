@@ -94,7 +94,10 @@ export default function ScientificNameColumn({
       {occurrence.occurrenceStatus === 'NOT_DETECTED' && (
         <div className="g-flex-none">
           <span className="g-rounded g-bg-red-400 g-text-white g-px-1">
-            <FormattedMessage id="enums.occurrenceStatus.NOT_DETECTED" />
+            <FormattedMessage
+              id="enums.occurrenceStatus.NOT_DETECTED"
+              defaultMessage="Not detected"
+            />
           </span>
         </div>
       )}
