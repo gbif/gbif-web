@@ -9,13 +9,28 @@ import { UnsafeUpstreamPathError } from './assertSafeUpstreamPath';
 // characters, but leaves "." alone, so "." and ".." are rejected here, and so is
 // an empty value (which would point the request at a different endpoint).
 //
+// Values containing "/" or "\" are rejected too, even though they would be
+// encoded: some servers and proxies decode "%2F" back into a separator. None of
+// the keys we put in paths need them. A value that legitimately contains a slash
+// (e.g. an event id) has to be handled explicitly at its call site.
+//
 // Only put values in the slots. Fixed parts such as a base URL from config belong
 // in the template text, or in the data source's baseURL.
 function encodePathSegment(value) {
   if (value === undefined || value === null) {
     throw new UnsafeUpstreamPathError('Missing value in upstream request path');
   }
-  const segment = encodeURIComponent(String(value));
+  const text = String(value);
+  if (/[/\\]/.test(text)) {
+    throw new UnsafeUpstreamPathError('Invalid value in upstream request path');
+  }
+  let segment;
+  try {
+    segment = encodeURIComponent(text);
+  } catch (err) {
+    // a lone surrogate (possible in JSON input) makes encodeURIComponent throw
+    throw new UnsafeUpstreamPathError('Invalid value in upstream request path');
+  }
   if (segment === '' || segment === '.' || segment === '..') {
     throw new UnsafeUpstreamPathError('Invalid value in upstream request path');
   }

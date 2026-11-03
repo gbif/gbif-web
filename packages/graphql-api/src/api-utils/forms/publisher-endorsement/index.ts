@@ -5,7 +5,7 @@ import { confirmEndorsement } from './confirm-endorsement';
 
 const Schema = {
   body: z.object({
-    key: z.string(),
+    key: z.string().uuid(),
     code: z.string(),
   }),
 };

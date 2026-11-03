@@ -13,23 +13,33 @@ describe('urlPath', () => {
     assert.strictEqual(urlPath`/admin/user/${'a+b@example.org'}`, '/admin/user/a%2Bb%40example.org');
   });
 
-  it('keeps separators and other syntax inside the segment', () => {
+  it('keeps other syntax inside the segment', () => {
     [
-      ['../../admin/x', '..%2F..%2Fadmin%2Fx'],
-      ['..\\..\\admin', '..%5C..%5Cadmin'],
-      ['.\t./admin', '.%09.%2Fadmin'],
+      ['.\t.', '.%09.'],
       ['.. ', '..%20'],
       ['..;', '..%3B'],
       ['1?x=y', '1%3Fx%3Dy'],
       ['1#x', '1%23x'],
       ['%2e%2e', '%252e%252e'],
-      ['http://example.org/', 'http%3A%2F%2Fexample.org%2F'],
+      ['http:', 'http%3A'],
     ].forEach(([value, encoded]) => {
       assert.strictEqual(urlPath`/download/${value}`, `/download/${encoded}`);
     });
   });
 
-  ['', '.', '..', null, undefined].forEach((value) => {
+  [
+    '',
+    '.',
+    '..',
+    null,
+    undefined,
+    '../../admin/x',
+    '..\\..\\admin',
+    'a/b',
+    'http://example.org/',
+    '\ud800',
+    'a\udfffb',
+  ].forEach((value) => {
     it(`rejects ${JSON.stringify(value)}`, () => {
       assert.throws(
         () => urlPath`/download/${value}/datasets`,

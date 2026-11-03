@@ -14,6 +14,9 @@ function withRecordedPaths() {
   return { source, paths };
 }
 
+// Invalid keys give not found, unsafe values in a path give bad user input.
+const isRejected = (err) => ['NOT_FOUND', 'BAD_USER_INPUT'].includes(err?.extensions?.code);
+
 describe('download paths', () => {
   it('builds paths from download keys, DOIs and usernames', async () => {
     const { source, paths } = withRecordedPaths();
@@ -27,7 +30,7 @@ describe('download paths', () => {
       key: '10.15468/dl.4fffwn',
     });
     await source.getUsersDownloads({ username: 'jane.doe' });
-    await source.getUsersEventDownloads({ username: '../../admin/user/x' });
+    await source.getUsersEventDownloads({ username: 'jane.doe' });
     await source.datasetDownloads({
       query: { datasetKey: '50c9509d-22c7-4a22-a47d-8c48425ef4a7' },
     });
@@ -38,7 +41,7 @@ describe('download paths', () => {
       '/occurrence/download/0024818-261023074918325/datasets',
       '/experimental/event/download/10.15468/dl.4fffwn/datasets',
       '/occurrence/download/user/jane.doe',
-      '/experimental/event/download/user/..%2F..%2Fadmin%2Fuser%2Fx',
+      '/experimental/event/download/user/jane.doe',
       '/occurrence/download/dataset/50c9509d-22c7-4a22-a47d-8c48425ef4a7',
     ]);
   });
@@ -55,16 +58,26 @@ describe('download paths', () => {
   ].forEach((key) => {
     it(`rejects download key ${JSON.stringify(key)}`, async () => {
       const { source, paths } = withRecordedPaths();
-      await assert.rejects(() => source.getDownloadByKey({ key }));
-      await assert.rejects(() => source.getEventDownloadByKey({ key }));
-      await assert.rejects(() => source.getContributingDatasetsByDownloadKey({ key }));
+      await assert.rejects(() => source.getDownloadByKey({ key }), isRejected);
+      await assert.rejects(() => source.getEventDownloadByKey({ key }), isRejected);
+      await assert.rejects(() => source.getContributingDatasetsByDownloadKey({ key }), isRejected);
+      await assert.rejects(() => source.getContributingDatasetsByEventDownloadKey({ key }), isRejected);
       assert.deepStrictEqual(paths, []);
     });
   });
 
   it('rejects dataset keys that are not UUIDs', async () => {
     const { source, paths } = withRecordedPaths();
-    await assert.rejects(() => source.datasetDownloads({ query: { datasetKey: '../x' } }));
+    await assert.rejects(() => source.datasetDownloads({ query: { datasetKey: '../x' } }), isRejected);
     assert.deepStrictEqual(paths, []);
+  });
+
+  ['../../admin/user/x', 'a\\b', '..', '', '\ud800'].forEach((username) => {
+    it(`rejects username ${JSON.stringify(username)}`, async () => {
+      const { source, paths } = withRecordedPaths();
+      await assert.rejects(() => source.getUsersDownloads({ username }), isRejected);
+      await assert.rejects(() => source.getUsersEventDownloads({ username }), isRejected);
+      assert.deepStrictEqual(paths, []);
+    });
   });
 });
