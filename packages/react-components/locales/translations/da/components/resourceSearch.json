@@ -1,16 +1,16 @@
 {
   "resourceSearch": {
-    "title": "",
+    "title": "Søgning efter ressourcer",
     "resourceDescription": "Søg efter ressourcer i Global Biodiversity Information Facility. Gratis og åben adgang til biodiversitetsdata.",
     "upcoming": "Kommende",
     "past": "Tidligere",
-    "happeningNow": "",
+    "happeningNow": "Sker nu",
     "searchForNewsEventsDocuments": "Søg efter nyheder, arrangementer, dokumenter og meget mere. Hvis du er på udkig efter arts-observationer så prøv vores observations-søgning.",
     "occurrenceSearch": "Søg i observationer",
     "subscribeToCalendar": "Abonnere på kalenderen",
-    "suggestEvent": "",
+    "suggestEvent": "Foreslå begivenhed",
     "citationExplainer": "Læs mere om litteratur, hvordan det er opdaget og knyttet til GBIF-medieret data.",
-    "noResults": "",
+    "noResults": "Ingen resultater: prøv at udvide søgefiltrene",
     "types": {
       "all": "Alle",
       "events": "Arrangementer",
@@ -38,18 +38,18 @@
       "year": "År",
       "gbifDatasetKey": "Datasæt",
       "publishingOrganizationKey": "Forlægger",
-      "networkKey": "",
+      "networkKey": "Netværk",
       "peerReview": "Peer-reviewed",
-      "openAccess": "",
+      "openAccess": "Fri adgang",
       "gbifDownloadKey": "Download key",
-      "gbifDerivedDatasetDoi": "",
-      "paperDoi": "",
-      "litSource": "",
+      "gbifDerivedDatasetDoi": "DOI for det afledte datasæt",
+      "paperDoi": "DOI",
+      "litSource": "Tidsskrift",
       "gbifTaxonKey": "Videnskabeligt navn",
-      "litPublisher": ""
+      "litPublisher": "Tidsskriftudgiver"
     },
     "helpText": {
-      "gbifTaxonKey": ""
+      "gbifTaxonKey": "Bemærk: Anvendelse af dette filter vil udelukke artikler, der ikke udtrykkeligt fokuserer på et bestemt taxon/bestemte taxa"
     }
   }
 }
