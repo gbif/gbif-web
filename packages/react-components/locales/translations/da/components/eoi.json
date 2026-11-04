@@ -84,7 +84,7 @@
   "checkRegistration": "",
   "organisationDetails": "",
   "organisationAddress": "",
-  "endorsement": "",
+  "endorsement": "Anbefaling",
   "validationError": {
     "pleaseSelectYourOrganizationOnTheMap": "",
     "pleaseSelectTheCountryOfYourOrganization": ""
