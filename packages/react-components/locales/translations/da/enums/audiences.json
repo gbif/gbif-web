@@ -1,4 +1,7 @@
 {
+  "BIODIVERSITY_KNOWLEDGE_EXPERTS": "Eksperter i biodiversitetsviden",
   "DATA_HOLDERS": "Dataejere",
-  "DECISION_MAKERS": "Beslutningstagere"
+  "DATA_USERS": "Databrugere",
+  "DECISION_MAKERS": "Beslutningstagere",
+  "PUBLIC_STAKEHOLDERS": "Offentlige interessenter"
 }
