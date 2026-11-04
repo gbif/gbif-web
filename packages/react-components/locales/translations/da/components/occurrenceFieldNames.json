@@ -69,5 +69,6 @@
   "species": "Art",
   "country": "Land eller område",
   "taxonomicClassification": "Klassifikation",
-  "images": "Multimedier"
+  "images": "Multimedier",
+  "iucnRedListCategory": "IUCN’s rødlistekategori"
 }
