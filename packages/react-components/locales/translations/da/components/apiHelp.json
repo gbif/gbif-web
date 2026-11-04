@@ -23,9 +23,14 @@
   "singleDataset": "Få et enkelt datasæt.",
   "searchDatasetsExample": "De to første publicerede datasæt fra Danmark og som indeholder ordet »svampe« i fri tekst i titlen eller beskrivelsen.",
   "searchExample": "De to første indlæg med friteksten \"dna\".",
+  "searchDatasets": "Få alle datasæt.",
+  "singleNode": "Få en enkelt node.",
   "searchNodes": "Søg i noder",
   "singleTaxon": "Få en enkelt taxon.",
   "singleTaxonDetails": "Få detaljer om en enkelt taxon.",
   "searchTaxa": "Søg efter taxa.",
-  "matchSpecies": "Match et navn til GBIF’s grundlæggende taksonomi."
+  "matchSpecies": "Match et navn til GBIF’s grundlæggende taksonomi.",
+  "singleDerivedDataset": "Hent et enkelt afledt datasæt",
+  "parseName": "Kør et enkelt videnskabeligt navn",
+  "derivedDatasetContributingDatasets": "Få datasæt, der bidrager med optegnelser til et afledt datasæt"
 }
