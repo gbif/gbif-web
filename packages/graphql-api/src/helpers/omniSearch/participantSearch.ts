@@ -62,7 +62,7 @@ export async function searchParticipants(str: string): Promise<ResponseType> {
   setTimeout(() => controller.abort(), OMNI_SEARCH_TIMEOUT);
 
   const participantResults: Participant[] = await fetch(
-    `${config.apiv1}/directory/participant?limit=3&q=${str}`,
+    `${config.apiv1}/directory/participant?limit=3&q=${encodeURIComponent(str)}`,
     {
       headers: header,
       signal,

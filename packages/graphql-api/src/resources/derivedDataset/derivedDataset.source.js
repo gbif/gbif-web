@@ -1,5 +1,15 @@
 import { RESTDataSource } from '@/RESTDataSource';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import { splitDoi, urlPath } from '@/helpers/urlPath';
+
+// Derived datasets are identified by their DOI (10.15468/dd.abc123), which the
+// API takes as two path segments.
+function derivedDatasetPath(key, suffix = '') {
+  const doi = splitDoi(key);
+  if (!doi) throw new NotFoundError();
+  return urlPath`/derivedDataset/${doi.prefix}/${doi.suffix}` + suffix;
+}
 
 class DerivedDatasetAPI extends RESTDataSource {
   constructor(config) {
@@ -20,19 +30,19 @@ class DerivedDatasetAPI extends RESTDataSource {
   }
 
   async getUsersDerivedDataset({ username, query }) {
-    return this.get(`/derivedDataset/user/${username}`, query, {
+    return this.get(urlPath`/derivedDataset/user/${username}`, query, {
       cacheOptions: { ttl: 0 },
     });
   }
 
   async getDerivedDataset({ key }) {
-    return this.get(`/derivedDataset/${key}`, null, {
+    return this.get(derivedDatasetPath(key), null, {
       cacheOptions: { ttl: 0 },
     });
   }
 
   async getContributingDatasetsByDerivedDatasetKey({ key, query }) {
-    return this.get(`/derivedDataset/${key}/datasets`, query, {
+    return this.get(derivedDatasetPath(key, '/datasets'), query, {
       cacheOptions: { ttl: 0 },
     });
   }

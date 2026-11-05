@@ -9,6 +9,7 @@ import { stringify } from 'qs';
 import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
 import { isValidIntegerKey } from '@/helpers/utils';
+import { urlPath } from '@/helpers/urlPath';
 import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { VALID_GBIF_ROLES } from './validGbifRoles';
 
@@ -110,7 +111,7 @@ class DirectoryPersonAPI extends RESTDataSource {
 
   async getPersonByKey(key) {
     assertValidPersonKey(key);
-    return this.get(`/directory/person/${key}`);
+    return this.get(urlPath`/directory/person/${key}`);
   }
 
   async getTranslatorByKey({ key }) {
@@ -138,7 +139,7 @@ class DirectoryPersonAPI extends RESTDataSource {
     if (!isValidIntegerKey(key)) return null;
     try {
       const image = await this.get(
-        `/directory/person/${key}/profilePicture`,
+        urlPath`/directory/person/${key}/profilePicture`,
         stringify(query, { indices: false }),
       );
       return image;
