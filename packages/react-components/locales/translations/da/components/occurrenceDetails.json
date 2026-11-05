@@ -754,7 +754,7 @@
       "name": "",
       "recordsHeader": "",
       "groups": {
-        "protocols": "",
+        "protocols": "Protokoller",
         "samplingDesign": "",
         "spatialScope": "",
         "temporalScope": "Tidsmæssigt omfang",
