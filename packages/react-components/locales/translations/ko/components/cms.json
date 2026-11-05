@@ -2,7 +2,7 @@
   "contentType": {
     "event": "이벤트",
     "news": "뉴스",
-    "resource": "자원",
+    "resource": "리소스",
     "dataUse": "데이터 사용",
     "project": "프로젝트",
     "participant": "참여자",
@@ -39,7 +39,7 @@
     "partners": "파트너"
   },
   "datause": {
-    "dataViaGbif": "활용된 GBIF 중개 데이터 자원"
+    "dataViaGbif": "활용된 GBIF 중개 데이터 리소스"
   },
   "literature": {
     "keywords": "키워드"
@@ -54,7 +54,7 @@
     "readDocument": "문서로 이동"
   },
   "resource": {
-    "resources": "자원",
+    "resources": "리소스",
     "contactHelpdesk": "헬프데스크 연결",
     "addToCalendar": "달력에 추가",
     "venue": "베뉴",
@@ -77,6 +77,6 @@
     "datasets": "데이터셋",
     "gbifWillAttend": "GBIF 사무국 참석",
     "dataUsedInStudy": "연구에서 참조된 데이터",
-    "resourceDescription": "GBIF 내 자원 검색. 생물다양성 데이터에 대한 무료 및 오픈 액세스."
+    "resourceDescription": "GBIF 내 리소스 검색. 생물다양성 데이터에 대한 무료 오픈 액세스."
   }
 }
