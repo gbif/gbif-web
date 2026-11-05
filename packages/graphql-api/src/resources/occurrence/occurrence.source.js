@@ -5,6 +5,11 @@ import QueuedRESTDataSource from '@/QueuedRESTDataSource';
 
 const MAX_RESULTS = 6000;
 
+// Is `url` under `baseURL`? Compares against "https://host/v1/", so that
+// "https://host/v1x" doesn't count as being under "https://host/v1".
+const isUnder = (url, baseURL) =>
+  !!baseURL && url.startsWith(`${String(baseURL).replace(/\/+$/, '')}/`);
+
 class OccurrenceAPI extends QueuedRESTDataSource {
   constructor(config) {
     super({
@@ -18,14 +23,21 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   }
 
   willSendRequest(path, request) {
-    // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
-    request.headers['User-Agent'] = this.context.userAgent;
-    if (this.context.referer) request.headers['referer'] = this.context.referer;
-    if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
-    if (this.context.siteUrl) request.headers['x-gbif-site-url'] = this.context.siteUrl;
-    if (this.context.requestId) request.headers['x-request-id'] = this.context.requestId;
-    if (this.context.clientIp) request.headers['x-client-ip'] = this.context.clientIp;
+    // Most requests go to our own APIs, but the bionomia lookup goes to a third
+    // party. The API key and the details about our client are only for our own.
+    const url = this.resolveURL(path).href;
+    const isGbifApi = [this.baseURL, this.config.apiv1, this.config.apiv2].some(
+      (baseURL) => isUnder(url, baseURL),
+    );
+    if (isGbifApi) {
+      request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
+      request.headers['User-Agent'] = this.context.userAgent;
+      if (this.context.referer) request.headers['referer'] = this.context.referer;
+      if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
+      if (this.context.siteUrl) request.headers['x-gbif-site-url'] = this.context.siteUrl;
+      if (this.context.requestId) request.headers['x-request-id'] = this.context.requestId;
+      if (this.context.clientIp) request.headers['x-client-ip'] = this.context.clientIp;
+    }
     request.agent = getOccurrenceAgent(this.baseURL, path);
   }
 
@@ -83,9 +95,10 @@ class OccurrenceAPI extends QueuedRESTDataSource {
 
   async getBionomia({ occurrence }) {
     const { datasetKey, occurrenceID } = occurrence;
-    return this.get(
-      `https://bionomia.net/occurrences/search?datasetKey=${datasetKey}&occurrenceID=${occurrenceID}`,
-    ).then((x) => JSON.parse(x));
+    return this.get('https://bionomia.net/occurrences/search', {
+      datasetKey,
+      occurrenceID,
+    }).then((x) => JSON.parse(x));
   }
 
   async meta({ query }) {
