@@ -2004,14 +2004,20 @@ export enum DatasetSearchParameter {
   Doi = 'DOI',
   DwcaCoreType = 'DWCA_CORE_TYPE',
   DwcaExtension = 'DWCA_EXTENSION',
+  DwcDpResourceSchema = 'DWC_DP_RESOURCE_SCHEMA',
   EndorsingNodeKey = 'ENDORSING_NODE_KEY',
   EndpointType = 'ENDPOINT_TYPE',
   HostingCountry = 'HOSTING_COUNTRY',
   HostingOrg = 'HOSTING_ORG',
+  Identifier = 'IDENTIFIER',
+  IdentifierType = 'IDENTIFIER_TYPE',
   InstallationKey = 'INSTALLATION_KEY',
   InstitutionKey = 'INSTITUTION_KEY',
   Keyword = 'KEYWORD',
   License = 'LICENSE',
+  MachineTagName = 'MACHINE_TAG_NAME',
+  MachineTagNamespace = 'MACHINE_TAG_NAMESPACE',
+  MachineTagValue = 'MACHINE_TAG_VALUE',
   ModifiedDate = 'MODIFIED_DATE',
   NetworkKey = 'NETWORK_KEY',
   ProjectId = 'PROJECT_ID',
@@ -2992,6 +2998,9 @@ export enum EventIssue {
   ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
   ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
   SiteCountInvalid = 'SITE_COUNT_INVALID',
+  SuspectedNegatedLatitude = 'SUSPECTED_NEGATED_LATITUDE',
+  SuspectedNegatedLongitude = 'SUSPECTED_NEGATED_LONGITUDE',
+  SuspectedSwappedCoordinate = 'SUSPECTED_SWAPPED_COORDINATE',
   SuspectedType = 'SUSPECTED_TYPE',
   TargetDegreeOfEstablishmentExcluded = 'TARGET_DEGREE_OF_ESTABLISHMENT_EXCLUDED',
   TargetGrowthFormExcluded = 'TARGET_GROWTH_FORM_EXCLUDED',
@@ -7254,6 +7263,9 @@ export enum OccurrenceIssue {
   ReferencesUriInvalid = 'REFERENCES_URI_INVALID',
   ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
   ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
+  SuspectedNegatedLatitude = 'SUSPECTED_NEGATED_LATITUDE',
+  SuspectedNegatedLongitude = 'SUSPECTED_NEGATED_LONGITUDE',
+  SuspectedSwappedCoordinate = 'SUSPECTED_SWAPPED_COORDINATE',
   SuspectedType = 'SUSPECTED_TYPE',
   TargetGeneInvalid = 'TARGET_GENE_INVALID',
   TaxonConceptIdNotFound = 'TAXON_CONCEPT_ID_NOT_FOUND',
@@ -7392,6 +7404,7 @@ export enum OccurrenceSortBy {
   OccurrenceId = 'occurrenceId',
   OccurrenceStatus = 'occurrenceStatus',
   OrganismId = 'organismId',
+  OrganismQuantity = 'organismQuantity',
   Preparations = 'preparations',
   PublishingCountry = 'publishingCountry',
   RecordNumber = 'recordNumber',
@@ -7432,6 +7445,8 @@ export type OccurrenceStats = {
 
 export enum OccurrenceStatus {
   Absent = 'ABSENT',
+  Detected = 'DETECTED',
+  NotDetected = 'NOT_DETECTED',
   Present = 'PRESENT'
 }
 
@@ -8926,6 +8941,7 @@ export type SpeciesMatchUsage = {
 };
 
 export enum SqlDownloadFunction {
+  ArraysAgg = 'ARRAYS_AGG',
   ArraysOverlap = 'ARRAYS_OVERLAP',
   Contains = 'CONTAINS',
   DegreeMinuteSecondGridCellCode = 'DEGREE_MINUTE_SECOND_GRID_CELL_CODE',
@@ -9023,10 +9039,10 @@ export enum StepType {
   ValidatorAbcdToVerbatim = 'VALIDATOR_ABCD_TO_VERBATIM',
   ValidatorCollectMetrics = 'VALIDATOR_COLLECT_METRICS',
   ValidatorDwcaToVerbatim = 'VALIDATOR_DWCA_TO_VERBATIM',
-  ValidatorInterpretedToIndex = 'VALIDATOR_INTERPRETED_TO_INDEX',
   ValidatorTabularToVerbatim = 'VALIDATOR_TABULAR_TO_VERBATIM',
   ValidatorUploadArchive = 'VALIDATOR_UPLOAD_ARCHIVE',
   ValidatorValidateArchive = 'VALIDATOR_VALIDATE_ARCHIVE',
+  ValidatorVerbatimToIdentifier = 'VALIDATOR_VERBATIM_TO_IDENTIFIER',
   ValidatorVerbatimToInterpreted = 'VALIDATOR_VERBATIM_TO_INTERPRETED',
   ValidatorXmlToVerbatim = 'VALIDATOR_XML_TO_VERBATIM',
   VerbatimToIdentifier = 'VERBATIM_TO_IDENTIFIER',
@@ -9064,6 +9080,7 @@ export type Tag = {
 };
 
 export enum TagName {
+  AllowCoordinatesFlipping = 'ALLOW_COORDINATES_FLIPPING',
   ArchiveOrigin = 'ARCHIVE_ORIGIN',
   ConceptualSchema = 'CONCEPTUAL_SCHEMA',
   CrawlAttempt = 'CRAWL_ATTEMPT',
@@ -9091,6 +9108,7 @@ export enum TagNamespace {
   GbifMetasync = 'GBIF_METASYNC',
   GbifOrphans = 'GBIF_ORPHANS',
   GbifValidator = 'GBIF_VALIDATOR',
+  Pipelines = 'PIPELINES',
   Public = 'PUBLIC'
 }
 

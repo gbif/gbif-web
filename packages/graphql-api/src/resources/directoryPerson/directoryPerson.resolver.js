@@ -1,3 +1,6 @@
+import { NotFoundError } from '../../helpers/GraphQL404Error';
+import { isPublicDirectoryPerson } from './publicDirectoryPersons';
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -34,32 +37,31 @@ export default {
         .then((response) => {
           // remove duplicate persons
           const unique = response.filter(
-            (person, index, self) =>
-              index === self.findIndex((p) => p.personId === person.personId),
+            (person, index, self) => index === self.findIndex((p) => p.personId === person.personId),
           );
           // expand the person object
           return Promise.all(
             unique.map((person) => {
-              return dataSources.directoryPersonAPI
-                .getDirectoryPersonByKey({ key: person.personId })
-                .then((p) => {
-                  // filter the person roles to only show awards
-                  p.roles = p.roles.filter(
-                    (role) => role.role === 'AWARD_WINNER',
-                  );
-                  // and if award is specified in query, then only show matching awards
-                  if (award.length > 0) {
-                    p.roles = p.roles.filter((role) =>
-                      award.includes(role.award),
-                    );
-                  }
-                  return p;
-                });
+              return dataSources.directoryPersonAPI.getDirectoryPersonByKey({ key: person.personId }).then((p) => {
+                // filter the person roles to only show awards
+                let roles = p.roles.filter((role) => role.role === 'AWARD_WINNER');
+                // and if award is specified in query, then only show matching awards
+                if (award.length > 0) {
+                  roles = roles.filter((role) => award.includes(role.award));
+                }
+                return { ...p, roles };
+              });
             }),
           );
         }),
-    directoryContact: (parent, { id }, { dataSources }) =>
-      dataSources.directoryPersonAPI.getDirectoryContactByKey({ key: id }),
+    directoryContact: async (parent, { id }, { dataSources }) => {
+      if (!(await isPublicDirectoryPerson(id, dataSources))) {
+        throw new NotFoundError();
+      }
+      return dataSources.directoryPersonAPI.getDirectoryContactByKey({
+        key: id,
+      });
+    },
   },
   DirectoryPersonRole: {
     Person: ({ personId }, args, { dataSources }) =>
