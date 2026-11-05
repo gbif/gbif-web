@@ -42,14 +42,10 @@ export default {
           // expand the person object
           return Promise.all(
             unique.map((person) => {
-              return dataSources.directoryPersonAPI.getDirectoryPersonByKey({ key: person.personId }).then((p) => {
-                // filter the person roles to only show awards
-                let roles = p.roles.filter((role) => role.role === 'AWARD_WINNER');
-                // and if award is specified in query, then only show matching awards
-                if (award.length > 0) {
-                  roles = roles.filter((role) => award.includes(role.award));
-                }
-                return { ...p, roles };
+              return dataSources.directoryPersonAPI.getAwardWinnerByKey({ key: person.personId }).then((p) => {
+                // if award is specified in query, then only show matching awards
+                if (award.length === 0) return p;
+                return { ...p, roles: p.roles.filter((role) => award.includes(role.award)) };
               });
             }),
           );
@@ -63,22 +59,16 @@ export default {
       });
     },
   },
-  DirectoryPersonRole: {
+  DirectoryTranslatorRole: {
     Person: ({ personId }, args, { dataSources }) =>
-      dataSources.directoryPersonAPI.getDirectoryPersonByKey({ key: personId }),
+      dataSources.directoryPersonAPI.getTranslatorByKey({ key: personId }),
   },
-  DirectoryContactRole: {
+  DirectoryAmbassadorRole: {
     Person: ({ personId }, args, { dataSources }) =>
-      dataSources.directoryPersonAPI.getDirectoryContactByKey({
-        key: personId,
-      }),
+      dataSources.directoryPersonAPI.getAmbassadorByKey({ key: personId }),
   },
-  DirectoryPerson: {
-    profilePicture: ({ id }, args, { dataSources }) =>
-      dataSources.directoryPersonAPI.getProfilePicture({
-        key: id,
-        query: { ...args, base64: true },
-      }),
+  DirectoryMentorRole: {
+    Person: ({ personId }, args, { dataSources }) => dataSources.directoryPersonAPI.getMentorByKey({ key: personId }),
   },
   DirectoryContact: {
     profilePicture: ({ id }, args, { dataSources }) =>
