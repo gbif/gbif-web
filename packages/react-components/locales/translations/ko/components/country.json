@@ -31,7 +31,7 @@
       "publishedOccurrences": "발간된 출현값",
       "publishedDatasets": "발간된 데이터셋",
       "countriesAndAreasCoveredByDataFrom": " {TRANSLATED_COUNTRY} 데이터에 포함된 국가 및 지역",
-      "publishersFrom": "{TRANSLATED_COUNTRY}로부터의 발행자"
+      "publishersFrom": "{TRANSLATED_COUNTRY}로부터의 발행기관"
     },
     "activityReport": "활동 보고서",
     "contacts": "연락처"
