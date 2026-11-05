@@ -510,9 +510,6 @@ export default {
         key: occurrence.collectionKey,
       });
     },
-    bionomia: (occurrence, _args, { dataSources }) => {
-      return dataSources.occurrenceAPI.getBionomia({ occurrence });
-    },
     localContexts: (occurrence, _args, { dataSources }) => {
       // this is a special field that is used to provide the local context for the occurrence
       // it is used to provide the local context for the occurrence in the UI
@@ -557,42 +554,6 @@ export default {
         }
       });
       return extensions;
-    },
-  },
-  BionomiaOccurrence: {
-    recorded: (bionomiaOccurrence) => {
-      return bionomiaOccurrence.dataFeedElement[0].item.recorded.map((x) => {
-        return {
-          name: x.name,
-          reference: x['@id'],
-        };
-      });
-      // return bionomiaOccurrence.dataFeedElement[0].item.recorded.map(x => {
-      //   if (x.sameAs.includes('wikidata')) {
-      //     return {
-      //       type: 'WIKIDATA',
-      //       value: x.sameAs
-      //     }
-      //   } else if (x.sameAs.includes('orcid')) {
-      //     return {
-      //       type: 'ORCID',
-      //       value: x.sameAs
-      //     }
-      //   } else {
-      //     return {
-      //       type: 'OTHER',
-      //       value: x.sameAs
-      //     }
-      //   }
-      // });
-    },
-    identified: (bionomiaOccurrence) => {
-      return bionomiaOccurrence.dataFeedElement[0].item.identified.map((x) => {
-        return {
-          name: x.name,
-          reference: x['@id'],
-        };
-      });
     },
   },
   AssociatedID: {

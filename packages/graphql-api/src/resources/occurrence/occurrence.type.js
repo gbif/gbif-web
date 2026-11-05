@@ -323,22 +323,8 @@ const typeDef = gql`
     """
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
-    bionomia: BionomiaOccurrence
-    """
-    Volatile: these values are tightly coupled to the webview and are likely to change frequently
-    """
     localContexts: [LocalContext]
     originalUsageMatch: SpeciesMatchResult
-  }
-
-  type BionomiaOccurrence {
-    recorded: [BionomiaPerson]
-    identified: [BionomiaPerson]
-  }
-
-  type BionomiaPerson {
-    name: String
-    reference: String
   }
 
   type RelatedOccurrences {

@@ -170,18 +170,6 @@ export type Bibliography = {
   url?: Maybe<Scalars['String']['output']>;
 };
 
-export type BionomiaOccurrence = {
-  __typename?: 'BionomiaOccurrence';
-  identified?: Maybe<Array<Maybe<BionomiaPerson>>>;
-  recorded?: Maybe<Array<Maybe<BionomiaPerson>>>;
-};
-
-export type BionomiaPerson = {
-  __typename?: 'BionomiaPerson';
-  name?: Maybe<Scalars['String']['output']>;
-  reference?: Maybe<Scalars['String']['output']>;
-};
-
 export type BlockItem = CarouselBlock | CustomComponentBlock | FeatureBlock | FeaturedTextBlock | HeaderBlock | MediaBlock | MediaCountBlock | TextBlock;
 
 export type BoundingBox = {
@@ -5346,8 +5334,6 @@ export type Occurrence = {
   bed?: Maybe<Scalars['String']['output']>;
   behavior?: Maybe<Scalars['String']['output']>;
   bibliographicCitation?: Maybe<Scalars['String']['output']>;
-  /** Volatile: these values are tightly coupled to the webview and are likely to change frequently */
-  bionomia?: Maybe<BionomiaOccurrence>;
   catalogNumber?: Maybe<Scalars['String']['output']>;
   class?: Maybe<Scalars['String']['output']>;
   classKey?: Maybe<Scalars['ID']['output']>;

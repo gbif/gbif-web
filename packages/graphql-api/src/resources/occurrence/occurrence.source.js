@@ -19,9 +19,9 @@ class OccurrenceAPI extends QueuedRESTDataSource {
 
   willSendRequest(path, request) {
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
-    request.headers['Authorization'] = `ApiKey-v1 ${this.config.apiEsKey}`;
+    request.headers.Authorization = `ApiKey-v1 ${this.config.apiEsKey}`;
     request.headers['User-Agent'] = this.context.userAgent;
-    if (this.context.referer) request.headers['referer'] = this.context.referer;
+    if (this.context.referer) request.headers.referer = this.context.referer;
     if (this.context.clientPriority) request.headers['x-client-priority'] = this.context.clientPriority;
     if (this.context.siteUrl) request.headers['x-gbif-site-url'] = this.context.siteUrl;
     if (this.context.requestId) request.headers['x-request-id'] = this.context.requestId;
@@ -68,9 +68,7 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   }
 
   async getRelated({ key }) {
-    return this.get(
-      `${this.config.apiv1}/occurrence/${key}/experimental/related`,
-    );
+    return this.get(`${this.config.apiv1}/occurrence/${key}/experimental/related`);
   }
 
   async getFragment({ key }) {
@@ -79,13 +77,6 @@ class OccurrenceAPI extends QueuedRESTDataSource {
 
   async getVerbatim({ key }) {
     return this.get(`${this.config.apiv1}/occurrence/${key}/verbatim`);
-  }
-
-  async getBionomia({ occurrence }) {
-    const { datasetKey, occurrenceID } = occurrence;
-    return this.get(
-      `https://bionomia.net/occurrences/search?datasetKey=${datasetKey}&occurrenceID=${occurrenceID}`,
-    ).then((x) => JSON.parse(x));
   }
 
   async meta({ query }) {
@@ -98,13 +89,9 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   }
 
   async publisherSuggest(query) {
-    const response = await this.post(
-      '/occurrence/suggest/publisherKey',
-      query,
-      {
-        signal: this.context.abortController.signal,
-      },
-    );
+    const response = await this.post('/occurrence/suggest/publisherKey', query, {
+      signal: this.context.abortController.signal,
+    });
     return response;
   }
 
@@ -117,11 +104,10 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   }
 
   async registerPredicate({ predicate }) {
-    return this.post(
-      `${this.config.apiv2}/map/occurrence/adhoc/predicate/`,
-      predicate,
-      { signal: this.context.abortController.signal, enQueue: true },
-    );
+    return this.post(`${this.config.apiv2}/map/occurrence/adhoc/predicate/`, predicate, {
+      signal: this.context.abortController.signal,
+      enQueue: true,
+    });
   }
 
   async getMapCapabilities(query) {
@@ -132,10 +118,7 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   }
 
   async searchCollections({ query }) {
-    return this.get(
-      '/grscicoll/collection',
-      stringify(query, { indices: false }),
-    );
+    return this.get('/grscicoll/collection', stringify(query, { indices: false }));
   }
 
   /*
