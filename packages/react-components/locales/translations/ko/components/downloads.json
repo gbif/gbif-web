@@ -58,7 +58,7 @@
     "predatesDoi": "이 다운로드는 저희가 DOI 사용 전에 발생하였습니다. 이 다운로드를 인용하고자 하는 경우 저희에게 연락해주세요.",
     "file": "파일",
     "constituentDatasets": "포함된 데이터셋",
-    "constituentOrganizations": "포함된 발행자",
+    "constituentOrganizations": "포함된 발행기관",
     "constituentPublishingCountries": "포함된 발행국가",
     "noFiltersApplied": "필터 사용되지 않음",
     "apiUsageDescription": "현재 데이터에 대한 다운로드를 반복하고자 할 경우, 아래 쿼리를 API와 함께 이용하시면 됩니다.",
@@ -80,7 +80,7 @@
       "checklist": "체크리스트",
       "tooManyLabelResolutions": "이 쿼리를 읽기 쉬운 형식으로 표시하려면 {count} 라벨 조회가 필요하며, 이는 {max}의 제한을 초과합니다. 서비스 부하를 줄이기 위해 원시 JSON 형식으로 대신 표시됩니다.",
       "joinDescriptions": {
-        "and": "모두 적용되어야 함",
+        "and": "전체 적용되어야 함",
         "or": "적어도 한개는 적용되어야 함",
         "not": "아무것도 포함되지 않아야 함"
       },
@@ -280,8 +280,8 @@
     "extensions": "확장",
     "selectAdditionalExtensions": "추가적으로 포함할 데이터 확장을 선택해주세요.",
     "nExtensionsSelected": "{count, plural,one {#선택됨}other {#선택됨}}",
-    "selectAll": "모두 선택하기",
-    "deselectAll": "모두 선택 해제하기",
+    "selectAll": "전체 선택",
+    "deselectAll": "전체 선택 해제",
     "extensionsInfoMessage": "확장은 핵심 출현 데이터를 넘어선 추가적인 데이터 필드를 제공합니다. 당신의 연구 목적과 관련 있는 확장만을 선택해주세요.",
     "format": "포맷",
     "csvDelimiter": "CSV 구분자",
