@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   createGetPostRenderRedirect,
   createGetPreRenderRedirect,
-  getOccurrenceStatusRedirect,
+  createRenamedSearchParamRedirect,
+  getRenamedSearchParamRedirect,
 } from './redirects.mjs';
 
 // Drives the real factory against the real redirect table (redirects.json + newRedirects).
@@ -113,8 +114,8 @@ describe('getPreRenderRedirect — GRSciColl moved to its own domain', () => {
   });
 });
 
-describe('getOccurrenceStatusRedirect — occurrenceStatus renamed to DETECTED/NOT_DETECTED', () => {
-  const run = (originalUrl) => getOccurrenceStatusRedirect({ originalUrl });
+describe('getRenamedSearchParamRedirect — occurrenceStatus renamed to DETECTED/NOT_DETECTED', () => {
+  const run = (originalUrl) => getRenamedSearchParamRedirect({ originalUrl });
 
   it('maps old values in any casing', () => {
     expect(run('/occurrence/search?occurrenceStatus=PRESENT')).toBe(
@@ -162,5 +163,27 @@ describe('getOccurrenceStatusRedirect — occurrenceStatus renamed to DETECTED/N
     expect(run('/occurrence/search?occurrence_status=DETECTED')).toBe(
       '/occurrence/search?occurrenceStatus=DETECTED'
     );
+  });
+});
+
+describe('createRenamedSearchParamRedirect — generic renames', () => {
+  const redirect = createRenamedSearchParamRedirect([
+    { param: 'datasetKey', from: ['dataset_id', 'datasetId'] },
+    { param: 'basisOfRecord', values: { fossil: 'FOSSIL_SPECIMEN' } },
+  ]);
+  const run = (originalUrl) => redirect({ originalUrl });
+
+  it('renames a parameter and keeps its value', () => {
+    expect(run('/dataset/search?datasetId=abc&q=a')).toBe('/dataset/search?datasetKey=abc&q=a');
+  });
+
+  it('applies several renames in one redirect', () => {
+    expect(run('/occurrence/search?dataset_id=abc&basisOfRecord=Fossil&basisOfRecord=OTHER')).toBe(
+      '/occurrence/search?datasetKey=abc&basisOfRecord=FOSSIL_SPECIMEN&basisOfRecord=OTHER'
+    );
+  });
+
+  it('does nothing when the URL is already current', () => {
+    expect(run('/occurrence/search?datasetKey=abc&basisOfRecord=OTHER')).toBeUndefined();
   });
 });
