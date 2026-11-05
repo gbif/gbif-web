@@ -8,7 +8,77 @@ import pick from 'lodash/pick';
 import { stringify } from 'qs';
 import { getDefaultAgent } from '@/requestAgents';
 import { createSignedGetHeader } from '@/helpers/auth/authenticatedGet';
+import { isValidIntegerKey } from '@/helpers/utils';
+import { urlPath } from '@/helpers/urlPath';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
 import { VALID_GBIF_ROLES } from './validGbifRoles';
+
+// The directory person id is always an integer. Reject anything else so it can
+// never be used to shape the signed upstream path.
+function assertValidPersonKey(key) {
+  if (!isValidIntegerKey(key)) {
+    throw new NotFoundError();
+  }
+}
+
+/*
+ * The schema already limits what is public, but to make it more difficult to
+ * expose something by accident, each list only keeps the fields the website shows.
+ */
+const pickTerm = (term) => term && pick(term, ['start', 'end']);
+
+export function reducePersonRole(personRole) {
+  return {
+    ...pick(personRole, ['personId', 'award']),
+    term: pickTerm(personRole.term),
+  };
+}
+
+export function reduceTranslator(person) {
+  return {
+    ...pick(person, ['firstName', 'surname', 'countryCode', 'orcidId', 'languages']),
+    certifications: person.certifications?.map((c) => pick(c, ['year'])),
+  };
+}
+
+export function reduceAmbassador(person) {
+  return pick(person, ['firstName', 'surname', 'email', 'orcidId', 'institutionName', 'countryCode', 'areasExpertise']);
+}
+
+export function reduceMentor(person) {
+  return pick(person, ['firstName', 'surname', 'email', 'countryCode', 'areasExpertise']);
+}
+
+export function reduceAwardWinner(person) {
+  return {
+    ...pick(person, ['firstName', 'surname', 'countryCode', 'orcidId']),
+    roles: (person.roles ?? [])
+      .filter((r) => r.role === 'AWARD_WINNER')
+      .map((r) => ({ award: r.award, term: pickTerm(r.term) })),
+  };
+}
+
+// for the contact dialog of people listed in the directory
+export function reduceDirectoryContact(person) {
+  return {
+    ...pick(person, [
+      'id',
+      'firstName',
+      'surname',
+      'orcidId',
+      'jobTitle',
+      'institutionName',
+      'email',
+      'phone',
+      'address',
+      'countryCode',
+    ]),
+    roles: (person.roles ?? [])
+      .filter((r) => VALID_GBIF_ROLES.has(r.role))
+      .map((r) => ({ role: r.role, term: pickTerm(r.term) })),
+    participants: (person.participants ?? []).map((p) => pick(p, ['participantId'])),
+  };
+}
 
 class DirectoryPersonAPI extends RESTDataSource {
   constructor(config) {
@@ -29,88 +99,47 @@ class DirectoryPersonAPI extends RESTDataSource {
     request.agent = getDefaultAgent(this.baseURL, path);
   }
 
-  /*
-   * The schemas already limits what is public, but to make it more difficult to
-   * add something, we also sanitize the data before returning it.
-   */
-  // eslint-disable-next-line class-methods-use-this
-  reduceDirectoryPerson(directoryPerson) {
-    const result = pick(directoryPerson, [
-      'id',
-      'firstName',
-      'surname',
-      'title',
-      'orcidId',
-      'roles',
-      'countryCode',
-      'certifications',
-      'languages',
-      'areasExpertise',
-      'profileDescriptions',
-      'created',
-      'modified',
-    ]);
-    if (result.roles) {
-      result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r.role));
-    }
-    return result;
-  }
-
-  // for public contacts
-  reduceDirectoryContact(directoryPerson) {
-    const result = pick(directoryPerson, [
-      'id',
-      'firstName',
-      'surname',
-      'title',
-      'orcidId',
-      'jobTitle',
-      'institutionName',
-      'roles',
-      'countryCode',
-      'phone',
-      'email',
-      'certifications',
-      'languages',
-      'areasExpertise',
-      'profileDescriptions',
-      'participants',
-      'created',
-      'modified',
-      'address',
-    ]);
-    if (result.roles) {
-      result.roles = result.roles.filter((r) => VALID_GBIF_ROLES.has(r.role));
-    }
-    return result;
-  }
-
   async searchPeopleByRole({ query }) {
     const response = await this.get(
       '/directory/person_role',
       stringify(query, { indices: false }),
     );
     // Sanitize the data before returning it, this data is from an authorized endpoint.
-    // response.results = response.results.map((p) => this.reduceDirectoryPerson(p));
+    response.results = response.results.map(reducePersonRole);
     return response;
   }
 
-  async getDirectoryPersonByKey({ key }) {
-    const directoryPerson = await this.get(`/directory/person/${key}`);
-    // Sanitize the data before returning it, this data is from an authorized endpoint.
-    return this.reduceDirectoryPerson(directoryPerson);
+  async getPersonByKey(key) {
+    assertValidPersonKey(key);
+    return this.get(urlPath`/directory/person/${key}`);
+  }
+
+  async getTranslatorByKey({ key }) {
+    return reduceTranslator(await this.getPersonByKey(key));
+  }
+
+  async getAmbassadorByKey({ key }) {
+    return reduceAmbassador(await this.getPersonByKey(key));
+  }
+
+  async getMentorByKey({ key }) {
+    return reduceMentor(await this.getPersonByKey(key));
+  }
+
+  async getAwardWinnerByKey({ key }) {
+    return reduceAwardWinner(await this.getPersonByKey(key));
   }
 
   async getDirectoryContactByKey({ key }) {
-    const directoryPerson = await this.get(`/directory/person/${key}`);
-    // Sanitize the data before returning it, this data is from an authorized endpoint.
-    return this.reduceDirectoryContact(directoryPerson);
+    return reduceDirectoryContact(await this.getPersonByKey(key));
   }
 
   async getProfilePicture({ key, query }) {
+    // no valid key, no image (same as when the upstream has none)
+    if (!isValidIntegerKey(key)) return null;
     try {
       const image = await this.get(
-        `/directory/person/${key}/profilePicture`,
+        urlPath`/directory/person/${key}/profilePicture`,
         stringify(query, { indices: false }),
       );
       return image;
@@ -119,14 +148,6 @@ class DirectoryPersonAPI extends RESTDataSource {
       return null;
     }
   }
-
-  /*
-  getDirectoryPersonsByKeys({ directoryPersonKeys }) {
-    return Promise.all(
-      directoryPersonKeys.map(key => this.getDirectoryPersonByKey({ key })),
-    );
-  }
-  */
 }
 
 export default DirectoryPersonAPI;

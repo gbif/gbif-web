@@ -4,7 +4,7 @@ import URL from 'url';
 import logger from '../../config/logger.mjs';
 import * as userModel from '../user/user.model.mjs';
 import { getByUserName } from '../user/user.model.mjs';
-import { base64ToJson, logUserIn, setNoCache } from './utils.mjs';
+import { logUserIn, readOAuthState, setNoCache } from './utils.mjs';
 
 /**
  * generic wrapper for handling callback from auth providers. Will either connect, login or create a new account based on the state included in the initial request
@@ -35,8 +35,8 @@ export function authCallback(
   setNoCache(res);
   if (!err) {
     try {
-      // assume that there is always a state associated with the call
-      let state = base64ToJson(req.query.state);
+      // the state must belong to a login or connect started in this browser
+      let state = readOAuthState(req, res);
       // LOGIN
       if (state.action === 'LOGIN') {
         login(req, res, next, state, profile, providerEnum, identificationKey);

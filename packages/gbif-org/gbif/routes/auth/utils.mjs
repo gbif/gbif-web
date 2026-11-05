@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { expressjwt } from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
@@ -227,10 +228,62 @@ export function getReturnUrl(req) {
     const referer = req.headers.referer ?? '/';
     const refererUrl = new URL(referer);
     const searchParams = refererUrl.searchParams;
-    const unparsedReturnUrl = searchParams.get('returnUrl');
-    const returnUrl = unparsedReturnUrl.startsWith('/') ? unparsedReturnUrl : '/user/login';
-    return returnUrl ?? '/user/login';
+    return getSafeTarget(searchParams.get('returnUrl'), '/user/login');
   } catch (error) {
     return '/user/login';
   }
+}
+
+/**
+ * Reduce a redirect target to a path on this site. Absolute URLs on our own domain are kept as a path,
+ * anything pointing elsewhere (including //host and /\host) gives the fallback.
+ */
+export function getSafeTarget(target, fallback = '/') {
+  if (typeof target !== 'string' || target === '') return fallback;
+  try {
+    const base = new URL(secretEnv.DOMAIN);
+    const url = new URL(target, base);
+    // a path like //host would be read as another site by the browser
+    if (url.origin !== base.origin || /^\/[/\\]/.test(url.pathname)) return fallback;
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch (error) {
+    return fallback;
+  }
+}
+
+const OAUTH_STATE_COOKIE = 'oauthState';
+const oauthStateCookieOptions = {
+  httpOnly: true,
+  secure: useSecureCookie,
+  sameSite: 'lax', // the provider sends the user back with a top level GET, so lax is enough
+  path: '/auth',
+};
+
+/**
+ * Create the state for an auth provider request. A random nonce is stored in a short lived cookie and
+ * in the state, so the callback can check that it belongs to a flow started in this browser.
+ */
+export function createOAuthState(res, state) {
+  const nonce = crypto.randomBytes(16).toString('hex');
+  res.cookie(OAUTH_STATE_COOKIE, nonce, { ...oauthStateCookieOptions, maxAge: 10 * minute });
+  return jsonToBase64({ ...state, nonce });
+}
+
+/**
+ * Read the state returned by the auth provider. Throws if it wasn't started in this browser.
+ */
+export function readOAuthState(req, res) {
+  const expected = req.cookies?.[OAUTH_STATE_COOKIE];
+  res.clearCookie(OAUTH_STATE_COOKIE, oauthStateCookieOptions);
+  const state = base64ToJson(req.query.state);
+  const nonce = state?.nonce;
+  if (
+    typeof expected !== 'string' ||
+    typeof nonce !== 'string' ||
+    expected.length !== nonce.length ||
+    !crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(nonce))
+  ) {
+    throw new Error('Callback state does not match this browser');
+  }
+  return { action: state.action, target: getSafeTarget(state.target) };
 }

@@ -3,7 +3,7 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { update } from '../user/user.model.mjs';
 import { authCallback } from './oauthUtils.mjs';
-import { appendUser, getReturnUrl, isAuthenticated, jsonToBase64 } from './utils.mjs';
+import { appendUser, createOAuthState, getReturnUrl, isAuthenticated } from './utils.mjs';
 import { secretEnv } from '../../envConfig.mjs';
 
 export function register(app) {
@@ -11,7 +11,7 @@ export function register(app) {
   app.get('/auth/google/login', (req, res, next) => {
     const returnUrl = getReturnUrl(req);
     const state = { action: 'LOGIN', target: returnUrl ?? '/' };
-    const stateB64 = jsonToBase64(state);
+    const stateB64 = createOAuthState(res, state);
     passport.authenticate('google', { scope: ['profile', 'email'], state: stateB64 })(
       req,
       res,
@@ -21,7 +21,7 @@ export function register(app) {
 
   app.get('/auth/google/connect', isAuthenticated, function (req, res, next) {
     let state = { action: 'CONNECT', target: req.headers.referer || '/' };
-    let stateB64 = jsonToBase64(state);
+    let stateB64 = createOAuthState(res, state);
     passport.authenticate('google', { scope: ['profile', 'email'], state: stateB64 })(
       req,
       res,

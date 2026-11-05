@@ -2,11 +2,7 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import { NextFunction, Request, Response } from 'express';
 
-export default async function graphqlExplorer(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export default async function graphqlExplorer(req: Request, res: Response, next: NextFunction) {
   // Skip if the request is not accepting html
   if (!req.headers.accept?.includes('text/html')) return next();
 
@@ -29,11 +25,33 @@ export default async function graphqlExplorer(
 
   // Extract the query from the query (this may have been prosseced by the hash middleware)
   const query = typeof req.query.query === 'string' ? req.query.query : '';
+  const variablesString = typeof variables === 'string' ? variables : '';
 
-  // Replace the variables in the html file
-  const processedFile = file
-    .replace('INJECTED_QUERY', query)
-    .replace('INJECTED_VARIABLES', variables as string);
+  res.send(injectIntoTemplate(file, query, variablesString));
+}
 
-  res.send(processedFile);
+// Inject the values as JSON encoded string literals so query string content cannot break out
+// of the script. Both placeholders are replaced in a single pass: replacing them one after the
+// other would let a placeholder name inside the first value be replaced by the second value,
+// splicing raw text into the script. A function replacer is used so $-sequences are not expanded.
+export function injectIntoTemplate(file: string, query: string, variables: string): string {
+  const values: Record<string, string> = {
+    INJECTED_QUERY: toJsStringLiteral(query),
+    INJECTED_VARIABLES: toJsStringLiteral(variables),
+  };
+  return file.replace(/\bINJECTED_(?:QUERY|VARIABLES)\b/g, (placeholder) => values[placeholder]);
+}
+
+// Turn an arbitrary string into a safe JavaScript string literal, including the surrounding quotes.
+// JSON.stringify escapes quotes and backslashes; we additionally escape "<" (so the value cannot
+// close the script tag) and the line/paragraph separators U+2028 and U+2029 (valid JS line
+// terminators that would otherwise break the parse). The separators are matched via their code
+// points so this source file stays plain ASCII.
+const UNSAFE_SCRIPT_CHARS = new RegExp(`[<${String.fromCharCode(0x2028)}${String.fromCharCode(0x2029)}]`, 'g');
+
+function toJsStringLiteral(value: string): string {
+  return JSON.stringify(value).replace(
+    UNSAFE_SCRIPT_CHARS,
+    (char) => `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`,
+  );
 }

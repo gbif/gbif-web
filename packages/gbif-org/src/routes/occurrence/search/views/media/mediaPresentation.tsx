@@ -197,10 +197,7 @@ export function GalleryItem({
 
   const about = (
     <div>
-      <div
-        className="g-font-semibold g-overflow-hidden g-text-ellipsis"
-        dangerouslySetInnerHTML={{ __html: formattedName }}
-      ></div>
+      <div className="g-font-semibold g-overflow-hidden g-text-ellipsis">{formattedName}</div>
       {countryCode && (
         <div className="g-overflow-hidden g-text-ellipsis g-flex g-items-center g-opacity-60">
           <FaGlobeAfrica className="g-flex-shrink-0" />
@@ -424,10 +421,7 @@ function FilterPopover({
               <span className="g-text-slate-400 g-text-xs">
                 <FormattedMessage id="filters.taxonKey.name" defaultMessage="Scientific name" />
               </span>
-              <span
-                className="g-truncate g-text-xs"
-                dangerouslySetInnerHTML={{ __html: taxonName ?? String(taxonKey) }}
-              />
+              <span className="g-truncate g-text-xs">{taxonName ?? String(taxonKey)}</span>
             </span>
           </DropdownMenuCheckboxItem>
         )}
