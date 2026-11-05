@@ -13,7 +13,7 @@
       "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "기록과 관련된 측정 혹은 사실 정보 - http://rs.tdwg.org/dwc/terms/MeasurementOrFact",
       "http://rs.gbif.org/terms/1.0/Multimedia": "미디어 메타데이터와 권리 정보를 포함한 이미지, 오디오 녹음 혹은 비디오 - http://rs.gbif.org/terms/1.0/Multimedia",
       "http://rs.gbif.org/terms/1.0/Reference": "분류군이나 출현기록에 대한 참고문헌 - http://rs.gbif.org/terms/1.0/Reference",
-      "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "데이터셋 내 기록 간 혹은 데이터셋 외부 자원 간 관계에 대한 정보 - http://rs.tdwg.org/dwc/terms/ResourceRelationship",
+      "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "데이터셋 내 기록 간 혹은 데이터셋 외부 리소스 간 관계에 대한 정보 - http://rs.tdwg.org/dwc/terms/ResourceRelationship",
       "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "재료의 DNA 복제에 대한 정보 - http://data.ggbn.org/schemas/ggbn/terms/Cloning",
       "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "재료의 겔 이미지에 대한 정보 - http://data.ggbn.org/schemas/ggbn/terms/GelImage",
       "http://data.ggbn.org/schemas/ggbn/terms/Loan": "표본 대출 방법 및 조건에 대한 정보 - http://data.ggbn.org/schemas/ggbn/terms/Loan",
