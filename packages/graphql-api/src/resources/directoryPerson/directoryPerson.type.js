@@ -1,38 +1,19 @@
 import { gql } from 'graphql-tag';
 
+// Each list has its own types with only the fields the website shows.
 const typeDef = gql`
   extend type Query {
     directoryTranslators(
       limit: Int
       offset: Int
-    ): DirectoryPersonRoleSearchResults
+    ): DirectoryTranslatorSearchResults
     directoryAmbassadors(
       limit: Int
       offset: Int
-    ): DirectoryContactRoleSearchResults
-    directoryMentors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
-    directoryAwardWinners(award: [String]): [DirectoryPerson]!
+    ): DirectoryAmbassadorSearchResults
+    directoryMentors(limit: Int, offset: Int): DirectoryMentorSearchResults
+    directoryAwardWinners(award: [String]): [DirectoryAwardWinner]!
     directoryContact(id: ID!): DirectoryContact
-  }
-
-  type DirectoryPersonRole {
-    relationshipId: Int
-    personId: Int
-    role: String
-    programme: String
-    award: String
-    term: DirectoryTerm
-    Person: DirectoryPerson
-  }
-
-  type DirectoryContactRole {
-    relationshipId: Int
-    personId: Int
-    role: String
-    programme: String
-    award: String
-    term: DirectoryTerm
-    Person: DirectoryContact
   }
 
   type DirectoryTerm {
@@ -40,88 +21,112 @@ const typeDef = gql`
     end: String
   }
 
-  type DirectoryPersonRoleSearchResults {
-    results: [DirectoryPersonRole]!
+  type DirectoryTranslatorSearchResults {
+    results: [DirectoryTranslatorRole]!
     limit: Int!
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
   }
 
-  type DirectoryContactRoleSearchResults {
-    results: [DirectoryContactRole]!
-    limit: Int!
-    offset: Int!
-    count: Int!
-    endOfRecords: Boolean!
+  type DirectoryTranslatorRole {
+    personId: Int
+    term: DirectoryTerm
+    Person: DirectoryTranslator
   }
 
-  type DirectoryPerson {
-    id: ID!
+  type DirectoryTranslator {
     firstName: String
     surname: String
-    title: String
+    countryCode: String
     orcidId: String
-    jobTitle: String
+    languages: [String]
+    certifications: [DirectoryCertification]
+  }
+
+  type DirectoryCertification {
+    year: Int
+  }
+
+  type DirectoryAmbassadorSearchResults {
+    results: [DirectoryAmbassadorRole]!
+    limit: Int!
+    offset: Int!
+    count: Int!
+    endOfRecords: Boolean!
+  }
+
+  type DirectoryAmbassadorRole {
+    personId: Int
+    term: DirectoryTerm
+    Person: DirectoryAmbassador
+  }
+
+  type DirectoryAmbassador {
+    firstName: String
+    surname: String
+    email: String
+    orcidId: String
     institutionName: String
     countryCode: String
-    createdBy: String
-    modifiedBy: String
-    created: DateTime
-    modified: DateTime
-    roles: [DirectoryPersonRole]
-    certifications: [Certification]
-    languages: [String]
     areasExpertise: [String]
-    profileDescriptions: [ProfileDescription]
-    profilePicture: String
+  }
+
+  type DirectoryMentorSearchResults {
+    results: [DirectoryMentorRole]!
+    limit: Int!
+    offset: Int!
+    count: Int!
+    endOfRecords: Boolean!
+  }
+
+  type DirectoryMentorRole {
+    personId: Int
+    award: String
+    term: DirectoryTerm
+    Person: DirectoryMentor
+  }
+
+  type DirectoryMentor {
+    firstName: String
+    surname: String
+    email: String
+    countryCode: String
+    areasExpertise: [String]
+  }
+
+  type DirectoryAwardWinner {
+    firstName: String
+    surname: String
+    countryCode: String
+    orcidId: String
+    roles: [DirectoryAward]
+  }
+
+  type DirectoryAward {
+    award: String
+    term: DirectoryTerm
   }
 
   type DirectoryContact {
     id: ID!
     firstName: String
     surname: String
-    title: String
     orcidId: String
     jobTitle: String
     institutionName: String
     email: String
-    secondaryEmail: String
     phone: String
-    skype: String
     address: String
     countryCode: String
-    fax: String
-    createdBy: String
-    modifiedBy: String
-    created: DateTime
-    modified: DateTime
-    roles: [DirectoryPersonRole]
-    certifications: [Certification]
-    languages: [String]
-    areasExpertise: [String]
-    profileDescriptions: [ProfileDescription]
+    roles: [DirectoryRole]
     profilePicture: String
     participants: [Participant]
   }
 
-  type Certification {
-    key: Int
-    title: String
-    level: String
-    year: Int
-    createdBy: String
-    created: String
-  }
-
-  type ProfileDescription {
-    key: Int
-    language: String
-    description: String
-    createdBy: String
-    created: String
-    modifiedBy: String
-    modified: String
+  type DirectoryRole {
+    role: String
+    term: DirectoryTerm
   }
 `;
 

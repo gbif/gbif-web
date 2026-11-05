@@ -11,22 +11,23 @@ ${JSON.stringify(data, null, 2)}
 
 // eslint-disable-next-line import/prefer-default-export
 export function createMarkdown(data: MdtApplicationDTO) {
+  const country = data.participant.country?.toUpperCase();
+  const countryCode = country && /^[A-Z]{2}$/.test(country) ? country : undefined;
+
   return `## ${data.installation_name}
 
 Contact name: ${data.person_name}
 Contact email: [${data.email}](mailto:${data.email})
-Node: [${data.participant.title}](https://www.gbif.org/country/${
-    data.participant.country
-  }/participation)
+Node: ${
+    countryCode
+      ? `[${data.participant.title}](https://www.gbif.org/country/${countryCode}/participation)`
+      : data.participant.title
+  }
 
 **Application type**
 *Type*: ${humanReadable(data.type)}
 
-${
-  data.type === 'Group_installation'
-    ? `*Involved parties*: ${data.group_publisher_description}`
-    : ''
-}
+${data.type === 'Group_installation' ? `*Involved parties*: ${data.group_publisher_description}` : ''}
 
 **Content providers**
 ${data.content_providers}
@@ -35,7 +36,7 @@ ${data.content_providers}
 ${data.Mode_of_operation}
 
 **Timelines**
-${data.timeline}
+${data.timeline ?? ''}
 
 **Installation name**
 ${data.installation_name}
@@ -44,7 +45,7 @@ ${data.installation_name}
 ${data.description}
 
 **Domain**
-${data.domain}
+${data.domain ?? ''}
 
 **Status of application**
 

@@ -222,16 +222,6 @@ export type CarouselBlock = {
 
 export type CarouselBlockFeature = MediaBlock | MediaCountBlock;
 
-export type Certification = {
-  __typename?: 'Certification';
-  created?: Maybe<Scalars['String']['output']>;
-  createdBy?: Maybe<Scalars['String']['output']>;
-  key?: Maybe<Scalars['Int']['output']>;
-  level?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  year?: Maybe<Scalars['Int']['output']>;
-};
-
 export type ChecklistClassification = {
   __typename?: 'ChecklistClassification';
   acceptedUsage: AcceptedUsage;
@@ -2004,14 +1994,20 @@ export enum DatasetSearchParameter {
   Doi = 'DOI',
   DwcaCoreType = 'DWCA_CORE_TYPE',
   DwcaExtension = 'DWCA_EXTENSION',
+  DwcDpResourceSchema = 'DWC_DP_RESOURCE_SCHEMA',
   EndorsingNodeKey = 'ENDORSING_NODE_KEY',
   EndpointType = 'ENDPOINT_TYPE',
   HostingCountry = 'HOSTING_COUNTRY',
   HostingOrg = 'HOSTING_ORG',
+  Identifier = 'IDENTIFIER',
+  IdentifierType = 'IDENTIFIER_TYPE',
   InstallationKey = 'INSTALLATION_KEY',
   InstitutionKey = 'INSTITUTION_KEY',
   Keyword = 'KEYWORD',
   License = 'LICENSE',
+  MachineTagName = 'MACHINE_TAG_NAME',
+  MachineTagNamespace = 'MACHINE_TAG_NAMESPACE',
+  MachineTagValue = 'MACHINE_TAG_VALUE',
   ModifiedDate = 'MODIFIED_DATE',
   NetworkKey = 'NETWORK_KEY',
   ProjectId = 'PROJECT_ID',
@@ -2148,53 +2144,94 @@ export type DescriptorMatches = {
   usageRank?: Maybe<Rank>;
 };
 
-export type DirectoryContact = {
-  __typename?: 'DirectoryContact';
-  address?: Maybe<Scalars['String']['output']>;
+export type DirectoryAmbassador = {
+  __typename?: 'DirectoryAmbassador';
   areasExpertise?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  certifications?: Maybe<Array<Maybe<Certification>>>;
   countryCode?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['DateTime']['output']>;
-  createdBy?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
-  fax?: Maybe<Scalars['String']['output']>;
   firstName?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
   institutionName?: Maybe<Scalars['String']['output']>;
-  jobTitle?: Maybe<Scalars['String']['output']>;
-  languages?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  modified?: Maybe<Scalars['DateTime']['output']>;
-  modifiedBy?: Maybe<Scalars['String']['output']>;
   orcidId?: Maybe<Scalars['String']['output']>;
-  participants?: Maybe<Array<Maybe<Participant>>>;
-  phone?: Maybe<Scalars['String']['output']>;
-  profileDescriptions?: Maybe<Array<Maybe<ProfileDescription>>>;
-  profilePicture?: Maybe<Scalars['String']['output']>;
-  roles?: Maybe<Array<Maybe<DirectoryPersonRole>>>;
-  secondaryEmail?: Maybe<Scalars['String']['output']>;
-  skype?: Maybe<Scalars['String']['output']>;
   surname?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
 };
 
-export type DirectoryContactRole = {
-  __typename?: 'DirectoryContactRole';
-  Person?: Maybe<DirectoryContact>;
-  award?: Maybe<Scalars['String']['output']>;
+export type DirectoryAmbassadorRole = {
+  __typename?: 'DirectoryAmbassadorRole';
+  Person?: Maybe<DirectoryAmbassador>;
   personId?: Maybe<Scalars['Int']['output']>;
-  programme?: Maybe<Scalars['String']['output']>;
-  relationshipId?: Maybe<Scalars['Int']['output']>;
-  role?: Maybe<Scalars['String']['output']>;
   term?: Maybe<DirectoryTerm>;
 };
 
-export type DirectoryContactRoleSearchResults = {
-  __typename?: 'DirectoryContactRoleSearchResults';
+export type DirectoryAmbassadorSearchResults = {
+  __typename?: 'DirectoryAmbassadorSearchResults';
   count: Scalars['Int']['output'];
   endOfRecords: Scalars['Boolean']['output'];
   limit: Scalars['Int']['output'];
   offset: Scalars['Int']['output'];
-  results: Array<Maybe<DirectoryContactRole>>;
+  results: Array<Maybe<DirectoryAmbassadorRole>>;
+};
+
+export type DirectoryAward = {
+  __typename?: 'DirectoryAward';
+  award?: Maybe<Scalars['String']['output']>;
+  term?: Maybe<DirectoryTerm>;
+};
+
+export type DirectoryAwardWinner = {
+  __typename?: 'DirectoryAwardWinner';
+  countryCode?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  orcidId?: Maybe<Scalars['String']['output']>;
+  roles?: Maybe<Array<Maybe<DirectoryAward>>>;
+  surname?: Maybe<Scalars['String']['output']>;
+};
+
+export type DirectoryCertification = {
+  __typename?: 'DirectoryCertification';
+  year?: Maybe<Scalars['Int']['output']>;
+};
+
+export type DirectoryContact = {
+  __typename?: 'DirectoryContact';
+  address?: Maybe<Scalars['String']['output']>;
+  countryCode?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  institutionName?: Maybe<Scalars['String']['output']>;
+  jobTitle?: Maybe<Scalars['String']['output']>;
+  orcidId?: Maybe<Scalars['String']['output']>;
+  participants?: Maybe<Array<Maybe<Participant>>>;
+  phone?: Maybe<Scalars['String']['output']>;
+  profilePicture?: Maybe<Scalars['String']['output']>;
+  roles?: Maybe<Array<Maybe<DirectoryRole>>>;
+  surname?: Maybe<Scalars['String']['output']>;
+};
+
+export type DirectoryMentor = {
+  __typename?: 'DirectoryMentor';
+  areasExpertise?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  countryCode?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  surname?: Maybe<Scalars['String']['output']>;
+};
+
+export type DirectoryMentorRole = {
+  __typename?: 'DirectoryMentorRole';
+  Person?: Maybe<DirectoryMentor>;
+  award?: Maybe<Scalars['String']['output']>;
+  personId?: Maybe<Scalars['Int']['output']>;
+  term?: Maybe<DirectoryTerm>;
+};
+
+export type DirectoryMentorSearchResults = {
+  __typename?: 'DirectoryMentorSearchResults';
+  count: Scalars['Int']['output'];
+  endOfRecords: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<Maybe<DirectoryMentorRole>>;
 };
 
 export type DirectoryNode = {
@@ -2202,52 +2239,42 @@ export type DirectoryNode = {
   nodeUrl?: Maybe<Scalars['String']['output']>;
 };
 
-export type DirectoryPerson = {
-  __typename?: 'DirectoryPerson';
-  areasExpertise?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  certifications?: Maybe<Array<Maybe<Certification>>>;
-  countryCode?: Maybe<Scalars['String']['output']>;
-  created?: Maybe<Scalars['DateTime']['output']>;
-  createdBy?: Maybe<Scalars['String']['output']>;
-  firstName?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  institutionName?: Maybe<Scalars['String']['output']>;
-  jobTitle?: Maybe<Scalars['String']['output']>;
-  languages?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  modified?: Maybe<Scalars['DateTime']['output']>;
-  modifiedBy?: Maybe<Scalars['String']['output']>;
-  orcidId?: Maybe<Scalars['String']['output']>;
-  profileDescriptions?: Maybe<Array<Maybe<ProfileDescription>>>;
-  profilePicture?: Maybe<Scalars['String']['output']>;
-  roles?: Maybe<Array<Maybe<DirectoryPersonRole>>>;
-  surname?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-export type DirectoryPersonRole = {
-  __typename?: 'DirectoryPersonRole';
-  Person?: Maybe<DirectoryPerson>;
-  award?: Maybe<Scalars['String']['output']>;
-  personId?: Maybe<Scalars['Int']['output']>;
-  programme?: Maybe<Scalars['String']['output']>;
-  relationshipId?: Maybe<Scalars['Int']['output']>;
+export type DirectoryRole = {
+  __typename?: 'DirectoryRole';
   role?: Maybe<Scalars['String']['output']>;
   term?: Maybe<DirectoryTerm>;
-};
-
-export type DirectoryPersonRoleSearchResults = {
-  __typename?: 'DirectoryPersonRoleSearchResults';
-  count: Scalars['Int']['output'];
-  endOfRecords: Scalars['Boolean']['output'];
-  limit: Scalars['Int']['output'];
-  offset: Scalars['Int']['output'];
-  results: Array<Maybe<DirectoryPersonRole>>;
 };
 
 export type DirectoryTerm = {
   __typename?: 'DirectoryTerm';
   end?: Maybe<Scalars['String']['output']>;
   start?: Maybe<Scalars['String']['output']>;
+};
+
+export type DirectoryTranslator = {
+  __typename?: 'DirectoryTranslator';
+  certifications?: Maybe<Array<Maybe<DirectoryCertification>>>;
+  countryCode?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  languages?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  orcidId?: Maybe<Scalars['String']['output']>;
+  surname?: Maybe<Scalars['String']['output']>;
+};
+
+export type DirectoryTranslatorRole = {
+  __typename?: 'DirectoryTranslatorRole';
+  Person?: Maybe<DirectoryTranslator>;
+  personId?: Maybe<Scalars['Int']['output']>;
+  term?: Maybe<DirectoryTerm>;
+};
+
+export type DirectoryTranslatorSearchResults = {
+  __typename?: 'DirectoryTranslatorSearchResults';
+  count: Scalars['Int']['output'];
+  endOfRecords: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<Maybe<DirectoryTranslatorRole>>;
 };
 
 export enum Discipline {
@@ -2992,6 +3019,9 @@ export enum EventIssue {
   ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
   ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
   SiteCountInvalid = 'SITE_COUNT_INVALID',
+  SuspectedNegatedLatitude = 'SUSPECTED_NEGATED_LATITUDE',
+  SuspectedNegatedLongitude = 'SUSPECTED_NEGATED_LONGITUDE',
+  SuspectedSwappedCoordinate = 'SUSPECTED_SWAPPED_COORDINATE',
   SuspectedType = 'SUSPECTED_TYPE',
   TargetDegreeOfEstablishmentExcluded = 'TARGET_DEGREE_OF_ESTABLISHMENT_EXCLUDED',
   TargetGrowthFormExcluded = 'TARGET_GROWTH_FORM_EXCLUDED',
@@ -7254,6 +7284,9 @@ export enum OccurrenceIssue {
   ReferencesUriInvalid = 'REFERENCES_URI_INVALID',
   ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
   ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
+  SuspectedNegatedLatitude = 'SUSPECTED_NEGATED_LATITUDE',
+  SuspectedNegatedLongitude = 'SUSPECTED_NEGATED_LONGITUDE',
+  SuspectedSwappedCoordinate = 'SUSPECTED_SWAPPED_COORDINATE',
   SuspectedType = 'SUSPECTED_TYPE',
   TargetGeneInvalid = 'TARGET_GENE_INVALID',
   TaxonConceptIdNotFound = 'TAXON_CONCEPT_ID_NOT_FOUND',
@@ -7392,6 +7425,7 @@ export enum OccurrenceSortBy {
   OccurrenceId = 'occurrenceId',
   OccurrenceStatus = 'occurrenceStatus',
   OrganismId = 'organismId',
+  OrganismQuantity = 'organismQuantity',
   Preparations = 'preparations',
   PublishingCountry = 'publishingCountry',
   RecordNumber = 'recordNumber',
@@ -7432,6 +7466,8 @@ export type OccurrenceStats = {
 
 export enum OccurrenceStatus {
   Absent = 'ABSENT',
+  Detected = 'DETECTED',
+  NotDetected = 'NOT_DETECTED',
   Present = 'PRESENT'
 }
 
@@ -7738,17 +7774,6 @@ export enum ProcessingErrorType {
   NotParseableCountryName = 'NOT_PARSEABLE_COUNTRY_NAME'
 }
 
-export type ProfileDescription = {
-  __typename?: 'ProfileDescription';
-  created?: Maybe<Scalars['String']['output']>;
-  createdBy?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  key?: Maybe<Scalars['Int']['output']>;
-  language?: Maybe<Scalars['String']['output']>;
-  modified?: Maybe<Scalars['String']['output']>;
-  modifiedBy?: Maybe<Scalars['String']['output']>;
-};
-
 export type Programme = {
   __typename?: 'Programme';
   acronym: Scalars['String']['output'];
@@ -7809,11 +7834,11 @@ export type Query = {
   datasetsByDownload?: Maybe<DatasetDownloadListResults>;
   datasetsByEventDownload?: Maybe<DatasetDownloadListResults>;
   derivedDataset?: Maybe<DerivedDataset>;
-  directoryAmbassadors?: Maybe<DirectoryContactRoleSearchResults>;
-  directoryAwardWinners: Array<Maybe<DirectoryPerson>>;
+  directoryAmbassadors?: Maybe<DirectoryAmbassadorSearchResults>;
+  directoryAwardWinners: Array<Maybe<DirectoryAwardWinner>>;
   directoryContact?: Maybe<DirectoryContact>;
-  directoryMentors?: Maybe<DirectoryContactRoleSearchResults>;
-  directoryTranslators?: Maybe<DirectoryPersonRoleSearchResults>;
+  directoryMentors?: Maybe<DirectoryMentorSearchResults>;
+  directoryTranslators?: Maybe<DirectoryTranslatorSearchResults>;
   download?: Maybe<Download>;
   event?: Maybe<Event>;
   eventDownload?: Maybe<Download>;
@@ -8926,6 +8951,7 @@ export type SpeciesMatchUsage = {
 };
 
 export enum SqlDownloadFunction {
+  ArraysAgg = 'ARRAYS_AGG',
   ArraysOverlap = 'ARRAYS_OVERLAP',
   Contains = 'CONTAINS',
   DegreeMinuteSecondGridCellCode = 'DEGREE_MINUTE_SECOND_GRID_CELL_CODE',
@@ -9023,10 +9049,10 @@ export enum StepType {
   ValidatorAbcdToVerbatim = 'VALIDATOR_ABCD_TO_VERBATIM',
   ValidatorCollectMetrics = 'VALIDATOR_COLLECT_METRICS',
   ValidatorDwcaToVerbatim = 'VALIDATOR_DWCA_TO_VERBATIM',
-  ValidatorInterpretedToIndex = 'VALIDATOR_INTERPRETED_TO_INDEX',
   ValidatorTabularToVerbatim = 'VALIDATOR_TABULAR_TO_VERBATIM',
   ValidatorUploadArchive = 'VALIDATOR_UPLOAD_ARCHIVE',
   ValidatorValidateArchive = 'VALIDATOR_VALIDATE_ARCHIVE',
+  ValidatorVerbatimToIdentifier = 'VALIDATOR_VERBATIM_TO_IDENTIFIER',
   ValidatorVerbatimToInterpreted = 'VALIDATOR_VERBATIM_TO_INTERPRETED',
   ValidatorXmlToVerbatim = 'VALIDATOR_XML_TO_VERBATIM',
   VerbatimToIdentifier = 'VERBATIM_TO_IDENTIFIER',
@@ -9064,6 +9090,7 @@ export type Tag = {
 };
 
 export enum TagName {
+  AllowCoordinatesFlipping = 'ALLOW_COORDINATES_FLIPPING',
   ArchiveOrigin = 'ARCHIVE_ORIGIN',
   ConceptualSchema = 'CONCEPTUAL_SCHEMA',
   CrawlAttempt = 'CRAWL_ATTEMPT',
@@ -9091,6 +9118,7 @@ export enum TagNamespace {
   GbifMetasync = 'GBIF_METASYNC',
   GbifOrphans = 'GBIF_ORPHANS',
   GbifValidator = 'GBIF_VALIDATOR',
+  Pipelines = 'PIPELINES',
   Public = 'PUBLIC'
 }
 
@@ -10261,7 +10289,7 @@ export type DirectoryContactQueryVariables = Exact<{
 }>;
 
 
-export type DirectoryContactQuery = { __typename?: 'Query', directoryContact?: { __typename?: 'DirectoryContact', id: string, firstName?: string | null, surname?: string | null, institutionName?: string | null, address?: string | null, countryCode?: string | null, phone?: string | null, email?: string | null, orcidId?: string | null, jobTitle?: string | null, profilePicture?: string | null, participants?: Array<{ __typename?: 'Participant', id: string, name?: string | null, type?: NodeType | null, countryCode?: Country | null, node?: { __typename?: 'Node', contacts?: Array<{ __typename?: 'Contact', type?: string | null } | null> | null } | null, people?: Array<{ __typename?: 'ParticipantPerson', role?: string | null, termStart?: string | null } | null> | null } | null> | null, roles?: Array<{ __typename?: 'DirectoryPersonRole', role?: string | null, term?: { __typename?: 'DirectoryTerm', start?: string | null, end?: string | null } | null } | null> | null } | null };
+export type DirectoryContactQuery = { __typename?: 'Query', directoryContact?: { __typename?: 'DirectoryContact', id: string, firstName?: string | null, surname?: string | null, institutionName?: string | null, address?: string | null, countryCode?: string | null, phone?: string | null, email?: string | null, orcidId?: string | null, jobTitle?: string | null, profilePicture?: string | null, participants?: Array<{ __typename?: 'Participant', id: string, name?: string | null, type?: NodeType | null, countryCode?: Country | null, node?: { __typename?: 'Node', contacts?: Array<{ __typename?: 'Contact', type?: string | null } | null> | null } | null, people?: Array<{ __typename?: 'ParticipantPerson', role?: string | null, termStart?: string | null } | null> | null } | null> | null, roles?: Array<{ __typename?: 'DirectoryRole', role?: string | null, term?: { __typename?: 'DirectoryTerm', start?: string | null, end?: string | null } | null } | null> | null } | null };
 
 export type AssociateCountryParticipantsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -11583,7 +11611,7 @@ export type ProjectFundingBannerFragment = { __typename: 'GbifProject', fundsAll
 export type DirectoryAmbassadorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DirectoryAmbassadorsQuery = { __typename?: 'Query', directoryAmbassadors?: { __typename?: 'DirectoryContactRoleSearchResults', results: Array<{ __typename?: 'DirectoryContactRole', term?: { __typename?: 'DirectoryTerm', start?: string | null } | null, Person?: { __typename?: 'DirectoryContact', firstName?: string | null, surname?: string | null, email?: string | null, orcidId?: string | null, institutionName?: string | null, countryCode?: string | null, areasExpertise?: Array<string | null> | null } | null } | null> } | null };
+export type DirectoryAmbassadorsQuery = { __typename?: 'Query', directoryAmbassadors?: { __typename?: 'DirectoryAmbassadorSearchResults', results: Array<{ __typename?: 'DirectoryAmbassadorRole', term?: { __typename?: 'DirectoryTerm', start?: string | null } | null, Person?: { __typename?: 'DirectoryAmbassador', firstName?: string | null, surname?: string | null, email?: string | null, orcidId?: string | null, institutionName?: string | null, countryCode?: string | null, areasExpertise?: Array<string | null> | null } | null } | null> } | null };
 
 export type OrganizationPreviewQueryVariables = Exact<{
   key: Scalars['ID']['input'];
@@ -11616,12 +11644,12 @@ export type NonCountryNodeQuery = { __typename?: 'Query', nodeSearch: { __typena
 export type EbbeWinnersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EbbeWinnersQuery = { __typename?: 'Query', EbbeWinners: Array<{ __typename?: 'DirectoryPerson', firstName?: string | null, surname?: string | null, countryCode?: string | null, orcidId?: string | null, roles?: Array<{ __typename?: 'DirectoryPersonRole', award?: string | null, term?: { __typename?: 'DirectoryTerm', start?: string | null } | null } | null> | null } | null> };
+export type EbbeWinnersQuery = { __typename?: 'Query', EbbeWinners: Array<{ __typename?: 'DirectoryAwardWinner', firstName?: string | null, surname?: string | null, countryCode?: string | null, orcidId?: string | null, roles?: Array<{ __typename?: 'DirectoryAward', award?: string | null, term?: { __typename?: 'DirectoryTerm', start?: string | null } | null } | null> | null } | null> };
 
 export type GraWinnersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GraWinnersQuery = { __typename?: 'Query', GraWinners: Array<{ __typename?: 'DirectoryPerson', firstName?: string | null, surname?: string | null, countryCode?: string | null, orcidId?: string | null, roles?: Array<{ __typename?: 'DirectoryPersonRole', award?: string | null, term?: { __typename?: 'DirectoryTerm', start?: string | null } | null } | null> | null } | null> };
+export type GraWinnersQuery = { __typename?: 'Query', GraWinners: Array<{ __typename?: 'DirectoryAwardWinner', firstName?: string | null, surname?: string | null, countryCode?: string | null, orcidId?: string | null, roles?: Array<{ __typename?: 'DirectoryAward', award?: string | null, term?: { __typename?: 'DirectoryTerm', start?: string | null } | null } | null> | null } | null> };
 
 export type ParticipantsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -11631,7 +11659,7 @@ export type ParticipantsQuery = { __typename?: 'Query', participantSearch?: { __
 export type DirectoryMentorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DirectoryMentorsQuery = { __typename?: 'Query', directoryMentors?: { __typename?: 'DirectoryContactRoleSearchResults', results: Array<{ __typename?: 'DirectoryContactRole', award?: string | null, Person?: { __typename?: 'DirectoryContact', firstName?: string | null, surname?: string | null, email?: string | null, countryCode?: string | null, areasExpertise?: Array<string | null> | null } | null } | null> } | null };
+export type DirectoryMentorsQuery = { __typename?: 'Query', directoryMentors?: { __typename?: 'DirectoryMentorSearchResults', results: Array<{ __typename?: 'DirectoryMentorRole', award?: string | null, Person?: { __typename?: 'DirectoryMentor', firstName?: string | null, surname?: string | null, email?: string | null, countryCode?: string | null, areasExpertise?: Array<string | null> | null } | null } | null> } | null };
 
 export type ProjectTableQueryVariables = Exact<{
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -11671,7 +11699,7 @@ export type PublisherDatasetTableQuery = { __typename?: 'Query', datasetList: { 
 export type DirectoryTranslatorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DirectoryTranslatorsQuery = { __typename?: 'Query', directoryTranslators?: { __typename?: 'DirectoryPersonRoleSearchResults', results: Array<{ __typename?: 'DirectoryPersonRole', Person?: { __typename?: 'DirectoryPerson', firstName?: string | null, surname?: string | null, languages?: Array<string | null> | null, countryCode?: string | null, orcidId?: string | null, certifications?: Array<{ __typename?: 'Certification', year?: number | null } | null> | null } | null } | null> } | null };
+export type DirectoryTranslatorsQuery = { __typename?: 'Query', directoryTranslators?: { __typename?: 'DirectoryTranslatorSearchResults', results: Array<{ __typename?: 'DirectoryTranslatorRole', Person?: { __typename?: 'DirectoryTranslator', firstName?: string | null, surname?: string | null, languages?: Array<string | null> | null, countryCode?: string | null, orcidId?: string | null, certifications?: Array<{ __typename?: 'DirectoryCertification', year?: number | null } | null> | null } | null } | null> } | null };
 
 export type CompositionPageFragment = { __typename?: 'Composition', id: string, summary?: string | null, excerpt?: string | null, maybeTitle: string, blocks?: Array<
     | { __typename: 'CarouselBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<
