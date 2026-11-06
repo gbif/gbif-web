@@ -137,11 +137,15 @@ export async function changeEmail(body) {
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
 export async function update(userName, body) {
+  const userSegment = userPathSegment(userName);
+  if (body?.userName !== undefined && body.userName !== userName) {
+    throw new TypeError('user name in body does not match the user being updated');
+  }
   let options = {
     method: 'PUT',
     body: body,
-    url: apiConfig.userAdmin.url + userName,
-    canonicalPath: apiConfig.userAdmin.canonical + userName,
+    url: apiConfig.userAdmin.url + userSegment,
+    canonicalPath: apiConfig.userAdmin.canonical + userSegment,
   };
   let response = await authenticatedRequest(options);
   if (response.statusCode > 299) {
@@ -197,12 +201,16 @@ export async function updateForgottenPassword(body) {
 export async function getByUserName(userName) {
   let options = {
     method: 'GET',
-    url: apiConfig.userAdmin.url + userName,
+    url: apiConfig.userAdmin.url + userPathSegment(userName),
     json: true,
   };
   const response = await authenticatedRequest(options);
   if (response.statusCode !== 200) {
     throw response;
+  }
+  // The result is trusted as the logged-in user, so make sure it is the user we asked for.
+  if (response.body?.userName !== userName) {
+    throw new Error('Registry returned a different user than the one requested');
   }
   return response.body;
 }
@@ -464,6 +472,20 @@ export function sanitizeUpdatedUser(user) {
       has_read_gdpr_terms: user.settings.has_read_gdpr_terms ?? 'false',
     },
   };
+}
+
+/**
+ * Turns a user name into a single path segment for the admin/user/ endpoints.
+ * Those requests are signed as the app, so the value must never be able to point the request at
+ * another admin endpoint: path separators, query and fragment markers, percent signs, control
+ * characters and dot segments are rejected, and everything else is URI-encoded.
+ */
+export function userPathSegment(userName) {
+  ensureString(userName, 'user name');
+  if (/[/\\?#%\u0000-\u001f\u007f]/.test(userName) || userName === '.' || userName === '..') {
+    throw new TypeError('user name contains characters that are not allowed');
+  }
+  return encodeURIComponent(userName);
 }
 
 function ensureString(value, name) {
