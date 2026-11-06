@@ -210,6 +210,10 @@ export async function getByUserName(userName) {
   }
   // The result is trusted as the logged-in user, so make sure it is the user we asked for.
   if (response.body?.userName !== userName) {
+    logger.warn('Registry returned a different user than the one requested', {
+      requested: userName,
+      returned: response.body?.userName,
+    });
     throw new Error('Registry returned a different user than the one requested');
   }
   return response.body;

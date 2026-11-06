@@ -54,6 +54,14 @@ describe('getByUserName', () => {
     );
   });
 
+  it('encodes the user name in the request URL', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 200, body: { userName: 'jane+x' } });
+    await getByUserName('jane+x');
+    expect(authenticatedRequest).toHaveBeenCalledWith(
+      expect.objectContaining({ url: 'https://registry.test/v1/admin/user/jane%2Bx' })
+    );
+  });
+
   it.each(unsafeUserNames)('never sends a request for %j', async (userName) => {
     await expect(getByUserName(userName)).rejects.toThrow(TypeError);
     expect(authenticatedRequest).not.toHaveBeenCalled();
@@ -79,6 +87,17 @@ describe('update', () => {
         method: 'PUT',
         url: 'https://registry.test/v1/admin/user/jane%2Bx',
         canonicalPath: 'admin/user/jane%2Bx',
+      })
+    );
+  });
+
+  it('encodes a non-ASCII user name in both the URL and the signed path', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 204 });
+    await update('jørgen', { userName: 'jørgen' });
+    expect(authenticatedRequest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: 'https://registry.test/v1/admin/user/j%C3%B8rgen',
+        canonicalPath: 'admin/user/j%C3%B8rgen',
       })
     );
   });
