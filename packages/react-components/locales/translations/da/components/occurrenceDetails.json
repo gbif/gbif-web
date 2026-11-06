@@ -50,19 +50,19 @@
   "deletedMessage": "",
   "deletedDescription": "",
   "info": {
-    "original": "",
+    "original": "original",
     "excluded": "Ekskluderet",
     "inferred": "Udledt",
     "altered": "Ændret"
   },
   "groups": {
     "summary": "Resumé",
-    "record": "",
+    "record": "Optegnelse",
     "occurrence": "",
     "event": "Arrangement",
     "identification": "Identifikation",
     "taxon": "Takson",
-    "location": "",
+    "location": "Lokalitet",
     "organism": "Organisme",
     "materialSample": "Materiale prøve",
     "geologicalContext": "Geologisk kontekst",
@@ -104,7 +104,7 @@
       "name": "",
       "properties": {
         "identifier": "Identifikator",
-        "type": "",
+        "type": "Type",
         "subtypeLiteral": "",
         "subtype": "Undertype",
         "title": "Titel",
@@ -167,10 +167,10 @@
         "dateIdentified": "",
         "taxonCount": "",
         "subjectPart": "",
-        "sex": "",
-        "lifeStage": "",
+        "sex": "Køn",
+        "lifeStage": "Livsstadie",
         "subjectOrientation": "",
-        "preparations": "",
+        "preparations": "Forberedelser",
         "LocationCreated": "",
         "digitizationDate": "",
         "captureDevice": "",
@@ -245,7 +245,7 @@
         "latitude": "",
         "longitude": "",
         "altitude": "",
-        "locationID": "",
+        "locationID": "Lokalitets-ID",
         "breedingID": "",
         "breedingIdentifier": "",
         "breedingYear": "",
@@ -321,8 +321,8 @@
         "measurementTrailYear": "",
         "measurementTrailReport": "",
         "measurementTrailRemarks": "",
-        "locationID": "",
-        "location": "",
+        "locationID": "Lokalitets-ID",
+        "location": "Lokalitet",
         "longitude": "",
         "latitude": "",
         "altitude": ""
@@ -369,7 +369,7 @@
         "infragenericEpithet": "",
         "specificEpithet": "",
         "infraspecificEpithet": "",
-        "cultivarEpithet": "",
+        "cultivarEpithet": "Kultivar-epitet",
         "taxonRank": "",
         "verbatimTaxonRank": "",
         "scientificNameAuthorship": "",
@@ -385,9 +385,9 @@
       "properties": {
         "identifier": "Identifikator",
         "title": "Titel",
-        "subject": "",
+        "subject": "Emne",
         "format": "Format",
-        "datasetID": ""
+        "datasetID": "Datasæt-ID"
       }
     },
     "image": {
@@ -408,7 +408,7 @@
         "audience": "Publikum",
         "license": "Licens",
         "rightsHolder": "Rettighedshaver",
-        "datasetID": ""
+        "datasetID": "Datasæt-ID"
       }
     },
     "measurementOrFact": {
@@ -428,7 +428,7 @@
     "multimedia": {
       "name": "Multimedier",
       "properties": {
-        "type": "",
+        "type": "Type",
         "format": "Format",
         "identifier": "Identifikator",
         "references": "Referencer",
@@ -442,7 +442,7 @@
         "source": "Kilde",
         "license": "Licens",
         "rightsHolder": "Rettighedshaver",
-        "datasetID": ""
+        "datasetID": "Datasæt-ID"
       }
     },
     "reference": {
@@ -455,12 +455,12 @@
         "date": "Dato",
         "source": "Kilde",
         "description": "Beskriveslse",
-        "subject": "",
+        "subject": "Emne",
         "language": "Sprog",
         "rights": "Rettigheder",
         "taxonRemarks": "",
-        "type": "",
-        "datasetID": ""
+        "type": "Type",
+        "datasetID": "Datasæt-ID"
       }
     },
     "eolReference": {
@@ -546,7 +546,7 @@
         "loanDate": "",
         "loanDestination": "",
         "loanIdentifier": "",
-        "disposition": "",
+        "disposition": "Disposition",
         "receivedFrom": ""
       }
     },
@@ -763,7 +763,7 @@
       },
       "properties": {
         "eventDuration": "",
-        "samplingEffort": "",
+        "samplingEffort": "Prøvetagningsindsats",
         "geospatialScopeArea": "",
         "totalAreaSampled": "",
         "siteCount": "",
