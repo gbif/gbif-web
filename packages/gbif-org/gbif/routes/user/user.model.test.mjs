@@ -35,6 +35,14 @@ describe('userPathSegment', () => {
     expect(userPathSegment('jane_doe-1.2')).toBe('jane_doe-1.2');
   });
 
+  // Real accounts have names like these. They are not dot segments, so they must stay allowed.
+  it.each(['...abc...', '...', '.abc', 'abc.', 'a..b'])('allows %s', (userName) => {
+    expect(userPathSegment(userName)).toBe(userName);
+    const path = new URL(`https://registry.test/v1/admin/user/${userPathSegment(userName)}`)
+      .pathname;
+    expect(path).toBe(`/v1/admin/user/${userName}`);
+  });
+
   it('encodes characters that are allowed but not path-safe', () => {
     expect(userPathSegment('jane+gbif@example.org')).toBe('jane%2Bgbif%40example.org');
     expect(userPathSegment('a b&c')).toBe('a%20b%26c');
