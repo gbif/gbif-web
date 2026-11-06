@@ -33,7 +33,7 @@
   "publOfFourTypesOfData": "",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
-  "checkListData": "",
+  "checkListData": "Checklistedata",
   "occurrenceOnlyData": "",
   "samplingEventData": "",
   "expectedDataTitle": "Data beskrivelse",
@@ -84,7 +84,7 @@
   "checkRegistration": "",
   "organisationDetails": "",
   "organisationAddress": "",
-  "endorsement": "",
+  "endorsement": "Anbefaling",
   "validationError": {
     "pleaseSelectYourOrganizationOnTheMap": "",
     "pleaseSelectTheCountryOfYourOrganization": ""

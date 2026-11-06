@@ -3,8 +3,9 @@
   "datasets": "Datasæt",
   "species": "Art",
   "taxa": "Taxa",
-  "publishers": "Forlæggere",
+  "publishers": "Udgivere",
   "literature": "Litteratur",
   "collections": "Samlinger",
+  "institutions": "Institutioner",
   "resources": "Ressourcer"
 }

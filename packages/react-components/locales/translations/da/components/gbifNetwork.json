@@ -14,7 +14,7 @@
     "role": "Rolle",
     "name": "Navn",
     "participant": "Deltager",
-    "type": "",
+    "type": "Type",
     "memberSince": "Medlem siden",
     "all": "Alle",
     "countryParticipants": "",
