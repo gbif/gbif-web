@@ -64,7 +64,7 @@
   "sequencePhylogeny.about": {
     "label": "Sådan er dette træ opbygget",
     "title": "Sådan er dette træ opbygget",
-    "align": "",
+    "align": "De unikke nukleotidsekvenser fra de matchende forekomster justeres ved hjælp af <k>kalign</k> (et værktøj til justering af flere sekvenser).",
     "tree": "",
     "collapse": "",
     "downloads": ""
