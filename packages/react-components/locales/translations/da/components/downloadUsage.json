@@ -4,7 +4,7 @@
     "form": {
       "title": "Titel",
       "titlePlaceholder": "",
-      "type": "",
+      "type": "Type",
       "authors": "",
       "authorsPlaceholder": "",
       "link": "",
