@@ -57,7 +57,11 @@ export default class TaxonMediaAPI extends RESTDataSource {
       });
 
     // if inat fails, then log and ignore
-    const inatTaxonId = inatOccurrence?.results[0]?.taxonID;
+    const inatKey = inatOccurrence?.results[0]?.key;
+    const inatRecord = inatKey
+      ? await dataSources.occurrenceRecordAPI.getOccurrencesByKeys({ keys: [inatKey] }).then((records) => records[0])
+      : null;
+    const inatTaxonId = inatRecord?.taxonID;
     try {
       if (inatTaxonId) {
         // search inaturalist API for that taxon // https://api.inaturalist.org/v1/taxa/{TAXON_KEY}
@@ -131,7 +135,11 @@ export default class TaxonMediaAPI extends RESTDataSource {
           },
         },
       });
-    return occurrenceMedia.results
+    const occurrences = await dataSources.occurrenceRecordAPI.getOccurrencesByKeys({
+      keys: occurrenceMedia.results.slice(0, size).map((x) => x.key),
+    });
+    return occurrences
+      .filter((x) => x?.media?.length > 0)
       .map((x) => ({
         format: x.media[0].format,
         accessURI: x.media[0].identifier,

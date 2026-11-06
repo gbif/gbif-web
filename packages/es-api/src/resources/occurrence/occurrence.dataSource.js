@@ -82,6 +82,7 @@ async function query({
   checklistKey = env.defaultChecklist,
   shuffle,
   fields,
+  idsOnly,
   req,
 }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
@@ -129,6 +130,12 @@ async function query({
     aggs,
   };
 
+  // Only ask Elasticsearch for the ID. The full records are looked up by key elsewhere, so there is
+  // no reason to have Elasticsearch read and send the (large) stored documents.
+  if (idsOnly) {
+    esQuery._source = ['gbifId'];
+  }
+
   if (shuffle) {
     delete esQuery.sort;
     if (!esQuery?.query?.bool?.must) {
@@ -154,7 +161,9 @@ async function query({
 
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
-  body.hits.hits = body.hits.hits.map((n) => reduce(n, fields));
+  body.hits.hits = idsOnly
+    ? body.hits.hits.map((n) => ({ key: n._source?.gbifId }))
+    : body.hits.hits.map((n) => reduce(n, fields));
 
   return {
     esBody: esQuery,

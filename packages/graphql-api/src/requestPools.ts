@@ -191,7 +191,7 @@ export function getPoolQueue(pool: PoolName): PQueue {
 
 // Pre-create the known pools at startup so /health (and the Nagios status line)
 // lists them all immediately, instead of only after each is first used.
-const KNOWN_POOLS: PoolName[] = ['occurrence', 'taxon', 'default'];
+const KNOWN_POOLS: PoolName[] = ['occurrence', 'occurrenceRecord', 'taxon', 'default'];
 KNOWN_POOLS.forEach((pool) => getPoolQueue(pool));
 
 // Cumulative throughput counters per pool, reported on /health. These count

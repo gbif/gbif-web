@@ -615,7 +615,9 @@ export function useOccurrenceColumns({
         id: 'iucnRedListCategory',
         // sort: { localStorageKey: 'occurrenceSort', sortBy: 'iucnRedListCategoryCode' },
         header: 'occurrenceFieldNames.iucnRedListCategory',
-        cell: ({ iucnRedListCategory }) => {
+        // the category under the checklist the user has selected
+        cell: ({ classification }) => {
+          const iucnRedListCategory = classification?.iucnRedListCategoryCode;
           if (!iucnRedListCategory) return null;
 
           return (

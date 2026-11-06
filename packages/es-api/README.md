@@ -39,6 +39,7 @@ The GET API mirrors the other GBIF APIs and adds a few extensions:
 - **`cardinality`** — distinct-value count, e.g. `cardinality=year`.
 - **Nested entities** — query a list of objects by ordered convention and a separator. For example, a list of authors can be queried by first and last name with `authors=Tim__Hansen`.
 - **`includeMeta=true`** — returns query metadata: the GET query, the predicate it was transformed into, and the resulting Elasticsearch query.
+- **`idsOnly=true`** — occurrence search only: each result is just `{ "key": <gbifId> }`. Elasticsearch is asked for the ID alone instead of the full stored document; look the records up by key in the GBIF API.
 
 ### POST API (predicates)
 

@@ -37,6 +37,9 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   async searchOccurrences({ query }) {
     const body = {
       ...query,
+      // Elasticsearch only gives us the IDs. The records are looked up by key in the v1 API
+      // (occurrenceRecordAPI) when results are actually asked for.
+      idsOnly: true,
       includeMeta: true,
       checklistKey: query?.checklistKey ?? this.config.defaultChecklist,
     };
@@ -63,20 +66,12 @@ class OccurrenceAPI extends QueuedRESTDataSource {
     return response;
   }
 
-  async getOccurrenceByKey({ key }) {
-    return this.get(`/occurrence/key/${key}`);
-  }
-
   async getRelated({ key }) {
     return this.get(`${this.config.apiv1}/occurrence/${key}/experimental/related`);
   }
 
   async getFragment({ key }) {
     return this.get(`${this.config.apiv1}/occurrence/${key}/fragment`);
-  }
-
-  async getVerbatim({ key }) {
-    return this.get(`${this.config.apiv1}/occurrence/${key}/verbatim`);
   }
 
   async meta({ query }) {
@@ -120,14 +115,6 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   async searchCollections({ query }) {
     return this.get('/grscicoll/collection', stringify(query, { indices: false }));
   }
-
-  /*
-  getOccurrencesByKeys({ occurrenceKeys }) {
-    return Promise.all(
-      occurrenceKeys.map(key => this.getOccurrenceByKey({ key })),
-    );
-  }
-  */
 }
 
 export default OccurrenceAPI;

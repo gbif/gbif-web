@@ -55,6 +55,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           taxonKey
           verbatimScientificName
           classification(checklistKey: $checklistKey) {
+            iucnRedListCategoryCode
             usage {
               rank
               name
@@ -128,7 +129,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           higherGeography
           stateProvince
           establishmentMeans
-          iucnRedListCategory
           stillImageCount
           movingImageCount
           soundCount
