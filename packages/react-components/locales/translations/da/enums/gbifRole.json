@@ -61,7 +61,7 @@
     "GB_INVITEE": "",
     "ALTERNATE_HEAD_OF_DELEGATION": "",
     "HEAD_OF_DELEGATION_ADMINISTRATIVE_CONTACT": "",
-    "NODE_MANAGER": "",
-    "NODE_STAFF": ""
+    "NODE_MANAGER": "Node-administrator",
+    "NODE_STAFF": "Node-medarbejdere"
   }
 }
