@@ -90,7 +90,7 @@
     "description": ""
   },
   "eventDate": {
-    "name": "",
+    "name": "Begivenhedsdato",
     "description": ""
   },
   "gbifId": {
@@ -114,15 +114,15 @@
     "description": ""
   },
   "endDayOfYear": {
-    "name": "",
+    "name": "Slut dag i året",
     "description": ""
   },
   "startDayOfYear": {
-    "name": "",
+    "name": "Start dag i året",
     "description": ""
   },
   "previousIdentifications": {
-    "name": "",
+    "name": "Tidligere identifkationer",
     "description": ""
   },
   "lastInterpreted": {
@@ -428,7 +428,7 @@
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Vandmasse",
     "description": ""
   },
   "higherGeography": {
