@@ -87,7 +87,7 @@
     "hasSound": "",
     "hasVideo": "Video",
     "isSpecimen": "",
-    "eventDate": "",
+    "eventDate": "Begivenhedsdato",
     "isType": ""
   },
   "cluster": {
@@ -332,7 +332,7 @@
       "name": "",
       "properties": {
         "identificationID": "",
-        "verbatimIdentification": "",
+        "verbatimIdentification": "Ordret identifikation",
         "identificationQualifier": "",
         "typeStatus": "",
         "identifiedBy": "",
