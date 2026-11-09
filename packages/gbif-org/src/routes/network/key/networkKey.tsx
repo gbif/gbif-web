@@ -1,4 +1,5 @@
 import { DataHeader } from '@/components/dataHeader';
+import { Html } from '@/components/html';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
@@ -123,7 +124,9 @@ export function NetworkPage() {
               <FormattedMessage id={`network.network`} />
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle testId="network-heading" dangerouslySetTitle={{ __html: title }} />
+            <ArticleTitle testId="network-heading">
+              <Html html={title} />
+            </ArticleTitle>
 
             {deletedAt && <DeletedMessage date={deletedAt} />}
 

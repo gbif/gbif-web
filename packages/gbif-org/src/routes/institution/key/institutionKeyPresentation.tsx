@@ -1,4 +1,5 @@
 import { DataHeader } from '@/components/dataHeader';
+import { Html } from '@/components/html';
 import { ErrorMessage } from '@/components/errorMessage';
 import {
   DeletedMessage,
@@ -123,9 +124,9 @@ export function InstitutionKey({
                     <FormattedMessage id="grscicoll.institutionCode" />
                   </ArticlePreTitle>
                   {/* it would be nice to know for sure which fields to expect */}
-                  <ArticleTitle
-                    dangerouslySetTitle={{ __html: institution.name || 'No title provided' }}
-                  />
+                  <ArticleTitle>
+                    <Html html={institution.name} fallback="No title provided" />
+                  </ArticleTitle>
 
                   {deletedAt && <DeletedMessage date={deletedAt} />}
                   {institution.replacedByInstitution && (
