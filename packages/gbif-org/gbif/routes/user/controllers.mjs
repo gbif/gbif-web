@@ -330,7 +330,9 @@ export function mailToUser(req, res) {
       const referer = req?.headers?.referer;
       if (!referer) {
         res.status(500);
-        res.send('No referer present. Perhaps you copy pasted the link or opened it in a new tab.');
+        return res.send(
+          'No referer present. Perhaps you copy pasted the link or opened it in a new tab.'
+        );
       }
       const issueNr = referer.substring(referer.lastIndexOf('/') + 1);
       const user = decryptJSON(userCode);
