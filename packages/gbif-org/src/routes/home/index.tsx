@@ -1,4 +1,6 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Html } from '@/components/html';
+import { CAPTION_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { HomePageQuery } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
@@ -94,9 +96,10 @@ function HomePage(): React.ReactElement {
             </PageContainer>
           </div>
           {primaryImage?.description && (
-            <span
+            <Html
               className="g-absolute g-end-0 g-bottom-0 g-text-xs g-text-white g-p-1.5 g-font-medium underlineLinks hover:g-bg-gray-900/30"
-              dangerouslySetInnerHTML={{ __html: primaryImage?.description }}
+              html={primaryImage?.description}
+              sanitizeOptions={CAPTION_SANITIZE_OPTIONS}
             />
           )}
         </section>

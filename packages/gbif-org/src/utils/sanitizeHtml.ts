@@ -12,6 +12,12 @@ export const INLINE_SANITIZE_OPTIONS: DOMPurify.Config = {
   ALLOWED_ATTR: [],
 };
 
+// Image captions, typically a credit with a link to the photographer or source.
+export const CAPTION_SANITIZE_OPTIONS: DOMPurify.Config = {
+  ALLOWED_TAGS: ['a', 'i', 'em', 'b', 'strong', 'span', 'br'],
+  ALLOWED_ATTR: ['href', 'target', 'rel'],
+};
+
 // Short rich text such as descriptions and translated messages.
 export const DEFAULT_SANITIZE_OPTIONS: DOMPurify.Config = {
   ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
