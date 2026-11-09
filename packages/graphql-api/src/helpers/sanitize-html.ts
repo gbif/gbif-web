@@ -372,6 +372,18 @@ export function sanitizeHtml(dirty: string, options: SanitizeOptions): string {
   return clean;
 }
 
+// Formatted scientific names from the species match API use <i> for the parts that are italicised.
+// Keep that and a few other inline formatting tags, and strip everything else (including all attributes).
+const formattedNameAllowedTags = ['i', 'em', 'b', 'strong', 'span'];
+
+export function sanitizeFormattedName(value?: string | null): string | null {
+  if (typeof value !== 'string') return value ?? null;
+  return sanitize(value, {
+    allowedTags: formattedNameAllowedTags,
+    allowedAttributes: {},
+  });
+}
+
 const supportedLocales = ['en-GB', 'da', 'fr', 'es', 'ar'];
 
 export function prefixLinkUrl(str = '', locale?: string) {
