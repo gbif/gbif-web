@@ -76,4 +76,9 @@ describe('sanitizeFormattedName', () => {
     assert.equal(sanitizeFormattedName(null), null);
     assert.equal(sanitizeFormattedName(undefined), null);
   });
+
+  it('returns null for values that are not strings', () => {
+    assert.equal(sanitizeFormattedName(['<img src=x onerror=alert(1)>']), null);
+    assert.equal(sanitizeFormattedName({ toString: () => '<script>alert(1)</script>' }), null);
+  });
 });

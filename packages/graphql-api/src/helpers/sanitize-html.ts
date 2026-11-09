@@ -376,8 +376,8 @@ export function sanitizeHtml(dirty: string, options: SanitizeOptions): string {
 // Keep that and a few other inline formatting tags, and strip everything else (including all attributes).
 const formattedNameAllowedTags = ['i', 'em', 'b', 'strong', 'span'];
 
-export function sanitizeFormattedName(value?: string | null): string | null {
-  if (typeof value !== 'string') return value ?? null;
+export function sanitizeFormattedName(value?: unknown): string | null {
+  if (typeof value !== 'string') return null;
   return sanitize(value, {
     allowedTags: formattedNameAllowedTags,
     allowedAttributes: {},
