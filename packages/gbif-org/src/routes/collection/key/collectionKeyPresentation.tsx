@@ -122,9 +122,8 @@ export function CollectionKey({
                     <FormattedMessage id="grscicoll.collectionCode" />
                   </ArticlePreTitle>
                   {/* it would be nice to know for sure which fields to expect */}
-                  <ArticleTitle
-                    dangerouslySetTitle={{ __html: collection.name || 'No title provided' }}
-                  >
+                  <ArticleTitle>
+                    {collection.name || 'No title provided'}
                     {!collection.active && (
                       <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
                         <FormattedMessage id={`grscicoll.inactiveCollection`} />
