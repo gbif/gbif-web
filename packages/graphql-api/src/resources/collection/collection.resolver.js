@@ -54,7 +54,7 @@ export default {
   CollectionSearchEntity: {
     thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
       getThumborUrl({ url, fitIn, width, height }),
-    description: (src, _, { locale }) =>
+    description: (src, args, { locale }) =>
       getHtml(src.description, {
         trustLevel: 'untrusted',
         wrapTables: true,
@@ -103,7 +103,7 @@ export default {
         })
         .catch(() => null);
     },
-    description: (src, _, { locale }) =>
+    description: (src, args, { locale }) =>
       getHtml(src.description, {
         trustLevel: 'untrusted',
         wrapTables: true,
