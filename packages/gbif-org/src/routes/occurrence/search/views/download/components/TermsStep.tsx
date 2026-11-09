@@ -17,7 +17,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '@/reactRouterPlugins';
 import { Message } from '@/components/message';
-import { ALLOWED_URI_REGEXP } from '@/components/hyperText';
+import { ALLOWED_URI_REGEXP } from '@/utils/sanitizeHtml';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 
 interface TermsStepProps {

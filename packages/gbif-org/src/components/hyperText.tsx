@@ -3,16 +3,8 @@ import { marked } from 'marked'; // https://marked.js.org
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import EmptyValue from './emptyValue';
 import { DoiTag, Lsid, OrcId } from './identifierTag';
-import pkg from 'isomorphic-dompurify';
-const { sanitize } = pkg;
-
-function sanitizeHtml(dirtyHtml: string, sanitizeOptions: DOMPurify.Config) {
-  // The result is injected as an HTML string, so DOM return modes are never valid here.
-  return sanitize(dirtyHtml, { ...sanitizeOptions, RETURN_DOM: false, RETURN_DOM_FRAGMENT: false });
-}
-
-export const ALLOWED_URI_REGEXP =
-  /^(?:(?:https?:)?\/\/(?:www\.)?(?:gbif(?:-(?:dev|test|staging))?\.org|api\.gbif(?:-(?:dev|test|staging))?\.org|data-blog\.gbif\.org|discourse\.gbif\.org|github\.com)|\/)/i;
+import { Html } from './html';
+import { DEFAULT_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 
 const getLsid = (text: any) => {
   if (typeof text !== 'string' || /\s/.test(text.trim())) {
@@ -56,10 +48,6 @@ const getDoi = (text: any) => {
       return null;
     }
   }
-};
-
-export const DEFAULT_SANITIZE_OPTIONS: DOMPurify.Config = {
-  ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
 };
 
 export const HyperText = ({
@@ -111,14 +99,15 @@ export const HyperText = ({
 
   try {
     const html = disableMarkdownParsing ? trimmedContent : (marked.parse(trimmedContent) as string);
-    const sanitizedHtml = sanitizeHtml(html, sanitizeOptions);
 
     return (
-      <div
+      <Html
+        as="div"
+        html={html}
+        sanitizeOptions={sanitizeOptions}
         className={className}
-        dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
         {...props}
-      ></div>
+      />
     );
   } catch (e) {
     console.error(e);
