@@ -116,7 +116,7 @@ export function updateKnownPassword(req, res) {
  * Confirm email change request
  */
 export function changeEmail(req, res) {
-  changeUserEmail(req.body)
+  changeUserEmail(req.body, req.user.userName)
     .then(function () {
       return res.json({ type: 'EMAIL_CHANGED' });
     })
@@ -337,10 +337,10 @@ export function mailToUser(req, res) {
       const issueNr = referer.substring(referer.lastIndexOf('/') + 1);
       const user = decryptJSON(userCode);
       const body = `There has been activity on the message you logged via the GBIF feedback system: ${referer}
-          
+
           You need a Github account to participate in the discussion.
           Did you know you can link your Github user profile to GBIF?
-          
+
           Thanks,
           GBIF Helpdesk`;
       res.redirect(

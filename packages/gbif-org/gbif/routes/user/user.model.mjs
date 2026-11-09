@@ -111,7 +111,7 @@ export async function confirm(challengeCode, userName) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-export async function changeEmail(body) {
+export async function changeEmail(body, userName) {
   try {
     let options = {
       method: 'PUT',
@@ -121,7 +121,7 @@ export async function changeEmail(body) {
       },
       url: apiConfig.userChangeEmail.url,
       canonicalPath: apiConfig.userChangeEmail.canonical,
-      userName: body.userName,
+      userName: userName,
     };
     let response = await authenticatedRequest(options);
     if (response.statusCode > 299) {
