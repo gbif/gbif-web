@@ -1,4 +1,5 @@
 import { TaxonChildrenQuery, TaxonChildrenQueryVariables } from '@/gql/graphql';
+import { Html } from '@/components/html';
 import { useQuery } from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import {
@@ -172,7 +173,7 @@ export const TreeNodeLabel = ({ datasetKey, taxon }: { datasetKey: string; taxon
         variables={{ key: taxon.taxonID, datasetKey }}
         className="g-flex-grow g-inline-block g-text-primary-700 g-whitespace-nowrap hover:g-underline"
       >
-        <span dangerouslySetInnerHTML={{ __html: taxon.label ?? taxon.taxonID }} />
+        <Html html={taxon.label} fallback={taxon.taxonID} />
         {!['ACCEPTED', 'PROVISIONALLY_ACCEPTED'].includes(taxon.status ?? 'ACCEPTED') && (
           <span className="g-ms-2 g-px-1 g-py-0.5 g-text-xs g-font-medium g-text-amber-700 g-bg-amber-200 g-rounded">
             <FormattedMessage id={`enums.taxonomicStatus.${taxon.status}`} />

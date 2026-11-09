@@ -12,7 +12,10 @@ const getTitleParts = ({
   termMap: { [key: string]: Term };
 }): {
   text: string;
+  // plain text, never render it as HTML
   title: string;
+  // the formatted (HTML) name, only set when the occurrence is matched without important issues
+  titleHtml?: string;
   hasTaxonIssues: boolean;
   noMatch: boolean;
   state: (typeof states)[number];
@@ -71,10 +74,8 @@ const getTitleParts = ({
   // there is a match and no important issues, so show the matched name
   return {
     text: usage.name ?? 'No title provided',
-    title:
-      occurrence.classification?.taxonMatch?.usage?.formattedName ??
-      usage.name ??
-      'No title provided',
+    title: usage.name ?? 'No title provided',
+    titleHtml: occurrence.classification?.taxonMatch?.usage?.formattedName ?? undefined,
     hasTaxonIssues: false,
     noMatch: false,
     state: 'MATCH_NO_ISSUES',

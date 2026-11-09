@@ -23,15 +23,10 @@ function ListItem({ id, item, onClick = () => {} }: ListItemProps) {
         <div className="g-flex-grow gbif-listItemContent">
           {item.classification?.taxonMatch?.usage?.canonicalName ||
           item.classification?.usage?.name ? (
-            <h4
-              className=""
-              dangerouslySetInnerHTML={{
-                __html:
-                  item.classification?.taxonMatch?.usage?.canonicalName ??
-                  item.classification?.usage?.name ??
-                  '',
-              }}
-            ></h4>
+            <h4>
+              {item.classification?.taxonMatch?.usage?.canonicalName ??
+                item.classification?.usage?.name}
+            </h4>
           ) : (
             <h4>
               <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />

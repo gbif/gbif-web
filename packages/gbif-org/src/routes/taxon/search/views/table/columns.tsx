@@ -1,4 +1,5 @@
 import { TaxonClassification } from '@/components/classification';
+import { Html } from '@/components/html';
 import { ColumnDef, SetAsFilter } from '@/components/searchTable';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -50,11 +51,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                   variables={{ key: taxon.taxonID ?? '', datasetKey: taxon.datasetKey ?? '' }}
                   className="hover:g-underline g-pointer-events-auto g-text-inherit"
                 >
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: taxon.label as string,
-                    }}
-                  />
+                  <Html html={taxon.label} />
                 </DynamicLink>
                 {vernacular && (
                   <div className="g-ms-1 g-text-slate-400 g-flex g-items-center">

@@ -1,4 +1,5 @@
 import { TaxonStubClassification } from '@/components/classification';
+import { Html } from '@/components/html';
 import { MapThumbnail, MapTypes } from '@/components/maps/mapThumbnail';
 import { Card } from '@/components/ui/largeCard';
 import { TaxonSearchResultDetailsFragment } from '@/gql/graphql';
@@ -77,11 +78,7 @@ export function TaxonResult({
                       pageId="taxonKey"
                       variables={{ key: taxon.taxonID + '' }}
                     >
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: taxon.label ?? taxon.scientificName,
-                        }}
-                      />{' '}
+                      <Html html={taxon.label} fallback={taxon.scientificName} />{' '}
                       {/* {taxon.canonicalName} */}
                     </DynamicLink>
                     {taxon.taxonomicStatus !== 'ACCEPTED' && (
@@ -107,7 +104,7 @@ export function TaxonResult({
                       pageId="taxonKey"
                       variables={{ key: synonym.taxonID + '' }}
                     >
-                      <span dangerouslySetInnerHTML={{ __html: synonym.label }} />
+                      <Html html={synonym.label} />
                     </DynamicLink>
                   </p>
                 )}
