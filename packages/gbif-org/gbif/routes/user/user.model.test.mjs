@@ -7,7 +7,18 @@ vi.mock('../../envConfig.mjs', () => ({
 }));
 
 const { authenticatedRequest } = await import('../auth/gbifAuthRequest.mjs');
-const { getByUserName, update, userPathSegment } = await import('./user.model.mjs');
+const {
+  getByUserName,
+  update,
+  userPathSegment,
+  cancelDownload,
+  deleteDownload,
+  postponeDownloadDeletion,
+  updateDerivedDataset,
+  downloadKeySegment,
+  downloadType,
+  derivedDatasetDoiPath,
+} = await import('./user.model.mjs');
 
 const unsafeUserNames = [
   'a/b',
@@ -117,6 +128,116 @@ describe('update', () => {
 
   it('refuses a body for a different user', async () => {
     await expect(update('jane', { userName: 'admin' })).rejects.toThrow(TypeError);
+    expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+});
+
+const goodKey = '0012345-240626123714530';
+const badKeys = [
+  '../../x',
+  '..%2F..%2Fx',
+  `${goodKey}/../../x`,
+  `${goodKey}?x=1`,
+  `${goodKey}#x`,
+  `${goodKey}\n`,
+  '..%2e',
+  '%2e%2e-1',
+  '１２３-４５６',
+  '12345',
+  '',
+  ' ',
+  undefined,
+  null,
+  42,
+  [goodKey],
+];
+
+describe('downloadKeySegment and downloadType', () => {
+  it('accepts a real download key', () => {
+    expect(downloadKeySegment(goodKey)).toBe(goodKey);
+  });
+
+  it.each(badKeys)('rejects key %j with a 400', (key) => {
+    expect(() => downloadKeySegment(key)).toThrow(expect.objectContaining({ statusCode: 400 }));
+  });
+
+  it('defaults to OCCURRENCE and only allows OCCURRENCE or EVENT', () => {
+    expect(downloadType(undefined)).toBe('OCCURRENCE');
+    expect(downloadType('OCCURRENCE')).toBe('OCCURRENCE');
+    expect(downloadType('EVENT')).toBe('EVENT');
+    for (const bad of ['event', 'OTHER', '', null, ['EVENT'], { a: 1 }]) {
+      expect(() => downloadType(bad)).toThrow(expect.objectContaining({ statusCode: 400 }));
+    }
+  });
+});
+
+describe('download actions', () => {
+  it('cancels with the key at the end of the URL', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 204 });
+    await cancelDownload({ key: goodKey, type: 'EVENT', username: 'jane' });
+    const options = authenticatedRequest.mock.calls[0][0];
+    expect(options).toMatchObject({ method: 'DELETE', userName: 'jane' });
+    expect(options.url.endsWith(`/${goodKey}`)).toBe(true);
+  });
+
+  it.each([
+    ['cancelDownload', cancelDownload],
+    ['deleteDownload', deleteDownload],
+    ['postponeDownloadDeletion', postponeDownloadDeletion],
+  ])('%s never sends a request for a bad key or type', async (_name, fn) => {
+    for (const key of badKeys) {
+      await expect(fn({ key, username: 'jane' })).rejects.toThrow(TypeError);
+    }
+    await expect(fn({ key: goodKey, type: 'x', username: 'jane' })).rejects.toThrow(TypeError);
+    expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+});
+
+describe('derivedDatasetDoiPath', () => {
+  it('keeps the slash and encodes the suffix', () => {
+    expect(derivedDatasetDoiPath('10.15468/dd.abc123')).toBe('10.15468/dd.abc123');
+    expect(derivedDatasetDoiPath('10.15468/a%b')).toBe('10.15468/a%25b');
+  });
+
+  it.each([
+    '../../x',
+    '10.15468/..',
+    '10.15468/.',
+    '10.15468/a/b',
+    '10.15468/a b',
+    '10.15468/',
+    '10.15468',
+    '11.15468/x',
+    '10.12/x',
+    '10.15468/x\n',
+    '',
+    undefined,
+    null,
+    42,
+  ])('rejects %j', (doi) => {
+    expect(() => derivedDatasetDoiPath(doi)).toThrow(expect.objectContaining({ statusCode: 400 }));
+  });
+
+  it('keeps ? and # inside the path of the request that is sent', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 204 });
+    await updateDerivedDataset({ a: 1 }, '10.1234/a?b#c', 'jane');
+    const url = new URL(authenticatedRequest.mock.calls[0][0].url);
+    expect(url.search).toBe('');
+    expect(url.hash).toBe('');
+    expect(url.pathname.endsWith('/10.1234/a%3Fb%23c')).toBe(true);
+  });
+});
+
+describe('updateDerivedDataset', () => {
+  it('puts to the DOI path', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 204 });
+    await updateDerivedDataset({ a: 1 }, '10.15468/dd.abc', 'jane');
+    expect(authenticatedRequest.mock.calls[0][0].url.endsWith('/10.15468/dd.abc')).toBe(true);
+  });
+
+  it('never sends a request for a traversing DOI', async () => {
+    await expect(updateDerivedDataset({}, '10.15468/..', 'jane')).rejects.toThrow(TypeError);
+    await expect(updateDerivedDataset({}, '../../x', 'jane')).rejects.toThrow(TypeError);
     expect(authenticatedRequest).not.toHaveBeenCalled();
   });
 });
