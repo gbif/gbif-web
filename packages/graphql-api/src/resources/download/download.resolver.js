@@ -1,3 +1,4 @@
+import { escape } from 'lodash';
 import { highlight } from 'sql-highlight';
 import { getGbifMachineDescription } from '@/helpers/generateSql';
 import { collectPredicateChecklists } from './helpers/collectPredicateChecklists';
@@ -138,7 +139,8 @@ export default {
         });
         return highlighted;
       } catch (err) {
-        return sql;
+        // sqlFormatted is rendered as HTML, so the unhighlighted query must be escaped
+        return typeof sql === 'string' ? escape(sql) : sql;
       }
     },
     predicateChecklists: ({ predicate }) => {
