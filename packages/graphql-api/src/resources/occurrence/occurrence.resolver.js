@@ -900,7 +900,7 @@ export default {
     isSequenced: ({ isSequenced }) => {
       return isSequenced;
     },
-    isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol,
+    isSamplingEvent: (occurrence) => !!occurrence.eventID && occurrence.samplingProtocol?.length > 0,
     firstIIIF: (occurrence) => {
       return getFirstIIIFImage({ occurrence });
     },
