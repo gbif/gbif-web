@@ -25,5 +25,6 @@
   "searchExample": "Die ersten beiden Einträge, deren Freitext „dna“ enthält.",
   "searchDatasets": "Alle Datensätze abrufen.",
   "singleNode": "Einzelnen Knoten abrufen.",
-  "searchNodes": "Knoten suchen."
+  "searchNodes": "Knoten suchen.",
+  "parseName": ""
 }
