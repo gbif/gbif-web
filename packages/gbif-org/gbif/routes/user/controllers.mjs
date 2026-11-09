@@ -22,6 +22,7 @@ import {
   changeEmail as changeUserEmail,
   createDerivedDataset as createUserDerivedDataset,
   updateDerivedDataset as updateUserDerivedDataset,
+  userPathSegment,
 } from './user.model.mjs';
 import _ from 'lodash';
 import { decryptJSON } from './encrypt.mjs';
@@ -314,7 +315,7 @@ export function showUserInRegistry(req, res) {
     const userCode = req.params.user;
     try {
       const user = decryptJSON(userCode);
-      res.redirect(302, `${process.env.PUBLIC_REGISTRY}/user/${user.userName}`);
+      res.redirect(302, `${process.env.PUBLIC_REGISTRY}/user/${userPathSegment(user.userName)}`);
     } catch (err) {
       res.sendStatus(500);
     }
