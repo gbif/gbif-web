@@ -1,4 +1,5 @@
 const logger = require('../logger');
+const { redactedRequest } = require('./redact');
 
 function errorLoggingMiddleware(error, req, res, next) {
   // Mark that the error has been logged so that the logging middleware doesn't log it again
@@ -14,15 +15,7 @@ function errorLoggingMiddleware(error, req, res, next) {
     ...(requestId ? { requestId } : {}),
     ...(siteUrl ? { siteUrl } : {}),
     errors: [error],
-    request: {
-      method: req.method,
-      url: req.url,
-      originalUrl: req.originalUrl,
-      ip: req.ip,
-      referrer: req.get('Referrer'),
-      userAgent: req.get('User-Agent'),
-      body: req.body,
-    },
+    request: redactedRequest(req),
     response: {
       statusCode: res.statusCode,
       cacheControl: res.get('Cache-Control'),

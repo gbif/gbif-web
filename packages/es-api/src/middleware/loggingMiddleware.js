@@ -1,4 +1,5 @@
 const logger = require('../logger');
+const { redactedRequest } = require('./redact');
 
 function loggingMiddleware(req, res, next) {
   const startTime = process.hrtime();
@@ -23,15 +24,7 @@ function loggingMiddleware(req, res, next) {
       ...(requestId ? { requestId } : {}),
       ...(siteUrl ? { siteUrl } : {}),
       durationMs: Math.round(elapsedMilliseconds),
-      request: {
-        method: req.method,
-        url: req.url,
-        originalUrl: req.originalUrl,
-        ip: req.ip,
-        referrer: req.get('Referrer'),
-        userAgent: req.get('User-Agent'),
-        body: req.body,
-      },
+      request: redactedRequest(req),
       response: {
         statusCode: res.statusCode,
         cacheControl: res.get('Cache-Control'),
