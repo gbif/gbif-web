@@ -1,7 +1,7 @@
 import json2md from 'json2md';
 import config from '@/config';
 import { CreatePublisherDTO } from '.';
-import { authenticatedRequest } from '../helpers/gbifAuthRequest';
+import { authenticatedRequest, UnexpectedResponseError } from '../helpers/gbifAuthRequest';
 
 const notNull = <T>(value: T | null | undefined): value is T => value != null;
 
@@ -60,7 +60,7 @@ export async function createPublisher(dto: CreatePublisherDTO) {
 
   return authenticatedRequest(options).then((res) => {
     if (res.statusCode !== 201) {
-      throw res;
+      throw new UnexpectedResponseError('Unexpected response when creating publisher', res);
     }
 
     return res.body;
