@@ -7309,15 +7309,9 @@ export type OccurrenceMetaPredicate = {
 
 export type OccurrenceNameUsage = {
   __typename?: 'OccurrenceNameUsage';
-  formattedName: Scalars['String']['output'];
   key: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   rank: Scalars['String']['output'];
-};
-
-
-export type OccurrenceNameUsageFormattedNameArgs = {
-  useFallback?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export enum OccurrencePersistenceStatus {
