@@ -89,6 +89,7 @@ export const test = base.extend<Fixtures>({
   waitForIdle: async ({ page }, use) => {
     await use(trackRequests(page));
   },
+  // eslint-disable-next-line no-empty-pattern
   mockFault: async ({}, use, testInfo) => {
     await use(async (fault) => {
       testsWithFaults.add(testInfo.testId);
