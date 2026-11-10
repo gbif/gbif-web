@@ -268,7 +268,7 @@ export function TaxonLabel({
         `${config.graphqlEndpoint}?variables=${encodeURIComponent(
           JSON.stringify(variables)
         )}&query=${encodeURIComponent(
-          `query($checklistKey: ID, $key: ID!) {
+          `query TaxonDisplayName($checklistKey: ID, $key: ID!) {
             taxon(datasetKey: $checklistKey, key: $key) {
               scientificName
             }
