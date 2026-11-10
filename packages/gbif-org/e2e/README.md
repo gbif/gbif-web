@@ -42,7 +42,7 @@ e2e/
   build.ts            npm run e2e:build: builds gbif.org and the portal library into dist/e2e/
   buildStamp.ts       computes the stamp; build.ts saves it, globalSetup compares it
   globalSetup.ts       before all tests: stops if the build is missing or stale
-  globalTeardown.ts    after all tests: prunes if asked, then fails the run if there was any miss
+  globalTeardown.ts    after all tests: lists unsaved answers, prunes if asked, fails on any miss
   test.ts              the fixture: every spec imports test from here
   pageRows.ts          table-driven page checks shared by the smoke and portal specs
   mock/upstream.ts    the upstream mock: replay, record, refresh or live
@@ -107,8 +107,9 @@ Steps in order:
    - reports started and passed tests to the mock, which only prunes after a full, passing run.
 5. **Every upstream call** from the gbif.org server or the browser lands on the mock (next
    section).
-6. **globalTeardown**, under `E2E_PRUNE=1`, asks the mock to delete recordings the run did not use
-   (see [Pruning](#pruning)).
+6. **globalTeardown** first lists every answer a record or refresh run did not save (see
+   [The mock](#the-mock)). Under `E2E_PRUNE=1`, it then asks the mock to delete recordings the
+   run did not use (see [Pruning](#pruning)).
    Then it fails the run if the mock logged any miss. That catches the ones without a test id:
    requests the gbif.org server made while rendering, which no single test can be charged with.
 
@@ -148,6 +149,10 @@ Some answers are passed on but not saved; in refresh mode the old recording stay
 - a GraphQL answer that is not JSON with `data` or `errors`, such as an HTML page from a proxy;
 - a GraphQL 4xx other than 404. The API rejected the query, usually because it does not match the
   deployed schema, so the request stays a miss in replay.
+
+Each refusal is logged as `[mock] NOT saved` when it happens, and `globalTeardown` lists them all
+again at the end of the run, saying whether an old recording was kept or replay will miss. The run
+stays green either way, so read that list after recording.
 
 A GraphQL 404 is saved: graphql-api answers a missing entity that way, sometimes next to data, and
 pages are tested against it. A GraphQL response with `errors` is saved with a warning; check it

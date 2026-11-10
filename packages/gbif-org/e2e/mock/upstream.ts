@@ -4,9 +4,9 @@
 // Started by playwright.config.ts; node built-ins only.
 //
 // A request goes through handle():
-//   1. /__mock/* control endpoints: health, misses (read by test.ts and globalTeardown), tests
-//      started/passed (reported by test.ts), prune (called by globalTeardown), faults
-//      (added and cleared by test.ts's mockFault).
+//   1. /__mock/* control endpoints: health, misses (read by test.ts and globalTeardown), unsaved
+//      (read by globalTeardown), tests started/passed (reported by test.ts), prune (called by
+//      globalTeardown), faults (added and cleared by test.ts's mockFault).
 //   2. Pick the upstream by longest path prefix (UPSTREAMS). Tiles and analytics images are stubbed
 //      blank; translations come from the bundled src/config/fallback/.
 //   3. GraphQL GETs get {"unknownQueryId":true}, so the client retries as a POST that carries the
@@ -191,6 +191,8 @@ const store: Map<string, Recording> = new Map();
 const served: Set<string> = new Set();
 const inflight: Map<string, Promise<Recording>> = new Map();
 const misses: Array<Record<string, unknown>> = [];
+// Answers record() passed on without saving, by key; listed by globalTeardown.
+const unsaved: Map<string, Record<string, unknown> & { count: number }> = new Map();
 // Reported by the test fixture.
 // ids holds the distinct tests that started, so a repeated test counts once.
 const tests = { started: 0, passed: 0, ids: new Set() };
@@ -343,6 +345,16 @@ async function record(
   const refusal = whyNotSaved(upstream, rec);
   if (refusal) {
     console.warn(`[mock] NOT saved ${rec.status} ${key}: ${refusal}`);
+    const previous = unsaved.get(key);
+    unsaved.set(key, {
+      key,
+      status: rec.status,
+      reason: refusal,
+      kept: store.has(key),
+      count: (previous?.count ?? 0) + 1,
+      page: headers['x-gbif-site-url'] ?? headers.referer,
+      test: headers['x-e2e-test'],
+    });
     return rec;
   }
   const file = join(RECORDINGS_DIR, key);
@@ -485,6 +497,10 @@ async function handle(req: IncomingMessage, res: Response) {
   if (url.pathname === '/__mock/misses') {
     const test = url.searchParams.get('test');
     const list = test ? misses.filter((m) => m.test === test) : misses;
+    return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(list));
+  }
+  if (url.pathname === '/__mock/unsaved') {
+    const list = [...unsaved.values()];
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(list));
   }
   if (url.pathname === '/__mock/test-started' && req.method === 'POST') {
