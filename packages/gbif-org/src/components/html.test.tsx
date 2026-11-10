@@ -18,6 +18,13 @@ describe('Html', () => {
     expect(render(<Html html="" fallback="Puma concolor" />)).toBe('<span>Puma concolor</span>');
   });
 
+  test('uses the fallback when nothing is left after sanitising', () => {
+    expect(render(<Html html='<img src=x onerror="alert(1)">' fallback="Puma concolor" />)).toBe(
+      '<span>Puma concolor</span>'
+    );
+    expect(render(<Html html="<script>alert(1)</script>" />)).toBe('');
+  });
+
   test('renders nothing when there is neither html nor a fallback', () => {
     expect(render(<Html html={undefined} />)).toBe('');
   });

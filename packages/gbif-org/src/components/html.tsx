@@ -26,7 +26,8 @@ export function Html({
     [html, sanitizeOptions]
   );
 
-  if (clean !== null) {
+  // html that is nothing but removed markup (e.g. only an <img>) counts as empty, so the fallback is shown
+  if (clean !== null && clean.trim() !== '') {
     return <Tag {...props} dangerouslySetInnerHTML={{ __html: clean }} />;
   }
   if (fallback === undefined || fallback === null || fallback === '') return null;
