@@ -1,4 +1,5 @@
 import { useCount } from '@/components/count';
+import { Html } from '@/components/html';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoEdit, HeaderInfoMain } from '@/components/headerComponents';
@@ -273,12 +274,7 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                   </ArticlePreTitle>
                   {/* it would be nice to know for sure which fields to expect */}
                   <ArticleTitle className="lg:g-text-3xl">
-                    <span
-                      className="g-me-4"
-                      dangerouslySetInnerHTML={{
-                        __html: taxon?.label || taxon?.scientificName || '',
-                      }}
-                    />
+                    <Html className="g-me-4" html={taxon?.label} fallback={taxon?.scientificName} />
                   </ArticleTitle>
                   <div>
                     {taxon.acceptedTaxon && (
@@ -289,14 +285,10 @@ const PageHeader = ({ data, children }: { data: TaxonKeyQuery; children?: React.
                           pageId="taxonKey"
                           variables={{ key: taxon?.acceptedTaxon?.taxonID.toString() }}
                         >
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                taxon?.acceptedTaxon?.label ||
-                                taxon?.acceptedTaxon?.scientificName ||
-                                '',
-                            }}
-                          ></span>
+                          <Html
+                            html={taxon?.acceptedTaxon?.label}
+                            fallback={taxon?.acceptedTaxon?.scientificName}
+                          />
                         </DynamicLink>
                       </>
                     )}

@@ -64,6 +64,11 @@ describe('sanitizeFormattedName', () => {
     assert.equal(sanitizeFormattedName(name), name);
   });
 
+  it('keeps sup and sub, which some names and labels use', () => {
+    const name = '<i>Abies</i> ×<sup>2</sup>';
+    assert.equal(sanitizeFormattedName(name), name);
+  });
+
   it('removes scripts, event handlers and other tags', () => {
     assert.equal(
       sanitizeFormattedName('<i onmouseover="alert(1)">Puma</i><script>alert(1)</script><img src=x onerror=alert(1)>'),

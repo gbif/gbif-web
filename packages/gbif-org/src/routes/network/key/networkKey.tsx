@@ -123,7 +123,18 @@ export function NetworkPage() {
               <FormattedMessage id={`network.network`} />
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle testId="network-heading" dangerouslySetTitle={{ __html: title }} />
+            {network.prose?.title ? (
+              // the CMS title is already sanitised by graphql-api
+              <ArticleTitle
+                testId="network-heading"
+                dangerouslySetTitle={{ __html: network.prose.title }}
+              />
+            ) : (
+              // the registry title is plain text
+              <ArticleTitle testId="network-heading">
+                {network.title || 'No title provided'}
+              </ArticleTitle>
+            )}
 
             {deletedAt && <DeletedMessage date={deletedAt} />}
 

@@ -1,4 +1,5 @@
 import { BulletList } from '@/components/bulletList';
+import { Html } from '@/components/html';
 import { Classification } from '@/components/classification';
 import { DatasetLabel } from '@/components/filters/displayNames';
 import { useConfig } from '@/config/config';
@@ -25,7 +26,10 @@ export function TaxonInterpretationCard({
     clbDatasetKey: classification?.meta?.mainIndex?.clbDatasetKey,
   });
   const usageKey = classification?.usage?.key;
-  const usageLabel = classification.taxonMatch?.usage.formattedName ?? classification?.usage?.name;
+  // usageHtml is HTML and the rest are plain names, so they are rendered differently below
+  const usageHtml = classification.taxonMatch?.usage.formattedName;
+  const usageName = classification?.usage?.name;
+  const usageLabel = usageHtml ?? usageName;
   const acceptedLabel = classification?.acceptedUsage?.name;
   const acceptedKey = classification?.acceptedUsage?.key;
   const taxonomy = classification.classification;
@@ -33,8 +37,6 @@ export function TaxonInterpretationCard({
   const noMatch = !usageKey || !usageLabel;
   if (noMatch) return <ChecklistNoMatchCard checklistKey={classification.checklistKey} />;
   const issues = classification?.issues ?? [];
-
-  const formattedName = acceptedLabel ?? usageLabel;
 
   return (
     <div
@@ -58,8 +60,9 @@ export function TaxonInterpretationCard({
               <EntityLinkPresentation
                 link={links.taxon(acceptedKey ?? usageKey)}
                 className="g-text-site-dir-start g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
-                dangerouslySetInnerHTML={{ __html: formattedName }}
-              />
+              >
+                {acceptedLabel ?? <Html html={usageHtml} fallback={usageName} />}
+              </EntityLinkPresentation>
               {links.taxon(usageKey).kind === 'external' && (
                 <>
                   {' '}
@@ -111,8 +114,9 @@ export function TaxonInterpretationCard({
                   <EntityLinkPresentation
                     link={links.taxon(usageKey)}
                     className="g-text-site-dir-start g-font-medium g-underline hover:g-text-primary-500"
-                    dangerouslySetInnerHTML={{ __html: usageLabel }}
-                  />
+                  >
+                    <Html html={usageHtml} fallback={usageName} />
+                  </EntityLinkPresentation>
                   {links.taxon(usageKey).kind === 'external' && (
                     <>
                       {' '}

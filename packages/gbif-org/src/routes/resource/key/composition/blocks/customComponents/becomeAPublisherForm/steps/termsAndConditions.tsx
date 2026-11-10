@@ -1,4 +1,6 @@
 import { cn } from '@/utils/shadcn';
+import { Html } from '@/components/html';
+import { DEFAULT_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 import { FormattedMessage } from 'react-intl';
 import { CheckboxField } from '../becomeAPublisherForm';
 import styles from './style.module.css';
@@ -13,7 +15,7 @@ export function TermsAndConditions() {
             id="eoi.iHaveReadAndUnderstood"
             defaultMessage="I have read and understood GBIF's Data Publisher Agreement and agree to its terms."
           >
-            {(data) => <span dangerouslySetInnerHTML={{ __html: String(data) }}></span>}
+            {(data) => <Html html={String(data)} sanitizeOptions={DEFAULT_SANITIZE_OPTIONS} />}
           </FormattedMessage>
         }
       />

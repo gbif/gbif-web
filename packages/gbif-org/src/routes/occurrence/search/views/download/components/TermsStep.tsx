@@ -17,7 +17,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '@/reactRouterPlugins';
 import { Message } from '@/components/message';
-import { ALLOWED_URI_REGEXP } from '@/components/hyperText';
+import { ALLOWED_URI_REGEXP, DEFAULT_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 
 interface TermsStepProps {
@@ -239,6 +239,7 @@ export default function TermsStep({
                     <Message
                       id="occurrenceDownloadFlow.dataUseAgreementText"
                       sanitizeOptions={{
+                        ...DEFAULT_SANITIZE_OPTIONS,
                         ALLOWED_URI_REGEXP,
                         ALLOWED_TAGS: [
                           'a',
@@ -284,6 +285,7 @@ export default function TermsStep({
                       <Message
                         id="occurrenceDownloadFlow.dataCitationText"
                         sanitizeOptions={{
+                          ...DEFAULT_SANITIZE_OPTIONS,
                           ALLOWED_URI_REGEXP,
                           ALLOWED_TAGS: [
                             'a',

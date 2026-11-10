@@ -1,4 +1,5 @@
 import { SetAsFilter } from '@/components/searchTable';
+import { Html } from '@/components/html';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { FormattedMessage } from 'react-intl';
 import { GoSidebarExpand } from 'react-icons/go';
@@ -65,13 +66,13 @@ export default function ScientificNameColumn({
               <span className="g-pointer-events-auto g-me-2">{canonicalName}</span>
             )}
             {!showCanonicalName && (
-              <span
+              <Html
                 className="g-pointer-events-auto g-me-2"
-                dangerouslySetInnerHTML={{
-                  __html: (occurrence?.classification?.taxonMatch?.usage?.formattedName ??
-                    occurrence?.classification?.taxonMatch?.usage.name ??
-                    occurrence?.classification?.usage?.name) as string,
-                }}
+                html={occurrence?.classification?.taxonMatch?.usage?.formattedName}
+                fallback={
+                  occurrence?.classification?.taxonMatch?.usage.name ??
+                  occurrence?.classification?.usage?.name
+                }
               />
             )}
           </SetAsFilter>

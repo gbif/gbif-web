@@ -1,4 +1,5 @@
 import { DataHeader } from '@/components/dataHeader';
+import { Html } from '@/components/html';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { prettifyEnum } from '@/components/filters/displayNames';
 import Globe from '@/components/globe';
@@ -498,7 +499,7 @@ export function OccurrenceKey() {
   //     (classification) => classification?.checklistKey === config.defaultChecklistKey
   //   ) ?? occurrence?.classifications?.[0];
 
-  const { text, title, hasTaxonIssues, state } = getTitleParts({ occurrence, termMap });
+  const { title, titleHtml, hasTaxonIssues, state } = getTitleParts({ occurrence, termMap });
 
   const usageKey = occurrence.classification?.usage?.key;
   const acceptedUsage = occurrence.classification?.acceptedUsage;
@@ -512,7 +513,7 @@ export function OccurrenceKey() {
     <>
       <PageMetaData
         path={`/occurrence/${occurrence?.key}`}
-        title={text || 'Unknown'}
+        title={title || 'Unknown'}
         nofollow
         noCanonical
       />
@@ -585,7 +586,7 @@ export function OccurrenceKey() {
                           link={taxonLinks.taxon(usageKey)}
                           className="hover:g-underline g-text-inherit"
                         >
-                          <span dangerouslySetInnerHTML={{ __html: title }} dir="auto"></span>
+                          <Html html={titleHtml} fallback={title} dir="auto" />
                         </EntityLinkPresentation>
                       )}
                     {(state === 'NO_MATCH' || state === 'MATCH_WITH_ISSUES') && (
@@ -667,13 +668,15 @@ export function OccurrenceKey() {
                                     className="g-underline"
                                     link={taxonLinks.taxon(usageKey)}
                                   >
-                                    <span
-                                      dangerouslySetInnerHTML={{
-                                        __html:
-                                          occurrence.classification?.taxonMatch?.usage
-                                            .formattedName || '',
-                                      }}
-                                    ></span>
+                                    <Html
+                                      html={
+                                        occurrence.classification?.taxonMatch?.usage.formattedName
+                                      }
+                                      fallback={
+                                        occurrence.classification?.taxonMatch?.usage.name ??
+                                        occurrence.classification?.usage?.name
+                                      }
+                                    />
                                   </EntityLinkPresentation>
                                 </>
                               )}

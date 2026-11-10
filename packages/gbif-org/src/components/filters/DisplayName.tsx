@@ -1,17 +1,10 @@
+import { Html } from '@/components/html';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Config, LanguageOption, useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
 import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
-import pkg from 'isomorphic-dompurify';
 import React, { useEffect } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
-const { sanitize } = pkg;
-
-// Titles rendered as HTML are scientific names and similar, so only inline formatting is kept.
-const TITLE_SANITIZE_OPTIONS = {
-  ALLOWED_TAGS: ['i', 'em', 'b', 'strong', 'span'],
-  ALLOWED_ATTR: [],
-};
 
 export type DisplayNameGetDataProps = {
   id: string | number | object;
@@ -94,9 +87,7 @@ export default function DisplayName({
 
   if (title) {
     return useHtml && !failed && typeof title !== 'object' ? (
-      <span
-        dangerouslySetInnerHTML={{ __html: sanitize(title.toString(), TITLE_SANITIZE_OPTIONS) }}
-      ></span>
+      <Html html={title.toString()} />
     ) : (
       <span>{title}</span>
     );
