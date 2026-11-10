@@ -1,5 +1,12 @@
 import { describe, expect, test } from 'vitest';
-import { CAPTION_SANITIZE_OPTIONS, DEFAULT_SANITIZE_OPTIONS, sanitizeHtml } from './sanitizeHtml';
+import pkg from 'isomorphic-dompurify';
+import {
+  CAPTION_SANITIZE_OPTIONS,
+  DEFAULT_SANITIZE_OPTIONS,
+  INLINE_SANITIZE_OPTIONS,
+  isPlainInlineHtml,
+  sanitizeHtml,
+} from './sanitizeHtml';
 
 describe('sanitizeHtml', () => {
   test('keeps the italics in a formatted scientific name', () => {
@@ -47,5 +54,43 @@ describe('sanitizeHtml', () => {
     expect(html).toMatch(/ target="_blank"/);
     expect(html).toMatch(/ href="https:\/\/example\.com"/);
     expect(sanitizeHtml('<a href="/x">x</a>', CAPTION_SANITIZE_OPTIONS)).toBe('<a href="/x">x</a>');
+  });
+});
+
+describe('isPlainInlineHtml', () => {
+  const plain = [
+    '',
+    'Puma concolor',
+    '<i>Puma concolor</i> (Linnaeus, 1771)',
+    '<i>Puma</i> <i>concolor</i> (Linnaeus, 1771)',
+    '<i>Abies</i> ×<sup>2</sup> <sub>x</sub>',
+    '<b><i>nested</i></b> "quoted" \'single\' é 中文 🐾\n\tline',
+    '<i></i>',
+  ];
+  const notPlain = [
+    '<i>unclosed',
+    'unopened</i>',
+    '<i><b>crossed</i></b>',
+    '<I>upper case</I>',
+    '<i class="x">attribute</i>',
+    '<img src=x onerror=alert(1)>',
+    '<script>alert(1)</script>',
+    'a &amp; b',
+    'a < b',
+    'a > b',
+    'non\u00a0breaking',
+    'carriage\rreturn',
+    'null\u0000char',
+    '<a href="/x">link</a>',
+  ];
+
+  test.each(plain)('takes the fast path for %j, with the same result as DOMPurify', (html) => {
+    expect(isPlainInlineHtml(html)).toBe(true);
+    expect(sanitizeHtml(html)).toBe(pkg.sanitize(html, INLINE_SANITIZE_OPTIONS));
+  });
+
+  test.each(notPlain)('sanitises %j as normal', (html) => {
+    expect(isPlainInlineHtml(html)).toBe(false);
+    expect(sanitizeHtml(html)).toBe(pkg.sanitize(html, INLINE_SANITIZE_OPTIONS));
   });
 });

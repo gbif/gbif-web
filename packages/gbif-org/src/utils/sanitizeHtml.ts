@@ -33,10 +33,31 @@ export const DEFAULT_SANITIZE_OPTIONS: DOMPurify.Config = {
   ALLOWED_ATTR: ['href', 'title', 'target', 'rel'],
 };
 
+// Most names and labels are plain text, or plain text with bare <i> tags. For those DOMPurify returns the input
+// unchanged, but on the server every call goes through jsdom (about 0.2 ms per name), so they skip it. Only
+// characters the HTML parser keeps as they are, and balanced, correctly nested allowed tags without attributes,
+// take this path; anything else is sanitised as normal.
+const INLINE_TOKEN = /<(\/?)(i|em|b|strong|span|sup|sub)>|[^<>&\u0000\r\u00a0]+/gy;
+
+export function isPlainInlineHtml(html: string): boolean {
+  const open: string[] = [];
+  INLINE_TOKEN.lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while (INLINE_TOKEN.lastIndex < html.length && (match = INLINE_TOKEN.exec(html))) {
+    const [, closing, tag] = match;
+    if (!tag) continue;
+    if (!closing) open.push(tag);
+    else if (open.pop() !== tag) return false;
+  }
+  return INLINE_TOKEN.lastIndex === html.length && open.length === 0;
+}
+
 export function sanitizeHtml(
   dirtyHtml: string,
   sanitizeOptions: DOMPurify.Config = INLINE_SANITIZE_OPTIONS
 ): string {
+  if (sanitizeOptions === INLINE_SANITIZE_OPTIONS && isPlainInlineHtml(dirtyHtml)) return dirtyHtml;
+
   // The result is injected as an HTML string, so DOM return modes are never valid here.
   return sanitize(dirtyHtml, {
     ...sanitizeOptions,
