@@ -1,5 +1,5 @@
 {
-  "occurrence": "",
+  "occurrence": "Forekomst",
   "event": "Arrangement",
   "showAllFields": "",
   "morePhotos": "",
@@ -44,7 +44,7 @@
   "groups": {
     "summary": "Resumé",
     "record": "Optegnelse",
-    "occurrence": "",
+    "occurrence": "Forekomst",
     "event": "Arrangement",
     "dataStructure": "",
     "identification": "Identifikation",
