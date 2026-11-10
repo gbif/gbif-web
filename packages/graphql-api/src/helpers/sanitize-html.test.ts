@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { prefixLinkUrl } from './sanitize-html';
+import { prefixLinkUrl, sanitizeFormattedName } from './sanitize-html';
 import config from '@/config';
 
 describe('prefixLinkUrl', () => {
@@ -55,5 +55,35 @@ describe('prefixLinkUrl', () => {
     const url = 'https://gbif.org';
     const expected = `${config.gbifLinkTargetOrigin}/${locale}`;
     assert.equal(prefixLinkUrl(url, locale), expected);
+  });
+});
+
+describe('sanitizeFormattedName', () => {
+  it('keeps italics in a formatted name', () => {
+    const name = '<i>Puma concolor</i> (Linnaeus, 1771)';
+    assert.equal(sanitizeFormattedName(name), name);
+  });
+
+  it('keeps sup and sub, which some names and labels use', () => {
+    const name = '<i>Abies</i> ×<sup>2</sup>';
+    assert.equal(sanitizeFormattedName(name), name);
+  });
+
+  it('removes scripts, event handlers and other tags', () => {
+    assert.equal(
+      sanitizeFormattedName('<i onmouseover="alert(1)">Puma</i><script>alert(1)</script><img src=x onerror=alert(1)>'),
+      '<i>Puma</i>',
+    );
+    assert.equal(sanitizeFormattedName('<a href="javascript:alert(1)">Puma</a>'), 'Puma');
+  });
+
+  it('passes through empty values', () => {
+    assert.equal(sanitizeFormattedName(null), null);
+    assert.equal(sanitizeFormattedName(undefined), null);
+  });
+
+  it('returns null for values that are not strings', () => {
+    assert.equal(sanitizeFormattedName(['<img src=x onerror=alert(1)>']), null);
+    assert.equal(sanitizeFormattedName({ toString: () => '<script>alert(1)</script>' }), null);
   });
 });

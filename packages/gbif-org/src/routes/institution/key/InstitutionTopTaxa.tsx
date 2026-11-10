@@ -1,4 +1,5 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/smallCard';
+import { Html } from '@/components/html';
 import { Skeleton } from '@/components/ui/skeleton';
 import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
@@ -77,13 +78,7 @@ export function InstitutionTopTaxa({ predicate, className }: InstitutionTopTaxaP
                     <ProgressItem
                       value={taxon?.count ?? 0}
                       max={total}
-                      title={
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: taxon?.taxon?.formattedName ?? '',
-                          }}
-                        />
-                      }
+                      title={<Html html={taxon?.taxon?.formattedName} />}
                     />
                   </li>
                 ))}

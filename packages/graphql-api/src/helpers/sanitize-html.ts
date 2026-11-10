@@ -372,6 +372,19 @@ export function sanitizeHtml(dirty: string, options: SanitizeOptions): string {
   return clean;
 }
 
+// Formatted scientific names and taxon labels use <i> for the parts that are italicised.
+// Keep that and a few other inline formatting tags, and strip everything else (including all attributes).
+// The portal sanitises these again with the same tags (INLINE_SANITIZE_OPTIONS in gbif-org).
+const formattedNameAllowedTags = ['i', 'em', 'b', 'strong', 'span', 'sup', 'sub'];
+
+export function sanitizeFormattedName(value?: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  return sanitize(value, {
+    allowedTags: formattedNameAllowedTags,
+    allowedAttributes: {},
+  });
+}
+
 const supportedLocales = ['en-GB', 'da', 'fr', 'es', 'ar'];
 
 export function prefixLinkUrl(str = '', locale?: string) {

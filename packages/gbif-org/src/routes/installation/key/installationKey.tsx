@@ -113,9 +113,7 @@ export function InstallationPage() {
           >
             <FormattedMessage id={`installation.installation`} />
           </ArticlePreTitle>
-          <ArticleTitle
-            dangerouslySetTitle={{ __html: installation.title || 'No title provided' }}
-          />
+          <ArticleTitle>{installation.title || 'No title provided'}</ArticleTitle>
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
 

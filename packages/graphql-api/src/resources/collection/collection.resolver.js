@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getExcerpt, getOGImage } from '@/helpers/utils';
+import { getExcerpt, getHtml, getOGImage } from '@/helpers/utils';
 import { getCardinality, getFacet } from '../getQueryMetrics';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
 import config from '@/config';
@@ -54,6 +54,12 @@ export default {
   CollectionSearchEntity: {
     thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
       getThumborUrl({ url, fitIn, width, height }),
+    description: (src, args, { locale }) =>
+      getHtml(src.description, {
+        trustLevel: 'untrusted',
+        wrapTables: true,
+        locale,
+      }),
     excerpt: ({ description, taxonomicCoverage, geography }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({
@@ -97,6 +103,12 @@ export default {
         })
         .catch(() => null);
     },
+    description: (src, args, { locale }) =>
+      getHtml(src.description, {
+        trustLevel: 'untrusted',
+        wrapTables: true,
+        locale,
+      }),
     excerpt: ({ description, taxonomicCoverage, geography }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({

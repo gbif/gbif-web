@@ -1,4 +1,5 @@
 import config from '@/config';
+import { sanitizeFormattedName } from '@/helpers/sanitize-html';
 
 const DEFAULT_CHECKLIST_KEY = config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
 const COL_UUID = config.colUUID ?? '7ddf754f-d193-4cc9-b351-99906754a03b'; // COL key for classification
@@ -48,7 +49,12 @@ function sortBreakdownRecursively(items) {
     }));
 }
 
+// Taxon labels are HTML (the italic parts of the name in <i>) built from data that publishers control, and
+// the portal renders them as is. Keep only inline formatting.
+const label = ({ label: value }) => sanitizeFormattedName(value) ?? value;
+
 const sharedTaxonFields = {
+  label,
   dataset: ({ datasetKey }, args, { dataSources }) => dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
   // sourceDataset: ({ sourceDatasetKey }, args, { dataSources }) =>
   //   dataSources.datasetAPI.getDatasetByKey({ key: sourceDatasetKey }),
@@ -218,6 +224,7 @@ export default {
     taxonId: getTaxonFacet('taxonId'),
   },
   TaxonResult: {
+    label,
     fallbackID: ({ taxonID, scientificName, taxonomicStatus, taxonRank }) =>
       taxonID ?? `__${scientificName}-${taxonomicStatus}-${taxonRank}__`,
     vernacularName: getVernacularName,
@@ -239,6 +246,7 @@ export default {
       }),
   },
   Synonym: {
+    label,
     // set by the taxonInfo enrichment; coerced as the source only sets it when the taxon has an originalNameUsageID
     isOriginalNameUsage: ({ isOriginalNameUsage }) => !!isOriginalNameUsage,
   },
@@ -289,7 +297,21 @@ export default {
     },
   },
   TaxonChild: {
+    label,
     childrenTree: sharedTaxonFields.children,
+  },
+  TaxonTreeItem: { label },
+  TaxonClassification: { label },
+  Redlist: { label },
+  ClbBreakdownTaxon: {
+    labelHtml: ({ labelHtml }) => sanitizeFormattedName(labelHtml) ?? labelHtml,
+  },
+  // formattedName is HTML from the species match API that the portal renders as is
+  SpeciesMatchUsage: {
+    formattedName: ({ formattedName }) => sanitizeFormattedName(formattedName),
+  },
+  SpeciesMatchAcceptedUsage: {
+    formattedName: ({ formattedName }) => sanitizeFormattedName(formattedName),
   },
   Griis: {
     dataset: ({ datasetKey }, args, { dataSources }) => dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),

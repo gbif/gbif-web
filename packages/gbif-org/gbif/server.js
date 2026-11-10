@@ -15,9 +15,11 @@ import { register as registerUser } from './routes/user/endpoints.mjs';
 import { register as registerAdmin } from './routes/admin/endpoints.mjs';
 import { register as registerProxies } from './routes/proxy/proxy.mjs';
 import { register as registerResourceSearch } from './routes/resourceSearch/endpoints.mjs';
+import { escapeForScript as escapeScriptText } from '../src/utils/escapeForScript.js';
 import {
   createGetPostRenderRedirect,
   createGetPreRenderRedirect,
+  getRenamedSearchParamRedirect,
 } from './middleware/redirects.mjs';
 import { requestLogger } from './middleware/requestLogger.mjs';
 // Load environment variables from .env files and merge them with process.env.
@@ -216,7 +218,7 @@ async function main() {
   // paths that are known never to match a route in the React app.
   app.use((req, res, next) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-    const redirectTo = getPreRenderRedirect(req);
+    const redirectTo = getRenamedSearchParamRedirect(req) ?? getPreRenderRedirect(req);
     if (redirectTo) return res.redirect(302, redirectTo);
     next();
   });
@@ -265,7 +267,7 @@ async function main() {
         // rather than inside hydrate(), which can't run until the route bundle has loaded.
         // entry.client.tsx reuses this promise; it resolves to null on failure so the client falls
         // back to the path-based load. Escaping `<` keeps the value inside the script element.
-        const escapeForScript = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
+        const escapeForScript = (value) => escapeScriptText(JSON.stringify(value));
         const i18nScript = messagesPath
           ? `<script>window.__I18N_MESSAGES_PATH__=${escapeForScript(messagesPath)};` +
             (messagesClientUrl

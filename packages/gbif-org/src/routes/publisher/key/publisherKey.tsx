@@ -217,7 +217,7 @@ export function PublisherPage() {
             </DynamicLink>
           </ArticlePreTitle>
           {/* it would be nice to know for sure which fields to expect */}
-          <ArticleTitle dangerouslySetTitle={{ __html: publisher.title || 'No title provided' }} />
+          <ArticleTitle>{publisher.title || 'No title provided'}</ArticleTitle>
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
           {!deletedAt && !publisher.endorsementApproved && (

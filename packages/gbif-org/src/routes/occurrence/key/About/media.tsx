@@ -1,4 +1,5 @@
 import Properties from '@/components/properties';
+import { Html } from '@/components/html';
 import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { OccurrenceMediaDetailsFragment, OccurrenceQuery, Term } from '@/gql/graphql';
 import { truncateMiddle } from '@/utils/truncateString';
@@ -297,7 +298,7 @@ export function SuggestedAttribution({
   occurrence: NonNullable<OccurrenceQuery['occurrence']>;
   termMap: { [key: string]: Term };
 }) {
-  const { title, state } = getTitleParts({ occurrence, termMap });
+  const { title, titleHtml, state } = getTitleParts({ occurrence, termMap });
   return (
     <span dir="auto">
       {media.title && <>&ldquo;{media.title}&rdquo; - </>}
@@ -309,7 +310,7 @@ export function SuggestedAttribution({
         >
           {/* only the matched name is formatted, the verbatim name is shown as text like in the page header */}
           {state === 'MATCH_NO_ISSUES' ? (
-            <span dangerouslySetInnerHTML={{ __html: title }} />
+            <Html html={titleHtml} fallback={title} />
           ) : (
             <span>{title}</span>
           )}

@@ -578,10 +578,9 @@ export function DatasetPage() {
               </DynamicLink>
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle
-              dir={locale.textDirection}
-              dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }}
-            />
+            <ArticleTitle dir={locale.textDirection}>
+              {dataset.title || 'No title provided'}
+            </ArticleTitle>
 
             <div className="g-mt-2">
               <FormattedMessage id="dataset.publishedBy" />{' '}

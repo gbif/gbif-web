@@ -123,9 +123,7 @@ export function InstitutionKey({
                     <FormattedMessage id="grscicoll.institutionCode" />
                   </ArticlePreTitle>
                   {/* it would be nice to know for sure which fields to expect */}
-                  <ArticleTitle
-                    dangerouslySetTitle={{ __html: institution.name || 'No title provided' }}
-                  />
+                  <ArticleTitle>{institution.name || 'No title provided'}</ArticleTitle>
 
                   {deletedAt && <DeletedMessage date={deletedAt} />}
                   {institution.replacedByInstitution && (

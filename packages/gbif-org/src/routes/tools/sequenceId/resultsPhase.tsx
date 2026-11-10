@@ -1,4 +1,5 @@
 import { PaginationFooter } from '@/components/pagination';
+import { Html } from '@/components/html';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Card } from '@/components/ui/largeCard';
@@ -345,8 +346,9 @@ function ResultRow({ row, onShowAlignment }: { row: SequenceResult; onShowAlignm
             target="_blank"
             rel="noreferrer"
             className="g-text-primary-600 hover:g-underline"
-            dangerouslySetInnerHTML={{ __html: usage.formattedName ?? usage.name }}
-          />
+          >
+            <Html html={usage.formattedName} fallback={usage.name} />
+          </a>
         ) : (
           <>
             <span>{m.name}</span>
@@ -522,7 +524,9 @@ function AlignmentDialog({ result, onClose }: { result?: SequenceResult; onClose
   const m = result?.match;
   const alignment = m ? buildAlignment(m) : '';
   const usage = m?.taxonMatch?.usage;
-  const scientificName = usage?.formattedName ?? usage?.name ?? m?.name;
+  // formattedName is HTML, the other names are plain text
+  const scientificNameHtml = usage?.formattedName;
+  const scientificName = usage?.name ?? m?.name;
   return (
     <Dialog open={!!result} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="g-max-w-3xl">
@@ -536,7 +540,7 @@ function AlignmentDialog({ result, onClose }: { result?: SequenceResult; onClose
           </DialogTitle>
           {m && (
             <div className="g-mt-2 g-space-y-1 g-text-sm g-text-slate-600">
-              {scientificName && (
+              {(scientificNameHtml || scientificName) && (
                 <div>
                   <span className="g-text-slate-500 g-me-1">
                     <FormattedMessage
@@ -545,9 +549,10 @@ function AlignmentDialog({ result, onClose }: { result?: SequenceResult; onClose
                     />
                     :
                   </span>
-                  <span
+                  <Html
                     className="g-text-slate-800"
-                    dangerouslySetInnerHTML={{ __html: scientificName }}
+                    html={scientificNameHtml}
+                    fallback={scientificName}
                   />
                 </div>
               )}

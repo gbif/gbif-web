@@ -639,21 +639,6 @@ export default {
         });
     },
   },
-  OccurrenceNameUsage: {
-    formattedName: ({ key, name }, { useFallback = false }, { dataSources }) => {
-      return dataSources.taxonAPI
-        .getParsedName({ key })
-        .then((formattedName) => {
-          return formattedName;
-        })
-        .catch((err) => {
-          if (useFallback) {
-            return name;
-          }
-          throw err;
-        });
-    },
-  },
   OccurrenceStats,
   OccurrenceFacet,
   OccurrenceCardinality,
@@ -928,7 +913,7 @@ export default {
     isSequenced: ({ isSequenced }) => {
       return isSequenced;
     },
-    isSamplingEvent: (occurrence) => !!occurrence.eventId && !!occurrence.samplingProtocol,
+    isSamplingEvent: (occurrence) => !!occurrence.eventID && occurrence.samplingProtocol?.length > 0,
     firstIIIF: (occurrence) => {
       return getFirstIIIFImage({ occurrence });
     },
