@@ -1,6 +1,14 @@
 import { defineConfig, devices } from '@playwright/test';
 import { resolve } from 'node:path';
-import { E2E_ENV_DIR, GBIF_E2E_DIST, GBIF_PORT, HP_PORT, MOCK_PORT, mockEnv } from './e2e/env.ts';
+import {
+  E2E_ENV_DIR,
+  GBIF_E2E_DIST,
+  GBIF_PORT,
+  HP_PORT,
+  MOCK_PORT,
+  USES_UPSTREAM,
+  mockEnv,
+} from './e2e/env.ts';
 
 // Starts the mock, the gbif.org server on the e2e build and two hosted-portal sites, then runs the
 // specs in three projects against them. globalSetup and globalTeardown wrap the run. See
@@ -32,6 +40,9 @@ export default defineConfig({
   // A test.only re-record would run a few tests and prune every other recording.
   forbidOnly: !!process.env.CI || process.env.E2E_PRUNE === '1',
   retries: 0,
+  // Room to sit through the mock's rate-limit waits (up to 3 of 10 s) instead of failing on them.
+  timeout: 60_000,
+  expect: { timeout: USES_UPSTREAM ? 30_000 : 5_000 },
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
     trace: 'retain-on-failure',

@@ -4,6 +4,8 @@
 // the build stamp includes this file. Checklist keys are production's so recordings resolve.
 
 export const MOCK_PORT = 4020;
+// record, refresh and live runs wait on the real upstream, which may hold calls back (rate limits).
+export const USES_UPSTREAM = (process.env.E2E_MODE || 'replay').toLowerCase() !== 'replay';
 export const GBIF_PORT = 3100;
 
 export const GBIF_E2E_DIST = 'dist/e2e/gbif';

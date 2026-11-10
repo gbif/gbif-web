@@ -5,8 +5,9 @@
 //
 // A request goes through handle():
 //   1. /__mock/* control endpoints: health, misses (read by test.ts and globalTeardown), unsaved
-//      (read by globalTeardown), tests started/passed (reported by test.ts), prune (called by
-//      globalTeardown), faults (added and cleared by test.ts's mockFault).
+//      (read by globalTeardown), rate-limits (read by test.ts), tests started/passed (reported by
+//      test.ts), prune (called by globalTeardown), faults (added and cleared by test.ts's
+//      mockFault).
 //   2. Pick the upstream by longest path prefix (UPSTREAMS). Tiles and analytics images are stubbed
 //      blank; translations come from the bundled src/config/fallback/.
 //   3. GraphQL GETs get {"unknownQueryId":true}, so the client retries as a POST that carries the
@@ -107,8 +108,7 @@ type Recording = {
 };
 // On disk a JSON body is stored parsed, so a changed answer diffs line by line.
 type StoredRecording =
-  | Recording
-  | (Omit<Recording, 'encoding' | 'body'> & { encoding: 'json'; body: unknown });
+  Recording | (Omit<Recording, 'encoding' | 'body'> & { encoding: 'json'; body: unknown });
 
 // The parsed body, or undefined when it is not JSON.
 function parseJson(rec: Recording): unknown {
@@ -277,9 +277,16 @@ function replacePhotos(body: string): string {
 }
 
 // The API rate-limits bursts: a record run with every worker loading pages answered some lookups
-// with 429. Calls beyond the cap wait for a free slot; a 429 is retried after Retry-After.
+// with 429. Calls beyond the cap wait for a free slot. A 429 holds every upstream call back for
+// the time the API asks for, then the call is retried. A wait too long for a test to sit through
+// is not taken: the 429 is passed on.
 const UPSTREAM_CONCURRENCY = Math.max(1, Number(process.env.E2E_UPSTREAM_CONCURRENCY) || 4);
 const RATE_LIMIT_RETRIES = 3;
+const MAX_RATE_LIMIT_WAIT = 10_000;
+const UPSTREAM_TIMEOUT = 30_000;
+let pausedUntil = 0;
+// Every 429 from upstream. test.ts reads these to say why a test failed.
+const rateLimits: Array<{ at: number; until: number; target: string; passedOn: boolean }> = [];
 let activeUpstreamCalls = 0;
 const waitingForSlot: (() => void)[] = [];
 
@@ -301,8 +308,27 @@ function retryAfterMs(header: string | null, attempt: number): number {
   const hint =
     header && Number.isFinite(seconds) ? seconds * 1000 : Date.parse(header ?? '') - Date.now();
   // A zero, negative or unreadable hint falls back to the backoff.
-  if (hint > 0) return Math.min(hint, 60_000);
-  return 5000 * 2 ** (attempt - 1);
+  if (hint > 0) return hint;
+  return Math.min(5000 * 2 ** (attempt - 1), MAX_RATE_LIMIT_WAIT);
+}
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// One upstream call, in a slot and never while rate limited.
+async function fetchUpstream(target: string, init: RequestInit) {
+  for (;;) {
+    while (Date.now() < pausedUntil) await sleep(pausedUntil - Date.now());
+    const answer = await withUpstreamSlot(async () => {
+      // Rate limited while this call waited for its slot: give the slot back and wait again.
+      if (Date.now() < pausedUntil) return undefined;
+      const response = await fetch(target, {
+        ...init,
+        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT),
+      });
+      return { response, buffer: Buffer.from(await response.arrayBuffer()) };
+    });
+    if (answer) return answer;
+  }
 }
 
 // Fetches the request from the real upstream. Used by record/refresh (then saved) and live.
@@ -333,21 +359,30 @@ async function forward(
   }
   if (body !== undefined) forwardHeaders['content-type'] = 'application/json';
 
-  const { response, buffer } = await withUpstreamSlot(async () => {
-    for (let attempt = 1; ; attempt++) {
-      const response = await fetch(target, {
-        method,
-        headers: forwardHeaders,
-        body: body === undefined ? undefined : JSON.stringify(body),
-        redirect: 'follow',
-      });
-      const buffer = Buffer.from(await response.arrayBuffer());
-      if (response.status !== 429 || attempt > RATE_LIMIT_RETRIES) return { response, buffer };
-      const wait = retryAfterMs(response.headers.get('retry-after'), attempt);
-      console.warn(`[mock] 429 from ${target}; retry ${attempt} in ${wait / 1000}s`);
-      await new Promise((resolve) => setTimeout(resolve, wait));
+  const init: RequestInit = {
+    method,
+    headers: forwardHeaders,
+    body: body === undefined ? undefined : JSON.stringify(body),
+    redirect: 'follow',
+  };
+  let answer = await fetchUpstream(target, init);
+  for (let attempt = 1; answer.response.status === 429; attempt++) {
+    const wait = retryAfterMs(answer.response.headers.get('retry-after'), attempt);
+    const passedOn = attempt > RATE_LIMIT_RETRIES || wait > MAX_RATE_LIMIT_WAIT;
+    const now = Date.now();
+    rateLimits.push({ at: now, until: passedOn ? now : now + wait, target, passedOn });
+    if (passedOn) {
+      const why = attempt > RATE_LIMIT_RETRIES ? 'out of retries' : `asked to wait ${wait / 1000}s`;
+      console.warn(`[mock] 429 from ${target}; passed on (${why})`);
+      break;
     }
-  });
+    pausedUntil = Math.max(pausedUntil, now + wait);
+    console.warn(
+      `[mock] 429 from ${target}; holding upstream calls ${wait / 1000}s (retry ${attempt})`
+    );
+    answer = await fetchUpstream(target, init);
+  }
+  const { response, buffer } = answer;
   const contentType = response.headers.get('content-type') || 'application/octet-stream';
   const textual = TEXTUAL.test(contentType);
   return {
@@ -523,6 +558,12 @@ async function handle(req: IncomingMessage, res: Response) {
   }
   if (url.pathname === '/__mock/unsaved') {
     const list = [...unsaved.values()];
+    return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(list));
+  }
+  if (url.pathname === '/__mock/rate-limits') {
+    // Those that held calls back, or were passed on, at or after `since` (ms since epoch).
+    const since = Number(url.searchParams.get('since')) || 0;
+    const list = rateLimits.filter((r) => r.until >= since);
     return send(res, 200, { 'content-type': 'application/json' }, JSON.stringify(list));
   }
   if (url.pathname === '/__mock/test-started' && req.method === 'POST') {

@@ -159,9 +159,13 @@ pages are tested against it. A GraphQL response with `errors` is saved with a wa
 before committing, unless it is such a 404.
 
 The API rate-limits bursts, so the mock makes at most 4 upstream calls at a time
-(`E2E_UPSTREAM_CONCURRENCY` changes that) and retries a 429 up to 3 times after its `Retry-After`.
-If a test times out waiting, the response is still saved; run `npm run e2e:record` again for the
-rest. Headless Chrome's user agent is sent as plain Chrome, since graphql-api answers bots with 418
+(`E2E_UPSTREAM_CONCURRENCY` changes that). A 429 holds every upstream call back for its
+`Retry-After` (5 to 10 s without one), then the call is retried, up to 3 times. If the API asks for
+more than 10 s the 429 is passed on instead, and a record run lists it as not saved. An upstream
+call that takes over 30 s is given up. Tests get 60 s, and in record, refresh and live runs
+assertions wait 30 s, so a short hold does not fail them. A test that does fail while the API was
+rate limiting says so in its errors ("rate limited: ..."). If a test times out waiting, the
+response is still saved; run `npm run e2e:record` again for the rest. Headless Chrome's user agent is sent as plain Chrome, since graphql-api answers bots with 418
 on its third-party endpoints (CITES).
 
 ### Pruning

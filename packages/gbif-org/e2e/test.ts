@@ -4,7 +4,7 @@
 // reports started and passed tests to the mock, which only prunes after a fully passing run.
 
 import { test as base, expect, type Page } from '@playwright/test';
-import { MOCK_PORT } from './env.ts';
+import { MOCK_PORT, USES_UPSTREAM } from './env.ts';
 
 // 1x1 grey PNG: external images keep their layout box without depending on the network.
 const PLACEHOLDER_PNG = Buffer.from(
@@ -45,7 +45,7 @@ function trackRequests(page: Page) {
           await page.waitForTimeout(300);
           return inflight === 0 && started === before;
         },
-        { message: 'page never stopped requesting', timeout: 15_000 }
+        { message: 'page never stopped requesting', timeout: USES_UPSTREAM ? 45_000 : 15_000 }
       )
       .toBe(true);
   };
@@ -63,6 +63,27 @@ export type Fault = {
   errors?: Array<{ path: string[]; message?: string }>;
   nulls?: string[][];
 };
+
+// Added to a failed test: the 429s the upstream answered while it ran. The mock holds back every
+// upstream call on a 429, so any test running then is slowed down, whoever made the request.
+async function reportRateLimits(startedAt: number) {
+  type RateLimit = { until: number; at: number; target: string; passedOn: boolean };
+  const limits: RateLimit[] = await fetch(`${MOCK}/__mock/rate-limits?since=${startedAt}`)
+    .then((r) => r.json())
+    .catch(() => []);
+  expect
+    .soft(
+      limits.map((l) => {
+        const seconds = Math.round((l.until - l.at) / 1000);
+        const outcome = l.passedOn
+          ? 'passed on to the page'
+          : `upstream calls held back ${seconds}s`;
+        return `429 from ${l.target}: ${outcome}`;
+      }),
+      'rate limited: the upstream answered 429 while this test ran, which probably caused the failure. Run it again later'
+    )
+    .toEqual([]);
+}
 
 // Tests in this worker that have called mockFault.
 const testsWithFaults = new Set<string>();
@@ -101,6 +122,7 @@ export const test = base.extend<Fixtures>({
   },
   pageErrors: [
     async ({ page, waitForIdle, expectedErrors }, use, testInfo) => {
+      const startedAt = Date.now();
       // The mock prunes recordings only if every test in the suite started and passed.
       await fetch(`${MOCK}/__mock/test-started?test=${encodeURIComponent(testInfo.testId)}`, {
         method: 'POST',
@@ -148,28 +170,32 @@ export const test = base.extend<Fixtures>({
 
       await use(errors);
 
-      // Late client-side fetches must happen inside the test, or they are never recorded and only
-      // surface as replay misses.
+      let passed = false;
       try {
-        await waitForIdle();
+        // Late client-side fetches must happen inside the test, or they are never recorded and
+        // only surface as replay misses.
+        try {
+          await waitForIdle();
+        } finally {
+          // Also if the page never went idle: a retry runs with the same test id.
+          await fetch(`${MOCK}/__mock/faults?test=${encodeURIComponent(testInfo.testId)}`, {
+            method: 'DELETE',
+          });
+          testsWithFaults.delete(testInfo.testId);
+        }
+        const misses: Array<{ key: string; reason: string }> = await fetch(
+          `${MOCK}/__mock/misses?test=${encodeURIComponent(testInfo.testId)}`
+        ).then((r) => r.json());
+        const unexpected = errors.filter((e) => !expectedErrors.some((re) => re.test(e)));
+        expect(unexpected, 'uncaught errors in the page').toEqual([]);
+        expect(
+          misses.map((m) => `${m.key}: ${m.reason}`),
+          'requests the mock could not answer'
+        ).toEqual([]);
+        passed = testInfo.status === testInfo.expectedStatus;
+        if (passed) await fetch(`${MOCK}/__mock/test-passed`, { method: 'POST' });
       } finally {
-        // Also if the page never went idle: a retry runs with the same test id.
-        await fetch(`${MOCK}/__mock/faults?test=${encodeURIComponent(testInfo.testId)}`, {
-          method: 'DELETE',
-        });
-        testsWithFaults.delete(testInfo.testId);
-      }
-      const misses: Array<{ key: string; reason: string }> = await fetch(
-        `${MOCK}/__mock/misses?test=${encodeURIComponent(testInfo.testId)}`
-      ).then((r) => r.json());
-      const unexpected = errors.filter((e) => !expectedErrors.some((re) => re.test(e)));
-      expect(unexpected, 'uncaught errors in the page').toEqual([]);
-      expect(
-        misses.map((m) => `${m.key}: ${m.reason}`),
-        'requests the mock could not answer'
-      ).toEqual([]);
-      if (testInfo.status === testInfo.expectedStatus) {
-        await fetch(`${MOCK}/__mock/test-passed`, { method: 'POST' });
+        if (!passed) await reportRateLimits(startedAt);
       }
     },
     { auto: true },
