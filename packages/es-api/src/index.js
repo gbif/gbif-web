@@ -183,23 +183,21 @@ app.use(function (req, res, next) {
 });
 
 const temporaryAuthMiddleware = function (req, res, next) {
-  // The key is only accepted in the Authorization header (`ApiKey-v1 <key>`), never in the
-  // url or body, where it would end up in logs and caches.
-  const authorization = _.get(req, 'headers.authorization', '');
-  const apiKey = authorization.startsWith('ApiKey-v1 ') ? authorization.substr(10) : '';
+  const apiKey =
+    _.get(req, 'query.apiKey') ||
+    _.get(req, 'body.apiKey') ||
+    _.get(req, 'headers.Authorization', '').substr(10) ||
+    _.get(req, 'headers.authorization', '').substr(10);
   if (!apiKey) {
     return next(
-      new ResponseError(
-        401,
-        'temporaryAuthentication',
-        'You need to provide an apiKey in the Authorization header',
-      ),
+      new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'),
     );
   }
   if (!config.apiKey || apiKey !== config.apiKey) {
+    // don't echo the key back
     return next(new ResponseError(403, 'temporaryAuthentication', 'Invalid apiKey'));
   }
-  // the apiKey shouldn't be interpreted as a es query param
+  // the apiKey shouldn't be used elsewhere and shouldn't be interpreted as a es query param
   delete req.query.apiKey;
   // Pass to next layer of middleware
   next();
