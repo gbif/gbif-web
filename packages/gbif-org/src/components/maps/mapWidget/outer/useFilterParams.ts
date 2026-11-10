@@ -12,7 +12,7 @@ export function useFilterParams(
     const filterParams: Params = {
       hasCoordinate: true,
       hasGeospatialIssue: false,
-      occurrenceStatus: 'PRESENT',
+      occurrenceStatus: 'DETECTED',
     };
 
     if (basisOfRecord.length > 0) {

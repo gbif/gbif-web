@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { createGetPostRenderRedirect, createGetPreRenderRedirect } from './redirects.mjs';
+import {
+  createGetPostRenderRedirect,
+  createGetPreRenderRedirect,
+  createRenamedSearchParamRedirect,
+  getRenamedSearchParamRedirect,
+} from './redirects.mjs';
 
 // Drives the real factory against the real redirect table (redirects.json + newRedirects).
 // Focus: the query-param redirect path that the findQueryParamRedirect optimization touches,
@@ -106,5 +111,79 @@ describe('getPreRenderRedirect — GRSciColl moved to its own domain', () => {
   it('is disabled when the target domain is not configured', () => {
     const noEnv = createGetPreRenderRedirect({});
     expect(noEnv({ originalUrl: '/grscicoll' })).toBeUndefined();
+  });
+});
+
+describe('getRenamedSearchParamRedirect — occurrenceStatus renamed to DETECTED/NOT_DETECTED', () => {
+  const run = (originalUrl) => getRenamedSearchParamRedirect({ originalUrl });
+
+  it('maps old values in any casing', () => {
+    expect(run('/occurrence/search?occurrenceStatus=PRESENT')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED'
+    );
+    expect(run('/occurrence/search?occurrenceStatus=absent')).toBe(
+      '/occurrence/search?occurrenceStatus=NOT_DETECTED'
+    );
+  });
+
+  it('handles repeated and comma separated values and keeps other params and locale', () => {
+    expect(
+      run('/fr/occurrence/search?q=a&occurrenceStatus=PRESENT&occurrenceStatus=ABSENT&year=2000')
+    ).toBe(
+      '/fr/occurrence/search?q=a&occurrenceStatus=DETECTED&occurrenceStatus=NOT_DETECTED&year=2000'
+    );
+    expect(run('/occurrence/search?occurrenceStatus=present,absent')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED,NOT_DETECTED'
+    );
+  });
+
+  it('leaves new values, other params and URLs without a query alone', () => {
+    expect(run('/occurrence/search?occurrenceStatus=DETECTED')).toBeUndefined();
+    expect(run('/occurrence/search?basisOfRecord=PRESENT')).toBeUndefined();
+    expect(run('/occurrence/search')).toBeUndefined();
+  });
+
+  it('keeps other params byte for byte, including encodings and a second ?', () => {
+    expect(
+      run(
+        '/occurrence/search?q=Smith%2C%20J&geometry=POLYGON((1%202,3%204))&occurrenceStatus=absent'
+      )
+    ).toBe(
+      '/occurrence/search?q=Smith%2C%20J&geometry=POLYGON((1%202,3%204))&occurrenceStatus=NOT_DETECTED'
+    );
+    expect(run('/occurrence/search?q=a?b&occurrenceStatus=present')).toBe(
+      '/occurrence/search?q=a?b&occurrenceStatus=DETECTED'
+    );
+  });
+
+  it('normalises the snake_case key in the same redirect', () => {
+    expect(run('/occurrence/search?occurrence_status=present&q=a')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED&q=a'
+    );
+    expect(run('/occurrence/search?occurrence_status=DETECTED')).toBe(
+      '/occurrence/search?occurrenceStatus=DETECTED'
+    );
+  });
+});
+
+describe('createRenamedSearchParamRedirect — generic renames', () => {
+  const redirect = createRenamedSearchParamRedirect([
+    { param: 'datasetKey', from: ['dataset_id', 'datasetId'] },
+    { param: 'basisOfRecord', values: { fossil: 'FOSSIL_SPECIMEN' } },
+  ]);
+  const run = (originalUrl) => redirect({ originalUrl });
+
+  it('renames a parameter and keeps its value', () => {
+    expect(run('/dataset/search?datasetId=abc&q=a')).toBe('/dataset/search?datasetKey=abc&q=a');
+  });
+
+  it('applies several renames in one redirect', () => {
+    expect(run('/occurrence/search?dataset_id=abc&basisOfRecord=Fossil&basisOfRecord=OTHER')).toBe(
+      '/occurrence/search?datasetKey=abc&basisOfRecord=FOSSIL_SPECIMEN&basisOfRecord=OTHER'
+    );
+  });
+
+  it('does nothing when the URL is already current', () => {
+    expect(run('/occurrence/search?datasetKey=abc&basisOfRecord=OTHER')).toBeUndefined();
   });
 });

@@ -28,7 +28,7 @@ const MapWidgetInner = lazy(() => import('../inner'));
 const defaultPixelMapParams = {
   hasCoordinate: [true],
   hasGeospatialIssue: [false],
-  occurrenceStatus: ['PRESENT'],
+  occurrenceStatus: ['DETECTED'],
 };
 
 type Props = {

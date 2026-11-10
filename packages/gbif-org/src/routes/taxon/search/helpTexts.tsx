@@ -59,9 +59,9 @@ export function ApiContent() {
         <br />
         <a
           className="g-break-all"
-          href="https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=present&limit=5&offset=0"
+          href="https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=detected&limit=5&offset=0"
         >
-          https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=present&limit=5&offset=0
+          https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=detected&limit=5&offset=0
         </a>
       </Card>
     </div>
