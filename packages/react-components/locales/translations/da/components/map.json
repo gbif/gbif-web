@@ -1,8 +1,8 @@
 {
   "styles": {
     "satellite": "Sattelit",
-    "natural": "",
-    "bright": "",
+    "natural": "Natur",
+    "bright": "Lys",
     "dark": "Mørk",
     "outdoor": "Udendørs"
   },
@@ -13,12 +13,12 @@
     "PLATE_CAREE": "Plade Carée"
   },
   "failedToGetUserLocation": {
-    "title": "",
-    "message": ""
+    "title": "Fandt ikke din placering",
+    "message": "Tjek venligst dine browserindstillinger og prøv igen."
   },
-  "filterByView": "",
-  "zoomToData": "",
-  "noDataInView": "",
+  "filterByView": "Brug synligt område som filter",
+  "zoomToData": "Zoom til dataområdet",
+  "noDataInView": "Der er kun lidt data i det nuværende billede.",
   "projection": "Projektion",
   "anyYear": "Alle år",
   "exploreArea": "Udforsk område",
@@ -38,14 +38,14 @@
     "CLASSIC": "Klassisk punkt",
     "STREETS": "Gader",
     "GLACIER": "Gletcher",
-    "GREEN": "",
+    "GREEN": "Grønne punkter",
     "CUSTOM": "Brugerdefineret"
   },
   "basemap": {
     "CLASSIC": "Magenta",
     "LIGHT": "Lys (uden tekst)",
     "LIGHT_DETAILS": "Lys",
-    "GREY": "",
+    "GREY": "Grå (uden mærker)",
     "DARK": "Mørk (uden tekst)",
     "DARK_DETAILS": "Mørk",
     "OSM": "Veje"
@@ -57,7 +57,7 @@
     "SMALL_SQUARE": "Små firkanter",
     "LARGE_SQUARE": "Firkanter"
   },
-  "tilesUnavailable": "",
+  "tilesUnavailable": "Kortfliser er midlertidigt utilgængelige",
   "colors": {
     "CLASSIC": "Klassisk",
     "FIRE": "Ild",
