@@ -13,13 +13,9 @@ test('occurrence search applies the portal scope', async ({ page }) => {
 test('links to disabled pages fall back to gbif.org', async ({ page }) => {
   await page.goto('/occurrence/search');
   const row = page.getByRole('row').nth(1);
-  await expect(row).toBeVisible();
   // Each result row links its dataset and publisher, pages this portal does not have.
-  const hrefs = await row
-    .getByRole('link')
-    .evaluateAll((links) => links.map((link) => link.getAttribute('href') ?? ''));
-  expect(hrefs).toContainEqual(expect.stringMatching(/^https:\/\/www\.gbif\.org\/dataset\//));
-  expect(hrefs).toContainEqual(expect.stringMatching(/^https:\/\/www\.gbif\.org\/publisher\//));
+  await expect(row.locator('a[href^="https://www.gbif.org/dataset/"]')).not.toHaveCount(0);
+  await expect(row.locator('a[href^="https://www.gbif.org/publisher/"]')).not.toHaveCount(0);
 });
 
 // Current behaviour: a disabled page's URL shows the portal's 404 page; it does not redirect to
