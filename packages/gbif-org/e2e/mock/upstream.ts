@@ -379,6 +379,7 @@ async function record(
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, JSON.stringify(toStored(rec), null, 2) + '\n');
   store.set(key, rec);
+  unsaved.delete(key);
   console.log(`[mock] recorded ${rec.status} ${key}`);
   // Expected for a 404; with status 200 a resolver failed, which may be a passing upstream fault.
   if (upstream.kind === 'graphql' && /"errors"\s*:\s*\[/.test(rec.body)) {
