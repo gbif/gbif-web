@@ -1,1 +1,11 @@
-{}
+{
+  "SAME_ACCEPTED_SPECIES": "Samme accepterede arter",
+  "SAME_DATE": "Samme dato",
+  "NON_CONFLICTING_DATE": "Dato, der ikke er i konflikt",
+  "APPROXIMATE_DATE": "Omtrentlig dato",
+  "SAME_COORDINATES": "Samme koordinater",
+  "NON_CONFLICTING_COORDINATES": "Koordinater, der ikke er i konflikt",
+  "SAME_COUNTRY": "Samme land",
+  "NON_CONFLICTING_COUNTRY": "Land, der ikke er i konflikt",
+  "IDENTIFIERS_OVERLAP": "Identifikatorer overlapper"
+}
