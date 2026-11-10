@@ -34,10 +34,13 @@ export const DEFAULT_SANITIZE_OPTIONS: DOMPurify.Config = {
 };
 
 // Most names and labels are plain text, or plain text with bare <i> tags. For those DOMPurify returns the input
-// unchanged, but on the server every call goes through jsdom (about 0.2 ms per name), so they skip it. Only
-// characters the HTML parser keeps as they are, and balanced, correctly nested allowed tags without attributes,
+// unchanged, but on the server every call goes through jsdom (about 0.2 ms per name), so they skip it. Only text
+// the HTML parser keeps exactly as it is (no <, >, &, control characters other than tab and newline, no-break
+// spaces or surrogates), and balanced, correctly nested allowed tags without attributes and not nested deeply,
 // take this path; anything else is sanitised as normal.
-const INLINE_TOKEN = /<(\/?)(i|em|b|strong|span|sup|sub)>|[^<>&\u0000\r\u00a0]+/gy;
+const INLINE_TOKEN =
+  /<(\/?)(i|em|b|strong|span|sup|sub)>|[^<>&\u0000-\u0008\u000b-\u001f\u007f\u00a0\ud800-\udfff]+/gy;
+const MAX_FAST_PATH_DEPTH = 20;
 
 export function isPlainInlineHtml(html: string): boolean {
   const open: string[] = [];
@@ -46,8 +49,9 @@ export function isPlainInlineHtml(html: string): boolean {
   while (INLINE_TOKEN.lastIndex < html.length && (match = INLINE_TOKEN.exec(html))) {
     const [, closing, tag] = match;
     if (!tag) continue;
-    if (!closing) open.push(tag);
-    else if (open.pop() !== tag) return false;
+    if (!closing) {
+      if (open.push(tag) > MAX_FAST_PATH_DEPTH) return false;
+    } else if (open.pop() !== tag) return false;
   }
   return INLINE_TOKEN.lastIndex === html.length && open.length === 0;
 }

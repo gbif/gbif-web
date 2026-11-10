@@ -64,7 +64,7 @@ describe('isPlainInlineHtml', () => {
     '<i>Puma concolor</i> (Linnaeus, 1771)',
     '<i>Puma</i> <i>concolor</i> (Linnaeus, 1771)',
     '<i>Abies</i> ×<sup>2</sup> <sub>x</sub>',
-    '<b><i>nested</i></b> "quoted" \'single\' é 中文 🐾\n\tline',
+    '<b><i>nested</i></b> "quoted" \'single\' é 中文 ×\n\tline',
     '<i></i>',
   ];
   const notPlain = [
@@ -82,6 +82,12 @@ describe('isPlainInlineHtml', () => {
     'carriage\rreturn',
     'null\u0000char',
     '<a href="/x">link</a>',
+    '\f<b></b>',
+    'form\ffeed',
+    '\ude00\ude00<i>x</i>',
+    'emoji 🐾',
+    '<i>'.repeat(255) + 'x' + '</i>'.repeat(255),
+    '<i>'.repeat(21) + 'x' + '</i>'.repeat(21),
   ];
 
   test.each(plain)('takes the fast path for %j, with the same result as DOMPurify', (html) => {
@@ -92,5 +98,54 @@ describe('isPlainInlineHtml', () => {
   test.each(notPlain)('sanitises %j as normal', (html) => {
     expect(isPlainInlineHtml(html)).toBe(false);
     expect(sanitizeHtml(html)).toBe(pkg.sanitize(html, INLINE_SANITIZE_OPTIONS));
+  });
+});
+
+describe('isPlainInlineHtml compared with DOMPurify on random input', () => {
+  // a small seeded generator, so a failure can be reproduced
+  let seed = 1;
+  const random = () => {
+    seed = (seed * 1103515245 + 12345) % 2147483648;
+    return seed / 2147483648;
+  };
+  const pieces = [
+    'a',
+    ' ',
+    'é',
+    '\n',
+    '\t',
+    '\f',
+    '\r',
+    '\u00a0',
+    '\ud83d',
+    '\ude00',
+    '&',
+    '<',
+    '>',
+    '"',
+    '<i>',
+    '</i>',
+    '<b>',
+    '</b>',
+    '<sup>',
+    '</sup>',
+    '<span>',
+    '</span>',
+    '<I>',
+    '<i x>',
+  ];
+
+  test('the fast path never gives a different result from DOMPurify', () => {
+    for (let i = 0; i < 3000; i++) {
+      const length = Math.floor(random() * 12);
+      const html = Array.from({ length }, () => pieces[Math.floor(random() * pieces.length)]).join(
+        ''
+      );
+      if (isPlainInlineHtml(html)) {
+        expect(sanitizeHtml(html), JSON.stringify(html)).toBe(
+          pkg.sanitize(html, INLINE_SANITIZE_OPTIONS)
+        );
+      }
+    }
   });
 });
