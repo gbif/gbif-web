@@ -50,15 +50,15 @@
   "geoDistance": {
     "name": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Breddegrad",
+    "placeholderLon": "Længdegrad",
     "placeholderDist": "Afstand"
   },
   "geometry": {
     "name": "Lokalitet",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Breddegrad",
+    "placeholderLon": "Længdegrad",
     "placeholderDist": "Afstand"
   },
   "relevance": {
