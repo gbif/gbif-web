@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { DEFAULT_SANITIZE_OPTIONS, sanitizeHtml } from './sanitizeHtml';
+import { CAPTION_SANITIZE_OPTIONS, DEFAULT_SANITIZE_OPTIONS, sanitizeHtml } from './sanitizeHtml';
 
 describe('sanitizeHtml', () => {
   test('keeps the italics in a formatted scientific name', () => {
@@ -35,5 +35,17 @@ describe('sanitizeHtml', () => {
         DEFAULT_SANITIZE_OPTIONS
       )
     ).toBe('<a href="/terms">terms</a>');
+  });
+
+  test('adds rel="noopener noreferrer" to links that open in another tab', () => {
+    const html = sanitizeHtml(
+      '<a href="https://example.com" target="_blank" rel="opener">photo</a>',
+      CAPTION_SANITIZE_OPTIONS
+    );
+    // attribute order differs between DOM implementations, so check them one by one
+    expect(html).toMatch(/^<a [^>]*rel="noopener noreferrer"[^>]*>photo<\/a>$/);
+    expect(html).toMatch(/ target="_blank"/);
+    expect(html).toMatch(/ href="https:\/\/example\.com"/);
+    expect(sanitizeHtml('<a href="/x">x</a>', CAPTION_SANITIZE_OPTIONS)).toBe('<a href="/x">x</a>');
   });
 });

@@ -1,5 +1,13 @@
 import pkg from 'isomorphic-dompurify';
-const { sanitize } = pkg;
+const { sanitize, addHook } = pkg;
+
+// Links that open in another tab always get rel="noopener noreferrer", so the opened page can't reach back
+// to this one through window.opener.
+addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'A' && node.hasAttribute('target')) {
+    node.setAttribute('rel', 'noopener noreferrer');
+  }
+});
 
 // Links in rich text may only point to GBIF sites, GitHub or relative paths.
 export const ALLOWED_URI_REGEXP =
