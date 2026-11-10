@@ -297,7 +297,7 @@ export function SuggestedAttribution({
   occurrence: NonNullable<OccurrenceQuery['occurrence']>;
   termMap: { [key: string]: Term };
 }) {
-  const { title } = getTitleParts({ occurrence, termMap });
+  const { title, state } = getTitleParts({ occurrence, termMap });
   return (
     <span dir="auto">
       {media.title && <>&ldquo;{media.title}&rdquo; - </>}
@@ -307,7 +307,12 @@ export function SuggestedAttribution({
           variables={{ key: String(occurrence.key) }}
           className="g-underline g-text-inherit"
         >
-          <span dangerouslySetInnerHTML={{ __html: title }} />
+          {/* only the matched name is formatted, the verbatim name is shown as text like in the page header */}
+          {state === 'MATCH_NO_ISSUES' ? (
+            <span dangerouslySetInnerHTML={{ __html: title }} />
+          ) : (
+            <span>{title}</span>
+          )}
         </DynamicLink>
       )}
       {occurrence.countryCode && (

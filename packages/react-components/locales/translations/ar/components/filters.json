@@ -20,7 +20,7 @@
     "description": "التساويات { is }"
   },
   "collectionKey": {
-    "name": "مجموعة",
+    "name": "",
     "description": ""
   },
   "predicate": {
@@ -532,7 +532,7 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "مؤسسة",
+    "name": "",
     "description": ""
   },
   "name": {

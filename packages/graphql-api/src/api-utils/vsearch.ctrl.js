@@ -33,6 +33,8 @@ const { sanitizeSequence, vsearchResultToJson, vsearchResultToJsonWithAligment }
 // instead of passing an oversized query through.
 const MAX_SEQUENCE_LENGTH = 2048;
 
+const ALLOWED_OUTFMTS = ['alnout', 'blast6out'];
+
 export default (app) => {
   app.use('/unstable-api', router);
 };
@@ -45,15 +47,18 @@ router.get('/vsearch', async (req, res) => {
       .status(418)
       .send('Thirdparty endpoints are not available ;for bots to avoid overloading external services.');
   }
-  const { sequence, outfmt } = req.query;
+  const { sequence, outfmt = 'alnout' } = req.query;
   if (!config?.vsearch?.occurrence) {
     console.log('Vsearch server not configured');
     res.sendStatus(501);
     return;
   }
-  if (!sequence) {
+  if (typeof sequence !== 'string' || !sequence) {
     res.sendStatus(400);
     return;
+  }
+  if (!ALLOWED_OUTFMTS.includes(outfmt)) {
+    return res.status(400).send(`outfmt must be one of: ${ALLOWED_OUTFMTS.join(', ')}.`);
   }
   const sanitizedSequence = sanitizeSequence(sequence);
 
@@ -63,15 +68,10 @@ router.get('/vsearch', async (req, res) => {
       .send(`Sequence exceeds the maximum length of ${MAX_SEQUENCE_LENGTH}.`);
   }
 
-  const response = await axios.get(
-    `${config?.vsearch?.occurrence}?sequence=${sanitizedSequence}&outfmt=${outfmt || 'alnout'}`,
-  );
-  if (response.status !== 200) {
-    throw response;
-  }
-
   try {
-    const { data } = response;
+    const { data } = await axios.get(config.vsearch.occurrence, {
+      params: { sequence: sanitizedSequence, outfmt },
+    });
     const vsearchJson =
       outfmt === 'blast6out'
         ? vsearchResultToJson(data, { search: sanitizedSequence })
@@ -79,6 +79,8 @@ router.get('/vsearch', async (req, res) => {
     res.json(vsearchJson);
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    if (!res.headersSent) {
+      res.sendStatus(axios.isAxiosError(error) ? 502 : 500);
+    }
   }
 });

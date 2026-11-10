@@ -1,4 +1,5 @@
 import config from '@/config';
+import { sanitizeFormattedName } from '@/helpers/sanitize-html';
 
 const DEFAULT_CHECKLIST_KEY = config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
 const COL_UUID = config.colUUID ?? '7ddf754f-d193-4cc9-b351-99906754a03b'; // COL key for classification
@@ -290,6 +291,13 @@ export default {
   },
   TaxonChild: {
     childrenTree: sharedTaxonFields.children,
+  },
+  // formattedName is HTML from the species match API that the portal renders as is
+  SpeciesMatchUsage: {
+    formattedName: ({ formattedName }) => sanitizeFormattedName(formattedName),
+  },
+  SpeciesMatchAcceptedUsage: {
+    formattedName: ({ formattedName }) => sanitizeFormattedName(formattedName),
   },
   Griis: {
     dataset: ({ datasetKey }, args, { dataSources }) => dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),

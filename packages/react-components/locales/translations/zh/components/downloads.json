@@ -99,7 +99,7 @@
         "DATASET_NAME": "数据集名称",
         "GEOLOGICAL_TIME": "",
         "ISLAND": "岛屿",
-        "INSTITUTION_KEY": "机构",
+        "INSTITUTION_KEY": "",
         "GADM_LEVEL_0_GID": "",
         "GADM_LEVEL_2_GID": "",
         "LATEST_AGE_OR_HIGHEST_STAGE": "最晚地质年代或最高年代地层",
@@ -190,7 +190,7 @@
         "RECORD_NUMBER": "记录号",
         "PUBLISHING_ORG": "",
         "PROGRAMME": "方案",
-        "COLLECTION_KEY": "馆藏",
+        "COLLECTION_KEY": "",
         "LICENSE": "授权条款",
         "LAST_INTERPRETED": "最后说明",
         "KINGDOM_KEY": "界",
@@ -335,6 +335,10 @@
         "title": "达尔文核心（Darwin Core Archive）",
         "description": ""
       },
+      "FASTA_ARCHIVE": {
+        "title": "",
+        "description": ""
+      },
       "SPECIES_LIST": {
         "title": "物种列表",
         "description": ""
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "",
         "individualOccurrences": "",
         "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "occurrenceCounts": "",
+        "dnaSequences": "",
+        "sequencedRecordsOnly": ""
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "",
       "defaultRecommended": "",
       "version": "版本"
+    },
+    "sequences": {
+      "noSequencesTitle": "",
+      "noSequencesDescription": "",
+      "someSequencesTitle": "",
+      "someSequencesDescription": "",
+      "recordsIncluded": ""
     }
   },
   "customSqlDownload": {

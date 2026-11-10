@@ -2,8 +2,16 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Config, LanguageOption, useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
 import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
+import pkg from 'isomorphic-dompurify';
 import React, { useEffect } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
+const { sanitize } = pkg;
+
+// Titles rendered as HTML are scientific names and similar, so only inline formatting is kept.
+const TITLE_SANITIZE_OPTIONS = {
+  ALLOWED_TAGS: ['i', 'em', 'b', 'strong', 'span'],
+  ALLOWED_ATTR: [],
+};
 
 export type DisplayNameGetDataProps = {
   id: string | number | object;
@@ -39,10 +47,13 @@ export default function DisplayName({
     undefined
   );
   const [loading, setLoading] = React.useState<boolean>(true);
+  // When the lookup fails we show the raw id, which must never be treated as HTML
+  const [failed, setFailed] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (typeof id === 'undefined') return;
     setLoading(true);
+    setFailed(false);
     const { promise, cancel } = getData({ id, intl, checklistKey, config, currentLocale });
 
     if (promise) {
@@ -58,6 +69,7 @@ export default function DisplayName({
         .catch((err) => {
           if (err === CANCEL_REQUEST) return;
           setTitle(id?.toString() || 'Failed to load');
+          setFailed(true);
           setLoading(false);
         });
     } else {
@@ -81,8 +93,10 @@ export default function DisplayName({
   }
 
   if (title) {
-    return useHtml ? (
-      <span dangerouslySetInnerHTML={{ __html: title.toString() }}></span>
+    return useHtml && !failed && typeof title !== 'object' ? (
+      <span
+        dangerouslySetInnerHTML={{ __html: sanitize(title.toString(), TITLE_SANITIZE_OPTIONS) }}
+      ></span>
     ) : (
       <span>{title}</span>
     );

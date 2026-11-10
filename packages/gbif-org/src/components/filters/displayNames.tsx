@@ -262,13 +262,14 @@ export function TaxonLabel({
     ({ id, config }: DisplayNameGetDataProps) => {
       const variables = {
         checklistKey: checklistKey ?? urlChecklistKey ?? defaultChecklistKey,
+        key: String(id),
       };
       const { promise, cancel } = fetchWithCancel(
         `${config.graphqlEndpoint}?variables=${encodeURIComponent(
           JSON.stringify(variables)
         )}&query=${encodeURIComponent(
-          `query TaxonDisplayName($checklistKey: ID) {
-            taxon(datasetKey: $checklistKey, key:"${id}") {
+          `query($checklistKey: ID, $key: ID!) {
+            taxon(datasetKey: $checklistKey, key: $key) {
               scientificName
             }
           }`
@@ -277,7 +278,7 @@ export function TaxonLabel({
       return {
         promise: promise
           .then((response) => response.json())
-          .then((response) => ({ title: response.data.taxon.scientificName })),
+          .then((response) => ({ title: response?.data?.taxon?.scientificName })),
         cancel,
       };
     },

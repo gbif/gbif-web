@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "データ出版国と地域",
   "originalArchive": "ソース・アーカイブ",
   "originalArchiveDescription": "GBIFがアノーテーションしたアーカイブ",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "GBIFがアノーテーションしたアーカイブ",
   "checklistBankDownloadDescription": "GBIFがアノーテーションしたアーカイブ",
   "annotatedEml": "GBIFがアノーテーションしたメタデータ",
@@ -149,6 +151,7 @@
   "griddedData": "Gridded data",
   "griddedDataDescription": "レコードの分析によると、このデータセットにはgridded dataが含まれている可能性が高いです。Gridded datasetの詳細については、こちらのブログ記事をご覧ください (https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "オカレンスのデータ分析結果",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "最も最近のデータ取り込み以来試行失敗",
     "lastFailed": "前回の失敗した試行",

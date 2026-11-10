@@ -16,6 +16,7 @@ import { MdFeedback, MdArrowBack } from 'react-icons/md';
 import { useMatches } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { Skeleton } from '@/components/ui/skeleton';
+import { AnnotationRuleFeedback, getAnnotationRuleUrl } from './AnnotationRuleFeedback';
 import { DataProviderFeedback } from './DataProviderFeedback';
 import { GbifFeedback } from './GbifFeedback';
 import { GithubFeedback, MailFeedback } from './GithubFeedback';
@@ -23,20 +24,24 @@ import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
 
 type PageType = {
-  type: 'occurrenceKey' | null;
+  type: 'occurrenceKey' | 'taxonKey' | null;
   key: string | null;
   id: string | null;
 };
 
 type FeedbackOption = 'gbif' | null;
 
+const PAGE_TYPES = ['occurrenceKey', 'taxonKey'] as const;
+
 function getPageType(matches: ReturnType<typeof useMatches>): PageType {
-  const page = matches.find((match) => match.id.startsWith('occurrenceKey-'));
-  if (!page) {
-    return { type: null, key: null, id: null };
+  for (const type of PAGE_TYPES) {
+    const page = matches.find((match) => match.id.startsWith(`${type}-`));
+    if (page) {
+      const key = page.params?.key ?? null;
+      return { type, key, id: `pageType:${type} key:${key}` };
+    }
   }
-  const key = page?.params?.key ?? null;
-  return { type: 'occurrenceKey', key, id: `pageType:occurrenceKey key:${key}` };
+  return { type: null, key: null, id: null };
 }
 
 type FeedbackPopoverProps = {
@@ -73,7 +78,7 @@ export function FeedbackPopover({
 
   useEffect(() => {
     // type and key are always set when id is
-    if (open && pageType?.id && pageType.type && pageType.key) {
+    if (open && pageType?.id && pageType.type === 'occurrenceKey' && pageType.key) {
       load({ variables: { pageType: pageType.type, key: pageType.key } });
     }
   }, [pageType?.id, load, open]);
@@ -97,11 +102,21 @@ export function FeedbackPopover({
     return <></>;
   }
 
-  const data = pageType?.id ? feedbackData : null;
+  const data = pageType?.type === 'occurrenceKey' ? feedbackData : null;
 
   const hasDataProviderOptions =
     data?.feedbackOptions &&
     (data.feedbackOptions.contactEmail || data.feedbackOptions.externalServiceUrl);
+
+  // The annotations tool only resolves Catalogue of Life taxon keys
+  const taxonChecklistKey = config.taxonSearch?.checklistKey ?? config.defaultChecklistKey;
+  const annotationRuleUrl =
+    config.isGBIFOrg &&
+    pageType?.type === 'taxonKey' &&
+    pageType.key &&
+    taxonChecklistKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY
+      ? getAnnotationRuleUrl(pageType.key)
+      : null;
 
   const handleClose = () => {
     setOpen(false);
@@ -118,8 +133,16 @@ export function FeedbackPopover({
     return <FormattedMessage id="feedback.title" defaultMessage="Questions and comments" />;
   };
 
+  const shouldShowOptions =
+    !selectedOption && ((!error && hasDataProviderOptions) || annotationRuleUrl);
+
+  const showGbifForm =
+    !loading &&
+    ((selectedOption === 'gbif' && feedback?.gbifFeedback !== false) ||
+      (!shouldShowOptions && !!feedback?.gbifFeedback));
+
   const getDescription = () => {
-    if (selectedOption === 'gbif') {
+    if (showGbifForm) {
       return (
         <FormattedMessage
           id="feedback.seeAlsoFaq"
@@ -147,30 +170,20 @@ export function FeedbackPopover({
       );
     }
 
-    if (selectedOption === 'gbif') {
-      if (feedback?.gbifFeedback !== false) {
-        return <GbifFeedback pageType={pageType} onClose={handleClose} />;
-      }
+    if (showGbifForm) {
+      return <GbifFeedback pageType={pageType} onClose={handleClose} />;
     }
-
-    // Handle main content based on data provider options availability
-    const shouldShowOptions = !error && hasDataProviderOptions && !selectedOption;
 
     if (shouldShowOptions) {
       return renderOptionSelection();
     }
 
-    // Default to GBIF feedback (covers error cases and no data provider options)
-    if (feedback?.gbifFeedback) {
-      return <GbifFeedback pageType={pageType} onClose={handleClose} />;
-    } else {
-      return (
-        <div className="g-space-y-3">
-          <GithubFeedback onClose={handleClose} />
-          <MailFeedback onClose={handleClose} />
-        </div>
-      );
-    }
+    return (
+      <div className="g-space-y-3">
+        <GithubFeedback onClose={handleClose} />
+        <MailFeedback onClose={handleClose} />
+      </div>
+    );
   };
 
   const renderOptionSelection = () => {
@@ -194,7 +207,8 @@ export function FeedbackPopover({
               </p>
             </button>
           )}
-          <DataProviderFeedback feedbackOptions={feedbackOptions!} />
+          {feedbackOptions && <DataProviderFeedback feedbackOptions={feedbackOptions} />}
+          {annotationRuleUrl && <AnnotationRuleFeedback url={annotationRuleUrl} />}
           {!feedback?.gbifFeedback && (
             <>
               <GithubFeedback onClose={handleClose} />

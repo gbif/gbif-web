@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "发布的国家或地区",
   "originalArchive": "来源归档",
   "originalArchiveDescription": "GBIF附加说明的归档",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "GBIF附加说明的归档",
   "checklistBankDownloadDescription": "GBIF附加说明的归档",
   "annotatedEml": "GBIF附加说明的元数据",
@@ -149,6 +151,7 @@
   "griddedData": "网格化数据\n",
   "griddedDataDescription": "根据我们对记录的分析，这个数据集可能包含网格化数据。阅读更多[关于网格数据集的博客文章](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "物种出现记录统计",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "自上次成功接收后失败的尝试",
     "lastFailed": "上次尝试失败",

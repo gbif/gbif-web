@@ -335,6 +335,10 @@
         "title": "",
         "description": ""
       },
+      "FASTA_ARCHIVE": {
+        "title": "FASTA-arkiv",
+        "description": "Et Darwin Core-arkiv med de poster, der indeholder DNA-sekvenser, hvor selve sekvenserne er vedlagt som en FASTA-fil. Kun poster med en DNA-sekvens er medtaget."
+      },
       "SPECIES_LIST": {
         "title": "",
         "description": ""
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "",
         "individualOccurrences": "",
         "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "occurrenceCounts": "",
+        "dnaSequences": "DNA-sekvenser (FASTA)",
+        "sequencedRecordsOnly": "Kun sekventerede poster"
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "",
       "defaultRecommended": "",
       "version": "Version"
+    },
+    "sequences": {
+      "noSequencesTitle": "Der blev ikke fundet nogen DNA-sekvenser ved denne søgning",
+      "noSequencesDescription": "Dette format er kun tilgængeligt for søgninger, der indeholder DNA-sekvenser.",
+      "someSequencesTitle": "Kun poster med DNA-sekvenser er medtaget",
+      "someSequencesDescription": "{included} af de {total} poster i din søgning indeholder en DNA-sekvens. De resterende {discarded} poster vil ikke indgå i downloadet.",
+      "recordsIncluded": "Inkluderede poster"
     }
   },
   "customSqlDownload": {

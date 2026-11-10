@@ -3,8 +3,7 @@ import _ from 'lodash';
 import URL from 'url';
 import logger from '../../config/logger.mjs';
 import * as userModel from '../user/user.model.mjs';
-import { getByUserName } from '../user/user.model.mjs';
-import { base64ToJson, logUserIn, setNoCache } from './utils.mjs';
+import { logUserIn, readOAuthState, setNoCache } from './utils.mjs';
 
 /**
  * generic wrapper for handling callback from auth providers. Will either connect, login or create a new account based on the state included in the initial request
@@ -35,8 +34,8 @@ export function authCallback(
   setNoCache(res);
   if (!err) {
     try {
-      // assume that there is always a state associated with the call
-      let state = base64ToJson(req.query.state);
+      // the state must belong to a login or connect started in this browser
+      let state = readOAuthState(req, res);
       // LOGIN
       if (state.action === 'LOGIN') {
         login(req, res, next, state, profile, providerEnum, identificationKey);
@@ -57,20 +56,6 @@ export function authCallback(
   }
 }
 
-function getFirstVerifiedEmail(profile) {
-  // if not found by provider id, then the user hasn't commected.
-  // But we might be able to find the user by email instead.
-  let profileEmails = _.get(profile, 'emails', []);
-  let profileEmail = _.find(profileEmails, function (email) {
-    // Trust the email if:
-    // 1) the claim is that it has been verified
-    // 2) exception for facebook as they do not expose the verified claim, but does so according to tests and the wisdom of the internet.
-    return email.value && (email.verified === true || profile.provider === 'github');
-    // NB exception for gihub as the flag is missing and otherwise will prevent account creation using GitHub
-  });
-  return profileEmail;
-}
-
 class LoginError extends Error {
   constructor(message) {
     super(message);
@@ -79,9 +64,15 @@ class LoginError extends Error {
   }
 }
 
+/**
+ * Find the GBIF user linked to this provider profile.
+ * Only the provider id is trusted. We deliberately do not fall back to matching on the email in the
+ * provider profile: providers don't reliably tell us whether an email is verified (passport-github2
+ * drops the flag), so matching on it would let anyone log in as the GBIF user with that email.
+ * A profile that isn't linked yet gets a 204 LoginError, and the user is asked to log in and connect it.
+ */
 async function getUserFromProvider(profile, identificationKey) {
   try {
-    // check to see if the profile is linked to any users
     let findQuery = {};
     findQuery[identificationKey] = profile.id;
     let user = await userModel.find(findQuery);
@@ -92,17 +83,10 @@ async function getUserFromProvider(profile, identificationKey) {
     return user;
   } catch (err) {
     if (err.statusCode == 204) {
-      // if not found by provider id, then the user hasn't connected.
-      // But we might be able to find the user by email instead.
-      let profileEmail = getFirstVerifiedEmail(profile);
-      if (!profileEmail) {
-        throw new LoginError('No verified email in profile');
-      }
-      return getByUserName(profileEmail.value);
-    } else {
-      logger.logError(err, { context: 'get_user_from_provider', profileId: profile.id });
-      throw err;
+      throw new LoginError('No GBIF account linked to this provider profile');
     }
+    logger.logError(err, { context: 'get_user_from_provider', profileId: profile.id });
+    throw err;
   }
 }
 

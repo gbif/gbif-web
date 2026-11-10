@@ -1,10 +1,11 @@
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
-import { CardHeader, FormattedNumber, Table } from './shared';
+import { CardHeader, FormattedNumber, HelpPanel, InfoToggle, Table } from './shared';
 
 type OccurrenceStatsResponse = {
   occurrenceSearch?: {
@@ -30,6 +31,7 @@ export function OccurrenceSummary({
   ...props
 }: OccurrenceSummaryProps) {
   const defaultChecklistKey = useChecklistKey();
+  const [showHelp, setShowHelp] = React.useState(false);
   const { data, error, load } = useQuery<OccurrenceStatsResponse, Record<string, unknown>>(
     OCCURRENCE_STATS,
     { lazyLoad: true }
@@ -50,10 +52,25 @@ export function OccurrenceSummary({
   return (
     <Card {...props} loading={!summary} error={!!error}>
       <ErrorBoundary debugTitle="OccurrenceSummary" showReportButton={false} type="BLOCK">
-        <CardHeader>
+        <CardHeader
+          options={<InfoToggle active={showHelp} onToggle={() => setShowHelp(!showHelp)} />}
+        >
           <CardTitle>
             <FormattedMessage id="dashboard.statistics" defaultMessage="Statistics" />
           </CardTitle>
+          {showHelp && (
+            <HelpPanel>
+              <p>
+                <FormattedMessage id="dashboard.help.occurrenceSummary.occurrenceRecords" />
+              </p>
+              <p>
+                <FormattedMessage id="dashboard.help.occurrenceSummary.species" />
+              </p>
+              <p>
+                <FormattedMessage id="dashboard.help.occurrenceSummary.yearRange" />
+              </p>
+            </HelpPanel>
+          )}
         </CardHeader>
         <CardContent>
           <div>

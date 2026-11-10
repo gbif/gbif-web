@@ -20,7 +20,7 @@
     "description": "等于 {is}"
   },
   "collectionKey": {
-    "name": "馆藏",
+    "name": "",
     "description": "该记录与GrSciColl中相匹配的收藏品"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "学名",
-    "description": "在GBIF主干分类中出现的学名。这些名称被规范化以简化跨数据集的搜索。最初提供的名称可能会被误解或未知。要搜索提供的名称，请使用“逐字科学名称”过滤器。"
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "学名",
@@ -532,7 +532,7 @@
     "description": "这里应该有一个组件的简短描述"
   },
   "institutionKey": {
-    "name": "机构",
+    "name": "",
     "description": "保管记录中提及的物品或信息的机构的名称。"
   },
   "name": {

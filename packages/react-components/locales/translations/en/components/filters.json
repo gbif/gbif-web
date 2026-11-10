@@ -20,7 +20,7 @@
     "description": "Whether the record has geospatial issues."
   },
   "collectionKey": {
-    "name": "Collection",
+    "name": "GRSciColl collection",
     "description": "The collection in GrSciColl this record was matched to"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Scientific name",
-    "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
+    "description": "The scientific name as it appears in the Catalogue of Life eXtended Release (COL XR). These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "taxonKeyGrSciColl": {
     "name": "Scientific name",
@@ -532,7 +532,7 @@
     "description": "A short description of the component should be placed here"
   },
   "institutionKey": {
-    "name": "Institution",
+    "name": "GRSciColl institution",
     "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {

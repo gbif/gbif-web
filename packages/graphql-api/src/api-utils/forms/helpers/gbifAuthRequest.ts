@@ -6,6 +6,21 @@ import config from '@/config';
 
 const NEWLINE = '\n';
 
+// Thrown when an upstream call answers with an unexpected status. It keeps only
+// the status code and body: the full response holds the signed request headers
+// (Authorization, x-gbif-user), which must not end up in the logs.
+export class UnexpectedResponseError extends Error {
+  statusCode: number;
+  body: unknown;
+
+  constructor(message: string, response: { statusCode: number; body?: unknown }) {
+    super(message);
+    this.name = 'UnexpectedResponseError';
+    this.statusCode = response.statusCode;
+    this.body = response.body;
+  }
+}
+
 export async function authenticatedRequest(options: any) {
   // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java
   validateOptions(options);

@@ -1,7 +1,8 @@
 import config from '@/config';
 import logger from '@/logger';
 import { ConfirmEndorsementDTO } from '.';
-import { authenticatedRequest } from '../helpers/gbifAuthRequest';
+import { authenticatedRequest, UnexpectedResponseError } from '../helpers/gbifAuthRequest';
+import { urlPath } from '@/helpers/urlPath';
 
 export type ConfirmEndorsmentResult =
   | 'publisherConfirmedSuccessfully'
@@ -15,7 +16,7 @@ export async function confirmEndorsement(
     // Get organization
     const organizationResponse = await authenticatedRequest({
       method: 'GET',
-      url: `${config.apiv1}/organization/${dto.key}`,
+      url: config.apiv1 + urlPath`/organization/${dto.key}`,
     });
 
     // Handle organization allready confirmed
@@ -28,13 +29,13 @@ export async function confirmEndorsement(
     const confirmEndorsementResponse = await authenticatedRequest({
       method: 'POST',
       body: { confirmationKey: dto.code },
-      url: `${config.apiv1}/organization/${dto.key}/endorsement`,
-      canonicalPath: `organization/${dto.key}/endorsement`,
+      url: config.apiv1 + urlPath`/organization/${dto.key}/endorsement`,
+      canonicalPath: urlPath`organization/${dto.key}/endorsement`,
     });
 
     // Handle failed to confirm organization
     if (confirmEndorsementResponse.statusCode !== 204) {
-      throw confirmEndorsementResponse;
+      throw new UnexpectedResponseError('Unexpected response when confirming endorsement', confirmEndorsementResponse);
     }
 
     return 'publisherConfirmedSuccessfully';

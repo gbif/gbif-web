@@ -20,7 +20,7 @@
     "description": "Czy zapis posiada problemy geoprzestrzenne."
   },
   "collectionKey": {
-    "name": "Kolekcja",
+    "name": "",
     "description": "Kolekcja w GrSciColl, do której ten zapis został dopasowany"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Nazwa naukowa",
-    "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Rdzeniu Taksonomicznym GBIF. Nazwy te są znormalizowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "Nazwa naukowa",
@@ -532,7 +532,7 @@
     "description": "Tu wstawić krótki opis komponentu"
   },
   "institutionKey": {
-    "name": "Instytucja",
+    "name": "",
     "description": "Nazwa instytucji sprawującej pieczę nad obiektem/obiektami lub informacjami, do których odnosi się zapis."
   },
   "name": {

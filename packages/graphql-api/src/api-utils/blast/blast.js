@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../../config';
+import { sanitizeFormattedName } from '../../helpers/sanitize-html';
 
 /*
  * Thin proxy around GBIF's upstream BLAST service.
@@ -84,7 +85,21 @@ async function decorateWithGBIFspecies({ entry, datasetKey }) {
     canonical?.name === entry.name || taxonMatch.usage?.name === entry.name;
   if (!matched) return entry;
 
-  return { ...entry, taxonMatch };
+  return { ...entry, taxonMatch: sanitizeTaxonMatch(taxonMatch) };
+}
+
+// formattedName is HTML that the sequence ID tool renders as is, so strip everything but inline formatting
+function sanitizeTaxonMatch(taxonMatch) {
+  const result = { ...taxonMatch };
+  ['usage', 'acceptedUsage'].forEach((field) => {
+    if (result[field]?.formattedName != null) {
+      result[field] = {
+        ...result[field],
+        formattedName: sanitizeFormattedName(result[field].formattedName),
+      };
+    }
+  });
+  return result;
 }
 
 async function decorateAlternatives({ alternatives, datasetKey }) {

@@ -5,5 +5,6 @@
   "BIOCASE_INSTALLATION": "Installation Biocase",
   "HTTP_INSTALLATION": "Installation Http",
   "SYMBIOTA_INSTALLATION": "Installation Symbiota",
-  "EARTHCAPE_INSTALLATION": "EarthCape"
+  "EARTHCAPE_INSTALLATION": "EarthCape",
+  "MDT_INSTALLATION": "Installation MDT"
 }

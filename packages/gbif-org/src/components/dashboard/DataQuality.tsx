@@ -1,18 +1,19 @@
 import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
 import { removeEmptyPredicates } from '@/utils/removeEmptyPredicates';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import ChartClickWrapper from './charts/ChartClickWrapper';
-import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
+import { BarItem, CardHeader, FormattedNumber, HelpPanel, InfoToggle, Table } from './shared';
 
 type DataQualityKey =
   | 'hasSequence'
   | 'hasCollector'
   | 'hasMedia'
   | 'hasCoordinates'
-  | 'hasYear'
+  | 'hasEventDate'
   | 'rank';
 
 type Total = { documents?: { total?: number } };
@@ -23,7 +24,7 @@ type DataQualityResponse = {
   hasCoordinates?: Total;
   hasMedia?: Total;
   hasCollector?: Total;
-  hasYear?: Total;
+  hasEventDate?: Total;
   hasSequence?: Total;
 };
 
@@ -62,6 +63,7 @@ function DataQualityMain({
   ...props
 }: DataQualityMainProps) {
   const defaultChecklistKey = useChecklistKey();
+  const [showHelp, setShowHelp] = React.useState(false);
   const { data, error, loading, load } = useQuery<DataQualityResponse, Record<string, unknown>>(
     OCCURRENCE_STATS,
     { lazyLoad: true }
@@ -114,13 +116,13 @@ function DataQualityMain({
             },
           ],
         }),
-        hasYear: removeEmptyPredicates({
+        hasEventDate: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
             {
               type: 'isNotNull',
-              key: 'year',
+              key: 'eventDate',
             },
           ],
         }),
@@ -155,7 +157,9 @@ function DataQualityMain({
 
   return (
     <Card {...props} loading={noData} error={!!error}>
-      <CardHeader>
+      <CardHeader
+        options={<InfoToggle active={showHelp} onToggle={() => setShowHelp(!showHelp)} />}
+      >
         <CardTitle>
           <FormattedMessage id="dashboard.richness" defaultMessage="Data richness" />
         </CardTitle>
@@ -165,6 +169,19 @@ function DataQualityMain({
             defaultMessage="Number of occurrences"
           />
         </CardDescription>
+        {showHelp && (
+          <HelpPanel>
+            <p>
+              <FormattedMessage id="dashboard.help.dataQuality.intro" />
+            </p>
+            <p>
+              <FormattedMessage id="dashboard.help.dataQuality.identifiedToSpecies" />
+            </p>
+            <p>
+              <FormattedMessage id="dashboard.help.dataQuality.withCollector" />
+            </p>
+          </HelpPanel>
+        )}
       </CardHeader>
       <CardContent>
         <div>
@@ -215,18 +232,18 @@ function DataQualityMain({
               </tr>
               <tr>
                 <td>
-                  <BarItem percent={percentOf(data?.hasYear?.documents?.total)}>
+                  <BarItem percent={percentOf(data?.hasEventDate?.documents?.total)}>
                     <ClickableLabel
-                      filter={{ year: [{ type: 'isNotNull' }] }}
+                      filter={{ eventDate: [{ type: 'isNotNull' }] }}
                       interactive={interactive}
                       handleRedirect={handleRedirect}
                     >
-                      <FormattedMessage id="dashboard.withYear" />
+                      <FormattedMessage id="dashboard.withEventDate" />
                     </ClickableLabel>
                   </BarItem>
                 </td>
                 <td className="g-text-end">
-                  <FormattedNumber value={data?.hasYear?.documents?.total} />
+                  <FormattedNumber value={data?.hasEventDate?.documents?.total} />
                 </td>
               </tr>
               {!hideHasCollector && (
@@ -314,7 +331,7 @@ function ClickableLabel({ filter, interactive, handleRedirect, children }: Click
 }
 
 const OCCURRENCE_STATS = `
-query summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate, $hasSequence: Predicate){
+query summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasEventDate: Predicate, $hasSequence: Predicate){
   occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
@@ -340,7 +357,7 @@ query summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $ha
       total
     }
   }
-  hasYear: occurrenceSearch(q: $q, predicate: $hasYear) {
+  hasEventDate: occurrenceSearch(q: $q, predicate: $hasEventDate) {
     documents(size: 0) {
       total
     }

@@ -1,5 +1,9 @@
 import { getDefaultAgent } from '@/requestAgents';
 import { RESTDataSource } from '@/RESTDataSource';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+
+// e.g. 0000-0002-1825-0097. The last character is a checksum and can be X.
+const ORCID_REGEX = /^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$/;
 
 function reduce(response) {
   const givenNames = response?.person?.name?.['given-names']?.value;
@@ -31,6 +35,7 @@ class OrcidAPI extends RESTDataSource {
   }
 
   async getOrcidByKey({ key }) {
+    if (!ORCID_REGEX.test(`${key}`)) throw new NotFoundError();
     return this.get(`/${key}/record`).then(reduce);
   }
 }

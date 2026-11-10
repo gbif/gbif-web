@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "מדינות ואזורים מפרסמים",
   "originalArchive": "ארכיון מקור",
   "originalArchiveDescription": "ארכיון המקור הוא הנתונים כפי שפורסמו ל־GBIF ללא נרמול או עיבוד.",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "הורדה מ־ChecklistBank",
   "checklistBankDownloadDescription": "ארכיון זה הגיע ל־GBIF דרך ChecklistBank. ChecklistBank מספקת פורמטי הורדה מרובים ואפשרויות סינון לפני ההורדה.",
   "annotatedEml": "מטא־דאטה מוערת של GBIF",
@@ -149,6 +151,7 @@
   "griddedData": "נתונים מרובעים",
   "griddedDataDescription": "לפי הניתוח שלנו, מסד נתונים זה כנראה כולל נתונים מרובעים. קראו עוד בפוסט [על מסדי נתונים מרובעים](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "ניסיונות כושלים מאז ההצלחה האחרונה",
     "lastFailed": "הניסיון הכושל האחרון",

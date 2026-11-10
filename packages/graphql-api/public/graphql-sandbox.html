@@ -26,10 +26,10 @@
 <body>
   <div id="graphiql">Loading...</div>
   <script>
-    // The CONST_CASE variables are replaced by the server.
+    // The CONST_CASE placeholders are replaced by the server with JSON encoded strings.
     // Updating the query and variables in localStorage will inject the query/variables into the GraphiQL editor.
-    window.localStorage.setItem('graphiql:query', `INJECTED_QUERY`);
-    window.localStorage.setItem('graphiql:variables', `INJECTED_VARIABLES`);
+    window.localStorage.setItem('graphiql:query', INJECTED_QUERY);
+    window.localStorage.setItem('graphiql:variables', INJECTED_VARIABLES);
 
     const root = ReactDOM.createRoot(document.getElementById('graphiql'));
     const fetcher = GraphiQL.createFetcher({

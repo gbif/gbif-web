@@ -99,7 +99,7 @@
         "DATASET_NAME": "Назва набору даних",
         "GEOLOGICAL_TIME": "",
         "ISLAND": "Острів",
-        "INSTITUTION_KEY": "Установа",
+        "INSTITUTION_KEY": "",
         "GADM_LEVEL_0_GID": "",
         "GADM_LEVEL_2_GID": "",
         "LATEST_AGE_OR_HIGHEST_STAGE": "Найпізніший вік або найвища стадія",
@@ -190,7 +190,7 @@
         "RECORD_NUMBER": "Номер запису",
         "PUBLISHING_ORG": "",
         "PROGRAMME": "Програма",
-        "COLLECTION_KEY": "Колекція",
+        "COLLECTION_KEY": "",
         "LICENSE": "Ліцензія",
         "LAST_INTERPRETED": "Остання інтерпретація",
         "KINGDOM_KEY": "Царство",
@@ -335,6 +335,10 @@
         "title": "Архів Darwin Core",
         "description": ""
       },
+      "FASTA_ARCHIVE": {
+        "title": "",
+        "description": ""
+      },
       "SPECIES_LIST": {
         "title": "Список видів у форматі CSV",
         "description": ""
@@ -356,7 +360,9 @@
         "coordinatesIfSelected": "",
         "individualOccurrences": "",
         "multimediaLinks": "",
-        "occurrenceCounts": ""
+        "occurrenceCounts": "",
+        "dnaSequences": "",
+        "sequencedRecordsOnly": ""
       }
     },
     "taxonomySelector": {
@@ -364,6 +370,13 @@
       "description": "",
       "defaultRecommended": "",
       "version": "Версія"
+    },
+    "sequences": {
+      "noSequencesTitle": "",
+      "noSequencesDescription": "",
+      "someSequencesTitle": "",
+      "someSequencesDescription": "",
+      "recordsIncluded": ""
     }
   },
   "customSqlDownload": {

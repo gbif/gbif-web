@@ -9,7 +9,8 @@ export function ColFeedback({
   datasetKey?: string;
   checklistbankURL: string;
 }) {
-  const linkToCoL = datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY && taxonId;
+  // disable all links to CoL . https://github.com/gbif/gbif-web/issues/2110
+  const linkToCoL = false; // datasetKey === import.meta.env.PUBLIC_COL_CHECKLIST_KEY && taxonId;
   return (
     <>
       <FormattedMessage id="taxon.source" defaultMessage="Source" />:{' '}

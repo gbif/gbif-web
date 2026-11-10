@@ -1,5 +1,6 @@
 import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
+import { escapeForScript } from '@/utils/escapeForScript';
 import { stripTags } from '@/utils/stripTags';
 import { Helmet } from 'react-helmet-async';
 import { useIntl } from 'react-intl';
@@ -54,7 +55,11 @@ const PageMetaData = ({
       />
       {imageUrl && <meta property="og:image" content={imageUrl} />}
       {imageUrl && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
-      {!!jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd, null, 2)}</script>}
+      {!!jsonLd && (
+        <script type="application/ld+json">
+          {escapeForScript(JSON.stringify(jsonLd, null, 2))}
+        </script>
+      )}
     </Helmet>
   );
 };

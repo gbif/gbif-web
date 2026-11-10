@@ -121,6 +121,8 @@
   "publishingCountriesAreas": "الدول والمناطق الناشرة",
   "originalArchive": "أرشيف المصدر",
   "originalArchiveDescription": "أرشيف شروح \"جيبف\"",
+  "dataPackage": "",
+  "dataPackageDescription": "",
   "checklistBankDownload": "أرشيف شروح \"جيبف\"",
   "checklistBankDownloadDescription": "أرشيف شروح \"جيبف\"",
   "annotatedEml": "شروح \"جيبف\" للبيانات الوصفية",
@@ -149,6 +151,7 @@
   "griddedData": "البيانات المهدرة",
   "griddedDataDescription": "استناداً إلى تحليلنا للسجلات، من المحتمل أن تحتوي مجموعة البيانات هذه على بيانات مشمولة. اقرأ المزيد في هذا [مشاركة المدونة حول البيانات المشمولة](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "metricsLink": "مقاييس التكرار",
+  "trustedContactRegistryLink": "",
   "registry": {
     "failedSinceSuccess": "محاولات فاشلة منذ آخر إدخال ناجح",
     "lastFailed": "آخر محاولة فاشلة",

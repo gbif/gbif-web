@@ -20,7 +20,7 @@
     "description": "Gelijk aan {is}"
   },
   "collectionKey": {
-    "name": "Verzameling",
+    "name": "",
     "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
   },
   "predicate": {
@@ -163,7 +163,7 @@
   },
   "taxonKey": {
     "name": "Wetenschappelijke naam",
-    "description": "De wetenschappelijke naam zoals deze in de door GBIF gevolgde taxonomie verschijnt. Deze namen zijn genormaliseerd om het zoeken tussen datasets te vergemakkelijken. Het is mogelijk dat een oorspronkelijk ingevoerde naam verkeerd wordt geïnterpreteerd of onbekend is. Gebruik het filter \"Woordelijke wetenschappelijke naam\" om de door de dataleverancier aangeleverde namen te doorzoeken."
+    "description": ""
   },
   "taxonKeyGrSciColl": {
     "name": "Wetenschappelijke naam",
@@ -532,7 +532,7 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "Instituut",
+    "name": "",
     "description": "De naam van de instelling die de data beheerd."
   },
   "name": {

@@ -53,6 +53,8 @@
     "default": "デフォルト",
     "random": "",
     "showMore": "",
+    "moreImagesHint": "",
+    "moreImagesLink": "",
     "cappedHint": "",
     "useAsFilter": "",
     "unspecified": "未特定"
