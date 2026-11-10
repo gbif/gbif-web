@@ -489,7 +489,7 @@
   },
   "occurrenceStatus": {
     "name": "Occurrence status",
-    "description": "The presence or absence of any organisms of the given taxon."
+    "description": "Whether any organisms of the given Taxon were detected or not detected."
   },
   "gadmGid": {
     "name": "Administrative area",
