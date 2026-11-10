@@ -499,7 +499,7 @@ export function OccurrenceKey() {
   //     (classification) => classification?.checklistKey === config.defaultChecklistKey
   //   ) ?? occurrence?.classifications?.[0];
 
-  const { text, title, titleHtml, hasTaxonIssues, state } = getTitleParts({ occurrence, termMap });
+  const { title, titleHtml, hasTaxonIssues, state } = getTitleParts({ occurrence, termMap });
 
   const usageKey = occurrence.classification?.usage?.key;
   const acceptedUsage = occurrence.classification?.acceptedUsage;
@@ -513,7 +513,7 @@ export function OccurrenceKey() {
     <>
       <PageMetaData
         path={`/occurrence/${occurrence?.key}`}
-        title={text || 'Unknown'}
+        title={title || 'Unknown'}
         nofollow
         noCanonical
       />

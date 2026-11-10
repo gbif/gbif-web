@@ -11,7 +11,6 @@ const getTitleParts = ({
   occurrence: OccurrenceQuery['occurrence'];
   termMap: { [key: string]: Term };
 }): {
-  text: string;
   // plain text, never render it as HTML
   title: string;
   // the formatted (HTML) name, only set when the occurrence is matched without important issues
@@ -39,7 +38,6 @@ const getTitleParts = ({
   // there is no taxon match and no name to show, so show unknown
   if (noTaxonMatch && !verbatimNameOrHigestRank) {
     return {
-      text: 'Unknown',
       title: 'Unknown',
       hasTaxonIssues: false,
       noMatch: true,
@@ -51,7 +49,6 @@ const getTitleParts = ({
   // we should also indicate that there is no match
   if (noTaxonMatch) {
     return {
-      text: verbatimNameOrHigestRank,
       title: verbatimNameOrHigestRank,
       hasTaxonIssues: false,
       noMatch: true,
@@ -63,7 +60,6 @@ const getTitleParts = ({
   // so show the verbatim
   if (hasImportantIssues) {
     return {
-      text: verbatimNameOrHigestRank,
       title: verbatimNameOrHigestRank,
       hasTaxonIssues: true,
       noMatch: false,
@@ -73,7 +69,6 @@ const getTitleParts = ({
 
   // there is a match and no important issues, so show the matched name
   return {
-    text: usage.name ?? 'No title provided',
     title: usage.name ?? 'No title provided',
     titleHtml: occurrence.classification?.taxonMatch?.usage?.formattedName ?? undefined,
     hasTaxonIssues: false,
