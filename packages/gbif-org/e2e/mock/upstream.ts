@@ -110,13 +110,18 @@ type StoredRecording =
   | Recording
   | (Omit<Recording, 'encoding' | 'body'> & { encoding: 'json'; body: unknown });
 
-function toStored(rec: Recording): StoredRecording {
-  if (rec.encoding !== 'utf8') return rec;
+// The parsed body, or undefined when it is not JSON.
+function parseJson(rec: Recording): unknown {
+  if (rec.encoding !== 'utf8') return undefined;
   try {
-    return { ...rec, encoding: 'json', body: JSON.parse(rec.body) };
+    return JSON.parse(rec.body);
   } catch {
-    return rec;
+    return undefined;
   }
+}
+
+function toStored(rec: Recording, json: unknown): StoredRecording {
+  return json === undefined ? rec : { ...rec, encoding: 'json', body: json };
 }
 
 function fromStored(stored: StoredRecording): Recording {
@@ -364,7 +369,8 @@ async function record(
   key: string
 ): Promise<Recording> {
   const rec = await forward(upstream, method, url, body, headers);
-  const refusal = whyNotSaved(upstream, rec);
+  const json = parseJson(rec);
+  const refusal = whyNotSaved(upstream, rec.status, json);
   if (refusal) {
     console.warn(`[mock] NOT saved ${rec.status} ${key}: ${refusal}`);
     const previous = unsaved.get(key);
@@ -381,39 +387,32 @@ async function record(
   }
   const file = join(RECORDINGS_DIR, key);
   mkdirSync(dirname(file), { recursive: true });
-  writeFileSync(file, JSON.stringify(toStored(rec), null, 2) + '\n');
+  writeFileSync(file, JSON.stringify(toStored(rec, json), null, 2) + '\n');
   store.set(key, rec);
   unsaved.delete(key);
   console.log(`[mock] recorded ${rec.status} ${key}`);
   // Expected for a 404; with status 200 a resolver failed, which may be a passing upstream fault.
-  if (upstream.kind === 'graphql' && /"errors"\s*:\s*\[/.test(rec.body)) {
+  if (upstream.kind === 'graphql' && isGraphQLAnswer(json) && Array.isArray(json.errors)) {
     console.warn(`[mock] WARNING ${key} recorded with GraphQL errors; check it before committing`);
   }
   return rec;
 }
 
 // JSON with data or errors, as opposed to an HTML page from a proxy in front of the API.
-function isGraphQLAnswer(rec: Recording) {
-  if (rec.encoding !== 'utf8') return false;
-  try {
-    const json = JSON.parse(rec.body);
-    return !!json && typeof json === 'object' && ('data' in json || 'errors' in json);
-  } catch {
-    return false;
-  }
+function isGraphQLAnswer(json: unknown): json is { data?: unknown; errors?: unknown } {
+  return !!json && typeof json === 'object' && ('data' in json || 'errors' in json);
 }
 
 // Why an answer is not saved, or undefined if it is. Server errors, rate limits (429) and the bot
 // check's 403 are passing trouble, so in refresh mode the old recording stays. graphql-api answers
 // a missing entity with status 404, sometimes next to data, and pages are tested against that.
 // Its other 4xx mean the query does not match the deployed API; left unsaved, replay misses.
-function whyNotSaved(upstream: Upstream, rec: Recording): string | undefined {
-  const { status } = rec;
+function whyNotSaved(upstream: Upstream, status: number, json: unknown): string | undefined {
   if (status >= 500 || status === 403 || status === 429) {
     return 'a server error, rate limit or bot check; try again later';
   }
   if (upstream.kind !== 'graphql') return undefined;
-  if (!isGraphQLAnswer(rec)) return 'not a GraphQL answer';
+  if (!isGraphQLAnswer(json)) return 'not a GraphQL answer';
   if (status >= 400 && status !== 404) return 'the API rejected the query';
   return undefined;
 }
