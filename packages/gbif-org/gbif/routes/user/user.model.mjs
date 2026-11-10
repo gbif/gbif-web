@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import logger from '../../config/logger.mjs';
 import { authenticatedRequest } from '../auth/gbifAuthRequest.mjs';
 import { fetchWithRetry } from '../auth/utils.mjs';
+import { isValidUserHeader } from '../auth/userHeader.mjs';
 import { secretEnv } from '../../envConfig.mjs';
 
 const identityBaseUrl = secretEnv.REGISTRY_API_V1;
@@ -82,6 +83,7 @@ export async function create(body) {
     body: body,
     url: apiConfig.userCreate.url,
     canonicalPath: apiConfig.userCreate.canonical,
+    asApp: true,
   };
   let response = await authenticatedRequest(options);
   if (response.statusCode !== 201) {
@@ -92,6 +94,8 @@ export async function create(body) {
 }
 
 export async function confirm(challengeCode, userName) {
+  ensureUserHeader(userName, 'user name');
+  ensureString(challengeCode, 'challenge code');
   let options = {
     method: 'POST',
     body: {
@@ -146,6 +150,7 @@ export async function update(userName, body) {
     body: body,
     url: apiConfig.userAdmin.url + userSegment,
     canonicalPath: apiConfig.userAdmin.canonical + userSegment,
+    asApp: true,
   };
   let response = await authenticatedRequest(options);
   if (response.statusCode > 299) {
@@ -155,6 +160,7 @@ export async function update(userName, body) {
 }
 
 export async function resetPassword(userNameOrEmail) {
+  ensureUserHeader(userNameOrEmail, 'user name or email');
   let options = {
     method: 'POST',
     body: {},
@@ -174,6 +180,7 @@ export async function updateForgottenPassword(body) {
   const challengeCode = body.challengeCode,
     password = body.password;
 
+  ensureUserHeader(body.userName, 'user name');
   ensureString(challengeCode, 'challenge code');
   ensureString(password, 'password');
 
@@ -203,6 +210,7 @@ export async function getByUserName(userName) {
     method: 'GET',
     url: apiConfig.userAdmin.url + userPathSegment(userName),
     json: true,
+    asApp: true,
   };
   const response = await authenticatedRequest(options);
   if (response.statusCode !== 200) {
@@ -224,6 +232,7 @@ export async function find(query) {
     method: 'GET',
     url: apiConfig.userFind.url + '?' + queryString.stringify(query),
     json: true,
+    asApp: true,
   };
   const response = await authenticatedRequest(options);
   if (response.statusCode !== 200) {
@@ -540,6 +549,16 @@ export function derivedDatasetDoiPath(doi) {
     throw new InvalidInputError('doi is not valid');
   }
   return `${encodeURIComponent(match[1])}/${encodeURIComponent(match[2])}`;
+}
+
+/**
+ * For values from the request body that are sent as the signing user (x-gbif-user). These requests
+ * need no login, so a value that can't be a user name is answered with a 400 and never sent.
+ */
+function ensureUserHeader(value, name) {
+  if (!isValidUserHeader(value)) {
+    throw new InvalidInputError(`${name} is not valid`);
+  }
 }
 
 function ensureString(value, name) {

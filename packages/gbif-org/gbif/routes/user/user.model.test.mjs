@@ -8,6 +8,11 @@ vi.mock('../../envConfig.mjs', () => ({
 
 const { authenticatedRequest } = await import('../auth/gbifAuthRequest.mjs');
 const {
+  confirm,
+  create,
+  find,
+  resetPassword,
+  updateForgottenPassword,
   getByUserName,
   update,
   userPathSegment,
@@ -239,5 +244,78 @@ describe('updateDerivedDataset', () => {
     await expect(updateDerivedDataset({}, '10.15468/..', 'jane')).rejects.toThrow(TypeError);
     await expect(updateDerivedDataset({}, '../../x', 'jane')).rejects.toThrow(TypeError);
     expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+});
+
+describe('requests signed as the app', () => {
+  it.each([
+    ['create', () => create({ userName: 'jane' }), 201],
+    ['update', () => update('jane', { userName: 'jane' }), 204],
+    ['getByUserName', () => getByUserName('jane'), 200],
+    ['find', () => find({ q: 'jane' }), 200],
+  ])('%s asks for app identity explicitly', async (name, call, statusCode) => {
+    authenticatedRequest.mockResolvedValue({ statusCode, body: { userName: 'jane' } });
+    await call();
+    const options = authenticatedRequest.mock.calls[0][0];
+    expect(options.asApp).toBe(true);
+    expect(options.userName).toBeUndefined();
+  });
+});
+
+describe('endpoints that need no login', () => {
+  const badUserNames = [
+    undefined,
+    null,
+    '',
+    '  ',
+    42,
+    { $ne: 1 },
+    ['jane'],
+    'a\nb',
+    'x'.repeat(256),
+  ];
+
+  it.each(badUserNames)('confirm never sends a request for %j', async (userName) => {
+    await expect(confirm('code', userName)).rejects.toMatchObject({ statusCode: 400 });
+    expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+
+  it.each(badUserNames)('resetPassword never sends a request for %j', async (userName) => {
+    await expect(resetPassword(userName)).rejects.toMatchObject({ statusCode: 400 });
+    expect(authenticatedRequest).not.toHaveBeenCalled();
+  });
+
+  it.each(badUserNames)(
+    'updateForgottenPassword never sends a request for %j',
+    async (userName) => {
+      await expect(
+        updateForgottenPassword({ userName, challengeCode: 'code', password: 'pw' })
+      ).rejects.toMatchObject({ statusCode: 400 });
+      expect(authenticatedRequest).not.toHaveBeenCalled();
+    }
+  );
+
+  it('confirm signs as the submitted user', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 201, body: {} });
+    await confirm('code', 'jane');
+    const options = authenticatedRequest.mock.calls[0][0];
+    expect(options.userName).toBe('jane');
+    expect(options.asApp).toBeUndefined();
+  });
+
+  it('resetPassword accepts an email address', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 204, body: '' });
+    await resetPassword('jane@example.org');
+    expect(authenticatedRequest.mock.calls[0][0].userName).toBe('jane@example.org');
+  });
+
+  it('updateForgottenPassword accepts an old user name that is an email address', async () => {
+    authenticatedRequest.mockResolvedValue({ statusCode: 201, body: {} });
+    await updateForgottenPassword({
+      userName: 'jane+gbif@example.org',
+      challengeCode: 'code',
+      password: 'pw',
+    });
+    expect(authenticatedRequest.mock.calls[0][0].userName).toBe('jane+gbif@example.org');
   });
 });

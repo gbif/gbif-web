@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { fetchWithRetry } from './utils.mjs';
 import { secretEnv } from '../../envConfig.mjs';
+import { isValidUserHeader } from './userHeader.mjs';
 
 const appKey = secretEnv.APP_KEY;
 const secret = secretEnv.APP_SECRET;
@@ -29,6 +30,16 @@ export async function authenticatedRequest(options) {
     (typeof options.canonicalPath !== 'string' || typeof options.body !== 'object')
   ) {
     throw new Error('POST/PUT requests require a canonicalPath (string) and body (object)');
+  }
+  // The request is signed either as a user or as the app itself. Signing as the app gives the app's
+  // own rights, so that has to be asked for explicitly and never happens because a user name is
+  // missing.
+  if (options.asApp === true) {
+    if (options.userName !== undefined) {
+      throw new Error('Use either userName or asApp, not both');
+    }
+  } else if (!isValidUserHeader(options.userName)) {
+    throw new Error('A request needs a valid userName, or asApp: true to run as the app');
   }
 
   let hasJsonBody = options.body && typeof options.body === 'object';
@@ -75,7 +86,7 @@ export async function authenticatedRequest(options) {
 function createHeader(options) {
   let headers = {};
   headers['x-url'] = options.canonicalPath || options.url;
-  headers['x-gbif-user'] = options.userName || appKey;
+  headers['x-gbif-user'] = options.asApp === true ? appKey : options.userName;
   headers['User-Agent'] = 'GBIF-portal';
   if (options.method == 'POST' || options.method == 'PUT') {
     headers['Content-MD5'] = crypto
