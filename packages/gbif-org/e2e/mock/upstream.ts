@@ -270,7 +270,7 @@ function replacePhotos(body: string): string {
 
 // The API rate-limits bursts: a record run with every worker loading pages answered some lookups
 // with 429. Calls beyond the cap wait for a free slot; a 429 is retried after Retry-After.
-const UPSTREAM_CONCURRENCY = Number(process.env.E2E_UPSTREAM_CONCURRENCY) || 4;
+const UPSTREAM_CONCURRENCY = Math.max(1, Number(process.env.E2E_UPSTREAM_CONCURRENCY) || 4);
 const RATE_LIMIT_RETRIES = 3;
 let activeUpstreamCalls = 0;
 const waitingForSlot: (() => void)[] = [];
@@ -290,9 +290,10 @@ async function withUpstreamSlot<T>(call: () => Promise<T>): Promise<T> {
 
 function retryAfterMs(header: string | null, attempt: number): number {
   const seconds = Number(header);
-  if (header && Number.isFinite(seconds)) return Math.min(seconds, 60) * 1000;
-  const date = header ? Date.parse(header) - Date.now() : NaN;
-  if (date > 0) return Math.min(date, 60_000);
+  const hint =
+    header && Number.isFinite(seconds) ? seconds * 1000 : Date.parse(header ?? '') - Date.now();
+  // A zero, negative or unreadable hint falls back to the backoff.
+  if (hint > 0) return Math.min(hint, 60_000);
   return 5000 * 2 ** (attempt - 1);
 }
 
