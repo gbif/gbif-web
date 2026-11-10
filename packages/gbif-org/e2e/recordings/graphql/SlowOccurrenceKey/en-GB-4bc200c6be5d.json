@@ -15,5 +15,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"occurrence\":{\"key\":5938027305,\"localContexts\":null,\"institution\":null,\"collection\":null,\"classification\":{\"vernacularNames\":[{\"name\":\"Brewer's Blackbird\",\"reference\":{\"id\":\"rxC585\",\"citation\":\"Taxonomy in Flux Checklist\"}}]}}}}\n"
+  "body": "{\"data\":{\"occurrence\":{\"key\":5938027305,\"localContexts\":null,\"institution\":null,\"collection\":null,\"classification\":{\"vernacularNames\":[{\"name\":\"Brewer's Blackbird\",\"reference\":{\"id\":\"rxGQZZ2\",\"citation\":\"Taxonomy in Flux Checklist\"}}]}}}}\n"
 }

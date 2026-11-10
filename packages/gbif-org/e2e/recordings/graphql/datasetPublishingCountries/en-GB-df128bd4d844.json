@@ -22,5 +22,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"publishingCountry\":[{\"key\":\"DK\",\"count\":1331544}]}}}}\n"
+  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"publishingCountry\":[{\"key\":\"DK\",\"count\":1342937}]}}}}\n"
 }

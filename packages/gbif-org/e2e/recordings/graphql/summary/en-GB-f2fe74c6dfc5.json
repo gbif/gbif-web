@@ -34,5 +34,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":169720759},\"cardinality\":{\"total\":0},\"facet\":{\"results\":[]}},\"isNotNull\":{\"documents\":{\"total\":0}}}}\n"
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":172760478},\"cardinality\":{\"total\":0},\"facet\":{\"results\":[]}},\"isNotNull\":{\"documents\":{\"total\":0}}}}\n"
 }

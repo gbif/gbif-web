@@ -18,5 +18,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":169720759},\"cardinality\":{\"speciesKey\":426494},\"stats\":{\"year\":{\"min\":1768,\"max\":2026}}}}}\n"
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":172760478},\"cardinality\":{\"speciesKey\":428779},\"stats\":{\"year\":{\"min\":1768,\"max\":2026}}}}}\n"
 }

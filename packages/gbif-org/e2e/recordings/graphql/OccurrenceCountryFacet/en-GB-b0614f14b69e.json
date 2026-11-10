@@ -21,5 +21,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"DK\",\"count\":67987009}]}}}}\n"
+  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"DK\",\"count\":68505846}]}}}}\n"
 }

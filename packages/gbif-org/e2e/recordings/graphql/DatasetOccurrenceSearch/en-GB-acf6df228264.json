@@ -83,5 +83,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"from\":0,\"size\":1,\"total\":1775781186,\"results\":[{\"dynamicProperties\":null}]}},\"withImages\":{\"documents\":{\"total\":0}},\"withCoordinates\":{\"documents\":{\"total\":1775781186}},\"withClusters\":{\"documents\":{\"total\":8713772}},\"withEvents\":{\"documents\":{\"total\":0}},\"literatureSearchScoped\":{\"documents\":{\"total\":1401}}}}\n"
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"from\":0,\"size\":1,\"total\":1672931106,\"results\":[{\"dynamicProperties\":null}]}},\"withImages\":{\"documents\":{\"total\":0}},\"withCoordinates\":{\"documents\":{\"total\":1672931106}},\"withClusters\":{\"documents\":{\"total\":8349780}},\"withEvents\":{\"documents\":{\"total\":1672931106}},\"literatureSearchScoped\":{\"documents\":{\"total\":1433}}}}\n"
 }

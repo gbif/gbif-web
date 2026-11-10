@@ -104,5 +104,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":1342937}},\"rank\":{\"documents\":{\"total\":1223877}},\"hasCoordinates\":{\"documents\":{\"total\":1342933}},\"hasMedia\":{\"documents\":{\"total\":590071}},\"hasCollector\":{\"documents\":{\"total\":1337244}},\"hasEventDate\":{\"documents\":{\"total\":1342937}},\"hasSequence\":{\"documents\":{\"total\":4746}}}}\n"
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":1342937}},\"rank\":{\"documents\":{\"total\":1224321}},\"hasCoordinates\":{\"documents\":{\"total\":1342933}},\"hasMedia\":{\"documents\":{\"total\":590071}},\"hasCollector\":{\"documents\":{\"total\":1337244}},\"hasEventDate\":{\"documents\":{\"total\":1342937}},\"hasSequence\":{\"documents\":{\"total\":4746}}}}\n"
 }

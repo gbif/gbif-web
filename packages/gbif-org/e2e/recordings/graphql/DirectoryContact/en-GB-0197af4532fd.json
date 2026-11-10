@@ -10,8 +10,8 @@
       "operationName": "DirectoryContact"
     }
   },
-  "status": 200,
+  "status": 404,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"errors\":[{\"message\":\"404: Not Found\",\"locations\":[{\"line\":3,\"column\":5}],\"path\":[\"directoryContact\"],\"extensions\":{\"response\":{\"url\":\"https://api.gbif.org/v1/directory/person/999999999\",\"status\":404,\"statusText\":\"Not Found\",\"body\":\"Entity not found for uri: /person/999999999\"},\"code\":\"INTERNAL_SERVER_ERROR\",\"stacktrace\":[\"GraphQLError: 404: Not Found\",\"    at DirectoryPersonAPI.errorFromResponse (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:95:16)\",\"    at DirectoryPersonAPI.throwIfResponseIsError (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:87:26)\",\"    at /srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:199:32\",\"    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\",\"    at async DirectoryPersonAPI.fetch (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:232:56)\",\"    at async DirectoryPersonAPI.get (/srv/graphql/node_modules/@apollo/datasource-rest/dist/RESTDataSource.js:111:17)\",\"    at async DirectoryPersonAPI.getDirectoryContactByKey (/srv/graphql/dist/resources/directoryPerson/directoryPerson.source.js:104:33)\"]}}],\"data\":{\"directoryContact\":null}}\n"
+  "body": "{\"errors\":[{\"message\":\"404: Not Found\",\"locations\":[{\"line\":3,\"column\":5}],\"path\":[\"directoryContact\"],\"extensions\":{\"code\":\"NOT_FOUND\",\"stacktrace\":[\"GraphQLError: 404: Not Found\",\"    at new NotFoundError (/srv/graphql/dist/helpers/GraphQL404Error.js:7:9)\",\"    at Object.directoryContact (/srv/graphql/dist/resources/directoryPerson/directoryPerson.resolver.js:49:23)\",\"    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\"]}}],\"data\":{\"directoryContact\":null}}\n"
 }

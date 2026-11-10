@@ -28,5 +28,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":419599}}}}\n"
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":457947}}}}\n"
 }

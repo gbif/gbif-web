@@ -105,5 +105,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"unfiltered\":{\"documents\":{\"total\":1775781186}},\"siteOccurrences\":{\"documents\":{\"total\":1775781186},\"cardinality\":{\"eventId\":0},\"facet\":{\"dwcaExtension\":[]}},\"images\":{\"documents\":{\"total\":0,\"results\":[]}},\"withCoordinates\":{\"documents\":{\"total\":1775515330}},\"withTaxonMatch\":{\"documents\":{\"total\":0}},\"withEventDate\":{\"documents\":{\"total\":1775781186}},\"withEventId\":{\"documents\":{\"total\":0}}}}\n"
+  "body": "{\"data\":{\"unfiltered\":{\"documents\":{\"total\":1672931106}},\"siteOccurrences\":{\"documents\":{\"total\":1672931106},\"cardinality\":{\"eventId\":132225850},\"facet\":{\"dwcaExtension\":[]}},\"images\":{\"documents\":{\"total\":0,\"results\":[]}},\"withCoordinates\":{\"documents\":{\"total\":1672689089}},\"withTaxonMatch\":{\"documents\":{\"total\":0}},\"withEventDate\":{\"documents\":{\"total\":1672931106}},\"withEventId\":{\"documents\":{\"total\":1672931106}}}}\n"
 }

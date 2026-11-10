@@ -79,5 +79,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"withCollection\":{\"documents\":{\"total\":320181},\"cardinality\":{\"collectionKey\":2}},\"withCode\":{\"documents\":{\"total\":188173}},\"big5\":{\"documents\":{\"total\":10}}}}\n"
+  "body": "{\"data\":{\"withCollection\":{\"documents\":{\"total\":320180},\"cardinality\":{\"collectionKey\":2}},\"withCode\":{\"documents\":{\"total\":188191}},\"big5\":{\"documents\":{\"total\":10}}}}\n"
 }

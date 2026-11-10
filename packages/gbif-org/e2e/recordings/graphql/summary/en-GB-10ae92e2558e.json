@@ -111,5 +111,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":26316314}},\"rank\":{\"documents\":{\"total\":26316314}},\"hasCoordinates\":{\"documents\":{\"total\":26290221}},\"hasMedia\":{\"documents\":{\"total\":500493}},\"hasCollector\":{\"documents\":{\"total\":25159622}},\"hasEventDate\":{\"documents\":{\"total\":26298985}},\"hasSequence\":{\"documents\":{\"total\":351}}}}\n"
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":26316437}},\"rank\":{\"documents\":{\"total\":26316437}},\"hasCoordinates\":{\"documents\":{\"total\":26290277}},\"hasMedia\":{\"documents\":{\"total\":500495}},\"hasCollector\":{\"documents\":{\"total\":25159745}},\"hasEventDate\":{\"documents\":{\"total\":26299104}},\"hasSequence\":{\"documents\":{\"total\":351}}}}\n"
 }

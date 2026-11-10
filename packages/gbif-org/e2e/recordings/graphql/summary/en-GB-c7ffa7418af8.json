@@ -34,5 +34,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8088},\"cardinality\":{\"total\":216},\"facet\":{\"results\":[{\"key\":\"US\",\"count\":567},{\"key\":\"MX\",\"count\":322},{\"key\":\"CN\",\"count\":267},{\"key\":\"BR\",\"count\":215},{\"key\":\"CA\",\"count\":198},{\"key\":\"IN\",\"count\":143},{\"key\":\"CO\",\"count\":121},{\"key\":\"RU\",\"count\":116},{\"key\":\"AR\",\"count\":85},{\"key\":\"AU\",\"count\":85}]}}}}\n"
+  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8353},\"cardinality\":{\"total\":217},\"facet\":{\"results\":[{\"key\":\"US\",\"count\":591},{\"key\":\"MX\",\"count\":339},{\"key\":\"CN\",\"count\":275},{\"key\":\"BR\",\"count\":224},{\"key\":\"CA\",\"count\":202},{\"key\":\"IN\",\"count\":147},{\"key\":\"CO\",\"count\":124},{\"key\":\"RU\",\"count\":118},{\"key\":\"ZA\",\"count\":89},{\"key\":\"AU\",\"count\":87}]}}}}\n"
 }
