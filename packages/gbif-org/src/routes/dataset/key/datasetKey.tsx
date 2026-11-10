@@ -1,5 +1,4 @@
 import { DataHeader } from '@/components/dataHeader';
-import { Html } from '@/components/html';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { PublisherLabel } from '@/components/filters/displayNames';
 import {
@@ -580,7 +579,7 @@ export function DatasetPage() {
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
             <ArticleTitle dir={locale.textDirection}>
-              <Html html={dataset.title} fallback="No title provided" />
+              {dataset.title || 'No title provided'}
             </ArticleTitle>
 
             <div className="g-mt-2">

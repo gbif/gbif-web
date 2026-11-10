@@ -1,5 +1,4 @@
 import { DataHeader } from '@/components/dataHeader';
-import { Html } from '@/components/html';
 import { ErrorMessage } from '@/components/errorMessage';
 import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
@@ -218,9 +217,7 @@ export function PublisherPage() {
             </DynamicLink>
           </ArticlePreTitle>
           {/* it would be nice to know for sure which fields to expect */}
-          <ArticleTitle>
-            <Html html={publisher.title} fallback="No title provided" />
-          </ArticleTitle>
+          <ArticleTitle>{publisher.title || 'No title provided'}</ArticleTitle>
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
           {!deletedAt && !publisher.endorsementApproved && (

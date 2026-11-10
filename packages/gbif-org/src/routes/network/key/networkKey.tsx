@@ -1,5 +1,4 @@
 import { DataHeader } from '@/components/dataHeader';
-import { Html } from '@/components/html';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
@@ -131,9 +130,9 @@ export function NetworkPage() {
                 dangerouslySetTitle={{ __html: network.prose.title }}
               />
             ) : (
-              // the registry title comes from the network's publisher
+              // the registry title is plain text
               <ArticleTitle testId="network-heading">
-                <Html html={network.title} fallback="No title provided" />
+                {network.title || 'No title provided'}
               </ArticleTitle>
             )}
 

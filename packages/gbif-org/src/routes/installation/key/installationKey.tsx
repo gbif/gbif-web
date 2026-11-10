@@ -1,5 +1,4 @@
 import { DataHeader } from '@/components/dataHeader';
-import { Html } from '@/components/html';
 import { DeletedMessage, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { LongDate } from '@/components/dateFormats';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
@@ -114,9 +113,7 @@ export function InstallationPage() {
           >
             <FormattedMessage id={`installation.installation`} />
           </ArticlePreTitle>
-          <ArticleTitle>
-            <Html html={installation.title} fallback="No title provided" />
-          </ArticleTitle>
+          <ArticleTitle>{installation.title || 'No title provided'}</ArticleTitle>
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
 
