@@ -103,7 +103,7 @@ export function convertCubeDimensionsToSqlOptions(
       qualityPredicates.push({
         type: 'equals',
         key: 'OCCURRENCE_STATUS',
-        value: 'present',
+        value: 'DETECTED',
       });
     }
 

@@ -145,7 +145,7 @@ function SearchBar() {
   return (
     <>
       <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
-        <HeaderLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT', q }}>
+        <HeaderLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'DETECTED', q }}>
           <FormattedMessage id="catalogues.occurrences" />
         </HeaderLink>
         <HeaderLink pageId="taxonSearch" searchParams={{ q }}>

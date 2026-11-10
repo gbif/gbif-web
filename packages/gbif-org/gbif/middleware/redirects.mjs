@@ -35,6 +35,73 @@ function extractLocalePrefix(path) {
 }
 
 /**
+ * Renamed search parameters and renamed parameter values. Add a rule here when the API or the
+ * site renames a filter, and old links get a server side redirect to the final URL.
+ *
+ *   param   current name of the parameter
+ *   from    old names of the parameter (optional). Matched ignoring case and underscores.
+ *   values  old value -> new value (optional). Matched ignoring case, also in comma lists.
+ */
+export const renamedSearchParams = [
+  // occurrenceStatus was renamed from PRESENT/ABSENT to DETECTED/NOT_DETECTED
+  // https://github.com/gbif/gbif-web/issues/2077
+  { param: 'occurrenceStatus', values: { present: 'DETECTED', absent: 'NOT_DETECTED' } },
+];
+
+const normalizeKey = (key) => key.replace(/_/g, '').toLowerCase();
+
+/**
+ * Builds a function that takes a request and returns the URL with all renames applied, or
+ * undefined when nothing changed. Only the matching key=value pairs are touched; every other pair
+ * is copied through byte for byte, so encodings (%2C, +, WKT geometries) survive. All rules are
+ * applied in one pass so the visitor gets a single redirect to the final URL.
+ */
+export function createRenamedSearchParamRedirect(rules) {
+  const rulesByKey = new Map();
+  for (const rule of rules) {
+    const valueMap = Object.fromEntries(
+      Object.entries(rule.values ?? {}).map(([from, to]) => [from.toLowerCase(), to])
+    );
+    for (const name of [rule.param, ...(rule.from ?? [])]) {
+      rulesByKey.set(normalizeKey(name), { param: rule.param, valueMap });
+    }
+  }
+  const mightMatch = new RegExp(
+    [...rulesByKey.keys()].map((k) => k.split('').join('_?')).join('|'),
+    'i'
+  );
+
+  return function getRenamedSearchParamRedirect(req) {
+    const url = req.originalUrl;
+    const queryStart = url.indexOf('?');
+    if (queryStart === -1) return undefined;
+    const pathOnly = url.slice(0, queryStart);
+    const queryString = url.slice(queryStart + 1);
+    if (!mightMatch.test(queryString)) return undefined;
+
+    let changed = false;
+    const pairs = queryString.split('&').map((pair) => {
+      const eq = pair.indexOf('=');
+      const key = eq === -1 ? pair : pair.slice(0, eq);
+      const rule = rulesByKey.get(normalizeKey(key));
+      if (!rule) return pair;
+
+      const value = eq === -1 ? '' : pair.slice(eq + 1);
+      const mapped = value
+        .split(/,|%2C/i)
+        .map((v) => rule.valueMap[v.trim().toLowerCase()] ?? v)
+        .join(',');
+      if (key === rule.param && mapped === value) return pair;
+      changed = true;
+      return `${rule.param}=${mapped}`;
+    });
+    return changed ? `${pathOnly}?${pairs.join('&')}` : undefined;
+  };
+}
+
+export const getRenamedSearchParamRedirect = createRenamedSearchParamRedirect(renamedSearchParams);
+
+/**
  * Redirects checked BEFORE the SSR render — a header-only 302 instead of a full SSR pass.
  * A redirect can live here as long as it never overlaps with a route in the React app.
  */
