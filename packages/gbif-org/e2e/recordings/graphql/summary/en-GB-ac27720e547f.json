@@ -3,7 +3,7 @@
     "method": "POST",
     "target": "https://graphql.gbif.org/graphql",
     "body": {
-      "query": "\nquery summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate, $hasSequence: Predicate){\n  occurrenceSearch(q: $q, predicate: $predicate) {\n    documents(size: 0) {\n      total\n    }\n  }\n  rank: occurrenceSearch(q: $q, predicate: $hasSpeciesRank) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCoordinates: occurrenceSearch(q: $q, predicate: $hasCoordinates) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasMedia: occurrenceSearch(q: $q, predicate: $hasMedia) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCollector: occurrenceSearch(q: $q, predicate: $hasCollector) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasYear: occurrenceSearch(q: $q, predicate: $hasYear) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasSequence: occurrenceSearch(q: $q, predicate: $hasSequence) {\n    documents(size: 0) {\n      total\n    }\n  }\n}\n",
+      "query": "\nquery summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasEventDate: Predicate, $hasSequence: Predicate){\n  occurrenceSearch(q: $q, predicate: $predicate) {\n    documents(size: 0) {\n      total\n    }\n  }\n  rank: occurrenceSearch(q: $q, predicate: $hasSpeciesRank) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCoordinates: occurrenceSearch(q: $q, predicate: $hasCoordinates) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasMedia: occurrenceSearch(q: $q, predicate: $hasMedia) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasCollector: occurrenceSearch(q: $q, predicate: $hasCollector) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasEventDate: occurrenceSearch(q: $q, predicate: $hasEventDate) {\n    documents(size: 0) {\n      total\n    }\n  }\n  hasSequence: occurrenceSearch(q: $q, predicate: $hasSequence) {\n    documents(size: 0) {\n      total\n    }\n  }\n}\n",
       "variables": {
         "predicate": {
           "type": "equals",
@@ -68,7 +68,7 @@
             }
           ]
         },
-        "hasYear": {
+        "hasEventDate": {
           "type": "and",
           "predicates": [
             {
@@ -78,7 +78,7 @@
             },
             {
               "type": "isNotNull",
-              "key": "year"
+              "key": "eventDate"
             }
           ]
         },
@@ -104,5 +104,5 @@
   "status": 200,
   "contentType": "application/json; charset=utf-8",
   "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":169720759}},\"rank\":{\"documents\":{\"total\":167113335}},\"hasCoordinates\":{\"documents\":{\"total\":169377866}},\"hasMedia\":{\"documents\":{\"total\":164296373}},\"hasCollector\":{\"documents\":{\"total\":169720713}},\"hasYear\":{\"documents\":{\"total\":169720759}},\"hasSequence\":{\"documents\":{\"total\":76807}}}}\n"
+  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":172760478}},\"rank\":{\"documents\":{\"total\":170074625}},\"hasCoordinates\":{\"documents\":{\"total\":172413682}},\"hasMedia\":{\"documents\":{\"total\":167244085}},\"hasCollector\":{\"documents\":{\"total\":172760432}},\"hasEventDate\":{\"documents\":{\"total\":172760478}},\"hasSequence\":{\"documents\":{\"total\":81318}}}}\n"
 }
