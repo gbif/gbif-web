@@ -394,6 +394,18 @@ async function forward(
   };
 }
 
+function noteUnsaved(key: string, status: number, reason: string, headers: Headers) {
+  unsaved.set(key, {
+    key,
+    status,
+    reason,
+    kept: store.has(key),
+    count: (unsaved.get(key)?.count ?? 0) + 1,
+    page: headers['x-gbif-site-url'] ?? headers.referer,
+    test: headers['x-e2e-test'],
+  });
+}
+
 // Fetches and saves a recording. Answers that whyNotSaved rejects are passed on but not saved.
 async function record(
   upstream: Upstream,
@@ -403,21 +415,20 @@ async function record(
   headers: Headers,
   key: string
 ): Promise<Recording> {
-  const rec = await forward(upstream, method, url, body, headers);
+  let rec: Recording;
+  try {
+    rec = await forward(upstream, method, url, body, headers);
+  } catch (err) {
+    // handle() answers the page with a 502.
+    const message = err instanceof Error ? err.message : String(err);
+    noteUnsaved(key, 502, `no answer from the upstream (${message}); record again later`, headers);
+    throw err;
+  }
   const json = parseJson(rec);
   const refusal = whyNotSaved(upstream, rec.status, json);
   if (refusal) {
     console.warn(`[mock] NOT saved ${rec.status} ${key}: ${refusal}`);
-    const previous = unsaved.get(key);
-    unsaved.set(key, {
-      key,
-      status: rec.status,
-      reason: refusal,
-      kept: store.has(key),
-      count: (previous?.count ?? 0) + 1,
-      page: headers['x-gbif-site-url'] ?? headers.referer,
-      test: headers['x-e2e-test'],
-    });
+    noteUnsaved(key, rec.status, refusal, headers);
     return rec;
   }
   const file = join(RECORDINGS_DIR, key);
@@ -438,17 +449,21 @@ function isGraphQLAnswer(json: unknown): json is { data?: unknown; errors?: unkn
   return !!json && typeof json === 'object' && ('data' in json || 'errors' in json);
 }
 
-// Why an answer is not saved, or undefined if it is. Server errors, rate limits (429) and the bot
+// Why an answer is not saved and what to do about it, or undefined if it is saved. Server errors, rate limits (429) and the bot
 // check's 403 are passing trouble, so in refresh mode the old recording stays. graphql-api answers
 // a missing entity with status 404, sometimes next to data, and pages are tested against that.
 // Its other 4xx mean the query does not match the deployed API; left unsaved, replay misses.
 function whyNotSaved(upstream: Upstream, status: number, json: unknown): string | undefined {
   if (status >= 500 || status === 403 || status === 429) {
-    return 'a server error, rate limit or bot check; try again later';
+    return 'a server error, rate limit or bot check; record again later';
   }
   if (upstream.kind !== 'graphql') return undefined;
-  if (!isGraphQLAnswer(json)) return 'not a GraphQL answer';
-  if (status >= 400 && status !== 404) return 'the API rejected the query';
+  if (!isGraphQLAnswer(json)) {
+    return 'not a GraphQL answer, such as a page from a proxy; check what the API answers before recording again';
+  }
+  if (status >= 400 && status !== 404) {
+    return 'the API rejected the query; recording again will not help, so fix the query or deploy the API change';
+  }
   return undefined;
 }
 

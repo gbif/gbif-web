@@ -1,6 +1,6 @@
 // Runs once after all tests (playwright.config.ts globalTeardown), while the mock is still up.
 // Lists answers a record or refresh run did not save, prunes unused recordings under E2E_PRUNE=1,
-// then fails the run if the mock logged any miss.
+// then fails the run if the mock logged any miss or an unsaved answer has no recording.
 
 import { execFileSync } from 'node:child_process';
 import { MOCK_PORT } from './env.ts';
@@ -34,9 +34,10 @@ function suiteSize(): number {
 // tagged with the test that made it, and that test fails (test.ts). Requests from the gbif.org
 // server, made while rendering a page, carry no tag, so no test fails for them. Failing the whole
 // run here makes sure those misses are not ignored.
-// The mock logs each refused answer once, mid-run, where it is easy to miss, and the run stays
-// green. Listed first, so a refused prune or a miss cannot hide it.
-async function reportUnsaved() {
+// The mock logs each unsaved answer once, mid-run, where it is easy to miss. Listed first, so a
+// refused prune or a miss cannot hide it. Returns how many have no recording at all: replay will
+// miss those, so the run fails for them.
+async function reportUnsaved(): Promise<number> {
   type Unsaved = {
     key: string;
     status: number;
@@ -46,7 +47,7 @@ async function reportUnsaved() {
     page?: string;
   };
   const unsaved: Unsaved[] = await fetch(`${MOCK}/__mock/unsaved`).then((r) => r.json());
-  if (unsaved.length === 0) return;
+  if (unsaved.length === 0) return 0;
   const list = unsaved
     .map((u) => {
       const times = u.count > 1 ? `×${u.count}, ` : '';
@@ -54,14 +55,12 @@ async function reportUnsaved() {
       return `  ${u.key}  ${u.status} (${times}page: ${u.page ?? 'server'}): ${u.reason}; ${outcome}`;
     })
     .join('\n');
-  console.warn(
-    `\n${unsaved.length} upstream answer(s) were NOT saved:\n${list}\n` +
-      'Run npm run e2e:record again once the upstream answers.\n'
-  );
+  console.warn(`\n${unsaved.length} upstream answer(s) were NOT saved:\n${list}\n`);
+  return unsaved.filter((u) => !u.kept).length;
 }
 
 export default async function globalTeardown() {
-  await reportUnsaved();
+  const unrecorded = await reportUnsaved();
 
   if (process.env.E2E_PRUNE === '1') {
     // The mock prunes only if this many distinct tests ran, so any filter on the run (spec files,
@@ -78,9 +77,17 @@ export default async function globalTeardown() {
   const misses: Array<{ key: string; reason: string; page?: string }> = await fetch(
     `${MOCK}/__mock/misses`
   ).then((r) => r.json());
-  if (misses.length === 0) return;
-  const list = misses
-    .map((m) => `  ${m.key}  (page: ${m.page ?? 'server'}): ${m.reason}`)
-    .join('\n');
-  throw new Error(`${misses.length} upstream request(s) the mock could not answer:\n${list}`);
+  const problems: string[] = [];
+  if (misses.length > 0) {
+    const list = misses
+      .map((m) => `  ${m.key}  (page: ${m.page ?? 'server'}): ${m.reason}`)
+      .join('\n');
+    problems.push(`${misses.length} upstream request(s) the mock could not answer:\n${list}`);
+  }
+  if (unrecorded > 0) {
+    problems.push(
+      `${unrecorded} of the upstream answer(s) listed above as NOT saved have no recording, so replay will miss them.`
+    );
+  }
+  if (problems.length > 0) throw new Error(problems.join('\n\n'));
 }

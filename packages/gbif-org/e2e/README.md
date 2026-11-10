@@ -150,9 +150,12 @@ Some answers are passed on but not saved; in refresh mode the old recording stay
 - a GraphQL 4xx other than 404. The API rejected the query, usually because it does not match the
   deployed schema, so the request stays a miss in replay.
 
-Each refusal is logged as `[mock] NOT saved` when it happens, and `globalTeardown` lists them all
-again at the end of the run, saying whether an old recording was kept or replay will miss. The run
-stays green either way, so read that list after recording.
+An upstream call that fails or takes over 30 s is not saved either; the page gets a 502.
+
+Each of these is logged when it happens (`[mock] NOT saved`, or `[mock] record failed` for a failed
+call), and `globalTeardown` lists them all again at the end of the run, saying what to do about
+each and whether an old recording was kept or replay will miss. The run fails if any of them has no
+recording.
 
 A GraphQL 404 is saved: graphql-api answers a missing entity that way, sometimes next to data, and
 pages are tested against it. A GraphQL response with `errors` is saved with a warning; check it
