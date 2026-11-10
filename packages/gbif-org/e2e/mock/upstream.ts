@@ -330,7 +330,7 @@ async function forward(
   };
 }
 
-// Fetches and saves a recording. Answers with server errors are passed on but not saved.
+// Fetches and saves a recording. Answers that whyNotSaved rejects are passed on but not saved.
 async function record(
   upstream: Upstream,
   method: string,
@@ -340,33 +340,47 @@ async function record(
   key: string
 ): Promise<Recording> {
   const rec = await forward(upstream, method, url, body, headers);
-  // GraphQL reports failures with status 200, so check the body too.
-  if (
-    upstream.kind === 'graphql' &&
-    rec.encoding === 'utf8' &&
-    /"errors"\s*:\s*\[/.test(rec.body)
-  ) {
+  const refusal = whyNotSaved(upstream, rec);
+  if (refusal) {
+    console.warn(`[mock] NOT saved ${rec.status} ${key}: ${refusal}`);
+    return rec;
+  }
+  const file = join(RECORDINGS_DIR, key);
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
+  store.set(key, rec);
+  console.log(`[mock] recorded ${rec.status} ${key}`);
+  // Expected for a 404; with status 200 a resolver failed, which may be a passing upstream fault.
+  if (upstream.kind === 'graphql' && /"errors"\s*:\s*\[/.test(rec.body)) {
     console.warn(`[mock] WARNING ${key} recorded with GraphQL errors; check it before committing`);
   }
-  if (isWorthSaving(upstream, rec.status)) {
-    const file = join(RECORDINGS_DIR, key);
-    mkdirSync(dirname(file), { recursive: true });
-    writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
-    store.set(key, rec);
-  }
-  console.log(
-    `[mock] ${isWorthSaving(upstream, rec.status) ? 'recorded' : 'NOT saved'} ${rec.status} ${key}`
-  );
   return rec;
 }
 
-// Server errors, rate limits (429) and the bot check's 403 are passing trouble, not what the page
-// should be tested against, so they are passed on but not saved. In refresh mode that keeps the
-// old recording. GraphQL answers data with 200, so any 4xx from it counts as trouble too; REST
-// 404s are kept, since some pages are tested against them.
-function isWorthSaving(upstream: Upstream, status: number) {
-  if (status >= 500 || status === 403 || status === 429) return false;
-  return upstream.kind !== 'graphql' || status < 400;
+// JSON with data or errors, as opposed to an HTML page from a proxy in front of the API.
+function isGraphQLAnswer(rec: Recording) {
+  if (rec.encoding !== 'utf8') return false;
+  try {
+    const json = JSON.parse(rec.body);
+    return !!json && typeof json === 'object' && ('data' in json || 'errors' in json);
+  } catch {
+    return false;
+  }
+}
+
+// Why an answer is not saved, or undefined if it is. Server errors, rate limits (429) and the bot
+// check's 403 are passing trouble, so in refresh mode the old recording stays. graphql-api answers
+// a missing entity with status 404, sometimes next to data, and pages are tested against that.
+// Its other 4xx mean the query does not match the deployed API; left unsaved, replay misses.
+function whyNotSaved(upstream: Upstream, rec: Recording): string | undefined {
+  const { status } = rec;
+  if (status >= 500 || status === 403 || status === 429) {
+    return 'a server error, rate limit or bot check; try again later';
+  }
+  if (upstream.kind !== 'graphql') return undefined;
+  if (!isGraphQLAnswer(rec)) return 'not a GraphQL answer';
+  if (status >= 400 && status !== 404) return 'the API rejected the query';
+  return undefined;
 }
 
 // Parallel identical misses share one upstream call and one write.

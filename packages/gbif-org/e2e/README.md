@@ -140,9 +140,18 @@ Steps in order:
    [Testing error handling](#testing-error-handling).
 
 When recording, contact photos are replaced with one small grey image, since they are several MB
-each and no spec checks them. Server errors, rate limits (429), the bot check's 403 and any other
-GraphQL 4xx are passed on but not saved; in refresh mode the old recording stays. A GraphQL
-response with `errors` is saved with a warning; check it before committing.
+each and no spec checks them.
+
+Some answers are passed on but not saved; in refresh mode the old recording stays:
+
+- server errors, rate limits (429) and the bot check's 403, from any upstream;
+- a GraphQL answer that is not JSON with `data` or `errors`, such as an HTML page from a proxy;
+- a GraphQL 4xx other than 404. The API rejected the query, usually because it does not match the
+  deployed schema, so the request stays a miss in replay.
+
+A GraphQL 404 is saved: graphql-api answers a missing entity that way, sometimes next to data, and
+pages are tested against it. A GraphQL response with `errors` is saved with a warning; check it
+before committing, unless it is such a 404.
 
 The API rate-limits bursts, so the mock makes at most 4 upstream calls at a time
 (`E2E_UPSTREAM_CONCURRENCY` changes that) and retries a 429 up to 3 times after its `Retry-After`.
