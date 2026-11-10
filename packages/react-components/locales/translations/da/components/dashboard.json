@@ -65,8 +65,8 @@
     "label": "Sådan er dette træ opbygget",
     "title": "Sådan er dette træ opbygget",
     "align": "De unikke nukleotidsekvenser fra de matchende forekomster justeres ved hjælp af <k>kalign</k> (et værktøj til justering af flere sekvenser).",
-    "tree": "",
-    "collapse": "",
-    "downloads": ""
+    "tree": "De parvise genetiske afstande (p-afstand, hvor der ikke tages højde for huller og tvetydige steder) æses fra denne sekvensjustering, og der opbygges et »neighbour-joining«-træ ud fra disse. Interne grene, der ligger tæt på nul, vises som forgreninger i stedet for en vilkårlig stige.",
+    "collapse": "Sammenlægningsskyderen samler sekvenser – der har mindst den valgte procentdel af identitet – til et enkelt tip. Tipene mærkes med det konsensus-taxon, som de sekvenser, de repræsenterer, tilhører.",
+    "downloads": "Downloadfilerne afspejler den aktuelle visning: den fulde sekvens (<fasta>FASTA</fasta>) og træet (<newick>Newick</newick>, på det nuværende sammenfoldningsniveau)."
   }
 }
