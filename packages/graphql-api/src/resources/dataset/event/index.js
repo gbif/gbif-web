@@ -67,9 +67,7 @@ export const getDatasetEvents = async (
           },
         })
         .then((res) => {
-          const key = res.documents.results[0]?.key;
-          if (!key) return null;
-          return dataSources.occurrenceRecordAPI.getOccurrencesByKeys({ keys: [key] }).then((records) => records[0]);
+          return res.documents.results[0];
         }),
     })),
   };

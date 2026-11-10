@@ -3,7 +3,7 @@ const Agent = require('agentkeepalive');
 const { ResponseError } = require('../errorHandler');
 const { search } = require('../esRequest');
 const env = require('../../config');
-const { reduce } = require('./reduce');
+const { getRecords } = require('./recordLookup');
 const { queryReducer } = require('../../responseAdapter');
 
 const searchIndex = env.occurrence.index || 'occurrence';
@@ -81,8 +81,6 @@ async function query({
   sortOrder,
   checklistKey = env.defaultChecklist,
   shuffle,
-  fields,
-  idsOnly,
   req,
 }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
@@ -130,11 +128,8 @@ async function query({
     aggs,
   };
 
-  // Only ask Elasticsearch for the ID. The full records are looked up by key elsewhere, so there is
-  // no reason to have Elasticsearch read and send the (large) stored documents.
-  if (idsOnly) {
-    esQuery._source = ['gbifId'];
-  }
+  // The index only holds the IDs; the records are looked up in the v1 API below.
+  esQuery._source = ['gbifId'];
 
   if (shuffle) {
     delete esQuery.sort;
@@ -161,9 +156,10 @@ async function query({
 
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
-  body.hits.hits = idsOnly
-    ? body.hits.hits.map((n) => ({ key: n._source?.gbifId }))
-    : body.hits.hits.map((n) => reduce(n, fields));
+  body.hits.hits = await getRecords(
+    body.hits.hits.map((n) => n._source.gbifId),
+    req,
+  );
 
   return {
     esBody: esQuery,
@@ -190,38 +186,7 @@ async function suggest({ field, text = '', size = 8, req }) {
   return suggestions;
 }
 
-async function byKey({ key, req }) {
-  // Validate key: must be numeric and within the valid range for a long (max 9223372036854775807)
-  if (!/^\d+$/.test(key) || BigInt(key) > 9223372036854775807n) {
-    throw new ResponseError(404, 'notFound', 'Not found');
-  }
-  const query = {
-    size: 1,
-    query: {
-      bool: {
-        filter: {
-          term: {
-            gbifId: key,
-          },
-        },
-      },
-    },
-  };
-  let response = await search({ client, index: searchIndex, query, req });
-  let body = response.body;
-  const total = body.hits.total.value || body.hits.total; // really just while es versions change between 5 > 7
-  if (total === 1) {
-    return reduce(body.hits.hits[0]);
-  } else if (total > 1) {
-    // TODO log that an error has happened. there should not be 2 entries for ID
-    throw new ResponseError(503, 'serverError', 'The ID is not unique, more than one entry found.');
-  } else {
-    throw new ResponseError(404, 'notFound', 'Not found');
-  }
-}
-
 module.exports = {
   query,
-  byKey,
   suggest,
 };

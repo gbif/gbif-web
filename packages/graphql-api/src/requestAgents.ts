@@ -3,7 +3,7 @@ import { AgentOptions, Agent as HttpsAgent } from 'node:https';
 import { get } from 'lodash';
 import config from './config';
 
-export type PoolName = 'occurrence' | 'occurrenceRecord' | 'taxon' | 'default';
+export type PoolName = 'occurrence' | 'taxon' | 'default';
 
 function createGetAgentFn(httpsAgent: HttpsAgent, httpAgent: HttpAgent) {
   return (baseUrl: string, path: string) => {
@@ -54,10 +54,6 @@ export const getOccurrenceAgent = createGetAgentFn(
   occurrenceAgents.https,
   occurrenceAgents.http,
 );
-
-// Occurrence records looked up one by one by key in the v1 API (HBase backed).
-const occurrenceRecordAgents = makeAgents('occurrenceRecord');
-export const getOccurrenceRecordAgent = createGetAgentFn(occurrenceRecordAgents.https, occurrenceRecordAgents.http);
 
 const taxonAgents = makeAgents('taxon');
 export const getTaxonAgent = createGetAgentFn(

@@ -2,6 +2,8 @@ import { stringify } from 'qs';
 import { urlSizeLimit } from '@/helpers/utils-ts';
 import { getOccurrenceAgent } from '@/requestAgents';
 import QueuedRESTDataSource from '@/QueuedRESTDataSource';
+import { NotFoundError } from '@/helpers/GraphQL404Error';
+import v1ToOccurrence from './helpers/v1ToOccurrence';
 
 const MAX_RESULTS = 6000;
 
@@ -37,9 +39,6 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   async searchOccurrences({ query }) {
     const body = {
       ...query,
-      // Elasticsearch only gives us the IDs. The records are looked up by key in the v1 API
-      // (occurrenceRecordAPI) when results are actually asked for.
-      idsOnly: true,
       includeMeta: true,
       checklistKey: query?.checklistKey ?? this.config.defaultChecklist,
     };
@@ -61,9 +60,26 @@ class OccurrenceAPI extends QueuedRESTDataSource {
         enQueue: true,
       });
     }
-    response._predicate = body.predicate;
-    response._q = query.q;
-    return response;
+    // es-api returns the records as the v1 API serves them. Don't change the response in place: an
+    // identical request in the same GraphQL request gets the same object back.
+    return {
+      ...response,
+      documents: response.documents && {
+        ...response.documents,
+        results: (response.documents.results ?? []).map(v1ToOccurrence),
+      },
+      _predicate: body.predicate,
+      _q: query.q,
+    };
+  }
+
+  async getOccurrenceByKey({ key }) {
+    // Validate key: must be numeric and within the valid range for a long
+    if (!/^\d+$/.test(String(key)) || BigInt(key) > 9223372036854775807n) {
+      throw new NotFoundError();
+    }
+    const record = await this.get(`${this.config.apiv1}/occurrence/${key}`);
+    return v1ToOccurrence(record);
   }
 
   async getRelated({ key }) {
@@ -72,6 +88,10 @@ class OccurrenceAPI extends QueuedRESTDataSource {
 
   async getFragment({ key }) {
     return this.get(`${this.config.apiv1}/occurrence/${key}/fragment`);
+  }
+
+  async getVerbatim({ key }) {
+    return this.get(`${this.config.apiv1}/occurrence/${key}/verbatim`);
   }
 
   async meta({ query }) {
@@ -115,6 +135,14 @@ class OccurrenceAPI extends QueuedRESTDataSource {
   async searchCollections({ query }) {
     return this.get('/grscicoll/collection', stringify(query, { indices: false }));
   }
+
+  /*
+  getOccurrencesByKeys({ occurrenceKeys }) {
+    return Promise.all(
+      occurrenceKeys.map(key => this.getOccurrenceByKey({ key })),
+    );
+  }
+  */
 }
 
 export default OccurrenceAPI;

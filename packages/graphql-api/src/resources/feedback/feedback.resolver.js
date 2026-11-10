@@ -12,7 +12,7 @@ export default {
     feedbackOptions: (parent, { pageType, key }, { dataSources }) => {
       if (!pageType || !key) return null;
       if (pageType === 'occurrenceKey') {
-        return dataSources.occurrenceRecordAPI
+        return dataSources.occurrenceAPI
           .getOccurrenceByKey({ key })
           .then((occurrence) => {
             if (!occurrence) return null;

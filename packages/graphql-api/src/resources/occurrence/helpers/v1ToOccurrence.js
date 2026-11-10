@@ -1,7 +1,7 @@
 /**
- * Map an occurrence from the GBIF API v1 (`/occurrence/{key}`) to the shape the Occurrence GraphQL
- * type has always used. The type was written against the Elasticsearch document (see the es-api
- * occurrence reduce.js), so the v1 record needs a few adjustments:
+ * Map an occurrence from the GBIF API v1 (`/occurrence/{key}`, and the records es-api returns from
+ * search, which are in the same format) to the shape the Occurrence GraphQL type has always used.
+ * The type was written against the Elasticsearch document, so the v1 record needs a few adjustments:
  *
  * - multi-value fields come from v1 as one string joined by `|`; the schema has them as lists
  * - classifications is an object keyed by checklistKey in v1; the schema has a list
@@ -101,9 +101,9 @@ export default function v1ToOccurrence(record) {
   occurrence.issues = record.issues ?? [];
   occurrence.classifications = toClassifications(record.classifications);
   occurrence.nonTaxonomicIssues = getNonTaxonomicIssues(occurrence.issues, occurrence.classifications);
-  occurrence.nucleotideSequences = toNucleotideSequences(record.nucleotideSequence);
+  occurrence.nucleotideSequences = toNucleotideSequences(record.nucleotideSequence ?? record.nucleotideSequences);
   delete occurrence.nucleotideSequence;
-  occurrence.networkKey = record.networkKeys ?? [];
+  occurrence.networkKey = record.networkKeys ?? record.networkKey ?? [];
   delete occurrence.networkKeys;
 
   occurrence.media = record.media ?? [];

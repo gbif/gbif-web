@@ -243,7 +243,6 @@ if (occurrence) {
     temporaryAuthMiddleware,
     asyncMiddleware(searchResource(occurrence)),
   );
-  app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
 
   app.post('/occurrence/suggest/datasetKey', asyncMiddleware(occurrence.suggestDatasetKey));
   app.post('/occurrence/suggest/publisherKey', asyncMiddleware(occurrence.suggestPublisherKey));
@@ -334,7 +333,6 @@ function searchResource(resource, metaOnly = false) {
         from,
         shuffle,
         fields,
-        idsOnly,
         includeMeta,
         sortBy,
         checklistKey,
@@ -361,7 +359,6 @@ function searchResource(resource, metaOnly = false) {
         metrics,
         shuffle,
         fields,
-        idsOnly,
         sortBy,
         sortOrder,
         checklistKey,
@@ -411,7 +408,6 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       from = 0,
       shuffle,
       fields,
-      idsOnly,
       includeMeta = false,
       sortBy,
       sortOrder,
@@ -445,7 +441,6 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       from: intFrom,
       shuffle,
       fields,
-      idsOnly: idsOnly === true || idsOnly === 'true',
       includeMeta,
       sortBy,
       sortOrder,

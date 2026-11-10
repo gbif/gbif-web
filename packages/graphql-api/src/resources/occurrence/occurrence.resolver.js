@@ -247,7 +247,7 @@ export default {
     occurrencePublisherSuggest: (_parent, { predicate, q, size = 10 }, { dataSources }) => {
       return dataSources.occurrenceAPI.publisherSuggest({ predicate, q, size });
     },
-    occurrence: (_parent, { key }, { dataSources }) => dataSources.occurrenceRecordAPI.getOccurrenceByKey({ key }),
+    occurrence: (_parent, { key }, { dataSources }) => dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
     globe: async (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
       const roundedLat = Math.floor(pLat / 30) * 30;
       const simpleLat = Math.min(Math.max(roundedLat, -60), 60);
@@ -484,12 +484,12 @@ export default {
       });
     },
     groups: (occurrence, _args, { dataSources }) => {
-      return dataSources.occurrenceRecordAPI
+      return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => groupResolver({ occurrence, verbatim }));
     },
     terms: (occurrence, _args, { dataSources }) => {
-      return dataSources.occurrenceRecordAPI
+      return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => termResolver({ occurrence, verbatim }));
     },
@@ -502,7 +502,7 @@ export default {
     // that anyway for the terms, and the request is only made once)
     verbatimScientificName: async ({ key, verbatimScientificName }, _args, { dataSources }) => {
       if (typeof verbatimScientificName !== 'undefined') return verbatimScientificName;
-      const verbatim = await dataSources.occurrenceRecordAPI.getVerbatim({ key }).catch(ignore404);
+      const verbatim = await dataSources.occurrenceAPI.getVerbatim({ key }).catch(ignore404);
       return verbatim?.['http://rs.tdwg.org/dwc/terms/scientificName'] ?? null;
     },
     datasetTitle: async ({ datasetKey }, _args, { dataSources }) => {
@@ -594,15 +594,6 @@ export default {
     //     return dataSources.personAPI.getPersonByKey({ viaf: key });
     //   }
     // }
-  },
-  OccurrenceDocuments: {
-    // the search only returns the keys; look up the records that were actually asked for
-    results: ({ results }, _args, { dataSources }) => {
-      if (!Array.isArray(results) || results.length === 0) return [];
-      return dataSources.occurrenceRecordAPI.getOccurrencesByKeys({
-        keys: results.map((x) => x.key),
-      });
-    },
   },
   OccurrenceSearchResult: {
     documents: searchOccurrences,
@@ -920,7 +911,7 @@ export default {
   },
   RelatedOccurrence: {
     occurrence: (related, _args, { dataSources }) =>
-      dataSources.occurrenceRecordAPI
+      dataSources.occurrenceAPI
         .getOccurrenceByKey({
           key: related.occurrence.gbifId,
         })
@@ -938,7 +929,7 @@ export default {
   },
   RelatedCurrentOccurrence: {
     occurrence: (current, _args, { dataSources }) =>
-      dataSources.occurrenceRecordAPI.getOccurrenceByKey({
+      dataSources.occurrenceAPI.getOccurrenceByKey({
         key: current.gbifId,
       }),
     stub: (current) => current,

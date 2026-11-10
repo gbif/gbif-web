@@ -102,6 +102,15 @@ describe('v1ToOccurrence', () => {
     deepEqual(occurrence.nonTaxonomicIssues, []);
   });
 
+  it('gives the same result when run twice', () => {
+    const record = {
+      ...holotype,
+      nucleotideSequence: [{ nucleotideSequenceID: 'abc', sequence: 'ACGT', targetGene: 'COI' }],
+      license: 'http://creativecommons.org/licenses/by/4.0/legalcode',
+    };
+    deepEqual(v1ToOccurrence(v1ToOccurrence(record)), v1ToOccurrence(record));
+  });
+
   it('leaves values that are already lists alone', () => {
     deepEqual(splitMultiValue(['a', 'b']), ['a', 'b']);
     deepEqual(splitMultiValue(' a | | b '), ['a', 'b']);

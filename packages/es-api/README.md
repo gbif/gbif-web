@@ -39,7 +39,8 @@ The GET API mirrors the other GBIF APIs and adds a few extensions:
 - **`cardinality`** — distinct-value count, e.g. `cardinality=year`.
 - **Nested entities** — query a list of objects by ordered convention and a separator. For example, a list of authors can be queried by first and last name with `authors=Tim__Hansen`.
 - **`includeMeta=true`** — returns query metadata: the GET query, the predicate it was transformed into, and the resulting Elasticsearch query.
-- **`idsOnly=true`** — occurrence search only: each result is just `{ "key": <gbifId> }`. Elasticsearch is asked for the ID alone instead of the full stored document; look the records up by key in the GBIF API.
+
+Occurrence search: the index only holds the GBIF IDs. Each result is looked up by key in the GBIF API (`/v1/occurrence/{key}`) and returned exactly as that API serves it, in the same format as v1 occurrence search. Records the API no longer has are left out. The lookups share a process-wide limit, `occurrence.recordLookupConcurrency` in `.env` (default 50), with a timeout of `occurrence.recordLookupTimeout` ms (default 10000). There is no occurrence by-key endpoint; use `/v1/occurrence/{key}`.
 
 ### POST API (predicates)
 
