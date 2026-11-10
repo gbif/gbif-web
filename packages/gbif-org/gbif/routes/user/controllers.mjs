@@ -22,6 +22,7 @@ import {
   changeEmail as changeUserEmail,
   createDerivedDataset as createUserDerivedDataset,
   updateDerivedDataset as updateUserDerivedDataset,
+  userPathSegment,
 } from './user.model.mjs';
 import _ from 'lodash';
 import { decryptJSON } from './encrypt.mjs';
@@ -116,7 +117,7 @@ export function updateKnownPassword(req, res) {
  * Confirm email change request
  */
 export function changeEmail(req, res) {
-  changeUserEmail(req.body)
+  changeUserEmail(req.body, req.user.userName)
     .then(function () {
       return res.json({ type: 'EMAIL_CHANGED' });
     })
@@ -308,15 +309,13 @@ function handleError(res, statusCode = 500) {
 }
 
 export function showUserInRegistry(req, res) {
-  console.log(req.params.user);
-  console.log(req?.user);
   if (!req?.user?.email?.endsWith('@gbif.org')) {
     res.sendStatus(403); // this test doesn't matter much as the registry requires a login to show the data anyhow. But it does avoid leaking the username of the person creating the issue.
   } else {
     const userCode = req.params.user;
     try {
       const user = decryptJSON(userCode);
-      res.redirect(302, `${process.env.PUBLIC_REGISTRY}/user/${user.userName}`);
+      res.redirect(302, `${process.env.PUBLIC_REGISTRY}/user/${userPathSegment(user.userName)}`);
     } catch (err) {
       res.sendStatus(500);
     }
@@ -332,15 +331,17 @@ export function mailToUser(req, res) {
       const referer = req?.headers?.referer;
       if (!referer) {
         res.status(500);
-        res.send('No referer present. Perhaps you copy pasted the link or opened it in a new tab.');
+        return res.send(
+          'No referer present. Perhaps you copy pasted the link or opened it in a new tab.'
+        );
       }
       const issueNr = referer.substring(referer.lastIndexOf('/') + 1);
       const user = decryptJSON(userCode);
       const body = `There has been activity on the message you logged via the GBIF feedback system: ${referer}
-          
+
           You need a Github account to participate in the discussion.
           Did you know you can link your Github user profile to GBIF?
-          
+
           Thanks,
           GBIF Helpdesk`;
       res.redirect(

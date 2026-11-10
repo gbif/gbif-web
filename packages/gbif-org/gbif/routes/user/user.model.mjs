@@ -111,7 +111,7 @@ export async function confirm(challengeCode, userName) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-export async function changeEmail(body) {
+export async function changeEmail(body, userName) {
   try {
     let options = {
       method: 'PUT',
@@ -121,7 +121,7 @@ export async function changeEmail(body) {
       },
       url: apiConfig.userChangeEmail.url,
       canonicalPath: apiConfig.userChangeEmail.canonical,
-      userName: body.userName,
+      userName: userName,
     };
     let response = await authenticatedRequest(options);
     if (response.statusCode > 299) {
@@ -137,11 +137,15 @@ export async function changeEmail(body) {
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
 export async function update(userName, body) {
+  const userSegment = userPathSegment(userName);
+  if (body?.userName !== undefined && body.userName !== userName) {
+    throw new TypeError('user name in body does not match the user being updated');
+  }
   let options = {
     method: 'PUT',
     body: body,
-    url: apiConfig.userAdmin.url + userName,
-    canonicalPath: apiConfig.userAdmin.canonical + userName,
+    url: apiConfig.userAdmin.url + userSegment,
+    canonicalPath: apiConfig.userAdmin.canonical + userSegment,
   };
   let response = await authenticatedRequest(options);
   if (response.statusCode > 299) {
@@ -197,12 +201,20 @@ export async function updateForgottenPassword(body) {
 export async function getByUserName(userName) {
   let options = {
     method: 'GET',
-    url: apiConfig.userAdmin.url + userName,
+    url: apiConfig.userAdmin.url + userPathSegment(userName),
     json: true,
   };
   const response = await authenticatedRequest(options);
   if (response.statusCode !== 200) {
     throw response;
+  }
+  // The result is trusted as the logged-in user, so make sure it is the user we asked for.
+  if (response.body?.userName !== userName) {
+    logger.warn('Registry returned a different user than the one requested', {
+      requested: userName,
+      returned: response.body?.userName,
+    });
+    throw new Error('Registry returned a different user than the one requested');
   }
   return response.body;
 }
@@ -264,9 +276,10 @@ export async function createDownload(user, query, source) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-export async function cancelDownload({ key, type = 'OCCURRENCE', username }) {
+export async function cancelDownload({ key, type, username }) {
   ensureString(username, 'user name');
-  ensureString(key, 'download key');
+  key = downloadKeySegment(key);
+  type = downloadType(type);
 
   let url;
   if (type === 'EVENT') {
@@ -283,9 +296,10 @@ export async function cancelDownload({ key, type = 'OCCURRENCE', username }) {
   return authenticatedRequest(options);
 }
 
-export async function deleteDownload({ key, type = 'OCCURRENCE', username }) {
+export async function deleteDownload({ key, type, username }) {
   ensureString(username, 'user name');
-  ensureString(key, 'download key');
+  key = downloadKeySegment(key);
+  type = downloadType(type);
 
   const erasureDate = new Date().toISOString();
 
@@ -293,9 +307,10 @@ export async function deleteDownload({ key, type = 'OCCURRENCE', username }) {
   return updatedDownload;
 }
 
-export async function postponeDownloadDeletion({ key, type = 'OCCURRENCE', username }) {
+export async function postponeDownloadDeletion({ key, type, username }) {
   ensureString(username, 'user name');
-  ensureString(key, 'download key');
+  key = downloadKeySegment(key);
+  type = downloadType(type);
 
   let futureDate = new Date();
   futureDate.setDate(futureDate.getDate() + 365);
@@ -311,6 +326,8 @@ export async function postponeDownloadDeletion({ key, type = 'OCCURRENCE', usern
 }
 
 async function setDownloadErasureDate({ key, erasureDate, type, username }) {
+  key = downloadKeySegment(key);
+  type = downloadType(type);
   let download = await getDownload({ key, type, username });
   let url = apiConfig.occurrenceDownload.url + key;
 
@@ -339,7 +356,9 @@ async function setDownloadErasureDate({ key, erasureDate, type, username }) {
   return response.body;
 }
 
-async function getDownload({ key, type = 'OCCURRENCE', username }) {
+async function getDownload({ key, type, username }) {
+  key = downloadKeySegment(key);
+  type = downloadType(type);
   let url = apiConfig.occurrenceDownload.url + key;
   if (type === 'EVENT') {
     url = apiConfig.eventDownload.url + key;
@@ -376,7 +395,7 @@ export async function updateDerivedDataset(body, doi, userName) {
   const options = {
     method: 'PUT',
     body,
-    url: `${apiConfig.derivedDataset.url}/${doi}`,
+    url: `${apiConfig.derivedDataset.url}/${derivedDatasetDoiPath(doi)}`,
     canonicalPath: apiConfig.derivedDataset.canonical,
     userName,
   };
@@ -464,6 +483,63 @@ export function sanitizeUpdatedUser(user) {
       has_read_gdpr_terms: user.settings.has_read_gdpr_terms ?? 'false',
     },
   };
+}
+
+/**
+ * Turns a user name into a single path segment for the admin/user/ endpoints.
+ * Those requests are signed as the app, so the value must never be able to point the request at
+ * another admin endpoint: path separators, query and fragment markers, percent signs, control
+ * characters and dot segments are rejected, and everything else is URI-encoded.
+ */
+export function userPathSegment(userName) {
+  ensureString(userName, 'user name');
+  if (/[/\\?#%\u0000-\u001f\u007f]/.test(userName) || userName === '.' || userName === '..') {
+    throw new TypeError('user name contains characters that are not allowed');
+  }
+  return encodeURIComponent(userName);
+}
+
+/**
+ * Thrown when a value from the request can't be used to build an upstream URL. The controllers
+ * pass `statusCode` on to the client.
+ */
+export class InvalidInputError extends TypeError {
+  constructor(message) {
+    super(message);
+    this.statusCode = 400;
+  }
+}
+
+/**
+ * Download keys end up in app-signed requests, so only the real shape (`0012345-240626123714530`)
+ * is accepted. Anything else, like `..%2F..%2Fx` (Express decodes it), could point the request at
+ * another endpoint.
+ */
+export function downloadKeySegment(key) {
+  if (typeof key !== 'string' || !/^\d+-\d+$/.test(key)) {
+    throw new InvalidInputError('download key is not valid');
+  }
+  return key;
+}
+
+export function downloadType(type) {
+  if (type === undefined) return 'OCCURRENCE';
+  if (type !== 'OCCURRENCE' && type !== 'EVENT') {
+    throw new InvalidInputError('download type must be OCCURRENCE or EVENT');
+  }
+  return type;
+}
+
+/**
+ * A DOI has a slash that must stay a slash in the path, so prefix and suffix are checked and
+ * encoded separately. Dot segments are rejected as they would be resolved away by the URL parser.
+ */
+export function derivedDatasetDoiPath(doi) {
+  const match = typeof doi === 'string' ? /^(10\.\d{4,9})\/([^/\s]+)$/.exec(doi) : null;
+  if (!match || match[2] === '.' || match[2] === '..') {
+    throw new InvalidInputError('doi is not valid');
+  }
+  return `${encodeURIComponent(match[1])}/${encodeURIComponent(match[2])}`;
 }
 
 function ensureString(value, name) {

@@ -1,7 +1,7 @@
 import config from '@/config';
 import logger from '@/logger';
 import { ConfirmEndorsementDTO } from '.';
-import { authenticatedRequest } from '../helpers/gbifAuthRequest';
+import { authenticatedRequest, UnexpectedResponseError } from '../helpers/gbifAuthRequest';
 import { urlPath } from '@/helpers/urlPath';
 
 export type ConfirmEndorsmentResult =
@@ -35,7 +35,7 @@ export async function confirmEndorsement(
 
     // Handle failed to confirm organization
     if (confirmEndorsementResponse.statusCode !== 204) {
-      throw confirmEndorsementResponse;
+      throw new UnexpectedResponseError('Unexpected response when confirming endorsement', confirmEndorsementResponse);
     }
 
     return 'publisherConfirmedSuccessfully';

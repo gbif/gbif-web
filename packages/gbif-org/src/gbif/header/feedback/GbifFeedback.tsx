@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { useLocation } from 'react-router-dom';
 
 type PageType = {
-  type: 'occurrenceKey' | null;
+  type: 'occurrenceKey' | 'taxonKey' | null;
   key: string | null;
   id: string | null;
 };

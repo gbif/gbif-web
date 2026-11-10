@@ -157,6 +157,7 @@ export const Dataset = {
   description: ({ description }) => getHtml(description),
   purpose: ({ purpose }) => getHtml(purpose),
   acknowledgements: ({ acknowledgements }) => getHtml(acknowledgements),
+  additionalInfo: ({ additionalInfo }) => getHtml(additionalInfo),
   checklistBankDataset: ({ key }, args, { dataSources }) => {
     return dataSources.datasetAPI.getFromChecklistBank({ key });
   },

@@ -1,4 +1,4 @@
-import { getExcerpt, getOGImage } from '@/helpers/utils';
+import { getExcerpt, getHtml, getOGImage } from '@/helpers/utils';
 import { getCardinality, getFacet } from '../getQueryMetrics';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
 
@@ -38,6 +38,12 @@ export default {
     }),
   },
   Institution: {
+    description: (src, args, { locale }) =>
+      getHtml(src.description, {
+        trustLevel: 'untrusted',
+        wrapTables: true,
+        locale,
+      }),
     excerpt: ({ description }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({
@@ -103,6 +109,12 @@ export default {
   InstitutionSearchEntity: {
     thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
       getThumborUrl({ url, fitIn, width, height }),
+    description: (src, args, { locale }) =>
+      getHtml(src.description, {
+        trustLevel: 'untrusted',
+        wrapTables: true,
+        locale,
+      }),
     excerpt: ({ description }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({
