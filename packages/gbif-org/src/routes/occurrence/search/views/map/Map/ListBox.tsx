@@ -24,7 +24,7 @@ function ListItem({ id, item, onClick = () => {} }: ListItemProps) {
           {item.classification?.taxonMatch?.usage?.canonicalName ||
           item.classification?.usage?.name ? (
             <h4>
-              {item.classification?.taxonMatch?.usage?.canonicalName ??
+              {item.classification?.taxonMatch?.usage?.canonicalName ||
                 item.classification?.usage?.name}
             </h4>
           ) : (
