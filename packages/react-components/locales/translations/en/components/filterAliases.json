@@ -127,7 +127,7 @@
     "occurrenceCountry": "Coordinate accuracy invalid",
     "occurrenceId": "Coordinate accuracy invalid",
     "occurrenceIssue": "Coordinate accuracy invalid",
-    "occurrenceStatus": "present, absent, presence, absence",
+    "occurrenceStatus": "detected, not detected, present, absent, presence, absence",
     "occurrenceTaxonomicIssue": "Coordinate accuracy invalid",
     "openAccess": "free, public, oa",
     "organismId": "Coordinate accuracy invalid",
