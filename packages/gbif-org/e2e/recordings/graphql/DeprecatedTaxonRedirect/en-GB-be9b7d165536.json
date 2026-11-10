@@ -13,6 +13,21 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"speciesKey\":{\"taxonID\":\"gbif:5231190\",\"datasetKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\",\"colMatchId\":\"4DXXM\",\"taxon\":{\"related\":[{\"taxonID\":\"4DXXM\"}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "speciesKey": {
+        "taxonID": "gbif:5231190",
+        "datasetKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c",
+        "colMatchId": "4DXXM",
+        "taxon": {
+          "related": [
+            {
+              "taxonID": "4DXXM"
+            }
+          ]
+        }
+      }
+    }
+  }
 }

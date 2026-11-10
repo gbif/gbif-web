@@ -33,6 +33,1022 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":68505846},\"cardinality\":{\"total\":12},\"facet\":{\"results\":[{\"key\":8,\"count\":7959017,\"occurrences\":{\"metaPredicate\":-1936903370,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":8,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":8,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"8\"}}}]}}]}}]}}}}},{\"key\":5,\"count\":7929183,\"occurrences\":{\"metaPredicate\":-1936903367,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":5,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":5,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"5\"}}}]}}]}}]}}}}},{\"key\":6,\"count\":7775774,\"occurrences\":{\"metaPredicate\":-1936903364,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":6,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":6,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"6\"}}}]}}]}}]}}}}},{\"key\":7,\"count\":7760466,\"occurrences\":{\"metaPredicate\":-1936903365,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":7,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":7,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"7\"}}}]}}]}}]}}}}},{\"key\":9,\"count\":6851324,\"occurrences\":{\"metaPredicate\":-1936903371,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":9,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":9,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"9\"}}}]}}]}}]}}}}},{\"key\":4,\"count\":6561640,\"occurrences\":{\"metaPredicate\":-1936903366,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":4,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":4,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"4\"}}}]}}]}}]}}}}},{\"key\":10,\"count\":5608312,\"occurrences\":{\"metaPredicate\":-1936903853,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":10,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":10,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"10\"}}}]}}]}}]}}}}},{\"key\":3,\"count\":5087029,\"occurrences\":{\"metaPredicate\":-1936903361,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":3,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":3,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"3\"}}}]}}]}}]}}}}},{\"key\":2,\"count\":3395465,\"occurrences\":{\"metaPredicate\":-1936903360,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":2,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":2,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"2\"}}}]}}]}}]}}}}},{\"key\":1,\"count\":3363158,\"occurrences\":{\"metaPredicate\":-1936903363,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":1,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":1,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"1\"}}}]}}]}}]}}}}},{\"key\":11,\"count\":3212583,\"occurrences\":{\"metaPredicate\":-1936903890,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":11,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":11,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"11\"}}}]}}]}}]}}}}},{\"key\":12,\"count\":2221327,\"occurrences\":{\"metaPredicate\":-1936903891,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":12,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":12,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"12\"}}}]}}]}}]}}}}}]}},\"isNotNull\":{\"documents\":{\"total\":67725278}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 68505846
+        },
+        "cardinality": {
+          "total": 12
+        },
+        "facet": {
+          "results": [
+            {
+              "key": 8,
+              "count": 7959017,
+              "occurrences": {
+                "metaPredicate": -1936903370,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 8,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 8,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "8"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 5,
+              "count": 7929183,
+              "occurrences": {
+                "metaPredicate": -1936903367,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 5,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 5,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "5"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 6,
+              "count": 7775774,
+              "occurrences": {
+                "metaPredicate": -1936903364,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 6,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 6,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 7,
+              "count": 7760466,
+              "occurrences": {
+                "metaPredicate": -1936903365,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 7,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 7,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "7"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 9,
+              "count": 6851324,
+              "occurrences": {
+                "metaPredicate": -1936903371,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 9,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 9,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "9"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 4,
+              "count": 6561640,
+              "occurrences": {
+                "metaPredicate": -1936903366,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 4,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 4,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "4"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 10,
+              "count": 5608312,
+              "occurrences": {
+                "metaPredicate": -1936903853,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 10,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 10,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "10"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 3,
+              "count": 5087029,
+              "occurrences": {
+                "metaPredicate": -1936903361,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 3,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 3,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "3"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 2,
+              "count": 3395465,
+              "occurrences": {
+                "metaPredicate": -1936903360,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 2,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 2,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "2"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 1,
+              "count": 3363158,
+              "occurrences": {
+                "metaPredicate": -1936903363,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 1,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 1,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "1"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 11,
+              "count": 3212583,
+              "occurrences": {
+                "metaPredicate": -1936903890,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 11,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 11,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "11"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 12,
+              "count": 2221327,
+              "occurrences": {
+                "metaPredicate": -1936903891,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 12,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 12,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "12"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "isNotNull": {
+        "documents": {
+          "total": 67725278
+        }
+      }
+    }
+  }
 }

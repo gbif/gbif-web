@@ -5,6 +5,12 @@
   },
   "status": 200,
   "contentType": "application/json",
-  "encoding": "utf8",
-  "body": "{\"offset\":0,\"limit\":0,\"endOfRecords\":false,\"count\":36,\"results\":[]}"
+  "encoding": "json",
+  "body": {
+    "offset": 0,
+    "limit": 0,
+    "endOfRecords": false,
+    "count": 36,
+    "results": []
+  }
 }

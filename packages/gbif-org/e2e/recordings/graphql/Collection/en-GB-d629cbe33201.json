@@ -12,6 +12,66 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"collection\":{\"key\":\"85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9\",\"active\":true,\"code\":\"E\",\"name\":\"NHMA Entomology Collection\",\"description\":null,\"taxonomicCoverage\":null,\"geographicCoverage\":null,\"temporalCoverage\":null,\"notes\":null,\"homepage\":null,\"numberSpecimens\":null,\"incorporatedCollections\":[],\"contentTypes\":[],\"personalCollection\":false,\"email\":[],\"phone\":[],\"catalogUrls\":[],\"apiUrls\":[],\"preservationTypes\":[],\"accessionStatus\":null,\"featuredImageUrl\":null,\"featuredImageLicense\":null,\"featuredImageAttribution\":null,\"featuredImageUrl_fallback\":null,\"created\":\"2021-12-09T08:24:33.792+00:00\",\"deleted\":null,\"modified\":\"2021-12-09T09:44:19.188+00:00\",\"modifiedBy\":\"fedoras128\",\"replacedByCollection\":null,\"institutionKey\":\"59f46093-8fae-47f3-a9ef-e5fd1d38e4fe\",\"identifiers\":[],\"contactPersons\":[],\"alternativeCodes\":[],\"institution\":{\"code\":\"NHMA\",\"name\":\"Natural History Museum, Aarhus Denmark\",\"key\":\"59f46093-8fae-47f3-a9ef-e5fd1d38e4fe\"},\"mailingAddress\":{\"address\":null,\"city\":\"Aarhus\",\"province\":null,\"postalCode\":null,\"country\":\"DK\"},\"address\":{\"address\":null,\"city\":\"Aarhus\",\"province\":null,\"postalCode\":null,\"country\":\"DK\"},\"descriptorGroups\":{\"count\":0}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "collection": {
+        "key": "85d9c257-ce3f-47ca-8fe0-2e16e73cd3a9",
+        "active": true,
+        "code": "E",
+        "name": "NHMA Entomology Collection",
+        "description": null,
+        "taxonomicCoverage": null,
+        "geographicCoverage": null,
+        "temporalCoverage": null,
+        "notes": null,
+        "homepage": null,
+        "numberSpecimens": null,
+        "incorporatedCollections": [],
+        "contentTypes": [],
+        "personalCollection": false,
+        "email": [],
+        "phone": [],
+        "catalogUrls": [],
+        "apiUrls": [],
+        "preservationTypes": [],
+        "accessionStatus": null,
+        "featuredImageUrl": null,
+        "featuredImageLicense": null,
+        "featuredImageAttribution": null,
+        "featuredImageUrl_fallback": null,
+        "created": "2021-12-09T08:24:33.792+00:00",
+        "deleted": null,
+        "modified": "2021-12-09T09:44:19.188+00:00",
+        "modifiedBy": "fedoras128",
+        "replacedByCollection": null,
+        "institutionKey": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe",
+        "identifiers": [],
+        "contactPersons": [],
+        "alternativeCodes": [],
+        "institution": {
+          "code": "NHMA",
+          "name": "Natural History Museum, Aarhus Denmark",
+          "key": "59f46093-8fae-47f3-a9ef-e5fd1d38e4fe"
+        },
+        "mailingAddress": {
+          "address": null,
+          "city": "Aarhus",
+          "province": null,
+          "postalCode": null,
+          "country": "DK"
+        },
+        "address": {
+          "address": null,
+          "city": "Aarhus",
+          "province": null,
+          "postalCode": null,
+          "country": "DK"
+        },
+        "descriptorGroups": {
+          "count": 0
+        }
+      }
+    }
+  }
 }

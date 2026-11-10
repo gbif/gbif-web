@@ -14,6 +14,194 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"network\":{\"constituents\":{\"limit\":25,\"offset\":0,\"count\":3573,\"endOfRecords\":false,\"results\":[{\"key\":\"f5b4b6e5-a773-4453-a198-57f3f6b5abf2\",\"title\":\"Site fidelity of sentinel fish species in the Lower Fraser River\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Metro Vancouver Regional District (MVRD) Site fidelity of sentinel fish species in the Lower Fraser River, consisting of the release…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"3538206a-5f6f-4aa9-b6cb-ba9ee0c829fb\",\"title\":\"PROJECT LEMON AID - Lemon Shark Stock Assessment and Distribution in the Turks and Caicos Islands\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Sharks4Kids (S4K) PROJECT LEMON AID - Lemon Shark Stock Assessment and Distribution in the Turks and Caicos Islands, consisting of the…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"e575d83e-6fe6-4135-83f0-157c8f5239bf\",\"title\":\"Turks and Caicos Acoustic Telemetry (TCAT) Network\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Roots2Reef (R2R) Turks and Caicos Acoustic Telemetry (TCAT) Network, consisting of the release tagging metadata, i.e. the location and…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"25a53645-039a-4346-98a8-9e6c1e051b55\",\"title\":\"Tracking Migration and Habitat Use of Greenland Sharks (Somniosus microcephalus) from the Gulf of St.Lawrence to Nunavut\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and University of Quebec (UQAM) Tracking Migration and Habitat Use of Greenland Sharks (Somniosus microcephalus) from the Gulf of St.Lawrence…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"fbaea581-bf06-42ad-b8e3-5aa47b6398e4\",\"title\":\"Smallmouth bass invasion in Southwest Margaree River, Nova Scotia\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and University of Windsor (UWindsor) Smallmouth bass invasion in Southwest Margaree River, Nova Scotia, consisting of the release tagging…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"f143bb60-0383-4982-b952-54e6e807d7db\",\"title\":\"Using biotelemetry and underwater video within thermal refugia\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and University of Windsor (UWindsor) Using biotelemetry and underwater video within thermal refugia, consisting of the release tagging…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"4a55edd4-6b17-4939-817b-ca4010b85607\",\"title\":\"AXA Shark Array\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Anguilla National Trust (ANT) AXA Shark Array, consisting of the release tagging metadata, i.e. the location and date when the tagged…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"f96b4ca3-9917-4aab-9299-b7cb09d71d07\",\"title\":\"East River of Pictou Brook Trout\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Dalhousie University (DAL) East River of Pictou Brook Trout, consisting of the release tagging metadata, i.e. the location and date when…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"ea6d1012-3946-4be3-a63e-2f8eef70933e\",\"title\":\"Scottish Salmonid Tracking Project\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Marine Scotland Science (MSS)  Scottish Salmonid Tracking Project, consisting of the release tagging metadata, i.e. the location and date…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"8de15fc2-3e85-4d20-b2b6-79e02a133080\",\"title\":\"Mission Mjøsa, Research Track Water\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Norwegian University of Science and Technology (NTNU) Mission Mjøsa, Research Track Water, consisting of the release tagging metadata,…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"1fff9517-cdca-45af-bc08-76d655634fb4\",\"title\":\"Kennebecasis Basin Salmon Tracking\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Department of Fisheries and Oceans Canada (DFO)  Kennebecasis Basin Salmon Tracking, consisting of the release tagging metadata, i.e. the…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"e83355a1-4cab-4ee5-948a-89d1289d4a74\",\"title\":\"Atlantic salmon (Salmo salar) smolts originating from the Jacques-Cartier River\",\"excerpt\":\"This is the OBIS extraction of the Ocean Tracking Network and Corporation du bassin de la Jacques-Cartier (CBJC)  Atlantic salmon (Salmo salar) smolts originating from the Jacques-Cartier River,…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Ocean Tracking Network\"},{\"key\":\"2f3f4f17-14db-46f0-9b09-8dffde154886\",\"title\":\"East Australian Current Submarine Canyons, Sydney to Brisbane, Surface Water Data from 2024\",\"excerpt\":\"OceanOmics is an initiative enabled by Minderoo Foundation (Perth, Australia) and delivered in collaboration with the University of Western Australia (Perth, Australia) Oceans Institute via the…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Minderoo OceanOmics Centre at UWA\"},{\"key\":\"ae0e8265-6780-44d3-be20-9326d6abf504\",\"title\":\"Integrated macro- and megabenthic characterisation of the Weddell Sea - data\",\"excerpt\":\"This dataset describes 52 fish specimen occurrences collected during the PS118 expedition of RV Polarstern to the northwest Weddell Sea and Powell Basin, 5 March–1 April 2019. Specimens were…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"SCAR - AntOBIS\"},{\"key\":\"a4a6f151-296f-482a-810a-ba7151bb8055\",\"title\":\"Lionfish (Pterois) sightings at a mangrove margin, Container Point, St. Croix, U.S. Virgin Islands, 2026\",\"excerpt\":\"This dataset contains direct visual observations of invasive lionfish (genus Pterois) recorded during three active snorkel visual surveys (26 May, 9 June and 26 June 2026) along the red mangrove…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Caribbean Reef Fish Foundation\"},{\"key\":\"ab9b9204-580a-4e4d-b400-91275f74c20e\",\"title\":\"KRILLBASE-length frequency database, a compilation of scientific net sampling data on length, sex and maturity stage of Euphausia superba around the Southern Ocean, 1926 to 2016\",\"excerpt\":\"This data set is prepared from Atkinson et al. (2020), 'KRILLBASE-length frequency database, a compilation of scientific net sampling data on length, sex and maturity stage of Euphausia superba…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"UK Polar Data Centre\"},{\"key\":\"a00784c9-6aab-49a7-9beb-73fd39e53897\",\"title\":\"Non-native species introduced to Antarctica, 1911-2023\",\"excerpt\":\"This data set is prepared from Lee et al. (2024), 'Non-native species introduced to Antarctica, 1911-2023' (UK Polar Data Centre, https://doi.org/10.5285/afeb9f5e-bd69-4e3d-9d50-e935134f4c78). It…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"UK Polar Data Centre\"},{\"key\":\"2534af01-af6f-43a2-a8a4-db1e67b16035\",\"title\":\"Pan-Atlantic comparison of deep-water macrobenthos diversity collected by epibenthic sledge sampling and analysis of patterns and environmental drivers.\",\"excerpt\":\"This data set is prepared from Kuerzel et al. (2023), 'Pan-Atlantic comparison of deep-water macrobenthos diversity collected by epibenthic sledge sampling and analysis of patterns and environmental…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"UK Polar Data Centre\"},{\"key\":\"453186fa-b62a-4c52-b326-ca1f97856db3\",\"title\":\"1956-1960 Port Erin Marine Laboratory (PEML) Scallop mark recapture survey\",\"excerpt\":\"A scallop mark recapture survey completed by Port Erin Marine Laboratory.  The size and number of rings were recorded before spat were released and again on recapture at sites around the Isle of Man,…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Marine Biological Association\"},{\"key\":\"77d6c549-04fd-4aa9-a028-ccb0f48da5c4\",\"title\":\"Abundance of benthic microalgae  from the LEVABENTOX project 2024/2025\",\"excerpt\":\"The dataset LEVABENTOX contains the records of occurrence and abundance of 15 taxa of benthic microalgae from the classes Dinophyceae, Coscinodiscophyceae, Fragilariophyceae, and Cyanophyceae. The…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"Flanders Marine Institute\"},{\"key\":\"e871d6ea-4bda-4fa1-8826-7f23630404de\",\"title\":\"Deep sea hydrothermal vent habitats support gravid Antarctic krill - data\",\"excerpt\":\"This sampling-event dataset documents Antarctic krill, Euphausia superba Dana, 1850, collected using ROV SuBastian aboard R/V Falkor (too) during expedition FKt241214. Sampling took place at a…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"SCAR - AntOBIS\"},{\"key\":\"8dd3d45a-d113-472a-a0e4-9f3b019657b4\",\"title\":\"Biological samples collected using a vertical Bongo net and Van Veen grab during ANTARXXXI Leg 1 cruise (2024–2025)\",\"excerpt\":\"This dataset documents marine biological samples collected during ANTAR XXXI Leg 1, the first leg of the 31st Peruvian Scientific Expedition to Antarctica. The cruise was conducted aboard the BAP…\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"SCAR - AntOBIS\"},{\"key\":\"10524092-539d-4ea4-8539-2e91ad8581a9\",\"title\":\"CalCOFI October 2022 Vertebrate eDNA\",\"excerpt\":\"Samples used for this project were collected during a California Cooperative Oceanic Fisheries Investigations (CalCOFI) survey in October 2022. Samples were collected at 16 different stations in the…\",\"type\":\"OCCURRENCE\",\"publishingOrganizationTitle\":\"NOAA Ocean Exploration\"},{\"key\":\"f871c197-ac30-45f2-a121-6515ead1b787\",\"title\":\"Biodiversity at OBSEA seabed observatory 2025\",\"excerpt\":\"AI-processed underwater imagery from the OBSEA seabed observatory, using a YOLOv8x model to detect and analyze fish biodiversity in real time.\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"SARTI-MAR Research Group, Universitat Politècnica de Catalunya\"},{\"key\":\"39a2869e-8f5b-4862-9246-5546195b6559\",\"title\":\"Biodiversity at OBSEA seabed observatory 2020\",\"excerpt\":\"AI-processed underwater imagery from the OBSEA seabed observatory, using a YOLOv8x model to detect and analyze fish biodiversity in real time.\",\"type\":\"SAMPLING_EVENT\",\"publishingOrganizationTitle\":\"SARTI-MAR Research Group, Universitat Politècnica de Catalunya\"}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "network": {
+        "constituents": {
+          "limit": 25,
+          "offset": 0,
+          "count": 3573,
+          "endOfRecords": false,
+          "results": [
+            {
+              "key": "f5b4b6e5-a773-4453-a198-57f3f6b5abf2",
+              "title": "Site fidelity of sentinel fish species in the Lower Fraser River",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Metro Vancouver Regional District (MVRD) Site fidelity of sentinel fish species in the Lower Fraser River, consisting of the release…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "3538206a-5f6f-4aa9-b6cb-ba9ee0c829fb",
+              "title": "PROJECT LEMON AID - Lemon Shark Stock Assessment and Distribution in the Turks and Caicos Islands",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Sharks4Kids (S4K) PROJECT LEMON AID - Lemon Shark Stock Assessment and Distribution in the Turks and Caicos Islands, consisting of the…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "e575d83e-6fe6-4135-83f0-157c8f5239bf",
+              "title": "Turks and Caicos Acoustic Telemetry (TCAT) Network",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Roots2Reef (R2R) Turks and Caicos Acoustic Telemetry (TCAT) Network, consisting of the release tagging metadata, i.e. the location and…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "25a53645-039a-4346-98a8-9e6c1e051b55",
+              "title": "Tracking Migration and Habitat Use of Greenland Sharks (Somniosus microcephalus) from the Gulf of St.Lawrence to Nunavut",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and University of Quebec (UQAM) Tracking Migration and Habitat Use of Greenland Sharks (Somniosus microcephalus) from the Gulf of St.Lawrence…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "fbaea581-bf06-42ad-b8e3-5aa47b6398e4",
+              "title": "Smallmouth bass invasion in Southwest Margaree River, Nova Scotia",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and University of Windsor (UWindsor) Smallmouth bass invasion in Southwest Margaree River, Nova Scotia, consisting of the release tagging…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "f143bb60-0383-4982-b952-54e6e807d7db",
+              "title": "Using biotelemetry and underwater video within thermal refugia",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and University of Windsor (UWindsor) Using biotelemetry and underwater video within thermal refugia, consisting of the release tagging…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "4a55edd4-6b17-4939-817b-ca4010b85607",
+              "title": "AXA Shark Array",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Anguilla National Trust (ANT) AXA Shark Array, consisting of the release tagging metadata, i.e. the location and date when the tagged…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "f96b4ca3-9917-4aab-9299-b7cb09d71d07",
+              "title": "East River of Pictou Brook Trout",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Dalhousie University (DAL) East River of Pictou Brook Trout, consisting of the release tagging metadata, i.e. the location and date when…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "ea6d1012-3946-4be3-a63e-2f8eef70933e",
+              "title": "Scottish Salmonid Tracking Project",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Marine Scotland Science (MSS)  Scottish Salmonid Tracking Project, consisting of the release tagging metadata, i.e. the location and date…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "8de15fc2-3e85-4d20-b2b6-79e02a133080",
+              "title": "Mission Mjøsa, Research Track Water",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Norwegian University of Science and Technology (NTNU) Mission Mjøsa, Research Track Water, consisting of the release tagging metadata,…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "1fff9517-cdca-45af-bc08-76d655634fb4",
+              "title": "Kennebecasis Basin Salmon Tracking",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Department of Fisheries and Oceans Canada (DFO)  Kennebecasis Basin Salmon Tracking, consisting of the release tagging metadata, i.e. the…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "e83355a1-4cab-4ee5-948a-89d1289d4a74",
+              "title": "Atlantic salmon (Salmo salar) smolts originating from the Jacques-Cartier River",
+              "excerpt": "This is the OBIS extraction of the Ocean Tracking Network and Corporation du bassin de la Jacques-Cartier (CBJC)  Atlantic salmon (Salmo salar) smolts originating from the Jacques-Cartier River,…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Ocean Tracking Network"
+            },
+            {
+              "key": "2f3f4f17-14db-46f0-9b09-8dffde154886",
+              "title": "East Australian Current Submarine Canyons, Sydney to Brisbane, Surface Water Data from 2024",
+              "excerpt": "OceanOmics is an initiative enabled by Minderoo Foundation (Perth, Australia) and delivered in collaboration with the University of Western Australia (Perth, Australia) Oceans Institute via the…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Minderoo OceanOmics Centre at UWA"
+            },
+            {
+              "key": "ae0e8265-6780-44d3-be20-9326d6abf504",
+              "title": "Integrated macro- and megabenthic characterisation of the Weddell Sea - data",
+              "excerpt": "This dataset describes 52 fish specimen occurrences collected during the PS118 expedition of RV Polarstern to the northwest Weddell Sea and Powell Basin, 5 March–1 April 2019. Specimens were…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "SCAR - AntOBIS"
+            },
+            {
+              "key": "a4a6f151-296f-482a-810a-ba7151bb8055",
+              "title": "Lionfish (Pterois) sightings at a mangrove margin, Container Point, St. Croix, U.S. Virgin Islands, 2026",
+              "excerpt": "This dataset contains direct visual observations of invasive lionfish (genus Pterois) recorded during three active snorkel visual surveys (26 May, 9 June and 26 June 2026) along the red mangrove…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Caribbean Reef Fish Foundation"
+            },
+            {
+              "key": "ab9b9204-580a-4e4d-b400-91275f74c20e",
+              "title": "KRILLBASE-length frequency database, a compilation of scientific net sampling data on length, sex and maturity stage of Euphausia superba around the Southern Ocean, 1926 to 2016",
+              "excerpt": "This data set is prepared from Atkinson et al. (2020), 'KRILLBASE-length frequency database, a compilation of scientific net sampling data on length, sex and maturity stage of Euphausia superba…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "UK Polar Data Centre"
+            },
+            {
+              "key": "a00784c9-6aab-49a7-9beb-73fd39e53897",
+              "title": "Non-native species introduced to Antarctica, 1911-2023",
+              "excerpt": "This data set is prepared from Lee et al. (2024), 'Non-native species introduced to Antarctica, 1911-2023' (UK Polar Data Centre, https://doi.org/10.5285/afeb9f5e-bd69-4e3d-9d50-e935134f4c78). It…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "UK Polar Data Centre"
+            },
+            {
+              "key": "2534af01-af6f-43a2-a8a4-db1e67b16035",
+              "title": "Pan-Atlantic comparison of deep-water macrobenthos diversity collected by epibenthic sledge sampling and analysis of patterns and environmental drivers.",
+              "excerpt": "This data set is prepared from Kuerzel et al. (2023), 'Pan-Atlantic comparison of deep-water macrobenthos diversity collected by epibenthic sledge sampling and analysis of patterns and environmental…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "UK Polar Data Centre"
+            },
+            {
+              "key": "453186fa-b62a-4c52-b326-ca1f97856db3",
+              "title": "1956-1960 Port Erin Marine Laboratory (PEML) Scallop mark recapture survey",
+              "excerpt": "A scallop mark recapture survey completed by Port Erin Marine Laboratory.  The size and number of rings were recorded before spat were released and again on recapture at sites around the Isle of Man,…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Marine Biological Association"
+            },
+            {
+              "key": "77d6c549-04fd-4aa9-a028-ccb0f48da5c4",
+              "title": "Abundance of benthic microalgae  from the LEVABENTOX project 2024/2025",
+              "excerpt": "The dataset LEVABENTOX contains the records of occurrence and abundance of 15 taxa of benthic microalgae from the classes Dinophyceae, Coscinodiscophyceae, Fragilariophyceae, and Cyanophyceae. The…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "Flanders Marine Institute"
+            },
+            {
+              "key": "e871d6ea-4bda-4fa1-8826-7f23630404de",
+              "title": "Deep sea hydrothermal vent habitats support gravid Antarctic krill - data",
+              "excerpt": "This sampling-event dataset documents Antarctic krill, Euphausia superba Dana, 1850, collected using ROV SuBastian aboard R/V Falkor (too) during expedition FKt241214. Sampling took place at a…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "SCAR - AntOBIS"
+            },
+            {
+              "key": "8dd3d45a-d113-472a-a0e4-9f3b019657b4",
+              "title": "Biological samples collected using a vertical Bongo net and Van Veen grab during ANTARXXXI Leg 1 cruise (2024–2025)",
+              "excerpt": "This dataset documents marine biological samples collected during ANTAR XXXI Leg 1, the first leg of the 31st Peruvian Scientific Expedition to Antarctica. The cruise was conducted aboard the BAP…",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "SCAR - AntOBIS"
+            },
+            {
+              "key": "10524092-539d-4ea4-8539-2e91ad8581a9",
+              "title": "CalCOFI October 2022 Vertebrate eDNA",
+              "excerpt": "Samples used for this project were collected during a California Cooperative Oceanic Fisheries Investigations (CalCOFI) survey in October 2022. Samples were collected at 16 different stations in the…",
+              "type": "OCCURRENCE",
+              "publishingOrganizationTitle": "NOAA Ocean Exploration"
+            },
+            {
+              "key": "f871c197-ac30-45f2-a121-6515ead1b787",
+              "title": "Biodiversity at OBSEA seabed observatory 2025",
+              "excerpt": "AI-processed underwater imagery from the OBSEA seabed observatory, using a YOLOv8x model to detect and analyze fish biodiversity in real time.",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "SARTI-MAR Research Group, Universitat Politècnica de Catalunya"
+            },
+            {
+              "key": "39a2869e-8f5b-4862-9246-5546195b6559",
+              "title": "Biodiversity at OBSEA seabed observatory 2020",
+              "excerpt": "AI-processed underwater imagery from the OBSEA seabed observatory, using a YOLOv8x model to detect and analyze fish biodiversity in real time.",
+              "type": "SAMPLING_EVENT",
+              "publishingOrganizationTitle": "SARTI-MAR Research Group, Universitat Politècnica de Catalunya"
+            }
+          ]
+        }
+      }
+    }
+  }
 }

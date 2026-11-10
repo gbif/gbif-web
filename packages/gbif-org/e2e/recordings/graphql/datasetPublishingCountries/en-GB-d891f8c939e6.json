@@ -21,6 +21,103 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"publishingCountry\":[{\"key\":\"US\",\"count\":144486862},{\"key\":\"CA\",\"count\":8221690},{\"key\":\"AU\",\"count\":5061150},{\"key\":\"GB\",\"count\":3414528},{\"key\":\"MX\",\"count\":3380132},{\"key\":\"NZ\",\"count\":1969869},{\"key\":\"TW\",\"count\":1020313},{\"key\":\"AR\",\"count\":966428},{\"key\":\"PT\",\"count\":797749},{\"key\":\"ES\",\"count\":624464},{\"key\":\"FI\",\"count\":553920},{\"key\":\"CO\",\"count\":393026},{\"key\":\"LU\",\"count\":333263},{\"key\":\"EC\",\"count\":307790},{\"key\":\"CL\",\"count\":289433},{\"key\":\"SE\",\"count\":231413},{\"key\":\"CR\",\"count\":184470},{\"key\":\"GR\",\"count\":148044},{\"key\":\"PA\",\"count\":134112},{\"key\":\"IL\",\"count\":120408},{\"key\":\"UY\",\"count\":82882},{\"key\":\"GT\",\"count\":38532}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "facet": {
+          "publishingCountry": [
+            {
+              "key": "US",
+              "count": 144486862
+            },
+            {
+              "key": "CA",
+              "count": 8221690
+            },
+            {
+              "key": "AU",
+              "count": 5061150
+            },
+            {
+              "key": "GB",
+              "count": 3414528
+            },
+            {
+              "key": "MX",
+              "count": 3380132
+            },
+            {
+              "key": "NZ",
+              "count": 1969869
+            },
+            {
+              "key": "TW",
+              "count": 1020313
+            },
+            {
+              "key": "AR",
+              "count": 966428
+            },
+            {
+              "key": "PT",
+              "count": 797749
+            },
+            {
+              "key": "ES",
+              "count": 624464
+            },
+            {
+              "key": "FI",
+              "count": 553920
+            },
+            {
+              "key": "CO",
+              "count": 393026
+            },
+            {
+              "key": "LU",
+              "count": 333263
+            },
+            {
+              "key": "EC",
+              "count": 307790
+            },
+            {
+              "key": "CL",
+              "count": 289433
+            },
+            {
+              "key": "SE",
+              "count": 231413
+            },
+            {
+              "key": "CR",
+              "count": 184470
+            },
+            {
+              "key": "GR",
+              "count": 148044
+            },
+            {
+              "key": "PA",
+              "count": 134112
+            },
+            {
+              "key": "IL",
+              "count": 120408
+            },
+            {
+              "key": "UY",
+              "count": 82882
+            },
+            {
+              "key": "GT",
+              "count": 38532
+            }
+          ]
+        }
+      }
+    }
+  }
 }

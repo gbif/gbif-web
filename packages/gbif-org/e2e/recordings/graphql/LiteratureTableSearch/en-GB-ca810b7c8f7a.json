@@ -20,6 +20,2979 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"literatureSearch\":{\"documents\":{\"from\":0,\"size\":50,\"total\":29573,\"results\":[{\"id\":\"6804f439-fdd8-3687-acec-afb40e8b20e2\",\"title\":\"Predicting future Human-Wildlife conflict Zones: A process-oriented framework integrating climate connectivity and species distribution modelling\",\"authors\":[{\"firstName\":\"Yafang\",\"lastName\":\"Wang\"},{\"firstName\":\"Qiyao\",\"lastName\":\"Han\"},{\"firstName\":\"Shuyan\",\"lastName\":\"Liu\"},{\"firstName\":\"Shili\",\"lastName\":\"Zhang\"},{\"firstName\":\"Long\",\"lastName\":\"Jin\"},{\"firstName\":\"Sicheng\",\"lastName\":\"Mou\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.landurbplan.2026.105714\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Landscape and Urban Planning\",\"topics\":[\"CLIMATE_CHANGE\",\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.1016/j.landurbplan.2026.105714\"]},{\"id\":\"02e3e24e-06d6-3898-a997-5867d71b8425\",\"title\":\"Safeguarding biodiversity from renewable energy development in China\",\"authors\":[{\"firstName\":\"Runjia\",\"lastName\":\"Yang\"},{\"firstName\":\"Kechao\",\"lastName\":\"Wang\"},{\"firstName\":\"Sucheng\",\"lastName\":\"Xu\"},{\"firstName\":\"Wu\",\"lastName\":\"Xiao\"},{\"firstName\":\"Yanmei\",\"lastName\":\"Ye\"},{\"firstName\":\"Thomas\",\"lastName\":\"Harwood\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\",\"GB\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.jclepro.2026.148679\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Journal of Cleaner Production\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1016/j.jclepro.2026.148679\"]},{\"id\":\"7d2c2d43-1fe0-3f8f-b679-b319b370efbf\",\"title\":\"Urban Tolerance of Orthoptera Is Strongly Related to National Red List Status and Population Trends\",\"authors\":[{\"firstName\":\"Nadja\",\"lastName\":\"Pernat\"},{\"firstName\":\"Sascha\",\"lastName\":\"Buchholz\"},{\"firstName\":\"Jens\",\"lastName\":\"Schirmel\"}],\"countriesOfCoverage\":[\"DE\"],\"countriesOfResearcher\":[\"DE\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1111/ddi.70223\"},\"gbifDOIs\":[\"10.15468/dl.bbetgy\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Diversity and Distributions\",\"topics\":[\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.1111/ddi.70223\"]},{\"id\":\"0c832a7b-f996-36a9-8314-712ed02f1838\",\"title\":\"Evidence-based conservation recommendations for the recovery of one of Europe’s most threatened butterflies: the Nevada Grayling (Pseudochazara williamsi)\",\"authors\":[{\"firstName\":\"José Miguel\",\"lastName\":\"Barea-Azcón\"},{\"firstName\":\"Javier\",\"lastName\":\"Olivares\"},{\"firstName\":\"Sam\",\"lastName\":\"Ellis\"},{\"firstName\":\"Martin\",\"lastName\":\"Davies\"},{\"firstName\":\"Harry E.\",\"lastName\":\"Clarke\"},{\"firstName\":\"Jesús\",\"lastName\":\"Río\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"GB\",\"ES\",\"NL\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s10841-026-00787-8\"},\"gbifDOIs\":[\"10.15468/dl.f8f2q4\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Journal of Insect Conservation\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/s10841-026-00787-8\"]},{\"id\":\"e62c3722-12a7-30cb-9e23-dd70c7f41e59\",\"title\":\"Impact of global change on the distribution of mountain mammals and birds\",\"authors\":[{\"firstName\":\"Chiara\",\"lastName\":\"Dragonetti\"},{\"firstName\":\"Wilfried\",\"lastName\":\"Thuiller\"},{\"firstName\":\"Maya\",\"lastName\":\"Guéguen\"},{\"firstName\":\"Julien\",\"lastName\":\"Renaud\"},{\"firstName\":\"Piero\",\"lastName\":\"Visconti\"},{\"firstName\":\"Moreno Di\",\"lastName\":\"Marco\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"AT\",\"IT\",\"FR\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1111/cobi.70339\"},\"gbifDOIs\":[\"10.15468/dl.2kffec\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Conservation Biology\",\"topics\":[\"CLIMATE_CHANGE\",\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1111/cobi.70339\"]},{\"id\":\"c126fc11-d97f-3a9f-899a-9808275cc1ab\",\"title\":\"Distribution pattern, population characteristics and threat status assessment of Indian wild orange (Citrus indica Tanaka) using IUCN regional guidelines\",\"authors\":[{\"firstName\":\"Bhavya Priyadarshini\",\"lastName\":\"Mishra\"},{\"firstName\":\"Aakash\",\"lastName\":\"Maurya\"},{\"firstName\":\"M. R. Ranjith\",\"lastName\":\"Layola\"},{\"firstName\":\"Konickal Mambetta\",\"lastName\":\"Prabhukumar\"},{\"firstName\":\"Tikam Singh\",\"lastName\":\"Rana\"}],\"countriesOfCoverage\":[\"IN\"],\"countriesOfResearcher\":[\"IN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s43538-026-00790-2\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Proceedings of the Indian National Science Academy\",\"topics\":[\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.1007/s43538-026-00790-2\"]},{\"id\":\"c41927f9-3c1e-3912-b1a8-4b18ac2a6e48\",\"title\":\"Identification of potential suitable habitats and high conservation value areas for threatened species in Rajah Sikatuna Protected Landscape, Philippines\",\"authors\":[{\"firstName\":\"Wilbert A.\",\"lastName\":\"Aureo\"},{\"firstName\":\"Cristino L.\",\"lastName\":\"Tiburan Jr.\"},{\"firstName\":\"Eduardo C.\",\"lastName\":\"Calzeta\"},{\"firstName\":\"Ireneo L.\",\"lastName\":\"Lit Jr.\"},{\"firstName\":\"Yingwei\",\"lastName\":\"Yan\"},{\"firstName\":\"David Mark\",\"lastName\":\"Taylor\"},{\"firstName\":\"Rico C.\",\"lastName\":\"Ancog\"}],\"countriesOfCoverage\":[\"PH\"],\"countriesOfResearcher\":[\"SG\",\"PH\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.3897/oneeco.11.e184595\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"One Ecosystem\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.3897/oneeco.11.e184595\"]},{\"id\":\"f86ef895-3785-3d32-b5d5-53947e54495d\",\"title\":\"A bioblitz approach to assessing biodiversity in Newfoundland's terrestrial publicly nominated protected areas\",\"authors\":[{\"firstName\":\"Lena\",\"lastName\":\"Dietz Chiasson\"}],\"countriesOfCoverage\":[\"CA\"],\"countriesOfResearcher\":[\"CA\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.48336/438\"},\"gbifDOIs\":[\"10.15468/dl.j3d8gf\"],\"literatureType\":\"thesis\",\"relevance\":[\"GBIF_USED\"],\"source\":null,\"topics\":[\"CITIZEN_SCIENCE\",\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.48336/438\"]},{\"id\":\"9246f954-d801-32b4-8b15-bc99b955a213\",\"title\":\"The central-marginal hypothesis reveals genetic diversity patterns and population structure of the critically endangered marine living fossil Carcinoscorpius rotundicauda in Asian seas\",\"authors\":[{\"firstName\":\"Jian\",\"lastName\":\"Liao\"},{\"firstName\":\"Ying\",\"lastName\":\"Qiao\"},{\"firstName\":\"Yang\",\"lastName\":\"Li\"},{\"firstName\":\"Mai\",\"lastName\":\"Tong\"},{\"firstName\":\"Xi\",\"lastName\":\"Zheng\"},{\"firstName\":\"Shuiyuan\",\"lastName\":\"Zhang\"},{\"firstName\":\"Xiaowan\",\"lastName\":\"Ma\"},{\"firstName\":\"Yusong\",\"lastName\":\"Guo\"},{\"firstName\":\"Xuefeng\",\"lastName\":\"Wang\"},{\"firstName\":\"Zhongduo\",\"lastName\":\"Wang\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s00343-026-5461-5\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Journal of Oceanology and Limnology\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\",\"MARINE\"],\"websites\":[\"https://doi.org/10.1007/s00343-026-5461-5\"]},{\"id\":\"7ddc62ec-0cd2-3584-8b89-0224748b1f58\",\"title\":\"A Multi‐Factor Habitat Suitability Model for Asian Elephants in the Greater Mekong Subregion: Effects of Vegetation and Climate\",\"authors\":[{\"firstName\":\"Churui\",\"lastName\":\"Li\"},{\"firstName\":\"Xiaorui\",\"lastName\":\"Wang\"},{\"firstName\":\"ZhenPing\",\"lastName\":\"Qiang\"},{\"firstName\":\"Yongjing\",\"lastName\":\"Tang\"},{\"firstName\":\"Song\",\"lastName\":\"Yang\"},{\"firstName\":\"Chenglong\",\"lastName\":\"Luo\"},{\"firstName\":\"Xiaoyun\",\"lastName\":\"Tu\"},{\"firstName\":\"Shuang\",\"lastName\":\"Zhang\"},{\"firstName\":\"Yuting\",\"lastName\":\"Xia\"},{\"firstName\":\"Lanzhong\",\"lastName\":\"Zhang\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1002/ece3.73793\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Ecology and Evolution\",\"topics\":[\"CLIMATE_CHANGE\",\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.1002/ece3.73793\"]},{\"id\":\"285b50da-76ea-3874-8085-c6ef3f08008b\",\"title\":\"Global Characterization of Sea Turtle Ecological Traps under Compound Marine Heatwaves and Microplastics\",\"authors\":[{\"firstName\":\"Hao\",\"lastName\":\"Liu\"},{\"firstName\":\"Yiling\",\"lastName\":\"Zhong\"},{\"firstName\":\"Zehou\",\"lastName\":\"Li\"},{\"firstName\":\"Kai\",\"lastName\":\"Hu\"},{\"firstName\":\"Xiangang\",\"lastName\":\"Hu\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1021/acs.est.6c02104\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Environmental Science & Technology\",\"topics\":[\"CLIMATE_CHANGE\",\"CONSERVATION\",\"ECOLOGY\",\"MARINE\"],\"websites\":[\"https://doi.org/10.1021/acs.est.6c02104\"]},{\"id\":\"b1d87e90-91d2-3c49-828f-e899677941b4\",\"title\":\"Short-term resilience, seasonal variability, and reduced contemporary diversity in a central Texas moth fauna (Lepidoptera)\",\"authors\":[{\"firstName\":\"Valarie L\",\"lastName\":\"Gabbard\"},{\"firstName\":\"James\",\"lastName\":\"Gillaspy\"},{\"firstName\":\"Jane E\",\"lastName\":\"Strobel\"},{\"firstName\":\"Briseida E\",\"lastName\":\"Yáñez\"},{\"firstName\":\"Karalee A\",\"lastName\":\"Corbeil\"},{\"firstName\":\"Lawrence E\",\"lastName\":\"Gilbert\"},{\"firstName\":\"Kenneth P\",\"lastName\":\"Wray\"},{\"firstName\":\"Steven\",\"lastName\":\"Gibson\"},{\"firstName\":\"Robert M\",\"lastName\":\"Plowes\"},{\"firstName\":\"Alex\",\"lastName\":\"Wild\"},{\"firstName\":\"Rossana\",\"lastName\":\"Maguiña-Conde\"}],\"countriesOfCoverage\":[\"US\"],\"countriesOfResearcher\":[\"US\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1093/ee/nvag053\"},\"gbifDOIs\":[\"10.15468/sanyq7\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_CITED\"],\"source\":\"Environmental Entomology\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\"],\"websites\":[\"https://doi.org/10.1093/ee/nvag053\"]},{\"id\":\"c5b86b21-2ff7-378d-9f7d-37fc5107a136\",\"title\":\"Synthetic biology as a game-changer for endangered medicinal orchids: biosynthesis, engineering and conservation\",\"authors\":[{\"firstName\":\"Lin\",\"lastName\":\"Qiu\"},{\"firstName\":\"Xianghui\",\"lastName\":\"Chen\"},{\"firstName\":\"Zhan\",\"lastName\":\"Luo\"},{\"firstName\":\"Min\",\"lastName\":\"Jiang\"},{\"firstName\":\"Hu\",\"lastName\":\"Chen\"},{\"firstName\":\"Biyu\",\"lastName\":\"Hou\"},{\"firstName\":\"Haizheng\",\"lastName\":\"Yu\"},{\"firstName\":\"Ning\",\"lastName\":\"Li\"},{\"firstName\":\"Lei\",\"lastName\":\"Zhang\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1039/d6np00027d\"},\"gbifDOIs\":[\"10.15468/dl.nhr959\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_CITED\"],\"source\":\"Natural Product Reports\",\"topics\":[\"CONSERVATION\",\"HUMAN_HEALTH\"],\"websites\":[\"https://doi.org/10.1039/d6np00027d\"]},{\"id\":\"e25c4e53-4bf1-34b1-8f48-3c3cb0169d7b\",\"title\":\"Ninety-year trends reveal sharpest insect declines in the mid-twentieth century\",\"authors\":[{\"firstName\":\"Felix\",\"lastName\":\"Neff\"},{\"firstName\":\"Kurt\",\"lastName\":\"Bollmann\"},{\"firstName\":\"Yannick\",\"lastName\":\"Chittaro\"},{\"firstName\":\"Martin M.\",\"lastName\":\"Gossner\"},{\"firstName\":\"Felix\",\"lastName\":\"Herzog\"},{\"firstName\":\"Fränzi\",\"lastName\":\"Korner-Nievergelt\"},{\"firstName\":\"Glenn\",\"lastName\":\"Litsios\"},{\"firstName\":\"Carlos\",\"lastName\":\"Martínez-Núñez\"},{\"firstName\":\"Marco\",\"lastName\":\"Moretti\"},{\"firstName\":\"Emmanuel\",\"lastName\":\"Rey\"},{\"firstName\":\"Andreas\",\"lastName\":\"Sanchez\"},{\"firstName\":\"Eva\",\"lastName\":\"Knop\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"CH\",\"ES\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1038/s41559-026-03074-6\"},\"gbifDOIs\":[\"10.15468/atyl1j\",\"10.15468/cjmjy2\",\"10.15468/dl.mak332\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Nature Ecology & Evolution\",\"topics\":[\"CONSERVATION\",\"BIODIVERSITY_SCIENCE\"],\"websites\":[\"https://doi.org/10.1038/s41559-026-03074-6\"]},{\"id\":\"ee6f8df8-3dd4-3603-88d6-3a8ae3d448f0\",\"title\":\"Population, expanded distribution, and conservation of the Sumatran endemic tree Magnolia sumatrae (Dandy) Figlar &; Noot.\",\"authors\":[{\"firstName\":\"Zulfan\",\"lastName\":\"Arico\"},{\"firstName\":\"Wendy A.\",\"lastName\":\"Mustaqim\"},{\"firstName\":\"Aryo Adhi\",\"lastName\":\"Condro\"},{\"firstName\":\"Angga\",\"lastName\":\"Yudaputra\"},{\"firstName\":\"Dipta S.\",\"lastName\":\"Rinandio\"},{\"firstName\":\"Jean\",\"lastName\":\"Linsky\"},{\"firstName\":\"Enggal\",\"lastName\":\"Primananda\"},{\"firstName\":\"Iyan\",\"lastName\":\"Robiansyah\"}],\"countriesOfCoverage\":[\"ID\"],\"countriesOfResearcher\":[\"ID\",\"US\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.3897/natureconservation.64.172897\"},\"gbifDOIs\":[\"10.15468/dl.67qagy\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Nature Conservation\",\"topics\":[\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.3897/natureconservation.64.172897\"]},{\"id\":\"514f5c0b-0f7a-3a09-8cf8-429ba34cd132\",\"title\":\"Modelling the environmental suitability of dominant mangrove species in the Sundarbans using Maxent\",\"authors\":[{\"firstName\":\"Mohammad Shamim Hasan\",\"lastName\":\"Mandal\"},{\"firstName\":\"Abdullah-Al-Nomaan\",\"lastName\":\"Khan\"},{\"firstName\":\"Md.\",\"lastName\":\"Kamruzzaman\"},{\"firstName\":\"Tetsuro\",\"lastName\":\"Hosaka\"}],\"countriesOfCoverage\":[\"BD\"],\"countriesOfResearcher\":[\"BD\",\"JP\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.3759/tropics.simm04\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Tropics\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.3759/tropics.simm04\"]},{\"id\":\"705b0775-4c87-39aa-843f-6ee479992043\",\"title\":\"Integrating climate and wetland projections reveals hidden risks for greater flamingo conservation\",\"authors\":[{\"firstName\":\"Mustafa Cemal\",\"lastName\":\"Darılmaz\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"TR\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s43388-026-00332-w\"},\"gbifDOIs\":[\"10.15468/dl.hdwmac\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Ornithology Research\",\"topics\":[\"CLIMATE_CHANGE\",\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/s43388-026-00332-w\"]},{\"id\":\"13b8edc8-9b21-365c-9303-e3378f881692\",\"title\":\"Closing biodiversity data gaps is essential for monitoring Wetlands of International Importance [Policy Brief]\",\"authors\":[{\"firstName\":\"Yanina V.\",\"lastName\":\"Sica\"},{\"firstName\":\"Shawn\",\"lastName\":\"Dove\"},{\"firstName\":\"Hanno\",\"lastName\":\"Seebens\"},{\"firstName\":\"Andrew\",\"lastName\":\"Rodrigues\"},{\"firstName\":\"Filip\",\"lastName\":\"Aggestam\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[],\"year\":2026,\"identifiers\":{\"doi\":\"10.5281/zenodo.21506165\"},\"gbifDOIs\":[\"10.15468/dl.je5pet\",\"10.15468/dl.msj7xs\"],\"literatureType\":\"report\",\"relevance\":[\"GBIF_USED\"],\"source\":null,\"topics\":[\"CONSERVATION\",\"BIODIVERSITY_SCIENCE\",\"ECOLOGY\"],\"websites\":[\"https://doi.org/10.5281/zenodo.21506165\"]},{\"id\":\"38958c0b-0bfd-37b8-bad6-fb12b9385f44\",\"title\":\"D6.1 Biodiversity change\",\"authors\":[{\"firstName\":\"Shawn\",\"lastName\":\"Dove\"},{\"firstName\":\"Yanina V.\",\"lastName\":\"Sica\"},{\"firstName\":\"Maarten\",\"lastName\":\"Trekels\"},{\"firstName\":\"Hanno\",\"lastName\":\"Seebens\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[],\"year\":2026,\"identifiers\":null,\"gbifDOIs\":[\"10.15468/dl.je5pet\",\"10.15468/dl.msj7xs\"],\"literatureType\":\"report\",\"relevance\":[\"GBIF_USED\"],\"source\":null,\"topics\":[\"CONSERVATION\",\"BIODIVERSITY_SCIENCE\",\"ECOLOGY\"],\"websites\":[\"https://b-cubed.eu/storage/app/uploads/public/6a9/a89/0a0/6a9a890a027ef433155766.pdf\"]},{\"id\":\"e6e34dc3-e064-3086-b530-07f484c45428\",\"title\":\"Constructing a Dual-Functional Green Infrastructure Network for Synergistic Carbon Sink and Bird Conservation\",\"authors\":[{\"firstName\":\"Yajie\",\"lastName\":\"Yang\"},{\"firstName\":\"Qiwei\",\"lastName\":\"Ma\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.3390/land15060936\"},\"gbifDOIs\":[\"10.15468/dl.je3aup\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Land\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.3390/land15060936\"]},{\"id\":\"04d990fd-6f02-3bd4-8947-b9b19aa5964a\",\"title\":\"Should species with smaller distribution ranges always be prioritised for conservation?\",\"authors\":[{\"firstName\":\"Tabea\",\"lastName\":\"Giese\"},{\"firstName\":\"Beatriz\",\"lastName\":\"Prado-Monteiro\"},{\"firstName\":\"Luiza F. A.\",\"lastName\":\"de Paula\"},{\"firstName\":\"Miguel\",\"lastName\":\"Inácio\"},{\"firstName\":\"Wassila\",\"lastName\":\"Ibrahim Seidou\"},{\"firstName\":\"Julius\",\"lastName\":\"Köhler\"},{\"firstName\":\"Andressa\",\"lastName\":\"Cabral\"},{\"firstName\":\"Aboubacar-Oumar\",\"lastName\":\"Zon\"},{\"firstName\":\"Stefan\",\"lastName\":\"Porembski\"},{\"firstName\":\"Luiz\",\"lastName\":\"Bondi\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"BR\",\"DE\",\"BF\",\"CI\",\"LT\",\"US\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s10531-026-03381-1\"},\"gbifDOIs\":[\"10.15468/dl.2298zs\",\"10.15468/dl.23smj6\",\"10.15468/dl.26h4xy\",\"10.15468/dl.27wr9f\",\"10.15468/dl.28ycp2\",\"10.15468/dl.2bac3d\",\"10.15468/dl.2du7jn\",\"10.15468/dl.2j4ya8\",\"10.15468/dl.2j85fg\",\"10.15468/dl.2krpnn\",\"10.15468/dl.2m7evw\",\"10.15468/dl.2uk6z3\",\"10.15468/dl.2uz55d\",\"10.15468/dl.2w7hjj\",\"10.15468/dl.33k6bd\",\"10.15468/dl.3eyvcr\",\"10.15468/dl.3grqxn\",\"10.15468/dl.3rrvn2\",\"10.15468/dl.3tmkpy\",\"10.15468/dl.3trncs\",\"10.15468/dl.3wg7vn\",\"10.15468/dl.42336d\",\"10.15468/dl.4a35fn\",\"10.15468/dl.4e9y4h\",\"10.15468/dl.4hfbhc\",\"10.15468/dl.4hhv6k\",\"10.15468/dl.4ms43y\",\"10.15468/dl.4n449x\",\"10.15468/dl.4pek7h\",\"10.15468/dl.4pjhjr\",\"10.15468/dl.4qkycx\",\"10.15468/dl.4r6ekh\",\"10.15468/dl.4rf6ce\",\"10.15468/dl.4smyuc\",\"10.15468/dl.4u7yvh\",\"10.15468/dl.4xrf5t\",\"10.15468/dl.4z7rsv\",\"10.15468/dl.4zt397\",\"10.15468/dl.53g72r\",\"10.15468/dl.56bfsv\",\"10.15468/dl.5hhk74\",\"10.15468/dl.5m7wdb\",\"10.15468/dl.5mdju7\",\"10.15468/dl.5quw65\",\"10.15468/dl.5sremd\",\"10.15468/dl.5u77u2\",\"10.15468/dl.5uud4g\",\"10.15468/dl.5vyu6h\",\"10.15468/dl.62mnf6\",\"10.15468/dl.646as8\",\"10.15468/dl.6677cg\",\"10.15468/dl.698qkw\",\"10.15468/dl.69baj9\",\"10.15468/dl.6c9ztx\",\"10.15468/dl.6f4hvs\",\"10.15468/dl.6hmwga\",\"10.15468/dl.6k7jc6\",\"10.15468/dl.6mf4vv\",\"10.15468/dl.6nrsvt\",\"10.15468/dl.6pwvgd\",\"10.15468/dl.6q76fn\",\"10.15468/dl.6r72gy\",\"10.15468/dl.6vh9hg\",\"10.15468/dl.6xsqsg\",\"10.15468/dl.6y7be5\",\"10.15468/dl.76qb8a\",\"10.15468/dl.7aeqcg\",\"10.15468/dl.7bamba\",\"10.15468/dl.7j4fhq\",\"10.15468/dl.7k7ff4\",\"10.15468/dl.7khsy2\",\"10.15468/dl.7pppyw\",\"10.15468/dl.7vmwrt\",\"10.15468/dl.7xkaek\",\"10.15468/dl.7yjd8k\",\"10.15468/dl.7zywft\",\"10.15468/dl.82wkxt\",\"10.15468/dl.84bsa6\",\"10.15468/dl.8hy8j9\",\"10.15468/dl.8ng3dd\",\"10.15468/dl.8q88sf\",\"10.15468/dl.8r8yub\",\"10.15468/dl.8trmju\",\"10.15468/dl.93cpxk\",\"10.15468/dl.93r2t5\",\"10.15468/dl.98f432\",\"10.15468/dl.9avcdb\",\"10.15468/dl.9aygvn\",\"10.15468/dl.9csppx\",\"10.15468/dl.9gwnej\",\"10.15468/dl.9rd92u\",\"10.15468/dl.9uawx5\",\"10.15468/dl.a3hgeg\",\"10.15468/dl.a7as3z\",\"10.15468/dl.a9tgsp\",\"10.15468/dl.ahznv9\",\"10.15468/dl.apnykz\",\"10.15468/dl.at9m53\",\"10.15468/dl.atkrnf\",\"10.15468/dl.auv9qf\",\"10.15468/dl.avrds9\",\"10.15468/dl.azjcre\",\"10.15468/dl.b73j9x\",\"10.15468/dl.ba8gp7\",\"10.15468/dl.becmgd\",\"10.15468/dl.bf6pxj\",\"10.15468/dl.bfzt9p\",\"10.15468/dl.bq2wu8\",\"10.15468/dl.brw9km\",\"10.15468/dl.bswgb4\",\"10.15468/dl.bx8thv\",\"10.15468/dl.c66s7c\",\"10.15468/dl.c9v9rh\",\"10.15468/dl.cbmtcn\",\"10.15468/dl.ceebkb\",\"10.15468/dl.cfgra3\",\"10.15468/dl.cgs4jd\",\"10.15468/dl.cke9zn\",\"10.15468/dl.cmwwns\",\"10.15468/dl.cndpau\",\"10.15468/dl.cyn2mv\",\"10.15468/dl.d3ytby\",\"10.15468/dl.d59eff\",\"10.15468/dl.d6jhr9\",\"10.15468/dl.d6sc3j\",\"10.15468/dl.d7bq8c\",\"10.15468/dl.d7yq3k\",\"10.15468/dl.dafh4z\",\"10.15468/dl.dea6tj\",\"10.15468/dl.dgvmch\",\"10.15468/dl.dn3w7t\",\"10.15468/dl.dpm3g2\",\"10.15468/dl.dvctg3\",\"10.15468/dl.dx9hp4\",\"10.15468/dl.dzhvby\",\"10.15468/dl.e5nqq9\",\"10.15468/dl.e8sbpb\",\"10.15468/dl.eczrnm\",\"10.15468/dl.ehea4s\",\"10.15468/dl.ekk9fu\",\"10.15468/dl.emp5nx\",\"10.15468/dl.epbqcq\",\"10.15468/dl.eqmadm\",\"10.15468/dl.eseasq\",\"10.15468/dl.et4dwe\",\"10.15468/dl.euea3q\",\"10.15468/dl.evnxrg\",\"10.15468/dl.f529nm\",\"10.15468/dl.ffzdam\",\"10.15468/dl.fgf6s4\",\"10.15468/dl.fns8vw\",\"10.15468/dl.frchjk\",\"10.15468/dl.fu9dsg\",\"10.15468/dl.fw7ngm\",\"10.15468/dl.fy5f76\",\"10.15468/dl.g2dbs3\",\"10.15468/dl.g6dnze\",\"10.15468/dl.gdhn3z\",\"10.15468/dl.gen6n3\",\"10.15468/dl.gkjxpw\",\"10.15468/dl.grv3hs\",\"10.15468/dl.gvfkbd\",\"10.15468/dl.gzfvm3\",\"10.15468/dl.h38cvb\",\"10.15468/dl.h42xye\",\"10.15468/dl.h78xms\",\"10.15468/dl.h885my\",\"10.15468/dl.hgn9q4\",\"10.15468/dl.hjqzcy\",\"10.15468/dl.hmpnq7\",\"10.15468/dl.hpdjsj\",\"10.15468/dl.hv5594\",\"10.15468/dl.hxccfx\",\"10.15468/dl.j43tqx\",\"10.15468/dl.j568ks\",\"10.15468/dl.j7e6tv\",\"10.15468/dl.japukw\",\"10.15468/dl.jb8ken\",\"10.15468/dl.jda3g5\",\"10.15468/dl.jnuegy\",\"10.15468/dl.jxfrsy\",\"10.15468/dl.jycdrx\",\"10.15468/dl.k5hxv2\",\"10.15468/dl.k6eka7\",\"10.15468/dl.k6jspn\",\"10.15468/dl.k7vbgr\",\"10.15468/dl.k8qdxz\",\"10.15468/dl.k9mbkq\",\"10.15468/dl.kaxfbp\",\"10.15468/dl.kb97qr\",\"10.15468/dl.ke2gxv\",\"10.15468/dl.kjrpja\",\"10.15468/dl.kr7gbe\",\"10.15468/dl.ktn4qp\",\"10.15468/dl.ku38h4\",\"10.15468/dl.kvxbuh\",\"10.15468/dl.m49rbn\",\"10.15468/dl.m4pmmc\",\"10.15468/dl.m4w6rh\",\"10.15468/dl.m8jywm\",\"10.15468/dl.m9rq8d\",\"10.15468/dl.mc6zqm\",\"10.15468/dl.mev4ch\",\"10.15468/dl.mpefs7\",\"10.15468/dl.mpnexj\",\"10.15468/dl.n52wrd\",\"10.15468/dl.n63ua8\",\"10.15468/dl.nbsddt\",\"10.15468/dl.ncvmhc\",\"10.15468/dl.nfqtwa\",\"10.15468/dl.nnpkuu\",\"10.15468/dl.nnvwym\",\"10.15468/dl.npnhhm\",\"10.15468/dl.ntkmb3\",\"10.15468/dl.nx4pse\",\"10.15468/dl.nxy7m6\",\"10.15468/dl.nysvzz\",\"10.15468/dl.p34w5f\",\"10.15468/dl.p4szxw\",\"10.15468/dl.pdy6fj\",\"10.15468/dl.petm8e\",\"10.15468/dl.pfykca\",\"10.15468/dl.phbv6k\",\"10.15468/dl.php9yn\",\"10.15468/dl.pmnuqm\",\"10.15468/dl.pnxv3a\",\"10.15468/dl.ps6mdw\",\"10.15468/dl.pupthf\",\"10.15468/dl.pv5vq2\",\"10.15468/dl.pznhwz\",\"10.15468/dl.q2brh4\",\"10.15468/dl.q6487f\",\"10.15468/dl.qk7txw\",\"10.15468/dl.qmfuxz\",\"10.15468/dl.qmu23t\",\"10.15468/dl.qn5f4q\",\"10.15468/dl.qp5hf8\",\"10.15468/dl.qwzbxg\",\"10.15468/dl.qywftz\",\"10.15468/dl.qz2n6y\",\"10.15468/dl.r2sdq5\",\"10.15468/dl.r4kujm\",\"10.15468/dl.r6247a\",\"10.15468/dl.ra3s87\",\"10.15468/dl.rb76jm\",\"10.15468/dl.rfsbps\",\"10.15468/dl.rjsf4g\",\"10.15468/dl.rr3cxv\",\"10.15468/dl.rr4nrq\",\"10.15468/dl.rr7h9b\",\"10.15468/dl.s4h6jx\",\"10.15468/dl.sa9zab\",\"10.15468/dl.sccdse\",\"10.15468/dl.scjhe7\",\"10.15468/dl.sgt2tu\",\"10.15468/dl.snkpaq\",\"10.15468/dl.sp37at\",\"10.15468/dl.strqx6\",\"10.15468/dl.suyyuq\",\"10.15468/dl.sym7kq\",\"10.15468/dl.t5vsy8\",\"10.15468/dl.t6ppej\",\"10.15468/dl.t8vs2q\",\"10.15468/dl.t9bqts\",\"10.15468/dl.tc6vaj\",\"10.15468/dl.td7jpp\",\"10.15468/dl.tdve7b\",\"10.15468/dl.tekt8z\",\"10.15468/dl.tewn6z\",\"10.15468/dl.tgqkfw\",\"10.15468/dl.thgc6z\",\"10.15468/dl.thmyfs\",\"10.15468/dl.ts2vtx\",\"10.15468/dl.tsuzdp\",\"10.15468/dl.tt5kbz\",\"10.15468/dl.tumgu7\",\"10.15468/dl.u46p8v\",\"10.15468/dl.u7jbpr\",\"10.15468/dl.uedr97\",\"10.15468/dl.upva47\",\"10.15468/dl.usveyj\",\"10.15468/dl.uu9ttf\",\"10.15468/dl.uuvqb7\",\"10.15468/dl.uvqmw6\",\"10.15468/dl.uweaw5\",\"10.15468/dl.uywgqw\",\"10.15468/dl.v34edm\",\"10.15468/dl.v6deag\",\"10.15468/dl.v7bte4\",\"10.15468/dl.v7y6ux\",\"10.15468/dl.vdajbu\",\"10.15468/dl.vde2cc\",\"10.15468/dl.vet62p\",\"10.15468/dl.vqx8mx\",\"10.15468/dl.vzzhtk\",\"10.15468/dl.w5mmwh\",\"10.15468/dl.w5nw3n\",\"10.15468/dl.w7xj3c\",\"10.15468/dl.we3am5\",\"10.15468/dl.wjab47\",\"10.15468/dl.wnqdnc\",\"10.15468/dl.wqpewp\",\"10.15468/dl.x2x8ej\",\"10.15468/dl.x6cyth\",\"10.15468/dl.x6jrdk\",\"10.15468/dl.x8kzf4\",\"10.15468/dl.xb5sv7\",\"10.15468/dl.xba4pw\",\"10.15468/dl.xd6ake\",\"10.15468/dl.xfep7a\",\"10.15468/dl.xk46dh\",\"10.15468/dl.xqes2y\",\"10.15468/dl.xrecnp\",\"10.15468/dl.xsh9uu\",\"10.15468/dl.xuwydq\",\"10.15468/dl.xw9qxx\",\"10.15468/dl.xzt4gf\",\"10.15468/dl.y35mxa\",\"10.15468/dl.y96d4u\",\"10.15468/dl.yeta3s\",\"10.15468/dl.yfu9nx\",\"10.15468/dl.yfy33v\",\"10.15468/dl.yjqekh\",\"10.15468/dl.yjspn5\",\"10.15468/dl.yn5g4f\",\"10.15468/dl.ynkgvh\",\"10.15468/dl.z282q4\",\"10.15468/dl.z4srkk\",\"10.15468/dl.z6cdrs\",\"10.15468/dl.z8m9zb\",\"10.15468/dl.z9k99v\",\"10.15468/dl.zejbzk\",\"10.15468/dl.zsgpw2\",\"10.15468/dl.zvdfg9\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Biodiversity and Conservation\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/s10531-026-03381-1\"]},{\"id\":\"94db573d-709f-38df-abaa-c16c54d865b5\",\"title\":\"Habitat types, seasonal activity patterns, and preliminary extinction risk assessment of Korean tiger beetles based on open-source data\",\"authors\":[{\"firstName\":\"Deokjea\",\"lastName\":\"Cha\"},{\"firstName\":\"Deokki\",\"lastName\":\"Kim\"},{\"firstName\":\"Anya\",\"lastName\":\"Lim\"},{\"firstName\":\"Kuem Hee\",\"lastName\":\"Jang\"}],\"countriesOfCoverage\":[\"KR\"],\"countriesOfResearcher\":[\"KR\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s10841-026-00786-9\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Journal of Insect Conservation\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\"],\"websites\":[\"https://doi.org/10.1007/s10841-026-00786-9\"]},{\"id\":\"6bc97288-71e7-3f3e-ae88-e7985cbf95b3\",\"title\":\"Productivity and Susceptibility Analysis (PSA) of the Common Live Fish Used as Bait in the Fish Aggregating Device (FAD) Fishery Around Mauritius\",\"authors\":[{\"firstName\":\"Vibhushan\",\"lastName\":\"Senedhun\"},{\"firstName\":\"Yasuzumi\",\"lastName\":\"Fujimori\"},{\"firstName\":\"Naoki\",\"lastName\":\"Tojo\"},{\"firstName\":\"Makoto\",\"lastName\":\"Tomiyasu\"},{\"firstName\":\"Nadeem\",\"lastName\":\"Nazurally\"},{\"firstName\":\"Vinesh\",\"lastName\":\"Emrith\"}],\"countriesOfCoverage\":[\"MU\"],\"countriesOfResearcher\":[\"JP\",\"MU\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/978-3-032-19927-0_118\"},\"gbifDOIs\":[\"10.15468/0qnb58\"],\"literatureType\":\"book_section\",\"relevance\":[\"GBIF_CITED\"],\"source\":\"Handbook of Sustainable Blue Economy\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/978-3-032-19927-0_118\"]},{\"id\":\"b61a32bf-7a0f-3d2f-9bb5-d50c6f407239\",\"title\":\"Conception Island Bank, Bahamas: Natural and Human History, Exploration, Biodiversity, and Conservation\",\"authors\":[{\"firstName\":\"R. Graham\",\"lastName\":\"Reynolds\"}],\"countriesOfCoverage\":[\"BS\"],\"countriesOfResearcher\":[\"US\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.18475/cjos.v56i1.a26\"},\"gbifDOIs\":[\"10.15468/dl.dvpab4\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_CITED\"],\"source\":\"Caribbean Journal of Science\",\"topics\":[\"CONSERVATION\",\"BIODIVERSITY_SCIENCE\"],\"websites\":[\"https://doi.org/10.18475/cjos.v56i1.a26\"]},{\"id\":\"12a74600-69cb-3c74-a752-6730f5b0ce0a\",\"title\":\"Assessing compounding risks across multiple systems and sectors: a socio-environmental systems risk-triage approach\",\"authors\":[{\"firstName\":\"C. Adam\",\"lastName\":\"Schlosser\"},{\"firstName\":\"Cypress\",\"lastName\":\"Frankenfeld\"},{\"firstName\":\"Sebastian\",\"lastName\":\"Eastham\"},{\"firstName\":\"Xiang\",\"lastName\":\"Gao\"},{\"firstName\":\"Angelo\",\"lastName\":\"Gurgel\"},{\"firstName\":\"Alyssa\",\"lastName\":\"McCluskey\"},{\"firstName\":\"Jennifer\",\"lastName\":\"Morris\"},{\"firstName\":\"Shelli\",\"lastName\":\"Orzach\"},{\"firstName\":\"Kilian\",\"lastName\":\"Rouge\"},{\"firstName\":\"Sergey\",\"lastName\":\"Paltsev\"},{\"firstName\":\"John\",\"lastName\":\"Reilly\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"US\"],\"year\":2023,\"identifiers\":{\"doi\":\"10.3389/fclim.2023.1100600\"},\"gbifDOIs\":[\"10.15468/dl.gew2z6\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Frontiers in Climate\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.3389/fclim.2023.1100600\"]},{\"id\":\"f91f86d0-35d6-3c9e-a918-f89dff5c0324\",\"title\":\"Differential impacts of wind and solar power developments on avian ecological networks in the Qinghai-Tibet Plateau\",\"authors\":[{\"firstName\":\"Weizheng\",\"lastName\":\"Xing\"},{\"firstName\":\"Guoqing\",\"lastName\":\"Li\"},{\"firstName\":\"Xiaodong\",\"lastName\":\"Dong\"},{\"firstName\":\"Xinglong\",\"lastName\":\"Guo\"},{\"firstName\":\"Yan\",\"lastName\":\"Shu\"},{\"firstName\":\"Yihan\",\"lastName\":\"Wang\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s11629-025-9766-1\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Journal of Mountain Science\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\"],\"websites\":[\"https://doi.org/10.1007/s11629-025-9766-1\"]},{\"id\":\"07c66a4c-3459-33da-89e7-a0afc95b9c64\",\"title\":\"Crayfish threats to salmonids: A synthesis of current knowledge and research priorities\",\"authors\":[{\"firstName\":\"Julian D.\",\"lastName\":\"Olden\"},{\"firstName\":\"Phoebe\",\"lastName\":\"Berghout\"},{\"firstName\":\"Claire\",\"lastName\":\"Vaage\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"US\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.watbs.2026.100658\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Water Biology and Security\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\"],\"websites\":[\"https://doi.org/10.1016/j.watbs.2026.100658\"]},{\"id\":\"aeb41d68-885a-3df0-9873-3b395ac91f74\",\"title\":\"Expanding protected areas for biodiversity and ecosystem services considering climate change: A case of the Yangtze River Economic Belt in China\",\"authors\":[{\"firstName\":\"Jinqian\",\"lastName\":\"Xie\"},{\"firstName\":\"Shicheng\",\"lastName\":\"Li\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.landurbplan.2026.105708\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Landscape and Urban Planning\",\"topics\":[\"CONSERVATION\",\"BIODIVERSITY_SCIENCE\",\"ECOSYSTEM_SERVICES\"],\"websites\":[\"https://doi.org/10.1016/j.landurbplan.2026.105708\"]},{\"id\":\"9b04dd87-12bc-3e6f-ab88-b2f0d1ed826e\",\"title\":\"Protected areas may fail in maintaining suitable ranges of threatened species: A habitat-association approach for Brazilian Savanna bird species\",\"authors\":[{\"firstName\":\"Sabrina\",\"lastName\":\"Faggion\"},{\"firstName\":\"Paulo\",\"lastName\":\"De Marco\"},{\"firstName\":\"Cristiano\",\"lastName\":\"Machado-Filho\"},{\"firstName\":\"Arthur\",\"lastName\":\"Bispo\"},{\"firstName\":\"Natália Mundim\",\"lastName\":\"Tôrres\"}],\"countriesOfCoverage\":[\"BR\"],\"countriesOfResearcher\":[\"BR\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.baae.2026.05.007\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Basic and Applied Ecology\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1016/j.baae.2026.05.007\"]},{\"id\":\"e1bda20e-74cb-3ed8-a371-49d5785d1c30\",\"title\":\"浙江莲都峰源自然保护区三种兽类栖息地变化趋势及活动节律分析\",\"authors\":[{\"firstName\":\"伟\",\"lastName\":\"胡\"},{\"firstName\":\"世迪\",\"lastName\":\"覃\"},{\"firstName\":\"岳明\",\"lastName\":\"曾\"},{\"firstName\":\"李浩\",\"lastName\":\"周\"},{\"firstName\":\"煌凯\",\"lastName\":\"斯\"},{\"firstName\":\"珂\",\"lastName\":\"何\"},{\"firstName\":\"宝权\",\"lastName\":\"刘\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.3969/j.issn.1001-3776.2026.02.006\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"浙江林业科技\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.3969/j.issn.1001-3776.2026.02.006\"]},{\"id\":\"8285ecf6-290b-3a42-ac2d-9a6ede066711\",\"title\":\"Habitat suitability and range mapping of the Philippine endemic Tectona philippinensis for spatial conservation\",\"authors\":[{\"firstName\":\"Almyt A.\",\"lastName\":\"Poblete\"},{\"firstName\":\"Nikki Heherson A.\",\"lastName\":\"Dagamac\"}],\"countriesOfCoverage\":[\"PH\"],\"countriesOfResearcher\":[\"PH\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s11355-026-00729-1\"},\"gbifDOIs\":[\"10.15468/dl.3fynep\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Landscape and Ecological Engineering\",\"topics\":[\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.1007/s11355-026-00729-1\"]},{\"id\":\"8cc25201-2de0-3d56-b14c-2cfd2befb05e\",\"title\":\"From Lineage Discovery to Conservation Prioritisation: An Integrative Genomic Framework Applied to a Model Damselfly System\",\"authors\":[{\"firstName\":\"Zachary G.\",\"lastName\":\"MacDonald\"},{\"firstName\":\"Joscha\",\"lastName\":\"Beninde\"},{\"firstName\":\"Julian R.\",\"lastName\":\"Dupuis\"},{\"firstName\":\"Thomas W.\",\"lastName\":\"Gillespie\"},{\"firstName\":\"H. Bradley\",\"lastName\":\"Shaffer\"},{\"firstName\":\"Gregory F.\",\"lastName\":\"Grether\"}],\"countriesOfCoverage\":[\"US\"],\"countriesOfResearcher\":[\"CH\",\"NL\",\"US\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1111/mec.70385\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Molecular Ecology\",\"topics\":[\"CONSERVATION\",\"EVOLUTION\"],\"websites\":[\"https://doi.org/10.1111/mec.70385\"]},{\"id\":\"82a06b9a-f380-3736-8c8a-bbaa4a5980c5\",\"title\":\"Habitat suitability and driving factors of the endangered medicinal plant Sinopodophyllum hexandrum under climate and land use change\",\"authors\":[{\"firstName\":\"Gong-Han\",\"lastName\":\"Tu\"},{\"firstName\":\"Li\",\"lastName\":\"Liu\"},{\"firstName\":\"Fei\",\"lastName\":\"Chen\"},{\"firstName\":\"Shao-Yang\",\"lastName\":\"Xi\"},{\"firstName\":\"Xu-Dong\",\"lastName\":\"Guo\"},{\"firstName\":\"Zhi-Xian\",\"lastName\":\"Jing\"},{\"firstName\":\"Ling\",\"lastName\":\"Jin\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.3389/fpls.2026.1809149\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Frontiers in Plant Science\",\"topics\":[\"CLIMATE_CHANGE\",\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.3389/fpls.2026.1809149\"]},{\"id\":\"815fa563-7428-3f13-8d94-726295f145ee\",\"title\":\"基于参数优化的MaxEnt模型对西藏普通秋沙鸭潜在适生区分布预测\",\"authors\":[{\"firstName\":\"婉青\",\"lastName\":\"申\"},{\"firstName\":\"进勋\",\"lastName\":\"陈\"},{\"firstName\":\"邱筱潇\",\"lastName\":\"沈\"},{\"firstName\":\"波\",\"lastName\":\"余\"},{\"firstName\":\"成成\",\"lastName\":\"邹\"},{\"firstName\":\"会睿\",\"lastName\":\"邢\"},{\"firstName\":\"明雨\",\"lastName\":\"党\"},{\"firstName\":\"忠斌\",\"lastName\":\"王\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.13248/j.cnki.wetlandsci.20250132\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"湿地科学\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.13248/j.cnki.wetlandsci.20250132\"]},{\"id\":\"8d32e21a-93f4-3de4-a6b5-69ff8efd4c49\",\"title\":\"中国生态保护红线对国家重点保护野生动植物保护成效的分析\",\"authors\":[{\"firstName\":\"雨桐\",\"lastName\":\"郭\"},{\"firstName\":\"素萃\",\"lastName\":\"李\"},{\"firstName\":\"卫华\",\"lastName\":\"徐\"},{\"firstName\":\"智\",\"lastName\":\"王\"},{\"firstName\":\"雪\",\"lastName\":\"杨\"},{\"firstName\":\"春赫\",\"lastName\":\"尤\"},{\"firstName\":\"吉喜\",\"lastName\":\"高\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.20103/j.stxb.202503170602\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"生态学报\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.20103/j.stxb.202503170602\"]},{\"id\":\"d996aeaf-0476-39f8-8823-988c8f860dcd\",\"title\":\"濒危植物大叶木兰在西双版纳潜在分布区及保护空缺研究\",\"authors\":[{\"firstName\":\"文君\",\"lastName\":\"山\"},{\"firstName\":\"光\",\"lastName\":\"岩\"},{\"firstName\":\"杰京\",\"lastName\":\"张\"},{\"firstName\":\"明旭\",\"lastName\":\"赵\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.11929/j.swfu.202504062\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"西南林业大学学报(自然科学)\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.11929/j.swfu.202504062\"]},{\"id\":\"0d157666-44f5-3d42-95e0-0648f3165427\",\"title\":\"The future of Mexican beans’ wild relatives: Identifying conservation areas\",\"authors\":[{\"firstName\":\"Angela P.\",\"lastName\":\"Cuervo-Robayo\"},{\"firstName\":\"Wolke\",\"lastName\":\"Tobón-Niedfeldt\"},{\"firstName\":\"Carolina\",\"lastName\":\"Ureta\"},{\"firstName\":\"Juan M.\",\"lastName\":\"Barrios\"},{\"firstName\":\"Susana\",\"lastName\":\"Gama-López\"},{\"firstName\":\"Enrique\",\"lastName\":\"Martínez-Meyer\"},{\"firstName\":\"Alfonso\",\"lastName\":\"Delgado-Salinas\"}],\"countriesOfCoverage\":[\"MX\"],\"countriesOfResearcher\":[\"MX\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.20937/atm.53554\"},\"gbifDOIs\":[\"10.15468/dmxx5a\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Atmósfera\",\"topics\":[\"CONSERVATION\",\"AGRICULTURE\"],\"websites\":[\"https://doi.org/10.20937/atm.53554\"]},{\"id\":\"0d01cdd0-689b-3464-bd15-bdf244ea2bb0\",\"title\":\"Navigating Spatial Trade-offs in Restoration Planning: A Multi-Objective Optimization Framework Integrating Ecological Feasibility\",\"authors\":[{\"firstName\":\"Matías\",\"lastName\":\"Moreno-Faguett\"},{\"firstName\":\"Jessica\",\"lastName\":\"Castillo\"},{\"firstName\":\"Jose\",\"lastName\":\"Salgado Rojas\"},{\"firstName\":\"Maria Jose\",\"lastName\":\"Martinez-Harms\"},{\"firstName\":\"Barbara\",\"lastName\":\"Larrain Barros\"},{\"firstName\":\"Micaela\",\"lastName\":\"Poutay\"},{\"firstName\":\"Eduardo\",\"lastName\":\"Fuentes-Lillo\"},{\"firstName\":\"Pablo\",\"lastName\":\"Ramírez de Arellano\"},{\"firstName\":\"Patricio\",\"lastName\":\"Pliscoff\"},{\"firstName\":\"Cecilia\",\"lastName\":\"Smith-Ramírez\"},{\"firstName\":\"Olga\",\"lastName\":\"Barbosa Prieto\"},{\"firstName\":\"Aníbal\",\"lastName\":\"Pauchard\"},{\"firstName\":\"Jordi\",\"lastName\":\"Garcia-Gonzalo\"},{\"firstName\":\"Virgilio\",\"lastName\":\"Hermoso\"},{\"firstName\":\"Eduardo\",\"lastName\":\"Álvarez-Miranda\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"CL\",\"ES\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.32942/x21t2z\"},\"gbifDOIs\":[\"10.15468/dl.bxj99t\",\"10.15468/dl.mk7wfj\"],\"literatureType\":\"working_paper\",\"relevance\":[\"GBIF_USED\"],\"source\":\"EcoEvoRxiv\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\"],\"websites\":[\"https://doi.org/10.32942/x21t2z\"]},{\"id\":\"1b8f9b20-7ea1-33b4-b189-c9e0c1d78b14\",\"title\":\"Multi-scale modeling of habitat suitability and human-induced risk for the critically endangered white-rumped vulture (Gyps bengalensis) in South and Southeast Asia\",\"authors\":[{\"firstName\":\"Gulzaman\",\"lastName\":\"William\"},{\"firstName\":\"Zafeer\",\"lastName\":\"Saqib\"},{\"firstName\":\"Abdul\",\"lastName\":\"Qadir\"},{\"firstName\":\"Ayesha\",\"lastName\":\"Siddiqua\"},{\"firstName\":\"Zaki ul Zaman\",\"lastName\":\"Asam\"},{\"firstName\":\"Mujahid\",\"lastName\":\"Farid\"},{\"firstName\":\"Muhammad Jamshed Iqbal\",\"lastName\":\"Chaudhry\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"PK\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s00114-026-02122-2\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"The Science of Nature\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/s00114-026-02122-2\"]},{\"id\":\"e07442ee-8065-3b18-88a4-2e26917924f0\",\"title\":\"Spatial distribution pattern of Pavetta crassipes K. Schum. under global change and its implications for conserving savanna ecosystems in West Africa\",\"authors\":[{\"firstName\":\"Armel Arnaud\",\"lastName\":\"Hennou\"},{\"firstName\":\"Towanou\",\"lastName\":\"Houetchegnon\"},{\"firstName\":\"Jacques Idohou Kadjogbé\",\"lastName\":\"Ayena\"},{\"firstName\":\"Charlotte\",\"lastName\":\"Yamontché\"},{\"firstName\":\"Gwladys\",\"lastName\":\"Azongnidé\"},{\"firstName\":\"Bienvenue Nawan Kuiga\",\"lastName\":\"Sourou\"},{\"firstName\":\"Christine\",\"lastName\":\"Ouinsavi\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"BJ\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s44372-026-00632-x\"},\"gbifDOIs\":[\"10.15468/dl.rafh53\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Discover Plants\",\"topics\":[\"CLIMATE_CHANGE\",\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/s44372-026-00632-x\"]},{\"id\":\"2c299936-e206-3444-ba6e-2bf7ece88ae7\",\"title\":\"Diversity and Conservation Status of Sharks and Rays in the Dutch Caribbean\",\"authors\":[{\"firstName\":\"Guido\",\"lastName\":\"Leurs\"},{\"firstName\":\"Adolphe O.\",\"lastName\":\"Debrot\"},{\"firstName\":\"Hendrik V.\",\"lastName\":\"Winter\"}],\"countriesOfCoverage\":[\"CW\",\"SX\",\"AW\",\"BQ\"],\"countriesOfResearcher\":[\"NL\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.18475/cjos.v56i1.a24\"},\"gbifDOIs\":[\"10.15468/dl.85ffkr\",\"10.15468/dl.deq2ap\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_CITED\"],\"source\":\"Caribbean Journal of Science\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.18475/cjos.v56i1.a24\"]},{\"id\":\"738cff57-64bd-3d97-97ee-f3f6c4715b30\",\"title\":\"Studies in conservation & management of a MN-endangered plant: Wild quinine (Parthenium integrifolium, Asteraceae)\",\"authors\":[{\"firstName\":\"Samuel M\",\"lastName\":\"Hennemann\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"US\"],\"year\":2026,\"identifiers\":null,\"gbifDOIs\":[\"10.15468/dl.3gah84\",\"10.15468/dl.rtu47u\"],\"literatureType\":\"thesis\",\"relevance\":[\"GBIF_USED\"],\"source\":null,\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://hdl.handle.net/20.500.14755/1324\"]},{\"id\":\"3b1b58cf-a31c-3407-aaf3-6cb11cdb04bb\",\"title\":\"Modeling Current and Future Habitat Suitability of the Sunda Pangolin (Manis javanica) Across Southeast Asia Using Species Distribution Modeling (SDM)\",\"authors\":[{\"firstName\":\"Yoonwan\",\"lastName\":\"Nam\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"SG\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.70121/001c.163220\"},\"gbifDOIs\":[\"10.15468/dl.5pq6jx\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Scholarly Review Journal\",\"topics\":[\"CONSERVATION\",\"SPECIES_DISTRIBUTIONS\"],\"websites\":[\"https://doi.org/10.70121/001c.163220\"]},{\"id\":\"2704de95-0f3a-37c1-bb51-fab59529924e\",\"title\":\"Evaluating ensemble-based filters and wrappers for biodiversity conservation\",\"authors\":[{\"firstName\":\"Yousra\",\"lastName\":\"Cherif\"},{\"firstName\":\"Ali\",\"lastName\":\"Idri\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"MA\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.jnc.2026.127345\"},\"gbifDOIs\":[\"10.15468/dl.7uxqxk\",\"10.15468/dl.vuzsmj\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Journal for Nature Conservation\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1016/j.jnc.2026.127345\"]},{\"id\":\"31127e54-e82e-3de6-b913-242484ffb32d\",\"title\":\"Assessing the vulnerability of elasmobranchs to western and central Pacific tuna fisheries using an improved ecological risk assessment method\",\"authors\":[{\"firstName\":\"Nicholas J.\",\"lastName\":\"Hill\"},{\"firstName\":\"Shane\",\"lastName\":\"Griffiths\"},{\"firstName\":\"Valerie\",\"lastName\":\"Allain\"},{\"firstName\":\"Simon\",\"lastName\":\"Nicol\"},{\"firstName\":\"Joanne\",\"lastName\":\"Potts\"},{\"firstName\":\"Naiten Bradley\",\"lastName\":\"Phillip\"},{\"firstName\":\"Cassandra L.\",\"lastName\":\"Rigby\"}],\"countriesOfCoverage\":[],\"countriesOfResearcher\":[\"AU\",\"NC\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.fishres.2026.107759\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Fisheries Research\",\"topics\":[\"CONSERVATION\",\"ECOLOGY\",\"MARINE\"],\"websites\":[\"https://doi.org/10.1016/j.fishres.2026.107759\"]},{\"id\":\"b30f8d5b-39ab-3807-b117-f7fd982f4c8e\",\"title\":\"Species richness and endemicity of carnivorans in protected areas of the Yucatan Peninsula\",\"authors\":[{\"firstName\":\"Rusby G.\",\"lastName\":\"Contreras-Díaz\"},{\"firstName\":\"Luis\",\"lastName\":\"Osorio-Olvera\"},{\"firstName\":\"Javier\",\"lastName\":\"Nori\"},{\"firstName\":\"Jorge\",\"lastName\":\"Soberón\"},{\"firstName\":\"Gerardo\",\"lastName\":\"Martín\"},{\"firstName\":\"Osiris\",\"lastName\":\"Gaona\"},{\"firstName\":\"Xavier\",\"lastName\":\"Chiappa-Carrara\"}],\"countriesOfCoverage\":[\"MX\"],\"countriesOfResearcher\":[\"AR\",\"MX\",\"US\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1016/j.pecon.2026.04.002\"},\"gbifDOIs\":[\"10.15468/dl.ggdvd6\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Perspectives in Ecology and Conservation\",\"topics\":[\"CONSERVATION\",\"BIODIVERSITY_SCIENCE\",\"ECOLOGY\"],\"websites\":[\"https://doi.org/10.1016/j.pecon.2026.04.002\"]},{\"id\":\"e2c49cb5-342f-3714-baf2-fc7a7684f7d1\",\"title\":\"Prediction of Ephemeral Plant Diversity Patterns and Identification of Conservation Priority Areas in the Gurbantünggüt Desert\",\"authors\":[{\"firstName\":\"Xu\",\"lastName\":\"Sun\"},{\"firstName\":\"Xiaoxue\",\"lastName\":\"Zhang\"},{\"firstName\":\"Yang\",\"lastName\":\"Xue\"},{\"firstName\":\"Songmei\",\"lastName\":\"Ma\"},{\"firstName\":\"Xintong\",\"lastName\":\"Hu\"},{\"firstName\":\"He\",\"lastName\":\"Sun\"},{\"firstName\":\"Jingjing\",\"lastName\":\"Zhao\"}],\"countriesOfCoverage\":[\"CN\"],\"countriesOfResearcher\":[\"CN\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.21203/rs.3.rs-9428959/v1\"},\"gbifDOIs\":[],\"literatureType\":\"working_paper\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Research Square\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.21203/rs.3.rs-9428959/v1\"]},{\"id\":\"2a1afdca-79aa-3269-afea-2b3061052751\",\"title\":\"Areas of priority for Mantodea in South Africa\",\"authors\":[{\"firstName\":\"B.\",\"lastName\":\"Greyvenstein\"},{\"firstName\":\"H.\",\"lastName\":\"du Plessis\"},{\"firstName\":\"J.\",\"lastName\":\"van den Berg\"}],\"countriesOfCoverage\":[\"ZA\"],\"countriesOfResearcher\":[\"ZA\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s10841-026-00777-w\"},\"gbifDOIs\":[\"10.15468/dl.6mx7mr\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"Journal of Insect Conservation\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/s10841-026-00777-w\"]},{\"id\":\"14494eb1-9825-3309-ad97-7b66350543ad\",\"title\":\"Suitable areas for the conservation of six wild felids in Mexico and their overlap with protected areas\",\"authors\":[{\"firstName\":\"Eduardo Iván\",\"lastName\":\"López-Ortiz\"},{\"firstName\":\"Alberto Gómez-Tagle\",\"lastName\":\"Chávez\"},{\"firstName\":\"Tiberio César\",\"lastName\":\"Monterrubio-Rico\"},{\"firstName\":\"Yvonne\",\"lastName\":\"Herrerías-Diego\"},{\"firstName\":\"María Luisa\",\"lastName\":\"España-Boquera\"},{\"firstName\":\"Juan Felipe\",\"lastName\":\"Charre-Medellín\"}],\"countriesOfCoverage\":[\"MX\"],\"countriesOfResearcher\":[\"MX\"],\"year\":2026,\"identifiers\":{\"doi\":\"10.1007/s10344-026-02109-4\"},\"gbifDOIs\":[],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"European Journal of Wildlife Research\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://doi.org/10.1007/s10344-026-02109-4\"]},{\"id\":\"35ee1fcd-ec46-3e08-a1e4-49259d4b79d6\",\"title\":\"Spatio-temporal patterns and diversity of sea turtle strandings in the Moroccan exclusive economic zone (1980–2024)\",\"authors\":[{\"firstName\":\"Zohayr\",\"lastName\":\"Dibar\"},{\"firstName\":\"Aziza\",\"lastName\":\"Lansari\"},{\"firstName\":\"Zine el abidine el\",\"lastName\":\"Morjani\"},{\"firstName\":\"Abdellah\",\"lastName\":\"Bouazza\"}],\"countriesOfCoverage\":[\"MA\"],\"countriesOfResearcher\":[\"MA\"],\"year\":2026,\"identifiers\":null,\"gbifDOIs\":[\"10.15468/dl.fffvv4\"],\"literatureType\":\"journal\",\"relevance\":[\"GBIF_USED\"],\"source\":\"SALAMANDRA\",\"topics\":[\"CONSERVATION\"],\"websites\":[\"https://www.researchgate.net/profile/Zohayr-Dibar/publication/404985653\"]}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "literatureSearch": {
+        "documents": {
+          "from": 0,
+          "size": 50,
+          "total": 29573,
+          "results": [
+            {
+              "id": "6804f439-fdd8-3687-acec-afb40e8b20e2",
+              "title": "Predicting future Human-Wildlife conflict Zones: A process-oriented framework integrating climate connectivity and species distribution modelling",
+              "authors": [
+                {
+                  "firstName": "Yafang",
+                  "lastName": "Wang"
+                },
+                {
+                  "firstName": "Qiyao",
+                  "lastName": "Han"
+                },
+                {
+                  "firstName": "Shuyan",
+                  "lastName": "Liu"
+                },
+                {
+                  "firstName": "Shili",
+                  "lastName": "Zhang"
+                },
+                {
+                  "firstName": "Long",
+                  "lastName": "Jin"
+                },
+                {
+                  "firstName": "Sicheng",
+                  "lastName": "Mou"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.landurbplan.2026.105714"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Landscape and Urban Planning",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.landurbplan.2026.105714"
+              ]
+            },
+            {
+              "id": "02e3e24e-06d6-3898-a997-5867d71b8425",
+              "title": "Safeguarding biodiversity from renewable energy development in China",
+              "authors": [
+                {
+                  "firstName": "Runjia",
+                  "lastName": "Yang"
+                },
+                {
+                  "firstName": "Kechao",
+                  "lastName": "Wang"
+                },
+                {
+                  "firstName": "Sucheng",
+                  "lastName": "Xu"
+                },
+                {
+                  "firstName": "Wu",
+                  "lastName": "Xiao"
+                },
+                {
+                  "firstName": "Yanmei",
+                  "lastName": "Ye"
+                },
+                {
+                  "firstName": "Thomas",
+                  "lastName": "Harwood"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN",
+                "GB"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.jclepro.2026.148679"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal of Cleaner Production",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.jclepro.2026.148679"
+              ]
+            },
+            {
+              "id": "7d2c2d43-1fe0-3f8f-b679-b319b370efbf",
+              "title": "Urban Tolerance of Orthoptera Is Strongly Related to National Red List Status and Population Trends",
+              "authors": [
+                {
+                  "firstName": "Nadja",
+                  "lastName": "Pernat"
+                },
+                {
+                  "firstName": "Sascha",
+                  "lastName": "Buchholz"
+                },
+                {
+                  "firstName": "Jens",
+                  "lastName": "Schirmel"
+                }
+              ],
+              "countriesOfCoverage": [
+                "DE"
+              ],
+              "countriesOfResearcher": [
+                "DE"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1111/ddi.70223"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.bbetgy"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Diversity and Distributions",
+              "topics": [
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1111/ddi.70223"
+              ]
+            },
+            {
+              "id": "0c832a7b-f996-36a9-8314-712ed02f1838",
+              "title": "Evidence-based conservation recommendations for the recovery of one of Europe’s most threatened butterflies: the Nevada Grayling (Pseudochazara williamsi)",
+              "authors": [
+                {
+                  "firstName": "José Miguel",
+                  "lastName": "Barea-Azcón"
+                },
+                {
+                  "firstName": "Javier",
+                  "lastName": "Olivares"
+                },
+                {
+                  "firstName": "Sam",
+                  "lastName": "Ellis"
+                },
+                {
+                  "firstName": "Martin",
+                  "lastName": "Davies"
+                },
+                {
+                  "firstName": "Harry E.",
+                  "lastName": "Clarke"
+                },
+                {
+                  "firstName": "Jesús",
+                  "lastName": "Río"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "GB",
+                "ES",
+                "NL"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s10841-026-00787-8"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.f8f2q4"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal of Insect Conservation",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s10841-026-00787-8"
+              ]
+            },
+            {
+              "id": "e62c3722-12a7-30cb-9e23-dd70c7f41e59",
+              "title": "Impact of global change on the distribution of mountain mammals and birds",
+              "authors": [
+                {
+                  "firstName": "Chiara",
+                  "lastName": "Dragonetti"
+                },
+                {
+                  "firstName": "Wilfried",
+                  "lastName": "Thuiller"
+                },
+                {
+                  "firstName": "Maya",
+                  "lastName": "Guéguen"
+                },
+                {
+                  "firstName": "Julien",
+                  "lastName": "Renaud"
+                },
+                {
+                  "firstName": "Piero",
+                  "lastName": "Visconti"
+                },
+                {
+                  "firstName": "Moreno Di",
+                  "lastName": "Marco"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "AT",
+                "IT",
+                "FR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1111/cobi.70339"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.2kffec"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Conservation Biology",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1111/cobi.70339"
+              ]
+            },
+            {
+              "id": "c126fc11-d97f-3a9f-899a-9808275cc1ab",
+              "title": "Distribution pattern, population characteristics and threat status assessment of Indian wild orange (Citrus indica Tanaka) using IUCN regional guidelines",
+              "authors": [
+                {
+                  "firstName": "Bhavya Priyadarshini",
+                  "lastName": "Mishra"
+                },
+                {
+                  "firstName": "Aakash",
+                  "lastName": "Maurya"
+                },
+                {
+                  "firstName": "M. R. Ranjith",
+                  "lastName": "Layola"
+                },
+                {
+                  "firstName": "Konickal Mambetta",
+                  "lastName": "Prabhukumar"
+                },
+                {
+                  "firstName": "Tikam Singh",
+                  "lastName": "Rana"
+                }
+              ],
+              "countriesOfCoverage": [
+                "IN"
+              ],
+              "countriesOfResearcher": [
+                "IN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s43538-026-00790-2"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Proceedings of the Indian National Science Academy",
+              "topics": [
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s43538-026-00790-2"
+              ]
+            },
+            {
+              "id": "c41927f9-3c1e-3912-b1a8-4b18ac2a6e48",
+              "title": "Identification of potential suitable habitats and high conservation value areas for threatened species in Rajah Sikatuna Protected Landscape, Philippines",
+              "authors": [
+                {
+                  "firstName": "Wilbert A.",
+                  "lastName": "Aureo"
+                },
+                {
+                  "firstName": "Cristino L.",
+                  "lastName": "Tiburan Jr."
+                },
+                {
+                  "firstName": "Eduardo C.",
+                  "lastName": "Calzeta"
+                },
+                {
+                  "firstName": "Ireneo L.",
+                  "lastName": "Lit Jr."
+                },
+                {
+                  "firstName": "Yingwei",
+                  "lastName": "Yan"
+                },
+                {
+                  "firstName": "David Mark",
+                  "lastName": "Taylor"
+                },
+                {
+                  "firstName": "Rico C.",
+                  "lastName": "Ancog"
+                }
+              ],
+              "countriesOfCoverage": [
+                "PH"
+              ],
+              "countriesOfResearcher": [
+                "SG",
+                "PH"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3897/oneeco.11.e184595"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "One Ecosystem",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.3897/oneeco.11.e184595"
+              ]
+            },
+            {
+              "id": "f86ef895-3785-3d32-b5d5-53947e54495d",
+              "title": "A bioblitz approach to assessing biodiversity in Newfoundland's terrestrial publicly nominated protected areas",
+              "authors": [
+                {
+                  "firstName": "Lena",
+                  "lastName": "Dietz Chiasson"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CA"
+              ],
+              "countriesOfResearcher": [
+                "CA"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.48336/438"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.j3d8gf"
+              ],
+              "literatureType": "thesis",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "CITIZEN_SCIENCE",
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.48336/438"
+              ]
+            },
+            {
+              "id": "9246f954-d801-32b4-8b15-bc99b955a213",
+              "title": "The central-marginal hypothesis reveals genetic diversity patterns and population structure of the critically endangered marine living fossil Carcinoscorpius rotundicauda in Asian seas",
+              "authors": [
+                {
+                  "firstName": "Jian",
+                  "lastName": "Liao"
+                },
+                {
+                  "firstName": "Ying",
+                  "lastName": "Qiao"
+                },
+                {
+                  "firstName": "Yang",
+                  "lastName": "Li"
+                },
+                {
+                  "firstName": "Mai",
+                  "lastName": "Tong"
+                },
+                {
+                  "firstName": "Xi",
+                  "lastName": "Zheng"
+                },
+                {
+                  "firstName": "Shuiyuan",
+                  "lastName": "Zhang"
+                },
+                {
+                  "firstName": "Xiaowan",
+                  "lastName": "Ma"
+                },
+                {
+                  "firstName": "Yusong",
+                  "lastName": "Guo"
+                },
+                {
+                  "firstName": "Xuefeng",
+                  "lastName": "Wang"
+                },
+                {
+                  "firstName": "Zhongduo",
+                  "lastName": "Wang"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s00343-026-5461-5"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal of Oceanology and Limnology",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY",
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s00343-026-5461-5"
+              ]
+            },
+            {
+              "id": "7ddc62ec-0cd2-3584-8b89-0224748b1f58",
+              "title": "A Multi‐Factor Habitat Suitability Model for Asian Elephants in the Greater Mekong Subregion: Effects of Vegetation and Climate",
+              "authors": [
+                {
+                  "firstName": "Churui",
+                  "lastName": "Li"
+                },
+                {
+                  "firstName": "Xiaorui",
+                  "lastName": "Wang"
+                },
+                {
+                  "firstName": "ZhenPing",
+                  "lastName": "Qiang"
+                },
+                {
+                  "firstName": "Yongjing",
+                  "lastName": "Tang"
+                },
+                {
+                  "firstName": "Song",
+                  "lastName": "Yang"
+                },
+                {
+                  "firstName": "Chenglong",
+                  "lastName": "Luo"
+                },
+                {
+                  "firstName": "Xiaoyun",
+                  "lastName": "Tu"
+                },
+                {
+                  "firstName": "Shuang",
+                  "lastName": "Zhang"
+                },
+                {
+                  "firstName": "Yuting",
+                  "lastName": "Xia"
+                },
+                {
+                  "firstName": "Lanzhong",
+                  "lastName": "Zhang"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1002/ece3.73793"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Ecology and Evolution",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1002/ece3.73793"
+              ]
+            },
+            {
+              "id": "285b50da-76ea-3874-8085-c6ef3f08008b",
+              "title": "Global Characterization of Sea Turtle Ecological Traps under Compound Marine Heatwaves and Microplastics",
+              "authors": [
+                {
+                  "firstName": "Hao",
+                  "lastName": "Liu"
+                },
+                {
+                  "firstName": "Yiling",
+                  "lastName": "Zhong"
+                },
+                {
+                  "firstName": "Zehou",
+                  "lastName": "Li"
+                },
+                {
+                  "firstName": "Kai",
+                  "lastName": "Hu"
+                },
+                {
+                  "firstName": "Xiangang",
+                  "lastName": "Hu"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1021/acs.est.6c02104"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Environmental Science & Technology",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION",
+                "ECOLOGY",
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.1021/acs.est.6c02104"
+              ]
+            },
+            {
+              "id": "b1d87e90-91d2-3c49-828f-e899677941b4",
+              "title": "Short-term resilience, seasonal variability, and reduced contemporary diversity in a central Texas moth fauna (Lepidoptera)",
+              "authors": [
+                {
+                  "firstName": "Valarie L",
+                  "lastName": "Gabbard"
+                },
+                {
+                  "firstName": "James",
+                  "lastName": "Gillaspy"
+                },
+                {
+                  "firstName": "Jane E",
+                  "lastName": "Strobel"
+                },
+                {
+                  "firstName": "Briseida E",
+                  "lastName": "Yáñez"
+                },
+                {
+                  "firstName": "Karalee A",
+                  "lastName": "Corbeil"
+                },
+                {
+                  "firstName": "Lawrence E",
+                  "lastName": "Gilbert"
+                },
+                {
+                  "firstName": "Kenneth P",
+                  "lastName": "Wray"
+                },
+                {
+                  "firstName": "Steven",
+                  "lastName": "Gibson"
+                },
+                {
+                  "firstName": "Robert M",
+                  "lastName": "Plowes"
+                },
+                {
+                  "firstName": "Alex",
+                  "lastName": "Wild"
+                },
+                {
+                  "firstName": "Rossana",
+                  "lastName": "Maguiña-Conde"
+                }
+              ],
+              "countriesOfCoverage": [
+                "US"
+              ],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1093/ee/nvag053"
+              },
+              "gbifDOIs": [
+                "10.15468/sanyq7"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "Environmental Entomology",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1093/ee/nvag053"
+              ]
+            },
+            {
+              "id": "c5b86b21-2ff7-378d-9f7d-37fc5107a136",
+              "title": "Synthetic biology as a game-changer for endangered medicinal orchids: biosynthesis, engineering and conservation",
+              "authors": [
+                {
+                  "firstName": "Lin",
+                  "lastName": "Qiu"
+                },
+                {
+                  "firstName": "Xianghui",
+                  "lastName": "Chen"
+                },
+                {
+                  "firstName": "Zhan",
+                  "lastName": "Luo"
+                },
+                {
+                  "firstName": "Min",
+                  "lastName": "Jiang"
+                },
+                {
+                  "firstName": "Hu",
+                  "lastName": "Chen"
+                },
+                {
+                  "firstName": "Biyu",
+                  "lastName": "Hou"
+                },
+                {
+                  "firstName": "Haizheng",
+                  "lastName": "Yu"
+                },
+                {
+                  "firstName": "Ning",
+                  "lastName": "Li"
+                },
+                {
+                  "firstName": "Lei",
+                  "lastName": "Zhang"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1039/d6np00027d"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.nhr959"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "Natural Product Reports",
+              "topics": [
+                "CONSERVATION",
+                "HUMAN_HEALTH"
+              ],
+              "websites": [
+                "https://doi.org/10.1039/d6np00027d"
+              ]
+            },
+            {
+              "id": "e25c4e53-4bf1-34b1-8f48-3c3cb0169d7b",
+              "title": "Ninety-year trends reveal sharpest insect declines in the mid-twentieth century",
+              "authors": [
+                {
+                  "firstName": "Felix",
+                  "lastName": "Neff"
+                },
+                {
+                  "firstName": "Kurt",
+                  "lastName": "Bollmann"
+                },
+                {
+                  "firstName": "Yannick",
+                  "lastName": "Chittaro"
+                },
+                {
+                  "firstName": "Martin M.",
+                  "lastName": "Gossner"
+                },
+                {
+                  "firstName": "Felix",
+                  "lastName": "Herzog"
+                },
+                {
+                  "firstName": "Fränzi",
+                  "lastName": "Korner-Nievergelt"
+                },
+                {
+                  "firstName": "Glenn",
+                  "lastName": "Litsios"
+                },
+                {
+                  "firstName": "Carlos",
+                  "lastName": "Martínez-Núñez"
+                },
+                {
+                  "firstName": "Marco",
+                  "lastName": "Moretti"
+                },
+                {
+                  "firstName": "Emmanuel",
+                  "lastName": "Rey"
+                },
+                {
+                  "firstName": "Andreas",
+                  "lastName": "Sanchez"
+                },
+                {
+                  "firstName": "Eva",
+                  "lastName": "Knop"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CH",
+                "ES"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1038/s41559-026-03074-6"
+              },
+              "gbifDOIs": [
+                "10.15468/atyl1j",
+                "10.15468/cjmjy2",
+                "10.15468/dl.mak332"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Nature Ecology & Evolution",
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE"
+              ],
+              "websites": [
+                "https://doi.org/10.1038/s41559-026-03074-6"
+              ]
+            },
+            {
+              "id": "ee6f8df8-3dd4-3603-88d6-3a8ae3d448f0",
+              "title": "Population, expanded distribution, and conservation of the Sumatran endemic tree Magnolia sumatrae (Dandy) Figlar &; Noot.",
+              "authors": [
+                {
+                  "firstName": "Zulfan",
+                  "lastName": "Arico"
+                },
+                {
+                  "firstName": "Wendy A.",
+                  "lastName": "Mustaqim"
+                },
+                {
+                  "firstName": "Aryo Adhi",
+                  "lastName": "Condro"
+                },
+                {
+                  "firstName": "Angga",
+                  "lastName": "Yudaputra"
+                },
+                {
+                  "firstName": "Dipta S.",
+                  "lastName": "Rinandio"
+                },
+                {
+                  "firstName": "Jean",
+                  "lastName": "Linsky"
+                },
+                {
+                  "firstName": "Enggal",
+                  "lastName": "Primananda"
+                },
+                {
+                  "firstName": "Iyan",
+                  "lastName": "Robiansyah"
+                }
+              ],
+              "countriesOfCoverage": [
+                "ID"
+              ],
+              "countriesOfResearcher": [
+                "ID",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3897/natureconservation.64.172897"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.67qagy"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Nature Conservation",
+              "topics": [
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.3897/natureconservation.64.172897"
+              ]
+            },
+            {
+              "id": "514f5c0b-0f7a-3a09-8cf8-429ba34cd132",
+              "title": "Modelling the environmental suitability of dominant mangrove species in the Sundarbans using Maxent",
+              "authors": [
+                {
+                  "firstName": "Mohammad Shamim Hasan",
+                  "lastName": "Mandal"
+                },
+                {
+                  "firstName": "Abdullah-Al-Nomaan",
+                  "lastName": "Khan"
+                },
+                {
+                  "firstName": "Md.",
+                  "lastName": "Kamruzzaman"
+                },
+                {
+                  "firstName": "Tetsuro",
+                  "lastName": "Hosaka"
+                }
+              ],
+              "countriesOfCoverage": [
+                "BD"
+              ],
+              "countriesOfResearcher": [
+                "BD",
+                "JP"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3759/tropics.simm04"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Tropics",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.3759/tropics.simm04"
+              ]
+            },
+            {
+              "id": "705b0775-4c87-39aa-843f-6ee479992043",
+              "title": "Integrating climate and wetland projections reveals hidden risks for greater flamingo conservation",
+              "authors": [
+                {
+                  "firstName": "Mustafa Cemal",
+                  "lastName": "Darılmaz"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "TR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s43388-026-00332-w"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.hdwmac"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Ornithology Research",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s43388-026-00332-w"
+              ]
+            },
+            {
+              "id": "13b8edc8-9b21-365c-9303-e3378f881692",
+              "title": "Closing biodiversity data gaps is essential for monitoring Wetlands of International Importance [Policy Brief]",
+              "authors": [
+                {
+                  "firstName": "Yanina V.",
+                  "lastName": "Sica"
+                },
+                {
+                  "firstName": "Shawn",
+                  "lastName": "Dove"
+                },
+                {
+                  "firstName": "Hanno",
+                  "lastName": "Seebens"
+                },
+                {
+                  "firstName": "Andrew",
+                  "lastName": "Rodrigues"
+                },
+                {
+                  "firstName": "Filip",
+                  "lastName": "Aggestam"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.5281/zenodo.21506165"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.je5pet",
+                "10.15468/dl.msj7xs"
+              ],
+              "literatureType": "report",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.5281/zenodo.21506165"
+              ]
+            },
+            {
+              "id": "38958c0b-0bfd-37b8-bad6-fb12b9385f44",
+              "title": "D6.1 Biodiversity change",
+              "authors": [
+                {
+                  "firstName": "Shawn",
+                  "lastName": "Dove"
+                },
+                {
+                  "firstName": "Yanina V.",
+                  "lastName": "Sica"
+                },
+                {
+                  "firstName": "Maarten",
+                  "lastName": "Trekels"
+                },
+                {
+                  "firstName": "Hanno",
+                  "lastName": "Seebens"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.je5pet",
+                "10.15468/dl.msj7xs"
+              ],
+              "literatureType": "report",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://b-cubed.eu/storage/app/uploads/public/6a9/a89/0a0/6a9a890a027ef433155766.pdf"
+              ]
+            },
+            {
+              "id": "e6e34dc3-e064-3086-b530-07f484c45428",
+              "title": "Constructing a Dual-Functional Green Infrastructure Network for Synergistic Carbon Sink and Bird Conservation",
+              "authors": [
+                {
+                  "firstName": "Yajie",
+                  "lastName": "Yang"
+                },
+                {
+                  "firstName": "Qiwei",
+                  "lastName": "Ma"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3390/land15060936"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.je3aup"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Land",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.3390/land15060936"
+              ]
+            },
+            {
+              "id": "04d990fd-6f02-3bd4-8947-b9b19aa5964a",
+              "title": "Should species with smaller distribution ranges always be prioritised for conservation?",
+              "authors": [
+                {
+                  "firstName": "Tabea",
+                  "lastName": "Giese"
+                },
+                {
+                  "firstName": "Beatriz",
+                  "lastName": "Prado-Monteiro"
+                },
+                {
+                  "firstName": "Luiza F. A.",
+                  "lastName": "de Paula"
+                },
+                {
+                  "firstName": "Miguel",
+                  "lastName": "Inácio"
+                },
+                {
+                  "firstName": "Wassila",
+                  "lastName": "Ibrahim Seidou"
+                },
+                {
+                  "firstName": "Julius",
+                  "lastName": "Köhler"
+                },
+                {
+                  "firstName": "Andressa",
+                  "lastName": "Cabral"
+                },
+                {
+                  "firstName": "Aboubacar-Oumar",
+                  "lastName": "Zon"
+                },
+                {
+                  "firstName": "Stefan",
+                  "lastName": "Porembski"
+                },
+                {
+                  "firstName": "Luiz",
+                  "lastName": "Bondi"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "BR",
+                "DE",
+                "BF",
+                "CI",
+                "LT",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s10531-026-03381-1"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.2298zs",
+                "10.15468/dl.23smj6",
+                "10.15468/dl.26h4xy",
+                "10.15468/dl.27wr9f",
+                "10.15468/dl.28ycp2",
+                "10.15468/dl.2bac3d",
+                "10.15468/dl.2du7jn",
+                "10.15468/dl.2j4ya8",
+                "10.15468/dl.2j85fg",
+                "10.15468/dl.2krpnn",
+                "10.15468/dl.2m7evw",
+                "10.15468/dl.2uk6z3",
+                "10.15468/dl.2uz55d",
+                "10.15468/dl.2w7hjj",
+                "10.15468/dl.33k6bd",
+                "10.15468/dl.3eyvcr",
+                "10.15468/dl.3grqxn",
+                "10.15468/dl.3rrvn2",
+                "10.15468/dl.3tmkpy",
+                "10.15468/dl.3trncs",
+                "10.15468/dl.3wg7vn",
+                "10.15468/dl.42336d",
+                "10.15468/dl.4a35fn",
+                "10.15468/dl.4e9y4h",
+                "10.15468/dl.4hfbhc",
+                "10.15468/dl.4hhv6k",
+                "10.15468/dl.4ms43y",
+                "10.15468/dl.4n449x",
+                "10.15468/dl.4pek7h",
+                "10.15468/dl.4pjhjr",
+                "10.15468/dl.4qkycx",
+                "10.15468/dl.4r6ekh",
+                "10.15468/dl.4rf6ce",
+                "10.15468/dl.4smyuc",
+                "10.15468/dl.4u7yvh",
+                "10.15468/dl.4xrf5t",
+                "10.15468/dl.4z7rsv",
+                "10.15468/dl.4zt397",
+                "10.15468/dl.53g72r",
+                "10.15468/dl.56bfsv",
+                "10.15468/dl.5hhk74",
+                "10.15468/dl.5m7wdb",
+                "10.15468/dl.5mdju7",
+                "10.15468/dl.5quw65",
+                "10.15468/dl.5sremd",
+                "10.15468/dl.5u77u2",
+                "10.15468/dl.5uud4g",
+                "10.15468/dl.5vyu6h",
+                "10.15468/dl.62mnf6",
+                "10.15468/dl.646as8",
+                "10.15468/dl.6677cg",
+                "10.15468/dl.698qkw",
+                "10.15468/dl.69baj9",
+                "10.15468/dl.6c9ztx",
+                "10.15468/dl.6f4hvs",
+                "10.15468/dl.6hmwga",
+                "10.15468/dl.6k7jc6",
+                "10.15468/dl.6mf4vv",
+                "10.15468/dl.6nrsvt",
+                "10.15468/dl.6pwvgd",
+                "10.15468/dl.6q76fn",
+                "10.15468/dl.6r72gy",
+                "10.15468/dl.6vh9hg",
+                "10.15468/dl.6xsqsg",
+                "10.15468/dl.6y7be5",
+                "10.15468/dl.76qb8a",
+                "10.15468/dl.7aeqcg",
+                "10.15468/dl.7bamba",
+                "10.15468/dl.7j4fhq",
+                "10.15468/dl.7k7ff4",
+                "10.15468/dl.7khsy2",
+                "10.15468/dl.7pppyw",
+                "10.15468/dl.7vmwrt",
+                "10.15468/dl.7xkaek",
+                "10.15468/dl.7yjd8k",
+                "10.15468/dl.7zywft",
+                "10.15468/dl.82wkxt",
+                "10.15468/dl.84bsa6",
+                "10.15468/dl.8hy8j9",
+                "10.15468/dl.8ng3dd",
+                "10.15468/dl.8q88sf",
+                "10.15468/dl.8r8yub",
+                "10.15468/dl.8trmju",
+                "10.15468/dl.93cpxk",
+                "10.15468/dl.93r2t5",
+                "10.15468/dl.98f432",
+                "10.15468/dl.9avcdb",
+                "10.15468/dl.9aygvn",
+                "10.15468/dl.9csppx",
+                "10.15468/dl.9gwnej",
+                "10.15468/dl.9rd92u",
+                "10.15468/dl.9uawx5",
+                "10.15468/dl.a3hgeg",
+                "10.15468/dl.a7as3z",
+                "10.15468/dl.a9tgsp",
+                "10.15468/dl.ahznv9",
+                "10.15468/dl.apnykz",
+                "10.15468/dl.at9m53",
+                "10.15468/dl.atkrnf",
+                "10.15468/dl.auv9qf",
+                "10.15468/dl.avrds9",
+                "10.15468/dl.azjcre",
+                "10.15468/dl.b73j9x",
+                "10.15468/dl.ba8gp7",
+                "10.15468/dl.becmgd",
+                "10.15468/dl.bf6pxj",
+                "10.15468/dl.bfzt9p",
+                "10.15468/dl.bq2wu8",
+                "10.15468/dl.brw9km",
+                "10.15468/dl.bswgb4",
+                "10.15468/dl.bx8thv",
+                "10.15468/dl.c66s7c",
+                "10.15468/dl.c9v9rh",
+                "10.15468/dl.cbmtcn",
+                "10.15468/dl.ceebkb",
+                "10.15468/dl.cfgra3",
+                "10.15468/dl.cgs4jd",
+                "10.15468/dl.cke9zn",
+                "10.15468/dl.cmwwns",
+                "10.15468/dl.cndpau",
+                "10.15468/dl.cyn2mv",
+                "10.15468/dl.d3ytby",
+                "10.15468/dl.d59eff",
+                "10.15468/dl.d6jhr9",
+                "10.15468/dl.d6sc3j",
+                "10.15468/dl.d7bq8c",
+                "10.15468/dl.d7yq3k",
+                "10.15468/dl.dafh4z",
+                "10.15468/dl.dea6tj",
+                "10.15468/dl.dgvmch",
+                "10.15468/dl.dn3w7t",
+                "10.15468/dl.dpm3g2",
+                "10.15468/dl.dvctg3",
+                "10.15468/dl.dx9hp4",
+                "10.15468/dl.dzhvby",
+                "10.15468/dl.e5nqq9",
+                "10.15468/dl.e8sbpb",
+                "10.15468/dl.eczrnm",
+                "10.15468/dl.ehea4s",
+                "10.15468/dl.ekk9fu",
+                "10.15468/dl.emp5nx",
+                "10.15468/dl.epbqcq",
+                "10.15468/dl.eqmadm",
+                "10.15468/dl.eseasq",
+                "10.15468/dl.et4dwe",
+                "10.15468/dl.euea3q",
+                "10.15468/dl.evnxrg",
+                "10.15468/dl.f529nm",
+                "10.15468/dl.ffzdam",
+                "10.15468/dl.fgf6s4",
+                "10.15468/dl.fns8vw",
+                "10.15468/dl.frchjk",
+                "10.15468/dl.fu9dsg",
+                "10.15468/dl.fw7ngm",
+                "10.15468/dl.fy5f76",
+                "10.15468/dl.g2dbs3",
+                "10.15468/dl.g6dnze",
+                "10.15468/dl.gdhn3z",
+                "10.15468/dl.gen6n3",
+                "10.15468/dl.gkjxpw",
+                "10.15468/dl.grv3hs",
+                "10.15468/dl.gvfkbd",
+                "10.15468/dl.gzfvm3",
+                "10.15468/dl.h38cvb",
+                "10.15468/dl.h42xye",
+                "10.15468/dl.h78xms",
+                "10.15468/dl.h885my",
+                "10.15468/dl.hgn9q4",
+                "10.15468/dl.hjqzcy",
+                "10.15468/dl.hmpnq7",
+                "10.15468/dl.hpdjsj",
+                "10.15468/dl.hv5594",
+                "10.15468/dl.hxccfx",
+                "10.15468/dl.j43tqx",
+                "10.15468/dl.j568ks",
+                "10.15468/dl.j7e6tv",
+                "10.15468/dl.japukw",
+                "10.15468/dl.jb8ken",
+                "10.15468/dl.jda3g5",
+                "10.15468/dl.jnuegy",
+                "10.15468/dl.jxfrsy",
+                "10.15468/dl.jycdrx",
+                "10.15468/dl.k5hxv2",
+                "10.15468/dl.k6eka7",
+                "10.15468/dl.k6jspn",
+                "10.15468/dl.k7vbgr",
+                "10.15468/dl.k8qdxz",
+                "10.15468/dl.k9mbkq",
+                "10.15468/dl.kaxfbp",
+                "10.15468/dl.kb97qr",
+                "10.15468/dl.ke2gxv",
+                "10.15468/dl.kjrpja",
+                "10.15468/dl.kr7gbe",
+                "10.15468/dl.ktn4qp",
+                "10.15468/dl.ku38h4",
+                "10.15468/dl.kvxbuh",
+                "10.15468/dl.m49rbn",
+                "10.15468/dl.m4pmmc",
+                "10.15468/dl.m4w6rh",
+                "10.15468/dl.m8jywm",
+                "10.15468/dl.m9rq8d",
+                "10.15468/dl.mc6zqm",
+                "10.15468/dl.mev4ch",
+                "10.15468/dl.mpefs7",
+                "10.15468/dl.mpnexj",
+                "10.15468/dl.n52wrd",
+                "10.15468/dl.n63ua8",
+                "10.15468/dl.nbsddt",
+                "10.15468/dl.ncvmhc",
+                "10.15468/dl.nfqtwa",
+                "10.15468/dl.nnpkuu",
+                "10.15468/dl.nnvwym",
+                "10.15468/dl.npnhhm",
+                "10.15468/dl.ntkmb3",
+                "10.15468/dl.nx4pse",
+                "10.15468/dl.nxy7m6",
+                "10.15468/dl.nysvzz",
+                "10.15468/dl.p34w5f",
+                "10.15468/dl.p4szxw",
+                "10.15468/dl.pdy6fj",
+                "10.15468/dl.petm8e",
+                "10.15468/dl.pfykca",
+                "10.15468/dl.phbv6k",
+                "10.15468/dl.php9yn",
+                "10.15468/dl.pmnuqm",
+                "10.15468/dl.pnxv3a",
+                "10.15468/dl.ps6mdw",
+                "10.15468/dl.pupthf",
+                "10.15468/dl.pv5vq2",
+                "10.15468/dl.pznhwz",
+                "10.15468/dl.q2brh4",
+                "10.15468/dl.q6487f",
+                "10.15468/dl.qk7txw",
+                "10.15468/dl.qmfuxz",
+                "10.15468/dl.qmu23t",
+                "10.15468/dl.qn5f4q",
+                "10.15468/dl.qp5hf8",
+                "10.15468/dl.qwzbxg",
+                "10.15468/dl.qywftz",
+                "10.15468/dl.qz2n6y",
+                "10.15468/dl.r2sdq5",
+                "10.15468/dl.r4kujm",
+                "10.15468/dl.r6247a",
+                "10.15468/dl.ra3s87",
+                "10.15468/dl.rb76jm",
+                "10.15468/dl.rfsbps",
+                "10.15468/dl.rjsf4g",
+                "10.15468/dl.rr3cxv",
+                "10.15468/dl.rr4nrq",
+                "10.15468/dl.rr7h9b",
+                "10.15468/dl.s4h6jx",
+                "10.15468/dl.sa9zab",
+                "10.15468/dl.sccdse",
+                "10.15468/dl.scjhe7",
+                "10.15468/dl.sgt2tu",
+                "10.15468/dl.snkpaq",
+                "10.15468/dl.sp37at",
+                "10.15468/dl.strqx6",
+                "10.15468/dl.suyyuq",
+                "10.15468/dl.sym7kq",
+                "10.15468/dl.t5vsy8",
+                "10.15468/dl.t6ppej",
+                "10.15468/dl.t8vs2q",
+                "10.15468/dl.t9bqts",
+                "10.15468/dl.tc6vaj",
+                "10.15468/dl.td7jpp",
+                "10.15468/dl.tdve7b",
+                "10.15468/dl.tekt8z",
+                "10.15468/dl.tewn6z",
+                "10.15468/dl.tgqkfw",
+                "10.15468/dl.thgc6z",
+                "10.15468/dl.thmyfs",
+                "10.15468/dl.ts2vtx",
+                "10.15468/dl.tsuzdp",
+                "10.15468/dl.tt5kbz",
+                "10.15468/dl.tumgu7",
+                "10.15468/dl.u46p8v",
+                "10.15468/dl.u7jbpr",
+                "10.15468/dl.uedr97",
+                "10.15468/dl.upva47",
+                "10.15468/dl.usveyj",
+                "10.15468/dl.uu9ttf",
+                "10.15468/dl.uuvqb7",
+                "10.15468/dl.uvqmw6",
+                "10.15468/dl.uweaw5",
+                "10.15468/dl.uywgqw",
+                "10.15468/dl.v34edm",
+                "10.15468/dl.v6deag",
+                "10.15468/dl.v7bte4",
+                "10.15468/dl.v7y6ux",
+                "10.15468/dl.vdajbu",
+                "10.15468/dl.vde2cc",
+                "10.15468/dl.vet62p",
+                "10.15468/dl.vqx8mx",
+                "10.15468/dl.vzzhtk",
+                "10.15468/dl.w5mmwh",
+                "10.15468/dl.w5nw3n",
+                "10.15468/dl.w7xj3c",
+                "10.15468/dl.we3am5",
+                "10.15468/dl.wjab47",
+                "10.15468/dl.wnqdnc",
+                "10.15468/dl.wqpewp",
+                "10.15468/dl.x2x8ej",
+                "10.15468/dl.x6cyth",
+                "10.15468/dl.x6jrdk",
+                "10.15468/dl.x8kzf4",
+                "10.15468/dl.xb5sv7",
+                "10.15468/dl.xba4pw",
+                "10.15468/dl.xd6ake",
+                "10.15468/dl.xfep7a",
+                "10.15468/dl.xk46dh",
+                "10.15468/dl.xqes2y",
+                "10.15468/dl.xrecnp",
+                "10.15468/dl.xsh9uu",
+                "10.15468/dl.xuwydq",
+                "10.15468/dl.xw9qxx",
+                "10.15468/dl.xzt4gf",
+                "10.15468/dl.y35mxa",
+                "10.15468/dl.y96d4u",
+                "10.15468/dl.yeta3s",
+                "10.15468/dl.yfu9nx",
+                "10.15468/dl.yfy33v",
+                "10.15468/dl.yjqekh",
+                "10.15468/dl.yjspn5",
+                "10.15468/dl.yn5g4f",
+                "10.15468/dl.ynkgvh",
+                "10.15468/dl.z282q4",
+                "10.15468/dl.z4srkk",
+                "10.15468/dl.z6cdrs",
+                "10.15468/dl.z8m9zb",
+                "10.15468/dl.z9k99v",
+                "10.15468/dl.zejbzk",
+                "10.15468/dl.zsgpw2",
+                "10.15468/dl.zvdfg9"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Biodiversity and Conservation",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s10531-026-03381-1"
+              ]
+            },
+            {
+              "id": "94db573d-709f-38df-abaa-c16c54d865b5",
+              "title": "Habitat types, seasonal activity patterns, and preliminary extinction risk assessment of Korean tiger beetles based on open-source data",
+              "authors": [
+                {
+                  "firstName": "Deokjea",
+                  "lastName": "Cha"
+                },
+                {
+                  "firstName": "Deokki",
+                  "lastName": "Kim"
+                },
+                {
+                  "firstName": "Anya",
+                  "lastName": "Lim"
+                },
+                {
+                  "firstName": "Kuem Hee",
+                  "lastName": "Jang"
+                }
+              ],
+              "countriesOfCoverage": [
+                "KR"
+              ],
+              "countriesOfResearcher": [
+                "KR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s10841-026-00786-9"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal of Insect Conservation",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s10841-026-00786-9"
+              ]
+            },
+            {
+              "id": "6bc97288-71e7-3f3e-ae88-e7985cbf95b3",
+              "title": "Productivity and Susceptibility Analysis (PSA) of the Common Live Fish Used as Bait in the Fish Aggregating Device (FAD) Fishery Around Mauritius",
+              "authors": [
+                {
+                  "firstName": "Vibhushan",
+                  "lastName": "Senedhun"
+                },
+                {
+                  "firstName": "Yasuzumi",
+                  "lastName": "Fujimori"
+                },
+                {
+                  "firstName": "Naoki",
+                  "lastName": "Tojo"
+                },
+                {
+                  "firstName": "Makoto",
+                  "lastName": "Tomiyasu"
+                },
+                {
+                  "firstName": "Nadeem",
+                  "lastName": "Nazurally"
+                },
+                {
+                  "firstName": "Vinesh",
+                  "lastName": "Emrith"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MU"
+              ],
+              "countriesOfResearcher": [
+                "JP",
+                "MU"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/978-3-032-19927-0_118"
+              },
+              "gbifDOIs": [
+                "10.15468/0qnb58"
+              ],
+              "literatureType": "book_section",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "Handbook of Sustainable Blue Economy",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/978-3-032-19927-0_118"
+              ]
+            },
+            {
+              "id": "b61a32bf-7a0f-3d2f-9bb5-d50c6f407239",
+              "title": "Conception Island Bank, Bahamas: Natural and Human History, Exploration, Biodiversity, and Conservation",
+              "authors": [
+                {
+                  "firstName": "R. Graham",
+                  "lastName": "Reynolds"
+                }
+              ],
+              "countriesOfCoverage": [
+                "BS"
+              ],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.18475/cjos.v56i1.a26"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.dvpab4"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "Caribbean Journal of Science",
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE"
+              ],
+              "websites": [
+                "https://doi.org/10.18475/cjos.v56i1.a26"
+              ]
+            },
+            {
+              "id": "12a74600-69cb-3c74-a752-6730f5b0ce0a",
+              "title": "Assessing compounding risks across multiple systems and sectors: a socio-environmental systems risk-triage approach",
+              "authors": [
+                {
+                  "firstName": "C. Adam",
+                  "lastName": "Schlosser"
+                },
+                {
+                  "firstName": "Cypress",
+                  "lastName": "Frankenfeld"
+                },
+                {
+                  "firstName": "Sebastian",
+                  "lastName": "Eastham"
+                },
+                {
+                  "firstName": "Xiang",
+                  "lastName": "Gao"
+                },
+                {
+                  "firstName": "Angelo",
+                  "lastName": "Gurgel"
+                },
+                {
+                  "firstName": "Alyssa",
+                  "lastName": "McCluskey"
+                },
+                {
+                  "firstName": "Jennifer",
+                  "lastName": "Morris"
+                },
+                {
+                  "firstName": "Shelli",
+                  "lastName": "Orzach"
+                },
+                {
+                  "firstName": "Kilian",
+                  "lastName": "Rouge"
+                },
+                {
+                  "firstName": "Sergey",
+                  "lastName": "Paltsev"
+                },
+                {
+                  "firstName": "John",
+                  "lastName": "Reilly"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2023,
+              "identifiers": {
+                "doi": "10.3389/fclim.2023.1100600"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.gew2z6"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Frontiers in Climate",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.3389/fclim.2023.1100600"
+              ]
+            },
+            {
+              "id": "f91f86d0-35d6-3c9e-a918-f89dff5c0324",
+              "title": "Differential impacts of wind and solar power developments on avian ecological networks in the Qinghai-Tibet Plateau",
+              "authors": [
+                {
+                  "firstName": "Weizheng",
+                  "lastName": "Xing"
+                },
+                {
+                  "firstName": "Guoqing",
+                  "lastName": "Li"
+                },
+                {
+                  "firstName": "Xiaodong",
+                  "lastName": "Dong"
+                },
+                {
+                  "firstName": "Xinglong",
+                  "lastName": "Guo"
+                },
+                {
+                  "firstName": "Yan",
+                  "lastName": "Shu"
+                },
+                {
+                  "firstName": "Yihan",
+                  "lastName": "Wang"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s11629-025-9766-1"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal of Mountain Science",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s11629-025-9766-1"
+              ]
+            },
+            {
+              "id": "07c66a4c-3459-33da-89e7-a0afc95b9c64",
+              "title": "Crayfish threats to salmonids: A synthesis of current knowledge and research priorities",
+              "authors": [
+                {
+                  "firstName": "Julian D.",
+                  "lastName": "Olden"
+                },
+                {
+                  "firstName": "Phoebe",
+                  "lastName": "Berghout"
+                },
+                {
+                  "firstName": "Claire",
+                  "lastName": "Vaage"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.watbs.2026.100658"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Water Biology and Security",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.watbs.2026.100658"
+              ]
+            },
+            {
+              "id": "aeb41d68-885a-3df0-9873-3b395ac91f74",
+              "title": "Expanding protected areas for biodiversity and ecosystem services considering climate change: A case of the Yangtze River Economic Belt in China",
+              "authors": [
+                {
+                  "firstName": "Jinqian",
+                  "lastName": "Xie"
+                },
+                {
+                  "firstName": "Shicheng",
+                  "lastName": "Li"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.landurbplan.2026.105708"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Landscape and Urban Planning",
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE",
+                "ECOSYSTEM_SERVICES"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.landurbplan.2026.105708"
+              ]
+            },
+            {
+              "id": "9b04dd87-12bc-3e6f-ab88-b2f0d1ed826e",
+              "title": "Protected areas may fail in maintaining suitable ranges of threatened species: A habitat-association approach for Brazilian Savanna bird species",
+              "authors": [
+                {
+                  "firstName": "Sabrina",
+                  "lastName": "Faggion"
+                },
+                {
+                  "firstName": "Paulo",
+                  "lastName": "De Marco"
+                },
+                {
+                  "firstName": "Cristiano",
+                  "lastName": "Machado-Filho"
+                },
+                {
+                  "firstName": "Arthur",
+                  "lastName": "Bispo"
+                },
+                {
+                  "firstName": "Natália Mundim",
+                  "lastName": "Tôrres"
+                }
+              ],
+              "countriesOfCoverage": [
+                "BR"
+              ],
+              "countriesOfResearcher": [
+                "BR"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.baae.2026.05.007"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Basic and Applied Ecology",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.baae.2026.05.007"
+              ]
+            },
+            {
+              "id": "e1bda20e-74cb-3ed8-a371-49d5785d1c30",
+              "title": "浙江莲都峰源自然保护区三种兽类栖息地变化趋势及活动节律分析",
+              "authors": [
+                {
+                  "firstName": "伟",
+                  "lastName": "胡"
+                },
+                {
+                  "firstName": "世迪",
+                  "lastName": "覃"
+                },
+                {
+                  "firstName": "岳明",
+                  "lastName": "曾"
+                },
+                {
+                  "firstName": "李浩",
+                  "lastName": "周"
+                },
+                {
+                  "firstName": "煌凯",
+                  "lastName": "斯"
+                },
+                {
+                  "firstName": "珂",
+                  "lastName": "何"
+                },
+                {
+                  "firstName": "宝权",
+                  "lastName": "刘"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3969/j.issn.1001-3776.2026.02.006"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "浙江林业科技",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.3969/j.issn.1001-3776.2026.02.006"
+              ]
+            },
+            {
+              "id": "8285ecf6-290b-3a42-ac2d-9a6ede066711",
+              "title": "Habitat suitability and range mapping of the Philippine endemic Tectona philippinensis for spatial conservation",
+              "authors": [
+                {
+                  "firstName": "Almyt A.",
+                  "lastName": "Poblete"
+                },
+                {
+                  "firstName": "Nikki Heherson A.",
+                  "lastName": "Dagamac"
+                }
+              ],
+              "countriesOfCoverage": [
+                "PH"
+              ],
+              "countriesOfResearcher": [
+                "PH"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s11355-026-00729-1"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.3fynep"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Landscape and Ecological Engineering",
+              "topics": [
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s11355-026-00729-1"
+              ]
+            },
+            {
+              "id": "8cc25201-2de0-3d56-b14c-2cfd2befb05e",
+              "title": "From Lineage Discovery to Conservation Prioritisation: An Integrative Genomic Framework Applied to a Model Damselfly System",
+              "authors": [
+                {
+                  "firstName": "Zachary G.",
+                  "lastName": "MacDonald"
+                },
+                {
+                  "firstName": "Joscha",
+                  "lastName": "Beninde"
+                },
+                {
+                  "firstName": "Julian R.",
+                  "lastName": "Dupuis"
+                },
+                {
+                  "firstName": "Thomas W.",
+                  "lastName": "Gillespie"
+                },
+                {
+                  "firstName": "H. Bradley",
+                  "lastName": "Shaffer"
+                },
+                {
+                  "firstName": "Gregory F.",
+                  "lastName": "Grether"
+                }
+              ],
+              "countriesOfCoverage": [
+                "US"
+              ],
+              "countriesOfResearcher": [
+                "CH",
+                "NL",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1111/mec.70385"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Molecular Ecology",
+              "topics": [
+                "CONSERVATION",
+                "EVOLUTION"
+              ],
+              "websites": [
+                "https://doi.org/10.1111/mec.70385"
+              ]
+            },
+            {
+              "id": "82a06b9a-f380-3736-8c8a-bbaa4a5980c5",
+              "title": "Habitat suitability and driving factors of the endangered medicinal plant Sinopodophyllum hexandrum under climate and land use change",
+              "authors": [
+                {
+                  "firstName": "Gong-Han",
+                  "lastName": "Tu"
+                },
+                {
+                  "firstName": "Li",
+                  "lastName": "Liu"
+                },
+                {
+                  "firstName": "Fei",
+                  "lastName": "Chen"
+                },
+                {
+                  "firstName": "Shao-Yang",
+                  "lastName": "Xi"
+                },
+                {
+                  "firstName": "Xu-Dong",
+                  "lastName": "Guo"
+                },
+                {
+                  "firstName": "Zhi-Xian",
+                  "lastName": "Jing"
+                },
+                {
+                  "firstName": "Ling",
+                  "lastName": "Jin"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.3389/fpls.2026.1809149"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Frontiers in Plant Science",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.3389/fpls.2026.1809149"
+              ]
+            },
+            {
+              "id": "815fa563-7428-3f13-8d94-726295f145ee",
+              "title": "基于参数优化的MaxEnt模型对西藏普通秋沙鸭潜在适生区分布预测",
+              "authors": [
+                {
+                  "firstName": "婉青",
+                  "lastName": "申"
+                },
+                {
+                  "firstName": "进勋",
+                  "lastName": "陈"
+                },
+                {
+                  "firstName": "邱筱潇",
+                  "lastName": "沈"
+                },
+                {
+                  "firstName": "波",
+                  "lastName": "余"
+                },
+                {
+                  "firstName": "成成",
+                  "lastName": "邹"
+                },
+                {
+                  "firstName": "会睿",
+                  "lastName": "邢"
+                },
+                {
+                  "firstName": "明雨",
+                  "lastName": "党"
+                },
+                {
+                  "firstName": "忠斌",
+                  "lastName": "王"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.13248/j.cnki.wetlandsci.20250132"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "湿地科学",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.13248/j.cnki.wetlandsci.20250132"
+              ]
+            },
+            {
+              "id": "8d32e21a-93f4-3de4-a6b5-69ff8efd4c49",
+              "title": "中国生态保护红线对国家重点保护野生动植物保护成效的分析",
+              "authors": [
+                {
+                  "firstName": "雨桐",
+                  "lastName": "郭"
+                },
+                {
+                  "firstName": "素萃",
+                  "lastName": "李"
+                },
+                {
+                  "firstName": "卫华",
+                  "lastName": "徐"
+                },
+                {
+                  "firstName": "智",
+                  "lastName": "王"
+                },
+                {
+                  "firstName": "雪",
+                  "lastName": "杨"
+                },
+                {
+                  "firstName": "春赫",
+                  "lastName": "尤"
+                },
+                {
+                  "firstName": "吉喜",
+                  "lastName": "高"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.20103/j.stxb.202503170602"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "生态学报",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.20103/j.stxb.202503170602"
+              ]
+            },
+            {
+              "id": "d996aeaf-0476-39f8-8823-988c8f860dcd",
+              "title": "濒危植物大叶木兰在西双版纳潜在分布区及保护空缺研究",
+              "authors": [
+                {
+                  "firstName": "文君",
+                  "lastName": "山"
+                },
+                {
+                  "firstName": "光",
+                  "lastName": "岩"
+                },
+                {
+                  "firstName": "杰京",
+                  "lastName": "张"
+                },
+                {
+                  "firstName": "明旭",
+                  "lastName": "赵"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.11929/j.swfu.202504062"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "西南林业大学学报(自然科学)",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.11929/j.swfu.202504062"
+              ]
+            },
+            {
+              "id": "0d157666-44f5-3d42-95e0-0648f3165427",
+              "title": "The future of Mexican beans’ wild relatives: Identifying conservation areas",
+              "authors": [
+                {
+                  "firstName": "Angela P.",
+                  "lastName": "Cuervo-Robayo"
+                },
+                {
+                  "firstName": "Wolke",
+                  "lastName": "Tobón-Niedfeldt"
+                },
+                {
+                  "firstName": "Carolina",
+                  "lastName": "Ureta"
+                },
+                {
+                  "firstName": "Juan M.",
+                  "lastName": "Barrios"
+                },
+                {
+                  "firstName": "Susana",
+                  "lastName": "Gama-López"
+                },
+                {
+                  "firstName": "Enrique",
+                  "lastName": "Martínez-Meyer"
+                },
+                {
+                  "firstName": "Alfonso",
+                  "lastName": "Delgado-Salinas"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MX"
+              ],
+              "countriesOfResearcher": [
+                "MX"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.20937/atm.53554"
+              },
+              "gbifDOIs": [
+                "10.15468/dmxx5a"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Atmósfera",
+              "topics": [
+                "CONSERVATION",
+                "AGRICULTURE"
+              ],
+              "websites": [
+                "https://doi.org/10.20937/atm.53554"
+              ]
+            },
+            {
+              "id": "0d01cdd0-689b-3464-bd15-bdf244ea2bb0",
+              "title": "Navigating Spatial Trade-offs in Restoration Planning: A Multi-Objective Optimization Framework Integrating Ecological Feasibility",
+              "authors": [
+                {
+                  "firstName": "Matías",
+                  "lastName": "Moreno-Faguett"
+                },
+                {
+                  "firstName": "Jessica",
+                  "lastName": "Castillo"
+                },
+                {
+                  "firstName": "Jose",
+                  "lastName": "Salgado Rojas"
+                },
+                {
+                  "firstName": "Maria Jose",
+                  "lastName": "Martinez-Harms"
+                },
+                {
+                  "firstName": "Barbara",
+                  "lastName": "Larrain Barros"
+                },
+                {
+                  "firstName": "Micaela",
+                  "lastName": "Poutay"
+                },
+                {
+                  "firstName": "Eduardo",
+                  "lastName": "Fuentes-Lillo"
+                },
+                {
+                  "firstName": "Pablo",
+                  "lastName": "Ramírez de Arellano"
+                },
+                {
+                  "firstName": "Patricio",
+                  "lastName": "Pliscoff"
+                },
+                {
+                  "firstName": "Cecilia",
+                  "lastName": "Smith-Ramírez"
+                },
+                {
+                  "firstName": "Olga",
+                  "lastName": "Barbosa Prieto"
+                },
+                {
+                  "firstName": "Aníbal",
+                  "lastName": "Pauchard"
+                },
+                {
+                  "firstName": "Jordi",
+                  "lastName": "Garcia-Gonzalo"
+                },
+                {
+                  "firstName": "Virgilio",
+                  "lastName": "Hermoso"
+                },
+                {
+                  "firstName": "Eduardo",
+                  "lastName": "Álvarez-Miranda"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "CL",
+                "ES"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.32942/x21t2z"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.bxj99t",
+                "10.15468/dl.mk7wfj"
+              ],
+              "literatureType": "working_paper",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "EcoEvoRxiv",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.32942/x21t2z"
+              ]
+            },
+            {
+              "id": "1b8f9b20-7ea1-33b4-b189-c9e0c1d78b14",
+              "title": "Multi-scale modeling of habitat suitability and human-induced risk for the critically endangered white-rumped vulture (Gyps bengalensis) in South and Southeast Asia",
+              "authors": [
+                {
+                  "firstName": "Gulzaman",
+                  "lastName": "William"
+                },
+                {
+                  "firstName": "Zafeer",
+                  "lastName": "Saqib"
+                },
+                {
+                  "firstName": "Abdul",
+                  "lastName": "Qadir"
+                },
+                {
+                  "firstName": "Ayesha",
+                  "lastName": "Siddiqua"
+                },
+                {
+                  "firstName": "Zaki ul Zaman",
+                  "lastName": "Asam"
+                },
+                {
+                  "firstName": "Mujahid",
+                  "lastName": "Farid"
+                },
+                {
+                  "firstName": "Muhammad Jamshed Iqbal",
+                  "lastName": "Chaudhry"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "PK"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s00114-026-02122-2"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "The Science of Nature",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s00114-026-02122-2"
+              ]
+            },
+            {
+              "id": "e07442ee-8065-3b18-88a4-2e26917924f0",
+              "title": "Spatial distribution pattern of Pavetta crassipes K. Schum. under global change and its implications for conserving savanna ecosystems in West Africa",
+              "authors": [
+                {
+                  "firstName": "Armel Arnaud",
+                  "lastName": "Hennou"
+                },
+                {
+                  "firstName": "Towanou",
+                  "lastName": "Houetchegnon"
+                },
+                {
+                  "firstName": "Jacques Idohou Kadjogbé",
+                  "lastName": "Ayena"
+                },
+                {
+                  "firstName": "Charlotte",
+                  "lastName": "Yamontché"
+                },
+                {
+                  "firstName": "Gwladys",
+                  "lastName": "Azongnidé"
+                },
+                {
+                  "firstName": "Bienvenue Nawan Kuiga",
+                  "lastName": "Sourou"
+                },
+                {
+                  "firstName": "Christine",
+                  "lastName": "Ouinsavi"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "BJ"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s44372-026-00632-x"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.rafh53"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Discover Plants",
+              "topics": [
+                "CLIMATE_CHANGE",
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s44372-026-00632-x"
+              ]
+            },
+            {
+              "id": "2c299936-e206-3444-ba6e-2bf7ece88ae7",
+              "title": "Diversity and Conservation Status of Sharks and Rays in the Dutch Caribbean",
+              "authors": [
+                {
+                  "firstName": "Guido",
+                  "lastName": "Leurs"
+                },
+                {
+                  "firstName": "Adolphe O.",
+                  "lastName": "Debrot"
+                },
+                {
+                  "firstName": "Hendrik V.",
+                  "lastName": "Winter"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CW",
+                "SX",
+                "AW",
+                "BQ"
+              ],
+              "countriesOfResearcher": [
+                "NL"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.18475/cjos.v56i1.a24"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.85ffkr",
+                "10.15468/dl.deq2ap"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_CITED"
+              ],
+              "source": "Caribbean Journal of Science",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.18475/cjos.v56i1.a24"
+              ]
+            },
+            {
+              "id": "738cff57-64bd-3d97-97ee-f3f6c4715b30",
+              "title": "Studies in conservation & management of a MN-endangered plant: Wild quinine (Parthenium integrifolium, Asteraceae)",
+              "authors": [
+                {
+                  "firstName": "Samuel M",
+                  "lastName": "Hennemann"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.3gah84",
+                "10.15468/dl.rtu47u"
+              ],
+              "literatureType": "thesis",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": null,
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://hdl.handle.net/20.500.14755/1324"
+              ]
+            },
+            {
+              "id": "3b1b58cf-a31c-3407-aaf3-6cb11cdb04bb",
+              "title": "Modeling Current and Future Habitat Suitability of the Sunda Pangolin (Manis javanica) Across Southeast Asia Using Species Distribution Modeling (SDM)",
+              "authors": [
+                {
+                  "firstName": "Yoonwan",
+                  "lastName": "Nam"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "SG"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.70121/001c.163220"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.5pq6jx"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Scholarly Review Journal",
+              "topics": [
+                "CONSERVATION",
+                "SPECIES_DISTRIBUTIONS"
+              ],
+              "websites": [
+                "https://doi.org/10.70121/001c.163220"
+              ]
+            },
+            {
+              "id": "2704de95-0f3a-37c1-bb51-fab59529924e",
+              "title": "Evaluating ensemble-based filters and wrappers for biodiversity conservation",
+              "authors": [
+                {
+                  "firstName": "Yousra",
+                  "lastName": "Cherif"
+                },
+                {
+                  "firstName": "Ali",
+                  "lastName": "Idri"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "MA"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.jnc.2026.127345"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.7uxqxk",
+                "10.15468/dl.vuzsmj"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal for Nature Conservation",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.jnc.2026.127345"
+              ]
+            },
+            {
+              "id": "31127e54-e82e-3de6-b913-242484ffb32d",
+              "title": "Assessing the vulnerability of elasmobranchs to western and central Pacific tuna fisheries using an improved ecological risk assessment method",
+              "authors": [
+                {
+                  "firstName": "Nicholas J.",
+                  "lastName": "Hill"
+                },
+                {
+                  "firstName": "Shane",
+                  "lastName": "Griffiths"
+                },
+                {
+                  "firstName": "Valerie",
+                  "lastName": "Allain"
+                },
+                {
+                  "firstName": "Simon",
+                  "lastName": "Nicol"
+                },
+                {
+                  "firstName": "Joanne",
+                  "lastName": "Potts"
+                },
+                {
+                  "firstName": "Naiten Bradley",
+                  "lastName": "Phillip"
+                },
+                {
+                  "firstName": "Cassandra L.",
+                  "lastName": "Rigby"
+                }
+              ],
+              "countriesOfCoverage": [],
+              "countriesOfResearcher": [
+                "AU",
+                "NC"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.fishres.2026.107759"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Fisheries Research",
+              "topics": [
+                "CONSERVATION",
+                "ECOLOGY",
+                "MARINE"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.fishres.2026.107759"
+              ]
+            },
+            {
+              "id": "b30f8d5b-39ab-3807-b117-f7fd982f4c8e",
+              "title": "Species richness and endemicity of carnivorans in protected areas of the Yucatan Peninsula",
+              "authors": [
+                {
+                  "firstName": "Rusby G.",
+                  "lastName": "Contreras-Díaz"
+                },
+                {
+                  "firstName": "Luis",
+                  "lastName": "Osorio-Olvera"
+                },
+                {
+                  "firstName": "Javier",
+                  "lastName": "Nori"
+                },
+                {
+                  "firstName": "Jorge",
+                  "lastName": "Soberón"
+                },
+                {
+                  "firstName": "Gerardo",
+                  "lastName": "Martín"
+                },
+                {
+                  "firstName": "Osiris",
+                  "lastName": "Gaona"
+                },
+                {
+                  "firstName": "Xavier",
+                  "lastName": "Chiappa-Carrara"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MX"
+              ],
+              "countriesOfResearcher": [
+                "AR",
+                "MX",
+                "US"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1016/j.pecon.2026.04.002"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.ggdvd6"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Perspectives in Ecology and Conservation",
+              "topics": [
+                "CONSERVATION",
+                "BIODIVERSITY_SCIENCE",
+                "ECOLOGY"
+              ],
+              "websites": [
+                "https://doi.org/10.1016/j.pecon.2026.04.002"
+              ]
+            },
+            {
+              "id": "e2c49cb5-342f-3714-baf2-fc7a7684f7d1",
+              "title": "Prediction of Ephemeral Plant Diversity Patterns and Identification of Conservation Priority Areas in the Gurbantünggüt Desert",
+              "authors": [
+                {
+                  "firstName": "Xu",
+                  "lastName": "Sun"
+                },
+                {
+                  "firstName": "Xiaoxue",
+                  "lastName": "Zhang"
+                },
+                {
+                  "firstName": "Yang",
+                  "lastName": "Xue"
+                },
+                {
+                  "firstName": "Songmei",
+                  "lastName": "Ma"
+                },
+                {
+                  "firstName": "Xintong",
+                  "lastName": "Hu"
+                },
+                {
+                  "firstName": "He",
+                  "lastName": "Sun"
+                },
+                {
+                  "firstName": "Jingjing",
+                  "lastName": "Zhao"
+                }
+              ],
+              "countriesOfCoverage": [
+                "CN"
+              ],
+              "countriesOfResearcher": [
+                "CN"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.21203/rs.3.rs-9428959/v1"
+              },
+              "gbifDOIs": [],
+              "literatureType": "working_paper",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Research Square",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.21203/rs.3.rs-9428959/v1"
+              ]
+            },
+            {
+              "id": "2a1afdca-79aa-3269-afea-2b3061052751",
+              "title": "Areas of priority for Mantodea in South Africa",
+              "authors": [
+                {
+                  "firstName": "B.",
+                  "lastName": "Greyvenstein"
+                },
+                {
+                  "firstName": "H.",
+                  "lastName": "du Plessis"
+                },
+                {
+                  "firstName": "J.",
+                  "lastName": "van den Berg"
+                }
+              ],
+              "countriesOfCoverage": [
+                "ZA"
+              ],
+              "countriesOfResearcher": [
+                "ZA"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s10841-026-00777-w"
+              },
+              "gbifDOIs": [
+                "10.15468/dl.6mx7mr"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "Journal of Insect Conservation",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s10841-026-00777-w"
+              ]
+            },
+            {
+              "id": "14494eb1-9825-3309-ad97-7b66350543ad",
+              "title": "Suitable areas for the conservation of six wild felids in Mexico and their overlap with protected areas",
+              "authors": [
+                {
+                  "firstName": "Eduardo Iván",
+                  "lastName": "López-Ortiz"
+                },
+                {
+                  "firstName": "Alberto Gómez-Tagle",
+                  "lastName": "Chávez"
+                },
+                {
+                  "firstName": "Tiberio César",
+                  "lastName": "Monterrubio-Rico"
+                },
+                {
+                  "firstName": "Yvonne",
+                  "lastName": "Herrerías-Diego"
+                },
+                {
+                  "firstName": "María Luisa",
+                  "lastName": "España-Boquera"
+                },
+                {
+                  "firstName": "Juan Felipe",
+                  "lastName": "Charre-Medellín"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MX"
+              ],
+              "countriesOfResearcher": [
+                "MX"
+              ],
+              "year": 2026,
+              "identifiers": {
+                "doi": "10.1007/s10344-026-02109-4"
+              },
+              "gbifDOIs": [],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "European Journal of Wildlife Research",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://doi.org/10.1007/s10344-026-02109-4"
+              ]
+            },
+            {
+              "id": "35ee1fcd-ec46-3e08-a1e4-49259d4b79d6",
+              "title": "Spatio-temporal patterns and diversity of sea turtle strandings in the Moroccan exclusive economic zone (1980–2024)",
+              "authors": [
+                {
+                  "firstName": "Zohayr",
+                  "lastName": "Dibar"
+                },
+                {
+                  "firstName": "Aziza",
+                  "lastName": "Lansari"
+                },
+                {
+                  "firstName": "Zine el abidine el",
+                  "lastName": "Morjani"
+                },
+                {
+                  "firstName": "Abdellah",
+                  "lastName": "Bouazza"
+                }
+              ],
+              "countriesOfCoverage": [
+                "MA"
+              ],
+              "countriesOfResearcher": [
+                "MA"
+              ],
+              "year": 2026,
+              "identifiers": null,
+              "gbifDOIs": [
+                "10.15468/dl.fffvv4"
+              ],
+              "literatureType": "journal",
+              "relevance": [
+                "GBIF_USED"
+              ],
+              "source": "SALAMANDRA",
+              "topics": [
+                "CONSERVATION"
+              ],
+              "websites": [
+                "https://www.researchgate.net/profile/Zohayr-Dibar/publication/404985653"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
 }

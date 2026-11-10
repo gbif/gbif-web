@@ -14,6 +14,23 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrence\":{\"key\":2542589308,\"localContexts\":null,\"institution\":null,\"collection\":null,\"classification\":{\"vernacularNames\":[{\"name\":\"Rusty Crust\",\"reference\":null}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrence": {
+        "key": 2542589308,
+        "localContexts": null,
+        "institution": null,
+        "collection": null,
+        "classification": {
+          "vernacularNames": [
+            {
+              "name": "Rusty Crust",
+              "reference": null
+            }
+          ]
+        }
+      }
+    }
+  }
 }

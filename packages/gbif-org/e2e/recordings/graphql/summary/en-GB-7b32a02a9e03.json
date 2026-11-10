@@ -103,6 +103,44 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":320223299}},\"rank\":{\"documents\":{\"total\":246111761}},\"hasCoordinates\":{\"documents\":{\"total\":313071404}},\"hasMedia\":{\"documents\":{\"total\":5194143}},\"hasCollector\":{\"documents\":{\"total\":193397212}},\"hasEventDate\":{\"documents\":{\"total\":318981535}},\"hasSequence\":{\"documents\":{\"total\":55707384}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "total": 320223299
+        }
+      },
+      "rank": {
+        "documents": {
+          "total": 246111761
+        }
+      },
+      "hasCoordinates": {
+        "documents": {
+          "total": 313071404
+        }
+      },
+      "hasMedia": {
+        "documents": {
+          "total": 5194143
+        }
+      },
+      "hasCollector": {
+        "documents": {
+          "total": 193397212
+        }
+      },
+      "hasEventDate": {
+        "documents": {
+          "total": 318981535
+        }
+      },
+      "hasSequence": {
+        "documents": {
+          "total": 55707384
+        }
+      }
+    }
+  }
 }

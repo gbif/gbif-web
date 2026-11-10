@@ -5,6 +5,9 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"country\":\"DK\",\"countryName\":\"Dinamarca\"}"
+  "encoding": "json",
+  "body": {
+    "country": "DK",
+    "countryName": "Dinamarca"
+  }
 }

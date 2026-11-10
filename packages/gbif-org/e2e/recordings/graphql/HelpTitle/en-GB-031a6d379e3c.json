@@ -12,6 +12,14 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"help\":{\"id\":\"6OyF4El4FaUICiOoUSMwkk\",\"identifier\":\"opening-gbif-csv-in-excel\",\"title\":\"How do I open tab-delimited CSV files downloaded from GBIF.org in Excel?\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "help": {
+        "id": "6OyF4El4FaUICiOoUSMwkk",
+        "identifier": "opening-gbif-csv-in-excel",
+        "title": "How do I open tab-delimited CSV files downloaded from GBIF.org in Excel?"
+      }
+    }
+  }
 }

@@ -12,6 +12,33 @@
   },
   "status": 404,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"errors\":[{\"message\":\"404: Not Found\",\"locations\":[{\"line\":3,\"column\":5}],\"path\":[\"directoryContact\"],\"extensions\":{\"code\":\"NOT_FOUND\",\"stacktrace\":[\"GraphQLError: 404: Not Found\",\"    at new NotFoundError (/srv/graphql/dist/helpers/GraphQL404Error.js:7:9)\",\"    at Object.directoryContact (/srv/graphql/dist/resources/directoryPerson/directoryPerson.resolver.js:49:23)\",\"    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\"]}}],\"data\":{\"directoryContact\":null}}\n"
+  "encoding": "json",
+  "body": {
+    "errors": [
+      {
+        "message": "404: Not Found",
+        "locations": [
+          {
+            "line": 3,
+            "column": 5
+          }
+        ],
+        "path": [
+          "directoryContact"
+        ],
+        "extensions": {
+          "code": "NOT_FOUND",
+          "stacktrace": [
+            "GraphQLError: 404: Not Found",
+            "    at new NotFoundError (/srv/graphql/dist/helpers/GraphQL404Error.js:7:9)",
+            "    at Object.directoryContact (/srv/graphql/dist/resources/directoryPerson/directoryPerson.resolver.js:49:23)",
+            "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+          ]
+        }
+      }
+    ],
+    "data": {
+      "directoryContact": null
+    }
+  }
 }

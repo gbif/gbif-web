@@ -33,6 +33,107 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":172760478},\"cardinality\":{\"total\":1},\"facet\":{\"results\":[{\"key\":\"50c9509d-22c7-4a22-a47d-8c48425ef4a7\",\"count\":172760478,\"entity\":{\"title\":\"iNaturalist Research-grade Observations\"},\"occurrences\":{\"metaPredicate\":-1092425759,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingOrg\",\"value\":\"28eb1a3f-1c15-4a95-931a-4af90ecb574d\"},{\"type\":\"equals\",\"key\":\"datasetKey\",\"value\":\"50c9509d-22c7-4a22-a47d-8c48425ef4a7\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_ORG\",\"value\":\"28eb1a3f-1c15-4a95-931a-4af90ecb574d\"},{\"type\":\"equals\",\"key\":\"DATASET_KEY\",\"value\":\"50c9509d-22c7-4a22-a47d-8c48425ef4a7\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingOrganizationKey\":{\"value\":\"28eb1a3f-1c15-4a95-931a-4af90ecb574d\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"datasetKey\":{\"value\":\"50c9509d-22c7-4a22-a47d-8c48425ef4a7\"}}}]}}]}}]}}}}}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 172760478
+        },
+        "cardinality": {
+          "total": 1
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "50c9509d-22c7-4a22-a47d-8c48425ef4a7",
+              "count": 172760478,
+              "entity": {
+                "title": "iNaturalist Research-grade Observations"
+              },
+              "occurrences": {
+                "metaPredicate": -1092425759,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingOrg",
+                        "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "datasetKey",
+                        "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_ORG",
+                          "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "DATASET_KEY",
+                          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingOrganizationKey": {
+                                          "value": "28eb1a3f-1c15-4a95-931a-4af90ecb574d"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "datasetKey": {
+                                          "value": "50c9509d-22c7-4a22-a47d-8c48425ef4a7"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

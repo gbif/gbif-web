@@ -59,6 +59,396 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":2344},\"cardinality\":{\"total\":3},\"facet\":{\"results\":[{\"key\":\"PDTQN\",\"count\":2270,\"entity\":{\"title\":\"Fringilla domestica\",\"accepted\":\"Passer domesticus\",\"acceptedKey\":\"4DXXM\"},\"occurrences\":{\"metaPredicate\":1451693049,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"taxonomicStatus\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"PDTQN\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"TAXONOMIC_STATUS\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"PDTQN\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.status\":{\"value\":\"SYNONYM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"PDTQN\"}}}]}}]}}]}}}}},{\"key\":\"RHSZD\",\"count\":71,\"entity\":{\"title\":\"Passer indicus\",\"accepted\":\"Passer domesticus indicus\",\"acceptedKey\":\"7KHNP\"},\"occurrences\":{\"metaPredicate\":1447623187,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"taxonomicStatus\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"RHSZD\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"TAXONOMIC_STATUS\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"RHSZD\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.status\":{\"value\":\"SYNONYM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"RHSZD\"}}}]}}]}}]}}}}},{\"key\":\"VDHHP\",\"count\":3,\"entity\":{\"title\":\"Passer domesticua\",\"accepted\":\"Passer domesticus\",\"acceptedKey\":\"4DXXM\"},\"occurrences\":{\"metaPredicate\":1455118072,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"taxonomicStatus\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"VDHHP\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"TAXONOMIC_STATUS\",\"value\":\"SYNONYM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]},{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"VDHHP\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.status\":{\"value\":\"SYNONYM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"VDHHP\"}}}]}}]}}]}}}}}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 2344
+        },
+        "cardinality": {
+          "total": 3
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "PDTQN",
+              "count": 2270,
+              "entity": {
+                "title": "Fringilla domestica",
+                "accepted": "Passer domesticus",
+                "acceptedKey": "4DXXM"
+              },
+              "occurrences": {
+                "metaPredicate": 1451693049,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "equals",
+                            "key": "taxonKey",
+                            "value": "4DXXM",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "taxonomicStatus",
+                            "value": "SYNONYM",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "PDTQN",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "equals",
+                              "key": "TAXON_KEY",
+                              "value": "4DXXM",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "TAXONOMIC_STATUS",
+                              "value": "SYNONYM",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "PDTQN",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.status": {
+                                          "value": "SYNONYM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "PDTQN"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "RHSZD",
+              "count": 71,
+              "entity": {
+                "title": "Passer indicus",
+                "accepted": "Passer domesticus indicus",
+                "acceptedKey": "7KHNP"
+              },
+              "occurrences": {
+                "metaPredicate": 1447623187,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "equals",
+                            "key": "taxonKey",
+                            "value": "4DXXM",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "taxonomicStatus",
+                            "value": "SYNONYM",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "RHSZD",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "equals",
+                              "key": "TAXON_KEY",
+                              "value": "4DXXM",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "TAXONOMIC_STATUS",
+                              "value": "SYNONYM",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "RHSZD",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.status": {
+                                          "value": "SYNONYM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "RHSZD"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "VDHHP",
+              "count": 3,
+              "entity": {
+                "title": "Passer domesticua",
+                "accepted": "Passer domesticus",
+                "acceptedKey": "4DXXM"
+              },
+              "occurrences": {
+                "metaPredicate": 1455118072,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "and",
+                        "predicates": [
+                          {
+                            "type": "equals",
+                            "key": "taxonKey",
+                            "value": "4DXXM",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          },
+                          {
+                            "type": "equals",
+                            "key": "taxonomicStatus",
+                            "value": "SYNONYM",
+                            "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "VDHHP",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "and",
+                          "predicates": [
+                            {
+                              "type": "equals",
+                              "key": "TAXON_KEY",
+                              "value": "4DXXM",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            },
+                            {
+                              "type": "equals",
+                              "key": "TAXONOMIC_STATUS",
+                              "value": "SYNONYM",
+                              "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "VDHHP",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.status": {
+                                          "value": "SYNONYM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "VDHHP"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

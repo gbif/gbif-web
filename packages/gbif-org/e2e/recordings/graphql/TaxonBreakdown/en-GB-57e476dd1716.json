@@ -13,6 +13,16 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"taxonInfo\":{\"key\":\"4DXXM\",\"rank\":\"SPECIES\",\"scientificName\":\"Passer domesticus\",\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"checklistBankBreakdown\":null}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "taxonInfo": {
+        "key": "4DXXM",
+        "rank": "SPECIES",
+        "scientificName": "Passer domesticus",
+        "datasetKey": "7ddf754f-d193-4cc9-b351-99906754a03b",
+        "checklistBankBreakdown": null
+      }
+    }
+  }
 }

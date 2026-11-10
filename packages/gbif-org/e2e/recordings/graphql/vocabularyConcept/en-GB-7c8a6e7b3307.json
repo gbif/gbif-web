@@ -14,6 +14,14 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"concept\":{\"uiLabel\":\"Museum\",\"uiDefinition\":null,\"parents\":null}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "concept": {
+        "uiLabel": "Museum",
+        "uiDefinition": null,
+        "parents": null
+      }
+    }
+  }
 }

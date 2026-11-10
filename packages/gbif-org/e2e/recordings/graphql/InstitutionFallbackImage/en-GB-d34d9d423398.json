@@ -12,6 +12,12 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"institution\":{\"featuredImageUrl_fallback\":\"http://www.naturhistoriskmuseum.dk/Files/Billeder/naturhistorisk-museum-logo.png\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "institution": {
+        "featuredImageUrl_fallback": "http://www.naturhistoriskmuseum.dk/Files/Billeder/naturhistorisk-museum-logo.png"
+      }
+    }
+  }
 }

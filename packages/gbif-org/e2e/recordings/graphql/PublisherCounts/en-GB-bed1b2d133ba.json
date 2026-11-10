@@ -13,6 +13,22 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":172760478}},\"hostedDatasets\":{\"count\":1},\"literatureSearch\":{\"documents\":{\"total\":8353}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "total": 172760478
+        }
+      },
+      "hostedDatasets": {
+        "count": 1
+      },
+      "literatureSearch": {
+        "documents": {
+          "total": 8353
+        }
+      }
+    }
+  }
 }

@@ -35,6 +35,876 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":26316437},\"cardinality\":{\"total\":222},\"facet\":{\"results\":[{\"key\":\"US\",\"count\":13499695,\"occurrences\":{\"metaPredicate\":-727236888,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"US\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"US\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"US\"}}}]}}]}}]}}}}},{\"key\":\"CA\",\"count\":2053205,\"occurrences\":{\"metaPredicate\":-727236312,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"CA\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"CA\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"CA\"}}}]}}]}}]}}}}},{\"key\":\"ES\",\"count\":1324544,\"occurrences\":{\"metaPredicate\":-727237448,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"ES\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"ES\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"ES\"}}}]}}]}}]}}}}},{\"key\":\"FR\",\"count\":1278693,\"occurrences\":{\"metaPredicate\":-727237482,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"FR\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"FR\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"FR\"}}}]}}]}}]}}}}},{\"key\":\"GB\",\"count\":990008,\"occurrences\":{\"metaPredicate\":-727237461,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"GB\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"GB\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"GB\"}}}]}}]}}]}}}}},{\"key\":\"NL\",\"count\":729367,\"occurrences\":{\"metaPredicate\":-727236152,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"NL\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"NL\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"NL\"}}}]}}]}}]}}}}},{\"key\":\"AU\",\"count\":676641,\"occurrences\":{\"metaPredicate\":-727236338,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"AU\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"AU\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"AU\"}}}]}}]}}]}}}}},{\"key\":\"DE\",\"count\":588662,\"occurrences\":{\"metaPredicate\":-727237407,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"DE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"DE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"DE\"}}}]}}]}}]}}}}},{\"key\":\"IN\",\"count\":472693,\"occurrences\":{\"metaPredicate\":-727236035,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"IN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"IN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"IN\"}}}]}}]}}]}}}}},{\"key\":\"PT\",\"count\":448594,\"occurrences\":{\"metaPredicate\":-727237794,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"countryCode\",\"value\":\"PT\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"COUNTRY\",\"value\":\"PT\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"countryCode\":{\"value\":\"PT\"}}}]}}]}}]}}}}}]}},\"isNotNull\":{\"documents\":{\"total\":26314067}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 26316437
+        },
+        "cardinality": {
+          "total": 222
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "US",
+              "count": 13499695,
+              "occurrences": {
+                "metaPredicate": -727236888,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "US",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "US",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "US"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "CA",
+              "count": 2053205,
+              "occurrences": {
+                "metaPredicate": -727236312,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "CA",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "CA",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "CA"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "ES",
+              "count": 1324544,
+              "occurrences": {
+                "metaPredicate": -727237448,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "ES",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "ES",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "ES"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "FR",
+              "count": 1278693,
+              "occurrences": {
+                "metaPredicate": -727237482,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "FR",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "FR",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "FR"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "GB",
+              "count": 990008,
+              "occurrences": {
+                "metaPredicate": -727237461,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "GB",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "GB",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "GB"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "NL",
+              "count": 729367,
+              "occurrences": {
+                "metaPredicate": -727236152,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "NL",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "NL",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "NL"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "AU",
+              "count": 676641,
+              "occurrences": {
+                "metaPredicate": -727236338,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "AU",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "AU",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "AU"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "DE",
+              "count": 588662,
+              "occurrences": {
+                "metaPredicate": -727237407,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "DE",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "DE",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "DE"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "IN",
+              "count": 472693,
+              "occurrences": {
+                "metaPredicate": -727236035,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "IN",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "IN",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "IN"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "PT",
+              "count": 448594,
+              "occurrences": {
+                "metaPredicate": -727237794,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "countryCode",
+                        "value": "PT",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "COUNTRY",
+                          "value": "PT",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "countryCode": {
+                                          "value": "PT"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "isNotNull": {
+        "documents": {
+          "total": 26314067
+        }
+      }
+    }
+  }
 }

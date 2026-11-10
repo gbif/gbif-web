@@ -33,6 +33,37 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":195},\"cardinality\":{\"total\":4},\"facet\":{\"results\":[{\"key\":\"GBIF_CITED\",\"count\":134},{\"key\":\"GBIF_USED\",\"count\":49},{\"key\":\"GBIF_MENTIONED\",\"count\":9},{\"key\":\"GBIF_DISCUSSED\",\"count\":3}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 195
+        },
+        "cardinality": {
+          "total": 4
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "GBIF_CITED",
+              "count": 134
+            },
+            {
+              "key": "GBIF_USED",
+              "count": 49
+            },
+            {
+              "key": "GBIF_MENTIONED",
+              "count": 9
+            },
+            {
+              "key": "GBIF_DISCUSSED",
+              "count": 3
+            }
+          ]
+        }
+      }
+    }
+  }
 }

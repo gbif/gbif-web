@@ -33,6 +33,1022 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":79611173},\"cardinality\":{\"total\":12},\"facet\":{\"results\":[{\"key\":8,\"count\":9357683,\"occurrences\":{\"metaPredicate\":532472322,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":8,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":8,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"8\"}}}]}}]}}]}}}}},{\"key\":9,\"count\":9177795,\"occurrences\":{\"metaPredicate\":532472321,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":9,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":9,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"9\"}}}]}}]}}]}}}}},{\"key\":7,\"count\":8702344,\"occurrences\":{\"metaPredicate\":532472327,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":7,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":7,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"7\"}}}]}}]}}]}}}}},{\"key\":6,\"count\":7541564,\"occurrences\":{\"metaPredicate\":532472328,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":6,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":6,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"6\"}}}]}}]}}]}}}}},{\"key\":5,\"count\":7316653,\"occurrences\":{\"metaPredicate\":532472325,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":5,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":5,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"5\"}}}]}}]}}]}}}}},{\"key\":10,\"count\":7274903,\"occurrences\":{\"metaPredicate\":532469791,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":10,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":10,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"10\"}}}]}}]}}]}}}}},{\"key\":4,\"count\":6294528,\"occurrences\":{\"metaPredicate\":532472326,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":4,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":4,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"4\"}}}]}}]}}]}}}}},{\"key\":3,\"count\":6089902,\"occurrences\":{\"metaPredicate\":532472331,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":3,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":3,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"3\"}}}]}}]}}]}}}}},{\"key\":2,\"count\":5310583,\"occurrences\":{\"metaPredicate\":532472332,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":2,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":2,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"2\"}}}]}}]}}]}}}}},{\"key\":11,\"count\":4954690,\"occurrences\":{\"metaPredicate\":532469754,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":11,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":11,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"11\"}}}]}}]}}]}}}}},{\"key\":1,\"count\":3859814,\"occurrences\":{\"metaPredicate\":532472329,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":1,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":1,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"1\"}}}]}}]}}]}}}}},{\"key\":12,\"count\":2512727,\"occurrences\":{\"metaPredicate\":532469753,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"publishingCountry\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"month\",\"value\":12,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"PUBLISHING_COUNTRY\",\"value\":\"DK\"},{\"type\":\"equals\",\"key\":\"MONTH\",\"value\":12,\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"publishingCountry\":{\"value\":\"DK\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"month\":{\"value\":\"12\"}}}]}}]}}]}}}}}]}},\"isNotNull\":{\"documents\":{\"total\":78393186}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 79611173
+        },
+        "cardinality": {
+          "total": 12
+        },
+        "facet": {
+          "results": [
+            {
+              "key": 8,
+              "count": 9357683,
+              "occurrences": {
+                "metaPredicate": 532472322,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 8,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 8,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "8"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 9,
+              "count": 9177795,
+              "occurrences": {
+                "metaPredicate": 532472321,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 9,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 9,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "9"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 7,
+              "count": 8702344,
+              "occurrences": {
+                "metaPredicate": 532472327,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 7,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 7,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "7"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 6,
+              "count": 7541564,
+              "occurrences": {
+                "metaPredicate": 532472328,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 6,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 6,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 5,
+              "count": 7316653,
+              "occurrences": {
+                "metaPredicate": 532472325,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 5,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 5,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "5"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 10,
+              "count": 7274903,
+              "occurrences": {
+                "metaPredicate": 532469791,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 10,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 10,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "10"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 4,
+              "count": 6294528,
+              "occurrences": {
+                "metaPredicate": 532472326,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 4,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 4,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "4"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 3,
+              "count": 6089902,
+              "occurrences": {
+                "metaPredicate": 532472331,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 3,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 3,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "3"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 2,
+              "count": 5310583,
+              "occurrences": {
+                "metaPredicate": 532472332,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 2,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 2,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "2"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 11,
+              "count": 4954690,
+              "occurrences": {
+                "metaPredicate": 532469754,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 11,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 11,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "11"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 1,
+              "count": 3859814,
+              "occurrences": {
+                "metaPredicate": 532472329,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 1,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 1,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "1"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": 12,
+              "count": 2512727,
+              "occurrences": {
+                "metaPredicate": 532469753,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "publishingCountry",
+                        "value": "DK"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "month",
+                        "value": 12,
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "PUBLISHING_COUNTRY",
+                          "value": "DK"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "MONTH",
+                          "value": 12,
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "publishingCountry": {
+                                          "value": "DK"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "month": {
+                                          "value": "12"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "isNotNull": {
+        "documents": {
+          "total": 78393186
+        }
+      }
+    }
+  }
 }

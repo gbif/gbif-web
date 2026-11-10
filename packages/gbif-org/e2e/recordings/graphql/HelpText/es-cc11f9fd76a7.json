@@ -12,6 +12,15 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"help\":{\"id\":\"5RxOgRrAsImHenVGoTCeuX\",\"identifier\":\"what-is-an-installation\",\"title\":\"¿Qué es una instalación?\",\"body\":\"<p>Las instalaciones son servidores que ponen a disposición en Internet conjuntos de datos. Algunos publicadores gestionan sus propias instalaciones técnicas, por ejemplo, utilizando el <a href=\\\"https://www.gbif.org/es/ipt\\\">IPT</a>, a través del cual se comparten los datos con GBIF. Algunas instalaciones son colaboraciones y pueden ser compartidas por varios publicadores.</p>\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "help": {
+        "id": "5RxOgRrAsImHenVGoTCeuX",
+        "identifier": "what-is-an-installation",
+        "title": "¿Qué es una instalación?",
+        "body": "<p>Las instalaciones son servidores que ponen a disposición en Internet conjuntos de datos. Algunos publicadores gestionan sus propias instalaciones técnicas, por ejemplo, utilizando el <a href=\"https://www.gbif.org/es/ipt\">IPT</a>, a través del cual se comparten los datos con GBIF. Algunas instalaciones son colaboraciones y pueden ser compartidas por varios publicadores.</p>"
+      }
+    }
+  }
 }

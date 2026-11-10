@@ -20,6 +20,19 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"DK\",\"count\":68505846}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "facet": {
+          "field": [
+            {
+              "name": "DK",
+              "count": 68505846
+            }
+          ]
+        }
+      }
+    }
+  }
 }

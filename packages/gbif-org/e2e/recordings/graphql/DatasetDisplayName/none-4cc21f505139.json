@@ -11,6 +11,12 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"item\":{\"title\":\"Resolución de 26 de noviembre de 2021, de la Dirección General de Calidad y Evaluación Ambiental, por la que se formula declaración ambiental estratégica de la revisión del Plan Director del Aeropuerto de Jerez\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Resolución de 26 de noviembre de 2021, de la Dirección General de Calidad y Evaluación Ambiental, por la que se formula declaración ambiental estratégica de la revisión del Plan Director del Aeropuerto de Jerez"
+      }
+    }
+  }
 }

@@ -14,6 +14,18 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"concept\":{\"uiLabel\":\"holotype\",\"uiDefinition\":\"The one specimen or other element used or designated by the original author at the time of publication of the original description as the nomenclatural type of a species or infraspecific taxon.\",\"parents\":[{\"uiLabel\":\"type\"}]}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "concept": {
+        "uiLabel": "holotype",
+        "uiDefinition": "The one specimen or other element used or designated by the original author at the time of publication of the original description as the nomenclatural type of a species or infraspecific taxon.",
+        "parents": [
+          {
+            "uiLabel": "type"
+          }
+        ]
+      }
+    }
+  }
 }

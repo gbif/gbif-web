@@ -14,6 +14,176 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"list\":{\"limit\":20,\"count\":3539,\"offset\":0,\"results\":[{\"key\":\"c5f5e963-9a9f-4deb-a6c8-c05dca3c1e85\",\"title\":\"Albion College Herbarium\",\"created\":\"2026-11-09T23:08:13.921+00:00\",\"country\":\"US\",\"logoUrl\":null,\"excerpt\":\"The Albion College Herbarium (ALBC) is a teaching collection of about 14,000 specimens, including 10,000 sheets of vascular plants and another 4,000 specimens of bryophytes, algae, lichens, and…\"},{\"key\":\"df2af09a-1306-4464-8bb7-9e54f3b783f1\",\"title\":\"Plataforma Oceánica de Canarias (PLOCAN)\",\"created\":\"2026-11-08T20:54:38.573+00:00\",\"country\":\"ES\",\"logoUrl\":null,\"excerpt\":\"The Oceanic Platform of the Canary Islands (PLOCAN) is a public marine research infrastructure based in Gran Canaria, Spain, recognised as a Singular Scientific and Technical Infrastructure (ICTS)…\"},{\"key\":\"36fb8280-88d6-4fcd-b220-265b23c01938\",\"title\":\"Papilio Trails\",\"created\":\"2026-11-05T17:18:15.409+00:00\",\"country\":\"IN\",\"logoUrl\":\"https://papiliotrails.in/files/2026/11/papilio-trails-large-logo.png\",\"excerpt\":\"Papilio Trails is a passionate initiative dedicated to creating meaningful butterfly and moth-watching experiences across some of India’s richest biodiversity hotspots. More than just nature tours,…\"},{\"key\":\"ea802022-0971-4f0e-86fd-b05c3b47b399\",\"title\":\"Universidad Nacional de General Sarmiento\",\"created\":\"2026-11-04T21:40:32.122+00:00\",\"country\":\"AR\",\"logoUrl\":null,\"excerpt\":\"The University has more than 20 years of experience in research on soil ecology and biodiversity through its Soil Biology Group, which focuses on the study of soil macrofauna communities—particularly…\"},{\"key\":\"676e107e-4ba8-49a0-b9da-f822a9c35d01\",\"title\":\"Universidade do Estado de Minas Gerais\",\"created\":\"2026-11-04T21:05:49.231+00:00\",\"country\":\"BR\",\"logoUrl\":null,\"excerpt\":\"The State University of Minas Gerais (UEMG) – Ibirité Campus is a public higher education institution in Minas Gerais, Brazil. Through its Biological Sciences department, the campus conducts…\"},{\"key\":\"14a8c1ec-6e6f-4315-b272-55d3945b1210\",\"title\":\"Instituto Pró-Onça\",\"created\":\"2026-11-03T19:23:15.157+00:00\",\"country\":\"BR\",\"logoUrl\":\"https://www.google.com/search?q=logo+pro+on%C3%A7a+institute&rlz=1C1GCEA_enBR1219BR1219&oq=logo+pro+on%C3%A7a+institute&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDkzMTFqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8#sv=CAMSaRowKg5nVFRHdjhiSndrVkNCTTIOZ1RUR3Y4Ykp3a1ZDQk06Dnp1WmlULUF6N195aVpNIAQqLwobX2t6UHFhdS1RQzhTbzFzUVB4OFBGcUE4XzY4Eg5nVFRHdjhiSndrVkNCTRgAMAFQBRgHIIz7t9IDSggQAhgBIAIoAQ\",\"excerpt\":\"Instituto Pró-Onça is a Brazilian non-profit organization working to conserve jaguars and other wildlife in the Cerrado. Our activities include biodiversity research, wildlife monitoring, habitat…\"},{\"key\":\"ca3c14e3-5073-4d93-bf50-816c505a4b92\",\"title\":\"Oikon Ltd. - Institute of Applied Ecology\",\"created\":\"2026-11-03T09:00:34.553+00:00\",\"country\":\"HR\",\"logoUrl\":null,\"excerpt\":\"OIKON Ltd. – Institute of Applied Ecology is a leading licensed and accredited consulting company / research institute in the field of applied ecology in Croatia and the region. Among other…\"},{\"key\":\"c0a9fcc8-7b93-4ddf-8076-3a23596fd10c\",\"title\":\"Consiglio Nazionale delle Ricerche\",\"created\":\"2026-11-02T13:22:12.817+00:00\",\"country\":\"IT\",\"logoUrl\":\"https://upload.wikimedia.org/wikipedia/commons/8/8c/Consiglio_Nazionale_delle_Ricerche_logo_verticale.png\",\"excerpt\":\"The National Research Council (CNR) is the largest public research institution in Italy, the only one under the Research Ministry performing multidisciplinary activities. Several research institutes…\"},{\"key\":\"3a47c97a-4912-4905-92f8-f42a9313fc1b\",\"title\":\"Geonatura Ltd.\",\"created\":\"2026-11-02T12:52:17.820+00:00\",\"country\":\"HR\",\"logoUrl\":null,\"excerpt\":\"Geonatura Ltd. is a Croatian environmental consulting company specialising in biodiversity research, nature conservation and ecological monitoring. Its activities include baseline biodiversity…\"},{\"key\":\"ee3b330f-864d-4513-a971-71d91627d7a5\",\"title\":\"University of Duisburg-Essen\",\"created\":\"2026-11-02T05:29:29.922+00:00\",\"country\":\"DE\",\"logoUrl\":null,\"excerpt\":\"University\"},{\"key\":\"705c8cf7-6f88-409b-9755-e870d7c53b9a\",\"title\":\"Department of Biology and Environmental Studies\",\"created\":\"2026-10-31T09:35:02.369+00:00\",\"country\":\"SK\",\"logoUrl\":null,\"excerpt\":\"We offer Bachelor's (Bc.) and Master's (MSc.) degrees to the graduates of full-time form of study in both Teaching of Academic Subjects and in the study program Environmental Biology as well as PhD.…\"},{\"key\":\"536dc752-99cc-423e-bb1d-bdacd1542333\",\"title\":\"University of Prishtina\",\"created\":\"2026-10-30T08:18:54.442+00:00\",\"country\":\"XK\",\"logoUrl\":\"https://fundit.fr/en/institutions/university-prishtina\",\"excerpt\":\"The University of Pristina is Kosovo’s largest public university, with 56 years of academic tradition. It is an autonomous public higher education and research institution that develops academic…\"},{\"key\":\"82ce27a3-b32f-491c-a55f-6c286d8a7f8a\",\"title\":\"Terrestrial Ecosystem Research Network\",\"created\":\"2026-10-27T22:06:37.386+00:00\",\"country\":\"AU\",\"logoUrl\":\"https://collections.ala.org.au/data/dataProvider/tern-logo.png\",\"excerpt\":null},{\"key\":\"53db394c-3da5-4083-9649-728cb4f0768a\",\"title\":\"Kemerovo State University\",\"created\":\"2026-10-27T12:22:21.757+00:00\",\"country\":\"RU\",\"logoUrl\":\"https://kemsu.ru/university/corporate-symbols/\",\"excerpt\":\"Kemerovo State University (KemSU) contributes to GBIF’s mission through its research on the biodiversity of the Kemerovo Region (Kuzbass) and the broader Altai-Sayan ecoregion. The university…\"},{\"key\":\"12bf28ba-1a3c-4c6f-9081-48d14e925201\",\"title\":\"Instituto Oceanográfico da Universidade de São Paulo\",\"created\":\"2026-10-26T13:23:12.852+00:00\",\"country\":\"BR\",\"logoUrl\":\"https://www.io.usp.br/storage/2026/07/cropped-logo_iousp_2022-01-scaled-2.png\",\"excerpt\":\"The Oceanographic Institute is a leading public institution dedicated to the study of Marine Sciences. With the goal of becoming a reference in ocean science communication and education, the…\"},{\"key\":\"a35f75cc-a6c9-4c88-acda-4fc4dfcd1340\",\"title\":\"Lagos State University of Science and Technology\",\"created\":\"2026-10-26T06:42:20.797+00:00\",\"country\":\"NG\",\"logoUrl\":null,\"excerpt\":\"The LASUSTECH Herbarium (LSTH), established within the Department of Biological Sciences, Lagos State University of Science and Technology, Nigeria, is dedicated to the collection, preservation,…\"},{\"key\":\"f1c54de4-49bb-455b-b680-e15c34aea0a0\",\"title\":\"Swiss Ornithological Institute\",\"created\":\"2026-10-23T10:10:52.830+00:00\",\"country\":\"CH\",\"logoUrl\":\"https://www.vogelwarte.ch/wp-content/themes/vogelwarte/assets/images/logo.svg\",\"excerpt\":\"The Swiss Ornithological Institute is an independent, non-profit foundation based in Sempach, Switzerland, dedicated to ornithological research and bird conservation. It monitors the distribution,…\"},{\"key\":\"70344609-a709-4572-9ec4-00f9dc7af14c\",\"title\":\"Federation University Australia\",\"created\":\"2026-10-23T04:04:14.757+00:00\",\"country\":\"AU\",\"logoUrl\":null,\"excerpt\":\"Federation University Australia (Fed Uni) is a public, dual-sector university based in Ballarat in Victoria, Australia.\"},{\"key\":\"a95daf5a-b91c-446b-81d5-9f8e7a8b9524\",\"title\":\"WWF Romania\",\"created\":\"2026-10-22T10:47:41.877+00:00\",\"country\":\"RO\",\"logoUrl\":\"https://wwf.ro/wp-content/uploads/2025/06/Logo_WWF_20.png\",\"excerpt\":\"WWF Romania is a conservation organization and part of the global WWF network, active in Romania since 2006. It works to conserve biodiversity and promote the sustainable management of natural…\"},{\"key\":\"5a785147-edca-4b9e-9477-91b7b1266301\",\"title\":\"EIATEC S.A.S.\",\"created\":\"2026-10-21T13:39:42.855+00:00\",\"country\":\"CO\",\"logoUrl\":\"https://gitlab.com/sib-colombia/logos/-/raw/main/socio_SiB-EIATEC1.png?ref_type=heads\",\"excerpt\":\"EIATEC S.A.S. es una consultora colombiana especializada en estudios ambientales, asesoría técnica y gestión sostenible de proyectos. En el desarrollo de sus actividades ha generado, recopilado y…\"}]}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "list": {
+        "limit": 20,
+        "count": 3539,
+        "offset": 0,
+        "results": [
+          {
+            "key": "c5f5e963-9a9f-4deb-a6c8-c05dca3c1e85",
+            "title": "Albion College Herbarium",
+            "created": "2026-11-09T23:08:13.921+00:00",
+            "country": "US",
+            "logoUrl": null,
+            "excerpt": "The Albion College Herbarium (ALBC) is a teaching collection of about 14,000 specimens, including 10,000 sheets of vascular plants and another 4,000 specimens of bryophytes, algae, lichens, and…"
+          },
+          {
+            "key": "df2af09a-1306-4464-8bb7-9e54f3b783f1",
+            "title": "Plataforma Oceánica de Canarias (PLOCAN)",
+            "created": "2026-11-08T20:54:38.573+00:00",
+            "country": "ES",
+            "logoUrl": null,
+            "excerpt": "The Oceanic Platform of the Canary Islands (PLOCAN) is a public marine research infrastructure based in Gran Canaria, Spain, recognised as a Singular Scientific and Technical Infrastructure (ICTS)…"
+          },
+          {
+            "key": "36fb8280-88d6-4fcd-b220-265b23c01938",
+            "title": "Papilio Trails",
+            "created": "2026-11-05T17:18:15.409+00:00",
+            "country": "IN",
+            "logoUrl": "https://papiliotrails.in/files/2026/11/papilio-trails-large-logo.png",
+            "excerpt": "Papilio Trails is a passionate initiative dedicated to creating meaningful butterfly and moth-watching experiences across some of India’s richest biodiversity hotspots. More than just nature tours,…"
+          },
+          {
+            "key": "ea802022-0971-4f0e-86fd-b05c3b47b399",
+            "title": "Universidad Nacional de General Sarmiento",
+            "created": "2026-11-04T21:40:32.122+00:00",
+            "country": "AR",
+            "logoUrl": null,
+            "excerpt": "The University has more than 20 years of experience in research on soil ecology and biodiversity through its Soil Biology Group, which focuses on the study of soil macrofauna communities—particularly…"
+          },
+          {
+            "key": "676e107e-4ba8-49a0-b9da-f822a9c35d01",
+            "title": "Universidade do Estado de Minas Gerais",
+            "created": "2026-11-04T21:05:49.231+00:00",
+            "country": "BR",
+            "logoUrl": null,
+            "excerpt": "The State University of Minas Gerais (UEMG) – Ibirité Campus is a public higher education institution in Minas Gerais, Brazil. Through its Biological Sciences department, the campus conducts…"
+          },
+          {
+            "key": "14a8c1ec-6e6f-4315-b272-55d3945b1210",
+            "title": "Instituto Pró-Onça",
+            "created": "2026-11-03T19:23:15.157+00:00",
+            "country": "BR",
+            "logoUrl": "https://www.google.com/search?q=logo+pro+on%C3%A7a+institute&rlz=1C1GCEA_enBR1219BR1219&oq=logo+pro+on%C3%A7a+institute&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDkzMTFqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8#sv=CAMSaRowKg5nVFRHdjhiSndrVkNCTTIOZ1RUR3Y4Ykp3a1ZDQk06Dnp1WmlULUF6N195aVpNIAQqLwobX2t6UHFhdS1RQzhTbzFzUVB4OFBGcUE4XzY4Eg5nVFRHdjhiSndrVkNCTRgAMAFQBRgHIIz7t9IDSggQAhgBIAIoAQ",
+            "excerpt": "Instituto Pró-Onça is a Brazilian non-profit organization working to conserve jaguars and other wildlife in the Cerrado. Our activities include biodiversity research, wildlife monitoring, habitat…"
+          },
+          {
+            "key": "ca3c14e3-5073-4d93-bf50-816c505a4b92",
+            "title": "Oikon Ltd. - Institute of Applied Ecology",
+            "created": "2026-11-03T09:00:34.553+00:00",
+            "country": "HR",
+            "logoUrl": null,
+            "excerpt": "OIKON Ltd. – Institute of Applied Ecology is a leading licensed and accredited consulting company / research institute in the field of applied ecology in Croatia and the region. Among other…"
+          },
+          {
+            "key": "c0a9fcc8-7b93-4ddf-8076-3a23596fd10c",
+            "title": "Consiglio Nazionale delle Ricerche",
+            "created": "2026-11-02T13:22:12.817+00:00",
+            "country": "IT",
+            "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Consiglio_Nazionale_delle_Ricerche_logo_verticale.png",
+            "excerpt": "The National Research Council (CNR) is the largest public research institution in Italy, the only one under the Research Ministry performing multidisciplinary activities. Several research institutes…"
+          },
+          {
+            "key": "3a47c97a-4912-4905-92f8-f42a9313fc1b",
+            "title": "Geonatura Ltd.",
+            "created": "2026-11-02T12:52:17.820+00:00",
+            "country": "HR",
+            "logoUrl": null,
+            "excerpt": "Geonatura Ltd. is a Croatian environmental consulting company specialising in biodiversity research, nature conservation and ecological monitoring. Its activities include baseline biodiversity…"
+          },
+          {
+            "key": "ee3b330f-864d-4513-a971-71d91627d7a5",
+            "title": "University of Duisburg-Essen",
+            "created": "2026-11-02T05:29:29.922+00:00",
+            "country": "DE",
+            "logoUrl": null,
+            "excerpt": "University"
+          },
+          {
+            "key": "705c8cf7-6f88-409b-9755-e870d7c53b9a",
+            "title": "Department of Biology and Environmental Studies",
+            "created": "2026-10-31T09:35:02.369+00:00",
+            "country": "SK",
+            "logoUrl": null,
+            "excerpt": "We offer Bachelor's (Bc.) and Master's (MSc.) degrees to the graduates of full-time form of study in both Teaching of Academic Subjects and in the study program Environmental Biology as well as PhD.…"
+          },
+          {
+            "key": "536dc752-99cc-423e-bb1d-bdacd1542333",
+            "title": "University of Prishtina",
+            "created": "2026-10-30T08:18:54.442+00:00",
+            "country": "XK",
+            "logoUrl": "https://fundit.fr/en/institutions/university-prishtina",
+            "excerpt": "The University of Pristina is Kosovo’s largest public university, with 56 years of academic tradition. It is an autonomous public higher education and research institution that develops academic…"
+          },
+          {
+            "key": "82ce27a3-b32f-491c-a55f-6c286d8a7f8a",
+            "title": "Terrestrial Ecosystem Research Network",
+            "created": "2026-10-27T22:06:37.386+00:00",
+            "country": "AU",
+            "logoUrl": "https://collections.ala.org.au/data/dataProvider/tern-logo.png",
+            "excerpt": null
+          },
+          {
+            "key": "53db394c-3da5-4083-9649-728cb4f0768a",
+            "title": "Kemerovo State University",
+            "created": "2026-10-27T12:22:21.757+00:00",
+            "country": "RU",
+            "logoUrl": "https://kemsu.ru/university/corporate-symbols/",
+            "excerpt": "Kemerovo State University (KemSU) contributes to GBIF’s mission through its research on the biodiversity of the Kemerovo Region (Kuzbass) and the broader Altai-Sayan ecoregion. The university…"
+          },
+          {
+            "key": "12bf28ba-1a3c-4c6f-9081-48d14e925201",
+            "title": "Instituto Oceanográfico da Universidade de São Paulo",
+            "created": "2026-10-26T13:23:12.852+00:00",
+            "country": "BR",
+            "logoUrl": "https://www.io.usp.br/storage/2026/07/cropped-logo_iousp_2022-01-scaled-2.png",
+            "excerpt": "The Oceanographic Institute is a leading public institution dedicated to the study of Marine Sciences. With the goal of becoming a reference in ocean science communication and education, the…"
+          },
+          {
+            "key": "a35f75cc-a6c9-4c88-acda-4fc4dfcd1340",
+            "title": "Lagos State University of Science and Technology",
+            "created": "2026-10-26T06:42:20.797+00:00",
+            "country": "NG",
+            "logoUrl": null,
+            "excerpt": "The LASUSTECH Herbarium (LSTH), established within the Department of Biological Sciences, Lagos State University of Science and Technology, Nigeria, is dedicated to the collection, preservation,…"
+          },
+          {
+            "key": "f1c54de4-49bb-455b-b680-e15c34aea0a0",
+            "title": "Swiss Ornithological Institute",
+            "created": "2026-10-23T10:10:52.830+00:00",
+            "country": "CH",
+            "logoUrl": "https://www.vogelwarte.ch/wp-content/themes/vogelwarte/assets/images/logo.svg",
+            "excerpt": "The Swiss Ornithological Institute is an independent, non-profit foundation based in Sempach, Switzerland, dedicated to ornithological research and bird conservation. It monitors the distribution,…"
+          },
+          {
+            "key": "70344609-a709-4572-9ec4-00f9dc7af14c",
+            "title": "Federation University Australia",
+            "created": "2026-10-23T04:04:14.757+00:00",
+            "country": "AU",
+            "logoUrl": null,
+            "excerpt": "Federation University Australia (Fed Uni) is a public, dual-sector university based in Ballarat in Victoria, Australia."
+          },
+          {
+            "key": "a95daf5a-b91c-446b-81d5-9f8e7a8b9524",
+            "title": "WWF Romania",
+            "created": "2026-10-22T10:47:41.877+00:00",
+            "country": "RO",
+            "logoUrl": "https://wwf.ro/wp-content/uploads/2025/06/Logo_WWF_20.png",
+            "excerpt": "WWF Romania is a conservation organization and part of the global WWF network, active in Romania since 2006. It works to conserve biodiversity and promote the sustainable management of natural…"
+          },
+          {
+            "key": "5a785147-edca-4b9e-9477-91b7b1266301",
+            "title": "EIATEC S.A.S.",
+            "created": "2026-10-21T13:39:42.855+00:00",
+            "country": "CO",
+            "logoUrl": "https://gitlab.com/sib-colombia/logos/-/raw/main/socio_SiB-EIATEC1.png?ref_type=heads",
+            "excerpt": "EIATEC S.A.S. es una consultora colombiana especializada en estudios ambientales, asesoría técnica y gestión sostenible de proyectos. En el desarrollo de sus actividades ha generado, recopilado y…"
+          }
+        ]
+      }
+    }
+  }
 }

@@ -12,6 +12,14 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"resourceSearch\":{\"documents\":{\"total\":0}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "resourceSearch": {
+        "documents": {
+          "total": 0
+        }
+      }
+    }
+  }
 }

@@ -12,6 +12,15 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"countryDetail\":{\"aboutOccurrenceCount\":68505846,\"aboutDatasetCount\":1698,\"aboutCountryCount\":49,\"aboutPublisherCount\":539}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "countryDetail": {
+        "aboutOccurrenceCount": 68505846,
+        "aboutDatasetCount": 1698,
+        "aboutCountryCount": 49,
+        "aboutPublisherCount": 539
+      }
+    }
+  }
 }

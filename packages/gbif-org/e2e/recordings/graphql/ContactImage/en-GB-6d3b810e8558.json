@@ -12,6 +12,14 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"directoryContact\":{\"profilePicture\":null,\"firstName\":\"Tiffany G.\",\"surname\":\"Troxler\"}}}"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "directoryContact": {
+        "profilePicture": null,
+        "firstName": "Tiffany G.",
+        "surname": "Troxler"
+      }
+    }
+  }
 }

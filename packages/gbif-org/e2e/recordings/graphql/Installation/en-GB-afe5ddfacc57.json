@@ -12,6 +12,27 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"installation\":{\"key\":\"a3c51b22-e3ff-4ddf-a82e-13f442763e86\",\"title\":\"ServCat U.S. Fish and Wildlife Service\",\"description\":\"<p>USFWS HTTP installation for ServCat</p>\",\"deleted\":null,\"created\":\"2026-09-30T13:47:49.996+00:00\",\"homepage\":null,\"type\":\"HTTP_INSTALLATION\",\"endpoints\":[],\"organization\":{\"key\":\"f8dbeca7-3131-41ab-872f-bfad71041f3f\",\"title\":\"United States Fish and Wildlife Service\"},\"contacts\":[],\"dataset\":{\"count\":1}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "installation": {
+        "key": "a3c51b22-e3ff-4ddf-a82e-13f442763e86",
+        "title": "ServCat U.S. Fish and Wildlife Service",
+        "description": "<p>USFWS HTTP installation for ServCat</p>",
+        "deleted": null,
+        "created": "2026-09-30T13:47:49.996+00:00",
+        "homepage": null,
+        "type": "HTTP_INSTALLATION",
+        "endpoints": [],
+        "organization": {
+          "key": "f8dbeca7-3131-41ab-872f-bfad71041f3f",
+          "title": "United States Fish and Wildlife Service"
+        },
+        "contacts": [],
+        "dataset": {
+          "count": 1
+        }
+      }
+    }
+  }
 }

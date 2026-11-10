@@ -10,6 +10,83 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"facet\":{\"field\":[{\"name\":\"journal\",\"count\":30633},{\"name\":\"report\",\"count\":26859},{\"name\":\"working_paper\",\"count\":2601},{\"name\":\"thesis\",\"count\":1096},{\"name\":\"book_section\",\"count\":882},{\"name\":\"conference_proceedings\",\"count\":845},{\"name\":\"generic\",\"count\":291},{\"name\":\"web_page\",\"count\":149},{\"name\":\"book\",\"count\":139},{\"name\":\"encyclopedia_article\",\"count\":78},{\"name\":\"magazine_article\",\"count\":33},{\"name\":\"computer_program\",\"count\":16},{\"name\":\"hearing\",\"count\":6},{\"name\":\"patent\",\"count\":4},{\"name\":\"bill\",\"count\":3},{\"name\":\"newspaper_article\",\"count\":3},{\"name\":\"case\",\"count\":1}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "facet": {
+          "field": [
+            {
+              "name": "journal",
+              "count": 30633
+            },
+            {
+              "name": "report",
+              "count": 26859
+            },
+            {
+              "name": "working_paper",
+              "count": 2601
+            },
+            {
+              "name": "thesis",
+              "count": 1096
+            },
+            {
+              "name": "book_section",
+              "count": 882
+            },
+            {
+              "name": "conference_proceedings",
+              "count": 845
+            },
+            {
+              "name": "generic",
+              "count": 291
+            },
+            {
+              "name": "web_page",
+              "count": 149
+            },
+            {
+              "name": "book",
+              "count": 139
+            },
+            {
+              "name": "encyclopedia_article",
+              "count": 78
+            },
+            {
+              "name": "magazine_article",
+              "count": 33
+            },
+            {
+              "name": "computer_program",
+              "count": 16
+            },
+            {
+              "name": "hearing",
+              "count": 6
+            },
+            {
+              "name": "patent",
+              "count": 4
+            },
+            {
+              "name": "bill",
+              "count": 3
+            },
+            {
+              "name": "newspaper_article",
+              "count": 3
+            },
+            {
+              "name": "case",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  }
 }

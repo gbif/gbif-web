@@ -110,6 +110,44 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":26316437}},\"rank\":{\"documents\":{\"total\":26316437}},\"hasCoordinates\":{\"documents\":{\"total\":26290277}},\"hasMedia\":{\"documents\":{\"total\":500495}},\"hasCollector\":{\"documents\":{\"total\":25159745}},\"hasEventDate\":{\"documents\":{\"total\":26299104}},\"hasSequence\":{\"documents\":{\"total\":351}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "total": 26316437
+        }
+      },
+      "rank": {
+        "documents": {
+          "total": 26316437
+        }
+      },
+      "hasCoordinates": {
+        "documents": {
+          "total": 26290277
+        }
+      },
+      "hasMedia": {
+        "documents": {
+          "total": 500495
+        }
+      },
+      "hasCollector": {
+        "documents": {
+          "total": 25159745
+        }
+      },
+      "hasEventDate": {
+        "documents": {
+          "total": 26299104
+        }
+      },
+      "hasSequence": {
+        "documents": {
+          "total": 351
+        }
+      }
+    }
+  }
 }

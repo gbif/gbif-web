@@ -33,6 +33,49 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":195},\"cardinality\":{\"total\":7},\"facet\":{\"results\":[{\"key\":\"journal\",\"count\":151},{\"key\":\"report\",\"count\":24},{\"key\":\"working_paper\",\"count\":10},{\"key\":\"thesis\",\"count\":4},{\"key\":\"conference_proceedings\",\"count\":3},{\"key\":\"book_section\",\"count\":2},{\"key\":\"web_page\",\"count\":1}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 195
+        },
+        "cardinality": {
+          "total": 7
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "journal",
+              "count": 151
+            },
+            {
+              "key": "report",
+              "count": 24
+            },
+            {
+              "key": "working_paper",
+              "count": 10
+            },
+            {
+              "key": "thesis",
+              "count": 4
+            },
+            {
+              "key": "conference_proceedings",
+              "count": 3
+            },
+            {
+              "key": "book_section",
+              "count": 2
+            },
+            {
+              "key": "web_page",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  }
 }

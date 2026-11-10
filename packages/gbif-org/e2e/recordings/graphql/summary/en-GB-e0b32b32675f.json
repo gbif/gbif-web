@@ -33,6 +33,61 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":195},\"cardinality\":{\"total\":45},\"facet\":{\"results\":[{\"key\":\"ID\",\"count\":7},{\"key\":\"IN\",\"count\":7},{\"key\":\"IQ\",\"count\":7},{\"key\":\"RU\",\"count\":5},{\"key\":\"BR\",\"count\":4},{\"key\":\"CH\",\"count\":4},{\"key\":\"MX\",\"count\":3},{\"key\":\"TR\",\"count\":3},{\"key\":\"US\",\"count\":3},{\"key\":\"CA\",\"count\":2}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 195
+        },
+        "cardinality": {
+          "total": 45
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "ID",
+              "count": 7
+            },
+            {
+              "key": "IN",
+              "count": 7
+            },
+            {
+              "key": "IQ",
+              "count": 7
+            },
+            {
+              "key": "RU",
+              "count": 5
+            },
+            {
+              "key": "BR",
+              "count": 4
+            },
+            {
+              "key": "CH",
+              "count": 4
+            },
+            {
+              "key": "MX",
+              "count": 3
+            },
+            {
+              "key": "TR",
+              "count": 3
+            },
+            {
+              "key": "US",
+              "count": 3
+            },
+            {
+              "key": "CA",
+              "count": 2
+            }
+          ]
+        }
+      }
+    }
+  }
 }

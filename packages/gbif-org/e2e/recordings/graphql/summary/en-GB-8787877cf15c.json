@@ -33,6 +33,77 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":8353},\"cardinality\":{\"total\":14},\"facet\":{\"results\":[{\"key\":\"journal\",\"count\":6117},{\"key\":\"report\",\"count\":888},{\"key\":\"working_paper\",\"count\":722},{\"key\":\"thesis\",\"count\":255},{\"key\":\"book_section\",\"count\":95},{\"key\":\"encyclopedia_article\",\"count\":75},{\"key\":\"conference_proceedings\",\"count\":64},{\"key\":\"generic\",\"count\":57},{\"key\":\"web_page\",\"count\":52},{\"key\":\"book\",\"count\":13},{\"key\":\"computer_program\",\"count\":9},{\"key\":\"magazine_article\",\"count\":3},{\"key\":\"newspaper_article\",\"count\":2},{\"key\":\"bill\",\"count\":1}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 8353
+        },
+        "cardinality": {
+          "total": 14
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "journal",
+              "count": 6117
+            },
+            {
+              "key": "report",
+              "count": 888
+            },
+            {
+              "key": "working_paper",
+              "count": 722
+            },
+            {
+              "key": "thesis",
+              "count": 255
+            },
+            {
+              "key": "book_section",
+              "count": 95
+            },
+            {
+              "key": "encyclopedia_article",
+              "count": 75
+            },
+            {
+              "key": "conference_proceedings",
+              "count": 64
+            },
+            {
+              "key": "generic",
+              "count": 57
+            },
+            {
+              "key": "web_page",
+              "count": 52
+            },
+            {
+              "key": "book",
+              "count": 13
+            },
+            {
+              "key": "computer_program",
+              "count": 9
+            },
+            {
+              "key": "magazine_article",
+              "count": 3
+            },
+            {
+              "key": "newspaper_article",
+              "count": 2
+            },
+            {
+              "key": "bill",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  }
 }

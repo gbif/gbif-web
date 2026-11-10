@@ -12,6 +12,39 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"nodeCountry\":{\"title\":\"GBIF Austria\",\"address\":[\"Spittelauer Lände 5, A-1090 Vienna \\nVienna\\nAustria\"],\"gbifRegion\":\"EUROPE\",\"participationStatus\":\"OBSERVER\",\"participant\":{\"membershipStart\":\"2001-09\",\"nodeEstablishmentDate\":null,\"participantUrl\":null,\"rssFeeds\":null,\"newsletters\":null,\"linksToSocialMedia\":null,\"progressAndPlans\":null,\"nodeMission\":null,\"nodeFunding\":null,\"nodeHistory\":null,\"nodeStructure\":null,\"participationStatus\":\"OBSERVER\"},\"headOfDelegation\":[],\"participantNodeManager\":[],\"directoryNodes\":[{\"nodeUrl\":\"http://www.gbif.at/\"}],\"contacts\":[]}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "nodeCountry": {
+        "title": "GBIF Austria",
+        "address": [
+          "Spittelauer Lände 5, A-1090 Vienna \nVienna\nAustria"
+        ],
+        "gbifRegion": "EUROPE",
+        "participationStatus": "OBSERVER",
+        "participant": {
+          "membershipStart": "2001-09",
+          "nodeEstablishmentDate": null,
+          "participantUrl": null,
+          "rssFeeds": null,
+          "newsletters": null,
+          "linksToSocialMedia": null,
+          "progressAndPlans": null,
+          "nodeMission": null,
+          "nodeFunding": null,
+          "nodeHistory": null,
+          "nodeStructure": null,
+          "participationStatus": "OBSERVER"
+        },
+        "headOfDelegation": [],
+        "participantNodeManager": [],
+        "directoryNodes": [
+          {
+            "nodeUrl": "http://www.gbif.at/"
+          }
+        ],
+        "contacts": []
+      }
+    }
+  }
 }

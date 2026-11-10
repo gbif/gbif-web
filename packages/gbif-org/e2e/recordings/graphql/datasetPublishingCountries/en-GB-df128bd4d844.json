@@ -21,6 +21,19 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"publishingCountry\":[{\"key\":\"DK\",\"count\":1342937}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "facet": {
+          "publishingCountry": [
+            {
+              "key": "DK",
+              "count": 1342937
+            }
+          ]
+        }
+      }
+    }
+  }
 }

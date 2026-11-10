@@ -11,6 +11,12 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"item\":{\"title\":\"Type Specimens Of Birds In The American Museum Of Natural History Part 12. Passeriformes: Ploceidae, Sturnidae, Buphagidae, Oriolidae, Dicruridae, Callaeidae, Grallinidae, Corcoracidae, Artamidae, Cracticidae, Ptilonorhynchidae, Cnemophilidae, Paradisaeidae, And Corvidae\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Type Specimens Of Birds In The American Museum Of Natural History Part 12. Passeriformes: Ploceidae, Sturnidae, Buphagidae, Oriolidae, Dicruridae, Callaeidae, Grallinidae, Corcoracidae, Artamidae, Cracticidae, Ptilonorhynchidae, Cnemophilidae, Paradisaeidae, And Corvidae"
+      }
+    }
+  }
 }

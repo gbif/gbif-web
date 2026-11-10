@@ -12,6 +12,33 @@
   },
   "status": 404,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"errors\":[{\"message\":\"404: Not Found\",\"locations\":[{\"line\":3,\"column\":5}],\"path\":[\"resource\"],\"extensions\":{\"code\":\"NOT_FOUND\",\"stacktrace\":[\"GraphQLError: 404: Not Found\",\"    at new NotFoundError (/srv/graphql/dist/helpers/GraphQL404Error.js:7:9)\",\"    at Object.resource (/srv/graphql/dist/resources/resource/resource/resource.resolver.js:38:27)\",\"    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\"]}}],\"data\":{\"resource\":null}}\n"
+  "encoding": "json",
+  "body": {
+    "errors": [
+      {
+        "message": "404: Not Found",
+        "locations": [
+          {
+            "line": 3,
+            "column": 5
+          }
+        ],
+        "path": [
+          "resource"
+        ],
+        "extensions": {
+          "code": "NOT_FOUND",
+          "stacktrace": [
+            "GraphQLError: 404: Not Found",
+            "    at new NotFoundError (/srv/graphql/dist/helpers/GraphQL404Error.js:7:9)",
+            "    at Object.resource (/srv/graphql/dist/resources/resource/resource/resource.resolver.js:38:27)",
+            "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+          ]
+        }
+      }
+    ],
+    "data": {
+      "resource": null
+    }
+  }
 }

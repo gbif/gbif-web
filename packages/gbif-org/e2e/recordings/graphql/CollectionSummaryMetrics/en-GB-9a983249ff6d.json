@@ -61,6 +61,32 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":279789},\"cardinality\":{\"recordedBy\":78}},\"withImages\":{\"documents\":{\"total\":0}},\"withCoordinates\":{\"documents\":{\"total\":177108}},\"withClusters\":{\"documents\":{\"total\":1893}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "total": 279789
+        },
+        "cardinality": {
+          "recordedBy": 78
+        }
+      },
+      "withImages": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "withCoordinates": {
+        "documents": {
+          "total": 177108
+        }
+      },
+      "withClusters": {
+        "documents": {
+          "total": 1893
+        }
+      }
+    }
+  }
 }

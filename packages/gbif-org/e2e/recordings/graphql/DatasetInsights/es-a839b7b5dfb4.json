@@ -104,6 +104,51 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"unfiltered\":{\"documents\":{\"total\":0}},\"siteOccurrences\":{\"documents\":{\"total\":0},\"cardinality\":{\"eventId\":0},\"facet\":{\"dwcaExtension\":[]}},\"images\":{\"documents\":{\"total\":0,\"results\":[]}},\"withCoordinates\":{\"documents\":{\"total\":0}},\"withTaxonMatch\":{\"documents\":{\"total\":0}},\"withEventDate\":{\"documents\":{\"total\":0}},\"withEventId\":{\"documents\":{\"total\":0}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "unfiltered": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "siteOccurrences": {
+        "documents": {
+          "total": 0
+        },
+        "cardinality": {
+          "eventId": 0
+        },
+        "facet": {
+          "dwcaExtension": []
+        }
+      },
+      "images": {
+        "documents": {
+          "total": 0,
+          "results": []
+        }
+      },
+      "withCoordinates": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "withTaxonMatch": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "withEventDate": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "withEventId": {
+        "documents": {
+          "total": 0
+        }
+      }
+    }
+  }
 }

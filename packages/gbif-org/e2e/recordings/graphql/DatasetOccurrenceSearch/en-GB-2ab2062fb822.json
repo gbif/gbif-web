@@ -82,6 +82,46 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"from\":0,\"size\":1,\"total\":1342937,\"results\":[{\"dynamicProperties\":null}]}},\"withImages\":{\"documents\":{\"total\":590071}},\"withCoordinates\":{\"documents\":{\"total\":1342933}},\"withClusters\":{\"documents\":{\"total\":25647}},\"withEvents\":{\"documents\":{\"total\":0}},\"literatureSearchScoped\":{\"documents\":{\"total\":329}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "from": 0,
+          "size": 1,
+          "total": 1342937,
+          "results": [
+            {
+              "dynamicProperties": null
+            }
+          ]
+        }
+      },
+      "withImages": {
+        "documents": {
+          "total": 590071
+        }
+      },
+      "withCoordinates": {
+        "documents": {
+          "total": 1342933
+        }
+      },
+      "withClusters": {
+        "documents": {
+          "total": 25647
+        }
+      },
+      "withEvents": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "literatureSearchScoped": {
+        "documents": {
+          "total": 329
+        }
+      }
+    }
+  }
 }

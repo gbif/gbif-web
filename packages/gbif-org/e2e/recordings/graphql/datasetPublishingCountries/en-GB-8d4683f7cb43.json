@@ -21,6 +21,14 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"facet\":{\"publishingCountry\":[]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "facet": {
+          "publishingCountry": []
+        }
+      }
+    }
+  }
 }

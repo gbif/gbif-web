@@ -12,6 +12,15 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"help\":{\"id\":\"2Cyq8vz7CFJu04HFdaYBS0\",\"identifier\":\"about-publisher-country\",\"title\":\"Acerca del país del publicador\",\"body\":\"<p>El país o la zona donde se encuentra el publicador. En el caso de las organizaciones internacionales, se trata del país o zona donde se encuentra la sede de la organización.</p>\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "help": {
+        "id": "2Cyq8vz7CFJu04HFdaYBS0",
+        "identifier": "about-publisher-country",
+        "title": "Acerca del país del publicador",
+        "body": "<p>El país o la zona donde se encuentra el publicador. En el caso de las organizaciones internacionales, se trata del país o zona donde se encuentra la sede de la organización.</p>"
+      }
+    }
+  }
 }

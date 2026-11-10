@@ -5,6 +5,6 @@
   },
   "status": 200,
   "contentType": "application/json",
-  "encoding": "utf8",
-  "body": "2836"
+  "encoding": "json",
+  "body": 2836
 }

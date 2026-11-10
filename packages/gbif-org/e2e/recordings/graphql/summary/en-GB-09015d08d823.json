@@ -33,6 +33,851 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":320223299},\"cardinality\":{\"total\":61},\"facet\":{\"results\":[{\"key\":\"GEODETIC_DATUM_ASSUMED_WGS84\",\"count\":138781748,\"occurrences\":{\"metaPredicate\":-1825642821,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"GEODETIC_DATUM_ASSUMED_WGS84\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"GEODETIC_DATUM_ASSUMED_WGS84\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"GEODETIC_DATUM_ASSUMED_WGS84\"}}}]}}]}}]}}}}},{\"key\":\"CONTINENT_DERIVED_FROM_COORDINATES\",\"count\":108874395,\"occurrences\":{\"metaPredicate\":2018093481,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"CONTINENT_DERIVED_FROM_COORDINATES\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"CONTINENT_DERIVED_FROM_COORDINATES\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"CONTINENT_DERIVED_FROM_COORDINATES\"}}}]}}]}}]}}}}},{\"key\":\"COUNTRY_DERIVED_FROM_COORDINATES\",\"count\":97014899,\"occurrences\":{\"metaPredicate\":83758607,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"COUNTRY_DERIVED_FROM_COORDINATES\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"COUNTRY_DERIVED_FROM_COORDINATES\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"COUNTRY_DERIVED_FROM_COORDINATES\"}}}]}}]}}]}}}}},{\"key\":\"COORDINATE_ROUNDED\",\"count\":30695020,\"occurrences\":{\"metaPredicate\":-575995690,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"COORDINATE_ROUNDED\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"COORDINATE_ROUNDED\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"COORDINATE_ROUNDED\"}}}]}}]}}]}}}}},{\"key\":\"GEODETIC_DATUM_INVALID\",\"count\":11885974,\"occurrences\":{\"metaPredicate\":1045421052,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"GEODETIC_DATUM_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"GEODETIC_DATUM_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"GEODETIC_DATUM_INVALID\"}}}]}}]}}]}}}}},{\"key\":\"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT\",\"count\":11281014,\"occurrences\":{\"metaPredicate\":-805254497,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT\"}}}]}}]}}]}}}}},{\"key\":\"REFERENCES_URI_INVALID\",\"count\":10532066,\"occurrences\":{\"metaPredicate\":-1449090061,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"REFERENCES_URI_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"REFERENCES_URI_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"REFERENCES_URI_INVALID\"}}}]}}]}}]}}}}},{\"key\":\"RECORDED_DATE_INVALID\",\"count\":8562282,\"occurrences\":{\"metaPredicate\":1710539851,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"RECORDED_DATE_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"RECORDED_DATE_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"RECORDED_DATE_INVALID\"}}}]}}]}}]}}}}},{\"key\":\"INSTITUTION_MATCH_NONE\",\"count\":8214654,\"occurrences\":{\"metaPredicate\":752108583,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"INSTITUTION_MATCH_NONE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"INSTITUTION_MATCH_NONE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"INSTITUTION_MATCH_NONE\"}}}]}}]}}]}}}}},{\"key\":\"FOOTPRINT_WKT_INVALID\",\"count\":3530471,\"occurrences\":{\"metaPredicate\":782470536,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"networkKey\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"issue\",\"value\":\"FOOTPRINT_WKT_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"NETWORK_KEY\",\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"},{\"type\":\"equals\",\"key\":\"ISSUE\",\"value\":\"FOOTPRINT_WKT_INVALID\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"networkKeys\":{\"value\":\"2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"issues\":{\"value\":\"FOOTPRINT_WKT_INVALID\"}}}]}}]}}]}}}}}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 320223299
+        },
+        "cardinality": {
+          "total": 61
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "GEODETIC_DATUM_ASSUMED_WGS84",
+              "count": 138781748,
+              "occurrences": {
+                "metaPredicate": -1825642821,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "GEODETIC_DATUM_ASSUMED_WGS84",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "GEODETIC_DATUM_ASSUMED_WGS84",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "GEODETIC_DATUM_ASSUMED_WGS84"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "CONTINENT_DERIVED_FROM_COORDINATES",
+              "count": 108874395,
+              "occurrences": {
+                "metaPredicate": 2018093481,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "CONTINENT_DERIVED_FROM_COORDINATES",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "CONTINENT_DERIVED_FROM_COORDINATES",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "CONTINENT_DERIVED_FROM_COORDINATES"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "COUNTRY_DERIVED_FROM_COORDINATES",
+              "count": 97014899,
+              "occurrences": {
+                "metaPredicate": 83758607,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "COUNTRY_DERIVED_FROM_COORDINATES",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "COUNTRY_DERIVED_FROM_COORDINATES",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "COUNTRY_DERIVED_FROM_COORDINATES"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "COORDINATE_ROUNDED",
+              "count": 30695020,
+              "occurrences": {
+                "metaPredicate": -575995690,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "COORDINATE_ROUNDED",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "COORDINATE_ROUNDED",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "COORDINATE_ROUNDED"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "GEODETIC_DATUM_INVALID",
+              "count": 11885974,
+              "occurrences": {
+                "metaPredicate": 1045421052,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "GEODETIC_DATUM_INVALID",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "GEODETIC_DATUM_INVALID",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "GEODETIC_DATUM_INVALID"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT",
+              "count": 11281014,
+              "occurrences": {
+                "metaPredicate": -805254497,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "REFERENCES_URI_INVALID",
+              "count": 10532066,
+              "occurrences": {
+                "metaPredicate": -1449090061,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "REFERENCES_URI_INVALID",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "REFERENCES_URI_INVALID",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "REFERENCES_URI_INVALID"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "RECORDED_DATE_INVALID",
+              "count": 8562282,
+              "occurrences": {
+                "metaPredicate": 1710539851,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "RECORDED_DATE_INVALID",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "RECORDED_DATE_INVALID",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "RECORDED_DATE_INVALID"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "INSTITUTION_MATCH_NONE",
+              "count": 8214654,
+              "occurrences": {
+                "metaPredicate": 752108583,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "INSTITUTION_MATCH_NONE",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "INSTITUTION_MATCH_NONE",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "INSTITUTION_MATCH_NONE"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "FOOTPRINT_WKT_INVALID",
+              "count": 3530471,
+              "occurrences": {
+                "metaPredicate": 782470536,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "networkKey",
+                        "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "issue",
+                        "value": "FOOTPRINT_WKT_INVALID",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "NETWORK_KEY",
+                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "ISSUE",
+                          "value": "FOOTPRINT_WKT_INVALID",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "networkKeys": {
+                                          "value": "2b7c7b4f-4d4f-40d3-94de-c28b6fa054a6"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "issues": {
+                                          "value": "FOOTPRINT_WKT_INVALID"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

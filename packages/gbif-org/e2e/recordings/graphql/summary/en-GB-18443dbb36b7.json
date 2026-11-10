@@ -17,6 +17,23 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":320223299},\"cardinality\":{\"speciesKey\":212320},\"stats\":{\"year\":{\"min\":1500,\"max\":2026}}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "total": 320223299
+        },
+        "cardinality": {
+          "speciesKey": 212320
+        },
+        "stats": {
+          "year": {
+            "min": 1500,
+            "max": 2026
+          }
+        }
+      }
+    }
+  }
 }

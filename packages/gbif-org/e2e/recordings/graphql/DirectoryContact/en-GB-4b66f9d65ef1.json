@@ -12,6 +12,32 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"directoryContact\":{\"id\":\"25\",\"firstName\":\"Susanne\",\"surname\":\"Sheldon\",\"institutionName\":\"Global Biodiversity Information Facility\",\"address\":\"Universitetsparken 15\\nCopenhagen\\n2100\",\"countryCode\":\"DK\",\"phone\":null,\"email\":\"slsheldon@gbif.org\",\"orcidId\":null,\"jobTitle\":\"HR Manager/PA to the Director\",\"profilePicture\":null,\"participants\":[],\"roles\":[{\"role\":\"GBIFS_STAFF_MEMBER\",\"term\":{\"start\":\"2002-05-01\",\"end\":\"2027-04-30\"}}]}}}"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "directoryContact": {
+        "id": "25",
+        "firstName": "Susanne",
+        "surname": "Sheldon",
+        "institutionName": "Global Biodiversity Information Facility",
+        "address": "Universitetsparken 15\nCopenhagen\n2100",
+        "countryCode": "DK",
+        "phone": null,
+        "email": "slsheldon@gbif.org",
+        "orcidId": null,
+        "jobTitle": "HR Manager/PA to the Director",
+        "profilePicture": null,
+        "participants": [],
+        "roles": [
+          {
+            "role": "GBIFS_STAFF_MEMBER",
+            "term": {
+              "start": "2002-05-01",
+              "end": "2027-04-30"
+            }
+          }
+        ]
+      }
+    }
+  }
 }

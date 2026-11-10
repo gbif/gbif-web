@@ -102,6 +102,24 @@ type Recording = {
   encoding: 'utf8' | 'base64';
   body: string;
 };
+// On disk a JSON body is stored parsed, so a changed answer diffs line by line.
+type StoredRecording =
+  | Recording
+  | (Omit<Recording, 'encoding' | 'body'> & { encoding: 'json'; body: unknown });
+
+function toStored(rec: Recording): StoredRecording {
+  if (rec.encoding !== 'utf8') return rec;
+  try {
+    return { ...rec, encoding: 'json', body: JSON.parse(rec.body) };
+  } catch {
+    return rec;
+  }
+}
+
+function fromStored(stored: StoredRecording): Recording {
+  if (stored.encoding !== 'json') return stored;
+  return { ...stored, encoding: 'utf8', body: JSON.stringify(stored.body) };
+}
 
 // Longest prefix wins, so /api/v1 beats /api.
 const UPSTREAMS: Upstream[] = [
@@ -204,7 +222,7 @@ function loadRecordings(dir = RECORDINGS_DIR, rel = '') {
     const relPath = join(rel, entry.name);
     if (entry.isDirectory()) loadRecordings(join(dir, entry.name), relPath);
     else if (entry.name.endsWith('.json')) {
-      store.set(relPath, JSON.parse(readFileSync(join(dir, entry.name), 'utf8')));
+      store.set(relPath, fromStored(JSON.parse(readFileSync(join(dir, entry.name), 'utf8'))));
     }
   }
 }
@@ -359,7 +377,7 @@ async function record(
   }
   const file = join(RECORDINGS_DIR, key);
   mkdirSync(dirname(file), { recursive: true });
-  writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
+  writeFileSync(file, JSON.stringify(toStored(rec), null, 2) + '\n');
   store.set(key, rec);
   console.log(`[mock] recorded ${rec.status} ${key}`);
   // Expected for a 404; with status 200 a resolver failed, which may be a passing upstream fault.

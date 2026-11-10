@@ -11,6 +11,12 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"item\":{\"title\":\"Ocean Biodiversity Information System (OBIS)\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "item": {
+        "title": "Ocean Biodiversity Information System (OBIS)"
+      }
+    }
+  }
 }

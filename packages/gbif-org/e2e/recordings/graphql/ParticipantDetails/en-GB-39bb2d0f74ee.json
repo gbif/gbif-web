@@ -12,6 +12,171 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"participant\":{\"id\":\"2\",\"type\":\"COUNTRY\",\"countryCode\":\"DK\",\"title\":\"Denmark\",\"gbifRegion\":\"EUROPE\",\"participationStatus\":\"VOTING\",\"membershipStart\":\"2001-01\",\"nodeEstablishmentDate\":\"2001-01-01\",\"participantUrl\":\"http://zoologi.snm.ku.dk/english/\",\"rssFeeds\":[{\"label\":\"RSS Feed\",\"url\":\"http://danbif.dk/rightbox/nyheder/?get_rss=1\"}],\"newsletters\":[{\"label\":\"Newsletter signup\",\"url\":\"mailto:danbif@snm.ku.dk\"}],\"linksToSocialMedia\":null,\"node\":{\"key\":\"4ddd294f-02b7-4359-ac33-0806a9ca9c6b\",\"title\":\"DanBIF - Danish Biodiversity Information Facility\",\"homepage\":[\"http://zoologi.snm.ku.dk/english/\",\"http://www.danbif.dk\"],\"contacts\":[{\"key\":\"49\",\"title\":\"M.Sc., Ph.D\",\"type\":\"ADDITIONAL_DELEGATE\",\"firstName\":\"Isabel\",\"surname\":\"Calabuig\",\"lastName\":\"Calabuig\",\"institutionName\":\"DanBIF - Danish Biodiversity Information Facility\",\"email\":[\"icalabuig@snm.ku.dk\"],\"phone\":[\"+45 35 32 11 03\"],\"homepage\":[],\"organization\":\"Denmark\",\"position\":[],\"roles\":null,\"userId\":[],\"address\":[\"Natural History Museum Denmark (NHMD)\\nUniversity of Copenhagen\\nSection for Digital Collections & Archives \\nGothersgade 130 \\nDK-1123 Copenhagen K\"],\"city\":null,\"postalCode\":null,\"province\":null,\"country\":\"DK\"},{\"key\":\"3977\",\"title\":\"Prof. Dr.\",\"type\":\"ADDITIONAL_DELEGATE\",\"firstName\":\"Nikolaj\",\"surname\":\"Scharff\",\"lastName\":\"Scharff\",\"institutionName\":\"Natural History Museum Denmark (NHMD)\",\"email\":[\"nscharff@snm.ku.dk\"],\"phone\":[\"+45 35 32 11 07\"],\"homepage\":[],\"organization\":\"Denmark\",\"position\":[],\"roles\":null,\"userId\":[],\"address\":[\"University of Copenhagen\\nZoology Section\\nUniversitetsparken 15\\nDK-2100 Copenhagen OE\"],\"city\":null,\"postalCode\":null,\"province\":null,\"country\":\"DK\"},{\"key\":\"4263\",\"title\":\"Professor\",\"type\":\"HEAD_OF_DELEGATION\",\"firstName\":\"Kim\",\"surname\":\"Steenstrup Pedersen\",\"lastName\":\"Steenstrup Pedersen\",\"institutionName\":null,\"email\":[\"kimstp@snm.ku.dk\"],\"phone\":[\"+45 35 32 14 55\"],\"homepage\":[],\"organization\":\"Denmark\",\"position\":[],\"roles\":null,\"userId\":[],\"address\":[\"Head of Section for Digital Collections & Archives\\nMember of Image Section and Science and Society Section\\nDepartment of Computer Science (DIKU) \\nNatural History Museum Denmark (NHMD)\\nUniversity of Copenhagen\\nGothersgade 130\\nDK-1123 Copenhagen K\"],\"city\":null,\"postalCode\":null,\"province\":null,\"country\":\"DK\"},{\"key\":\"49\",\"title\":\"M.Sc., Ph.D\",\"type\":\"NODE_MANAGER\",\"firstName\":\"Isabel\",\"surname\":\"Calabuig\",\"lastName\":\"Calabuig\",\"institutionName\":\"DanBIF - Danish Biodiversity Information Facility\",\"email\":[\"icalabuig@snm.ku.dk\"],\"phone\":[\"+45 35 32 11 03\"],\"homepage\":[],\"organization\":\"DanBIF - Danish Biodiversity Information Facility\",\"position\":[],\"roles\":null,\"userId\":[],\"address\":[\"Natural History Museum Denmark (NHMD)\\nUniversity of Copenhagen\\nSection for Digital Collections & Archives \\nGothersgade 130 \\nDK-1123 Copenhagen K\"],\"city\":null,\"postalCode\":null,\"province\":null,\"country\":\"DK\"}],\"dataset\":{\"count\":167},\"publisher\":{\"count\":37},\"headOfDelegation\":[{\"key\":\"4263\",\"firstName\":\"Kim\",\"lastName\":\"Steenstrup Pedersen\"}],\"participantNodeManager\":[{\"key\":\"49\",\"firstName\":\"Isabel\",\"lastName\":\"Calabuig\"}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "participant": {
+        "id": "2",
+        "type": "COUNTRY",
+        "countryCode": "DK",
+        "title": "Denmark",
+        "gbifRegion": "EUROPE",
+        "participationStatus": "VOTING",
+        "membershipStart": "2001-01",
+        "nodeEstablishmentDate": "2001-01-01",
+        "participantUrl": "http://zoologi.snm.ku.dk/english/",
+        "rssFeeds": [
+          {
+            "label": "RSS Feed",
+            "url": "http://danbif.dk/rightbox/nyheder/?get_rss=1"
+          }
+        ],
+        "newsletters": [
+          {
+            "label": "Newsletter signup",
+            "url": "mailto:danbif@snm.ku.dk"
+          }
+        ],
+        "linksToSocialMedia": null,
+        "node": {
+          "key": "4ddd294f-02b7-4359-ac33-0806a9ca9c6b",
+          "title": "DanBIF - Danish Biodiversity Information Facility",
+          "homepage": [
+            "http://zoologi.snm.ku.dk/english/",
+            "http://www.danbif.dk"
+          ],
+          "contacts": [
+            {
+              "key": "49",
+              "title": "M.Sc., Ph.D",
+              "type": "ADDITIONAL_DELEGATE",
+              "firstName": "Isabel",
+              "surname": "Calabuig",
+              "lastName": "Calabuig",
+              "institutionName": "DanBIF - Danish Biodiversity Information Facility",
+              "email": [
+                "icalabuig@snm.ku.dk"
+              ],
+              "phone": [
+                "+45 35 32 11 03"
+              ],
+              "homepage": [],
+              "organization": "Denmark",
+              "position": [],
+              "roles": null,
+              "userId": [],
+              "address": [
+                "Natural History Museum Denmark (NHMD)\nUniversity of Copenhagen\nSection for Digital Collections & Archives \nGothersgade 130 \nDK-1123 Copenhagen K"
+              ],
+              "city": null,
+              "postalCode": null,
+              "province": null,
+              "country": "DK"
+            },
+            {
+              "key": "3977",
+              "title": "Prof. Dr.",
+              "type": "ADDITIONAL_DELEGATE",
+              "firstName": "Nikolaj",
+              "surname": "Scharff",
+              "lastName": "Scharff",
+              "institutionName": "Natural History Museum Denmark (NHMD)",
+              "email": [
+                "nscharff@snm.ku.dk"
+              ],
+              "phone": [
+                "+45 35 32 11 07"
+              ],
+              "homepage": [],
+              "organization": "Denmark",
+              "position": [],
+              "roles": null,
+              "userId": [],
+              "address": [
+                "University of Copenhagen\nZoology Section\nUniversitetsparken 15\nDK-2100 Copenhagen OE"
+              ],
+              "city": null,
+              "postalCode": null,
+              "province": null,
+              "country": "DK"
+            },
+            {
+              "key": "4263",
+              "title": "Professor",
+              "type": "HEAD_OF_DELEGATION",
+              "firstName": "Kim",
+              "surname": "Steenstrup Pedersen",
+              "lastName": "Steenstrup Pedersen",
+              "institutionName": null,
+              "email": [
+                "kimstp@snm.ku.dk"
+              ],
+              "phone": [
+                "+45 35 32 14 55"
+              ],
+              "homepage": [],
+              "organization": "Denmark",
+              "position": [],
+              "roles": null,
+              "userId": [],
+              "address": [
+                "Head of Section for Digital Collections & Archives\nMember of Image Section and Science and Society Section\nDepartment of Computer Science (DIKU) \nNatural History Museum Denmark (NHMD)\nUniversity of Copenhagen\nGothersgade 130\nDK-1123 Copenhagen K"
+              ],
+              "city": null,
+              "postalCode": null,
+              "province": null,
+              "country": "DK"
+            },
+            {
+              "key": "49",
+              "title": "M.Sc., Ph.D",
+              "type": "NODE_MANAGER",
+              "firstName": "Isabel",
+              "surname": "Calabuig",
+              "lastName": "Calabuig",
+              "institutionName": "DanBIF - Danish Biodiversity Information Facility",
+              "email": [
+                "icalabuig@snm.ku.dk"
+              ],
+              "phone": [
+                "+45 35 32 11 03"
+              ],
+              "homepage": [],
+              "organization": "DanBIF - Danish Biodiversity Information Facility",
+              "position": [],
+              "roles": null,
+              "userId": [],
+              "address": [
+                "Natural History Museum Denmark (NHMD)\nUniversity of Copenhagen\nSection for Digital Collections & Archives \nGothersgade 130 \nDK-1123 Copenhagen K"
+              ],
+              "city": null,
+              "postalCode": null,
+              "province": null,
+              "country": "DK"
+            }
+          ],
+          "dataset": {
+            "count": 167
+          },
+          "publisher": {
+            "count": 37
+          },
+          "headOfDelegation": [
+            {
+              "key": "4263",
+              "firstName": "Kim",
+              "lastName": "Steenstrup Pedersen"
+            }
+          ],
+          "participantNodeManager": [
+            {
+              "key": "49",
+              "firstName": "Isabel",
+              "lastName": "Calabuig"
+            }
+          ]
+        }
+      }
+    }
+  }
 }

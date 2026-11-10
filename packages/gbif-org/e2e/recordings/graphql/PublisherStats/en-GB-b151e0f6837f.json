@@ -13,6 +13,39 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"total\":172760478}},\"hostedDatasets\":{\"facet\":{\"publishingOrg\":[{\"count\":1}],\"publishingCountry\":[{\"count\":1}]},\"count\":1},\"hostedOccurrences\":{\"documents\":{\"total\":172760478}},\"literatureSearch\":{\"documents\":{\"total\":8353}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "total": 172760478
+        }
+      },
+      "hostedDatasets": {
+        "facet": {
+          "publishingOrg": [
+            {
+              "count": 1
+            }
+          ],
+          "publishingCountry": [
+            {
+              "count": 1
+            }
+          ]
+        },
+        "count": 1
+      },
+      "hostedOccurrences": {
+        "documents": {
+          "total": 172760478
+        }
+      },
+      "literatureSearch": {
+        "documents": {
+          "total": 8353
+        }
+      }
+    }
+  }
 }

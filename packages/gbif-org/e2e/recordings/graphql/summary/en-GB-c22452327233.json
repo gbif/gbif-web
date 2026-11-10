@@ -33,6 +33,61 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":195},\"cardinality\":{\"total\":74},\"facet\":{\"results\":[{\"key\":\"US\",\"count\":29},{\"key\":\"DE\",\"count\":16},{\"key\":\"GB\",\"count\":15},{\"key\":\"BR\",\"count\":13},{\"key\":\"IN\",\"count\":13},{\"key\":\"FR\",\"count\":12},{\"key\":\"RU\",\"count\":11},{\"key\":\"CA\",\"count\":10},{\"key\":\"CH\",\"count\":10},{\"key\":\"ES\",\"count\":10}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 195
+        },
+        "cardinality": {
+          "total": 74
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "US",
+              "count": 29
+            },
+            {
+              "key": "DE",
+              "count": 16
+            },
+            {
+              "key": "GB",
+              "count": 15
+            },
+            {
+              "key": "BR",
+              "count": 13
+            },
+            {
+              "key": "IN",
+              "count": 13
+            },
+            {
+              "key": "FR",
+              "count": 12
+            },
+            {
+              "key": "RU",
+              "count": 11
+            },
+            {
+              "key": "CA",
+              "count": 10
+            },
+            {
+              "key": "CH",
+              "count": 10
+            },
+            {
+              "key": "ES",
+              "count": 10
+            }
+          ]
+        }
+      }
+    }
+  }
 }

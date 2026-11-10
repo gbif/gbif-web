@@ -12,6 +12,39 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"participant\":{\"id\":\"20\",\"type\":\"COUNTRY\",\"countryCode\":\"AT\",\"title\":\"Austria\",\"gbifRegion\":\"EUROPE\",\"participationStatus\":\"OBSERVER\",\"membershipStart\":\"2001-09\",\"nodeEstablishmentDate\":null,\"participantUrl\":null,\"rssFeeds\":null,\"newsletters\":null,\"linksToSocialMedia\":null,\"node\":{\"key\":\"1e789bc9-79fc-4e60-a49e-89dfc45a7188\",\"title\":\"GBIF Austria\",\"homepage\":[\"http://www.gbif.at/\"],\"contacts\":[],\"dataset\":{\"count\":19},\"publisher\":{\"count\":13},\"headOfDelegation\":[],\"participantNodeManager\":[]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "participant": {
+        "id": "20",
+        "type": "COUNTRY",
+        "countryCode": "AT",
+        "title": "Austria",
+        "gbifRegion": "EUROPE",
+        "participationStatus": "OBSERVER",
+        "membershipStart": "2001-09",
+        "nodeEstablishmentDate": null,
+        "participantUrl": null,
+        "rssFeeds": null,
+        "newsletters": null,
+        "linksToSocialMedia": null,
+        "node": {
+          "key": "1e789bc9-79fc-4e60-a49e-89dfc45a7188",
+          "title": "GBIF Austria",
+          "homepage": [
+            "http://www.gbif.at/"
+          ],
+          "contacts": [],
+          "dataset": {
+            "count": 19
+          },
+          "publisher": {
+            "count": 13
+          },
+          "headOfDelegation": [],
+          "participantNodeManager": []
+        }
+      }
+    }
+  }
 }

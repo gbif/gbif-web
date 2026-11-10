@@ -35,6 +35,786 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"search\":{\"documents\":{\"total\":26316437},\"cardinality\":{\"total\":9},\"facet\":{\"results\":[{\"key\":\"HUMAN_OBSERVATION\",\"count\":25986804,\"occurrences\":{\"metaPredicate\":947645962,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"HUMAN_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"HUMAN_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"HUMAN_OBSERVATION\"}}}]}}]}}]}}}}},{\"key\":\"OBSERVATION\",\"count\":248469,\"occurrences\":{\"metaPredicate\":-1130470468,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"OBSERVATION\"}}}]}}]}}]}}}}},{\"key\":\"PRESERVED_SPECIMEN\",\"count\":59605,\"occurrences\":{\"metaPredicate\":60110549,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"PRESERVED_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"PRESERVED_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"PRESERVED_SPECIMEN\"}}}]}}]}}]}}}}},{\"key\":\"OCCURRENCE\",\"count\":12412,\"occurrences\":{\"metaPredicate\":-1169646377,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"OCCURRENCE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"OCCURRENCE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"OCCURRENCE\"}}}]}}]}}]}}}}},{\"key\":\"MACHINE_OBSERVATION\",\"count\":4146,\"occurrences\":{\"metaPredicate\":-1534566732,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"MACHINE_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"MACHINE_OBSERVATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"MACHINE_OBSERVATION\"}}}]}}]}}]}}}}},{\"key\":\"LIVING_SPECIMEN\",\"count\":2892,\"occurrences\":{\"metaPredicate\":-238478842,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"LIVING_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"LIVING_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"LIVING_SPECIMEN\"}}}]}}]}}]}}}}},{\"key\":\"MATERIAL_SAMPLE\",\"count\":1598,\"occurrences\":{\"metaPredicate\":1965633026,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"MATERIAL_SAMPLE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"MATERIAL_SAMPLE\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"MATERIAL_SAMPLE\"}}}]}}]}}]}}}}},{\"key\":\"MATERIAL_CITATION\",\"count\":508,\"occurrences\":{\"metaPredicate\":1695777253,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"MATERIAL_CITATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"MATERIAL_CITATION\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"MATERIAL_CITATION\"}}}]}}]}}]}}}}},{\"key\":\"FOSSIL_SPECIMEN\",\"count\":3,\"occurrences\":{\"metaPredicate\":68321737,\"_meta\":{\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"taxonKey\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"basisOfRecord\",\"value\":\"FOSSIL_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]},\"normalizedPredicate\":{\"err\":null,\"predicate\":{\"type\":\"and\",\"predicates\":[{\"type\":\"equals\",\"key\":\"TAXON_KEY\",\"value\":\"4DXXM\",\"checklistKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\"},{\"type\":\"equals\",\"key\":\"BASIS_OF_RECORD\",\"value\":\"FOSSIL_SPECIMEN\",\"checklistKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\"}]}},\"metrics\":{},\"query\":{\"bool\":{\"must\":[{\"bool\":{\"filter\":[{\"bool\":{\"filter\":[{\"term\":{\"classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys\":{\"value\":\"4DXXM\"}}}]}},{\"bool\":{\"filter\":[{\"term\":{\"basisOfRecord\":{\"value\":\"FOSSIL_SPECIMEN\"}}}]}}]}}]}}}}}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "search": {
+        "documents": {
+          "total": 26316437
+        },
+        "cardinality": {
+          "total": 9
+        },
+        "facet": {
+          "results": [
+            {
+              "key": "HUMAN_OBSERVATION",
+              "count": 25986804,
+              "occurrences": {
+                "metaPredicate": 947645962,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "HUMAN_OBSERVATION",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "HUMAN_OBSERVATION",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "HUMAN_OBSERVATION"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "OBSERVATION",
+              "count": 248469,
+              "occurrences": {
+                "metaPredicate": -1130470468,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "OBSERVATION",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "OBSERVATION",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "OBSERVATION"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "PRESERVED_SPECIMEN",
+              "count": 59605,
+              "occurrences": {
+                "metaPredicate": 60110549,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "PRESERVED_SPECIMEN",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "PRESERVED_SPECIMEN",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "PRESERVED_SPECIMEN"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "OCCURRENCE",
+              "count": 12412,
+              "occurrences": {
+                "metaPredicate": -1169646377,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "OCCURRENCE",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "OCCURRENCE",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "OCCURRENCE"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "MACHINE_OBSERVATION",
+              "count": 4146,
+              "occurrences": {
+                "metaPredicate": -1534566732,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "MACHINE_OBSERVATION",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "MACHINE_OBSERVATION",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "MACHINE_OBSERVATION"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "LIVING_SPECIMEN",
+              "count": 2892,
+              "occurrences": {
+                "metaPredicate": -238478842,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "LIVING_SPECIMEN",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "LIVING_SPECIMEN",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "LIVING_SPECIMEN"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "MATERIAL_SAMPLE",
+              "count": 1598,
+              "occurrences": {
+                "metaPredicate": 1965633026,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "MATERIAL_SAMPLE",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "MATERIAL_SAMPLE",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "MATERIAL_SAMPLE"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "MATERIAL_CITATION",
+              "count": 508,
+              "occurrences": {
+                "metaPredicate": 1695777253,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "MATERIAL_CITATION",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "MATERIAL_CITATION",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "MATERIAL_CITATION"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": "FOSSIL_SPECIMEN",
+              "count": 3,
+              "occurrences": {
+                "metaPredicate": 68321737,
+                "_meta": {
+                  "predicate": {
+                    "type": "and",
+                    "predicates": [
+                      {
+                        "type": "equals",
+                        "key": "taxonKey",
+                        "value": "4DXXM",
+                        "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                      },
+                      {
+                        "type": "equals",
+                        "key": "basisOfRecord",
+                        "value": "FOSSIL_SPECIMEN",
+                        "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                      }
+                    ]
+                  },
+                  "normalizedPredicate": {
+                    "err": null,
+                    "predicate": {
+                      "type": "and",
+                      "predicates": [
+                        {
+                          "type": "equals",
+                          "key": "TAXON_KEY",
+                          "value": "4DXXM",
+                          "checklistKey": "7ddf754f-d193-4cc9-b351-99906754a03b"
+                        },
+                        {
+                          "type": "equals",
+                          "key": "BASIS_OF_RECORD",
+                          "value": "FOSSIL_SPECIMEN",
+                          "checklistKey": "d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+                        }
+                      ]
+                    }
+                  },
+                  "metrics": {},
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "bool": {
+                            "filter": [
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "classifications.7ddf754f-d193-4cc9-b351-99906754a03b.taxonKeys": {
+                                          "value": "4DXXM"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "filter": [
+                                    {
+                                      "term": {
+                                        "basisOfRecord": {
+                                          "value": "FOSSIL_SPECIMEN"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

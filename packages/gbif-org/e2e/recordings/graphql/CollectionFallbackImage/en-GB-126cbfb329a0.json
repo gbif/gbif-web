@@ -12,6 +12,12 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"collection\":{\"featuredImageUrl_fallback\":null}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "collection": {
+        "featuredImageUrl_fallback": null
+      }
+    }
+  }
 }

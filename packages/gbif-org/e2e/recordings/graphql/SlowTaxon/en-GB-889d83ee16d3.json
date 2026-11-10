@@ -13,6 +13,28 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"taxonInfo\":{\"wikiData\":{\"taxonID\":\"Q22109168\",\"references\":\"https://www.wikidata.org/wiki/Q22109168\",\"dataset\":{\"title\":\"Wikidata Species\"},\"identifiers\":[{\"title\":\"AnimalBase \",\"url\":\"http://www.animalbase.uni-goettingen.de/zooweb/servlet/AnimalBase/home/speciestaxon?id=3043\"},{\"title\":\"GBIF Backbone Taxonomy\",\"url\":\"https://www.gbif.org/species/8933000\"}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "taxonInfo": {
+        "wikiData": {
+          "taxonID": "Q22109168",
+          "references": "https://www.wikidata.org/wiki/Q22109168",
+          "dataset": {
+            "title": "Wikidata Species"
+          },
+          "identifiers": [
+            {
+              "title": "AnimalBase ",
+              "url": "http://www.animalbase.uni-goettingen.de/zooweb/servlet/AnimalBase/home/speciestaxon?id=3043"
+            },
+            {
+              "title": "GBIF Backbone Taxonomy",
+              "url": "https://www.gbif.org/species/8933000"
+            }
+          ]
+        }
+      }
+    }
+  }
 }

@@ -82,6 +82,42 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"documents\":{\"from\":0,\"size\":1,\"total\":0,\"results\":[]}},\"withImages\":{\"documents\":{\"total\":0}},\"withCoordinates\":{\"documents\":{\"total\":0}},\"withClusters\":{\"documents\":{\"total\":0}},\"withEvents\":{\"documents\":{\"total\":0}},\"literatureSearchScoped\":{\"documents\":{\"total\":195}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "documents": {
+          "from": 0,
+          "size": 1,
+          "total": 0,
+          "results": []
+        }
+      },
+      "withImages": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "withCoordinates": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "withClusters": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "withEvents": {
+        "documents": {
+          "total": 0
+        }
+      },
+      "literatureSearchScoped": {
+        "documents": {
+          "total": 195
+        }
+      }
+    }
+  }
 }

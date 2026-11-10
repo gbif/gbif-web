@@ -12,6 +12,28 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"resource\":{\"__typename\":\"Document\",\"id\":\"3zlBKROKrqfTJlWo5PNtBi\",\"title\":\"Multi-Factor Authentication (MFA) for Fluxx\",\"createdAt\":\"2026-08-17T11:32:40.099Z\",\"excerpt\":\"This document supports the MFA procedure to be used within GBIF Grants Portal processes.\",\"summary\":null,\"primaryLink\":null,\"document\":{\"title\":\"Multi-Factor Autentication (MFA) FAQs\",\"description\":\"\",\"file\":{\"fileName\":\"Multi-Factor Autentication (MFA) FAQs.pdf\",\"url\":\"//assets.ctfassets.net/uo17ejk9rkwj/4whawxezw2nT8tQBk9dMNk/9dbc4d72f46c5061c8b5cb5e8760ec40/Multi-Factor_Autentication__MFA__FAQs.pdf\"}},\"body\":\"<p>This document supports the MFA procedure to be used within GBIF Grants Portal processes.</p>\",\"citation\":null}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "resource": {
+        "__typename": "Document",
+        "id": "3zlBKROKrqfTJlWo5PNtBi",
+        "title": "Multi-Factor Authentication (MFA) for Fluxx",
+        "createdAt": "2026-08-17T11:32:40.099Z",
+        "excerpt": "This document supports the MFA procedure to be used within GBIF Grants Portal processes.",
+        "summary": null,
+        "primaryLink": null,
+        "document": {
+          "title": "Multi-Factor Autentication (MFA) FAQs",
+          "description": "",
+          "file": {
+            "fileName": "Multi-Factor Autentication (MFA) FAQs.pdf",
+            "url": "//assets.ctfassets.net/uo17ejk9rkwj/4whawxezw2nT8tQBk9dMNk/9dbc4d72f46c5061c8b5cb5e8760ec40/Multi-Factor_Autentication__MFA__FAQs.pdf"
+          }
+        },
+        "body": "<p>This document supports the MFA procedure to be used within GBIF Grants Portal processes.</p>",
+        "citation": null
+      }
+    }
+  }
 }

@@ -12,6 +12,23 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"resourceSearch\":{\"documents\":{\"total\":1,\"results\":[{\"__typename\":\"Article\",\"id\":\"5z1Wx90aKQKYg0AK0Kiac0\",\"title\":\"FAQ\",\"body\":\"<p>These are some of the most frequently asked questions about GBIF and <a href=\\\"http://GBIF.org\\\">GBIF.org</a>. Please contact us if your questions aren’t answered here.</p>\",\"summary\":\"<p>Answers to some of the most frequently asked questions about GBIF and <a href=\\\"http://GBIF.org\\\">GBIF.org</a></p>\"}]}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "resourceSearch": {
+        "documents": {
+          "total": 1,
+          "results": [
+            {
+              "__typename": "Article",
+              "id": "5z1Wx90aKQKYg0AK0Kiac0",
+              "title": "FAQ",
+              "body": "<p>These are some of the most frequently asked questions about GBIF and <a href=\"http://GBIF.org\">GBIF.org</a>. Please contact us if your questions aren’t answered here.</p>",
+              "summary": "<p>Answers to some of the most frequently asked questions about GBIF and <a href=\"http://GBIF.org\">GBIF.org</a></p>"
+            }
+          ]
+        }
+      }
+    }
+  }
 }

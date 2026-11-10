@@ -12,6 +12,16 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"dataset\":{\"title\":\"Catalogue of Life\",\"citation\":{\"text\":\"Bánki, O., Roskov, Y., Döring, M., Ower, G., Hernández Robles, D. R., Plata Corredor, C. A., Stjernegaard Jeppesen, T., Örn, A., Pape, T., Hobern, D., Garnett, S., Little, H., DeWalt, R. E., Miller, J., Orrell, T., Aalbu, R., Abbott, J., Abreu, C., Acero P, A., et al. (2026). Catalogue of Life (2026-08-26 XR). Catalogue of Life Foundation, Amsterdam, Netherlands. https://doi.org/10.48580/dgyy9\"},\"publishingOrganizationTitle\":\"Catalogue of Life\"}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "dataset": {
+        "title": "Catalogue of Life",
+        "citation": {
+          "text": "Bánki, O., Roskov, Y., Döring, M., Ower, G., Hernández Robles, D. R., Plata Corredor, C. A., Stjernegaard Jeppesen, T., Örn, A., Pape, T., Hobern, D., Garnett, S., Little, H., DeWalt, R. E., Miller, J., Orrell, T., Aalbu, R., Abbott, J., Abreu, C., Acero P, A., et al. (2026). Catalogue of Life (2026-08-26 XR). Catalogue of Life Foundation, Amsterdam, Netherlands. https://doi.org/10.48580/dgyy9"
+        },
+        "publishingOrganizationTitle": "Catalogue of Life"
+      }
+    }
+  }
 }

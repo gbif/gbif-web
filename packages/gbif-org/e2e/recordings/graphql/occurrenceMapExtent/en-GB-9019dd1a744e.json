@@ -39,6 +39,21 @@
   },
   "status": 200,
   "contentType": "application/json; charset=utf-8",
-  "encoding": "utf8",
-  "body": "{\"data\":{\"occurrenceSearch\":{\"stats\":{\"decimalLatitude\":{\"min\":50.966093,\"max\":58.166},\"decimalLongitude\":{\"min\":3.404,\"max\":16.1453}}}}}\n"
+  "encoding": "json",
+  "body": {
+    "data": {
+      "occurrenceSearch": {
+        "stats": {
+          "decimalLatitude": {
+            "min": 50.966093,
+            "max": 58.166
+          },
+          "decimalLongitude": {
+            "min": 3.404,
+            "max": 16.1453
+          }
+        }
+      }
+    }
+  }
 }
