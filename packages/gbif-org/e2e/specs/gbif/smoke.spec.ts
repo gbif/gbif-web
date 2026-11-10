@@ -106,8 +106,8 @@ const ROWS: Row[] = [
   {
     id: 'event-key',
     url: '/event/d30f82-61d1-4364-b7ca-05fb6fb',
-    title: 'Data Use Club practical session: Sequence data on the new GBIF.org',
-    h1: 'Data Use Club practical session: Sequence data on the new GBIF.org',
+    title: 'Data Use Club practical session: DNA sequence searching on the new GBIF.org',
+    h1: 'Data Use Club practical session: DNA sequence searching on the new GBIF.org',
   },
   {
     id: 'data-use-key',
