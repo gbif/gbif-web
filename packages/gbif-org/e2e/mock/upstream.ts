@@ -78,13 +78,16 @@ if (!ENVIRONMENT) {
 const GRAPHQL_ORIGIN = process.env.E2E_GRAPHQL_ORIGIN || ENVIRONMENT.graphql;
 const API_ORIGIN = process.env.E2E_API_ORIGIN || ENVIRONMENT.api;
 const CONTENT_ORIGIN = process.env.E2E_CONTENT_ORIGIN || ENVIRONMENT.content;
-const IS_PROD =
-  GRAPHQL_ORIGIN === ENVIRONMENTS.prod.graphql &&
-  API_ORIGIN === ENVIRONMENTS.prod.api &&
-  CONTENT_ORIGIN === ENVIRONMENTS.prod.content;
-if (RECORDS && !IS_PROD) {
+const NOT_PROD = [
+  [GRAPHQL_ORIGIN, ENVIRONMENTS.prod.graphql],
+  [API_ORIGIN, ENVIRONMENTS.prod.api],
+  [CONTENT_ORIGIN, ENVIRONMENTS.prod.content],
+]
+  .filter(([origin, prod]) => origin !== prod)
+  .map(([origin]) => origin);
+if (RECORDS && NOT_PROD.length > 0) {
   throw new Error(
-    `E2E_MODE=${MODE} only records from production; use E2E_MODE=live for ${GRAPHQL_ORIGIN}`
+    `E2E_MODE=${MODE} only records from production; use E2E_MODE=live for ${NOT_PROD.join(', ')}`
   );
 }
 // Extra headers for every forwarded request, e.g. a token that lets tests past the bot check in
@@ -697,7 +700,7 @@ createServer((req, res) => {
   });
 }).listen(MOCK_PORT, () => {
   const source = LIVE
-    ? `forwarding to ${GRAPHQL_ORIGIN} and ${API_ORIGIN}`
+    ? `forwarding to ${GRAPHQL_ORIGIN}, ${API_ORIGIN} and ${CONTENT_ORIGIN}`
     : `${store.size} recordings`;
   console.log(`[mock] ${MODE} mode on :${MOCK_PORT}, ${source}`);
 });
