@@ -278,7 +278,12 @@ export function TaxonLabel({
       return {
         promise: promise
           .then((response) => response.json())
-          .then((response) => ({ title: response?.data?.taxon?.scientificName })),
+          .then((response) => {
+            const title = response?.data?.taxon?.scientificName;
+            // Rejecting makes DisplayName show the key as plain text.
+            if (!title) throw new Error(`No name for taxon ${id}`);
+            return { title };
+          }),
         cancel,
       };
     },
