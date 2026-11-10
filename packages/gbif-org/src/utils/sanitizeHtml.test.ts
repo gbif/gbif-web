@@ -27,4 +27,13 @@ describe('sanitizeHtml', () => {
       '<a>x</a>'
     );
   });
+
+  test('drops style, class and id from rich text', () => {
+    expect(
+      sanitizeHtml(
+        '<a href="/terms" style="position:fixed;inset:0" class="x" id="y">terms</a>',
+        DEFAULT_SANITIZE_OPTIONS
+      )
+    ).toBe('<a href="/terms">terms</a>');
+  });
 });

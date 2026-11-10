@@ -18,9 +18,11 @@ export const CAPTION_SANITIZE_OPTIONS: DOMPurify.Config = {
   ALLOWED_ATTR: ['href', 'target', 'rel'],
 };
 
-// Short rich text such as descriptions and translated messages.
+// Short rich text such as publisher-provided values and translated messages. Only link attributes are kept, so
+// style, class and id can't be used to restyle or overlay the page.
 export const DEFAULT_SANITIZE_OPTIONS: DOMPurify.Config = {
   ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'],
+  ALLOWED_ATTR: ['href', 'title', 'target', 'rel'],
 };
 
 export function sanitizeHtml(
