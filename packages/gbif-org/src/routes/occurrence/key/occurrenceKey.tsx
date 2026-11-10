@@ -672,7 +672,10 @@ export function OccurrenceKey() {
                                       html={
                                         occurrence.classification?.taxonMatch?.usage.formattedName
                                       }
-                                      fallback={occurrence.classification?.usage?.name}
+                                      fallback={
+                                        occurrence.classification?.taxonMatch?.usage.name ??
+                                        occurrence.classification?.usage?.name
+                                      }
                                     />
                                   </EntityLinkPresentation>
                                 </>
