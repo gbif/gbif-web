@@ -102,12 +102,18 @@ async function main() {
     // A local production run (npm start) may point any PUBLIC_* service at localhost. Allow the
     // origins of those, now that the CSP no longer allows localhost:* wholesale. Deployed
     // environments never use localhost, so this adds nothing there.
+    // *_SERVER settings are only used server-side (the browser never calls them), so skip those.
     const localOrigins = Object.entries(env)
-      .filter(([key, value]) => key.startsWith('PUBLIC_') && typeof value === 'string')
+      .filter(
+        ([key, value]) =>
+          key.startsWith('PUBLIC_') && !key.endsWith('_SERVER') && typeof value === 'string'
+      )
       .map(([, value]) => {
         try {
           const url = new URL(value.trim());
-          return ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) ? url.origin : null;
+          const isLocal = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
+          const isWeb = ['http:', 'https:', 'ws:', 'wss:'].includes(url.protocol);
+          return isLocal && isWeb ? url.origin : null;
         } catch {
           return null;
         }
@@ -115,8 +121,7 @@ async function main() {
       .filter(Boolean);
 
     helmetConfig.contentSecurityPolicy.directives.defaultSrc.push(
-      ...environmentEndpoints,
-      ...new Set(localOrigins)
+      ...new Set([...environmentEndpoints, ...localOrigins])
     );
 
     app.use(helmet(helmetConfig));
