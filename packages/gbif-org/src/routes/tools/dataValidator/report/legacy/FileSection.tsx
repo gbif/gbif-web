@@ -17,11 +17,9 @@ export function hasTermSection(file: ReportFile) {
 export function FileSection({
   file,
   extensions,
-  unknownTerms,
 }: {
   file: ReportFile;
   extensions: Record<string, DwcExtension>;
-  unknownTerms: Set<string>;
 }) {
   return (
     <Card className="g-mb-4 gbif-word-break" id={file.anchor}>
@@ -39,7 +37,7 @@ export function FileSection({
                 defaultMessage="Term frequency"
               />
             </h3>
-            <TermFrequency file={file} unknownTerms={unknownTerms} />
+            <TermFrequency file={file} />
           </section>
         )}
 

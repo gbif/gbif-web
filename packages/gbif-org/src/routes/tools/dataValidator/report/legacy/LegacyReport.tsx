@@ -39,12 +39,7 @@ export default function LegacyReport({ validation }: ReportRendererProps) {
       >
         <div className="g-min-w-0">
           {report.files.map((file) => (
-            <FileSection
-              key={file.anchor}
-              file={file}
-              extensions={lookups.extensions}
-              unknownTerms={report.unknownTerms}
-            />
+            <FileSection key={file.anchor} file={file} extensions={lookups.extensions} />
           ))}
         </div>
         {!removeSidebar && report.files.length > 0 && (

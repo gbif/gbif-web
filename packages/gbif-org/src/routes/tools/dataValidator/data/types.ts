@@ -21,8 +21,6 @@ export type IssueInfo = {
   issue?: string;
   issueCategory?: string;
   count?: number | string;
-  extra?: string;
-  relatedData?: unknown;
   samples?: IssueSample[] | null;
 };
 
@@ -38,7 +36,6 @@ export type FileInfo = {
   rowType?: string;
   count?: number;
   indexedCount?: number | null;
-  idTerm?: string;
   terms?: TermInfo[] | null;
   issues?: IssueInfo[] | null;
 };
@@ -47,7 +44,6 @@ export type ValidationMetrics = {
   indexeable?: boolean;
   files?: FileInfo[] | null;
   stepTypes?: ValidationStep[] | null;
-  receivedMediaType?: string;
   error?: string;
 };
 

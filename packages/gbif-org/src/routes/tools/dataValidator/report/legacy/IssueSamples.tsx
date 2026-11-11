@@ -93,26 +93,6 @@ export function IssueSamples({ issue }: { issue: ReportIssue }) {
     );
   }
 
-  if (issue.relatedData && issue.relatedData.length > 0) {
-    return (
-      <ul className="g-list-disc g-ps-5 g-text-sm" dir="ltr">
-        {issue.relatedData.map((value, index) => (
-          <li key={index} className="g-break-all">
-            {display(value)}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
-  if (issue.extra) {
-    return (
-      <p className="g-text-sm g-break-words" dir="auto">
-        {issue.extra}
-      </p>
-    );
-  }
-
   return <IssueFacts issue={issue} />;
 }
 

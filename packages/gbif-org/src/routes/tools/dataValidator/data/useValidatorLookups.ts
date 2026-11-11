@@ -8,14 +8,11 @@ export type ValidatorLookups = {
   remarks: Record<string, InterpretationRemark>;
   categoryOrder?: string[];
   extensions: Record<string, DwcExtension>;
-  // issues that make a file non-indexable; the endpoint that listed them is gone, so it stays empty
-  nonIndexableIssues: Set<string>;
 };
 
 export const emptyLookups: ValidatorLookups = {
   remarks: {},
   extensions: {},
-  nonIndexableIssues: new Set(),
 };
 
 // module scope: the lookups are public, static and shared by every report in the session

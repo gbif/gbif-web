@@ -112,15 +112,6 @@ export function Summary({
                 </table>
               </>
             )}
-
-            {report.zippedButNotDwca && (
-              <p className="g-bg-amber-50 g-border g-border-amber-200 g-rounded g-p-3 g-text-sm g-mt-4">
-                <FormattedMessage
-                  id="tools.dataValidator.zipNotDwca"
-                  defaultMessage="The file was a zipped archive, but it was not interpreted as a Darwin Core Archive because its metadata is missing or cannot be parsed."
-                />
-              </p>
-            )}
           </div>
 
           <dl className="g-grid g-grid-cols-[auto_1fr] g-gap-x-4 g-gap-y-1 g-text-sm g-content-start">

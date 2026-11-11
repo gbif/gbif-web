@@ -10,7 +10,7 @@ import {
   FALLBACK_CATEGORY_ORDER,
   fileSize,
   getIssueSeverity,
-  mergeStructureIssues,
+  mergeSameIssues,
   normalizeReport,
   normalizeSteps,
   sortIssues,
@@ -71,24 +71,6 @@ describe('normalizeReport: DWCA with issues', () => {
     expect(report.hasIssues).toBe(true);
   });
 
-  it('merges UNKNOWN_TERM and DUPLICATED_TERM into one issue each, collecting relatedData', () => {
-    const meta = report.files[0];
-    const issues = meta.categories.flatMap((category) => category.issues);
-    expect(issues.map((issue) => issue.issue)).toEqual(['UNKNOWN_TERM', 'DUPLICATED_TERM']);
-    expect(issues[0].relatedData).toEqual([
-      'http://unknown.org/myCustomField',
-      'http://example.org/otherField',
-    ]);
-    expect(issues[0].issueCategory).toBe('RESOURCE_STRUCTURE');
-    expect(report.unknownTerms).toEqual(
-      new Set([
-        'http://unknown.org/myCustomField',
-        'http://example.org/otherField',
-        'http://rs.tdwg.org/dwc/terms/eventDate',
-      ])
-    );
-  });
-
   it('merges EML_GBIF_SCHEMA into one issue with the first sample of each', () => {
     const eml = report.files[1];
     const schema = eml.categories
@@ -122,12 +104,15 @@ describe('normalizeReport: DWCA with issues', () => {
     ]);
   });
 
-  it('takes severities from the remarks and defaults to WARNING', () => {
+  it('marks non-indexable issues as errors, takes the rest from the remarks, defaults to WARNING', () => {
     const summary = Object.fromEntries(
       report.summary.flatMap((entry) => entry.issues.map((issue) => [issue.id, issue.severity]))
     );
-    expect(summary.LICENSE_MISSING_OR_UNKNOWN).toBe('INFO');
-    expect(summary.RECORD_NOT_UNIQUELY_IDENTIFIED).toBe('WARNING');
+    // the remark says INFO, but a missing licence stops indexing
+    expect(summary.LICENSE_MISSING_OR_UNKNOWN).toBe('ERROR');
+    expect(summary.RECORD_NOT_UNIQUELY_IDENTIFIED).toBe('ERROR');
+    expect(summary.ZERO_COORDINATE).toBe('WARNING');
+    expect(summary.EML_GBIF_SCHEMA).toBe('WARNING');
   });
 
   it('drops empty sample lists and keeps counts as numbers', () => {
@@ -152,13 +137,11 @@ describe('normalizeReport: other results', () => {
     expect(report.files.every((file) => file.issueCount === 0)).toBe(true);
   });
 
-  it('reports a non-indexable file and a zip that was not read as an archive', () => {
+  it('reports a non-indexable file with its blocking issue as an error', () => {
     const report = normalizeReport(notIndexable as Validation, lookups);
     expect(report.indexeable).toBe(false);
-    expect(report.zippedButNotDwca).toBe(true);
-    expect(report.summary[0].issues.map((issue) => issue.id)).toEqual([
-      'RECORD_IDENTIFIER_NOT_FOUND',
-      'CORE_ROWTYPE_UNDETERMINED',
+    expect(report.summary[0].issues).toEqual([
+      { id: 'OCCURRENCE_NOT_UNIQUELY_IDENTIFIED', severity: 'ERROR' },
     ]);
   });
 
@@ -265,26 +248,39 @@ describe('getIssueSeverity', () => {
     expect(getIssueSeverity('UNPARSABLE_NAME', 'CLB_INTERPRETATION_BASED', lookups)).toBe('ERROR');
   });
 
-  it('marks non-indexable issues as errors when they are known', () => {
-    const withCritical = { ...lookups, nonIndexableIssues: new Set(['DWCA_UNREADABLE']) };
-    expect(getIssueSeverity('DWCA_UNREADABLE', 'RESOURCE_STRUCTURE', withCritical)).toBe('ERROR');
-    expect(getIssueSeverity('DWCA_UNREADABLE', 'RESOURCE_STRUCTURE', lookups)).toBe('WARNING');
+  it("marks the validator's non-indexable issues as errors", () => {
+    expect(getIssueSeverity('DWCA_UNREADABLE', 'RESOURCE_STRUCTURE', lookups)).toBe('ERROR');
+    expect(getIssueSeverity('LICENSE_MISSING_OR_UNKNOWN', 'METADATA_CONTENT', lookups)).toBe(
+      'ERROR'
+    );
+  });
+
+  it('falls back to WARNING for an issue without a remark', () => {
+    expect(getIssueSeverity('EML_NOT_FOUND', 'RESOURCE_STRUCTURE', lookups)).toBe('WARNING');
   });
 });
 
-describe('mergeStructureIssues', () => {
-  it('leaves other issues in place and appends the merged ones', () => {
-    const merged = mergeStructureIssues([
-      { issue: 'UNKNOWN_TERM', relatedData: 'a' },
+describe('mergeSameIssues', () => {
+  it('combines issues with the same name at the first one, keeping all samples', () => {
+    const merged = mergeSameIssues([
+      { issue: 'EML_GBIF_SCHEMA', samples: [{ relatedData: { ERROR: 'a' } }] },
       { issue: 'OTHER' },
-      { issue: 'EML_GBIF_SCHEMA', samples: [] },
+      { issue: 'EML_GBIF_SCHEMA', samples: [{ relatedData: { ERROR: 'b' } }] },
     ]);
-    expect(merged.map((issue) => issue.issue)).toEqual([
-      'OTHER',
-      'UNKNOWN_TERM',
-      'EML_GBIF_SCHEMA',
+    expect(merged.map((issue) => issue.issue)).toEqual(['EML_GBIF_SCHEMA', 'OTHER']);
+    expect(merged[0].samples).toEqual([
+      { relatedData: { ERROR: 'a' } },
+      { relatedData: { ERROR: 'b' } },
     ]);
-    expect(merged[2].samples).toEqual([]);
+  });
+
+  it('adds up counts and leaves its input unchanged', () => {
+    const input = [
+      { issue: 'X', count: 2, samples: [] },
+      { issue: 'X', count: '3' },
+    ];
+    expect(mergeSameIssues(input)[0].count).toBe(5);
+    expect(input[0]).toEqual({ issue: 'X', count: 2, samples: [] });
   });
 });
 

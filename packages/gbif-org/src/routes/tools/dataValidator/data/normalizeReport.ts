@@ -1,4 +1,5 @@
 import { clbIssueLevels } from './clbIssueLevels';
+import { NON_INDEXABLE_ISSUES } from './nonIndexableIssues';
 import { isInProgress } from './pollingMachine';
 import type {
   FileInfo,
@@ -12,7 +13,6 @@ import type { ValidatorLookups } from './useValidatorLookups';
 
 export const CLB_CATEGORY = 'CLB_INTERPRETATION_BASED';
 export const OCC_CATEGORY = 'OCC_INTERPRETATION_BASED';
-const RESOURCE_STRUCTURE = 'RESOURCE_STRUCTURE';
 
 // same preference as the validator backend uses to pick the ColDP file the issues are reported on
 const COLDP_MAIN_ROW_TYPES = ['NameUsage', 'Taxon', 'Name', 'Reference'];
@@ -37,9 +37,6 @@ export type ReportIssue = {
   issueCategory: string;
   severity: Severity;
   count?: number;
-  extra?: string;
-  // merged UNKNOWN_TERM and DUPLICATED_TERM issues: one entry per original issue
-  relatedData?: unknown[];
   samples?: IssueSample[];
 };
 
@@ -53,7 +50,6 @@ export type ReportFile = {
   rowType?: string;
   count?: number;
   indexedCount?: number;
-  idTerm?: string;
   terms: TermInfo[];
   hasInterpretedCounts: boolean;
   categories: ReportCategory[];
@@ -70,8 +66,6 @@ export type Report = {
   coreRowType?: string;
   extensionCount: number;
   files: ReportFile[];
-  unknownTerms: Set<string>;
-  zippedButNotDwca: boolean;
 };
 
 function severityRank(severity: Severity) {
@@ -136,55 +130,37 @@ export function assignColdpFileTypes(files: FileInfo[]): FileInfo[] {
   );
 }
 
+// An issue that blocks indexing is an error, whatever severity an occurrence remark gives it.
 export function getIssueSeverity(
   issue: string,
   category: string | undefined,
-  lookups: Pick<ValidatorLookups, 'remarks' | 'nonIndexableIssues'>
+  lookups: Pick<ValidatorLookups, 'remarks'>
 ): Severity {
   if (category === CLB_CATEGORY) return clbIssueLevels[issue] ?? 'WARNING';
-  const remark = lookups.remarks[issue];
-  if (remark?.severity) return remark.severity;
-  return lookups.nonIndexableIssues.has(issue) ? 'ERROR' : 'WARNING';
+  if (NON_INDEXABLE_ISSUES.has(issue)) return 'ERROR';
+  return lookups.remarks[issue]?.severity ?? 'WARNING';
 }
 
-const MERGED_RELATED_DATA = new Set(['UNKNOWN_TERM', 'DUPLICATED_TERM']);
-const MERGED_SAMPLES = 'EML_GBIF_SCHEMA';
-
-// One RESOURCE_STRUCTURE issue each for UNKNOWN_TERM, DUPLICATED_TERM (collecting relatedData)
-// and EML_GBIF_SCHEMA (collecting the first sample of each), appended after the other issues.
-export function mergeStructureIssues(issues: IssueInfo[]): IssueInfo[] {
-  const kept = issues.filter(
-    (issue) => !MERGED_RELATED_DATA.has(issue.issue ?? '') && issue.issue !== MERGED_SAMPLES
-  );
+// The validator sends one EML_GBIF_SCHEMA issue per schema error. Issues with the same name in a
+// file become one, keeping the first one's position, all samples and the summed count.
+export function mergeSameIssues(issues: IssueInfo[]): IssueInfo[] {
+  const byName = new Map<string, IssueInfo>();
   const merged: IssueInfo[] = [];
-  for (const name of MERGED_RELATED_DATA) {
-    const matching = issues.filter((issue) => issue.issue === name);
-    if (matching.length > 0) {
-      merged.push({
-        issue: name,
-        issueCategory: RESOURCE_STRUCTURE,
-        relatedData: matching.map((issue) => issue.relatedData),
-      });
+  for (const issue of issues) {
+    const name = issue.issue ?? 'UNKNOWN';
+    const first = byName.get(name);
+    if (!first) {
+      const copy = { ...issue, samples: [...(issue.samples ?? [])] };
+      byName.set(name, copy);
+      merged.push(copy);
+      continue;
     }
+    first.samples = [...(first.samples ?? []), ...(issue.samples ?? [])];
+    const a = toNumber(first.count);
+    const b = toNumber(issue.count);
+    if (a !== undefined || b !== undefined) first.count = (a ?? 0) + (b ?? 0);
   }
-  const emlIssues = issues.filter((issue) => issue.issue === MERGED_SAMPLES);
-  if (emlIssues.length > 0) {
-    merged.push({
-      issue: MERGED_SAMPLES,
-      issueCategory: RESOURCE_STRUCTURE,
-      samples: emlIssues
-        .map((issue) => issue.samples?.[0])
-        .filter((sample): sample is IssueSample => !!sample),
-    });
-  }
-  return [...kept, ...merged];
-}
-
-function collectTerms(values: unknown[] | undefined, into: Set<string>) {
-  for (const value of values ?? []) {
-    if (typeof value === 'string') into.add(value);
-    else if (Array.isArray(value)) collectTerms(value, into);
-  }
+  return merged;
 }
 
 function fileAnchor(index: number) {
@@ -202,7 +178,6 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
   if (validation.fileFormat === 'COLDP') files = assignColdpFileTypes(files);
 
   const summaryMap = new Map<string, Map<string, SummaryIssue>>();
-  const unknownTerms = new Set<string>();
   let coreRowType: string | undefined;
   let extensionCount = 0;
 
@@ -211,19 +186,16 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
     if (file.fileType === 'EXTENSION') extensionCount++;
 
     const byCategory = new Map<string, ReportIssue[]>();
-    for (const raw of mergeStructureIssues(file.issues ?? [])) {
+    for (const raw of mergeSameIssues(file.issues ?? [])) {
       const issue = raw.issue ?? 'UNKNOWN';
       const category = raw.issueCategory ?? 'UNKNOWN';
       const severity = getIssueSeverity(issue, category, lookups);
-      if (MERGED_RELATED_DATA.has(issue)) collectTerms(raw.relatedData as unknown[], unknownTerms);
 
       const reportIssue: ReportIssue = {
         issue,
         issueCategory: category,
         severity,
         count: toNumber(raw.count),
-        extra: raw.extra,
-        relatedData: Array.isArray(raw.relatedData) ? raw.relatedData : undefined,
         samples: raw.samples && raw.samples.length > 0 ? raw.samples : undefined,
       };
       if (!byCategory.has(category)) byCategory.set(category, []);
@@ -244,7 +216,6 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
       rowType: file.rowType,
       count: toNumber(file.count),
       indexedCount: toNumber(file.indexedCount),
-      idTerm: file.idTerm,
       terms: file.terms ?? [],
       hasInterpretedCounts: (file.terms ?? []).some(
         (term) => typeof term.interpretedIndexed === 'number'
@@ -275,11 +246,6 @@ export function normalizeReport(validation: Validation, lookups: ValidatorLookup
     coreRowType,
     extensionCount,
     files: orderedFiles,
-    unknownTerms,
-    zippedButNotDwca:
-      typeof metrics.receivedMediaType === 'string' &&
-      metrics.receivedMediaType.includes('zip') &&
-      validation.fileFormat !== 'DWCA',
   };
 }
 
