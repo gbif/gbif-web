@@ -4,6 +4,13 @@
   "purpose": "To test the adapter.",
   "additionalInfo": "Extra notes.",
   "language": "eng",
+  "dataLanguage": "dan",
+  "dataDescriptions": [
+    { "name": "Field protocol", "url": "https://example.org/protocol.pdf" },
+    { "name": "Unsafe link", "url": "javascript:alert(1)" },
+    { "url": "http://example.org/plain" },
+    { "format": "only a format" }
+  ],
   "temporalCoverages": [
     { "@type": "range", "start": "2001-01-01T00:00:00.000+0000", "end": "2002-12-31T00:00:00.000+0000" },
     { "@type": "single", "period": "2005-06-01T00:00:00.000+0000" },

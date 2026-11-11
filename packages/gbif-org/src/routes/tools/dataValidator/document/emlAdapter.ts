@@ -39,6 +39,8 @@ export type EmlSamplingDescription = {
 
 export type EmlCitation = { text?: string; identifier?: string };
 
+export type EmlDataDescription = { name?: string; url?: string };
+
 export type EmlView = {
   title?: string;
   description?: string;
@@ -50,6 +52,10 @@ export type EmlView = {
   samplingDescription?: EmlSamplingDescription;
   bibliographicCitations: EmlCitation[];
   contacts: Json[];
+  // ISO 639-2 codes, e.g. "eng"
+  metadataLanguage?: string;
+  dataLanguage?: string;
+  dataDescriptions: EmlDataDescription[];
 };
 
 function isObject(value: unknown): value is Json {
@@ -137,6 +143,13 @@ function samplingDescription(raw: unknown): EmlSamplingDescription | undefined {
   return empty ? undefined : sampling;
 }
 
+const HTTP_URL = /^https?:\/\//i;
+
+function dataDescription(raw: Json): EmlDataDescription {
+  const url = text(raw.url)?.trim();
+  return { name: text(raw.name), url: url && HTTP_URL.test(url) ? url : undefined };
+}
+
 function contact(raw: Json): Json {
   return {
     ...raw,
@@ -170,6 +183,11 @@ export function emlAdapter(eml: unknown): EmlView {
       .map((citation) => ({ text: text(citation.text), identifier: text(citation.identifier) }))
       .filter((citation) => citation.text || citation.identifier),
     contacts: list(raw.contacts).map(contact),
+    metadataLanguage: text(raw.language),
+    dataLanguage: text(raw.dataLanguage),
+    dataDescriptions: list(raw.dataDescriptions)
+      .map(dataDescription)
+      .filter((description) => description.name || description.url),
   };
 }
 
@@ -184,6 +202,9 @@ export function hasEmlContent(view: EmlView): boolean {
     view.taxonomicCoverages.length ||
     view.samplingDescription ||
     view.bibliographicCitations.length ||
-    view.contacts.length
+    view.contacts.length ||
+    view.metadataLanguage ||
+    view.dataLanguage ||
+    view.dataDescriptions.length
   );
 }

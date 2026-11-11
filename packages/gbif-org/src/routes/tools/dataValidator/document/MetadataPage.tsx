@@ -1,6 +1,7 @@
 import { ContactList } from '@/components/contactList';
 import { Html } from '@/components/html';
 import { HyperText } from '@/components/hyperText';
+import Properties, { Term, Value } from '@/components/properties';
 import { ProtectedForm } from '@/components/protectedForm';
 import { TableOfContents } from '@/components/tableOfContents';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -16,7 +17,7 @@ import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagel
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { ComponentProps, ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ToolCardSkeleton } from '../../_shared/toolCardSkeleton';
 import { useValidation } from '../data/validationContext';
 import {
@@ -27,7 +28,7 @@ import {
 } from '../data/validatorApi';
 import { ContactingServer, ValidationFailure } from '../report/ValidationStatus';
 import { ValidatorErrorMessage } from '../validatorErrorMessage';
-import { emlAdapter, EmlView, hasEmlContent } from './emlAdapter';
+import { emlAdapter, EmlDataDescription, EmlView, hasEmlContent } from './emlAdapter';
 import { emlTextToHtml } from './emlText';
 
 type EmlState =
@@ -277,6 +278,18 @@ function EmlSections({ view, removeSidebar }: { view: EmlView; removeSidebar: bo
         title: <FormattedMessage id="dataset.contacts" defaultMessage="Contacts" />,
         body: <ContactList contacts={view.contacts} cap={100} />,
       },
+      {
+        id: 'eml-data-description',
+        hidden: !view.metadataLanguage && !view.dataLanguage && view.dataDescriptions.length === 0,
+        title: <FormattedMessage id="dataset.dataDescription" defaultMessage="Data description" />,
+        body: (
+          <DataDescription
+            metadataLanguage={view.metadataLanguage}
+            dataLanguage={view.dataLanguage}
+            dataDescriptions={view.dataDescriptions}
+          />
+        ),
+      },
     ],
     [view]
   );
@@ -313,5 +326,75 @@ function EmlSections({ view, removeSidebar }: { view: EmlView; removeSidebar: bo
         </Aside>
       )}
     </SidebarLayout>
+  );
+}
+
+function useLanguageName() {
+  const intl = useIntl();
+  return (code: string) => {
+    const id = `enums.language.${code.toLowerCase()}`;
+    return intl.messages[id] !== undefined ? intl.formatMessage({ id }) : code;
+  };
+}
+
+function DataDescription({
+  metadataLanguage,
+  dataLanguage,
+  dataDescriptions,
+}: {
+  metadataLanguage?: string;
+  dataLanguage?: string;
+  dataDescriptions: EmlDataDescription[];
+}) {
+  const languageName = useLanguageName();
+  return (
+    <Properties useDefaultTermWidths>
+      {metadataLanguage && (
+        <>
+          <Term>
+            <FormattedMessage id="dataset.metadataLanguage" defaultMessage="Metadata language" />
+          </Term>
+          <Value>{languageName(metadataLanguage)}</Value>
+        </>
+      )}
+      {dataLanguage && (
+        <>
+          <Term>
+            <FormattedMessage id="dataset.dataLanguage" defaultMessage="Data language" />
+          </Term>
+          <Value>{languageName(dataLanguage)}</Value>
+        </>
+      )}
+      {dataDescriptions.length > 0 && (
+        <>
+          <Term>
+            <FormattedMessage
+              id="dataset.dataDescriptions"
+              defaultMessage="External data descriptions"
+            />
+          </Term>
+          <Value>
+            <ul className="g-list-none g-p-0 g-m-0 g-space-y-1">
+              {dataDescriptions.map((description, index) => (
+                <li key={index} className="g-break-words" dir="auto">
+                  {description.url ? (
+                    <a
+                      href={description.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="g-text-primary-600 hover:g-underline"
+                    >
+                      {description.name ?? description.url}
+                    </a>
+                  ) : (
+                    description.name
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Value>
+        </>
+      )}
+    </Properties>
   );
 }

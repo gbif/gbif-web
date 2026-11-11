@@ -78,6 +78,19 @@ describe('emlAdapter', () => {
     expect(view.contacts[0].userId).toEqual(['https://orcid.org/0000-0002-1825-0097', '0000-1111']);
   });
 
+  it('maps the metadata and data languages', () => {
+    expect(view.metadataLanguage).toBe('eng');
+    expect(view.dataLanguage).toBe('dan');
+  });
+
+  it('keeps external data descriptions with an http(s) link or a name', () => {
+    expect(view.dataDescriptions).toEqual([
+      { name: 'Field protocol', url: 'https://example.org/protocol.pdf' },
+      { name: 'Unsafe link', url: undefined },
+      { name: undefined, url: 'http://example.org/plain' },
+    ]);
+  });
+
   it('accepts anything without crashing', () => {
     for (const input of [undefined, null, 'x', [], { contacts: 'x', temporalCoverages: {} }]) {
       expect(hasEmlContent(emlAdapter(input))).toBe(false);
