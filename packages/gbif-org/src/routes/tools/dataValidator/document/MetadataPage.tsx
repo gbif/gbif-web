@@ -1,4 +1,5 @@
 import { ContactList } from '@/components/contactList';
+import { Html } from '@/components/html';
 import { HyperText } from '@/components/hyperText';
 import { ProtectedForm } from '@/components/protectedForm';
 import { TableOfContents } from '@/components/tableOfContents';
@@ -27,6 +28,7 @@ import {
 import { ContactingServer, ValidationFailure } from '../report/ValidationStatus';
 import { ValidatorErrorMessage } from '../validatorErrorMessage';
 import { emlAdapter, EmlView, hasEmlContent } from './emlAdapter';
+import { emlTextToHtml } from './emlText';
 
 type EmlState =
   | { status: 'loading' }
@@ -150,31 +152,41 @@ function EmlDocument({ validationKey }: { validationKey: string }) {
   return <EmlSections view={eml.view} removeSidebar={removeSidebar} />;
 }
 
+function EmlProse({ text }: { text?: string }) {
+  return (
+    <HyperText className="g-prose g-max-w-full" text={emlTextToHtml(text)} disableMarkdownParsing />
+  );
+}
+
 type Section = { id: string; title: ReactElement; body: ReactNode; hidden: boolean };
 
 function EmlSections({ view, removeSidebar }: { view: EmlView; removeSidebar: boolean }) {
   const sections: Section[] = useMemo(
     () => [
       {
-        id: 'eml-description',
-        hidden: !view.title && !view.description,
-        title: <FormattedMessage id="dataset.description" defaultMessage="Description" />,
+        id: 'eml-title',
+        hidden: !view.title,
+        title: <FormattedMessage id="dataset.title" defaultMessage="Title" />,
         body: (
-          <>
-            {view.title && (
-              <h2 className="g-text-xl g-font-semibold g-mb-3" dir="auto">
-                {view.title}
-              </h2>
-            )}
-            <HyperText className="g-prose g-max-w-full" text={view.description} />
-          </>
+          <Html
+            as="p"
+            html={view.title}
+            fallback={view.title}
+            className="g-text-xl g-font-semibold g-leading-snug"
+          />
         ),
+      },
+      {
+        id: 'eml-description',
+        hidden: !view.description,
+        title: <FormattedMessage id="dataset.description" defaultMessage="Description" />,
+        body: <EmlProse text={view.description} />,
       },
       {
         id: 'eml-purpose',
         hidden: !view.purpose,
         title: <FormattedMessage id="dataset.purpose" defaultMessage="Purpose" />,
-        body: <HyperText className="g-prose g-max-w-full" text={view.purpose} />,
+        body: <EmlProse text={view.purpose} />,
       },
       {
         id: 'eml-temporal',
@@ -242,7 +254,7 @@ function EmlSections({ view, removeSidebar }: { view: EmlView; removeSidebar: bo
         id: 'eml-additional-info',
         hidden: !view.additionalInfo,
         title: <FormattedMessage id="dataset.additionalInfo" defaultMessage="Additional info" />,
-        body: <HyperText className="g-prose g-max-w-full" text={view.additionalInfo} />,
+        body: <EmlProse text={view.additionalInfo} />,
       },
       {
         id: 'eml-bibliography',
