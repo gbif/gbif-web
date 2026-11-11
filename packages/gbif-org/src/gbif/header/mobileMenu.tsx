@@ -26,6 +26,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { FeedbackPopover } from './feedback/feedback';
 import { LanguageSelector } from './languageSelector';
 import { useConfig } from '@/config/config';
+import { safeHref } from '@/utils/safeHref';
 
 function MobileMenu({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();
@@ -97,7 +98,7 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                     <DynamicLink
                       onClick={() => setOpen(false)}
                       key={parent.id}
-                      to={parent.link}
+                      to={safeHref(parent.link)}
                       className="g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                     >
                       <div>
@@ -126,7 +127,7 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                                       <DynamicLink
                                         onClick={() => setOpen(false)}
                                         key={subChild.id}
-                                        to={subChild.link}
+                                        to={safeHref(subChild.link)}
                                         className="g-text-muted-foreground g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                                       >
                                         <div>
@@ -143,7 +144,7 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                               <DynamicLink
                                 onClick={() => setOpen(false)}
                                 key={child.id}
-                                to={child.link}
+                                to={safeHref(child.link)}
                                 className="g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
                               >
                                 <div>

@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { LongDate } from '@/components/dateFormats';
 import { MdLocationOn, MdPerson } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
+import { safeHref } from '@/utils/safeHref';
 
 const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
   query DirectoryContact($id: ID!) {
@@ -128,9 +129,12 @@ export function DirectoryContactDialogContent({ personId }: Props) {
                 </div>
               </ContactAction>
             )}
-            {person.orcidId && (
+            {safeHref(person.orcidId) && (
               <ContactAction>
-                <a href={person.orcidId} className="g-flex g-items-center g-text-inherit g-gap-4">
+                <a
+                  href={safeHref(person.orcidId)}
+                  className="g-flex g-items-center g-text-inherit g-gap-4"
+                >
                   <img
                     style={{ pointerEvents: 'none' }}
                     src={import.meta.env.PUBLIC_BASE_URL + '/img/public/orcid_16x16.gif'}

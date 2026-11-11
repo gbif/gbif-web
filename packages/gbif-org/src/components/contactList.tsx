@@ -6,6 +6,7 @@ import { Details } from './details';
 import EmptyValue from './emptyValue';
 import Properties, { Property, Term, Value } from './properties';
 import { Card, CardContent } from './ui/largeCard';
+import { safeHref } from '@/utils/safeHref';
 
 // Contacts come from several GraphQL types (dataset, publisher, installation, ...) with differing shapes.
 type ContactData = Record<string, any>;
@@ -62,7 +63,7 @@ function Contact({ contact }: { contact: ContactData }) {
   );
 
   const userId = contact.userId || [];
-  const orcid = userId.find((x: string) => x.indexOf('orcid.org') != -1);
+  const orcid = safeHref(userId.find((x: string) => x.indexOf('orcid.org') != -1));
 
   const summary = (
     <div className="g-py-2 g-flex g-items-start">

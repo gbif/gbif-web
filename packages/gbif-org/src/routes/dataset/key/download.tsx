@@ -28,10 +28,12 @@ export function DatasetKeyDownload() {
   };
 
   const sourceDownloadEndpoint = dataset?.endpoints?.find(function (e) {
-    return ['DWC_ARCHIVE', 'CAMTRAP_DP'].includes(e.type);
+    return ['DWC_ARCHIVE', 'CAMTRAP_DP'].includes(e.type) && !!safeHref(e.url);
   });
 
-  const dataPackageEndpoint = dataset?.endpoints?.find((e) => e.type === 'DWC_DP');
+  const dataPackageEndpoint = dataset?.endpoints?.find(
+    (e) => e.type === 'DWC_DP' && !!safeHref(e.url)
+  );
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
