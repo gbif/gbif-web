@@ -1,9 +1,12 @@
 import { Progress } from '@/components/ui/progress';
 import { useI18n } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
+import { ReactNode, useMemo, useState } from 'react';
+import { FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
 import { MdLink } from 'react-icons/md';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { ReportFile } from '../../data/normalizeReport';
+import { nextTermSort, sortTerms, TermSort, TermSortKey } from './sortTerms';
 
 const UNKNOWN_PREFIX = 'http://unknown.org/';
 const ARCHIVE_RECORD_ID = 'http://unknown.org/ARCHIVE_RECORD_ID';
@@ -16,43 +19,59 @@ export function TermFrequency({
   unknownTerms: Set<string>;
 }) {
   const { locale } = useI18n();
+  const intl = useIntl();
   const total = file.count ?? 0;
+  const [sort, setSort] = useState<TermSort>();
+  const terms = useMemo(
+    () =>
+      sortTerms(
+        file.terms,
+        sort,
+        new Intl.Collator(intl.locale, { sensitivity: 'base', numeric: true })
+      ),
+    [file.terms, sort, intl.locale]
+  );
+  const header = (key: TermSortKey) => ({
+    sort,
+    sortKey: key,
+    onSort: () => setSort((current) => nextTermSort(current, key)),
+  });
 
   return (
     <div className="g-overflow-x-auto">
       <table className="g-w-full g-text-sm">
         <thead>
           <tr className="g-text-slate-500 g-text-start">
-            <th className="g-py-2 g-pe-4 g-text-start g-font-medium">
+            <SortableHeader {...header('term')} className="g-pe-4 g-text-start">
               <FormattedMessage
                 id="tools.dataValidator.termsFrequency.term"
                 defaultMessage="Term"
               />
-            </th>
-            <th className="g-py-2 g-pe-4 g-text-end g-font-medium">
+            </SortableHeader>
+            <SortableHeader {...header('count')} className="g-pe-4 g-text-end">
               <FormattedMessage
                 id="tools.dataValidator.termsFrequency.count"
                 defaultMessage="Count"
               />
-            </th>
-            <th className="g-py-2 g-pe-4 g-text-start g-font-medium">
+            </SortableHeader>
+            <SortableHeader {...header('percentage')} className="g-pe-4 g-text-start">
               <FormattedMessage
                 id="tools.dataValidator.termsFrequency.percentage"
                 defaultMessage="Percentage"
               />
-            </th>
+            </SortableHeader>
             {file.hasInterpretedCounts && (
-              <th className="g-py-2 g-text-end g-font-medium">
+              <SortableHeader {...header('interpreted')} className="g-text-end">
                 <FormattedMessage
                   id="tools.dataValidator.termsFrequency.interpreted"
                   defaultMessage="Interpreted"
                 />
-              </th>
+              </SortableHeader>
             )}
           </tr>
         </thead>
         <tbody>
-          {file.terms.map((term, index) => {
+          {terms.map((term, index) => {
             const name = term.term ?? '';
             const isId = file.idTerm === name;
             const isUnknown =
@@ -121,5 +140,41 @@ export function TermFrequency({
         </tbody>
       </table>
     </div>
+  );
+}
+
+function SortableHeader({
+  sort,
+  sortKey,
+  onSort,
+  className,
+  children,
+}: {
+  sort: TermSort;
+  sortKey: TermSortKey;
+  onSort: () => void;
+  className?: string;
+  children: ReactNode;
+}) {
+  const active = sort?.key === sortKey ? sort.direction : undefined;
+  const Icon = active === 'asc' ? FaSortUp : active === 'desc' ? FaSortDown : FaSort;
+  return (
+    <th
+      scope="col"
+      aria-sort={active === 'asc' ? 'ascending' : active === 'desc' ? 'descending' : undefined}
+      className={cn('g-py-2 g-font-medium', className)}
+    >
+      <button
+        type="button"
+        onClick={onSort}
+        className={cn(
+          'g-inline-flex g-items-center g-gap-1 g-rounded hover:g-text-slate-800 focus-visible:g-outline-none focus-visible:g-ring-2 focus-visible:g-ring-primary-500',
+          { 'g-text-slate-800': active }
+        )}
+      >
+        {children}
+        <Icon aria-hidden className={cn('g-h-3 g-w-3 g-flex-none', { 'g-opacity-40': !active })} />
+      </button>
+    </th>
   );
 }
