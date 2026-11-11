@@ -22,6 +22,7 @@ import { GbifFeedback } from './GbifFeedback';
 import { GithubFeedback, MailFeedback } from './GithubFeedback';
 import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
+import { safeHref } from '@/utils/safeHref';
 
 type PageType = {
   type: 'occurrenceKey' | 'taxonKey' | null;
@@ -106,7 +107,7 @@ export function FeedbackPopover({
 
   const hasDataProviderOptions =
     data?.feedbackOptions &&
-    (data.feedbackOptions.contactEmail || data.feedbackOptions.externalServiceUrl);
+    (data.feedbackOptions.contactEmail || safeHref(data.feedbackOptions.externalServiceUrl));
 
   // The annotations tool only resolves Catalogue of Life taxon keys
   const taxonChecklistKey = config.taxonSearch?.checklistKey ?? config.defaultChecklistKey;

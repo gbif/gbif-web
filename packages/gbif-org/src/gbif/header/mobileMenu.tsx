@@ -127,18 +127,18 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                                     {child.children
                                       .filter((subChild) => safeHref(subChild.link))
                                       .map((subChild) => (
-                                      <DynamicLink
-                                        onClick={() => setOpen(false)}
-                                        key={subChild.id}
-                                        to={safeHref(subChild.link)}
-                                        className="g-text-muted-foreground g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
-                                      >
-                                        <div>
-                                          {subChild.title}{' '}
-                                          {subChild.externalLink && <MdLink aria-hidden="true" />}
-                                        </div>
-                                      </DynamicLink>
-                                    ))}
+                                        <DynamicLink
+                                          onClick={() => setOpen(false)}
+                                          key={subChild.id}
+                                          to={safeHref(subChild.link)}
+                                          className="g-text-muted-foreground g-flex g-flex-1 g-items-center g-justify-between g-py-3 g-min-h-11 g-text-base g-transition-all hover:g-underline"
+                                        >
+                                          <div>
+                                            {subChild.title}{' '}
+                                            {subChild.externalLink && <MdLink aria-hidden="true" />}
+                                          </div>
+                                        </DynamicLink>
+                                      ))}
                                   </AccordionContent>
                                 </AccordionItem>
                               );
