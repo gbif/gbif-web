@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { normalizeOccurrenceStatus } from '@/utils/occurrenceStatus';
 
 const snakeToCamel = (s: string) => s.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
 
@@ -14,7 +15,12 @@ export function useNormalizedSearchParams() {
     for (const [key, value] of searchParams.entries()) {
       const camelKey = snakeToCamel(key);
       if (camelKey !== key) changed = true;
-      out.append(camelKey, value);
+      const newValue =
+        camelKey === 'occurrenceStatus'
+          ? value.split(',').map(normalizeOccurrenceStatus).join(',')
+          : value;
+      if (newValue !== value) changed = true;
+      out.append(camelKey, newValue);
     }
 
     return { params: out, changed };

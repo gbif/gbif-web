@@ -1,4 +1,5 @@
 import { useIsFamilyOrAbove } from '@/hooks/taxonomyRankHooks';
+import { Html } from '@/components/html';
 import { NotFoundError } from '@/errors';
 import { BibliographyContent } from './sections/BibliographyCard';
 import { CardContent, CardHeader } from '@/components/ui/largeCard';
@@ -60,11 +61,7 @@ export default function AboutNonBackbone({ data }: { data: TaxonKeyQuery }) {
           )}
         </div>
         <h2 className="g-text-2xl g-font-semibold g-mb-2">
-          <span
-            dangerouslySetInnerHTML={{
-              __html: taxon?.label || taxon?.scientificName || '',
-            }}
-          />
+          <Html html={taxon?.label} fallback={taxon?.scientificName} />
         </h2>
         {taxon.acceptedTaxon && (
           <div className="g-text-sm g-text-slate-600">
@@ -75,10 +72,9 @@ export default function AboutNonBackbone({ data }: { data: TaxonKeyQuery }) {
                 variables={{ key: taxon.datasetKey }}
                 path={`/taxon/${taxon.acceptedTaxon.taxonID}`}
               >
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: taxon.acceptedTaxon.label || taxon.acceptedTaxon.scientificName || '',
-                  }}
+                <Html
+                  html={taxon.acceptedTaxon.label}
+                  fallback={taxon.acceptedTaxon.scientificName}
                 />
               </DynamicLink>
             </Button>

@@ -189,11 +189,13 @@ const temporaryAuthMiddleware = function (req, res, next) {
     _.get(req, 'headers.Authorization', '').substr(10) ||
     _.get(req, 'headers.authorization', '').substr(10);
   if (!apiKey) {
-    next(
+    return next(
       new ResponseError(401, 'temporaryAuthentication', 'You need to provide an apiKey in the url'),
     );
-  } else if (apiKey !== config.apiKey || !config.apiKey) {
-    next(new ResponseError(403, 'temporaryAuthentication', `Invalid apiKey: ${apiKey}`));
+  }
+  if (!config.apiKey || apiKey !== config.apiKey) {
+    // don't echo the key back
+    return next(new ResponseError(403, 'temporaryAuthentication', 'Invalid apiKey'));
   }
   // the apiKey shouldn't be used elsewhere and shouldn't be interpreted as a es query param
   delete req.query.apiKey;

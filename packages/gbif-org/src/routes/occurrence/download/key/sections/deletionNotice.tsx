@@ -1,4 +1,5 @@
 import { longDateFormatProps } from '@/components/dateFormats';
+import { DEFAULT_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 import { HyperText } from '@/components/hyperText';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -38,7 +39,10 @@ export function DeletionNotice({
         <HyperText
           className="[&_a]:g-underline [&_a]:g-text-inherit"
           text={downloadDeletionWarning}
-          sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
+          sanitizeOptions={{
+            ...DEFAULT_SANITIZE_OPTIONS,
+            ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'],
+          }}
         />
         {isUsersDownload && <Actions userDownload={userDownload} />}
       </AlertDescription>

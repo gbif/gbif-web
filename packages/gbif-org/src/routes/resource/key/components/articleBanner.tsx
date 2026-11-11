@@ -1,4 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
+import { Html } from '@/components/html';
+import { CAPTION_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 import { ArticleBannerFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
@@ -49,8 +51,9 @@ export function ArticleBanner({ className, image, testId }: Props) {
             <figcaption
               dir="auto"
               className="g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks g-mt-0.5"
-              dangerouslySetInnerHTML={{ __html: image.description }}
-            />
+            >
+              <Html html={image.description} sanitizeOptions={CAPTION_SANITIZE_OPTIONS} />
+            </figcaption>
           )}
         </figure>
       </div>
@@ -74,8 +77,9 @@ export function ArticleBanner({ className, image, testId }: Props) {
           <figcaption
             dir="auto"
             className="g-text-sm g-text-slate-500 dark:g-text-slate-400 underlineLinks g-mt-0.5"
-            dangerouslySetInnerHTML={{ __html: image.description }}
-          />
+          >
+            <Html html={image.description} sanitizeOptions={CAPTION_SANITIZE_OPTIONS} />
+          </figcaption>
         )}
       </figure>
     </div>

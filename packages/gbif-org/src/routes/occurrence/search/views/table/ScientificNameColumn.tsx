@@ -1,5 +1,7 @@
 import { SetAsFilter } from '@/components/searchTable';
+import { Html } from '@/components/html';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { FormattedMessage } from 'react-intl';
 import { GoSidebarExpand } from 'react-icons/go';
 import useLocalStorage from 'use-local-storage';
 import { SingleOccurrenceSearchResult } from './occurrenceTable';
@@ -64,13 +66,13 @@ export default function ScientificNameColumn({
               <span className="g-pointer-events-auto g-me-2">{canonicalName}</span>
             )}
             {!showCanonicalName && (
-              <span
+              <Html
                 className="g-pointer-events-auto g-me-2"
-                dangerouslySetInnerHTML={{
-                  __html: (occurrence?.classification?.taxonMatch?.usage?.formattedName ??
-                    occurrence?.classification?.taxonMatch?.usage.name ??
-                    occurrence?.classification?.usage?.name) as string,
-                }}
+                html={occurrence?.classification?.taxonMatch?.usage?.formattedName}
+                fallback={
+                  occurrence?.classification?.taxonMatch?.usage.name ??
+                  occurrence?.classification?.usage?.name
+                }
               />
             )}
           </SetAsFilter>
@@ -90,9 +92,14 @@ export default function ScientificNameColumn({
         )}
         {/* </LinkOption> */}
       </div>
-      {occurrence.occurrenceStatus === 'ABSENT' && (
+      {occurrence.occurrenceStatus === 'NOT_DETECTED' && (
         <div className="g-flex-none">
-          <span className="g-rounded g-bg-red-400 g-text-white g-px-1">Absent</span>
+          <span className="g-rounded g-bg-red-400 g-text-white g-px-1">
+            <FormattedMessage
+              id="enums.occurrenceStatus.NOT_DETECTED"
+              defaultMessage="Not detected"
+            />
+          </span>
         </div>
       )}
     </div>

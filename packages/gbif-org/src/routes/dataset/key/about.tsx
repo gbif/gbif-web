@@ -1,4 +1,5 @@
 import { BulletList } from '@/components/bulletList';
+import { DEFAULT_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { ContactList } from '@/components/contactList';
 import * as charts from '@/components/dashboard';
@@ -245,7 +246,10 @@ export function DatasetKeyAbout() {
                     <HyperText
                       className="[&_a]:g-underline [&_a]:g-text-inherit"
                       text={scopeSmallerThanDatasetMessage}
-                      sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
+                      sanitizeOptions={{
+                        ...DEFAULT_SANITIZE_OPTIONS,
+                        ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'],
+                      }}
                     />
                   </AlertDescription>
                 </Alert>

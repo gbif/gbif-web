@@ -1,4 +1,5 @@
 import { DynamicLink } from '@/reactRouterPlugins';
+import { Html } from '@/components/html';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -78,10 +79,7 @@ function Synonym({
         className="g-text-decoration-none g-text-primary-500"
       >
         {type === 'homotypic' ? '≡ ' : '= '}
-        <span
-          className=" hover:g-underline"
-          dangerouslySetInnerHTML={{ __html: synonym.label }}
-        ></span>
+        <Html className="hover:g-underline" html={synonym.label} />
       </DynamicLink>
       {synonym.isOriginalNameUsage && (
         <InfoPill className="g-ms-2">

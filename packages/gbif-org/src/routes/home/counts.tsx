@@ -42,7 +42,7 @@ export function HomePageCounts({ iconData }: Props) {
       data-testid="homepage-counts"
       className="g-grid g-grid-cols-1 sm:g-grid-cols-2 lg:g-grid-cols-4 g-gap-8 g-max-w-6xl g-m-auto g-px-10 g-py-16"
     >
-      <DynamicLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT' }}>
+      <DynamicLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'DETECTED' }}>
         <CountItem
           testId="count-occurrences"
           icon={iconData?.occurrenceIcon?.file.url}
@@ -51,7 +51,7 @@ export function HomePageCounts({ iconData }: Props) {
           countOptions={{
             apiEndpoint: apiConstants.occurrenceSearch,
             params: {
-              occurrenceStatus: 'PRESENT',
+              occurrenceStatus: 'DETECTED',
             },
           }}
         />

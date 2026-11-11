@@ -1,5 +1,5 @@
 import { Table as ClientTable } from '@/components/clientTable';
-import { DEFAULT_SANITIZE_OPTIONS } from '@/components/hyperText';
+import { DEFAULT_SANITIZE_OPTIONS } from '@/utils/sanitizeHtml';
 import { FormattedMessage } from 'react-intl';
 import { Message } from '@/components/message';
 

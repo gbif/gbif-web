@@ -1,4 +1,5 @@
 import { ErrorMessage } from '@/components/errorMessage';
+import { Html } from '@/components/html';
 import { NoRecords } from '@/components/noDataMessages';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { OmniSearchQuery, OmniSearchQueryVariables, PredicateType } from '@/gql/graphql';
@@ -208,7 +209,7 @@ export function SearchPage() {
           });
         } else if (serverResults.taxa?.[0]?.taxonID) {
           setOccurrenceCategory({
-            label: <span dangerouslySetInnerHTML={{ __html: serverResults.taxa?.[0]?.label }} />,
+            label: <Html html={serverResults.taxa?.[0]?.label} />,
             searchParams: {
               taxonKey: serverResults.taxa?.[0]?.taxonID,
             },

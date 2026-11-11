@@ -26,6 +26,7 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { useConfig } from '@/config/config';
 import { camelCase, constantCase } from 'change-case';
+import { normalizeOccurrenceStatus } from '@/utils/occurrenceStatus';
 import { useCallback, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -151,7 +152,10 @@ export const PredicateDisplay = ({ predicate: predicateRaw }: { predicate: any }
           case 'LATEST_AGE_OR_HIGHEST_STAGE':
             return <GeoTimeLabel id={value} />;
           case 'OCCURRENCE_STATUS':
-            return getTranslation(`enums.occurrenceStatus.${constantCase(value)}`, `"${value}"`);
+            return getTranslation(
+              `enums.occurrenceStatus.${constantCase(normalizeOccurrenceStatus(value))}`,
+              `"${value}"`
+            );
           case 'PROJECT_ID':
             return value;
           case 'LOWEST_BIOSTRATIGRAPHIC_ZONE':
