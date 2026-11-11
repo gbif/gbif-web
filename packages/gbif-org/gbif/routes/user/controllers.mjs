@@ -54,7 +54,7 @@ export function logout(req, res, next) {
  * Ask for a new password to be sent to the user associated with the username or email
  */
 export async function resetPassword(req, res) {
-  const { userNameOrEmail } = req.body;
+  const userNameOrEmail = trimmed(req.body?.userNameOrEmail);
   try {
     if (!userNameOrEmail) {
       return res.status(400).json({ message: 'Email is required' });
@@ -75,8 +75,7 @@ export async function resetPassword(req, res) {
  * Confirm user creation from mail link
  */
 export async function confirmAccount(req, res) {
-  const { code: challengeCode, username } = req.body;
-  confirmUser(challengeCode, username)
+  confirmUser(req.body?.code, trimmed(req.body?.username))
     .then(function (user) {
       let token = generateToken(user); // Generate token with a 7-day expiration
       const clientUser = getClientUser(user);
@@ -91,7 +90,7 @@ export async function confirmAccount(req, res) {
  * The token is validated and the new password is set.
  */
 export async function updatePasswordFromChallengeCode(req, res) {
-  updateForgottenPassword(req.body)
+  updateForgottenPassword({ ...req.body, userName: trimmed(req.body?.userName) })
     .then(function (user) {
       let token = generateToken(user);
       user = getClientUser(user);
@@ -290,6 +289,16 @@ export async function updateDerivedDataset(req, res) {
     const message = error.body || error.message || 'Unknown error';
     res.status(code).json({ message, code });
   }
+}
+
+/**
+ * User names and emails typed into a form (or filled in by autofill) often carry a stray space.
+ * Trim them here, so the model's strict check only rejects values that are really wrong. Only
+ * spaces and tabs are removed. Other whitespace, like a non-breaking space, which the registry
+ * would not trim either, is left for the check to reject rather than quietly dropped.
+ */
+function trimmed(value) {
+  return typeof value === 'string' ? value.replace(/^[ \t]+|[ \t]+$/g, '') : value;
 }
 
 /*

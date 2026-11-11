@@ -3,9 +3,11 @@
  * ones named after their email address, so this is not the signup pattern. It rejects what can't
  * be sent or signed as a user:
  * - non-strings, blank values and values over 255 characters
- * - surrounding whitespace, which fetch trims from the header but which would still be signed
- * - anything outside printable Latin-1 (control characters, and characters above U+00FF, which
- *   fetch refuses to put in a header)
+ * - surrounding whitespace: it would be signed, but it is stripped from the header on the way, so
+ *   the signature would no longer match
+ * - anything outside printable Latin-1: control characters, and characters above U+00FF, which the
+ *   HTTP clients either refuse (fetch, and Node's http under requestretry) or silently drop (axios)
+ *   after the value has been signed
  * - the app's own key, which would make the request run as the app without asApp
  *
  * A copy of this check lives in packages/gbif-org/gbif/routes/auth/userHeader.mjs. Keep them the

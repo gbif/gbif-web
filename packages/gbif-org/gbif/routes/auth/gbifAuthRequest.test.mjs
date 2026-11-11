@@ -35,7 +35,37 @@ const before = {
     'Content-Type': 'application/json',
     Authorization: 'GBIF test.app:r7xKYw1YVIYqTIl/k+VXqPQVzN8=',
   },
+  getDownloadAsUser: {
+    'x-url': 'https://api.test/v1/occurrence/download/0012345-240626123714530',
+    'x-gbif-user': 'jane',
+    'User-Agent': 'GBIF-portal',
+    Authorization: 'GBIF test.app:xquefssw9SBQsPm5rOW7kVAlKPc=',
+  },
+  putDownloadAsUser: {
+    'x-url': 'occurrence/download/0012345-240626123714530',
+    'x-gbif-user': 'jane',
+    'User-Agent': 'GBIF-portal',
+    'Content-MD5': 'lMt4B8jsB534PL9tKLIxMQ==',
+    'Content-Type': 'application/json',
+    Authorization: 'GBIF test.app:SVYoCRF/KGocL5wTDxVyue4W1HQ=',
+  },
+  cancelDownloadAsUser: {
+    'x-url': 'https://api.test/v1/occurrence/download/request/0012345-240626123714530',
+    'x-gbif-user': 'jane',
+    'User-Agent': 'GBIF-portal',
+    Authorization: 'GBIF test.app:NfPZ/Lcy4eNlgXMwc5PZj2+t7yU=',
+  },
+  updateUserAsApp: {
+    'x-url': 'admin/user/jane',
+    'x-gbif-user': 'test.app',
+    'User-Agent': 'GBIF-portal',
+    'Content-MD5': '08E7KICxVDZ14ya92zeWyQ==',
+    'Content-Type': 'application/json',
+    Authorization: 'GBIF test.app:eryMtgMOAd9ljNwhT+9KITaFf78=',
+  },
 };
+
+const downloadKey = '0012345-240626123714530';
 
 beforeEach(() => {
   fetchWithRetry.mockReset();
@@ -55,12 +85,12 @@ describe('authenticatedRequest signs exactly as before', () => {
       canonicalPath: 'admin/user/',
       asApp: true,
     });
-    expect(sentHeaders()).toEqual(before.createUserAsApp);
+    expect(sentHeaders()).toStrictEqual(before.createUserAsApp);
   });
 
   it('a GET as the app (get user by name)', async () => {
     await authenticatedRequest({ ...get, asApp: true });
-    expect(sentHeaders()).toEqual(before.getUserAsApp);
+    expect(sentHeaders()).toStrictEqual(before.getUserAsApp);
   });
 
   it('a POST as a user (confirm account)', async () => {
@@ -71,7 +101,47 @@ describe('authenticatedRequest signs exactly as before', () => {
       canonicalPath: 'admin/user/confirm',
       userName: 'jane',
     });
-    expect(sentHeaders()).toEqual(before.confirmAsUser);
+    expect(sentHeaders()).toStrictEqual(before.confirmAsUser);
+  });
+
+  it('a GET as a user (get download)', async () => {
+    await authenticatedRequest({
+      method: 'GET',
+      url: `https://api.test/v1/occurrence/download/${downloadKey}`,
+      userName: 'jane',
+    });
+    expect(sentHeaders()).toStrictEqual(before.getDownloadAsUser);
+  });
+
+  it('a PUT as a user (set download erasure date)', async () => {
+    await authenticatedRequest({
+      method: 'PUT',
+      body: { key: downloadKey, eraseAfter: '2026-01-01T00:00:00.000Z' },
+      url: `https://api.test/v1/occurrence/download/${downloadKey}`,
+      canonicalPath: `occurrence/download/${downloadKey}`,
+      userName: 'jane',
+    });
+    expect(sentHeaders()).toStrictEqual(before.putDownloadAsUser);
+  });
+
+  it('a DELETE as a user (cancel download)', async () => {
+    await authenticatedRequest({
+      method: 'DELETE',
+      url: `https://api.test/v1/occurrence/download/request/${downloadKey}`,
+      userName: 'jane',
+    });
+    expect(sentHeaders()).toStrictEqual(before.cancelDownloadAsUser);
+  });
+
+  it('a PUT as the app (update user)', async () => {
+    await authenticatedRequest({
+      method: 'PUT',
+      body: { userName: 'jane' },
+      url: 'https://registry.test/v1/admin/user/jane',
+      canonicalPath: 'admin/user/jane',
+      asApp: true,
+    });
+    expect(sentHeaders()).toStrictEqual(before.updateUserAsApp);
   });
 });
 

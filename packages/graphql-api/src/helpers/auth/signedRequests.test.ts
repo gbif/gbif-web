@@ -4,6 +4,7 @@ import config from '@/config';
 import { createSignedGetHeader } from './authenticatedGet';
 import { isValidUserHeader, signingUser } from './userHeader';
 import { authenticatedRequest, createSignedHeaders } from '@/api-utils/forms/helpers/gbifAuthRequest';
+import * as requestModule from '@/api-utils/forms/helpers/request';
 
 // A fixed identity so the expected headers below don't depend on the local .env.
 const testApp = { appKey: 'test.app', appSecret: 'test-secret' };
@@ -127,9 +128,61 @@ describe('createSignedGetHeader', () => {
 
 describe('authenticatedRequest', () => {
   // authenticatedRequest reads the shared config, so swap in the fixed identity for these tests.
+  // The HTTP call is swapped for one that records what it was given, so nothing goes out and the
+  // tests can see exactly what would have been sent.
   const saved = { appKey: config.appKey, appSecret: config.appSecret };
-  beforeEach(() => Object.assign(config, testApp));
-  afterEach(() => Object.assign(config, saved));
+  const http = requestModule as any;
+  const realRequest = http.default;
+  let sent: any[] = [];
+  beforeEach(() => {
+    Object.assign(config, testApp);
+    sent = [];
+    http.default = async (options: any) => {
+      sent.push(options);
+      return { statusCode: 200, body: {} };
+    };
+  });
+  afterEach(() => {
+    Object.assign(config, saved);
+    http.default = realRequest;
+  });
+
+  it('sends the signed headers as the app exactly as before (create publisher)', async () => {
+    await authenticatedRequest({
+      method: 'POST',
+      body: { title: 'Example org' },
+      url: 'https://api.test/v1/organization/',
+      canonicalPath: 'organization/',
+      asApp: true,
+    });
+    assert.strictEqual(sent.length, 1);
+    assert.strictEqual(sent[0].method, 'POST');
+    assert.strictEqual(sent[0].url, 'https://api.test/v1/organization/');
+    assert.deepStrictEqual(sent[0].json, { title: 'Example org' });
+    assert.deepStrictEqual(sent[0].headers, before.createPublisher);
+  });
+
+  it('sends the signed headers as the app exactly as before (organization lookup)', async () => {
+    await authenticatedRequest({
+      method: 'GET',
+      url: 'https://api.test/v1/organization/abc',
+      asApp: true,
+    });
+    assert.strictEqual(sent.length, 1);
+    assert.strictEqual(sent[0].method, 'GET');
+    assert.strictEqual(sent[0].url, 'https://api.test/v1/organization/abc');
+    assert.strictEqual(sent[0].json, true);
+    assert.deepStrictEqual(sent[0].headers, before.getOrganization);
+  });
+
+  it('sends the signed headers as the given user', async () => {
+    await authenticatedRequest({
+      method: 'GET',
+      url: 'https://api.test/v1/organization/abc',
+      userName: 'jane',
+    });
+    assert.strictEqual(sent[0].headers['x-gbif-user'], 'jane');
+  });
 
   it('signs create publisher exactly as before', () => {
     assert.deepStrictEqual(
@@ -177,13 +230,13 @@ describe('authenticatedRequest', () => {
     assert.strictEqual(headers['x-gbif-user'], 'jane');
   });
 
-  // These reject before a request is made: the identity is checked first.
   badUserNames.forEach((userName) => {
     it(`refuses user ${JSON.stringify(userName)} without asApp`, async () => {
       await assert.rejects(
         authenticatedRequest({ method: 'GET', url: 'https://api.test/v1/x', userName }),
         /valid userName, or asApp/,
       );
+      assert.strictEqual(sent.length, 0);
     });
   });
 
@@ -192,6 +245,7 @@ describe('authenticatedRequest', () => {
       authenticatedRequest({ method: 'GET', url: 'https://api.test/v1/x' }),
       /valid userName, or asApp/,
     );
+    assert.strictEqual(sent.length, 0);
   });
 
   it('refuses userName and asApp together', async () => {
@@ -204,5 +258,6 @@ describe('authenticatedRequest', () => {
       }),
       /not both/,
     );
+    assert.strictEqual(sent.length, 0);
   });
 });
